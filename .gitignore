@@ -1,6 +1,12 @@
 .gradle
 /build/
 
+# Ignore IntelliJ IDEA
+.idea
+
+# Ignore Mac DS_Store
+.DS_Store
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
