@@ -17,15 +17,19 @@ public class FirstTest {
   @BeforeClass(alwaysRun = true)
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = "https://www.katalon.com/";
+    baseUrl = "https://instamart.ru";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
   public void test111() throws Exception {
     driver.get("https://instamart.ru/#");
+    // click on
     driver.findElement(By.xpath("//a/div")).click();
+    // click on
     driver.findElement(By.xpath("//div[@id='wrap']/div/div/div/header/div[3]/nav/button[2]/span")).click();
+    // нажатие на кнопку Войти
+    driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/button")).click();
   }
 
   @AfterClass(alwaysRun = true)
