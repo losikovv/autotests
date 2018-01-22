@@ -22,37 +22,39 @@ public class TestAuthorisationFromLandingPage {
         driver = new FirefoxDriver();
         baseUrl = "https://instamart.ru/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
     }
 
     @Test
     public void testUntitledTestCase() throws Exception {
-
-        driver.get("https://instamart.ru");
-
-        // клик по кнопке Вход
-        driver.findElement(By.xpath("/html/body/div[2]/header/div[2]/ul/li[3]/a")).click();
-
-        // вводим логин
-        driver.findElement(By.id("login_form__email")).sendKeys("instatestuser@yandex.ru");
-
-        // вводим пароль
-        driver.findElement(By.id("login_form__password")).sendKeys("instamart");
-
-        // клик по кнопке Войти
-        driver.findElement(By.xpath("(//input[@name='commit'])[2]")).click();
-
+        //логинимся на лендинге
+        doLoginOnLanding("instatestuser@yandex.ru", "instamart");
         // проверяем что на странице есть кнопка Профиль
         Assert.assertTrue(driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]")).isDisplayed());
+        //разлогиниваемся
+        doLogout();
+    }
 
+    private void doLoginOnLanding(String login, String password) {
+        // идем на лендинг
+        driver.get("https://instamart.ru");
+        // клик по кнопке Вход
+        driver.findElement(By.xpath("/html/body/div[2]/header/div[2]/ul/li[3]/a")).click();
+        // вводим логин
+        driver.findElement(By.id("login_form__email")).sendKeys(login);
+        // вводим пароль
+        driver.findElement(By.id("login_form__password")).sendKeys(password);
+        // клик по кнопке Войти
+        driver.findElement(By.xpath("(//input[@name='commit'])[2]")).click();
+    }
+
+    private void doLogout() {
         // клик по кнопке Профиль
         driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]")).click();
-
         // проверяем что в менюшке Профиль есть имя юзера
         Assert.assertTrue(driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[2]/div/div[1]")).isDisplayed());
-
         // проверяем что в менюшке Профиль есть пункт Профиль
         Assert.assertTrue(driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[2]/div/div[3]/a")).isDisplayed());
-
         // клик по кнопке Выйти
         driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[2]/div/div[8]/a/div[2]")).click();
     }
