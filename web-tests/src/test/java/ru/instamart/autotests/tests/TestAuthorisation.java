@@ -17,8 +17,8 @@ public class TestAuthorisation extends TestBase {
 
     @Test
     public void testAuthOnRetailerPageMetro() throws Exception {
-        //идем на витрину
-        app.goToRetailerPage();
+        //идем на витрину ретейлера
+        app.getNavigationHelper().goToRetailerPage();
         //логинимся на витрине
         app.doLoginOnRetailerPage(new UserData("instatestuser@yandex.ru", "instamart"));
         // проверяем что на странице есть кнопка Профиль

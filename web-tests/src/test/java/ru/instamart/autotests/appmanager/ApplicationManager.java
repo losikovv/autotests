@@ -11,6 +11,7 @@ import static org.testng.Assert.fail;
 
 public class ApplicationManager {
     protected WebDriver driver;
+    private  NavigationHelper navigationHelper;
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
@@ -19,6 +20,7 @@ public class ApplicationManager {
         driver = new FirefoxDriver();
         baseUrl = "https://instamart.ru/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        navigationHelper = new NavigationHelper(driver);
         // идем на лендинг
         driver.get("https://instamart.ru");
     }
@@ -103,15 +105,15 @@ public class ApplicationManager {
         driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]")).click();
     }
 
-    public void goToRetailerPage() {
-            driver.get("https://instamart.ru/metro");
-    }
-
     public void assertAuthorised() {
         Assert.assertTrue(driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]")).isDisplayed());
     }
 
     public void assertUsernameShown() {
         Assert.assertTrue(driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[2]/div/div[1]")).isDisplayed());
+    }
+
+    public NavigationHelper getNavigationHelper() {
+        return navigationHelper;
     }
 }
