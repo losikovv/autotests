@@ -9,7 +9,7 @@ public class RetailerData {
         this.path = path;
     }
 
-    public String getLogin() {
+    public String getName() {
         return name;
     }
 

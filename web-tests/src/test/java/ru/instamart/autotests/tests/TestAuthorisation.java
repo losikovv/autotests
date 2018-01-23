@@ -7,24 +7,26 @@ public class TestAuthorisation extends TestBase {
 
     @Test
     public void testAuthOnLanding() throws Exception {
-        //логинимся на лендинге
-        app.doLoginOnLanding(new UserData("instatestuser@yandex.ru", "instamart"));
-        // проверяем что на странице есть кнопка Профиль
-        app.assertAuthorised();
-        //разлогиниваемся
-        app.doLogout();
+        // идем на лендинг
+        app.getNavigationHelper().goToLandingPage();
+        // логинимся на лендинге
+        app.getAuthorisationHelper().doLoginOnLandingPage(new UserData("instatestuser@yandex.ru", "instamart"));
+        // проверяем что авторизованы
+        app.getAuthorisationHelper().assertAuthorised();
+        // разлогиниваемся
+        app.getAuthorisationHelper().doLogout();
     }
 
     @Test
     public void testAuthOnRetailerPageMetro() throws Exception {
-        //идем на витрину ретейлера
+        // идем на витрину ретейлера
         app.getNavigationHelper().goToRetailerPage();
-        //логинимся на витрине
-        app.doLoginOnRetailerPage(new UserData("instatestuser@yandex.ru", "instamart"));
-        // проверяем что на странице есть кнопка Профиль
-        app.assertAuthorised();
-        //разлогиниваемся
-        app.doLogout();
+        // логинимся на витрине
+        app.getAuthorisationHelper().doLoginOnRetailerPage(new UserData("instatestuser@yandex.ru", "instamart"));
+        // проверяем что авторизованы
+        app.getAuthorisationHelper().assertAuthorised();
+        // разлогиниваемся
+        app.getAuthorisationHelper().doLogout();
     }
 
 }

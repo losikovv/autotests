@@ -9,7 +9,12 @@ public class NavigationHelper {
         this.driver = driver;
     }
 
+    public void goToLandingPage() {
+        driver.get("https://instamart.ru/");
+    }
+
     public void goToRetailerPage() {
             driver.get("https://instamart.ru/metro");
     }
+
 }
