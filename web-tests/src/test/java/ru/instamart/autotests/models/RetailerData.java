@@ -1,4 +1,4 @@
-package ru.instamart.autotests;
+package ru.instamart.autotests.models;
 
 public class RetailerData {
     private final String name;
