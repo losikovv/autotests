@@ -36,20 +36,11 @@ public class AuthorisationHelper {
 
     public void doLogout() {
         // клик по кнопке Профиль
-        clickOnProfileButton();
-        // проверяем что в менюшке Профиль есть имя юзера
-        assertUsernameShown();
+        driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]")).click();
         // клик по кнопке Выйти
-        clickOnLogoutButton();
-    }
-
-    public void clickOnLogoutButton() {
         driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[2]/div/div[8]/a")).click();
     }
 
-    public void clickOnProfileButton() {
-        driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]")).click();
-    }
 
     public void assertAuthorised() {
         Assert.assertTrue(driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]")).isDisplayed());
