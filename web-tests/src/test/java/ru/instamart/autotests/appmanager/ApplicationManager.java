@@ -2,9 +2,7 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
 import java.util.concurrent.TimeUnit;
-
 import static org.testng.Assert.fail;
 
 public class ApplicationManager {
@@ -12,10 +10,12 @@ public class ApplicationManager {
 
     // helpers
     private  AuthorisationHelper authorisationHelper;
+    private  RegistrationHelper registrationHelper;
     private  NavigationHelper navigationHelper;
+    private  EmptyHelper emptyHelper;
+    // helpers
 
     public String baseUrl = "https://instamart.ru/";
-    private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
 
     public void init() {
@@ -34,44 +34,19 @@ public class ApplicationManager {
         }
     }
 
-    private boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    private boolean isAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
-
-    private String closeAlertAndGetItsText() {
-        try {
-            Alert alert = driver.switchTo().alert();
-            String alertText = alert.getText();
-            if (acceptNextAlert) {
-                alert.accept();
-            } else {
-                alert.dismiss();
-            }
-            return alertText;
-        } finally {
-            acceptNextAlert = true;
-        }
-    }
-
     public AuthorisationHelper getAuthorisationHelper() {
         return authorisationHelper;
     }
 
+    public RegistrationHelper getRegistrationHelper() {
+        return registrationHelper;
+    }
+
     public NavigationHelper getNavigationHelper() {
         return navigationHelper;
+    }
+
+    public EmptyHelper getEmptytyHelper() {
+        return emptyHelper;
     }
 }
