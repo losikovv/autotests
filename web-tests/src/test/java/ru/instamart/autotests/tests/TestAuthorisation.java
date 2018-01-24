@@ -1,6 +1,7 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.annotations.Test;
+import ru.instamart.autotests.models.RetailerData;
 import ru.instamart.autotests.models.UserData;
 
 public class TestAuthorisation extends TestBase {
@@ -18,9 +19,9 @@ public class TestAuthorisation extends TestBase {
     }
 
     @Test
-    public void testAuthOnRetailerPageMetro() throws Exception {
+    public void testAuthOnRetailerPage() throws Exception {
         // идем на витрину ретейлера
-        app.getNavigationHelper().goToRetailerPage();
+        app.getNavigationHelper().goToRetailerPage(new RetailerData("vkusvill"));
         // логинимся на витрине
         app.getAuthorisationHelper().doLoginOnRetailerPage(new UserData("instatestuser@yandex.ru", "instamart"));
         // проверяем что авторизованы

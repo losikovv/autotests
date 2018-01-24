@@ -2,18 +2,12 @@ package ru.instamart.autotests.models;
 
 public class RetailerData {
     private final String name;
-    private final String path;
 
-    public RetailerData(String name, String path) {
+    public RetailerData(String name) {
         this.name = name;
-        this.path = path;
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getPath() {
-        return path;
     }
 }

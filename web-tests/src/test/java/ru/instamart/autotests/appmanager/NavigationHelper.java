@@ -1,8 +1,10 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.models.RetailerData;
 
 public class NavigationHelper {
+    public static final String baseUrl = "https://instamart.ru/";
     private WebDriver driver;
 
     public NavigationHelper(WebDriver driver) {
@@ -10,11 +12,10 @@ public class NavigationHelper {
     }
 
     public void goToLandingPage() {
-        driver.get("https://instamart.ru/");
+        driver.get(baseUrl);
     }
 
-    public void goToRetailerPage() {
-            driver.get("https://instamart.ru/metro");
+    public void goToRetailerPage(RetailerData retailerData) {
+        driver.get(baseUrl+retailerData.getName());
     }
-
 }

@@ -14,7 +14,7 @@ public class ApplicationManager {
     private  AuthorisationHelper authorisationHelper;
     private  NavigationHelper navigationHelper;
 
-    private String baseUrl;
+    public String baseUrl = "https://instamart.ru/";
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
 
