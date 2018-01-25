@@ -5,15 +5,16 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.fail;
 
+// класс управления
+// тут стартуем и убиваем веб-драйвер, инициализируем и получаем хелперы
 public class ApplicationManager {
     protected WebDriver driver;
 
-    // helpers
+    // инициализация хелперов
     private  AuthorisationHelper authorisationHelper;
     private  RegistrationHelper registrationHelper;
     private  NavigationHelper navigationHelper;
     private  EmptyHelper emptyHelper;
-    // helpers
 
     public String baseUrl = "https://instamart.ru/";
     private StringBuffer verificationErrors = new StringBuffer();
@@ -33,6 +34,8 @@ public class ApplicationManager {
             fail(verificationErrorString);
         }
     }
+
+    // геттеры хелперов
 
     public AuthorisationHelper getAuthorisationHelper() {
         return authorisationHelper;

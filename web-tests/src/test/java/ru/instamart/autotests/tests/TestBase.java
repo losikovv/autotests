@@ -4,6 +4,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import ru.instamart.autotests.appmanager.ApplicationManager;
 
+// базовый класс тестов
 public class TestBase {
 
     protected final ApplicationManager app = new ApplicationManager();

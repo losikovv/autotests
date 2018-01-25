@@ -2,7 +2,7 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
 
-// базовый класс помощников
+// базовый класс хелперов
 // тут описываем базовые методы взаимодейсвия с тестируемой системой
 public class HelperBase {
     public static final String baseUrl = "https://instamart.ru/";

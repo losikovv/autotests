@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import ru.instamart.autotests.models.UserData;
 
+// хелпер авторизации-деавторизации
 public class AuthorisationHelper extends HelperBase {
 
     public AuthorisationHelper(WebDriver driver) {
