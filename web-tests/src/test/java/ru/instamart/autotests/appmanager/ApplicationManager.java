@@ -14,7 +14,7 @@ public class ApplicationManager {
     private  AuthorisationHelper authorisationHelper;
     private  RegistrationHelper registrationHelper;
     private  NavigationHelper navigationHelper;
-    private  EmptyHelper emptyHelper;
+    private  AdminHelper adminHelper;
 
     public String baseUrl = "https://instamart.ru/";
     private StringBuffer verificationErrors = new StringBuffer();
@@ -36,7 +36,6 @@ public class ApplicationManager {
     }
 
     // геттеры хелперов
-
     public AuthorisationHelper getAuthorisationHelper() {
         return authorisationHelper;
     }
@@ -49,7 +48,7 @@ public class ApplicationManager {
         return navigationHelper;
     }
 
-    public EmptyHelper getEmptytyHelper() {
-        return emptyHelper;
+    public AdminHelper getAdminHelper() {
+        return adminHelper;
     }
 }

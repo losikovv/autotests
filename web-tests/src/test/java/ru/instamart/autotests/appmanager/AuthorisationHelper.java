@@ -2,10 +2,9 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import ru.instamart.autotests.models.UserData;
 
-// хелпер авторизации-деавторизации
+// хелпер авторизации-деавторизации + проверки на логин и админ-доступ
 public class AuthorisationHelper extends HelperBase {
 
     public AuthorisationHelper(WebDriver driver) {
@@ -41,12 +40,19 @@ public class AuthorisationHelper extends HelperBase {
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[2]/div/div[8]/a"));
     }
 
-    public void assertAuthorised() {
-        Assert.assertTrue(driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]")).isDisplayed());
+    public void doLogoutFromAdmin() {
+        // клик по кнопке Выйти
+        click(By.xpath("//*[@id=/login-nav/]/li[3]/a"));
     }
 
-    public void assertUsernameShown() {
-        Assert.assertTrue(driver.findElement(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[2]/div/div[1]")).isDisplayed());
+    public boolean isAuthorised() {
+        isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"));
+        return true;
+    }
+
+    public boolean isAdmin() {
+        isElementPresent(By.xpath("//*[@id='login-nav']/li[3]/a"));
+        return true;
     }
 
 }

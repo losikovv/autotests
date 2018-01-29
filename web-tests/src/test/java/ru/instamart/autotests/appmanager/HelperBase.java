@@ -26,16 +26,15 @@ public class HelperBase {
         driver.findElement(locator).sendKeys(text);
     }
 
-    private boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by);
+    protected boolean isElementPresent(By locator) {
+        if (driver.findElement(locator).isDisplayed()) {
             return true;
-        } catch (NoSuchElementException e) {
+        } else {
             return false;
         }
     }
 
-    private boolean isAlertPresent() {
+    protected boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
             return true;
@@ -44,7 +43,7 @@ public class HelperBase {
         }
     }
 
-    private String closeAlertAndGetItsText() {
+    protected String closeAlertAndGetItsText() {
         try {
             Alert alert = driver.switchTo().alert();
             String alertText = alert.getText();

@@ -1,5 +1,6 @@
 package ru.instamart.autotests.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.models.RetailerData;
 import ru.instamart.autotests.models.UserData;
@@ -13,7 +14,7 @@ public class TestAuthorisation extends TestBase {
         // логинимся на лендинге
         app.getAuthorisationHelper().doLoginOnLandingPage(new UserData("instatestuser@yandex.ru", "instamart"));
         // проверяем что авторизованы
-        app.getAuthorisationHelper().assertAuthorised();
+        Assert.assertTrue(app.getAuthorisationHelper().isAuthorised());
         // разлогиниваемся
         app.getAuthorisationHelper().doLogout();
     }
@@ -25,7 +26,7 @@ public class TestAuthorisation extends TestBase {
         // логинимся на витрине
         app.getAuthorisationHelper().doLoginOnRetailerPage(new UserData("instatestuser@yandex.ru", "instamart"));
         // проверяем что авторизованы
-        app.getAuthorisationHelper().assertAuthorised();
+        Assert.assertTrue(app.getAuthorisationHelper().isAuthorised());
         // разлогиниваемся
         app.getAuthorisationHelper().doLogout();
     }
