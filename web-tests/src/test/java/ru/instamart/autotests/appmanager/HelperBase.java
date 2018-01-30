@@ -9,6 +9,11 @@ public class HelperBase {
     private boolean acceptNextAlert = true;
     protected WebDriver driver;
 
+    public boolean userIsAuthorised;
+    public boolean userIsInAdmin;
+    public boolean itIsOnLandingPage;
+    public boolean itIsOnRetailerPage;
+
     public HelperBase(WebDriver driver) {
         this.driver = driver;
     }
@@ -85,8 +90,11 @@ public class HelperBase {
     }
 
     public boolean userIsAuthorised() {
-        isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"));
-        return true;
+        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"))) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean userIsInAdmin() {
