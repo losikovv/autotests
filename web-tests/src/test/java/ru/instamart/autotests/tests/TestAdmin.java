@@ -4,16 +4,16 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.models.UserData;
 
-public class SmokeTestAdmin extends TestBase {
+public class TestAdmin extends TestBase {
 
     @Test
     public void accessAdministration(){
         // идем на лендинг
-        app.getSiteNavHelper().goToLandingPage();
+        app.getNavigationHelper().goToLandingPage();
         // логинимся на лендинге
         app.getAuthorisationHelper().doLogin(new UserData("stanislav.klimov@instamart.ru", "allhailinstamart"));
         // идем в админку
-        app.getAdminNavHelper().goToAdmin();
+        app.getAdminHelper().goToAdmin();
         // проверяем что есть доступ в админку
         Assert.assertTrue(app.getAuthorisationHelper().userIsInAdmin());
         // разлогиниваемся

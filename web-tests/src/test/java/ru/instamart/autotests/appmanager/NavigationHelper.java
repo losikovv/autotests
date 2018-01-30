@@ -3,10 +3,10 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.RetailerData;
 
-// хелпер глобальной навигации по сайту
-public class SiteNavHelper extends HelperBase {
+// в этом классе только глобальная навигация на сайте по прямым ссылкам
+public class NavigationHelper extends HelperBase {
 
-    public SiteNavHelper(WebDriver driver) {
+    public NavigationHelper(WebDriver driver) {
         super(driver);
     }
 

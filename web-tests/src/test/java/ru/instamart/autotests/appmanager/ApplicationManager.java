@@ -11,10 +11,10 @@ public class ApplicationManager {
     protected WebDriver driver;
 
     // переменные хелперов
-    private  SiteNavHelper siteNavHelper;
-    private  AdminNavHelper adminNavHelper;
+    private  NavigationHelper navigationHelper;
     private  AuthorisationHelper authorisationHelper;
     private  RegistrationHelper registrationHelper;
+    private  AdminHelper adminHelper;
 
     public String baseUrl = "https://instamart.ru/";
     private StringBuffer verificationErrors = new StringBuffer();
@@ -24,10 +24,10 @@ public class ApplicationManager {
         baseUrl = "https://instamart.ru/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         // инициализация хелперов
-        siteNavHelper = new SiteNavHelper(driver);
-        adminNavHelper = new AdminNavHelper(driver);
+        navigationHelper = new NavigationHelper(driver);
         authorisationHelper = new AuthorisationHelper(driver);
         registrationHelper = new RegistrationHelper(driver);
+        adminHelper = new AdminHelper(driver);
     }
 
     public void stop() {
@@ -40,12 +40,8 @@ public class ApplicationManager {
 
     // геттеры хелперов
 
-    public SiteNavHelper getSiteNavHelper() {
-        return siteNavHelper;
-    }
-
-    public AdminNavHelper getAdminNavHelper() {
-        return adminNavHelper;
+    public NavigationHelper getNavigationHelper() {
+        return navigationHelper;
     }
 
     public AuthorisationHelper getAuthorisationHelper() {
@@ -56,4 +52,7 @@ public class ApplicationManager {
         return registrationHelper;
     }
 
+    public AdminHelper getAdminHelper() {
+        return adminHelper;
+    }
 }

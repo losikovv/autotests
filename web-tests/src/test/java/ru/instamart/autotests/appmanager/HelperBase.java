@@ -40,6 +40,15 @@ public class HelperBase {
         }
     }
 
+    /*
+        protected boolean isElementPresent(By locator) {
+            if (driver.findElement(locator).isDisplayed()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    */
     protected boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
