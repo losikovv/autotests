@@ -17,6 +17,6 @@ public class TestAdmin extends TestBase {
         // проверяем что есть доступ в админку
         Assert.assertTrue(app.getAuthorisationHelper().userIsInAdmin());
         // разлогиниваемся
-        app.getAuthorisationHelper().doLogoutFromAdmin();
+        app.getAuthorisationHelper().doLogout();
     }
 }

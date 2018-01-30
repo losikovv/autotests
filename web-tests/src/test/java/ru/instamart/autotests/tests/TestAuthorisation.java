@@ -8,6 +8,7 @@ import ru.instamart.autotests.models.UserData;
 public class TestAuthorisation extends TestBase {
 
     @Test
+    // тест авторизации на лендинге
     public void testAuthOnLanding() throws Exception {
         // идем на лендинг
         app.getNavigationHelper().goToLandingPage();
@@ -25,6 +26,7 @@ public class TestAuthorisation extends TestBase {
     }
 
     @Test
+    // тест авторизации на витрине
     public void testAuthOnRetailerPage() throws Exception {
         // идем на витрину ретейлера
         app.getNavigationHelper().goToRetailerPage(new RetailerData("vkusvill"));
@@ -39,6 +41,22 @@ public class TestAuthorisation extends TestBase {
         Assert.assertTrue(app.getAuthorisationHelper().userIsAuthorised());
         // разлогиниваемся
         app.getAuthorisationHelper().doLogout();
+    }
+
+    @Test
+    // негативный тест авторизации с неверным паролем
+    public void testAuthWithWrongPassword() throws Exception {
+        // идем на лендинг
+        app.getNavigationHelper().goToLandingPage();
+        // проверка на авторизованность
+        if (app.getAuthorisationHelper().userIsAuthorised) {
+            app.getAuthorisationHelper().doLogout();
+            app.getNavigationHelper().goToLandingPage();
+        }
+        // логинимся на лендинге
+        app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "wrongpassword"));
+        // проверяем что неавторизованы
+        Assert.assertFalse(app.getAuthorisationHelper().userIsAuthorised());
     }
 
 }
