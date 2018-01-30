@@ -12,9 +12,9 @@ public class TestAuthorisation extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().goToLandingPage();
         // логинимся на лендинге
-        app.getAuthorisationHelper().doLoginOnLandingPage(new UserData("instatestuser@yandex.ru", "instamart"));
+        app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
         // проверяем что авторизованы
-        Assert.assertTrue(app.getAuthorisationHelper().isAuthorised());
+        Assert.assertTrue(app.getAuthorisationHelper().userIsAuthorised());
         // разлогиниваемся
         app.getAuthorisationHelper().doLogout();
     }
@@ -24,9 +24,9 @@ public class TestAuthorisation extends TestBase {
         // идем на витрину ретейлера
         app.getNavigationHelper().goToRetailerPage(new RetailerData("vkusvill"));
         // логинимся на витрине
-        app.getAuthorisationHelper().doLoginOnRetailerPage(new UserData("instatestuser@yandex.ru", "instamart"));
+        app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
         // проверяем что авторизованы
-        Assert.assertTrue(app.getAuthorisationHelper().isAuthorised());
+        Assert.assertTrue(app.getAuthorisationHelper().userIsAuthorised());
         // разлогиниваемся
         app.getAuthorisationHelper().doLogout();
     }

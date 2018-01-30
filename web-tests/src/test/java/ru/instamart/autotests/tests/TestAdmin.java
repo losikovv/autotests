@@ -11,11 +11,11 @@ public class TestAdmin extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().goToLandingPage();
         // логинимся на лендинге
-        app.getAuthorisationHelper().doLoginOnLandingPage(new UserData("stanislav.klimov@instamart.ru", "allhailinstamart"));
+        app.getAuthorisationHelper().doLogin(new UserData("stanislav.klimov@instamart.ru", "allhailinstamart"));
         // идем в админку
         app.getAdminHelper().goToAdmin();
         // проверяем что есть доступ в админку
-        Assert.assertTrue(app.getAuthorisationHelper().isAdmin());
+        Assert.assertTrue(app.getAuthorisationHelper().userIsInAdmin());
         // разлогиниваемся
         app.getAuthorisationHelper().doLogoutFromAdmin();
     }

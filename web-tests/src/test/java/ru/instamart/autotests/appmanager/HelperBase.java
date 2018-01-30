@@ -27,13 +27,23 @@ public class HelperBase {
     }
 
     protected boolean isElementPresent(By locator) {
-        if (driver.findElement(locator).isDisplayed()) {
+        try {
+            driver.findElement(locator);
             return true;
-        } else {
+        } catch (NoSuchElementException e) {
             return false;
         }
     }
 
+    /*
+        protected boolean isElementPresent(By locator) {
+            if (driver.findElement(locator).isDisplayed()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    */
     protected boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
@@ -58,4 +68,32 @@ public class HelperBase {
         }
     }
 
+    public boolean itIsOnLandingPage() {
+        if (isElementPresent(By.xpath("/html/body/div[2]/header/div[2]/ul/li[3]/a"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean itIsOnRetailerPage() {
+        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[1]/div/a/div[2]/div"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean userIsAuthorised() {
+        isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"));
+        return true;
+    }
+
+    public boolean userIsInAdmin() {
+        if (isElementPresent(By.xpath("//*[@id='login-nav']/li[3]/a"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

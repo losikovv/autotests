@@ -10,10 +10,10 @@ import static org.testng.Assert.fail;
 public class ApplicationManager {
     protected WebDriver driver;
 
-    // инициализация хелперов
+    // переменные хелперов
+    private  NavigationHelper navigationHelper;
     private  AuthorisationHelper authorisationHelper;
     private  RegistrationHelper registrationHelper;
-    private  NavigationHelper navigationHelper;
     private  AdminHelper adminHelper;
 
     public String baseUrl = "https://instamart.ru/";
@@ -23,8 +23,11 @@ public class ApplicationManager {
         driver = new FirefoxDriver();
         baseUrl = "https://instamart.ru/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        authorisationHelper = new AuthorisationHelper(driver);
+        // инициализация хелперов
         navigationHelper = new NavigationHelper(driver);
+        authorisationHelper = new AuthorisationHelper(driver);
+        registrationHelper = new RegistrationHelper(driver);
+        adminHelper = new AdminHelper(driver);
     }
 
     public void stop() {
@@ -36,16 +39,17 @@ public class ApplicationManager {
     }
 
     // геттеры хелперов
+
+    public NavigationHelper getNavigationHelper() {
+        return navigationHelper;
+    }
+
     public AuthorisationHelper getAuthorisationHelper() {
         return authorisationHelper;
     }
 
     public RegistrationHelper getRegistrationHelper() {
         return registrationHelper;
-    }
-
-    public NavigationHelper getNavigationHelper() {
-        return navigationHelper;
     }
 
     public AdminHelper getAdminHelper() {
