@@ -12,7 +12,10 @@ public class TestAuthorisation extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().goToLandingPage();
         // проверка на авторизованность
-        if (app.getAuthorisationHelper().userIsAuthorised) { app.getAuthorisationHelper().doLogout(); }
+        if (app.getAuthorisationHelper().userIsAuthorised) {
+            app.getAuthorisationHelper().doLogout();
+            app.getNavigationHelper().goToLandingPage();
+        }
         // логинимся на лендинге
         app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
         // проверяем что авторизованы
@@ -26,7 +29,10 @@ public class TestAuthorisation extends TestBase {
         // идем на витрину ретейлера
         app.getNavigationHelper().goToRetailerPage(new RetailerData("vkusvill"));
         // проверка на авторизованность
-        if (app.getAuthorisationHelper().userIsAuthorised) { app.getAuthorisationHelper().doLogout(); }
+        if (app.getAuthorisationHelper().userIsAuthorised) {
+            app.getAuthorisationHelper().doLogout();
+            app.getNavigationHelper().goToRetailerPage(new RetailerData("vkusvill"));
+        }
         // логинимся на витрине
         app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
         // проверяем что авторизованы
