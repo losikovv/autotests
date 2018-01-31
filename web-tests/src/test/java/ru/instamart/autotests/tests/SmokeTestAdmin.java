@@ -7,7 +7,7 @@ import ru.instamart.autotests.models.UserData;
 public class SmokeTestAdmin extends TestBase {
 
     @Test
-    public void accessAdministration(){
+    public void testAccessAdministration(){
         // идем на лендинг
         app.getSiteNavHelper().goToLandingPage();
         // логинимся на лендинге
@@ -18,5 +18,19 @@ public class SmokeTestAdmin extends TestBase {
         Assert.assertTrue(app.getAuthorisationHelper().userIsInAdmin());
         // разлогиниваемся
         app.getAuthorisationHelper().doLogout();
+    }
+
+    @Test
+    public void smoketestLogistics() throws InterruptedException {
+        // идем в админку
+        app.getAdminNavHelper().goToAdmin();
+        // проверяем на авторизованность и если нет - логинимся
+        // TODO написать метод accessAdmin в хелпере админки, который идет и логигнится в админку
+        // идем в раздел Logistics
+        app.getAdminNavHelper().goToAdminLogistics();
+        // 3 сек задержка
+        app.wait(3000);
+        // проверяем что раздел работает
+        Assert.assertTrue(app.getAuthorisationHelper().userIsInAdmin());
     }
 }
