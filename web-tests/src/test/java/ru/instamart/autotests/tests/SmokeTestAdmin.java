@@ -28,8 +28,6 @@ public class SmokeTestAdmin extends TestBase {
         // TODO написать метод accessAdmin в хелпере админки, который идет и логигнится в админку
         // идем в раздел Logistics
         app.getAdminNavHelper().goToAdminLogistics();
-        // 3 сек задержка
-        app.wait(3000);
         // проверяем что раздел работает
         Assert.assertTrue(app.getAuthorisationHelper().itsInAdmin());
     }
