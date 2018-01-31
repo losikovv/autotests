@@ -1,5 +1,6 @@
 package ru.instamart.autotests.appmanager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 

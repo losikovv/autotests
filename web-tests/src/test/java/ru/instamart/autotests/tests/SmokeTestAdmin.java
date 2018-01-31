@@ -15,7 +15,7 @@ public class SmokeTestAdmin extends TestBase {
         // идем в админку
         app.getAdminNavHelper().goToAdmin();
         // проверяем что есть доступ в админку
-        Assert.assertTrue(app.getAuthorisationHelper().userIsInAdmin());
+        Assert.assertTrue(app.getAuthorisationHelper().itsInAdmin());
         // разлогиниваемся
         app.getAuthorisationHelper().doLogout();
     }
@@ -31,6 +31,6 @@ public class SmokeTestAdmin extends TestBase {
         // 3 сек задержка
         app.wait(3000);
         // проверяем что раздел работает
-        Assert.assertTrue(app.getAuthorisationHelper().userIsInAdmin());
+        Assert.assertTrue(app.getAuthorisationHelper().itsInAdmin());
     }
 }

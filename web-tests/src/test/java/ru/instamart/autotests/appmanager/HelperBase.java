@@ -10,9 +10,8 @@ public class HelperBase {
     protected WebDriver driver;
 
     public boolean userIsAuthorised;
+    public boolean userIsOnSite;
     public boolean userIsInAdmin;
-    public boolean itIsOnLandingPage;
-    public boolean itIsOnRetailerPage;
 
     public HelperBase(WebDriver driver) {
         this.driver = driver;
@@ -64,22 +63,6 @@ public class HelperBase {
         }
     }
 
-    public boolean itIsOnLandingPage() {
-        if (isElementPresent(By.xpath("/html/body/div[2]/header/div[2]/ul/li[3]/a"))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean itIsOnRetailerPage() {
-        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[1]/div/a/div[2]/div"))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public boolean userIsAuthorised() {
         if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"))) {
             return true;
@@ -88,7 +71,15 @@ public class HelperBase {
         }
     }
 
-    public boolean userIsInAdmin() {
+    public boolean itsOnSite() {
+        if (isElementPresent(By.xpath(" //*[@id='new-home-footer']"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean itsInAdmin() {
         if (isElementPresent(By.xpath("//*[@id='login-nav']/li[3]/a"))) {
             return true;
         } else {

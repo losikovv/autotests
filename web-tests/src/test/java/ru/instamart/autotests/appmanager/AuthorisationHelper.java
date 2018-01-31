@@ -11,7 +11,7 @@ public class AuthorisationHelper extends HelperBase {
     }
 
     public void doLogin(UserData userData) {
-        if (itIsOnLandingPage()) {
+        if (itsOnLandingPage()) {
             doLoginOnLandingPage(userData);
         } else {
             doLoginOnRetailerPage(userData);
@@ -41,7 +41,7 @@ public class AuthorisationHelper extends HelperBase {
     }
 
     public void doLogout() {
-        if (!userIsInAdmin()) {
+        if (!itsInAdmin()) {
             doLogoutFromSite();
         } else {
             doLogoutFromAdmin();
@@ -58,6 +58,22 @@ public class AuthorisationHelper extends HelperBase {
     public void doLogoutFromAdmin() {
         // клик по кнопке Выйти
         click(By.xpath("//*[@id=/login-nav/]/li[3]/a"));
+    }
+
+    public boolean itsOnLandingPage() {
+        if (isElementPresent(By.xpath("/html/body/div[2]/header/div[2]/ul/li[3]/a"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean itsOnRetailerPage() {
+        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[1]/div/a/div[2]/div"))) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

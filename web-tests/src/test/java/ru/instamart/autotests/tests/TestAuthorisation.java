@@ -8,7 +8,7 @@ import ru.instamart.autotests.models.UserData;
 public class TestAuthorisation extends TestBase {
 
     @Test
-    // тест авторизации на лендинге
+    // тест успешной авторизации на лендинге
     public void testAuthOnLanding() throws Exception {
         // идем на лендинг
         app.getSiteNavHelper().goToLandingPage();
@@ -26,7 +26,7 @@ public class TestAuthorisation extends TestBase {
     }
 
     @Test
-    // тест авторизации на витрине
+    // тест успешной авторизации на витрине
     public void testAuthOnRetailerPage() throws Exception {
         // идем на витрину ретейлера
         app.getSiteNavHelper().goToRetailerPage(new RetailerData("vkusvill"));
@@ -44,7 +44,7 @@ public class TestAuthorisation extends TestBase {
     }
 
     @Test
-    // негативный тест авторизации с неверным паролем
+    // негативный тест попытки авторизации с неверным паролем
     public void testAuthWithWrongPassword() throws Exception {
         // идем на лендинг
         app.getSiteNavHelper().goToLandingPage();
@@ -55,6 +55,38 @@ public class TestAuthorisation extends TestBase {
         }
         // логинимся на лендинге
         app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "wrongpassword"));
+        // проверяем что неавторизованы
+        Assert.assertFalse(app.getAuthorisationHelper().userIsAuthorised());
+    }
+
+    @Test
+    // негативный тест попытки авторизации без пароля
+    public void testAuthWithoutPassword() throws Exception {
+        // идем на лендинг
+        app.getSiteNavHelper().goToLandingPage();
+        // проверка на авторизованность
+        if (app.getAuthorisationHelper().userIsAuthorised) {
+            app.getAuthorisationHelper().doLogout();
+            app.getSiteNavHelper().goToLandingPage();
+        }
+        // логинимся на лендинге
+        app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", ""));
+        // проверяем что неавторизованы
+        Assert.assertFalse(app.getAuthorisationHelper().userIsAuthorised());
+    }
+
+    @Test
+    // негативный тест попытки авторизации без email
+    public void testAuthWithoutEmail() throws Exception {
+        // идем на лендинг
+        app.getSiteNavHelper().goToLandingPage();
+        // проверка на авторизованность
+        if (app.getAuthorisationHelper().userIsAuthorised) {
+            app.getAuthorisationHelper().doLogout();
+            app.getSiteNavHelper().goToLandingPage();
+        }
+        // логинимся на лендинге
+        app.getAuthorisationHelper().doLogin(new UserData("", "instamart"));
         // проверяем что неавторизованы
         Assert.assertFalse(app.getAuthorisationHelper().userIsAuthorised());
     }
