@@ -12,6 +12,7 @@ public class ApplicationManager {
 
     // переменные хелперов
     private  SiteNavHelper siteNavHelper;
+    private  SiteHelper siteHelper;
     private  AdminNavHelper adminNavHelper;
     private  AuthorisationHelper authorisationHelper;
     private  RegistrationHelper registrationHelper;
@@ -26,6 +27,7 @@ public class ApplicationManager {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         // инициализация хелперов
         siteNavHelper = new SiteNavHelper(driver);
+        siteHelper = new SiteHelper(driver);
         adminNavHelper = new AdminNavHelper(driver);
         authorisationHelper = new AuthorisationHelper(driver);
         registrationHelper = new RegistrationHelper(driver);
@@ -42,6 +44,8 @@ public class ApplicationManager {
     // геттеры хелперов
 
     public SiteNavHelper getSiteNavHelper() { return siteNavHelper; }
+
+    public SiteHelper getSiteHelper() { return siteHelper; }
 
     public AdminNavHelper getAdminNavHelper() {
         return adminNavHelper;
