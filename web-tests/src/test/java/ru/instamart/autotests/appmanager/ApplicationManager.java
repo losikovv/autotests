@@ -35,15 +35,15 @@ public class ApplicationManager {
 
     public void init() {
         //
-        if (browser == BrowserType.FIREFOX) {
+        if (browser.equals(BrowserType.FIREFOX)) {
             driver = new FirefoxDriver();
-        } else if (browser == BrowserType.CHROME) {
+        } else if (browser.equals(BrowserType.CHROME)) {
             driver = new ChromeDriver();
-        } else if (browser == BrowserType.SAFARI) {
+        } else if (browser.equals(BrowserType.SAFARI)) {
             driver = new SafariDriver();
         }
-        // there is no IE driver for mac :(
-        else if (browser == BrowserType.IE) {
+        // there is no IE driver for mac yet :(
+        else if (browser.equals(BrowserType.IE)) {
             driver = new InternetExplorerDriver();
         }
 
