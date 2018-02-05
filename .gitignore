@@ -4,6 +4,9 @@
 # Ignore IntelliJ IDEA
 .idea
 
+# Ignore java binaries
+.class
+
 # Ignore Mac DS_Store
 .DS_Store
 
