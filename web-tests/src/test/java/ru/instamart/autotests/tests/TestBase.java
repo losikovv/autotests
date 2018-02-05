@@ -8,7 +8,7 @@ import ru.instamart.autotests.appmanager.ApplicationManager;
 // базовый класс тестов
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.SAFARI);
 
     @BeforeClass(alwaysRun = true)
     public void setUp() throws Exception {

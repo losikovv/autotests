@@ -41,7 +41,9 @@ public class ApplicationManager {
             driver = new ChromeDriver();
         } else if (browser == BrowserType.SAFARI) {
             driver = new SafariDriver();
-        } else if (browser == BrowserType.IE) {
+        }
+        // there is no IE driver for mac :(
+        else if (browser == BrowserType.IE) {
             driver = new InternetExplorerDriver();
         }
 
