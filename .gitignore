@@ -5,7 +5,7 @@
 .idea
 
 # Ignore java binaries
-.class
+*.class
 
 # Ignore Mac DS_Store
 .DS_Store
