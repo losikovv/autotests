@@ -19,10 +19,13 @@ public class ApplicationManager {
 
     // переменные хелперов
     private SiteNavHelper siteNavHelper;
-    private SiteHelper siteHelper;
     private AdminNavHelper adminNavHelper;
     private AuthorisationHelper authorisationHelper;
     private RegistrationHelper registrationHelper;
+    private AddressHelper addressHelper;
+    private CartHelper cartHelper;
+    private CheckoutHelper checkoutHelper;
+    private ProfileHelper profileHelper;
 
     public String baseUrl;
 
@@ -52,10 +55,13 @@ public class ApplicationManager {
 
         // инициализация хелперов
         siteNavHelper = new SiteNavHelper(driver);
-        siteHelper = new SiteHelper(driver);
         adminNavHelper = new AdminNavHelper(driver);
         authorisationHelper = new AuthorisationHelper(driver);
         registrationHelper = new RegistrationHelper(driver);
+        addressHelper = new AddressHelper(driver);
+        cartHelper = new CartHelper(driver);
+        checkoutHelper = new CheckoutHelper(driver);
+        profileHelper = new ProfileHelper(driver);
     }
 
     public void stop() {
@@ -71,10 +77,6 @@ public class ApplicationManager {
         return siteNavHelper;
     }
 
-    public SiteHelper getSiteHelper() {
-        return siteHelper;
-    }
-
     public AdminNavHelper getAdminNavHelper() {
         return adminNavHelper;
     }
@@ -86,5 +88,22 @@ public class ApplicationManager {
     public RegistrationHelper getRegistrationHelper() {
         return registrationHelper;
     }
+
+    public AddressHelper getAddressHelper() {
+        return addressHelper;
+    }
+
+    public CartHelper getCartHelper() {
+        return cartHelper;
+    }
+
+    public CheckoutHelper getCheckoutHelper() {
+        return checkoutHelper;
+    }
+
+    public ProfileHelper getProfileHelper() {
+        return profileHelper;
+    }
+
 
 }

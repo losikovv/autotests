@@ -8,6 +8,7 @@ public class SmokeTestAdmin extends TestBase {
 
     @Test
     public void testAccessAdministration(){
+        // TODO заменить на метод accessAdmin
         // идем на лендинг
         app.getSiteNavHelper().goToLandingPage();
         // логинимся на лендинге
