@@ -15,41 +15,41 @@ public class AdminNavHelper extends HelperBase {
 
     // переход в раздел ORDERS
     public void goToAdminShipments(){
-        driver.get(baseUrl+"admin/shipments");
+        driver.get(baseUrl + "admin/shipments");
     }
 
     // переход в раздел LOGISTICS
     public void goToAdminLogistics(){
-        driver.get(baseUrl+"admin/logistics");
+        driver.get(baseUrl + "admin/logistics");
     }
 
     // переход в раздел PRODUCTS
     public void goToAdminProducts(){
-        driver.get(baseUrl+"admin/products");
+        driver.get(baseUrl + "admin/products");
     }
 
     // переход в раздел REPORTS
     public void goToAdminReports(){
-        driver.get(baseUrl+"admin/reports");
+        driver.get(baseUrl + "admin/reports");
     }
 
     // переход в раздел CONFIGURATION
     public void goToAdminConfiguration(){
-        driver.get(baseUrl+"admin/general_settings/edit");
+        driver.get(baseUrl + "admin/general_settings/edit");
     }
 
     // переход в раздел MARKETING
     public void goToAdminMarketing(){
-        driver.get(baseUrl+"/admin/promo_cards");
+        driver.get(baseUrl + "/admin/promo_cards");
     }
 
     // переход в раздел USERS
     public void goToAdminUsers(){
-        driver.get(baseUrl+"/admin/users");
+        driver.get(baseUrl + "/admin/users");
     }
 
     // переход в раздел PAGES
     public void goToAdminPages(){
-        driver.get(baseUrl+"/admin/pages");
+        driver.get(baseUrl + "/admin/pages");
     }
 }

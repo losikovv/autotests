@@ -10,7 +10,7 @@ public class SiteNavHelper extends HelperBase {
         super(driver);
     }
 
-    // переход на instamart.ru
+    // переход на лендинг
     public void goToLandingPage() {
         driver.get(baseUrl);
     }
