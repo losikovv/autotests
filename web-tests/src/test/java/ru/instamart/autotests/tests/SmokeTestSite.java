@@ -9,6 +9,9 @@ public class SmokeTestSite extends TestBase {
     @Test
     // тест успешной авторизации на лендинге
     public void smokeTestSite() throws Exception {
+        // TODO запилить проверки на корректное отображение страниц
+        // TODO разнести группы страниц по отдельным тестам
+        // TODO сделать переходы по статическим страницам циклом по списку страниц
         // идем на лендинг
         app.getSiteNavHelper().goToLandingPage();
         // проверка на авторизованность
@@ -20,32 +23,21 @@ public class SmokeTestSite extends TestBase {
         app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
         // проверяем что авторизованы
         Assert.assertTrue(app.getAuthorisationHelper().userIsAuthorised());
-        // идем в Профиль > Аккаунт
+
+        // идем в страницы раздела Профиль
         app.getSiteNavHelper().goToProfileAccount();
-        // идем в Профиль > Заказы
         app.getSiteNavHelper().goToProfileOrders();
-        // идем в Профиль > Адреса
         app.getSiteNavHelper().goToProfileAddresses();
-        // TODO добавить переходы по сайту в смоук-тест
-
-        //шапка витрины
-            // идем в "Доставка"
-            // TODO
-            // идем в "Обратный звонок"
-            // TODO
-            // идем в "Олата"
-            // TODO
-            // идем в "Помощь"
-            // TODO
-            // идем в "Партнеры"
-            // TODO
-            // идем на лендинг "Много.ру"
-            // TODO
-
-        // страницы
-            // TODO добавить все лендинги
-            // TODO добавить все статические страницы
-            // TODO добавить все страницы подвала
+        // идем по статическим страницам
+        app.getSiteNavHelper().goToAbout();
+        app.getSiteNavHelper().goToDelivery();
+        app.getSiteNavHelper().goToRules();
+        app.getSiteNavHelper().goToPayment();
+        app.getSiteNavHelper().goToFAQ();
+        app.getSiteNavHelper().goToTerms();
+        app.getSiteNavHelper().goToContacts();
+        // идем на лендинг "Много.ру"
+        app.getSiteNavHelper().goToMnogoruLandingPage();
 
         // возвращаемся на лендинг
         app.getSiteNavHelper().goToLandingPage();
