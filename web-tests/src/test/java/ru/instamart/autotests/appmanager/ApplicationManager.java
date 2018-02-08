@@ -17,9 +17,9 @@ public class ApplicationManager {
 
     protected WebDriver driver;
 
-    // переменные хелперов
-    private SiteNavHelper siteNavHelper;
-    private AdminNavHelper adminNavHelper;
+    // объявление переменных хелперов
+    private NavigationHelper navigationHelper;
+    private AdminNavigationHelper adminNavigationHelper;
     private AuthorisationHelper authorisationHelper;
     private RegistrationHelper registrationHelper;
     private AddressHelper addressHelper;
@@ -54,8 +54,8 @@ public class ApplicationManager {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         // инициализация хелперов
-        siteNavHelper = new SiteNavHelper(driver);
-        adminNavHelper = new AdminNavHelper(driver);
+        navigationHelper = new NavigationHelper(driver);
+        adminNavigationHelper = new AdminNavigationHelper(driver);
         authorisationHelper = new AuthorisationHelper(driver);
         registrationHelper = new RegistrationHelper(driver);
         addressHelper = new AddressHelper(driver);
@@ -73,12 +73,12 @@ public class ApplicationManager {
     }
 
     // геттеры хелперов
-    public SiteNavHelper getSiteNavHelper() {
-        return siteNavHelper;
+    public NavigationHelper getNavigationHelper() {
+        return navigationHelper;
     }
 
-    public AdminNavHelper getAdminNavHelper() {
-        return adminNavHelper;
+    public AdminNavigationHelper getAdminNavigationHelper() {
+        return adminNavigationHelper;
     }
 
     public AuthorisationHelper getAuthorisationHelper() {

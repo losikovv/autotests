@@ -11,11 +11,11 @@ public class TestAuthorisation extends TestBase {
     // тест успешной авторизации на лендинге
     public void testAuthOnLanding() throws Exception {
         // идем на лендинг
-        app.getSiteNavHelper().goToLandingPage();
+        app.getNavigationHelper().goToLandingPage();
         // проверка на авторизованность
         if (app.getAuthorisationHelper().userIsAuthorised) {
             app.getAuthorisationHelper().doLogout();
-            app.getSiteNavHelper().goToLandingPage();
+            app.getNavigationHelper().goToLandingPage();
         }
         // логинимся на лендинге
         app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
@@ -29,11 +29,11 @@ public class TestAuthorisation extends TestBase {
     // тест успешной авторизации на витрине
     public void testAuthOnRetailerPage() throws Exception {
         // идем на витрину ретейлера
-        app.getSiteNavHelper().goToRetailerPage(new RetailerData("vkusvill"));
+        app.getNavigationHelper().goToRetailerPage(new RetailerData("vkusvill"));
         // проверка на авторизованность
         if (app.getAuthorisationHelper().userIsAuthorised) {
             app.getAuthorisationHelper().doLogout();
-            app.getSiteNavHelper().goToRetailerPage(new RetailerData("vkusvill"));
+            app.getNavigationHelper().goToRetailerPage(new RetailerData("vkusvill"));
         }
         // логинимся на витрине
         app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
@@ -47,11 +47,11 @@ public class TestAuthorisation extends TestBase {
     // негативный тест попытки авторизации с неверным паролем
     public void testAuthWithWrongPassword() throws Exception {
         // идем на лендинг
-        app.getSiteNavHelper().goToLandingPage();
+        app.getNavigationHelper().goToLandingPage();
         // проверка на авторизованность
         if (app.getAuthorisationHelper().userIsAuthorised) {
             app.getAuthorisationHelper().doLogout();
-            app.getSiteNavHelper().goToLandingPage();
+            app.getNavigationHelper().goToLandingPage();
         }
         // логинимся на лендинге
         app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "wrongpassword"));
@@ -63,11 +63,11 @@ public class TestAuthorisation extends TestBase {
     // негативный тест попытки авторизации без пароля
     public void testAuthWithoutPassword() throws Exception {
         // идем на лендинг
-        app.getSiteNavHelper().goToLandingPage();
+        app.getNavigationHelper().goToLandingPage();
         // проверка на авторизованность
         if (app.getAuthorisationHelper().userIsAuthorised) {
             app.getAuthorisationHelper().doLogout();
-            app.getSiteNavHelper().goToLandingPage();
+            app.getNavigationHelper().goToLandingPage();
         }
         // логинимся на лендинге
         app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", ""));
@@ -79,11 +79,11 @@ public class TestAuthorisation extends TestBase {
     // негативный тест попытки авторизации без email
     public void testAuthWithoutEmail() throws Exception {
         // идем на лендинг
-        app.getSiteNavHelper().goToLandingPage();
+        app.getNavigationHelper().goToLandingPage();
         // проверка на авторизованность
         if (app.getAuthorisationHelper().userIsAuthorised) {
             app.getAuthorisationHelper().doLogout();
-            app.getSiteNavHelper().goToLandingPage();
+            app.getNavigationHelper().goToLandingPage();
         }
         // логинимся на лендинге
         app.getAuthorisationHelper().doLogin(new UserData("", "instamart"));

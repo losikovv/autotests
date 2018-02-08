@@ -3,8 +3,8 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.WebDriver;
 
 // хелпер глобальной навигации по админке
-public class AdminNavHelper extends HelperBase {
-    public AdminNavHelper(WebDriver driver) {
+public class AdminNavigationHelper extends HelperBase {
+    public AdminNavigationHelper(WebDriver driver) {
         super(driver);
     }
 

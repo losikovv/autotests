@@ -10,11 +10,11 @@ public class SmokeTestAdmin extends TestBase {
     public void testAccessAdministration(){
         // TODO заменить на метод accessAdmin
         // идем на лендинг
-        app.getSiteNavHelper().goToLandingPage();
+        app.getNavigationHelper().goToLandingPage();
         // логинимся на лендинге
         app.getAuthorisationHelper().doLogin(new UserData("stanislav.klimov@instamart.ru", "allhailinstamart"));
         // идем в админку
-        app.getAdminNavHelper().goToAdmin();
+        app.getAdminNavigationHelper().goToAdmin();
         // проверяем что есть доступ в админку
         Assert.assertTrue(app.getAuthorisationHelper().itsInAdmin());
         // разлогиниваемся
@@ -24,11 +24,11 @@ public class SmokeTestAdmin extends TestBase {
     @Test
     public void smoketestLogistics() throws InterruptedException {
         // идем в админку
-        app.getAdminNavHelper().goToAdmin();
+        app.getAdminNavigationHelper().goToAdmin();
         // проверяем на авторизованность и если нет - логинимся
         // TODO написать метод accessAdmin в хелпере админки, который идет и логигнится в админку
         // идем в раздел Logistics
-        app.getAdminNavHelper().goToAdminLogistics();
+        app.getAdminNavigationHelper().goToAdminLogistics();
         // проверяем что раздел работает
         Assert.assertTrue(app.getAuthorisationHelper().itsInAdmin());
     }
