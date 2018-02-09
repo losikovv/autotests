@@ -8,6 +8,7 @@ public class SmokeTest extends TestBase {
 
     // TODO запилить проверки на корректное отображение страниц
     // TODO сделать переходы по статическим страницам циклом по списку страниц
+    // TODO добавить чек витрин всех ретейлеров по списку ретейлеров
     // TODO использовать в смоук-тесте уже готовые тесты из класса TestAuthorisation
 
     @Test
@@ -37,7 +38,7 @@ public class SmokeTest extends TestBase {
     @Test
     // чекаем статические страницы
     public void checkStaticPages() throws Exception {
-        app.getNavigationHelper().goToAbout();
+        app.getNavigationHelper().getPageAbout();
         app.getNavigationHelper().goToDelivery();
         app.getNavigationHelper().goToRules();
         app.getNavigationHelper().goToPayment();

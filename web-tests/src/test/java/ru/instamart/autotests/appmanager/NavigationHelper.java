@@ -11,15 +11,15 @@ public class NavigationHelper extends HelperBase {
     }
 
     // переход по свободному URL
-    public void goToUrl(String url) {driver.get(url);}
+    public void getUrl(String url) {driver.get(url);}
 
     // переход на страницу Инстамарта
-    public void goToPage(String pagename) {driver.get(baseUrl + pagename);}
+    public void getPage(String pagename) {driver.get(baseUrl + pagename);}
 
 
     // СТАТИЧЕСКИЕ СТРАНИЦЫ
 
-    public void goToAbout() {driver.get(baseUrl + "about");}
+    public void getPageAbout() {driver.get(baseUrl + "about");}
     public void goToDelivery() {driver.get(baseUrl + "delivery");}
     public void goToRules() {driver.get(baseUrl + "rules");}
     public void goToPayment() {driver.get(baseUrl + "payment");}
