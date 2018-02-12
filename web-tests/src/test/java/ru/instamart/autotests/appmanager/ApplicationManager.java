@@ -19,7 +19,7 @@ public class ApplicationManager {
 
     // объявление переменных хелперов
     private NavigationHelper navigationHelper;
-    private AdminNavigationHelper adminNavigationHelper;
+    private ErrorPageHelper errorPageHelper;
     private AuthorisationHelper authorisationHelper;
     private RegistrationHelper registrationHelper;
     private AddressHelper addressHelper;
@@ -55,7 +55,7 @@ public class ApplicationManager {
 
         // инициализация хелперов
         navigationHelper = new NavigationHelper(driver);
-        adminNavigationHelper = new AdminNavigationHelper(driver);
+        errorPageHelper = new ErrorPageHelper(driver);
         authorisationHelper = new AuthorisationHelper(driver);
         registrationHelper = new RegistrationHelper(driver);
         addressHelper = new AddressHelper(driver);
@@ -77,8 +77,8 @@ public class ApplicationManager {
         return navigationHelper;
     }
 
-    public AdminNavigationHelper getAdminNavigationHelper() {
-        return adminNavigationHelper;
+    public ErrorPageHelper getErrorPageHelper() {
+        return errorPageHelper;
     }
 
     public AuthorisationHelper getAuthorisationHelper() {

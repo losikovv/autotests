@@ -6,30 +6,43 @@ import ru.instamart.autotests.models.UserData;
 
 public class SmokeTestAdmin extends TestBase {
 
+    // TODO запилить проверки на корректное отображение страниц
+    // TODO сделать переходы по страницам циклом по списку страниц
+    // TODO использовать в смоук-тесте уже готовые тесты из класса TestAuthorisation
+
     @Test
-    public void testAccessAdministration(){
-        // TODO заменить на метод accessAdmin
+    // авторизуемся на лендинге
+    public void authOnLanding() throws Exception {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
+        // проверка на авторизованность
+        if (app.getAuthorisationHelper().userIsAuthorised) {
+            app.getAuthorisationHelper().doLogout();
+            app.getNavigationHelper().getLandingPage();
+        }
         // логинимся на лендинге
-        app.getAuthorisationHelper().doLogin(new UserData("stanislav.klimov@instamart.ru", "allhailinstamart"));
-        // идем в админку
-        app.getAdminNavigationHelper().goToAdmin();
-        // проверяем что есть доступ в админку
-        Assert.assertTrue(app.getAuthorisationHelper().itsInAdmin());
-        // разлогиниваемся
-        app.getAuthorisationHelper().doLogout();
+        app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
+        // проверяем что авторизованы
+        Assert.assertTrue(app.getAuthorisationHelper().userIsAuthorised());
     }
 
     @Test
-    public void smoketestLogistics() throws InterruptedException {
-        // идем в админку
-        app.getAdminNavigationHelper().goToAdmin();
-        // проверяем на авторизованность и если нет - логинимся
-        // TODO написать метод accessAdmin в хелпере админки, который идет и логигнится в админку
-        // идем в раздел Logistics
-        app.getAdminNavigationHelper().goToAdminLogistics();
-        // проверяем что раздел работает
-        Assert.assertTrue(app.getAuthorisationHelper().itsInAdmin());
+    // чекаем страницы админки
+    public void checkAdminPages() throws Exception {
+        app.getNavigationHelper().getAdminPage("shipments");
+        app.getNavigationHelper().getAdminPage("retailers");
+        app.getNavigationHelper().getAdminPage("products");
+        app.getNavigationHelper().getAdminPage("imports");
+        app.getNavigationHelper().getAdminPage("reports");
+        app.getNavigationHelper().getAdminPage("general_dettings/edit");
+        app.getNavigationHelper().getAdminPage("promo-cards");
+        app.getNavigationHelper().getAdminPage("users");
+        app.getNavigationHelper().getAdminPage("pages");
+    }
+
+    @Test
+    // логаут
+    public void logout() throws Exception {
+        app.getAuthorisationHelper().doLogout();
     }
 }

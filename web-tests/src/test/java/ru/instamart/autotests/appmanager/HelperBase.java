@@ -103,4 +103,20 @@ public class HelperBase {
         }
     }
 
+    public boolean its404() {
+        if (isElementPresent(By.xpath("/html/body/div[3]/div/div/div/div[1]/div/div[1]"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean itsSomethingWrong() {
+        if (isElementPresent(By.xpath("TODO"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

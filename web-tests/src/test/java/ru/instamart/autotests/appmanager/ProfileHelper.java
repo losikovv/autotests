@@ -8,11 +8,16 @@ public class ProfileHelper extends HelperBase {
         super(driver);
     }
 
-    // хелпер раздела "Профиль" на сайте
 
-    // РАЗДЕЛ ЗАКАЗЫ
+
+    // хелпер раздела "Профиль"
+
+
+
+    // АККАУНТ
+
     // перейти на страницу Аккаунт
-    public void goToAccountPage() {
+    public void goToAccount() {
         click(By.xpath("//*[@id='wrap']/div/div/div/div[1]/div/div/ul/li[1]'))"));
     }
 
@@ -23,41 +28,58 @@ public class ProfileHelper extends HelperBase {
     // TODO changeFIO(String newName, String newFamily) - изменение имени и фамилии
 
 
-    // РАЗДЕЛ ЗАКАЗЫ
+
+    // ЗАКАЗЫ
+
     // перейти на страницу Заказы
-    public void goToOrdersPage() {
+    public void goToOrders() {
         click(By.xpath("//*[@id='wrap']/div/div/div/div[1]/div/div/ul/li[2]'))"));
+    }
+
+    // перейти в детали заказа по позиции в списке
+    public void goToOrderPage(int orderPosition) {
+        goToOrders();
+        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/a/button"));
     }
 
     // перейти в детали крайнего заказа
     public void goToLastOrderPage() {
+        goToOrders();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a/button"));
     }
 
-    // перейти в детали заказа по позиции в списке заказов, начиная сверху
-    public void goTotOrderPage(int orderPosition) {
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/a/button"));
+    // повторить заказ по позиции в списке
+    public void repeatOrder (int orderPosition){
+        goToOrders();
+        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button"));
     }
 
     // повторить крайний заказ
     public void repeatLastOrder(){
+        goToOrders();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
     }
 
-    // повторить заказ по позиции в списке заказов, начиная сверху
-    public void repeatOrder (int orderPosition){
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button"));
+    // отменить заказ по позиции в списке
+    public void cancelOrder (int orderPosition){
+        goToOrders();
+        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button[1]"));
     }
 
-    // TODO cancelLastOrder - отменить крайний заказ
-
-    // TODO cancelOrder(int n) - отменить заказ N - нумерация обратная от верха списка
+    // отменить крайний заказ
+    public void cancelLastOrder (){
+        goToOrders();
+        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button[1]"));
+    }
 
     // TODO cancelAllOrders - отменить все незавершенные заказы
 
-    // РАЗДЕЛ АДРЕСА
+
+
+    // АДРЕСА
+
     // перейти на страницу Адреса
-    public void goToAddressesPage() {
+    public void goToAddresses() {
         click(By.xpath("//*[@id='wrap']/div/div/div/div[1]/div/div/ul/li[3]'))"));
     }
 

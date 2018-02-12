@@ -2,12 +2,13 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.models.RetailerData;
 import ru.instamart.autotests.models.UserData;
 
 public class SmokeTest extends TestBase {
 
     // TODO запилить проверки на корректное отображение страниц
-    // TODO добавить чек витрин всех ретейлеров по списку ретейлеров
+    // TODO сделать переходы по страницам циклом по списку страниц
     // TODO использовать в смоук-тесте уже готовые тесты из класса TestAuthorisation
 
     @Test
@@ -27,16 +28,28 @@ public class SmokeTest extends TestBase {
     }
 
     @Test
-    // чекаем страницы раздела Профиль
+    // чекаем страницы ритейлеров
+    // TODO добавить чек страниц всех ретейлеров по списку ретейлеров
+    // TODO забирать список ритейлеров из БД или из админки с признаком активности
+    // TODO проверять витрины активных ритейлеров на доступность, витрины неактивных - на недоступность
+    public void checkRetailerPages() throws Exception {
+        app.getNavigationHelper().getRetailerPage(new RetailerData("metro"));
+        app.getNavigationHelper().getRetailerPage(new RetailerData("lenta"));
+        app.getNavigationHelper().getRetailerPage(new RetailerData("selgros"));
+        app.getNavigationHelper().getRetailerPage(new RetailerData("vkusvill"));
+        app.getNavigationHelper().getRetailerPage(new RetailerData("karusel"));
+    }
+
+    @Test
+    // чекаем страницы профиля
     public void checkProfilePages() throws Exception {
-        app.getNavigationHelper().getPageProfileAccount();
-        app.getNavigationHelper().getPageProfileOrders();
-        app.getNavigationHelper().getPageProfileAddresses();
+        app.getNavigationHelper().getPage("user/profile");
+        app.getNavigationHelper().getPage("user/orders");
+        app.getNavigationHelper().getPage("user/addresses");
     }
 
     @Test
     // чекаем статические страницы
-    // TODO сделать переходы по статическим страницам циклом по списку страниц
     public void checkStaticPages() throws Exception {
         app.getNavigationHelper().getPage("about");
         app.getNavigationHelper().getPage("delivery");
@@ -48,15 +61,17 @@ public class SmokeTest extends TestBase {
     }
 
     @Test
-    // чекаем лендинг "Много.ру"
-    public void checkMnogoruLanding() throws Exception {
+    // чекаем лендинги
+    // TODO добавить чек лендингов циклом по списку
+    // TODO забирать список лендингов из БД или из админки
+    public void checkLandings() throws Exception {
+        app.getNavigationHelper().getLandingPage();
         app.getNavigationHelper().getMnogoruLandingPage();
     }
 
     @Test
     // логаут
     public void logout() throws Exception {
-        //app.getNavigationHelper().getLandingPage();
         app.getAuthorisationHelper().doLogout();
     }
 
