@@ -104,6 +104,8 @@ public class HelperBase {
     }
 
     public boolean its404() {
+        //TODO допилить распознавание 404 на сайте и в админке с помощью itsOnSite и itsInAdmin
+        //TODO улучшить надежность определения 404, распознавая 404 в page title или в коде страницы
         if (isElementPresent(By.xpath("/html/body/div[3]/div/div/div/div[1]/div/div[1]"))) {
             return true;
         } else {
@@ -112,6 +114,7 @@ public class HelperBase {
     }
 
     public boolean itsSomethingWrong() {
+        //TODO допилить распознавание 404 на сайте и в админке с помощью itsOnSite и itsInAdmin
         if (isElementPresent(By.xpath("TODO"))) {
             return true;
         } else {
