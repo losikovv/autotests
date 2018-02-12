@@ -10,7 +10,7 @@ public class SmokeTestAdmin extends TestBase {
     public void testAccessAdministration(){
         // TODO заменить на метод accessAdmin
         // идем на лендинг
-        app.getNavigationHelper().goToLandingPage();
+        app.getNavigationHelper().getLandingPage();
         // логинимся на лендинге
         app.getAuthorisationHelper().doLogin(new UserData("stanislav.klimov@instamart.ru", "allhailinstamart"));
         // идем в админку

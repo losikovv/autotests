@@ -20,31 +20,31 @@ public class NavigationHelper extends HelperBase {
     // СТАТИЧЕСКИЕ СТРАНИЦЫ
 
     public void getPageAbout() {driver.get(baseUrl + "about");}
-    public void goToDelivery() {driver.get(baseUrl + "delivery");}
-    public void goToRules() {driver.get(baseUrl + "rules");}
-    public void goToPayment() {driver.get(baseUrl + "payment");}
-    public void goToFAQ() {driver.get(baseUrl + "faq");}
-    public void goToTerms() {driver.get(baseUrl + "terms");}
-    public void goToContacts() {driver.get(baseUrl + "contacts");}
+    public void getPageDelivery() {driver.get(baseUrl + "delivery");}
+    public void getPageRules() {driver.get(baseUrl + "rules");}
+    public void getPagePayment() {driver.get(baseUrl + "payment");}
+    public void getPageFAQ() {driver.get(baseUrl + "faq");}
+    public void getPageTerms() {driver.get(baseUrl + "terms");}
+    public void getPageContacts() {driver.get(baseUrl + "contacts");}
 
 
     // ЛЕНДИНГИ
 
-    public void goToLandingPage() { driver.get(baseUrl); }
-    public void goToMnogoruLandingPage() {driver.get(baseUrl + "mnogoru"); }
+    public void getLandingPage() { driver.get(baseUrl); }
+    public void getMnogoruLandingPage() {driver.get(baseUrl + "mnogoru"); }
 
 
     // переход на витрину ретейлера
-    public void goToRetailerPage(RetailerData retailerData) { driver.get(baseUrl + retailerData.getName()); }
+    public void getRetailerPage(RetailerData retailerData) { driver.get(baseUrl + retailerData.getName()); }
 
     // переход в чекаут
-    public void goToCheckout() { driver.get(baseUrl + "checkout/edit?"); }
+    public void getPageCheckout() { driver.get(baseUrl + "checkout/edit?"); }
 
 
     // ПРОФИЛЬ
 
-    public void goToProfileAccount() { driver.get(baseUrl + "user/edit"); }
-    public void goToProfileOrders() { driver.get(baseUrl + "user/orders"); }
-    public void goToProfileAddresses() { driver.get(baseUrl + "user/addresses"); }
+    public void getPageProfileAccount() { driver.get(baseUrl + "user/edit"); }
+    public void getPageProfileOrders() { driver.get(baseUrl + "user/orders"); }
+    public void getPageProfileAddresses() { driver.get(baseUrl + "user/addresses"); }
 
 }

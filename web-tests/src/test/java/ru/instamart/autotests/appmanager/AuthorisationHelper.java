@@ -60,20 +60,4 @@ public class AuthorisationHelper extends HelperBase {
         click(By.xpath("//*[@id=/login-nav/]/li[3]/a"));
     }
 
-    public boolean itsOnLandingPage() {
-        if (isElementPresent(By.xpath("/html/body/div[2]/header/div[2]/ul/li[3]/a"))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean itsOnRetailerPage() {
-        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[1]/div/a/div[2]/div"))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 }

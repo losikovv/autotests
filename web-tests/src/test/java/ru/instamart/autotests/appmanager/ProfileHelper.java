@@ -29,19 +29,27 @@ public class ProfileHelper extends HelperBase {
         click(By.xpath("//*[@id='wrap']/div/div/div/div[1]/div/div/ul/li[2]'))"));
     }
 
-    // перейти в детали последнего заказа
+    // перейти в детали крайнего заказа
     public void goToLastOrderPage() {
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a/button"));
     }
 
-    // перейти в детали заказа N - нумерация обратная начиная от верха списка заказов
+    // перейти в детали заказа по позиции в списке заказов, начиная сверху
     public void goTotOrderPage(int orderPosition) {
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/a/button"));
     }
 
-    // TODO repeatLastOrder - повторить последний заказ
+    // повторить крайний заказ
+    public void repeatLastOrder(){
+        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
+    }
 
-    // TODO cancelLastOrder - отменить последний заказ
+    // повторить заказ по позиции в списке заказов, начиная сверху
+    public void repeatOrder (int orderPosition){
+        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button"));
+    }
+
+    // TODO cancelLastOrder - отменить крайний заказ
 
     // TODO cancelOrder(int n) - отменить заказ N - нумерация обратная от верха списка
 

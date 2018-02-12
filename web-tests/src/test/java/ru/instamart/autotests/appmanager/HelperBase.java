@@ -79,6 +79,22 @@ public class HelperBase {
         }
     }
 
+    public boolean itsOnLandingPage() {
+        if (isElementPresent(By.xpath("/html/body/div[2]/header/div[2]/ul/li[3]/a"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean itsOnRetailerPage() {
+        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[1]/div/a/div[2]/div"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean itsInAdmin() {
         if (isElementPresent(By.xpath("//*[@id='login-nav']/li[3]/a"))) {
             return true;
@@ -86,4 +102,5 @@ public class HelperBase {
             return false;
         }
     }
+
 }

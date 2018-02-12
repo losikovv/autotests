@@ -7,7 +7,6 @@ import ru.instamart.autotests.models.UserData;
 public class SmokeTest extends TestBase {
 
     // TODO запилить проверки на корректное отображение страниц
-    // TODO сделать переходы по статическим страницам циклом по списку страниц
     // TODO добавить чек витрин всех ретейлеров по списку ретейлеров
     // TODO использовать в смоук-тесте уже готовые тесты из класса TestAuthorisation
 
@@ -15,11 +14,11 @@ public class SmokeTest extends TestBase {
     // авторизуемся на лендинге
     public void authOnLanding() throws Exception {
         // идем на лендинг
-        app.getNavigationHelper().goToLandingPage();
+        app.getNavigationHelper().getLandingPage();
         // проверка на авторизованность
         if (app.getAuthorisationHelper().userIsAuthorised) {
             app.getAuthorisationHelper().doLogout();
-            app.getNavigationHelper().goToLandingPage();
+            app.getNavigationHelper().getLandingPage();
         }
         // логинимся на лендинге
         app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
@@ -30,33 +29,34 @@ public class SmokeTest extends TestBase {
     @Test
     // чекаем страницы раздела Профиль
     public void checkProfilePages() throws Exception {
-        app.getNavigationHelper().goToProfileAccount();
-        app.getNavigationHelper().goToProfileOrders();
-        app.getNavigationHelper().goToProfileAddresses();
+        app.getNavigationHelper().getPageProfileAccount();
+        app.getNavigationHelper().getPageProfileOrders();
+        app.getNavigationHelper().getPageProfileAddresses();
     }
 
     @Test
     // чекаем статические страницы
+    // TODO сделать переходы по статическим страницам циклом по списку страниц
     public void checkStaticPages() throws Exception {
-        app.getNavigationHelper().getPageAbout();
-        app.getNavigationHelper().goToDelivery();
-        app.getNavigationHelper().goToRules();
-        app.getNavigationHelper().goToPayment();
-        app.getNavigationHelper().goToFAQ();
-        app.getNavigationHelper().goToTerms();
-        app.getNavigationHelper().goToContacts();
+        app.getNavigationHelper().getPage("about");
+        app.getNavigationHelper().getPage("delivery");
+        app.getNavigationHelper().getPage("rules");
+        app.getNavigationHelper().getPage("payment");
+        app.getNavigationHelper().getPage("faq");
+        app.getNavigationHelper().getPage("terms");
+        app.getNavigationHelper().getPage("contacts");
     }
 
     @Test
     // чекаем лендинг "Много.ру"
     public void checkMnogoruLanding() throws Exception {
-        app.getNavigationHelper().goToMnogoruLandingPage();
+        app.getNavigationHelper().getMnogoruLandingPage();
     }
 
     @Test
     // логаут
     public void logout() throws Exception {
-        //app.getNavigationHelper().goToLandingPage();
+        //app.getNavigationHelper().getLandingPage();
         app.getAuthorisationHelper().doLogout();
     }
 
