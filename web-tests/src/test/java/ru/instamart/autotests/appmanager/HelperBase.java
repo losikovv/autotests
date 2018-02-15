@@ -30,6 +30,8 @@ public class HelperBase {
         driver.findElement(locator).sendKeys(text);
     }
 
+    protected String getText(By locator) { return driver.findElement(locator).getText(); }
+
     protected boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);
@@ -104,9 +106,11 @@ public class HelperBase {
     }
 
     public boolean its404() {
-        //TODO допилить распознавание 404 на сайте и в админке с помощью itsOnSite и itsInAdmin
-        //TODO улучшить надежность определения 404, распознавая 404 в page title или в коде страницы
-        if (isElementPresent(By.xpath("/html/body/div[3]/div/div/div/div[1]/div/div[1]"))) {
+        String errorText = "Страница не найдена";
+        if (
+           // driver.findElement(By.xpath("/html/body/div[3]/div/div/div/div[1]/div/div[1]")).getText().equals(errorText))
+             getText(By.xpath("/html/body/div[3]/div/div/div/div[1]/div/div[1]")).equals(errorText))
+        {
             return true;
         } else {
             return false;
@@ -114,8 +118,11 @@ public class HelperBase {
     }
 
     public boolean itsSomethingWrong() {
-        //TODO допилить распознавание 404 на сайте и в админке с помощью itsOnSite и itsInAdmin
-        if (isElementPresent(By.xpath("TODO"))) {
+        String errorText = "There is something wrong";
+        if (
+            //driver.findElement(By.xpath("/html/body/div/h1")).getText().equals("There is something wrong"))
+            getText(By.xpath("/html/body/div/h1")).equals(errorText))
+        {
             return true;
         } else {
             return false;

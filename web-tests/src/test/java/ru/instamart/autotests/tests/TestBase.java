@@ -1,6 +1,7 @@
 package ru.instamart.autotests.tests;
 
 import org.openqa.selenium.remote.BrowserType;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import ru.instamart.autotests.appmanager.ApplicationManager;
@@ -21,4 +22,8 @@ public class TestBase {
     }
 
 
+    protected void assertPageAvailability() {
+        Assert.assertFalse(app.getErrorPageHelper().its404());
+        Assert.assertFalse(app.getErrorPageHelper().itsSomethingWrong());
+    }
 }

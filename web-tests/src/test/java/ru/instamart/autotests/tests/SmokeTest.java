@@ -21,7 +21,7 @@ public class SmokeTest extends TestBase {
     public void authorisation() throws Exception {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         // проверка на авторизованность
         if (app.getAuthorisationHelper().userIsAuthorised) {
             app.getAuthorisationHelper().doLogout();
@@ -40,26 +40,26 @@ public class SmokeTest extends TestBase {
     // TODO проверять витрины активных ритейлеров на доступность, витрины неактивных - на недоступность
     public void checkRetailerPages() throws Exception {
         app.getNavigationHelper().getRetailerPage(new RetailerData("metro"));
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getRetailerPage(new RetailerData("lenta"));
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getRetailerPage(new RetailerData("selgros"));
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getRetailerPage(new RetailerData("vkusvill"));
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getRetailerPage(new RetailerData("karusel"));
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
     }
 
     @Test
     // чекаем страницы профиля
     public void checkProfilePages() throws Exception {
         app.getNavigationHelper().getPage("user/profile");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getPage("user/orders");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getPage("user/addresses");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
     }
 
     @Test
@@ -68,19 +68,19 @@ public class SmokeTest extends TestBase {
     // TODO забирать список страниц из БД или из админки
     public void checkStaticPages() throws Exception {
         app.getNavigationHelper().getPage("about");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getPage("delivery");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getPage("rules");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getPage("payment");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getPage("faq");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getPage("terms");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getPage("contacts");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
     }
 
     @Test
@@ -89,6 +89,7 @@ public class SmokeTest extends TestBase {
     // TODO забирать список лендингов из БД или из админки
     public void checkPartnerLandings() throws Exception {
         app.getNavigationHelper().getMnogoruLandingPage();
+        assertPageAvailability();
     }
 
     @Test
@@ -96,29 +97,30 @@ public class SmokeTest extends TestBase {
     // TODO добавить чек лендингов циклом по списку
     public void checkAdminPages() throws Exception {
         app.getNavigationHelper().getAdminPage("shipments");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getAdminPage("retailers");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getAdminPage("products");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getAdminPage("imports");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getAdminPage("reports");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getAdminPage("general_settings/edit");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getAdminPage("promo-cards");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getAdminPage("users");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
         app.getNavigationHelper().getAdminPage("pages");
-        Assert.assertFalse(app.getErrorPageHelper().its404());
+        assertPageAvailability();
     }
 
     @Test
     // логаут
     public void logout() throws Exception {
         app.getAuthorisationHelper().doLogout();
+        assertPageAvailability();
     }
 
 }

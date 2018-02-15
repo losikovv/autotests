@@ -27,14 +27,15 @@ public class CartHelper extends HelperBase {
 
     // TODO grabCartOver10k - набрать корзину на сумму >10000р
 
-    // TODO deleteItem - удалить товар из корзины
+    // TODO deleteItem(int itemPosition) - удалить товар из корзины
 
     // TODO clearCart - очистить корзину (удалить все товары)
 
-    // TODO changeQuantity - изменить кол-во товара
+    // TODO changeItemQuantity(int itemPosition, int newQuantity) - изменить кол-во товара
 
     // TODO getCartTotal - получить сумму корзины
 
     // TODO goToCheckout - перейти в чекаут
 
+    // TODO методы для мультизаказа
 }

@@ -15,10 +15,12 @@ public class NavigationHelper extends HelperBase {
 
 
 
-    // САЙТ
-
     // переход по свободному URL
     public void getUrl(String url) {driver.get(url);}
+
+
+
+    // САЙТ
 
     // переход на страницу сайта
     public void getPage(String pageName) {driver.get(baseUrl + pageName);}
