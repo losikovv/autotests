@@ -20,7 +20,7 @@ public class AuthorisationHelper extends HelperBase {
 
     public void doLoginOnLandingPage(UserData userData) {
         // клик по кнопке Вход
-        click(By.xpath("/html/body/div[2]/header/div[2]/ul/li[3]/a"));
+        click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
         // вводим логин
         fillField(By.id("login_form__email"), userData.getLogin());
         // вводим пароль

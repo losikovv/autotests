@@ -30,7 +30,9 @@ public class HelperBase {
         driver.findElement(locator).sendKeys(text);
     }
 
-    protected String getText(By locator) { return driver.findElement(locator).getText(); }
+    protected String getText(By locator) {
+        return driver.findElement(locator).getText();
+    }
 
     protected boolean isElementPresent(By locator) {
         try {
@@ -82,7 +84,7 @@ public class HelperBase {
     }
 
     public boolean itsOnLandingPage() {
-        if (isElementPresent(By.xpath("/html/body/div[2]/header/div[2]/ul/li[3]/a"))) {
+        if (getText(By.xpath("/html/body/a[1]/div")).equals("Попробуйте сегодня и получите бесплатную доставку первого заказа!")) {
             return true;
         } else {
             return false;
@@ -90,7 +92,7 @@ public class HelperBase {
     }
 
     public boolean itsOnRetailerPage() {
-        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[1]/div/a/div[2]/div"))) {
+        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[2]/div[3]/div[1]"))) {
             return true;
         } else {
             return false;
@@ -106,24 +108,26 @@ public class HelperBase {
     }
 
     public boolean its404() {
-        String errorText = "Страница не найдена";
-        if (
-           // driver.findElement(By.xpath("/html/body/div[3]/div/div/div/div[1]/div/div[1]")).getText().equals(errorText))
-             getText(By.xpath("/html/body/div[3]/div/div/div/div[1]/div/div[1]")).equals(errorText))
-        {
-            return true;
+        String XPATH = "/html/body/div[3]/div/div/div/div[1]/div/div[1]";
+        if (isElementPresent(By.xpath(XPATH))) {
+            if (getText(By.xpath(XPATH)).equals("Страница не найдена")) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
     }
 
     public boolean itsSomethingWrong() {
-        String errorText = "There is something wrong";
-        if (
-            //driver.findElement(By.xpath("/html/body/div/h1")).getText().equals("There is something wrong"))
-            getText(By.xpath("/html/body/div/h1")).equals(errorText))
-        {
-            return true;
+        String XPATH = "/html/body/div/h1";
+        if (isElementPresent(By.xpath(XPATH))) {
+            if (getText(By.xpath(XPATH)).equals("There is something wrong")) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

@@ -21,7 +21,6 @@ public class SmokeTest extends TestBase {
     public void authorisation() throws Exception {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
-        assertPageAvailability();
         // проверка на авторизованность
         if (app.getAuthorisationHelper().userIsAuthorised) {
             app.getAuthorisationHelper().doLogout();
@@ -54,7 +53,7 @@ public class SmokeTest extends TestBase {
     @Test
     // чекаем страницы профиля
     public void checkProfilePages() throws Exception {
-        app.getNavigationHelper().getPage("user/profile");
+        app.getNavigationHelper().getPage("user/edit");
         assertPageAvailability();
         app.getNavigationHelper().getPage("user/orders");
         assertPageAvailability();
@@ -108,7 +107,7 @@ public class SmokeTest extends TestBase {
         assertPageAvailability();
         app.getNavigationHelper().getAdminPage("general_settings/edit");
         assertPageAvailability();
-        app.getNavigationHelper().getAdminPage("promo-cards");
+        app.getNavigationHelper().getAdminPage("promo_cards");
         assertPageAvailability();
         app.getNavigationHelper().getAdminPage("users");
         assertPageAvailability();
