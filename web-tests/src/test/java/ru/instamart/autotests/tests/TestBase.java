@@ -21,9 +21,18 @@ public class TestBase {
         app.stop();
     }
 
+    /**
+     * Method gets given URL and checks that reached URL is equal to target one
+     * Also method checks that page on reached URL is not 404 or 500
+     */
 
-    protected void assertPageAvailability() {
-        Assert.assertFalse(app.getErrorPageHelper().its404());
-        Assert.assertFalse(app.getErrorPageHelper().itsSomethingWrong());
+    protected void assertPageAvailability(String URL) {
+        String targetURL = URL;
+        app.getNavigationHelper().getUrl(targetURL);
+        String currentURL = app.getNavigationHelper().currentURL();
+        Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Target URL " + targetURL + " was not reached! Reached URL is " + currentURL + "\n");
+        Assert.assertFalse(app.getErrorPageHelper().its404(),"It's 404 on page " + currentURL+ "\n");
+        Assert.assertFalse(app.getErrorPageHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
     }
+
 }

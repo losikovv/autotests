@@ -29,6 +29,10 @@ public class HelperBase {
         // ввод текста в поле
         driver.findElement(locator).sendKeys(text);
     }
+    
+    public String currentURL(){
+        return driver.getCurrentUrl();
+    }
 
     protected String getText(By locator) {
         return driver.findElement(locator).getText();
@@ -102,35 +106,21 @@ public class HelperBase {
     public boolean itsInAdmin() {
         if (isElementPresent(By.xpath("//*[@id='login-nav']/li[3]/a"))) {
             return true;
-        } else {
-            return false;
-        }
+        } else return false;
     }
 
     public boolean its404() {
         String XPATH = "/html/body/div[3]/div/div/div/div[1]/div/div[1]";
-        if (isElementPresent(By.xpath(XPATH))) {
-            if (getText(By.xpath(XPATH)).equals("Страница не найдена")) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        if (isElementPresent(By.xpath(XPATH)))
+            return getText(By.xpath(XPATH)).equals("Страница не найдена");
+        else return false;
     }
 
     public boolean itsSomethingWrong() {
         String XPATH = "/html/body/div/h1";
-        if (isElementPresent(By.xpath(XPATH))) {
-            if (getText(By.xpath(XPATH)).equals("There is something wrong")) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        if (isElementPresent(By.xpath(XPATH)))
+            return getText(By.xpath(XPATH)).equals("There is something wrong");
+        else return false;
     }
 
 }

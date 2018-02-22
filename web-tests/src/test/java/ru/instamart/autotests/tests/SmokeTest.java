@@ -10,7 +10,6 @@ public class SmokeTest extends TestBase {
 
 
     // Smoke-test сайта и админки
-    // TODO запилить проверки на корректное отображение страниц
     // TODO запилить тестовый набор в TestRail с признаком automated
     // TODO запилить автоматическое создание и заполнение рана в TestRail результатами теста
 
@@ -19,8 +18,9 @@ public class SmokeTest extends TestBase {
     @Test
     // авторизуемся
     public void authorisation() throws Exception {
-        // идем на лендинг
-        app.getNavigationHelper().getLandingPage();
+
+        // идем и чекаем лендинг
+        assertPageAvailability("https://instamart.ru/");
         // проверка на авторизованность
         if (app.getAuthorisationHelper().userIsAuthorised) {
             app.getAuthorisationHelper().doLogout();
@@ -38,27 +38,26 @@ public class SmokeTest extends TestBase {
     // TODO забирать список ритейлеров из БД или из админки с признаком активности
     // TODO проверять витрины активных ритейлеров на доступность, витрины неактивных - на недоступность
     public void checkRetailerPages() throws Exception {
-        app.getNavigationHelper().getRetailerPage(new RetailerData("metro"));
-        assertPageAvailability();
-        app.getNavigationHelper().getRetailerPage(new RetailerData("lenta"));
-        assertPageAvailability();
-        app.getNavigationHelper().getRetailerPage(new RetailerData("selgros"));
-        assertPageAvailability();
-        app.getNavigationHelper().getRetailerPage(new RetailerData("vkusvill"));
-        assertPageAvailability();
-        app.getNavigationHelper().getRetailerPage(new RetailerData("karusel"));
-        assertPageAvailability();
+        assertPageAvailability("https://instamart.ru/metro");
+        assertPageAvailability("https://instamart.ru/lenta");
+        assertPageAvailability("https://instamart.ru/selgros");
+        assertPageAvailability("https://instamart.ru/vkusvill");
+        assertPageAvailability("https://instamart.ru/karusel");
+    }
+
+    @Test
+    // чекаем чекаут
+    public void checkCheckoutPage() throws Exception {
+        assertPageAvailability("https://instamart.ru/checkout/edit?");
     }
 
     @Test
     // чекаем страницы профиля
+    // TODO добавить чек страниц циклом по списку
     public void checkProfilePages() throws Exception {
-        app.getNavigationHelper().getPage("user/edit");
-        assertPageAvailability();
-        app.getNavigationHelper().getPage("user/orders");
-        assertPageAvailability();
-        app.getNavigationHelper().getPage("user/addresses");
-        assertPageAvailability();
+        assertPageAvailability("https://instamart.ru/user/edit");
+        assertPageAvailability("https://instamart.ru/user/orders");
+        assertPageAvailability("https://instamart.ru/user/addresses");
     }
 
     @Test
@@ -66,20 +65,13 @@ public class SmokeTest extends TestBase {
     // TODO добавить чек страниц циклом по списку
     // TODO забирать список страниц из БД или из админки
     public void checkStaticPages() throws Exception {
-        app.getNavigationHelper().getPage("about");
-        assertPageAvailability();
-        app.getNavigationHelper().getPage("delivery");
-        assertPageAvailability();
-        app.getNavigationHelper().getPage("rules");
-        assertPageAvailability();
-        app.getNavigationHelper().getPage("payment");
-        assertPageAvailability();
-        app.getNavigationHelper().getPage("faq");
-        assertPageAvailability();
-        app.getNavigationHelper().getPage("terms");
-        assertPageAvailability();
-        app.getNavigationHelper().getPage("contacts");
-        assertPageAvailability();
+        assertPageAvailability("https://instamart.ru/about");
+        assertPageAvailability("https://instamart.ru/delivery");
+        assertPageAvailability("https://instamart.ru/rules");
+        assertPageAvailability("https://instamart.ru/payment");
+        assertPageAvailability("https://instamart.ru/faq");
+        assertPageAvailability("https://instamart.ru/terms");
+        assertPageAvailability("https://instamart.ru/contacts");
     }
 
     @Test
@@ -87,39 +79,39 @@ public class SmokeTest extends TestBase {
     // TODO добавить чек лендингов циклом по списку
     // TODO забирать список лендингов из БД или из админки
     public void checkPartnerLandings() throws Exception {
-        app.getNavigationHelper().getMnogoruLandingPage();
-        assertPageAvailability();
+        //app.getNavigationHelper().getMnogoruLandingPage();
+        assertPageAvailability("https://instamart.ru/mnogoru");
     }
 
     @Test
     // чекаем корневые страницы админки
     // TODO добавить чек лендингов циклом по списку
     public void checkAdminPages() throws Exception {
-        app.getNavigationHelper().getAdminPage("shipments");
-        assertPageAvailability();
-        app.getNavigationHelper().getAdminPage("retailers");
-        assertPageAvailability();
-        app.getNavigationHelper().getAdminPage("products");
-        assertPageAvailability();
-        app.getNavigationHelper().getAdminPage("imports");
-        assertPageAvailability();
-        app.getNavigationHelper().getAdminPage("reports");
-        assertPageAvailability();
-        app.getNavigationHelper().getAdminPage("general_settings/edit");
-        assertPageAvailability();
-        app.getNavigationHelper().getAdminPage("promo_cards");
-        assertPageAvailability();
-        app.getNavigationHelper().getAdminPage("users");
-        assertPageAvailability();
-        app.getNavigationHelper().getAdminPage("pages");
-        assertPageAvailability();
+        //app.getNavigationHelper().getAdminPage("shipments");
+        assertPageAvailability("https://instamart.ru/admin/shipments");
+        //app.getNavigationHelper().getAdminPage("retailers");
+        assertPageAvailability("https://instamart.ru/admin/retailers");
+        //app.getNavigationHelper().getAdminPage("products");
+        assertPageAvailability("https://instamart.ru/admin/products");
+        //app.getNavigationHelper().getAdminPage("imports");
+        assertPageAvailability("https://instamart.ru/admin/imports");
+        //app.getNavigationHelper().getAdminPage("reports");
+        assertPageAvailability("https://instamart.ru/admin/reports");
+        //app.getNavigationHelper().getAdminPage("general_settings/edit");
+        assertPageAvailability("https://instamart.ru/admin/general_settings/edit");
+        //app.getNavigationHelper().getAdminPage("promo_cards");
+        assertPageAvailability("https://instamart.ru/admin/promo_cards");
+        //app.getNavigationHelper().getAdminPage("users");
+        assertPageAvailability("https://instamart.ru/admin/users");
+        //app.getNavigationHelper().getAdminPage("pages");
+        assertPageAvailability("https://instamart.ru/admin/pages");
     }
 
     @Test
     // логаут
     public void logout() throws Exception {
         app.getAuthorisationHelper().doLogout();
-        assertPageAvailability();
+        //assertPageAvailability();
     }
 
 }
