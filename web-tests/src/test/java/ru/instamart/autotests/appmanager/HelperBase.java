@@ -29,7 +29,7 @@ public class HelperBase {
         // ввод текста в поле
         driver.findElement(locator).sendKeys(text);
     }
-    
+
     public String currentURL(){
         return driver.getCurrentUrl();
     }

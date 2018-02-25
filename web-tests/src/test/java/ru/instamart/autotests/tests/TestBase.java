@@ -22,16 +22,37 @@ public class TestBase {
     }
 
     /**
-     * Method gets given URL and checks that reached URL is equal to target one
-     * Also method checks that page on reached URL is not 404 or 500
+     * Check that current page is not 404 or 500
      */
+    protected void assertPageAvailability() throws AssertionError{
+        String currentURL = app.getNavigationHelper().currentURL();
+        Assert.assertFalse(app.getErrorPageHelper().its404(),"Page " + currentURL + " is 404" + "\n");
+        Assert.assertFalse(app.getErrorPageHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
+    }
 
-    protected void assertPageAvailability(String URL) {
+    /**
+     * Get given URL and check that reached page is equal to target one
+     * Then check that reached page is not 404 or 500
+     */
+    protected void getPageAndAssertAvailability(String URL) throws AssertionError{
         String targetURL = URL;
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();
-        Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Target URL " + targetURL + " was not reached! Reached URL is " + currentURL + "\n");
-        Assert.assertFalse(app.getErrorPageHelper().its404(),"It's 404 on page " + currentURL+ "\n");
+        Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target " + targetURL + "\n");
+        Assert.assertFalse(app.getErrorPageHelper().its404(),"Page " + currentURL + " is 404" + "\n");
+        Assert.assertFalse(app.getErrorPageHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
+    }
+
+    /**
+     * Get given URL and check that reached page is equal to target one
+     * Then check that reached page is 404
+     */
+    protected void getPageAndAssertIts404(String URL) throws AssertionError{
+        String targetURL = URL;
+        app.getNavigationHelper().getUrl(targetURL);
+        String currentURL = app.getNavigationHelper().currentURL();
+        Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target " + targetURL + "\n");
+        Assert.assertTrue(app.getErrorPageHelper().its404(),"Page " + currentURL + " is not 404" + "\n");
         Assert.assertFalse(app.getErrorPageHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
     }
 
