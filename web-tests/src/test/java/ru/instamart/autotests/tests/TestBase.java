@@ -24,10 +24,20 @@ public class TestBase {
     /**
      * Check that current page is not 404 or 500
      */
-    protected void assertPageAvailability() throws AssertionError{
+    protected void assertPageIsAvailable() throws AssertionError{
         String currentURL = app.getNavigationHelper().currentURL();
         Assert.assertFalse(app.getErrorPageHelper().its404(),"Page " + currentURL + " is 404" + "\n");
         Assert.assertFalse(app.getErrorPageHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
+    }
+
+    /**
+     * Check that current page is not 404 or 500
+     */
+    protected void assertPageIsUnreachable(String URL) throws AssertionError{
+        String targetURL = URL;
+        app.getNavigationHelper().getUrl(targetURL);
+        String currentURL = app.getNavigationHelper().currentURL();
+        Assert.assertFalse(targetURL.equalsIgnoreCase(currentURL), "It is possible to get page " + currentURL + " while it has to be unreachable" + "\n");
     }
 
     /**

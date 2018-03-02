@@ -21,10 +21,10 @@ public class SmokeTest extends TestBase {
         // идем и чекаем лендинг
         getPageAndAssertAvailability("https://instamart.ru/");
         // проверка на авторизованность
-        if (app.getAuthorisationHelper().userIsAuthorised) {
-            app.getAuthorisationHelper().doLogout();
-            app.getNavigationHelper().getLandingPage();
-        }
+        //if (app.getAuthorisationHelper().userIsAuthorised) {
+        //    app.getAuthorisationHelper().doLogout();
+        //    app.getNavigationHelper().getLandingPage();
+       // }
         // логинимся
         app.getAuthorisationHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7"));
         // проверяем что авторизованы
@@ -39,15 +39,19 @@ public class SmokeTest extends TestBase {
     public void checkRetailerPages() throws Exception {
         getPageAndAssertAvailability("https://instamart.ru/metro");
         getPageAndAssertAvailability("https://instamart.ru/lenta");
-        getPageAndAssertAvailability("https://instamart.ru/selgros");
+
+        // неактивный ритейлер
+        getPageAndAssertIts404("https://instamart.ru/selgros");
+
         getPageAndAssertAvailability("https://instamart.ru/vkusvill");
         getPageAndAssertAvailability("https://instamart.ru/karusel");
     }
 
     @Test
-    // чекаем чекаут
-    public void checkCheckoutPage() throws Exception {
-        getPageAndAssertAvailability("https://instamart.ru/checkout/edit?");
+    // чекаем недоступность пустого чекаута при ненабранной корзине
+    public void emptyCheckoutIsUnreachable() throws Exception {
+        // TODO добавить проверку на текущую сумму корзины и если она выше суммы минимального заказа - очищать корзину
+        assertPageIsUnreachable("https://instamart.ru/checkout/edit?");
     }
 
     @Test
@@ -94,15 +98,13 @@ public class SmokeTest extends TestBase {
         getPageAndAssertAvailability("https://instamart.ru/admin/promo_cards");
         getPageAndAssertAvailability("https://instamart.ru/admin/users");
         getPageAndAssertAvailability("https://instamart.ru/admin/pages");
-        //brokenpage
-        getPageAndAssertAvailability("https://instamart.ru/admin/pagez");
     }
 
     @Test
     // логаут
     public void logout() throws Exception {
         app.getAuthorisationHelper().doLogout();
-        assertPageAvailability();
+        assertPageIsAvailable();
     }
 
 }

@@ -4,8 +4,8 @@ import org.openqa.selenium.*;
 
 
 
-// базовый класс хелперов
-// тут базовые методы взаимодейсвия с тестируемой системой
+// Базовый класс хелперов
+// Содержит базовые методы взаимодейсвия с тестируемой системой
 
 
 
@@ -29,15 +29,12 @@ public class HelperBase {
 
     /** Fill the form field with a given text */
     protected void fillField(By locator, String text) {
-        // клик по полю ввода
         click(locator);
-        // очистка поля ввода
         driver.findElement(locator).clear();
-        // ввод текста в поле
         driver.findElement(locator).sendKeys(text);
     }
 
-    /** Get the URL of a current page */
+    /** Get the URL of the current page */
     public String currentURL(){
         return driver.getCurrentUrl();
     }
