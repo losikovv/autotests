@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.models.RetailerData;
 import ru.instamart.autotests.models.UserData;
 
-public class TestAuthorisation extends TestBase {
+public class AuthorisationTest extends TestBase {
 
     @Test
     // тест успешной авторизации на лендинге

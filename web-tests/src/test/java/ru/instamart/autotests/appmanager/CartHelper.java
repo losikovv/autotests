@@ -15,7 +15,7 @@ public class CartHelper extends HelperBase {
 
 
     /** Метод, определяющий открыта ли корзина */
-    public boolean isCartOpen(){
+    public boolean cartIsOpen(){
         if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div"))) {
             return true;
         }

@@ -15,7 +15,6 @@ public class SmokeTest extends TestBase {
 
 
     @Test
-    // авторизуемся
     public void authorisation() throws Exception {
 
         // идем и чекаем лендинг
