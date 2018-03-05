@@ -19,15 +19,15 @@ public class SmokeTest extends TestBase {
 
         // идем и чекаем лендинг
         getPageAndAssertAvailability("https://instamart.ru/");
-        // проверка на авторизованность
-        //if (app.getAuthorisationHelper().userIsAuthorised) {
+        //  проверка на авторизованность
+        //  if (app.getAuthorisationHelper().userIsAuthorised) {
         //    app.getAuthorisationHelper().doLogout();
         //    app.getNavigationHelper().getLandingPage();
-       // }
+        //  }
         // логинимся
         app.getAuthorisationHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7"));
         // проверяем что авторизованы
-        Assert.assertTrue(app.getAuthorisationHelper().userIsAuthorised());
+        Assert.assertTrue(app.getAuthorisationHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
     }
 
     @Test
@@ -48,7 +48,7 @@ public class SmokeTest extends TestBase {
 
     @Test
     // чекаем недоступность пустого чекаута при ненабранной корзине
-    public void emptyCheckoutIsUnreachable() throws Exception {
+    public void emptyCheckoutUnreachable() throws Exception {
         // TODO добавить проверку на текущую сумму корзины и если она выше суммы минимального заказа - очищать корзину
         assertPageIsUnreachable("https://instamart.ru/checkout/edit?");
     }

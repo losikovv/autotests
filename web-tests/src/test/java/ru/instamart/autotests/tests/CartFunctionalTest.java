@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.models.UserData;
 
-public class CartFunctionalityTest extends TestBase{
+public class CartFunctionalTest extends TestBase{
 
     @Test
     public void authorisation() throws Exception {
@@ -13,7 +13,7 @@ public class CartFunctionalityTest extends TestBase{
         // логинимся
         app.getAuthorisationHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7"));
         // проверяем что авторизованы
-        Assert.assertTrue(app.getAuthorisationHelper().userIsAuthorised());
+        Assert.assertTrue(app.getAuthorisationHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
     }
 
     @Test
@@ -22,7 +22,7 @@ public class CartFunctionalityTest extends TestBase{
             app.getCartHelper().closeCart();
         }
         app.getCartHelper().openCart();
-        Assert.assertTrue(app.getCartHelper().cartIsOpen(), "Can't open cart");
+        Assert.assertTrue(app.getCartHelper().cartIsOpen(), "Can't open shopping cart"+"\n");
     }
 
     @Test
@@ -31,16 +31,16 @@ public class CartFunctionalityTest extends TestBase{
             app.getCartHelper().openCart();
         }
         app.getCartHelper().closeCart();
-        Assert.assertFalse(app.getCartHelper().cartIsOpen(), "Can't close cart");
+        Assert.assertFalse(app.getCartHelper().cartIsOpen(), "Can't close shopping cart"+"\n");
     }
 
     @Test
-    public void emptyCart()throws Exception {
+    public void shownPlaceholderInEmptyCart()throws Exception {
         if (!app.getCartHelper().cartIsOpen()) {
             app.getCartHelper().openCart();
         }
-        // TODO добавить проверку на наличие товаров в корзине и если нет - очищать корзину
-        Assert.assertTrue(app.getCartHelper().isCartEmpty(), "There is no placeholder in empty cart");
+        // TODO добавить проверку на наличие товаров в корзине и если нет - очищать корзину методом clearCart
+        Assert.assertTrue(app.getCartHelper().isCartEmpty(), "There is no placeholder in an empty shopping cart"+"\n");
     }
 
 }

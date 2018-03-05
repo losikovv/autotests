@@ -18,8 +18,7 @@ public class CartHelper extends HelperBase {
     public boolean cartIsOpen(){
         if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div"))) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -35,11 +34,21 @@ public class CartHelper extends HelperBase {
     }
 
     /** Метод, определяющий пуста ли корзина */
+    // TODO переписать метод, определяя сумму корзины, а не по плейсхолдеру
     public boolean isCartEmpty(){
         if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div"))) {
             return true;
+        } else {
+            return false;
         }
-        else {
+    }
+
+    /** Метод, определяющий пуста ли корзина */
+    // TODO переписать метод, определяя сумму корзины, а не по плейсхолдеру
+    public boolean isPlaceholderShown(){
+        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div"))) {
+            return true;
+        } else {
             return false;
         }
     }
@@ -53,6 +62,8 @@ public class CartHelper extends HelperBase {
     public void deleteItem(int itemPosition){
         click(By.xpath("*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div/div[2]/span/div[" + itemPosition + "]/div/div/div[1]/div[2]/div[2]"));
     }
+
+    // TODO isCheckoutButtonActive - активна ли кнопка перехода в чекаут
 
     // TODO clearCart - очистить корзину (удалить все товары)
 
