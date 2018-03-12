@@ -3,8 +3,8 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class CartHelper extends HelperBase {
-    public CartHelper(WebDriver driver) {
+public class ShoppingCartHelper extends HelperBase {
+    public ShoppingCartHelper(WebDriver driver) {
         super(driver);
     }
 

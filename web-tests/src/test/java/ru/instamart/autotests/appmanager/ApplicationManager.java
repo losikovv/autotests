@@ -20,10 +20,10 @@ public class ApplicationManager {
     // объявление переменных хелперов
     private NavigationHelper navigationHelper;
     private ErrorPageHelper errorPageHelper;
-    private AuthorisationHelper authorisationHelper;
-    private RegistrationHelper registrationHelper;
-    private AddressHelper addressHelper;
-    private CartHelper cartHelper;
+    private SessionHelper sessionHelper;
+    private ShoppingHelper shoppingHelper;
+    private ShippingAddressHelper shippingAddressHelper;
+    private ShoppingCartHelper shoppingCartHelper;
     private CheckoutHelper checkoutHelper;
     private ProfileHelper profileHelper;
 
@@ -56,10 +56,10 @@ public class ApplicationManager {
         // инициализация хелперов
         navigationHelper = new NavigationHelper(driver);
         errorPageHelper = new ErrorPageHelper(driver);
-        authorisationHelper = new AuthorisationHelper(driver);
-        registrationHelper = new RegistrationHelper(driver);
-        addressHelper = new AddressHelper(driver);
-        cartHelper = new CartHelper(driver);
+        sessionHelper = new SessionHelper(driver);
+        shoppingHelper = new ShoppingHelper(driver);
+        shippingAddressHelper = new ShippingAddressHelper(driver);
+        shoppingCartHelper = new ShoppingCartHelper(driver);
         checkoutHelper = new CheckoutHelper(driver);
         profileHelper = new ProfileHelper(driver);
     }
@@ -81,20 +81,20 @@ public class ApplicationManager {
         return errorPageHelper;
     }
 
-    public AuthorisationHelper getAuthorisationHelper() {
-        return authorisationHelper;
+    public SessionHelper getSessionHelper() {
+        return sessionHelper;
     }
 
-    public RegistrationHelper getRegistrationHelper() {
-        return registrationHelper;
+    public ShoppingHelper getShoppingHelper() {
+        return shoppingHelper;
     }
 
-    public AddressHelper getAddressHelper() {
-        return addressHelper;
+    public ShippingAddressHelper getShippingAddressHelper() {
+        return shippingAddressHelper;
     }
 
-    public CartHelper getCartHelper() {
-        return cartHelper;
+    public ShoppingCartHelper getShoppingCartHelper() {
+        return shoppingCartHelper;
     }
 
     public CheckoutHelper getCheckoutHelper() {

@@ -20,14 +20,14 @@ public class SmokeTest extends TestBase {
         // идем и чекаем лендинг
         getPageAndAssertAvailability("https://instamart.ru/");
         //  проверка на авторизованность
-        //  if (app.getAuthorisationHelper().userIsAuthorised) {
-        //    app.getAuthorisationHelper().doLogout();
+        //  if (app.getSessionHelper().userIsAuthorised) {
+        //    app.getSessionHelper().doLogout();
         //    app.getNavigationHelper().getLandingPage();
         //  }
         // логинимся
-        app.getAuthorisationHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7"));
+        app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7"));
         // проверяем что авторизованы
-        Assert.assertTrue(app.getAuthorisationHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
+        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
     }
 
     @Test
@@ -102,7 +102,7 @@ public class SmokeTest extends TestBase {
     @Test
     // логаут
     public void logout() throws Exception {
-        app.getAuthorisationHelper().doLogout();
+        app.getSessionHelper().doLogout();
         assertPageIsAvailable();
     }
 

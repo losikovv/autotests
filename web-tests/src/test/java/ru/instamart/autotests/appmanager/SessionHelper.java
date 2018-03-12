@@ -4,11 +4,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.UserData;
 
-public class AuthorisationHelper extends HelperBase {
+public class SessionHelper extends HelperBase {
 
-    public AuthorisationHelper(WebDriver driver) {
+    public SessionHelper(WebDriver driver) {
         super(driver);
     }
+
+    public void doRegistrationOnLandingPage(UserData userData) {
+
+        // TODO regNewUser - метод регистрации
+        // TODO имена юзеров генерить со стандартным префиксом + рандомной строкой
+        // TODO autotestX14Y07LM@instamart.ru
+
+        // TODO юзера autotest@instamart.ru зарезервировать для автотестов и не трогать
+    }
+
+
 
     public void doLogin(UserData userData) {
         if (itsOnLandingPage()) {

@@ -2,8 +2,8 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
 
-public class AddressHelper extends HelperBase {
-    public AddressHelper(WebDriver driver) {
+public class ShippingAddressHelper extends HelperBase {
+    public ShippingAddressHelper(WebDriver driver) {
         super(driver);
     }
 

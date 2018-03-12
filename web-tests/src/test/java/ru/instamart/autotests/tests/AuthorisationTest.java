@@ -13,16 +13,16 @@ public class AuthorisationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // проверка на авторизованность
-        if (app.getAuthorisationHelper().userIsAuthorised) {
-            app.getAuthorisationHelper().doLogout();
+        if (app.getSessionHelper().userIsAuthorised) {
+            app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }
         // логинимся на лендинге
-        app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
+        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
         // проверяем что авторизованы
-        Assert.assertTrue(app.getAuthorisationHelper().userIsAuthorised());
+        Assert.assertTrue(app.getSessionHelper().userIsAuthorised());
         // разлогиниваемся
-        app.getAuthorisationHelper().doLogout();
+        app.getSessionHelper().doLogout();
     }
 
     @Test
@@ -31,16 +31,16 @@ public class AuthorisationTest extends TestBase {
         // идем на витрину ретейлера
         app.getNavigationHelper().getRetailerPage(new RetailerData("vkusvill"));
         // проверка на авторизованность
-        if (app.getAuthorisationHelper().userIsAuthorised) {
-            app.getAuthorisationHelper().doLogout();
+        if (app.getSessionHelper().userIsAuthorised) {
+            app.getSessionHelper().doLogout();
             app.getNavigationHelper().getRetailerPage(new RetailerData("vkusvill"));
         }
         // логинимся на витрине
-        app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
+        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
         // проверяем что авторизованы
-        Assert.assertTrue(app.getAuthorisationHelper().userIsAuthorised());
+        Assert.assertTrue(app.getSessionHelper().userIsAuthorised());
         // разлогиниваемся
-        app.getAuthorisationHelper().doLogout();
+        app.getSessionHelper().doLogout();
     }
 
     @Test
@@ -49,14 +49,14 @@ public class AuthorisationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // проверка на авторизованность
-        if (app.getAuthorisationHelper().userIsAuthorised) {
-            app.getAuthorisationHelper().doLogout();
+        if (app.getSessionHelper().userIsAuthorised) {
+            app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }
         // логинимся на лендинге
-        app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", "wrongpassword"));
+        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "wrongpassword"));
         // проверяем что неавторизованы
-        Assert.assertFalse(app.getAuthorisationHelper().userIsAuthorised());
+        Assert.assertFalse(app.getSessionHelper().userIsAuthorised());
     }
 
     @Test
@@ -65,14 +65,14 @@ public class AuthorisationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // проверка на авторизованность
-        if (app.getAuthorisationHelper().userIsAuthorised) {
-            app.getAuthorisationHelper().doLogout();
+        if (app.getSessionHelper().userIsAuthorised) {
+            app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }
         // логинимся на лендинге
-        app.getAuthorisationHelper().doLogin(new UserData("instatestuser@yandex.ru", ""));
+        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", ""));
         // проверяем что неавторизованы
-        Assert.assertFalse(app.getAuthorisationHelper().userIsAuthorised());
+        Assert.assertFalse(app.getSessionHelper().userIsAuthorised());
     }
 
     @Test
@@ -81,14 +81,14 @@ public class AuthorisationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // проверка на авторизованность
-        if (app.getAuthorisationHelper().userIsAuthorised) {
-            app.getAuthorisationHelper().doLogout();
+        if (app.getSessionHelper().userIsAuthorised) {
+            app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }
         // логинимся на лендинге
-        app.getAuthorisationHelper().doLogin(new UserData("", "instamart"));
+        app.getSessionHelper().doLogin(new UserData("", "instamart"));
         // проверяем что неавторизованы
-        Assert.assertFalse(app.getAuthorisationHelper().userIsAuthorised());
+        Assert.assertFalse(app.getSessionHelper().userIsAuthorised());
     }
 
 }
