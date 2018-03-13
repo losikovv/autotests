@@ -15,31 +15,48 @@ public class NavigationHelper extends HelperBase {
 
 
 
-    // переход по свободному URL
-    public void getUrl(String url) {driver.get(url);}
-
-
+    /** Simply get given URL */
+    public void getUrl(String url) {
+        driver.get(url);
+    }
 
     // САЙТ
 
     // переход на страницу сайта
-    public void getPage(String pageName) {driver.get(baseUrl + pageName);}
+    public void getPage(String pageName) {
+        getUrl(baseUrl + pageName);
+    }
 
     // переход на витрину ретейлера
-    public void getRetailerPage(RetailerData retailerData) { driver.get(baseUrl + retailerData.getName()); }
+    public void getRetailerPage(RetailerData retailerData) {
+        getUrl(baseUrl + retailerData.getName());
+    }
 
     // переход на страницу чекаута
-    public void getCheckoutPage() { driver.get(baseUrl + "checkout/edit?"); }
+    public void getCheckoutPage() {
+        getUrl(baseUrl + "checkout/edit?");
+    }
 
     // переходы на лендинги
-    public void getLandingPage() { driver.get(baseUrl); }
-    public void getMnogoruLandingPage() {driver.get(baseUrl + "mnogoru"); }
+    public void getLandingPage() {
+        getUrl(baseUrl);
+    }
+
+    public void getMnogoruLandingPage() {
+        getUrl(baseUrl + "mnogoru");
+    }
 
 
 
     // АДМИНКА
 
     // переход на страницу админки
-    public void getAdminPage(String pageName) {driver.get(baseUrl + "admin/" + pageName);}
+    public void getAdminPage(String pageName) {
+        getUrl(baseUrl + "admin/" + pageName);
+    }
+
+    public  void getAdminOrderPage(String orderNumber){
+        getUrl(baseUrl + "admin/orders/" + orderNumber + "/edit");
+    }
 
 }

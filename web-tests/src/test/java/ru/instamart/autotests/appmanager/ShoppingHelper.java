@@ -1,7 +1,10 @@
 package ru.instamart.autotests.appmanager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.UserData;
+
+import javax.xml.xpath.XPath;
 
 public class ShoppingHelper extends HelperBase {
 
@@ -10,15 +13,43 @@ public class ShoppingHelper extends HelperBase {
     }
 
     public void catalog(){
-
         // TODO
-
     }
 
     public void addToCart(){
-
         // TODO
+    }
 
+    public void cancelOrderFromSite(String orderNumber){
+        // TODO
+    }
+
+    /** Find out if the order is canceled or not */
+    public boolean orderIsCanceled() {
+        String XPATH = "//*[@id='content']/div/table/tbody/tr[3]/td/b";
+        if (isElementPresent(By.xpath(XPATH))){
+            return getText(By.xpath(XPATH)).equals("ЗАКАЗ ОТМЕНЕН");
+        } else {
+            return false;
+        }
+    }
+
+    public void cancelOrder(){
+        // click cancel button
+        click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
+        // accept order cancellation alert
+        closeAlertAndGetItsText();
+        // fill order cancellation reason form
+        fillField(By.name("cancellation[reason]"),"Тестовый заказ");
+        // click confirmation button
+        click(By.xpath("//*[@id='new_cancellation']/fieldset/div[2]/button"));
+    }
+
+    public void resumeOrder(){
+        // click resume button
+        click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
+        // accept order resume alert
+        closeAlertAndGetItsText();
     }
 
 }

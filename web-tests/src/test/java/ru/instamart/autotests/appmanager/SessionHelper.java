@@ -10,16 +10,37 @@ public class SessionHelper extends HelperBase {
         super(driver);
     }
 
-    public void doRegistrationOnLandingPage(UserData userData) {
 
-        // TODO regNewUser - метод регистрации
-        // TODO имена юзеров генерить со стандартным префиксом + рандомной строкой
-        // TODO autotestX14Y07LM@instamart.ru
 
-        // TODO юзера autotest@instamart.ru зарезервировать для автотестов и не трогать
+    /**  Session helper for handling user registration, login and logout
+     *   User autotest@instamart.ru is reserved for autotests */
+
+
+
+    public void generateUserData(){
+        // TODO имена юзеров генерить со стандартным префиксом + рандомной строкой. Пример - autotestX14Y07LM@example.com
+        // TODO пароль использовать везде одинаковый
     }
 
+    public void regUser(UserData userData) {
+        if (itsOnLandingPage()) {
+            regUserOnLandingPage(userData);
+        } else {
+            regUserOnRetailerPage(userData);
+        }
+    }
 
+    public void regUserOnLandingPage(UserData userData){
+        // клик по кнопке Вход
+        click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
+        // TODO
+    }
+
+    public void regUserOnRetailerPage(UserData userData){
+        // клик по кнопке Вход
+        click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/button"));
+        // TODO
+    }
 
     public void doLogin(UserData userData) {
         if (itsOnLandingPage()) {

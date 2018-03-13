@@ -35,7 +35,7 @@ public class ShoppingCartFunctionalTest extends TestBase{
     }
 
     @Test
-    public void shownPlaceholderInEmptyCart()throws Exception {
+    public void showEmptyCartPlaceholder()throws Exception {
         if (!app.getShoppingCartHelper().cartIsOpen()) {
             app.getShoppingCartHelper().openCart();
         }
