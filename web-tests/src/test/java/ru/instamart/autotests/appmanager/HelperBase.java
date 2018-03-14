@@ -23,6 +23,11 @@ public class HelperBase {
         this.driver = driver;
     }
 
+    /** Simply get a given URL */
+    public void getUrl(String url) {
+        driver.get(url);
+    }
+
     /** Click an element on the page */
     protected void click(By locator) {
         driver.findElement(locator).click();
@@ -40,7 +45,7 @@ public class HelperBase {
         return driver.getCurrentUrl();
     }
 
-    /** Get the text of an element */
+    /** Get text of the element */
     protected String getText(By locator) {
         return driver.findElement(locator).getText();
     }
@@ -81,7 +86,21 @@ public class HelperBase {
         }
     }
 
-    /** Find out if the user is athorised or not */
+    /** Method returns true if the user is on landing page and false if he isn't */
+    public boolean itsOnLandingPage() {
+        return currentURL().equals(baseUrl);
+    }
+
+    /** Method returns true if the user is on retailer page and false if he isn't */
+    public boolean itsOnRetailerPage() {
+        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[2]"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /** Method returns true if user is authorised and false if he isn't */
     // TODO перенести в authorisation helper
     public boolean userIsAuthorised() {
         if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"))) {
@@ -91,7 +110,7 @@ public class HelperBase {
         }
     }
 
-    /** Find out if the user is on site or not */
+    /** Method returns true if user is on site and false if he isn't */
     public boolean itsOnSite() {
         if (isElementPresent(By.xpath(" //*[@id='new-home-footer']"))) {
             return true;
@@ -100,30 +119,7 @@ public class HelperBase {
         }
     }
 
-    /** Find out if the user is on landing page or not */
-    // TODO перенести в navigation helper
-    public boolean itsOnLandingPage() {
-       return currentURL().equals(baseUrl);
-       //"https://instamart.ru/"
-       // String XPATH = "/html/body/a[1]/div";
-       // if (isElementPresent(By.xpath(XPATH))) {
-       //     return getText(By.xpath(XPATH)).equals("Попробуйте сегодня и получите бесплатную доставку первого заказа!") ;
-       // } else {
-        //    return false;
-       // }
-    }
-
-    /** Find out if the user is on retailer page or not */
-    // TODO перенести в navigation helper
-    public boolean itsOnRetailerPage() {
-        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[2]"))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /** Find out if the user is in administration panel or not */
+    /** Method returns true if user is in the admin panel and false if he isn't */
     public boolean itsInAdmin() {
         if (isElementPresent(By.xpath("//*[@id='login-nav']/li[3]/a"))) {
             return true;
@@ -132,7 +128,7 @@ public class HelperBase {
         }
     }
 
-    /** Find out if its 404 on the page */
+    /** Method returns true if it's 404 on the page and false if it's not */
     public boolean its404() {
         String XPATH = "/html/body/div[3]/div/div/div/div[1]/div/div[1]";
         if (isElementPresent(By.xpath(XPATH))) {
@@ -142,7 +138,7 @@ public class HelperBase {
         }
     }
 
-    /** Find out if its something wrong on the page */
+    /** Method returns true if it's something wrong on the page and false if it's ok */
     public boolean itsSomethingWrong() {
         String XPATH = "/html/body/div/h1";
         if (isElementPresent(By.xpath(XPATH))) {

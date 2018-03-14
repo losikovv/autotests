@@ -15,11 +15,6 @@ public class NavigationHelper extends HelperBase {
 
 
 
-    /** Simply get given URL */
-    public void getUrl(String url) {
-        driver.get(url);
-    }
-
     // САЙТ
 
     // переход на страницу сайта
