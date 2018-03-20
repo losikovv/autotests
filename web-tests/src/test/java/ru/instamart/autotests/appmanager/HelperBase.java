@@ -33,12 +33,16 @@ public class HelperBase {
         driver.findElement(locator).click();
     }
 
-    /** Fill the form field with a given text */
+    /** Fill the form field with a given text, which may be null
+     * Method skips filling if the field is already have same text */
     protected void fillField(By locator, String text) {
         click(locator);
         if (text != null) {
+            String existingText =   driver.findElement(locator).getAttribute("value");
+            if (! text.equals(existingText)) {
             driver.findElement(locator).clear();
             driver.findElement(locator).sendKeys(text);
+            }
         }
     }
 

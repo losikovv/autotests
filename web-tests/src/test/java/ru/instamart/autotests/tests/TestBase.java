@@ -6,7 +6,12 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import ru.instamart.autotests.appmanager.ApplicationManager;
 
-// базовый класс тестов
+
+
+    /** Tests base class */
+
+
+
 public class TestBase {
 
     protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
