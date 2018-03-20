@@ -18,7 +18,7 @@ public class AuthorisationTest extends TestBase {
             app.getNavigationHelper().getLandingPage();
         }
         // логинимся на лендинге
-        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
+        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart", null));
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().userIsAuthorised());
         // разлогиниваемся
@@ -36,7 +36,7 @@ public class AuthorisationTest extends TestBase {
             app.getNavigationHelper().getRetailerPage(new RetailerData("vkusvill"));
         }
         // логинимся на витрине
-        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
+        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart", null));
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().userIsAuthorised());
         // разлогиниваемся
@@ -54,7 +54,7 @@ public class AuthorisationTest extends TestBase {
             app.getNavigationHelper().getLandingPage();
         }
         // логинимся на лендинге
-        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "wrongpassword"));
+        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "wrongpassword", null));
         // проверяем что неавторизованы
         Assert.assertFalse(app.getSessionHelper().userIsAuthorised());
     }
@@ -70,7 +70,7 @@ public class AuthorisationTest extends TestBase {
             app.getNavigationHelper().getLandingPage();
         }
         // логинимся на лендинге
-        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", ""));
+        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "", null));
         // проверяем что неавторизованы
         Assert.assertFalse(app.getSessionHelper().userIsAuthorised());
     }
@@ -86,7 +86,7 @@ public class AuthorisationTest extends TestBase {
             app.getNavigationHelper().getLandingPage();
         }
         // логинимся на лендинге
-        app.getSessionHelper().doLogin(new UserData("", "instamart"));
+        app.getSessionHelper().doLogin(new UserData("", "instamart", null));
         // проверяем что неавторизованы
         Assert.assertFalse(app.getSessionHelper().userIsAuthorised());
     }

@@ -13,7 +13,7 @@ public class OrderCancellationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // логинимся
-        app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7"));
+        app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7", null));
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
         // get order page in admin

@@ -12,7 +12,7 @@ public class OrderResumeTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // логинимся
-        app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7"));
+        app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7", null));
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
         // идем на страницу заказа в админке

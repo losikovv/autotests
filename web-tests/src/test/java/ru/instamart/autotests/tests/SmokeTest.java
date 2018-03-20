@@ -20,7 +20,7 @@ public class SmokeTest extends TestBase {
         // идем и чекаем лендинг
         getAndAssertPageIsAvailable("https://instamart.ru/");
         // логинимся
-        app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7"));
+        app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7", null));
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
     }

@@ -11,7 +11,7 @@ public class ShoppingCartFunctionalTest extends TestBase{
         // идем и чекаем витрину Метро
         getAndAssertPageIsAvailable("https://instamart.ru/metro");
         // логинимся
-        app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7"));
+        app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7", null));
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
     }
