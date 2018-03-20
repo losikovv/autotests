@@ -1,5 +1,6 @@
 package ru.instamart.autotests.appmanager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.RetailerData;
 
@@ -12,8 +13,8 @@ public class NavigationHelper extends HelperBase {
 
 
     // хелпер навигации
-    // методы getPage просто переходят по базовому URL + название страницы
-    // методы goTo для попадания на целевую страницу совершают цепочку фвктических переходов по страницам
+    // методы get... совержают переход по заданному URL
+    // методы go... совершают цепочку переходов по UI
 
 
 
@@ -34,6 +35,11 @@ public class NavigationHelper extends HelperBase {
         getUrl(baseUrl + "checkout/edit?");
     }
 
+    // переход в профиль
+    public void getProfilePage()  {
+        getUrl(baseUrl + "user/edit");
+    }
+
     // переходы на лендинги
     public void getLandingPage() {
         getUrl(baseUrl);
@@ -43,7 +49,17 @@ public class NavigationHelper extends HelperBase {
         getUrl(baseUrl + "mnogoru");
     }
 
-
+    public void goToProfile() {
+        // только для авторизованного
+        // клик по кнопке Профиль
+        click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"));
+        // клик по кнопке Профиль
+        click(By.linkText("Профиль"));
+    }
+    public void goToHome() {
+        // клик по кнопке Главная
+        click(By.linkText("Главная"));
+    }
 
     // АДМИНКА
 

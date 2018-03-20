@@ -109,7 +109,10 @@ public class HelperBase {
     /** Method returns true if user is authorised and false if he isn't */
     // TODO перенести в authorisation helper
     public boolean userIsAuthorised() {
-        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"))) {
+        // проверяем наличие на странице кнопки "Профиль" по xpath
+         if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"))) {
+        // проверяем наличие на странице кнопки "Профиль" по тексту ссылки
+        //if (isElementPresent(By.linkText("Профиль"))) {
             return true;
         } else {
             return false;
