@@ -12,6 +12,8 @@ public class NavigationHelper extends HelperBase {
 
 
     // хелпер навигации
+    // методы getPage просто переходят по базовому URL + название страницы
+    // методы goTo для попадания на целевую страницу совершают цепочку фвктических переходов по страницам
 
 
 
@@ -46,11 +48,11 @@ public class NavigationHelper extends HelperBase {
     // АДМИНКА
 
     // переход на страницу админки
-    public void getAdminPage(String pageName) {
+    public void getPageAdmin(String pageName) {
         getUrl(baseUrl + "admin/" + pageName);
     }
 
-    public  void getAdminOrderPage(String orderNumber){
+    public  void getOrderPageAdmin(String orderNumber){
         getUrl(baseUrl + "admin/orders/" + orderNumber + "/edit");
     }
 

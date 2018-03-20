@@ -21,18 +21,14 @@ public class TestBase {
         app.stop();
     }
 
-    /**
-     * Check that current page is not 404 or 500
-     */
+    /** Check that current page is not 404 or 500 */
     protected void assertPageIsAvailable() throws AssertionError{
         String currentURL = app.getNavigationHelper().currentURL();
         Assert.assertFalse(app.getErrorPageHelper().its404(),"Page " + currentURL + " is 404" + "\n");
         Assert.assertFalse(app.getErrorPageHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
     }
 
-    /**
-     * Check that current page is not 404 or 500
-     */
+    /** Check that current page is not reachable */
     protected void assertPageIsUnreachable(String URL) throws AssertionError{
         String targetURL = URL;
         app.getNavigationHelper().getUrl(targetURL);
@@ -44,7 +40,7 @@ public class TestBase {
      * Get given URL and check that reached page is equal to target one
      * Then check that reached page is not 404 or 500
      */
-    protected void getPageAndAssertAvailability(String URL) throws AssertionError{
+    protected void getAndAssertPageIsAvailable(String URL) throws AssertionError{
         String targetURL = URL;
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();
@@ -57,7 +53,7 @@ public class TestBase {
      * Get given URL and check that reached page is equal to target one
      * Then check that reached page is 404
      */
-    protected void getPageAndAssertIts404(String URL) throws AssertionError{
+    protected void getAndAssertPageIs404(String URL) throws AssertionError{
         String targetURL = URL;
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();

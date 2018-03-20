@@ -9,7 +9,7 @@ public class ShoppingCartFunctionalTest extends TestBase{
     @Test
     public void authorisation() throws Exception {
         // идем и чекаем витрину Метро
-        getPageAndAssertAvailability("https://instamart.ru/metro");
+        getAndAssertPageIsAvailable("https://instamart.ru/metro");
         // логинимся
         app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7"));
         // проверяем что авторизованы

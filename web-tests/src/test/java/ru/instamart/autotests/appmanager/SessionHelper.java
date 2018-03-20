@@ -13,7 +13,8 @@ public class SessionHelper extends HelperBase {
 
 
     /**  Session helper for handling user registration, login and logout
-     *   User autotest@instamart.ru is reserved for autotests */
+     *
+     *  User autotest@instamart.ru is reserved for autotests */
 
 
 

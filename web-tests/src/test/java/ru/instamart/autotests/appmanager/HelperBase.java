@@ -28,7 +28,7 @@ public class HelperBase {
         driver.get(url);
     }
 
-    /** Click an element on the page */
+    /** Click an element on the page using a given locator */
     protected void click(By locator) {
         driver.findElement(locator).click();
     }
@@ -36,8 +36,10 @@ public class HelperBase {
     /** Fill the form field with a given text */
     protected void fillField(By locator, String text) {
         click(locator);
-        driver.findElement(locator).clear();
-        driver.findElement(locator).sendKeys(text);
+        if (text != null) {
+            driver.findElement(locator).clear();
+            driver.findElement(locator).sendKeys(text);
+        }
     }
 
     /** Get the URL of the current page */

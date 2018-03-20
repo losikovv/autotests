@@ -11,7 +11,7 @@ public class PageAvailabilityTest extends TestBase {
     @Test
     public void checkPage() throws Exception {
 
-        getPageAndAssertAvailability("https://instamart.ru/metro");
+        getAndAssertPageIsAvailable("https://instamart.ru/metro");
 
     }
 
