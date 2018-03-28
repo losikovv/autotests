@@ -56,7 +56,7 @@ public class NavigationHelper extends HelperBase {
         // клик по кнопке Профиль
         click(By.linkText("Профиль"));
     }
-    public void goToHome() {
+    public void goToHomepage() {
         // клик по кнопке Главная
         click(By.linkText("Главная"));
     }

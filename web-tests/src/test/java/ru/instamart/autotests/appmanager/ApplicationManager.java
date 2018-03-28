@@ -81,9 +81,7 @@ public class ApplicationManager {
         return errorPageHelper;
     }
 
-    public SessionHelper getSessionHelper() {
-        return sessionHelper;
-    }
+    public SessionHelper getSessionHelper() { return sessionHelper; }
 
     public ShoppingHelper getShoppingHelper() {
         return shoppingHelper;

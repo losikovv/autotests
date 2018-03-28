@@ -4,11 +4,13 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.models.UserData;
 
-public class SmokeTest extends TestBase {
+import static ru.instamart.autotests.appmanager.HelperBase.randomSuffix;
+
+public class ContinuousIntegrationTest extends TestBase {
 
 
 
-    // Smoke-test сайта и админки
+    // Тест сайта и админки для CI
     // TODO запилить тестовый набор в TestRail с признаком automated
     // TODO запилить автоматическое создание и заполнение рана в TestRail результатами теста
     // TODO добавить тесты на недоступность админки чувакам без админ прав, в т ч авторизованных через соцсети
@@ -99,6 +101,28 @@ public class SmokeTest extends TestBase {
     public void logout() throws Exception {
         app.getSessionHelper().doLogout();
         assertPageIsAvailable();
+    }
+
+    @Test
+    //регистрация пользователя
+    public void testRegistrationOnLandingPage() throws Exception {
+        // идем на витрину
+        app.getNavigationHelper().getLandingPage();
+        // проверка на авторизованность
+        if (app.getSessionHelper().userIsAuthorised) {
+            app.getSessionHelper().doLogout();
+            app.getNavigationHelper().getLandingPage();
+        }
+        // регаемся
+        app.getSessionHelper().regUser(new UserData("autotest"+randomSuffix()+"@example.com","instamart", "Автотест Юзер"));
+        // идем в профиль
+        app.getNavigationHelper().goToProfile();
+        // идем на главную
+        app.getNavigationHelper().goToHomepage();
+        // проверияем авторизованность
+        //Assert.assertTrue(app.getSessionHelper().userIsAuthorised);
+        // разлогиниваемся
+        app.getSessionHelper().doLogout();
     }
 
 }

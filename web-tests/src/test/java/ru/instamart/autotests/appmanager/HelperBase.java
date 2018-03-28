@@ -1,7 +1,7 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
-
+import java.util.Random;
 
 
 // Базовый класс хелперов
@@ -155,6 +155,17 @@ public class HelperBase {
         } else {
             return false;
         }
+    }
+
+    public static String randomSuffix() {
+        final int LENGTH = 8;
+        String s = "123456789";
+        StringBuffer number = new StringBuffer();
+
+        for (int i = 0; i < LENGTH; i++) {
+            number.append(s.charAt(new Random().nextInt(s.length())));
+        }
+        return number.toString();
     }
 
 }
