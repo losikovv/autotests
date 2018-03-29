@@ -3,7 +3,7 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class ContinuousIntegrationTest extends TestBase {
+public class ContinuousIntegrationTestSet extends TestBase {
 
 
 
@@ -14,6 +14,28 @@ public class ContinuousIntegrationTest extends TestBase {
     // TODO сделать тест-сет с вызовом по порядку нужных тестовых классов, функциональные тесты должны работать независимо друг от друга и запускаться в любом порядке
 
 
+
+    @Test
+    //регистрация пользователя
+    public void registration() throws Exception {
+        // идем на витрину
+        app.getNavigationHelper().getLandingPage();
+        // проверка на авторизованность
+        if (app.getSessionHelper().userIsAuthorised) {
+            app.getSessionHelper().doLogout();
+            app.getNavigationHelper().getLandingPage();
+        }
+        // регаем нового тестового юзера
+        app.getSessionHelper().regNewAutotestUser();
+        // идем в профиль
+        app.getNavigationHelper().goToProfile();
+        // идем на главную
+        app.getNavigationHelper().goToHomepage();
+        // проверияем авторизованность
+        //Assert.assertTrue(app.getSessionHelper().userIsAuthorised);
+        // разлогиниваемся
+        app.getSessionHelper().doLogout();
+    }
 
     @Test
     public void authorisation() throws Exception {
@@ -99,28 +121,6 @@ public class ContinuousIntegrationTest extends TestBase {
     public void logout() throws Exception {
         app.getSessionHelper().doLogout();
         assertPageIsAvailable();
-    }
-
-    @Test
-    //регистрация пользователя
-    public void testRegistrationOnLandingPage() throws Exception {
-        // идем на витрину
-        app.getNavigationHelper().getLandingPage();
-        // проверка на авторизованность
-        if (app.getSessionHelper().userIsAuthorised) {
-            app.getSessionHelper().doLogout();
-            app.getNavigationHelper().getLandingPage();
-        }
-        // регаем нового тестового юзера
-        app.getSessionHelper().regNewAutotestUser();
-        // идем в профиль
-        app.getNavigationHelper().goToProfile();
-        // идем на главную
-        app.getNavigationHelper().goToHomepage();
-        // проверияем авторизованность
-        //Assert.assertTrue(app.getSessionHelper().userIsAuthorised);
-        // разлогиниваемся
-        app.getSessionHelper().doLogout();
     }
 
 }
