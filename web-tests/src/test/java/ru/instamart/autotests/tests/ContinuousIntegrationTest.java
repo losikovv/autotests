@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.models.UserData;
 
-import static ru.instamart.autotests.appmanager.HelperBase.randomSuffix;
+import static ru.instamart.autotests.testdata.RandomDataGenerator.randomSuffix;
 
 public class ContinuousIntegrationTest extends TestBase {
 
@@ -14,6 +14,7 @@ public class ContinuousIntegrationTest extends TestBase {
     // TODO запилить тестовый набор в TestRail с признаком automated
     // TODO запилить автоматическое создание и заполнение рана в TestRail результатами теста
     // TODO добавить тесты на недоступность админки чувакам без админ прав, в т ч авторизованных через соцсети
+    // TODO сделать тест-сет с вызовом по порядку нужных тестовых классов, функциональные тесты должны работать независимо друг от друга и запускаться в любом порядке
 
 
 

@@ -33,6 +33,9 @@ public class SessionHelper extends HelperBase {
         }
     }
 
+    // TODO  public void regAutotestUser() - регистрация юзера с рандомным email и стандартными именем и паролем
+    // TODO встроить ифы в методы regUserOnLandingPage и regUserOnRetailerPage чтобы регался рандомный юзер 
+
     public void regUserOnLandingPage(UserData userData){
         // открываем форму авторизации/регистрации
         click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));

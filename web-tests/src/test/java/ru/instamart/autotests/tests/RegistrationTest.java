@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.models.RetailerData;
 import ru.instamart.autotests.models.UserData;
 
-import static ru.instamart.autotests.appmanager.HelperBase.randomSuffix;
+import static ru.instamart.autotests.testdata.RandomDataGenerator.randomSuffix;
 
 
 public class RegistrationTest extends TestBase {
