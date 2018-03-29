@@ -21,7 +21,7 @@ public class OrderCancellationTest extends TestBase {
         // проверяем что заказ еще не отменен
         Assert.assertFalse(app.getShoppingHelper().orderIsCanceled(),"The order is already canceled" + "\n");
         // отменяем заказ через админку
-        app.getShoppingHelper().cancelOrder();
+        app.getShoppingHelper().cancelOrderFromAdmin();
         // проверяем что заказ отменен
         Assert.assertTrue(app.getShoppingHelper().orderIsCanceled(),"The order wasn't canceled" + "\n");
     }

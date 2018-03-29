@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.models.UserData;
 
-public class ShoppingCartFunctionalTest extends TestBase{
+public class ShoppingCartTest extends TestBase{
 
     @Test
     public void authorisation() throws Exception {

@@ -34,7 +34,7 @@ public class ShoppingHelper extends HelperBase {
         }
     }
 
-    public void cancelOrder(){
+    public void cancelOrderFromAdmin(){
         // click cancel button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
         // accept order cancellation alert
@@ -45,7 +45,7 @@ public class ShoppingHelper extends HelperBase {
         click(By.xpath("//*[@id='new_cancellation']/fieldset/div[2]/button"));
     }
 
-    public void resumeOrder(){
+    public void resumeOrderFromAdmin(){
         // click resume button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
         // accept order resume alert

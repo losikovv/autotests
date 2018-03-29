@@ -2,9 +2,6 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.models.UserData;
-
-import static ru.instamart.autotests.testdata.RandomDataGenerator.randomSuffix;
 
 public class ContinuousIntegrationTest extends TestBase {
 
@@ -22,8 +19,8 @@ public class ContinuousIntegrationTest extends TestBase {
     public void authorisation() throws Exception {
         // идем и чекаем лендинг
         getAndAssertPageIsAvailable("https://instamart.ru/");
-        // логинимся
-        app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7", null));
+        // логинимся юзером для автотестов с админскими правами
+        app.getSessionHelper().doLoginWithAdminUser();
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
     }
@@ -114,8 +111,8 @@ public class ContinuousIntegrationTest extends TestBase {
             app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }
-        // регаемся
-        app.getSessionHelper().regUser(new UserData("autotest"+randomSuffix()+"@example.com","instamart", "Автотест Юзер"));
+        // регаем нового тестового юзера
+        app.getSessionHelper().regNewAutotestUser();
         // идем в профиль
         app.getNavigationHelper().goToProfile();
         // идем на главную

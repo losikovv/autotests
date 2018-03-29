@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.UserData;
 
+import static ru.instamart.autotests.testdata.TestDataGenerator.generateUserData;
+
 public class SessionHelper extends HelperBase {
 
     public SessionHelper(WebDriver driver) {
@@ -12,31 +14,34 @@ public class SessionHelper extends HelperBase {
 
 
 
-    /**  Session helper for handling user registration, login and logout
-     *
-     *  User autotest@instamart.ru is reserved for autotests
-     *
-     *  */
+    /*
+
+    Session helper for handling user registration, login and logout
+
+    */
 
 
 
-    public void generateUserData(){
-        // TODO имена юзеров генерить со стандартным префиксом + рандомной строкой. Пример - autotestX14Y07LM@example.com
-        // TODO пароль использовать везде одинаковый
-    }
-
-    public void regUser(UserData userData) {
+    /** Do new user registration with given user data */
+    public void regNewUser(UserData userData) {
         if (itsOnLandingPage()) {
-            regUserOnLandingPage(userData);
+            regNewUserOnLandingPage(userData);
         } else {
-            regUserOnRetailerPage(userData);
+            regNewUserOnRetailerPage(userData);
         }
     }
 
-    // TODO  public void regAutotestUser() - регистрация юзера с рандомным email и стандартными именем и паролем
-    // TODO встроить ифы в методы regUserOnLandingPage и regUserOnRetailerPage чтобы регался рандомный юзер 
+    /** Do new user registration with generated user data */
+    public void regNewAutotestUser() {
+        if (itsOnLandingPage()) {
+            regNewUserOnLandingPage(generateUserData());
+        } else {
+            regNewUserOnRetailerPage(generateUserData());
+        }
+    }
 
-    public void regUserOnLandingPage(UserData userData){
+    /** Do new user registration on landing page with given user data */
+    public void regNewUserOnLandingPage(UserData userData){
         // открываем форму авторизации/регистрации
         click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
         // нажимаем кнопку Регистрация
@@ -53,7 +58,8 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id='signup_form']/ul[2]/li[1]/input[2]"));
     }
 
-    public void regUserOnRetailerPage(UserData userData){
+    /** Do new user registration on retailer page with given user data */
+    public void regNewUserOnRetailerPage(UserData userData){
         // открываем форму авторизации/регистрации
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/button"));
         // нажимаем кнопку Регистрация
@@ -70,6 +76,7 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id='signup_form']/ul[2]/li[1]/input[2]"));
     }
 
+    /** Do login with given user data */
     public void doLogin(UserData userData) {
         if (itsOnLandingPage()) {
             doLoginOnLandingPage(userData);
@@ -78,6 +85,18 @@ public class SessionHelper extends HelperBase {
         }
     }
 
+    /** Do login with user credentials of autotest@instamart.ru which is reserved for autotests and have admin privileges */
+    public void doLoginWithAdminUser() {
+        final String LOGIN = "autotestuser@instamart.ru";
+        final String PASSWORD = "DyDrasLipMeibe7";
+        if (itsOnLandingPage()) {
+            doLoginOnLandingPage(new UserData(LOGIN, PASSWORD, null));
+        } else {
+            doLoginOnRetailerPage(new UserData(LOGIN, PASSWORD, null));
+        }
+    }
+
+    /** Do login on landing page with given user data */
     public void doLoginOnLandingPage(UserData userData) {
         // открываем форму авторизации/регистрации
         click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
@@ -89,6 +108,7 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("(//input[@name='commit'])[2]"));
     }
 
+    /** Do login on retailer page page with given user data */
     public void doLoginOnRetailerPage(UserData userData) {
         // открываем форму авторизации/регистрации
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/button"));
@@ -100,6 +120,7 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id='login_form']/ul[1]/li[4]/input[2]"));
     }
 
+    /** Do logout */
     public void doLogout() {
         if (!itsInAdmin()) {
             doLogoutFromSite();
@@ -108,6 +129,7 @@ public class SessionHelper extends HelperBase {
         }
     }
 
+    /** Do logout from site */
     public void doLogoutFromSite() {
         // клик по кнопке Профиль
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"));
@@ -115,6 +137,7 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[2]/div/div[8]/a"));
     }
 
+    /** Do logout from admin panel */
     public void doLogoutFromAdmin() {
         // клик по кнопке Выйти
         click(By.xpath("//*[@id=/login-nav/]/li[3]/a"));

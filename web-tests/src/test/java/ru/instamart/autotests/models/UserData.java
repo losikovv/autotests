@@ -20,7 +20,5 @@ public class UserData {
         return password;
     }
 
-    public String getName() { return name;
-
-    }
+    public String getName() { return name; }
 }

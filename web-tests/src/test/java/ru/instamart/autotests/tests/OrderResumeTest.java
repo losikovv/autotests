@@ -20,7 +20,7 @@ public class OrderResumeTest extends TestBase {
         // проверяем что заказ отменен
         Assert.assertTrue(app.getShoppingHelper().orderIsCanceled(),"The order is already active" + "\n");
         // возобновляем заказ
-        app.getShoppingHelper().resumeOrder();
+        app.getShoppingHelper().resumeOrderFromAdmin();
         // TODO добавить задержку в 5 сек иначе заказ часто не успевает возобновиться и тест падает
         // проверяем что заказ возобновлен
         Assert.assertFalse(app.getShoppingHelper().orderIsCanceled(),"The order wasn't resumed" + "\n");
