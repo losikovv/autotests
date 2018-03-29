@@ -16,17 +16,23 @@ public class ShoppingHelper extends HelperBase {
         // TODO
     }
 
-    public void addToCart(){
+    public void addFirstItemOnPageToCart(){
         // TODO
+        // жмем на сниппет первого товара на странице
+        click(By.xpath("//*[@id='home']/div[2]/ul/li[1]/ul/li[1]/a"));
+        // переключаемся на модалку карточки товара
+        swithchToActiveElement();
+        // жмем на кнопку добавления товара
+        click(By.xpath("//*[@id='product']/div[2]/div/div[1]/div"));
+        // жмем на крестик закрытия карточки товара
+        click(By.className("close"));
     }
 
-    public void cancelOrderFromSite(String orderNumber){
-        // TODO
-    }
 
     /** Find out if the order is canceled or not */
     public boolean orderIsCanceled() {
         String XPATH = "//*[@id='content']/div/table/tbody/tr[3]/td/b";
+        // checks status on the order page in admin panel
         if (isElementPresent(By.xpath(XPATH))){
             return getText(By.xpath(XPATH)).equals("ЗАКАЗ ОТМЕНЕН");
         } else {

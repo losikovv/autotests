@@ -92,6 +92,11 @@ public class HelperBase {
         }
     }
 
+    /** Switch to active element on the page */
+    protected void swithchToActiveElement() {
+        driver.switchTo().activeElement();
+    }
+
     /** Method returns true if the user is on landing page and false if he isn't */
     public boolean itsOnLandingPage() {
         return currentURL().equals(baseUrl);
