@@ -13,11 +13,7 @@ public class SessionHelper extends HelperBase {
 
 
 
-    /*
-
-    Session helper for handling user registration, login and logout
-
-    */
+    // Session helper for handling user registration, login and logout
 
 
 
@@ -32,10 +28,11 @@ public class SessionHelper extends HelperBase {
 
     /** Do new user registration with generated user data */
     public void regNewAutotestUser() {
+        UserData userData = Generate.autotestUserData();
         if (itsOnLandingPage()) {
-            regNewUserOnLandingPage(Generate.autotestUserData());
+            regNewUserOnLandingPage(userData);
         } else {
-            regNewUserOnRetailerPage(Generate.autotestUserData());
+            regNewUserOnRetailerPage(userData);
         }
     }
 
