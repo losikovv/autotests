@@ -3,8 +3,7 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.UserData;
-
-import static ru.instamart.autotests.testdata.TestDataGenerator.generateUserData;
+import ru.instamart.autotests.testdata.Generate;
 
 public class SessionHelper extends HelperBase {
 
@@ -34,9 +33,9 @@ public class SessionHelper extends HelperBase {
     /** Do new user registration with generated user data */
     public void regNewAutotestUser() {
         if (itsOnLandingPage()) {
-            regNewUserOnLandingPage(generateUserData());
+            regNewUserOnLandingPage(Generate.autotestUserData());
         } else {
-            regNewUserOnRetailerPage(generateUserData());
+            regNewUserOnRetailerPage(Generate.autotestUserData());
         }
     }
 
