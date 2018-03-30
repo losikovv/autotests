@@ -143,4 +143,27 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id=/login-nav/]/li[3]/a"));
     }
 
+    /** Delete all autotest users from admin panel */
+    // TODO метод не работает, не может найти кнопку
+    public void cleanup() {
+        //идем на лендинг
+        driver.get(baseUrl);
+        //авторизуемся под админом
+        doLoginWithAdminUser();
+
+        driver.get(baseUrl + "admin");
+
+        //идем в раздел Пользователи в админке с фильтром по "@example.com"
+        driver.get(baseUrl + "admin/users?q%5Bemail_cont%5D=%40example.com");
+
+        //если есть пользователи на экране результатов то жмем кнопку удаления и подтверждаем алерт
+        //if(isElementPresent(By.xpath("//*[@id='content']/div/table/tbody"))) {
+        //    click(By.className("delete-resource"));
+        //    closeAlertAndGetItsText();
+            // TODO как насчет рекурсии?
+            //cleanup();
+        //}
+
+    }
+
 }

@@ -13,9 +13,11 @@ import static org.testng.Assert.fail;
 
 // класс управления
 // тут стартуем и убиваем веб-драйвер, инициализируем и получаем хелперы
+
 public class ApplicationManager {
 
     protected WebDriver driver;
+    //public String baseUrl = "https://instamart.ru/";
 
     // объявление переменных хелперов
     private NavigationHelper navigationHelper;
@@ -26,8 +28,6 @@ public class ApplicationManager {
     private ShoppingCartHelper shoppingCartHelper;
     private CheckoutHelper checkoutHelper;
     private ProfileHelper profileHelper;
-
-    public String baseUrl;
 
     private StringBuffer verificationErrors = new StringBuffer();
     private String browser;
@@ -50,7 +50,7 @@ public class ApplicationManager {
             driver = new InternetExplorerDriver();
         }
 
-        baseUrl = "https://instamart.ru/";
+        //baseUrl = getBaseUrl();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
         // инициализация хелперов
@@ -102,6 +102,5 @@ public class ApplicationManager {
     public ProfileHelper getProfileHelper() {
         return profileHelper;
     }
-
 
 }

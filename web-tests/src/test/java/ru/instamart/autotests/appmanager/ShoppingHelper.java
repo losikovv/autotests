@@ -16,8 +16,9 @@ public class ShoppingHelper extends HelperBase {
         // TODO
     }
 
+    /** Add first line item on the page to the shopping cart
+     * Shipping address must be chosen before that */
     public void addFirstItemOnPageToCart(){
-        // TODO
         // жмем на сниппет первого товара на странице
         click(By.xpath("//*[@id='home']/div[2]/ul/li[1]/ul/li[1]/a"));
         // переключаемся на модалку карточки товара

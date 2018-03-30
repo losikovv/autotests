@@ -1,7 +1,7 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
-import java.util.Random;
+
 
 
 // Базовый класс хелперов
@@ -12,7 +12,7 @@ import java.util.Random;
 public class HelperBase {
 
     protected WebDriver driver;
-    public static final String baseUrl = "https://instamart.ru/";
+    static final String baseUrl = "https://instamart.ru/";
     private boolean acceptNextAlert = true;
 
     public boolean userIsAuthorised;
@@ -57,7 +57,7 @@ public class HelperBase {
     }
 
     /** Find out if the element is shown on the page */
-    protected boolean isElementPresent(By locator) {
+    public boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);
             return true;
