@@ -21,10 +21,10 @@ public class ContinuousIntegrationTestSet extends TestBase {
         // идем на витрину
         app.getNavigationHelper().getLandingPage();
         // проверка на авторизованность
-        if (app.getSessionHelper().userIsAuthorised()) {
-            app.getSessionHelper().doLogout();
-            app.getNavigationHelper().getLandingPage();
-        }
+        //if (app.getSessionHelper().userIsAuthorised()) {
+        //    app.getSessionHelper().doLogout();
+        //    app.getNavigationHelper().getLandingPage();
+        //}
         // регаем нового тестового юзера
         app.getSessionHelper().regNewAutotestUser();
         // идем в профиль
@@ -32,7 +32,7 @@ public class ContinuousIntegrationTestSet extends TestBase {
         // идем на главную
         app.getNavigationHelper().goToHomepage();
         // проверияем авторизованность
-        //Assert.assertTrue(app.getSessionHelper().userIsAuthorised);
+        Assert.assertTrue(app.getSessionHelper().userIsAuthorised());
         // разлогиниваемся
         app.getSessionHelper().doLogout();
     }
