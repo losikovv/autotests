@@ -15,7 +15,6 @@ public class HelperBase {
     static final String baseUrl = "https://instamart.ru/";
     private boolean acceptNextAlert = true;
 
-    public boolean userIsAuthorised;
     public boolean userIsOnSite;
     public boolean userIsInAdmin;
 
@@ -105,19 +104,6 @@ public class HelperBase {
     /** Method returns true if the user is on retailer page and false if he isn't */
     public boolean itsOnRetailerPage() {
         if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[2]"))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /** Method returns true if user is authorised and false if he isn't */
-    // TODO перенести в authorisation helper
-    public boolean userIsAuthorised() {
-        // проверяем наличие на странице кнопки "Профиль" по xpath
-         if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"))) {
-        // проверяем наличие на странице кнопки "Профиль" по тексту ссылки
-        //if (isElementPresent(By.linkText("Профиль"))) {
             return true;
         } else {
             return false;

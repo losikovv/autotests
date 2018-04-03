@@ -13,7 +13,7 @@ public class AuthorisationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // проверка на авторизованность
-        if (app.getSessionHelper().userIsAuthorised) {
+        if (app.getSessionHelper().userIsAuthorised()) {
             app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }
@@ -31,7 +31,7 @@ public class AuthorisationTest extends TestBase {
         // идем на витрину ретейлера
         app.getNavigationHelper().getRetailerPage(new RetailerData("vkusvill"));
         // проверка на авторизованность
-        if (app.getSessionHelper().userIsAuthorised) {
+        if (app.getSessionHelper().userIsAuthorised()) {
             app.getSessionHelper().doLogout();
             app.getNavigationHelper().getRetailerPage(new RetailerData("vkusvill"));
         }
@@ -49,7 +49,7 @@ public class AuthorisationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // проверка на авторизованность
-        if (app.getSessionHelper().userIsAuthorised) {
+        if (app.getSessionHelper().userIsAuthorised()) {
             app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }
@@ -65,7 +65,7 @@ public class AuthorisationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // проверка на авторизованность
-        if (app.getSessionHelper().userIsAuthorised) {
+        if (app.getSessionHelper().userIsAuthorised()) {
             app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }
@@ -81,7 +81,7 @@ public class AuthorisationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // проверка на авторизованность
-        if (app.getSessionHelper().userIsAuthorised) {
+        if (app.getSessionHelper().userIsAuthorised()) {
             app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }

@@ -21,7 +21,7 @@ public class ContinuousIntegrationTestSet extends TestBase {
         // идем на витрину
         app.getNavigationHelper().getLandingPage();
         // проверка на авторизованность
-        if (app.getSessionHelper().userIsAuthorised) {
+        if (app.getSessionHelper().userIsAuthorised()) {
             app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }

@@ -72,6 +72,19 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id='signup_form']/ul[2]/li[1]/input[2]"));
     }
 
+    /** Method returns true if user is authorised and false if he isn't */
+    // TODO перенести в session helper
+    public boolean userIsAuthorised() {
+        // проверяем наличие на странице кнопки "Профиль" по xpath
+        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"))) {
+            // проверяем наличие на странице кнопки "Профиль" по тексту ссылки
+            //if (isElementPresent(By.linkText("Профиль"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /** Do login with given user data */
     public void doLogin(UserData userData) {
         if (itsOnLandingPage()) {
@@ -153,12 +166,13 @@ public class SessionHelper extends HelperBase {
         driver.get(baseUrl + "admin/users?q%5Bemail_cont%5D=%40example.com");
 
         //если есть пользователи на экране результатов то жмем кнопку удаления и подтверждаем алерт
-        //if(isElementPresent(By.xpath("//*[@id='content']/div/table/tbody"))) {
-        //    click(By.className("delete-resource"));
-        //    closeAlertAndGetItsText();
+        // ищем элемент-признак наличия пользователя
+        if(isElementPresent(By.xpath("//tr[@id='spree_user_67041']/td[3]/a[2]"))) {
+            click(By.xpath("//tr[@id='spree_user_67041']/td[3]/a[2]"));
+            closeAlertAndGetItsText();
             // TODO как насчет рекурсии?
             //cleanup();
-        //}
+        }
 
     }
 
