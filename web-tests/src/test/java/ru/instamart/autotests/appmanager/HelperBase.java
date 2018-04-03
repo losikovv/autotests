@@ -121,8 +121,9 @@ public class HelperBase {
 
     /** Method returns true if user is in the admin panel and false if he isn't */
     public boolean itsInAdmin() {
-        if (isElementPresent(By.xpath("//*[@id='login-nav']/li[3]/a"))) {
-            return true;
+        String XPATH = "//*[@id='login-nav']/li[2]/a";
+        if (isElementPresent(By.xpath(XPATH))) {
+            return getText(By.xpath(XPATH)).equals("Учетная запись");
         } else {
             return false;
         }
@@ -148,4 +149,8 @@ public class HelperBase {
         }
     }
 
+    /** Artificial waiting for nonexistent element which lasts for the time specified in 'implicitlyWait' driver timeout */
+    public void implicitlyWait() {
+        isElementPresent(By.xpath("//*[@id='spree_user_999666999666999']/td[3]/a[2]"));
+    }
 }

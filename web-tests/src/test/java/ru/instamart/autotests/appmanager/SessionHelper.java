@@ -2,6 +2,7 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.Generate;
 
@@ -153,27 +154,28 @@ public class SessionHelper extends HelperBase {
     }
 
     /** Delete all autotest users from admin panel */
-    // TODO метод не работает, не может найти кнопку
-    public void cleanup() {
-        //идем на лендинг
-        driver.get(baseUrl);
-        //авторизуемся под админом
-        doLoginWithAdminUser();
-
-        driver.get(baseUrl + "admin");
-
+    public void deleteAllAutotestUsers() {
+        //URL страницы со списком автотестовых пользователей
+        final String targetUrlForCleanup = baseUrl + "admin/users?q%5Bemail_cont%5D=%40example.com";
         //идем в раздел Пользователи в админке с фильтром по "@example.com"
-        driver.get(baseUrl + "admin/users?q%5Bemail_cont%5D=%40example.com");
-
-        //если есть пользователи на экране результатов то жмем кнопку удаления и подтверждаем алерт
-        // ищем элемент-признак наличия пользователя
-        if(isElementPresent(By.xpath("//tr[@id='spree_user_67041']/td[3]/a[2]"))) {
-            click(By.xpath("//tr[@id='spree_user_67041']/td[3]/a[2]"));
-            closeAlertAndGetItsText();
-            // TODO как насчет рекурсии?
-            //cleanup();
+        driver.get(targetUrlForCleanup);
+        //если нет админских прав, то авторизуемся под админом
+        if (!itsInAdmin()) {
+            driver.get(baseUrl);
+            doLoginWithAdminUser();
+            //искусственная задержка для того чтобы юзер авторизовался нормально
+            implicitlyWait();
+            driver.get(targetUrlForCleanup);
         }
-
+        //если есть пользователи на экране результатов, то жмем кнопку удаления и подтверждаем алерт
+        if(isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr"))) {
+            click(By.xpath("//*[@id='content']/div/table/tbody/tr/td[3]/a[2]"));
+            closeAlertAndGetItsText();
+            //искусственная задержка для того чтобы юзер удалился нормально
+            implicitlyWait();
+            //рекурсивно удаляем всех автотестовых юзеров пока никого не останется
+            deleteAllAutotestUsers();
+        }
     }
 
 }

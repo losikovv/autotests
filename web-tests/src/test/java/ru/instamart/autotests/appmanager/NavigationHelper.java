@@ -64,7 +64,7 @@ public class NavigationHelper extends HelperBase {
     // АДМИНКА
 
     // переход на страницу админки
-    public void getPageAdmin(String pageName) {
+    public void getAdminPage(String pageName) {
         getUrl(baseUrl + "admin/" + pageName);
     }
 
