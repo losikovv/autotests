@@ -14,7 +14,8 @@ public class SessionHelper extends HelperBase {
 
 
     // Session helper for handling user registration, login and logout
-    // TODO добавить задержки waitForIt где нужно для увеличения стабильности и убрать задержки из тестов
+    // TODO добавить методы авторизации через соцсети
+    // TODO добавить метод восстановления пароля + использующий его тест для autotestuser
 
 
 
@@ -35,11 +36,9 @@ public class SessionHelper extends HelperBase {
         } else {
             regNewUserOnRetailerPage(userData);
         }
+        getBaseUrl();
         printMessage("New autotest user has been registered");
-        //close flocktory widget if it is present
-        if (isElementPresent(By.className("flocktory-widget-overlay"))){
-            click(By.xpath("/html/body/div/div[1]"));
-        }
+        //closeFlocktoryWidget();
     }
 
     /** Do new user registration on landing page with given user data */

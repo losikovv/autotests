@@ -23,6 +23,11 @@ public class HelperBase {
         this.driver = driver;
     }
 
+    /** Get base URL */
+    public void getBaseUrl() {
+        driver.get(baseUrl);
+    }
+
     /** Simply get a given URL */
     public void getUrl(String url) {
         driver.get(url);
@@ -155,8 +160,15 @@ public class HelperBase {
         isElementPresent(By.xpath("//*[@id='spree_user_999666999666999']/td[3]/a[2]"));
     }
 
-    /** Print given message to system out */
+    /** Print a given message to system out */
     public void printMessage(String message) {
         System.out.println(message);
+    }
+
+    /** Close Flocktory widget if it is present */
+    public void closeFlocktoryWidget() {
+        if (isElementPresent(By.className("flocktory-widget-overlay"))){
+            click(By.xpath("/html/body/div/div[1]"));
+        }
     }
 }

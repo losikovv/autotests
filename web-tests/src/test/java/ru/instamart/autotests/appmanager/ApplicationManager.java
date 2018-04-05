@@ -17,7 +17,7 @@ import static org.testng.Assert.fail;
 public class ApplicationManager {
 
     protected WebDriver driver;
-    //public String baseUrl = "https://instamart.ru/";
+    protected String baseUrl;
 
     // объявление переменных хелперов
     private NavigationHelper navigationHelper;
@@ -37,19 +37,24 @@ public class ApplicationManager {
     }
 
     public void init() {
-        if (browser.equals(BrowserType.FIREFOX)) {
-            driver = new FirefoxDriver();
-        } else if (browser.equals(BrowserType.CHROME)) {
-            driver = new ChromeDriver();
-        } else if (browser.equals(BrowserType.SAFARI)) {
-            driver = new SafariDriver();
-        }
-        // there is no IE driver for mac yet :(
-        else if (browser.equals(BrowserType.IE)) {
-            driver = new InternetExplorerDriver();
+
+        switch (browser) {
+            case BrowserType.FIREFOX:
+                driver = new FirefoxDriver();
+                break;
+            case BrowserType.CHROME:
+                driver = new ChromeDriver();
+                break;
+            case BrowserType.SAFARI:
+                driver = new SafariDriver();
+                break;
+            // there is no IE driver for mac yet :(
+            case BrowserType.IE:
+                driver = new InternetExplorerDriver();
+                break;
         }
 
-        //baseUrl = getBaseUrl();
+        baseUrl = "https://instamart.ru/";
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         // инициализация хелперов

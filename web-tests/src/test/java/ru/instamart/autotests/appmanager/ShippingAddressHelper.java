@@ -29,7 +29,7 @@ public class ShippingAddressHelper extends HelperBase {
 
     // TODO isShopSelected - метод возвращающий логическое значение выбран ли магазин
 
-    // TODO anyShopsAvailable - метод возврящающий логическое значение наличия магазинов по выбранному адресу
+    // TODO isAnyShopsAvailable - метод возврящающий логическое значение наличия магазинов по выбранному адресу
 
     // TODO selectShop(int shopPosition) - выбрать магазин
 

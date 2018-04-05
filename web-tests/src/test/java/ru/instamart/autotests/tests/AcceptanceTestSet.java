@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class ContinuousIntegrationTestSet extends TestBase {
+public class AcceptanceTestSet extends TestBase {
 
 
 
