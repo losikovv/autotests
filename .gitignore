@@ -1,13 +1,14 @@
+# ignore .gradle folder
 .gradle
 
-# ignore /out folder
-out/**
-
-# Ignore IntelliJ IDEA
+# Ignore IntelliJ IDEA folder
 .idea
 
-# Ignore Mac DS_Store
+# Ignore Mac DS_Store folder
 .DS_Store
+
+# ignore java binaries
+*.class
 
 # Ignore Gradle GUI config
 gradle-app.setting
