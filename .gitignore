@@ -8,7 +8,7 @@
 .DS_Store
 
 # Ignore 'out' folder
-# web-tests/out/**
+web-tests/out/**
 
 # Ignore java binaries
 *.class

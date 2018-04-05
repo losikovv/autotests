@@ -36,6 +36,10 @@ public class SessionHelper extends HelperBase {
             regNewUserOnRetailerPage(userData);
         }
         printMessage("New autotest user has been registered");
+        //close flocktory widget if it is present
+        if (isElementPresent(By.className("flocktory-widget-overlay"))){
+            click(By.xpath("/html/body/div/div[1]"));
+        }
     }
 
     /** Do new user registration on landing page with given user data */
@@ -203,7 +207,6 @@ public class SessionHelper extends HelperBase {
     private void deleteFirstUserInTable() {
         click(By.xpath("//*[@id='content']/div/table/tbody/tr/td[3]/a[2]"));
         closeAlertAndGetItsText();
-        //задержка для того чтобы юзер нормально удалился
         waitForIt();
     }
 

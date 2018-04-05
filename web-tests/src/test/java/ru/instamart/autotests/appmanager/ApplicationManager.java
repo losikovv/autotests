@@ -37,7 +37,6 @@ public class ApplicationManager {
     }
 
     public void init() {
-        //
         if (browser.equals(BrowserType.FIREFOX)) {
             driver = new FirefoxDriver();
         } else if (browser.equals(BrowserType.CHROME)) {
@@ -51,7 +50,7 @@ public class ApplicationManager {
         }
 
         //baseUrl = getBaseUrl();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         // инициализация хелперов
         navigationHelper = new NavigationHelper(driver);

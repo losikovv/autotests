@@ -21,17 +21,8 @@ public class ContinuousIntegrationTestSet extends TestBase {
     public void registration() throws Exception {
         // идем на витрину
         app.getNavigationHelper().getLandingPage();
-        // проверка на авторизованность
-        //if (app.getSessionHelper().userIsAuthorised()) {
-        //    app.getSessionHelper().doLogout();
-        //    app.getNavigationHelper().getLandingPage();
-        //}
         // регаем нового тестового юзера
         app.getSessionHelper().regNewAutotestUser();
-        // идем в профиль
-        //app.getNavigationHelper().goToProfile();
-        // идем на главную
-        //app.getNavigationHelper().goToHomepage();
         // проверияем авторизованность
         Assert.assertTrue(app.getSessionHelper().userIsAuthorised());
         // разлогиниваемся
