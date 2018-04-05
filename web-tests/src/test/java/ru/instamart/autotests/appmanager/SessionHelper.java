@@ -38,7 +38,6 @@ public class SessionHelper extends HelperBase {
         }
         getBaseUrl();
         printMessage("New autotest user has been registered");
-        //closeFlocktoryWidget();
     }
 
     /** Do new user registration on landing page with given user data */
@@ -149,6 +148,7 @@ public class SessionHelper extends HelperBase {
 
     /** Do logout */
     public void doLogout() {
+        closeFlocktoryWidget();
         if (!itsInAdmin()) {
             doLogoutFromSite();
         } else {

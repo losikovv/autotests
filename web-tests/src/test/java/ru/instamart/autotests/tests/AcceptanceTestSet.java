@@ -19,8 +19,7 @@ public class AcceptanceTestSet extends TestBase {
     @Test(priority = 0)
     //регистрация пользователя
     public void registration() throws Exception {
-        // идем на витрину
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         // регаем нового тестового юзера
         app.getSessionHelper().regNewAutotestUser();
         // проверияем авторизованность
@@ -80,17 +79,21 @@ public class AcceptanceTestSet extends TestBase {
         getAndAssertPageIsAvailable("https://instamart.ru/delivery");
         getAndAssertPageIsAvailable("https://instamart.ru/rules");
         getAndAssertPageIsAvailable("https://instamart.ru/payment");
+        getAndAssertPageIsAvailable("https://instamart.ru/return");
         getAndAssertPageIsAvailable("https://instamart.ru/faq");
         getAndAssertPageIsAvailable("https://instamart.ru/terms");
         getAndAssertPageIsAvailable("https://instamart.ru/contacts");
     }
 
     @Test(priority = 6)
-    // чекаем партнерские лендинги
+    // чекаем лендинги
     // TODO переделать чек лендингов циклом по списку
     // TODO забирать список лендингов из БД или из админки
-    public void checkPartnerLandings() throws Exception {
+    public void checkLandings() throws Exception {
         getAndAssertPageIsAvailable("https://instamart.ru/mnogoru");
+        getAndAssertPageIsAvailable("https://instamart.ru/sovest");
+        getAndAssertPageIsAvailable("https://instamart.ru/halva");
+        getAndAssertPageIsAvailable("https://instamart.ru/landings/feedback");
     }
 
     @Test(priority = 7)

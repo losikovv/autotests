@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class HelperBase {
 
     protected WebDriver driver;
+    //TODO передавать baseUrl из Application Manager
     static final String baseUrl = "https://instamart.ru/";
     private boolean acceptNextAlert = true;
 
@@ -23,7 +24,7 @@ public class HelperBase {
         this.driver = driver;
     }
 
-    /** Get base URL */
+    /** Get base URL by the browser */
     public void getBaseUrl() {
         driver.get(baseUrl);
     }
