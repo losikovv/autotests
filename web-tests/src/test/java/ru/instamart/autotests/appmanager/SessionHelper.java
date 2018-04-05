@@ -2,7 +2,6 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.Generate;
 
@@ -15,6 +14,7 @@ public class SessionHelper extends HelperBase {
 
 
     // Session helper for handling user registration, login and logout
+    // TODO добавить задержки waitForIt где нужно для увеличения стабильности и убрать задержки из тестов
 
 
 
@@ -35,6 +35,7 @@ public class SessionHelper extends HelperBase {
         } else {
             regNewUserOnRetailerPage(userData);
         }
+        printMessage("New autotest user has been registered");
     }
 
     /** Do new user registration on landing page with given user data */
@@ -53,6 +54,9 @@ public class SessionHelper extends HelperBase {
         fillField(By.id("spree_user_password_confirmation"), userData.getPassword());
         // нажимаем "Зарегистрироваться"
         click(By.xpath("//*[@id='signup_form']/ul[2]/li[1]/input[2]"));
+        // задержка чтобы пользователь нормально зарегался
+        waitForIt();
+        printMessage("User registration performed on landing page");
     }
 
     /** Do new user registration on retailer page with given user data */
@@ -71,10 +75,13 @@ public class SessionHelper extends HelperBase {
         fillField(By.id("spree_user_password_confirmation"), userData.getPassword());
         // нажимаем "Зарегистрироваться"
         click(By.xpath("//*[@id='signup_form']/ul[2]/li[1]/input[2]"));
+        // задержка чтобы пользователь нормально зарегался
+        waitForIt();
+        printMessage("User registration performed on retailer page");
     }
 
     /** Method returns true if user is authorised and false if he isn't */
-    // TODO перенести в session helper
+    // TODO ускорить выполнение метода, переделав локатор с xpath на другой
     public boolean userIsAuthorised() {
         // проверяем наличие на странице кнопки "Профиль" по xpath
         if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"))) {
@@ -104,6 +111,7 @@ public class SessionHelper extends HelperBase {
         } else {
             doLoginOnRetailerPage(new UserData(LOGIN, PASSWORD, null));
         }
+        printMessage("Logged-in with admin privileges");
     }
 
     /** Do login on landing page with given user data */
@@ -116,6 +124,9 @@ public class SessionHelper extends HelperBase {
         fillField(By.id("login_form__password"), userData.getPassword());
         // клик по кнопке Вход
         click(By.xpath("(//input[@name='commit'])[2]"));
+        // задержка чтобы пользователь нормально авторизовался
+        waitForIt();
+        printMessage("Log-in on landing page");
     }
 
     /** Do login on retailer page page with given user data */
@@ -128,6 +139,9 @@ public class SessionHelper extends HelperBase {
         fillField(By.xpath("//*[@id='login_form__password']"), userData.getPassword());
         // клик по кнопке Вход
         click(By.xpath("//*[@id='login_form']/ul[1]/li[4]/input[2]"));
+        // задержка чтобы пользователь нормально авторизовался
+        waitForIt();
+        printMessage("Log-in on retailer page");
     }
 
     /** Do logout */
@@ -141,41 +155,56 @@ public class SessionHelper extends HelperBase {
 
     /** Do logout from site */
     public void doLogoutFromSite() {
-        // клик по кнопке Профиль
+        //клик по кнопке Профиль
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"));
-        // клик по кнопке Выйти
+        //клик по кнопке Выйти
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[2]/div/div[8]/a"));
+        //задержка чтобы пользователь нормально разлогинился
+        //waitForIt();
+        printMessage("Logged-out from site");
     }
 
     /** Do logout from admin panel */
     public void doLogoutFromAdmin() {
-        // клик по кнопке Выйти
+        //клик по кнопке Выйти
         click(By.xpath("//*[@id=/login-nav/]/li[3]/a"));
+        //задержка чтобы пользователь нормально разлогинился
+        //waitForIt();
+        printMessage("Logged-out from admin");
     }
 
     /** Delete all autotest users from admin panel */
     public void deleteAllAutotestUsers() {
-        //URL страницы со списком автотестовых пользователей
+        //URL целевой страницы со списком автотестовых пользователей
         final String targetUrlForCleanup = baseUrl + "admin/users?q%5Bemail_cont%5D=%40example.com";
-        //идем в раздел Пользователи в админке с фильтром по "@example.com"
+        //идем на целевую страницу
         driver.get(targetUrlForCleanup);
         //если нет админских прав, то авторизуемся под админом
         if (!itsInAdmin()) {
             driver.get(baseUrl);
+            if (userIsAuthorised()) {
+                doLogout();
+            }
             doLoginWithAdminUser();
-            //искусственная задержка для того чтобы юзер авторизовался нормально
-            implicitlyWait();
             driver.get(targetUrlForCleanup);
         }
-        //если есть пользователи на экране результатов, то жмем кнопку удаления и подтверждаем алерт
+        //если есть пользователи на экране результатов, то удаляем верхнего пользователя в таблице
         if(isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr"))) {
-            click(By.xpath("//*[@id='content']/div/table/tbody/tr/td[3]/a[2]"));
-            closeAlertAndGetItsText();
-            //искусственная задержка для того чтобы юзер удалился нормально
-            implicitlyWait();
+            deleteFirstUserInTable();
+            printMessage("Autotest user has been deleted");
             //рекурсивно удаляем всех автотестовых юзеров пока никого не останется
             deleteAllAutotestUsers();
+        } else {
+            printMessage("Autotest user deletion is complete");
         }
+    }
+
+    /** Delete first user which exists in Users table in admin panel */
+    private void deleteFirstUserInTable() {
+        click(By.xpath("//*[@id='content']/div/table/tbody/tr/td[3]/a[2]"));
+        closeAlertAndGetItsText();
+        //задержка для того чтобы юзер нормально удалился
+        waitForIt();
     }
 
 }

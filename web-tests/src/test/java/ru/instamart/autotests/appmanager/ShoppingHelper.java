@@ -16,9 +16,23 @@ public class ShoppingHelper extends HelperBase {
         // TODO
     }
 
+    // TODO
+    /** Set shipping address with given string */
+    public void setShippingAddress(String address){
+
+    }
+
+    // TODO
+    /** Find out if there shipping address is set */
+    public boolean shippingAddressIsSet(){
+
+        return false;
+    }
+
+
     /** Add first line item on the page to the shopping cart
      * Shipping address must be chosen before that */
-    public void addFirstItemOnPageToCart(){
+    public void addFirstLineItemOnPageToCart(){
         // жмем на сниппет первого товара на странице
         click(By.xpath("//*[@id='home']/div[2]/ul/li[1]/ul/li[1]/a"));
         // переключаемся на модалку карточки товара
@@ -30,7 +44,7 @@ public class ShoppingHelper extends HelperBase {
     }
 
 
-    /** Find out if the order is canceled or not */
+    /** Find out if the order is canceled or not by checking the order page in admin panel */
     public boolean orderIsCanceled() {
         String XPATH = "//*[@id='content']/div/table/tbody/tr[3]/td/b";
         // checks status on the order page in admin panel
@@ -41,6 +55,7 @@ public class ShoppingHelper extends HelperBase {
         }
     }
 
+    /** Cancel order on the order page in admin panel */
     public void cancelOrderFromAdmin(){
         // click cancel button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
@@ -52,6 +67,7 @@ public class ShoppingHelper extends HelperBase {
         click(By.xpath("//*[@id='new_cancellation']/fieldset/div[2]/button"));
     }
 
+    /** Resume canceled order on the order page in admin panel */
     public void resumeOrderFromAdmin(){
         // click resume button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));

@@ -2,6 +2,7 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
 
+import java.util.concurrent.TimeUnit;
 
 
 // Базовый класс хелперов
@@ -122,6 +123,7 @@ public class HelperBase {
     /** Method returns true if user is in the admin panel and false if he isn't */
     public boolean itsInAdmin() {
         String XPATH = "//*[@id='login-nav']/li[2]/a";
+        //driver.manage().timeouts().waitForIt(5, TimeUnit.SECONDS);
         if (isElementPresent(By.xpath(XPATH))) {
             return getText(By.xpath(XPATH)).equals("Учетная запись");
         } else {
@@ -132,6 +134,8 @@ public class HelperBase {
     /** Method returns true if it's 404 on the page and false if it's not */
     public boolean its404() {
         String XPATH = "/html/body/div[3]/div/div/div/div[1]/div/div[1]";
+        //уменьшаем задержку для ускорения проверок
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         if (isElementPresent(By.xpath(XPATH))) {
             return getText(By.xpath(XPATH)).equals("Страница не найдена");
         } else {
@@ -142,6 +146,8 @@ public class HelperBase {
     /** Method returns true if it's something wrong on the page and false if it's ok */
     public boolean itsSomethingWrong() {
         String XPATH = "/html/body/div/h1";
+        //уменьшаем задержку для ускорения проверок
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         if (isElementPresent(By.xpath(XPATH))) {
             return getText(By.xpath(XPATH)).equals("There is something wrong");
         } else {
@@ -149,8 +155,13 @@ public class HelperBase {
         }
     }
 
-    /** Artificial waiting for nonexistent element which lasts for the time specified in 'implicitlyWait' driver timeout */
-    public void implicitlyWait() {
+    /** Artificial waiting for nonexistent element which lasts for the time specified in 'waitForIt' driver timeout */
+    public void waitForIt() {
         isElementPresent(By.xpath("//*[@id='spree_user_999666999666999']/td[3]/a[2]"));
+    }
+
+    /** Print given message to system out */
+    public void printMessage(String message) {
+        System.out.println(message);
     }
 }

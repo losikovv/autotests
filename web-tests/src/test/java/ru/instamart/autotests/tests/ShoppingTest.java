@@ -8,7 +8,7 @@ public class ShoppingTest extends TestBase {
     @Test
     public void addItemToCart() throws Exception {
         app.getNavigationHelper().getPage("metro?sid=12");
-        app.getShoppingHelper().addFirstItemOnPageToCart();
+        app.getShoppingHelper().addFirstLineItemOnPageToCart();
         app.getShoppingCartHelper().openCart();
         Assert.assertFalse(app.getShoppingCartHelper().isCartEmpty(), "Item hasn't been added to cart");
     }
