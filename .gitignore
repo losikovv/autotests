@@ -1,6 +1,8 @@
 # ignore .gradle folder
 .gradle
 
+web-tests/out/**
+
 # Ignore IntelliJ IDEA folder
 .idea
 
