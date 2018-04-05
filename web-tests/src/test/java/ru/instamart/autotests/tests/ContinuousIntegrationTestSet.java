@@ -16,7 +16,7 @@ public class ContinuousIntegrationTestSet extends TestBase {
 
 
 
-    @Test
+    @Test(priority = 0)
     //регистрация пользователя
     public void registration() throws Exception {
         // идем на витрину
@@ -29,16 +29,16 @@ public class ContinuousIntegrationTestSet extends TestBase {
         // регаем нового тестового юзера
         app.getSessionHelper().regNewAutotestUser();
         // идем в профиль
-        app.getNavigationHelper().goToProfile();
+        //app.getNavigationHelper().goToProfile();
         // идем на главную
-        app.getNavigationHelper().goToHomepage();
+        //app.getNavigationHelper().goToHomepage();
         // проверияем авторизованность
         Assert.assertTrue(app.getSessionHelper().userIsAuthorised());
         // разлогиниваемся
         app.getSessionHelper().doLogout();
     }
 
-    @Test
+    @Test(priority = 1)
     public void authorisation() throws Exception {
         // идем и чекаем лендинг
         getAndAssertPageIsAvailable("https://instamart.ru/");
@@ -48,7 +48,7 @@ public class ContinuousIntegrationTestSet extends TestBase {
         Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
     }
 
-    @Test
+    @Test(priority = 2)
     // чекаем страницы ритейлеров
     // TODO переделать чек страниц всех ретейлеров по списку ретейлеров
     // TODO забирать список ритейлеров из БД или из админки с признаком активности
@@ -64,14 +64,14 @@ public class ContinuousIntegrationTestSet extends TestBase {
         getAndAssertPageIsAvailable("https://instamart.ru/karusel");
     }
 
-    @Test
+    @Test(priority = 3)
     // чекаем недоступность пустого чекаута при ненабранной корзине
     public void emptyCheckoutUnreachable() throws Exception {
         // TODO добавить проверку на текущую сумму корзины и если она выше суммы минимального заказа - очищать корзину
         assertPageIsUnreachable("https://instamart.ru/checkout/edit?");
     }
 
-    @Test
+    @Test(priority = 4)
     // чекаем страницы профиля
     // TODO переделать чек страниц циклом по списку
     public void checkProfilePages() throws Exception {
@@ -80,7 +80,7 @@ public class ContinuousIntegrationTestSet extends TestBase {
         getAndAssertPageIsAvailable("https://instamart.ru/user/addresses");
     }
 
-    @Test
+    @Test(priority = 5)
     // чекаем статические страницы
     // TODO переделать чек страниц циклом по списку
     // TODO забирать список страниц из БД или из админки
@@ -94,7 +94,7 @@ public class ContinuousIntegrationTestSet extends TestBase {
         getAndAssertPageIsAvailable("https://instamart.ru/contacts");
     }
 
-    @Test
+    @Test(priority = 6)
     // чекаем партнерские лендинги
     // TODO переделать чек лендингов циклом по списку
     // TODO забирать список лендингов из БД или из админки
@@ -102,7 +102,7 @@ public class ContinuousIntegrationTestSet extends TestBase {
         getAndAssertPageIsAvailable("https://instamart.ru/mnogoru");
     }
 
-    @Test
+    @Test(priority = 7)
     // чекаем корневые страницы админки
     // TODO переделать чек лендингов циклом по списку
     public void checkAdminPages() throws AssertionError {
@@ -117,18 +117,18 @@ public class ContinuousIntegrationTestSet extends TestBase {
         getAndAssertPageIsAvailable("https://instamart.ru/admin/pages");
     }
 
-    @Test
-    // логаут
-    public void logout() throws Exception {
-        app.getSessionHelper().doLogout();
-        assertPageIsAvailable();
-    }
-
-    @Test
+    @Test(priority = 8)
     public void cleanupAutotestUsers() throws Exception {
         app.getSessionHelper().deleteAllAutotestUsers();
         app.getNavigationHelper().getAdminPage("users?q%5Bemail_cont%5D=%40example.com");
         Assert.assertFalse(app.getNavigationHelper().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),"Seems like there are some autotest users left in admin panel");
+    }
+
+    @Test(priority = 9)
+    // логаут
+    public void logout() throws Exception {
+        app.getSessionHelper().doLogout();
+        assertPageIsAvailable();
     }
 
 }

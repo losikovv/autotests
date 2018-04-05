@@ -160,16 +160,16 @@ public class SessionHelper extends HelperBase {
         //клик по кнопке Выйти
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[2]/div/div[8]/a"));
         //задержка чтобы пользователь нормально разлогинился
-        //waitForIt();
+        waitForIt();
         printMessage("Logged-out from site");
     }
 
     /** Do logout from admin panel */
     public void doLogoutFromAdmin() {
         //клик по кнопке Выйти
-        click(By.xpath("//*[@id=/login-nav/]/li[3]/a"));
+        click(By.xpath("//*[@id='login-nav']/li[3]/a"));
         //задержка чтобы пользователь нормально разлогинился
-        //waitForIt();
+        waitForIt();
         printMessage("Logged-out from admin");
     }
 
