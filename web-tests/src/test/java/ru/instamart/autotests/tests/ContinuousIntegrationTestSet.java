@@ -43,7 +43,7 @@ public class ContinuousIntegrationTestSet extends TestBase {
         // идем и чекаем лендинг
         getAndAssertPageIsAvailable("https://instamart.ru/");
         // логинимся юзером для автотестов с админскими правами
-        app.getSessionHelper().doLoginWithAdminUser();
+        app.getSessionHelper().doLoginAsAdmin();
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
     }

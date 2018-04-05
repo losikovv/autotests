@@ -103,7 +103,7 @@ public class SessionHelper extends HelperBase {
     }
 
     /** Do login with user credentials of autotest@instamart.ru which is reserved for autotests and have admin privileges */
-    public void doLoginWithAdminUser() {
+    public void doLoginAsAdmin() {
         final String LOGIN = "autotestuser@instamart.ru";
         final String PASSWORD = "DyDrasLipMeibe7";
         if (itsOnLandingPage()) {
@@ -185,7 +185,7 @@ public class SessionHelper extends HelperBase {
             if (userIsAuthorised()) {
                 doLogout();
             }
-            doLoginWithAdminUser();
+            doLoginAsAdmin();
             driver.get(targetUrlForCleanup);
         }
         //если есть пользователи на экране результатов, то удаляем верхнего пользователя в таблице
