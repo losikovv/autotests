@@ -1,7 +1,5 @@
-# ignore .gradle folder
+# Ignore .gradle folder
 .gradle
-
-web-tests/out/**
 
 # Ignore IntelliJ IDEA folder
 .idea
@@ -9,7 +7,10 @@ web-tests/out/**
 # Ignore Mac DS_Store folder
 .DS_Store
 
-# ignore java binaries
+# Ignore 'out' folder
+web-tests/out/**
+
+# Ignore java binaries
 *.class
 
 # Ignore Gradle GUI config
