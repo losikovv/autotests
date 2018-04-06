@@ -18,29 +18,29 @@ public class ShoppingCartTest extends TestBase{
 
     @Test
     public void openCart()throws Exception {
-        if (app.getShoppingCartHelper().cartIsOpen()) {
-            app.getShoppingCartHelper().closeCart();
+        if (app.getShoppingHelper().cartIsOpen()) {
+            app.getShoppingHelper().closeCart();
         }
-        app.getShoppingCartHelper().openCart();
-        Assert.assertTrue(app.getShoppingCartHelper().cartIsOpen(), "Can't open shopping cart"+"\n");
+        app.getShoppingHelper().openCart();
+        Assert.assertTrue(app.getShoppingHelper().cartIsOpen(), "Can't open shopping cart"+"\n");
     }
 
     @Test
     public void closeCart()throws Exception {
-        if (!app.getShoppingCartHelper().cartIsOpen()) {
-            app.getShoppingCartHelper().openCart();
+        if (!app.getShoppingHelper().cartIsOpen()) {
+            app.getShoppingHelper().openCart();
         }
-        app.getShoppingCartHelper().closeCart();
-        Assert.assertFalse(app.getShoppingCartHelper().cartIsOpen(), "Can't close shopping cart"+"\n");
+        app.getShoppingHelper().closeCart();
+        Assert.assertFalse(app.getShoppingHelper().cartIsOpen(), "Can't close shopping cart"+"\n");
     }
 
     @Test
     public void showEmptyCartPlaceholder()throws Exception {
-        if (!app.getShoppingCartHelper().cartIsOpen()) {
-            app.getShoppingCartHelper().openCart();
+        if (!app.getShoppingHelper().cartIsOpen()) {
+            app.getShoppingHelper().openCart();
         }
         // TODO добавить проверку на наличие товаров в корзине и если нет - очищать корзину методом clearCart
-        Assert.assertTrue(app.getShoppingCartHelper().isCartEmpty(), "There is no placeholder in an empty shopping cart"+"\n");
+        Assert.assertTrue(app.getShoppingHelper().isCartEmpty(), "There is no placeholder in an empty shopping cart"+"\n");
     }
 
 }

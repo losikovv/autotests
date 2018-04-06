@@ -9,7 +9,7 @@ public class ShoppingTest extends TestBase {
     public void addItemToCart() throws Exception {
         app.getNavigationHelper().getPage("metro?sid=12");
         app.getShoppingHelper().addFirstLineItemOnPageToCart();
-        app.getShoppingCartHelper().openCart();
-        Assert.assertFalse(app.getShoppingCartHelper().isCartEmpty(), "Item hasn't been added to cart");
+        app.getShoppingHelper().openCart();
+        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(), "Item hasn't been added to cart");
     }
 }

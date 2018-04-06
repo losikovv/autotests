@@ -11,21 +11,21 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
 
-// класс управления
-// тут стартуем и убиваем веб-драйвер, инициализируем и получаем хелперы
-
 public class ApplicationManager {
+
+
+
+    // Test app management class
+
+
 
     protected WebDriver driver;
     protected String baseUrl;
 
-    // объявление переменных хелперов
+    // helpers
     private NavigationHelper navigationHelper;
-    private ErrorPageHelper errorPageHelper;
     private SessionHelper sessionHelper;
     private ShoppingHelper shoppingHelper;
-    private ShippingAddressHelper shippingAddressHelper;
-    private ShoppingCartHelper shoppingCartHelper;
     private CheckoutHelper checkoutHelper;
     private ProfileHelper profileHelper;
 
@@ -57,13 +57,10 @@ public class ApplicationManager {
         baseUrl = "https://instamart.ru/";
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-        // инициализация хелперов
+        // init helpers
         navigationHelper = new NavigationHelper(driver);
-        errorPageHelper = new ErrorPageHelper(driver);
         sessionHelper = new SessionHelper(driver);
         shoppingHelper = new ShoppingHelper(driver);
-        shippingAddressHelper = new ShippingAddressHelper(driver);
-        shoppingCartHelper = new ShoppingCartHelper(driver);
         checkoutHelper = new CheckoutHelper(driver);
         profileHelper = new ProfileHelper(driver);
     }
@@ -76,33 +73,17 @@ public class ApplicationManager {
         }
     }
 
-    // геттеры хелперов
+    // get helpers
     public NavigationHelper getNavigationHelper() {
         return navigationHelper;
     }
-
-    public ErrorPageHelper getErrorPageHelper() {
-        return errorPageHelper;
-    }
-
     public SessionHelper getSessionHelper() { return sessionHelper; }
-
     public ShoppingHelper getShoppingHelper() {
         return shoppingHelper;
     }
-
-    public ShippingAddressHelper getShippingAddressHelper() {
-        return shippingAddressHelper;
-    }
-
-    public ShoppingCartHelper getShoppingCartHelper() {
-        return shoppingCartHelper;
-    }
-
     public CheckoutHelper getCheckoutHelper() {
         return checkoutHelper;
     }
-
     public ProfileHelper getProfileHelper() {
         return profileHelper;
     }
