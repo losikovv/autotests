@@ -16,14 +16,14 @@ public class AcceptanceTestSet extends TestBase {
 
 
 
-    @Test(priority = 0)
+    @Test
     //регистрация пользователя
     public void registration() throws Exception {
         app.getNavigationHelper().getBaseUrl();
         // регаем нового тестового юзера
         app.getSessionHelper().regNewAutotestUser();
         // проверияем авторизованность
-        Assert.assertTrue(app.getSessionHelper().userIsAuthorised());
+        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "Can't approve the registration is performed correctly"+"\n");
         // разлогиниваемся
         app.getSessionHelper().doLogout();
     }
@@ -35,7 +35,7 @@ public class AcceptanceTestSet extends TestBase {
         // логинимся юзером для автотестов с админскими правами
         app.getSessionHelper().doLoginAsAdmin();
         // проверяем что авторизованы
-        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
+        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "Can't approve the authorisation is successful"+"\n");
     }
 
     @Test(priority = 2)

@@ -37,11 +37,12 @@ public class SessionHelper extends HelperBase {
             regNewUserOnRetailerPage(userData);
         }
         getBaseUrl();
-        printMessage("New autotest user has been registered");
+        printMessage("New autotest user is registered");
     }
 
     /** Do new user registration on landing page with given user data */
     public void regNewUserOnLandingPage(UserData userData){
+        printMessage("Performing user registration on landing page");
         // открываем форму авторизации/регистрации
         click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
         // нажимаем кнопку Регистрация
@@ -58,11 +59,11 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id='signup_form']/ul[2]/li[1]/input[2]"));
         // задержка чтобы пользователь нормально зарегался
         waitForIt();
-        printMessage("User registration performed on landing page");
     }
 
     /** Do new user registration on retailer page with given user data */
     public void regNewUserOnRetailerPage(UserData userData){
+        printMessage("Performing user registration on retailer page");
         // открываем форму авторизации/регистрации
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/button"));
         // нажимаем кнопку Регистрация
@@ -79,7 +80,6 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id='signup_form']/ul[2]/li[1]/input[2]"));
         // задержка чтобы пользователь нормально зарегался
         waitForIt();
-        printMessage("User registration performed on retailer page");
     }
 
     /** Method returns true if user is authorised and false if he isn't */
@@ -147,6 +147,7 @@ public class SessionHelper extends HelperBase {
     }
 
     /** Do logout */
+    //TODO обернуть в try-catch чтобы вызывать closeFlocktoryWidget(); только в случае ошибки
     public void doLogout() {
         closeFlocktoryWidget();
         if (!itsInAdmin()) {

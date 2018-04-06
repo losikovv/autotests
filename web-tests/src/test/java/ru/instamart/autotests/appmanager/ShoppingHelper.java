@@ -12,6 +12,12 @@ public class ShoppingHelper extends HelperBase {
         super(driver);
     }
 
+
+
+    // Shopping helper
+
+
+
     // ================================================ //
     //                                                  //
     //      Методы для работы с адресом доставки        //
@@ -26,12 +32,15 @@ public class ShoppingHelper extends HelperBase {
 
     // TODO
     /** Find out if there shipping address is set */
+    // "ship-address-selector" - имя класса для контейнера когда адрес не выбран
+    // "ship-address-selector--selected" - имя класса для контейнера когда адрес выбран
+    //*[@id="wrap"]/div[1]/div/div/div/div[1]/div/div/text() - "Вы выбрали адрес
     public boolean shippingAddressIsSet(){
-        // ship-address-selector- имя класса для контейнера когда адрес не выбран
-        // "ship-address-selector--selected" - имя класса для контейнера когда адрес выбран
-        //*[@id="wrap"]/div[1]/div/div/div/div[1]/div/div/text() - "Вы выбрали адрес"
-
-        return false;
+        if(isElementPresent(By.className("ship-address-selector--selected"))){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // TODO isShippingAddressSelected - метод возвращающий логическое значение выбран ли адрес доставки
@@ -82,6 +91,7 @@ public class ShoppingHelper extends HelperBase {
         // жмем на крестик закрытия карточки товара
         click(By.className("close"));
     }
+
 
 
     // ================================================ //

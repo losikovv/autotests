@@ -5,7 +5,18 @@ import org.testng.annotations.Test;
 
 public class ShoppingTest extends TestBase {
 
-    @Test
+
+    @Test(priority = 1)
+    public void chooseShippingAddress() throws Exception{
+
+    }
+
+    @Test(priority = 2)
+    public void chooseShop() throws Exception{
+
+    }
+
+    @Test(priority = 3)
     public void addItemToCart() throws Exception {
         app.getNavigationHelper().getPage("metro?sid=12");
         app.getShoppingHelper().addFirstLineItemOnPageToCart();

@@ -166,9 +166,10 @@ public class HelperBase {
         System.out.println(message);
     }
 
-    /** Close Flocktory widget if it is present */
+    /** Close Flocktory widget if it's present */
     public void closeFlocktoryWidget() {
         if (isElementPresent(By.className("flocktory-widget-overlay"))){
+            closeAlertAndGetItsText();
             click(By.xpath("/html/body/div/div[1]"));
         }
     }

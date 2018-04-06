@@ -13,12 +13,11 @@ public class RegistrationTest extends TestBase {
         app.getNavigationHelper().getLandingPage();
         // регаем нового юзера
         app.getSessionHelper().regNewAutotestUser();
-        // идем в профиль
-        app.getNavigationHelper().goToProfile();
-        // идем на главную
+        // идем на в профиль и на главную
+        app.getNavigationHelper().getProfilePage();
         app.getNavigationHelper().goToHomepage();
         // проверияем авторизованность
-        Assert.assertTrue(app.getSessionHelper().userIsAuthorised());
+        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "Can't approve the registration is performed correctly"+"\n");
         // разлогиниваемся
         app.getSessionHelper().doLogout();
     }
@@ -30,12 +29,11 @@ public class RegistrationTest extends TestBase {
         app.getNavigationHelper().getRetailerPage(new RetailerData("metro"));
         // регаем нового юзера
         app.getSessionHelper().regNewAutotestUser();
-        // идем в профиль
-        app.getNavigationHelper().goToProfile();
-        // идем на главную
+        // идем на в профиль и на главную
+        app.getNavigationHelper().getProfilePage();
         app.getNavigationHelper().goToHomepage();
         // проверияем авторизованность
-        Assert.assertTrue(app.getSessionHelper().userIsAuthorised());
+        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(),"Can't approve the registration is performed correctly"+"\n");
         // разлогиниваемся
         app.getSessionHelper().doLogout();
     }

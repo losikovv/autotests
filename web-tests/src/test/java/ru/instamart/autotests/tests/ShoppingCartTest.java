@@ -6,6 +6,8 @@ import ru.instamart.autotests.models.UserData;
 
 public class ShoppingCartTest extends TestBase{
 
+    //TODO слить в shopping test
+
     @Test
     public void authorisation() throws Exception {
         // идем и чекаем витрину Метро
