@@ -11,7 +11,7 @@ public class ShoppingCartTest extends TestBase{
     @Test
     public void authorisation() throws Exception {
         // идем и чекаем витрину Метро
-        getAndAssertPageIsAvailable("https://instamart.ru/metro");
+        assertPageIsAvailable("https://instamart.ru/metro");
         // логинимся
         app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7", null));
         // проверяем что авторизованы

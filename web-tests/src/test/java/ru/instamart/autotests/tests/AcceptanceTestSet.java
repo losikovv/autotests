@@ -31,7 +31,7 @@ public class AcceptanceTestSet extends TestBase {
     @Test(priority = 1)
     public void authorisation() throws Exception {
         // идем и чекаем лендинг
-        getAndAssertPageIsAvailable("https://instamart.ru/");
+        assertPageIsAvailable("https://instamart.ru/");
         // логинимся юзером для автотестов с админскими правами
         app.getSessionHelper().doLoginAsAdmin();
         // проверяем что авторизованы
@@ -44,14 +44,14 @@ public class AcceptanceTestSet extends TestBase {
     // TODO забирать список ритейлеров из БД или из админки с признаком активности
     // TODO проверять витрины активных ритейлеров на доступность, витрины неактивных - на недоступность
     public void checkRetailerPages() throws Exception {
-        getAndAssertPageIsAvailable("https://instamart.ru/metro");
-        getAndAssertPageIsAvailable("https://instamart.ru/lenta");
+        assertPageIsAvailable("https://instamart.ru/metro");
+        assertPageIsAvailable("https://instamart.ru/lenta");
 
         // неактивный ритейлер
-        getAndAssertPageIs404("https://instamart.ru/selgros");
+        assertPageIs404("https://instamart.ru/selgros");
 
-        getAndAssertPageIsAvailable("https://instamart.ru/vkusvill");
-        getAndAssertPageIsAvailable("https://instamart.ru/karusel");
+        assertPageIsAvailable("https://instamart.ru/vkusvill");
+        assertPageIsAvailable("https://instamart.ru/karusel");
     }
 
     @Test(priority = 3)
@@ -65,9 +65,9 @@ public class AcceptanceTestSet extends TestBase {
     // чекаем страницы профиля
     // TODO переделать чек страниц циклом по списку
     public void checkProfilePages() throws Exception {
-        getAndAssertPageIsAvailable("https://instamart.ru/user/edit");
-        getAndAssertPageIsAvailable("https://instamart.ru/user/orders");
-        getAndAssertPageIsAvailable("https://instamart.ru/user/addresses");
+        assertPageIsAvailable("https://instamart.ru/user/edit");
+        assertPageIsAvailable("https://instamart.ru/user/orders");
+        assertPageIsAvailable("https://instamart.ru/user/addresses");
     }
 
     @Test(priority = 5)
@@ -75,14 +75,14 @@ public class AcceptanceTestSet extends TestBase {
     // TODO переделать чек страниц циклом по списку
     // TODO забирать список страниц из БД или из админки
     public void checkStaticPages() throws Exception {
-        getAndAssertPageIsAvailable("https://instamart.ru/about");
-        getAndAssertPageIsAvailable("https://instamart.ru/delivery");
-        getAndAssertPageIsAvailable("https://instamart.ru/rules");
-        getAndAssertPageIsAvailable("https://instamart.ru/payment");
-        getAndAssertPageIsAvailable("https://instamart.ru/return");
-        getAndAssertPageIsAvailable("https://instamart.ru/faq");
-        getAndAssertPageIsAvailable("https://instamart.ru/terms");
-        getAndAssertPageIsAvailable("https://instamart.ru/contacts");
+        assertPageIsAvailable("https://instamart.ru/about");
+        assertPageIsAvailable("https://instamart.ru/delivery");
+        assertPageIsAvailable("https://instamart.ru/rules");
+        assertPageIsAvailable("https://instamart.ru/payment");
+        assertPageIsAvailable("https://instamart.ru/return");
+        assertPageIsAvailable("https://instamart.ru/faq");
+        assertPageIsAvailable("https://instamart.ru/terms");
+        assertPageIsAvailable("https://instamart.ru/contacts");
     }
 
     @Test(priority = 6)
@@ -90,25 +90,25 @@ public class AcceptanceTestSet extends TestBase {
     // TODO переделать чек лендингов циклом по списку
     // TODO забирать список лендингов из БД или из админки
     public void checkLandings() throws Exception {
-        getAndAssertPageIsAvailable("https://instamart.ru/mnogoru");
-        getAndAssertPageIsAvailable("https://instamart.ru/sovest");
-        getAndAssertPageIsAvailable("https://instamart.ru/halva");
-        getAndAssertPageIsAvailable("https://instamart.ru/landings/feedback");
+        assertPageIsAvailable("https://instamart.ru/mnogoru");
+        assertPageIsAvailable("https://instamart.ru/sovest");
+        assertPageIsAvailable("https://instamart.ru/halva");
+        assertPageIsAvailable("https://instamart.ru/landings/feedback");
     }
 
     @Test(priority = 7)
     // чекаем корневые страницы админки
     // TODO переделать чек лендингов циклом по списку
     public void checkAdminPages() throws AssertionError {
-        getAndAssertPageIsAvailable("https://instamart.ru/admin/shipments");
-        getAndAssertPageIsAvailable("https://instamart.ru/admin/retailers");
-        getAndAssertPageIsAvailable("https://instamart.ru/admin/products");
-        getAndAssertPageIsAvailable("https://instamart.ru/admin/imports");
-        getAndAssertPageIsAvailable("https://instamart.ru/admin/reports");
-        getAndAssertPageIsAvailable("https://instamart.ru/admin/general_settings/edit");
-        getAndAssertPageIsAvailable("https://instamart.ru/admin/promo_cards");
-        getAndAssertPageIsAvailable("https://instamart.ru/admin/users");
-        getAndAssertPageIsAvailable("https://instamart.ru/admin/pages");
+        assertPageIsAvailable("https://instamart.ru/admin/shipments");
+        assertPageIsAvailable("https://instamart.ru/admin/retailers");
+        assertPageIsAvailable("https://instamart.ru/admin/products");
+        assertPageIsAvailable("https://instamart.ru/admin/imports");
+        assertPageIsAvailable("https://instamart.ru/admin/reports");
+        assertPageIsAvailable("https://instamart.ru/admin/general_settings/edit");
+        assertPageIsAvailable("https://instamart.ru/admin/promo_cards");
+        assertPageIsAvailable("https://instamart.ru/admin/users");
+        assertPageIsAvailable("https://instamart.ru/admin/pages");
     }
 
     @Test(priority = 8)
