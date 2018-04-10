@@ -112,17 +112,17 @@ public class AcceptanceTestSet extends TestBase {
     }
 
     @Test(priority = 8)
-    public void cleanupAutotestUsers() throws Exception {
-        app.getSessionHelper().deleteAllAutotestUsers();
-        app.getNavigationHelper().getAdminPage("users?q%5Bemail_cont%5D=%40example.com");
-        Assert.assertFalse(app.getNavigationHelper().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),"Seems like there are some autotest users left in admin panel");
-    }
-
-    @Test(priority = 9)
     // логаут
     public void logout() throws Exception {
         app.getSessionHelper().doLogout();
         assertPageIsAvailable();
+    }
+
+    @Test(priority = 9)
+    public void cleanupAutotestUsers() throws Exception {
+        app.getSessionHelper().deleteAllAutotestUsers();
+        app.getNavigationHelper().getAdminPage("users?q%5Bemail_cont%5D=%40example.com");
+        Assert.assertFalse(app.getNavigationHelper().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),"Seems like there are some autotest users left in admin panel");
     }
 
 }
