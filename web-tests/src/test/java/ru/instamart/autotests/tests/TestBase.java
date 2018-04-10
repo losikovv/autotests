@@ -31,7 +31,7 @@ public class TestBase {
      */
     protected void assertPageIsAvailable() throws AssertionError{
         String currentURL = app.getNavigationHelper().currentURL();
-        app.getNavigationHelper().printMessage("Checking page " + currentURL + " is available");
+        app.getNavigationHelper().printMessage("Checking that current page " + currentURL + " is available");
         Assert.assertFalse(app.getNavigationHelper().its404(),"Page " + currentURL + " is 404" + "\n");
         Assert.assertFalse(app.getNavigationHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
     }
@@ -55,7 +55,7 @@ public class TestBase {
      */
     protected void assertPageIs404() throws AssertionError{
         String currentURL = app.getNavigationHelper().currentURL();
-        app.getNavigationHelper().printMessage("Checking page " + currentURL + " is 404");
+        app.getNavigationHelper().printMessage("Checking that current page " + currentURL + " is 404");
         Assert.assertTrue(app.getNavigationHelper().its404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
         Assert.assertFalse(app.getNavigationHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
     }

@@ -116,6 +116,7 @@ public class AcceptanceTestSet extends TestBase {
     public void logout() throws Exception {
         app.getSessionHelper().doLogout();
         assertPageIsAvailable();
+        Assert.assertFalse(app.getSessionHelper().userIsAuthorised(), "Seems like user is still authorized");
     }
 
     @Test(priority = 9)
