@@ -8,7 +8,7 @@ import ru.instamart.autotests.appmanager.ApplicationManager;
 
 
 
-    // Test base class
+    // Base test class
 
 
 
