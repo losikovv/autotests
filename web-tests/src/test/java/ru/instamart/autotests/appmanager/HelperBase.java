@@ -49,8 +49,7 @@ public class HelperBase {
         try {
             driver.findElement(locator).click();
         } catch (ElementClickInterceptedException e) {
-            closeFlocktoryWidget();
-            //closePromoWidget();
+            closeWidgets();
             driver.findElement(locator).click();
         }
     }
@@ -212,27 +211,41 @@ public class HelperBase {
         System.out.println(message);
     }
 
+    public void closeWidgets() {
+        //TODO оптимизировать проверки чтобы сначала выполнялись проверки на самые частые виджеты
+        if (isElementPresent(By.className("flocktory-widget-overlay"))){
+            closeFlocktoryWidget();
+        }
+        // доделать методы закрытия остальных виджетов
+        //else if (isElementPresent(By.className(""))){closePromoWidget();}
+        //else if (isElementPresent(By.className(""))){closeEmailWidget();}
+    }
+
     /**
      *Close Flocktory widget if it's present
      */
     public void closeFlocktoryWidget() {
-        if (isElementPresent(By.className("flocktory-widget-overlay"))){
-            closeAlertAndGetItsText();
+            //closeAlertAndGetItsText();
             //TODO заменить локатор, уйти от xpath
             click(By.xpath("/html/body/div/div[1]"));
-        }
     }
 
-
     /**
-     * Close promo widget if it's present
+     * Close promo widget if it's present after making first order
      */
     /*
     // Закрываем промо-виджет, который показывается после первой покупки
     public void closePromoWidget() {
-        if (isElementPresent(By.className(""))){
             click(By.className(""));
-        }
+    }
+    */
+
+    /**
+     * Close email opt-on widget if it's present on landing
+     */
+    /*
+    public void closeEmailWidget() {
+            click(By.className(""));
     }
     */
 

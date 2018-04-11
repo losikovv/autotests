@@ -161,7 +161,6 @@ public class SessionHelper extends HelperBase {
     /** Do log-out */
     //TODO обернуть в try-catch чтобы вызывать closeFlocktoryWidget(); только в случае ошибки
     public void doLogout() {
-        closeFlocktoryWidget();
         if (!itsInAdmin()) {
             doLogoutFromSite();
         } else {
