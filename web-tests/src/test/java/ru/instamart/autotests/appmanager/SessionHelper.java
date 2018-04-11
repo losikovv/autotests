@@ -36,8 +36,7 @@ public class SessionHelper extends HelperBase {
         } else {
             regNewUserOnRetailerPage(userData);
         }
-        getBaseUrl();
-        printMessage("New autotest user is registered");
+        printMessage("New autotest user has been registered");
     }
 
     /** Do new user registration on landing page with given user data */
