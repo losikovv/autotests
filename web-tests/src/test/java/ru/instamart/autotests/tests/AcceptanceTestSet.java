@@ -19,7 +19,10 @@ public class AcceptanceTestSet extends TestBase {
     @Test
     //регистрация пользователя
     public void registration() throws Exception {
+        // идем на лендинг
         app.getNavigationHelper().getBaseUrl();
+        // чекаем что все ровно
+        //assertPageIsAvailable();
         // регаем нового тестового юзера
         app.getSessionHelper().regNewAutotestUser();
         // проверияем авторизованность
@@ -30,8 +33,10 @@ public class AcceptanceTestSet extends TestBase {
 
     @Test(priority = 1)
     public void authorisation() throws Exception {
-        // идем и чекаем лендинг
-        assertPageIsAvailable("https://instamart.ru/");
+        // идем на лендинг
+        app.getNavigationHelper().getBaseUrl();
+        // чекаем что все ровно
+        //assertPageIsAvailable();
         // логинимся юзером для автотестов с админскими правами
         app.getSessionHelper().doLoginAsAdmin();
         // проверяем что авторизованы

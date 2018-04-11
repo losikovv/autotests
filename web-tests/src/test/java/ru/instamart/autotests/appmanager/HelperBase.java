@@ -32,6 +32,7 @@ public class HelperBase {
      */
     public void getBaseUrl() {
         driver.get(baseUrl);
+        printMessage("Get base URL " + baseUrl);
     }
 
     /**
@@ -225,15 +226,15 @@ public class HelperBase {
      *Close Flocktory widget if it's present
      */
     public void closeFlocktoryWidget() {
-            //closeAlertAndGetItsText();
+            closeAlertAndGetItsText();
             //TODO заменить локатор, уйти от xpath
-            click(By.xpath("/html/body/div/div[1]"));
+            //click(By.xpath("/html/body/div/div[1]"));
     }
 
     /**
      * Close promo widget if it's present after making first order
      */
-    /*
+    /* /TODO
     // Закрываем промо-виджет, который показывается после первой покупки
     public void closePromoWidget() {
             click(By.className(""));
@@ -243,7 +244,7 @@ public class HelperBase {
     /**
      * Close email opt-on widget if it's present on landing
      */
-    /*
+    /* /TODO
     public void closeEmailWidget() {
             click(By.className(""));
     }

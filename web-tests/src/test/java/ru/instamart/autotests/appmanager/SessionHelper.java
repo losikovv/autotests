@@ -139,7 +139,7 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("(//input[@name='commit'])[2]"));
         // задержка чтобы пользователь нормально авторизовался
         waitForIt();
-        printMessage("Log-in on landing page");
+        printMessage("Performing user log-in on landing page");
     }
 
     /** Do log-in on retailer page page with given user data */
@@ -154,7 +154,7 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id='login_form']/ul[1]/li[4]/input[2]"));
         // задержка чтобы пользователь нормально авторизовался
         waitForIt();
-        printMessage("Log-in on retailer page");
+        printMessage("Performing user log-in on retailer page");
     }
 
     /** Do log-out */
