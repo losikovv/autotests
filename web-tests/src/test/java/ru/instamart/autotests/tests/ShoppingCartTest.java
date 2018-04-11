@@ -2,7 +2,6 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.models.UserData;
 
 public class ShoppingCartTest extends TestBase{
 
@@ -13,36 +12,39 @@ public class ShoppingCartTest extends TestBase{
         // идем и чекаем витрину Метро
         assertPageIsAvailable("https://instamart.ru/metro");
         // логинимся
-        app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7", null));
+        app.getSessionHelper().doLoginAsReturningCustomer();
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
     }
 
-    @Test
+    @Test(priority = 1)
     public void openCart()throws Exception {
-        if (app.getShoppingHelper().cartIsOpen()) {
+        if (app.getShoppingHelper().isCartOpen()) {
             app.getShoppingHelper().closeCart();
         }
         app.getShoppingHelper().openCart();
-        Assert.assertTrue(app.getShoppingHelper().cartIsOpen(), "Can't open shopping cart"+"\n");
+        Assert.assertTrue(app.getShoppingHelper().isCartOpen(), "Can't open shopping cart"+"\n");
     }
 
-    @Test
+    @Test(priority = 2)
     public void closeCart()throws Exception {
-        if (!app.getShoppingHelper().cartIsOpen()) {
+        if (!app.getShoppingHelper().isCartOpen()) {
             app.getShoppingHelper().openCart();
         }
         app.getShoppingHelper().closeCart();
-        Assert.assertFalse(app.getShoppingHelper().cartIsOpen(), "Can't close shopping cart"+"\n");
+        Assert.assertFalse(app.getShoppingHelper().isCartOpen(), "Can't close shopping cart"+"\n");
     }
 
-    @Test
-    public void showEmptyCartPlaceholder()throws Exception {
-        if (!app.getShoppingHelper().cartIsOpen()) {
+    @Test(priority = 3)
+    public void checkEmptyCartPlaceholder()throws Exception {
+        if (!app.getShoppingHelper().isCartOpen()) {
             app.getShoppingHelper().openCart();
         }
-        // TODO добавить проверку на наличие товаров в корзине и если нет - очищать корзину методом clearCart
-        Assert.assertTrue(app.getShoppingHelper().isCartEmpty(), "There is no placeholder in an empty shopping cart"+"\n");
+        // TODO переделать проверки
+        // TODO если корзина не пуста - очищать корзину методом clearCart, затем проверять плейсхолдер
+        if(app.getShoppingHelper().isCartEmpty()){
+        Assert.assertTrue(app.getShoppingHelper().isEmptyCartPlaceholderPresent(), "There is no placeholder in an empty shopping cart"+"\n");
+        } else {app.getShoppingHelper().printMessage("Cart isn't empty at the moment");}
     }
 
 }

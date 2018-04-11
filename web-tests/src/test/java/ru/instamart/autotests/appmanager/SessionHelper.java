@@ -95,7 +95,7 @@ public class SessionHelper extends HelperBase {
         }
     }
 
-    /** Do login with given user data */
+    /** Do log-in with given user data */
     public void doLogin(UserData userData) {
         if (itsOnLandingPage()) {
             doLoginOnLandingPage(userData);
@@ -104,7 +104,7 @@ public class SessionHelper extends HelperBase {
         }
     }
 
-    /** Do login with user credentials of autotest@instamart.ru which is reserved for autotests and have admin privileges */
+    /** Do log-in with user credentials of autotest@instamart.ru which is reserved for autotests and have admin privileges */
     public void doLoginAsAdmin() {
         final String LOGIN = "autotestuser@instamart.ru";
         final String PASSWORD = "DyDrasLipMeibe7";
@@ -113,10 +113,22 @@ public class SessionHelper extends HelperBase {
         } else {
             doLoginOnRetailerPage(new UserData(LOGIN, PASSWORD, null));
         }
-        printMessage("Logged-in with admin privileges");
+        printMessage("Logged-in with admin privileges as " + LOGIN);
     }
 
-    /** Do login on landing page with given user data */
+    /** Do log-in with user credentials of instatestuser@yandex.ru which is reserved for testing needs */
+    public void doLoginAsReturningCustomer() {
+        final String LOGIN = "instatestuser@yandex.ru";
+        final String PASSWORD = "instamart";
+        if (itsOnLandingPage()) {
+            doLoginOnLandingPage(new UserData(LOGIN, PASSWORD, null));
+        } else {
+            doLoginOnRetailerPage(new UserData(LOGIN, PASSWORD, null));
+        }
+        printMessage("Logged-in as " + LOGIN);
+    }
+
+    /** Do log-in on landing page with given user data */
     public void doLoginOnLandingPage(UserData userData) {
         // открываем форму авторизации/регистрации
         click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
@@ -131,7 +143,7 @@ public class SessionHelper extends HelperBase {
         printMessage("Log-in on landing page");
     }
 
-    /** Do login on retailer page page with given user data */
+    /** Do log-in on retailer page page with given user data */
     public void doLoginOnRetailerPage(UserData userData) {
         // открываем форму авторизации/регистрации
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/button"));
@@ -146,7 +158,7 @@ public class SessionHelper extends HelperBase {
         printMessage("Log-in on retailer page");
     }
 
-    /** Do logout */
+    /** Do log-out */
     //TODO обернуть в try-catch чтобы вызывать closeFlocktoryWidget(); только в случае ошибки
     public void doLogout() {
         closeFlocktoryWidget();
@@ -157,7 +169,7 @@ public class SessionHelper extends HelperBase {
         }
     }
 
-    /** Do logout from site */
+    /** Do log-out from site */
     public void doLogoutFromSite() {
         //клик по кнопке Профиль
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"));
@@ -168,7 +180,7 @@ public class SessionHelper extends HelperBase {
         printMessage("Logged-out from site");
     }
 
-    /** Do logout from admin panel */
+    /** Do log-out from admin panel */
     public void doLogoutFromAdmin() {
         //клик по кнопке Выйти
         click(By.xpath("//*[@id='login-nav']/li[3]/a"));

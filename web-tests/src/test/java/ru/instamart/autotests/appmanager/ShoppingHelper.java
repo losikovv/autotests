@@ -24,14 +24,13 @@ public class ShoppingHelper extends HelperBase {
     //                                                  //
     // ================================================ //
 
-    // TODO
-    /** Set shipping address with given string */
+    /** Set shipping address with a given string */
     public void setShippingAddress(String address){
-
+        // TODO
     }
 
     // TODO
-    /** Find out if there shipping address is set */
+    /** Find out if there shipping address is set or not */
     // "ship-address-selector" - имя класса для контейнера когда адрес не выбран
     // "ship-address-selector--selected" - имя класса для контейнера когда адрес выбран
     //*[@id="wrap"]/div[1]/div/div/div/div[1]/div/div/text() - "Вы выбрали адрес
@@ -79,8 +78,10 @@ public class ShoppingHelper extends HelperBase {
         // TODO
     }
 
-    /** Add first line item on the page to the shopping cart
-     * Shipping address must be chosen before that */
+    /**
+     * Add first line item on the page to the shopping cart
+     * Shipping address must be chosen before that
+     */
     public void addFirstLineItemOnPageToCart(){
         // жмем на сниппет первого товара на странице
         click(By.xpath("//*[@id='home']/div[2]/ul/li[1]/ul/li[1]/a"));
@@ -96,60 +97,72 @@ public class ShoppingHelper extends HelperBase {
 
     // ================================================ //
     //                                                  //
-    //          Методы для работы с корзиной            //
+    //              Методы работы с корзиной            //
     //                                                  //
     // ================================================ //
 
-    /** Метод, определяющий открыта ли корзина */
-    public boolean cartIsOpen(){
-        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div"))) {
+    /**
+     * Метод, определяющий открыта ли корзина
+     */
+    public boolean isCartOpen(){
+        if (isElementPresent(By.className("new-cart"))) {
             return true;
         } else {
             return false;
         }
     }
 
-    /** Открыть корзину */
+    /**
+     * Открыть корзину
+     */
     public void openCart(){
-        click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div"));
+        click(By.className("open-new-cart"));
     }
 
-    /** Закрыть корзину */
+    /**
+     * Закрыть корзину
+     */
     public void closeCart(){
-        click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[1]/div[2]"));
+        click(By.className("btn-close-cart"));
     }
 
-    /** Метод, определяющий пуста ли корзина */
-    // TODO переписать метод, определяя сумму корзины, а не по плейсхолдеру
+    /**
+     * Метод, определяющий пуста ли корзина
+     */
     public boolean isCartEmpty(){
-        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div"))) {
+        //if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div"))) {
+        if (isElementPresent(By.className("new-cart-empty"))) {
             return true;
         } else {
             return false;
         }
     }
 
-    /** Метод, определяющий пуста ли корзина */
-    // TODO переписать метод, определяя сумму корзины, а не по плейсхолдеру
-    public boolean isPlaceholderShown(){
-        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div"))) {
+    /**
+     * Метод, определяющий показан ли плейсхолдер в пустой корзине
+     */
+    public boolean isEmptyCartPlaceholderPresent(){
+        if (isElementPresent(By.className("new-cart-empty__img"))) {
             return true;
         } else {
             return false;
         }
     }
 
-    /** Удалить верхний товар в корзине */
+    /**
+     * Удалить верхний товар в корзине
+     */
     public void deleteTopItem(){
         click(By.xpath("*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div/div[2]/span/div[1]/div/div/div[1]/div[2]/div[2]"));
     }
 
-    /** Удалить товар по позиции в корзине */
+    /**
+     * Удалить товар по позиции в корзине
+     */
     public void deleteItem(int itemPosition){
         click(By.xpath("*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div/div[2]/span/div[" + itemPosition + "]/div/div/div[1]/div[2]/div[2]"));
     }
 
-    // TODO isCheckoutButtonActive - активна ли кнопка перехода в чекаут
 
     // TODO clearCart - очистить корзину (удалить все товары)
 
@@ -163,15 +176,20 @@ public class ShoppingHelper extends HelperBase {
     // TODO reduceItemQuantity(int itemPosition) - -1 кол-во товара по позиции
 
 
-    /** Get cart sum from 'Make order' button in cart */
+    /**
+     * Get the cart sum from the 'Make order' button
+     */
     public void getCartTotal(){
-        getText(By.xpath("    //*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[3]/form/button/div/div[2]/div/text()"));
+        getText(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[3]/form/button/div/div[2]/div/text()"));
     }
 
-    /** Click 'Make order' button in cart and proceed to checkout */
+    // TODO isCheckoutButtonActive - активна ли кнопка перехода в чекаут
+
+    /**
+     * Click the 'Make order' button in the shopping cart and proceed to checkout
+     */
     public void proceedToCheckout(){
-        click(By.className("cart-checkout-link"));
-        //click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[3]/form"));
+        click(By.className("cart-checkout"));
     }
 
     // TODO grabCart(int sum) - ннабрать корзину на переданную сумму
@@ -187,7 +205,9 @@ public class ShoppingHelper extends HelperBase {
     //                                                  //
     // ================================================ //
 
-    /** Find out if the order is canceled or not by checking the order page in admin panel */
+    /**
+     * Find out if the order is canceled or not by checking the order page in admin panel
+     */
     public boolean orderIsCanceled() {
         String XPATH = "//*[@id='content']/div/table/tbody/tr[3]/td/b";
         // checks status on the order page in admin panel
@@ -198,7 +218,9 @@ public class ShoppingHelper extends HelperBase {
         }
     }
 
-    /** Cancel order on the order page in admin panel */
+    /**
+     * Cancel order on the order page in admin panel
+     */
     public void cancelOrderFromAdmin(){
         // click cancel button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
@@ -210,7 +232,9 @@ public class ShoppingHelper extends HelperBase {
         click(By.xpath("//*[@id='new_cancellation']/fieldset/div[2]/button"));
     }
 
-    /** Resume canceled order on the order page in admin panel */
+    /**
+     * Resume canceled order on the order page in admin panel
+     */
     public void resumeOrderFromAdmin(){
         // click resume button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));

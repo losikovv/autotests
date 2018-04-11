@@ -55,7 +55,7 @@ public class ApplicationManager {
         }
 
         baseUrl = "https://instamart.ru/";
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         // init helpers
         navigationHelper = new NavigationHelper(driver);

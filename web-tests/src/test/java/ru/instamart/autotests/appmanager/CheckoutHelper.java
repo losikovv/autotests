@@ -14,6 +14,44 @@ public class CheckoutHelper extends HelperBase {
 
     //TODO методы
 
+    /** Complete checkout with predefined standard test options
+     *  Use only for existing users which have telephone numbers and all payment types, cards and loyalty programs
+     * */
+    public void completeCheckout(){
+        // TODO зарефакторить после написания методов чекаута
+        printMessage("Making test order");
+        //заполняем поле пожеланий к заказу
+        fillField(By.name("order[special_instructions]"),"ТЕСТОВЫЙ ЗАКАЗ");
+        //жмем Продолжить
+        driver.findElement(By.xpath("//button[@type='button']")).click();
+        //жмем Продолжить
+        driver.findElement(By.xpath("(//button[@type='button'])[2]")).click();
+        //жмем Продолжить
+        driver.findElement(By.xpath("(//button[@type='button'])[3]")).click();
+        //жмем Продолжить
+        driver.findElement(By.xpath("(//button[@type='button'])[4]")).click();
+        //выбираем первый слот доставки в 7 день
+        driver.findElement(By.xpath("//div[7]/span[2]")).click();
+        driver.findElement(By.xpath("//div[2]/div/div/span[2]")).click();
+        //жмем Оформить заказ
+        driver.findElement(By.xpath("//form/div/div/div[2]/div[2]/div/button")).click();
+
+        printMessage("Cancelling test order");
+        //возврат
+        driver.findElement(By.linkText("Все заказы")).click();
+        //отмена заказа
+        driver.findElement(By.xpath("//div[@id='wrap']/div/div/div/div[2]/div/div/div/div/div/div/div/div[2]/button")).click();
+    }
+
+    /** Complete checkout with given options
+     *  Use only for existing users which have telephone numbers and all payment types, cards and loyalty programs
+     * */
+    public void completeCheckout(String paymentType, String loyaltyProgram, String promoCode){
+        // TODO
+        //String comment - захардкодить коммент ТЕСТОВЫЙ ЗАКАЗ
+        //deliveryWindow - захардкодить первое окно в 7 день
+    }
+
     // TODO clickProceed - нажать на кнопку Продолжить (на всех этапах)
 
     // TODO specifyShippingAddress - уточнить адрес доставки

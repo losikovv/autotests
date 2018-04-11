@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 public class ShoppingTest extends TestBase {
 
-
+/*
     @Test(priority = 1)
     public void chooseShippingAddress() throws Exception{
 
@@ -21,6 +21,21 @@ public class ShoppingTest extends TestBase {
         app.getNavigationHelper().getPage("metro?sid=12");
         app.getShoppingHelper().addFirstLineItemOnPageToCart();
         app.getShoppingHelper().openCart();
+        // работает только если корзина была пуста, нужно переделать
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(), "Item hasn't been added to cart");
     }
+
+    */
+
+    @Test(priority = 1)
+    public void makeTestOrder() throws Exception{
+        app.getNavigationHelper().getLandingPage();
+        app.getSessionHelper().doLoginAsReturningCustomer();
+        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
+        app.getShoppingHelper().openCart();
+        app.getShoppingHelper().proceedToCheckout();
+        app.getCheckoutHelper().completeCheckout();
+
+}
+
 }
