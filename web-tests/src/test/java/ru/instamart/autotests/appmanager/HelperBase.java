@@ -13,7 +13,10 @@ import java.util.concurrent.TimeUnit;
 public class HelperBase {
 
     protected WebDriver driver;
-    //TODO передавать baseUrl из Application Manager
+
+    //TODO попробовать брать baseUrl из Application Manager
+    //static final String baseUrl;
+
     static final String baseUrl = "https://instamart.ru/";
     private boolean acceptNextAlert = true;
 
@@ -24,27 +27,42 @@ public class HelperBase {
         this.driver = driver;
     }
 
-    /** Get base URL by the browser */
+    /**
+     * Get base URL by the browser
+     */
     public void getBaseUrl() {
         driver.get(baseUrl);
     }
 
-    /** Simply get a given URL */
+    /**
+     * Simply get a given URL
+     */
     public void getUrl(String url) {
         driver.get(url);
     }
 
-    /** Click an element on the page using a given locator */
+    /**
+     * Click an element on the page using a given locator
+     * If the target element is obscured by something, then try to close marketing widgets and perform click again
+     */
     protected void click(By locator) {
-        driver.findElement(locator).click();
+        try {
+            driver.findElement(locator).click();
+        } catch (ElementClickInterceptedException e) {
+            closeFlocktoryWidget();
+            //closePromoWidget();
+            driver.findElement(locator).click();
+        }
     }
 
-    /** Fill the form field with a given text, which may be null
-     * Method skips filling if the field is already have same text */
+    /**
+     * Fill the form field with a given text, which may be null
+     * Method skips filling if the field is already have the same text
+     */
     protected void fillField(By locator, String text) {
         click(locator);
         if (text != null) {
-            String existingText =   driver.findElement(locator).getAttribute("value");
+            String existingText = driver.findElement(locator).getAttribute("value");
             if (! text.equals(existingText)) {
             driver.findElement(locator).clear();
             driver.findElement(locator).sendKeys(text);
@@ -52,17 +70,23 @@ public class HelperBase {
         }
     }
 
-    /** Get the URL of the current page */
+    /**
+     * Get the URL of the current page
+     */
     public String currentURL(){
         return driver.getCurrentUrl();
     }
 
-    /** Get text of the element */
+    /**
+     * Get text of the element
+     */
     protected String getText(By locator) {
         return driver.findElement(locator).getText();
     }
 
-    /** Find out if the element is shown on the page */
+    /**
+     * Find out if the element is shown on the page
+     */
     public boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);
@@ -72,7 +96,9 @@ public class HelperBase {
         }
     }
 
-    /** Find out if the alert is shown on the page */
+    /**
+     * Find out if the alert is shown on the page
+     */
     protected boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
@@ -82,7 +108,9 @@ public class HelperBase {
         }
     }
 
-    /** Switch to the alert, get and return its text and close it */
+    /**
+     * Switch to the alert, get and return its text and close it
+     */
     protected String closeAlertAndGetItsText() {
         try {
             Alert alert = driver.switchTo().alert();
@@ -98,17 +126,23 @@ public class HelperBase {
         }
     }
 
-    /** Switch to active element on the page */
+    /**
+     * Switch to active element on the page
+     */
     protected void swithchToActiveElement() {
         driver.switchTo().activeElement();
     }
 
-    /** Method returns true if the user is on landing page and false if he isn't */
+    /**
+     * Method returns true if the user is on landing page and false if he isn't
+     */
     public boolean itsOnLandingPage() {
         return currentURL().equals(baseUrl);
     }
 
-    /** Method returns true if the user is on retailer page and false if he isn't */
+    /**
+     * Method returns true if the user is on retailer page and false if he isn't
+     */
     public boolean itsOnRetailerPage() {
         if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[2]"))) {
             return true;
@@ -117,7 +151,9 @@ public class HelperBase {
         }
     }
 
-    /** Method returns true if user is on site and false if he isn't */
+    /**
+     * Method returns true if user is on site and false if he isn't
+     */
     public boolean itsOnSite() {
         if (isElementPresent(By.xpath(" //*[@id='new-home-footer']"))) {
             return true;
@@ -126,7 +162,9 @@ public class HelperBase {
         }
     }
 
-    /** Method returns true if user is in the admin panel and false if he isn't */
+    /**
+     * Method returns true if user is in the admin panel and false if he isn't
+     */
     public boolean itsInAdmin() {
         String XPATH = "//*[@id='login-nav']/li[2]/a";
         if (isElementPresent(By.xpath(XPATH))) {
@@ -136,7 +174,9 @@ public class HelperBase {
         }
     }
 
-    /** Method returns true if it's 404 on the page and false if it's not */
+    /**
+     * Method returns true if it's 404 on the page and false if it's not
+     */
     public boolean its404() {
         String XPATH = "/html/body/div[3]/div/div/div/div[1]/div/div[1]";
         if (isElementPresent(By.xpath(XPATH))) {
@@ -146,7 +186,9 @@ public class HelperBase {
         }
     }
 
-    /** Method returns true if it's something wrong on the page and false if it's ok */
+    /**
+     * Method returns true if it's something wrong on the page and false if it's ok
+     */
     public boolean itsSomethingWrong() {
         String XPATH = "/html/body/div/h1";
         if (isElementPresent(By.xpath(XPATH))) {
@@ -156,21 +198,42 @@ public class HelperBase {
         }
     }
 
-    /** Waiting which lasts for the time specified in 'implicitlyWait' timeout */
+    /**
+     * Waiting which lasts for the time specified in 'implicitlyWait' timeout
+     */
     public void waitForIt() {
         isElementPresent(By.xpath("//*[@id='spree_user_999666999666999']/td[3]/a[2]"));
     }
 
-    /** Print a given message to system out */
+    /**
+     * Print a given message to system out
+     */
     public void printMessage(String message) {
         System.out.println(message);
     }
 
-    /** Close Flocktory widget if it's present */
+    /**
+     *Close Flocktory widget if it's present
+     */
     public void closeFlocktoryWidget() {
         if (isElementPresent(By.className("flocktory-widget-overlay"))){
             closeAlertAndGetItsText();
+            //TODO заменить локатор, уйти от xpath
             click(By.xpath("/html/body/div/div[1]"));
         }
     }
+
+
+    /**
+     * Close promo widget if it's present
+     */
+    /*
+    // Закрываем промо-виджет, который показывается после первой покупки
+    public void closePromoWidget() {
+        if (isElementPresent(By.className(""))){
+            click(By.className(""));
+        }
+    }
+    */
+
 }
