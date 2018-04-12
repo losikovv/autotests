@@ -3,21 +3,26 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+
+
+    // Profile helper
+    // Contains methods for all operations within user profile section
+
+
+
 public class ProfileHelper extends HelperBase {
-    public ProfileHelper(WebDriver driver) {
+
+    public ProfileHelper(WebDriver driver){
         super(driver);
     }
 
 
 
-    // хелпер раздела "Профиль"
-
-
-
-    // АККАУНТ
+    // ======= АККАУНТ =======
 
     // перейти на страницу Аккаунт
-    public void goToAccount() {
+    public void goToAccount(){
+        printMessage("Going to User profile > Account");
         click(By.xpath("//*[@id='wrap']/div/div/div/div[1]/div/div/ul/li[1]'))"));
     }
 
@@ -29,57 +34,89 @@ public class ProfileHelper extends HelperBase {
 
 
 
-    // ЗАКАЗЫ
+    // ======= ЗАКАЗЫ =======
 
     // перейти на страницу Заказы
-    public void goToOrders() {
+    public void goToOrders(){
+        printMessage("Going to User profile > Orders");
         click(By.xpath("//*[@id='wrap']/div/div/div/div[1]/div/div/ul/li[2]'))"));
     }
 
-    // перейти в детали заказа по позиции в списке
-    public void goToOrderPage(int orderPosition) {
-        goToOrders();
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/a/button"));
-    }
-
     // перейти в детали крайнего заказа
-    public void goToLastOrderPage() {
+    public void goToLastOrderPage(){
         goToOrders();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a/button"));
     }
 
-    // повторить заказ по позиции в списке
-    public void repeatOrder (int orderPosition){
+    // перейти в детали заказа по позиции в списке
+    public void goToOrderPage(int orderPosition){
         goToOrders();
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button"));
+        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/a/button"));
     }
 
     // повторить крайний заказ
     public void repeatLastOrder(){
+        printMessage("Repeating the last order");
         goToOrders();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
     }
 
-    // отменить заказ по позиции в списке
-    public void cancelOrder (int orderPosition){
+    // повторить заказ по позиции в списке
+    public void repeatOrder (int orderPosition){
+        printMessage("Repeating order by position " + orderPosition);
         goToOrders();
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button[1]"));
+        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button"));
     }
 
     // отменить крайний заказ
     public void cancelLastOrder (){
+        printMessage("Cancelling the last order");
         goToOrders();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button[1]"));
+    }
+
+    // отменить заказ по позиции в списке
+    public void cancelOrder (int orderPosition){
+        printMessage("Cancelling order by position " + orderPosition);
+        goToOrders();
+        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button[1]"));
+    }
+
+    public boolean isOrderActive(){
+        if(isElementPresent(By.xpath(""))){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // TODO
+    public boolean isOrderDelivered(){
+        if(isElementPresent(By.xpath("// TODO "))){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // TODO
+    public boolean isOrderCanceled(){
+        if(isElementPresent(By.xpath("// TODO "))){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // TODO cancelAllOrders - отменить все незавершенные заказы
 
 
 
-    // АДРЕСА
+    // ======= АДРЕСА =======
 
     // перейти на страницу Адреса
-    public void goToAddresses() {
+    public void goToAddresses(){
+        printMessage("Going to User profile > Addresses");
         click(By.xpath("//*[@id='wrap']/div/div/div/div[1]/div/div/ul/li[3]'))"));
     }
 

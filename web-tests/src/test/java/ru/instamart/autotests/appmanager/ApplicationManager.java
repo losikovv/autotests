@@ -11,13 +11,14 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
 
+
+
+    // App management class
+    // Contains all core processes of the testing application
+
+
+
 public class ApplicationManager {
-
-
-
-    // Test app management class
-
-
 
     protected WebDriver driver;
     protected String baseUrl;

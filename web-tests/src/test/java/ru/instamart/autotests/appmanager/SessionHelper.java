@@ -39,7 +39,7 @@ public class SessionHelper extends HelperBase {
         printMessage("New autotest user has been registered");
     }
 
-    /** Do new user registration on landing page with given user data */
+    /** Do new user registration on landing page with a given user data */
     public void regNewUserOnLandingPage(UserData userData){
         printMessage("Performing user registration on landing page");
         // открываем форму авторизации/регистрации
@@ -94,7 +94,7 @@ public class SessionHelper extends HelperBase {
         }
     }
 
-    /** Do log-in with given user data */
+    /** Do log-in with a given user data */
     public void doLogin(UserData userData) {
         if (itsOnLandingPage()) {
             doLoginOnLandingPage(userData);
@@ -127,7 +127,7 @@ public class SessionHelper extends HelperBase {
         printMessage("Logged-in as " + LOGIN);
     }
 
-    /** Do log-in on landing page with given user data */
+    /** Do log-in on landing page with a given user data */
     public void doLoginOnLandingPage(UserData userData) {
         // открываем форму авторизации/регистрации
         click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
@@ -142,7 +142,7 @@ public class SessionHelper extends HelperBase {
         printMessage("Performing user log-in on landing page");
     }
 
-    /** Do log-in on retailer page page with given user data */
+    /** Do log-in on retailer page page with a given user data */
     public void doLoginOnRetailerPage(UserData userData) {
         // открываем форму авторизации/регистрации
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/button"));

@@ -2,11 +2,10 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
 
-import java.util.concurrent.TimeUnit;
 
 
-// Базовый класс хелперов
-// Содержит базовые методы взаимодейсвия с тестируемой системой
+    // Helpers base class
+    // Contains basic methods of interaction with the system under test
 
 
 
