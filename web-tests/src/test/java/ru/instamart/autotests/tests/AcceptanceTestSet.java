@@ -4,17 +4,17 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+
+
+// Тест сайта и админки для CI
+// TODO запилить тестовый набор в TestRail с признаком automated
+// TODO запилить автоматическое создание и заполнение рана в TestRail результатами теста
+// TODO добавить тесты на недоступность админки чувакам без админ прав, в т ч авторизованных через соцсети
+// TODO сделать тест-сет с вызовом по порядку нужных тестовых классов, функциональные тесты должны работать независимо друг от друга и запускаться в любом порядке
+
+
+
 public class AcceptanceTestSet extends TestBase {
-
-
-
-    // Тест сайта и админки для CI
-    // TODO запилить тестовый набор в TestRail с признаком automated
-    // TODO запилить автоматическое создание и заполнение рана в TestRail результатами теста
-    // TODO добавить тесты на недоступность админки чувакам без админ прав, в т ч авторизованных через соцсети
-    // TODO сделать тест-сет с вызовом по порядку нужных тестовых классов, функциональные тесты должны работать независимо друг от друга и запускаться в любом порядке
-
-
 
     @Test
     //регистрация пользователя
@@ -26,7 +26,7 @@ public class AcceptanceTestSet extends TestBase {
         // регаем нового тестового юзера
         app.getSessionHelper().regNewAutotestUser();
         // проверияем авторизованность
-        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "Can't approve the registration is performed correctly"+"\n");
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "Can't approve the registration is performed correctly"+"\n");
         // разлогиниваемся
         app.getSessionHelper().doLogout();
     }
@@ -40,7 +40,7 @@ public class AcceptanceTestSet extends TestBase {
         // логинимся юзером для автотестов с админскими правами
         app.getSessionHelper().doLoginAsAdmin();
         // проверяем что авторизованы
-        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "Can't approve the authorisation is successful"+"\n");
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "Can't approve the authorisation is successful"+"\n");
     }
 
     @Test(priority = 2)
@@ -121,7 +121,7 @@ public class AcceptanceTestSet extends TestBase {
     public void logout() throws Exception {
         app.getSessionHelper().doLogout();
         assertPageIsAvailable();
-        Assert.assertFalse(app.getSessionHelper().userIsAuthorised(), "Seems like user is still authorized");
+        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(), "Seems like user is still authorized");
     }
 
     @Test(priority = 9)

@@ -6,31 +6,32 @@ import ru.instamart.autotests.models.UserData;
 
 import javax.xml.xpath.XPath;
 
-public class ShoppingHelper extends HelperBase {
-
-    public ShoppingHelper(WebDriver driver) {
-        super(driver);
-    }
-
 
 
     // Shopping helper
+    // Contains shopping operations before checkout
 
 
 
-    // ================================================ //
-    //                                                  //
-    //      Методы для работы с адресом доставки        //
-    //                                                  //
-    // ================================================ //
+public class ShoppingHelper extends HelperBase {
 
-    /** Set shipping address with a given string */
+    public ShoppingHelper(WebDriver driver) { super(driver); }
+
+
+
+    // ======= Shipping address =======
+
+    /**
+     * Set shipping address with a given string
+     */
     public void setShippingAddress(String address){
         // TODO
     }
 
     // TODO
-    /** Find out if there shipping address is set or not */
+    /**
+     * Find out if there shipping address is set or not
+     */
     // "ship-address-selector" - имя класса для контейнера когда адрес не выбран
     // "ship-address-selector--selected" - имя класса для контейнера когда адрес выбран
     //*[@id="wrap"]/div[1]/div/div/div/div[1]/div/div/text() - "Вы выбрали адрес
@@ -68,11 +69,7 @@ public class ShoppingHelper extends HelperBase {
 
 
 
-    // ================================================ //
-    //                                                  //
-    // Методы для работы с каталогом продуктов магазина //
-    //                                                  //
-    // ================================================ //
+    // ======= Catalog =======
 
     public void catalog(){
         // TODO
@@ -95,11 +92,7 @@ public class ShoppingHelper extends HelperBase {
 
 
 
-    // ================================================ //
-    //                                                  //
-    //              Методы работы с корзиной            //
-    //                                                  //
-    // ================================================ //
+    // ======= Shopping Cart =======
 
     /**
      * Метод, определяющий открыта ли корзина
@@ -198,12 +191,8 @@ public class ShoppingHelper extends HelperBase {
 
 
 
-
-    // ================================================ //
-    //                                                  //
-    //          Методы для работы с заказом             //
-    //                                                  //
-    // ================================================ //
+    // ======= Orders =======
+    //TODO перенести в AdminHelper
 
     /**
      * Find out if the order is canceled or not by checking the order page in admin panel

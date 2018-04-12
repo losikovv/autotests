@@ -17,7 +17,7 @@ public class RegistrationTest extends TestBase {
         app.getNavigationHelper().getProfilePage();
         app.getNavigationHelper().goToHomepage();
         // проверияем авторизованность
-        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "Can't approve the registration is performed correctly"+"\n");
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "Can't approve the registration is performed correctly"+"\n");
         // разлогиниваемся
         app.getSessionHelper().doLogout();
     }
@@ -33,7 +33,7 @@ public class RegistrationTest extends TestBase {
         app.getNavigationHelper().getProfilePage();
         app.getNavigationHelper().goToHomepage();
         // проверияем авторизованность
-        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(),"Can't approve the registration is performed correctly"+"\n");
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),"Can't approve the registration is performed correctly"+"\n");
         // разлогиниваемся
         app.getSessionHelper().doLogout();
     }

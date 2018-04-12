@@ -18,7 +18,7 @@ public class ProfileHelper extends HelperBase {
 
 
 
-    // ======= АККАУНТ =======
+    // ======= Account =======
 
     // перейти на страницу Аккаунт
     public void goToAccount(){
@@ -34,7 +34,7 @@ public class ProfileHelper extends HelperBase {
 
 
 
-    // ======= ЗАКАЗЫ =======
+    // ======= Orders =======
 
     // перейти на страницу Заказы
     public void goToOrders(){
@@ -112,7 +112,7 @@ public class ProfileHelper extends HelperBase {
 
 
 
-    // ======= АДРЕСА =======
+    // ======= Addresses =======
 
     // перейти на страницу Адреса
     public void goToAddresses(){

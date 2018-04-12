@@ -5,12 +5,6 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.Generate;
 
-public class SessionHelper extends HelperBase {
-
-    public SessionHelper(WebDriver driver) {
-        super(driver);
-    }
-
 
 
     // Session helper for handling user registration, login and logout
@@ -19,7 +13,27 @@ public class SessionHelper extends HelperBase {
 
 
 
-    /** Do new user registration with given user data */
+public class SessionHelper extends HelperBase {
+
+    public SessionHelper(WebDriver driver) {
+        super(driver);
+    }
+
+
+
+    // ======= Registration =======
+
+    /**
+     * Method finds out if a given username is already registered in the system or not
+     */
+    public boolean isUserRegistered(String username) {
+        // TODO идем в админку и чекаем наличие пользователя в поиске
+        return true;
+    }
+
+    /**
+     * Do new user registration with given user data
+     */
     public void regNewUser(UserData userData) {
         if (itsOnLandingPage()) {
             regNewUserOnLandingPage(userData);
@@ -28,7 +42,9 @@ public class SessionHelper extends HelperBase {
         }
     }
 
-    /** Do new user registration with generated user data */
+    /**
+     * Do new user registration with generated user data
+     */
     public void regNewAutotestUser() {
         UserData userData = Generate.autotestUserData();
         if (itsOnLandingPage()) {
@@ -39,7 +55,9 @@ public class SessionHelper extends HelperBase {
         printMessage("New autotest user has been registered");
     }
 
-    /** Do new user registration on landing page with a given user data */
+    /**
+     * Do new user registration on landing page with a given user data
+     */
     public void regNewUserOnLandingPage(UserData userData){
         printMessage("Performing user registration on landing page");
         // открываем форму авторизации/регистрации
@@ -60,7 +78,9 @@ public class SessionHelper extends HelperBase {
         waitForIt();
     }
 
-    /** Do new user registration on retailer page with given user data */
+    /**
+     * Do new user registration on retailer page with given user data
+     */
     public void regNewUserOnRetailerPage(UserData userData){
         printMessage("Performing user registration on retailer page");
         // открываем форму авторизации/регистрации
@@ -81,9 +101,15 @@ public class SessionHelper extends HelperBase {
         waitForIt();
     }
 
-    /** Method returns true if user is authorised and false if he isn't */
+
+
+    // ======= Authorisation =======
+
+    /**
+     * Method returns true if user is authorised and false if he isn't
+     */
     // TODO ускорить выполнение метода, переделав локатор с xpath на другой
-    public boolean userIsAuthorised() {
+    public boolean isUserAuthorised() {
         // проверяем наличие на странице кнопки "Профиль" по xpath
         if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"))) {
             // проверяем наличие на странице кнопки "Профиль" по тексту ссылки
@@ -94,7 +120,9 @@ public class SessionHelper extends HelperBase {
         }
     }
 
-    /** Do log-in with a given user data */
+    /**
+     * Do log-in with a given user data
+     */
     public void doLogin(UserData userData) {
         if (itsOnLandingPage()) {
             doLoginOnLandingPage(userData);
@@ -103,7 +131,9 @@ public class SessionHelper extends HelperBase {
         }
     }
 
-    /** Do log-in with user credentials of autotest@instamart.ru which is reserved for autotests and have admin privileges */
+    /**
+     * Do log-in with user credentials of autotest@instamart.ru which is reserved for autotests and have admin privileges
+     */
     public void doLoginAsAdmin() {
         final String LOGIN = "autotestuser@instamart.ru";
         final String PASSWORD = "DyDrasLipMeibe7";
@@ -115,7 +145,9 @@ public class SessionHelper extends HelperBase {
         printMessage("Logged-in with admin privileges as " + LOGIN);
     }
 
-    /** Do log-in with user credentials of instatestuser@yandex.ru which is reserved for testing needs */
+    /**
+     * Do log-in with user credentials of instatestuser@yandex.ru which is reserved for testing needs
+     */
     public void doLoginAsReturningCustomer() {
         final String LOGIN = "instatestuser@yandex.ru";
         final String PASSWORD = "instamart";
@@ -127,7 +159,9 @@ public class SessionHelper extends HelperBase {
         printMessage("Logged-in as " + LOGIN);
     }
 
-    /** Do log-in on landing page with a given user data */
+    /**
+     * Do log-in on landing page with a given user data
+     */
     public void doLoginOnLandingPage(UserData userData) {
         // открываем форму авторизации/регистрации
         click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
@@ -142,7 +176,9 @@ public class SessionHelper extends HelperBase {
         printMessage("Performing user log-in on landing page");
     }
 
-    /** Do log-in on retailer page page with a given user data */
+    /**
+     * Do log-in on retailer page page with a given user data
+     */
     public void doLoginOnRetailerPage(UserData userData) {
         // открываем форму авторизации/регистрации
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/button"));
@@ -157,7 +193,13 @@ public class SessionHelper extends HelperBase {
         printMessage("Performing user log-in on retailer page");
     }
 
-    /** Do log-out */
+
+
+    // ======= De-Authorisation =======
+
+    /**
+     * Do log-out
+     */
     //TODO обернуть в try-catch чтобы вызывать closeFlocktoryWidget(); только в случае ошибки
     public void doLogout() {
         if (!itsInAdmin()) {
@@ -167,7 +209,9 @@ public class SessionHelper extends HelperBase {
         }
     }
 
-    /** Do log-out from site */
+    /**
+     * Do log-out from site
+     */
     public void doLogoutFromSite() {
         //клик по кнопке Профиль
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"));
@@ -178,7 +222,9 @@ public class SessionHelper extends HelperBase {
         printMessage("Logged-out from site");
     }
 
-    /** Do log-out from admin panel */
+    /**
+     * Do log-out from admin panel
+     */
     public void doLogoutFromAdmin() {
         //клик по кнопке Выйти
         click(By.xpath("//*[@id='login-nav']/li[3]/a"));
@@ -187,7 +233,13 @@ public class SessionHelper extends HelperBase {
         printMessage("Logged-out from admin");
     }
 
-    /** Delete all autotest users from admin panel */
+
+
+    // ======= Cleanup =======
+
+    /**
+     * Delete all autotest users from admin panel
+     */
     public void deleteAllAutotestUsers() {
         //URL целевой страницы со списком автотестовых пользователей
         final String targetUrlForCleanup = baseUrl + "admin/users?q%5Bemail_cont%5D=%40example.com";
@@ -196,7 +248,7 @@ public class SessionHelper extends HelperBase {
         //если нет админских прав, то авторизуемся под админом
         if (!itsInAdmin()) {
             driver.get(baseUrl);
-            if (userIsAuthorised()) {
+            if (isUserAuthorised()) {
                 doLogout();
             }
             doLoginAsAdmin();
@@ -213,7 +265,9 @@ public class SessionHelper extends HelperBase {
         }
     }
 
-    /** Delete first user which exists in Users table in admin panel */
+    /**
+     * Delete first user which exists in Users table in admin panel
+     */
     private void deleteFirstUserInTable() {
         click(By.xpath("//*[@id='content']/div/table/tbody/tr/td[3]/a[2]"));
         closeAlertAndGetItsText();

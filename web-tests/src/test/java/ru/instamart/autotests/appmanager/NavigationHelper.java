@@ -4,6 +4,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.RetailerData;
 
+
+
+    // Navigation helper
+    // Handles navigation within system under test
+    // 'get' methods navigate by getting URLs
+    // 'go' methods navigate by making transitions through UI
+
+
+
 public class NavigationHelper extends HelperBase {
 
     public NavigationHelper(WebDriver driver) {
@@ -12,13 +21,7 @@ public class NavigationHelper extends HelperBase {
 
 
 
-    // хелпер навигации
-    // методы get* - совержают переход по заданному URL
-    // методы go* - совершают цепочку переходов по UI
-
-
-
-    // САЙТ
+    // ======= SITE =======
 
     // переход на страницу сайта
     public void getPage(String pageName) {
@@ -56,12 +59,15 @@ public class NavigationHelper extends HelperBase {
         // клик по кнопке Профиль
         click(By.linkText("Профиль"));
     }
+
     public void goToHomepage() {
         // клик по кнопке Главная
         click(By.linkText("Главная"));
     }
 
-    // АДМИНКА
+
+
+    // ======= ADMIN =======
 
     // переход на страницу админки
     public void getAdminPage(String pageName) {

@@ -76,7 +76,7 @@ public class CheckoutHelper extends HelperBase {
 
 
 
-    // ======= Общие методы =======
+    // ======= Common =======
 
     public void hitNextButton() {
         click(By.className("checkout-btn"));
@@ -88,13 +88,13 @@ public class CheckoutHelper extends HelperBase {
 
 
 
-    // ======= Адрес =======
+    // ======= Shipping address =======
 
     // TODO setShippingAddress - установить адрес доставки
 
 
 
-    // ======= Контакты =======
+    // ======= Contacts =======
 
     // TODO specifyContacts - уточнить контакты
         // TODO clearAllContacts - очистить все контакты
@@ -109,7 +109,7 @@ public class CheckoutHelper extends HelperBase {
 
 
 
-    // ======= Оплата =======
+    // ======= Payment =======
 
     public void selectPaymenttype(String paymentType){
         switch(paymentType){
@@ -140,7 +140,7 @@ public class CheckoutHelper extends HelperBase {
 
 
 
-    // ======= Доставка =======
+    // ======= Delivery time =======
 
     // TODO selectDeliveryWindow - выбрать слот доставки
     //опции дней слотов доставки
@@ -149,7 +149,7 @@ public class CheckoutHelper extends HelperBase {
 
 
 
-    // ======= Промокоды =======
+    // ======= Promocodes =======
 
     // TODO addPromocode - добавить промо-код к заказу
     // TODO clearPromocode - убрать промо-код из заказа
@@ -157,7 +157,7 @@ public class CheckoutHelper extends HelperBase {
 
 
 
-    // ======= Программы лояльности =======
+    // ======= Loyalty Programs =======
 
     // TODO addLoyaltyProgram(LoyaltyProgramData loyaltyProgram) - добавить программу лояльности к заказу
     // TODO clearLoyaltyProgram - убрать программу лояльности
@@ -165,7 +165,12 @@ public class CheckoutHelper extends HelperBase {
 
 
 
-    // ======= Завершение заказа =======
+    // ======= Send order =======
+
+    public boolean isSendButtonActive(){
+        //TODO - определять активна ли кнопка отправки заказа
+        return true;
+    }
 
     public void hitSendButton() {
         // кнопка Завершить внизу
@@ -175,7 +180,5 @@ public class CheckoutHelper extends HelperBase {
         // кнопка Завершить вверху
         //click(By.xpath("/html/body/div[2]/div/form/div/aside/div/div[1]/div"));
     }
-
-    // TODO isSendButtonActive
 
 }

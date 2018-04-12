@@ -15,7 +15,7 @@ public class OrderCancellationTest extends TestBase {
         // логинимся
         app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7", null));
         // проверяем что авторизованы
-        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "User wasn't successfully authorised"+"\n");
         // get order page in admin
         app.getNavigationHelper().getOrderPageAdmin(orderNumber);
         // проверяем что заказ еще не отменен

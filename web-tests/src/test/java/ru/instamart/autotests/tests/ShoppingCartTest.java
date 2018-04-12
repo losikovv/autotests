@@ -14,7 +14,7 @@ public class ShoppingCartTest extends TestBase{
         // логинимся
         app.getSessionHelper().doLoginAsReturningCustomer();
         // проверяем что авторизованы
-        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "User wasn't successfully authorised"+"\n");
     }
 
     @Test(priority = 1)

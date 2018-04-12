@@ -31,7 +31,7 @@ public class ShoppingTest extends TestBase {
     public void makeTestOrder() throws Exception {
         app.getNavigationHelper().getLandingPage();
         app.getSessionHelper().doLoginAsReturningCustomer();
-        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(), "User wasn't successfully authorised"+"\n");
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "User wasn't successfully authorised"+"\n");
         app.getShoppingHelper().openCart();
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("cash");

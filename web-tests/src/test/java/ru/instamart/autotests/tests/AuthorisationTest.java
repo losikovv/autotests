@@ -14,14 +14,14 @@ public class AuthorisationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // деавторизуемся если уже залогигнены
-        if (app.getSessionHelper().userIsAuthorised()) {
+        if (app.getSessionHelper().isUserAuthorised()) {
             app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }
         // логинимся
         app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart", null));
         // проверяем что авторизованы
-        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(),"Can't approve the authorisation is successful"+"\n");
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),"Can't approve the authorisation is successful"+"\n");
         // разлогиниваемся
         app.getSessionHelper().doLogout();
     }
@@ -31,14 +31,14 @@ public class AuthorisationTest extends TestBase {
         // идем на витрину ретейлера
         app.getNavigationHelper().getRetailerPage(new RetailerData("vkusvill"));
         // деавторизуемся если уже залогигнены
-        if (app.getSessionHelper().userIsAuthorised()) {
+        if (app.getSessionHelper().isUserAuthorised()) {
             app.getSessionHelper().doLogout();
             app.getNavigationHelper().getRetailerPage(new RetailerData("vkusvill"));
         }
         // логинимся
         app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart", null));
         // проверяем что авторизованы
-        Assert.assertTrue(app.getSessionHelper().userIsAuthorised(),"Can't approve the authorisation is successful"+"\n");
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),"Can't approve the authorisation is successful"+"\n");
         // разлогиниваемся
         app.getSessionHelper().doLogout();
     }
@@ -48,14 +48,14 @@ public class AuthorisationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // деавторизуемся если уже залогигнены
-        if (app.getSessionHelper().userIsAuthorised()) {
+        if (app.getSessionHelper().isUserAuthorised()) {
             app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }
         // пытаемся залогиниться с неверным паролем
         app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "wrongpassword", null));
         // проверяем что неавторизованы
-        Assert.assertFalse(app.getSessionHelper().userIsAuthorised(), "It's possible to log-in with wrong password!"+"\n");
+        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(), "It's possible to log-in with wrong password!"+"\n");
     }
 
     @Test(description = "Негативный тест попытки авторизации без пароля")
@@ -63,14 +63,14 @@ public class AuthorisationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // деавторизуемся если уже залогигнены
-        if (app.getSessionHelper().userIsAuthorised()) {
+        if (app.getSessionHelper().isUserAuthorised()) {
             app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }
         // пытаемся залогиниться без пароля
         app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "", null));
         // проверяем что неавторизованы
-        Assert.assertFalse(app.getSessionHelper().userIsAuthorised(),"It's possible to log-in without entering a password!"+"\n");
+        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),"It's possible to log-in without entering a password!"+"\n");
     }
 
     @Test(description = "Негативный тест попытки авторизации без email")
@@ -78,14 +78,14 @@ public class AuthorisationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // деавторизуемся если уже залогигнены
-        if (app.getSessionHelper().userIsAuthorised()) {
+        if (app.getSessionHelper().isUserAuthorised()) {
             app.getSessionHelper().doLogout();
             app.getNavigationHelper().getLandingPage();
         }
         // пытаемся залогиниться без email
         app.getSessionHelper().doLogin(new UserData("", "instamart", null));
         // проверяем что неавторизованы
-        Assert.assertFalse(app.getSessionHelper().userIsAuthorised(), "It's possible to log-in without entering an email!"+"\n");
+        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(), "It's possible to log-in without entering an email!"+"\n");
     }
 
 }
