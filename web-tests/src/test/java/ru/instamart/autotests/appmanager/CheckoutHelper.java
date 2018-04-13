@@ -76,18 +76,6 @@ public class CheckoutHelper extends HelperBase {
 
 
 
-    // ======= Common =======
-
-    public void hitNextButton() {
-        click(By.className("checkout-btn"));
-    }
-
-    public void hitNextButton(int step) {
-        click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[" + step + "]/div[2]/div/div/div[4]/button"));
-    }
-
-
-
     // ======= Shipping address =======
 
     // TODO setShippingAddress - установить адрес доставки
@@ -165,20 +153,22 @@ public class CheckoutHelper extends HelperBase {
 
 
 
-    // ======= Send order =======
+    // ======= Common =======
+
+    public void hitNextButton() {
+        click(By.name("checkout-btn"));
+    }
+
+    //TODO удолить
+    //public void hitNextButton(int step) { click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[" + step + "]/div[2]/div/div/div[4]/button")); }
+
+    public void hitSendButton() {
+        click(By.name("checkout-btn--make-order"));
+    }
 
     public boolean isSendButtonActive(){
         //TODO - определять активна ли кнопка отправки заказа
         return true;
-    }
-
-    public void hitSendButton() {
-        // кнопка Завершить внизу
-        //click(By.xpath("//form/div/div/div[2]/div[2]/div/button"));
-        click(By.className("checkout-btn--make-order"));
-
-        // кнопка Завершить вверху
-        //click(By.xpath("/html/body/div[2]/div/form/div/aside/div/div[1]/div"));
     }
 
 }

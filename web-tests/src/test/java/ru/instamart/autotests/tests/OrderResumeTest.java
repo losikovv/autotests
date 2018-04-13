@@ -2,7 +2,6 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.models.UserData;
 
 public class OrderResumeTest extends TestBase {
     @Test
@@ -12,17 +11,16 @@ public class OrderResumeTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // логинимся
-        app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7", null));
+        app.getSessionHelper().doLoginAsAdmin();
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "User wasn't successfully authorised"+"\n");
         // идем на страницу заказа в админке
         app.getNavigationHelper().getOrderPageAdmin(orderNumber);
         // проверяем что заказ отменен
-        Assert.assertTrue(app.getShoppingHelper().orderIsCanceled(),"The order is already active" + "\n");
+        Assert.assertTrue(app.getSessionHelper().isOrderCanceled(),"The order is already active" + "\n");
         // возобновляем заказ
-        app.getShoppingHelper().resumeOrderFromAdmin();
-        // TODO добавить задержку в 5 сек иначе заказ часто не успевает возобновиться и тест падает
+        app.getSessionHelper().resumeOrder();
         // проверяем что заказ возобновлен
-        Assert.assertFalse(app.getShoppingHelper().orderIsCanceled(),"The order wasn't resumed" + "\n");
+        Assert.assertFalse(app.getSessionHelper().isOrderCanceled(),"The order wasn't resumed" + "\n");
     }
 }

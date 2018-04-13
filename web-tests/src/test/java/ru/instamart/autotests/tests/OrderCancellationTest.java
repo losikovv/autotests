@@ -2,7 +2,6 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.models.UserData;
 
 public class OrderCancellationTest extends TestBase {
 
@@ -13,16 +12,16 @@ public class OrderCancellationTest extends TestBase {
         // идем на лендинг
         app.getNavigationHelper().getLandingPage();
         // логинимся
-        app.getSessionHelper().doLogin(new UserData("autotestuser@instamart.ru", "DyDrasLipMeibe7", null));
+        app.getSessionHelper().doLoginAsAdmin();
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "User wasn't successfully authorised"+"\n");
         // get order page in admin
         app.getNavigationHelper().getOrderPageAdmin(orderNumber);
         // проверяем что заказ еще не отменен
-        Assert.assertFalse(app.getShoppingHelper().orderIsCanceled(),"The order is already canceled" + "\n");
+        Assert.assertFalse(app.getSessionHelper().isOrderCanceled(),"The order is already canceled" + "\n");
         // отменяем заказ через админку
-        app.getShoppingHelper().cancelOrderFromAdmin();
+        app.getSessionHelper().cancelOrder();
         // проверяем что заказ отменен
-        Assert.assertTrue(app.getShoppingHelper().orderIsCanceled(),"The order wasn't canceled" + "\n");
+        Assert.assertTrue(app.getSessionHelper().isOrderCanceled(),"The order wasn't canceled" + "\n");
     }
 }

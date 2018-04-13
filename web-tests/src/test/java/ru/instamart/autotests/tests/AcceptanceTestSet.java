@@ -125,6 +125,10 @@ public class AcceptanceTestSet extends TestBase {
     }
 
     @Test(priority = 9)
+    public void cleanupTestOrders() throws Exception {
+        }
+
+    @Test(priority = 10)
     public void cleanupAutotestUsers() throws Exception {
         app.getSessionHelper().deleteAllAutotestUsers();
         app.getNavigationHelper().getAdminPage("users?q%5Bemail_cont%5D=%40example.com");

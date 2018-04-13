@@ -24,6 +24,7 @@ public class ApplicationManager {
     protected String baseUrl;
 
     // helpers
+    private Helper helper;
     private NavigationHelper navigationHelper;
     private SessionHelper sessionHelper;
     private ShoppingHelper shoppingHelper;
@@ -59,6 +60,7 @@ public class ApplicationManager {
         driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
 
         // init helpers
+        helper = new Helper(driver);
         navigationHelper = new NavigationHelper(driver);
         sessionHelper = new SessionHelper(driver);
         shoppingHelper = new ShoppingHelper(driver);
@@ -75,6 +77,7 @@ public class ApplicationManager {
     }
 
     // get helpers
+    public Helper getHelper() { return helper; }
     public NavigationHelper getNavigationHelper() {
         return navigationHelper;
     }

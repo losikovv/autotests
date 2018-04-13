@@ -7,9 +7,8 @@ import ru.instamart.autotests.testdata.Generate;
 
 
 
-    // Session helper for handling user registration, login and logout
-    // TODO добавить методы авторизации через соцсети
-    // TODO добавить метод восстановления пароля + использующий его тест для autotestuser
+    // Session helper is for handling testing sessions
+    // Contains various methods for user and orders
 
 
 
@@ -19,7 +18,19 @@ public class SessionHelper extends HelperBase {
         super(driver);
     }
 
-
+    public void getUrlAsAdmin(String targetUrl) {
+        // trying to get target URL in admin panel
+        getUrl(targetUrl);
+        // if we don't have admin privileges then log-in as admin and try again
+        if (!itsInAdmin()) {
+            getBaseUrl();
+            if (isUserAuthorised()) {
+                doLogout();
+            }
+            doLoginAsAdmin();
+            getUrl(targetUrl);
+        }
+    }
 
     // ======= Registration =======
 
@@ -40,19 +51,6 @@ public class SessionHelper extends HelperBase {
         } else {
             regNewUserOnRetailerPage(userData);
         }
-    }
-
-    /**
-     * Do new user registration with generated user data
-     */
-    public void regNewAutotestUser() {
-        UserData userData = Generate.autotestUserData();
-        if (itsOnLandingPage()) {
-            regNewUserOnLandingPage(userData);
-        } else {
-            regNewUserOnRetailerPage(userData);
-        }
-        printMessage("New autotest user has been registered");
     }
 
     /**
@@ -103,6 +101,11 @@ public class SessionHelper extends HelperBase {
 
 
 
+    // ======= Password recovery =======
+    // TODO добавить метод восстановления пароля + использующий его тест для autotestuser
+
+
+
     // ======= Authorisation =======
 
     /**
@@ -129,34 +132,6 @@ public class SessionHelper extends HelperBase {
         } else {
             doLoginOnRetailerPage(userData);
         }
-    }
-
-    /**
-     * Do log-in with user credentials of autotest@instamart.ru which is reserved for autotests and have admin privileges
-     */
-    public void doLoginAsAdmin() {
-        final String LOGIN = "autotestuser@instamart.ru";
-        final String PASSWORD = "DyDrasLipMeibe7";
-        if (itsOnLandingPage()) {
-            doLoginOnLandingPage(new UserData(LOGIN, PASSWORD, null));
-        } else {
-            doLoginOnRetailerPage(new UserData(LOGIN, PASSWORD, null));
-        }
-        printMessage("Logged-in with admin privileges as " + LOGIN);
-    }
-
-    /**
-     * Do log-in with user credentials of instatestuser@yandex.ru which is reserved for testing needs
-     */
-    public void doLoginAsReturningCustomer() {
-        final String LOGIN = "instatestuser@yandex.ru";
-        final String PASSWORD = "instamart";
-        if (itsOnLandingPage()) {
-            doLoginOnLandingPage(new UserData(LOGIN, PASSWORD, null));
-        } else {
-            doLoginOnRetailerPage(new UserData(LOGIN, PASSWORD, null));
-        }
-        printMessage("Logged-in as " + LOGIN);
     }
 
     /**
@@ -200,7 +175,6 @@ public class SessionHelper extends HelperBase {
     /**
      * Do log-out
      */
-    //TODO обернуть в try-catch чтобы вызывать closeFlocktoryWidget(); только в случае ошибки
     public void doLogout() {
         if (!itsInAdmin()) {
             doLogoutFromSite();
@@ -235,41 +209,159 @@ public class SessionHelper extends HelperBase {
 
 
 
-    // ======= Cleanup =======
+    // ======= Handling test users =======
+
+    /**
+     * Do new user registration with generated user data
+     */
+    public void regNewAutotestUser() {
+        UserData userData = Generate.autotestUserData();
+        if (itsOnLandingPage()) {
+            regNewUserOnLandingPage(userData);
+        } else {
+            regNewUserOnRetailerPage(userData);
+        }
+        printMessage("New autotest user has been registered");
+    }
+
+    /**
+     * Do log-in with user credentials of autotest@instamart.ru which is reserved for autotests and have admin privileges
+     */
+    public void doLoginAsAdmin() {
+        final String LOGIN = "autotestuser@instamart.ru";
+        final String PASSWORD = "DyDrasLipMeibe7";
+        if (itsOnLandingPage()) {
+            doLoginOnLandingPage(new UserData(LOGIN, PASSWORD, null));
+        } else {
+            doLoginOnRetailerPage(new UserData(LOGIN, PASSWORD, null));
+        }
+        printMessage("Logged-in with admin privileges as " + LOGIN);
+    }
+
+    /**
+     * Do log-in with user credentials of instatestuser@yandex.ru which is reserved for testing needs
+     */
+    public void doLoginAsReturningCustomer() {
+        final String LOGIN = "instatestuser@yandex.ru";
+        final String PASSWORD = "instamart";
+        if (itsOnLandingPage()) {
+            doLoginOnLandingPage(new UserData(LOGIN, PASSWORD, null));
+        } else {
+            doLoginOnRetailerPage(new UserData(LOGIN, PASSWORD, null));
+        }
+        printMessage("Logged-in as " + LOGIN);
+    }
+
+    /**
+     * Do log-in with Facebook as reserved for testing needs user
+     */
+    public void doLoginWithFacebook() {
+        //TODO
+    }
+
+    /**
+     * Do log-in with VKontakte as reserved for testing needs user
+     */
+    public void doLoginWithVKontakte() {
+        //TODO
+    }
 
     /**
      * Delete all autotest users from admin panel
      */
     public void deleteAllAutotestUsers() {
-        //URL целевой страницы со списком автотестовых пользователей
-        final String targetUrlForCleanup = baseUrl + "admin/users?q%5Bemail_cont%5D=%40example.com";
-        //идем на целевую страницу
-        driver.get(targetUrlForCleanup);
-        //если нет админских прав, то авторизуемся под админом
-        if (!itsInAdmin()) {
-            driver.get(baseUrl);
-            if (isUserAuthorised()) {
-                doLogout();
-            }
-            doLoginAsAdmin();
-            driver.get(targetUrlForCleanup);
-        }
-        //если есть пользователи на экране результатов, то удаляем верхнего пользователя в таблице
+        // Getting target URL in admin panel which contains table with autotest users only
+        getUrlAsAdmin(baseUrl + "admin/users?q%5Bemail_cont%5D=%40example.com");
+        // Delete first user if it's present in the list
         if(isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr"))) {
             deleteFirstUserInTable();
             printMessage("Autotest user has been deleted");
-            //рекурсивно удаляем всех автотестовых юзеров пока никого не останется
+            // Keep deleting users recursively
             deleteAllAutotestUsers();
         } else {
-            printMessage("Autotest user deletion is complete");
+            printMessage("Autotest users deletion is complete");
         }
     }
 
     /**
-     * Delete first user which exists in Users table in admin panel
+     * Delete first user in the Users table in admin panel
      */
     private void deleteFirstUserInTable() {
         click(By.xpath("//*[@id='content']/div/table/tbody/tr/td[3]/a[2]"));
+        closeAlertAndGetItsText();
+        waitForIt();
+    }
+
+
+
+    // ======= Handling test orders =======
+
+    /**
+     * Cancel all test orders from admin panel
+     */
+    public void cancelAllTestOrders() {
+        // Getting target URL in admin panel which contains table with test orders only
+        //TODO фильтр по частичному совпадению email пока не работает
+        getUrlAsAdmin(baseUrl + "admin/shipments?search%5Bemail%5D=%40example.com&search%5Bonly_completed%5D=1");
+        // Cancel first order if it's present in the list
+        if(isElementPresent(By.xpath(""))) {
+            cancelFirstOrderInTable();
+            printMessage("Test order has been canceled");
+            // Keep cancelling orders recursively
+            cancelAllTestOrders();
+        } else {
+            printMessage("Test orders cancellation is complete");
+        }
+    }
+
+    /**
+     * Cancel first order in the Shipments table in admin panel
+     */
+    private void cancelFirstOrderInTable(){
+        printMessage("!!! METHOD ISN'T DONE YET !!!");
+        //TODO
+    }
+
+    /**
+     * Find out if the order is canceled or not by checking the order page in admin panel
+     */
+    //TODO доделать метод чтобы принимал на вход номер заказа и переходил на страницу заказа в админке
+    public boolean isOrderCanceled() {
+        String XPATH = "//*[@id='content']/div/table/tbody/tr[3]/td/b";
+        // Check status on the order page in admin panel
+        if (isElementPresent(By.xpath(XPATH))){
+            return getText(By.xpath(XPATH)).equals("ЗАКАЗ ОТМЕНЕН");
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Cancel order on the order page in admin panel
+     */
+    //TODO доделать метод чтобы принимал на вход номер заказа и переходил на страницу заказа в админке
+    public void cancelOrder(){
+        printMessage("Canceling the test order from admin panel");
+        // click cancel button
+        click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
+        // accept order cancellation alert
+        closeAlertAndGetItsText();
+        // fill order cancellation reason form
+        fillField(By.name("cancellation[reason]"),"Тестовый заказ");
+        // click confirmation button
+        click(By.xpath("//*[@id='new_cancellation']/fieldset/div[2]/button"));
+        waitForIt();
+    }
+
+    /**
+     * Resume canceled order on the order page in admin panel
+     */
+    //TODO доделать метод чтобы принимал на вход номер заказа и переходил на страницу заказа в админке
+    public void resumeOrder(){
+        printMessage("Resuming the test order from admin panel");
+        // click resume button
+        click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
+        // accept order resume alert
         closeAlertAndGetItsText();
         waitForIt();
     }

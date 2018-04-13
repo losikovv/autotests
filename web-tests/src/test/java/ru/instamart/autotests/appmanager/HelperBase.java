@@ -191,7 +191,7 @@ public class HelperBase {
     public boolean itsSomethingWrong() {
         String XPATH = "/html/body/div/h1";
         if (isElementPresent(By.xpath(XPATH))) {
-            return getText(By.xpath(XPATH)).equals("There is something wrong");
+            return getText(By.xpath(XPATH)).equals("We're sorry, but something went wrong.");
         } else {
             return false;
         }
@@ -211,6 +211,9 @@ public class HelperBase {
         System.out.println(message);
     }
 
+    /**
+     * Close marketing widgets which often obscure active elements while test execution
+     */
     public void closeWidgets() {
         //TODO оптимизировать проверки чтобы сначала выполнялись проверки на самые частые виджеты
         if (isElementPresent(By.className("flocktory-widget-overlay"))){
@@ -226,27 +229,21 @@ public class HelperBase {
      */
     public void closeFlocktoryWidget() {
             closeAlertAndGetItsText();
-            //TODO заменить локатор, уйти от xpath
-            //click(By.xpath("/html/body/div/div[1]"));
+            //click(By.xpath("/html/body/div/div[1]")); //TODO заменить локатор, уйти от xpath
     }
 
     /**
      * Close promo widget if it's present after making first order
      */
-    /* /TODO
-    // Закрываем промо-виджет, который показывается после первой покупки
     public void closePromoWidget() {
-            click(By.className(""));
+            //TODO
     }
-    */
 
     /**
      * Close email opt-on widget if it's present on landing
      */
-    /* /TODO
     public void closeEmailWidget() {
-            click(By.className(""));
+            //TODO
     }
-    */
 
 }

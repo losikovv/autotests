@@ -74,7 +74,7 @@ public class NavigationHelper extends HelperBase {
         getUrl(baseUrl + "admin/" + pageName);
     }
 
-    public  void getOrderPageAdmin(String orderNumber){
+    public void getOrderPageAdmin(String orderNumber){
         getUrl(baseUrl + "admin/orders/" + orderNumber + "/edit");
     }
 

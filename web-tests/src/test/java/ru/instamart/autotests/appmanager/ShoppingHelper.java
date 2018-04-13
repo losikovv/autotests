@@ -189,46 +189,4 @@ public class ShoppingHelper extends HelperBase {
 
     // TODO методы для мультизаказа
 
-
-
-    // ======= Orders =======
-    //TODO перенести в AdminHelper
-
-    /**
-     * Find out if the order is canceled or not by checking the order page in admin panel
-     */
-    public boolean orderIsCanceled() {
-        String XPATH = "//*[@id='content']/div/table/tbody/tr[3]/td/b";
-        // checks status on the order page in admin panel
-        if (isElementPresent(By.xpath(XPATH))){
-            return getText(By.xpath(XPATH)).equals("ЗАКАЗ ОТМЕНЕН");
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Cancel order on the order page in admin panel
-     */
-    public void cancelOrderFromAdmin(){
-        // click cancel button
-        click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
-        // accept order cancellation alert
-        closeAlertAndGetItsText();
-        // fill order cancellation reason form
-        fillField(By.name("cancellation[reason]"),"Тестовый заказ");
-        // click confirmation button
-        click(By.xpath("//*[@id='new_cancellation']/fieldset/div[2]/button"));
-    }
-
-    /**
-     * Resume canceled order on the order page in admin panel
-     */
-    public void resumeOrderFromAdmin(){
-        // click resume button
-        click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
-        // accept order resume alert
-        closeAlertAndGetItsText();
-    }
-
 }
