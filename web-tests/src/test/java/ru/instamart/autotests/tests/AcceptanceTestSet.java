@@ -37,7 +37,7 @@ public class AcceptanceTestSet extends TestBase {
         app.getNavigationHelper().getBaseUrl();
         // чекаем что все ровно
         //assertPageIsAvailable();
-        // логинимся юзером для автотестов с админскими правами
+        // логинимся юзером для автотестов с админскими правами TODO переделать на авторизацию новым юзером
         app.getSessionHelper().doLoginAsAdmin();
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "Can't approve the authorisation is successful"+"\n");
