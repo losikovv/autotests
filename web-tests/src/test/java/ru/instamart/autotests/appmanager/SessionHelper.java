@@ -18,6 +18,7 @@ public class SessionHelper extends HelperBase {
         super(driver);
     }
 
+    // TODO перенести в HelperBase + все методы по заказам перенести в OrdersHelper
     public void getUrlAsAdmin(String targetUrl) {
         // trying to get target URL in admin panel
         getUrl(targetUrl);
@@ -111,13 +112,11 @@ public class SessionHelper extends HelperBase {
     /**
      * Method returns true if user is authorised and false if he isn't
      */
-    // TODO ускорить выполнение метода, переделав локатор с xpath на другой
     public boolean isUserAuthorised() {
-        // проверяем наличие на странице кнопки "Профиль" по xpath
-        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"))) {
-            // проверяем наличие на странице кнопки "Профиль" по тексту ссылки
-            //if (isElementPresent(By.linkText("Профиль"))) {
-            return true;
+        // Проверяем авторизованность по наличию на странице кнопки "Профиль"
+        String XPATH = "//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]/div[1]";
+        if (isElementPresent(By.xpath(XPATH))) {
+            return getText(By.xpath(XPATH)).equals("Профиль");
         } else {
             return false;
         }
@@ -301,10 +300,12 @@ public class SessionHelper extends HelperBase {
      */
     public void cancelAllTestOrders() {
         // Getting target URL in admin panel which contains table with test orders only
-        //TODO фильтр по частичному совпадению email пока не работает
-        getUrlAsAdmin(baseUrl + "admin/shipments?search%5Bemail%5D=%40example.com&search%5Bonly_completed%5D=1");
+        // фильтр по частичному совпадению email пока не работает,
+        // поэтому тестовые заказы пока делаем с autotestuser@instamart.ru
+        // позже нужно переделать под юзеров @example.com
+        getUrlAsAdmin(baseUrl + "admin/shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D=ready");
         // Cancel first order if it's present in the list
-        if(isElementPresent(By.xpath(""))) {
+        if(!isElementPresent(By.className("no-objects-found"))) {
             cancelFirstOrderInTable();
             printMessage("Test order has been canceled");
             // Keep cancelling orders recursively
@@ -318,30 +319,26 @@ public class SessionHelper extends HelperBase {
      * Cancel first order in the Shipments table in admin panel
      */
     private void cancelFirstOrderInTable(){
-        printMessage("!!! METHOD ISN'T DONE YET !!!");
-        //TODO
+        // Go to the first order in table
+        click(By.xpath("//*[@id='listing_orders']/tbody/tr/td[14]/a"));
+        // Perform cancellation
+        cancelOrder();
+        printMessage("Order has been canceled");
     }
 
     /**
-     * Find out if the order is canceled or not by checking the order page in admin panel
+     * Cancel order with the given number
      */
-    //TODO доделать метод чтобы принимал на вход номер заказа и переходил на страницу заказа в админке
-    public boolean isOrderCanceled() {
-        String XPATH = "//*[@id='content']/div/table/tbody/tr[3]/td/b";
-        // Check status on the order page in admin panel
-        if (isElementPresent(By.xpath(XPATH))){
-            return getText(By.xpath(XPATH)).equals("ЗАКАЗ ОТМЕНЕН");
-        } else {
-            return false;
-        }
+    public void cancelOrder(String orderNumber){
+        // get order page in admin panel
+        getUrlAsAdmin(baseUrl + "admin/orders/" + orderNumber + "/edit");
+        cancelOrder();
     }
 
     /**
      * Cancel order on the order page in admin panel
      */
-    //TODO доделать метод чтобы принимал на вход номер заказа и переходил на страницу заказа в админке
     public void cancelOrder(){
-        printMessage("Canceling the test order from admin panel");
         // click cancel button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
         // accept order cancellation alert
@@ -354,16 +351,44 @@ public class SessionHelper extends HelperBase {
     }
 
     /**
-     * Resume canceled order on the order page in admin panel
+     * Resume order with the given number
      */
-    //TODO доделать метод чтобы принимал на вход номер заказа и переходил на страницу заказа в админке
+    public void resumeOrder(String orderNumber){
+        // get order page in admin panel
+        getUrlAsAdmin(baseUrl + "admin/orders/" + orderNumber + "/edit");
+        resumeOrder();
+    }
+
+    /**
+     * Resume order on the order page in admin panel
+     */
     public void resumeOrder(){
-        printMessage("Resuming the test order from admin panel");
         // click resume button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
         // accept order resume alert
         closeAlertAndGetItsText();
         waitForIt();
+    }
+
+    /**
+     * Find out if the order with the given order number is canceled
+     */
+    public boolean isOrderCanceled(String orderNumber) {
+        // get order page in admin panel
+        getUrlAsAdmin(baseUrl + "admin/orders/" + orderNumber + "/edit");
+        return isOrderCanceled();
+    }
+
+    /**
+     * Find out if the order is canceled by checking the order page in admin panel
+     */
+    public boolean isOrderCanceled() {
+        String XPATH = "//*[@id='content']/div/table/tbody/tr[3]/td/b";
+        if (isElementPresent(By.xpath(XPATH))){
+            return getText(By.xpath(XPATH)).equals("ЗАКАЗ ОТМЕНЕН");
+        } else {
+            return false;
+        }
     }
 
 }
