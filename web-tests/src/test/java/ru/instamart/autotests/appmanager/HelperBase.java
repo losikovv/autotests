@@ -14,24 +14,11 @@ public class HelperBase {
     protected WebDriver driver;
 
     //TODO попробовать брать baseUrl из Application Manager
-    //static final String baseUrl;
-
     static final String baseUrl = "https://instamart.ru/";
     private boolean acceptNextAlert = true;
 
-    public boolean userIsOnSite;
-    public boolean userIsInAdmin;
-
     public HelperBase(WebDriver driver) {
         this.driver = driver;
-    }
-
-    /**
-     * Get base URL by the browser
-     */
-    public void getBaseUrl() {
-        driver.get(baseUrl);
-        printMessage("Get base URL " + baseUrl);
     }
 
     /**
@@ -39,6 +26,14 @@ public class HelperBase {
      */
     public void getUrl(String url) {
         driver.get(url);
+    }
+
+    /**
+     * Get base URL
+     */
+    public void getBaseUrl() {
+        driver.get(baseUrl);
+        printMessage("Get base URL " + baseUrl);
     }
 
     /**
