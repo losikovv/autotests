@@ -37,48 +37,48 @@ public class ProfileHelper extends HelperBase {
     // ======= Orders =======
 
     // перейти на страницу Заказы
-    public void goToOrders(){
-        printMessage("Going to User profile > Orders");
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[1]/div/div/ul/li[2]'))"));
+    public void getOrders(){
+        printMessage("GET /user/orders");
+        getUrl(baseUrl + "user/orders");
     }
 
     // перейти в детали крайнего заказа
     public void goToLastOrderPage(){
-        goToOrders();
+        getOrders();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a/button"));
     }
 
     // перейти в детали заказа по позиции в списке
     public void goToOrderPage(int orderPosition){
-        goToOrders();
+        getOrders();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/a/button"));
     }
 
     // повторить крайний заказ
     public void repeatLastOrder(){
         printMessage("Repeating the last order");
-        goToOrders();
+        getOrders();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
     }
 
     // повторить заказ по позиции в списке
     public void repeatOrder (int orderPosition){
         printMessage("Repeating order by position " + orderPosition);
-        goToOrders();
+        getOrders();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button"));
     }
 
     // отменить крайний заказ
     public void cancelLastOrder (){
         printMessage("Cancelling the last order");
-        goToOrders();
+        getOrders();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button[1]"));
     }
 
     // отменить заказ по позиции в списке
     public void cancelOrder (int orderPosition){
         printMessage("Cancelling order by position " + orderPosition);
-        goToOrders();
+        getOrders();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button[1]"));
     }
 

@@ -26,43 +26,37 @@ public class CheckoutHelper extends HelperBase {
      */
     public void completeCheckout(String paymentType){
         // TODO зарефакторить после написания методов чекаута
-        printMessage("Making test order");
+        printMessage("Checking-out the test order");
 
-        //заполняем поле пожеланий к заказу
-        fillField(By.name("order[special_instructions]"),"ТЕСТОВЫЙ ЗАКАЗ");
-        hitNextButton();
-        //proceedNext(1);
-        waitForIt();
+        // Заполняем адрес
+        fillField(By.name("apartment"),"111");
+        fillField(By.name("floor"),"222");
+        click(By.name("elevator"));
+        fillField(By.name("entrance"),"333");
+        fillField(By.name("order[special_instructions]"),"- ТЕСТОВЫЙ ЗАКАЗ -");
+        hitNextButton(1);
 
-        //жмем Продолжить
-        waitForIt();
-        hitNextButton();
-        //proceedNext(2);
-        waitForIt();
+        // Заполняем контакты
+        hitNextButton(2);
+        //TODO добавить определение наличия телефонов добавление и удаление телефона
 
-        //жмем Продолжить
-        waitForIt();
-        hitNextButton();
-        //proceedNext(3);
-        waitForIt();
+        // Выбираем способ замен
+        selectReplacementPolicy(4);
+        hitNextButton(3);
 
-        // выбираем указанный способ оплаты
-        selectPaymenttype(paymentType);
-        waitForIt();
-        hitNextButton();
-        //proceedNext(4);
-        waitForIt();
+        // Выбираем способ оплаты
+        selectPaymentType(paymentType);
+        hitNextButton(4);
 
-        //выбираем первый слот доставки в 7 день
-        driver.findElement(By.xpath("//div[7]/span[2]")).click();
+        // Выбираем слот доставки
+        // первый слот доставки в 7 день
+        click(By.xpath("//div[7]/span[2]"));
         waitForIt();
-        driver.findElement(By.xpath("//div[2]/div/div/span[2]")).click();
+        click(By.xpath("//div[2]/div/div/span[2]"));
         waitForIt();
 
-        //жмем Оформить заказ
+        // Жмем Оформить заказ
         hitSendButton();
-        waitForIt();
-        printMessage("Order sent");
 
     }
 
@@ -96,19 +90,29 @@ public class CheckoutHelper extends HelperBase {
         // TODO selectTelephoneNumber - выбрать телефон
 
 
+    // ======= Replacement policy =======
+    public void selectReplacementPolicy(int option){
+        click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[3]/div[2]/div/div/div[2]/div["+option+"]/label"));
+        printMessage("Selected replacement policy #" + option);
+    }
+
+
 
     // ======= Payment =======
 
-    public void selectPaymenttype(String paymentType){
+    public void selectPaymentType(String paymentType){
         switch(paymentType){
             case "cash":
-                click(By.name("Наличными курьеру"));
+                //click(By.tagName("Наличными курьеру"));
+                click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div[2]"));
                 break;
             case "card":
-                click(By.name("Оплата банковской картой"));
+                //click(By.name("Оплата банковской картой"));
+                click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div[1]"));
                 break;
             case "bank":
-                click(By.name("Банковский перевод"));
+                //click(By.name("Банковский перевод"));
+                click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div[3]"));
                 break;
         }
         printMessage("Paying with " + paymentType);
@@ -131,9 +135,11 @@ public class CheckoutHelper extends HelperBase {
     // ======= Delivery time =======
 
     // TODO selectDeliveryWindow - выбрать слот доставки
-    //опции дней слотов доставки
-    // today / tomorrow / last day
     // TODO changeDeliveryWindowSelection - изменить слот доставки
+    // опции дней слотов доставки: int deliveryDay
+    // обернуть deliveryDay чтобы возвращал позицию для - today / tomorrow / last day
+    // опции слотов доставки: int slotPosition
+    // TODO isDeliveryWindowAvailable(int deliveryDay, int slotPosition)
 
 
 
@@ -155,20 +161,23 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Common =======
 
-    public void hitNextButton() {
-        click(By.name("checkout-btn"));
+    public void hitNextButton(int step) {
+        if(step == 1){
+            click(By.xpath("(//button[@type='button'])"));
+        } else {
+            click(By.xpath("(//button[@type='button'])["+step+"]"));
+        }
+        waitForIt();
+        printMessage("Step " + step + " is done");
     }
-
-    //TODO удолить
-    //public void hitNextButton(int step) { click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[" + step + "]/div[2]/div/div/div[4]/button")); }
 
     public void hitSendButton() {
-        click(By.name("checkout-btn--make-order"));
+        click(By.className("checkout-btn--make-order"));
+        waitForIt();
+        printMessage("Order sent");
     }
 
-    public boolean isSendButtonActive(){
-        //TODO - определять активна ли кнопка отправки заказа
-        return true;
-    }
+    // TODO - определять активна ли кнопка отправки заказа
+    // public boolean isSendButtonActive(){ return true; }
 
 }

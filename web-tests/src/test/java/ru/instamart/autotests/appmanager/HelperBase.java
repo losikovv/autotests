@@ -223,8 +223,8 @@ public class HelperBase {
      *Close Flocktory widget if it's present
      */
     public void closeFlocktoryWidget() {
-            closeAlertAndGetItsText();
-            //click(By.xpath("/html/body/div/div[1]")); //TODO заменить локатор, уйти от xpath
+            //closeAlertAndGetItsText();
+            click(By.xpath("/html/body/div/div[1]")); //TODO заменить локатор, уйти от xpath
     }
 
     /**
