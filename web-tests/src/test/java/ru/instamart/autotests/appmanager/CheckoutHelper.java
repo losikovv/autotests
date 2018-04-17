@@ -24,11 +24,12 @@ public class CheckoutHelper extends HelperBase {
      * Complete checkout with predefined standard test options
      * Use only for existing users which have telephone numbers and all payment types, cards and loyalty programs
      */
-    public void completeCheckout(String paymentType){
+    public void completeCheckout(int replacementPolicy, String paymentType){
         // TODO зарефакторить после написания методов чекаута
-        printMessage("Checking-out the test order");
+        printMessage("Checking-out");
 
         // Заполняем адрес
+        printMessage("Step 1 - Address");
         fillField(By.name("apartment"),"111");
         fillField(By.name("floor"),"222");
         click(By.name("elevator"));
@@ -37,19 +38,23 @@ public class CheckoutHelper extends HelperBase {
         hitNextButton(1);
 
         // Заполняем контакты
-        hitNextButton(2);
+        printMessage("Step 2 - Contacts");
         //TODO добавить определение наличия телефонов добавление и удаление телефона
+        hitNextButton(2);
 
         // Выбираем способ замен
-        selectReplacementPolicy(4);
+        printMessage("Step 3 - Replacement policy");
+        selectReplacementPolicy(replacementPolicy);
         hitNextButton(3);
 
         // Выбираем способ оплаты
+        printMessage("Step 4 - Payment");
         selectPaymentType(paymentType);
         hitNextButton(4);
 
         // Выбираем слот доставки
         // первый слот доставки в 7 день
+        printMessage("Step 5 - Delivery time");
         click(By.xpath("//div[7]/span[2]"));
         waitForIt();
         click(By.xpath("//div[2]/div/div/span[2]"));
@@ -93,7 +98,7 @@ public class CheckoutHelper extends HelperBase {
     // ======= Replacement policy =======
     public void selectReplacementPolicy(int option){
         click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[3]/div[2]/div/div/div[2]/div["+option+"]/label"));
-        printMessage("Selected replacement policy #" + option);
+        printMessage("Replacement policy #" + option + " selected");
     }
 
 
@@ -167,14 +172,15 @@ public class CheckoutHelper extends HelperBase {
         } else {
             click(By.xpath("(//button[@type='button'])["+step+"]"));
         }
+        //printMessage("Done step " + step);
+        printMessage("Next");
         waitForIt();
-        printMessage("Step " + step + " is done");
     }
 
     public void hitSendButton() {
         click(By.className("checkout-btn--make-order"));
-        waitForIt();
         printMessage("Order sent");
+        waitForIt();
     }
 
     // TODO - определять активна ли кнопка отправки заказа
