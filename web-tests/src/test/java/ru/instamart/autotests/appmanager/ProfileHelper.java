@@ -20,10 +20,11 @@ public class ProfileHelper extends HelperBase {
 
     // ======= Account =======
 
-    // перейти на страницу Аккаунт
-    public void goToAccount(){
-        printMessage("Going to User profile > Account");
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[1]/div/div/ul/li[1]'))"));
+    /**
+     * Get the Account page in the profile
+     */
+    public void getAccountPage(){
+        getUrl(baseUrl + "user/edit");
     }
 
     // TODO changePassword(String newPassword, String password) - изменение пароля
@@ -36,50 +37,55 @@ public class ProfileHelper extends HelperBase {
 
     // ======= Orders =======
 
-    // перейти на страницу Заказы
-    public void getOrders(){
-        printMessage("GET /user/orders");
+    /**
+     * Get the Orders page in the profile
+     */
+    public void getOrdersPage(){
         getUrl(baseUrl + "user/orders");
     }
 
     // перейти в детали крайнего заказа
     public void goToLastOrderPage(){
-        getOrders();
+        getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a/button"));
     }
 
     // перейти в детали заказа по позиции в списке
     public void goToOrderPage(int orderPosition){
-        getOrders();
+        getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/a/button"));
     }
 
     // повторить крайний заказ
     public void repeatLastOrder(){
-        printMessage("Repeating the last order");
-        getOrders();
+        printMessage("Repeating last order");
+        getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
+        waitForIt();
     }
 
     // повторить заказ по позиции в списке
     public void repeatOrder (int orderPosition){
         printMessage("Repeating order by position " + orderPosition);
-        getOrders();
+        getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button"));
+        waitForIt();
     }
 
     // отменить крайний заказ
     public void cancelLastOrder (){
-        printMessage("Cancelling the last order");
-        getOrders();
+        printMessage("Canceling last order");
+        getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button[1]"));
+        waitForIt();
     }
 
     // отменить заказ по позиции в списке
     public void cancelOrder (int orderPosition){
-        printMessage("Cancelling order by position " + orderPosition);
-        getOrders();
+        printMessage("Canceling order by position " + orderPosition);
+        getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button[1]"));
+        waitForIt();
     }
 
     public boolean isOrderActive(){
@@ -108,16 +114,15 @@ public class ProfileHelper extends HelperBase {
         }
     }
 
-    // TODO cancelAllOrders - отменить все незавершенные заказы
-
 
 
     // ======= Addresses =======
 
-    // перейти на страницу Адреса
-    public void goToAddresses(){
-        printMessage("Going to User profile > Addresses");
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[1]/div/div/ul/li[3]'))"));
+    /**
+     * Get the Addresses page in the profile
+     */
+    public void getAddressesPage(){
+        getUrl(baseUrl + "user/addresses");
     }
 
 }
