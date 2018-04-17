@@ -58,7 +58,7 @@ public class ProfileHelper extends HelperBase {
 
     // повторить крайний заказ
     public void repeatLastOrder(){
-        printMessage("Repeating last order");
+        printMessage("Repeating last order from profile");
         getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
         waitForIt();
@@ -66,7 +66,7 @@ public class ProfileHelper extends HelperBase {
 
     // повторить заказ по позиции в списке
     public void repeatOrder (int orderPosition){
-        printMessage("Repeating order by position " + orderPosition);
+        printMessage("Repeating order by position " + orderPosition + " from profile");
         getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button"));
         waitForIt();
@@ -74,7 +74,7 @@ public class ProfileHelper extends HelperBase {
 
     // отменить крайний заказ
     public void cancelLastOrder (){
-        printMessage("Canceling last order");
+        printMessage("Canceling last order from profile");
         getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button[1]"));
         waitForIt();
@@ -82,7 +82,7 @@ public class ProfileHelper extends HelperBase {
 
     // отменить заказ по позиции в списке
     public void cancelOrder (int orderPosition){
-        printMessage("Canceling order by position " + orderPosition);
+        printMessage("Canceling order by position " + orderPosition + " from profile");
         getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button[1]"));
         waitForIt();

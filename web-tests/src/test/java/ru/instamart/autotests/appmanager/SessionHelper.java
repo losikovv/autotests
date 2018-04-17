@@ -321,6 +321,7 @@ public class SessionHelper extends HelperBase {
     private void cancelFirstOrderInTable(){
         // Go to the first order in table
         click(By.xpath("//*[@id='listing_orders']/tbody/tr/td[14]/a"));
+        waitForIt();
         // Perform cancellation
         cancelOrder();
         printMessage("Order has been canceled");

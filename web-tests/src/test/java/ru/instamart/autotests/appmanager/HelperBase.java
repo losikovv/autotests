@@ -218,13 +218,15 @@ public class HelperBase {
      */
     public void closeFlocktoryWidgets() {
 
+        // TODO переделать на SWITCH
+
             // If it's Ribbon widget, then click X on it
             // Ribbon widget contains recently viewed items and blocks Checkout button in the shopping cart
             if(isElementPresent(By.id("fl-73939"))){
                 printMessage("Trying to close Ribbon widget");
                 swithchToActiveElement();
-                click(By.className("Ribbon-close"));
-            }
+                click(By.name("Ribbon-close"));
+            } else
 
             // If it's Tip widget, then click X on it
             // Tip widget usually present after registration
@@ -232,7 +234,7 @@ public class HelperBase {
                 printMessage("Trying to close Tip widget");
                 swithchToActiveElement();
                 click(By.name("data-fl-close"));
-            }
+            } else
 
             // If it's Wrapper widget, then click X on it
             // Wrapper usually present as email opt-in widget on landing page
@@ -242,7 +244,7 @@ public class HelperBase {
                 swithchToActiveElement();
                 click(By.className("Close"));
                 //click(By.xpath("/html/body/div/div[1]/div/div[1]"));
-            }
+            } else
 
             // If it's Promo widget, then click X on it
             // Promo widget usually present after making first order

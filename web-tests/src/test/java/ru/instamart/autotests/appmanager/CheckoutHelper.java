@@ -21,52 +21,28 @@ public class CheckoutHelper extends HelperBase {
     // ======= Order-making methods =======
 
     /**
-     * Complete checkout with predefined standard test options
-     * Use only for existing users which have telephone numbers and all payment types, cards and loyalty programs
+     * Complete checkout with given options
+     * Use only for existing users which have telephone numbers and all payment types usable
      */
     public void completeCheckout(int replacementPolicy, String paymentType){
-        // TODO зарефакторить после написания методов чекаута
-        printMessage("Checking-out");
-
+        // TODO добавить проверку на нахождение в чекауте
+        printMessage("Checking-out\n");
         // Заполняем адрес
-        printMessage("Step 1 - Address");
-        fillField(By.name("apartment"),"111");
-        fillField(By.name("floor"),"222");
-        click(By.name("elevator"));
-        fillField(By.name("entrance"),"333");
-        fillField(By.name("order[special_instructions]"),"- ТЕСТОВЫЙ ЗАКАЗ -");
-        hitNextButton(1);
-
+        doStep1();
         // Заполняем контакты
-        printMessage("Step 2 - Contacts");
-        //TODO добавить определение наличия телефонов добавление и удаление телефона
-        hitNextButton(2);
-
+        doStep2();
         // Выбираем способ замен
-        printMessage("Step 3 - Replacement policy");
-        selectReplacementPolicy(replacementPolicy);
-        hitNextButton(3);
-
+        doStep3(replacementPolicy);
         // Выбираем способ оплаты
-        printMessage("Step 4 - Payment");
-        selectPaymentType(paymentType);
-        hitNextButton(4);
-
+        doStep4(paymentType);
         // Выбираем слот доставки
-        // первый слот доставки в 7 день
-        printMessage("Step 5 - Delivery time");
-        click(By.xpath("//div[7]/span[2]"));
-        waitForIt();
-        click(By.xpath("//div[2]/div/div/span[2]"));
-        waitForIt();
-
+        doStep5();
         // Жмем Оформить заказ
         hitSendButton();
-
     }
 
     /**
-     * Complete checkout with given options
+     * Complete checkout with predefined standard test options
      * Use only for existing users which have telephone numbers and all payment types, cards and loyalty programs
      */
     public void completeCheckout(String paymentType, String loyaltyProgram, String promoCode){
@@ -75,13 +51,30 @@ public class CheckoutHelper extends HelperBase {
 
 
 
-    // ======= Shipping address =======
+    // ======= Step 1 - Shipping address =======
 
+    private void doStep1() {
+        final int stepNumber = 1;
+        printMessage("Step " + stepNumber + " - Address");
+        fillField(By.name("apartment"),"111");
+        fillField(By.name("floor"),"222");
+        click(By.name("elevator"));
+        fillField(By.name("entrance"),"333");
+        fillField(By.name("order[special_instructions]"),"- ТЕСТОВЫЙ ЗАКАЗ -");
+        hitNextButton(stepNumber);
+    }
     // TODO setShippingAddress - установить адрес доставки
 
 
 
-    // ======= Contacts =======
+    // ======= Step 2 - Contacts =======
+
+    private void doStep2() {
+        final int stepNumber = 2;
+        printMessage("Step " + stepNumber + " - Contacts");
+        //TODO добавить определение наличия телефонов добавление и удаление телефона
+        hitNextButton(stepNumber);
+    }
 
     // TODO specifyContacts - уточнить контакты
         // TODO clearAllContacts - очистить все контакты
@@ -95,8 +88,16 @@ public class CheckoutHelper extends HelperBase {
         // TODO selectTelephoneNumber - выбрать телефон
 
 
-    // ======= Replacement policy =======
-    public void selectReplacementPolicy(int option){
+    // ======= Step 3 - Replacement policy =======
+
+    private void doStep3(int replacementPolicy) {
+        final int stepNumber = 3;
+        printMessage("Step " + stepNumber + " - Replacement policy");
+        selectReplacementPolicy(replacementPolicy);
+        hitNextButton(stepNumber);
+    }
+
+    private void selectReplacementPolicy(int option){
         click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[3]/div[2]/div/div/div[2]/div["+option+"]/label"));
         printMessage("Replacement policy #" + option + " selected");
     }
@@ -105,7 +106,14 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Payment =======
 
-    public void selectPaymentType(String paymentType){
+    private void doStep4(String paymentType) {
+        final int stepNumber = 4;
+        printMessage("Step + " + stepNumber + " - Payment");
+        selectPaymentType(paymentType);
+        hitNextButton(stepNumber);
+    }
+
+    private void selectPaymentType(String paymentType){
         switch(paymentType){
             case "cash":
                 //click(By.tagName("Наличными курьеру"));
@@ -137,7 +145,17 @@ public class CheckoutHelper extends HelperBase {
 
 
 
-    // ======= Delivery time =======
+    // ======= Step 5 - Delivery time =======
+
+    public void doStep5() {
+        final int stepNumber = 5;
+        printMessage("Step + " + stepNumber + " - Delivery time");
+        // Захардкожен первый слот доставки в 7 день // TODO параметризовать
+        click(By.xpath("//div[7]/span[2]"));
+        //waitForIt();
+        click(By.xpath("//div[2]/div/div/span[2]"));
+        waitForIt();
+    }
 
     // TODO selectDeliveryWindow - выбрать слот доставки
     // TODO changeDeliveryWindowSelection - изменить слот доставки
@@ -150,9 +168,10 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Promocodes =======
 
-    // TODO addPromocode - добавить промо-код к заказу
+    // TODO addPromocode(String promocode) - добавить указанный промо-код к заказу, при необходимности дропнув текущий, если он отличается от указанного
     // TODO clearPromocode - убрать промо-код из заказа
-    // TODO isPromocodeApplied
+    // TODO isPromocodeApplied - проверка добавлен ли промокод к заказу
+    // TODO isPromocodeApplied(String promocode) - проверка добавлен ли указанный промокод к заказу
 
 
 
@@ -166,18 +185,18 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Common =======
 
-    public void hitNextButton(int step) {
+    private void hitNextButton(int step) {
         if(step == 1){
             click(By.xpath("(//button[@type='button'])"));
         } else {
             click(By.xpath("(//button[@type='button'])["+step+"]"));
         }
         //printMessage("Done step " + step);
-        printMessage("Next");
+        printMessage("Next\n");
         waitForIt();
     }
 
-    public void hitSendButton() {
+    private void hitSendButton() {
         click(By.className("checkout-btn--make-order"));
         printMessage("Order sent");
         waitForIt();
