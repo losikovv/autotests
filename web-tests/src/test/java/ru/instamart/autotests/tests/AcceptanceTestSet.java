@@ -44,29 +44,49 @@ public class AcceptanceTestSet extends TestBase {
     }
 
     @Test(priority = 2)
-    // чекаем страницы ритейлеров
-    // TODO переделать чек страниц всех ретейлеров по списку ретейлеров
-    // TODO забирать список ритейлеров из БД или из админки с признаком активности
-    // TODO проверять витрины активных ритейлеров на доступность, витрины неактивных - на недоступность
-    public void checkRetailerPages() throws Exception {
-        assertPageIsAvailable("https://instamart.ru/metro");
-        assertPageIsAvailable("https://instamart.ru/lenta");
-
-        // неактивный ритейлер
-        assertPageIs404("https://instamart.ru/selgros");
-
-        assertPageIsAvailable("https://instamart.ru/vkusvill");
-        assertPageIsAvailable("https://instamart.ru/karusel");
+    public void repeatLastOrder() throws Exception {
+        app.getProfileHelper().repeatLastOrder();
+        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),"Something went wrong while repeating the last order from the profile");
     }
 
     @Test(priority = 3)
+    public void makeTestOrderWithCard() throws Exception {
+        //app.getNavigationHelper().getLandingPage();
+        app.getShoppingHelper().openCart();
+        app.getShoppingHelper().proceedToCheckout();
+        app.getCheckoutHelper().completeCheckout(2,"card");
+        //TODO добавить проверку на активность заказа с помощью метода isOrderActive
+    }
+
+    @Test(priority = 4)
+    public void cancelLastOrder() throws Exception {
+        app.getProfileHelper().cancelLastOrder();
+        //TODO добавить проверку на отмененность заказа с помощью метода isOrderActive
+    }
+
+    @Test(priority = 5)
     // чекаем недоступность пустого чекаута при ненабранной корзине
     public void emptyCheckoutUnreachable() throws Exception {
         // TODO добавить проверку на текущую сумму корзины и если она выше суммы минимального заказа - очищать корзину
         assertPageIsUnreachable("https://instamart.ru/checkout/edit?");
     }
 
-    @Test(priority = 4)
+    @Test(priority = 6)
+    // чекаем страницы ритейлеров
+    // TODO переделать чек страниц всех ретейлеров по списку ретейлеров
+    // TODO забирать список ритейлеров из БД или из админки с признаком активности
+    // TODO проверять витрины активных ритейлеров на доступность, витрины неактивных - на недоступность
+    public void checkRetailerPages() throws Exception {
+        try {
+            assertPageIsAvailable("https://instamart.ru/metro");
+            assertPageIsAvailable("https://instamart.ru/lenta");
+            assertPageIs404("https://instamart.ru/selgros"); // неактивный ритейлер
+            assertPageIsAvailable("https://instamart.ru/vkusvill");
+            assertPageIsAvailable("https://instamart.ru/karusel");
+        } catch (AssertionError e) {}
+    }
+
+    @Test(priority = 7)
     // чекаем страницы профиля
     // TODO переделать чек страниц циклом по списку
     public void checkProfilePages() throws Exception {
@@ -75,7 +95,7 @@ public class AcceptanceTestSet extends TestBase {
         assertPageIsAvailable("https://instamart.ru/user/addresses");
     }
 
-    @Test(priority = 5)
+    @Test(priority = 8)
     // чекаем статические страницы
     // TODO переделать чек страниц циклом по списку
     // TODO забирать список страниц из БД или из админки
@@ -90,7 +110,7 @@ public class AcceptanceTestSet extends TestBase {
         assertPageIsAvailable("https://instamart.ru/contacts");
     }
 
-    @Test(priority = 6)
+    @Test(priority = 9)
     // чекаем лендинги
     // TODO переделать чек лендингов циклом по списку
     // TODO забирать список лендингов из БД или из админки
@@ -101,7 +121,7 @@ public class AcceptanceTestSet extends TestBase {
         assertPageIsAvailable("https://instamart.ru/landings/feedback");
     }
 
-    @Test(priority = 7)
+    @Test(priority = 10)
     // чекаем корневые страницы админки
     // TODO переделать чек лендингов циклом по списку
     public void checkAdminPages() throws AssertionError {
@@ -116,7 +136,7 @@ public class AcceptanceTestSet extends TestBase {
         assertPageIsAvailable("https://instamart.ru/admin/pages");
     }
 
-    @Test(priority = 8)
+    @Test(priority = 11)
     // логаут
     public void logout() throws Exception {
         app.getSessionHelper().doLogout();
@@ -124,11 +144,11 @@ public class AcceptanceTestSet extends TestBase {
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised(), "Seems like user is still authorized");
     }
 
-    @Test(priority = 9)
+    @Test(priority = 12)
     public void cleanupTestOrders() throws Exception {
         }
 
-    @Test(priority = 10)
+    @Test(priority = 13)
     public void cleanupAutotestUsers() throws Exception {
         app.getSessionHelper().deleteAllAutotestUsers();
         app.getNavigationHelper().getAdminPage("users?q%5Bemail_cont%5D=%40example.com");
