@@ -210,35 +210,48 @@ public class HelperBase {
      * Close marketing widgets which often obscure active elements while test execution
      */
     public void closeWidgets() {
-        //TODO оптимизировать проверки чтобы сначала выполнялись проверки на самые частые виджеты
-        if (isElementPresent(By.className("flocktory-widget-overlay"))){
-            closeFlocktoryWidget();
-        }
-        // доделать методы закрытия остальных виджетов
-        //else if (isElementPresent(By.className(""))){closePromoWidget();}
-        //else if (isElementPresent(By.className(""))){closeEmailWidget();}
+            closeFlocktoryWidgets();
     }
 
     /**
-     *Close Flocktory widget if it's present
+     *Close Flocktory widgets if they're present
      */
-    public void closeFlocktoryWidget() {
-            //closeAlertAndGetItsText();
-            click(By.xpath("/html/body/div/div[1]")); //TODO заменить локатор, уйти от xpath
-    }
+    public void closeFlocktoryWidgets() {
 
-    /**
-     * Close promo widget if it's present after making first order
-     */
-    public void closePromoWidget() {
-            //TODO
-    }
+            // If it's Ribbon widget, then click X on it
+            // Ribbon widget contains recently viewed items and blocks Checkout button in the shopping cart
+            if(isElementPresent(By.id("fl-73939"))){
+                printMessage("Trying to close Ribbon widget");
+                swithchToActiveElement();
+                click(By.className("Ribbon-close"));
+            }
 
-    /**
-     * Close email opt-on widget if it's present on landing
-     */
-    public void closeEmailWidget() {
-            //TODO
+            // If it's Tip widget, then click X on it
+            // Tip widget usually present after registration
+            if (isElementPresent(By.className("flocktory-widget-overlay"))){
+                printMessage("Trying to close Tip widget");
+                swithchToActiveElement();
+                click(By.name("data-fl-close"));
+            }
+
+            // If it's Wrapper widget, then click X on it
+            // Wrapper usually present as email opt-in widget on landing page
+            if(isElementPresent(By.id("856bfda0-423f-11e8-89bb-c5fffb7fc056"))){
+                printMessage("Trying to close Wrapper widget");
+                //if(isElementPresent(By.name("flockapi-insular-wrapper"))){
+                swithchToActiveElement();
+                click(By.className("Close"));
+                //click(By.xpath("/html/body/div/div[1]/div/div[1]"));
+            }
+
+            // If it's Promo widget, then click X on it
+            // Promo widget usually present after making first order
+            if (isElementPresent(By.className("flocktory-widget-overlay"))){
+                printMessage("Trying to close Promo widget");
+                swithchToActiveElement();
+                click(By.name("data-fl-close"));
+            }
+
     }
 
 }
