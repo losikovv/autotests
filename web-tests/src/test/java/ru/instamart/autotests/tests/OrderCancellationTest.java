@@ -6,6 +6,12 @@ import org.testng.annotations.Test;
 public class OrderCancellationTest extends TestBase {
 
     @Test
+    public void cancelTestOrders() throws Exception {
+        app.getSessionHelper().cancelAllTestOrders();
+    }
+
+    /*
+    @Test
     public void cancelOrder() throws Exception {
         //TODO убрать хардкод!
         String orderNumber = "R124857258";
@@ -24,4 +30,5 @@ public class OrderCancellationTest extends TestBase {
         // проверяем что заказ отменен
         Assert.assertTrue(app.getSessionHelper().isOrderCanceled(),"The order wasn't canceled" + "\n");
     }
+    */
 }

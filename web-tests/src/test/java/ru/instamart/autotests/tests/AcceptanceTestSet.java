@@ -145,7 +145,9 @@ public class AcceptanceTestSet extends TestBase {
     }
 
     @Test(priority = 12)
-    public void cleanupTestOrders() throws Exception {
+    public void cancelTestOrders() throws Exception {
+        app.getSessionHelper().cancelAllTestOrders();
+        //TODO добавить проверку на наличие тестовых заказов
         }
 
     @Test(priority = 13)
