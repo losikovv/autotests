@@ -224,34 +224,37 @@ public class HelperBase {
             // Ribbon widget contains recently viewed items and blocks Checkout button in the shopping cart
             if(isElementPresent(By.id("fl-73939"))){
                 printMessage("Trying to close Ribbon widget");
-                swithchToActiveElement();
-                click(By.name("Ribbon-close"));
-            } else
+                // Don't use "click" method for preventing infinite loop
+                driver.findElement(By.xpath("/html/body/div/div[2]")).click();
+            }
 
             // If it's Tip widget, then click X on it
             // Tip widget usually present after registration
             if (isElementPresent(By.className("flocktory-widget-overlay"))){
                 printMessage("Trying to close Tip widget");
                 swithchToActiveElement();
-                click(By.name("data-fl-close"));
-            } else
+                // Don't use "click" method for preventing infinite loop
+                driver.findElement(By.name("data-fl-close")).click();
+            }
 
             // If it's Wrapper widget, then click X on it
             // Wrapper usually present as email opt-in widget on landing page
             if(isElementPresent(By.id("856bfda0-423f-11e8-89bb-c5fffb7fc056"))){
-                printMessage("Trying to close Wrapper widget");
                 //if(isElementPresent(By.name("flockapi-insular-wrapper"))){
+                printMessage("Trying to close Wrapper widget");
                 swithchToActiveElement();
-                click(By.className("Close"));
+                // Don't use "click" method for preventing infinite loop
+                driver.findElement(By.className("Close")).click();
                 //click(By.xpath("/html/body/div/div[1]/div/div[1]"));
-            } else
+            }
 
             // If it's Promo widget, then click X on it
             // Promo widget usually present after making first order
             if (isElementPresent(By.className("flocktory-widget-overlay"))){
                 printMessage("Trying to close Promo widget");
                 swithchToActiveElement();
-                click(By.name("data-fl-close"));
+                // Don't use "click" method for preventing infinite loop
+                driver.findElement(By.name("data-fl-close")).click();
             }
 
     }

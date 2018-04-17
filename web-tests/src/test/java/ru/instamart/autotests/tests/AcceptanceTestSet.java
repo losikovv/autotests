@@ -44,7 +44,7 @@ public class AcceptanceTestSet extends TestBase {
     }
 
     @Test(priority = 2)
-    public void checkoutOrderWithCardPayment() throws Exception {
+    public void makeOrderWithCardPayment() throws Exception {
         app.getProfileHelper().repeatLastOrder();
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),"Something went wrong while repeating the last order from the profile");
 
@@ -58,7 +58,7 @@ public class AcceptanceTestSet extends TestBase {
     }
 
     @Test(priority = 4)
-    public void checkoutOrderWithCashPayment() throws Exception {
+    public void makeOrderWithCashPayment() throws Exception {
         app.getProfileHelper().repeatLastOrder();
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),"Something went wrong while repeating the last order from the profile");
 
@@ -72,7 +72,7 @@ public class AcceptanceTestSet extends TestBase {
     }
 
     @Test(priority = 5)
-    public void checkoutOrderWithBankPayment() throws Exception {
+    public void makeOrderWithBankPayment() throws Exception {
         app.getProfileHelper().repeatLastOrder();
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),"Something went wrong while repeating the last order from the profile");
 
