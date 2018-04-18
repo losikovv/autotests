@@ -192,7 +192,7 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[2]/div/div[8]/a"));
         //задержка чтобы пользователь нормально разлогинился
         waitForIt();
-        printMessage("Logged-out from site");
+        printMessage("Logged-out from site\n");
     }
 
     /**
@@ -203,7 +203,7 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id='login-nav']/li[3]/a"));
         //задержка чтобы пользователь нормально разлогинился
         waitForIt();
-        printMessage("Logged-out from admin");
+        printMessage("Logged-out from admin\n");
     }
 
 
@@ -220,7 +220,7 @@ public class SessionHelper extends HelperBase {
         } else {
             regNewUserOnRetailerPage(userData);
         }
-        printMessage("New autotest user has been registered");
+        printMessage("New autotest user has been registered\n");
     }
 
     /**
@@ -234,7 +234,7 @@ public class SessionHelper extends HelperBase {
         } else {
             doLoginOnRetailerPage(new UserData(LOGIN, PASSWORD, null));
         }
-        printMessage("Logged-in with admin privileges as " + LOGIN);
+        printMessage("Logged-in with admin privileges as " + LOGIN + "\n");
     }
 
     /**
@@ -248,7 +248,7 @@ public class SessionHelper extends HelperBase {
         } else {
             doLoginOnRetailerPage(new UserData(LOGIN, PASSWORD, null));
         }
-        printMessage("Logged-in as " + LOGIN);
+        printMessage("Logged-in as " + LOGIN + "\n");
     }
 
     /**

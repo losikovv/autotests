@@ -55,12 +55,14 @@ public class CheckoutHelper extends HelperBase {
 
     private void doStep1() {
         final int stepNumber = 1;
+        final String text = "- ТЕСТОВЫЙ ЗАКАЗ -";
         printMessage("Step " + stepNumber + " - Address");
         fillField(By.name("apartment"),"111");
         fillField(By.name("floor"),"222");
         click(By.name("elevator"));
         fillField(By.name("entrance"),"333");
-        fillField(By.name("order[special_instructions]"),"- ТЕСТОВЫЙ ЗАКАЗ -");
+        fillField(By.name("order[special_instructions]"),text);
+        printMessage("Order is marked as " + text);
         hitNextButton(stepNumber);
     }
     // TODO setShippingAddress - установить адрес доставки
@@ -198,7 +200,7 @@ public class CheckoutHelper extends HelperBase {
 
     private void hitSendButton() {
         click(By.className("checkout-btn--make-order"));
-        printMessage("Order sent");
+        printMessage("Order sent\n");
         waitForIt();
     }
 

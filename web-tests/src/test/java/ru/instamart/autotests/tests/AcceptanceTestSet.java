@@ -166,16 +166,18 @@ public class AcceptanceTestSet extends TestBase {
     }
 
     @Test(priority = 13)
-    public void cleanupTestOrders() throws Exception {
+    //TODO перенести в TestBase - tearDown?
+    public void cleanup() throws Exception {
+
+        // Cancelling all test orders
         app.getSessionHelper().cancelAllTestOrders();
         //TODO добавить проверку на наличие тестовых заказов
-        }
 
-    @Test(priority = 14)
-    public void cleanupAutotestUsers() throws Exception {
+        // Deleting all autotest users
         app.getSessionHelper().deleteAllAutotestUsers();
         app.getNavigationHelper().getAdminPage("users?q%5Bemail_cont%5D=%40example.com");
         Assert.assertFalse(app.getNavigationHelper().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),"Seems like there are some autotest users left in admin panel");
+
     }
 
 }
