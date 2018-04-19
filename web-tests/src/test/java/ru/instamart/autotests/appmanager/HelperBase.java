@@ -3,10 +3,8 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.*;
 
 
-
-    // Helpers base class
-    // Contains basic methods of interaction with the system under test
-
+// Helpers base class
+// Contains basic methods of interaction with the system under test
 
 
 public class HelperBase {
@@ -16,6 +14,7 @@ public class HelperBase {
     //TODO попробовать брать baseUrl из Application Manager
     static final String baseUrl = "https://instamart.ru/";
     private boolean acceptNextAlert = true;
+    private By closeButton;
 
     public HelperBase(WebDriver driver) {
         this.driver = driver;
@@ -57,9 +56,9 @@ public class HelperBase {
         click(locator);
         if (text != null) {
             String existingText = driver.findElement(locator).getAttribute("value");
-            if (! text.equals(existingText)) {
-            driver.findElement(locator).clear();
-            driver.findElement(locator).sendKeys(text);
+            if (!text.equals(existingText)) {
+                driver.findElement(locator).clear();
+                driver.findElement(locator).sendKeys(text);
             }
         }
     }
@@ -67,7 +66,7 @@ public class HelperBase {
     /**
      * Get the URL of the current page
      */
-    public String currentURL(){
+    public String currentURL() {
         return driver.getCurrentUrl();
     }
 
@@ -207,55 +206,38 @@ public class HelperBase {
     }
 
     /**
-     * Close marketing widgets which often obscure active elements while test execution
+     * Close marketing widgets which often obscure active elements while test execution and switch back to main frame
      */
+
     public void closeWidgets() {
-            closeFlocktoryWidgets();
-    }
 
-    /**
-     *Close Flocktory widgets if they're present
-     */
-    public void closeFlocktoryWidgets() {
-
-        // TODO переделать на SWITCH
-
-            // If it's Ribbon widget, then click X on it
-            // Ribbon widget contains recently viewed items and blocks Checkout button in the shopping cart
             if(isElementPresent(By.id("fl-73939"))){
-                printMessage("Trying to close Ribbon widget");
-                // Don't use "click" method for preventing infinite loop
+                printMessage("Closing Flocktory Ribbon widget");
+                driver.switchTo().frame("fl-73939");
+                driver.findElement(By.xpath("/html/body/div/div[2]")).click();
                 driver.findElement(By.xpath("/html/body/div/div[2]")).click();
             }
 
-            // If it's Tip widget, then click X on it
-            // Tip widget usually present after registration
-            if (isElementPresent(By.className("flocktory-widget-overlay"))){
-                printMessage("Trying to close Tip widget");
-                swithchToActiveElement();
-                // Don't use "click" method for preventing infinite loop
-                driver.findElement(By.name("data-fl-close")).click();
+            if (isElementPresent(By.id("fl-50932"))){
+                printMessage("Closing Flocktory Tip widget");
+                driver.switchTo().frame("fl-50932");
+                driver.findElement(By.xpath("/html/body/div/div[1]")).click();
             }
 
-            // If it's Wrapper widget, then click X on it
-            // Wrapper usually present as email opt-in widget on landing page
+            //TODO
             if(isElementPresent(By.id("856bfda0-423f-11e8-89bb-c5fffb7fc056"))){
-                //if(isElementPresent(By.name("flockapi-insular-wrapper"))){
-                printMessage("Trying to close Wrapper widget");
-                swithchToActiveElement();
-                // Don't use "click" method for preventing infinite loop
-                driver.findElement(By.className("Close")).click();
-                //click(By.xpath("/html/body/div/div[1]/div/div[1]"));
+                printMessage("Closing Flocktory Wrapper widget");
+                click(By.xpath("/html/body/div/div[1]/div/div[1]"));
             }
 
-            // If it's Promo widget, then click X on it
-            // Promo widget usually present after making first order
+            //TODO
             if (isElementPresent(By.className("flocktory-widget-overlay"))){
-                printMessage("Trying to close Promo widget");
-                swithchToActiveElement();
-                // Don't use "click" method for preventing infinite loop
+                printMessage("Closing Flocktory Promo widget");
                 driver.findElement(By.name("data-fl-close")).click();
             }
+
+        driver.switchTo().parentFrame();
+        driver.switchTo().defaultContent();
 
     }
 
