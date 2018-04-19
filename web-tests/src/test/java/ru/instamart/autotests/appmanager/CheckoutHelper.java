@@ -24,11 +24,11 @@ public class CheckoutHelper extends HelperBase {
      * Complete checkout with given options
      * Use only for existing users which have telephone numbers and all payment types usable
      */
-    public void completeCheckout(int replacementPolicy, String paymentType){
+    public void completeCheckout(String orderInstructions, int replacementPolicy, String paymentType){
         // TODO добавить проверку на нахождение в чекауте
         printMessage("Checking-out\n");
         // Заполняем адрес
-        doStep1();
+        doStep1(orderInstructions);
         // Заполняем контакты
         doStep2();
         // Выбираем способ замен
@@ -53,19 +53,34 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Step 1 - Shipping address =======
 
-    private void doStep1() {
+    private void doStep1(String orderInstructions) {
         final int stepNumber = 1;
-        final String text = "- ТЕСТОВЫЙ ЗАКАЗ -";
         printMessage("Step " + stepNumber + " - Address");
-        fillField(By.name("apartment"),"111");
-        fillField(By.name("floor"),"222");
-        click(By.name("elevator"));
-        fillField(By.name("entrance"),"333");
-        fillField(By.name("order[special_instructions]"),text);
-        printMessage("Order is marked as " + text);
+        printMessage("Details:");
+        specifyDetail("apartment", "111");
+        specifyDetail("floor", "222");
+        specifyDetail("entrance", "333");
+        specifyDetail("elevator",true);
+        fillOrderInstructions(orderInstructions);
         hitNextButton(stepNumber);
     }
-    // TODO setShippingAddress - установить адрес доставки
+
+    private void specifyDetail(String field, String value) {
+        fillField(By.name(field), value);
+        printMessage("- " + field + ": " + value);
+    }
+
+    private void specifyDetail(String field, boolean value) {
+        if(value){
+            click(By.name(field));
+        }
+        printMessage("- " + field + ": " + value);
+    }
+
+    private void fillOrderInstructions(String orderInstructions) {
+        fillField(By.name("order[special_instructions]"),orderInstructions);
+        printMessage("- order instructions: " + orderInstructions);
+    }
 
 
 
@@ -149,21 +164,53 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Step 5 - Delivery time =======
 
-    public void doStep5() {
+    private void doStep5() {
         final int stepNumber = 5;
         printMessage("Step + " + stepNumber + " - Delivery time");
-        // Захардкожен первый слот доставки в 7 день // TODO параметризовать
-        click(By.xpath("//div[7]/span[2]"));
-        //waitForIt();
-        click(By.xpath("//div[2]/div/div/span[2]"));
-        waitForIt();
+        // выбираем первый слот в 7 день
+        selectDeliveryDay("last");
+        selectDeliverySlot("first");
     }
 
-    // TODO selectDeliveryWindow - выбрать слот доставки
-    // TODO changeDeliveryWindowSelection - изменить слот доставки
-    // опции дней слотов доставки: int deliveryDay
-    // обернуть deliveryDay чтобы возвращал позицию для - today / tomorrow / last day
-    // опции слотов доставки: int slotPosition
+    private void selectDeliveryDay(String day) {
+        switch(day){
+            case "today":
+                selectDeliveryDay(1);
+                break;
+            case "tomorrow":
+                selectDeliveryDay(2);
+                break;
+            case "last":
+                selectDeliveryDay(7);
+                break;
+        }
+    }
+
+    private void selectDeliveryDay(int dayNumber) {
+        if(dayNumber == 1){
+            click(By.xpath("//div/span[2]"));
+        } else {
+            click(By.xpath("//div[" + dayNumber + "]/span[2]"));
+        }
+        waitForIt();
+        printMessage("Selected delivery on day " + dayNumber);
+    }
+
+    private void selectDeliverySlot(String slot) {
+        switch(slot){
+            case "first":
+                click(By.xpath("//div[2]/div/div/span[2]"));
+                break;
+            case "last":
+                //TODO
+                break;
+        }
+        waitForIt();
+        printMessage("Selected " + slot + " available delivery slot");
+    }
+
+    // TODO добавить определение доступности слотов на основе isEnabled() и isDisplayed()
+    // TODO changeDeliverySlot - изменить слот доставки
     // TODO isDeliveryWindowAvailable(int deliveryDay, int slotPosition)
 
 
