@@ -59,6 +59,9 @@ public class ApplicationManager {
         baseUrl = "https://instamart.ru/";
         driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
 
+        // open browser in fullscreen mode
+        driver.manage().window().fullscreen();
+
         // init helpers
         helper = new Helper(driver);
         navigationHelper = new NavigationHelper(driver);
