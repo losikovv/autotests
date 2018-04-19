@@ -278,7 +278,7 @@ public class SessionHelper extends HelperBase {
             // Keep deleting users recursively
             deleteAllAutotestUsers();
         } else {
-            printMessage("Autotest users deletion is complete");
+            printMessage("Autotest users deletion is complete\n");
         }
     }
 
@@ -311,7 +311,7 @@ public class SessionHelper extends HelperBase {
             // Keep cancelling orders recursively
             cancelAllTestOrders();
         } else {
-            printMessage("Test orders cancellation is complete");
+            printMessage("Test orders cancellation is complete\n");
         }
     }
 

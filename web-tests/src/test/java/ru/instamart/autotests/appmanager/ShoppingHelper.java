@@ -145,9 +145,10 @@ public class ShoppingHelper extends HelperBase {
     /**
      * Удалить верхний товар в корзине
      */
-    public void deleteTopItem(){
-        click(By.xpath("*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div/div[2]/span/div[1]/div/div/div[1]/div[2]/div[2]"));
-    }
+    //public void deleteTopItem(){
+    //    click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div[1]/div[2]/span/div[1]/div/div/div[1]/div[1]/span"));
+    //    click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div[1]/div[2]/span/div[1]/div/div/div[1]/div[1]/button[2]"));
+    //}
 
     /**
      * Удалить товар по позиции в корзине
@@ -156,8 +157,17 @@ public class ShoppingHelper extends HelperBase {
         click(By.xpath("*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div/div[2]/span/div[" + itemPosition + "]/div/div/div[1]/div[2]/div[2]"));
     }
 
+    /**
+     * Удалить все товары в корзине удаляя верхние товары
+     */
+    //public void deleteAllItemsInCart(){
+     //   if(!isCartEmpty()){
+      //      deleteTopItem();
+      //      deleteAllItemsInCart();
+     //   }
+    //}
 
-    // TODO clearCart - очистить корзину (удалить все товары)
+    // TODO clearCart - очистить корзину (удалить все товары сразу кнопкой)
 
     // TODO changeTopItemQuantity( int newQuantity) - изменить кол-во верхнего товара
     // TODO changeItemQuantity(int itemPosition, int newQuantity) - изменить кол-во товара по позиции

@@ -49,8 +49,9 @@ public class AcceptanceTestSet extends TestBase {
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),"Something went wrong while repeating the last order from the profile");
 
         app.getShoppingHelper().openCart();
+        //app.getShoppingHelper().deleteAllItemsInCart();
         app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout(2,"card");
+        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",2,"card");
         //TODO добавить проверку на активность заказа с помощью метода isOrderActive
 
         app.getProfileHelper().cancelLastOrder();
@@ -63,8 +64,9 @@ public class AcceptanceTestSet extends TestBase {
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),"Something went wrong while repeating the last order from the profile");
 
         app.getShoppingHelper().openCart();
+        //app.getShoppingHelper().deleteAllItemsInCart();
         app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout(3,"cash");
+        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
         //TODO добавить проверку на активность заказа с помощью метода isOrderActive
 
         app.getProfileHelper().cancelLastOrder();
@@ -78,7 +80,7 @@ public class AcceptanceTestSet extends TestBase {
 
         app.getShoppingHelper().openCart();
         app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout(4,"bank");
+        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");
         //TODO добавить проверку на активность заказа с помощью метода isOrderActive
 
         app.getProfileHelper().cancelLastOrder();
