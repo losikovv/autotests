@@ -1,5 +1,6 @@
 package ru.instamart.autotests.tests;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -83,6 +84,16 @@ public class TestBase {
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();
         Assert.assertFalse(targetURL.equalsIgnoreCase(currentURL), "It is possible to get page " + currentURL + " while it must be unreachable at this moment" + "\n");
+    }
+
+    protected void assertNoTestOrdersLeftActive() throws AssertionError {
+        app.getNavigationHelper().getTestOrdersAdminPage();
+        Assert.assertTrue(app.getHelper().isElementPresent(By.className("no-objects-found")),"Seems like there are some test orders left active");
+    }
+
+    protected void assertNoTestUsersLeft() throws AssertionError {
+        app.getNavigationHelper().getTestUsersAdminPage();
+        Assert.assertFalse(app.getHelper().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")), "Seems like there are some test users left");
     }
 
 }
