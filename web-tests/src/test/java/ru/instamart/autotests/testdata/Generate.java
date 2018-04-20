@@ -7,7 +7,7 @@ public class Generate {
 
     /** Generate user data for testing needs */
     public static UserData autotestUserData() {
-        return new UserData("autotestuser-" + randomString(8) + "@example.com", "instamart", "Автотест Юзер");
+        return new UserData(randomString(8) + "-testuser@example.com", "instamart", "Тест Юзер");
     }
 
     /** Generate random string with given length */
