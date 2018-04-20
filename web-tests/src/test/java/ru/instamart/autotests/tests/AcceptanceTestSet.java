@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 
 public class AcceptanceTestSet extends TestBase {
 
-    @Test
+    @Test(priority = 13)
     //регистрация пользователя
     public void registration() throws Exception {
         // идем на лендинг
@@ -167,18 +167,15 @@ public class AcceptanceTestSet extends TestBase {
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised(), "Seems like user is still authorized");
     }
 
-    @Test(priority = 13)
+    @Test(priority = 14)
     //TODO перенести в TestBase - tearDown?
     public void cleanup() throws Exception {
 
-        // Cancelling all test orders
         app.getSessionHelper().cancelAllTestOrders();
-        //TODO добавить проверку на наличие тестовых заказов
+        assertNoTestOrdersLeftActive();
 
-        // Deleting all autotest users
-        app.getSessionHelper().deleteAllAutotestUsers();
-        app.getNavigationHelper().getAdminPage("users?q%5Bemail_cont%5D=%40example.com");
-        Assert.assertFalse(app.getNavigationHelper().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),"Seems like there are some autotest users left in admin panel");
+        app.getSessionHelper().deleteAllTestUsers();
+        assertNoTestUsersLeft();
 
     }
 
