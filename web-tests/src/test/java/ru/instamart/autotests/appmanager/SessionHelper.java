@@ -266,17 +266,22 @@ public class SessionHelper extends HelperBase {
     }
 
     /**
-     * Delete all autotest users from admin panel
+     * Delete all test users from admin panel
      */
-    public void deleteAllAutotestUsers() {
-        // Getting target URL in admin panel which contains table with autotest users only
-        getUrlAsAdmin(baseUrl + "admin/users?q%5Bemail_cont%5D=%40example.com");
+    public void deleteAllTestUsers() {
+
+        //TODO переделать на
+        //TODO asAdmin
+        //TODO getUrl
+
+        // Getting target URL in admin panel which contains table with test users only
+        getUrlAsAdmin(baseUrl + "admin/users?q%5Bemail_cont%5D=testuser%40example.com");
         // Delete first user if it's present in the list
         if(isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr"))) {
             deleteFirstUserInTable();
             printMessage("Autotest user has been deleted");
             // Keep deleting users recursively
-            deleteAllAutotestUsers();
+            deleteAllTestUsers();
         } else {
             printMessage("Autotest users deletion is complete\n");
         }
@@ -299,11 +304,17 @@ public class SessionHelper extends HelperBase {
      * Cancel all test orders from admin panel
      */
     public void cancelAllTestOrders() {
-        // Getting target URL in admin panel which contains table with test orders only
+
         // фильтр по частичному совпадению email пока не работает,
         // поэтому тестовые заказы пока делаем с autotestuser@instamart.ru
         // позже нужно переделать под юзеров @example.com
+
+        //TODO переделать на
+        //TODO asAdmin
+        //TODO getUrl
+        // Getting target URL in admin panel which contains table with test orders only
         getUrlAsAdmin(baseUrl + "admin/shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D=ready");
+
         // Cancel first order if it's present in the list
         if(!isElementPresent(By.className("no-objects-found"))) {
             cancelFirstOrderInTable();
@@ -318,6 +329,7 @@ public class SessionHelper extends HelperBase {
     /**
      * Cancel first order in the Shipments table in admin panel
      */
+    // TODO прокидывать причину отмены и текст
     private void cancelFirstOrderInTable(){
         // Go to the first order in table
         click(By.xpath("//*[@id='listing_orders']/tbody/tr/td[14]/a"));
@@ -330,6 +342,7 @@ public class SessionHelper extends HelperBase {
     /**
      * Cancel order with the given number
      */
+    // TODO прокидывать причину отмены и текст
     public void cancelOrder(String orderNumber){
         // get order page in admin panel
         getUrlAsAdmin(baseUrl + "admin/orders/" + orderNumber + "/edit");
@@ -339,15 +352,18 @@ public class SessionHelper extends HelperBase {
     /**
      * Cancel order on the order page in admin panel
      */
+    // TODO Параметризовать причину отмены и текст
     public void cancelOrder(){
         // click cancel button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
         // accept order cancellation alert
         closeAlertAndGetItsText();
+        // choose cancellation reason
+        click(By.id("cancellation_reason_id_4")); // причина - тестовый заказ
         // fill order cancellation reason form
-        fillField(By.name("cancellation[reason]"),"Тестовый заказ");
+        fillField(By.id("cancellation_reason_details"),"Тестовый заказ");
         // click confirmation button
-        click(By.xpath("//*[@id='new_cancellation']/fieldset/div[2]/button"));
+        click(By.xpath("//*[@id='new_cancellation']/fieldset/div[3]/button"));
         waitForIt();
     }
 
