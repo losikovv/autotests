@@ -74,8 +74,16 @@ public class NavigationHelper extends HelperBase {
         getUrl(baseUrl + "admin/" + pageName);
     }
 
-    public void getOrderPageAdmin(String orderNumber){
+    public void getOrderAdminPage(String orderNumber){
         getUrl(baseUrl + "admin/orders/" + orderNumber + "/edit");
+    }
+
+    public void getTestUsersAdminPage(){
+        getAdminPage("users?q%5Bemail_cont%5D=testuser%40example.com");
+    }
+
+    public void getTestOrdersAdminPage(){
+        getAdminPage("shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D=ready");
     }
 
 }
