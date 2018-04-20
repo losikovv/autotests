@@ -215,7 +215,6 @@ public class HelperBase {
                 printMessage("Closing Flocktory Ribbon widget");
                 driver.switchTo().frame("fl-73939");
                 driver.findElement(By.xpath("/html/body/div/div[2]")).click();
-                driver.findElement(By.xpath("/html/body/div/div[2]")).click();
             }
 
             if (isElementPresent(By.id("fl-50932"))){
@@ -227,18 +226,19 @@ public class HelperBase {
             //TODO
             if(isElementPresent(By.id("856bfda0-423f-11e8-89bb-c5fffb7fc056"))){
                 printMessage("Closing Flocktory Wrapper widget");
+                driver.switchTo().frame(driver.findElement(By.id("856bfda0-423f-11e8-89bb-c5fffb7fc056")));
                 click(By.xpath("/html/body/div/div[1]/div/div[1]"));
             }
 
             //TODO
-            if (isElementPresent(By.className("flocktory-widget-overlay"))){
-                printMessage("Closing Flocktory Promo widget");
-                driver.findElement(By.name("data-fl-close")).click();
+            if (isElementPresent(By.className("flockapi-overlay"))){
+                printMessage("Closing Flocktory First Purchase Promo widget");
+                driver.switchTo().frame(driver.findElement(By.className("flockapi-overlay")));
+                driver.findElement(By.id("close")).click();
             }
 
         driver.switchTo().parentFrame();
         driver.switchTo().defaultContent();
 
     }
-
 }
