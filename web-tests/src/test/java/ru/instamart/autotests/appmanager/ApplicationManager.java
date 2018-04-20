@@ -81,9 +81,7 @@ public class ApplicationManager {
 
     // get helpers
     public Helper getHelper() { return helper; }
-    public NavigationHelper getNavigationHelper() {
-        return navigationHelper;
-    }
+    public NavigationHelper getNavigationHelper() { return navigationHelper; }
     public SessionHelper getSessionHelper() { return sessionHelper; }
     public ShoppingHelper getShoppingHelper() {
         return shoppingHelper;
