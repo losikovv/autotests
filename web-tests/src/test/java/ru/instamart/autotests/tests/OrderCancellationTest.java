@@ -22,7 +22,7 @@ public class OrderCancellationTest extends TestBase {
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "User wasn't successfully authorised"+"\n");
         // get order page in admin
-        app.getNavigationHelper().getOrderPageAdmin(orderNumber);
+        app.getNavigationHelper().getOrderAdminPage(orderNumber);
         // проверяем что заказ еще не отменен
         Assert.assertFalse(app.getSessionHelper().isOrderCanceled(),"The order is already canceled" + "\n");
         // отменяем заказ через админку

@@ -15,7 +15,7 @@ public class OrderResumeTest extends TestBase {
         // проверяем что авторизованы
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "User wasn't successfully authorised"+"\n");
         // идем на страницу заказа в админке
-        app.getNavigationHelper().getOrderPageAdmin(orderNumber);
+        app.getNavigationHelper().getOrderAdminPage(orderNumber);
         // проверяем что заказ отменен
         Assert.assertTrue(app.getSessionHelper().isOrderCanceled(),"The order is already active" + "\n");
         // возобновляем заказ
