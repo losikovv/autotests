@@ -47,7 +47,7 @@ public class ProfileHelper extends HelperBase {
     // перейти в детали крайнего заказа
     public void goToLastOrderPage(){
         getOrdersPage();
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a/button"));
+        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a"));
     }
 
     // перейти в детали заказа по позиции в списке
@@ -88,16 +88,24 @@ public class ProfileHelper extends HelperBase {
         waitForIt();
     }
 
-    public boolean isOrderActive(){
-        if(isElementPresent(By.xpath(""))){
-            return true;
-        } else {
-            return false;
-        }
+    public boolean isLastOrderActive(){
+        goToLastOrderPage();
+        return isOrderActive();
+    }
+
+    public boolean isOrderActive() {
+        String XPATH = "//*[@id='wrap']/div/div/div/div/div[2]/div/div[1]/div/div/div/div[2]/div[2]";
+        return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals("Благодарим за использование Instamart!");
     }
 
     // TODO
-    public boolean isOrderDelivered(){
+    public boolean isLastOrderCanceled(){
+        goToLastOrderPage();
+        return isOrderCanceled();
+    }
+
+    // TODO
+    public boolean isOrderCanceled(){
         if(isElementPresent(By.xpath("// TODO "))){
             return true;
         } else {
@@ -106,7 +114,13 @@ public class ProfileHelper extends HelperBase {
     }
 
     // TODO
-    public boolean isOrderCanceled(){
+    public boolean isLastOrderDelivered(){
+        goToLastOrderPage();
+        return isOrderDelivered();
+    }
+
+    // TODO
+    public boolean isOrderDelivered(){
         if(isElementPresent(By.xpath("// TODO "))){
             return true;
         } else {

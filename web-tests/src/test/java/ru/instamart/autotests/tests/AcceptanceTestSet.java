@@ -45,46 +45,50 @@ public class AcceptanceTestSet extends TestBase {
 
     @Test(priority = 2)
     public void makeOrderWithCardPayment() throws Exception {
+
         app.getProfileHelper().repeatLastOrder();
-        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),"Something went wrong while repeating the last order from the profile");
+        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),"Something went wrong while repeating the last order from the profile\n");
 
         app.getShoppingHelper().openCart();
-        //app.getShoppingHelper().deleteAllItemsInCart();
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",2,"card");
-        //TODO добавить проверку на активность заказа с помощью метода isOrderActive
+        Assert.assertTrue(app.getProfileHelper().isOrderActive(), "Order is not active\n");
 
         app.getProfileHelper().cancelLastOrder();
-        //TODO добавить проверку на отмененность заказа с помощью метода isOrderActive
+        Assert.assertFalse(app.getProfileHelper().isLastOrderActive(), "Last order wasn't canceled\n");
+
     }
 
     @Test(priority = 4)
     public void makeOrderWithCashPayment() throws Exception {
+
         app.getProfileHelper().repeatLastOrder();
-        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),"Something went wrong while repeating the last order from the profile");
+        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),"Something went wrong while repeating the last order from the profile\n");
 
         app.getShoppingHelper().openCart();
-        //app.getShoppingHelper().deleteAllItemsInCart();
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
-        //TODO добавить проверку на активность заказа с помощью метода isOrderActive
+        Assert.assertTrue(app.getProfileHelper().isOrderActive(), "Order is not active\n");
 
         app.getProfileHelper().cancelLastOrder();
-        //TODO добавить проверку на отмененность заказа с помощью метода isOrderActive
+        Assert.assertFalse(app.getProfileHelper().isLastOrderActive(), "Last order wasn't canceled\n");
+
     }
 
     @Test(priority = 5)
     public void makeOrderWithBankPayment() throws Exception {
+
         app.getProfileHelper().repeatLastOrder();
-        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),"Something went wrong while repeating the last order from the profile");
+        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),"Something went wrong while repeating the last order from the profile\n");
 
         app.getShoppingHelper().openCart();
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");
-        //TODO добавить проверку на активность заказа с помощью метода isOrderActive
+        Assert.assertTrue(app.getProfileHelper().isOrderActive(), "Order is not active\n");
 
         app.getProfileHelper().cancelLastOrder();
-        //TODO добавить проверку на отмененность заказа с помощью метода isOrderActive
+        Assert.assertFalse(app.getProfileHelper().isLastOrderActive(), "Last order wasn't canceled\n");
+
     }
 
     @Test(priority = 6)

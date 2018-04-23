@@ -10,12 +10,14 @@ public class CheckoutTest extends TestBase {
         app.getNavigationHelper().getLandingPage();
         app.getSessionHelper().doLoginAsReturningCustomer();
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "User wasn't successfully authorised"+"\n");
+
         app.getShoppingHelper().openCart();
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",1,"cart");
-        //TODO добавить проверку на активность заказа с помощью метода isOrderActive
+        Assert.assertTrue(app.getProfileHelper().isOrderActive(), "Order is not active\n");
+
         app.getProfileHelper().cancelLastOrder();
-        //TODO добавить проверку на отмененность заказа с помощью метода isOrderActive
+        Assert.assertFalse(app.getProfileHelper().isLastOrderActive(), "Last order wasn't canceled\n");
     }
 
 }
