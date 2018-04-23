@@ -52,6 +52,7 @@ public class SessionHelper extends HelperBase {
         } else {
             regNewUserOnRetailerPage(userData);
         }
+        printMessage("New test user has been registered\n");
     }
 
     /**
@@ -209,19 +210,6 @@ public class SessionHelper extends HelperBase {
 
 
     // ======= Handling test users =======
-
-    /**
-     * Do new user registration with generated user data
-     */
-    public void regNewAutotestUser() {
-        UserData userData = Generate.autotestUserData();
-        if (itsOnLandingPage()) {
-            regNewUserOnLandingPage(userData);
-        } else {
-            regNewUserOnRetailerPage(userData);
-        }
-        printMessage("New autotest user has been registered\n");
-    }
 
     /**
      * Do log-in with user credentials of autotest@instamart.ru which is reserved for autotests and have admin privileges

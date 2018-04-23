@@ -1,9 +1,8 @@
 package ru.instamart.autotests.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
+import ru.instamart.autotests.testdata.Generate;
 
 
 // Тест сайта и админки для CI
@@ -24,7 +23,7 @@ public class AcceptanceTestSet extends TestBase {
         // чекаем что все ровно
         //assertPageIsAvailable();
         // регаем нового тестового юзера
-        app.getSessionHelper().regNewAutotestUser();
+        app.getSessionHelper().regNewUser(Generate.testUserData());
         // проверияем авторизованность
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "Can't approve the registration is performed correctly"+"\n");
         // разлогиниваемся

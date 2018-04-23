@@ -3,6 +3,7 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.models.RetailerData;
+import ru.instamart.autotests.testdata.Generate;
 
 public class RegistrationTest extends TestBase {
 
@@ -11,8 +12,8 @@ public class RegistrationTest extends TestBase {
     public void testRegistrationOnLandingPage() throws Exception {
         // идем на витрину
         app.getNavigationHelper().getLandingPage();
-        // регаем нового юзера
-        app.getSessionHelper().regNewAutotestUser();
+        // регаем нового тестового юзера
+        app.getSessionHelper().regNewUser(Generate.testUserData());
         // идем на в профиль и на главную
         app.getNavigationHelper().getProfilePage();
         app.getNavigationHelper().goToHomepage();
@@ -27,8 +28,8 @@ public class RegistrationTest extends TestBase {
     public void testRegistrationOnRetailerPage() throws Exception {
         // идем на витрину
         app.getNavigationHelper().getRetailerPage(new RetailerData("metro"));
-        // регаем нового юзера
-        app.getSessionHelper().regNewAutotestUser();
+        // регаем нового тестового юзера
+        app.getSessionHelper().regNewUser(Generate.testUserData());
         // идем на в профиль и на главную
         app.getNavigationHelper().getProfilePage();
         app.getNavigationHelper().goToHomepage();

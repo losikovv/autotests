@@ -6,7 +6,7 @@ import java.util.Random;
 public class Generate {
 
     /** Generate user data for testing needs */
-    public static UserData autotestUserData() {
+    public static UserData testUserData() {
         return new UserData(randomString(8) + "-testuser@example.com", "instamart", "Тест Юзер");
     }
 
