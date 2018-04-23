@@ -1,10 +1,10 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.safari.SafariDriver;
 
 import java.util.concurrent.TimeUnit;
@@ -59,16 +59,17 @@ public class ApplicationManager {
         baseUrl = "https://instamart.ru/";
         driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
 
-        // open browser in fullscreen mode
-        driver.manage().window().fullscreen();
-
-        // init helpers
+        // Helpers init
         helper = new Helper(driver);
         navigationHelper = new NavigationHelper(driver);
         sessionHelper = new SessionHelper(driver);
         shoppingHelper = new ShoppingHelper(driver);
         checkoutHelper = new CheckoutHelper(driver);
         profileHelper = new ProfileHelper(driver);
+
+        // Open browser in fullscreen mode
+        driver.manage().window().fullscreen();
+
     }
 
     public void stop() {
@@ -79,7 +80,7 @@ public class ApplicationManager {
         }
     }
 
-    // get helpers
+    // Helpers getters
     public Helper getHelper() { return helper; }
     public NavigationHelper getNavigationHelper() { return navigationHelper; }
     public SessionHelper getSessionHelper() { return sessionHelper; }
@@ -89,8 +90,6 @@ public class ApplicationManager {
     public CheckoutHelper getCheckoutHelper() {
         return checkoutHelper;
     }
-    public ProfileHelper getProfileHelper() {
-        return profileHelper;
-    }
+    public ProfileHelper getProfileHelper() { return profileHelper; }
 
 }
