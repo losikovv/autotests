@@ -30,6 +30,7 @@ public class ApplicationManager {
     private ShoppingHelper shoppingHelper;
     private CheckoutHelper checkoutHelper;
     private ProfileHelper profileHelper;
+    private OrderHelper orderHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
     private String browser;
@@ -66,6 +67,7 @@ public class ApplicationManager {
         shoppingHelper = new ShoppingHelper(driver);
         checkoutHelper = new CheckoutHelper(driver);
         profileHelper = new ProfileHelper(driver);
+        orderHelper = new OrderHelper(driver);
 
         // Open browser in fullscreen mode
         driver.manage().window().fullscreen();
@@ -91,5 +93,5 @@ public class ApplicationManager {
         return checkoutHelper;
     }
     public ProfileHelper getProfileHelper() { return profileHelper; }
-
+    public OrderHelper getOrderHelper() { return orderHelper; }
 }

@@ -69,19 +69,30 @@ public class NavigationHelper extends HelperBase {
 
     // ======= ADMIN =======
 
-    // переход на страницу админки
+    /**
+     * Get page in admin panel
+     */
     public void getAdminPage(String pageName) {
         getUrl(baseUrl + "admin/" + pageName);
     }
 
+    /**
+     * Get order page in admin panel
+     */
     public void getOrderAdminPage(String orderNumber){
         getUrl(baseUrl + "admin/orders/" + orderNumber + "/edit");
     }
 
+    /**
+     * Get page with the list of test users in admin panel
+     */
     public void getTestUsersAdminPage(){
         getAdminPage("users?q%5Bemail_cont%5D=testuser%40example.com");
     }
 
+    /**
+     * Get page with the list of test orders in admin panel
+     */
     public void getTestOrdersAdminPage(){
         getAdminPage("shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D=ready");
     }
