@@ -70,7 +70,7 @@ public class ApplicationManager {
         orderHelper = new OrderHelper(driver);
 
         // Open browser in fullscreen mode
-        driver.manage().window().fullscreen();
+        // driver.manage().window().fullscreen();
 
     }
 
