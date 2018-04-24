@@ -14,7 +14,6 @@ public class HelperBase {
     //TODO попробовать брать baseUrl из Application Manager
     static final String baseUrl = "https://instamart.ru/";
     private boolean acceptNextAlert = true;
-    private By closeButton;
 
     public HelperBase(WebDriver driver) {
         this.driver = driver;
