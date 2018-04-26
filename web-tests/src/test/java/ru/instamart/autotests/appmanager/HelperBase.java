@@ -31,7 +31,7 @@ public class HelperBase {
      */
     public void getBaseUrl() {
         driver.get(baseUrl);
-        printMessage("Get base URL " + baseUrl);
+        printMessage("Got base URL " + baseUrl + "\n");
     }
 
     /**
@@ -44,6 +44,9 @@ public class HelperBase {
         } catch (ElementClickInterceptedException e) {
             closeWidgets();
             driver.findElement(locator).click();
+        } catch (NoSuchElementException n){
+            printMessage("Current URL: " + currentURL());
+            printMessage("Can't find element <" + locator + "> to click on\n");
         }
     }
 
