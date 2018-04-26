@@ -31,10 +31,11 @@ public class TestBase {
      * Simply check the current page is not 404 or 500
      */
     protected void assertPageIsAvailable() throws AssertionError{
+        //TODO добавить проверку на то что это не 502 от cloudFlare
         String currentURL = app.getNavigationHelper().currentURL();
-        app.getNavigationHelper().printMessage("Checking that current page " + currentURL + " is available");
         Assert.assertFalse(app.getNavigationHelper().its404(),"Page " + currentURL + " is 404" + "\n");
         Assert.assertFalse(app.getNavigationHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
+        app.getNavigationHelper().printMessage("Current page " + currentURL + " is available");
     }
 
     /**
@@ -42,13 +43,14 @@ public class TestBase {
      * Then check that reached page isn't 404 or 500
      */
     protected void assertPageIsAvailable(String URL) throws AssertionError{
+        //TODO добавить проверку на то что это не 502 от cloudFlare
         String targetURL = URL;
-        app.getNavigationHelper().printMessage("Checking page " + URL + " is available");
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL " + targetURL + "\n");
         Assert.assertFalse(app.getNavigationHelper().its404(),"Page " + currentURL + " is 404" + "\n");
         Assert.assertFalse(app.getNavigationHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
+        app.getNavigationHelper().printMessage("Page " + URL + " is available");
     }
 
     /**
@@ -56,7 +58,7 @@ public class TestBase {
      */
     protected void assertPageIs404() throws AssertionError{
         String currentURL = app.getNavigationHelper().currentURL();
-        app.getNavigationHelper().printMessage("Checking that current page " + currentURL + " is 404");
+        app.getNavigationHelper().printMessage("Checking current page " + currentURL + " is 404");
         Assert.assertTrue(app.getNavigationHelper().its404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
         Assert.assertFalse(app.getNavigationHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
     }
