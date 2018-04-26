@@ -267,11 +267,11 @@ public class SessionHelper extends HelperBase {
         // Delete first user if it's present in the list
         if(isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr"))) {
             deleteFirstUserInTable();
-            printMessage("Autotest user has been deleted");
+            printMessage("Test user has been deleted\n");
             // Keep deleting users recursively
             deleteAllTestUsers();
         } else {
-            printMessage("Autotest users deletion is complete\n");
+            printMessage("Test users deletion is complete\n");
         }
     }
 
@@ -279,6 +279,7 @@ public class SessionHelper extends HelperBase {
      * Delete first user in the Users table in admin panel
      */
     private void deleteFirstUserInTable() {
+        printMessage("Deleting user on " + currentURL());
         click(By.xpath("//*[@id='content']/div/table/tbody/tr/td[3]/a[2]"));
         closeAlertAndGetItsText();
         waitForIt();
@@ -297,16 +298,13 @@ public class SessionHelper extends HelperBase {
         // поэтому тестовые заказы пока делаем с autotestuser@instamart.ru
         // позже нужно переделать под юзеров @example.com
 
-        //TODO переделать на
-        //TODO asAdmin
-        //TODO getUrl
         // Getting target URL in admin panel which contains table with test orders only
         getUrlAsAdmin(baseUrl + "admin/shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D=ready");
 
         // Cancel first order if it's present in the list
         if(!isElementPresent(By.className("no-objects-found"))) {
             cancelFirstOrderInTable();
-            printMessage("Test order has been canceled");
+            printMessage("Test order has been canceled\n");
             // Keep cancelling orders recursively
             cancelAllTestOrders();
         } else {
@@ -324,7 +322,6 @@ public class SessionHelper extends HelperBase {
         waitForIt();
         // Perform cancellation
         cancelOrder();
-        printMessage("Order has been canceled");
     }
 
     /**
@@ -342,6 +339,7 @@ public class SessionHelper extends HelperBase {
      */
     // TODO Параметризовать причину отмены и текст
     public void cancelOrder(){
+        printMessage("Cancelling order on " + currentURL());
         // click cancel button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
         // accept order cancellation alert
