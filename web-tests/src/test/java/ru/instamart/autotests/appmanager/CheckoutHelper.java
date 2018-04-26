@@ -27,18 +27,12 @@ public class CheckoutHelper extends HelperBase {
     public void completeCheckout(String orderInstructions, int replacementPolicy, String paymentType){
         // TODO добавить проверку на нахождение в чекауте
         printMessage("Checking-out\n");
-        // Заполняем адрес
-        doStep1(orderInstructions);
-        // Заполняем контакты
-        doStep2();
-        // Выбираем способ замен
-        doStep3(replacementPolicy);
-        // Выбираем способ оплаты
-        doStep4(paymentType);
-        // Выбираем слот доставки
-        doStep5();
-        // Жмем Оформить заказ
-        hitSendButton();
+        doStep1(orderInstructions); // Заполняем адрес и пожелания
+        doStep2(); // Заполняем контакты
+        doStep3(replacementPolicy); /// Выбираем способ замен
+        doStep4(paymentType); // Выбираем способ оплаты
+        doStep5(); // Выбираем слот доставки
+        hitSendButton(); // Жмем Оформить заказ
     }
 
     /**
@@ -132,7 +126,7 @@ public class CheckoutHelper extends HelperBase {
 
     private void doStep4(String paymentType) {
         final int stepNumber = 4;
-        printMessage("Step + " + stepNumber + " - Payment");
+        printMessage("Step " + stepNumber + " - Payment");
         selectPaymentType(paymentType);
         hitNextButton(stepNumber);
     }
@@ -171,15 +165,16 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Step 5 - Delivery time =======
 
-    private void doStep5() {
+    private void doStep5(){
         final int stepNumber = 5;
-        printMessage("Step + " + stepNumber + " - Delivery time");
+        printMessage("Step " + stepNumber + " - Delivery time");
         // выбираем первый слот в 7 день
+        // selectDeliveryDay("last");
         selectDeliveryDay("last");
         selectDeliverySlot("first");
     }
 
-    private void selectDeliveryDay(String day) {
+    private void selectDeliveryDay(String day){
         switch(day){
             case "today":
                 selectDeliveryDay(1);
@@ -193,7 +188,7 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-    private void selectDeliveryDay(int dayNumber) {
+    private void selectDeliveryDay(int dayNumber){
         if(dayNumber == 1){
             click(By.xpath("//div/span[2]"));
         } else {
@@ -203,7 +198,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Selected delivery on day " + dayNumber);
     }
 
-    private void selectDeliverySlot(String slot) {
+    private void selectDeliverySlot(String slot){
         switch(slot){
             case "first":
                 click(By.xpath("//div[2]/div/div/span[2]"));
@@ -213,12 +208,16 @@ public class CheckoutHelper extends HelperBase {
                 break;
         }
         waitForIt();
-        printMessage("Selected " + slot + " available delivery slot");
+        printMessage("Selected " + slot + " available delivery slot\n");
     }
 
+    // TODO private void selectDeliverySlot(int slotPosition) {}
+
+    // TODO добавить определение недоступности слотов в выбранный день - isDeliveryAvailable()
     // TODO добавить определение доступности слотов на основе isEnabled() и isDisplayed()
     // TODO changeDeliverySlot - изменить слот доставки
     // TODO isDeliveryWindowAvailable(int deliveryDay, int slotPosition)
+    // TODO добавить определение выбранности слота (свернут блок) через try-catch, нажимать Изменить и выбирать заслот заново если требуется
 
 
 
@@ -253,7 +252,9 @@ public class CheckoutHelper extends HelperBase {
     }
 
     private void hitSendButton() {
+        // TODO Нажимать кнопку только если isSendButtonActive() == true
         click(By.className("checkout-btn--make-order"));
+        // TODO добавить проверку на наличие спиннера отправки заказа, писать Order sent только если есть спиннер
         printMessage("Order sent\n");
         waitForIt();
     }
