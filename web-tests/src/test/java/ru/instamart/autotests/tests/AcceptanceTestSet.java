@@ -39,7 +39,7 @@ public class AcceptanceTestSet extends TestBase {
         // логинимся юзером для автотестов с админскими правами TODO переделать на авторизацию новым юзером
         app.getSessionHelper().doLoginAsAdmin();
         // проверяем что авторизованы
-        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "Can't approve the authorisation is successful"+"\n");
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "Can't approve the authorisation was successful"+"\n");
     }
 
     @Test(priority = 2)
@@ -145,6 +145,7 @@ public class AcceptanceTestSet extends TestBase {
         assertPageIsAvailable("https://instamart.ru/sovest");
         assertPageIsAvailable("https://instamart.ru/halva");
         assertPageIsAvailable("https://instamart.ru/landings/feedback");
+        assertPageIsAvailable("https://vkusvill.instamart.ru/");
     }
 
     @Test(priority = 11)
@@ -175,9 +176,11 @@ public class AcceptanceTestSet extends TestBase {
     public void cleanup() throws Exception {
 
         app.getSessionHelper().cancelAllTestOrders();
+        assertPageIsAvailable();
         assertNoTestOrdersLeftActive();
 
         app.getSessionHelper().deleteAllTestUsers();
+        assertPageIsAvailable();
         assertNoTestUsersLeft();
 
     }
