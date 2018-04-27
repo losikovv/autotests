@@ -77,6 +77,8 @@ public class TestBase {
         Assert.assertFalse(app.getNavigationHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
     }
 
+    // TODO assertPageIsReachable - просто проверка что переход работает (метод для проверки ссылок на внешние ресурсы - телеграмы-шмелеграмы)
+
     /**
      * Check the current page isn't reachable at the moment
      */
