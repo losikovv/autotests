@@ -15,27 +15,23 @@ import ru.instamart.autotests.testdata.Generate;
 
 public class AcceptanceTestSet extends TestBase {
 
-    @Test(priority = 13)
-    //регистрация пользователя
+    @Test(priority = 13, description = "Регистрация нового пользователя")
     public void registration() throws Exception {
-        // идем на лендинг
-        app.getNavigationHelper().getBaseUrl();
-        // чекаем что все ровно
-        //assertPageIsAvailable();
-        // регаем нового тестового юзера
-        app.getSessionHelper().regNewUser(Generate.testUserData());
-        // проверияем авторизованность
-        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(), "Can't approve the registration is performed correctly"+"\n");
-        // разлогиниваемся
-        app.getSessionHelper().doLogout();
+        app.getNavigationHelper().getBaseUrl(); // Идем на лендинг
+        app.getSessionHelper().regNewUser(Generate.testUserData()); // Регаем нового тестового юзера
+
+        // Проверияем авторизованность
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
+                "Can't approve the registration was performed correctly"+"\n");
+
+        // TODO добавить проверку на то что авторизованы под верным юзером
+        // TODO добавить проверку наличия пользователя в админке
+        app.getSessionHelper().doLogout(); // Разлогиниваемся
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1, description = "Авторизация")
     public void authorisation() throws Exception {
-        // идем на лендинг
-        app.getNavigationHelper().getBaseUrl();
-        // чекаем что все ровно
-        //assertPageIsAvailable();
+        app.getNavigationHelper().getBaseUrl(); // идем на лендинг
         // логинимся юзером для автотестов с админскими правами TODO переделать на авторизацию новым юзером
         app.getSessionHelper().doLoginAsAdmin();
         // проверяем что авторизованы
@@ -93,7 +89,8 @@ public class AcceptanceTestSet extends TestBase {
     @Test(priority = 6)
     // чекаем недоступность пустого чекаута при ненабранной корзине
     public void emptyCheckoutUnreachable() throws Exception {
-        // TODO добавить проверку на текущую сумму корзины и если она выше суммы минимального заказа - очищать корзину
+        // TODO - очищать корзину перед проверкой
+        // TODO - добавить проверку на то что чекаут недоступен если сумма корзины меньше мин заказа
         assertPageIsUnreachable("https://instamart.ru/checkout/edit?");
     }
 
@@ -163,26 +160,21 @@ public class AcceptanceTestSet extends TestBase {
         assertPageIsAvailable("https://instamart.ru/admin/pages");
     }
 
-    @Test(priority = 12)
-    // логаут
+    @Test(priority = 12, description = "Логаут")
     public void logout() throws Exception {
         app.getSessionHelper().doLogout();
         assertPageIsAvailable();
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(), "Seems like user is still authorized");
+        // Проверяем что неавторизованы
+        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+                "Seems like user is still authorized");
     }
 
-    @Test(priority = 14)
+    @Test(priority = 14, description = "Прибираем за собой")
     //TODO перенести в TestBase - tearDown?
     public void cleanup() throws Exception {
-
-        app.getSessionHelper().cancelAllTestOrders();
-        assertPageIsAvailable();
+        app.getSessionHelper().cleanup();
         assertNoTestOrdersLeftActive();
-
-        app.getSessionHelper().deleteAllTestUsers();
-        assertPageIsAvailable();
         assertNoTestUsersLeft();
-
     }
 
 }

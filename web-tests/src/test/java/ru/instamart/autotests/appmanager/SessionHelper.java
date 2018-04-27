@@ -394,4 +394,14 @@ public class SessionHelper extends HelperBase {
         }
     }
 
+    public void cleanup(){
+        printMessage("================= CLEANING-UP =================\n");
+
+        printMessage("Canceling test orders");
+        cancelAllTestOrders();
+
+        printMessage("Deleting test users");
+        deleteAllTestUsers();
+    }
+
 }
