@@ -72,6 +72,8 @@ public class ApplicationManager {
         // Open browser in fullscreen mode
         // driver.manage().window().fullscreen();
 
+        System.out.println("\n!!!!!!!!!!!! RELEASING THE KRAKEN !!!!!!!!!!!!\n");
+
     }
 
     public void stop() {
