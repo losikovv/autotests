@@ -66,15 +66,15 @@ public class CheckoutHelper extends HelperBase {
 
     private void specifyDetail(String field, boolean value) {
         if(value){
-            if(!driver.findElement(By.name(field)).isSelected()){ // TODO вынести метод isSelected в HelperBase
+            if(!isCheckboxSelected(By.name(field))){
                 click(By.name(field));
             }
-            printMessage("- " + field + " checkbox is on");
+            printMessage("- " + field + ": ✓");
         } else {
-            if(driver.findElement(By.name(field)).isSelected()){ // TODO вынести метод isSelected в HelperBase
+            if(isCheckboxSelected(By.name(field))){
                 click(By.name(field));
             }
-            printMessage("- " + field + " checkbox is off");
+            printMessage("- " + field + ": ✕");
         }
     }
 
