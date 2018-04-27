@@ -246,7 +246,6 @@ public class CheckoutHelper extends HelperBase {
         } else {
             click(By.xpath("(//button[@type='button'])["+step+"]"));
         }
-        //printMessage("Done step " + step);
         printMessage("Next\n");
         waitForIt();
     }
