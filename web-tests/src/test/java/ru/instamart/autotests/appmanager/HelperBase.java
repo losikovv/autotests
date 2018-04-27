@@ -23,14 +23,18 @@ public class HelperBase {
      * Simply get a given URL
      */
     public void getUrl(String url) {
-        driver.get(url);
+        try {
+            driver.get(url);
+        } catch (TimeoutException t) {
+            printMessage("Can't get " + url + " by timeout");
+        }
     }
 
     /**
      * Get base URL
      */
     public void getBaseUrl() {
-        driver.get(baseUrl);
+        getUrl(baseUrl);
         printMessage("Got base URL " + baseUrl + "\n");
     }
 
@@ -89,6 +93,13 @@ public class HelperBase {
         } catch (NoSuchElementException e) {
             return false;
         }
+    }
+
+    /**
+     * Find out if the checkbox by the given locator is selected
+     */
+    boolean isCheckboxSelected(By locator) {
+        return driver.findElement(locator).isSelected();
     }
 
     /**
@@ -243,4 +254,5 @@ public class HelperBase {
         driver.switchTo().defaultContent();
 
     }
+
 }
