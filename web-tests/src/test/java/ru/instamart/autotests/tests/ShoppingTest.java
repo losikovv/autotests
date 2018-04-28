@@ -6,15 +6,30 @@ import ru.instamart.autotests.models.RetailerData;
 
 public class ShoppingTest extends TestBase {
 
-    @Test(priority = 1, description = "Проверяем что по дефолту на витрине ритейлера не выбран адрес")
-    public void emptyShippingAddressWhileUnauthorized() throws Exception {
+    @Test(priority = 1, description = "Проверяем что по умолчанию на витрине ритейлера не выбран адрес")
+    public void emptyShippingAddressByDefault() throws Exception {
         app.getNavigationHelper().getRetailerPage(new RetailerData("metro"));
 
         Assert.assertTrue(app.getShoppingHelper().isShippingAddressEmpty(),
                 "Shipping address is not empty on retailer page while unauthorized\n");
     }
 
-    @Test(priority = 2, description = "Проверяем что на лендинге по адресу вне зоны доставки нет доступных магазинов")
+    @Test(priority = 2, description = "Проверяем открытие и закрытие списка магазинов на витрине")
+    public void openAndCloseShopsList() throws Exception {
+        app.getNavigationHelper().getRetailerPage(new RetailerData("metro"));
+        app.getShoppingHelper().setShippingAddress("Москва, ул Лосиноостровская, д 1");
+        app.getShoppingHelper().openShopsList();
+
+        Assert.assertTrue(app.getShoppingHelper().isShopsListOpen(),
+                "Can't open shops list");
+
+        app.getShoppingHelper().closeShopsList();
+
+        Assert.assertFalse(app.getShoppingHelper().isShopsListOpen(),
+                "Can't close shops list");
+    }
+
+    @Test(priority = 3, description = "Проверяем что на лендинге по адресу вне зоны доставки нет доступных магазинов")
     public void setAddressWithNoAvailableShopsOnLanding() throws Exception {
         app.getNavigationHelper().getLandingPage();
         app.getShoppingHelper().setShippingAddress("Москва, ул Лосиноостровская, д 1"); // TODO параметризовать и брать адрес из справочника
@@ -26,7 +41,7 @@ public class ShoppingTest extends TestBase {
                 "Shipping address is out of the shipping zone, but the shops list isn't empty\n");
     }
 
-    @Test(priority = 3, description = "Проверяем что на лендинге по адресу в зоне доставки есть доступные магазины")
+    @Test(priority = 4, description = "Проверяем что на лендинге по адресу в зоне доставки есть доступные магазины")
     public void setAddressWithAvailableShopsOnLanding() throws Exception {
         app.getNavigationHelper().getLandingPage();
         app.getShoppingHelper().setShippingAddress("Москва, ул Долгоруковская, д 2"); // TODO параметризовать и брать адрес из справочника
@@ -46,12 +61,10 @@ public class ShoppingTest extends TestBase {
 
 
 
-
-
-    @Test(enabled = false, priority = 4, description = "Проверяем что на витрине по адресу вне зоны доставки нет доступных магазинов")
-    public void setAddressWithNoAvailableShopsOnRetailerPage() throws Exception {
+    @Test(enabled = false, priority = 5, description = "Проверяем что на витрине по адресу вне зоны доставки нет доступных магазинов")
+    public void setAddressWithNoAvailableShops() throws Exception {
         app.getNavigationHelper().getRetailerPage(new RetailerData("metro"));
-        app.getShoppingHelper().setShippingAddress("Москва, ул Лосиноостровская, д 1");
+        app.getShoppingHelper().changeShippingAddress("Москва, ул Лосиноостровская, д 1");
         app.getShoppingHelper().openShopsList();
 
         Assert.assertTrue(app.getShoppingHelper().isShopsListOpen(),
@@ -61,10 +74,10 @@ public class ShoppingTest extends TestBase {
                 "Shipping address is out of the shipping zone, but the shops list isn't empty\n");
     }
 
-    @Test(enabled = false, priority = 5, description = "Проверяем что на витрине по адресу в зоне доставки есть доступные магазины")
-    public void setAddressWithAvailableShopsOnRetailerPage() throws Exception {
+    @Test(enabled = false, priority = 6, description = "Проверяем что на витрине по адресу в зоне доставки есть доступные магазины")
+    public void setAddressWithAvailableShops() throws Exception {
         app.getNavigationHelper().getRetailerPage(new RetailerData("metro"));
-        app.getShoppingHelper().setShippingAddress("Москва, ул Долгоруковская, д 2");
+        app.getShoppingHelper().changeShippingAddress("Москва, ул Долгоруковская, д 2");
         app.getShoppingHelper().openShopsList();
 
         Assert.assertTrue(app.getShoppingHelper().isShopsListOpen(),
@@ -84,7 +97,7 @@ public class ShoppingTest extends TestBase {
 
 
     @Test(enabled = false)
-    public void setShippingAddressOnLandingPage() throws Exception {
+    public void setAddressAndShopOnLandingPage() throws Exception {
         app.getNavigationHelper().getLandingPage();
         app.getShoppingHelper().setShippingAddress("Москва, ул Долгоруковская, д 2");
         app.getShoppingHelper().selectShop(1);
@@ -95,6 +108,8 @@ public class ShoppingTest extends TestBase {
         Assert.assertTrue(app.getShoppingHelper().isShippingAddressSet(),
                 "Shipping address wasn't set\n");
     }
+
+    //TODO @Test setAddressAndShop - на витрине
 
     @Test(enabled = false)
     public void changeShippingAddressOnRetailerPage() throws Exception {
@@ -109,6 +124,7 @@ public class ShoppingTest extends TestBase {
                 "Shipping address wasn't set\n");
     }
 
+    // TODO добавить тесты на проверку совпадения выбранного адреса введенному (лендинг + ретайлер)
 
 /*
     @Test(priority = 2)

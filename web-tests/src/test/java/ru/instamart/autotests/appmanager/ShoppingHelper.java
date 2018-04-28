@@ -48,7 +48,7 @@ public class ShoppingHelper extends HelperBase {
         } else {
             setShippingAddressOnRetailerPage(address);
         }
-        printMessage("Shipping address is set to " + address + "\n");
+        printMessage("Shipping address was set to \"" + address + "\"\n");
     }
 
     private void setShippingAddressOnLandingPage(String address){
@@ -66,7 +66,7 @@ public class ShoppingHelper extends HelperBase {
     }
 
     public void changeShippingAddress(String address){
-        printMessage("Changing shipping address");
+        printMessage("Changing shipping address to \"" + address + "\"\n");
         clickChangeAddressButton();
         waitForIt(); // ждем
         setShippingAddressOnRetailerPage(address);
@@ -144,6 +144,7 @@ public class ShoppingHelper extends HelperBase {
      * Method is not suitable for landing page because there is no such button
      */
     public void openShopsList(){
+        printMessage("Open shops list");
         if(!currentURL().equals(baseUrl)) {
             click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[2]/div"));
         } else {
@@ -155,6 +156,7 @@ public class ShoppingHelper extends HelperBase {
      * Close list of available shops by clicking "X" button
      */
     public void closeShopsList(){
+        printMessage("Close shops list");
         if(currentURL().equals(baseUrl + "stores")) {
             click(By.xpath("/html/body/div/div/div[1]/button"));
         } else {
