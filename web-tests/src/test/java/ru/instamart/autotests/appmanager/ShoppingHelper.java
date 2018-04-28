@@ -5,6 +5,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 
+
     // Shopping helper
     // Contains methods for all shopping operations before checkout
 
@@ -19,6 +20,24 @@ public class ShoppingHelper extends HelperBase {
 
 
     // ======= Shipping address =======
+
+    /**
+     * Find out if there shipping address is set by checking address bar
+     * Address bar is not present on landing page, so method is only suitable for inner pages
+     */
+    public boolean isShippingAddressSet() {
+        String XPATH = "//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/text()";
+        return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals("Вы выбрали адрес");
+    }
+
+    /**
+     * Find out if shipping address is empty by checking address bar
+     * Address bar is not present on landing page, so method is only suitable for inner pages
+     */
+    public boolean isShippingAddressEmpty() {
+        String XPATH = "//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/div[2]";
+        return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals("Укажите ваш адрес для отображения доступных магазинов");
+    }
 
     /**
      * Set shipping address with a given string
@@ -53,6 +72,13 @@ public class ShoppingHelper extends HelperBase {
         setShippingAddressOnRetailerPage(address);
     }
 
+    public String getCurrentShippingAddress(){
+        if(isShippingAddressSet()){
+            return getText(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/span[2]"));
+        }
+        else return null;
+    }
+
     public void clickChangeAddressButton(){
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/button"));
     }
@@ -77,6 +103,10 @@ public class ShoppingHelper extends HelperBase {
         }
     }
 
+
+
+    // ======= Shops List =======
+
     public void selectShop(int position){
         if(currentURL().equals(baseUrl + "stores")) {
             try {
@@ -100,7 +130,7 @@ public class ShoppingHelper extends HelperBase {
 
     public void changeShopSelection(int position){
         openShopsList();
-        if(isAnyShopsAvailable()) {
+        if(!isShopsListEmpty()) { //TODO добавить проверку наличия магазов?
             selectShop(position);
         } else {
             printMessage("Can't change shop because there is no shops available!");
@@ -132,45 +162,33 @@ public class ShoppingHelper extends HelperBase {
         }
     }
 
-    /**
-     * Find out if there shipping address is set by checking address bar
-     * Address bar is not present on landing page, so method is only suitable for inner pages
-     */
-    public boolean isShippingAddressSet() {
-        String XPATH = "//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/text()";
-        return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals("Вы выбрали адрес");
+    public boolean isShopsListOpen(){
+        if(currentURL().equals(baseUrl + "stores")){
+            return isElementPresent(By.className("store-selector-page"));
+        }else {
+            return isElementPresent(By.className("store-selector"));
+        }
     }
 
-    /**
-     * Find out if shipping address is empty by checking address bar
-     * Address bar is not present on landing page, so method is only suitable for inner pages
-     */
-    public boolean isShippingAddressEmpty() {
-        String XPATH = "//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/div[2]";
-        return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals("Укажите ваш адрес для отображения доступных магазинов");
-    }
-
-    public boolean isAnyShopsAvailable(){
+    public boolean isShopsListEmpty(){
         final String placeholderText = "Нет доступных магазинов по выбранному адресу";
         final By placeholderLocator = By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[2]/div/div[2]/span/div/div/div[2]/div");
         final By placeholderLocatorLanding = By.xpath("/html/body/div/div/div[2]/div");
 
-        //TODO переписать условия чтобы правильно определялось и наличие и отсутствие магазинов
         if(currentURL().equals(baseUrl + "stores")){
-            if (isElementPresent(placeholderLocatorLanding))
-                if (!getText(placeholderLocatorLanding).equals(placeholderText)) return true;
-            return false;
+            return isElementPresent(placeholderLocatorLanding) && getText(placeholderLocatorLanding).equals(placeholderText);
         } else {
-            return isElementPresent(placeholderLocator) && !getText(placeholderLocator).equals(placeholderText);
+            return isElementPresent(placeholderLocator) && getText(placeholderLocator).equals(placeholderText);
         }
-
     }
 
-    public String getCurrentShippingAddress(){
-        if(isShippingAddressSet()){
-            return getText(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/span[2]"));
+    public boolean isAnyShopsAvailable(){
+        if(isShopsListOpen()){
+            return isElementPresent(By.className("store-card"));
+        } else {
+            openShopsList();
+            return isElementPresent(By.className("store-card"));
         }
-        else return null;
     }
 
     // TODO isShopSelected - метод возвращающий логическое значение выбран ли магазин
@@ -197,6 +215,7 @@ public class ShoppingHelper extends HelperBase {
             // жмем на крестик закрытия карточки товара
             click(By.className("close"));
         }
+
 
 
         // ======= Shopping Cart =======
