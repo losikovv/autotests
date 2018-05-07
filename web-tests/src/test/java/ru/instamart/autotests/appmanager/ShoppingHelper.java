@@ -3,6 +3,7 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.models.EnvironmentData;
 
 
 
@@ -13,8 +14,8 @@ import org.openqa.selenium.WebDriver;
 
 public class ShoppingHelper extends HelperBase {
 
-    public ShoppingHelper(WebDriver driver) {
-        super(driver);
+    public ShoppingHelper(WebDriver driver, EnvironmentData environment) {
+        super(driver, environment);
     }
 
 

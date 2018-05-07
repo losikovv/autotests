@@ -7,6 +7,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+import ru.instamart.autotests.models.EnvironmentData;
+
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
@@ -21,7 +23,11 @@ import static org.testng.Assert.fail;
 public class ApplicationManager {
 
     protected WebDriver driver;
-    protected String baseUrl;
+    protected EnvironmentData environment = new EnvironmentData("production"); // use "production" or "staging"
+
+    protected String environmentName = environment.getEnvironmentName();
+    protected String host = environment.getHost();
+    protected String baseUrl = environment.getBaseURL();
 
     // helpers
     private Helper helper;
@@ -57,22 +63,22 @@ public class ApplicationManager {
                 break;
         }
 
-        baseUrl = "https://instamart.ru/";
-        driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
-
         // Helpers init
-        helper = new Helper(driver);
-        navigationHelper = new NavigationHelper(driver);
-        sessionHelper = new SessionHelper(driver);
-        shoppingHelper = new ShoppingHelper(driver);
-        checkoutHelper = new CheckoutHelper(driver);
-        profileHelper = new ProfileHelper(driver);
-        orderHelper = new OrderHelper(driver);
+        helper = new Helper(driver, environment);
+        navigationHelper = new NavigationHelper(driver, environment);
+        sessionHelper = new SessionHelper(driver, environment);
+        shoppingHelper = new ShoppingHelper(driver, environment);
+        checkoutHelper = new CheckoutHelper(driver, environment);
+        profileHelper = new ProfileHelper(driver, environment);
+        orderHelper = new OrderHelper(driver, environment);
 
-        // Open browser in fullscreen mode
-        // driver.manage().window().fullscreen();
+        // Options
+        driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS); // Basic timeout
+        // driver.manage().window().fullscreen(); // Open browser in fullscreen mode
 
         System.out.println("\n!!!!!!!!!!!! RELEASING THE KRAKEN !!!!!!!!!!!!\n");
+        System.out.println("ENVIRONMENT: " + environmentName + " ( " + host + " ) \n");
+        driver.get(baseUrl);
 
     }
 
@@ -88,12 +94,9 @@ public class ApplicationManager {
     public Helper getHelper() { return helper; }
     public NavigationHelper getNavigationHelper() { return navigationHelper; }
     public SessionHelper getSessionHelper() { return sessionHelper; }
-    public ShoppingHelper getShoppingHelper() {
-        return shoppingHelper;
-    }
-    public CheckoutHelper getCheckoutHelper() {
-        return checkoutHelper;
-    }
+    public ShoppingHelper getShoppingHelper() { return shoppingHelper; }
+    public CheckoutHelper getCheckoutHelper() { return checkoutHelper; }
     public ProfileHelper getProfileHelper() { return profileHelper; }
     public OrderHelper getOrderHelper() { return orderHelper; }
+
 }

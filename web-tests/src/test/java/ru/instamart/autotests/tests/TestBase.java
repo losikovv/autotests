@@ -9,7 +9,7 @@ import ru.instamart.autotests.appmanager.ApplicationManager;
 
 
 
-    // Base test class
+    // Basic test class
 
 
 

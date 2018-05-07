@@ -2,18 +2,18 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.models.EnvironmentData;
 
 
-
-    // Checkout helper
+// Checkout helper
     // Handles all the process of finalizing and sending the order
 
 
 
 public class CheckoutHelper extends HelperBase {
 
-    public CheckoutHelper(WebDriver driver) {
-        super(driver);
+    public CheckoutHelper(WebDriver driver, EnvironmentData environment) {
+        super(driver, environment);
     }
 
 

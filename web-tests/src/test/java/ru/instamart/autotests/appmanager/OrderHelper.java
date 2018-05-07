@@ -1,6 +1,7 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.models.EnvironmentData;
 
 
 
@@ -13,8 +14,8 @@ import org.openqa.selenium.WebDriver;
 
 public class OrderHelper extends HelperBase {
 
-    public OrderHelper(WebDriver driver){
-        super(driver);
+    public OrderHelper(WebDriver driver, EnvironmentData environment) {
+        super(driver, environment);
     }
 
 }

@@ -2,6 +2,7 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.Generate;
 
@@ -14,8 +15,8 @@ import ru.instamart.autotests.testdata.Generate;
 
 public class SessionHelper extends HelperBase {
 
-    public SessionHelper(WebDriver driver) {
-        super(driver);
+    public SessionHelper(WebDriver driver, EnvironmentData environment) {
+        super(driver, environment);
     }
 
     // TODO перенести в HelperBase + все методы по заказам перенести в OrdersHelper
@@ -271,7 +272,7 @@ public class SessionHelper extends HelperBase {
             // Keep deleting users recursively
             deleteAllTestUsers();
         } else {
-            printMessage("Test users deletion is complete\n");
+            printMessage("TEST USER DELETION IS COMPLETE\n");
         }
     }
 
@@ -308,7 +309,7 @@ public class SessionHelper extends HelperBase {
             // Keep cancelling orders recursively
             cancelAllTestOrders();
         } else {
-            printMessage("Test orders cancellation is complete\n");
+            printMessage("TEST ORDERS CANCELLATION IS COMPLETE\n");
         }
     }
 

@@ -2,21 +2,28 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
 
+import ru.instamart.autotests.models.EnvironmentData;
+
 
 // Helpers base class
 // Contains basic methods of interaction with the system under test
 
 
+
 public class HelperBase {
 
     protected WebDriver driver;
+    protected String environmentName;
+    protected String host;
+    protected String baseUrl;
 
-    //TODO попробовать брать baseUrl из Application Manager
-    static final String baseUrl = "https://instamart.ru/";
     private boolean acceptNextAlert = true;
 
-    public HelperBase(WebDriver driver) {
+    public HelperBase(WebDriver driver, EnvironmentData environment) {
         this.driver = driver;
+        this.environmentName = environment.getEnvironmentName();
+        this.host = environment.getHost();
+        this.baseUrl = environment.getBaseURL();
     }
 
     /**

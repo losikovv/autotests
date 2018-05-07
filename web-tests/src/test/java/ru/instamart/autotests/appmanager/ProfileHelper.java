@@ -2,18 +2,18 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.models.EnvironmentData;
 
 
-
-    // Profile helper
+// Profile helper
     // Contains methods for all operations within user profile section
 
 
 
 public class ProfileHelper extends HelperBase {
 
-    public ProfileHelper(WebDriver driver){
-        super(driver);
+    public ProfileHelper(WebDriver driver, EnvironmentData environment) {
+        super(driver, environment);
     }
 
 
