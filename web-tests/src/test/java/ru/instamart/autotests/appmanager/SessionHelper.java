@@ -208,6 +208,17 @@ public class SessionHelper extends HelperBase {
         printMessage("Logged-out from admin\n");
     }
 
+    /**
+     * Drop authorisation and return to current page
+     */
+    public void dropAuth() {
+        String currentURL = driver.getCurrentUrl();
+        if (isUserAuthorised()) {
+            doLogout();
+            getUrl(currentURL);
+        }
+    }
+
 
 
     // ======= Handling test users =======
