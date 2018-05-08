@@ -3,8 +3,7 @@ package ru.instamart.autotests.tests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.*;
 import ru.instamart.autotests.appmanager.ApplicationManager;
 
 
