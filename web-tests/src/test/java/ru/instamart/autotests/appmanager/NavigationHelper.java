@@ -30,6 +30,11 @@ public class NavigationHelper extends HelperBase {
     }
 
     // переход на витрину ретейлера
+    public void getRetailerPage(String retailerName) {
+        getUrl(baseUrl + retailerName);
+    }
+
+    // переход на витрину ретейлера
     public void getRetailerPage(RetailerData retailerData) {
         getUrl(baseUrl + retailerData.getName());
     }
