@@ -53,11 +53,14 @@ public class HelperBase {
         try {
             driver.findElement(locator).click();
         } catch (ElementClickInterceptedException e) {
-            closeWidgets();
+            waitForIt();
+            if(isElementPresent(By.className("flocktory-widget-overlay"))){
+                printMessage("Flocktory widget detected");
+                closeFlocktoryWidgets();
+            }
             driver.findElement(locator).click();
         } catch (NoSuchElementException n){
-            printMessage("Current URL: " + currentURL());
-            printMessage("Can't find element <" + locator + "> to click on\n");
+            printMessage("Can't find element <" + locator + "> to click on " + currentURL() + "\n");
         }
     }
 
@@ -229,30 +232,35 @@ public class HelperBase {
      * Close marketing widgets which often obscure active elements while test execution and switch back to main frame
      */
 
-    public void closeWidgets() {
+    private void closeFlocktoryWidgets() {
 
-            if(isElementPresent(By.id("fl-73939"))){
-                printMessage("Closing Flocktory Ribbon widget");
-                driver.switchTo().frame("fl-73939");
+        String pushTipWidgetId = "fl-75517";
+        String cartRibbonWidgetId = "fl-73939";
+
+            // Shopping Cart Ribbon widget
+            if(isElementPresent(By.id(cartRibbonWidgetId))){
+                printMessage("Closing Ribbon widget\n");
+                driver.switchTo().frame(cartRibbonWidgetId);
                 driver.findElement(By.xpath("/html/body/div/div[2]")).click();
             }
 
-            if (isElementPresent(By.id("fl-50932"))){
-                printMessage("Closing Flocktory Tip widget");
-                driver.switchTo().frame("fl-50932");
+            // Push Tip widget
+            if (isElementPresent(By.id(pushTipWidgetId))){
+                printMessage("Closing Push Tip widget\n");
+                driver.switchTo().frame(pushTipWidgetId);
                 driver.findElement(By.xpath("/html/body/div/div[1]")).click();
             }
 
             //TODO
             if(isElementPresent(By.id("856bfda0-423f-11e8-89bb-c5fffb7fc056"))){
-                printMessage("Closing Flocktory Wrapper widget");
+                printMessage("Closing Wrapper widget\n");
                 driver.switchTo().frame(driver.findElement(By.id("856bfda0-423f-11e8-89bb-c5fffb7fc056")));
                 click(By.xpath("/html/body/div/div[1]/div/div[1]"));
             }
 
             //TODO
             if (isElementPresent(By.className("flockapi-overlay"))){
-                printMessage("Closing Flocktory First Purchase Promo widget");
+                printMessage("Closing First Purchase widget\n");
                 driver.switchTo().frame(driver.findElement(By.className("flockapi-overlay")));
                 driver.findElement(By.id("close")).click();
             }
