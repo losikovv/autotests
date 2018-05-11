@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.models.RetailerData;
 
-public class ShoppingTest extends TestBase {
+public class ShippingAddress extends TestBase {
 
     @Test(priority = 1, description = "Проверяем что по умолчанию на витрине ритейлера не выбран адрес")
     public void emptyShippingAddressByDefault() throws Exception {
@@ -55,6 +55,7 @@ public class ShoppingTest extends TestBase {
         Assert.assertTrue(app.getShoppingHelper().isAnyShopsAvailable(),
                 "Shipping address is in the shipping zone, but there is no shops available in the list\n");
     }
+    
 
 
 

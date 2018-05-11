@@ -4,15 +4,21 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.models.UserData;
 
+
+
+    // Тесты авторизации
+
+
+
 public class Authorisation extends TestBase {
 
 
     @Test(
             description = "Негативный тест попытки авторизации без email",
             groups = {"regression"},
-            priority = 1
+            priority = 101
     )
-    public void noAuthWithoutEmail() throws Exception {
+    public void noAuthWithoutEmail() throws Exception, AssertionError {
         app.getNavigationHelper().getLandingPage();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().doLogin(new UserData("", "instamart", null));
@@ -26,9 +32,9 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации без пароля",
             groups = {"regression"},
-            priority = 2
+            priority = 102
     )
-    public void noAuthWithoutPassword() throws Exception {
+    public void noAuthWithoutPassword() throws Exception, AssertionError {
         app.getNavigationHelper().getLandingPage();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "", null));
@@ -42,9 +48,9 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации несуществующим юзером",
             groups = {"regression"},
-            priority = 3
+            priority = 103
     )
-    public void noAuthWithNonexistingUser() throws Exception {
+    public void noAuthWithNonexistingUser() throws Exception, AssertionError {
         app.getNavigationHelper().getLandingPage();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().doLogin(new UserData("nonexistinguser@example.com", "password", null));
@@ -58,9 +64,9 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации с неверным паролем",
             groups = {"acceptance","regression"},
-            priority = 3
+            priority = 104
     )
-    public void noAuthWithWrongPassword() throws Exception {
+    public void noAuthWithWrongPassword() throws Exception, AssertionError {
         app.getNavigationHelper().getLandingPage();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "wrongpassword", null));
@@ -74,9 +80,9 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест успешной авторизации на лендинге",
             groups = {"smoke","acceptance","regression"},
-            priority = 4
+            priority = 105
     )
-    public void successAuthOnLandingPage() throws Exception {
+    public void successAuthOnLandingPage() throws Exception, AssertionError {
         app.getNavigationHelper().getLandingPage();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart", null));
@@ -91,10 +97,10 @@ public class Authorisation extends TestBase {
 
     @Test(
             description = "Тест успешной авторизации на витрине",
-            groups = {"smoke","acceptance","regression"},
-            priority = 5
+            groups = {"acceptance","regression"},
+            priority = 106
     )
-    public void successAuthOnRetailerPage() throws Exception {
+    public void successAuthOnRetailerPage() throws Exception, AssertionError {
         app.getNavigationHelper().getPage("vkusvill");
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart", null));
@@ -104,6 +110,26 @@ public class Authorisation extends TestBase {
                 "Can't approve the authorisation is successful"+"\n");
 
         app.getSessionHelper().doLogout();
+    }
+
+
+    @Test(
+            description = "Тест логаута",
+            groups = {"regression"},
+            priority = 107
+    )
+    public void logout() throws Exception, AssertionError {
+        app.getSessionHelper().doLoginAsAdmin();
+        app.getSessionHelper().doLogout();
+
+        // Assert there is no problems after logout
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().getRetailerPage("metro");
+
+        // Assert user is unauthorised
+        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+                "Can't approve user has been deauthorized properly");
     }
 
     //TODO добавить тесты на авторизацию через соцсети
