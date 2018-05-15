@@ -55,9 +55,9 @@ public class ShippingAddress extends TestBase {
         Assert.assertTrue(app.getShoppingHelper().isAnyShopsAvailable(),
                 "Shipping address is in the shipping zone, but there is no shops available in the list\n");
     }
+
+
     
-
-
 
 
 

@@ -36,7 +36,7 @@ public class ApplicationManager {
     private ShoppingHelper shoppingHelper;
     private CheckoutHelper checkoutHelper;
     private ProfileHelper profileHelper;
-    private OrderHelper orderHelper;
+    private AdministrationHelper administrationHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
     private String browser;
@@ -70,7 +70,7 @@ public class ApplicationManager {
         shoppingHelper = new ShoppingHelper(driver, environment);
         checkoutHelper = new CheckoutHelper(driver, environment);
         profileHelper = new ProfileHelper(driver, environment);
-        orderHelper = new OrderHelper(driver, environment);
+        administrationHelper = new AdministrationHelper(driver, environment);
 
         // Options
         driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS); // Basic timeout
@@ -97,6 +97,6 @@ public class ApplicationManager {
     public ShoppingHelper getShoppingHelper() { return shoppingHelper; }
     public CheckoutHelper getCheckoutHelper() { return checkoutHelper; }
     public ProfileHelper getProfileHelper() { return profileHelper; }
-    public OrderHelper getOrderHelper() { return orderHelper; }
+    public AdministrationHelper getAdministrationHelper() { return administrationHelper; }
 
 }

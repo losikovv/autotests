@@ -5,7 +5,8 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.EnvironmentData;
 
 
-// Checkout helper
+
+    // Checkout helper
     // Handles all the process of finalizing and sending the order
 
 

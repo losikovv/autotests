@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.UserData;
-import ru.instamart.autotests.testdata.Generate;
 
 
 
@@ -19,7 +18,7 @@ public class SessionHelper extends HelperBase {
         super(driver, environment);
     }
 
-    // TODO перенести в HelperBase + все методы по заказам перенести в OrdersHelper
+    // TODO перенести в AdminHelper
     public void getUrlAsAdmin(String targetUrl) {
         // trying to get target URL in admin panel
         getUrl(targetUrl);
@@ -223,6 +222,7 @@ public class SessionHelper extends HelperBase {
 
     // ======= Handling test users =======
 
+    // TODO перенести в UserData
     /**
      * Do log-in with user credentials of autotest@instamart.ru which is reserved for autotests and have admin privileges
      */
@@ -237,6 +237,7 @@ public class SessionHelper extends HelperBase {
         printMessage("Logged-in with admin privileges as " + LOGIN + "\n");
     }
 
+    // TODO перенести в UserData
     /**
      * Do log-in with user credentials of instatestuser@yandex.ru which is reserved for testing needs
      */
@@ -251,6 +252,7 @@ public class SessionHelper extends HelperBase {
         printMessage("Logged-in as " + LOGIN + "\n");
     }
 
+    // TODO перенести в UserData
     /**
      * Do log-in with Facebook as reserved for testing needs user
      */
@@ -258,6 +260,7 @@ public class SessionHelper extends HelperBase {
         //TODO
     }
 
+    // TODO перенести в UserData
     /**
      * Do log-in with VKontakte as reserved for testing needs user
      */
@@ -265,6 +268,8 @@ public class SessionHelper extends HelperBase {
         //TODO
     }
 
+
+    // TODO перенести в Administration helper
     /**
      * Delete all test users from admin panel
      */
@@ -287,6 +292,7 @@ public class SessionHelper extends HelperBase {
         }
     }
 
+    // TODO перенести в Administration helper
     /**
      * Delete first user in the Users table in admin panel
      */
@@ -301,6 +307,7 @@ public class SessionHelper extends HelperBase {
 
     // ======= Handling test orders =======
 
+    // TODO перенести в Administration helper
     /**
      * Cancel all test orders from admin panel
      */
@@ -324,6 +331,7 @@ public class SessionHelper extends HelperBase {
         }
     }
 
+    // TODO перенести в Administration helper
     /**
      * Cancel first order in the Shipments table in admin panel
      */
@@ -336,6 +344,7 @@ public class SessionHelper extends HelperBase {
         cancelOrder();
     }
 
+    // TODO перенести в Administration helper
     /**
      * Cancel order with the given number
      */
@@ -346,6 +355,7 @@ public class SessionHelper extends HelperBase {
         cancelOrder();
     }
 
+    // TODO перенести в Administration helper
     /**
      * Cancel order on the order page in admin panel
      */
@@ -365,6 +375,7 @@ public class SessionHelper extends HelperBase {
         waitForIt();
     }
 
+    // TODO перенести в Administration helper
     /**
      * Resume order with the given number
      */
@@ -374,6 +385,7 @@ public class SessionHelper extends HelperBase {
         resumeOrder();
     }
 
+    // TODO перенести в Administration helper
     /**
      * Resume order on the order page in admin panel
      */
@@ -385,6 +397,7 @@ public class SessionHelper extends HelperBase {
         waitForIt();
     }
 
+    // TODO перенести в Administration helper
     /**
      * Find out if the order with the given order number is canceled
      */
@@ -394,6 +407,7 @@ public class SessionHelper extends HelperBase {
         return isOrderCanceled();
     }
 
+    // TODO перенести в Administration helper
     /**
      * Find out if the order is canceled by checking the order page in admin panel
      */
@@ -406,6 +420,7 @@ public class SessionHelper extends HelperBase {
         }
     }
 
+    // TODO перенести в Administration helper
     public void cleanup(){
         printMessage("================= CLEANING-UP =================\n");
 
