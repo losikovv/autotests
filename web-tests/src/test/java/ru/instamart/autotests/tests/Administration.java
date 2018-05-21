@@ -3,22 +3,35 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.models.UserData;
 
 
-
-    // Тесты админки
+// Тесты админки
 
 
 
 public class Administration extends TestBase {
 
 
-    // TODO Кейс на недоступность админки пользователем без админ-прав
-
-
     @BeforeMethod(alwaysRun = true)
     public void reachAdministrationPanel(){
-        app.getSessionHelper().getUrlAsAdmin("https://instamart.ru/admin/shipments");
+        app.getSessionHelper().getUrlAsAdmin("https://instamart.ru/admin/shipments"); // TODO параметризовать окружение
+    }
+
+
+    @Test(
+            description = "Тест недоступности админки пользователю без админ. прав",
+            groups = {"acceptance","regression"},
+            priority = 700
+    )
+    public void adminPanelUnreacheableWithoutPrivileges() throws Exception {
+        app.getSessionHelper().doLogout();
+        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru","instamart", null));
+
+        // Assert admin panel is unreacheable
+        assertPageIsUnreachable("https://instamart.ru/admin/shipments"); // TODO параметризовать окружение
+
+        app.getSessionHelper().doLogout();
     }
 
 
