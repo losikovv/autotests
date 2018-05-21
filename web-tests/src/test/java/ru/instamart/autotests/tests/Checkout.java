@@ -1,8 +1,19 @@
 package ru.instamart.autotests.tests;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class Checkout extends TestBase {
+
+
+    @BeforeMethod(alwaysRun = true)
+    public void getAuth() throws Exception {
+        app.getNavigationHelper().getRetailerPage("metro");
+        if(!app.getSessionHelper().isUserAuthorised()) {
+            app.getSessionHelper().doLoginAsAdmin();
+        }
+        app.getShoppingHelper().dropCart();
+    }
 
 
     @Test(
