@@ -74,7 +74,7 @@ public class ApplicationManager {
 
         // Options
         driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS); // Basic timeout
-        // driver.manage().window().fullscreen(); // Open browser in fullscreen mode
+        //driver.manage().window().fullscreen(); // Open browser in fullscreen mode
 
         System.out.println("\n!!!!!!!!!!!! RELEASING THE KRAKEN !!!!!!!!!!!!\n");
         System.out.println("ENVIRONMENT: " + environmentName + " ( " + host + " ) \n");

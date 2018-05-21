@@ -157,28 +157,6 @@ public class HelperBase {
     }
 
     /**
-     * Method returns true if the user is on retailer page and false if he isn't
-     */
-    public boolean itsOnRetailerPage() {
-        if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[2]"))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Method returns true if user is on site and false if he isn't
-     */
-    public boolean itsOnSite() {
-        if (isElementPresent(By.xpath(" //*[@id='new-home-footer']"))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Method returns true if user is in the admin panel and false if he isn't
      */
     public boolean itsInAdmin() {
@@ -251,6 +229,7 @@ public class HelperBase {
                 driver.findElement(By.xpath("/html/body/div/div[1]")).click();
             }
 
+            /*
             //TODO
             if(isElementPresent(By.id("856bfda0-423f-11e8-89bb-c5fffb7fc056"))){
                 printMessage("Closing Wrapper widget\n");
@@ -264,6 +243,7 @@ public class HelperBase {
                 driver.switchTo().frame(driver.findElement(By.className("flockapi-overlay")));
                 driver.findElement(By.id("close")).click();
             }
+            */
 
         driver.switchTo().parentFrame();
         driver.switchTo().defaultContent();
