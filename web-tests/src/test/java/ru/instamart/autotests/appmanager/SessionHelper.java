@@ -318,7 +318,7 @@ public class SessionHelper extends HelperBase {
         // позже нужно переделать под юзеров @example.com
 
         // Getting target URL in admin panel which contains table with test orders only
-        getUrlAsAdmin(baseUrl + "admin/shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D=ready");
+        getUrlAsAdmin(baseUrl + "admin/shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D%5B%5D=ready");
 
         // Cancel first order if it's present in the list
         if(!isElementPresent(By.className("no-objects-found"))) {
