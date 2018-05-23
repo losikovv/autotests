@@ -17,9 +17,72 @@ public class CheckoutHelper extends HelperBase {
         super(driver, environment);
     }
 
+    public boolean isOnCheckout(){
+        return isElementPresent(By.className("chekout-header"));
+    }
+
 
 
     // ======= Order-making methods =======
+
+    /**
+     * Complete checkout with predefined standard test options
+     */
+    public void completeCheckout(){
+        if(isOnCheckout()){
+            printMessage("Checking-out\n");
+        } else {
+            printMessage("Waiting for checkout\n");
+            waitForIt();
+        }
+        doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
+        doStep2();                  // Используем существующий телефон
+        doStep3();                  // Выбираем дефолтный способ замен
+        doStep4();                  // Выбираем тестовый способ оплаты наличными
+        doStep5();                  // Выбираем стандартный тестовый слот доставки
+        hitSendButton();            // Жмем "Оформить заказ"
+    }
+
+    /**
+     * Complete checkout with predefined standard test options and a given payment type
+     * Use only for existing users which have telephone numbers and all payment types
+     */
+    public void completeCheckout(String paymentType){
+        if(isOnCheckout()){
+            printMessage("Checking-out\n");
+        } else {
+            printMessage("Waiting for checkout\n");
+            waitForIt();
+        }
+        doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
+        doStep2();                  // Используем существующий телефон
+        doStep3();                  // Выбираем дефолтный способ замен
+        doStep4(paymentType);       // Выбираем указанный способ оплаты
+        doStep5();                  // Выбираем стандартный тестовый слот доставки
+        hitSendButton();            // Жмем "Оформить заказ"
+    }
+
+    //TODO
+    /**
+     * Complete checkout with predefined standard test options
+     * Use only for existing users which have telephone numbers and all payment types, cards and loyalty programs
+     */
+    public void completeCheckout(String paymentType, String loyaltyProgram, String promoCode){
+        if(isOnCheckout()){
+            printMessage("Checking-out\n");
+        } else {
+            printMessage("Waiting for checkout\n");
+            waitForIt();
+        }
+        doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
+        doStep2();                  // Используем существующий телефон
+        doStep3();                  // Выбираем дефолтный способ замен
+        doStep4(paymentType);       // Выбираем указанный способ оплаты
+        doStep5();                  // Выбираем стандартный тестовый слот доставки
+        //TODO loyaltyProgram
+        //TODO promoCode
+        hitSendButton();            // Жмем "Оформить заказ"
+    }
 
     /**
      * Complete checkout with given options
@@ -27,37 +90,58 @@ public class CheckoutHelper extends HelperBase {
      */
     public void completeCheckout(String orderInstructions, int replacementPolicy, String paymentType){
         // TODO добавить проверку на нахождение в чекауте
-        printMessage("Checking-out\n");
-        doStep1(orderInstructions); // Заполняем адрес и пожелания
-        doStep2(); // Заполняем контакты
-        doStep3(replacementPolicy); /// Выбираем способ замен
-        doStep4(paymentType); // Выбираем способ оплаты
-        doStep5(); // Выбираем слот доставки
-        hitSendButton(); // Жмем Оформить заказ
-    }
-
-    /**
-     * Complete checkout with predefined standard test options
-     * Use only for existing users which have telephone numbers and all payment types, cards and loyalty programs
-     */
-    public void completeCheckout(String paymentType, String loyaltyProgram, String promoCode){
-
+        if(isOnCheckout()){
+            printMessage("Checking-out\n");
+        } else {
+            printMessage("Waiting for checkout\n");
+            waitForIt();
+        }
+        doStep1(orderInstructions); // Заполняем адрес и пожелания указанными значениями
+        doStep2();                  // Заполняем контакты
+        doStep3(replacementPolicy); // Выбираем указанный способ замен
+        doStep4(paymentType);       // Выбираем указанный способ оплаты
+        doStep5();                  // Выбираем стандартный тестовый слот доставки
+        hitSendButton();            // Жмем "Оформить заказ"
     }
 
 
 
     // ======= Step 1 - Shipping address =======
 
+    private void doStep1() {
+        final int stepNumber = 1;
+        final String stepName = "Address";
+        checkStep(stepNumber, stepName);
+        specifyTestAddressDetails();
+        fillTestOrderInstructions();
+        hitNextButton(stepNumber);
+    }
+
     private void doStep1(String orderInstructions) {
         final int stepNumber = 1;
-        printMessage("Step " + stepNumber + " - Address");
+        final String stepName = "Address";
+        checkStep(stepNumber, stepName);
+        specifyTestAddressDetails();
+        fillOrderInstructions(orderInstructions);
+        hitNextButton(stepNumber);
+    }
+
+    private void specifyTestAddressDetails() {
         printMessage("Details:");
         specifyDetail("apartment", "111");
         specifyDetail("floor", "222");
-        specifyDetail("entrance", "333");
         specifyDetail("elevator",true);
-        fillOrderInstructions(orderInstructions);
-        hitNextButton(stepNumber);
+        specifyDetail("entrance", "333");
+        specifyDetail("doorPhone", "44 ключ 5555");
+    }
+
+    private void specifyAddressDetails(String apartment, String floor, boolean elevator, String entrance, String doorPhone) {
+        printMessage("Details:");
+        specifyDetail("apartment", apartment);
+        specifyDetail("floor", floor);
+        specifyDetail("elevator",elevator);
+        specifyDetail("entrance", entrance);
+        specifyDetail("doorPhone", doorPhone);
     }
 
     private void specifyDetail(String field, String value) {
@@ -79,6 +163,12 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
+    private void fillTestOrderInstructions() {
+        String text = "ТЕСТОВЫЙ ЗАКАЗ";
+        fillField(By.name("order[special_instructions]"),text);
+        printMessage("- order instructions: " + text);
+    }
+
     private void fillOrderInstructions(String orderInstructions) {
         fillField(By.name("order[special_instructions]"),orderInstructions);
         printMessage("- order instructions: " + orderInstructions);
@@ -90,8 +180,18 @@ public class CheckoutHelper extends HelperBase {
 
     private void doStep2() {
         final int stepNumber = 2;
-        printMessage("Step " + stepNumber + " - Contacts");
-        //TODO добавить определение наличия телефонов добавление и удаление телефона
+        final String stepName = "Contacts";
+        checkStep(stepNumber, stepName);
+        printMessage("Using existing phone number");
+        hitNextButton(stepNumber);
+    }
+
+    //TODO
+    private void doStep2(String phoneNumber) {
+        final int stepNumber = 2;
+        final String stepName = "Contacts";
+        checkStep(stepNumber, stepName);
+        //TODO добавить определение наличия телефонов, добавление и удаление телефона
         hitNextButton(stepNumber);
     }
 
@@ -107,11 +207,21 @@ public class CheckoutHelper extends HelperBase {
         // TODO selectTelephoneNumber - выбрать телефон
 
 
+
     // ======= Step 3 - Replacement policy =======
+
+    private void doStep3() {
+        final int stepNumber = 3;
+        final String stepName = "Replacement policy";
+        checkStep(stepNumber, stepName);
+        selectReplacementPolicy(1);
+        hitNextButton(stepNumber);
+    }
 
     private void doStep3(int replacementPolicy) {
         final int stepNumber = 3;
-        printMessage("Step " + stepNumber + " - Replacement policy");
+        final String stepName = "Replacement policy";
+        checkStep(stepNumber, stepName);
         selectReplacementPolicy(replacementPolicy);
         hitNextButton(stepNumber);
     }
@@ -125,9 +235,18 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Payment =======
 
+    private void doStep4() {
+        final int stepNumber = 4;
+        final String stepName = "Payment";
+        checkStep(stepNumber, stepName);
+        selectPaymentType("cash");
+        hitNextButton(stepNumber);
+    }
+
     private void doStep4(String paymentType) {
         final int stepNumber = 4;
-        printMessage("Step " + stepNumber + " - Payment");
+        final String stepName = "Payment";
+        checkStep(stepNumber, stepName);
         selectPaymentType(paymentType);
         hitNextButton(stepNumber);
     }
@@ -168,9 +287,9 @@ public class CheckoutHelper extends HelperBase {
 
     private void doStep5(){
         final int stepNumber = 5;
-        printMessage("Step " + stepNumber + " - Delivery time");
+        final String stepName = "Delivery time";
+        checkStep(stepNumber, stepName);
         // выбираем первый слот в 7 день
-        // selectDeliveryDay("last");
         selectDeliveryDay("last");
         selectDeliverySlot("first");
     }
@@ -242,11 +361,7 @@ public class CheckoutHelper extends HelperBase {
     // ======= Common =======
 
     private void hitNextButton(int step) {
-        if(step == 1){
-            click(By.xpath("(//button[@type='button'])"));
-        } else {
-            click(By.xpath("(//button[@type='button'])["+step+"]"));
-        }
+        click(By.xpath("(//button[@type='button'])["+step+"]"));
         printMessage("Next\n");
         waitForIt();
     }
@@ -257,6 +372,20 @@ public class CheckoutHelper extends HelperBase {
         // TODO добавить проверку на наличие спиннера отправки заказа, писать Order sent только если есть спиннер
         printMessage("Order sent\n");
         waitForIt();
+    }
+
+    private void checkStep(int stepNumber, String stepName) {
+        if(isStepActive(stepNumber)){
+            printMessage("Step " + stepNumber + " - " + stepName);
+        } else {
+            waitForIt();
+            // TODO сделать исключение для 5 шага
+            if(!isStepActive(stepNumber)) printMessage("Step " + stepNumber + " isn't active");
+        }
+    }
+
+    private boolean isStepActive(int step){
+        return isElementPresent((By.xpath("(//button[@type='button'])["+step+"]")));
     }
 
     // TODO - определять активна ли кнопка отправки заказа
