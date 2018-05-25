@@ -29,12 +29,7 @@ public class CheckoutHelper extends HelperBase {
      * Complete checkout with predefined standard test options
      */
     public void completeCheckout(){
-        if(isOnCheckout()){
-            printMessage("Checking-out\n");
-        } else {
-            printMessage("Waiting for checkout\n");
-            waitForIt();
-        }
+        checkCheckoutReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
         doStep3();                  // Выбираем дефолтный способ замен
@@ -48,12 +43,7 @@ public class CheckoutHelper extends HelperBase {
      * Use only for existing users which have telephone numbers and all payment types
      */
     public void completeCheckout(String paymentType){
-        if(isOnCheckout()){
-            printMessage("Checking-out\n");
-        } else {
-            printMessage("Waiting for checkout\n");
-            waitForIt();
-        }
+        checkCheckoutReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
         doStep3();                  // Выбираем дефолтный способ замен
@@ -68,12 +58,7 @@ public class CheckoutHelper extends HelperBase {
      * Use only for existing users which have telephone numbers and all payment types, cards and loyalty programs
      */
     public void completeCheckout(String paymentType, String loyaltyProgram, String promoCode){
-        if(isOnCheckout()){
-            printMessage("Checking-out\n");
-        } else {
-            printMessage("Waiting for checkout\n");
-            waitForIt();
-        }
+        checkCheckoutReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
         doStep3();                  // Выбираем дефолтный способ замен
@@ -90,12 +75,7 @@ public class CheckoutHelper extends HelperBase {
      */
     public void completeCheckout(String orderInstructions, int replacementPolicy, String paymentType){
         // TODO добавить проверку на нахождение в чекауте
-        if(isOnCheckout()){
-            printMessage("Checking-out\n");
-        } else {
-            printMessage("Waiting for checkout\n");
-            waitForIt();
-        }
+        checkCheckoutReady();
         doStep1(orderInstructions); // Заполняем адрес и пожелания указанными значениями
         doStep2();                  // Заполняем контакты
         doStep3(replacementPolicy); // Выбираем указанный способ замен
@@ -359,6 +339,15 @@ public class CheckoutHelper extends HelperBase {
 
 
     // ======= Common =======
+
+    private void checkCheckoutReady() {
+        if(isOnCheckout()){
+            printMessage("Checking-out\n");
+        } else {
+            printMessage("Waiting for checkout\n");
+            waitForIt();
+        }
+    }
 
     private void hitNextButton(int step) {
         click(By.xpath("(//button[@type='button'])["+step+"]"));
