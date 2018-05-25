@@ -284,7 +284,7 @@ public class SessionHelper extends HelperBase {
         // Delete first user if it's present in the list
         if(isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr"))) {
             deleteFirstUserInTable();
-            printMessage("Test user has been deleted\n");
+            printMessage("Test user has been deleted\n"); //TODO добавить вывод логина пользователя, брать со страницы
             // Keep deleting users recursively
             deleteAllTestUsers();
         } else {
