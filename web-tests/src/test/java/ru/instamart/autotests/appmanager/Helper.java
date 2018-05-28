@@ -4,7 +4,8 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.EnvironmentData;
 
 
-// Common helper for calling methods inherited from HelperBase
+
+    // Common helper for calling methods inherited from HelperBase
 
 
 

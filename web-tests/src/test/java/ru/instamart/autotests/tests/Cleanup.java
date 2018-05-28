@@ -2,6 +2,12 @@ package ru.instamart.autotests.tests;
 
 import org.testng.annotations.Test;
 
+
+
+    // Зачистка тестовой среды после тестов
+
+
+
 public class Cleanup extends TestBase {
 
 

@@ -1,6 +1,7 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.EnvironmentData;
@@ -22,14 +23,17 @@ public class ShoppingHelper extends HelperBase {
 
     // ======= Shipping address =======
 
+    // Нерабочий метод
     /**
      * Find out if there shipping address is set by checking address bar
      * Address bar is not present on landing page, so method is only suitable for inner pages
      */
+    /*
     public boolean isShippingAddressSet() {
         String XPATH = "//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/text()";
         return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals("Вы выбрали адрес");
     }
+    */
 
     /**
      * Find out if shipping address is empty by checking address bar
@@ -44,44 +48,39 @@ public class ShoppingHelper extends HelperBase {
      * Set shipping address with a given string
      */
     public void setShippingAddress(String address){
-        if(itsOnLandingPage()){
-            setShippingAddressOnLandingPage(address);
-        } else {
-            setShippingAddressOnRetailerPage(address);
-        }
-        printMessage("Shipping address was set to \"" + address + "\"\n");
-    }
-
-    private void setShippingAddressOnLandingPage(String address){
         fillAddressField(address); // вводим адрес
         selectAddressSuggest(1); // выбираем первую подсказку
+        waitForIt(); // ждем
         clickChooseShopButton(); // жмем Выбрать магазин
         waitForIt(); // ждем
-    }
-
-    private void setShippingAddressOnRetailerPage(String address){
-        fillAddressField(address); // вводим адрес
-        selectAddressSuggest(1); // выбираем первую подсказку
-        clickChooseShopButton(); // жмем Выбрать магазин
-        waitForIt(); // ждем
+        //printMessage("Shipping address was set to \"" + address + "\"\n");
+        printMessage("New shipping address was set\n");
     }
 
     public void changeShippingAddress(String address){
-        printMessage("Changing shipping address to \"" + address + "\"\n");
+        printMessage("Changing shipping address");
         clickChangeAddressButton();
-        waitForIt(); // ждем
-        setShippingAddressOnRetailerPage(address);
+        clearAddressField();
+        setShippingAddress(address);
     }
 
     public String getCurrentShippingAddress(){
-        if(isShippingAddressSet()){
-            return getText(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/span[2]"));
+        if(!isShippingAddressEmpty()){
+            String shippingAddress = getText(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/span[2]"));
+            printMessage("Current shipping address is \"" + shippingAddress + "\"\n");
+            return shippingAddress;
         }
         else return null;
     }
 
     public void clickChangeAddressButton(){
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/button"));
+    }
+
+
+    public void clearAddressField(){
+        click(By.id("ship_address"));
+        driver.findElement(By.id("ship_address")).sendKeys(Keys.BACK_SPACE);
     }
 
     public void fillAddressField(String address){
@@ -295,6 +294,22 @@ public class ShoppingHelper extends HelperBase {
         //      deleteAllItemsInCart();
         //   }
         //}
+
+
+        // TODO доделать метод - не совсем корректно работает
+        /**
+        * Временный метод, очищающий корзину изменениями адреса доставки
+        */
+        public void dropCart(){
+            String currentAddress = getCurrentShippingAddress();
+            String addressOne = "Москва, ул Тверская, д 13";
+            String addressTwo = "Москва, ул Люсиновская, д 12";
+            if(currentAddress.equals(addressOne)) {
+                changeShippingAddress(addressTwo);
+            }
+            changeShippingAddress(addressOne);
+        }
+
 
         // TODO clearCart - очистить корзину (удалить все товары сразу кнопкой)
 

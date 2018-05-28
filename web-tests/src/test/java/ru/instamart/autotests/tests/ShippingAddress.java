@@ -4,6 +4,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.models.RetailerData;
 
+
+
+    // Тесты адреса доставки
+
+
+
 public class ShippingAddress extends TestBase {
 
 

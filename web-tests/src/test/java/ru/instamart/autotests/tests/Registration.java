@@ -5,6 +5,12 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.models.RetailerData;
 import ru.instamart.autotests.testdata.Generate;
 
+
+
+    // Тесты регистрации
+
+
+
 public class Registration extends TestBase {
 
 

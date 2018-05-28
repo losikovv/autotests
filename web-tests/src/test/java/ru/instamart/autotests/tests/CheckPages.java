@@ -2,6 +2,12 @@ package ru.instamart.autotests.tests;
 
 import org.testng.annotations.Test;
 
+
+
+    // Проверка страниц
+
+
+
 public class CheckPages extends TestBase {
 
 

@@ -5,7 +5,8 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.EnvironmentData;
 
 
-// Profile helper
+
+    // Profile helper
     // Contains methods for all operations within user profile section
 
 

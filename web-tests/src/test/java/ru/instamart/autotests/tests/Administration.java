@@ -6,7 +6,8 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.models.UserData;
 
 
-// Тесты админки
+
+    // Тесты админки
 
 
 

@@ -3,6 +3,12 @@ package ru.instamart.autotests.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+
+
+    // Тесты чекаута
+
+
+
 public class Checkout extends TestBase {
 
 

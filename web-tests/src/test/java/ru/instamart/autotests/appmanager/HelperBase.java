@@ -1,12 +1,12 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
-
 import ru.instamart.autotests.models.EnvironmentData;
 
 
-// Helpers base class
-// Contains basic methods of interaction with the system under test
+
+    // Helpers base class
+    // Contains basic methods of interaction with the system under test
 
 
 

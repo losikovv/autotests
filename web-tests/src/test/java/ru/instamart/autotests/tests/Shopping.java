@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 
 
-    // Тесты Корзины
+    // Тесты покупок
 
 
 
