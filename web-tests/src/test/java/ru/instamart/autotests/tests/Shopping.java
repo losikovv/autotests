@@ -21,6 +21,17 @@ public class Shopping extends TestBase{
         }
     }
 
+    @Test(
+            description = "Тест недоступности пустого чекаута при ненабранной корзине",
+            groups = {"acceptance","regression"},
+            priority = 300
+    )
+    public void emptyCheckoutUnreachable() throws Exception {
+        // TODO - очищать корзину перед проверкой
+        // TODO - добавить проверку на то что чекаут недоступен если сумма корзины меньше мин заказа
+        assertPageIsUnreachable("https://instamart.ru/checkout/edit?");
+    }
+
 
     @Test(
             description = "Тест открытия корзины",
