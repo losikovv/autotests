@@ -323,18 +323,56 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Promocodes =======
 
-    // TODO addPromocode(String promocode) - добавить указанный промо-код к заказу, при необходимности дропнув текущий, если он отличается от указанного
-    // TODO clearPromocode - убрать промо-код из заказа
-    // TODO isPromocodeApplied - проверка добавлен ли промокод к заказу
-    // TODO isPromocodeApplied(String promocode) - проверка добавлен ли указанный промокод к заказу
+    public boolean isPromocodeApplied() {
+        String XPATH = "//aside/div/div[2]/div[3]/div/span/span";
+        return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals("Промо-код:");
+    }
+
+    public void addPromocode(String promocode){
+        printMessage("Adding promocode \"" + promocode + "\"");
+        click(By.linkText("Добавить промо-код"));
+        fillField(By.id("couponCode"), "unicorn");
+        click(By.xpath("//div[2]/button"));
+        waitForIt();
+    }
+
+    public void clearPromocode(){
+        printMessage("Clearing promocode");
+        click(By.linkText("Удалить"));
+        waitForIt();
+    }
 
 
 
     // ======= Loyalty Programs =======
 
-    // TODO addLoyaltyProgram(LoyaltyProgramData loyaltyProgram) - добавить программу лояльности к заказу
-    // TODO clearLoyaltyProgram - убрать программу лояльности
-    // TODO isLoyaltyProgramApplied
+    public boolean  isLoyaltyProgramApplied(int position) {
+        return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]/div[2]"));
+    }
+
+    public void addLoyaltyProgram(int position, String cardNumber){
+        printMessage("Adding loyalty program #" + position);
+        click(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]"));
+        fillField(By.name("number"), cardNumber + "\uE007");
+        waitForIt();
+    }
+
+    public void selectLoyaltyProgram(int position){
+        click(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]"));
+    }
+
+    public void clearLoyaltyProgram(int position){
+        printMessage("Clearing loyalty program #" + position);
+        click(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]/div[2]"));
+        fillField(By.name("number"), 1 + "\uE004" + "\uE007");
+        waitForIt();
+    }
+
+
+
+    // ======= Retailer Loyalties =======
+
+    // TODO методы работы с программами лояльностей ретайлеров (нали чие программы + методы как для обычных лояльностей)
 
 
 
