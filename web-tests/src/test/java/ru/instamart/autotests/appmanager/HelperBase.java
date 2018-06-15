@@ -106,6 +106,20 @@ public class HelperBase {
     }
 
     /**
+     * Find out if the element by the given locator is displayed
+     */
+    public boolean isElementDisplayed(By locator){
+        return driver.findElement(locator).isDisplayed();
+    }
+
+    /**
+     * Find out if the element by the given locator is enabled
+     */
+    public boolean isElementEnabled(By locator){
+        return driver.findElement(locator).isEnabled();
+    }
+
+    /**
      * Find out if the checkbox by the given locator is selected
      */
     boolean isCheckboxSelected(By locator) {
@@ -127,7 +141,7 @@ public class HelperBase {
     /**
      * Switch to the alert, get and return its text and close it
      */
-    protected String closeAlertAndGetItsText() {
+    protected String closeAlertAndGetItsText(){
         try {
             Alert alert = driver.switchTo().alert();
             String alertText = alert.getText();
