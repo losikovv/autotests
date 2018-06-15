@@ -33,139 +33,106 @@ public class SessionHelper extends HelperBase {
         }
     }
 
+
+
     // ======= Registration =======
 
     /**
-     * Method finds out if a given username is already registered in the system or not
+     * Perform new user registration with the given credentials
+     */
+    public void regNewUser(String name, String email, String password, String passwordConfirmation) {
+        openLoginForm();
+        switchToRegistration();
+        fillField(By.name("spree_user[fullname]"), name);
+        fillField(By.name("spree_user[email]"), email);
+        fillField(By.name("spree_user[password]"), password);
+        fillField(By.name("spree_user[password_confirmation]"), passwordConfirmation);
+        sendForm();
+        waitForIt();
+        printMessage("Registration has been performed\n");
+    }
+
+    /**
+     * Perform new user registration with the credentials from the given user-data object
+     */
+    public void regNewUser(UserData userData) {
+        openLoginForm();
+        switchToRegistration();
+        fillField(By.name("spree_user[fullname]"), userData.getName());
+        fillField(By.name("spree_user[email]"), userData.getLogin());
+        fillField(By.name("spree_user[password]"), userData.getPassword());
+        fillField(By.name("spree_user[password_confirmation]"), userData.getPassword());
+        sendForm();
+        waitForIt();
+        printMessage("Registration has been performed\n");
+    }
+
+    /**
+     * Method returns if the given username is registered in the system or not
      */
     public boolean isUserRegistered(String username) {
         // TODO идем в админку и чекаем наличие пользователя в поиске
         return true;
     }
 
-    /**
-     * Do new user registration with given user data
-     */
-    public void regNewUser(UserData userData) {
-        if (itsOnLandingPage()) {
-            regNewUserOnLandingPage(userData);
-        } else {
-            regNewUserOnRetailerPage(userData);
-        }
-        printMessage("New test user has been registered\n");
-    }
-
-    /**
-     * Do new user registration on landing page with a given user data
-     */
-    public void regNewUserOnLandingPage(UserData userData){
-        printMessage("Performing user registration on landing page");
-        // открываем форму авторизации/регистрации
-        click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
-        // нажимаем кнопку Регистрация
-        click(By.id("pop__registration"));
-        // заполняем поле "Имя и фамилия"
-        fillField(By.id("spree_user_fullname"), userData.getName());
-        // заполняем поле "Электронная почта"
-        fillField(By.id("spree_user_email"), userData.getLogin());
-        // заполняем поле "Пароль"
-        fillField(By.id("spree_user_password"), userData.getPassword());
-        // заполняем поле "Подтвердите ароль"
-        fillField(By.id("spree_user_password_confirmation"), userData.getPassword());
-        // нажимаем "Зарегистрироваться"
-        click(By.xpath("//*[@id='signup_form']/ul[2]/li[1]/input[2]"));
-        // задержка чтобы пользователь нормально зарегался
-        waitForIt();
-    }
-
-    /**
-     * Do new user registration on retailer page with given user data
-     */
-    public void regNewUserOnRetailerPage(UserData userData){
-        printMessage("Performing user registration on retailer page");
-        // открываем форму авторизации/регистрации
-        click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/button"));
-        // нажимаем кнопку Регистрация
-        click(By.id("pop__registration"));
-        // заполняем поле "Имя и фамилия"
-        fillField(By.id("spree_user_fullname"), userData.getName());
-        // заполняем поле "Электронная почта"
-        fillField(By.id("spree_user_email"), userData.getLogin());
-        // заполняем поле "Пароль"
-        fillField(By.id("spree_user_password"), userData.getPassword());
-        // заполняем поле "Подтвердите ароль"
-        fillField(By.id("spree_user_password_confirmation"), userData.getPassword());
-        // нажимаем "Зарегистрироваться"
-        click(By.xpath("//*[@id='signup_form']/ul[2]/li[1]/input[2]"));
-        // задержка чтобы пользователь нормально зарегался
-        waitForIt();
-    }
-
 
 
     // ======= Password recovery =======
-    // TODO добавить метод восстановления пароля + использующий его тест для autotestuser
+
+    public void recoverPassword(String email){
+        openLoginForm();
+        switchToAuthorisation();
+        clickRecovery();
+        fillField(By.name("spree_user[email]"), email);
+        sendRecoveryForm();
+        waitForIt();
+    }
+
+    public boolean isRecoverySent(){
+        return !isElementDisplayed(By.name("spree_user[email]"));
+    }
 
 
 
     // ======= Authorisation =======
 
     /**
-     * Method returns true if user is authorised and false if he isn't
+     * Perform log-in with the given user credentials
+     */
+    public void doLogin(String email, String password) {
+        openLoginForm();
+        switchToAuthorisation();
+        fillField(By.name("spree_user[email]"), email);
+        fillField(By.name("spree_user[password]"), password);
+        sendForm();
+        waitForIt();
+        printMessage("Authorisation has been performed\n");
+    }
+
+    /**
+     * Perform log-in with the user credentials from the given user-data object
+     */
+    public void doLogin(UserData userData) {
+        openLoginForm();
+        switchToAuthorisation();
+        fillField(By.name("spree_user[email]"), userData.getLogin());
+        fillField(By.name("spree_user[password]"), userData.getPassword());
+        sendForm();
+        waitForIt();
+        printMessage("Authorisation has been performed\n");
+    }
+
+    /**
+     * Method returns true if the user is authorised and false if he isn't
      */
     public boolean isUserAuthorised() {
         // Проверяем авторизованность по наличию на странице кнопки "Профиль"
-        String XPATH = "//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]/div[1]";
+        String XPATH = "//*[@id='wrap']/div[1]/div/div/header/nav/div[3]/div";
         if (isElementPresent(By.xpath(XPATH))) {
-            return getText(By.xpath(XPATH)).equals("Профиль");
+            return true; //getText(By.xpath(XPATH)).equals("Профиль"); //TODO починить
         } else {
             return false;
         }
-    }
-
-    /**
-     * Do log-in with a given user data
-     */
-    public void doLogin(UserData userData) {
-        if (itsOnLandingPage()) {
-            doLoginOnLandingPage(userData);
-        } else {
-            doLoginOnRetailerPage(userData);
-        }
-    }
-
-    /**
-     * Do log-in on landing page with a given user data
-     */
-    public void doLoginOnLandingPage(UserData userData) {
-        // открываем форму авторизации/регистрации
-        click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
-        // вводим логин
-        fillField(By.id("login_form__email"), userData.getLogin());
-        // вводим пароль
-        fillField(By.id("login_form__password"), userData.getPassword());
-        // клик по кнопке Вход
-        click(By.xpath("(//input[@name='commit'])[2]"));
-        // задержка чтобы пользователь нормально авторизовался
-        waitForIt();
-        printMessage("Performing user log-in on landing page");
-    }
-
-    /**
-     * Do log-in on retailer page page with a given user data
-     */
-    public void doLoginOnRetailerPage(UserData userData) {
-        // открываем форму авторизации/регистрации
-        click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/button"));
-        // вводим логин
-        fillField(By.xpath("//*[@id='login_form__email']"), userData.getLogin());
-        // вводим пароль
-        fillField(By.xpath("//*[@id='login_form__password']"), userData.getPassword());
-        // клик по кнопке Вход
-        click(By.xpath("//*[@id='login_form']/ul[1]/li[4]/input[2]"));
-        // задержка чтобы пользователь нормально авторизовался
-        waitForIt();
-        printMessage("Performing user log-in on retailer page");
     }
 
 
@@ -173,7 +140,7 @@ public class SessionHelper extends HelperBase {
     // ======= De-Authorisation =======
 
     /**
-     * Do log-out
+     * Perform log-out
      */
     public void doLogout() {
         if (!itsInAdmin()) {
@@ -186,12 +153,9 @@ public class SessionHelper extends HelperBase {
     /**
      * Do log-out from site
      */
-    public void doLogoutFromSite() {
-        //клик по кнопке Профиль
-        click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"));
-        //клик по кнопке Выйти
-        click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[2]/div/div[8]/a"));
-        //задержка чтобы пользователь нормально разлогинился
+    private void doLogoutFromSite() {
+        click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/nav/div[3]/div")); //жмем "Профиль"
+        click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/nav/div[3]/div/div[2]/div/div[8]/a")); //жмем "Выйти"
         waitForIt();
         printMessage("Logged-out from site\n");
     }
@@ -199,10 +163,8 @@ public class SessionHelper extends HelperBase {
     /**
      * Do log-out from admin panel
      */
-    public void doLogoutFromAdmin() {
-        //клик по кнопке Выйти
-        click(By.xpath("//*[@id='login-nav']/li[3]/a"));
-        //задержка чтобы пользователь нормально разлогинился
+    private void doLogoutFromAdmin() {
+        click(By.xpath("//*[@id='login-nav']/li[3]/a")); //клик по кнопке Выйти
         waitForIt();
         printMessage("Logged-out from admin\n");
     }
@@ -229,27 +191,8 @@ public class SessionHelper extends HelperBase {
     public void doLoginAsAdmin() {
         final String LOGIN = "autotestuser@instamart.ru";
         final String PASSWORD = "DyDrasLipMeibe7";
-        if (itsOnLandingPage()) {
-            doLoginOnLandingPage(new UserData(LOGIN, PASSWORD, null));
-        } else {
-            doLoginOnRetailerPage(new UserData(LOGIN, PASSWORD, null));
-        }
+        doLogin(new UserData(LOGIN, PASSWORD, null));
         printMessage("Logged-in with admin privileges as " + LOGIN + "\n");
-    }
-
-    // TODO перенести в UserData
-    /**
-     * Do log-in with user credentials of instatestuser@yandex.ru which is reserved for testing needs
-     */
-    public void doLoginAsReturningCustomer() {
-        final String LOGIN = "instatestuser@yandex.ru";
-        final String PASSWORD = "instamart";
-        if (itsOnLandingPage()) {
-            doLoginOnLandingPage(new UserData(LOGIN, PASSWORD, null));
-        } else {
-            doLoginOnRetailerPage(new UserData(LOGIN, PASSWORD, null));
-        }
-        printMessage("Logged-in as " + LOGIN + "\n");
     }
 
     // TODO перенести в UserData
@@ -429,6 +372,44 @@ public class SessionHelper extends HelperBase {
 
         printMessage("Deleting test users");
         deleteAllTestUsers();
+    }
+
+
+
+    // ======= Methods for log-in form =======
+
+    /**
+     * Open the log-in form by clicking the "Log-in" button
+     */
+    private void openLoginForm(){
+        if (itsOnLandingPage()){
+            click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
+        } else {
+            click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/nav/div[3]"));
+        }
+    }
+
+    private void switchToAuthorisation(){
+        click(By.xpath("//*[@id='auth']/div/div/div[1]/div/button[1]"));
+    }
+
+    private void switchToRegistration(){
+        click(By.xpath("//*[@id='auth']/div/div/div[1]/div/button[2]"));
+    }
+
+    private void sendForm(){
+        click(By.xpath("//*[@id='auth']/div/div/div[1]/form/div/button"));
+    }
+
+    /**
+     * Click "Forgot password?" button in the authorisation form
+     */
+    private void clickRecovery(){
+        click(By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[3]/div[2]"));
+    }
+
+    private void sendRecoveryForm(){
+        click(By.xpath("//*[@id='auth']/div/div/div[2]/form/div/button"));
     }
 
 }

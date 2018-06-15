@@ -65,7 +65,8 @@ public class Administration extends TestBase {
     )
     public void cancelOrder() throws Exception {
 
-        String orderNumber = "R124857258"; //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
+        String orderNumber = "R124857258"; // TODO заменить на номер заказа тестового пользователя
+        //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
         app.getNavigationHelper().getOrderAdminPage(orderNumber);
 
         // Assert order isn't cancelled
