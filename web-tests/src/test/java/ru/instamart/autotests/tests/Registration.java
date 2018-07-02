@@ -29,8 +29,6 @@ public class Registration extends TestBase {
 
         // TODO добавить проверку наличия пользователя в админке
         // Assert user is not registered
-
-        app.getSessionHelper().doLogout();
     }
 
 
@@ -50,8 +48,6 @@ public class Registration extends TestBase {
 
         // TODO добавить проверку наличия пользователя в админке
         // Assert user is not registered
-
-        app.getSessionHelper().doLogout();
     }
 
 
@@ -71,8 +67,6 @@ public class Registration extends TestBase {
 
         // TODO добавить проверку наличия пользователя в админке
         // Assert user is not registered
-
-        app.getSessionHelper().doLogout();
     }
 
 
@@ -92,8 +86,6 @@ public class Registration extends TestBase {
 
         // TODO добавить проверку наличия пользователя в админке
         // Assert user is not registered
-
-        app.getSessionHelper().doLogout();
     }
 
 
@@ -113,8 +105,6 @@ public class Registration extends TestBase {
 
         // TODO добавить проверку наличия пользователя в админке
         // Assert user is not registered
-
-        app.getSessionHelper().doLogout();
     }
 
 
@@ -134,8 +124,6 @@ public class Registration extends TestBase {
 
         // TODO добавить проверку наличия пользователя в админке
         // Assert user is not registered
-
-        app.getSessionHelper().doLogout();
     }
 
 

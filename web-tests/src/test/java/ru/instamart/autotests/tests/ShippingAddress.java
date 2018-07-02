@@ -118,7 +118,7 @@ public class ShippingAddress extends TestBase {
     }
 
 
-    @Test(
+    @Test( enabled = false,
             description = "Проверяем что на лендинге по адресу вне зоны доставки нет доступных магазинов",
             groups = {"acceptance","regression"},
             priority = 205
@@ -139,7 +139,7 @@ public class ShippingAddress extends TestBase {
 
 
     @Test(
-            description = "Проверяем что на лендинге по адресу вне зоны доставки нет доступных магазинов",
+            description = "Проверяем что после авторизации подтягивается адрес доствки",
             groups = {"acceptance","regression"},
             priority = 206
     )
