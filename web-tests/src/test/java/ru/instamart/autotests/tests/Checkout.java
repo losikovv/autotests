@@ -14,13 +14,20 @@ public class Checkout extends TestBase {
 
 
     @BeforeMethod(alwaysRun = true)
-    public void getAuth() throws Exception {
+    public void preparingForCheckout() throws Exception {
         app.getNavigationHelper().getRetailerPage("metro");
+
+        // авторизуемся, если нужно
         if(!app.getSessionHelper().isUserAuthorised()) {
             app.getSessionHelper().doLoginAsAdmin();
         }
+
+        // идем в чекаут
+        app.getNavigationHelper().getCheckoutPage();
+
+        // набираем корзину, если нужно
         if(!app.getCheckoutHelper().isOnCheckout()){
-            app.getShoppingHelper().openCart();
+            app.getShoppingHelper().grabCartWithMinimalOrderSum();
             app.getShoppingHelper().proceedToCheckout();
         }
     }
@@ -149,6 +156,6 @@ public class Checkout extends TestBase {
     }
 
 
-    // TODO Тесты на оформление заказов со всеми способы оплаты
+    // TODO Тест на оформление заказа с оплатой налом
 
 }

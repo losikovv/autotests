@@ -35,7 +35,6 @@ public class RepeatOrders extends TestBase {
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        app.getShoppingHelper().openCart();
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",1,"card");
 
@@ -57,7 +56,6 @@ public class RepeatOrders extends TestBase {
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        app.getShoppingHelper().openCart();
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",2,"cash");
 
@@ -79,7 +77,6 @@ public class RepeatOrders extends TestBase {
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        app.getShoppingHelper().openCart();
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",3,"bank");
 

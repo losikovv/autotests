@@ -57,7 +57,7 @@ public class Authorisation extends TestBase {
 
         // Assert user isn't authorised
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
-                "It's possible to log-in with nonexisting username!"+"\n");
+                "It's possible to log-in with non-existing username!"+"\n");
     }
 
 
@@ -89,7 +89,7 @@ public class Authorisation extends TestBase {
 
         // Assert user is authorised
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
-                "Can't approve the authorisation is successful"+"\n");
+                "Can't approve correct authorisation, check manually\n");
 
         app.getSessionHelper().doLogout();
     }
@@ -107,7 +107,7 @@ public class Authorisation extends TestBase {
 
         // Assert user is authorised
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
-                "Can't approve the authorisation is successful"+"\n");
+                "Can't approve correct authorisation, check manually\n");
 
         app.getSessionHelper().doLogout();
     }
@@ -129,7 +129,7 @@ public class Authorisation extends TestBase {
 
         // Assert user is unauthorised
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
-                "Can't approve user has been deauthorized properly");
+                "Can't approve correct de-authorization, check manually\n");
     }
 
     //TODO добавить тесты на авторизацию через соцсети

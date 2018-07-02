@@ -16,9 +16,7 @@ import ru.instamart.autotests.models.RetailerData;
 
 public class NavigationHelper extends HelperBase {
 
-    public NavigationHelper(WebDriver driver, EnvironmentData environment) {
-        super(driver, environment);
-    }
+    public NavigationHelper(WebDriver driver, EnvironmentData environment){ super(driver, environment); }
 
 
 

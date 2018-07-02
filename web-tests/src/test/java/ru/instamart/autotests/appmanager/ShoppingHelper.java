@@ -21,105 +21,156 @@ public class ShoppingHelper extends HelperBase {
 
 
 
-    // ======= Shipping address =======
-
-    // Нерабочий метод
-    /**
-     * Find out if there shipping address is set by checking address bar
-     * Address bar is not present on landing page, so method is only suitable for inner pages
-     */
-    /*
-    public boolean isShippingAddressSet() {
-        String XPATH = "//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/text()";
-        return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals("Вы выбрали адрес");
-    }
-    */
+    // ======= Адрес доставки =======
 
     /**
-     * Find out if shipping address is empty by checking address bar
-     * Address bar is not present on landing page, so method is only suitable for inner pages
+     * Find out if shipping address is empty by checking ship address bar
      */
     public boolean isShippingAddressEmpty() {
-        String XPATH = "//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/div[2]";
-        return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals("Укажите ваш адрес для отображения доступных магазинов");
+        String XPATH = "//*[@id='wrap']/div[1]/div/div/div/div/div[1]/div/div/div[2]";
+        if(currentURL().equals(baseUrl)){
+            printMessage("User is on the landing, so shipping address is empty");
+            return true;
+        }
+        return isElementPresent(By.xpath(XPATH))
+                && getText(By.xpath(XPATH)).equals("Укажите ваш адрес для отображения доступных магазинов");
     }
 
     /**
-     * Set shipping address with a given string
+     * Set default shipping address
      */
-    public void setShippingAddress(String address){
-        fillAddressField(address); // вводим адрес
-        selectAddressSuggest(1); // выбираем первую подсказку
-        waitForIt(); // ждем
-        clickChooseShopButton(); // жмем Выбрать магазин
-        waitForIt(); // ждем
-        //printMessage("Shipping address was set to \"" + address + "\"\n");
-        printMessage("New shipping address was set\n");
+    public void setDefaultShippingAddress(){
+        final String address = "Москва, ул Люблинская, д 123"; //TODO вынести переменную в конфиг
+        printMessage("Setting default shipping address: " + address);
+        fillAddressField(address);
+        selectAddressSuggest(1);
+        //waitForIt();  // доп. задержка - повышает стабильность при тормозах на сайте
+        clickChooseShopButton();
+        waitForIt();
     }
 
-    public void changeShippingAddress(String address){
+    /**
+     * Set shipping address with one in the given string
+     */
+    public void setShippingAddress(String address){
+            printMessage("Setting new shipping address: " + address);
+            fillAddressField(address);
+            selectAddressSuggest(1);
+            //waitForIt();  // доп. задержка - повышает стабильность при тормозах на сайте
+            clickChooseShopButton();
+            waitForIt();
+    }
+
+    /**
+     * Return true if "Change" button is presented in shipping address bar
+     */
+    public boolean isShippingAddressSet() {
+        String TEXT = "Изменить";
+        String XPATH = "//*[@id='wrap']/div[1]/div/div/div/div/div[1]/div/div/button";
+        if(isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals(TEXT)){
+            printMessage("Shipping address is set\n");
+            return true;
+        } else {
+            printMessage("Shipping address isn' set\n");
+            return false;
+        }
+    }
+
+    /**
+     * Change current shipping address with one in the given string
+     */
+    public void changeShippingAddress(String newAddress){
         printMessage("Changing shipping address");
         clickChangeAddressButton();
         clearAddressField();
-        setShippingAddress(address);
+        setShippingAddress(newAddress);
     }
 
-    public String getCurrentShippingAddress(){
-        if(!isShippingAddressEmpty()){
-            String shippingAddress = getText(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/span[2]"));
-            printMessage("Current shipping address is \"" + shippingAddress + "\"\n");
-            return shippingAddress;
-        }
-        else return null;
+    /**
+     * Return current shipping address string
+     */
+    public String currentShippingAddress(){
+        String shippingAddress = getText(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div[1]/div/div/span"));
+        printMessage("Current shipping address: " + shippingAddress);
+        return shippingAddress;
     }
 
-    public void clickChangeAddressButton(){
-        click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/button"));
-    }
-
-
-    public void clearAddressField(){
-        click(By.id("ship_address"));
+    /**
+     * Fill address field by sending a backspace key
+     */
+    private void clearAddressField(){ ;
         driver.findElement(By.id("ship_address")).sendKeys(Keys.BACK_SPACE);
     }
 
-    public void fillAddressField(String address){
+    /**
+     * Fill address field with the given address string
+     */
+    private void fillAddressField(String address){
+        clearAddressField();
         fillField(By.id("ship_address"),address);
+        if(!currentURL().equals(baseUrl)) {
+            waitForIt();
+        }
     }
 
-    public boolean isAnySuggestsAvailable(){
+    /**
+     * Returns true if there is at least one of the address suggests, when address field is filled
+     */
+    private boolean isAnyAddressSuggestsAvailable(){
         return isElementPresent(By.id("downshift-1-item-0"));
     }
 
-    public void selectAddressSuggest(int position){
-        click(By.id("downshift-1-item-" + (position-1)));
+    /**
+     * Click on the address suggest by the given position
+     */
+    private void selectAddressSuggest(int position){
+        if(isAnyAddressSuggestsAvailable()) {
+            click(By.id("downshift-1-item-" + (position - 1)));
+        } else {
+            printMessage("Can't click address suggest - there are no such");
+        }
     }
 
-    public void clickChooseShopButton(){
+    /**
+     * Click on the "Choose shop" button while setting the shipping address on the landing or on the retailer page
+     */
+    private void clickChooseShopButton(){
         if(currentURL().equals(baseUrl)){
             click(By.xpath("/html/body/div[5]/div[1]/div[3]/div/div[2]/div/form/button"));
         } else {
-            click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div/form/button"));
+            click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div[1]/div/div/form/button"));
         }
+    }
+
+    /**
+     * Click on the "Change" button on the shipping address bar
+     */
+    private void clickChangeAddressButton(){
+        click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div[1]/div/div/button"));
     }
 
 
 
-    // ======= Shops List =======
+    // ======= Список магазинов =======
 
     public void selectShop(int position){
+
+        // for shoplist page from landing
         if(currentURL().equals(baseUrl + "stores")) {
             try {
-                click(By.xpath("/html/body/div/div/div[2]/a[" + position + "]"));
+                click(By.xpath("/html/body/div/div/div[3]/a[" + position + "]"));
             } catch (NoSuchElementException e) {
                 printMessage("Can't select shop by the given position" + position);
                 closeShopsList();
             }
             waitForIt();
-        } else {
+        }
+
+        // for shoplist on the retailer page
+        else {
             openShopsList();
             try {
-                click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[2]/div/div[2]/span/div/div/div[2]/a[" + position + "]"));
+                click(By.xpath("/html/body/div[8]/div/div/div[3]/a[" + position + "]"));
             } catch (NoSuchElementException e) {
                 printMessage("Can't select shop by the given position" + position);
                 closeShopsList();
@@ -128,6 +179,7 @@ public class ShoppingHelper extends HelperBase {
         }
     }
 
+    // TODO протестить метод
     public void changeShopSelection(int position){
         openShopsList();
         if(!isShopsListEmpty()) { //TODO добавить проверку наличия магазов?
@@ -138,29 +190,26 @@ public class ShoppingHelper extends HelperBase {
         }
     }
 
-
     /**
-     * Open list of available shops by clicking "Shops" button on address bar
-     * Method is not suitable for landing page because there is no such button
+     * Open list of available shops by clicking shop selector button on the search bar
+     * Method is not suitable for the landing page because there is no such button
      */
     public void openShopsList(){
-        printMessage("Open shops list");
         if(!currentURL().equals(baseUrl)) {
-            click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[2]/div"));
+            click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/div[1]/div[3]/div/div[1]"));
         } else {
             printMessage("Can't open shops list on the landing page!\n");
         }
     }
 
     /**
-     * Close list of available shops by clicking "X" button
+     * Close list of available shops by clicking the "X" button
      */
     public void closeShopsList(){
-        printMessage("Close shops list");
         if(currentURL().equals(baseUrl + "stores")) {
-            click(By.xpath("/html/body/div/div/div[1]/button"));
+            click(By.xpath("/html/body/div/div/div[2]/button"));
         } else {
-            click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[2]/div/div[2]/span/div/div/div[1]/button"));
+            click(By.xpath("/html/body/div[8]/div/div/div[2]/button"));
         }
     }
 
@@ -174,8 +223,8 @@ public class ShoppingHelper extends HelperBase {
 
     public boolean isShopsListEmpty(){
         final String placeholderText = "Нет доступных магазинов по выбранному адресу";
-        final By placeholderLocator = By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[2]/div/div[2]/span/div/div/div[2]/div");
-        final By placeholderLocatorLanding = By.xpath("/html/body/div/div/div[2]/div");
+        final By placeholderLocator = By.xpath("/html/body/div[8]/div/div/div[3]/div");
+        final By placeholderLocatorLanding = By.xpath("/html/body/div/div/div[3]/div");
 
         if(currentURL().equals(baseUrl + "stores")){
             return isElementPresent(placeholderLocatorLanding) && getText(placeholderLocatorLanding).equals(placeholderText);
@@ -185,52 +234,62 @@ public class ShoppingHelper extends HelperBase {
     }
 
     public boolean isAnyShopsAvailable(){
-        if(isShopsListOpen()){
-            return isElementPresent(By.className("store-card"));
-        } else {
-            openShopsList();
-            return isElementPresent(By.className("store-card"));
-        }
+        return isElementDisplayed(By.className("store-card"));
     }
 
-    // TODO isShopSelected - метод возвращающий логическое значение выбран ли магазин
+
+
+    // ======= Каталог =======
+
+    // TODO
+    public void catalog(){ }
+
+
+    /**
+     * Add first line item on the page to the shopping cart
+     * Shipping address must be chosen before that
+     */
+    public void addFirstLineItemOnPageToCart(){
+        openFirstItemCard();
+        hitPlus();
+        closeItemCard();
+        waitForIt();
+    }
+
+    /**
+     * Открываем карточку первого товара на витрине ритейлера
+     */
+    private void openFirstItemCard() {
+        click(By.xpath("//*[@id='home']/div[2]/ul/li[1]/ul/li[1]/a"));
+        waitForIt();
+        swithchToActiveElement();
+    }
 
 
 
-        // ======= Catalog =======
+    // ======= Карточка товара  =======
 
-        public void catalog(){
-            // TODO
-        }
+    private void hitPlus() {
+        click(By.className("fa-plus"));
+    }
 
-        /**
-         * Add first line item on the page to the shopping cart
-         * Shipping address must be chosen before that
-         */
-        public void addFirstLineItemOnPageToCart(){
-            // жмем на сниппет первого товара на странице
-            click(By.xpath("//*[@id='home']/div[2]/ul/li[1]/ul/li[1]/a"));
-            // переключаемся на модалку карточки товара
-            swithchToActiveElement();
-            // жмем на кнопку добавления товара
-            click(By.xpath("//*[@id='product']/div[2]/div/div[1]/div"));
-            // жмем на крестик закрытия карточки товара
-            click(By.className("close"));
-        }
+    private void hitMinus() {
+        click(By.className("fa-minus"));
+    }
+
+    private void closeItemCard() {
+        click(By.className("close"));
+    }
 
 
 
-        // ======= Shopping Cart =======
+    // ======= Корзина =======
 
         /**
          * Метод, определяющий открыта ли корзина
          */
         public boolean isCartOpen(){
-            if (isElementPresent(By.className("new-cart"))) {
-                return true;
-            } else {
-                return false;
-            }
+            return isElementPresent(By.className("new-cart"));
         }
 
         /**
@@ -251,25 +310,61 @@ public class ShoppingHelper extends HelperBase {
          * Метод, определяющий пуста ли корзина
          */
         public boolean isCartEmpty(){
-            //if (isElementPresent(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div"))) {
-            if (isElementPresent(By.className("new-cart-empty"))) {
-                return true;
-            } else {
-                return false;
+            if(!isCartOpen()){ openCart(); }
+            return isElementPresent(By.className("new-cart-empty"));
+        }
+
+        /**
+        * Временный метод, очищающий корзину изменениями адреса доставки, пока не запилят нормальную очистку корзины
+        */
+        public void dropCart(){
+            if(!isCartEmpty()) {
+                if(isCartOpen()){ closeCart(); }
+                String currentAddress = currentShippingAddress();
+                String addressOne = "Москва, ул Тверская, д 13";
+                String addressTwo = "Москва, ул Люсиновская, д 12";
+                if (currentAddress.equals(addressOne)) {
+                    changeShippingAddress(addressTwo);
+                }
+                changeShippingAddress(addressOne);
+            }
+            if(isCartOpen()){
+                closeCart();
             }
         }
 
         /**
-         * Метод, определяющий показан ли плейсхолдер в пустой корзине
-         */
-        public boolean isEmptyCartPlaceholderPresent(){
-            if (isElementPresent(By.className("new-cart-empty__img"))) {
-                return true;
-            } else {
-                return false;
+        * Возвращаем активна ли кнопка "Сделать заказ" в корзине
+        */
+        public boolean isCheckoutButtonActive(){
+            if(!isCartOpen()){ openCart(); }
+            return isElementEnabled(By.className("cart-checkout-link"));
+        }
+
+        /**
+        * Нажимаем кнопку "Сделать заказ" в корзине и переходим в чекаут
+        */
+        public void proceedToCheckout(){
+            click(By.className("cart-checkout"));
+        }
+
+        /**
+        * Набрать корзину на минимальную сумму, достаточную для оформления заказа
+        */
+        public void grabCartWithMinimalOrderSum(){
+            addFirstLineItemOnPageToCart();
+            waitForIt();
+            openCart();
+            if(!isCheckoutButtonActive()){
+                closeCart();
+                grabCartWithMinimalOrderSum();
             }
         }
 
+        // TODO grabCart(int sum) - ннабрать корзину на переданную сумму
+
+
+        //TODO
         /**
          * Удалить верхний товар в корзине
          */
@@ -278,6 +373,7 @@ public class ShoppingHelper extends HelperBase {
         //    click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div[1]/div[2]/span/div[1]/div/div/div[1]/div[1]/button[2]"));
         //}
 
+        //TODO
         /**
          * Удалить товар по позиции в корзине
          */
@@ -285,6 +381,7 @@ public class ShoppingHelper extends HelperBase {
             click(By.xpath("*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div/div[2]/span/div[" + itemPosition + "]/div/div/div[1]/div[2]/div[2]"));
         }
 
+        //TODO
         /**
          * Удалить все товары в корзине удаляя верхние товары
          */
@@ -295,21 +392,19 @@ public class ShoppingHelper extends HelperBase {
         //   }
         //}
 
-
-        // TODO доделать метод - не совсем корректно работает
         /**
-        * Временный метод, очищающий корзину изменениями адреса доставки
-        */
-        public void dropCart(){
-            String currentAddress = getCurrentShippingAddress();
-            String addressOne = "Москва, ул Тверская, д 13";
-            String addressTwo = "Москва, ул Люсиновская, д 12";
-            if(currentAddress.equals(addressOne)) {
-                changeShippingAddress(addressTwo);
+         * Get the cart sum from the 'Make order' button
+         */
+        //TODO возвращать int или float
+        public String getCartTotal() throws NoSuchElementException {
+            final String XPATHAUTH = "/html/body/div[9]/div/div[2]/div/div[3]/form/button/div/div[2]/div"; // авторизован
+            final String XPATH = "/html/body/div[8]/div/div[2]/div/div[3]/form/button/div/div[2]/div"; // неавторизован
+            try {
+                return getText(By.xpath(XPATHAUTH));
+            } catch (NoSuchElementException e) {
+                return getText(By.xpath(XPATH));
             }
-            changeShippingAddress(addressOne);
         }
-
 
         // TODO clearCart - очистить корзину (удалить все товары сразу кнопкой)
 
@@ -321,26 +416,6 @@ public class ShoppingHelper extends HelperBase {
 
         // TODO reduceTopItemQuantity() - -1 кол-во верхнего товара
         // TODO reduceItemQuantity(int itemPosition) - -1 кол-во товара по позиции
-
-
-        /**
-         * Get the cart sum from the 'Make order' button
-         */
-        //TODO возвращать int или float
-        public void getCartTotal(){
-            getText(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[3]/form/button/div/div[2]/div/text()"));
-        }
-
-        // TODO isCheckoutButtonActive - активна ли кнопка перехода в чекаут
-
-        /**
-         * Click the 'Make order' button in the shopping cart and proceed to checkout
-         */
-        public void proceedToCheckout(){
-            click(By.className("cart-checkout"));
-        }
-
-        // TODO grabCart(int sum) - ннабрать корзину на переданную сумму
 
         // TODO методы для мультизаказа
 

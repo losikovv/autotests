@@ -21,93 +21,104 @@ public class Shopping extends TestBase{
         }
     }
 
-    @Test(
-            description = "Тест недоступности пустого чекаута при ненабранной корзине",
-            groups = {"acceptance","regression"},
-            priority = 300
-    )
-    public void emptyCheckoutUnreachable() throws Exception {
-        // TODO - очищать корзину перед проверкой
-        // TODO - добавить проверку на то что чекаут недоступен если сумма корзины меньше мин заказа
-        assertPageIsUnreachable("https://instamart.ru/checkout/edit?");
-    }
-
-
-    @Test(
-            description = "Тест открытия корзины",
-            groups = {"regression"},
-            priority = 301
-    )
-    public void openCart() throws Exception, AssertionError {
-        app.getShoppingHelper().openCart();
-
-        // Assert cart is open
-        Assert.assertTrue(app.getShoppingHelper().isCartOpen(),
-                "Can't open shopping cart"+"\n");
-    }
-
-
-    @Test(
-            description = "Тест закрытия корзины",
-            groups = {"regression"},
-            priority = 302
-    )
-    public void closeCart() throws Exception, AssertionError {
-        if(!app.getShoppingHelper().isCartOpen()){
-            openCart();
-        }
-        app.getShoppingHelper().closeCart();
-
-        // Assert cart is closed
-        Assert.assertFalse(app.getShoppingHelper().isCartOpen(),
-                "Can't close shopping cart"+"\n");
-    }
-
 
     @Test(
             description = "Тест пустой корзины",
             groups = {"acceptance","regression"},
-            priority = 303
+            priority = 300
     )
     public void checkEmptyCart() throws Exception, AssertionError {
         app.getShoppingHelper().dropCart();
-        if (!app.getShoppingHelper().isCartOpen()) {
-            app.getShoppingHelper().openCart();
-        }
+        app.getShoppingHelper().openCart();
+
+        // Assert cart is open
+        Assert.assertTrue(app.getShoppingHelper().isCartOpen(),
+                "Can't open shopping cart\n");
 
         // Assert cart is empty
         Assert.assertTrue(app.getShoppingHelper().isCartEmpty(),
-                "Cart isn't empty at the moment\n");
+                "Cart isn't empty\n");
 
-        // Assert cart placeholder is present
-        Assert.assertTrue(app.getShoppingHelper().isEmptyCartPlaceholderPresent(),
-                "There is no placeholder in an empty shopping cart\n");
+        // Assert checkout button is disabled in an empty card
+        Assert.assertFalse(app.getShoppingHelper().isCheckoutButtonActive(),
+                "Checkout button is active in an empty cart\n");
 
-        closeCart();
+        app.getShoppingHelper().proceedToCheckout();
+
+        // Assert can't go to checkout by clicking on disabled order button in cart
+        Assert.assertFalse(app.getCheckoutHelper().isOnCheckout(),
+                "It's possible to access checkout by clicking on disabled order button in cart\n");
+
+        app.getShoppingHelper().closeCart();
+
+        // Assert cart is closed
+        Assert.assertFalse(app.getShoppingHelper().isCartOpen(),
+                "Can't close shopping cart\n");
     }
 
 
     @Test(
-            description = "Тест добавления товара в корзину",
+            description = "Тест недоступности чекаута при пустой корзине",
             groups = {"acceptance","regression"},
-            priority = 304
+            priority = 301
+    )
+    public void checkoutIsUnreachableWithEmptyCart() throws Exception {
+        app.getShoppingHelper().dropCart();
+
+        // Assert can't reach checkout page by direct url
+        assertPageIsUnreachable("https://instamart.ru/checkout/edit?"); // TODO параметризовать окружение
+    }
+
+
+    @Test(
+            description = "Тест успешного добавления товара в корзину",
+            groups = {"acceptance","regression"},
+            priority = 302
     )
     public void addItemToCart()throws Exception, AssertionError {
-        openCart();
-        if(!app.getShoppingHelper().isCartEmpty()){
-            checkEmptyCart();
-        }
+        app.getShoppingHelper().dropCart();
         app.getShoppingHelper().addFirstLineItemOnPageToCart();
-        app.getHelper().waitForIt();
-        openCart();
 
         // Assert cart isn't empty
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
-                "Cart is still empty after item adding\n");
+                "Cart is still empty after adding an item into it\n");
+    }
+
+
+    @Test(
+            description = "Тест набора корзины до суммы, достаточной для заказа",
+            groups = {"acceptance","regression"},
+            priority = 303
+    )
+    public void grabCart()throws Exception, AssertionError {
+        app.getShoppingHelper().grabCartWithMinimalOrderSum();
+
+        // Assert checkout button is enabled
+        Assert.assertTrue(app.getShoppingHelper().isCheckoutButtonActive(),
+                "Checkout button is not active with minimal order cart\n");
+    }
+
+
+    @Test(
+            description = "Успешного перехода в чекаут при сумме корзины выше суммы минимального заказа",
+            groups = {"acceptance","regression"},
+            priority = 304
+    )
+    public void proceedToCheckout()throws Exception, AssertionError {
+        if(!app.getShoppingHelper().isCheckoutButtonActive()) {
+            app.getShoppingHelper().grabCartWithMinimalOrderSum();
+        }
+        if(app.getShoppingHelper().isCheckoutButtonActive()){
+            app.getShoppingHelper().proceedToCheckout();
+        }
+
+        // Assert can access checkout by clicking on order button in cart
+        Assert.assertTrue(app.getCheckoutHelper().isOnCheckout(),
+                "Can't access checkout by clicking on order button in cart\n");
     }
 
     // TODO тест на изменение кол-ва товаров в корзине
 
-    // TODO тест на удаление товара из корзины
+    // TODO тест на удаление товаров из корзины
 
 }

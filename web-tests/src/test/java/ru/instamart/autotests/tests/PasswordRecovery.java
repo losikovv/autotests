@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 
 public class PasswordRecovery extends TestBase {
 
+
     @Test(
             description = "Негативный тест попытки восстановления пароля с незаполненным полем email",
             groups = {"regression"},
@@ -45,7 +46,7 @@ public class PasswordRecovery extends TestBase {
 
     @Test(
             description = "Негативный тест попытки восстановления пароля для несуществующего пользователя",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 602
     )
     public void noRecoveryForNonexistingUser() throws Exception {
@@ -61,7 +62,7 @@ public class PasswordRecovery extends TestBase {
 
     @Test(
             description = "Тест успешной отправки восстановления пароля",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 603
     )
     public void successSendRecoveryForm() throws AssertionError {

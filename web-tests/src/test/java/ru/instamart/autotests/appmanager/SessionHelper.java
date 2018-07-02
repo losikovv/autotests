@@ -43,10 +43,7 @@ public class SessionHelper extends HelperBase {
     public void regNewUser(String name, String email, String password, String passwordConfirmation) {
         openLoginForm();
         switchToRegistration();
-        fillField(By.name("spree_user[fullname]"), name);
-        fillField(By.name("spree_user[email]"), email);
-        fillField(By.name("spree_user[password]"), password);
-        fillField(By.name("spree_user[password_confirmation]"), passwordConfirmation);
+        fillRegistrationForm(name, email, password, passwordConfirmation);
         sendForm();
         waitForIt();
         printMessage("Registration has been performed\n");
@@ -58,10 +55,7 @@ public class SessionHelper extends HelperBase {
     public void regNewUser(UserData userData) {
         openLoginForm();
         switchToRegistration();
-        fillField(By.name("spree_user[fullname]"), userData.getName());
-        fillField(By.name("spree_user[email]"), userData.getLogin());
-        fillField(By.name("spree_user[password]"), userData.getPassword());
-        fillField(By.name("spree_user[password_confirmation]"), userData.getPassword());
+        fillRegistrationForm(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
         sendForm();
         waitForIt();
         printMessage("Registration has been performed\n");
@@ -100,37 +94,38 @@ public class SessionHelper extends HelperBase {
      * Perform log-in with the given user credentials
      */
     public void doLogin(String email, String password) {
+        printMessage("Performing authorisation...");
         openLoginForm();
         switchToAuthorisation();
-        fillField(By.name("spree_user[email]"), email);
-        fillField(By.name("spree_user[password]"), password);
+        fillAuthorisationForm(email, password);
         sendForm();
         waitForIt();
-        printMessage("Authorisation has been performed\n");
     }
 
     /**
      * Perform log-in with the user credentials from the given user-data object
      */
     public void doLogin(UserData userData) {
+        printMessage("Performing authorisation...");
         openLoginForm();
         switchToAuthorisation();
-        fillField(By.name("spree_user[email]"), userData.getLogin());
-        fillField(By.name("spree_user[password]"), userData.getPassword());
+        fillAuthorisationForm(userData.getLogin(), userData.getPassword());
         sendForm();
         waitForIt();
-        printMessage("Authorisation has been performed\n");
     }
 
     /**
-     * Method returns true if the user is authorised and false if he isn't
+     * Проверяем авторизованность по наличию на странице кнопки "Профиль"
      */
     public boolean isUserAuthorised() {
-        // Проверяем авторизованность по наличию на странице кнопки "Профиль"
-        String XPATH = "//*[@id='wrap']/div[1]/div/div/header/nav/div[3]/div";
-        if (isElementPresent(By.xpath(XPATH))) {
-            return true; //getText(By.xpath(XPATH)).equals("Профиль"); //TODO починить
+        String XPATH = "//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[1]/div[1]";
+        String TEXT = "Профиль";
+        printMessage("Checking authorisation...");
+        if (isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals(TEXT)) {
+            printMessage("Success!\n");
+            return true;
         } else {
+            printMessage("No auth!\n");
             return false;
         }
     }
@@ -140,7 +135,7 @@ public class SessionHelper extends HelperBase {
     // ======= De-Authorisation =======
 
     /**
-     * Perform log-out
+     * Общий метод логаута для сайта и админки
      */
     public void doLogout() {
         if (!itsInAdmin()) {
@@ -151,17 +146,17 @@ public class SessionHelper extends HelperBase {
     }
 
     /**
-     * Do log-out from site
+     * Делаем логаут на сайте
      */
     private void doLogoutFromSite() {
-        click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/nav/div[3]/div")); //жмем "Профиль"
-        click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/nav/div[3]/div/div[2]/div/div[8]/a")); //жмем "Выйти"
+        click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div")); //жмем "Профиль"
+        click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[2]/div/div[8]/a")); //жмем "Выйти"
         waitForIt();
         printMessage("Logged-out from site\n");
     }
 
     /**
-     * Do log-out from admin panel
+     * Делаем логаут в админке
      */
     private void doLogoutFromAdmin() {
         click(By.xpath("//*[@id='login-nav']/li[3]/a")); //клик по кнопке Выйти
@@ -385,7 +380,13 @@ public class SessionHelper extends HelperBase {
         if (itsOnLandingPage()){
             click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
         } else {
-            click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/nav/div[3]"));
+            click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]"));
+        }
+        if(isElementDisplayed(By.id("auth"))) {
+            printMessage("Login form opened");
+        } else {
+            waitForIt();
+            printMessage("Can't open login form");
         }
     }
 
@@ -393,11 +394,26 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id='auth']/div/div/div[1]/div/button[1]"));
     }
 
+    private void fillAuthorisationForm(String email, String password) {
+        printMessage("Entering auth credentials");
+        fillField(By.name("spree_user[email]"), email);
+        fillField(By.name("spree_user[password]"), password);
+    }
+
     private void switchToRegistration(){
         click(By.xpath("//*[@id='auth']/div/div/div[1]/div/button[2]"));
     }
 
+    private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {
+        printMessage("Entering reg credentials");
+        fillField(By.name("spree_user[fullname]"), name);
+        fillField(By.name("spree_user[email]"), email);
+        fillField(By.name("spree_user[password]"), password);
+        fillField(By.name("spree_user[password_confirmation]"), passwordConfirmation);
+    }
+
     private void sendForm(){
+        printMessage("Sending form");
         click(By.xpath("//*[@id='auth']/div/div/div[1]/form/div/button"));
     }
 
@@ -409,6 +425,7 @@ public class SessionHelper extends HelperBase {
     }
 
     private void sendRecoveryForm(){
+        printMessage("Sending form");
         click(By.xpath("//*[@id='auth']/div/div/div[2]/form/div/button"));
     }
 

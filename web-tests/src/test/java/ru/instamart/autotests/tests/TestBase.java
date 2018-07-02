@@ -16,15 +16,18 @@ public class TestBase {
 
     protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
+
     @BeforeClass(alwaysRun = true)
     public void setUp() throws Exception {
         app.init();
     }
 
+
     @AfterClass(alwaysRun = true)
     public void tearDown() throws Exception {
         app.stop();
     }
+
 
     /**
      * Simply check the current page is not 404 or 500

@@ -214,6 +214,14 @@ public class HelperBase {
     }
 
     /**
+     * Long waiting which lasts twice for the time specified in 'implicitlyWait' timeout
+     */
+    public void longWaitForIt() {
+        isElementPresent(By.xpath("//*[@id='spree_user_999666999666999']"));
+        isElementPresent(By.xpath("//*[@id='spree_user_999666999666999']"));
+    }
+
+    /**
      * Print a given message to system out
      */
     public void printMessage(String message) {

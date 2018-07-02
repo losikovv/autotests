@@ -26,10 +26,10 @@ public class CheckoutHelper extends HelperBase {
     // ======= Order-making methods =======
 
     /**
-     * Complete checkout with predefined standard test options
+     * Complete checkout with the predefined standard test options
      */
     public void completeCheckout(){
-        checkCheckoutReady();
+        checkCheckoutIsReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
         doStep3();                  // Выбираем дефолтный способ замен
@@ -39,11 +39,11 @@ public class CheckoutHelper extends HelperBase {
     }
 
     /**
-     * Complete checkout with predefined standard test options and a given payment type
+     * Complete checkout with the predefined standard test options and a given payment type
      * Use only for existing users which have telephone numbers and all payment types
      */
     public void completeCheckout(String paymentType){
-        checkCheckoutReady();
+        checkCheckoutIsReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
         doStep3();                  // Выбираем дефолтный способ замен
@@ -54,11 +54,11 @@ public class CheckoutHelper extends HelperBase {
 
     //TODO
     /**
-     * Complete checkout with predefined standard test options
+     * Complete checkout with the predefined standard test options
      * Use only for existing users which have telephone numbers and all payment types, cards and loyalty programs
      */
     public void completeCheckout(String paymentType, String loyaltyProgram, String promoCode){
-        checkCheckoutReady();
+        checkCheckoutIsReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
         doStep3();                  // Выбираем дефолтный способ замен
@@ -70,12 +70,11 @@ public class CheckoutHelper extends HelperBase {
     }
 
     /**
-     * Complete checkout with given options
+     * Complete checkout with the given options
      * Use only for existing users which have telephone numbers and all payment types usable
      */
     public void completeCheckout(String orderInstructions, int replacementPolicy, String paymentType){
-        // TODO добавить проверку на нахождение в чекауте
-        checkCheckoutReady();
+        checkCheckoutIsReady();
         doStep1(orderInstructions); // Заполняем адрес и пожелания указанными значениями
         doStep2();                  // Заполняем контакты
         doStep3(replacementPolicy); // Выбираем указанный способ замен
@@ -91,19 +90,21 @@ public class CheckoutHelper extends HelperBase {
     private void doStep1() {
         final int stepNumber = 1;
         final String stepName = "Address";
-        checkStep(stepNumber, stepName);
-        specifyTestAddressDetails();
-        fillTestOrderInstructions();
-        hitNextButton(stepNumber);
+        if(checkStep(stepNumber, stepName)){
+            specifyTestAddressDetails();
+            fillTestOrderInstructions();
+            hitNextButton(stepNumber);
+        } // TODO else { для стабильности прерываем оформление, обновляем чекаут и проходим чекаут заново}
     }
 
     private void doStep1(String orderInstructions) {
         final int stepNumber = 1;
         final String stepName = "Address";
-        checkStep(stepNumber, stepName);
-        specifyTestAddressDetails();
-        fillOrderInstructions(orderInstructions);
-        hitNextButton(stepNumber);
+        if(checkStep(stepNumber, stepName)){
+            specifyTestAddressDetails();
+            fillOrderInstructions(orderInstructions);
+            hitNextButton(stepNumber);
+        }
     }
 
     private void specifyTestAddressDetails() {
@@ -144,7 +145,7 @@ public class CheckoutHelper extends HelperBase {
     }
 
     private void fillTestOrderInstructions() {
-        String text = "ТЕСТОВЫЙ ЗАКАЗ";
+        String text = "ТЕСТОВЫЙ ЗАКАЗ / НЕ СОБИРАТЬ";
         fillField(By.name("order[special_instructions]"),text);
         printMessage("- order instructions: " + text);
     }
@@ -161,18 +162,20 @@ public class CheckoutHelper extends HelperBase {
     private void doStep2() {
         final int stepNumber = 2;
         final String stepName = "Contacts";
-        checkStep(stepNumber, stepName);
-        printMessage("Using existing phone number");
-        hitNextButton(stepNumber);
+        if(checkStep(stepNumber, stepName)) {
+            printMessage("Using existing phone number");
+            hitNextButton(stepNumber);
+        }
     }
 
     //TODO
     private void doStep2(String phoneNumber) {
         final int stepNumber = 2;
         final String stepName = "Contacts";
-        checkStep(stepNumber, stepName);
-        //TODO добавить определение наличия телефонов, добавление и удаление телефона
-        hitNextButton(stepNumber);
+        if(checkStep(stepNumber, stepName)) {
+            //TODO добавить определение наличия телефонов, добавление и удаление телефона
+            hitNextButton(stepNumber);
+        }
     }
 
     // TODO specifyContacts - уточнить контакты
@@ -190,47 +193,73 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Step 3 - Replacement policy =======
 
+    /**
+     * Шаг 4 - выбор способа замен
+     * Выбираем дефолтный тестовый способ - верхний в списке
+     */
     private void doStep3() {
         final int stepNumber = 3;
         final String stepName = "Replacement policy";
-        checkStep(stepNumber, stepName);
-        selectReplacementPolicy(1);
-        hitNextButton(stepNumber);
+        if(checkStep(stepNumber, stepName)) {
+            selectReplacementPolicy(1);
+            hitNextButton(stepNumber);
+        }
     }
 
-    private void doStep3(int replacementPolicy) {
+    /**
+     * Шаг 4 - выбор способа замен
+     * Выбираем способ
+     */
+    private void doStep3(int policyOption) {
         final int stepNumber = 3;
         final String stepName = "Replacement policy";
-        checkStep(stepNumber, stepName);
-        selectReplacementPolicy(replacementPolicy);
-        hitNextButton(stepNumber);
+        if(checkStep(stepNumber, stepName)) {
+            selectReplacementPolicy(policyOption);
+            hitNextButton(stepNumber);
+        }
     }
 
-    private void selectReplacementPolicy(int option){
-        click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[3]/div[2]/div/div/div[2]/div["+option+"]/label"));
-        printMessage("Replacement policy #" + option + " selected");
+    /**
+     * Выбираем способ замен по позиции в списке опций
+     */
+    private void selectReplacementPolicy(int policyOption){
+        click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[3]/div[2]/div/div/div[2]/div["+policyOption+"]/label"));
+        printMessage("Replacement policy #" + policyOption + " selected");
     }
 
 
 
     // ======= Payment =======
 
+    /**
+     * Шаг 4 - выбор способа оплаты
+     * Выбираем дефолтный тестовый способ - наличными
+     */
     private void doStep4() {
         final int stepNumber = 4;
         final String stepName = "Payment";
-        checkStep(stepNumber, stepName);
-        selectPaymentType("cash");
-        hitNextButton(stepNumber);
+        if(checkStep(stepNumber, stepName)) {
+            selectPaymentType("cash");
+            hitNextButton(stepNumber);
+        }
     }
 
+    /**
+     * Шаг 4 - выбор способа оплаты
+     * Выбираем способ оплаты из вариантов cash / card / bank
+     */
     private void doStep4(String paymentType) {
         final int stepNumber = 4;
         final String stepName = "Payment";
-        checkStep(stepNumber, stepName);
-        selectPaymentType(paymentType);
-        hitNextButton(stepNumber);
+        if(checkStep(stepNumber, stepName)) {
+            selectPaymentType(paymentType);
+            hitNextButton(stepNumber);
+        }
     }
 
+    /**
+     * Выбираем способ оплаты из вариантов cash / card / bank
+     */
     private void selectPaymentType(String paymentType){
         switch(paymentType){
             case "cash":
@@ -265,15 +294,22 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Step 5 - Delivery time =======
 
+    /**
+     * Шаг 5 - выбор даты и времени доставки
+     * Выбираем дефолтную тестовую доставку - первый слот в самый дальний день
+     */
     private void doStep5(){
         final int stepNumber = 5;
         final String stepName = "Delivery time";
-        checkStep(stepNumber, stepName);
-        // выбираем первый слот в 7 день
-        selectDeliveryDay("last");
-        selectDeliverySlot("first");
+        if(checkStep(stepNumber, stepName)) {
+            selectDeliveryDay("last");
+            selectDeliverySlot("first");
+        }
     }
 
+    /**
+     * Выбираем день доставки из фиксированных вариантов today / tomorrow / last
+     */
     private void selectDeliveryDay(String day){
         switch(day){
             case "today":
@@ -288,6 +324,9 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
+    /**
+     * Выбираем день доставки по порядковому номеру, начиная с текущего
+     */
     private void selectDeliveryDay(int dayNumber){
         if(dayNumber == 1){
             click(By.xpath("//div/span[2]"));
@@ -298,6 +337,9 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Selected delivery on day " + dayNumber);
     }
 
+    /**
+     * Выбираем слот доставки из фиксированных вариантов first / last
+     */
     private void selectDeliverySlot(String slot){
         switch(slot){
             case "first":
@@ -323,33 +365,63 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Promocodes =======
 
+    /**
+     * Определяем добавлен ли промокод в чекауте
+     */
     public boolean isPromocodeApplied() {
-        String XPATH = "//aside/div/div[2]/div[3]/div/span/span";
-        return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals("Промо-код:");
+        final String APPLIED_TEXT = "Промо-код:";
+        final String APPLIED_XPATH = "//aside/div/div[2]/div[3]/div/span/span";
+        if (isElementPresent(By.xpath(APPLIED_XPATH)) && getText(By.xpath(APPLIED_XPATH)).equals(APPLIED_TEXT)){
+            printMessage("Promocode applied");
+            return true;
+        } else {
+            printMessage("No promocode applied");
+            return false;
+        }
     }
 
+    /**
+     * Добавляем промокод в чекауте
+     */
     public void addPromocode(String promocode){
-        printMessage("Adding promocode \"" + promocode + "\"");
-        click(By.linkText("Добавить промо-код"));
-        fillField(By.id("couponCode"), "unicorn");
-        click(By.xpath("//div[2]/button"));
-        waitForIt();
+        if(!isPromocodeApplied()) {
+            printMessage("Adding promocode \"" + promocode + "\"...");
+            click(By.linkText("Добавить промо-код"));
+            fillField(By.id("couponCode"), "unicorn");
+            click(By.xpath("//div[2]/button"));
+            waitForIt();
+        } else {
+            printMessage("Can't add promocode - it is already applied");
+        }
     }
 
+    /**
+     * Удаляем промокод в чекауте
+     */
     public void clearPromocode(){
-        printMessage("Clearing promocode");
-        click(By.linkText("Удалить"));
-        waitForIt();
+        if(isPromocodeApplied()) {
+            printMessage("Clearing promocode...");
+            click(By.linkText("Удалить"));
+            waitForIt();
+        } else {
+            printMessage("Can't clear promocode - it is not applied at the moment");
+        }
     }
 
 
 
     // ======= Loyalty Programs =======
 
+    /**
+     * Определяем применена ли программа лояльности
+     */
     public boolean  isLoyaltyProgramApplied(int position) {
         return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]/div[2]"));
     }
 
+    /**
+     * Добавляем программу лояльности к заказу в чекауте
+     */
     public void addLoyaltyProgram(int position, String cardNumber){
         printMessage("Adding loyalty program #" + position);
         click(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]"));
@@ -357,10 +429,16 @@ public class CheckoutHelper extends HelperBase {
         waitForIt();
     }
 
+    /**
+     * Выбираем программу лояльности для заказа из добавленных
+     */
     public void selectLoyaltyProgram(int position){
         click(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]"));
     }
 
+    /**
+     * Удаляем программу лояльности в чекауте
+     */
     public void clearLoyaltyProgram(int position){
         printMessage("Clearing loyalty program #" + position);
         click(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]/div[2]"));
@@ -378,7 +456,10 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Common =======
 
-    private void checkCheckoutReady() {
+    /**
+     * Проверяем готовность чекаута перед заполнением
+     */
+    private void checkCheckoutIsReady() {
         if(isOnCheckout()){
             printMessage("Checking-out\n");
         } else {
@@ -387,35 +468,69 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
+    /**
+     * Нажимаем кнопки "Продолжить" в шагах чекаута
+     */
     private void hitNextButton(int step) {
         click(By.xpath("(//button[@type='button'])["+step+"]"));
         printMessage("Next\n");
         waitForIt();
     }
 
+    /**
+     * Нажимаем кнопку отправки заказа и ждем пока заказ оформится
+     */
     private void hitSendButton() {
-        // TODO Нажимать кнопку только если isSendButtonActive() == true
-        click(By.className("checkout-btn--make-order"));
+        if (isSendButtonActive()) {
+            click(By.className("checkout-btn--make-order"));
+        } else {
+            printMessage("Can't send order - send button is not active at the moment\n");
+        }
         // TODO добавить проверку на наличие спиннера отправки заказа, писать Order sent только если есть спиннер
         printMessage("Order sent\n");
         waitForIt();
     }
 
-    private void checkStep(int stepNumber, String stepName) {
-        if(isStepActive(stepNumber)){
-            printMessage("Step " + stepNumber + " - " + stepName);
+    /**
+     * Проверяем готовность шага чекаута перед заполнением
+     */
+    private boolean checkStep(int stepNumber, String stepName) {
+        if (stepNumber != 5) { // костыль если доставки остался выбраным в предыдущих тестах
+            if (isStepActive(stepNumber)) {
+                printMessage("Step " + stepNumber + " - " + stepName);
+                return true;
+            } else {
+                waitForIt(); // задержка для стабильности, возможно что шаг не развернулся из-за тормозов
+                if (!isStepActive(stepNumber)) {
+                    printMessage("Step " + stepNumber + " isn't opened at the moment");
+                    return false;
+                } else return true;
+            }
         } else {
-            waitForIt();
-            // TODO сделать исключение для 5 шага
-            if(!isStepActive(stepNumber)) printMessage("Step " + stepNumber + " isn't active");
+            if(isElementDisplayed(By.className("windows-selector-panel"))) {
+                printMessage("Step " + stepNumber + " - " + stepName);
+                return true;
+            } else {
+                printMessage("Step " + stepNumber + " - " + stepName);
+                printMessage("Delivery slot has already been selected\n");
+                return false;
+            }
         }
     }
 
+    /**
+     * Определяем активен ли шаг чекаута в данный момент
+     * Активность определяется по наличию кнопок "Продолжить"
+     */
     private boolean isStepActive(int step){
         return isElementPresent((By.xpath("(//button[@type='button'])["+step+"]")));
     }
 
-    // TODO - определять активна ли кнопка отправки заказа
-    // public boolean isSendButtonActive(){ return true; }
+    /**
+     * Определяем активна ли кнопка отправки заказа
+     */
+    private boolean isSendButtonActive(){
+        return isElementEnabled(By.className("checkout-finalize__button"));
+    }
 
 }

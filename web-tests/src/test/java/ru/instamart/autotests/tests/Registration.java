@@ -13,6 +13,7 @@ import ru.instamart.autotests.testdata.Generate;
 
 public class Registration extends TestBase {
 
+
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми полями",
             groups = {"acceptance", "regression"}
