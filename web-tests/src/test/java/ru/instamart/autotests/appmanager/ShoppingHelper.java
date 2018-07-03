@@ -241,17 +241,27 @@ public class ShoppingHelper extends HelperBase {
 
     // ======= Каталог =======
 
-    // TODO
-    public void catalog(){ }
-
-
     /**
-     * Add first line item on the page to the shopping cart
+     * Add the first line item on the page to the shopping cart
      * Shipping address must be chosen before that
      */
-    public void addFirstLineItemOnPageToCart(){
+    public void addFirstItemOnPageToCart(){
         openFirstItemCard();
         hitPlus();
+        closeItemCard();
+        waitForIt();
+    }
+
+    /**
+     * Add the given quantity of the first line item on the page to the shopping cart
+     * Shipping address must be chosen before that
+     */
+    public void addFirstItemOnPageToCart(int quantity){
+        openFirstItemCard();
+        for (int i = 1; i <= quantity; i++) {
+            hitPlus();
+            waitForIt();
+        }
         closeItemCard();
         waitForIt();
     }
@@ -270,7 +280,11 @@ public class ShoppingHelper extends HelperBase {
     // ======= Карточка товара  =======
 
     private void hitPlus() {
-        click(By.className("fa-plus"));
+        if(isElementEnabled(By.className("fa-plus"))) {
+            click(By.className("fa-plus"));
+        } else {
+            printMessage("'Add' button is disabled now");
+        }
     }
 
     private void hitMinus() {
@@ -352,7 +366,7 @@ public class ShoppingHelper extends HelperBase {
         * Набрать корзину на минимальную сумму, достаточную для оформления заказа
         */
         public void grabCartWithMinimalOrderSum(){
-            addFirstLineItemOnPageToCart();
+            addFirstItemOnPageToCart(20);
             waitForIt();
             openCart();
             if(!isCheckoutButtonActive()){

@@ -41,24 +41,24 @@ public class SessionHelper extends HelperBase {
      * Perform new user registration with the given credentials
      */
     public void regNewUser(String name, String email, String password, String passwordConfirmation) {
+        printMessage("Performing registration...");
         openLoginForm();
         switchToRegistration();
         fillRegistrationForm(name, email, password, passwordConfirmation);
         sendForm();
         waitForIt();
-        printMessage("Registration has been performed\n");
     }
 
     /**
      * Perform new user registration with the credentials from the given user-data object
      */
     public void regNewUser(UserData userData) {
+        printMessage("Performing registration...");
         openLoginForm();
         switchToRegistration();
         fillRegistrationForm(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
         sendForm();
         waitForIt();
-        printMessage("Registration has been performed\n");
     }
 
     /**
@@ -77,6 +77,7 @@ public class SessionHelper extends HelperBase {
         openLoginForm();
         switchToAuthorisation();
         clickRecovery();
+        printMessage("Password recovery for " + email);
         fillField(By.name("spree_user[email]"), email);
         sendRecoveryForm();
         waitForIt();
@@ -122,7 +123,7 @@ public class SessionHelper extends HelperBase {
         String TEXT = "Профиль";
         printMessage("Checking authorisation...");
         if (isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals(TEXT)) {
-            printMessage("Success!\n");
+            printMessage("✓ Authorised\n");
             return true;
         } else {
             printMessage("No auth!\n");
@@ -213,6 +214,8 @@ public class SessionHelper extends HelperBase {
      */
     public void deleteAllTestUsers() {
 
+        printMessage("Deleting all test users...");
+
         //TODO переделать на
         //TODO asAdmin
         //TODO getUrl
@@ -250,6 +253,8 @@ public class SessionHelper extends HelperBase {
      * Cancel all test orders from admin panel
      */
     public void cancelAllTestOrders() {
+
+        printMessage("Canceling all test orders...");
 
         // фильтр по частичному совпадению email пока не работает,
         // поэтому тестовые заказы пока делаем с autotestuser@instamart.ru
@@ -299,7 +304,7 @@ public class SessionHelper extends HelperBase {
      */
     // TODO Параметризовать причину отмены и текст
     public void cancelOrder(){
-        printMessage("Cancelling order on " + currentURL());
+        printMessage("Canceling order on " + currentURL());
         // click cancel button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
         // accept order cancellation alert
@@ -405,7 +410,7 @@ public class SessionHelper extends HelperBase {
     }
 
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {
-        printMessage("Entering reg credentials");
+        printMessage("Entering registration credentials");
         fillField(By.name("spree_user[fullname]"), name);
         fillField(By.name("spree_user[email]"), email);
         fillField(By.name("spree_user[password]"), password);
@@ -413,7 +418,7 @@ public class SessionHelper extends HelperBase {
     }
 
     private void sendForm(){
-        printMessage("Sending form");
+        printMessage("Sending form\n");
         click(By.xpath("//*[@id='auth']/div/div/div[1]/form/div/button"));
     }
 
@@ -425,7 +430,7 @@ public class SessionHelper extends HelperBase {
     }
 
     private void sendRecoveryForm(){
-        printMessage("Sending form");
+        printMessage("Sending form\n");
         click(By.xpath("//*[@id='auth']/div/div/div[2]/form/div/button"));
     }
 

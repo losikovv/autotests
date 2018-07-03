@@ -77,7 +77,7 @@ public class Shopping extends TestBase{
     )
     public void addItemToCart()throws Exception, AssertionError {
         app.getShoppingHelper().dropCart();
-        app.getShoppingHelper().addFirstLineItemOnPageToCart();
+        app.getShoppingHelper().addFirstItemOnPageToCart();
 
         // Assert cart isn't empty
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
