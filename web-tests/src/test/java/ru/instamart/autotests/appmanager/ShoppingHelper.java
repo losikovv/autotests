@@ -366,7 +366,7 @@ public class ShoppingHelper extends HelperBase {
         * Набрать корзину на минимальную сумму, достаточную для оформления заказа
         */
         public void grabCartWithMinimalOrderSum(){
-            addFirstItemOnPageToCart(20);
+            addFirstItemOnPageToCart(10);
             waitForIt();
             openCart();
             if(!isCheckoutButtonActive()){
