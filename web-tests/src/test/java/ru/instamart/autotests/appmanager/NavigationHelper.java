@@ -40,6 +40,7 @@ public class NavigationHelper extends HelperBase {
     // переход на страницу чекаута
     public void getCheckoutPage() {
         getUrl(baseUrl + "checkout/edit?");
+        waitForIt(1);
     }
 
     // переход в профиль

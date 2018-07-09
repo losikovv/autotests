@@ -333,7 +333,7 @@ public class CheckoutHelper extends HelperBase {
         } else {
             click(By.xpath("//div[" + dayNumber + "]/span[2]"));
         }
-        waitForIt();
+        waitForIt(1);
         printMessage("Selected delivery on day " + dayNumber);
     }
 
@@ -349,7 +349,7 @@ public class CheckoutHelper extends HelperBase {
                 //TODO
                 break;
         }
-        waitForIt();
+        waitForIt(1);
         printMessage("Selected " + slot + " available delivery slot\n");
     }
 
@@ -389,7 +389,7 @@ public class CheckoutHelper extends HelperBase {
             click(By.linkText("Добавить промо-код"));
             fillField(By.id("couponCode"), "unicorn");
             click(By.xpath("//div[2]/button"));
-            waitForIt();
+            waitForIt(1);
         } else {
             printMessage("Can't add promocode - it is already applied");
         }
@@ -402,7 +402,7 @@ public class CheckoutHelper extends HelperBase {
         if(isPromocodeApplied()) {
             printMessage("Clearing promocode...");
             click(By.linkText("Удалить"));
-            waitForIt();
+            waitForIt(1);
         } else {
             printMessage("Can't clear promocode - it is not applied at the moment");
         }
@@ -423,10 +423,13 @@ public class CheckoutHelper extends HelperBase {
      * Добавляем программу лояльности к заказу в чекауте
      */
     public void addLoyaltyProgram(int position, String cardNumber){
+        if(isLoyaltyProgramApplied(position)){
+            clearLoyaltyProgram(position);
+        }
         printMessage("Adding loyalty program #" + position);
         click(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]"));
         fillField(By.name("number"), cardNumber + "\uE007");
-        waitForIt();
+        waitForIt(1);
     }
 
     /**
@@ -443,7 +446,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Clearing loyalty program #" + position);
         click(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]/div[2]"));
         fillField(By.name("number"), 1 + "\uE004" + "\uE007");
-        waitForIt();
+        waitForIt(1);
     }
 
 
@@ -464,7 +467,7 @@ public class CheckoutHelper extends HelperBase {
             printMessage("Checking-out\n");
         } else {
             printMessage("Waiting for checkout\n");
-            waitForIt();
+            waitForIt(1);
         }
     }
 
@@ -474,7 +477,7 @@ public class CheckoutHelper extends HelperBase {
     private void hitNextButton(int step) {
         click(By.xpath("(//button[@type='button'])["+step+"]"));
         printMessage("Next\n");
-        waitForIt();
+        waitForIt(1);
     }
 
     /**
@@ -488,7 +491,7 @@ public class CheckoutHelper extends HelperBase {
         }
         // TODO добавить проверку на наличие спиннера отправки заказа, писать Order sent только если есть спиннер
         printMessage("Order sent\n");
-        waitForIt();
+        waitForIt(2);
     }
 
     /**
@@ -500,7 +503,7 @@ public class CheckoutHelper extends HelperBase {
                 printMessage("Step " + stepNumber + " - " + stepName);
                 return true;
             } else {
-                waitForIt(); // задержка для стабильности, возможно что шаг не развернулся из-за тормозов
+                waitForIt(1); // задержка для стабильности, возможно что шаг не развернулся из-за тормозов
                 if (!isStepActive(stepNumber)) {
                     printMessage("Step " + stepNumber + " isn't opened at the moment");
                     return false;

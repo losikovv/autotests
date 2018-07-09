@@ -46,7 +46,7 @@ public class SessionHelper extends HelperBase {
         switchToRegistration();
         fillRegistrationForm(name, email, password, passwordConfirmation);
         sendForm();
-        waitForIt();
+        waitForIt(3);
     }
 
     /**
@@ -58,7 +58,7 @@ public class SessionHelper extends HelperBase {
         switchToRegistration();
         fillRegistrationForm(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
         sendForm();
-        waitForIt();
+        waitForIt(3);
     }
 
     /**
@@ -80,7 +80,7 @@ public class SessionHelper extends HelperBase {
         printMessage("Password recovery for " + email);
         fillField(By.name("spree_user[email]"), email);
         sendRecoveryForm();
-        waitForIt();
+        waitForIt(1);
     }
 
     public boolean isRecoverySent(){
@@ -100,7 +100,7 @@ public class SessionHelper extends HelperBase {
         switchToAuthorisation();
         fillAuthorisationForm(email, password);
         sendForm();
-        waitForIt();
+        waitForIt(3);
     }
 
     /**
@@ -112,7 +112,7 @@ public class SessionHelper extends HelperBase {
         switchToAuthorisation();
         fillAuthorisationForm(userData.getLogin(), userData.getPassword());
         sendForm();
-        waitForIt();
+        waitForIt(3);
     }
 
     /**
@@ -152,7 +152,7 @@ public class SessionHelper extends HelperBase {
     private void doLogoutFromSite() {
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div")); //жмем "Профиль"
         click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[2]/div/div[8]/a")); //жмем "Выйти"
-        waitForIt();
+        waitForIt(2);
         printMessage("Logged-out from site\n");
     }
 
@@ -161,7 +161,7 @@ public class SessionHelper extends HelperBase {
      */
     private void doLogoutFromAdmin() {
         click(By.xpath("//*[@id='login-nav']/li[3]/a")); //клик по кнопке Выйти
-        waitForIt();
+        waitForIt(2);
         printMessage("Logged-out from admin\n");
     }
 
@@ -241,7 +241,7 @@ public class SessionHelper extends HelperBase {
         printMessage("Deleting user on " + currentURL());
         click(By.xpath("//*[@id='content']/div/table/tbody/tr/td[3]/a[2]"));
         closeAlertAndGetItsText();
-        waitForIt();
+        waitForIt(1);
     }
 
 
@@ -282,7 +282,7 @@ public class SessionHelper extends HelperBase {
     private void cancelFirstOrderInTable(){
         // Go to the first order in table
         click(By.xpath("//*[@id='listing_orders']/tbody/tr/td[14]/a"));
-        waitForIt();
+        waitForIt(1);
         // Perform cancellation
         cancelOrder();
     }
@@ -315,7 +315,7 @@ public class SessionHelper extends HelperBase {
         fillField(By.id("cancellation_reason_details"),"Тестовый заказ");
         // click confirmation button
         click(By.xpath("//*[@id='new_cancellation']/fieldset/div[3]/button"));
-        waitForIt();
+        waitForIt(1);
     }
 
     // TODO перенести в Administration helper
@@ -337,7 +337,7 @@ public class SessionHelper extends HelperBase {
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
         // accept order resume alert
         closeAlertAndGetItsText();
-        waitForIt();
+        waitForIt(1);
     }
 
     // TODO перенести в Administration helper
@@ -387,11 +387,15 @@ public class SessionHelper extends HelperBase {
         } else {
             click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]"));
         }
-        if(isElementDisplayed(By.id("auth"))) {
+        if(isElementPresent(By.id("auth"))) {
             printMessage("Login form opened");
         } else {
-            waitForIt();
+            waitForIt(3);
+            if(isElementPresent(By.id("auth"))) {
+                printMessage("Login form opened, experiencing performance problems ");
+            } else {
             printMessage("Can't open login form");
+            }
         }
     }
 

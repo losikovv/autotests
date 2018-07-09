@@ -62,7 +62,7 @@ public class ProfileHelper extends HelperBase {
         printMessage("Repeating last order from profile\n");
         getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
-        waitForIt();
+        waitForIt(2);
     }
 
     // повторить заказ по позиции в списке
@@ -70,7 +70,7 @@ public class ProfileHelper extends HelperBase {
         printMessage("Repeating order by position " + orderPosition + " from profile\n");
         getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button"));
-        waitForIt();
+        waitForIt(2);
     }
 
     // отменить крайний заказ
@@ -78,7 +78,7 @@ public class ProfileHelper extends HelperBase {
         printMessage("Canceling last order from profile\n");
         getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button[1]"));
-        waitForIt();
+        waitForIt(2);
     }
 
     // отменить заказ по позиции в списке
@@ -86,7 +86,7 @@ public class ProfileHelper extends HelperBase {
         printMessage("Canceling order by position " + orderPosition + " from profile\n");
         getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button[1]"));
-        waitForIt();
+        waitForIt(2);
     }
 
     public boolean isLastOrderActive(){
@@ -95,8 +95,14 @@ public class ProfileHelper extends HelperBase {
     }
 
     public boolean isOrderActive() {
+        printMessage("Checking order page...");
         String XPATH = "//*[@id='wrap']/div/div/div/div/div[2]/div/div[1]/div/div/div/div[2]/div[2]";
-        return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals("Благодарим за использование Instamart!");
+        if (isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals("Благодарим за использование Instamart!")){
+            printMessage("✓ Order is active\n");
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // TODO

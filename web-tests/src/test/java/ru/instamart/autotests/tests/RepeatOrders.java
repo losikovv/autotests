@@ -31,7 +31,7 @@ public class RepeatOrders extends TestBase {
     public void repeatLastOrderAndPayWithCard() throws Exception {
         app.getProfileHelper().repeatLastOrder();
 
-        // Assert cart isn't empty
+        // Проверяем что заказ повторился и корзина не пуста
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
@@ -41,9 +41,9 @@ public class RepeatOrders extends TestBase {
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",1,"card");
 
-        // Assert order is active
+        // Проверяем что заказ оформился и активен
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
-                "Order is not active\n");
+                "Can't assert the order is sent & active, check manually\n");
     }
 
 
@@ -55,7 +55,7 @@ public class RepeatOrders extends TestBase {
     public void repeatLastOrderAndPayWithCash() throws Exception {
         app.getProfileHelper().repeatLastOrder();
 
-        // Assert cart isn't empty
+        // Проверяем что заказ повторился и корзина не пуста
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
@@ -65,9 +65,9 @@ public class RepeatOrders extends TestBase {
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",2,"cash");
 
-        // Assert order is active
+        // Проверяем что заказ оформился и активен
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
-                "Order is not active\n");
+                "Can't assert the order is sent & active, check manually\n");
     }
 
 
@@ -79,7 +79,7 @@ public class RepeatOrders extends TestBase {
     public void repeatLastOrderAndPayWithBank() throws Exception {
         app.getProfileHelper().repeatLastOrder();
 
-        // Assert cart isn't empty
+        // Проверяем что заказ повторился и корзина не пуста
         Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
@@ -89,9 +89,9 @@ public class RepeatOrders extends TestBase {
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",3,"bank");
 
-        // Assert order is active
+        // Проверяем что заказ оформился и активен
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
-                "Order is not active\n");
+                "Can't assert the order is sent & active, check manually\n");
 
     }
 

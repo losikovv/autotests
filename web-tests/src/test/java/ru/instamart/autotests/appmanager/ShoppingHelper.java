@@ -46,7 +46,7 @@ public class ShoppingHelper extends HelperBase {
         selectAddressSuggest(1);
         //waitForIt();  // доп. задержка - повышает стабильность при тормозах на сайте
         clickChooseShopButton();
-        waitForIt();
+        waitForIt(2);
     }
 
     /**
@@ -58,7 +58,7 @@ public class ShoppingHelper extends HelperBase {
             selectAddressSuggest(1);
             //waitForIt();  // доп. задержка - повышает стабильность при тормозах на сайте
             clickChooseShopButton();
-            waitForIt();
+            waitForIt(2);
     }
 
     /**
@@ -109,7 +109,7 @@ public class ShoppingHelper extends HelperBase {
         clearAddressField();
         fillField(By.id("ship_address"),address);
         if(!currentURL().equals(baseUrl)) {
-            waitForIt();
+            waitForIt(1);
         }
     }
 
@@ -163,7 +163,7 @@ public class ShoppingHelper extends HelperBase {
                 printMessage("Can't select shop by the given position" + position);
                 closeShopsList();
             }
-            waitForIt();
+            waitForIt(2);
         }
 
         // for shoplist on the retailer page
@@ -175,7 +175,7 @@ public class ShoppingHelper extends HelperBase {
                 printMessage("Can't select shop by the given position" + position);
                 closeShopsList();
             }
-            waitForIt();
+            waitForIt(2);
         }
     }
 
@@ -249,7 +249,7 @@ public class ShoppingHelper extends HelperBase {
         openFirstItemCard();
         hitPlus();
         closeItemCard();
-        waitForIt();
+        waitForIt(1);
     }
 
     /**
@@ -260,10 +260,10 @@ public class ShoppingHelper extends HelperBase {
         openFirstItemCard();
         for (int i = 1; i <= quantity; i++) {
             hitPlus();
-            waitForIt();
+            waitForIt(1);
         }
         closeItemCard();
-        waitForIt();
+        waitForIt(1);
     }
 
     /**
@@ -271,7 +271,7 @@ public class ShoppingHelper extends HelperBase {
      */
     private void openFirstItemCard() {
         click(By.xpath("//*[@id='home']/div[2]/ul/li[1]/ul/li[1]/a"));
-        waitForIt();
+        waitForIt(1);
         swithchToActiveElement();
     }
 
@@ -351,7 +351,10 @@ public class ShoppingHelper extends HelperBase {
         * Возвращаем активна ли кнопка "Сделать заказ" в корзине
         */
         public boolean isCheckoutButtonActive(){
-            if(!isCartOpen()){ openCart(); }
+            if(!isCartOpen()){
+                openCart();
+                waitForIt(1);
+            }
             return isElementEnabled(By.className("cart-checkout-link"));
         }
 
@@ -367,7 +370,7 @@ public class ShoppingHelper extends HelperBase {
         */
         public void grabCartWithMinimalOrderSum(){
             addFirstItemOnPageToCart(10);
-            waitForIt();
+            //waitForIt(1);
             openCart();
             if(!isCheckoutButtonActive()){
                 closeCart();

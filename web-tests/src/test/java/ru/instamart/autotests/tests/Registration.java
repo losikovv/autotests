@@ -139,7 +139,7 @@ public class Registration extends TestBase {
 
         // Assert user is authorised
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
-                "Can't approve the registration has been performed correctly"+"\n");
+                "Can't approve correct registration, check manually\n");
 
         // TODO добавить проверку что после регистрации авторизованы верным пользователем
         // TODO добавить проверку наличия пользователя в админке
@@ -160,7 +160,7 @@ public class Registration extends TestBase {
 
         // Assert user is authorised
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
-                "Can't approve the registration has been performed correctly"+"\n");
+                "Can't approve correct registration, check manually\n");
 
         // TODO добавить проверку что после регистрации авторизованы верным пользователем
         // TODO добавить проверку наличия пользователя в админке

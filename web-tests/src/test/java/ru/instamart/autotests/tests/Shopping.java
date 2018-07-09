@@ -58,7 +58,7 @@ public class Shopping extends TestBase{
 
 
     @Test(
-            description = "Тест недоступности чекаута при пустой корзине",
+            description = "Тест недоступности пустого чекаута по прямой ссылке",
             groups = {"acceptance","regression"},
             priority = 301
     )

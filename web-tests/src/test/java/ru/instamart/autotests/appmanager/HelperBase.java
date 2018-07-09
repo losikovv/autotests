@@ -53,7 +53,7 @@ public class HelperBase {
         try {
             driver.findElement(locator).click();
         } catch (ElementClickInterceptedException e) {
-            waitForIt();
+            waitForIt(1);
             if(isElementPresent(By.className("flocktory-widget-overlay"))){
                 printMessage("Flocktory widget detected");
                 closeFlocktoryWidgets();
@@ -207,18 +207,17 @@ public class HelperBase {
     }
 
     /**
-     * Waiting which lasts for the time specified in 'implicitlyWait' timeout
+     * Waiting which lasts for the 'implicitlyWait' timeout
      */
-    public void waitForIt() {
-        isElementPresent(By.xpath("//*[@id='spree_user_999666999666999']/td[3]/a[2]"));
-    }
+    // void waitForIt() { isElementPresent(By.xpath("//*[@id='nowhere']")); }
 
     /**
-     * Long waiting which lasts twice for the time specified in 'implicitlyWait' timeout
+     * Waiting which lasts for the 'implicitlyWait' timeout multiplied by the given number of iterations
      */
-    public void longWaitForIt() {
-        isElementPresent(By.xpath("//*[@id='spree_user_999666999666999']"));
-        isElementPresent(By.xpath("//*[@id='spree_user_999666999666999']"));
+    void waitForIt(int duration){
+        for (int i = 1; i <= duration; i++){
+            isElementPresent(By.xpath("//*[@id='nowhere']"));
+        }
     }
 
     /**

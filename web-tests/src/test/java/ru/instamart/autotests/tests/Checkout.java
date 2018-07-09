@@ -25,7 +25,7 @@ public class Checkout extends TestBase {
         // идем в чекаут
         app.getNavigationHelper().getCheckoutPage();
 
-        // набираем корзину, если нужно
+        // если не попали в чекаут - набираем корзину и идем снова
         if(!app.getCheckoutHelper().isOnCheckout()){
             app.getShoppingHelper().grabCartWithMinimalOrderSum();
             app.getShoppingHelper().proceedToCheckout();
@@ -77,33 +77,21 @@ public class Checkout extends TestBase {
         // TODO вынести номера, названия и позиции лояльностей в models.LoyaltyData
 
         // Много.ру
-        if(app.getCheckoutHelper().isLoyaltyProgramApplied(1)){
-            app.getCheckoutHelper().clearLoyaltyProgram(1);
-        }
         app.getCheckoutHelper().addLoyaltyProgram(1, "11600350");
         Assert.assertTrue(app.getCheckoutHelper().isLoyaltyProgramApplied(1),
                 "Can't assert loyalty program #1 is applied");
 
         // Аэрофлот
-        if(app.getCheckoutHelper().isLoyaltyProgramApplied(2)){
-            app.getCheckoutHelper().clearLoyaltyProgram(2);
-        }
         app.getCheckoutHelper().addLoyaltyProgram(2, "71891831");
         Assert.assertTrue(app.getCheckoutHelper().isLoyaltyProgramApplied(2),
                 "Can't assert loyalty program #2 is applied");
 
         // Семейная команда
-        if(app.getCheckoutHelper().isLoyaltyProgramApplied(3)){
-            app.getCheckoutHelper().clearLoyaltyProgram(3);
-        }
         app.getCheckoutHelper().addLoyaltyProgram(3, "7005992006136053");
         Assert.assertTrue(app.getCheckoutHelper().isLoyaltyProgramApplied(3),
                 "Can't assert loyalty program #3 is applied");
 
         // Связной клуб
-        if(app.getCheckoutHelper().isLoyaltyProgramApplied(4)){
-            app.getCheckoutHelper().clearLoyaltyProgram(4);
-        }
         app.getCheckoutHelper().addLoyaltyProgram(4, "2981796259309");
         Assert.assertTrue(app.getCheckoutHelper().isLoyaltyProgramApplied(4),
                 "Can't assert loyalty program #4 is applied");
@@ -156,6 +144,57 @@ public class Checkout extends TestBase {
     }
 
 
-    // TODO Тест на оформление заказа с оплатой налом
+    @Test(
+            description = "Тест полного оформления заказа с оплатой налом",
+            groups = {"acceptance","regression"},
+            priority = 405
+    )
+    public void performCompleteCheckoutAndPayWithCash(){
+        app.getCheckoutHelper().addPromocode("unicorn");
+        app.getCheckoutHelper().addLoyaltyProgram(1, "11600350");
+        app.getCheckoutHelper().completeCheckout();
+
+        // Проверяем что заказ оформился и активен
+        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+                "Can't assert the order is sent & active, check manually\n");
+
+        app.getProfileHelper().cancelLastOrder();
+    }
+
+
+    @Test(
+            description = "Тест полного оформления заказа с оплатой картой",
+            groups = {"acceptance","regression"},
+            priority = 406
+    )
+    public void performCompleteCheckoutAndPayWithCard(){
+        app.getCheckoutHelper().addPromocode("unicorn");
+        app.getCheckoutHelper().addLoyaltyProgram(2, "71891831");
+        app.getCheckoutHelper().completeCheckout("card");
+
+        // Проверяем что заказ оформился и активен
+        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+                "Can't assert the order is sent & active, check manually\n");
+
+        app.getProfileHelper().cancelLastOrder();
+    }
+
+
+    @Test(
+            description = "Тест полного оформления заказа с оплатой банковским переводом",
+            groups = {"acceptance","regression"},
+            priority = 407
+    )
+    public void performCompleteCheckoutAndPayWithBank(){
+        app.getCheckoutHelper().addPromocode("unicorn");
+        app.getCheckoutHelper().addLoyaltyProgram(4, "2981796259309");
+        app.getCheckoutHelper().completeCheckout("bank");
+
+        // Проверяем что заказ оформился и активен
+        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+                "Can't assert the order is sent & active, check manually\n");
+
+        app.getProfileHelper().cancelLastOrder();
+    }
 
 }
