@@ -48,14 +48,16 @@ public class NavigationHelper extends HelperBase {
         getUrl(baseUrl + "user/edit");
     }
 
+
     // переходы на лендинги
     public void getLandingPage() {
         getUrl(baseUrl);
     }
 
-    public void getMnogoruLandingPage() {
-        getUrl(baseUrl + "mnogoru");
+    public void getLandingPage(String landingName) {
+        getUrl(baseUrl + landingName);
     }
+
 
     public void goToProfile() {
         // только для авторизованного
