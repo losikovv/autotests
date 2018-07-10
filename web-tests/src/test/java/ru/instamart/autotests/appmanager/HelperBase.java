@@ -207,11 +207,6 @@ public class HelperBase {
     }
 
     /**
-     * Waiting which lasts for the 'implicitlyWait' timeout
-     */
-    // void waitForIt() { isElementPresent(By.xpath("//*[@id='nowhere']")); }
-
-    /**
      * Waiting which lasts for the 'implicitlyWait' timeout multiplied by the given number of iterations
      */
     void waitForIt(int duration){
@@ -236,35 +231,37 @@ public class HelperBase {
         String pushTipWidgetId = "fl-75517";
         String cartRibbonWidgetId = "fl-73939";
 
-            // Shopping Cart Ribbon widget
-            if(isElementPresent(By.id(cartRibbonWidgetId))){
-                printMessage("Closing Ribbon widget\n");
-                driver.switchTo().frame(cartRibbonWidgetId);
-                driver.findElement(By.xpath("/html/body/div/div[2]")).click();
-            }
+        // Push Tip widget
+        if (isElementPresent(By.id(pushTipWidgetId))){
+            printMessage("Closing Push Tip widget\n");
+            driver.switchTo().frame(pushTipWidgetId);
+            driver.findElement(By.xpath("/html/body/div/div[1]")).click();
+        }
 
-            // Push Tip widget
-            if (isElementPresent(By.id(pushTipWidgetId))){
-                printMessage("Closing Push Tip widget\n");
-                driver.switchTo().frame(pushTipWidgetId);
-                driver.findElement(By.xpath("/html/body/div/div[1]")).click();
-            }
+        /*
+        // Shopping Cart Ribbon widget
+        if(isElementPresent(By.id(cartRibbonWidgetId))){
+            printMessage("Closing Ribbon widget\n");
+            driver.switchTo().frame(cartRibbonWidgetId);
+            driver.findElement(By.xpath("/html/body/div/div[2]")).click();
+        }
+        */
 
-            /*
-            //TODO
-            if(isElementPresent(By.id("856bfda0-423f-11e8-89bb-c5fffb7fc056"))){
-                printMessage("Closing Wrapper widget\n");
-                driver.switchTo().frame(driver.findElement(By.id("856bfda0-423f-11e8-89bb-c5fffb7fc056")));
-                click(By.xpath("/html/body/div/div[1]/div/div[1]"));
-            }
+        /*
+        //TODO
+        if(isElementPresent(By.id("856bfda0-423f-11e8-89bb-c5fffb7fc056"))){
+            printMessage("Closing Wrapper widget\n");
+            driver.switchTo().frame(driver.findElement(By.id("856bfda0-423f-11e8-89bb-c5fffb7fc056")));
+            click(By.xpath("/html/body/div/div[1]/div/div[1]"));
+        }
 
-            //TODO
-            if (isElementPresent(By.className("flockapi-overlay"))){
-                printMessage("Closing First Purchase widget\n");
-                driver.switchTo().frame(driver.findElement(By.className("flockapi-overlay")));
-                driver.findElement(By.id("close")).click();
-            }
-            */
+        //TODO
+        if (isElementPresent(By.className("flockapi-overlay"))){
+            printMessage("Closing First Purchase widget\n");
+            driver.switchTo().frame(driver.findElement(By.className("flockapi-overlay")));
+            driver.findElement(By.id("close")).click();
+        }
+        */
 
         driver.switchTo().parentFrame();
         driver.switchTo().defaultContent();

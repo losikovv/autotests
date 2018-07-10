@@ -77,7 +77,7 @@ public class ShippingAddress extends TestBase {
 
         // Assert shipping address is set
         Assert.assertTrue(app.getShoppingHelper().isShippingAddressSet(),
-                "Shipping address was not set correctly\n");
+                "Can't approve the shipping address was set correctly, check manually\n");
 
         //
         Assert.assertTrue(app.getShoppingHelper().currentShippingAddress().equals(address),
@@ -110,7 +110,7 @@ public class ShippingAddress extends TestBase {
 
         // Assert shipping address is set
         Assert.assertTrue(app.getShoppingHelper().isShippingAddressSet(),
-                "Shipping address was not set correctly\n");
+                "Can't approve the shipping address was set correctly, check manually\n");
 
         // Assert shipping address was changed
         Assert.assertFalse(app.getShoppingHelper().currentShippingAddress().equals(initialAddress),
@@ -149,7 +149,7 @@ public class ShippingAddress extends TestBase {
 
         // Assert shipping address is set after authorisation
         Assert.assertTrue(app.getShoppingHelper().isShippingAddressSet(),
-                "Shipping address is not fetched after authorisation\n");
+                "Shipping address is not fetched after authorisation, check manually\n");
 
     }
 

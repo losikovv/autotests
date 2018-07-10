@@ -491,7 +491,7 @@ public class CheckoutHelper extends HelperBase {
         }
         // TODO добавить проверку на наличие спиннера отправки заказа, писать Order sent только если есть спиннер
         printMessage("Order sent\n");
-        waitForIt(2);
+        waitForIt(3);
     }
 
     /**
