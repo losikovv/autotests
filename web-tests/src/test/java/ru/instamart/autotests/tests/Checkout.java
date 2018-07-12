@@ -164,7 +164,7 @@ public class Checkout extends TestBase {
 
     @Test(
             description = "Тест полного оформления заказа с оплатой картой",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 406
     )
     public void performCompleteCheckoutAndPayWithCard(){
@@ -182,7 +182,7 @@ public class Checkout extends TestBase {
 
     @Test(
             description = "Тест полного оформления заказа с оплатой банковским переводом",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 407
     )
     public void performCompleteCheckoutAndPayWithBank(){
