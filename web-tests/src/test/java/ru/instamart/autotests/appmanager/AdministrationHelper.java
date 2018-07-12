@@ -17,4 +17,20 @@ public class AdministrationHelper extends HelperBase {
         super(driver, environment);
     }
 
+    /*
+    public void getUrlAsAdmin(String targetUrl) {
+        // trying to get target URL in admin panel
+        getUrl(targetUrl);
+        // if we don't have admin privileges then log-in as admin and try again
+        if (!itsInAdmin()) {
+            getBaseUrl();
+            if (SessionHelper.isUserAuthorised()) {
+                SessionHelper.doLogout();
+            }
+            SessionHelper.doLoginAsAdmin();
+            getUrl(targetUrl);
+        }
+    }
+    */
+
 }
