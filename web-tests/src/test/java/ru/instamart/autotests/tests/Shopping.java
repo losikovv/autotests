@@ -130,7 +130,7 @@ public class Shopping extends TestBase{
             priority = 305
     )
     public void sendEmptySearch(){
-        app.getShoppingHelper().hitSearchButton();
+        app.getShoppingHelper().searchItem("");
 
         // Проверяем что поиск дал пустой результат
         Assert.assertTrue(app.getShoppingHelper().isSearchResultsEmpty(),
@@ -165,7 +165,7 @@ public class Shopping extends TestBase{
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
         // Проверяем что по поисковому запросу нашлись продукты
-        Assert.assertTrue(app.getShoppingHelper().isSearchResultsDisplayed(),
+        Assert.assertTrue(app.getShoppingHelper().isProductDisplayed(),
                 "Can't assert search is working correctly, check manually\n");
     }
 }

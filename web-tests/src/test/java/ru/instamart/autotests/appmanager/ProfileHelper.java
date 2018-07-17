@@ -62,7 +62,7 @@ public class ProfileHelper extends HelperBase {
         printMessage("Repeating last order from profile\n");
         getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
-        waitForIt(2);
+        waitForIt(3);
     }
 
     // повторить заказ по позиции в списке
@@ -70,7 +70,7 @@ public class ProfileHelper extends HelperBase {
         printMessage("Repeating order by position " + orderPosition + " from profile\n");
         getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button"));
-        waitForIt(2);
+        waitForIt(3);
     }
 
     // отменить крайний заказ

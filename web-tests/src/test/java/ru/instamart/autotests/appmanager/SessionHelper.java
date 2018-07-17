@@ -214,14 +214,11 @@ public class SessionHelper extends HelperBase {
      */
     public void deleteAllTestUsers() {
 
+        final String targetPath = "admin/users?q%5Bemail_cont%5D=testuser%40example.com";
         printMessage("Deleting all test users...");
 
-        //TODO переделать на
-        //TODO asAdmin
-        //TODO getUrl
-
         // Getting target URL in admin panel which contains table with test users only
-        getUrlAsAdmin(baseUrl + "admin/users?q%5Bemail_cont%5D=testuser%40example.com");
+        getUrlAsAdmin(baseUrl + targetPath);
         // Delete first user if it's present in the list
         if(isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr"))) {
             deleteFirstUserInTable();
@@ -253,15 +250,15 @@ public class SessionHelper extends HelperBase {
      * Cancel all test orders from admin panel
      */
     public void cancelAllTestOrders() {
-
-        printMessage("Canceling all test orders...");
-
         // фильтр по частичному совпадению email пока не работает,
         // поэтому тестовые заказы пока делаем с autotestuser@instamart.ru
         // позже нужно переделать под юзеров @example.com
 
+        final String targetPath = "admin/shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D%5B%5D=ready";
+        printMessage("Canceling all test orders...");
+
         // Getting target URL in admin panel which contains table with test orders only
-        getUrlAsAdmin(baseUrl + "admin/shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D%5B%5D=ready");
+        getUrlAsAdmin(baseUrl + targetPath);
 
         // Cancel first order if it's present in the list
         if(!isElementPresent(By.className("no-objects-found"))) {
@@ -333,11 +330,10 @@ public class SessionHelper extends HelperBase {
      * Resume order on the order page in admin panel
      */
     public void resumeOrder(){
-        // click resume button
-        click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
-        // accept order resume alert
-        closeAlertAndGetItsText();
-        waitForIt(1);
+        final String XPATH = "//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button";
+        click(By.xpath(XPATH));     // click resume button
+        closeAlertAndGetItsText();  // accept alert
+        waitForIt(2);
     }
 
     // TODO перенести в Administration helper

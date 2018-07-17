@@ -241,6 +241,10 @@ public class ShoppingHelper extends HelperBase {
 
     // ======= Каталог =======
 
+    public boolean isProductDisplayed(){
+        return isElementDisplayed(By.name("product"));
+    }
+
     /**
      * Add the first line item on the page to the shopping cart
      * Shipping address must be chosen before that
@@ -280,15 +284,21 @@ public class ShoppingHelper extends HelperBase {
     // ======= Карточка товара  =======
 
     private void hitPlus() {
-        if(isElementEnabled(By.className("fa-plus"))) {
-            click(By.className("fa-plus"));
+        final String XPATH = "//*[@id='the-modal']/div/div/div/div/div/div[2]/div[2]/div[2]/div/div[3]/button[2]";
+        if(isElementEnabled(By.xpath(XPATH))) {
+            click(By.xpath(XPATH));
         } else {
-            printMessage("'Add' button is disabled now");
+            printMessage("'Plus' button is disabled");
         }
     }
 
     private void hitMinus() {
-        click(By.className("fa-minus"));
+        final String XPATH = "//*[@id='the-modal']/div/div/div/div/div/div[2]/div[2]/div[2]/div/div[3]/button[1]";
+        if(isElementDisplayed(By.xpath(XPATH))) {
+            click(By.xpath(XPATH));
+        } else {
+            printMessage("'Minus' button is not displayed");
+        }
     }
 
     private void closeItemCard() {
@@ -300,26 +310,22 @@ public class ShoppingHelper extends HelperBase {
     // ======= Поиск товаров =======
 
     public void searchItem(String queryText) {
-        if(isElementPresent(By.name("keywords"))) {
+        if(isElementPresent(By.xpath("(//input[@name='keywords'])[2]"))) {
             printMessage("Searching for \"" + queryText + "\"...");
-            fillField(By.name("keywords"), queryText);
+            fillField(By.xpath("(//input[@name='keywords'])[2]"), queryText);
             hitSearchButton();
             waitForIt(1);
         } else {
-            printMessage("Unable to use search - no search field present on the current page");
+            printMessage("Unable to use search on the current page");
         }
     }
 
-    public void hitSearchButton() {
-        click(By.name("fa-search"));
+    private void hitSearchButton() {
+        click(By.name("header-search__btn"));
     }
 
     public boolean isSearchResultsEmpty(){
         return isElementPresent(By.name("search__noresults"));
-    }
-
-    public boolean isSearchResultsDisplayed(){
-        return isElementDisplayed(By.name("products"));
     }
 
 
