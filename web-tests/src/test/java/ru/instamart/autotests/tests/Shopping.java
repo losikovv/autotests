@@ -16,7 +16,6 @@ public class Shopping extends TestBase{
     @BeforeMethod(alwaysRun = true)
     public void getAuth() throws Exception {
         app.getNavigationHelper().getLandingPage();
-        //app.getNavigationHelper().getRetailerPage("metro");
         if(!app.getSessionHelper().isUserAuthorised()) {
             app.getSessionHelper().doLoginAsAdmin();
         }
@@ -118,8 +117,55 @@ public class Shopping extends TestBase{
                 "Can't access checkout by clicking on order button in cart\n");
     }
 
+
     // TODO тест на изменение кол-ва товаров в корзине
+
 
     // TODO тест на удаление товаров из корзины
 
+
+    @Test (
+            description = "Тест отправки пустого поискового запроса",
+            groups = {"acceptance","regression"},
+            priority = 305
+    )
+    public void sendEmptySearch(){
+        app.getShoppingHelper().hitSearchButton();
+
+        // Проверяем что поиск дал пустой результат
+        Assert.assertTrue(app.getShoppingHelper().isSearchResultsEmpty(),
+                "Search result is not empty when it's supposed to be\n");
+    }
+
+
+    @Test (
+            description = "Тест поиска по запросу, не возвращающему результатов",
+            groups = {"acceptance","regression"},
+            priority = 306
+    )
+    public void successSearchForNonexistingItem(){
+        app.getShoppingHelper().searchItem("смысл жизни");
+
+        // Проверяем что поиск дал пустой результат
+        Assert.assertTrue(app.getShoppingHelper().isSearchResultsEmpty(),
+                "Search result is not empty when it's supposed to be\n");
+    }
+
+
+    @Test (
+            description = "Тест упешного поиска товаров",
+            groups = {"acceptance","regression"},
+            priority = 307
+    )
+    public void successSearchForItem(){
+        app.getShoppingHelper().searchItem("шоколад");
+
+        // Проверяем что поиск не дал пустой результат
+        Assert.assertFalse(app.getShoppingHelper().isSearchResultsEmpty(),
+                "Search result is empty, so can't assert search is working correctly, check manually\n");
+
+        // Проверяем что по поисковому запросу нашлись продукты
+        Assert.assertTrue(app.getShoppingHelper().isSearchResultsDisplayed(),
+                "Can't assert search is working correctly, check manually\n");
+    }
 }

@@ -54,7 +54,7 @@ public class Administration extends TestBase {
 
         // Assert order isn't cancelled
         Assert.assertFalse(app.getSessionHelper().isOrderCanceled(),
-                "The order wasn't resumed" + "\n");
+                "Can't approve the order was resumed, check manually\n");
     }
 
 
@@ -77,7 +77,7 @@ public class Administration extends TestBase {
 
         // Assert order is cancelled
         Assert.assertTrue(app.getSessionHelper().isOrderCanceled(),
-                "The order wasn't canceled" + "\n");
+                "Can't approve the order was canceled, check manually\n");
     }
 
 

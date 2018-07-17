@@ -297,6 +297,33 @@ public class ShoppingHelper extends HelperBase {
 
 
 
+    // ======= Поиск товаров =======
+
+    public void searchItem(String queryText) {
+        if(isElementPresent(By.name("keywords"))) {
+            printMessage("Searching for \"" + queryText + "\"...");
+            fillField(By.name("keywords"), queryText);
+            hitSearchButton();
+            waitForIt(1);
+        } else {
+            printMessage("Unable to use search - no search field present on the current page");
+        }
+    }
+
+    public void hitSearchButton() {
+        click(By.name("fa-search"));
+    }
+
+    public boolean isSearchResultsEmpty(){
+        return isElementPresent(By.name("search__noresults"));
+    }
+
+    public boolean isSearchResultsDisplayed(){
+        return isElementDisplayed(By.name("products"));
+    }
+
+
+
     // ======= Корзина =======
 
         /**
