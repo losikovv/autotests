@@ -49,6 +49,7 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable("https://instamart.ru/halva");
         assertPageIsAvailable("https://instamart.ru/landings/feedback");
         assertPageIsAvailable("https://vkusvill.instamart.ru/");
+        assertPageIsAvailable("https://instamart.ru/cities/kazan");
     }
 
 
