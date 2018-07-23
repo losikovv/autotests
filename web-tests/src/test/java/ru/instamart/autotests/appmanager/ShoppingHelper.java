@@ -241,8 +241,8 @@ public class ShoppingHelper extends HelperBase {
 
     // ======= Каталог =======
 
-    public boolean isProductDisplayed(){
-        return isElementDisplayed(By.name("product"));
+    public boolean isProductPresent(){
+        return isElementPresent(By.className("product"));
     }
 
     /**
@@ -310,22 +310,22 @@ public class ShoppingHelper extends HelperBase {
     // ======= Поиск товаров =======
 
     public void searchItem(String queryText) {
-        if(isElementPresent(By.xpath("(//input[@name='keywords'])[2]"))) {
-            printMessage("Searching for \"" + queryText + "\"...");
-            fillField(By.xpath("(//input[@name='keywords'])[2]"), queryText);
-            hitSearchButton();
-            waitForIt(1);
-        } else {
-            printMessage("Unable to use search on the current page");
-        }
+        printMessage("Searching for \"" + queryText + "\"...");
+        fillSearchField(queryText);
+        hitSearchButton();
+        waitForIt(1);
+    }
+
+    public void fillSearchField(String queryText) {
+        fillField(By.xpath("(//input[@name='keywords'])[2]"), queryText);
     }
 
     private void hitSearchButton() {
-        click(By.name("header-search__btn"));
+        click((By.xpath("(//button[@type='sumbit'])[2]")));
     }
 
     public boolean isSearchResultsEmpty(){
-        return isElementPresent(By.name("search__noresults"));
+        return isElementPresent(By.className("search__noresults"));
     }
 
 

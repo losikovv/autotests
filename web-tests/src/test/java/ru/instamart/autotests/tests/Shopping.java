@@ -165,7 +165,24 @@ public class Shopping extends TestBase{
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
         // Проверяем что по поисковому запросу нашлись продукты
-        Assert.assertTrue(app.getShoppingHelper().isProductDisplayed(),
+        Assert.assertTrue(app.getShoppingHelper().isProductPresent(),
+                "Can't assert search is working correctly, check manually\n");
+    }
+
+    @Test (
+            description = "Тест упешного поиска товаров c использованием товарных саджестов",
+            groups = {"regression"},
+            priority = 308
+    )
+    public void successSearchForItemWithProductSuggests(){
+        app.getShoppingHelper().fillSearchField("Мороженое");
+
+        // Проверяем что поиск не дал пустой результат
+        Assert.assertFalse(app.getShoppingHelper().isSearchResultsEmpty(),
+                "Search result is empty, so can't assert search is working correctly, check manually\n");
+
+        // Проверяем что по поисковому запросу нашлись продукты
+        Assert.assertTrue(app.getShoppingHelper().isProductPresent(),
                 "Can't assert search is working correctly, check manually\n");
     }
 }
