@@ -126,11 +126,26 @@ public class Registration extends TestBase {
         // Assert user is not registered
     }
 
+    @Test(
+            description = "Негативный тест попытки повторно зарегистрировать существующего пользователя",
+            groups = {"regression"},
+            priority = 6
+    )
+    public void noRegWithExistingEmail() throws Exception {
+        app.getNavigationHelper().getLandingPage();
+        app.getSessionHelper().dropAuth();
+        app.getSessionHelper().regNewUser("Test User", "autotestuser@instamart.ru", "12345678", "12345679");
+
+        // Assert user is not authorised
+        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+                "It's possible to register new user with email of already existing one!\n");
+    }
+
 
     @Test(
             description = "Регистрация нового пользователя на лендинге",
             groups = {"acceptance","regression"},
-            priority = 6
+            priority = 7
     )
     public void successRegOnLandingPage() throws Exception {
         app.getNavigationHelper().getLandingPage();
@@ -151,7 +166,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Регистрация нового пользователя на витрине магазина",
             groups = {"regression"},
-            priority = 7
+            priority = 8
     )
     public void successRegOnRetailerPage() throws Exception {
         app.getNavigationHelper().getRetailerPage(new RetailerData("metro"));
