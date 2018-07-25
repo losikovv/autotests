@@ -305,6 +305,10 @@ public class ShoppingHelper extends HelperBase {
         click(By.className("close"));
     }
 
+    public boolean isItemCardOpen(){
+        return isElementPresent(By.className("product-popup"));
+    }
+
 
 
     // ======= Поиск товаров =======
@@ -318,9 +322,38 @@ public class ShoppingHelper extends HelperBase {
 
     public void fillSearchField(String queryText) {
         fillField(By.xpath("(//input[@name='keywords'])[2]"), queryText);
+        waitForIt(1);
     }
 
-    private void hitSearchButton() {
+    public void hitSuggest(String type) {
+        switch (type) {
+            case "category":
+                hitCategorySuggest();
+            case "product":
+                hitProductSuggest();
+        }
+    }
+
+    public boolean isCategorySuggestPresent(){
+        return isElementPresent(By.className("results__categories"));
+    }
+
+    //TODO переделать локатор
+    public void hitCategorySuggest() {
+        driver.findElement(By.xpath("(//input[@name='keywords'])[2]")).sendKeys(Keys.TAB); // костыль
+        click((By.className("categories__item")));
+    }
+
+    public boolean isProductSuggestPresent(){
+        return isElementPresent(By.className("products_item"));
+    }
+
+    //TODO переделать локатор
+    public void hitProductSuggest() {
+        click((By.className("products_item")));
+    }
+
+    public void hitSearchButton() {
         click((By.xpath("(//button[@type='sumbit'])[2]")));
     }
 

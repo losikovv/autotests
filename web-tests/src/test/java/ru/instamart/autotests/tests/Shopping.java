@@ -157,7 +157,7 @@ public class Shopping extends TestBase{
             groups = {"acceptance","regression"},
             priority = 307
     )
-    public void successSearchForItem(){
+    public void successItemSearch(){
         app.getShoppingHelper().searchItem("шоколад");
 
         // Проверяем что поиск не дал пустой результат
@@ -169,13 +169,22 @@ public class Shopping extends TestBase{
                 "Can't assert search is working correctly, check manually\n");
     }
 
+
     @Test (
-            description = "Тест упешного поиска товаров c использованием товарных саджестов",
+            description = "Тест упешного поиска товаров c использованием категорийных саджестов",
             groups = {"regression"},
             priority = 308
     )
-    public void successSearchForItemWithProductSuggests(){
+    public void successItemSearchUsingCategorySuggests(){
         app.getShoppingHelper().fillSearchField("Мороженое");
+
+        // Проверяем что появились категорийные подсказки
+        Assert.assertTrue(app.getShoppingHelper().isCategorySuggestPresent(),
+                "No category suggest shown\n");
+
+        /* пока не работает hitCategorySuggest
+
+        app.getShoppingHelper().hitCategorySuggest();
 
         // Проверяем что поиск не дал пустой результат
         Assert.assertFalse(app.getShoppingHelper().isSearchResultsEmpty(),
@@ -184,5 +193,31 @@ public class Shopping extends TestBase{
         // Проверяем что по поисковому запросу нашлись продукты
         Assert.assertTrue(app.getShoppingHelper().isProductPresent(),
                 "Can't assert search is working correctly, check manually\n");
+
+        */
+    }
+
+
+    @Test (
+            description = "Тест упешного поиска товаров c использованием товарных саджестов",
+            groups = {"regression"},
+            priority = 309
+    )
+    public void successItemSearchUsingProductSuggests(){
+        app.getShoppingHelper().fillSearchField("Мороженое");
+
+        // Проверяем что появились категорийные подсказки
+        Assert.assertTrue(app.getShoppingHelper().isProductSuggestPresent(),
+                "No product suggest shown\n");
+
+        /* пока не работает hitProductSuggest
+
+        app.getShoppingHelper().hitProductSuggest();
+
+        // Проверяем что открылась карточка товара
+        Assert.assertTrue(app.getShoppingHelper().isItemCardOpen(),
+                "Can't approve successful open item card from search product suggest\n");
+
+        */
     }
 }

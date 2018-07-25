@@ -73,7 +73,7 @@ public class ApplicationManager {
         administrationHelper = new AdministrationHelper(driver, environment);
 
         // Options
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS); // Basic timeout
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS); // Basic timeout
         //driver.manage().window().fullscreen();                              // Open browser in fullscreen mode
 
         System.out.println("\n!!!!!!!!!!!! RELEASING THE KRAKEN !!!!!!!!!!!!\n");
