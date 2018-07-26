@@ -72,6 +72,11 @@ public class NavigationHelper extends HelperBase {
         click(By.linkText("Главная"));
     }
 
+    public void goHome() {
+        printMessage("Going home ...");
+        click(By.className("header-logo"));
+    }
+
 
 
     // ======= ADMIN =======

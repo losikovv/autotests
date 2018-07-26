@@ -25,11 +25,11 @@ public class MakeOrders extends TestBase {
 
 
     @Test(
-            description = "Тест заказа в Казани",
+            description = "Тестовый заказ в Казани",
             groups = {"acceptance","regression"},
             priority = 450
     )
-    public void makeOrderInKazan(){
+    public void Kazan(){
 
         app.getShoppingHelper().changeShippingAddress("Казань, ул Мулланура Вахитова, д 10");
 
@@ -51,7 +51,7 @@ public class MakeOrders extends TestBase {
     @AfterMethod(alwaysRun = true)
     public void cancelLastOrder()throws Exception {
         app.getProfileHelper().cancelLastOrder();
-        app.getNavigationHelper().getRetailerPage("metro");
+        app.getNavigationHelper().goHome();
         app.getShoppingHelper().changeShippingAddress("Москва, ул Просторная, д 77");
     }
 
