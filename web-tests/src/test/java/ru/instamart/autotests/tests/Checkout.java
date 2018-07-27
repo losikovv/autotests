@@ -163,14 +163,32 @@ public class Checkout extends TestBase {
 
 
     @Test(
-            description = "Тест полного оформления заказа с оплатой картой",
+            description = "Тест полного оформления заказа с оплатой картой онлайн",
             groups = {"regression"},
             priority = 406
     )
-    public void performCompleteCheckoutAndPayWithCard(){
+    public void performCompleteCheckoutAndPayWithCardOnline(){
         app.getCheckoutHelper().addPromocode("unicorn");
         app.getCheckoutHelper().addLoyaltyProgram(2, "71891831");
-        app.getCheckoutHelper().completeCheckout("card");
+        app.getCheckoutHelper().completeCheckout("card-online");
+
+        // Проверяем что заказ оформился и активен
+        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+                "Can't assert the order is sent & active, check manually\n");
+
+        app.getProfileHelper().cancelLastOrder();
+    }
+
+
+    @Test(
+            description = "Тест полного оформления заказа с оплатой картой курьеру",
+            groups = {"regression"},
+            priority = 407
+    )
+    public void performCompleteCheckoutAndPayWithCardCourier(){
+        app.getCheckoutHelper().addPromocode("unicorn");
+        app.getCheckoutHelper().addLoyaltyProgram(2, "71891831");
+        app.getCheckoutHelper().completeCheckout("card-courier");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
@@ -183,7 +201,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест полного оформления заказа с оплатой банковским переводом",
             groups = {"regression"},
-            priority = 407
+            priority = 408
     )
     public void performCompleteCheckoutAndPayWithBank(){
         app.getCheckoutHelper().addPromocode("unicorn");

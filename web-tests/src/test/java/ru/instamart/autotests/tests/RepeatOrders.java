@@ -24,11 +24,11 @@ public class RepeatOrders extends TestBase {
 
 
     @Test(
-            description = "Повтор крайнего заказа и оплата картой",
+            description = "Повтор крайнего заказа и оплата картой онлайн",
             groups = {"acceptance","regression"},
             priority = 501
     )
-    public void repeatLastOrderAndPayWithCard() throws Exception {
+    public void repeatLastOrderAndPayWithCardOnline() throws Exception {
         app.getProfileHelper().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
@@ -39,7 +39,7 @@ public class RepeatOrders extends TestBase {
             app.getShoppingHelper().grabCartWithMinimalOrderSum();
         }
         app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",1,"card");
+        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",1,"card-online");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
@@ -48,9 +48,31 @@ public class RepeatOrders extends TestBase {
 
 
     @Test(
-            description = "Повтор крайнего заказа и оплата наличными",
+            description = "Повтор крайнего заказа и оплата картой курьеру",
             groups = {"acceptance","regression"},
             priority = 502
+    )
+    public void repeatLastOrderAndPayWithCardCourier() throws Exception {
+        app.getProfileHelper().repeatLastOrder();
+
+        // Проверяем что заказ повторился и корзина не пуста
+        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
+                "Something went wrong while repeating the last order from the profile\n");
+
+        if(!app.getShoppingHelper().isCheckoutButtonActive()) {
+            app.getShoppingHelper().grabCartWithMinimalOrderSum();
+        }
+        app.getShoppingHelper().proceedToCheckout();
+        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",2,"card-courier");
+
+        // Проверяем что заказ оформился и активен
+        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+                "Can't assert the order is sent & active, check manually\n");
+    }
+    @Test(
+            description = "Повтор крайнего заказа и оплата наличными",
+            groups = {"acceptance","regression"},
+            priority = 503
     )
     public void repeatLastOrderAndPayWithCash() throws Exception {
         app.getProfileHelper().repeatLastOrder();
@@ -63,7 +85,7 @@ public class RepeatOrders extends TestBase {
             app.getShoppingHelper().grabCartWithMinimalOrderSum();
         }
         app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",2,"cash");
+        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
@@ -74,7 +96,7 @@ public class RepeatOrders extends TestBase {
     @Test(
             description = "Повтор крайнего заказа и оплата банковским переводом",
             groups = {"acceptance","regression"},
-            priority = 503
+            priority = 504
     )
     public void repeatLastOrderAndPayWithBank() throws Exception {
         app.getProfileHelper().repeatLastOrder();
@@ -87,7 +109,7 @@ public class RepeatOrders extends TestBase {
             app.getShoppingHelper().grabCartWithMinimalOrderSum();
         }
         app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",3,"bank");
+        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),

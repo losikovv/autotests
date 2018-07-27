@@ -246,7 +246,7 @@ public class CheckoutHelper extends HelperBase {
 
     /**
      * Шаг 4 - выбор способа оплаты
-     * Выбираем способ оплаты из вариантов cash / card / bank
+     * Выбираем способ оплаты из вариантов
      */
     private void doStep4(String paymentType) {
         final int stepNumber = 4;
@@ -258,21 +258,21 @@ public class CheckoutHelper extends HelperBase {
     }
 
     /**
-     * Выбираем способ оплаты из вариантов cash / card / bank
+     * Выбираем способ оплаты
      */
     private void selectPaymentType(String paymentType){
         switch(paymentType){
-            case "cash":
-                //click(By.tagName("Наличными курьеру"));
-                click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div[2]"));
-                break;
-            case "card":
-                //click(By.name("Оплата банковской картой"));
+            case "card-online":
                 click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div[1]"));
                 break;
-            case "bank":
-                //click(By.name("Банковский перевод"));
+            case "card-courier":
+                click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div[2]"));
+                break;
+            case "cash":
                 click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div[3]"));
+                break;
+            case "bank":
+                click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div[4]"));
                 break;
         }
         printMessage("Paying with " + paymentType);
