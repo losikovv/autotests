@@ -58,7 +58,7 @@ public class SessionHelper extends HelperBase {
         switchToRegistration();
         fillRegistrationForm(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
         sendForm();
-        waitForIt(3);
+        waitForIt(4);
     }
 
     /**
@@ -401,8 +401,8 @@ public class SessionHelper extends HelperBase {
 
     private void fillAuthorisationForm(String email, String password) {
         printMessage("Entering auth credentials");
-        fillField(By.name("spree_user[email]"), email);
-        fillField(By.name("spree_user[password]"), password);
+        fillField(By.name("email"), email);
+        fillField(By.name("password"), password);
     }
 
     private void switchToRegistration(){
@@ -411,10 +411,10 @@ public class SessionHelper extends HelperBase {
 
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {
         printMessage("Entering registration credentials");
-        fillField(By.name("spree_user[fullname]"), name);
-        fillField(By.name("spree_user[email]"), email);
-        fillField(By.name("spree_user[password]"), password);
-        fillField(By.name("spree_user[password_confirmation]"), passwordConfirmation);
+        fillField(By.name("fullname"), name);
+        fillField(By.name("email"), email);
+        fillField(By.name("password"), password);
+        fillField(By.name("passwordConfirmation"), passwordConfirmation);
     }
 
     private void sendForm(){
