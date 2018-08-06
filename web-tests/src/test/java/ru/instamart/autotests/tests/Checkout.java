@@ -5,8 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
-
-    // Тесты чекаута
+// Тесты чекаута
 
 
 
@@ -74,27 +73,21 @@ public class Checkout extends TestBase {
     )
     public void addLoyaltyPrograms(){
 
-        // TODO вынести номера, названия и позиции лояльностей в models.LoyaltyData
+        app.getCheckoutHelper().addLoyalty("mnogoru");
+        Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("mnogoru"),
+                "Can't assert loyalty program \"mnogoru\" is applied");
 
-        // Много.ру
-        app.getCheckoutHelper().addLoyaltyProgram(1, "11600350");
-        Assert.assertTrue(app.getCheckoutHelper().isLoyaltyProgramApplied(1),
-                "Can't assert loyalty program #1 is applied");
+        app.getCheckoutHelper().addLoyalty("aeroflot");
+        Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("aeroflot"),
+                "Can't assert loyalty program \"aeroflot\" is applied");
 
-        // Аэрофлот
-        app.getCheckoutHelper().addLoyaltyProgram(2, "71891831");
-        Assert.assertTrue(app.getCheckoutHelper().isLoyaltyProgramApplied(2),
-                "Can't assert loyalty program #2 is applied");
+        app.getCheckoutHelper().addLoyalty("familyteam");
+        Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("familyteam"),
+                "Can't assert loyalty program \"familyteam\" is applied");
 
-        // Семейная команда
-        app.getCheckoutHelper().addLoyaltyProgram(3, "7005992006136053");
-        Assert.assertTrue(app.getCheckoutHelper().isLoyaltyProgramApplied(3),
-                "Can't assert loyalty program #3 is applied");
-
-        // Связной клуб
-        app.getCheckoutHelper().addLoyaltyProgram(4, "2981796259309");
-        Assert.assertTrue(app.getCheckoutHelper().isLoyaltyProgramApplied(4),
-                "Can't assert loyalty program #4 is applied");
+        app.getCheckoutHelper().addLoyalty("svyaznoyclub");
+        Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("svyaznoyclub"),
+                "Can't assert loyalty program \"svyaznoyclub\" is applied");
     }
 
 
@@ -104,11 +97,10 @@ public class Checkout extends TestBase {
             priority = 403
     )
     public void selectLoyaltyProgram(){
-        // TODO брать позиции лояльностей из models.LoyaltyData
-        app.getCheckoutHelper().selectLoyaltyProgram(1);
-        app.getCheckoutHelper().selectLoyaltyProgram(2);
-        app.getCheckoutHelper().selectLoyaltyProgram(3);
-        app.getCheckoutHelper().selectLoyaltyProgram(4);
+        app.getCheckoutHelper().selectLoyalty("mnogoru");
+        app.getCheckoutHelper().selectLoyalty("aeroflot");
+        app.getCheckoutHelper().selectLoyalty("familyteam");
+        app.getCheckoutHelper().selectLoyalty("svyaznoyclub");
         // TODO добавить проверки на наличие модалок после выбора
     }
 
@@ -120,27 +112,21 @@ public class Checkout extends TestBase {
     )
     public void deleteLoyaltyPrograms(){
 
-        // TODO брать позиции лояльностей из models.LoyaltyData
+        app.getCheckoutHelper().clearLoyalty("mnogoru");
+        Assert.assertFalse(app.getCheckoutHelper().isLoyaltyApplied("mnogoru"),
+                "Can't assert loyalty program \"mnogoru\" is cleared");
 
-        // Много.ру
-        app.getCheckoutHelper().clearLoyaltyProgram(1);
-        Assert.assertFalse(app.getCheckoutHelper().isLoyaltyProgramApplied(1),
-                "Can't assert loyalty program #1 is cleared");
+        app.getCheckoutHelper().clearLoyalty("aeroflot");
+        Assert.assertFalse(app.getCheckoutHelper().isLoyaltyApplied("aeroflot"),
+                "Can't assert loyalty program \"aeroflot\" is cleared");
 
-        // Аэрофлот
-        app.getCheckoutHelper().clearLoyaltyProgram(2);
-        Assert.assertFalse(app.getCheckoutHelper().isLoyaltyProgramApplied(2),
-                "Can't assert loyalty program #2 is cleared");
+        app.getCheckoutHelper().clearLoyalty("familyteam");
+        Assert.assertFalse(app.getCheckoutHelper().isLoyaltyApplied("familyteam"),
+                "Can't assert loyalty program \"familyteam\" is cleared");
 
-        // Семейная команда
-        app.getCheckoutHelper().clearLoyaltyProgram(3);
-        Assert.assertFalse(app.getCheckoutHelper().isLoyaltyProgramApplied(3),
-                "Can't assert loyalty program #3 is cleared");
-
-        // Связной клуб
-        app.getCheckoutHelper().clearLoyaltyProgram(4);
-        Assert.assertFalse(app.getCheckoutHelper().isLoyaltyProgramApplied(4),
-                "Can't assert loyalty program #4 is cleared");
+        app.getCheckoutHelper().clearLoyalty("svyaznoyclub");
+        Assert.assertFalse(app.getCheckoutHelper().isLoyaltyApplied("svyaznoyclub"),
+                "Can't assert loyalty program \"svyaznoyclub\" is cleared");
     }
 
 
@@ -151,7 +137,7 @@ public class Checkout extends TestBase {
     )
     public void performCompleteCheckoutAndPayWithCash(){
         app.getCheckoutHelper().addPromocode("unicorn");
-        app.getCheckoutHelper().addLoyaltyProgram(1, "11600350");
+        app.getCheckoutHelper().addLoyalty("mnogoru");
         app.getCheckoutHelper().completeCheckout();
 
         // Проверяем что заказ оформился и активен
@@ -169,7 +155,7 @@ public class Checkout extends TestBase {
     )
     public void performCompleteCheckoutAndPayWithCardOnline(){
         app.getCheckoutHelper().addPromocode("unicorn");
-        app.getCheckoutHelper().addLoyaltyProgram(2, "71891831");
+        app.getCheckoutHelper().addLoyalty("aeroflot");
         app.getCheckoutHelper().completeCheckout("card-online");
 
         // Проверяем что заказ оформился и активен
@@ -187,7 +173,7 @@ public class Checkout extends TestBase {
     )
     public void performCompleteCheckoutAndPayWithCardCourier(){
         app.getCheckoutHelper().addPromocode("unicorn");
-        app.getCheckoutHelper().addLoyaltyProgram(2, "71891831");
+        app.getCheckoutHelper().addLoyalty("familyteam");
         app.getCheckoutHelper().completeCheckout("card-courier");
 
         // Проверяем что заказ оформился и активен
@@ -205,7 +191,7 @@ public class Checkout extends TestBase {
     )
     public void performCompleteCheckoutAndPayWithBank(){
         app.getCheckoutHelper().addPromocode("unicorn");
-        app.getCheckoutHelper().addLoyaltyProgram(4, "2981796259309");
+        app.getCheckoutHelper().addLoyalty("svyaznoyclub");
         app.getCheckoutHelper().completeCheckout("bank");
 
         // Проверяем что заказ оформился и активен

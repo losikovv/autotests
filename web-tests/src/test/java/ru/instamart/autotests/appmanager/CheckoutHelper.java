@@ -3,10 +3,10 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.models.LoyaltiesData;
 
 
-
-    // Checkout helper
+// Checkout helper
     // Handles all the process of finalizing and sending the order
 
 
@@ -380,9 +380,8 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-    /**
-     * Добавляем промокод в чекауте
-     */
+
+    /** Добавляем промокод в чекауте */
     public void addPromocode(String promocode){
         if(!isPromocodeApplied()) {
             printMessage("Adding promocode \"" + promocode + "\"...");
@@ -395,9 +394,8 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-    /**
-     * Удаляем промокод в чекауте
-     */
+
+    /** Удаляем промокод в чекауте */
     public void clearPromocode(){
         if(isPromocodeApplied()) {
             printMessage("Clearing promocode...");
@@ -410,44 +408,49 @@ public class CheckoutHelper extends HelperBase {
 
 
 
+
     // ======= Loyalty Programs =======
 
     /**
      * Определяем применена ли программа лояльности
      */
-    public boolean  isLoyaltyProgramApplied(int position) {
-        return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]/div[2]"));
+    public boolean isLoyaltyApplied(String name) {
+        return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + LoyaltiesData.getPosition(name) + "]/div[2]"));
     }
+
 
     /**
      * Добавляем программу лояльности к заказу в чекауте
      */
-    public void addLoyaltyProgram(int position, String cardNumber){
-        if(isLoyaltyProgramApplied(position)){
-            clearLoyaltyProgram(position);
+    public void addLoyalty(String name){
+        if(isLoyaltyApplied(name)){
+            clearLoyalty(name);
         }
-        printMessage("Adding loyalty program #" + position);
-        click(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]"));
-        fillField(By.name("number"), cardNumber + "\uE007");
+        printMessage("Adding loyalty program \"" + name + "\"");
+        click(By.xpath("//aside/div/div[3]/div[2]/div[" + LoyaltiesData.getPosition(name) + "]"));
+        fillField(By.name("number"), LoyaltiesData.getNumber(name) + "\uE007");
         waitForIt(1);
     }
+
 
     /**
      * Выбираем программу лояльности для заказа из добавленных
      */
-    public void selectLoyaltyProgram(int position){
-        click(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]"));
+    public void selectLoyalty(String name){
+        click(By.xpath("//aside/div/div[3]/div[2]/div[" + LoyaltiesData.getPosition(name) + "]"));
     }
+
 
     /**
      * Удаляем программу лояльности в чекауте
      */
-    public void clearLoyaltyProgram(int position){
-        printMessage("Clearing loyalty program #" + position);
-        click(By.xpath("//aside/div/div[3]/div[2]/div[" + position + "]/div[2]"));
+    public void clearLoyalty(String name){
+        printMessage("Clearing loyalty program \"" + name + "\"");
+        click(By.xpath("//aside/div/div[3]/div[2]/div[" + LoyaltiesData.getPosition(name) + "]/div[2]"));
         fillField(By.name("number"), 1 + "\uE004" + "\uE007");
         waitForIt(1);
     }
+
 
 
 
@@ -455,13 +458,19 @@ public class CheckoutHelper extends HelperBase {
 
     // TODO методы работы с программами лояльностей ретайлеров (нали чие программы + методы как для обычных лояльностей)
 
+    /** Определяем доступна ли программа лояльности ритейлера в чекауте */
+    public boolean isReatailerLoyaltyAvailable(){
+        final String TEXT = "Карты лояльности магазинов";
+        final String XPATH = "//aside/div/div[4]/div[2]";
+        return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals(TEXT);
+    }
+
+
 
 
     // ======= Common =======
 
-    /**
-     * Проверяем готовность чекаута перед заполнением
-     */
+    /** Проверяем готовность чекаута перед заполнением */
     private void checkCheckoutIsReady() {
         if(isOnCheckout()){
             printMessage("Checking-out\n");
@@ -471,32 +480,28 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-    /**
-     * Нажимаем кнопки "Продолжить" в шагах чекаута
-     */
+
+    /** Нажимаем кнопки "Продолжить" в шагах чекаута */
     private void hitNextButton(int step) {
         click(By.xpath("(//button[@type='button'])["+step+"]"));
         printMessage("Next\n");
         waitForIt(1);
     }
 
-    /**
-     * Нажимаем кнопку отправки заказа и ждем пока заказ оформится
-     */
+
+    /** Нажимаем кнопку отправки заказа и ждем пока заказ оформится */
     private void hitSendButton() {
         if (isSendButtonActive()) {
             click(By.className("checkout-btn--make-order"));
         } else {
             printMessage("Can't send order - send button is not active at the moment\n");
         }
-        // TODO добавить проверку на наличие спиннера отправки заказа, писать Order sent только если есть спиннер
-        printMessage("Order sent\n");
         waitForIt(3);
+        printMessage("Order sent\n");
     }
 
-    /**
-     * Проверяем готовность шага чекаута перед заполнением
-     */
+
+    /** Проверяем готовность шага чекаута перед заполнением */
     private boolean checkStep(int stepNumber, String stepName) {
         if (stepNumber != 5) { // костыль если доставки остался выбраным в предыдущих тестах
             if (isStepActive(stepNumber)) {
@@ -510,7 +515,7 @@ public class CheckoutHelper extends HelperBase {
                 } else return true;
             }
         } else {
-            if(isElementDisplayed(By.className("windows-selector-panel"))) {
+            if(isElementPresent(By.className("windows-selector-panel"))) {
                 printMessage("Step " + stepNumber + " - " + stepName);
                 return true;
             } else {
@@ -521,17 +526,14 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-    /**
-     * Определяем активен ли шаг чекаута в данный момент
-     * Активность определяется по наличию кнопок "Продолжить"
-     */
+
+    /** Определяем активен ли шаг чекаута в данный момент, по наличию кнопок "Продолжить" */
     private boolean isStepActive(int step){
         return isElementPresent((By.xpath("(//button[@type='button'])["+step+"]")));
     }
 
-    /**
-     * Определяем активна ли кнопка отправки заказа
-     */
+
+    /** Определяем активна ли кнопка отправки заказа */
     private boolean isSendButtonActive(){
         return isElementEnabled(By.className("checkout-finalize__button"));
     }
