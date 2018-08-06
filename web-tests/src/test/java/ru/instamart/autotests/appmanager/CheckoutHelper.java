@@ -456,13 +456,37 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Retailer Loyalties =======
 
-    // TODO методы работы с программами лояльностей ретайлеров (нали чие программы + методы как для обычных лояльностей)
-
     /** Определяем доступна ли программа лояльности ритейлера в чекауте */
     public boolean isReatailerLoyaltyAvailable(){
         final String TEXT = "Карты лояльности магазинов";
         final String XPATH = "//aside/div/div[4]/div[2]";
         return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals(TEXT);
+    }
+
+    /** Определяем применена ли программа лояльности ритейлера в чекауте */
+    public boolean isReatailerLoyaltyApplied(){
+        return isElementPresent(By.xpath("//aside/div/div[4]/div[3]/div/div[2]"));
+    }
+
+    /**
+     * Добавляем программу лояльности ритейлера в чекауте
+     */
+    public void addRetailerLoyalty(String name){
+        if(isReatailerLoyaltyApplied()){
+            clearRetailerLoyalty();
+        }
+        printMessage("Adding retailer loyalty program");
+        click(By.xpath("//aside/div/div[4]/div[3]/div"));
+        fillField(By.name("number"), LoyaltiesData.getNumber(name) + "\uE007");
+        waitForIt(1);
+    }
+
+    /** Удаляем программу лояльности ритейлера в чекауте */
+    public void clearRetailerLoyalty(){
+        printMessage("Clearing retailer loyalty program");
+        click(By.xpath("//aside/div/div[4]/div[3]/div"));
+        fillField(By.name("number"), 1 + "\uE004" + "\uE007");
+        waitForIt(1);
     }
 
 
