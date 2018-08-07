@@ -19,7 +19,7 @@ public class MakeOrders extends TestBase {
 
         // авторизуемся, если нужно
         if(!app.getSessionHelper().isUserAuthorised()) {
-            app.getSessionHelper().doLoginAsAdmin();
+            app.getSessionHelper().doLoginAs("admin");
         }
     }
 

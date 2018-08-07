@@ -18,7 +18,7 @@ public class Checkout extends TestBase {
 
         // авторизуемся, если нужно
         if(!app.getSessionHelper().isUserAuthorised()) {
-            app.getSessionHelper().doLoginAsAdmin();
+            app.getSessionHelper().doLoginAs("admin");
         }
 
         // идем в чекаут

@@ -4,10 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.testdata.Users;
 
 
-
-    // Session helper is for handling testing sessions
+// Session helper is for handling testing sessions
     // Contains various methods for user and orders
 
 
@@ -28,7 +28,7 @@ public class SessionHelper extends HelperBase {
             if (isUserAuthorised()) {
                 doLogout();
             }
-            doLoginAsAdmin();
+            doLoginAs("admin");
             getUrl(targetUrl);
         }
     }
@@ -180,18 +180,11 @@ public class SessionHelper extends HelperBase {
 
     // ======= Handling test users =======
 
-    // TODO перенести в UserData
-    /**
-     * Do log-in with user credentials of autotest@instamart.ru which is reserved for autotests and have admin privileges
-     */
-    public void doLoginAsAdmin() {
-        final String LOGIN = "autotestuser@instamart.ru";
-        final String PASSWORD = "DyDrasLipMeibe7";
-        doLogin(new UserData(LOGIN, PASSWORD, null));
-        printMessage("Logged-in with admin privileges as " + LOGIN + "\n");
+    public void doLoginAs(String role) {
+        doLogin(Users.getCredentials(role));
+        printMessage("Logged-in with " + role + " privileges\n");
     }
 
-    // TODO перенести в UserData
     /**
      * Do log-in with Facebook as reserved for testing needs user
      */
@@ -199,7 +192,6 @@ public class SessionHelper extends HelperBase {
         //TODO
     }
 
-    // TODO перенести в UserData
     /**
      * Do log-in with VKontakte as reserved for testing needs user
      */
@@ -396,7 +388,11 @@ public class SessionHelper extends HelperBase {
     }
 
     private void switchToAuthorisation(){
-        click(By.xpath("//*[@id='auth']/div/div/div[1]/div/button[1]"));
+        if(currentURL().equals(baseUrl)) {
+            click(By.xpath("//*[@id='auth']/div/div/div[1]/div/button[1]"));
+        } else {
+            click(By.xpath("//*[@id='react-modal']/div/div/div/span/div[1]/div/div/div/div/div/div/div[1]/div/button[1]"));
+        }
     }
 
     private void fillAuthorisationForm(String email, String password) {
@@ -406,7 +402,11 @@ public class SessionHelper extends HelperBase {
     }
 
     private void switchToRegistration(){
-        click(By.xpath("//*[@id='auth']/div/div/div[1]/div/button[2]"));
+        if(currentURL().equals(baseUrl)) {
+            click(By.xpath("//*[@id='auth']/div/div/div[1]/div/button[2]"));
+        } else {
+            click(By.xpath("//*[@id='react-modal']/div/div/div/span/div[1]/div/div/div/div/div/div/div[1]/div/button[2]"));
+        }
     }
 
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {
@@ -419,7 +419,11 @@ public class SessionHelper extends HelperBase {
 
     private void sendForm(){
         printMessage("Sending form\n");
-        click(By.xpath("//*[@id='auth']/div/div/div[1]/form/div/button"));
+        if(currentURL().equals(baseUrl)) {
+            click(By.xpath("//*[@id='auth']/div/div/div[1]/form/div/button"));
+        } else {
+            click(By.xpath("//*[@id='react-modal']/div/div/div/span/div[1]/div/div/div/div/div/div/div[1]/form/div/button"));
+        }
     }
 
     /**
