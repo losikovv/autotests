@@ -7,19 +7,7 @@ package ru.instamart.autotests.models;
 
 
 public class LoyaltiesData {
-    private final String cardName;
-    private final String cardNumber;
-    private final int position;
 
-    public LoyaltiesData(String cardName, String cardNumber, int position) {
-        this.cardName = cardName;
-        this.cardNumber = cardNumber;
-        this.position = position;
-    }
-
-    public String name(String name) { return cardName;}
-    public String number(String name) { return cardNumber;}
-    public int position(String name) { return position;}
 
     public static String getNumber(String name) {
         String cardNumber = null;
