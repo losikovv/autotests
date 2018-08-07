@@ -93,6 +93,10 @@ public class HelperBase {
         return driver.findElement(locator).getText();
     }
 
+    public boolean isElementDetected(String xpath, String text) {
+        return isElementPresent(By.xpath(xpath)) && getText(By.xpath(xpath)).equals(text);
+    }
+
     /**
      * Find out if the element is shown on the page
      */
