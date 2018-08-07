@@ -17,6 +17,12 @@ public class UserData {
         this.name = name;
     }
 
+    public UserData(String login, String password) {
+        this.login = login;
+        this.password = password;
+        this.name = null;
+    }
+
     public String getLogin() {
         return login;
     }
