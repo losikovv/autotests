@@ -207,14 +207,11 @@ public class SessionHelper extends HelperBase {
     public void deleteAllTestUsers() {
 
         final String targetPath = "admin/users?q%5Bemail_cont%5D=testuser%40example.com";
-        printMessage("Deleting all test users...");
-
-        // Getting target URL in admin panel which contains table with test users only
         getUrlAsAdmin(baseUrl + targetPath);
+
         // Delete first user if it's present in the list
         if(isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr"))) {
             deleteFirstUserInTable();
-            printMessage("Test user has been deleted\n"); //TODO добавить вывод логина пользователя, брать со страницы
             // Keep deleting users recursively
             deleteAllTestUsers();
         } else {
@@ -227,8 +224,10 @@ public class SessionHelper extends HelperBase {
      * Delete first user in the Users table in admin panel
      */
     private void deleteFirstUserInTable() {
-        printMessage("Deleting user on " + currentURL());
-        click(By.xpath("//*[@id='content']/div/table/tbody/tr/td[3]/a[2]"));
+        String XPATH_LOGIN = "//*[@id='content']/div/table/tbody/tr[1]/td[1]/div[1]/a";
+        String XPATH_DELETE = "//*[@id='content']/div/table/tbody/tr/td[3]/a[2]";
+        printMessage("- delete user " + getText(By.xpath(XPATH_LOGIN)) + " on " + currentURL());
+        click(By.xpath(XPATH_DELETE));
         closeAlertAndGetItsText();
         waitForIt(1);
     }
@@ -247,15 +246,11 @@ public class SessionHelper extends HelperBase {
         // позже нужно переделать под юзеров @example.com
 
         final String targetPath = "admin/shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D%5B%5D=ready";
-        printMessage("Canceling all test orders...");
-
-        // Getting target URL in admin panel which contains table with test orders only
         getUrlAsAdmin(baseUrl + targetPath);
 
         // Cancel first order if it's present in the list
         if(!isElementPresent(By.className("no-objects-found"))) {
             cancelFirstOrderInTable();
-            printMessage("Test order has been canceled\n");
             // Keep cancelling orders recursively
             cancelAllTestOrders();
         } else {
@@ -264,36 +259,24 @@ public class SessionHelper extends HelperBase {
     }
 
     // TODO перенести в Administration helper
-    /**
-     * Cancel first order in the Shipments table in admin panel
-     */
-    // TODO прокидывать причину отмены и текст
+    /** Cancel first order in the Shipments table in admin panel */
     private void cancelFirstOrderInTable(){
-        // Go to the first order in table
         click(By.xpath("//*[@id='listing_orders']/tbody/tr/td[14]/a"));
         waitForIt(1);
-        // Perform cancellation
-        cancelOrder();
+        cancelOrder(); // TODO прокидывать причину отмены и текст
     }
 
     // TODO перенести в Administration helper
-    /**
-     * Cancel order with the given number
-     */
-    // TODO прокидывать причину отмены и текст
+    /** Cancel order with the given number */
     public void cancelOrder(String orderNumber){
-        // get order page in admin panel
         getUrlAsAdmin(baseUrl + "admin/orders/" + orderNumber + "/edit");
         cancelOrder();
     }
 
     // TODO перенести в Administration helper
-    /**
-     * Cancel order on the order page in admin panel
-     */
-    // TODO Параметризовать причину отмены и текст
-    public void cancelOrder(){
-        printMessage("Canceling order on " + currentURL());
+    /** Cancel order on the order page in admin panel */
+    public void cancelOrder(){ // TODO Параметризовать причину отмены и текст
+        printMessage("- cancel order " + currentURL());
         // click cancel button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
         // accept order cancellation alert
@@ -355,10 +338,10 @@ public class SessionHelper extends HelperBase {
     public void cleanup(){
         printMessage("================= CLEANING-UP =================\n");
 
-        printMessage("Canceling test orders");
+        printMessage("Canceling test orders ...");
         cancelAllTestOrders();
 
-        printMessage("Deleting test users");
+        printMessage("Deleting test users ...");
         deleteAllTestUsers();
     }
 
