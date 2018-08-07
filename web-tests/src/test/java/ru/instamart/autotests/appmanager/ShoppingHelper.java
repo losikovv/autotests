@@ -48,22 +48,6 @@ public class ShoppingHelper extends HelperBase {
         } else {return false;}
     }
 
-
-
-//TODO e,hfnm vtnjl - yt b
-    /**
-     * Set default shipping address
-     */
-    public void setDefaultShippingAddress(){
-        final String address = "Москва, ул Люблинская, д 123"; //TODO вынести переменную в конфиг
-        printMessage("Setting default shipping address: " + address);
-        fillAddressField(address);
-        selectAddressSuggest(1);
-        //waitForIt();  // доп. задержка - повышает стабильность при тормозах на сайте
-        clickChooseShopButton();
-        waitForIt(2);
-    }
-
     /**
      * Set shipping address with one in the given string
      */
