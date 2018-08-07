@@ -3,6 +3,12 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+
+
+    // Тесты адреса доставки
+
+
+
 public class ShippingAddress extends TestBase {
 
 
@@ -145,7 +151,7 @@ public class ShippingAddress extends TestBase {
     )
     public void sucessShippingAddressFetchAfterAuthorisation() throws Exception {
         app.getNavigationHelper().getLandingPage();
-        app.getSessionHelper().doLoginAsAdmin();
+        app.getSessionHelper().doLoginAs("admin");
 
         // Assert shipping address is set after authorisation
         Assert.assertTrue(app.getShoppingHelper().isShippingAddressSet(),

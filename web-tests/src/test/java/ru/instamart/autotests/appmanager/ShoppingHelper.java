@@ -5,6 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.testdata.Addresses;
 
 
 
@@ -23,19 +24,33 @@ public class ShoppingHelper extends HelperBase {
 
     // ======= Адрес доставки =======
 
-    /**
-     * Find out if shipping address is empty by checking ship address bar
-     */
+    /** Определяем пуст ли адрес доставки */
     public boolean isShippingAddressEmpty() {
-        String XPATH = "//*[@id='wrap']/div[1]/div/div/div/div/div[1]/div/div/div[2]";
+        final String XPATH = "//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/div/text()";
+        final String TEXT = "Укажите ваш адрес для отображения доступных магазинов";
         if(currentURL().equals(baseUrl)){
-            printMessage("User is on the landing, so shipping address is empty");
+            printMessage("User is on the landing, so shipping address is not set");
             return true;
         }
-        return isElementPresent(By.xpath(XPATH))
-                && getText(By.xpath(XPATH)).equals("Укажите ваш адрес для отображения доступных магазинов");
+        return isElementDetected(XPATH,TEXT);
     }
 
+    /** Определяем выбран ли адрес доставки */
+    public boolean isShippingAddressSet() {
+        String TEXT = "Изменить";
+        String XPATH = "//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/div/button";
+        if(isElementDetected(XPATH,TEXT)){
+            printMessage("Shipping address is set\n");
+            return true;
+        } else if (isShippingAddressEmpty()) {
+            printMessage("Shipping address is not set\n");
+            return false;
+        } else {return false;}
+    }
+
+
+
+//TODO e,hfnm vtnjl - yt b
     /**
      * Set default shipping address
      */
@@ -62,21 +77,6 @@ public class ShoppingHelper extends HelperBase {
     }
 
     /**
-     * Return true if "Change" button is presented in shipping address bar
-     */
-    public boolean isShippingAddressSet() {
-        String TEXT = "Изменить";
-        String XPATH = "//*[@id='wrap']/div[1]/div/div/div/div/div[1]/div/div/button";
-        if(isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals(TEXT)){
-            printMessage("Shipping address is set\n");
-            return true;
-        } else {
-            printMessage("Shipping address isn' set\n");
-            return false;
-        }
-    }
-
-    /**
      * Change current shipping address with one in the given string
      */
     public void changeShippingAddress(String newAddress){
@@ -90,7 +90,7 @@ public class ShoppingHelper extends HelperBase {
      * Return current shipping address string
      */
     public String currentShippingAddress(){
-        String shippingAddress = getText(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div[1]/div/div/span"));
+        String shippingAddress = getText(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/div/span"));
         printMessage("Current shipping address: " + shippingAddress);
         return shippingAddress;
     }
@@ -99,7 +99,7 @@ public class ShoppingHelper extends HelperBase {
      * Fill address field by sending a backspace key
      */
     private void clearAddressField(){ ;
-        driver.findElement(By.id("ship_address")).sendKeys(Keys.BACK_SPACE);
+        driver.findElement(By.id("header_ship_address")).sendKeys(Keys.BACK_SPACE);
     }
 
     /**
@@ -107,7 +107,7 @@ public class ShoppingHelper extends HelperBase {
      */
     private void fillAddressField(String address){
         clearAddressField();
-        fillField(By.id("ship_address"),address);
+        fillField(By.id("header_ship_address"),address);
         if(!currentURL().equals(baseUrl)) {
             waitForIt(1);
         }
@@ -284,7 +284,7 @@ public class ShoppingHelper extends HelperBase {
     // ======= Карточка товара  =======
 
     private void hitPlus() {
-        final String XPATH = "//*[@id='the-modal']/div/div/div/div/div/div[2]/div[2]/div[2]/div/div[3]/button[2]";
+        final String XPATH = "//*[@id='react-modal']/div/div/div/span/div[1]/div/div/div/div/span/div/div[2]/div[2]/div[2]/div/div[3]/button[2]";
         if(isElementEnabled(By.xpath(XPATH))) {
             click(By.xpath(XPATH));
         } else {
@@ -293,7 +293,7 @@ public class ShoppingHelper extends HelperBase {
     }
 
     private void hitMinus() {
-        final String XPATH = "//*[@id='the-modal']/div/div/div/div/div/div[2]/div[2]/div[2]/div/div[3]/button[1]";
+        final String XPATH = "//*[@id='react-modal']/div/div/div/span/div[1]/div/div/div/div/span/div/div[2]/div[2]/div[2]/div/div[3]/button[1]";
         if(isElementDisplayed(By.xpath(XPATH))) {
             click(By.xpath(XPATH));
         } else {
@@ -321,7 +321,8 @@ public class ShoppingHelper extends HelperBase {
     }
 
     public void fillSearchField(String queryText) {
-        fillField(By.xpath("(//input[@name='keywords'])[2]"), queryText);
+        //click(By.className("header-search-wrapper"));
+        fillField(By.name("search"), queryText);
         waitForIt(1);
     }
 
@@ -394,28 +395,27 @@ public class ShoppingHelper extends HelperBase {
             return isElementPresent(By.className("new-cart-empty"));
         }
 
-        /**
-        * Временный метод, очищающий корзину изменениями адреса доставки, пока не запилят нормальную очистку корзины
-        */
+        /** Временный метод, очищающий корзину изменениями адреса доставки, пока не запилят очистку корзины */
         public void dropCart(){
             if(!isCartEmpty()) {
                 if(isCartOpen()){ closeCart(); }
+
                 String currentAddress = currentShippingAddress();
-                String addressOne = "Москва, ул Тверская, д 13";
-                String addressTwo = "Москва, ул Люсиновская, д 12";
+                String addressOne = Addresses.get("default");
+                String addressTwo = Addresses.get("non-default");
+
                 if (currentAddress.equals(addressOne)) {
                     changeShippingAddress(addressTwo);
+                } else {
+                    changeShippingAddress(addressTwo);
+                    changeShippingAddress(addressOne);
                 }
-                changeShippingAddress(addressOne);
             }
-            if(isCartOpen()){
-                closeCart();
-            }
+
+            if(isCartOpen()){ closeCart(); }
         }
 
-        /**
-        * Возвращаем активна ли кнопка "Сделать заказ" в корзине
-        */
+        /** Возвращаем активна ли кнопка "Сделать заказ" в корзине */
         public boolean isCheckoutButtonActive(){
             if(!isCartOpen()){
                 openCart();

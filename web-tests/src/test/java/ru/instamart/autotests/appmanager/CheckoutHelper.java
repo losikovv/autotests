@@ -3,7 +3,7 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.EnvironmentData;
-import ru.instamart.autotests.models.LoyaltiesData;
+import ru.instamart.autotests.testdata.Loyalties;
 
 
 // Checkout helper
@@ -415,7 +415,7 @@ public class CheckoutHelper extends HelperBase {
      * Определяем применена ли программа лояльности
      */
     public boolean isLoyaltyApplied(String name) {
-        return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + LoyaltiesData.getPosition(name) + "]/div[2]"));
+        return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
     }
 
 
@@ -427,8 +427,8 @@ public class CheckoutHelper extends HelperBase {
             clearLoyalty(name);
         }
         printMessage("Adding loyalty program \"" + name + "\"");
-        click(By.xpath("//aside/div/div[3]/div[2]/div[" + LoyaltiesData.getPosition(name) + "]"));
-        fillField(By.name("number"), LoyaltiesData.getNumber(name) + "\uE007");
+        click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]"));
+        fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
         waitForIt(1);
     }
 
@@ -437,7 +437,7 @@ public class CheckoutHelper extends HelperBase {
      * Выбираем программу лояльности для заказа из добавленных
      */
     public void selectLoyalty(String name){
-        click(By.xpath("//aside/div/div[3]/div[2]/div[" + LoyaltiesData.getPosition(name) + "]"));
+        click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]"));
     }
 
 
@@ -446,7 +446,7 @@ public class CheckoutHelper extends HelperBase {
      */
     public void clearLoyalty(String name){
         printMessage("Clearing loyalty program \"" + name + "\"");
-        click(By.xpath("//aside/div/div[3]/div[2]/div[" + LoyaltiesData.getPosition(name) + "]/div[2]"));
+        click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
         fillField(By.name("number"), 1 + "\uE004" + "\uE007");
         waitForIt(1);
     }
@@ -477,7 +477,7 @@ public class CheckoutHelper extends HelperBase {
         }
         printMessage("Adding retailer loyalty program");
         click(By.xpath("//aside/div/div[4]/div[3]/div"));
-        fillField(By.name("number"), LoyaltiesData.getNumber(name) + "\uE007");
+        fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
         waitForIt(1);
     }
 
@@ -539,7 +539,7 @@ public class CheckoutHelper extends HelperBase {
                 } else return true;
             }
         } else {
-            if(isElementPresent(By.className("windows-selector-panel"))) {
+            if(isElementDisplayed(By.className("windows-selector-panel"))) {
                 printMessage("Step " + stepNumber + " - " + stepName);
                 return true;
             } else {

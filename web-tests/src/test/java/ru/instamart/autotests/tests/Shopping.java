@@ -17,7 +17,7 @@ public class Shopping extends TestBase{
     public void getAuth() throws Exception {
         app.getNavigationHelper().getLandingPage();
         if(!app.getSessionHelper().isUserAuthorised()) {
-            app.getSessionHelper().doLoginAsAdmin();
+            app.getSessionHelper().doLoginAs("admin");
         }
     }
 

@@ -16,7 +16,7 @@ public class ShippingAddressFenix extends TestBase{
         if(app.getSessionHelper().isUserAuthorised()) {
             app.getSessionHelper().doLogout();
         } else {
-            app.getSessionHelper().doLoginAsAdmin();
+            app.getSessionHelper().doLoginAs("user");
             app.getSessionHelper().doLogout();
         }
     }

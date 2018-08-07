@@ -21,7 +21,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithoutEmail() throws Exception, AssertionError {
         app.getNavigationHelper().getLandingPage();
         app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin(new UserData("", "instamart", null));
+        app.getSessionHelper().doLogin(new UserData("", "instamart"));
 
         // Assert user isn't authorised
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
@@ -37,7 +37,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithoutPassword() throws Exception, AssertionError {
         app.getNavigationHelper().getLandingPage();
         app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "", null));
+        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", ""));
 
         // Assert user isn't authorised
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
@@ -53,7 +53,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithNonexistingUser() throws Exception, AssertionError {
         app.getNavigationHelper().getLandingPage();
         app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin(new UserData("nonexistinguser@example.com", "password", null));
+        app.getSessionHelper().doLogin(new UserData("nonexistinguser@example.com", "password"));
 
         // Assert user isn't authorised
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
@@ -69,7 +69,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithWrongPassword() throws Exception, AssertionError {
         app.getNavigationHelper().getLandingPage();
         app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "wrongpassword", null));
+        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "wrongpassword"));
 
         // Assert user isn't authorised
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
@@ -85,7 +85,7 @@ public class Authorisation extends TestBase {
     public void successAuthOnLandingPage() throws Exception, AssertionError {
         app.getNavigationHelper().getLandingPage();
         app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart", null));
+        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
 
         // Assert user is authorised
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
@@ -103,7 +103,7 @@ public class Authorisation extends TestBase {
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
         app.getNavigationHelper().getPage("vkusvill");
         app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart", null));
+        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
 
         // Assert user is authorised
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
@@ -119,7 +119,7 @@ public class Authorisation extends TestBase {
             priority = 107
     )
     public void logout() throws Exception, AssertionError {
-        app.getSessionHelper().doLoginAsAdmin();
+        app.getSessionHelper().doLoginAs("admin");
         app.getSessionHelper().doLogout();
 
         // Assert there is no problems after logout
