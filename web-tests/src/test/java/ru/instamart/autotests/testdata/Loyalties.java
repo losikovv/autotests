@@ -1,16 +1,15 @@
-package ru.instamart.autotests.models;
+package ru.instamart.autotests.testdata;
 
 
 
-    // Данные программ лояльности
+    // Тестовые карты программ лояльности
 
 
 
-public class LoyaltiesData {
-
+public class Loyalties {
 
     public static String getNumber(String name) {
-        String cardNumber = null;
+        final String cardNumber;
         switch (name) {
             case "mnogoru":
                 cardNumber = "11600350";
@@ -27,12 +26,13 @@ public class LoyaltiesData {
             case "vkusvill":
                 cardNumber = "2281023";
                 break;
+            default: cardNumber = null;
         }
         return cardNumber;
     }
 
     public static int getPosition(String name) {
-        int position = 0;
+        final int position;
         switch (name) {
             case "mnogoru":
                 position = 1;
@@ -49,6 +49,7 @@ public class LoyaltiesData {
             case "vkusvill":
                 position = 5;
                 break;
+            default: position = 0;
         }
         return position;
     }
