@@ -13,7 +13,9 @@ public class Generate {
 
     /** Generate user data for testing needs */
     public static UserData testUserData() {
-        return new UserData(randomString(8) + "-testuser@example.com", "instamart", "Тест Юзер");
+        final String prefix = randomString(8);
+        final String base = "testuser@example.com";
+        return new UserData(prefix + "-" + base, "instamart", "Тест Юзер");
     }
 
     /** Generate random string with given length */
