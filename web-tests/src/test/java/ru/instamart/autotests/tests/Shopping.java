@@ -16,9 +16,7 @@ public class Shopping extends TestBase{
     @BeforeMethod(alwaysRun = true)
     public void getAuth() throws Exception {
         app.getNavigationHelper().getLandingPage();
-        if(!app.getSessionHelper().isUserAuthorised()) {
-            app.getSessionHelper().doLoginAs("admin");
-        }
+            app.getSessionHelper().conditionalDoLoginAs("admin");
     }
 
 
@@ -165,7 +163,7 @@ public class Shopping extends TestBase{
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
         // Проверяем что по поисковому запросу нашлись продукты
-        Assert.assertTrue(app.getShoppingHelper().isProductPresent(),
+        Assert.assertTrue(app.getShoppingHelper().isProductAvailable(),
                 "Can't assert search is working correctly, check manually\n");
     }
 
@@ -191,7 +189,7 @@ public class Shopping extends TestBase{
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
         // Проверяем что по поисковому запросу нашлись продукты
-        Assert.assertTrue(app.getShoppingHelper().isProductPresent(),
+        Assert.assertTrue(app.getShoppingHelper().isProductAvailable(),
                 "Can't assert search is working correctly, check manually\n");
 
         */

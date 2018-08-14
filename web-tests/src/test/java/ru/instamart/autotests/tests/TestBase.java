@@ -35,8 +35,8 @@ public class TestBase {
     protected void assertPageIsAvailable() throws AssertionError{
         //TODO добавить проверку на то что это не 502 от cloudFlare
         String currentURL = app.getNavigationHelper().currentURL();
-        Assert.assertFalse(app.getNavigationHelper().its404(),"Page " + currentURL + " is 404" + "\n");
-        Assert.assertFalse(app.getNavigationHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
+        Assert.assertFalse(app.getNavigationHelper().is404(),"Page " + currentURL + " is 404" + "\n");
+        Assert.assertFalse(app.getNavigationHelper().is500(),"It's something wrong on page " + currentURL + "\n");
         app.getNavigationHelper().printMessage("Current page " + currentURL + " is available");
     }
 
@@ -50,8 +50,8 @@ public class TestBase {
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL " + targetURL + "\n");
-        Assert.assertFalse(app.getNavigationHelper().its404(),"Page " + currentURL + " is 404" + "\n");
-        Assert.assertFalse(app.getNavigationHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
+        Assert.assertFalse(app.getNavigationHelper().is404(),"Page " + currentURL + " is 404" + "\n");
+        Assert.assertFalse(app.getNavigationHelper().is500(),"It's something wrong on page " + currentURL + "\n");
         app.getNavigationHelper().printMessage("Page " + URL + " is available");
     }
 
@@ -61,8 +61,8 @@ public class TestBase {
     protected void assertPageIs404() throws AssertionError{
         String currentURL = app.getNavigationHelper().currentURL();
         app.getNavigationHelper().printMessage("Checking current page " + currentURL + " is 404");
-        Assert.assertTrue(app.getNavigationHelper().its404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
-        Assert.assertFalse(app.getNavigationHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
+        Assert.assertTrue(app.getNavigationHelper().is404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
+        Assert.assertFalse(app.getNavigationHelper().is500(),"It's something wrong on page " + currentURL + "\n");
     }
 
     /**
@@ -75,11 +75,9 @@ public class TestBase {
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL" + targetURL + "\n");
-        Assert.assertTrue(app.getNavigationHelper().its404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
-        Assert.assertFalse(app.getNavigationHelper().itsSomethingWrong(),"It's something wrong on page " + currentURL + "\n");
+        Assert.assertTrue(app.getNavigationHelper().is404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
+        Assert.assertFalse(app.getNavigationHelper().is500(),"It's something wrong on page " + currentURL + "\n");
     }
-
-    // TODO assertPageIsReachable - просто проверка что переход работает (метод для проверки ссылок на внешние ресурсы - телеграмы-шмелеграмы)
 
     /**
      * Check the current page isn't reachable at the moment

@@ -2,7 +2,7 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.configuration.Environments;
 
 
 
@@ -13,7 +13,7 @@ import ru.instamart.autotests.models.EnvironmentData;
 
 public class ProfileHelper extends HelperBase {
 
-    public ProfileHelper(WebDriver driver, EnvironmentData environment) {
+    public ProfileHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
 
@@ -96,8 +96,9 @@ public class ProfileHelper extends HelperBase {
 
     public boolean isOrderActive() {
         printMessage("Checking order page...");
-        String XPATH = "//*[@id='wrap']/div/div/div/div/div[2]/div/div[1]/div/div/div/div[2]/div[2]";
-        if (isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals("Благодарим за использование Instamart!")){
+        if (isElementDetected(
+                "//*[@id='wrap']/div/div/div/div/div[2]/div/div[1]/div/div/div/div[2]/div[2]",
+                "Благодарим за использование Instamart!")){
             printMessage("✓ Order is active\n");
             return true;
         } else {

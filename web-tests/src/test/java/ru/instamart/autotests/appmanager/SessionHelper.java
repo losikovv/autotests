@@ -2,9 +2,10 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.configuration.Elements;
+import ru.instamart.autotests.configuration.Environments;
 import ru.instamart.autotests.models.UserData;
-import ru.instamart.autotests.testdata.Users;
+import ru.instamart.autotests.configuration.Users;
 
 
 // Session helper is for handling testing sessions
@@ -14,22 +15,20 @@ import ru.instamart.autotests.testdata.Users;
 
 public class SessionHelper extends HelperBase {
 
-    public SessionHelper(WebDriver driver, EnvironmentData environment) {
+    public SessionHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
 
     // TODO перенести в AdminHelper
-    public void getUrlAsAdmin(String targetUrl) {
-        // trying to get target URL in admin panel
-        getUrl(targetUrl);
-        // if we don't have admin privileges then log-in as admin and try again
-        if (!itsInAdmin()) {
-            getBaseUrl();
+    public void getUrlAsAdmin(String targetUrlInAdminPanel) {
+        getUrl(targetUrlInAdminPanel);  // trying to get target URL in admin panel
+        if (isOnSite()) {   // if we don't have admin privileges then log-in as admin and try again
+            //getBaseUrl(); // TODO протестить и удалить строчку
             if (isUserAuthorised()) {
                 doLogout();
             }
             doLoginAs("admin");
-            getUrl(targetUrl);
+            getUrl(targetUrlInAdminPanel);
         }
     }
 
@@ -84,12 +83,20 @@ public class SessionHelper extends HelperBase {
     }
 
     public boolean isRecoverySent(){
-        return !isElementDisplayed(By.name("spree_user[email]"));
+        return !isElementDisplayed(By.name("spree_user[email]")); // todo добавить проверку на то что модалка открыта
     }
 
 
 
     // ======= Authorisation =======
+    public void conditionalDoLoginAs(String role) {
+        if (!isUserAuthorised()) { doLoginAs(role); }
+    }
+
+    public void doLoginAs(String role) {
+        doLogin(Users.getCredentials(role));
+        printMessage("Logged-in with " + role + " privileges\n");
+    }
 
     /**
      * Perform log-in with the given user credentials
@@ -115,14 +122,24 @@ public class SessionHelper extends HelperBase {
         waitForIt(3);
     }
 
+    /** Do log-in with Facebook as reserved for testing needs user */
+    public void doLoginWithFacebook() {
+        //TODO
+    }
+
+    /** Do log-in with VKontakte as reserved for testing needs user */
+    public void doLoginWithVKontakte() {
+        //TODO
+    }
+
     /**
      * Проверяем авторизованность по наличию на странице кнопки "Профиль"
      */
     public boolean isUserAuthorised() {
-        String XPATH = "//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[1]/div[1]";
-        String TEXT = "Профиль";
         printMessage("Checking authorisation...");
-        if (isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals(TEXT)) {
+        if (isElementDetected(
+                "//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[1]/div[1]",
+                "Профиль")) {
             printMessage("✓ Authorised\n");
             return true;
         } else {
@@ -135,41 +152,26 @@ public class SessionHelper extends HelperBase {
 
     // ======= De-Authorisation =======
 
-    /**
-     * Общий метод логаута для сайта и админки
-     */
+
+    /** Деавторизоваться */
+
     public void doLogout() {
-        if (!itsInAdmin()) {
-            doLogoutFromSite();
+        printMessage("Log-out\n");
+        if (!isInAdmin()) {
+        // if (isOnSite()) {
+            click(Elements.Header.profileButton());
+            click(Elements.AccountMenu.logoutButton());
         } else {
-            doLogoutFromAdmin();
+            click(Elements.HeaderAdmin.logoutButton());
         }
+        waitForIt(3);
     }
 
-    /**
-     * Делаем логаут на сайте
-     */
-    private void doLogoutFromSite() {
-        click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div")); //жмем "Профиль"
-        click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[2]/div/div[8]/a")); //жмем "Выйти"
-        waitForIt(2);
-        printMessage("Logged-out from site\n");
-    }
 
-    /**
-     * Делаем логаут в админке
-     */
-    private void doLogoutFromAdmin() {
-        click(By.xpath("//*[@id='login-nav']/li[3]/a")); //клик по кнопке Выйти
-        waitForIt(2);
-        printMessage("Logged-out from admin\n");
-    }
+    /** Деавторизоваться, оставшись на текущей странице */
 
-    /**
-     * Drop authorisation and return to current page
-     */
     public void dropAuth() {
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = currentURL();
         if (isUserAuthorised()) {
             doLogout();
             getUrl(currentURL);
@@ -179,26 +181,6 @@ public class SessionHelper extends HelperBase {
 
 
     // ======= Handling test users =======
-
-    public void doLoginAs(String role) {
-        doLogin(Users.getCredentials(role));
-        printMessage("Logged-in with " + role + " privileges\n");
-    }
-
-    /**
-     * Do log-in with Facebook as reserved for testing needs user
-     */
-    public void doLoginWithFacebook() {
-        //TODO
-    }
-
-    /**
-     * Do log-in with VKontakte as reserved for testing needs user
-     */
-    public void doLoginWithVKontakte() {
-        //TODO
-    }
-
 
     // TODO перенести в Administration helper
     /**
@@ -212,10 +194,9 @@ public class SessionHelper extends HelperBase {
         // Delete first user if it's present in the list
         if(isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr"))) {
             deleteFirstUserInTable();
-            // Keep deleting users recursively
-            deleteAllTestUsers();
+            deleteAllTestUsers(); // Keep deleting users recursively
         } else {
-            printMessage("TEST USER DELETION IS COMPLETE\n");
+            printMessage("COMPLETE!\n");
         }
     }
 
@@ -226,9 +207,9 @@ public class SessionHelper extends HelperBase {
     private void deleteFirstUserInTable() {
         String XPATH_LOGIN = "//*[@id='content']/div/table/tbody/tr[1]/td[1]/div[1]/a";
         String XPATH_DELETE = "//*[@id='content']/div/table/tbody/tr/td[3]/a[2]";
-        printMessage("- delete user " + getText(By.xpath(XPATH_LOGIN)) + " on " + currentURL());
+        printMessage("> delete user " + getText(By.xpath(XPATH_LOGIN)));
         click(By.xpath(XPATH_DELETE));
-        closeAlertAndGetItsText();
+        handleAlert();
         waitForIt(1);
     }
 
@@ -254,7 +235,7 @@ public class SessionHelper extends HelperBase {
             // Keep cancelling orders recursively
             cancelAllTestOrders();
         } else {
-            printMessage("TEST ORDERS CANCELLATION IS COMPLETE\n");
+            printMessage("COMPLETE!\n");
         }
     }
 
@@ -267,20 +248,13 @@ public class SessionHelper extends HelperBase {
     }
 
     // TODO перенести в Administration helper
-    /** Cancel order with the given number */
-    public void cancelOrder(String orderNumber){
-        getUrlAsAdmin(baseUrl + "admin/orders/" + orderNumber + "/edit");
-        cancelOrder();
-    }
-
-    // TODO перенести в Administration helper
     /** Cancel order on the order page in admin panel */
     public void cancelOrder(){ // TODO Параметризовать причину отмены и текст
-        printMessage("- cancel order " + currentURL());
+        printMessage("> cancel order " + currentURL());
         // click cancel button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
         // accept order cancellation alert
-        closeAlertAndGetItsText();
+        handleAlert();
         // choose cancellation reason
         click(By.id("cancellation_reason_id_4")); // причина - тестовый заказ
         // fill order cancellation reason form
@@ -291,57 +265,13 @@ public class SessionHelper extends HelperBase {
     }
 
     // TODO перенести в Administration helper
-    /**
-     * Resume order with the given number
-     */
-    public void resumeOrder(String orderNumber){
-        // get order page in admin panel
-        getUrlAsAdmin(baseUrl + "admin/orders/" + orderNumber + "/edit");
-        resumeOrder();
-    }
-
-    // TODO перенести в Administration helper
-    /**
-     * Resume order on the order page in admin panel
-     */
-    public void resumeOrder(){
-        final String XPATH = "//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button";
-        click(By.xpath(XPATH));     // click resume button
-        closeAlertAndGetItsText();  // accept alert
-        waitForIt(2);
-    }
-
-    // TODO перенести в Administration helper
-    /**
-     * Find out if the order with the given order number is canceled
-     */
-    public boolean isOrderCanceled(String orderNumber) {
-        // get order page in admin panel
-        getUrlAsAdmin(baseUrl + "admin/orders/" + orderNumber + "/edit");
-        return isOrderCanceled();
-    }
-
-    // TODO перенести в Administration helper
-    /**
-     * Find out if the order is canceled by checking the order page in admin panel
-     */
-    public boolean isOrderCanceled() {
-        String XPATH = "//*[@id='content']/div/table/tbody/tr[3]/td/b";
-        if (isElementPresent(By.xpath(XPATH))){
-            return getText(By.xpath(XPATH)).equals("ЗАКАЗ ОТМЕНЕН");
-        } else {
-            return false;
-        }
-    }
-
-    // TODO перенести в Administration helper
     public void cleanup(){
         printMessage("================= CLEANING-UP =================\n");
 
-        printMessage("Canceling test orders ...");
+        printMessage("Canceling test orders...");
         cancelAllTestOrders();
 
-        printMessage("Deleting test users ...");
+        printMessage("Deleting test users...");
         deleteAllTestUsers();
     }
 
@@ -353,21 +283,19 @@ public class SessionHelper extends HelperBase {
      * Open the log-in form by clicking the "Log-in" button
      */
     private void openLoginForm(){
-        if (itsOnLandingPage()){
+
+        if (currentURL().equals(baseUrl)){
             click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
         } else {
             click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]"));
         }
-        if(isElementPresent(By.id("auth"))) {
-            printMessage("Login form opened");
+
+        if(isElementPresent(By.className("auth-modal"))) {
+            printMessage("> open login form");
         } else {
-            waitForIt(3);
-            if(isElementPresent(By.id("auth"))) {
-                printMessage("Login form opened, experiencing performance problems ");
-            } else {
-            printMessage("Can't open login form");
-            }
+            printMessage(" >>> can't open login form");
         }
+
     }
 
     private void switchToAuthorisation(){
@@ -379,7 +307,7 @@ public class SessionHelper extends HelperBase {
     }
 
     private void fillAuthorisationForm(String email, String password) {
-        printMessage("Entering auth credentials");
+        printMessage("> enter auth credentials");
         fillField(By.name("email"), email);
         fillField(By.name("password"), password);
     }
@@ -393,7 +321,7 @@ public class SessionHelper extends HelperBase {
     }
 
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {
-        printMessage("Entering registration credentials");
+        printMessage("> enter registration credentials");
         fillField(By.name("fullname"), name);
         fillField(By.name("email"), email);
         fillField(By.name("password"), password);
@@ -401,12 +329,8 @@ public class SessionHelper extends HelperBase {
     }
 
     private void sendForm(){
-        printMessage("Sending form\n");
-        if(currentURL().equals(baseUrl)) {
-            click(By.xpath("//*[@id='auth']/div/div/div[1]/form/div/button"));
-        } else {
-            click(By.xpath("//*[@id='react-modal']/div/div/div/span/div[1]/div/div/div/div/div/div/div[1]/form/div/button"));
-        }
+        printMessage("> send form\n");
+        click(Elements.AuthModal.submitButton());
     }
 
     /**
@@ -417,7 +341,7 @@ public class SessionHelper extends HelperBase {
     }
 
     private void sendRecoveryForm(){
-        printMessage("Sending form\n");
+        printMessage("> send form\n");
         click(By.xpath("//*[@id='auth']/div/div/div[2]/form/div/button"));
     }
 

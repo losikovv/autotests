@@ -7,7 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.configuration.Environments;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +23,7 @@ import static org.testng.Assert.fail;
 public class ApplicationManager {
 
     protected WebDriver driver;
-    protected EnvironmentData environment = new EnvironmentData("production"); // use "production" or "staging"
+    protected Environments environment = new Environments("production"); // use "production" or "staging"
 
     protected String environmentName = environment.getEnvironmentName();
     protected String host = environment.getHost();
@@ -73,7 +73,7 @@ public class ApplicationManager {
         administrationHelper = new AdministrationHelper(driver, environment);
 
         // Options
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS); // Basic timeout
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS); // Basic timeout
         //driver.manage().window().fullscreen();                              // Open browser in fullscreen mode
 
         System.out.println("\n!!!!!!!!!!!! RELEASING THE KRAKEN !!!!!!!!!!!!\n");

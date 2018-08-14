@@ -17,9 +17,7 @@ public class RepeatOrders extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void getAuth()throws Exception {
         app.getNavigationHelper().getRetailerPage("metro");
-        if(!app.getSessionHelper().isUserAuthorised()) {
-            app.getSessionHelper().doLoginAs("admin");
-        }
+        app.getSessionHelper().conditionalDoLoginAs("admin");
     }
 
 

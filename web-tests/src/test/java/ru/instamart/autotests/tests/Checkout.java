@@ -15,13 +15,7 @@ public class Checkout extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preparingForCheckout() throws Exception {
         app.getNavigationHelper().getRetailerPage("metro");
-
-        // авторизуемся, если нужно
-        if(!app.getSessionHelper().isUserAuthorised()) {
-            app.getSessionHelper().doLoginAs("admin");
-        }
-
-        // идем в чекаут
+        app.getSessionHelper().conditionalDoLoginAs("admin");
         app.getNavigationHelper().getCheckoutPage();
 
         // если не попали в чекаут - набираем корзину и идем снова
@@ -200,5 +194,9 @@ public class Checkout extends TestBase {
 
         app.getProfileHelper().cancelLastOrder();
     }
+
+
+    // TODO добавить тест на скачивание документов к заказу
+    // TODO {нажатие на скачку, ожидание, проверка что pageIsAvailable}
 
 }

@@ -47,13 +47,13 @@ public class Administration extends TestBase {
         app.getNavigationHelper().getOrderAdminPage(orderNumber);
 
         // Assert order is cancelled
-        Assert.assertTrue(app.getSessionHelper().isOrderCanceled(),
+        Assert.assertTrue(app.getAdministrationHelper().isOrderCanceled(),
                 "The order is already active" + "\n");
 
-        app.getSessionHelper().resumeOrder();
+        app.getAdministrationHelper().resumeOrder();
 
         // Assert order isn't cancelled
-        Assert.assertFalse(app.getSessionHelper().isOrderCanceled(),
+        Assert.assertFalse(app.getAdministrationHelper().isOrderCanceled(),
                 "Can't approve the order was resumed, check manually\n");
     }
 
@@ -67,16 +67,15 @@ public class Administration extends TestBase {
 
         String orderNumber = "R124857258"; // TODO заменить на номер заказа тестового пользователя
         //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
+
         app.getNavigationHelper().getOrderAdminPage(orderNumber);
 
-        // Assert order isn't cancelled
-        Assert.assertFalse(app.getSessionHelper().isOrderCanceled(),
+        Assert.assertFalse(app.getAdministrationHelper().isOrderCanceled(),
                 "The order is already canceled" + "\n");
 
-        app.getSessionHelper().cancelOrder(); // TODO перенести метов в AdministrationHelper
+        app.getSessionHelper().cancelOrder(); // TODO перенести метод в AdministrationHelper
 
-        // Assert order is cancelled
-        Assert.assertTrue(app.getSessionHelper().isOrderCanceled(),
+        Assert.assertTrue(app.getAdministrationHelper().isOrderCanceled(),
                 "Can't approve the order was canceled, check manually\n");
     }
 

@@ -2,18 +2,20 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.configuration.Environments;
+import ru.instamart.autotests.configuration.PaymentTypes;
 import ru.instamart.autotests.testdata.Loyalties;
 
 
-// Checkout helper
+
+    // Checkout helper
     // Handles all the process of finalizing and sending the order
 
 
 
 public class CheckoutHelper extends HelperBase {
 
-    public CheckoutHelper(WebDriver driver, EnvironmentData environment) {
+    public CheckoutHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
 
@@ -52,20 +54,19 @@ public class CheckoutHelper extends HelperBase {
         hitSendButton();            // Жмем "Оформить заказ"
     }
 
-    //TODO
     /**
      * Complete checkout with the predefined standard test options
      * Use only for existing users which have telephone numbers and all payment types, cards and loyalty programs
      */
-    public void completeCheckout(String paymentType, String loyaltyProgram, String promoCode){
+    public void completeCheckout(String paymentType, String loyaltyProgram, String promocode){
         checkCheckoutIsReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
         doStep3();                  // Выбираем дефолтный способ замен
         doStep4(paymentType);       // Выбираем указанный способ оплаты
         doStep5();                  // Выбираем стандартный тестовый слот доставки
-        //TODO loyaltyProgram
-        //TODO promoCode
+        addLoyalty(loyaltyProgram); // Добавляем программу лояльности
+        addPromocode(promocode);    // Добавляем промокод
         hitSendButton();            // Жмем "Оформить заказ"
     }
 
@@ -257,9 +258,7 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-    /**
-     * Выбираем способ оплаты
-     */
+/*
     private void selectPaymentType(String paymentType){
         switch(paymentType){
             case "card-online":
@@ -276,6 +275,15 @@ public class CheckoutHelper extends HelperBase {
                 break;
         }
         printMessage("Paying with " + paymentType);
+    }
+*/
+
+    /** Выбираем способ оплаты */
+    private void selectPaymentType(String type){
+        click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div["
+                + PaymentTypes.getPosition(type)
+                + "]"));
+        printMessage("Paying with " + type);
     }
 
     // TODO addNewPaymentCard - добавить карту оплаты
@@ -369,9 +377,9 @@ public class CheckoutHelper extends HelperBase {
      * Определяем добавлен ли промокод в чекауте
      */
     public boolean isPromocodeApplied() {
-        final String APPLIED_TEXT = "Промо-код:";
-        final String APPLIED_XPATH = "//aside/div/div[2]/div[3]/div/span/span";
-        if (isElementPresent(By.xpath(APPLIED_XPATH)) && getText(By.xpath(APPLIED_XPATH)).equals(APPLIED_TEXT)){
+        if (isElementDetected(
+                "//aside/div/div[2]/div[3]/div/span/span",
+                "Промо-код:")){
             printMessage("Promocode applied");
             return true;
         } else {
@@ -457,14 +465,14 @@ public class CheckoutHelper extends HelperBase {
     // ======= Retailer Loyalties =======
 
     /** Определяем доступна ли программа лояльности ритейлера в чекауте */
-    public boolean isReatailerLoyaltyAvailable(){
-        final String TEXT = "Карты лояльности магазинов";
-        final String XPATH = "//aside/div/div[4]/div[2]";
-        return isElementPresent(By.xpath(XPATH)) && getText(By.xpath(XPATH)).equals(TEXT);
+    public boolean isRetailerLoyaltyAvailable(){
+        return isElementDetected(
+                "//aside/div/div[4]/div[2]",
+                "Карты лояльности магазинов");
     }
 
     /** Определяем применена ли программа лояльности ритейлера в чекауте */
-    public boolean isReatailerLoyaltyApplied(){
+    public boolean isRetailerLoyaltyApplied(){
         return isElementPresent(By.xpath("//aside/div/div[4]/div[3]/div/div[2]"));
     }
 
@@ -472,7 +480,7 @@ public class CheckoutHelper extends HelperBase {
      * Добавляем программу лояльности ритейлера в чекауте
      */
     public void addRetailerLoyalty(String name){
-        if(isReatailerLoyaltyApplied()){
+        if(isRetailerLoyaltyApplied()){
             clearRetailerLoyalty();
         }
         printMessage("Adding retailer loyalty program");

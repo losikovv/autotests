@@ -1,7 +1,7 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.configuration.Environments;
 
 
 
@@ -11,7 +11,7 @@ import ru.instamart.autotests.models.EnvironmentData;
 
 public class Helper extends HelperBase {
 
-    public Helper(WebDriver driver, EnvironmentData environment) {
+    public Helper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
 

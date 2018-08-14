@@ -6,38 +6,112 @@ package ru.instamart.autotests.testdata;
 
 
 
-public class Addresses {
+public abstract class Addresses {
+    static String addressString;
 
+    public static String get() {
+        return addressString;
+    }
+
+    public static class Moscow extends Addresses {
+
+        Moscow() {
+            addressString = addressString;
+        }
+
+        public static Moscow testAddress() {
+            addressString = "Москва, ул Тестовская, д 1";
+            return new Moscow();
+        }
+
+        public static Moscow defaultAddress() {
+            addressString = "Москва, пер Казачий 2-й, д 11 стр 2";
+            return new Moscow();
+        }
+
+        public static Moscow outOfZoneAddress() {
+            addressString = "Москва, ул Лосиноостровская, д 2 стр 1";
+            return new Moscow();
+        }
+
+        // TODO public static Moscow randomAddress() {
+        // Generate.randomAddress("moscow")
+        // }
+    }
+
+    public static class Kazan extends Addresses {
+
+        Kazan() {
+            addressString = addressString;
+        }
+
+        public static Kazan testAddress() {
+            addressString = "Казань, ул Танковая, д 30";
+            return new Kazan();
+        }
+
+        public static Kazan defaultAddress() {
+            addressString = "Казань, ул Мулланура Вахитова, д 10";
+            return new Kazan();
+        }
+
+        public static Kazan outOfZoneAddress() {
+            addressString = "Казань, ул Беломорская, д 1";
+            return new Kazan();
+        }
+
+        // TODO public static Moscow randomAddress() {
+        // Generate.randomAddress("kazan")
+        // }
+    }
+}
+
+
+
+
+
+
+
+    /*
     public static String get (String type) {
-        final String address;
+        final String addressString;
         switch (type) {
 
             case "default":
-                address = "Москва, ул Тестовская, д 1";
+                addressString = "Москва, ул Тестовская, д 1";
                 break;
             case "non-default":
-                address = "Москва, ул Люсиновская, д 12";
+                addressString = "Москва, ул Люсиновская, д 12";
                 break;
             case "out-of-zone":
-                address = "Москва, ул Лосиноостровская, д 2 стр 1";
+                addressString = "Москва, ул Лосиноостровская, д 2 стр 1";
                 break;
             case "office":
-                address = "Москва, пер Казачий 2-й, д 11 стр 2";
+                addressString = "Москва, пер Казачий 2-й, д 11 стр 2";
                 break;
+            // TODO case "random":
+                // TODO addressString = Generate.randomAddress("moscow");
+            // TODO break;
 
             case "default-kazan":
-                address = "Казань, ул Мулланура Вахитова, д 10";
+                addressString = "Казань, ул Мулланура Вахитова, д 10";
                 break;
             case "non-default-kazan":
-                address = "Казань, ул Танковая, д 30";
+                addressString = "Казань, ул Танковая, д 30";
                 break;
             case "out-of-zone-kazan":
-                address = "Казань, ул Беломорская, д 1";
+                addressString = "Казань, ул Беломорская, д 1";
                 break;
-            default: address = null;
+            // TODO case "random-kazan":
+                // TODO addressString = Generate.randomAddress("kazan");
+            // TODO break;
+
+                default: addressString = null;
 
         }
-        return address;
+        return addressString;
     }
 
-}
+    */
+
+//}

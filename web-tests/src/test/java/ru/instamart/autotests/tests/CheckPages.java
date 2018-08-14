@@ -13,10 +13,13 @@ public class CheckPages extends TestBase {
 
     @Test(
             enabled = false,
-            description = "Тест доступности отдельной страницы"
+            description = "Тест лендинга"
     )
-    public void checkPage() throws Exception, AssertionError {
+    public void checkLandingPage() throws Exception, AssertionError {
         assertPageIsAvailable("https://instamart.ru/metro");
+
+        // TODO добавить проверку элементов и функционала лендинга
+
     }
 
 
@@ -38,7 +41,7 @@ public class CheckPages extends TestBase {
 
 
     @Test(
-            description = "Тест доступности лендингов",
+            description = "Тест доступности партнерских лендингов",
             groups = {"smoke","acceptance","regression"},
             priority = 802
     )
@@ -78,9 +81,8 @@ public class CheckPages extends TestBase {
     )
     public void checkProfilePages() throws Exception, AssertionError {
         app.getHelper().getBaseUrl();
-        if (!app.getSessionHelper().isUserAuthorised()){
-            app.getSessionHelper().doLoginAs("admin");
-        }
+        app.getSessionHelper().conditionalDoLoginAs("admin");
+
         assertPageIsAvailable("https://instamart.ru/user/edit");
         assertPageIsAvailable("https://instamart.ru/user/orders");
         assertPageIsAvailable("https://instamart.ru/user/addresses");

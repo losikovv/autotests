@@ -76,7 +76,7 @@ public class ShippingAddress extends TestBase {
             priority = 203
     )
     public void setShippingAddressOnLandingPage() throws Exception {
-        final String address = "Москва, ул Мусы Джалиля, д 19 к 1";
+        final String address = "Москва, ул Мусы Джалиля, д 19 к 1"; // TODO брать из Addresses
         app.getNavigationHelper().getLandingPage();
         app.getShoppingHelper().setShippingAddress(address);
         app.getShoppingHelper().selectShop(1);
@@ -100,12 +100,12 @@ public class ShippingAddress extends TestBase {
         app.getNavigationHelper().getRetailerPage("metro");
 
         if(app.getShoppingHelper().isShippingAddressEmpty()){
-            app.getShoppingHelper().setShippingAddress("Москва, ул Мусы Джалиля, д 19 к 1");
+            app.getShoppingHelper().setShippingAddress("Москва, ул Мусы Джалиля, д 19 к 1"); // TODO брать из Addresses
         }
 
         String initialAddress = app.getShoppingHelper().currentShippingAddress();
-        final String newAddress1 = "Москва, ул Пироговская М., д 88";
-        final String newAddress2 = "Москва, Ленинградское шоссе, д 50";
+        final String newAddress1 = "Москва, ул Пироговская М., д 88"; // TODO брать из Addresses
+        final String newAddress2 = "Москва, Ленинградское шоссе, д 50"; // TODO брать из Addresses
 
         // проверяем на совпадение с текущим адресом доставки и меняем адрес
         if(initialAddress.equals(newAddress1)){
@@ -131,7 +131,7 @@ public class ShippingAddress extends TestBase {
     )
     public void setAddressWithNoAvailableShops() throws Exception {
         app.getNavigationHelper().getRetailerPage("metro");
-        app.getShoppingHelper().changeShippingAddress("Москва, ул Лосиноостровская, д 1");
+        app.getShoppingHelper().changeShippingAddress("Москва, ул Лосиноостровская, д 1"); // TODO брать из Addresses
         app.getShoppingHelper().openShopsList();
 
         // Assert shops list is open

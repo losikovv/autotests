@@ -16,11 +16,7 @@ public class MakeOrders extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preparing() throws Exception {
         app.getNavigationHelper().getRetailerPage("metro");
-
-        // авторизуемся, если нужно
-        if(!app.getSessionHelper().isUserAuthorised()) {
-            app.getSessionHelper().doLoginAs("admin");
-        }
+        app.getSessionHelper().conditionalDoLoginAs("admin");
     }
 
 
@@ -31,7 +27,7 @@ public class MakeOrders extends TestBase {
     )
     public void orderInKazan(){
 
-        app.getShoppingHelper().changeShippingAddress("Казань, ул Мулланура Вахитова, д 10");
+        app.getShoppingHelper().changeShippingAddress("Казань, ул Мулланура Вахитова, д 10"); // TODO брать из Addresses
 
         // идем в чекаут, при необходимости набирая корзину
         app.getNavigationHelper().getCheckoutPage();
@@ -45,6 +41,8 @@ public class MakeOrders extends TestBase {
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
+
+        // TODO добавить проверку на скачивание документов к заказу
     }
 
 
@@ -56,7 +54,7 @@ public class MakeOrders extends TestBase {
     public void orderToVkusvill(){
 
         app.getNavigationHelper().getRetailerPage("vkusvill");
-        app.getShoppingHelper().changeShippingAddress("Москва, ул Красная Пресня, д 88");
+        app.getShoppingHelper().changeShippingAddress("Москва, ул Красная Пресня, д 88"); // TODO брать из Addresses
 
         // идем в чекаут, при необходимости набирая корзину
         app.getNavigationHelper().getCheckoutPage();
@@ -66,13 +64,13 @@ public class MakeOrders extends TestBase {
         }
 
         // Проверяем что доступна программа лояльности ритейлера
-        Assert.assertTrue(app.getCheckoutHelper().isReatailerLoyaltyAvailable(),
+        Assert.assertTrue(app.getCheckoutHelper().isRetailerLoyaltyAvailable(),
                 "Retailer loyalty program is not available\n");
 
         app.getCheckoutHelper().addRetailerLoyalty("vkusvill");
 
         // Проверяем что программа лояльности ритейлера применилась
-        Assert.assertTrue(app.getCheckoutHelper().isReatailerLoyaltyApplied(),
+        Assert.assertTrue(app.getCheckoutHelper().isRetailerLoyaltyApplied(),
                 "Can't apply retailer loyalty program, check manually\n");
 
         app.getCheckoutHelper().completeCheckout();
@@ -80,6 +78,8 @@ public class MakeOrders extends TestBase {
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
+
+        // TODO добавить проверку на скачивание документов к заказу
     }
 
 
@@ -87,7 +87,7 @@ public class MakeOrders extends TestBase {
     public void cancelLastOrder()throws Exception {
         app.getProfileHelper().cancelLastOrder();
         app.getNavigationHelper().goHome();
-        app.getShoppingHelper().changeShippingAddress("Москва, ул Просторная, д 77");
+        app.getShoppingHelper().changeShippingAddress("Москва, ул Просторная, д 77"); // TODO брать из Addresses
     }
 
 }

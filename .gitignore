@@ -23,5 +23,7 @@ gradle-app.setting
 .gradletasknamecache
 
 # Ignore sensitive data for security purposes
+web-tests/src/test/java/ru/instamart/autotests/configuration/Users.java
+web-tests/src/test/java/ru/instamart/autotests/configuration/Environments.java
 web-tests/src/test/java/ru/instamart/autotests/models/EnvironmentData.java
 web-tests/src/test/java/ru/instamart/autotests/testdata/Users.java

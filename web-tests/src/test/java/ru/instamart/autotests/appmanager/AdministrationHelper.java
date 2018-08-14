@@ -1,7 +1,9 @@
 package ru.instamart.autotests.appmanager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.configuration.Elements;
+import ru.instamart.autotests.configuration.Environments;
 
 
 
@@ -13,24 +15,26 @@ import ru.instamart.autotests.models.EnvironmentData;
 
 public class AdministrationHelper extends HelperBase {
 
-    public AdministrationHelper(WebDriver driver, EnvironmentData environment) {
+    public AdministrationHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
 
-    /*
-    public void getUrlAsAdmin(String targetUrl) {
-        // trying to get target URL in admin panel
-        getUrl(targetUrl);
-        // if we don't have admin privileges then log-in as admin and try again
-        if (!itsInAdmin()) {
-            getBaseUrl();
-            if (SessionHelper.isUserAuthorised()) {
-                SessionHelper.doLogout();
-            }
-            SessionHelper.doLoginAsAdmin();
-            getUrl(targetUrl);
-        }
+
+    /** Возобновить заказ */
+
+    public void resumeOrder(){
+        click(Elements.OrderPageAdmin.resumeOrderButton());
+        handleAlert();
+        waitForIt(1);
     }
-    */
+
+
+    /** Определить отменен ли заказ */
+
+    public boolean isOrderCanceled() {
+        return isElementDetected(Elements.OrderPageAdmin.canceledOrderAttribute());
+    }
+
+
 
 }
