@@ -38,7 +38,7 @@ public abstract class Addresses {
 
         // TODO public static Moscow randomAddress() { Generate.randomAddress("moscow") }
     }
-    
+
 
     public static class Kazan extends Addresses {
 

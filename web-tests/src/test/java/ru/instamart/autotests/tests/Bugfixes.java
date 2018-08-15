@@ -26,6 +26,7 @@ public class Bugfixes extends TestBase {
                 "Result is not expected\n");
     }
 
+
     @Test (
             description = "Test description",
             groups = {"regression"},
@@ -37,6 +38,6 @@ public class Bugfixes extends TestBase {
         // Проверяем что-нибудь
         Assert.assertTrue(app.getShoppingHelper().isSearchResultsEmpty(),
                 "Result is not expected\n");
-    }
+
 
 }
