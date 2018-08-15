@@ -3,6 +3,7 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.configuration.Elements;
+
 import ru.instamart.autotests.configuration.Environments;
 
 
@@ -21,20 +22,17 @@ public class AdministrationHelper extends HelperBase {
 
 
     /** Возобновить заказ */
-
     public void resumeOrder(){
         click(Elements.OrderPageAdmin.resumeOrderButton());
         handleAlert();
-        waitForIt(1);
+        waitForIt(2);
     }
 
 
     /** Определить отменен ли заказ */
-
     public boolean isOrderCanceled() {
+        waitForIt(1);
         return isElementDetected(Elements.OrderPageAdmin.canceledOrderAttribute());
     }
-
-
 
 }

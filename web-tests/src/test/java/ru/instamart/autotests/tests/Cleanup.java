@@ -39,6 +39,7 @@ public class Cleanup extends TestBase {
             priority = 903
     )
     public void cleanup() throws Exception {
+        app.getSessionHelper().doLoginAs("admin");
         app.getSessionHelper().cleanup();
         assertNoTestOrdersLeftActive();
         assertNoTestUsersLeft();

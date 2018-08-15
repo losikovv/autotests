@@ -55,9 +55,8 @@ public class ShippingAddressFenix extends TestBase{
         Assert.assertTrue(app.getShoppingHelper().isShippingAddressSet(),
                 "Can't approve the shipping address was set correctly, check manually\n");
 
-        // TODO нужен метод currentShippingAddress(), возвращающий объект типа Addresses
-        // TODO Assert.assertTrue(app.getShoppingHelper().currentShippingAddress().equals(Addresses.Moscow.defaultAddress()),
-        // TODO        "Current shipping address is not the same that was entered during the setting procedure\n");
+         Assert.assertTrue(app.getShoppingHelper().currentShippingAddress().equals(Addresses.Moscow.defaultAddress()),
+               "Current shipping address is not the same that was entered during the setting procedure\n");
     }
 
 }

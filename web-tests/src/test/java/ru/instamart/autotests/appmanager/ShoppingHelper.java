@@ -29,12 +29,12 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определяем пуст ли адрес доставки */
     public boolean isShippingAddressEmpty() {
-        return isElementDetected(Elements.Header.setAddressButton());
+        return isElementDetected(Elements.Header.setShipAddressButton());
     }
 
     /** Определяем выбран ли адрес доставки */
     public boolean isShippingAddressSet() {
-        if (isElementDetected((Elements.Header.changeAddressButton()))) {
+        if (isElementDetected((Elements.Header.changeShipAddressButton()))) {
             currentShippingAddress();
             return true;
         } else {
@@ -46,14 +46,9 @@ public class ShoppingHelper extends HelperBase {
 
     /** Установить адрес доставки */
 
-    public void setShippingAddress(Addresses address) {
-        final String addressString = Addresses.get();
-        setShippingAddress(addressString);
-    }
-
     public void setShippingAddress(String address) {
         printMessage("Setting new shipping address...");
-        click(Elements.Header.setAddressButton());
+        click(Elements.Header.setShipAddressButton());
         checkAddressModal();
         fillField(Elements.AddressModal.addressField(), address);
         selectAddressSuggest();
@@ -61,12 +56,21 @@ public class ShoppingHelper extends HelperBase {
         waitForIt(1);
     }
 
+    /** Change current shipping address with one in the given string */
+
+    public void changeShippingAddress(String newAddress) {
+        printMessage("Changing shipping address");
+        click(Elements.Header.changeShipAddressButton());
+        setShippingAddress(newAddress);
+    }
+
 
     /** Определить и вернуть текущий адрес доставки */
     public String currentShippingAddress() {
-        printMessage("Shipping address: " + getText(Elements.Header.currentAddress()));
+        printMessage("Shipping address: " + getText(Elements.Header.currentShipAddress()));
         return getText(Elements.getLocator());
     }
+
 
     /** Определить показаны ли адресные саджесты */
     private boolean isAnyAddressSuggestsAvailable() {
@@ -86,21 +90,6 @@ public class ShoppingHelper extends HelperBase {
     private void checkAddressModal() {
         printMessage("Modal opened: [" + getText(Elements.AddressModal.header()) + "]");
     }
-
-
-
-
-    /**
-     * Change current shipping address with one in the given string
-     */
-    public void changeShippingAddress(String newAddress) {
-        printMessage("Changing shipping address");
-        click(Elements.Header.changeAddressButton());
-        setShippingAddress(newAddress);
-    }
-
-
-
 
 
     /**
@@ -371,8 +360,8 @@ public class ShoppingHelper extends HelperBase {
      */
     public void dropCart() {
         String currentAddress = currentShippingAddress();
-        String addressOne = Addresses.Moscow.defaultAddress().get();
-        String addressTwo = Addresses.Moscow.testAddress().get();
+        String addressOne = Addresses.Moscow.defaultAddress();
+        String addressTwo = Addresses.Moscow.testAddress();
 
         if (!isCartEmpty()) {
             closeCartIfNeeded();

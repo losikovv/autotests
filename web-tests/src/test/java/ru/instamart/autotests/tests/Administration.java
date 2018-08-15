@@ -27,9 +27,8 @@ public class Administration extends TestBase {
     )
     public void adminPanelUnreacheableWithoutPrivileges() throws Exception {
         app.getSessionHelper().doLogout();
-        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru","instamart", null));
+        app.getSessionHelper().doLoginAs("user");
 
-        // Assert admin panel is unreacheable
         assertPageIsUnreachable("https://instamart.ru/admin/shipments"); // TODO параметризовать окружение
 
         app.getSessionHelper().doLogout();
@@ -46,13 +45,13 @@ public class Administration extends TestBase {
         String orderNumber = "R124857258"; //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
         app.getNavigationHelper().getOrderAdminPage(orderNumber);
 
-        // Assert order is cancelled
+        // Assert order is canceled
         Assert.assertTrue(app.getAdministrationHelper().isOrderCanceled(),
-                "The order is already active" + "\n");
+                "The order is already active\n");
 
         app.getAdministrationHelper().resumeOrder();
 
-        // Assert order isn't cancelled
+        // Assert order isn't canceled
         Assert.assertFalse(app.getAdministrationHelper().isOrderCanceled(),
                 "Can't approve the order was resumed, check manually\n");
     }
@@ -71,7 +70,7 @@ public class Administration extends TestBase {
         app.getNavigationHelper().getOrderAdminPage(orderNumber);
 
         Assert.assertFalse(app.getAdministrationHelper().isOrderCanceled(),
-                "The order is already canceled" + "\n");
+                "The order is already canceled\n");
 
         app.getSessionHelper().cancelOrder(); // TODO перенести метод в AdministrationHelper
 

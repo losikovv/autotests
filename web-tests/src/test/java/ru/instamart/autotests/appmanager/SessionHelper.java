@@ -2,9 +2,9 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
-import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.configuration.Users;
 
 
@@ -21,9 +21,9 @@ public class SessionHelper extends HelperBase {
 
     // TODO перенести в AdminHelper
     public void getUrlAsAdmin(String targetUrlInAdminPanel) {
-        getUrl(targetUrlInAdminPanel);  // trying to get target URL in admin panel
-        if (isOnSite()) {   // if we don't have admin privileges then log-in as admin and try again
-            //getBaseUrl(); // TODO протестить и удалить строчку
+        getUrl(targetUrlInAdminPanel);  // пытаемся перейти по указанному URL в админку
+        if (isOnSite()) {               // если не попали, то перелогиниваемся с правами администратора и идем снова
+            getBaseUrl();
             if (isUserAuthorised()) {
                 doLogout();
             }
@@ -158,7 +158,6 @@ public class SessionHelper extends HelperBase {
     public void doLogout() {
         printMessage("Log-out\n");
         if (!isInAdmin()) {
-        // if (isOnSite()) {
             click(Elements.Header.profileButton());
             click(Elements.AccountMenu.logoutButton());
         } else {
@@ -196,7 +195,7 @@ public class SessionHelper extends HelperBase {
             deleteFirstUserInTable();
             deleteAllTestUsers(); // Keep deleting users recursively
         } else {
-            printMessage("COMPLETE!\n");
+            printMessage("No test users left\n");
         }
     }
 
@@ -207,7 +206,7 @@ public class SessionHelper extends HelperBase {
     private void deleteFirstUserInTable() {
         String XPATH_LOGIN = "//*[@id='content']/div/table/tbody/tr[1]/td[1]/div[1]/a";
         String XPATH_DELETE = "//*[@id='content']/div/table/tbody/tr/td[3]/a[2]";
-        printMessage("> delete user " + getText(By.xpath(XPATH_LOGIN)));
+        printMessage("> delete user [" + getText(By.xpath(XPATH_LOGIN)) + "]");
         click(By.xpath(XPATH_DELETE));
         handleAlert();
         waitForIt(1);
@@ -235,7 +234,7 @@ public class SessionHelper extends HelperBase {
             // Keep cancelling orders recursively
             cancelAllTestOrders();
         } else {
-            printMessage("COMPLETE!\n");
+            printMessage("No test orders left active\n");
         }
     }
 
@@ -253,7 +252,6 @@ public class SessionHelper extends HelperBase {
         printMessage("> cancel order " + currentURL());
         // click cancel button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
-        // accept order cancellation alert
         handleAlert();
         // choose cancellation reason
         click(By.id("cancellation_reason_id_4")); // причина - тестовый заказ
@@ -261,7 +259,7 @@ public class SessionHelper extends HelperBase {
         fillField(By.id("cancellation_reason_details"),"Тестовый заказ");
         // click confirmation button
         click(By.xpath("//*[@id='new_cancellation']/fieldset/div[3]/button"));
-        waitForIt(1);
+        waitForIt(2);
     }
 
     // TODO перенести в Administration helper
@@ -287,10 +285,10 @@ public class SessionHelper extends HelperBase {
         if (currentURL().equals(baseUrl)){
             click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
         } else {
-            click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]"));
+            click(Elements.Header.loginButton());
         }
 
-        if(isElementPresent(By.className("auth-modal"))) {
+        if(isElementPresent(Elements.AuthModal.popup())) {
             printMessage("> open login form");
         } else {
             printMessage(" >>> can't open login form");

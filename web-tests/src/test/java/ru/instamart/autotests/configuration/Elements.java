@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 
 
-// Используемые web-элементы
+// Web-элементы сайта
 
 
 
@@ -21,6 +21,7 @@ public abstract class Elements {
     }
 
 
+
     /** Шапка сайта */
 
     public static class Header extends Elements {
@@ -30,20 +31,25 @@ public abstract class Elements {
             Elements.locator = locator;
         }
 
-        public static Header setAddressButton() {
+        public static Header setShipAddressButton() {
             text = "Ввести адрес";
             locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/div/button");
             return new Header(text, locator);
         }
 
-        public static Header changeAddressButton() {
+        public static Header changeShipAddressButton() {
             text = "Изменить";
             locator = By.className("ship-address-selector__edit-btn");
             return new Header(text, locator);
         }
 
-        public static Header currentAddress() {
+        public static Header currentShipAddress() {
             locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/div/span");
+            return new Header(null, locator);
+        }
+
+        public static Header loginButton(){
+            locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]");
             return new Header(null, locator);
         }
 
@@ -75,6 +81,7 @@ public abstract class Elements {
     }
 
 
+
     /** Всплывающее меню "Профиль" */
 
     public static class AccountMenu extends Elements {
@@ -82,6 +89,11 @@ public abstract class Elements {
         AccountMenu(String text, By locator) {
             Elements.text = text;
             Elements.locator = locator;
+        }
+
+        public static AccountMenu popup() {
+            locator = By.className("account-menu");
+            return new AccountMenu(null, locator);
         }
 
         public static AccountMenu header() {
@@ -137,7 +149,8 @@ public abstract class Elements {
     }
 
 
-    /** Модалка авторизации/регистрации */
+
+    /** Модалка авторизации / регистрации */
 
     public static class AuthModal extends Elements {
 
@@ -146,12 +159,18 @@ public abstract class Elements {
             Elements.locator = locator;
         }
 
+        public static AuthModal popup() {
+            locator = By.className("auth-modal");
+            return new AuthModal(null, locator);
+        }
+
         public static AuthModal submitButton() {
             locator = By.className("auth-modal__button");
             return new AuthModal(null, locator);
         }
 
     }
+
 
 
     /** Адресные модалки Феникса */
@@ -202,6 +221,7 @@ public abstract class Elements {
     }
 
 
+
     /** Селектор магазинов */
 
     public static class ShopSelector extends Elements {
@@ -230,7 +250,9 @@ public abstract class Elements {
     }
 
 
+
     /** Каталог товаров */
+
     public static class Catalog extends Elements {
 
         Catalog(String text, By locator) {
@@ -254,6 +276,7 @@ public abstract class Elements {
         }
 
     }
+
 
 
     /** Карточка товара */
@@ -288,6 +311,7 @@ public abstract class Elements {
     }
 
 
+
     /** Корзина */
 
     public static class Cart extends Elements {
@@ -319,9 +343,14 @@ public abstract class Elements {
 
     }
 
+
+
     // TODO public static class Profile extends Elements
 
+
+
     // TODO public static class OrderPage extends Elements
+
 
 
     /** Страница 500 ошибки */
@@ -340,6 +369,7 @@ public abstract class Elements {
         }
 
     }
+
 
 
     /** Страница 404 ошибки */
@@ -379,6 +409,8 @@ public abstract class Elements {
 
     }
 
+
+
     /** Страница деталей заказа в админке */
 
     public static class OrderPageAdmin extends Elements {
@@ -400,5 +432,4 @@ public abstract class Elements {
         }
 
     }
-
 }

@@ -201,7 +201,7 @@ public class HelperBase {
             } else {
                 alert.dismiss();
             }
-            printMessage(alertText);
+            //printMessage("> handling alert [" + alertText + "]");
         } finally {
             acceptNextAlert = true;
         }
