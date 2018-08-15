@@ -27,11 +27,17 @@ public class Bugfixes extends TestBase {
     }
 
 
+    @Test (
+            description = "Test description",
+            groups = {"regression"},
+            priority = 999
+    )
+    public void testName1488(){
+        app.getShoppingHelper().searchItem("смысл жизни");
 
-    
-    @Test ()
-    public void ololo(){
-        app.getHelper().printMessage("Ты пидор");
-    }
+        // Проверяем что-нибудь
+        Assert.assertTrue(app.getShoppingHelper().isSearchResultsEmpty(),
+                "Result is not expected\n");
+
 
 }
