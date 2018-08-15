@@ -11,14 +11,7 @@ import java.util.Random;
 
 public class Generate {
 
-    /** Generate user data for testing needs */
-    public static UserData testUserData() {
-        final String prefix = randomString(8);
-        final String base = "testuser@example.com";
-        return new UserData(prefix + "-" + base, "instamart", "Тест Юзер");
-    }
-
-    /** Generate random string with given length */
+    /** Сгенерировать строку указанной длины */
     public static String randomString(int length) {
         String s = "123456789abcdefghijklmnopqrstuvwxyz";
         StringBuffer number = new StringBuffer();
@@ -28,4 +21,16 @@ public class Generate {
         return number.toString();
     }
 
+    /** Сгенерировать реквизиты тестового ппользователя */
+    public static UserData testUserData() {
+        final String prefix = randomString(8);
+        final String base = "testuser@example.com";
+        return new UserData(prefix + "-" + base, "instamart", "Тест Юзер");
+    }
+
+    //TODO
+    /** Сгенерировать случайный адрес доставки в указанном городе */
+    public static String randomAddress(String city) {
+        return "TODO";
+    }
 }

@@ -12,7 +12,8 @@ import org.testng.annotations.Test;
 
 public class Bugfixes extends TestBase {
 
-    // TODO шаблон для тестов
+
+    // шаблон для тестов
     @Test (
             description = "Test description",
             groups = {"regression"},
@@ -25,19 +26,6 @@ public class Bugfixes extends TestBase {
         Assert.assertTrue(app.getShoppingHelper().isSearchResultsEmpty(),
                 "Result is not expected\n");
     }
-
-
-    @Test (
-            description = "Test description",
-            groups = {"regression"},
-            priority = 999
-    )
-    public void testName1488(){
-        app.getShoppingHelper().searchItem("смысл жизни");
-
-        // Проверяем что-нибудь
-        Assert.assertTrue(app.getShoppingHelper().isSearchResultsEmpty(),
-                "Result is not expected\n");
 
 
 }

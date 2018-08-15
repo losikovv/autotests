@@ -13,7 +13,7 @@ public abstract class Addresses {
         addressString = address;
     }
 
-    public static String get(String address) {
+    public static String get() {
         return addressString;
     }
 
@@ -36,7 +36,9 @@ public abstract class Addresses {
             return addressString = "Москва, ул Лосиноостровская, д 2 стр 1";
         }
 
-        // TODO public static Moscow randomAddress() { Generate.randomAddress("moscow") }
+        public static String randomAddress() {
+            return Generate.randomAddress("moscow");
+        }
     }
 
 
@@ -58,7 +60,10 @@ public abstract class Addresses {
             return addressString = "Казань, ул Беломорская, д 1";
         }
 
-        // TODO public static K randomAddress() { Generate.randomAddress("kazan") }
+        public static String randomAddress() {
+            return Generate.randomAddress("kazan");
+        }
     }
+
 }
 
