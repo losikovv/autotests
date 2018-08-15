@@ -31,7 +31,7 @@ public class Bugfixes extends TestBase {
             groups = {"regression"},
             priority = 999
     )
-    public void testName2(){
+    public void testName1488(){
         app.getShoppingHelper().searchItem("смысл жизни");
 
         // Проверяем что-нибудь
