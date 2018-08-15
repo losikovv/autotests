@@ -26,4 +26,12 @@ public class Bugfixes extends TestBase {
                 "Result is not expected\n");
     }
 
+
+
+    
+    @Test ()
+    public void ololo(){
+        app.getHelper().printMessage("Ты пидор");
+    }
+
 }
