@@ -409,6 +409,276 @@ public abstract class Elements {
 
         // TODO все кнопки корневых разделов и подразделов
 
+
+
+        public static HeaderAdmin profileButton() {
+            text = "Учетная запись";
+            locator = By.xpath("//*[@id='login-nav']/li[2]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin backToListButton() {
+            text = "Назад к списку";
+            locator = By.xpath("//*[@id='login-nav']/li[4]/a");
+            return new HeaderAdmin(text,locator);
+
+        }
+
+        //=========== Раздел  "Заказы" и его подразделы ===========
+
+        public static HeaderAdmin ordersButton() {
+            text = "Заказы";
+            locator = By.xpath("//*[@id='admin-menu']/div/div/ul/li[1]/a/span");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin multiOrderButton() {
+            text = "Мульти заказ";
+            locator = By.xpath("//*[@id='sub_nav']/li[1]/a/text()");
+            return new HeaderAdmin( text, locator);
+
+        }
+
+        public static HeaderAdmin exportButton() {
+            text = "Export";
+            locator = By.xpath("//*[@id='sub_nav']/li[2]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin veerouteButton() {
+            text = "Veeroute";
+            locator = By.xpath("//*[@id='sub_nav']/li[3]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        // =========== Раздел Магазины и его подразделы =========
+
+        public static HeaderAdmin storeButton() {
+            text = "Магазины";
+            locator = By.xpath("//*[@id='admin-menu']/div/div/ul/li[2]/a/span");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin retailersButton() {
+            text = "Ритейлеры";
+            locator = By.xpath("//*[@id='sub_nav']/li[1]/a/text()");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin zonesButton() {
+            text = "Зоны";
+            locator = By.xpath("//*[@id='sub_nav']/li[2]/a/text()");
+            return new HeaderAdmin(text,locator);
+        }
+
+        // =========== Раздел Продукты и его подразделы ==========
+
+        public static HeaderAdmin productsButton() {
+            text = "Продукты";
+            locator = By.xpath("//*[@id='admin-menu']/div/div/ul/li[3]/a/span");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin subProductsButton() {
+            text = "Продукты";
+            locator = By.xpath("//*[@id='sub_nav']/li[1]/a/text()");
+            return  new HeaderAdmin(text,locator);
+        }
+
+        public static HeaderAdmin productsStatsButton() {
+            text = "Статистика";
+            locator = By.xpath("//*[@id='sub_nav']/li[2]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin optionTypesButton() {
+            text = "Option Types";
+            locator = By.xpath("//*[@id='sub_nav']/li[3]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin propertiesButton() {
+            text = "Properties";
+            locator = By.xpath("//*[@id='sub_nav']/li[4]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin prototypesButton() {
+            text = "Prototypes";
+            locator = By.xpath("//*[@id='sub_nav']/li[5]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin brandsButtton() {
+            text = "Бренды";
+            locator = By.xpath("//*[@id='sub_nav']/li[6]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin producersButton() {
+            text = "Производители";
+            locator = By.xpath("//*[@id='sub_nav']/li[7]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin producersCountriesButton() {
+            text = "Страны производства";
+            locator = By.xpath("//*[@id='sub_nav']/li[8]/a");
+            return new HeaderAdmin(text,locator);
+        }
+
+        //========== Раздел Импорт и его подразделы ========
+
+        public static HeaderAdmin importButton() {
+            text = "Импорт";
+            locator = By.xpath("//*[@id='admin-menu']/div/div/ul/li[4]/a/span");
+            return new HeaderAdmin(text,locator);
+        }
+
+        public static HeaderAdmin queueOfTasksButton() {
+            text = "Очередь задач";
+            locator = By.xpath("//*[@id='sub_nav']/li[1]/a/text()");
+            return new HeaderAdmin(text,locator);
+        }
+
+        public static HeaderAdmin importStatsButton() {
+            text = "Статистика";
+            locator = By.xpath("//*[@id='sub_nav']/li[2]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin archiveButton() {
+            text = "Архив";
+            locator = By.xpath("//*[@id='sub_nav']/li[3]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin blackListButton() {
+            text = "Черный список Gm";
+            locator = By.xpath("//*[@id='sub_nav']/li[4]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin categoryButton() {
+            text = "Категории";
+            locator = By.xpath("//*[@id='sub_nav']/li[5]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin filtersButton() {
+            text = "Фильтры";
+            locator = By.xpath("//*[@id='sub_nav']/li[6]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        public static HeaderAdmin importProductsButton() {
+            text = "Продукты";
+            locator = By.xpath("//*[@id='sub_nav']/li[7]/a");
+            return new HeaderAdmin(text,locator);
+        }
+
+        public static HeaderAdmin priceButton() {
+            text = "Цены";
+            locator = By.xpath("//*[@id='sub_nav']/li[8]/a");
+            return new HeaderAdmin(text, locator);
+        }
+
+        //========== Раздел отчеты ==============
+
+        public static HeaderAdmin reportsButton() {
+            text = "Отчеты";
+            locator = By.xpath("//*[@id='admin-menu']/div/div/ul/li[5]/a/span");
+            return new HeaderAdmin(text, locator);
+        }
+
+        //========== Раздел настройки ============
+
+         public static HeaderAdmin settingsButton() {
+            text = "Настройки";
+            locator = By.xpath("//*[@id='admin-menu']/div/div/ul/li[6]/a/span");
+            return new HeaderAdmin(text, locator);
+         }
+
+         //========= Раздел Маркетинг и его подразделы ===========
+
+         public static HeaderAdmin marketingButton() {
+            text = "Маркетинг";
+            locator = By.xpath("//*[@id='admin-menu']/div/div/ul/li[7]/a/span");
+            return new HeaderAdmin(text, locator);
+         }
+
+         public static HeaderAdmin promoCardsButton() {
+            text = "Промо карточки";
+            locator = By.xpath("//*[@id='sub_nav']/li[1]/a/span");
+            return new HeaderAdmin(text, locator);
+         }
+
+         public static HeaderAdmin promoActionButton() {
+            text = "Промо акции";
+            locator = By.xpath("//*[@id='sub_nav']/li[2]/a/span");
+            return new HeaderAdmin(text, locator);
+         }
+
+         public static HeaderAdmin welcomeBannersButton() {
+            text = "Welcome баннеры";
+            locator = By.xpath("//*[@id='sub_nav']/li[3]/a/span");
+            return new HeaderAdmin(text,locator);
+         }
+
+         public static HeaderAdmin advertisementButton() {
+            text = "Реклама";
+            locator = By.xpath("//*[@id='sub_nav']/li[4]/a/span");
+            return new HeaderAdmin(text,locator);
+         }
+
+         public static HeaderAdmin yandexMarketButton() {
+            text = "Яндекс.Маркет";
+            locator = By.xpath("//*[@id='sub_nav']/li[5]/a/span");
+            return new HeaderAdmin(text, locator);
+         }
+
+         public static HeaderAdmin cartsButton() {
+            text = "Корзины";
+            locator = By.xpath("//*[@id='sub_nav']/li[6]/a/span");
+            return new HeaderAdmin(text, locator);
+         }
+
+         public static HeaderAdmin bonusCardsButton() {
+            text = "Бонусные карты";
+            locator = By.xpath("//*[@id='sub_nav']/li[7]/a/span");
+            return new HeaderAdmin(text, locator);
+         }
+
+
+         public static HeaderAdmin retailersProgramsButton() {
+            text = "Программы ритейлеров";
+            locator = By.xpath("//*[@id='sub_nav']/li[8]/a/span");
+            return new HeaderAdmin(text, locator);
+         }
+
+         public static HeaderAdmin newCitiesButton() {
+            text = "Новые Города";
+            locator = By.xpath("//*[@id='sub_nav']/li[9]/a/span");
+            return new HeaderAdmin(text,locator);
+         }
+
+         //========== Раздел пользователи ===========
+
+         public static HeaderAdmin usersButton() {
+            text = "Пользователи";
+            locator = By.xpath("//*[@id='admin-menu']/div/div/ul/li[8]/a/span");
+            return new HeaderAdmin(text, locator);
+         }
+
+         //========== Раздел Страницы ===========
+
+         public static HeaderAdmin pagesButton() {
+            text = "Страницы";
+            locator = By.xpath("//*[@id='admin-menu']/div/div/ul/li[9]/a/span");
+            return new HeaderAdmin(text, locator);
+         }
+
+
     }
 
 
