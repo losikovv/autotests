@@ -322,12 +322,12 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить открыта ли корзина */
     public boolean isCartOpen() {
-        return isElementPresent(Elements.Cart.drawer());
+        return isElementDisplayed(Elements.Cart.drawer());
     }
 
     /** Открыть корзину */
     public void openCart() {
-        click(Elements.Header.cartButton());
+        click(Elements.Header.openCartButton());
     }
 
     /** Открыть корзину, если она не открыта */

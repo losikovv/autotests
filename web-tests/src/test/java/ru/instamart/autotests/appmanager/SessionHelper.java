@@ -88,19 +88,26 @@ public class SessionHelper extends HelperBase {
 
 
 
-    // ======= Authorisation =======
-    public void conditionalDoLoginAs(String role) {
+    // ======= Методы авторизации =======
+
+    /** Авторизоваться тестовым пользователем с указанной ролью, если неавторизован */
+    public void doLoginIfNeededAs(String role) {
         if (!isUserAuthorised()) { doLoginAs(role); }
     }
 
+    /** Авторизоваться тестовым пользователем с указанной ролью */
     public void doLoginAs(String role) {
         doLogin(Users.getCredentials(role));
         printMessage("Logged-in with " + role + " privileges\n");
     }
 
-    /**
-     * Perform log-in with the given user credentials
-     */
+
+    /** Авторизоваться пользователем с указанными реквизитами, если неавторизован */
+    public void doLoginIfNeeded(String email, String password) {
+        if (!isUserAuthorised()) { doLogin(email,password); }
+    }
+
+    /** Авторизоваться пользователем с указанными реквизитами */
     public void doLogin(String email, String password) {
         printMessage("Performing authorisation...");
         openLoginForm();
@@ -110,9 +117,13 @@ public class SessionHelper extends HelperBase {
         waitForIt(3);
     }
 
-    /**
-     * Perform log-in with the user credentials from the given user-data object
-     */
+
+    /** Авторизоваться пользователем, если неавторизован */
+    public void doLoginIfNeeded(UserData userData) {
+        if (!isUserAuthorised()) { doLogin(userData); }
+    }
+
+    /** Авторизоваться пользователем */
     public void doLogin(UserData userData) {
         printMessage("Performing authorisation...");
         openLoginForm();
@@ -122,24 +133,33 @@ public class SessionHelper extends HelperBase {
         waitForIt(3);
     }
 
-    /** Do log-in with Facebook as reserved for testing needs user */
+
+    /** Авторизоваться через Facebook, если неавторизован */
+    public void doLoginWithFacebookIfNeeded() {
+        if (!isUserAuthorised()) { doLoginWithFacebook(); }
+    }
+
+    //TODO
+    /** Авторизоваться через Facebook */
     public void doLoginWithFacebook() {
-        //TODO
     }
 
-    /** Do log-in with VKontakte as reserved for testing needs user */
-    public void doLoginWithVKontakte() {
-        //TODO
+
+    /** Авторизоваться через VK, если неавторизован */
+    public void doLoginWithVKIfNeeded() {
+        if (!isUserAuthorised()) { doLoginWithVK(); }
     }
 
-    /**
-     * Проверяем авторизованность по наличию на странице кнопки "Профиль"
-     */
+    //TODO
+    /** Авторизоваться через VK */
+    public void doLoginWithVK() {
+    }
+
+
+    /** Определить авторизован ли пользователь */
     public boolean isUserAuthorised() {
         printMessage("Checking authorisation...");
-        if (isElementDetected(
-                "//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[1]/div[1]",
-                "Профиль")) {
+        if (isElementDetected(Elements.Header.profileButton())) {
             printMessage("✓ Authorised\n");
             return true;
         } else {
@@ -149,12 +169,10 @@ public class SessionHelper extends HelperBase {
     }
 
 
-
     // ======= De-Authorisation =======
 
 
     /** Деавторизоваться */
-
     public void doLogout() {
         printMessage("Log-out\n");
         if (!isInAdmin()) {
@@ -168,7 +186,6 @@ public class SessionHelper extends HelperBase {
 
 
     /** Деавторизоваться, оставшись на текущей странице */
-
     public void dropAuth() {
         String currentURL = currentURL();
         if (isUserAuthorised()) {
@@ -195,7 +212,7 @@ public class SessionHelper extends HelperBase {
             deleteFirstUserInTable();
             deleteAllTestUsers(); // Keep deleting users recursively
         } else {
-            printMessage("No test users left\n");
+            printMessage("✓ Complete: no test users left\n");
         }
     }
 
@@ -206,7 +223,7 @@ public class SessionHelper extends HelperBase {
     private void deleteFirstUserInTable() {
         String XPATH_LOGIN = "//*[@id='content']/div/table/tbody/tr[1]/td[1]/div[1]/a";
         String XPATH_DELETE = "//*[@id='content']/div/table/tbody/tr/td[3]/a[2]";
-        printMessage("> delete user [" + getText(By.xpath(XPATH_LOGIN)) + "]");
+        printMessage("- delete user " + getText(By.xpath(XPATH_LOGIN)));
         click(By.xpath(XPATH_DELETE));
         handleAlert();
         waitForIt(1);
@@ -234,7 +251,7 @@ public class SessionHelper extends HelperBase {
             // Keep cancelling orders recursively
             cancelAllTestOrders();
         } else {
-            printMessage("No test orders left active\n");
+            printMessage("✓ Complete: no test orders left active\n");
         }
     }
 
@@ -249,7 +266,7 @@ public class SessionHelper extends HelperBase {
     // TODO перенести в Administration helper
     /** Cancel order on the order page in admin panel */
     public void cancelOrder(){ // TODO Параметризовать причину отмены и текст
-        printMessage("> cancel order " + currentURL());
+        printMessage("- cancel order " + currentURL());
         // click cancel button
         click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
         handleAlert();

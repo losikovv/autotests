@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 public class ShippingAddress extends TestBase {
 
 
-    @Test(
+    @Test(enabled = false,
             description = "Проверяем что на лендинге не выбран адрес",
             groups = {"acceptance","regression"},
             priority = 200
@@ -26,7 +26,7 @@ public class ShippingAddress extends TestBase {
     }
 
 
-    @Test(
+    @Test(enabled = false,
             description = "Проверяем что по дефолту на витрине ритейлера не выбран адрес",
             groups = {"acceptance","regression"},
             priority = 201
@@ -40,7 +40,7 @@ public class ShippingAddress extends TestBase {
     }
 
 
-    @Test(
+    @Test(enabled = false,
             description = "Тест дефолтного списка магазов при отсутствии адреса доставки",
             groups = {"acceptance","regression"},
             priority = 202
@@ -70,7 +70,7 @@ public class ShippingAddress extends TestBase {
     }
 
 
-    @Test(
+    @Test(enabled = false,
             description = "Тест выбора адреса на лендинге",
             groups = {"acceptance","regression"},
             priority = 203
@@ -91,7 +91,7 @@ public class ShippingAddress extends TestBase {
     }
 
 
-    @Test(
+    @Test( enabled = false,
             description = "Тест изменения адреса доставки на витрине ритейлера",
             groups = {"acceptance","regression"},
             priority = 204
@@ -144,7 +144,7 @@ public class ShippingAddress extends TestBase {
     }
 
 
-    @Test(
+    @Test( enabled = false,
             description = "Проверяем что после авторизации подтягивается адрес доствки",
             groups = {"acceptance","regression"},
             priority = 206

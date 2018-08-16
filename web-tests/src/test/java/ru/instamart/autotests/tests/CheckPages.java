@@ -81,7 +81,7 @@ public class CheckPages extends TestBase {
     )
     public void checkProfilePages() throws Exception, AssertionError {
         app.getHelper().getBaseUrl();
-        app.getSessionHelper().conditionalDoLoginAs("admin");
+        app.getSessionHelper().doLoginIfNeededAs("admin");
 
         assertPageIsAvailable("https://instamart.ru/user/edit");
         assertPageIsAvailable("https://instamart.ru/user/orders");

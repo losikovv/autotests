@@ -54,11 +54,13 @@ public abstract class Elements {
         }
 
         public static Header profileButton(){
-            locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div");
-            return new Header(null, locator);
+            //locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div");
+            text = "Профиль";
+            locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[1]/div[1]");
+            return new Header(text, locator);
         }
 
-        public static Header cartButton(){
+        public static Header openCartButton(){
             locator = By.className("open-new-cart");
             return new Header(null, locator);
         }

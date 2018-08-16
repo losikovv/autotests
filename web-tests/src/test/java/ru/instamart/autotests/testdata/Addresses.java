@@ -13,10 +13,6 @@ public abstract class Addresses {
         addressString = address;
     }
 
-    public static String get() {
-        return addressString;
-    }
-
 
     public static class Moscow extends Addresses {
 

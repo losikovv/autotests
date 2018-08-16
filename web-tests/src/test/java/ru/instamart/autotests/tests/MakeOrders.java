@@ -16,7 +16,7 @@ public class MakeOrders extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preparing() throws Exception {
         app.getNavigationHelper().getRetailerPage("metro");
-        app.getSessionHelper().conditionalDoLoginAs("admin");
+        app.getSessionHelper().doLoginIfNeededAs("admin");
     }
 
 
@@ -54,7 +54,7 @@ public class MakeOrders extends TestBase {
     public void orderToVkusvill(){
 
         app.getNavigationHelper().getRetailerPage("vkusvill");
-        app.getShoppingHelper().changeShippingAddress("Москва, ул Красная Пресня, д 88"); // TODO брать из Addresses
+        app.getShoppingHelper().changeShippingAddress(Addresses.Moscow.testAddress());
 
         // идем в чекаут, при необходимости набирая корзину
         app.getNavigationHelper().getCheckoutPage();
@@ -87,7 +87,7 @@ public class MakeOrders extends TestBase {
     public void cancelLastOrder()throws Exception {
         app.getProfileHelper().cancelLastOrder();
         app.getNavigationHelper().goHome();
-        app.getShoppingHelper().changeShippingAddress("Москва, ул Просторная, д 77"); // TODO брать из Addresses
+        app.getShoppingHelper().changeShippingAddress(Addresses.Moscow.defaultAddress());
     }
 
 }
