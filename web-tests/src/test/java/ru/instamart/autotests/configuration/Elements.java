@@ -434,7 +434,7 @@ public abstract class Elements {
 
         public static HeaderAdmin multiOrderButton() {
             text = "Мульти заказ";
-            locator = By.xpath("//*[@id='sub_nav']/li[1]/a/text()");
+            locator = By.xpath("//*[@id='sub_nav']/li[1]/a");
             return new HeaderAdmin( text, locator);
 
         }
@@ -461,13 +461,13 @@ public abstract class Elements {
 
         public static HeaderAdmin retailersButton() {
             text = "Ритейлеры";
-            locator = By.xpath("//*[@id='sub_nav']/li[1]/a/text()");
+            locator = By.xpath("//*[@id='sub_nav']/li[1]/a");
             return new HeaderAdmin(text, locator);
         }
 
         public static HeaderAdmin zonesButton() {
             text = "Зоны";
-            locator = By.xpath("//*[@id='sub_nav']/li[2]/a/text()");
+            locator = By.xpath("//*[@id='sub_nav']/li[2]/a");
             return new HeaderAdmin(text,locator);
         }
 
@@ -481,7 +481,7 @@ public abstract class Elements {
 
         public static HeaderAdmin subProductsButton() {
             text = "Продукты";
-            locator = By.xpath("//*[@id='sub_nav']/li[1]/a/text()");
+            locator = By.xpath("//*[@id='sub_nav']/li[1]/a");
             return  new HeaderAdmin(text,locator);
         }
 
@@ -537,7 +537,7 @@ public abstract class Elements {
 
         public static HeaderAdmin queueOfTasksButton() {
             text = "Очередь задач";
-            locator = By.xpath("//*[@id='sub_nav']/li[1]/a/text()");
+            locator = By.xpath("//*[@id='sub_nav']/li[1]/a");
             return new HeaderAdmin(text,locator);
         }
 

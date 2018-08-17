@@ -132,209 +132,285 @@ public class NavigationHelper extends HelperBase {
 
 
     public void goOrders() {
-        click(Elements.HeaderAdmin.ordersButton());
+        Elements.HeaderAdmin.ordersButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goOrdersMulti() {
         goOrders();
-        click(Elements.HeaderAdmin.multiOrderButton());
+        Elements.HeaderAdmin.multiOrderButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goOrdersExport() {
         goOrders();
-        click(Elements.HeaderAdmin.exportButton());
+        Elements.HeaderAdmin.exportButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goOrdersVeeroute() {
         goOrders();
-        click(Elements.HeaderAdmin.veerouteButton());
+        Elements.HeaderAdmin.veerouteButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     //======== Раздел Магазины и его подразделы =========
 
     public void goStore() {
-        click(Elements.HeaderAdmin.storeButton());
+        Elements.HeaderAdmin.storeButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
 
     public void goStoreRetailers() {
         goStore();
-        click(Elements.HeaderAdmin.retailersButton());
+        Elements.HeaderAdmin.retailersButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goStoreZones() {
         goStore();
-        click(Elements.HeaderAdmin.zonesButton());
+        Elements.HeaderAdmin.zonesButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
 
     // =========== Раздел Продукты и его подразделы ==========
 
     public void goProducts() {
-        click(Elements.HeaderAdmin.productsButton());
+        Elements.HeaderAdmin.productsButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goSubProducts() {
         goProducts();
-        click(Elements.HeaderAdmin.subProductsButton());
+        Elements.HeaderAdmin.subProductsButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goProductsStats() {
         goProducts();
-        click(Elements.HeaderAdmin.productsStatsButton());
+        Elements.HeaderAdmin.productsStatsButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goProductsOptionTypes() {
         goProducts();
-        click(Elements.HeaderAdmin.optionTypesButton());
+        Elements.HeaderAdmin.optionTypesButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goProductsProperties() {
         goProducts();
-        click(Elements.HeaderAdmin.propertiesButton());
+        Elements.HeaderAdmin.propertiesButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goProductsPrototypes() {
         goProducts();
-        click(Elements.HeaderAdmin.prototypesButton());
+        Elements.HeaderAdmin.prototypesButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goProductsBrands() {
         goProducts();
-        click(Elements.HeaderAdmin.brandsButtton());
+        Elements.HeaderAdmin.brandsButtton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goProductsProducers() {
         goProducts();
-        click(Elements.HeaderAdmin.producersButton());
+        Elements.HeaderAdmin.producersButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goProductsProducersCountries() {
         goProducts();
-        click(Elements.HeaderAdmin.producersCountriesButton());
+        Elements.HeaderAdmin.producersCountriesButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     //========== Раздел Импорт и его подразделы ========
 
     public void goImport() {
-        click(Elements.HeaderAdmin.importButton());
+        Elements.HeaderAdmin.importButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goImportQueueOfTasks() {
         goImport();
-        click(Elements.HeaderAdmin.queueOfTasksButton());
+        Elements.HeaderAdmin.queueOfTasksButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goImportStats() {
         goImport();
-        click(Elements.HeaderAdmin.importStatsButton());
+        Elements.HeaderAdmin.importStatsButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goImportArchive() {
         goImport();
-        click(Elements.HeaderAdmin.archiveButton());
+        Elements.HeaderAdmin.archiveButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goImportBlackList() {
         goImport();
-        click(Elements.HeaderAdmin.blackListButton());
+        Elements.HeaderAdmin.blackListButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goImportCategory() {
         goImport();
-        click(Elements.HeaderAdmin.categoryButton());
+        Elements.HeaderAdmin.categoryButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goImportFilters() {
         goImport();
-        click(Elements.HeaderAdmin.filtersButton());
+        Elements.HeaderAdmin.filtersButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goImportProducts() {
         goImport();
-        click(Elements.HeaderAdmin.importProductsButton());
+        Elements.HeaderAdmin.importProductsButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goImportPrice() {
         goImport();
-        click(Elements.HeaderAdmin.priceButton());
+        Elements.HeaderAdmin.priceButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     //========== Раздел отчеты ==============
 
     public void goReports() {
-        click(Elements.HeaderAdmin.reportsButton());
+        Elements.HeaderAdmin.reportsButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     //========== Раздел настройки ============
 
     public void goSettings() {
-        click(Elements.HeaderAdmin.settingsButton());
+        Elements.HeaderAdmin.settingsButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     //========= Раздел Маркетинг и его подразделы ===========
 
     public void goMarketing() {
-        click(Elements.HeaderAdmin.marketingButton());
+        Elements.HeaderAdmin.marketingButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goMarketingPromoCards() {
         goMarketing();
-        click(Elements.HeaderAdmin.promoCardsButton());
+        Elements.HeaderAdmin.promoCardsButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goMarketingPromoAction() {
         goMarketing();
-        click(Elements.HeaderAdmin.promoActionButton());
+        Elements.HeaderAdmin.promoActionButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goMarketingWelcomeBanners() {
         goMarketing();
-        click(Elements.HeaderAdmin.welcomeBannersButton());
+        Elements.HeaderAdmin.welcomeBannersButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goMarketingAdvertisement() {
         goMarketing();
-        click(Elements.HeaderAdmin.advertisementButton());
+        Elements.HeaderAdmin.advertisementButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goMarketingYandexMarket() {
         goMarketing();
-        click(Elements.HeaderAdmin.yandexMarketButton());
+        Elements.HeaderAdmin.yandexMarketButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goMarketingCarts() {
         goMarketing();
-        click(Elements.HeaderAdmin.cartsButton());
+        Elements.HeaderAdmin.cartsButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goMarketingBonusCards() {
         goMarketing();
-        click(Elements.HeaderAdmin.bonusCardsButton());
+        Elements.HeaderAdmin.bonusCardsButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goMarketingRetailersPrograms() {
         goMarketing();
-        click(Elements.HeaderAdmin.retailersProgramsButton());
+        Elements.HeaderAdmin.retailersProgramsButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     public void goMarketingNewCities() {
         goMarketing();
-        click(Elements.HeaderAdmin.newCitiesButton());
+        Elements.HeaderAdmin.newCitiesButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     //========== Раздел пользователи ===========
 
     public void goUsers() {
-        goMarketing();
-        click(Elements.HeaderAdmin.usersButton());
+        Elements.HeaderAdmin.usersButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
     //========== Раздел Страницы ===========
 
     public void goPages() {
-        goMarketing();
-        click(Elements.HeaderAdmin.pagesButton());
+        Elements.HeaderAdmin.pagesButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
 
