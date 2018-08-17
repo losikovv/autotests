@@ -3,11 +3,9 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.models.UserData;
 
 
-
-    // Тесты админки
+// Тесты админки
 
 
 
@@ -82,6 +80,166 @@ public class Administration extends TestBase {
     @Test(priority = 703)
     public void cancelTestOrders() throws Exception {
         app.getSessionHelper().cancelAllTestOrders(); // TODO перенести метод в AdministrationHelper
+    }
+
+
+
+    @Test(
+            description = "Тест шапки админки",
+            groups = {"regression"},
+            priority = 704
+
+    )
+
+    public void checkHeader() throws Exception {
+
+        checkOrders();
+        checkStore();
+        checkProducts();
+        checkImport();
+        checkReports();
+        checkSettings();
+        checkMarketing();
+        checkUsers();
+        checkPages();
+
+    }
+
+
+    public void checkOrders() throws Exception {
+        app.getNavigationHelper().goOrders();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goOrdersMulti();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goOrdersExport();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goOrdersVeeroute();
+        assertPageIsAvailable();
+    }
+
+    public void checkStore() throws Exception {
+        app.getNavigationHelper().goStore();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goStoreRetailers();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goStoreZones();
+        assertPageIsAvailable();
+    }
+
+    public void checkProducts() throws Exception {
+        app.getNavigationHelper().goProducts();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goSubProducts();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goProductsStats();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goProductsOptionTypes();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goProductsProperties();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goProductsPrototypes();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goProductsBrands();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goProductsProducers();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goProductsProducersCountries();
+        assertPageIsAvailable();
+    }
+
+    public void checkImport() throws Exception {
+        app.getNavigationHelper().goImport();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goImportQueueOfTasks();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goImportStats();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goImportArchive();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goImportBlackList();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goImportCategory();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goImportFilters();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goImportProducts();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goImportPrice();
+        assertPageIsAvailable();
+
+    }
+
+    public void checkReports() throws Exception {
+        app.getNavigationHelper().goReports();
+        assertPageIsAvailable();
+    }
+
+    public void checkSettings() throws Exception {
+        app.getNavigationHelper().goSettings();
+        assertPageIsAvailable();
+    }
+
+    public void checkMarketing() throws Exception {
+        app.getNavigationHelper().goMarketing();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goMarketingPromoCards();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goMarketingPromoAction();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goMarketingWelcomeBanners();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goMarketingAdvertisement();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goMarketingYandexMarket();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goMarketingCarts();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goMarketingBonusCards();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goMarketingRetailersPrograms();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goMarketingNewCities();
+        assertPageIsAvailable();
+    }
+
+    public void checkUsers() throws Exception {
+        app.getNavigationHelper().goUsers();
+        assertPageIsAvailable();
+    }
+
+    public void checkPages() throws Exception {
+        app.getNavigationHelper().goPages();
+        assertPageIsAvailable();
     }
 
 }
