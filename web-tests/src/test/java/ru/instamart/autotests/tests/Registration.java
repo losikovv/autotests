@@ -169,7 +169,7 @@ public class Registration extends TestBase {
             priority = 8
     )
     public void successRegOnRetailerPage() throws Exception {
-        app.getNavigationHelper().getRetailerPage(new RetailerData("metro"));
+        app.getNavigationHelper().getRetailerPage("metro");
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().regNewUser(Generate.testUserData());
 

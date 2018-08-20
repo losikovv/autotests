@@ -93,20 +93,20 @@ public class Administration extends TestBase {
 
     public void checkHeader() throws Exception {
 
-        checkOrders();
-        checkStore();
-        checkProducts();
-        checkImport();
-        checkReports();
-        checkSettings();
-        checkMarketing();
-        checkUsers();
-        checkPages();
+        orders();
+        stores();
+        products();
+        imports();
+        reports();
+        settings();
+        marketing();
+        users();
+        pages();
 
     }
 
 
-    public void checkOrders() throws Exception {
+    private void orders() throws Exception {
         app.getNavigationHelper().goOrders();
         assertPageIsAvailable();
 
@@ -120,7 +120,7 @@ public class Administration extends TestBase {
         assertPageIsAvailable();
     }
 
-    public void checkStore() throws Exception {
+    private void stores() throws Exception {
         app.getNavigationHelper().goStore();
         assertPageIsAvailable();
 
@@ -131,7 +131,7 @@ public class Administration extends TestBase {
         assertPageIsAvailable();
     }
 
-    public void checkProducts() throws Exception {
+    private void products() throws Exception {
         app.getNavigationHelper().goProducts();
         assertPageIsAvailable();
 
@@ -160,7 +160,7 @@ public class Administration extends TestBase {
         assertPageIsAvailable();
     }
 
-    public void checkImport() throws Exception {
+    private void imports() throws Exception {
         app.getNavigationHelper().goImport();
         assertPageIsAvailable();
 
@@ -190,17 +190,17 @@ public class Administration extends TestBase {
 
     }
 
-    public void checkReports() throws Exception {
+    private void reports() throws Exception {
         app.getNavigationHelper().goReports();
         assertPageIsAvailable();
     }
 
-    public void checkSettings() throws Exception {
+    private void settings() throws Exception {
         app.getNavigationHelper().goSettings();
         assertPageIsAvailable();
     }
 
-    public void checkMarketing() throws Exception {
+    private void marketing() throws Exception {
         app.getNavigationHelper().goMarketing();
         assertPageIsAvailable();
 
@@ -232,12 +232,12 @@ public class Administration extends TestBase {
         assertPageIsAvailable();
     }
 
-    public void checkUsers() throws Exception {
+    private void users() throws Exception {
         app.getNavigationHelper().goUsers();
         assertPageIsAvailable();
     }
 
-    public void checkPages() throws Exception {
+    private void pages() throws Exception {
         app.getNavigationHelper().goPages();
         assertPageIsAvailable();
     }
