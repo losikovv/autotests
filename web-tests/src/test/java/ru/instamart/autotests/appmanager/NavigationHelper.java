@@ -78,6 +78,17 @@ public class NavigationHelper extends HelperBase {
         click(By.className("header-logo"));
     }
 
+    // ========= Подвал сайта =========
+
+    public void goFooterAboutCompany () {
+        Elements.Footer.aboutCompanyButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+
+    }
+
+    public void
+
 
 
     // ======= ADMIN =======

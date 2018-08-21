@@ -391,9 +391,78 @@ public abstract class Elements {
 
     }
 
+    /** Подвал сайта */
+
+    public static class Footer extends Elements {
+
+        Footer(String text, By locator) {
+            Elements.text = text;
+            Elements.locator = locator;
+        }
+
+        public static Footer aboutCompanyButton() {
+            text = "О компании";
+            locator = By.xpath("//*[@id='new-home-footer']/div/div[1]/div[1]/ul/li[1]/a");
+            return new Footer(text, locator);
+        }
+
+        public static Footer contactsButton() {
+            text = "Контакты";
+            locator = By.xpath("//*[@id='new-home-footer']/div/div[1]/div[1]/ul/li[2]/a");
+            return new Footer(text,locator);
+        }
+
+        public static Footer deliveryButton() {
+            text = "Доставка";
+            locator = By.xpath("//*[@id='new-home-footer']/div/div[1]/div[1]/ul/li[3]/button");
+            return new Footer(text,locator);
+        }
+
+        public static Footer paymentButton() {
+            text = "Оплата";
+            locator = By.xpath("//*[@id='new-home-footer']/div/div[1]/div[1]/ul/li[4]/button");
+            return new Footer(text,locator);
+        }
+
+        public static Footer partnersButton() {
+            text = "Партнеры";
+            locator = By.xpath("//*[@id='new-home-footer']/div/div[1]/div[1]/ul/li[5]/button");
+            return new Footer(text, locator);
+        }
+
+        public static Footer faqButton() {
+            text = "FAQ";
+            locator = By.xpath("//*[@id='new-home-footer']/div/div[1]/div[1]/ul/li[6]/a");
+            return new Footer(text,locator);
+        }
+
+        public static Footer feedbackFormButton() {
+            text = "Форма обратной связи";
+            locator = By.xpath("//*[@id='new-home-footer']/div/div[1]/div[2]/ul/li[3]/a");
+            return new Footer(text, locator);
+        }
+
+        public static Footer returnPolicyButton() {
+            text = "Политика возврата";
+            locator = By.xpath("//*[@id='new-home-footer']/div/div[2]/div[2]/a[1]");
+            return new Footer(text, locator);
+        }
+
+        public static Footer publicOfferButton() {
+            text = "Публичная оферта";
+            locator = By.xpath("//*[@id='new-home-footer']/div/div[2]/div[2]/a[2]");
+            return new Footer(text,locator);
+        }
+
+    }
+
+
+
 
 
     /** Шапка админки */
+
+
 
     public static class HeaderAdmin extends Elements {
 
