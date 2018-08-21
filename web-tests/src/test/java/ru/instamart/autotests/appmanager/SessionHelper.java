@@ -159,7 +159,7 @@ public class SessionHelper extends HelperBase {
     /** Определить авторизован ли пользователь */
     public boolean isUserAuthorised() {
         printMessage("Checking authorisation...");
-        if (isElementDetected(Elements.Header.profileButton())) {
+        if (isElementDetected(Elements.Site.Header.profileButton())) {
             printMessage("✓ Authorised\n");
             return true;
         } else {
@@ -176,10 +176,10 @@ public class SessionHelper extends HelperBase {
     public void doLogout() {
         printMessage("Log-out\n");
         if (!isInAdmin()) {
-            click(Elements.Header.profileButton());
-            click(Elements.AccountMenu.logoutButton());
+            click(Elements.Site.Header.profileButton());
+            click(Elements.Site.AccountMenu.logoutButton());
         } else {
-            click(Elements.HeaderAdmin.logoutButton());
+            click(Elements.Admin.Header.logoutButton());
         }
         waitForIt(3);
     }
@@ -302,10 +302,10 @@ public class SessionHelper extends HelperBase {
         if (currentURL().equals(baseUrl)){
             click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
         } else {
-            click(Elements.Header.loginButton());
+            click(Elements.Site.Header.loginButton());
         }
 
-        if(isElementPresent(Elements.AuthModal.popup())) {
+        if(isElementPresent(Elements.Site.AuthModal.popup())) {
             printMessage("> open login form");
         } else {
             printMessage(" >>> can't open login form");
@@ -345,7 +345,7 @@ public class SessionHelper extends HelperBase {
 
     private void sendForm(){
         printMessage("> send form\n");
-        click(Elements.AuthModal.submitButton());
+        click(Elements.Site.AuthModal.submitButton());
     }
 
     /**

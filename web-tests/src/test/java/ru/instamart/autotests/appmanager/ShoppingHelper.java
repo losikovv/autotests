@@ -29,12 +29,12 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определяем пуст ли адрес доставки */
     public boolean isShippingAddressEmpty() {
-        return isElementDetected(Elements.Header.setShipAddressButton());
+        return isElementDetected(Elements.Site.Header.setShipAddressButton());
     }
 
     /** Определяем выбран ли адрес доставки */
     public boolean isShippingAddressSet() {
-        if (isElementDetected((Elements.Header.changeShipAddressButton()))) {
+        if (isElementDetected((Elements.Site.Header.changeShipAddressButton()))) {
             currentShippingAddress();
             return true;
         } else {
@@ -48,11 +48,11 @@ public class ShoppingHelper extends HelperBase {
 
     public void setShippingAddress(String address) {
         printMessage("Setting new shipping address...");
-        click(Elements.Header.setShipAddressButton());
+        click(Elements.Site.Header.setShipAddressButton());
         checkAddressModal();
-        fillField(Elements.AddressModal.addressField(), address);
+        fillField(Elements.Site.AddressModal.addressField(), address);
         selectAddressSuggest();
-        click(Elements.AddressModal.saveButton());
+        click(Elements.Site.AddressModal.saveButton());
         waitForIt(1);
     }
 
@@ -60,27 +60,27 @@ public class ShoppingHelper extends HelperBase {
 
     public void changeShippingAddress(String newAddress) {
         printMessage("Changing shipping address");
-        click(Elements.Header.changeShipAddressButton());
+        click(Elements.Site.Header.changeShipAddressButton());
         setShippingAddress(newAddress);
     }
 
 
     /** Определить и вернуть текущий адрес доставки */
     public String currentShippingAddress() {
-        printMessage("Shipping address: " + getText(Elements.Header.currentShipAddress()));
+        printMessage("Shipping address: " + getText(Elements.Site.Header.currentShipAddress()));
         return getText(Elements.getLocator());
     }
 
 
     /** Определить показаны ли адресные саджесты */
     private boolean isAnyAddressSuggestsAvailable() {
-        return isElementPresent(Elements.AddressModal.addressSuggest());
+        return isElementPresent(Elements.Site.AddressModal.addressSuggest());
     }
 
     /** Выбрать первый адресный саджест */
     private void selectAddressSuggest() {
         if (isAnyAddressSuggestsAvailable()) {
-            click(Elements.AddressModal.addressSuggest());
+            click(Elements.Site.AddressModal.addressSuggest());
         } else {
             printMessage("Can't click address suggest - there are no such");
         }
@@ -88,7 +88,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Проверка на наличие адресной модалки адресной модалки */
     private void checkAddressModal() {
-        printMessage("Modal opened: [" + getText(Elements.AddressModal.header()) + "]");
+        printMessage("Modal opened: [" + getText(Elements.Site.AddressModal.header()) + "]");
     }
 
 
@@ -187,14 +187,14 @@ public class ShoppingHelper extends HelperBase {
     }
 
     public boolean isAnyShopsAvailable() {
-        return isElementDisplayed(Elements.ShopSelector.storeButton());
+        return isElementDisplayed(Elements.Site.ShopSelector.storeButton());
     }
 
 
     // ======= Каталог =======
 
     public boolean isProductAvailable() {
-        return isElementPresent(Elements.Catalog.product());
+        return isElementPresent(Elements.Site.Catalog.product());
     }
 
     /**
@@ -224,7 +224,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Открываем карточку первого товара */
     private void openFirstItemCard() {
-        click(Elements.Catalog.firstItem());
+        click(Elements.Site.Catalog.firstItem());
         waitForIt(1);
         switchToActiveElement();
     }
@@ -234,13 +234,13 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить открыта ли карточка товара */
     public boolean isItemCardOpen() {
-        return isElementPresent(Elements.ItemCard.popup());
+        return isElementPresent(Elements.Site.ItemCard.popup());
     }
 
     /** Нажать кнопку [+] в карточке товара */
     private void hitPlusButton() {
-        if (isElementEnabled(Elements.ItemCard.plusButton())) {
-            click(Elements.ItemCard.plusButton());
+        if (isElementEnabled(Elements.Site.ItemCard.plusButton())) {
+            click(Elements.Site.ItemCard.plusButton());
         } else {
             printMessage("'Plus' button is disabled");
         }
@@ -248,8 +248,8 @@ public class ShoppingHelper extends HelperBase {
 
     /** Нажать кнопку [-] в карточке товара */
     private void hitMinusButton() {
-        if (isElementDisplayed(Elements.ItemCard.minusButton())) {
-            click(Elements.ItemCard.minusButton());
+        if (isElementDisplayed(Elements.Site.ItemCard.minusButton())) {
+            click(Elements.Site.ItemCard.minusButton());
         } else {
             printMessage("'Minus' button is not displayed");
         }
@@ -257,7 +257,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Закрыть карточку товара */
     private void closeItemCard() {
-        click(Elements.ItemCard.closeButton());
+        click(Elements.Site.ItemCard.closeButton());
     }
 
 
@@ -273,17 +273,17 @@ public class ShoppingHelper extends HelperBase {
 
     /** Заполнить поле поиска */
     public void fillSearchField(String queryText) {
-        fillField(Elements.Header.searchField(), queryText);
+        fillField(Elements.Site.Header.searchField(), queryText);
         waitForIt(1);
     }
 
     /** Нажать кнопку поиска */
     public void hitSearchButton() {
-        click((Elements.Header.searchButton()));
+        click((Elements.Site.Header.searchButton()));
     }
 
     public boolean isSearchResultsEmpty() {
-        return isElementPresent(Elements.Catalog.emptySearchPlaceholder());
+        return isElementPresent(Elements.Site.Catalog.emptySearchPlaceholder());
     }
 
     //TODO переделать
@@ -322,12 +322,12 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить открыта ли корзина */
     public boolean isCartOpen() {
-        return isElementDisplayed(Elements.Cart.drawer());
+        return isElementDisplayed(Elements.Site.Cart.drawer());
     }
 
     /** Открыть корзину */
     public void openCart() {
-        click(Elements.Header.openCartButton());
+        click(Elements.Site.Header.openCartButton());
     }
 
     /** Открыть корзину, если она не открыта */
@@ -339,7 +339,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Закрыть корзину */
     public void closeCart() {
-        click(Elements.Cart.closeButton());
+        click(Elements.Site.Cart.closeButton());
     }
 
     /** Закрыть корзину, если она открыта */
@@ -352,7 +352,7 @@ public class ShoppingHelper extends HelperBase {
     /** Определить пуста ли корзина */
     public boolean isCartEmpty() {
         openCartIfNeeded();
-        return isElementPresent(Elements.Cart.placeholder());
+        return isElementPresent(Elements.Site.Cart.placeholder());
     }
 
     /**
@@ -379,13 +379,13 @@ public class ShoppingHelper extends HelperBase {
     /** Определить активна ли кнопка "Сделать заказ" в корзине */
     public boolean isCheckoutButtonActive() {
         openCartIfNeeded();
-        return isElementEnabled(Elements.Cart.checkoutButton());
+        return isElementEnabled(Elements.Site.Cart.checkoutButton());
     }
 
     /** Перейти в чекаут нажатием кнопки "Сделать заказ" в корзине */
     public void proceedToCheckout() {
         openCartIfNeeded();
-        click(Elements.Cart.checkoutButton());
+        click(Elements.Site.Cart.checkoutButton());
     }
 
     /**
