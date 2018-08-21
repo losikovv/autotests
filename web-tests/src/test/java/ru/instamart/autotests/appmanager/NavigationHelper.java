@@ -2,7 +2,6 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.configuration.Element;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 import ru.instamart.autotests.models.RetailerData;
@@ -81,11 +80,61 @@ public class NavigationHelper extends HelperBase {
 
     // ========= Подвал сайта =========
 
-    public void goFooterAboutCompany () {
+    public void goFooterAboutCompany() {
         Elements.Site.Footer.aboutCompanyButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
 
+    }
+
+    public void goFooterContacts() {
+        Elements.Site.Footer.contactsButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+
+    }
+
+    public void goFooterDelivery() {
+        Elements.Site.Footer.deliveryButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+    }
+
+    public void goFooterPayment() {
+        Elements.Site.Footer.paymentButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+    }
+
+    public void goFooterPartners() {
+        Elements.Site.Footer.partnersButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+
+    }
+
+    public void goFooterFaq() {
+        Elements.Site.Footer.faqButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+    }
+
+    public void goFooterFeedbackForm() {
+        Elements.Site.Footer.feedbackFormButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+    }
+
+    public void goFooterReturnPolicy() {
+        Elements.Site.Footer.returnPolicyButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+    }
+
+    public void goFooterPublicOffer() {
+        Elements.Site.Footer.publicOfferButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
     }
 
 

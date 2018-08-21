@@ -27,10 +27,14 @@ public class Elements {
 
 
     /**
-     * Шапка сайта
+     * Сайт
      */
 
     public interface Site {
+
+        /**
+         * Шапка сайта
+         */
 
         interface Header {
 
@@ -431,11 +435,15 @@ public class Elements {
 
 
     /**
-     * Шапка админки
+     * Админка
      */
 
 
     public interface Admin {
+
+        /**
+         * Шапка админки
+         */
 
         interface Header {
 
@@ -460,6 +468,10 @@ public class Elements {
                 return new Elements(text, locator);
 
             }
+
+            /**
+             * Меню админки
+             */
 
             interface Menu {
 
@@ -519,6 +531,10 @@ public class Elements {
 
             }
 
+            /**
+             * Сабменю "Заказы"
+             */
+
 
             interface SubmenuOrders {
 
@@ -543,6 +559,10 @@ public class Elements {
                 }
             }
 
+            /**
+             * Сабменю "Магазины"
+             */
+
             interface SubmenuStores {
 
 
@@ -558,6 +578,10 @@ public class Elements {
                     return new Elements(text, locator);
                 }
             }
+
+            /**
+             * Сабменю "Продукты"
+             */
 
             interface SubmenuProducts {
 
@@ -611,10 +635,13 @@ public class Elements {
                 }
             }
 
+            /**
+             * Сабменю "Импорт"
+             */
+
             interface SubmenuImport {
 
 
-                //========== Раздел Импорт и его подразделы ========
 
 
                 static Elements queueOfTasksButton() {
@@ -666,15 +693,12 @@ public class Elements {
                 }
             }
 
+            /**
+             * Сабменю "Маркетинг"
+             */
+
             interface SubmenuMarketing {
 
-                //========== Раздел отчеты ==============
-
-
-                //========== Раздел настройки ============
-
-
-                //========= Раздел Маркетинг и его подразделы ===========
 
 
                 static Elements promoCardsButton() {
@@ -732,14 +756,6 @@ public class Elements {
                     return new Elements(text, locator);
                 }
             }
-
-            //========== Раздел пользователи ===========
-
-
-
-            //========== Раздел Страницы ===========
-
-
 
 
         }
