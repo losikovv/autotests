@@ -108,4 +108,68 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable("https://instamart.ru/admin/pages");
     }
 
+
+    @Test(
+            description = "Тест доступности страниц футера",
+            groups = {"smoke","acceptance","regression"},
+            priority = 806
+    )
+
+    //Пока не рабоатет из Jivosite - переделать
+
+    public void checkFooterPages() throws Exception {
+
+        footer();
+
+    }
+
+    private void footer() throws Exception {
+        app.getNavigationHelper().goFooterAboutCompany();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goFooterContacts();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goFooterDelivery();
+        assertPageIsAvailable();
+        isDeliveryPopupOpened();
+
+
+        app.getNavigationHelper().goFooterPayment();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goFooterPartners();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goFooterFaq();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goFooterFeedbackForm();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goFooterReturnPolicy();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goFooterPublicOffer();
+        assertPageIsAvailable();
+    }
+
+    //- Чек попапа доставка - перенести в другое место 
+
+    private boolean isDeliveryPopupOpened() {
+        app.getNavigationHelper().printMessage("Checking delivery popup...");
+        if(app.getNavigationHelper().isElementDetected("//*[@id='popup-modal']/div/div/div[2]/div[1]/h3",
+                "Доступные интервалы")) {
+            app.getNavigationHelper().printMessage("Delivery popup active");
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+
+
+
+
 }

@@ -23,7 +23,7 @@ public class AdministrationHelper extends HelperBase {
 
     /** Возобновить заказ */
     public void resumeOrder(){
-        click(Elements.OrderPageAdmin.resumeOrderButton());
+        click(Elements.Admin.OrderPageAdmin.resumeOrderButton());
         handleAlert();
         waitForIt(2);
     }
@@ -32,7 +32,7 @@ public class AdministrationHelper extends HelperBase {
     /** Определить отменен ли заказ */
     public boolean isOrderCanceled() {
         waitForIt(1);
-        return isElementDetected(Elements.OrderPageAdmin.canceledOrderAttribute());
+        return isElementDetected(Elements.Admin.OrderPageAdmin.canceledOrderAttribute());
     }
 
 }
