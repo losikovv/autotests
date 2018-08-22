@@ -26,15 +26,38 @@ public class Elements {
     }
 
 
-    /**
-     * Сайт
-     */
+    /** Страница 500 ошибки */
+
+    public interface Page500 {
+
+        static Elements placeholder() {
+            text = "We're sorry, but something went wrong.";
+            locator = By.xpath("/html/body/div/h1");
+            return new Elements(text, locator);
+        }
+
+    }
+
+
+    /** Страница 404 ошибки */
+
+    public interface Page404 {
+
+        static Elements title() {
+            text = "Страница не найдена";
+            locator = By.xpath("/html/body/div[3]/div/div/div/div[1]/div/div[1]");
+            return new Elements(text, locator);
+        }
+
+    }
+
+
+    /** Сайт */
 
     public interface Site {
 
-        /**
-         * Шапка сайта
-         */
+
+        /** Шапка сайта */
 
         interface Header {
 
@@ -90,9 +113,7 @@ public class Elements {
         }
 
 
-        /**
-         * Всплывающее меню "Профиль"
-         */
+        /** Всплывающее меню "Профиль" */
 
         interface AccountMenu {
 
@@ -155,9 +176,7 @@ public class Elements {
         }
 
 
-        /**
-         * Модалка авторизации / регистрации
-         */
+        /** Модалка авторизации / регистрации */
 
         interface AuthModal {
 
@@ -175,9 +194,7 @@ public class Elements {
         }
 
 
-        /**
-         * Адресные модалки Феникса
-         */
+        /** Адресные модалки Феникса */
 
         interface AddressModal {
 
@@ -221,9 +238,7 @@ public class Elements {
         }
 
 
-        /**
-         * Селектор магазинов
-         */
+        /** Селектор магазинов */
 
         interface ShopSelector {
 
@@ -246,9 +261,7 @@ public class Elements {
         }
 
 
-        /**
-         * Каталог товаров
-         */
+        /** Каталог товаров */
 
         interface Catalog {
 
@@ -271,9 +284,7 @@ public class Elements {
         }
 
 
-        /**
-         * Карточка товара
-         */
+        /** Карточка товара */
 
         interface ItemCard {
 
@@ -301,9 +312,7 @@ public class Elements {
         }
 
 
-        /**
-         * Корзина
-         */
+        /** Корзина */
 
         interface Cart {
 
@@ -330,51 +339,9 @@ public class Elements {
         }
 
 
-        // TODO public static class Profile extends Elements
-
-
-        // TODO public static class OrderPage extends Elements
-
-
-        /**
-         * Страница 500 ошибки
-         */
-
-        interface Page500 {
-
-
-            static Elements placeholder() {
-                text = "We're sorry, but something went wrong.";
-                locator = By.xpath("/html/body/div/h1");
-                return new Elements(text, locator);
-            }
-
-        }
-
-
-        /**
-         * Страница 404 ошибки
-         */
-
-        interface Page404 {
-
-
-            static Elements title() {
-                text = "Страница не найдена";
-                locator = By.xpath("/html/body/div[3]/div/div/div/div[1]/div/div[1]");
-                return new Elements(text, locator);
-            }
-
-        }
-
-
-        /**
-         * Подвал сайта
-         */
+        /** Подвал сайта */
 
         interface Footer {
-
-
 
             static Elements aboutCompanyButton() {
                 text = "О компании";
@@ -434,27 +401,19 @@ public class Elements {
     }
 
 
-    /**
-     * Админка
-     */
-
+    /** Админка */
 
     public interface Admin {
 
-        /**
-         * Шапка админки
-         */
+
+        /** Шапка админки */
 
         interface Header {
-
 
             static Elements logoutButton() {
                 locator = By.xpath("//*[@id='login-nav']/li[3]/a");
                 return new Elements(null, locator);
             }
-
-            // TODO все кнопки корневых разделов и подразделов
-
 
             static Elements profileButton() {
                 text = "Учетная запись";
@@ -469,9 +428,8 @@ public class Elements {
 
             }
 
-            /**
-             * Меню админки
-             */
+
+            /** Меню админки */
 
             interface Menu {
 
@@ -531,13 +489,10 @@ public class Elements {
 
             }
 
-            /**
-             * Сабменю "Заказы"
-             */
 
+            /** Подменю "Заказы" */
 
             interface SubmenuOrders {
-
 
                 static Elements multiOrderButton() {
                     text = "Мульти заказ";
@@ -557,11 +512,11 @@ public class Elements {
                     locator = By.xpath("//*[@id='sub_nav']/li[3]/a");
                     return new Elements(text, locator);
                 }
+
             }
 
-            /**
-             * Сабменю "Магазины"
-             */
+
+            /** Подменю "Магазины" */
 
             interface SubmenuStores {
 
@@ -579,9 +534,8 @@ public class Elements {
                 }
             }
 
-            /**
-             * Сабменю "Продукты"
-             */
+
+            /** Подменю "Продукты" */
 
             interface SubmenuProducts {
 
@@ -633,16 +587,13 @@ public class Elements {
                     locator = By.xpath("//*[@id='sub_nav']/li[8]/a");
                     return new Elements(text, locator);
                 }
+
             }
 
-            /**
-             * Сабменю "Импорт"
-             */
+
+            /** Подменю "Импорт" */
 
             interface SubmenuImport {
-
-
-
 
                 static Elements queueOfTasksButton() {
                     text = "Очередь задач";
@@ -691,15 +642,13 @@ public class Elements {
                     locator = By.xpath("//*[@id='sub_nav']/li[8]/a");
                     return new Elements(text, locator);
                 }
+
             }
 
-            /**
-             * Сабменю "Маркетинг"
-             */
+
+            /** Подменю "Маркетинг" */
 
             interface SubmenuMarketing {
-
-
 
                 static Elements promoCardsButton() {
                     text = "Промо карточки";
@@ -755,19 +704,15 @@ public class Elements {
                     locator = By.xpath("//*[@id='sub_nav']/li[9]/a/span");
                     return new Elements(text, locator);
                 }
-            }
 
+            }
 
         }
 
 
-        /**
-         * Страница деталей заказа в админке
-         */
+        /** Страница деталей заказа в админке */
 
-        interface OrderPageAdmin {
-
-
+        interface OrderPage {
 
             static Elements resumeOrderButton() {
                 locator = By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button");

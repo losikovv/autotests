@@ -29,6 +29,7 @@ public class HelperBase {
 
 
     /** Перейти на указанный URL */
+    
     public void getUrl(String url) {
         try {
             driver.get(url);
@@ -39,6 +40,7 @@ public class HelperBase {
 
 
     /** Перейти на базовый URL */
+
     public void getBaseUrl() {
         getUrl(baseUrl);
         printMessage("Got base URL " + baseUrl + "\n");
@@ -95,6 +97,7 @@ public class HelperBase {
 
 
     /** Взять URL текущей страницы */
+
     public String currentURL() {
         return driver.getCurrentUrl();
     }
@@ -181,6 +184,7 @@ public class HelperBase {
 
 
     /** Определить показан ли алерт на странице */
+
     protected boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
@@ -192,6 +196,7 @@ public class HelperBase {
 
 
     /** Обработать алерт в зависимости от настройки acceptNextAlert */
+
     void handleAlert(){
         try {
             Alert alert = driver.switchTo().alert();
@@ -209,26 +214,30 @@ public class HelperBase {
 
 
     /** Определить находимся на сайте или нет */
+
     public boolean isOnSite() {
         return isElementPresent(By.className("footer"));
     }
 
 
     /** Определить находимся в админке или нет */
+
     public boolean isInAdmin() {
         return isElementPresent(By.className("admin"));
     }
 
 
-    /** Определить 404 на странице или нет */
+    /** Определить 404 ошибку на странице */
+
     public boolean is404() {
-        return isElementDetected(Elements.Site.Page404.title());
+        return isElementDetected(Elements.Page404.title());
     }
 
 
-    /** Определить 500 на странице или нет */
+    /** Определить 500 ошибку на странице */
+
     public boolean is500() {
-        return isElementDetected(Elements.Site.Page500.placeholder());
+        return isElementDetected(Elements.Page500.placeholder());
     }
 
 
@@ -242,6 +251,7 @@ public class HelperBase {
 
 
     /** Отправить консольное сообщение */
+
     public void printMessage(String message) {
         System.out.println(message);
     }
