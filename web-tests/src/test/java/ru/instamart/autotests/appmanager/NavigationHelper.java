@@ -78,6 +78,67 @@ public class NavigationHelper extends HelperBase {
         click(By.className("header-logo"));
     }
 
+    // ========= Подвал сайта =========
+
+    public void goFooterAboutCompany() {
+        Elements.Site.Footer.aboutCompanyButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+
+    }
+
+    public void goFooterContacts() {
+        Elements.Site.Footer.contactsButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+
+    }
+
+    public void goFooterDelivery() {
+        Elements.Site.Footer.deliveryButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+    }
+
+    public void goFooterPayment() {
+        Elements.Site.Footer.paymentButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+    }
+
+    public void goFooterPartners() {
+        Elements.Site.Footer.partnersButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+
+    }
+
+    public void goFooterFaq() {
+        Elements.Site.Footer.faqButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+    }
+
+    public void goFooterFeedbackForm() {
+        Elements.Site.Footer.feedbackFormButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+    }
+
+    public void goFooterReturnPolicy() {
+        Elements.Site.Footer.returnPolicyButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+    }
+
+    public void goFooterPublicOffer() {
+        Elements.Site.Footer.publicOfferButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+    }
+
+
+
 
 
     // ======= ADMIN =======
@@ -115,15 +176,15 @@ public class NavigationHelper extends HelperBase {
     //======== Шапка Админки ==========
 
     public void goProfile() {
-        click(Elements.HeaderAdmin.profileButton());
+        click(Elements.Admin.Header.profileButton());
     }
 
     public void goLogout() {
-        click(Elements.HeaderAdmin.logoutButton());
+        click(Elements.Admin.Header.logoutButton());
     }
 
     public void goBackToList() {
-        click(Elements.HeaderAdmin.backToListButton());
+        click(Elements.Admin.Header.backToListButton());
     }
 
     //========== Меню Админки ==========
@@ -132,28 +193,28 @@ public class NavigationHelper extends HelperBase {
 
 
     public void goOrders() {
-        Elements.HeaderAdmin.ordersButton();
+        Elements.Admin.Header.Menu.ordersButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goOrdersMulti() {
         goOrders();
-        Elements.HeaderAdmin.multiOrderButton();
+        Elements.Admin.Header.SubmenuOrders.multiOrderButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goOrdersExport() {
         goOrders();
-        Elements.HeaderAdmin.exportButton();
+        Elements.Admin.Header.SubmenuOrders.exportButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goOrdersVeeroute() {
         goOrders();
-        Elements.HeaderAdmin.veerouteButton();
+        Elements.Admin.Header.SubmenuOrders.veerouteButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
@@ -161,7 +222,7 @@ public class NavigationHelper extends HelperBase {
     //======== Раздел Магазины и его подразделы =========
 
     public void goStore() {
-        Elements.HeaderAdmin.storeButton();
+        Elements.Admin.Header.Menu.storeButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
@@ -169,14 +230,14 @@ public class NavigationHelper extends HelperBase {
 
     public void goStoreRetailers() {
         goStore();
-        Elements.HeaderAdmin.retailersButton();
+        Elements.Admin.Header.SubmenuStores.retailersButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goStoreZones() {
         goStore();
-        Elements.HeaderAdmin.zonesButton();
+        Elements.Admin.Header.SubmenuStores.zonesButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
@@ -185,63 +246,63 @@ public class NavigationHelper extends HelperBase {
     // =========== Раздел Продукты и его подразделы ==========
 
     public void goProducts() {
-        Elements.HeaderAdmin.productsButton();
+        Elements.Admin.Header.Menu.productsButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goSubProducts() {
         goProducts();
-        Elements.HeaderAdmin.subProductsButton();
+        Elements.Admin.Header.SubmenuProducts.subProductsButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goProductsStats() {
         goProducts();
-        Elements.HeaderAdmin.productsStatsButton();
+        Elements.Admin.Header.SubmenuProducts.productsStatsButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goProductsOptionTypes() {
         goProducts();
-        Elements.HeaderAdmin.optionTypesButton();
+        Elements.Admin.Header.SubmenuProducts.optionTypesButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goProductsProperties() {
         goProducts();
-        Elements.HeaderAdmin.propertiesButton();
+        Elements.Admin.Header.SubmenuProducts.propertiesButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goProductsPrototypes() {
         goProducts();
-        Elements.HeaderAdmin.prototypesButton();
+        Elements.Admin.Header.SubmenuProducts.prototypesButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goProductsBrands() {
         goProducts();
-        Elements.HeaderAdmin.brandsButtton();
+        Elements.Admin.Header.SubmenuProducts.brandsButtton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goProductsProducers() {
         goProducts();
-        Elements.HeaderAdmin.producersButton();
+        Elements.Admin.Header.SubmenuProducts.producersButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goProductsProducersCountries() {
         goProducts();
-        Elements.HeaderAdmin.producersCountriesButton();
+        Elements.Admin.Header.SubmenuProducts.producersCountriesButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
@@ -249,63 +310,63 @@ public class NavigationHelper extends HelperBase {
     //========== Раздел Импорт и его подразделы ========
 
     public void goImport() {
-        Elements.HeaderAdmin.importButton();
+        Elements.Admin.Header.Menu.importButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goImportQueueOfTasks() {
         goImport();
-        Elements.HeaderAdmin.queueOfTasksButton();
+        Elements.Admin.Header.SubmenuImport.queueOfTasksButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goImportStats() {
         goImport();
-        Elements.HeaderAdmin.importStatsButton();
+        Elements.Admin.Header.SubmenuImport.importStatsButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goImportArchive() {
         goImport();
-        Elements.HeaderAdmin.archiveButton();
+        Elements.Admin.Header.SubmenuImport.archiveButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goImportBlackList() {
         goImport();
-        Elements.HeaderAdmin.blackListButton();
+        Elements.Admin.Header.SubmenuImport.blackListButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goImportCategory() {
         goImport();
-        Elements.HeaderAdmin.categoryButton();
+        Elements.Admin.Header.SubmenuImport.categoryButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goImportFilters() {
         goImport();
-        Elements.HeaderAdmin.filtersButton();
+        Elements.Admin.Header.SubmenuImport.filtersButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goImportProducts() {
         goImport();
-        Elements.HeaderAdmin.importProductsButton();
+        Elements.Admin.Header.SubmenuImport.importProductsButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goImportPrice() {
         goImport();
-        Elements.HeaderAdmin.priceButton();
+        Elements.Admin.Header.SubmenuImport.priceButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
@@ -313,7 +374,7 @@ public class NavigationHelper extends HelperBase {
     //========== Раздел отчеты ==============
 
     public void goReports() {
-        Elements.HeaderAdmin.reportsButton();
+        Elements.Admin.Header.Menu.reportsButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
@@ -321,7 +382,7 @@ public class NavigationHelper extends HelperBase {
     //========== Раздел настройки ============
 
     public void goSettings() {
-        Elements.HeaderAdmin.settingsButton();
+        Elements.Admin.Header.Menu.settingsButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
@@ -329,70 +390,70 @@ public class NavigationHelper extends HelperBase {
     //========= Раздел Маркетинг и его подразделы ===========
 
     public void goMarketing() {
-        Elements.HeaderAdmin.marketingButton();
+        Elements.Admin.Header.Menu.marketingButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goMarketingPromoCards() {
         goMarketing();
-        Elements.HeaderAdmin.promoCardsButton();
+        Elements.Admin.Header.SubmenuMarketing.promoCardsButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goMarketingPromoAction() {
         goMarketing();
-        Elements.HeaderAdmin.promoActionButton();
+        Elements.Admin.Header.SubmenuMarketing.promoActionButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goMarketingWelcomeBanners() {
         goMarketing();
-        Elements.HeaderAdmin.welcomeBannersButton();
+        Elements.Admin.Header.SubmenuMarketing.welcomeBannersButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goMarketingAdvertisement() {
         goMarketing();
-        Elements.HeaderAdmin.advertisementButton();
+        Elements.Admin.Header.SubmenuMarketing.advertisementButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goMarketingYandexMarket() {
         goMarketing();
-        Elements.HeaderAdmin.yandexMarketButton();
+        Elements.Admin.Header.SubmenuMarketing.yandexMarketButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goMarketingCarts() {
         goMarketing();
-        Elements.HeaderAdmin.cartsButton();
+        Elements.Admin.Header.SubmenuMarketing.cartsButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goMarketingBonusCards() {
         goMarketing();
-        Elements.HeaderAdmin.bonusCardsButton();
+        Elements.Admin.Header.SubmenuMarketing.bonusCardsButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goMarketingRetailersPrograms() {
         goMarketing();
-        Elements.HeaderAdmin.retailersProgramsButton();
+        Elements.Admin.Header.SubmenuMarketing.retailersProgramsButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
 
     public void goMarketingNewCities() {
         goMarketing();
-        Elements.HeaderAdmin.newCitiesButton();
+        Elements.Admin.Header.SubmenuMarketing.newCitiesButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
@@ -400,7 +461,7 @@ public class NavigationHelper extends HelperBase {
     //========== Раздел пользователи ===========
 
     public void goUsers() {
-        Elements.HeaderAdmin.usersButton();
+        Elements.Admin.Header.Menu.usersButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }
@@ -408,7 +469,7 @@ public class NavigationHelper extends HelperBase {
     //========== Раздел Страницы ===========
 
     public void goPages() {
-        Elements.HeaderAdmin.pagesButton();
+        Elements.Admin.Header.Menu.pagesButton();
         printMessage("Going to " + Elements.getText() + "...");
         click(Elements.getLocator());
     }

@@ -222,13 +222,13 @@ public class HelperBase {
 
     /** Определить 404 на странице или нет */
     public boolean is404() {
-        return isElementDetected(Elements.Page404.title());
+        return isElementDetected(Elements.Site.Page404.title());
     }
 
 
     /** Определить 500 на странице или нет */
     public boolean is500() {
-        return isElementDetected(Elements.Page500.placeholder());
+        return isElementDetected(Elements.Site.Page500.placeholder());
     }
 
 
