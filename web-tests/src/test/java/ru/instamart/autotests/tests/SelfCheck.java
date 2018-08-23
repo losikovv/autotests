@@ -2,7 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
+import ru.instamart.autotests.configuration.Pages;
 
 
 // Тесты самопроверки кракена
@@ -60,6 +60,8 @@ public class SelfCheck extends TestBase {
     // TODO public void detectCatalogDrawer() throws Exception { }
 
     // TODO public void detectCartDrawer() throws Exception { }
+
+
 
 
 }

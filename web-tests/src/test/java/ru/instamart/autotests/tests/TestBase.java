@@ -5,10 +5,10 @@ import org.openqa.selenium.remote.BrowserType;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.instamart.autotests.appmanager.ApplicationManager;
+import ru.instamart.autotests.configuration.Pages;
 
 
-
-    // Basic test class
+// Basic test class
 
 
 
@@ -45,14 +45,23 @@ public class TestBase {
      * Then check that reached page isn't 404 or 500
      */
     protected void assertPageIsAvailable(String URL) throws AssertionError{
-        //TODO добавить проверку на то что это не 502 от cloudFlare
         String targetURL = URL;
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL " + targetURL + "\n");
         Assert.assertFalse(app.getNavigationHelper().is404(),"Page " + currentURL + " is 404" + "\n");
         Assert.assertFalse(app.getNavigationHelper().is500(),"It's something wrong on page " + currentURL + "\n");
-        app.getNavigationHelper().printMessage("Page " + URL + " is available");
+        app.getNavigationHelper().printMessage("Page " + currentURL + " is available");
+    }
+
+    protected void assertPageIsAvailable(Pages page) throws AssertionError{
+        String targetURL = app.getNavigationHelper().returnBaseUrl() + Pages.getPagePath();
+        app.getNavigationHelper().getUrl(targetURL);
+        String currentURL = app.getNavigationHelper().currentURL();
+        Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL " + targetURL + "\n");
+        Assert.assertFalse(app.getNavigationHelper().is404(),"Page " + currentURL + " is 404" + "\n");
+        Assert.assertFalse(app.getNavigationHelper().is500(),"It's something wrong on page " + currentURL + "\n");
+        app.getNavigationHelper().printMessage("Page " + currentURL + " is available");
     }
 
     /**
