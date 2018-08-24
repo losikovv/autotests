@@ -91,9 +91,7 @@ public class Elements {
             }
 
             static Elements loginButton() {
-                text = "Авторизация/регистрация";
-                locator = By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]/a");
-                return new Elements(text, locator);
+                return new Elements(null, By.linkText("Вход"));
             }
 
             static Elements selectStoreButton() {
@@ -266,10 +264,8 @@ public class Elements {
 
         interface AuthModal {
 
-
             static Elements popup() {
-                locator = By.className("auth-modal");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("auth-modal"));
             }
 
             static Elements authorisationTab() {
@@ -280,11 +276,29 @@ public class Elements {
                 return new Elements(null, By.cssSelector("button.auth-modal__tab:nth-child(2)"));
             }
 
-            static Elements submitButton() {
-                locator = By.className("auth-modal__button");
-                return new Elements(null, locator);
+            static Elements nameField() {
+                return new Elements(null, By.name("fullname"));
             }
 
+            static Elements emailField() {
+                return new Elements(null, By.name("email"));
+            }
+
+            static Elements passwordField() {
+                return new Elements(null, By.name("password"));
+            }
+
+            static Elements passwordConfirmationField() {
+                return new Elements(null, By.name("passwordConfirmation"));
+            }
+
+            static Elements forgotPasswordButton() {
+                return new Elements("Забыли пароль?", By.className("auth-modal__forgotten"));
+            }
+
+            static Elements submitButton() {
+                return new Elements(null, By.className("auth-modal__button"));
+            }
         }
 
 

@@ -41,7 +41,7 @@ public class SessionHelper extends HelperBase {
      */
     public void regNewUser(String name, String email, String password, String passwordConfirmation) {
         printMessage("Performing registration...");
-        openLoginForm();
+        openAuthModal();
         switchToRegistrationTab();
         fillRegistrationForm(name, email, password, passwordConfirmation);
         sendForm();
@@ -53,7 +53,7 @@ public class SessionHelper extends HelperBase {
      */
     public void regNewUser(UserData userData) {
         printMessage("Performing registration...");
-        openLoginForm();
+        openAuthModal();
         switchToRegistrationTab();
         fillRegistrationForm(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
         sendForm();
@@ -73,17 +73,18 @@ public class SessionHelper extends HelperBase {
     // ======= Password recovery =======
 
     public void recoverPassword(String email){
-        openLoginForm();
+        openAuthModal();
         switchToAuthorisationTab();
-        clickRecovery();
-        printMessage("Password recovery for " + email);
-        fillField(By.name("spree_user[email]"), email);
-        sendRecoveryForm();
+        switchToPasswordRecovery();
+        printMessage("> recovery for " + email);
+        fillField(Elements.Site.AuthModal.emailField(),email);
+        sendForm();
         waitForIt(1);
     }
 
     public boolean isRecoverySent(){
-        return !isElementDisplayed(By.name("spree_user[email]")); // todo добавить проверку на то что модалка открыта
+        return isElementDisplayed(Elements.Site.AuthModal.popup())
+                && !isElementPresent(Elements.Site.AuthModal.emailField());
     }
 
 
@@ -110,7 +111,7 @@ public class SessionHelper extends HelperBase {
     /** Авторизоваться пользователем с указанными реквизитами */
     public void doLogin(String email, String password) {
         printMessage("Performing authorisation...");
-        openLoginForm();
+        openAuthModal();
         switchToAuthorisationTab();
         fillAuthorisationForm(email, password);
         sendForm();
@@ -126,7 +127,7 @@ public class SessionHelper extends HelperBase {
     /** Авторизоваться пользователем */
     public void doLogin(UserData userData) {
         printMessage("Performing authorisation...");
-        openLoginForm();
+        openAuthModal();
         switchToAuthorisationTab();
         fillAuthorisationForm(userData.getLogin(), userData.getPassword());
         sendForm();
@@ -294,62 +295,62 @@ public class SessionHelper extends HelperBase {
 
     // ======= Methods for log-in form =======
 
-    /**
-     * Open the log-in form by clicking the "Log-in" button
-     */
-    private void openLoginForm(){
+    /** Открыть форму авторизации/регистрации */
+    private void openAuthModal(){
 
         if (currentURL().equals(baseUrl)){
-            click(By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]"));
-        } else {
-            click(Elements.Site.Header.loginButton());
-        }
+            click(Elements.Site.LandingPage.loginButton());
+        } else click(Elements.Site.Header.loginButton());
 
-        if(isElementPresent(Elements.Site.AuthModal.popup())) {
-            printMessage("> open login form");
-        } else {
-            printMessage(" >>> can't open login form");
-        }
+        if(isAuthModalOpen()) {
+            printMessage("> open auth modal");
+        } else printMessage(" >>> can't open auth modal");
 
     }
 
+    /** Определить открыта ли модалка авторизации/регистрации */
+    private boolean isAuthModalOpen() {
+        return isElementPresent(Elements.Site.AuthModal.popup());
+    }
+
+    /** Переключиться на вкладку авторизации */
     private void switchToAuthorisationTab(){
-            click(Elements.Site.AuthModal.authorisationTab());
+        printMessage("> switch to authorisation tab");
+        click(Elements.Site.AuthModal.authorisationTab());
     }
 
+    /** Заполнить поля формы авторизации */
     private void fillAuthorisationForm(String email, String password) {
         printMessage("> enter auth credentials");
-        fillField(By.name("email"), email);
-        fillField(By.name("password"), password);
+        fillField(Elements.Site.AuthModal.emailField(), email);
+        fillField(Elements.Site.AuthModal.passwordField(), password);
     }
 
+    /** Перейти в форму восстановления пароля */
+    private void switchToPasswordRecovery(){
+        printMessage("> switch to password recovery");
+        click(Elements.Site.AuthModal.forgotPasswordButton());
+    }
+
+    /** Переключиться на вкладку регистрации */
     private void switchToRegistrationTab(){
-            click(Elements.Site.AuthModal.registrationTab());
+        printMessage("> switch to registration tab");
+        click(Elements.Site.AuthModal.registrationTab());
     }
 
+    /** Заполнить поля формы регистрации */
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {
         printMessage("> enter registration credentials");
-        fillField(By.name("fullname"), name);
-        fillField(By.name("email"), email);
-        fillField(By.name("password"), password);
-        fillField(By.name("passwordConfirmation"), passwordConfirmation);
+        fillField(Elements.Site.AuthModal.nameField(), name);
+        fillField(Elements.Site.AuthModal.emailField(), email);
+        fillField(Elements.Site.AuthModal.passwordField(), password);
+        fillField(Elements.Site.AuthModal.passwordConfirmationField(), passwordConfirmation);
     }
 
+    /** Отправить форму */
     private void sendForm(){
         printMessage("> send form\n");
         click(Elements.Site.AuthModal.submitButton());
-    }
-
-    /**
-     * Click "Forgot password?" button in the authorisation form
-     */
-    private void clickRecovery(){
-        click(By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[3]/div[2]"));
-    }
-
-    private void sendRecoveryForm(){
-        printMessage("> send form\n");
-        click(By.xpath("//*[@id='auth']/div/div/div[2]/form/div/button"));
     }
 
 }

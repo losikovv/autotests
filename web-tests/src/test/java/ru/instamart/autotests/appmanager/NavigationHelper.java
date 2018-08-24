@@ -44,6 +44,8 @@ public class NavigationHelper extends HelperBase {
         click(Elements.getLocator());
     }
 
+    // TODO сделать метод go принимающий массив элементов и кликающий их по очереди
+    // TODO public void go(Elements[] elements){ }
 
     // переход на витрину ретейлера
     public void getRetailerPage(String retailerName) {
