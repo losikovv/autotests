@@ -70,25 +70,6 @@ public class SessionHelper extends HelperBase {
 
 
 
-    // ======= Password recovery =======
-
-    public void recoverPassword(String email){
-        openAuthModal();
-        switchToAuthorisationTab();
-        switchToPasswordRecovery();
-        printMessage("> recovery for " + email);
-        fillField(Elements.Site.AuthModal.emailField(),email);
-        sendForm();
-        waitForIt(1);
-    }
-
-    public boolean isRecoverySent(){
-        return isElementDisplayed(Elements.Site.AuthModal.popup())
-                && !isElementPresent(Elements.Site.AuthModal.emailField());
-    }
-
-
-
     // ======= Методы авторизации =======
 
     /** Авторизоваться тестовым пользователем с указанной ролью, если неавторизован */
@@ -293,7 +274,7 @@ public class SessionHelper extends HelperBase {
 
 
 
-    // ======= Methods for log-in form =======
+    // ======= Методы модалки авторизации/регистрации =======
 
     /** Открыть форму авторизации/регистрации */
     public void openAuthModal(){
@@ -326,12 +307,6 @@ public class SessionHelper extends HelperBase {
         fillField(Elements.Site.AuthModal.passwordField(), password);
     }
 
-    /** Перейти в форму восстановления пароля */
-    private void switchToPasswordRecovery(){
-        printMessage("> switch to password recovery");
-        click(Elements.Site.AuthModal.forgotPasswordButton());
-    }
-
     /** Переключиться на вкладку регистрации */
     private void switchToRegistrationTab(){
         printMessage("> switch to registration tab");
@@ -353,4 +328,32 @@ public class SessionHelper extends HelperBase {
         click(Elements.Site.AuthModal.submitButton());
     }
 
+    /** Перейти в форму восстановления пароля */
+    private void proceedToPasswordRecovery(){
+        printMessage("> proceed to password recovery");
+        click(Elements.Site.AuthModal.forgotPasswordButton());
+    }
+
+    /** Запросить восстановление пароля */
+    public void recoverPassword(String email){
+        openAuthModal();
+        switchToAuthorisationTab();
+        proceedToPasswordRecovery();
+        printMessage("> recovery for " + email);
+        fillField(Elements.Site.AuthModal.emailField(),email);
+        sendForm();
+        waitForIt(1);
+    }
+
+    /** Определить отправлена ли форма восстановления пароля */
+    public boolean isRecoverySent(){
+        if (!isElementDisplayed(Elements.Site.AuthModal.popup())
+                || isElementPresent(Elements.Site.AuthModal.emailField())) {
+                    printMessage("Recovery not sent!");
+                    return false;
+                } else {
+            printMessage("✓ Recovery requested");
+            return true;
+        }
+    }
 }
