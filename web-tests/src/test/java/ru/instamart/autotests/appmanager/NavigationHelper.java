@@ -24,15 +24,21 @@ public class NavigationHelper extends HelperBase {
 
     // ======= SITE =======
 
-    // переход на страницу сайта
-    public void getPage(String pageName) {
-        getUrl(baseUrl + pageName);
+
+    /** Переход на целевую страницу по прямым ссылкам */
+
+    public void get(String page) {
+        getUrl(baseUrl + page);
     }
 
     public void get(Pages page) {
         String path = Pages.getPagePath();
         getUrl(baseUrl + path);
     }
+
+
+
+    /** Переходы по элементам на страницах */
 
     public void go(Elements element){
         click(Elements.getLocator());

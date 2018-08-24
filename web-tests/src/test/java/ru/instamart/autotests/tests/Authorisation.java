@@ -101,7 +101,7 @@ public class Authorisation extends TestBase {
             priority = 106
     )
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
-        app.getNavigationHelper().getPage("vkusvill");
+        app.getNavigationHelper().get("vkusvill");
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
 

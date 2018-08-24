@@ -2,7 +2,6 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Pages;
 
 
@@ -13,6 +12,19 @@ import ru.instamart.autotests.configuration.Pages;
 
 public class SelfCheck extends TestBase {
 
+    @Test(description = "Тест корректности работы методов навигации")
+    public void checkNavigation() throws Exception {
+
+        app.getNavigationHelper().get("metro");
+        Assert.assertTrue(app.getHelper().currentURL().equals(app.getHelper().returnBaseUrl() + "metro"));
+
+        app.getNavigationHelper().get(Pages.Site.Static.faq());
+        Assert.assertTrue(app.getHelper().currentURL().equals(app.getHelper().returnBaseUrl() + Pages.getPagePath()));
+
+        // TODO проверка GO методов
+    }
+
+
     // TODO public void detectIsOnSite
 
     // TODO public void detectIsInAdmin
@@ -20,10 +32,10 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения 500 ошибки на страниице")
     public void detect500() throws Exception {
 
-        app.getNavigationHelper().getPage("// TODO стабильно пятисотящая страница ");
+        app.getNavigationHelper().get("// TODO стабильно пятисотящая страница ");
         Assert.assertTrue(app.getHelper().is500());
 
-        app.getNavigationHelper().getPage("metro");
+        app.getNavigationHelper().get("metro");
         Assert.assertFalse(app.getHelper().is500());
     }
 
@@ -31,10 +43,10 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения 404 ошибки на страниице")
     public void detect404() throws Exception {
 
-        app.getNavigationHelper().getPage("nowhere");
+        app.getNavigationHelper().get("nowhere");
         Assert.assertTrue(app.getHelper().is404());
 
-        app.getNavigationHelper().getPage("metro");
+        app.getNavigationHelper().get("metro");
         Assert.assertFalse(app.getHelper().is404());
     }
 
@@ -69,10 +81,10 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения карточки товара")
     public void detectItemCard() throws Exception {
 
-        app.getNavigationHelper().getPage("/metro/soda-pishchievaia");
+        app.getNavigationHelper().get("metro/soda-pishchievaia");
         Assert.assertTrue(app.getShoppingHelper().isItemCardOpen());
 
-        app.getNavigationHelper().getPage("/metro/eliektronika");
+        app.getNavigationHelper().get("metro/eliektronika");
         Assert.assertFalse(app.getShoppingHelper().isItemCardOpen());
     }
 
