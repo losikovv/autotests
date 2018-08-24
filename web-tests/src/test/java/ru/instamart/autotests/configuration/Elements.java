@@ -80,12 +80,11 @@ public class Elements {
             }
 
             static Elements loginButton() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/nav/div[3]");
                 return new Elements(null, locator);
             }
 
             static Elements profileButton() {
-                //locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div");
                 text = "Профиль";
                 locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[1]/div[1]");
                 return new Elements(text, locator);
@@ -116,7 +115,6 @@ public class Elements {
         /** Всплывающее меню "Профиль" */
 
         interface AccountMenu {
-
 
             static Elements popup() {
                 locator = By.className("account-menu");

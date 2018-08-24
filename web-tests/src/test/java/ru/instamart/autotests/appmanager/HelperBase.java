@@ -29,7 +29,7 @@ public class HelperBase {
 
 
     /** Перейти на указанный URL */
-    
+
     public void getUrl(String url) {
         try {
             driver.get(url);
