@@ -52,6 +52,105 @@ public class Elements {
 
     public interface Site {
 
+        interface LandingPage {
+
+            static Elements catalogButton() {
+                text = "Перейти в каталог";
+                locator = By.xpath("//*[@id=‘new-home-promo’]/div/div/a");
+                return new Elements(text, locator);
+            }
+
+            static Elements headButton() {
+                text = "Правила работы";
+                locator = By.xpath("/html/body/a[1]/div");
+                return new Elements(text, locator);
+            }
+
+            static Elements rulesButton() {
+                text = "Как мы работаем";
+                locator = By.xpath("/html/body/div[4]/header/div[1]/ul/li[1]/a");
+                return new Elements(text, locator);
+            }
+
+            static Elements helpButton() {
+                text = "Помощь";
+                locator = By.xpath("/html/body/div[4]/header/div[1]/ul/li[2]/a");
+                return new Elements(text, locator);
+            }
+
+            static Elements callNumberButton() {
+                text = "Набор номера 1";
+                locator = By.xpath("/html/body/div[4]/header/div[2]/ul/li[2]/a/span[1]");
+                return new Elements(text, locator);
+            }
+
+            static Elements callSupportButton() {
+                text = "Набор номера 2";
+                locator = By.xpath("/html/body/div[4]/header/div[2]/ul/li[2]/a/span[2]");
+                return new Elements(text, locator);
+            }
+
+            static Elements loginButton() {
+                text = "Авторизация/регистрация";
+                locator = By.xpath("/html/body/div[4]/header/div[2]/ul/li[3]/a");
+                return new Elements(text, locator);
+            }
+
+            static Elements selectStoreButton() {
+                text = "Выбрать магазин";
+                locator = By.xpath("/html/body/div[5]/div[1]/div[3]/div/div[2]/div/div/form/button");
+                return new Elements(text, locator);
+            }
+
+            static Elements pricesWithoutChargesButton() {
+                text = "Цены без наценок";
+                locator = By.xpath("/html/body/div[5]/div[1]/div[3]/div/div[3]/a[1]/span");
+                return new Elements(text, locator);
+            }
+
+            static Elements freshFoodButton() {
+                text = "Свежие продукты";
+                locator = By.xpath("/html/body/div[5]/div[1]/div[3]/div/div[3]/a[2]/span");
+                return new Elements(text, locator);
+            }
+
+            static Elements fastDeliveryButton() {
+                text = "Быстрая доставка";
+                locator = By.xpath("/html/body/div[5]/div[1]/div[3]/div/div[3]/a[3]/span");
+                return new Elements(text, locator);
+            }
+
+            static Elements closePopupRulesButton() {
+                text = "Закрытие попапа с правилами";
+                locator = By.xpath("/html/body/div[4]/div/div/button/i");
+                return new Elements(text, locator);
+            }
+
+            static Elements changeSlidesPopupButton() {
+                text = "Переключение слайдов попапа";
+                locator = By.xpath("/html/body/div[4]/div/div/div/div[3]/div[2]/span");
+                return new Elements(text, locator);
+            }
+
+            static Elements mnogoruButton() {
+                text = "Переход на много.ру";
+                locator = By.xpath("/html/body/div[4]/header/div[2]/ul/li[1]/a");
+                return new Elements(text, locator);
+            }
+
+            static Elements swipeCategoriesButton() {
+                text = "Свайп подкатегорий";
+                locator = By.xpath("//*[@id='new-home-top-categories']/div/div[2]/div[2]/div[2]/i");
+                return new Elements(text, locator);
+            }
+
+            static Elements linkDownloadButton() {
+                text = "Ссылка на скачивание";
+                locator = By.xpath("/html/body/div[5]/div[7]/div[2]/div/div[3]/form/button");
+                return new Elements(text, locator);
+            }
+        }
+
         /** Шапка сайта */
 
         interface Header {
