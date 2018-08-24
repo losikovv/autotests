@@ -317,7 +317,7 @@ public class SessionHelper extends HelperBase {
         if(currentURL().equals(baseUrl)) {
             click(By.xpath("//*[@id='auth']/div/div/div[1]/div/button[1]"));
         } else {
-            click(By.xpath("//*[@id='react-modal']/div/div/div/span/div[1]/div/div/div/div/div/div/div[1]/div/button[1]"));
+            click(By.xpath("/html/body/div[6]/div/div/div/span/div[1]/div/div/div/div/div/div/div[1]/div/button[1]"));
         }
     }
 
