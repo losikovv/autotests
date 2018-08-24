@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
+import ru.instamart.autotests.configuration.Pages;
 import ru.instamart.autotests.models.RetailerData;
 
 
@@ -27,6 +28,13 @@ public class NavigationHelper extends HelperBase {
     public void getPage(String pageName) {
         getUrl(baseUrl + pageName);
     }
+
+    public void get(Pages page) {
+        String path = Pages.getPagePath();
+        getUrl(baseUrl + path);
+    }
+
+
 
     // переход на витрину ретейлера
     public void getRetailerPage(String retailerName) {

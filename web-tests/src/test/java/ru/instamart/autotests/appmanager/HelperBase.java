@@ -38,6 +38,11 @@ public class HelperBase {
         }
     }
 
+    /** Базовый URL */
+
+    public String returnBaseUrl() {
+        return baseUrl;
+    }
 
     /** Перейти на базовый URL */
 
