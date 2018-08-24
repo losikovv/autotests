@@ -42,7 +42,7 @@ public class SessionHelper extends HelperBase {
     public void regNewUser(String name, String email, String password, String passwordConfirmation) {
         printMessage("Performing registration...");
         openLoginForm();
-        switchToRegistration();
+        switchToRegistrationTab();
         fillRegistrationForm(name, email, password, passwordConfirmation);
         sendForm();
         waitForIt(3);
@@ -54,7 +54,7 @@ public class SessionHelper extends HelperBase {
     public void regNewUser(UserData userData) {
         printMessage("Performing registration...");
         openLoginForm();
-        switchToRegistration();
+        switchToRegistrationTab();
         fillRegistrationForm(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
         sendForm();
         waitForIt(4);
@@ -74,7 +74,7 @@ public class SessionHelper extends HelperBase {
 
     public void recoverPassword(String email){
         openLoginForm();
-        switchToAuthorisation();
+        switchToAuthorisationTab();
         clickRecovery();
         printMessage("Password recovery for " + email);
         fillField(By.name("spree_user[email]"), email);
@@ -111,7 +111,7 @@ public class SessionHelper extends HelperBase {
     public void doLogin(String email, String password) {
         printMessage("Performing authorisation...");
         openLoginForm();
-        switchToAuthorisation();
+        switchToAuthorisationTab();
         fillAuthorisationForm(email, password);
         sendForm();
         waitForIt(3);
@@ -127,7 +127,7 @@ public class SessionHelper extends HelperBase {
     public void doLogin(UserData userData) {
         printMessage("Performing authorisation...");
         openLoginForm();
-        switchToAuthorisation();
+        switchToAuthorisationTab();
         fillAuthorisationForm(userData.getLogin(), userData.getPassword());
         sendForm();
         waitForIt(3);
@@ -313,12 +313,8 @@ public class SessionHelper extends HelperBase {
 
     }
 
-    private void switchToAuthorisation(){
-        if(currentURL().equals(baseUrl)) {
-            click(By.xpath("//*[@id='auth']/div/div/div[1]/div/button[1]"));
-        } else {
-            click(By.xpath("/html/body/div[6]/div/div/div/span/div[1]/div/div/div/div/div/div/div[1]/div/button[1]"));
-        }
+    private void switchToAuthorisationTab(){
+            click(Elements.Site.AuthModal.authorisationTab());
     }
 
     private void fillAuthorisationForm(String email, String password) {
@@ -327,12 +323,8 @@ public class SessionHelper extends HelperBase {
         fillField(By.name("password"), password);
     }
 
-    private void switchToRegistration(){
-        if(currentURL().equals(baseUrl)) {
-            click(By.xpath("//*[@id='auth']/div/div/div[1]/div/button[2]"));
-        } else {
-            click(By.xpath("//*[@id='react-modal']/div/div/div/span/div[1]/div/div/div/div/div/div/div[1]/div/button[2]"));
-        }
+    private void switchToRegistrationTab(){
+            click(Elements.Site.AuthModal.registrationTab());
     }
 
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {

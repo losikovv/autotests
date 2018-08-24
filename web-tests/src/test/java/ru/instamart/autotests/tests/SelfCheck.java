@@ -97,5 +97,4 @@ public class SelfCheck extends TestBase {
 
     // TODO public void detectPartnersPopup() throws Exception { }
 
-
 }

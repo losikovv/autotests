@@ -272,6 +272,14 @@ public class Elements {
                 return new Elements(null, locator);
             }
 
+            static Elements authorisationTab() {
+                return new Elements(null, By.cssSelector("button.auth-modal__tab:nth-child(1)"));
+            }
+
+            static Elements registrationTab() {
+                return new Elements(null, By.cssSelector("button.auth-modal__tab:nth-child(2)"));
+            }
+
             static Elements submitButton() {
                 locator = By.className("auth-modal__button");
                 return new Elements(null, locator);
