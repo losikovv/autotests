@@ -34,6 +34,9 @@ public class NavigationHelper extends HelperBase {
         getUrl(baseUrl + path);
     }
 
+    public void go(Elements element){
+        click(Elements.getLocator());
+    }
 
 
     // переход на витрину ретейлера

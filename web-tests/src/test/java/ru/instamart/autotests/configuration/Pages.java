@@ -85,8 +85,6 @@ public class Pages {
 
     public interface Admin {
 
-        interface Menu {
-
             static Pages shipments() { return new Pages("Spree Администрирование: Отправки",
                     "admin/shipments");}
 
@@ -113,8 +111,6 @@ public class Pages {
 
             static Pages pages() {return new Pages("Spree Администрирование: Страницы",
                     "admin/pages");}
-        }
-
     }
 
     public static String getPageTitle() {

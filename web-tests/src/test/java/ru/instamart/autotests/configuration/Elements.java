@@ -52,11 +52,9 @@ public class Elements {
 
     public interface Site {
 
-
         /** Шапка сайта */
 
         interface Header {
-
 
             static Elements setShipAddressButton() {
                 text = "Ввести адрес";

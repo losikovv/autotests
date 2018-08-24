@@ -2,6 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Pages;
 
 
@@ -35,6 +36,26 @@ public class SelfCheck extends TestBase {
 
         app.getNavigationHelper().getPage("metro");
         Assert.assertFalse(app.getHelper().is404());
+    }
+
+
+    @Test(description = "Тест корректности определения авторизованности пользователя")
+    public void detectUserAuth() throws Exception {
+
+        app.getNavigationHelper().getBaseUrl();
+        Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
+
+        app.getNavigationHelper().getRetailerPage("metro");
+        Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
+
+        app.getSessionHelper().doLoginAs("admin");
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised());
+
+        app.getNavigationHelper().get(Pages.Admin.settings());
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised());
+
+        app.getSessionHelper().doLogout();
+        Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
     }
 
 

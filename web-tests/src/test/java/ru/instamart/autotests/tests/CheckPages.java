@@ -101,15 +101,15 @@ public class CheckPages extends TestBase {
     public void checkAdminPages() throws Exception, AssertionError {
         app.getSessionHelper().getUrlAsAdmin("https://instamart.ru/admin/retailers");
 
-        assertPageIsAvailable(Pages.Admin.Menu.shipments());
-        assertPageIsAvailable(Pages.Admin.Menu.retailers());
-        assertPageIsAvailable(Pages.Admin.Menu.products());
-        assertPageIsAvailable(Pages.Admin.Menu.imports());
-        assertPageIsAvailable(Pages.Admin.Menu.reports());
-        assertPageIsAvailable(Pages.Admin.Menu.settings());
-        assertPageIsAvailable(Pages.Admin.Menu.marketing());
-        assertPageIsAvailable(Pages.Admin.Menu.users());
-        assertPageIsAvailable(Pages.Admin.Menu.pages());
+        assertPageIsAvailable(Pages.Admin.shipments());
+        assertPageIsAvailable(Pages.Admin.retailers());
+        assertPageIsAvailable(Pages.Admin.products());
+        assertPageIsAvailable(Pages.Admin.imports());
+        assertPageIsAvailable(Pages.Admin.reports());
+        assertPageIsAvailable(Pages.Admin.settings());
+        assertPageIsAvailable(Pages.Admin.marketing());
+        assertPageIsAvailable(Pages.Admin.users());
+        assertPageIsAvailable(Pages.Admin.pages());
     }
 
 
