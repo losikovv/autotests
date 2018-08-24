@@ -296,21 +296,21 @@ public class SessionHelper extends HelperBase {
     // ======= Methods for log-in form =======
 
     /** Открыть форму авторизации/регистрации */
-    private void openAuthModal(){
+    public void openAuthModal(){
+        if (currentURL().equals(baseUrl)) click(Elements.Site.LandingPage.loginButton());
+            else click(Elements.Site.Header.loginButton());
 
-        if (currentURL().equals(baseUrl)){
-            click(Elements.Site.LandingPage.loginButton());
-        } else click(Elements.Site.Header.loginButton());
+        if(isAuthModalOpen()) printMessage("> open auth modal");
+            else printMessage(" >>> can't open auth modal");
+    }
 
-        if(isAuthModalOpen()) {
-            printMessage("> open auth modal");
-        } else printMessage(" >>> can't open auth modal");
-
+    public void closeAuthModal(){
+        click(Elements.Site.AuthModal.closeButton());
     }
 
     /** Определить открыта ли модалка авторизации/регистрации */
-    private boolean isAuthModalOpen() {
-        return isElementPresent(Elements.Site.AuthModal.popup());
+    public boolean isAuthModalOpen() {
+        return isElementDisplayed(Elements.Site.AuthModal.popup());
     }
 
     /** Переключиться на вкладку авторизации */

@@ -68,7 +68,25 @@ public class SelfCheck extends TestBase {
     }
 
 
-    // TODO public void detectAuthModal() throws Exception { landing + retailer }
+    @Test(description = "Тест корректности определения модалки авторизации/регистрации")
+    public void detectAuthModal() throws Exception {
+
+        app.getHelper().getBaseUrl();
+
+            app.getSessionHelper().openAuthModal();
+            Assert.assertTrue(app.getSessionHelper().isAuthModalOpen());
+
+            app.getSessionHelper().closeAuthModal();
+            Assert.assertFalse(app.getSessionHelper().isAuthModalOpen());
+
+        app.getNavigationHelper().getRetailerPage("metro");
+
+            app.getSessionHelper().openAuthModal();
+            Assert.assertTrue(app.getSessionHelper().isAuthModalOpen());
+
+            app.getSessionHelper().closeAuthModal();
+            Assert.assertFalse(app.getSessionHelper().isAuthModalOpen());
+    }
 
     // TODO public void detectAddressModal() throws Exception { }
 

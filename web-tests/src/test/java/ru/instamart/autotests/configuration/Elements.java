@@ -268,6 +268,10 @@ public class Elements {
                 return new Elements(null, By.className("auth-modal"));
             }
 
+            static Elements closeButton() {
+                return new Elements(null, By.className("modal-container__close"));
+            }
+
             static Elements authorisationTab() {
                 return new Elements(null, By.cssSelector("button.auth-modal__tab:nth-child(1)"));
             }

@@ -160,11 +160,19 @@ public class HelperBase {
     /** Определить показан ли элемент */
 
     public boolean isElementDisplayed(Elements element){
-        return driver.findElement(Elements.getLocator()).isDisplayed();
+        try {
+            return driver.findElement(Elements.getLocator()).isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 
     public boolean isElementDisplayed(By locator){
-        return driver.findElement(locator).isDisplayed();
+        try {
+            return driver.findElement(locator).isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 
 
