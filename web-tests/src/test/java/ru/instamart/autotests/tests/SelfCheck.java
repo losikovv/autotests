@@ -52,7 +52,7 @@ public class SelfCheck extends TestBase {
 
 
     @Test(description = "Тест корректности определения авторизованности пользователя")
-    public void detectUserAuth() throws Exception {
+    public void detectAuthorisation() throws Exception {
 
         app.getNavigationHelper().getBaseUrl();
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
@@ -61,9 +61,6 @@ public class SelfCheck extends TestBase {
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
 
         app.getSessionHelper().doLoginAs("admin");
-        Assert.assertTrue(app.getSessionHelper().isUserAuthorised());
-
-        app.getNavigationHelper().get(Pages.Admin.settings());
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised());
 
         app.getSessionHelper().doLogout();

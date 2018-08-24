@@ -157,7 +157,7 @@ public class Elements {
 
             static Elements setShipAddressButton() {
                 text = "Ввести адрес";
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/div/button");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/div/div/button");
                 return new Elements(text, locator);
             }
 
@@ -168,7 +168,7 @@ public class Elements {
             }
 
             static Elements currentShipAddress() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/div/span");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/div/div/span");
                 return new Elements(null, locator);
             }
 
@@ -179,7 +179,7 @@ public class Elements {
 
             static Elements profileButton() {
                 text = "Профиль";
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[1]/div[1]");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/nav/div[3]/div/div[1]/div[1]");
                 return new Elements(text, locator);
             }
 
@@ -189,7 +189,7 @@ public class Elements {
             }
 
             static Elements changeStoreButton() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/div[1]/div[3]/div/div[1]");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/div[1]/div[3]/div/div[1]");
                 return new Elements(null, locator);
             }
 
@@ -220,47 +220,42 @@ public class Elements {
             }
 
             static Elements profileButton() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[2]/div/div[3]/a");
-                return new Elements(null, locator);
+                return new Elements("Профиль", By.linkText("Профиль"));
             }
 
             static Elements ordersButton() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[2]/div/div[4]/a");
-                return new Elements(null, locator);
+                return new Elements("Заказы", By.linkText("Заказы"));
             }
 
             static Elements termsButton() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[2]/div/div[5]/a");
-                return new Elements(null, locator);
+                return new Elements("Условия пользования", By.linkText("Условия пользования"));
             }
 
             static Elements blogButton() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[2]/div/div[6]/a");
-                return new Elements(null, locator);
+                return new Elements("Блог", By.linkText("Блог"));
             }
 
             static Elements logoutButton() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[2]/div/div[8]/a");
-                return new Elements(null, locator);
+                return new Elements("Выйти", By.linkText("Выйти"));
             }
 
             static Elements deliveryLink() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[2]/div/div[10]/button[1]");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/nav/div[3]/div/div[2]/div/div[10]/button[1]");
                 return new Elements(null, locator);
             }
 
             static Elements paymentLink() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[2]/div/div[10]/button[2]");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/nav/div[3]/div/div[2]/div/div[10]/button[2]");
                 return new Elements(null, locator);
             }
 
             static Elements faqLink() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[2]/div/div[10]/button[3]");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/nav/div[3]/div/div[2]/div/div[10]/button[3]");
                 return new Elements(null, locator);
             }
 
             static Elements contactsLink() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/nav/div[3]/div/div[2]/div/div[10]/button[4]");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/nav/div[3]/div/div[2]/div/div[10]/button[4]");
                 return new Elements(null, locator);
             }
 
