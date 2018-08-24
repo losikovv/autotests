@@ -91,6 +91,8 @@ public class Administration extends TestBase {
 
     )
 
+    //Спрятать все лишнее
+
     public void checkHeader() throws Exception {
 
         orders();

@@ -1,10 +1,10 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.annotations.Test;
+import ru.instamart.autotests.configuration.Pages;
 
 
-
-    // Проверка страниц
+// Проверка страниц
 
 
 
@@ -47,12 +47,14 @@ public class CheckPages extends TestBase {
     )
     // TODO переделать чек лендингов циклом по списку
     public void checkLandings() throws Exception, AssertionError {
-        assertPageIsAvailable("https://instamart.ru/mnogoru");
-        assertPageIsAvailable("https://instamart.ru/sovest");
-        assertPageIsAvailable("https://instamart.ru/halva");
-        assertPageIsAvailable("https://instamart.ru/landings/feedback");
-        assertPageIsAvailable("https://vkusvill.instamart.ru/");
-        assertPageIsAvailable("https://instamart.ru/cities/kazan");
+        assertPageIsAvailable(Pages.Site.Landings.mnogoru());
+        assertPageIsAvailable(Pages.Site.Landings.sovest());
+        assertPageIsAvailable(Pages.Site.Landings.halva());
+        assertPageIsAvailable(Pages.Site.Landings.feedback());
+        assertPageIsAvailable("https://vkusvill.instamart.ru/"); // - переделать
+        assertPageIsAvailable(Pages.Site.Landings.kazan());
+        assertPageIsAvailable(Pages.Site.Landings.mobile());
+        // добавить метро лэндинг
     }
 
 
@@ -63,14 +65,14 @@ public class CheckPages extends TestBase {
     )
     // TODO переделать чек страниц циклом по списку
     public void checkStaticPages() throws Exception, AssertionError {
-        assertPageIsAvailable("https://instamart.ru/about");
-        assertPageIsAvailable("https://instamart.ru/delivery");
-        assertPageIsAvailable("https://instamart.ru/rules");
-        assertPageIsAvailable("https://instamart.ru/payment");
-        assertPageIsAvailable("https://instamart.ru/return");
-        assertPageIsAvailable("https://instamart.ru/faq");
-        assertPageIsAvailable("https://instamart.ru/terms");
-        assertPageIsAvailable("https://instamart.ru/contacts");
+        assertPageIsAvailable(Pages.Site.Static.about());
+        assertPageIsAvailable(Pages.Site.Static.delivery());
+        assertPageIsAvailable(Pages.Site.Static.rules());
+        assertPageIsAvailable(Pages.Site.Static.payment());
+        assertPageIsAvailable(Pages.Site.Static.returnPolicy());
+        assertPageIsAvailable(Pages.Site.Static.faq());
+        assertPageIsAvailable(Pages.Site.Static.terms());
+        assertPageIsAvailable(Pages.Site.Static.contacts());
     }
 
 
@@ -83,10 +85,12 @@ public class CheckPages extends TestBase {
         app.getHelper().getBaseUrl();
         app.getSessionHelper().doLoginIfNeededAs("admin");
 
-        assertPageIsAvailable("https://instamart.ru/user/edit");
-        assertPageIsAvailable("https://instamart.ru/user/orders");
-        assertPageIsAvailable("https://instamart.ru/user/addresses");
+        assertPageIsAvailable(Pages.Site.Profile.edit());
+        assertPageIsAvailable(Pages.Site.Profile.orders());
+        assertPageIsAvailable(Pages.Site.Profile.addresses());
     }
+
+
 
 
     @Test(
@@ -97,15 +101,15 @@ public class CheckPages extends TestBase {
     public void checkAdminPages() throws Exception, AssertionError {
         app.getSessionHelper().getUrlAsAdmin("https://instamart.ru/admin/retailers");
 
-        assertPageIsAvailable("https://instamart.ru/admin/shipments");
-        assertPageIsAvailable("https://instamart.ru/admin/retailers");
-        assertPageIsAvailable("https://instamart.ru/admin/products");
-        assertPageIsAvailable("https://instamart.ru/admin/imports");
-        assertPageIsAvailable("https://instamart.ru/admin/reports");
-        assertPageIsAvailable("https://instamart.ru/admin/general_settings/edit");
-        assertPageIsAvailable("https://instamart.ru/admin/promo_cards");
-        assertPageIsAvailable("https://instamart.ru/admin/users");
-        assertPageIsAvailable("https://instamart.ru/admin/pages");
+        assertPageIsAvailable(Pages.Admin.Menu.shipments());
+        assertPageIsAvailable(Pages.Admin.Menu.retailers());
+        assertPageIsAvailable(Pages.Admin.Menu.products());
+        assertPageIsAvailable(Pages.Admin.Menu.imports());
+        assertPageIsAvailable(Pages.Admin.Menu.reports());
+        assertPageIsAvailable(Pages.Admin.Menu.settings());
+        assertPageIsAvailable(Pages.Admin.Menu.marketing());
+        assertPageIsAvailable(Pages.Admin.Menu.users());
+        assertPageIsAvailable(Pages.Admin.Menu.pages());
     }
 
 
@@ -115,13 +119,16 @@ public class CheckPages extends TestBase {
             priority = 806
     )
 
-    //Пока не рабоатет из Jivosite - переделать
+    //Пока не рабоатет из-за Jivosite
+    //Спрятать все лишнее
 
     public void checkFooterPages() throws Exception {
 
         footer();
 
     }
+
+
 
     private void footer() throws Exception {
         app.getNavigationHelper().goFooterAboutCompany();
