@@ -13,18 +13,25 @@ import ru.instamart.autotests.configuration.Environments;
 
 public class HelperBase {
 
-    protected WebDriver driver;
-    protected String environmentName;
-    protected String host;
-    protected String baseUrl;
+    WebDriver driver;
+    String environmentName;
+    String host;
+    String baseUrl;
 
     private boolean acceptNextAlert = true;
 
-    public HelperBase(WebDriver driver, Environments environment) {
+    HelperBase(WebDriver driver, Environments environment) {
         this.driver = driver;
         this.environmentName = environment.getEnvironmentName();
         this.host = environment.getHost();
         this.baseUrl = environment.getBaseURL();
+    }
+
+
+    /** Вернуть базовый URL */
+
+    public String returnBaseUrl() {
+        return baseUrl;
     }
 
 
@@ -38,11 +45,6 @@ public class HelperBase {
         }
     }
 
-    /** Базовый URL */
-
-    public String returnBaseUrl() {
-        return baseUrl;
-    }
 
     /** Перейти на базовый URL */
 

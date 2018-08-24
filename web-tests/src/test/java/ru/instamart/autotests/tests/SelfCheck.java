@@ -5,12 +5,16 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.configuration.Pages;
 
 
+
 // Тесты самопроверки кракена
 
 
 
 public class SelfCheck extends TestBase {
 
+    // TODO public void detectIsOnSite
+
+    // TODO public void detectIsInAdmin
 
     @Test(description = "Тест корректности определения 500 ошибки на страниице")
     public void detect500() throws Exception {
@@ -34,7 +38,7 @@ public class SelfCheck extends TestBase {
     }
 
 
-    // TODO public void detectAuthModal() throws Exception { }
+    // TODO public void detectAuthModal() throws Exception { landing + retailer }
 
     // TODO public void detectAddressModal() throws Exception { }
 
@@ -51,17 +55,17 @@ public class SelfCheck extends TestBase {
         Assert.assertFalse(app.getShoppingHelper().isItemCardOpen());
     }
 
-    // TODO public void detectDeliveryPopup() throws Exception { }
-
-    // TODO public void detectPartnersPopup() throws Exception { }
-
-    // TODO public void detectShopsDrawer() throws Exception { }
+    // TODO public void detectShopsDrawer() throws Exception { landing + retailer }
 
     // TODO public void detectCatalogDrawer() throws Exception { }
 
     // TODO public void detectCartDrawer() throws Exception { }
 
 
+
+    // TODO public void detectDeliveryPopup() throws Exception { }
+
+    // TODO public void detectPartnersPopup() throws Exception { }
 
 
 }
