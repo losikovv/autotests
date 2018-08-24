@@ -29,26 +29,22 @@ public class Elements {
     /** Страница 500 ошибки */
 
     public interface Page500 {
-
         static Elements placeholder() {
             text = "We're sorry, but something went wrong.";
             locator = By.xpath("/html/body/div/h1");
             return new Elements(text, locator);
         }
-
     }
 
 
     /** Страница 404 ошибки */
 
     public interface Page404 {
-
         static Elements title() {
             text = "Страница не найдена";
             locator = By.xpath("/html/body/div[3]/div/div/div/div[1]/div/div[1]");
             return new Elements(text, locator);
         }
-
     }
 
 
