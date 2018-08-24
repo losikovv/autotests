@@ -12,14 +12,21 @@ import ru.instamart.autotests.configuration.Pages;
 
 public class SelfCheck extends TestBase {
 
+    @Test(description = "Тест базового URL")
+    public void initialCheck() throws Exception {
+        app.getHelper().getBaseUrl();
+        Assert.assertTrue(app.getHelper().currentURL().equals(app.getHelper().baseUrl()));
+    }
+
+
     @Test(description = "Тест корректности работы методов навигации")
     public void checkNavigation() throws Exception {
 
         app.getNavigationHelper().get("metro");
-        Assert.assertTrue(app.getHelper().currentURL().equals(app.getHelper().returnBaseUrl() + "metro"));
+        Assert.assertTrue(app.getHelper().currentURL().equals(app.getHelper().baseUrl() + "metro"));
 
         app.getNavigationHelper().get(Pages.Site.Static.faq());
-        Assert.assertTrue(app.getHelper().currentURL().equals(app.getHelper().returnBaseUrl() + Pages.getPagePath()));
+        Assert.assertTrue(app.getHelper().currentURL().equals(app.getHelper().baseUrl() + Pages.getPagePath()));
 
         // TODO проверка GO методов
     }

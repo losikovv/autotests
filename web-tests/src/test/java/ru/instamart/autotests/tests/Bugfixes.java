@@ -44,5 +44,4 @@ public class Bugfixes extends TestBase {
                 "Can't open auth modal right after sending password recovery request \n");
     }
 
-
 }

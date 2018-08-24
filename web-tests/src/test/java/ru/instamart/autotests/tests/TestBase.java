@@ -55,7 +55,7 @@ public class TestBase {
     }
 
     protected void assertPageIsAvailable(Pages page) throws AssertionError{
-        String targetURL = app.getNavigationHelper().returnBaseUrl() + Pages.getPagePath();
+        String targetURL = app.getNavigationHelper().baseUrl() + Pages.getPagePath();
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL " + targetURL + "\n");

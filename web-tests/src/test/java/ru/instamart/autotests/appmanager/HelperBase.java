@@ -30,7 +30,7 @@ public class HelperBase {
 
     /** Вернуть базовый URL */
 
-    public String returnBaseUrl() {
+    public String baseUrl() {
         return baseUrl;
     }
 
@@ -49,8 +49,8 @@ public class HelperBase {
     /** Перейти на базовый URL */
 
     public void getBaseUrl() {
+        printMessage("Getting base URL " + baseUrl + "\n");
         getUrl(baseUrl);
-        printMessage("Got base URL " + baseUrl + "\n");
     }
 
 
@@ -103,7 +103,7 @@ public class HelperBase {
     }
 
 
-    /** Взять URL текущей страницы */
+    /** Вернуть текущий URL */
 
     public String currentURL() {
         return driver.getCurrentUrl();
