@@ -6,6 +6,7 @@ import ru.instamart.autotests.configuration.Pages;
 import ru.instamart.autotests.testdata.Addresses;
 
 
+
 // Тесты самопроверки кракена
 
 
@@ -75,29 +76,7 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения 500 ошибки на страниице", priority = 10004)
-    public void detect500() throws Exception {
-
-        app.getNavigationHelper().get("// TODO стабильно пятисотящая страница ");
-        Assert.assertTrue(app.getHelper().is500());
-
-        app.getNavigationHelper().get("metro");
-        Assert.assertFalse(app.getHelper().is500());
-    }
-
-
-    @Test(description = "Тест корректности определения 404 ошибки на страниице", priority = 10005)
-    public void detect404() throws Exception {
-
-        app.getNavigationHelper().get("nowhere");
-        Assert.assertTrue(app.getHelper().is404());
-
-        app.getNavigationHelper().get("metro");
-        Assert.assertFalse(app.getHelper().is404());
-    }
-
-
-    @Test(description = "Тест корректности определения авторизованности пользователя", priority = 10006)
+    @Test(description = "Тест корректности определения авторизованности пользователя", priority = 10004)
     public void detectAuthorisation() throws Exception {
 
         app.getSessionHelper().dropAuth();
@@ -118,8 +97,16 @@ public class SelfCheck extends TestBase {
 
     // TODO public void detectAddressModal() throws Exception { }
 
+    // TODO public void detectCatalogDrawer() throws Exception { }
 
-    @Test(description = "Тест корректности определения меню Профиль", priority = 10007)
+    // TODO public void detectCartDrawer() throws Exception { }
+
+    // TODO public void detectDeliveryPopup() throws Exception { }
+
+    // TODO public void detectPartnersPopup() throws Exception { }
+
+
+    @Test(description = "Тест корректности определения меню Профиль", priority = 10005)
     public void detectAccountMenu() throws Exception {
 
         app.getHelper().getBaseUrl();
@@ -133,7 +120,7 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения карточки товара", priority = 10008)
+    @Test(description = "Тест корректности определения карточки товара", priority = 10006)
     public void detectItemCard() throws Exception {
 
         app.getNavigationHelper().get("metro/soda-pishchievaia");
@@ -144,7 +131,7 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения что находимся на сайте", priority = 10009)
+    @Test(description = "Тест корректности определения что находимся на сайте", priority = 10007)
     public void detectIsOnSite() throws Exception {
 
         app.getNavigationHelper().get(Pages.Site.Static.faq());
@@ -156,7 +143,7 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения что находимся в админке", priority = 10010)
+    @Test(description = "Тест корректности определения что находимся в админке", priority = 10008)
     public void detectIsInAdmin() throws Exception {
 
         app.getNavigationHelper().get(Pages.Site.Static.contacts());
@@ -168,14 +155,25 @@ public class SelfCheck extends TestBase {
     }
 
 
-    // TODO public void detectCatalogDrawer() throws Exception { }
+    @Test(description = "Тест корректности определения 404 ошибки на страниице", priority = 10009)
+    public void detect404() throws Exception {
 
-    // TODO public void detectCartDrawer() throws Exception { }
+        app.getNavigationHelper().get("nowhere");
+        Assert.assertTrue(app.getHelper().is404());
+
+        app.getNavigationHelper().get("metro");
+        Assert.assertFalse(app.getHelper().is404());
+    }
 
 
+    @Test(description = "Тест корректности определения 500 ошибки на страниице", priority = 10010)
+    public void detect500() throws Exception {
 
-    // TODO public void detectDeliveryPopup() throws Exception { }
+        app.getNavigationHelper().get("// TODO стабильно пятисотящая страница ");
+        Assert.assertTrue(app.getHelper().is500());
 
-    // TODO public void detectPartnersPopup() throws Exception { }
+        app.getNavigationHelper().get("metro");
+        Assert.assertFalse(app.getHelper().is500());
+    }
 
 }

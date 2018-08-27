@@ -154,7 +154,7 @@ public class SessionHelper extends HelperBase {
         } else {
             click(Elements.Admin.Header.logoutButton());
         }
-        waitForIt(3);
+        waitForIt(2);
     }
 
 

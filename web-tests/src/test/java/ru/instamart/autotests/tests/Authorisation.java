@@ -103,7 +103,7 @@ public class Authorisation extends TestBase {
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
         app.getNavigationHelper().get("vkusvill");
         app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
+        app.getSessionHelper().doLoginAs("user");
 
         // Assert user is authorised
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
