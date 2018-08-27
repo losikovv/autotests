@@ -12,6 +12,7 @@ import ru.instamart.autotests.configuration.Pages;
 
 public class SelfCheck extends TestBase {
 
+
     @Test(description = "Тест базового URL")
     public void initialCheck() throws Exception {
         app.getHelper().getBaseUrl();
@@ -32,9 +33,29 @@ public class SelfCheck extends TestBase {
     }
 
 
-    // TODO public void detectIsOnSite
+    @Test(description = "Тест корректности определения что находимся на сайте")
+    public void detectIsOnSite() throws Exception {
 
-    // TODO public void detectIsInAdmin
+        app.getNavigationHelper().get(Pages.Site.Static.faq());
+        Assert.assertTrue(app.getHelper().isOnSite());
+
+        app.getSessionHelper().doLoginAs("admin");
+        app.getNavigationHelper().get(Pages.Admin.retailers());
+        Assert.assertFalse(app.getHelper().isOnSite());
+    }
+
+
+    @Test(description = "Тест корректности определения что находимся в админке")
+    public void detectIsInAdmin() throws Exception {
+
+        app.getSessionHelper().doLoginAs("admin");
+        app.getNavigationHelper().get(Pages.Admin.settings());
+        Assert.assertTrue(app.getHelper().isInAdmin());
+
+        app.getNavigationHelper().get(Pages.Site.Static.contacts());
+        Assert.assertFalse(app.getHelper().isInAdmin());
+    }
+
 
     @Test(description = "Тест корректности определения 500 ошибки на страниице")
     public void detect500() throws Exception {
