@@ -2,6 +2,7 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 import ru.instamart.autotests.configuration.PaymentTypes;
 import ru.instamart.autotests.testdata.Loyalties;
@@ -20,7 +21,7 @@ public class CheckoutHelper extends HelperBase {
     }
 
     public boolean isOnCheckout(){
-        return isElementPresent(By.className("chekout-header"));
+        return isElementPresent(Elements.Site.Checkout.header());
     }
 
 
@@ -192,12 +193,10 @@ public class CheckoutHelper extends HelperBase {
 
 
 
-    // ======= Step 3 - Replacement policy =======
+    // ======= Политика замен =======
 
-    /**
-     * Шаг 4 - выбор способа замен
-     * Выбираем дефолтный тестовый способ - верхний в списке
-     */
+    /** Шаг 4 - выбор способа замен */
+
     private void doStep3() {
         final int stepNumber = 3;
         final String stepName = "Replacement policy";
@@ -207,10 +206,6 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-    /**
-     * Шаг 4 - выбор способа замен
-     * Выбираем способ
-     */
     private void doStep3(int policyOption) {
         final int stepNumber = 3;
         final String stepName = "Replacement policy";
@@ -220,22 +215,18 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-    /**
-     * Выбираем способ замен по позиции в списке опций
-     */
-    private void selectReplacementPolicy(int policyOption){
-        click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[3]/div[2]/div/div/div[2]/div["+policyOption+"]/label"));
-        printMessage("Replacement policy #" + policyOption + " selected");
+    /** Выбрать способ замен по позиции в списке опций */
+    private void selectReplacementPolicy(int option){
+        click(Elements.Site.Checkout.replacementPolicy(option));
+        printMessage("Replacement policy #" + option + " selected - " + getText(Elements.getLocator()));
     }
 
 
 
-    // ======= Payment =======
+    // ======= Способ оплаты =======
 
-    /**
-     * Шаг 4 - выбор способа оплаты
-     * Выбираем дефолтный тестовый способ - наличными
-     */
+    /** Шаг 4 - выбор способа оплаты */
+
     private void doStep4() {
         final int stepNumber = 4;
         final String stepName = "Payment";
@@ -245,10 +236,6 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-    /**
-     * Шаг 4 - выбор способа оплаты
-     * Выбираем способ оплаты из вариантов
-     */
     private void doStep4(String paymentType) {
         final int stepNumber = 4;
         final String stepName = "Payment";
@@ -258,32 +245,10 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-/*
-    private void selectPaymentType(String paymentType){
-        switch(paymentType){
-            case "card-online":
-                click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div[1]"));
-                break;
-            case "card-courier":
-                click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div[2]"));
-                break;
-            case "cash":
-                click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div[3]"));
-                break;
-            case "bank":
-                click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div[4]"));
-                break;
-        }
-        printMessage("Paying with " + paymentType);
-    }
-*/
-
-    /** Выбираем способ оплаты */
+    /** Выбрать способ оплаты */
     private void selectPaymentType(String type){
-        click(By.xpath("/html/body/div[2]/div/form/div/div/div/div[4]/div[2]/div/div/div[1]/div["
-                + PaymentTypes.getPosition(type)
-                + "]"));
-        printMessage("Paying with " + type);
+        click(Elements.Site.Checkout.payment(PaymentTypes.getPosition(type)));
+        printMessage("Paying with " + type + " - " + getText(Elements.getLocator()));
     }
 
     // TODO addNewPaymentCard - добавить карту оплаты
@@ -515,7 +480,8 @@ public class CheckoutHelper extends HelperBase {
 
     /** Нажимаем кнопки "Продолжить" в шагах чекаута */
     private void hitNextButton(int step) {
-        click(By.xpath("(//button[@type='button'])["+step+"]"));
+        //click(By.xpath("(//button[@type='button'])["+step+"]"));
+        click(Elements.Site.Checkout.nextButton());
         printMessage("Next\n");
         waitForIt(1);
     }

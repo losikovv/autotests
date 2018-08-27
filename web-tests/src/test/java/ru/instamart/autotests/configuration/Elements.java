@@ -517,6 +517,30 @@ public class Elements {
             }
 
         }
+
+
+        interface Checkout {
+
+            static Elements header() {
+                return new Elements(null, By.className("chekout-header"));
+            }
+
+            static Elements nextButton() {
+                return new Elements("Продолжить", By.className("checkout-btn--success"));
+            }
+
+            static Elements replacementPolicy(int option) {
+                return new Elements(null,
+                        By.cssSelector("div.replacement-policy:nth-child(" + option + ") > label:nth-child(1) > div:nth-child(2)"));
+            }
+
+            static Elements payment(int option) {
+                return new Elements(null,
+                        By.cssSelector("div.payment-method:nth-child(" + option + ") > div:nth-child(1)"));
+            }
+
+        }
+
     }
 
 
