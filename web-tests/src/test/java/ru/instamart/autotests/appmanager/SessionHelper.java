@@ -72,33 +72,25 @@ public class SessionHelper extends HelperBase {
 
     // ======= Методы авторизации =======
 
-    /** Авторизоваться тестовым пользователем с указанной ролью, если неавторизован */
-    public void doLoginIfNeededAs(String role) {
-        if (!isUserAuthorised()) { doLoginAs(role); }
-    }
-
     /** Авторизоваться тестовым пользователем с указанной ролью */
     public void doLoginAs(String role) {
-        doLogin(Users.getCredentials(role));
-        printMessage("Logged-in with " + role + " privileges\n");
-    }
-
-
-    /** Авторизоваться пользователем с указанными реквизитами, если неавторизован */
-    public void doLoginIfNeeded(String email, String password) {
-        if (!isUserAuthorised()) { doLogin(email,password); }
+        if (!isUserAuthorised()) {
+            doLogin(Users.getCredentials(role));
+            printMessage("Logged-in with " + role + " privileges\n");
+        } else printMessage("Skip authorisation - already logged in");
     }
 
     /** Авторизоваться пользователем с указанными реквизитами */
     public void doLogin(String email, String password) {
-        printMessage("Performing authorisation...");
-        openAuthModal();
-        switchToAuthorisationTab();
-        fillAuthorisationForm(email, password);
-        sendForm();
-        waitForIt(3);
+        if (!isUserAuthorised()) {
+            printMessage("Performing authorisation...");
+            openAuthModal();
+            switchToAuthorisationTab();
+            fillAuthorisationForm(email, password);
+            sendForm();
+            waitForIt(3);
+        }
     }
-
 
     /** Авторизоваться пользователем, если неавторизован */
     public void doLoginIfNeeded(UserData userData) {
@@ -114,7 +106,6 @@ public class SessionHelper extends HelperBase {
         sendForm();
         waitForIt(3);
     }
-
 
     /** Авторизоваться через Facebook, если неавторизован */
     public void doLoginWithFacebookIfNeeded() {
@@ -136,7 +127,6 @@ public class SessionHelper extends HelperBase {
     /** Авторизоваться через VK */
     public void doLoginWithVK() {
     }
-
 
     /** Определить авторизован ли пользователь */
     public boolean isUserAuthorised() {
@@ -285,6 +275,7 @@ public class SessionHelper extends HelperBase {
             else printMessage(" >>> can't open auth modal");
     }
 
+    /** Закрыть форму авторизации/регистрации */
     public void closeAuthModal(){
         click(Elements.Site.AuthModal.closeButton());
     }

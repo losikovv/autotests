@@ -83,7 +83,7 @@ public class CheckPages extends TestBase {
     )
     public void checkProfilePages() throws Exception, AssertionError {
         app.getHelper().getBaseUrl();
-        app.getSessionHelper().doLoginIfNeededAs("admin");
+        app.getSessionHelper().doLoginAs("admin");
 
         assertPageIsAvailable(Pages.Site.Profile.edit());
         assertPageIsAvailable(Pages.Site.Profile.orders());

@@ -15,7 +15,7 @@ public class Checkout extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preparingForCheckout() throws Exception {
         app.getNavigationHelper().getRetailerPage("metro");
-        app.getSessionHelper().doLoginIfNeededAs("admin");
+        app.getSessionHelper().doLoginAs("admin");
         app.getNavigationHelper().getCheckoutPage();
 
         // если не попали в чекаут - набираем корзину и идем снова

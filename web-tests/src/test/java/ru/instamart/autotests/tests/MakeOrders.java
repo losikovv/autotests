@@ -13,10 +13,11 @@ import ru.instamart.autotests.testdata.Addresses;
 
 public class MakeOrders extends TestBase {
 
+
     @BeforeMethod(alwaysRun = true)
     public void preparing() throws Exception {
         app.getNavigationHelper().getRetailerPage("metro");
-        app.getSessionHelper().doLoginIfNeededAs("admin");
+        app.getSessionHelper().doLoginAs("admin");
     }
 
 
