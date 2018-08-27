@@ -19,13 +19,9 @@ public class ShoppingHelper extends HelperBase {
         super(driver, environment);
     }
 
-    /*
-    public class ShipAddress extends ShoppingHelper {
 
-        public ShipAddress(WebDriver driver, Environments environment) {
-            super(driver, environment);
-        }
-        */
+
+    // ======= Адрес доставки =======
 
     /** Определяем пуст ли адрес доставки */
     public boolean isShippingAddressEmpty() {
@@ -43,34 +39,40 @@ public class ShoppingHelper extends HelperBase {
         }
     }
 
-
     /** Установить адрес доставки */
-
     public void setShippingAddress(String address) {
-        printMessage("Setting new shipping address...");
-        click(Elements.Site.Header.setShipAddressButton());
-        checkAddressModal();
-        fillField(Elements.Site.AddressModal.addressField(), address);
-        selectAddressSuggest();
-        click(Elements.Site.AddressModal.saveButton());
+        printMessage("Setting shipping address...");
+
+        if(currentURL().equals(baseUrl)){
+            fillField(Elements.Site.LandingPage.addressField(), address);
+            waitForIt(1);
+            click(Elements.Site.LandingPage.addressSuggest());
+            click(Elements.Site.LandingPage.selectStoreButton());
+        } else {
+            click(Elements.Site.Header.setShipAddressButton());
+            checkAddressModal();
+            fillField(Elements.Site.AddressModal.addressField(), address);
+            selectAddressSuggest();
+            click(Elements.Site.AddressModal.saveButton());
+        }
         waitForIt(1);
     }
 
-    /** Change current shipping address with one in the given string */
-
+    /** Изменить адрес доставки */
     public void changeShippingAddress(String newAddress) {
         printMessage("Changing shipping address");
         click(Elements.Site.Header.changeShipAddressButton());
-        setShippingAddress(newAddress);
+        checkAddressModal();
+        fillField(Elements.Site.AddressModal.addressField(), newAddress);
+        selectAddressSuggest();
+        click(Elements.Site.AddressModal.saveButton());
     }
-
 
     /** Определить и вернуть текущий адрес доставки */
     public String currentShippingAddress() {
         printMessage("Shipping address: " + getText(Elements.Site.Header.currentShipAddress()));
         return getText(Elements.getLocator());
     }
-
 
     /** Определить показаны ли адресные саджесты */
     private boolean isAnyAddressSuggestsAvailable() {
@@ -92,103 +94,31 @@ public class ShoppingHelper extends HelperBase {
     }
 
 
-    /**
-     * Click on the "Choose shop" button while setting the shipping address on the landing or on the retailer page
-     */
-    private void clickChooseShopButton() {
-        if (currentURL().equals(baseUrl)) {
-            click(By.xpath("/html/body/div[5]/div[1]/div[3]/div/div[2]/div/form/button"));
-        } else {
-            click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div[1]/div/div/form/button"));
-        }
+
+    // ======= Шторка выбора магазинов =======
+
+    /** Открыть шторку выбора магазина */
+    public void openShopSelector() {
+        click(Elements.Site.Header.changeStoreButton());
+        waitForIt(1);
     }
 
-    // }
-
-    // ======= Список магазинов =======
-
-    public void selectShop(int position) {
-
-        // for shoplist page from landing
-        if (currentURL().equals(baseUrl + "stores")) {
-            try {
-                click(By.xpath("/html/body/div/div/div[3]/a[" + position + "]"));
-            } catch (NoSuchElementException e) {
-                printMessage("Can't select shop by the given position" + position);
-                closeShopsList();
-            }
-            waitForIt(2);
-        }
-
-        // for shoplist on the retailer page
-        else {
-            openShopsList();
-            try {
-                click(By.xpath("/html/body/div[8]/div/div/div[3]/a[" + position + "]"));
-            } catch (NoSuchElementException e) {
-                printMessage("Can't select shop by the given position" + position);
-                closeShopsList();
-            }
-            waitForIt(2);
-        }
+    /** Закрыть шторку выбора магазина */
+    public void closeShopSelector() {
+        click(Elements.Site.ShopSelector.closeButton());
+        waitForIt(1);
     }
 
-    // TODO протестить метод
-    public void changeShopSelection(int position) {
-        openShopsList();
-        if (!isShopsListEmpty()) { //TODO добавить проверку наличия магазов?
-            selectShop(position);
-        } else {
-            printMessage("Can't change shop because there is no shops available!");
-            closeShopsList();
-        }
+    /** Определить открыта ли шторка выбора магазина */
+    public boolean isShopSelectorOpen() {
+        return isElementDisplayed(Elements.Site.ShopSelector.drawer());
     }
 
-    /**
-     * Open list of available shops by clicking shop selector button on the search bar
-     * Method is not suitable for the landing page because there is no such button
-     */
-    public void openShopsList() {
-        if (!currentURL().equals(baseUrl)) {
-            click(By.xpath("//*[@id='wrap']/div[1]/div/div/div/header/div[1]/div[3]/div/div[1]"));
-        } else {
-            printMessage("Can't open shops list on the landing page!\n");
-        }
+    /** Определить пуст ли селектор */
+    public boolean isShopSelectorEmpty() {
+        return isElementDisplayed(Elements.Site.ShopSelector.placeholder());
     }
 
-    /**
-     * Close list of available shops by clicking the "X" button
-     */
-    public void closeShopsList() {
-        if (currentURL().equals(baseUrl + "stores")) {
-            click(By.xpath("/html/body/div/div/div[2]/button"));
-        } else {
-            click(By.xpath("/html/body/div[8]/div/div/div[2]/button"));
-        }
-    }
-
-    public boolean isShopsListOpen() {
-        if (currentURL().equals(baseUrl + "stores")) {
-            return isElementPresent(By.className("store-selector-page"));
-        } else {
-            return isElementPresent(By.className("store-selector"));
-        }
-    }
-
-    public boolean isShopsListEmpty() {
-        final String placeholderText = "Нет доступных магазинов по выбранному адресу";
-        final By placeholderLocator = By.xpath("/html/body/div[8]/div/div/div[3]/div");
-        final By placeholderLocatorLanding = By.xpath("/html/body/div/div/div[3]/div");
-        if (currentURL().equals(baseUrl + "stores")) {
-            return isElementDetected(placeholderLocatorLanding, placeholderText);
-        } else {
-            return isElementDetected(placeholderLocator, placeholderText);
-        }
-    }
-
-    public boolean isAnyShopsAvailable() {
-        return isElementDisplayed(Elements.Site.ShopSelector.storeButton());
-    }
 
 
     // ======= Каталог =======
@@ -228,6 +158,7 @@ public class ShoppingHelper extends HelperBase {
         waitForIt(1);
         switchToActiveElement();
     }
+
 
 
     // ======= Карточка товара  =======
@@ -456,7 +387,5 @@ public class ShoppingHelper extends HelperBase {
 
     // TODO reduceQuantity() - -1 кол-во верхнего товара
     // TODO reduceQuantity(int itemPosition) - -1 кол-во товара по позиции
-
-    // TODO методы для мультизаказа
 
 }

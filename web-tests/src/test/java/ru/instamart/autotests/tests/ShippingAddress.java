@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class ShippingAddress extends TestBase {
 
-
+ /*
     @Test(enabled = false,
             description = "Проверяем что на лендинге не выбран адрес",
             groups = {"acceptance","regression"},
@@ -61,7 +61,7 @@ public class ShippingAddress extends TestBase {
         Assert.assertTrue(app.getShoppingHelper().isAnyShopsAvailable(),
                 "There is no shops available in the shoplist\n");
 
-        app.getShoppingHelper().closeShopsList();
+        app.getShoppingHelper().closeShopSelector();
 
         // Assert shoplist isn't open
         Assert.assertFalse(app.getShoppingHelper().isShopsListOpen(),
@@ -161,4 +161,5 @@ public class ShippingAddress extends TestBase {
 
     // TODO тест на изменение выбранного магазина
 
+*/
 }

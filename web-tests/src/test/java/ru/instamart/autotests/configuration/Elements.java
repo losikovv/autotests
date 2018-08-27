@@ -54,10 +54,21 @@ public class Elements {
 
         interface LandingPage {
 
+            static Elements addressField() {
+                return new Elements(null, By.id("header_ship_address"));
+            }
+
+            static Elements addressSuggest() {
+                return new Elements(null, By.id("downshift-1-item-0"));
+            }
+
+            static Elements selectStoreButton() {
+                return new Elements("Выбрать магазин",
+                        By.cssSelector(".ship-address-selector-form__action"));
+            }
+
             static Elements catalogButton() {
-                text = "Перейти в каталог";
-                locator = By.xpath("//*[@id=‘new-home-promo’]/div/div/a");
-                return new Elements(text, locator);
+                return new Elements("Перейти в каталог",  By.cssSelector("a.btn"));
             }
 
             static Elements headButton() {
@@ -92,12 +103,6 @@ public class Elements {
 
             static Elements loginButton() {
                 return new Elements(null, By.linkText("Вход"));
-            }
-
-            static Elements selectStoreButton() {
-                text = "Выбрать магазин";
-                locator = By.xpath("/html/body/div[5]/div[1]/div[3]/div/div[2]/div/div/form/button");
-                return new Elements(text, locator);
             }
 
             static Elements pricesWithoutChargesButton() {
@@ -310,7 +315,6 @@ public class Elements {
 
         interface AddressModal {
 
-
             static Elements header() {
                 locator = By.className("address-modal__header");
                 return new Elements(null, locator);
@@ -354,20 +358,23 @@ public class Elements {
 
         interface ShopSelector {
 
+            static Elements drawer() {
+                return new Elements(null,
+                        By.cssSelector("div.opened:nth-child(2) > div:nth-child(1) > div:nth-child(1)"));
+            }
+
             static Elements closeButton() {
-                locator = By.className("store-selector__close");
-                return new Elements(null, locator);
+                return new Elements(null,
+                        By.cssSelector("div.opened:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)"));
             }
 
-            static Elements storeButton() {
-                locator = By.className("store-card");
-                return new Elements(null, locator);
+            static Elements storeButton(int position) {
+                return new Elements(null, By.cssSelector("a.store-card:nth-child(" + position + ")"));
             }
 
-            public static Elements noStoresPlaceholder() {
-                text = "Нет доступных магазинов по выбранному адресу";
-                locator = By.className("store-selector__empty");
-                return new Elements(null, locator);
+            static Elements placeholder() {
+                return new Elements("Нет доступных магазинов по выбранному адресу",
+                        By.cssSelector("div.opened:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)"));
             }
 
         }

@@ -3,7 +3,7 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.configuration.Pages;
-
+import ru.instamart.autotests.testdata.Addresses;
 
 
 // Тесты самопроверки кракена
@@ -116,7 +116,7 @@ public class SelfCheck extends TestBase {
             Assert.assertFalse(app.getSessionHelper().isAuthModalOpen());
     }
 
-    
+
     // TODO public void detectAddressModal() throws Exception { }
 
 
@@ -142,7 +142,29 @@ public class SelfCheck extends TestBase {
         Assert.assertFalse(app.getShoppingHelper().isItemCardOpen());
     }
 
-    // TODO public void detectShopsDrawer() throws Exception { landing + retailer }
+
+    @Test(description = "Тест корректности определения шторки магазинов")
+    public void detectShopsDrawer() throws Exception {
+
+        //landing
+        app.getNavigationHelper().getBaseUrl();
+        app.getShoppingHelper().setShippingAddress(Addresses.Moscow.testAddress());
+        Assert.assertTrue(app.getShoppingHelper().isShopSelectorOpen());
+
+        app.getShoppingHelper().closeShopSelector();
+        Assert.assertFalse(app.getShoppingHelper().isShopSelectorOpen());
+
+
+        //retailer
+        app.getNavigationHelper().get("metro");
+        app.getShoppingHelper().openShopSelector();
+        Assert.assertTrue(app.getShoppingHelper().isShopSelectorOpen());
+
+        app.getShoppingHelper().closeShopSelector();
+        Assert.assertFalse(app.getShoppingHelper().isShopSelectorOpen());
+    }
+
+
 
     // TODO public void detectCatalogDrawer() throws Exception { }
 
