@@ -101,6 +101,7 @@ public class SessionHelper extends HelperBase {
     public void doLogin(UserData userData) {
         printMessage("Performing authorisation...");
         openAuthModal();
+        waitForIt(1);
         switchToAuthorisationTab();
         fillAuthorisationForm(userData.getLogin(), userData.getPassword());
         sendForm();

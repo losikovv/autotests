@@ -13,14 +13,14 @@ import ru.instamart.autotests.testdata.Addresses;
 public class SelfCheck extends TestBase {
 
 
-    @Test(description = "Тест базового URL")
+    @Test(description = "Тест базового URL", priority = 10000)
     public void initialCheck() throws Exception {
         app.getHelper().getBaseUrl();
         Assert.assertTrue(app.getHelper().currentURL().equals(app.getHelper().baseUrl()));
     }
 
 
-    @Test(description = "Тест корректности работы методов навигации")
+    @Test(description = "Тест корректности работы методов навигации", priority = 10001)
     public void checkNavigation() throws Exception {
 
         app.getNavigationHelper().get("metro");
@@ -33,117 +33,27 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения что находимся на сайте")
-    public void detectIsOnSite() throws Exception {
-
-        app.getNavigationHelper().get(Pages.Site.Static.faq());
-        Assert.assertTrue(app.getHelper().isOnSite());
-
-        app.getSessionHelper().doLoginAs("admin");
-        app.getNavigationHelper().get(Pages.Admin.retailers());
-        Assert.assertFalse(app.getHelper().isOnSite());
-    }
-
-
-    @Test(description = "Тест корректности определения что находимся в админке")
-    public void detectIsInAdmin() throws Exception {
-
-        app.getSessionHelper().doLoginAs("admin");
-        app.getNavigationHelper().get(Pages.Admin.settings());
-        Assert.assertTrue(app.getHelper().isInAdmin());
-
-        app.getNavigationHelper().get(Pages.Site.Static.contacts());
-        Assert.assertFalse(app.getHelper().isInAdmin());
-    }
-
-
-    @Test(description = "Тест корректности определения 500 ошибки на страниице")
-    public void detect500() throws Exception {
-
-        app.getNavigationHelper().get("// TODO стабильно пятисотящая страница ");
-        Assert.assertTrue(app.getHelper().is500());
-
-        app.getNavigationHelper().get("metro");
-        Assert.assertFalse(app.getHelper().is500());
-    }
-
-
-    @Test(description = "Тест корректности определения 404 ошибки на страниице")
-    public void detect404() throws Exception {
-
-        app.getNavigationHelper().get("nowhere");
-        Assert.assertTrue(app.getHelper().is404());
-
-        app.getNavigationHelper().get("metro");
-        Assert.assertFalse(app.getHelper().is404());
-    }
-
-
-    @Test(description = "Тест корректности определения авторизованности пользователя")
-    public void detectAuthorisation() throws Exception {
-
-        app.getNavigationHelper().getBaseUrl();
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
-
-        app.getNavigationHelper().getRetailerPage("metro");
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
-
-        app.getSessionHelper().doLoginAs("admin");
-        Assert.assertTrue(app.getSessionHelper().isUserAuthorised());
-
-        app.getSessionHelper().doLogout();
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
-    }
-
-
-    @Test(description = "Тест корректности определения модалки авторизации/регистрации")
+    @Test(description = "Тест корректности определения модалки авторизации/регистрации", priority = 10002)
     public void detectAuthModal() throws Exception {
 
         app.getHelper().getBaseUrl();
 
-            app.getSessionHelper().openAuthModal();
-            Assert.assertTrue(app.getSessionHelper().isAuthModalOpen());
+        app.getSessionHelper().openAuthModal();
+        Assert.assertTrue(app.getSessionHelper().isAuthModalOpen());
 
-            app.getSessionHelper().closeAuthModal();
-            Assert.assertFalse(app.getSessionHelper().isAuthModalOpen());
+        app.getSessionHelper().closeAuthModal();
+        Assert.assertFalse(app.getSessionHelper().isAuthModalOpen());
 
-            app.getNavigationHelper().getRetailerPage("metro");
+        app.getNavigationHelper().getRetailerPage("metro");
 
-            app.getSessionHelper().openAuthModal();
-            Assert.assertTrue(app.getSessionHelper().isAuthModalOpen());
+        app.getSessionHelper().openAuthModal();
+        Assert.assertTrue(app.getSessionHelper().isAuthModalOpen());
 
-            app.getSessionHelper().closeAuthModal();
-            Assert.assertFalse(app.getSessionHelper().isAuthModalOpen());
+        app.getSessionHelper().closeAuthModal();
+        Assert.assertFalse(app.getSessionHelper().isAuthModalOpen());
     }
 
-
-    // TODO public void detectAddressModal() throws Exception { }
-
-
-    @Test(description = "Тест корректности определения меню Профиль")
-    public void detectAccountMenu() throws Exception {
-
-        app.getSessionHelper().doLoginAs("admin");
-        app.getSessionHelper().openAccountMenu();
-        Assert.assertTrue(app.getSessionHelper().isAccountMenuOpen());
-
-        app.getSessionHelper().closeAccountMenu();
-        Assert.assertFalse(app.getSessionHelper().isAccountMenuOpen());
-    }
-
-
-    @Test(description = "Тест корректности определения карточки товара")
-    public void detectItemCard() throws Exception {
-
-        app.getNavigationHelper().get("metro/soda-pishchievaia");
-        Assert.assertTrue(app.getShoppingHelper().isItemCardOpen());
-
-        app.getNavigationHelper().get("metro/eliektronika");
-        Assert.assertFalse(app.getShoppingHelper().isItemCardOpen());
-    }
-
-
-    @Test(description = "Тест корректности определения шторки магазинов")
+    @Test(description = "Тест корректности определения шторки магазинов", priority = 10003)
     public void detectShopsDrawer() throws Exception {
 
         //landing
@@ -164,6 +74,98 @@ public class SelfCheck extends TestBase {
         Assert.assertFalse(app.getShoppingHelper().isShopSelectorOpen());
     }
 
+
+    @Test(description = "Тест корректности определения 500 ошибки на страниице", priority = 10004)
+    public void detect500() throws Exception {
+
+        app.getNavigationHelper().get("// TODO стабильно пятисотящая страница ");
+        Assert.assertTrue(app.getHelper().is500());
+
+        app.getNavigationHelper().get("metro");
+        Assert.assertFalse(app.getHelper().is500());
+    }
+
+
+    @Test(description = "Тест корректности определения 404 ошибки на страниице", priority = 10005)
+    public void detect404() throws Exception {
+
+        app.getNavigationHelper().get("nowhere");
+        Assert.assertTrue(app.getHelper().is404());
+
+        app.getNavigationHelper().get("metro");
+        Assert.assertFalse(app.getHelper().is404());
+    }
+
+
+    @Test(description = "Тест корректности определения авторизованности пользователя", priority = 10006)
+    public void detectAuthorisation() throws Exception {
+
+        app.getSessionHelper().dropAuth();
+
+        app.getNavigationHelper().getBaseUrl();
+        Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
+
+        app.getNavigationHelper().getRetailerPage("metro");
+        Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
+
+        app.getSessionHelper().doLoginAs("admin");
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised());
+
+        app.getSessionHelper().doLogout();
+        Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
+    }
+
+
+    // TODO public void detectAddressModal() throws Exception { }
+
+
+    @Test(description = "Тест корректности определения меню Профиль", priority = 10007)
+    public void detectAccountMenu() throws Exception {
+
+        app.getHelper().getBaseUrl();
+
+        app.getSessionHelper().doLoginAs("admin");
+        app.getSessionHelper().openAccountMenu();
+        Assert.assertTrue(app.getSessionHelper().isAccountMenuOpen());
+
+        app.getSessionHelper().closeAccountMenu();
+        Assert.assertFalse(app.getSessionHelper().isAccountMenuOpen());
+    }
+
+
+    @Test(description = "Тест корректности определения карточки товара", priority = 10008)
+    public void detectItemCard() throws Exception {
+
+        app.getNavigationHelper().get("metro/soda-pishchievaia");
+        Assert.assertTrue(app.getShoppingHelper().isItemCardOpen());
+
+        app.getNavigationHelper().get("metro/eliektronika");
+        Assert.assertFalse(app.getShoppingHelper().isItemCardOpen());
+    }
+
+
+    @Test(description = "Тест корректности определения что находимся на сайте", priority = 10009)
+    public void detectIsOnSite() throws Exception {
+
+        app.getNavigationHelper().get(Pages.Site.Static.faq());
+        Assert.assertTrue(app.getHelper().isOnSite());
+
+        app.getSessionHelper().doLoginAs("admin");
+        app.getNavigationHelper().get(Pages.Admin.retailers());
+        Assert.assertFalse(app.getHelper().isOnSite());
+    }
+
+
+    @Test(description = "Тест корректности определения что находимся в админке", priority = 10010)
+    public void detectIsInAdmin() throws Exception {
+
+        app.getNavigationHelper().get(Pages.Site.Static.contacts());
+        Assert.assertFalse(app.getHelper().isInAdmin());
+
+        app.getSessionHelper().doLoginAs("admin");
+        app.getNavigationHelper().get(Pages.Admin.settings());
+        Assert.assertTrue(app.getHelper().isInAdmin());
+    }
 
 
     // TODO public void detectCatalogDrawer() throws Exception { }
