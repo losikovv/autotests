@@ -347,4 +347,25 @@ public class SessionHelper extends HelperBase {
             return true;
         }
     }
+
+
+
+    // ======= Методы модалки авторизации/регистрации =======
+
+    public void openAccountMenu() {
+        if(!isAccountMenuOpen()) {
+        click(Elements.Site.Header.profileButton());
+        } else printMessage("Account menu is already opened");
+    }
+
+    public void closeAccountMenu() {
+        if(isAccountMenuOpen()) {
+        click(Elements.Site.Header.profileButton());
+        } else printMessage("Account menu is already closed");
+    }
+
+    public boolean isAccountMenuOpen() {
+        return isElementDisplayed(Elements.Site.AccountMenu.popup());
+    }
+
 }

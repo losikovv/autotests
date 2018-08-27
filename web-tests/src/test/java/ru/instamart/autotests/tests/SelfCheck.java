@@ -107,7 +107,7 @@ public class SelfCheck extends TestBase {
             app.getSessionHelper().closeAuthModal();
             Assert.assertFalse(app.getSessionHelper().isAuthModalOpen());
 
-        app.getNavigationHelper().getRetailerPage("metro");
+            app.getNavigationHelper().getRetailerPage("metro");
 
             app.getSessionHelper().openAuthModal();
             Assert.assertTrue(app.getSessionHelper().isAuthModalOpen());
@@ -116,9 +116,20 @@ public class SelfCheck extends TestBase {
             Assert.assertFalse(app.getSessionHelper().isAuthModalOpen());
     }
 
+    
     // TODO public void detectAddressModal() throws Exception { }
 
-    // TODO public void detectAccountMenu() throws Exception { }
+
+    @Test(description = "Тест корректности определения меню Профиль")
+    public void detectAccountMenu() throws Exception {
+
+        app.getSessionHelper().doLoginAs("admin");
+        app.getSessionHelper().openAccountMenu();
+        Assert.assertTrue(app.getSessionHelper().isAccountMenuOpen());
+
+        app.getSessionHelper().closeAccountMenu();
+        Assert.assertFalse(app.getSessionHelper().isAccountMenuOpen());
+    }
 
 
     @Test(description = "Тест корректности определения карточки товара")
