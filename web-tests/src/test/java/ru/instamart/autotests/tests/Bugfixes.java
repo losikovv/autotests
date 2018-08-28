@@ -44,4 +44,18 @@ public class Bugfixes extends TestBase {
                 "Can't open auth modal right after sending password recovery request \n");
     }
 
+
+    @Test (
+            description = "Тест скачки документов заказа",
+            groups = {"regression"}
+    )
+    public void checkDocuments(){
+        app.getSessionHelper().doLoginAs("user");
+        app.getNavigationHelper().get("user/orders/R427454506");
+        checkOrderDocuments();
+
+        app.getNavigationHelper().get("user/orders/R544216031");
+        checkOrderDocuments();
+    }
+
 }
