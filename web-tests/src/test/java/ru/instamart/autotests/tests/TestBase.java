@@ -14,7 +14,7 @@ import ru.instamart.autotests.configuration.Pages;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
 
 
     @BeforeClass(alwaysRun = true)
@@ -107,6 +107,18 @@ public class TestBase {
     protected void assertNoTestUsersLeft() throws AssertionError {
         app.getNavigationHelper().getTestUsersAdminPage();
         Assert.assertFalse(app.getHelper().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")), "Seems like there are some test users left");
+    }
+
+
+    /** Проверка скачивания документов к заказу */
+
+
+    public void checkOrderDocuments(){
+        for(int i = 1; i <= 3; i++) {
+            app.getHelper().downloadDocuments(i);
+            assertPageIsAvailable();
+        }
+
     }
 
 }
