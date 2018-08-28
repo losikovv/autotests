@@ -50,10 +50,10 @@ public class Bugfixes extends TestBase {
             groups = {"regression"},
             priority = 1002
     )
-    public void checkOrderDocumentsDownloadable(){
+    public void downloadOrderDocuments(){
         app.getSessionHelper().doLoginAs("user");
-        checkOrderDocuments("R427454506");
-        checkOrderDocuments("R544216031");
+        checkOrderDocuments("R427454506");  // Заказ с двумя документами
+        checkOrderDocuments("R544216031");  // Заказ с тремя документами
     }
-    
+
 }

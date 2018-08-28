@@ -5,6 +5,7 @@ import org.openqa.selenium.remote.BrowserType;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.instamart.autotests.appmanager.ApplicationManager;
+import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Pages;
 
 
@@ -33,11 +34,10 @@ public class TestBase {
      * Simply check the current page is not 404 or 500
      */
     protected void assertPageIsAvailable() throws AssertionError{
-        //TODO добавить проверку на то что это не 502 от cloudFlare
         String currentURL = app.getNavigationHelper().currentURL();
         Assert.assertFalse(app.getNavigationHelper().is404(),"Page " + currentURL + " is 404" + "\n");
         Assert.assertFalse(app.getNavigationHelper().is500(),"It's something wrong on page " + currentURL + "\n");
-        app.getNavigationHelper().printMessage("Current page " + currentURL + " is available");
+        app.getNavigationHelper().printMessage("Current page is available (" + currentURL + ")\n");
     }
 
     /**
@@ -51,7 +51,7 @@ public class TestBase {
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL " + targetURL + "\n");
         Assert.assertFalse(app.getNavigationHelper().is404(),"Page " + currentURL + " is 404" + "\n");
         Assert.assertFalse(app.getNavigationHelper().is500(),"It's something wrong on page " + currentURL + "\n");
-        app.getNavigationHelper().printMessage("Page " + currentURL + " is available");
+        app.getNavigationHelper().printMessage("Page is available (" + currentURL + ")");
     }
 
     protected void assertPageIsAvailable(Pages page) throws AssertionError{
@@ -61,7 +61,7 @@ public class TestBase {
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL " + targetURL + "\n");
         Assert.assertFalse(app.getNavigationHelper().is404(),"Page " + currentURL + " is 404" + "\n");
         Assert.assertFalse(app.getNavigationHelper().is500(),"It's something wrong on page " + currentURL + "\n");
-        app.getNavigationHelper().printMessage("Page " + currentURL + " is available");
+        app.getNavigationHelper().printMessage("Page is available (" + currentURL + ")");
     }
 
     /**
@@ -115,8 +115,10 @@ public class TestBase {
     void checkOrderDocuments(String orderNumber){
         app.getNavigationHelper().get("user/orders/" + orderNumber);
         for(int i = 1; i <= 3; i++) {
-            app.getHelper().downloadOrderDocument(i);
-            assertPageIsAvailable();
+            if(app.getHelper().detectOrderDocument(i) != null) {
+                app.getHelper().click(Elements.getLocator());
+                assertPageIsAvailable();
+            }
         }
     }
 
