@@ -112,13 +112,12 @@ public class TestBase {
 
     /** Проверка скачивания документов к заказу */
 
-
-    public void checkOrderDocuments(){
+    void checkOrderDocuments(String orderNumber){
+        app.getNavigationHelper().get("user/orders/" + orderNumber);
         for(int i = 1; i <= 3; i++) {
-            app.getHelper().downloadDocuments(i);
+            app.getHelper().downloadOrderDocument(i);
             assertPageIsAvailable();
         }
-
     }
 
 }

@@ -46,16 +46,14 @@ public class Bugfixes extends TestBase {
 
 
     @Test (
-            description = "Тест скачки документов заказа",
-            groups = {"regression"}
+            description = "Тест скачивания документации заказа",
+            groups = {"regression"},
+            priority = 1002
     )
-    public void checkDocuments(){
+    public void checkOrderDocumentsDownloadable(){
         app.getSessionHelper().doLoginAs("user");
-        app.getNavigationHelper().get("user/orders/R427454506");
-        checkOrderDocuments();
-
-        app.getNavigationHelper().get("user/orders/R544216031");
-        checkOrderDocuments();
+        checkOrderDocuments("R427454506");
+        checkOrderDocuments("R544216031");
     }
-
+    
 }

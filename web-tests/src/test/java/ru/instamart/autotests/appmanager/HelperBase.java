@@ -112,15 +112,20 @@ public class HelperBase {
 
     /** Взять текст элемента */
 
-    protected String getText(Elements element) {
-        return driver.findElement(Elements.getLocator()).getText();
+    String getText(Elements element) {
+        try {
+            return driver.findElement(Elements.getLocator()).getText();
+        } catch (NoSuchElementException e) {
+            printMessage("Can't find element by the given locator");
+            return null;
+        }
     }
 
-    protected String getText(By locator) {
+    String getText(By locator) {
         try {
             return driver.findElement(locator).getText();
         } catch (NoSuchElementException e) {
-            printMessage("No such element by given locator");
+            printMessage("Can't find element by the given locator");
             return null;
         }
     }
@@ -291,17 +296,16 @@ public class HelperBase {
         driver.switchTo().defaultContent();
     }
 
+
     /** Скачивание документов к заказу */
 
-    public boolean downloadDocuments(int position) {
-        click(Elements.Site.document(position));
-        printMessage("Скачиваем " + getText(Elements.getLocator()));
-        if (getText(Elements.getLocator()) == null) {
-            printMessage("Невозможно скачать документы");
-            }
-
-        return false;
+    public void downloadOrderDocument(int position) {
+        Elements.Site.OrderPage.documentation(position);
+        if (getText(Elements.getLocator()) != null) {
+            printMessage("Скачиваем: " + getText(Elements.getLocator()));
+            click(Elements.getLocator());
+            } else {
+            printMessage("Документ отсутствует");
+        }
     }
-
-
 }
