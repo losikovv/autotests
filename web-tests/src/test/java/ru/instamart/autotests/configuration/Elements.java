@@ -48,9 +48,11 @@ public class Elements {
     }
 
 
+
     /** Сайт */
 
     public interface Site {
+
 
         interface LandingPage {
 
@@ -541,6 +543,12 @@ public class Elements {
 
         }
 
+        /** Документы к заказу(вынести в cпециальный интерфейс) */
+
+        static Elements document(int position) {
+            locator = By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div[2]/div/div/div[3]/a["+position+"]");
+            return new Elements(null,locator);
+        }
     }
 
 

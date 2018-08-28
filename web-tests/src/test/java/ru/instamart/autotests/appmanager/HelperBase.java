@@ -117,12 +117,16 @@ public class HelperBase {
     }
 
     protected String getText(By locator) {
-        return driver.findElement(locator).getText();
+        try {
+            return driver.findElement(locator).getText();
+        } catch (NoSuchElementException e) {
+            printMessage("No such element by given locator");
+            return null;
+        }
     }
 
 
     /** Точно определить отображается ли конкретно указанный элемент */
-
     public boolean isElementDetected(Elements element) {
         return isElementPresent(Elements.getLocator()) && getText(Elements.getLocator()).equals(Elements.getText());
     }
@@ -286,5 +290,18 @@ public class HelperBase {
         driver.switchTo().parentFrame();
         driver.switchTo().defaultContent();
     }
+
+    /** Скачивание документов к заказу */
+
+    public boolean downloadDocuments(int position) {
+        click(Elements.Site.document(position));
+        printMessage("Скачиваем " + getText(Elements.getLocator()));
+        if (getText(Elements.getLocator()) == null) {
+            printMessage("Невозможно скачать документы");
+            }
+
+        return false;
+    }
+
 
 }
