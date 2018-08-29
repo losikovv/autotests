@@ -176,4 +176,18 @@ public class SelfCheck extends TestBase {
         Assert.assertFalse(app.getHelper().is500());
     }
 
+
+    @Test(description = "Тест корректности определения шторки Каталога", priority = 10011)
+    public void detectCatalogDrawer() throws Exception {
+
+        app.getNavigationHelper().get("metro");
+        app.getShoppingHelper().openCatalog();
+        Assert.assertTrue(app.getShoppingHelper().isCatalogDrawerOpen());
+
+        app.getShoppingHelper().closeCatalog();
+        Assert.assertFalse(app.getShoppingHelper().isCatalogDrawerOpen());
+
+    }
+
 }
+

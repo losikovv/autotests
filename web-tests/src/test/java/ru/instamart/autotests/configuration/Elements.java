@@ -101,6 +101,8 @@ public class Elements {
                 locator = By.className("header-search__btn");
                 return new Elements(null, locator);
             }
+
+
         }
 
 
@@ -157,6 +159,23 @@ public class Elements {
                 return new Elements(null, locator);
             }
 
+        }
+
+        /** Шторка каталога */
+
+        interface CatalogDrawer {
+
+            static Elements openCatalogButton() {
+                return new Elements(null, By.className("navbar-button--catalog"));
+            }
+
+            static Elements closeCatalogButton() {
+                return new Elements(null, By.className("header-navbar-taxons__close"));
+            }
+
+            static Elements drawer() {
+                return new Elements(null, By.cssSelector(".drawer__left"));
+            }
         }
 
 
