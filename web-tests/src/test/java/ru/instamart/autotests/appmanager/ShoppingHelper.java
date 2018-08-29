@@ -121,8 +121,7 @@ public class ShoppingHelper extends HelperBase {
 
 
 
-
-    //========= Штокра каталога ==========
+    //========= Шторка каталога ==========
 
     /** Открыть шторку каталога */
 
@@ -144,8 +143,6 @@ public class ShoppingHelper extends HelperBase {
         return isElementDisplayed(Elements.Site.CatalogDrawer.drawer());
 
     }
-
-
 
 
 

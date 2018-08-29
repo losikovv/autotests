@@ -161,9 +161,13 @@ public class Elements {
 
         }
 
-        /** Шторка каталога */
 
+        /** Шторка каталога */
         interface CatalogDrawer {
+
+            static Elements drawer() {
+                return new Elements(null, By.cssSelector(".drawer__left"));
+            }
 
             static Elements openCatalogButton() {
                 return new Elements(null, By.className("navbar-button--catalog"));
@@ -173,9 +177,6 @@ public class Elements {
                 return new Elements(null, By.className("header-navbar-taxons__close"));
             }
 
-            static Elements drawer() {
-                return new Elements(null, By.cssSelector(".drawer__left"));
-            }
         }
 
 

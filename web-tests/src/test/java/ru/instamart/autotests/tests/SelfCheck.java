@@ -54,29 +54,8 @@ public class SelfCheck extends TestBase {
         Assert.assertFalse(app.getSessionHelper().isAuthModalOpen());
     }
 
-    @Test(description = "Тест корректности определения шторки магазинов", priority = 10003)
-    public void detectShopsDrawer() throws Exception {
 
-        //landing
-        app.getNavigationHelper().getBaseUrl();
-        app.getShoppingHelper().setShippingAddress(Addresses.Moscow.testAddress());
-        Assert.assertTrue(app.getShoppingHelper().isShopSelectorOpen());
-
-        app.getShoppingHelper().closeShopSelector();
-        Assert.assertFalse(app.getShoppingHelper().isShopSelectorOpen());
-
-
-        //retailer
-        app.getNavigationHelper().get("metro");
-        app.getShoppingHelper().openShopSelector();
-        Assert.assertTrue(app.getShoppingHelper().isShopSelectorOpen());
-
-        app.getShoppingHelper().closeShopSelector();
-        Assert.assertFalse(app.getShoppingHelper().isShopSelectorOpen());
-    }
-
-
-    @Test(description = "Тест корректности определения авторизованности пользователя", priority = 10004)
+    @Test(description = "Тест корректности определения авторизованности пользователя", priority = 10003)
     public void detectAuthorisation() throws Exception {
 
         app.getSessionHelper().dropAuth();
@@ -106,7 +85,7 @@ public class SelfCheck extends TestBase {
     // TODO public void detectPartnersPopup() throws Exception { }
 
 
-    @Test(description = "Тест корректности определения меню Профиль", priority = 10005)
+    @Test(description = "Тест корректности определения меню Профиль", priority = 10004)
     public void detectAccountMenu() throws Exception {
 
         app.getHelper().getBaseUrl();
@@ -120,7 +99,7 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения карточки товара", priority = 10006)
+    @Test(description = "Тест корректности определения карточки товара", priority = 10005)
     public void detectItemCard() throws Exception {
 
         app.getNavigationHelper().get("metro/soda-pishchievaia");
@@ -131,7 +110,7 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения что находимся на сайте", priority = 10007)
+    @Test(description = "Тест корректности определения что находимся на сайте", priority = 10006)
     public void detectIsOnSite() throws Exception {
 
         app.getNavigationHelper().get(Pages.Site.Static.faq());
@@ -143,7 +122,7 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения что находимся в админке", priority = 10008)
+    @Test(description = "Тест корректности определения что находимся в админке", priority = 10007)
     public void detectIsInAdmin() throws Exception {
 
         app.getNavigationHelper().get(Pages.Site.Static.contacts());
@@ -155,7 +134,7 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения 404 ошибки на страниице", priority = 10009)
+    @Test(description = "Тест корректности определения 404 ошибки на страниице", priority = 10008)
     public void detect404() throws Exception {
 
         app.getNavigationHelper().get("nowhere");
@@ -166,7 +145,7 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения 500 ошибки на страниице", priority = 10010)
+    @Test(description = "Тест корректности определения 500 ошибки на страниице", priority = 10009)
     public void detect500() throws Exception {
 
         app.getNavigationHelper().get("// TODO стабильно пятисотящая страница ");
@@ -177,7 +156,7 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения шторки Каталога", priority = 10011)
+    @Test(description = "Тест корректности определения шторки Каталога", priority = 10010)
     public void detectCatalogDrawer() throws Exception {
 
         app.getNavigationHelper().get("metro");
@@ -187,6 +166,27 @@ public class SelfCheck extends TestBase {
         app.getShoppingHelper().closeCatalog();
         Assert.assertFalse(app.getShoppingHelper().isCatalogDrawerOpen());
 
+    }
+
+    @Test(description = "Тест корректности определения шторки магазинов", priority = 10011)
+    public void detectShopsDrawer() throws Exception {
+
+        //landing
+        app.getNavigationHelper().getBaseUrl();
+        app.getShoppingHelper().setShippingAddress(Addresses.Moscow.testAddress());
+        Assert.assertTrue(app.getShoppingHelper().isShopSelectorOpen());
+
+        app.getShoppingHelper().closeShopSelector();
+        Assert.assertFalse(app.getShoppingHelper().isShopSelectorOpen());
+
+
+        //retailer
+        app.getNavigationHelper().get("metro");
+        app.getShoppingHelper().openShopSelector();
+        Assert.assertTrue(app.getShoppingHelper().isShopSelectorOpen());
+
+        app.getShoppingHelper().closeShopSelector();
+        Assert.assertFalse(app.getShoppingHelper().isShopSelectorOpen());
     }
 
 }

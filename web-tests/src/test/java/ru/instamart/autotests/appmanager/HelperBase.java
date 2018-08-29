@@ -238,14 +238,14 @@ public class HelperBase {
     /** Определить находимся на сайте или нет */
 
     public boolean isOnSite() {
-        return isElementPresent(By.className("footer"));
+        return isElementPresent(By.className("footer")); // TODO переделать на Elements
     }
 
 
     /** Определить находимся в админке или нет */
 
     public boolean isInAdmin() {
-        return isElementPresent(By.className("admin"));
+        return isElementPresent(By.className("admin")); // TODO переделать на Elements
     }
 
 
