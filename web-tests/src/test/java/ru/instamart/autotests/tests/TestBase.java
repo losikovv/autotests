@@ -112,6 +112,15 @@ public class TestBase {
 
     /** Проверка скачивания документов к заказу */
 
+    void checkOrderDocuments(){
+        for(int i = 1; i <= 3; i++) {
+            if(app.getHelper().detectOrderDocument(i) != null) {
+                app.getHelper().click(Elements.getLocator());
+                assertPageIsAvailable();
+            }
+        }
+    }
+
     void checkOrderDocuments(String orderNumber){
         app.getNavigationHelper().get("user/orders/" + orderNumber);
         for(int i = 1; i <= 3; i++) {
