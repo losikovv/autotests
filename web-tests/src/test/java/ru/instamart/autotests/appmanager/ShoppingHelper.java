@@ -121,6 +121,34 @@ public class ShoppingHelper extends HelperBase {
 
 
 
+
+    //========= Штокра каталога ==========
+
+    /** Открыть шторку каталога */
+
+    public void openCatalog() {
+        click(Elements.Site.CatalogDrawer.openCatalogButton());
+        waitForIt(1);
+    }
+
+    /** Закрыть шторку каталога */
+
+    public void closeCatalog() {
+        click(Elements.Site.CatalogDrawer.closeCatalogButton());
+        waitForIt(1);
+    }
+
+    /** Определить открыта ли шторка каталога */
+
+    public boolean isCatalogDrawerOpen() {
+        return isElementDisplayed(Elements.Site.CatalogDrawer.drawer());
+
+    }
+
+
+
+
+
     // ======= Каталог =======
 
     public boolean isProductAvailable() {
