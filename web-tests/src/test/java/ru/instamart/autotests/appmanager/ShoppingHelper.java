@@ -124,21 +124,22 @@ public class ShoppingHelper extends HelperBase {
     //========= Шторка каталога ==========
 
     /** Открыть шторку каталога */
-
     public void openCatalog() {
-        click(Elements.Site.CatalogDrawer.openCatalogButton());
-        waitForIt(1);
+        if(!isCatalogDrawerOpen()) {
+            click(Elements.Site.CatalogDrawer.openCatalogButton());
+            waitForIt(1);
+        }  else printMessage("Can't open catalog drawer - already opened");
     }
 
     /** Закрыть шторку каталога */
-
     public void closeCatalog() {
-        click(Elements.Site.CatalogDrawer.closeCatalogButton());
-        waitForIt(1);
+        if(isCatalogDrawerOpen()) {
+            click(Elements.Site.CatalogDrawer.closeCatalogButton());
+            waitForIt(1);
+        } else printMessage("Can't close catalog drawer - already closed");
     }
 
     /** Определить открыта ли шторка каталога */
-
     public boolean isCatalogDrawerOpen() {
         return isElementDisplayed(Elements.Site.CatalogDrawer.drawer());
 
@@ -283,7 +284,10 @@ public class ShoppingHelper extends HelperBase {
 
     /** Открыть корзину */
     public void openCart() {
-        click(Elements.Site.Header.openCartButton());
+        if (!isCartOpen()) {
+            click(Elements.Site.Cart.openCartButton());
+            waitForIt(1);
+        } else printMessage("Can't open cart - already opened");
     }
 
     /** Открыть корзину, если она не открыта */
@@ -295,7 +299,10 @@ public class ShoppingHelper extends HelperBase {
 
     /** Закрыть корзину */
     public void closeCart() {
-        click(Elements.Site.Cart.closeButton());
+        if (isCartOpen()) {
+            click(Elements.Site.Cart.closeButton());
+            waitForIt(1);
+        } else printMessage("Can't close cart - already closed");
     }
 
     /** Закрыть корзину, если она открыта */
