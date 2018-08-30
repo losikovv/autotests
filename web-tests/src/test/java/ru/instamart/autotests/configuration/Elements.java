@@ -82,10 +82,6 @@ public class Elements {
                 return new Elements(text, locator);
             }
 
-            static Elements openCartButton() {
-                locator = By.className("open-new-cart");
-                return new Elements(null, locator);
-            }
 
             static Elements changeStoreButton() {
                 locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/div[1]/div[3]/div/div[1]");
@@ -103,6 +99,43 @@ public class Elements {
             }
 
 
+        }
+
+        /** Попап "Доставка */
+        interface DeliveryPopup {
+
+            static Elements openPopupButton() {
+                return new Elements(null,
+                        By.cssSelector("button.navbar-button:nth-child(3) > div:nth-child(1)"));
+            }
+
+            static Elements closePopupButton() {
+                return new Elements(null, By.cssSelector(".close"));
+            }
+
+            static Elements popup() {
+                return new Elements(null,
+                        By.cssSelector(".modal-lg > div:nth-child(1)"));
+            }
+        }
+
+        /** Попап "Партнеры */
+        interface PartnersPopup {
+
+            static Elements openPopupButton() {
+                return new Elements(null,
+                        By.cssSelector("button.navbar-button:nth-child(5) > div:nth-child(1)"));
+            }
+
+            static Elements closePopupButton() {
+                return new Elements(null,
+                        By.cssSelector(".close"));
+            }
+
+            static Elements popup() {
+                return new Elements(null,
+                        By.cssSelector(".modal-lg > div:nth-child(1)"));
+            }
         }
 
 
@@ -361,6 +394,11 @@ public class Elements {
 
             static Elements checkoutButton() {
                 locator = By.className("cart-checkout-link");
+                return new Elements(null, locator);
+            }
+
+            static Elements openCartButton() {
+                locator = By.className("open-new-cart");
                 return new Elements(null, locator);
             }
 
