@@ -70,7 +70,7 @@ public class HelperBase {
             driver.findElement(Elements.getLocator()).click();
         }
         catch (NoSuchElementException n){
-            printMessage("Can't find element " + Elements.getLocator() + " on " + currentURL() + "\n");
+            printMessage("Can't find element to click <" + Elements.getLocator() + ">\non " + currentURL() + "\n");
         }
     }
 

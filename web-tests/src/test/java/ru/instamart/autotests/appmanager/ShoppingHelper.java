@@ -250,8 +250,10 @@ public class ShoppingHelper extends HelperBase {
         switch (type) {
             case "category":
                 hitCategorySuggest();
+                break;
             case "product":
                 hitProductSuggest();
+                break;
         }
     }
 
@@ -261,7 +263,7 @@ public class ShoppingHelper extends HelperBase {
     }
 
     /** Нажать на категорийный саджест */
-    public void hitCategorySuggest() {
+    private void hitCategorySuggest() {
         click(Elements.Site.Header.Search.categorySuggest());
     }
 
@@ -272,7 +274,7 @@ public class ShoppingHelper extends HelperBase {
     }
 
     /** Нажать на продуктовый саджест */
-    public void hitProductSuggest() {
+    private void hitProductSuggest() {
         click(Elements.Site.Header.Search.productSuggest());
     }
 

@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class ItemSearch extends TestBase {
+public class SearchProducts extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void getAuth() throws Exception {
@@ -22,11 +22,9 @@ public class ItemSearch extends TestBase {
     public void sendEmptySearch(){
         app.getShoppingHelper().searchItem("");
 
-        // Проверяем что поиск дал пустой результат
-        Assert.assertTrue(app.getShoppingHelper().isSearchResultsEmpty(),
-                "Search result is not empty when it's supposed to be\n");
-
-        //ИСПРАВИТЬ ТЕСТ, Т.К ПУСТОЙ ПОИСКОВОЙ ЗАПРОС БОЛЬШЕ НЕ ДАЕТ НИКАКИХ РЕЗУЛЬТАТОВ
+        // Проверяем что поиск не сработал
+        Assert.assertFalse(app.getShoppingHelper().isSearchResultsEmpty(),
+                "Search results are shown when it's not supposed to be\n");
     }
 
 
@@ -74,8 +72,7 @@ public class ItemSearch extends TestBase {
         Assert.assertTrue(app.getShoppingHelper().isCategorySuggestPresent(),
                 "No category suggest shown\n");
 
-        //Нажиамем на категорийную посдказку
-
+        // Нажимаем на категорийную посдказку
         app.getShoppingHelper().hitSuggest("category");
 
         // Проверяем что поиск не дал пустой результат
@@ -85,8 +82,6 @@ public class ItemSearch extends TestBase {
         // Проверяем что по поисковому запросу нашлись продукты
         Assert.assertTrue(app.getShoppingHelper().isProductAvailable(),
                 "Can't assert search is working correctly, check manually\n");
-
-
     }
 
 
@@ -102,15 +97,12 @@ public class ItemSearch extends TestBase {
         Assert.assertTrue(app.getShoppingHelper().isProductSuggestPresent(),
                 "No product suggest shown\n");
 
-        //Нажиамем на твоарную подсказку
-
+        // Нажимаем на твоарную подсказку
         app.getShoppingHelper().hitSuggest("product");
 
         // Проверяем что открылась карточка товара
         Assert.assertTrue(app.getShoppingHelper().isItemCardOpen(),
                 "Can't approve successful open item card from search product suggest\n");
-
-
     }
 
 }
