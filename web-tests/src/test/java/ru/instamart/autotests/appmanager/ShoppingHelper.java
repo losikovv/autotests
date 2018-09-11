@@ -191,6 +191,8 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить открыта ли карточка товара */
     public boolean isItemCardOpen() {
+        printMessage("Checking is item card opened");
+        waitForIt(1);
         return isElementPresent(Elements.Site.ItemCard.popup());
     }
 
@@ -230,20 +232,20 @@ public class ShoppingHelper extends HelperBase {
 
     /** Заполнить поле поиска */
     public void fillSearchField(String queryText) {
-        fillField(Elements.Site.Header.searchField(), queryText);
+        fillField(Elements.Site.Header.Search.searchField(), queryText);
         waitForIt(1);
     }
 
     /** Нажать кнопку поиска */
     public void hitSearchButton() {
-        click((Elements.Site.Header.searchButton()));
+        click((Elements.Site.Header.Search.searchButton()));
     }
-
+    /** Проверка пустого результата поиска */
     public boolean isSearchResultsEmpty() {
         return isElementPresent(Elements.Site.Catalog.emptySearchPlaceholder());
     }
 
-    //TODO переделать
+    /** Нажать на саджест(продуктовый/товарный) */
     public void hitSuggest(String type) {
         switch (type) {
             case "category":
@@ -253,26 +255,25 @@ public class ShoppingHelper extends HelperBase {
         }
     }
 
-    //TODO переделать
+    /** Проверяем наличие категорийного саджеста */
     public boolean isCategorySuggestPresent() {
-        return isElementPresent(By.className("header-search-list-category"));
+        return isElementPresent(Elements.Site.Header.Search.categorySuggest());
     }
 
-    //TODO переделать
+    /** Нажать на категорийный саджест */
     public void hitCategorySuggest() {
-        driver.findElement(By.xpath("(//input[@name='keywords'])[2]")).sendKeys(Keys.TAB); // костыль
-        click((By.className("categories__item")));
+        click(Elements.Site.Header.Search.categorySuggest());
     }
 
-    //TODO переделать
+    /** Проверяем наличие товарных саджестов */
     public boolean isProductSuggestPresent() {
-        return isElementPresent(By.className("header-search-list-product"));
-        // header-search-list__products - весь список
+        return isElementPresent(Elements.Site.Header.Search.productSuggest());
+
     }
 
-    //TODO переделать
+    /** Нажать на продуктовый саджест */
     public void hitProductSuggest() {
-        click((By.className("products_item")));
+        click(Elements.Site.Header.Search.productSuggest());
     }
 
 
