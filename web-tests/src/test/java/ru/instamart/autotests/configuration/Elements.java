@@ -88,14 +88,25 @@ public class Elements {
                 return new Elements(null, locator);
             }
 
-            static Elements searchField() {
-                return new Elements(null, By.cssSelector(".header-search--active > input:nth-child(1)"));
-            }
+            /** Поиск */
+            interface Search {
 
-            static Elements searchButton() {
-                return new Elements(null, By.cssSelector(".header-search--active > button:nth-child(2)"));
-            }
+                static Elements searchField() {
+                    return new Elements(null, By.cssSelector(".header-search--active > input:nth-child(1)"));
+                }
 
+                static Elements searchButton() {
+                    return new Elements(null, By.cssSelector(".header-search--active > button:nth-child(2)"));
+                }
+
+                static Elements categorySuggest() {
+                    return new Elements(null, By.className("header-search-list-category"));
+                }
+
+                static Elements productSuggest() {
+                    return new Elements(null, By.className("header-search-list-product"));
+                }
+            }
 
         }
 
@@ -319,7 +330,6 @@ public class Elements {
                 return new Elements("Нет доступных магазинов по выбранному адресу",
                         By.cssSelector("div.opened:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)"));
             }
-
         }
 
 
