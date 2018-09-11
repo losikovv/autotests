@@ -89,13 +89,11 @@ public class Elements {
             }
 
             static Elements searchField() {
-                locator = By.className("header-search__inp");
-                return new Elements(null, locator);
+                return new Elements(null, By.cssSelector(".header-search--active > input:nth-child(1)"));
             }
 
             static Elements searchButton() {
-                locator = By.className("header-search__btn");
-                return new Elements(null, locator);
+                return new Elements(null, By.cssSelector(".header-search--active > button:nth-child(2)"));
             }
 
 
@@ -343,6 +341,7 @@ public class Elements {
                 locator = By.xpath("//*[@id='home']/div[2]/ul/li[1]/ul/li[1]/a");
                 return new Elements(null, locator);
             }
+
 
         }
 

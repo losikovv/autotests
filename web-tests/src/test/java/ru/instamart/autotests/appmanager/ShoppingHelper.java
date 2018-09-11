@@ -255,7 +255,7 @@ public class ShoppingHelper extends HelperBase {
 
     //TODO переделать
     public boolean isCategorySuggestPresent() {
-        return isElementPresent(By.className("results__categories"));
+        return isElementPresent(By.className("header-search-list-category"));
     }
 
     //TODO переделать
@@ -266,7 +266,8 @@ public class ShoppingHelper extends HelperBase {
 
     //TODO переделать
     public boolean isProductSuggestPresent() {
-        return isElementPresent(By.className("products_item"));
+        return isElementPresent(By.className("header-search-list-product"));
+        // header-search-list__products - весь список
     }
 
     //TODO переделать
