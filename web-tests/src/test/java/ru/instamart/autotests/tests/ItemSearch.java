@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class Search extends TestBase {
+public class ItemSearch extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void getAuth() throws Exception {
