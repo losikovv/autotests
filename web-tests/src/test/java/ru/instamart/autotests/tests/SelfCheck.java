@@ -77,13 +77,6 @@ public class SelfCheck extends TestBase {
     // TODO public void detectAddressModal() throws Exception { }
 
 
-    // TODO public void detectCartDrawer() throws Exception { }
-
-    // TODO public void detectDeliveryPopup() throws Exception { }
-
-    // TODO public void detectPartnersPopup() throws Exception { }
-
-
     @Test(description = "Тест корректности определения меню Профиль", priority = 10004)
     public void detectAccountMenu() throws Exception {
 
@@ -164,8 +157,8 @@ public class SelfCheck extends TestBase {
 
         app.getShoppingHelper().closeCatalog();
         Assert.assertFalse(app.getShoppingHelper().isCatalogDrawerOpen());
-
     }
+
 
     @Test(description = "Тест корректности определения шторки магазинов", priority = 10011)
     public void detectShopsDrawer() throws Exception {
@@ -188,6 +181,7 @@ public class SelfCheck extends TestBase {
         Assert.assertFalse(app.getShoppingHelper().isShopSelectorOpen());
     }
 
+
     @Test(description = "Тест корректности определения шторки корзины", priority = 10012)
     public void detectCartDrawer() throws Exception {
 
@@ -197,8 +191,8 @@ public class SelfCheck extends TestBase {
 
         app.getShoppingHelper().closeCart();
         Assert.assertFalse(app.getShoppingHelper().isCartOpen());
-
     }
+
 
     @Test(description = "Тест корректности определения попапа доставки", priority = 10013)
     public void detectDeliveryPopup() throws Exception {
@@ -209,9 +203,8 @@ public class SelfCheck extends TestBase {
 
         app.getHelper().closeDeliveryPopup();
         Assert.assertFalse(app.getHelper().isDeliveryPopupOpened());
-
-
     }
+
 
     @Test(description = "Тест корректности определения попапа партнерских программ", priority = 10014)
     public void detectPartnersPopup() throws Exception {
@@ -222,10 +215,7 @@ public class SelfCheck extends TestBase {
 
         app.getHelper().closePartnersPopup();
         Assert.assertFalse(app.getHelper().isPartnersPopupOpened());
-
-
     }
-
 
 }
 

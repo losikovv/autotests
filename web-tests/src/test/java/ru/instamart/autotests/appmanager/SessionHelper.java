@@ -272,6 +272,8 @@ public class SessionHelper extends HelperBase {
         if (currentURL().equals(baseUrl)) click(Elements.Site.LandingPage.loginButton());
             else click(Elements.Site.Header.loginButton());
 
+        waitForIt(1);
+
         if(isAuthModalOpen()) printMessage("> open auth modal");
             else printMessage(" >>> can't open auth modal");
     }
@@ -279,6 +281,7 @@ public class SessionHelper extends HelperBase {
     /** Закрыть форму авторизации/регистрации */
     public void closeAuthModal(){
         click(Elements.Site.AuthModal.closeButton());
+        waitForIt(1);
     }
 
     /** Определить открыта ли модалка авторизации/регистрации */
