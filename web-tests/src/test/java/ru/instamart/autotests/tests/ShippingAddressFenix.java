@@ -1,15 +1,15 @@
 package ru.instamart.autotests.tests;
 
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import ru.instamart.autotests.testdata.Addresses;
+
 
 
 // Тесты адреса доставки по Фениксу
 
 
-
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import ru.instamart.autotests.testdata.Addresses;
 
 public class ShippingAddressFenix extends TestBase{
 

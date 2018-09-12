@@ -152,13 +152,11 @@ public class Elements {
         interface AccountMenu {
 
             static Elements popup() {
-                locator = By.className("account-menu");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("account-menu"));
             }
 
             static Elements header() {
-                locator = By.className("account-menu__header");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("account-menu__header"));
             }
 
             static Elements profileButton() {
@@ -182,25 +180,20 @@ public class Elements {
             }
 
             static Elements deliveryLink() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/nav/div[3]/div/div[2]/div/div[10]/button[1]");
-                return new Elements(null, locator);
+                return new Elements(null, By.cssSelector("a.account-menu__footer-link:nth-child(1)"));
             }
 
             static Elements paymentLink() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/nav/div[3]/div/div[2]/div/div[10]/button[2]");
-                return new Elements(null, locator);
+                return new Elements(null, By.cssSelector("a.account-menu__footer-link:nth-child(2)"));
             }
 
             static Elements faqLink() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/nav/div[3]/div/div[2]/div/div[10]/button[3]");
-                return new Elements(null, locator);
+                return new Elements(null, By.cssSelector("a.account-menu__footer-link:nth-child(3)"));
             }
 
             static Elements contactsLink() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/nav/div[3]/div/div[2]/div/div[10]/button[4]");
-                return new Elements(null, locator);
+                return new Elements(null, By.cssSelector("a.account-menu__footer-link:nth-child(4)"));
             }
-
         }
 
 
@@ -218,7 +211,6 @@ public class Elements {
             static Elements closeCatalogButton() {
                 return new Elements(null, By.className("header-navbar-taxons__close"));
             }
-
         }
 
 
@@ -305,7 +297,6 @@ public class Elements {
                 locator = By.className("address-modal__address");
                 return new Elements(null, locator);
             }
-
         }
 
 
@@ -336,7 +327,6 @@ public class Elements {
         /** Каталог товаров */
         interface Catalog {
 
-
             static Elements emptySearchPlaceholder() {
                 locator = By.className("search__noresults");
                 return new Elements(null, locator);
@@ -351,35 +341,27 @@ public class Elements {
                 locator = By.xpath("//*[@id='home']/div[2]/ul/li[1]/ul/li[1]/a");
                 return new Elements(null, locator);
             }
-
-
         }
 
 
         /** Карточка товара */
         interface ItemCard {
 
-
             static Elements popup() {
-                locator = By.className("product-popup");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("product-popup"));
             }
 
             static Elements closeButton() {
-                locator = By.className("close");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("close"));
             }
 
             static Elements plusButton() {
-                locator = By.xpath("//*[@id='react-modal']/div/div/div/span/div[1]/div/div/div/div/span/div/div[2]/div[2]/div[2]/div/div[3]/button[2]");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("popup-cart-actions__btn--right"));
             }
 
             static Elements minusButton() {
-                locator = By.xpath("//*[@id='react-modal']/div/div/div/span/div[1]/div/div/div/div/span/div/div[2]/div[2]/div[2]/div/div[3]/button[1]");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("popup-cart-actions__btn--left"));
             }
-
         }
 
 
@@ -387,30 +369,24 @@ public class Elements {
         interface Cart {
 
             static Elements drawer() {
-                locator = By.className("new-cart");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("new-cart"));
             }
 
             static Elements closeButton() {
-                locator = By.className("btn-close-cart");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("btn-close-cart"));
             }
 
             static Elements placeholder() {
-                locator = By.className("new-cart-empty");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("new-cart-empty"));
             }
 
             static Elements checkoutButton() {
-                locator = By.className("cart-checkout-link");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("cart-checkout-link"));
             }
 
             static Elements openCartButton() {
-                locator = By.className("open-new-cart");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("open-new-cart"));
             }
-
         }
 
 
