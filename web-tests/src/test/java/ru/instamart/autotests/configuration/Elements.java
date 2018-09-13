@@ -328,18 +328,15 @@ public class Elements {
         interface Catalog {
 
             static Elements emptySearchPlaceholder() {
-                locator = By.className("search__noresults");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("search__noresults"));
             }
 
             static Elements product() {
-                locator = By.className("product");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("product"));
             }
 
             static Elements firstItem() {
-                locator = By.xpath("//*[@id='home']/div[2]/ul/li[1]/ul/li[1]/a");
-                return new Elements(null, locator);
+                return new Elements(null, By.xpath("//*[@id='home']/div[2]/ul/li[1]/ul/li[1]/a/p[1]"));
             }
         }
 
@@ -382,7 +379,7 @@ public class Elements {
 
             static Elements checkoutButton() {
                 return new Elements(null, By.className("cart-checkout-link"));
-            }
+           }
 
             static Elements openCartButton() {
                 return new Elements(null, By.className("open-new-cart"));

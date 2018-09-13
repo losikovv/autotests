@@ -291,14 +291,7 @@ public class ShoppingHelper extends HelperBase {
         if (!isCartOpen()) {
             click(Elements.Site.Cart.openCartButton());
             waitForIt(1);
-        } else printMessage("Can't open cart - already opened");
-    }
-
-    /** Открыть корзину, если она не открыта */
-    public void openCartIfNeeded() {
-        if (!isCartOpen()) {
-            openCart();
-        }
+        } else printMessage("Skip open cart - already opened");
     }
 
     /** Закрыть корзину */
@@ -306,19 +299,11 @@ public class ShoppingHelper extends HelperBase {
         if (isCartOpen()) {
             click(Elements.Site.Cart.closeButton());
             waitForIt(1);
-        } else printMessage("Can't close cart - already closed");
-    }
-
-    /** Закрыть корзину, если она открыта */
-    public void closeCartIfNeeded() {
-        if (isCartOpen()) {
-            closeCart();
-        }
+        } else printMessage("Skip close cart - already closed");
     }
 
     /** Определить пуста ли корзина */
     public boolean isCartEmpty() {
-        openCartIfNeeded();
         return isElementPresent(Elements.Site.Cart.placeholder());
     }
 
@@ -331,7 +316,7 @@ public class ShoppingHelper extends HelperBase {
         String addressTwo = Addresses.Moscow.testAddress();
 
         if (!isCartEmpty()) {
-            closeCartIfNeeded();
+            closeCart();
             if (currentAddress.equals(addressOne)) {
                 changeShippingAddress(addressTwo);
             } else {
@@ -339,19 +324,17 @@ public class ShoppingHelper extends HelperBase {
                 changeShippingAddress(addressOne);
             }
         }
-
-        closeCartIfNeeded();
+        closeCart();
     }
 
     /** Определить активна ли кнопка "Сделать заказ" в корзине */
     public boolean isCheckoutButtonActive() {
-        openCartIfNeeded();
+        openCart();
         return isElementEnabled(Elements.Site.Cart.checkoutButton());
     }
 
     /** Перейти в чекаут нажатием кнопки "Сделать заказ" в корзине */
     public void proceedToCheckout() {
-        openCartIfNeeded();
         click(Elements.Site.Cart.checkoutButton());
     }
 

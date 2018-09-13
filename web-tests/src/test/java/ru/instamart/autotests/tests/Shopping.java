@@ -41,12 +41,6 @@ public class Shopping extends TestBase{
         Assert.assertFalse(app.getShoppingHelper().isCheckoutButtonActive(),
                 "Checkout button is active in an empty cart\n");
 
-        app.getShoppingHelper().proceedToCheckout();
-
-        // Assert can't go to checkout by clicking on disabled order button in cart
-        Assert.assertFalse(app.getCheckoutHelper().isOnCheckout(),
-                "It's possible to access checkout by clicking on disabled order button in cart\n");
-
         app.getShoppingHelper().closeCart();
 
         // Assert cart is closed
@@ -64,7 +58,7 @@ public class Shopping extends TestBase{
         app.getShoppingHelper().dropCart();
 
         // Assert can't reach checkout page by direct url
-        assertPageIsUnreachable("https://instamart.ru/checkout/edit?"); // TODO параметризовать окружение
+        assertPageIsUnreachable(app.getHelper().baseUrl() + "checkout/edit?");
     }
 
 
