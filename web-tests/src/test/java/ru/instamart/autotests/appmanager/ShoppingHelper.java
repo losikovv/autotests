@@ -150,7 +150,13 @@ public class ShoppingHelper extends HelperBase {
     // ======= Каталог =======
 
     public boolean isProductAvailable() {
-        return isElementPresent(Elements.Site.Catalog.product());
+        if(isElementPresent(Elements.Site.Catalog.product())){
+            printMessage("✓ Products available");
+            return true;
+        } else {
+            printMessage("No products available!");
+            return false;
+        }
     }
 
     /**
@@ -191,9 +197,12 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить открыта ли карточка товара */
     public boolean isItemCardOpen() {
-        printMessage("Checking is item card opened");
-        waitForIt(1);
-        return isElementPresent(Elements.Site.ItemCard.popup());
+        //printMessage("Checking item card is open...");
+        //waitForIt(1);
+        if(isElementPresent(Elements.Site.ItemCard.popup())){
+            printMessage("✓ Item card open");
+            return true;
+        } else return false;
     }
 
     /** Нажать кнопку [+] в карточке товара */
@@ -224,7 +233,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Заполнить поле поиска */
     public void searchItem(String queryText) {
-        printMessage("Searching for \"" + queryText + "\"...");
+        printMessage("Searching products on query \"" + queryText + "\"...");
         fillSearchField(queryText);
         hitSearchButton();
         waitForIt(1);
@@ -242,7 +251,10 @@ public class ShoppingHelper extends HelperBase {
     }
     /** Проверка пустого результата поиска */
     public boolean isSearchResultsEmpty() {
-        return isElementPresent(Elements.Site.Catalog.emptySearchPlaceholder());
+        if(isElementPresent(Elements.Site.Catalog.emptySearchPlaceholder())){
+            printMessage("Empty search results");
+            return true;
+        } else return false;
     }
 
     /** Нажать на саджест(продуктовый/товарный) */
