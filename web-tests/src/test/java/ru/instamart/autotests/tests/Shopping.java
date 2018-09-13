@@ -3,10 +3,10 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.configuration.Pages;
 
 
-
-    // Тесты покупок
+// Тесты покупок
 
 
 
@@ -56,9 +56,7 @@ public class Shopping extends TestBase{
     )
     public void checkoutIsUnreachableWithEmptyCart() throws Exception {
         app.getShoppingHelper().dropCart();
-
-        // Assert can't reach checkout page by direct url
-        assertPageIsUnreachable(app.getHelper().baseUrl() + "checkout/edit?");
+        assertPageIsUnreachable(Pages.Site.checkout());
     }
 
 

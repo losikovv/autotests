@@ -197,8 +197,6 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить открыта ли карточка товара */
     public boolean isItemCardOpen() {
-        //printMessage("Checking item card is open...");
-        //waitForIt(1);
         if(isElementPresent(Elements.Site.ItemCard.popup())){
             printMessage("✓ Item card open");
             return true;

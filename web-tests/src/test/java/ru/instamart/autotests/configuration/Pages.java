@@ -17,6 +17,12 @@ public class Pages {
 
     public interface Site {
 
+        static Pages checkout() {
+            return new Pages(
+                    "Доставка продуктов на дом из интернет-магазина. Купить продукты на дом в Москве — Instamart",
+                    "checkout/edit?" );
+        }
+
       interface Landings {
 
             static Pages mnogoru() { return new Pages("Много.ру",

@@ -99,6 +99,14 @@ public class TestBase {
         Assert.assertFalse(targetURL.equalsIgnoreCase(currentURL), "It is possible to get page " + currentURL + " while it must be unreachable at this moment" + "\n");
     }
 
+    protected void assertPageIsUnreachable(Pages page) throws AssertionError{
+        String targetURL = app.getHelper().baseUrl() + Pages.getPagePath();
+        app.getNavigationHelper().printMessage("Checking page " + targetURL + " is unreachable at this moment");
+        app.getNavigationHelper().getUrl(targetURL);
+        String currentURL = app.getNavigationHelper().currentURL();
+        Assert.assertFalse(targetURL.equalsIgnoreCase(currentURL), "It is possible to get page " + currentURL + " while it must be unreachable at this moment" + "\n");
+    }
+
     protected void assertNoTestOrdersLeftActive() throws AssertionError {
         app.getNavigationHelper().getTestOrdersAdminPage();
         Assert.assertTrue(app.getHelper().isElementPresent(By.className("no-objects-found")),"Seems like there are some test orders left active");
