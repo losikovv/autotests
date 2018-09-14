@@ -118,19 +118,9 @@ public class CheckPages extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 806
     )
-
-    //Пока не рабоатет из-за Jivosite
-    //Спрятать все лишнее
-
     public void checkFooterPages() throws Exception {
+        app.getHelper().getBaseUrl();
 
-        footer();
-
-    }
-
-
-
-    private void footer() throws Exception {
         app.getNavigationHelper().goFooterAboutCompany();
         assertPageIsAvailable();
 
@@ -139,8 +129,7 @@ public class CheckPages extends TestBase {
 
         app.getNavigationHelper().goFooterDelivery();
         assertPageIsAvailable();
-        isDeliveryPopupOpened();
-
+        app.getHelper().isDeliveryPopupOpen();
 
         app.getNavigationHelper().goFooterPayment();
         assertPageIsAvailable();
@@ -160,23 +149,5 @@ public class CheckPages extends TestBase {
         app.getNavigationHelper().goFooterPublicOffer();
         assertPageIsAvailable();
     }
-
-    //- Чек попапа доставка - перенести в другое место 
-
-    private boolean isDeliveryPopupOpened() {
-        app.getNavigationHelper().printMessage("Checking delivery popup...");
-        if(app.getNavigationHelper().isElementDetected("//*[@id='popup-modal']/div/div/div[2]/div[1]/h3",
-                "Доступные интервалы")) {
-            app.getNavigationHelper().printMessage("Delivery popup active");
-            return true;
-        }else {
-            return false;
-        }
-
-    }
-
-
-
-
 
 }

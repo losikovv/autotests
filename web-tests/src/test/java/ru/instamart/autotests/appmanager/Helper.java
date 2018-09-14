@@ -20,13 +20,19 @@ public class Helper extends HelperBase {
     //======== Попап доставка ==========
 
     /** Определить открыт ли попап доставки */
-    public boolean isDeliveryPopupOpened() {
-        return isElementDisplayed(Elements.Site.DeliveryPopup.popup());
+    public boolean isDeliveryPopupOpen() {
+        if (isElementDisplayed(Elements.Site.DeliveryPopup.popup())
+                && isElementDetected(Elements.Site.DeliveryPopup.title())) {
+            printMessage("✓ Delivery popup open");
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /** Открыть попап доставки  */
     public void openDeliveryPopup() {
-        if(!isDeliveryPopupOpened()) {
+        if(!isDeliveryPopupOpen()) {
             click(Elements.Site.DeliveryPopup.openPopupButton());
             waitForIt(1);
         } else printMessage("Can't open popup - already opened");
@@ -34,7 +40,7 @@ public class Helper extends HelperBase {
 
     /** Закрыть попап доставки */
     public void closeDeliveryPopup() {
-        if(isDeliveryPopupOpened()) {
+        if(isDeliveryPopupOpen()) {
             click(Elements.Site.DeliveryPopup.closePopupButton());
             waitForIt(1);
         } else printMessage("Can't close popup - already closed");

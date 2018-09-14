@@ -107,11 +107,20 @@ public class Elements {
                     return new Elements(null, By.className("header-search-list-product"));
                 }
             }
-
         }
 
         /** Попап "Доставка */
         interface DeliveryPopup {
+
+            static Elements popup() {
+                return new Elements(null,
+                        By.cssSelector(".modal-lg > div:nth-child(1)"));
+            }
+
+            static Elements title() {
+                return new Elements("Доступные интервалы",
+                        By.cssSelector(".delivery__intervals > h3:nth-child(1)"));
+            }
 
             static Elements openPopupButton() {
                 return new Elements(null,
@@ -120,11 +129,6 @@ public class Elements {
 
             static Elements closePopupButton() {
                 return new Elements(null, By.cssSelector(".close"));
-            }
-
-            static Elements popup() {
-                return new Elements(null,
-                        By.cssSelector(".modal-lg > div:nth-child(1)"));
             }
         }
 
@@ -283,9 +287,9 @@ public class Elements {
             }
 
             static Elements saveButton() {
-                text = "Сохранить";
-                locator = By.xpath("//*[@id='react-modal']/div/div/div/span/div[1]/div/div/div/div/div/div[2]/form/button");
-                return new Elements(text, locator);
+                //text = "Сохранить";
+                // locator = By.xpath("//*[@id='react-modal']/div/div/div/div/div[1]/div/div/div/div/div/div[2]/form/button");
+                return new Elements("Сохранить", By.className("address-modal__button"));
             }
 
             static Elements recentAddressesList() {

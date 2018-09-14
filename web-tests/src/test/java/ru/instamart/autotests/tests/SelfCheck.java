@@ -199,10 +199,10 @@ public class SelfCheck extends TestBase {
 
         app.getNavigationHelper().get("metro");
         app.getHelper().openDeliveryPopup();
-        Assert.assertTrue(app.getHelper().isDeliveryPopupOpened());
+        Assert.assertTrue(app.getHelper().isDeliveryPopupOpen());
 
         app.getHelper().closeDeliveryPopup();
-        Assert.assertFalse(app.getHelper().isDeliveryPopupOpened());
+        Assert.assertFalse(app.getHelper().isDeliveryPopupOpen());
     }
 
 

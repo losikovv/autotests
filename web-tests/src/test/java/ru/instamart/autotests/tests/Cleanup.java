@@ -13,7 +13,7 @@ public class Cleanup extends TestBase {
 
     @Test(
             description = "Отмена всех тестовых заказов",
-            groups = {"acceptance","regression"},
+            groups = {"acceptance"},
             priority = 901
     )
     public void cleanupTestOrders() throws Exception {
@@ -24,7 +24,7 @@ public class Cleanup extends TestBase {
 
     @Test(
             description = "Удаление всех тестовых юзеров",
-            groups = {"acceptance","regression"},
+            groups = {"acceptance"},
             priority = 902
     )
     public void cleanupTestUsers() throws Exception {
@@ -33,7 +33,7 @@ public class Cleanup extends TestBase {
     }
 
 
-    @Test(
+    @Test( enabled = false,
             description = "Тест метода cleanup",
             groups = {"regression"},
             priority = 903

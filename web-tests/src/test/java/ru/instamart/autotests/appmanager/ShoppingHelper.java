@@ -66,6 +66,7 @@ public class ShoppingHelper extends HelperBase {
         fillField(Elements.Site.AddressModal.addressField(), newAddress);
         selectAddressSuggest();
         click(Elements.Site.AddressModal.saveButton());
+        waitForIt(1);
     }
 
     /** Определить и вернуть текущий адрес доставки */

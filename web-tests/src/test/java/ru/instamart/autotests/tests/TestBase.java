@@ -80,7 +80,7 @@ public class TestBase {
      */
     protected void assertPageIs404(String URL) throws AssertionError{
         String targetURL = URL;
-        app.getNavigationHelper().printMessage("Checking page " + URL + " is 404");
+        app.getNavigationHelper().printMessage("Asserting page " + URL + " is 404");
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL" + targetURL + "\n");
