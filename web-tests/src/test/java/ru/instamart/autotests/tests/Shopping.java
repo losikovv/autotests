@@ -98,9 +98,9 @@ public class Shopping extends TestBase{
         if(!app.getShoppingHelper().isCheckoutButtonActive()) {
             app.getShoppingHelper().grabCartWithMinimalOrderSum();
         }
-        // if(app.getShoppingHelper().isCheckoutButtonActive()){
+        if(app.getShoppingHelper().isCheckoutButtonActive()){
             app.getShoppingHelper().proceedToCheckout();
-        //}
+        }
 
         // Assert can access checkout by clicking on order button in cart
         Assert.assertTrue(app.getCheckoutHelper().isOnCheckout(),

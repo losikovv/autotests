@@ -27,6 +27,7 @@ public class SearchProducts extends TestBase {
             priority = 305
     )
     public void sendEmptySearch(){
+        app.getNavigationHelper().getRetailerPage("metro");
         app.getShoppingHelper().searchItem("");
 
         // Проверяем что поиск не сработал
@@ -41,6 +42,7 @@ public class SearchProducts extends TestBase {
             priority = 306
     )
     public void successSearchForNonexistingItem(){
+        app.getNavigationHelper().getRetailerPage("metro");
         app.getShoppingHelper().searchItem("смысл жизни");
 
         // Проверяем что поиск дал пустой результат
@@ -55,6 +57,7 @@ public class SearchProducts extends TestBase {
             priority = 307
     )
     public void successItemSearch(){
+        app.getNavigationHelper().getRetailerPage("metro");
         app.getShoppingHelper().searchItem("шоколад");
 
         // Проверяем что поиск не дал пустой результат
@@ -73,6 +76,7 @@ public class SearchProducts extends TestBase {
             priority = 308
     )
     public void successItemSearchUsingCategorySuggests(){
+        app.getNavigationHelper().getRetailerPage("metro");
         app.getShoppingHelper().fillSearchField("Мороженое");
 
         // Проверяем что появились категорийные подсказки
@@ -98,6 +102,7 @@ public class SearchProducts extends TestBase {
             priority = 309
     )
     public void successItemSearchUsingProductSuggests(){
+        app.getNavigationHelper().getRetailerPage("metro");
         app.getShoppingHelper().fillSearchField("Мороженое");
 
         // Проверяем что появились товарные подсказки

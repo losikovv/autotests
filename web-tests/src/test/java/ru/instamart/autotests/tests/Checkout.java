@@ -75,10 +75,6 @@ public class Checkout extends TestBase {
         Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("aeroflot"),
                 "Can't assert loyalty program \"aeroflot\" is applied\n");
 
-        app.getCheckoutHelper().addLoyalty("familyteam");
-        Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("familyteam"),
-                "Can't assert loyalty program \"familyteam\" is applied\n");
-
         app.getCheckoutHelper().addLoyalty("svyaznoyclub");
         Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("svyaznoyclub"),
                 "Can't assert loyalty program \"svyaznoyclub\" is applied\n");
@@ -93,7 +89,6 @@ public class Checkout extends TestBase {
     public void selectLoyaltyProgram(){
         app.getCheckoutHelper().selectLoyalty("mnogoru");
         app.getCheckoutHelper().selectLoyalty("aeroflot");
-        app.getCheckoutHelper().selectLoyalty("familyteam");
         app.getCheckoutHelper().selectLoyalty("svyaznoyclub");
         // TODO добавить проверки на наличие модалок после выбора
     }
@@ -113,10 +108,6 @@ public class Checkout extends TestBase {
         app.getCheckoutHelper().clearLoyalty("aeroflot");
         Assert.assertFalse(app.getCheckoutHelper().isLoyaltyApplied("aeroflot"),
                 "Can't assert loyalty program \"aeroflot\" is cleared");
-
-        app.getCheckoutHelper().clearLoyalty("familyteam");
-        Assert.assertFalse(app.getCheckoutHelper().isLoyaltyApplied("familyteam"),
-                "Can't assert loyalty program \"familyteam\" is cleared");
 
         app.getCheckoutHelper().clearLoyalty("svyaznoyclub");
         Assert.assertFalse(app.getCheckoutHelper().isLoyaltyApplied("svyaznoyclub"),
