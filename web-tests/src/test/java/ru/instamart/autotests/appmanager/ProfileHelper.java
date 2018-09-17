@@ -2,6 +2,7 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 
 
@@ -38,67 +39,43 @@ public class ProfileHelper extends HelperBase {
 
     // ======= Orders =======
 
-    /**
-     * Get the Orders page in the profile
-     */
-    public void getOrdersPage(){
+    /** Перейти в историю заказов */
+    private void getOrdersPage(){
         getUrl(baseUrl + "user/orders");
     }
 
-    // перейти в детали крайнего заказа
+    /** Перейти в детали крайнего заказа */
     public void goToLastOrderPage(){
         getOrdersPage();
         click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a"));
     }
 
-    // перейти в детали заказа по позиции в списке
-    public void goToOrderPage(int orderPosition){
-        getOrdersPage();
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/a/button"));
-    }
-
-    // повторить крайний заказ
+    /** Повторить крайний заказ */
     public void repeatLastOrder(){
-        printMessage("Repeating last order from profile\n");
+        printMessage("Repeating last order from profile...\n");
         getOrdersPage();
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
-        waitForIt(3);
+        if(isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
+            click(Elements.Site.OrdersPage.lastOrderActionButton(2));
+        } else {
+            click(Elements.Site.OrdersPage.lastOrderActionButton());
+        }
+        waitForIt(2);
     }
 
-    // повторить заказ по позиции в списке
-    public void repeatOrder (int orderPosition){
-        printMessage("Repeating order by position " + orderPosition + " from profile\n");
-        getOrdersPage();
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button"));
-        waitForIt(3);
-    }
-
-    // отменить крайний заказ
+    /** Отменить крайний заказ */
     public void cancelLastOrder (){
-        printMessage("Canceling last order from profile\n");
+        printMessage("Canceling last order from profile...\n");
         getOrdersPage();
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button[1]"));
+        if(isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
+            click(Elements.Site.OrdersPage.lastOrderActionButton(1));
+        } else printMessage("> Skipped because order isn't active");
         waitForIt(2);
     }
 
-    // отменить заказ по позиции в списке
-    public void cancelOrder (int orderPosition){
-        printMessage("Canceling order by position " + orderPosition + " from profile\n");
-        getOrdersPage();
-        click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[" + orderPosition + "]/div/div/div[1]/div[2]/button[1]"));
-        waitForIt(2);
-    }
-
-    public boolean isLastOrderActive(){
-        goToLastOrderPage();
-        return isOrderActive();
-    }
-
+    /** Определить активен ли заказ */
     public boolean isOrderActive() {
         printMessage("Checking order page...");
-        if (isElementDetected(
-                "//*[@id='wrap']/div/div/div/div/div[2]/div/div[1]/div/div/div/div[2]/div[2]",
-                "Благодарим за использование Instamart!")){
+        if (isElementDetected(Elements.Site.OrderPage.activeOrderAttribute())) {
             printMessage("✓ Order is active\n");
             return true;
         } else {
@@ -106,30 +83,11 @@ public class ProfileHelper extends HelperBase {
         }
     }
 
-    // TODO
-    public boolean isLastOrderCanceled(){
-        goToLastOrderPage();
-        return isOrderCanceled();
-    }
-
-    // TODO
+    /** Определить отменен ли заказ */
     public boolean isOrderCanceled(){
-        if(isElementPresent(By.xpath("// TODO "))){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    // TODO
-    public boolean isLastOrderDelivered(){
-        goToLastOrderPage();
-        return isOrderDelivered();
-    }
-
-    // TODO
-    public boolean isOrderDelivered(){
-        if(isElementPresent(By.xpath("// TODO "))){
+        printMessage("Checking order page...");
+        if (isElementDetected(Elements.Site.OrderPage.canceledOrderAttribute())) {
+            printMessage("Order is canceled!\n");
             return true;
         } else {
             return false;

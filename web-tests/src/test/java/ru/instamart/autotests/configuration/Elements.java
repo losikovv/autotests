@@ -562,8 +562,8 @@ public class Elements {
                 return new Elements(null, By.className("chekout-header"));
             }
 
-            static Elements nextButton() {
-                return new Elements("Продолжить", By.className("checkout-btn--success"));
+            static Elements nextButton(int step) {
+                return new Elements("Продолжить", By.xpath("(//button[@type='button'])["+ step +"]"));
             }
 
             static Elements replacementPolicy(int option) {
@@ -579,8 +579,38 @@ public class Elements {
         }
 
 
+        interface OrdersPage {
+
+            static Elements lastOrderActionButton() {
+                return new Elements(null,
+                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
+            }
+
+            static Elements lastOrderActionButton(int position) {
+                return new Elements(null,
+                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button[" + position + "]"));
+            }
+
+            static Elements lastOrderDetailsButton(int position) {
+                return new Elements("Детали заказа",
+                        By.xpath("/html/body/div[4]/div[2]/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a"));
+            }
+        }
+
         /** Страница деталей заказа */
         interface OrderPage {
+
+            /** Признак активного заказа */
+            static Elements activeOrderAttribute() {
+                return new Elements("Благодарим за использование Instamart!",
+                        By.cssSelector(".user-order-shipment-header__thanks"));
+            }
+
+            /** Признак отмененного заказа */
+            static Elements canceledOrderAttribute() {
+                return new Elements(null,
+                        By.className("user-order-shipment-header__container--canceled"));
+            }
 
             /** Документы к заказу */
             static Elements documentation(int position) {

@@ -470,7 +470,7 @@ public class CheckoutHelper extends HelperBase {
     /** Проверяем готовность чекаута перед заполнением */
     private void checkCheckoutIsReady() {
         if(isOnCheckout()){
-            printMessage("Checking-out\n");
+            printMessage("✓ Checking-out\n");
         } else {
             printMessage("Waiting for checkout\n");
             waitForIt(1);
@@ -480,8 +480,7 @@ public class CheckoutHelper extends HelperBase {
 
     /** Нажимаем кнопки "Продолжить" в шагах чекаута */
     private void hitNextButton(int step) {
-        //click(By.xpath("(//button[@type='button'])["+step+"]"));
-        click(Elements.Site.Checkout.nextButton());
+        click(Elements.Site.Checkout.nextButton(step));
         printMessage("Next\n");
         waitForIt(1);
     }
