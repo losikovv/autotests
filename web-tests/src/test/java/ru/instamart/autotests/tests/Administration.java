@@ -70,7 +70,7 @@ public class Administration extends TestBase {
         Assert.assertFalse(app.getAdministrationHelper().isOrderCanceled(),
                 "The order is already canceled\n");
 
-        app.getSessionHelper().cancelOrder(); // TODO перенести метод в AdministrationHelper
+        app.getSessionHelper().cancelOrder();
 
         Assert.assertTrue(app.getAdministrationHelper().isOrderCanceled(),
                 "Can't approve the order was canceled, check manually\n");
@@ -79,7 +79,7 @@ public class Administration extends TestBase {
 
     @Test(priority = 703)
     public void cancelTestOrders() throws Exception {
-        app.getSessionHelper().cancelAllTestOrders(); // TODO перенести метод в AdministrationHelper
+        app.getSessionHelper().cancelAllTestOrders();
     }
 
 

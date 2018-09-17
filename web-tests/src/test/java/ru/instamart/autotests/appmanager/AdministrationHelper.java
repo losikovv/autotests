@@ -31,7 +31,7 @@ public class AdministrationHelper extends HelperBase {
     /** Определить отменен ли заказ */
     public boolean isOrderCanceled() {
         waitForIt(1);
-        return isElementDisplayed(Elements.Admin.OrderPage.canceledOrderAttribute());
+        return isElementDetected(Elements.Admin.OrderPage.canceledOrderAttribute());
     }
 
 }

@@ -919,7 +919,8 @@ public class Elements {
             }
 
             static Elements canceledOrderAttribute() {
-                return new Elements(null, By.className("state canceled"));
+                return new Elements("ЗАКАЗ ОТМЕНЕН",
+                        By.xpath("/html/body/div[1]/div[3]/div/div/div/table/tbody/tr[3]/td/b"));
             }
 
         }
