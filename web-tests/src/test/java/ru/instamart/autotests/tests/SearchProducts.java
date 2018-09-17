@@ -4,14 +4,21 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+
+
+    // Тесты поиска товаров
+
+
+
 public class SearchProducts extends TestBase {
 
+    /*
     @BeforeMethod(alwaysRun = true)
     public void getAuth() throws Exception {
         app.getNavigationHelper().getLandingPage();
         app.getSessionHelper().doLoginAs("admin");
     }
-
+    */
 
 
     @Test(

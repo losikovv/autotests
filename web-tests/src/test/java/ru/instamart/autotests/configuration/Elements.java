@@ -902,19 +902,24 @@ public class Elements {
         }
 
 
-        /** Страница деталей заказа в админке */
+        /** Страница заказа в админке */
 
         interface OrderPage {
 
             static Elements resumeOrderButton() {
-                locator = By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("icon-resume"));
+            }
+
+            static Elements cancelOrderButton() {
+                return new Elements(null, By.className("icon-cancel"));
+            }
+
+            static Elements confirmOrderCancellationButton() {
+                return new Elements(null, By.xpath("//*[@id='new_cancellation']/fieldset/div[3]/button"));
             }
 
             static Elements canceledOrderAttribute() {
-                text = "ЗАКАЗ ОТМЕНЕН";
-                locator = By.xpath("//*[@id='content']/div/table/tbody/tr[3]/td/b");
-                return new Elements(null, locator);
+                return new Elements(null, By.className("state canceled"));
             }
 
         }

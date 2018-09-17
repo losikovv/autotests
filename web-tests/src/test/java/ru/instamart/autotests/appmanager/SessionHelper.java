@@ -233,24 +233,33 @@ public class SessionHelper extends HelperBase {
     private void cancelFirstOrderInTable(){
         click(By.xpath("//*[@id='listing_orders']/tbody/tr/td[14]/a"));
         waitForIt(1);
-        cancelOrder(); // TODO прокидывать причину отмены и текст
+        cancelOrder();
     }
 
-    // TODO перенести в Administration helper
     /** Cancel order on the order page in admin panel */
-    public void cancelOrder(){ // TODO Параметризовать причину отмены и текст
-        printMessage("- cancel order " + currentURL());
-        // click cancel button
-        click(By.xpath("//*[@id='content-header']/div/div/div/div[2]/ul/li[1]/form/button"));
+    public void cancelOrder(){
+        printMessage("> cancel order " + currentURL());
+        click(Elements.Admin.OrderPage.cancelOrderButton());
         handleAlert();
-        // choose cancellation reason
-        click(By.id("cancellation_reason_id_4")); // причина - тестовый заказ
-        // fill order cancellation reason form
-        fillField(By.id("cancellation_reason_details"),"Тестовый заказ");
-        // click confirmation button
-        click(By.xpath("//*[@id='new_cancellation']/fieldset/div[3]/button"));
+        chooseCancellationReason(4,"Тестовый заказ");
+        click(Elements.Admin.OrderPage.confirmOrderCancellationButton());
         waitForIt(2);
     }
+
+    public void cancelOrder(int reason, String details){
+        printMessage("> cancel order " + currentURL());
+        click(Elements.Admin.OrderPage.cancelOrderButton());
+        handleAlert();
+        chooseCancellationReason(reason,details);
+        click(Elements.Admin.OrderPage.confirmOrderCancellationButton());
+        waitForIt(2);
+    }
+
+    private void chooseCancellationReason(int reason, String details) {
+        click(By.id("cancellation_reason_id_" + reason));
+        fillField(By.id("cancellation_reason_details"),details);
+    }
+
 
     // TODO перенести в Administration helper
     public void cleanup(){
