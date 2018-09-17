@@ -130,7 +130,7 @@ public class TestBase {
     }
 
     void checkOrderDocuments(String orderNumber){
-        app.getNavigationHelper().get("user/orders/" + orderNumber);
+        app.getNavigationHelper().get("user/orders/" + orderNumber); //todo добавить проверку на попадение в детали заказа
         for(int i = 1; i <= 3; i++) {
             if(app.getHelper().detectOrderDocument(i) != null) {
                 app.getHelper().click(Elements.getLocator());

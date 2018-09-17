@@ -1,6 +1,7 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.annotations.Test;
+import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Pages;
 
 
@@ -128,13 +129,17 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable();
 
         app.getNavigationHelper().goFooterDelivery();
-        assertPageIsAvailable();
         app.getHelper().isDeliveryPopupOpen();
+        app.getHelper().click(Elements.Site.DeliveryPopup.closePopupButton());
+        assertPageIsAvailable();
 
         app.getNavigationHelper().goFooterPayment();
+        //todo сделать как выше
         assertPageIsAvailable();
 
         app.getNavigationHelper().goFooterPartners();
+        //todo сделать как выше
+        app.getHelper().click(Elements.Site.PartnersPopup.closePopupButton());
         assertPageIsAvailable();
 
         app.getNavigationHelper().goFooterFaq();

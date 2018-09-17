@@ -14,7 +14,7 @@ public class Bugfixes extends TestBase {
 
 
     // шаблон для тестов
-    @Test (
+    @Test ( enabled = false,
             description = "Test description",
             groups = {"regression"},
             priority = 1000
@@ -45,12 +45,15 @@ public class Bugfixes extends TestBase {
     }
 
 
+    // todo перенести этот тест в тесты закзов
+    // todo пофиксить тест, добавить проверки на наличие хоть одного документа
     @Test (
             description = "Тест скачивания документации заказа",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 1002
     )
     public void downloadOrderDocuments(){
+        app.getNavigationHelper().getRetailerPage("metro");
         app.getSessionHelper().doLoginAs("user");
         checkOrderDocuments("R427454506");  // Заказ с двумя документами
         checkOrderDocuments("R544216031");  // Заказ с тремя документами
