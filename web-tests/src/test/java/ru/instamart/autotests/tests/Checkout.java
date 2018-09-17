@@ -69,19 +69,19 @@ public class Checkout extends TestBase {
 
         app.getCheckoutHelper().addLoyalty("mnogoru");
         Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("mnogoru"),
-                "Can't assert loyalty program \"mnogoru\" is applied");
+                "Can't assert loyalty program \"mnogoru\" is applied\n");
 
         app.getCheckoutHelper().addLoyalty("aeroflot");
         Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("aeroflot"),
-                "Can't assert loyalty program \"aeroflot\" is applied");
+                "Can't assert loyalty program \"aeroflot\" is applied\n");
 
         app.getCheckoutHelper().addLoyalty("familyteam");
         Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("familyteam"),
-                "Can't assert loyalty program \"familyteam\" is applied");
+                "Can't assert loyalty program \"familyteam\" is applied\n");
 
         app.getCheckoutHelper().addLoyalty("svyaznoyclub");
         Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("svyaznoyclub"),
-                "Can't assert loyalty program \"svyaznoyclub\" is applied");
+                "Can't assert loyalty program \"svyaznoyclub\" is applied\n");
     }
 
 

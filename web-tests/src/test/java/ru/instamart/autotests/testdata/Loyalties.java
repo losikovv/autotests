@@ -17,9 +17,6 @@ public class Loyalties {
             case "aeroflot":
                 cardNumber = "71891831";
                 break;
-            case "familyteam":
-                cardNumber = "7005992006136053";
-                break;
             case "svyaznoyclub":
                 cardNumber = "2981796259309";
                 break;
@@ -40,14 +37,11 @@ public class Loyalties {
             case "aeroflot":
                 position = 2;
                 break;
-            case "familyteam":
+            case "svyaznoyclub":
                 position = 3;
                 break;
-            case "svyaznoyclub":
-                position = 4;
-                break;
             case "vkusvill":
-                position = 5;
+                position = 4;
                 break;
             default: position = 0;
         }
