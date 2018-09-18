@@ -6,6 +6,7 @@ import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Pages;
 
 
+
 // Проверка страниц
 
 
@@ -129,24 +130,6 @@ public class CheckPages extends TestBase {
         app.getNavigationHelper().goFooterContacts();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterDelivery();
-        Assert.assertTrue(app.getHelper().isDeliveryPopupOpen(),
-                "Cant assert 'Delivery' pop-up open, check manually");
-        app.getHelper().click(Elements.Site.DeliveryPopup.closeButton());
-        assertPageIsAvailable();
-
-        app.getNavigationHelper().goFooterPayment();
-        Assert.assertTrue(app.getHelper().isPaymentPopupOpen(),
-                "Cant assert 'Payment' pop-up open, check manually");
-        app.getHelper().click(Elements.Site.PaymentPopup.closeButton());
-        assertPageIsAvailable();
-
-        app.getNavigationHelper().goFooterPartners();
-        Assert.assertTrue(app.getHelper().isPartnersPopupOpen(),
-                "Cant assert 'Partners' pop-up open, check manually");
-        app.getHelper().click(Elements.Site.PartnersPopup.closeButton());
-        assertPageIsAvailable();
-
         app.getNavigationHelper().goFooterFaq();
         assertPageIsAvailable();
 
@@ -157,6 +140,24 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable();
 
         app.getNavigationHelper().goFooterPublicOffer();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goFooterDelivery();
+        Assert.assertTrue(app.getHelper().isDeliveryPopupOpen(),
+                "Cant assert 'Delivery' pop-up open, check manually\n");
+        app.getHelper().click(Elements.Site.DeliveryPopup.closeButton());
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goFooterPartners();
+        Assert.assertTrue(app.getHelper().isPartnersPopupOpen(),
+                "Cant assert 'Partners' pop-up open, check manually\n");
+        app.getHelper().click(Elements.Site.PartnersPopup.closeButton());
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goFooterPayment();
+        Assert.assertTrue(app.getHelper().isPaymentPopupOpen(),
+                "Cant assert 'Payment' pop-up open, check manually\n");
+        app.getHelper().click(Elements.Site.PaymentPopup.closeButton());
         assertPageIsAvailable();
     }
 

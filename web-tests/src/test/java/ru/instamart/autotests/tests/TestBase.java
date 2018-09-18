@@ -15,7 +15,7 @@ import ru.instamart.autotests.configuration.Pages;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
 
     @BeforeClass(alwaysRun = true)

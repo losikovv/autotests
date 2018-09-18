@@ -38,7 +38,7 @@ public class CheckoutHelper extends HelperBase {
         doStep3();                  // Выбираем дефолтный способ замен
         doStep4();                  // Выбираем тестовый способ оплаты наличными
         doStep5();                  // Выбираем стандартный тестовый слот доставки
-        hitSendButton();            // Жмем "Оформить заказ"
+        sendOrder();            // Жмем "Оформить заказ"
     }
 
     /**
@@ -52,7 +52,7 @@ public class CheckoutHelper extends HelperBase {
         doStep3();                  // Выбираем дефолтный способ замен
         doStep4(paymentType);       // Выбираем указанный способ оплаты
         doStep5();                  // Выбираем стандартный тестовый слот доставки
-        hitSendButton();            // Жмем "Оформить заказ"
+        sendOrder();            // Жмем "Оформить заказ"
     }
 
     /**
@@ -68,7 +68,7 @@ public class CheckoutHelper extends HelperBase {
         doStep5();                  // Выбираем стандартный тестовый слот доставки
         addLoyalty(loyaltyProgram); // Добавляем программу лояльности
         addPromocode(promocode);    // Добавляем промокод
-        hitSendButton();            // Жмем "Оформить заказ"
+        sendOrder();            // Жмем "Оформить заказ"
     }
 
     /**
@@ -82,7 +82,7 @@ public class CheckoutHelper extends HelperBase {
         doStep3(replacementPolicy); // Выбираем указанный способ замен
         doStep4(paymentType);       // Выбираем указанный способ оплаты
         doStep5();                  // Выбираем стандартный тестовый слот доставки
-        hitSendButton();            // Жмем "Оформить заказ"
+        sendOrder();            // Жмем "Оформить заказ"
     }
 
 
@@ -488,14 +488,19 @@ public class CheckoutHelper extends HelperBase {
 
 
     /** Нажимаем кнопку отправки заказа и ждем пока заказ оформится */
-    private void hitSendButton() {
+    private void sendOrder() {
         if (isSendButtonActive()) {
-            click(By.className("checkout-btn--make-order"));
+            click(Elements.Site.Checkout.sendOrderButton());
+            waitForIt(3);
+            printMessage("Order sent\n");
         } else {
-            printMessage("Can't send order - send button is not active at the moment\n");
+            waitForIt(1);
+            if (isSendButtonActive()) {
+                click(Elements.Site.Checkout.sendOrderButton());
+                waitForIt(3);
+                printMessage("Order sent\n");
+            } else printMessage("Can't make order, send button is not active - check manually\n");
         }
-        waitForIt(3);
-        printMessage("Order sent\n");
     }
 
 

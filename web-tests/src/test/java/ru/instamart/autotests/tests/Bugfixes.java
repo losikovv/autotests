@@ -33,7 +33,7 @@ public class Bugfixes extends TestBase {
             groups = {"regression"},
             priority = 1001
     )
-    public void STF987(){
+    public void STF987() throws Exception {
         app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().recoverPassword("instatestuser@yandex.ru");

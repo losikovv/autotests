@@ -1,6 +1,7 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.configuration.Elements;
@@ -20,7 +21,7 @@ public class SessionHelper extends HelperBase {
     }
 
     // TODO перенести в AdminHelper
-    public void getUrlAsAdmin(String targetUrlInAdminPanel) {
+    public void getUrlAsAdmin(String targetUrlInAdminPanel) throws Exception {
         getUrl(targetUrlInAdminPanel);  // пытаемся перейти по указанному URL в админку
         if (isOnSite()) {               // если не попали, то перелогиниваемся с правами администратора и идем снова
             getBaseUrl();
@@ -73,7 +74,7 @@ public class SessionHelper extends HelperBase {
     // ======= Методы авторизации =======
 
     /** Авторизоваться тестовым пользователем с указанной ролью */
-    public void doLoginAs(String role) {
+    public void doLoginAs(String role) throws Exception {
         if (!isUserAuthorised()) {
             doLogin(Users.getCredentials(role));
             printMessage("Logged-in with " + role + " privileges\n");
@@ -81,7 +82,7 @@ public class SessionHelper extends HelperBase {
     }
 
     /** Авторизоваться пользователем с указанными реквизитами */
-    public void doLogin(String email, String password) {
+    public void doLogin(String email, String password) throws Exception {
         if (!isUserAuthorised()) {
             printMessage("Performing authorisation...");
             openAuthModal();
@@ -93,12 +94,12 @@ public class SessionHelper extends HelperBase {
     }
 
     /** Авторизоваться пользователем, если неавторизован */
-    public void doLoginIfNeeded(UserData userData) {
+    public void doLoginIfNeeded(UserData userData) throws Exception {
         if (!isUserAuthorised()) { doLogin(userData); }
     }
 
     /** Авторизоваться пользователем */
-    public void doLogin(UserData userData) {
+    public void doLogin(UserData userData) throws Exception {
         printMessage("Performing authorisation...");
         openAuthModal();
         waitForIt(1);
@@ -175,7 +176,7 @@ public class SessionHelper extends HelperBase {
     /**
      * Delete all test users from admin panel
      */
-    public void deleteAllTestUsers() {
+    public void deleteAllTestUsers() throws Exception {
 
         final String targetPath = "admin/users?q%5Bemail_cont%5D=testuser%40example.com";
         getUrlAsAdmin(baseUrl + targetPath);
@@ -210,7 +211,7 @@ public class SessionHelper extends HelperBase {
     /**
      * Cancel all test orders from admin panel
      */
-    public void cancelAllTestOrders() {
+    public void cancelAllTestOrders() throws Exception {
         // фильтр по частичному совпадению email пока не работает,
         // поэтому тестовые заказы пока делаем с autotestuser@instamart.ru
         // позже нужно переделать под юзеров @example.com
@@ -262,7 +263,7 @@ public class SessionHelper extends HelperBase {
 
 
     // TODO перенести в Administration helper
-    public void cleanup(){
+    public void cleanup() throws Exception {
         printMessage("================= CLEANING-UP =================\n");
 
         printMessage("Canceling test orders...");
@@ -280,7 +281,6 @@ public class SessionHelper extends HelperBase {
     public void openAuthModal(){
         if (currentURL().equals(baseUrl)) click(Elements.Site.LandingPage.loginButton());
             else click(Elements.Site.Header.loginButton());
-
         waitForIt(1);
 
         if(isAuthModalOpen()) printMessage("> open auth modal");
@@ -299,9 +299,14 @@ public class SessionHelper extends HelperBase {
     }
 
     /** Переключиться на вкладку авторизации */
-    private void switchToAuthorisationTab(){
-        printMessage("> switch to authorisation tab");
-        click(Elements.Site.AuthModal.authorisationTab());
+    private void switchToAuthorisationTab() throws Exception {
+        try {
+            printMessage("> switch to authorisation tab");
+            click(Elements.Site.AuthModal.authorisationTab());
+        } catch (ElementNotInteractableException e) { // TODO попробовать перенести кетч в методы click в HelperBase
+            printMessage(">> there are some troubles, waiting and trying again...");
+            click(Elements.Site.AuthModal.authorisationTab());
+        }
     }
 
     /** Заполнить поля формы авторизации */
@@ -339,7 +344,7 @@ public class SessionHelper extends HelperBase {
     }
 
     /** Запросить восстановление пароля */
-    public void recoverPassword(String email){
+    public void recoverPassword(String email) throws Exception {
         openAuthModal();
         switchToAuthorisationTab();
         proceedToPasswordRecovery();
@@ -359,26 +364,6 @@ public class SessionHelper extends HelperBase {
             printMessage("✓ Recovery requested");
             return true;
         }
-    }
-
-
-
-    // ======= Методы модалки авторизации/регистрации =======
-
-    public void openAccountMenu() {
-        if(!isAccountMenuOpen()) {
-        click(Elements.Site.Header.profileButton());
-        } else printMessage("Account menu is already opened");
-    }
-
-    public void closeAccountMenu() {
-        if(isAccountMenuOpen()) {
-        click(Elements.Site.Header.profileButton());
-        } else printMessage("Account menu is already closed");
-    }
-
-    public boolean isAccountMenuOpen() {
-        return isElementDisplayed(Elements.Site.AccountMenu.popup());
     }
 
 }

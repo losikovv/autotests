@@ -13,7 +13,7 @@ public class Administration extends TestBase {
 
 
     @BeforeMethod(alwaysRun = true)
-    public void reachAdministrationPanel(){
+    public void reachAdministrationPanel() throws Exception {
         app.getSessionHelper().getUrlAsAdmin("https://instamart.ru/admin/shipments"); // TODO параметризовать окружение
     }
 

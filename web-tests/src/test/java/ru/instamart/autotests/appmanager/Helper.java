@@ -17,7 +17,26 @@ public class Helper extends HelperBase {
     }
 
 
-    //======== Попап доставка ==========
+    // ======= Попап "Профиль" =======
+
+    public void openAccountMenu() {
+        if(!isAccountMenuOpen()) {
+            click(Elements.Site.Header.profileButton());
+        } else printMessage("Account menu is already opened");
+    }
+
+    public void closeAccountMenu() {
+        if(isAccountMenuOpen()) {
+            click(Elements.Site.Header.profileButton());
+        } else printMessage("Account menu is already closed");
+    }
+
+    public boolean isAccountMenuOpen() {
+        return isElementDisplayed(Elements.Site.AccountMenu.popup());
+    }
+
+
+    //======== Попап "Доставка" ==========
 
     /** Определить открыт ли попап доставки */
     public boolean isDeliveryPopupOpen() {
@@ -46,7 +65,8 @@ public class Helper extends HelperBase {
         } else printMessage("Can't close popup - already closed");
     }
 
-    //======= Попап партнеры ========
+
+    //======= Попап "Партнеры" ========
 
     /** Определить открыт ли попап "Партнеры" */
     public boolean isPartnersPopupOpen() {
@@ -75,7 +95,8 @@ public class Helper extends HelperBase {
         } else printMessage("Can't close popup - already closed");
     }
 
-    //======= Попап оплата ========
+
+    //======= Попап "Оплата" ========
 
     /** Определить открыт ли попап "Оплата" */
     public boolean isPaymentPopupOpen() {

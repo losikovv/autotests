@@ -590,6 +590,10 @@ public class Elements {
                 return new Elements("Продолжить", By.xpath("(//button[@type='button'])["+ step +"]"));
             }
 
+            static Elements sendOrderButton() {
+                return new Elements("завершить заказ", By.className("checkout-btn--make-order"));
+            }
+
             static Elements replacementPolicy(int option) {
                 return new Elements(null,
                         By.cssSelector("div.replacement-policy:nth-child(" + option + ") > label:nth-child(1) > div:nth-child(2)"));

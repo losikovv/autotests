@@ -79,7 +79,12 @@ public class ProfileHelper extends HelperBase {
             printMessage("✓ Order is active\n");
             return true;
         } else {
-            return false;
+            printMessage("Experiencing performance troubles");
+            waitForIt(1);
+            if (isElementDetected(Elements.Site.OrderPage.activeOrderAttribute())) {
+                printMessage("✓ Order is active\n");
+                return true;
+            } else return false;
         }
     }
 

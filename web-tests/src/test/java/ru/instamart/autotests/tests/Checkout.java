@@ -131,7 +131,7 @@ public class Checkout extends TestBase {
             groups = {"acceptance","regression"},
             priority = 406
     )
-    public void deleteLoyaltyPrograms(){
+    public void clearLoyaltyPrograms(){
 
         app.getCheckoutHelper().clearLoyalty("mnogoru");
         Assert.assertFalse(app.getCheckoutHelper().isLoyaltyApplied("mnogoru"),

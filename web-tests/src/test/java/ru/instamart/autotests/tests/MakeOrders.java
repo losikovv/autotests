@@ -35,7 +35,7 @@ public class MakeOrders extends TestBase {
 
     @Test(
             description = "Тестовый заказ в Казани",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 451
     )
     public void orderInKazan(){
@@ -62,7 +62,7 @@ public class MakeOrders extends TestBase {
 
     @Test(
             description = "Тестовый заказ во Вкусвилл с применением программы лояльности Вкусвилл",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 452
     )
     public void orderToVkusvill(){
