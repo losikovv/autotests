@@ -1,5 +1,6 @@
 package ru.instamart.autotests.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Pages;
@@ -129,17 +130,21 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable();
 
         app.getNavigationHelper().goFooterDelivery();
-        app.getHelper().isDeliveryPopupOpen();
-        app.getHelper().click(Elements.Site.DeliveryPopup.closePopupButton());
+        Assert.assertTrue(app.getHelper().isDeliveryPopupOpen(),
+                "Cant assert 'Delivery' pop-up open, check manually");
+        app.getHelper().click(Elements.Site.DeliveryPopup.closeButton());
         assertPageIsAvailable();
 
         app.getNavigationHelper().goFooterPayment();
-        //todo сделать как выше
+        Assert.assertTrue(app.getHelper().isPaymentPopupOpen(),
+                "Cant assert 'Payment' pop-up open, check manually");
+        app.getHelper().click(Elements.Site.PaymentPopup.closeButton());
         assertPageIsAvailable();
 
         app.getNavigationHelper().goFooterPartners();
-        //todo сделать как выше
-        app.getHelper().click(Elements.Site.PartnersPopup.closePopupButton());
+        Assert.assertTrue(app.getHelper().isPartnersPopupOpen(),
+                "Cant assert 'Partners' pop-up open, check manually");
+        app.getHelper().click(Elements.Site.PartnersPopup.closeButton());
         assertPageIsAvailable();
 
         app.getNavigationHelper().goFooterFaq();

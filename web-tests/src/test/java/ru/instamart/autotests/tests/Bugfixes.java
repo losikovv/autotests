@@ -44,19 +44,4 @@ public class Bugfixes extends TestBase {
                 "Can't open auth modal right after sending password recovery request \n");
     }
 
-
-    // todo перенести этот тест в тесты закзов
-    // todo пофиксить тест, добавить проверки на наличие хоть одного документа
-    @Test (
-            description = "Тест скачивания документации заказа",
-            groups = {"acceptance","regression"},
-            priority = 1002
-    )
-    public void downloadOrderDocuments(){
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getSessionHelper().doLoginAs("user");
-        checkOrderDocuments("R427454506");  // Заказ с двумя документами
-        checkOrderDocuments("R544216031");  // Заказ с тремя документами
-    }
-
 }

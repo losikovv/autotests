@@ -342,10 +342,8 @@ public class CheckoutHelper extends HelperBase {
      * Определяем добавлен ли промокод в чекауте
      */
     public boolean isPromocodeApplied() {
-        if (isElementDetected(
-                "//aside/div/div[2]/div[3]/div/span/span",
-                "Промо-код:")){
-            printMessage("Promocode applied");
+        if (isElementDetected(Elements.Site.Checkout.appliedPromocodeAttribute())) {
+            printMessage("✓ Promocode applied");
             return true;
         } else {
             printMessage("No promocode applied");
@@ -357,13 +355,17 @@ public class CheckoutHelper extends HelperBase {
     /** Добавляем промокод в чекауте */
     public void addPromocode(String promocode){
         if(!isPromocodeApplied()) {
-            printMessage("Adding promocode \"" + promocode + "\"...");
-            click(By.linkText("Добавить промо-код"));
-            fillField(By.id("couponCode"), "unicorn");
-            click(By.xpath("//div[2]/button"));
-            waitForIt(1);
+            click(Elements.Site.Checkout.addPromocodeButton());
+            if(isElementDetected(Elements.Site.Checkout.PromocodeModal.title())) {
+                printMessage("Applying promocode \"" + promocode + "\"...");
+                fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
+                click(Elements.Site.Checkout.PromocodeModal.applyButton());
+                waitForIt(1);
+            } else {
+                printMessage("Can't open promo modal!");
+            }
         } else {
-            printMessage("Can't add promocode - it is already applied");
+            printMessage("Can't add promocode, it's already applied");
         }
     }
 
@@ -372,13 +374,12 @@ public class CheckoutHelper extends HelperBase {
     public void clearPromocode(){
         if(isPromocodeApplied()) {
             printMessage("Clearing promocode...");
-            click(By.linkText("Удалить"));
+            click(Elements.Site.Checkout.clearPromocodeButton());
             waitForIt(1);
         } else {
-            printMessage("Can't clear promocode - it is not applied at the moment");
+            printMessage("Can't clear promocode, it's not applied at the moment");
         }
     }
-
 
 
 

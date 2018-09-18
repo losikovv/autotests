@@ -109,7 +109,7 @@ public class Elements {
             }
         }
 
-        /** Попап "Доставка */
+        /** Попап "Доставка" */
         interface DeliveryPopup {
 
             static Elements popup() {
@@ -127,27 +127,51 @@ public class Elements {
                         By.cssSelector("button.navbar-button:nth-child(3) > div:nth-child(1)"));
             }
 
-            static Elements closePopupButton() {
+            static Elements closeButton() {
                 return new Elements(null, By.cssSelector(".close"));
             }
         }
 
-        /** Попап "Партнеры */
+        /** Попап "Партнеры" */
         interface PartnersPopup {
+
+            static Elements popup() {
+                return new Elements(null,
+                        By.cssSelector(".modal-lg > div:nth-child(1)"));
+            }
+
+            static Elements title() {
+                return new Elements("Наши партнеры",
+                        By.cssSelector(".modal-title"));
+            }
 
             static Elements openPopupButton() {
                 return new Elements(null,
                         By.cssSelector("button.navbar-button:nth-child(5) > div:nth-child(1)"));
             }
 
-            static Elements closePopupButton() {
+            static Elements closeButton() {
                 return new Elements(null,
                         By.cssSelector(".close"));
             }
+        }
+
+        /** Попап "Оплата" */
+        interface PaymentPopup {
 
             static Elements popup() {
                 return new Elements(null,
                         By.cssSelector(".modal-lg > div:nth-child(1)"));
+            }
+
+            static Elements title() {
+                return new Elements("Какие существуют способы оплаты?",
+                        By.cssSelector(".modal-title"));
+            }
+
+            static Elements closeButton() {
+                return new Elements(null,
+                        By.cssSelector(".close"));
             }
         }
 
@@ -574,6 +598,51 @@ public class Elements {
             static Elements payment(int option) {
                 return new Elements(null,
                         By.cssSelector("div.payment-method:nth-child(" + option + ") > div:nth-child(1)"));
+            }
+
+            static Elements addPromocodeButton() {
+                return new Elements("Добавить промо-код",
+                        By.linkText("Добавить промо-код"));
+            }
+
+            static Elements appliedPromocodeAttribute() {
+                return new Elements("Промо-код:",
+                        By.className("promo-codes__label"));
+            }
+
+            static Elements clearPromocodeButton() {
+                return new Elements("Удалить",
+                        By.linkText("Удалить"));
+            }
+
+            interface PromocodeModal {
+
+                static Elements title() {
+                    return new Elements("Введите промо-код",
+                            By.className("modal-form__title"));
+                }
+
+                static Elements field() {
+                    return new Elements(null,
+                            By.id("couponCode"));
+                }
+
+                static Elements applyButton() {
+                    return new Elements("Добавить код",
+                            //By.id("div.inline-items__i:nth-child(2) > button:nth-child(1)"));
+                            By.className("checkout-btn--success"));
+                }
+
+                static Elements cancelButton() {
+                    return new Elements("Отменить",
+                            By.className("checkout-btn--secondary"));
+                }
+
+                static Elements closeButton() {
+                    return new Elements(null,
+                            By.className("rc-modal__close"));
+                }
+
             }
 
         }

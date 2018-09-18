@@ -3,6 +3,7 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.configuration.Elements;
 
 
 // Тесты чекаута
@@ -61,9 +62,40 @@ public class Checkout extends TestBase {
 
 
     @Test(
-            description = "Тест добавления программ лояльности в чекауте",
+            description = "Тест недобавления промокода при нажатии кнопки Отмена",
             groups = {"acceptance","regression"},
             priority = 402
+    )
+    public void noPromocodeAddedOnCancel(){
+        app.getHelper().click(Elements.Site.Checkout.addPromocodeButton());
+        app.getHelper().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
+        app.getHelper().click(Elements.Site.Checkout.PromocodeModal.cancelButton());
+
+        // Assert promocode is not applied
+        Assert.assertFalse(app.getCheckoutHelper().isPromocodeApplied(),
+                "Promocode was applied after hitting 'Cancel' button \n");
+    }
+
+    @Test(
+            description = "Тест недобавления промокода при закрытии модалки промокода",
+            groups = {"acceptance","regression"},
+            priority = 403
+    )
+    public void noPromocodeAddedOnClose(){
+        app.getHelper().click(Elements.Site.Checkout.addPromocodeButton());
+        app.getHelper().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
+        app.getHelper().click(Elements.Site.Checkout.PromocodeModal.closeButton());
+
+        // Assert promocode is not applied
+        Assert.assertFalse(app.getCheckoutHelper().isPromocodeApplied(),
+                "Promocode was applied after hitting 'Close' button \n");
+    }
+
+
+    @Test(
+            description = "Тест добавления программ лояльности в чекауте",
+            groups = {"acceptance","regression"},
+            priority = 404
     )
     public void addLoyaltyPrograms(){
 
@@ -84,7 +116,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест выбора программы лояльности в чекауте",
             groups = {"acceptance","regression"},
-            priority = 403
+            priority = 405
     )
     public void selectLoyaltyProgram(){
         app.getCheckoutHelper().selectLoyalty("mnogoru");
@@ -97,7 +129,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест удаления программ лояльности в чекауте",
             groups = {"acceptance","regression"},
-            priority = 404
+            priority = 406
     )
     public void deleteLoyaltyPrograms(){
 
@@ -118,7 +150,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест полного оформления заказа с оплатой налом",
             groups = {"acceptance","regression"},
-            priority = 405
+            priority = 407
     )
     public void performCompleteCheckoutAndPayWithCash(){
         app.getCheckoutHelper().addPromocode("unicorn");
@@ -136,7 +168,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест полного оформления заказа с оплатой картой онлайн",
             groups = {"regression"},
-            priority = 406
+            priority = 408
     )
     public void performCompleteCheckoutAndPayWithCardOnline(){
         app.getCheckoutHelper().addPromocode("unicorn");
@@ -154,7 +186,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест полного оформления заказа с оплатой картой курьеру",
             groups = {"regression"},
-            priority = 407
+            priority = 409
     )
     public void performCompleteCheckoutAndPayWithCardCourier(){
         app.getCheckoutHelper().addPromocode("unicorn");
@@ -172,7 +204,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест полного оформления заказа с оплатой банковским переводом",
             groups = {"regression"},
-            priority = 408
+            priority = 410
     )
     public void performCompleteCheckoutAndPayWithBank(){
         app.getCheckoutHelper().addPromocode("unicorn");
@@ -183,11 +215,10 @@ public class Checkout extends TestBase {
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
+        // Проверяем доки
+        checkOrderDocuments();
+
         app.getProfileHelper().cancelLastOrder();
     }
-
-
-    // TODO добавить тест на скачивание документов к заказу
-    // TODO {нажатие на скачку, ожидание, проверка что pageIsAvailable}
 
 }

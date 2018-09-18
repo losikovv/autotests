@@ -80,7 +80,7 @@ public class HelperBase {
      * Заполнение пропускается, если поле уже заполнено таким же текстом
      */
 
-    protected void fillField(Elements element, String text) {
+    public void fillField(Elements element, String text) {
         click(element);
         if (text != null) {
             String existingText = driver.findElement(Elements.getLocator()).getAttribute("value");
@@ -91,7 +91,7 @@ public class HelperBase {
         }
     }
 
-    protected void fillField(By locator, String text) {
+    public void fillField(By locator, String text) {
         click(locator);
         if (text != null) {
             String existingText = driver.findElement(locator).getAttribute("value");

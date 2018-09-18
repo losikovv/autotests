@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.testdata.Addresses;
 
 
+
 // Тесты заказов
 
 
@@ -21,10 +22,21 @@ public class MakeOrders extends TestBase {
     }
 
 
-    @Test(
-            description = "Тестовый заказ в Казани",
+    @Test (
+            description = "Тест скачивания документов к заказам",
             groups = {"acceptance","regression"},
             priority = 450
+    )
+    public void downloadOrderDocuments(){
+        checkOrderDocuments("R351510533");  // Заказ с двумя документами
+        checkOrderDocuments("R154547373");  // Заказ с тремя документами
+    }
+
+
+    @Test(
+            description = "Тестовый заказ в Казани",
+            groups = {"regression"},
+            priority = 451
     )
     public void orderInKazan(){
 
@@ -43,14 +55,15 @@ public class MakeOrders extends TestBase {
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        // TODO добавить проверку на скачивание документов к заказу
+        // Проверяем скачку документов
+        checkOrderDocuments();
     }
 
 
     @Test(
             description = "Тестовый заказ во Вкусвилл с применением программы лояльности Вкусвилл",
-            groups = {"acceptance","regression"},
-            priority = 451
+            groups = {"regression"},
+            priority = 452
     )
     public void orderToVkusvill(){
 
@@ -80,7 +93,8 @@ public class MakeOrders extends TestBase {
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        // TODO добавить проверку на скачивание документов к заказу
+        // Проверяем скачку документов
+        checkOrderDocuments();
     }
 
 
