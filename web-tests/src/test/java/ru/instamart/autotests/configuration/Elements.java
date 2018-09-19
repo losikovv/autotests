@@ -250,7 +250,7 @@ public class Elements {
             }
 
             static Elements closeButton() {
-                return new Elements(null, By.className("modal-container__close"));
+                return new Elements(null, By.className("modal-wrapper__close"));
             }
 
             static Elements authorisationTab() {
@@ -483,7 +483,7 @@ public class Elements {
             }
 
             static Elements addressSuggest() {
-                return new Elements(null, By.id("downshift-1-item-0"));
+                return new Elements(null, By.id("downshift-0-item-0"));
             }
 
             static Elements selectStoreButton() {

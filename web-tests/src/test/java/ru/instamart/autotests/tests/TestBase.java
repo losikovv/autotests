@@ -114,7 +114,8 @@ public class TestBase {
 
     protected void assertNoTestUsersLeft() throws AssertionError {
         app.getNavigationHelper().getTestUsersAdminPage();
-        Assert.assertFalse(app.getHelper().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")), "Seems like there are some test users left");
+        Assert.assertFalse(app.getHelper().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),
+                "Seems like there are some test users left after cleanup");
     }
 
 
@@ -130,13 +131,8 @@ public class TestBase {
     }
 
     void checkOrderDocuments(String orderNumber){
-        app.getNavigationHelper().get("user/orders/" + orderNumber); //todo добавить проверку на попадение в детали заказа
-        for(int i = 1; i <= 3; i++) {
-            if(app.getHelper().detectOrderDocument(i) != null) {
-                app.getHelper().click(Elements.getLocator());
-                assertPageIsAvailable();
-            }
-        }
+        app.getNavigationHelper().get("user/orders/" + orderNumber);
+        checkOrderDocuments();
     }
 
 }
