@@ -687,7 +687,7 @@ public class Elements {
             /** Документы к заказу */
             static Elements documentation(int position) {
                 return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div[2]/div/div/div[3]/a["+position+"]"));
+                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div/div[3]/a["+position+"]"));
             }
 
         }
