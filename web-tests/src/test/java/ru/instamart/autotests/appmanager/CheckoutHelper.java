@@ -354,18 +354,23 @@ public class CheckoutHelper extends HelperBase {
 
     /** Добавляем промокод в чекауте */
     public void addPromocode(String promocode){
-        if(!isPromocodeApplied()) {
-            click(Elements.Site.Checkout.addPromocodeButton());
-            if(isElementDetected(Elements.Site.Checkout.PromocodeModal.title())) {
-                printMessage("Applying promocode \"" + promocode + "\"...");
-                fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
-                click(Elements.Site.Checkout.PromocodeModal.applyButton());
-                waitForIt(1);
-            } else {
-                printMessage("Can't open promo modal!");
-            }
+        if (isPromocodeApplied()) {
+            printMessage("There's some promocode is already applied, so clearing it first... ");
+            clearPromocode();
+        }
+        click(Elements.Site.Checkout.addPromocodeButton());
+        if(isElementDetected(Elements.Site.Checkout.PromocodeModal.title())) {
+            printMessage("Applying promocode '" + promocode + "'...");
+            fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
+            click(Elements.Site.Checkout.PromocodeModal.applyButton());
+            waitForIt(1);
         } else {
-            printMessage("Can't add promocode, it's already applied");
+            printMessage("Can't open promo modal! Trying again...");
+            click(Elements.Site.Checkout.addPromocodeButton());
+            printMessage("> Applying promocode '" + promocode + "'");
+            fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
+            click(Elements.Site.Checkout.PromocodeModal.applyButton());
+            waitForIt(1);
         }
     }
 
@@ -377,7 +382,7 @@ public class CheckoutHelper extends HelperBase {
             click(Elements.Site.Checkout.clearPromocodeButton());
             waitForIt(1);
         } else {
-            printMessage("Can't clear promocode, it's not applied at the moment");
+            printMessage("Skip clearing promocode, it's not applied at the moment");
         }
     }
 

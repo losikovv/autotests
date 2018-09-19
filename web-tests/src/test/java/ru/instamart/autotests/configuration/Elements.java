@@ -633,13 +633,12 @@ public class Elements {
 
                 static Elements applyButton() {
                     return new Elements("Добавить код",
-                            //By.id("div.inline-items__i:nth-child(2) > button:nth-child(1)"));
-                            By.className("checkout-btn--success"));
+                            By.xpath("//*[@id='react-modal']/div[2]/div/div/div[2]/form/div[2]/div/div[2]/button"));
                 }
 
                 static Elements cancelButton() {
                     return new Elements("Отменить",
-                            By.className("checkout-btn--secondary"));
+                            By.xpath("//*[@id='react-modal']/div[2]/div/div/div[2]/form/div[2]/div/div[1]/button"));
                 }
 
                 static Elements closeButton() {

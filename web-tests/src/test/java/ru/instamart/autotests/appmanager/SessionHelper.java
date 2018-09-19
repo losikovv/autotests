@@ -304,7 +304,7 @@ public class SessionHelper extends HelperBase {
             printMessage("> switch to authorisation tab");
             click(Elements.Site.AuthModal.authorisationTab());
         } catch (ElementNotInteractableException e) { // TODO попробовать перенести кетч в методы click в HelperBase
-            printMessage(">> there are some troubles, waiting and trying again...");
+            printMessage(" > have some troubles, waiting and trying again...");
             click(Elements.Site.AuthModal.authorisationTab());
         }
     }
