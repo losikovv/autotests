@@ -63,7 +63,7 @@ public class Checkout extends TestBase {
 
     @Test(
             description = "Тест недобавления промокода при нажатии кнопки Отмена",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 402
     )
     public void noPromocodeAddedOnCancel(){
@@ -78,7 +78,7 @@ public class Checkout extends TestBase {
 
     @Test(
             description = "Тест недобавления промокода при закрытии модалки промокода",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 403
     )
     public void noPromocodeAddedOnClose(){
@@ -115,7 +115,7 @@ public class Checkout extends TestBase {
 
     @Test(
             description = "Тест выбора программы лояльности в чекауте",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 405
     )
     public void selectLoyaltyProgram(){
@@ -128,7 +128,7 @@ public class Checkout extends TestBase {
 
     @Test(
             description = "Тест удаления программ лояльности в чекауте",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 406
     )
     public void clearLoyaltyPrograms(){
@@ -152,14 +152,17 @@ public class Checkout extends TestBase {
             groups = {"acceptance","regression"},
             priority = 407
     )
-    public void performCompleteCheckoutAndPayWithCash(){
+    public void performCheckoutAndPayWithCash(){
         app.getCheckoutHelper().addPromocode("unicorn");
-        app.getCheckoutHelper().addLoyalty("mnogoru");
+        //app.getCheckoutHelper().addLoyalty("mnogoru");
         app.getCheckoutHelper().completeCheckout();
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
+
+        // Проверяем доки
+        checkOrderDocuments();
 
         app.getProfileHelper().cancelLastOrder();
     }
@@ -179,6 +182,9 @@ public class Checkout extends TestBase {
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
+        // Проверяем доки
+        checkOrderDocuments();
+
         app.getProfileHelper().cancelLastOrder();
     }
 
@@ -196,6 +202,9 @@ public class Checkout extends TestBase {
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
+
+        // Проверяем доки
+        checkOrderDocuments();
 
         app.getProfileHelper().cancelLastOrder();
     }

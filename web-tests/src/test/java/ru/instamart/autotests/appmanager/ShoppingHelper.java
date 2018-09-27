@@ -66,7 +66,7 @@ public class ShoppingHelper extends HelperBase {
         fillField(Elements.Site.AddressModal.addressField(), newAddress);
         selectAddressSuggest();
         click(Elements.Site.AddressModal.saveButton());
-        waitForIt(1);
+        waitForIt(2);
     }
 
     /** Определить и вернуть текущий адрес доставки */
@@ -167,6 +167,7 @@ public class ShoppingHelper extends HelperBase {
     public void addFirstItemOnPageToCart() {
         openFirstItemCard();
         hitPlusButton();
+        waitForIt(1);
         closeItemCard();
         waitForIt(1);
     }

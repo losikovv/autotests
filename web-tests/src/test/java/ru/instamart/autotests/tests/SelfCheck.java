@@ -140,7 +140,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения 500 ошибки на страниице", priority = 10009)
     public void detect500() throws Exception {
 
-        app.getNavigationHelper().get("// TODO стабильно пятисотящая страница ");
+        app.getNavigationHelper().get(""); // todo
         Assert.assertTrue(app.getHelper().is500());
 
         app.getNavigationHelper().get("metro");
@@ -163,6 +163,10 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения шторки магазинов", priority = 10011)
     public void detectShopsDrawer() throws Exception {
 
+        if(app.getSessionHelper().isUserAuthorised()) {
+            app.getSessionHelper().doLogout();
+        }
+
         //landing
         app.getNavigationHelper().getBaseUrl();
         app.getShoppingHelper().setShippingAddress(Addresses.Moscow.testAddress());
@@ -170,7 +174,6 @@ public class SelfCheck extends TestBase {
 
         app.getShoppingHelper().closeShopSelector();
         Assert.assertFalse(app.getShoppingHelper().isShopSelectorOpen());
-
 
         //retailer
         app.getNavigationHelper().get("metro");

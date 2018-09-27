@@ -24,7 +24,7 @@ public class MakeOrders extends TestBase {
 
     @Test (
             description = "Тест скачивания документов к заказам",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 450
     )
     public void downloadOrderDocuments(){

@@ -284,7 +284,7 @@ public class SessionHelper extends HelperBase {
         waitForIt(1);
 
         if(isAuthModalOpen()) printMessage("> open auth modal");
-            else printMessage(" >>> can't open auth modal");
+            else printMessage(" Can't open auth modal");
     }
 
     /** Закрыть форму авторизации/регистрации */
