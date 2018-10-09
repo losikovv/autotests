@@ -350,11 +350,11 @@ public class ShoppingHelper extends HelperBase {
         openFirstItemCard();
 
         String priceString = getText(Elements.Site.ItemCard.price());
-        int price = Integer.parseInt((priceString).substring(0,(priceString.length() - 5)));
-        printMessage("Item price is " + price + "р");
+        printMessage("Item price is " + priceString);
 
+        int price = Integer.parseInt((priceString).substring(0,(priceString.length() - 5)));
         int quantity = (Constants.getMinOrderSum() / price) + 1;
-        printMessage("Quantity for minimal order sum : " + quantity );
+        printMessage("Quantity for minimal order : " + quantity );
 
         for (int i = 1; i <= quantity; i++) {
             hitPlusButton();
