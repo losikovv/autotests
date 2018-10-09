@@ -26,6 +26,8 @@ public class ShippingAddress extends TestBase{
     }
 */
 
+    // TODO добавить тесты на все модалки феникса
+
 
     @Test(
             description = "Проверяем что по дефолту на витрине ритейлера не выбран адрес",

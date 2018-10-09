@@ -153,7 +153,7 @@ public class Checkout extends TestBase {
             priority = 407
     )
     public void performCheckoutAndPayWithCash(){
-        app.getCheckoutHelper().addPromocode("unicorn");
+        //app.getCheckoutHelper().addPromocode("unicorn");
         //app.getCheckoutHelper().addLoyalty("mnogoru");
         app.getCheckoutHelper().completeCheckout();
 

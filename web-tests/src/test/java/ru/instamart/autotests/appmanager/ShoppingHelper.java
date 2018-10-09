@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.configuration.Constants;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 import ru.instamart.autotests.testdata.Addresses;
@@ -171,20 +172,6 @@ public class ShoppingHelper extends HelperBase {
         openFirstItemCard();
         hitPlusButton();
         waitForIt(1);
-        closeItemCard();
-        waitForIt(1);
-    }
-
-    /**
-     * Add the given quantity of the first line item on the page to the shopping cart
-     * Shipping address must be chosen before that
-     */
-    public void addFirstItemOnPageToCart(int quantity) {
-        openFirstItemCard();
-        for (int i = 1; i <= quantity; i++) {
-            hitPlusButton();
-            waitForIt(1);
-        }
         closeItemCard();
         waitForIt(1);
     }
@@ -360,12 +347,20 @@ public class ShoppingHelper extends HelperBase {
      * Набрать корзину на минимальную сумму, достаточную для оформления заказа
      */
     public void grabCartWithMinimalOrderSum() {
-        addFirstItemOnPageToCart(10);
-        openCart();
-        if (!isCheckoutButtonActive()) {
-            closeCart();
-            grabCartWithMinimalOrderSum();
+        openFirstItemCard();
+
+        String priceString = getText(Elements.Site.ItemCard.price());
+        int price = Integer.parseInt((priceString).substring(0,(priceString.length() - 5)));
+        printMessage("Item price is " + price + "р");
+
+        int quantity = (Constants.getMinOrderSum() / price) + 1;
+        printMessage("Quantity for minimal order sum : " + quantity );
+
+        for (int i = 1; i <= quantity; i++) {
+            hitPlusButton();
+            waitForIt(1);
         }
+        closeItemCard();
     }
 
     // TODO grabCart(int sum) - ннабрать корзину на переданную сумму

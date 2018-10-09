@@ -25,7 +25,7 @@ public class Generate {
     public static UserData testUserData() {
         final String prefix = randomString(8);
         final String base = "testuser@example.com";
-        return new UserData(prefix + "-" + base, "instamart", "Тест Юзер");
+        return new UserData(prefix + "_" + base, "instamart", "Тест Юзер");
     }
 
     //TODO

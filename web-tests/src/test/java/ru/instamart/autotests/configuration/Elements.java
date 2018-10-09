@@ -378,6 +378,9 @@ public class Elements {
                 return new Elements(null, By.className("product-popup"));
             }
 
+            static Elements price() { return new Elements(null,
+                    By.xpath("//*[@id='react-modal']/div/div/div/div/div[1]/div/div/div/div/div/div/div[2]/div[2]/div[2]/div/div[1]/div/span"));}
+
             static Elements closeButton() {
                 return new Elements(null, By.className("close"));
             }
