@@ -53,6 +53,7 @@ public class ShoppingHelper extends HelperBase {
             checkAddressModal();
             fillField(Elements.Site.AddressModal.addressField(), address);
             selectAddressSuggest();
+            waitForIt(1);
             click(Elements.Site.AddressModal.saveButton());
         }
         waitForIt(1);
@@ -65,6 +66,7 @@ public class ShoppingHelper extends HelperBase {
         checkAddressModal();
         fillField(Elements.Site.AddressModal.addressField(), newAddress);
         selectAddressSuggest();
+        waitForIt(1);
         click(Elements.Site.AddressModal.saveButton());
         waitForIt(2);
     }
@@ -84,6 +86,7 @@ public class ShoppingHelper extends HelperBase {
     private void selectAddressSuggest() {
         if (isAnyAddressSuggestsAvailable()) {
             click(Elements.Site.AddressModal.addressSuggest());
+            waitForIt(1);
         } else {
             printMessage("Can't click address suggest - there are no such");
         }
@@ -295,6 +298,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить открыта ли корзина */
     public boolean isCartOpen() {
+        waitForIt(1);
         return isElementDisplayed(Elements.Site.Cart.drawer());
     }
 
@@ -316,6 +320,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить пуста ли корзина */
     public boolean isCartEmpty() {
+        waitForIt(1);
         return isElementPresent(Elements.Site.Cart.placeholder());
     }
 
@@ -342,6 +347,7 @@ public class ShoppingHelper extends HelperBase {
     /** Определить активна ли кнопка "Сделать заказ" в корзине */
     public boolean isCheckoutButtonActive() {
         openCart();
+        waitForIt(1);
         return isElementEnabled(Elements.Site.Cart.checkoutButton());
     }
 

@@ -316,13 +316,13 @@ public class CheckoutHelper extends HelperBase {
     private void selectDeliverySlot(String slot){
         switch(slot){
             case "first":
-                click(By.xpath("//div[2]/div/div/span[2]"));
+                click(Elements.Site.Checkout.deliverySlot());
                 break;
             case "last":
                 //TODO
                 break;
         }
-        waitForIt(1);
+        waitForIt(2);
         printMessage("Selected " + slot + " available delivery slot\n");
     }
 
@@ -494,17 +494,17 @@ public class CheckoutHelper extends HelperBase {
 
     /** Нажимаем кнопку отправки заказа и ждем пока заказ оформится */
     private void sendOrder() {
-        if (isSendButtonActive()) {
+      if (isSendButtonActive()) {
             click(Elements.Site.Checkout.sendOrderButton());
-            waitForIt(3);
-            printMessage("Order sent\n");
-        } else {
-            waitForIt(1);
-            if (isSendButtonActive()) {
-                click(Elements.Site.Checkout.sendOrderButton());
-                waitForIt(3);
-                printMessage("Order sent\n");
-            } else printMessage("Can't make order, send button is not active - check manually\n");
+           waitForIt(3);
+           printMessage("Order sent\n");
+       } else {
+          waitForIt(3);
+           if (isSendButtonActive()) {
+               click(Elements.Site.Checkout.sendOrderButton());
+               waitForIt(3);
+               printMessage("Order sent\n");
+           } else printMessage("Can't make order, send button is not active - check manually\n");
         }
     }
 
@@ -543,7 +543,7 @@ public class CheckoutHelper extends HelperBase {
 
     /** Определяем активна ли кнопка отправки заказа */
     private boolean isSendButtonActive(){
-        return isElementEnabled(By.className("checkout-finalize__button"));
+        return isElementEnabled(By.xpath("//aside/div/div[1]/div/button"));
     }
 
 }
