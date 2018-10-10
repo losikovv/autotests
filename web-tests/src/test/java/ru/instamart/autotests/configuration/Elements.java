@@ -364,8 +364,6 @@ public class Elements {
             }
 
             static Elements firstItem() {
-                //return new Elements(null, By.cssSelector("div.products:nth-child(3) > ul:nth-child(1) > " +
-                 //       "li:nth-child(1) > ul:nth-child(2) > li:nth-child(1) > a:nth-child(1) > p:nth-child(3)"));
                 return new Elements(null, By.xpath("//*[@id='home']/div[3]/ul/li[1]/ul/li[1]/a/p[1]"));
             }
         }
@@ -415,7 +413,6 @@ public class Elements {
            }
 
             static Elements openCartButton() {
-                //return new Elements(null, By.className("open-new-cart"));
                 return new Elements(null, By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header" +
                         "/nav/div[4]/div/div"));
 
