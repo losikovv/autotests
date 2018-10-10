@@ -81,7 +81,7 @@ public class Shopping extends TestBase{
             priority = 303
     )
     public void grabCart()throws Exception, AssertionError {
-        app.getShoppingHelper().grabCartWithMinimalOrderSum();
+        app.getShoppingHelper().grabCart();
 
         // Assert checkout button is enabled
         Assert.assertTrue(app.getShoppingHelper().isCheckoutButtonActive(),
@@ -96,7 +96,7 @@ public class Shopping extends TestBase{
     )
     public void proceedToCheckout()throws Exception, AssertionError {
         if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCartWithMinimalOrderSum();
+            app.getShoppingHelper().grabCart();
         }
         if(app.getShoppingHelper().isCheckoutButtonActive()){
             app.getShoppingHelper().proceedToCheckout();

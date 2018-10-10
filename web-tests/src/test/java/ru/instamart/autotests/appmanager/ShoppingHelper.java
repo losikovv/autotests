@@ -343,17 +343,11 @@ public class ShoppingHelper extends HelperBase {
         click(Elements.Site.Cart.checkoutButton());
     }
 
-    /**
-     * Набрать корзину на минимальную сумму, достаточную для оформления заказа
-     */
-    public void grabCartWithMinimalOrderSum() {
+    /** Набрать корзину на минимальную сумму, достаточную для оформления заказа */
+    public void grabCart() {
         openFirstItemCard();
 
-        String priceString = getText(Elements.Site.ItemCard.price());
-        printMessage("Item price is " + priceString);
-
-        int price = Integer.parseInt((priceString).substring(0,(priceString.length() - 5)));
-        int quantity = (Constants.getMinOrderSum() / price) + 1;
+        int quantity = (Constants.getMinOrderSum() / round(getText(Elements.Site.ItemCard.price()))) + 1;
         printMessage("Quantity for minimal order : " + quantity );
 
         for (int i = 1; i <= quantity; i++) {

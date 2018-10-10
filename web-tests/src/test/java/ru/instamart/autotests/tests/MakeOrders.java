@@ -45,7 +45,7 @@ public class MakeOrders extends TestBase {
         // Идем в чекаут, при необходимости набирая корзину
         app.getNavigationHelper().getCheckoutPage();
         if(!app.getCheckoutHelper().isOnCheckout()){
-            app.getShoppingHelper().grabCartWithMinimalOrderSum();
+            app.getShoppingHelper().grabCart();
             app.getShoppingHelper().proceedToCheckout();
         }
 
@@ -73,7 +73,7 @@ public class MakeOrders extends TestBase {
         // идем в чекаут, при необходимости набирая корзину
         app.getNavigationHelper().getCheckoutPage();
         if(!app.getCheckoutHelper().isOnCheckout()){
-            app.getShoppingHelper().grabCartWithMinimalOrderSum();
+            app.getShoppingHelper().grabCart();
             app.getShoppingHelper().proceedToCheckout();
         }
 

@@ -34,7 +34,7 @@ public class RepeatOrders extends TestBase {
                 "Something went wrong while repeating the last order from the profile\n");
 
         if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCartWithMinimalOrderSum();
+            app.getShoppingHelper().grabCart();
         }
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",1,"card-online");
@@ -58,7 +58,7 @@ public class RepeatOrders extends TestBase {
                 "Something went wrong while repeating the last order from the profile\n");
 
         if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCartWithMinimalOrderSum();
+            app.getShoppingHelper().grabCart();
         }
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",2,"card-courier");
@@ -80,7 +80,7 @@ public class RepeatOrders extends TestBase {
                 "Something went wrong while repeating the last order from the profile\n");
 
         if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCartWithMinimalOrderSum();
+            app.getShoppingHelper().grabCart();
         }
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
@@ -104,7 +104,7 @@ public class RepeatOrders extends TestBase {
                 "Something went wrong while repeating the last order from the profile\n");
 
         if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCartWithMinimalOrderSum();
+            app.getShoppingHelper().grabCart();
         }
         app.getShoppingHelper().proceedToCheckout();
         app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");

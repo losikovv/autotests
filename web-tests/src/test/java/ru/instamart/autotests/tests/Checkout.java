@@ -21,7 +21,7 @@ public class Checkout extends TestBase {
 
         // если не попали в чекаут - набираем корзину и идем снова
         if(!app.getCheckoutHelper().isOnCheckout()){
-            app.getShoppingHelper().grabCartWithMinimalOrderSum();
+            app.getShoppingHelper().grabCart();
             app.getShoppingHelper().proceedToCheckout();
         }
     }
