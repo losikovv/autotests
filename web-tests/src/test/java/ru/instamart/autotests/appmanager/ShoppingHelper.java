@@ -355,13 +355,12 @@ public class ShoppingHelper extends HelperBase {
         closeItemCard();
     }
 
-    // TODO grabCart(int sum) - ннабрать корзину на переданную сумму
-
+    /** Набрать корзину на указанную сумму */
     public void grabCart(int sum) {
         openFirstItemCard();
 
         int quantity = (sum / round(getText(Elements.Site.ItemCard.price()))) + 1;
-        printMessage("Quantity for sum " + sum + ": " + quantity);
+        printMessage("Quantity for " + sum + "р : " + quantity);
 
         for (int i = 1; i <= quantity; i++) {
             hitPlusButton();
