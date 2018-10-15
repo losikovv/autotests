@@ -99,6 +99,12 @@ public class ProfileHelper extends HelperBase {
         }
     }
 
+    /** Проверка стоимости доставки заказа на странице деталей заказа */
+    public boolean checkDeliveryPrice(int price) {
+        int deliveryPrice = round(getText(Elements.Site.OrderPage.deliveryPrice()));
+        return deliveryPrice == price;
+    }
+
 
 
     // ======= Addresses =======

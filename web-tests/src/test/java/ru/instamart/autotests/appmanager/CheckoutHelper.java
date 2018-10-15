@@ -42,12 +42,12 @@ public class CheckoutHelper extends HelperBase {
      */
     public void completeCheckout(){
         checkCheckoutIsReady();
-    doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
-    doStep2();                  // Используем существующий телефон
-    doStep3();                  // Выбираем дефолтный способ замен
-    doStep4();                  // Выбираем тестовый способ оплаты наличными
-    doStep5();                  // Выбираем стандартный тестовый слот доставки
-    sendOrder();            // Жмем "Оформить заказ"
+        doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
+        doStep2();                  // Используем существующий телефон
+        doStep3();                  // Выбираем дефолтный способ замен
+        doStep4();                  // Выбираем тестовый способ оплаты наличными
+        doStep5();                  // Выбираем стандартный тестовый слот доставки
+        sendOrder();                // Жмем "Оформить заказ"
 }
 
     /**
@@ -61,8 +61,7 @@ public class CheckoutHelper extends HelperBase {
         doStep3();                  // Выбираем дефолтный способ замен
         doStep4(paymentType);       // Выбираем указанный способ оплаты
         doStep5();                  // Выбираем стандартный тестовый слот доставки
-        checkDeliveryPrice(299);
-        sendOrder();            // Жмем "Оформить заказ"
+        sendOrder();                // Жмем "Оформить заказ"
     }
 
     /**
@@ -78,7 +77,7 @@ public class CheckoutHelper extends HelperBase {
         doStep5();                  // Выбираем стандартный тестовый слот доставки
         addLoyalty(loyaltyProgram); // Добавляем программу лояльности
         addPromocode(promocode);    // Добавляем промокод
-        sendOrder();            // Жмем "Оформить заказ"
+        sendOrder();                // Жмем "Оформить заказ"
     }
 
     /**
@@ -92,7 +91,7 @@ public class CheckoutHelper extends HelperBase {
         doStep3(replacementPolicy); // Выбираем указанный способ замен
         doStep4(paymentType);       // Выбираем указанный способ оплаты
         doStep5();                  // Выбираем стандартный тестовый слот доставки
-        sendOrder();            // Жмем "Оформить заказ"
+        sendOrder();                // Жмем "Оформить заказ"
     }
 
 
@@ -557,16 +556,8 @@ public class CheckoutHelper extends HelperBase {
     }
 
     /** Проверка стоимости доставки */
-
     public boolean checkDeliveryPrice(int price) {
         int deliveryPrice = round(getText(Elements.Site.Checkout.deliveryPrice()));
-        return deliveryPrice == price;
-    }
-
-    /** Проверка стоимости доставки заказа на странице деталей заказа */
-
-    public boolean checkDeliveryPriceOnOrderPage(int price) {
-        int deliveryPrice = round(getText(Elements.Site.OrderPage.deliveryPrice()));
         return deliveryPrice == price;
     }
 
