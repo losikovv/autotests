@@ -230,4 +230,6 @@ public class Checkout extends TestBase {
         app.getProfileHelper().cancelLastOrder();
     }
 
+
+
 }

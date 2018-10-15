@@ -338,6 +338,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Перейти в чекаут нажатием кнопки "Сделать заказ" в корзине */
     public void proceedToCheckout() {
+        openCart();
         click(Elements.Site.Cart.checkoutButton());
     }
 
@@ -412,6 +413,8 @@ public class ShoppingHelper extends HelperBase {
             return getText(By.xpath(XPATH));
         }
     }
+
+
 
     // TODO clearCart - очистить корзину (удалить все товары сразу кнопкой)
 

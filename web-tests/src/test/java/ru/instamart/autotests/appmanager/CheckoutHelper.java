@@ -28,18 +28,27 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Order-making methods =======
 
-    /**
-     * Complete checkout with the predefined standard test options
-     */
-    public void completeCheckout(){
+    public void fillCheckout(){
         checkCheckoutIsReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
         doStep3();                  // Выбираем дефолтный способ замен
         doStep4();                  // Выбираем тестовый способ оплаты наличными
         doStep5();                  // Выбираем стандартный тестовый слот доставки
-        sendOrder();            // Жмем "Оформить заказ"
     }
+
+    /**
+     * Complete checkout with the predefined standard test options
+     */
+    public void completeCheckout(){
+        checkCheckoutIsReady();
+    doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
+    doStep2();                  // Используем существующий телефон
+    doStep3();                  // Выбираем дефолтный способ замен
+    doStep4();                  // Выбираем тестовый способ оплаты наличными
+    doStep5();                  // Выбираем стандартный тестовый слот доставки
+    sendOrder();            // Жмем "Оформить заказ"
+}
 
     /**
      * Complete checkout with the predefined standard test options and a given payment type
@@ -52,6 +61,7 @@ public class CheckoutHelper extends HelperBase {
         doStep3();                  // Выбираем дефолтный способ замен
         doStep4(paymentType);       // Выбираем указанный способ оплаты
         doStep5();                  // Выбираем стандартный тестовый слот доставки
+        checkDeliveryPrice(299);
         sendOrder();            // Жмем "Оформить заказ"
     }
 
@@ -493,7 +503,7 @@ public class CheckoutHelper extends HelperBase {
 
 
     /** Нажимаем кнопку отправки заказа и ждем пока заказ оформится */
-    private void sendOrder() {
+    public void sendOrder() {
       if (isSendButtonActive()) {
             click(Elements.Site.Checkout.sendOrderButton());
            waitForIt(3);
@@ -544,6 +554,20 @@ public class CheckoutHelper extends HelperBase {
     /** Определяем активна ли кнопка отправки заказа */
     private boolean isSendButtonActive(){
         return isElementEnabled(By.xpath("//aside/div/div[1]/div/button"));
+    }
+
+    /** Проверка стоимости доставки */
+
+    public boolean checkDeliveryPrice(int price) {
+        int deliveryPrice = round(getText(Elements.Site.Checkout.deliveryPrice()));
+        return deliveryPrice == price;
+    }
+
+    /** Проверка стоимости доставки заказа на странице деталей заказа */
+
+    public boolean checkDeliveryPriceOnOrderPage(int price) {
+        int deliveryPrice = round(getText(Elements.Site.OrderPage.deliveryPrice()));
+        return deliveryPrice == price;
     }
 
 }

@@ -376,8 +376,9 @@ public class Elements {
                 return new Elements(null, By.className("product-popup"));
             }
 
-            static Elements price() { return new Elements(null,
-                    By.xpath("//*[@id='react-modal']/div/div/div/div/div[1]/div/div/div/div/div/div/div[2]/div[2]/div[2]/div/div[1]/div/span"));}
+            static Elements price() {
+                return new Elements(null, By.cssSelector(".product-popup__price > div:nth-child(1)" +
+                        " > span:nth-child(1)")); }
 
             static Elements closeButton() {
                 return new Elements(null, By.className("close"));
@@ -630,6 +631,12 @@ public class Elements {
                         "/div/div/div/div[2]/div/div[2]/div[2]/div[2]"));
             }
 
+
+            static Elements deliveryPrice() {
+                return new Elements(null, By.xpath("/html/body/div[2]/div/form/div/aside/div/div[2]" +
+                        "/div[1]/div[1]/div[3]/span"));
+            }
+
             interface PromocodeModal {
 
                 static Elements title() {
@@ -699,6 +706,12 @@ public class Elements {
             static Elements documentation(int position) {
                 return new Elements(null,
                         By.xpath("//*[@id='wrap']/div[2]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div/div[3]/a["+position+"]"));
+            }
+
+            /** Стоимость доставки */
+            static Elements deliveryPrice() {
+                return new Elements(null, By.xpath("/html/body/div[4]/div[2]/div/div/div/div/div[2]" +
+                        "/div/div[2]/div[1]/div/div[3]/div[2]/div[2]/div"));
             }
 
         }
