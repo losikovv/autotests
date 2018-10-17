@@ -364,7 +364,9 @@ public class Elements {
             }
 
             static Elements firstItem() {
-                return new Elements(null, By.xpath("//*[@id='home']/div[3]/ul/li[1]/ul/li[1]/a/p[1]"));
+                return new Elements(null, By.className("product__img")
+                        //By.xpath("//*[@id='home']/div[3]/ul/li[1]/ul/li[1]/a/p[1]") // старый локатор
+                );
             }
         }
 

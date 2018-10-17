@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.configuration.Elements;
+import ru.instamart.autotests.configuration.Pages;
 
 
 // Тесты чекаута
@@ -12,18 +13,18 @@ import ru.instamart.autotests.configuration.Elements;
 
 public class Checkout extends TestBase {
 
+    private void reachCheckout() {
+        app.getNavigationHelper().getCheckoutPage();
+        if(!app.getCheckoutHelper().isOnCheckout()){
+            app.getShoppingHelper().grabCart();
+            app.getShoppingHelper().proceedToCheckout();
+        }
+    }
 
     @BeforeMethod(alwaysRun = true)
     public void preparingForCheckout() throws Exception {
         app.getNavigationHelper().getRetailerPage("metro");
         app.getSessionHelper().doLoginAs("admin");
-        app.getNavigationHelper().getCheckoutPage();
-
-        // если не попали в чекаут - набираем корзину и идем снова
-        if(!app.getCheckoutHelper().isOnCheckout()){
-            app.getShoppingHelper().grabCart();
-            app.getShoppingHelper().proceedToCheckout();
-        }
     }
 
     // TODO Тесты на изменение телефона и контактов
@@ -39,6 +40,7 @@ public class Checkout extends TestBase {
             priority = 400
     )
     public void addPromocode(){
+        reachCheckout();
         app.getCheckoutHelper().addPromocode("unicorn");
 
         // Assert promocode is applied
@@ -53,6 +55,7 @@ public class Checkout extends TestBase {
             priority = 401
     )
     public void clearPromocode(){
+        reachCheckout();
         app.getCheckoutHelper().clearPromocode();
 
         // Assert promocode is applied
@@ -67,6 +70,7 @@ public class Checkout extends TestBase {
             priority = 402
     )
     public void noPromocodeAddedOnCancel(){
+        reachCheckout();
         app.getHelper().click(Elements.Site.Checkout.addPromocodeButton());
         app.getHelper().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
         app.getHelper().click(Elements.Site.Checkout.PromocodeModal.cancelButton());
@@ -82,6 +86,7 @@ public class Checkout extends TestBase {
             priority = 403
     )
     public void noPromocodeAddedOnClose(){
+        reachCheckout();
         app.getHelper().click(Elements.Site.Checkout.addPromocodeButton());
         app.getHelper().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
         app.getHelper().click(Elements.Site.Checkout.PromocodeModal.closeButton());
@@ -98,7 +103,7 @@ public class Checkout extends TestBase {
             priority = 404
     )
     public void addLoyaltyPrograms(){
-
+        reachCheckout();
         app.getCheckoutHelper().addLoyalty("mnogoru");
         Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("mnogoru"),
                 "Can't assert loyalty program \"mnogoru\" is applied\n");
@@ -119,6 +124,7 @@ public class Checkout extends TestBase {
             priority = 405
     )
     public void selectLoyaltyProgram(){
+        reachCheckout();
         app.getCheckoutHelper().selectLoyalty("mnogoru");
         app.getCheckoutHelper().selectLoyalty("aeroflot");
         app.getCheckoutHelper().selectLoyalty("svyaznoyclub");
@@ -132,7 +138,7 @@ public class Checkout extends TestBase {
             priority = 406
     )
     public void clearLoyaltyPrograms(){
-
+        reachCheckout();
         app.getCheckoutHelper().clearLoyalty("mnogoru");
         Assert.assertFalse(app.getCheckoutHelper().isLoyaltyApplied("mnogoru"),
                 "Can't assert loyalty program \"mnogoru\" is cleared");
@@ -153,17 +159,14 @@ public class Checkout extends TestBase {
             priority = 407
     )
     public void performCheckoutAndPayWithCash(){
-        //app.getCheckoutHelper().addPromocode("unicorn");
-        //app.getCheckoutHelper().addLoyalty("mnogoru");
+        reachCheckout();
         app.getCheckoutHelper().completeCheckout();
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        // Проверяем доки
         checkOrderDocuments();
-
         app.getProfileHelper().cancelLastOrder();
     }
 
@@ -174,17 +177,14 @@ public class Checkout extends TestBase {
             priority = 408
     )
     public void performCompleteCheckoutAndPayWithCardOnline(){
-        app.getCheckoutHelper().addPromocode("unicorn");
-        app.getCheckoutHelper().addLoyalty("aeroflot");
+        reachCheckout();
         app.getCheckoutHelper().completeCheckout("card-online");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        // Проверяем доки
         checkOrderDocuments();
-
         app.getProfileHelper().cancelLastOrder();
     }
 
@@ -195,6 +195,7 @@ public class Checkout extends TestBase {
             priority = 409
     )
     public void performCompleteCheckoutAndPayWithCardCourier(){
+        reachCheckout();
         app.getCheckoutHelper().addPromocode("unicorn");
         app.getCheckoutHelper().addLoyalty("familyteam");
         app.getCheckoutHelper().completeCheckout("card-courier");
@@ -203,9 +204,7 @@ public class Checkout extends TestBase {
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        // Проверяем доки
         checkOrderDocuments();
-
         app.getProfileHelper().cancelLastOrder();
     }
 
@@ -216,6 +215,7 @@ public class Checkout extends TestBase {
             priority = 410
     )
     public void performCompleteCheckoutAndPayWithBank(){
+        reachCheckout();
         app.getCheckoutHelper().addPromocode("unicorn");
         app.getCheckoutHelper().addLoyalty("svyaznoyclub");
         app.getCheckoutHelper().completeCheckout("bank");
@@ -224,8 +224,41 @@ public class Checkout extends TestBase {
         Assert.assertTrue(app.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        // Проверяем доки
         checkOrderDocuments();
+        app.getProfileHelper().cancelLastOrder();
+    }
+
+
+    @Test(
+            description = "Тест проверки прогрессивной стоимости доставки в Метро",
+            groups = {"regression"},
+            priority = 411
+    )
+    public void checkMetroDeliveryPriceDiscount() {
+        app.getShoppingHelper().dropCart();
+
+        app.getNavigationHelper().get(Pages.Site.Catalog.priceyItems());
+        app.getShoppingHelper().grabCart();
+        app.getShoppingHelper().proceedToCheckout();
+        app.getCheckoutHelper().fillCheckout();
+        Assert.assertTrue(app.getCheckoutHelper().checkDeliveryPrice(299),
+                "Delivery price in checkout is not correct, check manually \n" );
+
+        app.getNavigationHelper().get(Pages.Site.Catalog.priceyItems());
+        app.getShoppingHelper().grabCart(5000);
+        app.getShoppingHelper().proceedToCheckout();
+        Assert.assertTrue(app.getCheckoutHelper().checkDeliveryPrice(199),
+                "Delivery price in checkout is not correct, check manually \n" );
+
+        app.getNavigationHelper().get(Pages.Site.Catalog.priceyItems());
+        app.getShoppingHelper().grabCart(10000);
+        app.getShoppingHelper().proceedToCheckout();
+        Assert.assertTrue(app.getCheckoutHelper().checkDeliveryPrice(99),
+                "Delivery price in checkout is not correct, check manually \n" );
+
+        app.getCheckoutHelper().completeCheckout();
+        Assert.assertTrue(app.getProfileHelper().checkDeliveryPrice(99),
+                "Delivery price is not correct in order details, check manually \n" );
 
         app.getProfileHelper().cancelLastOrder();
     }

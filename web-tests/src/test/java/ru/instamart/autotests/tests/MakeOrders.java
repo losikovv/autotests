@@ -98,81 +98,9 @@ public class MakeOrders extends TestBase {
     }
 
 
-    @Test(
-            description = "Тест проверки максимальной стоимости доставки",
-            groups = {"regression"},
-            priority = 453
-    )
-    public void checkDeliveryPriceMax() {
-        app.getNavigationHelper().getCheckoutPage();
-        // если не попали в чекаут - набираем корзину и идем снова
-        if(!app.getCheckoutHelper().isOnCheckout()){
-            app.getShoppingHelper().grabCart(1488);
-            app.getShoppingHelper().proceedToCheckout();
-        }
-        app.getCheckoutHelper().fillCheckout();
-
-        Assert.assertTrue(app.getCheckoutHelper().checkDeliveryPrice(299),"Delivery price is not correct," +
-                "check manually \n" ); // проверка стоимости доставки на чекауте
-
-        app.getCheckoutHelper().sendOrder();
-
-        Assert.assertTrue(app.getProfileHelper().checkDeliveryPrice(299), "Delivery price is not " +
-               "correct, check manually \n"); // проверка стоимости заказа на странице деталей заказа
-        }
-
-
-    @Test(
-            description = "Тест проверки средней стоимости доставки",
-            groups = {"regression"},
-            priority = 454
-    )
-    public void checkDeliveryPriceMiddle() {
-        app.getNavigationHelper().getCheckoutPage();
-        // если не попали в чекаут - набираем корзину и идем снова
-        if(!app.getCheckoutHelper().isOnCheckout()){
-            app.getShoppingHelper().grabCart(5500);
-            app.getShoppingHelper().proceedToCheckout();
-        }
-        app.getCheckoutHelper().fillCheckout();
-
-        Assert.assertTrue(app.getCheckoutHelper().checkDeliveryPrice(199),"Delivery price is not correct," +
-                "check manually \n" ); // проверка стоимости доставки на чекауте
-
-        app.getCheckoutHelper().sendOrder();
-        Assert.assertTrue(app.getProfileHelper().checkDeliveryPrice(199), "Delivery price is not " +
-                "correct, check manually \n"); // проверка стоимости заказа на странице деталей заказа
-    }
-
-
-    @Test(
-            description = "Тест проверки минимальной стоимости доставки",
-            groups = {"regression"},
-            priority = 455
-    )
-    public void checkDeliveryPriceMin() {
-        app.getNavigationHelper().getCheckoutPage();
-        // если не попали в чекаут - набираем корзину и идем снова
-        if(!app.getCheckoutHelper().isOnCheckout()){
-            app.getShoppingHelper().grabCart(10100);
-            app.getShoppingHelper().proceedToCheckout();
-        }
-        app.getCheckoutHelper().fillCheckout();
-
-        Assert.assertTrue(app.getCheckoutHelper().checkDeliveryPrice(99),"Delivery price is not correct," +
-                "check manually \n" ); // проверка стоимости доставки на чекауте
-
-        app.getCheckoutHelper().sendOrder();
-
-        Assert.assertTrue(app.getProfileHelper().checkDeliveryPrice(99), "Delivery price is not " +
-                "correct, check manually \n"); // проверка стоимости заказа на странице деталей заказа
-    }
-
-
     @AfterMethod(alwaysRun = true)
     public void cancelLastOrder()throws Exception {
         app.getProfileHelper().cancelLastOrder();
-        app.getNavigationHelper().goHome();
         app.getShoppingHelper().changeShippingAddress(Addresses.Moscow.defaultAddress());
     }
 

@@ -102,7 +102,10 @@ public class ProfileHelper extends HelperBase {
     /** Проверка стоимости доставки заказа на странице деталей заказа */
     public boolean checkDeliveryPrice(int price) {
         int deliveryPrice = round(getText(Elements.Site.OrderPage.deliveryPrice()));
-        return deliveryPrice == price;
+        if (deliveryPrice == price) {
+            printMessage("✓ Delivery price " + deliveryPrice + "р\n");
+            return true;
+        } else return false;
     }
 
 

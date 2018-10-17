@@ -23,6 +23,13 @@ public class Pages {
                     "checkout/edit?" );
         }
 
+      interface Catalog {
+
+            static Pages priceyItems() { return new Pages(null,
+                  "/metro/produkty-pitaniia/molochnyie-produkty-iaitsa/morozhienoie/b/haagen-dazs");
+          }
+      }
+
       interface Landings {
 
             static Pages mnogoru() { return new Pages("Много.ру",
@@ -43,9 +50,9 @@ public class Pages {
             static Pages mobile() { return new Pages("METRO - доставка продуктов на дом",
                     "landings/m-general-white");}
 
-            // TODO Дописать лэндинг вкусвилл
+            // TODO Дописать лендинг вкусвилл
 
-            // TODO Дописать лэндинг метро
+            // TODO Дописать лендинг метро
       }
 
       interface Static {

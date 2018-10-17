@@ -304,6 +304,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить пуста ли корзина */
     public boolean isCartEmpty() {
+        openCart();
         waitForIt(1); // Пауза на случай, тормозов с корзиной
         return isElementPresent(Elements.Site.Cart.placeholder());
     }

@@ -227,7 +227,7 @@ public class CheckoutHelper extends HelperBase {
     /** Выбрать способ замен по позиции в списке опций */
     private void selectReplacementPolicy(int option){
         click(Elements.Site.Checkout.replacementPolicy(option));
-        printMessage("Replacement policy #" + option + " selected - " + getText(Elements.getLocator()));
+        printMessage("Replacement policy #" + option + " selected (" + getText(Elements.getLocator()) + ")");
     }
 
 
@@ -558,7 +558,10 @@ public class CheckoutHelper extends HelperBase {
     /** Проверка стоимости доставки */
     public boolean checkDeliveryPrice(int price) {
         int deliveryPrice = round(getText(Elements.Site.Checkout.deliveryPrice()));
-        return deliveryPrice == price;
+        if (deliveryPrice == price) {
+            printMessage("✓ Delivery price " + deliveryPrice + "р\n");
+            return true;
+        } else return false;
     }
 
 }
