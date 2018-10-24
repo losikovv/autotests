@@ -19,7 +19,7 @@ public class Registration extends TestBase {
             groups = {"acceptance", "regression"}
     )
     public void noRegWithEmptyRequisites() throws Exception {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().regNewUser(null, null, null, null);
 
@@ -38,7 +38,7 @@ public class Registration extends TestBase {
             priority = 1
     )
     public void noRegWithoutName() throws Exception {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().regNewUser(null, "test@example.com", "12345678", "12345678");
 
@@ -57,7 +57,7 @@ public class Registration extends TestBase {
             priority = 2
     )
     public void noRegWithoutEmail() throws Exception {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().regNewUser("Test User", null, "12345678", "12345678");
 
@@ -76,7 +76,7 @@ public class Registration extends TestBase {
             priority = 3
     )
     public void noRegWithoutPassword() throws Exception {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().regNewUser("Test User", "test@example.com", null, "12345678");
 
@@ -95,7 +95,7 @@ public class Registration extends TestBase {
             priority = 4
     )
     public void noRegWithoutPasswordConfirmation() throws Exception {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().regNewUser("Test User", "test@example.com", "12345678", null);
 
@@ -114,7 +114,7 @@ public class Registration extends TestBase {
             priority = 5
     )
     public void noRegWithWrongPasswordConfirmation() throws Exception {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().regNewUser("Test User", "test@example.com", "12345678", "12345679");
 
@@ -132,7 +132,7 @@ public class Registration extends TestBase {
             priority = 6
     )
     public void noRegWithExistingEmail() throws Exception {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().regNewUser("Test User", "autotestuser@instamart.ru", "12345678", "12345679");
 
@@ -148,7 +148,7 @@ public class Registration extends TestBase {
             priority = 7
     )
     public void successRegOnLandingPage() throws Exception {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().regNewUser(Generate.testUserData());
 

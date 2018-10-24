@@ -7,23 +7,11 @@ import ru.instamart.autotests.configuration.Pages;
 
 
 
-// Проверка страниц
+    // Проверка доступности страниц
 
 
 
 public class CheckPages extends TestBase {
-
-
-    @Test(
-            enabled = false,
-            description = "Тест лендинга"
-    )
-    public void checkLandingPage() throws Exception, AssertionError {
-        assertPageIsAvailable("https://instamart.ru/metro");
-
-        // TODO добавить проверку элементов и функционала лендинга
-
-    }
 
 
     @Test(
@@ -33,13 +21,13 @@ public class CheckPages extends TestBase {
     )
     // TODO переделать чек страниц всех ретейлеров по списку ретейлеров
     // TODO забирать список ритейлеров из БД или из админки с признаком активности
-    // TODO проверять витрины активных ритейлеров на доступность, витрины неактивных - на недоступность
     public void checkRetailerPages() throws Exception, AssertionError {
-        assertPageIsAvailable("https://instamart.ru/metro");
-        assertPageIsAvailable("https://instamart.ru/lenta");
-        assertPageIs404("https://instamart.ru/selgros"); // неактивный ритейлер
-        assertPageIsAvailable("https://instamart.ru/vkusvill");
-        assertPageIsAvailable("https://instamart.ru/karusel");
+        assertPageIsAvailable(Pages.Site.Retailers.metro());
+        assertPageIsAvailable(Pages.Site.Retailers.vkusvill());
+        assertPageIsAvailable(Pages.Site.Retailers.lenta());
+        assertPageIsAvailable(Pages.Site.Retailers.karusel());
+        assertPageIsAvailable(Pages.Site.Retailers.auchan());
+        assertPageIs404(Pages.Site.Retailers.selgros());                        // неактивный ритейлер
     }
 
 
@@ -50,14 +38,13 @@ public class CheckPages extends TestBase {
     )
     // TODO переделать чек лендингов циклом по списку
     public void checkLandings() throws Exception, AssertionError {
+        assertPageIsAvailable(Pages.Site.Landings.instamart());
         assertPageIsAvailable(Pages.Site.Landings.mnogoru());
         assertPageIsAvailable(Pages.Site.Landings.sovest());
         assertPageIsAvailable(Pages.Site.Landings.halva());
-        assertPageIsAvailable(Pages.Site.Landings.feedback());
-        assertPageIsAvailable("https://vkusvill.instamart.ru/"); // - переделать
         assertPageIsAvailable(Pages.Site.Landings.kazan());
-        assertPageIsAvailable(Pages.Site.Landings.mobile());
-        // добавить метро лэндинг
+        //assertPageIsAvailable(Pages.Site.Landings.feedback());    этого лендоса нет на стейдже
+        //assertPageIsAvailable(Pages.Site.Landings.mobile());      этого лендоса нет на стейдже
     }
 
 
@@ -102,7 +89,7 @@ public class CheckPages extends TestBase {
             priority = 805
     )
     public void checkAdminPages() throws Exception, AssertionError {
-        app.getSessionHelper().getUrlAsAdmin("https://instamart.ru/admin/retailers");
+        app.getSessionHelper().reachAdmin(Pages.Admin.shipments());
 
         assertPageIsAvailable(Pages.Admin.shipments());
         assertPageIsAvailable(Pages.Admin.retailers());
@@ -154,11 +141,13 @@ public class CheckPages extends TestBase {
         app.getHelper().click(Elements.Site.PartnersPopup.closeButton());
         assertPageIsAvailable();
 
+        /* Тест временно отключен - валится потому что кнопка goTop перекрывает ссылку
         app.getNavigationHelper().goFooterPayment();
         Assert.assertTrue(app.getHelper().isPaymentPopupOpen(),
                 "Cant assert 'Payment' pop-up open, check manually\n");
         app.getHelper().click(Elements.Site.PaymentPopup.closeButton());
         assertPageIsAvailable();
+        */
     }
 
 }

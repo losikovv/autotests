@@ -12,45 +12,38 @@ import ru.instamart.autotests.configuration.Environments;
 
 
 public class HelperBase {
-
     WebDriver driver;
     String environmentName;
     String host;
-    String baseUrl;
-
+    public String baseUrl;
+    public String fullBaseUrl;
     private boolean acceptNextAlert = true;
 
     HelperBase(WebDriver driver, Environments environment) {
         this.driver = driver;
         this.environmentName = environment.getEnvironmentName();
         this.host = environment.getHost();
-        this.baseUrl = environment.getBaseURL();
-    }
-
-
-    /** Вернуть базовый URL */
-
-    public String baseUrl() {
-        return baseUrl;
-    }
-
-
-    /** Перейти на указанный URL */
-
-    public void getUrl(String url) {
-        try {
-            driver.get(url);
-        } catch (TimeoutException t) {
-            printMessage("Can't get " + url + " by timeout");
-        }
+        this.baseUrl = environment.getBaseURL(false);
+        this.fullBaseUrl = environment.getBaseURL(true);
     }
 
 
     /** Перейти на базовый URL */
 
     public void getBaseUrl() {
-        printMessage("Getting base URL " + baseUrl + "\n");
-        getUrl(baseUrl);
+        getUrl(fullBaseUrl);
+    }
+
+
+    /** Перейти на указанный URL */
+
+    public void getUrl(String url) {
+        if (url.equals(fullBaseUrl)) printMessage("Getting baseURL " + url + "\n");
+        try {
+            driver.get(url);
+        } catch (TimeoutException t) {
+            printMessage("Can't get " + url + " by timeout");
+        }
     }
 
 
@@ -61,7 +54,7 @@ public class HelperBase {
             driver.findElement(locator).click();
         }
         catch (NoSuchElementException n){
-            printMessage("Can't find element <" + locator + "> to click on " + currentURL() + "\n");
+            printMessage("Can't click element <" + locator + "> on " + currentURL() + "\n");
         }
     }
 
@@ -69,8 +62,23 @@ public class HelperBase {
         try {
             driver.findElement(Elements.getLocator()).click();
         }
-        catch (NoSuchElementException n){
-            printMessage("Can't find element to click <" + Elements.getLocator() + ">\non " + currentURL() + "\n");
+        catch (NoSuchElementException n) {
+            if(Elements.getText() == null) {
+                printMessage("Can't click element <" + Elements.getLocator()
+                        + ">\nNo such element on " + currentURL() + "\n");
+            } else {
+                printMessage("Can't click element " + Elements.getText() + " <" + Elements.getLocator()
+                        + ">\nNo such element on " + currentURL() + "\n");
+            }
+        }
+        catch (ElementNotVisibleException v) {
+            if(Elements.getText() == null) {
+                printMessage("Can't click element <" + Elements.getLocator()
+                        + ">\nElement is not visible on " + currentURL() + "\n");
+            } else {
+                printMessage("Can't click element " + Elements.getText() + " <" + Elements.getLocator()
+                        + ">\nElement is not visible on " + currentURL() + "\n");
+            }
         }
     }
 
@@ -298,7 +306,7 @@ public class HelperBase {
     /** Скачивание документов к заказу */
 
     public String detectOrderDocument(int position) {
-        Elements.Site.OrderPage.documentation(position);
+        Elements.Site.OrderDetailsPage.documentation(position);
         if (getText(Elements.getLocator()) != null) {
             printMessage("Скачиваем: " + getText(Elements.getLocator()));
             return getText(Elements.getLocator());

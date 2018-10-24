@@ -15,8 +15,8 @@ public class Shopping extends TestBase{
 
     @BeforeMethod(alwaysRun = true)
     public void getAuth() throws Exception {
-        app.getNavigationHelper().getLandingPage();
-            app.getSessionHelper().doLoginAs("admin");
+        app.getNavigationHelper().getBaseUrl();
+        app.getSessionHelper().doLoginAs("admin");
     }
 
 

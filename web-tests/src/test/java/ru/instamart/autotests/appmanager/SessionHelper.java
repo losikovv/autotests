@@ -3,6 +3,7 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.configuration.Pages;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
@@ -21,15 +22,27 @@ public class SessionHelper extends HelperBase {
     }
 
     // TODO перенести в AdminHelper
-    public void getUrlAsAdmin(String targetUrlInAdminPanel) throws Exception {
-        getUrl(targetUrlInAdminPanel);  // пытаемся перейти по указанному URL в админку
+    public void reachAdmin(String url) throws Exception {
+        getUrl(url);                    // пытаемся перейти по указанному URL в админку
         if (isOnSite()) {               // если не попали, то перелогиниваемся с правами администратора и идем снова
             getBaseUrl();
             if (isUserAuthorised()) {
                 doLogout();
             }
             doLoginAs("admin");
-            getUrl(targetUrlInAdminPanel);
+            getUrl(url);
+        }
+    }
+
+    public void reachAdmin(Pages page) throws Exception {
+        getUrl(fullBaseUrl + Pages.getPagePath());  // пытаемся перейти по указанному URL в админку
+        if (isOnSite()) {                           // если не попали, то перелогиниваемся с правами администратора и идем снова
+            getBaseUrl();
+            if (isUserAuthorised()) {
+                doLogout();
+            }
+            doLoginAs("admin");
+            getUrl(fullBaseUrl + Pages.getPagePath());
         }
     }
 
@@ -172,93 +185,58 @@ public class SessionHelper extends HelperBase {
 
     // ======= Handling test users =======
 
-    // TODO перенести в Administration helper
-    /**
-     * Delete all test users from admin panel
-     */
-    public void deleteAllTestUsers() throws Exception {
-
-        final String targetPath = "admin/users?q%5Bemail_cont%5D=testuser%40example.com";
-        getUrlAsAdmin(baseUrl + targetPath);
-
-        // Delete first user if it's present in the list
-        if(isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr"))) {
-            deleteFirstUserInTable();
-            deleteAllTestUsers(); // Keep deleting users recursively
+    /** Delete all users on a given page in admin panel */
+    public void deleteUsers(Pages usersList) throws Exception {
+        reachAdmin(usersList);
+        if(isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
+            printMessage("- delete user " + getText(Elements.Admin.Users.firstUserLogin()));
+            click(Elements.Admin.Users.firstUserDeleteButton());
+            handleAlert();
+            waitForIt(1);
+            deleteUsers(usersList); // Keep deleting users, recursively
         } else {
             printMessage("✓ Complete: no test users left\n");
         }
-    }
-
-    // TODO перенести в Administration helper
-    /**
-     * Delete first user in the Users table in admin panel
-     */
-    private void deleteFirstUserInTable() {
-        String XPATH_LOGIN = "//*[@id='content']/div/table/tbody/tr[1]/td[1]/div[1]/a";
-        String XPATH_DELETE = "//*[@id='content']/div/table/tbody/tr/td[3]/a[2]";
-        printMessage("- delete user " + getText(By.xpath(XPATH_LOGIN)));
-        click(By.xpath(XPATH_DELETE));
-        handleAlert();
-        waitForIt(1);
     }
 
 
 
     // ======= Handling test orders =======
 
-    // TODO перенести в Administration helper
-    /**
-     * Cancel all test orders from admin panel
-     */
-    public void cancelAllTestOrders() throws Exception {
-        // фильтр по частичному совпадению email пока не работает,
-        // поэтому тестовые заказы пока делаем с autotestuser@instamart.ru
-        // позже нужно переделать под юзеров @example.com
-
-        final String targetPath = "admin/shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D%5B%5D=ready";
-        getUrlAsAdmin(baseUrl + targetPath);
-
-        // Cancel first order if it's present in the list
-        if(!isElementPresent(By.className("no-objects-found"))) {
-            cancelFirstOrderInTable();
-            // Keep cancelling orders recursively
-            cancelAllTestOrders();
+    public void cancelOrders(Pages ordersList) throws Exception {
+        reachAdmin(ordersList);
+        if(!isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder()))  {
+            click(Elements.Admin.Shipments.firstOrderInTable());
+            waitForIt(1);
+            cancelOrder();
+            cancelOrders(ordersList); // Keep cancelling orders, recursively
         } else {
             printMessage("✓ Complete: no test orders left active\n");
         }
     }
 
-    // TODO перенести в Administration helper
-    /** Cancel first order in the Shipments table in admin panel */
-    private void cancelFirstOrderInTable(){
-        click(By.xpath("//*[@id='listing_orders']/tbody/tr/td[14]/a"));
-        waitForIt(1);
-        cancelOrder();
-    }
-
     /** Cancel order on the order page in admin panel */
     public void cancelOrder(){
         printMessage("> cancel order " + currentURL());
-        click(Elements.Admin.OrderPage.cancelOrderButton());
+        click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
         handleAlert();
         chooseCancellationReason(4,"Тестовый заказ");
-        click(Elements.Admin.OrderPage.confirmOrderCancellationButton());
+        click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
         waitForIt(2);
     }
 
     public void cancelOrder(int reason, String details){
         printMessage("> cancel order " + currentURL());
-        click(Elements.Admin.OrderPage.cancelOrderButton());
+        click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
         handleAlert();
         chooseCancellationReason(reason,details);
-        click(Elements.Admin.OrderPage.confirmOrderCancellationButton());
+        click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
         waitForIt(2);
     }
 
     private void chooseCancellationReason(int reason, String details) {
-        click(By.id("cancellation_reason_id_" + reason));
-        fillField(By.id("cancellation_reason_details"),details);
+        click(By.id("cancellation_reason_id_" + reason));               // todo вынести в elements
+        fillField(By.id("cancellation_reason_details"),details);        // todo вынести в elements
     }
 
 
@@ -267,10 +245,10 @@ public class SessionHelper extends HelperBase {
         printMessage("================= CLEANING-UP =================\n");
 
         printMessage("Canceling test orders...");
-        cancelAllTestOrders();
+        cancelOrders(Pages.Admin.Shipments.testOrdersList());
 
         printMessage("Deleting test users...");
-        deleteAllTestUsers();
+        deleteUsers(Pages.Admin.Users.testUsersList());
     }
 
 
@@ -279,7 +257,7 @@ public class SessionHelper extends HelperBase {
 
     /** Открыть форму авторизации/регистрации */
     public void openAuthModal(){
-        if (currentURL().equals(baseUrl)) click(Elements.Site.LandingPage.loginButton());
+        if (currentURL().equals(fullBaseUrl)) click(Elements.Site.LandingPage.loginButton());
             else click(Elements.Site.Header.loginButton());
         waitForIt(1);
 

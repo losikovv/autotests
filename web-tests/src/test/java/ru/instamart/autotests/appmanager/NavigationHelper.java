@@ -28,12 +28,12 @@ public class NavigationHelper extends HelperBase {
     /** Переход на целевую страницу по прямым ссылкам */
 
     public void get(String page) {
-        getUrl(baseUrl + page);
+        getUrl(fullBaseUrl + page);
     }
 
     public void get(Pages page) {
         String path = Pages.getPagePath();
-        getUrl(baseUrl + path);
+        getUrl(fullBaseUrl + path);
     }
 
 
@@ -70,9 +70,6 @@ public class NavigationHelper extends HelperBase {
 
 
     // переходы на лендинги
-    public void getLandingPage() {
-        getUrl(baseUrl);
-    }
 
     public void getLandingPage(String landingName) {
         getUrl(baseUrl + landingName);

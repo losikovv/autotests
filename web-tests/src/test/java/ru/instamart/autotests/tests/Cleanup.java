@@ -1,14 +1,22 @@
 package ru.instamart.autotests.tests;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.configuration.Pages;
 
 
 
-    // Зачистка тестовой среды после тестов
+// Зачистка тестовой среды после выполнения тестов
 
 
 
 public class Cleanup extends TestBase {
+
+
+    @BeforeMethod(alwaysRun = true)
+    public void reachAdministrationPanel() throws Exception {
+        app.getSessionHelper().reachAdmin(Pages.Admin.shipments());
+    }
 
 
     @Test(
@@ -17,7 +25,7 @@ public class Cleanup extends TestBase {
             priority = 901
     )
     public void cleanupTestOrders() throws Exception {
-        app.getSessionHelper().cancelAllTestOrders();
+        app.getSessionHelper().cancelOrders(Pages.Admin.Shipments.testOrdersList());
         assertNoTestOrdersLeftActive();
     }
 
@@ -28,7 +36,7 @@ public class Cleanup extends TestBase {
             priority = 902
     )
     public void cleanupTestUsers() throws Exception {
-        app.getSessionHelper().deleteAllTestUsers();
+        app.getSessionHelper().deleteUsers(Pages.Admin.Users.testUsersList());
         assertNoTestUsersLeft();
     }
 
@@ -39,7 +47,6 @@ public class Cleanup extends TestBase {
             priority = 903
     )
     public void cleanup() throws Exception {
-        app.getSessionHelper().doLoginAs("admin");
         app.getSessionHelper().cleanup();
         assertNoTestOrdersLeftActive();
         assertNoTestUsersLeft();

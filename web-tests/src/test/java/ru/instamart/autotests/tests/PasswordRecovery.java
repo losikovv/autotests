@@ -12,9 +12,10 @@ import org.testng.annotations.Test;
 
 public class PasswordRecovery extends TestBase {
 
+
     @BeforeMethod
     public void preconditions() {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
     }
 

@@ -75,13 +75,13 @@ public class ProfileHelper extends HelperBase {
     /** Определить активен ли заказ */
     public boolean isOrderActive() {
         printMessage("Checking order page...");
-        if (isElementDetected(Elements.Site.OrderPage.activeOrderAttribute())) {
+        if (isElementDetected(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
             printMessage("✓ Order is active\n");
             return true;
         } else {
             printMessage("Experiencing performance troubles");
             waitForIt(1);
-            if (isElementDetected(Elements.Site.OrderPage.activeOrderAttribute())) {
+            if (isElementDetected(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
                 printMessage("✓ Order is active\n");
                 return true;
             } else return false;
@@ -91,7 +91,7 @@ public class ProfileHelper extends HelperBase {
     /** Определить отменен ли заказ */
     public boolean isOrderCanceled(){
         printMessage("Checking order page...");
-        if (isElementDetected(Elements.Site.OrderPage.canceledOrderAttribute())) {
+        if (isElementDetected(Elements.Site.OrderDetailsPage.canceledOrderAttribute())) {
             printMessage("Order is canceled!\n");
             return true;
         } else {
@@ -101,7 +101,7 @@ public class ProfileHelper extends HelperBase {
 
     /** Проверка стоимости доставки заказа на странице деталей заказа */
     public boolean checkDeliveryPrice(int price) {
-        int deliveryPrice = round(getText(Elements.Site.OrderPage.deliveryPrice()));
+        int deliveryPrice = round(getText(Elements.Site.OrderDetailsPage.deliveryPrice()));
         if (deliveryPrice == price) {
             printMessage("✓ Delivery price " + deliveryPrice + "р\n");
             return true;

@@ -346,7 +346,7 @@ public class ShoppingHelper extends HelperBase {
     public void grabCart() {
         openFirstItemCard();
 
-        int quantity = (Constants.getMinOrderSum() / round(getText(Elements.Site.ItemCard.price()))) + 1;
+        int quantity = (Constants.minOrderSum / round(getText(Elements.Site.ItemCard.price()))) + 1;
         printMessage("Quantity for minimal order : " + quantity );
 
         for (int i = 1; i <= quantity; i++) {

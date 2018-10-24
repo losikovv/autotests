@@ -506,13 +506,13 @@ public class CheckoutHelper extends HelperBase {
       if (isSendButtonActive()) {
             click(Elements.Site.Checkout.sendOrderButton());
            waitForIt(3);
-           printMessage("Order sent\n");
+           printMessage("✓ Order sent\n");
        } else {
           waitForIt(3);
            if (isSendButtonActive()) {
                click(Elements.Site.Checkout.sendOrderButton());
                waitForIt(3);
-               printMessage("Order sent\n");
+               printMessage("✓ Order sent\n");
            } else printMessage("Can't make order, send button is not active - check manually\n");
         }
     }

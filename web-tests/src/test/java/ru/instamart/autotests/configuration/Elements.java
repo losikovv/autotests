@@ -21,6 +21,7 @@ public class Elements {
         return text;
     }
 
+    // todo возвращать локатор в зависимости от окружения
     public static By getLocator() {
         return locator;
     }
@@ -690,7 +691,7 @@ public class Elements {
         }
 
         /** Страница деталей заказа */
-        interface OrderPage {
+        interface OrderDetailsPage {
 
             /** Признак активного заказа */
             static Elements activeOrderAttribute() {
@@ -722,12 +723,10 @@ public class Elements {
 
 
     /** Админка */
-
     public interface Admin {
 
 
         /** Шапка админки */
-
         interface Header {
 
             static Elements logoutButton() {
@@ -750,7 +749,6 @@ public class Elements {
 
 
             /** Меню админки */
-
             interface Menu {
 
                 static Elements ordersButton() {
@@ -811,7 +809,6 @@ public class Elements {
 
 
             /** Подменю "Заказы" */
-
             interface SubmenuOrders {
 
                 static Elements multiOrderButton() {
@@ -837,7 +834,6 @@ public class Elements {
 
 
             /** Подменю "Магазины" */
-
             interface SubmenuStores {
 
 
@@ -856,7 +852,6 @@ public class Elements {
 
 
             /** Подменю "Продукты" */
-
             interface SubmenuProducts {
 
 
@@ -912,7 +907,6 @@ public class Elements {
 
 
             /** Подменю "Импорт" */
-
             interface SubmenuImport {
 
                 static Elements queueOfTasksButton() {
@@ -967,7 +961,6 @@ public class Elements {
 
 
             /** Подменю "Маркетинг" */
-
             interface SubmenuMarketing {
 
                 static Elements promoCardsButton() {
@@ -1029,27 +1022,56 @@ public class Elements {
 
         }
 
+        /** Раздел Shipments в админке */
+        interface Shipments {
 
-        /** Страница заказа в админке */
-
-        interface OrderPage {
-
-            static Elements resumeOrderButton() {
-                return new Elements(null, By.className("icon-resume"));
+            static Elements emptyListPlaceholder() {
+                return new Elements(null, By.className("no-objects-found"));
             }
 
-            static Elements cancelOrderButton() {
-                return new Elements(null, By.className("icon-cancel"));
+            static Elements firstOrderInTable() {
+                return new Elements(null, By.xpath("//*[@id='listing_orders']/tbody/tr/td[14]/a"));
             }
 
-            static Elements confirmOrderCancellationButton() {
-                return new Elements(null, By.xpath("//*[@id='new_cancellation']/fieldset/div[3]/button"));
+            /** Страница деталей заказа в админке*/
+            interface OrderDetailsPage {
+
+                static Elements resumeOrderButton() {
+                    return new Elements(null, By.className("icon-resume"));
+                }
+
+                static Elements cancelOrderButton() {
+                    return new Elements(null, By.className("icon-cancel"));
+                }
+
+                static Elements confirmOrderCancellationButton() {
+                    return new Elements(null, By.xpath("//*[@id='new_cancellation']/fieldset/div[3]/button"));
+                }
+
+                static Elements canceledOrderAttribute() {
+                    return new Elements("ЗАКАЗ ОТМЕНЕН",
+                            By.xpath("/html/body/div[1]/div[3]/div/div/div/table/tbody/tr[3]/td/b"));
+                }
+
             }
 
-            static Elements canceledOrderAttribute() {
-                return new Elements("ЗАКАЗ ОТМЕНЕН",
-                        By.xpath("/html/body/div[1]/div[3]/div/div/div/table/tbody/tr[3]/td/b"));
+        }
+
+        /** Раздел Users в админке */
+        interface Users {
+
+            static Elements userlistFirstRow() {
+                return new Elements(null, By.xpath("//*[@id='content']/div/table/tbody/tr"));
             }
+
+            static Elements firstUserLogin() {
+                return new Elements(null, By.xpath("//*[@id='content']/div/table/tbody/tr[1]/td[1]/div[1]/a"));
+            }
+
+            static Elements firstUserDeleteButton() {
+                return new Elements(null, By.xpath("//*[@id='content']/div/table/tbody/tr/td[3]/a[2]"));
+            }
+
 
         }
 

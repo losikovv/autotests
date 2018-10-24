@@ -3,6 +3,7 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.configuration.Pages;
 
 
 // Тесты админки
@@ -14,7 +15,7 @@ public class Administration extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void reachAdministrationPanel() throws Exception {
-        app.getSessionHelper().getUrlAsAdmin("https://instamart.ru/admin/shipments"); // TODO параметризовать окружение
+        app.getSessionHelper().reachAdmin(Pages.Admin.shipments());
     }
 
 
@@ -27,7 +28,7 @@ public class Administration extends TestBase {
         app.getSessionHelper().doLogout();
         app.getSessionHelper().doLoginAs("user");
 
-        assertPageIsUnreachable("https://instamart.ru/admin/shipments"); // TODO параметризовать окружение
+        assertPageIsUnreachable(Pages.Admin.shipments());
 
         app.getSessionHelper().doLogout();
     }
@@ -79,7 +80,7 @@ public class Administration extends TestBase {
 
     @Test(priority = 703)
     public void cancelTestOrders() throws Exception {
-        app.getSessionHelper().cancelAllTestOrders();
+        app.getSessionHelper().cancelOrders(Pages.Admin.Shipments.testOrdersList());
     }
 
 

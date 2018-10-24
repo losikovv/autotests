@@ -2,10 +2,9 @@ package ru.instamart.autotests.configuration;
 
 public class Constants {
 
-    private final static int minOrderSum = 1000;       // сумма минимального заказа в рублях
+    public static String productionHost = "instamart.ru";
+    public static String stagingHost = "staging.instamart.ru";
 
-    public static int getMinOrderSum() {
-        return minOrderSum;
-    }
+    public static int minOrderSum = 1000;
 
 }

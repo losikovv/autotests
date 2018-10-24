@@ -1,4 +1,5 @@
 package ru.instamart.autotests.configuration;
+import ru.instamart.autotests.configuration.Environments;
 
 
 
@@ -10,7 +11,8 @@ public class Pages {
     private static String pageTitle;
     private static String pagePath;
 
-    Pages(String title,String path) {
+    // todo возвращать не path, а url c подставленной переменной окружения baseURL + path
+    Pages(String title, String path) {
         pageTitle = title;
         pagePath = path;
     }
@@ -20,110 +22,193 @@ public class Pages {
         static Pages checkout() {
             return new Pages(
                     "Доставка продуктов на дом из интернет-магазина. Купить продукты на дом в Москве — Instamart",
-                    "checkout/edit?" );
+                    "checkout/edit?");
         }
 
-      interface Catalog {
+        interface Retailers {
+            static Pages metro() { return new Pages(null, "metro"); }
+            static Pages vkusvill() { return new Pages(null, "vkusvill"); }
+            static Pages lenta() { return new Pages(null, "lenta"); }
+            static Pages karusel() { return new Pages(null, "karusel"); }
+            static Pages auchan() { return new Pages(null, "auchan"); }
+            static Pages selgros() { return new Pages(null, "selgros"); }
 
-            static Pages priceyItems() { return new Pages(null,
-                  "/metro/produkty-pitaniia/molochnyie-produkty-iaitsa/morozhienoie/b/haagen-dazs");
-          }
-      }
+        }
 
-      interface Landings {
+        interface Catalog {
 
-            static Pages mnogoru() { return new Pages("Много.ру",
-                    "mnogoru" );}
+            static Pages priceyItems() {
+                return new Pages(null,
+                        "/metro/produkty-pitaniia/molochnyie-produkty-iaitsa/morozhienoie/b/haagen-dazs");
+            }
+        }
 
-            static Pages sovest() { return new Pages("Совесть",
-                    "sovest");}
+        interface Landings {
 
-            static Pages halva() { return new Pages ("Халва",
-                    "halva");}
+            static Pages instamart() {
+                return new Pages(
+                        "Доставка продуктов на дом в Москве от интернет-магазина Instamart ",
+                        "");
+            }
 
-            static Pages feedback() { return new Pages("Оцените нас!",
-                    "landings/feedback");}
+            static Pages mnogoru() {
+                return new Pages("Много.ру",
+                        "mnogoru");
+            }
 
-            static Pages kazan() { return new Pages("г. Казань - Instamart",
-                    "cities/kazan");}
+            static Pages sovest() {
+                return new Pages("Совесть",
+                        "sovest");
+            }
 
-            static Pages mobile() { return new Pages("METRO - доставка продуктов на дом",
-                    "landings/m-general-white");}
+            static Pages halva() {
+                return new Pages("Халва",
+                        "halva");
+            }
+
+            static Pages feedback() {
+                return new Pages("Оцените нас!",
+                        "landings/feedback");
+            }
+
+            static Pages kazan() {
+                return new Pages("г. Казань - Instamart",
+                        "cities/kazan");
+            }
+
+            static Pages mobile() {
+                return new Pages("METRO - доставка продуктов на дом",
+                        "landings/m-general-white");
+            }
 
             // TODO Дописать лендинг вкусвилл
 
             // TODO Дописать лендинг метро
-      }
+        }
 
-      interface Static {
+        interface Static {
 
-            static Pages about() { return new Pages("Информация о компании Instamart",
-                    "about");}
+            static Pages about() {
+                return new Pages("Информация о компании Instamart",
+                        "about");
+            }
 
-            static Pages delivery() { return new Pages("Доставка",
-                    "delivery");}
+            static Pages delivery() {
+                return new Pages("Доставка",
+                        "delivery");
+            }
 
-            static Pages rules() { return new Pages("Правила работы",
-                    "rules");}
+            static Pages rules() {
+                return new Pages("Правила работы",
+                        "rules");
+            }
 
-            static Pages payment() { return new Pages("Оплата",
-                    "/payment");}
+            static Pages payment() {
+                return new Pages("Оплата",
+                        "/payment");
+            }
 
-            static Pages returnPolicy() { return new Pages("Политика возврата - Instamart",
-                    "return");}
+            static Pages returnPolicy() {
+                return new Pages("Политика возврата - Instamart",
+                        "return");
+            }
 
-            static Pages faq() { return new Pages("FAQ - Instamart",
-                    "faq"); }
+            static Pages faq() {
+                return new Pages("FAQ - Instamart",
+                        "faq");
+            }
 
-            static Pages terms() { return new Pages("Публичная офферта",
-                    "terms");}
+            static Pages terms() {
+                return new Pages("Публичная офферта",
+                        "terms");
+            }
 
-            static Pages contacts() { return new Pages ("Контакты - Instamart",
-                    "contacts");}
-      }
+            static Pages contacts() {
+                return new Pages("Контакты - Instamart",
+                        "contacts");
+            }
+        }
 
-      interface Profile {
+        interface Profile {
 
-            static Pages edit() { return new Pages("Информация об аккаунте",
-                    "user/edit");}
+            static Pages edit() {
+                return new Pages("Информация об аккаунте",
+                        "user/edit");
+            }
 
-            static Pages orders() { return new Pages("Заказы",
-                    "user/orders");}
+            static Pages orders() {
+                return new Pages("Заказы",
+                        "user/orders");
+            }
 
-            static Pages addresses() { return new Pages("Адреса",
-                    "user/addresses");}
-      }
+            static Pages addresses() {
+                return new Pages("Адреса",
+                        "user/addresses");
+            }
+        }
 
     }
 
     public interface Admin {
 
-            static Pages shipments() { return new Pages("Spree Администрирование: Отправки",
-                    "admin/shipments");}
+        static Pages shipments() {
+            return new Pages("Spree Администрирование: Отправки",
+                    "admin/shipments");
+        }
 
-            static Pages retailers() { return new Pages("Spree Администрирование: Retailers",
-                    "admin/retailers");}
+        interface Shipments {
 
-            static Pages products() { return new Pages("Spree Администрирование: Товары",
-                    "admin/products");}
+            static Pages testOrdersList() {
+                return new Pages(null, "admin/shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D%5B%5D=ready");
+            }
+        }
 
-            static Pages imports() { return new Pages("Spree Администрирование: Imports",
-                    "admin/imports");}
+        static Pages retailers() {
+            return new Pages("Spree Администрирование: Retailers",
+                    "admin/retailers");
+        }
 
-            static Pages reports() { return new Pages("Spree Администрирование: Отчеты",
-                    "admin/reports");}
+        static Pages products() {
+            return new Pages("Spree Администрирование: Товары",
+                    "admin/products");
+        }
 
-            static Pages settings() { return new Pages("Spree Администрирование: Общие настройки",
-                    "admin/general_settings/edit");}
+        static Pages imports() {
+            return new Pages("Spree Администрирование: Imports",
+                    "admin/imports");
+        }
 
-            static Pages marketing() { return new Pages("Spree Администрирование: Promo Cards",
-                    "admin/promo_cards");}
+        static Pages reports() {
+            return new Pages("Spree Администрирование: Отчеты",
+                    "admin/reports");
+        }
 
-            static Pages users() { return new Pages("Spree Администрирование: Пользователи",
-                    "admin/users");}
+        static Pages settings() {
+            return new Pages("Spree Администрирование: Общие настройки",
+                    "admin/general_settings/edit");
+        }
 
-            static Pages pages() {return new Pages("Spree Администрирование: Страницы",
-                    "admin/pages");}
+        static Pages marketing() {
+            return new Pages("Spree Администрирование: Promo Cards",
+                    "admin/promo_cards");
+        }
+
+        static Pages users() {
+            return new Pages("Spree Администрирование: Пользователи",
+                    "admin/users");
+        }
+
+        interface Users {
+
+            static Pages testUsersList() {
+                return new Pages(null, "admin/users?q%5Bemail_cont%5D=testuser%40example.com");
+            }
+        }
+
+        static Pages pages() {
+            return new Pages("Spree Администрирование: Страницы",
+                    "admin/pages");
+        }
     }
 
     public static String getPageTitle() {

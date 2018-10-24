@@ -33,7 +33,7 @@ public class TestBase {
     /**
      * Simply check the current page is not 404 or 500
      */
-    protected void assertPageIsAvailable() throws AssertionError{
+    protected void assertPageIsAvailable() throws AssertionError {
         String currentURL = app.getNavigationHelper().currentURL();
         Assert.assertFalse(app.getNavigationHelper().is404(),"Page " + currentURL + " is 404" + "\n");
         Assert.assertFalse(app.getNavigationHelper().is500(),"It's something wrong on page " + currentURL + "\n");
@@ -44,7 +44,7 @@ public class TestBase {
      * Get the given URL and check that reached page is equal to target one
      * Then check that reached page isn't 404 or 500
      */
-    protected void assertPageIsAvailable(String URL) throws AssertionError{
+    protected void assertPageIsAvailable(String URL) throws AssertionError {
         String targetURL = URL;
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();
@@ -54,8 +54,8 @@ public class TestBase {
         app.getNavigationHelper().printMessage("Page is available (" + currentURL + ")");
     }
 
-    protected void assertPageIsAvailable(Pages page) throws AssertionError{
-        String targetURL = app.getNavigationHelper().baseUrl() + Pages.getPagePath();
+    protected void assertPageIsAvailable(Pages page) throws AssertionError {
+        String targetURL = app.getNavigationHelper().fullBaseUrl + Pages.getPagePath();
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL " + targetURL + "\n");
@@ -67,7 +67,7 @@ public class TestBase {
     /**
      * Simply check the current page is 404 and isn't 500
      */
-    protected void assertPageIs404() throws AssertionError{
+    protected void assertPageIs404() throws AssertionError {
         String currentURL = app.getNavigationHelper().currentURL();
         app.getNavigationHelper().printMessage("Checking current page " + currentURL + " is 404");
         Assert.assertTrue(app.getNavigationHelper().is404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
@@ -78,9 +78,19 @@ public class TestBase {
      * Get the given URL and check the reached page is equal to target one
      * Then check that reached page is 404 and isn't 500
      */
-    protected void assertPageIs404(String URL) throws AssertionError{
+    protected void assertPageIs404(String URL) throws AssertionError {
         String targetURL = URL;
         app.getNavigationHelper().printMessage("Asserting page " + URL + " is 404");
+        app.getNavigationHelper().getUrl(targetURL);
+        String currentURL = app.getNavigationHelper().currentURL();
+        Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL" + targetURL + "\n");
+        Assert.assertTrue(app.getNavigationHelper().is404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
+        Assert.assertFalse(app.getNavigationHelper().is500(),"It's something wrong on page " + currentURL + "\n");
+    }
+
+    protected void assertPageIs404(Pages page) throws AssertionError {
+        String targetURL = app.getNavigationHelper().fullBaseUrl + Pages.getPagePath();
+        app.getNavigationHelper().printMessage("Asserting page " + targetURL + " is 404");
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL" + targetURL + "\n");
@@ -91,7 +101,7 @@ public class TestBase {
     /**
      * Check the current page isn't reachable at the moment
      */
-    protected void assertPageIsUnreachable(String URL) throws AssertionError{
+    protected void assertPageIsUnreachable(String URL) throws AssertionError {
         String targetURL = URL;
         app.getNavigationHelper().printMessage("Checking page " + URL + " is unreachable at this moment");
         app.getNavigationHelper().getUrl(targetURL);
@@ -99,8 +109,8 @@ public class TestBase {
         Assert.assertFalse(targetURL.equalsIgnoreCase(currentURL), "It is possible to get page " + currentURL + " while it must be unreachable at this moment" + "\n");
     }
 
-    protected void assertPageIsUnreachable(Pages page) throws AssertionError{
-        String targetURL = app.getHelper().baseUrl() + Pages.getPagePath();
+    protected void assertPageIsUnreachable(Pages page) throws AssertionError {
+        String targetURL = app.getHelper().fullBaseUrl + Pages.getPagePath();
         app.getNavigationHelper().printMessage("Checking page " + targetURL + " is unreachable at this moment");
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();

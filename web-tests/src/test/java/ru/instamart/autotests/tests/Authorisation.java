@@ -19,7 +19,7 @@ public class Authorisation extends TestBase {
             priority = 101
     )
     public void noAuthWithoutEmail() throws Exception, AssertionError {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().doLogin(new UserData("", "instamart"));
 
@@ -35,7 +35,7 @@ public class Authorisation extends TestBase {
             priority = 102
     )
     public void noAuthWithoutPassword() throws Exception, AssertionError {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", ""));
 
@@ -51,7 +51,7 @@ public class Authorisation extends TestBase {
             priority = 103
     )
     public void noAuthWithNonexistingUser() throws Exception, AssertionError {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().doLogin(new UserData("nonexistinguser@example.com", "password"));
 
@@ -67,7 +67,7 @@ public class Authorisation extends TestBase {
             priority = 104
     )
     public void noAuthWithWrongPassword() throws Exception, AssertionError {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "wrongpassword"));
 
@@ -83,7 +83,7 @@ public class Authorisation extends TestBase {
             priority = 105
     )
     public void successAuthOnLandingPage() throws Exception, AssertionError {
-        app.getNavigationHelper().getLandingPage();
+        app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
         app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
 
