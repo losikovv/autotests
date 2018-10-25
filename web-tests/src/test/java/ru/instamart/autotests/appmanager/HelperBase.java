@@ -316,8 +316,8 @@ public class HelperBase {
         }
     }
 
-    /** Округлить цену до целого числа, отбросив копейки и знак рубля */
+    /** Округлить цену до целого числа, отбросив копейки, пробелы и знак рубля */
     protected int round(String price) {
-        return Integer.parseInt((price).substring(0,(price.length() - 5)));
+        return Integer.parseInt(((price).substring(0,(price.length() - 5))).replaceAll("\\s",""));
     }
 }
