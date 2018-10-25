@@ -43,7 +43,7 @@ public class ShoppingHelper extends HelperBase {
     public void setShippingAddress(String address) {
         printMessage("Setting shipping address...");
 
-        if(currentURL().equals(baseUrl)){
+        if(currentURL().equals(fullBaseUrl)){
             fillField(Elements.Site.LandingPage.addressField(), address);
             waitForIt(1);
             click(Elements.Site.LandingPage.addressSuggest());
@@ -278,6 +278,7 @@ public class ShoppingHelper extends HelperBase {
     }
 
 
+
     // ======= Корзина =======
 
     /** Определить открыта ли корзина */
@@ -291,7 +292,9 @@ public class ShoppingHelper extends HelperBase {
         if (!isCartOpen()) {
             click(Elements.Site.Cart.openCartButton());
             waitForIt(1);
-        } else printMessage("Skip open cart - already opened");
+        }
+        // DEBUG
+        // else printMessage("Skip open cart, already opened");
     }
 
     /** Закрыть корзину */
@@ -299,7 +302,9 @@ public class ShoppingHelper extends HelperBase {
         if (isCartOpen()) {
             click(Elements.Site.Cart.closeButton());
             waitForIt(1);
-        } else printMessage("Skip close cart - already closed");
+        }
+        // DEBUG
+        // else printMessage("Skip close cart, already closed");
     }
 
     /** Определить пуста ли корзина */

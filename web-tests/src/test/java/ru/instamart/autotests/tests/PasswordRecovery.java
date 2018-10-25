@@ -22,7 +22,7 @@ public class PasswordRecovery extends TestBase {
 
     @Test(
             description = "Негативный тест попытки восстановления пароля с незаполненным полем email",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 600
     )
     public void noRecoveryWithEmptyEmail() throws Exception {
