@@ -8,4 +8,5 @@ dependencies {
 	//compile 'org.testng:testng:6.13.1'
 	compile 'org.testng:testng:6.8.8'
     compile 'org.seleniumhq.selenium:selenium-java:3.8.1'
+	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 }
