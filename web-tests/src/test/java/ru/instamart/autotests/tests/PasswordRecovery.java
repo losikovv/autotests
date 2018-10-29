@@ -50,7 +50,7 @@ public class PasswordRecovery extends TestBase {
 
     @Test(
             description = "Негативный тест попытки восстановления пароля для несуществующего пользователя",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 602
     )
     public void noRecoveryForNonexistingUser() throws Exception {
@@ -64,7 +64,7 @@ public class PasswordRecovery extends TestBase {
 
     @Test(
             description = "Тест успешной отправки восстановления пароля на лендинге",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 603
     )
     public void successRecoveryOnLanding() throws AssertionError, Exception {
@@ -78,7 +78,7 @@ public class PasswordRecovery extends TestBase {
 
     @Test(
             description = "Тест успешной отправки восстановления пароля на витрине ритейлера",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 604
     )
     public void successRecoveryOnRetailer() throws AssertionError, Exception {

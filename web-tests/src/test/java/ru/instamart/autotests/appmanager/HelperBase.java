@@ -249,6 +249,12 @@ public class HelperBase {
         return isElementPresent(By.className("footer")); // TODO переделать на Elements
     }
 
+    /** Определить находимся на лендинге или нет */
+
+    public boolean isOnLanding() {
+        return isElementPresent(By.className("top-line")); // TODO переделать на Elements
+    }
+
 
     /** Определить находимся в админке или нет */
 

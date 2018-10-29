@@ -10,7 +10,8 @@ import ru.instamart.autotests.configuration.Environments;
 import ru.instamart.autotests.configuration.Users;
 
 
-// Session helper is for handling testing sessions
+
+    // Session helper is for handling testing sessions
     // Contains various methods for user and orders
 
 
@@ -106,41 +107,29 @@ public class SessionHelper extends HelperBase {
         }
     }
 
-    /** Авторизоваться пользователем, если неавторизован */
-    public void doLoginIfNeeded(UserData userData) throws Exception {
-        if (!isUserAuthorised()) { doLogin(userData); }
-    }
-
     /** Авторизоваться пользователем */
     public void doLogin(UserData userData) throws Exception {
-        printMessage("Performing authorisation...");
-        openAuthModal();
-        waitForIt(1);
-        switchToAuthorisationTab();
-        fillAuthorisationForm(userData.getLogin(), userData.getPassword());
-        sendForm();
-        waitForIt(3);
+        if (!isUserAuthorised()) {
+            printMessage("Performing authorisation...");
+            openAuthModal();
+            waitForIt(1);
+            switchToAuthorisationTab();
+            fillAuthorisationForm(userData.getLogin(), userData.getPassword());
+            sendForm();
+            waitForIt(3);
+        }
     }
 
-    /** Авторизоваться через Facebook, если неавторизован */
-    public void doLoginWithFacebookIfNeeded() {
-        if (!isUserAuthorised()) { doLoginWithFacebook(); }
-    }
-
-    //TODO
-    /** Авторизоваться через Facebook */
-    public void doLoginWithFacebook() {
-    }
-
-
-    /** Авторизоваться через VK, если неавторизован */
-    public void doLoginWithVKIfNeeded() {
-        if (!isUserAuthorised()) { doLoginWithVK(); }
-    }
-
-    //TODO
-    /** Авторизоваться через VK */
-    public void doLoginWithVK() {
+    /** Авторизоваться через соцсети */
+    public void doLoginWith(String provider) {
+        if (!isUserAuthorised()) {
+            switch (provider) {
+                case "facebook":
+                    //TODO
+                case ("vkontakte"):
+                    //TODO
+            }
+        }
     }
 
     /** Определить авторизован ли пользователь */
@@ -190,7 +179,7 @@ public class SessionHelper extends HelperBase {
         reachAdmin(usersList);
         if(isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
             printMessage("- delete user " + getText(Elements.Admin.Users.firstUserLogin()));
-            click(Elements.Admin.Users.firstUserDeleteButton());
+            click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
             waitForIt(1);
             deleteUsers(usersList); // Keep deleting users, recursively
@@ -208,7 +197,7 @@ public class SessionHelper extends HelperBase {
         if(!isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder()))  {
             click(Elements.Admin.Shipments.firstOrderInTable());
             waitForIt(1);
-            cancelOrder();
+            cancelOrder(); // todo обернуть в проверку, выполнять только если тестовый заказ
             cancelOrders(ordersList); // Keep cancelling orders, recursively
         } else {
             printMessage("✓ Complete: no test orders left active\n");
@@ -257,7 +246,7 @@ public class SessionHelper extends HelperBase {
 
     /** Открыть форму авторизации/регистрации */
     public void openAuthModal(){
-        if (currentURL().equals(fullBaseUrl)) click(Elements.Site.LandingPage.loginButton());
+        if (isOnLanding()) click(Elements.Site.LandingPage.loginButton());
             else click(Elements.Site.Header.loginButton());
         waitForIt(1);
 
