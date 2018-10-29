@@ -32,7 +32,10 @@ public class Pages {
             static Pages karusel() { return new Pages(null, "karusel"); }
             static Pages auchan() { return new Pages(null, "auchan"); }
             static Pages selgros() { return new Pages(null, "selgros"); }
-
+            static Pages flora() { return new Pages(null, "flora"); }
+            static Pages foodcity() { return new Pages(null, "foodcity"); }
+            static Pages magnit() { return new Pages(null, "magnit"); }
+            static Pages testretailer() { return new Pages(null, "testretailer"); }
         }
 
         interface Catalog {

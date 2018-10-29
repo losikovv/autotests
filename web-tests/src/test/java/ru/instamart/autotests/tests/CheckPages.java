@@ -15,26 +15,40 @@ public class CheckPages extends TestBase {
 
 
     @Test(
-            description = "Тест доступности витрин рителйеров",
+            description = "Тест доступности витрин активных рителйеров",
             groups = {"smoke","acceptance","regression"},
             priority = 801
     )
-    // TODO переделать чек страниц всех ретейлеров по списку ретейлеров
+    // TODO переделать чек страниц по списку ретейлеров
     // TODO забирать список ритейлеров из БД или из админки с признаком активности
-    public void checkRetailerPages() throws Exception, AssertionError {
+    public void checkActiveRetailerPages() throws Exception, AssertionError {
         assertPageIsAvailable(Pages.Site.Retailers.metro());
         assertPageIsAvailable(Pages.Site.Retailers.vkusvill());
         assertPageIsAvailable(Pages.Site.Retailers.lenta());
         assertPageIsAvailable(Pages.Site.Retailers.karusel());
         assertPageIsAvailable(Pages.Site.Retailers.auchan());
-        assertPageIs404(Pages.Site.Retailers.selgros());                        // неактивный ритейлер
+    }
+
+    @Test(
+            description = "Тест недоступности витрин неактивных рителйеров",
+            groups = {"smoke","acceptance","regression"},
+            priority = 802
+    )
+    // TODO переделать чек страниц по списку ретейлеров
+    // TODO забирать список ритейлеров из БД или из админки с признаком активности
+    public void checkInactiveRetailerPages() throws Exception, AssertionError {
+        assertPageIs404(Pages.Site.Retailers.selgros());
+        assertPageIs404(Pages.Site.Retailers.flora());
+        assertPageIs404(Pages.Site.Retailers.foodcity());
+        assertPageIs404(Pages.Site.Retailers.magnit());
+        assertPageIs404(Pages.Site.Retailers.testretailer());
     }
 
 
     @Test(
             description = "Тест доступности партнерских лендингов",
             groups = {"smoke","acceptance","regression"},
-            priority = 802
+            priority = 803
     )
     // TODO переделать чек лендингов циклом по списку
     public void checkLandings() throws Exception, AssertionError {
@@ -51,7 +65,7 @@ public class CheckPages extends TestBase {
     @Test(
             description = "Тест доступности статических страниц",
             groups = {"smoke","acceptance","regression"},
-            priority = 803
+            priority = 804
     )
     // TODO переделать чек страниц циклом по списку
     public void checkStaticPages() throws Exception, AssertionError {
@@ -69,7 +83,7 @@ public class CheckPages extends TestBase {
     @Test(
             description = "Тест доступности страниц профиля пользователя",
             groups = {"smoke","acceptance","regression"},
-            priority = 804
+            priority = 805
     )
     public void checkProfilePages() throws Exception, AssertionError {
         app.getHelper().getBaseUrl();
@@ -86,7 +100,7 @@ public class CheckPages extends TestBase {
     @Test(
             description = "Тест доступности корневых разделов админки",
             groups = {"smoke","acceptance","regression"},
-            priority = 805
+            priority = 806
     )
     public void checkAdminPages() throws Exception, AssertionError {
         app.getSessionHelper().reachAdmin(Pages.Admin.shipments());
@@ -106,7 +120,7 @@ public class CheckPages extends TestBase {
     @Test(
             description = "Тест доступности страниц футера",
             groups = {"smoke","acceptance","regression"},
-            priority = 806
+            priority = 807
     )
     public void checkFooterPages() throws Exception {
         app.getHelper().getBaseUrl();
