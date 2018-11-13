@@ -71,7 +71,8 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить и вернуть текущий адрес доставки */
     public String currentShippingAddress() {
-        printMessage("Shipping address: " + getText(Elements.Site.Header.currentShipAddress()));
+        Elements.Site.Header.currentShipAddress();
+        printMessage("Shipping address: " + getText(Elements.getLocator()));
         return getText(Elements.getLocator());
     }
 

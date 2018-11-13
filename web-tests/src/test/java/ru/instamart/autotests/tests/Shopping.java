@@ -94,7 +94,7 @@ public class Shopping extends TestBase{
             groups = {"acceptance","regression"},
             priority = 304
     )
-    public void proceedToCheckout()throws Exception, AssertionError {
+    public void proceedFromCartToCheckout()throws Exception, AssertionError {
         if(!app.getShoppingHelper().isCheckoutButtonActive()) {
             app.getShoppingHelper().grabCart();
         }

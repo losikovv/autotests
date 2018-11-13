@@ -23,7 +23,7 @@ import static org.testng.Assert.fail;
 public class ApplicationManager {
 
     protected WebDriver driver;
-    protected Environments environment = new Environments("staging"); // use "production" or "staging"
+    protected Environments environment = new Environments("production"); // use "production" or "staging"
 
     protected String environmentName = environment.getEnvironmentName();
     protected String host = environment.getHost();

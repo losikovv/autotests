@@ -25,7 +25,7 @@ public class NavigationHelper extends HelperBase {
     // ======= SITE =======
 
 
-    /** Переход на целевую страницу по прямым ссылкам */
+    /** Навигация переходами по ссылкам */
 
     public void get(String page) {
         getUrl(fullBaseUrl + page);
@@ -38,7 +38,7 @@ public class NavigationHelper extends HelperBase {
 
 
 
-    /** Переходы по элементам на страницах */
+    /** Навигация переходами по элементам на страницах */
 
     public void go(Elements element){
         click(Elements.getLocator());

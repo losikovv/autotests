@@ -112,9 +112,6 @@ public class Checkout extends TestBase {
         Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("aeroflot"),
                 "Can't assert loyalty program \"aeroflot\" is applied\n");
 
-        app.getCheckoutHelper().addLoyalty("svyaznoyclub");
-        Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("svyaznoyclub"),
-                "Can't assert loyalty program \"svyaznoyclub\" is applied\n");
     }
 
 
@@ -127,7 +124,6 @@ public class Checkout extends TestBase {
         reachCheckout();
         app.getCheckoutHelper().selectLoyalty("mnogoru");
         app.getCheckoutHelper().selectLoyalty("aeroflot");
-        app.getCheckoutHelper().selectLoyalty("svyaznoyclub");
         // TODO добавить проверки на наличие модалок после выбора
     }
 
@@ -146,10 +142,6 @@ public class Checkout extends TestBase {
         app.getCheckoutHelper().clearLoyalty("aeroflot");
         Assert.assertFalse(app.getCheckoutHelper().isLoyaltyApplied("aeroflot"),
                 "Can't assert loyalty program \"aeroflot\" is cleared");
-
-        app.getCheckoutHelper().clearLoyalty("svyaznoyclub");
-        Assert.assertFalse(app.getCheckoutHelper().isLoyaltyApplied("svyaznoyclub"),
-                "Can't assert loyalty program \"svyaznoyclub\" is cleared");
     }
 
 
@@ -196,8 +188,6 @@ public class Checkout extends TestBase {
     )
     public void performCompleteCheckoutAndPayWithCardCourier(){
         reachCheckout();
-        app.getCheckoutHelper().addPromocode("unicorn");
-        app.getCheckoutHelper().addLoyalty("familyteam");
         app.getCheckoutHelper().completeCheckout("card-courier");
 
         // Проверяем что заказ оформился и активен
@@ -216,8 +206,6 @@ public class Checkout extends TestBase {
     )
     public void performCompleteCheckoutAndPayWithBank(){
         reachCheckout();
-        app.getCheckoutHelper().addPromocode("unicorn");
-        app.getCheckoutHelper().addLoyalty("svyaznoyclub");
         app.getCheckoutHelper().completeCheckout("bank");
 
         // Проверяем что заказ оформился и активен

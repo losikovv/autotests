@@ -57,37 +57,37 @@ public class Elements {
 
             static Elements setShipAddressButton() {
                 text = "Ввести адрес";
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/div/div/button");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/button");
                 return new Elements(text, locator);
             }
 
             static Elements changeShipAddressButton() {
                 text = "Изменить";
-                locator = By.className("ship-address-selector__edit-btn");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/button");
                 return new Elements(text, locator);
             }
 
             static Elements currentShipAddress() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/div/div/span");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/span");
                 return new Elements(null, locator);
             }
 
             static Elements loginButton() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/nav/div[3]");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/header/nav/div[3]/button");
                 return new Elements(null, locator);
             }
 
             static Elements profileButton() {
                 text = "Профиль";
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/nav/div[3]/div/div[1]/div[1]");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/header/nav/div[3]/div/div[1]/div[1]");
                 return new Elements(text, locator);
             }
 
-
             static Elements changeStoreButton() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header/div[1]/div[3]/div/div[1]");
+                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[3]/div/div[1]");
                 return new Elements(null, locator);
             }
+
 
             /** Поиск */
             interface Search {
@@ -380,8 +380,8 @@ public class Elements {
             }
 
             static Elements price() {
-                return new Elements(null, By.cssSelector(".product-popup__price > div:nth-child(1)" +
-                        " > span:nth-child(1)")); }
+                return new Elements(null,
+                        By.cssSelector(".product-popup__price > div:nth-child(1) > span:nth-child(1)")); }
 
             static Elements closeButton() {
                 return new Elements(null, By.className("close"));
@@ -417,10 +417,8 @@ public class Elements {
            }
 
             static Elements openCartButton() {
-                return new Elements(null, By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/header" +
-                        "/nav/div[4]/div/div"));
-
-
+                return new Elements(null,
+                        By.xpath("//*[@id='wrap']/div[1]/div/div/header/nav/div[4]/div/div"));
             }
         }
 
