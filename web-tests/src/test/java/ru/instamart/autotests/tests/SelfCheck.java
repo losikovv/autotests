@@ -163,6 +163,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения шторки магазинов", priority = 10011)
     public void detectShopsDrawer() throws Exception {
 
+        app.getNavigationHelper().getBaseUrl();
         if(app.getSessionHelper().isUserAuthorised()) {
             app.getSessionHelper().doLogout();
         }

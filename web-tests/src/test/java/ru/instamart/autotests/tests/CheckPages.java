@@ -56,6 +56,7 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable(Pages.Site.Landings.mnogoru());
         assertPageIsAvailable(Pages.Site.Landings.sovest());
         assertPageIsAvailable(Pages.Site.Landings.halva());
+
         // assertPageIsAvailable(Pages.Site.Landings.kazan());      лендос отключен
         //assertPageIsAvailable(Pages.Site.Landings.feedback());    этого лендоса нет на стейдже
         //assertPageIsAvailable(Pages.Site.Landings.mobile());      этого лендоса нет на стейдже
