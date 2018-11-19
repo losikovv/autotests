@@ -955,6 +955,12 @@ public class Elements {
                     return new Elements(text, locator);
                 }
 
+                static Elements imagesButton() {
+                    text = "Изображения";
+                    locator = By.xpath("//*[@id='sub_nav']/li[9]/a");
+                    return new Elements(text, locator);
+                }
+
             }
 
 

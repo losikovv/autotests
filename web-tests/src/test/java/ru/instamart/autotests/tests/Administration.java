@@ -116,9 +116,6 @@ public class Administration extends TestBase {
         app.getNavigationHelper().goOrdersMulti();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goOrdersExport();
-        assertPageIsAvailable();
-
         app.getNavigationHelper().goOrdersVeeroute();
         assertPageIsAvailable();
     }
@@ -189,6 +186,9 @@ public class Administration extends TestBase {
         assertPageIsAvailable();
 
         app.getNavigationHelper().goImportPrice();
+        assertPageIsAvailable();
+
+        app.getNavigationHelper().goImportImages();
         assertPageIsAvailable();
 
     }

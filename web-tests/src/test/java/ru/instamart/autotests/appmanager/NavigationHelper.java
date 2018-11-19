@@ -387,6 +387,13 @@ public class NavigationHelper extends HelperBase {
         click(Elements.getLocator());
     }
 
+    public void goImportImages() {
+        goImport();
+        Elements.Admin.Header.SubmenuImport.imagesButton();
+        printMessage("Going to " + Elements.getText() + "...");
+        click(Elements.getLocator());
+    }
+
     //========== Раздел отчеты ==============
 
     public void goReports() {
