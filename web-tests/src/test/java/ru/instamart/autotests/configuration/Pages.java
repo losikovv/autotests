@@ -59,6 +59,11 @@ public class Pages {
                         "mnogoru");
             }
 
+            static Pages aeroflot() {
+                return new Pages("Аэрофлот Бонус",
+                        "aeroflot_09-02-31-12");
+            }
+
             static Pages sovest() {
                 return new Pages("Совесть",
                         "sovest");

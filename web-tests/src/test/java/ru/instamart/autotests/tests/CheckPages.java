@@ -54,8 +54,10 @@ public class CheckPages extends TestBase {
     public void checkLandings() throws Exception, AssertionError {
         assertPageIsAvailable(Pages.Site.Landings.instamart());
         assertPageIsAvailable(Pages.Site.Landings.mnogoru());
-        assertPageIsAvailable(Pages.Site.Landings.sovest());
-        assertPageIsAvailable(Pages.Site.Landings.halva());
+        assertPageIsAvailable(Pages.Site.Landings.aeroflot());
+
+        //assertPageIsAvailable(Pages.Site.Landings.sovest());      старый лендос
+        //assertPageIsAvailable(Pages.Site.Landings.halva());       старый лендос
 
         // assertPageIsAvailable(Pages.Site.Landings.kazan());      лендос отключен
         //assertPageIsAvailable(Pages.Site.Landings.feedback());    этого лендоса нет на стейдже
