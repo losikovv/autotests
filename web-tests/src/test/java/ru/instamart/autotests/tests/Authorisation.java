@@ -22,7 +22,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithoutEmail() throws Exception, AssertionError {
         app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin(new UserData("", "instamart"));
+        app.getSessionHelper().doLogin("", "instamart");
 
         // Assert user isn't authorised
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
@@ -38,7 +38,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithoutPassword() throws Exception, AssertionError {
         app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", ""));
+        app.getSessionHelper().doLogin("instatestuser@yandex.ru", "");
 
         // Assert user isn't authorised
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
@@ -54,7 +54,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithNonexistingUser() throws Exception, AssertionError {
         app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin(new UserData("nonexistinguser@example.com", "password"));
+        app.getSessionHelper().doLogin("nonexistinguser@example.com", "password");
 
         // Assert user isn't authorised
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
@@ -70,7 +70,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithWrongPassword() throws Exception, AssertionError {
         app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "wrongpassword"));
+        app.getSessionHelper().doLogin("instatestuser@yandex.ru", "wrongpassword");
 
         // Assert user isn't authorised
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
@@ -86,7 +86,8 @@ public class Authorisation extends TestBase {
     public void successAuthOnLandingPage() throws Exception, AssertionError {
         app.getNavigationHelper().getBaseUrl();
         app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin(new UserData("instatestuser@yandex.ru", "instamart"));
+
+        app.getSessionHelper().doLoginAs("user");
 
         // Assert user is authorised
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
@@ -104,6 +105,7 @@ public class Authorisation extends TestBase {
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
         app.getNavigationHelper().get("vkusvill");
         app.getSessionHelper().dropAuth();
+
         app.getSessionHelper().doLoginAs("user");
 
         // Assert user is authorised

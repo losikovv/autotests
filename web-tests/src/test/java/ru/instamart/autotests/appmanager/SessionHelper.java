@@ -87,46 +87,36 @@ public class SessionHelper extends HelperBase {
 
     // ======= Методы авторизации =======
 
-    /** Авторизоваться тестовым пользователем с указанной ролью */
     public void doLoginAs(String role) throws Exception {
         if (!isUserAuthorised()) {
             doLogin(Users.getCredentials(role));
             printMessage("Logged-in with " + role + " privileges\n");
-        } else printMessage("Skip authorisation - already logged in");
+        } else {
+            printMessage("Skip authorisation, already logged-in");
+        }
     }
 
-    /** Авторизоваться пользователем с указанными реквизитами */
+    private void doLogin(UserData userData) throws Exception {
+        doLogin(userData.getLogin(), userData.getPassword());
+    }
+
     public void doLogin(String email, String password) throws Exception {
-        if (!isUserAuthorised()) {
-            printMessage("Performing authorisation...");
-            openAuthModal();
-            performAuthSequence(email, password);
-            waitForIt(3);
-        }
-    }
-
-    /** Авторизоваться пользователем */
-    public void doLogin(UserData userData) throws Exception {
-        if (!isUserAuthorised()) {
-            printMessage("Performing authorisation...");
-            openAuthModal();
-            waitForIt(1);
-            performAuthSequence(userData);
-            waitForIt(3);
-        }
+        printMessage("Performing authorisation...");
+        openAuthModal();
+        waitForIt(1);
+        performAuthSequence(email, password);
+        waitForIt(2);
     }
 
     public void performAuthSequence(String role) throws Exception {
         performAuthSequence(Users.getCredentials(role));
     }
 
-    public void performAuthSequence(UserData userData) throws Exception {
-        switchToAuthorisationTab();
-        fillAuthorisationForm(userData.getLogin(), userData.getPassword());
-        sendForm();
+    private void performAuthSequence(UserData userData) throws Exception {
+        performAuthSequence(userData.getLogin(), userData.getPassword());
     }
 
-    public void performAuthSequence(String email, String password) throws Exception {
+    private void performAuthSequence(String email, String password) throws Exception {
         switchToAuthorisationTab();
         fillAuthorisationForm(email, password);
         sendForm();
