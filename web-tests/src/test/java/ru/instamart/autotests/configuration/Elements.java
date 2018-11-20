@@ -326,6 +326,11 @@ public class Elements {
                 locator = By.className("address-modal__address");
                 return new Elements(null, locator);
             }
+
+            static Elements authButton() {
+                locator = By.cssSelector(".address-modal__to-login-link");
+                return new Elements(null, locator);
+            }
         }
 
 

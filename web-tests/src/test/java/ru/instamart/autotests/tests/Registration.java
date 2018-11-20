@@ -2,6 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.models.RetailerData;
 import ru.instamart.autotests.testdata.Generate;
 
@@ -181,6 +182,26 @@ public class Registration extends TestBase {
         // TODO добавить проверку наличия пользователя в админке
 
         app.getSessionHelper().doLogout();
+    }
+
+    @Test(
+            description = "Тест регистрации с адресной модалки феникса",
+            groups = {"regression"},
+            priority = 9
+    )
+    public void successAuthFromAddressModal() throws Exception, AssertionError {
+
+        app.getNavigationHelper().get("metro");
+        app.getHelper().click(Elements.Site.Header.setShipAddressButton());
+        app.getHelper().click(Elements.Site.AddressModal.authButton());
+        app.getSessionHelper().performAuthSequence("admin");
+
+        // Assert user is authorised
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
+                "Can't approve correct authorisation, check manually\n");
+
+        app.getSessionHelper().doLogout();
+
     }
 
 }

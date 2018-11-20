@@ -49,7 +49,7 @@ public class SessionHelper extends HelperBase {
 
 
 
-    // ======= Registration =======
+    // ======= Методы регистрации =======
 
     /**
      * Perform new user registration with the given credentials
@@ -100,9 +100,7 @@ public class SessionHelper extends HelperBase {
         if (!isUserAuthorised()) {
             printMessage("Performing authorisation...");
             openAuthModal();
-            switchToAuthorisationTab();
-            fillAuthorisationForm(email, password);
-            sendForm();
+            performAuthSequence(email, password);
             waitForIt(3);
         }
     }
@@ -113,12 +111,27 @@ public class SessionHelper extends HelperBase {
             printMessage("Performing authorisation...");
             openAuthModal();
             waitForIt(1);
-            switchToAuthorisationTab();
-            fillAuthorisationForm(userData.getLogin(), userData.getPassword());
-            sendForm();
+            performAuthSequence(userData);
             waitForIt(3);
         }
     }
+
+    public void performAuthSequence(String role) throws Exception {
+        performAuthSequence(Users.getCredentials(role));
+    }
+
+    public void performAuthSequence(UserData userData) throws Exception {
+        switchToAuthorisationTab();
+        fillAuthorisationForm(userData.getLogin(), userData.getPassword());
+        sendForm();
+    }
+
+    public void performAuthSequence(String email, String password) throws Exception {
+        switchToAuthorisationTab();
+        fillAuthorisationForm(email, password);
+        sendForm();
+    }
+
 
     /** Авторизоваться через соцсети */
     public void doLoginWith(String provider) {
@@ -244,6 +257,7 @@ public class SessionHelper extends HelperBase {
 
     // ======= Методы модалки авторизации/регистрации =======
 
+
     /** Открыть форму авторизации/регистрации */
     public void openAuthModal(){
         if (isOnLanding()) click(Elements.Site.LandingPage.loginButton());
@@ -254,16 +268,19 @@ public class SessionHelper extends HelperBase {
             else printMessage(" Can't open auth modal");
     }
 
+
     /** Закрыть форму авторизации/регистрации */
     public void closeAuthModal(){
         click(Elements.Site.AuthModal.closeButton());
         waitForIt(1);
     }
 
+
     /** Определить открыта ли модалка авторизации/регистрации */
     public boolean isAuthModalOpen() {
         return isElementDisplayed(Elements.Site.AuthModal.popup());
     }
+
 
     /** Переключиться на вкладку авторизации */
     private void switchToAuthorisationTab() throws Exception {
@@ -276,6 +293,7 @@ public class SessionHelper extends HelperBase {
         }
     }
 
+
     /** Заполнить поля формы авторизации */
     private void fillAuthorisationForm(String email, String password) {
         printMessage("> enter auth credentials");
@@ -283,11 +301,13 @@ public class SessionHelper extends HelperBase {
         fillField(Elements.Site.AuthModal.passwordField(), password);
     }
 
+
     /** Переключиться на вкладку регистрации */
     private void switchToRegistrationTab(){
         printMessage("> switch to registration tab");
         click(Elements.Site.AuthModal.registrationTab());
     }
+
 
     /** Заполнить поля формы регистрации */
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {
@@ -298,17 +318,20 @@ public class SessionHelper extends HelperBase {
         fillField(Elements.Site.AuthModal.passwordConfirmationField(), passwordConfirmation);
     }
 
+
     /** Отправить форму */
     private void sendForm(){
         printMessage("> send form\n");
         click(Elements.Site.AuthModal.submitButton());
     }
 
+
     /** Перейти в форму восстановления пароля */
     private void proceedToPasswordRecovery(){
         printMessage("> proceed to password recovery");
         click(Elements.Site.AuthModal.forgotPasswordButton());
     }
+
 
     /** Запросить восстановление пароля */
     public void recoverPassword(String email) throws Exception {
@@ -320,6 +343,7 @@ public class SessionHelper extends HelperBase {
         sendForm();
         waitForIt(1);
     }
+
 
     /** Определить отправлена ли форма восстановления пароля */
     public boolean isRecoverySent(){

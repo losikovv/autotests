@@ -2,11 +2,12 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.models.UserData;
 
 
 
-    // Тесты авторизации
+// Тесты авторизации
 
 
 
@@ -130,8 +131,30 @@ public class Authorisation extends TestBase {
         // Assert user is unauthorised
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
                 "Can't approve correct de-authorization, check manually\n");
+
+    }
+
+    @Test(
+            description = "Тест авторизации с адресной модалки феникса",
+            groups = {"regression"},
+            priority = 108
+    )
+    public void successAuthFromAddressModal() throws Exception, AssertionError {
+        app.getNavigationHelper().get("metro");
+        app.getSessionHelper().dropAuth();
+
+        app.getHelper().click(Elements.Site.Header.setShipAddressButton());
+        app.getHelper().click(Elements.Site.AddressModal.authButton());
+        app.getSessionHelper().performAuthSequence("admin");
+
+        // Assert user is authorised
+        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
+                "Can't approve correct authorisation, check manually\n");
+
+        app.getSessionHelper().doLogout();
     }
 
     //TODO добавить тесты на авторизацию через соцсети
+
 
 }
