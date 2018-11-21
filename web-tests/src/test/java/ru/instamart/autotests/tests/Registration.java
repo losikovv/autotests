@@ -189,12 +189,12 @@ public class Registration extends TestBase {
             groups = {"regression"},
             priority = 9
     )
-    public void successAuthFromAddressModal() throws Exception, AssertionError {
+    public void successRegistrationFromAddressModal() throws Exception, AssertionError {
 
         app.getNavigationHelper().get("metro");
         app.getHelper().click(Elements.Site.Header.setShipAddressButton());
         app.getHelper().click(Elements.Site.AddressModal.authButton());
-        app.getSessionHelper().performAuthSequence("admin");
+        app.getSessionHelper().performRegSequence(Generate.testUserData());
 
         // Assert user is authorised
         Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
