@@ -18,21 +18,8 @@ import ru.instamart.autotests.configuration.Users;
 
 public class SessionHelper extends HelperBase {
 
-    public SessionHelper(WebDriver driver, Environments environment) {
+    SessionHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
-    }
-
-    // TODO перенести в AdminHelper
-    public void reachAdmin(String url) throws Exception {
-        getUrl(url);                    // пытаемся перейти по указанному URL в админку
-        if (isOnSite()) {               // если не попали, то перелогиниваемся с правами администратора и идем снова
-            getBaseUrl();
-            if (isUserAuthorised()) {
-                doLogout();
-            }
-            doLoginAs("admin");
-            getUrl(url);
-        }
     }
 
     public void reachAdmin(Pages page) throws Exception {
@@ -49,44 +36,45 @@ public class SessionHelper extends HelperBase {
 
 
 
+
     // ======= Методы регистрации =======
 
-    /**
-     * Perform new user registration with the given credentials
-     */
-    public void regNewUser(String name, String email, String password, String passwordConfirmation) {
+
+    /** Зарегистрироваться с реквизитами из переданного объекта UserData */
+    public void regNewUser(UserData userData) throws Exception {
+        regNewUser(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
+    }
+
+
+    /** Зарегистрироваться с указанными реквизитами */
+    public void regNewUser(String name, String email, String password, String passwordConfirmation) throws Exception {
         printMessage("Performing registration...");
         openAuthModal();
-        switchToRegistrationTab();
-        fillRegistrationForm(name, email, password, passwordConfirmation);
-        sendForm();
+        performRegSequence(name,email,password,passwordConfirmation);
         waitForIt(3);
     }
 
-    /**
-     * Perform new user registration with the credentials from the given user-data object
-     */
-    public void regNewUser(UserData userData) {
-        printMessage("Performing registration...");
-        openAuthModal();
-        switchToRegistrationTab();
-        fillRegistrationForm(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
-        sendForm();
-        waitForIt(4);
+
+    /** Регистрационная последовательность с реквизитами из переданного объекта UserData */
+    public void performRegSequence(UserData userData) throws Exception {
+        performRegSequence(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
     }
 
-    /**
-     * Method returns if the given username is registered in the system or not
-     */
-    public boolean isUserRegistered(String username) {
-        // TODO идем в админку и чекаем наличие пользователя в поиске
-        return true;
+
+    /** Регистрационная последовательность с указанными реквизитами */
+    private void performRegSequence(String name, String email, String password, String passwordConfirmation) throws Exception {
+        switchToRegistrationTab();
+        fillRegistrationForm(name, email, password, passwordConfirmation);
+        sendForm();
     }
+
 
 
 
     // ======= Методы авторизации =======
 
+
+    /** Залогиниться юзером с указанной ролью */
     public void doLoginAs(String role) throws Exception {
         if (!isUserAuthorised()) {
             doLogin(Users.getCredentials(role));
@@ -96,10 +84,14 @@ public class SessionHelper extends HelperBase {
         }
     }
 
+
+    /** Залогиниться с реквизитами из переданного объекта UserData */
     private void doLogin(UserData userData) throws Exception {
         doLogin(userData.getLogin(), userData.getPassword());
     }
 
+
+    /** Залогиниться с указанными реквизитами */
     public void doLogin(String email, String password) throws Exception {
         printMessage("Performing authorisation...");
         openAuthModal();
@@ -108,14 +100,19 @@ public class SessionHelper extends HelperBase {
         waitForIt(2);
     }
 
+    /** Авторизационная последовательность для юзера с указанной ролью */
     public void performAuthSequence(String role) throws Exception {
         performAuthSequence(Users.getCredentials(role));
     }
 
+
+    /** Авторизационная последовательность с реквизитами из переданного объекта UserData */
     private void performAuthSequence(UserData userData) throws Exception {
         performAuthSequence(userData.getLogin(), userData.getPassword());
     }
 
+
+    /** Авторизационная последовательность с указанными реквизитами */
     private void performAuthSequence(String email, String password) throws Exception {
         switchToAuthorisationTab();
         fillAuthorisationForm(email, password);
@@ -135,6 +132,7 @@ public class SessionHelper extends HelperBase {
         }
     }
 
+
     /** Определить авторизован ли пользователь */
     public boolean isUserAuthorised() {
         printMessage("Checking authorisation...");
@@ -146,6 +144,8 @@ public class SessionHelper extends HelperBase {
             return false;
         }
     }
+
+
 
 
     // ======= De-Authorisation =======
@@ -160,7 +160,7 @@ public class SessionHelper extends HelperBase {
         } else {
             click(Elements.Admin.Header.logoutButton());
         }
-        waitForIt(2);
+        waitForIt(1);
     }
 
 
@@ -175,7 +175,9 @@ public class SessionHelper extends HelperBase {
 
 
 
+
     // ======= Handling test users =======
+
 
     /** Delete all users on a given page in admin panel */
     public void deleteUsers(Pages usersList) throws Exception {
@@ -193,7 +195,9 @@ public class SessionHelper extends HelperBase {
 
 
 
+
     // ======= Handling test orders =======
+
 
     public void cancelOrders(Pages ordersList) throws Exception {
         reachAdmin(ordersList);
@@ -207,6 +211,7 @@ public class SessionHelper extends HelperBase {
         }
     }
 
+
     /** Cancel order on the order page in admin panel */
     public void cancelOrder(){
         printMessage("> cancel order " + currentURL());
@@ -217,6 +222,7 @@ public class SessionHelper extends HelperBase {
         waitForIt(2);
     }
 
+
     public void cancelOrder(int reason, String details){
         printMessage("> cancel order " + currentURL());
         click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
@@ -225,6 +231,7 @@ public class SessionHelper extends HelperBase {
         click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
         waitForIt(2);
     }
+
 
     private void chooseCancellationReason(int reason, String details) {
         click(By.id("cancellation_reason_id_" + reason));               // todo вынести в elements
@@ -242,6 +249,7 @@ public class SessionHelper extends HelperBase {
         printMessage("Deleting test users...");
         deleteUsers(Pages.Admin.Users.testUsersList());
     }
+
 
 
 
