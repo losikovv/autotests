@@ -11,10 +11,20 @@ import java.util.Random;
 
 public class Generate {
 
+    /** Сгенерировать int указанной длины */
+    public static int randomInt(int length) {
+        String s = "123456789";
+        StringBuilder number = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            number.append(s.charAt(new Random().nextInt(s.length())));
+        }
+        return Integer.parseInt(number.toString());
+    }
+
     /** Сгенерировать строку указанной длины */
     public static String randomString(int length) {
-        String s = "123456789abcdefghijklmnopqrstuvwxyz";
-        StringBuffer number = new StringBuffer();
+        String s = "1234567890abcdefghijklmnopqrstuvwxyz";
+        StringBuilder number = new StringBuilder();
         for (int i = 0; i < length; i++) {
             number.append(s.charAt(new Random().nextInt(s.length())));
         }
