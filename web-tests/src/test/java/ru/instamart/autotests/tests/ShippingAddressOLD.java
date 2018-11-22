@@ -12,32 +12,8 @@ import org.testng.annotations.Test;
 public class ShippingAddressOLD extends TestBase {
 
  /*
-    @Test(enabled = false,
-            description = "Проверяем что на лендинге не выбран адрес",
-            groups = {"acceptance","regression"},
-            priority = 200
-    )
-    public void emptyShippingAddressOnLanding() throws Exception {
-        app.getNavigationHelper().getLandingPage();
-
-        // Assert shipping address isn't set
-        Assert.assertTrue(app.getShoppingHelper().isShippingAddressEmpty(),
-                "Shipping address is not empty on the landing page\n");
-    }
 
 
-    @Test(enabled = false,
-            description = "Проверяем что по дефолту на витрине ритейлера не выбран адрес",
-            groups = {"acceptance","regression"},
-            priority = 201
-    )
-    public void emptyShippingAddressOnRetailerByDefault() throws Exception {
-        app.getNavigationHelper().getRetailerPage("metro");
-
-        // Assert shipping address isn't set
-        Assert.assertTrue(app.getShoppingHelper().isShippingAddressEmpty(),
-                "Shipping address is not empty on the retailer page by default\n");
-    }
 
 
     @Test(enabled = false,
