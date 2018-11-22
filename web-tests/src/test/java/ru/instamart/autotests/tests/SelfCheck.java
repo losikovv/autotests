@@ -17,7 +17,8 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест базового URL", priority = 10000)
     public void initialCheck() throws Exception {
         app.getHelper().getBaseUrl();
-        Assert.assertTrue(app.getHelper().currentURL().equals(app.getHelper().baseUrl));
+        //Assert.assertTrue(app.getHelper().currentURL().equals(app.getHelper().baseUrl));
+        Assert.assertEquals(app.getHelper().currentURL(),app.getHelper().baseUrl);
     }
 
 
@@ -71,6 +72,7 @@ public class SelfCheck extends TestBase {
 
         app.getSessionHelper().doLogout();
         Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
+
     }
 
 
