@@ -633,10 +633,9 @@ public class Elements {
             }
 
             static Elements deliverySlot() {
-                return new Elements( null, By.xpath("/html/body/div[2]/div/form/div/div/div[1]/div[5]/div[2]" +
-                        "/div/div/div/div[2]/div/div[2]/div[2]/div[2]"));
+                return new Elements( null,
+                        By.xpath("/html/body/div[5]/div/form/div/div/div[1]/div[5]/div[2]/div/div/div/div[2]/div/div[2]/div[2]/div[1]/div/span"));
             }
-
 
             static Elements deliveryPrice() {
                 return new Elements(null, By.xpath("/html/body/div[2]/div/form/div/aside/div/div[2]" +

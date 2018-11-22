@@ -279,7 +279,7 @@ public class HelperBase {
 
     /** Waiting which lasts for the 'implicitlyWait' timeout multiplied by the given number of iterations */
 
-    void waitForIt(int duration){
+    public void waitForIt(int duration){
         for (int i = 1; i <= duration; i++){
             isElementPresent(By.xpath("//*[@id='nowhere']"));
         }
@@ -309,6 +309,13 @@ public class HelperBase {
     }
 
 
+    /** Cookies */
+
+    public void deleteAllCookies() {
+        driver.manage().deleteAllCookies();
+    }
+
+
     /** Скачивание документов к заказу */
 
     public String detectOrderDocument(int position) {
@@ -321,6 +328,7 @@ public class HelperBase {
             return null;
         }
     }
+
 
     /** Округлить цену до целого числа, отбросив копейки, пробелы и знак рубля */
     protected int round(String price) {
