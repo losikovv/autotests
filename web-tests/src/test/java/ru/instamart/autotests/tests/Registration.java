@@ -3,7 +3,6 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.models.RetailerData;
 import ru.instamart.autotests.testdata.Generate;
 
 
@@ -192,8 +191,8 @@ public class Registration extends TestBase {
     public void successRegistrationFromAddressModal() throws Exception, AssertionError {
 
         app.getNavigationHelper().get("metro");
-        app.getHelper().click(Elements.Site.Header.setShipAddressButton());
-        app.getHelper().click(Elements.Site.AddressModal.authButton());
+        app.perform().click(Elements.Site.Header.setShipAddressButton());
+        app.perform().click(Elements.Site.AddressModal.authButton());
         app.getSessionHelper().performRegSequence(Generate.testUserData());
 
         // Assert user is authorised

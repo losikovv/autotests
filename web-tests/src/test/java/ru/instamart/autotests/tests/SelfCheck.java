@@ -16,9 +16,8 @@ public class SelfCheck extends TestBase {
 
     @Test(description = "Тест базового URL", priority = 10000)
     public void initialCheck() throws Exception {
-        app.getHelper().getBaseUrl();
-        //Assert.assertTrue(app.getHelper().currentURL().equals(app.getHelper().baseUrl));
-        Assert.assertEquals(app.getHelper().currentURL(),app.getHelper().baseUrl);
+        app.perform().getBaseUrl();
+        Assert.assertEquals(app.perform().currentURL() , app.perform().fullBaseUrl);
     }
 
 
@@ -26,11 +25,11 @@ public class SelfCheck extends TestBase {
     public void checkNavigation() throws Exception {
 
         app.getNavigationHelper().get("metro");
-        Assert.assertTrue(app.getHelper().currentURL().equals(app.getHelper().baseUrl + "metro"));
+        Assert.assertEquals(app.perform().currentURL() , app.perform().fullBaseUrl + "metro");
+
 
         app.getNavigationHelper().get(Pages.Site.Static.faq());
-        Assert.assertTrue(app.getHelper().currentURL().equals(app.getHelper().baseUrl + Pages.getPagePath()));
-
+        Assert.assertEquals(app.perform().currentURL() , app.perform().fullBaseUrl + Pages.getPagePath());
         // TODO проверка GO методов
     }
 
@@ -38,7 +37,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения модалки авторизации/регистрации", priority = 10002)
     public void detectAuthModal() throws Exception {
 
-        app.getHelper().getBaseUrl();
+        app.perform().getBaseUrl();
 
         app.getSessionHelper().openAuthModal();
         Assert.assertTrue(app.getSessionHelper().isAuthModalOpen());
@@ -82,21 +81,21 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения меню Профиль", priority = 10004)
     public void detectAccountMenu() throws Exception {
 
-        app.getHelper().getBaseUrl();
+        app.perform().getBaseUrl();
 
         app.getSessionHelper().doLoginAs("admin");
-        app.getHelper().openAccountMenu();
-        Assert.assertTrue(app.getHelper().isAccountMenuOpen());
+        app.perform().openAccountMenu();
+        Assert.assertTrue(app.perform().isAccountMenuOpen());
 
-        app.getHelper().closeAccountMenu();
-        Assert.assertFalse(app.getHelper().isAccountMenuOpen());
+        app.perform().closeAccountMenu();
+        Assert.assertFalse(app.perform().isAccountMenuOpen());
     }
 
 
     @Test(description = "Тест корректности определения карточки товара", priority = 10005)
     public void detectItemCard() throws Exception {
 
-        app.getNavigationHelper().get("metro/soda-pishchievaia");
+        app.getNavigationHelper().get("metro/salat-premium-gorshochek");
         Assert.assertTrue(app.getShoppingHelper().isItemCardOpen());
 
         app.getNavigationHelper().get("metro/eliektronika");
@@ -108,11 +107,11 @@ public class SelfCheck extends TestBase {
     public void detectIsOnSite() throws Exception {
 
         app.getNavigationHelper().get(Pages.Site.Static.faq());
-        Assert.assertTrue(app.getHelper().isOnSite());
+        Assert.assertTrue(app.perform().isOnSite());
 
         app.getSessionHelper().doLoginAs("admin");
         app.getNavigationHelper().get(Pages.Admin.retailers());
-        Assert.assertFalse(app.getHelper().isOnSite());
+        Assert.assertFalse(app.perform().isOnSite());
     }
 
 
@@ -120,11 +119,11 @@ public class SelfCheck extends TestBase {
     public void detectIsInAdmin() throws Exception {
 
         app.getNavigationHelper().get(Pages.Site.Static.contacts());
-        Assert.assertFalse(app.getHelper().isInAdmin());
+        Assert.assertFalse(app.perform().isInAdmin());
 
         app.getSessionHelper().doLoginAs("admin");
         app.getNavigationHelper().get(Pages.Admin.settings());
-        Assert.assertTrue(app.getHelper().isInAdmin());
+        Assert.assertTrue(app.perform().isInAdmin());
     }
 
 
@@ -132,21 +131,21 @@ public class SelfCheck extends TestBase {
     public void detect404() throws Exception {
 
         app.getNavigationHelper().get("nowhere");
-        Assert.assertTrue(app.getHelper().is404());
+        Assert.assertTrue(app.perform().is404());
 
         app.getNavigationHelper().get("metro");
-        Assert.assertFalse(app.getHelper().is404());
+        Assert.assertFalse(app.perform().is404());
     }
 
 
     @Test(description = "Тест корректности определения 500 ошибки на страниице", priority = 10009)
     public void detect500() throws Exception {
 
-        app.getNavigationHelper().get(""); // todo
-        Assert.assertTrue(app.getHelper().is500());
+        app.getNavigationHelper().get("stores/21/shipping_methods");
+        Assert.assertTrue(app.perform().is500());
 
         app.getNavigationHelper().get("metro");
-        Assert.assertFalse(app.getHelper().is500());
+        Assert.assertFalse(app.perform().is500());
     }
 
 
@@ -204,11 +203,11 @@ public class SelfCheck extends TestBase {
     public void detectDeliveryPopup() throws Exception {
 
         app.getNavigationHelper().get("metro");
-        app.getHelper().openDeliveryPopup();
-        Assert.assertTrue(app.getHelper().isDeliveryPopupOpen());
+        app.perform().openDeliveryPopup();
+        Assert.assertTrue(app.perform().isDeliveryPopupOpen());
 
-        app.getHelper().closeDeliveryPopup();
-        Assert.assertFalse(app.getHelper().isDeliveryPopupOpen());
+        app.perform().closeDeliveryPopup();
+        Assert.assertFalse(app.perform().isDeliveryPopupOpen());
     }
 
 
@@ -216,11 +215,11 @@ public class SelfCheck extends TestBase {
     public void detectPartnersPopup() throws Exception {
 
         app.getNavigationHelper().get("metro");
-        app.getHelper().openPartnersPopup();
-        Assert.assertTrue(app.getHelper().isPartnersPopupOpen());
+        app.perform().openPartnersPopup();
+        Assert.assertTrue(app.perform().isPartnersPopupOpen());
 
-        app.getHelper().closePartnersPopup();
-        Assert.assertFalse(app.getHelper().isPartnersPopupOpen());
+        app.perform().closePartnersPopup();
+        Assert.assertFalse(app.perform().isPartnersPopupOpen());
     }
 
 }

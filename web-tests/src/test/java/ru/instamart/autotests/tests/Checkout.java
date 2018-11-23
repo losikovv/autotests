@@ -71,9 +71,9 @@ public class Checkout extends TestBase {
     )
     public void noPromocodeAddedOnCancel(){
         reachCheckout();
-        app.getHelper().click(Elements.Site.Checkout.addPromocodeButton());
-        app.getHelper().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
-        app.getHelper().click(Elements.Site.Checkout.PromocodeModal.cancelButton());
+        app.perform().click(Elements.Site.Checkout.addPromocodeButton());
+        app.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
+        app.perform().click(Elements.Site.Checkout.PromocodeModal.cancelButton());
 
         // Assert promocode is not applied
         Assert.assertFalse(app.getCheckoutHelper().isPromocodeApplied(),
@@ -87,9 +87,9 @@ public class Checkout extends TestBase {
     )
     public void noPromocodeAddedOnClose(){
         reachCheckout();
-        app.getHelper().click(Elements.Site.Checkout.addPromocodeButton());
-        app.getHelper().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
-        app.getHelper().click(Elements.Site.Checkout.PromocodeModal.closeButton());
+        app.perform().click(Elements.Site.Checkout.addPromocodeButton());
+        app.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
+        app.perform().click(Elements.Site.Checkout.PromocodeModal.closeButton());
 
         // Assert promocode is not applied
         Assert.assertFalse(app.getCheckoutHelper().isPromocodeApplied(),

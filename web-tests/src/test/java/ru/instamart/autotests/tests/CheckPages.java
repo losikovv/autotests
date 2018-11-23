@@ -89,7 +89,7 @@ public class CheckPages extends TestBase {
             priority = 805
     )
     public void checkProfilePages() throws Exception, AssertionError {
-        app.getHelper().getBaseUrl();
+        app.perform().getBaseUrl();
         app.getSessionHelper().doLoginAs("admin");
 
         assertPageIsAvailable(Pages.Site.Profile.edit());
@@ -126,7 +126,7 @@ public class CheckPages extends TestBase {
             priority = 807
     )
     public void checkFooterPages() throws Exception {
-        app.getHelper().getBaseUrl();
+        app.perform().getBaseUrl();
 
         app.getNavigationHelper().goFooterAboutCompany();
         assertPageIsAvailable();
@@ -147,22 +147,22 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable();
 
         app.getNavigationHelper().goFooterDelivery();
-        Assert.assertTrue(app.getHelper().isDeliveryPopupOpen(),
+        Assert.assertTrue(app.perform().isDeliveryPopupOpen(),
                 "Cant assert 'Delivery' pop-up open, check manually\n");
-        app.getHelper().click(Elements.Site.DeliveryPopup.closeButton());
+        app.perform().click(Elements.Site.DeliveryPopup.closeButton());
         assertPageIsAvailable();
 
         app.getNavigationHelper().goFooterPartners();
-        Assert.assertTrue(app.getHelper().isPartnersPopupOpen(),
+        Assert.assertTrue(app.perform().isPartnersPopupOpen(),
                 "Cant assert 'Partners' pop-up open, check manually\n");
-        app.getHelper().click(Elements.Site.PartnersPopup.closeButton());
+        app.perform().click(Elements.Site.PartnersPopup.closeButton());
         assertPageIsAvailable();
 
         /* Тест временно отключен - валится потому что кнопка goTop перекрывает ссылку
         app.getNavigationHelper().goFooterPayment();
-        Assert.assertTrue(app.getHelper().isPaymentPopupOpen(),
+        Assert.assertTrue(app.perform().isPaymentPopupOpen(),
                 "Cant assert 'Payment' pop-up open, check manually\n");
-        app.getHelper().click(Elements.Site.PaymentPopup.closeButton());
+        app.perform().click(Elements.Site.PaymentPopup.closeButton());
         assertPageIsAvailable();
         */
     }

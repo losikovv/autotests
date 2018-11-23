@@ -42,7 +42,7 @@ public class Helper extends HelperBase {
     public boolean isDeliveryPopupOpen() {
         if (isElementDisplayed(Elements.Site.DeliveryPopup.popup())
                 && isElementDetected(Elements.Site.DeliveryPopup.title())) {
-            printMessage("✓ Delivery popup open");
+            //printMessage("✓ Delivery popup open");
             return true;
         } else {
             return false;
@@ -72,7 +72,7 @@ public class Helper extends HelperBase {
     public boolean isPartnersPopupOpen() {
         if (isElementDisplayed(Elements.Site.PartnersPopup.popup())
                 && isElementDetected(Elements.Site.PartnersPopup.title())) {
-            printMessage("✓ Partners popup open");
+            //printMessage("✓ Partners popup open");
             return true;
         } else {
             return false;
@@ -102,7 +102,7 @@ public class Helper extends HelperBase {
     public boolean isPaymentPopupOpen() {
         if (isElementDisplayed(Elements.Site.PaymentPopup.popup())
                 && isElementDetected(Elements.Site.PaymentPopup.title())) {
-            printMessage("✓ Payment popup open");
+            //printMessage("✓ Payment popup open");
             return true;
         } else {
             return false;

@@ -91,7 +91,7 @@ public class ApplicationManager {
     }
 
     // Helpers getters
-    public Helper getHelper() { return helper; }
+    public Helper perform() { return helper; }
     public NavigationHelper getNavigationHelper() { return navigationHelper; }
     public SessionHelper getSessionHelper() { return sessionHelper; }
     public ShoppingHelper getShoppingHelper() { return shoppingHelper; }

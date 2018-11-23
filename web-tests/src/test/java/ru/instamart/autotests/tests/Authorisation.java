@@ -3,8 +3,6 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.models.UserData;
-
 
 
 // Тесты авторизации
@@ -145,8 +143,8 @@ public class Authorisation extends TestBase {
         app.getNavigationHelper().get("metro");
         app.getSessionHelper().dropAuth();
 
-        app.getHelper().click(Elements.Site.Header.setShipAddressButton());
-        app.getHelper().click(Elements.Site.AddressModal.authButton());
+        app.perform().click(Elements.Site.Header.setShipAddressButton());
+        app.perform().click(Elements.Site.AddressModal.authButton());
         app.getSessionHelper().performAuthSequence("admin");
 
         // Assert user is authorised

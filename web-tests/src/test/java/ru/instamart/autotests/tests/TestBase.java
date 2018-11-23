@@ -15,7 +15,7 @@ import ru.instamart.autotests.configuration.Pages;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
 
     @BeforeClass(alwaysRun = true)
@@ -110,7 +110,7 @@ public class TestBase {
     }
 
     protected void assertPageIsUnreachable(Pages page) throws AssertionError {
-        String targetURL = app.getHelper().fullBaseUrl + Pages.getPagePath();
+        String targetURL = app.perform().fullBaseUrl + Pages.getPagePath();
         app.getNavigationHelper().printMessage("Checking page " + targetURL + " is unreachable at this moment");
         app.getNavigationHelper().getUrl(targetURL);
         String currentURL = app.getNavigationHelper().currentURL();
@@ -119,12 +119,12 @@ public class TestBase {
 
     protected void assertNoTestOrdersLeftActive() throws AssertionError {
         app.getNavigationHelper().getTestOrdersAdminPage();
-        Assert.assertTrue(app.getHelper().isElementPresent(By.className("no-objects-found")),"Seems like there are some test orders left active");
+        Assert.assertTrue(app.perform().isElementPresent(By.className("no-objects-found")),"Seems like there are some test orders left active");
     }
 
     protected void assertNoTestUsersLeft() throws AssertionError {
         app.getNavigationHelper().getTestUsersAdminPage();
-        Assert.assertFalse(app.getHelper().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),
+        Assert.assertFalse(app.perform().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),
                 "Seems like there are some test users left after cleanup");
     }
 
@@ -133,8 +133,8 @@ public class TestBase {
 
     void checkOrderDocuments(){
         for(int i = 1; i <= 3; i++) {
-            if(app.getHelper().detectOrderDocument(i) != null) {
-                app.getHelper().click(Elements.getLocator());
+            if(app.perform().detectOrderDocument(i) != null) {
+                app.perform().click(Elements.getLocator());
                 assertPageIsAvailable();
             }
         }

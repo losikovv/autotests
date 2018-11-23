@@ -27,6 +27,7 @@ public class HelperBase {
         this.fullBaseUrl = environment.getBaseURL(true);
     }
 
+    // todo добавить сюда интерфейсы assert() / return() / operation()
 
     /** Перейти на базовый URL */
 
