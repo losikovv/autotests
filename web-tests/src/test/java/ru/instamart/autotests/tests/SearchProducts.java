@@ -1,23 +1,21 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.testdata.Generate;
 
 
-
-    // Тесты поиска товаров
+// Тесты поиска товаров
 
 
 
 public class SearchProducts extends TestBase {
 
-    /*
     @BeforeMethod(alwaysRun = true)
-    public void getAuth() throws Exception {
-        app.getNavigationHelper().getLandingPage();
-        app.getSessionHelper().doLoginAs("admin");
+    public void preconditions() throws Exception {
+        app.getNavigationHelper().getRetailerPage("metro");
     }
-    */
 
 
     @Test(
@@ -25,11 +23,9 @@ public class SearchProducts extends TestBase {
             groups = {"acceptance","regression"},
             priority = 305
     )
-    public void sendEmptySearch(){
-        app.getNavigationHelper().getRetailerPage("metro");
+    public void cantSendEmptySearch(){
         app.search().item("");
 
-        // Проверяем что поисковый запрос не отправился
         Assert.assertFalse(app.search().isResultsEmpty(),
                 "Search results are shown when it's not supposed to be\n");
     }
@@ -41,10 +37,8 @@ public class SearchProducts extends TestBase {
             priority = 306
     )
     public void successSearchForNonexistingItem(){
-        app.getNavigationHelper().getRetailerPage("metro");
         app.search().item("смысл жизни");
 
-        // Проверяем что поиск дал пустой результат
         Assert.assertTrue(app.search().isResultsEmpty(),
                 "Search result is not empty when it's supposed to be\n");
     }
@@ -56,14 +50,11 @@ public class SearchProducts extends TestBase {
             priority = 307
     )
     public void successItemSearch(){
-        app.getNavigationHelper().getRetailerPage("metro");
         app.search().item("шоколад");
 
-        // Проверяем что поиск не дал пустой результат
         Assert.assertFalse(app.search().isResultsEmpty(),
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
-        // Проверяем что по поисковому запросу нашлись продукты
         Assert.assertTrue(app.getShoppingHelper().isProductAvailable(),
                 "Can't assert search is working correctly, check manually\n");
     }
@@ -75,21 +66,15 @@ public class SearchProducts extends TestBase {
             priority = 308
     )
     public void successItemSearchUsingCategorySuggests(){
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.search().fillQueryField("Мороженое");
+        app.search().fillSearchFieldWith("Мороженое");
 
-        // Проверяем что появились категорийные подсказки
-        Assert.assertTrue(app.search().isCategorySuggestsPresent(),
-                "No category suggest shown\n");
+        Assert.assertTrue(app.search().isCategorySuggestsPresent(), "No category suggests shown\n");
 
-        // Нажимаем на категорийную посдказку
-        app.search().hitSuggest("category");
+        app.search().hitCategorySuggest();
 
-        // Проверяем что поиск не дал пустой результат
         Assert.assertFalse(app.search().isResultsEmpty(),
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
-        // Проверяем что по поисковому запросу нашлись продукты
         Assert.assertTrue(app.getShoppingHelper().isProductAvailable(),
                 "Can't assert search is working correctly, check manually\n");
     }
@@ -102,18 +87,29 @@ public class SearchProducts extends TestBase {
     )
     public void successItemSearchUsingProductSuggests(){
         app.getNavigationHelper().getRetailerPage("metro");
-        app.search().fillQueryField("Мороженое");
+        app.search().fillSearchFieldWith("Мороженое");
 
-        // Проверяем что появились товарные подсказки
         Assert.assertTrue(app.search().isProductSuggestsPresent(),
                 "No product suggest shown\n");
 
-        // Нажимаем на твоарную подсказку
-        app.search().hitSuggest("product");
+        app.search().hitProductSuggest();
 
-        // Проверяем что открылась карточка товара
         Assert.assertTrue(app.getShoppingHelper().isItemCardOpen(),
                 "Can't approve successful open item card from search product suggest\n");
+    }
+
+    @Test (
+            description = "Тест поиска по очень длинному запросу, не возвращающему результатов",
+            groups = {"acceptance","regression"},
+            priority = 310
+    )
+    public void successSearchWithLongQuery(){
+        app.search().item(Generate.randomString(1000));
+
+        assertPageIsAvailable();
+
+        Assert.assertTrue(app.search().isResultsEmpty(),
+                "Search result is not empty when it's supposed to be\n");
     }
 
 }

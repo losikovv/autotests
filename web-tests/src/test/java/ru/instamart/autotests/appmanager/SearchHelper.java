@@ -18,13 +18,13 @@ public class SearchHelper extends HelperBase {
     /** Заполнить поле поиска */
     public void item(String query) {
         printMessage("Searching products on query \"" + query + "\"...");
-        fillQueryField(query);
+        fillSearchFieldWith(query);
         hitSearchButton();
         waitFor(1);
     }
 
     /** Заполнить поле поиска */
-    public void fillQueryField(String query) {
+    public void fillSearchFieldWith(String query) {
         fillField(Elements.Site.Header.Search.searchField(), query);
         waitFor(1);
     }
@@ -42,25 +42,13 @@ public class SearchHelper extends HelperBase {
         } else return false;
     }
 
-    /** Нажать на саджест(продуктовый/товарный) */
-    public void hitSuggest(String type) {
-        switch (type) {
-            case "category":
-                hitCategorySuggest();
-                break;
-            case "product":
-                hitProductSuggest();
-                break;
-        }
-    }
-
     /** Проверяем наличие категорийного саджеста */
     public boolean isCategorySuggestsPresent() {
         return isElementPresent(Elements.Site.Header.Search.categorySuggest());
     }
 
     /** Нажать на категорийный саджест */
-    private void hitCategorySuggest() {
+    public void hitCategorySuggest() {
         click(Elements.Site.Header.Search.categorySuggest());
     }
 
@@ -71,7 +59,7 @@ public class SearchHelper extends HelperBase {
     }
 
     /** Нажать на продуктовый саджест */
-    private void hitProductSuggest() {
+    public void hitProductSuggest() {
         click(Elements.Site.Header.Search.productSuggest());
     }
 }
