@@ -100,6 +100,6 @@ public class ApplicationManager {
     public SearchHelper search() { return searchHelper; }
     public CheckoutHelper getCheckoutHelper() { return checkoutHelper; }
     public ProfileHelper getProfileHelper() { return profileHelper; }
-    public AdministrationHelper getAdministrationHelper() { return administrationHelper; }
+    public AdministrationHelper admin() { return administrationHelper; }
 
 }

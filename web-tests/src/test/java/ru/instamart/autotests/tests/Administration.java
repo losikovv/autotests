@@ -45,13 +45,13 @@ public class Administration extends TestBase {
         app.getNavigationHelper().getOrderAdminPage(orderNumber);
 
         // Assert order is canceled
-        Assert.assertTrue(app.getAdministrationHelper().isOrderCanceled(),
+        Assert.assertTrue(app.admin().isOrderCanceled(),
                 "The order is already active\n");
 
-        app.getAdministrationHelper().resumeOrder();
+        app.admin().resumeOrder();
 
         // Assert order isn't canceled
-        Assert.assertFalse(app.getAdministrationHelper().isOrderCanceled(),
+        Assert.assertFalse(app.admin().isOrderCanceled(),
                 "Can't approve the order was resumed, check manually\n");
     }
 
@@ -68,12 +68,12 @@ public class Administration extends TestBase {
 
         app.getNavigationHelper().getOrderAdminPage(orderNumber);
 
-        Assert.assertFalse(app.getAdministrationHelper().isOrderCanceled(),
+        Assert.assertFalse(app.admin().isOrderCanceled(),
                 "The order is already canceled\n");
 
         app.getSessionHelper().cancelOrder();
 
-        Assert.assertTrue(app.getAdministrationHelper().isOrderCanceled(),
+        Assert.assertTrue(app.admin().isOrderCanceled(),
                 "Can't approve the order was canceled, check manually\n");
     }
 

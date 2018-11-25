@@ -89,69 +89,7 @@ public class NavigationHelper extends HelperBase {
         click(By.linkText("Главная"));
     }
 
-    public void goHome() {
-        printMessage("Going home ...");
-        click(By.className("header-logo"));
-    }
 
-    // ========= Подвал сайта =========
-
-    public void goFooterAboutCompany() {
-        Elements.Site.Footer.aboutCompanyButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-
-    }
-
-    public void goFooterContacts() {
-        Elements.Site.Footer.contactsButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-
-    }
-
-    public void goFooterDelivery() {
-        Elements.Site.Footer.deliveryButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-    }
-
-    public void goFooterPayment() {
-        Elements.Site.Footer.paymentButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-    }
-
-    public void goFooterPartners() {
-        Elements.Site.Footer.partnersButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-
-    }
-
-    public void goFooterFaq() {
-        Elements.Site.Footer.faqButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-    }
-
-    public void goFooterFeedbackForm() {
-        Elements.Site.Footer.feedbackFormButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-    }
-
-    public void goFooterReturnPolicy() {
-        Elements.Site.Footer.returnPolicyButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-    }
-
-    public void goFooterPublicOffer() {
-        Elements.Site.Footer.publicOfferButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-    }
 
 
 

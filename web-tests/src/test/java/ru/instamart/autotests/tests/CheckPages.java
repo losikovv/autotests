@@ -98,8 +98,6 @@ public class CheckPages extends TestBase {
     }
 
 
-
-
     @Test(
             description = "Тест доступности корневых разделов админки",
             groups = {"smoke","acceptance","regression"},
@@ -120,51 +118,54 @@ public class CheckPages extends TestBase {
     }
 
 
+// TOdO перенести в отдельный тест checkLinks (на место cleanup - его перенести в stop())
+    // TOdO добаавить тест ссылок хедера на главной
+
     @Test(
-            description = "Тест доступности страниц футера",
+            description = "Тест работоспособности ссылок футера",
             groups = {"smoke","acceptance","regression"},
             priority = 807
     )
-    public void checkFooterPages() throws Exception {
+    public void checkFooterLinks() throws Exception {
         app.perform().getBaseUrl();
 
-        app.getNavigationHelper().goFooterAboutCompany();
+        // TOdO нужен метод, проверяющий переход по ссылке и включающий проверку что начальная и конечная страницы не одинаковые
+        app.perform().click(Elements.Site.Footer.aboutCompanyButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterContacts();
+        app.perform().click(Elements.Site.Footer.contactsButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterFaq();
+        app.perform().click(Elements.Site.Footer.faqButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterFeedbackForm();
+        app.perform().click(Elements.Site.Footer.feedbackFormButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterReturnPolicy();
+        app.perform().click(Elements.Site.Footer.returnPolicyButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterPublicOffer();
+        app.perform().click(Elements.Site.Footer.publicOfferButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterDelivery();
+        app.perform().click(Elements.Site.Footer.deliveryButton());
         Assert.assertTrue(app.perform().isDeliveryPopupOpen(),
                 "Cant assert 'Delivery' pop-up open, check manually\n");
         app.perform().click(Elements.Site.DeliveryPopup.closeButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterPartners();
+        app.perform().click(Elements.Site.Footer.partnersButton());
         Assert.assertTrue(app.perform().isPartnersPopupOpen(),
                 "Cant assert 'Partners' pop-up open, check manually\n");
         app.perform().click(Elements.Site.PartnersPopup.closeButton());
         assertPageIsAvailable();
 
-        /* Тест временно отключен - валится потому что кнопка goTop перекрывает ссылку
-        app.getNavigationHelper().goFooterPayment();
+        app.perform().click(Elements.Site.Footer.paymentButton());
         Assert.assertTrue(app.perform().isPaymentPopupOpen(),
                 "Cant assert 'Payment' pop-up open, check manually\n");
         app.perform().click(Elements.Site.PaymentPopup.closeButton());
         assertPageIsAvailable();
-        */
+
     }
 
 }
