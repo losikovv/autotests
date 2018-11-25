@@ -136,6 +136,23 @@ public class CheckPages extends TestBase {
         app.perform().click(Elements.Site.Footer.contactsButton());
         assertPageIsAvailable();
 
+        app.perform().click(Elements.Site.Footer.deliveryButton());
+        Assert.assertTrue(app.deliveryModal().isOpen(),"Cant assert Delivery modal is open, check manually\n");
+        app.deliveryModal().close();
+        assertPageIsAvailable();
+
+        app.perform().click(Elements.Site.Footer.paymentButton());
+        Assert.assertTrue(app.perform().isPaymentPopupOpen(),
+                "Cant assert 'Payment' pop-up open, check manually\n");
+        app.perform().click(Elements.Site.PaymentPopup.closeButton());
+        assertPageIsAvailable();
+
+        app.perform().click(Elements.Site.Footer.partnersButton());
+        Assert.assertTrue(app.perform().isPartnersPopupOpen(),
+                "Cant assert 'Partners' pop-up open, check manually\n");
+        app.perform().click(Elements.Site.PartnersPopup.closeButton());
+        assertPageIsAvailable();
+
         app.perform().click(Elements.Site.Footer.faqButton());
         assertPageIsAvailable();
 
@@ -146,24 +163,6 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable();
 
         app.perform().click(Elements.Site.Footer.publicOfferButton());
-        assertPageIsAvailable();
-
-        app.perform().click(Elements.Site.Footer.deliveryButton());
-        Assert.assertTrue(app.perform().isDeliveryPopupOpen(),
-                "Cant assert 'Delivery' pop-up open, check manually\n");
-        app.perform().click(Elements.Site.DeliveryPopup.closeButton());
-        assertPageIsAvailable();
-
-        app.perform().click(Elements.Site.Footer.partnersButton());
-        Assert.assertTrue(app.perform().isPartnersPopupOpen(),
-                "Cant assert 'Partners' pop-up open, check manually\n");
-        app.perform().click(Elements.Site.PartnersPopup.closeButton());
-        assertPageIsAvailable();
-
-        app.perform().click(Elements.Site.Footer.paymentButton());
-        Assert.assertTrue(app.perform().isPaymentPopupOpen(),
-                "Cant assert 'Payment' pop-up open, check manually\n");
-        app.perform().click(Elements.Site.PaymentPopup.closeButton());
         assertPageIsAvailable();
 
     }

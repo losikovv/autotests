@@ -2,6 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Pages;
 import ru.instamart.autotests.testdata.Addresses;
 
@@ -153,6 +154,7 @@ public class SelfCheck extends TestBase {
     public void detectCatalogDrawer() throws Exception {
 
         app.getNavigationHelper().get("metro");
+
         app.getShoppingHelper().openCatalog();
         Assert.assertTrue(app.getShoppingHelper().isCatalogDrawerOpen());
 
@@ -171,6 +173,7 @@ public class SelfCheck extends TestBase {
 
         //landing
         app.getNavigationHelper().getBaseUrl();
+
         app.getShoppingHelper().setShippingAddress(Addresses.Moscow.testAddress());
         Assert.assertTrue(app.getShoppingHelper().isShopSelectorOpen());
 
@@ -179,6 +182,7 @@ public class SelfCheck extends TestBase {
 
         //retailer
         app.getNavigationHelper().get("metro");
+
         app.getShoppingHelper().openShopSelector();
         Assert.assertTrue(app.getShoppingHelper().isShopSelectorOpen());
 
@@ -191,6 +195,7 @@ public class SelfCheck extends TestBase {
     public void detectCartDrawer() throws Exception {
 
         app.getNavigationHelper().get("metro");
+
         app.getShoppingHelper().openCart();
         Assert.assertTrue(app.getShoppingHelper().isCartOpen());
 
@@ -203,11 +208,12 @@ public class SelfCheck extends TestBase {
     public void detectDeliveryPopup() throws Exception {
 
         app.getNavigationHelper().get("metro");
-        app.perform().openDeliveryPopup();
-        Assert.assertTrue(app.perform().isDeliveryPopupOpen());
 
-        app.perform().closeDeliveryPopup();
-        Assert.assertFalse(app.perform().isDeliveryPopupOpen());
+        app.perform().click(Elements.Site.DeliveryPopup.openPopupButton());
+        Assert.assertTrue(app.deliveryModal().isOpen());
+
+        app.deliveryModal().close();
+        Assert.assertFalse(app.deliveryModal().isOpen());
     }
 
 
@@ -215,6 +221,7 @@ public class SelfCheck extends TestBase {
     public void detectPartnersPopup() throws Exception {
 
         app.getNavigationHelper().get("metro");
+
         app.perform().openPartnersPopup();
         Assert.assertTrue(app.perform().isPartnersPopupOpen());
 

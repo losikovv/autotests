@@ -10,9 +10,9 @@ import ru.instamart.autotests.configuration.Environments;
 
 
 
-public class Helper extends HelperBase {
+public class PerformHelper extends HelperBase {
 
-    public Helper(WebDriver driver, Environments environment) {
+    public PerformHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
 
@@ -35,35 +35,6 @@ public class Helper extends HelperBase {
         return isElementDisplayed(Elements.Site.AccountMenu.popup());
     }
 
-
-    //======== Попап "Доставка" ==========
-
-    /** Определить открыт ли попап доставки */
-    public boolean isDeliveryPopupOpen() {
-        if (isElementDisplayed(Elements.Site.DeliveryPopup.popup())
-                && isElementDetected(Elements.Site.DeliveryPopup.title())) {
-            //printMessage("✓ Delivery popup open");
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /** Открыть попап доставки  */
-    public void openDeliveryPopup() {
-        if(!isDeliveryPopupOpen()) {
-            click(Elements.Site.DeliveryPopup.openPopupButton());
-            waitFor(1);
-        } else printMessage("Can't open popup - already opened");
-    }
-
-    /** Закрыть попап доставки */
-    public void closeDeliveryPopup() {
-        if(isDeliveryPopupOpen()) {
-            click(Elements.Site.DeliveryPopup.closeButton());
-            waitFor(1);
-        } else printMessage("Can't close popup - already closed");
-    }
 
 
     //======= Попап "Партнеры" ========

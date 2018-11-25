@@ -30,7 +30,7 @@ public class ApplicationManager {
     protected String baseUrl = environment.getBaseURL(true);
 
     // Helpers
-    private Helper helper;
+    private PerformHelper performHelper;
     private NavigationHelper navigationHelper;
     private SessionHelper sessionHelper;
     private ShoppingHelper shoppingHelper;
@@ -38,6 +38,8 @@ public class ApplicationManager {
     private CheckoutHelper checkoutHelper;
     private ProfileHelper profileHelper;
     private AdministrationHelper administrationHelper;
+
+    private DeliveryModalHelper deliveryModalHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
     private String browser;
@@ -65,7 +67,7 @@ public class ApplicationManager {
         }
 
         // Helpers init
-        helper = new Helper(driver, environment);
+        performHelper = new PerformHelper(driver, environment);
         navigationHelper = new NavigationHelper(driver, environment);
         sessionHelper = new SessionHelper(driver, environment);
         shoppingHelper = new ShoppingHelper(driver, environment);
@@ -73,6 +75,8 @@ public class ApplicationManager {
         checkoutHelper = new CheckoutHelper(driver, environment);
         profileHelper = new ProfileHelper(driver, environment);
         administrationHelper = new AdministrationHelper(driver, environment);
+
+        deliveryModalHelper = new DeliveryModalHelper(driver,environment);
 
         // Options
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS); // Basic timeout
@@ -85,6 +89,9 @@ public class ApplicationManager {
     }
 
     public void stop() {
+
+        // todo перенести сюда вызов cleanup
+
         driver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
@@ -93,7 +100,8 @@ public class ApplicationManager {
     }
 
     // Helpers getters
-    public Helper perform() { return helper; }
+    public PerformHelper perform() { return performHelper; }
+
     public NavigationHelper getNavigationHelper() { return navigationHelper; }
     public SessionHelper getSessionHelper() { return sessionHelper; }
     public ShoppingHelper getShoppingHelper() { return shoppingHelper; }
@@ -101,5 +109,7 @@ public class ApplicationManager {
     public CheckoutHelper getCheckoutHelper() { return checkoutHelper; }
     public ProfileHelper getProfileHelper() { return profileHelper; }
     public AdministrationHelper admin() { return administrationHelper; }
+
+    public DeliveryModalHelper deliveryModal() {return deliveryModalHelper;}
 
 }
