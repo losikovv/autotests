@@ -31,6 +31,8 @@ public class ApplicationManager {
 
     // Helpers
     private PerformHelper performHelper;
+    private ProbeHelper probeHelper;
+
     private NavigationHelper navigationHelper;
     private SessionHelper sessionHelper;
     private ShoppingHelper shoppingHelper;
@@ -68,6 +70,8 @@ public class ApplicationManager {
 
         // Helpers init
         performHelper = new PerformHelper(driver, environment);
+        probeHelper = new ProbeHelper(driver, environment);
+
         navigationHelper = new NavigationHelper(driver, environment);
         sessionHelper = new SessionHelper(driver, environment);
         shoppingHelper = new ShoppingHelper(driver, environment);
@@ -101,6 +105,7 @@ public class ApplicationManager {
 
     // Helpers getters
     public PerformHelper perform() { return performHelper; }
+    public ProbeHelper probe() { return probeHelper; }
 
     public NavigationHelper getNavigationHelper() { return navigationHelper; }
     public SessionHelper getSessionHelper() { return sessionHelper; }

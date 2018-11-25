@@ -108,11 +108,11 @@ public class SelfCheck extends TestBase {
     public void detectIsOnSite() throws Exception {
 
         app.getNavigationHelper().get(Pages.Site.Static.faq());
-        Assert.assertTrue(app.perform().isOnSite());
+        Assert.assertTrue(app.probe().isOnSite());
 
         app.getSessionHelper().doLoginAs("admin");
         app.getNavigationHelper().get(Pages.Admin.retailers());
-        Assert.assertFalse(app.perform().isOnSite());
+        Assert.assertFalse(app.probe().isOnSite());
     }
 
 
@@ -120,11 +120,11 @@ public class SelfCheck extends TestBase {
     public void detectIsInAdmin() throws Exception {
 
         app.getNavigationHelper().get(Pages.Site.Static.contacts());
-        Assert.assertFalse(app.perform().isInAdmin());
+        Assert.assertFalse(app.probe().isInAdmin());
 
         app.getSessionHelper().doLoginAs("admin");
         app.getNavigationHelper().get(Pages.Admin.settings());
-        Assert.assertTrue(app.perform().isInAdmin());
+        Assert.assertTrue(app.probe().isInAdmin());
     }
 
 
@@ -132,10 +132,10 @@ public class SelfCheck extends TestBase {
     public void detect404() throws Exception {
 
         app.getNavigationHelper().get("nowhere");
-        Assert.assertTrue(app.perform().is404());
+        Assert.assertTrue(app.probe().is404());
 
         app.getNavigationHelper().get("metro");
-        Assert.assertFalse(app.perform().is404());
+        Assert.assertFalse(app.probe().is404());
     }
 
 
@@ -143,10 +143,10 @@ public class SelfCheck extends TestBase {
     public void detect500() throws Exception {
 
         app.getNavigationHelper().get("stores/21/shipping_methods");
-        Assert.assertTrue(app.perform().is500());
+        Assert.assertTrue(app.probe().is500());
 
         app.getNavigationHelper().get("metro");
-        Assert.assertFalse(app.perform().is500());
+        Assert.assertFalse(app.probe().is500());
     }
 
 

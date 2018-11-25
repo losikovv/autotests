@@ -51,7 +51,6 @@ public class Elements {
     /** Сайт */
     public interface Site {
 
-
         /** Шапка сайта */
         interface Header {
 
@@ -429,6 +428,12 @@ public class Elements {
 
 
         /** Подвал сайта */
+
+        static Elements footer() {
+            locator = By.className("footer");
+            return new Elements(text, locator);
+        }
+
         interface Footer {
 
             static Elements aboutCompanyButton() {
@@ -489,6 +494,13 @@ public class Elements {
 
 
         /** Лендинг */
+        // TODO вытащить наверх из Site
+
+        static Elements landing() {
+            locator = By.className("top-line");
+            return new Elements(text, locator);
+        }
+
         interface LandingPage {
 
             static Elements addressField() {
@@ -725,8 +737,13 @@ public class Elements {
 
 
     /** Админка */
+
     public interface Admin {
 
+        static Elements container() {
+            locator = By.className("admin");
+            return new Elements(null, locator);
+        }
 
         /** Шапка админки */
         interface Header {

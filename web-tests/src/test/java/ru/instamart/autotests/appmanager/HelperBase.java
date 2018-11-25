@@ -244,40 +244,6 @@ public class HelperBase {
     }
 
 
-    /** Определить находимся на сайте или нет */
-
-    public boolean isOnSite() {
-        return isElementPresent(By.className("footer")); // TODO переделать на Elements
-    }
-
-    /** Определить находимся на лендинге или нет */
-
-    public boolean isOnLanding() {
-        return isElementPresent(By.className("top-line")); // TODO переделать на Elements
-    }
-
-
-    /** Определить находимся в админке или нет */
-
-    public boolean isInAdmin() {
-        return isElementPresent(By.className("admin")); // TODO переделать на Elements
-    }
-
-
-    /** Определить 404 ошибку на странице */
-
-    public boolean is404() {
-        return isElementDetected(Elements.Page404.title());
-    }
-
-
-    /** Определить 500 ошибку на странице */
-
-    public boolean is500() {
-        return isElementDetected(Elements.Page500.placeholder());
-    }
-
-
     /** Waiting which lasts for the 'implicitlyWait' timeout multiplied by the given number of iterations */
 
     public void waitFor(int duration){

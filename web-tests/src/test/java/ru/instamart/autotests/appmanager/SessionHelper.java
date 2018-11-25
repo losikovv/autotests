@@ -18,13 +18,15 @@ import ru.instamart.autotests.configuration.Users;
 
 public class SessionHelper extends HelperBase {
 
+    private ApplicationManager app;
+
     SessionHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
 
     public void reachAdmin(Pages page) throws Exception {
         getUrl(fullBaseUrl + Pages.getPagePath());  // пытаемся перейти по указанному URL в админку
-        if (isOnSite()) {                           // если не попали, то перелогиниваемся с правами администратора и идем снова
+        if (app.probe().isOnSite()) {                           // если не попали, то перелогиниваемся с правами администратора и идем снова
             getBaseUrl();
             if (isUserAuthorised()) {
                 doLogout();
@@ -154,7 +156,7 @@ public class SessionHelper extends HelperBase {
     /** Деавторизоваться */
     public void doLogout() {
         printMessage("Log-out\n");
-        if (!isInAdmin()) {
+        if (!app.probe().isInAdmin()) {
             click(Elements.Site.Header.profileButton());
             click(Elements.Site.AccountMenu.logoutButton());
         } else {
@@ -258,7 +260,7 @@ public class SessionHelper extends HelperBase {
 
     /** Открыть форму авторизации/регистрации */
     public void openAuthModal(){
-        if (isOnLanding()) click(Elements.Site.LandingPage.loginButton());
+        if (app.probe().isOnLanding()) click(Elements.Site.LandingPage.loginButton());
             else click(Elements.Site.Header.loginButton());
         waitFor(1);
 
