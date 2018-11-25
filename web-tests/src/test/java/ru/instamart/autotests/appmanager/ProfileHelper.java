@@ -59,7 +59,7 @@ public class ProfileHelper extends HelperBase {
         } else {
             click(Elements.Site.OrdersPage.lastOrderActionButton());
         }
-        waitForIt(2);
+        waitFor(2);
     }
 
     /** Отменить крайний заказ */
@@ -69,7 +69,7 @@ public class ProfileHelper extends HelperBase {
         if(isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
             click(Elements.Site.OrdersPage.lastOrderActionButton(1));
         } else printMessage("> Skipped because order isn't active");
-        waitForIt(2);
+        waitFor(2);
     }
 
     /** Определить активен ли заказ */
@@ -80,7 +80,7 @@ public class ProfileHelper extends HelperBase {
             return true;
         } else {
             printMessage("Experiencing performance troubles");
-            waitForIt(1);
+            waitFor(1);
             if (isElementDetected(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
                 printMessage("✓ Order is active\n");
                 return true;

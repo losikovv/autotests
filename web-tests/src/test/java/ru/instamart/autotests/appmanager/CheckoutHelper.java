@@ -315,7 +315,7 @@ public class CheckoutHelper extends HelperBase {
         } else {
             click(By.xpath("//div[" + dayNumber + "]/span[2]"));
         }
-        waitForIt(1);
+        waitFor(1);
         printMessage("Selected delivery on day " + dayNumber);
     }
 
@@ -331,7 +331,7 @@ public class CheckoutHelper extends HelperBase {
                 //TODO
                 break;
         }
-        waitForIt(2);
+        waitFor(2);
         printMessage("Selected " + slot + " available delivery slot\n");
     }
 
@@ -372,14 +372,14 @@ public class CheckoutHelper extends HelperBase {
             printMessage("Applying promocode '" + promocode + "'...");
             fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
             click(Elements.Site.Checkout.PromocodeModal.applyButton());
-            waitForIt(1);
+            waitFor(1);
         } else {
             printMessage("Can't open promo modal! Trying again...");
             click(Elements.Site.Checkout.addPromocodeButton());
             printMessage("> Applying promocode '" + promocode + "'");
             fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
             click(Elements.Site.Checkout.PromocodeModal.applyButton());
-            waitForIt(1);
+            waitFor(1);
         }
     }
 
@@ -389,7 +389,7 @@ public class CheckoutHelper extends HelperBase {
         if(isPromocodeApplied()) {
             printMessage("Clearing promocode...");
             click(Elements.Site.Checkout.clearPromocodeButton());
-            waitForIt(1);
+            waitFor(1);
         } else {
             printMessage("Skip clearing promocode, it's not applied at the moment");
         }
@@ -417,7 +417,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Adding loyalty program \"" + name + "\"");
         click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]"));
         fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
-        waitForIt(1);
+        waitFor(1);
     }
 
 
@@ -436,7 +436,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Clearing loyalty program \"" + name + "\"");
         click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
         fillField(By.name("number"), 1 + "\uE004" + "\uE007");
-        waitForIt(1);
+        waitFor(1);
     }
 
 
@@ -466,7 +466,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Adding retailer loyalty program");
         click(By.xpath("//aside/div/div[4]/div[3]/div"));
         fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
-        waitForIt(1);
+        waitFor(1);
     }
 
     /** Удаляем программу лояльности ритейлера в чекауте */
@@ -474,7 +474,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Clearing retailer loyalty program");
         click(By.xpath("//aside/div/div[4]/div[3]/div"));
         fillField(By.name("number"), 1 + "\uE004" + "\uE007");
-        waitForIt(1);
+        waitFor(1);
     }
 
 
@@ -488,7 +488,7 @@ public class CheckoutHelper extends HelperBase {
             printMessage("✓ Checking-out\n");
         } else {
             printMessage("Waiting for checkout\n");
-            waitForIt(1);
+            waitFor(1);
         }
     }
 
@@ -497,7 +497,7 @@ public class CheckoutHelper extends HelperBase {
     private void hitNextButton(int step) {
         click(Elements.Site.Checkout.nextButton(step));
         printMessage("Next\n");
-        waitForIt(1);
+        waitFor(1);
     }
 
 
@@ -505,13 +505,13 @@ public class CheckoutHelper extends HelperBase {
     public void sendOrder() {
       if (isSendButtonActive()) {
             click(Elements.Site.Checkout.sendOrderButton());
-           waitForIt(3);
+           waitFor(3);
            printMessage("✓ Order sent\n");
        } else {
-          waitForIt(3);
+          waitFor(3);
            if (isSendButtonActive()) {
                click(Elements.Site.Checkout.sendOrderButton());
-               waitForIt(3);
+               waitFor(3);
                printMessage("✓ Order sent\n");
            } else printMessage("Can't make order, send button is not active - check manually\n");
         }
@@ -525,7 +525,7 @@ public class CheckoutHelper extends HelperBase {
                 printMessage("Step " + stepNumber + " - " + stepName);
                 return true;
             } else {
-                waitForIt(1); // задержка для стабильности, возможно что шаг не развернулся из-за тормозов
+                waitFor(1); // задержка для стабильности, возможно что шаг не развернулся из-за тормозов
                 if (!isStepActive(stepNumber)) {
                     printMessage("Step " + stepNumber + " isn't opened at the moment");
                     return false;

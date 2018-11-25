@@ -20,10 +20,10 @@ public class Bugfixes extends TestBase {
             priority = 1000
     )
     public void testName(){
-        app.getShoppingHelper().searchItem("смысл жизни");
+        app.search().item("смысл жизни");
 
         // Проверяем что-нибудь
-        Assert.assertTrue(app.getShoppingHelper().isSearchResultsEmpty(),
+        Assert.assertTrue(app.search().isResultsEmpty(),
                 "Result is not expected\n");
     }
 

@@ -53,7 +53,7 @@ public class Helper extends HelperBase {
     public void openDeliveryPopup() {
         if(!isDeliveryPopupOpen()) {
             click(Elements.Site.DeliveryPopup.openPopupButton());
-            waitForIt(1);
+            waitFor(1);
         } else printMessage("Can't open popup - already opened");
     }
 
@@ -61,7 +61,7 @@ public class Helper extends HelperBase {
     public void closeDeliveryPopup() {
         if(isDeliveryPopupOpen()) {
             click(Elements.Site.DeliveryPopup.closeButton());
-            waitForIt(1);
+            waitFor(1);
         } else printMessage("Can't close popup - already closed");
     }
 
@@ -83,7 +83,7 @@ public class Helper extends HelperBase {
     public void openPartnersPopup() {
         if(!isPartnersPopupOpen()) {
             click(Elements.Site.PartnersPopup.openPopupButton());
-            waitForIt(1);
+            waitFor(1);
         } else printMessage("Can't open popup - already opened");
     }
 
@@ -91,7 +91,7 @@ public class Helper extends HelperBase {
     public void closePartnersPopup() {
         if(isPartnersPopupOpen()) {
             click(Elements.Site.PartnersPopup.closeButton());
-            waitForIt(1);
+            waitFor(1);
         } else printMessage("Can't close popup - already closed");
     }
 
@@ -113,7 +113,7 @@ public class Helper extends HelperBase {
     public void closePaymentPopup() {
         if(isPaymentPopupOpen()) {
             click(Elements.Site.PaymentPopup.closeButton());
-            waitForIt(1);
+            waitFor(1);
         } else printMessage("Can't close popup - already closed");
     }
 

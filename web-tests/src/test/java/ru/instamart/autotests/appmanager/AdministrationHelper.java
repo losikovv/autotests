@@ -23,13 +23,13 @@ public class AdministrationHelper extends HelperBase {
     public void resumeOrder(){
         click(Elements.Admin.Shipments.OrderDetailsPage.resumeOrderButton());
         handleAlert();
-        waitForIt(2);
+        waitFor(2);
     }
 
 
     /** Определить отменен ли заказ */
     public boolean isOrderCanceled() {
-        waitForIt(1);
+        waitFor(1);
         return isElementDetected(Elements.Admin.Shipments.OrderDetailsPage.canceledOrderAttribute());
     }
 

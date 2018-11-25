@@ -51,7 +51,7 @@ public class SessionHelper extends HelperBase {
         printMessage("Performing registration...");
         openAuthModal();
         performRegSequence(name,email,password,passwordConfirmation);
-        waitForIt(3);
+        waitFor(3);
     }
 
 
@@ -95,9 +95,9 @@ public class SessionHelper extends HelperBase {
     public void doLogin(String email, String password) throws Exception {
         printMessage("Performing authorisation...");
         openAuthModal();
-        waitForIt(1);
+        waitFor(1);
         performAuthSequence(email, password);
-        waitForIt(2);
+        waitFor(2);
     }
 
     /** Авторизационная последовательность для юзера с указанной ролью */
@@ -160,7 +160,7 @@ public class SessionHelper extends HelperBase {
         } else {
             click(Elements.Admin.Header.logoutButton());
         }
-        waitForIt(1);
+        waitFor(1);
     }
 
 
@@ -186,7 +186,7 @@ public class SessionHelper extends HelperBase {
             printMessage("- delete user " + getText(Elements.Admin.Users.firstUserLogin()));
             click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
-            waitForIt(1);
+            waitFor(1);
             deleteUsers(usersList); // Keep deleting users, recursively
         } else {
             printMessage("✓ Complete: no test users left\n");
@@ -203,7 +203,7 @@ public class SessionHelper extends HelperBase {
         reachAdmin(ordersList);
         if(!isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder()))  {
             click(Elements.Admin.Shipments.firstOrderInTable());
-            waitForIt(1);
+            waitFor(1);
             cancelOrder(); // todo обернуть в проверку, выполнять только если тестовый заказ
             cancelOrders(ordersList); // Keep cancelling orders, recursively
         } else {
@@ -219,7 +219,7 @@ public class SessionHelper extends HelperBase {
         handleAlert();
         chooseCancellationReason(4,"Тестовый заказ");
         click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
-        waitForIt(2);
+        waitFor(2);
     }
 
 
@@ -229,7 +229,7 @@ public class SessionHelper extends HelperBase {
         handleAlert();
         chooseCancellationReason(reason,details);
         click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
-        waitForIt(2);
+        waitFor(2);
     }
 
 
@@ -260,7 +260,7 @@ public class SessionHelper extends HelperBase {
     public void openAuthModal(){
         if (isOnLanding()) click(Elements.Site.LandingPage.loginButton());
             else click(Elements.Site.Header.loginButton());
-        waitForIt(1);
+        waitFor(1);
 
         if(isAuthModalOpen()) printMessage("> open auth modal");
             else printMessage(" Can't open auth modal");
@@ -270,7 +270,7 @@ public class SessionHelper extends HelperBase {
     /** Закрыть форму авторизации/регистрации */
     public void closeAuthModal(){
         click(Elements.Site.AuthModal.closeButton());
-        waitForIt(1);
+        waitFor(1);
     }
 
 
@@ -339,7 +339,7 @@ public class SessionHelper extends HelperBase {
         printMessage("> recovery for " + email);
         fillField(Elements.Site.AuthModal.emailField(),email);
         sendForm();
-        waitForIt(1);
+        waitFor(1);
     }
 
 

@@ -280,7 +280,7 @@ public class HelperBase {
 
     /** Waiting which lasts for the 'implicitlyWait' timeout multiplied by the given number of iterations */
 
-    public void waitForIt(int duration){
+    public void waitFor(int duration){
         for (int i = 1; i <= duration; i++){
             isElementPresent(By.xpath("//*[@id='nowhere']"));
         }

@@ -1,7 +1,6 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
@@ -28,10 +27,10 @@ public class SearchProducts extends TestBase {
     )
     public void sendEmptySearch(){
         app.getNavigationHelper().getRetailerPage("metro");
-        app.getShoppingHelper().searchItem("");
+        app.search().item("");
 
-        // Проверяем что поиск не сработал
-        Assert.assertFalse(app.getShoppingHelper().isSearchResultsEmpty(),
+        // Проверяем что поисковый запрос не отправился
+        Assert.assertFalse(app.search().isResultsEmpty(),
                 "Search results are shown when it's not supposed to be\n");
     }
 
@@ -43,10 +42,10 @@ public class SearchProducts extends TestBase {
     )
     public void successSearchForNonexistingItem(){
         app.getNavigationHelper().getRetailerPage("metro");
-        app.getShoppingHelper().searchItem("смысл жизни");
+        app.search().item("смысл жизни");
 
         // Проверяем что поиск дал пустой результат
-        Assert.assertTrue(app.getShoppingHelper().isSearchResultsEmpty(),
+        Assert.assertTrue(app.search().isResultsEmpty(),
                 "Search result is not empty when it's supposed to be\n");
     }
 
@@ -58,10 +57,10 @@ public class SearchProducts extends TestBase {
     )
     public void successItemSearch(){
         app.getNavigationHelper().getRetailerPage("metro");
-        app.getShoppingHelper().searchItem("шоколад");
+        app.search().item("шоколад");
 
         // Проверяем что поиск не дал пустой результат
-        Assert.assertFalse(app.getShoppingHelper().isSearchResultsEmpty(),
+        Assert.assertFalse(app.search().isResultsEmpty(),
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
         // Проверяем что по поисковому запросу нашлись продукты
@@ -77,17 +76,17 @@ public class SearchProducts extends TestBase {
     )
     public void successItemSearchUsingCategorySuggests(){
         app.getNavigationHelper().getRetailerPage("metro");
-        app.getShoppingHelper().fillSearchField("Мороженое");
+        app.search().fillQueryField("Мороженое");
 
         // Проверяем что появились категорийные подсказки
-        Assert.assertTrue(app.getShoppingHelper().isCategorySuggestPresent(),
+        Assert.assertTrue(app.search().isCategorySuggestsPresent(),
                 "No category suggest shown\n");
 
         // Нажимаем на категорийную посдказку
-        app.getShoppingHelper().hitSuggest("category");
+        app.search().hitSuggest("category");
 
         // Проверяем что поиск не дал пустой результат
-        Assert.assertFalse(app.getShoppingHelper().isSearchResultsEmpty(),
+        Assert.assertFalse(app.search().isResultsEmpty(),
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
         // Проверяем что по поисковому запросу нашлись продукты
@@ -103,14 +102,14 @@ public class SearchProducts extends TestBase {
     )
     public void successItemSearchUsingProductSuggests(){
         app.getNavigationHelper().getRetailerPage("metro");
-        app.getShoppingHelper().fillSearchField("Мороженое");
+        app.search().fillQueryField("Мороженое");
 
         // Проверяем что появились товарные подсказки
-        Assert.assertTrue(app.getShoppingHelper().isProductSuggestPresent(),
+        Assert.assertTrue(app.search().isProductSuggestsPresent(),
                 "No product suggest shown\n");
 
         // Нажимаем на твоарную подсказку
-        app.getShoppingHelper().hitSuggest("product");
+        app.search().hitSuggest("product");
 
         // Проверяем что открылась карточка товара
         Assert.assertTrue(app.getShoppingHelper().isItemCardOpen(),

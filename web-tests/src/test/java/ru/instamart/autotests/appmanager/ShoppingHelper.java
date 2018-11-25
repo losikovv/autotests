@@ -45,7 +45,7 @@ public class ShoppingHelper extends HelperBase {
 
         if(currentURL().equals(fullBaseUrl)){
             fillField(Elements.Site.LandingPage.addressField(), address);
-            waitForIt(1);
+            waitFor(1);
             click(Elements.Site.LandingPage.addressSuggest());
             click(Elements.Site.LandingPage.selectStoreButton());
         } else {
@@ -55,7 +55,7 @@ public class ShoppingHelper extends HelperBase {
             selectAddressSuggest();
             click(Elements.Site.AddressModal.saveButton());
         }
-        waitForIt(1);
+        waitFor(1);
     }
 
     /** Изменить адрес доставки */
@@ -66,7 +66,7 @@ public class ShoppingHelper extends HelperBase {
         fillField(Elements.Site.AddressModal.addressField(), newAddress);
         selectAddressSuggest();
         click(Elements.Site.AddressModal.saveButton());
-        waitForIt(2);
+        waitFor(2);
     }
 
     /** Определить и вернуть текущий адрес доставки */
@@ -85,7 +85,7 @@ public class ShoppingHelper extends HelperBase {
     private void selectAddressSuggest() {
         if (isAnyAddressSuggestsAvailable()) {
             click(Elements.Site.AddressModal.addressSuggest());
-            waitForIt(1); // Пауза, чтобы дать время обновиться кнопке "сохранить адрес"
+            waitFor(1); // Пауза, чтобы дать время обновиться кнопке "сохранить адрес"
         } else {
             printMessage("Can't click address suggest - there are no such");
         }
@@ -103,13 +103,13 @@ public class ShoppingHelper extends HelperBase {
     /** Открыть шторку выбора магазина */
     public void openShopSelector() {
         click(Elements.Site.Header.changeStoreButton());
-        waitForIt(1);
+        waitFor(1);
     }
 
     /** Закрыть шторку выбора магазина */
     public void closeShopSelector() {
         click(Elements.Site.ShopSelector.closeButton());
-        waitForIt(1);
+        waitFor(1);
     }
 
     /** Определить открыта ли шторка выбора магазина */
@@ -130,7 +130,7 @@ public class ShoppingHelper extends HelperBase {
     public void openCatalog() {
         if(!isCatalogDrawerOpen()) {
             click(Elements.Site.CatalogDrawer.openCatalogButton());
-            waitForIt(1);
+            waitFor(1);
         }  else printMessage("Can't open catalog drawer - already opened");
     }
 
@@ -138,7 +138,7 @@ public class ShoppingHelper extends HelperBase {
     public void closeCatalog() {
         if(isCatalogDrawerOpen()) {
             click(Elements.Site.CatalogDrawer.closeCatalogButton());
-            waitForIt(1);
+            waitFor(1);
         } else printMessage("Can't close catalog drawer - already closed");
     }
 
@@ -169,15 +169,15 @@ public class ShoppingHelper extends HelperBase {
     public void addFirstItemOnPageToCart() {
         openFirstItemCard();
         hitPlusButton();
-        waitForIt(1);
+        waitFor(1);
         closeItemCard();
-        waitForIt(1);
+        waitFor(1);
     }
 
     /** Открываем карточку первого товара */
     private void openFirstItemCard() {
         click(Elements.Site.Catalog.firstItem());
-        waitForIt(1);
+        waitFor(1);
         switchToActiveElement();
     }
 
@@ -217,74 +217,12 @@ public class ShoppingHelper extends HelperBase {
     }
 
 
-    // ======= Поиск товаров =======
-
-    /** Заполнить поле поиска */
-    public void searchItem(String queryText) {
-        printMessage("Searching products on query \"" + queryText + "\"...");
-        fillSearchField(queryText);
-        hitSearchButton();
-        waitForIt(1);
-    }
-
-    /** Заполнить поле поиска */
-    public void fillSearchField(String queryText) {
-        fillField(Elements.Site.Header.Search.searchField(), queryText);
-        waitForIt(1);
-    }
-
-    /** Нажать кнопку поиска */
-    public void hitSearchButton() {
-        click((Elements.Site.Header.Search.searchButton()));
-    }
-    /** Проверка пустого результата поиска */
-    public boolean isSearchResultsEmpty() {
-        if(isElementPresent(Elements.Site.Catalog.emptySearchPlaceholder())){
-            printMessage("Empty search results");
-            return true;
-        } else return false;
-    }
-
-    /** Нажать на саджест(продуктовый/товарный) */
-    public void hitSuggest(String type) {
-        switch (type) {
-            case "category":
-                hitCategorySuggest();
-                break;
-            case "product":
-                hitProductSuggest();
-                break;
-        }
-    }
-
-    /** Проверяем наличие категорийного саджеста */
-    public boolean isCategorySuggestPresent() {
-        return isElementPresent(Elements.Site.Header.Search.categorySuggest());
-    }
-
-    /** Нажать на категорийный саджест */
-    private void hitCategorySuggest() {
-        click(Elements.Site.Header.Search.categorySuggest());
-    }
-
-    /** Проверяем наличие товарных саджестов */
-    public boolean isProductSuggestPresent() {
-        return isElementPresent(Elements.Site.Header.Search.productSuggest());
-
-    }
-
-    /** Нажать на продуктовый саджест */
-    private void hitProductSuggest() {
-        click(Elements.Site.Header.Search.productSuggest());
-    }
-
-
 
     // ======= Корзина =======
 
     /** Определить открыта ли корзина */
     public boolean isCartOpen() {
-        waitForIt(1); // Пауза, на случай если штокра медленно отображается
+        waitFor(1); // Пауза, на случай если штокра медленно отображается
         return isElementDisplayed(Elements.Site.Cart.drawer());
     }
 
@@ -292,7 +230,7 @@ public class ShoppingHelper extends HelperBase {
     public void openCart() {
         if (!isCartOpen()) {
             click(Elements.Site.Cart.openCartButton());
-            waitForIt(1);
+            waitFor(1);
         }
         // DEBUG
         // else printMessage("Skip open cart, already opened");
@@ -302,7 +240,7 @@ public class ShoppingHelper extends HelperBase {
     public void closeCart() {
         if (isCartOpen()) {
             click(Elements.Site.Cart.closeButton());
-            waitForIt(1);
+            waitFor(1);
         }
         // DEBUG
         // else printMessage("Skip close cart, already closed");
@@ -311,7 +249,7 @@ public class ShoppingHelper extends HelperBase {
     /** Определить пуста ли корзина */
     public boolean isCartEmpty() {
         openCart();
-        waitForIt(1); // Пауза на случай, тормозов с корзиной
+        waitFor(1); // Пауза на случай, тормозов с корзиной
         return isElementPresent(Elements.Site.Cart.placeholder());
     }
 
@@ -338,7 +276,7 @@ public class ShoppingHelper extends HelperBase {
     /** Определить активна ли кнопка "Сделать заказ" в корзине */
     public boolean isCheckoutButtonActive() {
         openCart();
-        waitForIt(1); // Пауза на случай, если стостояние кнопки долго обновляется
+        waitFor(1); // Пауза на случай, если стостояние кнопки долго обновляется
         return isElementEnabled(Elements.Site.Cart.checkoutButton());
     }
 
@@ -357,7 +295,7 @@ public class ShoppingHelper extends HelperBase {
 
         for (int i = 1; i <= quantity; i++) {
             hitPlusButton();
-            waitForIt(1);
+            waitFor(1);
         }
         closeItemCard();
     }
@@ -371,7 +309,7 @@ public class ShoppingHelper extends HelperBase {
 
         for (int i = 1; i <= quantity; i++) {
             hitPlusButton();
-            waitForIt(1);
+            waitFor(1);
         }
         closeItemCard();
     }
