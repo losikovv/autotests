@@ -2,6 +2,7 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.BrowserType;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 import ru.instamart.autotests.configuration.PaymentTypes;
@@ -16,7 +17,7 @@ import ru.instamart.autotests.testdata.Loyalties;
 
 public class CheckoutHelper extends HelperBase {
 
-    private ApplicationManager kraken;
+    private ApplicationManager kraken = new ApplicationManager(BrowserType.FIREFOX); // TODO брать браузер из Appmanager;
 
     public CheckoutHelper(WebDriver driver, Environments environment) {
         super(driver, environment);

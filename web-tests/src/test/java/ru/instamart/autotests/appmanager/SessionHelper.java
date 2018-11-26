@@ -3,6 +3,7 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.BrowserType;
 import ru.instamart.autotests.configuration.Pages;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.configuration.Elements;
@@ -18,14 +19,14 @@ import ru.instamart.autotests.configuration.Users;
 
 public class SessionHelper extends HelperBase {
 
-    private ApplicationManager kraken;
-
     SessionHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
 
+    private ApplicationManager kraken = new ApplicationManager(BrowserType.FIREFOX);
+
     public void reachAdmin(Pages page) throws Exception {
-        kraken.get().url(fullBaseUrl + Pages.getPagePath());  // пытаемся перейти по указанному URL в админку
+        kraken.get().url(fullBaseUrl + Pages.getPagePath());        // пытаемся перейти по указанному URL в админку
         if (kraken.detect().isOnSite()) {                           // если не попали, то перелогиниваемся с правами администратора и идем снова
             kraken.get().baseUrl();
             if (isUserAuthorised()) {
@@ -260,8 +261,11 @@ public class SessionHelper extends HelperBase {
 
     /** Открыть форму авторизации/регистрации */
     public void openAuthModal(){
-        if (kraken.detect().isOnLanding()) kraken.perform().click(Elements.Site.LandingPage.loginButton());
-            else kraken.perform().click(Elements.Site.Header.loginButton());
+        if (kraken.detect().isOnLanding()) {
+            kraken.perform().click(Elements.Site.LandingPage.loginButton());
+        } else {
+            kraken.perform().click(Elements.Site.Header.loginButton());
+        }
         waitFor(1);
 
         if(isAuthModalOpen()) printMessage("> open auth modal");

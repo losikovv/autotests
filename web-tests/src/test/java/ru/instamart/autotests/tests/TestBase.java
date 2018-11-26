@@ -141,7 +141,7 @@ public class TestBase {
     }
 
     void checkOrderDocuments(String orderNumber){
-        kraken.get().get("user/orders/" + orderNumber);
+        kraken.get().page("user/orders/" + orderNumber);
         checkOrderDocuments();
     }
 

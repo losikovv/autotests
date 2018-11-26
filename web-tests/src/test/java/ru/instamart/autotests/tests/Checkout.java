@@ -225,20 +225,20 @@ public class Checkout extends TestBase {
     public void checkMetroDeliveryPriceDiscount() {
         kraken.getShoppingHelper().dropCart();
 
-        kraken.get().get(Pages.Site.Catalog.priceyItems());
+        kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.getShoppingHelper().grabCart();
         kraken.getShoppingHelper().proceedToCheckout();
         kraken.getCheckoutHelper().fillCheckout();
         Assert.assertTrue(kraken.getCheckoutHelper().checkDeliveryPrice(299),
                 "Delivery price in checkout is not correct, check manually \n" );
 
-        kraken.get().get(Pages.Site.Catalog.priceyItems());
+        kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.getShoppingHelper().grabCart(5000);
         kraken.getShoppingHelper().proceedToCheckout();
         Assert.assertTrue(kraken.getCheckoutHelper().checkDeliveryPrice(199),
                 "Delivery price in checkout is not correct, check manually \n" );
 
-        kraken.get().get(Pages.Site.Catalog.priceyItems());
+        kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.getShoppingHelper().grabCart(10000);
         kraken.getShoppingHelper().proceedToCheckout();
         Assert.assertTrue(kraken.getCheckoutHelper().checkDeliveryPrice(99),

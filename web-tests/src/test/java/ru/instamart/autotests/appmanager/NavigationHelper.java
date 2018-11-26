@@ -3,6 +3,7 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.BrowserType;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 import ru.instamart.autotests.configuration.Pages;
@@ -19,7 +20,7 @@ import ru.instamart.autotests.models.RetailerData;
 
 public class NavigationHelper extends HelperBase {
 
-    private ApplicationManager kraken;
+    private ApplicationManager kraken = new ApplicationManager(BrowserType.FIREFOX); // TODO брать браузер из Appmanager;
 
     public NavigationHelper(WebDriver driver, Environments environment){ super(driver, environment); }
 
@@ -49,11 +50,11 @@ public class NavigationHelper extends HelperBase {
 
     /** Навигация переходами по ссылкам */
 
-    public void get(String page) {
+    public void page(String page) {
         url(fullBaseUrl + page);
     }
 
-    public void get(Pages page) {
+    public void page(Pages page) {
         String path = Pages.getPagePath();
         url(fullBaseUrl + path);
     }

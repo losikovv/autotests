@@ -25,11 +25,11 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности работы методов навигации", priority = 10001)
     public void checkNavigation() throws Exception {
 
-        kraken.get().get("metro");
+        kraken.get().page("metro");
         Assert.assertEquals(kraken.perform().fetchCurrentURL() , kraken.perform().fullBaseUrl + "metro");
 
 
-        kraken.get().get(Pages.Site.Static.faq());
+        kraken.get().page(Pages.Site.Static.faq());
         Assert.assertEquals(kraken.perform().fetchCurrentURL() , kraken.perform().fullBaseUrl + Pages.getPagePath());
         // TODO проверка GO методов
     }
@@ -96,10 +96,10 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения карточки товара", priority = 10005)
     public void detectItemCard() throws Exception {
 
-        kraken.get().get("metro/salat-premium-gorshochek");
+        kraken.get().page("metro/salat-premium-gorshochek");
         Assert.assertTrue(kraken.getShoppingHelper().isItemCardOpen());
 
-        kraken.get().get("metro/eliektronika");
+        kraken.get().page("metro/eliektronika");
         Assert.assertFalse(kraken.getShoppingHelper().isItemCardOpen());
     }
 
@@ -107,11 +107,11 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения что находимся на сайте", priority = 10006)
     public void detectIsOnSite() throws Exception {
 
-        kraken.get().get(Pages.Site.Static.faq());
+        kraken.get().page(Pages.Site.Static.faq());
         Assert.assertTrue(kraken.detect().isOnSite());
 
         kraken.getSessionHelper().doLoginAs("admin");
-        kraken.get().get(Pages.Admin.retailers());
+        kraken.get().page(Pages.Admin.retailers());
         Assert.assertFalse(kraken.detect().isOnSite());
     }
 
@@ -119,11 +119,11 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения что находимся в админке", priority = 10007)
     public void detectIsInAdmin() throws Exception {
 
-        kraken.get().get(Pages.Site.Static.contacts());
+        kraken.get().page(Pages.Site.Static.contacts());
         Assert.assertFalse(kraken.detect().isInAdmin());
 
         kraken.getSessionHelper().doLoginAs("admin");
-        kraken.get().get(Pages.Admin.settings());
+        kraken.get().page(Pages.Admin.settings());
         Assert.assertTrue(kraken.detect().isInAdmin());
     }
 
@@ -131,10 +131,10 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения 404 ошибки на страниице", priority = 10008)
     public void detect404() throws Exception {
 
-        kraken.get().get("nowhere");
+        kraken.get().page("nowhere");
         Assert.assertTrue(kraken.detect().is404());
 
-        kraken.get().get("metro");
+        kraken.get().page("metro");
         Assert.assertFalse(kraken.detect().is404());
     }
 
@@ -142,10 +142,10 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения 500 ошибки на страниице", priority = 10009)
     public void detect500() throws Exception {
 
-        kraken.get().get("stores/21/shipping_methods");
+        kraken.get().page("stores/21/shipping_methods");
         Assert.assertTrue(kraken.detect().is500());
 
-        kraken.get().get("metro");
+        kraken.get().page("metro");
         Assert.assertFalse(kraken.detect().is500());
     }
 
@@ -153,7 +153,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения шторки Каталога", priority = 10010)
     public void detectCatalogDrawer() throws Exception {
 
-        kraken.get().get("metro");
+        kraken.get().page("metro");
 
         kraken.getShoppingHelper().openCatalog();
         Assert.assertTrue(kraken.getShoppingHelper().isCatalogDrawerOpen());
@@ -181,7 +181,7 @@ public class SelfCheck extends TestBase {
         Assert.assertFalse(kraken.getShoppingHelper().isShopSelectorOpen());
 
         //retailer
-        kraken.get().get("metro");
+        kraken.get().page("metro");
 
         kraken.getShoppingHelper().openShopSelector();
         Assert.assertTrue(kraken.getShoppingHelper().isShopSelectorOpen());
@@ -194,7 +194,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения шторки корзины", priority = 10012)
     public void detectCartDrawer() throws Exception {
 
-        kraken.get().get("metro");
+        kraken.get().page("metro");
 
         kraken.getShoppingHelper().openCart();
         Assert.assertTrue(kraken.getShoppingHelper().isCartOpen());
@@ -207,7 +207,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения модалки Доставка", priority = 10013)
     public void detectDeliveryModal() throws Exception {
 
-        kraken.get().get("metro");
+        kraken.get().page("metro");
 
         kraken.perform().click(Elements.Site.Header.deliveryButton());
         Assert.assertTrue(kraken.detect().isDeliveryModalOpen());
@@ -220,7 +220,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения модалки Партнеры", priority = 10014)
     public void detectPartnersModal() throws Exception {
 
-        kraken.get().get("metro");
+        kraken.get().page("metro");
 
         kraken.perform().click(Elements.Site.Header.partnersButton());
         Assert.assertTrue(kraken.detect().isPartnersModalOpen());

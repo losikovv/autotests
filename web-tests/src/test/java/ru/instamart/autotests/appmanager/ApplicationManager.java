@@ -24,6 +24,7 @@ public class ApplicationManager {
 
     protected WebDriver driver;
     protected Environments environment = new Environments("staging"); // use "production" or "staging"
+    private String browser;
 
     protected String environmentName = environment.getEnvironmentName();
     protected String host = environment.getHost();
@@ -42,7 +43,6 @@ public class ApplicationManager {
     private AdministrationHelper administrationHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
-    private String browser;
 
     public ApplicationManager(String browser) {
         this.browser = browser;

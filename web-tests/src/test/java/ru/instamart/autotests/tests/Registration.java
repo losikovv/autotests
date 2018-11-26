@@ -190,7 +190,7 @@ public class Registration extends TestBase {
     )
     public void successRegistrationFromAddressModal() throws Exception, AssertionError {
 
-        kraken.get().get("metro");
+        kraken.get().page("metro");
         kraken.perform().click(Elements.Site.Header.setShipAddressButton());
         kraken.perform().click(Elements.Site.AddressModal.authButton());
         kraken.getSessionHelper().performRegSequence(Generate.testUserData());

@@ -100,7 +100,7 @@ public class Authorisation extends TestBase {
             priority = 106
     )
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
-        kraken.get().get("vkusvill");
+        kraken.get().page("vkusvill");
         kraken.getSessionHelper().dropAuth();
 
         kraken.getSessionHelper().doLoginAs("user");
@@ -139,7 +139,7 @@ public class Authorisation extends TestBase {
             priority = 108
     )
     public void successAuthFromAddressModal() throws Exception, AssertionError {
-        kraken.get().get("metro");
+        kraken.get().page("metro");
         kraken.getSessionHelper().dropAuth();
 
         kraken.perform().click(Elements.Site.Header.setShipAddressButton());

@@ -4,12 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.BrowserType;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 
 public class PerformHelper extends HelperBase {
 
-    private ApplicationManager kraken;
+    private ApplicationManager kraken = new ApplicationManager(BrowserType.FIREFOX); // TODO брать браузер из Appmanager;
 
     PerformHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
