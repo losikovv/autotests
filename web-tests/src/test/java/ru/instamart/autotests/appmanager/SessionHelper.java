@@ -9,13 +9,6 @@ import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 import ru.instamart.autotests.configuration.Users;
 
-
-
-    // Session helper is for handling testing sessions
-    // Contains various methods for user and orders
-
-
-
 public class SessionHelper extends HelperBase {
 
     private ApplicationManager kraken;
