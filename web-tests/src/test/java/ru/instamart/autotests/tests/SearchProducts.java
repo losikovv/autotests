@@ -26,7 +26,7 @@ public class SearchProducts extends TestBase {
     public void cantSendEmptySearch(){
         kraken.search().item("");
 
-        Assert.assertFalse(kraken.search().isResultsEmpty(),
+        Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
                 "Search results are shown when it's not supposed to be\n");
     }
 
@@ -39,7 +39,7 @@ public class SearchProducts extends TestBase {
     public void successSearchForNonexistingItem(){
         kraken.search().item("смысл жизни");
 
-        Assert.assertTrue(kraken.search().isResultsEmpty(),
+        Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
                 "Search result is not empty when it's supposed to be\n");
     }
 
@@ -52,7 +52,7 @@ public class SearchProducts extends TestBase {
     public void successItemSearch(){
         kraken.search().item("шоколад");
 
-        Assert.assertFalse(kraken.search().isResultsEmpty(),
+        Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
         Assert.assertTrue(kraken.getShoppingHelper().isProductAvailable(),
@@ -72,7 +72,7 @@ public class SearchProducts extends TestBase {
 
         kraken.search().hitCategorySuggest();
 
-        Assert.assertFalse(kraken.search().isResultsEmpty(),
+        Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
         Assert.assertTrue(kraken.getShoppingHelper().isProductAvailable(),
@@ -108,7 +108,7 @@ public class SearchProducts extends TestBase {
 
         assertPageIsAvailable();
 
-        Assert.assertTrue(kraken.search().isResultsEmpty(),
+        Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
                 "Search result is not empty when it's supposed to be\n");
     }
 

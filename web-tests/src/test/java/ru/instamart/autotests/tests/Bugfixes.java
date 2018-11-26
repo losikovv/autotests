@@ -22,8 +22,7 @@ public class Bugfixes extends TestBase {
     public void testName(){
         kraken.search().item("смысл жизни");
 
-        // Проверяем что-нибудь
-        Assert.assertTrue(kraken.search().isResultsEmpty(),
+        Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
                 "Result is not expected\n");
     }
 

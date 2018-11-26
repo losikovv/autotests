@@ -4,12 +4,6 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 
-
-
-// ======= Поиск товаров =======
-
-
-
 public class SearchHelper extends HelperBase {
     SearchHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
@@ -32,14 +26,6 @@ public class SearchHelper extends HelperBase {
     /** Нажать кнопку поиска */
     public void hitSearchButton() {
         click((Elements.Site.Header.Search.searchButton()));
-    }
-
-    /** Проверка пустого результата поиска */
-    public boolean isResultsEmpty() {
-        if(isElementPresent(Elements.Site.Catalog.emptySearchPlaceholder())){
-            printMessage("Empty search results");
-            return true;
-        } else return false;
     }
 
     /** Проверяем наличие категорийного саджеста */

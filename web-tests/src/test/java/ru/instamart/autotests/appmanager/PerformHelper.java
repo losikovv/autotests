@@ -6,7 +6,7 @@ import ru.instamart.autotests.configuration.Environments;
 
 public class PerformHelper extends HelperBase {
 
-    private ApplicationManager app;
+    private ApplicationManager kraken;
 
     PerformHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
@@ -14,19 +14,15 @@ public class PerformHelper extends HelperBase {
 
     /** Открыть меню аккаунта */
     public void openAccountMenu() {
-        if(!app.detect().isAccountMenuOpen()) {
+        if(!kraken.detect().isAccountMenuOpen()) {
             click(Elements.Site.Header.profileButton());
         } else printMessage("Account menu is already opened");
     }
 
     /** Закрыть меню аккаунта */
     public void closeAccountMenu() {
-        if(app.detect().isAccountMenuOpen()) {
+        if(kraken.detect().isAccountMenuOpen()) {
             click(Elements.Site.Header.profileButton());
         } else printMessage("Account menu is already closed");
     }
-
-
-
-
 }

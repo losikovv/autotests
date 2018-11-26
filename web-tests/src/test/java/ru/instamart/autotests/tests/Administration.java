@@ -9,7 +9,6 @@ import ru.instamart.autotests.configuration.Pages;
 // Тесты админки
 
 
-
 public class Administration extends TestBase {
 
 

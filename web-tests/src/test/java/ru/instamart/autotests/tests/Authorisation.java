@@ -8,7 +8,6 @@ import ru.instamart.autotests.configuration.Elements;
 // Тесты авторизации
 
 
-
 public class Authorisation extends TestBase {
 
 

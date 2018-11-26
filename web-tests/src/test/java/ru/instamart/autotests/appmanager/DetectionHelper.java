@@ -4,8 +4,8 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 
-public class DetectHelper extends HelperBase {
-    DetectHelper(WebDriver driver, Environments environment) {
+public class DetectionHelper extends HelperBase {
+    DetectionHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
 
@@ -55,5 +55,13 @@ public class DetectHelper extends HelperBase {
     /** Определить открыто ли меню аккаунта */
     public boolean isAccountMenuOpen() {
         return isElementDisplayed(Elements.Site.AccountMenu.popup());
+    }
+
+    /** Определить пустой результат поиска */
+    public boolean isSearchResultsEmpty() {
+        if(isElementPresent(Elements.Site.Catalog.emptySearchPlaceholder())){
+            printMessage("Empty search results");
+            return true;
+        } else return false;
     }
 }

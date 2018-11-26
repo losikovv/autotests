@@ -31,7 +31,7 @@ public class ApplicationManager {
 
     // Helpers
     private PerformHelper performHelper;
-    private DetectHelper detectHelper;
+    private DetectionHelper detectionHelper;
 
     private NavigationHelper navigationHelper;
     private SessionHelper sessionHelper;
@@ -68,7 +68,7 @@ public class ApplicationManager {
 
         // Helpers init
         performHelper = new PerformHelper(driver, environment);
-        detectHelper = new DetectHelper(driver, environment);
+        detectionHelper = new DetectionHelper(driver, environment);
 
         navigationHelper = new NavigationHelper(driver, environment);
         sessionHelper = new SessionHelper(driver, environment);
@@ -102,7 +102,7 @@ public class ApplicationManager {
 
     // Helpers getters
     public PerformHelper perform() { return performHelper; }
-    public DetectHelper detect() { return detectHelper; }
+    public DetectionHelper detect() { return detectionHelper; }
 
     public NavigationHelper getNavigationHelper() { return navigationHelper; }
     public SessionHelper getSessionHelper() { return sessionHelper; }
