@@ -83,13 +83,13 @@ public class SelfCheck extends TestBase {
     public void detectAccountMenu() throws Exception {
 
         app.perform().getBaseUrl();
-
         app.getSessionHelper().doLoginAs("admin");
+
         app.perform().openAccountMenu();
-        Assert.assertTrue(app.perform().isAccountMenuOpen());
+        Assert.assertTrue(app.detect().isAccountMenuOpen());
 
         app.perform().closeAccountMenu();
-        Assert.assertFalse(app.perform().isAccountMenuOpen());
+        Assert.assertFalse(app.detect().isAccountMenuOpen());
     }
 
 

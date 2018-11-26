@@ -4,36 +4,29 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 
-
-
-    // Common helper for calling methods inherited from HelperBase
-
-
-
 public class PerformHelper extends HelperBase {
 
-    public PerformHelper(WebDriver driver, Environments environment) {
+    private ApplicationManager app;
+
+    PerformHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
 
-
-    // ======= Попап "Профиль" =======
-
+    /** Открыть меню аккаунта */
     public void openAccountMenu() {
-        if(!isAccountMenuOpen()) {
+        if(!app.detect().isAccountMenuOpen()) {
             click(Elements.Site.Header.profileButton());
         } else printMessage("Account menu is already opened");
     }
 
+    /** Закрыть меню аккаунта */
     public void closeAccountMenu() {
-        if(isAccountMenuOpen()) {
+        if(app.detect().isAccountMenuOpen()) {
             click(Elements.Site.Header.profileButton());
         } else printMessage("Account menu is already closed");
     }
 
-    public boolean isAccountMenuOpen() {
-        return isElementDisplayed(Elements.Site.AccountMenu.popup());
-    }
+
 
 
 }

@@ -52,4 +52,8 @@ public class DetectHelper extends HelperBase {
                 && isElementDetected(Elements.Site.PartnersModal.title());
     }
 
+    /** Определить открыто ли меню аккаунта */
+    public boolean isAccountMenuOpen() {
+        return isElementDisplayed(Elements.Site.AccountMenu.popup());
+    }
 }
