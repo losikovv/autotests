@@ -109,8 +109,9 @@ public class Elements {
             }
         }
 
-        /** Попап "Доставка" */
-        interface DeliveryPopup {
+
+        /** Модалка "Доставка" */
+        interface DeliveryModal {
 
             static Elements popup() {
                 return new Elements(null,
@@ -122,6 +123,7 @@ public class Elements {
                         By.cssSelector(".delivery__intervals > h3:nth-child(1)"));
             }
 
+            // todo заменить на perform.click везде где используется и удалить здесь
             static Elements openPopupButton() {
                 return new Elements(null,
                         By.cssSelector("button.navbar-button:nth-child(3) > div:nth-child(1)"));
@@ -132,7 +134,8 @@ public class Elements {
             }
         }
 
-        /** Попап "Партнеры" */
+
+        /** Модалка "Партнеры" */
         interface PartnersPopup {
 
             static Elements popup() {
@@ -145,6 +148,7 @@ public class Elements {
                         By.cssSelector(".modal-title"));
             }
 
+            // todo заменить на perform.click везде где используется и удалить здесь
             static Elements openPopupButton() {
                 return new Elements(null,
                         By.cssSelector("button.navbar-button:nth-child(5) > div:nth-child(1)"));
@@ -156,7 +160,7 @@ public class Elements {
             }
         }
 
-        /** Попап "Оплата" */
+        /** Модалка "Оплата" */
         interface PaymentPopup {
 
             static Elements popup() {

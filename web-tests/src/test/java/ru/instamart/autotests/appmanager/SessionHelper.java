@@ -26,7 +26,7 @@ public class SessionHelper extends HelperBase {
 
     public void reachAdmin(Pages page) throws Exception {
         getUrl(fullBaseUrl + Pages.getPagePath());  // пытаемся перейти по указанному URL в админку
-        if (app.probe().isOnSite()) {                           // если не попали, то перелогиниваемся с правами администратора и идем снова
+        if (app.detect().isOnSite()) {                           // если не попали, то перелогиниваемся с правами администратора и идем снова
             getBaseUrl();
             if (isUserAuthorised()) {
                 doLogout();
@@ -156,7 +156,7 @@ public class SessionHelper extends HelperBase {
     /** Деавторизоваться */
     public void doLogout() {
         printMessage("Log-out\n");
-        if (!app.probe().isInAdmin()) {
+        if (!app.detect().isInAdmin()) {
             click(Elements.Site.Header.profileButton());
             click(Elements.Site.AccountMenu.logoutButton());
         } else {
@@ -260,7 +260,7 @@ public class SessionHelper extends HelperBase {
 
     /** Открыть форму авторизации/регистрации */
     public void openAuthModal(){
-        if (app.probe().isOnLanding()) click(Elements.Site.LandingPage.loginButton());
+        if (app.detect().isOnLanding()) click(Elements.Site.LandingPage.loginButton());
             else click(Elements.Site.Header.loginButton());
         waitFor(1);
 

@@ -4,8 +4,8 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 
-public class ProbeHelper extends HelperBase {
-    ProbeHelper(WebDriver driver, Environments environment) {
+public class DetectHelper extends HelperBase {
+    DetectHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
 
@@ -33,4 +33,11 @@ public class ProbeHelper extends HelperBase {
     public boolean is500() {
         return isElementDetected(Elements.Page500.placeholder());
     }
+
+    public boolean isDeliveryModalOpen() {
+        return isElementDisplayed(Elements.Site.DeliveryModal.popup())
+                && isElementDetected(Elements.Site.DeliveryModal.title());
+    }
+
+
 }

@@ -108,11 +108,11 @@ public class SelfCheck extends TestBase {
     public void detectIsOnSite() throws Exception {
 
         app.getNavigationHelper().get(Pages.Site.Static.faq());
-        Assert.assertTrue(app.probe().isOnSite());
+        Assert.assertTrue(app.detect().isOnSite());
 
         app.getSessionHelper().doLoginAs("admin");
         app.getNavigationHelper().get(Pages.Admin.retailers());
-        Assert.assertFalse(app.probe().isOnSite());
+        Assert.assertFalse(app.detect().isOnSite());
     }
 
 
@@ -120,11 +120,11 @@ public class SelfCheck extends TestBase {
     public void detectIsInAdmin() throws Exception {
 
         app.getNavigationHelper().get(Pages.Site.Static.contacts());
-        Assert.assertFalse(app.probe().isInAdmin());
+        Assert.assertFalse(app.detect().isInAdmin());
 
         app.getSessionHelper().doLoginAs("admin");
         app.getNavigationHelper().get(Pages.Admin.settings());
-        Assert.assertTrue(app.probe().isInAdmin());
+        Assert.assertTrue(app.detect().isInAdmin());
     }
 
 
@@ -132,10 +132,10 @@ public class SelfCheck extends TestBase {
     public void detect404() throws Exception {
 
         app.getNavigationHelper().get("nowhere");
-        Assert.assertTrue(app.probe().is404());
+        Assert.assertTrue(app.detect().is404());
 
         app.getNavigationHelper().get("metro");
-        Assert.assertFalse(app.probe().is404());
+        Assert.assertFalse(app.detect().is404());
     }
 
 
@@ -143,10 +143,10 @@ public class SelfCheck extends TestBase {
     public void detect500() throws Exception {
 
         app.getNavigationHelper().get("stores/21/shipping_methods");
-        Assert.assertTrue(app.probe().is500());
+        Assert.assertTrue(app.detect().is500());
 
         app.getNavigationHelper().get("metro");
-        Assert.assertFalse(app.probe().is500());
+        Assert.assertFalse(app.detect().is500());
     }
 
 
@@ -209,11 +209,11 @@ public class SelfCheck extends TestBase {
 
         app.getNavigationHelper().get("metro");
 
-        app.perform().click(Elements.Site.DeliveryPopup.openPopupButton());
-        Assert.assertTrue(app.deliveryModal().isOpen());
+        app.perform().click(Elements.Site.DeliveryModal.openPopupButton());
+        Assert.assertTrue(app.detect().isDeliveryModalOpen());
 
-        app.deliveryModal().close();
-        Assert.assertFalse(app.deliveryModal().isOpen());
+        app.perform().click(Elements.Site.DeliveryModal.closeButton());
+        Assert.assertFalse(app.detect().isDeliveryModalOpen());
     }
 
 

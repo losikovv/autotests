@@ -31,7 +31,7 @@ public class ApplicationManager {
 
     // Helpers
     private PerformHelper performHelper;
-    private ProbeHelper probeHelper;
+    private DetectHelper detectHelper;
 
     private NavigationHelper navigationHelper;
     private SessionHelper sessionHelper;
@@ -40,8 +40,6 @@ public class ApplicationManager {
     private CheckoutHelper checkoutHelper;
     private ProfileHelper profileHelper;
     private AdministrationHelper administrationHelper;
-
-    private DeliveryModalHelper deliveryModalHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
     private String browser;
@@ -70,7 +68,7 @@ public class ApplicationManager {
 
         // Helpers init
         performHelper = new PerformHelper(driver, environment);
-        probeHelper = new ProbeHelper(driver, environment);
+        detectHelper = new DetectHelper(driver, environment);
 
         navigationHelper = new NavigationHelper(driver, environment);
         sessionHelper = new SessionHelper(driver, environment);
@@ -80,7 +78,6 @@ public class ApplicationManager {
         profileHelper = new ProfileHelper(driver, environment);
         administrationHelper = new AdministrationHelper(driver, environment);
 
-        deliveryModalHelper = new DeliveryModalHelper(driver,environment);
 
         // Options
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS); // Basic timeout
@@ -105,7 +102,7 @@ public class ApplicationManager {
 
     // Helpers getters
     public PerformHelper perform() { return performHelper; }
-    public ProbeHelper probe() { return probeHelper; }
+    public DetectHelper detect() { return detectHelper; }
 
     public NavigationHelper getNavigationHelper() { return navigationHelper; }
     public SessionHelper getSessionHelper() { return sessionHelper; }
@@ -114,7 +111,4 @@ public class ApplicationManager {
     public CheckoutHelper getCheckoutHelper() { return checkoutHelper; }
     public ProfileHelper getProfileHelper() { return profileHelper; }
     public AdministrationHelper admin() { return administrationHelper; }
-
-    public DeliveryModalHelper deliveryModal() {return deliveryModalHelper;}
-
 }
