@@ -34,6 +34,7 @@ public class DetectHelper extends HelperBase {
         return isElementDetected(Elements.Page500.placeholder());
     }
 
+    /** Определить открыта ли модалка "Модалка" */
     public boolean isDeliveryModalOpen() {
         return isElementDisplayed(Elements.Site.DeliveryModal.popup())
                 && isElementDetected(Elements.Site.DeliveryModal.title());
@@ -45,5 +46,10 @@ public class DetectHelper extends HelperBase {
                 && isElementDetected(Elements.Site.PaymentModal.title());
     }
 
+    /** Определить открыт ли модалка "Партнеры" */
+    public boolean isPartnersModalOpen() {
+        return isElementDisplayed(Elements.Site.PartnersModal.popup())
+                && isElementDetected(Elements.Site.PartnersModal.title());
+    }
 
 }

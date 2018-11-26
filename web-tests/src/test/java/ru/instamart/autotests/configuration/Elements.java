@@ -140,7 +140,7 @@ public class Elements {
 
 
         /** Модалка "Партнеры" */
-        interface PartnersPopup {
+        interface PartnersModal {
 
             static Elements popup() {
                 return new Elements(null,

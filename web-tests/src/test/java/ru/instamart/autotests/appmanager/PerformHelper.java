@@ -36,35 +36,4 @@ public class PerformHelper extends HelperBase {
     }
 
 
-
-    //======= Попап "Партнеры" ========
-
-    /** Определить открыт ли попап "Партнеры" */
-    public boolean isPartnersPopupOpen() {
-        if (isElementDisplayed(Elements.Site.PartnersPopup.popup())
-                && isElementDetected(Elements.Site.PartnersPopup.title())) {
-            //printMessage("✓ Partners popup open");
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /** Открыть попап "Партнеры" */
-    public void openPartnersPopup() {
-        if(!isPartnersPopupOpen()) {
-            click(Elements.Site.Header.partnersButton());
-            waitFor(1);
-        } else printMessage("Can't open popup - already opened");
-    }
-
-    /** Закрыть попап "Партнеры" */
-    public void closePartnersPopup() {
-        if(isPartnersPopupOpen()) {
-            click(Elements.Site.PartnersPopup.closeButton());
-            waitFor(1);
-        } else printMessage("Can't close popup - already closed");
-    }
-
-
 }

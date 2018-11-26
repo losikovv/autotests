@@ -204,8 +204,8 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения попапа доставки", priority = 10013)
-    public void detectDeliveryPopup() throws Exception {
+    @Test(description = "Тест корректности определения модалки Доставка", priority = 10013)
+    public void detectDeliveryModal() throws Exception {
 
         app.getNavigationHelper().get("metro");
 
@@ -217,17 +217,21 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения попапа партнерских программ", priority = 10014)
-    public void detectPartnersPopup() throws Exception {
+    @Test(description = "Тест корректности определения модалки Партнеры", priority = 10014)
+    public void detectPartnersModal() throws Exception {
 
         app.getNavigationHelper().get("metro");
 
-        app.perform().openPartnersPopup();
-        Assert.assertTrue(app.perform().isPartnersPopupOpen());
+        app.perform().click(Elements.Site.Header.partnersButton());
+        Assert.assertTrue(app.detect().isPartnersModalOpen());
 
-        app.perform().closePartnersPopup();
-        Assert.assertFalse(app.perform().isPartnersPopupOpen());
+        app.perform().click(Elements.Site.PartnersModal.closeButton());
+        Assert.assertFalse(app.detect().isPartnersModalOpen());
     }
+
+    // TODO detectPaymentModal
+
+    // TODO detectAddressModal
 
 }
 
