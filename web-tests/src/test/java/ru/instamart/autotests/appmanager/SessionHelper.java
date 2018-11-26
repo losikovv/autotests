@@ -25,14 +25,14 @@ public class SessionHelper extends HelperBase {
     }
 
     public void reachAdmin(Pages page) throws Exception {
-        getUrl(fullBaseUrl + Pages.getPagePath());  // пытаемся перейти по указанному URL в админку
+        kraken.get().url(fullBaseUrl + Pages.getPagePath());  // пытаемся перейти по указанному URL в админку
         if (kraken.detect().isOnSite()) {                           // если не попали, то перелогиниваемся с правами администратора и идем снова
-            getBaseUrl();
+            kraken.get().baseUrl();
             if (isUserAuthorised()) {
                 doLogout();
             }
             doLoginAs("admin");
-            getUrl(fullBaseUrl + Pages.getPagePath());
+            kraken.get().url(fullBaseUrl + Pages.getPagePath());
         }
     }
 
@@ -168,10 +168,10 @@ public class SessionHelper extends HelperBase {
 
     /** Деавторизоваться, оставшись на текущей странице */
     public void dropAuth() {
-        String currentURL = currentURL();
+        String currentURL = fetchCurrentURL();
         if (isUserAuthorised()) {
             doLogout();
-            getUrl(currentURL);
+            kraken.get().url(currentURL);
         }
     }
 
@@ -185,7 +185,7 @@ public class SessionHelper extends HelperBase {
     public void deleteUsers(Pages usersList) throws Exception {
         reachAdmin(usersList);
         if(isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
-            printMessage("- delete user " + getText(Elements.Admin.Users.firstUserLogin()));
+            printMessage("- delete user " + fetchText(Elements.Admin.Users.firstUserLogin()));
             click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
             waitFor(1);
@@ -216,7 +216,7 @@ public class SessionHelper extends HelperBase {
 
     /** Cancel order on the order page in admin panel */
     public void cancelOrder(){
-        printMessage("> cancel order " + currentURL());
+        printMessage("> cancel order " + fetchCurrentURL());
         click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
         handleAlert();
         chooseCancellationReason(4,"Тестовый заказ");
@@ -226,7 +226,7 @@ public class SessionHelper extends HelperBase {
 
 
     public void cancelOrder(int reason, String details){
-        printMessage("> cancel order " + currentURL());
+        printMessage("> cancel order " + fetchCurrentURL());
         click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
         handleAlert();
         chooseCancellationReason(reason,details);

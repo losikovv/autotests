@@ -17,7 +17,7 @@ public class MakeOrders extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preparing() throws Exception {
-        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.get().retailerPage("metro");
         kraken.getSessionHelper().doLoginAs("admin");
     }
 
@@ -43,7 +43,7 @@ public class MakeOrders extends TestBase {
         kraken.getShoppingHelper().changeShippingAddress(Addresses.Kazan.defaultAddress());
 
         // Идем в чекаут, при необходимости набирая корзину
-        kraken.getNavigationHelper().getCheckoutPage();
+        kraken.get().checkoutPage();
         if(!kraken.getCheckoutHelper().isOnCheckout()){
             kraken.getShoppingHelper().grabCart();
             kraken.getShoppingHelper().proceedToCheckout();
@@ -67,11 +67,11 @@ public class MakeOrders extends TestBase {
     )
     public void orderToVkusvill(){
 
-        kraken.getNavigationHelper().getRetailerPage("vkusvill");
+        kraken.get().retailerPage("vkusvill");
         kraken.getShoppingHelper().changeShippingAddress(Addresses.Moscow.testAddress());
 
         // идем в чекаут, при необходимости набирая корзину
-        kraken.getNavigationHelper().getCheckoutPage();
+        kraken.get().checkoutPage();
         if(!kraken.getCheckoutHelper().isOnCheckout()){
             kraken.getShoppingHelper().grabCart();
             kraken.getShoppingHelper().proceedToCheckout();

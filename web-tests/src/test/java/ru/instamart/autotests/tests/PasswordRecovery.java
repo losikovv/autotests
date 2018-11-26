@@ -15,7 +15,7 @@ public class PasswordRecovery extends TestBase {
 
     @BeforeMethod
     public void preconditions() {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
     }
 
@@ -82,7 +82,7 @@ public class PasswordRecovery extends TestBase {
             priority = 604
     )
     public void successRecoveryOnRetailer() throws AssertionError, Exception {
-        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.get().retailerPage("metro");
         kraken.getSessionHelper().recoverPassword("instatestuser@yandex.ru");
 
         // Assert recovery is requested

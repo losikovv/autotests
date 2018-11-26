@@ -14,7 +14,7 @@ public class SearchProducts extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() throws Exception {
-        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.get().retailerPage("metro");
     }
 
 
@@ -86,7 +86,7 @@ public class SearchProducts extends TestBase {
             priority = 309
     )
     public void successItemSearchUsingProductSuggests(){
-        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.get().retailerPage("metro");
         kraken.search().fillSearchFieldWith("Мороженое");
 
         Assert.assertTrue(kraken.search().isProductSuggestsPresent(),

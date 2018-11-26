@@ -14,6 +14,8 @@ import ru.instamart.autotests.configuration.Environments;
 
 public class ProfileHelper extends HelperBase {
 
+    private ApplicationManager kraken;
+
     public ProfileHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
@@ -26,7 +28,7 @@ public class ProfileHelper extends HelperBase {
      * Get the Account page in the profile
      */
     public void getAccountPage(){
-        getUrl(baseUrl + "user/edit");
+        kraken.get().url(baseUrl + "user/edit");
     }
 
     // TODO changePassword(String newPassword, String password) - изменение пароля
@@ -41,7 +43,7 @@ public class ProfileHelper extends HelperBase {
 
     /** Перейти в историю заказов */
     private void getOrdersPage(){
-        getUrl(baseUrl + "user/orders");
+        kraken.get().url(baseUrl + "user/orders");
     }
 
     /** Перейти в детали крайнего заказа */
@@ -101,7 +103,7 @@ public class ProfileHelper extends HelperBase {
 
     /** Проверка стоимости доставки заказа на странице деталей заказа */
     public boolean checkDeliveryPrice(int price) {
-        int deliveryPrice = round(getText(Elements.Site.OrderDetailsPage.deliveryPrice()));
+        int deliveryPrice = round(fetchText(Elements.Site.OrderDetailsPage.deliveryPrice()));
         if (deliveryPrice == price) {
             printMessage("✓ Delivery price " + deliveryPrice + "р\n");
             return true;
@@ -116,7 +118,7 @@ public class ProfileHelper extends HelperBase {
      * Get the Addresses page in the profile
      */
     public void getAddressesPage(){
-        getUrl(baseUrl + "user/addresses");
+        kraken.get().url(baseUrl + "user/addresses");
     }
 
 }

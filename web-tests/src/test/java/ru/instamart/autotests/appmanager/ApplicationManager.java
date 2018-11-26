@@ -104,7 +104,8 @@ public class ApplicationManager {
     public PerformHelper perform() { return performHelper; }
     public DetectionHelper detect() { return detectionHelper; }
 
-    public NavigationHelper getNavigationHelper() { return navigationHelper; }
+    public NavigationHelper get() { return navigationHelper; }
+
     public SessionHelper getSessionHelper() { return sessionHelper; }
     public ShoppingHelper getShoppingHelper() { return shoppingHelper; }
     public SearchHelper search() { return searchHelper; }

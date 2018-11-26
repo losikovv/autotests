@@ -17,7 +17,7 @@ public class Authorisation extends TestBase {
             priority = 101
     )
     public void noAuthWithoutEmail() throws Exception, AssertionError {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().doLogin("", "instamart");
 
@@ -33,7 +33,7 @@ public class Authorisation extends TestBase {
             priority = 102
     )
     public void noAuthWithoutPassword() throws Exception, AssertionError {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().doLogin("instatestuser@yandex.ru", "");
 
@@ -49,7 +49,7 @@ public class Authorisation extends TestBase {
             priority = 103
     )
     public void noAuthWithNonexistingUser() throws Exception, AssertionError {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().doLogin("nonexistinguser@example.com", "password");
 
@@ -65,7 +65,7 @@ public class Authorisation extends TestBase {
             priority = 104
     )
     public void noAuthWithWrongPassword() throws Exception, AssertionError {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().doLogin("instatestuser@yandex.ru", "wrongpassword");
 
@@ -81,7 +81,7 @@ public class Authorisation extends TestBase {
             priority = 105
     )
     public void successAuthOnLandingPage() throws Exception, AssertionError {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
 
         kraken.getSessionHelper().doLoginAs("user");
@@ -100,7 +100,7 @@ public class Authorisation extends TestBase {
             priority = 106
     )
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
-        kraken.getNavigationHelper().get("vkusvill");
+        kraken.get().get("vkusvill");
         kraken.getSessionHelper().dropAuth();
 
         kraken.getSessionHelper().doLoginAs("user");
@@ -125,7 +125,7 @@ public class Authorisation extends TestBase {
         // Assert there is no problems after logout
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.get().retailerPage("metro");
 
         // Assert user is unauthorised
         Assert.assertFalse(kraken.getSessionHelper().isUserAuthorised(),
@@ -139,7 +139,7 @@ public class Authorisation extends TestBase {
             priority = 108
     )
     public void successAuthFromAddressModal() throws Exception, AssertionError {
-        kraken.getNavigationHelper().get("metro");
+        kraken.get().get("metro");
         kraken.getSessionHelper().dropAuth();
 
         kraken.perform().click(Elements.Site.Header.setShipAddressButton());

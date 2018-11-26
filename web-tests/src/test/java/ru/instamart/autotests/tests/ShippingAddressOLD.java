@@ -22,7 +22,7 @@ public class ShippingAddressOLD extends TestBase {
             priority = 202
     )
     public void checkDefaultShoplist() throws Exception {
-        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.get().retailerPage("metro");
         kraken.getShoppingHelper().openShopsList();
 
         // Assert shoplist is open
@@ -53,7 +53,7 @@ public class ShippingAddressOLD extends TestBase {
     )
     public void setShippingAddressOnLandingPage() throws Exception {
         final String address = "Москва, ул Мусы Джалиля, д 19 к 1"; // TODO брать из Addresses
-        kraken.getNavigationHelper().getLandingPage();
+        kraken.get().getLandingPage();
         kraken.getShoppingHelper().setShippingAddress(address);
         kraken.getShoppingHelper().selectShop(1);
 
@@ -73,7 +73,7 @@ public class ShippingAddressOLD extends TestBase {
             priority = 204
     )
     public void changeShippingAddress() throws Exception {
-        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.get().retailerPage("metro");
 
         if(kraken.getShoppingHelper().isShippingAddressEmpty()){
             kraken.getShoppingHelper().setShippingAddress("Москва, ул Мусы Джалиля, д 19 к 1"); // TODO брать из Addresses
@@ -106,7 +106,7 @@ public class ShippingAddressOLD extends TestBase {
             priority = 205
     )
     public void setAddressWithNoAvailableShops() throws Exception {
-        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.get().retailerPage("metro");
         kraken.getShoppingHelper().changeShippingAddress("Москва, ул Лосиноостровская, д 1"); // TODO брать из Addresses
         kraken.getShoppingHelper().openShopsList();
 
@@ -126,7 +126,7 @@ public class ShippingAddressOLD extends TestBase {
             priority = 206
     )
     public void sucessShippingAddressFetchAfterAuthorisation() throws Exception {
-        kraken.getNavigationHelper().getLandingPage();
+        kraken.get().getLandingPage();
         kraken.getSessionHelper().doLoginAs("admin");
 
         // Assert shipping address is set after authorisation

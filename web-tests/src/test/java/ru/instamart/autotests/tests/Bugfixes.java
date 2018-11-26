@@ -33,7 +33,7 @@ public class Bugfixes extends TestBase {
             priority = 1001
     )
     public void STF987() throws Exception {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().recoverPassword("instatestuser@yandex.ru");
         kraken.getSessionHelper().closeAuthModal();

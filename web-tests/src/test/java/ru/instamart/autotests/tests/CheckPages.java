@@ -89,7 +89,7 @@ public class CheckPages extends TestBase {
             priority = 805
     )
     public void checkProfilePages() throws Exception, AssertionError {
-        kraken.perform().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().doLoginAs("admin");
 
         assertPageIsAvailable(Pages.Site.Profile.edit());
@@ -127,7 +127,7 @@ public class CheckPages extends TestBase {
             priority = 807
     )
     public void checkFooterLinks() throws Exception {
-        kraken.perform().getBaseUrl();
+        kraken.get().baseUrl();
 
         // TOdO нужен метод, проверяющий переход по ссылке и включающий проверку что начальная и конечная страницы не одинаковые
         kraken.perform().click(Elements.Site.Footer.aboutCompanyButton());

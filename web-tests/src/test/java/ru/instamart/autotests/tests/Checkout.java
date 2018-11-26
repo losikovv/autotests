@@ -14,7 +14,7 @@ import ru.instamart.autotests.configuration.Pages;
 public class Checkout extends TestBase {
 
     private void reachCheckout() {
-        kraken.getNavigationHelper().getCheckoutPage();
+        kraken.get().checkoutPage();
         if(!kraken.getCheckoutHelper().isOnCheckout()){
             kraken.getShoppingHelper().grabCart();
             kraken.getShoppingHelper().proceedToCheckout();
@@ -23,7 +23,7 @@ public class Checkout extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preparingForCheckout() throws Exception {
-        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.get().retailerPage("metro");
         kraken.getSessionHelper().doLoginAs("admin");
     }
 
@@ -225,20 +225,20 @@ public class Checkout extends TestBase {
     public void checkMetroDeliveryPriceDiscount() {
         kraken.getShoppingHelper().dropCart();
 
-        kraken.getNavigationHelper().get(Pages.Site.Catalog.priceyItems());
+        kraken.get().get(Pages.Site.Catalog.priceyItems());
         kraken.getShoppingHelper().grabCart();
         kraken.getShoppingHelper().proceedToCheckout();
         kraken.getCheckoutHelper().fillCheckout();
         Assert.assertTrue(kraken.getCheckoutHelper().checkDeliveryPrice(299),
                 "Delivery price in checkout is not correct, check manually \n" );
 
-        kraken.getNavigationHelper().get(Pages.Site.Catalog.priceyItems());
+        kraken.get().get(Pages.Site.Catalog.priceyItems());
         kraken.getShoppingHelper().grabCart(5000);
         kraken.getShoppingHelper().proceedToCheckout();
         Assert.assertTrue(kraken.getCheckoutHelper().checkDeliveryPrice(199),
                 "Delivery price in checkout is not correct, check manually \n" );
 
-        kraken.getNavigationHelper().get(Pages.Site.Catalog.priceyItems());
+        kraken.get().get(Pages.Site.Catalog.priceyItems());
         kraken.getShoppingHelper().grabCart(10000);
         kraken.getShoppingHelper().proceedToCheckout();
         Assert.assertTrue(kraken.getCheckoutHelper().checkDeliveryPrice(99),

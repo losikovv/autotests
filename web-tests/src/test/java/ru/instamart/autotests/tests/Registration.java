@@ -19,7 +19,7 @@ public class Registration extends TestBase {
             groups = {"acceptance", "regression"}
     )
     public void noRegWithEmptyRequisites() throws Exception {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().regNewUser(null, null, null, null);
 
@@ -38,7 +38,7 @@ public class Registration extends TestBase {
             priority = 1
     )
     public void noRegWithoutName() throws Exception {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().regNewUser(null, "test@example.com", "12345678", "12345678");
 
@@ -57,7 +57,7 @@ public class Registration extends TestBase {
             priority = 2
     )
     public void noRegWithoutEmail() throws Exception {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().regNewUser("Test User", null, "12345678", "12345678");
 
@@ -76,7 +76,7 @@ public class Registration extends TestBase {
             priority = 3
     )
     public void noRegWithoutPassword() throws Exception {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().regNewUser("Test User", "test@example.com", null, "12345678");
 
@@ -95,7 +95,7 @@ public class Registration extends TestBase {
             priority = 4
     )
     public void noRegWithoutPasswordConfirmation() throws Exception {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().regNewUser("Test User", "test@example.com", "12345678", null);
 
@@ -114,7 +114,7 @@ public class Registration extends TestBase {
             priority = 5
     )
     public void noRegWithWrongPasswordConfirmation() throws Exception {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().regNewUser("Test User", "test@example.com", "12345678", "12345679");
 
@@ -132,7 +132,7 @@ public class Registration extends TestBase {
             priority = 6
     )
     public void noRegWithExistingEmail() throws Exception {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().regNewUser("Test User", "autotestuser@instamart.ru", "12345678", "12345679");
 
@@ -148,7 +148,7 @@ public class Registration extends TestBase {
             priority = 7
     )
     public void successRegOnLandingPage() throws Exception {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().regNewUser(Generate.testUserData());
 
@@ -169,7 +169,7 @@ public class Registration extends TestBase {
             priority = 8
     )
     public void successRegOnRetailerPage() throws Exception {
-        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.get().retailerPage("metro");
         kraken.getSessionHelper().dropAuth();
         kraken.getSessionHelper().regNewUser(Generate.testUserData());
 
@@ -190,7 +190,7 @@ public class Registration extends TestBase {
     )
     public void successRegistrationFromAddressModal() throws Exception, AssertionError {
 
-        kraken.getNavigationHelper().get("metro");
+        kraken.get().get("metro");
         kraken.perform().click(Elements.Site.Header.setShipAddressButton());
         kraken.perform().click(Elements.Site.AddressModal.authButton());
         kraken.getSessionHelper().performRegSequence(Generate.testUserData());

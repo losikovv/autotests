@@ -27,24 +27,6 @@ public class HelperBase {
         this.fullBaseUrl = environment.getBaseURL(true);
     }
 
-    /** Перейти на базовый URL */
-
-    public void getBaseUrl() {
-        getUrl(fullBaseUrl);
-    }
-
-
-    /** Перейти на указанный URL */
-
-    public void getUrl(String url) {
-        if (url.equals(fullBaseUrl)) printMessage("Getting baseURL " + url + "\n");
-        try {
-            driver.get(url);
-        } catch (TimeoutException t) {
-            printMessage("Can't get " + url + " by timeout");
-        }
-    }
-
 
     /** Кликнуть указанный элемент */
 
@@ -53,7 +35,7 @@ public class HelperBase {
             driver.findElement(locator).click();
         }
         catch (NoSuchElementException n){
-            printMessage("Can't click element <" + locator + "> on " + currentURL() + "\n");
+            printMessage("Can't click element <" + locator + "> on " + fetchCurrentURL() + "\n");
         }
     }
 
@@ -64,19 +46,19 @@ public class HelperBase {
         catch (NoSuchElementException n) {
             if(Elements.getText() == null) {
                 printMessage("Can't click element <" + Elements.getLocator()
-                        + ">\nNo such element on " + currentURL() + "\n");
+                        + ">\nNo such element on " + fetchCurrentURL() + "\n");
             } else {
                 printMessage("Can't click element " + Elements.getText() + " <" + Elements.getLocator()
-                        + ">\nNo such element on " + currentURL() + "\n");
+                        + ">\nNo such element on " + fetchCurrentURL() + "\n");
             }
         }
         catch (ElementNotVisibleException v) {
             if(Elements.getText() == null) {
                 printMessage("Can't click element <" + Elements.getLocator()
-                        + ">\nElement is not visible on " + currentURL() + "\n");
+                        + ">\nElement is not visible on " + fetchCurrentURL() + "\n");
             } else {
                 printMessage("Can't click element " + Elements.getText() + " <" + Elements.getLocator()
-                        + ">\nElement is not visible on " + currentURL() + "\n");
+                        + ">\nElement is not visible on " + fetchCurrentURL() + "\n");
             }
         }
     }
@@ -110,16 +92,18 @@ public class HelperBase {
     }
 
 
+    // TODO перенести в FetchHelper
+
     /** Вернуть текущий URL */
 
-    public String currentURL() {
+    public String fetchCurrentURL() {
         return driver.getCurrentUrl();
     }
 
 
     /** Взять текст элемента */
 
-    String getText(Elements element) {
+    String fetchText(Elements element) {
         try {
             return driver.findElement(Elements.getLocator()).getText();
         } catch (NoSuchElementException e) {
@@ -127,7 +111,7 @@ public class HelperBase {
         }
     }
 
-    String getText(By locator) {
+    String fetchText(By locator) {
         try {
             return driver.findElement(locator).getText();
         } catch (NoSuchElementException e) {
@@ -138,15 +122,15 @@ public class HelperBase {
 
     /** Точно определить отображается ли конкретно указанный элемент */
     public boolean isElementDetected(Elements element) {
-        return isElementPresent(Elements.getLocator()) && getText(Elements.getLocator()).equals(Elements.getText());
+        return isElementPresent(Elements.getLocator()) && fetchText(Elements.getLocator()).equals(Elements.getText());
     }
 
     public boolean isElementDetected(String xpath, String text) {
-        return isElementPresent(By.xpath(xpath)) && getText(By.xpath(xpath)).equals(text);
+        return isElementPresent(By.xpath(xpath)) && fetchText(By.xpath(xpath)).equals(text);
     }
 
     public boolean isElementDetected(By locator, String text) {
-        return isElementPresent(locator) && getText(locator).equals(text);
+        return isElementPresent(locator) && fetchText(locator).equals(text);
     }
 
 
@@ -285,9 +269,9 @@ public class HelperBase {
 
     public String detectOrderDocument(int position) {
         Elements.Site.OrderDetailsPage.documentation(position);
-        if (getText(Elements.getLocator()) != null) {
-            printMessage("Скачиваем: " + getText(Elements.getLocator()));
-            return getText(Elements.getLocator());
+        if (fetchText(Elements.getLocator()) != null) {
+            printMessage("Скачиваем: " + fetchText(Elements.getLocator()));
+            return fetchText(Elements.getLocator());
             } else {
             printMessage("Документ отсутствует\n");
             return null;

@@ -41,7 +41,7 @@ public class Administration extends TestBase {
     public void resumeOrder() throws Exception {
 
         String orderNumber = "R124857258"; //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
-        kraken.getNavigationHelper().getOrderAdminPage(orderNumber);
+        kraken.get().getOrderAdminPage(orderNumber);
 
         // Assert order is canceled
         Assert.assertTrue(kraken.admin().isOrderCanceled(),
@@ -65,7 +65,7 @@ public class Administration extends TestBase {
         String orderNumber = "R124857258"; // TODO заменить на номер заказа тестового пользователя
         //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
 
-        kraken.getNavigationHelper().getOrderAdminPage(orderNumber);
+        kraken.get().getOrderAdminPage(orderNumber);
 
         Assert.assertFalse(kraken.admin().isOrderCanceled(),
                 "The order is already canceled\n");
@@ -109,138 +109,138 @@ public class Administration extends TestBase {
 
 
     private void orders() throws Exception {
-        kraken.getNavigationHelper().goOrders();
+        kraken.get().goOrders();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goOrdersMulti();
+        kraken.get().goOrdersMulti();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goOrdersVeeroute();
+        kraken.get().goOrdersVeeroute();
         assertPageIsAvailable();
     }
 
     private void stores() throws Exception {
-        kraken.getNavigationHelper().goStore();
+        kraken.get().goStore();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goStoreRetailers();
+        kraken.get().goStoreRetailers();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goStoreZones();
+        kraken.get().goStoreZones();
         assertPageIsAvailable();
     }
 
     private void products() throws Exception {
-        kraken.getNavigationHelper().goProducts();
+        kraken.get().goProducts();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goSubProducts();
+        kraken.get().goSubProducts();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goProductsStats();
+        kraken.get().goProductsStats();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goProductsOptionTypes();
+        kraken.get().goProductsOptionTypes();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goProductsProperties();
+        kraken.get().goProductsProperties();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goProductsPrototypes();
+        kraken.get().goProductsPrototypes();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goProductsBrands();
+        kraken.get().goProductsBrands();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goProductsProducers();
+        kraken.get().goProductsProducers();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goProductsProducersCountries();
+        kraken.get().goProductsProducersCountries();
         assertPageIsAvailable();
     }
 
     private void imports() throws Exception {
-        kraken.getNavigationHelper().goImport();
+        kraken.get().goImport();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goImportQueueOfTasks();
+        kraken.get().goImportQueueOfTasks();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goImportStats();
+        kraken.get().goImportStats();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goImportArchive();
+        kraken.get().goImportArchive();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goImportBlackList();
+        kraken.get().goImportBlackList();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goImportCategory();
+        kraken.get().goImportCategory();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goImportFilters();
+        kraken.get().goImportFilters();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goImportProducts();
+        kraken.get().goImportProducts();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goImportPrice();
+        kraken.get().goImportPrice();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goImportImages();
+        kraken.get().goImportImages();
         assertPageIsAvailable();
 
     }
 
     private void reports() throws Exception {
-        kraken.getNavigationHelper().goReports();
+        kraken.get().goReports();
         assertPageIsAvailable();
     }
 
     private void settings() throws Exception {
-        kraken.getNavigationHelper().goSettings();
+        kraken.get().goSettings();
         assertPageIsAvailable();
     }
 
     private void marketing() throws Exception {
-        kraken.getNavigationHelper().goMarketing();
+        kraken.get().goMarketing();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goMarketingPromoCards();
+        kraken.get().goMarketingPromoCards();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goMarketingPromoAction();
+        kraken.get().goMarketingPromoAction();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goMarketingWelcomeBanners();
+        kraken.get().goMarketingWelcomeBanners();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goMarketingAdvertisement();
+        kraken.get().goMarketingAdvertisement();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goMarketingYandexMarket();
+        kraken.get().goMarketingYandexMarket();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goMarketingCarts();
+        kraken.get().goMarketingCarts();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goMarketingBonusCards();
+        kraken.get().goMarketingBonusCards();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goMarketingRetailersPrograms();
+        kraken.get().goMarketingRetailersPrograms();
         assertPageIsAvailable();
 
-        kraken.getNavigationHelper().goMarketingNewCities();
+        kraken.get().goMarketingNewCities();
         assertPageIsAvailable();
     }
 
     private void users() throws Exception {
-        kraken.getNavigationHelper().goUsers();
+        kraken.get().goUsers();
         assertPageIsAvailable();
     }
 
     private void pages() throws Exception {
-        kraken.getNavigationHelper().goPages();
+        kraken.get().goPages();
         assertPageIsAvailable();
     }
 

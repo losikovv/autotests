@@ -43,7 +43,7 @@ public class ShoppingHelper extends HelperBase {
     public void setShippingAddress(String address) {
         printMessage("Setting shipping address...");
 
-        if(currentURL().equals(fullBaseUrl)){
+        if(fetchCurrentURL().equals(fullBaseUrl)){
             fillField(Elements.Site.LandingPage.addressField(), address);
             waitFor(1);
             click(Elements.Site.LandingPage.addressSuggest());
@@ -72,8 +72,8 @@ public class ShoppingHelper extends HelperBase {
     /** Определить и вернуть текущий адрес доставки */
     public String currentShippingAddress() {
         Elements.Site.Header.currentShipAddress();
-        printMessage("Shipping address: " + getText(Elements.getLocator()));
-        return getText(Elements.getLocator());
+        printMessage("Shipping address: " + fetchText(Elements.getLocator()));
+        return fetchText(Elements.getLocator());
     }
 
     /** Определить показаны ли адресные саджесты */
@@ -93,7 +93,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Проверка на наличие адресной модалки адресной модалки */
     private void checkAddressModal() {
-        printMessage("Modal opened: [" + getText(Elements.Site.AddressModal.header()) + "]");
+        printMessage("Modal opened: [" + fetchText(Elements.Site.AddressModal.header()) + "]");
     }
 
 
@@ -290,7 +290,7 @@ public class ShoppingHelper extends HelperBase {
     public void grabCart() {
         openFirstItemCard();
 
-        int quantity = (Constants.minOrderSum / round(getText(Elements.Site.ItemCard.price()))) + 1;
+        int quantity = (Constants.minOrderSum / round(fetchText(Elements.Site.ItemCard.price()))) + 1;
         printMessage("Quantity for minimal order : " + quantity );
 
         for (int i = 1; i <= quantity; i++) {
@@ -304,7 +304,7 @@ public class ShoppingHelper extends HelperBase {
     public void grabCart(int sum) {
         openFirstItemCard();
 
-        int quantity = (sum / round(getText(Elements.Site.ItemCard.price()))) + 1;
+        int quantity = (sum / round(fetchText(Elements.Site.ItemCard.price()))) + 1;
         printMessage("Quantity for " + sum + "р : " + quantity);
 
         for (int i = 1; i <= quantity; i++) {
@@ -352,9 +352,9 @@ public class ShoppingHelper extends HelperBase {
         final String XPATHAUTH = "/html/body/div[9]/div/div[2]/div/div[3]/form/button/div/div[2]/div"; // авторизован
         final String XPATH = "/html/body/div[8]/div/div[2]/div/div[3]/form/button/div/div[2]/div"; // неавторизован
         try {
-            return getText(By.xpath(XPATHAUTH));
+            return fetchText(By.xpath(XPATHAUTH));
         } catch (NoSuchElementException e) {
-            return getText(By.xpath(XPATH));
+            return fetchText(By.xpath(XPATH));
         }
     }
 

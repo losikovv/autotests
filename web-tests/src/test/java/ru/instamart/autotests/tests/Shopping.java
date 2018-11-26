@@ -15,7 +15,7 @@ public class Shopping extends TestBase{
 
     @BeforeMethod(alwaysRun = true)
     public void getAuth() throws Exception {
-        kraken.getNavigationHelper().getBaseUrl();
+        kraken.get().baseUrl();
         kraken.getSessionHelper().doLoginAs("admin");
     }
 

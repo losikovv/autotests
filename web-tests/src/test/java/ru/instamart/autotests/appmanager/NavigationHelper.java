@@ -1,6 +1,7 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
@@ -21,6 +22,25 @@ public class NavigationHelper extends HelperBase {
     public NavigationHelper(WebDriver driver, Environments environment){ super(driver, environment); }
 
 
+    /** Перейти на базовый URL */
+
+    public void baseUrl() {
+        url(fullBaseUrl);
+    }
+
+
+    /** Перейти на указанный URL */
+
+    public void url(String url) {
+        if (url.equals(fullBaseUrl)) printMessage("Getting baseURL " + url + "\n");
+        try {
+            driver.get(url);
+        } catch (TimeoutException t) {
+            printMessage("Can't get " + url + " by timeout");
+        }
+    }
+
+
 
     // ======= SITE =======
 
@@ -28,12 +48,12 @@ public class NavigationHelper extends HelperBase {
     /** Навигация переходами по ссылкам */
 
     public void get(String page) {
-        getUrl(fullBaseUrl + page);
+        url(fullBaseUrl + page);
     }
 
     public void get(Pages page) {
         String path = Pages.getPagePath();
-        getUrl(fullBaseUrl + path);
+        url(fullBaseUrl + path);
     }
 
 
@@ -48,31 +68,31 @@ public class NavigationHelper extends HelperBase {
     // TODO public void go(Elements[] elements){ }
 
     // переход на витрину ретейлера
-    public void getRetailerPage(String retailerName) {
-        getUrl(baseUrl + retailerName);
+    public void retailerPage(String retailerName) {
+        url(baseUrl + retailerName);
     }
 
     // переход на витрину ретейлера
-    public void getRetailerPage(RetailerData retailerData) {
-        getUrl(baseUrl + retailerData.getName());
+    public void retailerPage(RetailerData retailerData) {
+        url(baseUrl + retailerData.getName());
     }
 
     // переход на страницу чекаута
-    public void getCheckoutPage() {
-        getUrl(baseUrl + "checkout/edit?");
+    public void checkoutPage() {
+        url(baseUrl + "checkout/edit?");
         waitFor(1);
     }
 
     // переход в профиль
     public void getProfilePage()  {
-        getUrl(baseUrl + "user/edit");
+        url(baseUrl + "user/edit");
     }
 
 
     // переходы на лендинги
 
     public void getLandingPage(String landingName) {
-        getUrl(baseUrl + landingName);
+        url(baseUrl + landingName);
     }
 
 
@@ -101,14 +121,14 @@ public class NavigationHelper extends HelperBase {
      * Get page in admin panel
      */
     public void getAdminPage(String pageName) {
-        getUrl(baseUrl + "admin/" + pageName);
+        url(baseUrl + "admin/" + pageName);
     }
 
     /**
      * Get order page in admin panel
      */
     public void getOrderAdminPage(String orderNumber){
-        getUrl(baseUrl + "admin/orders/" + orderNumber + "/edit");
+        url(baseUrl + "admin/orders/" + orderNumber + "/edit");
     }
 
     /**
