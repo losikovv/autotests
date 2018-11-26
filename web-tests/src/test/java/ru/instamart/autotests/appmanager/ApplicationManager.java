@@ -34,7 +34,9 @@ public class ApplicationManager {
     private PerformHelper performHelper;
     private DetectionHelper detectionHelper;
 
+    private BrowseHelper browseHelper;
     private NavigationHelper navigationHelper;
+
     private SessionHelper sessionHelper;
     private ShoppingHelper shoppingHelper;
     private SearchHelper searchHelper;
@@ -70,7 +72,9 @@ public class ApplicationManager {
         performHelper = new PerformHelper(driver, environment, this);
         detectionHelper = new DetectionHelper(driver, environment, this);
 
+        browseHelper = new BrowseHelper(driver, environment, this);
         navigationHelper = new NavigationHelper(driver, environment, this);
+
         sessionHelper = new SessionHelper(driver, environment, this);
         shoppingHelper = new ShoppingHelper(driver, environment, this);
         searchHelper = new SearchHelper(driver, environment, this);
@@ -104,7 +108,8 @@ public class ApplicationManager {
     public PerformHelper perform() { return performHelper; }
     public DetectionHelper detect() { return detectionHelper; }
 
-    public NavigationHelper get() { return navigationHelper; }
+    public BrowseHelper get() { return browseHelper; }
+    public NavigationHelper go() { return navigationHelper; }
 
     public SessionHelper getSessionHelper() { return sessionHelper; }
     public ShoppingHelper getShoppingHelper() { return shoppingHelper; }

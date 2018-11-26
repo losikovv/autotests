@@ -109,138 +109,147 @@ public class Administration extends TestBase {
 
 
     private void orders() throws Exception {
-        kraken.get().goOrders();
+
+        kraken.go().adminOrders();
         assertPageIsAvailable();
 
-        kraken.get().goOrdersMulti();
+        kraken.go().adminOrdersMulti();
         assertPageIsAvailable();
 
-        kraken.get().goOrdersVeeroute();
+        kraken.go().adminOrdersVeeroute();
         assertPageIsAvailable();
     }
 
     private void stores() throws Exception {
-        kraken.get().goStore();
+
+        kraken.go().adminStores();
         assertPageIsAvailable();
 
-        kraken.get().goStoreRetailers();
+        kraken.go().adminStoresRetailers();
         assertPageIsAvailable();
 
-        kraken.get().goStoreZones();
+        kraken.go().adminStoresZones();
         assertPageIsAvailable();
     }
 
     private void products() throws Exception {
-        kraken.get().goProducts();
+
+        kraken.go().adminProducts();
         assertPageIsAvailable();
 
-        kraken.get().goSubProducts();
+        kraken.go().adminSubProducts();
         assertPageIsAvailable();
 
-        kraken.get().goProductsStats();
+        kraken.go().adminProductsStats();
         assertPageIsAvailable();
 
-        kraken.get().goProductsOptionTypes();
+        kraken.go().adminProductsOptionTypes();
         assertPageIsAvailable();
 
-        kraken.get().goProductsProperties();
+        kraken.go().adminProductsProperties();
         assertPageIsAvailable();
 
-        kraken.get().goProductsPrototypes();
+        kraken.go().adminProductsPrototypes();
         assertPageIsAvailable();
 
-        kraken.get().goProductsBrands();
+        kraken.go().adminProductsBrands();
         assertPageIsAvailable();
 
-        kraken.get().goProductsProducers();
+        kraken.go().adminProductsProducers();
         assertPageIsAvailable();
 
-        kraken.get().goProductsProducersCountries();
+        kraken.go().adminProductsProducersCountries();
         assertPageIsAvailable();
     }
 
     private void imports() throws Exception {
-        kraken.get().goImport();
+
+        kraken.go().adminImport();
         assertPageIsAvailable();
 
-        kraken.get().goImportQueueOfTasks();
+        kraken.go().adminImportQueueOfTasks();
         assertPageIsAvailable();
 
-        kraken.get().goImportStats();
+        kraken.go().adminImportStats();
         assertPageIsAvailable();
 
-        kraken.get().goImportArchive();
+        kraken.go().adminImportArchive();
         assertPageIsAvailable();
 
-        kraken.get().goImportBlackList();
+        kraken.go().adminImportBlackList();
         assertPageIsAvailable();
 
-        kraken.get().goImportCategory();
+        kraken.go().adminImportCategory();
         assertPageIsAvailable();
 
-        kraken.get().goImportFilters();
+        kraken.go().adminImportFilters();
         assertPageIsAvailable();
 
-        kraken.get().goImportProducts();
+        kraken.go().adminImportProducts();
         assertPageIsAvailable();
 
-        kraken.get().goImportPrice();
+        kraken.go().adminImportPrice();
         assertPageIsAvailable();
 
-        kraken.get().goImportImages();
+        kraken.go().adminImportImages();
         assertPageIsAvailable();
 
     }
 
     private void reports() throws Exception {
-        kraken.get().goReports();
+
+        kraken.go().adminReports();
         assertPageIsAvailable();
     }
 
     private void settings() throws Exception {
-        kraken.get().goSettings();
+
+        kraken.go().adminSettings();
         assertPageIsAvailable();
     }
 
     private void marketing() throws Exception {
-        kraken.get().goMarketing();
+
+        kraken.go().adminMarketing();
         assertPageIsAvailable();
 
-        kraken.get().goMarketingPromoCards();
+        kraken.go().adminMarketingPromoCards();
         assertPageIsAvailable();
 
-        kraken.get().goMarketingPromoAction();
+        kraken.go().adminMarketingPromoAction();
         assertPageIsAvailable();
 
-        kraken.get().goMarketingWelcomeBanners();
+        kraken.go().adminMarketingWelcomeBanners();
         assertPageIsAvailable();
 
-        kraken.get().goMarketingAdvertisement();
+        kraken.go().adminMarketingAdvertisement();
         assertPageIsAvailable();
 
-        kraken.get().goMarketingYandexMarket();
+        kraken.go().adminMarketingYandexMarket();
         assertPageIsAvailable();
 
-        kraken.get().goMarketingCarts();
+        kraken.go().adminMarketingCarts();
         assertPageIsAvailable();
 
-        kraken.get().goMarketingBonusCards();
+        kraken.go().adminMarketingBonusCards();
         assertPageIsAvailable();
 
-        kraken.get().goMarketingRetailersPrograms();
+        kraken.go().adminMarketingRetailersPrograms();
         assertPageIsAvailable();
 
-        kraken.get().goMarketingNewCities();
+        kraken.go().adminMarketingNewCities();
         assertPageIsAvailable();
     }
 
     private void users() throws Exception {
-        kraken.get().goUsers();
+
+        kraken.go().adminUsers();
         assertPageIsAvailable();
     }
 
     private void pages() throws Exception {
-        kraken.get().goPages();
+
+        kraken.go().adminPages();
         assertPageIsAvailable();
     }
 

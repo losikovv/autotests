@@ -778,7 +778,7 @@ public class Elements {
                     return new Elements(text, locator);
                 }
 
-                static Elements storeButton() {
+                static Elements storesButton() {
                     text = "Магазины";
                     locator = By.xpath("//*[@id='admin-menu']/div/div/ul/li[2]/a/span");
                     return new Elements(text, locator);
