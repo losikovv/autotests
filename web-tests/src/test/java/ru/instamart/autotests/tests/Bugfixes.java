@@ -20,10 +20,10 @@ public class Bugfixes extends TestBase {
             priority = 1000
     )
     public void testName(){
-        app.search().item("смысл жизни");
+        kraken.search().item("смысл жизни");
 
         // Проверяем что-нибудь
-        Assert.assertTrue(app.search().isResultsEmpty(),
+        Assert.assertTrue(kraken.search().isResultsEmpty(),
                 "Result is not expected\n");
     }
 
@@ -34,13 +34,13 @@ public class Bugfixes extends TestBase {
             priority = 1001
     )
     public void STF987() throws Exception {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().recoverPassword("instatestuser@yandex.ru");
-        app.getSessionHelper().closeAuthModal();
-        app.getSessionHelper().openAuthModal();
+        kraken.getNavigationHelper().getBaseUrl();
+        kraken.getSessionHelper().dropAuth();
+        kraken.getSessionHelper().recoverPassword("instatestuser@yandex.ru");
+        kraken.getSessionHelper().closeAuthModal();
+        kraken.getSessionHelper().openAuthModal();
 
-        Assert.assertFalse(app.getSessionHelper().isRecoverySent(),
+        Assert.assertFalse(kraken.getSessionHelper().isRecoverySent(),
                 "Can't open auth modal right after sending password recovery request \n");
     }
 

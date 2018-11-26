@@ -15,18 +15,18 @@ import ru.instamart.autotests.configuration.Pages;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
+    protected final ApplicationManager kraken = new ApplicationManager(BrowserType.FIREFOX);
 
 
     @BeforeClass(alwaysRun = true)
     public void setUp() throws Exception {
-        app.init();
+        kraken.rise();
     }
 
 
     @AfterClass(alwaysRun = true)
     public void tearDown() throws Exception {
-        app.stop();
+        kraken.stop();
     }
 
 
@@ -34,10 +34,10 @@ public class TestBase {
      * Simply check the current page is not 404 or 500
      */
     protected void assertPageIsAvailable() throws AssertionError {
-        String currentURL = app.getNavigationHelper().currentURL();
-        Assert.assertFalse(app.detect().is404(),"Page " + currentURL + " is 404" + "\n");
-        Assert.assertFalse(app.detect().is500(),"It's something wrong on page " + currentURL + "\n");
-        app.perform().printMessage("Current page is available (" + currentURL + ")\n");
+        String currentURL = kraken.getNavigationHelper().currentURL();
+        Assert.assertFalse(kraken.detect().is404(),"Page " + currentURL + " is 404" + "\n");
+        Assert.assertFalse(kraken.detect().is500(),"It's something wrong on page " + currentURL + "\n");
+        kraken.perform().printMessage("Current page is available (" + currentURL + ")\n");
     }
 
     /**
@@ -46,32 +46,32 @@ public class TestBase {
      */
     protected void assertPageIsAvailable(String URL) throws AssertionError {
         String targetURL = URL;
-        app.getNavigationHelper().getUrl(targetURL);
-        String currentURL = app.getNavigationHelper().currentURL();
+        kraken.getNavigationHelper().getUrl(targetURL);
+        String currentURL = kraken.getNavigationHelper().currentURL();
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL " + targetURL + "\n");
-        Assert.assertFalse(app.detect().is404(),"Page " + currentURL + " is 404" + "\n");
-        Assert.assertFalse(app.detect().is500(),"It's something wrong on page " + currentURL + "\n");
-        app.perform().printMessage("Page is available (" + currentURL + ")");
+        Assert.assertFalse(kraken.detect().is404(),"Page " + currentURL + " is 404" + "\n");
+        Assert.assertFalse(kraken.detect().is500(),"It's something wrong on page " + currentURL + "\n");
+        kraken.perform().printMessage("Page is available (" + currentURL + ")");
     }
 
     protected void assertPageIsAvailable(Pages page) throws AssertionError {
-        String targetURL = app.getNavigationHelper().fullBaseUrl + Pages.getPagePath();
-        app.getNavigationHelper().getUrl(targetURL);
-        String currentURL = app.getNavigationHelper().currentURL();
+        String targetURL = kraken.getNavigationHelper().fullBaseUrl + Pages.getPagePath();
+        kraken.getNavigationHelper().getUrl(targetURL);
+        String currentURL = kraken.getNavigationHelper().currentURL();
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL " + targetURL + "\n");
-        Assert.assertFalse(app.detect().is404(),"Page " + currentURL + " is 404" + "\n");
-        Assert.assertFalse(app.detect().is500(),"It's something wrong on page " + currentURL + "\n");
-        app.perform().printMessage("Page is available (" + currentURL + ")");
+        Assert.assertFalse(kraken.detect().is404(),"Page " + currentURL + " is 404" + "\n");
+        Assert.assertFalse(kraken.detect().is500(),"It's something wrong on page " + currentURL + "\n");
+        kraken.perform().printMessage("Page is available (" + currentURL + ")");
     }
 
     /**
      * Simply check the current page is 404 and isn't 500
      */
     protected void assertPageIs404() throws AssertionError {
-        String currentURL = app.getNavigationHelper().currentURL();
-        app.perform().printMessage("Checking current page " + currentURL + " is 404");
-        Assert.assertTrue(app.detect().is404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
-        Assert.assertFalse(app.detect().is500(),"It's something wrong on page " + currentURL + "\n");
+        String currentURL = kraken.getNavigationHelper().currentURL();
+        kraken.perform().printMessage("Checking current page " + currentURL + " is 404");
+        Assert.assertTrue(kraken.detect().is404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
+        Assert.assertFalse(kraken.detect().is500(),"It's something wrong on page " + currentURL + "\n");
     }
 
     /**
@@ -80,22 +80,22 @@ public class TestBase {
      */
     protected void assertPageIs404(String URL) throws AssertionError {
         String targetURL = URL;
-        app.perform().printMessage("Asserting page " + URL + " is 404");
-        app.perform().getUrl(targetURL);
-        String currentURL = app.getNavigationHelper().currentURL();
+        kraken.perform().printMessage("Asserting page " + URL + " is 404");
+        kraken.perform().getUrl(targetURL);
+        String currentURL = kraken.getNavigationHelper().currentURL();
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL" + targetURL + "\n");
-        Assert.assertTrue(app.detect().is404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
-        Assert.assertFalse(app.detect().is500(),"It's something wrong on page " + currentURL + "\n");
+        Assert.assertTrue(kraken.detect().is404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
+        Assert.assertFalse(kraken.detect().is500(),"It's something wrong on page " + currentURL + "\n");
     }
 
     protected void assertPageIs404(Pages page) throws AssertionError {
-        String targetURL = app.getNavigationHelper().fullBaseUrl + Pages.getPagePath();
-        app.perform().printMessage("Asserting page " + targetURL + " is 404");
-        app.perform().getUrl(targetURL);
-        String currentURL = app.getNavigationHelper().currentURL();
+        String targetURL = kraken.getNavigationHelper().fullBaseUrl + Pages.getPagePath();
+        kraken.perform().printMessage("Asserting page " + targetURL + " is 404");
+        kraken.perform().getUrl(targetURL);
+        String currentURL = kraken.getNavigationHelper().currentURL();
         Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL" + targetURL + "\n");
-        Assert.assertTrue(app.detect().is404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
-        Assert.assertFalse(app.detect().is500(),"It's something wrong on page " + currentURL + "\n");
+        Assert.assertTrue(kraken.detect().is404(),"Page " + currentURL + " must be 404, but it's not" + "\n");
+        Assert.assertFalse(kraken.detect().is500(),"It's something wrong on page " + currentURL + "\n");
     }
 
     /**
@@ -103,28 +103,28 @@ public class TestBase {
      */
     protected void assertPageIsUnreachable(String URL) throws AssertionError {
         String targetURL = URL;
-        app.perform().printMessage("Checking page " + URL + " is unreachable at this moment");
-        app.perform().getUrl(targetURL);
-        String currentURL = app.getNavigationHelper().currentURL();
+        kraken.perform().printMessage("Checking page " + URL + " is unreachable at this moment");
+        kraken.perform().getUrl(targetURL);
+        String currentURL = kraken.getNavigationHelper().currentURL();
         Assert.assertFalse(targetURL.equalsIgnoreCase(currentURL), "It is possible to get page " + currentURL + " while it must be unreachable at this moment" + "\n");
     }
 
     protected void assertPageIsUnreachable(Pages page) throws AssertionError {
-        String targetURL = app.perform().fullBaseUrl + Pages.getPagePath();
-        app.perform().printMessage("Checking page " + targetURL + " is unreachable at this moment");
-        app.perform().getUrl(targetURL);
-        String currentURL = app.getNavigationHelper().currentURL();
+        String targetURL = kraken.perform().fullBaseUrl + Pages.getPagePath();
+        kraken.perform().printMessage("Checking page " + targetURL + " is unreachable at this moment");
+        kraken.perform().getUrl(targetURL);
+        String currentURL = kraken.getNavigationHelper().currentURL();
         Assert.assertFalse(targetURL.equalsIgnoreCase(currentURL), "It is possible to get page " + currentURL + " while it must be unreachable at this moment" + "\n");
     }
 
     protected void assertNoTestOrdersLeftActive() throws AssertionError {
-        app.getNavigationHelper().getTestOrdersAdminPage();
-        Assert.assertTrue(app.perform().isElementPresent(By.className("no-objects-found")),"Seems like there are some test orders left active");
+        kraken.getNavigationHelper().getTestOrdersAdminPage();
+        Assert.assertTrue(kraken.perform().isElementPresent(By.className("no-objects-found")),"Seems like there are some test orders left active");
     }
 
     protected void assertNoTestUsersLeft() throws AssertionError {
-        app.getNavigationHelper().getTestUsersAdminPage();
-        Assert.assertFalse(app.perform().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),
+        kraken.getNavigationHelper().getTestUsersAdminPage();
+        Assert.assertFalse(kraken.perform().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),
                 "Seems like there are some test users left after cleanup");
     }
 
@@ -133,15 +133,15 @@ public class TestBase {
 
     void checkOrderDocuments(){
         for(int i = 1; i <= 3; i++) {
-            if(app.perform().detectOrderDocument(i) != null) {
-                app.perform().click(Elements.getLocator());
+            if(kraken.perform().detectOrderDocument(i) != null) {
+                kraken.perform().click(Elements.getLocator());
                 assertPageIsAvailable();
             }
         }
     }
 
     void checkOrderDocuments(String orderNumber){
-        app.getNavigationHelper().get("user/orders/" + orderNumber);
+        kraken.getNavigationHelper().get("user/orders/" + orderNumber);
         checkOrderDocuments();
     }
 

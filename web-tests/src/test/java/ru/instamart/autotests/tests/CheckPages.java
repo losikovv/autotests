@@ -89,8 +89,8 @@ public class CheckPages extends TestBase {
             priority = 805
     )
     public void checkProfilePages() throws Exception, AssertionError {
-        app.perform().getBaseUrl();
-        app.getSessionHelper().doLoginAs("admin");
+        kraken.perform().getBaseUrl();
+        kraken.getSessionHelper().doLoginAs("admin");
 
         assertPageIsAvailable(Pages.Site.Profile.edit());
         assertPageIsAvailable(Pages.Site.Profile.orders());
@@ -104,7 +104,7 @@ public class CheckPages extends TestBase {
             priority = 806
     )
     public void checkAdminPages() throws Exception, AssertionError {
-        app.getSessionHelper().reachAdmin(Pages.Admin.shipments());
+        kraken.getSessionHelper().reachAdmin(Pages.Admin.shipments());
 
         assertPageIsAvailable(Pages.Admin.shipments());
         assertPageIsAvailable(Pages.Admin.retailers());
@@ -127,43 +127,43 @@ public class CheckPages extends TestBase {
             priority = 807
     )
     public void checkFooterLinks() throws Exception {
-        app.perform().getBaseUrl();
+        kraken.perform().getBaseUrl();
 
         // TOdO нужен метод, проверяющий переход по ссылке и включающий проверку что начальная и конечная страницы не одинаковые
-        app.perform().click(Elements.Site.Footer.aboutCompanyButton());
+        kraken.perform().click(Elements.Site.Footer.aboutCompanyButton());
         assertPageIsAvailable();
 
-        app.perform().click(Elements.Site.Footer.contactsButton());
+        kraken.perform().click(Elements.Site.Footer.contactsButton());
         assertPageIsAvailable();
 
-        app.perform().click(Elements.Site.Footer.deliveryButton());
-        Assert.assertTrue(app.detect().isDeliveryModalOpen(),
+        kraken.perform().click(Elements.Site.Footer.deliveryButton());
+        Assert.assertTrue(kraken.detect().isDeliveryModalOpen(),
                 "Cant assert Delivery modal is open, check manually\n");
-        app.perform().click(Elements.Site.DeliveryModal.closeButton());
+        kraken.perform().click(Elements.Site.DeliveryModal.closeButton());
         assertPageIsAvailable();
 
-        app.perform().click(Elements.Site.Footer.paymentButton());
-        Assert.assertTrue(app.detect().isPaymentModalOpen(),
+        kraken.perform().click(Elements.Site.Footer.paymentButton());
+        Assert.assertTrue(kraken.detect().isPaymentModalOpen(),
                 "Cant assert Payment modal is open, check manually\n");
-        app.perform().click(Elements.Site.PaymentModal.closeButton());
+        kraken.perform().click(Elements.Site.PaymentModal.closeButton());
         assertPageIsAvailable();
 
-        app.perform().click(Elements.Site.Footer.partnersButton());
-        Assert.assertTrue(app.detect().isPartnersModalOpen(),
+        kraken.perform().click(Elements.Site.Footer.partnersButton());
+        Assert.assertTrue(kraken.detect().isPartnersModalOpen(),
                 "Cant assPartners modal is open, check manually\n");
-        app.perform().click(Elements.Site.PartnersModal.closeButton());
+        kraken.perform().click(Elements.Site.PartnersModal.closeButton());
         assertPageIsAvailable();
 
-        app.perform().click(Elements.Site.Footer.faqButton());
+        kraken.perform().click(Elements.Site.Footer.faqButton());
         assertPageIsAvailable();
 
-        app.perform().click(Elements.Site.Footer.feedbackFormButton());
+        kraken.perform().click(Elements.Site.Footer.feedbackFormButton());
         assertPageIsAvailable();
 
-        app.perform().click(Elements.Site.Footer.returnPolicyButton());
+        kraken.perform().click(Elements.Site.Footer.returnPolicyButton());
         assertPageIsAvailable();
 
-        app.perform().click(Elements.Site.Footer.publicOfferButton());
+        kraken.perform().click(Elements.Site.Footer.publicOfferButton());
         assertPageIsAvailable();
 
     }

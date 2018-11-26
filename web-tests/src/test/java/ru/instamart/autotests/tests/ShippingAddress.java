@@ -1,7 +1,6 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.testdata.Addresses;
 
@@ -16,12 +15,12 @@ public class ShippingAddress extends TestBase{
     /*
     @BeforeMethod(alwaysRun = true)
     public void dropShipAddress() throws Exception {
-        app.getNavigationHelper().getRetailerPage("metro");
-        if(app.getSessionHelper().isUserAuthorised()) {
-            app.getSessionHelper().doLogout();
+        kraken.getNavigationHelper().getRetailerPage("metro");
+        if(kraken.getSessionHelper().isUserAuthorised()) {
+            kraken.getSessionHelper().doLogout();
         } else {
-            app.getSessionHelper().doLoginAs("user");
-            app.getSessionHelper().doLogout();
+            kraken.getSessionHelper().doLoginAs("user");
+            kraken.getSessionHelper().doLogout();
         }
     }
 */
@@ -33,12 +32,12 @@ public class ShippingAddress extends TestBase{
             priority = 201
     )
     public void emptyShippingAddressByDefault() throws Exception {
-        app.getNavigationHelper().getRetailerPage("metro");
+        kraken.getNavigationHelper().getRetailerPage("metro");
 
-        Assert.assertTrue(app.getShoppingHelper().isShippingAddressEmpty(),
+        Assert.assertTrue(kraken.getShoppingHelper().isShippingAddressEmpty(),
                 "Shipping address is not empty by default\n");
 
-        Assert.assertFalse(app.getShoppingHelper().isShippingAddressSet(),
+        Assert.assertFalse(kraken.getShoppingHelper().isShippingAddressSet(),
                 "Shipping address is set by default\n");
     }
 
@@ -49,13 +48,13 @@ public class ShippingAddress extends TestBase{
             priority = 202
     )
     public void setShippingAddressOnRetailerPage() throws Exception {
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getShoppingHelper().setShippingAddress(Addresses.Moscow.defaultAddress());
+        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.getShoppingHelper().setShippingAddress(Addresses.Moscow.defaultAddress());
 
-        Assert.assertTrue(app.getShoppingHelper().isShippingAddressSet(),
+        Assert.assertTrue(kraken.getShoppingHelper().isShippingAddressSet(),
                 "Can't approve the shipping address was set correctly, check manually\n");
 
-         Assert.assertTrue(app.getShoppingHelper().currentShippingAddress().equals(Addresses.Moscow.defaultAddress()),
+         Assert.assertTrue(kraken.getShoppingHelper().currentShippingAddress().equals(Addresses.Moscow.defaultAddress()),
                "Current shipping address is not the same that was entered during the setting procedure\n");
     }
 
@@ -66,13 +65,13 @@ public class ShippingAddress extends TestBase{
             priority = 203
     )
     public void changeShippingAddress() throws Exception {
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getShoppingHelper().changeShippingAddress(Addresses.Moscow.testAddress());
+        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.getShoppingHelper().changeShippingAddress(Addresses.Moscow.testAddress());
 
-        Assert.assertTrue(app.getShoppingHelper().isShippingAddressSet(),
+        Assert.assertTrue(kraken.getShoppingHelper().isShippingAddressSet(),
                 "Can't approve the shipping address was set correctly, check manually\n");
 
-        Assert.assertTrue(app.getShoppingHelper().currentShippingAddress().equals(Addresses.Moscow.testAddress()),
+        Assert.assertTrue(kraken.getShoppingHelper().currentShippingAddress().equals(Addresses.Moscow.testAddress()),
                 "Current shipping address is not the same that was entered during the setting procedure\n");
     }
 

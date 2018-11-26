@@ -19,12 +19,12 @@ public class Registration extends TestBase {
             groups = {"acceptance", "regression"}
     )
     public void noRegWithEmptyRequisites() throws Exception {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().regNewUser(null, null, null, null);
+        kraken.getNavigationHelper().getBaseUrl();
+        kraken.getSessionHelper().dropAuth();
+        kraken.getSessionHelper().regNewUser(null, null, null, null);
 
         // Assert user is not authorised
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertFalse(kraken.getSessionHelper().isUserAuthorised(),
                 "It's possible to register new user with empty requisites!\n");
 
         // TODO добавить проверку наличия пользователя в админке
@@ -38,12 +38,12 @@ public class Registration extends TestBase {
             priority = 1
     )
     public void noRegWithoutName() throws Exception {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().regNewUser(null, "test@example.com", "12345678", "12345678");
+        kraken.getNavigationHelper().getBaseUrl();
+        kraken.getSessionHelper().dropAuth();
+        kraken.getSessionHelper().regNewUser(null, "test@example.com", "12345678", "12345678");
 
         // Assert user is not authorised
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertFalse(kraken.getSessionHelper().isUserAuthorised(),
                 "It's possible to register new user without entering a name!\n");
 
         // TODO добавить проверку наличия пользователя в админке
@@ -57,12 +57,12 @@ public class Registration extends TestBase {
             priority = 2
     )
     public void noRegWithoutEmail() throws Exception {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().regNewUser("Test User", null, "12345678", "12345678");
+        kraken.getNavigationHelper().getBaseUrl();
+        kraken.getSessionHelper().dropAuth();
+        kraken.getSessionHelper().regNewUser("Test User", null, "12345678", "12345678");
 
         // Assert user is not authorised
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertFalse(kraken.getSessionHelper().isUserAuthorised(),
                 "It's possible to register new user without entering an email!\n");
 
         // TODO добавить проверку наличия пользователя в админке
@@ -76,12 +76,12 @@ public class Registration extends TestBase {
             priority = 3
     )
     public void noRegWithoutPassword() throws Exception {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().regNewUser("Test User", "test@example.com", null, "12345678");
+        kraken.getNavigationHelper().getBaseUrl();
+        kraken.getSessionHelper().dropAuth();
+        kraken.getSessionHelper().regNewUser("Test User", "test@example.com", null, "12345678");
 
         // Assert user is not authorised
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertFalse(kraken.getSessionHelper().isUserAuthorised(),
                 "It's possible to register new user without entering a password!\n");
 
         // TODO добавить проверку наличия пользователя в админке
@@ -95,12 +95,12 @@ public class Registration extends TestBase {
             priority = 4
     )
     public void noRegWithoutPasswordConfirmation() throws Exception {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().regNewUser("Test User", "test@example.com", "12345678", null);
+        kraken.getNavigationHelper().getBaseUrl();
+        kraken.getSessionHelper().dropAuth();
+        kraken.getSessionHelper().regNewUser("Test User", "test@example.com", "12345678", null);
 
         // Assert user is not authorised
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertFalse(kraken.getSessionHelper().isUserAuthorised(),
                 "It's possible to register new user without entering a password confirmation!\n");
 
         // TODO добавить проверку наличия пользователя в админке
@@ -114,12 +114,12 @@ public class Registration extends TestBase {
             priority = 5
     )
     public void noRegWithWrongPasswordConfirmation() throws Exception {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().regNewUser("Test User", "test@example.com", "12345678", "12345679");
+        kraken.getNavigationHelper().getBaseUrl();
+        kraken.getSessionHelper().dropAuth();
+        kraken.getSessionHelper().regNewUser("Test User", "test@example.com", "12345678", "12345679");
 
         // Assert user is not authorised
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertFalse(kraken.getSessionHelper().isUserAuthorised(),
                 "It's possible to register new user with wrong password confirmation!\n");
 
         // TODO добавить проверку наличия пользователя в админке
@@ -132,12 +132,12 @@ public class Registration extends TestBase {
             priority = 6
     )
     public void noRegWithExistingEmail() throws Exception {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().regNewUser("Test User", "autotestuser@instamart.ru", "12345678", "12345679");
+        kraken.getNavigationHelper().getBaseUrl();
+        kraken.getSessionHelper().dropAuth();
+        kraken.getSessionHelper().regNewUser("Test User", "autotestuser@instamart.ru", "12345678", "12345679");
 
         // Assert user is not authorised
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertFalse(kraken.getSessionHelper().isUserAuthorised(),
                 "It's possible to register new user with email of already existing one!\n");
     }
 
@@ -148,18 +148,18 @@ public class Registration extends TestBase {
             priority = 7
     )
     public void successRegOnLandingPage() throws Exception {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().regNewUser(Generate.testUserData());
+        kraken.getNavigationHelper().getBaseUrl();
+        kraken.getSessionHelper().dropAuth();
+        kraken.getSessionHelper().regNewUser(Generate.testUserData());
 
         // Assert user is authorised
-        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertTrue(kraken.getSessionHelper().isUserAuthorised(),
                 "Can't approve correct registration, check manually\n");
 
         // TODO добавить проверку что после регистрации авторизованы верным пользователем
         // TODO добавить проверку наличия пользователя в админке
 
-        app.getSessionHelper().doLogout();
+        kraken.getSessionHelper().doLogout();
     }
 
 
@@ -169,18 +169,18 @@ public class Registration extends TestBase {
             priority = 8
     )
     public void successRegOnRetailerPage() throws Exception {
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().regNewUser(Generate.testUserData());
+        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.getSessionHelper().dropAuth();
+        kraken.getSessionHelper().regNewUser(Generate.testUserData());
 
         // Assert user is authorised
-        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertTrue(kraken.getSessionHelper().isUserAuthorised(),
                 "Can't approve correct registration, check manually\n");
 
         // TODO добавить проверку что после регистрации авторизованы верным пользователем
         // TODO добавить проверку наличия пользователя в админке
 
-        app.getSessionHelper().doLogout();
+        kraken.getSessionHelper().doLogout();
     }
 
     @Test(
@@ -190,16 +190,16 @@ public class Registration extends TestBase {
     )
     public void successRegistrationFromAddressModal() throws Exception, AssertionError {
 
-        app.getNavigationHelper().get("metro");
-        app.perform().click(Elements.Site.Header.setShipAddressButton());
-        app.perform().click(Elements.Site.AddressModal.authButton());
-        app.getSessionHelper().performRegSequence(Generate.testUserData());
+        kraken.getNavigationHelper().get("metro");
+        kraken.perform().click(Elements.Site.Header.setShipAddressButton());
+        kraken.perform().click(Elements.Site.AddressModal.authButton());
+        kraken.getSessionHelper().performRegSequence(Generate.testUserData());
 
         // Assert user is authorised
-        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertTrue(kraken.getSessionHelper().isUserAuthorised(),
                 "Can't approve correct authorisation, check manually\n");
 
-        app.getSessionHelper().doLogout();
+        kraken.getSessionHelper().doLogout();
 
     }
 

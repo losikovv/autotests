@@ -48,7 +48,7 @@ public class ApplicationManager {
         this.browser = browser;
     }
 
-    public void init() {
+    public void rise() {
 
         switch (browser) {
             case BrowserType.FIREFOX:
@@ -83,7 +83,7 @@ public class ApplicationManager {
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS); // Basic timeout
         //driver.manage().window().fullscreen();                              // Open browser in fullscreen mode
 
-        System.out.println("\n!!!!!!!!!!!! RELEASING THE KRAKEN !!!!!!!!!!!!\n");
+        System.out.println("\n!!!!!!!!!!!! ВЫПУСКАЮ КРАКЕНА !!!!!!!!!!!!\n");
         System.out.println("ENVIRONMENT: " + environmentName + " ( " + host + " ) \n");
         driver.get(baseUrl);
 

@@ -15,8 +15,8 @@ public class Shopping extends TestBase{
 
     @BeforeMethod(alwaysRun = true)
     public void getAuth() throws Exception {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().doLoginAs("admin");
+        kraken.getNavigationHelper().getBaseUrl();
+        kraken.getSessionHelper().doLoginAs("admin");
     }
 
 
@@ -26,25 +26,25 @@ public class Shopping extends TestBase{
             priority = 300
     )
     public void checkEmptyCart() throws Exception, AssertionError {
-        app.getShoppingHelper().dropCart();
-        app.getShoppingHelper().openCart();
+        kraken.getShoppingHelper().dropCart();
+        kraken.getShoppingHelper().openCart();
 
         // Assert cart is open
-        Assert.assertTrue(app.getShoppingHelper().isCartOpen(),
+        Assert.assertTrue(kraken.getShoppingHelper().isCartOpen(),
                 "Can't open shopping cart\n");
 
         // Assert cart is empty
-        Assert.assertTrue(app.getShoppingHelper().isCartEmpty(),
+        Assert.assertTrue(kraken.getShoppingHelper().isCartEmpty(),
                 "Cart isn't empty\n");
 
         // Assert checkout button is disabled in an empty card
-        Assert.assertFalse(app.getShoppingHelper().isCheckoutButtonActive(),
+        Assert.assertFalse(kraken.getShoppingHelper().isCheckoutButtonActive(),
                 "Checkout button is active in an empty cart\n");
 
-        app.getShoppingHelper().closeCart();
+        kraken.getShoppingHelper().closeCart();
 
         // Assert cart is closed
-        Assert.assertFalse(app.getShoppingHelper().isCartOpen(),
+        Assert.assertFalse(kraken.getShoppingHelper().isCartOpen(),
                 "Can't close shopping cart\n");
     }
 
@@ -55,7 +55,7 @@ public class Shopping extends TestBase{
             priority = 301
     )
     public void checkoutIsUnreachableWithEmptyCart() throws Exception {
-        app.getShoppingHelper().dropCart();
+        kraken.getShoppingHelper().dropCart();
         assertPageIsUnreachable(Pages.Site.checkout());
     }
 
@@ -66,11 +66,11 @@ public class Shopping extends TestBase{
             priority = 302
     )
     public void addItemToCart()throws Exception, AssertionError {
-        app.getShoppingHelper().dropCart();
-        app.getShoppingHelper().addFirstItemOnPageToCart();
+        kraken.getShoppingHelper().dropCart();
+        kraken.getShoppingHelper().addFirstItemOnPageToCart();
 
         // Assert cart isn't empty
-        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.getShoppingHelper().isCartEmpty(),
                 "Cart is still empty after adding an item into it\n");
     }
 
@@ -81,10 +81,10 @@ public class Shopping extends TestBase{
             priority = 303
     )
     public void grabCart()throws Exception, AssertionError {
-        app.getShoppingHelper().grabCart();
+        kraken.getShoppingHelper().grabCart();
 
         // Assert checkout button is enabled
-        Assert.assertTrue(app.getShoppingHelper().isCheckoutButtonActive(),
+        Assert.assertTrue(kraken.getShoppingHelper().isCheckoutButtonActive(),
                 "Checkout button is not active with minimal order cart\n");
     }
 
@@ -95,15 +95,15 @@ public class Shopping extends TestBase{
             priority = 304
     )
     public void proceedFromCartToCheckout()throws Exception, AssertionError {
-        if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCart();
+        if(!kraken.getShoppingHelper().isCheckoutButtonActive()) {
+            kraken.getShoppingHelper().grabCart();
         }
-        if(app.getShoppingHelper().isCheckoutButtonActive()){
-            app.getShoppingHelper().proceedToCheckout();
+        if(kraken.getShoppingHelper().isCheckoutButtonActive()){
+            kraken.getShoppingHelper().proceedToCheckout();
         }
 
         // Assert can access checkout by clicking on order button in cart
-        Assert.assertTrue(app.getCheckoutHelper().isOnCheckout(),
+        Assert.assertTrue(kraken.getCheckoutHelper().isOnCheckout(),
                 "Can't access checkout by clicking on order button in cart\n");
     }
 

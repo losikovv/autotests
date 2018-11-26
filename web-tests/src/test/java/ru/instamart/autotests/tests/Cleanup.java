@@ -15,7 +15,7 @@ public class Cleanup extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void reachAdministrationPanel() throws Exception {
-        app.getSessionHelper().reachAdmin(Pages.Admin.shipments());
+        kraken.getSessionHelper().reachAdmin(Pages.Admin.shipments());
     }
 
 
@@ -25,7 +25,7 @@ public class Cleanup extends TestBase {
             priority = 901
     )
     public void cleanupTestOrders() throws Exception {
-        app.getSessionHelper().cancelOrders(Pages.Admin.Shipments.testOrdersList());
+        kraken.getSessionHelper().cancelOrders(Pages.Admin.Shipments.testOrdersList());
         assertNoTestOrdersLeftActive();
     }
 
@@ -36,7 +36,7 @@ public class Cleanup extends TestBase {
             priority = 902
     )
     public void cleanupTestUsers() throws Exception {
-        app.getSessionHelper().deleteUsers(Pages.Admin.Users.testUsersList());
+        kraken.getSessionHelper().deleteUsers(Pages.Admin.Users.testUsersList());
         assertNoTestUsersLeft();
     }
 
@@ -47,7 +47,7 @@ public class Cleanup extends TestBase {
             priority = 903
     )
     public void cleanup() throws Exception {
-        app.getSessionHelper().cleanup();
+        kraken.getSessionHelper().cleanup();
         assertNoTestOrdersLeftActive();
         assertNoTestUsersLeft();
     }

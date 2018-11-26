@@ -16,8 +16,8 @@ public class RepeatOrders extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void getAuth()throws Exception {
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getSessionHelper().doLoginAs("admin");
+        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.getSessionHelper().doLoginAs("admin");
     }
 
 
@@ -27,20 +27,20 @@ public class RepeatOrders extends TestBase {
             priority = 501
     )
     public void repeatLastOrderAndPayWithCardOnline() throws Exception {
-        app.getProfileHelper().repeatLastOrder();
+        kraken.getProfileHelper().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.getShoppingHelper().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCart();
+        if(!kraken.getShoppingHelper().isCheckoutButtonActive()) {
+            kraken.getShoppingHelper().grabCart();
         }
-        app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",1,"card-online");
+        kraken.getShoppingHelper().proceedToCheckout();
+        kraken.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",1,"card-online");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
     }
 
@@ -51,20 +51,20 @@ public class RepeatOrders extends TestBase {
             priority = 502
     )
     public void repeatLastOrderAndPayWithCardCourier() throws Exception {
-        app.getProfileHelper().repeatLastOrder();
+        kraken.getProfileHelper().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.getShoppingHelper().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCart();
+        if(!kraken.getShoppingHelper().isCheckoutButtonActive()) {
+            kraken.getShoppingHelper().grabCart();
         }
-        app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",2,"card-courier");
+        kraken.getShoppingHelper().proceedToCheckout();
+        kraken.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",2,"card-courier");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
     }
     @Test(
@@ -73,20 +73,20 @@ public class RepeatOrders extends TestBase {
             priority = 503
     )
     public void repeatLastOrderAndPayWithCash() throws Exception {
-        app.getProfileHelper().repeatLastOrder();
+        kraken.getProfileHelper().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.getShoppingHelper().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCart();
+        if(!kraken.getShoppingHelper().isCheckoutButtonActive()) {
+            kraken.getShoppingHelper().grabCart();
         }
-        app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
+        kraken.getShoppingHelper().proceedToCheckout();
+        kraken.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
     }
 
@@ -97,20 +97,20 @@ public class RepeatOrders extends TestBase {
             priority = 504
     )
     public void repeatLastOrderAndPayWithBank() throws Exception {
-        app.getProfileHelper().repeatLastOrder();
+        kraken.getProfileHelper().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.getShoppingHelper().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCart();
+        if(!kraken.getShoppingHelper().isCheckoutButtonActive()) {
+            kraken.getShoppingHelper().grabCart();
         }
-        app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");
+        kraken.getShoppingHelper().proceedToCheckout();
+        kraken.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
     }
@@ -118,6 +118,6 @@ public class RepeatOrders extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void cancelLastOrder()throws Exception {
-        app.getProfileHelper().cancelLastOrder();
+        kraken.getProfileHelper().cancelLastOrder();
     }
 }

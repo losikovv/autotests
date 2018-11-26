@@ -17,8 +17,8 @@ public class MakeOrders extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preparing() throws Exception {
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getSessionHelper().doLoginAs("admin");
+        kraken.getNavigationHelper().getRetailerPage("metro");
+        kraken.getSessionHelper().doLoginAs("admin");
     }
 
 
@@ -40,19 +40,19 @@ public class MakeOrders extends TestBase {
     )
     public void orderInKazan(){
 
-        app.getShoppingHelper().changeShippingAddress(Addresses.Kazan.defaultAddress());
+        kraken.getShoppingHelper().changeShippingAddress(Addresses.Kazan.defaultAddress());
 
         // Идем в чекаут, при необходимости набирая корзину
-        app.getNavigationHelper().getCheckoutPage();
-        if(!app.getCheckoutHelper().isOnCheckout()){
-            app.getShoppingHelper().grabCart();
-            app.getShoppingHelper().proceedToCheckout();
+        kraken.getNavigationHelper().getCheckoutPage();
+        if(!kraken.getCheckoutHelper().isOnCheckout()){
+            kraken.getShoppingHelper().grabCart();
+            kraken.getShoppingHelper().proceedToCheckout();
         }
 
-        app.getCheckoutHelper().completeCheckout();
+        kraken.getCheckoutHelper().completeCheckout();
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
         // Проверяем скачку документов
@@ -67,30 +67,30 @@ public class MakeOrders extends TestBase {
     )
     public void orderToVkusvill(){
 
-        app.getNavigationHelper().getRetailerPage("vkusvill");
-        app.getShoppingHelper().changeShippingAddress(Addresses.Moscow.testAddress());
+        kraken.getNavigationHelper().getRetailerPage("vkusvill");
+        kraken.getShoppingHelper().changeShippingAddress(Addresses.Moscow.testAddress());
 
         // идем в чекаут, при необходимости набирая корзину
-        app.getNavigationHelper().getCheckoutPage();
-        if(!app.getCheckoutHelper().isOnCheckout()){
-            app.getShoppingHelper().grabCart();
-            app.getShoppingHelper().proceedToCheckout();
+        kraken.getNavigationHelper().getCheckoutPage();
+        if(!kraken.getCheckoutHelper().isOnCheckout()){
+            kraken.getShoppingHelper().grabCart();
+            kraken.getShoppingHelper().proceedToCheckout();
         }
 
         // Проверяем что доступна программа лояльности ритейлера
-        Assert.assertTrue(app.getCheckoutHelper().isRetailerLoyaltyAvailable(),
+        Assert.assertTrue(kraken.getCheckoutHelper().isRetailerLoyaltyAvailable(),
                 "Retailer loyalty program is not available\n");
 
-        app.getCheckoutHelper().addRetailerLoyalty("vkusvill");
+        kraken.getCheckoutHelper().addRetailerLoyalty("vkusvill");
 
         // Проверяем что программа лояльности ритейлера применилась
-        Assert.assertTrue(app.getCheckoutHelper().isRetailerLoyaltyApplied(),
+        Assert.assertTrue(kraken.getCheckoutHelper().isRetailerLoyaltyApplied(),
                 "Can't apply retailer loyalty program, check manually\n");
 
-        app.getCheckoutHelper().completeCheckout();
+        kraken.getCheckoutHelper().completeCheckout();
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
         // Проверяем скачку документов
@@ -100,8 +100,8 @@ public class MakeOrders extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void cancelLastOrder()throws Exception {
-        app.getProfileHelper().cancelLastOrder();
-        app.getShoppingHelper().changeShippingAddress(Addresses.Moscow.defaultAddress());
+        kraken.getProfileHelper().cancelLastOrder();
+        kraken.getShoppingHelper().changeShippingAddress(Addresses.Moscow.defaultAddress());
     }
 
 }
