@@ -1,15 +1,16 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.BrowserType;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 
 public class SearchHelper extends HelperBase {
+
     private ApplicationManager kraken;
 
-    SearchHelper(WebDriver driver, Environments environment) {
+    SearchHelper(WebDriver driver, Environments environment, ApplicationManager app) {
         super(driver, environment);
+        kraken = app;
     }
 
     /** Заполнить поле поиска */

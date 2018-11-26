@@ -3,7 +3,6 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.BrowserType;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 import ru.instamart.autotests.configuration.Pages;
@@ -22,7 +21,10 @@ public class NavigationHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    public NavigationHelper(WebDriver driver, Environments environment){ super(driver, environment); }
+    public NavigationHelper(WebDriver driver, Environments environment, ApplicationManager app){
+        super(driver, environment);
+        kraken = app;
+    }
 
 
     /** Перейти на базовый URL */

@@ -23,7 +23,7 @@ public class SearchProducts extends TestBase {
             groups = {"acceptance","regression"},
             priority = 305
     )
-    public void cantSendEmptySearch(){
+    public void noSendEmptySearch(){
         kraken.search().item("");
 
         Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),

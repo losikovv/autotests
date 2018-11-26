@@ -67,16 +67,16 @@ public class ApplicationManager {
         }
 
         // Helpers init
-        performHelper = new PerformHelper(driver, environment);
-        detectionHelper = new DetectionHelper(driver, environment);
+        performHelper = new PerformHelper(driver, environment, this);
+        detectionHelper = new DetectionHelper(driver, environment, this);
 
-        navigationHelper = new NavigationHelper(driver, environment);
-        sessionHelper = new SessionHelper(driver, environment);
-        shoppingHelper = new ShoppingHelper(driver, environment);
-        searchHelper = new SearchHelper(driver, environment);
-        checkoutHelper = new CheckoutHelper(driver, environment);
-        profileHelper = new ProfileHelper(driver, environment);
-        administrationHelper = new AdministrationHelper(driver, environment);
+        navigationHelper = new NavigationHelper(driver, environment, this);
+        sessionHelper = new SessionHelper(driver, environment, this);
+        shoppingHelper = new ShoppingHelper(driver, environment, this);
+        searchHelper = new SearchHelper(driver, environment, this);
+        checkoutHelper = new CheckoutHelper(driver, environment, this);
+        profileHelper = new ProfileHelper(driver, environment, this);
+        administrationHelper = new AdministrationHelper(driver, environment, this);
 
 
         // Options

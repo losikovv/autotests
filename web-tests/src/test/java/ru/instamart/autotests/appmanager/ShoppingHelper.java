@@ -3,7 +3,6 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.BrowserType;
 import ru.instamart.autotests.configuration.Constants;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
@@ -18,8 +17,9 @@ public class ShoppingHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    ShoppingHelper(WebDriver driver, Environments environment) {
+    ShoppingHelper(WebDriver driver, Environments environment, ApplicationManager app) {
         super(driver, environment);
+        kraken = app;
     }
 
 

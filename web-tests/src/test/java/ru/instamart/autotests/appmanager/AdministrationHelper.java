@@ -1,7 +1,6 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.BrowserType;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 
@@ -17,8 +16,9 @@ public class AdministrationHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    public AdministrationHelper(WebDriver driver, Environments environment) {
+    public AdministrationHelper(WebDriver driver, Environments environment, ApplicationManager app) {
         super(driver, environment);
+        kraken = app;
     }
 
 

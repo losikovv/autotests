@@ -2,7 +2,6 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.BrowserType;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 import ru.instamart.autotests.configuration.PaymentTypes;
@@ -19,8 +18,9 @@ public class CheckoutHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    public CheckoutHelper(WebDriver driver, Environments environment) {
+    public CheckoutHelper(WebDriver driver, Environments environment, ApplicationManager app) {
         super(driver, environment);
+        kraken = app;
     }
 
     public boolean isOnCheckout(){

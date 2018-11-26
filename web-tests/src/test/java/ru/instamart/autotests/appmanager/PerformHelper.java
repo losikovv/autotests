@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.BrowserType;
 import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 
@@ -12,8 +11,9 @@ public class PerformHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    PerformHelper(WebDriver driver, Environments environment) {
+    PerformHelper(WebDriver driver, Environments environment, ApplicationManager app) {
         super(driver, environment);
+        kraken = app;
     }
 
     /** Кликнуть элемент по локатору */

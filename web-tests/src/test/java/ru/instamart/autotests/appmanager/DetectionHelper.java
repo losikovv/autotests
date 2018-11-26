@@ -8,8 +8,9 @@ public class DetectionHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    DetectionHelper(WebDriver driver, Environments environment) {
+    DetectionHelper(WebDriver driver, Environments environment, ApplicationManager app) {
         super(driver, environment);
+        kraken = app;
     }
 
     /** Определить находимся на сайте или нет */

@@ -3,7 +3,6 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.BrowserType;
 import ru.instamart.autotests.configuration.Pages;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.configuration.Elements;
@@ -21,8 +20,9 @@ public class SessionHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    SessionHelper(WebDriver driver, Environments environment) {
+    SessionHelper(WebDriver driver, Environments environment, ApplicationManager app) {
         super(driver, environment);
+        kraken = app;
     }
 
 
@@ -361,5 +361,4 @@ public class SessionHelper extends HelperBase {
             return true;
         }
     }
-
 }
