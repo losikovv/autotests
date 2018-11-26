@@ -157,10 +157,10 @@ public class SessionHelper extends HelperBase {
     public void doLogout() {
         printMessage("Log-out\n");
         if (!kraken.detect().isInAdmin()) {
-            click(Elements.Site.Header.profileButton());
-            click(Elements.Site.AccountMenu.logoutButton());
+            kraken.perform().click(Elements.Site.Header.profileButton());
+            kraken.perform().click(Elements.Site.AccountMenu.logoutButton());
         } else {
-            click(Elements.Admin.Header.logoutButton());
+            kraken.perform().click(Elements.Admin.Header.logoutButton());
         }
         waitFor(1);
     }
@@ -186,7 +186,7 @@ public class SessionHelper extends HelperBase {
         reachAdmin(usersList);
         if(isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
             printMessage("- delete user " + fetchText(Elements.Admin.Users.firstUserLogin()));
-            click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
+            kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
             waitFor(1);
             deleteUsers(usersList); // Keep deleting users, recursively
@@ -204,7 +204,7 @@ public class SessionHelper extends HelperBase {
     public void cancelOrders(Pages ordersList) throws Exception {
         reachAdmin(ordersList);
         if(!isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder()))  {
-            click(Elements.Admin.Shipments.firstOrderInTable());
+            kraken.perform().click(Elements.Admin.Shipments.firstOrderInTable());
             waitFor(1);
             cancelOrder(); // todo обернуть в проверку, выполнять только если тестовый заказ
             cancelOrders(ordersList); // Keep cancelling orders, recursively
@@ -217,27 +217,27 @@ public class SessionHelper extends HelperBase {
     /** Cancel order on the order page in admin panel */
     public void cancelOrder(){
         printMessage("> cancel order " + fetchCurrentURL());
-        click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
+        kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
         handleAlert();
         chooseCancellationReason(4,"Тестовый заказ");
-        click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
+        kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
         waitFor(2);
     }
 
 
     public void cancelOrder(int reason, String details){
         printMessage("> cancel order " + fetchCurrentURL());
-        click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
+        kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
         handleAlert();
         chooseCancellationReason(reason,details);
-        click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
+        kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
         waitFor(2);
     }
 
 
     private void chooseCancellationReason(int reason, String details) {
-        click(By.id("cancellation_reason_id_" + reason));               // todo вынести в elements
-        fillField(By.id("cancellation_reason_details"),details);        // todo вынести в elements
+        kraken.perform().click(By.id("cancellation_reason_id_" + reason));               // todo вынести в elements
+        kraken.perform().fillField(By.id("cancellation_reason_details"),details);        // todo вынести в elements
     }
 
 
@@ -260,8 +260,8 @@ public class SessionHelper extends HelperBase {
 
     /** Открыть форму авторизации/регистрации */
     public void openAuthModal(){
-        if (kraken.detect().isOnLanding()) click(Elements.Site.LandingPage.loginButton());
-            else click(Elements.Site.Header.loginButton());
+        if (kraken.detect().isOnLanding()) kraken.perform().click(Elements.Site.LandingPage.loginButton());
+            else kraken.perform().click(Elements.Site.Header.loginButton());
         waitFor(1);
 
         if(isAuthModalOpen()) printMessage("> open auth modal");
@@ -271,7 +271,7 @@ public class SessionHelper extends HelperBase {
 
     /** Закрыть форму авторизации/регистрации */
     public void closeAuthModal(){
-        click(Elements.Site.AuthModal.closeButton());
+        kraken.perform().click(Elements.Site.AuthModal.closeButton());
         waitFor(1);
     }
 
@@ -286,10 +286,10 @@ public class SessionHelper extends HelperBase {
     private void switchToAuthorisationTab() throws Exception {
         try {
             printMessage("> switch to authorisation tab");
-            click(Elements.Site.AuthModal.authorisationTab());
+            kraken.perform().click(Elements.Site.AuthModal.authorisationTab());
         } catch (ElementNotInteractableException e) { // TODO попробовать перенести кетч в методы click в HelperBase
             printMessage(" > have some troubles, waiting and trying again...");
-            click(Elements.Site.AuthModal.authorisationTab());
+            kraken.perform().click(Elements.Site.AuthModal.authorisationTab());
         }
     }
 
@@ -297,39 +297,39 @@ public class SessionHelper extends HelperBase {
     /** Заполнить поля формы авторизации */
     private void fillAuthorisationForm(String email, String password) {
         printMessage("> enter auth credentials");
-        fillField(Elements.Site.AuthModal.emailField(), email);
-        fillField(Elements.Site.AuthModal.passwordField(), password);
+        kraken.perform().fillField(Elements.Site.AuthModal.emailField(), email);
+        kraken.perform().fillField(Elements.Site.AuthModal.passwordField(), password);
     }
 
 
     /** Переключиться на вкладку регистрации */
     private void switchToRegistrationTab(){
         printMessage("> switch to registration tab");
-        click(Elements.Site.AuthModal.registrationTab());
+        kraken.perform().click(Elements.Site.AuthModal.registrationTab());
     }
 
 
     /** Заполнить поля формы регистрации */
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {
         printMessage("> enter registration credentials");
-        fillField(Elements.Site.AuthModal.nameField(), name);
-        fillField(Elements.Site.AuthModal.emailField(), email);
-        fillField(Elements.Site.AuthModal.passwordField(), password);
-        fillField(Elements.Site.AuthModal.passwordConfirmationField(), passwordConfirmation);
+        kraken.perform().fillField(Elements.Site.AuthModal.nameField(), name);
+        kraken.perform().fillField(Elements.Site.AuthModal.emailField(), email);
+        kraken.perform().fillField(Elements.Site.AuthModal.passwordField(), password);
+        kraken.perform().fillField(Elements.Site.AuthModal.passwordConfirmationField(), passwordConfirmation);
     }
 
 
     /** Отправить форму */
     private void sendForm(){
         printMessage("> send form\n");
-        click(Elements.Site.AuthModal.submitButton());
+        kraken.perform().click(Elements.Site.AuthModal.submitButton());
     }
 
 
     /** Перейти в форму восстановления пароля */
     private void proceedToPasswordRecovery(){
         printMessage("> proceed to password recovery");
-        click(Elements.Site.AuthModal.forgotPasswordButton());
+        kraken.perform().click(Elements.Site.AuthModal.forgotPasswordButton());
     }
 
 
@@ -339,7 +339,7 @@ public class SessionHelper extends HelperBase {
         switchToAuthorisationTab();
         proceedToPasswordRecovery();
         printMessage("> recovery for " + email);
-        fillField(Elements.Site.AuthModal.emailField(),email);
+        kraken.perform().fillField(Elements.Site.AuthModal.emailField(),email);
         sendForm();
         waitFor(1);
     }

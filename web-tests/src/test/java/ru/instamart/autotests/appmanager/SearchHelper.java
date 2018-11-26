@@ -5,6 +5,8 @@ import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 
 public class SearchHelper extends HelperBase {
+    private ApplicationManager kraken;
+
     SearchHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
@@ -19,13 +21,13 @@ public class SearchHelper extends HelperBase {
 
     /** Заполнить поле поиска */
     public void fillSearchFieldWith(String query) {
-        fillField(Elements.Site.Header.Search.searchField(), query);
+        kraken.perform().fillField(Elements.Site.Header.Search.searchField(), query);
         waitFor(1);
     }
 
     /** Нажать кнопку поиска */
     public void hitSearchButton() {
-        click((Elements.Site.Header.Search.searchButton()));
+        kraken.perform().click((Elements.Site.Header.Search.searchButton()));
     }
 
     /** Проверяем наличие категорийного саджеста */
@@ -35,7 +37,7 @@ public class SearchHelper extends HelperBase {
 
     /** Нажать на категорийный саджест */
     public void hitCategorySuggest() {
-        click(Elements.Site.Header.Search.categorySuggest());
+        kraken.perform().click(Elements.Site.Header.Search.categorySuggest());
     }
 
     /** Проверяем наличие товарных саджестов */
@@ -46,6 +48,6 @@ public class SearchHelper extends HelperBase {
 
     /** Нажать на продуктовый саджест */
     public void hitProductSuggest() {
-        click(Elements.Site.Header.Search.productSuggest());
+        kraken.perform().click(Elements.Site.Header.Search.productSuggest());
     }
 }

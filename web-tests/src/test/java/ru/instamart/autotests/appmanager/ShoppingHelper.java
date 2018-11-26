@@ -15,6 +15,8 @@ import ru.instamart.autotests.testdata.Addresses;
 
 public class ShoppingHelper extends HelperBase {
 
+    private ApplicationManager kraken;
+
     ShoppingHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
@@ -44,16 +46,16 @@ public class ShoppingHelper extends HelperBase {
         printMessage("Setting shipping address...");
 
         if(fetchCurrentURL().equals(fullBaseUrl)){
-            fillField(Elements.Site.LandingPage.addressField(), address);
+            kraken.perform().fillField(Elements.Site.LandingPage.addressField(), address);
             waitFor(1);
-            click(Elements.Site.LandingPage.addressSuggest());
-            click(Elements.Site.LandingPage.selectStoreButton());
+            kraken.perform().click(Elements.Site.LandingPage.addressSuggest());
+            kraken.perform().click(Elements.Site.LandingPage.selectStoreButton());
         } else {
-            click(Elements.Site.Header.setShipAddressButton());
+            kraken.perform().click(Elements.Site.Header.setShipAddressButton());
             checkAddressModal();
-            fillField(Elements.Site.AddressModal.addressField(), address);
+            kraken.perform().fillField(Elements.Site.AddressModal.addressField(), address);
             selectAddressSuggest();
-            click(Elements.Site.AddressModal.saveButton());
+            kraken.perform().click(Elements.Site.AddressModal.saveButton());
         }
         waitFor(1);
     }
@@ -61,11 +63,11 @@ public class ShoppingHelper extends HelperBase {
     /** Изменить адрес доставки */
     public void changeShippingAddress(String newAddress) {
         printMessage("Changing shipping address");
-        click(Elements.Site.Header.changeShipAddressButton());
+        kraken.perform().click(Elements.Site.Header.changeShipAddressButton());
         checkAddressModal();
-        fillField(Elements.Site.AddressModal.addressField(), newAddress);
+        kraken.perform().fillField(Elements.Site.AddressModal.addressField(), newAddress);
         selectAddressSuggest();
-        click(Elements.Site.AddressModal.saveButton());
+        kraken.perform().click(Elements.Site.AddressModal.saveButton());
         waitFor(2);
     }
 
@@ -84,7 +86,7 @@ public class ShoppingHelper extends HelperBase {
     /** Выбрать первый адресный саджест */
     private void selectAddressSuggest() {
         if (isAnyAddressSuggestsAvailable()) {
-            click(Elements.Site.AddressModal.addressSuggest());
+            kraken.perform().click(Elements.Site.AddressModal.addressSuggest());
             waitFor(1); // Пауза, чтобы дать время обновиться кнопке "сохранить адрес"
         } else {
             printMessage("Can't click address suggest - there are no such");
@@ -102,13 +104,13 @@ public class ShoppingHelper extends HelperBase {
 
     /** Открыть шторку выбора магазина */
     public void openShopSelector() {
-        click(Elements.Site.Header.changeStoreButton());
+        kraken.perform().click(Elements.Site.Header.changeStoreButton());
         waitFor(1);
     }
 
     /** Закрыть шторку выбора магазина */
     public void closeShopSelector() {
-        click(Elements.Site.ShopSelector.closeButton());
+        kraken.perform().click(Elements.Site.ShopSelector.closeButton());
         waitFor(1);
     }
 
@@ -129,7 +131,7 @@ public class ShoppingHelper extends HelperBase {
     /** Открыть шторку каталога */
     public void openCatalog() {
         if(!isCatalogDrawerOpen()) {
-            click(Elements.Site.CatalogDrawer.openCatalogButton());
+            kraken.perform().click(Elements.Site.CatalogDrawer.openCatalogButton());
             waitFor(1);
         }  else printMessage("Can't open catalog drawer - already opened");
     }
@@ -137,7 +139,7 @@ public class ShoppingHelper extends HelperBase {
     /** Закрыть шторку каталога */
     public void closeCatalog() {
         if(isCatalogDrawerOpen()) {
-            click(Elements.Site.CatalogDrawer.closeCatalogButton());
+            kraken.perform().click(Elements.Site.CatalogDrawer.closeCatalogButton());
             waitFor(1);
         } else printMessage("Can't close catalog drawer - already closed");
     }
@@ -176,7 +178,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Открываем карточку первого товара */
     private void openFirstItemCard() {
-        click(Elements.Site.Catalog.firstItem());
+        kraken.perform().click(Elements.Site.Catalog.firstItem());
         waitFor(1);
         switchToActiveElement();
     }
@@ -196,7 +198,7 @@ public class ShoppingHelper extends HelperBase {
     /** Нажать кнопку [+] в карточке товара */
     private void hitPlusButton() {
         if (isElementEnabled(Elements.Site.ItemCard.plusButton())) {
-            click(Elements.Site.ItemCard.plusButton());
+            kraken.perform().click(Elements.Site.ItemCard.plusButton());
         } else {
             printMessage("'Plus' button is disabled");
         }
@@ -205,7 +207,7 @@ public class ShoppingHelper extends HelperBase {
     /** Нажать кнопку [-] в карточке товара */
     private void hitMinusButton() {
         if (isElementDisplayed(Elements.Site.ItemCard.minusButton())) {
-            click(Elements.Site.ItemCard.minusButton());
+            kraken.perform().click(Elements.Site.ItemCard.minusButton());
         } else {
             printMessage("'Minus' button is not displayed");
         }
@@ -213,7 +215,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Закрыть карточку товара */
     private void closeItemCard() {
-        click(Elements.Site.ItemCard.closeButton());
+        kraken.perform().click(Elements.Site.ItemCard.closeButton());
     }
 
 
@@ -229,7 +231,7 @@ public class ShoppingHelper extends HelperBase {
     /** Открыть корзину */
     public void openCart() {
         if (!isCartOpen()) {
-            click(Elements.Site.Cart.openCartButton());
+            kraken.perform().click(Elements.Site.Cart.openCartButton());
             waitFor(1);
         }
         // DEBUG
@@ -239,7 +241,7 @@ public class ShoppingHelper extends HelperBase {
     /** Закрыть корзину */
     public void closeCart() {
         if (isCartOpen()) {
-            click(Elements.Site.Cart.closeButton());
+            kraken.perform().click(Elements.Site.Cart.closeButton());
             waitFor(1);
         }
         // DEBUG
@@ -283,7 +285,7 @@ public class ShoppingHelper extends HelperBase {
     /** Перейти в чекаут нажатием кнопки "Сделать заказ" в корзине */
     public void proceedToCheckout() {
         openCart();
-        click(Elements.Site.Cart.checkoutButton());
+        kraken.perform().click(Elements.Site.Cart.checkoutButton());
     }
 
     /** Набрать корзину на минимальную сумму, достаточную для оформления заказа */
@@ -330,7 +332,7 @@ public class ShoppingHelper extends HelperBase {
      * Удалить товар по позиции в корзине
      */
     public void deleteItem(int itemPosition) {
-        click(By.xpath("*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div/div[2]/span/div[" + itemPosition + "]/div/div/div[1]/div[2]/div[2]"));
+        kraken.perform().click(By.xpath("*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div/div[2]/span/div[" + itemPosition + "]/div/div/div[1]/div[2]/div[2]"));
     }
 
     //TODO

@@ -14,6 +14,8 @@ import ru.instamart.autotests.configuration.Environments;
 
 public class AdministrationHelper extends HelperBase {
 
+    private ApplicationManager kraken;
+
     public AdministrationHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
@@ -21,7 +23,7 @@ public class AdministrationHelper extends HelperBase {
 
     /** Возобновить заказ */
     public void resumeOrder(){
-        click(Elements.Admin.Shipments.OrderDetailsPage.resumeOrderButton());
+        kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.resumeOrderButton());
         handleAlert();
         waitFor(2);
     }
