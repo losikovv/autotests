@@ -5,6 +5,9 @@ import ru.instamart.autotests.configuration.Elements;
 import ru.instamart.autotests.configuration.Environments;
 
 public class DetectionHelper extends HelperBase {
+
+    private ApplicationManager kraken;
+
     DetectionHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }

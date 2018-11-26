@@ -15,7 +15,7 @@ import ru.instamart.autotests.configuration.Environments;
 
 public class ProfileHelper extends HelperBase {
 
-    private ApplicationManager kraken = new ApplicationManager(BrowserType.FIREFOX); // TODO брать браузер из Appmanager;
+    private ApplicationManager kraken;
 
     public ProfileHelper(WebDriver driver, Environments environment) {
         super(driver, environment);

@@ -15,16 +15,16 @@ import ru.instamart.autotests.configuration.Pages;
 
 public class TestBase {
 
-    protected final ApplicationManager kraken = new ApplicationManager(BrowserType.FIREFOX);
+    protected static final ApplicationManager kraken = new ApplicationManager(BrowserType.FIREFOX);
 
 
-    @BeforeClass(alwaysRun = true)
+    @BeforeSuite(alwaysRun = true)
     public void setUp() throws Exception {
         kraken.rise();
     }
 
 
-    @AfterClass(alwaysRun = true)
+    @AfterSuite(alwaysRun = true)
     public void tearDown() throws Exception {
         kraken.stop();
     }

@@ -19,11 +19,12 @@ import ru.instamart.autotests.configuration.Users;
 
 public class SessionHelper extends HelperBase {
 
+    private ApplicationManager kraken;
+
     SessionHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
     }
 
-    private ApplicationManager kraken = new ApplicationManager(BrowserType.FIREFOX);
 
     public void reachAdmin(Pages page) throws Exception {
         kraken.get().url(fullBaseUrl + Pages.getPagePath());        // пытаемся перейти по указанному URL в админку

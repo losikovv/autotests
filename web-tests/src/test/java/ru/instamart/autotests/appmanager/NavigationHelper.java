@@ -20,7 +20,7 @@ import ru.instamart.autotests.models.RetailerData;
 
 public class NavigationHelper extends HelperBase {
 
-    private ApplicationManager kraken = new ApplicationManager(BrowserType.FIREFOX); // TODO брать браузер из Appmanager;
+    private ApplicationManager kraken;
 
     public NavigationHelper(WebDriver driver, Environments environment){ super(driver, environment); }
 

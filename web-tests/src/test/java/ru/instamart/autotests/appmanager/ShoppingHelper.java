@@ -16,7 +16,7 @@ import ru.instamart.autotests.testdata.Addresses;
 
 public class ShoppingHelper extends HelperBase {
 
-    private ApplicationManager kraken = new ApplicationManager(BrowserType.FIREFOX); // TODO брать браузер из Appmanager;
+    private ApplicationManager kraken;
 
     ShoppingHelper(WebDriver driver, Environments environment) {
         super(driver, environment);
