@@ -209,7 +209,7 @@ public class SelfCheck extends TestBase {
 
         app.getNavigationHelper().get("metro");
 
-        app.perform().click(Elements.Site.DeliveryModal.openPopupButton());
+        app.perform().click(Elements.Site.Header.deliveryButton());
         Assert.assertTrue(app.detect().isDeliveryModalOpen());
 
         app.perform().click(Elements.Site.DeliveryModal.closeButton());

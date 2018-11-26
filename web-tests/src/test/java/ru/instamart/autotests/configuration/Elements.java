@@ -87,6 +87,16 @@ public class Elements {
                 return new Elements(null, locator);
             }
 
+            static Elements deliveryButton() {
+                return new Elements(null,
+                        By.cssSelector("button.navbar-button:nth-child(3) > div:nth-child(1)"));
+            }
+
+            static Elements partnersButton() {
+                return new Elements(null,
+                        By.cssSelector("button.navbar-button:nth-child(5) > div:nth-child(1)"));
+            }
+
 
             /** Поиск */
             interface Search {
@@ -123,12 +133,6 @@ public class Elements {
                         By.cssSelector(".delivery__intervals > h3:nth-child(1)"));
             }
 
-            // todo заменить на perform.click везде где используется и удалить здесь
-            static Elements openPopupButton() {
-                return new Elements(null,
-                        By.cssSelector("button.navbar-button:nth-child(3) > div:nth-child(1)"));
-            }
-
             static Elements closeButton() {
                 return new Elements(null, By.cssSelector(".close"));
             }
@@ -148,12 +152,6 @@ public class Elements {
                         By.cssSelector(".modal-title"));
             }
 
-            // todo заменить на perform.click везде где используется и удалить здесь
-            static Elements openPopupButton() {
-                return new Elements(null,
-                        By.cssSelector("button.navbar-button:nth-child(5) > div:nth-child(1)"));
-            }
-
             static Elements closeButton() {
                 return new Elements(null,
                         By.cssSelector(".close"));
@@ -161,7 +159,7 @@ public class Elements {
         }
 
         /** Модалка "Оплата" */
-        interface PaymentPopup {
+        interface PaymentModal {
 
             static Elements popup() {
                 return new Elements(null,

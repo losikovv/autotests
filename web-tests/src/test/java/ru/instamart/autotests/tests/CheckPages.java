@@ -137,14 +137,15 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable();
 
         app.perform().click(Elements.Site.Footer.deliveryButton());
-        Assert.assertTrue(app.detect().isDeliveryModalOpen(),"Cant assert Delivery modal is open, check manually\n");
+        Assert.assertTrue(app.detect().isDeliveryModalOpen(),
+                "Cant assert Delivery modal is open, check manually\n");
         app.perform().click(Elements.Site.DeliveryModal.closeButton());
         assertPageIsAvailable();
 
         app.perform().click(Elements.Site.Footer.paymentButton());
-        Assert.assertTrue(app.perform().isPaymentPopupOpen(),
-                "Cant assert 'Payment' pop-up open, check manually\n");
-        app.perform().click(Elements.Site.PaymentPopup.closeButton());
+        Assert.assertTrue(app.detect().isPaymentModalOpen(),
+                "Cant assert Payment modal is open, check manually\n");
+        app.perform().click(Elements.Site.PaymentModal.closeButton());
         assertPageIsAvailable();
 
         app.perform().click(Elements.Site.Footer.partnersButton());

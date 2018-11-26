@@ -39,5 +39,11 @@ public class DetectHelper extends HelperBase {
                 && isElementDetected(Elements.Site.DeliveryModal.title());
     }
 
+    /** Определить открыта ли модалка "Оплата" */
+    public boolean isPaymentModalOpen() {
+        return isElementDisplayed(Elements.Site.PaymentModal.popup())
+                && isElementDetected(Elements.Site.PaymentModal.title());
+    }
+
 
 }

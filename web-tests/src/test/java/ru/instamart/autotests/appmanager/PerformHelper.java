@@ -53,7 +53,7 @@ public class PerformHelper extends HelperBase {
     /** Открыть попап "Партнеры" */
     public void openPartnersPopup() {
         if(!isPartnersPopupOpen()) {
-            click(Elements.Site.PartnersPopup.openPopupButton());
+            click(Elements.Site.Header.partnersButton());
             waitFor(1);
         } else printMessage("Can't open popup - already opened");
     }
@@ -66,26 +66,5 @@ public class PerformHelper extends HelperBase {
         } else printMessage("Can't close popup - already closed");
     }
 
-
-    //======= Попап "Оплата" ========
-
-    /** Определить открыт ли попап "Оплата" */
-    public boolean isPaymentPopupOpen() {
-        if (isElementDisplayed(Elements.Site.PaymentPopup.popup())
-                && isElementDetected(Elements.Site.PaymentPopup.title())) {
-            //printMessage("✓ Payment popup open");
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /** Закрыть попап "Оплата" */
-    public void closePaymentPopup() {
-        if(isPaymentPopupOpen()) {
-            click(Elements.Site.PaymentPopup.closeButton());
-            waitFor(1);
-        } else printMessage("Can't close popup - already closed");
-    }
 
 }
