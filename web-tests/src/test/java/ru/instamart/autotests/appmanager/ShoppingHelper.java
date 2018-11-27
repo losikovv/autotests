@@ -198,6 +198,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Нажать кнопку [+] в карточке товара */
     private void hitPlusButton() {
+        // TODO добавить проверку на обновление цен
         if (isElementEnabled(Elements.Site.ItemCard.plusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.plusButton());
         } else {

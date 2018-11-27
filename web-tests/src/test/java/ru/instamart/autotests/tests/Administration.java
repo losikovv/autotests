@@ -64,19 +64,12 @@ public class Administration extends TestBase {
         Assert.assertFalse(kraken.admin().isOrderCanceled(),
                 "The order is already canceled\n");
 
-        kraken.getSessionHelper().cancelOrder();
+        kraken.cleanup().cancelOrder();
 
         Assert.assertTrue(kraken.admin().isOrderCanceled(),
                 "Can't approve the order was canceled, check manually\n");
     }
-
-
-    @Test(priority = 703)
-    public void cancelTestOrders() throws Exception {
-        kraken.getSessionHelper().cancelOrders(Pages.Admin.Shipments.testOrdersList());
-    }
-
-
+    
 
     @Test(
             description = "Тест шапки админки",

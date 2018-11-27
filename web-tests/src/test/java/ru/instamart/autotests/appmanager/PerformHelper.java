@@ -120,6 +120,8 @@ public class PerformHelper extends HelperBase {
 
     // ======= Методы авторизации =======
 
+    //todo добавить reachAdmin(String path)
+
     public void reachAdmin(Pages page) throws Exception {
         kraken.get().url(fullBaseUrl + Pages.getPagePath());        // пытаемся перейти по указанному URL в админку
         if (kraken.detect().isOnSite()) {                           // если не попали, то перелогиниваемся с правами администратора и идем снова

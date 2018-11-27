@@ -6,49 +6,56 @@ import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
 
-public class SessionHelper extends HelperBase {
+public class CleanupHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    SessionHelper(WebDriver driver, Environments environment, ApplicationManager app) {
+    CleanupHelper(WebDriver driver, Environments environment, ApplicationManager app) {
         super(driver, environment);
         kraken = app;
     }
 
+    public void all() throws Exception {
+        printMessage("================= CLEANING-UP =================\n");
 
-    // ======= Handling test users =======
+        printMessage("Canceling test orders...");
+        orders(Pages.Admin.Shipments.testOrdersList());
+
+        printMessage("Deleting test users...");
+        users(Pages.Admin.Users.testUsersList());
+    }
 
     /** Delete all users on a given page in admin panel */
-    public void deleteUsers(Pages usersList) throws Exception {
+    public void users(Pages usersList) throws Exception {
         kraken.perform().reachAdmin(usersList);
         if(isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
-            printMessage("- delete user " + fetchText(Elements.Admin.Users.firstUserLogin()));
-            kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
-            handleAlert();
-            waitingFor(1);
-            deleteUsers(usersList); // Keep deleting users, recursively
+                printMessage("- delete user " + fetchText(Elements.Admin.Users.firstUserLogin()));
+                kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
+                handleAlert();
+                waitingFor(1);
+            // Keep deleting users, recursively
+            users(usersList);
         } else {
             printMessage("✓ Complete: no test users left\n");
         }
     }
 
-
-    // ======= Handling test orders =======
-
-    public void cancelOrders(Pages ordersList) throws Exception {
+    /** Cancel all orders on a given page in admin panel */
+    public void orders(Pages ordersList) throws Exception {
         kraken.perform().reachAdmin(ordersList);
         if(!isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder()))  {
-            kraken.perform().click(Elements.Admin.Shipments.firstOrderInTable());
-            waitingFor(1);
-            cancelOrder(); // todo обернуть в проверку, выполнять только если тестовый заказ
-            cancelOrders(ordersList); // Keep cancelling orders, recursively
+                kraken.perform().click(Elements.Admin.Shipments.firstOrderInTable());
+                waitingFor(1);
+                cancelOrder(); // todo обернуть в проверку, выполнять только если тестовый заказ
+            // Keep cancelling orders, recursively
+            orders(ordersList);
         } else {
             printMessage("✓ Complete: no test orders left active\n");
         }
     }
 
 
-    /** Cancel order on the order page in admin panel */
+    /** Cancel order on the page in admin panel */
     public void cancelOrder(){
         printMessage("> cancel order " + fetchCurrentURL());
         kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
@@ -72,18 +79,6 @@ public class SessionHelper extends HelperBase {
     private void chooseCancellationReason(int reason, String details) {
         kraken.perform().click(By.id("cancellation_reason_id_" + reason));               // todo вынести в elements
         kraken.perform().fillField(By.id("cancellation_reason_details"),details);        // todo вынести в elements
-    }
-
-
-    // TODO перенести в Administration helper
-    public void cleanup() throws Exception {
-        printMessage("================= CLEANING-UP =================\n");
-
-        printMessage("Canceling test orders...");
-        cancelOrders(Pages.Admin.Shipments.testOrdersList());
-
-        printMessage("Deleting test users...");
-        deleteUsers(Pages.Admin.Users.testUsersList());
     }
 
 }

@@ -37,7 +37,7 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private GrabHelper grabHelper;
 
-    private SessionHelper sessionHelper;
+    private CleanupHelper cleanupHelper;
     private ShoppingHelper shoppingHelper;
     private SearchHelper searchHelper;
     private CheckoutHelper checkoutHelper;
@@ -75,7 +75,7 @@ public class ApplicationManager {
         navigationHelper = new NavigationHelper(driver, environment, this);
         grabHelper = new GrabHelper(driver,environment,this);
 
-        sessionHelper = new SessionHelper(driver, environment, this);
+        cleanupHelper = new CleanupHelper(driver, environment, this);
         shoppingHelper = new ShoppingHelper(driver, environment, this);
         searchHelper = new SearchHelper(driver, environment, this);
         checkoutHelper = new CheckoutHelper(driver, environment, this);
@@ -111,10 +111,11 @@ public class ApplicationManager {
     public DetectionHelper detect() { return detectionHelper; }
     public GrabHelper grab() { return grabHelper; }
 
-    public SessionHelper getSessionHelper() { return sessionHelper; }
     public ShoppingHelper getShoppingHelper() { return shoppingHelper; }
     public SearchHelper search() { return searchHelper; }
     public CheckoutHelper getCheckoutHelper() { return checkoutHelper; }
     public ProfileHelper getProfileHelper() { return profileHelper; }
+
     public AdministrationHelper admin() { return administrationHelper; }
+    public CleanupHelper cleanup() { return cleanupHelper; }
 }

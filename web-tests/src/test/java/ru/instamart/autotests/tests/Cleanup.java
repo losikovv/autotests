@@ -25,7 +25,7 @@ public class Cleanup extends TestBase {
             priority = 901
     )
     public void cleanupTestOrders() throws Exception {
-        kraken.getSessionHelper().cancelOrders(Pages.Admin.Shipments.testOrdersList());
+        kraken.cleanup().orders(Pages.Admin.Shipments.testOrdersList());
         assertNoTestOrdersLeftActive();
     }
 
@@ -36,7 +36,7 @@ public class Cleanup extends TestBase {
             priority = 902
     )
     public void cleanupTestUsers() throws Exception {
-        kraken.getSessionHelper().deleteUsers(Pages.Admin.Users.testUsersList());
+        kraken.cleanup().users(Pages.Admin.Users.testUsersList());
         assertNoTestUsersLeft();
     }
 
@@ -47,7 +47,7 @@ public class Cleanup extends TestBase {
             priority = 903
     )
     public void cleanup() throws Exception {
-        kraken.getSessionHelper().cleanup();
+        kraken.cleanup().all();
         assertNoTestOrdersLeftActive();
         assertNoTestUsersLeft();
     }
