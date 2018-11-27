@@ -318,7 +318,7 @@ public class CheckoutHelper extends HelperBase {
         } else {
             kraken.perform().click(By.xpath("//div[" + dayNumber + "]/span[2]"));
         }
-        waitFor(1);
+        waitingFor(1);
         printMessage("Selected delivery on day " + dayNumber);
     }
 
@@ -334,7 +334,7 @@ public class CheckoutHelper extends HelperBase {
                 //TODO
                 break;
         }
-        waitFor(2);
+        waitingFor(2);
         printMessage("Selected " + slot + " available delivery slot\n");
     }
 
@@ -375,14 +375,14 @@ public class CheckoutHelper extends HelperBase {
             printMessage("Applying promocode '" + promocode + "'...");
             kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
             kraken.perform().click(Elements.Site.Checkout.PromocodeModal.applyButton());
-            waitFor(1);
+            waitingFor(1);
         } else {
             printMessage("Can't open promo modal! Trying again...");
             kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
             printMessage("> Applying promocode '" + promocode + "'");
             kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
             kraken.perform().click(Elements.Site.Checkout.PromocodeModal.applyButton());
-            waitFor(1);
+            waitingFor(1);
         }
     }
 
@@ -392,7 +392,7 @@ public class CheckoutHelper extends HelperBase {
         if(isPromocodeApplied()) {
             printMessage("Clearing promocode...");
             kraken.perform().click(Elements.Site.Checkout.clearPromocodeButton());
-            waitFor(1);
+            waitingFor(1);
         } else {
             printMessage("Skip clearing promocode, it's not applied at the moment");
         }
@@ -420,7 +420,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Adding loyalty program \"" + name + "\"");
         kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]"));
         kraken.perform().fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
-        waitFor(1);
+        waitingFor(1);
     }
 
 
@@ -439,7 +439,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Clearing loyalty program \"" + name + "\"");
         kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
         kraken.perform().fillField(By.name("number"), 1 + "\uE004" + "\uE007");
-        waitFor(1);
+        waitingFor(1);
     }
 
 
@@ -469,7 +469,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Adding retailer loyalty program");
         kraken.perform().click(By.xpath("//aside/div/div[4]/div[3]/div"));
         kraken.perform().fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
-        waitFor(1);
+        waitingFor(1);
     }
 
     /** Удаляем программу лояльности ритейлера в чекауте */
@@ -477,7 +477,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Clearing retailer loyalty program");
         kraken.perform().click(By.xpath("//aside/div/div[4]/div[3]/div"));
         kraken.perform().fillField(By.name("number"), 1 + "\uE004" + "\uE007");
-        waitFor(1);
+        waitingFor(1);
     }
 
 
@@ -491,7 +491,7 @@ public class CheckoutHelper extends HelperBase {
             printMessage("✓ Checking-out\n");
         } else {
             printMessage("Waiting for checkout\n");
-            waitFor(1);
+            waitingFor(1);
         }
     }
 
@@ -500,7 +500,7 @@ public class CheckoutHelper extends HelperBase {
     private void hitNextButton(int step) {
         kraken.perform().click(Elements.Site.Checkout.nextButton(step));
         printMessage("Next\n");
-        waitFor(1);
+        waitingFor(1);
     }
 
 
@@ -508,13 +508,13 @@ public class CheckoutHelper extends HelperBase {
     public void sendOrder() {
       if (isSendButtonActive()) {
           kraken.perform().click(Elements.Site.Checkout.sendOrderButton());
-          waitFor(3);
+          waitingFor(3);
           printMessage("✓ Order sent\n");
        } else {
-          waitFor(3);
+          waitingFor(3);
            if (isSendButtonActive()) {
                kraken.perform().click(Elements.Site.Checkout.sendOrderButton());
-               waitFor(3);
+               waitingFor(3);
                printMessage("✓ Order sent\n");
            } else printMessage("Can't make order, send button is not active - check manually\n");
         }
@@ -528,7 +528,7 @@ public class CheckoutHelper extends HelperBase {
                 printMessage("Step " + stepNumber + " - " + stepName);
                 return true;
             } else {
-                waitFor(1); // задержка для стабильности, возможно что шаг не развернулся из-за тормозов
+                waitingFor(1); // задержка для стабильности, возможно что шаг не развернулся из-за тормозов
                 if (!isStepActive(stepNumber)) {
                     printMessage("Step " + stepNumber + " isn't opened at the moment");
                     return false;

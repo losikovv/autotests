@@ -26,13 +26,13 @@ public class AdministrationHelper extends HelperBase {
     public void resumeOrder(){
         kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.resumeOrderButton());
         handleAlert();
-        waitFor(2);
+        waitingFor(2);
     }
 
 
     /** Определить отменен ли заказ */
     public boolean isOrderCanceled() {
-        waitFor(1);
+        waitingFor(1);
         return isElementDetected(Elements.Admin.Shipments.OrderDetailsPage.canceledOrderAttribute());
     }
 

@@ -38,7 +38,7 @@ public class ProfileHelper extends HelperBase {
         } else {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton());
         }
-        waitFor(2);
+        waitingFor(2);
     }
 
     /** Отменить крайний заказ */
@@ -48,7 +48,7 @@ public class ProfileHelper extends HelperBase {
         if(isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(1));
         } else printMessage("> Skipped because order isn't active");
-        waitFor(2);
+        waitingFor(2);
     }
 
     /** Определить активен ли заказ */
@@ -59,7 +59,7 @@ public class ProfileHelper extends HelperBase {
             return true;
         } else {
             printMessage("Experiencing performance troubles");
-            waitFor(1);
+            waitingFor(1);
             if (isElementDetected(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
                 printMessage("✓ Order is active\n");
                 return true;

@@ -145,7 +145,6 @@ public class HelperBase {
 
 
     /** Обработать алерт в зависимости от настройки acceptNextAlert */
-
     void handleAlert(){
         try {
             Alert alert = driver.switchTo().alert();
@@ -161,18 +160,14 @@ public class HelperBase {
         }
     }
 
-
     /** Waiting which lasts for the 'implicitlyWait' timeout multiplied by the given number of iterations */
-
-    public void waitFor(int duration){
+    public void waitingFor(int duration){
         for (int i = 1; i <= duration; i++){
             isElementPresent(By.xpath("//*[@id='nowhere']"));
         }
     }
-
-
-    /** Отправить консольное сообщение */
-
+    
+    /** Отправить сообщение в консоль*/
     public void printMessage(String message) {
         System.out.println(message);
     }

@@ -48,7 +48,7 @@ public class ShoppingHelper extends HelperBase {
 
         if(fetchCurrentURL().equals(fullBaseUrl)){
             kraken.perform().fillField(Elements.Site.LandingPage.addressField(), address);
-            waitFor(1);
+            waitingFor(1);
             kraken.perform().click(Elements.Site.LandingPage.addressSuggest());
             kraken.perform().click(Elements.Site.LandingPage.selectStoreButton());
         } else {
@@ -58,7 +58,7 @@ public class ShoppingHelper extends HelperBase {
             selectAddressSuggest();
             kraken.perform().click(Elements.Site.AddressModal.saveButton());
         }
-        waitFor(1);
+        waitingFor(1);
     }
 
     /** Изменить адрес доставки */
@@ -69,7 +69,7 @@ public class ShoppingHelper extends HelperBase {
         kraken.perform().fillField(Elements.Site.AddressModal.addressField(), newAddress);
         selectAddressSuggest();
         kraken.perform().click(Elements.Site.AddressModal.saveButton());
-        waitFor(2);
+        waitingFor(2);
     }
 
     /** Определить и вернуть текущий адрес доставки */
@@ -88,7 +88,7 @@ public class ShoppingHelper extends HelperBase {
     private void selectAddressSuggest() {
         if (isAnyAddressSuggestsAvailable()) {
             kraken.perform().click(Elements.Site.AddressModal.addressSuggest());
-            waitFor(1); // Пауза, чтобы дать время обновиться кнопке "сохранить адрес"
+            waitingFor(1); // Пауза, чтобы дать время обновиться кнопке "сохранить адрес"
         } else {
             printMessage("Can't click address suggest - there are no such");
         }
@@ -106,13 +106,13 @@ public class ShoppingHelper extends HelperBase {
     /** Открыть шторку выбора магазина */
     public void openShopSelector() {
         kraken.perform().click(Elements.Site.Header.changeStoreButton());
-        waitFor(1);
+        waitingFor(1);
     }
 
     /** Закрыть шторку выбора магазина */
     public void closeShopSelector() {
         kraken.perform().click(Elements.Site.ShopSelector.closeButton());
-        waitFor(1);
+        waitingFor(1);
     }
 
     /** Определить открыта ли шторка выбора магазина */
@@ -133,7 +133,7 @@ public class ShoppingHelper extends HelperBase {
     public void openCatalog() {
         if(!isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.openCatalogButton());
-            waitFor(1);
+            waitingFor(1);
         }  else printMessage("Can't open catalog drawer - already opened");
     }
 
@@ -141,7 +141,7 @@ public class ShoppingHelper extends HelperBase {
     public void closeCatalog() {
         if(isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.closeCatalogButton());
-            waitFor(1);
+            waitingFor(1);
         } else printMessage("Can't close catalog drawer - already closed");
     }
 
@@ -172,15 +172,15 @@ public class ShoppingHelper extends HelperBase {
     public void addFirstItemOnPageToCart() {
         openFirstItemCard();
         hitPlusButton();
-        waitFor(1);
+        waitingFor(1);
         closeItemCard();
-        waitFor(1);
+        waitingFor(1);
     }
 
     /** Открываем карточку первого товара */
     private void openFirstItemCard() {
         kraken.perform().click(Elements.Site.Catalog.firstItem());
-        waitFor(1);
+        waitingFor(1);
         switchToActiveElement();
     }
 
@@ -225,7 +225,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить открыта ли корзина */
     public boolean isCartOpen() {
-        waitFor(1); // Пауза, на случай если штокра медленно отображается
+        waitingFor(1); // Пауза, на случай если штокра медленно отображается
         return isElementDisplayed(Elements.Site.Cart.drawer());
     }
 
@@ -233,7 +233,7 @@ public class ShoppingHelper extends HelperBase {
     public void openCart() {
         if (!isCartOpen()) {
             kraken.perform().click(Elements.Site.Cart.openCartButton());
-            waitFor(1);
+            waitingFor(1);
         }
         // DEBUG
         // else printMessage("Skip open cart, already opened");
@@ -243,7 +243,7 @@ public class ShoppingHelper extends HelperBase {
     public void closeCart() {
         if (isCartOpen()) {
             kraken.perform().click(Elements.Site.Cart.closeButton());
-            waitFor(1);
+            waitingFor(1);
         }
         // DEBUG
         // else printMessage("Skip close cart, already closed");
@@ -252,7 +252,7 @@ public class ShoppingHelper extends HelperBase {
     /** Определить пуста ли корзина */
     public boolean isCartEmpty() {
         openCart();
-        waitFor(1); // Пауза на случай, тормозов с корзиной
+        waitingFor(1); // Пауза на случай, тормозов с корзиной
         return isElementPresent(Elements.Site.Cart.placeholder());
     }
 
@@ -279,7 +279,7 @@ public class ShoppingHelper extends HelperBase {
     /** Определить активна ли кнопка "Сделать заказ" в корзине */
     public boolean isCheckoutButtonActive() {
         openCart();
-        waitFor(1); // Пауза на случай, если стостояние кнопки долго обновляется
+        waitingFor(1); // Пауза на случай, если стостояние кнопки долго обновляется
         return isElementEnabled(Elements.Site.Cart.checkoutButton());
     }
 
@@ -298,7 +298,7 @@ public class ShoppingHelper extends HelperBase {
 
         for (int i = 1; i <= quantity; i++) {
             hitPlusButton();
-            waitFor(1);
+            waitingFor(1);
         }
         closeItemCard();
     }
@@ -312,7 +312,7 @@ public class ShoppingHelper extends HelperBase {
 
         for (int i = 1; i <= quantity; i++) {
             hitPlusButton();
-            waitFor(1);
+            waitingFor(1);
         }
         closeItemCard();
     }

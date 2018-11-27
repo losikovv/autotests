@@ -2,7 +2,6 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
 import ru.instamart.autotests.application.Pages;
 
@@ -44,15 +43,15 @@ public class BrowseHelper extends HelperBase {
     /** Перейти на страницу чекаута */
     public void checkoutPage() {
         page("checkout/edit?");
-        waitFor(1);
+        waitingFor(1);
     }
 
-    /** Get page in admin panel */
+    /** Перейти на страницу в админке */
     public void adminPage(String path) {
         url(baseUrl + "admin/" + path);
     }
 
-    /** Get order details page in admin panel */
+    /** Перейти на страницу заказа в админке */
     public void adminOrderDetails(String orderNumber){
         adminPage("orders/" + orderNumber + "/edit");
     }

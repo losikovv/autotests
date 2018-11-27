@@ -25,7 +25,7 @@ public class SessionHelper extends HelperBase {
             printMessage("- delete user " + fetchText(Elements.Admin.Users.firstUserLogin()));
             kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
-            waitFor(1);
+            waitingFor(1);
             deleteUsers(usersList); // Keep deleting users, recursively
         } else {
             printMessage("✓ Complete: no test users left\n");
@@ -39,7 +39,7 @@ public class SessionHelper extends HelperBase {
         kraken.perform().reachAdmin(ordersList);
         if(!isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder()))  {
             kraken.perform().click(Elements.Admin.Shipments.firstOrderInTable());
-            waitFor(1);
+            waitingFor(1);
             cancelOrder(); // todo обернуть в проверку, выполнять только если тестовый заказ
             cancelOrders(ordersList); // Keep cancelling orders, recursively
         } else {
@@ -55,7 +55,7 @@ public class SessionHelper extends HelperBase {
         handleAlert();
         chooseCancellationReason(4,"Тестовый заказ");
         kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
-        waitFor(2);
+        waitingFor(2);
     }
 
 
@@ -65,7 +65,7 @@ public class SessionHelper extends HelperBase {
         handleAlert();
         chooseCancellationReason(reason,details);
         kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
-        waitFor(2);
+        waitingFor(2);
     }
 
 

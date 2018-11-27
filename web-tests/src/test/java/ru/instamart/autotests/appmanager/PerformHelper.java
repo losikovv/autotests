@@ -102,7 +102,7 @@ public class PerformHelper extends HelperBase {
         printMessage("Performing registration...");
         openAuthModal();
         regSequence(name,email,password,passwordConfirmation);
-        waitFor(3);
+        waitingFor(3);
     }
 
     /** Регистрационная последовательность с реквизитами из переданного объекта UserData */
@@ -154,9 +154,9 @@ public class PerformHelper extends HelperBase {
     public void login(String email, String password) throws Exception {
         printMessage("Performing authorisation...");
         openAuthModal();
-        waitFor(1);
+        waitingFor(1);
         authSequence(email, password);
-        waitFor(2);
+        waitingFor(2);
     }
 
     /** Авторизационная последовательность для юзера с указанной ролью */
@@ -190,7 +190,7 @@ public class PerformHelper extends HelperBase {
         } else {
             kraken.perform().click(Elements.Admin.Header.logoutButton());
         }
-        waitFor(1);
+        waitingFor(1);
     }
 
 
@@ -214,7 +214,7 @@ public class PerformHelper extends HelperBase {
             kraken.perform().click(Elements.Site.Header.loginButton());
         }
 
-        waitFor(1);
+        waitingFor(1);
 
         if(kraken.detect().isAuthModalOpen()) {
             printMessage("> open auth modal");
@@ -247,7 +247,7 @@ public class PerformHelper extends HelperBase {
     /** Закрыть форму авторизации/регистрации */
     public void closeAuthModal(){
         kraken.perform().click(Elements.Site.AuthModal.closeButton());
-        waitFor(1);
+        waitingFor(1);
     }
 
 
@@ -285,7 +285,7 @@ public class PerformHelper extends HelperBase {
         printMessage("> recovery for " + email);
         kraken.perform().fillField(Elements.Site.AuthModal.emailField(),email);
         sendForm();
-        waitFor(1);
+        waitingFor(1);
     }
 
 }
