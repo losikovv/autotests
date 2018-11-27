@@ -28,7 +28,7 @@ public class HelperBase {
     }
 
 
-    // TODO перенести в FetchHelper
+    // TODO перенести в GrabHelper
 
     /** Вернуть текущий URL */
 

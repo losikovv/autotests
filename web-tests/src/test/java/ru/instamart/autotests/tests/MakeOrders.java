@@ -18,7 +18,7 @@ public class MakeOrders extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preparing() throws Exception {
         kraken.get().retailerPage("metro");
-        kraken.getSessionHelper().doLoginAs("admin");
+        kraken.perform().doLoginAs("admin");
     }
 
 

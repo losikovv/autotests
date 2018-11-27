@@ -40,38 +40,38 @@ public class SelfCheck extends TestBase {
 
         kraken.get().baseUrl();
 
-        kraken.getSessionHelper().openAuthModal();
-        Assert.assertTrue(kraken.getSessionHelper().isAuthModalOpen());
+        kraken.perform().openAuthModal();
+        Assert.assertTrue(kraken.detect().isAuthModalOpen());
 
-        kraken.getSessionHelper().closeAuthModal();
-        Assert.assertFalse(kraken.getSessionHelper().isAuthModalOpen());
+        kraken.perform().closeAuthModal();
+        Assert.assertFalse(kraken.detect().isAuthModalOpen());
 
         kraken.get().retailerPage("metro");
 
-        kraken.getSessionHelper().openAuthModal();
-        Assert.assertTrue(kraken.getSessionHelper().isAuthModalOpen());
+        kraken.perform().openAuthModal();
+        Assert.assertTrue(kraken.detect().isAuthModalOpen());
 
-        kraken.getSessionHelper().closeAuthModal();
-        Assert.assertFalse(kraken.getSessionHelper().isAuthModalOpen());
+        kraken.perform().closeAuthModal();
+        Assert.assertFalse(kraken.detect().isAuthModalOpen());
     }
 
 
     @Test(description = "Тест корректности определения авторизованности пользователя", priority = 10003)
     public void detectAuthorisation() throws Exception {
 
-        kraken.getSessionHelper().dropAuth();
+        kraken.perform().dropAuth();
 
         kraken.get().baseUrl();
-        Assert.assertFalse(kraken.getSessionHelper().isUserAuthorised());
+        Assert.assertFalse(kraken.detect().isUserAuthorised());
 
         kraken.get().retailerPage("metro");
-        Assert.assertFalse(kraken.getSessionHelper().isUserAuthorised());
+        Assert.assertFalse(kraken.detect().isUserAuthorised());
 
-        kraken.getSessionHelper().doLoginAs("admin");
-        Assert.assertTrue(kraken.getSessionHelper().isUserAuthorised());
+        kraken.perform().doLoginAs("admin");
+        Assert.assertTrue(kraken.detect().isUserAuthorised());
 
-        kraken.getSessionHelper().doLogout();
-        Assert.assertFalse(kraken.getSessionHelper().isUserAuthorised());
+        kraken.perform().logout();
+        Assert.assertFalse(kraken.detect().isUserAuthorised());
 
     }
 
@@ -83,7 +83,7 @@ public class SelfCheck extends TestBase {
     public void detectAccountMenu() throws Exception {
 
         kraken.get().baseUrl();
-        kraken.getSessionHelper().doLoginAs("admin");
+        kraken.perform().doLoginAs("admin");
 
         kraken.perform().openAccountMenu();
         Assert.assertTrue(kraken.detect().isAccountMenuOpen());
@@ -110,7 +110,7 @@ public class SelfCheck extends TestBase {
         kraken.get().page(Pages.Site.Static.faq());
         Assert.assertTrue(kraken.detect().isOnSite());
 
-        kraken.getSessionHelper().doLoginAs("admin");
+        kraken.perform().doLoginAs("admin");
         kraken.get().page(Pages.Admin.retailers());
         Assert.assertFalse(kraken.detect().isOnSite());
     }
@@ -122,7 +122,7 @@ public class SelfCheck extends TestBase {
         kraken.get().page(Pages.Site.Static.contacts());
         Assert.assertFalse(kraken.detect().isInAdmin());
 
-        kraken.getSessionHelper().doLoginAs("admin");
+        kraken.perform().doLoginAs("admin");
         kraken.get().page(Pages.Admin.settings());
         Assert.assertTrue(kraken.detect().isInAdmin());
     }
@@ -167,8 +167,8 @@ public class SelfCheck extends TestBase {
     public void detectShopsDrawer() throws Exception {
 
         kraken.get().baseUrl();
-        if(kraken.getSessionHelper().isUserAuthorised()) {
-            kraken.getSessionHelper().doLogout();
+        if(kraken.detect().isUserAuthorised()) {
+            kraken.perform().logout();
         }
 
         //landing

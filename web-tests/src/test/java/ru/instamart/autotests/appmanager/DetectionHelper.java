@@ -68,4 +68,33 @@ public class DetectionHelper extends HelperBase {
             return true;
         } else return false;
     }
+
+    /** Определить открыта ли модалка авторизации/регистрации */
+    public boolean isAuthModalOpen() {
+        return isElementDisplayed(Elements.Site.AuthModal.popup());
+    }
+
+    /** Определить авторизован ли пользователь */
+    public boolean isUserAuthorised() {
+        printMessage("Checking authorisation...");
+        if (isElementDetected(Elements.Site.Header.profileButton())) {
+            printMessage("✓ Authorised\n");
+            return true;
+        } else {
+            printMessage("No auth!\n");
+            return false;
+        }
+    }
+
+    /** Определить отправлена ли форма восстановления пароля */
+    public boolean isRecoverySent(){
+        if (!isElementDisplayed(Elements.Site.AuthModal.popup())
+                || isElementPresent(Elements.Site.AuthModal.emailField())) {
+            printMessage("Recovery not sent!");
+            return false;
+        } else {
+            printMessage("✓ Recovery requested");
+            return true;
+        }
+    }
 }

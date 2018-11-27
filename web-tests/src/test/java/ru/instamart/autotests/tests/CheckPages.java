@@ -90,7 +90,7 @@ public class CheckPages extends TestBase {
     )
     public void checkProfilePages() throws Exception, AssertionError {
         kraken.get().baseUrl();
-        kraken.getSessionHelper().doLoginAs("admin");
+        kraken.perform().doLoginAs("admin");
 
         assertPageIsAvailable(Pages.Site.Profile.edit());
         assertPageIsAvailable(Pages.Site.Profile.orders());
@@ -104,7 +104,7 @@ public class CheckPages extends TestBase {
             priority = 806
     )
     public void checkAdminPages() throws Exception, AssertionError {
-        kraken.getSessionHelper().reachAdmin(Pages.Admin.shipments());
+        kraken.perform().reachAdmin(Pages.Admin.shipments());
 
         assertPageIsAvailable(Pages.Admin.shipments());
         assertPageIsAvailable(Pages.Admin.retailers());

@@ -13,34 +13,44 @@ import org.testng.annotations.Test;
 public class Bugfixes extends TestBase {
 
 
-    // шаблон для тестов
+    // Шаблон для тестов
+
     @Test ( enabled = false,
-            description = "Test description",
+            description = "Название теста",
             groups = {"regression"},
             priority = 1000
     )
-    public void testName(){
+    public void testName() throws Exception{
+        // 1 - предусловия
+        kraken.perform().dropAuth();
+
+        // 2 - тестовые шаги
         kraken.search().item("смысл жизни");
 
+        // 3 - проверка
         Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
                 "Result is not expected\n");
+
+        // 4 - опционально уборка
+        kraken.get().baseUrl();
     }
 
 
     @Test (
-            description = "Тест возможности открыть авторизационную модалку после запроса восстановления пароля",
+            description = "Тест возможности открыть авторизационную модалку после отправки формы восстановления пароля",
             groups = {"regression"},
             priority = 1001
     )
     public void STF987() throws Exception {
         kraken.get().baseUrl();
-        kraken.getSessionHelper().dropAuth();
-        kraken.getSessionHelper().recoverPassword("instatestuser@yandex.ru");
-        kraken.getSessionHelper().closeAuthModal();
-        kraken.getSessionHelper().openAuthModal();
+        kraken.perform().dropAuth();
 
-        Assert.assertFalse(kraken.getSessionHelper().isRecoverySent(),
-                "Can't open auth modal right after sending password recovery request \n");
+        kraken.perform().recoverPassword("instatestuser@yandex.ru");
+        kraken.perform().closeAuthModal();
+        kraken.perform().openAuthModal();
+
+        Assert.assertFalse(kraken.detect().isRecoverySent(),
+                "Невозможно открыть авторизационную модалку после отправки формы восстановления пароля\n");
     }
 
 }

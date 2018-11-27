@@ -24,7 +24,7 @@ public class Checkout extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preparingForCheckout() throws Exception {
         kraken.get().retailerPage("metro");
-        kraken.getSessionHelper().doLoginAs("admin");
+        kraken.perform().doLoginAs("admin");
     }
 
     // TODO Тесты на изменение телефона и контактов

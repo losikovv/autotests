@@ -16,7 +16,7 @@ public class PasswordRecovery extends TestBase {
     @BeforeMethod
     public void preconditions() {
         kraken.get().baseUrl();
-        kraken.getSessionHelper().dropAuth();
+        kraken.perform().dropAuth();
     }
 
 
@@ -26,10 +26,10 @@ public class PasswordRecovery extends TestBase {
             priority = 600
     )
     public void noRecoveryWithEmptyEmail() throws Exception {
-        kraken.getSessionHelper().recoverPassword(null);
+        kraken.perform().recoverPassword(null);
 
         // Assert recovery is not requested
-        Assert.assertFalse(kraken.getSessionHelper().isRecoverySent(),
+        Assert.assertFalse(kraken.detect().isRecoverySent(),
                 "Recover password form was sent with empty email field\n");
     }
 
@@ -40,10 +40,10 @@ public class PasswordRecovery extends TestBase {
             priority = 601
     )
     public void noRecoveryWithWrongEmail() throws Exception {
-        kraken.getSessionHelper().recoverPassword("wrongemail.example.com");
+        kraken.perform().recoverPassword("wrongemail.example.com");
 
         // Assert recovery is not requested
-        Assert.assertFalse(kraken.getSessionHelper().isRecoverySent(),
+        Assert.assertFalse(kraken.detect().isRecoverySent(),
                 "Recover password form was sent with wrong email field\n");
     }
 
@@ -54,10 +54,10 @@ public class PasswordRecovery extends TestBase {
             priority = 602
     )
     public void noRecoveryForNonexistingUser() throws Exception {
-        kraken.getSessionHelper().recoverPassword("nonexistinguser@example.com");
+        kraken.perform().recoverPassword("nonexistinguser@example.com");
 
         // Assert recovery is not requested
-        Assert.assertFalse(kraken.getSessionHelper().isRecoverySent(),
+        Assert.assertFalse(kraken.detect().isRecoverySent(),
                 "Recover password form was sent for nonexisting user\n");
     }
 
@@ -68,10 +68,10 @@ public class PasswordRecovery extends TestBase {
             priority = 603
     )
     public void successRecoveryOnLanding() throws AssertionError, Exception {
-        kraken.getSessionHelper().recoverPassword("instatestuser@yandex.ru");
+        kraken.perform().recoverPassword("instatestuser@yandex.ru");
 
         // Assert recovery is requested
-        Assert.assertTrue(kraken.getSessionHelper().isRecoverySent(),
+        Assert.assertTrue(kraken.detect().isRecoverySent(),
                 "Recover password form wasn't sent\n");
     }
 
@@ -83,10 +83,10 @@ public class PasswordRecovery extends TestBase {
     )
     public void successRecoveryOnRetailer() throws AssertionError, Exception {
         kraken.get().retailerPage("metro");
-        kraken.getSessionHelper().recoverPassword("instatestuser@yandex.ru");
+        kraken.perform().recoverPassword("instatestuser@yandex.ru");
 
         // Assert recovery is requested
-        Assert.assertTrue(kraken.getSessionHelper().isRecoverySent(),
+        Assert.assertTrue(kraken.detect().isRecoverySent(),
                 "Recover password form wasn't sent\n");
     }
 }

@@ -17,10 +17,10 @@ public class ShippingAddress extends TestBase{
     public void dropShipAddress() throws Exception {
         kraken.get().retailerPage("metro");
         if(kraken.getSessionHelper().isUserAuthorised()) {
-            kraken.getSessionHelper().doLogout();
+            kraken.getSessionHelper().logout();
         } else {
             kraken.getSessionHelper().doLoginAs("user");
-            kraken.getSessionHelper().doLogout();
+            kraken.getSessionHelper().logout();
         }
     }
 */
