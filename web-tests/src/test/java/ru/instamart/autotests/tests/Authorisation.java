@@ -2,7 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Elements;
+import ru.instamart.autotests.application.Elements;
 
 
 // Тесты авторизации
@@ -84,7 +84,7 @@ public class Authorisation extends TestBase {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
-        kraken.perform().doLoginAs("user");
+        kraken.perform().loginAs("user");
 
         // Assert user is authorised
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
@@ -103,7 +103,7 @@ public class Authorisation extends TestBase {
         kraken.get().page("vkusvill");
         kraken.perform().dropAuth();
 
-        kraken.perform().doLoginAs("user");
+        kraken.perform().loginAs("user");
 
         // Assert user is authorised
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
@@ -119,13 +119,13 @@ public class Authorisation extends TestBase {
             priority = 107
     )
     public void logout() throws Exception, AssertionError {
-        kraken.perform().doLoginAs("admin");
+        kraken.perform().loginAs("admin");
         kraken.perform().logout();
 
         // Assert there is no problems after logout
         assertPageIsAvailable();
 
-        kraken.get().retailerPage("metro");
+        kraken.get().page("metro");
 
         // Assert user is unauthorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),

@@ -19,7 +19,7 @@ public class ShippingAddress extends TestBase{
         if(kraken.getSessionHelper().isUserAuthorised()) {
             kraken.getSessionHelper().logout();
         } else {
-            kraken.getSessionHelper().doLoginAs("user");
+            kraken.getSessionHelper().loginAs("user");
             kraken.getSessionHelper().logout();
         }
     }
@@ -32,7 +32,7 @@ public class ShippingAddress extends TestBase{
             priority = 201
     )
     public void emptyShippingAddressByDefault() throws Exception {
-        kraken.get().retailerPage("metro");
+        kraken.get().page("metro");
 
         Assert.assertTrue(kraken.getShoppingHelper().isShippingAddressEmpty(),
                 "Shipping address is not empty by default\n");
@@ -48,7 +48,7 @@ public class ShippingAddress extends TestBase{
             priority = 202
     )
     public void setShippingAddressOnRetailerPage() throws Exception {
-        kraken.get().retailerPage("metro");
+        kraken.get().page("metro");
         kraken.getShoppingHelper().setShippingAddress(Addresses.Moscow.defaultAddress());
 
         Assert.assertTrue(kraken.getShoppingHelper().isShippingAddressSet(),
@@ -65,7 +65,7 @@ public class ShippingAddress extends TestBase{
             priority = 203
     )
     public void changeShippingAddress() throws Exception {
-        kraken.get().retailerPage("metro");
+        kraken.get().page("metro");
         kraken.getShoppingHelper().changeShippingAddress(Addresses.Moscow.testAddress());
 
         Assert.assertTrue(kraken.getShoppingHelper().isShippingAddressSet(),

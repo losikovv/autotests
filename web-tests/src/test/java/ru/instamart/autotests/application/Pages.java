@@ -1,6 +1,4 @@
-package ru.instamart.autotests.configuration;
-import ru.instamart.autotests.configuration.Environments;
-
+package ru.instamart.autotests.application;
 
 
 // Список страниц с урлами и названиями

@@ -3,9 +3,9 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.configuration.Constants;
-import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.configuration.Environments;
+import ru.instamart.autotests.application.Config;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Environments;
 import ru.instamart.autotests.testdata.Addresses;
 
 
@@ -293,7 +293,7 @@ public class ShoppingHelper extends HelperBase {
     public void grabCart() {
         openFirstItemCard();
 
-        int quantity = (Constants.minOrderSum / round(fetchText(Elements.Site.ItemCard.price()))) + 1;
+        int quantity = (Config.minOrderSum / round(fetchText(Elements.Site.ItemCard.price()))) + 1;
         printMessage("Quantity for minimal order : " + quantity );
 
         for (int i = 1; i <= quantity; i++) {

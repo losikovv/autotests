@@ -82,7 +82,7 @@ public class PasswordRecovery extends TestBase {
             priority = 604
     )
     public void successRecoveryOnRetailer() throws AssertionError, Exception {
-        kraken.get().retailerPage("metro");
+        kraken.get().page("metro");
         kraken.perform().recoverPassword("instatestuser@yandex.ru");
 
         // Assert recovery is requested

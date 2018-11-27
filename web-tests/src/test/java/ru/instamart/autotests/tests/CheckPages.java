@@ -2,8 +2,8 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.configuration.Pages;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Pages;
 
 
 
@@ -90,7 +90,7 @@ public class CheckPages extends TestBase {
     )
     public void checkProfilePages() throws Exception, AssertionError {
         kraken.get().baseUrl();
-        kraken.perform().doLoginAs("admin");
+        kraken.perform().loginAs("admin");
 
         assertPageIsAvailable(Pages.Site.Profile.edit());
         assertPageIsAvailable(Pages.Site.Profile.orders());

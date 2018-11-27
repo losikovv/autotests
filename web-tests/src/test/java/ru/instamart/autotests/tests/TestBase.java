@@ -5,8 +5,9 @@ import org.openqa.selenium.remote.BrowserType;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.instamart.autotests.appmanager.ApplicationManager;
-import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.configuration.Pages;
+import ru.instamart.autotests.application.Config;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Pages;
 
 
 // Basic test class
@@ -118,12 +119,12 @@ public class TestBase {
     }
 
     protected void assertNoTestOrdersLeftActive() throws AssertionError {
-        kraken.get().getTestOrdersAdminPage();
+        kraken.get().adminPage(Config.testOrdersList);
         Assert.assertTrue(kraken.perform().isElementPresent(By.className("no-objects-found")),"Seems like there are some test orders left active");
     }
 
     protected void assertNoTestUsersLeft() throws AssertionError {
-        kraken.get().getTestUsersAdminPage();
+        kraken.get().adminPage(Config.testUsersList);
         Assert.assertFalse(kraken.perform().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),
                 "Seems like there are some test users left after cleanup");
     }

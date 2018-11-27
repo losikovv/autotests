@@ -1,11 +1,10 @@
 package ru.instamart.autotests.appmanager;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.configuration.Environments;
-import ru.instamart.autotests.configuration.Pages;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.application.Pages;
 
 public class BrowseHelper extends HelperBase {
 
@@ -42,56 +41,19 @@ public class BrowseHelper extends HelperBase {
         url(fullBaseUrl + path);
     }
 
-    /** Перейти на страницу ретейлера */
-    public void retailerPage(String retailerName) {
-        url(baseUrl + retailerName);
-    }
-
     /** Перейти на страницу чекаута */
     public void checkoutPage() {
-        url(baseUrl + "checkout/edit?");
+        page("checkout/edit?");
         waitFor(1);
     }
 
-
-
-    /** Навигация переходами по элементам на страницах */
-    // TODO вынести в отдельный хелпер
-    public void go(Elements element){
-        kraken.perform().click(Elements.getLocator());
+    /** Get page in admin panel */
+    public void adminPage(String path) {
+        url(baseUrl + "admin/" + path);
     }
 
-    // TODO сделать метод go принимающий массив элементов и кликающий их по очереди
-    // TODO public void go(Elements[] elements){ }
-
-
-    // ======= ADMIN =======
-
-    /**
-     * Get page in admin panel
-     */
-    public void getAdminPage(String pageName) {
-        url(baseUrl + "admin/" + pageName);
-    }
-
-    /**
-     * Get order page in admin panel
-     */
-    public void getOrderAdminPage(String orderNumber){
-        url(baseUrl + "admin/orders/" + orderNumber + "/edit");
-    }
-
-    /**
-     * Get page with the list of test users in admin panel
-     */
-    public void getTestUsersAdminPage(){
-        getAdminPage("users?q%5Bemail_cont%5D=testuser%40example.com");
-    }
-
-    /**
-     * Get page with the list of test orders in admin panel
-     */
-    public void getTestOrdersAdminPage(){
-        getAdminPage("shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D%5B%5D=ready");
+    /** Get order details page in admin panel */
+    public void adminOrderDetails(String orderNumber){
+        adminPage("orders/" + orderNumber + "/edit");
     }
 }

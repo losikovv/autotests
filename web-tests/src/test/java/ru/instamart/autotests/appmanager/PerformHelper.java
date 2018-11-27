@@ -1,10 +1,10 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
-import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.configuration.Environments;
-import ru.instamart.autotests.configuration.Pages;
-import ru.instamart.autotests.configuration.Users;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
 
 public class PerformHelper extends HelperBase {
@@ -127,14 +127,14 @@ public class PerformHelper extends HelperBase {
             if (kraken.detect().isUserAuthorised()) {
                 logout();
             }
-            doLoginAs("admin");
+            loginAs("admin");
             kraken.get().url(fullBaseUrl + Pages.getPagePath());
         }
     }
 
 
     /** Залогиниться юзером с указанной ролью */ //TODO добавить сеттер as(String role), проверки на авторизованность вынести в метод login
-    public void doLoginAs(String role) throws Exception {
+    public void loginAs(String role) throws Exception {
         if (!kraken.detect().isUserAuthorised()) {
             login(Users.getCredentials(role));
             printMessage("Logged-in with " + role + " privileges\n");

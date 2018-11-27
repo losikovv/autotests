@@ -2,8 +2,8 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.configuration.Environments;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Environments;
 
 
 

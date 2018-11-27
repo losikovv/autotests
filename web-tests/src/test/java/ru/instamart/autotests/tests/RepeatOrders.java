@@ -16,8 +16,8 @@ public class RepeatOrders extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void getAuth()throws Exception {
-        kraken.get().retailerPage("metro");
-        kraken.perform().doLoginAs("admin");
+        kraken.get().page("metro");
+        kraken.perform().loginAs("admin");
     }
 
 

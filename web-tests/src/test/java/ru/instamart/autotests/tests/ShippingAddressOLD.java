@@ -127,7 +127,7 @@ public class ShippingAddressOLD extends TestBase {
     )
     public void sucessShippingAddressFetchAfterAuthorisation() throws Exception {
         kraken.get().getLandingPage();
-        kraken.getSessionHelper().doLoginAs("admin");
+        kraken.getSessionHelper().loginAs("admin");
 
         // Assert shipping address is set after authorisation
         Assert.assertTrue(kraken.getShoppingHelper().isShippingAddressSet(),

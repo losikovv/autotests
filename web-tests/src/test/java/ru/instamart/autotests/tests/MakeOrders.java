@@ -17,8 +17,8 @@ public class MakeOrders extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preparing() throws Exception {
-        kraken.get().retailerPage("metro");
-        kraken.perform().doLoginAs("admin");
+        kraken.get().page("metro");
+        kraken.perform().loginAs("admin");
     }
 
 
@@ -67,7 +67,7 @@ public class MakeOrders extends TestBase {
     )
     public void orderToVkusvill(){
 
-        kraken.get().retailerPage("vkusvill");
+        kraken.get().page("vkusvill");
         kraken.getShoppingHelper().changeShippingAddress(Addresses.Moscow.testAddress());
 
         // идем в чекаут, при необходимости набирая корзину

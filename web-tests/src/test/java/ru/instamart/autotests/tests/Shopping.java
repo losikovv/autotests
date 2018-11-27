@@ -3,7 +3,7 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Pages;
+import ru.instamart.autotests.application.Pages;
 
 
 // Тесты покупок
@@ -16,7 +16,7 @@ public class Shopping extends TestBase{
     @BeforeMethod(alwaysRun = true)
     public void getAuth() throws Exception {
         kraken.get().baseUrl();
-        kraken.perform().doLoginAs("admin");
+        kraken.perform().loginAs("admin");
     }
 
 

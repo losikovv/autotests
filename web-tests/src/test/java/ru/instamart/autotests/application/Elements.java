@@ -1,4 +1,4 @@
-package ru.instamart.autotests.configuration;
+package ru.instamart.autotests.application;
 
 import org.openqa.selenium.By;
 

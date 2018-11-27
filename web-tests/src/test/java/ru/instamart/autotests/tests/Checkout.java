@@ -3,8 +3,8 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.configuration.Pages;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Pages;
 
 
 // Тесты чекаута
@@ -23,8 +23,8 @@ public class Checkout extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preparingForCheckout() throws Exception {
-        kraken.get().retailerPage("metro");
-        kraken.perform().doLoginAs("admin");
+        kraken.get().page("metro");
+        kraken.perform().loginAs("admin");
     }
 
     // TODO Тесты на изменение телефона и контактов

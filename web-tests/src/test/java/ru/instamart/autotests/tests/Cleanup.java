@@ -2,7 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Pages;
+import ru.instamart.autotests.application.Pages;
 
 
 

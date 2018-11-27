@@ -2,7 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Elements;
+import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.testdata.Generate;
 
 
@@ -144,7 +144,7 @@ public class Registration extends TestBase {
             priority = 8
     )
     public void successRegOnRetailerPage() throws Exception {
-        kraken.get().retailerPage("metro");
+        kraken.get().page("metro");
         kraken.perform().dropAuth();
 
         kraken.perform().registration(Generate.testUserData());

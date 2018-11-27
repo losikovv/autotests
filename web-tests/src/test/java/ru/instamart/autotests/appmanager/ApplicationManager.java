@@ -7,7 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import ru.instamart.autotests.configuration.Environments;
+import ru.instamart.autotests.application.Environments;
 
 import java.util.concurrent.TimeUnit;
 

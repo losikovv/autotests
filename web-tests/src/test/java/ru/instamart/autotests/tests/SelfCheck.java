@@ -2,8 +2,8 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.configuration.Pages;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.testdata.Addresses;
 
 
@@ -46,7 +46,7 @@ public class SelfCheck extends TestBase {
         kraken.perform().closeAuthModal();
         Assert.assertFalse(kraken.detect().isAuthModalOpen());
 
-        kraken.get().retailerPage("metro");
+        kraken.get().page("metro");
 
         kraken.perform().openAuthModal();
         Assert.assertTrue(kraken.detect().isAuthModalOpen());
@@ -64,10 +64,10 @@ public class SelfCheck extends TestBase {
         kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised());
 
-        kraken.get().retailerPage("metro");
+        kraken.get().page("metro");
         Assert.assertFalse(kraken.detect().isUserAuthorised());
 
-        kraken.perform().doLoginAs("admin");
+        kraken.perform().loginAs("admin");
         Assert.assertTrue(kraken.detect().isUserAuthorised());
 
         kraken.perform().logout();
@@ -83,7 +83,7 @@ public class SelfCheck extends TestBase {
     public void detectAccountMenu() throws Exception {
 
         kraken.get().baseUrl();
-        kraken.perform().doLoginAs("admin");
+        kraken.perform().loginAs("admin");
 
         kraken.perform().openAccountMenu();
         Assert.assertTrue(kraken.detect().isAccountMenuOpen());
@@ -110,7 +110,7 @@ public class SelfCheck extends TestBase {
         kraken.get().page(Pages.Site.Static.faq());
         Assert.assertTrue(kraken.detect().isOnSite());
 
-        kraken.perform().doLoginAs("admin");
+        kraken.perform().loginAs("admin");
         kraken.get().page(Pages.Admin.retailers());
         Assert.assertFalse(kraken.detect().isOnSite());
     }
@@ -122,7 +122,7 @@ public class SelfCheck extends TestBase {
         kraken.get().page(Pages.Site.Static.contacts());
         Assert.assertFalse(kraken.detect().isInAdmin());
 
-        kraken.perform().doLoginAs("admin");
+        kraken.perform().loginAs("admin");
         kraken.get().page(Pages.Admin.settings());
         Assert.assertTrue(kraken.detect().isInAdmin());
     }
