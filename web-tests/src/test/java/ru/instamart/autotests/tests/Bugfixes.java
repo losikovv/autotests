@@ -21,18 +21,14 @@ public class Bugfixes extends TestBase {
             priority = 1000
     )
     public void testName() throws Exception{
-        // 1 - предусловия
-        kraken.perform().dropAuth();
+        kraken.perform().dropAuth();                                    // 1 - предусловия
 
-        // 2 - тестовые шаги
-        kraken.search().item("смысл жизни");
+        kraken.search().item("смысл жизни");                     // 2 - шаги теста
 
-        // 3 - проверка
-        Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
+        Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),       // 3 - проверка
                 "Result is not expected\n");
 
-        // 4 - опционально уборка
-        kraken.get().baseUrl();
+        kraken.get().baseUrl();                                         // 4 - уборка (опционально)
     }
 
 
