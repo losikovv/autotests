@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
 import ru.instamart.autotests.application.PaymentTypes;
-import ru.instamart.autotests.testdata.Loyalties;
+import ru.instamart.autotests.application.Loyalties;
 
 
 

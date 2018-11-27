@@ -69,7 +69,7 @@ public class Administration extends TestBase {
         Assert.assertTrue(kraken.admin().isOrderCanceled(),
                 "Can't approve the order was canceled, check manually\n");
     }
-    
+
 
     @Test(
             description = "Тест шапки админки",

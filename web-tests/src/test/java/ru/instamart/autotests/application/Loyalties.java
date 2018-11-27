@@ -1,4 +1,4 @@
-package ru.instamart.autotests.testdata;
+package ru.instamart.autotests.application;
 
 
 

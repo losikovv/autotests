@@ -1,10 +1,6 @@
-package ru.instamart.autotests.testdata;
+package ru.instamart.autotests.application;
 
-
-
-// Тестовые адреса доставки
-
-
+import ru.instamart.autotests.testdata.Generate;
 
 public abstract class Addresses {
     static String addressString;
@@ -12,7 +8,6 @@ public abstract class Addresses {
     Addresses(String address) {
         addressString = address;
     }
-
 
     public static class Moscow extends Addresses {
 
@@ -36,7 +31,6 @@ public abstract class Addresses {
             return Generate.randomAddress("moscow");
         }
     }
-
 
     public static class Kazan extends Addresses {
 

@@ -2,7 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.testdata.Addresses;
+import ru.instamart.autotests.application.Addresses;
 
 
 

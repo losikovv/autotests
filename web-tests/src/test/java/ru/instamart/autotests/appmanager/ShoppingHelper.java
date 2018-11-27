@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
-import ru.instamart.autotests.testdata.Addresses;
+import ru.instamart.autotests.application.Addresses;
 
 
 // Shopping helper
