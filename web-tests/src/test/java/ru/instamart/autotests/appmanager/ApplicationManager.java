@@ -9,6 +9,9 @@ import org.openqa.selenium.safari.SafariDriver;
 
 import ru.instamart.autotests.application.Environments;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
@@ -31,17 +34,17 @@ public class ApplicationManager {
     protected String baseUrl = environment.getBaseURL(true);
 
     // Helpers
-    private PerformHelper performHelper;
-    private DetectionHelper detectionHelper;
     private BrowseHelper browseHelper;
     private NavigationHelper navigationHelper;
+    private PerformHelper performHelper;
+    private DetectionHelper detectionHelper;
     private GrabHelper grabHelper;
-    private CleanupHelper cleanupHelper;
     private ShoppingHelper shoppingHelper;
     private SearchHelper searchHelper;
     private CheckoutHelper checkoutHelper;
     private ProfileHelper profileHelper;
     private AdministrationHelper administrationHelper;
+    private CleanupHelper cleanupHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
 
@@ -49,7 +52,7 @@ public class ApplicationManager {
         this.browser = browser;
     }
 
-    public void rise() {
+    public void rise() throws IOException {
 
         switch (browser) {
             case BrowserType.FIREFOX:
@@ -68,38 +71,45 @@ public class ApplicationManager {
         }
 
         // Helpers init
-        performHelper = new PerformHelper(driver, environment, this);
-        detectionHelper = new DetectionHelper(driver, environment, this);
         browseHelper = new BrowseHelper(driver, environment, this);
         navigationHelper = new NavigationHelper(driver, environment, this);
+        performHelper = new PerformHelper(driver, environment, this);
+        detectionHelper = new DetectionHelper(driver, environment, this);
         grabHelper = new GrabHelper(driver,environment,this);
-        cleanupHelper = new CleanupHelper(driver, environment, this);
         shoppingHelper = new ShoppingHelper(driver, environment, this);
         searchHelper = new SearchHelper(driver, environment, this);
         checkoutHelper = new CheckoutHelper(driver, environment, this);
         profileHelper = new ProfileHelper(driver, environment, this);
         administrationHelper = new AdministrationHelper(driver, environment, this);
-
+        cleanupHelper = new CleanupHelper(driver, environment, this);
 
         // Options
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS); // Basic timeout
         //driver.manage().window().fullscreen();                              // Open browser in fullscreen mode
 
-        System.out.println("\n!!!!!!!!!!!! ВЫПУСКАЮ КРАКЕНА !!!!!!!!!!!!\n");
-        System.out.println("ENVIRONMENT: " + environmentName + " ( " + host + " ) \n");
-        driver.get(baseUrl);
+        revealKraken();
 
+        driver.get(baseUrl);
     }
 
     public void stop() {
-
-        // todo перенести сюда вызов cleanup
-
         driver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
         }
+    }
+
+    private void revealKraken() throws IOException {
+        BufferedReader in = new BufferedReader(new FileReader("banner.txt"));
+        String line = in.readLine();
+
+        while(line !=null) {
+            System.out.println(line);
+            line = in.readLine();
+        }
+        in.close();
+        System.out.println("\nENVIRONMENT: " + environmentName + " ( " + host + " ) \n");
     }
 
     // Getters
@@ -108,12 +118,10 @@ public class ApplicationManager {
     public PerformHelper perform() { return performHelper; }
     public DetectionHelper detect() { return detectionHelper; }
     public GrabHelper grab() { return grabHelper; }
-
     public ShoppingHelper shopping() { return shoppingHelper; }
     public SearchHelper search() { return searchHelper; }
     public CheckoutHelper checkout() { return checkoutHelper; }
     public ProfileHelper getProfileHelper() { return profileHelper; }
-
     public AdministrationHelper admin() { return administrationHelper; }
     public CleanupHelper cleanup() { return cleanupHelper; }
 }
