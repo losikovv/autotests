@@ -187,14 +187,16 @@ public class PerformHelper extends HelperBase {
 
     /** Деавторизоваться */
     public void logout() {
-        printMessage("Log-out\n");
         if (!kraken.detect().isInAdmin()) {
             kraken.perform().click(Elements.Site.Header.profileButton());
             kraken.perform().click(Elements.Site.AccountMenu.logoutButton());
         } else {
             kraken.perform().click(Elements.Admin.Header.logoutButton());
         }
-        waitingFor(2);
+        waitingFor(1);
+        if(kraken.detect().isOnLanding()) {
+            printMessage("Log-out\n");
+        }
     }
 
     /** Деавторизоваться, оставшись на текущей странице */
