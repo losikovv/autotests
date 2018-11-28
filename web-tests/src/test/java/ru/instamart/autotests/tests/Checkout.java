@@ -152,7 +152,7 @@ public class Checkout extends TestBase {
     )
     public void performCheckoutAndPayWithCash(){
         reachCheckout();
-        kraken.checkout().completeCheckout();
+        kraken.checkout().complete();
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
@@ -170,7 +170,7 @@ public class Checkout extends TestBase {
     )
     public void performCompleteCheckoutAndPayWithCardOnline(){
         reachCheckout();
-        kraken.checkout().completeCheckout("card-online");
+        kraken.checkout().complete("card-online");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
@@ -188,7 +188,7 @@ public class Checkout extends TestBase {
     )
     public void performCompleteCheckoutAndPayWithCardCourier(){
         reachCheckout();
-        kraken.checkout().completeCheckout("card-courier");
+        kraken.checkout().complete("card-courier");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
@@ -206,7 +206,7 @@ public class Checkout extends TestBase {
     )
     public void performCompleteCheckoutAndPayWithBank(){
         reachCheckout();
-        kraken.checkout().completeCheckout("bank");
+        kraken.checkout().complete("bank");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
@@ -228,7 +228,7 @@ public class Checkout extends TestBase {
         kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.shopping().grabCart();
         kraken.shopping().proceedToCheckout();
-        kraken.checkout().fillCheckout();
+        kraken.checkout().fillAllFields();
         Assert.assertTrue(kraken.checkout().checkDeliveryPrice(299),
                 "Delivery price in checkout is not correct, check manually \n" );
 
@@ -244,7 +244,7 @@ public class Checkout extends TestBase {
         Assert.assertTrue(kraken.checkout().checkDeliveryPrice(99),
                 "Delivery price in checkout is not correct, check manually \n" );
 
-        kraken.checkout().completeCheckout();
+        kraken.checkout().complete();
         Assert.assertTrue(kraken.getProfileHelper().checkDeliveryPrice(99),
                 "Delivery price is not correct in order details, check manually \n" );
 

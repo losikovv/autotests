@@ -37,7 +37,7 @@ public class RepeatOrders extends TestBase {
             kraken.shopping().grabCart();
         }
         kraken.shopping().proceedToCheckout();
-        kraken.checkout().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",1,"card-online");
+        kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",1,"card-online");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
@@ -61,7 +61,7 @@ public class RepeatOrders extends TestBase {
             kraken.shopping().grabCart();
         }
         kraken.shopping().proceedToCheckout();
-        kraken.checkout().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",2,"card-courier");
+        kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",2,"card-courier");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
@@ -83,7 +83,7 @@ public class RepeatOrders extends TestBase {
             kraken.shopping().grabCart();
         }
         kraken.shopping().proceedToCheckout();
-        kraken.checkout().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
+        kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
@@ -107,7 +107,7 @@ public class RepeatOrders extends TestBase {
             kraken.shopping().grabCart();
         }
         kraken.shopping().proceedToCheckout();
-        kraken.checkout().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");
+        kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),

@@ -31,7 +31,7 @@ public class CheckoutHelper extends HelperBase {
 
     // ======= Order-making methods =======
 
-    public void fillCheckout(){
+    public void fillAllFields(){
         checkCheckoutIsReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
@@ -43,7 +43,7 @@ public class CheckoutHelper extends HelperBase {
     /**
      * Complete checkout with the predefined standard test options
      */
-    public void completeCheckout(){
+    public void complete(){
         checkCheckoutIsReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
@@ -57,7 +57,7 @@ public class CheckoutHelper extends HelperBase {
      * Complete checkout with the predefined standard test options and a given payment type
      * Use only for existing users which have telephone numbers and all payment types
      */
-    public void completeCheckout(String paymentType){
+    public void complete(String paymentType){
         checkCheckoutIsReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
@@ -71,7 +71,7 @@ public class CheckoutHelper extends HelperBase {
      * Complete checkout with the predefined standard test options
      * Use only for existing users which have telephone numbers and all payment types, cards and loyalty programs
      */
-    public void completeCheckout(String paymentType, String loyaltyProgram, String promocode){
+    public void complete(String paymentType, String loyaltyProgram, String promocode){
         checkCheckoutIsReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
@@ -87,7 +87,7 @@ public class CheckoutHelper extends HelperBase {
      * Complete checkout with the given options
      * Use only for existing users which have telephone numbers and all payment types usable
      */
-    public void completeCheckout(String orderInstructions, int replacementPolicy, String paymentType){
+    public void complete(String orderInstructions, int replacementPolicy, String paymentType){
         checkCheckoutIsReady();
         doStep1(orderInstructions); // Заполняем адрес и пожелания указанными значениями
         doStep2();                  // Заполняем контакты

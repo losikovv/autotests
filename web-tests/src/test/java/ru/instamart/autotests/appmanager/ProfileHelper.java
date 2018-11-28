@@ -21,10 +21,10 @@ public class ProfileHelper extends HelperBase {
         kraken = app;
     }
 
-    // ======= Orders =======
+    // ======= Profile > Orders ======= // TODO перенести все в perform
 
     /** Перейти в детали крайнего заказа */
-    public void goToLastOrderPage(){
+    public void goToLastOrderPage(){ // TODO перенести в go
         kraken.get().url(baseUrl + "user/orders");
         kraken.perform().click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a"));
     }

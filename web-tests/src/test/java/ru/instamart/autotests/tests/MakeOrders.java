@@ -49,7 +49,7 @@ public class MakeOrders extends TestBase {
             kraken.shopping().proceedToCheckout();
         }
 
-        kraken.checkout().completeCheckout();
+        kraken.checkout().complete();
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
@@ -87,7 +87,7 @@ public class MakeOrders extends TestBase {
         Assert.assertTrue(kraken.checkout().isRetailerLoyaltyApplied(),
                 "Can't apply retailer loyalty program, check manually\n");
 
-        kraken.checkout().completeCheckout();
+        kraken.checkout().complete();
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
