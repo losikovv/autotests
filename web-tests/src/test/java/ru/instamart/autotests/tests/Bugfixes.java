@@ -13,22 +13,20 @@ import org.testng.annotations.Test;
 public class Bugfixes extends TestBase {
 
 
-    // Шаблон для тестов
-
-    @Test ( enabled = false,
+    @Test ( enabled = false,                                                // Шаблон для тестов
             description = "Название теста",
             groups = {"regression"},
             priority = 1000
     )
     public void testName() throws Exception{
-        kraken.perform().dropAuth();                                    // 1 - предусловия
+        kraken.perform().loginAs("admin");                             // 1 - предусловия
 
-        kraken.search().item("смысл жизни");                     // 2 - шаги теста
+        kraken.search().item("смысл жизни");                          // 2 - шаги теста
 
-        Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),       // 3 - проверка
+        Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),           // 3 - проверка
                 "Result is not expected\n");
 
-        kraken.get().baseUrl();                                         // 4 - уборка (опционально)
+        kraken.perform().dropAuth();                                        // 4 - уборка (опционально)
     }
 
 
