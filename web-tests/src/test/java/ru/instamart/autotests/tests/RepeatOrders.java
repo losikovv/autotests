@@ -27,7 +27,7 @@ public class RepeatOrders extends TestBase {
             priority = 501
     )
     public void repeatLastOrderAndPayWithCardOnline() throws Exception {
-        kraken.getProfileHelper().repeatLastOrder();
+        kraken.perform().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
         Assert.assertFalse(kraken.shopping().isCartEmpty(),
@@ -51,7 +51,7 @@ public class RepeatOrders extends TestBase {
             priority = 502
     )
     public void repeatLastOrderAndPayWithCardCourier() throws Exception {
-        kraken.getProfileHelper().repeatLastOrder();
+        kraken.perform().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
         Assert.assertFalse(kraken.shopping().isCartEmpty(),
@@ -73,7 +73,7 @@ public class RepeatOrders extends TestBase {
             priority = 503
     )
     public void repeatLastOrderAndPayWithCash() throws Exception {
-        kraken.getProfileHelper().repeatLastOrder();
+        kraken.perform().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
         Assert.assertFalse(kraken.shopping().isCartEmpty(),
@@ -97,7 +97,7 @@ public class RepeatOrders extends TestBase {
             priority = 504
     )
     public void repeatLastOrderAndPayWithBank() throws Exception {
-        kraken.getProfileHelper().repeatLastOrder();
+        kraken.perform().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
         Assert.assertFalse(kraken.shopping().isCartEmpty(),
@@ -117,6 +117,6 @@ public class RepeatOrders extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void cancelLastOrder()throws Exception {
-        kraken.getProfileHelper().cancelLastOrder();
+        kraken.perform().cancelLastOrder();
     }
 }

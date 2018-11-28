@@ -160,7 +160,7 @@ public class Checkout extends TestBase {
                 "Can't assert the order is sent & active, check manually\n");
 
         checkOrderDocuments();
-        kraken.getProfileHelper().cancelLastOrder();
+        kraken.perform().cancelLastOrder();
     }
 
 
@@ -178,7 +178,7 @@ public class Checkout extends TestBase {
                 "Can't assert the order is sent & active, check manually\n");
 
         checkOrderDocuments();
-        kraken.getProfileHelper().cancelLastOrder();
+        kraken.perform().cancelLastOrder();
     }
 
 
@@ -196,7 +196,7 @@ public class Checkout extends TestBase {
                 "Can't assert the order is sent & active, check manually\n");
 
         checkOrderDocuments();
-        kraken.getProfileHelper().cancelLastOrder();
+        kraken.perform().cancelLastOrder();
     }
 
 
@@ -214,7 +214,7 @@ public class Checkout extends TestBase {
                 "Can't assert the order is sent & active, check manually\n");
 
         checkOrderDocuments();
-        kraken.getProfileHelper().cancelLastOrder();
+        kraken.perform().cancelLastOrder();
     }
 
 
@@ -254,7 +254,7 @@ public class Checkout extends TestBase {
         Assert.assertEquals(kraken.grab().roundedPrice(Site.OrderDetailsPage.deliveryPrice()),99,
                 "Delivery price is not correct in order details, check manually \n" );
 
-        kraken.getProfileHelper().cancelLastOrder();
+        kraken.perform().cancelLastOrder();
     }
 
 

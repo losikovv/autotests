@@ -24,7 +24,7 @@ public class ShoppingHelper extends HelperBase {
 
 
 
-    // ======= Адрес доставки =======
+    // ======= Адрес доставки ======= //TODO перенести все в AddressHelper
 
     /** Определяем пуст ли адрес доставки */
     public boolean isShippingAddressEmpty() {

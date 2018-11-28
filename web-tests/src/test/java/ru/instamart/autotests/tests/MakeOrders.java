@@ -92,7 +92,7 @@ public class MakeOrders extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void cancelLastOrder()throws Exception {
-        kraken.getProfileHelper().cancelLastOrder();
+        kraken.perform().cancelLastOrder();
         kraken.shopping().changeShippingAddress(Addresses.Moscow.defaultAddress());
     }
 

@@ -42,7 +42,7 @@ public class ApplicationManager {
     private ShoppingHelper shoppingHelper;
     private SearchHelper searchHelper;
     private CheckoutHelper checkoutHelper;
-    private ProfileHelper profileHelper;
+    private AddressHelper addressHelper;
     private AdministrationHelper administrationHelper;
     private CleanupHelper cleanupHelper;
 
@@ -79,7 +79,7 @@ public class ApplicationManager {
         shoppingHelper = new ShoppingHelper(driver, environment, this);
         searchHelper = new SearchHelper(driver, environment, this);
         checkoutHelper = new CheckoutHelper(driver, environment, this);
-        profileHelper = new ProfileHelper(driver, environment, this);
+        addressHelper = new AddressHelper(driver, environment, this);
         administrationHelper = new AdministrationHelper(driver, environment, this);
         cleanupHelper = new CleanupHelper(driver, environment, this);
 
@@ -121,7 +121,7 @@ public class ApplicationManager {
     public ShoppingHelper shopping() { return shoppingHelper; }
     public SearchHelper search() { return searchHelper; }
     public CheckoutHelper checkout() { return checkoutHelper; }
-    public ProfileHelper getProfileHelper() { return profileHelper; }
+    public AddressHelper address() { return addressHelper; }
     public AdministrationHelper admin() { return administrationHelper; }
     public CleanupHelper cleanup() { return cleanupHelper; }
 }

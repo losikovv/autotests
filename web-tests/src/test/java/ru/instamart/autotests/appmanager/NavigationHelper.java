@@ -1,5 +1,6 @@
 package ru.instamart.autotests.appmanager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
@@ -13,14 +14,17 @@ public class NavigationHelper extends HelperBase {
         kraken = app;
     }
 
-    /** Навигация переходами по элементам на страницах */
-    public void to(Elements element){
-        kraken.perform().click(Elements.locator());
+    // TODO сделать метод to принимающий массив элементов и кликающий их по очереди
+    // TODO public void to(Elements[] elements){ }
+
+    // TODO доделать
+    public abstract class to {
+
+        public void lastOrderPage() {
+            kraken.get().url(baseUrl + "user/orders");
+            kraken.perform().click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a"));
+        }
     }
-
-    // TODO сделать метод go принимающий массив элементов и кликающий их по очереди
-    // TODO public void go(Elements[] elements){ }
-
 
     //========== Раздел Заказы и его подразделы ========
 
