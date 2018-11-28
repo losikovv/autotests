@@ -40,16 +40,16 @@ public class MakeOrders extends TestBase {
     )
     public void orderInKazan(){
 
-        kraken.getShoppingHelper().changeShippingAddress(Addresses.Kazan.defaultAddress());
+        kraken.shopping().changeShippingAddress(Addresses.Kazan.defaultAddress());
 
         // Идем в чекаут, при необходимости набирая корзину
         kraken.get().checkoutPage();
-        if(!kraken.getCheckoutHelper().isOnCheckout()){
-            kraken.getShoppingHelper().grabCart();
-            kraken.getShoppingHelper().proceedToCheckout();
+        if(!kraken.checkout().isOnCheckout()){
+            kraken.shopping().grabCart();
+            kraken.shopping().proceedToCheckout();
         }
 
-        kraken.getCheckoutHelper().completeCheckout();
+        kraken.checkout().completeCheckout();
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
@@ -68,26 +68,26 @@ public class MakeOrders extends TestBase {
     public void orderToVkusvill(){
 
         kraken.get().page("vkusvill");
-        kraken.getShoppingHelper().changeShippingAddress(Addresses.Moscow.testAddress());
+        kraken.shopping().changeShippingAddress(Addresses.Moscow.testAddress());
 
         // идем в чекаут, при необходимости набирая корзину
         kraken.get().checkoutPage();
-        if(!kraken.getCheckoutHelper().isOnCheckout()){
-            kraken.getShoppingHelper().grabCart();
-            kraken.getShoppingHelper().proceedToCheckout();
+        if(!kraken.checkout().isOnCheckout()){
+            kraken.shopping().grabCart();
+            kraken.shopping().proceedToCheckout();
         }
 
         // Проверяем что доступна программа лояльности ритейлера
-        Assert.assertTrue(kraken.getCheckoutHelper().isRetailerLoyaltyAvailable(),
+        Assert.assertTrue(kraken.checkout().isRetailerLoyaltyAvailable(),
                 "Retailer loyalty program is not available\n");
 
-        kraken.getCheckoutHelper().addRetailerLoyalty("vkusvill");
+        kraken.checkout().addRetailerLoyalty("vkusvill");
 
         // Проверяем что программа лояльности ритейлера применилась
-        Assert.assertTrue(kraken.getCheckoutHelper().isRetailerLoyaltyApplied(),
+        Assert.assertTrue(kraken.checkout().isRetailerLoyaltyApplied(),
                 "Can't apply retailer loyalty program, check manually\n");
 
-        kraken.getCheckoutHelper().completeCheckout();
+        kraken.checkout().completeCheckout();
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
@@ -101,7 +101,7 @@ public class MakeOrders extends TestBase {
     @AfterMethod(alwaysRun = true)
     public void cancelLastOrder()throws Exception {
         kraken.getProfileHelper().cancelLastOrder();
-        kraken.getShoppingHelper().changeShippingAddress(Addresses.Moscow.defaultAddress());
+        kraken.shopping().changeShippingAddress(Addresses.Moscow.defaultAddress());
     }
 
 }

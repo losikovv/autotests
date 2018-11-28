@@ -97,10 +97,10 @@ public class SelfCheck extends TestBase {
     public void detectItemCard() throws Exception {
 
         kraken.get().page("metro/salat-premium-gorshochek");
-        Assert.assertTrue(kraken.getShoppingHelper().isItemCardOpen());
+        Assert.assertTrue(kraken.shopping().isItemCardOpen());
 
         kraken.get().page("metro/eliektronika");
-        Assert.assertFalse(kraken.getShoppingHelper().isItemCardOpen());
+        Assert.assertFalse(kraken.shopping().isItemCardOpen());
     }
 
 
@@ -155,11 +155,11 @@ public class SelfCheck extends TestBase {
 
         kraken.get().page("metro");
 
-        kraken.getShoppingHelper().openCatalog();
-        Assert.assertTrue(kraken.getShoppingHelper().isCatalogDrawerOpen());
+        kraken.shopping().openCatalog();
+        Assert.assertTrue(kraken.shopping().isCatalogDrawerOpen());
 
-        kraken.getShoppingHelper().closeCatalog();
-        Assert.assertFalse(kraken.getShoppingHelper().isCatalogDrawerOpen());
+        kraken.shopping().closeCatalog();
+        Assert.assertFalse(kraken.shopping().isCatalogDrawerOpen());
     }
 
 
@@ -174,20 +174,20 @@ public class SelfCheck extends TestBase {
         //landing
         kraken.get().baseUrl();
 
-        kraken.getShoppingHelper().setShippingAddress(Addresses.Moscow.testAddress());
-        Assert.assertTrue(kraken.getShoppingHelper().isShopSelectorOpen());
+        kraken.shopping().setShippingAddress(Addresses.Moscow.testAddress());
+        Assert.assertTrue(kraken.shopping().isShopSelectorOpen());
 
-        kraken.getShoppingHelper().closeShopSelector();
-        Assert.assertFalse(kraken.getShoppingHelper().isShopSelectorOpen());
+        kraken.shopping().closeShopSelector();
+        Assert.assertFalse(kraken.shopping().isShopSelectorOpen());
 
         //retailer
         kraken.get().page("metro");
 
-        kraken.getShoppingHelper().openShopSelector();
-        Assert.assertTrue(kraken.getShoppingHelper().isShopSelectorOpen());
+        kraken.shopping().openShopSelector();
+        Assert.assertTrue(kraken.shopping().isShopSelectorOpen());
 
-        kraken.getShoppingHelper().closeShopSelector();
-        Assert.assertFalse(kraken.getShoppingHelper().isShopSelectorOpen());
+        kraken.shopping().closeShopSelector();
+        Assert.assertFalse(kraken.shopping().isShopSelectorOpen());
     }
 
 
@@ -196,11 +196,11 @@ public class SelfCheck extends TestBase {
 
         kraken.get().page("metro");
 
-        kraken.getShoppingHelper().openCart();
-        Assert.assertTrue(kraken.getShoppingHelper().isCartOpen());
+        kraken.shopping().openCart();
+        Assert.assertTrue(kraken.shopping().isCartOpen());
 
-        kraken.getShoppingHelper().closeCart();
-        Assert.assertFalse(kraken.getShoppingHelper().isCartOpen());
+        kraken.shopping().closeCart();
+        Assert.assertFalse(kraken.shopping().isCartOpen());
     }
 
 

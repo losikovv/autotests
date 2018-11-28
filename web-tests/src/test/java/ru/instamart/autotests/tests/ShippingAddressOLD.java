@@ -23,24 +23,24 @@ public class ShippingAddressOLD extends TestBase {
     )
     public void checkDefaultShoplist() throws Exception {
         kraken.get().retailerPage("metro");
-        kraken.getShoppingHelper().openShopsList();
+        kraken.shopping().openShopsList();
 
         // Assert shoplist is open
-        Assert.assertTrue(kraken.getShoppingHelper().isShopsListOpen(),
+        Assert.assertTrue(kraken.shopping().isShopsListOpen(),
                 "Can't open shoplist\n");
 
         // Assert shoplist isn't empty
-        Assert.assertFalse(kraken.getShoppingHelper().isShopsListEmpty(),
+        Assert.assertFalse(kraken.shopping().isShopsListEmpty(),
                 "Shoplist is not supposed to be empty by default\n");
 
         // Assert there is at least one shop in the shoplist
-        Assert.assertTrue(kraken.getShoppingHelper().isAnyShopsAvailable(),
+        Assert.assertTrue(kraken.shopping().isAnyShopsAvailable(),
                 "There is no shops available in the shoplist\n");
 
-        kraken.getShoppingHelper().closeShopSelector();
+        kraken.shopping().closeShopSelector();
 
         // Assert shoplist isn't open
-        Assert.assertFalse(kraken.getShoppingHelper().isShopsListOpen(),
+        Assert.assertFalse(kraken.shopping().isShopsListOpen(),
                 "Can't close shoplist\n");
 
     }
@@ -54,15 +54,15 @@ public class ShippingAddressOLD extends TestBase {
     public void setShippingAddressOnLandingPage() throws Exception {
         final String address = "Москва, ул Мусы Джалиля, д 19 к 1"; // TODO брать из Addresses
         kraken.get().getLandingPage();
-        kraken.getShoppingHelper().setShippingAddress(address);
-        kraken.getShoppingHelper().selectShop(1);
+        kraken.shopping().setShippingAddress(address);
+        kraken.shopping().selectShop(1);
 
         // Assert shipping address is set
-        Assert.assertTrue(kraken.getShoppingHelper().isShippingAddressSet(),
+        Assert.assertTrue(kraken.shopping().isShippingAddressSet(),
                 "Can't approve the shipping address was set correctly, check manually\n");
 
         //
-        Assert.assertTrue(kraken.getShoppingHelper().currentShippingAddress().equals(address),
+        Assert.assertTrue(kraken.shopping().currentShippingAddress().equals(address),
                 "Current shipping address is not the same that was entered during the setting procedure\n");
     }
 
@@ -75,27 +75,27 @@ public class ShippingAddressOLD extends TestBase {
     public void changeShippingAddress() throws Exception {
         kraken.get().retailerPage("metro");
 
-        if(kraken.getShoppingHelper().isShippingAddressEmpty()){
-            kraken.getShoppingHelper().setShippingAddress("Москва, ул Мусы Джалиля, д 19 к 1"); // TODO брать из Addresses
+        if(kraken.shopping().isShippingAddressEmpty()){
+            kraken.shopping().setShippingAddress("Москва, ул Мусы Джалиля, д 19 к 1"); // TODO брать из Addresses
         }
 
-        String initialAddress = kraken.getShoppingHelper().currentShippingAddress();
+        String initialAddress = kraken.shopping().currentShippingAddress();
         final String newAddress1 = "Москва, ул Пироговская М., д 88"; // TODO брать из Addresses
         final String newAddress2 = "Москва, Ленинградское шоссе, д 50"; // TODO брать из Addresses
 
         // проверяем на совпадение с текущим адресом доставки и меняем адрес
         if(initialAddress.equals(newAddress1)){
-            kraken.getShoppingHelper().changeShippingAddress(newAddress2);
+            kraken.shopping().changeShippingAddress(newAddress2);
         } else {
-            kraken.getShoppingHelper().changeShippingAddress(newAddress1);
+            kraken.shopping().changeShippingAddress(newAddress1);
         }
 
         // Assert shipping address is set
-        Assert.assertTrue(kraken.getShoppingHelper().isShippingAddressSet(),
+        Assert.assertTrue(kraken.shopping().isShippingAddressSet(),
                 "Can't approve the shipping address was set correctly, check manually\n");
 
         // Assert shipping address was changed
-        Assert.assertFalse(kraken.getShoppingHelper().currentShippingAddress().equals(initialAddress),
+        Assert.assertFalse(kraken.shopping().currentShippingAddress().equals(initialAddress),
                 "Shipping address was changed\n");
     }
 
@@ -107,15 +107,15 @@ public class ShippingAddressOLD extends TestBase {
     )
     public void setAddressWithNoAvailableShops() throws Exception {
         kraken.get().retailerPage("metro");
-        kraken.getShoppingHelper().changeShippingAddress("Москва, ул Лосиноостровская, д 1"); // TODO брать из Addresses
-        kraken.getShoppingHelper().openShopsList();
+        kraken.shopping().changeShippingAddress("Москва, ул Лосиноостровская, д 1"); // TODO брать из Addresses
+        kraken.shopping().openShopsList();
 
         // Assert shops list is open
-        Assert.assertTrue(kraken.getShoppingHelper().isShopsListOpen(),
+        Assert.assertTrue(kraken.shopping().isShopsListOpen(),
                 "Shops list isn't open\n");
 
         // Assert shops list is empty
-        Assert.assertTrue(kraken.getShoppingHelper().isShopsListEmpty(),
+        Assert.assertTrue(kraken.shopping().isShopsListEmpty(),
                 "Shipping address is out of the shipping zone, but the shops list isn't empty\n");
     }
 
@@ -130,7 +130,7 @@ public class ShippingAddressOLD extends TestBase {
         kraken.getSessionHelper().loginAs("admin");
 
         // Assert shipping address is set after authorisation
-        Assert.assertTrue(kraken.getShoppingHelper().isShippingAddressSet(),
+        Assert.assertTrue(kraken.shopping().isShippingAddressSet(),
                 "Shipping address is not fetched after authorisation, check manually\n");
 
     }

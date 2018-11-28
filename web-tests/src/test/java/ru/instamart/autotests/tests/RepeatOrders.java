@@ -30,14 +30,14 @@ public class RepeatOrders extends TestBase {
         kraken.getProfileHelper().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(kraken.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.shopping().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!kraken.getShoppingHelper().isCheckoutButtonActive()) {
-            kraken.getShoppingHelper().grabCart();
+        if(!kraken.shopping().isCheckoutButtonActive()) {
+            kraken.shopping().grabCart();
         }
-        kraken.getShoppingHelper().proceedToCheckout();
-        kraken.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",1,"card-online");
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",1,"card-online");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
@@ -54,14 +54,14 @@ public class RepeatOrders extends TestBase {
         kraken.getProfileHelper().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(kraken.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.shopping().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!kraken.getShoppingHelper().isCheckoutButtonActive()) {
-            kraken.getShoppingHelper().grabCart();
+        if(!kraken.shopping().isCheckoutButtonActive()) {
+            kraken.shopping().grabCart();
         }
-        kraken.getShoppingHelper().proceedToCheckout();
-        kraken.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",2,"card-courier");
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",2,"card-courier");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
@@ -76,14 +76,14 @@ public class RepeatOrders extends TestBase {
         kraken.getProfileHelper().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(kraken.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.shopping().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!kraken.getShoppingHelper().isCheckoutButtonActive()) {
-            kraken.getShoppingHelper().grabCart();
+        if(!kraken.shopping().isCheckoutButtonActive()) {
+            kraken.shopping().grabCart();
         }
-        kraken.getShoppingHelper().proceedToCheckout();
-        kraken.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
@@ -100,14 +100,14 @@ public class RepeatOrders extends TestBase {
         kraken.getProfileHelper().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(kraken.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.shopping().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!kraken.getShoppingHelper().isCheckoutButtonActive()) {
-            kraken.getShoppingHelper().grabCart();
+        if(!kraken.shopping().isCheckoutButtonActive()) {
+            kraken.shopping().grabCart();
         }
-        kraken.getShoppingHelper().proceedToCheckout();
-        kraken.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),

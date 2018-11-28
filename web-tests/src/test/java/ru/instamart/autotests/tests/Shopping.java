@@ -26,25 +26,25 @@ public class Shopping extends TestBase{
             priority = 300
     )
     public void checkEmptyCart() throws Exception, AssertionError {
-        kraken.getShoppingHelper().dropCart();
-        kraken.getShoppingHelper().openCart();
+        kraken.shopping().dropCart();
+        kraken.shopping().openCart();
 
         // Assert cart is open
-        Assert.assertTrue(kraken.getShoppingHelper().isCartOpen(),
+        Assert.assertTrue(kraken.shopping().isCartOpen(),
                 "Can't open shopping cart\n");
 
         // Assert cart is empty
-        Assert.assertTrue(kraken.getShoppingHelper().isCartEmpty(),
+        Assert.assertTrue(kraken.shopping().isCartEmpty(),
                 "Cart isn't empty\n");
 
         // Assert checkout button is disabled in an empty card
-        Assert.assertFalse(kraken.getShoppingHelper().isCheckoutButtonActive(),
+        Assert.assertFalse(kraken.shopping().isCheckoutButtonActive(),
                 "Checkout button is active in an empty cart\n");
 
-        kraken.getShoppingHelper().closeCart();
+        kraken.shopping().closeCart();
 
         // Assert cart is closed
-        Assert.assertFalse(kraken.getShoppingHelper().isCartOpen(),
+        Assert.assertFalse(kraken.shopping().isCartOpen(),
                 "Can't close shopping cart\n");
     }
 
@@ -55,7 +55,7 @@ public class Shopping extends TestBase{
             priority = 301
     )
     public void checkoutIsUnreachableWithEmptyCart() throws Exception {
-        kraken.getShoppingHelper().dropCart();
+        kraken.shopping().dropCart();
         assertPageIsUnreachable(Pages.Site.checkout());
     }
 
@@ -66,11 +66,11 @@ public class Shopping extends TestBase{
             priority = 302
     )
     public void addItemToCart()throws Exception, AssertionError {
-        kraken.getShoppingHelper().dropCart();
-        kraken.getShoppingHelper().addFirstItemOnPageToCart();
+        kraken.shopping().dropCart();
+        kraken.shopping().addFirstItemOnPageToCart();
 
         // Assert cart isn't empty
-        Assert.assertFalse(kraken.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.shopping().isCartEmpty(),
                 "Cart is still empty after adding an item into it\n");
     }
 
@@ -81,10 +81,10 @@ public class Shopping extends TestBase{
             priority = 303
     )
     public void grabCart()throws Exception, AssertionError {
-        kraken.getShoppingHelper().grabCart();
+        kraken.shopping().grabCart();
 
         // Assert checkout button is enabled
-        Assert.assertTrue(kraken.getShoppingHelper().isCheckoutButtonActive(),
+        Assert.assertTrue(kraken.shopping().isCheckoutButtonActive(),
                 "Checkout button is not active with minimal order cart\n");
     }
 
@@ -95,15 +95,15 @@ public class Shopping extends TestBase{
             priority = 304
     )
     public void proceedFromCartToCheckout()throws Exception, AssertionError {
-        if(!kraken.getShoppingHelper().isCheckoutButtonActive()) {
-            kraken.getShoppingHelper().grabCart();
+        if(!kraken.shopping().isCheckoutButtonActive()) {
+            kraken.shopping().grabCart();
         }
-        if(kraken.getShoppingHelper().isCheckoutButtonActive()){
-            kraken.getShoppingHelper().proceedToCheckout();
+        if(kraken.shopping().isCheckoutButtonActive()){
+            kraken.shopping().proceedToCheckout();
         }
 
         // Assert can access checkout by clicking on order button in cart
-        Assert.assertTrue(kraken.getCheckoutHelper().isOnCheckout(),
+        Assert.assertTrue(kraken.checkout().isOnCheckout(),
                 "Can't access checkout by clicking on order button in cart\n");
     }
 
