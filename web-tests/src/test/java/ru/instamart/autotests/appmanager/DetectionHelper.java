@@ -20,7 +20,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить находимся на лендинге или нет */
     public boolean isOnLanding() {
-        return isElementPresent(Elements.Site.landing());
+        return isElementPresent(Elements.Site.Landing.header());
     }
 
     /** Определить находимся в админке или нет */

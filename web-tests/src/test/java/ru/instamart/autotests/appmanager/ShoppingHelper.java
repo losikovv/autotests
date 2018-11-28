@@ -47,10 +47,10 @@ public class ShoppingHelper extends HelperBase {
         printMessage("Setting shipping address...");
 
         if(fetchCurrentURL().equals(fullBaseUrl)){
-            kraken.perform().fillField(Elements.Site.LandingPage.addressField(), address);
+            kraken.perform().fillField(Elements.Site.Landing.addressField(), address);
             waitingFor(1);
-            kraken.perform().click(Elements.Site.LandingPage.addressSuggest());
-            kraken.perform().click(Elements.Site.LandingPage.selectStoreButton());
+            kraken.perform().click(Elements.Site.Landing.addressSuggest());
+            kraken.perform().click(Elements.Site.Landing.selectStoreButton());
         } else {
             kraken.perform().click(Elements.Site.Header.setShipAddressButton());
             checkAddressModal();

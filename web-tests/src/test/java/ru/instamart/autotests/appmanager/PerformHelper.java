@@ -194,9 +194,8 @@ public class PerformHelper extends HelperBase {
         } else {
             kraken.perform().click(Elements.Admin.Header.logoutButton());
         }
-        waitingFor(1);
+        waitingFor(2);
     }
-
 
     /** Деавторизоваться, оставшись на текущей странице */
     public void dropAuth() {
@@ -213,7 +212,7 @@ public class PerformHelper extends HelperBase {
     /** Открыть форму авторизации/регистрации */
     public void openAuthModal(){
         if (kraken.detect().isOnLanding()) {
-            kraken.perform().click(Elements.Site.LandingPage.loginButton());
+            kraken.perform().click(Elements.Site.Landing.loginButton());
         } else {
             kraken.perform().click(Elements.Site.Header.loginButton());
         }

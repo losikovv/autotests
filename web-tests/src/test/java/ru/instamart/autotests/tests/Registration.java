@@ -122,7 +122,7 @@ public class Registration extends TestBase {
 
     @Test(
             description = "Регистрация нового пользователя на лендинге",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 7
     )
     public void successRegOnLandingPage() throws Exception {
@@ -140,7 +140,7 @@ public class Registration extends TestBase {
 
     @Test(
             description = "Регистрация нового пользователя на витрине магазина",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 8
     )
     public void successRegOnRetailerPage() throws Exception {

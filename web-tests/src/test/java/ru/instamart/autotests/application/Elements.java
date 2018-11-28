@@ -498,12 +498,9 @@ public class Elements {
         /** Лендинг */
         // TODO вытащить наверх из Site
 
-        static Elements landing() {
-            locator = By.className("top-line");
-            return new Elements(text, locator);
-        }
+        interface Landing {
 
-        interface LandingPage {
+            static Elements header() { return new Elements(null, By.className("top-line")); }
 
             static Elements addressField() {
                 return new Elements(null, By.id("header_ship_address"));
