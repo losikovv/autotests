@@ -38,7 +38,7 @@ public class HelperBase {
 
     String fetchText(Elements element) {
         try {
-            return driver.findElement(Elements.getLocator()).getText();
+            return driver.findElement(Elements.locator()).getText();
         } catch (NoSuchElementException e) {
             return null;
         }
@@ -55,7 +55,7 @@ public class HelperBase {
 
     /** Точно определить отображается ли конкретно указанный элемент */
     public boolean isElementDetected(Elements element) {
-        return isElementPresent(Elements.getLocator()) && fetchText(Elements.getLocator()).equals(Elements.getText());
+        return isElementPresent(Elements.locator()) && fetchText(Elements.locator()).equals(Elements.text());
     }
 
     public boolean isElementDetected(String xpath, String text) {
@@ -71,7 +71,7 @@ public class HelperBase {
 
     public boolean isElementPresent(Elements element) {
         try {
-            driver.findElement(Elements.getLocator());
+            driver.findElement(Elements.locator());
             return true;
         } catch (NoSuchElementException e) {
             return false;
@@ -92,7 +92,7 @@ public class HelperBase {
 
     public boolean isElementDisplayed(Elements element){
         try {
-            return driver.findElement(Elements.getLocator()).isDisplayed();
+            return driver.findElement(Elements.locator()).isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
@@ -110,7 +110,7 @@ public class HelperBase {
     /** Определить доступен ли элемент */
 
     public boolean isElementEnabled(Elements element){
-        return driver.findElement(Elements.getLocator()).isEnabled();
+        return driver.findElement(Elements.locator()).isEnabled();
     }
 
     public boolean isElementEnabled(By locator){
@@ -121,7 +121,7 @@ public class HelperBase {
     /** Определить проставлен ли чекбокс */
 
     boolean isCheckboxSelected(Elements element) {
-        return driver.findElement(Elements.getLocator()).isSelected();
+        return driver.findElement(Elements.locator()).isSelected();
     }
 
     boolean isCheckboxSelected(By locator) {
@@ -193,6 +193,7 @@ public class HelperBase {
 
     /** Округлить цену до целого числа, отбросив копейки, пробелы и знак рубля */
     protected int round(String price) {
+        // todo обернуть в try catch NullPointerException
         return Integer.parseInt(((price).substring(0,(price.length() - 5))).replaceAll("\\s",""));
     }
 }

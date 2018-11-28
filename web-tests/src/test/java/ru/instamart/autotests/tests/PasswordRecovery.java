@@ -64,7 +64,7 @@ public class PasswordRecovery extends TestBase {
 
     @Test(
             description = "Тест успешной отправки восстановления пароля на лендинге",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 603
     )
     public void successRecoveryOnLanding() throws AssertionError, Exception {

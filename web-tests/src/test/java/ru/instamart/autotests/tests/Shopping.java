@@ -23,7 +23,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест пустой корзины",
             groups = {"acceptance","regression"},
-            priority = 300
+            priority = 350
     )
     public void checkEmptyCart() throws Exception, AssertionError {
         kraken.shopping().dropCart();
@@ -52,7 +52,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест недоступности пустого чекаута по прямой ссылке",
             groups = {"acceptance","regression"},
-            priority = 301
+            priority = 351
     )
     public void checkoutIsUnreachableWithEmptyCart() throws Exception {
         kraken.shopping().dropCart();
@@ -63,22 +63,24 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест успешного добавления товара в корзину",
             groups = {"acceptance","regression"},
-            priority = 302
+            priority = 352
     )
     public void addItemToCart()throws Exception, AssertionError {
         kraken.shopping().dropCart();
+
         kraken.shopping().addFirstItemOnPageToCart();
 
-        // Assert cart isn't empty
         Assert.assertFalse(kraken.shopping().isCartEmpty(),
                 "Cart is still empty after adding an item into it\n");
+
+        kraken.shopping().closeCart();
     }
 
 
     @Test(
             description = "Тест набора корзины до суммы, достаточной для заказа",
             groups = {"acceptance","regression"},
-            priority = 303
+            priority = 353
     )
     public void grabCart()throws Exception, AssertionError {
         kraken.shopping().grabCart();
@@ -86,13 +88,15 @@ public class Shopping extends TestBase{
         // Assert checkout button is enabled
         Assert.assertTrue(kraken.shopping().isCheckoutButtonActive(),
                 "Checkout button is not active with minimal order cart\n");
+
+        kraken.shopping().closeCart();
     }
 
 
     @Test(
             description = "Успешного перехода в чекаут при сумме корзины выше суммы минимального заказа",
             groups = {"acceptance","regression"},
-            priority = 304
+            priority = 354
     )
     public void proceedFromCartToCheckout()throws Exception, AssertionError {
         if(!kraken.shopping().isCheckoutButtonActive()) {

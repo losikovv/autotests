@@ -16,7 +16,7 @@ public class ProfileHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    public ProfileHelper(WebDriver driver, Environments environment, ApplicationManager app) {
+    ProfileHelper(WebDriver driver, Environments environment, ApplicationManager app) {
         super(driver, environment);
         kraken = app;
     }
@@ -49,42 +49,6 @@ public class ProfileHelper extends HelperBase {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(1));
         } else printMessage("> Skipped because order isn't active");
         waitingFor(2);
-    }
-
-    /** Определить активен ли заказ */
-    public boolean isOrderActive() {
-        printMessage("Checking order page...");
-        if (isElementDetected(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
-            printMessage("✓ Order is active\n");
-            return true;
-        } else {
-            printMessage("Experiencing performance troubles");
-            waitingFor(1);
-            if (isElementDetected(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
-                printMessage("✓ Order is active\n");
-                return true;
-            } else return false;
-        }
-    }
-
-    /** Определить отменен ли заказ */
-    public boolean isOrderCanceled(){
-        printMessage("Checking order page...");
-        if (isElementDetected(Elements.Site.OrderDetailsPage.canceledOrderAttribute())) {
-            printMessage("Order is canceled!\n");
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /** Проверка стоимости доставки заказа на странице деталей заказа */
-    public boolean checkDeliveryPrice(int price) {
-        int deliveryPrice = round(fetchText(Elements.Site.OrderDetailsPage.deliveryPrice()));
-        if (deliveryPrice == price) {
-            printMessage("✓ Delivery price " + deliveryPrice + "р\n");
-            return true;
-        } else return false;
     }
 
 }

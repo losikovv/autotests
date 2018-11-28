@@ -17,12 +17,12 @@ public class Elements {
         locator = elementLocator;
     }
 
-    public static String getText() {
+    public static String text() {
         return text;
     }
 
     // todo возвращать локатор в зависимости от окружения
-    public static By getLocator() {
+    public static By locator() {
         return locator;
     }
 
@@ -652,8 +652,8 @@ public class Elements {
             }
 
             static Elements deliveryPrice() {
-                return new Elements(null, By.xpath("/html/body/div[2]/div/form/div/aside/div/div[2]" +
-                        "/div[1]/div[1]/div[3]/span"));
+                return new Elements(null,
+                        By.xpath("/html/body/div[5]/div/form/div/aside/div/div[2]/div[1]/div[1]/div[3]/span/div"));
             }
 
             interface PromocodeModal {

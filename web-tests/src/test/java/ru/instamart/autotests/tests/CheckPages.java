@@ -25,7 +25,6 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable(Pages.Site.Retailers.metro());
         assertPageIsAvailable(Pages.Site.Retailers.vkusvill());
         assertPageIsAvailable(Pages.Site.Retailers.lenta());
-        assertPageIsAvailable(Pages.Site.Retailers.karusel());
         assertPageIsAvailable(Pages.Site.Retailers.auchan());
     }
 
@@ -37,6 +36,7 @@ public class CheckPages extends TestBase {
     // TODO переделать чек страниц по списку ретейлеров
     // TODO забирать список ритейлеров из БД или из админки с признаком активности
     public void checkInactiveRetailerPages() throws Exception, AssertionError {
+        assertPageIs404(Pages.Site.Retailers.karusel());
         assertPageIs404(Pages.Site.Retailers.selgros());
         assertPageIs404(Pages.Site.Retailers.flora());
         assertPageIs404(Pages.Site.Retailers.foodcity());
@@ -52,14 +52,14 @@ public class CheckPages extends TestBase {
     )
     // TODO переделать чек лендингов циклом по списку
     public void checkLandings() throws Exception, AssertionError {
+        kraken.perform().dropAuth();
         assertPageIsAvailable(Pages.Site.Landings.instamart());
         assertPageIsAvailable(Pages.Site.Landings.mnogoru());
         assertPageIsAvailable(Pages.Site.Landings.aeroflot());
 
         //assertPageIsAvailable(Pages.Site.Landings.sovest());      старый лендос
         //assertPageIsAvailable(Pages.Site.Landings.halva());       старый лендос
-
-        // assertPageIsAvailable(Pages.Site.Landings.kazan());      лендос отключен
+        //assertPageIsAvailable(Pages.Site.Landings.kazan());      лендос отключен
         //assertPageIsAvailable(Pages.Site.Landings.feedback());    этого лендоса нет на стейдже
         //assertPageIsAvailable(Pages.Site.Landings.mobile());      этого лендоса нет на стейдже
     }

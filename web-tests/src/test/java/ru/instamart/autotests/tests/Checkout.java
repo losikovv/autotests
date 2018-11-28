@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 
+import static ru.instamart.autotests.application.Elements.*;
 
 // Тесты чекаута
 
@@ -155,7 +156,7 @@ public class Checkout extends TestBase {
         kraken.checkout().complete();
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
         checkOrderDocuments();
@@ -173,7 +174,7 @@ public class Checkout extends TestBase {
         kraken.checkout().complete("card-online");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
         checkOrderDocuments();
@@ -191,7 +192,7 @@ public class Checkout extends TestBase {
         kraken.checkout().complete("card-courier");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
         checkOrderDocuments();
@@ -209,7 +210,7 @@ public class Checkout extends TestBase {
         kraken.checkout().complete("bank");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
         checkOrderDocuments();
@@ -222,30 +223,35 @@ public class Checkout extends TestBase {
             groups = {"regression"},
             priority = 411
     )
-    public void checkMetroDeliveryPriceDiscount() {
+    public void checkMetroDeliveryPriceDiscount() throws Exception {
         kraken.shopping().dropCart();
 
         kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.shopping().grabCart();
         kraken.shopping().proceedToCheckout();
         kraken.checkout().fillAllFields();
-        Assert.assertTrue(kraken.checkout().checkDeliveryPrice(299),
-                "Delivery price in checkout is not correct, check manually \n" );
+
+        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()),
+                299,
+                "Delivery price in checkout is not correct, check manually \n");
 
         kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.shopping().grabCart(5000);
         kraken.shopping().proceedToCheckout();
-        Assert.assertTrue(kraken.checkout().checkDeliveryPrice(199),
+        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()),
+                199,
                 "Delivery price in checkout is not correct, check manually \n" );
 
         kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.shopping().grabCart(10000);
         kraken.shopping().proceedToCheckout();
-        Assert.assertTrue(kraken.checkout().checkDeliveryPrice(99),
+        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()),
+                99,
                 "Delivery price in checkout is not correct, check manually \n" );
 
         kraken.checkout().complete();
-        Assert.assertTrue(kraken.getProfileHelper().checkDeliveryPrice(99),
+
+        Assert.assertEquals(kraken.grab().roundedPrice(Site.OrderDetailsPage.deliveryPrice()),99,
                 "Delivery price is not correct in order details, check manually \n" );
 
         kraken.getProfileHelper().cancelLastOrder();

@@ -151,6 +151,12 @@ public class Pages {
                 return new Pages("Адреса",
                         "user/addresses");
             }
+
+            static Pages orderDetails(String orderNumber) {
+                return new Pages(null,
+                        "user/orders/" + orderNumber);
+            }
+
         }
 
     }

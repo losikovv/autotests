@@ -51,11 +51,9 @@ public class MakeOrders extends TestBase {
 
         kraken.checkout().complete();
 
-        // Проверяем что заказ оформился и активен
-        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        // Проверяем скачку документов
         checkOrderDocuments();
     }
 
@@ -77,23 +75,17 @@ public class MakeOrders extends TestBase {
             kraken.shopping().proceedToCheckout();
         }
 
-        // Проверяем что доступна программа лояльности ритейлера
         Assert.assertTrue(kraken.checkout().isRetailerLoyaltyAvailable(),
                 "Retailer loyalty program is not available\n");
 
         kraken.checkout().addRetailerLoyalty("vkusvill");
-
-        // Проверяем что программа лояльности ритейлера применилась
         Assert.assertTrue(kraken.checkout().isRetailerLoyaltyApplied(),
                 "Can't apply retailer loyalty program, check manually\n");
 
         kraken.checkout().complete();
-
-        // Проверяем что заказ оформился и активен
-        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        // Проверяем скачку документов
         checkOrderDocuments();
     }
 

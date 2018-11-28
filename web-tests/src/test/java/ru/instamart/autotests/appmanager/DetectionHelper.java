@@ -98,16 +98,43 @@ public class DetectionHelper extends HelperBase {
         }
     }
 
-    /** Распознавание документов к заказу */
+    /** Распознавание документов к заказу на странице деталей */
     public String orderDocument(int position) {
         Elements.Site.OrderDetailsPage.documentation(position);
-        String docName = fetchText(Elements.getLocator());
+        String docName = fetchText(Elements.locator());
         if (docName != null) {
             printMessage("Скачиваем: " + docName);
             return docName;
         } else {
             printMessage("Документ отсутствует\n");
             return null;
+        }
+    }
+
+    /** Определить активен ли заказ на странице деталей */
+    public boolean isOrderActive() {
+        printMessage("Checking order page...");
+        if (isElementDetected(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
+            printMessage("✓ Order is active\n");
+            return true;
+        } else {
+            printMessage("Experiencing performance troubles");
+            waitingFor(1);
+            if (isElementDetected(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
+                printMessage("✓ Order is active\n");
+                return true;
+            } else return false;
+        }
+    }
+
+    /** Определить отменен ли заказ на странице деталей */
+    public boolean isOrderCanceled(){
+        printMessage("Checking order page...");
+        if (isElementDetected(Elements.Site.OrderDetailsPage.canceledOrderAttribute())) {
+            printMessage("Order is canceled!\n");
+            return true;
+        } else {
+            return false;
         }
     }
 }

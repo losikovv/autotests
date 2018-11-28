@@ -7,6 +7,8 @@ import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
 
+import static ru.instamart.autotests.application.Pages.*;
+
 public class PerformHelper extends HelperBase {
 
     private ApplicationManager kraken;
@@ -29,23 +31,23 @@ public class PerformHelper extends HelperBase {
     /** Кликнуть элемент */
     public void click(Elements element) {
         try {
-            driver.findElement(Elements.getLocator()).click();
+            driver.findElement(Elements.locator()).click();
         }
         catch (NoSuchElementException n) {
-            if(Elements.getText() == null) {
-                printMessage("Can't click element <" + Elements.getLocator()
+            if(Elements.text() == null) {
+                printMessage("Can't click element <" + Elements.locator()
                         + ">\nNo such element on " + fetchCurrentURL() + "\n");
             } else {
-                printMessage("Can't click element " + Elements.getText() + " <" + Elements.getLocator()
+                printMessage("Can't click element " + Elements.text() + " <" + Elements.locator()
                         + ">\nNo such element on " + fetchCurrentURL() + "\n");
             }
         }
         catch (ElementNotVisibleException v) {
-            if(Elements.getText() == null) {
-                printMessage("Can't click element <" + Elements.getLocator()
+            if(Elements.text() == null) {
+                printMessage("Can't click element <" + Elements.locator()
                         + ">\nElement is not visible on " + fetchCurrentURL() + "\n");
             } else {
-                printMessage("Can't click element " + Elements.getText() + " <" + Elements.getLocator()
+                printMessage("Can't click element " + Elements.text() + " <" + Elements.locator()
                         + ">\nElement is not visible on " + fetchCurrentURL() + "\n");
             }
         }
@@ -55,10 +57,10 @@ public class PerformHelper extends HelperBase {
     public void fillField(Elements element, String text) {
         click(element);
         if (text != null) {
-            String existingText = driver.findElement(Elements.getLocator()).getAttribute("value");
+            String existingText = driver.findElement(Elements.locator()).getAttribute("value");
             if (!text.equals(existingText)) {
-                driver.findElement(Elements.getLocator()).clear();
-                driver.findElement(Elements.getLocator()).sendKeys(text);
+                driver.findElement(Elements.locator()).clear();
+                driver.findElement(Elements.locator()).sendKeys(text);
             }
         }
     }
@@ -123,14 +125,14 @@ public class PerformHelper extends HelperBase {
     //todo добавить reachAdmin(String path)
 
     public void reachAdmin(Pages page) throws Exception {
-        kraken.get().url(fullBaseUrl + Pages.getPagePath());        // пытаемся перейти по указанному URL в админку
+        kraken.get().url(fullBaseUrl + getPagePath());        // пытаемся перейти по указанному URL в админку
         if (kraken.detect().isOnSite()) {                           // если не попали, то перелогиниваемся с правами администратора и идем снова
             kraken.get().baseUrl();
             if (kraken.detect().isUserAuthorised()) {
                 logout();
             }
             loginAs("admin");
-            kraken.get().url(fullBaseUrl + Pages.getPagePath());
+            kraken.get().url(fullBaseUrl + getPagePath());
         }
     }
 
@@ -252,7 +254,6 @@ public class PerformHelper extends HelperBase {
         waitingFor(1);
     }
 
-
     /** Переключиться на вкладку авторизации */
     private void switchToAuthorisationTab() throws Exception {
         try {
@@ -263,7 +264,6 @@ public class PerformHelper extends HelperBase {
             kraken.perform().click(Elements.Site.AuthModal.authorisationTab());
         }
     }
-
 
     /** Заполнить поля формы авторизации */
     private void fillAuthorisationForm(String email, String password) {
@@ -278,7 +278,6 @@ public class PerformHelper extends HelperBase {
         kraken.perform().click(Elements.Site.AuthModal.forgotPasswordButton());
     }
 
-
     /** Запросить восстановление пароля */
     public void recoverPassword(String email) throws Exception {
         openAuthModal();
@@ -289,5 +288,4 @@ public class PerformHelper extends HelperBase {
         sendForm();
         waitingFor(1);
     }
-
 }

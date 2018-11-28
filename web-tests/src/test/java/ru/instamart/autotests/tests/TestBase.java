@@ -31,6 +31,24 @@ public class TestBase {
     }
 
 
+    /** Шаблон для тестов */
+    @Test ( enabled = false,                                                // Тест выключен
+            description = "Название теста",
+            groups = {"regression"},
+            priority = 1000
+    )
+    public void testName() throws Exception{                                // БЛОКИ:
+
+        kraken.perform().loginAs("admin");                             // 1 - предусловия
+
+        kraken.search().item("смысл жизни");                          // 2 - шаги теста
+
+        Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),           // 3 - проверка
+                "Result is not expected\n");
+
+        kraken.perform().dropAuth();                                        // 4 - уборка (опционально)
+    }
+
     /**
      * Simply check the current page is not 404 or 500
      */
@@ -130,17 +148,17 @@ public class TestBase {
     }
 
 
-    /** Проверка скачивания документации на странице деталей заказа */
+    /** Проверка скачивания документации на странице деталей заказа */  //TODO перенести в perform
     void checkOrderDocuments(){
         for(int i = 1; i <= 3; i++) {
             if(kraken.detect().orderDocument(i) != null) {
-                kraken.perform().click(Elements.getLocator());
+                kraken.perform().click(Elements.locator());
                 assertPageIsAvailable();
             }
         }
     }
 
-    /** Проверка скачивания документации заказа */
+    /** Проверка скачивания документации заказа */  //TODO перенести в perform
     void checkOrderDocuments(String orderNumber){
         kraken.get().page("user/orders/" + orderNumber);
         checkOrderDocuments();

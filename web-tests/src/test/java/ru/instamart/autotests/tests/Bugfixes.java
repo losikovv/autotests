@@ -12,24 +12,6 @@ import org.testng.annotations.Test;
 
 public class Bugfixes extends TestBase {
 
-
-    @Test ( enabled = false,                                                // Шаблон для тестов
-            description = "Название теста",
-            groups = {"regression"},
-            priority = 1000
-    )
-    public void testName() throws Exception{
-        kraken.perform().loginAs("admin");                             // 1 - предусловия
-
-        kraken.search().item("смысл жизни");                          // 2 - шаги теста
-
-        Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),           // 3 - проверка
-                "Result is not expected\n");
-
-        kraken.perform().dropAuth();                                        // 4 - уборка (опционально)
-    }
-
-
     @Test (
             description = "Тест возможности открыть авторизационную модалку после отправки формы восстановления пароля",
             groups = {"regression"},

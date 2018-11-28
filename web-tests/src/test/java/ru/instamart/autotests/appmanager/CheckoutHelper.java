@@ -230,7 +230,7 @@ public class CheckoutHelper extends HelperBase {
     /** Выбрать способ замен по позиции в списке опций */
     private void selectReplacementPolicy(int option){
         kraken.perform().click(Elements.Site.Checkout.replacementPolicy(option));
-        printMessage("Replacement policy #" + option + " selected (" + fetchText(Elements.getLocator()) + ")");
+        printMessage("Replacement policy #" + option + " selected (" + fetchText(Elements.locator()) + ")");
     }
 
 
@@ -260,7 +260,7 @@ public class CheckoutHelper extends HelperBase {
     /** Выбрать способ оплаты */
     private void selectPaymentType(String type){
         kraken.perform().click(Elements.Site.Checkout.payment(PaymentTypes.getPosition(type)));
-        printMessage("Paying with " + type + " - " + fetchText(Elements.getLocator()));
+        printMessage("Paying with " + type + " - " + fetchText(Elements.locator()));
     }
 
     // TODO addNewPaymentCard - добавить карту оплаты
@@ -556,15 +556,6 @@ public class CheckoutHelper extends HelperBase {
     /** Определяем активна ли кнопка отправки заказа */
     private boolean isSendButtonActive(){
         return isElementEnabled(By.xpath("//aside/div/div[1]/div/button"));
-    }
-
-    /** Проверка стоимости доставки */
-    public boolean checkDeliveryPrice(int price) {
-        int deliveryPrice = round(fetchText(Elements.Site.Checkout.deliveryPrice()));
-        if (deliveryPrice == price) {
-            printMessage("✓ Delivery price " + deliveryPrice + "р\n");
-            return true;
-        } else return false;
     }
 
 }

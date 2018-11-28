@@ -75,8 +75,8 @@ public class ShoppingHelper extends HelperBase {
     /** Определить и вернуть текущий адрес доставки */
     public String currentShippingAddress() {
         Elements.Site.Header.currentShipAddress();
-        printMessage("Shipping address: " + fetchText(Elements.getLocator()));
-        return fetchText(Elements.getLocator());
+        printMessage("Shipping address: " + fetchText(Elements.locator()));
+        return fetchText(Elements.locator());
     }
 
     /** Определить показаны ли адресные саджесты */
@@ -134,7 +134,7 @@ public class ShoppingHelper extends HelperBase {
         if(!isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.openCatalogButton());
             waitingFor(1);
-        }  else printMessage("Can't open catalog drawer - already opened");
+        } else printMessage("Can't open catalog drawer - already opened");
     }
 
     /** Закрыть шторку каталога */

@@ -40,7 +40,7 @@ public class RepeatOrders extends TestBase {
         kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",1,"card-online");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
     }
 
@@ -64,7 +64,7 @@ public class RepeatOrders extends TestBase {
         kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",2,"card-courier");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
     }
     @Test(
@@ -86,7 +86,7 @@ public class RepeatOrders extends TestBase {
         kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
     }
 
@@ -110,9 +110,8 @@ public class RepeatOrders extends TestBase {
         kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(kraken.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
-
     }
 
 
