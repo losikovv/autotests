@@ -97,4 +97,17 @@ public class DetectionHelper extends HelperBase {
             return true;
         }
     }
+
+    /** Распознавание документов к заказу */
+    public String orderDocument(int position) {
+        Elements.Site.OrderDetailsPage.documentation(position);
+        String docName = fetchText(Elements.getLocator());
+        if (docName != null) {
+            printMessage("Скачиваем: " + docName);
+            return docName;
+        } else {
+            printMessage("Документ отсутствует\n");
+            return null;
+        }
+    }
 }

@@ -130,17 +130,17 @@ public class TestBase {
     }
 
 
-    /** Проверка скачивания документов к заказу */
-
+    /** Проверка скачивания документации на странице деталей заказа */
     void checkOrderDocuments(){
         for(int i = 1; i <= 3; i++) {
-            if(kraken.perform().detectOrderDocument(i) != null) {
+            if(kraken.detect().orderDocument(i) != null) {
                 kraken.perform().click(Elements.getLocator());
                 assertPageIsAvailable();
             }
         }
     }
 
+    /** Проверка скачивания документации заказа */
     void checkOrderDocuments(String orderNumber){
         kraken.get().page("user/orders/" + orderNumber);
         checkOrderDocuments();

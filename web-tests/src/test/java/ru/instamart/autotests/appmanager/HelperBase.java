@@ -27,9 +27,6 @@ public class HelperBase {
         this.fullBaseUrl = environment.getBaseURL(true);
     }
 
-
-    // TODO перенести в GrabHelper
-
     /** Вернуть текущий URL */
 
     public String fetchCurrentURL() {
@@ -190,25 +187,9 @@ public class HelperBase {
 
 
     /** Cookies */
-
     public void deleteAllCookies() {
         driver.manage().deleteAllCookies();
     }
-
-
-    /** Скачивание документов к заказу */
-
-    public String detectOrderDocument(int position) {
-        Elements.Site.OrderDetailsPage.documentation(position);
-        if (fetchText(Elements.getLocator()) != null) {
-            printMessage("Скачиваем: " + fetchText(Elements.getLocator()));
-            return fetchText(Elements.getLocator());
-            } else {
-            printMessage("Документ отсутствует\n");
-            return null;
-        }
-    }
-
 
     /** Округлить цену до целого числа, отбросив копейки, пробелы и знак рубля */
     protected int round(String price) {
