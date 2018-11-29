@@ -340,6 +340,14 @@ public class PerformHelper extends HelperBase {
 
     // ======= Reach =======
 
+    public void reachCheckout() {
+        kraken.get().checkoutPage();
+        if(!kraken.checkout().isOnCheckout()){
+            kraken.shopping().grabCart();
+            kraken.shopping().proceedToCheckout();
+        }
+    }
+
     public void reachAdmin(Pages page) throws Exception {
         reachAdmin(getPagePath());
     }

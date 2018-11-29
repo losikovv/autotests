@@ -14,14 +14,6 @@ import static ru.instamart.autotests.application.Elements.*;
 
 public class Checkout extends TestBase {
 
-    private void reachCheckout() {
-        kraken.get().checkoutPage();
-        if(!kraken.checkout().isOnCheckout()){
-            kraken.shopping().grabCart();
-            kraken.shopping().proceedToCheckout();
-        }
-    }
-
     @BeforeMethod(alwaysRun = true)
     public void preparingForCheckout() throws Exception {
         kraken.get().page("metro");
@@ -41,7 +33,7 @@ public class Checkout extends TestBase {
             priority = 400
     )
     public void addPromocode(){
-        reachCheckout();
+        kraken.perform().reachCheckout();
         kraken.checkout().addPromocode("unicorn");
 
         // Assert promocode is applied
@@ -56,7 +48,7 @@ public class Checkout extends TestBase {
             priority = 401
     )
     public void clearPromocode(){
-        reachCheckout();
+        kraken.perform().reachCheckout();
         kraken.checkout().clearPromocode();
 
         // Assert promocode is applied
@@ -71,7 +63,7 @@ public class Checkout extends TestBase {
             priority = 402
     )
     public void noPromocodeAddedOnCancel(){
-        reachCheckout();
+        kraken.perform().reachCheckout();
         kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
         kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
         kraken.perform().click(Elements.Site.Checkout.PromocodeModal.cancelButton());
@@ -87,7 +79,7 @@ public class Checkout extends TestBase {
             priority = 403
     )
     public void noPromocodeAddedOnClose(){
-        reachCheckout();
+        kraken.perform().reachCheckout();
         kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
         kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
         kraken.perform().click(Elements.Site.Checkout.PromocodeModal.closeButton());
@@ -104,7 +96,7 @@ public class Checkout extends TestBase {
             priority = 404
     )
     public void addLoyaltyPrograms(){
-        reachCheckout();
+        kraken.perform().reachCheckout();
         kraken.checkout().addLoyalty("mnogoru");
         Assert.assertTrue(kraken.checkout().isLoyaltyApplied("mnogoru"),
                 "Can't assert loyalty program \"mnogoru\" is applied\n");
@@ -122,7 +114,7 @@ public class Checkout extends TestBase {
             priority = 405
     )
     public void selectLoyaltyProgram(){
-        reachCheckout();
+        kraken.perform().reachCheckout();
         kraken.checkout().selectLoyalty("mnogoru");
         kraken.checkout().selectLoyalty("aeroflot");
         // TODO добавить проверки на наличие модалок после выбора
@@ -135,7 +127,7 @@ public class Checkout extends TestBase {
             priority = 406
     )
     public void clearLoyaltyPrograms(){
-        reachCheckout();
+        kraken.perform().reachCheckout();
         kraken.checkout().clearLoyalty("mnogoru");
         Assert.assertFalse(kraken.checkout().isLoyaltyApplied("mnogoru"),
                 "Can't assert loyalty program \"mnogoru\" is cleared");
@@ -152,7 +144,7 @@ public class Checkout extends TestBase {
             priority = 407
     )
     public void performCheckoutAndPayWithCash(){
-        reachCheckout();
+        kraken.perform().reachCheckout();
         kraken.checkout().complete();
 
         // Проверяем что заказ оформился и активен
@@ -172,7 +164,7 @@ public class Checkout extends TestBase {
             priority = 408
     )
     public void performCompleteCheckoutAndPayWithCardOnline(){
-        reachCheckout();
+        kraken.perform().reachCheckout();
         kraken.checkout().complete("card-online");
 
         // Проверяем что заказ оформился и активен
@@ -192,7 +184,7 @@ public class Checkout extends TestBase {
             priority = 409
     )
     public void performCompleteCheckoutAndPayWithCardCourier(){
-        reachCheckout();
+        kraken.perform().reachCheckout();
         kraken.checkout().complete("card-courier");
 
         // Проверяем что заказ оформился и активен
@@ -212,7 +204,7 @@ public class Checkout extends TestBase {
             priority = 410
     )
     public void performCompleteCheckoutAndPayWithBank(){
-        reachCheckout();
+        kraken.perform().reachCheckout();
         kraken.checkout().complete("bank");
 
         // Проверяем что заказ оформился и активен
