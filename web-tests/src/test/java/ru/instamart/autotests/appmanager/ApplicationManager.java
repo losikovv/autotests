@@ -121,7 +121,7 @@ public class ApplicationManager {
     public ShoppingHelper shopping() { return shoppingHelper; }
     public SearchHelper search() { return searchHelper; }
     public CheckoutHelper checkout() { return checkoutHelper; }
-    public AddressHelper address() { return addressHelper; }
+    public AddressHelper shipAddress() { return addressHelper; }
     public AdministrationHelper admin() { return administrationHelper; }
     public CleanupHelper cleanup() { return cleanupHelper; }
 }

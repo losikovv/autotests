@@ -34,10 +34,10 @@ public class ShippingAddress extends TestBase{
     public void emptyShippingAddressByDefault() throws Exception {
         kraken.get().page("metro");
 
-        Assert.assertTrue(kraken.shopping().isShippingAddressEmpty(),
+        Assert.assertTrue(kraken.detect().isShippingAddressEmpty(),
                 "Shipping address is not empty by default\n");
 
-        Assert.assertFalse(kraken.shopping().isShippingAddressSet(),
+        Assert.assertFalse(kraken.detect().isShippingAddressSet(),
                 "Shipping address is set by default\n");
     }
 
@@ -49,12 +49,12 @@ public class ShippingAddress extends TestBase{
     )
     public void setShippingAddressOnRetailerPage() throws Exception {
         kraken.get().page("metro");
-        kraken.shopping().setShippingAddress(Addresses.Moscow.defaultAddress());
+        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
 
-        Assert.assertTrue(kraken.shopping().isShippingAddressSet(),
+        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
                 "Can't approve the shipping address was set correctly, check manually\n");
 
-         Assert.assertTrue(kraken.shopping().currentShippingAddress().equals(Addresses.Moscow.defaultAddress()),
+         Assert.assertTrue(kraken.grab().currentShipAddress().equals(Addresses.Moscow.defaultAddress()),
                "Current shipping address is not the same that was entered during the setting procedure\n");
     }
 
@@ -66,12 +66,12 @@ public class ShippingAddress extends TestBase{
     )
     public void changeShippingAddress() throws Exception {
         kraken.get().page("metro");
-        kraken.shopping().changeShippingAddress(Addresses.Moscow.testAddress());
+        kraken.shipAddress().change(Addresses.Moscow.testAddress());
 
-        Assert.assertTrue(kraken.shopping().isShippingAddressSet(),
+        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
                 "Can't approve the shipping address was set correctly, check manually\n");
 
-        Assert.assertTrue(kraken.shopping().currentShippingAddress().equals(Addresses.Moscow.testAddress()),
+        Assert.assertTrue(kraken.grab().currentShipAddress().equals(Addresses.Moscow.testAddress()),
                 "Current shipping address is not the same that was entered during the setting procedure\n");
     }
 

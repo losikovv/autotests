@@ -137,4 +137,26 @@ public class DetectionHelper extends HelperBase {
             return false;
         }
     }
+
+    // Адреса
+    /** Определяем пуст ли адрес доставки */
+    public boolean isShippingAddressEmpty() {
+        return isElementDetected(Elements.Site.Header.setShipAddressButton());
+    }
+
+    /** Определяем выбран ли адрес доставки */
+    public boolean isShippingAddressSet() {
+        if (isElementDetected((Elements.Site.Header.changeShipAddressButton()))) {
+            kraken.grab().currentShipAddress();
+            return true;
+        } else {
+            printMessage("Shipping address is not set\n");
+            return false;
+        }
+    }
+
+    /** Определить показаны ли адресные саджесты */
+    public boolean isAnyAddressSuggestsAvailable() {
+        return isElementPresent(Elements.Site.AddressModal.addressSuggest());
+    }
 }

@@ -40,7 +40,7 @@ public class MakeOrders extends TestBase {
     )
     public void orderInKazan(){
 
-        kraken.shopping().changeShippingAddress(Addresses.Kazan.defaultAddress());
+        kraken.shipAddress().change(Addresses.Kazan.defaultAddress());
 
         // Идем в чекаут, при необходимости набирая корзину
         kraken.get().checkoutPage();
@@ -66,7 +66,7 @@ public class MakeOrders extends TestBase {
     public void orderToVkusvill(){
 
         kraken.get().page("vkusvill");
-        kraken.shopping().changeShippingAddress(Addresses.Moscow.testAddress());
+        kraken.shipAddress().change(Addresses.Moscow.testAddress());
 
         // идем в чекаут, при необходимости набирая корзину
         kraken.get().checkoutPage();
@@ -93,7 +93,7 @@ public class MakeOrders extends TestBase {
     @AfterMethod(alwaysRun = true)
     public void cancelLastOrder()throws Exception {
         kraken.perform().cancelLastOrder();
-        kraken.shopping().changeShippingAddress(Addresses.Moscow.defaultAddress());
+        kraken.shipAddress().change(Addresses.Moscow.defaultAddress());
     }
 
 }

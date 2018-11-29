@@ -19,4 +19,11 @@ public class GrabHelper extends HelperBase{
         return round(fetchText(element));
     }
 
+    /** Определить и вернуть текущий адрес доставки */
+    public String currentShipAddress() {
+        Elements.Site.Header.currentShipAddress();
+        printMessage("Shipping address: " + fetchText(Elements.locator()));
+        return fetchText(Elements.locator());
+    }
+
 }

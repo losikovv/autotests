@@ -24,83 +24,6 @@ public class ShoppingHelper extends HelperBase {
 
 
 
-    // ======= Адрес доставки ======= //TODO перенести все в AddressHelper
-
-    /** Определяем пуст ли адрес доставки */
-    public boolean isShippingAddressEmpty() {
-        return isElementDetected(Elements.Site.Header.setShipAddressButton());
-    }
-
-    /** Определяем выбран ли адрес доставки */
-    public boolean isShippingAddressSet() {
-        if (isElementDetected((Elements.Site.Header.changeShipAddressButton()))) {
-            currentShippingAddress();
-            return true;
-        } else {
-            printMessage("Shipping address is not set\n");
-            return false;
-        }
-    }
-
-    /** Установить адрес доставки */
-    public void setShippingAddress(String address) {
-        printMessage("Setting shipping address...");
-
-        if(fetchCurrentURL().equals(fullBaseUrl)){
-            kraken.perform().fillField(Elements.Site.Landing.addressField(), address);
-            waitingFor(1);
-            kraken.perform().click(Elements.Site.Landing.addressSuggest());
-            kraken.perform().click(Elements.Site.Landing.selectStoreButton());
-        } else {
-            kraken.perform().click(Elements.Site.Header.setShipAddressButton());
-            checkAddressModal();
-            kraken.perform().fillField(Elements.Site.AddressModal.addressField(), address);
-            selectAddressSuggest();
-            kraken.perform().click(Elements.Site.AddressModal.saveButton());
-        }
-        waitingFor(1);
-    }
-
-    /** Изменить адрес доставки */
-    public void changeShippingAddress(String newAddress) {
-        printMessage("Changing shipping address");
-        kraken.perform().click(Elements.Site.Header.changeShipAddressButton());
-        checkAddressModal();
-        kraken.perform().fillField(Elements.Site.AddressModal.addressField(), newAddress);
-        selectAddressSuggest();
-        kraken.perform().click(Elements.Site.AddressModal.saveButton());
-        waitingFor(2);
-    }
-
-    /** Определить и вернуть текущий адрес доставки */
-    public String currentShippingAddress() {
-        Elements.Site.Header.currentShipAddress();
-        printMessage("Shipping address: " + fetchText(Elements.locator()));
-        return fetchText(Elements.locator());
-    }
-
-    /** Определить показаны ли адресные саджесты */
-    private boolean isAnyAddressSuggestsAvailable() {
-        return isElementPresent(Elements.Site.AddressModal.addressSuggest());
-    }
-
-    /** Выбрать первый адресный саджест */
-    private void selectAddressSuggest() {
-        if (isAnyAddressSuggestsAvailable()) {
-            kraken.perform().click(Elements.Site.AddressModal.addressSuggest());
-            waitingFor(1); // Пауза, чтобы дать время обновиться кнопке "сохранить адрес"
-        } else {
-            printMessage("Can't click address suggest - there are no such");
-        }
-    }
-
-    /** Проверка на наличие адресной модалки адресной модалки */
-    private void checkAddressModal() {
-        printMessage("Modal opened: [" + fetchText(Elements.Site.AddressModal.header()) + "]");
-    }
-
-
-
     // ======= Шторка выбора магазинов =======
 
     /** Открыть шторку выбора магазина */
@@ -261,17 +184,17 @@ public class ShoppingHelper extends HelperBase {
      * Очистить корзину изменениями адреса доставки ( временный метод, пока не запилят очистку корзины )
      */
     public void dropCart() {
-        String currentAddress = currentShippingAddress();
+        String currentAddress = kraken.grab().currentShipAddress();
         String addressOne = Addresses.Moscow.defaultAddress();
         String addressTwo = Addresses.Moscow.testAddress();
 
         if (!isCartEmpty()) {
             closeCart();
             if (currentAddress.equals(addressOne)) {
-                changeShippingAddress(addressTwo);
+                kraken.shipAddress().change(addressTwo);
             } else {
-                changeShippingAddress(addressTwo);
-                changeShippingAddress(addressOne);
+                kraken.shipAddress().change(addressTwo);
+                kraken.shipAddress().change(addressOne);
             }
         }
         closeCart();
