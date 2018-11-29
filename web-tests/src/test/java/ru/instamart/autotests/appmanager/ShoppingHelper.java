@@ -93,7 +93,7 @@ public class ShoppingHelper extends HelperBase {
     private void openFirstItemCard() {
         kraken.perform().click(Elements.Site.Catalog.firstItem());
         kraken.perform().waitingFor(1);
-        switchToActiveElement();
+        kraken.perform().switchToActiveElement();
     }
 
 

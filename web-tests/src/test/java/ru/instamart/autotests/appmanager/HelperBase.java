@@ -133,6 +133,7 @@ public class HelperBase {
             } else {
                 alert.dismiss();
             }
+            // DEBUG
             //printMessage("> handling alert [" + alertText + "]");
         } finally {
             acceptNextAlert = true;
@@ -145,23 +146,7 @@ public class HelperBase {
     }
 
 
-    /** Переклюение между фреймами */
-
-    void switchToActiveElement() {
-        driver.switchTo().activeElement();
-    }
-
-    void switchToFrame(String nameOrId) {
-        driver.switchTo().frame(nameOrId);
-    }
-
-    void switchToDefaultContent() {
-        driver.switchTo().parentFrame();
-        driver.switchTo().defaultContent();
-    }
-
-
-    /** Cookies */
+    /** Удалить все куки */
     public void deleteAllCookies() {
         driver.manage().deleteAllCookies();
     }

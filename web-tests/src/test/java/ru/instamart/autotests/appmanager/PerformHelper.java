@@ -15,6 +15,8 @@ public class PerformHelper extends HelperBase {
         kraken = app;
     }
 
+    // ======= Базовые действия =======
+
     /** Кликнуть элемент по локатору */
     public void click(By locator) {
         try {
@@ -74,12 +76,31 @@ public class PerformHelper extends HelperBase {
         }
     }
 
+    /** Переключиться на фреймами по имени или id */
+    void switchToFrame(String nameOrId) {
+        driver.switchTo().frame(nameOrId);
+    }
+
+    /** Переключиться на активный элемент */
+    void switchToActiveElement() {
+        driver.switchTo().activeElement();
+    }
+
+    /** Переключиться на дефолтный контент */
+    void switchToDefaultContent() {
+        driver.switchTo().parentFrame();
+        driver.switchTo().defaultContent();
+    }
+
     /** Ожидание равное переданному значению умноженному на переменную 'implicitlyWait' */
     public void waitingFor(int duration){
         for (int i = 1; i <= duration; i++){
             isElementPresent(By.xpath("//*[@id='nowhere']"));
         }
     }
+
+
+    // ======= Меню аккаунта =======
 
     /** Открыть меню аккаунта */
     public void openAccountMenu() {
@@ -96,7 +117,7 @@ public class PerformHelper extends HelperBase {
     }
 
 
-    // ======= Методы регистрации =======
+    // ======= Регистрация =======
 
     /** Зарегистрироваться с реквизитами из переданного объекта UserData */
     public void registration(UserData userData) throws Exception {
@@ -124,8 +145,7 @@ public class PerformHelper extends HelperBase {
     }
 
 
-    // ======= Методы авторизации =======
-
+    // ======= Авторизация / деавторизация =======
 
     /** Залогиниться юзером с указанной ролью */ //TODO добавить сеттер as(String role), проверки на авторизованность вынести в метод login
     public void loginAs(String role) throws Exception {
@@ -137,12 +157,10 @@ public class PerformHelper extends HelperBase {
         }
     }
 
-
     /** Залогиниться с реквизитами из переданного объекта UserData */
     private void login(UserData userData) throws Exception {
         login(userData.getLogin(), userData.getPassword());
     }
-
 
     /** Залогиниться с указанными реквизитами */
     public void login(String email, String password) throws Exception {
@@ -158,12 +176,10 @@ public class PerformHelper extends HelperBase {
         authSequence(Users.getCredentials(role));
     }
 
-
     /** Авторизационная последовательность с реквизитами из переданного объекта UserData */
     private void authSequence(UserData userData) throws Exception {
         authSequence(userData.getLogin(), userData.getPassword());
     }
-
 
     /** Авторизационная последовательность с указанными реквизитами */
     private void authSequence(String email, String password) throws Exception {
@@ -171,9 +187,6 @@ public class PerformHelper extends HelperBase {
         fillAuthorisationForm(email, password);
         sendForm();
     }
-
-
-    // ======= De-Authorisation =======
 
     /** Деавторизоваться */
     public void logout() {
