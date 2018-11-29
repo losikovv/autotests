@@ -1,12 +1,9 @@
 package ru.instamart.autotests.appmanager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
-import ru.instamart.autotests.application.Addresses;
 
 public class ShoppingHelper extends HelperBase {
 
@@ -16,7 +13,6 @@ public class ShoppingHelper extends HelperBase {
         super(driver, environment);
         kraken = app;
     }
-
 
 
     // ======= Шторка выбора магазинов =======
@@ -44,7 +40,6 @@ public class ShoppingHelper extends HelperBase {
     }
 
 
-
     //========= Шторка каталога ==========
 
     /** Открыть шторку каталога */
@@ -68,7 +63,6 @@ public class ShoppingHelper extends HelperBase {
         return isElementDisplayed(Elements.Site.CatalogDrawer.drawer());
 
     }
-
 
 
     // ======= Каталог =======
@@ -101,7 +95,6 @@ public class ShoppingHelper extends HelperBase {
         waitingFor(1);
         switchToActiveElement();
     }
-
 
 
     // ======= Карточка товара  =======
@@ -137,7 +130,6 @@ public class ShoppingHelper extends HelperBase {
     private void closeItemCard() {
         kraken.perform().click(Elements.Site.ItemCard.closeButton());
     }
-
 
 
     // ======= Корзина =======
@@ -215,62 +207,4 @@ public class ShoppingHelper extends HelperBase {
         }
         closeItemCard();
     }
-
-
-    //TODO
-    /**
-     * Удалить верхний товар в корзине
-     */
-    //public void deleteItem(){
-    //    click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div[1]/div[2]/span/div[1]/div/div/div[1]/div[1]/span"));
-    //    click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div[1]/div[2]/span/div[1]/div/div/div[1]/div[1]/button[2]"));
-    //}
-
-    //TODO
-
-    /**
-     * Удалить товар по позиции в корзине
-     */
-    public void deleteItem(int itemPosition) {
-        kraken.perform().click(By.xpath("*[@id='wrap']/div[1]/div/div/header/div[1]/div[6]/div/div[2]/div[2]/div/div[2]/div/div[2]/span/div[" + itemPosition + "]/div/div/div[1]/div[2]/div[2]"));
-    }
-
-    //TODO
-    /**
-     * Удалить все товары в корзине удаляя верхние товары
-     */
-    //public void deleteAllItemsInCart(){
-    //   if(!isCartEmpty()){
-    //      deleteItem();
-    //      deleteAllItemsInCart();
-    //   }
-    //}
-
-    /**
-     * Get the cart sum from the 'Make order' button
-     */
-    //TODO возвращать int или float
-    public String getCartTotal() throws NoSuchElementException {
-        final String XPATHAUTH = "/html/body/div[9]/div/div[2]/div/div[3]/form/button/div/div[2]/div"; // авторизован
-        final String XPATH = "/html/body/div[8]/div/div[2]/div/div[3]/form/button/div/div[2]/div"; // неавторизован
-        try {
-            return fetchText(By.xpath(XPATHAUTH));
-        } catch (NoSuchElementException e) {
-            return fetchText(By.xpath(XPATH));
-        }
-    }
-
-
-
-    // TODO clearCart - очистить корзину (удалить все товары сразу кнопкой)
-
-    // TODO changeQuantity( int newQuantity) - изменить кол-во верхнего товара
-    // TODO changeQuantity(int itemPosition, int newQuantity) - изменить кол-во товара по позиции
-
-    // TODO addQuantity() - +1 кол-во верхнего товара
-    // TODO addQuantity(int itemPosition) - +1 кол-во товара по позиции
-
-    // TODO reduceQuantity() - -1 кол-во верхнего товара
-    // TODO reduceQuantity(int itemPosition) - -1 кол-во товара по позиции
-
 }
