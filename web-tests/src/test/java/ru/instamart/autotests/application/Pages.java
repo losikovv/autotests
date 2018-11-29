@@ -168,13 +168,6 @@ public class Pages {
                     "admin/shipments");
         }
 
-        interface Shipments {
-
-            static Pages testOrdersList() {
-                return new Pages(null, "admin/shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D%5B%5D=ready");
-            }
-        }
-
         static Pages retailers() {
             return new Pages("Spree Администрирование: Retailers",
                     "admin/retailers");
@@ -208,13 +201,6 @@ public class Pages {
         static Pages users() {
             return new Pages("Spree Администрирование: Пользователи",
                     "admin/users");
-        }
-
-        interface Users {
-
-            static Pages testUsersList() {
-                return new Pages(null, "admin/users?q%5Bemail_cont%5D=testuser%40example.com");
-            }
         }
 
         static Pages pages() {

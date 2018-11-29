@@ -2,6 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Pages;
 
 
@@ -17,13 +18,25 @@ public class Cleanup extends TestBase {
     }
 
 
+    @Test( enabled = false,
+            description = "Тест метода cleanup",
+            groups = {"regression"},
+            priority = 900
+    )
+    public void cleanup() throws Exception {
+        kraken.cleanup().all();
+        assertNoTestOrdersLeftActive();
+        assertNoTestUsersLeft();
+    }
+
+
     @Test(
             description = "Отмена всех тестовых заказов",
             groups = {"acceptance"},
             priority = 901
     )
     public void cleanupTestOrders() throws Exception {
-        kraken.cleanup().orders(Pages.Admin.Shipments.testOrdersList());
+        kraken.cleanup().orders(Config.testOrdersList);
         assertNoTestOrdersLeftActive();
     }
 
@@ -34,19 +47,7 @@ public class Cleanup extends TestBase {
             priority = 902
     )
     public void cleanupTestUsers() throws Exception {
-        kraken.cleanup().users(Pages.Admin.Users.testUsersList());
-        assertNoTestUsersLeft();
-    }
-
-
-    @Test( enabled = false,
-            description = "Тест метода cleanup",
-            groups = {"regression"},
-            priority = 903
-    )
-    public void cleanup() throws Exception {
-        kraken.cleanup().all();
-        assertNoTestOrdersLeftActive();
+        kraken.cleanup().users(Config.testUsersList);
         assertNoTestUsersLeft();
     }
 

@@ -119,20 +119,6 @@ public class PerformHelper extends HelperBase {
 
     // ======= Методы авторизации =======
 
-    //todo добавить reachAdmin(String path)
-
-    public void reachAdmin(Pages page) throws Exception {
-        kraken.get().url(fullBaseUrl + getPagePath());        // пытаемся перейти по указанному URL в админку
-        if (kraken.detect().isOnSite()) {                           // если не попали, то перелогиниваемся с правами администратора и идем снова
-            kraken.get().baseUrl();
-            if (kraken.detect().isUserAuthorised()) {
-                logout();
-            }
-            loginAs("admin");
-            kraken.get().url(fullBaseUrl + getPagePath());
-        }
-    }
-
 
     /** Залогиниться юзером с указанной ролью */ //TODO добавить сеттер as(String role), проверки на авторизованность вынести в метод login
     public void loginAs(String role) throws Exception {
@@ -336,7 +322,7 @@ public class PerformHelper extends HelperBase {
 
     // ======= Check =======
 
-    /** Проверка скачивания документации на странице деталей заказа */  //TODO перенести в perform
+    /** Проверка скачивания документации на странице деталей заказа */
     public void checkOrderDocuments(){
         for(int i = 1; i <= 3; i++) {
             if(kraken.detect().orderDocument(i) != null) {
@@ -345,9 +331,28 @@ public class PerformHelper extends HelperBase {
         }
     }
 
-    /** Проверка скачивания документации заказа */  //TODO перенести в perform
+    /** Проверка скачивания документации заказа */
     public void checkOrderDocuments(String orderNumber){
         kraken.get().page("user/orders/" + orderNumber);
         checkOrderDocuments();
+    }
+
+
+    // ======= Reach =======
+
+    public void reachAdmin(Pages page) throws Exception {
+        reachAdmin(getPagePath());
+    }
+
+    public void reachAdmin(String path) throws Exception{
+        kraken.get().adminPage(path);
+        if (kraken.detect().isOnSite()) {
+            kraken.get().baseUrl();
+            if (kraken.detect().isUserAuthorised()) {
+                logout();
+            }
+            loginAs("admin");
+            kraken.get().adminPage(path);
+        }
     }
 }
