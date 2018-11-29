@@ -24,11 +24,7 @@ public class HelperBase {
     /** Взять текст элемента */
 
     String fetchText(Elements element) {
-        try {
-            return driver.findElement(Elements.locator()).getText();
-        } catch (NoSuchElementException e) {
-            return null;
-        }
+        return fetchText(Elements.locator());
     }
 
     String fetchText(By locator) {
