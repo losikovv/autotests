@@ -25,7 +25,7 @@ public class Shopping extends TestBase{
             priority = 350
     )
     public void checkEmptyCart() throws Exception, AssertionError {
-        kraken.shopping().dropCart();
+        kraken.perform().dropCart();
         kraken.shopping().openCart();
 
         // Assert cart is open
@@ -54,7 +54,7 @@ public class Shopping extends TestBase{
             priority = 351
     )
     public void checkoutIsUnreachableWithEmptyCart() throws Exception {
-        kraken.shopping().dropCart();
+        kraken.perform().dropCart();
         assertPageIsUnreachable(Pages.Site.checkout());
     }
 
@@ -65,7 +65,7 @@ public class Shopping extends TestBase{
             priority = 352
     )
     public void addItemToCart()throws Exception, AssertionError {
-        kraken.shopping().dropCart();
+        kraken.perform().dropCart();
 
         kraken.shopping().addFirstItemOnPageToCart();
 

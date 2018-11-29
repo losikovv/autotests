@@ -1,10 +1,7 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
-import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Environments;
-import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.application.Users;
+import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.UserData;
 
 import static ru.instamart.autotests.application.Pages.*;
@@ -199,15 +196,6 @@ public class PerformHelper extends HelperBase {
         }
     }
 
-    /** Деавторизоваться, оставшись на текущей странице */
-    public void dropAuth() {
-        String currentURL = fetchCurrentURL();
-        if (kraken.detect().isUserAuthorised()) {
-            kraken.perform().logout();
-            kraken.get().url(currentURL);
-        }
-    }
-
 
     // ======= Методы модалки авторизации/регистрации =======
 
@@ -292,6 +280,7 @@ public class PerformHelper extends HelperBase {
 
 
     // ======= Работа с заказами =======
+
     /** Повторить крайний заказ */
     public void repeatLastOrder(){
         printMessage("Repeating last order from profile...\n");
@@ -312,5 +301,53 @@ public class PerformHelper extends HelperBase {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(1));
         } else printMessage("> Skipped because order isn't active");
         waitingFor(2);
+    }
+
+
+    // ======= Drop =======
+
+    /** Деавторизоваться, оставшись на текущей странице */
+    public void dropAuth() {
+        String currentURL = fetchCurrentURL();
+        if (kraken.detect().isUserAuthorised()) {
+            kraken.perform().logout();
+            kraken.get().url(currentURL);
+        }
+    }
+
+    /** Очистить корзину изменениями адреса доставки ( временный метод, пока не запилят очистку корзины ) */
+    public void dropCart() {
+        String currentAddress = kraken.grab().currentShipAddress();
+        String addressOne = Addresses.Moscow.defaultAddress();
+        String addressTwo = Addresses.Moscow.testAddress();
+
+        if (!kraken.shopping().isCartEmpty()) {
+            kraken.shopping().closeCart();
+            if (currentAddress.equals(addressOne)) {
+                kraken.shipAddress().change(addressTwo);
+            } else {
+                kraken.shipAddress().change(addressTwo);
+                kraken.shipAddress().change(addressOne);
+            }
+        }
+        kraken.shopping().closeCart();
+    }
+
+
+    // ======= Check =======
+
+    /** Проверка скачивания документации на странице деталей заказа */  //TODO перенести в perform
+    public void checkOrderDocuments(){
+        for(int i = 1; i <= 3; i++) {
+            if(kraken.detect().orderDocument(i) != null) {
+                kraken.perform().click(Elements.locator());
+            }
+        }
+    }
+
+    /** Проверка скачивания документации заказа */  //TODO перенести в perform
+    public void checkOrderDocuments(String orderNumber){
+        kraken.get().page("user/orders/" + orderNumber);
+        checkOrderDocuments();
     }
 }

@@ -26,8 +26,8 @@ public class MakeOrders extends TestBase {
             priority = 450
     )
     public void downloadOrderDocuments(){
-        checkOrderDocuments("R351510533");  // Заказ с двумя документами
-        checkOrderDocuments("R154547373");  // Заказ с тремя документами
+        kraken.perform().checkOrderDocuments("R351510533");  // Заказ с двумя документами
+        kraken.perform().checkOrderDocuments("R154547373");  // Заказ с тремя документами
     }
 
 
@@ -52,7 +52,7 @@ public class MakeOrders extends TestBase {
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        checkOrderDocuments();
+        kraken.perform().checkOrderDocuments();
     }
 
 
@@ -84,7 +84,7 @@ public class MakeOrders extends TestBase {
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        checkOrderDocuments();
+        kraken.perform().checkOrderDocuments();
     }
 
 

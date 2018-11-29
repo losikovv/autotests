@@ -175,26 +175,6 @@ public class ShoppingHelper extends HelperBase {
         return isElementPresent(Elements.Site.Cart.placeholder());
     }
 
-    /**
-     * Очистить корзину изменениями адреса доставки ( временный метод, пока не запилят очистку корзины )
-     */
-    public void dropCart() {
-        String currentAddress = kraken.grab().currentShipAddress();
-        String addressOne = Addresses.Moscow.defaultAddress();
-        String addressTwo = Addresses.Moscow.testAddress();
-
-        if (!isCartEmpty()) {
-            closeCart();
-            if (currentAddress.equals(addressOne)) {
-                kraken.shipAddress().change(addressTwo);
-            } else {
-                kraken.shipAddress().change(addressTwo);
-                kraken.shipAddress().change(addressOne);
-            }
-        }
-        closeCart();
-    }
-
     /** Определить активна ли кнопка "Сделать заказ" в корзине */
     public boolean isCheckoutButtonActive() {
         openCart();

@@ -159,7 +159,9 @@ public class Checkout extends TestBase {
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        checkOrderDocuments();
+        kraken.perform().checkOrderDocuments();
+        assertPageIsAvailable();
+
         kraken.perform().cancelLastOrder();
     }
 
@@ -177,7 +179,9 @@ public class Checkout extends TestBase {
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        checkOrderDocuments();
+        kraken.perform().checkOrderDocuments();
+        assertPageIsAvailable();
+
         kraken.perform().cancelLastOrder();
     }
 
@@ -195,7 +199,9 @@ public class Checkout extends TestBase {
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        checkOrderDocuments();
+        kraken.perform().checkOrderDocuments();
+        assertPageIsAvailable();
+
         kraken.perform().cancelLastOrder();
     }
 
@@ -213,7 +219,9 @@ public class Checkout extends TestBase {
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        checkOrderDocuments();
+        kraken.perform().checkOrderDocuments();
+        assertPageIsAvailable();
+
         kraken.perform().cancelLastOrder();
     }
 
@@ -224,7 +232,7 @@ public class Checkout extends TestBase {
             priority = 411
     )
     public void checkMetroDeliveryPriceDiscount() throws Exception {
-        kraken.shopping().dropCart();
+        kraken.perform().dropCart();
 
         kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.shopping().grabCart();
@@ -256,7 +264,4 @@ public class Checkout extends TestBase {
 
         kraken.perform().cancelLastOrder();
     }
-
-
-
 }
