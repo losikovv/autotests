@@ -47,6 +47,8 @@ public class MakeOrders extends TestBase {
             kraken.shopping().proceedToCheckout();
         }
 
+        //TODO добавить проверку стоимости доставки как в checkMetroDeliveryPriceDiscount()
+
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -79,6 +81,8 @@ public class MakeOrders extends TestBase {
         kraken.checkout().addRetailerLoyalty("vkusvill");
         Assert.assertTrue(kraken.checkout().isRetailerLoyaltyApplied(),
                 "Can't apply retailer loyalty program, check manually\n");
+
+        //TODO добавить проверку стоимости доставки как в checkMetroDeliveryPriceDiscount()
 
         kraken.checkout().complete();
         Assert.assertTrue(kraken.detect().isOrderActive(),

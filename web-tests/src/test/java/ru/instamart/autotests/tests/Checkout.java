@@ -3,6 +3,7 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 
@@ -231,29 +232,27 @@ public class Checkout extends TestBase {
         kraken.shopping().proceedToCheckout();
         kraken.checkout().fillAllFields();
 
-        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()),
-                299,
+        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()), Config.MetroHighDeliveryPrice,
                 "Delivery price in checkout is not correct, check manually \n");
 
         kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.shopping().grabCart(5000);
         kraken.shopping().proceedToCheckout();
-        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()),
-                199,
+        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()), Config.MetroMediumDeliveryPrice,
                 "Delivery price in checkout is not correct, check manually \n" );
 
         kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.shopping().grabCart(10000);
         kraken.shopping().proceedToCheckout();
-        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()),
-                99,
+        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()), Config.MetroLowDeliveryPrice,
                 "Delivery price in checkout is not correct, check manually \n" );
 
         kraken.checkout().complete();
 
-        Assert.assertEquals(kraken.grab().roundedPrice(Site.OrderDetailsPage.deliveryPrice()),99,
+        Assert.assertEquals(kraken.grab().roundedPrice(Site.OrderDetailsPage.deliveryPrice()), Config.MetroLowDeliveryPrice,
                 "Delivery price is not correct in order details, check manually \n" );
 
         kraken.perform().cancelLastOrder();
     }
+
 }
