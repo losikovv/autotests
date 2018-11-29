@@ -16,7 +16,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест базового URL", priority = 10000)
     public void initialCheck() throws Exception {
         kraken.get().baseUrl();
-        Assert.assertEquals(kraken.perform().fetchCurrentURL() , kraken.perform().fullBaseUrl);
+        Assert.assertEquals(kraken.grab().currentURL() , kraken.perform().fullBaseUrl);
     }
 
 
@@ -24,11 +24,11 @@ public class SelfCheck extends TestBase {
     public void checkNavigation() throws Exception {
 
         kraken.get().page("metro");
-        Assert.assertEquals(kraken.perform().fetchCurrentURL() , kraken.perform().fullBaseUrl + "metro");
+        Assert.assertEquals(kraken.grab().currentURL() , kraken.perform().fullBaseUrl + "metro");
 
 
         kraken.get().page(Pages.Site.Static.faq());
-        Assert.assertEquals(kraken.perform().fetchCurrentURL() , kraken.perform().fullBaseUrl + Pages.getPagePath());
+        Assert.assertEquals(kraken.grab().currentURL() , kraken.perform().fullBaseUrl + Pages.getPagePath());
         // TODO проверка GO методов
     }
 

@@ -21,7 +21,7 @@ public class PerformHelper extends HelperBase {
             driver.findElement(locator).click();
         }
         catch (NoSuchElementException n){
-            printMessage("Can't click element <" + locator + "> on " + fetchCurrentURL() + "\n");
+            printMessage("Can't click element <" + locator + "> on " + kraken.grab().currentURL() + "\n");
         }
     }
 
@@ -33,19 +33,19 @@ public class PerformHelper extends HelperBase {
         catch (NoSuchElementException n) {
             if(Elements.text() == null) {
                 printMessage("Can't click element <" + Elements.locator()
-                        + ">\nNo such element on " + fetchCurrentURL() + "\n");
+                        + ">\nNo such element on " + kraken.grab().currentURL() + "\n");
             } else {
                 printMessage("Can't click element " + Elements.text() + " <" + Elements.locator()
-                        + ">\nNo such element on " + fetchCurrentURL() + "\n");
+                        + ">\nNo such element on " + kraken.grab().currentURL() + "\n");
             }
         }
         catch (ElementNotVisibleException v) {
             if(Elements.text() == null) {
                 printMessage("Can't click element <" + Elements.locator()
-                        + ">\nElement is not visible on " + fetchCurrentURL() + "\n");
+                        + ">\nElement is not visible on " + kraken.grab().currentURL() + "\n");
             } else {
                 printMessage("Can't click element " + Elements.text() + " <" + Elements.locator()
-                        + ">\nElement is not visible on " + fetchCurrentURL() + "\n");
+                        + ">\nElement is not visible on " + kraken.grab().currentURL() + "\n");
             }
         }
     }
@@ -294,7 +294,7 @@ public class PerformHelper extends HelperBase {
 
     /** Деавторизоваться, оставшись на текущей странице */
     public void dropAuth() {
-        String currentURL = fetchCurrentURL();
+        String currentURL = kraken.grab().currentURL();
         if (kraken.detect().isUserAuthorised()) {
             kraken.perform().logout();
             kraken.get().url(currentURL);

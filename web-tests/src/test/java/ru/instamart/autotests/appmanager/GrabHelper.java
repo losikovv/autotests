@@ -13,16 +13,20 @@ public class GrabHelper extends HelperBase{
         kraken = app;
     }
 
-    /** Взять округленное значение цены из указанного элемента */
-    public int roundedPrice(Elements element) throws Exception {
-        return round(fetchText(element));
+    /** Взять текущий URL */
+    public String currentURL() {
+        return driver.getCurrentUrl();
     }
 
-    /** Определить и вернуть текущий адрес доставки */
+    /** Взять текущий адрес доставки */
     public String currentShipAddress() {
         Elements.Site.Header.currentShipAddress();
         printMessage("Shipping address: " + fetchText(Elements.locator()));
         return fetchText(Elements.locator());
     }
 
+    /** Взять округленное значение цены из указанного элемента */
+    public int roundedPrice(Elements element) throws Exception {
+        return round(fetchText(element));
+    }
 }

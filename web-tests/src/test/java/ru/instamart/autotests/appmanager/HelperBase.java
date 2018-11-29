@@ -20,12 +20,6 @@ public class HelperBase {
         this.fullBaseUrl = environment.getBaseURL(true);
     }
 
-    /** Вернуть текущий URL */
-
-    public String fetchCurrentURL() {
-        return driver.getCurrentUrl();
-    }
-
 
     /** Взять текст элемента */
 

@@ -19,7 +19,7 @@ public class AddressHelper extends HelperBase {
     public void set(String address) {
         printMessage("Setting shipping address...");
 
-        if (fetchCurrentURL().equals(fullBaseUrl)) {
+        if (kraken.grab().currentURL().equals(fullBaseUrl)) {
             kraken.perform().fillField(Elements.Site.Landing.addressField(), address);
             waitingFor(1);
             kraken.perform().click(Elements.Site.Landing.addressSuggest());
