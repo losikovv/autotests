@@ -13,15 +13,13 @@ public class DetectionHelper extends HelperBase {
         kraken = app;
     }
 
-    /** Определить находимся на сайте или нет */
-    public boolean isOnSite() {
-        return isElementPresent(Elements.Site.footer());
-    }
-
     /** Определить находимся на лендинге или нет */
     public boolean isOnLanding() {
         return isElementPresent(Elements.Site.Landing.header());
     }
+
+    /** Определить находимся на сайте или нет */
+    public boolean isOnSite() { return isElementPresent(Elements.Site.footer()); }
 
     /** Определить находимся в админке или нет */
     public boolean isInAdmin() {
@@ -129,12 +127,10 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить отменен ли заказ на странице деталей */
     public boolean isOrderCanceled(){
-        printMessage("Checking order page...");
-        if (isElementDetected(Elements.Site.OrderDetailsPage.canceledOrderAttribute())) {
-            printMessage("Order is canceled!\n");
-            return true;
+        if (isInAdmin()) {
+            return isElementDetected(Elements.Admin.Shipments.OrderDetailsPage.canceledOrderAttribute());
         } else {
-            return false;
+            return isElementDetected(Elements.Site.OrderDetailsPage.canceledOrderAttribute());
         }
     }
 

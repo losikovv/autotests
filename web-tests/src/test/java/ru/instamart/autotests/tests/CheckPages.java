@@ -49,9 +49,8 @@ public class CheckPages extends TestBase {
             priority = 803
     )
     // TODO переделать чек лендингов циклом по списку
-    public void checkLandings() throws Exception, AssertionError {
+    public void checkPartnersLandings() throws Exception, AssertionError {
         kraken.perform().dropAuth();
-        assertPageIsAvailable(Pages.Site.Landings.instamart());
         assertPageIsAvailable(Pages.Site.Landings.mnogoru());
         assertPageIsAvailable(Pages.Site.Landings.aeroflot());
 
@@ -134,24 +133,6 @@ public class CheckPages extends TestBase {
         kraken.perform().click(Elements.Site.Footer.contactsButton());
         assertPageIsAvailable();
 
-        kraken.perform().click(Elements.Site.Footer.deliveryButton());
-        Assert.assertTrue(kraken.detect().isDeliveryModalOpen(),
-                "Cant assert Delivery modal is open, check manually\n");
-        kraken.perform().click(Elements.Site.DeliveryModal.closeButton());
-        assertPageIsAvailable();
-
-        kraken.perform().click(Elements.Site.Footer.paymentButton());
-        Assert.assertTrue(kraken.detect().isPaymentModalOpen(),
-                "Cant assert Payment modal is open, check manually\n");
-        kraken.perform().click(Elements.Site.PaymentModal.closeButton());
-        assertPageIsAvailable();
-
-        kraken.perform().click(Elements.Site.Footer.partnersButton());
-        Assert.assertTrue(kraken.detect().isPartnersModalOpen(),
-                "Cant assPartners modal is open, check manually\n");
-        kraken.perform().click(Elements.Site.PartnersModal.closeButton());
-        assertPageIsAvailable();
-
         kraken.perform().click(Elements.Site.Footer.faqButton());
         assertPageIsAvailable();
 
@@ -164,6 +145,23 @@ public class CheckPages extends TestBase {
         kraken.perform().click(Elements.Site.Footer.publicOfferButton());
         assertPageIsAvailable();
 
+        kraken.perform().click(Elements.Site.Footer.deliveryButton());
+        Assert.assertTrue(kraken.detect().isDeliveryModalOpen(),
+                "Cant assert Delivery modal is open, check manually\n");
+        kraken.perform().click(Elements.Site.DeliveryModal.closeButton());
+        assertPageIsAvailable();
+
+        kraken.perform().click(Elements.Site.Footer.partnersButton());
+        Assert.assertTrue(kraken.detect().isPartnersModalOpen(),
+                "Cant assPartners modal is open, check manually\n");
+        kraken.perform().click(Elements.Site.PartnersModal.closeButton());
+        assertPageIsAvailable();
+
+        kraken.perform().click(Elements.Site.Footer.paymentButton());
+        Assert.assertTrue(kraken.detect().isPaymentModalOpen(),
+                "Cant assert Payment modal is open, check manually\n");
+        kraken.perform().click(Elements.Site.PaymentModal.closeButton());
+        assertPageIsAvailable();
     }
 
 }

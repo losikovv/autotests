@@ -60,7 +60,7 @@ public class CleanupHelper extends HelperBase {
         printMessage("> cancel order " + fetchCurrentURL());
         kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
         handleAlert();
-        chooseCancellationReason(4,"Тестовый заказ");
+        kraken.admin().chooseCancellationReason(4,"Тестовый заказ");
         kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
         waitingFor(2);
     }
@@ -70,15 +70,9 @@ public class CleanupHelper extends HelperBase {
         printMessage("> cancel order " + fetchCurrentURL());
         kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
         handleAlert();
-        chooseCancellationReason(reason,details);
+        kraken.admin().chooseCancellationReason(reason,details);
         kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
         waitingFor(2);
-    }
-
-
-    private void chooseCancellationReason(int reason, String details) {
-        kraken.perform().click(By.id("cancellation_reason_id_" + reason));               // todo вынести в elements
-        kraken.perform().fillField(By.id("cancellation_reason_details"),details);        // todo вынести в elements
     }
 
 }

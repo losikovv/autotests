@@ -2,6 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 
@@ -11,19 +12,15 @@ import org.testng.annotations.Test;
 public class PasswordRecovery extends TestBase {
 
 
-    @BeforeMethod
-    public void preconditions() {
-        kraken.get().baseUrl();
-        kraken.perform().dropAuth();
-    }
-
-
     @Test(
             description = "Негативный тест попытки восстановления пароля с незаполненным полем email",
             groups = {"regression"},
             priority = 600
     )
     public void noRecoveryWithEmptyEmail() throws Exception {
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
+
         kraken.perform().recoverPassword(null);
 
         // Assert recovery is not requested
@@ -38,6 +35,9 @@ public class PasswordRecovery extends TestBase {
             priority = 601
     )
     public void noRecoveryWithWrongEmail() throws Exception {
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
+
         kraken.perform().recoverPassword("wrongemail.example.com");
 
         // Assert recovery is not requested
@@ -52,6 +52,9 @@ public class PasswordRecovery extends TestBase {
             priority = 602
     )
     public void noRecoveryForNonexistingUser() throws Exception {
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
+
         kraken.perform().recoverPassword("nonexistinguser@example.com");
 
         // Assert recovery is not requested
@@ -66,6 +69,9 @@ public class PasswordRecovery extends TestBase {
             priority = 603
     )
     public void successRecoveryOnLanding() throws AssertionError, Exception {
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
+
         kraken.perform().recoverPassword("instatestuser@yandex.ru");
 
         // Assert recovery is requested
@@ -81,6 +87,8 @@ public class PasswordRecovery extends TestBase {
     )
     public void successRecoveryOnRetailer() throws AssertionError, Exception {
         kraken.get().page("metro");
+        kraken.perform().dropAuth();
+
         kraken.perform().recoverPassword("instatestuser@yandex.ru");
 
         // Assert recovery is requested

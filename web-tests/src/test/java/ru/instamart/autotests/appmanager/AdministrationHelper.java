@@ -1,5 +1,6 @@
 package ru.instamart.autotests.appmanager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
@@ -22,12 +23,10 @@ public class AdministrationHelper extends HelperBase {
         waitingFor(2);
     }
 
-    /**
-     * Определить отменен ли заказ
-     */
-    public boolean isOrderCanceled() {
-        waitingFor(1);
-        return isElementDetected(Elements.Admin.Shipments.OrderDetailsPage.canceledOrderAttribute());
+
+    public void chooseCancellationReason(int reason, String details) {
+        kraken.perform().click(By.id("cancellation_reason_id_" + reason));               // todo вынести в elements
+        kraken.perform().fillField(By.id("cancellation_reason_details"),details);        // todo вынести в elements
     }
 
 }

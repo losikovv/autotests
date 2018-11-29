@@ -42,12 +42,12 @@ public class Administration extends TestBase {
         //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
         kraken.get().adminOrderDetails("R124857258");
 
-        Assert.assertTrue(kraken.admin().isOrderCanceled(),
+        Assert.assertTrue(kraken.detect().isOrderCanceled(),
                 "The order is already active\n");
 
         kraken.admin().resumeOrder();
 
-        Assert.assertFalse(kraken.admin().isOrderCanceled(),
+        Assert.assertFalse(kraken.detect().isOrderCanceled(),
                 "Can't approve the order was resumed, check manually\n");
     }
 
@@ -61,12 +61,12 @@ public class Administration extends TestBase {
         //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
         kraken.get().adminOrderDetails("R124857258");
 
-        Assert.assertFalse(kraken.admin().isOrderCanceled(),
+        Assert.assertFalse(kraken.detect().isOrderCanceled(),
                 "The order is already canceled\n");
 
         kraken.cleanup().cancelOrder();
 
-        Assert.assertTrue(kraken.admin().isOrderCanceled(),
+        Assert.assertTrue(kraken.detect().isOrderCanceled(),
                 "Can't approve the order was canceled, check manually\n");
     }
 
