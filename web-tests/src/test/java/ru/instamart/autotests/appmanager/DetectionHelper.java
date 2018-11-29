@@ -117,7 +117,7 @@ public class DetectionHelper extends HelperBase {
             return true;
         } else {
             printMessage("Experiencing performance troubles");
-            waitingFor(1);
+            kraken.perform().waitingFor(1);
             if (isElementDetected(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
                 printMessage("✓ Order is active\n");
                 return true;

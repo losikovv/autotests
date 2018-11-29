@@ -6,8 +6,8 @@ import ru.instamart.autotests.application.Environments;
 
 public class HelperBase {
     WebDriver driver;
-    String environmentName;
-    String host;
+    private String environmentName;
+    private String host;
     public String baseUrl;
     public String fullBaseUrl;
     private boolean acceptNextAlert = true;
@@ -22,11 +22,11 @@ public class HelperBase {
 
 
     /** Взять текст элемента */
-
     String fetchText(Elements element) {
         return fetchText(Elements.locator());
     }
 
+    /** Взять текст элемента по локатору */
     String fetchText(By locator) {
         try {
             return driver.findElement(locator).getText();
@@ -113,7 +113,6 @@ public class HelperBase {
 
 
     /** Определить показан ли алерт на странице */
-
     protected boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
@@ -137,13 +136,6 @@ public class HelperBase {
             //printMessage("> handling alert [" + alertText + "]");
         } finally {
             acceptNextAlert = true;
-        }
-    }
-
-    /** Waiting which lasts for the 'implicitlyWait' timeout multiplied by the given number of iterations */
-    public void waitingFor(int duration){
-        for (int i = 1; i <= duration; i++){
-            isElementPresent(By.xpath("//*[@id='nowhere']"));
         }
     }
     
@@ -175,7 +167,7 @@ public class HelperBase {
     }
 
     /** Округлить цену до целого числа, отбросив копейки, пробелы и знак рубля */
-    protected int round(String price) {
+    int round(String price) {
         // todo обернуть в try catch NullPointerException
         return Integer.parseInt(((price).substring(0,(price.length() - 5))).replaceAll("\\s",""));
     }

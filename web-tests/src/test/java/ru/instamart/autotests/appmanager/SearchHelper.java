@@ -18,13 +18,13 @@ public class SearchHelper extends HelperBase {
         printMessage("Searching products on query \"" + query + "\"...");
         fillSearchFieldWith(query);
         hitSearchButton();
-        waitingFor(1);
+        kraken.perform().waitingFor(1);
     }
 
     /** Заполнить поле поиска */
     public void fillSearchFieldWith(String query) {
         kraken.perform().fillField(Elements.Site.Header.Search.searchField(), query);
-        waitingFor(1);
+        kraken.perform().waitingFor(1);
     }
 
     /** Нажать кнопку поиска */

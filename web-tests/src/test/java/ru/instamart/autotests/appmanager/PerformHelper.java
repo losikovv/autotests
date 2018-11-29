@@ -74,6 +74,13 @@ public class PerformHelper extends HelperBase {
         }
     }
 
+    /** Ожидание равное переданному значению умноженному на переменную 'implicitlyWait' */
+    public void waitingFor(int duration){
+        for (int i = 1; i <= duration; i++){
+            isElementPresent(By.xpath("//*[@id='nowhere']"));
+        }
+    }
+
     /** Открыть меню аккаунта */
     public void openAccountMenu() {
         if(!kraken.detect().isAccountMenuOpen()) {

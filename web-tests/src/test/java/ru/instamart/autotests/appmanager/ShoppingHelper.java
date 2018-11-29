@@ -20,13 +20,13 @@ public class ShoppingHelper extends HelperBase {
     /** Открыть шторку выбора магазина */
     public void openShopSelector() {
         kraken.perform().click(Elements.Site.Header.changeStoreButton());
-        waitingFor(1);
+        kraken.perform().waitingFor(1);
     }
 
     /** Закрыть шторку выбора магазина */
     public void closeShopSelector() {
         kraken.perform().click(Elements.Site.ShopSelector.closeButton());
-        waitingFor(1);
+        kraken.perform().waitingFor(1);
     }
 
     /** Определить открыта ли шторка выбора магазина */
@@ -46,7 +46,7 @@ public class ShoppingHelper extends HelperBase {
     public void openCatalog() {
         if(!isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.openCatalogButton());
-            waitingFor(1);
+            kraken.perform().waitingFor(1);
         } else printMessage("Can't open catalog drawer - already opened");
     }
 
@@ -54,7 +54,7 @@ public class ShoppingHelper extends HelperBase {
     public void closeCatalog() {
         if(isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.closeCatalogButton());
-            waitingFor(1);
+            kraken.perform().waitingFor(1);
         } else printMessage("Can't close catalog drawer - already closed");
     }
 
@@ -84,15 +84,15 @@ public class ShoppingHelper extends HelperBase {
     public void addFirstItemOnPageToCart() {
         openFirstItemCard();
         hitPlusButton();
-        waitingFor(1);
+        kraken.perform().waitingFor(1);
         closeItemCard();
-        waitingFor(1);
+        kraken.perform().waitingFor(1);
     }
 
     /** Открываем карточку первого товара */
     private void openFirstItemCard() {
         kraken.perform().click(Elements.Site.Catalog.firstItem());
-        waitingFor(1);
+        kraken.perform().waitingFor(1);
         switchToActiveElement();
     }
 
@@ -136,7 +136,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить открыта ли корзина */
     public boolean isCartOpen() {
-        waitingFor(1); // Пауза, на случай если штокра медленно отображается
+        kraken.perform().waitingFor(1); // Пауза, на случай если штокра медленно отображается
         return isElementDisplayed(Elements.Site.Cart.drawer());
     }
 
@@ -144,7 +144,7 @@ public class ShoppingHelper extends HelperBase {
     public void openCart() {
         if (!isCartOpen()) {
             kraken.perform().click(Elements.Site.Cart.openCartButton());
-            waitingFor(1);
+            kraken.perform().waitingFor(1);
         }
         // DEBUG
         // else printMessage("Skip open cart, already opened");
@@ -154,7 +154,7 @@ public class ShoppingHelper extends HelperBase {
     public void closeCart() {
         if (isCartOpen()) {
             kraken.perform().click(Elements.Site.Cart.closeButton());
-            waitingFor(1);
+            kraken.perform().waitingFor(1);
         }
         // DEBUG
         // else printMessage("Skip close cart, already closed");
@@ -163,14 +163,14 @@ public class ShoppingHelper extends HelperBase {
     /** Определить пуста ли корзина */
     public boolean isCartEmpty() {
         openCart();
-        waitingFor(1); // Пауза на случай, тормозов с корзиной
+        kraken.perform().waitingFor(1); // Пауза на случай, тормозов с корзиной
         return isElementPresent(Elements.Site.Cart.placeholder());
     }
 
     /** Определить активна ли кнопка "Сделать заказ" в корзине */
     public boolean isCheckoutButtonActive() {
         openCart();
-        waitingFor(1); // Пауза на случай, если стостояние кнопки долго обновляется
+        kraken.perform().waitingFor(1); // Пауза на случай, если стостояние кнопки долго обновляется
         return isElementEnabled(Elements.Site.Cart.checkoutButton());
     }
 
@@ -189,7 +189,7 @@ public class ShoppingHelper extends HelperBase {
 
         for (int i = 1; i <= quantity; i++) {
             hitPlusButton();
-            waitingFor(1);
+            kraken.perform().waitingFor(1);
         }
         closeItemCard();
     }
@@ -203,7 +203,7 @@ public class ShoppingHelper extends HelperBase {
 
         for (int i = 1; i <= quantity; i++) {
             hitPlusButton();
-            waitingFor(1);
+            kraken.perform().waitingFor(1);
         }
         closeItemCard();
     }

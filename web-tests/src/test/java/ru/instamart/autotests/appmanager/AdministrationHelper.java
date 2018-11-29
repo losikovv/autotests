@@ -20,7 +20,7 @@ public class AdministrationHelper extends HelperBase {
     public void resumeOrder() {
         kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.resumeOrderButton());
         handleAlert();
-        waitingFor(2);
+        kraken.perform().waitingFor(2);
     }
 
     /**
@@ -39,7 +39,7 @@ public class AdministrationHelper extends HelperBase {
         handleAlert();
         chooseCancellationReason(reason, details);
         kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
-        waitingFor(2);
+        kraken.perform().waitingFor(2);
     }
 
     /**

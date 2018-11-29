@@ -21,7 +21,7 @@ public class AddressHelper extends HelperBase {
 
         if (kraken.grab().currentURL().equals(fullBaseUrl)) {
             kraken.perform().fillField(Elements.Site.Landing.addressField(), address);
-            waitingFor(1);
+            kraken.perform().waitingFor(1);
             kraken.perform().click(Elements.Site.Landing.addressSuggest());
             kraken.perform().click(Elements.Site.Landing.selectStoreButton());
         } else {
@@ -34,7 +34,7 @@ public class AddressHelper extends HelperBase {
             selectAddressSuggest();
             kraken.perform().click(Elements.Site.AddressModal.saveButton());
         }
-        waitingFor(1);
+        kraken.perform().waitingFor(1);
     }
 
     /**
@@ -50,7 +50,7 @@ public class AddressHelper extends HelperBase {
         kraken.perform().fillField(Elements.Site.AddressModal.addressField(), newAddress);
         selectAddressSuggest();
         kraken.perform().click(Elements.Site.AddressModal.saveButton());
-        waitingFor(2);
+        kraken.perform().waitingFor(2);
     }
 
     /**
@@ -59,7 +59,7 @@ public class AddressHelper extends HelperBase {
     private void selectAddressSuggest() {
         if (kraken.detect().isAnyAddressSuggestsAvailable()) {
             kraken.perform().click(Elements.Site.AddressModal.addressSuggest());
-            waitingFor(1); // Пауза, чтобы дать время обновиться кнопке "сохранить адрес"
+            kraken.perform().waitingFor(1); // Пауза, чтобы дать время обновиться кнопке "сохранить адрес"
         } else {
             printMessage("Can't click address suggest - there are no such");
         }
