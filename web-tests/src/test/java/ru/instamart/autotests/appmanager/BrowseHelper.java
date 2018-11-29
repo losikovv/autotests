@@ -66,7 +66,7 @@ public class BrowseHelper extends HelperBase {
     /**
      * Перейти на страницу заказа в админке
      */
-    public void adminOrderDetails(String orderNumber) {
+    public void adminOrderDetailsPage(String orderNumber) {
         adminPage("orders/" + orderNumber + "/edit");
     }
 }

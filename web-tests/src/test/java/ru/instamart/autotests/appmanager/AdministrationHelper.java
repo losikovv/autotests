@@ -23,8 +23,29 @@ public class AdministrationHelper extends HelperBase {
         waitingFor(2);
     }
 
+    /**
+     * Cancel order on the page in admin panel with default test reason
+     */
+    public void cancelOrder() {
+        cancelOrder(4, "Тестовый заказ");
+    }
 
-    public void chooseCancellationReason(int reason, String details) {
+    /**
+     * Cancel order on the page in admin panel
+     */
+    public void cancelOrder(int reason, String details) {
+        printMessage("> cancel order " + fetchCurrentURL());
+        kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
+        handleAlert();
+        chooseCancellationReason(reason, details);
+        kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
+        waitingFor(2);
+    }
+
+    /**
+     * Выбрать причину и текст отмены заказа
+     */
+    private void chooseCancellationReason(int reason, String details) {
         kraken.perform().click(By.id("cancellation_reason_id_" + reason));               // todo вынести в elements
         kraken.perform().fillField(By.id("cancellation_reason_details"),details);        // todo вынести в elements
     }

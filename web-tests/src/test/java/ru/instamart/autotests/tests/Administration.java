@@ -40,7 +40,7 @@ public class Administration extends TestBase {
     )
     public void resumeOrder() throws Exception {
         //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
-        kraken.get().adminOrderDetails("R124857258");
+        kraken.get().adminOrderDetailsPage("R124857258");
 
         Assert.assertTrue(kraken.detect().isOrderCanceled(),
                 "The order is already active\n");
@@ -59,12 +59,12 @@ public class Administration extends TestBase {
     )
     public void cancelOrder() throws Exception {
         //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
-        kraken.get().adminOrderDetails("R124857258");
+        kraken.get().adminOrderDetailsPage("R124857258");
 
         Assert.assertFalse(kraken.detect().isOrderCanceled(),
                 "The order is already canceled\n");
 
-        kraken.cleanup().cancelOrder();
+        kraken.admin().cancelOrder();
 
         Assert.assertTrue(kraken.detect().isOrderCanceled(),
                 "Can't approve the order was canceled, check manually\n");
