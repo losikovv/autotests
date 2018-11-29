@@ -6,8 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Pages;
 
 
-// Тесты покупок
-
+// Тесты магазина
 
 
 public class Shopping extends TestBase{

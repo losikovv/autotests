@@ -9,7 +9,6 @@ import ru.instamart.autotests.testdata.Generate;
 // Тесты поиска товаров
 
 
-
 public class SearchProducts extends TestBase {
 
     @BeforeMethod(alwaysRun = true)

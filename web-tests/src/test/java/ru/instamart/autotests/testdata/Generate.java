@@ -3,12 +3,6 @@ package ru.instamart.autotests.testdata;
 import ru.instamart.autotests.models.UserData;
 import java.util.Random;
 
-
-
-    // Генератор тестовых данных
-
-
-
 public class Generate {
 
     /** Сгенерировать int указанной длины */

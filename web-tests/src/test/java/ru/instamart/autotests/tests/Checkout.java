@@ -8,8 +8,8 @@ import ru.instamart.autotests.application.Pages;
 
 import static ru.instamart.autotests.application.Elements.*;
 
-// Тесты чекаута
 
+// Тесты чекаута
 
 
 public class Checkout extends TestBase {

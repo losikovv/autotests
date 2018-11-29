@@ -4,13 +4,6 @@ import org.openqa.selenium.*;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
 
-
-
-    // Helpers base class
-    // Contains basic methods of interaction with the system under test
-
-
-
 public class HelperBase {
     WebDriver driver;
     String environmentName;

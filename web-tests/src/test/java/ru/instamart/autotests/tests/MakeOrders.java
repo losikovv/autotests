@@ -7,9 +7,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 
 
-
 // Тесты заказов
-
 
 
 public class MakeOrders extends TestBase {

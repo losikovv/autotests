@@ -7,9 +7,7 @@ import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Addresses;
 
 
-
 // Тесты самопроверки кракена
-
 
 
 public class SelfCheck extends TestBase {

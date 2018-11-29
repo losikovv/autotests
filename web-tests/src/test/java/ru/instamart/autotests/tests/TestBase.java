@@ -13,7 +13,6 @@ import ru.instamart.autotests.application.Pages;
 // Basic test class
 
 
-
 public class TestBase {
 
     protected static final ApplicationManager kraken = new ApplicationManager(BrowserType.FIREFOX);

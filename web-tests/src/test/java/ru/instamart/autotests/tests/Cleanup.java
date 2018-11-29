@@ -5,9 +5,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Pages;
 
 
-
 // Зачистка тестовой среды после выполнения тестов
-
 
 
 public class Cleanup extends TestBase {

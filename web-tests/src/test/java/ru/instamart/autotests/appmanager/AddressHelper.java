@@ -13,11 +13,13 @@ public class AddressHelper extends HelperBase {
         kraken = app;
     }
 
-    /** Установить адрес доставки */
+    /**
+     * Установить адрес доставки
+     */
     public void set(String address) {
         printMessage("Setting shipping address...");
 
-        if(fetchCurrentURL().equals(fullBaseUrl)){
+        if (fetchCurrentURL().equals(fullBaseUrl)) {
             kraken.perform().fillField(Elements.Site.Landing.addressField(), address);
             waitingFor(1);
             kraken.perform().click(Elements.Site.Landing.addressSuggest());
@@ -35,7 +37,9 @@ public class AddressHelper extends HelperBase {
         waitingFor(1);
     }
 
-    /** Изменить адрес доставки */
+    /**
+     * Изменить адрес доставки
+     */
     public void change(String newAddress) {
         printMessage("Changing shipping address");
         kraken.perform().click(Elements.Site.Header.changeShipAddressButton());
@@ -48,8 +52,10 @@ public class AddressHelper extends HelperBase {
         kraken.perform().click(Elements.Site.AddressModal.saveButton());
         waitingFor(2);
     }
-    
-    /** Выбрать первый адресный саджест */
+
+    /**
+     * Выбрать первый адресный саджест
+     */
     private void selectAddressSuggest() {
         if (kraken.detect().isAnyAddressSuggestsAvailable()) {
             kraken.perform().click(Elements.Site.AddressModal.addressSuggest());

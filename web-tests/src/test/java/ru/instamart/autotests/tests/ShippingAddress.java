@@ -5,25 +5,10 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 
 
-
 // Тесты адреса доставки по Фениксу
 
 
-
 public class ShippingAddress extends TestBase{
-
-    /*
-    @BeforeMethod(alwaysRun = true)
-    public void dropShipAddress() throws Exception {
-        kraken.get().retailerPage("metro");
-        if(kraken.getSessionHelper().isUserAuthorised()) {
-            kraken.getSessionHelper().logout();
-        } else {
-            kraken.getSessionHelper().loginAs("user");
-            kraken.getSessionHelper().logout();
-        }
-    }
-*/
 
 
     @Test(
@@ -74,8 +59,5 @@ public class ShippingAddress extends TestBase{
         Assert.assertTrue(kraken.grab().currentShipAddress().equals(Addresses.Moscow.testAddress()),
                 "Current shipping address is not the same that was entered during the setting procedure\n");
     }
-
-
-
 
 }

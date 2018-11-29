@@ -6,9 +6,7 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 
 
-
-    // Проверка доступности страниц
-
+// Проверка доступности страниц
 
 
 public class CheckPages extends TestBase {

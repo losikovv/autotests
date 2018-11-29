@@ -8,11 +8,6 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
 import ru.instamart.autotests.application.Addresses;
 
-
-// Shopping helper
-// Contains methods for all shopping operations before checkout
-
-
 public class ShoppingHelper extends HelperBase {
 
     private ApplicationManager kraken;

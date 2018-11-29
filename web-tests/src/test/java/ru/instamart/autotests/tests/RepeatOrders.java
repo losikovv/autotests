@@ -6,9 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.annotations.AfterMethod;
 
 
-
-    // Тесты повтора заказов
-
+// Тесты повтора заказов
 
 
 public class RepeatOrders extends TestBase {

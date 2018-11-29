@@ -6,6 +6,9 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.testdata.Generate;
 
 
+// Тесты регистрации пользователя
+
+
 public class Registration extends TestBase {
 
 

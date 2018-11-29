@@ -1,11 +1,5 @@
 package ru.instamart.autotests.models;
 
-
-
-    // Модель данных юзера
-
-
-
 public class UserData {
     private final String login;
     private final String password;

@@ -5,9 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
-
-    // Тесты восстановления пароля
-
+// Тесты восстановления пароля
 
 
 public class PasswordRecovery extends TestBase {

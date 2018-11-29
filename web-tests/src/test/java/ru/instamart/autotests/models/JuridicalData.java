@@ -1,11 +1,5 @@
 package ru.instamart.autotests.models;
 
-
-
-    // Модель данных юрлица
-
-
-
 public class JuridicalData {
 
     private final String juridicalName;

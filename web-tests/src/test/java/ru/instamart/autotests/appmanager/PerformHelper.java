@@ -31,7 +31,7 @@ public class PerformHelper extends HelperBase {
     /** Кликнуть элемент */
     public void click(Elements element) {
         try {
-            driver.findElement(Elements.locator()).click();
+            driver.findElement(Elements.locator()).click(); //TODO использовать метод click(By locator)
         }
         catch (NoSuchElementException n) {
             if(Elements.text() == null) {

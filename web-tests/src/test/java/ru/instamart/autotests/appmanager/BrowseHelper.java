@@ -9,12 +9,14 @@ public class BrowseHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    BrowseHelper(WebDriver driver, Environments environment, ApplicationManager app){
+    BrowseHelper(WebDriver driver, Environments environment, ApplicationManager app) {
         super(driver, environment);
         kraken = app;
     }
 
-    /** Перейти на указанный URL */
+    /**
+     * Перейти на указанный URL
+     */
     public void url(String url) {
         if (url.equals(fullBaseUrl)) printMessage("Getting baseURL " + url + "\n");
         try {
@@ -24,35 +26,47 @@ public class BrowseHelper extends HelperBase {
         }
     }
 
-    /** Перейти на базовый URL */
+    /**
+     * Перейти на базовый URL
+     */
     public void baseUrl() {
         url(fullBaseUrl);
     }
 
-    /** Перейти на страницу */
+    /**
+     * Перейти на страницу
+     */
     public void page(String page) {
         url(fullBaseUrl + page);
     }
 
-    /** Перейти на страницу из переданного объекта */
+    /**
+     * Перейти на страницу из переданного объекта
+     */
     public void page(Pages page) {
         String path = Pages.getPagePath();
         url(fullBaseUrl + path);
     }
 
-    /** Перейти на страницу чекаута */
+    /**
+     * Перейти на страницу чекаута
+     */
     public void checkoutPage() {
         page("checkout/edit?");
         waitingFor(1);
     }
 
-    /** Перейти на страницу в админке */
+    /**
+     * Перейти на страницу в админке
+     */
     public void adminPage(String path) {
         url(baseUrl + "admin/" + path);
     }
 
-    /** Перейти на страницу заказа в админке */
-    public void adminOrderDetails(String orderNumber){
+    /**
+     * Перейти на страницу заказа в админке
+     */
+    public void adminOrderDetails(String orderNumber) {
         adminPage("orders/" + orderNumber + "/edit");
     }
 }
