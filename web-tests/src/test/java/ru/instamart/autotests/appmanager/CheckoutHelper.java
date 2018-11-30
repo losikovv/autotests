@@ -346,7 +346,7 @@ public class CheckoutHelper extends HelperBase {
      * Определяем добавлен ли промокод в чекауте
      */
     public boolean isPromocodeApplied() {
-        if (kraken.detect().isElementDetected(Elements.Site.Checkout.appliedPromocodeAttribute())) {
+        if (kraken.detect().element(Elements.Site.Checkout.appliedPromocodeAttribute())) {
             printMessage("✓ Promocode applied");
             return true;
         } else {
@@ -365,7 +365,7 @@ public class CheckoutHelper extends HelperBase {
             clearPromocode();
         }
         kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
-        if (kraken.detect().isElementDetected(Elements.Site.Checkout.PromocodeModal.title())) {
+        if (kraken.detect().element(Elements.Site.Checkout.PromocodeModal.title())) {
             printMessage("Applying promocode '" + promocode + "'...");
             kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
             kraken.perform().click(Elements.Site.Checkout.PromocodeModal.applyButton());
@@ -444,7 +444,7 @@ public class CheckoutHelper extends HelperBase {
      * Определяем доступна ли программа лояльности ритейлера в чекауте
      */
     public boolean isRetailerLoyaltyAvailable() {
-        return kraken.detect().isElementDetected(
+        return kraken.detect().element(
                 "//aside/div/div[4]/div[2]",
                 "Карты лояльности магазинов");
     }

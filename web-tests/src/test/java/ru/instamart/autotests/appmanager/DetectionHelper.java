@@ -28,18 +28,17 @@ public class DetectionHelper extends HelperBase {
 
 
     /** Задетектить элемент */
-    public boolean isElementDetected(Elements element) {
-        //return isElementPresent(Elements.locator()) && text(Elements.locator()).equals(Elements.text());
-        return isElementDetected(Elements.locator(),Elements.text());
+    public boolean element(Elements element) {
+        return element(Elements.locator(),Elements.text());
     }
 
     /** Задетектить элемент по локатору*/
-    public boolean isElementDetected(By locator, String text) {
+    public boolean element(By locator, String text) {
         return isElementPresent(locator) && kraken.grab().text(locator).equals(text);
     }
 
-    // Todo убрать метод, везде заменить на isElementDetected(Elements element)
-    public boolean isElementDetected(String xpath, String text) {
+    // Todo убрать метод, везде заменить на element(Elements element)
+    public boolean element(String xpath, String text) {
         return isElementPresent(By.xpath(xpath)) && kraken.grab().text(By.xpath(xpath)).equals(text);
     }
 
@@ -107,30 +106,30 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить 404 ошибку */
     public boolean is404() {
-        return isElementDetected(Elements.Page404.title());
+        return element(Elements.Page404.title());
     }
 
     /** Определить 500 ошибку */
     public boolean is500() {
-        return isElementDetected(Elements.Page500.placeholder());
+        return element(Elements.Page500.placeholder());
     }
 
     /** Определить открыта ли модалка "Модалка" */
     public boolean isDeliveryModalOpen() {
         return isElementDisplayed(Elements.Site.DeliveryModal.popup())
-                && isElementDetected(Elements.Site.DeliveryModal.title());
+                && element(Elements.Site.DeliveryModal.title());
     }
 
     /** Определить открыта ли модалка "Оплата" */
     public boolean isPaymentModalOpen() {
         return isElementDisplayed(Elements.Site.PaymentModal.popup())
-                && isElementDetected(Elements.Site.PaymentModal.title());
+                && element(Elements.Site.PaymentModal.title());
     }
 
     /** Определить открыт ли модалка "Партнеры" */
     public boolean isPartnersModalOpen() {
         return isElementDisplayed(Elements.Site.PartnersModal.popup())
-                && isElementDetected(Elements.Site.PartnersModal.title());
+                && element(Elements.Site.PartnersModal.title());
     }
 
     /** Определить открыто ли меню аккаунта */
@@ -154,7 +153,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить авторизован ли пользователь */
     public boolean isUserAuthorised() {
         printMessage("Checking authorisation...");
-        if (isElementDetected(Elements.Site.Header.profileButton())) {
+        if (element(Elements.Site.Header.profileButton())) {
             printMessage("✓ Authorised\n");
             return true;
         } else {
@@ -191,13 +190,13 @@ public class DetectionHelper extends HelperBase {
     /** Определить активен ли заказ на странице деталей */
     public boolean isOrderActive() {
         printMessage("Checking order page...");
-        if (isElementDetected(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
+        if (element(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
             printMessage("✓ Order is active\n");
             return true;
         } else {
             printMessage("Experiencing performance troubles");
             kraken.perform().waitingFor(1);
-            if (isElementDetected(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
+            if (element(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
                 printMessage("✓ Order is active\n");
                 return true;
             } else return false;
@@ -207,21 +206,21 @@ public class DetectionHelper extends HelperBase {
     /** Определить отменен ли заказ на странице деталей */
     public boolean isOrderCanceled(){
         if (isInAdmin()) {
-            return isElementDetected(Elements.Admin.Shipments.OrderDetailsPage.canceledOrderAttribute());
+            return element(Elements.Admin.Shipments.OrderDetailsPage.canceledOrderAttribute());
         } else {
-            return isElementDetected(Elements.Site.OrderDetailsPage.canceledOrderAttribute());
+            return element(Elements.Site.OrderDetailsPage.canceledOrderAttribute());
         }
     }
 
     // Адреса
     /** Определяем пуст ли адрес доставки */
     public boolean isShippingAddressEmpty() {
-        return isElementDetected(Elements.Site.Header.setShipAddressButton());
+        return element(Elements.Site.Header.setShipAddressButton());
     }
 
     /** Определяем выбран ли адрес доставки */
     public boolean isShippingAddressSet() {
-        if (isElementDetected((Elements.Site.Header.changeShipAddressButton()))) {
+        if (element((Elements.Site.Header.changeShipAddressButton()))) {
             kraken.grab().currentShipAddress();
             return true;
         } else {
