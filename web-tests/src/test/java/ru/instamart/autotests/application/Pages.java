@@ -1,10 +1,5 @@
 package ru.instamart.autotests.application;
 
-
-// Список страниц с урлами и названиями
-
-
-
 public class Pages {
     private static String pageTitle;
     private static String pagePath;

@@ -32,10 +32,10 @@ public class ApplicationManager {
     private PerformHelper performHelper;
     private DetectionHelper detectionHelper;
     private GrabHelper grabHelper;
-    private ShoppingHelper shoppingHelper;
-    private SearchHelper searchHelper;
-    private CheckoutHelper checkoutHelper;
     private AddressHelper addressHelper;
+    private SearchHelper searchHelper;
+    private ShoppingHelper shoppingHelper;
+    private CheckoutHelper checkoutHelper;
     private AdministrationHelper administrationHelper;
     private CleanupHelper cleanupHelper;
 
@@ -69,10 +69,10 @@ public class ApplicationManager {
         performHelper = new PerformHelper(driver, environment, this);
         detectionHelper = new DetectionHelper(driver, environment, this);
         grabHelper = new GrabHelper(driver,environment,this);
-        shoppingHelper = new ShoppingHelper(driver, environment, this);
-        searchHelper = new SearchHelper(driver, environment, this);
-        checkoutHelper = new CheckoutHelper(driver, environment, this);
         addressHelper = new AddressHelper(driver, environment, this);
+        searchHelper = new SearchHelper(driver, environment, this);
+        shoppingHelper = new ShoppingHelper(driver, environment, this);
+        checkoutHelper = new CheckoutHelper(driver, environment, this);
         administrationHelper = new AdministrationHelper(driver, environment, this);
         cleanupHelper = new CleanupHelper(driver, environment, this);
 
@@ -111,10 +111,10 @@ public class ApplicationManager {
     public PerformHelper perform() { return performHelper; }
     public DetectionHelper detect() { return detectionHelper; }
     public GrabHelper grab() { return grabHelper; }
-    public ShoppingHelper shopping() { return shoppingHelper; }
-    public SearchHelper search() { return searchHelper; }
-    public CheckoutHelper checkout() { return checkoutHelper; }
     public AddressHelper shipAddress() { return addressHelper; }
+    public SearchHelper search() { return searchHelper; }
+    public ShoppingHelper shopping() { return shoppingHelper; }
+    public CheckoutHelper checkout() { return checkoutHelper; }
     public AdministrationHelper admin() { return administrationHelper; }
     public CleanupHelper cleanup() { return cleanupHelper; }
 }

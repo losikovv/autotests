@@ -1,11 +1,5 @@
 package ru.instamart.autotests.application;
 
-
-
-// Способы оплаты
-
-
-
 public class PaymentTypes {
 
     public static int getPosition(String type){

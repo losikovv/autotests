@@ -1,11 +1,5 @@
 package ru.instamart.autotests.application;
 
-
-
-    // Тестовые карты программ лояльности
-
-
-
 public class Loyalties {
 
     public static String getNumber(String name) {
