@@ -114,6 +114,9 @@ public class DetectionHelper extends HelperBase {
         return element(Elements.Page500.placeholder());
     }
 
+
+    // ======= Модалки =======
+
     /** Определить открыта ли модалка "Модалка" */
     public boolean isDeliveryModalOpen() {
         return isElementDisplayed(Elements.Site.DeliveryModal.popup())
@@ -132,10 +135,16 @@ public class DetectionHelper extends HelperBase {
                 && element(Elements.Site.PartnersModal.title());
     }
 
+
+    // ======= Меню "Профиль" =======
+
     /** Определить открыто ли меню аккаунта */
     public boolean isAccountMenuOpen() {
         return isElementDisplayed(Elements.Site.AccountMenu.popup());
     }
+
+
+    // ======= Поиск =======
 
     /** Определить пустой результат поиска */
     public boolean isSearchResultsEmpty() {
@@ -144,6 +153,9 @@ public class DetectionHelper extends HelperBase {
             return true;
         } else return false;
     }
+
+
+    // ======= Авторизация =======
 
     /** Определить открыта ли модалка авторизации/регистрации */
     public boolean isAuthModalOpen() {
@@ -162,6 +174,9 @@ public class DetectionHelper extends HelperBase {
         }
     }
 
+
+    // ======= Восстановление пароля =======
+
     /** Определить отправлена ли форма восстановления пароля */
     public boolean isRecoverySent(){
         if (!isElementDisplayed(Elements.Site.AuthModal.popup())
@@ -173,6 +188,9 @@ public class DetectionHelper extends HelperBase {
             return true;
         }
     }
+
+
+    // ======= Детали заказа =======
 
     /** Распознавание документов к заказу на странице деталей */
     public String orderDocument(int position) {
@@ -212,7 +230,9 @@ public class DetectionHelper extends HelperBase {
         }
     }
 
-    // Адреса
+
+    // ======= Адрес доставки =======
+
     /** Определяем пуст ли адрес доставки */
     public boolean isShippingAddressEmpty() {
         return element(Elements.Site.Header.setShipAddressButton());
@@ -232,5 +252,73 @@ public class DetectionHelper extends HelperBase {
     /** Определить показаны ли адресные саджесты */
     public boolean isAnyAddressSuggestsAvailable() {
         return isElementPresent(Elements.Site.AddressModal.addressSuggest());
+    }
+
+
+    // ======= Шторка выбора магазинов =======
+
+    /** Определить открыта ли шторка выбора магазина */
+    public boolean isShopSelectorOpen() {
+        return kraken.detect().isElementDisplayed(Elements.Site.ShopSelector.drawer());
+    }
+
+    /** Определить пуст ли селектор */
+    public boolean isShopSelectorEmpty() {
+        return kraken.detect().isElementDisplayed(Elements.Site.ShopSelector.placeholder());
+    }
+
+
+    //========= Шторка каталога ==========
+
+    /** Определить открыта ли шторка каталога */
+    public boolean isCatalogDrawerOpen() {
+        return kraken.detect().isElementDisplayed(Elements.Site.CatalogDrawer.drawer());
+    }
+
+
+    // ======= Каталог =======
+
+    public boolean isProductAvailable() {
+        if(kraken.detect().isElementPresent(Elements.Site.Catalog.product())){
+            printMessage("✓ Products available");
+            return true;
+        } else {
+            printMessage("No products available!");
+            return false;
+        }
+    }
+
+
+    // ======= Карточка товара  =======
+
+    /** Определить открыта ли карточка товара */
+    public boolean isItemCardOpen() {
+        if(kraken.detect().isElementPresent(Elements.Site.ItemCard.popup())){
+            printMessage("✓ Item card open");
+            return true;
+        } else return false;
+    }
+
+
+    // ======= Корзина =======
+
+    /** Определить открыта ли корзина */
+    public boolean isCartOpen() {
+        kraken.perform().waitingFor(1); // Пауза, на случай если штокра медленно отображается
+        return kraken.detect().isElementDisplayed(Elements.Site.Cart.drawer());
+    }
+
+    /** Определить пуста ли корзина */
+    public boolean isCartEmpty() {
+        kraken.shopping().openCart();
+        kraken.perform().waitingFor(1); // Пауза на случай, тормозов с корзиной
+        return kraken.detect().isElementPresent(Elements.Site.Cart.placeholder());
+    }
+
+    /** Определить активна ли кнопка "Сделать заказ" в корзине */
+    public boolean isCheckoutButtonActive() {
+        kraken.shopping().openCart();
+        kraken.perform().waitingFor(1); // Пауза на случай, если стостояние кнопки долго обновляется
+        return kraken.detect().isElementEnabled(Elements.Site.Cart.checkoutButton());
     }
 }

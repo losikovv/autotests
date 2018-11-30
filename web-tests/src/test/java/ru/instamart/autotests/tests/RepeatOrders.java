@@ -28,10 +28,10 @@ public class RepeatOrders extends TestBase {
         kraken.perform().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(kraken.shopping().isCartEmpty(),
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!kraken.shopping().isCheckoutButtonActive()) {
+        if(!kraken.detect().isCheckoutButtonActive()) {
             kraken.shopping().grabCart();
         }
         kraken.shopping().proceedToCheckout();
@@ -52,10 +52,10 @@ public class RepeatOrders extends TestBase {
         kraken.perform().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(kraken.shopping().isCartEmpty(),
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!kraken.shopping().isCheckoutButtonActive()) {
+        if(!kraken.detect().isCheckoutButtonActive()) {
             kraken.shopping().grabCart();
         }
         kraken.shopping().proceedToCheckout();
@@ -74,10 +74,10 @@ public class RepeatOrders extends TestBase {
         kraken.perform().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(kraken.shopping().isCartEmpty(),
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!kraken.shopping().isCheckoutButtonActive()) {
+        if(!kraken.detect().isCheckoutButtonActive()) {
             kraken.shopping().grabCart();
         }
         kraken.shopping().proceedToCheckout();
@@ -98,10 +98,10 @@ public class RepeatOrders extends TestBase {
         kraken.perform().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(kraken.shopping().isCartEmpty(),
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!kraken.shopping().isCheckoutButtonActive()) {
+        if(!kraken.detect().isCheckoutButtonActive()) {
             kraken.shopping().grabCart();
         }
         kraken.shopping().proceedToCheckout();

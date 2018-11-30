@@ -29,22 +29,12 @@ public class ShoppingHelper extends HelperBase {
         kraken.perform().waitingFor(1);
     }
 
-    /** Определить открыта ли шторка выбора магазина */
-    public boolean isShopSelectorOpen() {
-        return kraken.detect().isElementDisplayed(Elements.Site.ShopSelector.drawer());
-    }
-
-    /** Определить пуст ли селектор */
-    public boolean isShopSelectorEmpty() {
-        return kraken.detect().isElementDisplayed(Elements.Site.ShopSelector.placeholder());
-    }
-
 
     //========= Шторка каталога ==========
 
     /** Открыть шторку каталога */
     public void openCatalog() {
-        if(!isCatalogDrawerOpen()) {
+        if(!kraken.detect().isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.openCatalogButton());
             kraken.perform().waitingFor(1);
         } else printMessage("Can't open catalog drawer - already opened");
@@ -52,30 +42,14 @@ public class ShoppingHelper extends HelperBase {
 
     /** Закрыть шторку каталога */
     public void closeCatalog() {
-        if(isCatalogDrawerOpen()) {
+        if(kraken.detect().isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.closeCatalogButton());
             kraken.perform().waitingFor(1);
         } else printMessage("Can't close catalog drawer - already closed");
     }
 
-    /** Определить открыта ли шторка каталога */
-    public boolean isCatalogDrawerOpen() {
-        return kraken.detect().isElementDisplayed(Elements.Site.CatalogDrawer.drawer());
-
-    }
-
 
     // ======= Каталог =======
-
-    public boolean isProductAvailable() {
-        if(kraken.detect().isElementPresent(Elements.Site.Catalog.product())){
-            printMessage("✓ Products available");
-            return true;
-        } else {
-            printMessage("No products available!");
-            return false;
-        }
-    }
 
     /**
      * Add the first line item on the page to the shopping cart
@@ -98,14 +72,6 @@ public class ShoppingHelper extends HelperBase {
 
 
     // ======= Карточка товара  =======
-
-    /** Определить открыта ли карточка товара */
-    public boolean isItemCardOpen() {
-        if(kraken.detect().isElementPresent(Elements.Site.ItemCard.popup())){
-            printMessage("✓ Item card open");
-            return true;
-        } else return false;
-    }
 
     /** Нажать кнопку [+] в карточке товара */
     private void hitPlusButton() {
@@ -134,15 +100,9 @@ public class ShoppingHelper extends HelperBase {
 
     // ======= Корзина =======
 
-    /** Определить открыта ли корзина */
-    public boolean isCartOpen() {
-        kraken.perform().waitingFor(1); // Пауза, на случай если штокра медленно отображается
-        return kraken.detect().isElementDisplayed(Elements.Site.Cart.drawer());
-    }
-
     /** Открыть корзину */
     public void openCart() {
-        if (!isCartOpen()) {
+        if (!kraken.detect().isCartOpen()) {
             kraken.perform().click(Elements.Site.Cart.openCartButton());
             kraken.perform().waitingFor(1);
         }
@@ -152,26 +112,12 @@ public class ShoppingHelper extends HelperBase {
 
     /** Закрыть корзину */
     public void closeCart() {
-        if (isCartOpen()) {
+        if (kraken.detect().isCartOpen()) {
             kraken.perform().click(Elements.Site.Cart.closeButton());
             kraken.perform().waitingFor(1);
         }
         // DEBUG
         // else printMessage("Skip close cart, already closed");
-    }
-
-    /** Определить пуста ли корзина */
-    public boolean isCartEmpty() {
-        openCart();
-        kraken.perform().waitingFor(1); // Пауза на случай, тормозов с корзиной
-        return kraken.detect().isElementPresent(Elements.Site.Cart.placeholder());
-    }
-
-    /** Определить активна ли кнопка "Сделать заказ" в корзине */
-    public boolean isCheckoutButtonActive() {
-        openCart();
-        kraken.perform().waitingFor(1); // Пауза на случай, если стостояние кнопки долго обновляется
-        return kraken.detect().isElementEnabled(Elements.Site.Cart.checkoutButton());
     }
 
     /** Перейти в чекаут нажатием кнопки "Сделать заказ" в корзине */

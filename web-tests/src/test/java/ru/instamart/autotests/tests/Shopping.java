@@ -29,21 +29,21 @@ public class Shopping extends TestBase{
         kraken.shopping().openCart();
 
         // Assert cart is open
-        Assert.assertTrue(kraken.shopping().isCartOpen(),
+        Assert.assertTrue(kraken.detect().isCartOpen(),
                 "Can't open shopping cart\n");
 
         // Assert cart is empty
-        Assert.assertTrue(kraken.shopping().isCartEmpty(),
+        Assert.assertTrue(kraken.detect().isCartEmpty(),
                 "Cart isn't empty\n");
 
         // Assert checkout button is disabled in an empty card
-        Assert.assertFalse(kraken.shopping().isCheckoutButtonActive(),
+        Assert.assertFalse(kraken.detect().isCheckoutButtonActive(),
                 "Checkout button is active in an empty cart\n");
 
         kraken.shopping().closeCart();
 
         // Assert cart is closed
-        Assert.assertFalse(kraken.shopping().isCartOpen(),
+        Assert.assertFalse(kraken.detect().isCartOpen(),
                 "Can't close shopping cart\n");
     }
 
@@ -69,7 +69,7 @@ public class Shopping extends TestBase{
 
         kraken.shopping().addFirstItemOnPageToCart();
 
-        Assert.assertFalse(kraken.shopping().isCartEmpty(),
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Cart is still empty after adding an item into it\n");
 
         kraken.shopping().closeCart();
@@ -85,7 +85,7 @@ public class Shopping extends TestBase{
         kraken.shopping().grabCart();
 
         // Assert checkout button is enabled
-        Assert.assertTrue(kraken.shopping().isCheckoutButtonActive(),
+        Assert.assertTrue(kraken.detect().isCheckoutButtonActive(),
                 "Checkout button is not active with minimal order cart\n");
 
         kraken.shopping().closeCart();
@@ -98,10 +98,10 @@ public class Shopping extends TestBase{
             priority = 354
     )
     public void proceedFromCartToCheckout()throws Exception, AssertionError {
-        if(!kraken.shopping().isCheckoutButtonActive()) {
+        if(!kraken.detect().isCheckoutButtonActive()) {
             kraken.shopping().grabCart();
         }
-        if(kraken.shopping().isCheckoutButtonActive()){
+        if(kraken.detect().isCheckoutButtonActive()){
             kraken.shopping().proceedToCheckout();
         }
 

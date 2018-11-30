@@ -305,7 +305,7 @@ public class PerformHelper extends HelperBase {
         String addressOne = Addresses.Moscow.defaultAddress();
         String addressTwo = Addresses.Moscow.testAddress();
 
-        if (!kraken.shopping().isCartEmpty()) {
+        if (!kraken.detect().isCartEmpty()) {
             kraken.shopping().closeCart();
             if (currentAddress.equals(addressOne)) {
                 kraken.shipAddress().change(addressTwo);

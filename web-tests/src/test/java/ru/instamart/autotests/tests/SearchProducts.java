@@ -54,7 +54,7 @@ public class SearchProducts extends TestBase {
         Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
-        Assert.assertTrue(kraken.shopping().isProductAvailable(),
+        Assert.assertTrue(kraken.detect().isProductAvailable(),
                 "Can't assert search is working correctly, check manually\n");
     }
 
@@ -74,7 +74,7 @@ public class SearchProducts extends TestBase {
         Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
-        Assert.assertTrue(kraken.shopping().isProductAvailable(),
+        Assert.assertTrue(kraken.detect().isProductAvailable(),
                 "Can't assert search is working correctly, check manually\n");
     }
 
@@ -93,7 +93,7 @@ public class SearchProducts extends TestBase {
 
         kraken.search().hitProductSuggest();
 
-        Assert.assertTrue(kraken.shopping().isItemCardOpen(),
+        Assert.assertTrue(kraken.detect().isItemCardOpen(),
                 "Can't approve successful open item card from search product suggest\n");
     }
 
