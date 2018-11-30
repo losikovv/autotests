@@ -17,38 +17,23 @@ public class PerformHelper extends HelperBase {
 
     // ======= Базовые действия =======
 
+    /** Кликнуть элемент */
+    public void click(Elements element) {
+        click(Elements.locator());
+    }
+
     /** Кликнуть элемент по локатору */
     public void click(By locator) {
         try {
             driver.findElement(locator).click();
         }
-        catch (NoSuchElementException n){
-            printMessage("Can't click element <" + locator + "> on " + kraken.grab().currentURL() + "\n");
-        }
-    }
-
-    /** Кликнуть элемент */
-    public void click(Elements element) {
-        try {
-            driver.findElement(Elements.locator()).click(); //TODO использовать метод click(By locator)
-        }
         catch (NoSuchElementException n) {
-            if(Elements.text() == null) {
-                printMessage("Can't click element <" + Elements.locator()
-                        + ">\nNo such element on " + kraken.grab().currentURL() + "\n");
-            } else {
-                printMessage("Can't click element " + Elements.text() + " <" + Elements.locator()
-                        + ">\nNo such element on " + kraken.grab().currentURL() + "\n");
-            }
+            printMessage("Can't click element <" + locator
+                    + ">\nNo such element on " + kraken.grab().currentURL() + "\n");
         }
         catch (ElementNotVisibleException v) {
-            if(Elements.text() == null) {
-                printMessage("Can't click element <" + Elements.locator()
-                        + ">\nElement is not visible on " + kraken.grab().currentURL() + "\n");
-            } else {
-                printMessage("Can't click element " + Elements.text() + " <" + Elements.locator()
-                        + ">\nElement is not visible on " + kraken.grab().currentURL() + "\n");
-            }
+            printMessage("Can't click element <" + locator
+                    + ">\nElement is not visible on " + kraken.grab().currentURL() + "\n");
         }
     }
 
