@@ -6,6 +6,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.application.Loyalties;
 
 public class DetectionHelper extends HelperBase {
 
@@ -278,6 +279,7 @@ public class DetectionHelper extends HelperBase {
 
     // ======= Каталог =======
 
+    /** Определить есть ли товары на странице */
     public boolean isProductAvailable() {
         if(kraken.detect().isElementPresent(Elements.Site.Catalog.product())){
             printMessage("✓ Products available");
@@ -320,5 +322,46 @@ public class DetectionHelper extends HelperBase {
         kraken.shopping().openCart();
         kraken.perform().waitingFor(1); // Пауза на случай, если стостояние кнопки долго обновляется
         return kraken.detect().isElementEnabled(Elements.Site.Cart.checkoutButton());
+    }
+
+
+    // ======= Чекаут =======
+
+    /** Определить находимся ли в чекауте */
+    public boolean isOnCheckout() {
+        return kraken.detect().isElementPresent(Elements.Site.Checkout.header());
+    }
+
+    /** Определить добавлен ли промокод в чекауте */
+    public boolean isPromocodeApplied() {
+        if (kraken.detect().element(Elements.Site.Checkout.appliedPromocodeAttribute())) {
+            printMessage("✓ Promocode applied");
+            return true;
+        } else {
+            printMessage("No promocode applied");
+            return false;
+        }
+    }
+
+    /** Определить применена ли программа лояльности */
+    public boolean isLoyaltyApplied(String name) {
+        return kraken.detect().isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
+    }
+
+    /**Определить доступна ли программа лояльности ритейлера в чекауте */
+    public boolean isRetailerLoyaltyAvailable() {
+        return kraken.detect().element(
+                "//aside/div/div[4]/div[2]",
+                "Карты лояльности магазинов");
+    }
+
+    /** Определить активен ли шаг чекаута в данный момент, по наличию кнопок "Продолжить" */
+    public boolean isStepActive(int step) {
+        return kraken.detect().isElementPresent((By.xpath("(//button[@type='button'])[" + step + "]")));
+    }
+
+    /** Определить активна ли кнопка отправки заказа */
+    public boolean isSendButtonActive() {
+        return kraken.detect().isElementEnabled(By.xpath("//aside/div/div[1]/div/button"));
     }
 }

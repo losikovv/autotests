@@ -343,24 +343,10 @@ public class CheckoutHelper extends HelperBase {
     // ======= Promocodes =======
 
     /**
-     * Определяем добавлен ли промокод в чекауте
-     */
-    public boolean isPromocodeApplied() {
-        if (kraken.detect().element(Elements.Site.Checkout.appliedPromocodeAttribute())) {
-            printMessage("✓ Promocode applied");
-            return true;
-        } else {
-            printMessage("No promocode applied");
-            return false;
-        }
-    }
-
-
-    /**
      * Добавляем промокод в чекауте
      */
     public void addPromocode(String promocode) {
-        if (isPromocodeApplied()) {
+        if (kraken.detect().isPromocodeApplied()) {
             printMessage("There's some promocode is already applied, so clearing it first... ");
             clearPromocode();
         }
@@ -380,12 +366,11 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-
     /**
      * Удаляем промокод в чекауте
      */
     public void clearPromocode() {
-        if (isPromocodeApplied()) {
+        if (kraken.detect().isPromocodeApplied()) {
             printMessage("Clearing promocode...");
             kraken.perform().click(Elements.Site.Checkout.clearPromocodeButton());
             kraken.perform().waitingFor(1);
@@ -398,18 +383,10 @@ public class CheckoutHelper extends HelperBase {
     // ======= Loyalty Programs =======
 
     /**
-     * Определяем применена ли программа лояльности
-     */
-    public boolean isLoyaltyApplied(String name) {
-        return kraken.detect().isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
-    }
-
-
-    /**
      * Добавляем программу лояльности к заказу в чекауте
      */
     public void addLoyalty(String name) {
-        if (isLoyaltyApplied(name)) {
+        if (kraken.detect().isLoyaltyApplied(name)) {
             clearLoyalty(name);
         }
         printMessage("Adding loyalty program \"" + name + "\"");
@@ -418,14 +395,12 @@ public class CheckoutHelper extends HelperBase {
         kraken.perform().waitingFor(1);
     }
 
-
     /**
      * Выбираем программу лояльности для заказа из добавленных
      */
     public void selectLoyalty(String name) {
         kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]"));
     }
-
 
     /**
      * Удаляем программу лояльности в чекауте
@@ -439,15 +414,6 @@ public class CheckoutHelper extends HelperBase {
 
 
     // ======= Retailer Loyalties =======
-
-    /**
-     * Определяем доступна ли программа лояльности ритейлера в чекауте
-     */
-    public boolean isRetailerLoyaltyAvailable() {
-        return kraken.detect().element(
-                "//aside/div/div[4]/div[2]",
-                "Карты лояльности магазинов");
-    }
 
     /**
      * Определяем применена ли программа лояльности ритейлера в чекауте
@@ -494,7 +460,6 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-
     /**
      * Нажимаем кнопки "Продолжить" в шагах чекаута
      */
@@ -504,18 +469,17 @@ public class CheckoutHelper extends HelperBase {
         kraken.perform().waitingFor(1);
     }
 
-
     /**
      * Нажимаем кнопку отправки заказа и ждем пока заказ оформится
      */
     public void sendOrder() {
-        if (isSendButtonActive()) {
+        if (kraken.detect().isSendButtonActive()) {
             kraken.perform().click(Elements.Site.Checkout.sendOrderButton());
             kraken.perform().waitingFor(3);
             printMessage("✓ Order sent\n");
         } else {
             kraken.perform().waitingFor(3);
-            if (isSendButtonActive()) {
+            if (kraken.detect().isSendButtonActive()) {
                 kraken.perform().click(Elements.Site.Checkout.sendOrderButton());
                 kraken.perform().waitingFor(3);
                 printMessage("✓ Order sent\n");
@@ -523,18 +487,17 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-
     /**
      * Проверяем готовность шага чекаута перед заполнением
      */
     private boolean checkStep(int stepNumber, String stepName) {
         if (stepNumber != 5) { // костыль если доставки остался выбраным в предыдущих тестах
-            if (isStepActive(stepNumber)) {
+            if (kraken.detect().isStepActive(stepNumber)) {
                 printMessage("Step " + stepNumber + " - " + stepName);
                 return true;
             } else {
                 kraken.perform().waitingFor(1); // задержка для стабильности, возможно что шаг не развернулся из-за тормозов
-                if (!isStepActive(stepNumber)) {
+                if (!kraken.detect().isStepActive(stepNumber)) {
                     printMessage("Step " + stepNumber + " isn't opened at the moment");
                     return false;
                 } else return true;
@@ -550,19 +513,4 @@ public class CheckoutHelper extends HelperBase {
             }
         }
     }
-
-    /**
-     * Определяем активен ли шаг чекаута в данный момент, по наличию кнопок "Продолжить"
-     */
-    private boolean isStepActive(int step) {
-        return kraken.detect().isElementPresent((By.xpath("(//button[@type='button'])[" + step + "]")));
-    }
-
-    /**
-     * Определяем активна ли кнопка отправки заказа
-     */
-    private boolean isSendButtonActive() {
-        return kraken.detect().isElementEnabled(By.xpath("//aside/div/div[1]/div/button"));
-    }
-
 }

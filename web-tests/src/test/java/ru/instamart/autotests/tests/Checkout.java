@@ -38,7 +38,7 @@ public class Checkout extends TestBase {
         kraken.checkout().addPromocode("unicorn");
 
         // Assert promocode is applied
-        Assert.assertTrue(kraken.checkout().isPromocodeApplied(),
+        Assert.assertTrue(kraken.detect().isPromocodeApplied(),
                 "Can't assert promocode is applied\n");
     }
 
@@ -53,7 +53,7 @@ public class Checkout extends TestBase {
         kraken.checkout().clearPromocode();
 
         // Assert promocode is applied
-        Assert.assertFalse(kraken.checkout().isPromocodeApplied(),
+        Assert.assertFalse(kraken.detect().isPromocodeApplied(),
                 "Can't assert promocode is cleared\n");
     }
 
@@ -70,7 +70,7 @@ public class Checkout extends TestBase {
         kraken.perform().click(Elements.Site.Checkout.PromocodeModal.cancelButton());
 
         // Assert promocode is not applied
-        Assert.assertFalse(kraken.checkout().isPromocodeApplied(),
+        Assert.assertFalse(kraken.detect().isPromocodeApplied(),
                 "Promocode was applied after hitting 'Cancel' button \n");
     }
 
@@ -86,7 +86,7 @@ public class Checkout extends TestBase {
         kraken.perform().click(Elements.Site.Checkout.PromocodeModal.closeButton());
 
         // Assert promocode is not applied
-        Assert.assertFalse(kraken.checkout().isPromocodeApplied(),
+        Assert.assertFalse(kraken.detect().isPromocodeApplied(),
                 "Promocode was applied after hitting 'Close' button \n");
     }
 
@@ -99,11 +99,11 @@ public class Checkout extends TestBase {
     public void addLoyaltyPrograms(){
         kraken.perform().reachCheckout();
         kraken.checkout().addLoyalty("mnogoru");
-        Assert.assertTrue(kraken.checkout().isLoyaltyApplied("mnogoru"),
+        Assert.assertTrue(kraken.detect().isLoyaltyApplied("mnogoru"),
                 "Can't assert loyalty program \"mnogoru\" is applied\n");
 
         kraken.checkout().addLoyalty("aeroflot");
-        Assert.assertTrue(kraken.checkout().isLoyaltyApplied("aeroflot"),
+        Assert.assertTrue(kraken.detect().isLoyaltyApplied("aeroflot"),
                 "Can't assert loyalty program \"aeroflot\" is applied\n");
 
     }
@@ -130,11 +130,11 @@ public class Checkout extends TestBase {
     public void clearLoyaltyPrograms(){
         kraken.perform().reachCheckout();
         kraken.checkout().clearLoyalty("mnogoru");
-        Assert.assertFalse(kraken.checkout().isLoyaltyApplied("mnogoru"),
+        Assert.assertFalse(kraken.detect().isLoyaltyApplied("mnogoru"),
                 "Can't assert loyalty program \"mnogoru\" is cleared");
 
         kraken.checkout().clearLoyalty("aeroflot");
-        Assert.assertFalse(kraken.checkout().isLoyaltyApplied("aeroflot"),
+        Assert.assertFalse(kraken.detect().isLoyaltyApplied("aeroflot"),
                 "Can't assert loyalty program \"aeroflot\" is cleared");
     }
 

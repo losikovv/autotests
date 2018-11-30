@@ -75,7 +75,7 @@ public class MakeOrders extends TestBase {
             kraken.shopping().proceedToCheckout();
         }
 
-        Assert.assertTrue(kraken.checkout().isRetailerLoyaltyAvailable(),
+        Assert.assertTrue(kraken.detect().isRetailerLoyaltyAvailable(),
                 "Retailer loyalty program is not available\n");
 
         kraken.checkout().addRetailerLoyalty("vkusvill");
