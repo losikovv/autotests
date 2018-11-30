@@ -3,11 +3,10 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Pages;
+import ru.instamart.autotests.application.Pages;
 
 
 // Тесты админки
-
 
 
 public class Administration extends TestBase {
@@ -15,7 +14,7 @@ public class Administration extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void reachAdministrationPanel() throws Exception {
-        app.getSessionHelper().reachAdmin(Pages.Admin.shipments());
+        kraken.perform().reachAdmin(Pages.Admin.shipments());
     }
 
 
@@ -25,12 +24,12 @@ public class Administration extends TestBase {
             priority = 700
     )
     public void adminPanelUnreacheableWithoutPrivileges() throws Exception {
-        app.getSessionHelper().doLogout();
-        app.getSessionHelper().doLoginAs("user");
+        kraken.perform().logout();
+        kraken.perform().loginAs("user");
 
         assertPageIsUnreachable(Pages.Admin.shipments());
 
-        app.getSessionHelper().doLogout();
+        kraken.perform().logout();
     }
 
 
@@ -40,18 +39,15 @@ public class Administration extends TestBase {
             priority = 701
     )
     public void resumeOrder() throws Exception {
+        //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
+        kraken.get().adminOrderDetailsPage("R124857258");
 
-        String orderNumber = "R124857258"; //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
-        app.getNavigationHelper().getOrderAdminPage(orderNumber);
-
-        // Assert order is canceled
-        Assert.assertTrue(app.getAdministrationHelper().isOrderCanceled(),
+        Assert.assertTrue(kraken.detect().isOrderCanceled(),
                 "The order is already active\n");
 
-        app.getAdministrationHelper().resumeOrder();
+        kraken.admin().resumeOrder();
 
-        // Assert order isn't canceled
-        Assert.assertFalse(app.getAdministrationHelper().isOrderCanceled(),
+        Assert.assertFalse(kraken.detect().isOrderCanceled(),
                 "Can't approve the order was resumed, check manually\n");
     }
 
@@ -62,27 +58,17 @@ public class Administration extends TestBase {
             priority = 702
     )
     public void cancelOrder() throws Exception {
-
-        String orderNumber = "R124857258"; // TODO заменить на номер заказа тестового пользователя
         //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
+        kraken.get().adminOrderDetailsPage("R124857258");
 
-        app.getNavigationHelper().getOrderAdminPage(orderNumber);
-
-        Assert.assertFalse(app.getAdministrationHelper().isOrderCanceled(),
+        Assert.assertFalse(kraken.detect().isOrderCanceled(),
                 "The order is already canceled\n");
 
-        app.getSessionHelper().cancelOrder();
+        kraken.admin().cancelOrder();
 
-        Assert.assertTrue(app.getAdministrationHelper().isOrderCanceled(),
+        Assert.assertTrue(kraken.detect().isOrderCanceled(),
                 "Can't approve the order was canceled, check manually\n");
     }
-
-
-    @Test(priority = 703)
-    public void cancelTestOrders() throws Exception {
-        app.getSessionHelper().cancelOrders(Pages.Admin.Shipments.testOrdersList());
-    }
-
 
 
     @Test(
@@ -110,138 +96,147 @@ public class Administration extends TestBase {
 
 
     private void orders() throws Exception {
-        app.getNavigationHelper().goOrders();
+
+        kraken.go().adminOrders();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goOrdersMulti();
+        kraken.go().adminOrdersMulti();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goOrdersVeeroute();
+        kraken.go().adminOrdersVeeroute();
         assertPageIsAvailable();
     }
 
     private void stores() throws Exception {
-        app.getNavigationHelper().goStore();
+
+        kraken.go().adminStores();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goStoreRetailers();
+        kraken.go().adminStoresRetailers();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goStoreZones();
+        kraken.go().adminStoresZones();
         assertPageIsAvailable();
     }
 
     private void products() throws Exception {
-        app.getNavigationHelper().goProducts();
+
+        kraken.go().adminProducts();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goSubProducts();
+        kraken.go().adminSubProducts();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goProductsStats();
+        kraken.go().adminProductsStats();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goProductsOptionTypes();
+        kraken.go().adminProductsOptionTypes();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goProductsProperties();
+        kraken.go().adminProductsProperties();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goProductsPrototypes();
+        kraken.go().adminProductsPrototypes();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goProductsBrands();
+        kraken.go().adminProductsBrands();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goProductsProducers();
+        kraken.go().adminProductsProducers();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goProductsProducersCountries();
+        kraken.go().adminProductsProducersCountries();
         assertPageIsAvailable();
     }
 
     private void imports() throws Exception {
-        app.getNavigationHelper().goImport();
+
+        kraken.go().adminImport();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goImportQueueOfTasks();
+        kraken.go().adminImportQueueOfTasks();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goImportStats();
+        kraken.go().adminImportStats();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goImportArchive();
+        kraken.go().adminImportArchive();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goImportBlackList();
+        kraken.go().adminImportBlackList();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goImportCategory();
+        kraken.go().adminImportCategory();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goImportFilters();
+        kraken.go().adminImportFilters();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goImportProducts();
+        kraken.go().adminImportProducts();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goImportPrice();
+        kraken.go().adminImportPrice();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goImportImages();
+        kraken.go().adminImportImages();
         assertPageIsAvailable();
 
     }
 
     private void reports() throws Exception {
-        app.getNavigationHelper().goReports();
+
+        kraken.go().adminReports();
         assertPageIsAvailable();
     }
 
     private void settings() throws Exception {
-        app.getNavigationHelper().goSettings();
+
+        kraken.go().adminSettings();
         assertPageIsAvailable();
     }
 
     private void marketing() throws Exception {
-        app.getNavigationHelper().goMarketing();
+
+        kraken.go().adminMarketing();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goMarketingPromoCards();
+        kraken.go().adminMarketingPromoCards();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goMarketingPromoAction();
+        kraken.go().adminMarketingPromoAction();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goMarketingWelcomeBanners();
+        kraken.go().adminMarketingWelcomeBanners();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goMarketingAdvertisement();
+        kraken.go().adminMarketingAdvertisement();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goMarketingYandexMarket();
+        kraken.go().adminMarketingYandexMarket();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goMarketingCarts();
+        kraken.go().adminMarketingCarts();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goMarketingBonusCards();
+        kraken.go().adminMarketingBonusCards();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goMarketingRetailersPrograms();
+        kraken.go().adminMarketingRetailersPrograms();
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goMarketingNewCities();
+        kraken.go().adminMarketingNewCities();
         assertPageIsAvailable();
     }
 
     private void users() throws Exception {
-        app.getNavigationHelper().goUsers();
+
+        kraken.go().adminUsers();
         assertPageIsAvailable();
     }
 
     private void pages() throws Exception {
-        app.getNavigationHelper().goPages();
+
+        kraken.go().adminPages();
         assertPageIsAvailable();
     }
 

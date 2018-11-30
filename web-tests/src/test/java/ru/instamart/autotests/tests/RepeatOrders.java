@@ -6,9 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.annotations.AfterMethod;
 
 
-
-    // Тесты повтора заказов
-
+// Тесты повтора заказов
 
 
 public class RepeatOrders extends TestBase {
@@ -16,8 +14,8 @@ public class RepeatOrders extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void getAuth()throws Exception {
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getSessionHelper().doLoginAs("admin");
+        kraken.get().page("metro");
+        kraken.perform().loginAs("admin");
     }
 
 
@@ -27,20 +25,20 @@ public class RepeatOrders extends TestBase {
             priority = 501
     )
     public void repeatLastOrderAndPayWithCardOnline() throws Exception {
-        app.getProfileHelper().repeatLastOrder();
+        kraken.perform().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCart();
+        if(!kraken.detect().isCheckoutButtonActive()) {
+            kraken.shopping().grabCart();
         }
-        app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",1,"card-online");
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",1,"card-online");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
     }
 
@@ -51,20 +49,20 @@ public class RepeatOrders extends TestBase {
             priority = 502
     )
     public void repeatLastOrderAndPayWithCardCourier() throws Exception {
-        app.getProfileHelper().repeatLastOrder();
+        kraken.perform().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCart();
+        if(!kraken.detect().isCheckoutButtonActive()) {
+            kraken.shopping().grabCart();
         }
-        app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",2,"card-courier");
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",2,"card-courier");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
     }
     @Test(
@@ -73,20 +71,20 @@ public class RepeatOrders extends TestBase {
             priority = 503
     )
     public void repeatLastOrderAndPayWithCash() throws Exception {
-        app.getProfileHelper().repeatLastOrder();
+        kraken.perform().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCart();
+        if(!kraken.detect().isCheckoutButtonActive()) {
+            kraken.shopping().grabCart();
         }
-        app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
     }
 
@@ -97,27 +95,26 @@ public class RepeatOrders extends TestBase {
             priority = 504
     )
     public void repeatLastOrderAndPayWithBank() throws Exception {
-        app.getProfileHelper().repeatLastOrder();
+        kraken.perform().repeatLastOrder();
 
         // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Something went wrong while repeating the last order from the profile\n");
 
-        if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCart();
+        if(!kraken.detect().isCheckoutButtonActive()) {
+            kraken.shopping().grabCart();
         }
-        app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().completeCheckout("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
-
     }
 
 
     @AfterMethod(alwaysRun = true)
     public void cancelLastOrder()throws Exception {
-        app.getProfileHelper().cancelLastOrder();
+        kraken.perform().cancelLastOrder();
     }
 }

@@ -1,11 +1,5 @@
 package ru.instamart.autotests.models;
 
-
-
-    // Модель данных банковских карт
-
-
-
 public class CreditCardData {
 
     private final String cardNumber;

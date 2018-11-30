@@ -7,45 +7,45 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import ru.instamart.autotests.configuration.Environments;
+import ru.instamart.autotests.application.Environments;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
 
-
-
-    // App management class
-    // Contains all core processes of the testing application
-
-
-
 public class ApplicationManager {
 
     protected WebDriver driver;
-    protected Environments environment = new Environments("staging"); // use "production" or "staging"
+    protected Environments environment = new Environments("production"); // use "production" or "staging"
+    private String browser;
 
     protected String environmentName = environment.getEnvironmentName();
     protected String host = environment.getHost();
     protected String baseUrl = environment.getBaseURL(true);
 
     // Helpers
-    private Helper helper;
+    private BrowseHelper browseHelper;
     private NavigationHelper navigationHelper;
-    private SessionHelper sessionHelper;
+    private PerformHelper performHelper;
+    private DetectionHelper detectionHelper;
+    private GrabHelper grabHelper;
+    private AddressHelper addressHelper;
+    private SearchHelper searchHelper;
     private ShoppingHelper shoppingHelper;
     private CheckoutHelper checkoutHelper;
-    private ProfileHelper profileHelper;
     private AdministrationHelper administrationHelper;
+    private CleanupHelper cleanupHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
-    private String browser;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
     }
 
-    public void init() {
+    public void rise() throws IOException {
 
         switch (browser) {
             case BrowserType.FIREFOX:
@@ -64,22 +64,25 @@ public class ApplicationManager {
         }
 
         // Helpers init
-        helper = new Helper(driver, environment);
-        navigationHelper = new NavigationHelper(driver, environment);
-        sessionHelper = new SessionHelper(driver, environment);
-        shoppingHelper = new ShoppingHelper(driver, environment);
-        checkoutHelper = new CheckoutHelper(driver, environment);
-        profileHelper = new ProfileHelper(driver, environment);
-        administrationHelper = new AdministrationHelper(driver, environment);
+        browseHelper = new BrowseHelper(driver, environment, this);
+        navigationHelper = new NavigationHelper(driver, environment, this);
+        performHelper = new PerformHelper(driver, environment, this);
+        detectionHelper = new DetectionHelper(driver, environment, this);
+        grabHelper = new GrabHelper(driver,environment,this);
+        addressHelper = new AddressHelper(driver, environment, this);
+        searchHelper = new SearchHelper(driver, environment, this);
+        shoppingHelper = new ShoppingHelper(driver, environment, this);
+        checkoutHelper = new CheckoutHelper(driver, environment, this);
+        administrationHelper = new AdministrationHelper(driver, environment, this);
+        cleanupHelper = new CleanupHelper(driver, environment, this);
 
         // Options
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS); // Basic timeout
         //driver.manage().window().fullscreen();                              // Open browser in fullscreen mode
 
-        System.out.println("\n!!!!!!!!!!!! RELEASING THE KRAKEN !!!!!!!!!!!!\n");
-        System.out.println("ENVIRONMENT: " + environmentName + " ( " + host + " ) \n");
-        driver.get(baseUrl);
+        revealKraken();
 
+        driver.get(baseUrl);
     }
 
     public void stop() {
@@ -90,13 +93,28 @@ public class ApplicationManager {
         }
     }
 
-    // Helpers getters
-    public Helper perform() { return helper; }
-    public NavigationHelper getNavigationHelper() { return navigationHelper; }
-    public SessionHelper getSessionHelper() { return sessionHelper; }
-    public ShoppingHelper getShoppingHelper() { return shoppingHelper; }
-    public CheckoutHelper getCheckoutHelper() { return checkoutHelper; }
-    public ProfileHelper getProfileHelper() { return profileHelper; }
-    public AdministrationHelper getAdministrationHelper() { return administrationHelper; }
+    private void revealKraken() throws IOException {
+        BufferedReader in = new BufferedReader(new FileReader("banner.txt"));
+        String line = in.readLine();
 
+        while(line !=null) {
+            System.out.println(line);
+            line = in.readLine();
+        }
+        in.close();
+        System.out.println("\nENVIRONMENT: " + environmentName + " ( " + host + " ) \n");
+    }
+
+    // Getters
+    public BrowseHelper get() { return browseHelper; }
+    public NavigationHelper go() { return navigationHelper; }
+    public PerformHelper perform() { return performHelper; }
+    public DetectionHelper detect() { return detectionHelper; }
+    public GrabHelper grab() { return grabHelper; }
+    public AddressHelper shipAddress() { return addressHelper; }
+    public SearchHelper search() { return searchHelper; }
+    public ShoppingHelper shopping() { return shoppingHelper; }
+    public CheckoutHelper checkout() { return checkoutHelper; }
+    public AdministrationHelper admin() { return administrationHelper; }
+    public CleanupHelper cleanup() { return cleanupHelper; }
 }

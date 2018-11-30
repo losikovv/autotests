@@ -3,28 +3,22 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.configuration.Pages;
+import ru.instamart.autotests.application.Config;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Pages;
+
+import static ru.instamart.autotests.application.Elements.*;
 
 
 // Тесты чекаута
 
 
-
 public class Checkout extends TestBase {
-
-    private void reachCheckout() {
-        app.getNavigationHelper().getCheckoutPage();
-        if(!app.getCheckoutHelper().isOnCheckout()){
-            app.getShoppingHelper().grabCart();
-            app.getShoppingHelper().proceedToCheckout();
-        }
-    }
 
     @BeforeMethod(alwaysRun = true)
     public void preparingForCheckout() throws Exception {
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getSessionHelper().doLoginAs("admin");
+        kraken.get().page("metro");
+        kraken.perform().loginAs("admin");
     }
 
     // TODO Тесты на изменение телефона и контактов
@@ -40,11 +34,11 @@ public class Checkout extends TestBase {
             priority = 400
     )
     public void addPromocode(){
-        reachCheckout();
-        app.getCheckoutHelper().addPromocode("unicorn");
+        kraken.perform().reachCheckout();
+        kraken.checkout().addPromocode("unicorn");
 
         // Assert promocode is applied
-        Assert.assertTrue(app.getCheckoutHelper().isPromocodeApplied(),
+        Assert.assertTrue(kraken.detect().isPromocodeApplied(),
                 "Can't assert promocode is applied\n");
     }
 
@@ -55,11 +49,11 @@ public class Checkout extends TestBase {
             priority = 401
     )
     public void clearPromocode(){
-        reachCheckout();
-        app.getCheckoutHelper().clearPromocode();
+        kraken.perform().reachCheckout();
+        kraken.checkout().clearPromocode();
 
         // Assert promocode is applied
-        Assert.assertFalse(app.getCheckoutHelper().isPromocodeApplied(),
+        Assert.assertFalse(kraken.detect().isPromocodeApplied(),
                 "Can't assert promocode is cleared\n");
     }
 
@@ -70,13 +64,13 @@ public class Checkout extends TestBase {
             priority = 402
     )
     public void noPromocodeAddedOnCancel(){
-        reachCheckout();
-        app.perform().click(Elements.Site.Checkout.addPromocodeButton());
-        app.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
-        app.perform().click(Elements.Site.Checkout.PromocodeModal.cancelButton());
+        kraken.perform().reachCheckout();
+        kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
+        kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
+        kraken.perform().click(Elements.Site.Checkout.PromocodeModal.cancelButton());
 
         // Assert promocode is not applied
-        Assert.assertFalse(app.getCheckoutHelper().isPromocodeApplied(),
+        Assert.assertFalse(kraken.detect().isPromocodeApplied(),
                 "Promocode was applied after hitting 'Cancel' button \n");
     }
 
@@ -86,13 +80,13 @@ public class Checkout extends TestBase {
             priority = 403
     )
     public void noPromocodeAddedOnClose(){
-        reachCheckout();
-        app.perform().click(Elements.Site.Checkout.addPromocodeButton());
-        app.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
-        app.perform().click(Elements.Site.Checkout.PromocodeModal.closeButton());
+        kraken.perform().reachCheckout();
+        kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
+        kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
+        kraken.perform().click(Elements.Site.Checkout.PromocodeModal.closeButton());
 
         // Assert promocode is not applied
-        Assert.assertFalse(app.getCheckoutHelper().isPromocodeApplied(),
+        Assert.assertFalse(kraken.detect().isPromocodeApplied(),
                 "Promocode was applied after hitting 'Close' button \n");
     }
 
@@ -103,13 +97,13 @@ public class Checkout extends TestBase {
             priority = 404
     )
     public void addLoyaltyPrograms(){
-        reachCheckout();
-        app.getCheckoutHelper().addLoyalty("mnogoru");
-        Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("mnogoru"),
+        kraken.perform().reachCheckout();
+        kraken.checkout().addLoyalty("mnogoru");
+        Assert.assertTrue(kraken.detect().isLoyaltyApplied("mnogoru"),
                 "Can't assert loyalty program \"mnogoru\" is applied\n");
 
-        app.getCheckoutHelper().addLoyalty("aeroflot");
-        Assert.assertTrue(app.getCheckoutHelper().isLoyaltyApplied("aeroflot"),
+        kraken.checkout().addLoyalty("aeroflot");
+        Assert.assertTrue(kraken.detect().isLoyaltyApplied("aeroflot"),
                 "Can't assert loyalty program \"aeroflot\" is applied\n");
 
     }
@@ -121,9 +115,9 @@ public class Checkout extends TestBase {
             priority = 405
     )
     public void selectLoyaltyProgram(){
-        reachCheckout();
-        app.getCheckoutHelper().selectLoyalty("mnogoru");
-        app.getCheckoutHelper().selectLoyalty("aeroflot");
+        kraken.perform().reachCheckout();
+        kraken.checkout().selectLoyalty("mnogoru");
+        kraken.checkout().selectLoyalty("aeroflot");
         // TODO добавить проверки на наличие модалок после выбора
     }
 
@@ -134,13 +128,13 @@ public class Checkout extends TestBase {
             priority = 406
     )
     public void clearLoyaltyPrograms(){
-        reachCheckout();
-        app.getCheckoutHelper().clearLoyalty("mnogoru");
-        Assert.assertFalse(app.getCheckoutHelper().isLoyaltyApplied("mnogoru"),
+        kraken.perform().reachCheckout();
+        kraken.checkout().clearLoyalty("mnogoru");
+        Assert.assertFalse(kraken.detect().isLoyaltyApplied("mnogoru"),
                 "Can't assert loyalty program \"mnogoru\" is cleared");
 
-        app.getCheckoutHelper().clearLoyalty("aeroflot");
-        Assert.assertFalse(app.getCheckoutHelper().isLoyaltyApplied("aeroflot"),
+        kraken.checkout().clearLoyalty("aeroflot");
+        Assert.assertFalse(kraken.detect().isLoyaltyApplied("aeroflot"),
                 "Can't assert loyalty program \"aeroflot\" is cleared");
     }
 
@@ -151,15 +145,17 @@ public class Checkout extends TestBase {
             priority = 407
     )
     public void performCheckoutAndPayWithCash(){
-        reachCheckout();
-        app.getCheckoutHelper().completeCheckout();
+        kraken.perform().reachCheckout();
+        kraken.checkout().complete();
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        checkOrderDocuments();
-        app.getProfileHelper().cancelLastOrder();
+        kraken.perform().checkOrderDocuments();
+        assertPageIsAvailable();
+
+        kraken.perform().cancelLastOrder();
     }
 
 
@@ -169,15 +165,17 @@ public class Checkout extends TestBase {
             priority = 408
     )
     public void performCompleteCheckoutAndPayWithCardOnline(){
-        reachCheckout();
-        app.getCheckoutHelper().completeCheckout("card-online");
+        kraken.perform().reachCheckout();
+        kraken.checkout().complete("card-online");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        checkOrderDocuments();
-        app.getProfileHelper().cancelLastOrder();
+        kraken.perform().checkOrderDocuments();
+        assertPageIsAvailable();
+
+        kraken.perform().cancelLastOrder();
     }
 
 
@@ -187,15 +185,17 @@ public class Checkout extends TestBase {
             priority = 409
     )
     public void performCompleteCheckoutAndPayWithCardCourier(){
-        reachCheckout();
-        app.getCheckoutHelper().completeCheckout("card-courier");
+        kraken.perform().reachCheckout();
+        kraken.checkout().complete("card-courier");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        checkOrderDocuments();
-        app.getProfileHelper().cancelLastOrder();
+        kraken.perform().checkOrderDocuments();
+        assertPageIsAvailable();
+
+        kraken.perform().cancelLastOrder();
     }
 
 
@@ -205,15 +205,17 @@ public class Checkout extends TestBase {
             priority = 410
     )
     public void performCompleteCheckoutAndPayWithBank(){
-        reachCheckout();
-        app.getCheckoutHelper().completeCheckout("bank");
+        kraken.perform().reachCheckout();
+        kraken.checkout().complete("bank");
 
         // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        checkOrderDocuments();
-        app.getProfileHelper().cancelLastOrder();
+        kraken.perform().checkOrderDocuments();
+        assertPageIsAvailable();
+
+        kraken.perform().cancelLastOrder();
     }
 
 
@@ -222,35 +224,35 @@ public class Checkout extends TestBase {
             groups = {"regression"},
             priority = 411
     )
-    public void checkMetroDeliveryPriceDiscount() {
-        app.getShoppingHelper().dropCart();
+    public void checkMetroDeliveryPriceDiscount() throws Exception {
+        kraken.perform().dropCart();
 
-        app.getNavigationHelper().get(Pages.Site.Catalog.priceyItems());
-        app.getShoppingHelper().grabCart();
-        app.getShoppingHelper().proceedToCheckout();
-        app.getCheckoutHelper().fillCheckout();
-        Assert.assertTrue(app.getCheckoutHelper().checkDeliveryPrice(299),
+        kraken.get().page(Pages.Site.Catalog.priceyItems());
+        kraken.shopping().grabCart();
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().fillAllFields();
+
+        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()), Config.MetroHighDeliveryPrice,
+                "Delivery price in checkout is not correct, check manually \n");
+
+        kraken.get().page(Pages.Site.Catalog.priceyItems());
+        kraken.shopping().grabCart(5000);
+        kraken.shopping().proceedToCheckout();
+        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()), Config.MetroMediumDeliveryPrice,
                 "Delivery price in checkout is not correct, check manually \n" );
 
-        app.getNavigationHelper().get(Pages.Site.Catalog.priceyItems());
-        app.getShoppingHelper().grabCart(5000);
-        app.getShoppingHelper().proceedToCheckout();
-        Assert.assertTrue(app.getCheckoutHelper().checkDeliveryPrice(199),
+        kraken.get().page(Pages.Site.Catalog.priceyItems());
+        kraken.shopping().grabCart(10000);
+        kraken.shopping().proceedToCheckout();
+        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()), Config.MetroLowDeliveryPrice,
                 "Delivery price in checkout is not correct, check manually \n" );
 
-        app.getNavigationHelper().get(Pages.Site.Catalog.priceyItems());
-        app.getShoppingHelper().grabCart(10000);
-        app.getShoppingHelper().proceedToCheckout();
-        Assert.assertTrue(app.getCheckoutHelper().checkDeliveryPrice(99),
-                "Delivery price in checkout is not correct, check manually \n" );
+        kraken.checkout().complete();
 
-        app.getCheckoutHelper().completeCheckout();
-        Assert.assertTrue(app.getProfileHelper().checkDeliveryPrice(99),
+        Assert.assertEquals(kraken.grab().roundedPrice(Site.OrderDetailsPage.deliveryPrice()), Config.MetroLowDeliveryPrice,
                 "Delivery price is not correct in order details, check manually \n" );
 
-        app.getProfileHelper().cancelLastOrder();
+        kraken.perform().cancelLastOrder();
     }
-
-
 
 }

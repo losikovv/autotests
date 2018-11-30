@@ -2,13 +2,11 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.configuration.Pages;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Pages;
 
 
-
-    // Проверка доступности страниц
-
+// Проверка доступности страниц
 
 
 public class CheckPages extends TestBase {
@@ -25,7 +23,6 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable(Pages.Site.Retailers.metro());
         assertPageIsAvailable(Pages.Site.Retailers.vkusvill());
         assertPageIsAvailable(Pages.Site.Retailers.lenta());
-        assertPageIsAvailable(Pages.Site.Retailers.karusel());
         assertPageIsAvailable(Pages.Site.Retailers.auchan());
     }
 
@@ -37,6 +34,7 @@ public class CheckPages extends TestBase {
     // TODO переделать чек страниц по списку ретейлеров
     // TODO забирать список ритейлеров из БД или из админки с признаком активности
     public void checkInactiveRetailerPages() throws Exception, AssertionError {
+        assertPageIs404(Pages.Site.Retailers.karusel());
         assertPageIs404(Pages.Site.Retailers.selgros());
         assertPageIs404(Pages.Site.Retailers.flora());
         assertPageIs404(Pages.Site.Retailers.foodcity());
@@ -51,15 +49,14 @@ public class CheckPages extends TestBase {
             priority = 803
     )
     // TODO переделать чек лендингов циклом по списку
-    public void checkLandings() throws Exception, AssertionError {
-        assertPageIsAvailable(Pages.Site.Landings.instamart());
+    public void checkPartnersLandings() throws Exception, AssertionError {
+        kraken.perform().dropAuth();
         assertPageIsAvailable(Pages.Site.Landings.mnogoru());
         assertPageIsAvailable(Pages.Site.Landings.aeroflot());
 
         //assertPageIsAvailable(Pages.Site.Landings.sovest());      старый лендос
         //assertPageIsAvailable(Pages.Site.Landings.halva());       старый лендос
-
-        // assertPageIsAvailable(Pages.Site.Landings.kazan());      лендос отключен
+        //assertPageIsAvailable(Pages.Site.Landings.kazan());      лендос отключен
         //assertPageIsAvailable(Pages.Site.Landings.feedback());    этого лендоса нет на стейдже
         //assertPageIsAvailable(Pages.Site.Landings.mobile());      этого лендоса нет на стейдже
     }
@@ -89,15 +86,13 @@ public class CheckPages extends TestBase {
             priority = 805
     )
     public void checkProfilePages() throws Exception, AssertionError {
-        app.perform().getBaseUrl();
-        app.getSessionHelper().doLoginAs("admin");
+        kraken.get().baseUrl();
+        kraken.perform().loginAs("admin");
 
         assertPageIsAvailable(Pages.Site.Profile.edit());
         assertPageIsAvailable(Pages.Site.Profile.orders());
         assertPageIsAvailable(Pages.Site.Profile.addresses());
     }
-
-
 
 
     @Test(
@@ -106,7 +101,7 @@ public class CheckPages extends TestBase {
             priority = 806
     )
     public void checkAdminPages() throws Exception, AssertionError {
-        app.getSessionHelper().reachAdmin(Pages.Admin.shipments());
+        kraken.perform().reachAdmin(Pages.Admin.shipments());
 
         assertPageIsAvailable(Pages.Admin.shipments());
         assertPageIsAvailable(Pages.Admin.retailers());
@@ -120,51 +115,53 @@ public class CheckPages extends TestBase {
     }
 
 
+// TOdO перенести в отдельный тест checkLinks (на место cleanup - его перенести в stop())
+    // TOdO добаавить тест ссылок хедера на главной
+
     @Test(
-            description = "Тест доступности страниц футера",
+            description = "Тест работоспособности ссылок футера",
             groups = {"smoke","acceptance","regression"},
             priority = 807
     )
-    public void checkFooterPages() throws Exception {
-        app.perform().getBaseUrl();
+    public void checkFooterLinks() throws Exception {
+        kraken.get().baseUrl();
 
-        app.getNavigationHelper().goFooterAboutCompany();
+        // TOdO нужен метод, проверяющий переход по ссылке и включающий проверку что начальная и конечная страницы не одинаковые
+        kraken.perform().click(Elements.Site.Footer.aboutCompanyButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterContacts();
+        kraken.perform().click(Elements.Site.Footer.contactsButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterFaq();
+        kraken.perform().click(Elements.Site.Footer.faqButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterFeedbackForm();
+        kraken.perform().click(Elements.Site.Footer.feedbackFormButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterReturnPolicy();
+        kraken.perform().click(Elements.Site.Footer.returnPolicyButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterPublicOffer();
+        kraken.perform().click(Elements.Site.Footer.publicOfferButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterDelivery();
-        Assert.assertTrue(app.perform().isDeliveryPopupOpen(),
-                "Cant assert 'Delivery' pop-up open, check manually\n");
-        app.perform().click(Elements.Site.DeliveryPopup.closeButton());
+        kraken.perform().click(Elements.Site.Footer.deliveryButton());
+        Assert.assertTrue(kraken.detect().isDeliveryModalOpen(),
+                "Cant assert Delivery modal is open, check manually\n");
+        kraken.perform().click(Elements.Site.DeliveryModal.closeButton());
         assertPageIsAvailable();
 
-        app.getNavigationHelper().goFooterPartners();
-        Assert.assertTrue(app.perform().isPartnersPopupOpen(),
-                "Cant assert 'Partners' pop-up open, check manually\n");
-        app.perform().click(Elements.Site.PartnersPopup.closeButton());
+        kraken.perform().click(Elements.Site.Footer.partnersButton());
+        Assert.assertTrue(kraken.detect().isPartnersModalOpen(),
+                "Cant assPartners modal is open, check manually\n");
+        kraken.perform().click(Elements.Site.PartnersModal.closeButton());
         assertPageIsAvailable();
 
-        /* Тест временно отключен - валится потому что кнопка goTop перекрывает ссылку
-        app.getNavigationHelper().goFooterPayment();
-        Assert.assertTrue(app.perform().isPaymentPopupOpen(),
-                "Cant assert 'Payment' pop-up open, check manually\n");
-        app.perform().click(Elements.Site.PaymentPopup.closeButton());
+        kraken.perform().click(Elements.Site.Footer.paymentButton());
+        Assert.assertTrue(kraken.detect().isPaymentModalOpen(),
+                "Cant assert Payment modal is open, check manually\n");
+        kraken.perform().click(Elements.Site.PaymentModal.closeButton());
         assertPageIsAvailable();
-        */
     }
 
 }

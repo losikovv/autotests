@@ -2,11 +2,10 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Elements;
+import ru.instamart.autotests.application.Elements;
 
 
 // Тесты авторизации
-
 
 
 public class Authorisation extends TestBase {
@@ -18,12 +17,12 @@ public class Authorisation extends TestBase {
             priority = 101
     )
     public void noAuthWithoutEmail() throws Exception, AssertionError {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin("", "instamart");
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
+        kraken.perform().login("", "instamart");
 
         // Assert user isn't authorised
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "It's possible to log-in without entering an email!\n");
     }
 
@@ -34,12 +33,12 @@ public class Authorisation extends TestBase {
             priority = 102
     )
     public void noAuthWithoutPassword() throws Exception, AssertionError {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin("instatestuser@yandex.ru", "");
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
+        kraken.perform().login("instatestuser@yandex.ru", "");
 
         // Assert user isn't authorised
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "It's possible to log-in without entering a password!"+"\n");
     }
 
@@ -50,12 +49,12 @@ public class Authorisation extends TestBase {
             priority = 103
     )
     public void noAuthWithNonexistingUser() throws Exception, AssertionError {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin("nonexistinguser@example.com", "password");
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
+        kraken.perform().login("nonexistinguser@example.com", "password");
 
         // Assert user isn't authorised
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "It's possible to log-in with non-existing username!"+"\n");
     }
 
@@ -66,12 +65,12 @@ public class Authorisation extends TestBase {
             priority = 104
     )
     public void noAuthWithWrongPassword() throws Exception, AssertionError {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
-        app.getSessionHelper().doLogin("instatestuser@yandex.ru", "wrongpassword");
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
+        kraken.perform().login("instatestuser@yandex.ru", "wrongpassword");
 
         // Assert user isn't authorised
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "It's possible to log-in with wrong password!"+"\n");
     }
 
@@ -82,16 +81,16 @@ public class Authorisation extends TestBase {
             priority = 105
     )
     public void successAuthOnLandingPage() throws Exception, AssertionError {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().dropAuth();
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
 
-        app.getSessionHelper().doLoginAs("user");
+        kraken.perform().loginAs("user");
 
         // Assert user is authorised
-        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Can't approve correct authorisation, check manually\n");
 
-        app.getSessionHelper().doLogout();
+        kraken.perform().logout();
     }
 
 
@@ -101,16 +100,16 @@ public class Authorisation extends TestBase {
             priority = 106
     )
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
-        app.getNavigationHelper().get("vkusvill");
-        app.getSessionHelper().dropAuth();
+        kraken.get().page("vkusvill");
+        kraken.perform().dropAuth();
 
-        app.getSessionHelper().doLoginAs("user");
+        kraken.perform().loginAs("user");
 
         // Assert user is authorised
-        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Can't approve correct authorisation, check manually\n");
 
-        app.getSessionHelper().doLogout();
+        kraken.perform().logout();
     }
 
 
@@ -120,16 +119,16 @@ public class Authorisation extends TestBase {
             priority = 107
     )
     public void logout() throws Exception, AssertionError {
-        app.getSessionHelper().doLoginAs("admin");
-        app.getSessionHelper().doLogout();
+        kraken.perform().loginAs("admin");
+        kraken.perform().logout();
 
         // Assert there is no problems after logout
         assertPageIsAvailable();
 
-        app.getNavigationHelper().getRetailerPage("metro");
+        kraken.get().page("metro");
 
         // Assert user is unauthorised
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Can't approve correct de-authorization, check manually\n");
 
     }
@@ -140,21 +139,19 @@ public class Authorisation extends TestBase {
             priority = 108
     )
     public void successAuthFromAddressModal() throws Exception, AssertionError {
-        app.getNavigationHelper().get("metro");
-        app.getSessionHelper().dropAuth();
+        kraken.get().page("metro");
+        kraken.perform().dropAuth();
 
-        app.perform().click(Elements.Site.Header.setShipAddressButton());
-        app.perform().click(Elements.Site.AddressModal.authButton());
-        app.getSessionHelper().performAuthSequence("admin");
+        kraken.perform().click(Elements.Site.Header.setShipAddressButton());
+        kraken.perform().click(Elements.Site.AddressModal.authButton());
+        kraken.perform().authSequence("admin");
 
-        // Assert user is authorised
-        Assert.assertTrue(app.getSessionHelper().isUserAuthorised(),
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Can't approve correct authorisation, check manually\n");
 
-        app.getSessionHelper().doLogout();
+        kraken.perform().logout();
     }
 
     //TODO добавить тесты на авторизацию через соцсети
-
 
 }

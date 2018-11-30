@@ -2,13 +2,12 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Pages;
-import ru.instamart.autotests.testdata.Addresses;
-
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.Addresses;
 
 
 // Тесты самопроверки кракена
-
 
 
 public class SelfCheck extends TestBase {
@@ -16,20 +15,20 @@ public class SelfCheck extends TestBase {
 
     @Test(description = "Тест базового URL", priority = 10000)
     public void initialCheck() throws Exception {
-        app.perform().getBaseUrl();
-        Assert.assertEquals(app.perform().currentURL() , app.perform().fullBaseUrl);
+        kraken.get().baseUrl();
+        Assert.assertEquals(kraken.grab().currentURL() , kraken.perform().fullBaseUrl);
     }
 
 
     @Test(description = "Тест корректности работы методов навигации", priority = 10001)
     public void checkNavigation() throws Exception {
 
-        app.getNavigationHelper().get("metro");
-        Assert.assertEquals(app.perform().currentURL() , app.perform().fullBaseUrl + "metro");
+        kraken.get().page("metro");
+        Assert.assertEquals(kraken.grab().currentURL() , kraken.perform().fullBaseUrl + "metro");
 
 
-        app.getNavigationHelper().get(Pages.Site.Static.faq());
-        Assert.assertEquals(app.perform().currentURL() , app.perform().fullBaseUrl + Pages.getPagePath());
+        kraken.get().page(Pages.Site.Static.faq());
+        Assert.assertEquals(kraken.grab().currentURL() , kraken.perform().fullBaseUrl + Pages.getPagePath());
         // TODO проверка GO методов
     }
 
@@ -37,40 +36,40 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения модалки авторизации/регистрации", priority = 10002)
     public void detectAuthModal() throws Exception {
 
-        app.perform().getBaseUrl();
+        kraken.get().baseUrl();
 
-        app.getSessionHelper().openAuthModal();
-        Assert.assertTrue(app.getSessionHelper().isAuthModalOpen());
+        kraken.perform().openAuthModal();
+        Assert.assertTrue(kraken.detect().isAuthModalOpen());
 
-        app.getSessionHelper().closeAuthModal();
-        Assert.assertFalse(app.getSessionHelper().isAuthModalOpen());
+        kraken.perform().closeAuthModal();
+        Assert.assertFalse(kraken.detect().isAuthModalOpen());
 
-        app.getNavigationHelper().getRetailerPage("metro");
+        kraken.get().page("metro");
 
-        app.getSessionHelper().openAuthModal();
-        Assert.assertTrue(app.getSessionHelper().isAuthModalOpen());
+        kraken.perform().openAuthModal();
+        Assert.assertTrue(kraken.detect().isAuthModalOpen());
 
-        app.getSessionHelper().closeAuthModal();
-        Assert.assertFalse(app.getSessionHelper().isAuthModalOpen());
+        kraken.perform().closeAuthModal();
+        Assert.assertFalse(kraken.detect().isAuthModalOpen());
     }
 
 
     @Test(description = "Тест корректности определения авторизованности пользователя", priority = 10003)
     public void detectAuthorisation() throws Exception {
 
-        app.getSessionHelper().dropAuth();
+        kraken.perform().dropAuth();
 
-        app.getNavigationHelper().getBaseUrl();
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
+        kraken.get().baseUrl();
+        Assert.assertFalse(kraken.detect().isUserAuthorised());
 
-        app.getNavigationHelper().getRetailerPage("metro");
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
+        kraken.get().page("metro");
+        Assert.assertFalse(kraken.detect().isUserAuthorised());
 
-        app.getSessionHelper().doLoginAs("admin");
-        Assert.assertTrue(app.getSessionHelper().isUserAuthorised());
+        kraken.perform().loginAs("admin");
+        Assert.assertTrue(kraken.detect().isUserAuthorised());
 
-        app.getSessionHelper().doLogout();
-        Assert.assertFalse(app.getSessionHelper().isUserAuthorised());
+        kraken.perform().logout();
+        Assert.assertFalse(kraken.detect().isUserAuthorised());
 
     }
 
@@ -81,146 +80,156 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения меню Профиль", priority = 10004)
     public void detectAccountMenu() throws Exception {
 
-        app.perform().getBaseUrl();
+        kraken.get().baseUrl();
+        kraken.perform().loginAs("admin");
 
-        app.getSessionHelper().doLoginAs("admin");
-        app.perform().openAccountMenu();
-        Assert.assertTrue(app.perform().isAccountMenuOpen());
+        kraken.perform().openAccountMenu();
+        Assert.assertTrue(kraken.detect().isAccountMenuOpen());
 
-        app.perform().closeAccountMenu();
-        Assert.assertFalse(app.perform().isAccountMenuOpen());
+        kraken.perform().closeAccountMenu();
+        Assert.assertFalse(kraken.detect().isAccountMenuOpen());
     }
 
 
     @Test(description = "Тест корректности определения карточки товара", priority = 10005)
     public void detectItemCard() throws Exception {
 
-        app.getNavigationHelper().get("metro/salat-premium-gorshochek");
-        Assert.assertTrue(app.getShoppingHelper().isItemCardOpen());
+        kraken.get().page("metro/khliet-rzhanoi-krai");
+        Assert.assertTrue(kraken.detect().isItemCardOpen());
 
-        app.getNavigationHelper().get("metro/eliektronika");
-        Assert.assertFalse(app.getShoppingHelper().isItemCardOpen());
+        kraken.get().page("metro/eliektronika");
+        Assert.assertFalse(kraken.detect().isItemCardOpen());
     }
 
 
     @Test(description = "Тест корректности определения что находимся на сайте", priority = 10006)
     public void detectIsOnSite() throws Exception {
 
-        app.getNavigationHelper().get(Pages.Site.Static.faq());
-        Assert.assertTrue(app.perform().isOnSite());
+        kraken.get().page(Pages.Site.Static.faq());
+        Assert.assertTrue(kraken.detect().isOnSite());
 
-        app.getSessionHelper().doLoginAs("admin");
-        app.getNavigationHelper().get(Pages.Admin.retailers());
-        Assert.assertFalse(app.perform().isOnSite());
+        kraken.perform().loginAs("admin");
+        kraken.get().page(Pages.Admin.retailers());
+        Assert.assertFalse(kraken.detect().isOnSite());
     }
 
 
     @Test(description = "Тест корректности определения что находимся в админке", priority = 10007)
     public void detectIsInAdmin() throws Exception {
 
-        app.getNavigationHelper().get(Pages.Site.Static.contacts());
-        Assert.assertFalse(app.perform().isInAdmin());
+        kraken.get().page(Pages.Site.Static.contacts());
+        Assert.assertFalse(kraken.detect().isInAdmin());
 
-        app.getSessionHelper().doLoginAs("admin");
-        app.getNavigationHelper().get(Pages.Admin.settings());
-        Assert.assertTrue(app.perform().isInAdmin());
+        kraken.perform().loginAs("admin");
+        kraken.get().page(Pages.Admin.settings());
+        Assert.assertTrue(kraken.detect().isInAdmin());
     }
 
 
     @Test(description = "Тест корректности определения 404 ошибки на страниице", priority = 10008)
     public void detect404() throws Exception {
 
-        app.getNavigationHelper().get("nowhere");
-        Assert.assertTrue(app.perform().is404());
+        kraken.get().page("nowhere");
+        Assert.assertTrue(kraken.detect().is404());
 
-        app.getNavigationHelper().get("metro");
-        Assert.assertFalse(app.perform().is404());
+        kraken.get().page("metro");
+        Assert.assertFalse(kraken.detect().is404());
     }
 
 
     @Test(description = "Тест корректности определения 500 ошибки на страниице", priority = 10009)
     public void detect500() throws Exception {
 
-        app.getNavigationHelper().get("stores/21/shipping_methods");
-        Assert.assertTrue(app.perform().is500());
+        kraken.get().page("stores/21/shipping_methods");
+        Assert.assertTrue(kraken.detect().is500());
 
-        app.getNavigationHelper().get("metro");
-        Assert.assertFalse(app.perform().is500());
+        kraken.get().page("metro");
+        Assert.assertFalse(kraken.detect().is500());
     }
 
 
     @Test(description = "Тест корректности определения шторки Каталога", priority = 10010)
     public void detectCatalogDrawer() throws Exception {
 
-        app.getNavigationHelper().get("metro");
-        app.getShoppingHelper().openCatalog();
-        Assert.assertTrue(app.getShoppingHelper().isCatalogDrawerOpen());
+        kraken.get().page("metro");
 
-        app.getShoppingHelper().closeCatalog();
-        Assert.assertFalse(app.getShoppingHelper().isCatalogDrawerOpen());
+        kraken.shopping().openCatalog();
+        Assert.assertTrue(kraken.detect().isCatalogDrawerOpen());
+
+        kraken.shopping().closeCatalog();
+        Assert.assertFalse(kraken.detect().isCatalogDrawerOpen());
     }
 
 
     @Test(description = "Тест корректности определения шторки магазинов", priority = 10011)
     public void detectShopsDrawer() throws Exception {
 
-        app.getNavigationHelper().getBaseUrl();
-        if(app.getSessionHelper().isUserAuthorised()) {
-            app.getSessionHelper().doLogout();
+        kraken.get().baseUrl();
+        if(kraken.detect().isUserAuthorised()) {
+            kraken.perform().logout();
         }
 
         //landing
-        app.getNavigationHelper().getBaseUrl();
-        app.getShoppingHelper().setShippingAddress(Addresses.Moscow.testAddress());
-        Assert.assertTrue(app.getShoppingHelper().isShopSelectorOpen());
+        kraken.get().baseUrl();
 
-        app.getShoppingHelper().closeShopSelector();
-        Assert.assertFalse(app.getShoppingHelper().isShopSelectorOpen());
+        kraken.shipAddress().set(Addresses.Moscow.testAddress());
+        Assert.assertTrue(kraken.detect().isShopSelectorOpen());
+
+        kraken.shopping().closeShopSelector();
+        Assert.assertFalse(kraken.detect().isShopSelectorOpen());
 
         //retailer
-        app.getNavigationHelper().get("metro");
-        app.getShoppingHelper().openShopSelector();
-        Assert.assertTrue(app.getShoppingHelper().isShopSelectorOpen());
+        kraken.get().page("metro");
 
-        app.getShoppingHelper().closeShopSelector();
-        Assert.assertFalse(app.getShoppingHelper().isShopSelectorOpen());
+        kraken.shopping().openShopSelector();
+        Assert.assertTrue(kraken.detect().isShopSelectorOpen());
+
+        kraken.shopping().closeShopSelector();
+        Assert.assertFalse(kraken.detect().isShopSelectorOpen());
     }
 
 
     @Test(description = "Тест корректности определения шторки корзины", priority = 10012)
     public void detectCartDrawer() throws Exception {
 
-        app.getNavigationHelper().get("metro");
-        app.getShoppingHelper().openCart();
-        Assert.assertTrue(app.getShoppingHelper().isCartOpen());
+        kraken.get().page("metro");
 
-        app.getShoppingHelper().closeCart();
-        Assert.assertFalse(app.getShoppingHelper().isCartOpen());
+        kraken.shopping().openCart();
+        Assert.assertTrue(kraken.detect().isCartOpen());
+
+        kraken.shopping().closeCart();
+        Assert.assertFalse(kraken.detect().isCartOpen());
     }
 
 
-    @Test(description = "Тест корректности определения попапа доставки", priority = 10013)
-    public void detectDeliveryPopup() throws Exception {
+    @Test(description = "Тест корректности определения модалки Доставка", priority = 10013)
+    public void detectDeliveryModal() throws Exception {
 
-        app.getNavigationHelper().get("metro");
-        app.perform().openDeliveryPopup();
-        Assert.assertTrue(app.perform().isDeliveryPopupOpen());
+        kraken.get().page("metro");
 
-        app.perform().closeDeliveryPopup();
-        Assert.assertFalse(app.perform().isDeliveryPopupOpen());
+        kraken.perform().click(Elements.Site.Header.deliveryButton());
+        Assert.assertTrue(kraken.detect().isDeliveryModalOpen());
+
+        kraken.perform().click(Elements.Site.DeliveryModal.closeButton());
+        Assert.assertFalse(kraken.detect().isDeliveryModalOpen());
     }
 
 
-    @Test(description = "Тест корректности определения попапа партнерских программ", priority = 10014)
-    public void detectPartnersPopup() throws Exception {
+    @Test(description = "Тест корректности определения модалки Партнеры", priority = 10014)
+    public void detectPartnersModal() throws Exception {
 
-        app.getNavigationHelper().get("metro");
-        app.perform().openPartnersPopup();
-        Assert.assertTrue(app.perform().isPartnersPopupOpen());
+        kraken.get().page("metro");
 
-        app.perform().closePartnersPopup();
-        Assert.assertFalse(app.perform().isPartnersPopupOpen());
+        kraken.perform().click(Elements.Site.Header.partnersButton());
+        Assert.assertTrue(kraken.detect().isPartnersModalOpen());
+
+        kraken.perform().click(Elements.Site.PartnersModal.closeButton());
+        Assert.assertFalse(kraken.detect().isPartnersModalOpen());
     }
+
+    // TODO detectPaymentModal
+
+    // TODO detectAddressModal
 
 }
 

@@ -1,12 +1,6 @@
-package ru.instamart.autotests.configuration;
+package ru.instamart.autotests.application;
 
 import org.openqa.selenium.By;
-
-
-
-// Web-элементы сайта
-
-
 
 public class Elements {
     static String text;
@@ -17,17 +11,18 @@ public class Elements {
         locator = elementLocator;
     }
 
-    public static String getText() {
+    public static String text() {
         return text;
     }
 
-    // todo возвращать локатор в зависимости от окружения
-    public static By getLocator() {
+    public static By locator() {
         return locator;
-    }
+    } // todo возвращать локатор в зависимости от окружения
 
 
-    /** Страница 500 ошибки */
+    /**
+     * Страница 500 ошибки
+     */
     public interface Page500 {
         static Elements placeholder() {
             text = "We're sorry, but something went wrong.";
@@ -37,7 +32,9 @@ public class Elements {
     }
 
 
-    /** Страница 404 ошибки */
+    /**
+     * Страница 404 ошибки
+     */
     public interface Page404 {
         static Elements title() {
             text = "Страница не найдена";
@@ -47,12 +44,14 @@ public class Elements {
     }
 
 
-
-    /** Сайт */
+    /**
+     * Сайт
+     */
     public interface Site {
 
-
-        /** Шапка сайта */
+        /**
+         * Шапка сайта
+         */
         interface Header {
 
             static Elements setShipAddressButton() {
@@ -88,8 +87,20 @@ public class Elements {
                 return new Elements(null, locator);
             }
 
+            static Elements deliveryButton() {
+                return new Elements(null,
+                        By.cssSelector("button.navbar-button:nth-child(3) > div:nth-child(1)"));
+            }
 
-            /** Поиск */
+            static Elements partnersButton() {
+                return new Elements(null,
+                        By.cssSelector("button.navbar-button:nth-child(5) > div:nth-child(1)"));
+            }
+
+
+            /**
+             * Поиск
+             */
             interface Search {
 
                 static Elements searchField() {
@@ -110,8 +121,11 @@ public class Elements {
             }
         }
 
-        /** Попап "Доставка" */
-        interface DeliveryPopup {
+
+        /**
+         * Модалка "Доставка"
+         */
+        interface DeliveryModal {
 
             static Elements popup() {
                 return new Elements(null,
@@ -123,18 +137,16 @@ public class Elements {
                         By.cssSelector(".delivery__intervals > h3:nth-child(1)"));
             }
 
-            static Elements openPopupButton() {
-                return new Elements(null,
-                        By.cssSelector("button.navbar-button:nth-child(3) > div:nth-child(1)"));
-            }
-
             static Elements closeButton() {
                 return new Elements(null, By.cssSelector(".close"));
             }
         }
 
-        /** Попап "Партнеры" */
-        interface PartnersPopup {
+
+        /**
+         * Модалка "Партнеры"
+         */
+        interface PartnersModal {
 
             static Elements popup() {
                 return new Elements(null,
@@ -146,19 +158,16 @@ public class Elements {
                         By.cssSelector(".modal-title"));
             }
 
-            static Elements openPopupButton() {
-                return new Elements(null,
-                        By.cssSelector("button.navbar-button:nth-child(5) > div:nth-child(1)"));
-            }
-
             static Elements closeButton() {
                 return new Elements(null,
                         By.cssSelector(".close"));
             }
         }
 
-        /** Попап "Оплата" */
-        interface PaymentPopup {
+        /**
+         * Модалка "Оплата"
+         */
+        interface PaymentModal {
 
             static Elements popup() {
                 return new Elements(null,
@@ -177,7 +186,9 @@ public class Elements {
         }
 
 
-        /** Всплывающее меню "Профиль" */
+        /**
+         * Всплывающее меню "Профиль"
+         */
         interface AccountMenu {
 
             static Elements popup() {
@@ -226,7 +237,9 @@ public class Elements {
         }
 
 
-        /** Шторка каталога */
+        /**
+         * Шторка каталога
+         */
         interface CatalogDrawer {
 
             static Elements drawer() {
@@ -243,7 +256,9 @@ public class Elements {
         }
 
 
-        /** Модалка авторизации / регистрации */
+        /**
+         * Модалка авторизации / регистрации
+         */
         interface AuthModal {
 
             static Elements popup() {
@@ -288,7 +303,9 @@ public class Elements {
         }
 
 
-        /** Адресные модалки Феникса */
+        /**
+         * Адресные модалки Феникса
+         */
         interface AddressModal {
 
             static Elements header() {
@@ -314,7 +331,7 @@ public class Elements {
             static Elements saveButton() {
                 return new Elements("Сохранить", By.className("address-modal__button"));
                 //return new Elements("Сохранить", By.xpath("//*[@id='react-modal']/div/div/div/div/div[1]" +
-                        //"/div/div/div/div/div/div[1]/form/button"));
+                //"/div/div/div/div/div/div[1]/form/button"));
             }
 
             static Elements recentAddressesList() {
@@ -334,7 +351,9 @@ public class Elements {
         }
 
 
-        /** Селектор магазинов */
+        /**
+         * Селектор магазинов
+         */
         interface ShopSelector {
 
             static Elements drawer() {
@@ -358,7 +377,9 @@ public class Elements {
         }
 
 
-        /** Каталог товаров */
+        /**
+         * Каталог товаров
+         */
         interface Catalog {
 
             static Elements emptySearchPlaceholder() {
@@ -377,7 +398,9 @@ public class Elements {
         }
 
 
-        /** Карточка товара */
+        /**
+         * Карточка товара
+         */
         interface ItemCard {
 
             static Elements popup() {
@@ -386,7 +409,8 @@ public class Elements {
 
             static Elements price() {
                 return new Elements(null,
-                        By.cssSelector(".product-popup__price > div:nth-child(1) > span:nth-child(1)")); }
+                        By.cssSelector(".product-popup__price > div:nth-child(1) > span:nth-child(1)"));
+            }
 
             static Elements closeButton() {
                 return new Elements(null, By.className("close"));
@@ -402,7 +426,9 @@ public class Elements {
         }
 
 
-        /** Корзина */
+        /**
+         * Корзина
+         */
         interface Cart {
 
             static Elements drawer() {
@@ -419,7 +445,7 @@ public class Elements {
 
             static Elements checkoutButton() {
                 return new Elements(null, By.className("cart-checkout-link"));
-           }
+            }
 
             static Elements openCartButton() {
                 return new Elements(null,
@@ -428,7 +454,15 @@ public class Elements {
         }
 
 
-        /** Подвал сайта */
+        /**
+         * Подвал сайта
+         */
+
+        static Elements footer() {
+            locator = By.className("footer");
+            return new Elements(text, locator);
+        }
+
         interface Footer {
 
             static Elements aboutCompanyButton() {
@@ -488,8 +522,16 @@ public class Elements {
         }
 
 
-        /** Лендинг */
-        interface LandingPage {
+        /**
+         * Лендинг
+         */
+        // TODO вытащить наверх из Site
+
+        interface Landing {
+
+            static Elements header() {
+                return new Elements(null, By.className("top-line"));
+            }
 
             static Elements addressField() {
                 return new Elements(null, By.id("header_ship_address"));
@@ -505,7 +547,7 @@ public class Elements {
             }
 
             static Elements catalogButton() {
-                return new Elements("Перейти в каталог",  By.cssSelector("a.btn"));
+                return new Elements("Перейти в каталог", By.cssSelector("a.btn"));
             }
 
             static Elements headButton() {
@@ -592,7 +634,9 @@ public class Elements {
         }
 
 
-        /** Чекаут */
+        /**
+         * Чекаут
+         */
         interface Checkout {
 
             static Elements header() {
@@ -600,7 +644,7 @@ public class Elements {
             }
 
             static Elements nextButton(int step) {
-                return new Elements("Продолжить", By.xpath("(//button[@type='button'])["+ step +"]"));
+                return new Elements("Продолжить", By.xpath("(//button[@type='button'])[" + step + "]"));
             }
 
             static Elements sendOrderButton() {
@@ -633,13 +677,13 @@ public class Elements {
             }
 
             static Elements deliverySlot() {
-                return new Elements( null,
+                return new Elements(null,
                         By.xpath("/html/body/div[5]/div/form/div/div/div[1]/div[5]/div[2]/div/div/div/div[2]/div/div[2]/div[2]/div[1]/div/span"));
             }
 
             static Elements deliveryPrice() {
-                return new Elements(null, By.xpath("/html/body/div[2]/div/form/div/aside/div/div[2]" +
-                        "/div[1]/div[1]/div[3]/span"));
+                return new Elements(null,
+                        By.xpath("/html/body/div[5]/div/form/div/aside/div/div[2]/div[1]/div[1]/div[3]/span/div"));
             }
 
             interface PromocodeModal {
@@ -692,28 +736,38 @@ public class Elements {
             }
         }
 
-        /** Страница деталей заказа */
+        /**
+         * Страница деталей заказа
+         */
         interface OrderDetailsPage {
 
-            /** Признак активного заказа */
+            /**
+             * Признак активного заказа
+             */
             static Elements activeOrderAttribute() {
                 return new Elements("Благодарим за использование Instamart!",
                         By.cssSelector(".user-order-shipment-header__thanks"));
             }
 
-            /** Признак отмененного заказа */
+            /**
+             * Признак отмененного заказа
+             */
             static Elements canceledOrderAttribute() {
                 return new Elements(null,
                         By.className("user-order-shipment-header__container--canceled"));
             }
 
-            /** Документы к заказу */
+            /**
+             * Документы к заказу
+             */
             static Elements documentation(int position) {
                 return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div/div[3]/a["+position+"]"));
+                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div/div[3]/a[" + position + "]"));
             }
 
-            /** Стоимость доставки */
+            /**
+             * Стоимость доставки
+             */
             static Elements deliveryPrice() {
                 return new Elements(null, By.xpath("/html/body/div[4]/div[2]/div/div/div/div/div[2]" +
                         "/div/div[2]/div[1]/div/div[3]/div[2]/div[2]/div"));
@@ -724,11 +778,20 @@ public class Elements {
     }
 
 
-    /** Админка */
+    /**
+     * Админка
+     */
+
     public interface Admin {
 
+        static Elements container() {
+            locator = By.className("admin");
+            return new Elements(null, locator);
+        }
 
-        /** Шапка админки */
+        /**
+         * Шапка админки
+         */
         interface Header {
 
             static Elements logoutButton() {
@@ -750,7 +813,9 @@ public class Elements {
             }
 
 
-            /** Меню админки */
+            /**
+             * Меню админки
+             */
             interface Menu {
 
                 static Elements ordersButton() {
@@ -759,7 +824,7 @@ public class Elements {
                     return new Elements(text, locator);
                 }
 
-                static Elements storeButton() {
+                static Elements storesButton() {
                     text = "Магазины";
                     locator = By.xpath("//*[@id='admin-menu']/div/div/ul/li[2]/a/span");
                     return new Elements(text, locator);
@@ -810,7 +875,9 @@ public class Elements {
             }
 
 
-            /** Подменю "Заказы" */
+            /**
+             * Подменю "Заказы"
+             */
             interface SubmenuOrders {
 
                 static Elements multiOrderButton() {
@@ -835,7 +902,9 @@ public class Elements {
             }
 
 
-            /** Подменю "Магазины" */
+            /**
+             * Подменю "Магазины"
+             */
             interface SubmenuStores {
 
 
@@ -853,7 +922,9 @@ public class Elements {
             }
 
 
-            /** Подменю "Продукты" */
+            /**
+             * Подменю "Продукты"
+             */
             interface SubmenuProducts {
 
 
@@ -908,7 +979,9 @@ public class Elements {
             }
 
 
-            /** Подменю "Импорт" */
+            /**
+             * Подменю "Импорт"
+             */
             interface SubmenuImport {
 
                 static Elements queueOfTasksButton() {
@@ -968,7 +1041,9 @@ public class Elements {
             }
 
 
-            /** Подменю "Маркетинг" */
+            /**
+             * Подменю "Маркетинг"
+             */
             interface SubmenuMarketing {
 
                 static Elements promoCardsButton() {
@@ -1030,7 +1105,9 @@ public class Elements {
 
         }
 
-        /** Раздел Shipments в админке */
+        /**
+         * Раздел Shipments в админке
+         */
         interface Shipments {
 
             static Elements emptyListPlaceholder() {
@@ -1041,7 +1118,9 @@ public class Elements {
                 return new Elements(null, By.xpath("//*[@id='listing_orders']/tbody/tr/td[14]/a"));
             }
 
-            /** Страница деталей заказа в админке*/
+            /**
+             * Страница деталей заказа в админке
+             */
             interface OrderDetailsPage {
 
                 static Elements resumeOrderButton() {
@@ -1065,7 +1144,9 @@ public class Elements {
 
         }
 
-        /** Раздел Users в админке */
+        /**
+         * Раздел Users в админке
+         */
         interface Users {
 
             static Elements userlistFirstRow() {

@@ -1,11 +1,5 @@
 package ru.instamart.autotests.models;
 
-
-
-    // Модель данных ретейлера
-
-
-
 public class RetailerData {
     private final String name;
 

@@ -1,36 +1,53 @@
 package ru.instamart.autotests.appmanager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.configuration.Environments;
-
-
-
-    // Administration helper
-    // Contains methods for operations within administration panel
-    // TODO перенести сюда методы работы с заказами из SessionHelper
-
-
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Environments;
 
 public class AdministrationHelper extends HelperBase {
 
-    public AdministrationHelper(WebDriver driver, Environments environment) {
+    private ApplicationManager kraken;
+
+    AdministrationHelper(WebDriver driver, Environments environment, ApplicationManager app) {
         super(driver, environment);
+        kraken = app;
     }
 
-
-    /** Возобновить заказ */
-    public void resumeOrder(){
-        click(Elements.Admin.Shipments.OrderDetailsPage.resumeOrderButton());
+    /**
+     * Возобновить заказ
+     */
+    public void resumeOrder() {
+        kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.resumeOrderButton());
         handleAlert();
-        waitForIt(2);
+        kraken.perform().waitingFor(2);
     }
 
+    /**
+     * Cancel order on the page in admin panel with default test reason
+     */
+    public void cancelOrder() {
+        cancelOrder(4, "Тестовый заказ");
+    }
 
-    /** Определить отменен ли заказ */
-    public boolean isOrderCanceled() {
-        waitForIt(1);
-        return isElementDetected(Elements.Admin.Shipments.OrderDetailsPage.canceledOrderAttribute());
+    /**
+     * Cancel order on the page in admin panel
+     */
+    public void cancelOrder(int reason, String details) {
+        printMessage("> cancel order " + kraken.grab().currentURL());
+        kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
+        handleAlert();
+        chooseCancellationReason(reason, details);
+        kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
+        kraken.perform().waitingFor(2);
+    }
+
+    /**
+     * Выбрать причину и текст отмены заказа
+     */
+    private void chooseCancellationReason(int reason, String details) {
+        kraken.perform().click(By.id("cancellation_reason_id_" + reason));               // todo вынести в elements
+        kraken.perform().fillField(By.id("cancellation_reason_details"),details);        // todo вынести в elements
     }
 
 }

@@ -1,10 +1,4 @@
-package ru.instamart.autotests.configuration;
-
-
-
-// Способы оплаты
-
-
+package ru.instamart.autotests.application;
 
 public class PaymentTypes {
 

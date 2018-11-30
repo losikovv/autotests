@@ -3,12 +3,6 @@ package ru.instamart.autotests.testdata;
 import ru.instamart.autotests.models.UserData;
 import java.util.Random;
 
-
-
-    // Генератор тестовых данных
-
-
-
 public class Generate {
 
     /** Сгенерировать int указанной длины */
@@ -31,16 +25,16 @@ public class Generate {
         return number.toString();
     }
 
+    //TODO
+    /** Сгенерировать случайный адрес доставки в указанном городе */
+    public static String randomAddress(String city) {
+        return "TODO";
+    }
+
     /** Сгенерировать реквизиты тестового ппользователя */
     public static UserData testUserData() {
         final String prefix = randomString(8);
         final String base = "testuser@example.com";
         return new UserData(prefix + "_" + base, "instamart", "Тест Юзер");
-    }
-
-    //TODO
-    /** Сгенерировать случайный адрес доставки в указанном городе */
-    public static String randomAddress(String city) {
-        return "TODO";
     }
 }

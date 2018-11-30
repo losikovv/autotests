@@ -4,12 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.testdata.Addresses;
-
+import ru.instamart.autotests.application.Addresses;
 
 
 // Тесты заказов
-
 
 
 public class MakeOrders extends TestBase {
@@ -17,8 +15,8 @@ public class MakeOrders extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preparing() throws Exception {
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getSessionHelper().doLoginAs("admin");
+        kraken.get().page("metro");
+        kraken.perform().loginAs("admin");
     }
 
 
@@ -28,8 +26,8 @@ public class MakeOrders extends TestBase {
             priority = 450
     )
     public void downloadOrderDocuments(){
-        checkOrderDocuments("R351510533");  // Заказ с двумя документами
-        checkOrderDocuments("R154547373");  // Заказ с тремя документами
+        kraken.perform().checkOrderDocuments("R351510533");  // Заказ с двумя документами
+        kraken.perform().checkOrderDocuments("R154547373");  // Заказ с тремя документами
     }
 
 
@@ -40,23 +38,23 @@ public class MakeOrders extends TestBase {
     )
     public void orderInKazan(){
 
-        app.getShoppingHelper().changeShippingAddress(Addresses.Kazan.defaultAddress());
+        kraken.shipAddress().change(Addresses.Kazan.defaultAddress());
 
         // Идем в чекаут, при необходимости набирая корзину
-        app.getNavigationHelper().getCheckoutPage();
-        if(!app.getCheckoutHelper().isOnCheckout()){
-            app.getShoppingHelper().grabCart();
-            app.getShoppingHelper().proceedToCheckout();
+        kraken.get().checkoutPage();
+        if(!kraken.checkout().isOnCheckout()){
+            kraken.shopping().grabCart();
+            kraken.shopping().proceedToCheckout();
         }
 
-        app.getCheckoutHelper().completeCheckout();
+        //TODO добавить проверку стоимости доставки как в checkMetroDeliveryPriceDiscount()
 
-        // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        kraken.checkout().complete();
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        // Проверяем скачку документов
-        checkOrderDocuments();
+        kraken.perform().checkOrderDocuments();
     }
 
 
@@ -67,41 +65,37 @@ public class MakeOrders extends TestBase {
     )
     public void orderToVkusvill(){
 
-        app.getNavigationHelper().getRetailerPage("vkusvill");
-        app.getShoppingHelper().changeShippingAddress(Addresses.Moscow.testAddress());
+        kraken.get().page("vkusvill");
+        kraken.shipAddress().change(Addresses.Moscow.testAddress());
 
         // идем в чекаут, при необходимости набирая корзину
-        app.getNavigationHelper().getCheckoutPage();
-        if(!app.getCheckoutHelper().isOnCheckout()){
-            app.getShoppingHelper().grabCart();
-            app.getShoppingHelper().proceedToCheckout();
+        kraken.get().checkoutPage();
+        if(!kraken.checkout().isOnCheckout()){
+            kraken.shopping().grabCart();
+            kraken.shopping().proceedToCheckout();
         }
 
-        // Проверяем что доступна программа лояльности ритейлера
-        Assert.assertTrue(app.getCheckoutHelper().isRetailerLoyaltyAvailable(),
+        Assert.assertTrue(kraken.detect().isRetailerLoyaltyAvailable(),
                 "Retailer loyalty program is not available\n");
 
-        app.getCheckoutHelper().addRetailerLoyalty("vkusvill");
-
-        // Проверяем что программа лояльности ритейлера применилась
-        Assert.assertTrue(app.getCheckoutHelper().isRetailerLoyaltyApplied(),
+        kraken.checkout().addRetailerLoyalty("vkusvill");
+        Assert.assertTrue(kraken.checkout().isRetailerLoyaltyApplied(),
                 "Can't apply retailer loyalty program, check manually\n");
 
-        app.getCheckoutHelper().completeCheckout();
+        //TODO добавить проверку стоимости доставки как в checkMetroDeliveryPriceDiscount()
 
-        // Проверяем что заказ оформился и активен
-        Assert.assertTrue(app.getProfileHelper().isOrderActive(),
+        kraken.checkout().complete();
+        Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Can't assert the order is sent & active, check manually\n");
 
-        // Проверяем скачку документов
-        checkOrderDocuments();
+        kraken.perform().checkOrderDocuments();
     }
 
 
     @AfterMethod(alwaysRun = true)
     public void cancelLastOrder()throws Exception {
-        app.getProfileHelper().cancelLastOrder();
-        app.getShoppingHelper().changeShippingAddress(Addresses.Moscow.defaultAddress());
+        kraken.perform().cancelLastOrder();
+        kraken.shipAddress().change(Addresses.Moscow.defaultAddress());
     }
 
 }

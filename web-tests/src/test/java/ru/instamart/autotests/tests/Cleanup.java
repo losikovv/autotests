@@ -2,12 +2,11 @@ package ru.instamart.autotests.tests;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Pages;
-
+import ru.instamart.autotests.application.Config;
+import ru.instamart.autotests.application.Pages;
 
 
 // Зачистка тестовой среды после выполнения тестов
-
 
 
 public class Cleanup extends TestBase {
@@ -15,7 +14,19 @@ public class Cleanup extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void reachAdministrationPanel() throws Exception {
-        app.getSessionHelper().reachAdmin(Pages.Admin.shipments());
+        kraken.perform().reachAdmin(Pages.Admin.shipments());
+    }
+
+
+    @Test( enabled = false,
+            description = "Тест метода cleanup",
+            groups = {"regression"},
+            priority = 900
+    )
+    public void cleanup() throws Exception {
+        kraken.cleanup().all();
+        assertNoTestOrdersLeftActive();
+        assertNoTestUsersLeft();
     }
 
 
@@ -25,7 +36,7 @@ public class Cleanup extends TestBase {
             priority = 901
     )
     public void cleanupTestOrders() throws Exception {
-        app.getSessionHelper().cancelOrders(Pages.Admin.Shipments.testOrdersList());
+        kraken.cleanup().orders(Config.testOrdersList);
         assertNoTestOrdersLeftActive();
     }
 
@@ -36,19 +47,7 @@ public class Cleanup extends TestBase {
             priority = 902
     )
     public void cleanupTestUsers() throws Exception {
-        app.getSessionHelper().deleteUsers(Pages.Admin.Users.testUsersList());
-        assertNoTestUsersLeft();
-    }
-
-
-    @Test( enabled = false,
-            description = "Тест метода cleanup",
-            groups = {"regression"},
-            priority = 903
-    )
-    public void cleanup() throws Exception {
-        app.getSessionHelper().cleanup();
-        assertNoTestOrdersLeftActive();
+        kraken.cleanup().users(Config.testUsersList);
         assertNoTestUsersLeft();
     }
 

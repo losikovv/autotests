@@ -2,33 +2,28 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.configuration.Environments;
-import ru.instamart.autotests.configuration.PaymentTypes;
-import ru.instamart.autotests.testdata.Loyalties;
-
-
-
-    // Checkout helper
-    // Handles all the process of finalizing and sending the order
-
-
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.application.PaymentTypes;
+import ru.instamart.autotests.application.Loyalties;
 
 public class CheckoutHelper extends HelperBase {
 
-    public CheckoutHelper(WebDriver driver, Environments environment) {
+    private ApplicationManager kraken;
+
+    CheckoutHelper(WebDriver driver, Environments environment, ApplicationManager app) {
         super(driver, environment);
+        kraken = app;
     }
 
-    public boolean isOnCheckout(){
-        return isElementPresent(Elements.Site.Checkout.header());
+    public boolean isOnCheckout() {
+        return kraken.detect().isElementPresent(Elements.Site.Checkout.header());
     }
-
 
 
     // ======= Order-making methods =======
 
-    public void fillCheckout(){
+    public void fillAllFields() {
         checkCheckoutIsReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
@@ -40,7 +35,7 @@ public class CheckoutHelper extends HelperBase {
     /**
      * Complete checkout with the predefined standard test options
      */
-    public void completeCheckout(){
+    public void complete() {
         checkCheckoutIsReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
@@ -48,13 +43,13 @@ public class CheckoutHelper extends HelperBase {
         doStep4();                  // Выбираем тестовый способ оплаты наличными
         doStep5();                  // Выбираем стандартный тестовый слот доставки
         sendOrder();                // Жмем "Оформить заказ"
-}
+    }
 
     /**
      * Complete checkout with the predefined standard test options and a given payment type
      * Use only for existing users which have telephone numbers and all payment types
      */
-    public void completeCheckout(String paymentType){
+    public void complete(String paymentType) {
         checkCheckoutIsReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
@@ -68,7 +63,7 @@ public class CheckoutHelper extends HelperBase {
      * Complete checkout with the predefined standard test options
      * Use only for existing users which have telephone numbers and all payment types, cards and loyalty programs
      */
-    public void completeCheckout(String paymentType, String loyaltyProgram, String promocode){
+    public void complete(String paymentType, String loyaltyProgram, String promocode) {
         checkCheckoutIsReady();
         doStep1();                  // Заполняем адрес и пожелания тестовыми значениями
         doStep2();                  // Используем существующий телефон
@@ -84,7 +79,7 @@ public class CheckoutHelper extends HelperBase {
      * Complete checkout with the given options
      * Use only for existing users which have telephone numbers and all payment types usable
      */
-    public void completeCheckout(String orderInstructions, int replacementPolicy, String paymentType){
+    public void complete(String orderInstructions, int replacementPolicy, String paymentType) {
         checkCheckoutIsReady();
         doStep1(orderInstructions); // Заполняем адрес и пожелания указанными значениями
         doStep2();                  // Заполняем контакты
@@ -95,13 +90,12 @@ public class CheckoutHelper extends HelperBase {
     }
 
 
-
     // ======= Step 1 - Shipping address =======
 
     private void doStep1() {
         final int stepNumber = 1;
         final String stepName = "Address";
-        if(checkStep(stepNumber, stepName)){
+        if (checkStep(stepNumber, stepName)) {
             specifyTestAddressDetails();
             fillTestOrderInstructions();
             hitNextButton(stepNumber);
@@ -111,7 +105,7 @@ public class CheckoutHelper extends HelperBase {
     private void doStep1(String orderInstructions) {
         final int stepNumber = 1;
         final String stepName = "Address";
-        if(checkStep(stepNumber, stepName)){
+        if (checkStep(stepNumber, stepName)) {
             specifyTestAddressDetails();
             fillOrderInstructions(orderInstructions);
             hitNextButton(stepNumber);
@@ -122,7 +116,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Details:");
         specifyDetail("apartment", "111");
         specifyDetail("floor", "222");
-        specifyDetail("elevator",true);
+        specifyDetail("elevator", true);
         specifyDetail("entrance", "333");
         specifyDetail("doorPhone", "44 ключ 5555");
     }
@@ -131,25 +125,25 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Details:");
         specifyDetail("apartment", apartment);
         specifyDetail("floor", floor);
-        specifyDetail("elevator",elevator);
+        specifyDetail("elevator", elevator);
         specifyDetail("entrance", entrance);
         specifyDetail("doorPhone", doorPhone);
     }
 
     private void specifyDetail(String field, String value) {
-        fillField(By.name(field), value);
+        kraken.perform().fillField(By.name(field), value);
         printMessage("- " + field + ": " + value);
     }
 
     private void specifyDetail(String field, boolean value) {
-        if(value){
-            if(!isCheckboxSelected(By.name(field))){
-                click(By.name(field));
+        if (value) {
+            if (!kraken.detect().isCheckboxSelected(By.name(field))) {
+                kraken.perform().click(By.name(field));
             }
             printMessage("- " + field + ": ✓");
         } else {
-            if(isCheckboxSelected(By.name(field))){
-                click(By.name(field));
+            if (kraken.detect().isCheckboxSelected(By.name(field))) {
+                kraken.perform().click(By.name(field));
             }
             printMessage("- " + field + ": ✕");
         }
@@ -157,15 +151,14 @@ public class CheckoutHelper extends HelperBase {
 
     private void fillTestOrderInstructions() {
         String text = "ТЕСТОВЫЙ ЗАКАЗ / НЕ СОБИРАТЬ";
-        fillField(By.name("order[special_instructions]"),text);
+        kraken.perform().fillField(By.name("order[special_instructions]"), text);
         printMessage("- order instructions: " + text);
     }
 
     private void fillOrderInstructions(String orderInstructions) {
-        fillField(By.name("order[special_instructions]"),orderInstructions);
+        kraken.perform().fillField(By.name("order[special_instructions]"), orderInstructions);
         printMessage("- order instructions: " + orderInstructions);
     }
-
 
 
     // ======= Step 2 - Contacts =======
@@ -173,7 +166,7 @@ public class CheckoutHelper extends HelperBase {
     private void doStep2() {
         final int stepNumber = 2;
         final String stepName = "Contacts";
-        if(checkStep(stepNumber, stepName)) {
+        if (checkStep(stepNumber, stepName)) {
             printMessage("Using existing phone number");
             hitNextButton(stepNumber);
         }
@@ -183,33 +176,33 @@ public class CheckoutHelper extends HelperBase {
     private void doStep2(String phoneNumber) {
         final int stepNumber = 2;
         final String stepName = "Contacts";
-        if(checkStep(stepNumber, stepName)) {
+        if (checkStep(stepNumber, stepName)) {
             //TODO добавить определение наличия телефонов, добавление и удаление телефона
             hitNextButton(stepNumber);
         }
     }
 
     // TODO specifyContacts - уточнить контакты
-        // TODO clearAllContacts - очистить все контакты
-        // TODO changeName - изменить имя
-        // TODO changeFamilyName - изменить фамилию
-        // TODO changeEmail - изменить email
-        // TODO addNewTelephoneNumber - добавить телефон
-        // TODO changeTelephoneNumber - изменить телефон
-        // TODO deleteTelephoneNumber - удалить телефон
-        // TODO deleteAllTelephoneNumbers - удалить все телефоны
-        // TODO selectTelephoneNumber - выбрать телефон
-
+    // TODO clearAllContacts - очистить все контакты
+    // TODO changeName - изменить имя
+    // TODO changeFamilyName - изменить фамилию
+    // TODO changeEmail - изменить email
+    // TODO addNewTelephoneNumber - добавить телефон
+    // TODO changeTelephoneNumber - изменить телефон
+    // TODO deleteTelephoneNumber - удалить телефон
+    // TODO deleteAllTelephoneNumbers - удалить все телефоны
+    // TODO selectTelephoneNumber - выбрать телефон
 
 
     // ======= Политика замен =======
 
-    /** Шаг 4 - выбор способа замен */
-
+    /**
+     * Шаг 4 - выбор способа замен
+     */
     private void doStep3() {
         final int stepNumber = 3;
         final String stepName = "Replacement policy";
-        if(checkStep(stepNumber, stepName)) {
+        if (checkStep(stepNumber, stepName)) {
             selectReplacementPolicy(1);
             hitNextButton(stepNumber);
         }
@@ -218,28 +211,30 @@ public class CheckoutHelper extends HelperBase {
     private void doStep3(int policyOption) {
         final int stepNumber = 3;
         final String stepName = "Replacement policy";
-        if(checkStep(stepNumber, stepName)) {
+        if (checkStep(stepNumber, stepName)) {
             selectReplacementPolicy(policyOption);
             hitNextButton(stepNumber);
         }
     }
 
-    /** Выбрать способ замен по позиции в списке опций */
-    private void selectReplacementPolicy(int option){
-        click(Elements.Site.Checkout.replacementPolicy(option));
-        printMessage("Replacement policy #" + option + " selected (" + getText(Elements.getLocator()) + ")");
+    /**
+     * Выбрать способ замен по позиции в списке опций
+     */
+    private void selectReplacementPolicy(int option) {
+        kraken.perform().click(Elements.Site.Checkout.replacementPolicy(option));
+        printMessage("Replacement policy #" + option + " selected (" + kraken.grab().text(Elements.locator()) + ")");
     }
-
 
 
     // ======= Способ оплаты =======
 
-    /** Шаг 4 - выбор способа оплаты */
-
+    /**
+     * Шаг 4 - выбор способа оплаты
+     */
     private void doStep4() {
         final int stepNumber = 4;
         final String stepName = "Payment";
-        if(checkStep(stepNumber, stepName)) {
+        if (checkStep(stepNumber, stepName)) {
             selectPaymentType("cash");
             hitNextButton(stepNumber);
         }
@@ -248,16 +243,18 @@ public class CheckoutHelper extends HelperBase {
     private void doStep4(String paymentType) {
         final int stepNumber = 4;
         final String stepName = "Payment";
-        if(checkStep(stepNumber, stepName)) {
+        if (checkStep(stepNumber, stepName)) {
             selectPaymentType(paymentType);
             hitNextButton(stepNumber);
         }
     }
 
-    /** Выбрать способ оплаты */
-    private void selectPaymentType(String type){
-        click(Elements.Site.Checkout.payment(PaymentTypes.getPosition(type)));
-        printMessage("Paying with " + type + " - " + getText(Elements.getLocator()));
+    /**
+     * Выбрать способ оплаты
+     */
+    private void selectPaymentType(String type) {
+        kraken.perform().click(Elements.Site.Checkout.payment(PaymentTypes.getPosition(type)));
+        printMessage("Paying with " + type + " - " + kraken.grab().text(Elements.locator()));
     }
 
     // TODO addNewPaymentCard - добавить карту оплаты
@@ -273,17 +270,16 @@ public class CheckoutHelper extends HelperBase {
     // TODO selectEntity - выбрать юрлицо
 
 
-
     // ======= Step 5 - Delivery time =======
 
     /**
      * Шаг 5 - выбор даты и времени доставки
      * Выбираем дефолтную тестовую доставку - первый слот в самый дальний день
      */
-    private void doStep5(){
+    private void doStep5() {
         final int stepNumber = 5;
         final String stepName = "Delivery time";
-        if(checkStep(stepNumber, stepName)) {
+        if (checkStep(stepNumber, stepName)) {
             selectDeliveryDay("last");
             selectDeliverySlot("first");
         }
@@ -292,8 +288,8 @@ public class CheckoutHelper extends HelperBase {
     /**
      * Выбираем день доставки из фиксированных вариантов today / tomorrow / last
      */
-    private void selectDeliveryDay(String day){
-        switch(day){
+    private void selectDeliveryDay(String day) {
+        switch (day) {
             case "today":
                 selectDeliveryDay(1);
                 break;
@@ -309,29 +305,29 @@ public class CheckoutHelper extends HelperBase {
     /**
      * Выбираем день доставки по порядковому номеру, начиная с текущего
      */
-    private void selectDeliveryDay(int dayNumber){
-        if(dayNumber == 1){
-            click(By.xpath("//div/span[2]"));
+    private void selectDeliveryDay(int dayNumber) {
+        if (dayNumber == 1) {
+            kraken.perform().click(By.xpath("//div/span[2]"));
         } else {
-            click(By.xpath("//div[" + dayNumber + "]/span[2]"));
+            kraken.perform().click(By.xpath("//div[" + dayNumber + "]/span[2]"));
         }
-        waitForIt(1);
+        kraken.perform().waitingFor(1);
         printMessage("Selected delivery on day " + dayNumber);
     }
 
     /**
      * Выбираем слот доставки из фиксированных вариантов first / last
      */
-    private void selectDeliverySlot(String slot){
-        switch(slot){
+    private void selectDeliverySlot(String slot) {
+        switch (slot) {
             case "first":
-                click(Elements.Site.Checkout.deliverySlot());
+                kraken.perform().click(Elements.Site.Checkout.deliverySlot());
                 break;
             case "last":
                 //TODO
                 break;
         }
-        waitForIt(2);
+        kraken.perform().waitingFor(2);
         printMessage("Selected " + slot + " available delivery slot\n");
     }
 
@@ -344,195 +340,170 @@ public class CheckoutHelper extends HelperBase {
     // TODO добавить определение выбранности слота (свернут блок) через try-catch, нажимать Изменить и выбирать заслот заново если требуется
 
 
-
     // ======= Promocodes =======
 
     /**
-     * Определяем добавлен ли промокод в чекауте
+     * Добавляем промокод в чекауте
      */
-    public boolean isPromocodeApplied() {
-        if (isElementDetected(Elements.Site.Checkout.appliedPromocodeAttribute())) {
-            printMessage("✓ Promocode applied");
-            return true;
-        } else {
-            printMessage("No promocode applied");
-            return false;
-        }
-    }
-
-
-    /** Добавляем промокод в чекауте */
-    public void addPromocode(String promocode){
-        if (isPromocodeApplied()) {
+    public void addPromocode(String promocode) {
+        if (kraken.detect().isPromocodeApplied()) {
             printMessage("There's some promocode is already applied, so clearing it first... ");
             clearPromocode();
         }
-        click(Elements.Site.Checkout.addPromocodeButton());
-        if(isElementDetected(Elements.Site.Checkout.PromocodeModal.title())) {
+        kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
+        if (kraken.detect().element(Elements.Site.Checkout.PromocodeModal.title())) {
             printMessage("Applying promocode '" + promocode + "'...");
-            fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
-            click(Elements.Site.Checkout.PromocodeModal.applyButton());
-            waitForIt(1);
+            kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
+            kraken.perform().click(Elements.Site.Checkout.PromocodeModal.applyButton());
+            kraken.perform().waitingFor(1);
         } else {
             printMessage("Can't open promo modal! Trying again...");
-            click(Elements.Site.Checkout.addPromocodeButton());
+            kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
             printMessage("> Applying promocode '" + promocode + "'");
-            fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
-            click(Elements.Site.Checkout.PromocodeModal.applyButton());
-            waitForIt(1);
+            kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
+            kraken.perform().click(Elements.Site.Checkout.PromocodeModal.applyButton());
+            kraken.perform().waitingFor(1);
         }
     }
 
-
-    /** Удаляем промокод в чекауте */
-    public void clearPromocode(){
-        if(isPromocodeApplied()) {
+    /**
+     * Удаляем промокод в чекауте
+     */
+    public void clearPromocode() {
+        if (kraken.detect().isPromocodeApplied()) {
             printMessage("Clearing promocode...");
-            click(Elements.Site.Checkout.clearPromocodeButton());
-            waitForIt(1);
+            kraken.perform().click(Elements.Site.Checkout.clearPromocodeButton());
+            kraken.perform().waitingFor(1);
         } else {
             printMessage("Skip clearing promocode, it's not applied at the moment");
         }
     }
 
 
-
     // ======= Loyalty Programs =======
-
-    /**
-     * Определяем применена ли программа лояльности
-     */
-    public boolean isLoyaltyApplied(String name) {
-        return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
-    }
-
 
     /**
      * Добавляем программу лояльности к заказу в чекауте
      */
-    public void addLoyalty(String name){
-        if(isLoyaltyApplied(name)){
+    public void addLoyalty(String name) {
+        if (kraken.detect().isLoyaltyApplied(name)) {
             clearLoyalty(name);
         }
         printMessage("Adding loyalty program \"" + name + "\"");
-        click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]"));
-        fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
-        waitForIt(1);
+        kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]"));
+        kraken.perform().fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
+        kraken.perform().waitingFor(1);
     }
-
 
     /**
      * Выбираем программу лояльности для заказа из добавленных
      */
-    public void selectLoyalty(String name){
-        click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]"));
+    public void selectLoyalty(String name) {
+        kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]"));
     }
-
 
     /**
      * Удаляем программу лояльности в чекауте
      */
-    public void clearLoyalty(String name){
+    public void clearLoyalty(String name) {
         printMessage("Clearing loyalty program \"" + name + "\"");
-        click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
-        fillField(By.name("number"), 1 + "\uE004" + "\uE007");
-        waitForIt(1);
+        kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
+        kraken.perform().fillField(By.name("number"), 1 + "\uE004" + "\uE007");
+        kraken.perform().waitingFor(1);
     }
-
-
 
 
     // ======= Retailer Loyalties =======
 
-    /** Определяем доступна ли программа лояльности ритейлера в чекауте */
-    public boolean isRetailerLoyaltyAvailable(){
-        return isElementDetected(
-                "//aside/div/div[4]/div[2]",
-                "Карты лояльности магазинов");
-    }
-
-    /** Определяем применена ли программа лояльности ритейлера в чекауте */
-    public boolean isRetailerLoyaltyApplied(){
-        return isElementPresent(By.xpath("//aside/div/div[4]/div[3]/div/div[2]"));
+    /**
+     * Определяем применена ли программа лояльности ритейлера в чекауте
+     */
+    public boolean isRetailerLoyaltyApplied() {
+        return kraken.detect().isElementPresent(By.xpath("//aside/div/div[4]/div[3]/div/div[2]"));
     }
 
     /**
      * Добавляем программу лояльности ритейлера в чекауте
      */
-    public void addRetailerLoyalty(String name){
-        if(isRetailerLoyaltyApplied()){
+    public void addRetailerLoyalty(String name) {
+        if (isRetailerLoyaltyApplied()) {
             clearRetailerLoyalty();
         }
         printMessage("Adding retailer loyalty program");
-        click(By.xpath("//aside/div/div[4]/div[3]/div"));
-        fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
-        waitForIt(1);
+        kraken.perform().click(By.xpath("//aside/div/div[4]/div[3]/div"));
+        kraken.perform().fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
+        kraken.perform().waitingFor(1);
     }
 
-    /** Удаляем программу лояльности ритейлера в чекауте */
-    public void clearRetailerLoyalty(){
+    /**
+     * Удаляем программу лояльности ритейлера в чекауте
+     */
+    public void clearRetailerLoyalty() {
         printMessage("Clearing retailer loyalty program");
-        click(By.xpath("//aside/div/div[4]/div[3]/div"));
-        fillField(By.name("number"), 1 + "\uE004" + "\uE007");
-        waitForIt(1);
+        kraken.perform().click(By.xpath("//aside/div/div[4]/div[3]/div"));
+        kraken.perform().fillField(By.name("number"), 1 + "\uE004" + "\uE007");
+        kraken.perform().waitingFor(1);
     }
-
-
 
 
     // ======= Common =======
 
-    /** Проверяем готовность чекаута перед заполнением */
+    /**
+     * Проверяем готовность чекаута перед заполнением
+     */
     private void checkCheckoutIsReady() {
-        if(isOnCheckout()){
+        if (isOnCheckout()) {
             printMessage("✓ Checking-out\n");
         } else {
             printMessage("Waiting for checkout\n");
-            waitForIt(1);
+            kraken.perform().waitingFor(1);
         }
     }
 
-
-    /** Нажимаем кнопки "Продолжить" в шагах чекаута */
+    /**
+     * Нажимаем кнопки "Продолжить" в шагах чекаута
+     */
     private void hitNextButton(int step) {
-        click(Elements.Site.Checkout.nextButton(step));
+        kraken.perform().click(Elements.Site.Checkout.nextButton(step));
         printMessage("Next\n");
-        waitForIt(1);
+        kraken.perform().waitingFor(1);
     }
 
-
-    /** Нажимаем кнопку отправки заказа и ждем пока заказ оформится */
+    /**
+     * Нажимаем кнопку отправки заказа и ждем пока заказ оформится
+     */
     public void sendOrder() {
-      if (isSendButtonActive()) {
-            click(Elements.Site.Checkout.sendOrderButton());
-           waitForIt(3);
-           printMessage("✓ Order sent\n");
-       } else {
-          waitForIt(3);
-           if (isSendButtonActive()) {
-               click(Elements.Site.Checkout.sendOrderButton());
-               waitForIt(3);
-               printMessage("✓ Order sent\n");
-           } else printMessage("Can't make order, send button is not active - check manually\n");
+        if (kraken.detect().isSendButtonActive()) {
+            kraken.perform().click(Elements.Site.Checkout.sendOrderButton());
+            kraken.perform().waitingFor(3);
+            printMessage("✓ Order sent\n");
+        } else {
+            kraken.perform().waitingFor(3);
+            if (kraken.detect().isSendButtonActive()) {
+                kraken.perform().click(Elements.Site.Checkout.sendOrderButton());
+                kraken.perform().waitingFor(3);
+                printMessage("✓ Order sent\n");
+            } else printMessage("Can't make order, send button is not active - check manually\n");
         }
     }
 
-
-    /** Проверяем готовность шага чекаута перед заполнением */
+    /**
+     * Проверяем готовность шага чекаута перед заполнением
+     */
     private boolean checkStep(int stepNumber, String stepName) {
         if (stepNumber != 5) { // костыль если доставки остался выбраным в предыдущих тестах
-            if (isStepActive(stepNumber)) {
+            if (kraken.detect().isStepActive(stepNumber)) {
                 printMessage("Step " + stepNumber + " - " + stepName);
                 return true;
             } else {
-                waitForIt(1); // задержка для стабильности, возможно что шаг не развернулся из-за тормозов
-                if (!isStepActive(stepNumber)) {
+                kraken.perform().waitingFor(1); // задержка для стабильности, возможно что шаг не развернулся из-за тормозов
+                if (!kraken.detect().isStepActive(stepNumber)) {
                     printMessage("Step " + stepNumber + " isn't opened at the moment");
                     return false;
                 } else return true;
             }
         } else {
-            if(isElementDisplayed(By.className("windows-selector-panel"))) {
+            if (kraken.detect().isElementDisplayed(By.className("windows-selector-panel"))) {
                 printMessage("Step " + stepNumber + " - " + stepName);
                 return true;
             } else {
@@ -542,26 +513,4 @@ public class CheckoutHelper extends HelperBase {
             }
         }
     }
-
-
-    /** Определяем активен ли шаг чекаута в данный момент, по наличию кнопок "Продолжить" */
-    private boolean isStepActive(int step){
-        return isElementPresent((By.xpath("(//button[@type='button'])["+step+"]")));
-    }
-
-
-    /** Определяем активна ли кнопка отправки заказа */
-    private boolean isSendButtonActive(){
-        return isElementEnabled(By.xpath("//aside/div/div[1]/div/button"));
-    }
-
-    /** Проверка стоимости доставки */
-    public boolean checkDeliveryPrice(int price) {
-        int deliveryPrice = round(getText(Elements.Site.Checkout.deliveryPrice()));
-        if (deliveryPrice == price) {
-            printMessage("✓ Delivery price " + deliveryPrice + "р\n");
-            return true;
-        } else return false;
-    }
-
 }

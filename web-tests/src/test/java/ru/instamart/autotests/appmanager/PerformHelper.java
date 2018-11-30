@@ -1,0 +1,364 @@
+package ru.instamart.autotests.appmanager;
+
+import org.openqa.selenium.*;
+import ru.instamart.autotests.application.*;
+import ru.instamart.autotests.models.UserData;
+
+import static ru.instamart.autotests.application.Pages.*;
+
+public class PerformHelper extends HelperBase {
+
+    private ApplicationManager kraken;
+
+    PerformHelper(WebDriver driver, Environments environment, ApplicationManager app) {
+        super(driver, environment);
+        kraken = app;
+    }
+
+    // ======= Базовые действия =======
+
+    /** Кликнуть элемент */
+    public void click(Elements element) {
+        click(Elements.locator());
+    }
+
+    /** Кликнуть элемент по локатору */
+    public void click(By locator) {
+        try {
+            driver.findElement(locator).click();
+        }
+        catch (NoSuchElementException n) {
+            printMessage("Can't click element <" + locator
+                    + ">\nNo such element on " + kraken.grab().currentURL() + "\n");
+        }
+        catch (ElementNotVisibleException v) {
+            printMessage("Can't click element <" + locator
+                    + ">\nElement is not visible on " + kraken.grab().currentURL() + "\n");
+        }
+    }
+
+    /** Заполнить поле указанным текстом */
+    public void fillField(Elements element, String text) {
+        fillField(Elements.locator(),text);
+    }
+
+    /** Заполнить поле по локатору указанным текстом */
+    public void fillField(By locator, String text) {
+        click(locator);
+        if (text != null) {
+            String existingText = driver.findElement(locator).getAttribute("value");
+            if (!text.equals(existingText)) {
+                driver.findElement(locator).clear();
+                driver.findElement(locator).sendKeys(text);
+            }
+        }
+    }
+
+    /** Переключиться на фреймами по имени или id */
+    void switchToFrame(String nameOrId) {
+        driver.switchTo().frame(nameOrId);
+    }
+
+    /** Переключиться на активный элемент */
+    void switchToActiveElement() {
+        driver.switchTo().activeElement();
+    }
+
+    /** Переключиться на дефолтный контент */
+    void switchToDefaultContent() {
+        driver.switchTo().parentFrame();
+        driver.switchTo().defaultContent();
+    }
+
+    /** Ожидание равное переданному значению умноженному на переменную 'implicitlyWait' */
+    public void waitingFor(int duration){
+        for (int i = 1; i <= duration; i++){
+            kraken.detect().isElementPresent(By.xpath("//*[@id='nowhere']"));
+        }
+    }
+
+
+    // ======= Меню аккаунта =======
+
+    /** Открыть меню аккаунта */
+    public void openAccountMenu() {
+        if(!kraken.detect().isAccountMenuOpen()) {
+            click(Elements.Site.Header.profileButton());
+        } else printMessage("Account menu is already opened");
+    }
+
+    /** Закрыть меню аккаунта */
+    public void closeAccountMenu() {
+        if(kraken.detect().isAccountMenuOpen()) {
+            click(Elements.Site.Header.profileButton());
+        } else printMessage("Account menu is already closed");
+    }
+
+
+    // ======= Регистрация =======
+
+    /** Зарегистрироваться с реквизитами из переданного объекта UserData */
+    public void registration(UserData userData) throws Exception {
+        registration(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
+    }
+
+    /** Зарегистрироваться с указанными реквизитами */
+    public void registration(String name, String email, String password, String passwordConfirmation) throws Exception {
+        printMessage("Performing registration...");
+        openAuthModal();
+        regSequence(name,email,password,passwordConfirmation);
+        waitingFor(3);
+    }
+
+    /** Регистрационная последовательность с реквизитами из переданного объекта UserData */
+    public void regSequence(UserData userData) throws Exception {
+        regSequence(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
+    }
+
+    /** Регистрационная последовательность с указанными реквизитами */
+    private void regSequence(String name, String email, String password, String passwordConfirmation) throws Exception {
+        switchToRegistrationTab();
+        fillRegistrationForm(name, email, password, passwordConfirmation);
+        sendForm();
+    }
+
+
+    // ======= Авторизация / деавторизация =======
+
+    /** Залогиниться юзером с указанной ролью */ //TODO добавить сеттер as(String role), проверки на авторизованность вынести в метод login
+    public void loginAs(String role) throws Exception {
+        if (!kraken.detect().isUserAuthorised()) {
+            login(Users.getCredentials(role));
+            printMessage("Logged-in with " + role + " privileges\n");
+        } else {
+            printMessage("Skip authorisation, already logged-in");
+        }
+    }
+
+    /** Залогиниться с реквизитами из переданного объекта UserData */
+    private void login(UserData userData) throws Exception {
+        login(userData.getLogin(), userData.getPassword());
+    }
+
+    /** Залогиниться с указанными реквизитами */
+    public void login(String email, String password) throws Exception {
+        printMessage("Performing authorisation...");
+        openAuthModal();
+        waitingFor(1);
+        authSequence(email, password);
+        waitingFor(2);
+    }
+
+    /** Авторизационная последовательность для юзера с указанной ролью */
+    public void authSequence(String role) throws Exception {
+        authSequence(Users.getCredentials(role));
+    }
+
+    /** Авторизационная последовательность с реквизитами из переданного объекта UserData */
+    private void authSequence(UserData userData) throws Exception {
+        authSequence(userData.getLogin(), userData.getPassword());
+    }
+
+    /** Авторизационная последовательность с указанными реквизитами */
+    private void authSequence(String email, String password) throws Exception {
+        switchToAuthorisationTab();
+        fillAuthorisationForm(email, password);
+        sendForm();
+    }
+
+    /** Деавторизоваться */
+    public void logout() {
+        if (!kraken.detect().isInAdmin()) {
+            kraken.perform().click(Elements.Site.Header.profileButton());
+            kraken.perform().click(Elements.Site.AccountMenu.logoutButton());
+        } else {
+            kraken.perform().click(Elements.Admin.Header.logoutButton());
+        }
+        waitingFor(1);
+        if(kraken.detect().isOnLanding()) {
+            printMessage("Log-out\n");
+        }
+    }
+
+
+    // ======= Методы модалки авторизации/регистрации =======
+
+    /** Открыть форму авторизации/регистрации */
+    public void openAuthModal(){
+        if (kraken.detect().isOnLanding()) {
+            kraken.perform().click(Elements.Site.Landing.loginButton());
+        } else {
+            kraken.perform().click(Elements.Site.Header.loginButton());
+        }
+
+        waitingFor(1);
+
+        if(kraken.detect().isAuthModalOpen()) {
+            printMessage("> open auth modal");
+        } else {
+            printMessage(" Can't open auth modal");
+        }
+    }
+
+    /** Переключиться на вкладку регистрации */
+    private void switchToRegistrationTab(){
+        printMessage("> switch to registration tab");
+        kraken.perform().click(Elements.Site.AuthModal.registrationTab());
+    }
+
+    /** Заполнить поля формы регистрации */
+    private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {
+        printMessage("> enter registration credentials");
+        kraken.perform().fillField(Elements.Site.AuthModal.nameField(), name);
+        kraken.perform().fillField(Elements.Site.AuthModal.emailField(), email);
+        kraken.perform().fillField(Elements.Site.AuthModal.passwordField(), password);
+        kraken.perform().fillField(Elements.Site.AuthModal.passwordConfirmationField(), passwordConfirmation);
+    }
+
+    /** Отправить форму */
+    private void sendForm(){
+        printMessage("> send form\n");
+        kraken.perform().click(Elements.Site.AuthModal.submitButton());
+    }
+
+    /** Закрыть форму авторизации/регистрации */
+    public void closeAuthModal(){
+        kraken.perform().click(Elements.Site.AuthModal.closeButton());
+        waitingFor(1);
+    }
+
+    /** Переключиться на вкладку авторизации */
+    private void switchToAuthorisationTab() throws Exception {
+        try {
+            kraken.perform().printMessage("> switch to authorisation tab");
+            kraken.perform().click(Elements.Site.AuthModal.authorisationTab());
+        } catch (ElementNotInteractableException e) { // TODO попробовать перенести кетч в методы click в HelperBase
+            kraken.perform().printMessage(" > have some troubles, waiting and trying again...");
+            kraken.perform().click(Elements.Site.AuthModal.authorisationTab());
+        }
+    }
+
+    /** Заполнить поля формы авторизации */
+    private void fillAuthorisationForm(String email, String password) {
+        printMessage("> enter auth credentials");
+        kraken.perform().fillField(Elements.Site.AuthModal.emailField(), email);
+        kraken.perform().fillField(Elements.Site.AuthModal.passwordField(), password);
+    }
+
+    /** Перейти в форму восстановления пароля */
+    private void proceedToPasswordRecovery(){
+        printMessage("> proceed to password recovery");
+        kraken.perform().click(Elements.Site.AuthModal.forgotPasswordButton());
+    }
+
+    /** Запросить восстановление пароля */
+    public void recoverPassword(String email) throws Exception {
+        openAuthModal();
+        switchToAuthorisationTab();
+        proceedToPasswordRecovery();
+        printMessage("> recovery for " + email);
+        kraken.perform().fillField(Elements.Site.AuthModal.emailField(),email);
+        sendForm();
+        waitingFor(1);
+    }
+
+
+    // ======= Работа с заказами =======
+
+    /** Повторить крайний заказ */
+    public void repeatLastOrder(){
+        printMessage("Repeating last order from profile...\n");
+        kraken.get().url(baseUrl + "user/orders");
+        if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
+            kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(2));
+        } else {
+            kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton());
+        }
+        waitingFor(2);
+    }
+
+    /** Отменить крайний заказ */
+    public void cancelLastOrder (){
+        printMessage("Canceling last order from profile...\n");
+        kraken.get().url(baseUrl + "user/orders");
+        if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
+            kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(1));
+        } else printMessage("> Skipped because order isn't active");
+        waitingFor(2);
+    }
+
+
+    // ======= Drop =======
+
+    /** Деавторизоваться, оставшись на текущей странице */
+    public void dropAuth() {
+        String currentURL = kraken.grab().currentURL();
+        if (kraken.detect().isUserAuthorised()) {
+            kraken.perform().logout();
+            kraken.get().url(currentURL);
+        }
+    }
+
+    /** Очистить корзину изменениями адреса доставки ( временный метод, пока не запилят очистку корзины ) */
+    public void dropCart() {
+        String currentAddress = kraken.grab().currentShipAddress();
+        String addressOne = Addresses.Moscow.defaultAddress();
+        String addressTwo = Addresses.Moscow.testAddress();
+
+        if (!kraken.detect().isCartEmpty()) {
+            kraken.shopping().closeCart();
+            if (currentAddress.equals(addressOne)) {
+                kraken.shipAddress().change(addressTwo);
+            } else {
+                kraken.shipAddress().change(addressTwo);
+                kraken.shipAddress().change(addressOne);
+            }
+        }
+        kraken.shopping().closeCart();
+    }
+
+
+    // ======= Check =======
+
+    /** Проверка скачивания документации на странице деталей заказа */
+    public void checkOrderDocuments(){
+        for(int i = 1; i <= 3; i++) {
+            if(kraken.detect().orderDocument(i) != null) {
+                kraken.perform().click(Elements.locator());
+            }
+        }
+    }
+
+    /** Проверка скачивания документации заказа */
+    public void checkOrderDocuments(String orderNumber){
+        kraken.get().page("user/orders/" + orderNumber);
+        checkOrderDocuments();
+    }
+
+
+    // ======= Reach =======
+
+    public void reachCheckout() {
+        kraken.get().checkoutPage();
+        if(!kraken.checkout().isOnCheckout()){
+            kraken.shopping().grabCart();
+            kraken.shopping().proceedToCheckout();
+        }
+    }
+
+    public void reachAdmin(Pages page) throws Exception {
+        reachAdmin(getPagePath());
+    }
+
+    public void reachAdmin(String path) throws Exception{
+        kraken.get().adminPage(path);
+        if (kraken.detect().isOnSite()) {
+            kraken.get().baseUrl();
+            if (kraken.detect().isUserAuthorised()) {
+                logout();
+            }
+            loginAs("admin");
+            kraken.get().adminPage(path);
+        }
+    }
+}

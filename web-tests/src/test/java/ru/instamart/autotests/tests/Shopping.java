@@ -3,11 +3,10 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.configuration.Pages;
+import ru.instamart.autotests.application.Pages;
 
 
-// Тесты покупок
-
+// Тесты магазина
 
 
 public class Shopping extends TestBase{
@@ -15,36 +14,36 @@ public class Shopping extends TestBase{
 
     @BeforeMethod(alwaysRun = true)
     public void getAuth() throws Exception {
-        app.getNavigationHelper().getBaseUrl();
-        app.getSessionHelper().doLoginAs("admin");
+        kraken.perform().dropAuth();
+        kraken.perform().loginAs("admin");
     }
 
 
     @Test(
             description = "Тест пустой корзины",
             groups = {"acceptance","regression"},
-            priority = 300
+            priority = 350
     )
     public void checkEmptyCart() throws Exception, AssertionError {
-        app.getShoppingHelper().dropCart();
-        app.getShoppingHelper().openCart();
+        kraken.perform().dropCart();
+        kraken.shopping().openCart();
 
         // Assert cart is open
-        Assert.assertTrue(app.getShoppingHelper().isCartOpen(),
+        Assert.assertTrue(kraken.detect().isCartOpen(),
                 "Can't open shopping cart\n");
 
         // Assert cart is empty
-        Assert.assertTrue(app.getShoppingHelper().isCartEmpty(),
+        Assert.assertTrue(kraken.detect().isCartEmpty(),
                 "Cart isn't empty\n");
 
         // Assert checkout button is disabled in an empty card
-        Assert.assertFalse(app.getShoppingHelper().isCheckoutButtonActive(),
+        Assert.assertFalse(kraken.detect().isCheckoutButtonActive(),
                 "Checkout button is active in an empty cart\n");
 
-        app.getShoppingHelper().closeCart();
+        kraken.shopping().closeCart();
 
         // Assert cart is closed
-        Assert.assertFalse(app.getShoppingHelper().isCartOpen(),
+        Assert.assertFalse(kraken.detect().isCartOpen(),
                 "Can't close shopping cart\n");
     }
 
@@ -52,10 +51,10 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест недоступности пустого чекаута по прямой ссылке",
             groups = {"acceptance","regression"},
-            priority = 301
+            priority = 351
     )
     public void checkoutIsUnreachableWithEmptyCart() throws Exception {
-        app.getShoppingHelper().dropCart();
+        kraken.perform().dropCart();
         assertPageIsUnreachable(Pages.Site.checkout());
     }
 
@@ -63,47 +62,51 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест успешного добавления товара в корзину",
             groups = {"acceptance","regression"},
-            priority = 302
+            priority = 352
     )
     public void addItemToCart()throws Exception, AssertionError {
-        app.getShoppingHelper().dropCart();
-        app.getShoppingHelper().addFirstItemOnPageToCart();
+        kraken.perform().dropCart();
 
-        // Assert cart isn't empty
-        Assert.assertFalse(app.getShoppingHelper().isCartEmpty(),
+        kraken.shopping().addFirstItemOnPageToCart();
+
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Cart is still empty after adding an item into it\n");
+
+        kraken.shopping().closeCart();
     }
 
 
     @Test(
             description = "Тест набора корзины до суммы, достаточной для заказа",
             groups = {"acceptance","regression"},
-            priority = 303
+            priority = 353
     )
     public void grabCart()throws Exception, AssertionError {
-        app.getShoppingHelper().grabCart();
+        kraken.shopping().grabCart();
 
         // Assert checkout button is enabled
-        Assert.assertTrue(app.getShoppingHelper().isCheckoutButtonActive(),
+        Assert.assertTrue(kraken.detect().isCheckoutButtonActive(),
                 "Checkout button is not active with minimal order cart\n");
+
+        kraken.shopping().closeCart();
     }
 
 
     @Test(
             description = "Успешного перехода в чекаут при сумме корзины выше суммы минимального заказа",
             groups = {"acceptance","regression"},
-            priority = 304
+            priority = 354
     )
     public void proceedFromCartToCheckout()throws Exception, AssertionError {
-        if(!app.getShoppingHelper().isCheckoutButtonActive()) {
-            app.getShoppingHelper().grabCart();
+        if(!kraken.detect().isCheckoutButtonActive()) {
+            kraken.shopping().grabCart();
         }
-        if(app.getShoppingHelper().isCheckoutButtonActive()){
-            app.getShoppingHelper().proceedToCheckout();
+        if(kraken.detect().isCheckoutButtonActive()){
+            kraken.shopping().proceedToCheckout();
         }
 
         // Assert can access checkout by clicking on order button in cart
-        Assert.assertTrue(app.getCheckoutHelper().isOnCheckout(),
+        Assert.assertTrue(kraken.checkout().isOnCheckout(),
                 "Can't access checkout by clicking on order button in cart\n");
     }
 

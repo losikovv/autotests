@@ -3,35 +3,29 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.testdata.Generate;
 
 
-
-    // Тесты поиска товаров
-
+// Тесты поиска товаров
 
 
 public class SearchProducts extends TestBase {
 
-    /*
     @BeforeMethod(alwaysRun = true)
-    public void getAuth() throws Exception {
-        app.getNavigationHelper().getLandingPage();
-        app.getSessionHelper().doLoginAs("admin");
+    public void preconditions() throws Exception {
+        kraken.get().page("metro");
     }
-    */
 
 
     @Test(
             description = "Тест отправки пустого поискового запроса",
             groups = {"acceptance","regression"},
-            priority = 305
+            priority = 300
     )
-    public void sendEmptySearch(){
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getShoppingHelper().searchItem("");
+    public void noSendEmptySearch(){
+        kraken.search().item("");
 
-        // Проверяем что поиск не сработал
-        Assert.assertFalse(app.getShoppingHelper().isSearchResultsEmpty(),
+        Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
                 "Search results are shown when it's not supposed to be\n");
     }
 
@@ -39,14 +33,12 @@ public class SearchProducts extends TestBase {
     @Test (
             description = "Тест поиска по запросу, не возвращающему результатов",
             groups = {"acceptance","regression"},
-            priority = 306
+            priority = 301
     )
     public void successSearchForNonexistingItem(){
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getShoppingHelper().searchItem("смысл жизни");
+        kraken.search().item("смысл жизни");
 
-        // Проверяем что поиск дал пустой результат
-        Assert.assertTrue(app.getShoppingHelper().isSearchResultsEmpty(),
+        Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
                 "Search result is not empty when it's supposed to be\n");
     }
 
@@ -54,18 +46,15 @@ public class SearchProducts extends TestBase {
     @Test (
             description = "Тест упешного поиска товаров",
             groups = {"acceptance","regression"},
-            priority = 307
+            priority = 302
     )
     public void successItemSearch(){
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getShoppingHelper().searchItem("шоколад");
+        kraken.search().item("шоколад");
 
-        // Проверяем что поиск не дал пустой результат
-        Assert.assertFalse(app.getShoppingHelper().isSearchResultsEmpty(),
+        Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
-        // Проверяем что по поисковому запросу нашлись продукты
-        Assert.assertTrue(app.getShoppingHelper().isProductAvailable(),
+        Assert.assertTrue(kraken.detect().isProductAvailable(),
                 "Can't assert search is working correctly, check manually\n");
     }
 
@@ -73,25 +62,19 @@ public class SearchProducts extends TestBase {
     @Test (
             description = "Тест упешного поиска товаров c использованием категорийных саджестов",
             groups = {"regression"},
-            priority = 308
+            priority = 303
     )
     public void successItemSearchUsingCategorySuggests(){
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getShoppingHelper().fillSearchField("Мороженое");
+        kraken.search().fillSearchFieldWith("Мороженое");
 
-        // Проверяем что появились категорийные подсказки
-        Assert.assertTrue(app.getShoppingHelper().isCategorySuggestPresent(),
-                "No category suggest shown\n");
+        Assert.assertTrue(kraken.search().isCategorySuggestsPresent(), "No category suggests shown\n");
 
-        // Нажимаем на категорийную посдказку
-        app.getShoppingHelper().hitSuggest("category");
+        kraken.search().hitCategorySuggest();
 
-        // Проверяем что поиск не дал пустой результат
-        Assert.assertFalse(app.getShoppingHelper().isSearchResultsEmpty(),
+        Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
                 "Search result is empty, so can't assert search is working correctly, check manually\n");
 
-        // Проверяем что по поисковому запросу нашлись продукты
-        Assert.assertTrue(app.getShoppingHelper().isProductAvailable(),
+        Assert.assertTrue(kraken.detect().isProductAvailable(),
                 "Can't assert search is working correctly, check manually\n");
     }
 
@@ -99,22 +82,33 @@ public class SearchProducts extends TestBase {
     @Test (
             description = "Тест упешного поиска товаров c использованием товарных саджестов",
             groups = {"regression"},
-            priority = 309
+            priority = 304
     )
     public void successItemSearchUsingProductSuggests(){
-        app.getNavigationHelper().getRetailerPage("metro");
-        app.getShoppingHelper().fillSearchField("Мороженое");
+        kraken.get().page("metro");
+        kraken.search().fillSearchFieldWith("Мороженое");
 
-        // Проверяем что появились товарные подсказки
-        Assert.assertTrue(app.getShoppingHelper().isProductSuggestPresent(),
+        Assert.assertTrue(kraken.search().isProductSuggestsPresent(),
                 "No product suggest shown\n");
 
-        // Нажимаем на твоарную подсказку
-        app.getShoppingHelper().hitSuggest("product");
+        kraken.search().hitProductSuggest();
 
-        // Проверяем что открылась карточка товара
-        Assert.assertTrue(app.getShoppingHelper().isItemCardOpen(),
+        Assert.assertTrue(kraken.detect().isItemCardOpen(),
                 "Can't approve successful open item card from search product suggest\n");
+    }
+
+    @Test (
+            description = "Тест поиска по очень длинному запросу, не возвращающему результатов",
+            groups = {"acceptance","regression"},
+            priority = 305
+    )
+    public void successSearchWithLongQuery(){
+        kraken.search().item(Generate.randomString(1000));
+
+        assertPageIsAvailable();
+
+        Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
+                "Search result is not empty when it's supposed to be\n");
     }
 
 }

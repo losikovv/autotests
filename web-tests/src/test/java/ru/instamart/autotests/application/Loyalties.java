@@ -1,10 +1,4 @@
-package ru.instamart.autotests.testdata;
-
-
-
-    // Тестовые карты программ лояльности
-
-
+package ru.instamart.autotests.application;
 
 public class Loyalties {
 

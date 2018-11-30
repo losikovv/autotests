@@ -2,501 +2,319 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.configuration.Elements;
-import ru.instamart.autotests.configuration.Environments;
-import ru.instamart.autotests.configuration.Pages;
-import ru.instamart.autotests.models.RetailerData;
-
-
-
-    // Navigation helper
-    // Handles navigation within system under test
-    // 'get' methods navigate by getting URLs
-    // 'go' methods navigate by making transitions through UI
-
-
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Environments;
 
 public class NavigationHelper extends HelperBase {
 
-    public NavigationHelper(WebDriver driver, Environments environment){ super(driver, environment); }
+    private ApplicationManager kraken;
 
-
-
-    // ======= SITE =======
-
-
-    /** Навигация переходами по ссылкам */
-
-    public void get(String page) {
-        getUrl(fullBaseUrl + page);
+    NavigationHelper(WebDriver driver, Environments environment, ApplicationManager app) {
+        super(driver, environment);
+        kraken = app;
     }
 
-    public void get(Pages page) {
-        String path = Pages.getPagePath();
-        getUrl(fullBaseUrl + path);
+    // TODO сделать метод to принимающий массив элементов и кликающий их по очереди
+    // TODO public void to(Elements[] elements){ }
+
+    // TODO доделать
+    public abstract class to {
+
+        public void lastOrderPage() {
+            kraken.get().url(baseUrl + "user/orders");
+            kraken.perform().click(By.xpath("//*[@id='wrap']/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a"));
+        }
     }
-
-
-
-    /** Навигация переходами по элементам на страницах */
-
-    public void go(Elements element){
-        click(Elements.getLocator());
-    }
-
-    // TODO сделать метод go принимающий массив элементов и кликающий их по очереди
-    // TODO public void go(Elements[] elements){ }
-
-    // переход на витрину ретейлера
-    public void getRetailerPage(String retailerName) {
-        getUrl(baseUrl + retailerName);
-    }
-
-    // переход на витрину ретейлера
-    public void getRetailerPage(RetailerData retailerData) {
-        getUrl(baseUrl + retailerData.getName());
-    }
-
-    // переход на страницу чекаута
-    public void getCheckoutPage() {
-        getUrl(baseUrl + "checkout/edit?");
-        waitForIt(1);
-    }
-
-    // переход в профиль
-    public void getProfilePage()  {
-        getUrl(baseUrl + "user/edit");
-    }
-
-
-    // переходы на лендинги
-
-    public void getLandingPage(String landingName) {
-        getUrl(baseUrl + landingName);
-    }
-
-
-    public void goToProfile() {
-        // только для авторизованного
-        // клик по кнопке Профиль
-        click(By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[5]/div/div[1]"));
-        // клик по кнопке Профиль
-        click(By.linkText("Профиль"));
-    }
-
-    public void goToHomepage() {
-        // клик по кнопке Главная
-        click(By.linkText("Главная"));
-    }
-
-    public void goHome() {
-        printMessage("Going home ...");
-        click(By.className("header-logo"));
-    }
-
-    // ========= Подвал сайта =========
-
-    public void goFooterAboutCompany() {
-        Elements.Site.Footer.aboutCompanyButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-
-    }
-
-    public void goFooterContacts() {
-        Elements.Site.Footer.contactsButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-
-    }
-
-    public void goFooterDelivery() {
-        Elements.Site.Footer.deliveryButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-    }
-
-    public void goFooterPayment() {
-        Elements.Site.Footer.paymentButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-    }
-
-    public void goFooterPartners() {
-        Elements.Site.Footer.partnersButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-
-    }
-
-    public void goFooterFaq() {
-        Elements.Site.Footer.faqButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-    }
-
-    public void goFooterFeedbackForm() {
-        Elements.Site.Footer.feedbackFormButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-    }
-
-    public void goFooterReturnPolicy() {
-        Elements.Site.Footer.returnPolicyButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-    }
-
-    public void goFooterPublicOffer() {
-        Elements.Site.Footer.publicOfferButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
-    }
-
-
-
-
-
-    // ======= ADMIN =======
-
-    /**
-     * Get page in admin panel
-     */
-    public void getAdminPage(String pageName) {
-        getUrl(baseUrl + "admin/" + pageName);
-    }
-
-    /**
-     * Get order page in admin panel
-     */
-    public void getOrderAdminPage(String orderNumber){
-        getUrl(baseUrl + "admin/orders/" + orderNumber + "/edit");
-    }
-
-    /**
-     * Get page with the list of test users in admin panel
-     */
-    public void getTestUsersAdminPage(){
-        getAdminPage("users?q%5Bemail_cont%5D=testuser%40example.com");
-    }
-
-    /**
-     * Get page with the list of test orders in admin panel
-     */
-    public void getTestOrdersAdminPage(){
-        getAdminPage("shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D%5B%5D=ready");
-    }
-
-    //======== Go Методы для админки =========
-
-    //======== Шапка Админки ==========
-
-    public void goProfile() {
-        click(Elements.Admin.Header.profileButton());
-    }
-
-    public void goLogout() {
-        click(Elements.Admin.Header.logoutButton());
-    }
-
-    public void goBackToList() {
-        click(Elements.Admin.Header.backToListButton());
-    }
-
-    //========== Меню Админки ==========
 
     //========== Раздел Заказы и его подразделы ========
 
-
-    public void goOrders() {
+    public void adminOrders() {
         Elements.Admin.Header.Menu.ordersButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goOrdersMulti() {
-        goOrders();
+    public void adminOrdersMulti() {
+        adminOrders();
         Elements.Admin.Header.SubmenuOrders.multiOrderButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goOrdersExport() {
-        goOrders();
+    public void adminOrdersExport() {
+        adminOrders();
         Elements.Admin.Header.SubmenuOrders.exportButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goOrdersVeeroute() {
-        goOrders();
+    public void adminOrdersVeeroute() {
+        adminOrders();
         Elements.Admin.Header.SubmenuOrders.veerouteButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
+
 
     //======== Раздел Магазины и его подразделы =========
 
-    public void goStore() {
-        Elements.Admin.Header.Menu.storeButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+    public void adminStores() {
+        Elements.Admin.Header.Menu.storesButton();
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
 
-    public void goStoreRetailers() {
-        goStore();
+    public void adminStoresRetailers() {
+        adminStores();
         Elements.Admin.Header.SubmenuStores.retailersButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goStoreZones() {
-        goStore();
+    public void adminStoresZones() {
+        adminStores();
         Elements.Admin.Header.SubmenuStores.zonesButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
 
     // =========== Раздел Продукты и его подразделы ==========
 
-    public void goProducts() {
+    public void adminProducts() {
         Elements.Admin.Header.Menu.productsButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goSubProducts() {
-        goProducts();
+    public void adminSubProducts() {
+        adminProducts();
         Elements.Admin.Header.SubmenuProducts.subProductsButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goProductsStats() {
-        goProducts();
+    public void adminProductsStats() {
+        adminProducts();
         Elements.Admin.Header.SubmenuProducts.productsStatsButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goProductsOptionTypes() {
-        goProducts();
+    public void adminProductsOptionTypes() {
+        adminProducts();
         Elements.Admin.Header.SubmenuProducts.optionTypesButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goProductsProperties() {
-        goProducts();
+    public void adminProductsProperties() {
+        adminProducts();
         Elements.Admin.Header.SubmenuProducts.propertiesButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goProductsPrototypes() {
-        goProducts();
+    public void adminProductsPrototypes() {
+        adminProducts();
         Elements.Admin.Header.SubmenuProducts.prototypesButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goProductsBrands() {
-        goProducts();
+    public void adminProductsBrands() {
+        adminProducts();
         Elements.Admin.Header.SubmenuProducts.brandsButtton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goProductsProducers() {
-        goProducts();
+    public void adminProductsProducers() {
+        adminProducts();
         Elements.Admin.Header.SubmenuProducts.producersButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goProductsProducersCountries() {
-        goProducts();
+    public void adminProductsProducersCountries() {
+        adminProducts();
         Elements.Admin.Header.SubmenuProducts.producersCountriesButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
     //========== Раздел Импорт и его подразделы ========
 
-    public void goImport() {
+    public void adminImport() {
         Elements.Admin.Header.Menu.importButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goImportQueueOfTasks() {
-        goImport();
+    public void adminImportQueueOfTasks() {
+        adminImport();
         Elements.Admin.Header.SubmenuImport.queueOfTasksButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goImportStats() {
-        goImport();
+    public void adminImportStats() {
+        adminImport();
         Elements.Admin.Header.SubmenuImport.importStatsButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goImportArchive() {
-        goImport();
+    public void adminImportArchive() {
+        adminImport();
         Elements.Admin.Header.SubmenuImport.archiveButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goImportBlackList() {
-        goImport();
+    public void adminImportBlackList() {
+        adminImport();
         Elements.Admin.Header.SubmenuImport.blackListButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goImportCategory() {
-        goImport();
+    public void adminImportCategory() {
+        adminImport();
         Elements.Admin.Header.SubmenuImport.categoryButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goImportFilters() {
-        goImport();
+    public void adminImportFilters() {
+        adminImport();
         Elements.Admin.Header.SubmenuImport.filtersButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goImportProducts() {
-        goImport();
+    public void adminImportProducts() {
+        adminImport();
         Elements.Admin.Header.SubmenuImport.importProductsButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goImportPrice() {
-        goImport();
+    public void adminImportPrice() {
+        adminImport();
         Elements.Admin.Header.SubmenuImport.priceButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goImportImages() {
-        goImport();
+    public void adminImportImages() {
+        adminImport();
         Elements.Admin.Header.SubmenuImport.imagesButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
     //========== Раздел отчеты ==============
 
-    public void goReports() {
+    public void adminReports() {
         Elements.Admin.Header.Menu.reportsButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
     //========== Раздел настройки ============
 
-    public void goSettings() {
+    public void adminSettings() {
         Elements.Admin.Header.Menu.settingsButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
     //========= Раздел Маркетинг и его подразделы ===========
 
-    public void goMarketing() {
+    public void adminMarketing() {
         Elements.Admin.Header.Menu.marketingButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goMarketingPromoCards() {
-        goMarketing();
+    public void adminMarketingPromoCards() {
+        adminMarketing();
         Elements.Admin.Header.SubmenuMarketing.promoCardsButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goMarketingPromoAction() {
-        goMarketing();
+    public void adminMarketingPromoAction() {
+        adminMarketing();
         Elements.Admin.Header.SubmenuMarketing.promoActionButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goMarketingWelcomeBanners() {
-        goMarketing();
+    public void adminMarketingWelcomeBanners() {
+        adminMarketing();
         Elements.Admin.Header.SubmenuMarketing.welcomeBannersButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goMarketingAdvertisement() {
-        goMarketing();
+    public void adminMarketingAdvertisement() {
+        adminMarketing();
         Elements.Admin.Header.SubmenuMarketing.advertisementButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goMarketingYandexMarket() {
-        goMarketing();
+    public void adminMarketingYandexMarket() {
+        adminMarketing();
         Elements.Admin.Header.SubmenuMarketing.yandexMarketButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goMarketingCarts() {
-        goMarketing();
+    public void adminMarketingCarts() {
+        adminMarketing();
         Elements.Admin.Header.SubmenuMarketing.cartsButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goMarketingBonusCards() {
-        goMarketing();
+    public void adminMarketingBonusCards() {
+        adminMarketing();
         Elements.Admin.Header.SubmenuMarketing.bonusCardsButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goMarketingRetailersPrograms() {
-        goMarketing();
+    public void adminMarketingRetailersPrograms() {
+        adminMarketing();
         Elements.Admin.Header.SubmenuMarketing.retailersProgramsButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
-    public void goMarketingNewCities() {
-        goMarketing();
+    public void adminMarketingNewCities() {
+        adminMarketing();
         Elements.Admin.Header.SubmenuMarketing.newCitiesButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
     //========== Раздел пользователи ===========
 
-    public void goUsers() {
+    public void adminUsers() {
         Elements.Admin.Header.Menu.usersButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
 
     //========== Раздел Страницы ===========
 
-    public void goPages() {
+    public void adminPages() {
         Elements.Admin.Header.Menu.pagesButton();
-        printMessage("Going to " + Elements.getText() + "...");
-        click(Elements.getLocator());
+        printMessage("Going to " + Elements.text() + "...");
+        kraken.perform().click(Elements.locator());
     }
-
-
-
 }

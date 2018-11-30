@@ -1,11 +1,4 @@
-package ru.instamart.autotests.configuration;
-import ru.instamart.autotests.configuration.Environments;
-
-
-
-// Список страниц с урлами и названиями
-
-
+package ru.instamart.autotests.application;
 
 public class Pages {
     private static String pageTitle;
@@ -153,6 +146,12 @@ public class Pages {
                 return new Pages("Адреса",
                         "user/addresses");
             }
+
+            static Pages orderDetails(String orderNumber) {
+                return new Pages(null,
+                        "user/orders/" + orderNumber);
+            }
+
         }
 
     }
@@ -162,13 +161,6 @@ public class Pages {
         static Pages shipments() {
             return new Pages("Spree Администрирование: Отправки",
                     "admin/shipments");
-        }
-
-        interface Shipments {
-
-            static Pages testOrdersList() {
-                return new Pages(null, "admin/shipments?search%5Bemail%5D=autotestuser%40instamart.ru&search%5Bonly_completed%5D=1&search%5Bstate%5D%5B%5D=ready");
-            }
         }
 
         static Pages retailers() {
@@ -204,13 +196,6 @@ public class Pages {
         static Pages users() {
             return new Pages("Spree Администрирование: Пользователи",
                     "admin/users");
-        }
-
-        interface Users {
-
-            static Pages testUsersList() {
-                return new Pages(null, "admin/users?q%5Bemail_cont%5D=testuser%40example.com");
-            }
         }
 
         static Pages pages() {
