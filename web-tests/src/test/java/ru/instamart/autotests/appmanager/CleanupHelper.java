@@ -37,8 +37,8 @@ public class CleanupHelper extends HelperBase {
      */
     public void users(String usersListPath) throws Exception {
         kraken.perform().reachAdmin(usersListPath);
-        if (isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
-            printMessage("- delete user " + fetchText(Elements.Admin.Users.firstUserLogin()));
+        if (kraken.detect().isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
+            printMessage("- delete user " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
             kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
             kraken.perform().waitingFor(1);
@@ -61,7 +61,7 @@ public class CleanupHelper extends HelperBase {
      */
     public void orders(String ordersListPath) throws Exception {
         kraken.perform().reachAdmin(ordersListPath);
-        if (!isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder())) {
+        if (!kraken.detect().isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder())) {
             kraken.perform().click(Elements.Admin.Shipments.firstOrderInTable());
             kraken.perform().waitingFor(1);
             kraken.admin().cancelOrder(); // todo обернуть в проверку, выполнять только если тестовый заказ

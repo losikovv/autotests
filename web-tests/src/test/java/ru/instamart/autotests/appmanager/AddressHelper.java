@@ -28,7 +28,7 @@ public class AddressHelper extends HelperBase {
             kraken.perform().click(Elements.Site.Header.setShipAddressButton());
 
             // DEBUG
-            // printMessage("Modal opened: [" + fetchText(Elements.Site.AddressModal.header()) + "]");
+            // printMessage("Modal opened: [" + text(Elements.Site.AddressModal.header()) + "]");
 
             kraken.perform().fillField(Elements.Site.AddressModal.addressField(), address);
             selectAddressSuggest();
@@ -45,7 +45,7 @@ public class AddressHelper extends HelperBase {
         kraken.perform().click(Elements.Site.Header.changeShipAddressButton());
 
         // DEBUG
-        // printMessage("Modal opened: [" + fetchText(Elements.Site.AddressModal.header()) + "]");
+        // printMessage("Modal opened: [" + text(Elements.Site.AddressModal.header()) + "]");
 
         kraken.perform().fillField(Elements.Site.AddressModal.addressField(), newAddress);
         selectAddressSuggest();

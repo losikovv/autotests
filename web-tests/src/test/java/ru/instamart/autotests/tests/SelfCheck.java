@@ -94,7 +94,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения карточки товара", priority = 10005)
     public void detectItemCard() throws Exception {
 
-        kraken.get().page("metro/salat-premium-gorshochek");
+        kraken.get().page("metro/khliet-rzhanoi-krai");
         Assert.assertTrue(kraken.shopping().isItemCardOpen());
 
         kraken.get().page("metro/eliektronika");

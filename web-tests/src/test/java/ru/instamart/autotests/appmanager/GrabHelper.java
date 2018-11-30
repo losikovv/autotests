@@ -1,5 +1,7 @@
 package ru.instamart.autotests.appmanager;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
@@ -18,15 +20,29 @@ public class GrabHelper extends HelperBase{
         return driver.getCurrentUrl();
     }
 
+    /** Взять текст элемента */
+    String text(Elements element) {
+        return text(Elements.locator());
+    }
+
+    /** Взять текст элемента по локатору */
+    String text(By locator) {
+        try {
+            return driver.findElement(locator).getText();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+
     /** Взять текущий адрес доставки */
     public String currentShipAddress() {
         Elements.Site.Header.currentShipAddress();
-        printMessage("Shipping address: " + fetchText(Elements.locator()));
-        return fetchText(Elements.locator());
+        printMessage("Shipping address: " + text(Elements.locator()));
+        return text(Elements.locator());
     }
 
     /** Взять округленное значение цены из указанного элемента */
     public int roundedPrice(Elements element) throws Exception {
-        return round(fetchText(element));
+        return round(text(element));
     }
 }

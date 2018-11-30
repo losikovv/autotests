@@ -1,7 +1,6 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
-import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
 
 public class HelperBase {
@@ -20,108 +19,10 @@ public class HelperBase {
         this.fullBaseUrl = environment.getBaseURL(true);
     }
 
-
-    /** Взять текст элемента */
-    String fetchText(Elements element) {
-        return fetchText(Elements.locator());
+    /** Отправить сообщение в консоль*/
+    public void printMessage(String message) {
+        System.out.println(message);
     }
-
-    /** Взять текст элемента по локатору */
-    String fetchText(By locator) {
-        try {
-            return driver.findElement(locator).getText();
-        } catch (NoSuchElementException e) {
-            return null;
-        }
-    }
-
-
-    /** Точно определить отображается ли конкретно указанный элемент */
-    public boolean isElementDetected(Elements element) {
-        return isElementPresent(Elements.locator()) && fetchText(Elements.locator()).equals(Elements.text());
-    }
-
-    public boolean isElementDetected(String xpath, String text) {
-        return isElementPresent(By.xpath(xpath)) && fetchText(By.xpath(xpath)).equals(text);
-    }
-
-    public boolean isElementDetected(By locator, String text) {
-        return isElementPresent(locator) && fetchText(locator).equals(text);
-    }
-
-
-    /** Определить отображается ли элемент */
-
-    public boolean isElementPresent(Elements element) {
-        try {
-            driver.findElement(Elements.locator());
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    public boolean isElementPresent(By locator) {
-        try {
-            driver.findElement(locator);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-
-    /** Определить показан ли элемент */
-
-    public boolean isElementDisplayed(Elements element){
-        try {
-            return driver.findElement(Elements.locator()).isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    public boolean isElementDisplayed(By locator){
-        try {
-            return driver.findElement(locator).isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-
-    /** Определить доступен ли элемент */
-
-    public boolean isElementEnabled(Elements element){
-        return driver.findElement(Elements.locator()).isEnabled();
-    }
-
-    public boolean isElementEnabled(By locator){
-        return driver.findElement(locator).isEnabled();
-    }
-
-
-    /** Определить проставлен ли чекбокс */
-
-    boolean isCheckboxSelected(Elements element) {
-        return driver.findElement(Elements.locator()).isSelected();
-    }
-
-    boolean isCheckboxSelected(By locator) {
-        return driver.findElement(locator).isSelected();
-    }
-
-
-    /** Определить показан ли алерт на странице */
-    protected boolean isAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
-
 
     /** Обработать алерт в зависимости от настройки acceptNextAlert */
     void handleAlert(){
@@ -139,12 +40,6 @@ public class HelperBase {
             acceptNextAlert = true;
         }
     }
-    
-    /** Отправить сообщение в консоль*/
-    public void printMessage(String message) {
-        System.out.println(message);
-    }
-
 
     /** Удалить все куки */
     public void deleteAllCookies() {

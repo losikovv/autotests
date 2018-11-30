@@ -31,12 +31,12 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить открыта ли шторка выбора магазина */
     public boolean isShopSelectorOpen() {
-        return isElementDisplayed(Elements.Site.ShopSelector.drawer());
+        return kraken.detect().isElementDisplayed(Elements.Site.ShopSelector.drawer());
     }
 
     /** Определить пуст ли селектор */
     public boolean isShopSelectorEmpty() {
-        return isElementDisplayed(Elements.Site.ShopSelector.placeholder());
+        return kraken.detect().isElementDisplayed(Elements.Site.ShopSelector.placeholder());
     }
 
 
@@ -60,7 +60,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить открыта ли шторка каталога */
     public boolean isCatalogDrawerOpen() {
-        return isElementDisplayed(Elements.Site.CatalogDrawer.drawer());
+        return kraken.detect().isElementDisplayed(Elements.Site.CatalogDrawer.drawer());
 
     }
 
@@ -68,7 +68,7 @@ public class ShoppingHelper extends HelperBase {
     // ======= Каталог =======
 
     public boolean isProductAvailable() {
-        if(isElementPresent(Elements.Site.Catalog.product())){
+        if(kraken.detect().isElementPresent(Elements.Site.Catalog.product())){
             printMessage("✓ Products available");
             return true;
         } else {
@@ -101,7 +101,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Определить открыта ли карточка товара */
     public boolean isItemCardOpen() {
-        if(isElementPresent(Elements.Site.ItemCard.popup())){
+        if(kraken.detect().isElementPresent(Elements.Site.ItemCard.popup())){
             printMessage("✓ Item card open");
             return true;
         } else return false;
@@ -110,7 +110,7 @@ public class ShoppingHelper extends HelperBase {
     /** Нажать кнопку [+] в карточке товара */
     private void hitPlusButton() {
         // TODO добавить проверку на обновление цен
-        if (isElementEnabled(Elements.Site.ItemCard.plusButton())) {
+        if (kraken.detect().isElementEnabled(Elements.Site.ItemCard.plusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.plusButton());
         } else {
             printMessage("'Plus' button is disabled");
@@ -119,7 +119,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Нажать кнопку [-] в карточке товара */
     private void hitMinusButton() {
-        if (isElementDisplayed(Elements.Site.ItemCard.minusButton())) {
+        if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.minusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.minusButton());
         } else {
             printMessage("'Minus' button is not displayed");
@@ -137,7 +137,7 @@ public class ShoppingHelper extends HelperBase {
     /** Определить открыта ли корзина */
     public boolean isCartOpen() {
         kraken.perform().waitingFor(1); // Пауза, на случай если штокра медленно отображается
-        return isElementDisplayed(Elements.Site.Cart.drawer());
+        return kraken.detect().isElementDisplayed(Elements.Site.Cart.drawer());
     }
 
     /** Открыть корзину */
@@ -164,14 +164,14 @@ public class ShoppingHelper extends HelperBase {
     public boolean isCartEmpty() {
         openCart();
         kraken.perform().waitingFor(1); // Пауза на случай, тормозов с корзиной
-        return isElementPresent(Elements.Site.Cart.placeholder());
+        return kraken.detect().isElementPresent(Elements.Site.Cart.placeholder());
     }
 
     /** Определить активна ли кнопка "Сделать заказ" в корзине */
     public boolean isCheckoutButtonActive() {
         openCart();
         kraken.perform().waitingFor(1); // Пауза на случай, если стостояние кнопки долго обновляется
-        return isElementEnabled(Elements.Site.Cart.checkoutButton());
+        return kraken.detect().isElementEnabled(Elements.Site.Cart.checkoutButton());
     }
 
     /** Перейти в чекаут нажатием кнопки "Сделать заказ" в корзине */
@@ -184,7 +184,7 @@ public class ShoppingHelper extends HelperBase {
     public void grabCart() {
         openFirstItemCard();
 
-        int quantity = (Config.minOrderSum / round(fetchText(Elements.Site.ItemCard.price()))) + 1;
+        int quantity = (Config.minOrderSum / round(kraken.grab().text(Elements.Site.ItemCard.price()))) + 1;
         printMessage("Quantity for minimal order : " + quantity );
 
         for (int i = 1; i <= quantity; i++) {
@@ -198,7 +198,7 @@ public class ShoppingHelper extends HelperBase {
     public void grabCart(int sum) {
         openFirstItemCard();
 
-        int quantity = (sum / round(fetchText(Elements.Site.ItemCard.price()))) + 1;
+        int quantity = (sum / round(kraken.grab().text(Elements.Site.ItemCard.price()))) + 1;
         printMessage("Quantity for " + sum + "р : " + quantity);
 
         for (int i = 1; i <= quantity; i++) {

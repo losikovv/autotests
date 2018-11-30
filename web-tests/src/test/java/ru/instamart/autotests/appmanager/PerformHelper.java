@@ -54,14 +54,7 @@ public class PerformHelper extends HelperBase {
 
     /** Заполнить поле указанным текстом */
     public void fillField(Elements element, String text) {
-        click(element);
-        if (text != null) {
-            String existingText = driver.findElement(Elements.locator()).getAttribute("value");
-            if (!text.equals(existingText)) {
-                driver.findElement(Elements.locator()).clear();
-                driver.findElement(Elements.locator()).sendKeys(text);
-            }
-        }
+        fillField(Elements.locator(),text);
     }
 
     /** Заполнить поле по локатору указанным текстом */
@@ -95,7 +88,7 @@ public class PerformHelper extends HelperBase {
     /** Ожидание равное переданному значению умноженному на переменную 'implicitlyWait' */
     public void waitingFor(int duration){
         for (int i = 1; i <= duration; i++){
-            isElementPresent(By.xpath("//*[@id='nowhere']"));
+            kraken.detect().isElementPresent(By.xpath("//*[@id='nowhere']"));
         }
     }
 
@@ -291,7 +284,7 @@ public class PerformHelper extends HelperBase {
     public void repeatLastOrder(){
         printMessage("Repeating last order from profile...\n");
         kraken.get().url(baseUrl + "user/orders");
-        if(isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
+        if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(2));
         } else {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton());
@@ -303,7 +296,7 @@ public class PerformHelper extends HelperBase {
     public void cancelLastOrder (){
         printMessage("Canceling last order from profile...\n");
         kraken.get().url(baseUrl + "user/orders");
-        if(isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
+        if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(1));
         } else printMessage("> Skipped because order isn't active");
         waitingFor(2);

@@ -34,7 +34,7 @@ public class SearchHelper extends HelperBase {
 
     /** Проверяем наличие категорийного саджеста */
     public boolean isCategorySuggestsPresent() {
-        return isElementPresent(Elements.Site.Header.Search.categorySuggest());
+        return kraken.detect().isElementPresent(Elements.Site.Header.Search.categorySuggest());
     }
 
     /** Нажать на категорийный саджест */
@@ -44,8 +44,7 @@ public class SearchHelper extends HelperBase {
 
     /** Проверяем наличие товарных саджестов */
     public boolean isProductSuggestsPresent() {
-        return isElementPresent(Elements.Site.Header.Search.productSuggest());
-
+        return kraken.detect().isElementPresent(Elements.Site.Header.Search.productSuggest());
     }
 
     /** Нажать на продуктовый саджест */

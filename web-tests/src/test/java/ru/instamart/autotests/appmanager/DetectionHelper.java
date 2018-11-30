@@ -1,5 +1,8 @@
 package ru.instamart.autotests.appmanager;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
@@ -11,6 +14,82 @@ public class DetectionHelper extends HelperBase {
     DetectionHelper(WebDriver driver, Environments environment, ApplicationManager app) {
         super(driver, environment);
         kraken = app;
+    }
+
+    /** Определить показан ли алерт на странице */
+    protected boolean isAlertPresent() {
+        try {
+            driver.switchTo().alert();
+            return true;
+        } catch (NoAlertPresentException e) {
+            return false;
+        }
+    }
+
+
+    /** Задетектить элемент */
+    public boolean isElementDetected(Elements element) {
+        //return isElementPresent(Elements.locator()) && text(Elements.locator()).equals(Elements.text());
+        return isElementDetected(Elements.locator(),Elements.text());
+    }
+
+    /** Задетектить элемент по локатору*/
+    public boolean isElementDetected(By locator, String text) {
+        return isElementPresent(locator) && kraken.grab().text(locator).equals(text);
+    }
+
+    // Todo убрать метод, везде заменить на isElementDetected(Elements element)
+    public boolean isElementDetected(String xpath, String text) {
+        return isElementPresent(By.xpath(xpath)) && kraken.grab().text(By.xpath(xpath)).equals(text);
+    }
+
+    /** Определить отображается ли элемент */
+    public boolean isElementPresent(Elements element) {
+        return isElementPresent(Elements.locator());
+    }
+
+    /** Определить отображается ли элемент по локатору */
+    public boolean isElementPresent(By locator) {
+        try {
+            driver.findElement(locator);
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    /** Определить показан ли элемент */
+    public boolean isElementDisplayed(Elements element){
+        return isElementDisplayed(Elements.locator());
+    }
+
+    /** Определить показан ли элемент по локатору */
+    public boolean isElementDisplayed(By locator){
+        try {
+            return driver.findElement(locator).isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    /** Определить доступен ли элемент */
+    public boolean isElementEnabled(Elements element){
+        return isElementEnabled(Elements.locator());
+    }
+
+    /** Определить доступен ли элемент по локатору */
+    public boolean isElementEnabled(By locator){
+        return driver.findElement(locator).isEnabled();
+    }
+
+    /** Определить проставлен ли чекбокс */
+    boolean isCheckboxSelected(Elements element) {
+        return isCheckboxSelected(Elements.locator());
+    }
+
+    /** Определить проставлен ли чекбокс по локатору */
+    boolean isCheckboxSelected(By locator) {
+        return driver.findElement(locator).isSelected();
     }
 
     /** Определить находимся на лендинге или нет */
@@ -99,7 +178,7 @@ public class DetectionHelper extends HelperBase {
     /** Распознавание документов к заказу на странице деталей */
     public String orderDocument(int position) {
         Elements.Site.OrderDetailsPage.documentation(position);
-        String docName = fetchText(Elements.locator());
+        String docName = kraken.grab().text(Elements.locator());
         if (docName != null) {
             printMessage("Скачиваем: " + docName);
             return docName;

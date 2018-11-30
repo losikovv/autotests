@@ -17,7 +17,7 @@ public class CheckoutHelper extends HelperBase {
     }
 
     public boolean isOnCheckout() {
-        return isElementPresent(Elements.Site.Checkout.header());
+        return kraken.detect().isElementPresent(Elements.Site.Checkout.header());
     }
 
 
@@ -137,12 +137,12 @@ public class CheckoutHelper extends HelperBase {
 
     private void specifyDetail(String field, boolean value) {
         if (value) {
-            if (!isCheckboxSelected(By.name(field))) {
+            if (!kraken.detect().isCheckboxSelected(By.name(field))) {
                 kraken.perform().click(By.name(field));
             }
             printMessage("- " + field + ": ✓");
         } else {
-            if (isCheckboxSelected(By.name(field))) {
+            if (kraken.detect().isCheckboxSelected(By.name(field))) {
                 kraken.perform().click(By.name(field));
             }
             printMessage("- " + field + ": ✕");
@@ -222,7 +222,7 @@ public class CheckoutHelper extends HelperBase {
      */
     private void selectReplacementPolicy(int option) {
         kraken.perform().click(Elements.Site.Checkout.replacementPolicy(option));
-        printMessage("Replacement policy #" + option + " selected (" + fetchText(Elements.locator()) + ")");
+        printMessage("Replacement policy #" + option + " selected (" + kraken.grab().text(Elements.locator()) + ")");
     }
 
 
@@ -254,7 +254,7 @@ public class CheckoutHelper extends HelperBase {
      */
     private void selectPaymentType(String type) {
         kraken.perform().click(Elements.Site.Checkout.payment(PaymentTypes.getPosition(type)));
-        printMessage("Paying with " + type + " - " + fetchText(Elements.locator()));
+        printMessage("Paying with " + type + " - " + kraken.grab().text(Elements.locator()));
     }
 
     // TODO addNewPaymentCard - добавить карту оплаты
@@ -346,7 +346,7 @@ public class CheckoutHelper extends HelperBase {
      * Определяем добавлен ли промокод в чекауте
      */
     public boolean isPromocodeApplied() {
-        if (isElementDetected(Elements.Site.Checkout.appliedPromocodeAttribute())) {
+        if (kraken.detect().isElementDetected(Elements.Site.Checkout.appliedPromocodeAttribute())) {
             printMessage("✓ Promocode applied");
             return true;
         } else {
@@ -365,7 +365,7 @@ public class CheckoutHelper extends HelperBase {
             clearPromocode();
         }
         kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
-        if (isElementDetected(Elements.Site.Checkout.PromocodeModal.title())) {
+        if (kraken.detect().isElementDetected(Elements.Site.Checkout.PromocodeModal.title())) {
             printMessage("Applying promocode '" + promocode + "'...");
             kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
             kraken.perform().click(Elements.Site.Checkout.PromocodeModal.applyButton());
@@ -401,7 +401,7 @@ public class CheckoutHelper extends HelperBase {
      * Определяем применена ли программа лояльности
      */
     public boolean isLoyaltyApplied(String name) {
-        return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
+        return kraken.detect().isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
     }
 
 
@@ -444,7 +444,7 @@ public class CheckoutHelper extends HelperBase {
      * Определяем доступна ли программа лояльности ритейлера в чекауте
      */
     public boolean isRetailerLoyaltyAvailable() {
-        return isElementDetected(
+        return kraken.detect().isElementDetected(
                 "//aside/div/div[4]/div[2]",
                 "Карты лояльности магазинов");
     }
@@ -453,7 +453,7 @@ public class CheckoutHelper extends HelperBase {
      * Определяем применена ли программа лояльности ритейлера в чекауте
      */
     public boolean isRetailerLoyaltyApplied() {
-        return isElementPresent(By.xpath("//aside/div/div[4]/div[3]/div/div[2]"));
+        return kraken.detect().isElementPresent(By.xpath("//aside/div/div[4]/div[3]/div/div[2]"));
     }
 
     /**
@@ -540,7 +540,7 @@ public class CheckoutHelper extends HelperBase {
                 } else return true;
             }
         } else {
-            if (isElementDisplayed(By.className("windows-selector-panel"))) {
+            if (kraken.detect().isElementDisplayed(By.className("windows-selector-panel"))) {
                 printMessage("Step " + stepNumber + " - " + stepName);
                 return true;
             } else {
@@ -555,14 +555,14 @@ public class CheckoutHelper extends HelperBase {
      * Определяем активен ли шаг чекаута в данный момент, по наличию кнопок "Продолжить"
      */
     private boolean isStepActive(int step) {
-        return isElementPresent((By.xpath("(//button[@type='button'])[" + step + "]")));
+        return kraken.detect().isElementPresent((By.xpath("(//button[@type='button'])[" + step + "]")));
     }
 
     /**
      * Определяем активна ли кнопка отправки заказа
      */
     private boolean isSendButtonActive() {
-        return isElementEnabled(By.xpath("//aside/div/div[1]/div/button"));
+        return kraken.detect().isElementEnabled(By.xpath("//aside/div/div[1]/div/button"));
     }
 
 }

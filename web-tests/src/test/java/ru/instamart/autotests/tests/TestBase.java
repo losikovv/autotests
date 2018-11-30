@@ -138,12 +138,12 @@ public class TestBase {
 
     void assertNoTestOrdersLeftActive() throws AssertionError {
         kraken.get().adminPage(Config.testOrdersList);
-        Assert.assertTrue(kraken.perform().isElementPresent(By.className("no-objects-found")), "Seems like there are some test orders left active");
+        Assert.assertTrue(kraken.detect().isElementPresent(By.className("no-objects-found")), "Seems like there are some test orders left active");
     }
 
     void assertNoTestUsersLeft() throws AssertionError {
         kraken.get().adminPage(Config.testUsersList);
-        Assert.assertFalse(kraken.perform().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),
+        Assert.assertFalse(kraken.detect().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),
                 "Seems like there are some test users left after cleanup");
     }
 
