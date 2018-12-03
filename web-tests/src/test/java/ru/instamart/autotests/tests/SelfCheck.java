@@ -13,14 +13,18 @@ import ru.instamart.autotests.application.Addresses;
 public class SelfCheck extends TestBase {
 
 
-    @Test(description = "Тест базового URL", priority = 10000)
+    @Test(description = "Тест базового URL",
+            groups ="selfcheck",
+            priority = 10000)
     public void initialCheck() throws Exception {
         kraken.get().baseUrl();
         Assert.assertEquals(kraken.grab().currentURL() , kraken.perform().fullBaseUrl);
     }
 
 
-    @Test(description = "Тест корректности работы методов навигации", priority = 10001)
+    @Test(description = "Тест корректности работы методов навигации",
+            groups ="selfcheck",
+            priority = 10001)
     public void checkNavigation() throws Exception {
 
         kraken.get().page("metro");
@@ -33,7 +37,9 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения модалки авторизации/регистрации", priority = 10002)
+    @Test(description = "Тест корректности определения модалки авторизации/регистрации",
+            groups ="selfcheck",
+            priority = 10002)
     public void detectAuthModal() throws Exception {
 
         kraken.get().baseUrl();
@@ -54,7 +60,9 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения авторизованности пользователя", priority = 10003)
+    @Test(description = "Тест корректности определения авторизованности пользователя",
+            groups ="selfcheck",
+            priority = 10003)
     public void detectAuthorisation() throws Exception {
 
         kraken.perform().dropAuth();
@@ -77,7 +85,9 @@ public class SelfCheck extends TestBase {
     // TODO public void detectAddressModal() throws Exception { }
 
 
-    @Test(description = "Тест корректности определения меню Профиль", priority = 10004)
+    @Test(description = "Тест корректности определения меню Профиль",
+            groups ="selfcheck",
+            priority = 10004)
     public void detectAccountMenu() throws Exception {
 
         kraken.get().baseUrl();
@@ -91,7 +101,9 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения карточки товара", priority = 10005)
+    @Test(description = "Тест корректности определения карточки товара",
+            groups ="selfcheck",
+            priority = 10005)
     public void detectItemCard() throws Exception {
 
         kraken.get().page("metro/khliet-rzhanoi-krai");
@@ -102,7 +114,9 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения что находимся на сайте", priority = 10006)
+    @Test(description = "Тест корректности определения что находимся на сайте",
+            groups ="selfcheck",
+            priority = 10006)
     public void detectIsOnSite() throws Exception {
 
         kraken.get().page(Pages.Site.Static.faq());
@@ -114,7 +128,9 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения что находимся в админке", priority = 10007)
+    @Test(description = "Тест корректности определения что находимся в админке",
+            groups ="selfcheck",
+            priority = 10007)
     public void detectIsInAdmin() throws Exception {
 
         kraken.get().page(Pages.Site.Static.contacts());
@@ -126,7 +142,9 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения 404 ошибки на страниице", priority = 10008)
+    @Test(description = "Тест корректности определения 404 ошибки на страниице",
+            groups ="selfcheck",
+            priority = 10008)
     public void detect404() throws Exception {
 
         kraken.get().page("nowhere");
@@ -137,7 +155,9 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения 500 ошибки на страниице", priority = 10009)
+    @Test(description = "Тест корректности определения 500 ошибки на страниице",
+            groups ="selfcheck",
+            priority = 10009)
     public void detect500() throws Exception {
 
         kraken.get().page("stores/21/shipping_methods");
@@ -148,7 +168,9 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения шторки Каталога", priority = 10010)
+    @Test(description = "Тест корректности определения шторки Каталога",
+            groups ="selfcheck",
+            priority = 10010)
     public void detectCatalogDrawer() throws Exception {
 
         kraken.get().page("metro");
@@ -161,7 +183,9 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения шторки магазинов", priority = 10011)
+    @Test(description = "Тест корректности определения шторки магазинов",
+            groups ="selfcheck",
+            priority = 10011)
     public void detectShopsDrawer() throws Exception {
 
         kraken.get().baseUrl();
@@ -189,7 +213,9 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения шторки корзины", priority = 10012)
+    @Test(description = "Тест корректности определения шторки корзины",
+            groups ="selfcheck",
+            priority = 10012)
     public void detectCartDrawer() throws Exception {
 
         kraken.get().page("metro");
@@ -202,7 +228,9 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения модалки Доставка", priority = 10013)
+    @Test(description = "Тест корректности определения модалки Доставка",
+            groups ="selfcheck",
+            priority = 10013)
     public void detectDeliveryModal() throws Exception {
 
         kraken.get().page("metro");
@@ -215,7 +243,9 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения модалки Партнеры", priority = 10014)
+    @Test(description = "Тест корректности определения модалки Партнеры",
+            groups ="selfcheck",
+            priority = 10014)
     public void detectPartnersModal() throws Exception {
 
         kraken.get().page("metro");

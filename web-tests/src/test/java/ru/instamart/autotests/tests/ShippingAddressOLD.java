@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 
 
-public class ShippingAddressOLD extends TestBase {
+public class ShippingAddressOLD {
 
  /*
 
