@@ -16,6 +16,7 @@ public class Bugfixes extends TestBase {
             priority = 1001
     )
     public void STF987() throws Exception {
+
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 

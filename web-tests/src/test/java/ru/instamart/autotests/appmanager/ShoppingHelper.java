@@ -122,8 +122,12 @@ public class ShoppingHelper extends HelperBase {
 
     /** Перейти в чекаут нажатием кнопки "Сделать заказ" в корзине */
     public void proceedToCheckout() {
-        openCart();
-        kraken.perform().click(Elements.Site.Cart.checkoutButton());
+        openCart(); // todo убрать?
+        if(kraken.detect().isCheckoutButtonActive()){
+            kraken.perform().click(Elements.Site.Cart.checkoutButton());
+        } else {
+            kraken.perform().printMessage("Кнопка перехода в чекаут неактивна");
+        }
     }
 
     /** Набрать корзину на минимальную сумму, достаточную для оформления заказа */

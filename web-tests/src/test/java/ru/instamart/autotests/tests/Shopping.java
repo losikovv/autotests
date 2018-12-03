@@ -98,16 +98,15 @@ public class Shopping extends TestBase{
             priority = 354
     )
     public void proceedFromCartToCheckout()throws Exception, AssertionError {
+        kraken.shopping().openCart();
         if(!kraken.detect().isCheckoutButtonActive()) {
             kraken.shopping().grabCart();
         }
-        if(kraken.detect().isCheckoutButtonActive()){
-            kraken.shopping().proceedToCheckout();
-        }
 
-        // Assert can access checkout by clicking on order button in cart
+        kraken.shopping().proceedToCheckout();
+
         Assert.assertTrue(kraken.checkout().isOnCheckout(),
-                "Can't access checkout by clicking on order button in cart\n");
+                "Не удалось перейти из корзыны в чекаут\n");
     }
 
     // TODO тест на изменение кол-ва товаров в корзине

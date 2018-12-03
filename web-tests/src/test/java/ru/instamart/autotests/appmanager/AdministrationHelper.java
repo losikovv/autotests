@@ -36,6 +36,7 @@ public class AdministrationHelper extends HelperBase {
     public void cancelOrder(int reason, String details) {
         printMessage("> cancel order " + kraken.grab().currentURL());
         kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
+        kraken.perform().waitingFor(1);
         handleAlert();
         chooseCancellationReason(reason, details);
         kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());

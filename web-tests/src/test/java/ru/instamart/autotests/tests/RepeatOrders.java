@@ -27,9 +27,8 @@ public class RepeatOrders extends TestBase {
     public void repeatLastOrderAndPayWithCardOnline() throws Exception {
         kraken.perform().repeatLastOrder();
 
-        // Проверяем что заказ повторился и корзина не пуста
         Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Something went wrong while repeating the last order from the profile\n");
+                "Заказ не повторился, что-то пошло не так\n");
 
         if(!kraken.detect().isCheckoutButtonActive()) {
             kraken.shopping().grabCart();
@@ -51,9 +50,8 @@ public class RepeatOrders extends TestBase {
     public void repeatLastOrderAndPayWithCardCourier() throws Exception {
         kraken.perform().repeatLastOrder();
 
-        // Проверяем что заказ повторился и корзина не пуста
         Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Something went wrong while repeating the last order from the profile\n");
+                "Заказ не повторился, что-то пошло не так\n");
 
         if(!kraken.detect().isCheckoutButtonActive()) {
             kraken.shopping().grabCart();
@@ -73,9 +71,8 @@ public class RepeatOrders extends TestBase {
     public void repeatLastOrderAndPayWithCash() throws Exception {
         kraken.perform().repeatLastOrder();
 
-        // Проверяем что заказ повторился и корзина не пуста
         Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Something went wrong while repeating the last order from the profile\n");
+                "Заказ не повторился, что-то пошло не так\n");
 
         if(!kraken.detect().isCheckoutButtonActive()) {
             kraken.shopping().grabCart();
@@ -97,9 +94,8 @@ public class RepeatOrders extends TestBase {
     public void repeatLastOrderAndPayWithBank() throws Exception {
         kraken.perform().repeatLastOrder();
 
-        // Проверяем что заказ повторился и корзина не пуста
         Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Something went wrong while repeating the last order from the profile\n");
+                "Заказ не повторился, что-то пошло не так\n");
 
         if(!kraken.detect().isCheckoutButtonActive()) {
             kraken.shopping().grabCart();
