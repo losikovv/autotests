@@ -65,6 +65,7 @@ public class AddressHelper extends HelperBase {
      * Изменить адрес доставки
      */
     public void change(String newAddress) {
+        // test
         printMessage("Changing shipping address");
         kraken.shipAddress().openAddressModal();
 
