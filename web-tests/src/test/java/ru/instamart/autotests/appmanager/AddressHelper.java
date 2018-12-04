@@ -65,10 +65,16 @@ public class AddressHelper extends HelperBase {
         }
     }
 
+    /**
+     * Открытие модалки адреса
+     */
     public void openAddressModal() {
         kraken.perform().click(Elements.Site.Header.setShipAddressButton());
     }
 
+    /**
+     * Закрытие модалки адреса
+     */
     public void closeAddressModal() {
         kraken.perform().click(Elements.Site.AddressModal.closeButton());
         kraken.perform().waitingFor(1);

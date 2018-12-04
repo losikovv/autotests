@@ -315,7 +315,6 @@ public class Elements {
 
             static Elements closeButton() {
                 locator = By.className("modal-wrapper__close");
-                //locator = By.xpath("//*[@id='react-modal']/div/div/div/div/div/div[1]/div/div/div/div/button");
                 return new Elements(null, locator);
             }
 
@@ -349,14 +348,15 @@ public class Elements {
                 locator = By.cssSelector(".address-modal__to-login-link");
                 return new Elements(null, locator);
             }
+
             static Elements popup() {
                 return new Elements(null,
                         By.className("address-modal"));
             }
 
             static Elements title() {
-                return new Elements("Редактирование адреса",
-                        By.cssSelector(".modal-title"));
+                return new Elements ("Введите адрес доставки",
+                        By.className("address-modal__header"));
             }
         }
 
