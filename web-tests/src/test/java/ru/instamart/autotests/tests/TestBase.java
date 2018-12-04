@@ -14,7 +14,7 @@ import ru.instamart.autotests.application.Pages;
 
 public class TestBase {
 
-    protected static final ApplicationManager kraken = new ApplicationManager(BrowserType.FIREFOX);
+    protected static final ApplicationManager kraken = new ApplicationManager(BrowserType.CHROME);
 
 
     @BeforeSuite(alwaysRun = true)

@@ -257,9 +257,35 @@ public class SelfCheck extends TestBase {
         Assert.assertFalse(kraken.detect().isPartnersModalOpen());
     }
 
-    // TODO detectPaymentModal
 
-    // TODO detectAddressModal
+    @Test(description = "Тест корректности определения модалки Оплата",
+            groups ="selfcheck",
+            priority = 10015)
+    public void detectPaymentModal() throws Exception {
 
+        kraken.get().page("metro");
+
+        kraken.perform().click(Elements.Site.Footer.paymentButton());
+        Assert.assertTrue(kraken.detect().isPaymentModalOpen());
+
+        kraken.perform().click(Elements.Site.PaymentModal.closeButton());
+        Assert.assertFalse(kraken.detect().isPaymentModalOpen());
+    }
+
+
+     @Test(description = "Тест корректности определения модалки Адрес",
+            groups ="selfcheck",
+            priority = 10016)
+     public void detectAddressModal() throws Exception {
+
+        kraken.get().page("metro");
+
+
+        kraken.shipAddress().openAddressModal();
+        Assert.assertTrue(kraken.detect().isAddressModalOpen());
+
+        kraken.shipAddress().closeAddressModal();
+        Assert.assertFalse(kraken.detect().isAddressModalOpen());
+    }
 }
 
