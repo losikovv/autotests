@@ -300,9 +300,24 @@ public class Elements {
             static Elements submitButton() {
                 return new Elements(null, By.className("auth-modal__button"));
             }
+
+            static Elements passwordTooLongError() {
+                return new Elements("Не может быть длиннее 128 символов",
+                        (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[3]/div[2]")));
+            }
+            static Elements passwordConfirmationTooLongError() {
+                return new Elements("Не может быть длиннее 128 символов",
+                        (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[4]/div[2]")));
+            }
+            static Elements nameTooLongError() {
+                return new Elements("Не может быть длиннее 128 символов",
+                        (By.xpath("//*[@id=\"auth\"]/div/div/div[1]/form/div/div[1]/div[2]")));
+            }
+            static Elements emailTooLongError() {
+                return new Elements("Не может быть длиннее 128 символов",
+                        (By.xpath("//*[@id=\"auth\"]/div/div/div[1]/form/div/div[2]/div[2]")));
+            }
         }
-
-
         /**
          * Адресные модалки Феникса
          */
@@ -345,7 +360,7 @@ public class Elements {
             }
 
             static Elements authButton() {
-                locator = By.cssSelector(".address-modal__to-login-link");
+                locator = By.xpath("//*[@id='react-modal']/div/div/div/div/div/div[1]/div/div/div/div/div/div[2]/div/span");
                 return new Elements(null, locator);
             }
         }

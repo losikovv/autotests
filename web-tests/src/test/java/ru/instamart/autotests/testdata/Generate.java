@@ -25,6 +25,21 @@ public class Generate {
         return number.toString();
     }
 
+    /** Сгенерировать буквенную строку указанной длины */
+    public static String randomLiteralString(int length) {
+        String s = "abcdefghijklmnopqrstuvwxyz";
+        StringBuilder number = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            number.append(s.charAt(new Random().nextInt(s.length())));
+        }
+        return number.toString();
+    }
+
+    /** Сгенерировать тестовый имейл с префиксом указанной длины */
+    public static String randomEmail(int prefixLength) {
+        return randomString(100) + "@example.com";
+    }
+
     //TODO
     /** Сгенерировать случайный адрес доставки в указанном городе */
     public static String randomAddress(String city) {

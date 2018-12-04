@@ -30,6 +30,8 @@ public class DetectionHelper extends HelperBase {
 
     /** Задетектить элемент */
     public boolean element(Elements element) {
+        // DEBUG
+        // printMessage("Detecting element " + Elements.text());
         return element(Elements.locator(),Elements.text());
     }
 

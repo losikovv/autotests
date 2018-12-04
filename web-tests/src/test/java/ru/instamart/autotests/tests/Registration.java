@@ -177,4 +177,33 @@ public class Registration extends TestBase {
         kraken.perform().logout();
     }
 
+    @Test(
+            description = "Негативный тест попытки зарегистрировать пользователя с длинными полями",
+            groups = {"acceptance", "regression"}
+    )
+    public void noRegWithLongFields() throws Exception {
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
+
+        int length = 129;
+        String testPassword = Generate.randomString(length);
+
+        kraken.perform().registration( Generate.randomLiteralString(length), Generate.randomEmail(length), testPassword, testPassword);
+
+        Assert.assertTrue(kraken.detect().element(Elements.Site.AuthModal.nameTooLongError()),
+                "Не показана ошибка 'Не может быть длиннее 128 символов'\n");
+
+        Assert.assertTrue(kraken.detect().element(Elements.Site.AuthModal.emailTooLongError()),
+                "Не показана ошибка 'Не может быть длиннее 128 символов'\n");
+
+        Assert.assertTrue(kraken.detect().element(Elements.Site.AuthModal.passwordTooLongError()),
+                "Не показана ошибка 'Не может быть длиннее 128 символов'\n");
+
+        Assert.assertTrue(kraken.detect().element(Elements.Site.AuthModal.passwordConfirmationTooLongError()),
+                "Не показана ошибка 'Не может быть длиннее 128 символов'\n");
+
+        Assert.assertFalse(kraken.detect().isUserAuthorised(),
+                "Все хуйня - давай сначала!\n");
+    }
+
 }
