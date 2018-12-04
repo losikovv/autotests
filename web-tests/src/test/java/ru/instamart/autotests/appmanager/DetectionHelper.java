@@ -118,7 +118,7 @@ public class DetectionHelper extends HelperBase {
 
     // ======= Модалки =======
 
-    /** Определить открыта ли модалка "Модалка" */
+    /** Определить открыта ли модалка "Доставка" */
     public boolean isDeliveryModalOpen() {
         return isElementDisplayed(Elements.Site.DeliveryModal.popup())
                 && element(Elements.Site.DeliveryModal.title());
@@ -136,6 +136,11 @@ public class DetectionHelper extends HelperBase {
                 && element(Elements.Site.PartnersModal.title());
     }
 
+    /** Определить открыт ли модалка "Адрес" */
+    public boolean isAddressModalOpen() {
+        return isElementDisplayed(Elements.Site.AddressModal.popup())
+                && element(Elements.Site.AddressModal.title());
+    }
 
     // ======= Меню "Профиль" =======
 
