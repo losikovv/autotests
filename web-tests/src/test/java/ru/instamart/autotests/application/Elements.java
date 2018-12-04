@@ -302,20 +302,20 @@ public class Elements {
             }
 
             static Elements passwordTooLongError() {
-                return new Elements("Не может быть длиннее 128 символов",
+                return new Elements(Messages.UserErrors.fieldValueIsTooLong,
                         (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[3]/div[2]")));
             }
             static Elements passwordConfirmationTooLongError() {
-                return new Elements("Не может быть длиннее 128 символов",
+                return new Elements(Messages.UserErrors.fieldValueIsTooLong,
                         (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[4]/div[2]")));
             }
             static Elements nameTooLongError() {
-                return new Elements("Не может быть длиннее 128 символов",
-                        (By.xpath("//*[@id=\"auth\"]/div/div/div[1]/form/div/div[1]/div[2]")));
+                return new Elements(Messages.UserErrors.fieldValueIsTooLong,
+                        (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[1]/div[2]")));
             }
             static Elements emailTooLongError() {
-                return new Elements("Не может быть длиннее 128 символов",
-                        (By.xpath("//*[@id=\"auth\"]/div/div/div[1]/form/div/div[2]/div[2]")));
+                return new Elements(Messages.UserErrors.fieldValueIsTooLong,
+                        (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[2]/div[2]")));
             }
         }
         /**
