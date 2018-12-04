@@ -106,7 +106,7 @@ public class SelfCheck extends TestBase {
             priority = 10005)
     public void detectItemCard() throws Exception {
 
-        kraken.get().page("metro/khliet-rzhanoi-krai");
+        kraken.get().page("metro/hleb-rzhanoy-kray-zavarnoy-v-narezke");
         Assert.assertTrue(kraken.detect().isItemCardOpen());
 
         kraken.get().page("metro/eliektronika");
