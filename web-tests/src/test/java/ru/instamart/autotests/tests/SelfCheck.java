@@ -18,7 +18,7 @@ public class SelfCheck extends TestBase {
             priority = 10000)
     public void initialCheck() throws Exception {
         kraken.get().baseUrl();
-        Assert.assertEquals(kraken.grab().currentURL() , kraken.perform().fullBaseUrl);
+        Assert.assertEquals(kraken.grab().currentURL() , kraken.grab().fullBaseUrl);
     }
 
 
@@ -28,13 +28,14 @@ public class SelfCheck extends TestBase {
     public void checkNavigation() throws Exception {
 
         kraken.get().page("metro");
-        Assert.assertEquals(kraken.grab().currentURL() , kraken.perform().fullBaseUrl + "metro");
-
+        Assert.assertEquals(kraken.grab().currentURL() , kraken.grab().fullBaseUrl + "metro");
 
         kraken.get().page(Pages.Site.Static.faq());
-        Assert.assertEquals(kraken.grab().currentURL() , kraken.perform().fullBaseUrl + Pages.getPagePath());
-        // TODO проверка GO методов
+        Assert.assertEquals(kraken.grab().currentURL() , kraken.grab().fullBaseUrl + Pages.getPagePath());
     }
+
+
+    // TODO проверка GO методов
 
 
     @Test(description = "Тест корректности определения модалки авторизации/регистрации",
@@ -78,7 +79,6 @@ public class SelfCheck extends TestBase {
 
         kraken.perform().logout();
         Assert.assertFalse(kraken.detect().isUserAuthorised());
-
     }
 
 
