@@ -155,7 +155,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Авторизационная последовательность с реквизитами из переданного объекта UserData */
-    private void authSequence(UserData userData) throws Exception {
+    public void authSequence(UserData userData) throws Exception {
         authSequence(userData.getLogin(), userData.getPassword());
     }
 

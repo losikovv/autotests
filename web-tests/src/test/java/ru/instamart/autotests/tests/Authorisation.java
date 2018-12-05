@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
+import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.Generate;
 
 
@@ -161,11 +162,9 @@ public class Authorisation extends TestBase {
             priority = 109
     )
     public void successAuthOnCart() throws Exception {
+        final UserData testuser = Generate.testUserData();
         kraken.get().baseUrl();
-        kraken.perform().click(Elements.Site.Landing.loginButton());
-        kraken.perform().authSequence("i888100@nwytg.com","123456");
-        kraken.shipAddress().change("Зеленый проспект, д 2");
-        kraken.shipAddress().change(Addresses.Moscow.defaultAddress());
+        kraken.perform().registration(testuser);
         kraken.perform().logout();
 
         kraken.get().page("metro");
@@ -175,7 +174,7 @@ public class Authorisation extends TestBase {
         kraken.perform().click(Elements.Site.Cart.checkoutButton());
         kraken.perform().click(Elements.Site.AuthModal.authorisationTab());
 
-        kraken.perform().authSequence("i888100@nwytg.com","123456");
+        kraken.perform().authSequence(testuser);
 
         Assert.assertTrue(kraken.detect().isOnCheckout(),
                 "Нет автоперехода в чекаут после авторизации из корзины\n");
