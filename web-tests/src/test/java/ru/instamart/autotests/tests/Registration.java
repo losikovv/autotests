@@ -235,6 +235,7 @@ public class Registration extends TestBase {
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Пропали товары после регистрации из корзины\n");
 
+        kraken.shopping().closeCart();
         kraken.perform().logout();
     }
 }
