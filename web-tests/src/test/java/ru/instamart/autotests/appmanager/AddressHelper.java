@@ -24,33 +24,20 @@ public class AddressHelper extends HelperBase {
             kraken.perform().waitingFor(1);
             kraken.perform().click(Elements.Site.Landing.addressSuggest());
             kraken.perform().click(Elements.Site.Landing.selectStoreButton());
+            kraken.perform().waitingFor(1);
         } else {
-            kraken.perform().click(Elements.Site.Header.setShipAddressButton());
-
-            // DEBUG
-            // printMessage("Modal opened: [" + text(Elements.Site.AddressModal.header()) + "]");
-
-            kraken.perform().fillField(Elements.Site.AddressModal.addressField(), address);
-            selectAddressSuggest();
-            kraken.perform().click(Elements.Site.AddressModal.saveButton());
+            kraken.shipAddress().fill(address);
+            kraken.shipAddress().submit();
         }
-        kraken.perform().waitingFor(1);
     }
 
     /**
      * Изменить адрес доставки
      */
-    public void change(String newAddress) {
+    public void change(String address) {
         printMessage("Changing shipping address");
-        kraken.perform().click(Elements.Site.Header.changeShipAddressButton());
-
-        // DEBUG
-        // printMessage("Modal opened: [" + text(Elements.Site.AddressModal.header()) + "]");
-
-        kraken.perform().fillField(Elements.Site.AddressModal.addressField(), newAddress);
-        selectAddressSuggest();
-        kraken.perform().click(Elements.Site.AddressModal.saveButton());
-        kraken.perform().waitingFor(2);
+        kraken.shipAddress().fill(address);
+        kraken.shipAddress().submit();
     }
 
     /**
@@ -66,18 +53,46 @@ public class AddressHelper extends HelperBase {
     }
 
     /**
-     * Открытие модалки адреса
+     * Открыть модалку адреса
      */
     public void openAddressModal() {
-        kraken.perform().click(Elements.Site.Header.setShipAddressButton());
-    }
+        if (kraken.detect().isAddressModalOpen()) {
+            printMessage("Address modal is already opened");
+        }
+        else
+            if (kraken.detect().isShippingAddressEmpty()) {
+                kraken.perform().click(Elements.Site.Header.setShipAddressButton());
+            } else {
+                kraken.perform().click(Elements.Site.Header.changeShipAddressButton());
+            }
+        }
 
     /**
-     * Закрытие модалки адреса
+     * Закрыть модалку адреса
      */
     public void closeAddressModal() {
         kraken.perform().click(Elements.Site.AddressModal.closeButton());
         kraken.perform().waitingFor(1);
     }
 
+    /**
+     * Сохранить адрес в модалке
+     */
+    private void submit() {
+        kraken.perform().click(Elements.Site.AddressModal.saveButton());
+        kraken.perform().waitingFor(2);
+    }
+
+    /**
+     * Ввести новый адрес в модалке
+     */
+    public void fill(String address) {
+        kraken.shipAddress().openAddressModal();
+
+        // DEBUG
+        // printMessage("Modal opened: [" + text(Elements.Site.AddressModal.header()) + "]");
+
+        kraken.perform().fillField(Elements.Site.AddressModal.addressField(), address);
+        selectAddressSuggest();
+    }
 }

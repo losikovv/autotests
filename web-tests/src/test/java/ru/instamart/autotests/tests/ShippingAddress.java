@@ -30,7 +30,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест ввода адреса доставки на витрине ритейлера",
             groups = {"acceptance","regression"},
-            priority = 202
+            priority = 203
     )
     public void setShippingAddressOnRetailerPage() throws Exception {
         kraken.get().page("metro");
@@ -43,11 +43,25 @@ public class ShippingAddress extends TestBase{
                "Current shipping address is not the same that was entered during the setting procedure\n");
     }
 
+    @Test(
+            description = "Тест отмены ввода адреса доставки на витрине ритейлера",
+            groups = {"regression"},
+            priority = 202
+    )
+    public void cancelSetShippingAddressOnRetailerPage() throws Exception {
+        kraken.get().page("metro");
+        kraken.shipAddress().fill(Addresses.Moscow.defaultAddress());
+        kraken.shipAddress().closeAddressModal();
+
+        Assert.assertFalse(kraken.detect().isShippingAddressSet(),
+                "Can't approve the shipping address was remained correctly, check manually\n");
+    }
+
 
     @Test(
             description = "Тест изменения адреса доставки",
             groups = {"acceptance","regression"},
-            priority = 203
+            priority = 205
     )
     public void changeShippingAddress() throws Exception {
         kraken.get().page("metro");
@@ -63,5 +77,24 @@ public class ShippingAddress extends TestBase{
         Assert.assertEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.testAddress(),
                 "Current shipping address is not the same that was entered during the setting procedure\n");
     }
+
+    @Test(
+            description = "Тест отмены изменения адреса доставки",
+            groups = {"regression"},
+            priority = 204
+    )
+    public void cancelChangeShippingAddress() throws Exception {
+        kraken.get().page("metro");
+        kraken.shipAddress().fill(Addresses.Moscow.testAddress());
+        kraken.shipAddress().closeAddressModal();
+
+
+        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
+                "Can't approve the shipping address was remained correctly, check manually\n");
+
+        Assert.assertFalse(kraken.grab().currentShipAddress().equals(Addresses.Moscow.testAddress()),
+                "Current shipping address is the same that was entered during the setting procedure\n");
+    }
+
 
 }
