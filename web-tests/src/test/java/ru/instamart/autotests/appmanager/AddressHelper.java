@@ -24,15 +24,39 @@ public class AddressHelper extends HelperBase {
             kraken.perform().waitingFor(1);
             kraken.perform().click(Elements.Site.Landing.addressSuggest());
             kraken.perform().click(Elements.Site.Landing.selectStoreButton());
+            kraken.perform().waitingFor(1);
         } else {
-            kraken.perform().click(Elements.Site.Header.setShipAddressButton());
+            kraken.shipAddress().openAddressModal();
 
             // DEBUG
             // printMessage("Modal opened: [" + text(Elements.Site.AddressModal.header()) + "]");
 
             kraken.perform().fillField(Elements.Site.AddressModal.addressField(), address);
             selectAddressSuggest();
-            kraken.perform().click(Elements.Site.AddressModal.saveButton());
+            kraken.shipAddress().saveAddressModal();
+        }
+    }
+
+    /**
+     * Отмена установки адреса доставки
+     */
+    public void cancelSet(String address) {
+        printMessage("Cancel setting shipping address...");
+
+        if (kraken.grab().currentURL().equals(fullBaseUrl)) {
+            kraken.perform().fillField(Elements.Site.Landing.addressField(), address);
+            kraken.perform().waitingFor(1);
+            kraken.perform().click(Elements.Site.Landing.addressSuggest());
+            kraken.perform().click(Elements.Site.Landing.selectStoreButton());
+        } else {
+            kraken.shipAddress().openAddressModal();
+
+            // DEBUG
+            // printMessage("Modal opened: [" + text(Elements.Site.AddressModal.header()) + "]");
+
+            kraken.perform().fillField(Elements.Site.AddressModal.addressField(), address);
+            selectAddressSuggest();
+            kraken.shipAddress().closeAddressModal();
         }
         kraken.perform().waitingFor(1);
     }
@@ -42,15 +66,29 @@ public class AddressHelper extends HelperBase {
      */
     public void change(String newAddress) {
         printMessage("Changing shipping address");
-        kraken.perform().click(Elements.Site.Header.changeShipAddressButton());
+        kraken.shipAddress().openAddressModal();
 
         // DEBUG
         // printMessage("Modal opened: [" + text(Elements.Site.AddressModal.header()) + "]");
 
         kraken.perform().fillField(Elements.Site.AddressModal.addressField(), newAddress);
         selectAddressSuggest();
-        kraken.perform().click(Elements.Site.AddressModal.saveButton());
-        kraken.perform().waitingFor(2);
+        kraken.shipAddress().saveAddressModal();
+    }
+
+    /**
+     * Отменить изменение адреса доставки
+     */
+    public void cancelChange(String newAddress) {
+        printMessage("Cancel changing shipping address");
+        kraken.shipAddress().openAddressModal();
+
+        // DEBUG
+        // printMessage("Modal opened: [" + text(Elements.Site.AddressModal.header()) + "]");
+
+        kraken.perform().fillField(Elements.Site.AddressModal.addressField(), newAddress);
+        selectAddressSuggest();
+        kraken.shipAddress().closeAddressModal();
     }
 
     /**
@@ -66,18 +104,29 @@ public class AddressHelper extends HelperBase {
     }
 
     /**
-     * Открытие модалки адреса
+     * Открыть модалку адреса
      */
     public void openAddressModal() {
-        kraken.perform().click(Elements.Site.Header.setShipAddressButton());
+        if (kraken.detect().isShippingAddressEmpty()) {
+            kraken.perform().click(Elements.Site.Header.setShipAddressButton());
+        } else {
+            kraken.perform().click(Elements.Site.Header.changeShipAddressButton());
+        }
     }
 
     /**
-     * Закрытие модалки адреса
+     * Закрыть модалку адреса
      */
     public void closeAddressModal() {
         kraken.perform().click(Elements.Site.AddressModal.closeButton());
         kraken.perform().waitingFor(1);
     }
 
+    /**
+     * Сохранить адрес в модалке
+     */
+    public void saveAddressModal() {
+        kraken.perform().click(Elements.Site.AddressModal.saveButton());
+        kraken.perform().waitingFor(2);
+    }
 }

@@ -146,7 +146,7 @@ public class Authorisation extends TestBase {
         kraken.get().page("metro");
         kraken.perform().dropAuth();
 
-        kraken.perform().click(Elements.Site.Header.setShipAddressButton());
+        kraken.shipAddress().openAddressModal();
         kraken.perform().click(Elements.Site.AddressModal.authButton());
         kraken.perform().authSequence("admin");
 
