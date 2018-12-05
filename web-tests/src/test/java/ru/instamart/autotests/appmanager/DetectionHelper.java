@@ -188,13 +188,12 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить отправлена ли форма восстановления пароля */
     public boolean isRecoverySent(){
-        if (!isElementDisplayed(Elements.Site.AuthModal.popup())
-                || isElementPresent(Elements.Site.AuthModal.emailField())) {
-            printMessage("Recovery not sent!");
-            return false;
-        } else {
+        if (kraken.detect().element(Elements.Site.AuthModal.successRecoveryText())) {
             printMessage("✓ Recovery requested");
             return true;
+        } else {
+            printMessage("Recovery request is not sent!");
+            return false;
         }
     }
 

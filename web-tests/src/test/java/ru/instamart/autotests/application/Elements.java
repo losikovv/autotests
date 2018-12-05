@@ -301,6 +301,11 @@ public class Elements {
                 return new Elements(null, By.className("auth-modal__button"));
             }
 
+            static Elements successRecoveryText() {
+                return new Elements("На указанный вами E-mail высланы инструкции по восстановлению пароля.",
+                        By.cssSelector(".auth-modal__recovery-text > span:nth-child(1)"));
+            }
+
             static Elements passwordTooLongError() {
                 return new Elements(Messages.UserErrors.fieldValueIsTooLong,
                         (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[3]/div[2]")));
