@@ -61,7 +61,7 @@ public class AddressHelper extends HelperBase {
             kraken.perform().click(Elements.Site.AddressModal.addressSuggest());
             kraken.perform().waitingFor(1); // Пауза, чтобы дать время обновиться кнопке "сохранить адрес"
         } else {
-            printMessage("Can't click address suggest - there are no such");
+            printMessage("Can't click address suggest, there are no such");
         }
     }
 

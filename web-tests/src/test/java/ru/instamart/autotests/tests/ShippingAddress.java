@@ -51,12 +51,16 @@ public class ShippingAddress extends TestBase{
     )
     public void changeShippingAddress() throws Exception {
         kraken.get().page("metro");
+        if(kraken.detect().isShippingAddressEmpty()) {
+            kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        }
+
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
 
         Assert.assertTrue(kraken.detect().isShippingAddressSet(),
                 "Can't approve the shipping address was set correctly, check manually\n");
 
-        Assert.assertTrue(kraken.grab().currentShipAddress().equals(Addresses.Moscow.testAddress()),
+        Assert.assertEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.testAddress(),
                 "Current shipping address is not the same that was entered during the setting procedure\n");
     }
 

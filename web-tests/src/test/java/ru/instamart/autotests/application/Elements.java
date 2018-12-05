@@ -345,8 +345,6 @@ public class Elements {
 
             static Elements saveButton() {
                 return new Elements("Сохранить", By.className("address-modal__button"));
-                //return new Elements("Сохранить", By.xpath("//*[@id='react-modal']/div/div/div/div/div[1]" +
-                //"/div/div/div/div/div/div[1]/form/button"));
             }
 
             static Elements recentAddressesList() {
