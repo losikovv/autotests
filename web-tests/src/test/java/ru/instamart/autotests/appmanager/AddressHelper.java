@@ -17,7 +17,7 @@ public class AddressHelper extends HelperBase {
      * Установить адрес доставки
      */
     public void set(String address) {
-        printMessage("Setting shipping address...");
+        printMessage("Setting shipping address to : " + address);
 
         if (kraken.grab().currentURL().equals(fullBaseUrl)) {
             kraken.perform().fillField(Elements.Site.Landing.addressField(), address);
@@ -26,8 +26,9 @@ public class AddressHelper extends HelperBase {
             kraken.perform().click(Elements.Site.Landing.selectStoreButton());
             kraken.perform().waitingFor(1);
         } else {
-            kraken.shipAddress().fill(address);
-            kraken.shipAddress().submit();
+            openAddressModal();
+            fill(address);
+            submit();
         }
     }
 
@@ -35,9 +36,10 @@ public class AddressHelper extends HelperBase {
      * Изменить адрес доставки
      */
     public void change(String address) {
-        printMessage("Changing shipping address");
-        kraken.shipAddress().fill(address);
-        kraken.shipAddress().submit();
+        printMessage("Changing shipping address to : " + address);
+        openAddressModal();
+        fill(address);
+        submit();
     }
 
     /**
@@ -57,7 +59,7 @@ public class AddressHelper extends HelperBase {
      */
     public void openAddressModal() {
         if (kraken.detect().isAddressModalOpen()) {
-            printMessage("Address modal is already opened");
+            printMessage("Skip address-modal opening, it's already opened");
         }
         else
             if (kraken.detect().isShippingAddressEmpty()) {
@@ -68,11 +70,11 @@ public class AddressHelper extends HelperBase {
         }
 
     /**
-     * Закрыть модалку адреса
+     * Ввести адрес в модалке
      */
-    public void closeAddressModal() {
-        kraken.perform().click(Elements.Site.AddressModal.closeButton());
-        kraken.perform().waitingFor(1);
+    public void fill(String address) {
+        kraken.perform().fillField(Elements.Site.AddressModal.addressField(), address);
+        selectAddressSuggest();
     }
 
     /**
@@ -80,19 +82,18 @@ public class AddressHelper extends HelperBase {
      */
     private void submit() {
         kraken.perform().click(Elements.Site.AddressModal.saveButton());
-        kraken.perform().waitingFor(2);
+        kraken.perform().waitingFor(2); // задержка для применения адреса
     }
 
     /**
-     * Ввести новый адрес в модалке
+     * Закрыть модалку адреса
      */
-    public void fill(String address) {
-        kraken.shipAddress().openAddressModal();
-
-        // DEBUG
-        // printMessage("Modal opened: [" + text(Elements.Site.AddressModal.header()) + "]");
-
-        kraken.perform().fillField(Elements.Site.AddressModal.addressField(), address);
-        selectAddressSuggest();
+    public void closeAddressModal() {
+        if (kraken.detect().isAddressModalOpen()) {
+            kraken.perform().click(Elements.Site.AddressModal.closeButton());
+            kraken.perform().waitingFor(1); // задержка для анимации закрытия модалки
+        } else {
+            printMessage("Skip address-modal closing, it's already closed");
+        }
     }
 }

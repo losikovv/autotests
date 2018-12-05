@@ -50,6 +50,7 @@ public class ShippingAddress extends TestBase{
     )
     public void cancelSetShippingAddressOnRetailerPage() throws Exception {
         kraken.get().page("metro");
+        kraken.shipAddress().openAddressModal();
         kraken.shipAddress().fill(Addresses.Moscow.defaultAddress());
         kraken.shipAddress().closeAddressModal();
 
@@ -85,6 +86,7 @@ public class ShippingAddress extends TestBase{
     )
     public void cancelChangeShippingAddress() throws Exception {
         kraken.get().page("metro");
+        kraken.shipAddress().openAddressModal();
         kraken.shipAddress().fill(Addresses.Moscow.testAddress());
         kraken.shipAddress().closeAddressModal();
 
