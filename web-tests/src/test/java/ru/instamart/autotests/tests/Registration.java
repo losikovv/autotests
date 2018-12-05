@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Messages;
+import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.Generate;
 
 
@@ -144,7 +145,7 @@ public class Registration extends TestBase {
 
     @Test(
             description = "Регистрация нового пользователя на витрине магазина",
-            groups = {"acceptance","regression"},
+            groups = {"acceptance", "regression"},
             priority = 8
     )
     public void successRegOnRetailerPage() throws Exception {
@@ -191,7 +192,7 @@ public class Registration extends TestBase {
         final int length = 129;
         String testPassword = Generate.randomString(length);
 
-        kraken.perform().registration( Generate.randomLiteralString(length), Generate.randomEmail(length), testPassword, testPassword);
+        kraken.perform().registration(Generate.randomLiteralString(length), Generate.randomEmail(length), testPassword, testPassword);
 
         Assert.assertTrue(kraken.detect().element(Elements.Site.AuthModal.nameTooLongError()),
                 "Не показана пользовательская ошибка '" + Messages.UserErrors.fieldValueIsTooLong + "'\n");
@@ -209,4 +210,21 @@ public class Registration extends TestBase {
                 "Пользователь зарегистрирован при наличии ошибок заполнения формы регистрации\n");
     }
 
+    @Test(
+            description = "Тест регистрации при входе в чекаут",
+            groups = {"regression"},
+            priority = 10
+    )
+    public void successRegOnCart() throws Exception {
+        kraken.get().page("metro");
+        kraken.shipAddress().set("Зеленый проспект, д.2");
+        kraken.shopping().grabCart();
+        kraken.shopping().openCart();
+        kraken.perform().click(Elements.Site.Cart.checkoutButton());
+        kraken.perform().click(Elements.Site.AuthModal.registrationTab());
+
+        kraken.perform().regSequence(Generate.testUserData());
+
+        Assert.assertTrue(kraken.detect().isOnCheckout());
+    }
 }
