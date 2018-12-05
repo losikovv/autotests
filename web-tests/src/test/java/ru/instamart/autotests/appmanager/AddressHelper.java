@@ -57,7 +57,7 @@ public class AddressHelper extends HelperBase {
      */
     public void openAddressModal() {
         if (kraken.detect().isAddressModalOpen()) {
-            kraken.perform().click(Elements.Site.AddressModal.closeButton());
+            printMessage("Address modal is already opened");
         }
         else
             if (kraken.detect().isShippingAddressEmpty()) {
