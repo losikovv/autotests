@@ -39,8 +39,8 @@ public class ShippingAddress extends TestBase{
         Assert.assertTrue(kraken.detect().isShippingAddressSet(),
                 "Can't approve the shipping address was set correctly, check manually\n");
 
-         Assert.assertTrue(kraken.grab().currentShipAddress().equals(Addresses.Moscow.defaultAddress()),
-               "Current shipping address is not the same that was entered during the setting procedure\n");
+        Assert.assertEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.defaultAddress(),
+                "Current shipping address is not the same that was entered during the setting procedure\n");
     }
 
     @Test(
@@ -94,7 +94,7 @@ public class ShippingAddress extends TestBase{
         Assert.assertTrue(kraken.detect().isShippingAddressSet(),
                 "Can't approve the shipping address was remained correctly, check manually\n");
 
-        Assert.assertFalse(kraken.grab().currentShipAddress().equals(Addresses.Moscow.testAddress()),
+        Assert.assertNotEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.testAddress(),
                 "Current shipping address is the same that was entered during the setting procedure\n");
     }
 
