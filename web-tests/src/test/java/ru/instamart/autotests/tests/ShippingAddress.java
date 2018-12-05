@@ -50,7 +50,8 @@ public class ShippingAddress extends TestBase{
     )
     public void cancelSetShippingAddressOnRetailerPage() throws Exception {
         kraken.get().page("metro");
-        kraken.shipAddress().cancelSet(Addresses.Moscow.defaultAddress());
+        kraken.shipAddress().fill(Addresses.Moscow.defaultAddress());
+        kraken.shipAddress().closeAddressModal();
 
         Assert.assertFalse(kraken.detect().isShippingAddressSet(),
                 "Can't approve the shipping address was remained correctly, check manually\n");
@@ -84,7 +85,9 @@ public class ShippingAddress extends TestBase{
     )
     public void cancelChangeShippingAddress() throws Exception {
         kraken.get().page("metro");
-        kraken.shipAddress().cancelChange(Addresses.Moscow.testAddress());
+        kraken.shipAddress().fill(Addresses.Moscow.testAddress());
+        kraken.shipAddress().closeAddressModal();
+
 
         Assert.assertTrue(kraken.detect().isShippingAddressSet(),
                 "Can't approve the shipping address was remained correctly, check manually\n");

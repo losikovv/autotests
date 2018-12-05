@@ -367,8 +367,12 @@ public class Elements {
                         By.className("address-modal"));
             }
 
-            static Elements title() {
+            static Elements titleSet() {
                 return new Elements ("Введите адрес доставки",
+                        By.className("address-modal__header"));
+            }
+            static Elements titleChange() {
+                return new Elements ("Редактирование адреса",
                         By.className("address-modal__header"));
             }
         }

@@ -141,7 +141,8 @@ public class DetectionHelper extends HelperBase {
     /** Определить открыт ли модалка "Адрес" */
     public boolean isAddressModalOpen() {
         return isElementDisplayed(Elements.Site.AddressModal.popup())
-                && element(Elements.Site.AddressModal.title());
+                && element(Elements.Site.AddressModal.titleSet())
+                || element(Elements.Site.AddressModal.titleChange());
     }
 
     // ======= Меню "Профиль" =======
