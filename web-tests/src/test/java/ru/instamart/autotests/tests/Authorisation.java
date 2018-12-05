@@ -2,7 +2,10 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Users;
+import ru.instamart.autotests.testdata.Generate;
 
 
 // Тесты авторизации
@@ -149,6 +152,42 @@ public class Authorisation extends TestBase {
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Can't approve correct authorisation, check manually\n");
 
+        kraken.perform().logout();
+    }
+
+    @Test(
+            description = "Тест успешной авторизации из корзины",
+            groups = {"regression"},
+            priority = 109
+    )
+    public void successAuthOnCart() throws Exception {
+        kraken.get().baseUrl();
+        kraken.perform().click(Elements.Site.Landing.loginButton());
+        kraken.perform().authSequence("i888100@nwytg.com","123456");
+        kraken.shipAddress().change("Зеленый проспект, д 2");
+        kraken.shipAddress().change(Addresses.Moscow.defaultAddress());
+        kraken.perform().logout();
+
+        kraken.get().page("metro");
+        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        kraken.shopping().grabCart();
+        kraken.shopping().openCart();
+        kraken.perform().click(Elements.Site.Cart.checkoutButton());
+        kraken.perform().click(Elements.Site.AuthModal.authorisationTab());
+
+        kraken.perform().authSequence("i888100@nwytg.com","123456");
+
+        Assert.assertTrue(kraken.detect().isOnCheckout(),
+                "Нет автоперехода в чекаут после авторизации из корзины\n");
+
+        kraken.get().baseUrl();
+
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Юзер неавторизован после авторизации из корзины\n");
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
+                "Пропали товары после авторизации из корзины\n");
+
+        kraken.shopping().closeCart();
         kraken.perform().logout();
     }
 

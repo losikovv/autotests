@@ -160,7 +160,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Авторизационная последовательность с указанными реквизитами */
-    private void authSequence(String email, String password) throws Exception {
+    public void authSequence(String email, String password) throws Exception {
         switchToAuthorisationTab();
         fillAuthorisationForm(email, password);
         sendForm();
