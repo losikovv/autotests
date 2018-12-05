@@ -2,9 +2,9 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Messages;
-import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.Generate;
 
 
@@ -211,13 +211,13 @@ public class Registration extends TestBase {
     }
 
     @Test(
-            description = "Тест регистрации при входе в чекаут",
+            description = "Тест регистрации при переходе из корзины в чекаут",
             groups = {"regression"},
-            priority = 10
+            priority = 11
     )
     public void successRegOnCart() throws Exception {
         kraken.get().page("metro");
-        kraken.shipAddress().set("Зеленый проспект, д.2");
+        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         kraken.shopping().grabCart();
         kraken.shopping().openCart();
         kraken.perform().click(Elements.Site.Cart.checkoutButton());
@@ -225,6 +225,16 @@ public class Registration extends TestBase {
 
         kraken.perform().regSequence(Generate.testUserData());
 
-        Assert.assertTrue(kraken.detect().isOnCheckout());
+        Assert.assertTrue(kraken.detect().isOnCheckout(),
+                "Нет автоперехода в чекаут после регистрации из корзины\n");
+
+        kraken.get().baseUrl();
+
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Юзер неавторизован после регистрации из корзины\n");
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
+                "Пропали товары после регистрации из корзины\n");
+
+        kraken.perform().logout();
     }
 }
