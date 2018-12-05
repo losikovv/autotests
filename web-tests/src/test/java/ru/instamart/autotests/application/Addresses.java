@@ -55,5 +55,28 @@ public abstract class Addresses {
         }
     }
 
+    public static class Ekaterinburg extends Addresses {
+
+        Ekaterinburg(String address) {
+            super(address);
+        }
+
+        public static String testAddress() {
+            return addressString = "Екатеринбург, ул Малышева, д 24";
+        }
+
+        public static String defaultAddress() {
+            return addressString = "Екатеринбург, ул Щорса, д 96";
+        }
+
+        public static String outOfZoneAddress() {
+            return addressString = "Екатеринбург, ул Коммунистическая, д 103";
+        }
+
+        public static String randomAddress() {
+            return Generate.randomAddress("ekaterinburg");
+        }
+    }
+
 }
 
