@@ -136,7 +136,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Залогиниться с реквизитами из переданного объекта UserData */
-    private void login(UserData userData) throws Exception {
+    public void login(UserData userData) throws Exception {
         login(userData.getLogin(), userData.getPassword());
     }
 
