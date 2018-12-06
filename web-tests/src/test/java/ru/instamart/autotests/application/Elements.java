@@ -306,23 +306,27 @@ public class Elements {
                         By.cssSelector(".auth-modal__recovery-text > span:nth-child(1)"));
             }
 
-            static Elements passwordTooLongError() {
-                return new Elements(Messages.UserErrors.fieldValueIsTooLong,
-                        (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[3]/div[2]")));
-            }
-            static Elements passwordConfirmationTooLongError() {
-                return new Elements(Messages.UserErrors.fieldValueIsTooLong,
-                        (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[4]/div[2]")));
-            }
-            static Elements nameTooLongError() {
-                return new Elements(Messages.UserErrors.fieldValueIsTooLong,
+            static Elements nameErrorMessage() {
+                return new Elements(null,
                         (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[1]/div[2]")));
             }
-            static Elements emailTooLongError() {
-                return new Elements(Messages.UserErrors.fieldValueIsTooLong,
+
+            static Elements emailErrorMessage() {
+                return new Elements(null,
                         (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[2]/div[2]")));
             }
+
+            static Elements passwordErrorMessage() {
+                return new Elements(null,
+                        (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[3]/div[2]")));
+            }
+
+            static Elements passwordConfirmationErrorMessage() {
+                return new Elements(null,
+                        (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[4]/div[2]")));
+            }
         }
+
         /**
          * Адресные модалки Феникса
          */
