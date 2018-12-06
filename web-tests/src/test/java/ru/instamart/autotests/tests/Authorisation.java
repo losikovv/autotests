@@ -190,12 +190,14 @@ public class Authorisation extends TestBase {
         kraken.perform().logout();
     }
 
+
+    // TODO перенести в ShippingAddress
     @Test(
             description = "Тест на подтягивание адреса из профиля при авторизации",
             groups = {"acceptance", "regression"},
             priority = 110
     )
-    public void replaceAddressOnAuth() throws Exception {
+    public void replaceShipAddressAfterAuth() throws Exception {
         final UserData testuser = Generate.testUserData();
         kraken.get().baseUrl();
         kraken.perform().registration(testuser);

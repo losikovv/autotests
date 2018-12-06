@@ -36,9 +36,7 @@ public class GrabHelper extends HelperBase{
 
     /** Взять текущий адрес доставки */
     public String currentShipAddress() {
-        Elements.Site.Header.currentShipAddress();
-        printMessage("Shipping address: " + text(Elements.locator()));
-        return text(Elements.locator());
+        return text(Elements.Site.Header.currentShipAddress());
     }
 
     /** Взять округленное значение цены из указанного элемента */

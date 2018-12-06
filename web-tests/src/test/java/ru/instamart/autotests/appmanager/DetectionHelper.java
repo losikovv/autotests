@@ -103,10 +103,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить показана ли пользовательская ошибка */
     public boolean isUserErrorShown(Elements element) {
         if(isTextShown(element)) {
-            kraken.perform().printMessage(Messages.userErrorMessageIsShown + " : " + kraken.grab().text(element));
+            printMessage(Messages.userErrorMessageIsShown + " : " + kraken.grab().text(element));
             return true;
         } else {
-            kraken.perform().printMessage(Messages.userErrorMessageIsNotShown);
+            printMessage(Messages.userErrorMessageIsNotShown);
             return false;
         }
     }
@@ -266,7 +266,7 @@ public class DetectionHelper extends HelperBase {
     /** Определяем выбран ли адрес доставки */
     public boolean isShippingAddressSet() {
         if (element((Elements.Site.Header.changeShipAddressButton()))) {
-            kraken.grab().currentShipAddress();
+            printMessage("Shipping address is set to : " + kraken.grab().currentShipAddress());
             return true;
         } else {
             printMessage("Shipping address is not set\n");
