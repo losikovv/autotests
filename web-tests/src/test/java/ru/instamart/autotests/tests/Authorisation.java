@@ -161,7 +161,7 @@ public class Authorisation extends TestBase {
             groups = {"regression"},
             priority = 109
     )
-    public void successAuthOnCart() throws Exception {
+    public void successAuthFromCart() throws Exception {
         final UserData testuser = Generate.testUserData();
         kraken.get().baseUrl();
         kraken.perform().registration(testuser);

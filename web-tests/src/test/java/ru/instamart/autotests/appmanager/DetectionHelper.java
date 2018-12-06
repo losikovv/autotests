@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
 import ru.instamart.autotests.application.Loyalties;
-import ru.instamart.autotests.application.Messages;
 
 public class DetectionHelper extends HelperBase {
 
@@ -103,10 +102,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить показана ли пользовательская ошибка */
     public boolean isUserErrorShown(Elements element) {
         if(isTextShown(element)) {
-            printMessage(Messages.userErrorMessageIsShown + " : " + kraken.grab().text(element));
+            printMessage("Показана пользовательская ошибка: " + kraken.grab().text(element));
             return true;
         } else {
-            printMessage(Messages.userErrorMessageIsNotShown);
+            printMessage("Не показана пользовательская ошибка");
             return false;
         }
     }
