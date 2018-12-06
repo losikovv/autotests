@@ -21,12 +21,12 @@ public class GrabHelper extends HelperBase{
     }
 
     /** Взять текст элемента */
-    String text(Elements element) {
+    public String text(Elements element) {
         return text(Elements.locator());
     }
 
     /** Взять текст элемента по локатору */
-    String text(By locator) {
+    public String text(By locator) {
         try {
             return driver.findElement(locator).getText();
         } catch (NoSuchElementException e) {

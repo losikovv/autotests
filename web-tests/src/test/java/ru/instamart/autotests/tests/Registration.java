@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Messages;
 import ru.instamart.autotests.testdata.Generate;
 
 
@@ -189,26 +188,34 @@ public class Registration extends TestBase {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
-        final int length = 129;
-        String testPassword = Generate.randomString(length);
+        final int testLength = 129; // TODO перенести в  Generate.testUserData(testLength)
+        String testPassword = Generate.randomString(testLength);
+        String testName = Generate.randomLiteralString(testLength);
+        String testEmail = Generate.randomEmail(testLength);
 
-        kraken.perform().registration(Generate.randomLiteralString(length), Generate.randomEmail(length), testPassword, testPassword);
+        kraken.perform().registration(testName, testEmail, testPassword, testPassword);
 
-        Assert.assertTrue(kraken.detect().element(Elements.Site.AuthModal.nameTooLongError()),
-                "Не показана пользовательская ошибка '" + Messages.UserErrors.fieldValueIsTooLong + "'\n");
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+                "Нет пользовательской ошибки превышения длины поля name");
 
-        Assert.assertTrue(kraken.detect().element(Elements.Site.AuthModal.emailTooLongError()),
-                "Не показана пользовательская ошибка '" + Messages.UserErrors.fieldValueIsTooLong + "'\n");
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+                "Нет пользовательской ошибки превышения длины поля email");
 
-        Assert.assertTrue(kraken.detect().element(Elements.Site.AuthModal.passwordTooLongError()),
-                "Не показана пользовательская ошибка '" + Messages.UserErrors.fieldValueIsTooLong + "'\n");
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
+                "Нет пользовательской ошибки превышения длины поля password");
 
-        Assert.assertTrue(kraken.detect().element(Elements.Site.AuthModal.passwordConfirmationTooLongError()),
-                "Не показана пользовательская ошибка '" + Messages.UserErrors.fieldValueIsTooLong + "'\n");
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
+                "Нет пользовательской ошибки превышения длины поля password confirmation");
 
+        kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Пользователь зарегистрирован при наличии ошибок заполнения формы регистрации\n");
     }
+
 
     @Test(
             description = "Тест регистрации при переходе из корзины в чекаут",

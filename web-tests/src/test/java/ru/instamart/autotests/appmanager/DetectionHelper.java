@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
 import ru.instamart.autotests.application.Loyalties;
+import ru.instamart.autotests.application.Messages;
 
 public class DetectionHelper extends HelperBase {
 
@@ -92,6 +93,22 @@ public class DetectionHelper extends HelperBase {
     /** Определить проставлен ли чекбокс по локатору */
     boolean isCheckboxSelected(By locator) {
         return driver.findElement(locator).isSelected();
+    }
+
+    /** Определить показан ли текст */
+    public boolean isTextShown(Elements element) {
+        return isElementDisplayed(element) && kraken.grab().text(element) != null;
+    }
+
+    /** Определить показана ли пользовательская ошибка */
+    public boolean isUserErrorShown(Elements element) {
+        if(isTextShown(element)) {
+            kraken.perform().printMessage(Messages.userErrorMessageIsShown + " : " + kraken.grab().text(element));
+            return true;
+        } else {
+            kraken.perform().printMessage(Messages.userErrorMessageIsNotShown);
+            return false;
+        }
     }
 
     /** Определить находимся на лендинге или нет */
