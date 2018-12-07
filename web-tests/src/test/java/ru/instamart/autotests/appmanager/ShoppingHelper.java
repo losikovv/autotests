@@ -1,9 +1,10 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
+
+import static ru.instamart.autotests.application.Config.minOrderSum;
 
 public class ShoppingHelper extends HelperBase {
 
@@ -130,9 +131,9 @@ public class ShoppingHelper extends HelperBase {
     /** Набрать корзину на минимальную сумму, достаточную для оформления заказа */
     public void grabCart() {
         openFirstItemCard();
-
-        int quantity = (Config.minOrderSum / round(kraken.grab().text(Elements.Site.ItemCard.price()))) + 1;
-        printMessage("Quantity for minimal order : " + quantity );
+        printMessage("Adding items to cart for minimal order sum " + minOrderSum + "р...");
+        int quantity = (minOrderSum / round(kraken.grab().text(Elements.Site.ItemCard.price()))) + 1;
+        printMessage("Quantity for minimal order : " + quantity + "\n");
 
         for (int i = 1; i <= quantity; i++) {
             hitPlusButton();

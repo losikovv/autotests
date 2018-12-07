@@ -17,8 +17,7 @@ public class AddressHelper extends HelperBase {
      * Установить адрес доставки
      */
     public void set(String address) {
-        printMessage("Setting ship address >>> " + address);
-
+        printMessage("Setting ship address >>> " + address + "\n");
         if (kraken.grab().currentURL().equals(fullBaseUrl)) {
             kraken.perform().fillField(Elements.Site.Landing.addressField(), address);
             kraken.perform().waitingFor(1);
@@ -36,7 +35,7 @@ public class AddressHelper extends HelperBase {
      * Изменить адрес доставки
      */
     public void change(String address) {
-        printMessage("Changing ship address >> " + address);
+        printMessage("Changing ship address >> " + address + "\n");
         openAddressModal();
         fill(address);
         submit();

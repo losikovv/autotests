@@ -1,7 +1,5 @@
 package ru.instamart.autotests.application;
 
-import ru.instamart.autotests.testdata.Generate;
-
 public abstract class Addresses {
     static String addressString;
 
@@ -27,9 +25,6 @@ public abstract class Addresses {
             return addressString = "Москва, ул Лосиноостровская, д 2 стр 1";
         }
 
-        public static String randomAddress() {
-            return Generate.randomAddress("moscow");
-        }
     }
 
     public static class Kazan extends Addresses {
@@ -50,9 +45,6 @@ public abstract class Addresses {
             return addressString = "Казань, ул Беломорская, д 1";
         }
 
-        public static String randomAddress() {
-            return Generate.randomAddress("kazan");
-        }
     }
 
     public static class Ekaterinburg extends Addresses {
@@ -73,9 +65,6 @@ public abstract class Addresses {
             return addressString = "Екатеринбург, ул Коммунистическая, д 103";
         }
 
-        public static String randomAddress() {
-            return Generate.randomAddress("ekaterinburg");
-        }
     }
 
 }

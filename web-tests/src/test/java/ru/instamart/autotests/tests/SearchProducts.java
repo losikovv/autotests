@@ -103,7 +103,7 @@ public class SearchProducts extends TestBase {
             priority = 305
     )
     public void successSearchWithLongQuery(){
-        kraken.search().item(Generate.randomString(1000));
+        kraken.search().item(Generate.random.string(1000));
 
         assertPageIsAvailable();
 

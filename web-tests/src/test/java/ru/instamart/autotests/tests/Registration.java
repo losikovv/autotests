@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.Generate;
 
 
@@ -188,28 +189,23 @@ public class Registration extends TestBase {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
-        final int testLength = 129; // TODO перенести в  Generate.testUserData(testLength)
-        String testPassword = Generate.randomString(testLength);
-        String testName = Generate.randomLiteralString(testLength);
-        String testEmail = Generate.randomEmail(testLength);
-
-        kraken.perform().registration(testName, testEmail, testPassword, testPassword);
+        kraken.perform().registration(Generate.testUserData(129));
 
         // TODO переделать на soft-assertion
         Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
-                "Нет пользовательской ошибки превышения длины поля name");
+                "Нет пользовательской ошибки превышения длины поля name\n");
 
         // TODO переделать на soft-assertion
         Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
-                "Нет пользовательской ошибки превышения длины поля email");
+                "Нет пользовательской ошибки превышения длины поля email\n");
 
         // TODO переделать на soft-assertion
         Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
-                "Нет пользовательской ошибки превышения длины поля password");
+                "Нет пользовательской ошибки превышения длины поля password\n");
 
         // TODO переделать на soft-assertion
         Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
-                "Нет пользовательской ошибки превышения длины поля password confirmation");
+                "Нет пользовательской ошибки превышения длины поля password confirmation\n");
 
         kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
