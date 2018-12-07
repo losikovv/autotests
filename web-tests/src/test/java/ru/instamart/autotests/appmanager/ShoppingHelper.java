@@ -66,7 +66,7 @@ public class ShoppingHelper extends HelperBase {
     /** Открываем карточку первого товара */
     private void openFirstItemCard() {
         kraken.perform().click(Elements.Site.Catalog.firstItem());
-        kraken.perform().waitingFor(1);
+        kraken.perform().waitingFor(1); // Ожидание анимации открытия карточки товара
         kraken.perform().switchToActiveElement();
     }
 
@@ -95,6 +95,7 @@ public class ShoppingHelper extends HelperBase {
     /** Закрыть карточку товара */
     private void closeItemCard() {
         kraken.perform().click(Elements.Site.ItemCard.closeButton());
+        kraken.perform().waitingFor(1); // Ожидание анимации закрытия карточки товара
     }
 
 
@@ -104,20 +105,16 @@ public class ShoppingHelper extends HelperBase {
     public void openCart() {
         if (!kraken.detect().isCartOpen()) {
             kraken.perform().click(Elements.Site.Cart.openCartButton());
-            kraken.perform().waitingFor(1);
-        }
-        // DEBUG
-        // else printMessage("Skip open cart, already opened");
+            kraken.perform().waitingFor(1); // Ожидание анимации открытия корзины
+        } // else printMessage("Skip open cart, already opened");
     }
 
     /** Закрыть корзину */
     public void closeCart() {
         if (kraken.detect().isCartOpen()) {
             kraken.perform().click(Elements.Site.Cart.closeButton());
-            kraken.perform().waitingFor(1);
-        }
-        // DEBUG
-        // else printMessage("Skip close cart, already closed");
+            kraken.perform().waitingFor(1); // Ожидание анимации закрытия корзины
+        } // else printMessage("Skip close cart, already closed");
     }
 
     /** Перейти в чекаут нажатием кнопки "Сделать заказ" в корзине */

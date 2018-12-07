@@ -24,7 +24,7 @@ public class Bugfixes extends TestBase {
         kraken.perform().closeAuthModal();
         kraken.perform().openAuthModal();
 
-        Assert.assertFalse(kraken.detect().isRecoverySent(),
+        Assert.assertFalse(kraken.detect().isRecoveryRequested(),
                 "Невозможно открыть авторизационную модалку после отправки формы восстановления пароля\n");
     }
 

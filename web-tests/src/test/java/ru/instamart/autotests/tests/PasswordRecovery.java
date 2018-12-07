@@ -22,7 +22,7 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().recoverPassword(null);
 
         // Assert recovery is not requested
-        Assert.assertFalse(kraken.detect().isRecoverySent(),
+        Assert.assertFalse(kraken.detect().isRecoveryRequested(),
                 "Recover password form was sent with empty email field\n");
     }
 
@@ -39,7 +39,7 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().recoverPassword("wrongemail.example.com");
 
         // Assert recovery is not requested
-        Assert.assertFalse(kraken.detect().isRecoverySent(),
+        Assert.assertFalse(kraken.detect().isRecoveryRequested(),
                 "Recover password form was sent with wrong email field\n");
     }
 
@@ -56,7 +56,7 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().recoverPassword("nonexistinguser@example.com");
 
         // Assert recovery is not requested
-        Assert.assertFalse(kraken.detect().isRecoverySent(),
+        Assert.assertFalse(kraken.detect().isRecoveryRequested(),
                 "Recover password form was sent for nonexisting user\n");
     }
 
@@ -73,7 +73,7 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().recoverPassword("instatestuser@yandex.ru");
 
         // Assert recovery is requested
-        Assert.assertTrue(kraken.detect().isRecoverySent(),
+        Assert.assertTrue(kraken.detect().isRecoveryRequested(),
                 "Recover password form wasn't sent\n");
     }
 
@@ -90,7 +90,7 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().recoverPassword("instatestuser@yandex.ru");
 
         // Assert recovery is requested
-        Assert.assertTrue(kraken.detect().isRecoverySent(),
+        Assert.assertTrue(kraken.detect().isRecoveryRequested(),
                 "Recover password form wasn't sent\n");
     }
 }

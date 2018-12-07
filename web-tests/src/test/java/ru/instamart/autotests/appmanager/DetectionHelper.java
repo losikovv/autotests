@@ -30,8 +30,6 @@ public class DetectionHelper extends HelperBase {
 
     /** Задетектить элемент */
     public boolean element(Elements element) {
-        // DEBUG
-        // printMessage("Detecting element " + Elements.text());
         return element(Elements.locator(),Elements.text());
     }
 
@@ -203,7 +201,7 @@ public class DetectionHelper extends HelperBase {
     // ======= Восстановление пароля =======
 
     /** Определить отправлена ли форма восстановления пароля */
-    public boolean isRecoverySent(){
+    public boolean isRecoveryRequested(){
         if (kraken.detect().element(Elements.Site.AuthModal.successRecoveryText())) {
             printMessage("✓ Recovery requested");
             return true;
@@ -236,8 +234,9 @@ public class DetectionHelper extends HelperBase {
             printMessage("✓ Order is active\n");
             return true;
         } else {
-            printMessage("Experiencing performance troubles");
-            kraken.perform().waitingFor(1);
+            printMessage("Experiencing troubles, trying again...");
+            kraken.perform().waitingFor(2);
+            refresh();
             if (element(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
                 printMessage("✓ Order is active\n");
                 return true;
@@ -265,10 +264,10 @@ public class DetectionHelper extends HelperBase {
     /** Определяем выбран ли адрес доставки */
     public boolean isShippingAddressSet() {
         if (element((Elements.Site.Header.changeShipAddressButton()))) {
-            printMessage("Shipping address is set to : " + kraken.grab().currentShipAddress());
+            printMessage("Ship address is set to : " + kraken.grab().currentShipAddress());
             return true;
         } else {
-            printMessage("Shipping address is not set\n");
+            printMessage("Ship address is not set\n");
             return false;
         }
     }
@@ -329,21 +328,18 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить открыта ли корзина */
     public boolean isCartOpen() {
-        kraken.perform().waitingFor(1); // Пауза, на случай если штокра медленно отображается
         return kraken.detect().isElementDisplayed(Elements.Site.Cart.drawer());
     }
 
     /** Определить пуста ли корзина */
     public boolean isCartEmpty() {
         kraken.shopping().openCart();
-        kraken.perform().waitingFor(1); // Пауза на случай, тормозов с корзиной
         return kraken.detect().isElementPresent(Elements.Site.Cart.placeholder());
     }
 
     /** Определить активна ли кнопка "Сделать заказ" в корзине */
     public boolean isCheckoutButtonActive() {
         kraken.shopping().openCart();
-        kraken.perform().waitingFor(1); // Пауза на случай, если стостояние кнопки долго обновляется
         return kraken.detect().isElementEnabled(Elements.Site.Cart.checkoutButton());
     }
 

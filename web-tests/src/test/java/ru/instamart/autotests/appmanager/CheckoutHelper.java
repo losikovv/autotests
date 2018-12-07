@@ -491,12 +491,12 @@ public class CheckoutHelper extends HelperBase {
      * Проверяем готовность шага чекаута перед заполнением
      */
     private boolean checkStep(int stepNumber, String stepName) {
-        if (stepNumber != 5) { // костыль если доставки остался выбраным в предыдущих тестах
+        if (stepNumber != 5) { // костыль на случай если слот доставки остался выбраным в предыдущих тестах
             if (kraken.detect().isStepActive(stepNumber)) {
                 printMessage("Step " + stepNumber + " - " + stepName);
                 return true;
             } else {
-                kraken.perform().waitingFor(1); // задержка для стабильности, возможно что шаг не развернулся из-за тормозов
+                kraken.perform().waitingFor(1); // Задержка для стабильности, если шаг не развернулся из-за тормозов
                 if (!kraken.detect().isStepActive(stepNumber)) {
                     printMessage("Step " + stepNumber + " isn't opened at the moment");
                     return false;

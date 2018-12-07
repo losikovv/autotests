@@ -14,6 +14,7 @@ public class Administration extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void reachAdministrationPanel() throws Exception {
+        kraken.get().baseUrl();
         kraken.perform().reachAdmin(Pages.Admin.shipments());
     }
 
@@ -24,7 +25,7 @@ public class Administration extends TestBase {
             priority = 700
     )
     public void adminPanelUnreacheableWithoutPrivileges() throws Exception {
-        kraken.perform().logout();
+        kraken.perform().dropAuth();
         kraken.perform().loginAs("user");
 
         assertPageIsUnreachable(Pages.Admin.shipments());

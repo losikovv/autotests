@@ -5,7 +5,7 @@ public class Config {
     public final static String productionHost = "instamart.ru";
     public final static String stagingHost = "staging.instamart.ru";
 
-    public final static int minOrderSum = 1500;
+    public final static int minOrderSum = 1800;
 
     public final static int MetroHighDeliveryPrice = 299;
     public final static int MetroMediumDeliveryPrice = 199;
