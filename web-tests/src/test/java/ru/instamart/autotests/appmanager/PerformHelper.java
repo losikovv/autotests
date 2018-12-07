@@ -195,7 +195,7 @@ public class PerformHelper extends HelperBase {
             }
         }
         printMessage("> open auth modal");
-        waitingFor(1); // Ожидание анимации открытия модалки
+        waitingFor(1);  // Ожидание открытия модалки авторизации
     }
 
     /** Переключиться на вкладку регистрации */
