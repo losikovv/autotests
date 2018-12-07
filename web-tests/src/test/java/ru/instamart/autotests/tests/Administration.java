@@ -14,8 +14,7 @@ public class Administration extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void reachAdministrationPanel() throws Exception {
-        kraken.get().baseUrl();
-        kraken.perform().reachAdmin(Pages.Admin.shipments());
+        kraken.perform().reachAdmin();
     }
 
 

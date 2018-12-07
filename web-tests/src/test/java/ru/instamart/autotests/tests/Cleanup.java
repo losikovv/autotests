@@ -14,7 +14,7 @@ public class Cleanup extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void reachAdministrationPanel() throws Exception {
-        kraken.perform().reachAdmin(Pages.Admin.shipments());
+        kraken.perform().reachAdmin();
     }
 
 

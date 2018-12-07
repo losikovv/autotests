@@ -188,7 +188,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить авторизован ли пользователь */
     public boolean isUserAuthorised() {
         printMessage("Checking authorisation...");
-        if (element(Elements.Site.Header.profileButton())) {
+        if (element(Elements.Site.Header.profileButton()) || isInAdmin()) {
             printMessage("✓ Authorised\n");
             return true;
         } else {

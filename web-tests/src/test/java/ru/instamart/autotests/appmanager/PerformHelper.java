@@ -185,19 +185,17 @@ public class PerformHelper extends HelperBase {
 
     /** Открыть форму авторизации/регистрации */
     public void openAuthModal(){
-        if (kraken.detect().isOnLanding()) {
-            kraken.perform().click(Elements.Site.Landing.loginButton());
+        if (kraken.detect().isAuthModalOpen()) {
+            printMessage("> auth modal opened");
         } else {
-            kraken.perform().click(Elements.Site.Header.loginButton());
+            if (kraken.detect().isOnLanding()) {
+                kraken.perform().click(Elements.Site.Landing.loginButton());
+            } else {
+                kraken.perform().click(Elements.Site.Header.loginButton());
+            }
         }
-
-        waitingFor(1);
-
-        if(kraken.detect().isAuthModalOpen()) {
-            printMessage("> open auth modal");
-        } else {
-            printMessage(" Can't open auth modal");
-        }
+        printMessage("> open auth modal");
+        waitingFor(1); // Ожидание анимации открытия модалки
     }
 
     /** Переключиться на вкладку регистрации */
@@ -346,12 +344,16 @@ public class PerformHelper extends HelperBase {
         }
     }
 
+    public void reachAdmin() throws Exception{
+        reachAdmin("");
+    }
+
     public void reachAdmin(Pages page) throws Exception {
         reachAdmin(getPagePath());
     }
 
     public void reachAdmin(String path) throws Exception{
-        kraken.get().adminPage(path);
+        kraken.get().adminPage("");
         if (kraken.detect().isOnSite()) {
             kraken.get().baseUrl();
             if (kraken.detect().isUserAuthorised()) {
