@@ -131,7 +131,7 @@ public class ShoppingHelper extends HelperBase {
     /** Набрать корзину на минимальную сумму, достаточную для оформления заказа */
     public void grabCart() {
         openFirstItemCard();
-        printMessage("Adding items to cart for minimal order sum " + minOrderSum + "р...");
+        printMessage("Adding items to cart for minimal order on " + minOrderSum + "р...");
         int quantity = (minOrderSum / round(kraken.grab().text(Elements.Site.ItemCard.price()))) + 1;
         printMessage("Quantity for minimal order : " + quantity + "\n");
 

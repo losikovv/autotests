@@ -19,7 +19,7 @@ import static org.testng.Assert.fail;
 public class ApplicationManager {
 
     protected WebDriver driver;
-    protected Environments environment = new Environments("staging"); // use "production" or "staging"
+    protected Environments environment = new Environments("production"); // use "production" or "staging"
     private String browser;
 
     protected String environmentName = environment.getEnvironmentName();
@@ -77,7 +77,7 @@ public class ApplicationManager {
         cleanupHelper = new CleanupHelper(driver, environment, this);
 
         // Options
-        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS); // Basic timeout
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS); // Basic timeout
         //driver.manage().window().fullscreen();                              // Open browser in fullscreen mode
 
         revealKraken();

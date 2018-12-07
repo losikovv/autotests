@@ -29,26 +29,6 @@ public class TestBase {
     }
 
     /**
-     * Шаблон для тестов
-     */
-    @Test(enabled = false,                                                // Тест выключен
-            description = "Название теста",
-            groups = {"regression"},
-            priority = 1000
-    )
-    public void testName() throws Exception {                                // СТРУКТУРА ТЕСТА:
-
-        kraken.perform().loginAs("admin");                             // 1 - предусловия
-
-        kraken.search().item("смысл жизни");                          // 2 - шаги
-
-        Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),           // 3 - проверка
-                "Result is not expected\n");
-
-        kraken.perform().dropAuth();                                        // 4 - уборка (опционально)
-    }
-
-    /**
      * Simply check the current page is not 404 or 500
      */
     protected void assertPageIsAvailable() throws AssertionError {
@@ -97,6 +77,7 @@ public class TestBase {
      * Then check that reached page is 404 and isn't 500
      */
     protected void assertPageIs404(String URL) throws AssertionError {
+        // TODO использовать get метод
         String targetURL = URL;
         kraken.perform().printMessage("Asserting page " + URL + " is 404");
         kraken.get().url(targetURL);
@@ -134,16 +115,4 @@ public class TestBase {
         String currentURL = kraken.grab().currentURL();
         Assert.assertFalse(targetURL.equalsIgnoreCase(currentURL), "It is possible to get page " + currentURL + " while it must be unreachable at this moment" + "\n");
     }
-
-    void assertNoTestOrdersLeftActive() throws AssertionError {
-        kraken.get().adminPage(Config.testOrdersList);
-        Assert.assertTrue(kraken.detect().isElementPresent(By.className("no-objects-found")), "Seems like there are some test orders left active");
-    }
-
-    void assertNoTestUsersLeft() throws AssertionError {
-        kraken.get().adminPage(Config.testUsersList);
-        Assert.assertFalse(kraken.detect().isElementPresent(By.xpath("//*[@id='content']/div/table/tbody/tr")),
-                "Seems like there are some test users left after cleanup");
-    }
-
 }

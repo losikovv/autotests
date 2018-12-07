@@ -712,6 +712,7 @@ public class Elements {
                         By.linkText("Удалить"));
             }
 
+            // TODO изменить локатор, чтобы всегда выбирался первый по порядку доступный слот, даже если первые в списке заняты
             static Elements deliverySlot() {
                 return new Elements(null,
                         By.xpath("/html/body/div[5]/div/form/div/div/div[1]/div[5]/div[2]/div/div/div/div[2]/div/div[2]/div[2]/div[1]/div/span"));

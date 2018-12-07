@@ -360,7 +360,7 @@ public class PerformHelper extends HelperBase {
                 logout();
             }
             loginAs("admin");
-            kraken.get().adminPage(path);
         }
+        kraken.get().adminPage(path);
     }
 }
