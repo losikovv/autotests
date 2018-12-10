@@ -290,8 +290,8 @@ public class PerformHelper extends HelperBase {
 
     /** Деавторизоваться, оставшись на текущей странице */
     public void dropAuth() {
-        String currentURL = kraken.grab().currentURL();
         if (kraken.detect().isUserAuthorised()) {
+            String currentURL = kraken.grab().currentURL();
             kraken.perform().logout();
             kraken.get().url(currentURL);
         }

@@ -130,16 +130,18 @@ public class ShoppingHelper extends HelperBase {
 
     /** Набрать корзину на минимальную сумму, достаточную для оформления заказа */
     public void grabCart() {
-        openFirstItemCard();
-        printMessage("Adding items to cart for minimal order on " + minOrderSum + "р...");
-        int quantity = (minOrderSum / round(kraken.grab().text(Elements.Site.ItemCard.price()))) + 1;
-        printMessage("Quantity for minimal order : " + quantity + "\n");
-
-        for (int i = 1; i <= quantity; i++) {
-            hitPlusButton();
-            kraken.perform().waitingFor(1);
-        }
-        closeItemCard();
+        if(!kraken.detect().isCheckoutButtonActive()) {
+            closeCart();
+            openFirstItemCard();
+            printMessage("Adding items to cart for minimal order on " + minOrderSum + "р...");
+            int quantity = (minOrderSum / round(kraken.grab().text(Elements.Site.ItemCard.price()))) + 1;
+            printMessage("Quantity for minimal order : " + quantity + "\n");
+            for (int i = 1; i <= quantity; i++) {
+                hitPlusButton();
+                kraken.perform().waitingFor(1);
+            }
+            closeItemCard();
+        } else { printMessage("Skip grab cart, already have enough items");}
     }
 
     /** Набрать корзину на указанную сумму */
