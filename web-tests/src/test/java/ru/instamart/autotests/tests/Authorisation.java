@@ -86,7 +86,6 @@ public class Authorisation extends TestBase {
     )
     public void successAuthOnLandingPage() throws Exception, AssertionError {
         kraken.get().baseUrl();
-        kraken.perform().dropAuth();
 
         kraken.perform().loginAs("user");
 
@@ -105,7 +104,6 @@ public class Authorisation extends TestBase {
     )
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
         kraken.get().page("vkusvill");
-        kraken.perform().dropAuth();
 
         kraken.perform().loginAs("user");
 

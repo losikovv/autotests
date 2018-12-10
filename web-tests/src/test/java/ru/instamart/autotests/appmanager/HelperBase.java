@@ -48,8 +48,11 @@ public class HelperBase {
 
     /** Округлить цену до целого числа, отбросив копейки, пробелы и знак рубля */
     int round(String price) {
-        // todo обернуть в try catch NullPointerException
-        return Integer.parseInt(((price).substring(0,(price.length() - 5))).replaceAll("\\s",""));
+        if(price == null) {
+            return 0;
+        } else {
+            return Integer.parseInt(((price).substring(0, (price.length() - 5))).replaceAll("\\s", ""));
+        }
     }
 
     /** Обновить страницу */

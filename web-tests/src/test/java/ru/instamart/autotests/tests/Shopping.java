@@ -103,12 +103,14 @@ public class Shopping extends TestBase{
             groups = {"acceptance", "regression"},
             priority = 354
     )
-    public void replaceShipAddressAfterAuth() throws Exception {
+    public void mergeShipAddressAndCartAfterAuth() throws Exception {
+        //TODO вынести в dataProvider
         kraken.perform().dropAuth();
         final UserData testuser = Generate.testUserData();
         kraken.get().baseUrl();
         kraken.perform().registration(testuser);
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        kraken.shopping().addFirstItemOnPageToCart();
         kraken.perform().logout();
 
         kraken.get().page("metro");
@@ -116,13 +118,16 @@ public class Shopping extends TestBase{
         kraken.perform().login(testuser);
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Can't approve correct authorisation, check manually\n");
+                "Не прошла авторизация\n");
 
         Assert.assertTrue(kraken.detect().isShippingAddressSet(),
-                "Can't approve the shipping address was set correctly, check manually\n");
+                "Слетел адрес доставки при авторизации\n");
 
         Assert.assertEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.defaultAddress(),
-                "Current shipping address is not the same that was entered during the setting procedure\n");
+                "Не обновился адрес доставки при авторизации\n");
+
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
+                "Не смержиласть корзина при авторизации\n");
     }
 
 

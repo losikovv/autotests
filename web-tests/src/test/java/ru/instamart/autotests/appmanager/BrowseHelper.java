@@ -57,6 +57,13 @@ public class BrowseHelper extends HelperBase {
     }
 
     /**
+     * Перейти на страницу профиля
+     */
+    public void profilePage() {
+        page("user/edit");
+    }
+
+    /**
      * Перейти на страницу в админке
      */
     public void adminPage(String path) {

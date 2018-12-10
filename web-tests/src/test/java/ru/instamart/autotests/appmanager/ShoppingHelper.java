@@ -106,7 +106,7 @@ public class ShoppingHelper extends HelperBase {
     public void openCart() {
         if (!kraken.detect().isCartOpen()) {
             kraken.perform().click(Elements.Site.Cart.openCartButton());
-            kraken.perform().waitingFor(1); // Ожидание открытия корзины
+            kraken.perform().waitingFor(2); // Ожидание открытия корзины
         }
     }
 
@@ -120,7 +120,6 @@ public class ShoppingHelper extends HelperBase {
 
     /** Перейти в чекаут нажатием кнопки "Сделать заказ" в корзине */
     public void proceedToCheckout() {
-        openCart(); // todo убрать?
         if(kraken.detect().isCheckoutButtonActive()){
             kraken.perform().click(Elements.Site.Cart.checkoutButton());
         } else {
@@ -129,23 +128,31 @@ public class ShoppingHelper extends HelperBase {
     }
 
     /** Набрать корзину на минимальную сумму, достаточную для оформления заказа */
-    public void grabCart() {
+    public void grabCart() { //TODO переделать на grabCart(minOrderSum)
         if(!kraken.detect().isCheckoutButtonActive()) {
+
+            printMessage("Grabbing cart on sum " + minOrderSum + "р...");
+            int roundedCartTotal = round(kraken.grab().currentCartTotal());
+            printMessage("> current cart: " + roundedCartTotal + "p");
             closeCart();
+
             openFirstItemCard();
-            printMessage("Adding items to cart for minimal order on " + minOrderSum + "р...");
-            int quantity = (minOrderSum / round(kraken.grab().text(Elements.Site.ItemCard.price()))) + 1;
-            printMessage("Quantity for minimal order : " + quantity + "\n");
+            int itemPrice = round(kraken.grab().text(Elements.Site.ItemCard.price()));
+            printMessage("> item price: " + itemPrice + "p");
+            int quantity = ((minOrderSum - roundedCartTotal) / itemPrice) + 1;
+            printMessage("> quantity to add: " + quantity + "шт\n");
             for (int i = 1; i <= quantity; i++) {
                 hitPlusButton();
                 kraken.perform().waitingFor(1);
             }
             closeItemCard();
-        } else { printMessage("Skip grab cart, already have enough items");}
+
+            openCart();
+        } else { printMessage("Skip grabbing cart, already have enough items");}
     }
 
     /** Набрать корзину на указанную сумму */
-    public void grabCart(int sum) {
+    public void grabCart(int sum) { //TODO переделать, взять логику из grabCart()
         openFirstItemCard();
 
         int quantity = (sum / round(kraken.grab().text(Elements.Site.ItemCard.price()))) + 1;

@@ -428,8 +428,23 @@ public class Elements {
 
             static Elements firstItem() {
                 return new Elements(null, By.className("product__img")
-                        //By.xpath("//*[@id='home']/div[3]/ul/li[1]/ul/li[1]/a/p[1]") // старый локатор
                 );
+            }
+
+        }
+
+
+        /**
+         * Модалка "Обновить цены"
+         */
+        interface RefreshPricesModal { //TODO добавить проверку в hitPlus в карточке товара
+
+            static Elements popup() {
+                return new Elements(null, By.className("prices-modal"));
+            }
+
+            static Elements refreshPricesButton() {
+                return new Elements(null, By.className("prices-modal__btn"));
             }
         }
 
@@ -481,6 +496,10 @@ public class Elements {
 
             static Elements checkoutButton() {
                 return new Elements(null, By.className("cart-checkout-link"));
+            }
+
+            static Elements total() {
+                return new Elements(null, By.cssSelector(".cart-checkout-link__well > div:nth-child(1)"));
             }
 
             static Elements openCartButton() {
@@ -754,6 +773,29 @@ public class Elements {
 
         }
 
+        interface AccountPage {
+
+            static Elements email() {
+                return new Elements(null,
+                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div[2]/div/div/div[2]/div[2]/div[2]"));
+            }
+
+            static Elements changePasswordButton() {
+                return new Elements(null,
+                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div[2]/div/div/div[2]/div[1]/div[3]/button"));
+            }
+
+            static Elements changeEmailButton() {
+                return new Elements(null,
+                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div[2]/div/div/div[2]/div[2]/div[3]/button"));
+            }
+
+            static Elements changeNameButton() {
+                return new Elements(null,
+                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div[2]/div/div/div[2]/div[3]/div[3]/button"));
+            }
+
+        }
 
         interface OrdersPage {
 
