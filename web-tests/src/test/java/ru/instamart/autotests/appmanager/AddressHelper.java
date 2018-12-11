@@ -37,6 +37,7 @@ public class AddressHelper extends HelperBase {
     public void change(String address) {
         printMessage("Changing ship address >> " + address + "\n");
         openAddressModal();
+        clearAddressField();
         fill(address);
         submit();
     }
@@ -68,10 +69,17 @@ public class AddressHelper extends HelperBase {
                 }
                 kraken.perform().waitingFor(1); // Ожидание анимации открытия адресной маодалки
             }
-        }
+    }
 
     /**
-     * Ввести адрес в модалке
+     * Очисить поле в адресной модалке
+     */
+    public void clearAddressField() {
+        kraken.perform().fillField(Elements.Site.AddressModal.addressField(), "");
+    }
+
+    /**
+     * Ввести адрес в адресной модалке
      */
     public void fill(String address) {
         kraken.perform().fillField(Elements.Site.AddressModal.addressField(), address);
@@ -79,7 +87,7 @@ public class AddressHelper extends HelperBase {
     }
 
     /**
-     * Сохранить адрес в модалке
+     * Нажать Сохранить в адресной модалке
      */
     private void submit() {
         kraken.perform().click(Elements.Site.AddressModal.saveButton());

@@ -39,8 +39,13 @@ public class GrabHelper extends HelperBase{
         return text(Elements.Site.Header.currentShipAddress());
     }
 
+    /** Взять текущую сумму корзины */
+    public String currentCartTotal() {
+        return kraken.detect().isElementDisplayed(Elements.Site.Cart.total()) ? text(Elements.Site.Cart.total()) : null;
+    }
+
     /** Взять округленное значение цены из указанного элемента */
-    public int roundedPrice(Elements element) throws Exception {
+    public int roundedSum(Elements element) {
         return round(text(element));
     }
 }

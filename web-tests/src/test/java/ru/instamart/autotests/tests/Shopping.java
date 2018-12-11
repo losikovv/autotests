@@ -3,7 +3,10 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.testdata.Generate;
 
 
 // Тесты магазина
@@ -15,8 +18,6 @@ public class Shopping extends TestBase{
     @BeforeMethod(alwaysRun = true)
     public void getAuth() throws Exception {
         kraken.get().page("metro");
-        kraken.perform().dropAuth();
-        kraken.perform().loginAs("admin");
     }
 
 
@@ -26,6 +27,7 @@ public class Shopping extends TestBase{
             priority = 350
     )
     public void checkEmptyCart() throws Exception, AssertionError {
+        kraken.perform().loginAs("admin");
         kraken.perform().dropCart();
         kraken.shopping().openCart();
 
@@ -55,6 +57,7 @@ public class Shopping extends TestBase{
             priority = 351
     )
     public void checkoutIsUnreachableWithEmptyCart() throws Exception {
+        kraken.perform().loginAs("admin");
         kraken.perform().dropCart();
         assertPageIsUnreachable(Pages.Site.checkout());
     }
@@ -66,6 +69,7 @@ public class Shopping extends TestBase{
             priority = 352
     )
     public void addItemToCart()throws Exception, AssertionError {
+        kraken.perform().loginAs("admin");
         kraken.perform().dropCart();
 
         kraken.shopping().addFirstItemOnPageToCart();
@@ -83,6 +87,7 @@ public class Shopping extends TestBase{
             priority = 353
     )
     public void grabCart()throws Exception, AssertionError {
+        kraken.perform().loginAs("admin");
         kraken.shopping().grabCart();
 
         // Assert checkout button is enabled
@@ -94,15 +99,46 @@ public class Shopping extends TestBase{
 
 
     @Test(
-            description = "Успешного перехода в чекаут при сумме корзины выше суммы минимального заказа",
-            groups = {"acceptance","regression"},
+            description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации",
+            groups = {"acceptance", "regression"},
             priority = 354
     )
+    public void mergeShipAddressAndCartAfterAuth() throws Exception {
+        //TODO вынести в dataProvider
+        kraken.perform().dropAuth();
+        final UserData testuser = Generate.testUserData();
+        kraken.get().baseUrl();
+        kraken.perform().registration(testuser);
+        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        kraken.shopping().addFirstItemOnPageToCart();
+        kraken.perform().logout();
+
+        kraken.get().page("metro");
+        kraken.shipAddress().set(Addresses.Moscow.testAddress());
+        kraken.perform().login(testuser);
+
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Не прошла авторизация\n");
+
+        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
+                "Слетел адрес доставки при авторизации\n");
+
+        Assert.assertEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.defaultAddress(),
+                "Не обновился адрес доставки при авторизации\n");
+
+        Assert.assertFalse(kraken.detect().isCartEmpty(),
+                "Не смержиласть корзина при авторизации\n");
+    }
+
+
+    @Test(
+            description = "Тест успешного перехода в чекаут при сумме корзины выше суммы минимального заказа",
+            groups = {"acceptance","regression"},
+            priority = 355
+    )
     public void proceedFromCartToCheckout()throws Exception, AssertionError {
-        kraken.shopping().openCart();
-        if(!kraken.detect().isCheckoutButtonActive()) {
-            kraken.shopping().grabCart();
-        }
+        kraken.perform().loginAs("admin");
+        kraken.shopping().grabCart();
 
         kraken.shopping().proceedToCheckout();
 
@@ -111,7 +147,6 @@ public class Shopping extends TestBase{
     }
 
     // TODO тест на изменение кол-ва товаров в корзине
-
 
     // TODO тест на удаление товаров из корзины
 

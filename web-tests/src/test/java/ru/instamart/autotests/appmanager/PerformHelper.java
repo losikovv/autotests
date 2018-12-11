@@ -125,14 +125,18 @@ public class PerformHelper extends HelperBase {
 
     // ======= Авторизация / деавторизация =======
 
-    /** Залогиниться юзером с указанной ролью */ //TODO добавить сеттер as(String role), проверки на авторизованность вынести в метод login
+    /** Залогиниться юзером с указанной ролью */
     public void loginAs(String role) throws Exception {
-        if (!kraken.detect().isUserAuthorised()) {
-            login(Users.getCredentials(role));
-            printMessage("Logged-in with " + role + " privileges\n");
-        } else {
-            printMessage("Skip authorisation, already logged-in");
+        String startURL = kraken.grab().currentURL();
+        if (!startURL.equals(fullBaseUrl) && kraken.detect().isUserAuthorised()) {
+            kraken.get().profilePage();
+            if (!kraken.grab().text(Elements.Site.AccountPage.email()).equals(Users.getCredentials(role).getLogin())) {
+                logout();
+            }
+            kraken.get().url(startURL);
         }
+        login(Users.getCredentials(role));
+        printMessage("Logged-in with " + role + " privileges\n");
     }
 
     /** Залогиниться с реквизитами из переданного объекта UserData */
@@ -142,11 +146,15 @@ public class PerformHelper extends HelperBase {
 
     /** Залогиниться с указанными реквизитами */
     public void login(String email, String password) throws Exception {
-        printMessage("Performing authorisation...");
-        openAuthModal();
-        waitingFor(1);
-        authSequence(email, password);
-        waitingFor(2);
+        if (!kraken.detect().isUserAuthorised()) {
+            printMessage("Performing authorisation...");
+            openAuthModal();
+            waitingFor(1);
+            authSequence(email, password);
+            waitingFor(2);
+        } else {
+            printMessage("Skip authorisation, already logged-in");
+        }
     }
 
     /** Авторизационная последовательность для юзера с указанной ролью */
@@ -290,8 +298,8 @@ public class PerformHelper extends HelperBase {
 
     /** Деавторизоваться, оставшись на текущей странице */
     public void dropAuth() {
-        String currentURL = kraken.grab().currentURL();
         if (kraken.detect().isUserAuthorised()) {
+            String currentURL = kraken.grab().currentURL();
             kraken.perform().logout();
             kraken.get().url(currentURL);
         }

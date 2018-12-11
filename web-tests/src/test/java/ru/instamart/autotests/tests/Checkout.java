@@ -232,24 +232,24 @@ public class Checkout extends TestBase {
         kraken.shopping().proceedToCheckout();
         kraken.checkout().fillAllFields();
 
-        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()), Config.MetroHighDeliveryPrice,
+        Assert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroHighDeliveryPrice,
                 "Delivery price in checkout is not correct, check manually \n");
 
         kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.shopping().grabCart(5000);
         kraken.shopping().proceedToCheckout();
-        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()), Config.MetroMediumDeliveryPrice,
+        Assert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroMediumDeliveryPrice,
                 "Delivery price in checkout is not correct, check manually \n" );
 
         kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.shopping().grabCart(10000);
         kraken.shopping().proceedToCheckout();
-        Assert.assertEquals(kraken.grab().roundedPrice(Site.Checkout.deliveryPrice()), Config.MetroLowDeliveryPrice,
+        Assert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroLowDeliveryPrice,
                 "Delivery price in checkout is not correct, check manually \n" );
 
         kraken.checkout().complete();
 
-        Assert.assertEquals(kraken.grab().roundedPrice(Site.OrderDetailsPage.deliveryPrice()), Config.MetroLowDeliveryPrice,
+        Assert.assertEquals(kraken.grab().roundedSum(Site.OrderDetailsPage.deliveryPrice()), Config.MetroLowDeliveryPrice,
                 "Delivery price is not correct in order details, check manually \n" );
 
         kraken.perform().cancelLastOrder();

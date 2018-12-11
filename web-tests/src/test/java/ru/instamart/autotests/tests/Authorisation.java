@@ -86,7 +86,6 @@ public class Authorisation extends TestBase {
     )
     public void successAuthOnLandingPage() throws Exception, AssertionError {
         kraken.get().baseUrl();
-        kraken.perform().dropAuth();
 
         kraken.perform().loginAs("user");
 
@@ -105,7 +104,6 @@ public class Authorisation extends TestBase {
     )
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
         kraken.get().page("vkusvill");
-        kraken.perform().dropAuth();
 
         kraken.perform().loginAs("user");
 
@@ -187,36 +185,6 @@ public class Authorisation extends TestBase {
                 "Пропали товары после авторизации из корзины\n");
 
         kraken.shopping().closeCart();
-        kraken.perform().logout();
-    }
-
-
-    // TODO перенести в ShippingAddress
-    @Test(
-            description = "Тест на подтягивание адреса из профиля при авторизации",
-            groups = {"acceptance", "regression"},
-            priority = 110
-    )
-    public void replaceShipAddressAfterAuth() throws Exception {
-        final UserData testuser = Generate.testUserData();
-        kraken.get().baseUrl();
-        kraken.perform().registration(testuser);
-        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
-        kraken.perform().logout();
-
-        kraken.get().page("metro");
-        kraken.shipAddress().set(Addresses.Moscow.testAddress());
-        kraken.perform().login(testuser);
-
-        Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Can't approve correct authorisation, check manually\n");
-
-        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
-                "Can't approve the shipping address was set correctly, check manually\n");
-
-        Assert.assertEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.defaultAddress(),
-                "Current shipping address is not the same that was entered during the setting procedure\n");
-
         kraken.perform().logout();
     }
 

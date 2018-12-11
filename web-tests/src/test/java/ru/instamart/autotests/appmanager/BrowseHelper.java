@@ -18,7 +18,7 @@ public class BrowseHelper extends HelperBase {
      * Перейти на указанный URL
      */
     public void url(String url) {
-        if (url.equals(fullBaseUrl)) printMessage("Getting baseURL " + url + "\n");
+        if (url.equals(fullBaseUrl)) printMessage("Getting baseURL >>> " + url + "\n");
         try {
             driver.get(url);
         } catch (TimeoutException t) {
@@ -54,6 +54,13 @@ public class BrowseHelper extends HelperBase {
     public void checkoutPage() {
         page("checkout/edit?");
         kraken.perform().waitingFor(1);
+    }
+
+    /**
+     * Перейти на страницу профиля
+     */
+    public void profilePage() {
+        page("user/edit");
     }
 
     /**
