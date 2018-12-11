@@ -306,6 +306,8 @@ public class Elements {
                         By.cssSelector(".auth-modal__recovery-text > span:nth-child(1)"));
             }
 
+            // TODO Добавить/переделать локаторы под авторизацию
+
             static Elements nameErrorMessage() {
                 return new Elements(null,
                         (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[1]/div[2]")));
