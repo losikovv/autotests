@@ -137,8 +137,15 @@ public class ShoppingHelper extends HelperBase {
             closeCart();
 
             openFirstItemCard();
-            int itemPrice = round(kraken.grab().text(Elements.Site.ItemCard.price()));
-            printMessage("> item price: " + itemPrice + "p");
+            int itemPrice;
+            if(kraken.detect().isItemOnSale()){
+                itemPrice = round(kraken.grab().text(Elements.Site.ItemCard.salePrice()));
+                printMessage("> item sale price: " + itemPrice + "p");
+            } else {
+                itemPrice = round(kraken.grab().text(Elements.Site.ItemCard.price()));
+                printMessage("> item price: " + itemPrice + "p");
+            }
+
             int quantity = ((minOrderSum - roundedCartTotal) / itemPrice) + 1;
             printMessage("> quantity to add: " + quantity + "шт\n");
             for (int i = 1; i <= quantity; i++) {

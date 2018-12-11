@@ -323,6 +323,10 @@ public class DetectionHelper extends HelperBase {
         } else return false;
     }
 
+    public boolean isItemOnSale() {
+        return isElementDisplayed(Elements.Site.ItemCard.saleBadge());
+    }
+
 
     // ======= Корзина =======
 

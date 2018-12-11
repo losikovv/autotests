@@ -465,6 +465,16 @@ public class Elements {
                         By.cssSelector(".product-popup__price > div:nth-child(1) > span:nth-child(1)"));
             }
 
+            static Elements salePrice() {
+                return new Elements(null,
+                        By.cssSelector(".product-popup__sale-price > div:nth-child(1) > span:nth-child(1)"));
+            }
+
+            static Elements saleBadge() {
+                return new Elements(null,
+                        By.className("sale-badge"));
+            }
+
             static Elements closeButton() {
                 return new Elements(null, By.className("close"));
             }
