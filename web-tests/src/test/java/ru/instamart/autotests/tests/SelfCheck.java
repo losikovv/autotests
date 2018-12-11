@@ -106,7 +106,7 @@ public class SelfCheck extends TestBase {
             priority = 10005)
     public void detectItemCard() throws Exception {
 
-        kraken.get().page("metro/hleb-rzhanoy-kray-zavarnoy-v-narezke");
+        kraken.get().page("metro/interaktivnaya-igrushka-furreal-friends-pokormi-kotenka");
         Assert.assertTrue(kraken.detect().isItemCardOpen());
 
         kraken.get().page("metro/eliektronika");
@@ -279,7 +279,6 @@ public class SelfCheck extends TestBase {
      public void detectAddressModal() throws Exception {
 
         kraken.get().page("metro");
-
 
         kraken.shipAddress().openAddressModal();
         Assert.assertTrue(kraken.detect().isAddressModalOpen());

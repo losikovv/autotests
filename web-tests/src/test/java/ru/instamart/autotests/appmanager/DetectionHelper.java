@@ -100,10 +100,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить показана ли пользовательская ошибка */
     public boolean isUserErrorShown(Elements element) {
         if(isTextShown(element)) {
-            printMessage("Показана пользовательская ошибка: " + kraken.grab().text(element));
+            printMessage("Показана пользовательская ошибка: " + kraken.grab().text(element) + "\n");
             return true;
         } else {
-            printMessage("Не показана пользовательская ошибка");
+            printMessage("Не показана пользовательская ошибка" + Elements.locator() + "\n");
             return false;
         }
     }
@@ -256,14 +256,9 @@ public class DetectionHelper extends HelperBase {
 
     // ======= Адрес доставки =======
 
-    /** Определяем пуст ли адрес доставки */
-    public boolean isShippingAddressEmpty() {
-        return element(Elements.Site.Header.setShipAddressButton());
-    }
-
     /** Определяем выбран ли адрес доставки */
     public boolean isShippingAddressSet() {
-        if (element((Elements.Site.Header.changeShipAddressButton()))) {
+        if (isElementPresent((Elements.Site.Header.currentShipAddress()))) {
             printMessage("Ship address is set to : " + kraken.grab().currentShipAddress());
             return true;
         } else {
@@ -358,10 +353,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить добавлен ли промокод в чекауте */
     public boolean isPromocodeApplied() {
         if (kraken.detect().element(Elements.Site.Checkout.appliedPromocodeAttribute())) {
-            printMessage("✓ Promocode applied");
+            printMessage("✓ Promocode applied\n");
             return true;
         } else {
-            printMessage("No promocode applied");
+            printMessage("No promocode applied\n");
             return false;
         }
     }

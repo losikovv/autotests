@@ -289,6 +289,7 @@ public class PerformHelper extends HelperBase {
         kraken.get().url(baseUrl + "user/orders");
         if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(1));
+            printMessage("> OK");
         } else printMessage("> Skipped because order isn't active");
         waitingFor(2);
     }

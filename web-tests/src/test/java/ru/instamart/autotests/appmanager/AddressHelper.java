@@ -60,15 +60,10 @@ public class AddressHelper extends HelperBase {
     public void openAddressModal() {
         if (kraken.detect().isAddressModalOpen()) {
             printMessage("Skip address-modal opening, it's already opened");
+        } else {
+            kraken.perform().click(Elements.Site.Header.shipAddressButton());
+            kraken.perform().waitingFor(1); // Ожидание анимации открытия адресной модалки
         }
-        else {
-                if (kraken.detect().isShippingAddressEmpty()) {
-                    kraken.perform().click(Elements.Site.Header.setShipAddressButton());
-                } else {
-                    kraken.perform().click(Elements.Site.Header.changeShipAddressButton());
-                }
-                kraken.perform().waitingFor(1); // Ожидание анимации открытия адресной маодалки
-            }
     }
 
     /**

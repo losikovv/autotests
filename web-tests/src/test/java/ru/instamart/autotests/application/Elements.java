@@ -54,20 +54,12 @@ public class Elements {
          */
         interface Header {
 
-            static Elements setShipAddressButton() {
-                text = "Ввести адрес";
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/button");
-                return new Elements(text, locator);
-            }
-
-            static Elements changeShipAddressButton() {
-                text = "Изменить";
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/button");
-                return new Elements(text, locator);
+            static Elements shipAddressButton() {
+                return new Elements(null, By.className("ship-address-selector__edit-btn"));
             }
 
             static Elements currentShipAddress() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/div/div/div/div/div/span");
+                locator = By.className("ship-address-selector__full-address");
                 return new Elements(null, locator);
             }
 

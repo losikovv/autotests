@@ -19,9 +19,6 @@ public class ShippingAddress extends TestBase{
     public void emptyShippingAddressByDefault() throws Exception {
         kraken.get().page("metro");
 
-        Assert.assertTrue(kraken.detect().isShippingAddressEmpty(),
-                "Shipping address is not empty by default\n");
-
         Assert.assertFalse(kraken.detect().isShippingAddressSet(),
                 "Shipping address is set by default\n");
     }
@@ -66,7 +63,7 @@ public class ShippingAddress extends TestBase{
     )
     public void changeShippingAddress() throws Exception {
         kraken.get().page("metro");
-        if(kraken.detect().isShippingAddressEmpty()) {
+        if(!kraken.detect().isShippingAddressSet()) {
             kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         }
 
