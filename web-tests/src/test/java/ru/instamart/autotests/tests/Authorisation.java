@@ -25,6 +25,10 @@ public class Authorisation extends TestBase {
         kraken.perform().dropAuth();
         kraken.perform().login("", "instamart");
 
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+                "Нет пользовательской ошибки пустого поля email\n");
+
         // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "It's possible to log-in without entering an email!\n");
@@ -40,6 +44,10 @@ public class Authorisation extends TestBase {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
         kraken.perform().login("instatestuser@yandex.ru", "");
+
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
+                "Нет пользовательской ошибки пустого поля password\n");
 
         // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
@@ -57,6 +65,10 @@ public class Authorisation extends TestBase {
         kraken.perform().dropAuth();
         kraken.perform().login("nonexistinguser@example.com", "password");
 
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+                "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
+
         // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "It's possible to log-in with non-existing username!"+"\n");
@@ -72,6 +84,10 @@ public class Authorisation extends TestBase {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
         kraken.perform().login("instatestuser@yandex.ru", "wrongpassword");
+
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+                "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
         // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
