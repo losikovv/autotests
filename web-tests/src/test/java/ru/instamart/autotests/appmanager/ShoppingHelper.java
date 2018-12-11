@@ -59,9 +59,7 @@ public class ShoppingHelper extends HelperBase {
     public void addFirstItemOnPageToCart() {
         openFirstItemCard();
         hitPlusButton();
-        kraken.perform().waitingFor(1);
         closeItemCard();
-        kraken.perform().waitingFor(1);
     }
 
     /** Открываем карточку первого товара */
@@ -79,6 +77,7 @@ public class ShoppingHelper extends HelperBase {
         // TODO добавить проверку на обновление цен
         if (kraken.detect().isElementEnabled(Elements.Site.ItemCard.plusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.plusButton());
+            kraken.perform().waitingFor(1); // Ожидание добавления +1 товара в корзину
         } else {
             printMessage("'Plus' button is disabled");
         }
@@ -88,6 +87,7 @@ public class ShoppingHelper extends HelperBase {
     private void hitMinusButton() {
         if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.minusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.minusButton());
+            kraken.perform().waitingFor(1); // Ожидание удаления -1 товара в корзину
         } else {
             printMessage("'Minus' button is not displayed");
         }
@@ -150,7 +150,6 @@ public class ShoppingHelper extends HelperBase {
             printMessage("> quantity to add: " + quantity + "шт\n");
             for (int i = 1; i <= quantity; i++) {
                 hitPlusButton();
-                kraken.perform().waitingFor(1);
             }
             closeItemCard();
 
@@ -167,7 +166,6 @@ public class ShoppingHelper extends HelperBase {
 
         for (int i = 1; i <= quantity; i++) {
             hitPlusButton();
-            kraken.perform().waitingFor(1);
         }
         closeItemCard();
     }
