@@ -24,6 +24,22 @@ public class Registration extends TestBase {
 
         kraken.perform().registration(null, null, null, null);
 
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+                "Нет пользовательской ошибки пустого поля name\n");
+
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+                "Нет пользовательской ошибки пустого поля email\n");
+
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
+                "Нет пользовательской ошибки пустого поля password\n");
+
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
+                "Нет пользовательской ошибки пустого поля password confirmation\n");
+
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "It's possible to register new user with empty requisites!\n");
     }
@@ -39,6 +55,10 @@ public class Registration extends TestBase {
         kraken.perform().dropAuth();
 
         kraken.perform().registration(null, "test@example.com", "12345678", "12345678");
+
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+                "Нет пользовательской ошибки пустого поля name\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "It's possible to register new user without entering a name!\n");
@@ -56,6 +76,10 @@ public class Registration extends TestBase {
 
         kraken.perform().registration("Test User", null, "12345678", "12345678");
 
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+                "Нет пользовательской ошибки пустого поля email\n");
+
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "It's possible to register new user without entering an email!\n");
     }
@@ -71,6 +95,10 @@ public class Registration extends TestBase {
         kraken.perform().dropAuth();
 
         kraken.perform().registration("Test User", "test@example.com", null, "12345678");
+
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
+                "Нет пользовательской ошибки пустого поля password\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "It's possible to register new user without entering a password!\n");
@@ -88,6 +116,10 @@ public class Registration extends TestBase {
 
         kraken.perform().registration("Test User", "test@example.com", "12345678", null);
 
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
+                "Нет пользовательской ошибки пустого поля password confirmation\n");
+
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "It's possible to register new user without entering a password confirmation!\n");
     }
@@ -104,6 +136,10 @@ public class Registration extends TestBase {
 
         kraken.perform().registration("Test User", "test@example.com", "12345678", "12345679");
 
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
+                "Нет пользовательской ошибки несовпадения пароля\n");
+
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "It's possible to register new user with wrong password confirmation!\n");
     }
@@ -118,7 +154,11 @@ public class Registration extends TestBase {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
-        kraken.perform().registration("Test User", "autotestuser@instamart.ru", "12345678", "12345679");
+        kraken.perform().registration("Test User", "autotestuser@instamart.ru", "12345678", "12345678");
+
+        // TODO переделать на soft-assertion
+        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+                "Нет пользовательской ошибки регистрации с уже зарегистрированным email\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "It's possible to register new user with email of already existing one!\n");
