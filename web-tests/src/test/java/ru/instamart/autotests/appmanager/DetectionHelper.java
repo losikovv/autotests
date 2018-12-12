@@ -350,6 +350,12 @@ public class DetectionHelper extends HelperBase {
         return kraken.detect().isElementPresent(Elements.Site.Checkout.header());
     }
 
+    /** Определить введен ли телефон на 2 шаге в чекауте */
+    public boolean isPhoneNumberEntered() {
+        return kraken.detect().isElementPresent(Elements.Site.Checkout.phoneNumberField()); // TODO протестить
+        // return kraken.detect().element(Elements.Site.Checkout.phoneNumberField());
+    }
+
     /** Определить добавлен ли промокод в чекауте */
     public boolean isPromocodeApplied() {
         if (kraken.detect().element(Elements.Site.Checkout.appliedPromocodeAttribute())) {

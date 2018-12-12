@@ -746,6 +746,10 @@ public class Elements {
                         By.xpath("/html/body/div[5]/div/form/div/aside/div/div[2]/div[1]/div[1]/div[3]/span/div"));
             }
 
+            static Elements phoneNumberField() {
+                return new Elements(null, By.cssSelector("#phone-input"));
+            }
+
             interface PromocodeModal {
 
                 static Elements title() {

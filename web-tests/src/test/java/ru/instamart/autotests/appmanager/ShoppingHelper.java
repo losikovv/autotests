@@ -1,10 +1,9 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
-
-import static ru.instamart.autotests.application.Config.minOrderSum;
 
 public class ShoppingHelper extends HelperBase {
 
@@ -128,10 +127,15 @@ public class ShoppingHelper extends HelperBase {
     }
 
     /** Набрать корзину на минимальную сумму, достаточную для оформления заказа */
-    public void grabCart() { //TODO переделать на grabCart(minOrderSum)
+    public void collectItems() {
+        collectItems(Config.minOrderSum);
+    }
+
+    /** Набрать корзину на указанную сумму */
+    public void collectItems(int sum) {
         if(!kraken.detect().isCheckoutButtonActive()) {
 
-            printMessage("Grabbing cart on sum " + minOrderSum + "р...");
+            printMessage("Collecting items on sum " + sum + "р...");
             int roundedCartTotal = round(kraken.grab().currentCartTotal());
             printMessage("> current cart: " + roundedCartTotal + "p");
             closeCart();
@@ -146,7 +150,7 @@ public class ShoppingHelper extends HelperBase {
                 printMessage("> item price: " + itemPrice + "p");
             }
 
-            int quantity = ((minOrderSum - roundedCartTotal) / itemPrice) + 1;
+            int quantity = ((sum - roundedCartTotal) / itemPrice) + 1;
             printMessage("> quantity to add: " + quantity + "шт\n");
             for (int i = 1; i <= quantity; i++) {
                 hitPlusButton();
@@ -155,18 +159,5 @@ public class ShoppingHelper extends HelperBase {
 
             openCart();
         } else { printMessage("Skip grabbing cart, already have enough items");}
-    }
-
-    /** Набрать корзину на указанную сумму */
-    public void grabCart(int sum) { //TODO переделать, взять логику из grabCart()
-        openFirstItemCard();
-
-        int quantity = (sum / round(kraken.grab().text(Elements.Site.ItemCard.price()))) + 1;
-        printMessage("Quantity for " + sum + "р : " + quantity);
-
-        for (int i = 1; i <= quantity; i++) {
-            hitPlusButton();
-        }
-        closeItemCard();
     }
 }

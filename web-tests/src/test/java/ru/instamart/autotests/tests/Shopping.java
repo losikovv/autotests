@@ -88,7 +88,7 @@ public class Shopping extends TestBase{
     )
     public void grabCart()throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
-        kraken.shopping().grabCart();
+        kraken.shopping().collectItems();
 
         // Assert checkout button is enabled
         Assert.assertTrue(kraken.detect().isCheckoutButtonActive(),
@@ -138,7 +138,7 @@ public class Shopping extends TestBase{
     )
     public void proceedFromCartToCheckout()throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
-        kraken.shopping().grabCart();
+        kraken.shopping().collectItems();
 
         kraken.shopping().proceedToCheckout();
 
