@@ -33,21 +33,21 @@ public class Shopping extends TestBase{
 
         // Assert cart is open
         Assert.assertTrue(kraken.detect().isCartOpen(),
-                "Can't open shopping cart\n");
+                "Не открылась козина\n");
 
         // Assert cart is empty
         Assert.assertTrue(kraken.detect().isCartEmpty(),
-                "Cart isn't empty\n");
+                "Корзина не пуста\n");
 
         // Assert checkout button is disabled in an empty card
         Assert.assertFalse(kraken.detect().isCheckoutButtonActive(),
-                "Checkout button is active in an empty cart\n");
+                "Кнопка чекаута активна в пустой козине\n");
 
         kraken.shopping().closeCart();
 
         // Assert cart is closed
         Assert.assertFalse(kraken.detect().isCartOpen(),
-                "Can't close shopping cart\n");
+                "Не закрылась корзина\n");
     }
 
 
@@ -75,7 +75,7 @@ public class Shopping extends TestBase{
         kraken.shopping().addFirstItemOnPageToCart();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Cart is still empty after adding an item into it\n");
+                "Корзина пуста после добавления товара\n");
 
         kraken.shopping().closeCart();
     }
@@ -92,7 +92,7 @@ public class Shopping extends TestBase{
 
         // Assert checkout button is enabled
         Assert.assertTrue(kraken.detect().isCheckoutButtonActive(),
-                "Checkout button is not active with minimal order cart\n");
+                "Кнопка чекаута не активна, при минимальной сумме заказа в корзине\n");
 
         kraken.shopping().closeCart();
     }
@@ -143,7 +143,7 @@ public class Shopping extends TestBase{
         kraken.shopping().proceedToCheckout();
 
         Assert.assertTrue(kraken.checkout().isOnCheckout(),
-                "Не удалось перейти из корзыны в чекаут\n");
+                "Не удалось перейти из корзины в чекаут\n");
     }
 
     // TODO тест на изменение кол-ва товаров в корзине

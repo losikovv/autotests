@@ -37,7 +37,7 @@ public class RepeatOrders extends TestBase {
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Can't assert the order is sent & active, check manually\n");
+                "Не активен повторный заказ с оплатой картой онлайн\n");
     }
 
 
@@ -59,7 +59,7 @@ public class RepeatOrders extends TestBase {
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Can't assert the order is sent & active, check manually\n");
+                "Не активен повторный заказ с оплатой картой курьеру\n");
     }
     @Test(
             description = "Повтор крайнего заказа и оплата наличными",
@@ -79,7 +79,7 @@ public class RepeatOrders extends TestBase {
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Can't assert the order is sent & active, check manually\n");
+                "Не активен повторный заказ с оплатой наличными\n");
     }
 
 
@@ -101,7 +101,7 @@ public class RepeatOrders extends TestBase {
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Can't assert the order is sent & active, check manually\n");
+                "Не активен повторный заказ с оплатой банковским переводом\n");
     }
 
 

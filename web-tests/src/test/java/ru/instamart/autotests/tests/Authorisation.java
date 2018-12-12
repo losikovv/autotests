@@ -30,7 +30,7 @@ public class Authorisation extends TestBase {
 
         // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "It's possible to log-in without entering an email!\n");
+                "Пользователь авторизован без email!\n");
     }
 
 
@@ -50,7 +50,7 @@ public class Authorisation extends TestBase {
 
         // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "It's possible to log-in without entering a password!"+"\n");
+                "Пользователь авторизован без пароля!"+"\n");
     }
 
 
@@ -70,7 +70,7 @@ public class Authorisation extends TestBase {
 
         // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "It's possible to log-in with non-existing username!"+"\n");
+                "Авторизован незарегистрированный пользователь!"+"\n");
     }
 
 
@@ -90,7 +90,7 @@ public class Authorisation extends TestBase {
 
         // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "It's possible to log-in with wrong password!"+"\n");
+                "Пользователь авторизован с неверным паролем!"+"\n");
     }
 
 
@@ -106,7 +106,7 @@ public class Authorisation extends TestBase {
 
         // Assert user is authorised
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Can't approve correct authorisation, check manually\n");
+                "Пользователь не авторизован на лендинге\n");
 
         kraken.perform().logout();
     }
@@ -124,7 +124,7 @@ public class Authorisation extends TestBase {
 
         // Assert user is authorised
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Can't approve correct authorisation, check manually\n");
+                "Пользователь не авторизован на витрине магазина\n");
 
         kraken.perform().logout();
     }
@@ -146,7 +146,7 @@ public class Authorisation extends TestBase {
 
         // Assert user is unauthorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Can't approve correct de-authorization, check manually\n");
+                "Пользователь не разавторизован\n");
 
     }
 
@@ -164,7 +164,7 @@ public class Authorisation extends TestBase {
         kraken.perform().authSequence("admin");
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Can't approve correct authorisation, check manually\n");
+                "Пользователь не авторизован с адресной модалки феникса\n");
 
         kraken.perform().logout();
     }
@@ -195,7 +195,7 @@ public class Authorisation extends TestBase {
         kraken.get().baseUrl();
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Юзер неавторизован после авторизации из корзины\n");
+                "Пользователь не авторизован после авторизации из корзины\n");
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Пропали товары после авторизации из корзины\n");
 

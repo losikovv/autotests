@@ -26,7 +26,7 @@ public class SearchProducts extends TestBase {
         kraken.search().item("");
 
         Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
-                "Search results are shown when it's not supposed to be\n");
+                "Показаны результаты для пустого поискового запроса\n");
     }
 
 
@@ -39,7 +39,7 @@ public class SearchProducts extends TestBase {
         kraken.search().item("смысл жизни");
 
         Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
-                "Search result is not empty when it's supposed to be\n");
+                "Показаны результаты для поискового запроса, не возвращающего результатов\n");
     }
 
 
@@ -52,10 +52,10 @@ public class SearchProducts extends TestBase {
         kraken.search().item("шоколад");
 
         Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
-                "Search result is empty, so can't assert search is working correctly, check manually\n");
+                "Отсутствуют результаты поиска\n");
 
         Assert.assertTrue(kraken.detect().isProductAvailable(),
-                "Can't assert search is working correctly, check manually\n");
+                "Отсутствуют продукты в результатах поиска\n");
     }
 
 
@@ -67,15 +67,16 @@ public class SearchProducts extends TestBase {
     public void successItemSearchUsingCategorySuggests(){
         kraken.search().fillSearchFieldWith("Мороженое");
 
-        Assert.assertTrue(kraken.search().isCategorySuggestsPresent(), "No category suggests shown\n");
+        Assert.assertTrue(kraken.search().isCategorySuggestsPresent(),
+                "Отсутствуют категорийные подсказки\n");
 
         kraken.search().hitCategorySuggest();
 
         Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
-                "Search result is empty, so can't assert search is working correctly, check manually\n");
+                "Отсутствуют результаты поиска по категорийной подсказке\n");
 
         Assert.assertTrue(kraken.detect().isProductAvailable(),
-                "Can't assert search is working correctly, check manually\n");
+                "Отсутствуют продукты в результатах поиска по категорийной подсказке\n");
     }
 
 
@@ -89,12 +90,12 @@ public class SearchProducts extends TestBase {
         kraken.search().fillSearchFieldWith("Мороженое");
 
         Assert.assertTrue(kraken.search().isProductSuggestsPresent(),
-                "No product suggest shown\n");
+                "Отсутствуют товарные подсказки\n");
 
         kraken.search().hitProductSuggest();
 
         Assert.assertTrue(kraken.detect().isItemCardOpen(),
-                "Can't approve successful open item card from search product suggest\n");
+                "Не открыта карточка товара из товарной подсказки\n");
     }
 
     @Test (
@@ -108,7 +109,7 @@ public class SearchProducts extends TestBase {
         assertPageIsAvailable();
 
         Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
-                "Search result is not empty when it's supposed to be\n");
+                "Показаны результаты для длинного поискового запроса, не возвращающего результатов\n");
     }
 
 }
