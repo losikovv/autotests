@@ -23,7 +23,7 @@ public class PasswordRecovery extends TestBase {
 
         // Assert recovery is not requested
         Assert.assertFalse(kraken.detect().isRecoveryRequested(),
-                "Форма восстановления парля отправлена с пустым полем email\n");
+                "Форма восстановления пароля отправлена с пустым полем email\n");
     }
 
 
@@ -40,7 +40,7 @@ public class PasswordRecovery extends TestBase {
 
         // Assert recovery is not requested
         Assert.assertFalse(kraken.detect().isRecoveryRequested(),
-                "Форма восстановления парля отправлена с некорректным email\n");
+                "Форма восстановления пароля отправлена с некорректным email\n");
     }
 
 

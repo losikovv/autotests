@@ -47,7 +47,7 @@ public class Administration extends TestBase {
         kraken.admin().resumeOrder();
 
         Assert.assertFalse(kraken.detect().isOrderCanceled(),
-                "Заказ не был возобновлён. Проверить вручную\n");
+                "Заказ не был возобновлён\n");
     }
 
 
@@ -66,7 +66,7 @@ public class Administration extends TestBase {
         kraken.admin().cancelOrder();
 
         Assert.assertTrue(kraken.detect().isOrderCanceled(),
-                "Заказ не был отменён. Проверить вручную\n");
+                "Заказ не был отменён\n");
     }
 
 
