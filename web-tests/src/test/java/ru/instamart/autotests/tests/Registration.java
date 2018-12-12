@@ -41,7 +41,7 @@ public class Registration extends TestBase {
                 "Нет пользовательской ошибки пустого поля password confirmation\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "It's possible to register new user with empty requisites!\n");
+                "Зарегистрирован пользователь без данных!\n");
     }
 
 
@@ -61,7 +61,7 @@ public class Registration extends TestBase {
                 "Нет пользовательской ошибки пустого поля name\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "It's possible to register new user without entering a name!\n");
+                "Зарегистрирован пользователь без имени!\n");
     }
 
 
@@ -81,7 +81,7 @@ public class Registration extends TestBase {
                 "Нет пользовательской ошибки пустого поля email\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "It's possible to register new user without entering an email!\n");
+                "Зарегистрирован пользователь без email!\n");
     }
 
 
@@ -101,7 +101,7 @@ public class Registration extends TestBase {
                 "Нет пользовательской ошибки пустого поля password\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "It's possible to register new user without entering a password!\n");
+                "Зарегистрирован пользователь без пароля!\n");
     }
 
 
@@ -121,7 +121,7 @@ public class Registration extends TestBase {
                 "Нет пользовательской ошибки пустого поля password confirmation\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "It's possible to register new user without entering a password confirmation!\n");
+                "Зарегистрирован пользователь без подтверждения пароля!\n");
     }
 
 
@@ -141,7 +141,7 @@ public class Registration extends TestBase {
                 "Нет пользовательской ошибки несовпадения пароля\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "It's possible to register new user with wrong password confirmation!\n");
+                "Зарегистрирован пользователь с некорректно подтверждённым паролем!\n");
     }
 
 
@@ -161,7 +161,7 @@ public class Registration extends TestBase {
                 "Нет пользовательской ошибки регистрации с уже зарегистрированным email\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "It's possible to register new user with email of already existing one!\n");
+                "Зарегистрирован пользователь с уже используемым email!\n");
     }
 
 
@@ -177,7 +177,7 @@ public class Registration extends TestBase {
         kraken.perform().registration(Generate.testUserData());
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Can't approve correct registration, check manually\n");
+                "Пользователь не авторизован после регистрации на лендинге\n");
 
         kraken.perform().logout();
     }
@@ -195,7 +195,7 @@ public class Registration extends TestBase {
         kraken.perform().registration(Generate.testUserData());
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Can't approve correct registration, check manually\n");
+                "Пользователь не авторизован после регистрации на витрине магазина\n");
 
         kraken.perform().logout();
     }
@@ -214,7 +214,7 @@ public class Registration extends TestBase {
         kraken.perform().regSequence(Generate.testUserData());
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Can't approve correct authorisation, check manually\n");
+                "Пользователь не авторизован после регистрации с адресной модалки феникса\n");
 
         kraken.perform().logout();
     }
@@ -249,7 +249,7 @@ public class Registration extends TestBase {
 
         kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Пользователь зарегистрирован при наличии ошибок заполнения формы регистрации\n");
+                "Пользователь зарегистрирован, при наличии ошибок заполнения формы регистрации\n");
     }
 
 

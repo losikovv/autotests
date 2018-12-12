@@ -52,7 +52,7 @@ public class MakeOrders extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Can't assert the order is sent & active, check manually\n");
+                "Не оформлен заказ в Казани\n");
 
         kraken.perform().checkOrderDocuments();
     }
@@ -76,17 +76,17 @@ public class MakeOrders extends TestBase {
         }
 
         Assert.assertTrue(kraken.detect().isRetailerLoyaltyAvailable(),
-                "Retailer loyalty program is not available\n");
+                "Не доступна программа лояльности \"vkusvill\" \n");
 
         kraken.checkout().addRetailerLoyalty("vkusvill");
         Assert.assertTrue(kraken.checkout().isRetailerLoyaltyApplied(),
-                "Can't apply retailer loyalty program, check manually\n");
+                "Программа лояльности \"vkusvill\" не применена\n");
 
         //TODO добавить проверку стоимости доставки как в checkMetroDeliveryPriceDiscount()
 
         kraken.checkout().complete();
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Can't assert the order is sent & active, check manually\n");
+                "Не оформлен заказ во Вкусвилл\n");
 
         kraken.perform().checkOrderDocuments();
     }

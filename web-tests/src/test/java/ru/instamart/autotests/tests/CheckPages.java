@@ -116,7 +116,7 @@ public class CheckPages extends TestBase {
 
 
 // TOdO перенести в отдельный тест checkLinks (на место cleanup - его перенести в stop())
-    // TOdO добаавить тест ссылок хедера на главной
+    // TOdO добавить тест ссылок хедера на главной
 
     @Test(
             description = "Тест работоспособности ссылок футера",
@@ -147,13 +147,13 @@ public class CheckPages extends TestBase {
 
         kraken.perform().click(Elements.Site.Footer.deliveryButton());
         Assert.assertTrue(kraken.detect().isDeliveryModalOpen(),
-                "Cant assert Delivery modal is open, check manually\n");
+                "Модалка 'Доставка' не открыта\n");
         kraken.perform().click(Elements.Site.DeliveryModal.closeButton());
         assertPageIsAvailable();
 
         kraken.perform().click(Elements.Site.Footer.partnersButton());
         Assert.assertTrue(kraken.detect().isPartnersModalOpen(),
-                "Cant assPartners modal is open, check manually\n");
+                "Модалка 'Партнёры' не открыта\n");
         kraken.perform().click(Elements.Site.PartnersModal.closeButton());
         assertPageIsAvailable();
 

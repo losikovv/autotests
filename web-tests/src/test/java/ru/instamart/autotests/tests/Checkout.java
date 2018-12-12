@@ -39,7 +39,7 @@ public class Checkout extends TestBase {
 
         // Assert promocode is applied
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
-                "Can't assert promocode is applied\n");
+                "Промокод не применён\n");
     }
 
 
@@ -54,7 +54,7 @@ public class Checkout extends TestBase {
 
         // Assert promocode is applied
         Assert.assertFalse(kraken.detect().isPromocodeApplied(),
-                "Can't assert promocode is cleared\n");
+                "Промокод не удалён\n");
     }
 
 
@@ -71,7 +71,7 @@ public class Checkout extends TestBase {
 
         // Assert promocode is not applied
         Assert.assertFalse(kraken.detect().isPromocodeApplied(),
-                "Promocode was applied after hitting 'Cancel' button \n");
+                "Промокод применён после нажатия кнопки отмены\n");
     }
 
     @Test(
@@ -87,7 +87,7 @@ public class Checkout extends TestBase {
 
         // Assert promocode is not applied
         Assert.assertFalse(kraken.detect().isPromocodeApplied(),
-                "Promocode was applied after hitting 'Close' button \n");
+                "Промокод применён после нажатия кнопки закрытия\n");
     }
 
 
@@ -100,11 +100,11 @@ public class Checkout extends TestBase {
         kraken.perform().reachCheckout();
         kraken.checkout().addLoyalty("mnogoru");
         Assert.assertTrue(kraken.detect().isLoyaltyApplied("mnogoru"),
-                "Can't assert loyalty program \"mnogoru\" is applied\n");
+                "Программа лояльности \"mnogoru\" не применена\n");
 
         kraken.checkout().addLoyalty("aeroflot");
         Assert.assertTrue(kraken.detect().isLoyaltyApplied("aeroflot"),
-                "Can't assert loyalty program \"aeroflot\" is applied\n");
+                "Программа лояльности \"aeroflot\" не применена\n");
 
     }
 
@@ -131,11 +131,11 @@ public class Checkout extends TestBase {
         kraken.perform().reachCheckout();
         kraken.checkout().clearLoyalty("mnogoru");
         Assert.assertFalse(kraken.detect().isLoyaltyApplied("mnogoru"),
-                "Can't assert loyalty program \"mnogoru\" is cleared");
+                "Программа лояльности \"mnogoru\" не удалена");
 
         kraken.checkout().clearLoyalty("aeroflot");
         Assert.assertFalse(kraken.detect().isLoyaltyApplied("aeroflot"),
-                "Can't assert loyalty program \"aeroflot\" is cleared");
+                "Программа лояльности \"aeroflot\" не удалена");
     }
 
 
@@ -150,7 +150,7 @@ public class Checkout extends TestBase {
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Can't assert the order is sent & active, check manually\n");
+                "Не оформлен заказ с оплатой налом\n");
 
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
@@ -170,7 +170,7 @@ public class Checkout extends TestBase {
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Can't assert the order is sent & active, check manually\n");
+                "Не оформлен заказ с оплатой картой онлайн\n");
 
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
@@ -190,7 +190,7 @@ public class Checkout extends TestBase {
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Can't assert the order is sent & active, check manually\n");
+                "Не оформлен заказ с оплатой картой курьеру\n");
 
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
@@ -210,7 +210,7 @@ public class Checkout extends TestBase {
 
         // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Can't assert the order is sent & active, check manually\n");
+                "Не оформлен заказ с оплатой банковским переводом\n");
 
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
@@ -233,24 +233,24 @@ public class Checkout extends TestBase {
         kraken.checkout().fillAllFields();
 
         Assert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroHighDeliveryPrice,
-                "Delivery price in checkout is not correct, check manually \n");
+                "Некорректная цена доставки в чекауте\n");
 
         kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.shopping().grabCart(5000);
         kraken.shopping().proceedToCheckout();
         Assert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroMediumDeliveryPrice,
-                "Delivery price in checkout is not correct, check manually \n" );
+                "Некорректная цена доставки в чекауте\n" );
 
         kraken.get().page(Pages.Site.Catalog.priceyItems());
         kraken.shopping().grabCart(10000);
         kraken.shopping().proceedToCheckout();
         Assert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroLowDeliveryPrice,
-                "Delivery price in checkout is not correct, check manually \n" );
+                "Некорректная цена доставки в чекауте\n" );
 
         kraken.checkout().complete();
 
         Assert.assertEquals(kraken.grab().roundedSum(Site.OrderDetailsPage.deliveryPrice()), Config.MetroLowDeliveryPrice,
-                "Delivery price is not correct in order details, check manually \n" );
+                "Некорректная цена доставки в чекауте\n" );
 
         kraken.perform().cancelLastOrder();
     }
