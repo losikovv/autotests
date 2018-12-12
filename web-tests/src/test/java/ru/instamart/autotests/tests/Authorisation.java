@@ -182,7 +182,7 @@ public class Authorisation extends TestBase {
 
         kraken.get().page("metro");
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
-        kraken.shopping().grabCart();
+        kraken.shopping().collectItems();
         kraken.shopping().openCart();
         kraken.perform().click(Elements.Site.Cart.checkoutButton());
         kraken.perform().click(Elements.Site.AuthModal.authorisationTab());

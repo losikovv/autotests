@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.Generate;
 
 
@@ -261,7 +260,7 @@ public class Registration extends TestBase {
     public void successRegOnCart() throws Exception {
         kraken.get().page("metro");
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
-        kraken.shopping().grabCart();
+        kraken.shopping().collectItems();
         kraken.shopping().openCart();
         kraken.perform().click(Elements.Site.Cart.checkoutButton());
         kraken.perform().click(Elements.Site.AuthModal.registrationTab());

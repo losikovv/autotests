@@ -30,7 +30,7 @@ public class RepeatOrders extends TestBase {
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Заказ не повторился, что-то пошло не так\n");
 
-        kraken.shopping().grabCart();
+        kraken.shopping().collectItems();
 
         kraken.shopping().proceedToCheckout();
         kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",1,"card-online");
@@ -52,7 +52,7 @@ public class RepeatOrders extends TestBase {
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Заказ не повторился, что-то пошло не так\n");
 
-        kraken.shopping().grabCart();
+        kraken.shopping().collectItems();
 
         kraken.shopping().proceedToCheckout();
         kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",2,"card-courier");
@@ -72,7 +72,7 @@ public class RepeatOrders extends TestBase {
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Заказ не повторился, что-то пошло не так\n");
 
-        kraken.shopping().grabCart();
+        kraken.shopping().collectItems();
 
         kraken.shopping().proceedToCheckout();
         kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
@@ -94,7 +94,7 @@ public class RepeatOrders extends TestBase {
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Заказ не повторился, что-то пошло не так\n");
 
-        kraken.shopping().grabCart();
+        kraken.shopping().collectItems();
 
         kraken.shopping().proceedToCheckout();
         kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");

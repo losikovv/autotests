@@ -64,8 +64,8 @@ public class CleanupHelper extends HelperBase {
         if (!kraken.detect().isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder())) {
             kraken.perform().click(Elements.Admin.Shipments.firstOrderInTable());
             kraken.perform().waitingFor(1);
-            kraken.admin().cancelOrder(); // todo обернуть в проверку, выполнять только если тестовый заказ
-            orders(ordersListPath); // Keep cancelling orders, recursively
+            kraken.admin().cancelOrder(); // todo добавить проверку, отменять только если тестовый заказ
+            orders(ordersListPath); // Keep cancelling orders recursively
         } else {
             printMessage("✓ Complete: no test orders left active\n");
         }

@@ -228,7 +228,7 @@ public class Checkout extends TestBase {
         kraken.perform().dropCart();
 
         kraken.get().page(Pages.Site.Catalog.priceyItems());
-        kraken.shopping().grabCart();
+        kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();
         kraken.checkout().fillAllFields();
 
@@ -236,13 +236,13 @@ public class Checkout extends TestBase {
                 "Некорректная цена доставки в чекауте\n");
 
         kraken.get().page(Pages.Site.Catalog.priceyItems());
-        kraken.shopping().grabCart(5000);
+        kraken.shopping().collectItems(5000);
         kraken.shopping().proceedToCheckout();
         Assert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroMediumDeliveryPrice,
                 "Некорректная цена доставки в чекауте\n" );
 
         kraken.get().page(Pages.Site.Catalog.priceyItems());
-        kraken.shopping().grabCart(10000);
+        kraken.shopping().collectItems(10000);
         kraken.shopping().proceedToCheckout();
         Assert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroLowDeliveryPrice,
                 "Некорректная цена доставки в чекауте\n" );

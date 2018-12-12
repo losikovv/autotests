@@ -2,10 +2,7 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Environments;
-import ru.instamart.autotests.application.PaymentTypes;
-import ru.instamart.autotests.application.Loyalties;
+import ru.instamart.autotests.application.*;
 
 public class CheckoutHelper extends HelperBase {
 
@@ -164,20 +161,18 @@ public class CheckoutHelper extends HelperBase {
     // ======= Step 2 - Contacts =======
 
     private void doStep2() {
-        final int stepNumber = 2;
-        final String stepName = "Contacts";
-        if (checkStep(stepNumber, stepName)) {
-            printMessage("Using existing phone number");
-            hitNextButton(stepNumber);
-        }
+        doStep2(Config.testUserPhone);
     }
 
-    //TODO
     private void doStep2(String phoneNumber) {
         final int stepNumber = 2;
         final String stepName = "Contacts";
         if (checkStep(stepNumber, stepName)) {
-            //TODO добавить определение наличия телефонов, добавление и удаление телефона
+            if(kraken.detect().isPhoneNumberEntered()) {
+                printMessage("Using existing phone number"); //TODO сделать принудительное добавление выбранного номера
+            } else {
+                kraken.perform().fillField(Elements.Site.Checkout.phoneNumberField(), phoneNumber);
+            }
             hitNextButton(stepNumber);
         }
     }

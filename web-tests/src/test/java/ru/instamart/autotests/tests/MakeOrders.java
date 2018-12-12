@@ -43,7 +43,7 @@ public class MakeOrders extends TestBase {
         // Идем в чекаут, при необходимости набирая корзину
         kraken.get().checkoutPage();
         if(!kraken.checkout().isOnCheckout()){
-            kraken.shopping().grabCart();
+            kraken.shopping().collectItems();
             kraken.shopping().proceedToCheckout();
         }
 
@@ -71,7 +71,7 @@ public class MakeOrders extends TestBase {
         // идем в чекаут, при необходимости набирая корзину
         kraken.get().checkoutPage();
         if(!kraken.checkout().isOnCheckout()){
-            kraken.shopping().grabCart();
+            kraken.shopping().collectItems();
             kraken.shopping().proceedToCheckout();
         }
 

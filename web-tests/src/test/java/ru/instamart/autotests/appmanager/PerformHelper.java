@@ -188,6 +188,12 @@ public class PerformHelper extends HelperBase {
         }
     }
 
+    /** Деавторизоваться быстро по прямой ссылке */
+    public void quickLogout() {
+        kraken.get().page("logout");
+        waitingFor(1); // Ожидание деавторизации
+    }
+
 
     // ======= Методы модалки авторизации/регистрации =======
 
@@ -301,7 +307,8 @@ public class PerformHelper extends HelperBase {
     public void dropAuth() {
         if (kraken.detect().isUserAuthorised()) {
             String currentURL = kraken.grab().currentURL();
-            kraken.perform().logout();
+            quickLogout();                  // TODO ЗАТЕСТИТЬ новый способ
+            //kraken.perform().logout();    // TODO УБРАТЬ старый способ
             kraken.get().url(currentURL);
         }
     }
@@ -348,7 +355,7 @@ public class PerformHelper extends HelperBase {
     public void reachCheckout() {
         kraken.get().checkoutPage();
         if(!kraken.checkout().isOnCheckout()){
-            kraken.shopping().grabCart();
+            kraken.shopping().collectItems();
             kraken.shopping().proceedToCheckout();
         }
     }
