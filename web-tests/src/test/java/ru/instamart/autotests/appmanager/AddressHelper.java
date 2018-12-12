@@ -50,7 +50,7 @@ public class AddressHelper extends HelperBase {
             kraken.perform().click(Elements.Site.AddressModal.addressSuggest());
             kraken.perform().waitingFor(1); // Ожидание раздизабливания кнопки сохранения адреса
         } else {
-            printMessage("Невозможно нажать на адресную посказку, так как их нет");
+            printMessage("Невозможно нажать на адресную подсказку, так как их нет");
         }
     }
 
