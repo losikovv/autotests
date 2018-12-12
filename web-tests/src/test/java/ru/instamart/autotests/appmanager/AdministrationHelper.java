@@ -34,7 +34,7 @@ public class AdministrationHelper extends HelperBase {
      * Cancel order on the page in admin panel
      */
     public void cancelOrder(int reason, String details) {
-        printMessage("- cancel order " + kraken.grab().currentURL());
+        printMessage("- Отмена заказа " + kraken.grab().currentURL());
         kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
         handleAlert();
         chooseCancellationReason(reason, details);

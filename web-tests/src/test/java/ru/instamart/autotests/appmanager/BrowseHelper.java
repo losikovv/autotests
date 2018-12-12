@@ -18,11 +18,11 @@ public class BrowseHelper extends HelperBase {
      * Перейти на указанный URL
      */
     public void url(String url) {
-        if (url.equals(fullBaseUrl)) printMessage("Getting baseURL >>> " + url + "\n");
+        if (url.equals(fullBaseUrl)) printMessage("Переходим по ссылке >>> " + url + "\n");
         try {
             driver.get(url);
         } catch (TimeoutException t) {
-            printMessage("Can't get " + url + " by timeout");
+            printMessage("Истекло время перехода по ссылке " + url + "\n");
         }
     }
 

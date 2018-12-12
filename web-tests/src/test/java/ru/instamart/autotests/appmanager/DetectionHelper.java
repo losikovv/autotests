@@ -172,7 +172,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить пустой результат поиска */
     public boolean isSearchResultsEmpty() {
         if(isElementPresent(Elements.Site.Catalog.emptySearchPlaceholder())){
-            printMessage("Empty search results");
+            printMessage("Пустой результат поиска");
             return true;
         } else return false;
     }
@@ -187,12 +187,12 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить авторизован ли пользователь */
     public boolean isUserAuthorised() {
-        printMessage("Checking authorisation...");
+        printMessage("Проверяем авторизацию...");
         if (element(Elements.Site.Header.profileButton()) || isInAdmin()) {
-            printMessage("✓ Authorised\n");
+            printMessage("✓ Авторизован\n");
             return true;
         } else {
-            printMessage("No auth!\n");
+            printMessage("Не авторизован!\n");
             return false;
         }
     }
@@ -203,10 +203,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить отправлена ли форма восстановления пароля */
     public boolean isRecoveryRequested(){
         if (kraken.detect().element(Elements.Site.AuthModal.successRecoveryText())) {
-            printMessage("✓ Recovery requested");
+            printMessage("✓ Запрос восстановления отправлен");
             return true;
         } else {
-            printMessage("Recovery request is not sent!");
+            printMessage("Запрос восстановления не отправлен!");
             return false;
         }
     }
@@ -229,16 +229,16 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить активен ли заказ на странице деталей */
     public boolean isOrderActive() {
-        printMessage("Checking order page...");
+        printMessage("Проверяем страницу заказа...");
         if (element(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
-            printMessage("✓ Order is active\n");
+            printMessage("✓ Заказ активен\n");
             return true;
         } else {
-            printMessage("Experiencing troubles, trying again...");
+            printMessage("Что-то пошло не так, пробуем ещё раз...");
             kraken.perform().waitingFor(2);
             refresh();
             if (element(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
-                printMessage("✓ Order is active\n");
+                printMessage("✓ Заказ активен\n");
                 return true;
             } else return false;
         }
@@ -259,10 +259,10 @@ public class DetectionHelper extends HelperBase {
     /** Определяем выбран ли адрес доставки */
     public boolean isShippingAddressSet() {
         if (isElementPresent((Elements.Site.Header.currentShipAddress()))) {
-            printMessage("Ship address is set to : " + kraken.grab().currentShipAddress());
+            printMessage("Выбран адрес доставки: " + kraken.grab().currentShipAddress());
             return true;
         } else {
-            printMessage("Ship address is not set\n");
+            printMessage("Адрес доставки не установлен\n");
             return false;
         }
     }
@@ -299,10 +299,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить есть ли товары на странице */
     public boolean isProductAvailable() {
         if(kraken.detect().isElementPresent(Elements.Site.Catalog.product())){
-            printMessage("✓ Products available");
+            printMessage("✓ Продукты отображаются");
             return true;
         } else {
-            printMessage("No products available!");
+            printMessage("Продукты не отображаются!");
             return false;
         }
     }
@@ -313,7 +313,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить открыта ли карточка товара */
     public boolean isItemCardOpen() {
         if(kraken.detect().isElementPresent(Elements.Site.ItemCard.popup())){
-            printMessage("✓ Item card open");
+            printMessage("✓ Карточка товара открыта");
             return true;
         } else return false;
     }
@@ -359,10 +359,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить добавлен ли промокод в чекауте */
     public boolean isPromocodeApplied() {
         if (kraken.detect().element(Elements.Site.Checkout.appliedPromocodeAttribute())) {
-            printMessage("✓ Promocode applied\n");
+            printMessage("✓ Промокод применён\n");
             return true;
         } else {
-            printMessage("No promocode applied\n");
+            printMessage("Промокод не применён\n");
             return false;
         }
     }

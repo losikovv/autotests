@@ -16,12 +16,12 @@ public class CleanupHelper extends HelperBase {
     }
 
     public void all() throws Exception {
-        printMessage("================= CLEANING-UP =================\n");
+        printMessage("================= ОЧИСТКА =================\n");
 
-        printMessage("Canceling test orders...");
+        printMessage("Отменяем тестовые заказы...");
         orders(Config.testOrdersList);
 
-        printMessage("Deleting test users...");
+        printMessage("Удаляем тестовых пользователей...");
         users(Config.testUsersList);
     }
 
@@ -38,14 +38,14 @@ public class CleanupHelper extends HelperBase {
     public void users(String usersListPath) throws Exception {
         kraken.perform().reachAdmin(usersListPath);
         if (kraken.detect().isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
-            printMessage("- delete user " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
+            printMessage("- Удаление пользователя " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
             kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
             kraken.perform().waitingFor(1);
             // Keep deleting users, recursively
             users(usersListPath);
         } else {
-            printMessage("✓ Complete: no test users left\n");
+            printMessage("✓ Завершено: не осталось тестовых пользователей\n");
         }
     }
 
@@ -67,7 +67,7 @@ public class CleanupHelper extends HelperBase {
             kraken.admin().cancelOrder(); // todo добавить проверку, отменять только если тестовый заказ
             orders(ordersListPath); // Keep cancelling orders recursively
         } else {
-            printMessage("✓ Complete: no test orders left active\n");
+            printMessage("✓ Завершено: не осталось активных тестовых заказов\n");
         }
     }
 }
