@@ -28,12 +28,12 @@ public class PerformHelper extends HelperBase {
             driver.findElement(locator).click();
         }
         catch (NoSuchElementException n) {
-            printMessage("Can't click element <" + locator
-                    + ">\nNo such element on " + kraken.grab().currentURL() + "\n");
+            printMessage("Не возможно нажать на элемент <" + locator
+                    + ">\nНет такого элемента по адресу " + kraken.grab().currentURL() + "\n");
         }
         catch (ElementNotVisibleException v) {
-            printMessage("Can't click element <" + locator
-                    + ">\nElement is not visible on " + kraken.grab().currentURL() + "\n");
+            printMessage("Не возможно нажать на элемент <" + locator
+                    + ">\nНе отображается элемент по адресу " + kraken.grab().currentURL() + "\n");
         }
     }
 
@@ -84,14 +84,14 @@ public class PerformHelper extends HelperBase {
     public void openAccountMenu() {
         if(!kraken.detect().isAccountMenuOpen()) {
             click(Elements.Site.Header.profileButton());
-        } else printMessage("Account menu is already opened");
+        } else printMessage("Меню аккаунта уже открыто");
     }
 
     /** Закрыть меню аккаунта */
     public void closeAccountMenu() {
         if(kraken.detect().isAccountMenuOpen()) {
             click(Elements.Site.Header.profileButton());
-        } else printMessage("Account menu is already closed");
+        } else printMessage("Меню аккаунта уже закрыто");
     }
 
 
@@ -104,7 +104,7 @@ public class PerformHelper extends HelperBase {
 
     /** Зарегистрироваться с указанными реквизитами */
     public void registration(String name, String email, String password, String passwordConfirmation) throws Exception {
-        printMessage("Performing registration...");
+        printMessage("Регистрируемся...");
         openAuthModal();
         regSequence(name,email,password,passwordConfirmation);
         waitingFor(3);
@@ -136,7 +136,7 @@ public class PerformHelper extends HelperBase {
             kraken.get().url(startURL);
         }
         login(Users.getCredentials(role));
-        printMessage("Logged-in with " + role + " privileges\n");
+        printMessage("Авторизован с правами " + role + "\n");
     }
 
     /** Залогиниться с реквизитами из переданного объекта UserData */
@@ -147,13 +147,13 @@ public class PerformHelper extends HelperBase {
     /** Залогиниться с указанными реквизитами */
     public void login(String email, String password) throws Exception {
         if (!kraken.detect().isUserAuthorised()) {
-            printMessage("Performing authorisation...");
+            printMessage("Авторизуемся...");
             openAuthModal();
             waitingFor(1);
             authSequence(email, password);
             waitingFor(2);
         } else {
-            printMessage("Skip authorisation, already logged-in");
+            printMessage("Пропускаем авторизацию, уже авторизованы");
         }
     }
 
@@ -184,7 +184,7 @@ public class PerformHelper extends HelperBase {
         }
         waitingFor(1);
         if(kraken.detect().isOnLanding()) {
-            printMessage("Log-out\n");
+            printMessage("Логаут\n");
         }
     }
 
@@ -200,7 +200,7 @@ public class PerformHelper extends HelperBase {
     /** Открыть форму авторизации/регистрации */
     public void openAuthModal(){
         if (kraken.detect().isAuthModalOpen()) {
-            printMessage("> auth modal opened");
+            printMessage("> модалка авторизации открыта");
         } else {
             if (kraken.detect().isOnLanding()) {
                 kraken.perform().click(Elements.Site.Landing.loginButton());
@@ -208,19 +208,19 @@ public class PerformHelper extends HelperBase {
                 kraken.perform().click(Elements.Site.Header.loginButton());
             }
         }
-        printMessage("> open auth modal");
+        printMessage("> открываем модалку авторизации");
         waitingFor(1);  // Ожидание открытия модалки авторизации
     }
 
     /** Переключиться на вкладку регистрации */
     private void switchToRegistrationTab(){
-        printMessage("> switch to registration tab");
+        printMessage("> переключаемся на вкладку регистрации");
         kraken.perform().click(Elements.Site.AuthModal.registrationTab());
     }
 
     /** Заполнить поля формы регистрации */
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {
-        printMessage("> enter registration credentials");
+        printMessage("> заполняем поля формы регистрации...");
         kraken.perform().fillField(Elements.Site.AuthModal.nameField(), name);
         kraken.perform().fillField(Elements.Site.AuthModal.emailField(), email);
         kraken.perform().fillField(Elements.Site.AuthModal.passwordField(), password);
@@ -229,7 +229,7 @@ public class PerformHelper extends HelperBase {
 
     /** Отправить форму */
     private void sendForm(){
-        printMessage("> send form\n");
+        printMessage("> отправляем форму\n");
         kraken.perform().click(Elements.Site.AuthModal.submitButton());
     }
 
@@ -242,24 +242,24 @@ public class PerformHelper extends HelperBase {
     /** Переключиться на вкладку авторизации */
     private void switchToAuthorisationTab() throws Exception {
         try {
-            kraken.perform().printMessage("> switch to authorisation tab");
+            kraken.perform().printMessage("> переключаемся на вкладку авторизации");
             kraken.perform().click(Elements.Site.AuthModal.authorisationTab());
         } catch (ElementNotInteractableException e) { // TODO попробовать перенести кетч в методы click в HelperBase
-            kraken.perform().printMessage(" > have some troubles, waiting and trying again...");
+            kraken.perform().printMessage(" > что-то пошло не так, пробуем ещё раз...");
             kraken.perform().click(Elements.Site.AuthModal.authorisationTab());
         }
     }
 
     /** Заполнить поля формы авторизации */
     private void fillAuthorisationForm(String email, String password) {
-        printMessage("> enter auth credentials");
+        printMessage("> заполняем поля формы авторизации...");
         kraken.perform().fillField(Elements.Site.AuthModal.emailField(), email);
         kraken.perform().fillField(Elements.Site.AuthModal.passwordField(), password);
     }
 
     /** Перейти в форму восстановления пароля */
     private void proceedToPasswordRecovery(){
-        printMessage("> proceed to password recovery");
+        printMessage("> переходим в форму восстановления пароля");
         kraken.perform().click(Elements.Site.AuthModal.forgotPasswordButton());
     }
 
@@ -268,7 +268,7 @@ public class PerformHelper extends HelperBase {
         openAuthModal();
         switchToAuthorisationTab();
         proceedToPasswordRecovery();
-        printMessage("> recovery for " + email);
+        printMessage("> запрашиваем восстановление пароля для " + email);
         kraken.perform().fillField(Elements.Site.AuthModal.emailField(),email);
         sendForm();
         waitingFor(1);
@@ -279,7 +279,7 @@ public class PerformHelper extends HelperBase {
 
     /** Повторить крайний заказ */
     public void repeatLastOrder(){
-        printMessage("Repeating last order from profile...\n");
+        printMessage("Повторяем крайний заказ...\n");
         kraken.get().url(baseUrl + "user/orders");
         if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(2));
@@ -291,12 +291,12 @@ public class PerformHelper extends HelperBase {
 
     /** Отменить крайний заказ */
     public void cancelLastOrder (){
-        printMessage("Canceling last order from profile...\n");
+        printMessage("Отменяем крайний заказ...\n");
         kraken.get().url(baseUrl + "user/orders");
         if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(1));
             printMessage("> OK");
-        } else printMessage("> Skipped because order isn't active");
+        } else printMessage("> Заказ не активен");
         waitingFor(2);
     }
 

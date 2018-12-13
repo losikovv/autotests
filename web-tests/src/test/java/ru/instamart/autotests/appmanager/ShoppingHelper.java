@@ -37,7 +37,7 @@ public class ShoppingHelper extends HelperBase {
         if(!kraken.detect().isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.openCatalogButton());
             kraken.perform().waitingFor(1);
-        } else printMessage("Can't open catalog drawer - already opened");
+        } else printMessage("Не возможно открыть шторку каталога - уже открыта");
     }
 
     /** Закрыть шторку каталога */
@@ -45,7 +45,7 @@ public class ShoppingHelper extends HelperBase {
         if(kraken.detect().isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.closeCatalogButton());
             kraken.perform().waitingFor(1);
-        } else printMessage("Can't close catalog drawer - already closed");
+        } else printMessage("Не возможно закрыть шторку каталога - уже закрыта");
     }
 
 
@@ -78,7 +78,7 @@ public class ShoppingHelper extends HelperBase {
             kraken.perform().click(Elements.Site.ItemCard.plusButton());
             kraken.perform().waitingFor(1); // Ожидание добавления +1 товара в корзину
         } else {
-            printMessage("'Plus' button is disabled");
+            printMessage("Кнопка 'Плюс' не активна");
         }
     }
 
@@ -88,7 +88,7 @@ public class ShoppingHelper extends HelperBase {
             kraken.perform().click(Elements.Site.ItemCard.minusButton());
             kraken.perform().waitingFor(1); // Ожидание удаления -1 товара в корзину
         } else {
-            printMessage("'Minus' button is not displayed");
+            printMessage("Кнопка 'Минус' не отображается");
         }
     }
 
@@ -135,29 +135,29 @@ public class ShoppingHelper extends HelperBase {
     public void collectItems(int sum) {
         if(!kraken.detect().isCheckoutButtonActive()) {
 
-            printMessage("Collecting items on sum " + sum + "р...");
+            printMessage("Собираем корзину на сумму " + sum + "р...");
             int roundedCartTotal = round(kraken.grab().currentCartTotal());
-            printMessage("> current cart: " + roundedCartTotal + "p");
+            printMessage("> текущая корзина: " + roundedCartTotal + "p");
             closeCart();
 
             openFirstItemCard();
             int itemPrice;
             if(kraken.detect().isItemOnSale()){
                 itemPrice = round(kraken.grab().text(Elements.Site.ItemCard.salePrice()));
-                printMessage("> item sale price: " + itemPrice + "p");
+                printMessage("> скидочная цена товара: " + itemPrice + "p");
             } else {
                 itemPrice = round(kraken.grab().text(Elements.Site.ItemCard.price()));
-                printMessage("> item price: " + itemPrice + "p");
+                printMessage("> цена товара: " + itemPrice + "p");
             }
 
             int quantity = ((sum - roundedCartTotal) / itemPrice) + 1;
-            printMessage("> quantity to add: " + quantity + "шт\n");
+            printMessage("> количество добавленных товаров: " + quantity + "шт\n");
             for (int i = 1; i <= quantity; i++) {
                 hitPlusButton();
             }
             closeItemCard();
 
             openCart();
-        } else { printMessage("Skip grabbing cart, already have enough items");}
+        } else { printMessage("Пропускаем сбор корзины, уже достаточно товаров");}
     }
 }

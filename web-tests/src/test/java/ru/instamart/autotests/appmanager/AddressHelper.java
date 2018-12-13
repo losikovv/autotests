@@ -17,7 +17,7 @@ public class AddressHelper extends HelperBase {
      * Установить адрес доставки
      */
     public void set(String address) {
-        printMessage("Setting ship address >>> " + address + "\n");
+        printMessage("Установка адреса доставки >>> " + address + "\n");
         if (kraken.grab().currentURL().equals(fullBaseUrl)) {
             kraken.perform().fillField(Elements.Site.Landing.addressField(), address);
             kraken.perform().waitingFor(1);
@@ -35,7 +35,7 @@ public class AddressHelper extends HelperBase {
      * Изменить адрес доставки
      */
     public void change(String address) {
-        printMessage("Changing ship address >> " + address + "\n");
+        printMessage("Изменение адреса доставки >> " + address + "\n");
         openAddressModal();
         clearAddressField();
         fill(address);
@@ -50,7 +50,7 @@ public class AddressHelper extends HelperBase {
             kraken.perform().click(Elements.Site.AddressModal.addressSuggest());
             kraken.perform().waitingFor(1); // Ожидание раздизабливания кнопки сохранения адреса
         } else {
-            printMessage("Can't click address suggest, there are no such");
+            printMessage("Невозможно нажать на адресную подсказку, так как их нет");
         }
     }
 
@@ -59,7 +59,7 @@ public class AddressHelper extends HelperBase {
      */
     public void openAddressModal() {
         if (kraken.detect().isAddressModalOpen()) {
-            printMessage("Skip address-modal opening, it's already opened");
+            printMessage("Пропускаем открытие модалки адреса, она уже открыта");
         } else {
             kraken.perform().click(Elements.Site.Header.shipAddressButton());
             kraken.perform().waitingFor(1); // Ожидание анимации открытия адресной модалки
@@ -97,7 +97,7 @@ public class AddressHelper extends HelperBase {
             kraken.perform().click(Elements.Site.AddressModal.closeButton());
             kraken.perform().waitingFor(1); // Ожидание анимации закрытия адресной модалки
         } else {
-            printMessage("Skip address-modal closing, it's already closed");
+            printMessage("Пропускаем закрытие модалки адреса, она уже закрыта");
         }
     }
 }
