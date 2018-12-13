@@ -307,7 +307,7 @@ public class CheckoutHelper extends HelperBase {
         } else {
             kraken.perform().click(By.xpath("//div[" + dayNumber + "]/span[2]"));
         }
-        kraken.perform().waitingFor(1);
+        kraken.perform().waitingFor(1); // Ожидание загрузки слотов в чекауте
         printMessage("Выбираем день доставки " + dayNumber);
     }
 
@@ -323,7 +323,7 @@ public class CheckoutHelper extends HelperBase {
                 //TODO
                 break;
         }
-        kraken.perform().waitingFor(2);
+        kraken.perform().waitingFor(2); // Ожидание применения слота доставки в чекауте
         printMessage("Выбираем слот доставки " + slot + "\n");
     }
 
@@ -351,14 +351,14 @@ public class CheckoutHelper extends HelperBase {
             printMessage("Применяем промокод '" + promocode + "'...");
             kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
             kraken.perform().click(Elements.Site.Checkout.PromocodeModal.applyButton());
-            kraken.perform().waitingFor(1);
+            kraken.perform().waitingFor(1); // Ожидание применения промокода в чекауте
         } else {
             printMessage("Не открывается промо модалка! Пробуем ещё раз...");
             kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
             printMessage("> Применяем промокод '" + promocode + "'");
             kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
             kraken.perform().click(Elements.Site.Checkout.PromocodeModal.applyButton());
-            kraken.perform().waitingFor(1);
+            kraken.perform().waitingFor(1); // Ожидание применения промокода в чекауте
         }
     }
 
@@ -369,7 +369,7 @@ public class CheckoutHelper extends HelperBase {
         if (kraken.detect().isPromocodeApplied()) {
             printMessage("Удаляем промокод...");
             kraken.perform().click(Elements.Site.Checkout.clearPromocodeButton());
-            kraken.perform().waitingFor(1);
+            kraken.perform().waitingFor(1); // Ожидание удаления промокода в чекауте
         } else {
             printMessage("Пропускаем удаление промокода, так как он не был применён");
         }
@@ -388,7 +388,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Добавляем бонусную программу \"" + name + "\"");
         kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]"));
         kraken.perform().fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
-        kraken.perform().waitingFor(1);
+        kraken.perform().waitingFor(1); // Ожидание применения программы лояльности в чекауте
     }
 
     /**
@@ -405,7 +405,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Удаляем бонусную программу \"" + name + "\"");
         kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
         kraken.perform().fillField(By.name("number"), 1 + "\uE004" + "\uE007");
-        kraken.perform().waitingFor(1);
+        kraken.perform().waitingFor(1); // Ожидание удаления программы лояльности в чекауте
     }
 
 
@@ -428,7 +428,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Добавляем программу лояльности \"" + name + "\"");
         kraken.perform().click(By.xpath("//aside/div/div[4]/div[3]/div"));
         kraken.perform().fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
-        kraken.perform().waitingFor(1);
+        kraken.perform().waitingFor(1); // Ожидание применения программы лояльности ритейлера в чекауте
     }
 
     /**
@@ -438,7 +438,7 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Удаляем программу лояльности");
         kraken.perform().click(By.xpath("//aside/div/div[4]/div[3]/div"));
         kraken.perform().fillField(By.name("number"), 1 + "\uE004" + "\uE007");
-        kraken.perform().waitingFor(1);
+        kraken.perform().waitingFor(1); // Ожидание удаления программы лояльности ритейлера в чекауте
     }
 
 
@@ -452,7 +452,7 @@ public class CheckoutHelper extends HelperBase {
             printMessage("✓ Чекаут\n");
         } else {
             printMessage("Ожидаем открытия чекаута...\n");
-            kraken.perform().waitingFor(1);
+            kraken.perform().waitingFor(1); // Ожидание загрузки чекаута
         }
     }
 
@@ -462,7 +462,7 @@ public class CheckoutHelper extends HelperBase {
     private void hitNextButton(int step) {
         kraken.perform().click(Elements.Site.Checkout.nextButton(step));
         printMessage("Продолжить\n");
-        kraken.perform().waitingFor(1);
+        kraken.perform().waitingFor(1); // Ожидание загрузки слеющего шага в чекауте
     }
 
     /**
@@ -471,13 +471,13 @@ public class CheckoutHelper extends HelperBase {
     public void sendOrder() {
         if (kraken.detect().isSendButtonActive()) {
             kraken.perform().click(Elements.Site.Checkout.sendOrderButton());
-            kraken.perform().waitingFor(3);
+            kraken.perform().waitingFor(3); // Ожидание оформления заказа
             printMessage("✓ Заказ отправлен\n");
         } else {
-            kraken.perform().waitingFor(3);
+            kraken.perform().waitingFor(3); // Задержка для стабильности, если заказ не получилось оформить с первого раза
             if (kraken.detect().isSendButtonActive()) {
                 kraken.perform().click(Elements.Site.Checkout.sendOrderButton());
-                kraken.perform().waitingFor(3);
+                kraken.perform().waitingFor(3); // Ожидание оформления заказа
                 printMessage("✓ Заказ отправлен\n");
             } else printMessage("Невозможно завершить заказ, кнопка отправки не активна\n");
         }
