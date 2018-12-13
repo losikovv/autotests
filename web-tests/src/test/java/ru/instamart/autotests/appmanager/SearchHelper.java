@@ -15,7 +15,7 @@ public class SearchHelper extends HelperBase {
 
     /** Заполнить поле поиска */
     public void item(String query) {
-        printMessage("Поиск продуктов по запросу \"" + query + "\"...");
+        printMessage("Поиск товаров по запросу \"" + query + "\"...");
         fillSearchFieldWith(query);
         hitSearchButton();
         kraken.perform().waitingFor(1);

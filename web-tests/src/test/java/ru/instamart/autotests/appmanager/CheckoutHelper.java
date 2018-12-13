@@ -149,12 +149,12 @@ public class CheckoutHelper extends HelperBase {
     private void fillTestOrderInstructions() {
         String text = "ТЕСТОВЫЙ ЗАКАЗ / НЕ СОБИРАТЬ";
         kraken.perform().fillField(By.name("order[special_instructions]"), text);
-        printMessage("- Комментарии по доставке: " + text);
+        printMessage("- комментарии по доставке: " + text);
     }
 
     private void fillOrderInstructions(String orderInstructions) {
         kraken.perform().fillField(By.name("order[special_instructions]"), orderInstructions);
-        printMessage("- Комментарии по доставке: " + orderInstructions);
+        printMessage("- комментарии по доставке: " + orderInstructions);
     }
 
 
@@ -384,7 +384,7 @@ public class CheckoutHelper extends HelperBase {
         if (kraken.detect().isLoyaltyApplied(name)) {
             clearLoyalty(name);
         }
-        printMessage("Добавляем программу лояльности \"" + name + "\"");
+        printMessage("Добавляем бонусную программу \"" + name + "\"");
         kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]"));
         kraken.perform().fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
         kraken.perform().waitingFor(1);
@@ -401,7 +401,7 @@ public class CheckoutHelper extends HelperBase {
      * Удаляем программу лояльности в чекауте
      */
     public void clearLoyalty(String name) {
-        printMessage("Удаляем программу лояльности \"" + name + "\"");
+        printMessage("Удаляем бонусную программу \"" + name + "\"");
         kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
         kraken.perform().fillField(By.name("number"), 1 + "\uE004" + "\uE007");
         kraken.perform().waitingFor(1);
@@ -424,7 +424,7 @@ public class CheckoutHelper extends HelperBase {
         if (isRetailerLoyaltyApplied()) {
             clearRetailerLoyalty();
         }
-        printMessage("Добавляем программу лояльности ритейлера \"" + name + "\"");
+        printMessage("Добавляем программу лояльности \"" + name + "\"");
         kraken.perform().click(By.xpath("//aside/div/div[4]/div[3]/div"));
         kraken.perform().fillField(By.name("number"), Loyalties.getNumber(name) + "\uE007");
         kraken.perform().waitingFor(1);
@@ -434,7 +434,7 @@ public class CheckoutHelper extends HelperBase {
      * Удаляем программу лояльности ритейлера в чекауте
      */
     public void clearRetailerLoyalty() {
-        printMessage("Удаляем программу лояльности ритейлера");
+        printMessage("Удаляем программу лояльности");
         kraken.perform().click(By.xpath("//aside/div/div[4]/div[3]/div"));
         kraken.perform().fillField(By.name("number"), 1 + "\uE004" + "\uE007");
         kraken.perform().waitingFor(1);
@@ -448,9 +448,9 @@ public class CheckoutHelper extends HelperBase {
      */
     private void checkCheckoutIsReady() {
         if (isOnCheckout()) {
-            printMessage("✓ Чекаут открыт\n");
+            printMessage("✓ Чекаут\n");
         } else {
-            printMessage("Ожидание открытия чекаута...\n");
+            printMessage("Ожидаем открытия чекаута...\n");
             kraken.perform().waitingFor(1);
         }
     }
@@ -478,7 +478,7 @@ public class CheckoutHelper extends HelperBase {
                 kraken.perform().click(Elements.Site.Checkout.sendOrderButton());
                 kraken.perform().waitingFor(3);
                 printMessage("✓ Заказ отправлен\n");
-            } else printMessage("Не возможно завершить заказ, кнопка отправки не активна\n");
+            } else printMessage("Невозможно завершить заказ, кнопка отправки не активна\n");
         }
     }
 
@@ -493,7 +493,7 @@ public class CheckoutHelper extends HelperBase {
             } else {
                 kraken.perform().waitingFor(1); // Задержка для стабильности, если шаг не развернулся из-за тормозов
                 if (!kraken.detect().isStepActive(stepNumber)) {
-                    printMessage("Шаг " + stepNumber + " не открыт в данный момент");
+                    printMessage("Не открывается шаг " + stepNumber);
                     return false;
                 } else return true;
             }
@@ -503,7 +503,7 @@ public class CheckoutHelper extends HelperBase {
                 return true;
             } else {
                 printMessage("Шаг " + stepNumber + " - " + stepName);
-                printMessage("Слот доставки уже был выбран\n");
+                printMessage("Слот доставки уже выбран\n");
                 return false;
             }
         }

@@ -17,7 +17,7 @@ public class AddressHelper extends HelperBase {
      * Установить адрес доставки
      */
     public void set(String address) {
-        printMessage("Установка адреса доставки >>> " + address + "\n");
+        printMessage("Устанавливаем адрес доставки >>> " + address + "\n");
         if (kraken.grab().currentURL().equals(fullBaseUrl)) {
             kraken.perform().fillField(Elements.Site.Landing.addressField(), address);
             kraken.perform().waitingFor(1);
@@ -35,7 +35,7 @@ public class AddressHelper extends HelperBase {
      * Изменить адрес доставки
      */
     public void change(String address) {
-        printMessage("Изменение адреса доставки >> " + address + "\n");
+        printMessage("Изменяем адрес доставки >> " + address + "\n");
         openAddressModal();
         clearAddressField();
         fill(address);
@@ -50,7 +50,7 @@ public class AddressHelper extends HelperBase {
             kraken.perform().click(Elements.Site.AddressModal.addressSuggest());
             kraken.perform().waitingFor(1); // Ожидание раздизабливания кнопки сохранения адреса
         } else {
-            printMessage("Невозможно нажать на адресную подсказку, так как их нет");
+            printMessage("Нет адресных подсказок");
         }
     }
 

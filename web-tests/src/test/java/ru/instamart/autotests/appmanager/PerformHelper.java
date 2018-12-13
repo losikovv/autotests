@@ -29,11 +29,11 @@ public class PerformHelper extends HelperBase {
         }
         catch (NoSuchElementException n) {
             printMessage("Не возможно нажать на элемент <" + locator
-                    + ">\nНет такого элемента по адресу " + kraken.grab().currentURL() + "\n");
+                    + ">\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
         }
         catch (ElementNotVisibleException v) {
             printMessage("Не возможно нажать на элемент <" + locator
-                    + ">\nНе отображается элемент по адресу " + kraken.grab().currentURL() + "\n");
+                    + ">\nЭлемент не отображается на " + kraken.grab().currentURL() + "\n");
         }
     }
 
@@ -84,14 +84,14 @@ public class PerformHelper extends HelperBase {
     public void openAccountMenu() {
         if(!kraken.detect().isAccountMenuOpen()) {
             click(Elements.Site.Header.profileButton());
-        } else printMessage("Меню аккаунта уже открыто");
+        } else printMessage("Пропускаем открытие меню аккаунта, оно уже открыто");
     }
 
     /** Закрыть меню аккаунта */
     public void closeAccountMenu() {
         if(kraken.detect().isAccountMenuOpen()) {
             click(Elements.Site.Header.profileButton());
-        } else printMessage("Меню аккаунта уже закрыто");
+        } else printMessage("Пропускаем закрытие меню аккаунта, оно уже закрыто");
     }
 
 

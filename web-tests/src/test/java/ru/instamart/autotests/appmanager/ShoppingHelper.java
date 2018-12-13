@@ -37,7 +37,7 @@ public class ShoppingHelper extends HelperBase {
         if(!kraken.detect().isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.openCatalogButton());
             kraken.perform().waitingFor(1);
-        } else printMessage("Не возможно открыть шторку каталога - уже открыта");
+        } else printMessage("Пропускаем открытие шторки каталога, уже открыта");
     }
 
     /** Закрыть шторку каталога */
@@ -45,7 +45,7 @@ public class ShoppingHelper extends HelperBase {
         if(kraken.detect().isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.closeCatalogButton());
             kraken.perform().waitingFor(1);
-        } else printMessage("Не возможно закрыть шторку каталога - уже закрыта");
+        } else printMessage("Пропускаем закрытие шторки каталога, уже закрыта");
     }
 
 
@@ -135,7 +135,7 @@ public class ShoppingHelper extends HelperBase {
     public void collectItems(int sum) {
         if(!kraken.detect().isCheckoutButtonActive()) {
 
-            printMessage("Собираем корзину на сумму " + sum + "р...");
+            printMessage("Собираем корзину товаров на сумму " + sum + "р...");
             int roundedCartTotal = round(kraken.grab().currentCartTotal());
             printMessage("> текущая корзина: " + roundedCartTotal + "p");
             closeCart();
@@ -151,13 +151,13 @@ public class ShoppingHelper extends HelperBase {
             }
 
             int quantity = ((sum - roundedCartTotal) / itemPrice) + 1;
-            printMessage("> количество добавленных товаров: " + quantity + "шт\n");
+            printMessage("> добавляем в корзину " + quantity + "шт\n");
             for (int i = 1; i <= quantity; i++) {
                 hitPlusButton();
             }
             closeItemCard();
 
             openCart();
-        } else { printMessage("Пропускаем сбор корзины, уже достаточно товаров");}
+        } else { printMessage("Пропускаем набор товаров, в корзине достаточно товаров для оформления заказа");}
     }
 }

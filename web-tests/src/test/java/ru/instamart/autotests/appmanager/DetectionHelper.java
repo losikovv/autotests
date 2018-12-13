@@ -187,7 +187,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить авторизован ли пользователь */
     public boolean isUserAuthorised() {
-        printMessage("Проверяем авторизацию...");
+        printMessage("Проверяем авторизованность...");
         if (element(Elements.Site.Header.profileButton()) || isInAdmin()) {
             printMessage("✓ Авторизован\n");
             return true;
@@ -203,10 +203,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить отправлена ли форма восстановления пароля */
     public boolean isRecoveryRequested(){
         if (kraken.detect().element(Elements.Site.AuthModal.successRecoveryText())) {
-            printMessage("✓ Запрос восстановления отправлен");
+            printMessage("✓ Восстановление пароля запрошено");
             return true;
         } else {
-            printMessage("Запрос восстановления не отправлен!");
+            printMessage("Запрос восстановления пароля не отправлен!");
             return false;
         }
     }
@@ -262,7 +262,7 @@ public class DetectionHelper extends HelperBase {
             printMessage("Выбран адрес доставки: " + kraken.grab().currentShipAddress());
             return true;
         } else {
-            printMessage("Адрес доставки не установлен\n");
+            printMessage("Адрес доставки не выбран\n");
             return false;
         }
     }
@@ -299,10 +299,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить есть ли товары на странице */
     public boolean isProductAvailable() {
         if(kraken.detect().isElementPresent(Elements.Site.Catalog.product())){
-            printMessage("✓ Продукты отображаются");
+            printMessage("✓ Есть доступные товары");
             return true;
         } else {
-            printMessage("Продукты не отображаются!");
+            printMessage("Нет доступных товаров!");
             return false;
         }
     }

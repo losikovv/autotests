@@ -16,7 +16,7 @@ public class CleanupHelper extends HelperBase {
     }
 
     public void all() throws Exception {
-        printMessage("================= ОЧИСТКА =================\n");
+        printMessage("================= УБОРКА =================\n");
 
         printMessage("Отменяем тестовые заказы...");
         orders(Config.testOrdersList);
@@ -38,7 +38,7 @@ public class CleanupHelper extends HelperBase {
     public void users(String usersListPath) throws Exception {
         kraken.perform().reachAdmin(usersListPath);
         if (kraken.detect().isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
-            printMessage("- Удаление пользователя " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
+            printMessage("- удаляем пользователя " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
             kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
             kraken.perform().waitingFor(1);
