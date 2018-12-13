@@ -29,8 +29,6 @@ public class PromoCodes extends TestBase {
             priority = 990
     )
     public void addPromocodeFirstOrder() {
-
-
         kraken.perform().reachCheckout();
         kraken.checkout().addPromocode("frstord");
 
@@ -48,9 +46,7 @@ public class PromoCodes extends TestBase {
             groups = {"regression"},
             priority = 991
     )
-
     public void addPromocodeOrderSum() {
-
         kraken.get().checkoutPage();
         if(!kraken.checkout().isOnCheckout()){
             kraken.shopping().collectItems(2100);
@@ -72,7 +68,6 @@ public class PromoCodes extends TestBase {
             groups = {"regression"},
             priority = 992
     )
-
     public void addPromocodeNewUser () {
         kraken.get().checkoutPage();
         if(!kraken.checkout().isOnCheckout()) {
@@ -88,8 +83,8 @@ public class PromoCodes extends TestBase {
                 "Can't assert promocode is applied\n");
 
         kraken.checkout().complete();
-
     }
+
 
     @Test(
             description = "Тест добавления промокода. Правило - определнный заказ(первый) " +
@@ -98,8 +93,8 @@ public class PromoCodes extends TestBase {
             priority = 993
     )
 
-    public void addPromocodeCertainOrder() {
 
+    public void addPromocodeCertainOrder() {
         kraken.get().checkoutPage();
         if(!kraken.checkout().isOnCheckout()){
             kraken.shopping().collectItems(2100);
@@ -114,13 +109,13 @@ public class PromoCodes extends TestBase {
         kraken.checkout().complete();
     }
 
+
     @Test(
             description = "Тест добавления промокода. Правило - серия заказов(два заказа) " +
                     "Действие - скидка",
             groups = {"regression"},
             priority = 994
     )
-
     public void addPromocodeSeriesOfOrders() {
         kraken.get().checkoutPage();
         if (!kraken.checkout().isOnCheckout()) {
@@ -157,6 +152,7 @@ public class PromoCodes extends TestBase {
 
         kraken.checkout().complete();
     }
+
 
     @AfterMethod(alwaysRun = true)
     public void cleanupTestOrders() throws Exception {
