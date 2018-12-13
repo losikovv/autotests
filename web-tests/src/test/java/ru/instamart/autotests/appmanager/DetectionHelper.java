@@ -352,8 +352,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить введен ли телефон на 2 шаге в чекауте */
     public boolean isPhoneNumberEntered() {
-        return kraken.detect().isElementPresent(Elements.Site.Checkout.phoneNumberField()); // TODO протестить
-        // return kraken.detect().element(Elements.Site.Checkout.phoneNumberField());
+        return kraken.detect().isElementDisplayed(Elements.Site.Checkout.phoneIcon());
     }
 
     /** Определить добавлен ли промокод в чекауте */

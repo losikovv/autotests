@@ -746,8 +746,12 @@ public class Elements {
                         By.xpath("/html/body/div[5]/div/form/div/aside/div/div[2]/div[1]/div[1]/div[3]/span/div"));
             }
 
+            static Elements phoneIcon() {
+                return new Elements(null, By.className("fa-mobile"));
+            }
+
             static Elements phoneNumberField() {
-                return new Elements(null, By.cssSelector("#phone-input"));
+                return new Elements(null, By.id("phone-input"));
             }
 
             interface PromocodeModal {
