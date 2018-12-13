@@ -277,12 +277,12 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить открыта ли шторка выбора магазина */
     public boolean isShopSelectorOpen() {
-        return kraken.detect().isElementDisplayed(Elements.Site.ShopSelector.drawer());
+        return kraken.detect().isElementDisplayed(Elements.Site.StoreSelector.drawer());
     }
 
     /** Определить пуст ли селектор */
     public boolean isShopSelectorEmpty() {
-        return kraken.detect().isElementDisplayed(Elements.Site.ShopSelector.placeholder());
+        return kraken.detect().isElementDisplayed(Elements.Site.StoreSelector.placeholder());
     }
 
 

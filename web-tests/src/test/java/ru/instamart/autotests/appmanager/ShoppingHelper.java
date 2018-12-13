@@ -25,7 +25,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Закрыть шторку выбора магазина */
     public void closeShopSelector() {
-        kraken.perform().click(Elements.Site.ShopSelector.closeButton());
+        kraken.perform().click(Elements.Site.StoreSelector.closeButton());
         kraken.perform().waitingFor(1);
     }
 

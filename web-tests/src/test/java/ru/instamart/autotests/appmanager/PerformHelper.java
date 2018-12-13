@@ -28,11 +28,11 @@ public class PerformHelper extends HelperBase {
             driver.findElement(locator).click();
         }
         catch (NoSuchElementException n) {
-            printMessage("Не возможно нажать на элемент <" + locator
+            printMessage("Невозможно нажать на элемент <" + locator
                     + ">\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
         }
         catch (ElementNotVisibleException v) {
-            printMessage("Не возможно нажать на элемент <" + locator
+            printMessage("Невозможно нажать на элемент <" + locator
                     + ">\nЭлемент не отображается на " + kraken.grab().currentURL() + "\n");
         }
     }
@@ -190,6 +190,7 @@ public class PerformHelper extends HelperBase {
 
     /** Деавторизоваться быстро по прямой ссылке */
     public void quickLogout() {
+        printMessage("Быстрый логаут\n");
         kraken.get().page("logout");
         waitingFor(1); // Ожидание деавторизации
     }
@@ -220,7 +221,7 @@ public class PerformHelper extends HelperBase {
 
     /** Заполнить поля формы регистрации */
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {
-        printMessage("> заполняем поля формы регистрации...");
+        printMessage("> заполняем поля формы регистрации");
         kraken.perform().fillField(Elements.Site.AuthModal.nameField(), name);
         kraken.perform().fillField(Elements.Site.AuthModal.emailField(), email);
         kraken.perform().fillField(Elements.Site.AuthModal.passwordField(), password);

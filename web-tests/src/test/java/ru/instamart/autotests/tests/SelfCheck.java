@@ -186,7 +186,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения шторки магазинов",
             groups ="selfcheck",
             priority = 10011)
-    public void detectShopsDrawer() throws Exception {
+    public void detectStoresDrawer() throws Exception {
 
         kraken.get().baseUrl();
         if(kraken.detect().isUserAuthorised()) {

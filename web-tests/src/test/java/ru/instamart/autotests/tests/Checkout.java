@@ -96,7 +96,7 @@ public class Checkout extends TestBase {
             groups = {"acceptance","regression"},
             priority = 404
     )
-    public void addLoyaltyPrograms(){
+    public void addBonusPrograms(){
         kraken.perform().reachCheckout();
         kraken.checkout().addLoyalty("mnogoru");
         Assert.assertTrue(kraken.detect().isLoyaltyApplied("mnogoru"),
@@ -114,7 +114,7 @@ public class Checkout extends TestBase {
             groups = {"regression"},
             priority = 405
     )
-    public void selectLoyaltyProgram(){
+    public void selectBonusProgram(){
         kraken.perform().reachCheckout();
         kraken.checkout().selectLoyalty("mnogoru");
         kraken.checkout().selectLoyalty("aeroflot");
@@ -124,10 +124,10 @@ public class Checkout extends TestBase {
 
     @Test(
             description = "Тест удаления программ лояльности в чекауте",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 406
     )
-    public void clearLoyaltyPrograms(){
+    public void clearBonusPrograms(){
         kraken.perform().reachCheckout();
         kraken.checkout().clearLoyalty("mnogoru");
         Assert.assertFalse(kraken.detect().isLoyaltyApplied("mnogoru"),

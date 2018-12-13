@@ -38,7 +38,7 @@ public class Elements {
     public interface Page404 {
         static Elements title() {
             text = "Страница не найдена";
-            locator = By.xpath("/html/body/div[3]/div/div/div/div[1]/div/div[1]");
+            locator = By.xpath("/html/body/div[1]/div/div/div/div[1]/div/div[1]");
             return new Elements(text, locator);
         }
     }
@@ -384,25 +384,21 @@ public class Elements {
         /**
          * Селектор магазинов
          */
-        interface ShopSelector {
+        interface StoreSelector {
 
             static Elements drawer() {
                 return new Elements(null,
-                        By.cssSelector("div.opened:nth-child(2) > div:nth-child(1) > div:nth-child(1)"));
+                        By.className("store-selector"));
             }
 
             static Elements closeButton() {
                 return new Elements(null,
-                        By.cssSelector("div.opened:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)"));
-            }
-
-            static Elements storeButton(int position) {
-                return new Elements(null, By.cssSelector("a.store-card:nth-child(" + position + ")"));
+                        By.className("store-selector__close"));
             }
 
             static Elements placeholder() {
                 return new Elements("Нет доступных магазинов по выбранному адресу",
-                        By.cssSelector("div.opened:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)"));
+                        By.className("store-selector__empty"));
             }
         }
 
@@ -738,7 +734,7 @@ public class Elements {
             // TODO изменить локатор, чтобы всегда выбирался первый по порядку доступный слот, даже если первые в списке заняты
             static Elements deliverySlot() {
                 return new Elements(null,
-                        By.xpath("/html/body/div[5]/div/form/div/div/div[1]/div[5]/div[2]/div/div/div/div[2]/div/div[2]/div[2]/div[1]/div/span"));
+                        By.xpath("/html/body/div[3]/div/form/div/div/div[1]/div[5]/div[2]/div/div/div/div[2]/div/div[2]/div[2]/div[1]/div/span"));
             }
 
             static Elements deliveryPrice() {
