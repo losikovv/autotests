@@ -172,7 +172,7 @@ public class CheckoutHelper extends HelperBase {
                 printMessage("Используем существующий номер телефона"); //TODO сделать принудительное добавление выбранного номера
             } else {
                 kraken.perform().fillField(Elements.Site.Checkout.phoneNumberField(), phoneNumber);
-                printMessage("Using new phone number " + phoneNumber);
+                printMessage("Добавляем номер телефона +7" + phoneNumber);
             }
             hitNextButton(stepNumber);
         }
