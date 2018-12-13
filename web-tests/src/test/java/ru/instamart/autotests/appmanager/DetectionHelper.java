@@ -103,7 +103,7 @@ public class DetectionHelper extends HelperBase {
             printMessage("Показана пользовательская ошибка: " + kraken.grab().text(element) + "\n");
             return true;
         } else {
-            printMessage("Не показана пользовательская ошибка" + Elements.locator() + "\n");
+            printMessage("Не показана пользовательская ошибка (" + Elements.locator() + ")\n");
             return false;
         }
     }
