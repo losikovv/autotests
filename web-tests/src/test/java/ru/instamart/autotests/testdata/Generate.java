@@ -52,10 +52,10 @@ public class Generate {
     /** Сгенерировать стандартные реквизиты тестового пользователя */
     public static UserData testUserData() {
         UserData testuser = new UserData(testEmail(8), companyName, companyName + " test");
-        System.out.println("Test user requisites generated");
-        System.out.println("name: " + testuser.getName());
-        System.out.println("login: " + testuser.getLogin());
-        System.out.println("password: " + testuser.getPassword() + "\n");
+        System.out.println("Сгенерированы реквизиты тестового юзера");
+        System.out.println("Имя: " + testuser.getName());
+        System.out.println("Логин: " + testuser.getLogin());
+        System.out.println("Пароль: " + testuser.getPassword() + "\n");
         return testuser;
     }
 
