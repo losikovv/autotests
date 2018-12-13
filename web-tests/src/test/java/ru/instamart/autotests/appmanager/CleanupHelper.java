@@ -18,10 +18,10 @@ public class CleanupHelper extends HelperBase {
     public void all() throws Exception {
         printMessage("================= УБОРКА =================\n");
 
-        printMessage("Отменяем тестовые заказы...");
+        printMessage("Отмена тестовых заказов...");
         orders(Config.testOrdersList);
 
-        printMessage("Удаляем тестовых пользователей...");
+        printMessage("Удаление тестовых пользователей...");
         users(Config.testUsersList);
     }
 

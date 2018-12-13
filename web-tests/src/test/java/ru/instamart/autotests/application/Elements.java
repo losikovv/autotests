@@ -388,7 +388,7 @@ public class Elements {
 
             static Elements drawer() {
                 return new Elements(null,
-                        By.className("store-selector"));
+                        By.className("store-selector__title"));
             }
 
             static Elements closeButton() {
