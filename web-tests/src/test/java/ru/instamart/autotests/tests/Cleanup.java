@@ -22,7 +22,7 @@ public class Cleanup extends TestBase {
     @Test(
             description = "Тест метода cleanup",
             groups = {"acceptance"},
-            priority = 900
+            priority = 10000
     )
     public void cleanup() throws Exception {
         kraken.cleanup().all();
@@ -41,7 +41,7 @@ public class Cleanup extends TestBase {
     @Test(
             description = "Отмена всех тестовых заказов",
             groups = {"regression"},
-            priority = 901
+            priority = 10001
     )
     public void cleanupTestOrders() throws Exception {
         kraken.cleanup().orders(Config.testOrdersList);
@@ -53,7 +53,7 @@ public class Cleanup extends TestBase {
     @Test(
             description = "Удаление всех тестовых юзеров",
             groups = {"regression"},
-            priority = 902
+            priority = 10002
     )
     public void cleanupTestUsers() throws Exception {
         kraken.cleanup().users(Config.testUsersList);

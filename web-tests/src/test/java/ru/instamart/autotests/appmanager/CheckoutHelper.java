@@ -91,17 +91,17 @@ public class CheckoutHelper extends HelperBase {
 
     private void doStep1() {
         final int stepNumber = 1;
-        final String stepName = "Address";
+        final String stepName = "Адрес доставки";
         if (checkStep(stepNumber, stepName)) {
             specifyTestAddressDetails();
             fillTestOrderInstructions();
             hitNextButton(stepNumber);
-        } // TODO else { для стабильности прерываем оформление, обновляем чекаут и проходим чекаут заново}
+        }
     }
 
     private void doStep1(String orderInstructions) {
         final int stepNumber = 1;
-        final String stepName = "Address";
+        final String stepName = "Адрес доставки";
         if (checkStep(stepNumber, stepName)) {
             specifyTestAddressDetails();
             fillOrderInstructions(orderInstructions);
@@ -166,7 +166,7 @@ public class CheckoutHelper extends HelperBase {
 
     private void doStep2(String phoneNumber) {
         final int stepNumber = 2;
-        final String stepName = "Contacts";
+        final String stepName = "Контакты";
         if (checkStep(stepNumber, stepName)) {
             if(kraken.detect().isPhoneNumberEntered()) {
                 printMessage("Используем существующий номер телефона"); //TODO сделать принудительное добавление выбранного номера
@@ -190,23 +190,21 @@ public class CheckoutHelper extends HelperBase {
     // TODO selectTelephoneNumber - выбрать телефон
 
 
-    // ======= Политика замен =======
+    // ======= Шаг 4 - Выбор способа замен =======
 
     /**
-     * Шаг 4 - выбор способа замен
+     * Выбрать дефолтный способ замен
      */
     private void doStep3() {
-        final int stepNumber = 3;
-        final String stepName = "Replacement policy";
-        if (checkStep(stepNumber, stepName)) {
-            selectReplacementPolicy(1);
-            hitNextButton(stepNumber);
-        }
+        doStep3(1);
     }
 
+    /**
+     * Выбрать указанный способ замен
+     */
     private void doStep3(int policyOption) {
         final int stepNumber = 3;
-        final String stepName = "Replacement policy";
+        final String stepName = "Способ замен";
         if (checkStep(stepNumber, stepName)) {
             selectReplacementPolicy(policyOption);
             hitNextButton(stepNumber);
@@ -222,23 +220,21 @@ public class CheckoutHelper extends HelperBase {
     }
 
 
-    // ======= Способ оплаты =======
+    // ======= Шаг 4 - Способ оплаты =======
 
     /**
-     * Шаг 4 - выбор способа оплаты
+     * Выбрать дефолтный способ оплаты наличными
      */
     private void doStep4() {
-        final int stepNumber = 4;
-        final String stepName = "Payment";
-        if (checkStep(stepNumber, stepName)) {
-            selectPaymentType("cash");
-            hitNextButton(stepNumber);
-        }
+        doStep4("cash");
     }
 
+    /**
+     * Выбрать указанный способ оплаты
+     */
     private void doStep4(String paymentType) {
         final int stepNumber = 4;
-        final String stepName = "Payment";
+        final String stepName = "Способ оплаты";
         if (checkStep(stepNumber, stepName)) {
             selectPaymentType(paymentType);
             hitNextButton(stepNumber);
@@ -274,7 +270,7 @@ public class CheckoutHelper extends HelperBase {
      */
     private void doStep5() {
         final int stepNumber = 5;
-        final String stepName = "Delivery time";
+        final String stepName = "Время доставки";
         if (checkStep(stepNumber, stepName)) {
             selectDeliveryDay("last");
             selectDeliverySlot("first");

@@ -186,7 +186,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения шторки магазинов",
             groups ="selfcheck",
             priority = 10011)
-    public void detectShopsDrawer() throws Exception {
+    public void detectStoresDrawer() throws Exception {
 
         kraken.get().baseUrl();
         if(kraken.detect().isUserAuthorised()) {
@@ -197,19 +197,19 @@ public class SelfCheck extends TestBase {
         kraken.get().baseUrl();
 
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
-        Assert.assertTrue(kraken.detect().isShopSelectorOpen());
+        Assert.assertTrue(kraken.detect().isStoreSelectorOpen());
 
         kraken.shopping().closeShopSelector();
-        Assert.assertFalse(kraken.detect().isShopSelectorOpen());
+        Assert.assertFalse(kraken.detect().isStoreSelectorOpen());
 
         //retailer
         kraken.get().page("metro");
 
         kraken.shopping().openShopSelector();
-        Assert.assertTrue(kraken.detect().isShopSelectorOpen());
+        Assert.assertTrue(kraken.detect().isStoreSelectorOpen());
 
         kraken.shopping().closeShopSelector();
-        Assert.assertFalse(kraken.detect().isShopSelectorOpen());
+        Assert.assertFalse(kraken.detect().isStoreSelectorOpen());
     }
 
 
