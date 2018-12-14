@@ -1,11 +1,11 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Pages;
 
 import static ru.instamart.autotests.application.Elements.*;
 
@@ -225,34 +225,39 @@ public class Checkout extends TestBase {
             priority = 411
     )
     public void checkMetroDeliveryPriceDiscount() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
         kraken.perform().dropCart();
 
-        kraken.get().page(Pages.Site.Catalog.priceyItems());
+        kraken.get().baseUrl();
+        kraken.search().item("Haagen");
         kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();
         kraken.checkout().fillAllFields();
 
-        Assert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroHighDeliveryPrice,
-                "Некорректная цена доставки в чекауте\n");
+        softAssert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroHighDeliveryPrice,
+                "Некорректная цена доставки в чекауте при малой корзине");
 
-        kraken.get().page(Pages.Site.Catalog.priceyItems());
+        kraken.get().baseUrl();
+        kraken.search().item("Haagen");
         kraken.shopping().collectItems(5000);
         kraken.shopping().proceedToCheckout();
-        Assert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroMediumDeliveryPrice,
-                "Некорректная цена доставки в чекауте\n" );
+        softAssert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroMediumDeliveryPrice,
+                "Некорректная цена доставки в чекауте при средней корзине" );
 
-        kraken.get().page(Pages.Site.Catalog.priceyItems());
+        kraken.get().baseUrl();
+        kraken.search().item("Haagen");
         kraken.shopping().collectItems(10000);
         kraken.shopping().proceedToCheckout();
-        Assert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroLowDeliveryPrice,
-                "Некорректная цена доставки в чекауте\n" );
+        softAssert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroLowDeliveryPrice,
+                "Некорректная цена доставки в чекауте при большой корзине" );
 
         kraken.checkout().complete();
 
-        Assert.assertEquals(kraken.grab().roundedSum(Site.OrderDetailsPage.deliveryPrice()), Config.MetroLowDeliveryPrice,
-                "Некорректная цена доставки в чекауте\n" );
+        softAssert.assertEquals(kraken.grab().roundedSum(Site.OrderDetailsPage.deliveryPrice()), Config.MetroLowDeliveryPrice,
+                "Некорректная цена доставки на странице заказа" );
 
         kraken.perform().cancelLastOrder();
+        softAssert.assertAll();
     }
 
 }
