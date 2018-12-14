@@ -20,13 +20,13 @@ public class ShoppingHelper extends HelperBase {
     /** Открыть шторку выбора магазина */
     public void openShopSelector() {
         kraken.perform().click(Elements.Site.Header.changeStoreButton());
-        kraken.perform().waitingFor(1);
+        kraken.perform().waitingFor(1); // Ожидание открытия шторки выбора магазина
     }
 
     /** Закрыть шторку выбора магазина */
     public void closeShopSelector() {
-        kraken.perform().click(Elements.Site.StoreSelector.closeButton());
-        kraken.perform().waitingFor(1);
+        kraken.perform().click(Elements.Site.ShopSelector.closeButton());
+        kraken.perform().waitingFor(1); // Ожидание закрытия шторки выбора магазина
     }
 
 
@@ -36,7 +36,7 @@ public class ShoppingHelper extends HelperBase {
     public void openCatalog() {
         if(!kraken.detect().isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.openCatalogButton());
-            kraken.perform().waitingFor(1);
+            kraken.perform().waitingFor(1); // Ожидание открытия шторки каталога
         } else printMessage("Пропускаем открытие шторки каталога, уже открыта");
     }
 
@@ -44,7 +44,7 @@ public class ShoppingHelper extends HelperBase {
     public void closeCatalog() {
         if(kraken.detect().isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.closeCatalogButton());
-            kraken.perform().waitingFor(1);
+            kraken.perform().waitingFor(1); // Ожидание закрытия шторки каталога
         } else printMessage("Пропускаем закрытие шторки каталога, уже закрыта");
     }
 
@@ -86,7 +86,7 @@ public class ShoppingHelper extends HelperBase {
     private void hitMinusButton() {
         if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.minusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.minusButton());
-            kraken.perform().waitingFor(1); // Ожидание удаления -1 товара в корзину
+            kraken.perform().waitingFor(1); // Ожидание удаления -1 товара из корзины
         } else {
             printMessage("Кнопка 'Минус' не отображается");
         }

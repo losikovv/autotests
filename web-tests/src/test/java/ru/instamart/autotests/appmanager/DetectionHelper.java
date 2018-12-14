@@ -235,7 +235,7 @@ public class DetectionHelper extends HelperBase {
             return true;
         } else {
             printMessage("Что-то пошло не так, пробуем ещё раз...");
-            kraken.perform().waitingFor(2);
+            kraken.perform().waitingFor(2); // Задержка для стабильности, если не удалось проверить активность заказа с первого раза
             refresh();
             if (element(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
                 printMessage("✓ Заказ активен\n");

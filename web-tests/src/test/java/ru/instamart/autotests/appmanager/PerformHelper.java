@@ -107,7 +107,7 @@ public class PerformHelper extends HelperBase {
         printMessage("Регистрируемся...");
         openAuthModal();
         regSequence(name,email,password,passwordConfirmation);
-        waitingFor(3);
+        waitingFor(3); // Ожидание раздизебливания кнопки подтверждения регистрации
     }
 
     /** Регистрационная последовательность с реквизитами из переданного объекта UserData */
@@ -149,9 +149,9 @@ public class PerformHelper extends HelperBase {
         if (!kraken.detect().isUserAuthorised()) {
             printMessage("Авторизуемся...");
             openAuthModal();
-            waitingFor(1);
+            waitingFor(1); // Ожидание загрузки модалки авторизации
             authSequence(email, password);
-            waitingFor(2);
+            waitingFor(2); // Ожидание раздизебливания кнопки подтверждения авторизации
         } else {
             printMessage("Пропускаем авторизацию, уже авторизованы");
         }
@@ -182,7 +182,7 @@ public class PerformHelper extends HelperBase {
         } else {
             kraken.perform().click(Elements.Admin.Header.logoutButton());
         }
-        waitingFor(1);
+        waitingFor(1); // Ожидание загрузки лендинга после логаута
         if(kraken.detect().isOnLanding()) {
             printMessage("Логаут\n");
         }
@@ -210,7 +210,7 @@ public class PerformHelper extends HelperBase {
             }
         }
         printMessage("> открываем модалку авторизации");
-        waitingFor(1);  // Ожидание открытия модалки авторизации
+        waitingFor(1); // Ожидание открытия модалки авторизации
     }
 
     /** Переключиться на вкладку регистрации */
@@ -237,7 +237,7 @@ public class PerformHelper extends HelperBase {
     /** Закрыть форму авторизации/регистрации */
     public void closeAuthModal(){
         kraken.perform().click(Elements.Site.AuthModal.closeButton());
-        waitingFor(1);
+        waitingFor(1); // Ожидание закрытия модалки авторизации
     }
 
     /** Переключиться на вкладку авторизации */
@@ -272,7 +272,7 @@ public class PerformHelper extends HelperBase {
         printMessage("> запрашиваем восстановление пароля для " + email);
         kraken.perform().fillField(Elements.Site.AuthModal.emailField(),email);
         sendForm();
-        waitingFor(1);
+        waitingFor(1); // Ожидание раздизабливания кнопки подтверждения восстановления пароля
     }
 
 
@@ -287,7 +287,7 @@ public class PerformHelper extends HelperBase {
         } else {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton());
         }
-        waitingFor(2);
+        waitingFor(2); // Ожидание добавления в корзину товаров из предыдущего заказа
     }
 
     /** Отменить крайний заказ */
@@ -298,7 +298,7 @@ public class PerformHelper extends HelperBase {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(1));
             printMessage("> OK");
         } else printMessage("> Заказ не активен");
-        waitingFor(2);
+        waitingFor(2); // Ожидание отмены заказа
     }
 
 

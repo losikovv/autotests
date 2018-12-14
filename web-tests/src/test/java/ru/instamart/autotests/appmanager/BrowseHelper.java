@@ -53,7 +53,7 @@ public class BrowseHelper extends HelperBase {
      */
     public void checkoutPage() {
         page("checkout/edit?");
-        kraken.perform().waitingFor(1);
+        kraken.perform().waitingFor(1); // Ожидание загрузки чекаута
     }
 
     /**

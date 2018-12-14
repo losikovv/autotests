@@ -20,10 +20,10 @@ public class AddressHelper extends HelperBase {
         printMessage("Устанавливаем адрес доставки >>> " + address + "\n");
         if (kraken.grab().currentURL().equals(fullBaseUrl)) {
             kraken.perform().fillField(Elements.Site.Landing.addressField(), address);
-            kraken.perform().waitingFor(1);
+            kraken.perform().waitingFor(1); // Ожидание загрузки адресных саджестов
             kraken.perform().click(Elements.Site.Landing.addressSuggest());
             kraken.perform().click(Elements.Site.Landing.selectStoreButton());
-            kraken.perform().waitingFor(1);
+            kraken.perform().waitingFor(1); // Ожидание загрузки витрины магазина
         } else {
             openAddressModal();
             fill(address);

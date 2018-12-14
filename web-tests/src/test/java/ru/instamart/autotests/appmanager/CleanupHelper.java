@@ -41,7 +41,7 @@ public class CleanupHelper extends HelperBase {
             printMessage("- удаляем пользователя " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
             kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
-            kraken.perform().waitingFor(1);
+            kraken.perform().waitingFor(1); // Ожидание удаления предыдущего тестового пользователя
             // Keep deleting users, recursively
             users(usersListPath);
         } else {
@@ -63,7 +63,7 @@ public class CleanupHelper extends HelperBase {
         kraken.perform().reachAdmin(ordersListPath);
         if (!kraken.detect().isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder())) {
             kraken.perform().click(Elements.Admin.Shipments.firstOrderInTable());
-            kraken.perform().waitingFor(1);
+            kraken.perform().waitingFor(1); // Ожидание отмены предыдущего тестового заказа
             kraken.admin().cancelOrder(); // todo добавить проверку, отменять только если тестовый заказ
             orders(ordersListPath); // Keep cancelling orders recursively
         } else {
