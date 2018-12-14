@@ -1,11 +1,9 @@
 package ru.instamart.autotests.tests;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.instamart.autotests.appmanager.ApplicationManager;
-import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Pages;
 
 
