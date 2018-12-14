@@ -95,6 +95,8 @@ public class PasswordRecovery extends TestBase {
 
 
     }
+
+
     @Test (
             description = "Тест возможности открыть авторизационную модалку после отправки формы восстановления пароля",
             groups = {"regression"},
@@ -111,6 +113,25 @@ public class PasswordRecovery extends TestBase {
 
         Assert.assertFalse(kraken.detect().isRecoveryRequested(),
                 "Невозможно открыть авторизационную модалку после отправки формы восстановления пароля\n");
+    }
+
+
+    @Test (
+            description = "Авторизация в инстамарте со старым паролем после запроса на восстановление, но до сброса старого пароля",
+            groups = {"regression"},
+            priority = 606
+    )
+    public void successAuthAfterRecovery() throws Exception {
+
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
+
+        kraken.perform().recoverPassword("instatestuser@yandex.ru");
+        kraken.get().baseUrl();
+        kraken.perform().login("instatestuser@yandex.ru", "instamart");
+
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Невозможно авторизоваться после запроса на восстановление пароля\n");
     }
 
 }
