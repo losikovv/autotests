@@ -86,7 +86,7 @@ public class Shopping extends TestBase{
             groups = {"acceptance","regression"},
             priority = 353
     )
-    public void grabCart()throws Exception, AssertionError {
+    public void collectItemsForMinOrder() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
         kraken.shopping().collectItems();
 

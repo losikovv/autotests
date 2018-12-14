@@ -76,7 +76,7 @@ public class ShoppingHelper extends HelperBase {
         // TODO добавить проверку на обновление цен
         if (kraken.detect().isElementEnabled(Elements.Site.ItemCard.plusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.plusButton());
-            kraken.perform().waitingFor(1); // Ожидание +1 товара в карточке товара
+            kraken.perform().waitingFor(1); // Ожидание +1 в карточке товара
         } else {
             printMessage("Кнопка 'Плюс' не активна");
         }
@@ -86,7 +86,7 @@ public class ShoppingHelper extends HelperBase {
     private void hitMinusButton() {
         if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.minusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.minusButton());
-            kraken.perform().waitingFor(1); // Ожидание -1 товара в карточке товара
+            kraken.perform().waitingFor(1); // Ожидание -1 в карточке товара
         } else {
             printMessage("Кнопка 'Минус' не отображается");
         }
@@ -128,19 +128,23 @@ public class ShoppingHelper extends HelperBase {
 
     /** Набрать корзину на минимальную сумму, достаточную для оформления заказа */
     public void collectItems() {
-        collectItems(Config.minOrderSum);
+        if(!kraken.detect().isCheckoutButtonActive()) {
+            collectItems(Config.minOrderSum);
+        } else { printMessage("Пропускаем набор товаров, в корзине достаточно товаров для оформления минимального заказа");}
     }
 
     /** Набрать корзину на указанную сумму */
     public void collectItems(int sum) {
-        if(!kraken.detect().isCheckoutButtonActive()) {
+        printMessage("Собираем корзину товаров на сумму " + sum + "р...");
 
-            printMessage("Собираем корзину товаров на сумму " + sum + "р...");
-            int roundedCartTotal = round(kraken.grab().currentCartTotal());
-            printMessage("> текущая корзина: " + roundedCartTotal + "p");
+        openCart();
+        int roundedCartTotal = round(kraken.grab().currentCartTotal());
+        printMessage("> текущая корзина: " + roundedCartTotal + "p");
+
+        if(roundedCartTotal < sum) {
             closeCart();
-
             openFirstItemCard();
+
             int itemPrice;
             if(kraken.detect().isItemOnSale()){
                 itemPrice = round(kraken.grab().text(Elements.Site.ItemCard.salePrice()));
@@ -155,9 +159,9 @@ public class ShoppingHelper extends HelperBase {
             for (int i = 1; i <= quantity; i++) {
                 hitPlusButton();
             }
-            closeItemCard();
 
+            closeItemCard();
             openCart();
-        } else { printMessage("Пропускаем набор товаров, в корзине достаточно товаров для оформления заказа");}
+        } else { printMessage("В корзине достаточно товаров");}
     }
 }

@@ -33,10 +33,6 @@ public class Pages {
 
         interface Catalog {
 
-            static Pages priceyItems() {
-                return new Pages(null,
-                        "/metro/produkty-pitaniia/molochnyie-produkty-iaitsa/morozhienoie/b/haagen-dazs");
-            }
         }
 
         interface Landings {

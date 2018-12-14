@@ -739,7 +739,7 @@ public class Elements {
 
             static Elements deliveryPrice() {
                 return new Elements(null,
-                        By.xpath("/html/body/div[5]/div/form/div/aside/div/div[2]/div[1]/div[1]/div[3]/span/div"));
+                        By.cssSelector("div.checkout-summary__subtotal:nth-child(4) > span:nth-child(2) > div:nth-child(1)"));
             }
 
             static Elements phoneIcon() {
