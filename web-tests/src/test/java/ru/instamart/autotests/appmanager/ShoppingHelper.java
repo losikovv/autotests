@@ -76,7 +76,7 @@ public class ShoppingHelper extends HelperBase {
         // TODO добавить проверку на обновление цен
         if (kraken.detect().isElementEnabled(Elements.Site.ItemCard.plusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.plusButton());
-            kraken.perform().waitingFor(1); // Ожидание добавления +1 товара в корзину
+            kraken.perform().waitingFor(1); // Ожидание +1 товара в карточке товара
         } else {
             printMessage("Кнопка 'Плюс' не активна");
         }
@@ -86,7 +86,7 @@ public class ShoppingHelper extends HelperBase {
     private void hitMinusButton() {
         if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.minusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.minusButton());
-            kraken.perform().waitingFor(1); // Ожидание удаления -1 товара из корзины
+            kraken.perform().waitingFor(1); // Ожидание -1 товара в карточке товара
         } else {
             printMessage("Кнопка 'Минус' не отображается");
         }
