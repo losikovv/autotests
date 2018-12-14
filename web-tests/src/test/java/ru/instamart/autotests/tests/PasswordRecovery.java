@@ -92,5 +92,25 @@ public class PasswordRecovery extends TestBase {
         // Assert recovery is requested
         Assert.assertTrue(kraken.detect().isRecoveryRequested(),
                 "Форма восстановления пароля не была отправлена на витрине ритейлера\n");
+
+
     }
+    @Test (
+            description = "Тест возможности открыть авторизационную модалку после отправки формы восстановления пароля",
+            groups = {"regression"},
+            priority = 605
+    )
+    public void openAuthAfterRecovery() throws Exception {
+
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
+
+        kraken.perform().recoverPassword("instatestuser@yandex.ru");
+        kraken.perform().closeAuthModal();
+        kraken.perform().openAuthModal();
+
+        Assert.assertFalse(kraken.detect().isRecoveryRequested(),
+                "Невозможно открыть авторизационную модалку после отправки формы восстановления пароля\n");
+    }
+
 }
