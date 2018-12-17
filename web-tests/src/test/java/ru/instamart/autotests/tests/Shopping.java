@@ -143,7 +143,7 @@ public class Shopping extends TestBase{
 
 
     @Test(
-            description = "Тест успешного перехода в чекаут при сумме корзины выше суммы минимального заказа",
+            description = "Тест успешного перехода из корзины в чекаут при сумме выше минимального заказа",
             groups = {"acceptance","regression"},
             priority = 356
     )
