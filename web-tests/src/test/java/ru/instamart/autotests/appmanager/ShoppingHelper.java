@@ -134,14 +134,14 @@ public class ShoppingHelper extends HelperBase {
     }
 
     /** Набрать корзину на указанную сумму */
-    public void collectItems(int sum) {
-        printMessage("Собираем корзину товаров на сумму " + sum + "р...");
+    public void collectItems(int orderSum) {
+        printMessage("Собираем корзину товаров на сумму " + orderSum + "р...");
 
         openCart();
-        int roundedCartTotal = round(kraken.grab().currentCartTotal());
-        printMessage("> текущая корзина: " + roundedCartTotal + "p");
+        int cartTotal = round(kraken.grab().currentCartTotal());
+        printMessage("> текущая корзина: " + cartTotal + "p");
 
-        if(roundedCartTotal < sum) {
+        if(cartTotal < orderSum) {
             closeCart();
             openFirstItemCard();
 
@@ -154,7 +154,7 @@ public class ShoppingHelper extends HelperBase {
                 printMessage("> цена товара: " + itemPrice + "p");
             }
 
-            int quantity = ((sum - roundedCartTotal) / itemPrice) + 1;
+            int quantity = ((orderSum - cartTotal) / itemPrice) + 1;
             printMessage("> добавляем в корзину " + quantity + "шт\n");
             for (int i = 1; i <= quantity; i++) {
                 hitPlusButton();
