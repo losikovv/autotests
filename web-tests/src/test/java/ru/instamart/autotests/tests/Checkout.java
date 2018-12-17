@@ -233,7 +233,6 @@ public class Checkout extends TestBase {
         kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();
         kraken.checkout().fillAllFields();
-
         softAssert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroHighDeliveryPrice,
                 "Некорректная цена доставки в чекауте при малой корзине");
 
@@ -252,12 +251,10 @@ public class Checkout extends TestBase {
                 "Некорректная цена доставки в чекауте при большой корзине" );
 
         kraken.checkout().complete();
-
         softAssert.assertEquals(kraken.grab().roundedSum(Site.OrderDetailsPage.deliveryPrice()), Config.MetroLowDeliveryPrice,
                 "Некорректная цена доставки на странице заказа" );
 
         kraken.perform().cancelLastOrder();
         softAssert.assertAll();
     }
-
 }
