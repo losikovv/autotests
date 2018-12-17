@@ -65,7 +65,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Переключиться на следующую вкладку */
-    public void switchToNextWindow() {
+    private void switchToNextWindow() {
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle); // switch focus of WebDriver to the next found window handle
         }
@@ -78,7 +78,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Ожидание равное переданному значению умноженному на переменную 'implicitlyWait' */
-    public void waitingFor(int duration){
+    void waitingFor(int duration){
         for (int i = 1; i <= duration; i++){
             kraken.detect().isElementPresent(By.xpath("//*[@id='nowhere']"));
         }
@@ -312,10 +312,10 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Придумать новый пароль для восстановления пароля */
-    public void submitRecovery(String password) {
+    public void submitRecovery(String password, String passwordConfirmation) {
         printMessage("> придумываем новый пароль...\n");
         kraken.perform().fillField(By.name("password"), password);
-        kraken.perform().fillField(By.name("passwordConfirmation"), password);
+        kraken.perform().fillField(By.name("passwordConfirmation"), passwordConfirmation);
         kraken.perform().click(By.className("auth-modal__button"));
     }
 

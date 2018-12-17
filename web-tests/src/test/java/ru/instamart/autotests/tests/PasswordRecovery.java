@@ -3,6 +3,7 @@ package ru.instamart.autotests.tests;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.application.Elements;
 
 import java.util.ResourceBundle;
 
@@ -154,7 +155,7 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().authGmail("instamartmailtest@gmail.com", "instamart");
         kraken.perform().openLastGmail();
         kraken.perform().clickRecoveryInMail();
-        kraken.perform().submitRecovery("password1");
+        kraken.perform().submitRecovery("password1", "password1");
 
         kraken.perform().dropAuth();
         kraken.perform().login("instamartmailtest@gmail.com", "password1");
@@ -180,13 +181,13 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().authGmail("instamartmailtest@gmail.com", "instamart");
         kraken.perform().openLastGmail();
         kraken.perform().clickRecoveryInMail();
-        kraken.perform().submitRecovery("password2");
+        kraken.perform().submitRecovery("password2", "password2");
 
         kraken.perform().dropAuth();
         kraken.perform().login("instamartmailtest@gmail.com", "password1");
-
+        
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Возможно авторизоваться со старым паролем после восстановления пароля\n");
+                "Возможно авторизоваться со старым паролем после восстановления пароля!\n");
 
         kraken.perform().dropAuth();
     }
