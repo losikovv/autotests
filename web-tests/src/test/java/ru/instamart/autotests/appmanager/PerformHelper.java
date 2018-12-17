@@ -313,7 +313,7 @@ public class PerformHelper extends HelperBase {
 
     /** Придумать новый пароль для восстановления пароля */
     public void submitRecovery(String password, String passwordConfirmation) {
-        printMessage("> придумываем новый пароль...\n");
+        printMessage("> задаем новый пароль...\n");
         kraken.perform().fillField(By.name("password"), password);
         kraken.perform().fillField(By.name("passwordConfirmation"), passwordConfirmation);
         kraken.perform().click(By.className("auth-modal__button"));
