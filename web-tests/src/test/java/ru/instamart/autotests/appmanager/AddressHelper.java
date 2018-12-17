@@ -23,7 +23,7 @@ public class AddressHelper extends HelperBase {
             kraken.perform().waitingFor(1); // Ожидание загрузки адресных саджестов
             kraken.perform().click(Elements.Site.Landing.addressSuggest());
             kraken.perform().click(Elements.Site.Landing.selectStoreButton());
-            kraken.perform().waitingFor(1); // Ожидание загрузки витрины магазина
+            kraken.perform().waitingFor(2); // Ожидание загрузки витрины магазина
         } else {
             openAddressModal();
             fill(address);
@@ -86,7 +86,7 @@ public class AddressHelper extends HelperBase {
      */
     private void submit() {
         kraken.perform().click(Elements.Site.AddressModal.saveButton());
-        kraken.perform().waitingFor(2); // Ожидание применения адреса
+        kraken.perform().waitingFor(2); // Ожидание применения адреса доставки
     }
 
     /**

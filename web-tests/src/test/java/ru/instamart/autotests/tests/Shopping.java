@@ -16,7 +16,7 @@ public class Shopping extends TestBase{
 
 
     @BeforeMethod(alwaysRun = true)
-    public void getAuth() throws Exception {
+    public void preconditions() throws Exception {
         kraken.get().page("metro");
     }
 
@@ -52,9 +52,20 @@ public class Shopping extends TestBase{
 
 
     @Test(
+            description = "Тест недоступности чекаута неавторизованному юзеру",
+            groups = {"regression"},
+            priority = 351
+    )
+    public void checkoutIsUnreachableForUnauthorized() throws Exception {
+        kraken.perform().quickLogout();
+        assertPageIsUnreachable(Pages.Site.checkout());
+    }
+
+
+    @Test(
             description = "Тест недоступности пустого чекаута по прямой ссылке",
             groups = {"acceptance","regression"},
-            priority = 351
+            priority = 352
     )
     public void checkoutIsUnreachableWithEmptyCart() throws Exception {
         kraken.perform().loginAs("admin");
@@ -66,7 +77,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест успешного добавления товара в корзину",
             groups = {"acceptance","regression"},
-            priority = 352
+            priority = 353
     )
     public void addItemToCart()throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
@@ -84,7 +95,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест набора корзины до суммы, достаточной для заказа",
             groups = {"acceptance","regression"},
-            priority = 353
+            priority = 354
     )
     public void collectItemsForMinOrder() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
@@ -101,7 +112,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации",
             groups = {"acceptance", "regression"},
-            priority = 354
+            priority = 355
     )
     public void mergeShipAddressAndCartAfterAuth() throws Exception {
         //TODO вынести в dataProvider
@@ -134,7 +145,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест успешного перехода в чекаут при сумме корзины выше суммы минимального заказа",
             groups = {"acceptance","regression"},
-            priority = 355
+            priority = 356
     )
     public void proceedFromCartToCheckout()throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
