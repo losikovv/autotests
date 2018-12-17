@@ -151,24 +151,10 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().dropAuth();
         kraken.perform().recoverPassword("instamartmailtest@gmail.com");
 
-        kraken.get().url("https://mail.google.com/mail/u/0/h/");
-        kraken.perform().fillField(By.name("identifier"),"instamartmailtest@gmail.com");
-        kraken.perform().click(By.id("identifierNext"));
-        kraken.perform().waitingFor(1);
-        kraken.perform().fillField(By.name("password"), "instamart");
-        kraken.perform().click(By.id("passwordNext"));
-        kraken.perform().waitingFor(1);
-
-        kraken.perform().click(By.xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Instamart'])[1]/following::span[1]"));
-        kraken.perform().click(By.linkText("- Показать цитируемый текст -"));
-        kraken.perform().click(By.linkText("СБРОСИТЬ ПАРОЛЬ"));
-        kraken.perform().waitingFor(1);
-        kraken.perform().switchToNextWindow();
-
-        kraken.perform().fillField(By.name("password"), "password1");
-        kraken.perform().fillField(By.name("passwordConfirmation"), "password1");
-        kraken.perform().click(By.className("auth-modal__button"));
+        kraken.perform().authGmail("instamartmailtest@gmail.com", "instamart");
+        kraken.perform().openLastGmail();
+        kraken.perform().clickRecoveryInMail();
+        kraken.perform().submitRecovery("password1");
 
         kraken.perform().dropAuth();
         kraken.perform().login("instamartmailtest@gmail.com", "password1");
@@ -191,29 +177,15 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().dropAuth();
         kraken.perform().recoverPassword("instamartmailtest@gmail.com");
 
-        kraken.get().url("https://mail.google.com/mail/u/0/h/");
-        kraken.perform().fillField(By.name("identifier"),"instamartmailtest@gmail.com");
-        kraken.perform().click(By.id("identifierNext"));
-        kraken.perform().waitingFor(1);
-        kraken.perform().fillField(By.name("password"), "instamart");
-        kraken.perform().click(By.id("passwordNext"));
-        kraken.perform().waitingFor(1);
-
-        kraken.perform().click(By.xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Instamart'])[1]/following::span[1]"));
-        kraken.perform().click(By.linkText("- Показать цитируемый текст -"));
-        kraken.perform().click(By.linkText("СБРОСИТЬ ПАРОЛЬ"));
-        kraken.perform().waitingFor(1);
-        kraken.perform().switchToNextWindow();
-
-        kraken.perform().fillField(By.name("password"), "password1");
-        kraken.perform().fillField(By.name("passwordConfirmation"), "password1");
-        kraken.perform().click(By.className("auth-modal__button"));
+        kraken.perform().authGmail("instamartmailtest@gmail.com", "instamart");
+        kraken.perform().openLastGmail();
+        kraken.perform().clickRecoveryInMail();
+        kraken.perform().submitRecovery("password2");
 
         kraken.perform().dropAuth();
         kraken.perform().login("instamartmailtest@gmail.com", "password1");
 
-        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+        Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Возможно авторизоваться со старым паролем после восстановления пароля\n");
 
         kraken.perform().dropAuth();

@@ -43,7 +43,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Заполнить поле по локатору указанным текстом */
-    public void fillField(By locator, String text) {
+    void fillField(By locator, String text) {
         click(locator);
         if (text != null) {
             String existingText = driver.findElement(locator).getAttribute("value");
@@ -175,7 +175,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Авторизационная последовательность с указанными реквизитами */
-    public void authSequence(String email, String password) throws Exception {
+    private void authSequence(String email, String password) throws Exception {
         switchToAuthorisationTab();
         fillAuthorisationForm(email, password);
         sendForm();
@@ -196,12 +196,41 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Деавторизоваться быстро по прямой ссылке */
-    public void quickLogout() {
+    private void quickLogout() {
         printMessage("Быстрый логаут\n");
         kraken.get().page("logout");
         waitingFor(1); // Ожидание деавторизации
     }
 
+    // ======= Работа с Gmail =======
+
+    /** Авторизоваться в гугл почте */
+    public void authGmail(String gmail, String password) {
+        printMessage("> авторизовываемся в гугл почте...");
+        kraken.get().url("https://mail.google.com/mail/u/0/h/");
+        kraken.perform().fillField(By.name("identifier"), gmail);
+        kraken.perform().click(By.id("identifierNext"));
+        kraken.perform().waitingFor(1);
+        kraken.perform().fillField(By.name("password"), password);
+        kraken.perform().click(By.id("passwordNext"));
+        kraken.perform().waitingFor(1);
+    }
+
+    /** Открыть крайнее письмо в цепочке писем от Инстамарт */
+    public void openLastGmail() {
+        kraken.perform().printMessage("> открываем крайнее письмо от Инстамарт");
+        kraken.perform().click(By.xpath(
+                "(.//*[normalize-space(text()) and normalize-space(.)='Instamart'])[1]/following::span[1]"));
+        kraken.perform().click(By.linkText("- Показать цитируемый текст -"));
+    }
+
+    /** Нажать кнопку сброса пароля в письме */
+    public void clickRecoveryInMail() {
+        kraken.perform().printMessage("> нажимаем кнопку сброса пароля в письме");
+        kraken.perform().click(By.linkText("СБРОСИТЬ ПАРОЛЬ"));
+        kraken.perform().waitingFor(1);
+        kraken.perform().switchToNextWindow();
+    }
 
     // ======= Методы модалки авторизации/регистрации =======
 
@@ -280,6 +309,14 @@ public class PerformHelper extends HelperBase {
         kraken.perform().fillField(Elements.Site.AuthModal.emailField(),email);
         sendForm();
         waitingFor(1); // Ожидание раздизабливания кнопки подтверждения восстановления пароля
+    }
+
+    /** Придумать новый пароль для восстановления пароля */
+    public void submitRecovery(String password) {
+        printMessage("> придумываем новый пароль...\n");
+        kraken.perform().fillField(By.name("password"), password);
+        kraken.perform().fillField(By.name("passwordConfirmation"), password);
+        kraken.perform().click(By.className("auth-modal__button"));
     }
 
 
@@ -376,7 +413,7 @@ public class PerformHelper extends HelperBase {
         reachAdmin(getPagePath());
     }
 
-    public void reachAdmin(String path) throws Exception{
+    void reachAdmin(String path) throws Exception{
         kraken.get().adminPage("");
         if (kraken.detect().isOnSite()) {
             kraken.get().baseUrl();
