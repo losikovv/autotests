@@ -78,7 +78,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Ожидание равное переданному значению умноженному на переменную 'implicitlyWait' */
-    void waitingFor(int duration){
+    public void waitingFor(int duration){
         for (int i = 1; i <= duration; i++){
             kraken.detect().isElementPresent(By.xpath("//*[@id='nowhere']"));
         }
