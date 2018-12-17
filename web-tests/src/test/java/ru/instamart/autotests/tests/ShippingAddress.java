@@ -13,15 +13,32 @@ public class ShippingAddress extends TestBase{
 
 
     @Test(
-            description = "Проверяем что по дефолту на витрине ритейлера не выбран адрес",
+            description = "Тест на то что по дефолту на витрине ритейлера не выбран адрес",
             groups = {"acceptance","regression"},
-            priority = 201
+            priority = 200
     )
     public void emptyShippingAddressByDefault() throws Exception {
         kraken.get().page("metro");
 
         Assert.assertFalse(kraken.detect().isShippingAddressSet(),
-                "По умолчанию установлен адрес доставки\n");
+                "По умолчанию установлен адрес доставки, хотя адрес не должен быть выбран\n");
+    }
+
+
+    @Test(
+            description = "Тест дефолтного списка магазинов при отсутствии адреса доставки",
+            groups = {"acceptance","regression"},
+            priority = 201
+    )
+    public void checkDefaultShoplist() throws Exception {
+        kraken.get().page("metro");
+        kraken.shopping().openShopSelector();
+
+        Assert.assertFalse(kraken.detect().isStoreSelectorOpen(),
+                "Не открывается дефолтный список магазинов\n");
+
+        Assert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
+                "Дефолтный список магазинов пуст\n");
     }
 
 
@@ -42,9 +59,28 @@ public class ShippingAddress extends TestBase{
 
 
     @Test(
-            description = "Тест ввода адреса доставки на витрине ритейлера",
+            description = "Тест на отсутствие доступных магазинов по адресу вне зоны доставки",
             groups = {"acceptance","regression"},
             priority = 203
+    )
+    public void noAvailableShopsOutOfDeliveryZone() throws Exception {
+        kraken.get().page("metro");
+        kraken.shipAddress().change(Addresses.Moscow.outOfZoneAddress());
+        kraken.perform().refresh();
+        kraken.shopping().openShopSelector();
+
+        Assert.assertTrue(kraken.detect().isStoreSelectorOpen(),
+                "Не открывается список магазинов вне зоны доставки\n");
+
+        Assert.assertTrue(kraken.detect().isStoreSelectorEmpty(),
+                "Список магазинов вне зоны доставки не пуст\n");
+    }
+
+
+    @Test(
+            description = "Тест ввода адреса доставки на витрине ритейлера",
+            groups = {"acceptance","regression"},
+            priority = 204
     )
     public void setShippingAddressOnRetailerPage() throws Exception {
         kraken.get().page("metro");
@@ -61,7 +97,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест отмены изменения адреса доставки",
             groups = {"regression"},
-            priority = 204
+            priority = 205
     )
     public void cancelChangeShippingAddress() throws Exception {
         kraken.get().page("metro");
@@ -81,7 +117,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест изменения адреса доставки",
             groups = {"acceptance","regression"},
-            priority = 205
+            priority = 206
     )
     public void changeShippingAddress() throws Exception {
         kraken.get().page("metro");
@@ -102,7 +138,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест изменения адреса на предыдущий из списка адресной модалки",
             groups = {"regression"},
-            priority = 206
+            priority = 207
     )
     public void changeShippingAddressToRecentAddress() throws Exception {
         kraken.get().baseUrl();
