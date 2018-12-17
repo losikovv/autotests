@@ -336,12 +336,12 @@ public class PerformHelper extends HelperBase {
 
     /** Отменить крайний заказ */
     public void cancelLastOrder (){
-        printMessage("Отменяем крайний заказ...\n");
+        printMessage("Отменяем крайний заказ...");
         kraken.get().url(baseUrl + "user/orders");
         if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(1));
-            printMessage("> OK");
-        } else printMessage("> Заказ не активен");
+            printMessage("> OK\n");
+        } else printMessage("> Заказ не активен\n");
         waitingFor(2); // Ожидание отмены заказа
     }
 

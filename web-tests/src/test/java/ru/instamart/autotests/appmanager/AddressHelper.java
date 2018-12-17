@@ -84,9 +84,16 @@ public class AddressHelper extends HelperBase {
     /**
      * Нажать Сохранить в адресной модалке
      */
-    private void submit() {
+    public void submit() {
         kraken.perform().click(Elements.Site.AddressModal.saveButton());
         kraken.perform().waitingFor(2); // Ожидание применения адреса доставки
+    }
+
+    /**
+     * Выбрать первый в списке предыдущий адрес в адресной модалке
+     */
+    public void choseRecent() {
+        kraken.perform().click(Elements.Site.AddressModal.recentAddress());
     }
 
     /**

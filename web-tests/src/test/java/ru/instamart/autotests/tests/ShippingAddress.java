@@ -3,7 +3,6 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.testdata.Generate;
 
 
@@ -27,6 +26,22 @@ public class ShippingAddress extends TestBase{
 
 
     @Test(
+            description = "Тест отмены ввода адреса доставки на витрине ритейлера",
+            groups = {"regression"},
+            priority = 202
+    )
+    public void cancelSetShippingAddressOnRetailerPage() throws Exception {
+        kraken.get().page("metro");
+        kraken.shipAddress().openAddressModal();
+        kraken.shipAddress().fill(Addresses.Moscow.defaultAddress());
+        kraken.shipAddress().closeAddressModal();
+
+        Assert.assertFalse(kraken.detect().isShippingAddressSet(),
+                "Адрес доставки установлен после отмены ввода\n");
+    }
+
+
+    @Test(
             description = "Тест ввода адреса доставки на витрине ритейлера",
             groups = {"acceptance","regression"},
             priority = 203
@@ -42,19 +57,24 @@ public class ShippingAddress extends TestBase{
                 "Установлен некорректный адрес доставки\n");
     }
 
+
     @Test(
-            description = "Тест отмены ввода адреса доставки на витрине ритейлера",
+            description = "Тест отмены изменения адреса доставки",
             groups = {"regression"},
-            priority = 202
+            priority = 204
     )
-    public void cancelSetShippingAddressOnRetailerPage() throws Exception {
+    public void cancelChangeShippingAddress() throws Exception {
         kraken.get().page("metro");
         kraken.shipAddress().openAddressModal();
-        kraken.shipAddress().fill(Addresses.Moscow.defaultAddress());
+        kraken.shipAddress().fill(Addresses.Moscow.testAddress());
         kraken.shipAddress().closeAddressModal();
 
-        Assert.assertFalse(kraken.detect().isShippingAddressSet(),
-                "Адрес доставки установлен после отмены ввода\n");
+
+        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
+                "Адрес доставки сброшен после отмены ввода\n");
+
+        Assert.assertNotEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.testAddress(),
+                "Адрес доставки изменён после отмены ввода\n");
     }
 
 
@@ -78,31 +98,13 @@ public class ShippingAddress extends TestBase{
                 "Адрес доставки не изменён после введения измений\n");
     }
 
-    @Test(
-            description = "Тест отмены изменения адреса доставки",
-            groups = {"regression"},
-            priority = 204
-    )
-    public void cancelChangeShippingAddress() throws Exception {
-        kraken.get().page("metro");
-        kraken.shipAddress().openAddressModal();
-        kraken.shipAddress().fill(Addresses.Moscow.testAddress());
-        kraken.shipAddress().closeAddressModal();
-
-
-        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
-                "Адрес доставки сброшен после отмены ввода\n");
-
-        Assert.assertNotEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.testAddress(),
-                "Адрес доставки изменён после отмены ввода\n");
-    }
 
     @Test(
-            description = "Тест изменения адреса из предыдущих адресов",
+            description = "Тест изменения адреса на предыдущий из списка адресной модалки",
             groups = {"regression"},
             priority = 206
     )
-    public void changeShippingAddressOnPreviousAddress() throws Exception {
+    public void changeShippingAddressToRecentAddress() throws Exception {
         kraken.get().baseUrl();
         kraken.perform().registration(Generate.testUserData());
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
@@ -114,8 +116,8 @@ public class ShippingAddress extends TestBase{
         kraken.shipAddress().change(Addresses.Moscow.defaultAddress());
 
         kraken.shipAddress().openAddressModal();
-        kraken.perform().click(Elements.Site.AddressModal.recentAddress());
-        kraken.perform().click(Elements.Site.AddressModal.saveButton());
+        kraken.shipAddress().choseRecent();
+        kraken.shipAddress().submit();
 
         Assert.assertTrue(kraken.detect().isShippingAddressSet(),
                 "Адрес доставки сброшен после выбора предыдущего");
@@ -123,6 +125,4 @@ public class ShippingAddress extends TestBase{
         Assert.assertNotEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.testAddress(),
                 "Адрес доставки изменен после выбора предыдущего");
     }
-
-
 }
