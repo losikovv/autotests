@@ -3,6 +3,8 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.testdata.Generate;
 
 
 // Тесты адреса доставки по Фениксу
@@ -93,6 +95,33 @@ public class ShippingAddress extends TestBase{
 
         Assert.assertNotEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.testAddress(),
                 "Адрес доставки изменён после отмены ввода\n");
+    }
+
+    @Test(
+            description = "Тест изменения адреса из предыдущих адресов",
+            groups = {"regression"},
+            priority = 206
+    )
+    public void changeShippingAddressOnPreviousAddress() throws Exception {
+        kraken.get().baseUrl();
+        kraken.perform().registration(Generate.testUserData());
+        kraken.shipAddress().set(Addresses.Moscow.testAddress());
+        kraken.shopping().collectItems();
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().complete();
+        kraken.perform().cancelLastOrder();
+
+        kraken.shipAddress().change(Addresses.Moscow.defaultAddress());
+
+        kraken.shipAddress().openAddressModal();
+        kraken.perform().click(Elements.Site.AddressModal.recentAddress());
+        kraken.perform().click(Elements.Site.AddressModal.saveButton());
+
+        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
+                "Адрес доставки сброшен после выбора предыдущего");
+
+        Assert.assertNotEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.testAddress(),
+                "Адрес доставки изменен после выбора предыдущего");
     }
 
 
