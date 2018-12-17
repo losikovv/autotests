@@ -35,7 +35,7 @@ public class AddressHelper extends HelperBase {
      * Изменить адрес доставки
      */
     public void change(String address) {
-        printMessage("Изменяем адрес доставки >> " + address + "\n");
+        printMessage("Изменяем адрес доставки >>> " + address + "\n");
         openAddressModal();
         clearAddressField();
         fill(address);
