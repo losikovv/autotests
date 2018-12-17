@@ -73,7 +73,7 @@ public class Generate {
     }
 
     /** Сгенерировать тестовый имейл с префиксом указанной длины */
-    public static String testEmail(int prefixLength) {
+    private static String testEmail(int prefixLength) {
         return random.literalString(prefixLength) + "-" + testUserEmailBase;
     }
 }
