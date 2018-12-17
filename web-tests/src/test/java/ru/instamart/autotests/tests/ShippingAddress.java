@@ -60,7 +60,7 @@ public class ShippingAddress extends TestBase{
 
     @Test(
             description = "Тест на отсутствие доступных магазинов по адресу вне зоны доставки",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 203
     )
     public void noAvailableShopsOutOfDeliveryZone() throws Exception {
@@ -73,7 +73,7 @@ public class ShippingAddress extends TestBase{
                 "Не открывается список магазинов вне зоны доставки\n");
 
         Assert.assertTrue(kraken.detect().isStoreSelectorEmpty(),
-                "Список магазинов вне зоны доставки не пуст\n");
+                "Не пуст список магазинов с адресом вне зоны доставки\n");
     }
 
 
