@@ -22,43 +22,39 @@ public class Shopping extends TestBase{
 
 
     @Test(
+            description = "Тест недоступности чекаута неавторизованному юзеру",
+            groups = {"regression"},
+            priority = 350
+    )
+    public void checkoutIsUnreachableForUnauthorized() throws Exception {
+        kraken.perform().quickLogout();
+        assertPageIsUnreachable(Pages.Site.checkout());
+    }
+
+
+    @Test(
             description = "Тест пустой корзины",
             groups = {"acceptance","regression"},
-            priority = 350
+            priority = 351
     )
     public void checkEmptyCart() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
         kraken.perform().dropCart();
         kraken.shopping().openCart();
 
-        // Assert cart is open
         Assert.assertTrue(kraken.detect().isCartOpen(),
                 "Не открылась козина\n");
 
-        // Assert cart is empty
         Assert.assertTrue(kraken.detect().isCartEmpty(),
                 "Корзина не пуста\n");
 
-        // Assert checkout button is disabled in an empty card
         Assert.assertFalse(kraken.detect().isCheckoutButtonActive(),
                 "Кнопка чекаута активна в пустой козине\n");
 
         kraken.shopping().closeCart();
 
-        // Assert cart is closed
         Assert.assertFalse(kraken.detect().isCartOpen(),
                 "Не закрылась корзина\n");
-    }
-
-
-    @Test(
-            description = "Тест недоступности чекаута неавторизованному юзеру",
-            groups = {"regression"},
-            priority = 351
-    )
-    public void checkoutIsUnreachableForUnauthorized() throws Exception {
-        kraken.perform().quickLogout();
-        assertPageIsUnreachable(Pages.Site.checkout());
     }
 
 

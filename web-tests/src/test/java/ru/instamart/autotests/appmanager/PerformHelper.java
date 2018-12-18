@@ -138,7 +138,7 @@ public class PerformHelper extends HelperBase {
         if (!startURL.equals(fullBaseUrl) && kraken.detect().isUserAuthorised()) {
             kraken.get().profilePage();
             if (!kraken.grab().text(Elements.Site.AccountPage.email()).equals(Users.getCredentials(role).getLogin())) {
-                logout();
+                quickLogout();
             }
             kraken.get().url(startURL);
         }
@@ -156,9 +156,7 @@ public class PerformHelper extends HelperBase {
         if (!kraken.detect().isUserAuthorised()) {
             printMessage("Авторизуемся...");
             openAuthModal();
-            waitingFor(1); // Ожидание загрузки модалки авторизации
             authSequence(email, password);
-            waitingFor(2); // Ожидание раздизебливания кнопки подтверждения авторизации
         } else {
             printMessage("Пропускаем авторизацию, уже авторизованы");
         }
@@ -189,7 +187,7 @@ public class PerformHelper extends HelperBase {
         } else {
             kraken.perform().click(Elements.Admin.Header.logoutButton());
         }
-        waitingFor(1); // Ожидание загрузки лендинга после логаута
+        waitingFor(1); // Ожидание деавторизации и подгрузки лендинга
         if(kraken.detect().isOnLanding()) {
             printMessage("Логаут\n");
         }
@@ -197,9 +195,11 @@ public class PerformHelper extends HelperBase {
 
     /** Деавторизоваться быстро по прямой ссылке */
     public void quickLogout() {
-        printMessage("Быстрый логаут\n");
         kraken.get().page("logout");
-        waitingFor(1); // Ожидание деавторизации
+        waitingFor(1); // Ожидание деавторизации и подгрузки лендинга
+        if(kraken.detect().isOnLanding()) {
+            printMessage("Быстрый логаут\n");
+        }
     }
 
     // ======= Работа с Gmail =======
@@ -268,6 +268,11 @@ public class PerformHelper extends HelperBase {
     private void sendForm(){
         printMessage("> отправляем форму\n");
         kraken.perform().click(Elements.Site.AuthModal.submitButton());
+        waitingFor(2); // Ожидание авторизации
+        if(kraken.detect().isAuthModalOpen()){
+            printMessage("Проблемы с производительностью: слишком медленно производится авторизация");
+            kraken.perform().waitingFor(2); // Дополнительное ожидание авторизации, для стабильности
+        }
     }
 
     /** Закрыть форму авторизации/регистрации */
@@ -352,8 +357,7 @@ public class PerformHelper extends HelperBase {
     public void dropAuth() {
         if (kraken.detect().isUserAuthorised()) {
             String currentURL = kraken.grab().currentURL();
-            quickLogout();                  // TODO ЗАТЕСТИТЬ новый способ
-            //kraken.perform().logout();    // TODO УБРАТЬ старый способ
+            quickLogout();
             kraken.get().url(currentURL);
         }
     }
@@ -363,7 +367,6 @@ public class PerformHelper extends HelperBase {
         String currentAddress = kraken.grab().currentShipAddress();
         String addressOne = Addresses.Moscow.defaultAddress();
         String addressTwo = Addresses.Moscow.testAddress();
-
         if (!kraken.detect().isCartEmpty()) {
             kraken.shopping().closeCart();
             if (currentAddress.equals(addressOne)) {

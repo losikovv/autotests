@@ -87,6 +87,10 @@ public class AddressHelper extends HelperBase {
     public void submit() {
         kraken.perform().click(Elements.Site.AddressModal.saveButton());
         kraken.perform().waitingFor(2); // Ожидание применения адреса доставки
+        if(kraken.detect().isAddressModalOpen()){
+            printMessage("Проблемы с производительностью: слишком медленно применяется адрес доставки");
+            kraken.perform().waitingFor(2); // Дополнительное ожидание применения адреса доставки, для стабильности
+        }
     }
 
     /**
