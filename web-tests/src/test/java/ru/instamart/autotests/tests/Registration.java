@@ -242,9 +242,9 @@ public class Registration extends TestBase {
         Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
                 "Нет пользовательской ошибки превышения длины поля password\n");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
-                "Нет пользовательской ошибки превышения длины поля password confirmation\n");
+        // Решили не выводить ошибку
+        //Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
+        //        "Нет пользовательской ошибки превышения длины поля password confirmation\n");
 
         kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),

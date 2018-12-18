@@ -77,6 +77,12 @@ public class PerformHelper extends HelperBase {
         driver.switchTo().defaultContent();
     }
 
+    /** Обновить страницу */
+    public void refresh() {
+        driver.navigate().refresh();
+        waitingFor(1); // Ожидание обновления страницы
+    }
+
     /** Ожидание равное переданному значению умноженному на переменную 'implicitlyWait' */
     public void waitingFor(int duration){
         for (int i = 1; i <= duration; i++){

@@ -54,10 +54,4 @@ public class HelperBase {
             return Integer.parseInt(((price).substring(0, (price.length() - 5))).replaceAll("\\s", ""));
         }
     }
-
-    /** Обновить страницу */
-    public void refresh() {
-        driver.navigate().refresh();
-    }
-
 }

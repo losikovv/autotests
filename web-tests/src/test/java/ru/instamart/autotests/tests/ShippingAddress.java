@@ -32,7 +32,7 @@ public class ShippingAddress extends TestBase{
     )
     public void checkDefaultShoplist() throws Exception {
         kraken.get().page("metro");
-        kraken.shopping().openShopSelector();
+        kraken.shopping().openStoreSelector();
 
         Assert.assertFalse(kraken.detect().isStoreSelectorOpen(),
                 "Не открывается дефолтный список магазинов\n");
@@ -67,9 +67,9 @@ public class ShippingAddress extends TestBase{
         kraken.get().page("metro");
         kraken.shipAddress().change(Addresses.Moscow.outOfZoneAddress());
         kraken.perform().refresh();
-        kraken.shopping().openShopSelector();
+        kraken.shopping().openStoreSelector();
 
-        Assert.assertTrue(kraken.detect().isStoreSelectorOpen(),
+        Assert.assertTrue(kraken.detect().isStoreSelectorOpen(), // TODO тест падает из-за бага в детекторе
                 "Не открывается список магазинов вне зоны доставки\n");
 
         Assert.assertTrue(kraken.detect().isStoreSelectorEmpty(),

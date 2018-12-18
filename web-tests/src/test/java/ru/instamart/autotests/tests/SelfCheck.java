@@ -199,16 +199,16 @@ public class SelfCheck extends TestBase {
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
         Assert.assertTrue(kraken.detect().isStoreSelectorOpen());
 
-        kraken.shopping().closeShopSelector();
+        kraken.shopping().closeStoreSelector();
         Assert.assertFalse(kraken.detect().isStoreSelectorOpen());
 
         //retailer
         kraken.get().page("metro");
 
-        kraken.shopping().openShopSelector();
+        kraken.shopping().openStoreSelector();
         Assert.assertTrue(kraken.detect().isStoreSelectorOpen());
 
-        kraken.shopping().closeShopSelector();
+        kraken.shopping().closeStoreSelector();
         Assert.assertFalse(kraken.detect().isStoreSelectorOpen());
     }
 

@@ -159,6 +159,16 @@ public class DetectionHelper extends HelperBase {
                 || element(Elements.Site.AddressModal.titleChange());
     }
 
+    /** Определить показана ли заглушка "Адрес вне зоны доставки" в адресной модалке */
+    public boolean isAddressOutOfZone() {
+        if (element(Elements.Site.AddressModal.titleOutOfZone())) {
+            printMessage("Адрес не в зоне доставки");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // ======= Меню "Профиль" =======
 
     /** Определить открыто ли меню аккаунта */
@@ -236,7 +246,7 @@ public class DetectionHelper extends HelperBase {
         } else {
             printMessage("Что-то пошло не так, пробуем ещё раз...");
             kraken.perform().waitingFor(2); // Задержка для стабильности, если не удалось проверить активность заказа с первого раза
-            refresh();
+            kraken.perform().refresh();
             if (element(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
                 printMessage("✓ Заказ активен\n");
                 return true;

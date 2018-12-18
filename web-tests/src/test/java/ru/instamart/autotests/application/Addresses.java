@@ -58,7 +58,7 @@ public abstract class Addresses {
         }
 
         public static String defaultAddress() {
-            return addressString = "Екатеринбург, ул Щорса, д 96";
+            return addressString = "Екатеринбург, ул Щорса, стр 109";
         }
 
         public static String outOfZoneAddress() {

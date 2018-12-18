@@ -374,8 +374,14 @@ public class Elements {
                 return new Elements ("Введите адрес доставки",
                         By.className("address-modal__header"));
             }
+
             static Elements titleChange() {
                 return new Elements ("Редактирование адреса",
+                        By.className("address-modal__header"));
+            }
+
+            static Elements titleOutOfZone() {
+                return new Elements ("Адрес не в зоне доставки",
                         By.className("address-modal__header"));
             }
         }

@@ -18,13 +18,13 @@ public class ShoppingHelper extends HelperBase {
     // ======= Шторка выбора магазинов =======
 
     /** Открыть шторку выбора магазина */
-    public void openShopSelector() {
+    public void openStoreSelector() {
         kraken.perform().click(Elements.Site.Header.changeStoreButton());
         kraken.perform().waitingFor(1); // Ожидание открытия шторки выбора магазина
     }
 
     /** Закрыть шторку выбора магазина */
-    public void closeShopSelector() {
+    public void closeStoreSelector() {
         kraken.perform().click(Elements.Site.StoreSelector.closeButton());
         kraken.perform().waitingFor(1); // Ожидание закрытия шторки выбора магазина
     }

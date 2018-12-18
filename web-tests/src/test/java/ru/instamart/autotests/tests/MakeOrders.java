@@ -14,20 +14,9 @@ public class MakeOrders extends TestBase {
 
 
     @BeforeMethod(alwaysRun = true)
-    public void preparing() throws Exception {
+    public void preconditions() throws Exception {
         kraken.get().page("metro");
         kraken.perform().loginAs("admin");
-    }
-
-
-    @Test (
-            description = "Тест скачивания документов к заказам",
-            groups = {"regression"},
-            priority = 450
-    )
-    public void downloadOrderDocuments(){
-        kraken.perform().checkOrderDocuments("R351510533");  // Заказ с двумя документами
-        kraken.perform().checkOrderDocuments("R154547373");  // Заказ с тремя документами
     }
 
 
@@ -36,23 +25,38 @@ public class MakeOrders extends TestBase {
             groups = {"regression"},
             priority = 451
     )
-    public void orderInKazan(){
-
+    public void successOrderInKazan(){
         kraken.shipAddress().change(Addresses.Kazan.defaultAddress());
-
-        // Идем в чекаут, при необходимости набирая корзину
-        kraken.get().checkoutPage();
-        if(!kraken.checkout().isOnCheckout()){
-            kraken.shopping().collectItems();
-            kraken.shopping().proceedToCheckout();
-        }
+        kraken.shopping().collectItems();
+        kraken.shopping().proceedToCheckout();
 
         //TODO добавить проверку стоимости доставки как в checkMetroDeliveryPriceDiscount()
 
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформлен заказ в Казани\n");
+                "Не оформляется заказ в Казани\n");
+
+        kraken.perform().checkOrderDocuments();
+    }
+
+
+    @Test(
+            description = "Тестовый заказ в Екате",
+            groups = {"regression"},
+            priority = 452
+    )
+    public void successOrderInEkat(){
+        kraken.shipAddress().change(Addresses.Ekaterinburg.defaultAddress());
+        kraken.shopping().collectItems();
+        kraken.shopping().proceedToCheckout();
+
+        //TODO добавить проверку стоимости доставки как в checkMetroDeliveryPriceDiscount()
+
+        kraken.checkout().complete();
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не оформляется заказ в Екате\n");
 
         kraken.perform().checkOrderDocuments();
     }
@@ -61,19 +65,13 @@ public class MakeOrders extends TestBase {
     @Test(
             description = "Тестовый заказ во Вкусвилл с применением программы лояльности Вкусвилл",
             groups = {"regression"},
-            priority = 452
+            priority = 453
     )
-    public void orderToVkusvill(){
-
+    public void successOrderInVkusvill(){
         kraken.get().page("vkusvill");
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
-
-        // идем в чекаут, при необходимости набирая корзину
-        kraken.get().checkoutPage();
-        if(!kraken.checkout().isOnCheckout()){
-            kraken.shopping().collectItems();
-            kraken.shopping().proceedToCheckout();
-        }
+        kraken.shopping().collectItems();
+        kraken.shopping().proceedToCheckout();
 
         Assert.assertTrue(kraken.detect().isRetailerLoyaltyAvailable(),
                 "Не доступна программа лояльности \"vkusvill\" \n");
@@ -86,14 +84,14 @@ public class MakeOrders extends TestBase {
 
         kraken.checkout().complete();
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформлен заказ во Вкусвилл\n");
+                "Не оформляется заказ во Вкусвилл\n");
 
         kraken.perform().checkOrderDocuments();
     }
 
 
     @AfterMethod(alwaysRun = true)
-    public void cancelLastOrder()throws Exception {
+    public void postconditions()throws Exception {
         kraken.perform().cancelLastOrder();
         kraken.shipAddress().change(Addresses.Moscow.defaultAddress());
     }
