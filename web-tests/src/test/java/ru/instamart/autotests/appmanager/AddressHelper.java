@@ -89,7 +89,7 @@ public class AddressHelper extends HelperBase {
         kraken.perform().waitingFor(1); // Ожидание применения адреса доставки
         if(!kraken.detect().isAddressOutOfZone() && kraken.detect().isAddressModalOpen()){
             printMessage("⚠ Проблемы с производительностью: слишком медленно применяется адрес доставки\n");
-            kraken.perform().waitingFor(2); // Дополнительное ожидание применения адреса доставки, для стабильности
+            kraken.perform().waitingFor(2); // Дополнительное ожидание применения адреса доставки при тормозах
         }
     }
 

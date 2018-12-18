@@ -275,9 +275,9 @@ public class PerformHelper extends HelperBase {
         printMessage("> отправляем форму\n");
         kraken.perform().click(Elements.Site.AuthModal.submitButton());
         waitingFor(2); // Ожидание авторизации
-        if(kraken.detect().isAuthModalOpen()){
+        if(!kraken.detect().isRecoveryRequested() && kraken.detect().isAuthModalOpen()) {
             printMessage("⚠ Проблемы с производительностью: слишком медленно производится авторизация\n");
-            kraken.perform().waitingFor(2); // Дополнительное ожидание авторизации, для стабильности
+            kraken.perform().waitingFor(2); // Дополнительное ожидание авторизации при тормозах
         }
     }
 
