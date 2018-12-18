@@ -13,12 +13,12 @@ public abstract class Addresses {
             super(address);
         }
 
-        public static String testAddress() {
-            return addressString = "Москва, ул Тестовская, д 10";
-        }
-
         public static String defaultAddress() {
             return addressString = "Москва, пер Казачий 2-й, д 11 стр 2";
+        }
+
+        public static String testAddress() {
+            return addressString = "Москва, ул Тестовская, д 10";
         }
 
         public static String outOfZoneAddress() {
@@ -31,10 +31,6 @@ public abstract class Addresses {
 
         Kazan(String address) {
             super(address);
-        }
-
-        public static String testAddress() {
-            return addressString = "Казань, ул Танковая, д 30";
         }
 
         public static String defaultAddress() {
@@ -53,16 +49,8 @@ public abstract class Addresses {
             super(address);
         }
 
-        public static String testAddress() {
-            return addressString = "Екатеринбург, ул Малышева, д 24";
-        }
-
         public static String defaultAddress() {
-            return addressString = "Екатеринбург, ул Щорса, стр 109";
-        }
-
-        public static String outOfZoneAddress() {
-            return addressString = "Екатеринбург, ул Коммунистическая, д 103";
+            return addressString = "Екатеринбург, ул Советская, д 9";
         }
 
     }
