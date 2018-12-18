@@ -1,11 +1,7 @@
 package ru.instamart.autotests.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.application.Elements;
-
-import java.util.ResourceBundle;
 
 
 // Тесты восстановления пароля
@@ -106,8 +102,7 @@ public class PasswordRecovery extends TestBase {
             groups = {"regression"},
             priority = 605
     )
-    public void openAuthAfterInitRecovery() throws Exception {
-
+    public void openAuthModalAfterRecoveryRequest() throws Exception {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -126,7 +121,6 @@ public class PasswordRecovery extends TestBase {
             priority = 606
     )
     public void successAuthAfterInitRecovery() throws Exception {
-
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -147,7 +141,6 @@ public class PasswordRecovery extends TestBase {
             priority = 607
     )
     public void successAuthAfterCompleteRecovery() throws Exception {
-
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
         kraken.perform().recoverPassword("instamartmailtest@gmail.com");
@@ -173,7 +166,6 @@ public class PasswordRecovery extends TestBase {
             priority = 608
     )
     public void noAuthAfterCompleteRecovery() throws Exception {
-
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
         kraken.perform().recoverPassword("instamartmailtest@gmail.com");
@@ -191,5 +183,4 @@ public class PasswordRecovery extends TestBase {
 
         kraken.perform().dropAuth();
     }
-
 }

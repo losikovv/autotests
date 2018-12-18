@@ -140,7 +140,7 @@ public class ShippingAddress extends TestBase{
             groups = {"regression"},
             priority = 207
     )
-    public void changeShippingAddressToRecentAddress() throws Exception {
+    public void changeShippingAddressToRecent() throws Exception {
         kraken.get().baseUrl();
         kraken.perform().registration(Generate.testUserData());
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
