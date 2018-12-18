@@ -102,7 +102,7 @@ public class PasswordRecovery extends TestBase {
             groups = {"regression"},
             priority = 605
     )
-    public void openAuthModalAfterRecoveryRequest() throws Exception {
+    public void successOpenAuthModalAfterRecovery() throws Exception {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -120,7 +120,7 @@ public class PasswordRecovery extends TestBase {
             groups = {"regression"},
             priority = 606
     )
-    public void successAuthAfterInitRecovery() throws Exception {
+    public void successOldAuthAfterRecoveryRequest() throws Exception {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -140,7 +140,7 @@ public class PasswordRecovery extends TestBase {
             groups = {"regression"},
             priority = 607
     )
-    public void successAuthAfterCompleteRecovery() throws Exception {
+    public void successAuthAfterRecovery() throws Exception {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
         kraken.perform().recoverPassword("instamartmailtest@gmail.com");
@@ -165,7 +165,7 @@ public class PasswordRecovery extends TestBase {
             groups = {"regression"},
             priority = 608
     )
-    public void noAuthAfterCompleteRecovery() throws Exception {
+    public void noOldAuthAfterRecovery() throws Exception {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
         kraken.perform().recoverPassword("instamartmailtest@gmail.com");
