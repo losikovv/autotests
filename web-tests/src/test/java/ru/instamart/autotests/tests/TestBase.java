@@ -95,22 +95,17 @@ public class TestBase {
         Assert.assertFalse(kraken.detect().is500(), "It's something wrong on page " + currentURL + "\n");
     }
 
-    /**
-     * Check the current page isn't reachable at the moment
-     */
-    protected void assertPageIsUnreachable(String URL) throws AssertionError {
-        String targetURL = URL;
-        kraken.perform().printMessage("Checking page " + URL + " is unreachable at this moment");
-        kraken.get().url(targetURL);
-        String currentURL = kraken.grab().currentURL();
-        Assert.assertFalse(targetURL.equalsIgnoreCase(currentURL), "It is possible to get page " + currentURL + " while it must be unreachable at this moment" + "\n");
+    /** Проверка недоступности страницы для перехода */
+    void assertPageIsUnavailable(Pages page) throws AssertionError {
+        assertPageIsUnavailable(kraken.grab().fullBaseUrl + Pages.getPagePath());
     }
 
-    void assertPageIsUnreachable(Pages page) throws AssertionError {
-        String targetURL = kraken.perform().fullBaseUrl + Pages.getPagePath();
-        kraken.perform().printMessage("Checking page " + targetURL + " is unreachable at this moment");
-        kraken.get().url(targetURL);
+    /** Проверка недоступности страницы для перехода по прямой ссылке */
+    void assertPageIsUnavailable(String URL) throws AssertionError {
+        kraken.perform().printMessage("Проверяем недоступность перехода на страницу " + URL);
+        kraken.get().url(URL);
         String currentURL = kraken.grab().currentURL();
-        Assert.assertFalse(targetURL.equalsIgnoreCase(currentURL), "It is possible to get page " + currentURL + " while it must be unreachable at this moment" + "\n");
+        Assert.assertFalse(currentURL.equalsIgnoreCase(URL),
+                "Можно попасть на страницу " + currentURL + " по прямой ссылке\n");
     }
 }

@@ -26,7 +26,7 @@ public class Administration extends TestBase {
     public void adminPanelUnreacheableWithoutPrivileges() throws Exception {
         kraken.perform().loginAs("user");
 
-        assertPageIsUnreachable(Pages.Admin.shipments());
+        assertPageIsUnavailable(Pages.Admin.shipments());
 
         kraken.perform().logout();
     }

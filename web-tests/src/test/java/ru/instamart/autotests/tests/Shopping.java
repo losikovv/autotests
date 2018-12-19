@@ -24,18 +24,18 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест недоступности чекаута неавторизованному юзеру",
             groups = {"regression"},
-            priority = 350
+            priority = 351
     )
-    public void checkoutIsUnreachableForUnauthorized() throws Exception {
+    public void checkoutIsUnavailableForUnauthorizedUser() throws Exception {
         kraken.perform().quickLogout();
-        assertPageIsUnreachable(Pages.Site.checkout());
+        assertPageIsUnavailable(Pages.Site.checkout());
     }
 
 
     @Test(
             description = "Тест пустой корзины",
             groups = {"acceptance","regression"},
-            priority = 351
+            priority = 352
     )
     public void checkEmptyCart() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
@@ -59,21 +59,21 @@ public class Shopping extends TestBase{
 
 
     @Test(
-            description = "Тест недоступности пустого чекаута по прямой ссылке",
+            description = "Тест недоступности чекаута по прямой ссылке при пустой корзине",
             groups = {"acceptance","regression"},
-            priority = 352
+            priority = 353
     )
-    public void checkoutIsUnreachableWithEmptyCart() throws Exception {
+    public void checkoutIsUnavailableWithEmptyCart() throws Exception {
         kraken.perform().loginAs("admin");
         kraken.perform().dropCart();
-        assertPageIsUnreachable(Pages.Site.checkout());
+        assertPageIsUnavailable(Pages.Site.checkout());
     }
 
 
     @Test(
             description = "Тест успешного добавления товара в корзину",
             groups = {"acceptance","regression"},
-            priority = 353
+            priority = 354
     )
     public void addItemToCart()throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
@@ -89,26 +89,71 @@ public class Shopping extends TestBase{
 
 
     @Test(
+            description = "Тест недоступности чекаута по прямой ссылке при сумме корзины меньше минимального заказа",
+            groups = {"acceptance","regression"},
+            priority = 355
+    )
+    public void checkoutIsUnavailableBelowMinimalOrderSum() throws Exception {
+        kraken.perform().loginAs("admin");
+        if (kraken.detect().isCheckoutButtonActive()) {
+            kraken.perform().dropCart();
+        }
+        if(kraken.detect().isCartEmpty()) {
+            kraken.shopping().closeCart();
+            kraken.search().item("хлеб"); // Для случаев когда первый товар на главной дороже минимального заказа
+            kraken.shopping().addFirstItemOnPageToCart();
+        }
+        assertPageIsUnavailable(Pages.Site.checkout());
+    }
+
+
+    @Test(
             description = "Тест набора корзины до суммы, достаточной для заказа",
             groups = {"acceptance","regression"},
-            priority = 354
+            priority = 356
     )
     public void collectItemsForMinOrder() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
         kraken.shopping().collectItems();
 
-        // Assert checkout button is enabled
         Assert.assertTrue(kraken.detect().isCheckoutButtonActive(),
                 "Кнопка чекаута не активна, при минимальной сумме заказа в корзине\n");
+    }
 
-        kraken.shopping().closeCart();
+
+    @Test(
+            description = "Тест доступности чекаута по прямой ссылке при сумме корзины выше минимального заказа",
+            groups = {"acceptance","regression"},
+            priority = 357
+    )
+    public void checkoutIsAvailableAboveMinimalOrderSum() throws Exception {
+        kraken.perform().loginAs("admin");
+        kraken.shopping().collectItems();
+
+        assertPageIsAvailable(Pages.Site.checkout());
+    }
+
+
+    @Test(
+            description = "Тест успешного перехода из корзины в чекаут при сумме выше минимального заказа",
+            groups = {"acceptance","regression"},
+            priority = 358
+    )
+    public void proceedFromCartToCheckout()throws Exception, AssertionError {
+        kraken.perform().loginAs("admin");
+        kraken.shopping().collectItems();
+
+        kraken.shopping().proceedToCheckout();
+
+        Assert.assertTrue(kraken.checkout().isOnCheckout(),
+                "Не удалось перейти из корзины в чекаут\n");
     }
 
 
     @Test(
             description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации",
             groups = {"acceptance", "regression"},
-            priority = 355
+            priority = 359
     )
     public void mergeShipAddressAndCartAfterAuth() throws Exception {
         //TODO вынести в dataProvider
@@ -137,21 +182,7 @@ public class Shopping extends TestBase{
                 "Не смержиласть корзина при авторизации\n");
     }
 
-
-    @Test(
-            description = "Тест успешного перехода из корзины в чекаут при сумме выше минимального заказа",
-            groups = {"acceptance","regression"},
-            priority = 356
-    )
-    public void proceedFromCartToCheckout()throws Exception, AssertionError {
-        kraken.perform().loginAs("admin");
-        kraken.shopping().collectItems();
-
-        kraken.shopping().proceedToCheckout();
-
-        Assert.assertTrue(kraken.checkout().isOnCheckout(),
-                "Не удалось перейти из корзины в чекаут\n");
-    }
+    // TODO тест на изменение суммы минимального заказа после первого заказ новым юзером (+ ДОБАВИТЬ МЕТОД УЗНАЮЩИЙ ТЕКУЩУЮ СУММУ МИН ЗАКАЗА ИЗ ПОДСКАЗКИ В КОРЗИНЕ)
 
     // TODO тест на изменение кол-ва товаров в корзине
 

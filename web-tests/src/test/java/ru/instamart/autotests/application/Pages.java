@@ -15,7 +15,7 @@ public class Pages {
         static Pages checkout() {
             return new Pages(
                     "Доставка продуктов на дом из интернет-магазина. Купить продукты на дом в Москве — Instamart",
-                    "checkout/edit?");
+                    "checkout/edit");
         }
 
         interface Retailers {

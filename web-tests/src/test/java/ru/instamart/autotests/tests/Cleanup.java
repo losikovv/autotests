@@ -20,11 +20,11 @@ public class Cleanup extends TestBase {
 
 
     @Test(
-            description = "Тест метода cleanup",
+            description = "Отмена всех тестовых заказов и удаление всех тестовых юзеров",
             groups = {"acceptance"},
             priority = 10000
     )
-    public void cleanup() throws Exception {
+    public void all() throws Exception {
         kraken.cleanup().all();
 
         kraken.get().adminPage(Config.testOrdersList);
@@ -34,7 +34,6 @@ public class Cleanup extends TestBase {
         kraken.get().adminPage(Config.testUsersList);
         Assert.assertFalse(kraken.detect().element(Elements.Admin.Users.userlistFirstRow()),
                 "Удалились не все тестовые юзеры\n");
-
     }
 
 
@@ -43,7 +42,7 @@ public class Cleanup extends TestBase {
             groups = {"regression"},
             priority = 10001
     )
-    public void cleanupTestOrders() throws Exception {
+    public void cancelTestOrders() throws Exception {
         kraken.cleanup().orders(Config.testOrdersList);
         Assert.assertFalse(kraken.detect().element(Elements.Admin.Shipments.emptyListPlaceholder()),
                 "Отменились не все тестовые заказы\n");
@@ -55,10 +54,9 @@ public class Cleanup extends TestBase {
             groups = {"regression"},
             priority = 10002
     )
-    public void cleanupTestUsers() throws Exception {
+    public void deleteTestUsers() throws Exception {
         kraken.cleanup().users(Config.testUsersList);
         Assert.assertFalse(kraken.detect().element(Elements.Admin.Users.userlistFirstRow()),
                 "Удалились не все тестовые юзеры\n");
     }
-
 }
