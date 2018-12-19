@@ -62,7 +62,7 @@ public class ShoppingHelper extends HelperBase {
     }
 
     /** Открываем карточку первого товара */
-    private void openFirstItemCard() {
+    public void openFirstItemCard() {
         kraken.perform().click(Elements.Site.Catalog.firstItem());
         kraken.perform().waitingFor(1); // Ожидание открытия карточки товара
         kraken.perform().switchToActiveElement();
@@ -76,7 +76,7 @@ public class ShoppingHelper extends HelperBase {
     // ======= Карточка товара  =======
 
     /** Нажать кнопку [+] в карточке товара */
-    private void hitPlusButton() {
+    public void hitPlusButton() {
         // TODO добавить проверку на обновление цен
         if (kraken.detect().isElementEnabled(Elements.Site.ItemCard.plusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.plusButton());
@@ -87,7 +87,7 @@ public class ShoppingHelper extends HelperBase {
     }
 
     /** Нажать кнопку [-] в карточке товара */
-    private void hitMinusButton() {
+    public void hitMinusButton() {
         if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.minusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.minusButton());
             kraken.perform().waitingFor(1); // Ожидание -1 в карточке товара
@@ -97,7 +97,7 @@ public class ShoppingHelper extends HelperBase {
     }
 
     /** Закрыть карточку товара */
-    private void closeItemCard() {
+    public void closeItemCard() {
         kraken.perform().click(Elements.Site.ItemCard.closeButton());
         kraken.perform().waitingFor(1); // Ожидание закрытия карточки товара
         if(kraken.detect().isItemCardOpen()) {
