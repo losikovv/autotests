@@ -123,7 +123,7 @@ public class Shopping extends TestBase{
 
     @Test(
             description = "Тест доступности чекаута по прямой ссылке при сумме корзины выше минимального заказа",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 357
     )
     public void checkoutIsAvailableAboveMinimalOrderSum() throws Exception {
@@ -152,7 +152,7 @@ public class Shopping extends TestBase{
 
     @Test(
             description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации",
-            groups = {"acceptance", "regression"},
+            groups = {"regression"},
             priority = 359
     )
     public void mergeShipAddressAndCartAfterAuth() throws Exception {

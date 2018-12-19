@@ -17,9 +17,9 @@ public class CheckPages extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 801
     )
-    // TODO переделать чек страниц по списку ретейлеров
     // TODO забирать список ритейлеров из БД или из админки с признаком активности
     public void checkActiveRetailerPages() throws Exception, AssertionError {
+        // TODO переделать на assertPagesAvailable(Pages.Site.Retailers.*)
         assertPageIsAvailable(Pages.Site.Retailers.metro());
         assertPageIsAvailable(Pages.Site.Retailers.vkusvill());
         assertPageIsAvailable(Pages.Site.Retailers.lenta());
@@ -31,9 +31,9 @@ public class CheckPages extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 802
     )
-    // TODO переделать чек страниц по списку ретейлеров
     // TODO забирать список ритейлеров из БД или из админки с признаком активности
     public void checkInactiveRetailerPages() throws Exception, AssertionError {
+        // TODO переделать на assertPagesUnavailable(Pages.Site.InactiveRetailers.*)
         assertPageIs404(Pages.Site.Retailers.karusel());
         assertPageIs404(Pages.Site.Retailers.selgros());
         assertPageIs404(Pages.Site.Retailers.flora());
@@ -48,9 +48,10 @@ public class CheckPages extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 803
     )
-    // TODO переделать чек лендингов циклом по списку
     public void checkPartnersLandings() throws Exception, AssertionError {
         kraken.perform().dropAuth();
+
+        // TODO переделать на assertPagesAvailable(Pages.Site.Landings.*)
         assertPageIsAvailable(Pages.Site.Landings.mnogoru());
         assertPageIsAvailable(Pages.Site.Landings.aeroflot());
 
@@ -67,8 +68,8 @@ public class CheckPages extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 804
     )
-    // TODO переделать чек страниц циклом по списку
     public void checkStaticPages() throws Exception, AssertionError {
+        // TODO переделать на assertPagesAvailable(Pages.Site.Static.*)
         assertPageIsAvailable(Pages.Site.Static.about());
         assertPageIsAvailable(Pages.Site.Static.delivery());
         assertPageIsAvailable(Pages.Site.Static.rules());
@@ -88,7 +89,7 @@ public class CheckPages extends TestBase {
     public void checkProfilePages() throws Exception, AssertionError {
         kraken.get().baseUrl();
         kraken.perform().loginAs("admin");
-
+        // TODO переделать на assertPagesAvailable(Pages.Site.Profile.*)
         assertPageIsAvailable(Pages.Site.Profile.edit());
         assertPageIsAvailable(Pages.Site.Profile.orders());
         assertPageIsAvailable(Pages.Site.Profile.addresses());
@@ -102,7 +103,7 @@ public class CheckPages extends TestBase {
     )
     public void checkAdminPages() throws Exception, AssertionError {
         kraken.perform().reachAdmin();
-
+        // TODO переделать на assertPagesAvailable(Pages.Admin.*)
         assertPageIsAvailable(Pages.Admin.shipments());
         assertPageIsAvailable(Pages.Admin.retailers());
         assertPageIsAvailable(Pages.Admin.products());
@@ -115,7 +116,7 @@ public class CheckPages extends TestBase {
     }
 
 
-// TOdO перенести в отдельный тест checkLinks (на место cleanup - его перенести в stop())
+    // TOdO перенести в отдельный тест checkLinks
     // TOdO добавить тест ссылок хедера на главной
 
     @Test(
