@@ -323,7 +323,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить открыта ли карточка товара */
     public boolean isItemCardOpen() {
         if(kraken.detect().isElementPresent(Elements.Site.ItemCard.popup())){
-            printMessage("✓ Карточка товара открыта");
+            printMessage("Открыта карточка товара " + kraken.grab().currentURL());
             return true;
         } else return false;
     }

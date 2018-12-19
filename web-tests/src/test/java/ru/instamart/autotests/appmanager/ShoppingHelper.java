@@ -66,6 +66,10 @@ public class ShoppingHelper extends HelperBase {
         kraken.perform().click(Elements.Site.Catalog.firstItem());
         kraken.perform().waitingFor(1); // Ожидание открытия карточки товара
         kraken.perform().switchToActiveElement();
+        if(!kraken.detect().isItemCardOpen()) {
+            printMessage("⚠ Проблемы с производительностью: слишком медленно открывается карточка товара\n");
+            kraken.perform().waitingFor(2); // Дополнительное ожидание открытия карточки товара при тормозах
+        }
     }
 
 
@@ -96,6 +100,10 @@ public class ShoppingHelper extends HelperBase {
     private void closeItemCard() {
         kraken.perform().click(Elements.Site.ItemCard.closeButton());
         kraken.perform().waitingFor(1); // Ожидание закрытия карточки товара
+        if(kraken.detect().isItemCardOpen()) {
+            printMessage("⚠ Проблемы с производительностью: слишком медленно закрывается карточка товара\n");
+            kraken.perform().waitingFor(2); // Дополнительное ожидание закрытия карточки товара при тормозах
+        }
     }
 
 

@@ -120,6 +120,7 @@ public class PerformHelper extends HelperBase {
         printMessage("Регистрируемся...");
         openAuthModal();
         regSequence(name,email,password,passwordConfirmation);
+        // TODO добавить проверку на тормоза и обернуть в нее задержку для стабильности
         waitingFor(3); // Ожидание раздизебливания кнопки подтверждения регистрации
     }
 
@@ -163,6 +164,7 @@ public class PerformHelper extends HelperBase {
             printMessage("Авторизуемся...");
             openAuthModal();
             authSequence(email, password);
+            // TODO добавить проверку на тормоза и обернуть в нее задержку для стабильности
         } else {
             printMessage("Пропускаем авторизацию, уже авторизованы");
         }
@@ -275,10 +277,6 @@ public class PerformHelper extends HelperBase {
         printMessage("> отправляем форму\n");
         kraken.perform().click(Elements.Site.AuthModal.submitButton());
         waitingFor(2); // Ожидание авторизации
-        if(!kraken.detect().isRecoveryRequested() && kraken.detect().isAuthModalOpen()) {
-            printMessage("⚠ Проблемы с производительностью: слишком медленно производится авторизация\n");
-            kraken.perform().waitingFor(2); // Дополнительное ожидание авторизации при тормозах
-        }
     }
 
     /** Закрыть форму авторизации/регистрации */
