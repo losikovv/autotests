@@ -83,7 +83,7 @@ public class DetectionHelper extends HelperBase {
     }
 
     /** Определить проставлен ли чекбокс */
-    boolean isCheckboxSelected(Elements element) {
+    public boolean isCheckboxSelected(Elements element) {
         return isCheckboxSelected(Elements.locator());
     }
 
