@@ -1254,7 +1254,33 @@ public class Elements {
                 return new Elements(null, By.xpath("//*[@id='content']/div/table/tbody/tr/td[3]/a[2]"));
             }
 
+            static Elements firstUserEditButton() {
+                return new Elements(null, By.xpath(
+                        "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[3]/a[1]"));
+            }
 
+            static Elements searchField() {
+                return new Elements(null, By.id("q_email_cont"));
+            }
+
+            static Elements searchButton() {
+                return new Elements(null, By.xpath(
+                        "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/aside[1]/div[1]/form[1]/div[4]/button[1]"));
+            }
+
+            interface UserPage {
+
+                static Elements adminCheckbox() {
+                    return new Elements(null, By.xpath(
+                            "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[2]/form[1]/div[2]/div[2]/div[1]/ul[1]/li[1]/input[1]"));
+                }
+
+                static Elements saveButton() {
+                    return new Elements(null, By.xpath(
+                            "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[2]/form[1]/div[3]/div[1]/button[1]"));
+                }
+
+            }
         }
 
     }

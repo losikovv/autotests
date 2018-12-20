@@ -218,10 +218,10 @@ public class PerformHelper extends HelperBase {
         kraken.get().url("https://mail.google.com/mail/u/0/h/");
         kraken.perform().fillField(By.name("identifier"), gmail);
         kraken.perform().click(By.id("identifierNext"));
-        kraken.perform().waitingFor(1);
+        kraken.perform().waitingFor(1); // Ожидание загрузки страницы ввода пароля Gmail
         kraken.perform().fillField(By.name("password"), password);
         kraken.perform().click(By.id("passwordNext"));
-        kraken.perform().waitingFor(1);
+        kraken.perform().waitingFor(1); // Ожидание авторизации в Gmail
     }
 
     /** Открыть крайнее письмо в цепочке писем от Инстамарт */
@@ -236,7 +236,7 @@ public class PerformHelper extends HelperBase {
     public void clickRecoveryInMail() {
         kraken.perform().printMessage("> нажимаем кнопку сброса пароля в письме");
         kraken.perform().click(By.linkText("СБРОСИТЬ ПАРОЛЬ"));
-        kraken.perform().waitingFor(1);
+        kraken.perform().waitingFor(1); // Ожидание перехода из письма на сайт Инстамарт
         kraken.perform().switchToNextWindow();
     }
 

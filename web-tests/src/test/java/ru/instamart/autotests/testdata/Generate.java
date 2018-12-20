@@ -4,6 +4,7 @@ import ru.instamart.autotests.models.UserData;
 import java.util.Random;
 
 import static ru.instamart.autotests.application.Config.companyName;
+import static ru.instamart.autotests.application.Config.testAdminEmailBase;
 import static ru.instamart.autotests.application.Config.testUserEmailBase;
 
 public class Generate {
@@ -59,7 +60,7 @@ public class Generate {
         return testuser;
     }
 
-    /** Сгенерировать реквизиты тестового ппользователя со значениями указанной длины */
+    /** Сгенерировать реквизиты тестового пользователя со значениями указанной длины */
     public static UserData testUserData(int reqsLength) {
         UserData testuser = new UserData(
                 testEmail(reqsLength - testUserEmailBase.length() - 1),
@@ -72,8 +73,24 @@ public class Generate {
         return testuser;
     }
 
+    /** Сгенерировать реквизиты тестового пользователя в домене instamart.ru */
+    public static UserData testAdminData() {
+        UserData testuser = new UserData(testAdminEmail(8), companyName, companyName + " test");
+        System.out.println("Сгенерированы реквизиты тестового юзера");
+        System.out.println("Имя: " + testuser.getName());
+        System.out.println("Логин: " + testuser.getLogin());
+        System.out.println("Пароль: " + testuser.getPassword() + "\n");
+        return testuser;
+    }
+
     /** Сгенерировать тестовый имейл с префиксом указанной длины */
     private static String testEmail(int prefixLength) {
         return random.literalString(prefixLength) + "-" + testUserEmailBase;
     }
+
+    /** Сгенерировать тестовый имейл в домене instamart.ru */
+    private static String testAdminEmail(int prefixLength) {
+        return random.literalString(prefixLength) + "-" + testAdminEmailBase;
+    }
+
 }
