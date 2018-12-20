@@ -427,6 +427,10 @@ public class Elements {
                 );
             }
 
+            static Elements plusSnippet() {
+                return new Elements(null, By.className("cart-actions__btn"));
+            }
+
         }
 
 

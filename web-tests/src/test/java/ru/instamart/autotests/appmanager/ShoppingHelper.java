@@ -1,6 +1,8 @@
 package ru.instamart.autotests.appmanager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
@@ -105,6 +107,16 @@ public class ShoppingHelper extends HelperBase {
             kraken.perform().waitingFor(2); // Дополнительное ожидание закрытия карточки товара при тормозах
         }
     }
+
+    /** Добавить первый товар каталога по сниппету */
+    public void plusSnippetButton() {
+        // TODO
+        //Actions action = new Actions(driver);
+        //action.moveToElement(driver.findElement(By.className("product__cart-actions"))).moveToElement(driver.findElement(By.className("add-cart__up"))).click().build().perform();
+
+        //kraken.perform().click(Elements.Site.Catalog.plusSnippet());
+        //kraken.perform().waitingFor(1); // Ожидание добавления товара
+        }
 
 
     // ======= Корзина =======
