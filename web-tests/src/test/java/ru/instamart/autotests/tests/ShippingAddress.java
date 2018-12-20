@@ -190,4 +190,22 @@ public class ShippingAddress extends TestBase{
         Assert.assertTrue(kraken.detect().isShippingAddressSet(),
                 "Адрес доставки не был введен");
     }
+
+    @Test(
+            description = "Тест на ввод адреса в модалке после добавления товара из каталога",
+            groups = {"regression"},
+            priority = 209
+    )
+    public void setShippingAddressAfterAddOnProductList() throws Exception {
+        kraken.get().page("metro");
+        kraken.shopping().plusSnippetButton();
+
+        Assert.assertTrue(kraken.detect().isAddressModalOpen(),
+                "Не открыта адресная модалка после добавления товара");
+
+        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+
+        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
+                "Адрес доставки не был введен");
+    }
 }
