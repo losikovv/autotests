@@ -90,7 +90,7 @@ public class AdministrationHelper extends HelperBase {
             kraken.perform().click(Elements.Admin.Users.UserPage.adminCheckbox());
             kraken.perform().waitingFor(1); // Ожидание проставления чекбокса админских прав
             kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
-            printMessage("Административные права предоставлены");
+            printMessage("Предоставлены административные права");
         }
     }
 
@@ -102,7 +102,7 @@ public class AdministrationHelper extends HelperBase {
             kraken.perform().click(Elements.Admin.Users.UserPage.adminCheckbox());
             kraken.perform().waitingFor(1); // Ожидание снятия чекбокса админских прав
             kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
-            printMessage("Административные права отозваны");
+            printMessage("Отозваны административные права");
         } else {
             printMessage("Пользователь не имеет административных прав");
         }
