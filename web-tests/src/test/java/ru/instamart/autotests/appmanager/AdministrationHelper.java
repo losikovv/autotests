@@ -51,44 +51,60 @@ public class AdministrationHelper extends HelperBase {
         kraken.perform().fillField(By.id("cancellation_reason_details"),details);        // todo вынести в elements
     }
 
+
+    // ====== USERS =======
+
+    /**
+     * Найти пользователя по реквизитам из указанного объекта userData
+     */
+    public void searchUser(UserData userData) {
+        searchUser(userData.getLogin());
+    }
+
     /**
      * Найти пользователя по email
      */
     public void searchUser(String email) {
         kraken.get().page("admin/users");
+        printMessage("Поиск пользователей по запросу " + email);
         kraken.perform().fillField(Elements.Admin.Users.searchField(), email);
         kraken.perform().click(Elements.Admin.Users.searchButton());
     }
 
     /**
-     * Найти пользователя по userData
+     * Перейти в редактиирование первого пользователя в списке
      */
-    public void searchUser(UserData userData) {
-        kraken.get().page("admin/users");
-        kraken.perform().fillField(Elements.Admin.Users.searchField(), userData.getLogin());
-        kraken.perform().click(Elements.Admin.Users.searchButton());
+    public void editFirstUserInList() {
+        kraken.perform().click(Elements.Admin.Users.firstUserEditButton());
+        kraken.perform().waitingFor(1); // Ожидание загрузки страницы пользователя в админке
+        printMessage("Редактирование пользователя " + kraken.grab().currentURL());
     }
 
-    /** Добавить админские права в карточке пользователя */
-    public void checkAdminCheckbox() {
+    /**
+     * Предоставить админские права в карточке пользователя
+     */
+    public void grantAdminPrivileges() {
         if (kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.adminCheckbox())) {
-            printMessage("Пропускаем проставление чекбокса админских прав, он уже проставлен");
+            printMessage("Административные права были предоставлены ранее");
         } else {
             kraken.perform().click(Elements.Admin.Users.UserPage.adminCheckbox());
             kraken.perform().waitingFor(1); // Ожидание проставления чекбокса админских прав
             kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
+            printMessage("Административные права предоставлены");
         }
     }
 
-    /** Убрать админские права в карточке пользователя */
-    public void uncheckAdminCheckbox() {
+    /**
+     * Отозвать админские права в карточке пользователя
+     */
+    public void revokeAdminPrivileges() {
         if (kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.adminCheckbox())) {
             kraken.perform().click(Elements.Admin.Users.UserPage.adminCheckbox());
             kraken.perform().waitingFor(1); // Ожидание снятия чекбокса админских прав
             kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
+            printMessage("Административные права отозваны");
         } else {
-            printMessage("Пропускаем снятие чекбокса админских прав, он уже снят");
+            printMessage("Пользователь не имеет административных прав");
         }
     }
-
 }

@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Config;
-import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.Generate;
@@ -245,12 +244,11 @@ public class Administration extends TestBase {
 
 
     @Test(
-            description = "Тест добавления пользователю админских прав",
+            description = "Тест предоставления и отзыва админских прав пользователю",
             groups = {"regression"},
             priority = 705
     )
-    public void adminRole() throws Exception {
-
+    public void successGrantAndRevokeAdminPrivileges() throws Exception {
         kraken.perform().quickLogout();
         UserData testuser = Generate.testAdminData();
         kraken.perform().registration(testuser);
@@ -258,31 +256,32 @@ public class Administration extends TestBase {
 
         kraken.perform().loginAs("admin");
         kraken.admin().searchUser(testuser);
-        kraken.perform().click(Elements.Admin.Users.firstUserEditButton());
-        kraken.perform().waitingFor(1); // Ожидание загрузки страницы пользователя в админке
-        kraken.admin().checkAdminCheckbox();
+        kraken.admin().editFirstUserInList();
+        kraken.admin().grantAdminPrivileges();
         kraken.perform().quickLogout();
 
         kraken.perform().login(testuser);
         kraken.get().page(Pages.Admin.shipments());
+
         Assert.assertTrue(kraken.detect().isInAdmin(),
                 "Пользователю не были добавлены админские права");
+
         kraken.perform().quickLogout();
 
         kraken.perform().loginAs("admin");
         kraken.admin().searchUser(testuser);
-        kraken.perform().click(Elements.Admin.Users.firstUserEditButton());
-        kraken.perform().waitingFor(1); // Ожидание загрузки страницы пользователя в админке
-        kraken.admin().uncheckAdminCheckbox();
+        kraken.admin().editFirstUserInList();
+        kraken.admin().revokeAdminPrivileges();
         kraken.perform().quickLogout();
 
         kraken.perform().login(testuser);
         kraken.get().page(Pages.Admin.shipments());
+
         Assert.assertFalse(kraken.detect().isInAdmin(),
                 "У пользователя не были удалены админские права");
+
         kraken.perform().quickLogout();
 
         kraken.cleanup().users(Config.testAdminsList);
     }
-
 }
