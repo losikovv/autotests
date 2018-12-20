@@ -2,6 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.models.UserData;
@@ -20,17 +21,20 @@ public class Authorisation extends TestBase {
             priority = 101
     )
     public void noAuthWithoutEmail() throws Exception, AssertionError {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
         kraken.perform().login("", "instamart");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки пустого поля email\n");
 
         // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Пользователь авторизован без email!\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -40,17 +44,20 @@ public class Authorisation extends TestBase {
             priority = 102
     )
     public void noAuthWithoutPassword() throws Exception, AssertionError {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
         kraken.perform().login("instatestuser@yandex.ru", "");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
                 "Нет пользовательской ошибки пустого поля password\n");
 
         // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Пользователь авторизован без пароля!"+"\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -60,17 +67,20 @@ public class Authorisation extends TestBase {
             priority = 103
     )
     public void noAuthWithNonexistingUser() throws Exception, AssertionError {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
         kraken.perform().login("nonexistinguser@example.com", "password");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
         // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Авторизован незарегистрированный пользователь!"+"\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -80,17 +90,20 @@ public class Authorisation extends TestBase {
             priority = 104
     )
     public void noAuthWithWrongPassword() throws Exception, AssertionError {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
         kraken.perform().login("instatestuser@yandex.ru", "wrongpassword");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
         // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Пользователь авторизован с неверным паролем!"+"\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -147,7 +160,6 @@ public class Authorisation extends TestBase {
         // Assert user is unauthorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Пользователь не разавторизован\n");
-
     }
 
     @Test(
@@ -209,18 +221,21 @@ public class Authorisation extends TestBase {
             priority = 110
     )
     public void noAuthWithLongFields() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
         kraken.perform().login(Generate.testUserData(129));
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
         kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Пользователь авторизован при наличии ошибок заполнения формы авторизации\n");
+
+        softAssert.assertAll();
     }
 
     //TODO добавить тесты на авторизацию через соцсети

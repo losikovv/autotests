@@ -2,6 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.testdata.Generate;
@@ -18,29 +19,29 @@ public class Registration extends TestBase {
             groups = {"acceptance", "regression"}
     )
     public void noRegWithEmptyRequisites() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
         kraken.perform().registration(null, null, null, null);
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки пустого поля name\n");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
                 "Нет пользовательской ошибки пустого поля email\n");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
                 "Нет пользовательской ошибки пустого поля password\n");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
                 "Нет пользовательской ошибки пустого поля password confirmation\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Зарегистрирован пользователь без данных!\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -50,17 +51,20 @@ public class Registration extends TestBase {
             priority = 1
     )
     public void noRegWithoutName() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
         kraken.perform().registration(null, "test@example.com", "12345678", "12345678");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки пустого поля name\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Зарегистрирован пользователь без имени!\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -70,17 +74,20 @@ public class Registration extends TestBase {
             priority = 2
     )
     public void noRegWithoutEmail() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
         kraken.perform().registration("Test User", null, "12345678", "12345678");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
                 "Нет пользовательской ошибки пустого поля email\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Зарегистрирован пользователь без email!\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -90,17 +97,20 @@ public class Registration extends TestBase {
             priority = 3
     )
     public void noRegWithoutPassword() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
         kraken.perform().registration("Test User", "test@example.com", null, "12345678");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
                 "Нет пользовательской ошибки пустого поля password\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Зарегистрирован пользователь без пароля!\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -110,17 +120,20 @@ public class Registration extends TestBase {
             priority = 4
     )
     public void noRegWithoutPasswordConfirmation() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
         kraken.perform().registration("Test User", "test@example.com", "12345678", null);
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
                 "Нет пользовательской ошибки пустого поля password confirmation\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Зарегистрирован пользователь без подтверждения пароля!\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -130,17 +143,20 @@ public class Registration extends TestBase {
             priority = 5
     )
     public void noRegWithWrongPasswordConfirmation() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
         kraken.perform().registration("Test User", "test@example.com", "12345678", "12345679");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
                 "Нет пользовательской ошибки несовпадения пароля\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Зарегистрирован пользователь с некорректно подтверждённым паролем!\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -150,17 +166,20 @@ public class Registration extends TestBase {
             priority = 6
     )
     public void noRegWithExistingEmail() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
         kraken.perform().registration("Test User", "autotestuser@instamart.ru", "12345678", "12345678");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
                 "Нет пользовательской ошибки регистрации с уже зарегистрированным email\n");
 
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Зарегистрирован пользователь с уже используемым email!\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -225,30 +244,31 @@ public class Registration extends TestBase {
             priority = 10
     )
     public void noRegWithLongFields() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
         kraken.perform().registration(Generate.testUserData(129));
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки превышения длины поля name\n");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
                 "Нет пользовательской ошибки превышения длины поля email\n");
 
-        // TODO переделать на soft-assertion
-        Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
                 "Нет пользовательской ошибки превышения длины поля password\n");
 
         // Решили не выводить ошибку
-        //Assert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
+        // softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
         //        "Нет пользовательской ошибки превышения длины поля password confirmation\n");
 
         kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Пользователь зарегистрирован, при наличии ошибок заполнения формы регистрации\n");
+
+        softAssert.assertAll();
     }
 
 
