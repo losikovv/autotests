@@ -22,7 +22,7 @@ public abstract class Addresses {
         }
 
         public static String outOfZoneAddress() {
-            return addressString = "Москва, ул Лосиноостровская, д 2 стр 1";
+            return addressString = "Подольск, ул Дружбы, д 15";
         }
 
     }
@@ -35,10 +35,6 @@ public abstract class Addresses {
 
         public static String defaultAddress() {
             return addressString = "Казань, ул Мулланура Вахитова, д 10";
-        }
-
-        public static String outOfZoneAddress() {
-            return addressString = "Казань, ул Беломорская, д 1";
         }
 
     }

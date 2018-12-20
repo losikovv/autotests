@@ -190,7 +190,7 @@ public class SelfCheck extends TestBase {
 
         kraken.get().baseUrl();
         if(kraken.detect().isUserAuthorised()) {
-            kraken.perform().logout();
+            kraken.perform().quickLogout();
         }
 
         //landing

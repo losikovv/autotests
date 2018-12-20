@@ -1,6 +1,7 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
 
@@ -40,6 +41,18 @@ public class AddressHelper extends HelperBase {
         clearAddressField();
         fill(address);
         submit();
+    }
+
+    /**
+     * Свапнуть тестовый и дефолтные адреса
+     */
+    public void swap() {
+        if (kraken.grab().currentShipAddress().equals(Addresses.Moscow.defaultAddress())) {
+            kraken.shipAddress().change(Addresses.Moscow.testAddress());
+        } else {
+            kraken.shipAddress().change(Addresses.Moscow.testAddress());
+            kraken.shipAddress().change(Addresses.Moscow.defaultAddress());
+        }
     }
 
     /**
@@ -98,6 +111,7 @@ public class AddressHelper extends HelperBase {
      */
     public void choseRecent() {
         kraken.perform().click(Elements.Site.AddressModal.recentAddress());
+        kraken.perform().waitingFor(1); // Ожидание применения предыдущего адреса
     }
 
     /**

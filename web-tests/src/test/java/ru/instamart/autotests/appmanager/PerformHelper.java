@@ -60,7 +60,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Переключиться на активный элемент */
-    void switchToActiveElement() {
+    public void switchToActiveElement() {
         driver.switchTo().activeElement();
     }
 
@@ -331,6 +331,13 @@ public class PerformHelper extends HelperBase {
 
     // ======= Работа с заказами =======
 
+    /** Оформить тестовый заказ */
+    public void order() {
+        kraken.shopping().collectItems();
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().complete();
+    }
+
     /** Повторить крайний заказ */
     public void repeatLastOrder(){
         printMessage("Повторяем крайний заказ...\n");
@@ -341,6 +348,7 @@ public class PerformHelper extends HelperBase {
             kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton());
         }
         waitingFor(2); // Ожидание добавления в корзину товаров из предыдущего заказа
+        // TODO добавить доп ожидание с условием isInProfile для повышения стабильности
     }
 
     /** Отменить крайний заказ */
@@ -368,17 +376,9 @@ public class PerformHelper extends HelperBase {
 
     /** Очистить корзину изменениями адреса доставки ( временный метод, пока не запилят очистку корзины ) */
     public void dropCart() {
-        String currentAddress = kraken.grab().currentShipAddress();
-        String addressOne = Addresses.Moscow.defaultAddress();
-        String addressTwo = Addresses.Moscow.testAddress();
         if (!kraken.detect().isCartEmpty()) {
             kraken.shopping().closeCart();
-            if (currentAddress.equals(addressOne)) {
-                kraken.shipAddress().change(addressTwo);
-            } else {
-                kraken.shipAddress().change(addressTwo);
-                kraken.shipAddress().change(addressOne);
-            }
+            kraken.shipAddress().swap();
         }
         kraken.shopping().closeCart();
     }

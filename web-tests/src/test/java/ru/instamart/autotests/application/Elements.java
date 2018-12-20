@@ -356,7 +356,7 @@ public class Elements {
             }
 
             static Elements recentAddress() {
-                locator = By.className("address-modal__address");
+                locator = By.xpath("//*[@id='react-modal']/div/div/div/div/div/div[1]/div/div/div/div/div/div[2]/div/div[2]");
                 return new Elements(null, locator);
             }
 
@@ -394,7 +394,7 @@ public class Elements {
 
             static Elements drawer() {
                 return new Elements(null,
-                        By.className("store-selector__title"));
+                        By.className("store-selector"));
             }
 
             static Elements closeButton() {
