@@ -2,6 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Addresses;
@@ -183,39 +184,89 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test(description = "Тест корректности определения шторки магазинов",
+    @Test(description = "Тест корректности определения дефолтного селектора магазинов",
             groups ="selfcheck",
             priority = 10011)
-    public void detectStoresDrawer() throws Exception {
-
-        kraken.get().baseUrl();
-        if(kraken.detect().isUserAuthorised()) {
-            kraken.perform().quickLogout();
-        }
+    public void detectDefaultStoresDrawer() {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.perform().quickLogout();
 
         //landing
-        kraken.get().baseUrl();
-
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
-        Assert.assertTrue(kraken.detect().isStoreSelectorOpen());
+
+        softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
+                "\nНе открывается дефолтный селектор магазинов на лендинге");
+
+        softAssert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
+                "\nПусто в дефолтном селекторе магазинов на лендинге");
 
         kraken.shopping().closeStoreSelector();
-        Assert.assertFalse(kraken.detect().isStoreSelectorOpen());
+
+        softAssert.assertFalse(kraken.detect().isStoreSelectorOpen(),
+                "\nНе закрывается дефолтный селектор магазинов на лендинге");
 
         //retailer
         kraken.get().page("metro");
-
         kraken.shopping().openStoreSelector();
-        Assert.assertTrue(kraken.detect().isStoreSelectorOpen());
+
+        softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
+                "\nНе открывается дефолтный селектор магазинов на витрине ритейлера");
+
+        softAssert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
+                "\nПусто в дефолтном селекторе магазинов на витрине ритейлера");
 
         kraken.shopping().closeStoreSelector();
-        Assert.assertFalse(kraken.detect().isStoreSelectorOpen());
+
+        softAssert.assertFalse(kraken.detect().isStoreSelectorOpen(),
+                "\nНе закрывается дефолтный селектор магазинов на витрине ритейлера");
+
+        softAssert.assertAll();
+    }
+
+
+    @Test(description = "Тест корректности определения пустого селектора магазинов",
+            groups ="selfcheck",
+            priority = 10012)
+    public void detectEmptyStoresDrawer() {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.perform().quickLogout();
+
+        //landing
+        kraken.shipAddress().set(Addresses.Moscow.outOfZoneAddress());
+
+        softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
+                "\nНе открывается пустой селектор магазинов на лендинге");
+
+        softAssert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
+                "\nНе определяется пустой селектор магазинов на лендинге");
+
+        kraken.shopping().closeStoreSelector();
+
+        softAssert.assertFalse(kraken.detect().isStoreSelectorOpen(),
+                "\nНе закрывается пустой селектор магазинов на лендинге");
+
+        //retailer
+        kraken.get().page("metro");
+        kraken.shopping().openStoreSelector();
+
+        softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
+                "\nНе открывается пустой селектор магазинов на витрине ритейлера");
+
+        softAssert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
+                "\nНе определяется пустой селектор магазинов на витрине ритейлера");
+
+        kraken.shopping().closeStoreSelector();
+
+        softAssert.assertFalse(kraken.detect().isStoreSelectorOpen(),
+                "\nНе закрывается пустой селектор магазинов на витрине ритейлера");
+
+        softAssert.assertAll();
     }
 
 
     @Test(description = "Тест корректности определения шторки корзины",
             groups ="selfcheck",
-            priority = 10012)
+            priority = 10013)
     public void detectCartDrawer() throws Exception {
 
         kraken.get().page("metro");
@@ -230,7 +281,7 @@ public class SelfCheck extends TestBase {
 
     @Test(description = "Тест корректности определения модалки Доставка",
             groups ="selfcheck",
-            priority = 10013)
+            priority = 10014)
     public void detectDeliveryModal() throws Exception {
 
         kraken.get().page("metro");
@@ -245,7 +296,7 @@ public class SelfCheck extends TestBase {
 
     @Test(description = "Тест корректности определения модалки Партнеры",
             groups ="selfcheck",
-            priority = 10014)
+            priority = 10015)
     public void detectPartnersModal() throws Exception {
 
         kraken.get().page("metro");
@@ -260,7 +311,7 @@ public class SelfCheck extends TestBase {
 
     @Test(description = "Тест корректности определения модалки Оплата",
             groups ="selfcheck",
-            priority = 10015)
+            priority = 10016)
     public void detectPaymentModal() throws Exception {
 
         kraken.get().page("metro");
@@ -275,7 +326,7 @@ public class SelfCheck extends TestBase {
 
      @Test(description = "Тест корректности определения модалки Адрес",
             groups ="selfcheck",
-            priority = 10016)
+            priority = 10017)
      public void detectAddressModal() throws Exception {
 
         kraken.get().page("metro");

@@ -172,17 +172,18 @@ public class ShippingAddress extends TestBase{
     )
     public void setShippingAddressAfterAddOnProductCard() throws Exception {
         kraken.perform().quickLogout();
+        kraken.get().page("metro");
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitPlusButton();
 
         Assert.assertTrue(kraken.detect().isAddressModalOpen(),
-        "Не открыта адресная модалка после добавления товара");
+        "Не открывается адресная модалка после добавления товара");
 
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         kraken.shopping().closeItemCard();
 
         Assert.assertTrue(kraken.detect().isItemCardOpen(),
-                "Не перезагружен контент в соответствии с указанным адресом");
+                "Не перезагрузился контент в соответствии с указанным адресом");
 
         kraken.shopping().closeItemCard();
 
