@@ -427,7 +427,7 @@ public class Elements {
                 );
             }
 
-            static Elements plusSnippet() {
+            static Elements firstItemPlusButton() {
                 return new Elements(null, By.className("cart-actions__btn"));
             }
 
