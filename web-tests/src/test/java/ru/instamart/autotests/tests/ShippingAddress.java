@@ -3,6 +3,7 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.testdata.Generate;
 
 
@@ -189,5 +190,31 @@ public class ShippingAddress extends TestBase{
 
         Assert.assertTrue(kraken.detect().isShippingAddressSet(),
                 "Адрес доставки не был введен");
+    }
+
+
+    @Test(
+            description = "Тест на ввод адреса в модалке после добавления товара из карточки",
+            groups = {"regression"},
+            priority = 210
+    )
+    public void chooseStoreAfterChangeShippingAddress() throws Exception {
+        kraken.get().page("vkusvill");
+        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+
+        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
+                "Адрес доставки не был введен");
+
+        kraken.shipAddress().set(Addresses.Kazan.defaultAddress());
+
+        Assert.assertTrue(kraken.detect().isChangeStoreModalOpen(),
+                "Не открывается модалка с магазинами доступными по новому адресу");
+
+        kraken.perform().click(Elements.Site.AddressModal.setStoreOnAddressModal());
+        kraken.shopping().openFirstItemCard();
+        kraken.shopping().hitPlusButton();
+
+        Assert.assertFalse(kraken.detect().isChangeStoreModalOpen(),
+                "Магазин успешно выбран в соответствии с новым адресом");
     }
 }
