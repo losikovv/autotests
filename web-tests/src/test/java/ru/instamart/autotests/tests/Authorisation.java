@@ -143,7 +143,7 @@ public class Authorisation extends TestBase {
             groups = {"regression"},
             priority = 107
     )
-    public void logout() throws Exception, AssertionError {
+    public void successLogout() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
 
         kraken.perform().logout();
@@ -154,6 +154,7 @@ public class Authorisation extends TestBase {
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Пользователь не разавторизован\n");
     }
+
 
     @Test(
             description = "Тест авторизации с адресной модалки феникса",
@@ -173,6 +174,7 @@ public class Authorisation extends TestBase {
 
         kraken.perform().quickLogout();
     }
+
 
     @Test(
             description = "Тест успешной авторизации из корзины",
@@ -208,6 +210,7 @@ public class Authorisation extends TestBase {
         kraken.perform().quickLogout();
     }
 
+    
     @Test(
             description = "Негативный тест попытки авторизовать пользователя с длинными полями",
             groups = {"regression"},
