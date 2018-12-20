@@ -53,7 +53,6 @@ public class Authorisation extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
                 "Нет пользовательской ошибки пустого поля password\n");
 
-        // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Пользователь авторизован без пароля!"+"\n");
 
@@ -76,7 +75,6 @@ public class Authorisation extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
-        // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Авторизован незарегистрированный пользователь!"+"\n");
 
@@ -99,7 +97,6 @@ public class Authorisation extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
-        // Assert user isn't authorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Пользователь авторизован с неверным паролем!"+"\n");
 
@@ -117,11 +114,10 @@ public class Authorisation extends TestBase {
 
         kraken.perform().loginAs("user");
 
-        // Assert user is authorised
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Пользователь не авторизован на лендинге\n");
 
-        kraken.perform().logout();
+        kraken.perform().quickLogout();
     }
 
 
@@ -135,11 +131,10 @@ public class Authorisation extends TestBase {
 
         kraken.perform().loginAs("user");
 
-        // Assert user is authorised
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Пользователь не авторизован на витрине магазина\n");
 
-        kraken.perform().logout();
+        kraken.perform().quickLogout();
     }
 
 
@@ -150,14 +145,12 @@ public class Authorisation extends TestBase {
     )
     public void logout() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
-        kraken.perform().logout();
 
-        // Assert there is no problems after logout
-        assertPageIsAvailable();
+        kraken.perform().logout();
+        assertPageIsAvailable(); // Assert there is no problems after logout
 
         kraken.get().page("metro");
 
-        // Assert user is unauthorised
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Пользователь не разавторизован\n");
     }
@@ -178,7 +171,7 @@ public class Authorisation extends TestBase {
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Пользователь не авторизован с адресной модалки феникса\n");
 
-        kraken.perform().logout();
+        kraken.perform().quickLogout();
     }
 
     @Test(
@@ -212,7 +205,7 @@ public class Authorisation extends TestBase {
                 "Пропали товары после авторизации из корзины\n");
 
         kraken.shopping().closeCart();
-        kraken.perform().logout();
+        kraken.perform().quickLogout();
     }
 
     @Test(

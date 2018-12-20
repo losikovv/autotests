@@ -20,7 +20,6 @@ public class Registration extends TestBase {
     )
     public void noRegWithEmptyRequisites() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -52,7 +51,6 @@ public class Registration extends TestBase {
     )
     public void noRegWithoutName() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -75,7 +73,6 @@ public class Registration extends TestBase {
     )
     public void noRegWithoutEmail() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -98,7 +95,6 @@ public class Registration extends TestBase {
     )
     public void noRegWithoutPassword() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -245,7 +241,6 @@ public class Registration extends TestBase {
     )
     public void noRegWithLongFields() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -294,6 +289,7 @@ public class Registration extends TestBase {
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Юзер неавторизован после регистрации из корзины\n");
+
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Пропали товары после регистрации из корзины\n");
 
