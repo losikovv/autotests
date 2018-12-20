@@ -264,7 +264,7 @@ public class Administration extends TestBase {
         kraken.get().page(Pages.Admin.shipments());
 
         Assert.assertTrue(kraken.detect().isInAdmin(),
-                "Пользователю не были добавлены админские права");
+                "Пользователю не предоставляются админские права");
 
         kraken.perform().quickLogout();
 
@@ -278,7 +278,7 @@ public class Administration extends TestBase {
         kraken.get().page(Pages.Admin.shipments());
 
         Assert.assertFalse(kraken.detect().isInAdmin(),
-                "У пользователя не были удалены админские права");
+                "У пользователя не отзываются админские права");
 
         kraken.perform().quickLogout();
 
