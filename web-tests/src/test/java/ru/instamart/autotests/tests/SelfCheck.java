@@ -1,5 +1,6 @@
 package ru.instamart.autotests.tests;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -337,5 +338,40 @@ public class SelfCheck extends TestBase {
         kraken.shipAddress().closeAddressModal();
         Assert.assertFalse(kraken.detect().isAddressModalOpen());
     }
+
+    @Test(description = "Тест корректности определения суммы корзины",
+            groups ="selfcheck",
+            priority = 10018)
+    public void detectCartTotal() throws Exception {
+
+        kraken.get().page("metro");
+
+        if (!kraken.detect().isShippingAddressSet()) {
+            kraken.shipAddress().set(Addresses.Moscow.defaultAddress());}
+
+        if (!kraken.detect().isCartEmpty()) {
+            kraken.perform().dropCart();}
+
+        // корзина пустая
+        kraken.shopping().openCart();
+        Assert.assertFalse(kraken.detect().isCartTotalDisplayed());
+        Assert.assertNull(kraken.grab().currentCartTotal());
+        kraken.perform().printMessage("Сумма корзины = " + kraken.grab().currentCartTotal());
+
+        // корзина не пустая, но меньше суммы мин заказа
+        kraken.shopping().closeCart();
+        kraken.search().item("хлеб");
+        kraken.shopping().collectItems(1);
+        Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
+        Assert.assertNotNull(kraken.grab().currentCartTotal());
+        kraken.perform().printMessage("Сумма корзины = " + kraken.grab().currentCartTotal());
+
+        // корзина не пустая, больше суммы мин заказа
+        kraken.shopping().collectItems();
+        Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
+        Assert.assertNotNull(kraken.grab().currentCartTotal());
+        kraken.perform().printMessage("Сумма корзины = " + kraken.grab().currentCartTotal());
+    }
+
 }
 
