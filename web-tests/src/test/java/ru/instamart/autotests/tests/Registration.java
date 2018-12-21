@@ -251,7 +251,7 @@ public class Registration extends TestBase {
             groups = {"regression"},
             priority = 11
     )
-    public void successRegistrationFromAddressModal() throws Exception, AssertionError {
+    public void successRegFromAddressModal() throws Exception, AssertionError {
         kraken.get().page("metro");
 
         kraken.shipAddress().openAddressModal();
