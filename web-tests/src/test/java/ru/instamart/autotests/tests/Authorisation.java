@@ -210,7 +210,7 @@ public class Authorisation extends TestBase {
         kraken.perform().quickLogout();
     }
 
-    
+
     @Test(
             description = "Негативный тест попытки авторизовать пользователя с длинными полями",
             groups = {"regression"},

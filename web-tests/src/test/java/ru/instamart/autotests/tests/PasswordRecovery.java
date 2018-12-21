@@ -165,7 +165,7 @@ public class PasswordRecovery extends TestBase {
             groups = {"regression"},
             priority = 608
     )
-    public void noOldAuthAfterRecovery() throws Exception {
+    public void noAuthWithOldRequisitesAfterRecovery() throws Exception {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
         kraken.perform().recoverPassword("instamartmailtest@gmail.com");

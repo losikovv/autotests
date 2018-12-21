@@ -90,21 +90,21 @@ public class ShoppingHelper extends HelperBase {
     /** Нажать кнопку [+] в карточке товара */
     public void hitPlusButton() {
         // TODO добавить проверку на обновление цен
-        if (kraken.detect().isElementEnabled(Elements.Site.ItemCard.plusButton())) {
-            kraken.perform().click(Elements.Site.ItemCard.plusButton());
-            kraken.perform().waitingFor(1); // Ожидание +1 в карточке товара
-        } else {
-            printMessage("Кнопка 'Плюс' не активна");
+        if (!kraken.detect().isElementEnabled(Elements.Site.ItemCard.plusButton())) {
+            printMessage("⚠ Кнопка 'Плюс' неактивна, ждем и пробуем еще раз");
+            kraken.perform().waitingFor(2); // Ожидание раздизабливания кнопки +1 в карточке товара
         }
+        kraken.perform().click(Elements.Site.ItemCard.plusButton());
+        kraken.perform().waitingFor(1); // Ожидание добавления +1 товара в карточке
     }
 
     /** Нажать кнопку [-] в карточке товара */
     public void hitMinusButton() {
         if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.minusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.minusButton());
-            kraken.perform().waitingFor(1); // Ожидание -1 в карточке товара
+            kraken.perform().waitingFor(1); // Ожидание убавления -1 товара карточке
         } else {
-            printMessage("Кнопка 'Минус' не отображается");
+            printMessage("⚠ Кнопка 'Минус' не отображается");
         }
     }
 

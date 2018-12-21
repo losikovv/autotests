@@ -7,14 +7,14 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.testdata.Generate;
 
+
 // Тесты промоушенов
-// Пока рабоатет только на стейдже
 
 public class PromoCodes extends TestBase {
 
 
     @BeforeMethod(alwaysRun = true)
-    public void PreparingForPromoCodes() throws Exception {
+    public void preconditions() throws Exception {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
         kraken.perform().registration(Generate.testUserData());
@@ -23,139 +23,102 @@ public class PromoCodes extends TestBase {
 
 
     @Test(
-            description = "Тест добавления промокода. Правило - первый заказ " +
-                    "Дейсвтие - скидка 200р",
+            description = "Тест применения промокода со скидкой 200р на первый заказ",
             groups = {"regression"},
             priority = 990
     )
-    public void addPromocodeFirstOrder() {
-        kraken.perform().reachCheckout();
+    public void successOrderWithFirstOrderPromo() {
+        kraken.shopping().collectItems();
+        kraken.shopping().proceedToCheckout();
+
         kraken.checkout().addPromocode("frstord");
 
-        // Assert promocode is applied
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
-                "Can't assert promocode is applied\n");
+                "Не применяется промокод со скидкой 200р на первый заказ\n");
 
         kraken.checkout().complete();
     }
 
 
     @Test(
-            description = "Тест добавления промокода. Правило - сумма заказа больше 2000р" +
-                    "Действие - скидка 30% для ритейлера метро",
+            description = "Тест применения промокода со скидкой 30% на заказ от 2000р в Метро",
             groups = {"regression"},
             priority = 991
     )
-    public void addPromocodeOrderSum() {
-        kraken.get().checkoutPage();
-        if(!kraken.checkout().isOnCheckout()){
-            kraken.shopping().collectItems(2100);
-            kraken.shopping().proceedToCheckout();
-        }
+    public void successOrderWithOrderSumPromo() {
+        kraken.shopping().collectItems(2100);
+        kraken.shopping().proceedToCheckout();
+
         kraken.checkout().addPromocode("2000mtr");
 
-        // Assert promocode is applied
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
-                "Can't assert promocode is applied\n");
+                "Не применяется промокод со скидкой 30% на заказ от 2000р в Метро\n");
 
         kraken.checkout().complete();
     }
 
 
     @Test(
-            description = "Тест добавления промокода. Правило - новый пользователь " +
-                    "Действие - скидку 300р на продукты для категории молоко",
+            description = "Тест применения промокода со скидкой 300р на молочные продукты для новых пользователей",
             groups = {"regression"},
             priority = 992
     )
-    public void addPromocodeNewUser () {
-        kraken.get().checkoutPage();
-        if(!kraken.checkout().isOnCheckout()) {
-            kraken.search().item("молоко");
-            kraken.shopping().collectItems(2000);
-            kraken.shopping().proceedToCheckout();
-        }
+    public void successOrderWithNewUserPromo () {
+        kraken.search().item("молоко");
+        kraken.shopping().collectItems(2000);
+        kraken.shopping().proceedToCheckout();
 
         kraken.checkout().addPromocode("newusr");
 
-        // Assert promocode is applied
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
-                "Can't assert promocode is applied\n");
+                "Не применяется промокод со скидкой 300р на молочные продукты для новых пользователей\n");
 
         kraken.checkout().complete();
     }
 
 
     @Test(
-            description = "Тест добавления промокода. Правило - определнный заказ(первый) " +
-                    "Действие - Бесплатная доставка",
+            description = "Тест применения промокода на бесплатную доставку на первый заказ",
             groups = {"regression"},
             priority = 993
     )
+    public void successOrderWithCertainOrderPromo() {
+        kraken.shopping().collectItems(2100);
+        kraken.shopping().proceedToCheckout();
 
-
-    public void addPromocodeCertainOrder() {
-        kraken.get().checkoutPage();
-        if(!kraken.checkout().isOnCheckout()){
-            kraken.shopping().collectItems(2100);
-            kraken.shopping().proceedToCheckout();
-        }
         kraken.checkout().addPromocode("crtnord");
 
-        // Assert promocode is applied
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
-                "Can't assert promocode is applied\n");
+                "Не применяется промокод на бесплатную доставку на первый заказ\n");
 
         kraken.checkout().complete();
     }
 
 
     @Test(
-            description = "Тест добавления промокода. Правило - серия заказов(два заказа) " +
-                    "Действие - скидка",
+            description = "Тест применения промокода на скидку на второй заказ",
             groups = {"regression"},
             priority = 994
     )
-    public void addPromocodeSeriesOfOrders() {
-        kraken.get().checkoutPage();
-        if (!kraken.checkout().isOnCheckout()) {
-            kraken.shopping().collectItems(2000);
-            kraken.shopping().proceedToCheckout();
-        }
-
-        kraken.checkout().addPromocode("srsoford");
-
-        // Assert promocode is applied
-        Assert.assertTrue(kraken.detect().isPromocodeApplied(),
-                "Can't assert promocode is applied\n");
-
+    public void successOrderWithSeriesOfOrdersPromo() {
+        kraken.shopping().collectItems(2000);
+        kraken.shopping().proceedToCheckout();
         kraken.checkout().complete();
 
-        // Повторяем Заказ
-
-        kraken.perform().repeatLastOrder();
-
-        // Проверяем что заказ повторился и корзина не пуста
-        Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Something went wrong while repeating the last order from the profile\n");
-
-        if (!kraken.detect().isCheckoutButtonActive()) {
-            kraken.shopping().collectItems(2000);
-        }
-
+        kraken.get().baseUrl();
+        kraken.shopping().collectItems(2000);
         kraken.shopping().proceedToCheckout();
         kraken.checkout().addPromocode("srsoford");
 
-        // Assert promocode is applied
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
-                "Can't assert promocode is applied\n");
+                "Не применяется промокод на скидку на второй заказ\n");
 
         kraken.checkout().complete();
     }
 
 
     @AfterMethod(alwaysRun = true)
-    public void cleanupTestOrders() throws Exception {
+    public void postconditions() throws Exception {
         kraken.cleanup().all();
     }
 }
