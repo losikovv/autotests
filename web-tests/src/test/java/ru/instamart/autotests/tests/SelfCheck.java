@@ -369,7 +369,6 @@ public class SelfCheck extends TestBase {
         // корзина не пустая, больше суммы мин заказа
         kraken.shopping().collectItems();
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
-        Assert.assertNotNull(kraken.grab().currentCartTotal());
         kraken.perform().printMessage("Сумма корзины = " + kraken.grab().currentCartTotal());
     }
 
