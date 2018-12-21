@@ -19,6 +19,7 @@ public class Orders extends TestBase {
         kraken.perform().loginAs("admin");
     }
 
+    // TODO сделать тесты на заказы во все ритейлеры Москвы
 
     @Test(
             description = "Тестовый заказ в Казани",
