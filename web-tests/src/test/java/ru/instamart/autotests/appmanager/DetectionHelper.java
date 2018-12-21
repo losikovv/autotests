@@ -352,6 +352,11 @@ public class DetectionHelper extends HelperBase {
         return kraken.detect().isElementEnabled(Elements.Site.Cart.checkoutButton());
     }
 
+    /** Определить отображается ли сумма заказа */
+    public boolean isCartTotalDisplayed() {
+        kraken.shopping().openCart();
+        return kraken.detect().isElementDisplayed(Elements.Site.Cart.total());
+    }
 
     // ======= Чекаут =======
 
