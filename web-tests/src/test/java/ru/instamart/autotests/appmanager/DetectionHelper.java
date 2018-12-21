@@ -202,7 +202,7 @@ public class DetectionHelper extends HelperBase {
             printMessage("✓ Авторизован\n");
             return true;
         } else {
-            printMessage("Не авторизован!\n");
+            printMessage("Не авторизован\n");
             return false;
         }
     }

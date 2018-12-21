@@ -16,7 +16,8 @@ public class Registration extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми полями",
-            groups = {"acceptance", "regression"}
+            groups = {"acceptance", "regression"},
+            priority = 1
     )
     public void noRegWithEmptyRequisites() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -47,7 +48,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без имени",
             groups = {"regression"},
-            priority = 1
+            priority = 2
     )
     public void noRegWithoutName() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -69,7 +70,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без email",
             groups = {"regression"},
-            priority = 2
+            priority = 3
     )
     public void noRegWithoutEmail() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -91,7 +92,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без пароля",
             groups = {"regression"},
-            priority = 3
+            priority = 4
     )
     public void noRegWithoutPassword() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -113,11 +114,10 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без подтверждения пароля",
             groups = {"regression"},
-            priority = 4
+            priority = 5
     )
     public void noRegWithoutPasswordConfirmation() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -136,11 +136,10 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с несовпадающими паролями",
             groups = {"regression"},
-            priority = 5
+            priority = 6
     )
     public void noRegWithWrongPasswordConfirmation() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -159,11 +158,10 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки повторно зарегистрировать существующего пользователя",
             groups = {"regression"},
-            priority = 6
+            priority = 7
     )
     public void noRegWithExistingEmail() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -180,64 +178,9 @@ public class Registration extends TestBase {
 
 
     @Test(
-            description = "Регистрация нового пользователя на лендинге",
-            groups = {"regression"},
-            priority = 7
-    )
-    public void successRegOnLandingPage() throws Exception {
-        kraken.get().baseUrl();
-        kraken.perform().dropAuth();
-
-        kraken.perform().registration(Generate.testUserData());
-
-        Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Пользователь не авторизован после регистрации на лендинге\n");
-
-        kraken.perform().logout();
-    }
-
-
-    @Test(
-            description = "Регистрация нового пользователя на витрине магазина",
-            groups = {"acceptance", "regression"},
-            priority = 8
-    )
-    public void successRegOnRetailerPage() throws Exception {
-        kraken.get().page("metro");
-        kraken.perform().dropAuth();
-
-        kraken.perform().registration(Generate.testUserData());
-
-        Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Пользователь не авторизован после регистрации на витрине магазина\n");
-
-        kraken.perform().logout();
-    }
-
-
-    @Test(
-            description = "Тест регистрации с адресной модалки феникса",
-            groups = {"regression"},
-            priority = 9
-    )
-    public void successRegistrationFromAddressModal() throws Exception, AssertionError {
-        kraken.get().page("metro");
-
-        kraken.shipAddress().openAddressModal();
-        kraken.perform().click(Elements.Site.AddressModal.authButton());
-        kraken.perform().regSequence(Generate.testUserData());
-
-        Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Пользователь не авторизован после регистрации с адресной модалки феникса\n");
-
-        kraken.perform().logout();
-    }
-
-
-    @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с длинными полями",
             groups = {"regression"},
-            priority = 10
+            priority = 8
     )
     public void noRegWithLongFields() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -268,11 +211,66 @@ public class Registration extends TestBase {
 
 
     @Test(
-            description = "Тест регистрации при переходе из корзины в чекаут",
+            description = "Регистрация нового пользователя на лендинге",
+            groups = {"regression"},
+            priority = 9
+    )
+    public void successRegOnLandingPage() throws Exception {
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
+
+        kraken.perform().registration(Generate.testUserData());
+
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Пользователь не авторизован после регистрации на лендинге\n");
+
+        kraken.perform().logout();
+    }
+
+
+    @Test(
+            description = "Регистрация нового пользователя на витрине магазина",
+            groups = {"acceptance", "regression"},
+            priority = 10
+    )
+    public void successRegOnRetailerPage() throws Exception {
+        kraken.get().page("metro");
+        kraken.perform().dropAuth();
+
+        kraken.perform().registration(Generate.testUserData());
+
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Пользователь не авторизован после регистрации на витрине магазина\n");
+
+        kraken.perform().logout();
+    }
+
+
+    @Test(
+            description = "Тест регистрации с адресной модалки феникса",
             groups = {"regression"},
             priority = 11
     )
-    public void successRegOnCart() throws Exception {
+    public void successRegistrationFromAddressModal() throws Exception, AssertionError {
+        kraken.get().page("metro");
+
+        kraken.shipAddress().openAddressModal();
+        kraken.perform().click(Elements.Site.AddressModal.authButton());
+        kraken.perform().regSequence(Generate.testUserData());
+
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Пользователь не авторизован после регистрации с адресной модалки феникса\n");
+
+        kraken.perform().logout();
+    }
+
+
+    @Test(
+            description = "Тест регистрации при переходе из корзины в чекаут",
+            groups = {"regression"},
+            priority = 12
+    )
+    public void successRegFromCart() throws Exception {
         kraken.get().page("metro");
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         kraken.shopping().collectItems();
