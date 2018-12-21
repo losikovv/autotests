@@ -338,18 +338,17 @@ public class SelfCheck extends TestBase {
         Assert.assertFalse(kraken.detect().isAddressModalOpen());
     }
 
-    @Test(description = "Тест корректности определения суммы корзины",
+
+    @Test( // TODO прочекать и поправить тест
+            description = "Тест корректности определения суммы корзины",
             groups ="selfcheck",
             priority = 10018)
     public void detectCartTotal() throws Exception {
-
         kraken.get().page("metro");
-
         if (!kraken.detect().isShippingAddressSet()) {
-            kraken.shipAddress().set(Addresses.Moscow.defaultAddress());}
-
-        if (!kraken.detect().isCartEmpty()) {
-            kraken.perform().dropCart();}
+            kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        }
+        kraken.perform().dropCart();
 
         // корзина пустая
         Assert.assertFalse(kraken.detect().isCartTotalDisplayed());
@@ -369,6 +368,5 @@ public class SelfCheck extends TestBase {
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
         kraken.perform().printMessage("Сумма корзины = " + kraken.grab().currentCartTotal());
     }
-
 }
 
