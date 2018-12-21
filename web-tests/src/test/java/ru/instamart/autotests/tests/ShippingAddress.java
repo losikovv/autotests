@@ -170,7 +170,7 @@ public class ShippingAddress extends TestBase{
             groups = {"regression"},
             priority = 208
     )
-    public void setShippingAddressAfterAddOnProductCard() throws Exception {
+    public void setShippingAddressAfterAddingProductFromItemCard() throws Exception {
         kraken.perform().quickLogout();
         kraken.get().page("metro");
         kraken.shopping().openFirstItemCard();

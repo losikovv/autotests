@@ -3,6 +3,7 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.UserData;
@@ -157,7 +158,7 @@ public class Shopping extends TestBase{
             groups = {"acceptance","regression"},
             priority = 359
     )
-    public void proceedFromCartToCheckout()throws Exception, AssertionError {
+    public void successProceedFromCartToCheckout()throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
         kraken.shopping().collectItems();
 
@@ -173,7 +174,9 @@ public class Shopping extends TestBase{
             groups = {"regression"},
             priority = 360
     )
-    public void mergeShipAddressAndCartAfterAuth() throws Exception {
+    public void successMergeShipAddressAndCartAfterAuthorisation() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+
         //TODO вынести в dataProvider
         kraken.perform().dropAuth();
         final UserData testuser = Generate.testUserData();
@@ -187,17 +190,19 @@ public class Shopping extends TestBase{
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
         kraken.perform().login(testuser);
 
-        Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Не прошла авторизация\n");
+        softAssert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Не удалось авторизоваться\n");
 
-        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
+        softAssert.assertTrue(kraken.detect().isShippingAddressSet(),
                 "Слетел адрес доставки при авторизации\n");
 
-        Assert.assertEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.defaultAddress(),
+        softAssert.assertEquals(kraken.grab().currentShipAddress(), Addresses.Moscow.defaultAddress(),
                 "Не обновился адрес доставки при авторизации\n");
 
-        Assert.assertFalse(kraken.detect().isCartEmpty(),
+        softAssert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не смержиласть корзина при авторизации\n");
+
+        softAssert.assertAll();
     }
 
     // TODO тест на изменение суммы минимального заказа после первого заказ новым юзером (+ ДОБАВИТЬ МЕТОД УЗНАЮЩИЙ ТЕКУЩУЮ СУММУ МИН ЗАКАЗА ИЗ ПОДСКАЗКИ В КОРЗИНЕ)

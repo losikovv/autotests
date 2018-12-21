@@ -219,7 +219,7 @@ public class Checkout extends TestBase {
     }
 
 
-    @Test(
+    @Test( // TODO вынести в отдельный тестовый класс c тестами цен доставок
             description = "Тест проверки прогрессивной стоимости доставки в Метро",
             groups = {"regression"},
             priority = 411
@@ -234,25 +234,25 @@ public class Checkout extends TestBase {
         kraken.shopping().proceedToCheckout();
         kraken.checkout().fillAllFields();
         softAssert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroHighDeliveryPrice,
-                "Некорректная цена доставки в чекауте при малой корзине");
+                "\nНекорректная цена доставки в чекауте при малой корзине");
 
         kraken.get().baseUrl();
         kraken.search().item("Haagen");
         kraken.shopping().collectItems(5000);
         kraken.shopping().proceedToCheckout();
         softAssert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroMediumDeliveryPrice,
-                "Некорректная цена доставки в чекауте при средней корзине" );
+                "\nНекорректная цена доставки в чекауте при средней корзине" );
 
         kraken.get().baseUrl();
         kraken.search().item("Haagen");
         kraken.shopping().collectItems(10000);
         kraken.shopping().proceedToCheckout();
         softAssert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroLowDeliveryPrice,
-                "Некорректная цена доставки в чекауте при большой корзине" );
+                "\nНекорректная цена доставки в чекауте при большой корзине" );
 
         kraken.checkout().complete();
         softAssert.assertEquals(kraken.grab().roundedSum(Site.OrderDetailsPage.deliveryPrice()), Config.MetroLowDeliveryPrice,
-                "Некорректная цена доставки на странице заказа" );
+                "\nНекорректная цена доставки на странице заказа" );
 
         kraken.perform().cancelLastOrder();
         softAssert.assertAll();

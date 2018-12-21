@@ -10,7 +10,7 @@ import ru.instamart.autotests.application.Addresses;
 // Тесты заказов
 
 
-public class MakeOrders extends TestBase {
+public class Orders extends TestBase {
 
 
     @BeforeMethod(alwaysRun = true)
