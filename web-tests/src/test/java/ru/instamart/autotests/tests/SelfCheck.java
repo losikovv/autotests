@@ -1,6 +1,5 @@
 package ru.instamart.autotests.tests;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
