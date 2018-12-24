@@ -338,7 +338,6 @@ public class SelfCheck extends TestBase {
         Assert.assertFalse(kraken.detect().isAddressModalOpen());
     }
 
-
     @Test( // TODO прочекать и поправить тест
             description = "Тест корректности определения суммы корзины",
             groups ="selfcheck",
@@ -368,5 +367,20 @@ public class SelfCheck extends TestBase {
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
         kraken.perform().printMessage("Сумма корзины = " + kraken.grab().currentCartTotal());
     }
+
+    @Test(description = "Тест корректности определения заглушки \"Адрес вне зоны доставки\"",
+            groups ="selfcheck",
+            priority = 10019)
+    public void detectAddressOutOfZone() throws Exception {
+
+        kraken.get().page("metro");
+        kraken.shipAddress().set(Addresses.Moscow.outOfZoneAddress());
+        Assert.assertTrue(kraken.detect().isAddressOutOfZone());
+
+        kraken.get().page("metro");
+        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        Assert.assertFalse(kraken.detect().isAddressOutOfZone());
+    }
+
 }
 
