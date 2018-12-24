@@ -27,7 +27,7 @@ public class Administration extends TestBase {
             groups = {"acceptance","regression"},
             priority = 700
     )
-    public void adminPanelUnreacheableWithoutPrivileges() throws Exception {
+    public void noAccessAdministrationWithoutAdminPrivileges() throws Exception {
         kraken.perform().loginAs("user");
 
         assertPageIsUnavailable(Pages.Admin.shipments());
@@ -41,7 +41,7 @@ public class Administration extends TestBase {
             groups = {"acceptance","regression"},
             priority = 701
     )
-    public void resumeOrder() throws Exception {
+    public void successResumeOrder() throws Exception {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().adminOrderDetailsPage("R124857258"); // TODO убрать хардкод, делать новый тестовый заказ перед тестом
 
@@ -62,7 +62,7 @@ public class Administration extends TestBase {
             groups = {"acceptance","regression"},
             priority = 702
     )
-    public void cancelOrder() throws Exception {
+    public void successCancelOrder() throws Exception {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().adminOrderDetailsPage("R124857258"); // TODO убрать хардкод, делать новый тестовый заказ перед тестом
 

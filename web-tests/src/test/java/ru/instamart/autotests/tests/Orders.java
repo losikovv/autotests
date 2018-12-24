@@ -74,7 +74,7 @@ public class Orders extends TestBase {
     }
 
 
-    @Test(
+    @Test( // TODO перенести проверку добавления карты Вкусвилл в тесты чекаута
             description = "Тестовый заказ во Вкусвилл Москва с применением программы лояльности",
             groups = {"regression"},
             priority = 454
