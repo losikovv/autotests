@@ -221,7 +221,7 @@ public class DetectionHelper extends HelperBase {
      * Определить открыта ли модалка "Выберите магазин"
      */
     public boolean isChangeStoreModalOpen() {
-        return isElementDisplayed(Elements.Site.AddressModal.storeOutOfZone());
+        return isElementDisplayed(Elements.Site.StoresModal.popup());
     }
 
 

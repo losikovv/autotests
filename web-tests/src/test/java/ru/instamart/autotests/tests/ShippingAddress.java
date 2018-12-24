@@ -2,6 +2,7 @@ package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.testdata.Generate;
@@ -194,27 +195,30 @@ public class ShippingAddress extends TestBase{
 
 
     @Test(
-            description = "Тест на ввод адреса в модалке после добавления товара из карточки",
+            description = "Тест на успешный выбор нового магазина в модалке феникса после изменения адреса доставки",
             groups = {"regression"},
-            priority = 210
+            priority = 209
     )
-    public void chooseStoreAfterChangeShippingAddress() throws Exception {
+    public void successSelectNewStoreAfterShipAddressChange() {
+        SoftAssert softAssert = new SoftAssert();
+
+        kraken.perform().quickLogout();
         kraken.get().page("vkusvill");
-        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        kraken.shipAddress().change(Addresses.Kazan.defaultAddress());
 
-        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
-                "Адрес доставки не был введен");
-
-        kraken.shipAddress().set(Addresses.Kazan.defaultAddress());
-
-        Assert.assertTrue(kraken.detect().isChangeStoreModalOpen(),
+        softAssert.assertTrue(kraken.detect().isChangeStoreModalOpen(),
                 "Не открывается модалка с магазинами доступными по новому адресу");
 
-        kraken.perform().click(Elements.Site.AddressModal.setStoreOnAddressModal());
+        kraken.perform().click(Elements.Site.StoresModal.firstStoreAvailable());
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitPlusButton();
 
-        Assert.assertFalse(kraken.detect().isChangeStoreModalOpen(),
-                "Магазин успешно выбран в соответствии с новым адресом");
+        softAssert.assertFalse(kraken.detect().isChangeStoreModalOpen(),
+                "В модалке не выбирается магазин по новому адресу");
+
+        softAssert.assertAll();
     }
+
+
+    // TODO добавить тест на перевыбор нового адреса в модалке выбора магазина
 }

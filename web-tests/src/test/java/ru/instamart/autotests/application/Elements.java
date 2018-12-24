@@ -384,12 +384,19 @@ public class Elements {
                 return new Elements ("Адрес не в зоне доставки",
                         By.className("address-modal__header"));
             }
+        }
 
-            static Elements storeOutOfZone() {
+
+        /**
+         * Феникс-модалка выбора магазина при отсутствии текущего ритейлера по выбранному адресу
+         */
+        interface StoresModal {
+
+            static Elements popup() {
                 return new Elements("Выберите магазин",
                         By.className("stores-modal"));
             }
-            static Elements setStoreOnAddressModal() {
+            static Elements firstStoreAvailable() {
                 return new Elements("Выбор магазина",
                         By.className("store-card"));
             }
