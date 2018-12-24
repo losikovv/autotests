@@ -18,7 +18,7 @@ public abstract class Addresses {
         }
 
         public static String testAddress() {
-            return addressString = "Москва, ул Тестовская, д 10";
+            return addressString = "Москва, Университетский пр-кт, д 4";
         }
 
         public static String outOfZoneAddress() {

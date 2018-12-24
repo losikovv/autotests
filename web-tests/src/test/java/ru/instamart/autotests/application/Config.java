@@ -14,7 +14,7 @@ public class Config {
     public final static String testOrdersList ="shipments?search%5Border_phone%5D=%2B7" + testUserPhone + "&search%5Bstate%5D%5B%5D=ready";
 
 
-    public final static int minOrderSum = 1800;
+    public final static int minOrderSum = 2500;
 
     // TODO обернуть в интерфейс shippingCost
     public final static int MetroHighDeliveryPrice = 299;
