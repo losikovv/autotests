@@ -49,7 +49,7 @@ public class ShippingAddress extends TestBase{
             groups = {"regression"},
             priority = 202
     )
-    public void cancelSetShippingAddressOnRetailerPage() throws Exception {
+    public void noSetShippingAddressOnCancel() throws Exception {
         kraken.get().page("metro");
         kraken.shipAddress().openAddressModal();
         kraken.shipAddress().fill(Addresses.Moscow.defaultAddress());
@@ -85,7 +85,7 @@ public class ShippingAddress extends TestBase{
             groups = {"acceptance","regression"},
             priority = 204
     )
-    public void setShippingAddressOnRetailerPage() throws Exception {
+    public void successSetShippingAddressOnRetailerPage() throws Exception {
         kraken.get().page("metro");
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
 
@@ -102,7 +102,7 @@ public class ShippingAddress extends TestBase{
             groups = {"regression"},
             priority = 205
     )
-    public void cancelChangeShippingAddress() throws Exception {
+    public void noChangeShippingAddressOnCancel() throws Exception {
         kraken.get().page("metro");
         if(!kraken.detect().isShippingAddressSet()) {
             kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
@@ -125,7 +125,7 @@ public class ShippingAddress extends TestBase{
             groups = {"acceptance","regression"},
             priority = 206
     )
-    public void changeShippingAddress() throws Exception {
+    public void successChangeShippingAddress() throws Exception {
         kraken.get().page("metro");
         if(!kraken.detect().isShippingAddressSet()) {
             kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
@@ -146,7 +146,7 @@ public class ShippingAddress extends TestBase{
             groups = {"regression"},
             priority = 207
     )
-    public void changeShippingAddressToRecent() throws Exception {
+    public void successChangeShippingAddressToRecent() throws Exception {
         kraken.perform().quickLogout();
         kraken.perform().registration(Generate.testUserData());
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
@@ -172,7 +172,7 @@ public class ShippingAddress extends TestBase{
             groups = {"regression"},
             priority = 208
     )
-    public void setShippingAddressAfterAddingProductFromItemCard() throws Exception {
+    public void successSetShippingAddressAfterAddingProductFromItemCard() throws Exception {
         kraken.perform().quickLogout();
         kraken.get().page("metro");
         kraken.shopping().openFirstItemCard();
