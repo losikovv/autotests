@@ -3,6 +3,7 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.UserData;
@@ -31,7 +32,7 @@ public class Administration extends TestBase {
 
         assertPageIsUnavailable(Pages.Admin.shipments());
 
-        kraken.perform().logout();
+        kraken.perform().quickLogout();
     }
 
 
@@ -41,16 +42,18 @@ public class Administration extends TestBase {
             priority = 701
     )
     public void resumeOrder() throws Exception {
-        //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
-        kraken.get().adminOrderDetailsPage("R124857258");
+        SoftAssert softAssert = new SoftAssert();
+        kraken.get().adminOrderDetailsPage("R124857258"); // TODO убрать хардкод, делать новый тестовый заказ перед тестом
 
-        Assert.assertTrue(kraken.detect().isOrderCanceled(),
+        softAssert.assertTrue(kraken.detect().isOrderCanceled(),
                 "Заказ уже активен\n");
 
         kraken.admin().resumeOrder();
 
-        Assert.assertFalse(kraken.detect().isOrderCanceled(),
+        softAssert.assertFalse(kraken.detect().isOrderCanceled(),
                 "Заказ не был возобновлён\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -60,16 +63,18 @@ public class Administration extends TestBase {
             priority = 702
     )
     public void cancelOrder() throws Exception {
-        //TODO убрать хардкод номера заказа, делать новый тестовый заказ перед тестами
-        kraken.get().adminOrderDetailsPage("R124857258");
+        SoftAssert softAssert = new SoftAssert();
+        kraken.get().adminOrderDetailsPage("R124857258"); // TODO убрать хардкод, делать новый тестовый заказ перед тестом
 
-        Assert.assertFalse(kraken.detect().isOrderCanceled(),
+        softAssert.assertFalse(kraken.detect().isOrderCanceled(),
                 "Заказ уже отменён\n");
 
         kraken.admin().cancelOrder();
 
-        Assert.assertTrue(kraken.detect().isOrderCanceled(),
+        softAssert.assertTrue(kraken.detect().isOrderCanceled(),
                 "Заказ не был отменён\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -278,7 +283,7 @@ public class Administration extends TestBase {
         kraken.get().page(Pages.Admin.shipments());
 
         Assert.assertFalse(kraken.detect().isInAdmin(),
-                "У пользователя не отзываются админские права");
+                "У пользователя не снимаются админские права");
 
         kraken.perform().quickLogout();
 
