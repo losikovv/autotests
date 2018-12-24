@@ -105,9 +105,33 @@ public class Authorisation extends TestBase {
 
 
     @Test(
+            description = "Негативный тест попытки авторизовать пользователя с длинными полями",
+            groups = {"regression"},
+            priority = 105
+    )
+    public void noAuthWithLongFields() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+
+        kraken.get().baseUrl();
+        kraken.perform().dropAuth();
+
+        kraken.perform().login(Generate.testUserData(129));
+
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+                "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
+
+        kraken.get().baseUrl();
+        Assert.assertFalse(kraken.detect().isUserAuthorised(),
+                "Пользователь авторизован при наличии ошибок заполнения формы авторизации\n");
+
+        softAssert.assertAll();
+    }
+
+
+    @Test(
             description = "Тест успешной авторизации на лендинге",
             groups = {"smoke","acceptance","regression"},
-            priority = 105
+            priority = 106
     )
     public void successAuthOnLandingPage() throws Exception, AssertionError {
         kraken.get().baseUrl();
@@ -124,7 +148,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест успешной авторизации на витрине",
             groups = {"acceptance","regression"},
-            priority = 106
+            priority = 107
     )
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
         kraken.get().page("vkusvill");
@@ -141,7 +165,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест логаута",
             groups = {"regression"},
-            priority = 107
+            priority = 108
     )
     public void successLogout() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
@@ -159,7 +183,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест авторизации с адресной модалки феникса",
             groups = {"regression"},
-            priority = 108
+            priority = 109
     )
     public void successAuthFromAddressModal() throws Exception, AssertionError {
         kraken.get().page("metro");
@@ -179,7 +203,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест успешной авторизации из корзины",
             groups = {"regression"},
-            priority = 109
+            priority = 110
     )
     public void successAuthFromCart() throws Exception {
         final UserData testuser = Generate.testUserData();
@@ -208,30 +232,6 @@ public class Authorisation extends TestBase {
 
         kraken.shopping().closeCart();
         kraken.perform().quickLogout();
-    }
-
-
-    @Test(
-            description = "Негативный тест попытки авторизовать пользователя с длинными полями",
-            groups = {"regression"},
-            priority = 110
-    )
-    public void noAuthWithLongFields() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
-        
-        kraken.get().baseUrl();
-        kraken.perform().dropAuth();
-
-        kraken.perform().login(Generate.testUserData(129));
-
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
-                "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
-
-        kraken.get().baseUrl();
-        Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Пользователь авторизован при наличии ошибок заполнения формы авторизации\n");
-
-        softAssert.assertAll();
     }
 
     //TODO добавить тесты на авторизацию через соцсети
