@@ -384,6 +384,15 @@ public class Elements {
                 return new Elements ("Адрес не в зоне доставки",
                         By.className("address-modal__header"));
             }
+
+            static Elements storeOutOfZone() {
+                return new Elements("Выберите магазин",
+                        By.className("stores-modal"));
+            }
+            static Elements setStoreOnAddressModal() {
+                return new Elements("Выбор магазина",
+                        By.className("store-card"));
+            }
         }
 
 

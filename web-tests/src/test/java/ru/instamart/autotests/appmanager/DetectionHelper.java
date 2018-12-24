@@ -17,7 +17,9 @@ public class DetectionHelper extends HelperBase {
         kraken = app;
     }
 
-    /** Определить показан ли алерт на странице */
+    /**
+     * Определить показан ли алерт на странице
+     */
     protected boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
@@ -28,12 +30,16 @@ public class DetectionHelper extends HelperBase {
     }
 
 
-    /** Задетектить элемент */
+    /**
+     * Задетектить элемент
+     */
     public boolean element(Elements element) {
-        return element(Elements.locator(),Elements.text());
+        return element(Elements.locator(), Elements.text());
     }
 
-    /** Задетектить элемент по локатору*/
+    /**
+     * Задетектить элемент по локатору
+     */
     public boolean element(By locator, String text) {
         return isElementPresent(locator) && kraken.grab().text(locator).equals(text);
     }
@@ -43,12 +49,16 @@ public class DetectionHelper extends HelperBase {
         return isElementPresent(By.xpath(xpath)) && kraken.grab().text(By.xpath(xpath)).equals(text);
     }
 
-    /** Определить отображается ли элемент */
+    /**
+     * Определить отображается ли элемент
+     */
     public boolean isElementPresent(Elements element) {
         return isElementPresent(Elements.locator());
     }
 
-    /** Определить отображается ли элемент по локатору */
+    /**
+     * Определить отображается ли элемент по локатору
+     */
     public boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);
@@ -58,13 +68,17 @@ public class DetectionHelper extends HelperBase {
         }
     }
 
-    /** Определить показан ли элемент */
-    public boolean isElementDisplayed(Elements element){
+    /**
+     * Определить показан ли элемент
+     */
+    public boolean isElementDisplayed(Elements element) {
         return isElementDisplayed(Elements.locator());
     }
 
-    /** Определить показан ли элемент по локатору */
-    public boolean isElementDisplayed(By locator){
+    /**
+     * Определить показан ли элемент по локатору
+     */
+    public boolean isElementDisplayed(By locator) {
         try {
             return driver.findElement(locator).isDisplayed();
         } catch (NoSuchElementException e) {
@@ -72,34 +86,46 @@ public class DetectionHelper extends HelperBase {
         }
     }
 
-    /** Определить доступен ли элемент */
-    public boolean isElementEnabled(Elements element){
+    /**
+     * Определить доступен ли элемент
+     */
+    public boolean isElementEnabled(Elements element) {
         return isElementEnabled(Elements.locator());
     }
 
-    /** Определить доступен ли элемент по локатору */
-    public boolean isElementEnabled(By locator){
+    /**
+     * Определить доступен ли элемент по локатору
+     */
+    public boolean isElementEnabled(By locator) {
         return driver.findElement(locator).isEnabled();
     }
 
-    /** Определить проставлен ли чекбокс */
+    /**
+     * Определить проставлен ли чекбокс
+     */
     public boolean isCheckboxSelected(Elements element) {
         return isCheckboxSelected(Elements.locator());
     }
 
-    /** Определить проставлен ли чекбокс по локатору */
+    /**
+     * Определить проставлен ли чекбокс по локатору
+     */
     boolean isCheckboxSelected(By locator) {
         return driver.findElement(locator).isSelected();
     }
 
-    /** Определить показан ли текст */
+    /**
+     * Определить показан ли текст
+     */
     public boolean isTextShown(Elements element) {
         return isElementDisplayed(element) && kraken.grab().text(element) != null;
     }
 
-    /** Определить показана ли пользовательская ошибка */
+    /**
+     * Определить показана ли пользовательская ошибка
+     */
     public boolean isUserErrorShown(Elements element) {
-        if(isTextShown(element)) {
+        if (isTextShown(element)) {
             printMessage("Показана пользовательская ошибка: " + kraken.grab().text(element) + "\n");
             return true;
         } else {
@@ -108,25 +134,37 @@ public class DetectionHelper extends HelperBase {
         }
     }
 
-    /** Определить находимся на лендинге или нет */
+    /**
+     * Определить находимся на лендинге или нет
+     */
     public boolean isOnLanding() {
         return isElementPresent(Elements.Site.Landing.header());
     }
 
-    /** Определить находимся на сайте или нет */
-    public boolean isOnSite() { return isElementPresent(Elements.Site.footer()); }
+    /**
+     * Определить находимся на сайте или нет
+     */
+    public boolean isOnSite() {
+        return isElementPresent(Elements.Site.footer());
+    }
 
-    /** Определить находимся в админке или нет */
+    /**
+     * Определить находимся в админке или нет
+     */
     public boolean isInAdmin() {
         return isElementPresent(Elements.Admin.container());
     }
 
-    /** Определить 404 ошибку */
+    /**
+     * Определить 404 ошибку
+     */
     public boolean is404() {
         return element(Elements.Page404.title());
     }
 
-    /** Определить 500 ошибку */
+    /**
+     * Определить 500 ошибку
+     */
     public boolean is500() {
         return element(Elements.Page500.placeholder());
     }
@@ -134,32 +172,42 @@ public class DetectionHelper extends HelperBase {
 
     // ======= Модалки =======
 
-    /** Определить открыта ли модалка "Доставка" */
+    /**
+     * Определить открыта ли модалка "Доставка"
+     */
     public boolean isDeliveryModalOpen() {
         return isElementDisplayed(Elements.Site.DeliveryModal.popup())
                 && element(Elements.Site.DeliveryModal.title());
     }
 
-    /** Определить открыта ли модалка "Оплата" */
+    /**
+     * Определить открыта ли модалка "Оплата"
+     */
     public boolean isPaymentModalOpen() {
         return isElementDisplayed(Elements.Site.PaymentModal.popup())
                 && element(Elements.Site.PaymentModal.title());
     }
 
-    /** Определить открыт ли модалка "Партнеры" */
+    /**
+     * Определить открыт ли модалка "Партнеры"
+     */
     public boolean isPartnersModalOpen() {
         return isElementDisplayed(Elements.Site.PartnersModal.popup())
                 && element(Elements.Site.PartnersModal.title());
     }
 
-    /** Определить открыт ли модалка "Адрес" */
+    /**
+     * Определить открыт ли модалка "Адрес"
+     */
     public boolean isAddressModalOpen() {
         return isElementDisplayed(Elements.Site.AddressModal.popup())
                 && element(Elements.Site.AddressModal.titleSet())
                 || element(Elements.Site.AddressModal.titleChange());
     }
 
-    /** Определить показана ли заглушка "Адрес вне зоны доставки" в адресной модалке */
+    /**
+     * Определить показана ли заглушка "Адрес вне зоны доставки" в адресной модалке
+     */
     public boolean isAddressOutOfZone() {
         if (element(Elements.Site.AddressModal.titleOutOfZone())) {
             printMessage("Адрес не в зоне доставки");
@@ -168,6 +216,14 @@ public class DetectionHelper extends HelperBase {
             return false;
         }
     }
+
+    /**
+     * Определить открыта ли модалка "Выберите магазин"
+     */
+    public boolean isChangeStoreModalOpen() {
+        return isElementDisplayed(Elements.Site.AddressModal.storeOutOfZone());
+    }
+
 
     // ======= Меню "Профиль" =======
 
