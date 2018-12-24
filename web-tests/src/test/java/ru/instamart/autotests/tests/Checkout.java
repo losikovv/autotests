@@ -33,7 +33,7 @@ public class Checkout extends TestBase {
             groups = {"acceptance","regression"},
             priority = 400
     )
-    public void addPromocode(){
+    public void successAddPromocode(){
         kraken.perform().reachCheckout();
         kraken.checkout().addPromocode("unicorn");
 
@@ -48,7 +48,7 @@ public class Checkout extends TestBase {
             groups = {"acceptance","regression"},
             priority = 401
     )
-    public void clearPromocode(){
+    public void successClearPromocode(){
         kraken.perform().reachCheckout();
         kraken.checkout().clearPromocode();
 
@@ -96,7 +96,7 @@ public class Checkout extends TestBase {
             groups = {"acceptance","regression"},
             priority = 404
     )
-    public void addBonusPrograms(){
+    public void successAddBonusPrograms(){
         kraken.perform().reachCheckout();
         kraken.checkout().addLoyalty("mnogoru");
         Assert.assertTrue(kraken.detect().isLoyaltyApplied("mnogoru"),
@@ -114,7 +114,7 @@ public class Checkout extends TestBase {
             groups = {"regression"},
             priority = 405
     )
-    public void selectBonusProgram(){
+    public void successSelectBonusPrograms(){
         kraken.perform().reachCheckout();
         kraken.checkout().selectLoyalty("mnogoru");
         kraken.checkout().selectLoyalty("aeroflot");
@@ -127,7 +127,7 @@ public class Checkout extends TestBase {
             groups = {"acceptance","regression"},
             priority = 406
     )
-    public void clearBonusPrograms(){
+    public void successClearBonusPrograms(){
         kraken.perform().reachCheckout();
         kraken.checkout().clearLoyalty("mnogoru");
         Assert.assertFalse(kraken.detect().isLoyaltyApplied("mnogoru"),
@@ -144,7 +144,7 @@ public class Checkout extends TestBase {
             groups = {"acceptance","regression"},
             priority = 407
     )
-    public void performCheckoutAndPayWithCash(){
+    public void successCompleteCheckoutAndPayWithCash(){
         kraken.perform().reachCheckout();
         kraken.checkout().complete();
 
@@ -164,7 +164,7 @@ public class Checkout extends TestBase {
             groups = {"regression"},
             priority = 408
     )
-    public void performCompleteCheckoutAndPayWithCardOnline(){
+    public void successCompleteCheckoutAndPayWithCardOnline(){
         kraken.perform().reachCheckout();
         kraken.checkout().complete("card-online");
 
@@ -184,7 +184,7 @@ public class Checkout extends TestBase {
             groups = {"regression"},
             priority = 409
     )
-    public void performCompleteCheckoutAndPayWithCardCourier(){
+    public void successCompleteCheckoutAndPayWithCardCourier(){
         kraken.perform().reachCheckout();
         kraken.checkout().complete("card-courier");
 
@@ -204,7 +204,7 @@ public class Checkout extends TestBase {
             groups = {"regression"},
             priority = 410
     )
-    public void performCompleteCheckoutAndPayWithBank(){
+    public void successCompleteCheckoutAndPayWithBank(){
         kraken.perform().reachCheckout();
         kraken.checkout().complete("bank");
 
