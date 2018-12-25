@@ -384,6 +384,11 @@ public class Elements {
                 return new Elements ("Адрес не в зоне доставки",
                         By.className("address-modal__header"));
             }
+
+            static Elements setNewAddress() {
+                return new Elements("Выбрать другой адрес",
+                        By.className("address-modal__button--reselect"));
+            }
         }
 
 
@@ -395,10 +400,16 @@ public class Elements {
             static Elements popup() {
                 return new Elements("Выберите магазин",
                         By.className("stores-modal"));
+
             }
             static Elements firstStoreAvailable() {
                 return new Elements("Выбор магазина",
                         By.className("store-card"));
+            }
+
+            static Elements setNewAddress() {
+                return new Elements("Ввести другой адрес",
+                        By.className("stores-modal__to-login-link"));
             }
         }
 

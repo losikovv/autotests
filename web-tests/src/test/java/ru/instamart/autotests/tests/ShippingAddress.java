@@ -220,5 +220,56 @@ public class ShippingAddress extends TestBase{
     }
 
 
-    // TODO добавить тест на перевыбор нового адреса в модалке выбора магазина
+    @Test(
+            description = "Тест на успешный выбор нового адреса в модалке феникса после ввода адреса по которому нет доставки текущего ритейлера",
+            groups = {"regression"},
+            priority = 210
+    )
+    public void successSetNewAddressAfterOutOfRetailerZoneAddressChange() {
+        SoftAssert softAssert = new SoftAssert();
+
+        kraken.perform().quickLogout();
+        kraken.get().page("lenta");
+        kraken.shipAddress().change(Addresses.Kazan.defaultAddress());
+
+        softAssert.assertTrue(kraken.detect().isChangeStoreModalOpen(),
+                "Не открывается модалка с магазинами доступными по новому адресу");
+
+        kraken.perform().click(Elements.Site.StoresModal.setNewAddress());
+        kraken.shipAddress().set(Addresses.Moscow.testAddress());
+        kraken.shopping().openFirstItemCard();
+        kraken.shopping().hitPlusButton();
+
+        softAssert.assertFalse(kraken.detect().isChangeStoreModalOpen(),
+                "В модалке не выбирается новый адрес");
+
+        softAssert.assertAll();
+    }
+
+    @Test(
+            description = "Тест на успешный выбор нового адреса в модалке феникса после ввода адреса по которому совсем нет доставки",
+            groups = {"regression"},
+            priority = 211
+    )
+    public void successSetNewAddressAfterOutOfZoneAddressChange() {
+        SoftAssert softAssert = new SoftAssert();
+
+        kraken.perform().quickLogout();
+        kraken.get().page("metro");
+        kraken.shipAddress().change(Addresses.Moscow.outOfZoneAddress());
+
+        softAssert.assertTrue(kraken.detect().isAddressModalOpen(),
+                "Не открывается модалка без магазинов");
+
+        kraken.perform().click(Elements.Site.AddressModal.setNewAddress());
+        kraken.shipAddress().set(Addresses.Moscow.testAddress());
+        kraken.shopping().openFirstItemCard();
+        kraken.shopping().hitPlusButton();
+
+        softAssert.assertFalse(kraken.detect().isChangeStoreModalOpen(),
+                "В модалке не выбирается новый адрес");
+
+        softAssert.assertAll();
+    }
+
 }
