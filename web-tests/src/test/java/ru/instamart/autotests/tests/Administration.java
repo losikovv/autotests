@@ -1,6 +1,5 @@
 package ru.instamart.autotests.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -8,7 +7,6 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.Generate;
 
