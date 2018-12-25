@@ -66,7 +66,7 @@ public class PasswordRecovery extends TestBase {
             groups = {"acceptance","regression"},
             priority = 603
     )
-    public void successRecoveryOnLanding() throws AssertionError, Exception {
+    public void successRequestRecoveryOnLanding() throws AssertionError, Exception {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -83,7 +83,7 @@ public class PasswordRecovery extends TestBase {
             groups = {"acceptance","regression"},
             priority = 604
     )
-    public void successRecoveryOnRetailer() throws AssertionError, Exception {
+    public void successRequestRecoveryOnRetailer() throws AssertionError, Exception {
         kraken.get().page("metro");
         kraken.perform().dropAuth();
 
