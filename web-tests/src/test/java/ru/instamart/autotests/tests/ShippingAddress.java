@@ -19,7 +19,7 @@ public class ShippingAddress extends TestBase{
             groups = {"acceptance","regression"},
             priority = 200
     )
-    public void emptyShippingAddressByDefault() throws Exception {
+    public void noShippingAddressByDefault() throws Exception {
         kraken.get().page("metro");
 
         Assert.assertFalse(kraken.detect().isShippingAddressSet(),
@@ -32,7 +32,7 @@ public class ShippingAddress extends TestBase{
             groups = {"acceptance","regression"},
             priority = 201
     )
-    public void checkDefaultShoplist() throws Exception {
+    public void successOperateDefaultShoplist() throws Exception {
         kraken.get().page("metro");
         kraken.shopping().openStoreSelector();
 
