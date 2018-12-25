@@ -29,7 +29,7 @@ public class Checkout extends TestBase {
 
 
     @Test(
-            description = "Тест добавления промокода в чекауте",
+            description = "Тест применения промокода в чекауте",
             groups = {"acceptance","regression"},
             priority = 400
     )
@@ -37,9 +37,8 @@ public class Checkout extends TestBase {
         kraken.perform().reachCheckout();
         kraken.checkout().addPromocode("unicorn");
 
-        // Assert promocode is applied
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
-                "Промокод не применён\n");
+                "Не применяется промокод в чекауте\n");
     }
 
 
@@ -52,9 +51,8 @@ public class Checkout extends TestBase {
         kraken.perform().reachCheckout();
         kraken.checkout().clearPromocode();
 
-        // Assert promocode is applied
         Assert.assertFalse(kraken.detect().isPromocodeApplied(),
-                "Промокод не удалён\n");
+                "Не удаляется промокод в чекауте\n");
     }
 
 
@@ -69,9 +67,8 @@ public class Checkout extends TestBase {
         kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
         kraken.perform().click(Elements.Site.Checkout.PromocodeModal.cancelButton());
 
-        // Assert promocode is not applied
         Assert.assertFalse(kraken.detect().isPromocodeApplied(),
-                "Промокод применён после нажатия кнопки отмены\n");
+                "При отмене добавления промокода, промокод все равно применяется\n");
     }
 
     @Test(
@@ -85,9 +82,8 @@ public class Checkout extends TestBase {
         kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
         kraken.perform().click(Elements.Site.Checkout.PromocodeModal.closeButton());
 
-        // Assert promocode is not applied
         Assert.assertFalse(kraken.detect().isPromocodeApplied(),
-                "Промокод применён после нажатия кнопки закрытия\n");
+                "При закрытии модалки добавления промокода, промокод все равно применяется\n");
     }
 
 
@@ -98,14 +94,14 @@ public class Checkout extends TestBase {
     )
     public void successAddBonusPrograms(){
         kraken.perform().reachCheckout();
+
         kraken.checkout().addLoyalty("mnogoru");
         Assert.assertTrue(kraken.detect().isLoyaltyApplied("mnogoru"),
-                "Программа лояльности \"mnogoru\" не применена\n");
+                "Не добавляется бонусная программа \"mnogoru\" в чекауте\n");
 
         kraken.checkout().addLoyalty("aeroflot");
         Assert.assertTrue(kraken.detect().isLoyaltyApplied("aeroflot"),
-                "Программа лояльности \"aeroflot\" не применена\n");
-
+                "Не добавляется бонусная программа \"aeroflot\" в чекауте\n");
     }
 
 
@@ -129,18 +125,19 @@ public class Checkout extends TestBase {
     )
     public void successClearBonusPrograms(){
         kraken.perform().reachCheckout();
+
         kraken.checkout().clearLoyalty("mnogoru");
         Assert.assertFalse(kraken.detect().isLoyaltyApplied("mnogoru"),
-                "Программа лояльности \"mnogoru\" не удалена");
+                "Не удаляется бонусная программа \"mnogoru\" в чекауте");
 
         kraken.checkout().clearLoyalty("aeroflot");
         Assert.assertFalse(kraken.detect().isLoyaltyApplied("aeroflot"),
-                "Программа лояльности \"aeroflot\" не удалена");
+                "Не удаляется бонусная программа \"aeroflot\" в чекауте");
     }
 
 
     @Test(
-            description = "Тест полного оформления заказа с оплатой налом",
+            description = "Тест оформления заказа с оплатой наличными",
             groups = {"acceptance","regression"},
             priority = 407
     )
@@ -148,9 +145,8 @@ public class Checkout extends TestBase {
         kraken.perform().reachCheckout();
         kraken.checkout().complete();
 
-        // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформлен заказ с оплатой налом\n");
+                "Не оформляется заказ с оплатой наличными\n");
 
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
@@ -160,7 +156,7 @@ public class Checkout extends TestBase {
 
 
     @Test(
-            description = "Тест полного оформления заказа с оплатой картой онлайн",
+            description = "Тест оформления заказа с оплатой картой онлайн",
             groups = {"regression"},
             priority = 408
     )
@@ -168,9 +164,8 @@ public class Checkout extends TestBase {
         kraken.perform().reachCheckout();
         kraken.checkout().complete("card-online");
 
-        // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформлен заказ с оплатой картой онлайн\n");
+                "Не оформляется заказ с оплатой картой онлайн\n");
 
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
@@ -180,7 +175,7 @@ public class Checkout extends TestBase {
 
 
     @Test(
-            description = "Тест полного оформления заказа с оплатой картой курьеру",
+            description = "Тест оформления заказа с оплатой картой курьеру",
             groups = {"regression"},
             priority = 409
     )
@@ -188,9 +183,8 @@ public class Checkout extends TestBase {
         kraken.perform().reachCheckout();
         kraken.checkout().complete("card-courier");
 
-        // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформлен заказ с оплатой картой курьеру\n");
+                "Не оформляется заказ с оплатой картой курьеру\n");
 
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
@@ -200,7 +194,7 @@ public class Checkout extends TestBase {
 
 
     @Test(
-            description = "Тест полного оформления заказа с оплатой банковским переводом",
+            description = "Тест оформления заказа с оплатой банковским переводом",
             groups = {"regression"},
             priority = 410
     )
@@ -208,9 +202,8 @@ public class Checkout extends TestBase {
         kraken.perform().reachCheckout();
         kraken.checkout().complete("bank");
 
-        // Проверяем что заказ оформился и активен
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформлен заказ с оплатой банковским переводом\n");
+                "Не оформляется заказ с оплатой банковским переводом\n");
 
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
