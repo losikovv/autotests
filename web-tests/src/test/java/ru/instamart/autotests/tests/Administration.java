@@ -306,7 +306,7 @@ public class Administration extends TestBase {
 
 
     @Test(
-            description = "Тест поиска заказа через админку",
+            description = "Тест поиска заказа в админке",
             groups = {"acceptance","regression"},
             priority = 707
     )
