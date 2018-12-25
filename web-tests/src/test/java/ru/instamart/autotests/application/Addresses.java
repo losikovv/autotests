@@ -33,7 +33,7 @@ public abstract class Addresses {
             super(address);
         }
 
-        public static String    defaultAddress() {
+        public static String defaultAddress() {
             return addressString = "Казань, ул Мулланура Вахитова, д 10";
         }
 
