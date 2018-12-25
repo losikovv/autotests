@@ -34,28 +34,28 @@ public class Shopping extends TestBase{
 
 
     @Test(
-            description = "Тест пустой корзины",
+            description = "Тест работы с пустой корзиной",
             groups = {"acceptance","regression"},
             priority = 352
     )
-    public void checkEmptyCart() throws Exception, AssertionError {
+    public void successHandlingAnEmptyCart() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
         kraken.perform().dropCart();
         kraken.shopping().openCart();
 
         Assert.assertTrue(kraken.detect().isCartOpen(),
-                "Не открылась козина\n");
+                "Не открывается корзина\n");
 
-        Assert.assertTrue(kraken.detect().isCartEmpty(),
+        Assert.assertTrue(kraken.detect().isCartEmpty(), // TODO вынести в отдельный тест
                 "Корзина не пуста\n");
 
-        Assert.assertFalse(kraken.detect().isCheckoutButtonActive(),
+        Assert.assertFalse(kraken.detect().isCheckoutButtonActive(), // TODO вынести в отдельный тест
                 "Кнопка чекаута активна в пустой козине\n");
 
         kraken.shopping().closeCart();
 
         Assert.assertFalse(kraken.detect().isCartOpen(),
-                "Не закрылась корзина\n");
+                "Не закрывается корзина\n");
     }
 
 

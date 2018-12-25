@@ -343,19 +343,14 @@ public class CheckoutHelper extends HelperBase {
             clearPromocode();
         }
         kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
-        if (kraken.detect().element(Elements.Site.Checkout.PromocodeModal.title())) {
-            printMessage("Применяем промокод '" + promocode + "'...");
-            kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
-            kraken.perform().click(Elements.Site.Checkout.PromocodeModal.applyButton());
-            kraken.perform().waitingFor(1); // Ожидание применения промокода в чекауте
-        } else {
-            printMessage("Не открывается промо модалка! Пробуем ещё раз...");
-            kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
-            printMessage("> Применяем промокод '" + promocode + "'");
-            kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
-            kraken.perform().click(Elements.Site.Checkout.PromocodeModal.applyButton());
-            kraken.perform().waitingFor(1); // Ожидание применения промокода в чекауте
+        if (!kraken.detect().element(Elements.Site.Checkout.PromocodeModal.title())) {
+            printMessage("⚠ Не открывается промо-модалка\n");
+            kraken.perform().waitingFor(1); // Ожидание открытия промо-модалки в чекауте
         }
+        printMessage("Применяем промокод '" + promocode + "'...");
+        kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
+        kraken.perform().click(Elements.Site.Checkout.PromocodeModal.applyButton());
+        kraken.perform().waitingFor(1); // Ожидание применения промокода в чекауте
     }
 
     /**

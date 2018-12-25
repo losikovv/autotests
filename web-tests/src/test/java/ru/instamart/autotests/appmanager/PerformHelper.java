@@ -407,6 +407,7 @@ public class PerformHelper extends HelperBase {
     public void reachCheckout() {
         kraken.get().checkoutPage();
         if(!kraken.checkout().isOnCheckout()){
+            kraken.perform().refresh(); // Скипаем возможный алерт о минимальном заказе
             kraken.shopping().collectItems();
             kraken.shopping().proceedToCheckout();
         }

@@ -743,12 +743,12 @@ public class Elements {
             }
 
             static Elements addPromocodeButton() {
-                return new Elements("Добавить промо-код",
-                        By.linkText("Добавить промо-код"));
+                return new Elements("Добавить промокод",
+                        By.linkText("Добавить промокод"));
             }
 
             static Elements appliedPromocodeAttribute() {
-                return new Elements("Промо-код:",
+                return new Elements("Промокод:",
                         By.className("promo-codes__label"));
             }
 
@@ -779,7 +779,7 @@ public class Elements {
             interface PromocodeModal {
 
                 static Elements title() {
-                    return new Elements("Введите промо-код",
+                    return new Elements("Введите промокод",
                             By.className("modal-form__title"));
                 }
 
