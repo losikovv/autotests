@@ -247,6 +247,7 @@ public class ShippingAddress extends TestBase{
         softAssert.assertAll();
     }
 
+    
     @Test(
             description = "Тест на успешный выбор нового адреса в модалке феникса после ввода адреса," +
                     " по которому совсем нет доставки",
@@ -260,8 +261,8 @@ public class ShippingAddress extends TestBase{
         kraken.get().page("metro");
         kraken.shipAddress().change(Addresses.Moscow.outOfZoneAddress());
 
-        softAssert.assertTrue(kraken.detect().isAddressModalOpen(),
-                "Не открывается модалка без магазинов");
+        softAssert.assertTrue(kraken.detect().isAddressOutOfZone(),
+                "Не открывается модалка Адрес вне зоны доставки");
 
         kraken.perform().click(Elements.Site.AddressModal.setNewAddress());
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
