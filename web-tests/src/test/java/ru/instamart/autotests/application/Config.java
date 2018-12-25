@@ -6,6 +6,7 @@ public class Config {
     public final static String productionHost = "instamart.ru";
     public final static String stagingHost = "staging.instamart.ru";
 
+    public final static String testUserEmail = "instatestuser@yandex.ru";
     public final static String testUserPhone = "1488148814";
     public final static String testUserEmailBase = "testuser@example.com";
     public final static String testAdminEmailBase = "testadmin@instamart.ru";
