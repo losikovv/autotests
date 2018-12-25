@@ -304,4 +304,22 @@ public class Administration extends TestBase {
                 "Не работает поиск пользователя в админке");
     }
 
+
+    @Test(
+            description = "Тест поиска заказа через админку",
+            groups = {"acceptance","regression"},
+            priority = 707
+    )
+    public void successSearchOrder() {
+
+        kraken.shopping().completeStandardOrder();
+
+        String number = kraken.grab().currentOrderNumber();
+
+        kraken.admin().searchOrder(number);
+
+        Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
+                "Не работает поиск заказа в админке");
+    }
+
 }

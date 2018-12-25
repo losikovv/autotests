@@ -897,6 +897,14 @@ public class Elements {
                         "/div/div[2]/div[1]/div/div[3]/div[2]/div[2]/div"));
             }
 
+            /**
+             * Номер заказа
+             */
+            static Elements orderNumber() {
+                return new Elements(null,
+                        By.xpath("/html[1]/body[1]/div[3]/div[2]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/strong[1]"));
+            }
+
         }
 
     }
@@ -1240,6 +1248,17 @@ public class Elements {
 
             static Elements firstOrderInTable() {
                 return new Elements(null, By.xpath("//*[@id='listing_orders']/tbody/tr/td[14]/a"));
+            }
+
+            static Elements firstOrderNumberInTable() { return new Elements(null,
+                        By.xpath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[2]/table[1]/tbody[1]/tr[1]/td[1]/span[2]/a[1]"));
+            }
+
+            static Elements searchNumberField() { return new Elements(null, By.id("search_number"));
+            }
+
+            static Elements searchButton() { return new Elements(null,
+                        By.xpath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[1]/form[1]/div[7]/div[1]/button[1]"));
             }
 
             /**
