@@ -114,6 +114,7 @@ public class Shopping extends TestBase{
     )
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() throws Exception {
         kraken.perform().loginAs("admin");
+
         if (kraken.detect().isCheckoutButtonActive()) {
             kraken.perform().dropCart();
         }
@@ -122,6 +123,8 @@ public class Shopping extends TestBase{
             kraken.search().item("хлеб"); // Для случаев когда первый товар на главной дороже минимального заказа
             kraken.shopping().addFirstItemOnPageToCart();
         }
+
+        Assert.assertTrue(!kraken.detect().isCartEmpty() && !kraken.detect().isCheckoutButtonActive());
         assertPageIsUnavailable(Pages.Site.checkout());
     }
 
