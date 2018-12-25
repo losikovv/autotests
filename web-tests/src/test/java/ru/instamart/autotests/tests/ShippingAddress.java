@@ -236,7 +236,7 @@ public class ShippingAddress extends TestBase{
         softAssert.assertTrue(kraken.detect().isChangeStoreModalOpen(),
                 "Не открывается модалка с магазинами доступными по новому адресу");
 
-        kraken.perform().click(Elements.Site.StoresModal.setNewAddress());
+        kraken.perform().click(Elements.Site.StoresModal.pickNewAddressButton());
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitPlusButton();
@@ -264,7 +264,7 @@ public class ShippingAddress extends TestBase{
         softAssert.assertTrue(kraken.detect().isAddressOutOfZone(),
                 "Не открывается модалка Адрес вне зоны доставки");
 
-        kraken.perform().click(Elements.Site.AddressModal.setNewAddress());
+        kraken.perform().click(Elements.Site.AddressModal.pickNewAddressButton());
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitPlusButton();

@@ -385,7 +385,7 @@ public class Elements {
                         By.className("address-modal__header"));
             }
 
-            static Elements setNewAddress() {
+            static Elements pickNewAddressButton() {
                 return new Elements("Выбрать другой адрес",
                         By.className("address-modal__button--reselect"));
             }
@@ -407,7 +407,7 @@ public class Elements {
                         By.className("store-card"));
             }
 
-            static Elements setNewAddress() {
+            static Elements pickNewAddressButton() {
                 return new Elements("Ввести другой адрес",
                         By.className("stores-modal__to-login-link"));
             }
