@@ -1,13 +1,9 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
-
-import static ru.instamart.autotests.application.Elements.*;
 
 
 // Тесты чекаута
@@ -209,45 +205,5 @@ public class Checkout extends TestBase {
         assertPageIsAvailable();
 
         kraken.perform().cancelLastOrder();
-    }
-
-
-    @Test( // TODO вынести в отдельный тестовый класс c тестами цен доставок
-            description = "Тест проверки прогрессивной стоимости доставки в Метро",
-            groups = {"regression"},
-            priority = 411
-    )
-    public void checkMetroDeliveryPriceDiscount() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.perform().dropCart();
-
-        kraken.get().baseUrl();
-        kraken.search().item("Haagen");
-        kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
-        kraken.checkout().fillAllFields();
-        softAssert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroHighDeliveryPrice,
-                "\nНекорректная цена доставки в чекауте при малой корзине");
-
-        kraken.get().baseUrl();
-        kraken.search().item("Haagen");
-        kraken.shopping().collectItems(5000);
-        kraken.shopping().proceedToCheckout();
-        softAssert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroMediumDeliveryPrice,
-                "\nНекорректная цена доставки в чекауте при средней корзине" );
-
-        kraken.get().baseUrl();
-        kraken.search().item("Haagen");
-        kraken.shopping().collectItems(10000);
-        kraken.shopping().proceedToCheckout();
-        softAssert.assertEquals(kraken.grab().roundedSum(Site.Checkout.deliveryPrice()), Config.MetroLowDeliveryPrice,
-                "\nНекорректная цена доставки в чекауте при большой корзине" );
-
-        kraken.checkout().complete();
-        softAssert.assertEquals(kraken.grab().roundedSum(Site.OrderDetailsPage.deliveryPrice()), Config.MetroLowDeliveryPrice,
-                "\nНекорректная цена доставки на странице заказа" );
-
-        kraken.perform().cancelLastOrder();
-        softAssert.assertAll();
     }
 }
