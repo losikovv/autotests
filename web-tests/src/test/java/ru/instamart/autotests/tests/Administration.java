@@ -313,9 +313,7 @@ public class Administration extends TestBase {
     public void successSearchOrder() {
         kraken.get().page("metro");
         kraken.perform().order();
-
         String number = kraken.grab().currentOrderNumber();
-
         kraken.admin().searchOrder(number);
 
         Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
