@@ -293,16 +293,15 @@ public class Administration extends TestBase {
 
 
     @Test(
-            description = "Тест поиска юзера через админку",
+            description = "Тест поиска пользователя в админке",
             groups = {"acceptance","regression"},
             priority = 706
     )
-    public void successSearchUser() throws Exception {
-
+    public void successSearchUser() {
         kraken.admin().searchUser(Config.testUserEmail);
 
         Assert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), Config.testUserEmail,
-                "Пользователь не найден");
+                "Не работает поиск пользователя в админке");
     }
 
 }
