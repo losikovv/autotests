@@ -183,14 +183,4 @@ public class ShoppingHelper extends HelperBase {
         } else { printMessage("В корзине достаточно товаров");}
     }
 
-    /** Оформить стандартный заказ */
-    public void completeStandardOrder() {
-        kraken.get().page("metro");
-
-        collectItems();
-        proceedToCheckout();
-
-        kraken.checkout().complete();
-    }
-
 }

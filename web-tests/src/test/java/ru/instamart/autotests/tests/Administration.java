@@ -311,8 +311,8 @@ public class Administration extends TestBase {
             priority = 707
     )
     public void successSearchOrder() {
-
-        kraken.shopping().completeStandardOrder();
+        kraken.get().page("metro");
+        kraken.perform().order();
 
         String number = kraken.grab().currentOrderNumber();
 
