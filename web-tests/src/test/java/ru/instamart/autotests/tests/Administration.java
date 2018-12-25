@@ -1,11 +1,14 @@
 package ru.instamart.autotests.tests;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Config;
+import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.Generate;
 
@@ -289,4 +292,19 @@ public class Administration extends TestBase {
 
         kraken.cleanup().users(Config.testAdminsList);
     }
+
+
+    @Test(
+            description = "Тест поиска юзера через админку",
+            groups = {"acceptance","regression"},
+            priority = 706
+    )
+    public void successSearchUser() throws Exception {
+
+        kraken.admin().searchUser(Config.testUserEmail);
+
+        Assert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), Config.testUserEmail,
+                "Пользователь не найден");
+    }
+
 }
