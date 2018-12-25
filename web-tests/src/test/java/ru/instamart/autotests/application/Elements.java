@@ -771,7 +771,8 @@ public class Elements {
             // TODO изменить локатор, чтобы всегда выбирался первый по порядку доступный слот, даже если первые в списке заняты
             static Elements deliverySlot() {
                 return new Elements(null,
-                        By.xpath("/html/body/div[3]/div/form/div/div/div[1]/div[5]/div[2]/div/div/div/div[2]/div/div[2]/div[2]/div[1]/div/span"));
+                        By.xpath("/html/body/div[3]/div/form/div/div/div[1]/div[5]/div[2]/div/div/div/div[2]/div" +
+                                "/div[2]/div[2]/div[1]/div/span"));
             }
 
             static Elements deliveryPrice() {
@@ -902,7 +903,8 @@ public class Elements {
              */
             static Elements orderNumber() {
                 return new Elements(null,
-                        By.xpath("/html[1]/body[1]/div[3]/div[2]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/strong[1]"));
+                        By.xpath("/html[1]/body[1]/div[3]/div[2]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]" +
+                                "/div[1]/div[1]/div[1]/div[1]/strong[1]"));
             }
 
         }
@@ -1251,14 +1253,16 @@ public class Elements {
             }
 
             static Elements firstOrderNumberInTable() { return new Elements(null,
-                        By.xpath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[2]/table[1]/tbody[1]/tr[1]/td[1]/span[2]/a[1]"));
+                        By.xpath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[2]/table[1]/tbody[1]/tr[1]" +
+                                "/td[1]/span[2]/a[1]"));
             }
 
             static Elements searchNumberField() { return new Elements(null, By.id("search_number"));
             }
 
             static Elements searchButton() { return new Elements(null,
-                        By.xpath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[1]/form[1]/div[7]/div[1]/button[1]"));
+                        By.xpath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[1]/form[1]" +
+                                "/div[7]/div[1]/button[1]"));
             }
 
             /**
@@ -1322,12 +1326,14 @@ public class Elements {
 
                 static Elements adminCheckbox() {
                     return new Elements(null, By.xpath(
-                            "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[2]/form[1]/div[2]/div[2]/div[1]/ul[1]/li[1]/input[1]"));
+                            "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[2]/form[1]/div[2]" +
+                                    "/div[2]/div[1]/ul[1]/li[1]/input[1]"));
                 }
 
                 static Elements saveButton() {
                     return new Elements(null, By.xpath(
-                            "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[2]/form[1]/div[3]/div[1]/button[1]"));
+                            "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[2]/form[1]/div[3]" +
+                                    "/div[1]/button[1]"));
                 }
 
             }
