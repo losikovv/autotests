@@ -18,7 +18,7 @@ public class CheckPages extends TestBase {
             priority = 801
     )
     // TODO забирать список ритейлеров из БД или из админки с признаком активности
-    public void checkActiveRetailerPages() throws Exception, AssertionError {
+    public void successCheckActiveRetailerPages() throws Exception, AssertionError {
         // TODO переделать на assertPagesAvailable(Pages.Site.Retailers.*)
         assertPageIsAvailable(Pages.Site.Retailers.metro());
         assertPageIsAvailable(Pages.Site.Retailers.vkusvill());
@@ -32,7 +32,7 @@ public class CheckPages extends TestBase {
             priority = 802
     )
     // TODO забирать список ритейлеров из БД или из админки с признаком активности
-    public void checkInactiveRetailerPages() throws Exception, AssertionError {
+    public void successCheckInactiveRetailerPages() throws Exception, AssertionError {
         // TODO переделать на assertPagesUnavailable(Pages.Site.InactiveRetailers.*)
         assertPageIs404(Pages.Site.Retailers.karusel());
         assertPageIs404(Pages.Site.Retailers.selgros());
@@ -48,7 +48,7 @@ public class CheckPages extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 803
     )
-    public void checkPartnersLandings() throws Exception, AssertionError {
+    public void successCheckPartnersLandings() throws Exception, AssertionError {
         kraken.perform().dropAuth();
 
         // TODO переделать на assertPagesAvailable(Pages.Site.Landings.*)
@@ -68,7 +68,7 @@ public class CheckPages extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 804
     )
-    public void checkStaticPages() throws Exception, AssertionError {
+    public void successCheckStaticPages() throws Exception, AssertionError {
         // TODO переделать на assertPagesAvailable(Pages.Site.Static.*)
         assertPageIsAvailable(Pages.Site.Static.about());
         assertPageIsAvailable(Pages.Site.Static.delivery());
@@ -86,7 +86,7 @@ public class CheckPages extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 805
     )
-    public void checkProfilePages() throws Exception, AssertionError {
+    public void successCheckProfilePages() throws Exception, AssertionError {
         kraken.get().baseUrl();
         kraken.perform().loginAs("admin");
         // TODO переделать на assertPagesAvailable(Pages.Site.Profile.*)
@@ -101,7 +101,7 @@ public class CheckPages extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 806
     )
-    public void checkAdminPages() throws Exception, AssertionError {
+    public void successCheckAdminPages() throws Exception, AssertionError {
         kraken.perform().reachAdmin();
         // TODO переделать на assertPagesAvailable(Pages.Admin.*)
         assertPageIsAvailable(Pages.Admin.shipments());
@@ -124,7 +124,7 @@ public class CheckPages extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 807
     )
-    public void checkFooterLinks() throws Exception {
+    public void successCheckFooterLinks() throws Exception {
         kraken.get().baseUrl();
 
         // TOdO нужен метод, проверяющий переход по ссылке и включающий проверку что начальная и конечная страницы не одинаковые
@@ -167,5 +167,4 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable();
         */
     }
-
 }

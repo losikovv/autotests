@@ -24,7 +24,7 @@ public class RepeatOrders extends TestBase {
             groups = {"acceptance","regression"},
             priority = 501
     )
-    public void repeatLastOrderAndPayWithCardOnline() throws Exception {
+    public void successRepeatLastOrderAndPayWithCardOnline() throws Exception {
         kraken.perform().repeatLastOrder();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
@@ -46,7 +46,7 @@ public class RepeatOrders extends TestBase {
             groups = {"acceptance","regression"},
             priority = 502
     )
-    public void repeatLastOrderAndPayWithCardCourier() throws Exception {
+    public void successRepeatLastOrderAndPayWithCardCourier() throws Exception {
         kraken.perform().repeatLastOrder();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
@@ -66,7 +66,7 @@ public class RepeatOrders extends TestBase {
             groups = {"acceptance","regression"},
             priority = 503
     )
-    public void repeatLastOrderAndPayWithCash() throws Exception {
+    public void successRepeatLastOrderAndPayWithCash() throws Exception {
         kraken.perform().repeatLastOrder();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
@@ -88,7 +88,7 @@ public class RepeatOrders extends TestBase {
             groups = {"acceptance","regression"},
             priority = 504
     )
-    public void repeatLastOrderAndPayWithBank() throws Exception {
+    public void successRepeatLastOrderAndPayWithBank() throws Exception {
         kraken.perform().repeatLastOrder();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),

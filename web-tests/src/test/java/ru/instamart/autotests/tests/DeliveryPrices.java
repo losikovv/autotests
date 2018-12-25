@@ -25,7 +25,7 @@ public class DeliveryPrices extends TestBase {
             groups = {"regression"},
             priority = 450
     )
-    public void checkMetroDeliveryPriceDiscount() throws Exception {
+    public void successCheckMetroDeliveryPriceDiscount() throws Exception {
         SoftAssert softAssert = new SoftAssert();
         kraken.perform().dropCart();
 

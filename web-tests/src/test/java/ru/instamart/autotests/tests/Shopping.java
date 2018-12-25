@@ -27,7 +27,7 @@ public class Shopping extends TestBase{
             groups = {"regression"},
             priority = 351
     )
-    public void checkoutIsUnavailableForUnauthorizedUser() throws Exception {
+    public void noAccessToCheckoutForUnauthorizedUser() throws Exception {
         kraken.perform().quickLogout();
         assertPageIsUnavailable(Pages.Site.checkout());
     }
@@ -38,7 +38,7 @@ public class Shopping extends TestBase{
             groups = {"acceptance","regression"},
             priority = 352
     )
-    public void successHandlingAnEmptyCart() throws Exception, AssertionError {
+    public void successOperateEmptyCart() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
         kraken.perform().dropCart();
         kraken.shopping().openCart();
@@ -46,10 +46,10 @@ public class Shopping extends TestBase{
         Assert.assertTrue(kraken.detect().isCartOpen(),
                 "Не открывается корзина\n");
 
-        Assert.assertTrue(kraken.detect().isCartEmpty(), // TODO вынести в отдельный тест
+        Assert.assertTrue(kraken.detect().isCartEmpty(), // TODO вынести в отдельный тест на дроп корзины
                 "Корзина не пуста\n");
 
-        Assert.assertFalse(kraken.detect().isCheckoutButtonActive(), // TODO вынести в отдельный тест
+        Assert.assertFalse(kraken.detect().isCheckoutButtonActive(), // TODO вынести в отдельный тест на дроп корзины
                 "Кнопка чекаута активна в пустой козине\n");
 
         kraken.shopping().closeCart();
@@ -64,7 +64,7 @@ public class Shopping extends TestBase{
             groups = {"acceptance","regression"},
             priority = 353
     )
-    public void checkoutIsUnavailableWithEmptyCart() throws Exception {
+    public void noAccessToCheckoutWithEmptyCart() throws Exception {
         kraken.perform().loginAs("admin");
         kraken.perform().dropCart();
         assertPageIsUnavailable(Pages.Site.checkout());
@@ -76,7 +76,7 @@ public class Shopping extends TestBase{
             groups = {"acceptance","regression"},
             priority = 354
     )
-    public void addItemToCartFromItemCard()throws Exception, AssertionError {
+    public void successAddItemToCartFromItemCard()throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
         kraken.perform().dropCart();
 
@@ -94,7 +94,7 @@ public class Shopping extends TestBase{
             groups = {"regression"},
             priority = 355
     )
-    public void addItemToCartFromCatalog() throws Exception {
+    public void successAddItemToCartFromCatalog() throws Exception {
         kraken.perform().loginAs("admin");
         kraken.perform().dropCart();
 
@@ -112,7 +112,7 @@ public class Shopping extends TestBase{
             groups = {"acceptance","regression"},
             priority = 356
     )
-    public void checkoutIsUnavailableBelowMinimalOrderSum() throws Exception {
+    public void noAccessToCheckoutWithCartBelowMinimalOrderSum() throws Exception {
         kraken.perform().loginAs("admin");
         if (kraken.detect().isCheckoutButtonActive()) {
             kraken.perform().dropCart();
@@ -131,7 +131,7 @@ public class Shopping extends TestBase{
             groups = {"acceptance","regression"},
             priority = 357
     )
-    public void collectItemsForMinOrder() throws Exception, AssertionError {
+    public void successCollectItemsForMinOrder() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
         kraken.shopping().collectItems();
 
@@ -145,7 +145,7 @@ public class Shopping extends TestBase{
             groups = {"regression"},
             priority = 358
     )
-    public void checkoutIsAvailableAboveMinimalOrderSum() throws Exception {
+    public void successAccessCheckoutWithCartAboveMinimalOrderSum() throws Exception {
         kraken.perform().loginAs("admin");
         kraken.shopping().collectItems();
 
