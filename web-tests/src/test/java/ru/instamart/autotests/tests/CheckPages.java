@@ -89,6 +89,7 @@ public class CheckPages extends TestBase {
     public void successCheckProfilePages() throws Exception, AssertionError {
         kraken.get().baseUrl();
         kraken.perform().loginAs("admin");
+
         // TODO переделать на assertPagesAvailable(Pages.Site.Profile.*)
         assertPageIsAvailable(Pages.Site.Profile.edit());
         assertPageIsAvailable(Pages.Site.Profile.orders());
@@ -103,6 +104,7 @@ public class CheckPages extends TestBase {
     )
     public void successCheckAdminPages() throws Exception, AssertionError {
         kraken.perform().reachAdmin();
+
         // TODO переделать на assertPagesAvailable(Pages.Admin.*)
         assertPageIsAvailable(Pages.Admin.shipments());
         assertPageIsAvailable(Pages.Admin.retailers());
