@@ -15,7 +15,7 @@ public class Registration extends TestBase {
 
 
     @Test(
-            description = "Негативный тест попытки зарегистрировать пользователя с пустыми полями",
+            description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {"acceptance", "regression"},
             priority = 1
     )
@@ -38,8 +38,9 @@ public class Registration extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
                 "Нет пользовательской ошибки пустого поля password confirmation\n");
 
+        kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Зарегистрирован пользователь без данных!\n");
+                "Произошла регистрация пользователя с пустыми реквизитами\n");
 
         softAssert.assertAll();
     }
@@ -60,8 +61,9 @@ public class Registration extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки пустого поля name\n");
 
+        kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Зарегистрирован пользователь без имени!\n");
+                "Произошла регистрация пользователя без имени\n");
 
         softAssert.assertAll();
     }
@@ -82,8 +84,9 @@ public class Registration extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
                 "Нет пользовательской ошибки пустого поля email\n");
 
+        kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Зарегистрирован пользователь без email!\n");
+                "Произошла регистрация пользователя без email\n");
 
         softAssert.assertAll();
     }
@@ -104,8 +107,9 @@ public class Registration extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
                 "Нет пользовательской ошибки пустого поля password\n");
 
+        kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Зарегистрирован пользователь без пароля!\n");
+                "Произошла регистрация пользователя без пароля\n");
 
         softAssert.assertAll();
     }
@@ -126,8 +130,9 @@ public class Registration extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
                 "Нет пользовательской ошибки пустого поля password confirmation\n");
 
+        kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Зарегистрирован пользователь без подтверждения пароля!\n");
+                "Произошла регистрация пользователя без подтверждения пароля\n");
 
         softAssert.assertAll();
     }
@@ -148,8 +153,9 @@ public class Registration extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
                 "Нет пользовательской ошибки несовпадения пароля\n");
 
+        kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Зарегистрирован пользователь с некорректно подтверждённым паролем!\n");
+                "Произошла регистрация пользователя с несовпадающим подтверждёнием пароля\n");
 
         softAssert.assertAll();
     }
@@ -170,8 +176,9 @@ public class Registration extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
                 "Нет пользовательской ошибки регистрации с уже зарегистрированным email\n");
 
+        kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Зарегистрирован пользователь с уже используемым email!\n");
+                "Произошла регистрация пользователя с уже используемым email\n");
 
         softAssert.assertAll();
     }
@@ -204,7 +211,7 @@ public class Registration extends TestBase {
 
         kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Пользователь зарегистрирован, при наличии ошибок заполнения формы регистрации\n");
+                "Произошла регистрация пользователя с ошибками заполнения формы регистрации длинными полями\n");
 
         softAssert.assertAll();
     }
@@ -222,7 +229,7 @@ public class Registration extends TestBase {
         kraken.perform().registration(Generate.testUserData());
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Пользователь не авторизован после регистрации на лендинге\n");
+                "Не работает регистрация на лендинге\n");
 
         kraken.perform().logout();
     }
@@ -240,14 +247,14 @@ public class Registration extends TestBase {
         kraken.perform().registration(Generate.testUserData());
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Пользователь не авторизован после регистрации на витрине магазина\n");
+                "Не работает регистрация на витрине магазина\n");
 
         kraken.perform().logout();
     }
 
 
     @Test(
-            description = "Тест регистрации с адресной модалки феникса",
+            description = "Тест регистрации из адресной модалки феникса",
             groups = {"regression"},
             priority = 11
     )
@@ -259,7 +266,7 @@ public class Registration extends TestBase {
         kraken.perform().regSequence(Generate.testUserData());
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Пользователь не авторизован после регистрации с адресной модалки феникса\n");
+                "Не работает регистрация из адресной модалки феникса\n");
 
         kraken.perform().logout();
     }
@@ -271,6 +278,7 @@ public class Registration extends TestBase {
             priority = 12
     )
     public void successRegFromCart() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         kraken.shopping().collectItems();
@@ -280,18 +288,20 @@ public class Registration extends TestBase {
 
         kraken.perform().regSequence(Generate.testUserData());
 
-        Assert.assertTrue(kraken.detect().isOnCheckout(),
+        softAssert.assertTrue(kraken.detect().isOnCheckout(),
                 "Нет автоперехода в чекаут после регистрации из корзины\n");
 
         kraken.get().baseUrl();
 
-        Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Юзер неавторизован после регистрации из корзины\n");
+        softAssert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Не работает регистрация из корзины\n");
 
-        Assert.assertFalse(kraken.detect().isCartEmpty(),
+        softAssert.assertFalse(kraken.detect().isCartEmpty(),
                 "Пропали товары после регистрации из корзины\n");
 
         kraken.shopping().closeCart();
         kraken.perform().logout();
+
+        softAssert.assertAll();
     }
 }

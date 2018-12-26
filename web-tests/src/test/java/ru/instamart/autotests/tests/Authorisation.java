@@ -30,9 +30,9 @@ public class Authorisation extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки пустого поля email\n");
 
-        // Assert user isn't authorised
+        kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Пользователь авторизован без email!\n");
+                "Произошла авторизация без email\n");
 
         softAssert.assertAll();
     }
@@ -53,8 +53,9 @@ public class Authorisation extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
                 "Нет пользовательской ошибки пустого поля password\n");
 
+        kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Пользователь авторизован без пароля!"+"\n");
+                "Произошла авторизация без пароля"+"\n");
 
         softAssert.assertAll();
     }
@@ -75,8 +76,9 @@ public class Authorisation extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
+        kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Авторизован незарегистрированный пользователь!"+"\n");
+                "Произошла авторизация несуществующим юзером"+"\n");
 
         softAssert.assertAll();
     }
@@ -97,8 +99,9 @@ public class Authorisation extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
+        kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Пользователь авторизован с неверным паролем!"+"\n");
+                "Произошла авторизация с неверным паролем"+"\n");
 
         softAssert.assertAll();
     }
@@ -111,7 +114,6 @@ public class Authorisation extends TestBase {
     )
     public void noAuthWithLongFields() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
 
@@ -121,8 +123,8 @@ public class Authorisation extends TestBase {
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
         kraken.get().baseUrl();
-        Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Пользователь авторизован при наличии ошибок заполнения формы авторизации\n");
+        softAssert.assertFalse(kraken.detect().isUserAuthorised(),
+                "Произошла авторизация при наличии ошибок заполнения формы авторизации\n");
 
         softAssert.assertAll();
     }
@@ -139,7 +141,7 @@ public class Authorisation extends TestBase {
         kraken.perform().loginAs("user");
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Пользователь не авторизован на лендинге\n");
+                "Не работает авторизация на лендинге\n");
 
         kraken.perform().quickLogout();
     }
@@ -152,18 +154,17 @@ public class Authorisation extends TestBase {
     )
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
         kraken.get().page("vkusvill");
-
         kraken.perform().loginAs("user");
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Пользователь не авторизован на витрине магазина\n");
+                "Не работает авторизация на витрине магазина\n");
 
         kraken.perform().quickLogout();
     }
 
 
     @Test(
-            description = "Тест логаута",
+            description = "Тест успешной деавторизации",
             groups = {"regression"},
             priority = 108
     )
@@ -171,17 +172,17 @@ public class Authorisation extends TestBase {
         kraken.perform().loginAs("admin");
 
         kraken.perform().logout();
+
         assertPageIsAvailable(); // Assert there is no problems after logout
 
         kraken.get().page("metro");
-
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Пользователь не разавторизован\n");
+                "Не работает деавторизация\n");
     }
 
 
     @Test(
-            description = "Тест авторизации с адресной модалки феникса",
+            description = "Тест авторизации из адресной модалки феникса",
             groups = {"regression"},
             priority = 109
     )
@@ -194,7 +195,7 @@ public class Authorisation extends TestBase {
         kraken.perform().authSequence("admin");
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Пользователь не авторизован с адресной модалки феникса\n");
+                "Не работает авторизация из адресной модалки феникса\n");
 
         kraken.perform().quickLogout();
     }
@@ -206,6 +207,7 @@ public class Authorisation extends TestBase {
             priority = 110
     )
     public void successAuthFromCart() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
         final UserData testuser = Generate.testUserData();
         kraken.get().baseUrl();
         kraken.perform().registration(testuser);
@@ -220,18 +222,21 @@ public class Authorisation extends TestBase {
 
         kraken.perform().authSequence(testuser);
 
-        Assert.assertTrue(kraken.detect().isOnCheckout(),
+        softAssert.assertTrue(kraken.detect().isOnCheckout(),
                 "Нет автоперехода в чекаут после авторизации из корзины\n");
 
         kraken.get().baseUrl();
 
-        Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Пользователь не авторизован после авторизации из корзины\n");
-        Assert.assertFalse(kraken.detect().isCartEmpty(),
+        softAssert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Не работает авторизация из из корзины\n");
+
+        softAssert.assertFalse(kraken.detect().isCartEmpty(),
                 "Пропали товары после авторизации из корзины\n");
 
         kraken.shopping().closeCart();
         kraken.perform().quickLogout();
+
+        softAssert.assertAll();
     }
 
     //TODO добавить тесты на авторизацию через соцсети
