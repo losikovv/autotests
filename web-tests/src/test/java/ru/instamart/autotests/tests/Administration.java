@@ -45,7 +45,11 @@ public class Administration extends TestBase {
     )
     public void successResumeOrder() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.get().adminOrderDetailsPage("R124857258"); // TODO убрать хардкод, делать новый тестовый заказ перед тестом
+        kraken.get().page("metro");
+        kraken.perform().order();
+        String number = kraken.grab().currentOrderNumber();
+        kraken.perform().cancelLastOrder();
+        kraken.get().adminOrderDetailsPage(number);
 
         softAssert.assertTrue(kraken.detect().isOrderCanceled(),
                 "Заказ уже активен\n");
@@ -55,6 +59,7 @@ public class Administration extends TestBase {
         softAssert.assertFalse(kraken.detect().isOrderCanceled(),
                 "Заказ не был возобновлён\n");
 
+        kraken.perform().cancelLastOrder();
         softAssert.assertAll();
     }
 
@@ -66,7 +71,10 @@ public class Administration extends TestBase {
     )
     public void successCancelOrder() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.get().adminOrderDetailsPage("R124857258"); // TODO убрать хардкод, делать новый тестовый заказ перед тестом
+        kraken.get().page("metro");
+        kraken.perform().order();
+        String number = kraken.grab().currentOrderNumber();
+        kraken.get().adminOrderDetailsPage(number);
 
         softAssert.assertFalse(kraken.detect().isOrderCanceled(),
                 "Заказ уже отменён\n");

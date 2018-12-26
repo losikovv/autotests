@@ -511,6 +511,8 @@ public class Elements {
             static Elements minusButton() {
                 return new Elements(null, By.className("popup-cart-actions__btn--left"));
             }
+
+            static Elements notInStock() { return new Elements(null, By.className("product-popup__not-in-stock")); }
         }
 
 
@@ -1284,7 +1286,7 @@ public class Elements {
 
                 static Elements canceledOrderAttribute() {
                     return new Elements("ЗАКАЗ ОТМЕНЕН",
-                            By.xpath("/html/body/div[1]/div[3]/div/div/div/table/tbody/tr[3]/td/b"));
+                            By.xpath("//b[contains(text(),'ЗАКАЗ ОТМЕНЕН')]"));
                 }
 
             }
