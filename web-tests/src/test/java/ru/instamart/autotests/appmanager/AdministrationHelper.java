@@ -22,7 +22,7 @@ public class AdministrationHelper extends HelperBase {
      */
     public void searchOrder(String number) {
         kraken.get().adminPage("shipments");
-        printMessage("Поиск заказа по номеру заказа/шипмента" + number);
+        printMessage("Поиск заказа по номеру заказа/шипмента " + number);
         kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), number);
         kraken.perform().click(Elements.Admin.Shipments.searchButton());
     }
