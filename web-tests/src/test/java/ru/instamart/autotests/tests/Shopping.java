@@ -71,6 +71,13 @@ public class Shopping extends TestBase{
     }
 
 
+    // TODO добавить тест successOperateItemCard
+    // открываем первую карточку товара на страницу
+    // проверяем что открыта
+    // закрывваем
+    // проверяем что закрыта
+
+
     @Test(
             description = "Тест успешного добавления товара в корзину из карточки товара",
             groups = {"acceptance","regression"},

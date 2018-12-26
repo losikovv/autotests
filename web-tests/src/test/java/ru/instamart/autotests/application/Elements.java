@@ -450,7 +450,7 @@ public class Elements {
             }
 
             static Elements firstItem() {
-                return new Elements(null, By.className("product__img")
+                return new Elements(null, By.className("product")
                 );
             }
 

@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.Generate;
 
@@ -298,9 +299,11 @@ public class Administration extends TestBase {
             priority = 706
     )
     public void successSearchUser() {
-        kraken.admin().searchUser(Config.testUserEmail);
+        UserData user = Users.getCredentials("user");
 
-        Assert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), Config.testUserEmail,
+        kraken.admin().searchUser(user.getLogin());
+
+        Assert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), user.getLogin(),
                 "Не работает поиск пользователя в админке");
     }
 
