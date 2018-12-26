@@ -15,6 +15,18 @@ public class AdministrationHelper extends HelperBase {
         kraken = app;
     }
 
+    // ====== ORDERS =======
+
+    /**
+     * Найти заказ по номеру заказа или шипмента
+     */
+    public void searchOrder(String number) {
+        kraken.get().adminPage("shipments");
+        printMessage("Поиск заказа по номеру заказа/шипмента" + number);
+        kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), number);
+        kraken.perform().click(Elements.Admin.Shipments.searchButton());
+    }
+
     /**
      * Возобновить заказ
      */
@@ -65,7 +77,7 @@ public class AdministrationHelper extends HelperBase {
      * Найти пользователя по email
      */
     public void searchUser(String email) {
-        kraken.get().page("admin/users");
+        kraken.get().adminPage("users");
         printMessage("Поиск пользователей по запросу " + email);
         kraken.perform().fillField(Elements.Admin.Users.searchField(), email);
         kraken.perform().click(Elements.Admin.Users.searchButton());
