@@ -44,6 +44,11 @@ public class GrabHelper extends HelperBase{
         return kraken.detect().isElementDisplayed(Elements.Site.Cart.total()) ? text(Elements.Site.Cart.total()) : null;
     }
 
+    /** Взять текущий номер заказа на странице заказа */
+    public String currentOrderNumber() {
+        return kraken.grab().text(Elements.Site.OrderDetailsPage.orderNumber());
+    }
+
     /** Взять округленное значение цены из указанного элемента */
     public int roundedSum(Elements element) {
         return round(text(element));
