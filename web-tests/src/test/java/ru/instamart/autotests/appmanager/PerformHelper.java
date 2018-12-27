@@ -247,14 +247,14 @@ public class PerformHelper extends HelperBase {
         if (kraken.detect().isAuthModalOpen()) {
             printMessage("> модалка авторизации открыта");
         } else {
+            printMessage("> открываем модалку авторизации");
             if (kraken.detect().isOnLanding()) {
                 kraken.perform().click(Elements.Site.Landing.loginButton());
             } else {
                 kraken.perform().click(Elements.Site.Header.loginButton());
             }
+            waitingFor(1); // Ожидание открытия модалки авторизации
         }
-        printMessage("> открываем модалку авторизации");
-        waitingFor(1); // Ожидание открытия модалки авторизации
     }
 
     /** Переключиться на вкладку регистрации */

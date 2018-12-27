@@ -259,16 +259,23 @@ public class Registration extends TestBase {
             priority = 11
     )
     public void successRegFromAddressModal() throws Exception, AssertionError {
+        SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
+        kraken.perform().dropAuth();
 
         kraken.shipAddress().openAddressModal();
         kraken.perform().click(Elements.Site.AddressModal.authButton());
-        kraken.perform().regSequence(Generate.testUserData());
 
-        Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Не работает регистрация из адресной модалки феникса\n");
+        softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
+                "\nНе работает переход на авторизацию из адресной модалки");
 
-        kraken.perform().logout();
+        kraken.perform().registration(Generate.testUserData());
+
+        softAssert.assertTrue(kraken.detect().isUserAuthorised(),
+                "\nНе работает регистрация из адресной модалки феникса");
+
+        kraken.perform().quickLogout();
+        softAssert.assertAll();
     }
 
 
@@ -280,28 +287,29 @@ public class Registration extends TestBase {
     public void successRegFromCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
+        kraken.perform().dropAuth();
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
-        kraken.shopping().collectItems();
-        kraken.shopping().openCart();
-        kraken.perform().click(Elements.Site.Cart.checkoutButton());
-        kraken.perform().click(Elements.Site.AuthModal.registrationTab());
 
-        kraken.perform().regSequence(Generate.testUserData());
+        kraken.shopping().collectItems();
+        kraken.shopping().proceedToCheckout();
+
+        softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
+                "\nНе работает переход на авторизацию из корзины");
+
+        kraken.perform().registration(Generate.testUserData());
 
         softAssert.assertTrue(kraken.detect().isOnCheckout(),
-                "Нет автоперехода в чекаут после регистрации из корзины\n");
+                "\nНет автоперехода в чекаут после регистрации из корзины");
 
         kraken.get().baseUrl();
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Не работает регистрация из корзины\n");
+                "\nНе работает регистрация из корзины");
 
         softAssert.assertFalse(kraken.detect().isCartEmpty(),
-                "Пропали товары после регистрации из корзины\n");
+                "\nПропали товары после регистрации из корзины");
 
-        kraken.shopping().closeCart();
-        kraken.perform().logout();
-
+        kraken.perform().quickLogout();
         softAssert.assertAll();
     }
 }
