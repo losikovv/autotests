@@ -260,8 +260,8 @@ public class Registration extends TestBase {
     )
     public void successRegFromAddressModal() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
+        kraken.perform().quickLogout();
         kraken.get().page("metro");
-        kraken.perform().dropAuth();
 
         kraken.shipAddress().openAddressModal();
         kraken.perform().click(Elements.Site.AddressModal.authButton());
@@ -286,15 +286,15 @@ public class Registration extends TestBase {
     )
     public void successRegFromCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
+        kraken.perform().quickLogout();
         kraken.get().page("metro");
-        kraken.perform().dropAuth();
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
 
         kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();
 
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
-                "\nНе работает переход на авторизацию из корзины");
+                "\nНе открывается авторизационная модалка при переходе неавторизованным из корзины в чекаут");
 
         kraken.perform().registration(Generate.testUserData());
 

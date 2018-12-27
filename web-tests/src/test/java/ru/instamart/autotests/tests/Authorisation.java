@@ -187,17 +187,23 @@ public class Authorisation extends TestBase {
             priority = 109
     )
     public void successAuthFromAddressModal() throws Exception, AssertionError {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.perform().quickLogout();
         kraken.get().page("metro");
-        kraken.perform().dropAuth();
 
         kraken.shipAddress().openAddressModal();
         kraken.perform().click(Elements.Site.AddressModal.authButton());
-        kraken.perform().authSequence("admin");
 
-        Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Не работает авторизация из адресной модалки феникса\n");
+        softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
+                "\nНе работает переход на авторизацию из адресной модалки");
+
+        kraken.perform().loginAs("admin");
+
+        softAssert.assertTrue(kraken.detect().isUserAuthorised(),
+                "\nНе работает авторизация из адресной модалки феникса");
 
         kraken.perform().quickLogout();
+        softAssert.assertAll();
     }
 
 
@@ -208,34 +214,33 @@ public class Authorisation extends TestBase {
     )
     public void successAuthFromCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
+        kraken.perform().quickLogout();
         final UserData testuser = Generate.testUserData();
-        kraken.get().baseUrl();
         kraken.perform().registration(testuser);
-        kraken.perform().logout();
-
+        kraken.perform().quickLogout();
         kraken.get().page("metro");
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
-        kraken.shopping().collectItems();
-        kraken.shopping().openCart();
-        kraken.perform().click(Elements.Site.Cart.checkoutButton());
-        kraken.perform().click(Elements.Site.AuthModal.authorisationTab());
 
-        kraken.perform().authSequence(testuser);
+        kraken.shopping().collectItems();
+        kraken.shopping().proceedToCheckout();
+
+        softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
+                "\nНе открывается авторизационная модалка при переходе неавторизованным из корзины в чекаут");
+
+        kraken.perform().login(testuser);
 
         softAssert.assertTrue(kraken.detect().isOnCheckout(),
-                "Нет автоперехода в чекаут после авторизации из корзины\n");
+                "\nНет автоперехода в чекаут после авторизации из корзины");
 
         kraken.get().baseUrl();
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Не работает авторизация из из корзины\n");
+                "\nНе работает авторизация из корзины");
 
         softAssert.assertFalse(kraken.detect().isCartEmpty(),
-                "Пропали товары после авторизации из корзины\n");
+                "\nПропали товары после авторизации из корзины");
 
-        kraken.shopping().closeCart();
         kraken.perform().quickLogout();
-
         softAssert.assertAll();
     }
 
