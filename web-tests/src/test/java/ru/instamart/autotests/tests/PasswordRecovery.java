@@ -1,7 +1,10 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import ru.instamart.autotests.application.Users;
 
 
 // Тесты восстановления пароля
@@ -10,20 +13,22 @@ import org.testng.annotations.Test;
 public class PasswordRecovery extends TestBase {
 
 
+    @BeforeMethod(alwaysRun = true)
+    public void quickLogout() throws Exception {
+        kraken.perform().quickLogout();
+    }
+
+
     @Test(
-            description = "Негативный тест попытки восстановления пароля с незаполненным полем email",
+            description = "Негативный тест попытки восстановления пароля с пустым полем email",
             groups = {"regression"},
             priority = 600
     )
     public void noRecoveryWithEmptyEmail() throws Exception {
-        kraken.get().baseUrl();
-        kraken.perform().dropAuth();
-
         kraken.perform().recoverPassword(null);
 
-        // Assert recovery is not requested
         Assert.assertFalse(kraken.detect().isRecoveryRequested(),
-                "Форма восстановления пароля отправлена с пустым полем email\n");
+                "Отправляется запрос на восстановление пароля с пустым полем email\n");
     }
 
 
@@ -33,14 +38,10 @@ public class PasswordRecovery extends TestBase {
             priority = 601
     )
     public void noRecoveryWithWrongEmail() throws Exception {
-        kraken.get().baseUrl();
-        kraken.perform().dropAuth();
-
         kraken.perform().recoverPassword("wrongemail.example.com");
 
-        // Assert recovery is not requested
         Assert.assertFalse(kraken.detect().isRecoveryRequested(),
-                "Форма восстановления пароля отправлена с некорректным email\n");
+                "Отправляется запрос на восстановление пароля с некорректным email\n");
     }
 
 
@@ -50,14 +51,10 @@ public class PasswordRecovery extends TestBase {
             priority = 602
     )
     public void noRecoveryForNonexistingUser() throws Exception {
-        kraken.get().baseUrl();
-        kraken.perform().dropAuth();
-
         kraken.perform().recoverPassword("nonexistinguser@example.com");
 
-        // Assert recovery is not requested
         Assert.assertFalse(kraken.detect().isRecoveryRequested(),
-                "Форма восстановления пароля отправлена для несуществующего пользователя\n");
+                "Отправляется запрос на восстановление пароля для несуществующего пользователя\n");
     }
 
 
@@ -67,14 +64,10 @@ public class PasswordRecovery extends TestBase {
             priority = 603
     )
     public void successRequestRecoveryOnLanding() throws AssertionError, Exception {
-        kraken.get().baseUrl();
-        kraken.perform().dropAuth();
+        kraken.perform().recoverPasswordAs("user");
 
-        kraken.perform().recoverPassword("instatestuser@yandex.ru");
-
-        // Assert recovery is requested
         Assert.assertTrue(kraken.detect().isRecoveryRequested(),
-                "Форма восстановления пароля не была отправлена на лендинге\n");
+                "Не отправляется запрос на восстановление пароля на лендинге\n");
     }
 
 
@@ -85,15 +78,11 @@ public class PasswordRecovery extends TestBase {
     )
     public void successRequestRecoveryOnRetailer() throws AssertionError, Exception {
         kraken.get().page("metro");
-        kraken.perform().dropAuth();
 
-        kraken.perform().recoverPassword("instatestuser@yandex.ru");
+        kraken.perform().recoverPasswordAs("user");
 
-        // Assert recovery is requested
         Assert.assertTrue(kraken.detect().isRecoveryRequested(),
-                "Форма восстановления пароля не была отправлена на витрине ритейлера\n");
-
-
+                "Не отправляется запрос на восстановление пароля на витрине ритейлера\n");
     }
 
 
@@ -103,10 +92,8 @@ public class PasswordRecovery extends TestBase {
             priority = 605
     )
     public void successOpenAuthModalAfterRecovery() throws Exception {
-        kraken.get().baseUrl();
-        kraken.perform().dropAuth();
+        kraken.perform().recoverPasswordAs("user");
 
-        kraken.perform().recoverPassword("instatestuser@yandex.ru");
         kraken.perform().closeAuthModal();
         kraken.perform().openAuthModal();
 
@@ -116,47 +103,42 @@ public class PasswordRecovery extends TestBase {
 
 
     @Test (
-            description = "Авторизация в инстамарте со старым паролем после запроса на восстановление, но до сброса старого пароля",
+            description = "Тест на авторизацию со текущим паролем после запроса на восстановление, но до сброса старого",
             groups = {"regression"},
             priority = 606
     )
-    public void successOldAuthAfterRecoveryRequest() throws Exception {
+    public void successAuthWithCurrentPasswordAfterRecoveryRequest() throws Exception {
+        kraken.perform().recoverPasswordAs("user");
         kraken.get().baseUrl();
-        kraken.perform().dropAuth();
-
-        kraken.perform().recoverPassword("instatestuser@yandex.ru");
-        kraken.get().baseUrl();
-        kraken.perform().login("instatestuser@yandex.ru", "instamart");
+        
+        kraken.perform().loginAs("user");
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Невозможно авторизоваться после запроса на восстановление пароля\n");
+                "Невозможно авторизоваться с текущим паролем после запроса на восстановление пароля\n");
 
-        kraken.perform().dropAuth();
+        kraken.perform().quickLogout();
     }
 
 
     @Test (
-            description = "Авторизация в инстамарте с новым паролем после восстановления пароля\n",
+            description = "Тест на авторизацию с новым паролем после восстановления",
             groups = {"regression"},
             priority = 607
     )
-    public void successAuthAfterRecovery() throws Exception {
-        kraken.get().baseUrl();
-        kraken.perform().dropAuth();
-        kraken.perform().recoverPassword("instamartmailtest@gmail.com");
+    public void successPasswordRecovery() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.perform().recoverPasswordAs("userGmail");
 
-        kraken.perform().authGmail("instamartmailtest@gmail.com", "instamart");
+        kraken.perform().authGmail("userGmail");
         kraken.perform().openLastGmail();
         kraken.perform().clickRecoveryInMail();
         kraken.perform().submitRecovery("password1", "password1");
 
-        kraken.perform().dropAuth();
-        kraken.perform().login("instamartmailtest@gmail.com", "password1");
+        kraken.perform().quickLogout();
+        kraken.perform().login(Users.getCredentials("userGmail").getLogin(), "password1");
 
-        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+        softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Невозможно авторизоваться с новым паролем после восстановления пароля\n");
-
-        kraken.perform().dropAuth();
     }
 
 
@@ -166,21 +148,17 @@ public class PasswordRecovery extends TestBase {
             priority = 608
     )
     public void noAuthWithOldRequisitesAfterRecovery() throws Exception {
-        kraken.get().baseUrl();
-        kraken.perform().dropAuth();
-        kraken.perform().recoverPassword("instamartmailtest@gmail.com");
+        kraken.perform().recoverPasswordAs("userGmail");
 
-        kraken.perform().authGmail("instamartmailtest@gmail.com", "instamart");
+        kraken.get().url("https://mail.google.com/mail/u/0/h/");
         kraken.perform().openLastGmail();
         kraken.perform().clickRecoveryInMail();
         kraken.perform().submitRecovery("password2", "password2");
 
-        kraken.perform().dropAuth();
-        kraken.perform().login("instamartmailtest@gmail.com", "password1");
+        kraken.perform().quickLogout();
+        kraken.perform().login(Users.getCredentials("userGmail").getLogin(), "password1");
         
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Возможно авторизоваться со старым паролем после восстановления пароля!\n");
-
-        kraken.perform().dropAuth();
     }
 }
