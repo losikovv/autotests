@@ -47,9 +47,9 @@ public class Administration extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
         kraken.perform().order();
-        String number = kraken.grab().currentOrderNumber();
+        String testOrder = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
-        kraken.get().adminOrderDetailsPage(number);
+        kraken.get().adminOrderDetailsPage(testOrder);
 
         softAssert.assertTrue(kraken.detect().isOrderCanceled(),
                 "Заказ уже активен\n");
@@ -57,7 +57,7 @@ public class Administration extends TestBase {
         kraken.admin().resumeOrder();
 
         softAssert.assertFalse(kraken.detect().isOrderCanceled(),
-                "Заказ не был возобновлён\n");
+                "Не возобновляется заказ через админку\n");
 
         kraken.perform().cancelLastOrder();
         softAssert.assertAll();
@@ -73,8 +73,8 @@ public class Administration extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
         kraken.perform().order();
-        String number = kraken.grab().currentOrderNumber();
-        kraken.get().adminOrderDetailsPage(number);
+        String testOrder = kraken.grab().currentOrderNumber();
+        kraken.get().adminOrderDetailsPage(testOrder);
 
         softAssert.assertFalse(kraken.detect().isOrderCanceled(),
                 "Заказ уже отменён\n");
@@ -82,7 +82,7 @@ public class Administration extends TestBase {
         kraken.admin().cancelOrder();
 
         softAssert.assertTrue(kraken.detect().isOrderCanceled(),
-                "Заказ не был отменён\n");
+                "Не отменяется заказ через админку\n");
 
         softAssert.assertAll();
     }
