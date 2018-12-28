@@ -24,7 +24,7 @@ public class Registration extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
-            groups = {"acceptance", "regression"},
+            groups = {"acceptance","regression"},
             priority = 1
     )
     public void noRegWithEmptyRequisites() throws Exception {
@@ -158,7 +158,7 @@ public class Registration extends TestBase {
 
     @Test(
             description = "Негативный тест попытки повторно зарегистрировать существующего пользователя",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 7
     )
     public void noRegWithExistingEmail() throws Exception {
