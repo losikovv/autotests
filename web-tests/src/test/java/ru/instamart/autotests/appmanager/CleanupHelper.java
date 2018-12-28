@@ -45,7 +45,7 @@ public class CleanupHelper extends HelperBase {
             // Keep deleting users, recursively
             users(usersListPath);
         } else {
-            printMessage("✓ Завершено: не осталось тестовых пользователей\n");
+            printMessage("✓ Все тестовые пользователи удалены\n");
         }
     }
 
@@ -67,7 +67,7 @@ public class CleanupHelper extends HelperBase {
             kraken.admin().cancelOrder(); // todo добавить проверку, отменять только если тестовый заказ
             orders(ordersListPath); // Keep cancelling orders recursively
         } else {
-            printMessage("✓ Завершено: не осталось активных тестовых заказов\n");
+            printMessage("✓ Все тестовые заказы отменены\n");
         }
     }
 }
