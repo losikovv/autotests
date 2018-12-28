@@ -103,7 +103,7 @@ public class PasswordRecovery extends TestBase {
 
 
     @Test (
-            description = "Тест на авторизацию со текущим паролем после запроса на восстановление, но до сброса старого",
+            description = "Тест на авторизацию с текущим паролем после запроса на восстановление",
             groups = {"regression"},
             priority = 606
     )
@@ -115,8 +115,6 @@ public class PasswordRecovery extends TestBase {
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Невозможно авторизоваться с текущим паролем после запроса на восстановление пароля\n");
-
-        kraken.perform().quickLogout();
     }
 
 
@@ -143,7 +141,7 @@ public class PasswordRecovery extends TestBase {
 
 
     @Test (
-            description = "Авторизация в инстамарте со старым паролем после восстановления пароля\n",
+            description = "Негативный тест на попытку авторизации со старым паролем после восстановления пароля",
             groups = {"regression"},
             priority = 608
     )
