@@ -220,7 +220,7 @@ public class Authorisation extends TestBase {
 
     @Test(
             description = "Тест успешной деавторизации",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 110
     )
     public void successLogout() throws Exception, AssertionError {

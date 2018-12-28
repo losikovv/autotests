@@ -211,7 +211,7 @@ public class Registration extends TestBase {
 
     @Test(
             description = "Регистрация нового пользователя на лендинге",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 9
     )
     public void successRegOnLanding() throws Exception {
