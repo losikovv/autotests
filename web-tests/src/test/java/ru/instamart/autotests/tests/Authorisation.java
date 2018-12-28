@@ -133,7 +133,7 @@ public class Authorisation extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 106
     )
-    public void successAuthOnLandingPage() throws Exception, AssertionError {
+    public void successAuthOnLanding() throws Exception, AssertionError {
         kraken.perform().loginAs("user");
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),

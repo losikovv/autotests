@@ -103,7 +103,6 @@ public class Registration extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.perform().registration("Test User", "test@example.com", null, "12345678");
-
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
                 "Нет пользовательской ошибки пустого поля password\n");
 
@@ -215,13 +214,11 @@ public class Registration extends TestBase {
             groups = {"regression"},
             priority = 9
     )
-    public void successRegOnLandingPage() throws Exception {
+    public void successRegOnLanding() throws Exception {
         kraken.perform().registration(Generate.testUserData());
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает регистрация на лендинге\n");
-
-        kraken.perform().logout();
     }
 
 
@@ -237,8 +234,6 @@ public class Registration extends TestBase {
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает регистрация на витрине магазина\n");
-
-        kraken.perform().logout();
     }
 
 
@@ -262,7 +257,6 @@ public class Registration extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "\nНе работает регистрация из адресной модалки феникса");
 
-        kraken.perform().quickLogout();
         softAssert.assertAll();
     }
 
@@ -296,7 +290,6 @@ public class Registration extends TestBase {
         softAssert.assertFalse(kraken.detect().isCartEmpty(),
                 "\nПропали товары после регистрации из корзины");
 
-        kraken.perform().quickLogout();
         softAssert.assertAll();
     }
 }
