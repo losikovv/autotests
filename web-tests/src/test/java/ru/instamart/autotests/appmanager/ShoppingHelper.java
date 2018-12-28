@@ -154,30 +154,30 @@ public class ShoppingHelper extends HelperBase {
     /** Набрать корзину на указанную сумму */
     public void collectItems(int orderSum) {
         printMessage("Собираем корзину товаров на сумму " + orderSum + "р...");
-
+        // Определяем сумму текущей корзины
         openCart();
         int cartTotal = round(kraken.grab().currentCartTotal());
         printMessage("> текущая корзина: " + cartTotal + "p");
-
+        // Добираем товар до требуемой суммы при необходимости
         if(cartTotal < orderSum) {
             closeCart();
             openFirstItemCard();
-
-            int itemPrice;
-            if(kraken.detect().isItemOnSale()){
-                itemPrice = round(kraken.grab().text(Elements.Site.ItemCard.salePrice()));
-                printMessage("> скидочная цена товара: " + itemPrice + "p");
-            } else {
-                itemPrice = round(kraken.grab().text(Elements.Site.ItemCard.price()));
-                printMessage("> цена товара: " + itemPrice + "p");
-            }
-
-            int quantity = ((orderSum - cartTotal) / itemPrice) + 1;
-            printMessage("> добавляем в корзину " + quantity + "шт\n");
-            for (int i = 1; i <= quantity; i++) {
-                hitPlusButton();
-            }
-
+                int itemPrice;
+                // Определяем цену товара со скидкой или без
+                if(kraken.detect().isItemOnSale()){
+                    itemPrice = round(kraken.grab().text(Elements.Site.ItemCard.salePrice()));
+                    printMessage("> скидочная цена товара: " + itemPrice + "p");
+                } else {
+                    itemPrice = round(kraken.grab().text(Elements.Site.ItemCard.price()));
+                    printMessage("> цена товара: " + itemPrice + "p");
+                }
+                // Рассчитывваем по формуле какое кол-во товара нужно добавить
+                int quantity = ((orderSum - cartTotal) / itemPrice) + 1;
+                printMessage("> добавляем в корзину " + quantity + "шт\n");
+                // Накидываем товар
+                for (int i = 1; i <= quantity; i++) {
+                    hitPlusButton();
+                }
             closeItemCard();
             openCart();
         } else { printMessage("В корзине достаточно товаров");}
