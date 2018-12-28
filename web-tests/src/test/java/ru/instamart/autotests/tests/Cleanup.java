@@ -21,7 +21,7 @@ public class Cleanup extends TestBase {
 
     @Test(
             description = "Отмена всех тестовых заказов и удаление всех тестовых юзеров",
-            groups = {"acceptance"},
+            groups = {"regression"},
             priority = 10000
     )
     public void all() throws Exception {
@@ -39,7 +39,7 @@ public class Cleanup extends TestBase {
 
     @Test(
             description = "Отмена всех тестовых заказов",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 10001
     )
     public void cancelTestOrders() throws Exception {
@@ -51,7 +51,7 @@ public class Cleanup extends TestBase {
 
     @Test(
             description = "Удаление всех тестовых юзеров",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 10002
     )
     public void deleteTestUsers() throws Exception {
