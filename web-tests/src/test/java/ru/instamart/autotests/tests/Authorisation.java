@@ -156,27 +156,9 @@ public class Authorisation extends TestBase {
 
 
     @Test(
-            description = "Тест успешной деавторизации",
-            groups = {"regression"},
-            priority = 108
-    )
-    public void successLogout() throws Exception, AssertionError {
-        kraken.perform().loginAs("admin");
-
-        kraken.perform().logout();
-
-        assertPageIsAvailable(); // Assert there is no problems after logout
-
-        kraken.get().page("metro");
-        Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Не работает деавторизация\n");
-    }
-
-
-    @Test(
             description = "Тест авторизации из адресной модалки феникса",
             groups = {"regression"},
-            priority = 109
+            priority = 108
     )
     public void successAuthFromAddressModal() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
@@ -200,7 +182,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест успешной авторизации из корзины",
             groups = {"regression"},
-            priority = 110
+            priority = 109
     )
     public void successAuthFromCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -232,6 +214,24 @@ public class Authorisation extends TestBase {
         softAssert.assertAll();
     }
 
-    //TODO добавить тесты на авторизацию через соцсети
 
+    // TODO добавить тесты на авторизацию через соцсети
+
+
+    @Test(
+            description = "Тест успешной деавторизации",
+            groups = {"regression"},
+            priority = 110
+    )
+    public void successLogout() throws Exception, AssertionError {
+        kraken.perform().loginAs("admin");
+
+        kraken.perform().logout();
+
+        assertPageIsAvailable(); // Assert there is no problems after logout
+
+        kraken.get().page("metro");
+        Assert.assertFalse(kraken.detect().isUserAuthorised(),
+                "Не работает деавторизация\n");
+    }
 }
