@@ -20,6 +20,7 @@ public class ShippingAddress extends TestBase{
             priority = 200
     )
     public void noShippingAddressByDefault() throws Exception {
+        kraken.perform().quickLogout();
         kraken.get().page("metro");
 
         Assert.assertFalse(kraken.detect().isShippingAddressSet(),

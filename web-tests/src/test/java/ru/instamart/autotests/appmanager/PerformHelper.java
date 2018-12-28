@@ -224,6 +224,11 @@ public class PerformHelper extends HelperBase {
         kraken.perform().waitingFor(1); // Ожидание авторизации в Gmail
     }
 
+    /** Авторизоваться в гугл почте с определённой ролью */
+    public void authGmail(String role) {
+        kraken.perform().authGmail(Users.getCredentials(role).getLogin(), Users.getCredentials(role).getPassword());
+    }
+
     /** Открыть крайнее письмо в цепочке писем от Инстамарт */
     public void openLastGmail() {
         kraken.perform().printMessage("> открываем крайнее письмо от Инстамарт");
@@ -318,6 +323,11 @@ public class PerformHelper extends HelperBase {
         kraken.perform().fillField(Elements.Site.AuthModal.emailField(),email);
         sendForm();
         waitingFor(1); // Ожидание раздизабливания кнопки подтверждения восстановления пароля
+    }
+
+    /** Запросить восстановление пароля для указанной роли*/
+    public void recoverPasswordAs(String role) throws Exception {
+        kraken.perform().recoverPassword(Users.getCredentials(role).getLogin());
     }
 
     /** Придумать новый пароль для восстановления пароля */
