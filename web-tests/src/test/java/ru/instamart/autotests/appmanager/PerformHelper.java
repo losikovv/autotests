@@ -120,8 +120,7 @@ public class PerformHelper extends HelperBase {
         printMessage("Регистрируемся...");
         openAuthModal();
         regSequence(name,email,password,passwordConfirmation);
-        // TODO добавить проверку на тормоза и обернуть в нее задержку для стабильности
-        waitingFor(3); // Ожидание раздизебливания кнопки подтверждения регистрации
+        sendForm();
     }
 
     /** Регистрационная последовательность с реквизитами из переданного объекта UserData */
@@ -133,7 +132,8 @@ public class PerformHelper extends HelperBase {
     private void regSequence(String name, String email, String password, String passwordConfirmation) throws Exception {
         switchToRegistrationTab();
         fillRegistrationForm(name, email, password, passwordConfirmation);
-        sendForm();
+        // TODO добавить проверку на тормоза и обернуть в нее задержку для стабильности
+        waitingFor(3); // Ожидание раздизебливания кнопки подтверждения регистрации
     }
 
 
@@ -176,7 +176,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Авторизационная последовательность с реквизитами из переданного объекта UserData */
-    public void authSequence(UserData userData) throws Exception {
+    private void authSequence(UserData userData) throws Exception {
         authSequence(userData.getLogin(), userData.getPassword());
     }
 
