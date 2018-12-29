@@ -150,7 +150,7 @@ public class PerformHelper extends HelperBase {
             kraken.get().url(startURL);
         }
         login(Users.getCredentials(role));
-        printMessage("Авторизован с правами " + role + "\n");
+        printMessage("Уровень прав: " + role + "\n");
     }
 
     /** Залогиниться с реквизитами из переданного объекта UserData */

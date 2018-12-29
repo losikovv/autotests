@@ -61,7 +61,7 @@ public class SearchProducts extends TestBase {
 
     @Test (
             description = "Тест упешного поиска товаров c использованием категорийных саджестов",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 303
     )
     public void successItemSearchUsingCategorySuggests(){
@@ -82,7 +82,7 @@ public class SearchProducts extends TestBase {
 
     @Test (
             description = "Тест упешного поиска товаров c использованием товарных саджестов",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 304
     )
     public void successItemSearchUsingProductSuggests(){
@@ -100,7 +100,7 @@ public class SearchProducts extends TestBase {
 
     @Test (
             description = "Тест поиска по очень длинному запросу, не возвращающему результатов",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 305
     )
     public void successItemSearchWithLongQuery(){
