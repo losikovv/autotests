@@ -164,6 +164,7 @@ public class PerformHelper extends HelperBase {
             printMessage("Авторизуемся...");
             openAuthModal();
             authSequence(email, password);
+            sendForm();
             // TODO добавить проверку на тормоза и обернуть в нее задержку для стабильности
         } else {
             printMessage("Пропускаем авторизацию, уже авторизованы");
@@ -184,7 +185,6 @@ public class PerformHelper extends HelperBase {
     private void authSequence(String email, String password) throws Exception {
         switchToAuthorisationTab();
         fillAuthorisationForm(email, password);
-        sendForm();
     }
 
     /** Деавторизоваться */

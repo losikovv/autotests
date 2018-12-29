@@ -127,6 +127,20 @@ public class Authorisation extends TestBase {
         softAssert.assertAll();
     }
 
+    @Test(
+            description = "Тест отмены авторизации после заполнения всех полей",
+            groups = {"regression"},
+            priority = 106
+    )
+    public void noAuthOnCancel() throws Exception, AssertionError {
+        kraken.perform().openAuthModal();
+        kraken.perform().authSequence("user");
+        kraken.perform().click(Elements.Site.AuthModal.closeButton());
+
+        Assert.assertFalse(kraken.detect().isUserAuthorised(),
+                "Произошла авторизация после заполнения всех полей и закрытия модалки\\n");
+    }
+
 
     @Test(
             description = "Тест успешной авторизации на лендинге",
