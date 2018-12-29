@@ -145,7 +145,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест успешной авторизации на лендинге",
             groups = {"smoke","acceptance","regression"},
-            priority = 106
+            priority = 107
     )
     public void successAuthOnLanding() throws Exception, AssertionError {
         kraken.perform().loginAs("user");
@@ -158,7 +158,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест успешной авторизации на витрине",
             groups = {"acceptance","regression"},
-            priority = 107
+            priority = 108
     )
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
         kraken.get().page("vkusvill");
@@ -172,7 +172,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест авторизации из адресной модалки феникса",
             groups = {"regression"},
-            priority = 108
+            priority = 109
     )
     public void successAuthFromAddressModal() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
@@ -196,7 +196,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест успешной авторизации из корзины",
             groups = {"regression"},
-            priority = 109
+            priority = 110
     )
     public void successAuthFromCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -235,7 +235,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест успешной деавторизации",
             groups = {"acceptance","regression"},
-            priority = 110
+            priority = 111
     )
     public void successLogout() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
