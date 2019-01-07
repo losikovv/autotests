@@ -26,74 +26,73 @@ public class TestBase {
         kraken.stop();
     }
 
+
     /**
-     * Simply check the current page is not 404 or 500
+     * Проверить возможность перехода на страницу и ее доступность
      */
-    protected void assertPageIsAvailable() throws AssertionError {
-        String currentURL = kraken.grab().currentURL();
-        Assert.assertFalse(kraken.detect().is404(), "Page " + currentURL + " is 404" + "\n");
-        Assert.assertFalse(kraken.detect().is500(), "It's something wrong on page " + currentURL + "\n");
-        kraken.perform().printMessage("Current page is available (" + currentURL + ")\n");
+    void assertPageIsAvailable(Pages page) throws AssertionError {
+        assertPageIsAvailable(kraken.grab().fullBaseUrl + Pages.getPagePath());
     }
 
     /**
-     * Get the given URL and check that reached page is equal to target one
-     * Then check that reached page isn't 404 or 500
+     * Проверить возможность перехода на страницу по указанному url и ее доступность
      */
-    protected void assertPageIsAvailable(String URL) throws AssertionError {
-        String targetURL = URL;
-        kraken.get().url(targetURL);
-        String currentURL = kraken.grab().currentURL();
-        Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL " + targetURL + "\n");
-        Assert.assertFalse(kraken.detect().is404(), "Page " + currentURL + " is 404" + "\n");
-        Assert.assertFalse(kraken.detect().is500(), "It's something wrong on page " + currentURL + "\n");
-        kraken.perform().printMessage("Page is available (" + currentURL + ")");
-    }
-
-    protected void assertPageIsAvailable(Pages page) throws AssertionError {
-        String targetURL = kraken.get().fullBaseUrl + Pages.getPagePath();
-        kraken.get().url(targetURL);
-        String currentURL = kraken.grab().currentURL();
-        Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL " + targetURL + "\n");
-        Assert.assertFalse(kraken.detect().is404(), "Page " + currentURL + " is 404" + "\n");
-        Assert.assertFalse(kraken.detect().is500(), "It's something wrong on page " + currentURL + "\n");
-        kraken.perform().printMessage("Page is available (" + currentURL + ")");
+    void assertPageIsAvailable(String URL) throws AssertionError {
+        assertTransition(URL);
+        assertPageIsAvailable();
     }
 
     /**
-     * Simply check the current page is 404 and isn't 500
+     * Проверить возможность перехода на страницу
      */
-    protected void assertPageIs404() throws AssertionError {
-        String currentURL = kraken.grab().currentURL();
-        kraken.perform().printMessage("Checking current page " + currentURL + " is 404");
-        Assert.assertTrue(kraken.detect().is404(), "Page " + currentURL + " must be 404, but it's not" + "\n");
-        Assert.assertFalse(kraken.detect().is500(), "It's something wrong on page " + currentURL + "\n");
+    void assertTransition(Pages page) {
+        assertTransition(kraken.grab().fullBaseUrl + Pages.getPagePath());
     }
 
     /**
-     * Get the given URL and check the reached page is equal to target one
-     * Then check that reached page is 404 and isn't 500
+     * Проверить возможность перехода на страницу по указанному url
      */
-    protected void assertPageIs404(String URL) throws AssertionError {
-        // TODO использовать get метод
-        String targetURL = URL;
-        kraken.perform().printMessage("Asserting page " + URL + " is 404");
-        kraken.get().url(targetURL);
-        String currentURL = kraken.grab().currentURL();
-        Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL" + targetURL + "\n");
-        Assert.assertTrue(kraken.detect().is404(), "Page " + currentURL + " must be 404, but it's not" + "\n");
-        Assert.assertFalse(kraken.detect().is500(), "It's something wrong on page " + currentURL + "\n");
+    void assertTransition(String URL) {
+        kraken.get().url(URL);
+        Assert.assertTrue(kraken.grab().currentURL().equalsIgnoreCase(URL),
+                "Невозможно перейти на страницу " + URL + " по прямой ссылке\n"
+                        + "Вместо нее попадаем на " + kraken.grab().currentURL() + "\n"
+        );
+        kraken.perform().printMessage("✓ Успешный переход по ссылке " + URL);
     }
 
-    protected void assertPageIs404(Pages page) throws AssertionError {
-        String targetURL = kraken.get().fullBaseUrl + Pages.getPagePath();
-        kraken.perform().printMessage("Asserting page " + targetURL + " is 404");
-        kraken.get().url(targetURL);
-        String currentURL = kraken.grab().currentURL();
-        Assert.assertTrue(targetURL.equalsIgnoreCase(currentURL), "Reached URL " + currentURL + " instead of target URL" + targetURL + "\n");
-        Assert.assertTrue(kraken.detect().is404(), "Page " + currentURL + " must be 404, but it's not" + "\n");
-        Assert.assertFalse(kraken.detect().is500(), "It's something wrong on page " + currentURL + "\n");
+    /**
+     * Проверить доступность текущей страницы
+     */
+    void assertPageIsAvailable() throws AssertionError {
+        String page = kraken.grab().currentURL();
+        Assert.assertFalse(kraken.detect().is404(), "Ошибка 404 на странице " + page + "\n");
+        Assert.assertFalse(kraken.detect().is500(), "Ошибка 500 на странице " + page + "\n");
+        kraken.perform().printMessage("✓ Страница доступна (" + page + ")\n");
     }
+
+    /**
+     * Проверить что текущая страница недоступна с ошибкой 404
+     */
+    void assertPageIs404() throws AssertionError {
+        Assert.assertTrue(kraken.detect().is404(), "Нет ошибки 404 на странице " + kraken.grab().currentURL() + "\n");
+    }
+
+    /**
+     * Проверить возможность перехода на страницу и ее недоступность с ошибкой 404
+     */
+    void assertPageIs404(Pages page) throws AssertionError {
+        assertPageIs404(kraken.grab().fullBaseUrl + Pages.getPagePath());
+    }
+
+    /**
+     * Проверить возможность перехода на страницу по указанному url и ее недоступность с ошибкой 404
+     */
+    void assertPageIs404(String URL) throws AssertionError {
+        assertTransition(URL);
+        assertPageIs404();
+    }
+
 
     /** Проверка недоступности страницы для перехода */
     void assertPageIsUnavailable(Pages page) throws AssertionError {
@@ -104,8 +103,7 @@ public class TestBase {
     void assertPageIsUnavailable(String URL) throws AssertionError {
         kraken.perform().printMessage("Проверяем недоступность перехода на страницу " + URL);
         kraken.get().url(URL);
-        String currentURL = kraken.grab().currentURL();
-        Assert.assertFalse(currentURL.equalsIgnoreCase(URL),
-                "Можно попасть на страницу " + currentURL + " по прямой ссылке\n");
+        Assert.assertFalse(kraken.grab().currentURL().equalsIgnoreCase(URL),
+                "Можно попасть на страницу " + kraken.grab().currentURL() + " по прямой ссылке\n");
     }
 }

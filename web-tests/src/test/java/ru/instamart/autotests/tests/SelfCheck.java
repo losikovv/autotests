@@ -36,9 +36,6 @@ public class SelfCheck extends TestBase {
     }
 
 
-    // TODO проверка GO методов
-
-
     @Test(description = "Тест корректности определения модалки авторизации/регистрации",
             groups ="selfcheck",
             priority = 10002)
@@ -148,7 +145,7 @@ public class SelfCheck extends TestBase {
             priority = 10008)
     public void detect404() throws Exception {
 
-        kraken.get().page("nowhere");
+        kraken.get().page(Pages.page404());
         Assert.assertTrue(kraken.detect().is404());
 
         kraken.get().page("metro");
@@ -161,7 +158,7 @@ public class SelfCheck extends TestBase {
             priority = 10009)
     public void detect500() throws Exception {
 
-        kraken.get().page("stores/21/shipping_methods");
+        kraken.get().page(Pages.page500());
         Assert.assertTrue(kraken.detect().is500());
 
         kraken.get().page("metro");
@@ -338,6 +335,7 @@ public class SelfCheck extends TestBase {
         Assert.assertFalse(kraken.detect().isAddressModalOpen());
     }
 
+
     @Test( // TODO прочекать и поправить тест
             description = "Тест корректности определения суммы корзины",
             groups ="selfcheck",
@@ -368,7 +366,8 @@ public class SelfCheck extends TestBase {
         kraken.perform().printMessage("Сумма корзины = " + kraken.grab().currentCartTotal());
     }
 
-    @Test(description = "Тест корректности определения заглушки \"Адрес вне зоны доставки\"",
+
+    @Test(description = "Тест корректности определения заглушки адреса вне зоны доставки",
             groups ="selfcheck",
             priority = 10019)
     public void detectAddressOutOfZone() throws Exception {
@@ -382,5 +381,25 @@ public class SelfCheck extends TestBase {
         Assert.assertFalse(kraken.detect().isAddressOutOfZone());
     }
 
+
+    @Test(description = "Тест корректности работы ассертов",
+            groups ="selfcheck",
+            priority = 10020)
+    public void checkAsserts() throws Exception {
+
+        assertTransition("https://instamart.ru/auchan");
+        assertTransition(Pages.Site.Retailers.vkusvill());
+
+        assertPageIsAvailable("https://instamart.ru/auchan");
+        assertPageIsAvailable(Pages.Site.Static.contacts());
+        assertPageIsAvailable();
+
+        assertPageIs404(Pages.page404());
+        assertPageIs404("https://instamart.ru/nowhere");
+        assertPageIs404();
+
+        assertPageIsUnavailable(Pages.Site.checkout());
+        assertPageIsUnavailable("https://instamart.ru/checkout/edit");
+    }
 }
 
