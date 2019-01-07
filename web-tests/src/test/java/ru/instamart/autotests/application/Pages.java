@@ -10,6 +10,9 @@ public class Pages {
         pagePath = path;
     }
 
+    public static Pages page404() { return new Pages(null, "nowhere"); }
+    public static Pages page500() { return new Pages(null, "stores/21/shipping_methods"); }
+
     public interface Site {
 
         static Pages checkout() {

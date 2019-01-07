@@ -156,17 +156,23 @@ public class DetectionHelper extends HelperBase {
     }
 
     /**
-     * Определить 404 ошибку
+     * Определить 404 ошибку на текущей странице
      */
     public boolean is404() {
-        return element(Elements.Page404.title());
+        if (element(Elements.Page404.title())) {
+            kraken.perform().printMessage("⚠ " + kraken.grab().currentURL()+ " - 404\n");
+            return true;
+        } else return false;
     }
 
     /**
-     * Определить 500 ошибку
+     * Определить 500 ошибку на текущей странице
      */
     public boolean is500() {
-        return element(Elements.Page500.placeholder());
+        if (element(Elements.Page500.placeholder())) {
+            kraken.perform().printMessage("⚠ " + kraken.grab().currentURL()+ " - 500\n");
+            return true;
+        } else return false;
     }
 
 
