@@ -119,4 +119,15 @@ public class AdministrationHelper extends HelperBase {
             printMessage("Пользователь не имеет административных прав");
         }
     }
+
+    /**
+     * Сменить пароль в карточке пользователя
+     */
+    public void changePassword(String password) {
+        kraken.perform().fillField(Elements.Admin.Users.UserPage.passwordField(), password);
+        kraken.perform().fillField(Elements.Admin.Users.UserPage.passwordConfirmationField(), password);
+        kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
+        printMessage("Смена пароля пользователя");
+    }
+
 }
