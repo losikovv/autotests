@@ -441,6 +441,9 @@ public class Administration extends TestBase {
 
         Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
                 "Не работает поиск B2B заказа в админке");
+
+        kraken.cleanup().orders(Config.testOrdersList);
+        kraken.cleanup().users(Config.testUsersList);
     }
 
 }
