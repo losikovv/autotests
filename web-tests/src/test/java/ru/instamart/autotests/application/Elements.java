@@ -1327,6 +1327,10 @@ public class Elements {
                         "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/aside[1]/div[1]/form[1]/div[4]/button[1]"));
             }
 
+            static Elements b2bCheckbox() {
+                return new Elements(null, By.id("q_b2b_true"));
+            }
+
             /**
              * Страница пользователя в админке
              */
