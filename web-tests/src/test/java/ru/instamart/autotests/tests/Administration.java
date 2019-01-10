@@ -384,7 +384,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест поиска B2B пользователя в админке",
             groups = {"regression"},
-            priority = 706
+            priority = 710
     )
     public void successSearchB2BUser() throws Exception {
         kraken.perform().quickLogout();
@@ -403,7 +403,7 @@ public class Administration extends TestBase {
                 "Не работает поиск B2B пользователя в админке");
 
         Assert.assertTrue(kraken.detect().isElementDisplayed(Elements.Admin.Users.firstUserB2BLabel()),
-                "У пользователя нет B2B метки");
+                "У пользователя не отображается B2B метка");
 
         kraken.cleanup().users(Config.testUsersList);
     }
