@@ -1267,6 +1267,9 @@ public class Elements {
                                 "/div[7]/div[1]/button[1]"));
             }
 
+            static Elements b2bCheckbox() { return new Elements(null, By.id("search_only_b2b"));
+            }
+
             /**
              * Страница деталей заказа в админке
              */

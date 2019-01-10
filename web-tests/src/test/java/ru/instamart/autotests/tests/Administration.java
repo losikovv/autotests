@@ -332,6 +332,7 @@ public class Administration extends TestBase {
                 "Не работает поиск заказа в админке");
     }
 
+
     @Test(
             description = "Тест смены пароля пользователю",
             groups = {"regression"},
@@ -359,6 +360,7 @@ public class Administration extends TestBase {
         kraken.cleanup().users(Config.testUsersList);
     }
 
+
     @Test(
             description = "Тест проставления пользователю флага B2B",
             groups = {"regression"},
@@ -374,12 +376,14 @@ public class Administration extends TestBase {
         kraken.admin().searchUser(testuser);
         kraken.admin().editFirstUserInList();
         kraken.admin().grantB2B();
+        kraken.perform().refresh();
 
         Assert.assertTrue(kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.b2bCheckbox()),
                 "Пользователю не проставляется флаг B2B");
 
         kraken.cleanup().users(Config.testUsersList);
     }
+
 
     @Test(
             description = "Тест поиска B2B пользователя в админке",
@@ -406,6 +410,37 @@ public class Administration extends TestBase {
                 "У пользователя не отображается B2B метка");
 
         kraken.cleanup().users(Config.testUsersList);
+    }
+
+
+    @Test(
+            description = "Тест поиска B2B заказа в админке",
+            groups = {"regression"},
+            priority = 711
+    )
+    public void successSearchB2BOrder() throws Exception {
+        kraken.perform().quickLogout();
+        UserData testuser = Generate.testUserData();
+        kraken.perform().registration(testuser);
+        kraken.perform().quickLogout();
+
+        kraken.perform().loginAs("admin");
+        kraken.admin().searchUser(testuser);
+        kraken.admin().editFirstUserInList();
+        kraken.admin().grantB2B();
+        kraken.perform().quickLogout();
+
+        kraken.perform().login(testuser);
+        kraken.perform().order();
+        String number = kraken.grab().currentOrderNumber();
+        kraken.perform().quickLogout();
+
+        kraken.perform().loginAs("admin");
+        kraken.admin().searchB2BOrder(number);
+        kraken.perform().waitingFor(1);
+
+        Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
+                "Не работает поиск B2B заказа в админке");
     }
 
 }

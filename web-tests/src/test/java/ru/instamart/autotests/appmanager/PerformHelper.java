@@ -343,9 +343,12 @@ public class PerformHelper extends HelperBase {
 
     /** Оформить тестовый заказ */
     public void order() {
-        kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
-        kraken.checkout().complete();
+        if (!kraken.detect().isShippingAddressSet()) {
+            kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        }
+            kraken.shopping().collectItems();
+            kraken.shopping().proceedToCheckout();
+            kraken.checkout().complete();
     }
 
     /** Повторить крайний заказ */
