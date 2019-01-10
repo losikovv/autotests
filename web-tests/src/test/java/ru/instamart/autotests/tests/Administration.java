@@ -437,7 +437,6 @@ public class Administration extends TestBase {
 
         kraken.perform().loginAs("admin");
         kraken.admin().searchB2BOrder(number);
-        kraken.perform().waitingFor(1);
 
         Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
                 "Не работает поиск B2B заказа в админке");
