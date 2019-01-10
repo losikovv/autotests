@@ -1315,6 +1315,9 @@ public class Elements {
                         "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[3]/a[1]"));
             }
 
+            static Elements firstUserB2BLabel() {return new Elements("B2B", By.className("b2b_client"));
+            }
+
             static Elements searchField() {
                 return new Elements(null, By.id("q_email_cont"));
             }
@@ -1347,6 +1350,10 @@ public class Elements {
 
                 static Elements passwordConfirmationField() {
                     return new Elements(null, By.id("user_password_confirmation"));
+                }
+
+                static Elements b2bCheckbox() {
+                    return new Elements(null, By.id("user_b2b"));
                 }
 
             }

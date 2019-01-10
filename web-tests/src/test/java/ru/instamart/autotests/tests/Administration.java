@@ -1,5 +1,6 @@
 package ru.instamart.autotests.tests;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -355,6 +356,30 @@ public class Administration extends TestBase {
                 "Не работает смена пароля пользователю через админку");
 
         kraken.perform().quickLogout();
+
+        kraken.cleanup().users(Config.testUsersList);
+    }
+
+    @Test(
+            description = "Тест проставления пользователю флага B2B",
+            groups = {"regression"},
+            priority = 709
+    )
+    public void successGrantB2B() throws Exception {
+        kraken.perform().quickLogout();
+        UserData testuser = Generate.testUserData();
+        kraken.perform().registration(testuser);
+        kraken.perform().quickLogout();
+
+        kraken.perform().loginAs("admin");
+        kraken.admin().searchUser(testuser);
+        kraken.admin().editFirstUserInList();
+        kraken.admin().grantB2B();
+
+        kraken.admin().searchUser(testuser);
+
+        Assert.assertTrue(kraken.detect().isElementDisplayed(Elements.Admin.Users.firstUserB2BLabel()),
+                "Пользователю не проставляется флаг B2B");
 
         kraken.cleanup().users(Config.testUsersList);
     }

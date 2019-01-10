@@ -130,4 +130,18 @@ public class AdministrationHelper extends HelperBase {
         printMessage("Смена пароля пользователя");
     }
 
+    /**
+     * Проставить флаг B2B в карточке пользователя
+     */
+    public void grantB2B() {
+        if (kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.b2bCheckbox())) {
+            printMessage("Пользователь уже B2B");
+        } else {
+            kraken.perform().click(Elements.Admin.Users.UserPage.b2bCheckbox());
+            kraken.perform().waitingFor(1); // Ожидание проставления чекбокса B2B
+            kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
+            printMessage("Проставлен флаг B2B");
+        }
+    }
+
 }
