@@ -102,7 +102,7 @@ public class AdministrationHelper extends HelperBase {
     }
 
     /**
-     * Перейти в редактиирование первого пользователя в списке
+     * Перейти в редактирование первого пользователя в списке
      */
     public void editFirstUserInList() {
         kraken.perform().click(Elements.Admin.Users.firstUserEditButton());
