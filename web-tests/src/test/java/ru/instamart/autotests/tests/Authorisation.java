@@ -25,7 +25,7 @@ public class Authorisation extends TestBase {
 
     @Test(
             description = "Негативный тест попытки авторизации с пустыми реквизитами",
-            groups = {"regression"},
+            groups = {"acceptance", "regression"},
             priority = 100
     )
     public void noAuthWithEmptyRequisites() throws Exception, AssertionError {
