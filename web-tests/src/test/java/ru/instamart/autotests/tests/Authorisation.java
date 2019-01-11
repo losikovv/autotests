@@ -46,6 +46,7 @@ public class Authorisation extends TestBase {
         softAssert.assertAll();
     }
 
+    
     @Test(
             description = "Негативный тест попытки авторизации без email",
             groups = {"regression"},
