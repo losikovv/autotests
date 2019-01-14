@@ -543,7 +543,7 @@ public class Elements {
 
             static Elements openCartButton() {
                 return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div[1]/div/div/header/nav/div[4]/div/div"));
+                        By.className("open-new-cart"));
             }
         }
 
