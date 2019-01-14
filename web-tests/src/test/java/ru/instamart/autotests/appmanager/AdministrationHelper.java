@@ -84,7 +84,25 @@ public class AdministrationHelper extends HelperBase {
     }
 
     /**
-     * Перейти в редактиирование первого пользователя в списке
+     * Найти пользователя по реквизитам из указанного объекта userData
+     */
+    public void searchB2BUser(UserData userData) {
+        searchB2BUser(userData.getLogin());
+    }
+
+    /**
+     * Найти B2B пользователя по email
+     */
+    public void searchB2BUser(String email) {
+        kraken.get().adminPage("users");
+        printMessage("Поиск пользователей по запросу " + email);
+        kraken.perform().fillField(Elements.Admin.Users.searchField(), email);
+        kraken.perform().click(Elements.Admin.Users.b2bCheckbox());
+        kraken.perform().click(Elements.Admin.Users.searchButton());
+    }
+
+    /**
+     * Перейти в редактирование первого пользователя в списке
      */
     public void editFirstUserInList() {
         kraken.perform().click(Elements.Admin.Users.firstUserEditButton());

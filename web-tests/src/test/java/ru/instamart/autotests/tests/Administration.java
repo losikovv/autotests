@@ -375,10 +375,35 @@ public class Administration extends TestBase {
         kraken.admin().editFirstUserInList();
         kraken.admin().grantB2B();
 
+        Assert.assertTrue(kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.b2bCheckbox()),
+                "Пользователю не проставляется флаг B2B");
+
+        kraken.cleanup().users(Config.testUsersList);
+    }
+
+    @Test(
+            description = "Тест поиска B2B пользователя в админке",
+            groups = {"regression"},
+            priority = 710
+    )
+    public void successSearchB2BUser() throws Exception {
+        kraken.perform().quickLogout();
+        UserData testuser = Generate.testUserData();
+        kraken.perform().registration(testuser);
+        kraken.perform().quickLogout();
+
+        kraken.perform().loginAs("admin");
         kraken.admin().searchUser(testuser);
+        kraken.admin().editFirstUserInList();
+        kraken.admin().grantB2B();
+
+        kraken.admin().searchB2BUser(testuser);
+
+        Assert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), testuser.getLogin(),
+                "Не работает поиск B2B пользователя в админке");
 
         Assert.assertTrue(kraken.detect().isElementDisplayed(Elements.Admin.Users.firstUserB2BLabel()),
-                "Пользователю не проставляется флаг B2B");
+                "У пользователя не отображается B2B метка");
 
         kraken.cleanup().users(Config.testUsersList);
     }
