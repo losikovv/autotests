@@ -332,4 +332,31 @@ public class Administration extends TestBase {
                 "Не работает поиск заказа в админке");
     }
 
+    @Test(
+            description = "Тест смены пароля пользователю",
+            groups = {"regression"},
+            priority = 708
+    )
+    public void successChangePassword() throws Exception {
+        kraken.perform().quickLogout();
+        UserData testuser = Generate.testUserData();
+        kraken.perform().registration(testuser);
+        kraken.perform().quickLogout();
+
+        kraken.perform().loginAs("admin");
+        kraken.admin().searchUser(testuser);
+        kraken.admin().editFirstUserInList();
+        kraken.admin().changePassword("654321");
+        kraken.perform().quickLogout();
+
+        kraken.perform().login(testuser.getLogin(), "654321");
+
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Не удалось авторизоваться пользователем после смены пароля через админку");
+
+        kraken.perform().quickLogout();
+
+        kraken.cleanup().users(Config.testUsersList);
+    }
+
 }

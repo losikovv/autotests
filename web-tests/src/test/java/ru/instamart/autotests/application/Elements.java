@@ -1324,6 +1324,9 @@ public class Elements {
                         "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/aside[1]/div[1]/form[1]/div[4]/button[1]"));
             }
 
+            /**
+             * Страница пользователя в админке
+             */
             interface UserPage {
 
                 static Elements adminCheckbox() {
@@ -1336,6 +1339,14 @@ public class Elements {
                     return new Elements(null, By.xpath(
                             "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[2]/form[1]/div[3]" +
                                     "/div[1]/button[1]"));
+                }
+
+                static Elements passwordField() {
+                    return new Elements(null, By.id("user_password"));
+                }
+
+                static Elements passwordConfirmationField() {
+                    return new Elements(null, By.id("user_password_confirmation"));
                 }
 
             }
