@@ -133,12 +133,20 @@ public class Authorisation extends TestBase {
             priority = 106
     )
     public void noAuthOnCancel() throws Exception, AssertionError {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.perform().openAuthModal();
         kraken.perform().authSequence("user");
-        kraken.perform().click(Elements.Site.AuthModal.closeButton());
+        kraken.perform().closeAuthModal();
 
-        Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Произошла авторизация после заполнения всех полей и закрытия модалки\\n");
+        softAssert.assertFalse(kraken.detect().isAuthModalOpen(), "Не закрывается заполненная авторизационная модалка\n");
+
+        kraken.get().baseUrl();
+
+        softAssert.assertFalse(kraken.detect().isUserAuthorised(),
+                "Произошла авторизация после заполнения всех полей и закрытия модалки\n");
+
+        softAssert.assertAll();
     }
 
 

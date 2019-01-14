@@ -221,7 +221,7 @@ public class Registration extends TestBase {
         kraken.perform().regSequence(Generate.testUserData());
         kraken.perform().closeAuthModal();
 
-        softAssert.assertFalse(kraken.detect().isAuthModalOpen(), "Не закрывается заполненная авторизационная модалка\n");
+        softAssert.assertFalse(kraken.detect().isAuthModalOpen(), "Не закрывается заполненная регистрационная модалка\n");
 
         kraken.get().baseUrl();
 
