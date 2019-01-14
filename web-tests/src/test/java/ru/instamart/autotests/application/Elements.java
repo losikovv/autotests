@@ -848,17 +848,17 @@ public class Elements {
 
             static Elements lastOrderActionButton() {
                 return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
+                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
             }
 
             static Elements lastOrderActionButton(int position) {
                 return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button[" + position + "]"));
+                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button[" + position + "]"));
             }
 
             static Elements lastOrderDetailsButton(int position) {
                 return new Elements("Детали заказа",
-                        By.xpath("/html/body/div[4]/div[2]/div/div/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a"));
+                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a"));
             }
         }
 

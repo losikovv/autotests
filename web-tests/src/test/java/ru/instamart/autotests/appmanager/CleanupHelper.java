@@ -17,11 +17,7 @@ public class CleanupHelper extends HelperBase {
 
     public void all() throws Exception {
         printMessage("================= УБОРКА =================\n");
-
-        printMessage("Отмена тестовых заказов...");
         orders();
-
-        printMessage("Удаление тестовых пользователей...");
         users();
     }
 
@@ -29,6 +25,7 @@ public class CleanupHelper extends HelperBase {
      * Удаление тестовых юзеров по дефолтному списку
      */
     public void users() throws Exception {
+        printMessage("Удаление тестовых пользователей...");
         users(Config.testUsersList);
     }
 
@@ -59,6 +56,7 @@ public class CleanupHelper extends HelperBase {
      * Отмена тестовых заказов по дефолтному списку
      */
     public void orders() throws Exception {
+        printMessage("Отмена тестовых заказов...");
         orders(Config.testOrdersList);
     }
 
