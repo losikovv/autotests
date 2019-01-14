@@ -352,7 +352,7 @@ public class Administration extends TestBase {
         kraken.perform().login(testuser.getLogin(), "654321");
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Не работает смена пароля пользователю через админку");
+                "Не удалось авторизоваться пользователем после смены пароля через админку");
 
         kraken.perform().quickLogout();
 
