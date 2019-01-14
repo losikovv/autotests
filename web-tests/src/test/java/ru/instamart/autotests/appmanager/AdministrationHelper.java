@@ -28,6 +28,17 @@ public class AdministrationHelper extends HelperBase {
     }
 
     /**
+     * Найти заказ по номеру заказа или шипмента
+     */
+    public void searchB2BOrder(String number) {
+        kraken.get().adminPage("shipments");
+        printMessage("Поиск B2B заказа по номеру заказа/шипмента " + number);
+        kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), number);
+        kraken.perform().click(Elements.Admin.Shipments.b2bCheckbox());
+        kraken.perform().click(Elements.Admin.Shipments.searchButton());
+    }
+
+    /**
      * Возобновить заказ
      */
     public void resumeOrder() {
