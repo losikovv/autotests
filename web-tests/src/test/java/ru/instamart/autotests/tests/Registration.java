@@ -215,12 +215,20 @@ public class Registration extends TestBase {
             priority = 9
     )
     public void noRegOnCancel() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+
         kraken.perform().openAuthModal();
         kraken.perform().regSequence(Generate.testUserData());
-        kraken.perform().click(Elements.Site.AuthModal.closeButton());
+        kraken.perform().closeAuthModal();
 
-        Assert.assertFalse(kraken.detect().isUserAuthorised(),
+        softAssert.assertFalse(kraken.detect().isAuthModalOpen(), "Не закрывается заполненная авторизационная модалка\n");
+
+        kraken.get().baseUrl();
+
+        softAssert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Произошла регистрация пользователя после заполнения всех полей и закрытия модалки\n");
+
+        softAssert.assertAll();
     }
 
 
