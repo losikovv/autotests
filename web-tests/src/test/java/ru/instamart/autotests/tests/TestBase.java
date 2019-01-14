@@ -63,15 +63,14 @@ public class TestBase {
     }
 
     /**
-     * Проверить работоспособность кнопки/ссылки
+     * Проверить работоспособность перехода по страницам
      */
     void assertTransition(Elements element) {
         String startPage = kraken.grab().currentURL();
-        //TODO
-        //kraken.go(element;
+        //TODO kraken.go(element);
         kraken.perform().click(element);
         Assert.assertFalse(kraken.grab().currentURL().equalsIgnoreCase(startPage),
-                "Не работает преход по элементу " + Elements.locator() + "\n");
+                "Не работает преход по элементу " + Elements.locator() + " на странице " + startPage + "\n");
     }
 
     /**
