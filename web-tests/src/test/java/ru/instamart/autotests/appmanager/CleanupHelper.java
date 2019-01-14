@@ -25,6 +25,8 @@ public class CleanupHelper extends HelperBase {
         users(Config.testUsersList);
     }
 
+    // TODO orders() - очистка тестовых юзеров по дефолтному списку
+
     /**
      * Delete all users on a given page in admin panel
      */
@@ -48,6 +50,8 @@ public class CleanupHelper extends HelperBase {
             printMessage("✓ Все тестовые пользователи удалены\n");
         }
     }
+
+    // TODO orders() - очистка тестовых заказов по дефолтному списку
 
     /**
      * Cancel all orders on a given page in admin panel
