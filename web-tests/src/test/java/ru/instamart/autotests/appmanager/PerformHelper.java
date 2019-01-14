@@ -122,6 +122,7 @@ public class PerformHelper extends HelperBase {
         regSequence(name,email,password,passwordConfirmation);
         // TODO добавить проверку на тормоза и обернуть в нее задержку для стабильности
         waitingFor(3); // Ожидание раздизебливания кнопки подтверждения регистрации
+        sendForm();
     }
 
     /** Регистрационная последовательность с реквизитами из переданного объекта UserData */
@@ -133,7 +134,6 @@ public class PerformHelper extends HelperBase {
     private void regSequence(String name, String email, String password, String passwordConfirmation) throws Exception {
         switchToRegistrationTab();
         fillRegistrationForm(name, email, password, passwordConfirmation);
-        sendForm();
     }
 
 

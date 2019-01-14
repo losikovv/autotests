@@ -137,15 +137,8 @@ public class PasswordRecovery extends TestBase {
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Невозможно авторизоваться с новым паролем после восстановления пароля\n");
-    }
 
-
-    @Test (
-            description = "Негативный тест на попытку авторизации со старым паролем после восстановления пароля",
-            groups = {"regression"},
-            priority = 608
-    )
-    public void noAuthWithOldRequisitesAfterRecovery() throws Exception {
+        kraken.perform().quickLogout();
         kraken.perform().recoverPasswordAs("userGmail");
 
         kraken.get().url("https://mail.google.com/mail/u/0/h/");

@@ -210,9 +210,24 @@ public class Registration extends TestBase {
 
 
     @Test(
+            description = "Тест отмены регистрации после заполнения всех полей",
+            groups = {"regression"},
+            priority = 9
+    )
+    public void noRegOnCancel() throws Exception {
+        kraken.perform().openAuthModal();
+        kraken.perform().regSequence(Generate.testUserData());
+        kraken.perform().click(Elements.Site.AuthModal.closeButton());
+
+        Assert.assertFalse(kraken.detect().isUserAuthorised(),
+                "Произошла регистрация пользователя после заполнения всех полей и закрытия модалки\n");
+    }
+
+
+    @Test(
             description = "Регистрация нового пользователя на лендинге",
             groups = {"acceptance","regression"},
-            priority = 9
+            priority = 10
     )
     public void successRegOnLanding() throws Exception {
         kraken.perform().registration(Generate.testUserData());
@@ -225,7 +240,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Регистрация нового пользователя на витрине магазина",
             groups = {"acceptance", "regression"},
-            priority = 10
+            priority = 11
     )
     public void successRegOnRetailerPage() throws Exception {
         kraken.get().page("metro");
@@ -240,7 +255,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Тест регистрации из адресной модалки феникса",
             groups = {"regression"},
-            priority = 11
+            priority = 12
     )
     public void successRegFromAddressModal() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
@@ -264,7 +279,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Тест регистрации при переходе из корзины в чекаут",
             groups = {"regression"},
-            priority = 12
+            priority = 13
     )
     public void successRegFromCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
