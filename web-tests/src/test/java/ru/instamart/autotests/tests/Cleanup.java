@@ -43,7 +43,7 @@ public class Cleanup extends TestBase {
             priority = 10001
     )
     public void cancelTestOrders() throws Exception {
-        kraken.cleanup().orders(Config.testOrdersList);
+        kraken.cleanup().orders();
         Assert.assertFalse(kraken.detect().element(Elements.Admin.Shipments.emptyListPlaceholder()),
                 "Отменились не все тестовые заказы\n");
     }
@@ -55,7 +55,7 @@ public class Cleanup extends TestBase {
             priority = 10002
     )
     public void deleteTestUsers() throws Exception {
-        kraken.cleanup().users(Config.testUsersList);
+        kraken.cleanup().users();
         Assert.assertFalse(kraken.detect().element(Elements.Admin.Users.userlistFirstRow()),
                 "Удалились не все тестовые юзеры\n");
     }

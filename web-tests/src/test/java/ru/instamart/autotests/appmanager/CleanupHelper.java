@@ -19,13 +19,18 @@ public class CleanupHelper extends HelperBase {
         printMessage("================= УБОРКА =================\n");
 
         printMessage("Отмена тестовых заказов...");
-        orders(Config.testOrdersList);
+        orders();
 
         printMessage("Удаление тестовых пользователей...");
-        users(Config.testUsersList);
+        users();
     }
 
-    // TODO orders() - очистка тестовых юзеров по дефолтному списку
+    /**
+     * Удаление тестовых юзеров по дефолтному списку
+     */
+    public void users() throws Exception {
+        users(Config.testUsersList);
+    }
 
     /**
      * Delete all users on a given page in admin panel
@@ -44,14 +49,18 @@ public class CleanupHelper extends HelperBase {
             kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
             kraken.perform().waitingFor(1); // Ожидание удаления предыдущего тестового пользователя
-            // Keep deleting users, recursively
-            users(usersListPath);
+            users(usersListPath); // Keep deleting users, recursively
         } else {
             printMessage("✓ Все тестовые пользователи удалены\n");
         }
     }
 
-    // TODO orders() - очистка тестовых заказов по дефолтному списку
+    /**
+     * Отмена тестовых заказов по дефолтному списку
+     */
+    public void orders() throws Exception {
+        orders(Config.testOrdersList);
+    }
 
     /**
      * Cancel all orders on a given page in admin panel

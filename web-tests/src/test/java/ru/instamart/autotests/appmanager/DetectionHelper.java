@@ -391,7 +391,7 @@ public class DetectionHelper extends HelperBase {
     }
 
     public boolean isItemOnSale() {
-        return isElementDisplayed(Elements.Site.ItemCard.saleBadge());
+        return element(Elements.Site.ItemCard.saleBadge());
     }
 
 

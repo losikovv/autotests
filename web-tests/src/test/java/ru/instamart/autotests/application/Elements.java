@@ -825,24 +825,23 @@ public class Elements {
 
             static Elements email() {
                 return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div[2]/div/div/div[2]/div[2]/div[2]"));
+                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[2]/div[2]"));
             }
 
             static Elements changePasswordButton() {
                 return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div[2]/div/div/div[2]/div[1]/div[3]/button"));
+                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[1]/div[3]/button"));
             }
 
             static Elements changeEmailButton() {
                 return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div[2]/div/div/div[2]/div[2]/div[3]/button"));
+                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[2]/div[3]/button"));
             }
 
             static Elements changeNameButton() {
                 return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div[2]/div/div/div[2]/div[3]/div[3]/button"));
+                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[3]/div[3]/button"));
             }
-
         }
 
         interface OrdersPage {
