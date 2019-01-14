@@ -24,6 +24,30 @@ public class Authorisation extends TestBase {
 
 
     @Test(
+            description = "Негативный тест попытки авторизации с пустыми реквизитами",
+            groups = {"acceptance", "regression"},
+            priority = 100
+    )
+    public void noAuthWithEmptyRequisites() throws Exception, AssertionError {
+        SoftAssert softAssert = new SoftAssert();
+
+        kraken.perform().login("", "");
+
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+                "Нет пользовательской ошибки пустого поля email\n");
+
+        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+                "Нет пользовательской ошибки пустого поля password\n");
+
+        kraken.get().baseUrl();
+        Assert.assertFalse(kraken.detect().isUserAuthorised(),
+                "Произошла авторизация с пустыми реквизитами"+"\n");
+
+        softAssert.assertAll();
+    }
+
+    
+    @Test(
             description = "Негативный тест попытки авторизации без email",
             groups = {"regression"},
             priority = 101
