@@ -3,6 +3,7 @@ package ru.instamart.autotests.tests;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.ApplicationManager;
 import ru.instamart.autotests.application.Pages;
 
@@ -59,6 +60,17 @@ public class TestBase {
                         + "Вместо нее попадаем на " + kraken.grab().currentURL() + "\n"
         );
         kraken.perform().printMessage("✓ Успешный переход по ссылке " + URL);
+    }
+
+    /**
+     * Проверить работоспособность перехода по страницам
+     */
+    void assertTransition(Elements element) {
+        String startPage = kraken.grab().currentURL();
+        //TODO kraken.go(element);
+        kraken.perform().click(element);
+        Assert.assertFalse(kraken.grab().currentURL().equalsIgnoreCase(startPage),
+                "Не работает преход по элементу " + Elements.locator() + " на странице " + startPage + "\n");
     }
 
     /**

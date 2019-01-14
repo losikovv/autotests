@@ -129,23 +129,22 @@ public class CheckPages extends TestBase {
     public void successCheckFooterLinks() throws Exception {
         kraken.get().baseUrl();
 
-        // TOdO нужен метод, проверяющий переход по ссылке и включающий проверку что начальная и конечная страницы не одинаковые
-        kraken.perform().click(Elements.Site.Footer.aboutCompanyButton());
+        assertTransition(Elements.Site.Footer.aboutCompanyButton());
         assertPageIsAvailable();
 
-        kraken.perform().click(Elements.Site.Footer.contactsButton());
+        assertTransition(Elements.Site.Footer.contactsButton());
         assertPageIsAvailable();
 
-        kraken.perform().click(Elements.Site.Footer.faqButton());
+        assertTransition(Elements.Site.Footer.faqButton());
         assertPageIsAvailable();
 
-        kraken.perform().click(Elements.Site.Footer.feedbackFormButton());
+        assertTransition(Elements.Site.Footer.feedbackFormButton());
         assertPageIsAvailable();
 
-        kraken.perform().click(Elements.Site.Footer.returnPolicyButton());
+        assertTransition(Elements.Site.Footer.returnPolicyButton());
         assertPageIsAvailable();
 
-        kraken.perform().click(Elements.Site.Footer.publicOfferButton());
+        assertTransition(Elements.Site.Footer.publicOfferButton());
         assertPageIsAvailable();
 
         kraken.perform().click(Elements.Site.Footer.deliveryButton());
