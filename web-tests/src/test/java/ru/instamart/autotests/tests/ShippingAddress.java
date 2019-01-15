@@ -73,7 +73,7 @@ public class ShippingAddress extends TestBase{
         kraken.perform().switchToActiveElement();
         kraken.shopping().openStoreSelector();
 
-        Assert.assertTrue(kraken.detect().isStoreSelectorOpen(), // TODO тест не проходит из-за бага в детекторе
+        Assert.assertTrue(kraken.detect().isStoreSelectorOpen(), // TODO тест падает из-за бага в детекторе
                 "Не открывается список магазинов вне зоны доставки\n");
 
         Assert.assertTrue(kraken.detect().isStoreSelectorEmpty(),

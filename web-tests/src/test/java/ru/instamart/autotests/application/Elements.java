@@ -888,15 +888,15 @@ public class Elements {
              */
             static Elements documentation(int position) {
                 return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div[2]/div/div/div/div/div[2]/div/div[2]/div[2]/div/div/div[3]/a[" + position + "]"));
+                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div/div[3]/a[" + position + "]"));
             }
 
             /**
              * Стоимость доставки
              */
             static Elements deliveryPrice() {
-                return new Elements(null, By.xpath("/html/body/div[4]/div[2]/div/div/div/div/div[2]" +
-                        "/div/div[2]/div[1]/div/div[3]/div[2]/div[2]/div"));
+                return new Elements(null,
+                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div/div[3]/div/div/div/div[1]/div[2]/div"));
             }
 
             /**
@@ -904,8 +904,7 @@ public class Elements {
              */
             static Elements orderNumber() {
                 return new Elements(null,
-                        By.xpath("/html[1]/body[1]/div[3]/div[2]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]" +
-                                "/div[1]/div[1]/div[1]/div[1]/strong[1]"));
+                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div/div[2]/div/div[1]/div/div/div/div[1]/strong[1]"));
             }
 
         }
@@ -916,7 +915,6 @@ public class Elements {
     /**
      * Админка
      */
-
     public interface Admin {
 
         static Elements container() {
