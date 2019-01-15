@@ -328,6 +328,7 @@ public class Administration extends TestBase {
 
         kraken.admin().searchOrder(number);
 
+        // TODO добавить проверку на наличие заказов в результатах поиска
         Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
                 "Не работает поиск заказа в админке");
     }
@@ -366,7 +367,7 @@ public class Administration extends TestBase {
             groups = {"regression"},
             priority = 709
     )
-    public void successGrantB2B() throws Exception {
+    public void successGrantB2BStatus() throws Exception {
         kraken.perform().quickLogout();
         UserData testuser = Generate.testUserData();
         kraken.perform().registration(testuser);
@@ -443,5 +444,7 @@ public class Administration extends TestBase {
 
         kraken.cleanup().all();
     }
+
+    // TODO добавить тест на снятие B2B-галки и проверку что пользователь перестает искаться по признаку b2b, но его заказы остаются с флогом и ищутся по признаку b2b
 
 }
