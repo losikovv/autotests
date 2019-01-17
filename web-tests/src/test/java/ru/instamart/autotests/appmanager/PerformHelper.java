@@ -3,6 +3,7 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.*;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.testdata.Generate;
 
 import static ru.instamart.autotests.application.Pages.*;
 
@@ -110,12 +111,17 @@ public class PerformHelper extends HelperBase {
 
     // ======= Регистрация =======
 
-    /** Зарегистрироваться с реквизитами из переданного объекта UserData */
+    /** Зарегистрировать тестового юзера со сгенерированными реквизитами */
+    public void registration() throws Exception {
+        registration(Generate.testUserData());
+    }
+
+    /** Зарегистрировать нового юзера с реквизитами из переданного объекта UserData */
     public void registration(UserData userData) throws Exception {
         registration(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
     }
 
-    /** Зарегистрироваться с указанными реквизитами */
+    /** Зарегистрировать нового юзера с указанными реквизитами */
     public void registration(String name, String email, String password, String passwordConfirmation) throws Exception {
         printMessage("Регистрируемся...");
         openAuthModal();

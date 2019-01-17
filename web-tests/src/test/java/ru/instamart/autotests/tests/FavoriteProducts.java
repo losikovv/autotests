@@ -56,7 +56,7 @@ public class FavoriteProducts extends TestBase {
     )
     public void noFavoriteProductsByDefault() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().registration(Generate.testUserData());
+        kraken.perform().registration();
 
         kraken.get().favoritesPage();
 
@@ -75,7 +75,7 @@ public class FavoriteProducts extends TestBase {
     )
     public void successAddFavoriteOnItemCard() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().registration(Generate.testUserData());
+        kraken.perform().registration();
 
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitAddToFavoritesButton();
@@ -97,7 +97,7 @@ public class FavoriteProducts extends TestBase {
     )
     public void successDeleteFavoriteOnItemCard() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().registration(Generate.testUserData());
+        kraken.perform().registration();
 
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitAddToFavoritesButton();
@@ -122,7 +122,7 @@ public class FavoriteProducts extends TestBase {
     )
     public void successCleanupFavorites() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().registration(Generate.testUserData());
+        kraken.perform().registration();
 
         kraken.search().item("молоко");
         kraken.shopping().openFirstItemCard();
@@ -289,7 +289,7 @@ public class FavoriteProducts extends TestBase {
     )
     public void successAddFavoriteProductsToCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().registration(Generate.testUserData());
+        kraken.perform().registration();
         kraken.get().page("metro");
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
 

@@ -238,7 +238,7 @@ public class Registration extends TestBase {
             priority = 10
     )
     public void successRegOnLanding() throws Exception {
-        kraken.perform().registration(Generate.testUserData());
+        kraken.perform().registration();
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает регистрация на лендинге\n");
@@ -253,7 +253,7 @@ public class Registration extends TestBase {
     public void successRegOnRetailerPage() throws Exception {
         kraken.get().page("metro");
 
-        kraken.perform().registration(Generate.testUserData());
+        kraken.perform().registration();
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает регистрация на витрине магазина\n");
@@ -275,7 +275,7 @@ public class Registration extends TestBase {
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
                 "\nНе работает переход на авторизацию из адресной модалки");
 
-        kraken.perform().registration(Generate.testUserData());
+        kraken.perform().registration();
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "\nНе работает регистрация из адресной модалки феникса");
@@ -300,7 +300,7 @@ public class Registration extends TestBase {
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
                 "\nНе открывается авторизационная модалка при переходе неавторизованным из корзины в чекаут");
 
-        kraken.perform().registration(Generate.testUserData());
+        kraken.perform().registration();
 
         softAssert.assertTrue(kraken.detect().isOnCheckout(),
                 "\nНет автоперехода в чекаут после регистрации из корзины");

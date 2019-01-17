@@ -5,7 +5,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.testdata.Generate;
 
 
 // Тесты промоушенов
@@ -17,7 +16,7 @@ public class PromoCodes extends TestBase {
     public void preconditions() throws Exception {
         kraken.get().baseUrl();
         kraken.perform().dropAuth();
-        kraken.perform().registration(Generate.testUserData());
+        kraken.perform().registration();
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
     }
 

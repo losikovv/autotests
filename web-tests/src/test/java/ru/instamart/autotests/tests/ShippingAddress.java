@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.testdata.Generate;
 
 
 // Тесты адреса доставки по Фениксу
@@ -149,7 +148,7 @@ public class ShippingAddress extends TestBase{
     )
     public void successChangeShippingAddressToRecent() throws Exception {
         kraken.perform().quickLogout();
-        kraken.perform().registration(Generate.testUserData());
+        kraken.perform().registration();
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
         kraken.perform().order();
         kraken.perform().cancelLastOrder();
