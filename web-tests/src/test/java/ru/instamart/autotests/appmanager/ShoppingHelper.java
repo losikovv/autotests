@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
-import ru.instamart.autotests.application.Pages;
 
 public class ShoppingHelper extends HelperBase {
 
@@ -113,7 +112,7 @@ public class ShoppingHelper extends HelperBase {
             kraken.perform().click(Elements.Site.ItemCard.favoriteButton());
             kraken.perform().waitingFor(1); // Ожидание добавления любимого товара
         } else {
-            printMessage("⚠ Кнопка добавления любимого товара не отображается");
+            printMessage("⚠ Нет кнопки добавления любимого товара");
         }
     }
 
@@ -123,7 +122,7 @@ public class ShoppingHelper extends HelperBase {
             kraken.perform().click(Elements.Site.ItemCard.deleteFavoriteButton());
             kraken.perform().waitingFor(1); // Ожидание удаления любимого товара
         } else {
-            printMessage("⚠ Кнопка удаления любимого товара не отображается");
+            printMessage("⚠ Нет кнопки удаления любимого товара");
         }
     }
 

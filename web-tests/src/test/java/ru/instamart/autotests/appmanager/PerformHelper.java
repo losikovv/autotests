@@ -149,17 +149,17 @@ public class PerformHelper extends HelperBase {
             }
             kraken.get().url(startURL);
         }
-        login(Users.getCredentials(role));
+        authorisation(Users.getCredentials(role));
         printMessage("Уровень прав: " + role + "\n");
     }
 
     /** Залогиниться с реквизитами из переданного объекта UserData */
-    public void login(UserData userData) throws Exception {
-        login(userData.getLogin(), userData.getPassword());
+    public void authorisation(UserData userData) throws Exception {
+        authorisation(userData.getLogin(), userData.getPassword());
     }
 
     /** Залогиниться с указанными реквизитами */
-    public void login(String email, String password) throws Exception {
+    public void authorisation(String email, String password) throws Exception {
         if (!kraken.detect().isUserAuthorised()) {
             printMessage("Авторизуемся...");
             openAuthModal();

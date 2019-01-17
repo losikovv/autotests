@@ -274,7 +274,7 @@ public class Administration extends TestBase {
         kraken.admin().grantAdminPrivileges();
         kraken.perform().quickLogout();
 
-        kraken.perform().login(testuser);
+        kraken.perform().authorisation(testuser);
         kraken.get().page(Pages.Admin.shipments());
 
         Assert.assertTrue(kraken.detect().isInAdmin(),
@@ -288,7 +288,7 @@ public class Administration extends TestBase {
         kraken.admin().revokeAdminPrivileges();
         kraken.perform().quickLogout();
 
-        kraken.perform().login(testuser);
+        kraken.perform().authorisation(testuser);
         kraken.get().page(Pages.Admin.shipments());
 
         Assert.assertFalse(kraken.detect().isInAdmin(),
@@ -350,7 +350,7 @@ public class Administration extends TestBase {
         kraken.admin().changePassword("654321");
         kraken.perform().quickLogout();
 
-        kraken.perform().login(testuser.getLogin(), "654321");
+        kraken.perform().authorisation(testuser.getLogin(), "654321");
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не удалось авторизоваться пользователем после смены пароля через админку");
@@ -430,7 +430,7 @@ public class Administration extends TestBase {
         kraken.admin().grantB2B();
         kraken.perform().quickLogout();
 
-        kraken.perform().login(testuser);
+        kraken.perform().authorisation(testuser);
         kraken.perform().order();
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().quickLogout();

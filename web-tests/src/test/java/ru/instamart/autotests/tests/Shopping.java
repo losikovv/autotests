@@ -198,7 +198,7 @@ public class Shopping extends TestBase{
 
         kraken.get().page("metro");
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
-        kraken.perform().login(testuser);
+        kraken.perform().authorisation(testuser);
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не удалось авторизоваться\n");

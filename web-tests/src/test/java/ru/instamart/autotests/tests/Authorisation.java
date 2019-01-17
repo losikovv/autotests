@@ -31,7 +31,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithEmptyRequisites() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().login("", "");
+        kraken.perform().authorisation("", "");
 
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки пустого поля email\n");
@@ -55,7 +55,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithoutEmail() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().login("", "instamart");
+        kraken.perform().authorisation("", "instamart");
 
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки пустого поля email\n");
@@ -76,7 +76,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithoutPassword() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().login(Users.getCredentials("user").getLogin(), "");
+        kraken.perform().authorisation(Users.getCredentials("user").getLogin(), "");
 
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
                 "Нет пользовательской ошибки пустого поля password\n");
@@ -97,7 +97,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithNonexistingUser() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().login("nonexistinguser@example.com", "password");
+        kraken.perform().authorisation("nonexistinguser@example.com", "password");
 
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
@@ -118,7 +118,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithWrongPassword() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().login(Users.getCredentials("user").getLogin(), "wrongpassword");
+        kraken.perform().authorisation(Users.getCredentials("user").getLogin(), "wrongpassword");
 
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
@@ -139,7 +139,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithLongFields() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().login(Generate.testUserData(129));
+        kraken.perform().authorisation(Generate.testUserData(129));
 
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
@@ -244,7 +244,7 @@ public class Authorisation extends TestBase {
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
                 "\nНе открывается авторизационная модалка при переходе неавторизованным из корзины в чекаут");
 
-        kraken.perform().login(testuser);
+        kraken.perform().authorisation(testuser);
 
         softAssert.assertTrue(kraken.detect().isOnCheckout(),
                 "\nНет автоперехода в чекаут после авторизации из корзины");

@@ -133,7 +133,7 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().submitRecovery("password1", "password1");
 
         kraken.perform().quickLogout();
-        kraken.perform().login(Users.getCredentials("userGmail").getLogin(), "password1");
+        kraken.perform().authorisation(Users.getCredentials("userGmail").getLogin(), "password1");
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Невозможно авторизоваться с новым паролем после восстановления пароля\n");
@@ -147,7 +147,7 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().submitRecovery("password2", "password2");
 
         kraken.perform().quickLogout();
-        kraken.perform().login(Users.getCredentials("userGmail").getLogin(), "password1");
+        kraken.perform().authorisation(Users.getCredentials("userGmail").getLogin(), "password1");
         
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Возможно авторизоваться со старым паролем после восстановления пароля!\n");
