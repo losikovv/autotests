@@ -395,6 +395,56 @@ public class DetectionHelper extends HelperBase {
     }
 
 
+    // ======= Любимые товары =======
+
+    /** Определить наличие пустого списка любимых товаров */
+    public boolean isFavoritesEmpty() {
+        if(kraken.detect().isElementPresent(Elements.Site.Favorite.placeholder()) &&
+                !kraken.detect().isElementPresent(Elements.Site.Favorite.product())){
+           printMessage("Нет товаров в списке любимых товаров!");
+           return true;
+        } else {
+            printMessage("✓ Есть товар в списке любимых товаров");
+            return false;
+        }
+    }
+
+    /** Определить выбран ли фильтр Все товары */
+    public boolean isFavoriteFilterAllItems() {
+        if(kraken.grab().text(By.xpath("//a[@class='favorite-list-filter__link favorite-list-filter__link--active']"))
+                .equals(kraken.grab().text(Elements.Site.Favorite.allItemsFilterButton()))){
+            printMessage("Выбран фильтр Все товары");
+            return true;
+        } else {
+            printMessage("Не выбран фильтр Все товары");
+            return false;
+        }
+    }
+
+    /** Определить выбран ли фильтр В наличии */
+    public boolean isFavoriteFilterInStock() {
+        if(kraken.grab().text(By.xpath("//a[@class='favorite-list-filter__link favorite-list-filter__link--active']"))
+                .equals(kraken.grab().text(Elements.Site.Favorite.inStockFilterButton()))){
+            printMessage("Выбран фильтр В наличии");
+            return true;
+        } else {
+            printMessage("Не выбран фильтр В наличии");
+            return false;
+        }
+    }
+
+    /** Определить выбран ли фильтр Нет в наличии */
+    public boolean isFavoriteFilterNotInStock() {
+        if(kraken.grab().text(By.xpath("//a[@class='favorite-list-filter__link favorite-list-filter__link--active']"))
+                .equals(kraken.grab().text(Elements.Site.Favorite.notInStockFilterButton()))){
+            printMessage("Выбран фильтр Нет в наличии");
+            return true;
+        } else {
+            printMessage("Не выбран фильтр Нет в наличии");
+            return false;
+        }
+    }
+
     // ======= Корзина =======
 
     /** Определить открыта ли корзина */

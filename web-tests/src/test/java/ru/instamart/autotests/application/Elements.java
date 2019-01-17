@@ -89,6 +89,10 @@ public class Elements {
                         By.cssSelector("button.navbar-button:nth-child(5) > div:nth-child(1)"));
             }
 
+            static Elements favoritesButton() {
+                return new Elements(null, By.cssSelector(".favorites-link"));
+            }
+
 
             /**
              * Поиск
@@ -449,11 +453,6 @@ public class Elements {
                 return new Elements(null, By.className("product"));
             }
 
-            static Elements firstItem() {
-                return new Elements(null, By.className("product")
-                );
-            }
-
             static Elements firstItemPlusButton() {
                 return new Elements(null, By.className("cart-actions__btn"));
             }
@@ -513,6 +512,12 @@ public class Elements {
             }
 
             static Elements notInStock() { return new Elements(null, By.className("product-popup__not-in-stock")); }
+
+            static Elements favoriteButton() { return new Elements(null, By.className("favorite-button")); }
+
+            static Elements deleteFavoriteButton() { return new Elements(null, By.xpath("/html[1]/body[1]" +
+                    "/div[3]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]" +
+                    "/div[2]/div[2]/div[2]/div[1]/div[3]/button[1]")); }
         }
 
 
@@ -545,6 +550,49 @@ public class Elements {
                 return new Elements(null,
                         By.className("open-new-cart"));
             }
+        }
+
+        /**
+         * Любимые товары
+         */
+
+        interface Favorite {
+
+            static Elements product() {
+                return new Elements(null, By.className("favorite-product"));
+            }
+
+            static Elements placeholder() {
+                return new Elements(null, By.xpath("/html/body/div[3]/div/div/div/" +
+                        "div/div[2]/div/div[2]/div"));
+            }
+
+            static Elements allItemsFilterButton() {
+                return new Elements("Все товары", By.linkText("Все товары"));
+            }
+
+            static Elements activeFilterButton() {
+                return new Elements(null, By.xpath("//a[@class='favorite-list-filter__link favorite-list-filter__link--active']"));
+            }
+
+            static Elements inStockFilterButton() {
+                return new Elements("В наличии", By.linkText("В наличии"));
+            }
+
+            static Elements notInStockFilterButton() {
+                return new Elements("Нет в наличии", By.linkText("Нет в наличии"));
+            }
+
+            static Elements showMoreButton() {
+                return new Elements("Показать еще", By.xpath("//*[@id='wrap']/div/div/div/" +
+                        "div/div[2]/div/div[2]/div[2]/div/button"));
+            }
+
+            static Elements secondPageProduct() {
+                return new Elements(null, By.xpath("//*[@id='wrap']/div/div/div/div/div[2]" +
+                        "/div/div[2]/div[2]/a[31]"));
+            }
+
         }
 
 

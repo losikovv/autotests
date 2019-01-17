@@ -92,6 +92,7 @@ public class CheckPages extends TestBase {
 
         // TODO переделать на assertPagesAvailable(Pages.Site.Profile.*)
         assertPageIsAvailable(Pages.Site.Profile.edit());
+        assertPageIsAvailable(Pages.Site.Profile.favorites());
         assertPageIsAvailable(Pages.Site.Profile.orders());
         assertPageIsAvailable(Pages.Site.Profile.addresses());
     }

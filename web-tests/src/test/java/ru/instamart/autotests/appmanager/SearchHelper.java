@@ -13,7 +13,7 @@ public class SearchHelper extends HelperBase {
         kraken = app;
     }
 
-    /** Заполнить поле поиска */
+    /** Осуществить поиск товара по запросу */
     public void item(String query) {
         printMessage("Поиск товаров по запросу \"" + query + "\"...");
         fillSearchFieldWith(query);

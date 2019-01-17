@@ -278,7 +278,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Отправить форму */
-    private void sendForm(){
+    public void sendForm(){
         printMessage("> отправляем форму\n");
         kraken.perform().click(Elements.Site.AuthModal.submitButton());
         waitingFor(2); // Ожидание авторизации
@@ -439,7 +439,7 @@ public class PerformHelper extends HelperBase {
         if (kraken.detect().isOnSite()) {
             kraken.get().baseUrl();
             if (kraken.detect().isUserAuthorised()) {
-                logout();
+                quickLogout();
             }
             loginAs("admin");
         }

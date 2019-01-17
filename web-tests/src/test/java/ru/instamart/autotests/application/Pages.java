@@ -136,6 +136,11 @@ public class Pages {
                         "user/edit");
             }
 
+            static Pages favorites() {
+                return new Pages("Любимые товары",
+                        "user/favorites");
+            }
+
             static Pages orders() {
                 return new Pages("Заказы",
                         "user/orders");

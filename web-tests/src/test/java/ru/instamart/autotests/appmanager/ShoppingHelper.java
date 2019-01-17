@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.application.Pages;
 
 public class ShoppingHelper extends HelperBase {
 
@@ -63,7 +64,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Открываем карточку первого товара */
     public void openFirstItemCard() {
-        kraken.perform().click(Elements.Site.Catalog.firstItem());
+        kraken.perform().click(Elements.Site.Catalog.product());
         kraken.perform().waitingFor(1); // Ожидание открытия карточки товара
         kraken.perform().switchToActiveElement();
         if(!kraken.detect().isItemCardOpen()) {
@@ -103,6 +104,26 @@ public class ShoppingHelper extends HelperBase {
             kraken.perform().waitingFor(1); // Ожидание убавления -1 товара карточке
         } else {
             printMessage("⚠ Кнопка 'Минус' не отображается");
+        }
+    }
+
+    /** Нажать кнопку добавления любимого товара в карточке товара */
+    public void hitAddFavoriteButton() {
+        if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.favoriteButton())) {
+            kraken.perform().click(Elements.Site.ItemCard.favoriteButton());
+            kraken.perform().waitingFor(1); // Ожидание добавления любимого товара
+        } else {
+            printMessage("⚠ Кнопка добавления любимого товара не отображается");
+        }
+    }
+
+    /** Нажать кнопку удаления любимого товара в карточке товара */
+    public void hitDeleteFavoriteButton() {
+        if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.deleteFavoriteButton())) {
+            kraken.perform().click(Elements.Site.ItemCard.deleteFavoriteButton());
+            kraken.perform().waitingFor(1); // Ожидание удаления любимого товара
+        } else {
+            printMessage("⚠ Кнопка удаления любимого товара не отображается");
         }
     }
 
@@ -182,4 +203,66 @@ public class ShoppingHelper extends HelperBase {
             openCart();
         } else { printMessage("В корзине достаточно товаров");}
     }
+
+
+    // ======= Любимые товары =======
+
+    /** Открыть любимые товары по кнопке */
+    public void openFavorites() {
+        kraken.perform().click(Elements.Site.Header.favoritesButton());
+        kraken.perform().waitingFor(2); // Ожидание открытия Любимых товаров
+    }
+
+    /** Открыть любимые товары по ссылке */
+    public void openFavoritesPage() {
+        kraken.get().page(Pages.Site.Profile.favorites());
+        kraken.perform().waitingFor(2); // Ожидание открытия Любимых товаров
+    }
+
+    /** Отобразить все любимые товары */
+    public void filterFavoritesAllItems() {
+        kraken.perform().click(Elements.Site.Favorite.allItemsFilterButton());
+        kraken.perform().waitingFor(1); // Ожидание открытия вкладки Все Товары в избранном
+    }
+
+    /** Отобразить любимые товары, которые есть в наличии */
+    public void filterFavoritesInStock() {
+        kraken.perform().click(Elements.Site.Favorite.inStockFilterButton());
+        kraken.perform().waitingFor(1); // Ожидание открытия вкладки В наличии в избранном
+    }
+
+    /** Отобразить любимые товары, которых нет в наличии */
+    public void filterFavoritesNotInStock() {
+        kraken.perform().click(Elements.Site.Favorite.notInStockFilterButton());
+        kraken.perform().waitingFor(1); // Ожидание открытия вкладки Не в наличии в избранном
+    }
+
+    /** Открываем карточку первого товара в избранном*/
+    public void openFirstFavoriteItemCard() {
+        kraken.perform().click(Elements.Site.Favorite.product());
+        kraken.perform().waitingFor(1); // Ожидание открытия карточки товара
+        kraken.perform().switchToActiveElement();
+        if(!kraken.detect().isItemCardOpen()) {
+            printMessage("⚠ Проблемы с производительностью: слишком медленно открывается карточка товара\n");
+            kraken.perform().waitingFor(2); // Дополнительное ожидание открытия карточки товара при тормозах
+        }
+    }
+
+    /** Удаление всех любимых товаров */
+    public void cleanupFavorites() {
+        if(!kraken.detect().isFavoritesEmpty()) {
+            openFirstFavoriteItemCard();
+            hitDeleteFavoriteButton();
+            closeItemCard();
+            cleanupFavorites();
+        } else { printMessage("✓ Все любимые товары удалены");}
+    }
+
+    /** Нажать кнопку "Показать ещё" в списке любимых товаров */
+    public void hitShowMore() {
+        kraken.perform().click(Elements.Site.Favorite.showMoreButton());
+        kraken.perform().waitingFor(1);
+
+    }
 }
+
