@@ -64,6 +64,14 @@ public class BrowseHelper extends HelperBase {
     }
 
     /**
+     * Перейти на страницу любимых товаров
+     */
+    public void favoritesPage() {
+        page(Pages.Site.Profile.favorites());
+        kraken.perform().waitingFor(2); // Ожидание загрузки Любимых товаров
+    }
+
+    /**
      * Перейти на страницу в админке
      */
     public void adminPage(String path) {

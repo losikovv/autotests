@@ -108,7 +108,7 @@ public class ShoppingHelper extends HelperBase {
     }
 
     /** Нажать кнопку добавления любимого товара в карточке товара */
-    public void hitAddFavoriteButton() {
+    public void hitAddToFavoritesButton() {
         if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.favoriteButton())) {
             kraken.perform().click(Elements.Site.ItemCard.favoriteButton());
             kraken.perform().waitingFor(1); // Ожидание добавления любимого товара
@@ -118,7 +118,7 @@ public class ShoppingHelper extends HelperBase {
     }
 
     /** Нажать кнопку удаления любимого товара в карточке товара */
-    public void hitDeleteFavoriteButton() {
+    public void hitDeleteFromFavoritesButton() {
         if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.deleteFavoriteButton())) {
             kraken.perform().click(Elements.Site.ItemCard.deleteFavoriteButton());
             kraken.perform().waitingFor(1); // Ожидание удаления любимого товара
@@ -213,12 +213,6 @@ public class ShoppingHelper extends HelperBase {
         kraken.perform().waitingFor(2); // Ожидание открытия Любимых товаров
     }
 
-    /** Открыть любимые товары по ссылке */
-    public void openFavoritesPage() {
-        kraken.get().page(Pages.Site.Profile.favorites());
-        kraken.perform().waitingFor(2); // Ожидание открытия Любимых товаров
-    }
-
     /** Отобразить все любимые товары */
     public void filterFavoritesAllItems() {
         kraken.perform().click(Elements.Site.Favorite.allItemsFilterButton());
@@ -248,21 +242,20 @@ public class ShoppingHelper extends HelperBase {
         }
     }
 
-    /** Удаление всех любимых товаров */
-    public void cleanupFavorites() {
+    /** Удалить все любимые товары */
+    public void deleteFavorites() {
         if(!kraken.detect().isFavoritesEmpty()) {
             openFirstFavoriteItemCard();
-            hitDeleteFavoriteButton();
+            hitDeleteFromFavoritesButton();
             closeItemCard();
-            cleanupFavorites();
+            deleteFavorites();
         } else { printMessage("✓ Все любимые товары удалены");}
     }
 
     /** Нажать кнопку "Показать ещё" в списке любимых товаров */
-    public void hitShowMore() {
+    public void hitShowMoreFavorites() {
         kraken.perform().click(Elements.Site.Favorite.showMoreButton());
         kraken.perform().waitingFor(1);
-
     }
 }
 
