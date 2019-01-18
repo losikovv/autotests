@@ -956,6 +956,31 @@ public class Elements {
             }
 
         }
+        /**
+         * Чат Jivosite
+         */
+        interface Jivosite {
+
+            static Elements openButton() {
+                return new Elements(null, By.xpath(
+                        "//*[@id='jvlabelWrap']/jdiv/jdiv[1]"));
+            }
+
+            static Elements closeButton() {
+                return new Elements(null, By.xpath(
+                        "//*[@id=\"jivo_close_button\"]/jdiv"));
+            }
+
+            static Elements messageField() {
+                return  new Elements(null, By.xpath(
+                        "//*[@id=\"jcont_content_wrapper\"]/jdiv[2]/jdiv/jdiv[4]/jdiv/jdiv/jdiv[1]/textarea"));
+            }
+
+            static Elements sendMessageButton() {
+                return  new Elements(null, By.xpath(
+                        "//*[@id=\"jcont_content_wrapper\"]/jdiv[2]/jdiv/jdiv[4]/jdiv/jdiv/jdiv[2]/jdiv"));
+            }
+        }
 
     }
 

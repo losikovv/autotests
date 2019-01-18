@@ -38,6 +38,7 @@ public class ApplicationManager {
     private CheckoutHelper checkoutHelper;
     private AdministrationHelper administrationHelper;
     private CleanupHelper cleanupHelper;
+    private JivositeHelper jivositeHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
 
@@ -75,6 +76,7 @@ public class ApplicationManager {
         checkoutHelper = new CheckoutHelper(driver, environment, this);
         administrationHelper = new AdministrationHelper(driver, environment, this);
         cleanupHelper = new CleanupHelper(driver, environment, this);
+        jivositeHelper = new JivositeHelper(driver, environment, this);
 
         // Options
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS); // Basic timeout
@@ -117,4 +119,5 @@ public class ApplicationManager {
     public CheckoutHelper checkout() { return checkoutHelper; }
     public AdministrationHelper admin() { return administrationHelper; }
     public CleanupHelper cleanup() { return cleanupHelper; }
+    public JivositeHelper jivosite () { return jivositeHelper; }
 }

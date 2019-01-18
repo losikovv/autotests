@@ -205,12 +205,13 @@ public class FavoriteProducts extends TestBase {
         kraken.perform().loginAs("admin");
         kraken.get().favoritesPage();
 
-        kraken.perform().click(By.xpath("//*[@id='jvlabelWrap']/jdiv/jdiv[1]")); // открыть Живо, Т.к перекрывает элемент
+        kraken.jivosite().open();
 
         kraken.shopping().hitShowMoreFavorites();
         Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorite.secondPageProduct()),
                 "Подгрузка страниц не рабоатет");
     }
+
 
 
     @Test(
