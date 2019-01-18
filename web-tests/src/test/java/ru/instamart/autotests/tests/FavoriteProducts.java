@@ -29,7 +29,6 @@ public class FavoriteProducts extends TestBase {
             groups = {"acceptance","regression"},
             priority = 1101
     )
-
     public void noAccessToFavoritesForUnauthorizedUser(){
         assertPageIsUnavailable(Pages.Site.Profile.favorites());
     }
@@ -212,9 +211,6 @@ public class FavoriteProducts extends TestBase {
         kraken.shopping().hitShowMoreFavorites();
         Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorite.secondPageProduct()),
                 "Подгрузка страниц не рабоатет");
-
-
-
     }
 
 
