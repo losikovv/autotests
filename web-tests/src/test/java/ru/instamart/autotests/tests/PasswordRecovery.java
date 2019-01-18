@@ -22,7 +22,7 @@ public class PasswordRecovery extends TestBase {
     @Test(
             description = "Негативный тест попытки восстановления пароля с пустым полем email",
             groups = {"regression"},
-            priority = 600
+            priority = 1101
     )
     public void noRecoveryWithEmptyEmail() throws Exception {
         kraken.perform().recoverPassword(null);
@@ -35,7 +35,7 @@ public class PasswordRecovery extends TestBase {
     @Test(
             description = "Негативный тест попытки восстановления пароля c некорректным email",
             groups = {"regression"},
-            priority = 601
+            priority = 1102
     )
     public void noRecoveryWithWrongEmail() throws Exception {
         kraken.perform().recoverPassword("wrongemail.example.com");
@@ -48,7 +48,7 @@ public class PasswordRecovery extends TestBase {
     @Test(
             description = "Негативный тест попытки восстановления пароля для несуществующего пользователя",
             groups = {"regression"},
-            priority = 602
+            priority = 1103
     )
     public void noRecoveryForNonexistingUser() throws Exception {
         kraken.perform().recoverPassword("nonexistinguser@example.com");
@@ -61,7 +61,7 @@ public class PasswordRecovery extends TestBase {
     @Test(
             description = "Тест успешной отправки восстановления пароля на лендинге",
             groups = {"acceptance","regression"},
-            priority = 603
+            priority = 1104
     )
     public void successRequestRecoveryOnLanding() throws AssertionError, Exception {
         kraken.perform().recoverPasswordAs("user");
@@ -74,7 +74,7 @@ public class PasswordRecovery extends TestBase {
     @Test(
             description = "Тест успешной отправки восстановления пароля на витрине ритейлера",
             groups = {"acceptance","regression"},
-            priority = 604
+            priority = 1105
     )
     public void successRequestRecoveryOnRetailer() throws AssertionError, Exception {
         kraken.get().page("metro");
@@ -89,7 +89,7 @@ public class PasswordRecovery extends TestBase {
     @Test (
             description = "Тест возможности открыть авторизационную модалку после отправки формы восстановления пароля",
             groups = {"regression"},
-            priority = 605
+            priority = 1106
     )
     public void successOpenAuthModalAfterRecovery() throws Exception {
         kraken.perform().recoverPasswordAs("user");
@@ -105,7 +105,7 @@ public class PasswordRecovery extends TestBase {
     @Test (
             description = "Тест на авторизацию с текущим паролем после запроса на восстановление",
             groups = {"regression"},
-            priority = 606
+            priority = 1107
     )
     public void successAuthWithCurrentPasswordAfterRecoveryRequest() throws Exception {
         kraken.perform().recoverPasswordAs("user");
@@ -121,7 +121,7 @@ public class PasswordRecovery extends TestBase {
     @Test (
             description = "Тест на авторизацию с новым паролем после восстановления",
             groups = {"regression"},
-            priority = 607
+            priority = 1108
     )
     public void successPasswordRecovery() throws Exception {
         SoftAssert softAssert = new SoftAssert();

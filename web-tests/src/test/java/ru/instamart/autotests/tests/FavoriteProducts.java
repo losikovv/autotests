@@ -25,7 +25,7 @@ public class FavoriteProducts extends TestBase {
     @Test(
             description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
             groups = {"acceptance","regression"},
-            priority = 1101
+            priority = 501
     )
     public void noAccessToFavoritesForUnauthorizedUser(){
         assertPageIsUnavailable(Pages.Site.Profile.favorites());
@@ -35,7 +35,7 @@ public class FavoriteProducts extends TestBase {
     @Test(
             description = "Переход в любимые товары по кнопке",
             groups = {"acceptance","regression"},
-            priority = 1102
+            priority = 502
     )
     public void successOpenFavorites() throws Exception {
         kraken.perform().loginAs("admin");
@@ -49,7 +49,7 @@ public class FavoriteProducts extends TestBase {
     @Test(
             description = "Проверка пустого списка любимых товаров для нового пользователя",
             groups = {"acceptance","regression"},
-            priority = 1103
+            priority = 503
     )
     public void noFavoriteProductsByDefault() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -68,7 +68,7 @@ public class FavoriteProducts extends TestBase {
     @Test(
             description = "Добавление любимого товара из карточки товара и проверка списка",
             groups = {"acceptance","regression"},
-            priority = 1104
+            priority = 504
     )
     public void successAddFavoriteOnItemCard() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -90,7 +90,7 @@ public class FavoriteProducts extends TestBase {
     @Test(
             description = "Удаление любимого товара из карточки товара и проверка списка",
             groups = {"acceptance","regression"},
-            priority = 1105
+            priority = 505
     )
     public void successDeleteFavoriteOnItemCard() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -115,7 +115,7 @@ public class FavoriteProducts extends TestBase {
     @Test(
             description = "Удаление всех любимых товаров",
             groups = {"regression"},
-            priority = 1106
+            priority = 506
     )
     public void successCleanupFavorites() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -165,7 +165,7 @@ public class FavoriteProducts extends TestBase {
     @Test(
             description = "Проверка работоспособности фильтров Любимых товаров",
             groups = {"regression"},
-            priority = 1107
+            priority = 507
     )
     public void successFilterFavorites() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -197,7 +197,7 @@ public class FavoriteProducts extends TestBase {
     @Test(
             description = "Проверка работоспособности подгрузки страниц в Любимых товарах",
             groups = {"regression"},
-            priority = 1108
+            priority = 508
     )
     public void successShowMoreLoad() throws Exception {
         kraken.perform().loginAs("admin");
@@ -215,7 +215,7 @@ public class FavoriteProducts extends TestBase {
     @Test(
             description = "Регистрация, при попытке добавить товар в любимые товары неавторизованным",
             groups = {"regression"},
-            priority = 1109
+            priority = 509
     )
     public void successRegAfterAddFavoriteOnItemCard() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -232,11 +232,6 @@ public class FavoriteProducts extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает регистрация после попытки добавления товара в любимые товары");
 
-        kraken.get().favoritesPage();
-
-        softAssert.assertFalse(kraken.detect().isFavoritesEmpty(),
-                "Не добавляется любимый товар при регистрации");
-
         softAssert.assertAll();
         kraken.cleanup().users();
     }
@@ -245,7 +240,7 @@ public class FavoriteProducts extends TestBase {
     @Test(
             description = "Авторизация при попытке добавить товар в избранное неавторизованным",
             groups = {"regression"},
-            priority = 1110
+            priority = 510
     )
     public void successAuthAfterAddFavoriteOnItemCard() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -266,11 +261,6 @@ public class FavoriteProducts extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает авторизация после попытки добавления товара в избранное");
 
-        kraken.get().favoritesPage();
-
-        softAssert.assertFalse(kraken.detect().isFavoritesEmpty(),
-                "Не добавляется любимый товар при авторизации");
-
         softAssert.assertAll();
         kraken.cleanup().users();
     }
@@ -279,7 +269,7 @@ public class FavoriteProducts extends TestBase {
     @Test(
             description = "Тест добавления товаров в корзину из списка любимых товаров",
             groups = {"acceptance","regression"},
-            priority = 1111
+            priority = 511
     )
     public void successAddFavoriteProductsToCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();

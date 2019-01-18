@@ -23,7 +23,7 @@ public class DeliveryPrices extends TestBase {
     @Test(
             description = "Тест проверки прогрессивной стоимости доставки в Метро",
             groups = {"regression"},
-            priority = 450
+            priority = 801
     )
     public void successCheckMetroDeliveryPriceDiscount() throws Exception {
         SoftAssert softAssert = new SoftAssert();

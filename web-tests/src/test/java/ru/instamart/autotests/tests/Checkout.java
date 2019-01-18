@@ -27,7 +27,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест применения промокода в чекауте",
             groups = {"acceptance","regression"},
-            priority = 400
+            priority = 701
     )
     public void successAddPromocode(){
         kraken.perform().reachCheckout();
@@ -41,7 +41,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест удаления промокода в чекауте",
             groups = {"acceptance","regression"},
-            priority = 401
+            priority = 702
     )
     public void successClearPromocode(){
         kraken.perform().reachCheckout();
@@ -55,7 +55,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест недобавления промокода при нажатии кнопки Отмена",
             groups = {"regression"},
-            priority = 402
+            priority = 703
     )
     public void noPromocodeAddedOnCancel(){
         kraken.perform().reachCheckout();
@@ -70,7 +70,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест недобавления промокода при закрытии модалки промокода",
             groups = {"regression"},
-            priority = 403
+            priority = 704
     )
     public void noPromocodeAddedOnClose(){
         kraken.perform().reachCheckout();
@@ -86,7 +86,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест добавления программ лояльности в чекауте",
             groups = {"acceptance","regression"},
-            priority = 404
+            priority = 705
     )
     public void successAddBonusPrograms(){
         kraken.perform().reachCheckout();
@@ -104,7 +104,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест выбора программы лояльности в чекауте",
             groups = {"regression"},
-            priority = 405
+            priority = 706
     )
     public void successSelectBonusPrograms(){
         kraken.perform().reachCheckout();
@@ -117,7 +117,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест удаления программ лояльности в чекауте",
             groups = {"acceptance","regression"},
-            priority = 406
+            priority = 707
     )
     public void successClearBonusPrograms(){
         kraken.perform().reachCheckout();
@@ -135,7 +135,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест оформления заказа с оплатой наличными",
             groups = {"acceptance","regression"},
-            priority = 407
+            priority = 708
     )
     public void successCompleteCheckoutAndPayWithCash(){
         kraken.perform().reachCheckout();
@@ -154,7 +154,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест оформления заказа с оплатой картой онлайн",
             groups = {"regression"},
-            priority = 408
+            priority = 709
     )
     public void successCompleteCheckoutAndPayWithCardOnline(){
         kraken.perform().reachCheckout();
@@ -173,7 +173,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест оформления заказа с оплатой картой курьеру",
             groups = {"regression"},
-            priority = 409
+            priority = 710
     )
     public void successCompleteCheckoutAndPayWithCardCourier(){
         kraken.perform().reachCheckout();
@@ -192,7 +192,7 @@ public class Checkout extends TestBase {
     @Test(
             description = "Тест оформления заказа с оплатой банковским переводом",
             groups = {"regression"},
-            priority = 410
+            priority = 711
     )
     public void successCompleteCheckoutAndPayWithBank(){
         kraken.perform().reachCheckout();

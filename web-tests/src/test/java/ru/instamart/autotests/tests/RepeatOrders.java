@@ -22,7 +22,7 @@ public class RepeatOrders extends TestBase {
     @Test(
             description = "Повтор крайнего заказа и оплата картой онлайн",
             groups = {"acceptance","regression"},
-            priority = 501
+            priority = 1001
     )
     public void successRepeatLastOrderAndPayWithCardOnline() throws Exception {
         kraken.perform().repeatLastOrder();
@@ -42,7 +42,7 @@ public class RepeatOrders extends TestBase {
     @Test(
             description = "Повтор крайнего заказа и оплата картой курьеру",
             groups = {"acceptance","regression"},
-            priority = 502
+            priority = 1002
     )
     public void successRepeatLastOrderAndPayWithCardCourier() throws Exception {
         kraken.perform().repeatLastOrder();
@@ -62,7 +62,7 @@ public class RepeatOrders extends TestBase {
     @Test(
             description = "Повтор крайнего заказа и оплата наличными",
             groups = {"acceptance","regression"},
-            priority = 503
+            priority = 1003
     )
     public void successRepeatLastOrderAndPayWithCash() throws Exception {
         kraken.perform().repeatLastOrder();
@@ -82,7 +82,7 @@ public class RepeatOrders extends TestBase {
     @Test(
             description = "Повтор крайнего заказа и оплата банковским переводом",
             groups = {"acceptance","regression"},
-            priority = 504
+            priority = 1004
     )
     public void successRepeatLastOrderAndPayWithBank() throws Exception {
         kraken.perform().repeatLastOrder();

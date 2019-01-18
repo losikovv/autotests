@@ -25,7 +25,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации с пустыми реквизитами",
             groups = {"acceptance", "regression"},
-            priority = 100
+            priority = 201
     )
     public void noAuthWithEmptyRequisites() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
@@ -49,7 +49,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации без email",
             groups = {"regression"},
-            priority = 101
+            priority = 202
     )
     public void noAuthWithoutEmail() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
@@ -70,7 +70,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации без пароля",
             groups = {"regression"},
-            priority = 102
+            priority = 203
     )
     public void noAuthWithoutPassword() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
@@ -91,7 +91,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации несуществующим юзером",
             groups = {"regression"},
-            priority = 103
+            priority = 204
     )
     public void noAuthWithNonexistingUser() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
@@ -112,7 +112,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации с неверным паролем",
             groups = {"acceptance","regression"},
-            priority = 104
+            priority = 205
     )
     public void noAuthWithWrongPassword() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
@@ -133,7 +133,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизовать пользователя с длинными полями",
             groups = {"regression"},
-            priority = 105
+            priority = 206
     )
     public void noAuthWithLongFields() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -153,7 +153,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест отмены авторизации после заполнения всех полей",
             groups = {"regression"},
-            priority = 106
+            priority = 207
     )
     public void noAuthOnCancel() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
@@ -176,7 +176,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест успешной авторизации на лендинге",
             groups = {"smoke","acceptance","regression"},
-            priority = 107
+            priority = 208
     )
     public void successAuthOnLanding() throws Exception, AssertionError {
         kraken.perform().loginAs("user");
@@ -189,7 +189,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест успешной авторизации на витрине",
             groups = {"acceptance","regression"},
-            priority = 108
+            priority = 209
     )
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
         kraken.get().page("vkusvill");
@@ -203,7 +203,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест авторизации из адресной модалки феникса",
             groups = {"regression"},
-            priority = 109
+            priority = 210
     )
     public void successAuthFromAddressModal() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
@@ -227,7 +227,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест успешной авторизации из корзины",
             groups = {"regression"},
-            priority = 110
+            priority = 211
     )
     public void successAuthFromCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -263,7 +263,7 @@ public class Authorisation extends TestBase {
     @Test(  enabled = false,
             description = "Тест успешной авторизации через ВКонтакте",
             groups = {"acceptance","regression"},
-            priority = 111
+            priority = 212
     )
     public void successAuthVK() throws AssertionError {
         kraken.social().authVK();
@@ -276,7 +276,7 @@ public class Authorisation extends TestBase {
     @Test(  enabled = false,
             description = "Тест успешной авторизации через Facebook",
             groups = {"acceptance","regression"},
-            priority = 112
+            priority = 213
     )
     public void successAuthFB() throws AssertionError {
         kraken.social().authFB();
@@ -289,7 +289,7 @@ public class Authorisation extends TestBase {
     @Test(
             description = "Тест успешной деавторизации",
             groups = {"acceptance","regression"},
-            priority = 113
+            priority = 214
     )
     public void successLogout() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");

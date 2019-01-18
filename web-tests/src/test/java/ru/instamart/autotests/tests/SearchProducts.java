@@ -19,7 +19,7 @@ public class SearchProducts extends TestBase {
     @Test(
             description = "Тест отправки пустого поискового запроса",
             groups = {"acceptance","regression"},
-            priority = 300
+            priority = 401
     )
     public void noSendEmptySearch(){
         kraken.search().item("");
@@ -32,7 +32,7 @@ public class SearchProducts extends TestBase {
     @Test (
             description = "Тест поиска по запросу, не возвращающему результатов",
             groups = {"acceptance","regression"},
-            priority = 301
+            priority = 402
     )
     public void successSearchForNonexistingItem(){
         kraken.search().item("смысл жизни");
@@ -45,7 +45,7 @@ public class SearchProducts extends TestBase {
     @Test (
             description = "Тест упешного поиска товаров",
             groups = {"acceptance","regression"},
-            priority = 302
+            priority = 403
     )
     public void successItemSearch(){
         kraken.search().item("шоколад");
@@ -61,7 +61,7 @@ public class SearchProducts extends TestBase {
     @Test (
             description = "Тест упешного поиска товаров c использованием категорийных саджестов",
             groups = {"acceptance","regression"},
-            priority = 303
+            priority = 404
     )
     public void successItemSearchUsingCategorySuggests(){
         kraken.search().fillSearchFieldWith("Мороженое");
@@ -82,7 +82,7 @@ public class SearchProducts extends TestBase {
     @Test (
             description = "Тест упешного поиска товаров c использованием товарных саджестов",
             groups = {"acceptance","regression"},
-            priority = 304
+            priority = 405
     )
     public void successItemSearchUsingProductSuggests(){
         kraken.get().page("metro");
@@ -100,7 +100,7 @@ public class SearchProducts extends TestBase {
     @Test (
             description = "Тест поиска по очень длинному запросу, не возвращающему результатов",
             groups = {"regression"},
-            priority = 305
+            priority = 406
     )
     public void successItemSearchWithLongQuery(){
         kraken.search().item(kraken.generate().string(1000));

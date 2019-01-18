@@ -24,7 +24,7 @@ public class PromoCodes extends TestBase {
     @Test(
             description = "Тест применения промокода со скидкой 200р на первый заказ",
             groups = {"regression"},
-            priority = 990
+            priority = 1401
     )
     public void successOrderWithFirstOrderPromo() {
         kraken.shopping().collectItems();
@@ -42,7 +42,7 @@ public class PromoCodes extends TestBase {
     @Test(
             description = "Тест применения промокода со скидкой 30% на заказ от 2000р в Метро",
             groups = {"regression"},
-            priority = 991
+            priority = 1402
     )
     public void successOrderWithOrderSumPromo() {
         kraken.shopping().collectItems(2100);
@@ -60,7 +60,7 @@ public class PromoCodes extends TestBase {
     @Test(
             description = "Тест применения промокода со скидкой 300р на молочные продукты для новых пользователей",
             groups = {"regression"},
-            priority = 992
+            priority = 1403
     )
     public void successOrderWithNewUserPromo () {
         kraken.search().item("молоко");
@@ -79,7 +79,7 @@ public class PromoCodes extends TestBase {
     @Test(
             description = "Тест применения промокода на бесплатную доставку на первый заказ",
             groups = {"regression"},
-            priority = 993
+            priority = 1404
     )
     public void successOrderWithCertainOrderPromo() {
         kraken.shopping().collectItems(2100);
@@ -97,7 +97,7 @@ public class PromoCodes extends TestBase {
     @Test(
             description = "Тест применения промокода на скидку на второй заказ",
             groups = {"regression"},
-            priority = 994
+            priority = 1405
     )
     public void successOrderWithSeriesOfOrdersPromo() {
         kraken.shopping().collectItems(2000);

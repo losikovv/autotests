@@ -16,7 +16,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест на то что по дефолту на витрине ритейлера не выбран адрес",
             groups = {"acceptance","regression"},
-            priority = 200
+            priority = 301
     )
     public void noShippingAddressByDefault() throws Exception {
         kraken.perform().quickLogout();
@@ -30,7 +30,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест дефолтного списка магазинов при отсутствии адреса доставки",
             groups = {"acceptance","regression"},
-            priority = 201
+            priority = 302
     )
     public void successOperateDefaultShoplist() throws Exception {
         kraken.get().page("metro");
@@ -47,7 +47,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест отмены ввода адреса доставки на витрине ритейлера",
             groups = {"regression"},
-            priority = 202
+            priority = 303
     )
     public void noSetShippingAddressOnCancel() throws Exception {
         kraken.get().page("metro");
@@ -63,7 +63,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест на отсутствие доступных магазинов по адресу вне зоны доставки",
             groups = {"regression"},
-            priority = 203
+            priority = 304
     )
     public void noAvailableShopsOutOfDeliveryZone() throws Exception {
         kraken.get().page("metro");
@@ -83,7 +83,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест ввода адреса доставки на витрине ритейлера",
             groups = {"acceptance","regression"},
-            priority = 204
+            priority = 305
     )
     public void successSetShippingAddressOnRetailerPage() throws Exception {
         kraken.get().page("metro");
@@ -100,7 +100,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест отмены изменения адреса доставки",
             groups = {"regression"},
-            priority = 205
+            priority = 306
     )
     public void noChangeShippingAddressOnCancel() throws Exception {
         kraken.get().page("metro");
@@ -123,7 +123,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест изменения адреса доставки",
             groups = {"acceptance","regression"},
-            priority = 206
+            priority = 307
     )
     public void successChangeShippingAddress() throws Exception {
         kraken.get().page("metro");
@@ -144,7 +144,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест изменения адреса на предыдущий из списка адресной модалки",
             groups = {"regression"},
-            priority = 207
+            priority = 308
     )
     public void successChangeShippingAddressToRecent() throws Exception {
         kraken.perform().quickLogout();
@@ -170,7 +170,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест на ввод адреса в модалке после добавления товара из карточки",
             groups = {"regression"},
-            priority = 208
+            priority = 309
     )
     public void successSetShippingAddressAfterAddingProductFromItemCard() throws Exception {
         kraken.perform().quickLogout();
@@ -197,7 +197,7 @@ public class ShippingAddress extends TestBase{
     @Test(
             description = "Тест на успешный выбор нового магазина в модалке феникса после изменения адреса доставки",
             groups = {"regression"},
-            priority = 209
+            priority = 310
     )
     public void successSelectNewStoreAfterShipAddressChange() {
         SoftAssert softAssert = new SoftAssert();
@@ -224,7 +224,7 @@ public class ShippingAddress extends TestBase{
             description = "Тест на успешный выбор нового адреса в модалке феникса после ввода адреса," +
                     " по которому нет доставки текущего ритейлера",
             groups = {"regression"},
-            priority = 210
+            priority = 311
     )
     public void successSetNewAddressAfterOutOfRetailerZoneAddressChange() {
         SoftAssert softAssert = new SoftAssert();
@@ -252,7 +252,7 @@ public class ShippingAddress extends TestBase{
             description = "Тест на успешный выбор нового адреса в модалке феникса после ввода адреса," +
                     " по которому совсем нет доставки",
             groups = {"regression"},
-            priority = 211
+            priority = 312
     )
     public void successSetNewAddressAfterOutOfZoneAddressChange() {
         SoftAssert softAssert = new SoftAssert();

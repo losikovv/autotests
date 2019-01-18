@@ -23,7 +23,7 @@ public class Orders extends TestBase {
     @Test(
             description = "Тестовый заказ в Метро Москва",
             groups = {"regression"},
-            priority = 451
+            priority = 901
     )
     public void successOrderInMetroMoscow(){
         kraken.get().page("metro");
@@ -41,7 +41,7 @@ public class Orders extends TestBase {
     @Test(
             description = "Тестовый заказ в Метро Казань",
             groups = {"regression"},
-            priority = 452
+            priority = 902
     )
     public void successOrderInMetroKazan(){
         kraken.get().page("metro");
@@ -59,7 +59,7 @@ public class Orders extends TestBase {
     @Test(
             description = "Тестовый заказ в Метро Екатеринбург",
             groups = {"regression"},
-            priority = 453
+            priority = 903
     )
     public void successOrderInMetroEkaterinburg(){
         kraken.get().page("metro");
@@ -77,7 +77,7 @@ public class Orders extends TestBase {
     @Test( // TODO перенести проверку добавления карты Вкусвилл в тесты чекаута
             description = "Тестовый заказ во Вкусвилл Москва с применением программы лояльности",
             groups = {"regression"},
-            priority = 454
+            priority = 904
     )
     public void successOrderInVkusvillMoscow(){
         kraken.get().page("vkusvill");
@@ -104,7 +104,7 @@ public class Orders extends TestBase {
     @Test(
             description = "Тестовый заказ в Ашан Москва",
             groups = {"regression"},
-            priority = 455
+            priority = 905
     )
     public void successOrderInAuchanMoscow(){
         kraken.get().page("auchan");
@@ -122,7 +122,7 @@ public class Orders extends TestBase {
     @Test(
             description = "Тестовый заказ в Ленту Москва",
             groups = {"regression"},
-            priority = 456
+            priority = 906
     )
     public void successOrderInLentaMoscow(){
         kraken.get().page("lenta");
