@@ -26,7 +26,7 @@ public class FavoriteProducts extends TestBase {
 
     @Test(
             description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 1101
     )
 
@@ -37,7 +37,7 @@ public class FavoriteProducts extends TestBase {
 
     @Test(
             description = "Переход в любимые товары по кнопке",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 1102
     )
     public void successOpenFavorites() throws Exception {
@@ -51,7 +51,7 @@ public class FavoriteProducts extends TestBase {
 
     @Test(
             description = "Проверка пустого списка любимых товаров для нового пользователя",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 1103
     )
     public void noFavoriteProductsByDefault() throws Exception {
@@ -70,7 +70,7 @@ public class FavoriteProducts extends TestBase {
 
     @Test(
             description = "Добавление любимого товара из карточки товара и проверка списка",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 1104
     )
     public void successAddFavoriteOnItemCard() throws Exception {
@@ -92,7 +92,7 @@ public class FavoriteProducts extends TestBase {
 
     @Test(
             description = "Удаление любимого товара из карточки товара и проверка списка",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 1105
     )
     public void successDeleteFavoriteOnItemCard() throws Exception {
@@ -284,7 +284,7 @@ public class FavoriteProducts extends TestBase {
 
     @Test(
             description = "Тест добавления товаров в корзину из списка любимых товаров",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 1111
     )
     public void successAddFavoriteProductsToCart() throws Exception {
