@@ -108,8 +108,8 @@ public class ShoppingHelper extends HelperBase {
 
     /** Нажать кнопку добавления любимого товара в карточке товара */
     public void hitAddToFavoritesButton() {
-        if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.favoriteButton())) {
-            kraken.perform().click(Elements.Site.ItemCard.favoriteButton());
+        if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.addToFavoritesButton())) {
+            kraken.perform().click(Elements.Site.ItemCard.addToFavoritesButton());
             kraken.perform().waitingFor(1); // Ожидание добавления любимого товара
         } else {
             printMessage("⚠ Нет кнопки добавления любимого товара");
@@ -118,8 +118,8 @@ public class ShoppingHelper extends HelperBase {
 
     /** Нажать кнопку удаления любимого товара в карточке товара */
     public void hitDeleteFromFavoritesButton() {
-        if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.deleteFavoriteButton())) {
-            kraken.perform().click(Elements.Site.ItemCard.deleteFavoriteButton());
+        if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.deleteFromFavoritesButton())) {
+            kraken.perform().click(Elements.Site.ItemCard.deleteFromFavoritesButton());
             kraken.perform().waitingFor(1); // Ожидание удаления любимого товара
         } else {
             printMessage("⚠ Нет кнопки удаления любимого товара");
@@ -254,7 +254,7 @@ public class ShoppingHelper extends HelperBase {
     /** Нажать кнопку "Показать ещё" в списке любимых товаров */
     public void hitShowMoreFavorites() {
         kraken.perform().click(Elements.Site.Favorite.showMoreButton());
-        kraken.perform().waitingFor(1);
+        kraken.perform().waitingFor(1); // Ожидание загрузки следующей страницы любимых товаров
     }
 }
 
