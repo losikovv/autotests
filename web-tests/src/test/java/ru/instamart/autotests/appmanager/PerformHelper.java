@@ -195,10 +195,10 @@ public class PerformHelper extends HelperBase {
     /** Деавторизоваться */
     public void logout() {
         if (!kraken.detect().isInAdmin()) {
-            kraken.perform().click(Elements.Site.Header.profileButton());
-            kraken.perform().click(Elements.Site.AccountMenu.logoutButton());
+            click(Elements.Site.Header.profileButton());
+            click(Elements.Site.AccountMenu.logoutButton());
         } else {
-            kraken.perform().click(Elements.Admin.Header.logoutButton());
+            click(Elements.Admin.Header.logoutButton());
         }
         waitingFor(1); // Ожидание деавторизации и подгрузки лендинга
         if(kraken.detect().isOnLanding()) {
@@ -221,33 +221,32 @@ public class PerformHelper extends HelperBase {
     public void authGmail(String gmail, String password) {
         printMessage("> авторизовываемся в гугл почте...");
         kraken.get().url("https://mail.google.com/mail/u/0/h/");
-        kraken.perform().fillField(By.name("identifier"), gmail);
-        kraken.perform().click(By.id("identifierNext"));
-        kraken.perform().waitingFor(1); // Ожидание загрузки страницы ввода пароля Gmail
-        kraken.perform().fillField(By.name("password"), password);
-        kraken.perform().click(By.id("passwordNext"));
-        kraken.perform().waitingFor(1); // Ожидание авторизации в Gmail
+        fillField(By.name("identifier"), gmail);
+        click(By.id("identifierNext"));
+        waitingFor(1); // Ожидание загрузки страницы ввода пароля Gmail
+        fillField(By.name("password"), password);
+        click(By.id("passwordNext"));
+        waitingFor(1); // Ожидание авторизации в Gmail
     }
 
     /** Авторизоваться в гугл почте с определённой ролью */
     public void authGmail(String role) {
-        kraken.perform().authGmail(Users.getCredentials(role).getLogin(), Users.getCredentials(role).getPassword());
+        authGmail(Users.getCredentials(role).getLogin(), Users.getCredentials(role).getPassword());
     }
 
     /** Открыть крайнее письмо в цепочке писем от Инстамарт */
     public void openLastGmail() {
-        kraken.perform().printMessage("> открываем крайнее письмо от Инстамарт");
-        kraken.perform().click(By.xpath(
-                "(.//*[normalize-space(text()) and normalize-space(.)='Instamart'])[1]/following::span[1]"));
-        kraken.perform().click(By.linkText("- Показать цитируемый текст -"));
+        printMessage("> открываем крайнее письмо от Инстамарт");
+        click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Instamart'])[1]/following::span[1]"));
+        click(By.linkText("- Показать цитируемый текст -"));
     }
 
     /** Нажать кнопку сброса пароля в письме */
     public void clickRecoveryInMail() {
-        kraken.perform().printMessage("> нажимаем кнопку сброса пароля в письме");
-        kraken.perform().click(By.linkText("СБРОСИТЬ ПАРОЛЬ"));
-        kraken.perform().waitingFor(1); // Ожидание перехода из письма на сайт Инстамарт
-        kraken.perform().switchToNextWindow();
+        printMessage("> нажимаем кнопку сброса пароля в письме");
+        click(By.linkText("СБРОСИТЬ ПАРОЛЬ"));
+        waitingFor(1); // Ожидание перехода из письма на сайт Инстамарт
+        switchToNextWindow();
     }
 
     // ======= Методы модалки авторизации/регистрации =======
@@ -259,9 +258,9 @@ public class PerformHelper extends HelperBase {
         } else {
             printMessage("> открываем модалку авторизации");
             if (kraken.detect().isOnLanding()) {
-                kraken.perform().click(Elements.Site.Landing.loginButton());
+                click(Elements.Site.Landing.loginButton());
             } else {
-                kraken.perform().click(Elements.Site.Header.loginButton());
+                click(Elements.Site.Header.loginButton());
             }
             waitingFor(1); // Ожидание открытия модалки авторизации
         }
@@ -270,53 +269,53 @@ public class PerformHelper extends HelperBase {
     /** Переключиться на вкладку регистрации */
     private void switchToRegistrationTab(){
         printMessage("> переключаемся на вкладку регистрации");
-        kraken.perform().click(Elements.Site.AuthModal.registrationTab());
+        click(Elements.Site.AuthModal.registrationTab());
     }
 
     /** Заполнить поля формы регистрации */
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {
         printMessage("> заполняем поля формы регистрации");
-        kraken.perform().fillField(Elements.Site.AuthModal.nameField(), name);
-        kraken.perform().fillField(Elements.Site.AuthModal.emailField(), email);
-        kraken.perform().fillField(Elements.Site.AuthModal.passwordField(), password);
-        kraken.perform().fillField(Elements.Site.AuthModal.passwordConfirmationField(), passwordConfirmation);
+        fillField(Elements.Site.AuthModal.nameField(), name);
+        fillField(Elements.Site.AuthModal.emailField(), email);
+        fillField(Elements.Site.AuthModal.passwordField(), password);
+        fillField(Elements.Site.AuthModal.passwordConfirmationField(), passwordConfirmation);
     }
 
     /** Отправить форму */
     public void sendForm(){
         printMessage("> отправляем форму\n");
-        kraken.perform().click(Elements.Site.AuthModal.submitButton());
+        click(Elements.Site.AuthModal.submitButton());
         waitingFor(2); // Ожидание авторизации
     }
 
     /** Закрыть форму авторизации/регистрации */
     public void closeAuthModal(){
-        kraken.perform().click(Elements.Site.AuthModal.closeButton());
+        click(Elements.Site.AuthModal.closeButton());
         waitingFor(1); // Ожидание закрытия модалки авторизации
     }
 
     /** Переключиться на вкладку авторизации */
     private void switchToAuthorisationTab() throws Exception {
         try {
-            kraken.perform().printMessage("> переключаемся на вкладку авторизации");
-            kraken.perform().click(Elements.Site.AuthModal.authorisationTab());
+            printMessage("> переключаемся на вкладку авторизации");
+            click(Elements.Site.AuthModal.authorisationTab());
         } catch (ElementNotInteractableException e) { // TODO попробовать перенести кетч в методы click в HelperBase
-            kraken.perform().printMessage(" > что-то пошло не так, пробуем ещё раз...");
-            kraken.perform().click(Elements.Site.AuthModal.authorisationTab());
+            printMessage(" > что-то пошло не так, пробуем ещё раз...");
+            click(Elements.Site.AuthModal.authorisationTab());
         }
     }
 
     /** Заполнить поля формы авторизации */
     private void fillAuthorisationForm(String email, String password) {
         printMessage("> заполняем поля формы авторизации...");
-        kraken.perform().fillField(Elements.Site.AuthModal.emailField(), email);
-        kraken.perform().fillField(Elements.Site.AuthModal.passwordField(), password);
+        fillField(Elements.Site.AuthModal.emailField(), email);
+        fillField(Elements.Site.AuthModal.passwordField(), password);
     }
 
     /** Перейти в форму восстановления пароля */
     private void proceedToPasswordRecovery(){
         printMessage("> переходим в форму восстановления пароля");
-        kraken.perform().click(Elements.Site.AuthModal.forgotPasswordButton());
+        click(Elements.Site.AuthModal.forgotPasswordButton());
     }
 
     /** Запросить восстановление пароля */
@@ -325,22 +324,22 @@ public class PerformHelper extends HelperBase {
         switchToAuthorisationTab();
         proceedToPasswordRecovery();
         printMessage("> запрашиваем восстановление пароля для " + email);
-        kraken.perform().fillField(Elements.Site.AuthModal.emailField(),email);
+        fillField(Elements.Site.AuthModal.emailField(),email);
         sendForm();
         waitingFor(1); // Ожидание раздизабливания кнопки подтверждения восстановления пароля
     }
 
     /** Запросить восстановление пароля для указанной роли*/
     public void recoverPasswordAs(String role) throws Exception {
-        kraken.perform().recoverPassword(Users.getCredentials(role).getLogin());
+        recoverPassword(Users.getCredentials(role).getLogin());
     }
 
     /** Придумать новый пароль для восстановления пароля */
     public void submitRecovery(String password, String passwordConfirmation) {
         printMessage("> задаем новый пароль...\n");
-        kraken.perform().fillField(By.name("password"), password);
-        kraken.perform().fillField(By.name("passwordConfirmation"), passwordConfirmation);
-        kraken.perform().click(By.className("auth-modal__button"));
+        fillField(By.name("password"), password);
+        fillField(By.name("passwordConfirmation"), passwordConfirmation);
+        click(By.className("auth-modal__button"));
     }
 
 
@@ -361,9 +360,9 @@ public class PerformHelper extends HelperBase {
         printMessage("Повторяем крайний заказ...\n");
         kraken.get().url(baseUrl + "user/orders");
         if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
-            kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(2));
+            click(Elements.Site.OrdersPage.lastOrderActionButton(2));
         } else {
-            kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton());
+            click(Elements.Site.OrdersPage.lastOrderActionButton());
         }
         waitingFor(2); // Ожидание добавления в корзину товаров из предыдущего заказа
         // TODO добавить доп ожидание с условием isInProfile для повышения стабильности
@@ -374,7 +373,7 @@ public class PerformHelper extends HelperBase {
         printMessage("Отменяем крайний заказ...");
         kraken.get().url(baseUrl + "user/orders");
         if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
-            kraken.perform().click(Elements.Site.OrdersPage.lastOrderActionButton(1));
+            click(Elements.Site.OrdersPage.lastOrderActionButton(1));
             printMessage("> OK\n");
         } else printMessage("> Заказ не активен\n");
         waitingFor(2); // Ожидание отмены заказа
@@ -408,7 +407,7 @@ public class PerformHelper extends HelperBase {
     public void checkOrderDocuments(){
         for(int i = 1; i <= 3; i++) {
             if(kraken.detect().orderDocument(i) != null) {
-                kraken.perform().click(Elements.locator());
+                click(Elements.locator());
             }
         }
     }
@@ -425,7 +424,7 @@ public class PerformHelper extends HelperBase {
     public void reachCheckout() {
         kraken.get().checkoutPage();
         if(!kraken.checkout().isOnCheckout()){
-            kraken.perform().refresh(); // Скипаем возможный алерт о минимальном заказе
+            refresh(); // Скипаем возможный алерт о минимальном заказе
             kraken.shopping().collectItems();
             kraken.shopping().proceedToCheckout();
         }
