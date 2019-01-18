@@ -1,6 +1,5 @@
 package ru.instamart.autotests.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,7 +8,6 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.UserData;
-import ru.instamart.autotests.testdata.Generate;
 
 
 // Тесты любимых товаров
@@ -228,7 +226,7 @@ public class FavoriteProducts extends TestBase {
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
                 "Не открывается модалка регистрации после попытки добавления товара в любимые товары");
 
-        kraken.perform().regSequence(Generate.testUserData());
+        kraken.perform().regSequence(kraken.generate().testUserData());
         kraken.perform().sendForm();
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
@@ -251,7 +249,7 @@ public class FavoriteProducts extends TestBase {
     )
     public void successAuthAfterAddFavoriteOnItemCard() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        final UserData testuser = Generate.testUserData();
+        final UserData testuser = kraken.generate().testUserData();
         kraken.perform().registration(testuser);
         kraken.perform().quickLogout();
 

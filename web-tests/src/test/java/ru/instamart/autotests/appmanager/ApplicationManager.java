@@ -31,6 +31,7 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private PerformHelper performHelper;
     private DetectionHelper detectionHelper;
+    private GenerationHelper generationHelper;
     private GrabHelper grabHelper;
     private SocialHelper socialHelper;
     private AddressHelper addressHelper;
@@ -70,6 +71,7 @@ public class ApplicationManager {
         navigationHelper = new NavigationHelper(driver, environment, this);
         performHelper = new PerformHelper(driver, environment, this);
         detectionHelper = new DetectionHelper(driver, environment, this);
+        generationHelper = new GenerationHelper(driver, environment, this);
         grabHelper = new GrabHelper(driver,environment,this);
         socialHelper = new SocialHelper(driver, environment, this);
         addressHelper = new AddressHelper(driver, environment, this);
@@ -114,6 +116,7 @@ public class ApplicationManager {
     public NavigationHelper go() { return navigationHelper; }
     public PerformHelper perform() { return performHelper; }
     public DetectionHelper detect() { return detectionHelper; }
+    public GenerationHelper generate() { return generationHelper; }
     public GrabHelper grab() { return grabHelper; }
     public SocialHelper social() { return socialHelper; }
     public AddressHelper shipAddress() { return addressHelper; }

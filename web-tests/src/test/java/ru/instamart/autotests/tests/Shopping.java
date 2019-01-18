@@ -7,10 +7,9 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.UserData;
-import ru.instamart.autotests.testdata.Generate;
 
 
-// Тесты магазина
+// Тесты работы с магазином
 
 
 public class Shopping extends TestBase{
@@ -189,7 +188,7 @@ public class Shopping extends TestBase{
 
         //TODO вынести в dataProvider
         kraken.perform().dropAuth();
-        final UserData testuser = Generate.testUserData();
+        final UserData testuser = kraken.generate().testUserData();
         kraken.get().baseUrl();
         kraken.perform().registration(testuser);
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
