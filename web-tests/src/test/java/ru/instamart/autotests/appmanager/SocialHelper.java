@@ -28,6 +28,7 @@ public class SocialHelper extends HelperBase {
         kraken.perform().fillField(Elements.Social.Vkontakte.passwordField(), password);
         kraken.perform().click(Elements.Social.Vkontakte.submitButton());
         kraken.perform().switchToNextWindow();
+        kraken.perform().waitingFor(1); // Ожидание авторизации через ВКонтакте
     }
 
     /** Инициировать авторизацию через ВК */
@@ -52,6 +53,7 @@ public class SocialHelper extends HelperBase {
         kraken.perform().fillField(Elements.Social.Facebook.passwordField(), password);
         kraken.perform().click(Elements.Social.Facebook.submitButton());
         kraken.perform().switchToNextWindow();
+        kraken.perform().waitingFor(1); // Ожидание авторизации через Facebook
     }
 
     /** Инициировать авторизацию через Facebook */
