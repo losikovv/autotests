@@ -260,7 +260,6 @@ public class Authorisation extends TestBase {
     }
 
 
-    // TODO добавить тесты на авторизацию через соцсети
     @Test(
             description = "Тест успешной авторизации через ВКонтакте",
             groups = {"acceptance","regression"},
@@ -273,10 +272,24 @@ public class Authorisation extends TestBase {
                 "Не работает авторизация через ВКонтакте\n");
     }
 
+
+    @Test(
+            description = "Тест успешной авторизации через Facebook",
+            groups = {"acceptance","regression"},
+            priority = 112
+    )
+    public void successAuthFB() throws AssertionError {
+        kraken.social().authFB();
+
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Не работает авторизация через Facebook\n");
+    }
+
+
     @Test(
             description = "Тест успешной деавторизации",
             groups = {"acceptance","regression"},
-            priority = 112
+            priority = 113
     )
     public void successLogout() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
