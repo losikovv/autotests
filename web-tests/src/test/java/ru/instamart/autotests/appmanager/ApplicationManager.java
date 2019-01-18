@@ -19,7 +19,7 @@ import static org.testng.Assert.fail;
 public class ApplicationManager {
 
     protected WebDriver driver;
-    protected Environments environment = new Environments("staging"); // use "production" or "staging"
+    protected Environments environment = new Environments("production"); // use "production" or "staging"
     private String browser;
 
     protected String environmentName = environment.getEnvironmentName();
@@ -32,6 +32,7 @@ public class ApplicationManager {
     private PerformHelper performHelper;
     private DetectionHelper detectionHelper;
     private GrabHelper grabHelper;
+    private SocialHelper socialHelper;
     private AddressHelper addressHelper;
     private SearchHelper searchHelper;
     private ShoppingHelper shoppingHelper;
@@ -70,6 +71,7 @@ public class ApplicationManager {
         performHelper = new PerformHelper(driver, environment, this);
         detectionHelper = new DetectionHelper(driver, environment, this);
         grabHelper = new GrabHelper(driver,environment,this);
+        socialHelper = new SocialHelper(driver, environment, this);
         addressHelper = new AddressHelper(driver, environment, this);
         searchHelper = new SearchHelper(driver, environment, this);
         shoppingHelper = new ShoppingHelper(driver, environment, this);
@@ -113,6 +115,7 @@ public class ApplicationManager {
     public PerformHelper perform() { return performHelper; }
     public DetectionHelper detect() { return detectionHelper; }
     public GrabHelper grab() { return grabHelper; }
+    public SocialHelper social() { return socialHelper; }
     public AddressHelper shipAddress() { return addressHelper; }
     public SearchHelper search() { return searchHelper; }
     public ShoppingHelper shopping() { return shoppingHelper; }

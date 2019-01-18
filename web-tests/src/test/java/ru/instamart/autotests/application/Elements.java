@@ -323,6 +323,16 @@ public class Elements {
                 return new Elements(null,
                         (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[4]/div[2]")));
             }
+
+            static Elements vkontakte() {
+                return new Elements(null,
+                        By.xpath("//div[@class='auth-modal__social-icon auth-modal__social-icon--vkontakte']"));
+            }
+
+            static Elements facebook() {
+                return new Elements(null,
+                        By.xpath("//div[@class='auth-modal__social-icon auth-modal__social-icon--facebook']"));
+            }
         }
 
         /**
@@ -1436,6 +1446,40 @@ public class Elements {
             }
         }
 
+    }
+
+    /**
+     * Социальные сети
+     */
+    public interface Social {
+
+        /**
+         * ВКонтакте
+         */
+        interface Vkontakte {
+
+            static Elements emailField() { return new Elements(null, By.name("email")); }
+
+            static Elements passwordField() { return new Elements(null, By.name("pass")); }
+
+            static Elements submitButton() { return new Elements(null, By.id("install_allow")); }
+
+            static Elements regButton() { return new Elements(null, By.className("oauth_reg_link")); }
+        }
+
+        /**
+        * Facebook
+        */
+        interface Facebook {
+
+            static Elements emailField() { return new Elements(null, By.name("email")); }
+
+            static Elements passwordField() { return new Elements(null, By.name("pass")); }
+
+            static Elements submitButton() { return new Elements(null, By.id("loginbutton")); }
+
+            static Elements regButton() { return new Elements(null, By.linkText("Создать новый аккаунт")); }
+        }
     }
 
 }

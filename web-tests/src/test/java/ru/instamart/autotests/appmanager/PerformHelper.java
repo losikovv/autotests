@@ -66,7 +66,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Переключиться на следующую вкладку */
-    private void switchToNextWindow() {
+    public void switchToNextWindow() {
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle); // switch focus of WebDriver to the next found window handle
         }
