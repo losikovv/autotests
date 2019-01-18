@@ -990,6 +990,10 @@ public class Elements {
                 return  new Elements(null, By.xpath(
                         "//*[@id=\"jcont_content_wrapper\"]/jdiv[2]/jdiv/jdiv[4]/jdiv/jdiv/jdiv[2]/jdiv"));
             }
+            static Elements messageInJivosite() {
+                return new Elements(null, By.xpath(
+                        "//*[@id=\"scrollbar-container\"]/jdiv[1]/jdiv/jdiv[5]/jdiv[1]/jdiv/jdiv/jdiv"));
+            }
         }
 
     }
