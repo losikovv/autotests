@@ -142,6 +142,8 @@ public class Shopping extends TestBase{
     )
     public void successCollectItemsForMinOrder() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
+        kraken.perform().dropCart();
+
         kraken.shopping().collectItems();
 
         Assert.assertTrue(kraken.detect().isCheckoutButtonActive(),
