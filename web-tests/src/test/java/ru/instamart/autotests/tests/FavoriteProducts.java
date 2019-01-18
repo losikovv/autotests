@@ -204,8 +204,7 @@ public class FavoriteProducts extends TestBase {
     )
     public void successShowMoreLoad() throws Exception {
         kraken.perform().loginAs("admin");
-        kraken.get().page(Pages.Site.Profile.favorites());
-        kraken.perform().waitingFor(2);
+        kraken.get().favoritesPage();
 
         kraken.perform().click(By.xpath("//*[@id='jvlabelWrap']/jdiv/jdiv[1]")); // открыть Живо, Т.к перекрывает элемент
 

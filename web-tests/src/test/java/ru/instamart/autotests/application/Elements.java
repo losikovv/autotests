@@ -513,9 +513,9 @@ public class Elements {
 
             static Elements notInStock() { return new Elements(null, By.className("product-popup__not-in-stock")); }
 
-            static Elements favoriteButton() { return new Elements(null, By.className("favorite-button")); }
+            static Elements addToFavoritesButton() { return new Elements(null, By.className("favorite-button")); }
 
-            static Elements deleteFavoriteButton() { return new Elements(null, By.xpath("/html[1]/body[1]" +
+            static Elements deleteFromFavoritesButton() { return new Elements(null, By.xpath("/html[1]/body[1]" +
                     "/div[3]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]" +
                     "/div[2]/div[2]/div[2]/div[1]/div[3]/button[1]")); }
         }
