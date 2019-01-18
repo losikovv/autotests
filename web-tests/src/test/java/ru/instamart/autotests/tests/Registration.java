@@ -7,7 +7,6 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
-import ru.instamart.autotests.testdata.Generate;
 
 
 // Тесты регистрации пользователя
@@ -186,7 +185,7 @@ public class Registration extends TestBase {
     public void noRegWithLongFields() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().registration(Generate.testUserData(129));
+        kraken.perform().registration(kraken.generate().testUserData(129));
 
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки превышения длины поля name\n");
@@ -218,7 +217,7 @@ public class Registration extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.perform().openAuthModal();
-        kraken.perform().regSequence(Generate.testUserData());
+        kraken.perform().regSequence(kraken.generate().testUserData());
         kraken.perform().closeAuthModal();
 
         softAssert.assertFalse(kraken.detect().isAuthModalOpen(), "Не закрывается заполненная регистрационная модалка\n");

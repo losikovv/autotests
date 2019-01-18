@@ -8,7 +8,6 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
-import ru.instamart.autotests.testdata.Generate;
 
 
 // Тесты авторизации
@@ -139,7 +138,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithLongFields() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().authorisation(Generate.testUserData(129));
+        kraken.perform().authorisation(kraken.generate().testUserData(129));
 
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
@@ -232,7 +231,7 @@ public class Authorisation extends TestBase {
     )
     public void successAuthFromCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        final UserData testuser = Generate.testUserData();
+        final UserData testuser = kraken.generate().testUserData();
         kraken.perform().registration(testuser);
         kraken.perform().quickLogout();
         kraken.get().page("metro");

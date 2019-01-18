@@ -8,7 +8,6 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
-import ru.instamart.autotests.testdata.Generate;
 
 
 // Тесты админки
@@ -264,7 +263,7 @@ public class Administration extends TestBase {
     )
     public void successGrantAndRevokeAdminPrivileges() throws Exception {
         kraken.perform().quickLogout();
-        UserData testuser = Generate.testAdminData();
+        UserData testuser = kraken.generate().testAdminData();
         kraken.perform().registration(testuser);
         kraken.perform().quickLogout();
 
@@ -340,7 +339,7 @@ public class Administration extends TestBase {
     )
     public void successChangePassword() throws Exception {
         kraken.perform().quickLogout();
-        UserData testuser = Generate.testUserData();
+        UserData testuser = kraken.generate().testUserData();
         kraken.perform().registration(testuser);
         kraken.perform().quickLogout();
 
@@ -368,7 +367,7 @@ public class Administration extends TestBase {
     )
     public void successGrantB2BStatus() throws Exception {
         kraken.perform().quickLogout();
-        UserData testuser = Generate.testUserData();
+        UserData testuser = kraken.generate().testUserData();
         kraken.perform().registration(testuser);
         kraken.perform().quickLogout();
 
@@ -392,7 +391,7 @@ public class Administration extends TestBase {
     )
     public void successSearchB2BUser() throws Exception {
         kraken.perform().quickLogout();
-        UserData testuser = Generate.testUserData();
+        UserData testuser = kraken.generate().testUserData();
         kraken.perform().registration(testuser);
         kraken.perform().quickLogout();
 
@@ -420,7 +419,7 @@ public class Administration extends TestBase {
     )
     public void successSearchB2BOrder() throws Exception {
         kraken.perform().quickLogout();
-        UserData testuser = Generate.testUserData();
+        UserData testuser = kraken.generate().testUserData();
         kraken.perform().registration(testuser);
         kraken.perform().quickLogout();
 
