@@ -261,7 +261,6 @@ public class Authorisation extends TestBase {
     }
 
 
-    // TODO добавить тесты на авторизацию через соцсети
     @Test(
             description = "Тест успешной авторизации через ВКонтакте",
             groups = {"acceptance","regression"},
