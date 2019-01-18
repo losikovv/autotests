@@ -18,6 +18,13 @@ public class DetectionHelper extends HelperBase {
     }
 
     /**
+     * Определить в каком тестовом окружении находимся
+     */
+    public boolean environment(String environment) {
+        return kraken.environment.getEnvironmentName().equalsIgnoreCase(environment);
+    }
+
+    /**
      * Определить показан ли алерт на странице
      */
     protected boolean isAlertPresent() {
@@ -28,7 +35,6 @@ public class DetectionHelper extends HelperBase {
             return false;
         }
     }
-
 
     /**
      * Задетектить элемент
