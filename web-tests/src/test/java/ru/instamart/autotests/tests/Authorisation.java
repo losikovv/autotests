@@ -262,12 +262,22 @@ public class Authorisation extends TestBase {
 
 
     // TODO добавить тесты на авторизацию через соцсети
-
-
     @Test(
             description = "Тест успешной деавторизации",
             groups = {"acceptance","regression"},
             priority = 111
+    )
+    public void successAuthVK() throws AssertionError {
+        kraken.social().authVK();
+
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Не работает авторизация через ВКонтакте\n");
+    }
+
+    @Test(
+            description = "Тест успешной деавторизации",
+            groups = {"acceptance","regression"},
+            priority = 112
     )
     public void successLogout() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
