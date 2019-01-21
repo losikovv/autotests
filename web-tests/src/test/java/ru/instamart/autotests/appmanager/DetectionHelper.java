@@ -451,6 +451,7 @@ public class DetectionHelper extends HelperBase {
         }
     }
 
+
     // ======= Корзина =======
 
     /** Определить открыта ли корзина */
@@ -475,6 +476,7 @@ public class DetectionHelper extends HelperBase {
         kraken.shopping().openCart();
         return kraken.detect().isElementDisplayed(Elements.Site.Cart.total());
     }
+
 
     // ======= Чекаут =======
 
@@ -521,7 +523,8 @@ public class DetectionHelper extends HelperBase {
         return kraken.detect().isElementEnabled(By.xpath("//aside/div/div[1]/div/button"));
     }
 
-    // ======= Чекаут =======
+
+    // ======= Jivosite =======
 
     /** Определить открыт ли чат Jivosite */
     public boolean isJivositeOpen() {
@@ -536,7 +539,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить отправлено ли сообщение в Jivosite */
     public boolean isJivositeMessageSent() {
-        if (kraken.detect().isElementDisplayed(Elements.Site.Jivosite.messageInJivosite())){
+        if (kraken.detect().isElementDisplayed(Elements.Site.Jivosite.sentMessage())){
             printMessage("Сообщение отправлено");
             return true;
         } else {

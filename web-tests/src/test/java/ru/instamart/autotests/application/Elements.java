@@ -966,6 +966,7 @@ public class Elements {
             }
 
         }
+
         /**
          * Чат Jivosite
          */
@@ -978,24 +979,23 @@ public class Elements {
 
             static Elements closeButton() {
                 return new Elements(null, By.xpath(
-                        "//*[@id=\"jivo_close_button\"]/jdiv"));
+                        "//*[@id='jivo_close_button']/jdiv"));
             }
 
             static Elements messageField() {
                 return  new Elements(null, By.xpath(
-                        "//*[@id=\"jcont_content_wrapper\"]/jdiv[2]/jdiv/jdiv[4]/jdiv/jdiv/jdiv[1]/textarea"));
+                        "//*[@id='jcont_content_wrapper']/jdiv[2]/jdiv/jdiv[4]/jdiv/jdiv/jdiv[1]/textarea"));
             }
 
             static Elements sendMessageButton() {
                 return  new Elements(null, By.xpath(
-                        "//*[@id=\"jcont_content_wrapper\"]/jdiv[2]/jdiv/jdiv[4]/jdiv/jdiv/jdiv[2]/jdiv"));
+                        "//*[@id='jcont_content_wrapper']/jdiv[2]/jdiv/jdiv[4]/jdiv/jdiv/jdiv[2]/jdiv"));
             }
-            static Elements messageInJivosite() {
+            static Elements sentMessage() {
                 return new Elements(null, By.xpath(
-                        "//*[@id=\"scrollbar-container\"]/jdiv[1]/jdiv/jdiv[5]/jdiv[1]/jdiv/jdiv/jdiv"));
+                        "//*[@id='scrollbar-container']/jdiv[1]/jdiv/jdiv[5]/jdiv[1]/jdiv/jdiv/jdiv"));
             }
         }
-
     }
 
 
