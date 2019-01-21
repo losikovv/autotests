@@ -18,6 +18,13 @@ public class DetectionHelper extends HelperBase {
     }
 
     /**
+     * Определить в каком тестовом окружении находимся
+     */
+    public boolean environment(String environment) {
+        return kraken.environment.getEnvironmentName().equalsIgnoreCase(environment);
+    }
+
+    /**
      * Определить показан ли алерт на странице
      */
     protected boolean isAlertPresent() {
@@ -28,7 +35,6 @@ public class DetectionHelper extends HelperBase {
             return false;
         }
     }
-
 
     /**
      * Задетектить элемент
@@ -513,5 +519,29 @@ public class DetectionHelper extends HelperBase {
     /** Определить активна ли кнопка отправки заказа */
     public boolean isSendButtonActive() {
         return kraken.detect().isElementEnabled(By.xpath("//aside/div/div[1]/div/button"));
+    }
+
+    // ======= Чекаут =======
+
+    /** Определить открыт ли чат Jivosite */
+    public boolean isJivositeOpen() {
+        if (kraken.detect().isElementPresent(Elements.Site.Jivosite.messageField())){
+            printMessage("Чат Jivosite открыт");
+            return true;
+        } else {
+            printMessage("Чат Jivosite не открыт");
+            return false;
+        }
+    }
+
+    /** Определить отправлено ли сообщение в Jivosite */
+    public boolean isJivositeMessageSent() {
+        if (kraken.detect().isElementDisplayed(Elements.Site.Jivosite.messageInJivosite())){
+            printMessage("Сообщение отправлено");
+            return true;
+        } else {
+            printMessage("Сообщение не отправлено");
+            return false;
+        }
     }
 }

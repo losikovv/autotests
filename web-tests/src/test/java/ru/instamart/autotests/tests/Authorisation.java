@@ -260,29 +260,35 @@ public class Authorisation extends TestBase {
     }
 
 
-    @Test(  enabled = false,
-            description = "Тест успешной авторизации через ВКонтакте",
+    @Test(  description = "Тест успешной авторизации через ВКонтакте",
             groups = {"acceptance","regression"},
             priority = 212
     )
     public void successAuthVK() throws AssertionError {
-        kraken.social().authVK();
+        if (kraken.detect().environment("PRODUCTION")) {
+            kraken.social().authVK();
 
-        Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Не работает авторизация через ВКонтакте\n");
+            Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                    "Не работает авторизация через ВКонтакте\n");
+        } else {
+            kraken.perform().printMessage("Пропускаем тест успешной авторизации через Вконтакте на STAGING");
+        }
     }
 
 
-    @Test(  enabled = false,
-            description = "Тест успешной авторизации через Facebook",
+    @Test(  description = "Тест успешной авторизации через Facebook",
             groups = {"acceptance","regression"},
             priority = 213
     )
     public void successAuthFB() throws AssertionError {
-        kraken.social().authFB();
+        if (kraken.detect().environment("PRODUCTION")) {
+            kraken.social().authFB();
 
-        Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Не работает авторизация через Facebook\n");
+            Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                    "Не работает авторизация через Facebook\n");
+        } else {
+            kraken.perform().printMessage("Пропускаем тест успешной авторизации через Facebook на STAGING");
+        }
     }
 
 
