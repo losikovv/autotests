@@ -42,7 +42,7 @@ public class FavoriteProducts extends TestBase {
         kraken.shopping().openFavorites();
 
         Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorite.inStockFilterButton()),
-                "Переход в любимые товары по кнопке не работает");
+                "Не работает переход в любимые товары по кнопке в шапке");
     }
 
 
@@ -58,7 +58,7 @@ public class FavoriteProducts extends TestBase {
         kraken.get().favoritesPage();
 
         softAssert.assertTrue(kraken.detect().isFavoritesEmpty(),
-                "У пользователя по умолчанию есть любимые товары");
+                "Дефолтный список любимых товаров у нового пользователя не пуст");
 
         softAssert.assertAll();
         kraken.cleanup().users();
