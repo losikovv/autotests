@@ -862,12 +862,12 @@ public class Elements {
 
                 static Elements applyButton() {
                     return new Elements("Добавить код",
-                            By.xpath("//*[@id='react-modal']/div[2]/div/div/div[2]/form/div[2]/div/div[2]/button"));
+                            By.xpath("//*[@id='react-modal']/div/div[2]/div/div/div[2]/form/div[2]/div/div[2]/button"));
                 }
 
                 static Elements cancelButton() {
                     return new Elements("Отменить",
-                            By.xpath("//*[@id='react-modal']/div[2]/div/div/div[2]/form/div[2]/div/div[1]/button"));
+                            By.xpath("//*[@id='react-modal']/div/div[2]/div/div/div[2]/form/div[2]/div/div[1]/button"));
                 }
 
                 static Elements closeButton() {
