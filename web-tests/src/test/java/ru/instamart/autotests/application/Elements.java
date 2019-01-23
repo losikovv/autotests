@@ -974,7 +974,7 @@ public class Elements {
 
             static Elements openButton() {
                 return new Elements(null, By.xpath(
-                        "//*[@id='jvlabelWrap']/jdiv/jdiv[1]"));
+                        "//*[@id=\"jvlabelWrap\"]/jdiv/jdiv[1]"));
             }
 
             static Elements closeButton() {
