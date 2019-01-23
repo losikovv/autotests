@@ -526,15 +526,20 @@ public class DetectionHelper extends HelperBase {
 
     // ======= Jivosite =======
 
-    /** Определить открыт ли чат Jivosite */
+    /** Определить открыт ли виджет Jivosite */
     public boolean isJivositeOpen() {
-        if (kraken.detect().isElementPresent(Elements.Site.Jivosite.messageField())){
-            printMessage("Чат Jivosite открыт");
+        if (kraken.detect().isElementDisplayed(Elements.Site.Jivosite.sendMessageButton())){
+            printMessage("Чат Jivosite развернут\n");
             return true;
         } else {
-            printMessage("Чат Jivosite не открыт");
+            printMessage("Чат Jivosite свернут\n");
             return false;
         }
+    }
+
+    /** Определить отображается ли чат в виджете Jivosite */
+    public boolean isJivositeChatAvailable() {
+        return kraken.detect().isElementDisplayed(Elements.Site.Jivosite.chatArea());
     }
 
     /** Определить отправлено ли сообщение в Jivosite */
