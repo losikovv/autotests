@@ -181,7 +181,11 @@ public class ShoppingHelper extends HelperBase {
         // Добираем товар до требуемой суммы при необходимости
         if(cartTotal < orderSum) {
             closeCart();
-            openFirstItemCard();
+            if(kraken.detect().element(Elements.Site.Catalog.product())) {
+                openFirstItemCard();
+            } else {
+                openFirstFavoriteItemCard();
+            }
                 int itemPrice;
                 // Определяем цену товара со скидкой или без
                 if(kraken.detect().isItemOnSale()){
@@ -202,7 +206,6 @@ public class ShoppingHelper extends HelperBase {
             openCart();
         } else { printMessage("В корзине достаточно товаров");}
     }
-
 
     // ======= Любимые товары =======
 

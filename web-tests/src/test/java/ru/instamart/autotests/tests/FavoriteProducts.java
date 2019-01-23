@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.UserData;
@@ -299,5 +300,39 @@ public class FavoriteProducts extends TestBase {
 
         softAssert.assertAll();
         kraken.cleanup().users();
+    }
+    @Test(
+            description = "Тест оформления заказа с любимыми товарами",
+            groups = {"acceptance", "regression"},
+            priority = 512
+    )
+    public void successCompleteCheckoutWithFavoriteProducts() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.perform().registration();
+        kraken.get().page("metro");
+        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+
+        softAssert.assertTrue(kraken.detect().isShippingAddressSet(),
+                "Адрес доставки не установлен\n");
+
+        kraken.shopping().openFirstItemCard();
+        kraken.shopping().hitAddToFavoritesButton();
+        kraken.get().favoritesPage();
+
+        softAssert.assertFalse(kraken.detect().isFavoritesEmpty(),
+                "Не работает добавление любимого товара из карточки товара");
+
+        kraken.shopping().collectItems(Config.minOrderSum);
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не оформляется заказ с оплатой наличными\n");
+
+        kraken.perform().checkOrderDocuments();
+        assertPageIsAvailable();
+
+        kraken.perform().cancelLastOrder();
+
     }
 }
