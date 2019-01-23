@@ -301,38 +301,28 @@ public class FavoriteProducts extends TestBase {
         softAssert.assertAll();
         kraken.cleanup().users();
     }
+
+
     @Test(
             description = "Тест оформления заказа с любимыми товарами",
             groups = {"acceptance", "regression"},
             priority = 512
     )
-    public void successCompleteCheckoutWithFavoriteProducts() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
+    public void successOrderWithFavoriteProducts() throws Exception {
         kraken.perform().registration();
         kraken.get().page("metro");
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
-
-        softAssert.assertTrue(kraken.detect().isShippingAddressSet(),
-                "Адрес доставки не установлен\n");
-
+        
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitAddToFavoritesButton();
         kraken.get().favoritesPage();
-
-        softAssert.assertFalse(kraken.detect().isFavoritesEmpty(),
-                "Не работает добавление любимого товара из карточки товара");
-
-        kraken.shopping().collectItems(Config.minOrderSum);
+        kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформляется заказ с оплатой наличными\n");
-
-        kraken.perform().checkOrderDocuments();
-        assertPageIsAvailable();
+                "Не оформляется заказ с любимыми товарами\n");
 
         kraken.perform().cancelLastOrder();
-
     }
 }
