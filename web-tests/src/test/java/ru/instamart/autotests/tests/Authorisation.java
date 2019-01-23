@@ -260,7 +260,8 @@ public class Authorisation extends TestBase {
     }
 
 
-    @Test(  description = "Тест успешной авторизации через ВКонтакте",
+    @Test(  enabled = false, // TODO включить когда будет тестовый акк VK
+            description = "Тест успешной авторизации через ВКонтакте",
             groups = {"acceptance","regression"},
             priority = 212
     )
@@ -276,7 +277,8 @@ public class Authorisation extends TestBase {
     }
 
 
-    @Test(  description = "Тест успешной авторизации через Facebook",
+    @Test(  enabled = false, // TODO включить когда будет тестовый акк FB
+            description = "Тест успешной авторизации через Facebook",
             groups = {"acceptance","regression"},
             priority = 213
     )

@@ -52,15 +52,13 @@ public class FavoriteProducts extends TestBase {
             priority = 503
     )
     public void noFavoriteProductsByDefault() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
         kraken.perform().registration();
 
         kraken.get().favoritesPage();
 
-        softAssert.assertTrue(kraken.detect().isFavoritesEmpty(),
+        Assert.assertTrue(kraken.detect().isFavoritesEmpty(),
                 "Дефолтный список любимых товаров у нового пользователя не пуст");
 
-        softAssert.assertAll();
         kraken.cleanup().users();
     }
 
