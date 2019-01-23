@@ -36,11 +36,21 @@ public class Elements {
      * Страница 404 ошибки
      */
     public interface Page404 {
+
         static Elements title() {
             text = "Страница не найдена";
             locator = By.xpath("/html/body/div[1]/div/div/div/div[1]/div/div[1]");
             return new Elements(text, locator);
         }
+
+        static Elements catWisdomButton() {
+            return new Elements("ПОЗНАТЬ КОТОМУДРОСТЬ", By.className("btn--small"));
+        }
+
+        static Elements quote() {
+            return new Elements(null, By.className("error-page-slider__slide"));
+        }
+
     }
 
 
