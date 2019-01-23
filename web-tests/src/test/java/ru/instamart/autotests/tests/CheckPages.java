@@ -176,14 +176,12 @@ public class CheckPages extends TestBase {
             groups = {"regression"},
             priority = 1308
     )
-    public void successLearnCatWisdom() throws AssertionError {
+    public void successLearnCatWisdomOnPage404() throws AssertionError {
         kraken.get().page(Pages.page404());
-        kraken.perform().waitingFor(1); // Ожидание загрузки страницы 404
         kraken.jivosite().open();
         kraken.perform().click(Elements.Page404.catWisdomButton());
 
         Assert.assertTrue(kraken.detect().isElementPresent(Elements.Page404.quote()),
                 "Не работает просмотр котомудрости на странице 404");
     }
-
 }
