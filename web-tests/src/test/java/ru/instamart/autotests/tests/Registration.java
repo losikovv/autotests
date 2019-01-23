@@ -314,4 +314,26 @@ public class Registration extends TestBase {
 
         softAssert.assertAll();
     }
+
+
+    @Test(  description = "Тест успешной регистрации через ВКонтакте",
+            groups = {"regression"},
+            priority = 114
+    )
+    public void successRegVK() throws Exception, AssertionError {
+        if (kraken.detect().environment("PRODUCTION")) {
+
+            kraken.social().denyAccessVK();
+            kraken.perform().reachAdmin();
+            kraken.social().deleteUserVK();
+            kraken.perform().quickLogout();
+            kraken.social().authVK();
+
+            Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                    "Не работает регистрация через ВКонтакте\n");
+        } else {
+            kraken.perform().printMessage("Пропускаем тест успешной регистрации через Вконтакте на STAGING");
+        }
+    }
+
 }

@@ -92,6 +92,7 @@ public class AdministrationHelper extends HelperBase {
         printMessage("Поиск пользователей по запросу " + email);
         kraken.perform().fillField(Elements.Admin.Users.searchField(), email);
         kraken.perform().click(Elements.Admin.Users.searchButton());
+        kraken.perform().waitingFor(1); // Ожидание осуществления поиска юзера в админке
     }
 
     /**
@@ -119,6 +120,15 @@ public class AdministrationHelper extends HelperBase {
         kraken.perform().click(Elements.Admin.Users.firstUserEditButton());
         kraken.perform().waitingFor(1); // Ожидание загрузки страницы пользователя в админке
         printMessage("Редактирование пользователя " + kraken.grab().currentURL());
+    }
+
+    /** Удалить первого найденного пользователя */
+    public void deleteFirstFoundUser(String email) {
+        searchUser(email);
+        if (kraken.grab().text(Elements.Admin.Users.firstUserLogin()).equalsIgnoreCase(email)) {
+            kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton());
+            kraken.perform().handleAlert();
+        } else { kraken.perform().printMessage("Найден не тот пользователь!");}
     }
 
     /**

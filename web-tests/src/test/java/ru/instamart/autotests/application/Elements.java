@@ -1483,6 +1483,28 @@ public class Elements {
             static Elements submitButton() { return new Elements(null, By.id("install_allow")); }
 
             static Elements regButton() { return new Elements(null, By.className("oauth_reg_link")); }
+
+            static Elements allowButton() { return new Elements(null,
+                    By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/button[1]")); }
+
+            static Elements denyButton() { return new Elements(null,
+                    By.xpath("//div[@id='app3856350']//div[@class='apps_settings_action_remove']")); }
+
+            static Elements profileButton() { return new Elements(null, By.xpath("//a[@id='top_profile_link']")); }
+
+            static Elements logoutButton() { return new Elements(null, By.xpath("//a[@id='top_logout_link']")); }
+
+
+            interface index {
+
+                static Elements emailField() { return new Elements(null, By.id("index_email")); }
+
+                static Elements passwordField() { return new Elements(null, By.id("index_pass")); }
+
+                static Elements loginButton() { return new Elements(null, By.id("index_login_button")); }
+
+            }
+
         }
 
         /**
