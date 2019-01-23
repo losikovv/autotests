@@ -32,7 +32,7 @@ public class Jivosite extends TestBase{
 
     @Test(
             description = "Тест успешной отправки сообщения в Jivosite",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 1202
     )
     public void successSendMessageToJivosite() throws Exception {

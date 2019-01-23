@@ -19,6 +19,27 @@ public class Orders extends TestBase {
         kraken.perform().loginAs("admin");
     }
 
+    @Test(
+            description = "Тестовый заказ с любимыми товарами",
+            groups = {"acceptance", "regression"},
+            priority = 900
+    )
+    public void successOrderWithFavoriteProducts() throws Exception {
+        kraken.perform().registration();
+        kraken.get().page("metro");
+        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+
+        kraken.shopping().openFirstItemCard();
+        kraken.shopping().hitAddToFavoritesButton();
+        kraken.get().favoritesPage();
+        kraken.shopping().collectItems();
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не оформляется заказ с любимыми товарами\n");
+    }
+
 
     @Test(
             description = "Тестовый заказ в Метро Москва",

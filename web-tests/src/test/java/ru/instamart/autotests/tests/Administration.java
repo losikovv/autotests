@@ -25,7 +25,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест недоступности админки пользователю без админ. прав",
             groups = {"acceptance","regression"},
-            priority = 1201
+            priority = 1301
     )
     public void noAccessAdministrationWithoutAdminPrivileges() throws Exception {
         kraken.perform().loginAs("user");
@@ -39,7 +39,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест возобновления заказа через админку",
             groups = {"acceptance","regression"},
-            priority = 1202
+            priority = 1302
     )
     public void successResumeOrder() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -65,7 +65,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест отмены заказа через админку",
             groups = {"acceptance","regression"},
-            priority = 1203
+            priority = 1303
     )
     public void successCancelOrder() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -89,7 +89,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест шапки админки",
             groups = {"regression"},
-            priority = 1204
+            priority = 1304
     )
     public void successCheckHeader() throws Exception {
 
@@ -255,7 +255,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест предоставления и отзыва админских прав пользователю",
             groups = {"regression"},
-            priority = 1205
+            priority = 1305
     )
     public void successGrantAndRevokeAdminPrivileges() throws Exception {
         kraken.perform().quickLogout();
@@ -298,7 +298,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест поиска пользователя в админке",
             groups = {"acceptance","regression"},
-            priority = 1206
+            priority = 1306
     )
     public void successSearchUser() {
         UserData user = Users.getCredentials("user");
@@ -313,7 +313,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест поиска заказа в админке",
             groups = {"acceptance","regression"},
-            priority = 1207
+            priority = 1307
     )
     public void successSearchOrder() {
         kraken.get().page("metro");
@@ -331,7 +331,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест смены пароля пользователю",
             groups = {"regression"},
-            priority = 1208
+            priority = 1308
     )
     public void successChangePassword() throws Exception {
         kraken.perform().quickLogout();
@@ -359,7 +359,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест проставления пользователю флага B2B",
             groups = {"regression"},
-            priority = 1209
+            priority = 1309
     )
     public void successGrantB2BStatus() throws Exception {
         kraken.perform().quickLogout();
@@ -383,7 +383,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест поиска B2B пользователя в админке",
             groups = {"regression"},
-            priority = 1210
+            priority = 1310
     )
     public void successSearchB2BUser() throws Exception {
         kraken.perform().quickLogout();
@@ -411,7 +411,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест поиска B2B заказа в админке",
             groups = {"regression"},
-            priority = 1211
+            priority = 1311
     )
     public void successSearchB2BOrder() throws Exception {
         kraken.perform().quickLogout();

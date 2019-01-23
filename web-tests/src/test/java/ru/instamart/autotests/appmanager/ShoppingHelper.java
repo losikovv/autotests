@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.application.Pages;
 
 public class ShoppingHelper extends HelperBase {
 
@@ -181,10 +182,11 @@ public class ShoppingHelper extends HelperBase {
         // Добираем товар до требуемой суммы при необходимости
         if(cartTotal < orderSum) {
             closeCart();
-            if(kraken.detect().element(Elements.Site.Catalog.product())) {
-                openFirstItemCard();
-            } else {
+            Pages.Site.Profile.favorites(); // TODO переделать чтобы можно было делать Pages.Site.Favs.getUrl()
+            if(kraken.grab().currentURL().equals(fullBaseUrl + Pages.getPagePath())) {
                 openFirstFavoriteItemCard();
+            } else {
+                openFirstItemCard();
             }
                 int itemPrice;
                 // Определяем цену товара со скидкой или без

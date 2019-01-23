@@ -39,6 +39,7 @@ public class JivositeHelper extends HelperBase {
     /** Отправить сообщение в Jivosite */
     public void sendMessage(String text) {
         kraken.perform().printMessage("Jivosite");
+        kraken.perform().waitingFor(2);
         open();
         kraken.perform().printMessage("> отправляем сообщение: " + text);
         kraken.perform().fillField(Elements.Site.Jivosite.messageField(), text);
