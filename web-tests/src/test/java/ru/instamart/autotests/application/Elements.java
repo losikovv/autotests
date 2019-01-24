@@ -1482,12 +1482,10 @@ public class Elements {
 
             static Elements submitButton() { return new Elements(null, By.id("install_allow")); }
 
-            static Elements regButton() { return new Elements(null, By.className("oauth_reg_link")); }
-
-            static Elements allowButton() { return new Elements(null,
+            static Elements allowAccessButton() { return new Elements(null,
                     By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/button[1]")); }
 
-            static Elements denyButton() { return new Elements(null,
+            static Elements denyAccessButton() { return new Elements(null,
                     By.xpath("//div[@id='app3856350']//div[@class='apps_settings_action_remove']")); }
 
             static Elements profileButton() { return new Elements(null, By.xpath("//a[@id='top_profile_link']")); }
@@ -1504,7 +1502,6 @@ public class Elements {
                 static Elements loginButton() { return new Elements(null, By.id("index_login_button")); }
 
             }
-
         }
 
         /**
@@ -1518,7 +1515,20 @@ public class Elements {
 
             static Elements submitButton() { return new Elements(null, By.id("loginbutton")); }
 
-            static Elements regButton() { return new Elements(null, By.linkText("Создать новый аккаунт")); }
+            static Elements allowAccessButton() { return new Elements(null, By.name("__CONFIRM__")); }
+
+            static Elements instamartButton() { return new Elements(null, By.linkText("Instamart")); }
+
+            static Elements denyAccessButton() { return new Elements(null,
+                    By.xpath("/html[1]/body[1]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]" +
+                            "/div[4]/div[3]/a[1]")); }
+
+            static Elements confirmDenyAccessButton() { return new Elements(null, By.name("confirmed")); }
+
+            static Elements logoutButton() { return new Elements(null, By.id("mbasic_logout_button")); }
+
+            static Elements loginButton() { return new Elements(null, By.name("login")); }
+
         }
     }
 

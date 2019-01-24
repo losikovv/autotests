@@ -125,11 +125,16 @@ public class AdministrationHelper extends HelperBase {
     /** Удалить первого найденного пользователя */
     public void deleteFirstFoundUser(String email) {
         searchUser(email);
-        if (kraken.grab().text(Elements.Admin.Users.firstUserLogin()).equalsIgnoreCase(email)) {
-            kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton());
-            kraken.perform().handleAlert();
-        } else { kraken.perform().printMessage("Найден не тот пользователь!");}
-    }
+        if (kraken.detect().isElementDisplayed(Elements.Admin.Users.firstUserLogin())) {
+            if (kraken.grab().text(Elements.Admin.Users.firstUserLogin()).equalsIgnoreCase(email)) {
+                kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton());
+                kraken.perform().handleAlert();
+            } else {
+                kraken.perform().printMessage("Найден не тот пользователь!");
+            }
+        } else { kraken.perform().printMessage("Пользователь уже удалён!"); }
+
+        }
 
     /**
      * Предоставить админские права в карточке пользователя

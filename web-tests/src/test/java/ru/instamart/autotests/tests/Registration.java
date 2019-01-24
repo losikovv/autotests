@@ -316,23 +316,59 @@ public class Registration extends TestBase {
     }
 
 
-    @Test(  description = "Тест успешной регистрации через ВКонтакте",
+    @Test(  enabled = false, // TODO включить когда будет тестовый акк VK
+            description = "Тест успешной регистрации через ВКонтакте",
             groups = {"regression"},
             priority = 114
     )
-    public void successRegVK() throws Exception, AssertionError {
+    public void successRegWithVK() throws Exception, AssertionError {
         if (kraken.detect().environment("PRODUCTION")) {
 
             kraken.social().denyAccessVK();
-            kraken.perform().reachAdmin();
+            kraken.perform().quickLogout();
+            kraken.perform().loginAs("admin");
             kraken.social().deleteUserVK();
             kraken.perform().quickLogout();
-            kraken.social().authVK();
+
+            kraken.social().initAuthVK();
+
+            Assert.assertTrue(kraken.detect().isElementPresent(Elements.Social.Vkontakte.emailField()),
+                    "Не открывается окно регистрации через Вконтакте");
+
+            kraken.social().submitAuthVK();
 
             Assert.assertTrue(kraken.detect().isUserAuthorised(),
                     "Не работает регистрация через ВКонтакте\n");
         } else {
             kraken.perform().printMessage("Пропускаем тест успешной регистрации через Вконтакте на STAGING");
+        }
+    }
+
+    @Test(  enabled = false, // TODO включить когда будет тестовый акк FB
+            description = "Тест успешной регистрации через Facebook",
+            groups = {"regression"},
+            priority = 115
+    )
+    public void successRegWithFB() throws Exception, AssertionError {
+        if (kraken.detect().environment("PRODUCTION")) {
+
+            kraken.social().denyAccessFB();
+            kraken.perform().quickLogout();
+            kraken.perform().loginAs("admin");
+            kraken.social().deleteUserFB();
+            kraken.perform().quickLogout();
+
+            kraken.social().initAuthFB();
+
+            Assert.assertTrue(kraken.detect().isElementPresent(Elements.Social.Facebook.emailField()),
+                    "Не открывается окно регистрации через Facebook\n");
+
+            kraken.social().submitAuthFB();
+
+            Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                    "Не работает регистрация через Facebook\n");
+        } else {
+            kraken.perform().printMessage("Пропускаем тест успешной регистрации через Facebook на STAGING");
         }
     }
 

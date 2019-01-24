@@ -267,7 +267,13 @@ public class Authorisation extends TestBase {
     )
     public void successAuthVK() throws AssertionError {
         if (kraken.detect().environment("PRODUCTION")) {
-            kraken.social().authVK();
+
+            kraken.social().initAuthVK();
+
+            Assert.assertTrue(kraken.detect().isElementPresent(Elements.Social.Vkontakte.emailField()),
+                    "Не открывается окно авторизации через Вконтакте\n");
+
+            kraken.social().submitAuthVK();
 
             Assert.assertTrue(kraken.detect().isUserAuthorised(),
                     "Не работает авторизация через ВКонтакте\n");
@@ -284,7 +290,13 @@ public class Authorisation extends TestBase {
     )
     public void successAuthFB() throws AssertionError {
         if (kraken.detect().environment("PRODUCTION")) {
-            kraken.social().authFB();
+
+            kraken.social().initAuthFB();
+
+            Assert.assertTrue(kraken.detect().isElementPresent(Elements.Social.Facebook.emailField()),
+                    "Не открывается окно авторизации через Facebook\n");
+
+            kraken.social().submitAuthFB();
 
             Assert.assertTrue(kraken.detect().isUserAuthorised(),
                     "Не работает авторизация через Facebook\n");
