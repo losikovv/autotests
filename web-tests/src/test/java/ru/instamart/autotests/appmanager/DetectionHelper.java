@@ -530,4 +530,15 @@ public class DetectionHelper extends HelperBase {
             return false;
         }
     }
+
+    /** Определить доступен ли виджет Jivosite*/
+    public boolean isJivositeWidgetAvailable () {
+        if (kraken.detect().isElementDisplayed(Elements.Site.Jivosite.openButton())){
+            printMessage("Виджет Jivosite доступен\n");
+            return true;
+        } else {
+            printMessage("Виджет Jivosite недоступен\n");
+            return false;
+        }
+    }
 }
