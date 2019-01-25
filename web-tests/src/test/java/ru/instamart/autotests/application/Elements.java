@@ -982,6 +982,10 @@ public class Elements {
          */
         interface Jivosite {
 
+            static Elements widget() {
+                return new Elements(null, By.id("jvlabelWrap"));
+            }
+
             static Elements openButton() {
                 return new Elements(null, By.xpath(
                         "//*[@id=\"jvlabelWrap\"]/jdiv/jdiv[1]"));

@@ -42,7 +42,7 @@ public class FavoriteProducts extends TestBase {
         kraken.shopping().openFavorites();
 
         Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorites.inStockFilterButton()),
-                "Не работает переход в любимые товары по кнопке в шапке");
+                "Не работает переход в любимые товары по кнопке в шапке\n");
     }
 
 
@@ -57,7 +57,7 @@ public class FavoriteProducts extends TestBase {
         kraken.get().favoritesPage();
 
         Assert.assertTrue(kraken.detect().isFavoritesEmpty(),
-                "Дефолтный список любимых товаров у нового пользователя не пуст");
+                "Дефолтный список любимых товаров у нового пользователя не пуст\n");
 
         kraken.cleanup().users();
     }
@@ -69,7 +69,6 @@ public class FavoriteProducts extends TestBase {
             priority = 504
     )
     public void successAddFavoriteOnItemCard() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
         kraken.perform().registration();
 
         kraken.shopping().openFirstItemCard();
@@ -77,10 +76,9 @@ public class FavoriteProducts extends TestBase {
 
         kraken.get().favoritesPage();
 
-        softAssert.assertFalse(kraken.detect().isFavoritesEmpty(),
-                "Не работает добавление любимого товара из карточки товара");
+        Assert.assertFalse(kraken.detect().isFavoritesEmpty(),
+                "Не работает добавление любимого товара из карточки товара\n");
 
-        softAssert.assertAll();
         kraken.cleanup().users();
     }
 
@@ -91,7 +89,6 @@ public class FavoriteProducts extends TestBase {
             priority = 505
     )
     public void successDeleteFavoriteOnItemCard() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
         kraken.perform().registration();
 
         kraken.shopping().openFirstItemCard();
@@ -102,10 +99,9 @@ public class FavoriteProducts extends TestBase {
 
         kraken.get().favoritesPage();
 
-        softAssert.assertTrue(kraken.detect().isFavoritesEmpty(),
-                "Не работает удаление любимого товара из карточки товара");
+        Assert.assertTrue(kraken.detect().isFavoritesEmpty(),
+                "Не работает удаление любимого товара из карточки товара\n");
 
-        softAssert.assertAll();
         kraken.cleanup().users();
     }
 
@@ -116,7 +112,6 @@ public class FavoriteProducts extends TestBase {
             priority = 506
     )
     public void successCleanupFavorites() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
         kraken.perform().registration();
 
         kraken.search().item("молоко");
@@ -152,10 +147,9 @@ public class FavoriteProducts extends TestBase {
         kraken.get().favoritesPage();
         kraken.shopping().deleteFavorites();
 
-        softAssert.assertTrue(kraken.detect().isFavoritesEmpty(),
-                "Не работает удаление всех любимых товаров");
+        Assert.assertTrue(kraken.detect().isFavoritesEmpty(),
+                "Не очищается список любимых товаров\n");
 
-        softAssert.assertAll();
         kraken.cleanup().users();
     }
 
@@ -205,7 +199,7 @@ public class FavoriteProducts extends TestBase {
 
         kraken.shopping().hitShowMoreFavorites();
         Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorites.secondPageProduct()),
-                "Подгрузка страниц не рабоатет");
+                "Не рабоатет подгрузка страниц списка любимых товаров\n");
     }
 
 
@@ -222,13 +216,13 @@ public class FavoriteProducts extends TestBase {
         kraken.shopping().hitAddToFavoritesButton();
 
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
-                "Не открывается модалка регистрации после попытки добавления товара в любимые товары");
+                "\nНе открывается модалка регистрации после попытки добавления товара в любимые товары");
 
         kraken.perform().regSequence(kraken.generate().testUserData());
         kraken.perform().sendForm();
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Не работает регистрация после попытки добавления товара в любимые товары");
+                "\nНе работает регистрация после попытки добавления товара в любимые товары");
 
         softAssert.assertAll();
         kraken.cleanup().users();
@@ -251,13 +245,13 @@ public class FavoriteProducts extends TestBase {
         kraken.shopping().hitAddToFavoritesButton();
 
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
-                "Не открывается модалка авторизации после попытки добавления товара в избранное");
+                "\nНе открывается модалка авторизации после попытки добавления товара в избранное");
 
         kraken.perform().authSequence(testuser);
         kraken.perform().sendForm();
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Не работает авторизация после попытки добавления товара в избранное");
+                "\nНе работает авторизация после попытки добавления товара в избранное");
 
         softAssert.assertAll();
         kraken.cleanup().users();
@@ -275,15 +269,15 @@ public class FavoriteProducts extends TestBase {
         kraken.get().page("metro");
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
 
-        softAssert.assertTrue(kraken.detect().isShippingAddressSet(),
-                "Адрес доставки не установлен\n");
+        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
+                "Не удалось установить адрес доставки\n");
 
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitAddToFavoritesButton();
         kraken.get().favoritesPage();
       
         softAssert.assertFalse(kraken.detect().isFavoritesEmpty(),
-                "Не работает добавление любимого товара из карточки товара");
+                "\nНе работает добавление любимого товара из карточки товара");
 
         kraken.shopping().openFirstFavoriteItemCard();
         kraken.shopping().hitPlusButton();
@@ -292,10 +286,10 @@ public class FavoriteProducts extends TestBase {
         kraken.shopping().openCart();
 
         softAssert.assertTrue(kraken.detect().isCartOpen(),
-                "Не открывается корзина из списка любимых товаров\n");
+                "\nНе открывается корзина из списка любимых товаров\n");
 
         softAssert.assertFalse(kraken.detect().isCartEmpty(),
-                "Не работает добавление товаров в корзину из списка любимых товаров\n");
+                "\nНе работает добавление товаров в корзину из списка любимых товаров\n");
 
         softAssert.assertAll();
         kraken.cleanup().users();

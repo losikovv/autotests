@@ -533,7 +533,8 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить доступен ли виджет Jivosite*/
     public boolean isJivositeWidgetAvailable () {
-        if (kraken.detect().isElementDisplayed(Elements.Site.Jivosite.openButton())){
+        kraken.perform().waitingFor(2); // Ожидание подгрузки виджета Jivosite
+        if (kraken.detect().isElementDisplayed(Elements.Site.Jivosite.widget())){
             printMessage("Виджет Jivosite доступен\n");
             return true;
         } else {
