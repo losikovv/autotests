@@ -158,6 +158,24 @@ public class Orders extends TestBase {
     }
 
 
+    @Test(
+            description = "Тестовый заказ в Метро Санкт-Петербург",
+            groups = {"regression"},
+            priority = 907
+    )
+    public void successOrderInMetroSaintPetersburg(){
+        kraken.get().page("metro");
+        kraken.shipAddress().change(Addresses.SaintPetersburg.defaultAddress());
+        kraken.shopping().collectItems();
+        kraken.shopping().proceedToCheckout();
+
+        kraken.checkout().complete();
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не оформляется заказ в Метро Санкт-Петербург\n");
+    }
+
+
     @AfterMethod(alwaysRun = true)
     public void postconditions()throws Exception {
         //kraken.perform().checkOrderDocuments();

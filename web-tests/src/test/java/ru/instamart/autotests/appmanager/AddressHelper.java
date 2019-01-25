@@ -48,10 +48,10 @@ public class AddressHelper extends HelperBase {
      */
     public void swap() {
         if (kraken.grab().currentShipAddress().equals(Addresses.Moscow.defaultAddress())) {
-            kraken.shipAddress().change(Addresses.Moscow.testAddress());
+            change(Addresses.Moscow.testAddress());
         } else {
-            kraken.shipAddress().change(Addresses.Moscow.testAddress());
-            kraken.shipAddress().change(Addresses.Moscow.defaultAddress());
+            change(Addresses.Moscow.testAddress());
+            change(Addresses.Moscow.defaultAddress());
         }
     }
 

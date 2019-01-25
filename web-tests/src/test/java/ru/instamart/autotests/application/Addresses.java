@@ -27,6 +27,14 @@ public abstract class Addresses {
 
     }
 
+    public static class SaintPetersburg extends Addresses {
+
+        SaintPetersburg(String adress) { super(adress);}
+
+        public static String defaultAddress() { return addressString = "Санкт-Петербург, ул Мебельная, д 10"; }
+
+    }
+
     public static class Kazan extends Addresses {
 
         Kazan(String address) {
