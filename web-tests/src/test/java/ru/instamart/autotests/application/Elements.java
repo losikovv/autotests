@@ -595,7 +595,7 @@ public class Elements {
                 return new Elements("В наличии", By.linkText("В наличии"));
             }
 
-            static Elements notInStockFilterButton() {
+            static Elements outOfStockFilterButton() {
                 return new Elements("Нет в наличии", By.linkText("Нет в наличии"));
             }
 

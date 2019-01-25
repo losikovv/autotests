@@ -231,7 +231,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Отобразить любимые товары, которых нет в наличии */
     public void filterFavoritesNotInStock() {
-        kraken.perform().click(Elements.Site.Favorites.notInStockFilterButton());
+        kraken.perform().click(Elements.Site.Favorites.outOfStockFilterButton());
         kraken.perform().waitingFor(1); // Ожидание открытия вкладки Не в наличии в избранном
     }
 

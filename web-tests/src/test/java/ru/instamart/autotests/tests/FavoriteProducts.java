@@ -170,23 +170,23 @@ public class FavoriteProducts extends TestBase {
         kraken.perform().loginAs("admin");
         kraken.get().favoritesPage();
 
-        softAssert.assertTrue(kraken.detect().isFavoritesFilteredAllItems(),
-                "По умолчанию не выставлен фильтр Все товары");
+        softAssert.assertTrue(kraken.detect().isFavoritesFiltered("all"),
+                "\nВ любимых товарах по умолчанию не выставлен фильтр \"Все товары\"");
 
         kraken.shopping().filterFavoritesInStock();
 
-        softAssert.assertTrue(kraken.detect().isFavoritesFilteredInStock(),
-                "Не работает кнопка фильтра В наличии");
+        softAssert.assertTrue(kraken.detect().isFavoritesFiltered("inStock"),
+                "\nВ любимых товарах не работает фильтр \"В наличии\"");
 
         kraken.shopping().filterFavoritesNotInStock();
 
-        softAssert.assertTrue(kraken.detect().isFavoritesFilteredNotInStock(),
-                "Не работает кнопка фильтра Нет в наличии");
+        softAssert.assertTrue(kraken.detect().isFavoritesFiltered("outOfStock"),
+                "\nВ любимых товарах не работает кнопка фильтра \"Нет в наличии\"");
 
         kraken.shopping().filterFavoritesAllItems();
 
-        softAssert.assertTrue(kraken.detect().isFavoritesFilteredAllItems(),
-                "Не работает кнопка фильтра Все товары");
+        softAssert.assertTrue(kraken.detect().isFavoritesFiltered("all"),
+                "\nВ любимых товарах не работает кнопка фильтра \"Все товары\"");
 
         softAssert.assertAll();
     }
