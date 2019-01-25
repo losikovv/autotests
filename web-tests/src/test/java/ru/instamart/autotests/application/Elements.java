@@ -576,7 +576,7 @@ public class Elements {
          * Любимые товары
          */
 
-        interface Favorite {
+        interface Favorites {
 
             static Elements product() {
                 return new Elements(null, By.className("favorite-product"));
@@ -591,16 +591,16 @@ public class Elements {
                 return new Elements("Все товары", By.linkText("Все товары"));
             }
 
-            static Elements activeFilterButton() {
-                return new Elements(null, By.xpath("//a[@class='favorite-list-filter__link favorite-list-filter__link--active']"));
-            }
-
             static Elements inStockFilterButton() {
                 return new Elements("В наличии", By.linkText("В наличии"));
             }
 
             static Elements notInStockFilterButton() {
                 return new Elements("Нет в наличии", By.linkText("Нет в наличии"));
+            }
+
+            static Elements activeFilter() {
+                return new Elements(null, By.xpath("//a[@class='favorite-list-filter__link favorite-list-filter__link--active']"));
             }
 
             static Elements showMoreButton() {

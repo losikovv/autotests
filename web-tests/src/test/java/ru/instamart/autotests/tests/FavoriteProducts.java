@@ -5,7 +5,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.UserData;
@@ -42,7 +41,7 @@ public class FavoriteProducts extends TestBase {
         kraken.perform().loginAs("admin");
         kraken.shopping().openFavorites();
 
-        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorite.inStockFilterButton()),
+        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorites.inStockFilterButton()),
                 "Не работает переход в любимые товары по кнопке в шапке");
     }
 
@@ -171,22 +170,22 @@ public class FavoriteProducts extends TestBase {
         kraken.perform().loginAs("admin");
         kraken.get().favoritesPage();
 
-        softAssert.assertTrue(kraken.detect().isFavoriteFilterAllItems(),
+        softAssert.assertTrue(kraken.detect().isFavoritesFilteredAllItems(),
                 "По умолчанию не выставлен фильтр Все товары");
 
         kraken.shopping().filterFavoritesInStock();
 
-        softAssert.assertTrue(kraken.detect().isFavoriteFilterInStock(),
+        softAssert.assertTrue(kraken.detect().isFavoritesFilteredInStock(),
                 "Не работает кнопка фильтра В наличии");
 
         kraken.shopping().filterFavoritesNotInStock();
 
-        softAssert.assertTrue(kraken.detect().isFavoriteFilterNotInStock(),
+        softAssert.assertTrue(kraken.detect().isFavoritesFilteredNotInStock(),
                 "Не работает кнопка фильтра Нет в наличии");
 
         kraken.shopping().filterFavoritesAllItems();
 
-        softAssert.assertTrue(kraken.detect().isFavoriteFilterAllItems(),
+        softAssert.assertTrue(kraken.detect().isFavoritesFilteredAllItems(),
                 "Не работает кнопка фильтра Все товары");
 
         softAssert.assertAll();
@@ -205,7 +204,7 @@ public class FavoriteProducts extends TestBase {
         kraken.jivosite().open();
 
         kraken.shopping().hitShowMoreFavorites();
-        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorite.secondPageProduct()),
+        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorites.secondPageProduct()),
                 "Подгрузка страниц не рабоатет");
     }
 

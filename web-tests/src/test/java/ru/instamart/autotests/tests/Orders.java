@@ -25,13 +25,13 @@ public class Orders extends TestBase {
             priority = 900
     )
     public void successOrderWithFavoriteProducts() throws Exception {
-        kraken.perform().registration();
-        kraken.get().page("metro");
-        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
-
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
         kraken.get().favoritesPage();
+        if(kraken.detect().isFavoritesEmpty()) {
+            kraken.get().page("metro");
+            kraken.shopping().openFirstItemCard();
+            kraken.shopping().hitAddToFavoritesButton();
+            kraken.get().favoritesPage();
+        }
         kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();
         kraken.checkout().complete();

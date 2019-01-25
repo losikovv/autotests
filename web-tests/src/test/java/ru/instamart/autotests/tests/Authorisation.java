@@ -265,7 +265,7 @@ public class Authorisation extends TestBase {
             groups = {"acceptance","regression"},
             priority = 212
     )
-    public void successAuthVK() throws AssertionError {
+    public void successAuthWithVK() throws AssertionError {
         if (kraken.detect().environment("PRODUCTION")) {
 
             kraken.social().initAuthVK();
@@ -288,7 +288,7 @@ public class Authorisation extends TestBase {
             groups = {"acceptance","regression"},
             priority = 213
     )
-    public void successAuthFB() throws AssertionError {
+    public void successAuthWithFB() throws AssertionError {
         if (kraken.detect().environment("PRODUCTION")) {
 
             kraken.social().initAuthFB();

@@ -219,25 +219,25 @@ public class ShoppingHelper extends HelperBase {
 
     /** Отобразить все любимые товары */
     public void filterFavoritesAllItems() {
-        kraken.perform().click(Elements.Site.Favorite.allItemsFilterButton());
+        kraken.perform().click(Elements.Site.Favorites.allItemsFilterButton());
         kraken.perform().waitingFor(1); // Ожидание открытия вкладки Все Товары в избранном
     }
 
     /** Отобразить любимые товары, которые есть в наличии */
     public void filterFavoritesInStock() {
-        kraken.perform().click(Elements.Site.Favorite.inStockFilterButton());
+        kraken.perform().click(Elements.Site.Favorites.inStockFilterButton());
         kraken.perform().waitingFor(1); // Ожидание открытия вкладки В наличии в избранном
     }
 
     /** Отобразить любимые товары, которых нет в наличии */
     public void filterFavoritesNotInStock() {
-        kraken.perform().click(Elements.Site.Favorite.notInStockFilterButton());
+        kraken.perform().click(Elements.Site.Favorites.notInStockFilterButton());
         kraken.perform().waitingFor(1); // Ожидание открытия вкладки Не в наличии в избранном
     }
 
     /** Открываем карточку первого товара в избранном*/
     public void openFirstFavoriteItemCard() {
-        kraken.perform().click(Elements.Site.Favorite.product());
+        kraken.perform().click(Elements.Site.Favorites.product());
         kraken.perform().waitingFor(1); // Ожидание открытия карточки товара
         kraken.perform().switchToActiveElement();
         if(!kraken.detect().isItemCardOpen()) {
@@ -258,7 +258,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Нажать кнопку "Показать ещё" в списке любимых товаров */
     public void hitShowMoreFavorites() {
-        kraken.perform().click(Elements.Site.Favorite.showMoreButton());
+        kraken.perform().click(Elements.Site.Favorites.showMoreButton());
         kraken.perform().waitingFor(1); // Ожидание загрузки следующей страницы любимых товаров
     }
 }

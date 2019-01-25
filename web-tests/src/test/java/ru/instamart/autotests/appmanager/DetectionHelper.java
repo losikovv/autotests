@@ -405,20 +405,20 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить наличие пустого списка любимых товаров */
     public boolean isFavoritesEmpty() {
-        if(kraken.detect().isElementPresent(Elements.Site.Favorite.placeholder()) &&
-                !kraken.detect().isElementPresent(Elements.Site.Favorite.product())){
-           printMessage("Нет товаров в списке любимых товаров!");
+        if(kraken.detect().isElementPresent(Elements.Site.Favorites.placeholder()) &&
+                !kraken.detect().isElementPresent(Elements.Site.Favorites.product())){
+           printMessage("Нет любимых товаров\n");
            return true;
         } else {
-            printMessage("✓ Есть товар в списке любимых товаров");
+            printMessage("✓ Есть любимые товары\n");
             return false;
         }
     }
 
     /** Определить выбран ли фильтр Все товары */
-    public boolean isFavoriteFilterAllItems() {
+    public boolean isFavoritesFilteredAllItems() {
         if(kraken.grab().text(By.xpath("//a[@class='favorite-list-filter__link favorite-list-filter__link--active']"))
-                .equals(kraken.grab().text(Elements.Site.Favorite.allItemsFilterButton()))){
+                .equals(kraken.grab().text(Elements.Site.Favorites.allItemsFilterButton()))){
             printMessage("Выбран фильтр Все товары");
             return true;
         } else {
@@ -428,9 +428,9 @@ public class DetectionHelper extends HelperBase {
     }
 
     /** Определить выбран ли фильтр В наличии */
-    public boolean isFavoriteFilterInStock() {
+    public boolean isFavoritesFilteredInStock() {
         if(kraken.grab().text(By.xpath("//a[@class='favorite-list-filter__link favorite-list-filter__link--active']"))
-                .equals(kraken.grab().text(Elements.Site.Favorite.inStockFilterButton()))){
+                .equals(kraken.grab().text(Elements.Site.Favorites.inStockFilterButton()))){
             printMessage("Выбран фильтр В наличии");
             return true;
         } else {
@@ -440,9 +440,9 @@ public class DetectionHelper extends HelperBase {
     }
 
     /** Определить выбран ли фильтр Нет в наличии */
-    public boolean isFavoriteFilterNotInStock() {
-        if(kraken.grab().text(By.xpath("//a[@class='favorite-list-filter__link favorite-list-filter__link--active']"))
-                .equals(kraken.grab().text(Elements.Site.Favorite.notInStockFilterButton()))){
+    public boolean isFavoritesFilteredNotInStock() {
+        if(kraken.grab().text(Elements.Site.Favorites.activeFilter())
+                .equals(kraken.grab().text(Elements.Site.Favorites.notInStockFilterButton()))){
             printMessage("Выбран фильтр Нет в наличии");
             return true;
         } else {
