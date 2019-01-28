@@ -488,12 +488,14 @@ public class Elements {
                 return new Elements(null, By.cssSelector(".resource-not-found__message-block"));
             }
 
-            static Elements product() {
-                return new Elements(null, By.className("product"));
+            static Elements product() { return new Elements(null, By.className("product"));
             }
 
-            static Elements firstItemPlusButton() {
-                return new Elements(null, By.className("cart-actions__btn"));
+            static Elements plusButton() { return new Elements(null, By.className("fa-plus"));
+            }
+
+            static Elements addToFavoritesButton() { return new Elements(null,
+                    By.className("favorite-button-default"));
             }
 
         }
@@ -630,6 +632,13 @@ public class Elements {
             static Elements secondPageProduct() {
                 return new Elements(null, By.xpath("//*[@id='wrap']/div/div/div/div/div[2]" +
                         "/div/div[2]/div[2]/a[31]"));
+            }
+
+            static Elements plusButton() { return new Elements(null, By.className("fa-plus"));
+            }
+
+            static Elements deleteFromFavoritesButton() {
+                return new Elements(null, By.className("favorite-button--active"));
             }
 
         }

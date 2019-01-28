@@ -1,6 +1,7 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.*;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.UserData;
 
@@ -33,6 +34,26 @@ public class PerformHelper extends HelperBase {
         }
         catch (ElementNotVisibleException v) {
             printMessage("Невозможно нажать на элемент <" + locator
+                    + ">\nЭлемент не отображается на " + kraken.grab().currentURL() + "\n");
+        }
+    }
+
+    /** Навестисть на элемент */
+    public void hoverTo(Elements element) {
+        hoverTo(Elements.locator());
+    }
+
+    /** Навестись на элемент по локатору */
+    public void hoverTo(By locator) {
+        try {
+            new Actions(driver).moveToElement(driver.findElement(locator)).perform();
+        }
+        catch (NoSuchElementException n) {
+            printMessage("Невозможно навестись на элемент <" + locator
+                    + ">\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
+        }
+        catch (ElementNotVisibleException v) {
+            printMessage("Невозможно навестись на элемент <" + locator
                     + ">\nЭлемент не отображается на " + kraken.grab().currentURL() + "\n");
         }
     }
@@ -392,7 +413,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Очистить корзину изменениями адреса доставки ( временный метод, пока не запилят очистку корзины ) */
-    public void dropCart() {
+    public void dropCartViaAddressSwap() {
         if (!kraken.detect().isCartEmpty()) {
             kraken.shopping().closeCart();
             kraken.shipAddress().swap();
