@@ -421,6 +421,16 @@ public class PerformHelper extends HelperBase {
         kraken.shopping().closeCart();
     }
 
+    /** Очистить корзину */
+    public void dropCart() {
+        if (!kraken.detect().isCartEmpty()) {
+            kraken.shopping().removeItemFromCart();
+            waitingFor(1); // Ожидание удаления продукта из корзины
+            dropCart();
+        }
+        kraken.shopping().closeCart();
+    }
+
 
     // ======= Check =======
 

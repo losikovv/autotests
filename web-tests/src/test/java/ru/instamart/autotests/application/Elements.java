@@ -591,6 +591,23 @@ public class Elements {
                 return new Elements(null,
                         By.className("open-new-cart"));
             }
+
+            static Elements item() {
+                return new Elements(null, By.className("cart-line-item"));
+            }
+
+            static Elements removeItemButton() {
+                return new Elements(null, By.className("cart-line-item__remove"));
+            }
+
+            static Elements upArrowButton() {
+                return new Elements(null, By.className("fa-caret-up"));
+            }
+
+            static Elements downArrowButton() {
+                return new Elements(null, By.className("fa-caret-down"));
+            }
+
         }
 
         /**

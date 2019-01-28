@@ -272,7 +272,7 @@ public class FavoriteProducts extends TestBase {
     public void successAddFavoriteProductsFromCardToCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
         kraken.perform().loginAs("admin");
-        kraken.perform().dropCartViaAddressSwap();
+        kraken.perform().dropCart();
         kraken.get().favoritesPage();
 
         kraken.shopping().hitFirstItemInFavoritesPlusButton();
@@ -296,7 +296,7 @@ public class FavoriteProducts extends TestBase {
     public void successAddFavoriteProductsFromListToCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
         kraken.perform().loginAs("admin");
-        kraken.perform().dropCartViaAddressSwap();
+        kraken.perform().dropCart();
         kraken.get().favoritesPage();
 
         kraken.shopping().hitFirstItemInFavoritesPlusButton();

@@ -160,6 +160,12 @@ public class ShoppingHelper extends HelperBase {
         }
     }
 
+    /** Убрать товар из корзины */
+    public void removeItemFromCart() {
+            kraken.perform().hoverTo(Elements.Site.Cart.item());
+            kraken.perform().click(Elements.Site.Cart.removeItemButton());
+    }
+
     /** Перейти в чекаут нажатием кнопки "Сделать заказ" в корзине */
     public void proceedToCheckout() {
         if(kraken.detect().isCheckoutButtonActive()){
