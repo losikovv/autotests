@@ -85,13 +85,10 @@ public class Page404 extends TestBase {
         kraken.perform().waitingFor(1);
 
         String firstWisdom = kraken.grab().catWisdom();
-        kraken.perform().printMessage("\nКотомудрость: " + firstWisdom);
-
         kraken.perform().click(Elements.Page404.showMoreCatWisdom());
-
         String anotherWisdom = kraken.grab().catWisdom();
-        kraken.perform().printMessage("\n Еще котомудрость: " + anotherWisdom);
 
-        Assert.assertNotEquals(firstWisdom, anotherWisdom,"Не работает познание новой котомудрости на странице 404");
+        Assert.assertNotEquals(firstWisdom, anotherWisdom,
+                "Не работает познание новой котомудрости на странице 404");
     }
 }

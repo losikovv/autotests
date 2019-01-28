@@ -63,6 +63,7 @@ public class GrabHelper extends HelperBase{
             if (!text.equals("")) { wisdom = text; }
 
         }
+        kraken.perform().printMessage("\nКотомудрость: " + wisdom);
         return wisdom;
     }
 }
