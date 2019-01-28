@@ -81,17 +81,6 @@ public class DetectionHelper extends HelperBase {
         return isElementDisplayed(Elements.locator());
     }
 
-    public String catWisdom() {
-        String wisdom = null;
-        for (int i = 1; i <= 39; i++) {
-            //String text = kraken.grab().text(By.xpath("/html/body/div[1]/div/div/div/div[2]/div[2]/div/div[1]/div/div/div/div/div["+i+"]/div/blockquote"));
-            String text = kraken.grab().text(Elements.Page404.quote(i));
-            if (!text.equals("")) { wisdom = text; }
-
-        }
-        return wisdom;
-    }
-
     /**
      * Определить показан ли элемент по локатору
      */

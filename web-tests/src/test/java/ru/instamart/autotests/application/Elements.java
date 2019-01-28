@@ -65,7 +65,7 @@ public class Elements {
                     "/div[2]/div/div[3]/a"));
         }
 
-        static Elements showMoreWisdomCat() {
+        static Elements showMoreCatWisdom() {
             return new Elements("ещё котомудрость", By.cssSelector("li.error-page__links-nav__item:nth-child(2" +
                     ") > a:nth-child(1)"));
         }
