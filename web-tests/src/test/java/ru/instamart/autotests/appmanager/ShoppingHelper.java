@@ -75,12 +75,16 @@ public class ShoppingHelper extends HelperBase {
 
     /** Добавить в корзину первый товар каталога из сниппета */
     public void hitFirstItemPlusButton() {
-        // TODO
-        //Actions action = new Actions(driver);
-        //action.moveToElement(driver.findElement(By.className("product__cart-actions"))).moveToElement(driver.findElement(By.className("add-cart__up"))).click().build().perform();
+        kraken.perform().hoverTo(Elements.Site.Catalog.product());
+        kraken.perform().click(Elements.Site.Catalog.plusButton());
+        kraken.perform().waitingFor(1); // Ожидание добавления товара в корзину
+    }
 
-        //kraken.perform().click(Elements.Site.Catalog.plusSnippet());
-        //kraken.perform().waitingFor(1); // Ожидание добавления товара
+    /** Добавить любимый товар из каталога */
+    public void hitFirstItemAddToFavoritesButton() {
+        kraken.perform().hoverTo(Elements.Site.Catalog.product());
+        kraken.perform().click(Elements.Site.Catalog.addToFavoritesButton());
+        kraken.perform().waitingFor(1); // Ожидание добавления любимого товара
     }
 
 
@@ -235,6 +239,20 @@ public class ShoppingHelper extends HelperBase {
         kraken.perform().waitingFor(1); // Ожидание открытия вкладки Не в наличии в избранном
     }
 
+    /** Добавить в корзину первый товар из списка любимых из сниппета */
+    public void hitFirstItemInFavoritesPlusButton() {
+        kraken.perform().hoverTo(Elements.Site.Favorites.product());
+        kraken.perform().click(Elements.Site.Favorites.plusButton());
+        kraken.perform().waitingFor(1); // Ожидание добавления товара в корзину из избранного
+    }
+
+    /** Удалить любимый товар из списка любимых из сниппета */
+    public void hitFirstItemInFavoritesDeleteFromFavoritesButton() {
+        kraken.perform().hoverTo(Elements.Site.Favorites.product());
+        kraken.perform().click(Elements.Site.Favorites.deleteFromFavoritesButton());
+        kraken.perform().waitingFor(1); // Ожидание добавления товара в корзину из избранного
+    }
+
     /** Открываем карточку первого товара в избранном*/
     public void openFirstFavoriteItemCard() {
         kraken.perform().click(Elements.Site.Favorites.product());
@@ -249,11 +267,10 @@ public class ShoppingHelper extends HelperBase {
     /** Удалить все любимые товары */
     public void deleteFavorites() {
         if(!kraken.detect().isFavoritesEmpty()) {
-            openFirstFavoriteItemCard();
-            hitDeleteFromFavoritesButton();
-            closeItemCard();
+            hitFirstItemInFavoritesDeleteFromFavoritesButton();
+            kraken.perform().waitingFor(1);
             deleteFavorites();
-        } else { printMessage("✓ Все любимые товары удалены");}
+        } else { printMessage("✓ Все любимые товары удалены\n");}
     }
 
     /** Нажать кнопку "Показать ещё" в списке любимых товаров */

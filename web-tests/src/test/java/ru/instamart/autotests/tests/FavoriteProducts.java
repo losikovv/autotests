@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.UserData;
@@ -22,8 +21,7 @@ public class FavoriteProducts extends TestBase {
     }
 
 
-    @Test(
-            description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
+    @Test(  description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
             groups = {"acceptance","regression"},
             priority = 501
     )
@@ -32,8 +30,7 @@ public class FavoriteProducts extends TestBase {
     }
 
 
-    @Test(
-            description = "Переход в любимые товары по кнопке",
+    @Test(  description = "Переход в любимые товары по кнопке",
             groups = {"acceptance","regression"},
             priority = 502
     )
@@ -46,8 +43,7 @@ public class FavoriteProducts extends TestBase {
     }
 
 
-    @Test(
-            description = "Проверка пустого списка любимых товаров для нового пользователя",
+    @Test(  description = "Проверка пустого списка любимых товаров для нового пользователя",
             groups = {"acceptance","regression"},
             priority = 503
     )
@@ -63,8 +59,7 @@ public class FavoriteProducts extends TestBase {
     }
 
 
-    @Test(
-            description = "Добавление любимого товара из карточки товара и проверка списка",
+    @Test(  description = "Добавление любимого товара из карточки товара и проверка списка",
             groups = {"acceptance","regression"},
             priority = 504
     )
@@ -83,17 +78,30 @@ public class FavoriteProducts extends TestBase {
     }
 
 
-    @Test(
-            description = "Удаление любимого товара из карточки товара и проверка списка",
-            groups = {"acceptance","regression"},
+    @Test(  description = "Тест успешного добавления любомого товара из сниппета в каталоге",
+            groups = {"regression"},
             priority = 505
+    )
+    public void successAddFavoriteFromCatalog() throws Exception {
+        kraken.perform().registration();
+        kraken.shopping().hitFirstItemAddToFavoritesButton();
+        kraken.get().favoritesPage();
+
+        Assert.assertFalse(kraken.detect().isFavoritesEmpty(),
+                "Не работает добавление любимого товара из карточки товара\n");
+
+        kraken.cleanup().users();
+    }
+
+
+    @Test(  description = "Удаление любимого товара из карточки товара и проверка списка",
+            groups = {"acceptance","regression"},
+            priority = 506
     )
     public void successDeleteFavoriteOnItemCard() throws Exception {
         kraken.perform().registration();
+        kraken.shopping().hitFirstItemAddToFavoritesButton();
 
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
-        kraken.shopping().closeItemCard();
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitAddToFavoritesButton();
 
@@ -106,43 +114,48 @@ public class FavoriteProducts extends TestBase {
     }
 
 
-    @Test(
-            description = "Удаление всех любимых товаров",
+    @Test(  description = "Удаление любимого товара из списка",
+            groups = {"acceptance","regression"},
+            priority = 507
+    )
+    public void successDeleteFavoriteOnList() throws Exception {
+        kraken.perform().registration();
+        kraken.shopping().hitFirstItemAddToFavoritesButton();
+
+        kraken.get().favoritesPage();
+        kraken.shopping().hitFirstItemInFavoritesDeleteFromFavoritesButton();
+
+        Assert.assertTrue(kraken.detect().isFavoritesEmpty(),
+                "Не работает удаление любимого товара из списка любимых товаров\n");
+
+        kraken.cleanup().users();
+    }
+
+
+    @Test(  description = "Удаление всех любимых товаров",
             groups = {"regression"},
-            priority = 506
+            priority = 508
     )
     public void successCleanupFavorites() throws Exception {
         kraken.perform().registration();
 
         kraken.search().item("молоко");
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
-        kraken.shopping().closeItemCard();
+        kraken.shopping().hitFirstItemAddToFavoritesButton();
 
         kraken.search().item("сыр");
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
-        kraken.shopping().closeItemCard();
+        kraken.shopping().hitFirstItemAddToFavoritesButton();
 
         kraken.search().item("вода");
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
-        kraken.shopping().closeItemCard();
+        kraken.shopping().hitFirstItemAddToFavoritesButton();
 
         kraken.search().item("бананы");
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
-        kraken.shopping().closeItemCard();
+        kraken.shopping().hitFirstItemAddToFavoritesButton();
 
         kraken.search().item("яйца");
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
-        kraken.shopping().closeItemCard();
+        kraken.shopping().hitFirstItemAddToFavoritesButton();
 
         kraken.search().item("хлеб");
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
-        kraken.shopping().closeItemCard();
+        kraken.shopping().hitFirstItemAddToFavoritesButton();
 
         kraken.get().favoritesPage();
         kraken.shopping().deleteFavorites();
@@ -154,10 +167,9 @@ public class FavoriteProducts extends TestBase {
     }
 
 
-    @Test(
-            description = "Проверка работоспособности фильтров Любимых товаров",
+    @Test(  description = "Проверка работоспособности фильтров Любимых товаров",
             groups = {"regression"},
-            priority = 507
+            priority = 509
     )
     public void successFilterFavorites() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -186,10 +198,9 @@ public class FavoriteProducts extends TestBase {
     }
 
 
-    @Test(
-            description = "Проверка работоспособности подгрузки страниц в Любимых товарах",
+    @Test(  description = "Проверка работоспособности подгрузки страниц в Любимых товарах",
             groups = {"regression"},
-            priority = 508
+            priority = 510
     )
     public void successShowMoreLoad() throws Exception {
         kraken.perform().loginAs("admin");
@@ -204,16 +215,14 @@ public class FavoriteProducts extends TestBase {
 
 
 
-    @Test(
-            description = "Регистрация, при попытке добавить товар в любимые товары неавторизованным",
+    @Test(  description = "Регистрация, при попытке добавить товар в любимые товары неавторизованным",
             groups = {"regression"},
-            priority = 509
+            priority = 511
     )
     public void successRegAfterAddFavoriteOnItemCard() throws Exception {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page(Pages.Site.Retailers.metro());
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
+        kraken.shopping().hitFirstItemAddToFavoritesButton();
 
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
                 "\nНе открывается модалка регистрации после попытки добавления товара в любимые товары");
@@ -229,10 +238,9 @@ public class FavoriteProducts extends TestBase {
     }
 
 
-    @Test(
-            description = "Авторизация при попытке добавить товар в избранное неавторизованным",
+    @Test(  description = "Авторизация при попытке добавить товар в избранное неавторизованным",
             groups = {"regression"},
-            priority = 510
+            priority = 512
     )
     public void successAuthAfterAddFavoriteOnItemCard() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -241,8 +249,7 @@ public class FavoriteProducts extends TestBase {
         kraken.perform().quickLogout();
 
         kraken.get().page(Pages.Site.Retailers.metro());
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
+        kraken.shopping().hitFirstItemAddToFavoritesButton();
 
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
                 "\nНе открывается модалка авторизации после попытки добавления товара в избранное");
@@ -258,30 +265,41 @@ public class FavoriteProducts extends TestBase {
     }
 
 
-    @Test(
-            description = "Тест добавления товаров в корзину из списка любимых товаров",
-            groups = {"acceptance","regression"},
-            priority = 511
+    @Test(  description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров",
+            groups = {"regression"},
+            priority = 513
     )
-    public void successAddFavoriteProductsToCart() throws Exception {
+    public void successAddFavoriteProductsFromCardToCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().registration();
-        kraken.get().page("metro");
-        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
-
-        Assert.assertTrue(kraken.detect().isShippingAddressSet(),
-                "Не удалось установить адрес доставки\n");
-
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
+        kraken.perform().loginAs("admin");
+        kraken.perform().dropCartViaAddressSwap();
         kraken.get().favoritesPage();
-      
-        softAssert.assertFalse(kraken.detect().isFavoritesEmpty(),
-                "\nНе работает добавление любимого товара из карточки товара");
 
-        kraken.shopping().openFirstFavoriteItemCard();
-        kraken.shopping().hitPlusButton();
-        kraken.shopping().closeItemCard();
+        kraken.shopping().hitFirstItemInFavoritesPlusButton();
+        kraken.perform().waitingFor(1); // ждем пока уберется алерт
+        kraken.shopping().openCart();
+
+        softAssert.assertTrue(kraken.detect().isCartOpen(),
+                "\nНе открывается корзина из списка любимых товаров\n");
+
+        softAssert.assertFalse(kraken.detect().isCartEmpty(),
+                "\nНе работает добавление товаров в корзину из карточки товара, открытой из списка любимых товаров\n");
+
+        softAssert.assertAll();
+    }
+
+
+    @Test(  description = "Тест добавления товаров в корзину из списка любимых товаров",
+            groups = {"acceptance","regression"},
+            priority = 514
+    )
+    public void successAddFavoriteProductsFromListToCart() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.perform().loginAs("admin");
+        kraken.perform().dropCartViaAddressSwap();
+        kraken.get().favoritesPage();
+
+        kraken.shopping().hitFirstItemInFavoritesPlusButton();
         kraken.perform().waitingFor(1); // ждем пока уберется алерт
         kraken.shopping().openCart();
 
@@ -292,6 +310,5 @@ public class FavoriteProducts extends TestBase {
                 "\nНе работает добавление товаров в корзину из списка любимых товаров\n");
 
         softAssert.assertAll();
-        kraken.cleanup().users();
     }
 }

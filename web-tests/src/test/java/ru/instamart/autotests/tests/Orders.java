@@ -28,8 +28,7 @@ public class Orders extends TestBase {
         kraken.get().favoritesPage();
         if(kraken.detect().isFavoritesEmpty()) {
             kraken.get().page("metro");
-            kraken.shopping().openFirstItemCard();
-            kraken.shopping().hitAddToFavoritesButton();
+            kraken.shopping().hitFirstItemAddToFavoritesButton();
             kraken.get().favoritesPage();
         }
         kraken.shopping().collectItems();

@@ -39,7 +39,7 @@ public class Shopping extends TestBase{
     )
     public void successOperateEmptyCart() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
-        kraken.perform().dropCart();
+        kraken.perform().dropCartViaAddressSwap();
         kraken.shopping().openCart();
 
         Assert.assertTrue(kraken.detect().isCartOpen(),
@@ -65,7 +65,7 @@ public class Shopping extends TestBase{
     )
     public void noAccessToCheckoutWithEmptyCart() throws Exception {
         kraken.perform().loginAs("admin");
-        kraken.perform().dropCart();
+        kraken.perform().dropCartViaAddressSwap();
         assertPageIsUnavailable(Pages.Site.checkout());
     }
 
@@ -84,7 +84,7 @@ public class Shopping extends TestBase{
     )
     public void successAddItemToCartFromItemCard()throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
-        kraken.perform().dropCart();
+        kraken.perform().dropCartViaAddressSwap();
 
         kraken.shopping().addFirstItemOnPageToCart();
 
@@ -95,16 +95,15 @@ public class Shopping extends TestBase{
     }
 
 
-    @Test( enabled = false, // TODO починить тест
-            description = "Тест успешного добавления товара в корзину из сниппета в каталоге",
+    @Test(  description = "Тест успешного добавления товара в корзину из сниппета в каталоге",
             groups = {"regression"},
             priority = 605
     )
     public void successAddItemToCartFromCatalog() throws Exception {
         kraken.perform().loginAs("admin");
-        kraken.perform().dropCart();
+        kraken.perform().dropCartViaAddressSwap();
 
-        kraken.shopping().hitFirstItemPlusButton(); // TODO починить добавление в корзину товара из сниппета
+        kraken.shopping().hitFirstItemPlusButton();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не добавляется товар в корзину из сниппета товара в каталоге\n");
@@ -122,7 +121,7 @@ public class Shopping extends TestBase{
         kraken.perform().loginAs("admin");
 
         if (kraken.detect().isCheckoutButtonActive()) {
-            kraken.perform().dropCart();
+            kraken.perform().dropCartViaAddressSwap();
         }
         if(kraken.detect().isCartEmpty()) {
             kraken.shopping().closeCart();
@@ -142,7 +141,7 @@ public class Shopping extends TestBase{
     )
     public void successCollectItemsForMinOrder() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
-        kraken.perform().dropCart();
+        kraken.perform().dropCartViaAddressSwap();
 
         kraken.shopping().collectItems();
 

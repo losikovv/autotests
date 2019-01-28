@@ -345,7 +345,7 @@ public class SelfCheck extends TestBase {
         if (!kraken.detect().isShippingAddressSet()) {
             kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         }
-        kraken.perform().dropCart();
+        kraken.perform().dropCartViaAddressSwap();
 
         // корзина пустая
         Assert.assertFalse(kraken.detect().isCartTotalDisplayed());

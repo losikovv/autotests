@@ -27,7 +27,7 @@ public class DeliveryPrices extends TestBase {
     )
     public void successCheckMetroDeliveryPriceDiscount() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().dropCart();
+        kraken.perform().dropCartViaAddressSwap();
 
         kraken.get().baseUrl();
         kraken.search().item("Haagen");
