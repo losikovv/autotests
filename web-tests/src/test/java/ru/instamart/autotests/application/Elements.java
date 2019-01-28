@@ -48,7 +48,26 @@ public class Elements {
         }
 
         static Elements quote() {
-            return new Elements(null, By.className("error-page-slider__slide"));
+            return new Elements(null, By.cssSelector(".error-page-slider > div:nth-child(1) >" +
+                    " div:nth-child(1) > div:nth-child(1) > div:nth-child(13) > div:nth-child(1)"));
+        }
+
+        static Elements quote(int quoteId) {
+            return new Elements(null, By.xpath("/html/body/div[1]/div/div/div/div[2]/div[2]/div/div[1]/div/div/div/div/div["+quoteId+"]/div/blockquote"));
+        }
+
+        static Elements homePageButton() {
+            return new Elements("на главную", By.className(".error-page__link"));
+        }
+
+        static Elements learnPricesButton() {
+            return new Elements("Познать цены *", By.xpath("/html/body/div[1]/div/div/div/div[2]" +
+                    "/div[2]/div/div[3]/a"));
+        }
+
+        static Elements showMoreWisdomCat() {
+            return new Elements("ещё котомудрость", By.cssSelector("li.error-page__links-nav__item:nth-child(2" +
+                    ") > a:nth-child(1)"));
         }
 
     }
