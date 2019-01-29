@@ -274,5 +274,4 @@ public class ShoppingHelper extends HelperBase {
             openCart();
         } else { printMessage("В корзине достаточно товаров");}
     }
-
 }

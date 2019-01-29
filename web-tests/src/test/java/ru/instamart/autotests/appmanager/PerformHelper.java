@@ -401,37 +401,6 @@ public class PerformHelper extends HelperBase {
     }
 
 
-    // ======= Drop =======
-
-    /** Деавторизоваться, оставшись на текущей странице */
-    public void dropAuth() {
-        if (kraken.detect().isUserAuthorised()) {
-            String currentURL = kraken.grab().currentURL();
-            quickLogout();
-            kraken.get().url(currentURL);
-        }
-    }
-
-    /** Очистить корзину изменениями адреса доставки ( временный метод, пока не запилят очистку корзины ) */
-    public void dropCartViaAddressSwap() {
-        if (!kraken.detect().isCartEmpty()) {
-            kraken.shopping().closeCart();
-            kraken.shipAddress().swap();
-        }
-        kraken.shopping().closeCart();
-    }
-
-    /** Очистить корзину */
-    public void dropCart() {
-        if (!kraken.detect().isCartEmpty()) {
-            kraken.shopping().removeItemFromCart();
-            waitingFor(1); // Ожидание удаления продукта из корзины
-            dropCart();
-        }
-        kraken.shopping().closeCart();
-    }
-
-
     // ======= Check =======
 
     /** Проверка скачивания документации на странице деталей заказа */

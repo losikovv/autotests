@@ -15,7 +15,7 @@ public class PromoCodes extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preconditions() throws Exception {
         kraken.get().baseUrl();
-        kraken.perform().dropAuth();
+        kraken.drop().auth();
         kraken.perform().registration();
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
     }

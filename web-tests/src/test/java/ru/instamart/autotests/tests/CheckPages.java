@@ -49,7 +49,7 @@ public class CheckPages extends TestBase {
             priority = 1403
     )
     public void successCheckPartnersLandings() throws Exception, AssertionError {
-        kraken.perform().dropAuth();
+        kraken.drop().auth();
 
         // TODO переделать на assertPagesAvailable(Pages.Site.Landings.*)
         assertPageIsAvailable(Pages.Site.Landings.mnogoru());

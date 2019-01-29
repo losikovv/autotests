@@ -64,7 +64,7 @@ public class SelfCheck extends TestBase {
             priority = 10003)
     public void detectAuthorisation() throws Exception {
 
-        kraken.perform().dropAuth();
+        kraken.drop().auth();
 
         kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised());
@@ -345,7 +345,7 @@ public class SelfCheck extends TestBase {
         if (!kraken.detect().isShippingAddressSet()) {
             kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         }
-        kraken.perform().dropCartViaAddressSwap();
+        kraken.drop().cartViaAddressSwap();
 
         // корзина пустая
         Assert.assertFalse(kraken.detect().isCartTotalDisplayed());

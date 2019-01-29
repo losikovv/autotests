@@ -39,7 +39,7 @@ public class Shopping extends TestBase{
     )
     public void successOperateEmptyCart() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
-        kraken.perform().dropCartViaAddressSwap();
+        kraken.drop().cartViaAddressSwap();
         kraken.shopping().openCart();
 
         Assert.assertTrue(kraken.detect().isCartOpen(),
@@ -65,7 +65,7 @@ public class Shopping extends TestBase{
     )
     public void noAccessToCheckoutWithEmptyCart() throws Exception {
         kraken.perform().loginAs("admin");
-        kraken.perform().dropCartViaAddressSwap();
+        kraken.drop().cartViaAddressSwap();
         assertPageIsUnavailable(Pages.Site.checkout());
     }
 
@@ -84,7 +84,7 @@ public class Shopping extends TestBase{
     )
     public void successAddItemToCartFromItemCard()throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
-        kraken.perform().dropCartViaAddressSwap();
+        kraken.drop().cartViaAddressSwap();
 
         kraken.shopping().addFirstItemOnPageToCart();
 
@@ -101,7 +101,7 @@ public class Shopping extends TestBase{
     )
     public void successAddItemToCartFromCatalog() throws Exception {
         kraken.perform().loginAs("admin");
-        kraken.perform().dropCartViaAddressSwap();
+        kraken.drop().cartViaAddressSwap();
 
         kraken.shopping().hitFirstItemPlusButton();
 
@@ -121,7 +121,7 @@ public class Shopping extends TestBase{
         kraken.perform().loginAs("admin");
 
         if (kraken.detect().isCheckoutButtonActive()) {
-            kraken.perform().dropCartViaAddressSwap();
+            kraken.drop().cartViaAddressSwap();
         }
         if(kraken.detect().isCartEmpty()) {
             kraken.shopping().closeCart();
@@ -141,7 +141,7 @@ public class Shopping extends TestBase{
     )
     public void successCollectItemsForMinOrder() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
-        kraken.perform().dropCartViaAddressSwap();
+        kraken.drop().cartViaAddressSwap();
 
         kraken.shopping().collectItems();
 
@@ -188,7 +188,7 @@ public class Shopping extends TestBase{
         SoftAssert softAssert = new SoftAssert();
 
         //TODO вынести в dataProvider
-        kraken.perform().dropAuth();
+        kraken.drop().auth();
         final UserData testuser = kraken.generate().testUserData();
         kraken.get().baseUrl();
         kraken.perform().registration(testuser);
