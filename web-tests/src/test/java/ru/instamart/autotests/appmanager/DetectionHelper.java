@@ -6,6 +6,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Loyalties;
+import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.EnvironmentData;
 
 public class DetectionHelper extends HelperBase {
@@ -405,7 +406,9 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить наличие пустого списка любимых товаров */
     public boolean isFavoritesEmpty() {
-        kraken.get().favoritesPage();
+        if(!kraken.grab().currentURL().equals(baseUrl + Pages.Site.Profile.favorites().getPagePath())) {
+            kraken.get().favoritesPage();
+        }
         if(kraken.detect().isElementPresent(Elements.Site.Favorites.placeholder()) &&
                 !kraken.detect().isElementPresent(Elements.Site.Favorites.product())){
            printMessage("Нет любимых товаров\n");
