@@ -651,9 +651,6 @@ public class Elements {
                         "/div/div[2]/div[2]/a[31]"));
             }
 
-            static Elements plusButton() { return new Elements(null, By.className("fa-plus"));
-            }
-
             static Elements deleteFromFavoritesButton() {
                 return new Elements(null, By.className("favorite-button--active"));
             }
