@@ -128,15 +128,6 @@ public class ShoppingHelper extends HelperBase {
         kraken.perform().waitingFor(1); // Ожидание открытия вкладки Не в наличии в избранном
     }
 
-    /** Удалить все любимые товары */
-    public void deleteFavorites() {
-        if(!kraken.detect().isFavoritesEmpty()) {
-            hitFirstItemDeleteFromFavoritesButton();
-            kraken.perform().waitingFor(1);
-            deleteFavorites();
-        } else { printMessage("✓ Все любимые товары удалены\n");}
-    }
-
     /** Нажать кнопку "Показать ещё" в списке любимых товаров */
     public void hitShowMoreFavorites() {
         kraken.perform().click(Elements.Site.Favorites.showMoreButton());

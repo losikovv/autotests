@@ -49,8 +49,6 @@ public class FavoriteProducts extends TestBase {
     public void noFavoriteProductsByDefault() throws Exception {
         kraken.perform().registration();
 
-        kraken.get().favoritesPage();
-
         Assert.assertTrue(kraken.detect().isFavoritesEmpty(),
                 "Дефолтный список любимых товаров у нового пользователя не пуст\n");
 
@@ -64,15 +62,11 @@ public class FavoriteProducts extends TestBase {
     )
     public void successAddFavoriteOnItemCard() throws Exception {
         kraken.perform().loginAs("user");
-        kraken.get().favoritesPage();
-        if (!kraken.detect().isFavoritesEmpty()) {
-            kraken.shopping().deleteFavorites();
-        } kraken.get().page(Pages.Site.Retailers.metro());
+        kraken.drop().favorites();
+        kraken.get().page(Pages.Site.Retailers.metro());
 
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitAddToFavoritesButton();
-
-        kraken.get().favoritesPage();
 
         Assert.assertFalse(kraken.detect().isFavoritesEmpty(),
                 "Не работает добавление любимого товара из карточки товара\n");
@@ -85,13 +79,10 @@ public class FavoriteProducts extends TestBase {
     )
     public void successAddFavoriteFromCatalog() throws Exception {
         kraken.perform().loginAs("user");
-        kraken.get().favoritesPage();
-        if (!kraken.detect().isFavoritesEmpty()) {
-            kraken.shopping().deleteFavorites();
-        } kraken.get().page(Pages.Site.Retailers.metro());
+        kraken.drop().favorites();
+        kraken.get().page(Pages.Site.Retailers.metro());
 
         kraken.shopping().hitFirstItemAddToFavoritesButton();
-        kraken.get().favoritesPage();
 
         Assert.assertFalse(kraken.detect().isFavoritesEmpty(),
                 "Не работает добавление любимого товара из карточки товара\n");
@@ -104,16 +95,12 @@ public class FavoriteProducts extends TestBase {
     )
     public void successDeleteFavoriteOnItemCard() throws Exception {
         kraken.perform().loginAs("user");
-        kraken.get().favoritesPage();
-        if (!kraken.detect().isFavoritesEmpty()) {
-            kraken.shopping().deleteFavorites();
-        } kraken.get().page(Pages.Site.Retailers.metro());
+        kraken.drop().favorites();
+        kraken.get().page(Pages.Site.Retailers.metro());
 
         kraken.shopping().hitFirstItemAddToFavoritesButton();
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitAddToFavoritesButton();
-
-        kraken.get().favoritesPage();
 
         Assert.assertTrue(kraken.detect().isFavoritesEmpty(),
                 "Не работает удаление любимого товара из карточки товара\n");
@@ -126,14 +113,13 @@ public class FavoriteProducts extends TestBase {
     )
     public void successDeleteFavoriteOnList() throws Exception {
         kraken.perform().loginAs("user");
-        kraken.get().favoritesPage();
         if (!kraken.detect().isFavoritesEmpty()) {
-            kraken.shopping().deleteFavorites();
-        } else { kraken.get().page(Pages.Site.Retailers.metro());
-
-        kraken.shopping().hitFirstItemAddToFavoritesButton();
-        kraken.get().favoritesPage();
-        kraken.shopping().hitFirstItemDeleteFromFavoritesButton();
+            kraken.drop().favorites();
+        } else {
+            kraken.get().page(Pages.Site.Retailers.metro());
+            kraken.shopping().hitFirstItemAddToFavoritesButton();
+            kraken.get().favoritesPage();
+            kraken.shopping().hitFirstItemDeleteFromFavoritesButton();
         }
 
         Assert.assertTrue(kraken.detect().isFavoritesEmpty(),
@@ -166,8 +152,7 @@ public class FavoriteProducts extends TestBase {
         kraken.search().item("хлеб");
         kraken.shopping().hitFirstItemAddToFavoritesButton();
 
-        kraken.get().favoritesPage();
-        kraken.shopping().deleteFavorites();
+        kraken.drop().favorites();
 
         Assert.assertTrue(kraken.detect().isFavoritesEmpty(),
                 "Не очищается список любимых товаров\n");
