@@ -8,6 +8,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.models.EnvironmentData;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,12 +20,8 @@ import static org.testng.Assert.fail;
 public class ApplicationManager {
 
     protected WebDriver driver;
-    protected Environments environment = new Environments("production"); // use "production" or "staging"
+    protected EnvironmentData environment = new Environments().staging();
     private String browser;
-
-    protected String environmentName = environment.getEnvironmentName();
-    protected String host = environment.getHost();
-    protected String baseUrl = environment.getBaseURL(true);
 
     // Helpers
     private BrowseHelper browseHelper;
@@ -90,7 +87,7 @@ public class ApplicationManager {
 
         revealKraken();
 
-        driver.get(baseUrl);
+        driver.get(environment.getFullBaseUrl());
     }
 
     public void stop() {
@@ -110,7 +107,7 @@ public class ApplicationManager {
             line = in.readLine();
         }
         in.close();
-        System.out.println("\nENVIRONMENT: " + environmentName + " ( " + host + " ) \n");
+        System.out.println("\nENVIRONMENT: " + environment.getName() + " ( " + environment.getHost() + " ) \n");
     }
 
     // Getters

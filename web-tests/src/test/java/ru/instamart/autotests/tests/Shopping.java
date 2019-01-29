@@ -39,16 +39,16 @@ public class Shopping extends TestBase{
     )
     public void successOperateEmptyCart() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
-        kraken.drop().cartViaAddressSwap();
+        kraken.drop().cart();
         kraken.shopping().openCart();
 
         Assert.assertTrue(kraken.detect().isCartOpen(),
                 "Не открывается корзина\n");
 
-        Assert.assertTrue(kraken.detect().isCartEmpty(), // TODO вынести в отдельный тест на дроп корзины
+        Assert.assertTrue(kraken.detect().isCartEmpty(),
                 "Корзина не пуста\n");
 
-        Assert.assertFalse(kraken.detect().isCheckoutButtonActive(), // TODO вынести в отдельный тест на дроп корзины
+        Assert.assertFalse(kraken.detect().isCheckoutButtonActive(),
                 "Кнопка чекаута активна в пустой козине\n");
 
         kraken.shopping().closeCart();
@@ -129,7 +129,9 @@ public class Shopping extends TestBase{
             kraken.shopping().addFirstItemOnPageToCart();
         }
 
-        Assert.assertTrue(!kraken.detect().isCartEmpty() && !kraken.detect().isCheckoutButtonActive());
+        Assert.assertTrue(!kraken.detect().isCartEmpty() && !kraken.detect().isCheckoutButtonActive(),
+                "Не выполнены предусловия теста - корзина не пуста, но кнопка чекаута активна");
+
         assertPageIsUnavailable(Pages.Site.checkout());
     }
 

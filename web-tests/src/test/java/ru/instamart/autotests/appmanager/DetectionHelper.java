@@ -5,14 +5,14 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Environments;
 import ru.instamart.autotests.application.Loyalties;
+import ru.instamart.autotests.models.EnvironmentData;
 
 public class DetectionHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    DetectionHelper(WebDriver driver, Environments environment, ApplicationManager app) {
+    DetectionHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
         super(driver, environment);
         kraken = app;
     }
@@ -21,7 +21,7 @@ public class DetectionHelper extends HelperBase {
      * Определить в каком тестовом окружении находимся
      */
     public boolean environment(String environment) {
-        return kraken.environment.getEnvironmentName().equalsIgnoreCase(environment);
+        return kraken.environment.getName().equalsIgnoreCase(environment);
     }
 
     /**

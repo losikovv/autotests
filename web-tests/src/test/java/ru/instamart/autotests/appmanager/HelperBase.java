@@ -1,22 +1,18 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
-import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.models.EnvironmentData;
 
 public class HelperBase {
     WebDriver driver;
-    private String environmentName;
-    private String host;
     public String baseUrl;
     public String fullBaseUrl;
     private boolean acceptNextAlert = true;
 
-    HelperBase(WebDriver driver, Environments environment) {
+    HelperBase(WebDriver driver, EnvironmentData environment) {
         this.driver = driver;
-        this.environmentName = environment.getEnvironmentName();
-        this.host = environment.getHost();
-        this.baseUrl = environment.getBaseURL(false);
-        this.fullBaseUrl = environment.getBaseURL(true);
+        this.baseUrl = environment.getBaseURL();
+        this.fullBaseUrl = environment.getFullBaseUrl();
     }
 
     /** Отправить сообщение в консоль*/

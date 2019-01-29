@@ -1,13 +1,13 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.models.EnvironmentData;
 
 public class DropHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    DropHelper(WebDriver driver, Environments environment, ApplicationManager app) {
+    DropHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
         super(driver, environment);
         kraken = app;
     }

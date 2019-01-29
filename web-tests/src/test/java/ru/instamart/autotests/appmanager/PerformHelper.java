@@ -1,8 +1,12 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.*;
-import ru.instamart.autotests.application.*;
+import org.openqa.selenium.interactions.Actions;
+import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.Users;
+import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.UserData;
 
 import static ru.instamart.autotests.application.Pages.getPagePath;
@@ -11,7 +15,7 @@ public class PerformHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    PerformHelper(WebDriver driver, Environments environment, ApplicationManager app) {
+    PerformHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
         super(driver, environment);
         kraken = app;
     }

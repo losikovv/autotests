@@ -3,14 +3,14 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.UserData;
 
 public class AdministrationHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    AdministrationHelper(WebDriver driver, Environments environment, ApplicationManager app) {
+    AdministrationHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
         super(driver, environment);
         kraken = app;
     }

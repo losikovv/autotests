@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Environments;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
 
@@ -266,7 +267,7 @@ public class Authorisation extends TestBase {
             priority = 212
     )
     public void successAuthWithVK() throws AssertionError {
-        if (kraken.detect().environment("PRODUCTION")) {
+        if (kraken.detect().environment("production")) {
 
             kraken.social().initAuthVK();
 
@@ -289,7 +290,7 @@ public class Authorisation extends TestBase {
             priority = 213
     )
     public void successAuthWithFB() throws AssertionError {
-        if (kraken.detect().environment("PRODUCTION")) {
+        if (kraken.detect().environment("production")) {
 
             kraken.social().initAuthFB();
 

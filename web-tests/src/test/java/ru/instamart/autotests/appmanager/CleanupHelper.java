@@ -3,14 +3,14 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Environments;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.models.EnvironmentData;
 
 public class CleanupHelper extends HelperBase {
 
     private ApplicationManager kraken;
 
-    CleanupHelper(WebDriver driver, Environments environment, ApplicationManager app) {
+    CleanupHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
         super(driver, environment);
         kraken = app;
     }

@@ -322,7 +322,7 @@ public class Registration extends TestBase {
             priority = 114
     )
     public void successRegWithVK() throws Exception, AssertionError {
-        if (kraken.detect().environment("PRODUCTION")) {
+        if (kraken.detect().environment("production")) {
 
             kraken.social().denyAccessVK();
             kraken.perform().quickLogout();
@@ -350,7 +350,7 @@ public class Registration extends TestBase {
             priority = 115
     )
     public void successRegWithFB() throws Exception, AssertionError {
-        if (kraken.detect().environment("PRODUCTION")) {
+        if (kraken.detect().environment("production")) {
 
             kraken.social().denyAccessFB();
             kraken.perform().quickLogout();
