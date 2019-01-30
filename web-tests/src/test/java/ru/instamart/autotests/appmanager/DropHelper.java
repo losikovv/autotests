@@ -32,7 +32,7 @@ public class DropHelper extends HelperBase {
         kraken.shopping().closeCart();
     }
 
-    /** Очистить корзину изменениями адреса доставки ( временный метод, пока не запилят очистку корзины ) */
+    /** Очистить корзину изменениями адреса доставки (старый временный метод, пока не запилили очистку корзины) */
     public void cartViaAddressSwap() {
         if (!kraken.detect().isCartEmpty()) {
             kraken.shopping().closeCart();

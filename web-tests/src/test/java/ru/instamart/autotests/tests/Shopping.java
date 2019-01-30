@@ -65,7 +65,7 @@ public class Shopping extends TestBase{
     )
     public void noAccessToCheckoutWithEmptyCart() throws Exception {
         kraken.perform().loginAs("admin");
-        kraken.drop().cartViaAddressSwap();
+        kraken.drop().cart();
         assertPageIsUnavailable(Pages.Site.checkout());
     }
 
@@ -84,7 +84,7 @@ public class Shopping extends TestBase{
     )
     public void successAddItemToCartFromItemCard()throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
-        kraken.drop().cartViaAddressSwap();
+        kraken.drop().cart();
 
         kraken.shopping().addFirstItemOnPageToCart();
 
@@ -101,7 +101,7 @@ public class Shopping extends TestBase{
     )
     public void successAddItemToCartFromCatalog() throws Exception {
         kraken.perform().loginAs("admin");
-        kraken.drop().cartViaAddressSwap();
+        kraken.drop().cart();
 
         kraken.shopping().hitFirstItemPlusButton();
 
@@ -121,16 +121,16 @@ public class Shopping extends TestBase{
         kraken.perform().loginAs("admin");
 
         if (kraken.detect().isCheckoutButtonActive()) {
-            kraken.drop().cartViaAddressSwap();
+            kraken.drop().cart();
         }
-        if(kraken.detect().isCartEmpty()) {
+        if (kraken.detect().isCartEmpty()) {
             kraken.shopping().closeCart();
             kraken.search().item("хлеб"); // Для случаев когда первый товар на главной дороже минимального заказа
             kraken.shopping().addFirstItemOnPageToCart();
         }
 
         Assert.assertTrue(!kraken.detect().isCartEmpty() && !kraken.detect().isCheckoutButtonActive(),
-                "Не выполнены предусловия теста - корзина не пуста, но кнопка чекаута активна");
+                "Не выполнены предусловия теста");
 
         assertPageIsUnavailable(Pages.Site.checkout());
     }
@@ -143,7 +143,7 @@ public class Shopping extends TestBase{
     )
     public void successCollectItemsForMinOrder() throws Exception, AssertionError {
         kraken.perform().loginAs("admin");
-        kraken.drop().cartViaAddressSwap();
+        kraken.drop().cart();
 
         kraken.shopping().collectItems();
 
