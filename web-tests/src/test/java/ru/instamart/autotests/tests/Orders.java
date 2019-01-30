@@ -58,9 +58,27 @@ public class Orders extends TestBase {
 
 
     @Test(
-            description = "Тестовый заказ в Метро Казань",
+            description = "Тестовый заказ в Метро Санкт-Петербург",
             groups = {"regression"},
             priority = 902
+    )
+    public void successOrderInMetroSaintPetersburg(){
+        kraken.get().page("metro");
+        kraken.shipAddress().change(Addresses.SaintPetersburg.defaultAddress());
+        kraken.shopping().collectItems();
+        kraken.shopping().proceedToCheckout();
+
+        kraken.checkout().complete();
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не оформляется заказ в Метро Санкт-Петербург\n");
+    }
+
+
+    @Test(
+            description = "Тестовый заказ в Метро Казань",
+            groups = {"regression"},
+            priority = 903
     )
     public void successOrderInMetroKazan(){
         kraken.get().page("metro");
@@ -78,7 +96,7 @@ public class Orders extends TestBase {
     @Test(
             description = "Тестовый заказ в Метро Екатеринбург",
             groups = {"regression"},
-            priority = 903
+            priority = 904
     )
     public void successOrderInMetroEkaterinburg(){
         kraken.get().page("metro");
@@ -96,7 +114,7 @@ public class Orders extends TestBase {
     @Test( // TODO перенести проверку добавления карты Вкусвилл в тесты чекаута
             description = "Тестовый заказ во Вкусвилл Москва с применением программы лояльности",
             groups = {"regression"},
-            priority = 904
+            priority = 905
     )
     public void successOrderInVkusvillMoscow(){
         kraken.get().page("vkusvill");
@@ -123,7 +141,7 @@ public class Orders extends TestBase {
     @Test(
             description = "Тестовый заказ в Ашан Москва",
             groups = {"regression"},
-            priority = 905
+            priority = 906
     )
     public void successOrderInAuchanMoscow(){
         kraken.get().page("auchan");
@@ -141,7 +159,7 @@ public class Orders extends TestBase {
     @Test(
             description = "Тестовый заказ в Ленту Москва",
             groups = {"regression"},
-            priority = 906
+            priority = 907
     )
     public void successOrderInLentaMoscow(){
         kraken.get().page("lenta");
@@ -153,24 +171,6 @@ public class Orders extends TestBase {
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не оформляется заказ в Ленту Москва\n");
-    }
-
-
-    @Test(
-            description = "Тестовый заказ в Метро Санкт-Петербург",
-            groups = {"regression"},
-            priority = 907
-    )
-    public void successOrderInMetroSaintPetersburg(){
-        kraken.get().page("metro");
-        kraken.shipAddress().change(Addresses.SaintPetersburg.defaultAddress());
-        kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
-
-        kraken.checkout().complete();
-
-        Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформляется заказ в Метро Санкт-Петербург\n");
     }
 
 
