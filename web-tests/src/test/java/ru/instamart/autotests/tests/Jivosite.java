@@ -113,15 +113,15 @@ public class Jivosite extends TestBase{
     }
 
 
-    @Test( enabled = false,
+    @Test(
             description = "Тест успешной отправки сообщения в Jivosite",
             groups = {"regression"},
             priority = 1206
     )
-    public void successSendMessageToJivosite() throws Exception {
+    public void successSendMessageToJivositeFromRetailerPage() throws Exception {
         kraken.get().page("metro");
 
-        kraken.jivosite().sendMessage("test");
+        kraken.jivosite().sendMessage("Тест");
 
         Assert.assertTrue(kraken.detect().isJivositeMessageSent(),
                 "Не отправляется сообщение в Jivosite\n");
