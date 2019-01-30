@@ -325,8 +325,6 @@ public class Registration extends TestBase {
         if (kraken.detect().environment("production")) {
 
             kraken.social().denyAccessVK();
-            kraken.perform().quickLogout();
-            kraken.perform().loginAs("admin");
             kraken.social().deleteUserVK();
             kraken.perform().quickLogout();
 
@@ -353,8 +351,6 @@ public class Registration extends TestBase {
         if (kraken.detect().environment("production")) {
 
             kraken.social().denyAccessFB();
-            kraken.perform().quickLogout();
-            kraken.perform().loginAs("admin");
             kraken.social().deleteUserFB();
             kraken.perform().quickLogout();
 

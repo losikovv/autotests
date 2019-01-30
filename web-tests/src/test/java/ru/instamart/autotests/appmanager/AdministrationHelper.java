@@ -20,8 +20,8 @@ public class AdministrationHelper extends HelperBase {
     /**
      * Найти заказ по номеру заказа или шипмента
      */
-    public void searchOrder(String number) {
-        kraken.get().adminPage("shipments");
+    public void searchOrder(String number) throws Exception {
+        kraken.perform().reachAdmin("shipments");
         printMessage("Поиск заказа по номеру заказа/шипмента " + number);
         kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), number);
         kraken.perform().click(Elements.Admin.Shipments.searchButton());
@@ -30,8 +30,8 @@ public class AdministrationHelper extends HelperBase {
     /**
      * Найти заказ по номеру заказа или шипмента
      */
-    public void searchB2BOrder(String number) {
-        kraken.get().adminPage("shipments");
+    public void searchB2BOrder(String number) throws Exception {
+        kraken.perform().reachAdmin("shipments");
         printMessage("Поиск B2B заказа по номеру заказа/шипмента " + number);
         kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), number);
         kraken.perform().click(Elements.Admin.Shipments.b2bCheckbox());
@@ -80,15 +80,15 @@ public class AdministrationHelper extends HelperBase {
     /**
      * Найти пользователя по реквизитам из указанного объекта userData
      */
-    public void searchUser(UserData userData) {
+    public void searchUser(UserData userData) throws Exception {
         searchUser(userData.getLogin());
     }
 
     /**
      * Найти пользователя по email
      */
-    public void searchUser(String email) {
-        kraken.get().adminPage("users");
+    public void searchUser(String email) throws Exception {
+        kraken.perform().reachAdmin("users");
         printMessage("Поиск пользователей по запросу " + email);
         kraken.perform().fillField(Elements.Admin.Users.searchField(), email);
         kraken.perform().click(Elements.Admin.Users.searchButton());
@@ -98,15 +98,15 @@ public class AdministrationHelper extends HelperBase {
     /**
      * Найти пользователя по реквизитам из указанного объекта userData
      */
-    public void searchB2BUser(UserData userData) {
+    public void searchB2BUser(UserData userData) throws Exception {
         searchB2BUser(userData.getLogin());
     }
 
     /**
      * Найти B2B пользователя по email
      */
-    public void searchB2BUser(String email) {
-        kraken.get().adminPage("users");
+    public void searchB2BUser(String email) throws Exception {
+        kraken.perform().reachAdmin("users");
         printMessage("Поиск пользователей по запросу " + email);
         kraken.perform().fillField(Elements.Admin.Users.searchField(), email);
         kraken.perform().click(Elements.Admin.Users.b2bCheckbox());
@@ -116,14 +116,14 @@ public class AdministrationHelper extends HelperBase {
     /**
      * Перейти в редактирование пользователя из указанного объекта userData
      */
-    public void editUser(UserData userData) {
+    public void editUser(UserData userData) throws Exception {
         editUser(userData.getLogin());
     }
 
     /**
      * Перейти в редактирование пользователя с указанием почты
      */
-    public void editUser(String email) {
+    public void editUser(String email) throws Exception {
         searchUser(email);
         editFirstUserInList();
     }
@@ -138,7 +138,7 @@ public class AdministrationHelper extends HelperBase {
     }
 
     /** Удалить первого найденного пользователя */
-    public void deleteFirstFoundUser(String email) {
+    public void deleteFirstFoundUser(String email) throws Exception {
         searchUser(email);
         if (kraken.detect().isElementDisplayed(Elements.Admin.Users.firstUserLogin())) {
             if (kraken.grab().text(Elements.Admin.Users.firstUserLogin()).equalsIgnoreCase(email)) {
@@ -152,6 +152,14 @@ public class AdministrationHelper extends HelperBase {
         }
 
     /**
+     * Предоставить админские права пользователю из указанного объекта userData
+     */
+    public void grantAdminPrivileges(UserData userData) throws Exception {
+        editUser(userData.getLogin());
+        grantAdminPrivileges();
+    }
+
+    /**
      * Предоставить админские права в карточке пользователя
      */
     public void grantAdminPrivileges() {
@@ -163,6 +171,14 @@ public class AdministrationHelper extends HelperBase {
             kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
             printMessage("Предоставлены административные права");
         }
+    }
+
+    /**
+     * Отозвать админские права пользователю из указанного объекта userData
+     */
+    public void revokeAdminPrivileges(UserData userData) throws Exception {
+        editUser(userData.getLogin());
+        revokeAdminPrivileges();
     }
 
     /**
