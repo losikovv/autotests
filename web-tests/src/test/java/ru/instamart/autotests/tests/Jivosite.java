@@ -88,26 +88,26 @@ public class Jivosite extends TestBase{
 
 
     @Test(
-            description = "Тест работы с виджетом Jivosite в профиле пользователя",
+            description = "Тест работы с виджетом Jivosite на странице 404",
             groups = {"acceptance","regression"},
             priority = 1205
     )
-    public void successOperateJivositeWidgetOnProfilePage() throws Exception {
+    public void successOperateJivositeWidgetOnPage404() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.get().page(Pages.Site.Profile.orders());
+        kraken.get().page(Pages.page404());
 
         Assert.assertTrue(kraken.detect().isJivositeWidgetAvailable(),
-                "Виджет Jivosite недоступен в профиле пользователя\n");
+                "Виджет Jivosite недоступен на странице 404\n");
 
         kraken.jivosite().open();
 
         softAssert.assertTrue(kraken.detect().isJivositeOpen(),
-                "Не разворачивается виджет Jivosite в профиле пользователя\n");
+                "Не разворачивается виджет Jivosite на странице 404\n");
 
         kraken.jivosite().close();
 
         softAssert.assertFalse(kraken.detect().isJivositeOpen(),
-                "Не сворачивается виджет Jivosite в профиле пользователя\n");
+                "Не сворачивается виджет Jivosite на странице 404\n");
 
         softAssert.assertAll();
     }
