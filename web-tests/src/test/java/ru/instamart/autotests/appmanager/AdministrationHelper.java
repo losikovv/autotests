@@ -114,6 +114,21 @@ public class AdministrationHelper extends HelperBase {
     }
 
     /**
+     * Перейти в редактирование пользователя из указанного объекта userData
+     */
+    public void editUser(UserData userData) {
+        editUser(userData.getLogin());
+    }
+
+    /**
+     * Перейти в редактирование пользователя с указанием почты
+     */
+    public void editUser(String email) {
+        searchUser(email);
+        editFirstUserInList();
+    }
+
+    /**
      * Перейти в редактирование первого пользователя в списке
      */
     public void editFirstUserInList() {
@@ -185,6 +200,20 @@ public class AdministrationHelper extends HelperBase {
             kraken.perform().waitingFor(1); // Ожидание проставления чекбокса B2B
             kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
             printMessage("Проставлен флаг B2B");
+        }
+    }
+
+    /**
+     * Снять флаг B2B в карточке пользователя
+     */
+    public void revokeB2B() {
+        if (kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.b2bCheckbox())) {
+            kraken.perform().click(Elements.Admin.Users.UserPage.b2bCheckbox());
+            kraken.perform().waitingFor(1); // Ожидание снятия чекбокса B2B
+            kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
+            printMessage("Снят флаг B2B");
+        } else {
+            printMessage("Пользователь уже не B2B");
         }
     }
 

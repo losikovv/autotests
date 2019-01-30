@@ -258,40 +258,40 @@ public class Administration extends TestBase {
             priority = 1305
     )
     public void successGrantAndRevokeAdminPrivileges() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
         kraken.perform().quickLogout();
         UserData testuser = kraken.generate().testAdminData();
         kraken.perform().registration(testuser);
         kraken.perform().quickLogout();
 
         kraken.perform().loginAs("admin");
-        kraken.admin().searchUser(testuser);
-        kraken.admin().editFirstUserInList();
+        kraken.admin().editUser(testuser);
         kraken.admin().grantAdminPrivileges();
         kraken.perform().quickLogout();
 
         kraken.perform().authorisation(testuser);
         kraken.get().page(Pages.Admin.shipments());
 
-        Assert.assertTrue(kraken.detect().isInAdmin(),
+        softAssert.assertTrue(kraken.detect().isInAdmin(),
                 "Пользователю не предоставляются админские права");
 
         kraken.perform().quickLogout();
 
         kraken.perform().loginAs("admin");
-        kraken.admin().searchUser(testuser);
-        kraken.admin().editFirstUserInList();
+        kraken.admin().editUser(testuser);
         kraken.admin().revokeAdminPrivileges();
         kraken.perform().quickLogout();
 
         kraken.perform().authorisation(testuser);
         kraken.get().page(Pages.Admin.shipments());
 
-        Assert.assertFalse(kraken.detect().isInAdmin(),
+        softAssert.assertFalse(kraken.detect().isInAdmin(),
                 "У пользователя не снимаются админские права");
 
         kraken.perform().quickLogout();
 
         kraken.cleanup().users();
+        softAssert.assertAll();
     }
 
 
@@ -340,8 +340,7 @@ public class Administration extends TestBase {
         kraken.perform().quickLogout();
 
         kraken.perform().loginAs("admin");
-        kraken.admin().searchUser(testuser);
-        kraken.admin().editFirstUserInList();
+        kraken.admin().editUser(testuser);
         kraken.admin().changePassword("654321");
         kraken.perform().quickLogout();
 
@@ -368,8 +367,7 @@ public class Administration extends TestBase {
         kraken.perform().quickLogout();
 
         kraken.perform().loginAs("admin");
-        kraken.admin().searchUser(testuser);
-        kraken.admin().editFirstUserInList();
+        kraken.admin().editUser(testuser);
         kraken.admin().grantB2B();
         kraken.perform().refresh();
 
@@ -386,25 +384,26 @@ public class Administration extends TestBase {
             priority = 1310
     )
     public void successSearchB2BUser() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
         kraken.perform().quickLogout();
         UserData testuser = kraken.generate().testUserData();
         kraken.perform().registration(testuser);
         kraken.perform().quickLogout();
 
         kraken.perform().loginAs("admin");
-        kraken.admin().searchUser(testuser);
-        kraken.admin().editFirstUserInList();
+        kraken.admin().editUser(testuser);
         kraken.admin().grantB2B();
 
         kraken.admin().searchB2BUser(testuser);
 
-        Assert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), testuser.getLogin(),
+        softAssert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), testuser.getLogin(),
                 "Не работает поиск B2B пользователя в админке");
 
-        Assert.assertTrue(kraken.detect().isElementDisplayed(Elements.Admin.Users.firstUserB2BLabel()),
+        softAssert.assertTrue(kraken.detect().isElementDisplayed(Elements.Admin.Users.firstUserB2BLabel()),
                 "У пользователя не отображается B2B метка");
 
         kraken.cleanup().users();
+        softAssert.assertAll();
     }
 
 
@@ -420,8 +419,7 @@ public class Administration extends TestBase {
         kraken.perform().quickLogout();
 
         kraken.perform().loginAs("admin");
-        kraken.admin().searchUser(testuser);
-        kraken.admin().editFirstUserInList();
+        kraken.admin().editUser(testuser);
         kraken.admin().grantB2B();
         kraken.perform().quickLogout();
 
@@ -439,6 +437,45 @@ public class Administration extends TestBase {
         kraken.cleanup().all();
     }
 
-    // TODO добавить тест на снятие B2B-галки и проверку что пользователь перестает искаться по признаку b2b, но его заказы остаются с флогом и ищутся по признаку b2b
+
+    @Test(
+            description = "Тест снятия B2B флага у пользователя",
+            groups = {"regression"},
+            priority = 1312
+    )
+    public void successRevokeB2BStatus() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.perform().quickLogout();
+        UserData testuser = kraken.generate().testUserData();
+        kraken.perform().registration(testuser);
+        kraken.perform().quickLogout();
+
+        kraken.perform().loginAs("admin");
+        kraken.admin().editUser(testuser);
+        kraken.admin().grantB2B();
+        kraken.perform().quickLogout();
+
+        kraken.perform().authorisation(testuser);
+        kraken.perform().order();
+        String number = kraken.grab().currentOrderNumber();
+        kraken.perform().quickLogout();
+
+        kraken.perform().loginAs("admin");
+        kraken.admin().editUser(testuser);
+        kraken.admin().revokeB2B();
+
+        kraken.admin().searchB2BUser(testuser);
+
+        softAssert.assertFalse(kraken.detect().isElementPresent(Elements.Admin.Users.firstUserLogin()),
+                "Пользователь находится как B2B после снятия флага");
+
+        kraken.admin().searchB2BOrder(number);
+
+        softAssert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
+                "Не работает поиск старого B2B заказа после снятия B2B флага у пользователя");
+
+        kraken.cleanup().all();
+        softAssert.assertAll();
+    }
 
 }
