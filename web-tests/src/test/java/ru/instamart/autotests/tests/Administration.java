@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Users;
@@ -262,11 +263,8 @@ public class Administration extends TestBase {
         kraken.perform().quickLogout();
         UserData testuser = kraken.generate().testAdminData();
         kraken.perform().registration(testuser);
-        kraken.perform().quickLogout();
 
-        kraken.perform().loginAs("admin");
-        kraken.admin().editUser(testuser);
-        kraken.admin().grantAdminPrivileges();
+        kraken.admin().grantAdminPrivileges(testuser);
         kraken.perform().quickLogout();
 
         kraken.perform().authorisation(testuser);
@@ -275,11 +273,7 @@ public class Administration extends TestBase {
         softAssert.assertTrue(kraken.detect().isInAdmin(),
                 "Пользователю не предоставляются админские права");
 
-        kraken.perform().quickLogout();
-
-        kraken.perform().loginAs("admin");
-        kraken.admin().editUser(testuser);
-        kraken.admin().revokeAdminPrivileges();
+        kraken.admin().revokeAdminPrivileges(testuser);
         kraken.perform().quickLogout();
 
         kraken.perform().authorisation(testuser);
@@ -290,7 +284,7 @@ public class Administration extends TestBase {
 
         kraken.perform().quickLogout();
 
-        kraken.cleanup().users();
+        kraken.cleanup().users(Config.testAdminsList);
         softAssert.assertAll();
     }
 
@@ -300,7 +294,7 @@ public class Administration extends TestBase {
             groups = {"acceptance","regression"},
             priority = 1306
     )
-    public void successSearchUser() {
+    public void successSearchUser() throws Exception {
         UserData user = Users.getCredentials("user");
 
         kraken.admin().searchUser(user.getLogin());
@@ -315,7 +309,7 @@ public class Administration extends TestBase {
             groups = {"acceptance","regression"},
             priority = 1307
     )
-    public void successSearchOrder() {
+    public void successSearchOrder() throws Exception {
         kraken.get().page("metro");
         kraken.perform().order();
         String number = kraken.grab().currentOrderNumber();
@@ -337,9 +331,7 @@ public class Administration extends TestBase {
         kraken.perform().quickLogout();
         UserData testuser = kraken.generate().testUserData();
         kraken.perform().registration(testuser);
-        kraken.perform().quickLogout();
 
-        kraken.perform().loginAs("admin");
         kraken.admin().editUser(testuser);
         kraken.admin().changePassword("654321");
         kraken.perform().quickLogout();
@@ -364,9 +356,7 @@ public class Administration extends TestBase {
         kraken.perform().quickLogout();
         UserData testuser = kraken.generate().testUserData();
         kraken.perform().registration(testuser);
-        kraken.perform().quickLogout();
 
-        kraken.perform().loginAs("admin");
         kraken.admin().editUser(testuser);
         kraken.admin().grantB2B();
         kraken.perform().refresh();
@@ -388,9 +378,7 @@ public class Administration extends TestBase {
         kraken.perform().quickLogout();
         UserData testuser = kraken.generate().testUserData();
         kraken.perform().registration(testuser);
-        kraken.perform().quickLogout();
 
-        kraken.perform().loginAs("admin");
         kraken.admin().editUser(testuser);
         kraken.admin().grantB2B();
 
@@ -416,9 +404,7 @@ public class Administration extends TestBase {
         kraken.perform().quickLogout();
         UserData testuser = kraken.generate().testUserData();
         kraken.perform().registration(testuser);
-        kraken.perform().quickLogout();
 
-        kraken.perform().loginAs("admin");
         kraken.admin().editUser(testuser);
         kraken.admin().grantB2B();
         kraken.perform().quickLogout();
@@ -426,9 +412,7 @@ public class Administration extends TestBase {
         kraken.perform().authorisation(testuser);
         kraken.perform().order();
         String number = kraken.grab().currentOrderNumber();
-        kraken.perform().quickLogout();
 
-        kraken.perform().loginAs("admin");
         kraken.admin().searchB2BOrder(number);
 
         Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
@@ -448,9 +432,7 @@ public class Administration extends TestBase {
         kraken.perform().quickLogout();
         UserData testuser = kraken.generate().testUserData();
         kraken.perform().registration(testuser);
-        kraken.perform().quickLogout();
 
-        kraken.perform().loginAs("admin");
         kraken.admin().editUser(testuser);
         kraken.admin().grantB2B();
         kraken.perform().quickLogout();
@@ -458,9 +440,7 @@ public class Administration extends TestBase {
         kraken.perform().authorisation(testuser);
         kraken.perform().order();
         String number = kraken.grab().currentOrderNumber();
-        kraken.perform().quickLogout();
 
-        kraken.perform().loginAs("admin");
         kraken.admin().editUser(testuser);
         kraken.admin().revokeB2B();
 

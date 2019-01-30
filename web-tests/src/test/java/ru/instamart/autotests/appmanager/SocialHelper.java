@@ -54,7 +54,7 @@ public class SocialHelper extends HelperBase {
     }
 
     /** Удалить пользователя ВК по умолчанию */
-    public void deleteUserVK() {
+    public void deleteUserVK() throws Exception {
         kraken.admin().deleteFirstFoundUser(Users.getCredentials("userVK").getLogin());
     }
 
@@ -123,7 +123,7 @@ public class SocialHelper extends HelperBase {
     }
 
     /** Удалить пользователя FB по умолчанию */
-    public void deleteUserFB() {
+    public void deleteUserFB() throws Exception {
         kraken.admin().deleteFirstFoundUser(Users.getCredentials("userFB").getLogin());
     }
 
