@@ -33,7 +33,7 @@ public class DeliveryPrices extends TestBase {
         kraken.search().item("Haagen");
         kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();
-        kraken.checkout().fillAllFields();
+        kraken.checkout().fillOrderDetails();
         softAssert.assertEquals(kraken.grab().roundedSum(Elements.Site.Checkout.deliveryPrice()), Config.MetroHighDeliveryPrice,
                 "\nНекорректная цена доставки в чекауте при малой корзине");
 

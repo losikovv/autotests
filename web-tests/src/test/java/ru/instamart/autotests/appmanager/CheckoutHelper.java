@@ -105,17 +105,27 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Выбираем способ оплаты " + paymentDetails.getPaymentType().getDescription());
         if(paymentDetails.isNewCreditCard()) {
             //TODO сделать добавление новой банковской карты
+            // TODO addNewPaymentCard - добавить карту оплаты
+            // TODO changePaymentCard - изменить карту оплаты
+            // TODO deletePaymentCard - удалить карту оплаты
+            // TODO deleteAllPaymentCards - удалить все карты оплаты
+            // TODO selectPaymentCard - выбрать карту оплаты
         }
         if(paymentDetails.isNewJuridical()) {
             //TODO сделать добавление нового юрлица
+            // TODO addNewJuridical - добавить юрлицо
+            // TODO changeJuridical - изменить юрлицо
+            // TODO deleteJuridical - удалить юрлицо
+            // TODO deleteAllJuridicals - удалить все юрлица
+            // TODO selectJuridical - выбрать юрлицо
         }
     }
 
-    public void chooseDeliveryTime (DeliveryTimeData deliveryTime) {
+    public void chooseDeliveryTime(DeliveryTimeData deliveryTime) {
         chooseDeliveryTime(deliveryTime.getDay(),deliveryTime.getSlot());
     }
 
-    public void chooseDeliveryTime (int day, int slot) {
+    public void chooseDeliveryTime(int day, int slot) {
         printMessage("Переключаемся на " + day + " день");
         kraken.perform().click(Elements.Site.Checkout.deliveryDaySelector(day));
         kraken.perform().waitingFor(1); // Ожидание загрузки слотов дня в чекауте
@@ -149,7 +159,7 @@ public class CheckoutHelper extends HelperBase {
         kraken.perform().waitingFor(1); // Ожидание применения промокода в чекауте
     }
 
-    /** Удаляем промокоl */
+    /** Удаляем промокод */
     public void clearPromocode() {
         if (kraken.detect().isPromocodeApplied()) {
             printMessage("Удаляем промокод...");
@@ -210,6 +220,31 @@ public class CheckoutHelper extends HelperBase {
             kraken.perform().waitingFor(1); // Ожидание загрузки чекаута
         }
         printMessage("✓ Чекаут\n");
+    }
+
+    /** Проверяем готовность шага чекаута перед заполнением */
+    private boolean initStep(int stepNumber, String stepName) {
+        if (stepNumber != 5) { // костыль на случай если слот доставки остался выбраным в предыдущих тестах
+            if (kraken.detect().isCheckoutStepActive(stepNumber)) {
+                //printMessage("Шаг " + stepNumber + " - " + stepName);
+                return true;
+            } else {
+                kraken.perform().waitingFor(1); // Задержка для стабильности, если шаг не развернулся из-за тормозов
+                if (!kraken.detect().isCheckoutStepActive(stepNumber)) {
+                    printMessage("Не открывается шаг " + stepNumber);
+                    return false;
+                } else return true;
+            }
+        } else {
+            if (kraken.detect().isElementDisplayed(By.className("windows-selector-panel"))) {
+                printMessage("Шаг " + stepNumber + " - " + stepName);
+                return true;
+            } else {
+                printMessage("Шаг " + stepNumber + " - " + stepName);
+                printMessage("Слот доставки уже выбран\n");
+                return false;
+            }
+        }
     }
 
     /** Заполняем текстовые детали заказа в шагах чекаута */
@@ -277,48 +312,13 @@ public class CheckoutHelper extends HelperBase {
     }
 
 
-    /** Проверяем готовность шага чекаута перед заполнением */
-    private boolean initStep(int stepNumber, String stepName) {
-        if (stepNumber != 5) { // костыль на случай если слот доставки остался выбраным в предыдущих тестах
-            if (kraken.detect().isCheckoutStepActive(stepNumber)) {
-                //printMessage("Шаг " + stepNumber + " - " + stepName);
-                return true;
-            } else {
-                kraken.perform().waitingFor(1); // Задержка для стабильности, если шаг не развернулся из-за тормозов
-                if (!kraken.detect().isCheckoutStepActive(stepNumber)) {
-                    printMessage("Не открывается шаг " + stepNumber);
-                    return false;
-                } else return true;
-            }
-        } else {
-            if (kraken.detect().isElementDisplayed(By.className("windows-selector-panel"))) {
-                printMessage("Шаг " + stepNumber + " - " + stepName);
-                return true;
-            } else {
-                printMessage("Шаг " + stepNumber + " - " + stepName);
-                printMessage("Слот доставки уже выбран\n");
-                return false;
-            }
-        }
-    }
+
 
 
 
 
 
     // УДОЛИТЬ ВСЕ ЧТО НИЖЕ
-
-    /**
-     * Заполнить чекаут стандартными данными для тестового заказа
-     */
-    public void fillAllFields() {
-        initCheckout();
-        doStep1();
-        doStep2();
-        doStep3();
-        doStep4();
-        doStep5();
-    }
 
     /**
      * Complete checkout with the predefined standard test options and a given payment type
@@ -405,7 +405,7 @@ public class CheckoutHelper extends HelperBase {
         final String stepName = "Контакты";
         if (initStep(stepNumber, stepName)) {
             if(kraken.detect().isPhoneNumberEntered()) {
-                printMessage("Используем существующий номер телефона"); //TODO сделать принудительное добавление выбранного номера
+                printMessage("Используем существующий номер телефона");
             } else {
                 kraken.perform().fillField(Elements.Site.Checkout.phoneNumberField(), phoneNumber);
                 printMessage("Добавляем номер телефона +7" + phoneNumber);
@@ -459,46 +459,17 @@ public class CheckoutHelper extends HelperBase {
     // ======= Шаг 4 - Оплата =======
 
     /**
-     * Выбрать дефолтный способ оплаты наличными
-     */
-    private void doStep4() {
-        doStep4("cash");
-    }
-
-    /**
      * Выбрать указанный способ оплаты
      */
     private void doStep4(String paymentType) {
         final int stepNumber = 4;
         final String stepName = "Способ оплаты";
         if (initStep(stepNumber, stepName)) {
-            selectPaymentType(paymentType);
+            kraken.perform().click(Elements.Site.Checkout.paymentTypeSelector(PaymentTypes.getPosition(paymentType)));
+            printMessage("Выбираем способ оплаты " + paymentType + " - " + kraken.grab().text(Elements.locator()));
             hitNextButton(stepNumber);
         }
     }
-
-    /**
-     * Выбрать способ оплаты
-     */
-    private void selectPaymentType(String type) {
-        kraken.perform().click(Elements.Site.Checkout.paymentTypeSelector(PaymentTypes.getPosition(type)));
-        printMessage("Выбираем способ оплаты " + type + " - " + kraken.grab().text(Elements.locator()));
-    }
-
-    // TODO addNewPaymentCard - добавить карту оплаты
-    // TODO changePaymentCard - изменить карту оплаты
-    // TODO deletePaymentCard - удалить карту оплаты
-    // TODO deleteAllPaymentCards - удалить все карты оплаты
-    // TODO selectPaymentCard - выбрать карту оплаты
-
-    // TODO addNewJuridical - добавить юрлицо
-    // TODO changeJuridical - изменить юрлицо
-    // TODO deleteJuridical - удалить юрлицо
-    // TODO deleteAllJuridicals - удалить все юрлица
-    // TODO selectJuridical - выбрать юрлицо
-
-
-    // ======= Шаг 5 - Доставка =======
 
     /**
      * Шаг 5 - выбор даты и времени доставки
@@ -508,14 +479,7 @@ public class CheckoutHelper extends HelperBase {
         final int stepNumber = 5;
         final String stepName = "Время доставки";
         if (initStep(stepNumber, stepName)) {
-            selectDeliverySlot();
+            chooseDeliveryTime(7,1);
         }
-    }
-
-    /**
-     * Выбираем дефолтный тестовый слот доставки - первый в последний день
-     */
-    private void selectDeliverySlot() {
-        chooseDeliveryTime(7,1);
     }
 }
