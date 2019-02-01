@@ -336,7 +336,7 @@ public class SelfCheck extends TestBase {
     }
 
 
-    @Test( // TODO прочекать и поправить тест
+    @Test(
             description = "Тест корректности определения суммы корзины",
             groups ="selfcheck",
             priority = 10018)
@@ -354,7 +354,7 @@ public class SelfCheck extends TestBase {
 
         // корзина не пустая, но меньше суммы мин заказа
         kraken.shopping().closeCart();
-        kraken.search().item("хлеб");
+        kraken.search().item("молоко");
         kraken.shopping().collectItems(1);
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
         Assert.assertNotNull(kraken.grab().currentCartTotal());
