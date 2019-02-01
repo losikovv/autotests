@@ -453,4 +453,10 @@ public class PerformHelper extends HelperBase {
         }
         kraken.get().adminPage(path);
     }
+
+    public void reachSeoCatalog() {
+        kraken.perform().quickLogout();
+        kraken.perform().deleteAllCookies();
+        kraken.get().seoCatalogPage();
+    }
 }

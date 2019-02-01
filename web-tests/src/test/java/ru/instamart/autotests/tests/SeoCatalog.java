@@ -18,7 +18,7 @@ public class SeoCatalog extends TestBase {
         if (kraken.detect().environment("staging")) {
             throw new SkipException("Пропускаем тесты SEO-каталога на STAGING");
         }
-        kraken.get().seoCatalog();
+        kraken.perform().reachSeoCatalog();
     }
 
 

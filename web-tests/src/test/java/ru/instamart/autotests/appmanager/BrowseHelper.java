@@ -88,12 +88,7 @@ public class BrowseHelper extends HelperBase {
     /**
      * Перейти на страницу SEO-каталога
      */
-    public void seoCatalog() {
-        if (kraken.detect().isUserAuthorised()) {
-            kraken.perform().quickLogout();
-        } else if (kraken.detect().isShippingAddressSet()) {
-            deleteAllCookies();
-        }
+    public void seoCatalogPage() {
         page(Pages.Site.Catalog.seo());
         kraken.perform().waitingFor(1); // Ожидание загрузки SEO-каталога
     }
