@@ -169,5 +169,5 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable();
         */
     }
-
+    
 }

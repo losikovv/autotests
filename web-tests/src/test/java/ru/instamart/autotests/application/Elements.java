@@ -404,7 +404,7 @@ public class Elements {
             }
 
             static Elements authButton() {
-                locator = By.xpath("//*[@id='react-modal']/div/div/div/div/div/div[1]/div/div/div/div/div/div[2]/div/span");
+                locator = By.className("address-modal__to-login-link");
                 return new Elements(null, locator);
             }
 
@@ -496,6 +496,18 @@ public class Elements {
 
             static Elements addToFavoritesButton() { return new Elements(null,
                     By.className("favorite-button-default"));
+            }
+
+        }
+
+
+        /**
+         * SEO-каталог товаров
+         */
+
+        interface SeoCatalog {
+
+            static Elements product() { return new Elements(null, By.className("category-product"));
             }
 
         }

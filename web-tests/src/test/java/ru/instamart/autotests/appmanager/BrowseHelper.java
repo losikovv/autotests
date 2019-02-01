@@ -84,4 +84,17 @@ public class BrowseHelper extends HelperBase {
     public void adminOrderDetailsPage(String orderNumber) {
         adminPage("orders/" + orderNumber + "/edit");
     }
+
+    /**
+     * Перейти на страницу SEO-каталога
+     */
+    public void seoCatalog() {
+        if (kraken.detect().isUserAuthorised()) {
+            kraken.perform().quickLogout();
+        } else if (kraken.detect().isShippingAddressSet()) {
+            deleteAllCookies();
+        }
+        page(Pages.Site.Catalog.seo());
+        kraken.perform().waitingFor(1); // Ожидание загрузки SEO-каталога
+    }
 }

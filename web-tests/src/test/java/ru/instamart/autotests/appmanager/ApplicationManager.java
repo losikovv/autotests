@@ -20,7 +20,7 @@ import static org.testng.Assert.fail;
 public class ApplicationManager {
 
     protected WebDriver driver;
-    protected EnvironmentData environment = new Environments().staging();
+    protected EnvironmentData environment = new Environments().production();
     private String browser;
 
     // Helpers

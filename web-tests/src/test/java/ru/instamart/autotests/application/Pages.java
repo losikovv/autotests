@@ -36,6 +36,12 @@ public class Pages {
 
         interface Catalog {
 
+            static Pages seo() {
+                return new Pages(
+                        "Гречневая крупа купить в Москве. Скидки до 50% – Инстамарт",
+                        "categories/bakalieia/krupy/griechnievaia");
+            }
+
         }
 
         interface Landings {

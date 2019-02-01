@@ -63,6 +63,8 @@ public class ShoppingHelper extends HelperBase {
     public void openFirstItemCard() {
         if (kraken.detect().isElementPresent(Elements.Site.Favorites.product())) {
             kraken.perform().click(Elements.Site.Favorites.product());
+        } else if (kraken.detect().isElementPresent(Elements.Site.SeoCatalog.product())) {
+            kraken.perform().click(Elements.Site.SeoCatalog.product());
         } else { kraken.perform().click(Elements.Site.Catalog.product()); }
 
         kraken.perform().waitingFor(1); // Ожидание открытия карточки товара

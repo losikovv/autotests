@@ -184,10 +184,8 @@ public class ShippingAddress extends TestBase{
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         kraken.shopping().closeItemCard();
 
-        Assert.assertTrue(kraken.detect().isItemCardOpen(),
+        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.product()),
                 "Не перезагрузился контент в соответствии с указанным адресом");
-
-        kraken.shopping().closeItemCard();
 
         Assert.assertTrue(kraken.detect().isShippingAddressSet(),
                 "Адрес доставки не был введен");

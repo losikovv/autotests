@@ -1,0 +1,130 @@
+package ru.instamart.autotests.tests;
+
+import org.testng.Assert;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Pages;
+
+
+public class SeoCatalog extends TestBase {
+
+
+    @BeforeMethod(alwaysRun = true)
+    public void getSeoCatalog() {
+        if (kraken.detect().environment("staging")) {
+            throw new SkipException("Пропускаем тесты SEO-каталога на STAGING");
+        }
+        kraken.get().seoCatalog();
+    }
+
+
+    @Test(
+            description = "Тест доступности страницы SEO-каталога",
+            groups = {"smoke","acceptance","regression"},
+            priority = 9100
+    )
+    public void successCheckSeoPage() {
+        assertPageIsAvailable(Pages.Site.Catalog.seo());
+    }
+
+
+    @Test(
+            description = "Тест доступности товаров на странице SEO-каталога",
+            groups = {"regression"},
+            priority = 9101
+    )
+    public void successCheckProductsOnSeoCatalog() {
+        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.SeoCatalog.product()),
+                "Нет товаров на странице SEO-каталога");
+    }
+
+
+    @Test(
+            description = "Тест открытия карточки товара на странице SEO-каталога",
+            groups = {"regression"},
+            priority = 9102
+    )
+    public void successOpenItemCardOnSeoCatalog() {
+        kraken.shopping().openFirstItemCard();
+
+        Assert.assertTrue(kraken.detect().isItemCardOpen(),
+                "Нет открывается карточка товара на странице SEO-каталога");
+    }
+
+
+    @Test(
+            description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога",
+            groups = {"regression"},
+            priority = 9103
+    )
+    public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.shopping().openFirstItemCard();
+        kraken.shopping().hitPlusButton();
+
+        softAssert.assertTrue(kraken.detect().isAddressModalOpen(),
+                "Не открывается адресная модалка после добавления товара на странице SEO-каталога");
+
+        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        kraken.shopping().closeItemCard();
+
+        softAssert.assertTrue(kraken.detect().isShippingAddressSet(),
+                "Адрес доставки не был введен при попытке добавления товара в корзину на странице SEO-каталога");
+
+        softAssert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.product()),
+                "SEO-каталог не перезагрузился на обычный каталог");
+
+        softAssert.assertAll();
+    }
+
+
+    @Test(
+            description = "Тест авторизации при попытке добавления товара в корзину на странице SEO-каталога",
+            groups = {"regression"},
+            priority = 9104
+    )
+    public void successAuthFromItemCardOnSeoCatalog() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.shopping().openFirstItemCard();
+        kraken.shopping().hitPlusButton();
+        kraken.perform().click(Elements.Site.AddressModal.authButton());
+        kraken.perform().loginAs("admin");
+
+        softAssert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Не работает авторизация при попытке добавления товара в корзину на странице SEO-каталога");
+
+        softAssert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.product()),
+                "SEO-каталог не перезагрузился на обычный каталог");
+
+        softAssert.assertAll();
+    }
+
+
+    @Test(
+            description = "Тест регистрации при попытке добавления товара в корзину на странице SEO-каталога",
+            groups = {"regression"},
+            priority = 9105
+    )
+    public void successRegFromItemCardOnSeoCatalog() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.shopping().openFirstItemCard();
+        kraken.shopping().hitPlusButton();
+        kraken.perform().click(Elements.Site.AddressModal.authButton());
+        kraken.perform().registration();
+        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+
+        softAssert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Не работает регистрация при попытке добавления товара в корзину на странице SEO-каталога");
+
+        softAssert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.product()),
+                "SEO-каталог не перезагрузился на обычный каталог");
+
+        kraken.cleanup().users();
+        softAssert.assertAll();
+    }
+
+}

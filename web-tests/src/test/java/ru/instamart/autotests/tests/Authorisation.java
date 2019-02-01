@@ -1,12 +1,12 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Environments;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
 
@@ -18,7 +18,7 @@ public class Authorisation extends TestBase {
 
 
     @BeforeMethod(alwaysRun = true)
-    public void quickLogout() throws Exception {
+    public void quickLogout() {
         kraken.perform().quickLogout();
     }
 
@@ -267,7 +267,7 @@ public class Authorisation extends TestBase {
             priority = 212
     )
     public void successAuthWithVK() throws AssertionError {
-        if (kraken.detect().environment("production")) {
+        if (kraken.detect().environment("staging")) { throw new SkipException("Пропускаем тесты соцсетей на STAGING"); }
 
             kraken.social().initAuthVK();
 
@@ -278,9 +278,6 @@ public class Authorisation extends TestBase {
 
             Assert.assertTrue(kraken.detect().isUserAuthorised(),
                     "Не работает авторизация через ВКонтакте\n");
-        } else {
-            kraken.perform().printMessage("Пропускаем тест успешной авторизации через Вконтакте на STAGING");
-        }
     }
 
 
@@ -290,7 +287,7 @@ public class Authorisation extends TestBase {
             priority = 213
     )
     public void successAuthWithFB() throws AssertionError {
-        if (kraken.detect().environment("production")) {
+        if (kraken.detect().environment("staging")) { throw new SkipException("Пропускаем тесты соцсетей на STAGING"); }
 
             kraken.social().initAuthFB();
 
@@ -301,9 +298,6 @@ public class Authorisation extends TestBase {
 
             Assert.assertTrue(kraken.detect().isUserAuthorised(),
                     "Не работает авторизация через Facebook\n");
-        } else {
-            kraken.perform().printMessage("Пропускаем тест успешной авторизации через Facebook на STAGING");
-        }
     }
 
 

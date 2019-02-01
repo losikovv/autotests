@@ -1,6 +1,7 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -322,7 +323,7 @@ public class Registration extends TestBase {
             priority = 114
     )
     public void successRegWithVK() throws Exception, AssertionError {
-        if (kraken.detect().environment("production")) {
+        if (kraken.detect().environment("staging")) { throw new SkipException("Пропускаем тесты соцсетей на STAGING"); }
 
             kraken.social().denyAccessVK();
             kraken.social().deleteUserVK();
@@ -337,9 +338,6 @@ public class Registration extends TestBase {
 
             Assert.assertTrue(kraken.detect().isUserAuthorised(),
                     "Не работает регистрация через ВКонтакте\n");
-        } else {
-            kraken.perform().printMessage("Пропускаем тест успешной регистрации через Вконтакте на STAGING");
-        }
     }
 
     @Test(  enabled = false, // TODO включить когда будет тестовый акк FB
@@ -348,7 +346,7 @@ public class Registration extends TestBase {
             priority = 115
     )
     public void successRegWithFB() throws Exception, AssertionError {
-        if (kraken.detect().environment("production")) {
+        if (kraken.detect().environment("staging")) { throw new SkipException("Пропускаем тесты соцсетей на STAGING"); }
 
             kraken.social().denyAccessFB();
             kraken.social().deleteUserFB();
@@ -363,9 +361,6 @@ public class Registration extends TestBase {
 
             Assert.assertTrue(kraken.detect().isUserAuthorised(),
                     "Не работает регистрация через Facebook\n");
-        } else {
-            kraken.perform().printMessage("Пропускаем тест успешной регистрации через Facebook на STAGING");
-        }
     }
 
 }
