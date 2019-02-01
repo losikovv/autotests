@@ -181,7 +181,7 @@ public class ShippingAddress extends TestBase{
         Assert.assertTrue(kraken.detect().isAddressModalOpen(),
         "Не открывается адресная модалка после добавления товара");
 
-        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        kraken.shipAddress().set(Addresses.Moscow.defaultAddress()); // TODO обработать кейс когда после ввода адреса товар недоступен
         kraken.shopping().closeItemCard();
 
         Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.product()),

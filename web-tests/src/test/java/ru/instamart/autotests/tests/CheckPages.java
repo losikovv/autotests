@@ -15,7 +15,7 @@ public class CheckPages extends TestBase {
     @Test(
             description = "Тест доступности витрин активных рителйеров",
             groups = {"smoke","acceptance","regression"},
-            priority = 1401
+            priority = 1501
     )
     // TODO забирать список ритейлеров из БД или из админки с признаком активности
     public void successCheckActiveRetailerPages() throws Exception, AssertionError {
@@ -29,7 +29,7 @@ public class CheckPages extends TestBase {
     @Test(
             description = "Тест недоступности витрин неактивных рителйеров",
             groups = {"smoke","acceptance","regression"},
-            priority = 1402
+            priority = 1502
     )
     // TODO забирать список ритейлеров из БД или из админки с признаком активности
     public void successCheckInactiveRetailerPages() throws Exception, AssertionError {
@@ -46,7 +46,7 @@ public class CheckPages extends TestBase {
     @Test(
             description = "Тест доступности партнерских лендингов",
             groups = {"smoke","acceptance","regression"},
-            priority = 1403
+            priority = 1503
     )
     public void successCheckPartnersLandings() throws Exception, AssertionError {
         kraken.drop().auth();
@@ -66,7 +66,7 @@ public class CheckPages extends TestBase {
     @Test(
             description = "Тест доступности статических страниц",
             groups = {"smoke","acceptance","regression"},
-            priority = 1404
+            priority = 1504
     )
     public void successCheckStaticPages() throws Exception, AssertionError {
         // TODO переделать на assertPagesAvailable(Pages.Site.Static.*)
@@ -84,7 +84,7 @@ public class CheckPages extends TestBase {
     @Test(
             description = "Тест доступности страниц профиля пользователя",
             groups = {"smoke","acceptance","regression"},
-            priority = 1405
+            priority = 1505
     )
     public void successCheckProfilePages() throws Exception, AssertionError {
         kraken.get().baseUrl();
@@ -101,7 +101,7 @@ public class CheckPages extends TestBase {
     @Test(
             description = "Тест доступности корневых разделов админки",
             groups = {"smoke","acceptance","regression"},
-            priority = 1406
+            priority = 1506
     )
     public void successCheckAdminPages() throws Exception, AssertionError {
         kraken.perform().reachAdmin();
@@ -125,7 +125,7 @@ public class CheckPages extends TestBase {
     @Test(
             description = "Тест работоспособности ссылок футера",
             groups = {"smoke","acceptance","regression"},
-            priority = 1407
+            priority = 1507
     )
     public void successCheckFooterLinks() throws Exception {
         kraken.get().baseUrl();

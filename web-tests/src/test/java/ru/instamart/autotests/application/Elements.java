@@ -855,14 +855,29 @@ public class Elements {
          */
         interface Checkout {
 
+            /** Шапка чекаута */
             static Elements header() {
                 return new Elements(null, By.className("chekout-header"));
             }
 
+            /** Кнопка продолжения */
             static Elements nextButton(int step) {
                 return new Elements("Продолжить", By.xpath("(//button[@type='button'])[" + step + "]"));
             }
 
+            /** Кнопка изменения шага */
+            static Elements changeStepButton(int step) {
+                return new Elements("Изменить",
+                        By.cssSelector("div.checkout-panel:nth-child(" + step + ") > div:nth-child(1) > div:nth-child(3) > a:nth-child(1)"));
+            }
+
+            // Костыльный элемент для 5 шага
+            static Elements changeStep5Button() {
+                return new Elements("Изменить",
+                        By.xpath("/html/body/div[3]/div/form/div/div/div[1]/div[5]/div[2]/div/div/div/div[1]/div[3]"));
+            }
+
+            /** Кнопка отправки заказа */
             static Elements sendOrderButton() {
                 return new Elements(null, By.className("checkout-finalize__button"));
             }
@@ -872,7 +887,7 @@ public class Elements {
                         By.cssSelector("div.replacement-policy:nth-child(" + option + ") > label:nth-child(1) > div:nth-child(2)"));
             }
 
-            static Elements payment(int option) {
+            static Elements paymentTypeSelector(int option) {
                 return new Elements(null,
                         By.cssSelector("div.payment-method:nth-child(" + option + ") > div:nth-child(1)"));
             }
@@ -892,13 +907,35 @@ public class Elements {
                         By.linkText("Удалить"));
             }
 
-            // TODO изменить локатор, чтобы всегда выбирался первый по порядку доступный слот, даже если первые в списке заняты
-            static Elements deliverySlot() {
-                return new Elements(null,
-                        By.xpath("/html/body/div[3]/div/form/div/div/div[1]/div[5]/div[2]/div/div/div/div[2]/div" +
-                                "/div[2]/div[2]/div[1]/div/span"));
+            /** Итерфейс выбора слота доставки */
+            static Elements deliveryWindowSelector() {
+                return new Elements(null, By.className("windows-selector-item"));
             }
 
+            /** Селектор дней доставки */
+            static Elements deliveryDaySelector(int day) {
+                return new Elements(null, By.cssSelector("div.panel-tab:nth-child(" + day + ")"));
+            }
+
+            /** Интервал слота доставки */
+            static Elements slotTime(int day, int position) {
+                return new Elements(null,
+                        By.xpath("//*[@id='deliveryDay-" + (day-1) + "']/div[" + position + "]/span"));
+            }
+
+            /** Стоимость слота доставки */
+            static Elements slotPrice(int day, int position) {
+                return new Elements(null,
+                        By.xpath("//*[@id='deliveryDay-" + (day-1) + "']/div[" + position + "]/div/div/div/div"));
+            }
+
+            /** Кнопка выбора слота доставки */
+            static Elements chooseSlotButton(int day, int position) {
+                return new Elements(null,
+                        By.xpath("//*[@id='deliveryDay-" + (day-1) + "']/div[" + position + "]/div/span"));
+            }
+
+            /** Стоимость доставки заказа */
             static Elements deliveryPrice() {
                 return new Elements(null,
                         By.cssSelector("div.checkout-summary__subtotal:nth-child(4) > span:nth-child(2) > div:nth-child(1)"));

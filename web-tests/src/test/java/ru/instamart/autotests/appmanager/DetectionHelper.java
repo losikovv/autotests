@@ -4,10 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.application.BonusPrograms;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Loyalties;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.models.BonusProgramData;
 import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.models.LoyaltyProgramData;
 
 public class DetectionHelper extends HelperBase {
 
@@ -285,7 +287,7 @@ public class DetectionHelper extends HelperBase {
             printMessage("Запрошено восстановление пароля");
             return true;
         } else {
-            printMessage("Запрос восстановления пароля не отправлен!");
+            printMessage("Запрос восстановления пароля не отправлен");
             return false;
         }
     }
@@ -444,19 +446,19 @@ public class DetectionHelper extends HelperBase {
     /** Определить пуста ли корзина */
     public boolean isCartEmpty() {
         kraken.shopping().openCart();
-        return kraken.detect().isElementPresent(Elements.Site.Cart.placeholder());
+        return isElementPresent(Elements.Site.Cart.placeholder());
     }
 
     /** Определить активна ли кнопка "Сделать заказ" в корзине */
     public boolean isCheckoutButtonActive() {
         kraken.shopping().openCart();
-        return kraken.detect().isElementEnabled(Elements.Site.Cart.checkoutButton());
+        return isElementEnabled(Elements.Site.Cart.checkoutButton());
     }
 
     /** Определить отображается ли сумма заказа */
     public boolean isCartTotalDisplayed() {
         kraken.shopping().openCart();
-        return kraken.detect().isElementDisplayed(Elements.Site.Cart.total());
+        return isElementDisplayed(Elements.Site.Cart.total());
     }
 
 
@@ -469,7 +471,12 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить введен ли телефон на 2 шаге в чекауте */
     public boolean isPhoneNumberEntered() {
-        return kraken.detect().isElementDisplayed(Elements.Site.Checkout.phoneIcon());
+        return isElementDisplayed(Elements.Site.Checkout.phoneIcon());
+    }
+
+    /** Определить отображаются ли слоты доставки в чекауте */
+    public boolean isDeliveryWindowSelectorShown() {
+        return isElementPresent(Elements.Site.Checkout.deliveryWindowSelector());
     }
 
     /** Определить добавлен ли промокод в чекауте */
@@ -483,26 +490,28 @@ public class DetectionHelper extends HelperBase {
         }
     }
 
-    /** Определить применена ли программа лояльности */
-    public boolean isLoyaltyApplied(String name) {
-        return kraken.detect().isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + Loyalties.getPosition(name) + "]/div[2]"));
+    public boolean isBonusAdded(BonusProgramData bonus) {
+        return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + bonus.getPosition() + "]/div[2]")); // TODO вынести в  Elements
+    }
+
+    public boolean isLoyaltyAdded(LoyaltyProgramData loyalty) {
+        return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + loyalty.getPosition() + "]/div[2]")); // TODO вынести в  Elements
     }
 
     /**Определить доступна ли программа лояльности ритейлера в чекауте */
     public boolean isRetailerLoyaltyAvailable() {
         return kraken.detect().element(
-                "//aside/div/div[4]/div[2]",
-                "Карты лояльности магазинов");
+                "//aside/div/div[4]/div[2]", "Карты лояльности магазинов"); // TODO вынести в Elements
     }
 
     /** Определить активен ли шаг чекаута в данный момент, по наличию кнопок "Продолжить" */
-    public boolean isStepActive(int step) {
-        return kraken.detect().isElementPresent((By.xpath("(//button[@type='button'])[" + step + "]")));
+    public boolean isCheckoutStepActive(int step) {
+        return isElementPresent((By.xpath("(//button[@type='button'])[" + step + "]"))); // TODO вынести в Elements
     }
 
     /** Определить активна ли кнопка отправки заказа */
     public boolean isSendButtonActive() {
-        return kraken.detect().isElementEnabled(By.xpath("//aside/div/div[1]/div/button"));
+        return isElementEnabled(By.xpath("//aside/div/div[1]/div/button")); // TODO вынести в Elements
     }
 
 
@@ -510,7 +519,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить открыт ли виджет Jivosite */
     public boolean isJivositeOpen() {
-        if (kraken.detect().isElementDisplayed(Elements.Site.Jivosite.sendMessageButton())){
+        if (isElementDisplayed(Elements.Site.Jivosite.sendMessageButton())){
             printMessage("Чат Jivosite развернут\n");
             return true;
         } else {
@@ -521,12 +530,12 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить отображается ли чат в виджете Jivosite */
     public boolean isJivositeChatAvailable() {
-        return kraken.detect().isElementDisplayed(Elements.Site.Jivosite.chatArea());
+        return isElementDisplayed(Elements.Site.Jivosite.chatArea());
     }
 
     /** Определить отправлено ли сообщение в Jivosite */
     public boolean isJivositeMessageSent() {
-        if (kraken.detect().isElementDisplayed(Elements.Site.Jivosite.sentMessage())){
+        if (isElementDisplayed(Elements.Site.Jivosite.sentMessage())){
             printMessage("Сообщение отправлено");
             return true;
         } else {
@@ -538,7 +547,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить доступен ли виджет Jivosite*/
     public boolean isJivositeWidgetAvailable () {
         kraken.perform().waitingFor(2); // Ожидание подгрузки виджета Jivosite
-        if (kraken.detect().isElementDisplayed(Elements.Site.Jivosite.widget())){
+        if (isElementDisplayed(Elements.Site.Jivosite.widget())){
             printMessage("Виджет Jivosite доступен\n");
             return true;
         } else {

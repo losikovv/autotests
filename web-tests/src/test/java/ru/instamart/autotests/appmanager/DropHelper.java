@@ -22,7 +22,7 @@ public class DropHelper extends HelperBase {
         }
     }
 
-    /** Очистить корзину */
+    /** Очистить корзину, удалив все товары */
     public void cart() {
         if (!kraken.detect().isCartEmpty()) {
             kraken.shopping().removeItemFromCart();
@@ -32,16 +32,7 @@ public class DropHelper extends HelperBase {
         kraken.shopping().closeCart();
     }
 
-    /** Очистить корзину изменениями адреса доставки (старый временный метод, пока не запилили очистку корзины) */
-    public void cartViaAddressSwap() {
-        if (!kraken.detect().isCartEmpty()) {
-            kraken.shopping().closeCart();
-            kraken.shipAddress().swap();
-        }
-        kraken.shopping().closeCart();
-    }
-
-    /** Удалить все любимые товары */
+    /** Очистить список избранного, удалив все любимые товары */
     public void favorites() {
         if (!kraken.detect().isFavoritesEmpty()) {
             kraken.shopping().hitFirstItemDeleteFromFavoritesButton();
@@ -51,5 +42,4 @@ public class DropHelper extends HelperBase {
             printMessage("✓ Все любимые товары удалены\n");
         }
     }
-
 }

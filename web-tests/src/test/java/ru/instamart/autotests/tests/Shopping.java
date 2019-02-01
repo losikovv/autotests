@@ -176,7 +176,7 @@ public class Shopping extends TestBase{
 
         kraken.shopping().proceedToCheckout();
 
-        Assert.assertTrue(kraken.checkout().isOnCheckout(),
+        Assert.assertTrue(kraken.detect().isOnCheckout(),
                 "Не удалось перейти из корзины в чекаут\n");
     }
 

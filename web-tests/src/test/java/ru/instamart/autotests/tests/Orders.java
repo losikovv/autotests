@@ -5,6 +5,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.application.LoyaltyPrograms;
 
 
 // Тесты заказов
@@ -53,7 +54,7 @@ public class Orders extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформляется заказ в Метро Москва\n");
+                "Не удалось оформить заказ в Метро Москва\n");
     }
 
 
@@ -89,7 +90,7 @@ public class Orders extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформляется заказ в Метро Казань\n");
+                "Не удалось оформить заказ в Метро Казань\n");
     }
 
 
@@ -107,12 +108,12 @@ public class Orders extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформляется заказ в Метро Екатеринбург\n");
+                "Не удалось оформить заказ в Метро Екатеринбург\n");
     }
 
 
     @Test( // TODO перенести проверку добавления карты Вкусвилл в тесты чекаута
-            description = "Тестовый заказ во Вкусвилл Москва с применением программы лояльности",
+            description = "Тестовый заказ во Вкусвилл Москва с применением бонусной программы",
             groups = {"regression"},
             priority = 905
     )
@@ -123,18 +124,17 @@ public class Orders extends TestBase {
         kraken.shopping().proceedToCheckout();
 
         Assert.assertTrue(kraken.detect().isRetailerLoyaltyAvailable(),
-                "Не доступна программа лояльности Вкусвилл \n");
+                "Не доступна бонусная программа Вкусвилл \n");
 
-        kraken.checkout().addRetailerLoyalty("vkusvill");
+        kraken.checkout().addLoyalty(LoyaltyPrograms.vkusvill());
 
-        Assert.assertTrue(kraken.checkout().isRetailerLoyaltyApplied(),
-                "Программа лояльности Вкусвилл не применена\n");
-
+        Assert.assertTrue(kraken.detect().isLoyaltyAdded(LoyaltyPrograms.vkusvill()),
+                "Не применяется бонусная программа Вкусвилл\n");
 
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформляется заказ во Вкусвилл Москва\n");
+                "Не удалось оформить заказ во Вкусвилл Москва\n");
     }
 
 
@@ -152,7 +152,7 @@ public class Orders extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформляется заказ в Ашан Москва\n");
+                "Не удалось оформить заказ в Ашан Москва\n");
     }
 
 
@@ -170,13 +170,12 @@ public class Orders extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформляется заказ в Ленту Москва\n");
+                "Не удалось оформить заказ в Ленту Москва\n");
     }
 
 
     @AfterMethod(alwaysRun = true)
     public void postconditions()throws Exception {
-        //kraken.perform().checkOrderDocuments();
         kraken.perform().cancelLastOrder();
         //kraken.get().baseUrl();
         kraken.shipAddress().change(Addresses.Moscow.defaultAddress());

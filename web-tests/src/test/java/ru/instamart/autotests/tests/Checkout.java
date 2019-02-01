@@ -3,7 +3,11 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.application.BonusPrograms;
 import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.PaymentTypes;
+import ru.instamart.autotests.models.BonusProgramData;
+import ru.instamart.autotests.models.OrderDetailsData;
 
 
 // Тесты чекаута
@@ -89,15 +93,19 @@ public class Checkout extends TestBase {
             priority = 705
     )
     public void successAddBonusPrograms(){
+        BonusProgramData mnogoru = BonusPrograms.mnogoru();
+        BonusProgramData aeroflot = BonusPrograms.aeroflot();
         kraken.perform().reachCheckout();
 
-        kraken.checkout().addLoyalty("mnogoru");
-        Assert.assertTrue(kraken.detect().isLoyaltyApplied("mnogoru"),
-                "Не добавляется бонусная программа \"mnogoru\" в чекауте\n");
+        kraken.checkout().addBonus(mnogoru);
 
-        kraken.checkout().addLoyalty("aeroflot");
-        Assert.assertTrue(kraken.detect().isLoyaltyApplied("aeroflot"),
-                "Не добавляется бонусная программа \"aeroflot\" в чекауте\n");
+        Assert.assertTrue(kraken.detect().isBonusAdded(mnogoru),
+                "Не добавляется бонусная программа " + mnogoru.getName() + " в чекауте\n");
+
+        kraken.checkout().addBonus(aeroflot);
+
+        Assert.assertTrue(kraken.detect().isBonusAdded(aeroflot),
+                "Не добавляется бонусная программа " + aeroflot.getName() + " в чекауте\n");
     }
 
 
@@ -108,8 +116,8 @@ public class Checkout extends TestBase {
     )
     public void successSelectBonusPrograms(){
         kraken.perform().reachCheckout();
-        kraken.checkout().selectLoyalty("mnogoru");
-        kraken.checkout().selectLoyalty("aeroflot");
+        kraken.checkout().selectBonus(BonusPrograms.mnogoru());
+        kraken.checkout().selectBonus(BonusPrograms.aeroflot());
         // TODO добавить проверки на наличие модалок после выбора
     }
 
@@ -120,15 +128,17 @@ public class Checkout extends TestBase {
             priority = 707
     )
     public void successClearBonusPrograms(){
+        BonusProgramData mnogoru = BonusPrograms.mnogoru();
+        BonusProgramData aeroflot = BonusPrograms.aeroflot();
         kraken.perform().reachCheckout();
 
-        kraken.checkout().clearLoyalty("mnogoru");
-        Assert.assertFalse(kraken.detect().isLoyaltyApplied("mnogoru"),
-                "Не удаляется бонусная программа \"mnogoru\" в чекауте");
+        kraken.checkout().clearBonus(mnogoru);
+        Assert.assertFalse(kraken.detect().isBonusAdded(mnogoru),
+                "Не удаляется бонусная программа " + mnogoru.getName() + " в чекауте");
 
-        kraken.checkout().clearLoyalty("aeroflot");
-        Assert.assertFalse(kraken.detect().isLoyaltyApplied("aeroflot"),
-                "Не удаляется бонусная программа \"aeroflot\" в чекауте");
+        kraken.checkout().clearBonus(aeroflot);
+        Assert.assertFalse(kraken.detect().isBonusAdded(aeroflot),
+                "Не удаляется бонусная программа " + aeroflot.getName() + " в чекауте");
     }
 
 
@@ -142,7 +152,7 @@ public class Checkout extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформляется заказ с оплатой наличными\n");
+                "Не удалось оформить заказ с оплатой наличными\n");
 
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
@@ -158,10 +168,15 @@ public class Checkout extends TestBase {
     )
     public void successCompleteCheckoutAndPayWithCardOnline(){
         kraken.perform().reachCheckout();
-        kraken.checkout().complete("card-online");
+
+        // TODO упростить до kraken.checkout().makeOrder().setPaymentDetails(PaymentTypes.cardOnline())
+        OrderDetailsData details = kraken.generate().testOrderDetails();
+        details.setPaymentDetails(PaymentTypes.cardOnline());
+
+        kraken.checkout().makeOrder(details);
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформляется заказ с оплатой картой онлайн\n");
+                "Не удалось оформить заказ с оплатой " + details.getPaymentDetails().getPaymentType().getDescription() + "\n");
 
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
@@ -180,7 +195,7 @@ public class Checkout extends TestBase {
         kraken.checkout().complete("card-courier");
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформляется заказ с оплатой картой курьеру\n");
+                "Не удалось оформить заказ с оплатой картой курьеру\n");
 
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
@@ -199,7 +214,7 @@ public class Checkout extends TestBase {
         kraken.checkout().complete("bank");
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не оформляется заказ с оплатой банковским переводом\n");
+                "Не удалось оформить заказ с оплатой банковским переводом\n");
 
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();

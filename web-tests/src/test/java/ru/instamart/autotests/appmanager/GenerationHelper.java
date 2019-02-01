@@ -3,6 +3,7 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.models.OrderDetailsData;
 import ru.instamart.autotests.models.UserData;
 
 import java.util.Random;
@@ -130,5 +131,9 @@ public class GenerationHelper extends HelperBase {
         String phrase = kraken.grab().text(By.className("bred"));
         kraken.get().url(startPage);
         return (phrase);
+    }
+
+    public OrderDetailsData testOrderDetails() {
+        return new OrderDetailsData();
     }
 }
