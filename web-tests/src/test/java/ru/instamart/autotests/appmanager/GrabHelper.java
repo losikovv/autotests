@@ -39,8 +39,13 @@ public class GrabHelper extends HelperBase{
         return text(Elements.Site.Header.currentShipAddress());
     }
 
-    /** Взять текущую сумму корзины */
-    public String currentCartTotal() {
+    /** Взять текущую сумму корзины как int */
+    public int currentCartTotalInt() {
+        return round(kraken.grab().currentCartTotalString());
+    }
+
+    /** Взять текущую сумму корзины как String */
+    public String currentCartTotalString() {
         return kraken.detect().isElementDisplayed(Elements.Site.Cart.total()) ? text(Elements.Site.Cart.total()) : null;
     }
 
@@ -52,6 +57,16 @@ public class GrabHelper extends HelperBase{
     /** Взять округленное значение цены из указанного элемента */
     public int roundedSum(Elements element) {
         return round(text(element));
+    }
+
+    /** Взять сумму минимального заказа из алерта в корзине */
+    public int minOrderSum() {
+        kraken.shopping().openCart();
+        if (kraken.detect().isElementDisplayed(Elements.Site.Cart.alertText())) {
+            String text = text(Elements.Site.Cart.alertText());
+            return Integer.parseInt(((text).substring((text.length() - 8), (text.length() - 3))).replaceAll(
+                    "\\s", ""));
+        } else return 0;
     }
 
     /** Взять текст котомудрости */

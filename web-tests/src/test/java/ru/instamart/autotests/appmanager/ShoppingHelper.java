@@ -54,9 +54,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Добавляем в корзину первый товар в каталоге или списке любимых товаров */
     public void addFirstItemOnPageToCart() {
-        openFirstItemCard();
-        hitPlusButton();
-        closeItemCard();
+        hitFirstItemPlusButton();
     }
 
     /** Открываем карточку первого товара в каталоге или списке любимых товаров */
@@ -213,6 +211,21 @@ public class ShoppingHelper extends HelperBase {
     public void removeItemFromCart() {
             kraken.perform().hoverTo(Elements.Site.Cart.item());
             kraken.perform().click(Elements.Site.Cart.removeItemButton());
+            kraken.perform().waitingFor(1); // Ожидание удаления продукта из корзины
+    }
+
+    /** Увеличить количество товара в корзине */
+    public void increaseItemNumberInCart() {
+        kraken.perform().hoverTo(Elements.Site.Cart.item());
+        kraken.perform().click(Elements.Site.Cart.upArrowButton());
+        kraken.perform().waitingFor(1); // Ожидание увеличения количества товара в корзине
+    }
+
+    /** Уменьшить количество товара в корзине */
+    public void decreaseItemNumberInCart() {
+        kraken.perform().hoverTo(Elements.Site.Cart.item());
+        kraken.perform().click(Elements.Site.Cart.downArrowButton());
+        kraken.perform().waitingFor(1); // Ожидание уменьшения количества товара в корзине
     }
 
     /** Перейти в чекаут нажатием кнопки "Сделать заказ" в корзине */
@@ -236,7 +249,7 @@ public class ShoppingHelper extends HelperBase {
         printMessage("Собираем корзину товаров на сумму " + orderSum + "р...");
         // Определяем сумму текущей корзины
         openCart();
-        int cartTotal = round(kraken.grab().currentCartTotal());
+        int cartTotal = kraken.grab().currentCartTotalInt();
         printMessage("> текущая корзина: " + cartTotal + "p");
         // Добираем товар до требуемой суммы при необходимости
         if(cartTotal < orderSum) {

@@ -620,6 +620,8 @@ public class Elements {
                 return new Elements(null, By.className("fa-caret-down"));
             }
 
+            static Elements alertText() { return new Elements(null, By.className("cart-retailer__alert")); }
+
         }
 
         /**

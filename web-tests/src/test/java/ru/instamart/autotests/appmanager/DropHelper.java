@@ -26,7 +26,6 @@ public class DropHelper extends HelperBase {
     public void cart() {
         if (!kraken.detect().isCartEmpty()) {
             kraken.shopping().removeItemFromCart();
-            kraken.perform().waitingFor(1); // Ожидание удаления продукта из корзины
             cart();
         }
         kraken.shopping().closeCart();
