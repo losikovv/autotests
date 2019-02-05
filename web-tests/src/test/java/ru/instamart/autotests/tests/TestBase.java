@@ -2,10 +2,12 @@ package ru.instamart.autotests.tests;
 
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.*;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.ApplicationManager;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.models.EnvironmentData;
 
 
 // Basic test class
@@ -117,5 +119,12 @@ public class TestBase {
         kraken.get().url(URL);
         Assert.assertFalse(kraken.grab().currentURL().equalsIgnoreCase(URL),
                 "Можно попасть на страницу " + kraken.grab().currentURL() + " по прямой ссылке\n");
+    }
+
+    /** Метод пропуска тестов на указанном окружении */
+    void skipOn(EnvironmentData environment) {
+        if (kraken.detect().environment(environment)) {
+            throw new SkipException("Пропускаем тест на " + environment.getName());
+        }
     }
 }

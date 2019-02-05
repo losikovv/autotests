@@ -1,7 +1,6 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
-import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -9,15 +8,15 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 
+import static ru.instamart.autotests.application.Environments.staging;
+
 
 public class SeoCatalog extends TestBase {
 
 
     @BeforeMethod(alwaysRun = true)
     public void getSeoCatalog() {
-        if (kraken.detect().environment("staging")) {
-            throw new SkipException("Пропускаем тесты SEO-каталога на STAGING");
-        }
+        skipOn(staging());
         kraken.perform().reachSeoCatalog();
     }
 

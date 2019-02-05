@@ -1,7 +1,6 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
-import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -9,6 +8,8 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
+
+import static ru.instamart.autotests.application.Environments.staging;
 
 
 // Тесты авторизации
@@ -267,17 +268,17 @@ public class Authorisation extends TestBase {
             priority = 212
     )
     public void successAuthWithVK() throws AssertionError {
-        if (kraken.detect().environment("staging")) { throw new SkipException("Пропускаем тесты соцсетей на STAGING"); }
+        skipOn(staging());
 
-            kraken.social().initAuthVK();
+        kraken.social().initAuthVK();
 
-            Assert.assertTrue(kraken.detect().isElementPresent(Elements.Social.Vkontakte.emailField()),
-                    "Не открывается окно авторизации через Вконтакте\n");
+        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Social.Vkontakte.emailField()),
+                "Не открывается окно авторизации через Вконтакте\n");
 
-            kraken.social().submitAuthVK();
+        kraken.social().submitAuthVK();
 
-            Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                    "Не работает авторизация через ВКонтакте\n");
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Не работает авторизация через ВКонтакте\n");
     }
 
 
@@ -287,17 +288,17 @@ public class Authorisation extends TestBase {
             priority = 213
     )
     public void successAuthWithFB() throws AssertionError {
-        if (kraken.detect().environment("staging")) { throw new SkipException("Пропускаем тесты соцсетей на STAGING"); }
+        skipOn(staging());
 
-            kraken.social().initAuthFB();
+        kraken.social().initAuthFB();
 
-            Assert.assertTrue(kraken.detect().isElementPresent(Elements.Social.Facebook.emailField()),
-                    "Не открывается окно авторизации через Facebook\n");
+        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Social.Facebook.emailField()),
+                "Не открывается окно авторизации через Facebook\n");
 
-            kraken.social().submitAuthFB();
+        kraken.social().submitAuthFB();
 
-            Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                    "Не работает авторизация через Facebook\n");
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Не работает авторизация через Facebook\n");
     }
 
 

@@ -1,13 +1,14 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
-import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
+
+import static ru.instamart.autotests.application.Environments.staging;
 
 
 // Тесты регистрации пользователя
@@ -323,21 +324,21 @@ public class Registration extends TestBase {
             priority = 114
     )
     public void successRegWithVK() throws Exception, AssertionError {
-        if (kraken.detect().environment("staging")) { throw new SkipException("Пропускаем тесты соцсетей на STAGING"); }
+        skipOn(staging());
 
-            kraken.social().denyAccessVK();
-            kraken.social().deleteUserVK();
-            kraken.perform().quickLogout();
+        kraken.social().denyAccessVK();
+        kraken.social().deleteUserVK();
+        kraken.perform().quickLogout();
 
-            kraken.social().initAuthVK();
+        kraken.social().initAuthVK();
 
-            Assert.assertTrue(kraken.detect().isElementPresent(Elements.Social.Vkontakte.emailField()),
-                    "Не открывается окно регистрации через Вконтакте");
+        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Social.Vkontakte.emailField()),
+                "Не открывается окно регистрации через Вконтакте");
 
-            kraken.social().submitAuthVK();
+        kraken.social().submitAuthVK();
 
-            Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                    "Не работает регистрация через ВКонтакте\n");
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Не работает регистрация через ВКонтакте\n");
     }
 
     @Test(  enabled = false, // TODO включить когда будет тестовый акк FB
@@ -346,21 +347,20 @@ public class Registration extends TestBase {
             priority = 115
     )
     public void successRegWithFB() throws Exception, AssertionError {
-        if (kraken.detect().environment("staging")) { throw new SkipException("Пропускаем тесты соцсетей на STAGING"); }
+        skipOn(staging());
 
-            kraken.social().denyAccessFB();
-            kraken.social().deleteUserFB();
-            kraken.perform().quickLogout();
+        kraken.social().denyAccessFB();
+        kraken.social().deleteUserFB();
+        kraken.perform().quickLogout();
 
-            kraken.social().initAuthFB();
+        kraken.social().initAuthFB();
 
-            Assert.assertTrue(kraken.detect().isElementPresent(Elements.Social.Facebook.emailField()),
-                    "Не открывается окно регистрации через Facebook\n");
+        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Social.Facebook.emailField()),
+                "Не открывается окно регистрации через Facebook\n");
 
-            kraken.social().submitAuthFB();
+        kraken.social().submitAuthFB();
 
-            Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                    "Не работает регистрация через Facebook\n");
+        Assert.assertTrue(kraken.detect().isUserAuthorised(),
+                "Не работает регистрация через Facebook\n");
     }
-
 }

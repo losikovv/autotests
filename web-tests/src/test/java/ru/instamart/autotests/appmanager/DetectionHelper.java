@@ -19,11 +19,12 @@ public class DetectionHelper extends HelperBase {
         kraken = app;
     }
 
+
     /**
      * Определить в каком тестовом окружении находимся
      */
-    public boolean environment(String environment) {
-        return kraken.environment.getName().equalsIgnoreCase(environment);
+    public boolean environment(EnvironmentData environment) {
+        return kraken.environment.equals(environment);
     }
 
     /**
