@@ -222,4 +222,6 @@ public class Pages {
         return pagePath;
     }
 
+    // TODO public static String getPageUrl() { return fullBaseUrl + pagePath; }
+
 }

@@ -275,16 +275,16 @@ public class Shopping extends TestBase{
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         kraken.shopping().addFirstItemOnPageToCart();
         kraken.shopping().openCart();
-        int sum1 = kraken.grab().currentCartTotalInt();
+        int sum1 = kraken.grab().currentCartTotalRounded();
 
         kraken.shopping().increaseItemNumberInCart();
-        int sum2 = kraken.grab().currentCartTotalInt();
+        int sum2 = kraken.grab().currentCartTotalRounded();
 
         softAssert.assertTrue(sum1 < sum2,
                 "Не работает увеличение кол-ва товаров в корзине");
 
         kraken.shopping().decreaseItemNumberInCart();
-        int sum3 = kraken.grab().currentCartTotalInt();
+        int sum3 = kraken.grab().currentCartTotalRounded();
 
         softAssert.assertTrue(sum2 > sum3,
                 "Не работает уменьшение кол-ва товаров в корзине");

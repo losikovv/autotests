@@ -39,13 +39,13 @@ public class GrabHelper extends HelperBase{
         return text(Elements.Site.Header.currentShipAddress());
     }
 
-    /** Взять текущую сумму корзины как int */
-    public int currentCartTotalInt() {
-        return round(kraken.grab().currentCartTotalString());
+    /** Взять округленную сумму корзины */
+    public int currentCartTotalRounded() {
+        return round(kraken.grab().currentCartTotal());
     }
 
-    /** Взять текущую сумму корзины как String */
-    public String currentCartTotalString() {
+    /** Взять строчку с текущей суммой корзины */
+    public String currentCartTotal() {
         return kraken.detect().isElementDisplayed(Elements.Site.Cart.total()) ? text(Elements.Site.Cart.total()) : null;
     }
 
@@ -73,7 +73,6 @@ public class GrabHelper extends HelperBase{
     public String catWisdom() {
         String wisdom = null;
         for (int i = 1; i <= 39; i++) {
-            //String text = kraken.grab().text(By.xpath("/html/body/div[1]/div/div/div/div[2]/div[2]/div/div[1]/div/div/div/div/div["+i+"]/div/blockquote"));
             String text = kraken.grab().text(Elements.Page404.quote(i));
             if (!text.equals("")) { wisdom = text; }
 

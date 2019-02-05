@@ -249,7 +249,7 @@ public class ShoppingHelper extends HelperBase {
         printMessage("Собираем корзину товаров на сумму " + orderSum + "р...");
         // Определяем сумму текущей корзины
         openCart();
-        int cartTotal = kraken.grab().currentCartTotalInt();
+        int cartTotal = kraken.grab().currentCartTotalRounded();
         printMessage("> текущая корзина: " + cartTotal + "p");
         // Добираем товар до требуемой суммы при необходимости
         if(cartTotal < orderSum) {
