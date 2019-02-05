@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.application.BonusPrograms;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.BonusProgramData;
@@ -408,7 +407,10 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить наличие пустого списка любимых товаров */
     public boolean isFavoritesEmpty() {
-        if(!kraken.grab().currentURL().equals(baseUrl + Pages.Site.Profile.favorites().getPagePath())) {
+        //debug
+        //kraken.perform().printMessage("current url:" + kraken.grab().currentURL());
+        //kraken.perform().printMessage("target url:" + (fullBaseUrl + Pages.Site.Profile.favorites().getPagePath()));
+        if(!kraken.grab().currentURL().equals(fullBaseUrl + Pages.Site.Profile.favorites().getPagePath())) {
             kraken.get().favoritesPage();
         }
         if(kraken.detect().isElementPresent(Elements.Site.Favorites.placeholder()) &&
