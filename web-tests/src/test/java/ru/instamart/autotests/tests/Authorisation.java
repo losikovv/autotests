@@ -262,13 +262,13 @@ public class Authorisation extends TestBase {
     }
 
 
-    @Test(  enabled = false, // TODO включить когда будет тестовый акк VK
+    @Test(
             description = "Тест успешной авторизации через ВКонтакте",
             groups = {"acceptance","regression"},
             priority = 212
     )
     public void successAuthWithVK() throws AssertionError {
-        skipOn(staging());
+        skip(); // TODO включить когда будет тестовый акк VK
 
         kraken.social().initAuthVK();
 
@@ -282,13 +282,13 @@ public class Authorisation extends TestBase {
     }
 
 
-    @Test(  enabled = false, // TODO включить когда будет тестовый акк FB
+    @Test(
             description = "Тест успешной авторизации через Facebook",
             groups = {"acceptance","regression"},
             priority = 213
     )
     public void successAuthWithFB() throws AssertionError {
-        skipOn(staging());
+        skip(); // TODO включить когда будет тестовый акк VK
 
         kraken.social().initAuthFB();
 

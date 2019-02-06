@@ -318,13 +318,13 @@ public class Registration extends TestBase {
     }
 
 
-    @Test(  enabled = false, // TODO включить когда будет тестовый акк VK
+    @Test(
             description = "Тест успешной регистрации через ВКонтакте",
             groups = {"regression"},
             priority = 114
     )
     public void successRegWithVK() throws Exception, AssertionError {
-        skipOn(staging());
+        skip(); // TODO включить когда будет тестовый акк VK
 
         kraken.social().denyAccessVK();
         kraken.social().deleteUserVK();
@@ -341,13 +341,13 @@ public class Registration extends TestBase {
                 "Не работает регистрация через ВКонтакте\n");
     }
 
-    @Test(  enabled = false, // TODO включить когда будет тестовый акк FB
+    @Test(
             description = "Тест успешной регистрации через Facebook",
             groups = {"regression"},
             priority = 115
     )
     public void successRegWithFB() throws Exception, AssertionError {
-        skipOn(staging());
+        skip(); // TODO включить когда будет тестовый акк VK
 
         kraken.social().denyAccessFB();
         kraken.social().deleteUserFB();

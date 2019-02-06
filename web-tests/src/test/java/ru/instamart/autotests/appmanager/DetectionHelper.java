@@ -24,7 +24,7 @@ public class DetectionHelper extends HelperBase {
      * Определить в каком тестовом окружении находимся
      */
     public boolean environment(EnvironmentData environment) {
-        return kraken.environment.equals(environment);
+        return kraken.environment.getName().equals(environment.getName());
     }
 
     /**

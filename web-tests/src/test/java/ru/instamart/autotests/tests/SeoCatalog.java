@@ -15,8 +15,7 @@ public class SeoCatalog extends TestBase {
 
 
     @BeforeMethod(alwaysRun = true)
-    public void getSeoCatalog() {
-        skipOn(staging());
+    public void reachSeoCatalog() {
         kraken.perform().reachSeoCatalog();
     }
 
@@ -27,6 +26,7 @@ public class SeoCatalog extends TestBase {
             priority = 9100
     )
     public void successCheckSeoPage() {
+        skipOn(staging());
         assertPageIsAvailable(Pages.Site.Catalog.seo());
     }
 
@@ -37,6 +37,7 @@ public class SeoCatalog extends TestBase {
             priority = 9101
     )
     public void successCheckProductsOnSeoCatalog() {
+        skipOn(staging());
         Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.SeoCatalog.product()),
                 "Нет товаров на странице SEO-каталога");
     }
@@ -48,6 +49,7 @@ public class SeoCatalog extends TestBase {
             priority = 9102
     )
     public void successOpenItemCardOnSeoCatalog() {
+        skipOn(staging());
         kraken.shopping().openFirstItemCard();
 
         Assert.assertTrue(kraken.detect().isItemCardOpen(),
@@ -61,6 +63,7 @@ public class SeoCatalog extends TestBase {
             priority = 9103
     )
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() {
+        skipOn(staging());
         SoftAssert softAssert = new SoftAssert();
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitPlusButton();
@@ -87,6 +90,7 @@ public class SeoCatalog extends TestBase {
             priority = 9104
     )
     public void successAuthFromItemCardOnSeoCatalog() throws Exception {
+        skipOn(staging());
         SoftAssert softAssert = new SoftAssert();
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitPlusButton();
@@ -109,6 +113,7 @@ public class SeoCatalog extends TestBase {
             priority = 9105
     )
     public void successRegFromItemCardOnSeoCatalog() throws Exception {
+        skipOn(staging());
         SoftAssert softAssert = new SoftAssert();
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitPlusButton();

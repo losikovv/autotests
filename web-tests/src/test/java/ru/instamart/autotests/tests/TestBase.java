@@ -121,10 +121,17 @@ public class TestBase {
                 "Можно попасть на страницу " + kraken.grab().currentURL() + " по прямой ссылке\n");
     }
 
-    /** Метод пропуска тестов на указанном окружении */
-    void skipOn(EnvironmentData environment) {
+    /** Пропуск теста */
+    void skip() throws SkipException{
+        kraken.perform().printMessage("Пропускаем тест");
+            throw new SkipException("Пропускаем тест");
+    }
+
+    /** Пропуск теста на указанном окружении */
+    void skipOn(EnvironmentData environment) throws SkipException{
         if (kraken.detect().environment(environment)) {
-            throw new SkipException("Пропускаем тест на " + environment.getName());
+            kraken.perform().printMessage("Пропускаем тест на " + environment.getName());
+            throw new SkipException("Пропускаем тест");
         }
     }
 }
