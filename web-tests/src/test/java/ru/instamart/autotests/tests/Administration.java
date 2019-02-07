@@ -29,7 +29,7 @@ public class Administration extends TestBase {
             priority = 1301
     )
     public void noAccessAdministrationWithoutAdminPrivileges() throws Exception {
-        kraken.perform().loginAs("user");
+        kraken.perform().loginAs(Users.superuser());
 
         assertPageIsUnavailable(Pages.Admin.shipments());
 
@@ -295,11 +295,10 @@ public class Administration extends TestBase {
             priority = 1306
     )
     public void successSearchUser() throws Exception {
-        UserData user = Users.getCredentials("user");
 
-        kraken.admin().searchUser(user.getLogin());
+        kraken.admin().searchUser(Users.superuser());
 
-        Assert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), user.getLogin(),
+        Assert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), Users.superuser().getLogin(),
                 "Не работает поиск пользователя в админке");
     }
 

@@ -64,7 +64,7 @@ public class PasswordRecovery extends TestBase {
             priority = 1104
     )
     public void successRequestRecoveryOnLanding() throws AssertionError, Exception {
-        kraken.perform().recoverPasswordAs("user");
+        kraken.perform().recoverPasswordAs(Users.superuser());
 
         Assert.assertTrue(kraken.detect().isRecoveryRequested(),
                 "Не отправляется запрос на восстановление пароля на лендинге\n");
@@ -79,7 +79,7 @@ public class PasswordRecovery extends TestBase {
     public void successRequestRecoveryOnRetailer() throws AssertionError, Exception {
         kraken.get().page("metro");
 
-        kraken.perform().recoverPasswordAs("user");
+        kraken.perform().recoverPasswordAs(Users.superuser());
 
         Assert.assertTrue(kraken.detect().isRecoveryRequested(),
                 "Не отправляется запрос на восстановление пароля на витрине ритейлера\n");
@@ -92,7 +92,7 @@ public class PasswordRecovery extends TestBase {
             priority = 1106
     )
     public void successOpenAuthModalAfterRecovery() throws Exception {
-        kraken.perform().recoverPasswordAs("user");
+        kraken.perform().recoverPasswordAs(Users.superuser());
 
         kraken.perform().closeAuthModal();
         kraken.perform().openAuthModal();
@@ -108,10 +108,10 @@ public class PasswordRecovery extends TestBase {
             priority = 1107
     )
     public void successAuthWithCurrentPasswordAfterRecoveryRequest() throws Exception {
-        kraken.perform().recoverPasswordAs("user");
+        kraken.perform().recoverPasswordAs(Users.superuser());
         kraken.get().baseUrl();
         
-        kraken.perform().loginAs("user");
+        kraken.perform().loginAs(Users.superuser());
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Невозможно авторизоваться с текущим паролем после запроса на восстановление пароля\n");
@@ -125,21 +125,21 @@ public class PasswordRecovery extends TestBase {
     )
     public void successPasswordRecovery() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().recoverPasswordAs("userGmail");
+        kraken.perform().recoverPasswordAs(Users.userGmail());
 
-        kraken.perform().authGmail("userGmail");
+        kraken.perform().authGmail(Users.userGmail());
         kraken.perform().openLastGmail();
         kraken.perform().clickRecoveryInMail();
         kraken.perform().submitRecovery("password1", "password1");
 
         kraken.perform().quickLogout();
-        kraken.perform().authorisation(Users.getCredentials("userGmail").getLogin(), "password1");
+        kraken.perform().authorisation(Users.userGmail().getLogin(), "password1");
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Невозможно авторизоваться с новым паролем после восстановления пароля\n");
 
         kraken.perform().quickLogout();
-        kraken.perform().recoverPasswordAs("userGmail");
+        kraken.perform().recoverPasswordAs(Users.userGmail());
 
         kraken.get().url("https://mail.google.com/mail/u/0/h/");
         kraken.perform().openLastGmail();
@@ -147,7 +147,7 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().submitRecovery("password2", "password2");
 
         kraken.perform().quickLogout();
-        kraken.perform().authorisation(Users.getCredentials("userGmail").getLogin(), "password1");
+        kraken.perform().authorisation(Users.userGmail().getLogin(), "password1");
         
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Возможно авторизоваться со старым паролем после восстановления пароля!\n");

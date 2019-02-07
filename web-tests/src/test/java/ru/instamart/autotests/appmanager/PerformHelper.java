@@ -170,17 +170,17 @@ public class PerformHelper extends HelperBase {
     // ======= Авторизация / деавторизация =======
 
     /** Залогиниться юзером с указанной ролью */
-    public void loginAs(String role) throws Exception {
+    public void loginAs(UserData role) throws Exception {
         String startURL = kraken.grab().currentURL();
         if (!startURL.equals(fullBaseUrl) && kraken.detect().isUserAuthorised()) {
             kraken.get().profilePage();
-            if (!kraken.grab().text(Elements.Site.AccountPage.email()).equals(Users.getCredentials(role).getLogin())) {
+            if (!kraken.grab().text(Elements.Site.AccountPage.email()).equals(role.getLogin())) {
                 quickLogout();
             }
             kraken.get().url(startURL);
         }
-        authorisation(Users.getCredentials(role));
-        printMessage("Уровень прав: " + role + "\n");
+        authorisation(role.getLogin(), role.getPassword());
+        printMessage("Уровень прав: " + role.getRole() + "\n");
     }
 
     /** Залогиниться с реквизитами из переданного объекта UserData */
@@ -201,14 +201,9 @@ public class PerformHelper extends HelperBase {
         }
     }
 
-    /** Авторизационная последовательность для юзера с указанной ролью */
-    public void authSequence(String role) throws Exception {
-        authSequence(Users.getCredentials(role));
-    }
-
     /** Авторизационная последовательность с реквизитами из переданного объекта UserData */
-    public void authSequence(UserData userData) throws Exception {
-        authSequence(userData.getLogin(), userData.getPassword());
+    public void authSequence(UserData role) throws Exception {
+        authSequence(role.getLogin(), role.getPassword());
     }
 
     /** Авторизационная последовательность с указанными реквизитами */
@@ -242,6 +237,11 @@ public class PerformHelper extends HelperBase {
 
     // ======= Работа с Gmail =======
 
+    /** Авторизоваться в гугл почте с определённой ролью */
+    public void authGmail(UserData role) {
+        authGmail(Users.userGmail.getCredentials().getLogin(), Users.userGmail.getCredentials().getPassword());
+    }
+
     /** Авторизоваться в гугл почте */
     public void authGmail(String gmail, String password) {
         printMessage("> авторизовываемся в гугл почте...");
@@ -252,11 +252,6 @@ public class PerformHelper extends HelperBase {
         fillField(By.name("password"), password);
         click(By.id("passwordNext"));
         waitingFor(1); // Ожидание авторизации в Gmail
-    }
-
-    /** Авторизоваться в гугл почте с определённой ролью */
-    public void authGmail(String role) {
-        authGmail(Users.getCredentials(role).getLogin(), Users.getCredentials(role).getPassword());
     }
 
     /** Открыть крайнее письмо в цепочке писем от Инстамарт */
@@ -355,8 +350,8 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Запросить восстановление пароля для указанной роли*/
-    public void recoverPasswordAs(String role) throws Exception {
-        recoverPassword(Users.getCredentials(role).getLogin());
+    public void recoverPasswordAs(UserData role) throws Exception {
+        recoverPassword(role.getLogin());
     }
 
     /** Придумать новый пароль для восстановления пароля */
@@ -449,7 +444,7 @@ public class PerformHelper extends HelperBase {
             if (kraken.detect().isUserAuthorised()) {
                 quickLogout();
             }
-            loginAs("admin");
+            loginAs(Users.superadmin());
         }
         kraken.get().adminPage(path);
     }

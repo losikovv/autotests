@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.Users;
 
 import static ru.instamart.autotests.application.Environments.staging;
 
@@ -95,7 +96,7 @@ public class SeoCatalog extends TestBase {
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitPlusButton();
         kraken.perform().click(Elements.Site.AddressModal.authButton());
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает авторизация при попытке добавления товара в корзину на странице SEO-каталога");

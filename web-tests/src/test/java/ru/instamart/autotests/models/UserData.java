@@ -1,11 +1,19 @@
 package ru.instamart.autotests.models;
 
 public class UserData {
-    private final String login;
-    private final String password;
-    private final String name;
+    private String login;
+    private String password;
+    private String name;
+    private String role;
 
-    public UserData(String login, String password, String name) {
+    public UserData(String login, String password, String name, String role) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.role = role;
+    }
+
+    public UserData(String login, String password, String role) {
         this.login = login;
         this.password = password;
         this.name = name;
@@ -26,4 +34,6 @@ public class UserData {
     }
 
     public String getName() { return name; }
+
+    public String getRole() { return role; }
 }

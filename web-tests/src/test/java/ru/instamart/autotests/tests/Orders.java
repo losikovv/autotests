@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.LoyaltyPrograms;
+import ru.instamart.autotests.application.Users;
 
 
 // Тесты заказов
@@ -17,7 +18,7 @@ public class Orders extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preconditions() throws Exception {
         kraken.get().baseUrl();
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
     }
 
     @Test(

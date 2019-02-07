@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.annotations.AfterMethod;
+import ru.instamart.autotests.application.Users;
 
 
 // Тесты повтора заказов
@@ -15,7 +16,7 @@ public class RepeatOrders extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void getAuth()throws Exception {
         kraken.get().page("metro");
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
     }
 
 

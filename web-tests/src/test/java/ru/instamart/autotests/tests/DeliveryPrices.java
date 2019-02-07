@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Users;
 
 
 // Тесты цен доставки
@@ -16,7 +17,7 @@ public class DeliveryPrices extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preconditions() throws Exception {
         kraken.get().page("metro");
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
     }
 
 

@@ -77,7 +77,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithoutPassword() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().authorisation(Users.getCredentials("user").getLogin(), "");
+        kraken.perform().authorisation(Users.superuser().getLogin(), "");
 
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
                 "Нет пользовательской ошибки пустого поля password\n");
@@ -119,7 +119,7 @@ public class Authorisation extends TestBase {
     public void noAuthWithWrongPassword() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().authorisation(Users.getCredentials("user").getLogin(), "wrongpassword");
+        kraken.perform().authorisation(Users.superuser().getLogin(), "wrongpassword");
 
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
@@ -161,7 +161,7 @@ public class Authorisation extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.perform().openAuthModal();
-        kraken.perform().authSequence("user");
+        kraken.perform().authSequence(Users.superuser());
         kraken.perform().closeAuthModal();
 
         softAssert.assertFalse(kraken.detect().isAuthModalOpen(), "Не закрывается заполненная авторизационная модалка\n");
@@ -181,7 +181,7 @@ public class Authorisation extends TestBase {
             priority = 208
     )
     public void successAuthOnLanding() throws Exception, AssertionError {
-        kraken.perform().loginAs("user");
+        kraken.perform().loginAs(Users.superuser());
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает авторизация на лендинге\n");
@@ -195,7 +195,7 @@ public class Authorisation extends TestBase {
     )
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
         kraken.get().page("vkusvill");
-        kraken.perform().loginAs("user");
+        kraken.perform().loginAs(Users.superuser());
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает авторизация на витрине магазина\n");
@@ -217,7 +217,7 @@ public class Authorisation extends TestBase {
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
                 "\nНе работает переход на авторизацию из адресной модалки");
 
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "\nНе работает авторизация из адресной модалки феникса");
@@ -308,7 +308,7 @@ public class Authorisation extends TestBase {
             priority = 214
     )
     public void successLogout() throws Exception, AssertionError {
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
 
         kraken.perform().logout();
 

@@ -73,7 +73,7 @@ public class GenerationHelper extends HelperBase {
      * Сгенерировать стандартные реквизиты тестового пользователя
      */
     public UserData testUserData() {
-        UserData testuser = new UserData(testEmail(8), companyName, companyName + " test");
+        UserData testuser = new UserData(testEmail(8), companyName, companyName + " test", "user");
         System.out.println("Сгенерированы реквизиты тестового юзера");
         System.out.println("Имя: " + testuser.getName());
         System.out.println("Логин: " + testuser.getLogin());
@@ -88,7 +88,9 @@ public class GenerationHelper extends HelperBase {
         UserData testuser = new UserData(
                 testEmail(reqsLength - testUserEmailBase.length() - 1),
                 string(reqsLength),
-                literalString(reqsLength));
+                literalString(reqsLength),
+                "user"
+        );
         System.out.println("Test user requisites generated");
         System.out.println("name: " + testuser.getName());
         System.out.println("login: " + testuser.getLogin());
@@ -100,7 +102,7 @@ public class GenerationHelper extends HelperBase {
      * Сгенерировать реквизиты тестового пользователя в домене instamart.ru
      */
     public UserData testAdminData() {
-        UserData testuser = new UserData(testAdminEmail(8), companyName, companyName + " test");
+        UserData testuser = new UserData(testAdminEmail(8), companyName, companyName + " test", "admin");
         System.out.println("Сгенерированы реквизиты тестового юзера");
         System.out.println("Имя: " + testuser.getName());
         System.out.println("Логин: " + testuser.getLogin());

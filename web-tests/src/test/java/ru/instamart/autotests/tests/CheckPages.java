@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.Users;
 
 
 // Проверка доступности страниц
@@ -88,7 +89,7 @@ public class CheckPages extends TestBase {
     )
     public void successCheckProfilePages() throws Exception, AssertionError {
         kraken.get().baseUrl();
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
 
         // TODO переделать на assertPagesAvailable(Pages.Site.Profile.*)
         assertPageIsAvailable(Pages.Site.Profile.edit());

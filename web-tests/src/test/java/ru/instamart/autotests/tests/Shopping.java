@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
 
 
@@ -38,7 +39,7 @@ public class Shopping extends TestBase{
             priority = 602
     )
     public void successOperateEmptyCart() throws Exception, AssertionError {
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
         kraken.drop().cart();
         kraken.shopping().openCart();
 
@@ -64,7 +65,7 @@ public class Shopping extends TestBase{
             priority = 603
     )
     public void noAccessToCheckoutWithEmptyCart() throws Exception {
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
         kraken.drop().cart();
         assertPageIsUnavailable(Pages.Site.checkout());
     }
@@ -98,7 +99,7 @@ public class Shopping extends TestBase{
             priority = 605
     )
     public void successAddItemToCartFromItemCard()throws Exception, AssertionError {
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
         kraken.drop().cart();
 
         kraken.shopping().openFirstItemCard();
@@ -117,7 +118,7 @@ public class Shopping extends TestBase{
             priority = 606
     )
     public void successAddItemToCartFromCatalog() throws Exception {
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
         kraken.drop().cart();
 
         kraken.shopping().hitFirstItemPlusButton();
@@ -135,7 +136,7 @@ public class Shopping extends TestBase{
             priority = 607
     )
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() throws Exception {
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
 
         if (kraken.detect().isCheckoutButtonActive()) {
             kraken.drop().cart();
@@ -159,7 +160,7 @@ public class Shopping extends TestBase{
             priority = 608
     )
     public void successCollectItemsForMinOrder() throws Exception, AssertionError {
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
         kraken.drop().cart();
 
         kraken.shopping().collectItems();
@@ -175,7 +176,7 @@ public class Shopping extends TestBase{
             priority = 609
     )
     public void successAccessCheckoutWithCartAboveMinimalOrderSum() throws Exception {
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
         kraken.shopping().collectItems();
 
         assertPageIsAvailable(Pages.Site.checkout());
@@ -188,7 +189,7 @@ public class Shopping extends TestBase{
             priority = 610
     )
     public void successProceedFromCartToCheckout() throws Exception, AssertionError {
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
         kraken.shopping().collectItems();
 
         kraken.shopping().proceedToCheckout();

@@ -1,9 +1,11 @@
 package ru.instamart.autotests.appmanager;
 
+import com.codepine.api.testrail.model.User;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.models.UserData;
 
 public class SocialHelper extends HelperBase {
 
@@ -18,7 +20,12 @@ public class SocialHelper extends HelperBase {
 
     /** Авторизироваться/зарегистрироваться через ВК пользователем по умолчанию */
     public void submitAuthVK() {
-        submitAuthVK(Users.getCredentials("userVK").getLogin(), Users.getCredentials("userVK").getPassword());
+        submitAuthVK(Users.userVK());
+    }
+
+    /** Авторизироваться/зарегистрироваться через ВК пользователем */
+    public void submitAuthVK(UserData role) {
+        submitAuthVK(role.getLogin(), role.getPassword());
     }
 
     /** Авторизироваться/зарегистрироваться через ВК с указанием данных */
@@ -34,7 +41,12 @@ public class SocialHelper extends HelperBase {
 
     /** Запретить Инстамарту доступ к аккаунту пользователя ВК по умолчанию */
     public void denyAccessVK() {
-        denyAccessVK(Users.getCredentials("userVK").getLogin(), Users.getCredentials("userVK").getPassword());
+        denyAccessVK(Users.userVK());
+    }
+
+    /** Запретить Инстамарту доступ к аккаунту пользователя ВК */
+    public void denyAccessVK(UserData role) {
+        denyAccessVK(role.getLogin(), role.getPassword());
     }
 
     /** Запретить Инстамарту доступ к аккаунту ВК с указанием данных */
@@ -55,7 +67,7 @@ public class SocialHelper extends HelperBase {
 
     /** Удалить пользователя ВК по умолчанию */
     public void deleteUserVK() throws Exception {
-        kraken.admin().deleteFirstFoundUser(Users.getCredentials("userVK").getLogin());
+        kraken.admin().deleteFirstFoundUser(Users.userVK().getLogin());
     }
 
     /** Разрешить Инстамарту доступ к аккаунту ВК */
@@ -84,7 +96,12 @@ public class SocialHelper extends HelperBase {
 
     /** Авторизироваться через Facebook пользователем по умолчанию */
     public void submitAuthFB() {
-        submitAuthFB(Users.getCredentials("userFB").getLogin(), Users.getCredentials("userFB").getPassword());
+        submitAuthFB(Users.userFB());
+    }
+
+    /** Авторизироваться через Facebook пользователем */
+    public void submitAuthFB(UserData role) {
+        submitAuthFB(role.getLogin(), role.getPassword());
     }
 
     /** Авторизироваться через Facebook с указанием данных */
@@ -101,7 +118,12 @@ public class SocialHelper extends HelperBase {
 
     /** Запретить Инстамарту доступ к аккаунту пользователя FB по умолчанию */
     public void denyAccessFB() {
-        denyAccessFB(Users.getCredentials("userFB").getLogin(), Users.getCredentials("userFB").getPassword());
+        denyAccessFB(Users.userFB());
+    }
+
+    /** Запретить Инстамарту доступ к аккаунту пользователя FB  */
+    public void denyAccessFB(UserData role) {
+        denyAccessFB(role.getLogin(), role.getPassword());
     }
 
     /** Запретить Инстамарту доступ к аккаунту FB с указанием данных */
@@ -124,7 +146,7 @@ public class SocialHelper extends HelperBase {
 
     /** Удалить пользователя FB по умолчанию */
     public void deleteUserFB() throws Exception {
-        kraken.admin().deleteFirstFoundUser(Users.getCredentials("userFB").getLogin());
+        kraken.admin().deleteFirstFoundUser(Users.userFB().getLogin());
     }
 
     /** Разрешить Инстамарту доступ к аккаунту FB */

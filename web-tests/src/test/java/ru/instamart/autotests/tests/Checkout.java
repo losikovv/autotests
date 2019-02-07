@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.BonusPrograms;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.PaymentTypes;
+import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.BonusProgramData;
 import ru.instamart.autotests.models.OrderDetailsData;
 
@@ -18,7 +19,7 @@ public class Checkout extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preparingForCheckout() throws Exception {
         kraken.get().page("metro");
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
     }
 
     // TODO Тесты на изменение телефона и контактов

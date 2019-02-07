@@ -165,7 +165,7 @@ public class Registration extends TestBase {
     public void noRegWithExistingEmail() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().registration("Test User", Users.getCredentials("user").getLogin(),
+        kraken.perform().registration("Test User", Users.superuser().getLogin(),
                 "12345678", "12345678");
 
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),

@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.Users;
 
 public class Jivosite extends TestBase{
 
@@ -27,7 +28,7 @@ public class Jivosite extends TestBase{
             priority = 1202
     )
     public void noJivositeWidgetOnCheckout () throws Exception {
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
         kraken.perform().reachCheckout();
 
         Assert.assertFalse(kraken.detect().isJivositeWidgetAvailable(),

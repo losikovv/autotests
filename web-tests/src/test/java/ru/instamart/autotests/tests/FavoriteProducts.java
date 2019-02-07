@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.Users;
 
 
 // Тесты любимых товаров
@@ -34,7 +35,7 @@ public class FavoriteProducts extends TestBase {
             priority = 502
     )
     public void successOpenFavorites() throws Exception {
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
         kraken.shopping().openFavorites();
 
         Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorites.inStockFilterButton()),
@@ -61,7 +62,7 @@ public class FavoriteProducts extends TestBase {
             priority = 504
     )
     public void successAddFavoriteOnItemCard() throws Exception {
-        kraken.perform().loginAs("user");
+        kraken.perform().loginAs(Users.superuser());
         kraken.drop().favorites();
         kraken.get().page(Pages.Site.Retailers.metro());
 
@@ -78,7 +79,7 @@ public class FavoriteProducts extends TestBase {
             priority = 505
     )
     public void successAddFavoriteFromCatalog() throws Exception {
-        kraken.perform().loginAs("user");
+        kraken.perform().loginAs(Users.superuser());
         kraken.drop().favorites();
         kraken.get().page(Pages.Site.Retailers.metro());
 
@@ -94,7 +95,7 @@ public class FavoriteProducts extends TestBase {
             priority = 506
     )
     public void successDeleteFavoriteOnItemCard() throws Exception {
-        kraken.perform().loginAs("user");
+        kraken.perform().loginAs(Users.superuser());
         kraken.drop().favorites();
         kraken.get().page(Pages.Site.Retailers.metro());
 
@@ -112,7 +113,7 @@ public class FavoriteProducts extends TestBase {
             priority = 507
     )
     public void successDeleteFavoriteOnList() throws Exception {
-        kraken.perform().loginAs("user");
+        kraken.perform().loginAs(Users.superuser());
         if (!kraken.detect().isFavoritesEmpty()) {
             kraken.drop().favorites();
         } else {
@@ -132,7 +133,7 @@ public class FavoriteProducts extends TestBase {
             priority = 508
     )
     public void successCleanupFavorites() throws Exception {
-        kraken.perform().loginAs("user");
+        kraken.perform().loginAs(Users.superuser());
 
         kraken.search().item("молоко");
         kraken.shopping().hitFirstItemAddToFavoritesButton();
@@ -165,7 +166,7 @@ public class FavoriteProducts extends TestBase {
     )
     public void successFilterFavorites() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
         kraken.get().favoritesPage();
 
         softAssert.assertTrue(kraken.detect().isFavoritesFiltered("all"),
@@ -195,7 +196,7 @@ public class FavoriteProducts extends TestBase {
             priority = 510
     )
     public void successShowMoreLoad() throws Exception {
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
         kraken.get().favoritesPage();
 
         kraken.jivosite().open();
@@ -269,7 +270,7 @@ public class FavoriteProducts extends TestBase {
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
                 "\nНе открывается модалка авторизации после попытки добавления товара из каталога в избранное");
 
-        kraken.perform().authSequence("user");
+        kraken.perform().authSequence(Users.superuser());
         kraken.perform().sendForm();
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
@@ -293,7 +294,7 @@ public class FavoriteProducts extends TestBase {
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
                 "\nНе открывается модалка авторизации после попытки добавления товара из карточки в избранное");
 
-        kraken.perform().authSequence("user");
+        kraken.perform().authSequence(Users.superuser());
         kraken.perform().sendForm();
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
@@ -309,7 +310,7 @@ public class FavoriteProducts extends TestBase {
     )
     public void successAddFavoriteProductsFromCardToCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
         kraken.drop().cart();
         kraken.get().favoritesPage();
 
@@ -333,7 +334,7 @@ public class FavoriteProducts extends TestBase {
     )
     public void successAddFavoriteProductsFromListToCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().loginAs("admin");
+        kraken.perform().loginAs(Users.superadmin());
         kraken.drop().cart();
         kraken.get().favoritesPage();
 
