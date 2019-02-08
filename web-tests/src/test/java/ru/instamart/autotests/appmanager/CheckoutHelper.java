@@ -19,6 +19,12 @@ public class CheckoutHelper extends HelperBase {
         makeOrder(Config.testOrderDetails());
     }
 
+    public void complete(PaymentTypeData payment) {
+        OrderDetailsData details = new OrderDetailsData();
+        details.setPaymentDetails(payment);
+        makeOrder(details);
+    }
+
     public void makeOrder(OrderDetailsData orderDetails) {
         fillOrderDetails(orderDetails);
         if(orderDetails.getPromocode() != null) {addPromocode(orderDetails.getPromocode());}

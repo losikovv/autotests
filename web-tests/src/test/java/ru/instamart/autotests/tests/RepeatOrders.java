@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.annotations.AfterMethod;
+import ru.instamart.autotests.application.PaymentTypes;
 import ru.instamart.autotests.application.Users;
 
 
@@ -29,11 +30,11 @@ public class RepeatOrders extends TestBase {
         kraken.perform().repeatLastOrder();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Заказ не повторяется, что-то пошло не так\n");
+                "Не выполнены предусловия теста: заказ не повторяется, что-то пошло не так\n");
 
         kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();
-        kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",1,"card-online");
+        kraken.checkout().complete(PaymentTypes.cardOnline());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не оформляется повторный заказ с оплатой картой онлайн\n");
@@ -49,11 +50,11 @@ public class RepeatOrders extends TestBase {
         kraken.perform().repeatLastOrder();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Заказ не повторяется, что-то пошло не так\n");
+                "Не выполнены предусловия теста: заказ не повторяется, что-то пошло не так\n");
 
         kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();
-        kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",2,"card-courier");
+        kraken.checkout().complete(PaymentTypes.cardCourier());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не оформляется повторный заказ с оплатой картой курьеру\n");
@@ -69,11 +70,11 @@ public class RepeatOrders extends TestBase {
         kraken.perform().repeatLastOrder();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Заказ не повторяется, что-то пошло не так\n");
+                "Не выполнены предусловия теста: заказ не повторяется, что-то пошло не так\n");
 
         kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();
-        kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",3,"cash");
+        kraken.checkout().complete(PaymentTypes.cash());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не оформляется повторный заказ с оплатой наличными\n");
@@ -89,11 +90,11 @@ public class RepeatOrders extends TestBase {
         kraken.perform().repeatLastOrder();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Заказ не повторяется, что-то пошло не так\n");
+                "Не выполнены предусловия теста: заказ не повторяется, что-то пошло не так\n");
 
         kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();
-        kraken.checkout().complete("ТЕСТОВЫЙ ЗАКАЗ",4,"bank");
+        kraken.checkout().complete(PaymentTypes.bankTransfer());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не оформляется повторный заказ с оплатой банковским переводом\n");

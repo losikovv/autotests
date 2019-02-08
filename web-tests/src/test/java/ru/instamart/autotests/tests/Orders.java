@@ -33,6 +33,10 @@ public class Orders extends TestBase {
             kraken.get().favoritesPage();
         }
         kraken.shopping().collectItems();
+
+        Assert.assertFalse(kraken.detect().isCheckoutButtonActive(),
+                "Не выполнено предусловие: корзина не набралась до суммы минимального заказа");
+
         kraken.shopping().proceedToCheckout();
         kraken.checkout().complete();
 
