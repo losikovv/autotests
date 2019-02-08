@@ -3,7 +3,6 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.EnvironmentData;
 
 public class ShoppingHelper extends HelperBase {
@@ -142,7 +141,7 @@ public class ShoppingHelper extends HelperBase {
         // TODO добавить проверку на обновление цен
         if (!kraken.detect().isElementEnabled(Elements.Site.ItemCard.plusButton())) {
             printMessage("⚠ Кнопка 'Плюс' неактивна, ждем и пробуем еще раз");
-            kraken.perform().waitingFor(2); // Ожидание раздизабливания кнопки +1 в карточке товара
+            kraken.perform().waitingFor(3); // Ожидание раздизабливания кнопки +1 в карточке товара
         }
         kraken.perform().click(Elements.Site.ItemCard.plusButton());
         kraken.perform().waitingFor(1); // Ожидание добавления +1 товара в карточке
@@ -247,37 +246,22 @@ public class ShoppingHelper extends HelperBase {
     /** Набрать корзину на указанную сумму */
     public void collectItems(int orderSum) {
         printMessage("Собираем корзину товаров на сумму " + orderSum + "р...");
-        // Определяем сумму текущей корзины
-        openCart();
-        int cartTotal = kraken.grab().currentCartTotalRounded();
-        printMessage("> текущая корзина: " + cartTotal + "p");
-        // Добираем товар до требуемой суммы при необходимости
+        int cartTotal = kraken.grab().cartTotalRounded();
         if(cartTotal < orderSum) {
             closeCart();
-            Pages.Site.Profile.favorites(); // TODO переделать чтобы можно было делать Pages.Site.Favs.getUrl()
-            if(kraken.grab().currentURL().equals(fullBaseUrl + Pages.getPagePath())) {
-                openFirstItemCard();
-            } else {
-                openFirstItemCard();
+            openFirstItemCard();
+            int itemPrice = kraken.grab().itemPriceRounded();
+            // Формула расчета кол-ва товара
+            int quantity = ((orderSum - cartTotal) / itemPrice) + 1;
+            printMessage("> добавляем в корзину " + quantity + "шт\n");
+            // Накидываем товар
+            for (int i = 1; i <= quantity; i++) {
+                hitPlusButton();
             }
-                int itemPrice;
-                // Определяем цену товара со скидкой или без
-                if(kraken.detect().isItemOnSale()){
-                    itemPrice = round(kraken.grab().text(Elements.Site.ItemCard.salePrice()));
-                    printMessage("> скидочная цена товара: " + itemPrice + "p");
-                } else {
-                    itemPrice = round(kraken.grab().text(Elements.Site.ItemCard.price()));
-                    printMessage("> цена товара: " + itemPrice + "p");
-                }
-                // Рассчитывваем по формуле какое кол-во товара нужно добавить
-                int quantity = ((orderSum - cartTotal) / itemPrice) + 1;
-                printMessage("> добавляем в корзину " + quantity + "шт\n");
-                // Накидываем товар
-                for (int i = 1; i <= quantity; i++) {
-                    hitPlusButton();
-                }
             closeItemCard();
             openCart();
-        } else { printMessage("В корзине достаточно товаров");}
+        } else {
+            printMessage("В корзине достаточно товаров");
+        }
     }
 }

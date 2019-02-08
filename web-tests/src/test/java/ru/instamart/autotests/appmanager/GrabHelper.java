@@ -39,14 +39,39 @@ public class GrabHelper extends HelperBase{
         return text(Elements.Site.Header.currentShipAddress());
     }
 
-    /** Взять округленную сумму корзины */
-    public int currentCartTotalRounded() {
-        return round(kraken.grab().currentCartTotal());
+    /** Взять целочисленную стоимость товара в карточке */
+    public int itemPriceRounded() {
+        return round(itemPrice());
     }
 
-    /** Взять строчку с текущей суммой корзины */
-    public String currentCartTotal() {
-        return kraken.detect().isElementDisplayed(Elements.Site.Cart.total()) ? text(Elements.Site.Cart.total()) : null;
+    /** Взять строку со стоимостью товара в карточке */
+    public String itemPrice() {
+        String price;
+        if(kraken.detect().isItemOnSale()){
+            price = kraken.grab().text(Elements.Site.ItemCard.salePrice());
+            printMessage("> скидочная цена товара: " + price);
+        } else {
+            price = kraken.grab().text(Elements.Site.ItemCard.price());
+            printMessage("> цена товара: " + price);
+        }
+        return price;
+    }
+
+    /** Взять целочисленную сумму корзины */
+    public int cartTotalRounded() {
+       return round(cartTotal());
+    }
+
+    /** Взять строку с суммой корзины */
+    public String cartTotal() {
+        kraken.shopping().openCart();
+        String cartTotal = kraken.detect().isElementDisplayed(Elements.Site.Cart.total()) ? text(Elements.Site.Cart.total()) : null;
+        if (cartTotal == null) {
+            printMessage("> в корзине пусто");
+        } else {
+            printMessage("> сумма корзины " + cartTotal);
+        }
+        return cartTotal;
     }
 
     /** Взять текущий номер заказа на странице заказа */
@@ -54,6 +79,8 @@ public class GrabHelper extends HelperBase{
         return kraken.grab().text(Elements.Site.OrderDetailsPage.orderNumber());
     }
 
+
+    // TODO переделать
     /** Взять округленное значение цены из указанного элемента */
     public int roundedSum(Elements element) {
         return round(text(element));

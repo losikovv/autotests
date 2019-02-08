@@ -311,18 +311,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить активен ли заказ на странице деталей */
     public boolean isOrderActive() {
         printMessage("Проверяем страницу заказа...");
-        if (element(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
+        if (isElementDisplayed(Elements.Site.OrderDetailsPage.activeOrderAttribute()) && !isOrderCanceled()) {
             printMessage("✓ Заказ активен\n");
             return true;
-        } else {
-            printMessage("Что-то пошло не так, пробуем ещё раз...");
-            kraken.perform().waitingFor(2); // Задержка для стабильности, если не удалось проверить активность заказа с первого раза
-            kraken.perform().refresh();
-            if (element(Elements.Site.OrderDetailsPage.activeOrderAttribute())) {
-                printMessage("✓ Заказ активен\n");
-                return true;
-            } else return false;
-        }
+        } else return false;
     }
 
     /** Определить отменен ли заказ на странице деталей */
@@ -399,6 +391,7 @@ public class DetectionHelper extends HelperBase {
         } else return false;
     }
 
+    /** Определить есть ли скидка на товар */
     public boolean isItemOnSale() {
         return element(Elements.Site.ItemCard.saleBadge());
     }

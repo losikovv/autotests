@@ -93,13 +93,13 @@ public class Elements {
             }
 
             static Elements loginButton() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/header/nav/div[3]/button");
+                locator = By.className("header-login-btn");
                 return new Elements(null, locator);
             }
 
             static Elements profileButton() {
                 text = "Профиль";
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/header/nav/div[3]/div/div[1]/div[1]");
+                locator = By.className("header-menu-toggle__btn");
                 return new Elements(text, locator);
             }
 
@@ -548,8 +548,7 @@ public class Elements {
             }
 
             static Elements saleBadge() {
-                return new Elements(null,
-                        By.className("sale-badge"));
+                return new Elements(null, By.className("product-popup__sale-price"));
             }
 
             static Elements closeButton() {
@@ -886,7 +885,7 @@ public class Elements {
 
             static Elements replacementPolicy(int option) {
                 return new Elements(null,
-                        By.cssSelector("div.replacement-policy:nth-child(" + option + ") > label:nth-child(1) > div:nth-child(2)"));
+                        By.cssSelector("div.replacement-policy:nth-child(" + option + ")"));
             }
 
             static Elements paymentTypeSelector(int option) {
@@ -1032,8 +1031,9 @@ public class Elements {
              * Признак активного заказа
              */
             static Elements activeOrderAttribute() {
-                return new Elements("Благодарим за использование Instamart!",
-                        By.cssSelector(".user-order-shipment-header__thanks"));
+                return new Elements(null,
+                        By.className("user-order"));
+
             }
 
             /**

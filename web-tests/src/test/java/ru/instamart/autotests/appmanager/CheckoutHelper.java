@@ -301,7 +301,7 @@ public class CheckoutHelper extends HelperBase {
     /** Нажимаем кнопку отправки заказа */
     public void sendOrder() {
         if (!kraken.detect().isSendButtonActive()) {
-            printMessage("⚠ Проблемы с производительностью: медленно грузится чекау, кнопка отправки заказа не активна\n");
+            printMessage("⚠ Кнопка отправки заказа не активна, медленно грузится чекаут\n");
             kraken.perform().waitingFor(2); // Ожидание активации кнопки отправки заказ в чекауте
         }
         if (kraken.detect().isSendButtonActive()) {

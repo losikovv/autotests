@@ -26,7 +26,7 @@ public class Orders extends TestBase {
             groups = {"acceptance", "regression"},
             priority = 900
     )
-    public void successOrderWithFavoriteProducts() throws Exception {
+    public void successOrderWithFavProducts() throws Exception {
         if(kraken.detect().isFavoritesEmpty()) {
             kraken.get().page("metro");
             kraken.shopping().hitFirstItemAddToFavoritesButton();
@@ -178,7 +178,6 @@ public class Orders extends TestBase {
     @AfterMethod(alwaysRun = true)
     public void postconditions()throws Exception {
         kraken.perform().cancelLastOrder();
-        //kraken.get().baseUrl();
         kraken.shipAddress().change(Addresses.Moscow.defaultAddress());
     }
 

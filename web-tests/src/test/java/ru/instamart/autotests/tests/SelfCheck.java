@@ -350,21 +350,21 @@ public class SelfCheck extends TestBase {
 
         // корзина пустая
         Assert.assertFalse(kraken.detect().isCartTotalDisplayed());
-        Assert.assertNull(kraken.grab().currentCartTotal());
-        kraken.perform().printMessage("Сумма корзины = " + kraken.grab().currentCartTotal());
+        Assert.assertNull(kraken.grab().cartTotal());
+        kraken.perform().printMessage("Сумма корзины = " + kraken.grab().cartTotal());
 
         // корзина не пустая, но меньше суммы мин заказа
         kraken.shopping().closeCart();
         kraken.search().item("молоко");
         kraken.shopping().collectItems(1);
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
-        Assert.assertNotNull(kraken.grab().currentCartTotal());
-        kraken.perform().printMessage("Сумма корзины = " + kraken.grab().currentCartTotal());
+        Assert.assertNotNull(kraken.grab().cartTotal());
+        kraken.perform().printMessage("Сумма корзины = " + kraken.grab().cartTotal());
 
         // корзина не пустая, больше суммы мин заказа
         kraken.shopping().collectItems();
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
-        kraken.perform().printMessage("Сумма корзины = " + kraken.grab().currentCartTotal());
+        kraken.perform().printMessage("Сумма корзины = " + kraken.grab().cartTotal());
     }
 
 

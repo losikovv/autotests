@@ -57,7 +57,7 @@ public class Config {
                 ),
                 new DeliveryTimeData(
                         7,
-                        1
+                        7
                 )
         );
     }

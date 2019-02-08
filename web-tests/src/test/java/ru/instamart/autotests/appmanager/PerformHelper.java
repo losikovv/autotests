@@ -170,17 +170,17 @@ public class PerformHelper extends HelperBase {
     // ======= Авторизация / деавторизация =======
 
     /** Залогиниться юзером с указанной ролью */
-    public void loginAs(UserData role) throws Exception {
+    public void loginAs(UserData user) throws Exception {
         String startURL = kraken.grab().currentURL();
         if (!startURL.equals(fullBaseUrl) && kraken.detect().isUserAuthorised()) {
             kraken.get().profilePage();
-            if (!kraken.grab().text(Elements.Site.AccountPage.email()).equals(role.getLogin())) {
+            if (!kraken.grab().text(Elements.Site.AccountPage.email()).equals(user.getLogin())) {
                 quickLogout();
             }
             kraken.get().url(startURL);
         }
-        authorisation(role.getLogin(), role.getPassword());
-        printMessage("Уровень прав: " + role.getRole() + "\n");
+        authorisation(user);
+        printMessage("Уровень прав: " + user.getRole() + "\n");
     }
 
     /** Залогиниться с реквизитами из переданного объекта UserData */
