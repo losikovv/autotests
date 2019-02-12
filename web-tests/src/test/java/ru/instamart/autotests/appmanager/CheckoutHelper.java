@@ -193,6 +193,7 @@ public class CheckoutHelper extends HelperBase {
     /** Выбираем бонус в списке добавленных */
     public void selectBonus(BonusProgramData bonus) {
         kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + bonus.getPosition() + "]"));
+        kraken.perform().waitingFor(1); // Ожидание выбора бонусной программы в чекауте
     }
 
     /** Удаляем бонус */

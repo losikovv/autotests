@@ -894,8 +894,8 @@ public class Elements {
             }
 
             static Elements addPromocodeButton() {
-                return new Elements("Добавить промокод",
-                        By.linkText("Добавить промокод"));
+                return new Elements("Применить промокод",
+                        By.linkText("Применить промокод"));
             }
 
             static Elements appliedPromocodeAttribute() {
