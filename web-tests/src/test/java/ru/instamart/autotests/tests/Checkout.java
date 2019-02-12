@@ -218,106 +218,98 @@ public class Checkout extends TestBase {
 
 
     @Test(
-            description = "Тест оформления заказа с политикой замен: Позвонить мне. Если не удастся, выбирает сборщик",
+            description = "Тест оформления заказа с политикой Звонить / Заменять",
             groups = {"regression"},
             priority = 712
     )
-    public void successCompleteCheckoutWithReplacementPolicyCallAndReplace() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
+    public void successCompleteCheckoutWithCallAndReplacePolicy() throws Exception {
         kraken.perform().reachCheckout();
         kraken.checkout().complete(ReplacementPolicies.callAndReplace());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с политикой замен: " +
-                        ReplacementPolicies.callAndReplace().getUserDescription() + "\n");
+                "Не удалось оформить заказ с политикой Звонить / Заменять\n");
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
         kraken.perform().reachAdmin(Pages.Admin.orderDetails(number));
 
-        softAssert.assertTrue(kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicyDescription()).
-                equals(ReplacementPolicies.callAndReplace().getDescription()),
-                "Не отображается текст: " + ReplacementPolicies.callAndReplace().getDescription());
-
-        softAssert.assertAll();
+        Assert.assertEquals(
+                kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicy()),
+                ReplacementPolicies.callAndReplace().getInstruction(),
+                "Текст инструкции по сборке не совпадает с выбранной политикой замен"
+        );
     }
 
 
     @Test(
-            description = "Тест оформления заказа с политикой замен: Позвонить мне. Если не удастся, убрать товар",
+            description = "Тест оформления заказа с политикой Звонить / Убирать",
             groups = {"regression"},
             priority = 713
     )
-    public void successCompleteCheckoutWithReplacementPolicyCallAndRemove() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
+    public void successCompleteCheckoutWithCallAndRemovePolicy() throws Exception {
         kraken.perform().reachCheckout();
         kraken.checkout().complete(ReplacementPolicies.callAndRemove());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с политикой замен: " +
-                        ReplacementPolicies.callAndRemove().getUserDescription() + "\n");
+                "Не удалось оформить заказ с политикой Звонить / Убирать\n");
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
         kraken.perform().reachAdmin(Pages.Admin.orderDetails(number));
 
-        softAssert.assertTrue(kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicyDescription()).
-                        equals(ReplacementPolicies.callAndRemove().getDescription()),
-                "Не отображается текст: " + ReplacementPolicies.callAndRemove().getDescription());
-
-        softAssert.assertAll();
+        Assert.assertEquals(
+                kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicy()),
+                ReplacementPolicies.callAndRemove().getInstruction(),
+                "Текст инструкции по сборке не совпадает с выбранной политикой замен"
+        );
     }
 
 
     @Test(
-            description = "Тест оформления заказа с политикой замен: Не звонить. Замену выбирает сборщик",
+            description = "Тест оформления заказа с политикой Не звонить / Заменять",
             groups = {"regression"},
             priority = 714
     )
-    public void successCompleteCheckoutWithReplacementPolicyReplace() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
+    public void successCompleteCheckoutWithReplacePolicy() throws Exception {
         kraken.perform().reachCheckout();
         kraken.checkout().complete(ReplacementPolicies.replace());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с политикой замен: " +
-                        ReplacementPolicies.replace().getUserDescription() + "\n");
+                "Не удалось оформить заказ с политикой Не звонить / Заменять\n");
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
         kraken.perform().reachAdmin(Pages.Admin.orderDetails(number));
 
-        softAssert.assertTrue(kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicyDescription()).
-                        equals(ReplacementPolicies.replace().getDescription()),
-                "Не отображается текст: " + ReplacementPolicies.replace().getDescription());
-
-        softAssert.assertAll();
+        Assert.assertEquals(
+                kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicy()),
+                ReplacementPolicies.replace().getInstruction(),
+                "Текст инструкции по сборке не совпадает с выбранной политикой замен"
+        );
     }
 
 
     @Test(
-            description = "Тест оформления заказа с политикой замен: Не звонить. Убрать отсутствующий товар",
+            description = "Тест оформления заказа с политикой Не звонить / Убирать",
             groups = {"regression"},
             priority = 715
     )
-    public void successCompleteCheckoutWithReplacementPolicyRemove() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
+    public void successCompleteCheckoutWithRemovePolicy() throws Exception {
         kraken.perform().reachCheckout();
         kraken.checkout().complete(ReplacementPolicies.remove());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с политикой замен: " +
-                        ReplacementPolicies.remove().getUserDescription() + "\n");
+                "Не удалось оформить заказ с политикой Не звонить / Убирать\n");
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
         kraken.perform().reachAdmin(Pages.Admin.orderDetails(number));
 
-        softAssert.assertTrue(kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicyDescription()).
-                        equals(ReplacementPolicies.remove().getDescription()),
-                "Не отображается текст: " + ReplacementPolicies.remove().getDescription());
-
-        softAssert.assertAll();
+        Assert.assertEquals(
+                kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicy()),
+                ReplacementPolicies.remove().getInstruction(),
+                "Текст инструкции по сборке не совпадает с выбранной политикой замен"
+        );
     }
 
 }
