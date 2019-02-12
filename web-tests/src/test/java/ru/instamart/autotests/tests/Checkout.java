@@ -170,14 +170,10 @@ public class Checkout extends TestBase {
     public void successCompleteCheckoutAndPayWithCardOnline(){
         kraken.perform().reachCheckout();
 
-        // TODO упростить до kraken.checkout().makeOrder().setPaymentDetails(PaymentTypes.cardOnline())
-        OrderDetailsData details = kraken.generate().testOrderDetails();
-        details.setPaymentDetails(PaymentTypes.cardOnline());
-
-        kraken.checkout().makeOrder(details);
+        kraken.checkout().complete(PaymentTypes.cardOnline());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с оплатой " + details.getPaymentDetails().getPaymentType().getDescription() + "\n");
+                "Не удалось оформить заказ с оплатой онлайн\n");
 
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
@@ -193,7 +189,7 @@ public class Checkout extends TestBase {
     )
     public void successCompleteCheckoutAndPayWithCardCourier(){
         kraken.perform().reachCheckout();
-        kraken.checkout().complete("card-courier");
+        kraken.checkout().complete(PaymentTypes.cardCourier());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не удалось оформить заказ с оплатой картой курьеру\n");
@@ -212,7 +208,7 @@ public class Checkout extends TestBase {
     )
     public void successCompleteCheckoutAndPayWithBank(){
         kraken.perform().reachCheckout();
-        kraken.checkout().complete("bank");
+        kraken.checkout().complete(PaymentTypes.bankTransfer());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не удалось оформить заказ с оплатой банковским переводом\n");

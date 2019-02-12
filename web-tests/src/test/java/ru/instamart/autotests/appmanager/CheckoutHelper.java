@@ -25,6 +25,12 @@ public class CheckoutHelper extends HelperBase {
         makeOrder(details);
     }
 
+    public void complete(ReplacementPolicyData policy) {
+        OrderDetailsData details = new OrderDetailsData();
+        details.setReplacementPolicy(policy);
+        makeOrder(details);
+    }
+
     public void makeOrder(OrderDetailsData orderDetails) {
         fillOrderDetails(orderDetails);
         if(orderDetails.getPromocode() != null) {addPromocode(orderDetails.getPromocode());}
@@ -103,7 +109,7 @@ public class CheckoutHelper extends HelperBase {
 
     public void chooseReplacementPolicy(ReplacementPolicyData policy) {
         kraken.perform().click(Elements.Site.Checkout.replacementPolicy(policy.getPosition()));
-        printMessage("Выбираем способ осуществления замен #" + policy.getPosition() + " (" + policy.getDescription() + ")");
+        printMessage("Выбираем способ осуществления замен #" + policy.getPosition() + " (" + policy.getUserDescription() + ")");
     }
 
     public void choosePaymentMethod (PaymentDetailsData paymentDetails) {
