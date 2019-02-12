@@ -212,6 +212,11 @@ public class Pages {
             return new Pages("Spree Администрирование: Страницы",
                     "admin/pages");
         }
+
+        static Pages orderDetails(String number) {
+            return new Pages("Spree Администрирование: Заказы",
+                    "orders/" + number + "/edit");
+        }
     }
 
     public static String getPageTitle() {

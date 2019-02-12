@@ -3,12 +3,9 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.application.BonusPrograms;
-import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.PaymentTypes;
-import ru.instamart.autotests.application.Users;
+import org.testng.asserts.SoftAssert;
+import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.BonusProgramData;
-import ru.instamart.autotests.models.OrderDetailsData;
 
 
 // Тесты чекаута
@@ -218,4 +215,109 @@ public class Checkout extends TestBase {
 
         kraken.perform().cancelLastOrder();
     }
+
+
+    @Test(
+            description = "Тест оформления заказа с политикой замен: Позвонить мне. Если не удастся, выбирает сборщик",
+            groups = {"regression"},
+            priority = 712
+    )
+    public void successCompleteCheckoutWithReplacementPolicyCallAndReplace() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.perform().reachCheckout();
+        kraken.checkout().complete(ReplacementPolicies.callAndReplace());
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не удалось оформить заказ с политикой замен: " +
+                        ReplacementPolicies.callAndReplace().getUserDescription() + "\n");
+
+        String number = kraken.grab().currentOrderNumber();
+        kraken.perform().cancelLastOrder();
+        kraken.perform().reachAdmin(Pages.Admin.orderDetails(number));
+
+        softAssert.assertTrue(kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicyDescription()).
+                equals(ReplacementPolicies.callAndReplace().getDescription()),
+                "Не отображается текст: " + ReplacementPolicies.callAndReplace().getDescription());
+
+        softAssert.assertAll();
+    }
+
+
+    @Test(
+            description = "Тест оформления заказа с политикой замен: Позвонить мне. Если не удастся, убрать товар",
+            groups = {"regression"},
+            priority = 713
+    )
+    public void successCompleteCheckoutWithReplacementPolicyCallAndRemove() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.perform().reachCheckout();
+        kraken.checkout().complete(ReplacementPolicies.callAndRemove());
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не удалось оформить заказ с политикой замен: " +
+                        ReplacementPolicies.callAndRemove().getUserDescription() + "\n");
+
+        String number = kraken.grab().currentOrderNumber();
+        kraken.perform().cancelLastOrder();
+        kraken.perform().reachAdmin(Pages.Admin.orderDetails(number));
+
+        softAssert.assertTrue(kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicyDescription()).
+                        equals(ReplacementPolicies.callAndRemove().getDescription()),
+                "Не отображается текст: " + ReplacementPolicies.callAndRemove().getDescription());
+
+        softAssert.assertAll();
+    }
+
+
+    @Test(
+            description = "Тест оформления заказа с политикой замен: Не звонить. Замену выбирает сборщик",
+            groups = {"regression"},
+            priority = 714
+    )
+    public void successCompleteCheckoutWithReplacementPolicyReplace() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.perform().reachCheckout();
+        kraken.checkout().complete(ReplacementPolicies.replace());
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не удалось оформить заказ с политикой замен: " +
+                        ReplacementPolicies.replace().getUserDescription() + "\n");
+
+        String number = kraken.grab().currentOrderNumber();
+        kraken.perform().cancelLastOrder();
+        kraken.perform().reachAdmin(Pages.Admin.orderDetails(number));
+
+        softAssert.assertTrue(kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicyDescription()).
+                        equals(ReplacementPolicies.replace().getDescription()),
+                "Не отображается текст: " + ReplacementPolicies.replace().getDescription());
+
+        softAssert.assertAll();
+    }
+
+
+    @Test(
+            description = "Тест оформления заказа с политикой замен: Не звонить. Убрать отсутствующий товар",
+            groups = {"regression"},
+            priority = 715
+    )
+    public void successCompleteCheckoutWithReplacementPolicyRemove() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.perform().reachCheckout();
+        kraken.checkout().complete(ReplacementPolicies.remove());
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не удалось оформить заказ с политикой замен: " +
+                        ReplacementPolicies.remove().getUserDescription() + "\n");
+
+        String number = kraken.grab().currentOrderNumber();
+        kraken.perform().cancelLastOrder();
+        kraken.perform().reachAdmin(Pages.Admin.orderDetails(number));
+
+        softAssert.assertTrue(kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicyDescription()).
+                        equals(ReplacementPolicies.remove().getDescription()),
+                "Не отображается текст: " + ReplacementPolicies.remove().getDescription());
+
+        softAssert.assertAll();
+    }
+
 }

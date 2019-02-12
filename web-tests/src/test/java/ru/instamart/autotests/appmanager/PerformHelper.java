@@ -437,7 +437,7 @@ public class PerformHelper extends HelperBase {
         reachAdmin(getPagePath());
     }
 
-    void reachAdmin(String path) throws Exception{
+    public void reachAdmin(String path) throws Exception{
         kraken.get().adminPage("");
         if (kraken.detect().isOnSite()) {
             kraken.get().baseUrl();

@@ -1487,6 +1487,11 @@ public class Elements {
                             By.xpath("//b[contains(text(),'ЗАКАЗ ОТМЕНЕН')]"));
                 }
 
+                static Elements replacementPolicyDescription() {
+                    return new Elements(null,
+                            By.xpath("//*[@id='order_tab_summary']/dl/dl[1]/div[2]"));
+                }
+
             }
 
         }
