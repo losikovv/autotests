@@ -8,11 +8,8 @@ import ru.instamart.autotests.models.EnvironmentData;
 
 public class GrabHelper extends HelperBase{
 
-    private ApplicationManager kraken;
-
     GrabHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
-        super(driver, environment);
-        kraken = app;
+        super(driver, environment, app);
     }
 
     /** Взять текущий URL */

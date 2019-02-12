@@ -8,11 +8,8 @@ import ru.instamart.autotests.models.EnvironmentData;
 
 public class CleanupHelper extends HelperBase {
 
-    private ApplicationManager kraken;
-
     CleanupHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
-        super(driver, environment);
-        kraken = app;
+        super(driver, environment, app);
     }
 
     public void all() throws Exception {

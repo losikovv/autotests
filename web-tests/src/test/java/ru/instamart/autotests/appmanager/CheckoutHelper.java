@@ -8,11 +8,8 @@ import ru.instamart.autotests.application.Config;
 
 public class CheckoutHelper extends HelperBase {
 
-    private ApplicationManager kraken;
-
     CheckoutHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
-        super(driver, environment);
-        kraken = app;
+        super(driver, environment, app);
     }
 
     public void complete() {

@@ -7,11 +7,8 @@ import ru.instamart.autotests.models.EnvironmentData;
 
 public class NavigationHelper extends HelperBase {
 
-    private ApplicationManager kraken;
-
     NavigationHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
-        super(driver, environment);
-        kraken = app;
+        super(driver, environment, app);
     }
 
     // TODO сделать метод to принимающий массив элементов и кликающий их по очереди

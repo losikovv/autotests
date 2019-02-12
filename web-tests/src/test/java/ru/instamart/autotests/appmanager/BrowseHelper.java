@@ -7,11 +7,8 @@ import ru.instamart.autotests.models.EnvironmentData;
 
 public class BrowseHelper extends HelperBase {
 
-    private ApplicationManager kraken;
-
     BrowseHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
-        super(driver, environment);
-        kraken = app;
+        super(driver, environment, app);
     }
 
     /**

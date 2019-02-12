@@ -12,11 +12,8 @@ import static ru.instamart.autotests.application.Config.*;
 
 public class GenerationHelper extends HelperBase {
 
-    private ApplicationManager kraken;
-
     GenerationHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
-        super(driver, environment);
-        kraken = app;
+        super(driver, environment, app);
     }
 
     /**

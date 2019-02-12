@@ -5,11 +5,8 @@ import ru.instamart.autotests.models.EnvironmentData;
 
 public class DropHelper extends HelperBase {
 
-    private ApplicationManager kraken;
-
     DropHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
-        super(driver, environment);
-        kraken = app;
+        super(driver, environment, app);
     }
 
 

@@ -6,11 +6,8 @@ import ru.instamart.autotests.models.EnvironmentData;
 
 public class SearchHelper extends HelperBase {
 
-    private ApplicationManager kraken;
-
     SearchHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
-        super(driver, environment);
-        kraken = app;
+        super(driver, environment, app);
     }
 
     /** Осуществить поиск товара по запросу */

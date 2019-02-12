@@ -5,14 +5,16 @@ import ru.instamart.autotests.models.EnvironmentData;
 
 public class HelperBase {
     WebDriver driver;
+    ApplicationManager kraken;
     public String baseUrl;
     public String fullBaseUrl;
     private boolean acceptNextAlert = true;
 
-    HelperBase(WebDriver driver, EnvironmentData environment) {
+    HelperBase(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
         this.driver = driver;
         this.baseUrl = environment.getBaseURL();
         this.fullBaseUrl = environment.getFullBaseUrl();
+        this.kraken = app;
     }
 
     /** Отправить сообщение в консоль*/

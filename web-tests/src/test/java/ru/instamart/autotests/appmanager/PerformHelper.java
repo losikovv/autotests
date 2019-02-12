@@ -13,11 +13,8 @@ import static ru.instamart.autotests.application.Pages.getPagePath;
 
 public class PerformHelper extends HelperBase {
 
-    private ApplicationManager kraken;
-
     PerformHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
-        super(driver, environment);
-        kraken = app;
+        super(driver, environment, app);
     }
 
     // ======= Базовые действия =======

@@ -1,6 +1,5 @@
 package ru.instamart.autotests.appmanager;
 
-import com.codepine.api.testrail.model.User;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
@@ -9,11 +8,8 @@ import ru.instamart.autotests.models.UserData;
 
 public class SocialHelper extends HelperBase {
 
-    private ApplicationManager kraken;
-
     SocialHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
-        super(driver, environment);
-        kraken = app;
+        super(driver, environment, app);
     }
 
     // ======= ВКонтакте =======

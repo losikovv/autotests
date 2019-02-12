@@ -12,11 +12,8 @@ import ru.instamart.autotests.models.LoyaltyProgramData;
 
 public class DetectionHelper extends HelperBase {
 
-    private ApplicationManager kraken;
-
     DetectionHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
-        super(driver, environment);
-        kraken = app;
+        super(driver, environment, app);
     }
 
 
