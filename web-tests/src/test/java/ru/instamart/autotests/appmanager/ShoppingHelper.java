@@ -242,7 +242,7 @@ public class ShoppingHelper extends HelperBase {
 
     /** Набрать корзину на указанную сумму */
     public void collectItems(int orderSum) {
-        printMessage("Собираем корзину товаров на сумму " + orderSum + "р...");
+        printMessage("Собираем корзину товаров на сумму " + orderSum + "\u20BD...");
         int cartTotal = kraken.grab().cartTotalRounded();
         if(cartTotal < orderSum) {
             closeCart();
@@ -250,7 +250,7 @@ public class ShoppingHelper extends HelperBase {
             int itemPrice = kraken.grab().itemPriceRounded();
             // Формула расчета кол-ва товара
             int quantity = ((orderSum - cartTotal) / itemPrice) + 1;
-            printMessage("> добавляем в корзину " + quantity + "шт\n");
+            printMessage("> добавляем в корзину " + quantity + " шт\n");
             // Накидываем товар
             for (int i = 1; i <= quantity; i++) {
                 hitPlusButton();
