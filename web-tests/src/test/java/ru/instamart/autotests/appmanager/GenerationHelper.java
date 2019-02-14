@@ -17,11 +17,16 @@ public class GenerationHelper extends HelperBase {
     }
 
     /**
-     * Сгенерировать рандомное число указанной длины
+     * Сгенерировать int c рандомным числом указанной длины
      */
     public int integer(int length) {
         return Integer.parseInt(buildString("integer", length));
     }
+
+    /**
+     * Сгенерировать String c рандомным числом указанной длины
+     */
+    public String digitString(int length) { return buildString("integer", length); }
 
     /**
      * Сгенерировать рандомноую строку указанной длины

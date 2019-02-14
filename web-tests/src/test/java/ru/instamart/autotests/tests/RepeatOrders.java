@@ -107,7 +107,7 @@ public class RepeatOrders extends TestBase {
             groups = {"acceptance","regression"},
             priority = 1005
     )
-    public void successRepeatLastOrderWhitNewPhone() throws Exception {
+    public void successRepeatLastOrderWithNewPhone() throws Exception {
         SoftAssert softAssert = new SoftAssert();
         UserData userData = kraken.generate().testUserData();
 
@@ -125,7 +125,7 @@ public class RepeatOrders extends TestBase {
         kraken.perform().quickLogout();
         kraken.perform().authorisation(userData);
         kraken.perform().repeatLastOrder();
-        String phone = "1231234545"; // TODO убрать хардкод, юзать generate().digitString
+        String phone = kraken.generate().digitString(10);
         kraken.perform().reachCheckout();
         kraken.checkout().complete(true, phone);
 
