@@ -107,12 +107,10 @@ public class GrabHelper extends HelperBase{
         } else return 0;
     }
 
-    /** Взять номер телефона со страницы реквизитов заказа в админке */
-    public String phoneNumber() {
-        if (kraken.detect().isElementDisplayed(Elements.Admin.Shipments.Order.Requisites.phoneField())) {
-            String phone = (value(Elements.Admin.Shipments.Order.Requisites.phoneField())).replaceAll(
-                    "\\D", "");
-            return phone.substring(phone.length() - 10);
+    /** Взять 10-значный номер телефона по локатору элемента */
+    public String strippedPhoneNumber(Elements element) {
+        if (kraken.detect().isElementDisplayed(element)) {
+            return strip(value(element));
         } else return null;
     }
 

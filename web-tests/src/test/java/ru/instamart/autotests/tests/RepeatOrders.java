@@ -119,7 +119,7 @@ public class RepeatOrders extends TestBase {
         kraken.perform().cancelLastOrder();
         kraken.perform().reachAdmin(Pages.Admin.Order.requisites(order1));
 
-        softAssert.assertEquals(kraken.grab().phoneNumber(), Config.testOrderDetails().getContactsDetails().getPhone(),
+        softAssert.assertEquals(kraken.grab().strippedPhoneNumber(Elements.Admin.Shipments.Order.Requisites.phoneField()), Config.testOrderDetails().getContactsDetails().getPhone(),
                 "Номер телефона в админке не совпадает с указанным номером во время заказа");
 
         kraken.perform().quickLogout();
@@ -136,7 +136,7 @@ public class RepeatOrders extends TestBase {
         kraken.perform().cancelLastOrder();
         kraken.perform().reachAdmin(Pages.Admin.Order.requisites(order2));
 
-        softAssert.assertEquals(kraken.grab().phoneNumber(), phone,
+        softAssert.assertEquals(kraken.grab().strippedPhoneNumber(Elements.Admin.Shipments.Order.Requisites.phoneField()), phone,
                 "Номер телефона в админке не совпадает с указанным номером во время заказа");
 
         softAssert.assertAll();

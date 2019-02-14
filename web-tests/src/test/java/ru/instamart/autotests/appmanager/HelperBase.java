@@ -17,13 +17,17 @@ public class HelperBase {
         this.kraken = app;
     }
 
-    /** Отправить сообщение в консоль*/
+    /**
+     * Отправить сообщение в консоль
+     */
     public void printMessage(String message) {
         System.out.println(message);
     }
 
-    /** Обработать алерт в зависимости от настройки acceptNextAlert */
-    void handleAlert(){
+    /**
+     * Обработать алерт в зависимости от настройки acceptNextAlert
+     */
+    void handleAlert() {
         try {
             Alert alert = driver.switchTo().alert();
             String alertText = alert.getText();
@@ -39,17 +43,29 @@ public class HelperBase {
         }
     }
 
-    /** Удалить все куки */
+    /**
+     * Удалить все куки
+     */
     public void deleteAllCookies() {
         driver.manage().deleteAllCookies();
     }
 
-    /** Округлить цену до целого числа, отбросив копейки, пробелы и знак рубля */
+    /**
+     * Округлить цену до целого числа, отбросив копейки, пробелы и знак рубля
+     */
     int round(String price) {
-        if(price == null) {
+        if (price == null) {
             return 0;
         } else {
             return Integer.parseInt(((price).substring(0, (price.length() - 5))).replaceAll("\\s", ""));
         }
+    }
+
+    /**
+     * Выбрать 10-значный номер телефона из строки, отбросив скобки и +7
+     */
+    String strip(String phoneNumber) {
+        String phone = phoneNumber.replaceAll("\\D", "");
+        return phone.substring(phone.length()-10);
     }
 }
