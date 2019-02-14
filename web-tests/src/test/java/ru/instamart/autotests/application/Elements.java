@@ -1494,6 +1494,17 @@ public class Elements {
 
             }
 
+            /**
+             * Страница деталей оплаты заказа в админке
+             */
+            interface OrderPaymentsPage {
+
+                static Elements paymentType() {
+                    return new Elements(null, By.xpath("//td[5]/a"));
+                }
+
+            }
+
         }
 
         /**

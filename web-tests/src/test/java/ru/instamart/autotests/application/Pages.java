@@ -217,6 +217,11 @@ public class Pages {
             return new Pages("Spree Администрирование: Заказы",
                     "orders/" + number + "/edit");
         }
+
+        static Pages orderPayments(String number) {
+            return new Pages("Spree Администрирование: Платежи",
+                    "orders/" + number + "/payments");
+        }
     }
 
     public static String getPageTitle() {

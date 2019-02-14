@@ -10,25 +10,25 @@ public class PaymentTypes {
 
     public static PaymentTypeData cardOnline() {
         position = 1;
-        description = "картой онлайн";
+        description = "Картой онлайн";
         return new PaymentTypeData(position,description);
     }
 
     public static PaymentTypeData cardCourier() {
         position = 2;
-        description = "картой курьеру";
+        description = "Картой курьеру";
         return new PaymentTypeData(position,description);
     }
 
     public static PaymentTypeData cash() {
         position = 3;
-        description = "наличными";
+        description = "Наличными";
         return new PaymentTypeData(position,description);
     }
 
     public static PaymentTypeData bankTransfer() {
         position = 4;
-        description = "переводом";
+        description = "Переводом";
         return new PaymentTypeData(position,description);
     }
 

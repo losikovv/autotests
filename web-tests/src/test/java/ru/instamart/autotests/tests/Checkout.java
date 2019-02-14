@@ -3,7 +3,6 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.BonusProgramData;
 
@@ -145,17 +144,25 @@ public class Checkout extends TestBase {
             groups = {"acceptance","regression"},
             priority = 708
     )
-    public void successCompleteCheckoutAndPayWithCash(){
+    public void successCompleteCheckoutAndPayWithCash() throws Exception {
         kraken.perform().reachCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не удалось оформить заказ с оплатой наличными\n");
 
+        String number = kraken.grab().currentOrderNumber();
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
 
         kraken.perform().cancelLastOrder();
+        kraken.perform().reachAdmin(Pages.Admin.orderPayments(number));
+
+        Assert.assertEquals(
+                kraken.grab().text(Elements.Admin.Shipments.OrderPaymentsPage.paymentType()),
+                PaymentTypes.cash().getDescription(),
+                "Название способа оплаты в админке не совпадает с выбранным способом оплаты"
+        );
     }
 
 
@@ -164,7 +171,7 @@ public class Checkout extends TestBase {
             groups = {"regression"},
             priority = 709
     )
-    public void successCompleteCheckoutAndPayWithCardOnline(){
+    public void successCompleteCheckoutAndPayWithCardOnline() throws Exception {
         kraken.perform().reachCheckout();
 
         kraken.checkout().complete(PaymentTypes.cardOnline());
@@ -172,10 +179,18 @@ public class Checkout extends TestBase {
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не удалось оформить заказ с оплатой онлайн\n");
 
+        String number = kraken.grab().currentOrderNumber();
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
 
         kraken.perform().cancelLastOrder();
+        kraken.perform().reachAdmin(Pages.Admin.orderPayments(number));
+
+        Assert.assertEquals(
+                kraken.grab().text(Elements.Admin.Shipments.OrderPaymentsPage.paymentType()),
+                PaymentTypes.cardOnline().getDescription(),
+                "Название способа оплаты в админке не совпадает с выбранным способом оплаты"
+        );
     }
 
 
@@ -184,17 +199,25 @@ public class Checkout extends TestBase {
             groups = {"regression"},
             priority = 710
     )
-    public void successCompleteCheckoutAndPayWithCardCourier(){
+    public void successCompleteCheckoutAndPayWithCardCourier() throws Exception {
         kraken.perform().reachCheckout();
         kraken.checkout().complete(PaymentTypes.cardCourier());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не удалось оформить заказ с оплатой картой курьеру\n");
 
+        String number = kraken.grab().currentOrderNumber();
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
 
         kraken.perform().cancelLastOrder();
+        kraken.perform().reachAdmin(Pages.Admin.orderPayments(number));
+
+        Assert.assertEquals(
+                kraken.grab().text(Elements.Admin.Shipments.OrderPaymentsPage.paymentType()),
+                PaymentTypes.cardCourier().getDescription(),
+                "Название способа оплаты в админке не совпадает с выбранным способом оплаты"
+        );
     }
 
 
@@ -203,17 +226,25 @@ public class Checkout extends TestBase {
             groups = {"regression"},
             priority = 711
     )
-    public void successCompleteCheckoutAndPayWithBank(){
+    public void successCompleteCheckoutAndPayWithBank() throws Exception {
         kraken.perform().reachCheckout();
         kraken.checkout().complete(PaymentTypes.bankTransfer());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не удалось оформить заказ с оплатой банковским переводом\n");
 
+        String number = kraken.grab().currentOrderNumber();
         kraken.perform().checkOrderDocuments();
         assertPageIsAvailable();
 
         kraken.perform().cancelLastOrder();
+        kraken.perform().reachAdmin(Pages.Admin.orderPayments(number));
+
+        Assert.assertEquals(
+                kraken.grab().text(Elements.Admin.Shipments.OrderPaymentsPage.paymentType()),
+                PaymentTypes.bankTransfer().getDescription(),
+                "Название способа оплаты в админке не совпадает с выбранным способом оплаты"
+        );
     }
 
 
