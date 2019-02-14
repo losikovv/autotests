@@ -5,14 +5,15 @@ import ru.instamart.autotests.models.*;
 public class Config {
 
     public final static String companyName = "instamart";
+    public final static String productionHost = "instamart.ru"; // TODO убрать
     public final static String testHost = "example.com";
-    public final static String productionHost = "instamart.ru";
-    public final static String stagingHost = "staging.instamart.ru";
 
     public final static String testUserPhone = "1488148814";
     public final static String testUserNameBase = "testuser";
     public final static String testAdminNameBase = "testadmin";
 
+
+    // TODO убрать весь блок
     public final static String testUserEmailBase = testUserNameBase + "@" + testHost;
     public final static String testAdminEmailBase = testAdminNameBase + "@" + productionHost;
     public final static String testUsersList = "users?q%5Bemail_cont%5D=" + testUserNameBase + "%40" + testHost;

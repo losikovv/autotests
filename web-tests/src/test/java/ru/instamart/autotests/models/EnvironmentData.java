@@ -1,37 +1,45 @@
 package ru.instamart.autotests.models;
 
 public class EnvironmentData {
-    private String name;
+    private String platform;
+    private String environment;
     private String host;
-    private String httpAuth;
-    private String baseURL;
-    private String fullBaseUrl;
+    private String auth;
+    private boolean secure;
 
-    public EnvironmentData(String name, String host, String httpAuth) {
-        this.name = name;
+    public EnvironmentData(String platform, String environment, String host, String httpAuth, boolean secure) {
+        this.platform = platform;
+        this.environment = environment;
         this.host = host;
-        this.httpAuth = httpAuth;
-        this.baseURL = "https://" + host + "/";
-        this.fullBaseUrl = "https://" + httpAuth + host + "/";
+        this.auth = httpAuth;
+        this.secure = secure;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public String getEnvironment () {
+        return environment;
     }
 
     public String getName() {
-        return name;
+        return platform + "-" + environment;
     }
 
     public String getHost() {
         return host;
     }
 
-    public String getHttpAuth() {
-        return httpAuth;
-    }
+    public boolean isSecure() {return secure;}
 
     public String getBaseURL() {
-        return baseURL;
+        if(isSecure()) {return "https://" + host + "/";}
+        else {return "http://" + host + "/";}
     }
 
     public String getFullBaseUrl() {
-        return fullBaseUrl;
+        if(isSecure()) {return "https://" + auth + host + "/";}
+        else {return "http://" + auth + host + "/";}
     }
 }

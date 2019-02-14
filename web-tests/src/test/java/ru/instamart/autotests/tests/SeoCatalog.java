@@ -9,7 +9,7 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Users;
 
-import static ru.instamart.autotests.application.Environments.staging;
+import static ru.instamart.autotests.application.Environments.instamart_staging;
 
 
 public class SeoCatalog extends TestBase {
@@ -27,7 +27,7 @@ public class SeoCatalog extends TestBase {
             priority = 9100
     )
     public void successCheckSeoPage() {
-        skipOn(staging());
+        skipOn(instamart_staging());
         assertPageIsAvailable(Pages.Site.Catalog.seo());
     }
 
@@ -38,7 +38,7 @@ public class SeoCatalog extends TestBase {
             priority = 9101
     )
     public void successCheckProductsOnSeoCatalog() {
-        skipOn(staging());
+        skipOn(instamart_staging());
         Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.SeoCatalog.product()),
                 "Нет товаров на странице SEO-каталога");
     }
@@ -50,7 +50,7 @@ public class SeoCatalog extends TestBase {
             priority = 9102
     )
     public void successOpenItemCardOnSeoCatalog() {
-        skipOn(staging());
+        skipOn(instamart_staging());
         kraken.shopping().openFirstItemCard();
 
         Assert.assertTrue(kraken.detect().isItemCardOpen(),
@@ -64,7 +64,7 @@ public class SeoCatalog extends TestBase {
             priority = 9103
     )
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() {
-        skipOn(staging());
+        skipOn(instamart_staging());
         SoftAssert softAssert = new SoftAssert();
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitPlusButton();
@@ -91,7 +91,7 @@ public class SeoCatalog extends TestBase {
             priority = 9104
     )
     public void successAuthFromItemCardOnSeoCatalog() throws Exception {
-        skipOn(staging());
+        skipOn(instamart_staging());
         SoftAssert softAssert = new SoftAssert();
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitPlusButton();
@@ -114,7 +114,7 @@ public class SeoCatalog extends TestBase {
             priority = 9105
     )
     public void successRegFromItemCardOnSeoCatalog() throws Exception {
-        skipOn(staging());
+        skipOn(instamart_staging());
         SoftAssert softAssert = new SoftAssert();
         kraken.shopping().openFirstItemCard();
         kraken.shopping().hitPlusButton();

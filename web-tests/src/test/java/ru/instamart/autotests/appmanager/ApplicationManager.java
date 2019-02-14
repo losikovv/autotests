@@ -20,7 +20,7 @@ import static org.testng.Assert.fail;
 public class ApplicationManager {
 
     protected WebDriver driver;
-    protected final EnvironmentData environment = Environments.staging();
+    protected final EnvironmentData environment = Environments.instamart_staging();
     private String browser;
 
     // Helpers
