@@ -156,10 +156,10 @@ public class Checkout extends TestBase {
         assertPageIsAvailable();
 
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.orderPayments(number));
+        kraken.perform().reachAdmin(Pages.Admin.Order.payments(number));
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Admin.Shipments.OrderPaymentsPage.paymentType()),
+                kraken.grab().text(Elements.Admin.Shipments.Order.Payments.paymentType()),
                 PaymentTypes.cash().getDescription(),
                 "Название способа оплаты в админке не совпадает с выбранным способом оплаты"
         );
@@ -184,10 +184,10 @@ public class Checkout extends TestBase {
         assertPageIsAvailable();
 
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.orderPayments(number));
+        kraken.perform().reachAdmin(Pages.Admin.Order.payments(number));
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Admin.Shipments.OrderPaymentsPage.paymentType()),
+                kraken.grab().text(Elements.Admin.Shipments.Order.Payments.paymentType()),
                 PaymentTypes.cardOnline().getDescription(),
                 "Название способа оплаты в админке не совпадает с выбранным способом оплаты"
         );
@@ -211,10 +211,10 @@ public class Checkout extends TestBase {
         assertPageIsAvailable();
 
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.orderPayments(number));
+        kraken.perform().reachAdmin(Pages.Admin.Order.payments(number));
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Admin.Shipments.OrderPaymentsPage.paymentType()),
+                kraken.grab().text(Elements.Admin.Shipments.Order.Payments.paymentType()),
                 PaymentTypes.cardCourier().getDescription(),
                 "Название способа оплаты в админке не совпадает с выбранным способом оплаты"
         );
@@ -238,10 +238,10 @@ public class Checkout extends TestBase {
         assertPageIsAvailable();
 
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.orderPayments(number));
+        kraken.perform().reachAdmin(Pages.Admin.Order.payments(number));
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Admin.Shipments.OrderPaymentsPage.paymentType()),
+                kraken.grab().text(Elements.Admin.Shipments.Order.Payments.paymentType()),
                 PaymentTypes.bankTransfer().getDescription(),
                 "Название способа оплаты в админке не совпадает с выбранным способом оплаты"
         );
@@ -262,10 +262,10 @@ public class Checkout extends TestBase {
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.orderDetails(number));
+        kraken.perform().reachAdmin(Pages.Admin.Order.details(number));
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicy()),
+                kraken.grab().text(Elements.Admin.Shipments.Order.Details.replacementPolicy()),
                 ReplacementPolicies.callAndReplace().getInstruction(),
                 "Текст инструкции по сборке не совпадает с выбранной политикой замен"
         );
@@ -286,10 +286,10 @@ public class Checkout extends TestBase {
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.orderDetails(number));
+        kraken.perform().reachAdmin(Pages.Admin.Order.details(number));
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicy()),
+                kraken.grab().text(Elements.Admin.Shipments.Order.Details.replacementPolicy()),
                 ReplacementPolicies.callAndRemove().getInstruction(),
                 "Текст инструкции по сборке не совпадает с выбранной политикой замен"
         );
@@ -310,10 +310,10 @@ public class Checkout extends TestBase {
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.orderDetails(number));
+        kraken.perform().reachAdmin(Pages.Admin.Order.details(number));
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicy()),
+                kraken.grab().text(Elements.Admin.Shipments.Order.Details.replacementPolicy()),
                 ReplacementPolicies.replace().getInstruction(),
                 "Текст инструкции по сборке не совпадает с выбранной политикой замен"
         );
@@ -334,10 +334,10 @@ public class Checkout extends TestBase {
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.orderDetails(number));
+        kraken.perform().reachAdmin(Pages.Admin.Order.details(number));
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Admin.Shipments.OrderDetailsPage.replacementPolicy()),
+                kraken.grab().text(Elements.Admin.Shipments.Order.Details.replacementPolicy()),
                 ReplacementPolicies.remove().getInstruction(),
                 "Текст инструкции по сборке не совпадает с выбранной политикой замен"
         );

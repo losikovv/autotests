@@ -4,8 +4,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.annotations.AfterMethod;
-import ru.instamart.autotests.application.PaymentTypes;
-import ru.instamart.autotests.application.Users;
+import org.testng.asserts.SoftAssert;
+import ru.instamart.autotests.application.*;
+import ru.instamart.autotests.models.UserData;
 
 
 // Тесты повтора заказов
@@ -98,6 +99,47 @@ public class RepeatOrders extends TestBase {
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не оформляется повторный заказ с оплатой банковским переводом\n");
+    }
+
+
+    @Test(
+            description = "Повтор крайнего заказа c новым номером телефона",
+            groups = {"acceptance","regression"},
+            priority = 1005
+    )
+    public void successRepeatLastOrderWhitNewPhone() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        UserData userData = kraken.generate().testUserData();
+
+        kraken.perform().quickLogout();
+        kraken.perform().registration(userData);
+        kraken.perform().order();
+
+        String order1 = kraken.grab().currentOrderNumber();
+        kraken.perform().cancelLastOrder();
+        kraken.perform().reachAdmin(Pages.Admin.Order.requisites(order1));
+
+        softAssert.assertEquals(kraken.grab().phoneNumber(), Config.testOrderDetails().getContactsDetails().getPhone(),
+                "Номер телефона в админке не совпадает с указанным номером во время заказа");
+
+        kraken.perform().quickLogout();
+        kraken.perform().authorisation(userData);
+        kraken.perform().repeatLastOrder();
+        String phone = "1231234545"; // TODO убрать хардкод, юзать generate().digitString
+        kraken.perform().reachCheckout();
+        kraken.checkout().complete(true, phone);
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не оформляется повторный заказ с новым номером телефона\n");
+
+        String order2 = kraken.grab().currentOrderNumber();
+        kraken.perform().cancelLastOrder();
+        kraken.perform().reachAdmin(Pages.Admin.Order.requisites(order2));
+
+        softAssert.assertEquals(kraken.grab().phoneNumber(), phone,
+                "Номер телефона в админке не совпадает с указанным номером во время заказа");
+
+        softAssert.assertAll();
     }
 
 

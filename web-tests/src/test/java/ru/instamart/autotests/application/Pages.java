@@ -213,15 +213,25 @@ public class Pages {
                     "admin/pages");
         }
 
-        static Pages orderDetails(String number) {
-            return new Pages("Spree Администрирование: Заказы",
-                    "orders/" + number + "/edit");
+        public interface Order {
+
+            static Pages details(String number) {
+                return new Pages("Spree Администрирование: Заказы",
+                        "orders/" + number + "/edit");
+            }
+
+            static Pages payments(String number) {
+                return new Pages("Spree Администрирование: Платежи",
+                        "orders/" + number + "/payments");
+            }
+
+            static Pages requisites(String number) {
+                return new Pages("Spree Администрирование: Реквизиты клиента",
+                        "orders/" + number + "/customer");
+            }
+
         }
 
-        static Pages orderPayments(String number) {
-            return new Pages("Spree Администрирование: Платежи",
-                    "orders/" + number + "/payments");
-        }
     }
 
     public static String getPageTitle() {

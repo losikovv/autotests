@@ -950,6 +950,18 @@ public class Elements {
                 return new Elements(null, By.id("phone-input"));
             }
 
+            static Elements editPhoneButton() {
+                return new Elements(null, By.xpath("//div[2]/div[1]/div/div/a"));
+            }
+
+            static Elements deletePhoneButton() {
+                return new Elements(null, By.xpath("//div[2]/div/div[1]/button"));
+            }
+
+            static Elements phoneNumber() {
+                return new Elements(null, By.className("checkout-selector-item__text"));
+            }
+
             interface PromocodeModal {
 
                 static Elements title() {
@@ -1033,7 +1045,6 @@ public class Elements {
             static Elements activeOrderAttribute() {
                 return new Elements(null,
                         By.className("user-order"));
-
             }
 
             /**
@@ -1465,42 +1476,57 @@ public class Elements {
             static Elements b2bCheckbox() { return new Elements(null, By.id("search_only_b2b"));
             }
 
-            /**
-             * Страница деталей заказа в админке
-             */
-            interface OrderDetailsPage {
+            interface Order {
 
-                static Elements resumeOrderButton() {
-                    return new Elements(null, By.className("icon-resume"));
+                /**
+                 * Страница деталей заказа в админке
+                 */
+                interface Details {
+
+                    static Elements resumeOrderButton() {
+                        return new Elements(null, By.className("icon-resume"));
+                    }
+
+                    static Elements cancelOrderButton() {
+                        return new Elements(null, By.className("icon-cancel"));
+                    }
+
+                    static Elements confirmOrderCancellationButton() {
+                        return new Elements(null, By.xpath("//*[@id='new_cancellation']/fieldset/div[3]/button"));
+                    }
+
+                    static Elements canceledOrderAttribute() {
+                        return new Elements("ЗАКАЗ ОТМЕНЕН",
+                                By.xpath("//b[contains(text(),'ЗАКАЗ ОТМЕНЕН')]"));
+                    }
+
+                    static Elements replacementPolicy() {
+                        return new Elements(null,
+                                By.xpath("//*[@id='order_tab_summary']/dl/dl[1]/div[2]"));
+                    }
+
                 }
 
-                static Elements cancelOrderButton() {
-                    return new Elements(null, By.className("icon-cancel"));
+                /**
+                 * Страница деталей оплаты заказа в админке
+                 */
+                interface Payments {
+
+                    static Elements paymentType() {
+                        return new Elements(null, By.xpath("//td[5]/a"));
+                    }
+
                 }
 
-                static Elements confirmOrderCancellationButton() {
-                    return new Elements(null, By.xpath("//*[@id='new_cancellation']/fieldset/div[3]/button"));
-                }
+                /**
+                 * Страница реквизитов заказа в админке
+                 */
+                interface Requisites {
 
-                static Elements canceledOrderAttribute() {
-                    return new Elements("ЗАКАЗ ОТМЕНЕН",
-                            By.xpath("//b[contains(text(),'ЗАКАЗ ОТМЕНЕН')]"));
-                }
+                    static Elements phoneField() {
+                        return new Elements(null, By.id("order_ship_address_attributes_phone"));
+                    }
 
-                static Elements replacementPolicy() {
-                    return new Elements(null,
-                            By.xpath("//*[@id='order_tab_summary']/dl/dl[1]/div[2]"));
-                }
-
-            }
-
-            /**
-             * Страница деталей оплаты заказа в админке
-             */
-            interface OrderPaymentsPage {
-
-                static Elements paymentType() {
-                    return new Elements(null, By.xpath("//td[5]/a"));
                 }
 
             }

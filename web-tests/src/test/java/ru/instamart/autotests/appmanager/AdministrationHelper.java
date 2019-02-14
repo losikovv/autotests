@@ -39,7 +39,7 @@ public class AdministrationHelper extends HelperBase {
      * Возобновить заказ
      */
     public void resumeOrder() {
-        kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.resumeOrderButton());
+        kraken.perform().click(Elements.Admin.Shipments.Order.Details.resumeOrderButton());
         handleAlert();
         kraken.perform().waitingFor(2); // Ожидание возобновления заказа в админке
     }
@@ -56,10 +56,10 @@ public class AdministrationHelper extends HelperBase {
      */
     public void cancelOrder(int reason, String details) {
         printMessage("- отмена заказа " + kraken.grab().currentURL());
-        kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.cancelOrderButton());
+        kraken.perform().click(Elements.Admin.Shipments.Order.Details.cancelOrderButton());
         handleAlert();
         chooseCancellationReason(reason, details);
-        kraken.perform().click(Elements.Admin.Shipments.OrderDetailsPage.confirmOrderCancellationButton());
+        kraken.perform().click(Elements.Admin.Shipments.Order.Details.confirmOrderCancellationButton());
         kraken.perform().waitingFor(2); // Ожидание отмены заказа в админке
     }
 

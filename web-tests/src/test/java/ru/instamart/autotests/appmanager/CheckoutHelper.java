@@ -28,6 +28,12 @@ public class CheckoutHelper extends HelperBase {
         makeOrder(details);
     }
 
+    public void complete(boolean newPhone, String phone) {
+        OrderDetailsData details = new OrderDetailsData();
+        details.setContactsDetails(new ContactsDetailsData(newPhone, phone));
+        makeOrder(details);
+    }
+
     public void makeOrder(OrderDetailsData orderDetails) {
         fillOrderDetails(orderDetails);
         if(orderDetails.getPromocode() != null) {addPromocode(orderDetails.getPromocode());}
@@ -94,13 +100,14 @@ public class CheckoutHelper extends HelperBase {
         if(contactsDetails.isSendEmail()) specifyDetail("order[send_emails]", contactsDetails.isSendEmail());
 
         if(contactsDetails.isNewPhone()) {
-            //TODO сделать добавление нового номера телефона
-        }
-        if(kraken.detect().isPhoneNumberEntered()) {
+            deletePhoneNumbers();
+            kraken.perform().fillField(Elements.Site.Checkout.phoneNumberField(), contactsDetails.getPhone());
+            printMessage("Добавляем номер телефона +7 " + contactsDetails.getPhone());
+        } else if(kraken.detect().isPhoneNumberEntered()) {
             printMessage("Используем существующий номер телефона");
         } else {
             kraken.perform().fillField(Elements.Site.Checkout.phoneNumberField(), contactsDetails.getPhone());
-            printMessage("Добавляем номер телефона +7" + contactsDetails.getPhone());
+            printMessage("Добавляем номер телефона +7 " + contactsDetails.getPhone());
         }
     }
 
@@ -319,6 +326,17 @@ public class CheckoutHelper extends HelperBase {
             kraken.perform().waitingFor(3); // Ожидание оформления заказа
             printMessage("✓ Заказ отправлен\n");
         } else printMessage("Невозможно офрмить заказ, кнопка отправки не активна\n");
+    }
+
+    /** Удалить все номера телефонов */
+    void deletePhoneNumbers() {
+        if(kraken.detect().isPhoneNumberEntered()) {
+            kraken.perform().click(Elements.Site.Checkout.editPhoneButton());
+            kraken.perform().click(Elements.Site.Checkout.deletePhoneButton());
+            kraken.perform().printMessage("Удоляем номер телефона " + kraken.grab().text(Elements.Site.Checkout.phoneNumber()));
+            kraken.perform().waitingFor(1); // ожидание удаления предыдущего номера телефона
+            deletePhoneNumbers();
+        }
     }
 
 

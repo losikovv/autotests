@@ -317,7 +317,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить отменен ли заказ на странице деталей */
     public boolean isOrderCanceled(){
         if (isInAdmin()) {
-            return element(Elements.Admin.Shipments.OrderDetailsPage.canceledOrderAttribute());
+            return element(Elements.Admin.Shipments.Order.Details.canceledOrderAttribute());
         } else {
             return element(Elements.Site.OrderDetailsPage.canceledOrderAttribute());
         }

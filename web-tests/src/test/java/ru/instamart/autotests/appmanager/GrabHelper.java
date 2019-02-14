@@ -31,6 +31,20 @@ public class GrabHelper extends HelperBase{
         }
     }
 
+    /** Взять текст из заполненного поля по элементу */
+    public String value(Elements element) {
+        return value(Elements.locator());
+    }
+
+    /** Взять текст из заполненного поля по локатору */
+    public String value(By locator) {
+        try {
+            return driver.findElement(locator).getAttribute("value");
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+
     /** Взять текущий адрес доставки */
     public String currentShipAddress() {
         return text(Elements.Site.Header.currentShipAddress());
@@ -91,6 +105,15 @@ public class GrabHelper extends HelperBase{
             return Integer.parseInt(((text).substring((text.length() - 8), (text.length() - 3))).replaceAll(
                     "\\s", ""));
         } else return 0;
+    }
+
+    /** Взять номер телефона со страницы реквизитов заказа в админке */
+    public String phoneNumber() {
+        if (kraken.detect().isElementDisplayed(Elements.Admin.Shipments.Order.Requisites.phoneField())) {
+            String phone = (value(Elements.Admin.Shipments.Order.Requisites.phoneField())).replaceAll(
+                    "\\D", "");
+            return phone.substring(phone.length() - 10);
+        } else return null;
     }
 
     /** Взять текст котомудрости */

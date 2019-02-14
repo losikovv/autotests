@@ -9,7 +9,7 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
 
-import static ru.instamart.autotests.application.Environments.staging;
+import static ru.instamart.autotests.application.Environments.instamart_staging;
 
 
 // Тесты авторизации
