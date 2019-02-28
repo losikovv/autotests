@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Users;
 
+import static ru.instamart.autotests.appmanager.ApplicationManager.session;
+
 
 // Тесты восстановления пароля
 
@@ -108,10 +110,10 @@ public class PasswordRecovery extends TestBase {
             priority = 1107
     )
     public void successAuthWithCurrentPasswordAfterRecoveryRequest() throws Exception {
-        kraken.perform().recoverPasswordAs(Users.superuser());
+        kraken.perform().recoverPasswordAs(session.user);
         kraken.get().baseUrl();
         
-        kraken.perform().loginAs(Users.superuser());
+        kraken.perform().loginAs(session.user);
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Невозможно авторизоваться с текущим паролем после запроса на восстановление пароля\n");
@@ -133,7 +135,7 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().submitRecovery("password1", "password1");
 
         kraken.perform().quickLogout();
-        kraken.perform().authorisation(Users.userGmail().getLogin(), "password1");
+        kraken.perform().authorisation(Users.userGmail().getEmail(), "password1");
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Невозможно авторизоваться с новым паролем после восстановления пароля\n");
@@ -147,7 +149,7 @@ public class PasswordRecovery extends TestBase {
         kraken.perform().submitRecovery("password2", "password2");
 
         kraken.perform().quickLogout();
-        kraken.perform().authorisation(Users.userGmail().getLogin(), "password1");
+        kraken.perform().authorisation(Users.userGmail().getEmail(), "password1");
         
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Возможно авторизоваться со старым паролем после восстановления пароля!\n");

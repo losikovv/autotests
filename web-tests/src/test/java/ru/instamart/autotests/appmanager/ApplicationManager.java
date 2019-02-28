@@ -7,8 +7,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.application.Config;
+import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.models.SessionData;
+import ru.instamart.autotests.testdata.generate;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,19 +19,21 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
+import static ru.instamart.autotests.application.Config.*;
 
 public class ApplicationManager {
 
-    protected WebDriver driver;
-    protected final EnvironmentData environment = Environments.instamart_staging();
-    private String browser;
+    public final static String testrunId = generate.testRunId();
 
-    // Helpers
+    protected WebDriver driver;
+    protected EnvironmentData environment;
+    private String browser;
+    public static SessionData session;
+
     private BrowseHelper browseHelper;
     private NavigationHelper navigationHelper;
     private PerformHelper performHelper;
     private DetectionHelper detectionHelper;
-    private GenerationHelper generationHelper;
     private GrabHelper grabHelper;
     private DropHelper dropHelper;
     private SocialHelper socialHelper;
@@ -47,7 +52,36 @@ public class ApplicationManager {
     }
 
     public void rise() throws IOException {
+        initTestSession();
+        initEnvironment();
+        initDriver();
+        initHelpers();
+        applyOptions();
+        revealKraken();
+        driver.get(environment.getFullBaseUrl());
+    }
 
+    private void initTestSession() {
+        if (multiSessionMode) {
+            session = new SessionData(
+                    testrunId, generate.testCredentials("admin"), generate.testCredentials("user"),
+                    "shipments?search%5Blast_name%5D=" + testrunId + "&search%5Bstate%5D%5B%5D=ready",
+                    "users?q%5Bemail_cont%5D=" + testrunId + "-" + testMark
+            );
+        } else {
+            session = new SessionData(
+                    testrunId, Users.superadmin(), Users.superuser(),
+                    "shipments?search%5Bfirst_name%5D=" + testMark + "&search%5Bstate%5D%5B%5D=ready",
+                    "users?q%5Bemail_cont%5D=" + testrunId + "-" + testMark
+            );
+        }
+    }
+
+    private void initEnvironment() {
+        environment = Config.environment;
+    }
+
+    private void initDriver() {
         switch (browser) {
             case BrowserType.FIREFOX:
                 driver = new FirefoxDriver();
@@ -58,18 +92,17 @@ public class ApplicationManager {
             case BrowserType.SAFARI:
                 driver = new SafariDriver();
                 break;
-            // there is no IE driver for mac yet :(
             case BrowserType.IE:
-                driver = new InternetExplorerDriver();
+                driver = new InternetExplorerDriver(); // there is no IE driver for mac yet :(
                 break;
         }
+    }
 
-        // Helpers init
+    private void initHelpers() {
         browseHelper = new BrowseHelper(driver, environment, this);
         navigationHelper = new NavigationHelper(driver, environment, this);
         performHelper = new PerformHelper(driver, environment, this);
         detectionHelper = new DetectionHelper(driver, environment, this);
-        generationHelper = new GenerationHelper(driver, environment, this);
         grabHelper = new GrabHelper(driver,environment,this);
         dropHelper = new DropHelper(driver,environment,this);
         socialHelper = new SocialHelper(driver, environment, this);
@@ -80,42 +113,48 @@ public class ApplicationManager {
         administrationHelper = new AdministrationHelper(driver, environment, this);
         cleanupHelper = new CleanupHelper(driver, environment, this);
         jivositeHelper = new JivositeHelper(driver, environment, this);
-
-        // Options
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS); // Basic timeout
-        //driver.manage().window().fullscreen();                              // Open browser in fullscreen mode
-
-        revealKraken();
-
-        driver.get(environment.getFullBaseUrl());
     }
 
-    public void stop() {
+    private void applyOptions() {
+        if (fullScreenMode) {driver.manage().window().fullscreen(); }
+        if (basicTimeout > 0) {driver.manage().timeouts().implicitlyWait(basicTimeout, TimeUnit.SECONDS);}
+    }
+
+    private void revealKraken() throws IOException {
+        BufferedReader in = new BufferedReader(new FileReader("banner.txt"));
+        String line = in.readLine();
+        while(line !=null) {
+            System.out.println(line);
+            line = in.readLine();
+        }
+        in.close();
+
+        System.out.println("\nENVIRONMENT: " + environment.getName() + " ( " + environment.getHost() + " )");
+
+        if(multiSessionMode) {
+            System.out.println("\nTEST RUN: " + session.id);
+        } else {
+            System.out.println("\nTEST RUN: " + session.id + " (SOLO)");
+        }
+
+        System.out.println("ADMIN: " + session.admin.getEmail() + " / " + session.admin.getPassword());
+        System.out.println("USER: " + session.user.getEmail() + " / " + session.user.getPassword() + "\n");
+    }
+
+    public void stop() throws Exception {
+        if(doCleanupAfterTestRun) { cleanup().all(); }
         driver.quit();
+
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
         }
     }
 
-    private void revealKraken() throws IOException {
-        BufferedReader in = new BufferedReader(new FileReader("banner.txt"));
-        String line = in.readLine();
-
-        while(line !=null) {
-            System.out.println(line);
-            line = in.readLine();
-        }
-        in.close();
-        System.out.println("\nENVIRONMENT: " + environment.getName() + " ( " + environment.getHost() + " ) \n");
-    }
-
-    // Getters
     public BrowseHelper get() { return browseHelper; }
     public NavigationHelper go() { return navigationHelper; }
     public PerformHelper perform() { return performHelper; }
     public DetectionHelper detect() { return detectionHelper; }
-    public GenerationHelper generate() { return generationHelper; }
     public GrabHelper grab() { return grabHelper; }
     public DropHelper drop() { return dropHelper; }
     public SocialHelper social() { return socialHelper; }

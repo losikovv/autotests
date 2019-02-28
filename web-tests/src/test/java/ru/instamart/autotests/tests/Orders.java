@@ -6,7 +6,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.LoyaltyPrograms;
-import ru.instamart.autotests.application.Users;
+
+import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
 
 // Тесты заказов
@@ -18,7 +19,7 @@ public class Orders extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preconditions() throws Exception {
         kraken.get().baseUrl();
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(session.user);
     }
 
     @Test(
@@ -35,7 +36,7 @@ public class Orders extends TestBase {
         kraken.shopping().collectItems();
 
         Assert.assertFalse(kraken.detect().isCheckoutButtonActive(),
-                "Не выполнено предусловие: корзина не набралась до суммы минимального заказа");
+                "Не выполнено предусловие: корзина не набралась до суммы минимального заказа\n");
 
         kraken.shopping().proceedToCheckout();
         kraken.checkout().complete();

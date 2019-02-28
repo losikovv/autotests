@@ -3,6 +3,7 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.testdata.generate;
 
 
 // Тесты поиска товаров
@@ -103,7 +104,7 @@ public class SearchProducts extends TestBase {
             priority = 406
     )
     public void successItemSearchWithLongQuery(){
-        kraken.search().item(kraken.generate().string(1000));
+        kraken.search().item(generate.string(1000));
 
         assertPageIsAvailable();
 

@@ -7,8 +7,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
-
-import static ru.instamart.autotests.application.Environments.instamart_staging;
+import ru.instamart.autotests.testdata.generate;
 
 
 // Тесты регистрации пользователя
@@ -26,7 +25,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {"acceptance","regression"},
-            priority = 101
+            priority = 201
     )
     public void noRegWithEmptyRequisites() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -56,7 +55,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без имени",
             groups = {"regression"},
-            priority = 102
+            priority = 202
     )
     public void noRegWithoutName() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -77,7 +76,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без email",
             groups = {"regression"},
-            priority = 103
+            priority = 203
     )
     public void noRegWithoutEmail() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -98,7 +97,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без пароля",
             groups = {"regression"},
-            priority = 104
+            priority = 204
     )
     public void noRegWithoutPassword() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -118,7 +117,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без подтверждения пароля",
             groups = {"regression"},
-            priority = 105
+            priority = 205
     )
     public void noRegWithoutPasswordConfirmation() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -139,7 +138,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с несовпадающими паролями",
             groups = {"regression"},
-            priority = 106
+            priority = 206
     )
     public void noRegWithWrongPasswordConfirmation() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -160,12 +159,12 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки повторно зарегистрировать существующего пользователя",
             groups = {"acceptance","regression"},
-            priority = 107
+            priority = 207
     )
     public void noRegWithExistingEmail() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().registration("Test User", Users.superuser().getLogin(),
+        kraken.perform().registration("Test User", Users.superuser().getEmail(),
                 "12345678", "12345678");
 
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
@@ -182,12 +181,12 @@ public class Registration extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с длинными полями",
             groups = {"regression"},
-            priority = 108
+            priority = 208
     )
     public void noRegWithLongFields() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().registration(kraken.generate().testUserData(129));
+        kraken.perform().registration(generate.testCredentials("user", 100));
 
         softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
                 "Нет пользовательской ошибки превышения длины поля name\n");
@@ -213,13 +212,13 @@ public class Registration extends TestBase {
     @Test(
             description = "Тест отмены регистрации после заполнения всех полей",
             groups = {"regression"},
-            priority = 109
+            priority = 209
     )
     public void noRegOnCancel() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.perform().openAuthModal();
-        kraken.perform().regSequence(kraken.generate().testUserData());
+        kraken.perform().regSequence(generate.testCredentials("user"));
         kraken.perform().closeAuthModal();
 
         softAssert.assertFalse(kraken.detect().isAuthModalOpen(), "Не закрывается заполненная регистрационная модалка\n");
@@ -236,7 +235,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Регистрация нового пользователя на лендинге",
             groups = {"acceptance","regression"},
-            priority = 110
+            priority = 210
     )
     public void successRegOnLanding() throws Exception {
         kraken.perform().registration();
@@ -249,7 +248,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Регистрация нового пользователя на витрине магазина",
             groups = {"acceptance", "regression"},
-            priority = 111
+            priority = 211
     )
     public void successRegOnRetailerPage() throws Exception {
         kraken.get().page("metro");
@@ -264,7 +263,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Тест регистрации из адресной модалки феникса",
             groups = {"regression"},
-            priority = 112
+            priority = 212
     )
     public void successRegFromAddressModal() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
@@ -288,7 +287,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Тест регистрации при переходе из корзины в чекаут",
             groups = {"regression"},
-            priority = 113
+            priority = 213
     )
     public void successRegFromCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -321,7 +320,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Тест успешной регистрации через ВКонтакте",
             groups = {"regression"},
-            priority = 114
+            priority = 214
     )
     public void successRegWithVK() throws Exception, AssertionError {
         skip(); // TODO включить когда будет тестовый акк VK
@@ -344,7 +343,7 @@ public class Registration extends TestBase {
     @Test(
             description = "Тест успешной регистрации через Facebook",
             groups = {"regression"},
-            priority = 115
+            priority = 215
     )
     public void successRegWithFB() throws Exception, AssertionError {
         skip(); // TODO включить когда будет тестовый акк VK

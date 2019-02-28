@@ -16,7 +16,6 @@ public class DetectionHelper extends HelperBase {
         super(driver, environment, app);
     }
 
-
     /**
      * Определить в каком тестовом окружении находимся
      */
@@ -138,6 +137,10 @@ public class DetectionHelper extends HelperBase {
             printMessage("Не показана пользовательская ошибка (" + Elements.locator() + ")\n");
             return false;
         }
+    }
+
+    public boolean isUserErrorShown(Elements element, String text) {
+        return isTextShown(element) && kraken.grab().text(element).equals(text);
     }
 
     /**

@@ -1,30 +1,28 @@
 package ru.instamart.autotests.models;
 
 public class EnvironmentData {
-    private String platform;
-    private String environment;
+    private String tenant;
+    private String server;
     private String host;
     private String auth;
     private boolean secure;
 
-    public EnvironmentData(String platform, String environment, String host, String httpAuth, boolean secure) {
-        this.platform = platform;
-        this.environment = environment;
+    public EnvironmentData(String tenant, String server, String host, String httpAuth, boolean secure) {
+        this.tenant = tenant;
+        this.server = server;
         this.host = host;
         this.auth = httpAuth;
         this.secure = secure;
     }
 
-    public String getPlatform() {
-        return platform;
+    public String getTenant() {
+        return tenant;
     }
 
-    public String getEnvironment () {
-        return environment;
-    }
+    public String getServer() { return server; }
 
     public String getName() {
-        return platform + "-" + environment;
+        return tenant + "-" + server;
     }
 
     public String getHost() {

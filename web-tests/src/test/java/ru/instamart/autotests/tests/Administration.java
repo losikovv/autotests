@@ -4,11 +4,13 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.testdata.generate;
+
+import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
 
 // Тесты админки
@@ -29,7 +31,7 @@ public class Administration extends TestBase {
             priority = 1301
     )
     public void noAccessAdministrationWithoutAdminPrivileges() throws Exception {
-        kraken.perform().loginAs(Users.superuser());
+        kraken.perform().loginAs(session.user);
 
         assertPageIsUnavailable(Pages.Admin.shipments());
 
@@ -42,7 +44,7 @@ public class Administration extends TestBase {
             groups = {"acceptance","regression"},
             priority = 1302
     )
-    public void successResumeOrder() throws Exception {
+    public void successResumeOrder() throws Exception { // TODO делать новый заказ только если нет старых
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
         kraken.perform().order();
@@ -68,7 +70,7 @@ public class Administration extends TestBase {
             groups = {"acceptance","regression"},
             priority = 1303
     )
-    public void successCancelOrder() throws Exception {
+    public void successCancelOrder() throws Exception { // TODO объединить с successResumeOrder
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
         kraken.perform().order();
@@ -261,7 +263,7 @@ public class Administration extends TestBase {
     public void successGrantAndRevokeAdminPrivileges() throws Exception {
         SoftAssert softAssert = new SoftAssert();
         kraken.perform().quickLogout();
-        UserData testuser = kraken.generate().testAdminData();
+        UserData testuser = generate.testCredentials("admin");
         kraken.perform().registration(testuser);
 
         kraken.admin().grantAdminPrivileges(testuser);
@@ -284,7 +286,6 @@ public class Administration extends TestBase {
 
         kraken.perform().quickLogout();
 
-        kraken.cleanup().users(Config.testAdminsList);
         softAssert.assertAll();
     }
 
@@ -298,7 +299,7 @@ public class Administration extends TestBase {
 
         kraken.admin().searchUser(Users.superuser());
 
-        Assert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), Users.superuser().getLogin(),
+        Assert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), Users.superuser().getEmail(),
                 "Не работает поиск пользователя в админке");
     }
 
@@ -313,7 +314,7 @@ public class Administration extends TestBase {
         kraken.perform().order();
         String number = kraken.grab().currentOrderNumber();
 
-        kraken.admin().searchOrder(number);
+        kraken.admin().searchOrder(number); // TODO параметризовать заказ в конфиге и не ебстись с созданием
 
         // TODO добавить проверку на наличие заказов в результатах поиска
         Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
@@ -328,21 +329,19 @@ public class Administration extends TestBase {
     )
     public void successChangePassword() throws Exception {
         kraken.perform().quickLogout();
-        UserData testuser = kraken.generate().testUserData();
+        UserData testuser = generate.testCredentials("user");
         kraken.perform().registration(testuser);
 
         kraken.admin().editUser(testuser);
         kraken.admin().changePassword("654321");
         kraken.perform().quickLogout();
 
-        kraken.perform().authorisation(testuser.getLogin(), "654321");
+        kraken.perform().authorisation(testuser.getEmail(), "654321");
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не удалось авторизоваться пользователем после смены пароля через админку");
 
         kraken.perform().quickLogout();
-
-        kraken.cleanup().users();
     }
 
 
@@ -353,7 +352,7 @@ public class Administration extends TestBase {
     )
     public void successGrantB2BStatus() throws Exception {
         kraken.perform().quickLogout();
-        UserData testuser = kraken.generate().testUserData();
+        UserData testuser = generate.testCredentials("user");
         kraken.perform().registration(testuser);
 
         kraken.admin().editUser(testuser);
@@ -362,8 +361,6 @@ public class Administration extends TestBase {
 
         Assert.assertTrue(kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.b2bCheckbox()),
                 "Пользователю не проставляется флаг B2B");
-
-        kraken.cleanup().users();
     }
 
 
@@ -375,7 +372,7 @@ public class Administration extends TestBase {
     public void successSearchB2BUser() throws Exception {
         SoftAssert softAssert = new SoftAssert();
         kraken.perform().quickLogout();
-        UserData testuser = kraken.generate().testUserData();
+        UserData testuser = generate.testCredentials("user");
         kraken.perform().registration(testuser);
 
         kraken.admin().editUser(testuser);
@@ -383,13 +380,12 @@ public class Administration extends TestBase {
 
         kraken.admin().searchB2BUser(testuser);
 
-        softAssert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), testuser.getLogin(),
+        softAssert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), testuser.getEmail(),
                 "Не работает поиск B2B пользователя в админке");
 
         softAssert.assertTrue(kraken.detect().isElementDisplayed(Elements.Admin.Users.firstUserB2BLabel()),
                 "У пользователя не отображается B2B метка");
 
-        kraken.cleanup().users();
         softAssert.assertAll();
     }
 
@@ -401,7 +397,7 @@ public class Administration extends TestBase {
     )
     public void successSearchB2BOrder() throws Exception {
         kraken.perform().quickLogout();
-        UserData testuser = kraken.generate().testUserData();
+        UserData testuser = generate.testCredentials("user");
         kraken.perform().registration(testuser);
 
         kraken.admin().editUser(testuser);
@@ -417,7 +413,7 @@ public class Administration extends TestBase {
         Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
                 "Не работает поиск B2B заказа в админке");
 
-        kraken.cleanup().all();
+        kraken.cleanup().orders();
     }
 
 
@@ -429,7 +425,7 @@ public class Administration extends TestBase {
     public void successRevokeB2BStatus() throws Exception {
         SoftAssert softAssert = new SoftAssert();
         kraken.perform().quickLogout();
-        UserData testuser = kraken.generate().testUserData();
+        UserData testuser = generate.testCredentials("user");
         kraken.perform().registration(testuser);
 
         kraken.admin().editUser(testuser);
@@ -453,7 +449,7 @@ public class Administration extends TestBase {
         softAssert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
                 "Не работает поиск старого B2B заказа после снятия B2B флага у пользователя");
 
-        kraken.cleanup().all();
+        kraken.cleanup().orders();
         softAssert.assertAll();
     }
 

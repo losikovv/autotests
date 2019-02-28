@@ -26,5 +26,3 @@ gradle-app.setting
 web-tests/src/test/java/ru/instamart/autotests/application/Users.java
 web-tests/src/test/java/ru/instamart/autotests/application/Environments.java
 
-web-tests/src/test/java/ru/instamart/autotests/tests/Hydra.java
-

@@ -318,6 +318,14 @@ public class Elements {
                 return new Elements(null, By.name("passwordConfirmation"));
             }
 
+            static Elements agrrementCheckbox() {
+                return new Elements(null, By.className("checkbox__check"));
+            }
+
+            static Elements agrrementRulesLink() {
+                return new Elements(null, By.className("auth-modal__agreement"));
+            }
+
             static Elements forgotPasswordButton() {
                 return new Elements("Забыли пароль?", By.className("auth-modal__forgotten"));
             }
@@ -1564,7 +1572,7 @@ public class Elements {
 
             static Elements searchButton() {
                 return new Elements(null, By.xpath(
-                        "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/aside[1]/div[1]/form[1]/div[4]/button[1]"));
+                        "//*[@id=\"spree/user_search\"]/div[5]/button"));
             }
 
             static Elements b2bCheckbox() {

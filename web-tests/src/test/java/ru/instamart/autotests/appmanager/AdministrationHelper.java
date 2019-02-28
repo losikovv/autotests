@@ -78,7 +78,7 @@ public class AdministrationHelper extends HelperBase {
      * Найти пользователя по реквизитам из указанного объекта userData
      */
     public void searchUser(UserData userData) throws Exception {
-        searchUser(userData.getLogin());
+        searchUser(userData.getEmail());
     }
 
     /**
@@ -96,7 +96,7 @@ public class AdministrationHelper extends HelperBase {
      * Найти пользователя по реквизитам из указанного объекта userData
      */
     public void searchB2BUser(UserData userData) throws Exception {
-        searchB2BUser(userData.getLogin());
+        searchB2BUser(userData.getEmail());
     }
 
     /**
@@ -114,7 +114,7 @@ public class AdministrationHelper extends HelperBase {
      * Перейти в редактирование пользователя из указанного объекта userData
      */
     public void editUser(UserData userData) throws Exception {
-        editUser(userData.getLogin());
+        editUser(userData.getEmail());
     }
 
     /**
@@ -122,7 +122,13 @@ public class AdministrationHelper extends HelperBase {
      */
     public void editUser(String email) throws Exception {
         searchUser(email);
-        editFirstUserInList();
+        if(kraken.grab().text(Elements.Admin.Users.firstUserLogin()).equals(email.toLowerCase())) {
+            editFirstUserInList();
+        } else {
+            printMessage("! Найден не тот юзер !");
+            printMessage("Первый email в списке по локатору: " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
+            printMessage("А ищем: " + email);
+        }
     }
 
     /**
@@ -152,7 +158,7 @@ public class AdministrationHelper extends HelperBase {
      * Предоставить админские права пользователю из указанного объекта userData
      */
     public void grantAdminPrivileges(UserData userData) throws Exception {
-        editUser(userData.getLogin());
+        editUser(userData.getEmail());
         grantAdminPrivileges();
     }
 
@@ -166,7 +172,7 @@ public class AdministrationHelper extends HelperBase {
             kraken.perform().click(Elements.Admin.Users.UserPage.adminCheckbox());
             kraken.perform().waitingFor(1); // Ожидание проставления чекбокса админских прав
             kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
-            printMessage("Предоставлены административные права");
+            printMessage("Предоставлены права администратора");
         }
     }
 
@@ -174,7 +180,7 @@ public class AdministrationHelper extends HelperBase {
      * Отозвать админские права пользователю из указанного объекта userData
      */
     public void revokeAdminPrivileges(UserData userData) throws Exception {
-        editUser(userData.getLogin());
+        editUser(userData.getEmail());
         revokeAdminPrivileges();
     }
 

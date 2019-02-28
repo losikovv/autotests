@@ -1,8 +1,10 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
+import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.EnvironmentData;
 
 public class ShoppingHelper extends HelperBase {
@@ -72,8 +74,8 @@ public class ShoppingHelper extends HelperBase {
     /** Навестись на первый товар из каталога или списка любимых товаров */
     private void hoverToFirstItem() {
         if (kraken.detect().isElementPresent(Elements.Site.Favorites.product())) {
-            kraken.perform().hoverTo(Elements.Site.Favorites.product());
-        } else { kraken.perform().hoverTo(Elements.Site.Catalog.product()); }
+            kraken.perform().hoverOn(Elements.Site.Favorites.product());
+        } else { kraken.perform().hoverOn(Elements.Site.Catalog.product()); }
     }
 
     /** Добавить в корзину первый товар из каталога или списка любимых товаров */
@@ -205,21 +207,21 @@ public class ShoppingHelper extends HelperBase {
 
     /** Убрать товар из корзины */
     public void removeItemFromCart() {
-            kraken.perform().hoverTo(Elements.Site.Cart.item());
+            kraken.perform().hoverOn(Elements.Site.Cart.item());
             kraken.perform().click(Elements.Site.Cart.removeItemButton());
             kraken.perform().waitingFor(1); // Ожидание удаления продукта из корзины
     }
 
     /** Увеличить количество товара в корзине */
     public void increaseItemNumberInCart() {
-        kraken.perform().hoverTo(Elements.Site.Cart.item());
+        kraken.perform().hoverOn(Elements.Site.Cart.item());
         kraken.perform().click(Elements.Site.Cart.upArrowButton());
         kraken.perform().waitingFor(1); // Ожидание увеличения количества товара в корзине
     }
 
     /** Уменьшить количество товара в корзине */
     public void decreaseItemNumberInCart() {
-        kraken.perform().hoverTo(Elements.Site.Cart.item());
+        kraken.perform().hoverOn(Elements.Site.Cart.item());
         kraken.perform().click(Elements.Site.Cart.downArrowButton());
         kraken.perform().waitingFor(1); // Ожидание уменьшения количества товара в корзине
     }
@@ -242,10 +244,14 @@ public class ShoppingHelper extends HelperBase {
 
     /** Набрать корзину на указанную сумму */
     public void collectItems(int orderSum) {
+        if(!kraken.detect().isShippingAddressSet()) {
+            kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        }
         printMessage("Собираем корзину товаров на сумму " + orderSum + "\u20BD...");
         int cartTotal = kraken.grab().cartTotalRounded();
         if(cartTotal < orderSum) {
             closeCart();
+            if(!kraken.detect().isProductAvailable()) {kraken.get().page(Pages.Site.Retailers.metro());}
             openFirstItemCard();
             int itemPrice = kraken.grab().itemPriceRounded();
             // Формула расчета кол-ва товара

@@ -1,10 +1,11 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.application.Config;
+import org.openqa.selenium.WebDriverException;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.EnvironmentData;
+
+import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
 public class CleanupHelper extends HelperBase {
 
@@ -13,24 +14,25 @@ public class CleanupHelper extends HelperBase {
     }
 
     public void all() throws Exception {
-        printMessage("================= УБОРКА =================\n");
-        orders();
-        users();
+        printMessage("================== CLEANUP AFTER TESTRUN ==================\n");
+        try {
+            orders();
+        } catch (WebDriverException w) {
+            printMessage("❌ НЕ УДАЛОСЬ ПРОВЕСТИ ОТМЕНУ ВСЕХ ТЕСТОВЫХ ЗАКАЗОВ ❌\n");
+        }
+        try {
+            users();
+        } catch (WebDriverException w) {
+            printMessage("❌ НЕ УДАЛОСЬ ПРОВЕСТИ УДАЛЕНИЕ ВСЕХ ТЕСТОВЫХ ЮЗЕРОВ ❌\n");
+        }
     }
 
     /**
      * Удаление тестовых юзеров по дефолтному списку
      */
     public void users() throws Exception {
-        printMessage("Удаление тестовых пользователей...");
-        users(Config.testUsersList);
-    }
-
-    /**
-     * Delete all users on a given page in admin panel
-     */
-    public void users(Pages usersList) throws Exception {
-        users(Pages.getPagePath());
+        printMessage("✠✠✠ Удаление тестовых пользователей ✠✠✠");
+        users(session.userList);
     }
 
     /**
@@ -53,15 +55,8 @@ public class CleanupHelper extends HelperBase {
      * Отмена тестовых заказов по дефолтному списку
      */
     public void orders() throws Exception {
-        printMessage("Отмена тестовых заказов...");
-        orders(Config.testOrdersList);
-    }
-
-    /**
-     * Cancel all orders on a given page in admin panel
-     */
-    public void orders(Pages ordersList) throws Exception {
-        orders(Pages.getPagePath());
+        printMessage("✡✡✡ Отмена тестовых заказов ✡✡✡");
+        orders(session.orderList);
     }
 
     /**

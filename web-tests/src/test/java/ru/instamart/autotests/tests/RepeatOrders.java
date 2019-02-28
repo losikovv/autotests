@@ -7,6 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.testdata.generate;
 
 
 // Тесты повтора заказов
@@ -18,7 +19,7 @@ public class RepeatOrders extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void getAuth()throws Exception {
         kraken.get().page("metro");
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(Users.superadmin()); // TODO поменять на session.admin когда будут методы добавления новых банк.карт/юрлиц
     }
 
 
@@ -104,12 +105,12 @@ public class RepeatOrders extends TestBase {
 
     @Test(
             description = "Повтор крайнего заказа c новым номером телефона",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 1005
     )
     public void successRepeatLastOrderWithNewPhone() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        UserData userData = kraken.generate().testUserData();
+        UserData userData = generate.testCredentials("user");
 
         kraken.perform().quickLogout();
         kraken.perform().registration(userData);
@@ -125,7 +126,7 @@ public class RepeatOrders extends TestBase {
         kraken.perform().quickLogout();
         kraken.perform().authorisation(userData);
         kraken.perform().repeatLastOrder();
-        String phone = kraken.generate().digitString(10);
+        String phone = generate.digitString(10);
         kraken.perform().reachCheckout();
         kraken.checkout().complete(true, phone);
 

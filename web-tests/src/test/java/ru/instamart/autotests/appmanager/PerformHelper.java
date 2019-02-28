@@ -2,12 +2,10 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.application.Users;
+import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.testdata.generate;
 
 import static ru.instamart.autotests.application.Pages.getPagePath;
 
@@ -40,12 +38,12 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Навестисть на элемент */
-    public void hoverTo(Elements element) {
-        hoverTo(Elements.locator());
+    public void hoverOn(Elements element) {
+        hoverOn(Elements.locator());
     }
 
     /** Навестись на элемент по локатору */
-    public void hoverTo(By locator) {
+    public void hoverOn(By locator) {
         try {
             new Actions(driver).moveToElement(driver.findElement(locator)).perform();
         }
@@ -73,6 +71,21 @@ public class PerformHelper extends HelperBase {
                 driver.findElement(locator).clear();
                 driver.findElement(locator).sendKeys(text);
             }
+        }
+    }
+
+    /** Установить значение чекбокса в соответствии */
+    private void setCheckbox(Elements element, boolean value) {
+        setCheckbox(Elements.locator(), value);
+    }
+
+    private void setCheckbox(By locator, boolean value) {
+        if(value) {
+            if(!kraken.detect().isCheckboxSelected(locator))
+                click(locator);
+        } else {
+            if(kraken.detect().isCheckboxSelected(locator))
+                click(locator);
         }
     }
 
@@ -134,12 +147,12 @@ public class PerformHelper extends HelperBase {
 
     /** Зарегистрировать тестового юзера со сгенерированными реквизитами */
     public void registration() throws Exception {
-        registration(kraken.generate().testUserData());
+        registration(generate.testCredentials("user"));
     }
 
     /** Зарегистрировать нового юзера с реквизитами из переданного объекта UserData */
     public void registration(UserData userData) throws Exception {
-        registration(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
+        registration(userData.getName(), userData.getEmail(), userData.getPassword(), userData.getPassword());
     }
 
     /** Зарегистрировать нового юзера с указанными реквизитами */
@@ -154,41 +167,56 @@ public class PerformHelper extends HelperBase {
 
     /** Регистрационная последовательность с реквизитами из переданного объекта UserData */
     public void regSequence(UserData userData) throws Exception {
-        regSequence(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
+        regSequence(userData.getName(), userData.getEmail(), userData.getPassword(), userData.getPassword());
     }
 
     /** Регистрационная последовательность с указанными реквизитами */
     private void regSequence(String name, String email, String password, String passwordConfirmation) throws Exception {
         switchToRegistrationTab();
-        fillRegistrationForm(name, email, password, passwordConfirmation);
+        fillRegistrationForm(name, email, password, passwordConfirmation, true);
     }
 
 
     // ======= Авторизация / деавторизация =======
 
     /** Залогиниться юзером с указанной ролью */
-    public void loginAs(UserData user) throws Exception {
+    public void loginAs(UserData user) throws Exception { //TODO использовать только session-юзеров
         String startURL = kraken.grab().currentURL();
         if (!startURL.equals(fullBaseUrl) && kraken.detect().isUserAuthorised()) {
             kraken.get().profilePage();
-            if (!kraken.grab().text(Elements.Site.AccountPage.email()).equals(user.getLogin())) {
+            if (!kraken.grab().text(Elements.Site.AccountPage.email()).equals(user.getEmail())) {
                 quickLogout();
             }
             kraken.get().url(startURL);
         }
         authorisation(user);
+        if(kraken.detect().isAuthModalOpen()) {
+            printMessage(">>> Юзер " + user.getEmail() + " не найден, регистрируем\n");
+            // костыль для stage-окружений
+            if(kraken.environment.getServer().equals("staging")) {
+                kraken.get().baseUrl();
+            }
+            registration(user);
+            if(user.getRole().equals("admin")) {
+                quickLogout();
+                authorisation(Users.superadmin());
+                kraken.admin().grantAdminPrivileges(user);
+                quickLogout();
+                authorisation(user);
+            }
+        }
         printMessage("Уровень прав: " + user.getRole() + "\n");
     }
 
     /** Залогиниться с реквизитами из переданного объекта UserData */
     public void authorisation(UserData userData) throws Exception {
-        authorisation(userData.getLogin(), userData.getPassword());
+        authorisation(userData.getEmail(), userData.getPassword());
     }
 
     /** Залогиниться с указанными реквизитами */
     public void authorisation(String email, String password) throws Exception {
         if (!kraken.detect().isUserAuthorised()) {
-            printMessage("Авторизуемся...");
+            printMessage("Авторизуемся");
             openAuthModal();
             authSequence(email, password);
             sendForm();
@@ -200,7 +228,7 @@ public class PerformHelper extends HelperBase {
 
     /** Авторизационная последовательность с реквизитами из переданного объекта UserData */
     public void authSequence(UserData role) throws Exception {
-        authSequence(role.getLogin(), role.getPassword());
+        authSequence(role.getEmail(), role.getPassword());
     }
 
     /** Авторизационная последовательность с указанными реквизитами */
@@ -236,7 +264,7 @@ public class PerformHelper extends HelperBase {
 
     /** Авторизоваться в гугл почте с определённой ролью */
     public void authGmail(UserData role) {
-        authGmail(Users.userGmail.getCredentials().getLogin(), Users.userGmail.getCredentials().getPassword());
+        authGmail(Users.userGmail().getEmail(), Users.userGmail().getPassword());
     }
 
     /** Авторизоваться в гугл почте */
@@ -290,12 +318,13 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Заполнить поля формы регистрации */
-    private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation) {
+    private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation, boolean agreementConfirmation) {
         printMessage("> заполняем поля формы регистрации");
         fillField(Elements.Site.AuthModal.nameField(), name);
         fillField(Elements.Site.AuthModal.emailField(), email);
         fillField(Elements.Site.AuthModal.passwordField(), password);
         fillField(Elements.Site.AuthModal.passwordConfirmationField(), passwordConfirmation);
+        setCheckbox(Elements.Site.AuthModal.agrrementCheckbox(), agreementConfirmation);
     }
 
     /** Отправить форму */
@@ -316,7 +345,7 @@ public class PerformHelper extends HelperBase {
         try {
             printMessage("> переключаемся на вкладку авторизации");
             click(Elements.Site.AuthModal.authorisationTab());
-        } catch (ElementNotInteractableException e) { // TODO попробовать перенести кетч в методы click в HelperBase
+        } catch (ElementNotInteractableException e) {
             printMessage(" > что-то пошло не так, пробуем ещё раз...");
             click(Elements.Site.AuthModal.authorisationTab());
         }
@@ -348,7 +377,7 @@ public class PerformHelper extends HelperBase {
 
     /** Запросить восстановление пароля для указанной роли*/
     public void recoverPasswordAs(UserData role) throws Exception {
-        recoverPassword(role.getLogin());
+        recoverPassword(role.getEmail());
     }
 
     /** Придумать новый пароль для восстановления пароля */
@@ -373,9 +402,14 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Повторить крайний заказ */
-    public void repeatLastOrder(){
+    public void repeatLastOrder() {
         printMessage("Повторяем крайний заказ...\n");
         kraken.get().url(baseUrl + "user/orders");
+        if(!kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton())) {
+            kraken.get().page("metro");
+            order();
+            cancelLastOrder();
+        }
         if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
             click(Elements.Site.OrdersPage.lastOrderActionButton(2));
         } else {
@@ -386,7 +420,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Отменить крайний заказ */
-    public void cancelLastOrder (){
+    public void cancelLastOrder() {
         printMessage("Отменяем крайний заказ...");
         kraken.get().url(baseUrl + "user/orders");
         if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
@@ -437,18 +471,16 @@ public class PerformHelper extends HelperBase {
     public void reachAdmin(String path) throws Exception{
         kraken.get().adminPage("");
         if (kraken.detect().isOnSite()) {
-            kraken.get().baseUrl();
-            if (kraken.detect().isUserAuthorised()) {
-                quickLogout();
-            }
-            loginAs(Users.superadmin());
+            quickLogout();
+            authorisation(Users.superadmin());
+            //kraken.get().adminPage(""); // TODO Костыль, протестить
         }
         kraken.get().adminPage(path);
     }
 
     public void reachSeoCatalog() {
-        kraken.perform().quickLogout();
-        kraken.perform().deleteAllCookies();
+        quickLogout();
+        deleteAllCookies();
         kraken.get().seoCatalogPage();
     }
 }

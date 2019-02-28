@@ -21,7 +21,7 @@ public class SocialHelper extends HelperBase {
 
     /** Авторизироваться/зарегистрироваться через ВК пользователем */
     public void submitAuthVK(UserData role) {
-        submitAuthVK(role.getLogin(), role.getPassword());
+        submitAuthVK(role.getEmail(), role.getPassword());
     }
 
     /** Авторизироваться/зарегистрироваться через ВК с указанием данных */
@@ -42,7 +42,7 @@ public class SocialHelper extends HelperBase {
 
     /** Запретить Инстамарту доступ к аккаунту пользователя ВК */
     public void denyAccessVK(UserData role) {
-        denyAccessVK(role.getLogin(), role.getPassword());
+        denyAccessVK(role.getEmail(), role.getPassword());
     }
 
     /** Запретить Инстамарту доступ к аккаунту ВК с указанием данных */
@@ -63,7 +63,7 @@ public class SocialHelper extends HelperBase {
 
     /** Удалить пользователя ВК по умолчанию */
     public void deleteUserVK() throws Exception {
-        kraken.admin().deleteFirstFoundUser(Users.userVK().getLogin());
+        kraken.admin().deleteFirstFoundUser(Users.userVK().getEmail());
     }
 
     /** Разрешить Инстамарту доступ к аккаунту ВК */
@@ -97,7 +97,7 @@ public class SocialHelper extends HelperBase {
 
     /** Авторизироваться через Facebook пользователем */
     public void submitAuthFB(UserData role) {
-        submitAuthFB(role.getLogin(), role.getPassword());
+        submitAuthFB(role.getEmail(), role.getPassword());
     }
 
     /** Авторизироваться через Facebook с указанием данных */
@@ -119,7 +119,7 @@ public class SocialHelper extends HelperBase {
 
     /** Запретить Инстамарту доступ к аккаунту пользователя FB  */
     public void denyAccessFB(UserData role) {
-        denyAccessFB(role.getLogin(), role.getPassword());
+        denyAccessFB(role.getEmail(), role.getPassword());
     }
 
     /** Запретить Инстамарту доступ к аккаунту FB с указанием данных */
@@ -142,7 +142,7 @@ public class SocialHelper extends HelperBase {
 
     /** Удалить пользователя FB по умолчанию */
     public void deleteUserFB() throws Exception {
-        kraken.admin().deleteFirstFoundUser(Users.userFB().getLogin());
+        kraken.admin().deleteFirstFoundUser(Users.userFB().getEmail());
     }
 
     /** Разрешить Инстамарту доступ к аккаунту FB */

@@ -8,6 +8,8 @@ import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Users;
 
+import static ru.instamart.autotests.appmanager.ApplicationManager.session;
+
 
 // Тесты самопроверки кракена
 
@@ -73,7 +75,7 @@ public class SelfCheck extends TestBase {
         kraken.get().page("metro");
         Assert.assertFalse(kraken.detect().isUserAuthorised());
 
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(session.admin);
         Assert.assertTrue(kraken.detect().isUserAuthorised());
 
         kraken.perform().logout();
@@ -90,7 +92,7 @@ public class SelfCheck extends TestBase {
     public void detectAccountMenu() throws Exception {
 
         kraken.get().baseUrl();
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(session.admin);
 
         kraken.perform().openAccountMenu();
         Assert.assertTrue(kraken.detect().isAccountMenuOpen());
@@ -121,7 +123,7 @@ public class SelfCheck extends TestBase {
         kraken.get().page(Pages.Site.Static.faq());
         Assert.assertTrue(kraken.detect().isOnSite());
 
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(session.admin);
         kraken.get().page(Pages.Admin.retailers());
         Assert.assertFalse(kraken.detect().isOnSite());
     }
@@ -135,7 +137,7 @@ public class SelfCheck extends TestBase {
         kraken.get().page(Pages.Site.Static.contacts());
         Assert.assertFalse(kraken.detect().isInAdmin());
 
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(session.admin);
         kraken.get().page(Pages.Admin.settings());
         Assert.assertTrue(kraken.detect().isInAdmin());
     }

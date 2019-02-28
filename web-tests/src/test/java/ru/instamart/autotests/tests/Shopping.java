@@ -8,6 +8,9 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.testdata.generate;
+
+import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
 
 // Тесты работы с магазином
@@ -39,7 +42,7 @@ public class Shopping extends TestBase{
             priority = 602
     )
     public void successOperateEmptyCart() throws Exception, AssertionError {
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(session.admin);
         kraken.drop().cart();
         kraken.shopping().openCart();
 
@@ -65,7 +68,7 @@ public class Shopping extends TestBase{
             priority = 603
     )
     public void noAccessToCheckoutWithEmptyCart() throws Exception {
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(session.admin);
         kraken.drop().cart();
         assertPageIsUnavailable(Pages.Site.checkout());
     }
@@ -99,7 +102,7 @@ public class Shopping extends TestBase{
             priority = 605
     )
     public void successAddItemToCartFromItemCard()throws Exception, AssertionError {
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(session.user);
         kraken.drop().cart();
 
         kraken.shopping().openFirstItemCard();
@@ -118,7 +121,7 @@ public class Shopping extends TestBase{
             priority = 606
     )
     public void successAddItemToCartFromCatalog() throws Exception {
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(session.user);
         kraken.drop().cart();
 
         kraken.shopping().hitFirstItemPlusButton();
@@ -136,7 +139,7 @@ public class Shopping extends TestBase{
             priority = 607
     )
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() throws Exception {
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(session.user);
 
         if (kraken.detect().isCheckoutButtonActive()) {
             kraken.drop().cart();
@@ -160,7 +163,7 @@ public class Shopping extends TestBase{
             priority = 608
     )
     public void successCollectItemsForMinOrder() throws Exception, AssertionError {
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(session.user);
         kraken.drop().cart();
 
         kraken.shopping().collectItems();
@@ -176,7 +179,7 @@ public class Shopping extends TestBase{
             priority = 609
     )
     public void successAccessCheckoutWithCartAboveMinimalOrderSum() throws Exception {
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(session.user);
         kraken.shopping().collectItems();
 
         assertPageIsAvailable(Pages.Site.checkout());
@@ -189,7 +192,7 @@ public class Shopping extends TestBase{
             priority = 610
     )
     public void successProceedFromCartToCheckout() throws Exception, AssertionError {
-        kraken.perform().loginAs(Users.superadmin());
+        kraken.perform().loginAs(session.user);
         kraken.shopping().collectItems();
 
         kraken.shopping().proceedToCheckout();
@@ -208,7 +211,7 @@ public class Shopping extends TestBase{
         SoftAssert softAssert = new SoftAssert();
 
         //TODO вынести в dataProvider
-        final UserData testuser = kraken.generate().testUserData();
+        final UserData testuser = generate.testCredentials("user");
         kraken.get().baseUrl();
         kraken.perform().registration(testuser);
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
@@ -273,6 +276,7 @@ public class Shopping extends TestBase{
     )
     public void successChangeItemNumberInCart() throws Exception {
         SoftAssert softAssert = new SoftAssert();
+        kraken.perform().loginAs(session.user);
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         kraken.shopping().addFirstItemOnPageToCart();
         kraken.shopping().openCart();

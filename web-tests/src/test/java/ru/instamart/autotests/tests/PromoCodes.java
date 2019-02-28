@@ -118,7 +118,7 @@ public class PromoCodes extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void postconditions() throws Exception {
-        kraken.cleanup().all();
+        kraken.cleanup().orders();
     }
 }
 
