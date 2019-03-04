@@ -4,10 +4,10 @@ import ru.instamart.autotests.models.*;
 
 public class Config {
 
-    public final static EnvironmentData environment = Environments.instamart_production();
+    public final static EnvironmentData environment = Environments.instamart_staging();
 
     public final static int basicTimeout = 2;
-    public final static boolean multiSessionMode = false;
+    public final static boolean multiSessionMode = true;
     public final static boolean fullScreenMode = false;
     public final static boolean doCleanupAfterTestRun = true;
 

@@ -32,9 +32,8 @@ public class DropHelper extends HelperBase {
     public void favorites() {
         if (!kraken.detect().isFavoritesEmpty()) {
             kraken.shopping().hitFirstItemDeleteFromFavoritesButton();
+            kraken.perform().refresh();
             favorites();
-        } else {
-            printMessage("✓ Все любимые товары удалены\n");
         }
     }
 }

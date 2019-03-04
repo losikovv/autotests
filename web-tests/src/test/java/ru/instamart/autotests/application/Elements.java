@@ -642,8 +642,7 @@ public class Elements {
             }
 
             static Elements placeholder() {
-                return new Elements(null, By.xpath("/html/body/div[3]/div/div/div/" +
-                        "div/div[2]/div/div[2]/div"));
+                return new Elements(null, By.className("empty-favorites"));
             }
 
             static Elements allItemsFilterButton() {

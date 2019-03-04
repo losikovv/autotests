@@ -401,18 +401,14 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить наличие пустого списка любимых товаров */
     public boolean isFavoritesEmpty() {
-        //debug
-        //kraken.perform().printMessage("current url:" + kraken.grab().currentURL());
-        //kraken.perform().printMessage("target url:" + (fullBaseUrl + Pages.Site.Profile.favorites().getPagePath()));
         if(!kraken.grab().currentURL().equals(fullBaseUrl + Pages.Site.Profile.favorites().getPagePath())) {
             kraken.get().favoritesPage();
         }
-        if(kraken.detect().isElementPresent(Elements.Site.Favorites.placeholder()) &&
-                !kraken.detect().isElementPresent(Elements.Site.Favorites.product())){
+        if(kraken.detect().isElementPresent(Elements.Site.Favorites.placeholder())){
            printMessage("Нет любимых товаров\n");
            return true;
         } else {
-            printMessage("✓ Есть любимые товары\n");
+            printMessage("Есть любимые товары\n");
             return false;
         }
     }
