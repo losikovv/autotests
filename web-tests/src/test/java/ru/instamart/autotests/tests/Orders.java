@@ -118,10 +118,28 @@ public class Orders extends TestBase {
     }
 
 
+    @Test(
+            description = "Тестовый заказ в Нижний Новгород",
+            groups = {"regression"},
+            priority = 905
+    )
+    public void successOrderInMetroNizhnyNovgorod(){
+        kraken.get().page("metro");
+        kraken.shipAddress().change(Addresses.NizhnyNovgorod.defaultAddress());
+        kraken.shopping().collectItems();
+        kraken.shopping().proceedToCheckout();
+
+        kraken.checkout().complete();
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не удалось оформить заказ в Метро Нижний Новгород\n");
+    }
+
+
     @Test( // TODO перенести проверку добавления карты Вкусвилл в тесты чекаута
             description = "Тестовый заказ во Вкусвилл Москва с применением бонусной программы",
             groups = {"regression"},
-            priority = 905
+            priority = 906
     )
     public void successOrderInVkusvillMoscow(){
         kraken.get().page("vkusvill");
@@ -147,7 +165,7 @@ public class Orders extends TestBase {
     @Test(
             description = "Тестовый заказ в Ашан Москва",
             groups = {"regression"},
-            priority = 906
+            priority = 907
     )
     public void successOrderInAuchanMoscow(){
         kraken.get().page("auchan");
@@ -165,7 +183,7 @@ public class Orders extends TestBase {
     @Test(
             description = "Тестовый заказ в Ленту Москва",
             groups = {"regression"},
-            priority = 907
+            priority = 908
     )
     public void successOrderInLentaMoscow(){
         kraken.get().page("lenta");

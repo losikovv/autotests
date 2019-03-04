@@ -59,5 +59,17 @@ public abstract class Addresses {
 
     }
 
+    public static class NizhnyNovgorod extends Addresses {
+
+        NizhnyNovgorod(String address) {
+            super(address);
+        }
+
+        public static String defaultAddress() {
+            return addressString = "Нижний Новгород, тер Гск Кузнечиха, д 1";
+        }
+
+    }
+
 }
 
