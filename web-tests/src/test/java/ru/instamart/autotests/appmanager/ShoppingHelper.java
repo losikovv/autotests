@@ -238,6 +238,7 @@ public class ShoppingHelper extends HelperBase {
     /** Набрать корзину на минимальную сумму, достаточную для оформления заказа */
     public void collectItems() {
         if(!kraken.detect().isCheckoutButtonActive()) {
+            closeCart();
             collectItems(Config.minOrderSum);
         } else { printMessage("Пропускаем набор товаров, в корзине достаточно товаров для оформления минимального заказа");}
     }
