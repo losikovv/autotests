@@ -97,7 +97,9 @@ public class CheckoutHelper extends HelperBase {
         if(contactsDetails.getName() != null) specifyDetail("order[ship_address_attributes][firstname]", contactsDetails.getName());
         if(contactsDetails.getSurname() != null) specifyDetail("order[ship_address_attributes][lastname]", contactsDetails.getSurname());
         if(contactsDetails.getEmail() != null) specifyDetail("order[email]", contactsDetails.getEmail());
-        if(contactsDetails.isSendEmail()) specifyDetail("order[send_emails]", contactsDetails.isSendEmail());
+        // TODO сделать проставление галки согласия на коммерческие коммуникации
+        //if(contactsDetails.isSendEmail()) specifyDetail("order[send_emails]", contactsDetails.isSendEmail()); // TODO переделать
+
 
         if(contactsDetails.isNewPhone()) {
             deletePhoneNumbers();

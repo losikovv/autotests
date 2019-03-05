@@ -7,9 +7,11 @@ public class Config {
     public final static EnvironmentData environment = Environments.instamart_staging();
 
     public final static int basicTimeout = 2;
-    public final static boolean multiSessionMode = true;
+    public final static boolean multiSessionMode = false;
     public final static boolean fullScreenMode = false;
     public final static boolean doCleanupAfterTestRun = true;
+
+    public final static boolean debugMode = false;
 
     public final static String companyName = "instamart";
     public final static String companyDomain = companyName + ".ru";

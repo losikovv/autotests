@@ -7,6 +7,7 @@ import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
+import static ru.instamart.autotests.application.Config.multiSessionMode;
 import static ru.instamart.autotests.application.Pages.getPagePath;
 
 public class PerformHelper extends HelperBase {
@@ -184,13 +185,15 @@ public class PerformHelper extends HelperBase {
         String startURL = kraken.grab().currentURL();
         if (!startURL.equals(fullBaseUrl) && kraken.detect().isUserAuthorised()) {
             kraken.get().profilePage();
-            if (!kraken.grab().text(Elements.Site.AccountPage.email()).equals(user.getEmail())) {
+            String currentUserEmail = kraken.grab().text(Elements.Site.AccountPage.email());
+            printMessage("Юзер: " + currentUserEmail);
+            if(currentUserEmail == null || !currentUserEmail.equals(user.getEmail())) {
                 quickLogout();
             }
             kraken.get().url(startURL);
         }
         authorisation(user);
-        if(kraken.detect().isAuthModalOpen()) {
+        if(multiSessionMode && kraken.detect().isAuthModalOpen()) {
             printMessage(">>> Юзер " + user.getEmail() + " не найден, регистрируем\n");
             // костыль для stage-окружений
             if(kraken.environment.getServer().equals("staging")) {

@@ -134,7 +134,7 @@ public class ApplicationManager {
         if(multiSessionMode) {
             System.out.println("\nTEST RUN: " + session.id);
         } else {
-            System.out.println("\nTEST RUN: " + session.id + " (SOLO)");
+            System.out.println("\nTEST RUN: " + session.id + " (SOLO MODE)");
         }
 
         System.out.println("ADMIN: " + session.admin.getEmail() + " / " + session.admin.getPassword());

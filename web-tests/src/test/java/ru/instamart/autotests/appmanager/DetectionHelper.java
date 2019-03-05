@@ -10,6 +10,8 @@ import ru.instamart.autotests.models.BonusProgramData;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.LoyaltyProgramData;
 
+import static ru.instamart.autotests.application.Config.debugMode;
+
 public class DetectionHelper extends HelperBase {
 
     DetectionHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
@@ -131,10 +133,10 @@ public class DetectionHelper extends HelperBase {
      */
     public boolean isUserErrorShown(Elements element) {
         if (isTextShown(element)) {
-            printMessage("Показана пользовательская ошибка: " + kraken.grab().text(element) + "\n");
+            if(debugMode) { printMessage("Показана пользовательская ошибка: " + kraken.grab().text(element) + "\n"); }
             return true;
         } else {
-            printMessage("Не показана пользовательская ошибка (" + Elements.locator() + ")\n");
+            if(debugMode) {  printMessage("Не показана пользовательская ошибка (" + Elements.locator() + ")\n"); }
             return false;
         }
     }
@@ -169,7 +171,7 @@ public class DetectionHelper extends HelperBase {
      */
     public boolean is404() {
         if (element(Elements.Page404.title())) {
-            kraken.perform().printMessage("⚠ " + kraken.grab().currentURL()+ " - 404\n");
+            if(debugMode) { kraken.perform().printMessage("⚠ " + kraken.grab().currentURL()+ " - 404\n"); }
             return true;
         } else return false;
     }
@@ -179,7 +181,7 @@ public class DetectionHelper extends HelperBase {
      */
     public boolean is500() {
         if (element(Elements.Page500.placeholder())) {
-            kraken.perform().printMessage("⚠ " + kraken.grab().currentURL()+ " - 500\n");
+            if(debugMode) { kraken.perform().printMessage("⚠ " + kraken.grab().currentURL()+ " - 500\n"); }
             return true;
         } else return false;
     }
@@ -225,7 +227,7 @@ public class DetectionHelper extends HelperBase {
      */
     public boolean isAddressOutOfZone() {
         if (element(Elements.Site.AddressModal.titleOutOfZone())) {
-            printMessage("Адрес не в зоне доставки");
+            if(debugMode) { printMessage("Адрес не в зоне доставки"); }
             return true;
         } else {
             return false;
@@ -253,7 +255,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить пустой результат поиска */
     public boolean isSearchResultsEmpty() {
         if(isElementPresent(Elements.Site.Catalog.emptySearchPlaceholder())){
-            printMessage("Пустой результат поиска");
+            if(debugMode) { printMessage("Пустой результат поиска"); }
             return true;
         } else return false;
     }
@@ -268,12 +270,12 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить авторизован ли пользователь */
     public boolean isUserAuthorised() {
-        printMessage("Проверяем авторизованность...");
+        if(debugMode) {  printMessage("Проверяем авторизованность..."); }
         if (element(Elements.Site.Header.profileButton()) || isInAdmin()) {
-            printMessage("✓ Авторизован\n");
+            if(debugMode) { printMessage("✓ Авторизован\n"); }
             return true;
         } else {
-            printMessage("Не авторизован\n");
+            if(debugMode) { printMessage("Не авторизован\n"); }
             return false;
         }
     }
@@ -284,10 +286,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить отправлена ли форма восстановления пароля */
     public boolean isRecoveryRequested(){
         if (kraken.detect().element(Elements.Site.AuthModal.successRecoveryText())) {
-            printMessage("Запрошено восстановление пароля");
+            if(debugMode) { printMessage("Запрошено восстановление пароля"); }
             return true;
         } else {
-            printMessage("Запрос восстановления пароля не отправлен");
+            if(debugMode) { printMessage("Запрос восстановления пароля не отправлен"); }
             return false;
         }
     }
@@ -300,19 +302,19 @@ public class DetectionHelper extends HelperBase {
         Elements.Site.OrderDetailsPage.documentation(position);
         String docName = kraken.grab().text(Elements.locator());
         if (docName != null) {
-            printMessage("Скачиваем: " + docName);
+            if(debugMode) { printMessage("Скачиваем: " + docName); }
             return docName;
         } else {
-            printMessage("Документ отсутствует\n");
+            if(debugMode) { printMessage("Документ отсутствует\n"); }
             return null;
         }
     }
 
     /** Определить активен ли заказ на странице деталей */
     public boolean isOrderActive() {
-        printMessage("Проверяем страницу заказа...");
+        if(debugMode) {  printMessage("Проверяем страницу заказа..."); }
         if (isElementDisplayed(Elements.Site.OrderDetailsPage.activeOrderAttribute()) && !isOrderCanceled()) {
-            printMessage("✓ Заказ активен\n");
+            if(debugMode) {  printMessage("✓ Заказ активен\n"); }
             return true;
         } else return false;
     }
@@ -332,10 +334,10 @@ public class DetectionHelper extends HelperBase {
     /** Определяем выбран ли адрес доставки */
     public boolean isShippingAddressSet() {
         if (isElementPresent((Elements.Site.Header.currentShipAddress()))) {
-            printMessage("Выбран адрес доставки: " + kraken.grab().currentShipAddress());
+            if(debugMode) { printMessage("Выбран адрес доставки: " + kraken.grab().currentShipAddress()); }
             return true;
         } else {
-            printMessage("Адрес доставки не выбран\n");
+            if(debugMode) { printMessage("Адрес доставки не выбран\n"); }
             return false;
         }
     }
@@ -372,10 +374,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить есть ли товары на странице */
     public boolean isProductAvailable() {
         if(kraken.detect().isElementPresent(Elements.Site.Catalog.product())){
-            printMessage("✓ Есть доступные товары");
+            if(debugMode) { printMessage("✓ Есть доступные товары"); }
             return true;
         } else {
-            printMessage("Нет доступных товаров!");
+            if(debugMode) { printMessage("Нет доступных товаров!"); }
             return false;
         }
     }
@@ -386,7 +388,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить открыта ли карточка товара */
     public boolean isItemCardOpen() {
         if(kraken.detect().isElementPresent(Elements.Site.ItemCard.popup())){
-            printMessage("> открыта карточка товара " + kraken.grab().currentURL());
+            if(debugMode) { printMessage("> открыта карточка товара " + kraken.grab().currentURL()); }
             return true;
         } else return false;
     }
@@ -405,10 +407,10 @@ public class DetectionHelper extends HelperBase {
             kraken.get().favoritesPage();
         }
         if(kraken.detect().isElementPresent(Elements.Site.Favorites.placeholder())){
-           printMessage("Нет любимых товаров\n");
+            if(debugMode) { printMessage("Нет любимых товаров\n"); }
            return true;
         } else {
-            printMessage("Есть любимые товары\n");
+            if(debugMode) { printMessage("Есть любимые товары\n"); }
             return false;
         }
     }
@@ -474,10 +476,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить добавлен ли промокод в чекауте */
     public boolean isPromocodeApplied() {
         if (kraken.detect().element(Elements.Site.Checkout.appliedPromocodeAttribute())) {
-            printMessage("✓ Промокод применён\n");
+            if(debugMode) { printMessage("✓ Промокод применён\n"); }
             return true;
         } else {
-            printMessage("Промокод не применён\n");
+            if(debugMode) { printMessage("Промокод не применён\n"); }
             return false;
         }
     }
@@ -512,10 +514,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить открыт ли виджет Jivosite */
     public boolean isJivositeOpen() {
         if (isElementDisplayed(Elements.Site.Jivosite.sendMessageButton())){
-            printMessage("Чат Jivosite развернут\n");
+            if(debugMode) { printMessage("Чат Jivosite развернут\n"); }
             return true;
         } else {
-            printMessage("Чат Jivosite свернут\n");
+            if(debugMode) { printMessage("Чат Jivosite свернут\n"); }
             return false;
         }
     }
@@ -528,10 +530,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить отправлено ли сообщение в Jivosite */
     public boolean isJivositeMessageSent() {
         if (isElementDisplayed(Elements.Site.Jivosite.sentMessage())){
-            printMessage("Сообщение отправлено");
+            if(debugMode) {  printMessage("Сообщение отправлено"); }
             return true;
         } else {
-            printMessage("Сообщение не отправлено");
+            if(debugMode) { printMessage("Сообщение не отправлено"); }
             return false;
         }
     }
@@ -540,10 +542,10 @@ public class DetectionHelper extends HelperBase {
     public boolean isJivositeWidgetAvailable () {
         kraken.perform().waitingFor(2); // Ожидание подгрузки виджета Jivosite
         if (isElementDisplayed(Elements.Site.Jivosite.widget())){
-            printMessage("Виджет Jivosite доступен\n");
+            if(debugMode) { printMessage("Виджет Jivosite доступен\n"); }
             return true;
         } else {
-            printMessage("Виджет Jivosite недоступен\n");
+            if(debugMode) { printMessage("Виджет Jivosite недоступен\n"); }
             return false;
         }
     }
