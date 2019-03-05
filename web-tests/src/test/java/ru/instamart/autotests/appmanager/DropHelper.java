@@ -21,6 +21,7 @@ public class DropHelper extends HelperBase {
 
     /** Очистить корзину, удалив все товары */
     public void cart() {
+        //if(!kraken.detect().isOnSite()) { kraken.get().baseUrl();}
         if (!kraken.detect().isCartEmpty()) {
             kraken.shopping().removeItemFromCart();
             cart();

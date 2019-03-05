@@ -15,15 +15,17 @@ public class CleanupHelper extends HelperBase {
 
     public void all() throws Exception {
         printMessage("================== CLEANUP AFTER TESTRUN ==================\n");
-        try {
-            orders();
-        } catch (WebDriverException w) {
-            printMessage("❌ НЕ УДАЛОСЬ ПРОВЕСТИ ОТМЕНУ ВСЕХ ТЕСТОВЫХ ЗАКАЗОВ ❌\n");
-        }
-        try {
-            users();
-        } catch (WebDriverException w) {
-            printMessage("❌ НЕ УДАЛОСЬ ПРОВЕСТИ УДАЛЕНИЕ ВСЕХ ТЕСТОВЫХ ЮЗЕРОВ ❌\n");
+        if(!kraken.environment.getTenant().equalsIgnoreCase("metro")) { // TODO убрать проверку
+            try {
+                orders();
+            } catch (WebDriverException w) {
+                printMessage("❌ НЕ УДАЛОСЬ ПРОВЕСТИ ОТМЕНУ ВСЕХ ТЕСТОВЫХ ЗАКАЗОВ ❌\n");
+            }
+            try {
+                users();
+            } catch (WebDriverException w) {
+                printMessage("❌ НЕ УДАЛОСЬ ПРОВЕСТИ УДАЛЕНИЕ ВСЕХ ТЕСТОВЫХ ЮЗЕРОВ ❌\n");
+            }
         }
     }
 

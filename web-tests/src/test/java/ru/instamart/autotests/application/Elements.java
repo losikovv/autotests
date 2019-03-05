@@ -484,6 +484,10 @@ public class Elements {
                 return new Elements("Нет доступных магазинов по выбранному адресу",
                         By.className("store-selector__empty"));
             }
+
+            static Elements storeSelectorControl() {
+                return new Elements(null, By.xpath("//*[@id=\"wrap\"]/div[1]/div/div/header/div[1]/div[3]/div/div[1]/div[2]"));
+            }
         }
 
 
@@ -996,6 +1000,11 @@ public class Elements {
                             By.className("rc-modal__close"));
                 }
 
+            }
+
+            /**Программы лояльности*/
+            static Elements loyaltyPrograms(){
+                return new Elements(null, By.xpath("/html/body/div[3]/div/form/div/aside/div/div[3]"));
             }
 
         }
@@ -1671,6 +1680,16 @@ public class Elements {
             static Elements loginButton() { return new Elements(null, By.name("login")); }
 
         }
+    }
+
+    /**
+     * Tenant
+     */
+    public interface Tenant {
+
+        static Elements tenantFooter() { return new Elements(null, By.xpath("//*[@id=\"wrap\"]/div[5]/footer"));}
+
+
     }
 
 }

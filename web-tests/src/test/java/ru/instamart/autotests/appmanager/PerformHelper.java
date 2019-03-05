@@ -49,10 +49,11 @@ public class PerformHelper extends HelperBase {
         try {
             new Actions(driver).moveToElement(driver.findElement(locator)).perform();
         }
-        catch (NoSuchElementException n) {
+        /*catch (NoSuchElementException n) {
             printMessage("Невозможно навестись на элемент <" + locator
                     + ">\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
         }
+        */
         catch (ElementNotVisibleException v) {
             printMessage("Невозможно навестись на элемент <" + locator
                     + ">\nЭлемент не отображается на " + kraken.grab().currentURL() + "\n");

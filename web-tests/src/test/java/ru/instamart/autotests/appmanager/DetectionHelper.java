@@ -360,6 +360,17 @@ public class DetectionHelper extends HelperBase {
         return kraken.detect().isElementDisplayed(Elements.Site.StoreSelector.placeholder());
     }
 
+    /**Определить доступен ли селектор магазинов*/
+    public boolean isStoreSelectorAvailaible(){
+        if (kraken.detect().isElementDisplayed(Elements.Site.StoreSelector.storeSelectorControl())){
+            printMessage("Селектор магазинов доступен");
+            return true;
+        } else {
+            printMessage("Селектор магазинов недоступен");
+            return false;
+        }
+    }
+
 
     //========= Шторка каталога ==========
 
@@ -508,6 +519,11 @@ public class DetectionHelper extends HelperBase {
         return isElementEnabled(By.xpath("//aside/div/div[1]/div/button")); // TODO вынести в Elements
     }
 
+    //**Определить доступны ли программы лояльности в чекауте*/
+    public boolean isLoyaltyAvailaible(){
+    return isElementDisplayed(Elements.Site.Checkout.loyaltyPrograms());
+    }
+
 
     // ======= Jivosite =======
 
@@ -546,6 +562,31 @@ public class DetectionHelper extends HelperBase {
             return true;
         } else {
             if(debugMode) { printMessage("Виджет Jivosite недоступен\n"); }
+            return false;
+        }
+    }
+
+    // ======= Tenant =======
+
+    /** Определить доступны ли Контакты в меню профиля*/
+    public boolean isContactsOnProfileAvailaible() {
+        kraken.perform().click(Elements.Site.Header.profileButton());
+        if (isElementDisplayed(Elements.Site.AccountMenu.contactsLink())){
+            printMessage("Контакты в меню профиля доступны\n");
+            return true;
+        } else {
+            printMessage("Контакты недоступны в меню профиля\n");
+            return false;
+        }
+    }
+
+    //** Определить доступен ли тенант-футер*/
+    public boolean isTenantFooterAvailable() {
+        if (isElementDisplayed(Elements.Tenant.tenantFooter())){
+            printMessage("Тенант-футер доступен\n");
+            return true;
+        } else {
+            printMessage("Тенант-футер недоступен\n");
             return false;
         }
     }

@@ -72,7 +72,7 @@ public class BrowseHelper extends HelperBase {
      * Перейти на страницу в админке
      */
     public void adminPage(String path) {
-        url(baseUrl + "admin/" + path);
+        url(baseUrl + "admin/" + path); //TODO адаптировать под Метро: идти всегда в админку инстамарта
     }
 
     /**
@@ -88,5 +88,19 @@ public class BrowseHelper extends HelperBase {
     public void seoCatalogPage() {
         page(Pages.Site.Catalog.seo());
         kraken.perform().waitingFor(1); // Ожидание загрузки SEO-каталога
+    }
+
+    /**
+     * Перейти на страницу заказов юзера
+     */
+    public void ordersPage(){
+        page("user/orders");
+    }
+
+    /**
+     * Перейти на страницу адресов юзера
+     */
+    public void addressesPage(){
+        page("user/addresses");
     }
 }

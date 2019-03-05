@@ -3,7 +3,7 @@ package ru.instamart.autotests.application;
 import ru.instamart.autotests.models.*;
 
 public class Config {
-
+    
     public final static EnvironmentData environment = Environments.instamart_staging();
 
     public final static int basicTimeout = 2;
