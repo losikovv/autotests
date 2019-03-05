@@ -8,6 +8,7 @@ import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
 import static ru.instamart.autotests.application.Config.multiSessionMode;
+import static ru.instamart.autotests.application.Config.debugMode;
 import static ru.instamart.autotests.application.Pages.getPagePath;
 
 public class PerformHelper extends HelperBase {
@@ -158,7 +159,7 @@ public class PerformHelper extends HelperBase {
 
     /** Зарегистрировать нового юзера с указанными реквизитами */
     public void registration(String name, String email, String password, String passwordConfirmation) throws Exception {
-        printMessage("Регистрируемся...");
+        printMessage("Регистрируемся (" + email + ")");
         openAuthModal();
         regSequence(name,email,password,passwordConfirmation);
         // TODO добавить проверку на тормоза и обернуть в нее задержку для стабильности
@@ -219,7 +220,7 @@ public class PerformHelper extends HelperBase {
     /** Залогиниться с указанными реквизитами */
     public void authorisation(String email, String password) throws Exception {
         if (!kraken.detect().isUserAuthorised()) {
-            printMessage("Авторизуемся");
+            printMessage("Авторизуемся  (" + email + " / " + password + ")");
             openAuthModal();
             authSequence(email, password);
             sendForm();
@@ -272,7 +273,7 @@ public class PerformHelper extends HelperBase {
 
     /** Авторизоваться в гугл почте */
     public void authGmail(String gmail, String password) {
-        printMessage("> авторизовываемся в гугл почте...");
+        if(debugMode) { printMessage("> авторизовываемся в гугл почте..."); }
         kraken.get().url("https://mail.google.com/mail/u/0/h/");
         fillField(By.name("identifier"), gmail);
         click(By.id("identifierNext"));
@@ -284,14 +285,14 @@ public class PerformHelper extends HelperBase {
 
     /** Открыть крайнее письмо в цепочке писем от Инстамарт */
     public void openLastGmail() {
-        printMessage("> открываем крайнее письмо от Инстамарт");
+        if(debugMode) { printMessage("> открываем крайнее письмо от Инстамарт"); }
         click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Instamart'])[1]/following::span[1]"));
         click(By.linkText("- Показать цитируемый текст -"));
     }
 
     /** Нажать кнопку сброса пароля в письме */
     public void clickRecoveryInMail() {
-        printMessage("> нажимаем кнопку сброса пароля в письме");
+        if(debugMode) { printMessage("> нажимаем кнопку сброса пароля в письме"); }
         click(By.linkText("СБРОСИТЬ ПАРОЛЬ"));
         waitingFor(1); // Ожидание перехода из письма на сайт Инстамарт
         switchToNextWindow();
@@ -302,9 +303,9 @@ public class PerformHelper extends HelperBase {
     /** Открыть форму авторизации/регистрации */
     public void openAuthModal(){
         if (kraken.detect().isAuthModalOpen()) {
-            printMessage("> модалка авторизации открыта");
+            if(debugMode) { printMessage("> модалка авторизации открыта"); }
         } else {
-            printMessage("> открываем модалку авторизации");
+            if(debugMode) { printMessage("> открываем модалку авторизации"); }
             if (kraken.detect().isOnLanding()) {
                 click(Elements.Site.Landing.loginButton());
             } else {
@@ -316,13 +317,13 @@ public class PerformHelper extends HelperBase {
 
     /** Переключиться на вкладку регистрации */
     private void switchToRegistrationTab(){
-        printMessage("> переключаемся на вкладку регистрации");
+        if(debugMode) { printMessage("> переключаемся на вкладку регистрации"); }
         click(Elements.Site.AuthModal.registrationTab());
     }
 
     /** Заполнить поля формы регистрации */
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation, boolean agreementConfirmation) {
-        printMessage("> заполняем поля формы регистрации");
+        if(debugMode) { printMessage("> заполняем поля формы регистрации"); }
         fillField(Elements.Site.AuthModal.nameField(), name);
         fillField(Elements.Site.AuthModal.emailField(), email);
         fillField(Elements.Site.AuthModal.passwordField(), password);
@@ -332,7 +333,7 @@ public class PerformHelper extends HelperBase {
 
     /** Отправить форму */
     public void sendForm(){
-        printMessage("> отправляем форму\n");
+        if(debugMode) { printMessage("> отправляем форму\n"); }
         click(Elements.Site.AuthModal.submitButton());
         waitingFor(2); // Ожидание авторизации
     }
@@ -346,24 +347,24 @@ public class PerformHelper extends HelperBase {
     /** Переключиться на вкладку авторизации */
     private void switchToAuthorisationTab() throws Exception {
         try {
-            printMessage("> переключаемся на вкладку авторизации");
+            if(debugMode) { printMessage("> переключаемся на вкладку авторизации"); }
             click(Elements.Site.AuthModal.authorisationTab());
         } catch (ElementNotInteractableException e) {
             printMessage(" > что-то пошло не так, пробуем ещё раз...");
-            click(Elements.Site.AuthModal.authorisationTab());
+            if(debugMode) { click(Elements.Site.AuthModal.authorisationTab()); }
         }
     }
 
     /** Заполнить поля формы авторизации */
     private void fillAuthorisationForm(String email, String password) {
-        printMessage("> заполняем поля формы авторизации...");
+        if(debugMode) { printMessage("> заполняем поля формы авторизации..."); }
         fillField(Elements.Site.AuthModal.emailField(), email);
         fillField(Elements.Site.AuthModal.passwordField(), password);
     }
 
     /** Перейти в форму восстановления пароля */
     private void proceedToPasswordRecovery(){
-        printMessage("> переходим в форму восстановления пароля");
+        if(debugMode) { printMessage("> переходим в форму восстановления пароля"); }
         click(Elements.Site.AuthModal.forgotPasswordButton());
     }
 
@@ -372,7 +373,7 @@ public class PerformHelper extends HelperBase {
         openAuthModal();
         switchToAuthorisationTab();
         proceedToPasswordRecovery();
-        printMessage("> запрашиваем восстановление пароля для " + email);
+        if(debugMode) { printMessage("> запрашиваем восстановление пароля для " + email); }
         fillField(Elements.Site.AuthModal.emailField(),email);
         sendForm();
         waitingFor(1); // Ожидание раздизабливания кнопки подтверждения восстановления пароля
@@ -476,7 +477,6 @@ public class PerformHelper extends HelperBase {
         if (kraken.detect().isOnSite()) {
             quickLogout();
             authorisation(Users.superadmin());
-            //kraken.get().adminPage(""); // TODO Костыль, протестить
         }
         kraken.get().adminPage(path);
     }

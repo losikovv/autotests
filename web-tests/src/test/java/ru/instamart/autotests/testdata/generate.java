@@ -45,18 +45,6 @@ public class generate {
         return userId + "-" + testrunId + "-" + testMark + "@" + domain;
     }
 
-    public static UserData testUserCredentials() {
-        return testCredentials("user");
-    }
-
-    public static UserData testUserCredentials(int prefixLength) {
-        return testCredentials("user", prefixLength);
-    }
-
-    public static UserData testCredentials(UserData role) {
-        return testCredentials(role.getRole(), 0);
-    }
-
     public static UserData testCredentials(String role) {
         return testCredentials(role, 0);
     }
@@ -80,15 +68,16 @@ public class generate {
     }
     
     public static String testRunId() {
-        return buildString("literal", 9).toUpperCase();
+        return string("literal", 9).toUpperCase();
     }
 
-    public static String userId() {
-        return buildString("integer", 7);
+    private static String userId() {
+        return string("integer", 7);
     }
 
-    public static String string(String symbols , int length) {
-        return buildString("string", length);
+
+    private static String string(String symbols , int length) {
+        return buildString(symbols, length);
     }
 
     private static String buildString(String symbolsSet, int length) {
