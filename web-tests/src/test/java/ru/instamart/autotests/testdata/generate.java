@@ -77,7 +77,7 @@ public class generate {
     }
 
 
-    private static String string(String symbols , int length) {
+    public static String string(String symbols , int length) {
         return buildString(symbols, length);
     }
 

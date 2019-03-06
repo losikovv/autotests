@@ -87,7 +87,17 @@ public class GrabHelper extends HelperBase{
 
     /** Взять текущий номер заказа на странице заказа */
     public String currentOrderNumber() {
-        return kraken.grab().text(Elements.Site.OrderDetailsPage.orderNumber());
+        String url = kraken.grab().currentURL();
+        String number = url.substring(url.length()-10);
+        kraken.perform().printMessage("Номер текущего заказа: " + number);
+        return number;
+    }
+
+    /** Взять текущий номер доставки на странице заказа */
+    public String currentShipmentNumber() {
+        String number = kraken.grab().text(Elements.Site.OrderDetailsPage.shipmentNumber());
+        kraken.perform().printMessage("Номер текущей доставки: " + number);
+        return number;
     }
 
 

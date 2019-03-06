@@ -34,6 +34,12 @@ public class CheckoutHelper extends HelperBase {
         makeOrder(details);
     }
 
+    public void complete(PaymentTypeData payment, boolean newJuridical, JuridicalData juridical) {
+        OrderDetailsData details = new OrderDetailsData();
+        details.setPaymentDetails(payment, newJuridical, juridical);
+        makeOrder(details);
+    }
+
     public void makeOrder(OrderDetailsData orderDetails) {
         fillOrderDetails(orderDetails);
         if(orderDetails.getPromocode() != null) {addPromocode(orderDetails.getPromocode());}
@@ -120,8 +126,9 @@ public class CheckoutHelper extends HelperBase {
 
     public void choosePaymentMethod (PaymentDetailsData paymentDetails) {
         kraken.perform().click(Elements.Site.Checkout.paymentTypeSelector(paymentDetails.getPaymentType().getPosition()));
-        printMessage("Выбираем способ оплаты " + paymentDetails.getPaymentType().getDescription());
-        if(paymentDetails.isNewCreditCard()) {
+        String description = paymentDetails.getPaymentType().getDescription();
+        printMessage("Выбираем способ оплаты " + description);
+        if (paymentDetails.isNewCreditCard()) {
             //TODO сделать добавление новой банковской карты
             // TODO addNewPaymentCard - добавить карту оплаты
             // TODO changePaymentCard - изменить карту оплаты
@@ -129,13 +136,19 @@ public class CheckoutHelper extends HelperBase {
             // TODO deleteAllPaymentCards - удалить все карты оплаты
             // TODO selectPaymentCard - выбрать карту оплаты
         }
-        if(paymentDetails.isNewJuridical()) {
-            //TODO сделать добавление нового юрлица
-            // TODO addNewJuridical - добавить юрлицо
-            // TODO changeJuridical - изменить юрлицо
-            // TODO deleteJuridical - удалить юрлицо
-            // TODO deleteAllJuridicals - удалить все юрлица
-            // TODO selectJuridical - выбрать юрлицо
+        if (description.equalsIgnoreCase(PaymentTypes.bankTransfer().getDescription())) {
+            if (paymentDetails.isNewJuridical()) {
+                deleteAllExceptOneJuridical();
+                if (paymentDetails.getJuridical() != null) {
+                    addNewJuridical(paymentDetails.getJuridical());
+                } else {
+                    addNewJuridical(Config.testOrderDetails().getPaymentDetails().getJuridical());
+                }
+            } else {
+                if (paymentDetails.getJuridical() != null) {
+                selectJuridical(paymentDetails.getJuridical());
+                }
+            }
         }
     }
 
@@ -331,8 +344,8 @@ public class CheckoutHelper extends HelperBase {
     }
 
     /** Удалить все номера телефонов */
-    void deletePhoneNumbers() {
-        if(kraken.detect().isPhoneNumberEntered()) {
+    private void deletePhoneNumbers() {
+        if (kraken.detect().isPhoneNumberEntered()) {
             kraken.perform().click(Elements.Site.Checkout.editPhoneButton());
             kraken.perform().click(Elements.Site.Checkout.deletePhoneButton());
             kraken.perform().printMessage("Удоляем номер телефона " + kraken.grab().text(Elements.Site.Checkout.phoneNumber()));
@@ -340,4 +353,75 @@ public class CheckoutHelper extends HelperBase {
             deletePhoneNumbers();
         }
     }
+
+    /** Добавить новое юр. лицо */
+    private void addNewJuridical(JuridicalData juridicalData) {
+        kraken.perform().printMessage(
+                "Добавляем данные юр. лица " + juridicalData.getJuridicalName() + ", ИНН: " + juridicalData.getInn());
+        if (kraken.detect().isElementDisplayed(Elements.Site.Checkout.addJuridicalButton())) {
+            kraken.perform().click(Elements.Site.Checkout.addJuridicalButton());
+            fillJuridicalDetails(juridicalData);
+            kraken.perform().click(Elements.Site.Checkout.JuridicalModal.confirmButton());
+            kraken.perform().waitingFor(1); // Ожидание добавление нового юрлица
+        } else {
+            fillJuridicalDetails(juridicalData);
+        }
+    }
+
+    /** Заполнить данные юр. лица */
+    private void fillJuridicalDetails(JuridicalData juridicalData) {
+        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.nameField(), juridicalData.getJuridicalName());
+        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.addressField(), juridicalData.getJuridicalAddress());
+        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.innField(), juridicalData.getInn());
+        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.kppField(), juridicalData.getKpp());
+        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.operatingAccountField(), juridicalData.getAccountNumber());
+        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.bikField(), juridicalData.getBik());
+        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.bankField(), juridicalData.getBankName());
+        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.correspondentAccountField(), juridicalData.getCorrespondentAccountNumber());
+    }
+
+    /** Удалить всех юр. лиц, кроме одного */
+    private void deleteAllExceptOneJuridical() {
+        if (kraken.detect().isSecondJuridicalEntered()) {
+            deleteJuridical();
+            deleteAllExceptOneJuridical();
+        }
+    }
+
+    /** Удалить юр. лицо */
+    private void deleteJuridical() {
+        kraken.perform().click(Elements.Site.Checkout.changeJuridicalButton());
+        kraken.perform().printMessage(
+                "Удаляем данные юр. лица " + kraken.grab().value(Elements.Site.Checkout.JuridicalModal.nameField())
+                        + ", ИНН: " + kraken.grab().value(Elements.Site.Checkout.JuridicalModal.innField()));
+        kraken.perform().click(Elements.Site.Checkout.JuridicalModal.deleteButton());
+        kraken.perform().waitingFor(1); // Ожидание удаления юрлица
+    }
+
+    /** Выбрать юр. лицо */
+    private void selectJuridical(JuridicalData juridicalData) {
+        Elements title = Elements.Site.Checkout.juridicalTitle(juridicalData);
+        if (kraken.detect().isElementDisplayed(title)) {
+            kraken.perform().printMessage("Выбираем данные юр. лица " + kraken.grab().text(title));
+            kraken.perform().click(title);
+            kraken.perform().waitingFor(1); // Ожидание применения выбранного юрлица
+        } else if (kraken.detect().isJuridicalEntered()) {
+            changeJuridical(juridicalData);
+        } else {
+            addNewJuridical(juridicalData);
+        }
+    }
+
+    /** Изменить юр. лицо */
+    private void changeJuridical(JuridicalData juridicalData) {
+        kraken.perform().click(Elements.Site.Checkout.changeJuridicalButton());
+        kraken.perform().printMessage(
+                "Меняем данные юр. лица\nС : " + kraken.grab().value(Elements.Site.Checkout.JuridicalModal.nameField())
+                        + ", ИНН: " + kraken.grab().value(Elements.Site.Checkout.JuridicalModal.innField()) +
+                        "\nНА: " + juridicalData.getJuridicalName() + ", ИНН: " + juridicalData.getInn());
+        fillJuridicalDetails(juridicalData);
+        kraken.perform().click(Elements.Site.Checkout.JuridicalModal.confirmButton());
+        kraken.perform().waitingFor(1); // Ожидание сохранения изменений юрлица
+    }
+
 }

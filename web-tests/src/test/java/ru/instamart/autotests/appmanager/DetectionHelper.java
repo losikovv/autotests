@@ -479,6 +479,16 @@ public class DetectionHelper extends HelperBase {
         return isElementDisplayed(Elements.Site.Checkout.phoneIcon());
     }
 
+    /** Определить введены ли данные юрлица на 4 шаге в чекауте */
+    public boolean isJuridicalEntered() {
+        return isElementDisplayed(Elements.Site.Checkout.firstJuridicalTitle());
+    }
+
+    /** Определить введены ли данные второго юрлица на 4 шаге в чекауте */
+    public boolean isSecondJuridicalEntered() {
+        return isElementDisplayed(Elements.Site.Checkout.secondJuridicalTitle());
+    }
+
     /** Определить отображаются ли слоты доставки в чекауте */
     public boolean isDeliveryWindowSelectorShown() {
         return isElementPresent(Elements.Site.Checkout.deliveryWindowSelector());

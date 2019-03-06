@@ -1,6 +1,7 @@
 package ru.instamart.autotests.application;
 
 import org.openqa.selenium.By;
+import ru.instamart.autotests.models.JuridicalData;
 
 public class Elements {
     static String text;
@@ -953,6 +954,9 @@ public class Elements {
                         By.cssSelector("div.checkout-summary__subtotal:nth-child(4) > span:nth-child(2) > div:nth-child(1)"));
             }
 
+            /**
+             * Элементы номера телефона
+             */
             static Elements phoneIcon() {
                 return new Elements(null, By.className("fa-mobile"));
             }
@@ -971,6 +975,74 @@ public class Elements {
 
             static Elements phoneNumber() {
                 return new Elements(null, By.className("checkout-selector-item__text"));
+            }
+
+            /**
+             * Элементы оплаты банковским переводом
+             */
+            static Elements addJuridicalButton() {
+                return new Elements(null, By.xpath("//div[contains(text(),'+ Добавить реквизиты')]"));
+            }
+
+            static Elements changeJuridicalButton() {
+                return new Elements(null, By.xpath("//div[2]/div[1]/div[1]/div/div/a"));
+            }
+
+            static Elements firstJuridicalTitle() {
+                return new Elements(null, By.xpath("//div[1]/div/div/div/span[2]/span"));
+            }
+
+            static Elements secondJuridicalTitle() {
+                return new Elements(null, By.xpath("//div[2]/div/div/div/span[2]/span"));
+            }
+
+            static Elements juridicalTitle(JuridicalData juridicalData) {
+                return new Elements(null, By.xpath(
+                        "//span[contains(text(),'" + juridicalData.getJuridicalName() + ", ИНН: " + juridicalData.getInn() + "')]"));
+            }
+
+            interface JuridicalModal {
+
+                static Elements nameField() {
+                    return new Elements(null, By.name("name"));
+                }
+
+                static Elements addressField() {
+                    return new Elements(null, By.name("address"));
+                }
+
+                static Elements innField() {
+                    return new Elements(null, By.name("inn"));
+                }
+
+                static Elements kppField() {
+                    return new Elements(null, By.name("kpp"));
+                }
+
+                static Elements operatingAccountField() {
+                    return new Elements(null, By.name("operatingAccount"));
+                }
+
+                static Elements bikField() {
+                    return new Elements(null, By.name("bik"));
+                }
+
+                static Elements bankField() {
+                    return new Elements(null, By.name("bank"));
+                }
+
+                static Elements correspondentAccountField() {
+                    return new Elements(null, By.name("correspondentAccount"));
+                }
+
+                static Elements deleteButton() {
+                    return new Elements(null, By.xpath("//button[contains(text(),'Удалить')]"));
+                }
+
+                static Elements confirmButton() {
+                    return new Elements(null, By.xpath("//button[contains(text(),'Сохранить')]"));
+                }
+
             }
 
             interface PromocodeModal {
@@ -1083,11 +1155,11 @@ public class Elements {
             }
 
             /**
-             * Номер заказа
+             * Номер доставки
              */
-            static Elements orderNumber() {
+            static Elements shipmentNumber() {
                 return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div/div[2]/div/div[1]/div/div/div/div[1]/strong[1]"));
+                        By.xpath("//div[2]/div/div[1]/div/div/div/div[1]/strong[1]"));
             }
 
         }
@@ -1537,6 +1609,10 @@ public class Elements {
 
                     static Elements phoneField() {
                         return new Elements(null, By.id("order_ship_address_attributes_phone"));
+                    }
+
+                    static Elements innField() {
+                        return new Elements(null, By.id("order_company_document_attributes_inn"));
                     }
 
                 }

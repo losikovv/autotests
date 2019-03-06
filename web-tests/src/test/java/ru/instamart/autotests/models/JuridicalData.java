@@ -22,16 +22,16 @@ public class JuridicalData {
         this.correspondentAccountNumber = correspondentAccountNumber;
     }
 
-    public String getjuridicalName() {
+    public String getJuridicalName() {
         return juridicalName;
     }
-    public String getjuridicalAddress() {
+    public String getJuridicalAddress() {
         return juridicalAddress;
     }
     public String getInn() {
         return inn;
     }
-    public String getkpp() {
+    public String getKpp() {
         return kpp;
     }
     public String getAccountNumber() {

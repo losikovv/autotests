@@ -5,6 +5,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.BonusProgramData;
+import ru.instamart.autotests.models.JuridicalData;
+import ru.instamart.autotests.testdata.generate;
 
 
 // Тесты чекаута
@@ -351,6 +353,72 @@ public class Checkout extends TestBase {
                 kraken.grab().text(Elements.Admin.Shipments.Order.Details.replacementPolicy()),
                 ReplacementPolicies.remove().getInstruction(),
                 "Текст инструкции по сборке не совпадает с выбранной политикой замен"
+        );
+    }
+
+
+    @Test(
+            description = "Тест оформления заказа с добавлением нового юр. лица",
+            groups = {"regression"},
+            priority = 716
+    )
+    public void successCompleteCheckoutWithNewJuridical() throws Exception {
+        JuridicalData juridicalData =  new JuridicalData(
+                "ООО \"Новый Пользователь\"",
+                generate.string(8),
+                generate.digitString(13),
+                generate.digitString(9),
+                generate.digitString(20),
+                generate.digitString(9),
+                generate.string(8),
+                generate.digitString(20)
+        );
+        kraken.perform().reachCheckout();
+        kraken.checkout().complete(PaymentTypes.bankTransfer(), true, juridicalData);
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не удалось оформить заказ с добавлением нового юр. лица\n");
+
+        String number = kraken.grab().currentOrderNumber();
+        kraken.perform().cancelLastOrder();
+        kraken.perform().reachAdmin(Pages.Admin.Order.requisites(number));
+
+        Assert.assertEquals(
+                kraken.grab().value(Elements.Admin.Shipments.Order.Requisites.innField()), juridicalData.getInn(),
+                "Данные юр. лица не совпадают с указанными пользователем"
+        );
+    }
+
+
+    @Test(
+            description = "Тест оформления заказа с изменением юр. лица",
+            groups = {"regression"},
+            priority = 717
+    )
+    public void successCompleteCheckoutWithChangeJuridical() throws Exception {
+        JuridicalData juridicalData =  new JuridicalData(
+                "ООО \"Измененный Пользователь\"",
+                generate.string(8),
+                generate.digitString(13),
+                generate.digitString(9),
+                generate.digitString(20),
+                generate.digitString(9),
+                generate.string(8),
+                generate.digitString(20)
+        );
+        kraken.perform().reachCheckout();
+        kraken.checkout().complete(PaymentTypes.bankTransfer(), false, juridicalData);
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не удалось оформить заказ с с изменением юр. лица\n");
+
+        String number = kraken.grab().currentOrderNumber();
+        kraken.perform().cancelLastOrder();
+        kraken.perform().reachAdmin(Pages.Admin.Order.requisites(number));
+
+        Assert.assertEquals(
+                kraken.grab().value(Elements.Admin.Shipments.Order.Requisites.innField()), juridicalData.getInn(),
+                "Данные юр. лица не совпадают с указанными пользователем"
         );
     }
 
