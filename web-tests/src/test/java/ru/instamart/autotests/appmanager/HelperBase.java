@@ -8,12 +8,14 @@ public class HelperBase {
     ApplicationManager kraken;
     public String baseUrl;
     public String fullBaseUrl;
+    public String adminUrl;
     private boolean acceptNextAlert = true;
 
     HelperBase(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
         this.driver = driver;
-        this.baseUrl = environment.getBaseURL();
-        this.fullBaseUrl = environment.getFullBaseUrl();
+        this.baseUrl = environment.getBaseURL(false);
+        this.fullBaseUrl = environment.getBaseURL(true);
+        this.adminUrl = environment.getAdminURL();
         this.kraken = app;
     }
 

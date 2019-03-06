@@ -5,14 +5,12 @@ public class EnvironmentData {
     private String server;
     private String host;
     private String auth;
-    private boolean secure;
 
-    public EnvironmentData(String tenant, String server, String host, String httpAuth, boolean secure) {
+    public EnvironmentData(String tenant, String server, String host, String httpAuth) {
         this.tenant = tenant;
         this.server = server;
         this.host = host;
         this.auth = httpAuth;
-        this.secure = secure;
     }
 
     public String getTenant() {
@@ -29,15 +27,13 @@ public class EnvironmentData {
         return host;
     }
 
-    public boolean isSecure() {return secure;}
-
-    public String getBaseURL() {
-        if(isSecure()) {return "https://" + host + "/";}
-        else {return "http://" + host + "/";}
+    public String getBaseURL(boolean httpAuth) {
+        if(httpAuth) return "https://" + auth + host + "/";
+        else return "https://" + host + "/";
     }
 
-    public String getFullBaseUrl() {
-        if(isSecure()) {return "https://" + auth + host + "/";}
-        else {return "http://" + auth + host + "/";}
+    public String getAdminURL() {
+        if(server.equalsIgnoreCase("production")) return "https://instamart.ru/admin/";
+        else return "https://staging.instamart.ru/admin/";
     }
 }

@@ -58,7 +58,7 @@ public class ApplicationManager {
         initHelpers();
         applyOptions();
         revealKraken();
-        driver.get(environment.getFullBaseUrl());
+        driver.get(environment.getBaseURL(true));
     }
 
     private void initTestSession() {

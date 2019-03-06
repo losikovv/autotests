@@ -1525,6 +1525,7 @@ public class Elements {
 
                     static Elements paymentType() {
                         return new Elements(null, By.xpath("//td[5]/a"));
+                        //*[@id="payment_200903"]/td[5]/a
                     }
 
                 }

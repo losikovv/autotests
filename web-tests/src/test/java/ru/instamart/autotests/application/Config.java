@@ -4,7 +4,7 @@ import ru.instamart.autotests.models.*;
 
 public class Config {
     
-    public final static EnvironmentData environment = Environments.instamart_staging();
+    public final static EnvironmentData environment = Environments.instamart_production();
 
     public final static int basicTimeout = 2;
     public final static boolean multiSessionMode = false;
@@ -48,7 +48,7 @@ public class Config {
                 ),
                 new DeliveryTimeData(
                         7,
-                        7
+                        1
                 )
         );
     }

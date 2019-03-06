@@ -30,6 +30,11 @@ public class BrowseHelper extends HelperBase {
         url(fullBaseUrl);
     }
 
+    public void adminURL() {
+        url(adminUrl);
+    }
+
+
     /**
      * Перейти на страницу
      */
@@ -72,7 +77,7 @@ public class BrowseHelper extends HelperBase {
      * Перейти на страницу в админке
      */
     public void adminPage(String path) {
-        url(baseUrl + "admin/" + path); //TODO адаптировать под Метро: идти всегда в админку инстамарта
+        url(adminUrl + path);
     }
 
     /**

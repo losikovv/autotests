@@ -58,7 +58,7 @@ public class FavoriteProducts extends TestBase {
 
 
     @Test(  description = "Добавление любимого товара из карточки товара и проверка списка",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 504
     )
     public void successAddFavoriteOnItemCard() throws Exception {
@@ -91,7 +91,7 @@ public class FavoriteProducts extends TestBase {
 
 
     @Test(  description = "Удаление любимого товара из карточки товара и проверка списка",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 506
     )
     public void successDeleteFavoriteOnItemCard() throws Exception {
@@ -109,7 +109,7 @@ public class FavoriteProducts extends TestBase {
 
 
     @Test(  description = "Удаление любимого товара из списка",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 507
     )
     public void successDeleteFavoriteOnList() throws Exception {

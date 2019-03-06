@@ -15,7 +15,6 @@ public class CleanupHelper extends HelperBase {
 
     public void all() throws Exception {
         printMessage("================== CLEANUP AFTER TESTRUN ==================\n");
-        if(!kraken.environment.getTenant().equalsIgnoreCase("metro")) { // TODO убрать проверку
             try {
                 orders();
             } catch (WebDriverException w) {
@@ -26,7 +25,6 @@ public class CleanupHelper extends HelperBase {
             } catch (WebDriverException w) {
                 printMessage("❌ НЕ УДАЛОСЬ ПРОВЕСТИ УДАЛЕНИЕ ВСЕХ ТЕСТОВЫХ ЮЗЕРОВ ❌\n");
             }
-        }
     }
 
     /**

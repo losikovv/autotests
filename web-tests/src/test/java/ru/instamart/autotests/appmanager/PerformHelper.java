@@ -221,7 +221,7 @@ public class PerformHelper extends HelperBase {
     /** Залогиниться с указанными реквизитами */
     public void authorisation(String email, String password) throws Exception {
         if (!kraken.detect().isUserAuthorised()) {
-            printMessage("Авторизуемся  (" + email + " / " + password + ")");
+            printMessage("Авторизуемся (" + email + " / " + password + ")");
             openAuthModal();
             authSequence(email, password);
             sendForm();
@@ -474,9 +474,12 @@ public class PerformHelper extends HelperBase {
     }
 
     public void reachAdmin(String path) throws Exception{
-        kraken.get().adminPage("");
+        kraken.get().adminURL();
         if (kraken.detect().isOnSite()) {
             quickLogout();
+            if(!kraken.environment.getTenant().equalsIgnoreCase("instamart")){
+                kraken.get().adminURL();
+            }
             authorisation(Users.superadmin());
         }
         kraken.get().adminPage(path);
