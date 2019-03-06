@@ -95,7 +95,7 @@ public class GrabHelper extends HelperBase{
 
     /** Взять текущий номер доставки на странице заказа */
     public String currentShipmentNumber() {
-        String number = kraken.grab().text(Elements.Site.OrderDetailsPage.shipmentNumber());
+        String number = kraken.grab().text(Elements.Site.UserProfile.OrderDetailsPage.shipmentNumber());
         kraken.perform().printMessage("Номер текущей доставки: " + number);
         return number;
     }

@@ -160,7 +160,7 @@ public class PerformHelper extends HelperBase {
 
     /** Зарегистрировать нового юзера с указанными реквизитами */
     public void registration(String name, String email, String password, String passwordConfirmation) throws Exception {
-        printMessage("Регистрируемся (" + email + ")");
+        printMessage("Регистрируемся (" + email + " / " + password + ")");
         openAuthModal();
         regSequence(name,email,password,passwordConfirmation);
         // TODO добавить проверку на тормоза и обернуть в нее задержку для стабильности
@@ -187,7 +187,7 @@ public class PerformHelper extends HelperBase {
         String startURL = kraken.grab().currentURL();
         if (!startURL.equals(fullBaseUrl) && kraken.detect().isUserAuthorised()) {
             kraken.get().profilePage();
-            String currentUserEmail = kraken.grab().text(Elements.Site.AccountPage.email());
+            String currentUserEmail = kraken.grab().text(Elements.Site.UserProfile.AccountPage.email());
             printMessage("Юзер: " + currentUserEmail);
             if(currentUserEmail == null || !currentUserEmail.equals(user.getEmail())) {
                 quickLogout();
@@ -408,29 +408,35 @@ public class PerformHelper extends HelperBase {
 
     /** Повторить крайний заказ */
     public void repeatLastOrder() {
-        printMessage("Повторяем крайний заказ...\n");
+        printMessage("Повторяем крайний заказ\n");
         kraken.get().url(baseUrl + "user/orders");
-        if(!kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton())) {
+        if(kraken.detect().element(Elements.Site.UserProfile.OrdersPage.placeholder())) {
+            printMessage("У пользователя нет заказов для повтора, делаем новый заказ\n");
             kraken.get().page("metro");
             order();
             cancelLastOrder();
         }
-        if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
-            click(Elements.Site.OrdersPage.lastOrderActionButton(2));
+        if(kraken.detect().isElementPresent(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(2))) {
+            if(verbose) {printMessage("Заказ активен, для повтора жмем 2 кнопку\n");}
+            click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(2));
         } else {
-            click(Elements.Site.OrdersPage.lastOrderActionButton());
+            if(verbose) {printMessage("Заказ неактивен, для повтора жмем 1 кнопку\n");}
+            click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton());
         }
         waitingFor(2); // Ожидание добавления в корзину товаров из предыдущего заказа
-        // TODO добавить доп ожидание с условием isInProfile для повышения стабильности
+        if(kraken.detect().isInProfile()){
+            printMessage("❕Тормозит повтор заказа❕");
+            waitingFor(2); // Доп. ожидание добавления в корзину товаров из предыдущего заказа при тормозах
+        }
     }
 
     /** Отменить крайний заказ */
     public void cancelLastOrder() {
         printMessage("Отменяем крайний заказ...");
         kraken.get().url(baseUrl + "user/orders");
-        if(kraken.detect().isElementPresent(Elements.Site.OrdersPage.lastOrderActionButton(2))) {
-            click(Elements.Site.OrdersPage.lastOrderActionButton(1));
-            printMessage("> OK\n");
+        if(kraken.detect().isElementPresent(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(2))) {
+            click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(1));
+            printMessage("✓ OK\n");
         } else printMessage("> Заказ не активен\n");
         waitingFor(2); // Ожидание отмены заказа
     }

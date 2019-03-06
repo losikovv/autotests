@@ -1081,85 +1081,99 @@ public class Elements {
 
         }
 
-        interface AccountPage {
+        interface UserProfile {
 
-            static Elements email() {
+            static Elements menu() {
                 return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div/div/div/div/div[1]/div/div[2]/div/div/div[2]/div[2]/div[2]"));
+                        By.className("user-menu"));
             }
 
-            static Elements changePasswordButton() {
-                return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[1]/div[3]/button"));
+            interface AccountPage {
+
+                static Elements email() {
+                    return new Elements(null,
+                            By.xpath("//*[@id='wrap']/div/div/div/div/div[1]/div/div[2]/div/div/div[2]/div[2]/div[2]"));
+                }
+
+                static Elements changePasswordButton() {
+                    return new Elements(null,
+                            By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[1]/div[3]/button"));
+                }
+
+                static Elements changeEmailButton() {
+                    return new Elements(null,
+                            By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[2]/div[3]/button"));
+                }
+
+                static Elements changeNameButton() {
+                    return new Elements(null,
+                            By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[3]/div[3]/button"));
+                }
             }
 
-            static Elements changeEmailButton() {
-                return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[2]/div[3]/button"));
-            }
+            interface OrdersPage {
 
-            static Elements changeNameButton() {
-                return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[3]/div[3]/button"));
-            }
-        }
+                static Elements placeholder() {
+                    return new Elements("У вас нет завершенных заказов",
+                            By.className("no-content__text"));
+                }
 
-        interface OrdersPage {
+                static Elements lastOrderActionButton() {
+                    return new Elements(null,
+                            By.xpath("//*[@id='wrap']/div/div/div/div/div[1]/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
+                }
 
-            static Elements lastOrderActionButton() {
-                return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div/div/div/div/div[1]/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button"));
-            }
-
-            static Elements lastOrderActionButton(int position) {
-                return new Elements(null,
-                        By.cssSelector("button.user-orders-header__action:nth-child(" + position + ")"));
-            }
-        }
-
-        /**
-         * Страница деталей заказа
-         */
-        interface OrderDetailsPage {
-
-            /**
-             * Признак активного заказа
-             */
-            static Elements activeOrderAttribute() {
-                return new Elements(null,
-                        By.className("user-order"));
-            }
-
-            /**
-             * Признак отмененного заказа
-             */
-            static Elements canceledOrderAttribute() {
-                return new Elements(null,
-                        By.className("user-order-shipment-header__container--canceled"));
+                static Elements lastOrderActionButton(int position) {
+                    return new Elements(null,
+                            By.xpath("//*[@id='wrap']/div/div/div/div/div[1]/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button[" + position + "]"));
+                }
             }
 
             /**
-             * Документы к заказу
+             * Страница деталей заказа
              */
-            static Elements documentation(int position) {
-                return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div/div[3]/a[" + position + "]"));
-            }
+            interface OrderDetailsPage {
 
-            /**
-             * Стоимость доставки
-             */
-            static Elements deliveryPrice() {
-                return new Elements(null,
-                        By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div/div[3]/div/div/div/div[1]/div[2]/div"));
-            }
+                /**
+                 * Признак активного заказа
+                 */
+                static Elements activeOrderAttribute() {
+                    return new Elements(null,
+                            By.className("user-order"));
+                }
 
-            /**
-             * Номер доставки
-             */
-            static Elements shipmentNumber() {
-                return new Elements(null,
-                        By.xpath("//div[2]/div/div[1]/div/div/div/div[1]/strong[1]"));
+                /**
+                 * Признак отмененного заказа
+                 */
+                static Elements canceledOrderAttribute() {
+                    return new Elements(null,
+                            By.className("user-order-shipment-header__container--canceled"));
+                }
+
+                /**
+                 * Документы к заказу
+                 */
+                static Elements documentation(int position) {
+                    return new Elements(null,
+                            By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div/div[3]/a[" + position + "]"));
+                }
+
+                /**
+                 * Стоимость доставки
+                 */
+                static Elements deliveryPrice() {
+                    return new Elements(null,
+                            By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div/div[3]/div/div/div/div[1]/div[2]/div"));
+                }
+
+                /**
+                 * Номер доставки
+                 */
+                static Elements shipmentNumber() {
+                    return new Elements(null,
+                            By.xpath("//div[2]/div/div[1]/div/div/div/div[1]/strong[1]"));
+                }
+
             }
 
         }

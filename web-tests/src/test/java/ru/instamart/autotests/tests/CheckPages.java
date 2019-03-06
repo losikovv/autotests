@@ -152,13 +152,13 @@ public class CheckPages extends TestBase {
 
         kraken.perform().click(Elements.Site.Footer.deliveryButton());
         Assert.assertTrue(kraken.detect().isDeliveryModalOpen(),
-                "Модалка 'Доставка' не открыта\n");
+                "Не открывается одалка 'Доставка' из футера\n");
         kraken.perform().click(Elements.Site.DeliveryModal.closeButton());
         assertPageIsAvailable();
 
         kraken.perform().click(Elements.Site.Footer.partnersButton());
         Assert.assertTrue(kraken.detect().isPartnersModalOpen(),
-                "Модалка 'Партнёры' не открыта\n");
+                "Не открывается одалка 'Партнеры' из футера\n");
         kraken.perform().click(Elements.Site.PartnersModal.closeButton());
         assertPageIsAvailable();
 

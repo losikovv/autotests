@@ -54,7 +54,7 @@ public class DeliveryPrices extends TestBase {
                 "\nНекорректная цена доставки в чекауте при большой корзине" );
 
         kraken.checkout().complete();
-        softAssert.assertEquals(kraken.grab().roundedSum(Elements.Site.OrderDetailsPage.deliveryPrice()), Config.MetroLowDeliveryPrice,
+        softAssert.assertEquals(kraken.grab().roundedSum(Elements.Site.UserProfile.OrderDetailsPage.deliveryPrice()), Config.MetroLowDeliveryPrice,
                 "\nНекорректная цена доставки на странице заказа" );
 
         kraken.perform().cancelLastOrder();

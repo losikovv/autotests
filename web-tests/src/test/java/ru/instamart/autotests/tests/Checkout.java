@@ -359,7 +359,7 @@ public class Checkout extends TestBase {
 
     @Test(
             description = "Тест оформления заказа с добавлением нового юр. лица",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 716
     )
     public void successCompleteCheckoutWithNewJuridical() throws Exception {

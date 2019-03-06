@@ -167,6 +167,13 @@ public class DetectionHelper extends HelperBase {
     }
 
     /**
+     * Определить находимся в разделе профиля пользователя или нет
+     */
+    public boolean isInProfile() {
+        return isElementPresent(Elements.Site.UserProfile.menu());
+    }
+
+    /**
      * Определить 404 ошибку на текущей странице
      */
     public boolean is404() {
@@ -299,7 +306,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Распознавание документов к заказу на странице деталей */
     public String orderDocument(int position) {
-        Elements.Site.OrderDetailsPage.documentation(position);
+        Elements.Site.UserProfile.OrderDetailsPage.documentation(position);
         String docName = kraken.grab().text(Elements.locator());
         if (docName != null) {
             if(verbose) { printMessage("Скачиваем: " + docName); }
@@ -313,7 +320,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить активен ли заказ на странице деталей */
     public boolean isOrderActive() {
         if(verbose) {  printMessage("Проверяем страницу заказа..."); }
-        if (isElementDisplayed(Elements.Site.OrderDetailsPage.activeOrderAttribute()) && !isOrderCanceled()) {
+        if (isElementDisplayed(Elements.Site.UserProfile.OrderDetailsPage.activeOrderAttribute()) && !isOrderCanceled()) {
             if(verbose) {  printMessage("✓ Заказ активен\n"); }
             return true;
         } else return false;
@@ -324,7 +331,7 @@ public class DetectionHelper extends HelperBase {
         if (isInAdmin()) {
             return element(Elements.Admin.Shipments.Order.Details.canceledOrderAttribute());
         } else {
-            return element(Elements.Site.OrderDetailsPage.canceledOrderAttribute());
+            return element(Elements.Site.UserProfile.OrderDetailsPage.canceledOrderAttribute());
         }
     }
 
