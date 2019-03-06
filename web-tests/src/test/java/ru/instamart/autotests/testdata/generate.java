@@ -40,9 +40,10 @@ public class generate {
     }
 
     public static String testUserEmail(String role, String userId) {
-        String domain;
-        if(role.equals("admin")) { domain = companyDomain; } else {domain = testDomain;}
-        return userId + "-" + testrunId + "-" + testMark + "@" + domain;
+        if(role.equals("admin")) {
+            return userId + "-" + testrunId + "-" + testMark + "@" + companyDomain;
+        } else {
+            return userId + "-" + testrunId + "-" + testMark + "@" + testDomain;}
     }
 
     public static UserData testCredentials(String role) {
