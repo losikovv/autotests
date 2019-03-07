@@ -31,7 +31,7 @@ public class CleanupHelper extends HelperBase {
      * Удаление тестовых юзеров по дефолтному списку
      */
     public void users() throws Exception {
-        printMessage("✠✠✠ Удаление тестовых пользователей ✠✠✠");
+        printMessage("Удаление тестовых пользователей");
         users(session.userList);
     }
 
@@ -41,7 +41,7 @@ public class CleanupHelper extends HelperBase {
     public void users(String usersListPath) throws Exception {
         kraken.perform().reachAdmin(usersListPath);
         if (kraken.detect().isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
-            printMessage("- удаляем пользователя " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
+            printMessage("> удаляем пользователя " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
             kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
             kraken.perform().waitingFor(1); // Ожидание удаления предыдущего тестового пользователя
@@ -55,7 +55,7 @@ public class CleanupHelper extends HelperBase {
      * Отмена тестовых заказов по дефолтному списку
      */
     public void orders() throws Exception {
-        printMessage("✡✡✡ Отмена тестовых заказов ✡✡✡");
+        printMessage("Отмена тестовых заказов");
         orders(session.orderList);
     }
 

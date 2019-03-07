@@ -1127,6 +1127,11 @@ public class Elements {
                     return new Elements(null,
                             By.xpath("//*[@id='wrap']/div/div/div/div/div[1]/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/button[" + position + "]"));
                 }
+
+                static Elements lastOrderDetailsButton() {
+                    return new Elements(null,
+                            By.xpath("//*[@id='wrap']/div[1]/div/div/div/div[1]/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div[2]/a"));
+                }
             }
 
             /**

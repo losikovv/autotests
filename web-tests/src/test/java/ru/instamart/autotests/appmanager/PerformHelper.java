@@ -416,11 +416,11 @@ public class PerformHelper extends HelperBase {
             order();
             cancelLastOrder();
         }
-        if(kraken.detect().isElementPresent(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(2))) {
-            if(verbose) {printMessage("Заказ активен, для повтора жмем 2 кнопку\n");}
+        if(kraken.detect().isLastOrderActive()) {
+            if(verbose) {printMessage("Для повтора жмем 2 кнопку\n");}
             click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(2));
         } else {
-            if(verbose) {printMessage("Заказ неактивен, для повтора жмем 1 кнопку\n");}
+            if(verbose) {printMessage("Для повтора жмем 1 кнопку\n");}
             click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton());
         }
         waitingFor(2); // Ожидание добавления в корзину товаров из предыдущего заказа
@@ -434,7 +434,7 @@ public class PerformHelper extends HelperBase {
     public void cancelLastOrder() {
         printMessage("Отменяем крайний заказ...");
         kraken.get().url(baseUrl + "user/orders");
-        if(kraken.detect().isElementPresent(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(2))) {
+        if(kraken.detect().isLastOrderActive()) {
             click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(1));
             printMessage("✓ OK\n");
         } else printMessage("> Заказ не активен\n");

@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.models.EnvironmentData;
 
+import static ru.instamart.autotests.application.Config.verbose;
+
 public class GrabHelper extends HelperBase{
 
     GrabHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
@@ -89,7 +91,7 @@ public class GrabHelper extends HelperBase{
     public String currentOrderNumber() {
         String url = kraken.grab().currentURL();
         String number = url.substring(url.length()-10);
-        kraken.perform().printMessage("Номер текущего заказа: " + number);
+        if(verbose) kraken.perform().printMessage("Номер заказа: " + number + "\n");
         return number;
     }
 

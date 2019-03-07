@@ -317,6 +317,17 @@ public class DetectionHelper extends HelperBase {
         }
     }
 
+    /** Определить активен ли верхний заказ на странице списка заказов */
+    public boolean isLastOrderActive() {
+        if(isElementPresent(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(2))) {
+            if (verbose) { printMessage("Крайний заказ активен"); }
+            return true;
+        } else {
+            if(verbose) { printMessage("Крайний заказ неактивен"); }
+            return false;
+        }
+    }
+
     /** Определить активен ли заказ на странице деталей */
     public boolean isOrderActive() {
         if(verbose) {  printMessage("Проверяем страницу заказа..."); }
@@ -329,7 +340,13 @@ public class DetectionHelper extends HelperBase {
     /** Определить отменен ли заказ на странице деталей */
     public boolean isOrderCanceled(){
         if (isInAdmin()) {
-            return element(Elements.Admin.Shipments.Order.Details.canceledOrderAttribute());
+            if (element(Elements.Admin.Shipments.Order.Details.canceledOrderAttribute())) {
+                if(verbose) { printMessage("Заказ отменен"); }
+                return true;
+            } else {
+                if(verbose) { printMessage("Заказ активен"); }
+                return false;
+            }
         } else {
             return element(Elements.Site.UserProfile.OrderDetailsPage.canceledOrderAttribute());
         }

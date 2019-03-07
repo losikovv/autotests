@@ -40,50 +40,37 @@ public class Administration extends TestBase {
 
 
     @Test(
-            description = "Тест возобновления заказа через админку",
+            description = "Тест возобновления и отмены заказа через админку",
             groups = {"acceptance","regression"},
             priority = 1302
     )
-    public void successResumeOrder() throws Exception { // TODO делать новый заказ только если нет старых
+    public void successResumeAndCancelOrder() throws Exception {
         SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
-        kraken.perform().order();
-        String testOrder = kraken.grab().currentOrderNumber();
-        kraken.perform().cancelLastOrder();
-        kraken.get().adminOrderDetailsPage(testOrder);
+        kraken.get().ordersPage();
+        if(kraken.detect().isElementPresent(Elements.Site.UserProfile.OrdersPage.placeholder())) {
+            kraken.perform().printMessage("Нет заказов, делаем новый\n");
+            kraken.get().page("metro");
+            kraken.perform().order();
+        } else {
+            if(kraken.detect().isLastOrderActive()) {
+                kraken.perform().click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(1));
+            }
+            kraken.perform().click(Elements.Site.UserProfile.OrdersPage.lastOrderDetailsButton());
+        }
+        kraken.get().adminOrderDetailsPage(kraken.grab().currentOrderNumber());
 
         softAssert.assertTrue(kraken.detect().isOrderCanceled(),
-                "Заказ уже активен\n");
+                "\nНе выполнились предусловия - заказ уже активен");
 
         kraken.admin().resumeOrder();
 
         softAssert.assertFalse(kraken.detect().isOrderCanceled(),
-                "Не возобновляется заказ через админку\n");
-
-        kraken.perform().cancelLastOrder();
-        softAssert.assertAll();
-    }
-
-
-    @Test(
-            description = "Тест отмены заказа через админку",
-            groups = {"acceptance","regression"},
-            priority = 1303
-    )
-    public void successCancelOrder() throws Exception { // TODO объединить с successResumeOrder
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
-        kraken.perform().order();
-        String testOrder = kraken.grab().currentOrderNumber();
-        kraken.get().adminOrderDetailsPage(testOrder);
-
-        softAssert.assertFalse(kraken.detect().isOrderCanceled(),
-                "Заказ уже отменён\n");
+                "\nНе возобновляется заказ через админку");
 
         kraken.admin().cancelOrder();
 
         softAssert.assertTrue(kraken.detect().isOrderCanceled(),
-                "Не отменяется заказ через админку\n");
+                "\nНе отменяется заказ через админку");
 
         softAssert.assertAll();
     }

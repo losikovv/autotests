@@ -39,6 +39,7 @@ public class AdministrationHelper extends HelperBase {
      * Возобновить заказ
      */
     public void resumeOrder() {
+        printMessage("> возобновляем заказ " + kraken.grab().currentURL());
         kraken.perform().click(Elements.Admin.Shipments.Order.Details.resumeOrderButton());
         handleAlert();
         kraken.perform().waitingFor(2); // Ожидание возобновления заказа в админке
@@ -55,7 +56,7 @@ public class AdministrationHelper extends HelperBase {
      * Cancel order on the page in admin panel
      */
     public void cancelOrder(int reason, String details) {
-        printMessage("- отмена заказа " + kraken.grab().currentURL());
+        printMessage("> отменяем заказ " + kraken.grab().currentURL());
         kraken.perform().click(Elements.Admin.Shipments.Order.Details.cancelOrderButton());
         handleAlert();
         chooseCancellationReason(reason, details);
