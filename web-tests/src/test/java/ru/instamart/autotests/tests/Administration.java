@@ -330,12 +330,13 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест смены пароля пользователю",
             groups = {"regression"},
-            priority = 1308
+            priority = 1308,
+            dataProvider = "generateUserData"
     )
     public void successChangePassword() throws Exception {
         kraken.perform().quickLogout();
         UserData testuser = generate.testCredentials("user");
-        kraken.perform().registration(testuser);
+        kraken.perform().registration();
 
         kraken.admin().editUser(testuser);
         kraken.admin().changePassword("654321");
@@ -383,7 +384,7 @@ public class Administration extends TestBase {
         kraken.admin().editUser(testuser);
         kraken.admin().grantB2B();
 
-        kraken.admin().searchB2BUser(testuser);
+        kraken.admin().searchUser(testuser, true,false);
 
         softAssert.assertEquals(kraken.grab().text(Elements.Admin.Users.firstUserLogin()), testuser.getEmail(),
                 "Не работает поиск B2B пользователя в админке");
@@ -444,7 +445,7 @@ public class Administration extends TestBase {
         kraken.admin().editUser(testuser);
         kraken.admin().revokeB2B();
 
-        kraken.admin().searchB2BUser(testuser);
+        kraken.admin().searchUser(testuser , true,false);
 
         softAssert.assertFalse(kraken.detect().isElementPresent(Elements.Admin.Users.firstUserLogin()),
                 "Пользователь находится как B2B после снятия флага");

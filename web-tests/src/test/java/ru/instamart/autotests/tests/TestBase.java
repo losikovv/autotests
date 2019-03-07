@@ -8,6 +8,8 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.ApplicationManager;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.testdata.generate;
 
 
 // Basic test class
@@ -133,5 +135,11 @@ public class TestBase {
             kraken.perform().printMessage("Пропускаем тест на " + environment.getName());
             throw new SkipException("Пропускаем тест");
         }
+    }
+
+    @DataProvider
+    Object[][] generateUserData() throws Exception {
+    UserData testuser = generate.testCredentials("user");
+    return new Object[][] {{testuser}};
     }
 }

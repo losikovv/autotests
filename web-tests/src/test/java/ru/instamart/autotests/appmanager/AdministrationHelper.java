@@ -19,7 +19,7 @@ public class AdministrationHelper extends HelperBase {
      */
     public void searchOrder(String order) throws Exception {
         kraken.perform().reachAdmin("shipments");
-        printMessage("Поиск заказа по номеру заказа/шипмента " + order);
+        printMessage("Поиск заказа по номеру " + order);
         kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), order);
         kraken.perform().click(Elements.Admin.Shipments.searchButton());
         kraken.perform().waitingFor(2); // Ожидание поиска заказа в админке
@@ -30,7 +30,7 @@ public class AdministrationHelper extends HelperBase {
      */
     public void searchOrder(String number, boolean b2b) throws Exception {
         kraken.perform().reachAdmin("shipments");
-        printMessage("Поиск B2B заказа по номеру заказа/шипмента " + number);
+        printMessage("Поиск B2B заказа по номеру " + number);
         kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), number);
         kraken.perform().setCheckbox(Elements.Admin.Shipments.b2bCheckbox(),b2b);
         kraken.perform().click(Elements.Admin.Shipments.searchButton());
@@ -77,39 +77,28 @@ public class AdministrationHelper extends HelperBase {
     // ====== USERS =======
 
     /**
-     * Найти пользователя по реквизитам из указанного объекта userData
+     * Поиск пользователей
      */
     public void searchUser(UserData userData) throws Exception {
         searchUser(userData.getEmail());
     }
 
-    /**
-     * Найти пользователя по email
-     */
-    public void searchUser(String email) throws Exception {
+    public void searchUser(UserData userData, boolean b2b, boolean tenant) throws Exception {
+        searchUser(userData.getEmail(), b2b, tenant);
+    }
+
+    private void searchUser(String email) throws Exception {
+        searchUser(email, false, false);
+    }
+
+    private void searchUser(String email, boolean b2b, boolean tenant) throws Exception {
         kraken.perform().reachAdmin("users");
-        printMessage("Поиск пользователей по запросу " + email);
+        printMessage("Поиск пользователей по email " + email);
         kraken.perform().fillField(Elements.Admin.Users.searchField(), email);
+        kraken.perform().setCheckbox(Elements.Admin.Users.b2bCheckbox(), b2b);
+        kraken.perform().setCheckbox(Elements.Admin.Users.tenantCheckbox(), tenant);
         kraken.perform().click(Elements.Admin.Users.searchButton());
         kraken.perform().waitingFor(1); // Ожидание осуществления поиска юзера в админке
-    }
-
-    /**
-     * Найти пользователя по реквизитам из указанного объекта userData
-     */
-    public void searchB2BUser(UserData userData) throws Exception {
-        searchB2BUser(userData.getEmail());
-    }
-
-    /**
-     * Найти B2B пользователя по email
-     */
-    public void searchB2BUser(String email) throws Exception {
-        kraken.perform().reachAdmin("users");
-        printMessage("Поиск пользователей по запросу " + email);
-        kraken.perform().fillField(Elements.Admin.Users.searchField(), email);
-        kraken.perform().click(Elements.Admin.Users.b2bCheckbox());
-        kraken.perform().click(Elements.Admin.Users.searchButton());
     }
 
     /**

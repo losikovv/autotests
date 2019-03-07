@@ -1683,6 +1683,10 @@ public class Elements {
                 return new Elements(null, By.id("q_b2b_true"));
             }
 
+            static Elements tenantCheckbox() {
+                return new Elements(null, By.id("q_tenant_eq"));
+            }
+
             /**
              * Страница пользователя в админке
              */
