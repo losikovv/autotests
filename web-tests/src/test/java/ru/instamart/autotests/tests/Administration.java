@@ -10,6 +10,8 @@ import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
+import static ru.instamart.autotests.application.Config.testOrder;
+import static ru.instamart.autotests.application.Config.testShipment;
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
 
@@ -79,7 +81,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест шапки админки",
             groups = {"regression"},
-            priority = 1304
+            priority = 1303
     )
     public void successCheckHeader() throws Exception {
 
@@ -245,7 +247,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест предоставления и отзыва админских прав пользователю",
             groups = {"regression"},
-            priority = 1305
+            priority = 1304
     )
     public void successGrantAndRevokeAdminPrivileges() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -280,7 +282,7 @@ public class Administration extends TestBase {
     @Test(
             description = "Тест поиска пользователя в админке",
             groups = {"acceptance","regression"},
-            priority = 1306
+            priority = 1305
     )
     public void successSearchUser() throws Exception {
 
@@ -292,20 +294,36 @@ public class Administration extends TestBase {
 
 
     @Test(
-            description = "Тест поиска заказа в админке",
+            description = "Тест поиска заказа по номеру заказа в админке",
+            groups = {"acceptance","regression"},
+            priority = 1306
+    )
+    public void successSearchOrderByOrderNumber() throws Exception {
+
+        kraken.admin().searchOrder(testOrder);
+
+        Assert.assertFalse(kraken.detect().isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder()),
+                "Не работает поиск заказа в админке, пустой результат поиска\n");
+
+        Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), testOrder,
+                "Не работает поиск заказа в админке, найден не тот шипмент\n");
+    }
+
+
+    @Test(
+            description = "Тест поиска заказа по номеру шипмента в админке",
             groups = {"acceptance","regression"},
             priority = 1307
     )
-    public void successSearchOrder() throws Exception {
-        kraken.get().page("metro");
-        kraken.perform().order();
-        String number = kraken.grab().currentOrderNumber();
+    public void successSearchOrderByShipmentNumber() throws Exception {
 
-        kraken.admin().searchOrder(number); // TODO параметризовать заказ в конфиге и не ебстись с созданием
+        kraken.admin().searchOrder(testShipment);
 
-        // TODO добавить проверку на наличие заказов в результатах поиска
-        Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
-                "Не работает поиск заказа в админке");
+        Assert.assertFalse(kraken.detect().isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder()),
+                "Не работает поиск шипмента в админке, пустой результат поиска\n");
+
+        Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstShipmentNumberInTable()), testShipment,
+                "Не работает поиск шипмента в админке, найден не тот шипмент\n");
     }
 
 
@@ -395,7 +413,7 @@ public class Administration extends TestBase {
         kraken.perform().order();
         String number = kraken.grab().currentOrderNumber();
 
-        kraken.admin().searchB2BOrder(number);
+        kraken.admin().searchOrder(number,true);
 
         Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
                 "Не работает поиск B2B заказа в админке");
@@ -431,7 +449,7 @@ public class Administration extends TestBase {
         softAssert.assertFalse(kraken.detect().isElementPresent(Elements.Admin.Users.firstUserLogin()),
                 "Пользователь находится как B2B после снятия флага");
 
-        kraken.admin().searchB2BOrder(number);
+        kraken.admin().searchOrder(number, true);
 
         softAssert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
                 "Не работает поиск старого B2B заказа после снятия B2B флага у пользователя");

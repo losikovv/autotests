@@ -17,6 +17,8 @@ public class Config {
     public final static String companyDomain = companyName + ".ru";
     public final static String testDomain = "example.com";
     public final static String testMark = "autotest";
+    public final static String testOrder = "R384014557";
+    public final static String testShipment = "H44617031667";
 
     public final static int minOrderSum = 2000;
 

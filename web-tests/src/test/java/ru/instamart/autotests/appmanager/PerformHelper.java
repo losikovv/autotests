@@ -78,7 +78,7 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Установить значение чекбокса в соответствии */
-    private void setCheckbox(Elements element, boolean value) {
+    public void setCheckbox(Elements element, boolean value) {
         setCheckbox(Elements.locator(), value);
     }
 

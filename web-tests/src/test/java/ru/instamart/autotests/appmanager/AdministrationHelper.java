@@ -17,21 +17,22 @@ public class AdministrationHelper extends HelperBase {
     /**
      * Найти заказ по номеру заказа или шипмента
      */
-    public void searchOrder(String number) throws Exception {
+    public void searchOrder(String order) throws Exception {
         kraken.perform().reachAdmin("shipments");
-        printMessage("Поиск заказа по номеру заказа/шипмента " + number);
-        kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), number);
+        printMessage("Поиск заказа по номеру заказа/шипмента " + order);
+        kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), order);
         kraken.perform().click(Elements.Admin.Shipments.searchButton());
+        kraken.perform().waitingFor(2); // Ожидание поиска заказа в админке
     }
 
     /**
      * Найти заказ по номеру заказа или шипмента
      */
-    public void searchB2BOrder(String number) throws Exception {
+    public void searchOrder(String number, boolean b2b) throws Exception {
         kraken.perform().reachAdmin("shipments");
         printMessage("Поиск B2B заказа по номеру заказа/шипмента " + number);
         kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), number);
-        kraken.perform().click(Elements.Admin.Shipments.b2bCheckbox());
+        kraken.perform().setCheckbox(Elements.Admin.Shipments.b2bCheckbox(),b2b);
         kraken.perform().click(Elements.Admin.Shipments.searchButton());
     }
 

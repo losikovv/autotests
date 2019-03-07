@@ -1562,9 +1562,14 @@ public class Elements {
                 return new Elements(null, By.xpath("//*[@id='listing_orders']/tbody/tr/td[14]/a"));
             }
 
+            static Elements firstShipmentNumberInTable() {
+                return new Elements(null,
+                        By.xpath("//*[@id='listing_orders']/tbody/tr/td[1]/span[1]/a"));
+            }
+
             static Elements firstOrderNumberInTable() { return new Elements(null,
-                        By.xpath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[2]/table[1]/tbody[1]/tr[1]" +
-                                "/td[1]/span[2]/a[1]"));
+                        //By.xpath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[2]/table[1]/tbody[1]/tr[1]/td[1]/span[2]/a[1]"));
+                        By.xpath("//*[@id='listing_orders']/tbody/tr/td[1]/span[2]/a"));
             }
 
             static Elements searchNumberField() { return new Elements(null, By.id("search_number"));
