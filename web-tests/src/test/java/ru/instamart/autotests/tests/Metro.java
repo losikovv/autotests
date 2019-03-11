@@ -5,9 +5,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.application.Users;
-import ru.instamart.autotests.models.EnvironmentData;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
@@ -24,6 +21,7 @@ public class Metro extends TestBase {
             priority = 1488
     )
     public void newTenantFooter() throws Exception {
+        skipOn("instamart");
         kraken.get().baseUrl();
 
         Assert.assertTrue(kraken.detect().isTenantFooterAvailable(),
@@ -36,6 +34,7 @@ public class Metro extends TestBase {
             priority = 1489
     )
     public void outStoreSelectorOnTenant() throws Exception {
+        skipOn("instamart");
         kraken.get().baseUrl();
 
         Assert.assertFalse(kraken.detect().isStoreSelectorAvailaible(),
@@ -47,6 +46,7 @@ public class Metro extends TestBase {
             priority = 1490
     )
     public void outContactsOnTenantProfile() throws Exception {
+        skipOn("instamart");
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
 
@@ -59,6 +59,7 @@ public class Metro extends TestBase {
             priority = 1491
     )
     public void outJivositeOnTenant() throws Exception {
+        skipOn("instamart");
         kraken.get().baseUrl();
 
         Assert.assertFalse(kraken.detect().isJivositeWidgetAvailable(),
@@ -70,6 +71,7 @@ public class Metro extends TestBase {
             priority = 1492
     )
     public void outJivositeOnTenantCheckout() throws Exception {
+        skipOn("instamart");
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
         kraken.perform().reachCheckout();
@@ -83,6 +85,7 @@ public class Metro extends TestBase {
             priority = 1493
     )
     public void outJivositeOnTenantOrders() throws Exception {
+        skipOn("instamart");
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
         kraken.get().ordersPage();
@@ -96,6 +99,7 @@ public class Metro extends TestBase {
             priority = 1494
     )
     public void outJivositeOnTenantProfile() throws Exception {
+        skipOn("instamart");
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
         kraken.get().profilePage();
@@ -109,6 +113,7 @@ public class Metro extends TestBase {
             priority = 1495
     )
     public void outJivositeOnTenantFavoritesPage() throws Exception {
+        skipOn("instamart");
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
         kraken.get().favoritesPage();
@@ -122,6 +127,7 @@ public class Metro extends TestBase {
             priority = 1496
     )
     public void outJivositeOnTenantAddressesPage() throws Exception {
+        skipOn("instamart");
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
         kraken.get().addressesPage();
@@ -135,6 +141,7 @@ public class Metro extends TestBase {
             priority = 1497
     )
     public void outLoyaltyProgramsOnTenantCheckout() throws Exception {
+        skipOn("instamart");
         SoftAssert softAssert = new SoftAssert();
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);

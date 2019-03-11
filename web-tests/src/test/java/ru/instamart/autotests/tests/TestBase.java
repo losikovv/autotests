@@ -137,6 +137,14 @@ public class TestBase {
         }
     }
 
+    /** Пропуск теста на указанном окружении */
+    void skipOn(String tenant) throws SkipException{
+        if (kraken.detect().tenant(tenant)) {
+            kraken.perform().printMessage("Пропускаем тест для тенанта " + tenant);
+            throw new SkipException("Пропускаем тест");
+        }
+    }
+
     @DataProvider
     Object[][] generateUserData() throws Exception {
     UserData testuser = generate.testCredentials("user");

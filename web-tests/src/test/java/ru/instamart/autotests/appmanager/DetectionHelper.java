@@ -26,6 +26,13 @@ public class DetectionHelper extends HelperBase {
     }
 
     /**
+     * Определить тенант
+     */
+    public boolean tenant(String tenantName) {
+        return kraken.environment.getTenant().equals(tenantName);
+    }
+
+    /**
      * Определить показан ли алерт на странице
      */
     protected boolean isAlertPresent() {
