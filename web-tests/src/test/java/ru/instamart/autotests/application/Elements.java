@@ -319,11 +319,11 @@ public class Elements {
                 return new Elements(null, By.name("passwordConfirmation"));
             }
 
-            static Elements agrrementCheckbox() {
+            static Elements agreementCheckbox() {
                 return new Elements(null, By.className("checkbox__check"));
             }
 
-            static Elements agrrementRulesLink() {
+            static Elements agreementRulesLink() {
                 return new Elements(null, By.className("auth-modal__agreement"));
             }
 

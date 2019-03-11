@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
+import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
 
@@ -361,5 +362,19 @@ public class Registration extends TestBase {
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает регистрация через Facebook\n");
+    }
+
+    @Test(
+            description = "Негативный тест регистрации без проставленной галки на обработку данных",
+            groups = {"acceptance", "regression"},
+            priority = 216
+    )
+    public void noRegWithoutCheckboxInfo() throws Exception {
+        kraken.perform().openAuthModal();
+        kraken.perform().regSequence(generate.testCredentials("user"), false );
+        kraken.perform().click(Elements.Site.AuthModal.submitButton());
+
+        Assert.assertFalse(kraken.detect().isUserAuthorised(),
+                "Работает регистрация без согласия на обработку перс. данных");
     }
 }

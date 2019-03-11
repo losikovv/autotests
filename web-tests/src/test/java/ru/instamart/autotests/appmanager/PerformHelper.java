@@ -82,7 +82,7 @@ public class PerformHelper extends HelperBase {
         setCheckbox(Elements.locator(), value);
     }
 
-    private void setCheckbox(By locator, boolean value) {
+    public void setCheckbox(By locator, boolean value) {
         if(value) {
             if(!kraken.detect().isCheckboxSelected(locator))
                 click(locator);
@@ -173,8 +173,14 @@ public class PerformHelper extends HelperBase {
         regSequence(userData.getName(), userData.getEmail(), userData.getPassword(), userData.getPassword());
     }
 
+    /** Регистрационная последовательность с реквизитами из переданного объекта UserData */
+    public void regSequence(UserData userData, boolean agreement) throws Exception {
+        switchToRegistrationTab();
+        fillRegistrationForm(userData.getName(), userData.getEmail(), userData.getPassword(), userData.getPassword(), agreement);
+    }
+
     /** Регистрационная последовательность с указанными реквизитами */
-    private void regSequence(String name, String email, String password, String passwordConfirmation) throws Exception {
+    public void regSequence(String name, String email, String password, String passwordConfirmation) throws Exception {
         switchToRegistrationTab();
         fillRegistrationForm(name, email, password, passwordConfirmation, true);
     }
@@ -329,7 +335,7 @@ public class PerformHelper extends HelperBase {
         fillField(Elements.Site.AuthModal.emailField(), email);
         fillField(Elements.Site.AuthModal.passwordField(), password);
         fillField(Elements.Site.AuthModal.passwordConfirmationField(), passwordConfirmation);
-        setCheckbox(Elements.Site.AuthModal.agrrementCheckbox(), agreementConfirmation);
+        setCheckbox(Elements.Site.AuthModal.agreementCheckbox(), agreementConfirmation);
     }
 
     /** Отправить форму */
