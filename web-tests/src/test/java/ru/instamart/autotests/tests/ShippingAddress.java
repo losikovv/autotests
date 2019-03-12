@@ -33,18 +33,21 @@ public class ShippingAddress extends TestBase{
             priority = 302
     )
     public void successOperateDefaultShoplist() {
-        SoftAssert softAssert = new SoftAssert();
-
         kraken.get().page("metro");
         kraken.shopping().openStoreSelector();
 
-        softAssert.assertFalse(kraken.detect().isStoreSelectorOpen(),
+        Assert.assertTrue(kraken.detect().isStoreSelectorOpen(),
                 "Не открывается дефолтный список магазинов\n");
 
-        softAssert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
+        Assert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
                 "Дефолтный список магазинов пуст\n");
 
-        softAssert.assertAll();
+        kraken.shopping().closeStoreSelector();
+
+        Assert.assertFalse(kraken.detect().isStoreSelectorOpen(),
+                "Не закрывается дефолтный список магазинов\n");
+
+
     }
 
 

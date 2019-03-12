@@ -393,7 +393,7 @@ public class DetectionHelper extends HelperBase {
 
     /**Определить доступен ли селектор магазинов*/
     public boolean isStoreSelectorAvailaible(){
-        if (kraken.detect().isElementDisplayed(Elements.Site.StoreSelector.storeSelectorControl())){
+        if (kraken.detect().isElementDisplayed(Elements.Site.Header.changeStoreButton())){
             printMessage("Селектор магазинов доступен");
             return true;
         } else {

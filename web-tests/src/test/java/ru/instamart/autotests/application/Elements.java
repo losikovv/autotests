@@ -105,7 +105,7 @@ public class Elements {
             }
 
             static Elements changeStoreButton() {
-                locator = By.xpath("//*[@id='wrap']/div[1]/div/div/header/div[1]/div[3]/div/div[1]");
+                locator = By.className("search-container-selector__control");
                 return new Elements(null, locator);
             }
 
@@ -484,10 +484,6 @@ public class Elements {
             static Elements placeholder() {
                 return new Elements("Нет доступных магазинов по выбранному адресу",
                         By.className("store-selector__empty"));
-            }
-
-            static Elements storeSelectorControl() {
-                return new Elements(null, By.xpath("//*[@id=\"wrap\"]/div[1]/div/div/header/div[1]/div[3]/div/div[1]/div[2]"));
             }
         }
 
