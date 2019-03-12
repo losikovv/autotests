@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.application.Users;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
@@ -13,7 +12,7 @@ public class Jivosite extends TestBase{
 
     @Test(
             description = "Тест отсутствия виджета Jivosite на лендинге",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 1201
     )
     public void noJivositeWidgetOnLanding () throws Exception {
@@ -26,7 +25,7 @@ public class Jivosite extends TestBase{
 
     @Test(
             description = "Тест отсутствия виджета Jivosite в чекауте",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 1202
     )
     public void noJivositeWidgetOnCheckout () throws Exception {

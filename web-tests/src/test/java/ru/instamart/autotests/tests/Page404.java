@@ -18,7 +18,7 @@ public class Page404 extends TestBase {
     @Test(
             description = "Тест познания котомудрости на странице 404",
             groups = {"regression"},
-            priority = 9000
+            priority = 10001
     )
     public void successLearnCatWisdom() throws AssertionError {
         kraken.jivosite().open();
@@ -34,7 +34,7 @@ public class Page404 extends TestBase {
     @Test(
             description = "Тест перехода на главную по одноименной кнопке на странице 404",
             groups = {"regression"},
-            priority = 9001
+            priority = 10002
     )
     public void successGoToHomepageFromDefaultPage404() throws AssertionError {
         kraken.jivosite().open();
@@ -47,7 +47,7 @@ public class Page404 extends TestBase {
     @Test(
             description = "Тест перехода на главную по одноименной кнопке на странице 404 после познания котомудрости",
             groups = {"regression"},
-            priority = 9002
+            priority = 10003
     )
     public void successGoToHomepageAfterLearningCatWisdom() throws AssertionError {
         kraken.jivosite().open();
@@ -61,7 +61,7 @@ public class Page404 extends TestBase {
     @Test(
             description = "Тест перехода в каталог по кнопке 'Познать цены' на странице 404 после познания котомудрости",
             groups = {"regression"},
-            priority = 9003
+            priority = 10004
     )
     public void successGoToCatalogAfterLearningCatWisdom() throws AssertionError {
         kraken.jivosite().open();
@@ -76,7 +76,7 @@ public class Page404 extends TestBase {
     @Test(
             description = "Тест познания новой котомудрости на странице 404 после познания первой",
             groups = {"acceptance","regression"},
-            priority = 9004
+            priority = 10005
     )
     public void successLearnMoreCatWisdom() throws AssertionError {
         kraken.jivosite().open(); // для стабильности работы

@@ -18,7 +18,7 @@ public class Metro extends TestBase {
 
     @Test(  description = "Доступность нового футера на деливери метро",
             groups = {"acceptance","regression"},
-            priority = 1488
+            priority = 9001
     )
     public void newTenantFooter() throws Exception {
         skipOn("instamart");
@@ -31,7 +31,7 @@ public class Metro extends TestBase {
 
     @Test(  description = "Отсутствие селектора магазинов на деливери метро",
             groups = {"acceptance","regression"},
-            priority = 1489
+            priority = 9002
     )
     public void outStoreSelectorOnTenant() throws Exception {
         skipOn("instamart");
@@ -43,7 +43,7 @@ public class Metro extends TestBase {
 
     @Test(  description = "Отсутствие селектора магазинов на деливери метро",
             groups = {"acceptance","regression"},
-            priority = 1490
+            priority = 9003
     )
     public void outContactsOnTenantProfile() throws Exception {
         skipOn("instamart");
@@ -56,7 +56,7 @@ public class Metro extends TestBase {
 
     @Test(  description = "Отсутствие живосайта на витрине деливери метро",
             groups = {"acceptance","regression"},
-            priority = 1491
+            priority = 9004
     )
     public void outJivositeOnTenant() throws Exception {
         skipOn("instamart");
@@ -68,7 +68,7 @@ public class Metro extends TestBase {
 
     @Test(  description = "Отсутствие живосайта в чекауте деливери метро",
             groups = {"acceptance","regression"},
-            priority = 1492
+            priority = 9005
     )
     public void outJivositeOnTenantCheckout() throws Exception {
         skipOn("instamart");
@@ -82,7 +82,7 @@ public class Metro extends TestBase {
 
     @Test(  description = "Отсутствие живосайта на странице заказов деливери метро",
             groups = {"acceptance","regression"},
-            priority = 1493
+            priority = 9006
     )
     public void outJivositeOnTenantOrders() throws Exception {
         skipOn("instamart");
@@ -96,7 +96,7 @@ public class Metro extends TestBase {
 
     @Test(  description = "Отсутствие живосайта на странице профиля деливери метро",
             groups = {"acceptance","regression"},
-            priority = 1494
+            priority = 9007
     )
     public void outJivositeOnTenantProfile() throws Exception {
         skipOn("instamart");
@@ -110,7 +110,7 @@ public class Metro extends TestBase {
 
     @Test(  description = "Отсутствие живосайта на странице профиля деливери метро",
             groups = {"acceptance","regression"},
-            priority = 1495
+            priority = 9008
     )
     public void outJivositeOnTenantFavoritesPage() throws Exception {
         skipOn("instamart");
@@ -124,7 +124,7 @@ public class Metro extends TestBase {
 
     @Test(  description = "Отсутствие живосайта на странице профиля деливери метро",
             groups = {"acceptance","regression"},
-            priority = 1496
+            priority = 9009
     )
     public void outJivositeOnTenantAddressesPage() throws Exception {
         skipOn("instamart");
@@ -138,7 +138,7 @@ public class Metro extends TestBase {
 
     @Test(  description = "Отсутствие программ лояльности в чекауте деливери метро",
             groups = {"acceptance","regression"},
-            priority = 1497
+            priority = 9010
     )
     public void outLoyaltyProgramsOnTenantCheckout() throws Exception {
         skipOn("instamart");
