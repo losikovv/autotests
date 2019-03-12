@@ -34,6 +34,12 @@ public class CheckoutHelper extends HelperBase {
         makeOrder(details);
     }
 
+    public void complete(PaymentTypeData payment, boolean newPaymentCard, CreditCardData card) {
+        OrderDetailsData details = new OrderDetailsData();
+        details.setPaymentDetails(payment, newPaymentCard, card);
+        makeOrder(details);
+    }
+
     public void complete(PaymentTypeData payment, boolean newJuridical, JuridicalData juridical) {
         OrderDetailsData details = new OrderDetailsData();
         details.setPaymentDetails(payment, newJuridical, juridical);
@@ -46,6 +52,7 @@ public class CheckoutHelper extends HelperBase {
         if(orderDetails.getBonus() != null) {addBonus(orderDetails.getBonus());}
         if(orderDetails.getLoyalty() != null) { addLoyalty(orderDetails.getLoyalty());}
         sendOrder();
+        cloudpaymentsFlow();
     }
 
     public void fillOrderDetails() {
@@ -128,14 +135,22 @@ public class CheckoutHelper extends HelperBase {
         kraken.perform().click(Elements.Site.Checkout.paymentTypeSelector(paymentDetails.getPaymentType().getPosition()));
         String description = paymentDetails.getPaymentType().getDescription();
         printMessage("Выбираем способ оплаты " + description);
-        if (paymentDetails.isNewCreditCard()) {
-            //TODO сделать добавление новой банковской карты
-            // TODO addNewPaymentCard - добавить карту оплаты
-            // TODO changePaymentCard - изменить карту оплаты
-            // TODO deletePaymentCard - удалить карту оплаты
-            // TODO deleteAllPaymentCards - удалить все карты оплаты
-            // TODO selectPaymentCard - выбрать карту оплаты
+
+        if (description.equalsIgnoreCase(PaymentTypes.cardOnline().getDescription())) {
+            if (paymentDetails.isNewCreditCard()) {
+                deleteAllExceptOnePaymentCard();
+                if (paymentDetails.getCreditCard() != null) {
+                    addNewPaymentCard(paymentDetails.getCreditCard());
+                } else {
+                    addNewPaymentCard(Config.testOrderDetails().getPaymentDetails().getCreditCard());
+                }
+            } else {
+                if (paymentDetails.getCreditCard() != null) {
+                    selectPaymentCard(paymentDetails.getCreditCard());
+                }
+            }
         }
+
         if (description.equalsIgnoreCase(PaymentTypes.bankTransfer().getDescription())) {
             if (paymentDetails.isNewJuridical()) {
                 deleteAllExceptOneJuridical();
@@ -354,6 +369,71 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
+    /** Добавить новую карту оплаты */
+    private void addNewPaymentCard(CreditCardData creditCardData) {
+        kraken.perform().printMessage("Добавляем карту оплаты " + creditCardData.getCardNumber());
+
+        if (kraken.detect().isElementDisplayed(Elements.Site.Checkout.addPaymentCardButton())) {
+            kraken.perform().click(Elements.Site.Checkout.addPaymentCardButton());
+            fillPaymentCardDetails(creditCardData);
+            kraken.perform().click(Elements.Site.Checkout.PaymentCardModal.confirmButton());
+            kraken.perform().waitingFor(1); // Ожидание добавления новой карты оплаты
+
+            kraken.perform().click(Elements.Site.Checkout.paymentCardTitle(
+                    kraken.grab().listSize(Elements.Site.Checkout.paymentCardsList())));
+            kraken.perform().waitingFor(1); // Ожидание применения новой карты оплаты
+        } else {
+            fillPaymentCardDetails(creditCardData);
+        }
+    }
+
+    /** Заполнить данные карты оплаты */
+    private void fillPaymentCardDetails(CreditCardData creditCardData) {
+        kraken.perform().fillField(Elements.Site.Checkout.PaymentCardModal.cardNumberField(), creditCardData.getCardNumber());
+        kraken.perform().fillField(Elements.Site.Checkout.PaymentCardModal.monthField(), creditCardData.getExpiryMonth());
+        kraken.perform().fillField(Elements.Site.Checkout.PaymentCardModal.yearField(), creditCardData.getExpiryYear());
+        kraken.perform().fillField(Elements.Site.Checkout.PaymentCardModal.cvvField(), creditCardData.getCvvNumber());
+        kraken.perform().fillField(Elements.Site.Checkout.PaymentCardModal.nameField(), creditCardData.getCardholderName());
+    }
+
+    /** Удалить все карты оплаты, кроме одной */
+    private void deleteAllExceptOnePaymentCard() {
+        if (kraken.detect().isSecondPaymentCardEntered()) {
+            deletePaymentCard();
+            deleteAllExceptOnePaymentCard();
+        }
+    }
+
+    /** Удалить карту оплаты */
+    private void deletePaymentCard() {
+        kraken.perform().click(Elements.Site.Checkout.changePaymentCardButton());
+        kraken.perform().printMessage(
+                "Удаляем карту оплаты •••• " + kraken.grab().text(Elements.Site.Checkout.PaymentCardModal.cardNumber()));
+        kraken.perform().click(Elements.Site.Checkout.PaymentCardModal.deleteButton());
+        kraken.perform().waitingFor(1); // Ожидание удаления карты оплаты
+    }
+
+    /** Выбрать карту оплаты */
+    private void selectPaymentCard(CreditCardData creditCardData) {
+        Elements title = Elements.Site.Checkout.paymentCardTitle(creditCardData);
+        if (kraken.detect().isElementDisplayed(title)) {
+            kraken.perform().printMessage("Выбираем карту оплаты " + kraken.grab().text(title));
+            kraken.perform().click(title);
+            kraken.perform().waitingFor(1); // Ожидание применения выбранной карты оплаты
+        } else {
+            addNewPaymentCard(creditCardData);
+        }
+    }
+
+    /** Вести 3ds код на странице cloudpayments */
+    private void cloudpaymentsFlow() {
+        if (kraken.detect().isElementDisplayed(Elements.Site.Checkout.Cloudpayments.answerField())) {
+            kraken.perform().fillField(Elements.Site.Checkout.Cloudpayments.answerField(), "4");
+            kraken.perform().click(Elements.Site.Checkout.Cloudpayments.confirmButton());
+            kraken.perform().waitingFor(1); // Ожидание перехода со страницы cloudpayments
+        }
+    }
+
     /** Добавить новое юр. лицо */
     private void addNewJuridical(JuridicalData juridicalData) {
         kraken.perform().printMessage(
@@ -362,7 +442,7 @@ public class CheckoutHelper extends HelperBase {
             kraken.perform().click(Elements.Site.Checkout.addJuridicalButton());
             fillJuridicalDetails(juridicalData);
             kraken.perform().click(Elements.Site.Checkout.JuridicalModal.confirmButton());
-            kraken.perform().waitingFor(1); // Ожидание добавление нового юрлица
+            kraken.perform().waitingFor(1); // Ожидание добавления нового юрлица
         } else {
             fillJuridicalDetails(juridicalData);
         }

@@ -5,9 +5,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.BonusProgramData;
+import ru.instamart.autotests.models.CreditCardData;
 import ru.instamart.autotests.models.JuridicalData;
 import ru.instamart.autotests.testdata.generate;
 
+import static ru.instamart.autotests.application.Environments.*;
 
 // Тесты чекаута
 
@@ -23,8 +25,6 @@ public class Checkout extends TestBase {
     // TODO Тесты на изменение телефона и контактов
 
     // TODO Тесты на добавление и изменение карт оплаты
-
-    // TODO Тесты на добавление и изменение юрлиц
 
 
     @Test(
@@ -363,7 +363,7 @@ public class Checkout extends TestBase {
             priority = 716
     )
     public void successCompleteCheckoutWithNewJuridical() throws Exception {
-        JuridicalData juridicalData =  new JuridicalData(
+        JuridicalData juridicalData = new JuridicalData(
                 "ООО \"Новый Пользователь\"",
                 generate.string(8),
                 generate.digitString(13),
@@ -383,9 +383,8 @@ public class Checkout extends TestBase {
         kraken.perform().cancelLastOrder();
         kraken.perform().reachAdmin(Pages.Admin.Order.requisites(number));
 
-        Assert.assertEquals(
-                kraken.grab().value(Elements.Admin.Shipments.Order.Requisites.innField()), juridicalData.getInn(),
-                "Данные юр. лица не совпадают с указанными пользователем"
+        Assert.assertEquals(kraken.grab().value(Elements.Admin.Shipments.Order.Requisites.innField()), juridicalData.getInn(),
+                "Данные юр. лица не совпадают с указанными пользователем\n"
         );
     }
 
@@ -396,7 +395,7 @@ public class Checkout extends TestBase {
             priority = 717
     )
     public void successCompleteCheckoutWithChangeJuridical() throws Exception {
-        JuridicalData juridicalData =  new JuridicalData(
+        JuridicalData juridicalData = new JuridicalData(
                 "ООО \"Измененный Пользователь\"",
                 generate.string(8),
                 generate.digitString(13),
@@ -416,10 +415,38 @@ public class Checkout extends TestBase {
         kraken.perform().cancelLastOrder();
         kraken.perform().reachAdmin(Pages.Admin.Order.requisites(number));
 
-        Assert.assertEquals(
-                kraken.grab().value(Elements.Admin.Shipments.Order.Requisites.innField()), juridicalData.getInn(),
-                "Данные юр. лица не совпадают с указанными пользователем"
+        Assert.assertEquals(kraken.grab().value(Elements.Admin.Shipments.Order.Requisites.innField()), juridicalData.getInn(),
+                "Данные юр. лица не совпадают с указанными пользователем\n"
         );
+    }
+
+
+    @Test(
+            description = "Тест оформления заказа с новой картой оплаты",
+            groups = {"regression"},
+            priority = 718
+    )
+    public void successCompleteCheckoutWithNewPaymentCard() throws Exception {
+        testOn(instamart_staging());
+        CreditCardData creditCardData = Config.testOrderDetails().getPaymentDetails().getCreditCard();
+
+        kraken.perform().reachCheckout();
+        kraken.checkout().complete(PaymentTypes.cardOnline(), true, creditCardData);
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не удалось оформить заказ с добавлением новой карты\n");
+
+        String number = kraken.grab().currentOrderNumber();
+        kraken.perform().cancelLastOrder();
+        // Доп проверка наименования платежа в админке
+        /*
+        kraken.perform().reachAdmin(Pages.Admin.Order.payments(number));
+
+        Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.Order.Payments.paymentType()),
+                PaymentTypes.cardOnline().getDescription(),
+                "Название способа оплаты в админке не совпадает с выбранным способом оплаты\n"
+        );
+        */
     }
 
 }

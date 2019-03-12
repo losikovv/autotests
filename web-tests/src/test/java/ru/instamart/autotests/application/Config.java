@@ -44,7 +44,12 @@ public class Config {
                 new PaymentDetailsData(
                         PaymentTypes.cash(),
                         false,
-                        null,
+                        new CreditCardData(
+                                "4242424242424242",
+                                "12",
+                                "2049",
+                                "IVAN IVANOV",
+                                "404"),
                         false,
                         new JuridicalData(
                                 "ООО \"Автотест\"",

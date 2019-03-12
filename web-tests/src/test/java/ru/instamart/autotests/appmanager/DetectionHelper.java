@@ -511,13 +511,23 @@ public class DetectionHelper extends HelperBase {
     }
 
     /** Определить введены ли данные юрлица на 4 шаге в чекауте */
+    public boolean isPaymentCardEntered() {
+        return isElementDisplayed(Elements.Site.Checkout.paymentCardTitle(1));
+    }
+
+    /** Определить введены ли данные второго юрлица на 4 шаге в чекауте */
+    public boolean isSecondPaymentCardEntered() {
+        return isElementDisplayed(Elements.Site.Checkout.paymentCardTitle(2));
+    }
+
+    /** Определить введены ли данные юрлица на 4 шаге в чекауте */
     public boolean isJuridicalEntered() {
-        return isElementDisplayed(Elements.Site.Checkout.firstJuridicalTitle());
+        return isElementDisplayed(Elements.Site.Checkout.juridicalTitle(1));
     }
 
     /** Определить введены ли данные второго юрлица на 4 шаге в чекауте */
     public boolean isSecondJuridicalEntered() {
-        return isElementDisplayed(Elements.Site.Checkout.secondJuridicalTitle());
+        return isElementDisplayed(Elements.Site.Checkout.juridicalTitle(2));
     }
 
     /** Определить отображаются ли слоты доставки в чекауте */

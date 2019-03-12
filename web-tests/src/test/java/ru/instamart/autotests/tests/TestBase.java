@@ -138,9 +138,16 @@ public class TestBase {
     }
 
     /** Пропуск теста на указанном окружении */
-    void skipOn(String tenant) throws SkipException{
+    void skipOn(String tenant) throws SkipException {
         if (kraken.detect().tenant(tenant)) {
             kraken.perform().printMessage("Пропускаем тест для тенанта " + tenant);
+        }
+    }
+
+    /** Прогон теста только на указанном окружении */
+    void testOn(EnvironmentData environment) throws SkipException{
+        if (!kraken.detect().environment(environment)) {
+            kraken.perform().printMessage("Пропускаем тест не на " + environment.getName());
             throw new SkipException("Пропускаем тест");
         }
     }
@@ -150,4 +157,5 @@ public class TestBase {
     UserData testuser = generate.testCredentials("user");
     return new Object[][] {{testuser}};
     }
+    
 }

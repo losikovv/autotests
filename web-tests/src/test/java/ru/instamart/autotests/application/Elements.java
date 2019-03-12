@@ -1,6 +1,7 @@
 package ru.instamart.autotests.application;
 
 import org.openqa.selenium.By;
+import ru.instamart.autotests.models.CreditCardData;
 import ru.instamart.autotests.models.JuridicalData;
 
 public class Elements {
@@ -974,6 +975,81 @@ public class Elements {
             }
 
             /**
+             * Элементы оплаты банковской картой
+             */
+            static Elements addPaymentCardButton() {
+                return new Elements(null, By.xpath("//div[contains(text(),'+ Добавить новую карту')]"));
+            }
+
+            static Elements changePaymentCardButton() {
+                return new Elements(null, By.xpath("//div[2]/div[1]/div[1]/div/div/a"));
+            }
+
+            static Elements paymentCardsList() {
+                return new Elements(null, By.xpath(
+                        "//div[4]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div/div/span[2]/span"));
+            }
+
+            static Elements paymentCardTitle(int number) {
+                return new Elements(null, By.xpath(
+                        "//div[4]/div[2]/div/div/div[2]/div[2]/div[1]/div[" + number + "]/div/div/div/span[2]/span"));
+            }
+
+            static Elements paymentCardTitle(CreditCardData creditCardData) {
+                String number = creditCardData.getCardNumber();
+                return new Elements(null, By.xpath(
+                        "//span[contains(text(),'•••• " + number.substring(number.length()-4) + "')]"));
+            }
+
+            interface PaymentCardModal {
+
+                static Elements cardNumber() {
+                    return new Elements(null, By.xpath("//form/div/div[1]/span"));
+                }
+
+                static Elements cardNumberField() {
+                    return new Elements(null, By.xpath("//input[@data-cp='cardNumber']"));
+                }
+
+                static Elements monthField() {
+                    return new Elements(null, By.xpath("//input[@data-cp='expDateMonth']"));
+                }
+
+                static Elements yearField() {
+                    return new Elements(null, By.xpath("//input[@data-cp='expDateYear']"));
+                }
+
+                static Elements cvvField() {
+                    return new Elements(null, By.xpath("//input[@data-cp='cvv']"));
+                }
+
+                static Elements nameField() {
+                    return new Elements(null, By.xpath("//input[@data-cp='name']"));
+                }
+
+                static Elements deleteButton() {
+                    return new Elements(null, By.xpath("//button[contains(text(),'Удалить')]"));
+                }
+
+                static Elements confirmButton() {
+                    return new Elements(null, By.xpath("//button[contains(text(),'Сохранить')]"));
+                }
+
+            }
+
+            interface Cloudpayments {
+
+                static Elements answerField() {
+                    return new Elements(null, By.id("password"));
+                }
+
+                static Elements confirmButton() {
+                    return new Elements(null, By.xpath("//button[contains(text(),'Подтвердить')]"));
+                }
+
+            }
+
+            /**
              * Элементы оплаты банковским переводом
              */
             static Elements addJuridicalButton() {
@@ -984,12 +1060,8 @@ public class Elements {
                 return new Elements(null, By.xpath("//div[2]/div[1]/div[1]/div/div/a"));
             }
 
-            static Elements firstJuridicalTitle() {
-                return new Elements(null, By.xpath("//div[1]/div/div/div/span[2]/span"));
-            }
-
-            static Elements secondJuridicalTitle() {
-                return new Elements(null, By.xpath("//div[2]/div/div/div/span[2]/span"));
+            static Elements juridicalTitle(int number) {
+                return new Elements(null, By.xpath("//div[" + number + "]/div/div/div/span[2]/span"));
             }
 
             static Elements juridicalTitle(JuridicalData juridicalData) {
@@ -1070,8 +1142,10 @@ public class Elements {
 
             }
 
-            /**Программы лояльности*/
-            static Elements loyaltyPrograms(){
+            /**
+             * Программы лояльности
+             */
+            static Elements loyaltyPrograms() {
                 return new Elements(null, By.xpath("/html/body/div[3]/div/form/div/aside/div/div[3]"));
             }
 
@@ -1616,7 +1690,7 @@ public class Elements {
                 interface Payments {
 
                     static Elements paymentType() {
-                        return new Elements(null, By.xpath("//td[5]/a"));
+                        return new Elements(null, By.xpath("//div[@id='wrapper']//td[5]/a"));
                         //*[@id="payment_200903"]/td[5]/a
                     }
 

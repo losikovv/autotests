@@ -19,6 +19,16 @@ public class GrabHelper extends HelperBase{
         return driver.getCurrentUrl();
     }
 
+    /** Взять количество элементов */
+    public int listSize(Elements element) {
+        return listSize(Elements.locator());
+    }
+
+    /** Взять количество элементов по локатору */
+    public int listSize(By locator) {
+        return driver.findElements(locator).size();
+    }
+
     /** Взять текст элемента */
     public String text(Elements element) {
         return text(Elements.locator());
