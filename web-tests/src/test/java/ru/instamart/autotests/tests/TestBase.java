@@ -141,6 +141,7 @@ public class TestBase {
     void skipOn(String tenant) throws SkipException {
         if (kraken.detect().tenant(tenant)) {
             kraken.perform().printMessage("Пропускаем тест для тенанта " + tenant);
+            throw new SkipException("Пропускаем тест");
         }
     }
 
