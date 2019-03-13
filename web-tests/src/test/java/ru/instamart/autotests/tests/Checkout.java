@@ -430,7 +430,7 @@ public class Checkout extends TestBase {
         testOn(instamart_staging());
         CreditCardData creditCardData = Config.testOrderDetails().getPaymentDetails().getCreditCard();
 
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cardOnline(), true, creditCardData);
 
         Assert.assertTrue(kraken.detect().isOrderActive(),

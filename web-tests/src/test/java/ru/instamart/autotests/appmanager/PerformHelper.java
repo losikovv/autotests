@@ -445,21 +445,4 @@ public class PerformHelper extends HelperBase {
         } else printMessage("> Заказ не активен\n");
         waitingFor(2); // Ожидание отмены заказа
     }
-
-    // ======= Check =======
-
-    /** Проверка скачивания документации на странице деталей заказа */
-    public void checkOrderDocuments(){
-        for(int i = 1; i <= 3; i++) {
-            if(kraken.detect().orderDocument(i) != null) {
-                click(Elements.locator());
-            }
-        }
-    }
-
-    /** Проверка скачивания документации заказа */
-    public void checkOrderDocuments(String orderNumber){
-        kraken.get().page("user/orders/" + orderNumber);
-        checkOrderDocuments();
-    }
 }
