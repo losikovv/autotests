@@ -446,7 +446,6 @@ public class PerformHelper extends HelperBase {
         waitingFor(2); // Ожидание отмены заказа
     }
 
-
     // ======= Check =======
 
     /** Проверка скачивания документации на странице деталей заказа */
@@ -463,5 +462,4 @@ public class PerformHelper extends HelperBase {
         kraken.get().page("user/orders/" + orderNumber);
         checkOrderDocuments();
     }
-
 }

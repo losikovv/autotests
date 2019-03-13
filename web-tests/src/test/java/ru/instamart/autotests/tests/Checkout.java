@@ -154,7 +154,7 @@ public class Checkout extends TestBase {
                 "Не удалось оформить заказ с оплатой наличными\n");
 
         String number = kraken.grab().currentOrderNumber();
-        kraken.perform().checkOrderDocuments();
+        kraken.check().orderDocuments();
         assertPageIsAvailable();
 
         kraken.perform().cancelLastOrder();
@@ -184,7 +184,7 @@ public class Checkout extends TestBase {
                 "Не удалось оформить заказ с оплатой онлайн\n");
 
         String number = kraken.grab().currentOrderNumber();
-        kraken.perform().checkOrderDocuments();
+        kraken.check().orderDocuments();
         assertPageIsAvailable();
 
         kraken.perform().cancelLastOrder();
@@ -214,7 +214,7 @@ public class Checkout extends TestBase {
                 "Не удалось оформить заказ с оплатой картой курьеру\n");
 
         String number = kraken.grab().currentOrderNumber();
-        kraken.perform().checkOrderDocuments();
+        kraken.check().orderDocuments();
         assertPageIsAvailable();
 
         kraken.perform().cancelLastOrder();
@@ -244,7 +244,7 @@ public class Checkout extends TestBase {
                 "Не удалось оформить заказ с оплатой банковским переводом\n");
 
         String number = kraken.grab().currentOrderNumber();
-        kraken.perform().checkOrderDocuments();
+        kraken.check().orderDocuments();
         assertPageIsAvailable();
 
         kraken.perform().cancelLastOrder();
