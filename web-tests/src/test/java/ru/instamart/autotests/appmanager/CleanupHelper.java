@@ -39,7 +39,7 @@ public class CleanupHelper extends HelperBase {
      * Delete all users on a given page in admin panel
      */
     public void users(String usersListPath) throws Exception {
-        kraken.perform().reachAdmin(usersListPath);
+        kraken.reach().admin(usersListPath);
         if (kraken.detect().isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
             printMessage("> удаляем пользователя " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
             kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
@@ -63,7 +63,7 @@ public class CleanupHelper extends HelperBase {
      * Cancel all orders on a given page in admin panel
      */
     public void orders(String ordersListPath) throws Exception {
-        kraken.perform().reachAdmin(ordersListPath);
+        kraken.reach().admin(ordersListPath);
         if (!kraken.detect().isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder())) {
             kraken.perform().click(Elements.Admin.Shipments.firstOrderInTable());
             kraken.perform().waitingFor(1); // Ожидание отмены предыдущего тестового заказа

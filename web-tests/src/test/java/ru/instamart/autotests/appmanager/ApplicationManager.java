@@ -33,6 +33,7 @@ public class ApplicationManager {
     private BrowseHelper browseHelper;
     private NavigationHelper navigationHelper;
     private PerformHelper performHelper;
+    private ReachHelper reachHelper;
     private DetectionHelper detectionHelper;
     private GrabHelper grabHelper;
     private DropHelper dropHelper;
@@ -102,6 +103,7 @@ public class ApplicationManager {
         browseHelper = new BrowseHelper(driver, environment, this);
         navigationHelper = new NavigationHelper(driver, environment, this);
         performHelper = new PerformHelper(driver, environment, this);
+        reachHelper = new ReachHelper(driver, environment, this);
         detectionHelper = new DetectionHelper(driver, environment, this);
         grabHelper = new GrabHelper(driver,environment,this);
         dropHelper = new DropHelper(driver,environment,this);
@@ -154,6 +156,7 @@ public class ApplicationManager {
     public BrowseHelper get() { return browseHelper; }
     public NavigationHelper go() { return navigationHelper; }
     public PerformHelper perform() { return performHelper; }
+    public ReachHelper reach() { return reachHelper; }
     public DetectionHelper detect() { return detectionHelper; }
     public GrabHelper grab() { return grabHelper; }
     public DropHelper drop() { return dropHelper; }

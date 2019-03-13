@@ -9,7 +9,6 @@ import ru.instamart.autotests.testdata.generate;
 
 import static ru.instamart.autotests.application.Config.multiSessionMode;
 import static ru.instamart.autotests.application.Config.verbose;
-import static ru.instamart.autotests.application.Pages.getPagePath;
 
 public class PerformHelper extends HelperBase {
 
@@ -465,41 +464,4 @@ public class PerformHelper extends HelperBase {
         checkOrderDocuments();
     }
 
-
-    // ======= Reach =======
-
-    public void reachCheckout() {
-        kraken.get().checkoutPage();
-        if(!kraken.detect().isOnCheckout()){
-            refresh(); // Скипаем возможный алерт о минимальном заказе
-            kraken.shopping().collectItems();
-            kraken.shopping().proceedToCheckout();
-        }
-    }
-
-    public void reachAdmin() throws Exception{
-        reachAdmin("");
-    }
-
-    public void reachAdmin(Pages page) throws Exception {
-        reachAdmin(getPagePath());
-    }
-
-    public void reachAdmin(String path) throws Exception{
-        kraken.get().adminURL();
-        if (kraken.detect().isOnSite()) {
-            quickLogout();
-            if(!kraken.environment.getTenant().equalsIgnoreCase("instamart")){
-                kraken.get().adminURL();
-            }
-            authorisation(Users.superadmin());
-        }
-        kraken.get().adminPage(path);
-    }
-
-    public void reachSeoCatalog() {
-        quickLogout();
-        deleteAllCookies();
-        kraken.get().seoCatalogPage();
-    }
 }

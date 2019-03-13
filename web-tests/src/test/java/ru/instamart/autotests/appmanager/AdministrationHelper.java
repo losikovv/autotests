@@ -18,7 +18,7 @@ public class AdministrationHelper extends HelperBase {
      * Найти заказ по номеру заказа или шипмента
      */
     public void searchOrder(String order) throws Exception {
-        kraken.perform().reachAdmin("shipments");
+        kraken.reach().admin("shipments");
         printMessage("Поиск заказа по номеру " + order);
         kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), order);
         kraken.perform().click(Elements.Admin.Shipments.searchButton());
@@ -29,7 +29,7 @@ public class AdministrationHelper extends HelperBase {
      * Найти заказ по номеру заказа или шипмента
      */
     public void searchOrder(String number, boolean b2b) throws Exception {
-        kraken.perform().reachAdmin("shipments");
+        kraken.reach().admin("shipments");
         printMessage("Поиск B2B заказа по номеру " + number);
         kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), number);
         kraken.perform().setCheckbox(Elements.Admin.Shipments.b2bCheckbox(),b2b);
@@ -92,7 +92,7 @@ public class AdministrationHelper extends HelperBase {
     }
 
     private void searchUser(String email, boolean b2b, boolean tenant) throws Exception {
-        kraken.perform().reachAdmin("users");
+        kraken.reach().admin("users");
         printMessage("Поиск пользователей по email " + email);
         kraken.perform().fillField(Elements.Admin.Users.searchField(), email);
         kraken.perform().setCheckbox(Elements.Admin.Users.b2bCheckbox(), b2b);

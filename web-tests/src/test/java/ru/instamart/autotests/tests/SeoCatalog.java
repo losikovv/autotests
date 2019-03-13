@@ -17,7 +17,7 @@ public class SeoCatalog extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void reachSeoCatalog() {
-        kraken.perform().reachSeoCatalog();
+        kraken.reach().seoCatalog();
     }
 
 

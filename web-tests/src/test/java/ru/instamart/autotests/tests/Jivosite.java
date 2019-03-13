@@ -30,7 +30,7 @@ public class Jivosite extends TestBase{
     )
     public void noJivositeWidgetOnCheckout () throws Exception {
         kraken.perform().loginAs(session.admin);
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
 
         Assert.assertFalse(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite доступен в чекауте");

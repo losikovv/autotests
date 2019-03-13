@@ -74,7 +74,7 @@ public class Metro extends TestBase {
         skipOn("instamart");
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
 
         Assert.assertFalse(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет живосайт доступен в метро-чекауте\n");
@@ -145,7 +145,7 @@ public class Metro extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
 
         softAssert.assertFalse(kraken.detect().isElementDisplayed(Elements.Site.Checkout.loyaltyPrograms()),
                 "Программы лояльности доступны в чекауте деливери метро");

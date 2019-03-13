@@ -106,7 +106,7 @@ public class CheckPages extends TestBase {
             priority = 1506
     )
     public void successCheckAdminPages() throws Exception, AssertionError {
-        kraken.perform().reachAdmin();
+        kraken.reach().admin();
 
         // TODO переделать на assertPagesAvailable(Pages.Admin.*)
         assertPageIsAvailable(Pages.Admin.shipments());

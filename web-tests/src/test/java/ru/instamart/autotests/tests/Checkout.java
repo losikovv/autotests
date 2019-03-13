@@ -33,7 +33,7 @@ public class Checkout extends TestBase {
             priority = 701
     )
     public void successAddPromocode(){
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().addPromocode("unicorn");
 
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
@@ -47,7 +47,7 @@ public class Checkout extends TestBase {
             priority = 702
     )
     public void successClearPromocode(){
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().clearPromocode();
 
         Assert.assertFalse(kraken.detect().isPromocodeApplied(),
@@ -61,7 +61,7 @@ public class Checkout extends TestBase {
             priority = 703
     )
     public void noPromocodeAddedOnCancel(){
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
         kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
         kraken.perform().click(Elements.Site.Checkout.PromocodeModal.cancelButton());
@@ -76,7 +76,7 @@ public class Checkout extends TestBase {
             priority = 704
     )
     public void noPromocodeAddedOnClose(){
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
         kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
         kraken.perform().click(Elements.Site.Checkout.PromocodeModal.closeButton());
@@ -94,7 +94,7 @@ public class Checkout extends TestBase {
     public void successAddBonusPrograms(){
         BonusProgramData mnogoru = BonusPrograms.mnogoru();
         BonusProgramData aeroflot = BonusPrograms.aeroflot();
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
 
         kraken.checkout().addBonus(mnogoru);
 
@@ -114,7 +114,7 @@ public class Checkout extends TestBase {
             priority = 706
     )
     public void successSelectBonusPrograms(){
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().selectBonus(BonusPrograms.mnogoru());
         kraken.checkout().selectBonus(BonusPrograms.aeroflot());
         // TODO добавить проверки на наличие модалок после выбора
@@ -129,7 +129,7 @@ public class Checkout extends TestBase {
     public void successClearBonusPrograms(){
         BonusProgramData mnogoru = BonusPrograms.mnogoru();
         BonusProgramData aeroflot = BonusPrograms.aeroflot();
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
 
         kraken.checkout().clearBonus(mnogoru);
         Assert.assertFalse(kraken.detect().isBonusAdded(mnogoru),
@@ -147,7 +147,7 @@ public class Checkout extends TestBase {
             priority = 708
     )
     public void successCompleteCheckoutAndPayWithCash() throws Exception {
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -159,7 +159,7 @@ public class Checkout extends TestBase {
 
         kraken.perform().cancelLastOrder();
         /*
-        kraken.perform().reachAdmin(Pages.Admin.Order.payments(number));
+        kraken.reach().admin(Pages.Admin.Order.payments(number));
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Admin.Shipments.Order.Payments.paymentType()),
@@ -176,7 +176,7 @@ public class Checkout extends TestBase {
             priority = 709
     )
     public void successCompleteCheckoutAndPayWithCardOnline() throws Exception {
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
 
         kraken.checkout().complete(PaymentTypes.cardOnline());
 
@@ -190,7 +190,7 @@ public class Checkout extends TestBase {
         kraken.perform().cancelLastOrder();
         // Доп проверка наименования платежа в админке
         /*
-        kraken.perform().reachAdmin(Pages.Admin.Order.payments(number));
+        kraken.reach().admin(Pages.Admin.Order.payments(number));
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Admin.Shipments.Order.Payments.paymentType()),
@@ -207,7 +207,7 @@ public class Checkout extends TestBase {
             priority = 710
     )
     public void successCompleteCheckoutAndPayWithCardCourier() throws Exception {
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cardCourier());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -220,7 +220,7 @@ public class Checkout extends TestBase {
         kraken.perform().cancelLastOrder();
         // Доп проверка наименования платежа в админке
         /*
-        kraken.perform().reachAdmin(Pages.Admin.Order.payments(number));
+        kraken.reach().admin(Pages.Admin.Order.payments(number));
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Admin.Shipments.Order.Payments.paymentType()),
@@ -237,7 +237,7 @@ public class Checkout extends TestBase {
             priority = 711
     )
     public void successCompleteCheckoutAndPayWithBank() throws Exception {
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -250,7 +250,7 @@ public class Checkout extends TestBase {
         kraken.perform().cancelLastOrder();
         // Доп проверка наименования платежа в админке
         /*
-        kraken.perform().reachAdmin(Pages.Admin.Order.payments(number));
+        kraken.reach().admin(Pages.Admin.Order.payments(number));
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Admin.Shipments.Order.Payments.paymentType()),
@@ -267,7 +267,7 @@ public class Checkout extends TestBase {
             priority = 712
     )
     public void successCompleteCheckoutWithCallAndReplacePolicy() throws Exception {
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete(ReplacementPolicies.callAndReplace());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -275,7 +275,7 @@ public class Checkout extends TestBase {
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.Order.details(number));
+        kraken.reach().admin(Pages.Admin.Order.details(number));
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Admin.Shipments.Order.Details.replacementPolicy()),
@@ -291,7 +291,7 @@ public class Checkout extends TestBase {
             priority = 713
     )
     public void successCompleteCheckoutWithCallAndRemovePolicy() throws Exception {
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete(ReplacementPolicies.callAndRemove());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -299,7 +299,7 @@ public class Checkout extends TestBase {
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.Order.details(number));
+        kraken.reach().admin(Pages.Admin.Order.details(number));
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Admin.Shipments.Order.Details.replacementPolicy()),
@@ -315,7 +315,7 @@ public class Checkout extends TestBase {
             priority = 714
     )
     public void successCompleteCheckoutWithReplacePolicy() throws Exception {
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete(ReplacementPolicies.replace());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -323,7 +323,7 @@ public class Checkout extends TestBase {
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.Order.details(number));
+        kraken.reach().admin(Pages.Admin.Order.details(number));
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Admin.Shipments.Order.Details.replacementPolicy()),
@@ -339,7 +339,7 @@ public class Checkout extends TestBase {
             priority = 715
     )
     public void successCompleteCheckoutWithRemovePolicy() throws Exception {
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete(ReplacementPolicies.remove());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -347,7 +347,7 @@ public class Checkout extends TestBase {
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.Order.details(number));
+        kraken.reach().admin(Pages.Admin.Order.details(number));
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Admin.Shipments.Order.Details.replacementPolicy()),
@@ -373,7 +373,7 @@ public class Checkout extends TestBase {
                 generate.string(8),
                 generate.digitString(20)
         );
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer(), true, juridicalData);
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -381,7 +381,7 @@ public class Checkout extends TestBase {
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.Order.requisites(number));
+        kraken.reach().admin(Pages.Admin.Order.requisites(number));
 
         Assert.assertEquals(kraken.grab().value(Elements.Admin.Shipments.Order.Requisites.innField()), juridicalData.getInn(),
                 "Данные юр. лица не совпадают с указанными пользователем\n"
@@ -405,7 +405,7 @@ public class Checkout extends TestBase {
                 generate.string(8),
                 generate.digitString(20)
         );
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer(), false, juridicalData);
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -413,7 +413,7 @@ public class Checkout extends TestBase {
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
-        kraken.perform().reachAdmin(Pages.Admin.Order.requisites(number));
+        kraken.reach().admin(Pages.Admin.Order.requisites(number));
 
         Assert.assertEquals(kraken.grab().value(Elements.Admin.Shipments.Order.Requisites.innField()), juridicalData.getInn(),
                 "Данные юр. лица не совпадают с указанными пользователем\n"

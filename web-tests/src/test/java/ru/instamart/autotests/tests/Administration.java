@@ -23,7 +23,7 @@ public class Administration extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void reachAdministrationPanel() throws Exception {
-        kraken.perform().reachAdmin();
+        kraken.reach().admin();
     }
 
 

@@ -31,7 +31,7 @@ public class Playground extends TestBase {
     public void regUserAndPrepareForOrder() throws Exception {
         kraken.perform().registration();
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().fillOrderDetails(Config.testOrderDetails());
     }
 
@@ -39,21 +39,21 @@ public class Playground extends TestBase {
     public void regUserAndMakeOrder() throws Exception {
         kraken.perform().registration();
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
     }
 
     @Test
     public void makeOrder() throws Exception {
         kraken.perform().loginAs(session.user);
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
     }
 
     @Test
     public void makeNewOrder() throws Exception {
         kraken.perform().loginAs(session.user);
-        kraken.perform().reachCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cash());
     }
 
