@@ -160,7 +160,7 @@ public class Elements {
             }
 
             static Elements title() {
-                return new Elements("Доступные интервалы",
+                return new Elements("Доступные интервалы доставки",
                         By.cssSelector(".delivery__intervals > h3:nth-child(1)"));
             }
 

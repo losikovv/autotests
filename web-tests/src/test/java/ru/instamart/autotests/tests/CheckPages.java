@@ -152,24 +152,21 @@ public class CheckPages extends TestBase {
 
         kraken.perform().click(Elements.Site.Footer.deliveryButton());
         Assert.assertTrue(kraken.detect().isDeliveryModalOpen(),
-                "Не открывается одалка 'Доставка' из футера\n");
+                "Не открывается модалка 'Доставка' из футера\n");
         kraken.perform().click(Elements.Site.DeliveryModal.closeButton());
         assertPageIsAvailable();
 
         kraken.perform().click(Elements.Site.Footer.partnersButton());
         Assert.assertTrue(kraken.detect().isPartnersModalOpen(),
-                "Не открывается одалка 'Партнеры' из футера\n");
+                "Не открывается модалка 'Партнеры' из футера\n");
         kraken.perform().click(Elements.Site.PartnersModal.closeButton());
         assertPageIsAvailable();
 
-        // TODO тест валится из-за кнопки gotop
-        /*
         kraken.perform().click(Elements.Site.Footer.paymentButton());
         Assert.assertTrue(kraken.detect().isPaymentModalOpen(),
-                "Cant assert Payment modal is open, check manually\n");
+                "Не открывается модалка 'Оплата' из футера\n");
         kraken.perform().click(Elements.Site.PaymentModal.closeButton());
         assertPageIsAvailable();
-        */
     }
     
 }
