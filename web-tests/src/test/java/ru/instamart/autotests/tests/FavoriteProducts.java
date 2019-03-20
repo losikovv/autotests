@@ -1,5 +1,6 @@
 package ru.instamart.autotests.tests;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -37,10 +38,10 @@ public class FavoriteProducts extends TestBase {
             priority = 502
     )
     public void successOpenFavorites() throws Exception {
-        kraken.perform().loginAs(session.admin);
+        kraken.perform().loginAs(session.user);
         kraken.shopping().openFavorites();
 
-        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorites.inStockFilterButton()),
+        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorites.container()),
                 "Не работает переход в любимые товары по кнопке в шапке\n");
     }
 

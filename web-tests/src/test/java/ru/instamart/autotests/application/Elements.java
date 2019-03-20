@@ -639,6 +639,10 @@ public class Elements {
 
         interface Favorites {
 
+            static Elements container() {
+                return new Elements(null,By.className("user-wrapper__container"));
+            }
+
             static Elements product() {
                 return new Elements(null, By.className("favorite-product"));
             }
