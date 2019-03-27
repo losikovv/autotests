@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
@@ -302,11 +303,27 @@ public class Authorisation extends TestBase {
                 "Не работает авторизация через Facebook\n");
     }
 
+    @Test(
+            description = "Тест доступности страниц профиля пользователя",
+            groups = {"smoke","acceptance","regression"},
+            priority = 114
+    )
+    public void successCheckProfilePages() throws Exception, AssertionError {
+        kraken.get().baseUrl();
+        kraken.perform().loginAs(session.user);
+
+        // TODO переделать на assertPagesAvailable(Pages.Site.Profile.*)
+        assertPageIsAvailable(Pages.Site.Profile.edit());
+        assertPageIsAvailable(Pages.Site.Profile.favorites());
+        assertPageIsAvailable(Pages.Site.Profile.orders());
+        assertPageIsAvailable(Pages.Site.Profile.addresses());
+    }
+
 
     @Test(
             description = "Тест успешной деавторизации",
             groups = {"acceptance","regression"},
-            priority = 114
+            priority = 115
     )
     public void successLogout() throws Exception, AssertionError {
         kraken.perform().loginAs(session.user);

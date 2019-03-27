@@ -19,7 +19,6 @@ public class CheckPages extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 1501
     )
-    // TODO забирать список ритейлеров из БД или из админки с признаком активности
     public void successCheckActiveRetailerPages() throws Exception, AssertionError {
         // TODO переделать на assertPagesAvailable(Pages.Site.Retailers.*)
         assertPageIsAvailable(Pages.Site.Retailers.metro());
@@ -80,23 +79,6 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable(Pages.Site.Static.faq());
         assertPageIsAvailable(Pages.Site.Static.terms());
         assertPageIsAvailable(Pages.Site.Static.contacts());
-    }
-
-
-    @Test(
-            description = "Тест доступности страниц профиля пользователя",
-            groups = {"smoke","acceptance","regression"},
-            priority = 1505
-    )
-    public void successCheckProfilePages() throws Exception, AssertionError {
-        kraken.get().baseUrl();
-        kraken.perform().loginAs(session.admin);
-
-        // TODO переделать на assertPagesAvailable(Pages.Site.Profile.*)
-        assertPageIsAvailable(Pages.Site.Profile.edit());
-        assertPageIsAvailable(Pages.Site.Profile.favorites());
-        assertPageIsAvailable(Pages.Site.Profile.orders());
-        assertPageIsAvailable(Pages.Site.Profile.addresses());
     }
 
 
