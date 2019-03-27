@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriverException;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.models.EnvironmentData;
 
-import static ru.instamart.autotests.appmanager.ApplicationManager.session;
-
 public class CleanupHelper extends HelperBase {
 
     CleanupHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
@@ -14,7 +12,7 @@ public class CleanupHelper extends HelperBase {
     }
 
     public void all() throws Exception {
-        printMessage("================== CLEANUP AFTER TESTRUN ==================\n");
+        printMessage("\n================== CLEANUP AFTER TESTRUN ( " + kraken.session.id + " ) ==================\n");
             try {
                 orders();
             } catch (WebDriverException w) {
@@ -32,7 +30,7 @@ public class CleanupHelper extends HelperBase {
      */
     public void users() throws Exception {
         printMessage("Удаление тестовых пользователей");
-        users(session.userList);
+        users(kraken.session.userList);
     }
 
     /**
@@ -56,7 +54,7 @@ public class CleanupHelper extends HelperBase {
      */
     public void orders() throws Exception {
         printMessage("Отмена тестовых заказов");
-        orders(session.orderList);
+        orders(kraken.session.orderList);
     }
 
     /**

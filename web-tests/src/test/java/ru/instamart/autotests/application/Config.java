@@ -7,9 +7,11 @@ public class Config {
     public final static EnvironmentData environment = Environments.instamart_staging();
 
     public final static int basicTimeout = 2;
-    public final static boolean multiSessionMode = true;
+    public final static int waitingTimeout = 15;
+
+    public final static boolean multiSessionMode = false;
     public final static boolean fullScreenMode = false;
-    public final static boolean doCleanupAfterTestRun = true;
+    public final static boolean doCleanupAfterTestRun = false;
 
     public final static boolean verbose = false;
 
@@ -29,7 +31,7 @@ public class Config {
                         "1",
                         "22",
                         true,"333",
-                        "4444ключ4444",
+                        "44ключ4444",
                         "ТЕСТОВЫЙ ЗАКАЗ / НЕ СОБИРАТЬ"
                 ),
                 new ContactsDetailsData(
@@ -37,7 +39,7 @@ public class Config {
                         null,
                         null,
                         false,
-                        "1488148814",
+                        "7777777777",
                         true
                 ),
                 ReplacementPolicies.callAndReplace(),
@@ -63,8 +65,8 @@ public class Config {
                         )
                 ),
                 new DeliveryTimeData(
-                        6,
-                        1
+                        7,
+                        7
                 )
         );
     }

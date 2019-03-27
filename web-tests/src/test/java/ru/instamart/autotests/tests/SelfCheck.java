@@ -6,7 +6,6 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.application.Users;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 

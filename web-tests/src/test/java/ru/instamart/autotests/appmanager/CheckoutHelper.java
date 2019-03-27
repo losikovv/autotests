@@ -1,10 +1,18 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.*;
 import ru.instamart.autotests.application.Config;
+
+import java.util.concurrent.TimeUnit;
+
+import static ru.instamart.autotests.application.Config.basicTimeout;
+import static ru.instamart.autotests.application.Config.waitingTimeout;
 
 public class CheckoutHelper extends HelperBase {
 
@@ -262,10 +270,11 @@ public class CheckoutHelper extends HelperBase {
 
     /** Проверяем готовность чекаута перед заполнением */
     private void initCheckout() {
-        if (!kraken.detect().isOnCheckout()) {
-            printMessage("⚠ Проблемы с производительностью: медленно грузится чекаут\n");
-            kraken.perform().waitingFor(1); // Ожидание загрузки чекаута
-        }
+        new FluentWait<>(driver)
+                .withTimeout(waitingTimeout, TimeUnit.SECONDS)
+                .withMessage("Не открывается чекаут")
+                .pollingEvery(basicTimeout, TimeUnit.SECONDS)
+                .until(ExpectedConditions.presenceOfElementLocated(Elements.Site.Checkout.header().locator()));
         printMessage("✓ Чекаут\n");
     }
 

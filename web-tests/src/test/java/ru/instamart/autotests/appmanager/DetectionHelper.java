@@ -4,13 +4,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.BonusProgramData;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.LoyaltyProgramData;
 
+import java.util.concurrent.TimeUnit;
+
+import static ru.instamart.autotests.application.Config.basicTimeout;
 import static ru.instamart.autotests.application.Config.verbose;
+import static ru.instamart.autotests.application.Config.waitingTimeout;
 
 public class DetectionHelper extends HelperBase {
 
@@ -266,12 +273,22 @@ public class DetectionHelper extends HelperBase {
 
     // ======= Поиск =======
 
-    /** Определить пустой результат поиска */
+    /** Детектим пустой результат поиска */
     public boolean isSearchResultsEmpty() {
         if(isElementPresent(Elements.Site.Catalog.emptySearchPlaceholder())){
             if(verbose) { printMessage("Пустой результат поиска"); }
             return true;
         } else return false;
+    }
+
+    /** Проверяем наличие товарных саджестов */
+    public boolean isProductSuggestsPresent() {
+        return kraken.detect().isElementPresent(Elements.Site.Header.Search.productSuggest());
+    }
+
+    /** Проверяем наличие категорийного саджеста */
+    public boolean isCategorySuggestsPresent() {
+        return kraken.detect().isElementPresent(Elements.Site.Header.Search.categorySuggest());
     }
 
 
@@ -407,7 +424,13 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить открыта ли шторка каталога */
     public boolean isCatalogDrawerOpen() {
-        return kraken.detect().isElementDisplayed(Elements.Site.CatalogDrawer.drawer());
+        if (kraken.detect().isElementDisplayed(Elements.Site.CatalogDrawer.drawer())) {
+            if(verbose) { printMessage("Шторка каталога открыта"); }
+            return true;
+        } else {
+            if(verbose) { printMessage("Шторка каталога закрыта"); }
+            return false;
+        }
     }
 
 
@@ -415,7 +438,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить есть ли товары на странице */
     public boolean isProductAvailable() {
-        if(kraken.detect().isElementPresent(Elements.Site.Catalog.product())){
+        if(kraken.detect().isElementPresent(Elements.Site.Catalog.product()) || kraken.detect().isElementPresent(Elements.Site.Favorites.product())){
             if(verbose) { printMessage("✓ Есть доступные товары"); }
             return true;
         } else {
@@ -476,19 +499,37 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить открыта ли корзина */
     public boolean isCartOpen() {
-        return kraken.detect().isElementDisplayed(Elements.Site.Cart.drawer());
+        if (isElementDisplayed(Elements.Site.Cart.drawer())){
+            if(verbose) {printMessage("Корзина открыта");}
+            return true;
+        } else {
+            if(verbose) {printMessage("Корзина закрыта");}
+            return false;
+        }
     }
 
     /** Определить пуста ли корзина */
     public boolean isCartEmpty() {
         kraken.shopping().openCart();
-        return isElementPresent(Elements.Site.Cart.placeholder());
+        if (isElementPresent(Elements.Site.Cart.placeholder())) {
+            if(verbose) {printMessage("Корзина пуста");}
+            return true;
+        } else {
+            if(verbose) {printMessage("Корзина не пуста");}
+            return false;
+        }
     }
 
-    /** Определить активна ли кнопка "Сделать заказ" в корзине */
+    /** Определить активна ли кнопка перехода в чекаут в корзине */
     public boolean isCheckoutButtonActive() {
         kraken.shopping().openCart();
-        return isElementEnabled(Elements.Site.Cart.checkoutButton());
+        if(isElementEnabled(Elements.Site.Cart.checkoutButton())){
+            if(verbose) {printMessage("Кнопка перехода в чекаут активна");}
+            return true;
+        } else {
+            if(verbose) {printMessage("Кнопка перехода в чекаут неактивна");}
+            return false;
+        }
     }
 
     /** Определить отображается ли сумма заказа */

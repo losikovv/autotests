@@ -1,9 +1,15 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.models.EnvironmentData;
+
+import java.util.concurrent.TimeUnit;
+
+import static ru.instamart.autotests.application.Config.waitingTimeout;
 
 public class AddressHelper extends HelperBase {
 
@@ -96,11 +102,12 @@ public class AddressHelper extends HelperBase {
      */
     public void submit() {
         kraken.perform().click(Elements.Site.AddressModal.saveButton());
-        kraken.perform().waitingFor(1); // Ожидание применения адреса доставки
-        if(!kraken.detect().isAddressOutOfZone() && kraken.detect().isAddressModalOpen()){
-            printMessage("⚠ Проблемы с производительностью: слишком медленно применяется адрес доставки\n");
-            kraken.perform().waitingFor(2); // Дополнительное ожидание применения адреса доставки при тормозах
-        }
+        Elements.Site.AddressModal.popup();
+        new FluentWait<>(driver)
+                .withTimeout(waitingTimeout, TimeUnit.SECONDS)
+                .withMessage("Слишком долго применяется адрес доставки")
+                .pollingEvery(1, TimeUnit.SECONDS)
+                .until(ExpectedConditions.invisibilityOfElementLocated(Elements.locator()));
     }
 
     /**

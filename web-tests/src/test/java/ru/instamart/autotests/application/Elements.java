@@ -278,7 +278,7 @@ public class Elements {
             }
 
             static Elements closeCatalogButton() {
-                return new Elements(null, By.className("header-navbar-taxons__close"));
+                return new Elements(null, By.className("category-menu__close"));
             }
         }
 
@@ -1251,6 +1251,14 @@ public class Elements {
                 static Elements shipmentNumber() {
                     return new Elements(null,
                             By.xpath("//div[2]/div/div[1]/div/div/div/div[1]/strong[1]"));
+                }
+
+                /**
+                 * Способ оплаты
+                 */
+                static Elements shipmentPayment() {
+                    return new Elements(null,
+                            By.cssSelector("div.user-order-shipment-summary__item:nth-child(2)"));
                 }
 
             }

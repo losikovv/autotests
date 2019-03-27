@@ -105,11 +105,18 @@ public class GrabHelper extends HelperBase{
         return number;
     }
 
-    /** Взять текущий номер доставки на странице заказа */
-    public String currentShipmentNumber() {
+    /** Взять номер доставки на странице заказа */
+    public String shipmentNumber() {
         String number = kraken.grab().text(Elements.Site.UserProfile.OrderDetailsPage.shipmentNumber());
-        kraken.perform().printMessage("Номер текущей доставки: " + number);
+        if(verbose) {kraken.perform().printMessage("Номер доставки: " + number);}
         return number;
+    }
+
+    /** Взять способ оплаты на странице заказа */
+    public String shipmentPayment() {
+        String payment = kraken.grab().text(Elements.Site.UserProfile.OrderDetailsPage.shipmentPayment());
+        if(verbose) {kraken.perform().printMessage("Способ оплаты: " + payment);}
+        return payment;
     }
 
 

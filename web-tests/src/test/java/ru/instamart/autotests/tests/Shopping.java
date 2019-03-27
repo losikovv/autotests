@@ -28,7 +28,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест недоступности чекаута неавторизованному юзеру",
             groups = {"regression"},
-            priority = 601
+            priority = 651
     )
     public void noAccessToCheckoutForUnauthorizedUser() throws Exception {
         assertPageIsUnavailable(Pages.Site.checkout());
@@ -36,35 +36,9 @@ public class Shopping extends TestBase{
 
 
     @Test(
-            description = "Тест работы с пустой корзиной",
-            groups = {"acceptance","regression"},
-            priority = 602
-    )
-    public void successOperateEmptyCart() throws Exception, AssertionError {
-        kraken.perform().loginAs(session.admin);
-        kraken.drop().cart();
-        kraken.shopping().openCart();
-
-        Assert.assertTrue(kraken.detect().isCartOpen(),
-                "Не открывается корзина\n");
-
-        Assert.assertTrue(kraken.detect().isCartEmpty(),
-                "Корзина не пуста\n");
-
-        Assert.assertFalse(kraken.detect().isCheckoutButtonActive(),
-                "Кнопка чекаута активна в пустой козине\n");
-
-        kraken.shopping().closeCart();
-
-        Assert.assertFalse(kraken.detect().isCartOpen(),
-                "Не закрывается корзина\n");
-    }
-
-
-    @Test(
             description = "Тест недоступности чекаута по прямой ссылке при пустой корзине",
             groups = {"acceptance","regression"},
-            priority = 603
+            priority = 653
     )
     public void noAccessToCheckoutWithEmptyCart() throws Exception {
         kraken.perform().loginAs(session.admin);
@@ -76,7 +50,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест открывания/закрывания карточки продукта",
             groups = {"acceptance","regression"},
-            priority = 604
+            priority = 654
     )
     public void successOperateItemCard() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -98,7 +72,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест успешного добавления товара в корзину из карточки товара",
             groups = {"acceptance","regression"},
-            priority = 605
+            priority = 655
     )
     public void successAddItemToCartFromItemCard()throws Exception, AssertionError {
         kraken.perform().loginAs(session.user);
@@ -117,7 +91,7 @@ public class Shopping extends TestBase{
 
     @Test(  description = "Тест успешного добавления товара в корзину из сниппета в каталоге",
             groups = {"regression"},
-            priority = 606
+            priority = 656
     )
     public void successAddItemToCartFromCatalog() throws Exception {
         kraken.perform().loginAs(session.user);
@@ -135,7 +109,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест недоступности чекаута по прямой ссылке при сумме корзины меньше минимального заказа",
             groups = {"acceptance","regression"},
-            priority = 607
+            priority = 657
     )
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() throws Exception {
         kraken.perform().loginAs(session.user);
@@ -159,7 +133,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест набора корзины до суммы, достаточной для заказа",
             groups = {"acceptance","regression"},
-            priority = 608
+            priority = 658
     )
     public void successCollectItemsForMinOrder() throws Exception, AssertionError {
         kraken.perform().loginAs(session.user);
@@ -175,7 +149,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест доступности чекаута по прямой ссылке при сумме корзины выше минимального заказа",
             groups = {"regression"},
-            priority = 609
+            priority = 659
     )
     public void successAccessCheckoutWithCartAboveMinimalOrderSum() throws Exception {
         kraken.perform().loginAs(session.user);
@@ -188,7 +162,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест успешного перехода из корзины в чекаут при сумме выше минимального заказа",
             groups = {"acceptance","regression"},
-            priority = 610
+            priority = 660
     )
     public void successProceedFromCartToCheckout() throws Exception, AssertionError {
         kraken.perform().loginAs(session.user);
@@ -204,7 +178,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации",
             groups = {"regression"},
-            priority = 611
+            priority = 661
     )
     public void successMergeShipAddressAndCartAfterAuthorisation() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -240,7 +214,7 @@ public class Shopping extends TestBase{
     @Test(
             description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером",
             groups = {"regression"},
-            priority = 612
+            priority = 662
     )
     public void successChangeMinOrderSum() throws Exception {
         SoftAssert softAssert = new SoftAssert();
@@ -264,71 +238,6 @@ public class Shopping extends TestBase{
         softAssert.assertTrue(sum1 < sum2, "Сумма минимального заказа не изменилась после первого заказа");
 
         kraken.perform().cancelLastOrder();
-        softAssert.assertAll();
-    }
-
-
-    @Test(
-            description = "Тест на изменение кол-ва товаров в корзине",
-            groups = {"regression"},
-            priority = 613
-    )
-    public void successChangeItemNumberInCart() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.perform().loginAs(session.user);
-        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
-        kraken.shopping().addFirstItemOnPageToCart();
-        kraken.shopping().openCart();
-        int sum1 = kraken.grab().cartTotalRounded();
-
-        kraken.shopping().increaseItemNumberInCart();
-        int sum2 = kraken.grab().cartTotalRounded();
-
-        softAssert.assertTrue(sum1 < sum2,
-                "Не работает увеличение кол-ва товаров в корзине");
-
-        kraken.shopping().decreaseItemNumberInCart();
-        int sum3 = kraken.grab().cartTotalRounded();
-
-        softAssert.assertTrue(sum2 > sum3,
-                "Не работает уменьшение кол-ва товаров в корзине");
-
-        softAssert.assertAll();
-    }
-
-
-    @Test(
-            description = "Тест на удаление товаров из корзины",
-            groups = {"regression"},
-            priority = 614
-    )
-    public void successRemoveItemsFromCart() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
-
-        kraken.search().item("молоко");
-        kraken.shopping().addFirstItemOnPageToCart();
-
-        kraken.search().item("сыр");
-        kraken.shopping().addFirstItemOnPageToCart();
-
-        kraken.search().item("вода");
-        kraken.shopping().addFirstItemOnPageToCart();
-
-        kraken.search().item("бананы");
-        kraken.shopping().addFirstItemOnPageToCart();
-
-        kraken.search().item("яйца");
-        kraken.shopping().addFirstItemOnPageToCart();
-
-        kraken.search().item("хлеб");
-        kraken.shopping().addFirstItemOnPageToCart();
-
-        kraken.drop().cart();
-
-        softAssert.assertTrue(kraken.detect().isCartEmpty(),
-                "Не работает удаление товаров из корзины");
-
         softAssert.assertAll();
     }
 

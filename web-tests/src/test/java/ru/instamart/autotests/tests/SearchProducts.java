@@ -67,7 +67,7 @@ public class SearchProducts extends TestBase {
     public void successItemSearchUsingCategorySuggests(){
         kraken.search().fillSearchFieldWith("Мороженое");
 
-        Assert.assertTrue(kraken.search().isCategorySuggestsPresent(),
+        Assert.assertTrue(kraken.detect().isCategorySuggestsPresent(),
                 "Отсутствуют категорийные подсказки\n");
 
         kraken.search().hitCategorySuggest();
@@ -89,7 +89,7 @@ public class SearchProducts extends TestBase {
         kraken.get().page("metro");
         kraken.search().fillSearchFieldWith("Мороженое");
 
-        Assert.assertTrue(kraken.search().isProductSuggestsPresent(),
+        Assert.assertTrue(kraken.detect().isProductSuggestsPresent(),
                 "Отсутствуют товарные подсказки\n");
 
         kraken.search().hitProductSuggest();
@@ -97,6 +97,7 @@ public class SearchProducts extends TestBase {
         Assert.assertTrue(kraken.detect().isItemCardOpen(),
                 "Не открыта карточка товара из товарной подсказки\n");
     }
+
 
     @Test (
             description = "Тест поиска по очень длинному запросу, не возвращающему результатов",

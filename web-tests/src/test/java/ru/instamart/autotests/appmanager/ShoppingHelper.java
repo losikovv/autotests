@@ -1,11 +1,20 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.EnvironmentData;
+
+import java.util.concurrent.TimeUnit;
+
+import static ru.instamart.autotests.application.Config.basicTimeout;
+import static ru.instamart.autotests.application.Config.verbose;
+import static ru.instamart.autotests.application.Config.waitingTimeout;
 
 public class ShoppingHelper extends HelperBase {
 
@@ -35,16 +44,28 @@ public class ShoppingHelper extends HelperBase {
     public void openCatalog() {
         if(!kraken.detect().isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.openCatalogButton());
-            kraken.perform().waitingFor(1); // Ожидание открытия шторки каталога
-        } else printMessage("Пропускаем открытие шторки каталога, уже открыта");
+            new FluentWait<>(driver)
+                    .withTimeout(waitingTimeout, TimeUnit.SECONDS)
+                    .withMessage("Не открыввется шторка каталога")
+                    .pollingEvery(1, TimeUnit.SECONDS)
+                    .until(ExpectedConditions.visibilityOfElementLocated(Elements.Site.CatalogDrawer.closeCatalogButton().locator()));
+        } else {
+            if(verbose) printMessage("Пропускаем открытие шторки каталога, уже открыта");
+        }
     }
 
     /** Закрыть шторку каталога */
     public void closeCatalog() {
         if(kraken.detect().isCatalogDrawerOpen()) {
             kraken.perform().click(Elements.Site.CatalogDrawer.closeCatalogButton());
-            kraken.perform().waitingFor(1); // Ожидание закрытия шторки каталога
-        } else printMessage("Пропускаем закрытие шторки каталога, уже закрыта");
+            new FluentWait<>(driver)
+                    .withTimeout(waitingTimeout, TimeUnit.SECONDS)
+                    .withMessage("Не закрывается шторка каталога")
+                    .pollingEvery(1, TimeUnit.SECONDS)
+                    .until(ExpectedConditions.invisibilityOfElementLocated(Elements.Site.CatalogDrawer.drawer().locator()));
+        } else {
+            if(verbose) printMessage("Пропускаем закрытие шторки каталога, уже закрыта");
+        }
     }
 
 
@@ -137,11 +158,23 @@ public class ShoppingHelper extends HelperBase {
 
     /** Нажать кнопку [+] в карточке товара */
     public void hitPlusButton() {
-        // TODO добавить проверку на обновление цен
-        if (!kraken.detect().isElementEnabled(Elements.Site.ItemCard.plusButton())) {
-            printMessage("⚠ Кнопка 'Плюс' неактивна, ждем и пробуем еще раз");
-            kraken.perform().waitingFor(3); // Ожидание раздизабливания кнопки +1 в карточке товара
-        }
+        Elements.Site.ItemCard.plusButton();
+        // TODO добавить проверку на наличие модалки обновления цен
+        new FluentWait<>(driver)
+                .withTimeout(waitingTimeout, TimeUnit.SECONDS)
+                .pollingEvery(basicTimeout, TimeUnit.SECONDS)
+                .until(ExpectedConditions.presenceOfElementLocated(Elements.locator()));
+
+        new FluentWait<>(driver)
+                .withTimeout(waitingTimeout, TimeUnit.SECONDS)
+                .pollingEvery(basicTimeout, TimeUnit.SECONDS)
+                .until(ExpectedConditions.visibilityOfElementLocated(Elements.locator()));
+
+        new FluentWait<>(driver)
+                .withTimeout(waitingTimeout, TimeUnit.SECONDS)
+                .pollingEvery(basicTimeout, TimeUnit.SECONDS)
+                .until(ExpectedConditions.elementToBeClickable(Elements.locator()));
+
         kraken.perform().click(Elements.Site.ItemCard.plusButton());
         kraken.perform().waitingFor(1); // Ожидание добавления +1 товара в карточке
     }
@@ -193,7 +226,13 @@ public class ShoppingHelper extends HelperBase {
     public void openCart() {
         if (!kraken.detect().isCartOpen()) {
             kraken.perform().click(Elements.Site.Cart.openCartButton());
-            kraken.perform().waitingFor(2); // Ожидание открытия корзины
+            new FluentWait<>(driver)
+                    .withTimeout(waitingTimeout, TimeUnit.SECONDS)
+                    .withMessage("Не открывается корзина")
+                    .pollingEvery(1, TimeUnit.SECONDS)
+                    .until(ExpectedConditions.visibilityOfElementLocated(Elements.Site.Cart.closeButton().locator()));
+        } else {
+            if(verbose) printMessage("Пропускаем открытие корзины, уже открыта");
         }
     }
 
@@ -201,7 +240,14 @@ public class ShoppingHelper extends HelperBase {
     public void closeCart() {
         if (kraken.detect().isCartOpen()) {
             kraken.perform().click(Elements.Site.Cart.closeButton());
-            kraken.perform().waitingFor(1); // Ожидание закрытия корзины
+            new FluentWait<>(driver)
+                    .withTimeout(waitingTimeout, TimeUnit.SECONDS)
+                    .withMessage("Не закрывается корзина")
+                    .pollingEvery(1, TimeUnit.SECONDS)
+                    .until(ExpectedConditions.invisibilityOfElementLocated(Elements.Site.Cart.drawer().locator()));
+        }
+        else {
+            if(verbose) printMessage("Пропускаем закрытие корзины, уже закрыта");
         }
     }
 
@@ -224,6 +270,16 @@ public class ShoppingHelper extends HelperBase {
         kraken.perform().hoverOn(Elements.Site.Cart.item());
         kraken.perform().click(Elements.Site.Cart.downArrowButton());
         kraken.perform().waitingFor(1); // Ожидание уменьшения количества товара в корзине
+    }
+
+    public void proceedToCheckout(boolean strictly) {
+        if (strictly) {
+            if(!kraken.detect().isCheckoutButtonActive()){
+                kraken.perform().click(Elements.Site.Cart.upArrowButton());
+                kraken.perform().click(Elements.Site.Cart.checkoutButton());
+            }
+        }
+        proceedToCheckout();
     }
 
     /** Перейти в чекаут нажатием кнопки "Сделать заказ" в корзине */
@@ -252,7 +308,9 @@ public class ShoppingHelper extends HelperBase {
         int cartTotal = kraken.grab().cartTotalRounded();
         if(cartTotal < orderSum) {
             closeCart();
-            if(!kraken.detect().isProductAvailable()) {kraken.get().page(Pages.Site.Retailers.metro());}
+            if(!kraken.detect().isProductAvailable()) {
+                kraken.perform().printMessage(" > Нет товаров на текущей странице " + kraken.grab().currentURL());
+                kraken.get().page(Pages.Site.Retailers.metro());}
             openFirstItemCard();
             int itemPrice = kraken.grab().itemPriceRounded();
             // Формула расчета кол-ва товара

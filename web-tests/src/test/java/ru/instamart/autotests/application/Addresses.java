@@ -18,7 +18,7 @@ public abstract class Addresses {
         }
 
         public static String testAddress() {
-            return addressString = "Москва, Университетский пр-кт, д 4";
+            return addressString = "Москва, Ленинский пр-кт, д 67";
         }
 
         public static String outOfZoneAddress() {
@@ -29,7 +29,7 @@ public abstract class Addresses {
 
     public static class SaintPetersburg extends Addresses {
 
-        SaintPetersburg(String adress) { super(adress);}
+        SaintPetersburg(String address) { super(address);}
 
         public static String defaultAddress() { return addressString = "Санкт-Петербург, ул Мебельная, д 10"; }
 

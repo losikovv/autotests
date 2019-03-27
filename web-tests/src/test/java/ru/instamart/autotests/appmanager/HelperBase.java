@@ -18,6 +18,10 @@ public class HelperBase {
         this.adminUrl = environment.getAdminURL();
         this.kraken = app;
     }
+    //private final Wait<WebDriver> wait = new WebDriverWait(driver, 5).ignoring(StaleElementReferenceException.class, ElementNotVisibleException.class);
+
+    //public final Wait<WebDriver> waitFluently = new FluentWait<WebDriver>(driver).withMessage("Element was not found").withTimeout(10, TimeUnit.SECONDS).pollingEvery(1, TimeUnit.SECONDS);
+
 
     /**
      * Отправить сообщение в консоль

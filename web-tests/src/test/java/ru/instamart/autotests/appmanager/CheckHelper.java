@@ -10,9 +10,13 @@ public class CheckHelper extends HelperBase {
         super(driver, environment, app);
     }
 
+    public void orderPaymentMethod(){
+
+    }
+
     /** Проверка скачивания документации на странице деталей заказа */
     public void orderDocuments(){
-        for(int i = 1; i <= 3; i++) {
+        for(int i = 1; i <= 4; i++) {
             if(kraken.detect().orderDocument(i) != null) {
                 kraken.perform().click(Elements.locator());
             }

@@ -29,19 +29,9 @@ public class SearchHelper extends HelperBase {
         kraken.perform().click((Elements.Site.Header.Search.searchButton()));
     }
 
-    /** Проверяем наличие категорийного саджеста */
-    public boolean isCategorySuggestsPresent() {
-        return kraken.detect().isElementPresent(Elements.Site.Header.Search.categorySuggest());
-    }
-
     /** Нажать на категорийный саджест */
     public void hitCategorySuggest() {
         kraken.perform().click(Elements.Site.Header.Search.categorySuggest());
-    }
-
-    /** Проверяем наличие товарных саджестов */
-    public boolean isProductSuggestsPresent() {
-        return kraken.detect().isElementPresent(Elements.Site.Header.Search.productSuggest());
     }
 
     /** Нажать на продуктовый саджест */
