@@ -32,7 +32,7 @@ public class SocialHelper extends HelperBase {
         kraken.perform().switchToNextWindow();
         allowAccessVK();
         kraken.perform().switchToNextWindow();
-        kraken.perform().waitingFor(1); // Ожидание авторизации через ВКонтакте
+        kraken.await().implicitly(1); // Ожидание авторизации через ВКонтакте
     }
 
     /** Запретить Инстамарту доступ к аккаунту пользователя ВК по умолчанию */
@@ -48,14 +48,14 @@ public class SocialHelper extends HelperBase {
     /** Запретить Инстамарту доступ к аккаунту ВК с указанием данных */
     private void denyAccessVK(String email, String password) {
         kraken.get().url("https://vk.com/");
-        kraken.perform().waitingFor(1); // Ожидание загрузки главной страницы ВК
+        kraken.await().implicitly(1); // Ожидание загрузки главной страницы ВК
         kraken.perform().fillField(Elements.Social.Vkontakte.index.emailField(), email);
         kraken.perform().fillField(Elements.Social.Vkontakte.index.passwordField(), password);
         kraken.perform().click(Elements.Social.Vkontakte.index.loginButton());
-        kraken.perform().waitingFor(1); // Ожидание авторизации с главной страницы ВК
+        kraken.await().implicitly(1); // Ожидание авторизации с главной страницы ВК
 
         kraken.get().url("https://vk.com/settings?act=apps");
-        kraken.perform().waitingFor(1); // Ожидание загрузки страницы с приложениями ВК
+        kraken.await().implicitly(1); // Ожидание загрузки страницы с приложениями ВК
         kraken.perform().click(Elements.Social.Vkontakte.denyAccessButton());
         kraken.perform().click(Elements.Social.Vkontakte.profileButton());
         kraken.perform().click(Elements.Social.Vkontakte.logoutButton());
@@ -79,12 +79,12 @@ public class SocialHelper extends HelperBase {
     public void initAuthVK() {
         kraken.get().page("login");
         kraken.perform().click(Elements.Site.AuthModal.vkontakte());
-        kraken.perform().waitingFor(1); // Ожидание открытия окна ВКонтакте
+        kraken.await().implicitly(1); // Ожидание открытия окна ВКонтакте
         kraken.perform().switchToNextWindow();
 
         if(!kraken.detect().isElementPresent(Elements.Social.Vkontakte.emailField())) {
             printMessage("⚠ Проблемы с производительностью: слишком медленно открывается окно ВК\n");
-            kraken.perform().waitingFor(5); // Дополнительное ожидание открытия окна ВК при тормозах
+            kraken.await().implicitly(5); // Дополнительное ожидание открытия окна ВК при тормозах
         }
     }
 
@@ -107,9 +107,9 @@ public class SocialHelper extends HelperBase {
         kraken.perform().click(Elements.Social.Facebook.submitButton());
         kraken.perform().switchToNextWindow();
         allowAccessFB();
-        kraken.perform().waitingFor(1); // Ожидание авторизации через Facebook
+        kraken.await().implicitly(1); // Ожидание авторизации через Facebook
         kraken.perform().switchToNextWindow();
-        kraken.perform().waitingFor(1); // Ожидание авторизации через Facebook
+        kraken.await().implicitly(1); // Ожидание авторизации через Facebook
     }
 
     /** Запретить Инстамарту доступ к аккаунту пользователя FB по умолчанию */
@@ -128,10 +128,10 @@ public class SocialHelper extends HelperBase {
         kraken.perform().fillField(Elements.Social.Facebook.emailField(), email);
         kraken.perform().fillField(Elements.Social.Facebook.passwordField(), password);
         kraken.perform().click(Elements.Social.Facebook.loginButton());
-        kraken.perform().waitingFor(1); // Ожидание авторизации с главной страницы FB
+        kraken.await().implicitly(1); // Ожидание авторизации с главной страницы FB
 
         kraken.get().url("https://m.facebook.com/settings/apps/tabbed/");
-        kraken.perform().waitingFor(1); // Ожидание загрузки страницы с приложениями FB
+        kraken.await().implicitly(1); // Ожидание загрузки страницы с приложениями FB
         kraken.perform().click(Elements.Social.Facebook.instamartButton());
         kraken.perform().click(Elements.Social.Facebook.denyAccessButton());
         kraken.perform().click(Elements.Social.Facebook.confirmDenyAccessButton());
@@ -158,12 +158,12 @@ public class SocialHelper extends HelperBase {
     public void initAuthFB() {
         kraken.get().page("login");
         kraken.perform().click(Elements.Site.AuthModal.facebook());
-        kraken.perform().waitingFor(2); // Ожидание открытия окна Facebook
+        kraken.await().implicitly(2); // Ожидание открытия окна Facebook
         kraken.perform().switchToNextWindow();
 
         if(!kraken.detect().isElementPresent(Elements.Social.Facebook.emailField())) {
             printMessage("⚠ Проблемы с производительностью: слишком медленно открывается окно FB\n");
-            kraken.perform().waitingFor(5); // Дополнительное ожидание открытия окна FB при тормозах
+            kraken.await().implicitly(5); // Дополнительное ожидание открытия окна FB при тормозах
         }
     }
 

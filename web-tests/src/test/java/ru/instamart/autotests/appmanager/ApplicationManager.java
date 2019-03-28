@@ -46,6 +46,7 @@ public class ApplicationManager {
     private AdministrationHelper administrationHelper;
     private CleanupHelper cleanupHelper;
     private JivositeHelper jivositeHelper;
+    private WaitingHelper waitingHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
 
@@ -117,6 +118,7 @@ public class ApplicationManager {
         administrationHelper = new AdministrationHelper(driver, environment, this);
         cleanupHelper = new CleanupHelper(driver, environment, this);
         jivositeHelper = new JivositeHelper(driver, environment, this);
+        waitingHelper = new WaitingHelper(driver, environment, this);
     }
 
     private void applyOptions() {
@@ -170,5 +172,6 @@ public class ApplicationManager {
     public CheckoutHelper checkout() { return checkoutHelper; }
     public AdministrationHelper admin() { return administrationHelper; }
     public CleanupHelper cleanup() { return cleanupHelper; }
-    public JivositeHelper jivosite () { return jivositeHelper; }
+    public JivositeHelper jivosite() { return jivositeHelper; }
+    public WaitingHelper await() { return waitingHelper; }
 }

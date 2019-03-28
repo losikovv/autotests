@@ -1,0 +1,41 @@
+package ru.instamart.autotests.appmanager;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+import ru.instamart.autotests.models.EnvironmentData;
+
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
+
+import static ru.instamart.autotests.application.Config.waitingTimeout;
+
+public class WaitingHelper extends HelperBase {
+
+    WaitingHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
+        super(driver, environment, app);
+    }
+
+    /** Просто задержка на указанное время */
+    public void simply(int duration){
+        //TODO
+    }
+
+    /** Ожидание, равное переданному значению умноженному на переменную 'implicitlyWait' в конфиге */
+    public void implicitly(int duration){
+        for (int i = 1; i <= duration; i++){
+            kraken.detect().isElementPresent(By.xpath("//*[@id='nowhere']"));
+        }
+    }
+
+    /** Умное ожидание указанных условий
+     * Ожидание прекратится как только условия будут выполнены, иначе ошибка по таймауту с сообщением
+     * */
+    public void fluently(Function conditions, String message){
+        new FluentWait<>(driver)
+                .withTimeout(waitingTimeout, TimeUnit.SECONDS)
+                .withMessage(message)
+                .pollingEvery(1, TimeUnit.SECONDS)
+                .until(conditions);
+    }
+}

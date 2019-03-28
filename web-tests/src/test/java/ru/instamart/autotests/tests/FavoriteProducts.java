@@ -314,7 +314,7 @@ public class FavoriteProducts extends TestBase {
         kraken.get().favoritesPage();
 
         kraken.shopping().hitFirstItemPlusButton();
-        kraken.perform().waitingFor(1); // ждем пока уберется алерт
+        kraken.await().implicitly(1); // ждем пока уберется алерт
         kraken.shopping().openCart();
 
         softAssert.assertTrue(kraken.detect().isCartOpen(),
@@ -338,7 +338,7 @@ public class FavoriteProducts extends TestBase {
         kraken.get().favoritesPage();
 
         kraken.shopping().hitFirstItemPlusButton();
-        kraken.perform().waitingFor(1); // ждем пока уберется алерт
+        kraken.await().implicitly(1); // ждем пока уберется алерт
         kraken.shopping().openCart();
 
         softAssert.assertTrue(kraken.detect().isCartOpen(),

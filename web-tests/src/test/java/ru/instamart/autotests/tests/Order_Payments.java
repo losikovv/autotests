@@ -56,7 +56,7 @@ public class Order_Payments extends TestBase {
         kraken.checkout().complete(PaymentTypes.cardOnline());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с оплатой онлайн\n");
+                "Не удалось оформить заказ с оплатой картой онлайн\n");
 
         Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.cardOnline().getDescription()),
                 "Способ оплаты в деталях заказа не совпадает с выбранным во время оформления");

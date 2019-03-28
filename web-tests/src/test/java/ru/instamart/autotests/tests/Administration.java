@@ -152,7 +152,7 @@ public class Administration extends TestBase {
         assertPageIsAvailable();
     }
 
-    private void imports() throws Exception {
+    private void imports() {
 
         kraken.go().adminImport();
         assertPageIsAvailable();

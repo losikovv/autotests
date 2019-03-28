@@ -55,7 +55,6 @@ public class BrowseHelper extends HelperBase {
      */
     public void checkoutPage() {
         page("checkout/edit?");
-        kraken.perform().waitingFor(1); // Ожидание загрузки чекаута
     }
 
     /**
@@ -70,7 +69,7 @@ public class BrowseHelper extends HelperBase {
      */
     public void favoritesPage() {
         page(Pages.Site.Profile.favorites());
-        kraken.perform().waitingFor(2); // Ожидание загрузки Любимых товаров
+        kraken.await().implicitly(2); // Ожидание загрузки Любимых товаров
     }
 
     /**
@@ -92,7 +91,7 @@ public class BrowseHelper extends HelperBase {
      */
     public void seoCatalogPage() {
         page(Pages.Site.Catalog.seo());
-        kraken.perform().waitingFor(1); // Ожидание загрузки SEO-каталога
+        kraken.await().implicitly(1); // Ожидание загрузки SEO-каталога
     }
 
     /**

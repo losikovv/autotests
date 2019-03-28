@@ -2,13 +2,19 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
+
 import static ru.instamart.autotests.application.Config.multiSessionMode;
 import static ru.instamart.autotests.application.Config.verbose;
+import static ru.instamart.autotests.application.Config.waitingTimeout;
 
 public class PerformHelper extends HelperBase {
 
@@ -117,14 +123,7 @@ public class PerformHelper extends HelperBase {
     /** Обновить страницу */
     public void refresh() {
         driver.navigate().refresh();
-        waitingFor(1); // Ожидание обновления страницы
-    }
-
-    /** Ожидание равное переданному значению умноженному на переменную 'implicitlyWait' */
-    public void waitingFor(int duration){
-        for (int i = 1; i <= duration; i++){
-            kraken.detect().isElementPresent(By.xpath("//*[@id='nowhere']"));
-        }
+        kraken.await().implicitly(1); // Ожидание обновления страницы
     }
 
 
@@ -163,7 +162,7 @@ public class PerformHelper extends HelperBase {
         openAuthModal();
         regSequence(name,email,password,passwordConfirmation);
         // TODO добавить проверку на тормоза и обернуть в нее задержку для стабильности
-        waitingFor(3); // Ожидание раздизебливания кнопки подтверждения регистрации
+        kraken.await().implicitly(3); // Ожидание раздизебливания кнопки подтверждения регистрации
         sendForm();
     }
 
@@ -255,7 +254,7 @@ public class PerformHelper extends HelperBase {
         } else {
             click(Elements.Admin.Header.logoutButton());
         }
-        waitingFor(1); // Ожидание деавторизации и подгрузки лендинга
+        kraken.await().implicitly(1); // Ожидание деавторизации и подгрузки лендинга
         if(kraken.detect().isOnLanding()) {
             printMessage("Логаут\n");
         }
@@ -264,7 +263,7 @@ public class PerformHelper extends HelperBase {
     /** Деавторизоваться быстро по прямой ссылке */
     public void quickLogout() {
         kraken.get().page("logout");
-        waitingFor(1); // Ожидание деавторизации и подгрузки лендинга
+        kraken.await().implicitly(1); // Ожидание деавторизации и подгрузки лендинга
         if(kraken.detect().isOnLanding()) {
             printMessage("Быстрый логаут\n");
         }
@@ -283,10 +282,10 @@ public class PerformHelper extends HelperBase {
         kraken.get().url("https://mail.google.com/mail/u/0/h/");
         fillField(By.name("identifier"), gmail);
         click(By.id("identifierNext"));
-        waitingFor(1); // Ожидание загрузки страницы ввода пароля Gmail
+        kraken.await().implicitly(1); // Ожидание загрузки страницы ввода пароля Gmail
         fillField(By.name("password"), password);
         click(By.id("passwordNext"));
-        waitingFor(1); // Ожидание авторизации в Gmail
+        kraken.await().implicitly(1); // Ожидание авторизации в Gmail
     }
 
     /** Открыть крайнее письмо в цепочке писем от Инстамарт */
@@ -300,7 +299,7 @@ public class PerformHelper extends HelperBase {
     public void clickRecoveryInMail() {
         if(verbose) { printMessage("> нажимаем кнопку сброса пароля в письме"); }
         click(By.linkText("СБРОСИТЬ ПАРОЛЬ"));
-        waitingFor(1); // Ожидание перехода из письма на сайт Инстамарт
+        kraken.await().implicitly(1); // Ожидание перехода из письма на сайт Инстамарт
         switchToNextWindow();
     }
 
@@ -317,7 +316,7 @@ public class PerformHelper extends HelperBase {
             } else {
                 click(Elements.Site.Header.loginButton());
             }
-            waitingFor(1); // Ожидание открытия модалки авторизации
+            kraken.await().implicitly(1); // Ожидание открытия модалки авторизации
         }
     }
 
@@ -341,13 +340,13 @@ public class PerformHelper extends HelperBase {
     public void sendForm(){
         if(verbose) { printMessage("> отправляем форму\n"); }
         click(Elements.Site.AuthModal.submitButton());
-        waitingFor(2); // Ожидание авторизации
+        kraken.await().implicitly(2); // Ожидание авторизации
     }
 
     /** Закрыть форму авторизации/регистрации */
     public void closeAuthModal(){
         click(Elements.Site.AuthModal.closeButton());
-        waitingFor(1); // Ожидание закрытия модалки авторизации
+        kraken.await().implicitly(1); // Ожидание закрытия модалки авторизации
     }
 
     /** Переключиться на вкладку авторизации */
@@ -382,7 +381,7 @@ public class PerformHelper extends HelperBase {
         if(verbose) { printMessage("> запрашиваем восстановление пароля для " + email); }
         fillField(Elements.Site.AuthModal.emailField(),email);
         sendForm();
-        waitingFor(1); // Ожидание раздизабливания кнопки подтверждения восстановления пароля
+        kraken.await().implicitly(1); // Ожидание раздизабливания кнопки подтверждения восстановления пароля
     }
 
     /** Запросить восстановление пароля для указанной роли*/
@@ -428,10 +427,10 @@ public class PerformHelper extends HelperBase {
             if(verbose) {printMessage("Для повтора жмем 1 кнопку\n");}
             click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton());
         }
-        waitingFor(2); // Ожидание добавления в корзину товаров из предыдущего заказа
+        kraken.await().implicitly(2); // Ожидание добавления в корзину товаров из предыдущего заказа
         if(kraken.detect().isInProfile()){
             printMessage("❕Тормозит повтор заказа❕");
-            waitingFor(2); // Доп. ожидание добавления в корзину товаров из предыдущего заказа при тормозах
+            kraken.await().implicitly(2); // Доп. ожидание добавления в корзину товаров из предыдущего заказа при тормозах
         }
     }
 
@@ -443,6 +442,6 @@ public class PerformHelper extends HelperBase {
             click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(1));
             printMessage("✓ OK\n");
         } else printMessage("> Заказ не активен\n");
-        waitingFor(2); // Ожидание отмены заказа
+        kraken.await().implicitly(2); // Ожидание отмены заказа
     }
 }

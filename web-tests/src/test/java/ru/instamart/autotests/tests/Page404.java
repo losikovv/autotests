@@ -82,7 +82,7 @@ public class Page404 extends TestBase {
         kraken.jivosite().open(); // для стабильности работы
         kraken.perform().click(Elements.Page404.catWisdomButton());
         kraken.jivosite().close(); // для стабильности работы
-        kraken.perform().waitingFor(1);
+        kraken.await().implicitly(1);
 
         String firstWisdom = kraken.grab().catWisdom();
         kraken.perform().click(Elements.Page404.showMoreCatWisdom());

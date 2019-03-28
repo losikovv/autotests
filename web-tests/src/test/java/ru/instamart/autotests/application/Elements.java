@@ -547,6 +547,10 @@ public class Elements {
                 return new Elements(null, By.className("product-popup"));
             }
 
+            static Elements image() {
+                return new Elements(null, By.className("product-popup__img"));
+            }
+
             static Elements price() {
                 return new Elements(null,
                         By.cssSelector(".product-popup__price > div:nth-child(1) > span:nth-child(1)"));
@@ -558,7 +562,7 @@ public class Elements {
             }
 
             static Elements saleBadge() {
-                return new Elements(null, By.className("product-popup__sale-price"));
+                return new Elements(null, By.className("sale-badge"));
             }
 
             static Elements closeButton() {

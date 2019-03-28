@@ -24,10 +24,10 @@ public class AddressHelper extends HelperBase {
         printMessage("Устанавливаем адрес доставки >>> " + address + "\n");
         if (kraken.grab().currentURL().equals(fullBaseUrl)) {
             kraken.perform().fillField(Elements.Site.Landing.addressField(), address);
-            kraken.perform().waitingFor(1); // Ожидание загрузки адресных саджестов
+            kraken.await().implicitly(1); // Ожидание загрузки адресных саджестов
             kraken.perform().click(Elements.Site.Landing.addressSuggest());
             kraken.perform().click(Elements.Site.Landing.selectStoreButton());
-            kraken.perform().waitingFor(2); // Ожидание загрузки витрины магазина
+            kraken.await().implicitly(2); // Ожидание загрузки витрины магазина
         } else {
             openAddressModal();
             fill(address);
@@ -64,7 +64,7 @@ public class AddressHelper extends HelperBase {
     private void selectAddressSuggest() {
         if (kraken.detect().isAnyAddressSuggestsAvailable()) {
             kraken.perform().click(Elements.Site.AddressModal.addressSuggest());
-            kraken.perform().waitingFor(1); // Ожидание раздизабливания кнопки сохранения адреса
+            kraken.await().implicitly(1); // Ожидание раздизабливания кнопки сохранения адреса
         } else {
             printMessage("Нет адресных подсказок");
         }
@@ -78,7 +78,7 @@ public class AddressHelper extends HelperBase {
             printMessage("Пропускаем открытие модалки адреса, она уже открыта");
         } else {
             kraken.perform().click(Elements.Site.Header.shipAddressButton());
-            kraken.perform().waitingFor(1); // Ожидание анимации открытия адресной модалки
+            kraken.await().implicitly(1); // Ожидание анимации открытия адресной модалки
         }
     }
 
@@ -115,7 +115,7 @@ public class AddressHelper extends HelperBase {
      */
     public void choseRecent() {
         kraken.perform().click(Elements.Site.AddressModal.recentAddress());
-        kraken.perform().waitingFor(1); // Ожидание применения предыдущего адреса
+        kraken.await().implicitly(1); // Ожидание применения предыдущего адреса
     }
 
     /**
@@ -124,7 +124,7 @@ public class AddressHelper extends HelperBase {
     public void closeAddressModal() {
         if (kraken.detect().isAddressModalOpen()) {
             kraken.perform().click(Elements.Site.AddressModal.closeButton());
-            kraken.perform().waitingFor(1); // Ожидание анимации закрытия адресной модалки
+            kraken.await().implicitly(1); // Ожидание анимации закрытия адресной модалки
         } else {
             printMessage("Пропускаем закрытие модалки адреса, она уже закрыта");
         }
