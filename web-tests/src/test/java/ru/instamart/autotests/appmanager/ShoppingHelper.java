@@ -4,11 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.application.Config;
-import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.models.WidgetData;
 
 import java.util.concurrent.TimeUnit;
 
@@ -71,6 +69,35 @@ public class ShoppingHelper extends HelperBase {
 
     // ======= Каталог =======
 
+    /** Добавляем в корзину первый товар из указанного виджета */
+    public void addItem(WidgetData widget) {
+        if(verbose) {kraken.perform().printMessage("Добавляем в корзину товар из виджета " + widget.getId());}
+        if(widget.getProvider().equals("RetailRocket")) {
+            kraken.perform().hoverOn(Elements.RetailRocket.item(widget.getId()));
+            kraken.perform().click(Elements.RetailRocket.addButton(widget.getId()));
+        }
+        kraken.await().implicitly(2); // Ожидание добавления товара в корзину из виджета
+    }
+
+    /** Открываем карточку первого товара */
+    public void openItemCard(WidgetData widget) {
+        if(verbose) {kraken.perform().printMessage("Открываем карточку товара из виджета " + widget.getId());}
+        if(widget.getProvider().equals("RetailRocket")) {
+            kraken.perform().click(Elements.RetailRocket.item(widget.getId()));
+        }
+
+        kraken.await().fluently(
+                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.popup().locator()),
+                "Не открывается карточка товара из виджета");
+
+        kraken.perform().switchToActiveElement();
+
+        kraken.await().fluently(
+                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.image().locator()),
+                "Не отображается контент в карточке товара из виджета");
+    }
+
+
     /** Добавляем в корзину первый товар в каталоге или списке любимых товаров */
     public void addFirstItemOnPageToCart() {
         hitFirstItemPlusButton();
@@ -78,24 +105,22 @@ public class ShoppingHelper extends HelperBase {
 
     /** Открываем карточку первого товара в каталоге или списке любимых товаров */
     public void openFirstItemCard() {
+        //TODO переписать локаторы на Xpath c функциями и избавиться от кучи ифов
         if (kraken.detect().isElementPresent(Elements.Site.Favorites.product())) {
             kraken.perform().click(Elements.Site.Favorites.product());
         } else if (kraken.detect().isElementPresent(Elements.Site.SeoCatalog.product())) {
             kraken.perform().click(Elements.Site.SeoCatalog.product());
         } else { kraken.perform().click(Elements.Site.Catalog.product()); }
 
-        new FluentWait<>(driver)
-                .withTimeout(waitingTimeout, TimeUnit.SECONDS)
-                .withMessage("Не открывается карточка товара")
-                .pollingEvery(1, TimeUnit.SECONDS)
-                .until(ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.popup().locator()));
+        kraken.await().fluently(
+                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.popup().locator()),
+                "Не открывается карточка товара");
+
         kraken.perform().switchToActiveElement();
 
-        new FluentWait<>(driver)
-                .withTimeout(waitingTimeout, TimeUnit.SECONDS)
-                .withMessage("Не отображается контент в карточке товара")
-                .pollingEvery(1, TimeUnit.SECONDS)
-                .until(ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.image().locator()));
+        kraken.await().fluently(
+                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.image().locator()),
+                "Не отображается контент в карточке товара");
     }
 
     /** Навестись на первый товар из каталога или списка любимых товаров */
@@ -166,21 +191,9 @@ public class ShoppingHelper extends HelperBase {
     public void hitPlusButton() {
         Elements.Site.ItemCard.plusButton();
         // TODO добавить проверку на наличие модалки обновления цен
-        new FluentWait<>(driver)
-                .withTimeout(waitingTimeout, TimeUnit.SECONDS)
-                .pollingEvery(basicTimeout, TimeUnit.SECONDS)
-                .until(ExpectedConditions.presenceOfElementLocated(Elements.locator()));
-
-        new FluentWait<>(driver)
-                .withTimeout(waitingTimeout, TimeUnit.SECONDS)
-                .pollingEvery(basicTimeout, TimeUnit.SECONDS)
-                .until(ExpectedConditions.visibilityOfElementLocated(Elements.locator()));
-
-        new FluentWait<>(driver)
-                .withTimeout(waitingTimeout, TimeUnit.SECONDS)
-                .pollingEvery(basicTimeout, TimeUnit.SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(Elements.locator()));
-
+        kraken.await().fluently(ExpectedConditions.presenceOfElementLocated(Elements.locator()));
+        kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.locator()));
+        kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.locator()));
         kraken.perform().click(Elements.Site.ItemCard.plusButton());
         kraken.await().implicitly(1); // Ожидание добавления +1 товара в карточке
     }

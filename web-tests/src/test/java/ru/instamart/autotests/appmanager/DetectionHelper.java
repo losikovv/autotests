@@ -12,6 +12,7 @@ import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.BonusProgramData;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.LoyaltyProgramData;
+import ru.instamart.autotests.models.WidgetData;
 
 import java.util.concurrent.TimeUnit;
 
@@ -614,6 +615,19 @@ public class DetectionHelper extends HelperBase {
     //**Определить доступны ли программы лояльности в чекауте*/
     public boolean isLoyaltyAvailaible(){
     return isElementDisplayed(Elements.Site.Checkout.loyaltyPrograms());
+    }
+
+
+    // ======= Widgets =======
+
+    public boolean isWidgetPresent(WidgetData widget){
+        printMessage(kraken.grab().currentURL());
+        if(widget.getProvider().equals("RetailRocket")){
+            return isElementPresent(Elements.RetailRocket.widget(widget.getId()));
+                    //&& kraken.grab().text(Elements.RetailRocket.title(widget.getId())).equals(widget.getName());
+        } else
+            printMessage("В детекторе не найден провайдер виджета");
+            return false;
     }
 
 

@@ -29,8 +29,12 @@ public class WaitingHelper extends HelperBase {
     }
 
     /** Умное ожидание указанных условий
-     * Ожидание прекратится как только условия будут выполнены, иначе ошибка по таймауту с сообщением
+     * Ожидание прекратится как только условия будут выполнены, иначе ошибка по таймауту
      * */
+    public void fluently(Function conditions) {
+        fluently(conditions,"");
+    }
+
     public void fluently(Function conditions, String message){
         new FluentWait<>(driver)
                 .withTimeout(waitingTimeout, TimeUnit.SECONDS)

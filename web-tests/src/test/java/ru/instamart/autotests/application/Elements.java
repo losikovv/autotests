@@ -1877,10 +1877,25 @@ public class Elements {
      * Tenant
      */
     public interface Tenant {
-
         static Elements tenantFooter() { return new Elements(null, By.xpath("//*[@id=\"wrap\"]/div[5]/footer"));}
-
-
     }
 
+    public interface RetailRocket {
+
+        static Elements widget(String widgetId) {
+            return new Elements(null, By.xpath("//*[contains(@class,'" + widgetId + "')]"));
+        }
+
+        static Elements title(String widgetId) {
+            return new Elements(null,By.xpath("//*[contains(@class,'" + widgetId + "')]//*[contains(@class,'widgettitle')]"));
+        }
+
+        static Elements item(String widgetId) {
+            return new Elements(null, By.xpath("//*[contains(@class,'" + widgetId + "')]//*[contains(@class,'swiper-slide')]"));
+        }
+
+        static Elements addButton(String widgetId) {
+            return new Elements(null, By.xpath("//*[contains(@class,'" + widgetId + "')]//*[contains(@class,'rr-product-cart-btn-add')]"));
+        }
+    }
 }

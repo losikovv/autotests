@@ -1,6 +1,7 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -9,18 +10,21 @@ import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
-import static ru.instamart.autotests.appmanager.ApplicationManager.session;
-
 
 // Тесты работы с магазином
 
 
 public class Shopping extends TestBase{
 
+    @BeforeClass(alwaysRun = true)
+    public void setup() {
+        kraken.perform().quickLogout();
+        kraken.get().page("metro");
+        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+    }
 
     @BeforeMethod(alwaysRun = true)
-    public void preconditions() throws Exception {
-        kraken.perform().quickLogout();
+    public void preconditions() {
         kraken.get().page("metro");
     }
 
@@ -41,7 +45,7 @@ public class Shopping extends TestBase{
             priority = 653
     )
     public void noAccessToCheckoutWithEmptyCart() throws Exception {
-        kraken.perform().loginAs(session.admin);
+        kraken.perform().loginAs(kraken.session.admin);
         kraken.drop().cart();
         assertPageIsUnavailable(Pages.Site.checkout());
     }
@@ -75,7 +79,7 @@ public class Shopping extends TestBase{
             priority = 655
     )
     public void successAddItemToCartFromItemCard()throws Exception, AssertionError {
-        kraken.perform().loginAs(session.user);
+        kraken.perform().loginAs(kraken.session.user);
         kraken.drop().cart();
 
         kraken.shopping().openFirstItemCard();
@@ -94,7 +98,7 @@ public class Shopping extends TestBase{
             priority = 656
     )
     public void successAddItemToCartFromCatalog() throws Exception {
-        kraken.perform().loginAs(session.user);
+        kraken.perform().loginAs(kraken.session.user);
         kraken.drop().cart();
 
         kraken.shopping().hitFirstItemPlusButton();
@@ -112,7 +116,7 @@ public class Shopping extends TestBase{
             priority = 657
     )
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() throws Exception {
-        kraken.perform().loginAs(session.user);
+        kraken.perform().loginAs(kraken.session.user);
 
         if (kraken.detect().isCheckoutButtonActive()) {
             kraken.drop().cart();
@@ -136,7 +140,7 @@ public class Shopping extends TestBase{
             priority = 658
     )
     public void successCollectItemsForMinOrder() throws Exception, AssertionError {
-        kraken.perform().loginAs(session.user);
+        kraken.perform().loginAs(kraken.session.user);
         kraken.drop().cart();
 
         kraken.shopping().collectItems();
@@ -152,7 +156,7 @@ public class Shopping extends TestBase{
             priority = 659
     )
     public void successAccessCheckoutWithCartAboveMinimalOrderSum() throws Exception {
-        kraken.perform().loginAs(session.user);
+        kraken.perform().loginAs(kraken.session.user);
         kraken.shopping().collectItems();
 
         assertPageIsAvailable(Pages.Site.checkout());
@@ -165,7 +169,7 @@ public class Shopping extends TestBase{
             priority = 660
     )
     public void successProceedFromCartToCheckout() throws Exception, AssertionError {
-        kraken.perform().loginAs(session.user);
+        kraken.perform().loginAs(kraken.session.user);
         kraken.shopping().collectItems();
 
         kraken.shopping().proceedToCheckout();
