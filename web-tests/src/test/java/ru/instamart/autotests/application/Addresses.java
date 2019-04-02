@@ -71,5 +71,13 @@ public abstract class Addresses {
 
     }
 
+    public static class RostovNaDonu extends Addresses {
+
+        RostovNaDonu(String address) { super(address); }
+
+        public static String defaultAddress() { return addressString = "Ростов-на-Дону, ул 2-й Пятилетки, д 23"; }
+
+    }
+
 }
 
