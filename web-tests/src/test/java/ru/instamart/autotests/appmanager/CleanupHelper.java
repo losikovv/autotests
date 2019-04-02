@@ -30,6 +30,7 @@ public class CleanupHelper extends HelperBase {
      */
     public void users() throws Exception {
         printMessage("Удаление тестовых пользователей");
+        //TODO в соло-режиме удалять всех тестовых пользователей
         users(kraken.session.userList);
     }
 
@@ -54,6 +55,7 @@ public class CleanupHelper extends HelperBase {
      */
     public void orders() throws Exception {
         printMessage("Отмена тестовых заказов");
+        //TODO в соло-режиме отменять все тестовые заказы
         orders(kraken.session.orderList);
     }
 

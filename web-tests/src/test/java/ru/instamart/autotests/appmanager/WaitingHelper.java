@@ -8,6 +8,7 @@ import ru.instamart.autotests.models.EnvironmentData;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
+import static ru.instamart.autotests.application.Config.verbose;
 import static ru.instamart.autotests.application.Config.waitingTimeout;
 
 public class WaitingHelper extends HelperBase {
@@ -17,8 +18,9 @@ public class WaitingHelper extends HelperBase {
     }
 
     /** Просто задержка на указанное время */
-    public void simply(int duration){
-        //TODO
+    public void simply(int seconds) throws InterruptedException {
+        if(verbose) printMessage("Ожидание " + seconds + " секунд");
+        Thread.sleep(seconds*1000);
     }
 
     /** Ожидание, равное переданному значению умноженному на переменную 'implicitlyWait' в конфиге */
