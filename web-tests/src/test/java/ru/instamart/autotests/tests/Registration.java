@@ -33,16 +33,20 @@ public class Registration extends TestBase {
 
         kraken.perform().registration(null, null, null, null);
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Укажите имя и фамилию")),
                 "Нет пользовательской ошибки пустого поля name\n");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Укажите пароль")),
                 "Нет пользовательской ошибки пустого поля email\n");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Укажите пароль")),
                 "Нет пользовательской ошибки пустого поля password\n");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Подтвердите пароль")),
                 "Нет пользовательской ошибки пустого поля password confirmation\n");
 
         kraken.get().baseUrl();
@@ -63,7 +67,8 @@ public class Registration extends TestBase {
 
         kraken.perform().registration(null, "test@example.com", "12345678", "12345678");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Укажите имя и фамилию")),
                 "Нет пользовательской ошибки пустого поля name\n");
 
         kraken.get().baseUrl();
@@ -84,7 +89,8 @@ public class Registration extends TestBase {
 
         kraken.perform().registration("Test User", null, "12345678", "12345678");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Укажите email")),
                 "Нет пользовательской ошибки пустого поля email\n");
 
         kraken.get().baseUrl();
@@ -104,7 +110,8 @@ public class Registration extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.perform().registration("Test User", "test@example.com", null, "12345678");
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Укажите пароль")),
                 "Нет пользовательской ошибки пустого поля password\n");
 
         kraken.get().baseUrl();
@@ -125,7 +132,8 @@ public class Registration extends TestBase {
 
         kraken.perform().registration("Test User", "test@example.com", "12345678", null);
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Подтвердите пароль\n")),
                 "Нет пользовательской ошибки пустого поля password confirmation\n");
 
         kraken.get().baseUrl();
@@ -146,7 +154,8 @@ public class Registration extends TestBase {
 
         kraken.perform().registration("Test User", "test@example.com", "12345678", "12345679");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordConfirmationErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Введенные пароли должны совпадать\n\n")),
                 "Нет пользовательской ошибки несовпадения пароля\n");
 
         kraken.get().baseUrl();
@@ -168,7 +177,8 @@ public class Registration extends TestBase {
         kraken.perform().registration("Test User", Users.superuser().getEmail(),
                 "12345678", "12345678");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Этот email уже зарегистрирован\n")),
                 "Нет пользовательской ошибки регистрации с уже зарегистрированным email\n");
 
         kraken.get().baseUrl();
@@ -189,13 +199,16 @@ public class Registration extends TestBase {
 
         kraken.perform().registration(generate.testCredentials("user", 100));
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("todo\n\n")),
                 "Нет пользовательской ошибки превышения длины поля name\n");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("todo\n\n")),
                 "Нет пользовательской ошибки превышения длины поля email\n");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.passwordErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("todo\n\n")),
                 "Нет пользовательской ошибки превышения длины поля password\n");
 
         // Решили не выводить ошибку
@@ -364,6 +377,7 @@ public class Registration extends TestBase {
                 "Не работает регистрация через Facebook\n");
     }
 
+    /* ТЕСТ устарел, чекбоса больше нет
     @Test(
             description = "Негативный тест регистрации без проставленной галки на обработку данных",
             groups = {"acceptance", "regression"},
@@ -377,4 +391,5 @@ public class Registration extends TestBase {
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 "Работает регистрация без согласия на обработку перс. данных");
     }
+    */
 }

@@ -330,7 +330,7 @@ public class PerformHelper extends HelperBase {
         fillField(Elements.Site.AuthModal.emailField(), email);
         fillField(Elements.Site.AuthModal.passwordField(), password);
         fillField(Elements.Site.AuthModal.passwordConfirmationField(), passwordConfirmation);
-        setCheckbox(Elements.Site.AuthModal.agreementCheckbox(), agreementConfirmation);
+        //setCheckbox(Elements.Site.AuthModal.agreementCheckbox(), agreementConfirmation);
     }
 
     /** Отправить форму */

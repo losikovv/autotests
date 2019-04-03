@@ -36,11 +36,13 @@ public class Authorisation extends TestBase {
 
         kraken.perform().authorisation("", "");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Укажите email")),
                 "Нет пользовательской ошибки пустого поля email\n");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
-                "Нет пользовательской ошибки пустого поля password\n");
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Укажите пароль")),
+                "Нет пользовательской ошибки пустого поля Пароль\n");
 
         kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
@@ -60,7 +62,8 @@ public class Authorisation extends TestBase {
 
         kraken.perform().authorisation("", "instamart");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Укажите email")),
                 "Нет пользовательской ошибки пустого поля email\n");
 
         kraken.get().baseUrl();
@@ -81,8 +84,9 @@ public class Authorisation extends TestBase {
 
         kraken.perform().authorisation(Users.superuser().getEmail(), "");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.emailErrorMessage()),
-                "Нет пользовательской ошибки пустого поля password\n");
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Укажите пароль")),
+                "Нет пользовательской ошибки пустого поля Пароль\n");
 
         kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
@@ -102,7 +106,8 @@ public class Authorisation extends TestBase {
 
         kraken.perform().authorisation("nonexistinguser@example.com", "password");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Неверный email или пароль\n")),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
         kraken.get().baseUrl();
@@ -123,7 +128,8 @@ public class Authorisation extends TestBase {
 
         kraken.perform().authorisation(Users.superuser().getEmail(), "wrongpassword");
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Неверный email или пароль")),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
         kraken.get().baseUrl();
@@ -144,7 +150,8 @@ public class Authorisation extends TestBase {
 
         kraken.perform().authorisation(generate.testCredentials("user",129));
 
-        softAssert.assertTrue(kraken.detect().isUserErrorShown(Elements.Site.AuthModal.nameErrorMessage()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Неверный email или пароль\n")),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
         kraken.get().baseUrl();

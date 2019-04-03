@@ -320,9 +320,7 @@ public class Elements {
                 return new Elements(null, By.name("passwordConfirmation"));
             }
 
-            static Elements agreementCheckbox() {
-                return new Elements(null, By.className("checkbox__check"));
-            }
+            //устарело static Elements agreementCheckbox() { return new Elements(null, By.className("checkbox__check")); }
 
             static Elements agreementRulesLink() {
                 return new Elements(null, By.className("auth-modal__agreement"));
@@ -341,26 +339,9 @@ public class Elements {
                         By.cssSelector(".auth-modal__recovery-text > span:nth-child(1)"));
             }
 
-            // TODO Добавить/переделать локаторы под авторизацию
-
-            static Elements nameErrorMessage() {
+            static Elements errorMessage(String errorText) {
                 return new Elements(null,
-                        (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[1]/div[2]")));
-            }
-
-            static Elements emailErrorMessage() {
-                return new Elements(null,
-                        (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[2]/div[2]")));
-            }
-
-            static Elements passwordErrorMessage() {
-                return new Elements(null,
-                        (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[3]/div[2]")));
-            }
-
-            static Elements passwordConfirmationErrorMessage() {
-                return new Elements(null,
-                        (By.xpath("//*[@id='auth']/div/div/div[1]/form/div/div[4]/div[2]")));
+                        (By.xpath("//*[contains(@class, 'auth-input__error') and contains(text(),'" + errorText + "')]")));
             }
 
             static Elements vkontakte() {

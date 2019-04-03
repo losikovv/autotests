@@ -144,23 +144,6 @@ public class DetectionHelper extends HelperBase {
     }
 
     /**
-     * Определить показана ли пользовательская ошибка
-     */
-    public boolean isUserErrorShown(Elements element) {
-        if (isTextShown(element)) {
-            if(verbose) { printMessage("Показана пользовательская ошибка: " + kraken.grab().text(element) + "\n"); }
-            return true;
-        } else {
-            if(verbose) {  printMessage("Не показана пользовательская ошибка (" + Elements.locator() + ")\n"); }
-            return false;
-        }
-    }
-
-    public boolean isUserErrorShown(Elements element, String text) {
-        return isTextShown(element) && kraken.grab().text(element).equals(text);
-    }
-
-    /**
      * Определить находимся на лендинге или нет
      */
     public boolean isOnLanding() {
