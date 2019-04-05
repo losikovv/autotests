@@ -21,7 +21,7 @@ public class Checkout extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preparingForCheckout() throws Exception {
         kraken.get().page("metro");
-        kraken.perform().loginAs(kraken.session.admin);
+        kraken.perform().loginAs(kraken.session.user);
     }
 
 
