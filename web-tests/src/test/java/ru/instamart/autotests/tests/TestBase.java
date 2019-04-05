@@ -7,6 +7,7 @@ import org.testng.annotations.*;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.ApplicationManager;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.models.ElementData;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
@@ -69,12 +70,11 @@ public class TestBase {
     /**
      * Проверить работоспособность перехода по страницам
      */
-    void assertTransition(Elements element) {
+    void assertTransition(ElementData element) {
         String startPage = kraken.grab().currentURL();
-        //TODO kraken.go(element);
         kraken.perform().click(element);
         Assert.assertFalse(kraken.grab().currentURL().equalsIgnoreCase(startPage),
-                "Не работает преход по элементу " + Elements.locator() + " на странице " + startPage + "\n");
+                "Не работает преход по элементу " + element.getLocator() + " на странице " + startPage + "\n");
     }
 
     /**

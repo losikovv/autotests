@@ -1,16 +1,15 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.autotests.application.*;
+import ru.instamart.autotests.models.ElementData;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.WidgetData;
 
 import java.util.concurrent.TimeUnit;
 
-import static ru.instamart.autotests.application.Config.basicTimeout;
 import static ru.instamart.autotests.application.Config.verbose;
 import static ru.instamart.autotests.application.Config.waitingTimeout;
 
@@ -46,7 +45,7 @@ public class ShoppingHelper extends HelperBase {
                     .withTimeout(waitingTimeout, TimeUnit.SECONDS)
                     .withMessage("Не открыввется шторка каталога")
                     .pollingEvery(1, TimeUnit.SECONDS)
-                    .until(ExpectedConditions.visibilityOfElementLocated(Elements.Site.CatalogDrawer.closeCatalogButton().locator()));
+                    .until(ExpectedConditions.visibilityOfElementLocated(Elements.Site.CatalogDrawer.closeCatalogButton().getLocator()));
         } else {
             if(verbose) printMessage("Пропускаем открытие шторки каталога, уже открыта");
         }
@@ -60,7 +59,7 @@ public class ShoppingHelper extends HelperBase {
                     .withTimeout(waitingTimeout, TimeUnit.SECONDS)
                     .withMessage("Не закрывается шторка каталога")
                     .pollingEvery(1, TimeUnit.SECONDS)
-                    .until(ExpectedConditions.invisibilityOfElementLocated(Elements.Site.CatalogDrawer.drawer().locator()));
+                    .until(ExpectedConditions.invisibilityOfElementLocated(Elements.Site.CatalogDrawer.drawer().getLocator()));
         } else {
             if(verbose) printMessage("Пропускаем закрытие шторки каталога, уже закрыта");
         }
@@ -87,13 +86,13 @@ public class ShoppingHelper extends HelperBase {
         }
 
         kraken.await().fluently(
-                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.popup().locator()),
+                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.popup().getLocator()),
                 "Не открывается карточка товара из виджета");
 
         kraken.perform().switchToActiveElement();
 
         kraken.await().fluently(
-                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.image().locator()),
+                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.image().getLocator()),
                 "Не отображается контент в карточке товара из виджета");
     }
 
@@ -113,13 +112,13 @@ public class ShoppingHelper extends HelperBase {
         } else { kraken.perform().click(Elements.Site.Catalog.product()); }
 
         kraken.await().fluently(
-                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.popup().locator()),
+                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.popup().getLocator()),
                 "Не открывается карточка товара");
 
         kraken.perform().switchToActiveElement();
 
         kraken.await().fluently(
-                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.image().locator()),
+                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.image().getLocator()),
                 "Не отображается контент в карточке товара");
     }
 
@@ -189,20 +188,33 @@ public class ShoppingHelper extends HelperBase {
 
     /** Нажать кнопку [+] в карточке товара */
     public void hitPlusButton() {
-        Elements.Site.ItemCard.plusButton();
+        ElementData button = Elements.Site.ItemCard.plusButton();
         // TODO добавить проверку на наличие модалки обновления цен
-        kraken.await().fluently(ExpectedConditions.presenceOfElementLocated(Elements.locator()));
-        kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.locator()));
-        kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.locator()));
+        kraken.await().fluently(
+                ExpectedConditions
+                        .presenceOfElementLocated(button.getLocator())
+        );
+        kraken.await().fluently(
+                ExpectedConditions
+                        .visibilityOfElementLocated(button.getLocator())
+        );
+        kraken.await().fluently(
+                ExpectedConditions
+                        .elementToBeClickable(button.getLocator())
+        );
         kraken.perform().click(Elements.Site.ItemCard.plusButton());
-        kraken.await().implicitly(1); // Ожидание добавления +1 товара в карточке
+        kraken.await().simply(1); // Ожидание добавления +1 товара в карточке
+        kraken.await().fluently(
+                ExpectedConditions
+                        .elementToBeClickable(button.getLocator())
+        );
     }
 
     /** Нажать кнопку [-] в карточке товара */
     public void hitMinusButton() {
         if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.minusButton())) {
             kraken.perform().click(Elements.Site.ItemCard.minusButton());
-            kraken.await().implicitly(1); // Ожидание убавления -1 товара карточке
+            kraken.await().simply(1); // Ожидание убавления -1 товара в карточке
         } else {
             printMessage("⚠ Кнопка 'Минус' не отображается");
         }
@@ -232,7 +244,7 @@ public class ShoppingHelper extends HelperBase {
     public void closeItemCard() {
         kraken.perform().click(Elements.Site.ItemCard.closeButton());
         kraken.await().fluently(
-                ExpectedConditions.invisibilityOfElementLocated(Elements.Site.ItemCard.popup().locator()),
+                ExpectedConditions.invisibilityOfElementLocated(Elements.Site.ItemCard.popup().getLocator()),
                 "Не закрывается карточка товара");
     }
 
@@ -244,7 +256,7 @@ public class ShoppingHelper extends HelperBase {
         if (!kraken.detect().isCartOpen()) {
             kraken.perform().click(Elements.Site.Cart.openCartButton());
             kraken.await().fluently(
-                    ExpectedConditions.visibilityOfElementLocated(Elements.Site.Cart.closeButton().locator()),
+                    ExpectedConditions.visibilityOfElementLocated(Elements.Site.Cart.closeButton().getLocator()),
                     "Не открывается корзина");
         } else {
             if(verbose) printMessage("Пропускаем открытие корзины, уже открыта");
@@ -256,7 +268,7 @@ public class ShoppingHelper extends HelperBase {
         if (kraken.detect().isCartOpen()) {
             kraken.perform().click(Elements.Site.Cart.closeButton());
             kraken.await().fluently(
-                    ExpectedConditions.invisibilityOfElementLocated(Elements.Site.Cart.drawer().locator()),
+                    ExpectedConditions.invisibilityOfElementLocated(Elements.Site.Cart.drawer().getLocator()),
                     "Не закрывается корзина");
         }
         else {

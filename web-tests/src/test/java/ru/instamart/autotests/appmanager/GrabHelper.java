@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.models.ElementData;
 import ru.instamart.autotests.models.EnvironmentData;
 
 import static ru.instamart.autotests.application.Config.verbose;
@@ -20,8 +21,8 @@ public class GrabHelper extends HelperBase{
     }
 
     /** Взять количество элементов */
-    public int listSize(Elements element) {
-        return listSize(Elements.locator());
+    public int listSize(ElementData element) {
+        return listSize(element.getLocator());
     }
 
     /** Взять количество элементов по локатору */
@@ -30,8 +31,8 @@ public class GrabHelper extends HelperBase{
     }
 
     /** Взять текст элемента */
-    public String text(Elements element) {
-        return text(Elements.locator());
+    public String text(ElementData element) {
+        return text(element.getLocator());
     }
 
     /** Взять текст элемента по локатору */
@@ -44,8 +45,8 @@ public class GrabHelper extends HelperBase{
     }
 
     /** Взять текст из заполненного поля по элементу */
-    public String value(Elements element) {
-        return value(Elements.locator());
+    public String value(ElementData element) {
+        return value(element.getLocator());
     }
 
     /** Взять текст из заполненного поля по локатору */
@@ -122,7 +123,7 @@ public class GrabHelper extends HelperBase{
 
     // TODO переделать
     /** Взять округленное значение цены из указанного элемента */
-    public int roundedSum(Elements element) {
+    public int roundedSum(ElementData element) {
         return round(text(element));
     }
 
@@ -137,7 +138,7 @@ public class GrabHelper extends HelperBase{
     }
 
     /** Взять 10-значный номер телефона по локатору элемента */
-    public String strippedPhoneNumber(Elements element) {
+    public String strippedPhoneNumber(ElementData element) {
         if (kraken.detect().isElementDisplayed(element)) {
             return strip(value(element));
         } else return null;

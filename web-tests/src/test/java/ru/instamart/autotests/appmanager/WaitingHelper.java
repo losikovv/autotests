@@ -18,9 +18,13 @@ public class WaitingHelper extends HelperBase {
     }
 
     /** Просто задержка на указанное время */
-    public void simply(int seconds) throws InterruptedException {
+    public void simply(int seconds) {
         if(verbose) printMessage("Ожидание " + seconds + " секунд");
-        Thread.sleep(seconds*1000);
+        try {
+            Thread.sleep(seconds*1000);
+        } catch (InterruptedException i) {
+
+        }
     }
 
     /** Ожидание, равное переданному значению умноженному на переменную 'implicitlyWait' в конфиге */
