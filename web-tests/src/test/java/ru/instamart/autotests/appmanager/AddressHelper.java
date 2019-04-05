@@ -23,10 +23,10 @@ public class AddressHelper extends HelperBase {
     public void set(String address) {
         printMessage("Устанавливаем адрес доставки >>> " + address + "\n");
         if (kraken.grab().currentURL().equals(fullBaseUrl)) {
-            kraken.perform().fillField(Elements.Site.Landing.addressField(), address);
+            kraken.perform().fillField(Elements.Landing.addressField(), address);
             kraken.await().implicitly(1); // Ожидание загрузки адресных саджестов
-            kraken.perform().click(Elements.Site.Landing.addressSuggest());
-            kraken.perform().click(Elements.Site.Landing.selectStoreButton());
+            kraken.perform().click(Elements.Landing.addressSuggest());
+            kraken.perform().click(Elements.Landing.selectStoreButton());
             kraken.await().implicitly(2); // Ожидание загрузки витрины магазина
         } else {
             openAddressModal();
@@ -102,12 +102,11 @@ public class AddressHelper extends HelperBase {
      */
     public void submit() {
         kraken.perform().click(Elements.Site.AddressModal.saveButton());
-        Elements.Site.AddressModal.popup();
         new FluentWait<>(driver)
                 .withTimeout(waitingTimeout, TimeUnit.SECONDS)
                 .withMessage("Слишком долго применяется адрес доставки")
                 .pollingEvery(1, TimeUnit.SECONDS)
-                .until(ExpectedConditions.invisibilityOfElementLocated(Elements.locator()));
+                .until(ExpectedConditions.invisibilityOfElementLocated(Elements.Site.AddressModal.popup().getLocator()));
     }
 
     /**

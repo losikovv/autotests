@@ -178,7 +178,7 @@ public class Registration extends TestBase {
                 "12345678", "12345678");
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
-                Elements.Site.AuthModal.errorMessage("Этот email уже зарегистрирован\n")),
+                Elements.Site.AuthModal.errorMessage("Этот email уже зарегистрирован")),
                 "Нет пользовательской ошибки регистрации с уже зарегистрированным email\n");
 
         kraken.get().baseUrl();

@@ -63,7 +63,7 @@ public class SeoCatalog extends TestBase {
             groups = {"regression"},
             priority = 9103
     )
-    public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() {
+    public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() throws Exception {
         skipOn(instamart_staging());
         SoftAssert softAssert = new SoftAssert();
         kraken.shopping().openFirstItemCard();

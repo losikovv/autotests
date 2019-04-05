@@ -4,21 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.models.BonusProgramData;
-import ru.instamart.autotests.models.EnvironmentData;
-import ru.instamart.autotests.models.LoyaltyProgramData;
-import ru.instamart.autotests.models.WidgetData;
+import ru.instamart.autotests.models.*;
 
-import java.util.concurrent.TimeUnit;
-
-import static ru.instamart.autotests.application.Config.basicTimeout;
 import static ru.instamart.autotests.application.Config.verbose;
-import static ru.instamart.autotests.application.Config.waitingTimeout;
 
 public class DetectionHelper extends HelperBase {
 
@@ -55,8 +45,8 @@ public class DetectionHelper extends HelperBase {
     /**
      * Задетектить элемент
      */
-    public boolean element(Elements element) {
-        return element(Elements.locator(), Elements.text());
+    public boolean element(ElementData element) {
+        return element(element.getLocator(), element.getText());
     }
 
     /**
@@ -74,8 +64,8 @@ public class DetectionHelper extends HelperBase {
     /**
      * Определить отображается ли элемент
      */
-    public boolean isElementPresent(Elements element) {
-        return isElementPresent(Elements.locator());
+    public boolean isElementPresent(ElementData element) {
+        return isElementPresent(element.getLocator());
     }
 
     /**
@@ -93,8 +83,8 @@ public class DetectionHelper extends HelperBase {
     /**
      * Определить показан ли элемент
      */
-    public boolean isElementDisplayed(Elements element) {
-        return isElementDisplayed(Elements.locator());
+    public boolean isElementDisplayed(ElementData element) {
+        return isElementDisplayed(element.getLocator());
     }
 
     /**
@@ -111,8 +101,8 @@ public class DetectionHelper extends HelperBase {
     /**
      * Определить доступен ли элемент
      */
-    public boolean isElementEnabled(Elements element) {
-        return isElementEnabled(Elements.locator());
+    public boolean isElementEnabled(ElementData element) {
+        return isElementEnabled(element.getLocator());
     }
 
     /**
@@ -125,8 +115,8 @@ public class DetectionHelper extends HelperBase {
     /**
      * Определить проставлен ли чекбокс
      */
-    public boolean isCheckboxSelected(Elements element) {
-        return isCheckboxSelected(Elements.locator());
+    public boolean isCheckboxSelected(ElementData element) {
+        return isCheckboxSelected(element.getLocator());
     }
 
     /**
@@ -139,7 +129,7 @@ public class DetectionHelper extends HelperBase {
     /**
      * Определить показан ли текст
      */
-    public boolean isTextShown(Elements element) {
+    public boolean isTextShown(ElementData element) {
         return isElementDisplayed(element) && kraken.grab().text(element) != null;
     }
 
@@ -147,7 +137,7 @@ public class DetectionHelper extends HelperBase {
      * Определить находимся на лендинге или нет
      */
     public boolean isOnLanding() {
-        return isElementPresent(Elements.Site.Landing.header());
+        return isElementPresent(Elements.Landing.header());
     }
 
     /**
@@ -314,8 +304,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Распознавание документов к заказу на странице деталей */
     public String orderDocument(int position) {
-        Elements.Site.UserProfile.OrderDetailsPage.documentation(position);
-        String docName = kraken.grab().text(Elements.locator());
+        String docName = kraken.grab().text(Elements.Site.UserProfile.OrderDetailsPage.documentation(position).getLocator());
         if (docName != null) {
             if(verbose) { printMessage("Скачиваем: " + docName); }
             return docName;

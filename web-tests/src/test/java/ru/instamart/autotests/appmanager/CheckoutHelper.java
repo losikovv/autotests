@@ -1,7 +1,6 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -274,7 +273,7 @@ public class CheckoutHelper extends HelperBase {
                 .withTimeout(waitingTimeout, TimeUnit.SECONDS)
                 .withMessage("Не открывается чекаут")
                 .pollingEvery(basicTimeout, TimeUnit.SECONDS)
-                .until(ExpectedConditions.presenceOfElementLocated(Elements.Site.Checkout.header().locator()));
+                .until(ExpectedConditions.presenceOfElementLocated(Elements.Site.Checkout.header().getLocator()));
         printMessage("✓ Чекаут\n");
     }
 
@@ -424,7 +423,7 @@ public class CheckoutHelper extends HelperBase {
 
     /** Выбрать карту оплаты */
     private void selectPaymentCard(CreditCardData creditCardData) {
-        Elements title = Elements.Site.Checkout.paymentCardTitle(creditCardData);
+        ElementData title = Elements.Site.Checkout.paymentCardTitle(creditCardData);
         if (kraken.detect().isElementDisplayed(title)) {
             kraken.perform().printMessage("Выбираем карту оплаты " + kraken.grab().text(title));
             kraken.perform().click(title);
@@ -489,7 +488,7 @@ public class CheckoutHelper extends HelperBase {
 
     /** Выбрать юр. лицо */
     private void selectJuridical(JuridicalData juridicalData) {
-        Elements title = Elements.Site.Checkout.juridicalTitle(juridicalData);
+        ElementData title = Elements.Site.Checkout.juridicalTitle(juridicalData);
         if (kraken.detect().isElementDisplayed(title)) {
             kraken.perform().printMessage("Выбираем данные юр. лица " + kraken.grab().text(title));
             kraken.perform().click(title);

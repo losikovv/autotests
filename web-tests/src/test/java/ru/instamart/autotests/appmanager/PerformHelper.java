@@ -5,6 +5,7 @@ import org.openqa.selenium.interactions.Actions;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
+import ru.instamart.autotests.models.ElementData;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
@@ -22,8 +23,8 @@ public class PerformHelper extends HelperBase {
     // ======= Базовые действия =======
 
     /** Кликнуть элемент */
-    public void click(Elements element) {
-        click(Elements.locator());
+    public void click(ElementData element) {
+        click(element.getLocator());
     }
 
     /** Кликнуть элемент по локатору */
@@ -42,8 +43,8 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Навестисть на элемент */
-    public void hoverOn(Elements element) {
-        hoverOn(Elements.locator());
+    public void hoverOn(ElementData element) {
+        hoverOn(element.getLocator());
     }
 
     /** Навестись на элемент по локатору */
@@ -51,11 +52,6 @@ public class PerformHelper extends HelperBase {
         try {
             new Actions(driver).moveToElement(driver.findElement(locator)).perform();
         }
-        /*catch (NoSuchElementException n) {
-            printMessage("Невозможно навестись на элемент <" + locator
-                    + ">\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
-        }
-        */
         catch (ElementNotVisibleException v) {
             printMessage("Невозможно навестись на элемент <" + locator
                     + ">\nЭлемент не отображается на " + kraken.grab().currentURL() + "\n");
@@ -63,8 +59,8 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Заполнить поле указанным текстом */
-    public void fillField(Elements element, String text) {
-        fillField(Elements.locator(),text);
+    public void fillField(ElementData element, String text) {
+        fillField(element.getLocator(),text);
     }
 
     /** Заполнить поле по локатору указанным текстом */
@@ -80,8 +76,8 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Установить значение чекбокса в соответствии */
-    public void setCheckbox(Elements element, boolean value) {
-        setCheckbox(Elements.locator(), value);
+    public void setCheckbox(ElementData element, boolean value) {
+        setCheckbox(element.getLocator(), value);
     }
 
     public void setCheckbox(By locator, boolean value) {
@@ -144,38 +140,38 @@ public class PerformHelper extends HelperBase {
     // ======= Регистрация =======
 
     /** Зарегистрировать тестового юзера со сгенерированными реквизитами */
-    public void registration() throws Exception {
+    public void registration() {
         registration(generate.testCredentials("user"));
     }
 
     /** Зарегистрировать нового юзера с реквизитами из переданного объекта UserData */
-    public void registration(UserData userData) throws Exception {
+    public void registration(UserData userData) {
         registration(userData.getName(), userData.getEmail(), userData.getPassword(), userData.getPassword());
     }
 
     /** Зарегистрировать нового юзера с указанными реквизитами */
-    public void registration(String name, String email, String password, String passwordConfirmation) throws Exception {
+    public void registration(String name, String email, String password, String passwordConfirmation) {
         printMessage("Регистрируемся (" + email + " / " + password + ")");
         openAuthModal();
         regSequence(name,email,password,passwordConfirmation);
-        // TODO добавить проверку на тормоза и обернуть в нее задержку для стабильности
-        kraken.await().implicitly(3); // Ожидание раздизебливания кнопки подтверждения регистрации
+        // TODO переделать на fluent-ожидание
+        kraken.await().implicitly(1); // Ожидание раздизебливания кнопки подтверждения регистрации
         sendForm();
     }
 
     /** Регистрационная последовательность с реквизитами из переданного объекта UserData */
-    public void regSequence(UserData userData) throws Exception {
+    public void regSequence(UserData userData) {
         regSequence(userData.getName(), userData.getEmail(), userData.getPassword(), userData.getPassword());
     }
 
     /** Регистрационная последовательность с реквизитами из переданного объекта UserData */
-    public void regSequence(UserData userData, boolean agreement) throws Exception {
+    public void regSequence(UserData userData, boolean agreement) {
         switchToRegistrationTab();
         fillRegistrationForm(userData.getName(), userData.getEmail(), userData.getPassword(), userData.getPassword(), agreement);
     }
 
     /** Регистрационная последовательность с указанными реквизитами */
-    public void regSequence(String name, String email, String password, String passwordConfirmation) throws Exception {
+    public void regSequence(String name, String email, String password, String passwordConfirmation) {
         switchToRegistrationTab();
         fillRegistrationForm(name, email, password, passwordConfirmation, true);
     }
@@ -309,7 +305,7 @@ public class PerformHelper extends HelperBase {
         } else {
             if(verbose) { printMessage("> открываем модалку авторизации"); }
             if (kraken.detect().isOnLanding()) {
-                click(Elements.Site.Landing.loginButton());
+                click(Elements.Landing.loginButton());
             } else {
                 click(Elements.Site.Header.loginButton());
             }
@@ -330,7 +326,7 @@ public class PerformHelper extends HelperBase {
         fillField(Elements.Site.AuthModal.emailField(), email);
         fillField(Elements.Site.AuthModal.passwordField(), password);
         fillField(Elements.Site.AuthModal.passwordConfirmationField(), passwordConfirmation);
-        //setCheckbox(Elements.Site.AuthModal.agreementCheckbox(), agreementConfirmation);
+        // setCheckbox(Elements.Site.AuthModal.agreementCheckbox(), agreementConfirmation);
     }
 
     /** Отправить форму */
@@ -424,6 +420,7 @@ public class PerformHelper extends HelperBase {
             if(verbose) {printMessage("Для повтора жмем 1 кнопку\n");}
             click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton());
         }
+        // TODO заменить на умное ожидание
         kraken.await().implicitly(2); // Ожидание добавления в корзину товаров из предыдущего заказа
         if(kraken.detect().isInProfile()){
             printMessage("❕Тормозит повтор заказа❕");
@@ -433,7 +430,7 @@ public class PerformHelper extends HelperBase {
 
     /** Отменить крайний заказ */
     public void cancelLastOrder() {
-        printMessage("Отменяем крайний заказ...");
+        printMessage("Отменяем крайний заказ");
         kraken.get().url(baseUrl + "user/orders");
         if(kraken.detect().isLastOrderActive()) {
             click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(1));

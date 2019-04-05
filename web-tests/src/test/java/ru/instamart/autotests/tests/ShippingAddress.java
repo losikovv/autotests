@@ -199,7 +199,7 @@ public class ShippingAddress extends TestBase{
             groups = {"regression"},
             priority = 309
     )
-    public void successSetShippingAddressAfterAddingProductFromItemCard() {
+    public void successSetShippingAddressAfterAddingProductFromItemCard() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.perform().quickLogout();

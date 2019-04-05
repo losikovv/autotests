@@ -18,7 +18,7 @@ public class CheckHelper extends HelperBase {
     public void orderDocuments(){
         for(int i = 1; i <= 4; i++) {
             if(kraken.detect().orderDocument(i) != null) {
-                kraken.perform().click(Elements.locator());
+                kraken.perform().click(Elements.Site.UserProfile.OrderDetailsPage.documentation(i));
             }
         }
     }
