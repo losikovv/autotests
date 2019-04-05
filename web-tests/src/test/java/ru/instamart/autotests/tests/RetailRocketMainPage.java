@@ -25,7 +25,7 @@ public class RetailRocketMainPage extends TestBase {
     @Test (
             description = "Тест наличия виджета 'Популярные товары' на главной",
             groups = {"acceptance","regression"},
-            priority = 1951
+            priority = 11001
     )
     public void successCheckPopularItemsWidget() {
 
@@ -37,7 +37,7 @@ public class RetailRocketMainPage extends TestBase {
     @Test (
             description = "Тест наличия виджета 'Вы недавно смотрели' на главной",
             groups = {"acceptance","regression"},
-            priority = 1952
+            priority = 11002
     )
     public void successCheckRecentlyViewedWidget() {
 
@@ -49,7 +49,7 @@ public class RetailRocketMainPage extends TestBase {
     @Test (
             description = "Тест успешного открытия карточки товара из виджета 'Популярные товары' на главной",
             groups = {"acceptance","regression"},
-            priority = 1953,
+            priority = 11003,
             dependsOnMethods = "successCheckPopularItemsWidget"
     )
     public void successOpenItemFromPopularItemsWidget() {
@@ -64,7 +64,7 @@ public class RetailRocketMainPage extends TestBase {
     @Test (
             description = "Тест успешного открытия карточки товара из виджета 'Вы недавно смотрели' на главной",
             groups = {"acceptance","regression"},
-            priority = 1954,
+            priority = 11004,
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemFromRecentlyViewedWidget() {
@@ -79,7 +79,7 @@ public class RetailRocketMainPage extends TestBase {
     @Test (
             description = "Тест успешного добавления товара из блока 'Популярные товары' на главной",
             groups = {"acceptance","regression"},
-            priority = 1955,
+            priority = 11005,
             dependsOnMethods = "successCheckPopularItemsWidget"
     )
     public void successAddItemFromPopularItemsWidget() {
@@ -95,7 +95,7 @@ public class RetailRocketMainPage extends TestBase {
     @Test (
             description = "Тест успешного добавления товара из блока 'Вы недавно смотрели' на главной",
             groups = {"acceptance","regression"},
-            priority = 1956,
+            priority = 11006,
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successAddItemFromRecentlyViewedWidget() {
