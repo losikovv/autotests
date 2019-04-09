@@ -246,6 +246,31 @@ public class Elements {
             static ElementData closeCatalogButton() {
                 return new ElementData(By.className("category-menu__close"));
             }
+
+            static ElementData categoryButton(int categoryNumber) {
+                return new ElementData(null, By.xpath("//ul[3]/li[" + (categoryNumber + 1) + "]/a[1]/div[1]/div[2]"));
+            }
+
+            static ElementData taxonButton(int categoryNumber, int taxonNumber) { return new ElementData(
+                    By.xpath("//li[" + (categoryNumber + 1) + "]/div[1]/ul[1]/li[" + (taxonNumber + 1) + "]/a[1]/div[1]/div[2]"));
+            }
+
+        }
+
+
+        /**
+         * Страницы категорий/таксонов
+         */
+        interface CategoryPage {
+
+            static ElementData title() {
+                return new ElementData(By.className("taxons-nav__title"));
+            }
+
+            static ElementData filters() {
+                return new ElementData(By.className("filters_container"));
+            }
+
         }
 
 
@@ -425,6 +450,10 @@ public class Elements {
             static ElementData addToFavoritesButton() {
                 return new ElementData(By.className("favorite-button-default"));
             }
+
+            static ElementData minusButton() { return new ElementData(By.className("fa-minus"));
+            }
+
         }
 
         /** SEO-каталог */

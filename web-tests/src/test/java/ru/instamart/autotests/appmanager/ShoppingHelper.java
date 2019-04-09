@@ -3,8 +3,11 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.ElementData;
+import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.application.Config;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.WidgetData;
 
@@ -126,6 +129,13 @@ public class ShoppingHelper extends HelperBase {
         hoverToFirstItem();
         kraken.perform().click(Elements.Site.Catalog.plusButton());
         kraken.await().implicitly(1); // Ожидание добавления товара в корзину
+    }
+
+    /** Удалить из корзины первый товар из каталога или списка любимых товаров */
+    public void hitFirstItemMinusButton() {
+        hoverToFirstItem();
+        kraken.perform().click(Elements.Site.Catalog.minusButton());
+        kraken.await().implicitly(1); // Ожидание удаления товара из корзины
     }
 
     /** Добавить любимый товар из каталога или списка любимых товаров */
