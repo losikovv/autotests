@@ -2,6 +2,7 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
@@ -309,7 +310,11 @@ public class PerformHelper extends HelperBase {
             } else {
                 click(Elements.Site.Header.loginButton());
             }
-            kraken.await().implicitly(1); // Ожидание открытия модалки авторизации
+            kraken.await().implicitly(1); // Ожидание открытия модалки авторизации/регистрации
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            Elements.Site.AuthModal.popup().getLocator())
+            );
         }
     }
 

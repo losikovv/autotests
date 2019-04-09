@@ -77,6 +77,16 @@ public class Elements {
     /** Сайт */
     public interface Site {
 
+        static ElementData drawersBackdrop() {
+            return new ElementData(By.xpath("//div[@class='drawer__backdrop opened']"),
+                    "Тень шторок");
+        }
+
+        static ElementData fade() {
+            return new ElementData(By.xpath("//div[@class='frame fade-enter-done']"),
+                    "Тень поп-апов");
+        }
+
         /** Шапка сайта */
         interface Header {
 
@@ -236,15 +246,15 @@ public class Elements {
         interface CatalogDrawer {
 
             static ElementData drawer() {
-                return new ElementData(By.cssSelector(".drawer__left"));
+                return new ElementData(By.xpath("//div[@class='category-menu']"));
             }
 
             static ElementData openCatalogButton() {
-                return new ElementData(By.className("navbar-button--catalog"));
+                return new ElementData(By.xpath("//button[contains(@class,'navbar-button--catalog')]"));
             }
 
             static ElementData closeCatalogButton() {
-                return new ElementData(By.className("category-menu__close"));
+                return new ElementData(By.xpath("//button[@class='category-menu__close']"));
             }
 
             static ElementData department(int position) {
@@ -254,7 +264,6 @@ public class Elements {
             static ElementData taxon(int categoryNumber, int taxonNumber) { return new ElementData(
                     By.xpath("//li[" + (categoryNumber + 1) + "]/div[1]/ul[1]/li[" + (taxonNumber + 1) + "]/a[1]/div[1]/div[2]"));
             }
-
         }
 
 
@@ -282,15 +291,15 @@ public class Elements {
             }
 
             static ElementData closeButton() {
-                return new ElementData(By.className("modal-wrapper__close"));
+                return new ElementData(By.xpath("//button[@class='modal-wrapper__close']"));
             }
 
             static ElementData authorisationTab() {
-                return new ElementData(By.cssSelector("button.auth-modal__tab:nth-child(1)"));
+                return new ElementData(By.xpath("//button[contains(text(),'Вход')]"));
             }
 
             static ElementData registrationTab() {
-                return new ElementData(By.cssSelector("button.auth-modal__tab:nth-child(2)"));
+                return new ElementData(By.xpath("//button[contains(text(),'Регистрация')]"));
             }
 
             static ElementData nameField() {

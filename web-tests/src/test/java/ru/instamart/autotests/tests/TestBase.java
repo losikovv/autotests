@@ -74,7 +74,7 @@ public class TestBase {
         String startPage = kraken.grab().currentURL();
         kraken.perform().click(element);
         Assert.assertFalse(kraken.grab().currentURL().equalsIgnoreCase(startPage),
-                "Не работает преход по элементу " + element.getLocator() + " на странице " + startPage + "\n");
+                "Не работает переход по элементу " + element.getText() + " / " + element.getLocator() + " на странице " + startPage + "\n");
     }
 
     /**

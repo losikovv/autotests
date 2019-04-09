@@ -33,7 +33,7 @@ public class ShoppingCart extends TestBase {
             groups = {"acceptance","regression"},
             priority = 621
     )
-    public void successOperateEmptyCart() throws Exception, AssertionError {
+    public void successOperateEmptyCart() throws AssertionError {
         kraken.shopping().openCart();
 
         Assert.assertTrue(kraken.detect().isCartOpen(),

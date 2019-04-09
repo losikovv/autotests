@@ -13,7 +13,7 @@ public class Config {
     public final static boolean fullScreenMode = false;
     public final static boolean doCleanupAfterTestRun = false;
 
-    public final static boolean verbose = false;
+    public final static boolean verbose = true;
 
     public final static String companyName = "instamart";
     public final static String companyDomain = companyName + ".ru";
