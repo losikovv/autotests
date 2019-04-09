@@ -64,7 +64,9 @@ public class AddressHelper extends HelperBase {
     private void selectAddressSuggest() {
         if (kraken.detect().isAnyAddressSuggestsAvailable()) {
             kraken.perform().click(Elements.Site.AddressModal.addressSuggest());
-            kraken.await().implicitly(1); // Ожидание раздизабливания кнопки сохранения адреса
+            //kraken.await().implicitly(1); // Ожидание раздизабливания кнопки сохранения адреса
+            kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Site.AddressModal.saveButton().getLocator()),
+                    "Неактивна кнопка сохранения адреса");
         } else {
             printMessage("Нет адресных подсказок");
         }
@@ -102,11 +104,8 @@ public class AddressHelper extends HelperBase {
      */
     public void submit() {
         kraken.perform().click(Elements.Site.AddressModal.saveButton());
-        new FluentWait<>(driver)
-                .withTimeout(waitingTimeout, TimeUnit.SECONDS)
-                .withMessage("Слишком долго применяется адрес доставки")
-                .pollingEvery(1, TimeUnit.SECONDS)
-                .until(ExpectedConditions.invisibilityOfElementLocated(Elements.Site.AddressModal.popup().getLocator()));
+        kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Site.AddressModal.popup().getLocator()),
+                "Не применяется адрес доставки");
     }
 
     /**

@@ -47,9 +47,9 @@ public class ShoppingCatalog extends TestBase {
             groups = {"acceptance", "regression"},
             priority = 602
     )
-    public void successReachCategory() {
+    public void successReachDepartmentCategory() {
         kraken.shopping().openCatalog();
-        kraken.perform().click(Elements.Site.CatalogDrawer.categoryButton(1));
+        kraken.perform().click(Elements.Site.CatalogDrawer.department(1));
 
         Assert.assertTrue(kraken.detect().isElementDisplayed(Elements.Site.CategoryPage.title()),
                 "Не открывается страница категории 1 уровня из шторки каталога");
@@ -61,10 +61,11 @@ public class ShoppingCatalog extends TestBase {
             groups = {"acceptance", "regression"},
             priority = 603
     )
-    public void successReachTaxon() {
+    public void successReachTaxonCategory() {
         kraken.shopping().openCatalog();
-        kraken.perform().hoverOn(Elements.Site.CatalogDrawer.categoryButton(1));
-        kraken.perform().click(Elements.Site.CatalogDrawer.taxonButton(1,1));
+        kraken.perform().hoverOn(Elements.Site.CatalogDrawer.department(1));
+        kraken.await().simply(1); // Ждем пока развернется категория
+        kraken.perform().click(Elements.Site.CatalogDrawer.taxon(1,1));
 
         Assert.assertTrue(kraken.detect().isElementDisplayed(Elements.Site.CategoryPage.filters()),
                 "Не открывается страница категории 2 уровня из шторки каталога");

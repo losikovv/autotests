@@ -11,7 +11,7 @@ public class Config {
 
     public final static boolean multiSessionMode = false;
     public final static boolean fullScreenMode = false;
-    public final static boolean doCleanupAfterTestRun = true;
+    public final static boolean doCleanupAfterTestRun = false;
 
     public final static boolean verbose = false;
 

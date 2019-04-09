@@ -59,7 +59,9 @@ public class CheckoutHelper extends HelperBase {
         if(orderDetails.getBonus() != null) {addBonus(orderDetails.getBonus());}
         if(orderDetails.getLoyalty() != null) { addLoyalty(orderDetails.getLoyalty());}
         sendOrder();
-        cloudpaymentsFlow();
+        if(orderDetails.getPaymentDetails().getPaymentType().getDescription().equalsIgnoreCase(PaymentTypes.cardOnline().getDescription())) {
+            cloudpaymentsFlow();
+        }
     }
 
     public void fillOrderDetails() {
@@ -355,15 +357,17 @@ public class CheckoutHelper extends HelperBase {
 
     /** Нажимаем кнопку отправки заказа */
     public void sendOrder() {
-        if (!kraken.detect().isSendButtonActive()) {
-            printMessage("⚠ Кнопка отправки заказа не активна, медленно грузится чекаут\n");
-            kraken.await().implicitly(2); // Ожидание активации кнопки отправки заказ в чекауте
-        }
-        if (kraken.detect().isSendButtonActive()) {
-            kraken.perform().click(Elements.Site.Checkout.sendOrderButton());
-            kraken.await().implicitly(3); // Ожидание оформления заказа
-            printMessage("✓ Заказ отправлен\n");
-        } else printMessage("Невозможно офрмить заказ, кнопка отправки не активна\n");
+        kraken.await().fluently(
+                ExpectedConditions.elementToBeClickable(
+                        Elements.Site.Checkout.sendOrderButton().getLocator()),
+                "Неактивна кнопка отправки заказа");
+        kraken.perform().click(Elements.Site.Checkout.sendOrderButton());
+        kraken.await().fluently(
+                ExpectedConditions.visibilityOfElementLocated(
+                        Elements.Site.UserProfile.OrderDetailsPage.activeOrderAttribute().getLocator()),
+                "Не отправляется заказ"
+        );
+        printMessage("✓ Заказ оформлен\n");
     }
 
     /** Удалить все номера телефонов */
