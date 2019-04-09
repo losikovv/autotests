@@ -415,7 +415,7 @@ public class Elements {
             }
 
             static ElementData product() {
-                return new ElementData(By.className("product"));
+                return new ElementData(By.xpath("//*[@class='product' or @class='favorite-product' or @class='category-product']"));
             }
 
             static ElementData plusButton() {
@@ -480,6 +480,10 @@ public class Elements {
 
             static ElementData minusButton() {
                 return new ElementData(By.className("popup-cart-actions__btn--left"));
+            }
+
+            static ElementData cartCounter() {
+                return new ElementData(By.className("//*[contains(@class,'product-popup')]//*[contains(@class,'product__cart-counter')]"));
             }
 
             static ElementData notInStock() {

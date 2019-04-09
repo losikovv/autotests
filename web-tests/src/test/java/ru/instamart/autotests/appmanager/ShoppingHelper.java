@@ -104,19 +104,11 @@ public class ShoppingHelper extends HelperBase {
 
     /** Открываем карточку первого товара в каталоге или списке любимых товаров */
     public void openFirstItemCard() {
-        //TODO переписать локаторы на Xpath c функциями и избавиться от кучи ифов
-        if (kraken.detect().isElementPresent(Elements.Site.Favorites.product())) {
-            kraken.perform().click(Elements.Site.Favorites.product());
-        } else if (kraken.detect().isElementPresent(Elements.Site.SeoCatalog.product())) {
-            kraken.perform().click(Elements.Site.SeoCatalog.product());
-        } else { kraken.perform().click(Elements.Site.Catalog.product()); }
-
+        kraken.perform().click(Elements.Site.Catalog.product());
         kraken.await().fluently(
                 ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.popup().getLocator()),
                 "Не открывается карточка товара");
-
         kraken.perform().switchToActiveElement();
-
         kraken.await().fluently(
                 ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.image().getLocator()),
                 "Не отображается контент в карточке товара");
@@ -190,14 +182,6 @@ public class ShoppingHelper extends HelperBase {
     public void hitPlusButton() {
         ElementData button = Elements.Site.ItemCard.plusButton();
         // TODO добавить проверку на наличие модалки обновления цен
-        kraken.await().fluently(
-                ExpectedConditions
-                        .presenceOfElementLocated(button.getLocator())
-        );
-        kraken.await().fluently(
-                ExpectedConditions
-                        .visibilityOfElementLocated(button.getLocator())
-        );
         kraken.await().fluently(
                 ExpectedConditions
                         .elementToBeClickable(button.getLocator())

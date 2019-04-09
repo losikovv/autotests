@@ -411,7 +411,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить есть ли товары на странице */
     public boolean isProductAvailable() {
-        if(kraken.detect().isElementPresent(Elements.Site.Catalog.product()) || kraken.detect().isElementPresent(Elements.Site.Favorites.product())){
+        if(kraken.detect().isElementPresent(Elements.Site.Catalog.product())){
             if(verbose) { printMessage("✓ Есть доступные товары"); }
             return true;
         } else {
