@@ -1017,11 +1017,6 @@ public class Elements {
                             "признак отмененного заказа");
                 }
 
-                static ElementData documentation(int position) {
-                    return new ElementData(By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div/div[3]/a[" + position + "]"),
-                            "документы к заказу");
-                }
-
                 static ElementData deliveryPrice() {
                     return new ElementData(By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div/div[3]/div/div/div/div[1]/div[2]/div"),
                             "стоимость доставки");
@@ -1035,6 +1030,11 @@ public class Elements {
                 static ElementData shipmentPayment() {
                     return new ElementData(By.cssSelector("div.user-order-shipment-summary__item:nth-child(2)"),
                             "способ оплаты");
+                }
+
+                static ElementData document(String name) {
+                    return new ElementData(By.xpath("//a[text()='" + name + "']"),
+                            "ссылка на \"" + name + "\"");
                 }
             }
         }

@@ -38,7 +38,9 @@ public class Order_Payments extends TestBase {
         Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.cash().getDescription()),
                 "Способ оплаты в деталях заказа не совпадает с выбранным во время оформления");
 
-        //TODO починить kraken.check().orderDocuments();
+        kraken.check().orderDocument("Универсальный передаточный документ");
+        kraken.check().orderDocument("Счет-фактура");
+        kraken.check().orderDocument("Товарная накладная");
         assertPageIsAvailable();
     }
 

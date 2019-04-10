@@ -34,7 +34,7 @@ public class FavoriteProducts extends TestBase {
 
 
     @Test(  description = "Переход в любимые товары по кнопке",
-            groups = {"acceptance","regression"},
+            groups = {"smoke","acceptance","regression"},
             priority = 502
     )
     public void successOpenFavorites() throws Exception {

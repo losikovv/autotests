@@ -302,18 +302,6 @@ public class DetectionHelper extends HelperBase {
 
     // ======= Детали заказа =======
 
-    /** Распознавание документов к заказу на странице деталей */
-    public String orderDocument(int position) {
-        String docName = kraken.grab().text(Elements.Site.UserProfile.OrderDetailsPage.documentation(position).getLocator());
-        if (docName != null) {
-            if(verbose) { printMessage("Скачиваем: " + docName); }
-            return docName;
-        } else {
-            if(verbose) { printMessage("Документ отсутствует\n"); }
-            return null;
-        }
-    }
-
     /** Определить активен ли верхний заказ на странице списка заказов */
     public boolean isLastOrderActive() {
         if(isElementPresent(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(2))) {

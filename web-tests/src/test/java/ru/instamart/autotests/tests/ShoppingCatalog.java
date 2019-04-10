@@ -74,7 +74,7 @@ public class ShoppingCatalog extends TestBase {
 
     @Test(
             description = "Тест открывания/закрывания карточки продукта",
-            groups = {"acceptance","regression"},
+            groups = {"smoke","acceptance","regression"},
             priority = 604
     )
     public void successOperateItemCard() throws Exception {

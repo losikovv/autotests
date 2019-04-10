@@ -29,7 +29,7 @@ public class ShippingAddress extends TestBase{
 
     @Test(
             description = "Тест дефолтного списка магазинов при отсутствии адреса доставки",
-            groups = {"acceptance","regression"},
+            groups = {"smoke","acceptance","regression"},
             priority = 302
     )
     public void successOperateDefaultShoplist() {
@@ -46,9 +46,9 @@ public class ShippingAddress extends TestBase{
 
         Assert.assertFalse(kraken.detect().isStoreSelectorOpen(),
                 "Не закрывается дефолтный список магазинов\n");
-
-
     }
+
+    //TODO successOperateShoplist()
 
 
     @Test(
