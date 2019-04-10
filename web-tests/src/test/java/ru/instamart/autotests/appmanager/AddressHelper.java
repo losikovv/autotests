@@ -104,6 +104,7 @@ public class AddressHelper extends HelperBase {
      */
     public void submit() {
         kraken.perform().click(Elements.Site.AddressModal.saveButton());
+        kraken.await().implicitly(1); // Ожидание применения адреса доставки
         kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Site.AddressModal.popup().getLocator()),
                 "Не применяется адрес доставки");
     }

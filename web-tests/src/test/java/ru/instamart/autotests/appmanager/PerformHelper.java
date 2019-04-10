@@ -25,7 +25,17 @@ public class PerformHelper extends HelperBase {
 
     /** Кликнуть элемент */
     public void click(ElementData element) {
-        click(element.getLocator());
+        try {
+            driver.findElement(element.getLocator()).click();
+        }
+        catch (NoSuchElementException n) {
+            printMessage("Не нажимается " + element.getDescription()
+                    + "\nЭлемент не найден " + element.getLocator() + "\nна " + kraken.grab().currentURL() + "\n");
+        }
+        catch (ElementNotVisibleException v) {
+            printMessage("Не нажимается " + element.getDescription()
+                    + "\nЭлемент не отображается " + element.getLocator() + "\nна " + kraken.grab().currentURL() + "\n");
+        }
     }
 
     /** Кликнуть элемент по локатору */

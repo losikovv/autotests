@@ -149,16 +149,15 @@ public class Elements {
         interface DeliveryModal {
 
             static ElementData popup() {
-                return new ElementData(By.cssSelector(".modal-lg > div:nth-child(1)"));
+                return new ElementData(By.xpath("//*[@class='modal-content']"));
             }
 
             static ElementData title() {
-                return new ElementData("Доступные интервалы доставки",
-                        By.cssSelector(".delivery__intervals > h3:nth-child(1)"));
+                return new ElementData("Доставка", By.xpath("//*[@class='modal-title']"));
             }
 
             static ElementData closeButton() {
-                return new ElementData(By.cssSelector(".close"));
+                return new ElementData(By.xpath("//*[@class='modal-content']//button[@class='close']"));
             }
         }
 
@@ -638,39 +637,53 @@ public class Elements {
         interface Footer {
 
             static ElementData aboutCompanyButton() {
-                return new ElementData("О компании", By.xpath("//*[@id='new-home-footer']/div/div[1]/div[1]/ul/li[1]/a"));
+                return new ElementData(By.xpath("//a[@class='footer__link' and text()='О компании']"),
+                        "ссылка \"О компании\" в футере");
             }
 
             static ElementData contactsButton() {
-                return new ElementData("Контакты", By.xpath("//*[@id='new-home-footer']/div/div[1]/div[1]/ul/li[2]/a"));
+                return new ElementData(By.xpath("//a[@class='footer__link' and text()='Контакты']"),
+                        "ссылка \"Контакты\" в футере");
             }
 
             static ElementData deliveryButton() {
-                return new ElementData("Доставка", By.xpath("//*[@id='new-home-footer']/div/div[1]/div[1]/ul/li[3]/button"));
+                return new ElementData(By.xpath("//button[@class='footer__link' and text()='Доставка']"),
+                        "ссылка \"Доставка\" в футере");
             }
 
             static ElementData paymentButton() {
-                return new ElementData("Оплата", By.xpath("//*[@id='new-home-footer']/div/div[1]/div[1]/ul/li[4]/button"));
+                return new ElementData(By.xpath("//button[@class='footer__link' and text()='Оплата']"),
+                        "ссылка \"Оплата\" в футере");
             }
 
             static ElementData partnersButton() {
-                return new ElementData("Партнеры", By.xpath("//*[@id='new-home-footer']/div/div[1]/div[1]/ul/li[5]/button"));
+                return new ElementData(By.xpath("//button[@class='footer__link' and text()='Партнеры']"),
+                        "ссылка \"Партнеры\" в футере");
             }
 
             static ElementData faqButton() {
-                return new ElementData("FAQ", By.xpath("//*[@id='new-home-footer']/div/div[1]/div[1]/ul/li[6]/a"));
+                return new ElementData(By.xpath("//a[@class='footer__link' and text()='FAQ']"),
+                        "ссылка \"FAQ\" в футере");
             }
 
             static ElementData feedbackFormButton() {
-                return new ElementData("Форма обратной связи", By.xpath("//*[@id='new-home-footer']/div/div[1]/div[2]/ul/li[3]/a"));
+                return new ElementData(By.xpath("//a[@class='footer__link' and text()='Форма обратной связи']"),
+                        "ссылка на обратную связь в футере");
             }
 
             static ElementData returnPolicyButton() {
-                return new ElementData("Политика возврата", By.xpath("//*[@id='new-home-footer']/div/div[2]/div[2]/a[1]"));
+                return new ElementData(By.xpath("//a[@class='info-link' and text()='Политика возврата']"),
+                        "ссылка на политику возвратов в футере");
             }
 
             static ElementData publicOfferButton() {
-                return new ElementData("Публичная оферта", By.xpath("//*[@id='new-home-footer']/div/div[2]/div[2]/a[2]"));
+                return new ElementData(By.xpath("//a[@class='info-link' and text()='Публичная оферта']"),
+                        "ссылка на публичную в футере");
+            }
+
+            static ElementData personalDataPolicyButton() {
+                return new ElementData(By.xpath("//a[@class='info-link' and text()='Политика обработки персональных данных']"),
+                        "ссылка на политику персональных данных в футере");
             }
         }
 

@@ -126,24 +126,36 @@ public class CheckPages extends TestBase {
         assertTransition(Elements.Site.Footer.feedbackFormButton());
         assertPageIsAvailable();
 
+        // Нижний инфоблок
+
+        // TODO кнопку перекрывает живосайт
+        kraken.jivosite().open();
         assertTransition(Elements.Site.Footer.returnPolicyButton());
         assertPageIsAvailable();
 
         assertTransition(Elements.Site.Footer.publicOfferButton());
         assertPageIsAvailable();
 
+        // TODO сделать проверку ссылки политики ПД
+        // assertTransition(Elements.Site.Footer.personalDataPolicyButton());
+
+        // Модалки
+
+        kraken.get().page(Pages.Site.Retailers.metro());
         kraken.perform().click(Elements.Site.Footer.deliveryButton());
         Assert.assertTrue(kraken.detect().isDeliveryModalOpen(),
                 "Не открывается модалка 'Доставка' из футера\n");
         kraken.perform().click(Elements.Site.DeliveryModal.closeButton());
         assertPageIsAvailable();
 
+        kraken.get().page(Pages.Site.Retailers.metro());
         kraken.perform().click(Elements.Site.Footer.partnersButton());
         Assert.assertTrue(kraken.detect().isPartnersModalOpen(),
                 "Не открывается модалка 'Партнеры' из футера\n");
         kraken.perform().click(Elements.Site.PartnersModal.closeButton());
         assertPageIsAvailable();
 
+        kraken.get().page(Pages.Site.Retailers.metro());
         kraken.perform().click(Elements.Site.Footer.paymentButton());
         Assert.assertTrue(kraken.detect().isPaymentModalOpen(),
                 "Не открывается модалка 'Оплата' из футера\n");

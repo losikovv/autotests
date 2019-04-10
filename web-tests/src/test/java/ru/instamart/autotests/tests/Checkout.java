@@ -134,4 +134,7 @@ public class Checkout extends TestBase {
                 "Не удаляется бонусная программа " + aeroflot().getName() + " в чекауте");
     }
 
+    //TODO successAddRetailerBonusProgram
+
+    //TODO successClearRetailerBonusProgram
 }

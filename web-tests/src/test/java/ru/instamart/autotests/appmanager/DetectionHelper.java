@@ -428,7 +428,10 @@ public class DetectionHelper extends HelperBase {
         if(kraken.detect().isElementPresent(Elements.Site.ItemCard.popup())){
             if(verbose) { printMessage("> открыта карточка товара " + kraken.grab().currentURL()); }
             return true;
-        } else return false;
+        } else {
+            if(verbose) { printMessage("Карточка товара закрыта"); }
+            return false;
+        }
     }
 
     /** Определить есть ли скидка на товар */
