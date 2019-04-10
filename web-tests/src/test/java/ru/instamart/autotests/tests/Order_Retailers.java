@@ -18,11 +18,6 @@ public class Order_Retailers extends TestBase {
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void preconditions() {
-        kraken.drop().cart();
-    }
-
 
     @Test(
             description = "Тестовый заказ в Метро Москва",
@@ -31,6 +26,7 @@ public class Order_Retailers extends TestBase {
     )
     public void successOrderInMetro(){
         kraken.get().page("metro");
+        kraken.drop().cart();
 
         kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();
@@ -49,6 +45,7 @@ public class Order_Retailers extends TestBase {
     public void successOrderInVkusvill(){
         skipOn(Environments.metro_production());
         kraken.get().page("vkusvill");
+        kraken.drop().cart();
 
         kraken.shopping().collectItems();
         // TODO перенести проверку добавления карты Вкусвилл в тесты чекаута
@@ -71,6 +68,7 @@ public class Order_Retailers extends TestBase {
     public void successOrderInAuchan(){
         skipOn(Environments.metro_production());
         kraken.get().page("auchan");
+        kraken.drop().cart();
 
         kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();
@@ -89,6 +87,7 @@ public class Order_Retailers extends TestBase {
     public void successOrderInLenta(){
         skipOn(Environments.metro_production());
         kraken.get().page("lenta");
+        kraken.drop().cart();
 
         kraken.shopping().collectItems();
         kraken.shopping().proceedToCheckout();

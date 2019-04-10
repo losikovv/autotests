@@ -22,11 +22,6 @@ public class Order_Payments extends TestBase {
         kraken.drop().cart();
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void preconditions() {
-        kraken.reach().checkout();
-    }
-
 
     @Test(
             description = "Тест заказа с оплатой наличными",
@@ -34,6 +29,7 @@ public class Order_Payments extends TestBase {
             priority = 901
     )
     public void successOrderWithCash() {
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -53,6 +49,7 @@ public class Order_Payments extends TestBase {
             priority = 902
     )
     public void successOrderWithCardOnline() {
+        kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cardOnline());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -61,7 +58,8 @@ public class Order_Payments extends TestBase {
         Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.cardOnline().getDescription()),
                 "Способ оплаты в деталях заказа не совпадает с выбранным во время оформления");
 
-        //TODO починить kraken.check().orderDocuments();
+        //TODO починить проверку документов
+        // kraken.check().orderDocuments();
         assertPageIsAvailable();
     }
 
@@ -72,6 +70,7 @@ public class Order_Payments extends TestBase {
             priority = 903
     )
     public void successOrderWithCardCourier() {
+        kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cardCourier());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -91,6 +90,7 @@ public class Order_Payments extends TestBase {
             priority = 904
     )
     public void successOrderWithBankTransfer() {
+        kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),

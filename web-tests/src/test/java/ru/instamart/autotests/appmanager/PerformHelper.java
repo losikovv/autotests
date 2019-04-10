@@ -267,7 +267,7 @@ public class PerformHelper extends HelperBase {
     /** Деавторизоваться быстро по прямой ссылке */
     public void quickLogout() {
         kraken.get().page("logout");
-        kraken.await().implicitly(1); // Ожидание деавторизации и подгрузки лендинга
+        kraken.await().simply(1); // Ожидание деавторизации и подгрузки лендинга
         if(kraken.detect().isOnLanding()) {
             printMessage("Быстрый логаут\n");
         }

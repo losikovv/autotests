@@ -19,7 +19,7 @@ public class WaitingHelper extends HelperBase {
 
     /** Просто задержка на указанное время */
     public void simply(int seconds) {
-        if(verbose) printMessage("Ожидание " + seconds + " секунд");
+        if(verbose) printMessage("Задержка на " + seconds + " сек.");
         try {
             Thread.sleep(seconds*1000);
         } catch (InterruptedException i) {

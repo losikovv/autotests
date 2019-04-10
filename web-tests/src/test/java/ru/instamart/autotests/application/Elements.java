@@ -1,6 +1,7 @@
 package ru.instamart.autotests.application;
 
 import org.openqa.selenium.By;
+import ru.instamart.autotests.appmanager.ApplicationManager;
 import ru.instamart.autotests.models.CreditCardData;
 import ru.instamart.autotests.models.ElementData;
 import ru.instamart.autotests.models.JuridicalData;
@@ -54,7 +55,8 @@ public class Elements {
     public interface Landing {
 
         static ElementData header() {
-            return new ElementData(By.className("top-line"));
+            return new ElementData(
+                    By.xpath("//*[@class='top-line' and text()='Попробуйте сегодня и получите бесплатную доставку первого заказа!']"));
         }
 
         static ElementData addressField() {
@@ -249,7 +251,14 @@ public class Elements {
             }
 
             static ElementData openCatalogButton() {
-                return new ElementData(By.xpath("//button[contains(@class,'navbar-button--catalog')]"));
+                switch (Config.environment.getTenant()) {
+                    case "metro" :
+                        return new ElementData(By.xpath("//button[@class='header__button-catalog']"),
+                                "кнопка открытия каталога категорий");
+                    default:
+                        return new ElementData(By.xpath("//button[contains(@class,'navbar-button--catalog')]"),
+                                "кнопка открытия каталога категорий");
+                }
             }
 
             static ElementData closeCatalogButton() {

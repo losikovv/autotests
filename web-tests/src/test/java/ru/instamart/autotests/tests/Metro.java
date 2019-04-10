@@ -17,7 +17,7 @@ public class Metro extends TestBase {
     }
 
     @Test(  description = "Доступность нового футера на деливери метро",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 9001
     )
     public void newTenantFooter() throws Exception {
@@ -30,7 +30,7 @@ public class Metro extends TestBase {
 
 
     @Test(  description = "Отсутствие селектора магазинов на деливери метро",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 9002
     )
     public void outStoreSelectorOnTenant() throws Exception {
@@ -42,7 +42,7 @@ public class Metro extends TestBase {
     }
 
     @Test(  description = "Отсутствие селектора магазинов на деливери метро",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 9003
     )
     public void outContactsOnTenantProfile() throws Exception {
@@ -55,7 +55,7 @@ public class Metro extends TestBase {
     }
 
     @Test(  description = "Отсутствие живосайта на витрине деливери метро",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 9004
     )
     public void outJivositeOnTenant() throws Exception {
@@ -67,7 +67,7 @@ public class Metro extends TestBase {
     }
 
     @Test(  description = "Отсутствие живосайта в чекауте деливери метро",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 9005
     )
     public void outJivositeOnTenantCheckout() throws Exception {
@@ -81,7 +81,7 @@ public class Metro extends TestBase {
     }
 
     @Test(  description = "Отсутствие живосайта на странице заказов деливери метро",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 9006
     )
     public void outJivositeOnTenantOrders() throws Exception {
@@ -95,7 +95,7 @@ public class Metro extends TestBase {
     }
 
     @Test(  description = "Отсутствие живосайта на странице профиля деливери метро",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 9007
     )
     public void outJivositeOnTenantProfile() throws Exception {
@@ -109,7 +109,7 @@ public class Metro extends TestBase {
     }
 
     @Test(  description = "Отсутствие живосайта на странице профиля деливери метро",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 9008
     )
     public void outJivositeOnTenantFavoritesPage() throws Exception {
@@ -123,7 +123,7 @@ public class Metro extends TestBase {
     }
 
     @Test(  description = "Отсутствие живосайта на странице профиля деливери метро",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 9009
     )
     public void outJivositeOnTenantAddressesPage() throws Exception {
@@ -137,7 +137,7 @@ public class Metro extends TestBase {
     }
 
     @Test(  description = "Отсутствие программ лояльности в чекауте деливери метро",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 9010
     )
     public void outLoyaltyProgramsOnTenantCheckout() throws Exception {

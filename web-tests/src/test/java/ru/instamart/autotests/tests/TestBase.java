@@ -59,12 +59,13 @@ public class TestBase {
      * Проверить возможность перехода на страницу по указанному url
      */
     void assertTransition(String URL) {
+        kraken.perform().printMessage("Переход по прямой ссылке " + URL);
         kraken.get().url(URL);
         Assert.assertTrue(kraken.grab().currentURL().equalsIgnoreCase(URL),
                 "Невозможно перейти на страницу " + URL + " по прямой ссылке\n"
                         + "Вместо нее попадаем на " + kraken.grab().currentURL() + "\n"
         );
-        kraken.perform().printMessage("✓ Успешный переход по ссылке " + URL);
+        kraken.perform().printMessage("✓ Успешно");
     }
 
     /**
