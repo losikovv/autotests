@@ -3,7 +3,6 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.PaymentTypes;
@@ -38,10 +37,7 @@ public class Order_Payments extends TestBase {
         Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.cash().getDescription()),
                 "Способ оплаты в деталях заказа не совпадает с выбранным во время оформления");
 
-        kraken.check().orderDocument("Универсальный передаточный документ");
-        kraken.check().orderDocument("Счет-фактура");
-        kraken.check().orderDocument("Товарная накладная");
-        assertPageIsAvailable();
+        assertOrderDocumentsAvailable();
     }
 
 
@@ -60,9 +56,7 @@ public class Order_Payments extends TestBase {
         Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.cardOnline().getDescription()),
                 "Способ оплаты в деталях заказа не совпадает с выбранным во время оформления");
 
-        //TODO починить проверку документов
-        // kraken.check().orderDocuments();
-        assertPageIsAvailable();
+        assertOrderDocumentsAvailable();
     }
 
 
@@ -81,8 +75,7 @@ public class Order_Payments extends TestBase {
         Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.cardCourier().getDescription()),
                 "Способ оплаты в деталях заказа не совпадает с выбранным во время оформления");
 
-        //TODO починить kraken.check().orderDocuments();
-        assertPageIsAvailable();
+        assertOrderDocumentsAvailable();
     }
 
 
@@ -101,8 +94,7 @@ public class Order_Payments extends TestBase {
         Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.bankTransfer().getDescription()),
                 "Способ оплаты в деталях заказа не совпадает с выбранным во время оформления");
 
-        //TODO починить kraken.check().orderDocuments();
-        assertPageIsAvailable();
+        assertOrderDocumentsAvailable();
     }
 
     @AfterMethod(alwaysRun = true)

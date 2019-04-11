@@ -125,6 +125,12 @@ public class TestBase {
                 "Можно попасть на страницу " + kraken.grab().currentURL() + " по прямой ссылке\n");
     }
 
+    /** Проверка доступности зокументации заказа */
+    void assertOrderDocumentsAvailable() {
+        kraken.check().orderDocuments();
+        assertPageIsAvailable();
+    }
+
     /** Пропуск теста */
     void skip() throws SkipException{
         kraken.perform().printMessage("Пропускаем тест");
