@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Widgets;
 
+import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
+
 public class RetailRocketMainPage extends TestBase {
 
     @BeforeClass(alwaysRun = true)
@@ -22,7 +24,7 @@ public class RetailRocketMainPage extends TestBase {
     }
 
 
-    @Test (
+    @Test ( enabled = enableRetailRocketTests,
             description = "Тест наличия виджета 'Популярные товары' на главной",
             groups = {"acceptance","regression"},
             priority = 11001
@@ -34,7 +36,7 @@ public class RetailRocketMainPage extends TestBase {
     }
 
 
-    @Test (
+    @Test ( enabled = enableRetailRocketTests,
             description = "Тест наличия виджета 'Вы недавно смотрели' на главной",
             groups = {"acceptance","regression"},
             priority = 11002
@@ -46,7 +48,7 @@ public class RetailRocketMainPage extends TestBase {
     }
 
 
-    @Test (
+    @Test ( enabled = enableRetailRocketTests,
             description = "Тест успешного открытия карточки товара из виджета 'Популярные товары' на главной",
             groups = {"acceptance","regression"},
             priority = 11003,
@@ -61,7 +63,7 @@ public class RetailRocketMainPage extends TestBase {
     }
 
 
-    @Test (
+    @Test ( enabled = enableRetailRocketTests,
             description = "Тест успешного открытия карточки товара из виджета 'Вы недавно смотрели' на главной",
             groups = {"acceptance","regression"},
             priority = 11004,
@@ -76,7 +78,7 @@ public class RetailRocketMainPage extends TestBase {
     }
 
 
-    @Test (
+    @Test ( enabled = enableRetailRocketTests,
             description = "Тест успешного добавления товара из блока 'Популярные товары' на главной",
             groups = {"acceptance","regression"},
             priority = 11005,
@@ -92,7 +94,7 @@ public class RetailRocketMainPage extends TestBase {
     }
 
 
-    @Test (
+    @Test ( enabled = enableRetailRocketTests,
             description = "Тест успешного добавления товара из блока 'Вы недавно смотрели' на главной",
             groups = {"acceptance","regression"},
             priority = 11006,

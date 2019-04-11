@@ -5,12 +5,13 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Pages;
 
+import static ru.instamart.autotests.application.Config.enableJivositeTests;
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
 public class Jivosite extends TestBase{
 
 
-    @Test(
+    @Test(  enabled = enableJivositeTests,
             description = "Тест отсутствия виджета Jivosite на лендинге",
             groups = {"acceptance","regression"},
             priority = 1201
@@ -23,7 +24,7 @@ public class Jivosite extends TestBase{
     }
 
 
-    @Test(
+    @Test(  enabled = enableJivositeTests,
             description = "Тест отсутствия виджета Jivosite в чекауте",
             groups = {"acceptance","regression"},
             priority = 1202
@@ -37,7 +38,7 @@ public class Jivosite extends TestBase{
     }
 
 
-    @Test(
+    @Test(  enabled = enableJivositeTests,
             description = "Тест работы с виджетом Jivosite на витрине ритейлера",
             groups = {"acceptance","regression"},
             priority = 1203
@@ -63,7 +64,7 @@ public class Jivosite extends TestBase{
     }
 
 
-    @Test(
+    @Test(  enabled = enableJivositeTests,
             description = "Тест работы с виджетом Jivosite в каталоге",
             groups = {"acceptance","regression"},
             priority = 1204
@@ -89,7 +90,7 @@ public class Jivosite extends TestBase{
     }
 
 
-    @Test(
+    @Test(  enabled = enableJivositeTests,
             description = "Тест работы с виджетом Jivosite на странице 404",
             groups = {"acceptance","regression"},
             priority = 1205
@@ -115,7 +116,7 @@ public class Jivosite extends TestBase{
     }
 
 
-    @Test(
+    @Test(  enabled = enableJivositeTests,
             description = "Тест успешной отправки сообщения в Jivosite",
             groups = {"regression"},
             priority = 1206

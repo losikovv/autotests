@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 
+import static ru.instamart.autotests.application.Config.enableAdministrationTests;
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
 
@@ -82,7 +83,7 @@ public class CheckPages extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableAdministrationTests,
             description = "Тест доступности корневых разделов админки",
             groups = {"smoke","acceptance","regression"},
             priority = 1506

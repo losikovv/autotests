@@ -8,6 +8,7 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 
+import static ru.instamart.autotests.application.Config.enableSeoCatalogTests;
 import static ru.instamart.autotests.application.Environments.instamart_staging;
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
@@ -21,7 +22,7 @@ public class SeoCatalog extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableSeoCatalogTests,
             description = "Тест доступности страницы SEO-каталога",
             groups = {"smoke","acceptance","regression"},
             priority = 9100
@@ -32,7 +33,7 @@ public class SeoCatalog extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableSeoCatalogTests,
             description = "Тест доступности товаров на странице SEO-каталога",
             groups = {"regression"},
             priority = 9101
@@ -44,7 +45,7 @@ public class SeoCatalog extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableSeoCatalogTests,
             description = "Тест открытия карточки товара на странице SEO-каталога",
             groups = {"regression"},
             priority = 9102
@@ -58,7 +59,7 @@ public class SeoCatalog extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableSeoCatalogTests,
             description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога",
             groups = {"regression"},
             priority = 9103
@@ -85,7 +86,7 @@ public class SeoCatalog extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableSeoCatalogTests,
             description = "Тест авторизации при попытке добавления товара в корзину на странице SEO-каталога",
             groups = {"regression"},
             priority = 9104
@@ -108,7 +109,7 @@ public class SeoCatalog extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableSeoCatalogTests,
             description = "Тест регистрации при попытке добавления товара в корзину на странице SEO-каталога",
             groups = {"regression"},
             priority = 9105
@@ -130,5 +131,4 @@ public class SeoCatalog extends TestBase {
 
         softAssert.assertAll();
     }
-
 }

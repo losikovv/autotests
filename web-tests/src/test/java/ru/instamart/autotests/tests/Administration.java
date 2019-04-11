@@ -10,6 +10,7 @@ import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
+import static ru.instamart.autotests.application.Config.enableAdministrationTests;
 import static ru.instamart.autotests.application.Config.testOrder;
 import static ru.instamart.autotests.application.Config.testShipment;
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
@@ -27,7 +28,7 @@ public class Administration extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableAdministrationTests,
             description = "Тест недоступности админки пользователю без админ. прав",
             groups = {"acceptance","regression"},
             priority = 1301
@@ -41,7 +42,7 @@ public class Administration extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableAdministrationTests,
             description = "Тест возобновления и отмены заказа через админку",
             groups = {"acceptance","regression"},
             priority = 1302
@@ -78,7 +79,7 @@ public class Administration extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableAdministrationTests,
             description = "Тест шапки админки",
             groups = {"regression"},
             priority = 1303
@@ -244,7 +245,7 @@ public class Administration extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableAdministrationTests,
             description = "Тест предоставления и отзыва админских прав пользователю",
             groups = {"regression"},
             priority = 1304
@@ -279,7 +280,7 @@ public class Administration extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableAdministrationTests,
             description = "Тест поиска пользователя в админке",
             groups = {"acceptance","regression"},
             priority = 1305
@@ -293,7 +294,7 @@ public class Administration extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableAdministrationTests,
             description = "Тест поиска заказа по номеру заказа в админке",
             groups = {"acceptance","regression"},
             priority = 1306
@@ -310,7 +311,7 @@ public class Administration extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableAdministrationTests,
             description = "Тест поиска заказа по номеру шипмента в админке",
             groups = {"acceptance","regression"},
             priority = 1307
@@ -327,7 +328,7 @@ public class Administration extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableAdministrationTests,
             description = "Тест смены пароля пользователю",
             groups = {"regression"},
             priority = 1308,
@@ -351,7 +352,7 @@ public class Administration extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableAdministrationTests,
             description = "Тест проставления пользователю флага B2B",
             groups = {"regression"},
             priority = 1309
@@ -370,7 +371,7 @@ public class Administration extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableAdministrationTests,
             description = "Тест поиска B2B пользователя в админке",
             groups = {"regression"},
             priority = 1310
@@ -396,7 +397,7 @@ public class Administration extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableAdministrationTests,
             description = "Тест поиска B2B заказа в админке",
             groups = {"regression"},
             priority = 1311
@@ -423,7 +424,7 @@ public class Administration extends TestBase {
     }
 
 
-    @Test(
+    @Test(  enabled = enableAdministrationTests,
             description = "Тест снятия B2B флага у пользователя",
             groups = {"regression"},
             priority = 1312
@@ -458,5 +459,4 @@ public class Administration extends TestBase {
         kraken.cleanup().orders();
         softAssert.assertAll();
     }
-
 }

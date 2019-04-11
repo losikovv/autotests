@@ -21,7 +21,7 @@ public class DeliveryPrices extends TestBase {
         kraken.perform().loginAs(session.user);
     }
 
-
+    // TODO переделать тесты
     @Test(
             description = "Тест проверки прогрессивной стоимости доставки в Метро",
             groups = {"regression"},
