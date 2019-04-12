@@ -84,7 +84,7 @@ public class Elements {
                     "Тень шторок");
         }
 
-        static ElementData fade() {
+        static ElementData modalsFade() {
             return new ElementData(By.xpath("//div[@class='frame fade-enter-done']"),
                     "Тень поп-апов");
         }

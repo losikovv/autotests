@@ -5,11 +5,11 @@ import ru.instamart.autotests.models.*;
 public class Config {
 
     // ENVIRONMENT
-    public final static EnvironmentData environment = Environments.instamart_staging();
+    public final static EnvironmentData environment = Environments.instamart_production();
 
     // TIMEOUTS
     public final static int basicTimeout = 2;
-    public final static int waitingTimeout = 15;
+    public final static int waitingTimeout = 10;
 
     // TEST EXECUTION SETTINGS
     public final static boolean verbose = true;
@@ -18,7 +18,7 @@ public class Config {
     public final static boolean doCleanupAfterTestRun = true;
 
     // CONFIGURE TESTS
-    public final static boolean enableAdministrationTests = true;
+    public final static boolean enableAdministrationTests = false;
     public final static boolean enableTenantTests = false;
     public final static boolean enableSeoCatalogTests = false;
     public final static boolean enableJivositeTests = false;

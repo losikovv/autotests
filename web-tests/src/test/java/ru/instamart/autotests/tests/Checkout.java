@@ -90,6 +90,7 @@ public class Checkout extends TestBase {
             priority = 705
     )
     public void successAddBonusPrograms(){
+        skipOn("metro");
         kraken.reach().checkout();
 
         kraken.checkout().addBonus(mnogoru());
@@ -123,6 +124,7 @@ public class Checkout extends TestBase {
             priority = 707
     )
     public void successClearBonusPrograms(){
+        skipOn("metro");
         kraken.reach().checkout();
 
         kraken.checkout().clearBonus(mnogoru());

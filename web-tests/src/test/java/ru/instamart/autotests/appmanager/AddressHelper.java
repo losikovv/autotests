@@ -27,7 +27,10 @@ public class AddressHelper extends HelperBase {
             kraken.await().implicitly(1); // Ожидание загрузки адресных саджестов
             kraken.perform().click(Elements.Landing.addressSuggest());
             kraken.perform().click(Elements.Landing.selectStoreButton());
-            kraken.await().implicitly(2); // Ожидание загрузки витрины магазина
+            kraken.await().implicitly(1); // Ожидание загрузки витрины магазина
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Site.modalsFade().getLocator()), "\nНе пропадает адресная модалка\n");
         } else {
             openAddressModal();
             fill(address);
@@ -64,7 +67,6 @@ public class AddressHelper extends HelperBase {
     private void selectAddressSuggest() {
         if (kraken.detect().isAnyAddressSuggestsAvailable()) {
             kraken.perform().click(Elements.Site.AddressModal.addressSuggest());
-            //kraken.await().implicitly(1); // Ожидание раздизабливания кнопки сохранения адреса
             kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Site.AddressModal.saveButton().getLocator()),
                     "Неактивна кнопка сохранения адреса");
         } else {

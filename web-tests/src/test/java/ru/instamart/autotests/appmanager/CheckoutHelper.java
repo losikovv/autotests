@@ -365,8 +365,7 @@ public class CheckoutHelper extends HelperBase {
         kraken.await().fluently(
                 ExpectedConditions.visibilityOfElementLocated(
                         Elements.Site.UserProfile.OrderDetailsPage.activeOrderAttribute().getLocator()),
-                "Не отправляется заказ"
-        );
+                "Не отправляется заказ");
         printMessage("✓ Заказ оформлен\n");
     }
 

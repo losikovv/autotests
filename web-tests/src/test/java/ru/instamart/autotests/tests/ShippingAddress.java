@@ -53,10 +53,10 @@ public class ShippingAddress extends TestBase{
 
     @Test(
             description = "Тест отмены ввода адреса доставки на витрине ритейлера",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 303
     )
-    public void noSetShippingAddressOnCancel() {
+    public void noShippingAddressSetOnCancel() {
         kraken.get().page("metro");
         kraken.shipAddress().openAddressModal();
         kraken.shipAddress().fill(Addresses.Moscow.defaultAddress());

@@ -1,5 +1,6 @@
 package ru.instamart.autotests.tests;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
@@ -125,5 +126,15 @@ public class Playground extends TestBase {
         kraken.perform().order();
         //kraken.perform().loginAs(session.user);
         //kraken.perform().order();
+    }
+
+    @Test
+    public void catalog() throws Exception {
+        kraken.get().page("metro");
+        kraken.await().simply(5);
+        kraken.shopping().openCatalog();
+        kraken.await().simply(5);
+        kraken.perform().click(By.xpath("//a[contains(text(),'Овощи и фрукты')]"));
+        kraken.await().simply(5);
     }
 }

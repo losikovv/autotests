@@ -249,7 +249,8 @@ public class ShoppingHelper extends HelperBase {
             kraken.await().simply(1); // Ожидание анимации открытия корзины
             kraken.await().fluently(
                     ExpectedConditions.elementToBeClickable(
-                            Elements.Site.Cart.closeButton().getLocator()));
+                            Elements.Site.Cart.closeButton().getLocator()),
+                    "\nНе открылась корзина\n");
         } else {
             if(verbose) printMessage("Пропускаем открытие корзины, уже открыта");
         }
@@ -263,7 +264,8 @@ public class ShoppingHelper extends HelperBase {
             kraken.await().simply(1);
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(
-                            Elements.Site.Cart.drawer().getLocator()));
+                            Elements.Site.Cart.drawer().getLocator()),
+                    "\nНе закрылась корзина\n");
         }
         else {
             if(verbose) printMessage("Пропускаем закрытие корзины, уже закрыта");
@@ -338,6 +340,7 @@ public class ShoppingHelper extends HelperBase {
             // Накидываем товар
             for (int i = 1; i <= quantity; i++) {
                 hitPlusButton();
+                if(i==1){kraken.await().implicitly(1);}
             }
             closeItemCard();
             openCart();

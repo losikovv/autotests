@@ -203,6 +203,7 @@ public class Authorisation extends TestBase {
             priority = 109
     )
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
+        skipOn("metro");
         kraken.get().page("vkusvill");
         kraken.perform().loginAs(session.user);
 

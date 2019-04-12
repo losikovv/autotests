@@ -21,14 +21,20 @@ public class CheckHelper extends HelperBase {
         switch (paymentType) {
             case "Переводом":
                 kraken.check().orderDocument("Универсальный передаточный документ");
+                kraken.await().simply(1);
                 kraken.check().orderDocument("Счет");
+                kraken.await().simply(1);
                 kraken.check().orderDocument("Счет-фактура");
+                kraken.await().simply(1);
                 kraken.check().orderDocument("Товарная накладная");
                 break;
             default:
                 kraken.check().orderDocument("Универсальный передаточный документ");
+                kraken.await().simply(1);
                 kraken.check().orderDocument("Счет-фактура");
+                kraken.await().simply(1);
                 kraken.check().orderDocument("Товарная накладная");
+                kraken.await().simply(1);
                 break;
         }
     }

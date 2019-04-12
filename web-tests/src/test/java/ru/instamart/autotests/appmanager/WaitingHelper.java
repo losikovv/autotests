@@ -1,6 +1,7 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.autotests.models.EnvironmentData;
@@ -46,6 +47,7 @@ public class WaitingHelper extends HelperBase {
                 .withTimeout(waitingTimeout, TimeUnit.SECONDS)
                 .withMessage(message)
                 .pollingEvery(1, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class)
                 .until(conditions);
     }
 }
