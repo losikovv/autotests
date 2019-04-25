@@ -79,5 +79,12 @@ public abstract class Addresses {
 
     }
 
+    public static class Ufa extends Addresses {
+
+        Ufa(String address) { super(address); }
+
+        public static String defaultAddress() { return addressString = "Уфа, ул Кирова, д 1"; }
+
+    }
 }
 

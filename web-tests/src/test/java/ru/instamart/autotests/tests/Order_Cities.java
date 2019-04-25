@@ -123,6 +123,22 @@ public class Order_Cities extends TestBase {
                 "Не удалось оформить заказ в Метро Ростов-на-Дону\n");
     }
 
+    @Test(
+            description = "Тест заказа в Метро Уфа",
+            groups = {"acceptance","regression"},
+            priority = 926
+    )
+    public void successOrderInUfa(){
+        kraken.shipAddress().change(Addresses.Ufa.defaultAddress());
+
+        kraken.shopping().collectItems();
+        kraken.shopping().proceedToCheckout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не удалось оформить заказ в Метро Уфа\n");
+    }
+
 
     @AfterMethod(alwaysRun = true)
     public void postconditions(){
