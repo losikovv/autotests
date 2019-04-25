@@ -54,7 +54,7 @@ public class Config {
                         null,
                         null,
                         false,
-                        "7777777777",
+                        "1234567890",
                         true
                 ),
                 ReplacementPolicies.callAndReplace(),
@@ -80,7 +80,6 @@ public class Config {
                         )
                 ),
                 new DeliveryTimeData(
-                        7,
                         7
                 )
         );

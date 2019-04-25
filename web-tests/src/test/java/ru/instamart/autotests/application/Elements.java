@@ -761,6 +761,11 @@ public class Elements {
                 return new ElementData(By.xpath("//*[@id='deliveryDay-" + (day-1) + "']/div[" + position + "]/div/div/div/div"));
             }
 
+            /** Кнопка выбора слота доставки для тестов, первый доступный в крайний день */
+            static ElementData chooseSlotButton() {
+                return new ElementData(By.xpath("//*[@id='deliveryDay-6']//span[text()='Выбрать']"));
+            }
+
             /** Кнопка выбора слота доставки */
             static ElementData chooseSlotButton(int day, int position) {
                 return new ElementData(By.xpath("//*[@id='deliveryDay-" + (day-1) + "']/div[" + position + "]/div/span"));

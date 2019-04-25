@@ -10,6 +10,11 @@ public class DeliveryTimeData {
         this.slot = slot;
     }
 
+    public DeliveryTimeData(int day) {
+        this.day = day;
+        this.slot = 0;
+    }
+
     // Setters
 
     public void setDay(int day) {

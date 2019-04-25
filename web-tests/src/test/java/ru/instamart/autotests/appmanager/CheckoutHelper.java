@@ -122,7 +122,6 @@ public class CheckoutHelper extends HelperBase {
         // TODO сделать проставление галки согласия на коммерческие коммуникации
         //if(contactsDetails.isSendEmail()) specifyDetail("order[send_emails]", contactsDetails.isSendEmail()); // TODO переделать
 
-
         if(contactsDetails.isNewPhone()) {
             deletePhoneNumbers();
             kraken.perform().fillField(Elements.Site.Checkout.phoneNumberField(), contactsDetails.getPhone());
@@ -188,13 +187,19 @@ public class CheckoutHelper extends HelperBase {
             printMessage("⚠ Медленно подгружаются слоты доставки\n");
             kraken.await().implicitly(2); // Доп. задержка для загрузки слотов в чекауте при тормозах
         }
+        if(slot != 0) {
         printMessage("Выбираем " + slot + " слот ("
                 + kraken.grab().text(Elements.Site.Checkout.slotTime(day, slot))
                 + " / "
                 + kraken.grab().text(Elements.Site.Checkout.slotPrice(day, slot))
                 + ")\n");
         kraken.perform().click(Elements.Site.Checkout.chooseSlotButton(day, slot));
-        kraken.await().implicitly(2); // Ожидание применения слота доставки в чекауте
+        } else {
+            printMessage("Выбираем первый доступный интервал доставки\n");
+            kraken.perform().click(Elements.Site.Checkout.chooseSlotButton());
+        }
+        // TODO заменить на fluent-ожидание исчезновения спиннера + 1 implicity
+        kraken.await().implicitly(3); // Ожидание применения слота доставки в чекауте
     }
 
     /** Добавляем промокод */

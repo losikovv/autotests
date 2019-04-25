@@ -126,7 +126,7 @@ public class Order_Cities extends TestBase {
     @Test(
             description = "Тест заказа в Метро Уфа",
             groups = {"acceptance","regression"},
-            priority = 926
+            priority = 927
     )
     public void successOrderInUfa(){
         kraken.shipAddress().change(Addresses.Ufa.defaultAddress());
