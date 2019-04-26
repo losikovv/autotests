@@ -72,7 +72,7 @@ public class ShoppingHelper extends HelperBase {
             kraken.perform().hoverOn(Elements.RetailRocket.item(widget.getId()));
             kraken.perform().click(Elements.RetailRocket.addButton(widget.getId()));
         }
-        kraken.await().implicitly(2); // Ожидание добавления товара в корзину из виджета
+        kraken.await().implicitly(3); // Ожидание добавления товара в корзину из виджета
     }
 
     /** Открываем карточку первого товара */
