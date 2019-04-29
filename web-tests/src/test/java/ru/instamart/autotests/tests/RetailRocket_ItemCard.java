@@ -7,7 +7,9 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Widgets;
 
-public class RetailRocketItemCard extends TestBase {
+import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
+
+public class RetailRocket_ItemCard extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
@@ -21,10 +23,10 @@ public class RetailRocketItemCard extends TestBase {
         kraken.get().page("metro");
     }
 
-    @Test (
+    @Test ( enabled = enableRetailRocketTests,
             description = "Тест наличия виджета 'С этим товаром покупают' в карточке товара",
             groups = {"acceptance", "regression"},
-            priority = 1963
+            priority = 11201
     )
     public void successCheckWithThisItemBuyWidget() {
         kraken.shopping().openFirstItemCard();
@@ -34,10 +36,10 @@ public class RetailRocketItemCard extends TestBase {
 
     }
 
-    @Test (
+    @Test (enabled = enableRetailRocketTests,
             description = "Тест наличия виджета 'Похожие товары' в карточке товара",
             groups = {"acceptance", "regression"},
-            priority = 1964
+            priority = 11202
     )
     public void successCheckSimilarItemsWidget() {
         kraken.shopping().openFirstItemCard();
@@ -47,10 +49,10 @@ public class RetailRocketItemCard extends TestBase {
 
     }
 
-    @Test (
+    @Test (enabled = enableRetailRocketTests,
             description = "Тест наличия виджета 'Вы недавно смотрели' в карточке товара",
             groups = {"acceptance", "regression"},
-            priority = 1965
+            priority = 11203
     )
     public void successCheckRecentlyViewedWidget() {
         kraken.shopping().openFirstItemCard();
@@ -60,10 +62,10 @@ public class RetailRocketItemCard extends TestBase {
 
     }
 
-    @Test (
+    @Test (enabled = enableRetailRocketTests,
             description = "Тест открытия карточки товара из виджета 'C этим товаром покупают' в карточке товара",
             groups = {"acceptance", "regression"},
-            priority = 1966,
+            priority = 11204,
             dependsOnMethods = "successCheckWithThisItemBuyWidget"
     )
     public void successOpenItemFromWithThisItemBuyWidget() {
@@ -74,10 +76,10 @@ public class RetailRocketItemCard extends TestBase {
                 "Не открывается карточка товара из виджета 'С этим товаром покупают' в карточке товара");
     }
 
-    @Test (
+    @Test (enabled = enableRetailRocketTests,
             description = "Тест открытия карточки товара из виджета 'Похожие товары' в карточке товара",
             groups = {"acceptance", "regression"},
-            priority = 1967,
+            priority = 11205,
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successOpenItemFromSimilarItemsWidget() {
@@ -88,10 +90,10 @@ public class RetailRocketItemCard extends TestBase {
                 "Не открывается карточка товара из виджета 'Похожие товары' в карточке товара");
     }
 
-    @Test (
+    @Test (enabled = enableRetailRocketTests,
             description = "Тест открытия карточки товара из виджета 'Вы недавно смотрели' в картчоке товара",
             groups = {"acceptance", "regression"},
-            priority = 1968,
+            priority = 11206,
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemFromRecentlyViewedWidget() {
@@ -103,10 +105,10 @@ public class RetailRocketItemCard extends TestBase {
 
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест успешного добавления товара из виджета 'С этим товаром покупают' в карточке товара",
             groups = {"acceptance", "regression"},
-            priority = 1969,
+            priority = 11207,
             dependsOnMethods = "successCheckWithThisItemBuyWidget"
     )
     public void successAddItemFromWithThisItemBuyWidget() {
@@ -120,10 +122,10 @@ public class RetailRocketItemCard extends TestBase {
                 "Не добавляется в корзину товар из виджета 'C этим товаром покупают' в карточке товара");
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест успешного добавления товара из виджета 'Похожие товары' в карточке товара",
             groups = {"acceptance", "regression"},
-            priority = 1970,
+            priority = 11208,
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successAddItemFromSimilarItemsWidget() {
@@ -135,13 +137,12 @@ public class RetailRocketItemCard extends TestBase {
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не добавляется в корзину товар из виджета 'Похожие товары' в карточке товара");
-
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест успешного добавления товара из виджета 'Вы недавно смотрели' в карточке товара",
             groups = {"acceptance", "regression"},
-            priority = 1971,
+            priority = 11209,
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successAddItemFromRecentlyViewedWidget() {
@@ -153,7 +154,5 @@ public class RetailRocketItemCard extends TestBase {
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не добавляется в корзину товар из виджета 'Вы недавно смотрели' в карточке товара");
-
     }
-
 }

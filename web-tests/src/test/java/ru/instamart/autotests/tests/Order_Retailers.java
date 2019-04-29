@@ -5,6 +5,8 @@ import org.testng.annotations.*;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Environments;
 
+import static ru.instamart.autotests.application.Config.enableOrderRetailersTests;
+
 
 // Тесты заказов во всех ритейлерах присутсвия
 
@@ -18,8 +20,7 @@ public class Order_Retailers extends TestBase {
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
     }
 
-
-    @Test(
+    @Test(enabled = enableOrderRetailersTests,
             description = "Тестовый заказ в Метро Москва",
             groups = {"acceptance","regression"},
             priority = 911
@@ -36,8 +37,7 @@ public class Order_Retailers extends TestBase {
                 "Не удалось оформить заказ в Метро Москва\n");
     }
 
-
-    @Test(
+    @Test(enabled = enableOrderRetailersTests,
             description = "Тестовый заказ во Вкусвилл Москва с применением бонусной программы",
             groups = {"acceptance","regression"},
             priority = 912
@@ -59,8 +59,7 @@ public class Order_Retailers extends TestBase {
                 "Не удалось оформить заказ во Вкусвилл Москва\n");
     }
 
-
-    @Test(
+    @Test(enabled = enableOrderRetailersTests,
             description = "Тестовый заказ в Ашан Москва",
             groups = {"acceptance","regression"},
             priority = 913
@@ -78,8 +77,7 @@ public class Order_Retailers extends TestBase {
                 "Не удалось оформить заказ в Ашан Москва\n");
     }
 
-
-    @Test(
+    @Test(enabled = enableOrderRetailersTests,
             description = "Тестовый заказ в Ленту Москва",
             groups = {"acceptance","regression"},
             priority = 914

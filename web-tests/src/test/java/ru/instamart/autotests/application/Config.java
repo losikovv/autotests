@@ -24,6 +24,9 @@ public class Config {
     public final static boolean enableJivositeTests = false;
     public final static boolean enableRetailRocketTests = false;
 
+    public final static boolean enableOrderCitiesTests = true;
+    public final static boolean enableOrderRetailersTests = false;
+
     // GLOBAL CONSTANTS
     public final static String companyName = "instamart";
     public final static String companyDomain = companyName + ".ru";

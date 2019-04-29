@@ -7,9 +7,10 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Widgets;
 
+import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
 
 
-public class RetailRocketCart extends TestBase {
+public class RetailRocket_Cart extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
@@ -25,21 +26,20 @@ public class RetailRocketCart extends TestBase {
         kraken.shopping().openCart();
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест наличия виджета 'Не забудьте купить' в корзине",
             groups = {"acceptance", "regression"},
-            priority = 1981
-
+            priority = 11401
     )
     public void successCheckDontForgetToBuyWidget() {
         Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.Cart.DontForgetToBuy()),
                 "Нет блока 'Не забудьте купить' в картчоке товара");
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест успешного открытия карточки из виджета 'Не забудьте купить' в корзине",
             groups = {"acceptance", "regression"},
-            priority = 1982,
+            priority = 11402,
             dependsOnMethods = "successCheckDontForgetToBuyWidget"
     )
     public void successOpenItemCardFromDontForgetToBuyWidget() {
@@ -47,15 +47,13 @@ public class RetailRocketCart extends TestBase {
 
         Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.Cart.DontForgetToBuy()),
                 "Не открывается карточка товара из блока 'Не забудьте купить' в коризне");
-
     }
 
-    @Test (
+    @Test (enabled = enableRetailRocketTests,
             description = "Тест успешного добавления товара в корзину из виджета ' Не забудьте купить' в корзине",
             groups = {"acceptance", "regression"},
-            priority = 1983,
+            priority = 11403,
             dependsOnMethods = "successCheckDontForgetToBuyWidget"
-
     )
     public void successAddItemFromDontForgetToBuyWidget() {
         kraken.shopping().addItem(Widgets.RetailRocket.Cart.DontForgetToBuy());
@@ -63,6 +61,5 @@ public class RetailRocketCart extends TestBase {
 
         Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.Cart.DontForgetToBuy()),
                 "Не добавляется товар в корзину из блока 'Не забудьте купить' в корзине");
-
     }
 }

@@ -7,7 +7,9 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Widgets;
 
-public class RetailRocketSearch extends TestBase {
+import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
+
+public class RetailRocket_Search extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
@@ -21,49 +23,46 @@ public class RetailRocketSearch extends TestBase {
         kraken.get().page("metro");
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест наличия виджета 'Мы нашли для вас похожие товары' после поиска без результата",
             groups = {"acceptance", "regression"},
-            priority = 1972
+            priority = 11301
     )
     public void successCheckSimilarItemsWidget() {
         kraken.search().item("смысл жизни");
 
         Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.Search.SimilarItems()),
                 "Нет блока 'Мы нашли для вас похожие товары' после поиска без результата");
-
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест наличия виджета 'Те, кто ищут выбирают' после поиска товара",
             groups = {"acceptance", "regression"},
-            priority = 1973
+            priority = 11302
     )
     public void successCheckFindersChoiceWidget() {
         kraken.search().item("макароны");
 
         Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.Search.FindersChoice()),
                 "Нет блока 'Те, кто ищут выбирают' после поиска товара");
-
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест наличия виджета 'Вы недавно смотрели' после поиска товара",
             groups = {"acceptance", "regression"},
-            priority = 1974
+            priority = 11303
     )
     public void successCheckRecentlyViewedWidget() {
         kraken.search().item("макароны");
 
         Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.Search.RecentlyViewed()),
                 "Нет блока 'Вы недавно смотрели' после поиска товара");
-
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест открытия карточки товара из виджета 'Мы нашли для вас похожие товары' после поиска без результата",
             groups = {"acceptance", "regression"},
-            priority = 1975,
+            priority = 11304,
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successOpenItemCardFromSimilarItemsWidget() {
@@ -75,10 +74,10 @@ public class RetailRocketSearch extends TestBase {
                 "Не открывается карточка товара из виджета 'Мы нашли для вас похожие товары' после поиска без результатов");
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест открытия карточки товара из виджета 'Те, кто ищут выбирают' после поиска товара",
             groups = {"acceptance", "regression"},
-            priority = 1976,
+            priority = 11305,
             dependsOnMethods = "successCheckFindersChoiceWidget"
     )
     public void successOpenItemCardFromFindersChoiceWidget() {
@@ -86,16 +85,14 @@ public class RetailRocketSearch extends TestBase {
 
         kraken.shopping().openItemCard(Widgets.RetailRocket.Search.FindersChoice());
 
-
         Assert.assertTrue(kraken.detect().isItemCardOpen(),
                 "Не открывается карточка товара из виджета 'Те кто ищут выбирают' после поиска товара");
-
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест открытия карточки товара из виджета 'Вы недавно смотрели' после поиска товара",
             groups = {"acceptance", "regression"},
-            priority = 1977,
+            priority = 11306,
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemCardFromRecentlyViewedWidget() {
@@ -108,16 +105,14 @@ public class RetailRocketSearch extends TestBase {
 
         kraken.shopping().openItemCard(Widgets.RetailRocket.Search.RecentlyViewed());
 
-
         Assert.assertTrue(kraken.detect().isItemCardOpen(),
                 "Не открывается карточка товара из виджета 'Вы недавно смотрели' после поиска товара");
-
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест успешного добавления товара в корзину из виджета 'Мы нашли для вас похожие товары' после поиска без результата",
             groups = {"acceptance", "regression"},
-            priority = 1978,
+            priority = 11307,
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     //=======Не работает ========
@@ -128,13 +123,12 @@ public class RetailRocketSearch extends TestBase {
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не добавляется в корзину товар из виджета 'Мы нашли для вас похожие товары' после поиска без результата");
-
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест успешного добавления товара в корзину из виджета 'Те, кто ищут выбирают' после поиска товара",
             groups = {"acceptance", "regression"},
-            priority = 1979,
+            priority = 11308,
             dependsOnMethods = "successCheckFindersChoiceWidget"
     )
     public void successAddItemFromFindersChoiceWidget() {
@@ -143,15 +137,13 @@ public class RetailRocketSearch extends TestBase {
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не добавляется в корзину товар из виджета 'Те, кто ищут выбирают' после поиска товара");
-
     }
 
-    @Test(
+    @Test(enabled = enableRetailRocketTests,
             description = "Тест успешного добавления товара в корзину из виджета 'Вы недавно смотрели' после поиска товара",
             groups = {"acceptance", "regression"},
-            priority = 1980,
+            priority = 11309,
             dependsOnMethods = "successCheckRecentlyViewedWidget"
-
     )
     public void successAddItemFromRecentlyViewedWidget() {
         kraken.drop().cart();
@@ -165,7 +157,5 @@ public class RetailRocketSearch extends TestBase {
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не добавляется в корзину товар из виджета 'Вы недавно смотрели' после поиска товара");
-
     }
-
 }

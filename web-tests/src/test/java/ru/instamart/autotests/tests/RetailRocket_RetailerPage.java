@@ -9,7 +9,7 @@ import ru.instamart.autotests.application.Widgets;
 
 import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
 
-public class RetailRocketMainPage extends TestBase {
+public class RetailRocket_RetailerPage extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
@@ -108,5 +108,4 @@ public class RetailRocketMainPage extends TestBase {
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не добавляется в корзину товар из виджета 'Вы недавно смотрели' на главной");
     }
-
 }

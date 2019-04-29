@@ -7,7 +7,9 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Widgets;
 
-public class RetailRocketCatalogPage extends TestBase {
+import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
+
+public class RetailRocket_Catalog extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
@@ -21,30 +23,30 @@ public class RetailRocketCatalogPage extends TestBase {
         kraken.get().page("metro/ovoshchi-i-frukty");
     }
 
-    @Test (
+    @Test ( enabled = enableRetailRocketTests,
             description = "Тест наличия виджета 'Выбор покупателей' в каталоге",
             groups = {"acceptance", "regression"},
-            priority = 1957
+            priority = 11101
     )
     public void successCheckCustomersChoiceWidget() {
         Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.CatalogPage.CustomersChoice()),
                 "Нет блока 'Выбор покупателей' в каталоге");
     }
 
-    @Test (
+    @Test ( enabled = enableRetailRocketTests,
             description = "Тест наличия виджета 'Вы недавно смотрели' в каталоге",
             groups = {"acceptance", "regression"},
-            priority = 1958
+            priority = 11102
     )
     public void successCheckRecentlyViewedWidget() {
         Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.CatalogPage.RecentlyViewed()),
                 "Нет блока 'Вы недавно смотрели' в каталоге");
     }
 
-    @Test (
+    @Test ( enabled = enableRetailRocketTests,
             description = "Тест успешного открытия карточки из виджета 'Выбор покупателей' в каталоге",
             groups = {"acceptance","regression"},
-            priority = 1959,
+            priority = 11103,
             dependsOnMethods = "successCheckCustomersChoiceWidget"
     )
     public void successOpenItemFromCustomersChoiceWidget() {
@@ -54,10 +56,10 @@ public class RetailRocketCatalogPage extends TestBase {
                 "Не открывается карточка товара из виджета 'Выбор покупателей' в каталоге");
     }
 
-    @Test (
+    @Test ( enabled = enableRetailRocketTests,
             description = "Тест успешного открытия карточки из виджета 'Вы недавно смотрели' в каталоге",
             groups = {"acceptance", "regression"},
-            priority = 1960,
+            priority = 11104,
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemFromRecentlyViewedWidget() {
@@ -71,10 +73,10 @@ public class RetailRocketCatalogPage extends TestBase {
                 "Не открывается карточка товара из виджета 'Выбор покупателей' в каталоге");
     }
 
-    @Test (
+    @Test ( enabled = enableRetailRocketTests,
             description = "Тест успешного добавления товара из виджета 'Выбор покупателей' в каталоге",
             groups = {"acceptance", "regression"},
-            priority = 1961,
+            priority = 11105,
             dependsOnMethods = "successCheckCustomersChoiceWidget"
     )
     public void successAddItemFromCustomersChoiceWidget() {
@@ -86,10 +88,10 @@ public class RetailRocketCatalogPage extends TestBase {
                 "Не добавляется в корзину товар из виджета 'Выбор покупателей' в каталоге");
     }
 
-    @Test (
+    @Test ( enabled = enableRetailRocketTests,
             description = "Тест успешного добавления товара из виджета 'Вы неавдно смотрели' в каталоге",
             groups = {"acceptance", "regression"},
-            priority = 1962,
+            priority = 11106,
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successAddItemFromRecentlyViewedWidget() {
