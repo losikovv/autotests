@@ -20,7 +20,7 @@ public class Elements {
     public interface Page404 {
 
         static ElementData title() {
-            return new ElementData("Страница не найдена", By.xpath("/html/body/div[1]/div/div/div/div[1]/div/div[1]"));
+            return new ElementData(By.xpath("//div[text()='Страница не найдена']"));
         }
 
         static ElementData catWisdomButton() {

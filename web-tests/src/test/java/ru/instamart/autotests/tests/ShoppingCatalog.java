@@ -42,9 +42,9 @@ public class ShoppingCatalog extends TestBase {
     }
 
 
-    @Test(
+    @Test( //TODO починить
             description = "Тест открытия категории 1 уровня",
-            groups = {"acceptance", "regression"},
+            groups = {"regression"},
             priority = 602
     )
     public void successReachDepartmentCategory() {
@@ -56,9 +56,9 @@ public class ShoppingCatalog extends TestBase {
     }
 
 
-    @Test(
+    @Test(//TODO починить
             description = "Тест открытия категории 2 уровня",
-            groups = {"acceptance", "regression"},
+            groups = {"regression"},
             priority = 603
     )
     public void successReachTaxonCategory() {

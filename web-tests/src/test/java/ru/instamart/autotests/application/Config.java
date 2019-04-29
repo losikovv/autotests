@@ -5,7 +5,7 @@ import ru.instamart.autotests.models.*;
 public class Config {
 
     // ENVIRONMENT
-    public final static EnvironmentData environment = Environments.instamart_production();
+    public final static EnvironmentData environment = Environments.instamart_staging();
 
     // TIMEOUTS
     public final static int basicTimeout = 2;
@@ -15,17 +15,18 @@ public class Config {
     public final static boolean verbose = true;
     public final static boolean multiSessionMode = false;
     public final static boolean fullScreenMode = false;
-    public final static boolean doCleanupAfterTestRun = true;
+    public final static boolean doCleanupAfterTestRun = false;
 
     // CONFIGURE TESTS
-    public final static boolean enableAdministrationTests = false;
-    public final static boolean enableTenantTests = false;
+    public final static boolean enableAdministrationTests = true;
     public final static boolean enableSeoCatalogTests = false;
-    public final static boolean enableJivositeTests = false;
+    public final static boolean enableJivositeTests = true;
     public final static boolean enableRetailRocketTests = false;
 
     public final static boolean enableOrderCitiesTests = true;
-    public final static boolean enableOrderRetailersTests = false;
+    public final static boolean enableOrderRetailersTests = true;
+
+    public final static boolean enableTenantTests = false;
 
     // GLOBAL CONSTANTS
     public final static String companyName = "instamart";

@@ -165,8 +165,10 @@ public class DetectionHelper extends HelperBase {
      * Определить 404 ошибку на текущей странице
      */
     public boolean is404() {
-        if (element(Elements.Page404.title())) {
-            if(verbose) { kraken.perform().printMessage("⚠ " + kraken.grab().currentURL()+ " - 404\n"); }
+        if (isElementPresent(Elements.Page404.title())) {
+            if(verbose) {
+                kraken.perform().printMessage("⚠ 404 на " + kraken.grab().currentURL()+ "\n");
+            }
             return true;
         } else return false;
     }
@@ -176,7 +178,7 @@ public class DetectionHelper extends HelperBase {
      */
     public boolean is500() {
         if (element(Elements.Page500.placeholder())) {
-            if(verbose) { kraken.perform().printMessage("⚠ " + kraken.grab().currentURL()+ " - 500\n"); }
+            if(verbose) { kraken.perform().printMessage("⚠ 500 на " + kraken.grab().currentURL()+ "\n"); }
             return true;
         } else return false;
     }
