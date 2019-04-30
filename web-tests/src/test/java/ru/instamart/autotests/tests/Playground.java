@@ -11,25 +11,25 @@ import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 public class Playground extends TestBase {
 
     @Test
-    public void regUser() throws Exception {
+    public void regUser() {
         kraken.perform().registration();
     }
 
     @Test
-    public void regUserAndSetAddress() throws Exception {
+    public void regUserAndSetAddress() {
         kraken.perform().registration();
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
     }
 
     @Test
-    public void regUserAndPrepareForCheckout() throws Exception {
+    public void regUserAndPrepareForCheckout() {
         kraken.perform().registration();
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         kraken.shopping().collectItems();
     }
 
     @Test
-    public void regUserAndPrepareForOrder() throws Exception {
+    public void regUserAndPrepareForOrder() {
         kraken.perform().registration();
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         kraken.reach().checkout();
@@ -37,7 +37,7 @@ public class Playground extends TestBase {
     }
 
     @Test
-    public void regUserAndMakeOrder() throws Exception {
+    public void regUserAndMakeOrder() {
         kraken.perform().registration();
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         kraken.reach().checkout();

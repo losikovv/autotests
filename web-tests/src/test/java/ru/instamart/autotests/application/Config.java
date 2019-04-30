@@ -23,8 +23,10 @@ public class Config {
     public final static boolean enableJivositeTests = true;
     public final static boolean enableRetailRocketTests = false;
 
-    public final static boolean enableOrderCitiesTests = true;
     public final static boolean enableOrderRetailersTests = true;
+    public final static boolean enableOrderCitiesTests = true;
+    public final static boolean enableOrderReplacementsTests = true;
+    public final static boolean enableRepeatOrdersTests = true;
 
     public final static boolean enableTenantTests = false;
 

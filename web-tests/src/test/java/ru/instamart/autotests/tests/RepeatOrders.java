@@ -7,12 +7,13 @@ import org.testng.annotations.Test;
 import org.testng.annotations.AfterMethod;
 import ru.instamart.autotests.application.*;
 
+import static ru.instamart.autotests.application.Config.enableRepeatOrdersTests;
+
 
 // Тесты повтора заказов
 
 
 public class RepeatOrders extends TestBase {
-
 
     @BeforeClass(alwaysRun = true)
     public void setup()throws Exception {
@@ -27,8 +28,7 @@ public class RepeatOrders extends TestBase {
         kraken.perform().repeatLastOrder();
     }
 
-
-    @Test(
+    @Test(enabled = enableRepeatOrdersTests,
             description = "Повтор крайнего заказа и оплата картой онлайн",
             groups = {"acceptance","regression"},
             priority = 1001
@@ -43,8 +43,7 @@ public class RepeatOrders extends TestBase {
                 "Не оформляется повторный заказ с оплатой картой онлайн\n");
     }
 
-
-    @Test(
+    @Test(enabled = enableRepeatOrdersTests,
             description = "Повтор крайнего заказа и оплата картой курьеру",
             groups = {"acceptance","regression"},
             priority = 1002
@@ -59,8 +58,7 @@ public class RepeatOrders extends TestBase {
                 "Не оформляется повторный заказ с оплатой картой курьеру\n");
     }
 
-
-    @Test(
+    @Test(enabled = enableRepeatOrdersTests,
             description = "Повтор крайнего заказа и оплата наличными",
             groups = {"acceptance","regression"},
             priority = 1003
@@ -75,8 +73,7 @@ public class RepeatOrders extends TestBase {
                 "Не оформляется повторный заказ с оплатой наличными\n");
     }
 
-
-    @Test(
+    @Test(enabled = enableRepeatOrdersTests,
             description = "Повтор крайнего заказа и оплата банковским переводом",
             groups = {"acceptance","regression"},
             priority = 1004
