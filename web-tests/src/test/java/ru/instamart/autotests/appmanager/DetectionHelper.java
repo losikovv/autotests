@@ -513,8 +513,8 @@ public class DetectionHelper extends HelperBase {
     }
 
     /** Определить введен ли телефон на 2 шаге в чекауте */
-    public boolean isPhoneNumberEntered() {
-        return isElementDisplayed(Elements.Site.Checkout.phoneIcon());
+    public boolean isPhoneNumberEmpty() {
+        return isElementDisplayed(Elements.Site.Checkout.phoneNumberField());
     }
 
     /** Определить введены ли данные юрлица на 4 шаге в чекауте */

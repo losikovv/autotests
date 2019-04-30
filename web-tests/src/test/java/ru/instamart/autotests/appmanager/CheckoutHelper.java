@@ -124,13 +124,13 @@ public class CheckoutHelper extends HelperBase {
 
         if(contactsDetails.isNewPhone()) {
             deletePhoneNumbers();
-            kraken.perform().fillField(Elements.Site.Checkout.phoneNumberField(), contactsDetails.getPhone());
             printMessage("Добавляем номер телефона +7 " + contactsDetails.getPhone());
-        } else if(kraken.detect().isPhoneNumberEntered()) {
+            kraken.perform().fillField(Elements.Site.Checkout.phoneNumberField(), contactsDetails.getPhone());
+        } else if(kraken.detect().isPhoneNumberEmpty()) {
+            printMessage("Добавляем номер телефона +7 " + contactsDetails.getPhone());
+            kraken.perform().fillField(Elements.Site.Checkout.phoneNumberField(), contactsDetails.getPhone());
+            } else {
             printMessage("Используем существующий номер телефона");
-        } else {
-            kraken.perform().fillField(Elements.Site.Checkout.phoneNumberField(), contactsDetails.getPhone());
-            printMessage("Добавляем номер телефона +7 " + contactsDetails.getPhone());
         }
     }
 
@@ -376,7 +376,7 @@ public class CheckoutHelper extends HelperBase {
 
     /** Удалить все номера телефонов */
     private void deletePhoneNumbers() {
-        if (kraken.detect().isPhoneNumberEntered()) {
+        if (kraken.detect().isPhoneNumberEmpty()) {
             kraken.perform().click(Elements.Site.Checkout.editPhoneButton());
             kraken.perform().click(Elements.Site.Checkout.deletePhoneButton());
             kraken.perform().printMessage("Удоляем номер телефона " + kraken.grab().text(Elements.Site.Checkout.phoneNumber()));

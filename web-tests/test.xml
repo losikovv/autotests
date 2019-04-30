@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Default Suite">
+  <test name="web-tests">
+    <classes>
+      <class name="ru.instamart.autotests.tests.CheckPages">
+        <methods>
+          <include name="successCheckInactiveRetailerPages"/>
+        </methods>
+      </class> <!-- ru.instamart.autotests.tests.CheckPages -->
+    </classes>
+  </test> <!-- web-tests -->
+</suite> <!-- Default Suite -->

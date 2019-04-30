@@ -777,10 +777,6 @@ public class Elements {
             }
 
             /** Элементы номера телефона */
-            static ElementData phoneIcon() {
-                return new ElementData(By.className("fa-mobile"));
-            }
-
             static ElementData phoneNumberField() {
                 return new ElementData(By.id("phone-input"));
             }

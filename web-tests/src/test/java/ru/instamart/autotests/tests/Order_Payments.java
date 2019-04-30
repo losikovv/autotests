@@ -27,7 +27,7 @@ public class Order_Payments extends TestBase {
             groups = {"acceptance","regression"},
             priority = 901
     )
-    public void successOrderWithCash() {
+    public void successOrderWithCashAndCheckDocuments() {
         kraken.reach().checkout();
         kraken.checkout().complete();
 
@@ -46,7 +46,7 @@ public class Order_Payments extends TestBase {
             groups = {"acceptance","regression"},
             priority = 902
     )
-    public void successOrderWithCardOnline() {
+    public void successOrderWithCardOnlineAndCheckDocuments() {
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cardOnline());
 
@@ -65,7 +65,7 @@ public class Order_Payments extends TestBase {
             groups = {"acceptance","regression"},
             priority = 903
     )
-    public void successOrderWithCardCourier() {
+    public void successOrderWithCardCourierAndCheckDocuments() {
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cardCourier());
 
@@ -84,7 +84,7 @@ public class Order_Payments extends TestBase {
             groups = {"acceptance","regression"},
             priority = 904
     )
-    public void successOrderWithBankTransfer() {
+    public void successOrderWithBankTransferAndCheckDocuments() {
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer());
 
