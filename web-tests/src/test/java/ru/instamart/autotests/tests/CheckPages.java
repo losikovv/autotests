@@ -96,9 +96,9 @@ public class CheckPages extends TestBase {
         assertPageIsAvailable(Pages.Admin.retailers());
         assertPageIsAvailable(Pages.Admin.products());
         assertPageIsAvailable(Pages.Admin.imports());
-        assertPageIsAvailable(Pages.Admin.reports());
         assertPageIsAvailable(Pages.Admin.settings());
         assertPageIsAvailable(Pages.Admin.marketing());
+        assertPageIsAvailable(Pages.Admin.staff());
         assertPageIsAvailable(Pages.Admin.users());
         assertPageIsAvailable(Pages.Admin.pages());
     }

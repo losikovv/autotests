@@ -111,7 +111,7 @@ public class Pages {
 
             static Pages payment() {
                 return new Pages("Оплата",
-                        "/payment");
+                        "payment");
             }
 
             static Pages returnPolicy() {
@@ -188,11 +188,6 @@ public class Pages {
                     "admin/imports");
         }
 
-        static Pages reports() {
-            return new Pages("Spree Администрирование: Отчеты",
-                    "admin/reports");
-        }
-
         static Pages settings() {
             return new Pages("Spree Администрирование: Общие настройки",
                     "admin/general_settings/edit");
@@ -201,6 +196,11 @@ public class Pages {
         static Pages marketing() {
             return new Pages("Spree Администрирование: Promo Cards",
                     "admin/promo_cards");
+        }
+
+        static Pages staff() {
+            return new Pages("Spree Администрирование: Shoppers",
+                    "admin/shoppers");
         }
 
         static Pages users() {
