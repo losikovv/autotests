@@ -223,7 +223,7 @@ public class DetectionHelper extends HelperBase {
      * Определить показана ли заглушка "Адрес вне зоны доставки" в адресной модалке
      */
     public boolean isAddressOutOfZone() {
-        if (element(Elements.Site.AddressModal.titleOutOfZone())) {
+        if (isElementPresent(Elements.Site.AddressModal.titleOutOfZone())) {
             if(verbose) { printMessage("Адрес не в зоне доставки"); }
             return true;
         } else {

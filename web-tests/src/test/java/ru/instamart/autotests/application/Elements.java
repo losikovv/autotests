@@ -409,7 +409,7 @@ public class Elements {
             }
 
             static ElementData titleOutOfZone() {
-                return new ElementData ("Адрес не в зоне доставки", By.className("address-modal__header"));
+                return new ElementData (By.xpath("//div[text()='Адрес не в зоне доставки']"));
             }
 
             static ElementData pickNewAddressButton() {

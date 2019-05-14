@@ -31,7 +31,7 @@ public abstract class Addresses {
 
         SaintPetersburg(String address) { super(address);}
 
-        public static String defaultAddress() { return addressString = "Санкт-Петербург, ул Мебельная, д 10"; }
+        public static String defaultAddress() { return addressString = "Санкт-Петербург, Литейный пр-кт, д 10"; }
 
     }
 

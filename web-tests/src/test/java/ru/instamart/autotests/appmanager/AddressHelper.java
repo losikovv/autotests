@@ -1,5 +1,6 @@
 package ru.instamart.autotests.appmanager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -102,13 +103,18 @@ public class AddressHelper extends HelperBase {
     }
 
     /**
-     * Нажать Сохранить в адресной модалке
+     * Применить введенный адрес в адресной модалке
      */
-    public void submit() {
+    public void submit() throws AssertionError {
         kraken.perform().click(Elements.Site.AddressModal.saveButton());
-        kraken.await().implicitly(1); // Ожидание применения адреса доставки
-        kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Site.AddressModal.popup().getLocator()),
-                "Не применяется адрес доставки");
+        if (kraken.detect().isAddressOutOfZone()) {
+            throw new AssertionError("Указанный адрес вне зоны доставки");
+        } else {
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Site.AddressModal.popup().getLocator()),
+                    "Не применяется адрес доставки");
+        }
     }
 
     /**

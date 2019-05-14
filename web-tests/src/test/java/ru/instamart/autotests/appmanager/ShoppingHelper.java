@@ -250,7 +250,7 @@ public class ShoppingHelper extends HelperBase {
             kraken.await().fluently(
                     ExpectedConditions.elementToBeClickable(
                             Elements.Site.Cart.closeButton().getLocator()),
-                    "\nНе открылась корзина\n");
+                    "Не открылась корзина\n");
         } else {
             if(verbose) printMessage("Пропускаем открытие корзины, уже открыта");
         }
