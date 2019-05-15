@@ -63,6 +63,11 @@ public class GrabHelper extends HelperBase{
         return text(Elements.Site.Header.currentShipAddress());
     }
 
+    /** Взять строку с названием товара в карточке */
+    public String itemName() {
+        return kraken.grab().text(Elements.Site.ItemCard.name());
+    }
+
     /** Взять целочисленную стоимость товара в карточке */
     public int itemPriceRounded() {
         return round(itemPrice());
@@ -70,15 +75,7 @@ public class GrabHelper extends HelperBase{
 
     /** Взять строку со стоимостью товара в карточке */
     public String itemPrice() {
-        String price;
-        if(kraken.detect().isItemOnSale()){
-            price = kraken.grab().text(Elements.Site.ItemCard.salePrice());
-            printMessage("> скидочная цена товара: " + price);
-        } else {
-            price = kraken.grab().text(Elements.Site.ItemCard.price());
-            printMessage("> цена товара: " + price);
-        }
-        return price;
+        return kraken.grab().text(Elements.Site.ItemCard.price());
     }
 
     /** Взять целочисленную сумму корзины */

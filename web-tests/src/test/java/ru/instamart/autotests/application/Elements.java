@@ -500,16 +500,16 @@ public class Elements {
                 return new ElementData(By.className("product-popup"));
             }
 
+            static ElementData name() {
+                return new ElementData(By.xpath("//h1[@class='product-popup__title']"));
+            }
+
             static ElementData image() {
                 return new ElementData(By.className("product-popup__img"));
             }
 
             static ElementData price() {
-                return new ElementData(By.cssSelector(".product-popup__price > div:nth-child(1) > span:nth-child(1)"));
-            }
-
-            static ElementData salePrice() {
-                return new ElementData(By.cssSelector(".product-popup__sale-price > div:nth-child(1) > span:nth-child(1)"));
+                return new ElementData(By.xpath("//div[@class='product-popup__price']//span"));
             }
 
             static ElementData saleBadge() {

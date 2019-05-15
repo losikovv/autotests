@@ -336,7 +336,10 @@ public class ShoppingHelper extends HelperBase {
             int itemPrice = kraken.grab().itemPriceRounded();
             // Формула расчета кол-ва товара
             int quantity = ((orderSum - cartTotal) / itemPrice) + 1;
-            printMessage("> добавляем в корзину " + quantity + " шт\n");
+            printMessage("> добавляем в корзину \""
+                    + kraken.grab().itemName() + "\" x " + quantity + "шт\n"
+                    + kraken.grab().currentURL()
+                    + "\n");
             // Накидываем товар
             for (int i = 1; i <= quantity; i++) {
                 hitPlusButton();

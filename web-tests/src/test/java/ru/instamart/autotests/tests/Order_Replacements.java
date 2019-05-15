@@ -29,7 +29,7 @@ public class Order_Replacements extends TestBase {
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Звонить / Заменять",
             groups = {"acceptance","regression"},
-            priority = 941
+            priority = 911
     )
     public void successOrderWithCallAndReplacePolicy() throws Exception {
         kraken.checkout().complete(ReplacementPolicies.callAndReplace());
@@ -51,7 +51,7 @@ public class Order_Replacements extends TestBase {
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Звонить / Убирать",
             groups = {"acceptance","regression"},
-            priority = 942
+            priority = 912
     )
     public void successOrderWithCallAndRemovePolicy() throws Exception {
         kraken.checkout().complete(ReplacementPolicies.callAndRemove());
@@ -73,7 +73,7 @@ public class Order_Replacements extends TestBase {
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Не звонить / Заменять",
             groups = {"acceptance","regression"},
-            priority = 943
+            priority = 913
     )
     public void successOrderWithReplacePolicy() throws Exception {
         kraken.checkout().complete(ReplacementPolicies.replace());
@@ -95,7 +95,7 @@ public class Order_Replacements extends TestBase {
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Не звонить / Убирать",
             groups = {"acceptance","regression"},
-            priority = 944
+            priority = 914
     )
     public void successOrderWithRemovePolicy() throws Exception {
         kraken.checkout().complete(ReplacementPolicies.remove());

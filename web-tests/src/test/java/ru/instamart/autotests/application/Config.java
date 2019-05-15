@@ -5,7 +5,7 @@ import ru.instamart.autotests.models.*;
 public class Config {
 
     // ENVIRONMENT
-    public final static EnvironmentData environment = Environments.instamart_staging();
+    public final static EnvironmentData environment = Environments.instamart_production();
 
     // TIMEOUTS
     public final static int basicTimeout = 2;

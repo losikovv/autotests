@@ -426,7 +426,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить есть ли скидка на товар */
     public boolean isItemOnSale() {
-        return element(Elements.Site.ItemCard.saleBadge());
+        return isElementPresent(Elements.Site.ItemCard.saleBadge());
     }
 
 

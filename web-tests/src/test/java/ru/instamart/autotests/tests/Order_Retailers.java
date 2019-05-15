@@ -23,7 +23,7 @@ public class Order_Retailers extends TestBase {
     @Test(enabled = enableOrderRetailersTests,
             description = "Тестовый заказ в Метро Москва",
             groups = {"acceptance","regression"},
-            priority = 911
+            priority = 941
     )
     public void successOrderInMetro(){
         kraken.get().page("metro");
@@ -40,7 +40,7 @@ public class Order_Retailers extends TestBase {
     @Test(enabled = enableOrderRetailersTests,
             description = "Тестовый заказ во Вкусвилл Москва с применением бонусной программы",
             groups = {"acceptance","regression"},
-            priority = 912
+            priority = 942
     )
     public void successOrderInVkusvill(){
         skipOn(Environments.metro_production());
@@ -62,7 +62,7 @@ public class Order_Retailers extends TestBase {
     @Test(enabled = enableOrderRetailersTests,
             description = "Тестовый заказ в Ашан Москва",
             groups = {"acceptance","regression"},
-            priority = 913
+            priority = 943
     )
     public void successOrderInAuchan(){
         skipOn(Environments.metro_production());
@@ -80,7 +80,7 @@ public class Order_Retailers extends TestBase {
     @Test(enabled = enableOrderRetailersTests,
             description = "Тестовый заказ в Ленту Москва",
             groups = {"acceptance","regression"},
-            priority = 914
+            priority = 944
     )
     public void successOrderInLenta(){
         skipOn(Environments.metro_production());
