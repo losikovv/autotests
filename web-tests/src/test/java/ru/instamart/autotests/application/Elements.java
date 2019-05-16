@@ -512,6 +512,10 @@ public class Elements {
                 return new ElementData(By.xpath("//div[@class='product-popup__price']//span"));
             }
 
+            static ElementData quantity() {
+                return new ElementData(By.xpath("//div[@class='product-popup']//div[contains(@class,'product__cart-counter')]//text()"));
+            }
+
             static ElementData saleBadge() {
                 return new ElementData(By.className("sale-badge"));
             }
@@ -526,10 +530,6 @@ public class Elements {
 
             static ElementData minusButton() {
                 return new ElementData(By.className("popup-cart-actions__btn--left"));
-            }
-
-            static ElementData cartCounter() {
-                return new ElementData(By.className("//*[contains(@class,'product-popup')]//*[contains(@class,'product__cart-counter')]"));
             }
 
             static ElementData notInStock() {
@@ -553,12 +553,20 @@ public class Elements {
                 return new ElementData(By.className("new-cart"));
             }
 
+            static ElementData openButton() {
+                return new ElementData(By.className("open-new-cart"));
+            }
+
             static ElementData closeButton() {
                 return new ElementData(By.className("btn-close-cart"));
             }
 
             static ElementData placeholder() {
                 return new ElementData(By.className("new-cart-empty"));
+            }
+
+            static ElementData alertText() {
+                return new ElementData(By.className("cart-retailer__alert"));
             }
 
             static ElementData checkoutButton() {
@@ -569,28 +577,34 @@ public class Elements {
                 return new ElementData(By.cssSelector(".cart-checkout-link__well > div:nth-child(1)"));
             }
 
-            static ElementData openCartButton() {
-                return new ElementData(By.className("open-new-cart"));
-            }
-
             static ElementData item() {
-                return new ElementData(By.className("cart-line-item"));
+                return new ElementData(
+                        By.xpath("//div[@class='cart-line-item']"),
+                        "ячейка товара");
             }
 
-            static ElementData removeItemButton() {
-                return new ElementData(By.className("cart-line-item__remove"));
+            static ElementData itemUpButton() {
+                return new ElementData(
+                        By.className("//div[@class='cart-line-item']//button[@class='line-item-counter__control'][1]"),
+                        "кнопка увеличения количества товара");
             }
 
-            static ElementData upArrowButton() {
-                return new ElementData(By.className("fa-caret-up"));
+            static ElementData itemQuantity() {
+                return new ElementData(
+                        By.className("//div[@class='cart-line-item']//span[@class='line-item-counter__text']"),
+                        "количество товара");
             }
 
-            static ElementData downArrowButton() {
-                return new ElementData(By.className("fa-caret-down"));
+            static ElementData itemDownButton() {
+                return new ElementData(
+                        By.className("//div[@class='cart-line-item']//button[@class='line-item-counter__control'][2]"),
+                        "кнопка уменьшения количества товара");
             }
 
-            static ElementData alertText() {
-                return new ElementData(By.className("cart-retailer__alert"));
+            static ElementData itemRemoveButton() {
+                return new ElementData(
+                        By.xpath("//div[@class='cart-line-item']//div[@class='cart-line-item__remove']"),
+                        "кнопка удаления товара");
             }
         }
 
@@ -741,14 +755,19 @@ public class Elements {
                 return new ElementData("Удалить", By.linkText("Удалить"));
             }
 
+            /** Селектор дней доставки */
+            static ElementData deliveryDaySelector(int day) {
+                return new ElementData(By.cssSelector("div.panel-tab:nth-child(" + day + ")"));
+            }
+
             /** Итерфейс выбора слота доставки */
             static ElementData deliveryWindowSelector() {
                 return new ElementData(By.className("windows-selector-item"));
             }
 
-            /** Селектор дней доставки */
-            static ElementData deliveryDaySelector(int day) {
-                return new ElementData(By.cssSelector("div.panel-tab:nth-child(" + day + ")"));
+            /** Заглушка при отсутствии доступных слотов доставки в выбранный день */
+            static ElementData deliveryWindowsPlaceholder() {
+                return new ElementData(By.xpath("//div[text()='Интервалы доставки недоступны']"));
             }
 
             /** Интервал слота доставки */

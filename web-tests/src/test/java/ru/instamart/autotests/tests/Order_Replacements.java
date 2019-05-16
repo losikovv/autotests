@@ -9,7 +9,7 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.ReplacementPolicies;
 
-import static ru.instamart.autotests.application.Config.enableOrderReplacementsTests;
+import static ru.instamart.autotests.application.Config.testReplacementsOrders;
 
 public class Order_Replacements extends TestBase {
 
@@ -26,7 +26,7 @@ public class Order_Replacements extends TestBase {
         kraken.reach().checkout();
     }
 
-    @Test(enabled = enableOrderReplacementsTests,
+    @Test(enabled = testReplacementsOrders,
             description = "Тест заказа с политикой Звонить / Заменять",
             groups = {"acceptance","regression"},
             priority = 911
@@ -48,7 +48,7 @@ public class Order_Replacements extends TestBase {
         );
     }
 
-    @Test(enabled = enableOrderReplacementsTests,
+    @Test(enabled = testReplacementsOrders,
             description = "Тест заказа с политикой Звонить / Убирать",
             groups = {"acceptance","regression"},
             priority = 912
@@ -70,7 +70,7 @@ public class Order_Replacements extends TestBase {
         );
     }
 
-    @Test(enabled = enableOrderReplacementsTests,
+    @Test(enabled = testReplacementsOrders,
             description = "Тест заказа с политикой Не звонить / Заменять",
             groups = {"acceptance","regression"},
             priority = 913
@@ -92,7 +92,7 @@ public class Order_Replacements extends TestBase {
         );
     }
 
-    @Test(enabled = enableOrderReplacementsTests,
+    @Test(enabled = testReplacementsOrders,
             description = "Тест заказа с политикой Не звонить / Убирать",
             groups = {"acceptance","regression"},
             priority = 914

@@ -203,6 +203,8 @@ public class PerformHelper extends HelperBase {
             kraken.get().url(startURL);
         }
         authorisation(user);
+        // TODO переделать на проверку наличия ошибки (Пользователь не найден)
+        // TODO + добавить ожидание закрытия модалки авторизации в метод авторизации
         if(multiSessionMode && kraken.detect().isAuthModalOpen()) {
             printMessage(">>> Юзер " + user.getEmail() + " не найден, регистрируем\n");
             // костыль для stage-окружений

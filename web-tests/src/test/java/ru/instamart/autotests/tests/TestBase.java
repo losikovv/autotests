@@ -1,9 +1,9 @@
 package ru.instamart.autotests.tests;
 
-import org.openqa.selenium.remote.BrowserType;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.*;
+import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.appmanager.ApplicationManager;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.ElementData;
@@ -15,10 +15,9 @@ import static ru.instamart.autotests.application.Config.verbose;
 
 // Basic test class
 
-
 public class TestBase {
 
-    protected static final ApplicationManager kraken = new ApplicationManager(BrowserType.CHROME);
+    protected static final ApplicationManager kraken = new ApplicationManager(Config.browser);
 
 
     @BeforeSuite(alwaysRun = true)

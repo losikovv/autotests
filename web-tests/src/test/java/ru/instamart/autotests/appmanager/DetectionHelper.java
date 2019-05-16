@@ -537,11 +537,6 @@ public class DetectionHelper extends HelperBase {
         return isElementDisplayed(Elements.Site.Checkout.juridicalTitle(2));
     }
 
-    /** Определить отображаются ли слоты доставки в чекауте */
-    public boolean isDeliveryWindowSelectorShown() {
-        return isElementPresent(Elements.Site.Checkout.deliveryWindowSelector());
-    }
-
     /** Определить добавлен ли промокод в чекауте */
     public boolean isPromocodeApplied() {
         if (kraken.detect().element(Elements.Site.Checkout.appliedPromocodeAttribute())) {

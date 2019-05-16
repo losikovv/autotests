@@ -136,13 +136,13 @@ public class CheckoutHelper extends HelperBase {
 
     public void chooseReplacementPolicy(ReplacementPolicyData policy) {
         kraken.perform().click(Elements.Site.Checkout.replacementPolicy(policy.getPosition()));
-        printMessage("Выбираем способ осуществления замен #" + policy.getPosition() + " (" + policy.getUserDescription() + ")");
+        printMessage("Выбираем способ замен #" + policy.getPosition() + " (" + policy.getUserDescription() + ")");
     }
 
     public void choosePaymentMethod (PaymentDetailsData paymentDetails) {
         kraken.perform().click(Elements.Site.Checkout.paymentTypeSelector(paymentDetails.getPaymentType().getPosition()));
         String description = paymentDetails.getPaymentType().getDescription();
-        printMessage("Выбираем способ оплаты " + description);
+        printMessage("Выбираем оплату " + description);
 
         if (description.equalsIgnoreCase(PaymentTypes.cardOnline().getDescription())) {
             if (paymentDetails.isNewCreditCard()) {
@@ -183,9 +183,8 @@ public class CheckoutHelper extends HelperBase {
         printMessage("Переключаемся на " + day + " день");
         kraken.perform().click(Elements.Site.Checkout.deliveryDaySelector(day));
         kraken.await().implicitly(1); // Ожидание загрузки слотов дня в чекауте
-        if (!kraken.detect().isDeliveryWindowSelectorShown()) {
-            printMessage("⚠ Медленно подгружаются слоты доставки\n");
-            kraken.await().implicitly(2); // Доп. задержка для загрузки слотов в чекауте при тормозах
+        if (kraken.detect().isElementPresent(Elements.Site.Checkout.deliveryWindowsPlaceholder())){
+            throw new AssertionError("Нет доступных слотов доставки");
         }
         if(slot != 0) {
         printMessage("Выбираем " + slot + " слот ("

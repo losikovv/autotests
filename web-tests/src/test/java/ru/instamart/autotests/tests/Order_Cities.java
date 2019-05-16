@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.instamart.autotests.application.Addresses;
 
-import static ru.instamart.autotests.application.Config.enableOrderCitiesTests;
+import static ru.instamart.autotests.application.Config.testCitiesOrders;
 
 
 // Тесты заказов во всех городах присутсвия
@@ -23,7 +23,7 @@ public class Order_Cities extends TestBase {
         kraken.get().page("metro");
     }
 
-    @Test(enabled = enableOrderCitiesTests,
+    @Test(enabled = testCitiesOrders,
             description = "Тест заказа в Метро Москва",
             groups = {"acceptance","regression"},
             priority = 921
@@ -40,7 +40,7 @@ public class Order_Cities extends TestBase {
     }
 
 
-    @Test(enabled = enableOrderCitiesTests,
+    @Test(enabled = testCitiesOrders,
             description = "Тест заказа в Метро Санкт-Петербург",
             groups = {"acceptance","regression"},
             priority = 922
@@ -57,7 +57,7 @@ public class Order_Cities extends TestBase {
     }
 
 
-    @Test(enabled = enableOrderCitiesTests,
+    @Test(enabled = testCitiesOrders,
             description = "Тест заказа в Метро Казань",
             groups = {"acceptance","regression"},
             priority = 923
@@ -73,7 +73,7 @@ public class Order_Cities extends TestBase {
                 "Не удалось оформить заказ в Метро Казань\n");
     }
 
-    @Test(enabled = enableOrderCitiesTests,
+    @Test(enabled = testCitiesOrders,
             description = "Тест заказа в Метро Екатеринбург",
             groups = {"acceptance","regression"},
             priority = 924
@@ -89,7 +89,7 @@ public class Order_Cities extends TestBase {
                 "Не удалось оформить заказ в Метро Екатеринбург\n");
     }
 
-    @Test(enabled = enableOrderCitiesTests,
+    @Test(enabled = testCitiesOrders,
             description = "Тест заказа в Метро Нижний Новгород",
             groups = {"acceptance","regression"},
             priority = 925
@@ -105,7 +105,7 @@ public class Order_Cities extends TestBase {
                 "Не удалось оформить заказ в Метро Нижний Новгород\n");
     }
 
-    @Test(enabled = enableOrderCitiesTests,
+    @Test(enabled = testCitiesOrders,
             description = "Тест заказа в Метро Ростов-на-Дону",
             groups = {"acceptance","regression"},
             priority = 926
@@ -121,7 +121,7 @@ public class Order_Cities extends TestBase {
                 "Не удалось оформить заказ в Метро Ростов-на-Дону\n");
     }
 
-    @Test(enabled = enableOrderCitiesTests,
+    @Test(enabled = testCitiesOrders,
             description = "Тест заказа в Метро Уфа",
             groups = {"acceptance","regression"},
             priority = 927

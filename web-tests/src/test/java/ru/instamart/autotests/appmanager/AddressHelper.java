@@ -71,7 +71,7 @@ public class AddressHelper extends HelperBase {
             kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Site.AddressModal.saveButton().getLocator()),
                     "Неактивна кнопка сохранения адреса");
         } else {
-            printMessage("Нет адресных подсказок");
+            throw new AssertionError("Нет адресных подсказок, невозможно выбрать адрес");
         }
     }
 

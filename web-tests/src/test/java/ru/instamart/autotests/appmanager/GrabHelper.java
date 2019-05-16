@@ -7,6 +7,7 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.models.ElementData;
 import ru.instamart.autotests.models.EnvironmentData;
 
+import static java.lang.Integer.parseInt;
 import static ru.instamart.autotests.application.Config.verbose;
 
 public class GrabHelper extends HelperBase{
@@ -78,6 +79,11 @@ public class GrabHelper extends HelperBase{
         return kraken.grab().text(Elements.Site.ItemCard.price());
     }
 
+    /** Взять кол-во добавленного в корзину товара из каунтера в карточке */
+    public int itemQuantity() {
+        return parseInt(kraken.grab().text(Elements.Site.ItemCard.quantity()));
+    }
+
     /** Взять целочисленную сумму корзины */
     public int cartTotalRounded() {
        return round(cartTotal());
@@ -129,7 +135,7 @@ public class GrabHelper extends HelperBase{
         kraken.shopping().openCart();
         if (kraken.detect().isElementDisplayed(Elements.Site.Cart.alertText())) {
             String text = text(Elements.Site.Cart.alertText());
-            return Integer.parseInt(((text).substring((text.length() - 8), (text.length() - 3))).replaceAll(
+            return parseInt(((text).substring((text.length() - 8), (text.length() - 3))).replaceAll(
                     "\\s", ""));
         } else return 0;
     }

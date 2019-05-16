@@ -20,20 +20,20 @@ public class CheckHelper extends HelperBase {
     private void orderDocuments(String paymentType) {
         switch (paymentType) {
             case "Переводом":
-                kraken.check().orderDocument("Универсальный передаточный документ");
+                orderDocument("Универсальный передаточный документ");
                 kraken.await().simply(1);
-                kraken.check().orderDocument("Счет");
+                orderDocument("Счет");
                 kraken.await().simply(1);
-                kraken.check().orderDocument("Счет-фактура");
+                orderDocument("Счет-фактура");
                 kraken.await().simply(1);
-                kraken.check().orderDocument("Товарная накладная");
+                orderDocument("Товарная накладная");
                 break;
             default:
-                kraken.check().orderDocument("Универсальный передаточный документ");
+                orderDocument("Универсальный передаточный документ");
                 kraken.await().simply(1);
-                kraken.check().orderDocument("Счет-фактура");
+                orderDocument("Счет-фактура");
                 kraken.await().simply(1);
-                kraken.check().orderDocument("Товарная накладная");
+                orderDocument("Товарная накладная");
                 kraken.await().simply(1);
                 break;
         }
@@ -45,6 +45,6 @@ public class CheckHelper extends HelperBase {
         if (kraken.detect().isElementPresent(docLink)) {
             kraken.perform().click(docLink);
         } else
-            throw new AssertionError("Документ \"" + docname + "\" недоступен на странице " + kraken.grab().currentURL());
+            throw new AssertionError("Документ \"" + docname + "\" недоступен для скачивания\nна странице " + kraken.grab().currentURL());
     }
 }

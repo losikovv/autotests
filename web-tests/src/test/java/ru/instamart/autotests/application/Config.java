@@ -1,11 +1,15 @@
 package ru.instamart.autotests.application;
 
+import org.openqa.selenium.remote.BrowserType;
 import ru.instamart.autotests.models.*;
 
 public class Config {
 
+    // BROWSER
+    public final static String browser = BrowserType.FIREFOX;
+
     // ENVIRONMENT
-    public final static EnvironmentData environment = Environments.instamart_production();
+    public final static EnvironmentData environment = Environments.instamart_staging();
 
     // TIMEOUTS
     public final static int basicTimeout = 2;
@@ -22,13 +26,13 @@ public class Config {
     public final static boolean enableSeoCatalogTests = false;
     public final static boolean enableJivositeTests = true;
     public final static boolean enableRetailRocketTests = false;
-
-    public final static boolean enableOrderRetailersTests = true;
-    public final static boolean enableOrderCitiesTests = true;
-    public final static boolean enableOrderReplacementsTests = true;
-    public final static boolean enableRepeatOrdersTests = true;
-
     public final static boolean enableTenantTests = false;
+
+    // CONFIGURE ORDER TESTS
+    public final static boolean testRetailerOrders = true;
+    public final static boolean testCitiesOrders = true;
+    public final static boolean testReplacementsOrders = true;
+    public final static boolean testRepeatOrders = true;
 
     // GLOBAL CONSTANTS
     public final static String companyName = "instamart";
@@ -44,7 +48,7 @@ public class Config {
     public final static int MetroLowDeliveryPrice = 99;
     public final static int VkusvillDeliveryPrice = 190;
 
-    // DEFAULT TEST ORDER CONFIGURATION
+    // DEFAULT TEST ORDER PARAMETERS
     public static OrderDetailsData testOrderDetails() {
         return new OrderDetailsData(
                 new AddressDetailsData(
@@ -85,9 +89,7 @@ public class Config {
                                 "55555555555555555555"
                         )
                 ),
-                new DeliveryTimeData(
-                        7
-                )
+                new DeliveryTimeData(7)
         );
     }
 }

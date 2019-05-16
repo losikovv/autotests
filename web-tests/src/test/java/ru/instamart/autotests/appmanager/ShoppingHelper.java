@@ -245,7 +245,7 @@ public class ShoppingHelper extends HelperBase {
     public void openCart() {
         if (!kraken.detect().isCartOpen()) {
             if(verbose) printMessage("> открываем корзину");
-            kraken.perform().click(Elements.Site.Cart.openCartButton());
+            kraken.perform().click(Elements.Site.Cart.openButton());
             kraken.await().simply(1); // Ожидание анимации открытия корзины
             kraken.await().fluently(
                     ExpectedConditions.elementToBeClickable(
@@ -275,28 +275,28 @@ public class ShoppingHelper extends HelperBase {
     /** Убрать товар из корзины */
     public void removeItemFromCart() {
         kraken.perform().hoverOn(Elements.Site.Cart.item());
-        kraken.perform().click(Elements.Site.Cart.removeItemButton());
+        kraken.perform().click(Elements.Site.Cart.itemRemoveButton());
         kraken.await().implicitly(1); // Ожидание удаления продукта из корзины
     }
 
     /** Увеличить количество товара в корзине */
     public void increaseItemNumberInCart() {
         kraken.perform().hoverOn(Elements.Site.Cart.item());
-        kraken.perform().click(Elements.Site.Cart.upArrowButton());
+        kraken.perform().click(Elements.Site.Cart.itemUpButton());
         kraken.await().implicitly(1); // Ожидание увеличения количества товара в корзине
     }
 
     /** Уменьшить количество товара в корзине */
     public void decreaseItemNumberInCart() {
         kraken.perform().hoverOn(Elements.Site.Cart.item());
-        kraken.perform().click(Elements.Site.Cart.downArrowButton());
+        kraken.perform().click(Elements.Site.Cart.itemDownButton());
         kraken.await().implicitly(1); // Ожидание уменьшения количества товара в корзине
     }
 
     public void proceedToCheckout(boolean strictly) {
         if (strictly) {
             if(!kraken.detect().isCheckoutButtonActive()){
-                kraken.perform().click(Elements.Site.Cart.upArrowButton());
+                kraken.perform().click(Elements.Site.Cart.itemUpButton());
                 kraken.perform().click(Elements.Site.Cart.checkoutButton());
             }
         }
@@ -309,6 +309,7 @@ public class ShoppingHelper extends HelperBase {
             kraken.perform().click(Elements.Site.Cart.checkoutButton());
         } else {
             kraken.perform().printMessage("Кнопка перехода в чекаут неактивна");
+            throw new AssertionError("Не удается перейти в чекаут");
         }
     }
 
@@ -335,16 +336,30 @@ public class ShoppingHelper extends HelperBase {
             openFirstItemCard();
             int itemPrice = kraken.grab().itemPriceRounded();
             // Формула расчета кол-ва товара
-            int quantity = ((orderSum - cartTotal) / itemPrice) + 1;
+            int neededQuantity = ((orderSum - cartTotal) / itemPrice) + 1;
             printMessage("> добавляем в корзину \""
-                    + kraken.grab().itemName() + "\" x " + quantity + "шт\n"
+                    + kraken.grab().itemName() + "\" x " + neededQuantity + " шт\n"
                     + kraken.grab().currentURL()
                     + "\n");
             // Накидываем товар
-            for (int i = 1; i <= quantity; i++) {
+
+            /*
+            hitPlusButton();
+            kraken.await().implicitly(1);
+            printMessage("В каунтере " + kraken.grab().value(Elements.Site.ItemCard.quantity()));
+            do {
+                kraken.grab().itemQuantity();
+                hitPlusButton();
+            } while (kraken.grab().itemQuantity() < neededQuantity);
+            */
+
+            for (int i = 1; i <= neededQuantity; i++) {
                 hitPlusButton();
                 if(i==1){kraken.await().implicitly(1);}
             }
+            // костыль для докидки товаров если количество меньше требуемого
+            //if(kraken.grab().itemQuantity() < quantity) {}
+
             closeItemCard();
             openCart();
         } else {
