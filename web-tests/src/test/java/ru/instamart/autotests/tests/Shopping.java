@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
@@ -23,7 +24,7 @@ public class Shopping extends TestBase {
 
     @Test(
             description = "Тест недоступности чекаута неавторизованному юзеру",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 651
     )
     public void noAccessToCheckoutForUnauthorizedUser() throws Exception {
@@ -38,6 +39,7 @@ public class Shopping extends TestBase {
     )
     public void noAccessToCheckoutWithEmptyCart() throws Exception {
         kraken.perform().loginAs(session.admin);
+        kraken.get().page("metro");
         kraken.drop().cart();
         assertPageIsUnavailable(Pages.Site.checkout());
     }
@@ -50,12 +52,13 @@ public class Shopping extends TestBase {
     )
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() throws Exception {
         kraken.perform().loginAs(session.user);
+        kraken.get().page("metro");
 
         if (kraken.detect().isCheckoutButtonActive()) {
             kraken.drop().cart();
         }
         if (kraken.detect().isCartEmpty()) {
-            kraken.shopping().closeCart();
+            ShopHelper.Cart.close();
             kraken.search().item("хлеб"); // Костыль для случаев когда первый товар на главной дороже минимального заказа
             kraken.shopping().addFirstItemOnPageToCart();
         }
@@ -74,6 +77,7 @@ public class Shopping extends TestBase {
     )
     public void successCollectItemsForMinOrder() throws Exception, AssertionError {
         kraken.perform().loginAs(session.user);
+        kraken.get().page("metro");
         kraken.drop().cart();
 
         kraken.shopping().collectItems();
@@ -90,6 +94,7 @@ public class Shopping extends TestBase {
     )
     public void successGetCheckoutPageWithCartAboveMinimalOrderSum() throws Exception {
         kraken.perform().loginAs(session.user);
+        kraken.get().page("metro");
         kraken.shopping().collectItems();
 
         assertPageIsAvailable(Pages.Site.checkout());
@@ -103,9 +108,10 @@ public class Shopping extends TestBase {
     )
     public void successProceedFromCartToCheckout() throws Exception, AssertionError {
         kraken.perform().loginAs(session.user);
+        kraken.get().page("metro");
         kraken.shopping().collectItems();
 
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
 
         Assert.assertTrue(kraken.detect().isOnCheckout(),
                 "Не удалось перейти из корзины в чекаут\n");

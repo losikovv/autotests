@@ -1,10 +1,11 @@
 package ru.instamart.autotests.application;
 
 import org.openqa.selenium.By;
-import ru.instamart.autotests.appmanager.ApplicationManager;
 import ru.instamart.autotests.models.CreditCardData;
 import ru.instamart.autotests.models.ElementData;
 import ru.instamart.autotests.models.JuridicalData;
+
+import static ru.instamart.autotests.application.Config.*;
 
 public class Elements {
 
@@ -12,7 +13,8 @@ public class Elements {
     public interface Page500 {
 
         static ElementData placeholder() {
-            return new ElementData("We're sorry, but something went wrong.", By.xpath("/html/body/div/h1"));
+            return new ElementData(By.xpath("//h1[text()='We're sorry, but something went wrong.']"),
+                    "текст ошибки 500");
         }
     }
 
@@ -20,34 +22,39 @@ public class Elements {
     public interface Page404 {
 
         static ElementData title() {
-            return new ElementData(By.xpath("//div[text()='Страница не найдена']"));
+            return new ElementData(By.xpath("//div[text()='Страница не найдена']"),
+                    "текст ошибки на странице 404");
         }
 
         static ElementData catWisdomButton() {
-            return new ElementData("ПОЗНАТЬ КОТОМУДРОСТЬ", By.className("btn--small"));
+            return new ElementData(By.xpath("//a[text()='ПОЗНАТЬ КОТОМУДРОСТЬ']"),
+                    "кнопка \"Познать котомудрость\" на странице 404");
         }
 
+        //todo сделать нормальный локатор
         static ElementData quote() {
             return new ElementData(By.cssSelector(".error-page-slider > div:nth-child(1) >" +
                     " div:nth-child(1) > div:nth-child(1) > div:nth-child(13) > div:nth-child(1)"));
         }
 
+        //todo сделать нормальный локатор
         static ElementData quote(int quoteId) {
             return new ElementData(By.xpath("/html/body/div[1]/div/div/div/div[2]/div[2]/div/div[1]/div/div/div/div/div["+quoteId+"]/div/blockquote"));
         }
 
-        static ElementData homePageButton() {
-            return new ElementData("на главную", By.className(".error-page__link"));
+        static ElementData toHomeButton() {
+            return new ElementData(By.xpath("//a[@class='error-page__link' and text()='на главную']"),
+                    "кнопка \"На главную\" на странице 404");
         }
 
         static ElementData learnPricesButton() {
-            return new ElementData("Познать цены *", By.xpath("/html/body/div[1]/div/div/div/div[2]" +
-                    "/div[2]/div/div[3]/a"));
+            return new ElementData(By.xpath("//a[text()='Познать цены *']"),
+                    "кнопка \"Познать цены\" на странице 404");
         }
 
-        static ElementData showMoreCatWisdom() {
-            return new ElementData("ещё котомудрость", By.cssSelector("li.error-page__links-nav__item:nth-child(2" +
-                    ") > a:nth-child(1)"));
+        static ElementData showMoreWisdomButton() {
+            return new ElementData(By.xpath("//a[@class='error-page__link' and text()='ещё котомудрость']"),
+                    "кнопка \"Еще котомудрость\" на странице 404");
         }
     }
 
@@ -56,7 +63,8 @@ public class Elements {
 
         static ElementData header() {
             return new ElementData(
-                    By.xpath("//*[@class='top-line' and text()='Попробуйте сегодня и получите бесплатную доставку первого заказа!']"));
+                    By.xpath("//*[@class='top-line' and text()='Попробуйте сегодня и получите бесплатную доставку первого заказа!']"),
+                    "рекламный топ-хедер лендинга");
         }
 
         static ElementData addressField() {
@@ -92,49 +100,135 @@ public class Elements {
         /** Шапка сайта */
         interface Header {
 
+            static ElementData container() {
+                return new ElementData(
+                        By.xpath("//header"),
+                            "контейнер шапки сайта");
+            }
+
+            static ElementData shipAddressPlaceholder() {
+                return new ElementData(
+                        By.xpath("//header//div[text()='Укажите ваш адрес для отображения доступных магазинов']"),
+                            "плейсхолдер пустого адреса доставки в шапке");
+            }
+
             static ElementData shipAddressButton() {
-                return new ElementData(By.className("ship-address-selector__edit-btn"));
+                return new ElementData(
+                        By.xpath("//header//button[@class='ship-address-selector__edit-btn']"),
+                            "кнопка выбора/изменения адреса доставки в шапке");
             }
 
             static ElementData currentShipAddress() {
-                return new ElementData(By.className("ship-address-selector__full-address"));
+                return new ElementData(
+                        By.xpath("//header//span[@class='ship-address-selector__full-address']"),
+                            "текущий адрес доставки в шапке");
             }
 
-            static ElementData loginButton() {
-                return new ElementData(By.className("header-login-btn"));
+            static ElementData hotlinePhoneNumber() {
+                return new ElementData(
+                        By.xpath("//header//a[@href='" + companyHotlinePhoneLink + "']//span[text()='" + companyHotlinePhoneNumber + "']"),
+                            "ссылка-телефон горячей линии в шапке");
             }
 
-            static ElementData profileButton() {
-                return new ElementData("Профиль", By.className("header-menu-toggle__btn"));
+            static ElementData hotlineWorkhoursText() {
+                return new ElementData(
+                        By.xpath("//header//span[text()='" + companyHotlineWorkhoursShort + "']"),
+                            "часы работы горячей линии в шапке");
             }
 
-            static ElementData changeStoreButton() {
-                return new ElementData(By.className("search-container-selector__control"));
+            static ElementData logo() {
+                return new ElementData(
+                        By.xpath("//header//div[@class='header-logo']"),
+                            "логотип компании в шапке");
+            }
+
+            static ElementData aboutCompanyButton() {
+                return new ElementData(
+                        By.xpath("//header//a[@class='navbar-button']//span[text()='О компании']"),
+                            "кнопка \"О компании\" в шапке");
+            }
+
+            static ElementData contactsButton() {
+                return new ElementData(
+                        By.xpath("//header//a[@class='navbar-button']//span[text()='Контакты']"),
+                            "кнопка \"Контакты\" в шапке");
+            }
+
+            static ElementData helpButton() {
+                return new ElementData(
+                        By.xpath("//header//a[@class='navbar-button']//span[text()='Помощь']"),
+                            "кнопка \"Помощь\" в шапке");
             }
 
             static ElementData deliveryButton() {
-                return new ElementData(null,
-                        By.cssSelector("button.navbar-button:nth-child(3) > div:nth-child(1)"));
+                return new ElementData(
+                        By.xpath("//header//a[@class='navbar-button']//span[text()='Доставка и оплата']"),
+                            "кнопка \"Доставка и оплата\" в шапке");
+            }
+            static ElementData corporativeCustomersButton() {
+                return new ElementData(
+                        By.xpath("//header//a[@class='navbar-button']//span[text()='Корпоративным клиентам']"),
+                            "кнопка \"Корпоративным клиентам\" в шапке");
             }
 
-            static ElementData partnersButton() {
-                return new ElementData(null,
-                        By.cssSelector("button.navbar-button:nth-child(5) > div:nth-child(1)"));
+            static ElementData mnogoruButton() {
+                return new ElementData(
+                        By.xpath("//header//a[@class='navbar-button']//div[@class='navbar-button__mnogoru']"),
+                        "кнопка \"МногоРу\" в шапке");
+            }
+
+            static ElementData catalogButton() {
+                switch (Config.environment.getTenant()) {
+                    case "metro" :
+                        return new ElementData(By.xpath("//header//button[@class='header__button-catalog']"),
+                                "кнопка открытия каталога категорий в шапке Метро");
+                    default:
+                        return new ElementData(By.xpath("//header//button[contains(@class,'navbar-button--catalog')]"),
+                                "кнопка открытия каталога категорий в шапке");
+                }
+            }
+
+            static ElementData storeButton() {
+                return new ElementData(
+                        By.xpath("//header//div[@class='search-container-selector']"),
+                            "кнопка выбора магазина в шапке");
+            }
+
+            static ElementData loginButton() {
+                return new ElementData(
+                        By.xpath("//header//a[contains(@class,'header-icon--login')]"),
+                        "кнопка \"Войти\" в шапке");
             }
 
             static ElementData favoritesButton() {
-                return new ElementData(By.cssSelector(".favorites-link"));
+                return new ElementData(
+                        By.xpath("//header//a[@class='header-icon' and @href='/user/favorites']"),
+                            "кнопка избранного в шапке");
             }
 
-            /** Поиск товаров */
+            static ElementData profileButton() {
+                return new ElementData(
+                        By.xpath("//header//div[@class='header-menu-toggle__btn']//a[@class='header-icon']"),
+                            "кнопка профиля в шапке");
+            }
+
+            static ElementData cartButton() {
+                return new ElementData(
+                        By.xpath("//header//div[contains(@class,'open-new-cart') and contains(@class,'header-icon')]"),
+                            "кнопка открытия корзины в шапке");
+            }
+
+            /** Поиск в шапке */
             interface Search {
 
-                static ElementData searchField() {
-                    return new ElementData(By.cssSelector(".header-search--active > input:nth-child(1)"));
+                static ElementData inputField() {
+                    return new ElementData(By.xpath("//header//input[@type='search']"),
+                            "поле ввода поиска");
                 }
 
-                static ElementData searchButton() {
-                    return new ElementData(By.cssSelector(".header-search--active > button:nth-child(2)"));
+                static ElementData sendButton() {
+                    return new ElementData(By.xpath("//header//button[@class='header-search__btn']"),
+                            "кнопка отправки поиска");
                 }
 
                 static ElementData categorySuggest() {
@@ -147,99 +241,81 @@ public class Elements {
             }
         }
 
-        /** Модалка "Доставка" */
-        interface DeliveryModal {
-
-            static ElementData popup() {
-                return new ElementData(By.xpath("//*[@class='modal-content']"));
-            }
-
-            static ElementData title() {
-                return new ElementData("Доставка", By.xpath("//*[@class='modal-title']"));
-            }
-
-            static ElementData closeButton() {
-                return new ElementData(By.xpath("//*[@class='modal-content']//button[@class='close']"));
-            }
-        }
-
-        /** Модалка "Партнеры" */
-        interface PartnersModal {
-
-            static ElementData popup() {
-                return new ElementData(By.cssSelector(".modal-lg > div:nth-child(1)"));
-            }
-
-            static ElementData title() {
-                return new ElementData("Наши партнеры", By.cssSelector(".modal-title"));
-            }
-
-            static ElementData closeButton() {
-                return new ElementData(By.cssSelector(".close"));
-            }
-        }
-
-        /** Модалка "Оплата" */
-        interface PaymentModal {
-
-            static ElementData popup() {
-                return new ElementData(By.cssSelector(".modal-lg > div:nth-child(1)"));
-            }
-
-            static ElementData title() {
-                return new ElementData("Какие существуют способы оплаты?", By.cssSelector(".modal-title"));
-            }
-
-            static ElementData closeButton() {
-                return new ElementData(By.cssSelector(".close"));
-            }
-        }
-
-        /** Всплывающее меню "Профиль" */
+        /** Всплывающее меню профиля пользователя */
         interface AccountMenu {
 
             static ElementData popup() {
-                return new ElementData(By.className("account-menu"));
+                return new ElementData(
+                        By.xpath("//div[@class='account-menu']"), "всплывающее меню профиля");
             }
 
             static ElementData header() {
-                return new ElementData(By.className("account-menu__header"));
+
+                return new ElementData(
+                        By.xpath("//div[@class='account-menu']//div[@class='account-menu__header']"),
+                            "заголовок с именем юзера во всплывающем меню профиля");
             }
 
             static ElementData profileButton() {
-                return new ElementData("Профиль", By.linkText("Профиль"));
+                return new ElementData(By.xpath("//div[@class='account-menu']//a[@href='/user/edit']"),
+                        "кнопка \"Профиль\" во всплывающем меню профиля");
             }
 
-            static ElementData ordersButton() {
-                return new ElementData("Заказы", By.linkText("Заказы"));
+            static ElementData ordersHistoryButton() {
+                return new ElementData(By.xpath("//div[@class='account-menu']//a[@href='/user/orders']"),
+                        "кнопка \"История заказов\" во всплывающем меню профиля");
             }
 
             static ElementData termsButton() {
-                return new ElementData("Условия пользования", By.linkText("Условия пользования"));
-            }
-
-            static ElementData blogButton() {
-                return new ElementData("Блог", By.linkText("Блог"));
+                return new ElementData(By.xpath("//div[@class='account-menu']//a[@href='/terms']"),
+                        "кнопка \"Условия пользования\" во всплывающем меню профиля");
             }
 
             static ElementData logoutButton() {
-                return new ElementData("Выйти", By.linkText("Выйти"));
+                return new ElementData(By.xpath("//div[@class='account-menu']//a[@href='/logout']"),
+                        "кнопка \"Выйти\" во всплывающем меню профиля");
             }
 
-            static ElementData deliveryLink() {
-                return new ElementData(By.cssSelector("a.account-menu__footer-link:nth-child(1)"));
+            static ElementData deliveryButton() {
+                return new ElementData(By.xpath("//div[@class='account-menu']//button[text()='Доставка']"),
+                        "кнопка \"Доставка\" во всплывающем меню профиля");
             }
 
-            static ElementData paymentLink() {
-                return new ElementData(By.cssSelector("a.account-menu__footer-link:nth-child(2)"));
+            static ElementData paymentButton() {
+                return new ElementData(By.xpath("//div[@class='account-menu']//button[text()='Оплата']"),
+                        "кнопка \"Оплата\" во всплывающем меню профиля");
             }
 
-            static ElementData faqLink() {
-                return new ElementData(By.cssSelector("a.account-menu__footer-link:nth-child(3)"));
+            static ElementData faqButton() {
+                return new ElementData(By.xpath("//div[@class='account-menu']//a[@href='/faq']"),
+                        "кнопка \"FAQ\" во всплывающем меню профиля");
             }
 
-            static ElementData contactsLink() {
-                return new ElementData(By.cssSelector("a.account-menu__footer-link:nth-child(4)"));
+            static ElementData contactsButton() {
+                return new ElementData(By.xpath("//div[@class='account-menu']//a[@href='/contacts']"),
+                        "кнопка \"Контакты\" во всплывающем меню профиля");
+            }
+        }
+
+        /** Шторка выбора магазинов */
+        interface StoreSelector {
+
+            static ElementData drawer() {
+                return new ElementData(
+                        By.xpath("//div[@class='drawer']//div[@class='store-selector']"),
+                        "шторка выбора магазинов");
+            }
+
+            static ElementData closeButton() {
+                return new ElementData(
+                        By.xpath("//div[@class='drawer']//button[@class='store-selector__close']"),
+                        "кнопка закрытия шторки выбора магазинов");
+            }
+
+            static ElementData placeholder() {
+                return new ElementData(
+                        By.xpath("//div[@class='drawer']//div[@class='store-selector__empty' and text()='Нет доступных магазинов по выбранному адресу']"),
+                            "плейсхолдер пустой шторки выбора магазинов");
             }
         }
 
@@ -247,37 +323,22 @@ public class Elements {
         interface CatalogDrawer {
 
             static ElementData drawer() {
-                return new ElementData(By.xpath("//div[@class='category-menu']"));
+                return new ElementData(By.xpath("//div[@class='drawer']//div[@class='category-menu']"),
+                       "шторка каталога категорий");
             }
 
-            static ElementData openCatalogButton() {
-                switch (Config.environment.getTenant()) {
-                    case "metro" :
-                        return new ElementData(By.xpath("//button[@class='header__button-catalog']"),
-                                "кнопка открытия каталога категорий");
-                    default:
-                        return new ElementData(By.xpath("//button[contains(@class,'navbar-button--catalog')]"),
-                                "кнопка открытия каталога категорий");
-                }
+            static ElementData closeButton() {
+                return new ElementData(By.xpath("//button[@class='category-menu__close']"),
+                        "кнопка закрытия шторки каталога категорий");
             }
-
-            static ElementData closeCatalogButton() {
-                return new ElementData(By.xpath("//button[@class='category-menu__close']"));
-            }
-
-            static ElementData department(int position) {
-                return new ElementData(null, By.xpath("//ul[3]/li[" + (position + 1) + "]/a[1]/div[1]/div[2]"));
-            }
-
-            static ElementData taxon(int categoryNumber, int taxonNumber) { return new ElementData(
-                    By.xpath("//li[" + (categoryNumber + 1) + "]/div[1]/ul[1]/li[" + (taxonNumber + 1) + "]/a[1]/div[1]/div[2]"));
+            static ElementData category(String name) {
+                return new ElementData(By.xpath("//div[@class='category-menu-item__title' and text()='"+name+"']//ancestor::li[@class='category-menu-item']"),
+                        "категория \"" + name + "\"");
             }
         }
 
 
-        /**
-         * Страницы категорий/таксонов
-         */
+        /** Страницы категорий/таксонов */
         interface CategoryPage {
 
             static ElementData title() {
@@ -345,9 +406,9 @@ public class Elements {
                         By.cssSelector(".auth-modal__recovery-text > span:nth-child(1)"));
             }
 
-            static ElementData errorMessage(String errorText) {
+            static ElementData errorMessage(String text) {
                 return new ElementData(null,
-                        (By.xpath("//*[contains(@class, 'auth-input__error') and contains(text(),'" + errorText + "')]")));
+                        (By.xpath("//*[contains(@class, 'auth-input__error') and contains(text(),'" + text + "')]")));
             }
 
             static ElementData vkontakte() {
@@ -361,6 +422,7 @@ public class Elements {
             }
         }
 
+        // TODO update locators
         /** Адресные модалки Феникса */
         interface AddressModal {
 
@@ -433,22 +495,6 @@ public class Elements {
             }
         }
 
-        /** Селектор магазинов */
-        interface StoreSelector {
-
-            static ElementData drawer() {
-                return new ElementData(By.className("store-selector"));
-            }
-
-            static ElementData closeButton() {
-                return new ElementData(By.className("store-selector__close"));
-            }
-
-            static ElementData placeholder() {
-                return new ElementData("Нет доступных магазинов по выбранному адресу", By.className("store-selector__empty"));
-            }
-        }
-
         /** Каталог товаров */
         interface Catalog {
 
@@ -456,40 +502,51 @@ public class Elements {
                 return new ElementData(By.cssSelector(".resource-not-found__message-block"));
             }
 
-            static ElementData product() {
-                return new ElementData(By.xpath("//*[@class='product' or @class='favorite-product' or @class='category-product']"));
-            }
+            interface Product {
+                static ElementData snippet() {
+                    return new ElementData(By.xpath("//*[@class='product']"),
+                            "сниппет продукта");
+                }
 
-            static ElementData plusButton() {
-                return new ElementData(By.className("fa-plus"));
-            }
+                static ElementData plusButton() {
+                    return new ElementData(By.xpath("//*[@class='product']//div[contains(@class,'add-cart__up')]"),
+                            "кнопка \"+\" в сниппете продукта");
+                }
 
-            static ElementData addToFavoritesButton() {
-                return new ElementData(By.className("favorite-button-default"));
-            }
+                static ElementData minusButton() {
+                    return new ElementData(By.xpath("//*[@class='product']//div[contains(@class,'add-cart__down')]"),
+                            "кнопка \"-\" в сниппете продукта");
+                }
 
-            static ElementData minusButton() { return new ElementData(By.className("fa-minus"));
+                static ElementData favButton() {
+                    return new ElementData(By.xpath("//*[@class='product']//div[contains(@class,'favorite-button')]"),
+                            "кнопка избранного в сниппете продукта");
+                }
             }
-
         }
 
         /** SEO-каталог */
         interface SeoCatalog {
-
+            //TODO update locators and logic
             static ElementData product() {
                 return new ElementData(By.className("category-product"));
             }
         }
 
         /** Модалка обновления цен */
-        interface RefreshPricesModal { //TODO добавить проверку в hitPlus в карточке товара
+        //TODO добавить проверку на модалку перед hitPlus в метод набора корзины
+        interface PricesModal {
 
             static ElementData popup() {
-                return new ElementData(By.className("prices-modal"));
+                return new ElementData(
+                        By.xpath("//div[contains(@class,'prices-modal')]"),
+                            "поп-ап модалки обновления цен");
             }
 
             static ElementData refreshPricesButton() {
-                return new ElementData(By.className("prices-modal__btn"));
+                return new ElementData(By.className("//div[contains(@class,'prices-modal')]//a[@class='prices-modal__btn']"),
+                            "кнопка обновления в модалке цен"
+                );
             }
         }
 
@@ -513,7 +570,8 @@ public class Elements {
             }
 
             static ElementData quantity() {
-                return new ElementData(By.xpath("//div[@class='product-popup']//div[contains(@class,'product__cart-counter')]//text()"));
+                return new ElementData(By.xpath("//div[@class='product-popup']//div[contains(@class,'product__cart-counter')]"),
+                "каунтер количества добавленного в корзину товара в карточке товара");
             }
 
             static ElementData saleBadge() {
@@ -550,61 +608,64 @@ public class Elements {
         interface Cart {
 
             static ElementData drawer() {
-                return new ElementData(By.className("new-cart"));
-            }
-
-            static ElementData openButton() {
-                return new ElementData(By.className("open-new-cart"));
+                return new ElementData(By.xpath("//div[@class='drawer']//div[@class='new-cart']"),
+                        "шторка корзины");
             }
 
             static ElementData closeButton() {
-                return new ElementData(By.className("btn-close-cart"));
+                return new ElementData(By.xpath("//div[@class='new-cart']//*[@class='btn-close-cart']"),
+                        "кнопка закрытия корзины");
             }
 
             static ElementData placeholder() {
-                return new ElementData(By.className("new-cart-empty"));
+                return new ElementData(By.xpath("//div[@class='new-cart']//div[@class='new-cart-empty__text' and text()='Ваша корзина пуста']"),
+                        "плейсхолдер пустой корзины");
             }
 
             static ElementData alertText() {
-                return new ElementData(By.className("cart-retailer__alert"));
-            }
-
-            static ElementData checkoutButton() {
-                return new ElementData(By.className("cart-checkout-link"));
-            }
-
-            static ElementData total() {
-                return new ElementData(By.cssSelector(".cart-checkout-link__well > div:nth-child(1)"));
+                return new ElementData(By.xpath("//div[@class='new-cart']//div[@class='cart-retailer__alert']"),
+                        "алерт с суммой минимального заказа в корзине");
             }
 
             static ElementData item() {
                 return new ElementData(
-                        By.xpath("//div[@class='cart-line-item']"),
-                        "ячейка товара");
+                        By.xpath("//div[@class='new-cart']//div[@class='cart-line-item']"),
+                        "ячейка товара в корзине");
             }
 
             static ElementData itemUpButton() {
                 return new ElementData(
-                        By.className("//div[@class='cart-line-item']//button[@class='line-item-counter__control'][1]"),
-                        "кнопка увеличения количества товара");
+                        By.className("//div[@class='new-cart']//div[@class='cart-line-item']//button[@class='line-item-counter__control'][1]"),
+                        "кнопка увеличения количества товара в корзине");
             }
 
             static ElementData itemQuantity() {
                 return new ElementData(
-                        By.className("//div[@class='cart-line-item']//span[@class='line-item-counter__text']"),
-                        "количество товара");
+                        By.className("//div[@class='new-cart']//div[@class='cart-line-item']//span[@class='line-item-counter__text']"),
+                        "количество товара в корзине");
             }
 
             static ElementData itemDownButton() {
                 return new ElementData(
-                        By.className("//div[@class='cart-line-item']//button[@class='line-item-counter__control'][2]"),
-                        "кнопка уменьшения количества товара");
+                        By.className("//div[@class='new-cart']//div[@class='cart-line-item']//button[@class='line-item-counter__control'][2]"),
+                        "кнопка уменьшения количества товара в корзине");
             }
 
             static ElementData itemRemoveButton() {
                 return new ElementData(
-                        By.xpath("//div[@class='cart-line-item']//div[@class='cart-line-item__remove']"),
-                        "кнопка удаления товара");
+                        By.xpath("//div[@class='new-cart']//div[@class='cart-line-item']//div[@class='cart-line-item__remove']"),
+                        "кнопка удаления товара в корзине");
+            }
+
+            static ElementData checkoutButton() {
+                return new ElementData(By.xpath("//div[@class='new-cart']//button[@class='cart-checkout-link']"),
+                        "кнопка \"Сделать заказ\" в корзине");
+            }
+
+            static ElementData total() {
+                //return new ElementData(By.cssSelector(".cart-checkout-link__well > div:nth-child(1)"));
+                return new ElementData(By.xpath("//div[@class='new-cart']//div[@class='cart-checkout-link__well']/child::div"),
+                        "сумма корзины");
             }
         }
 
@@ -613,10 +674,6 @@ public class Elements {
 
             static ElementData container() {
                 return new ElementData(By.className("user-wrapper__container"));
-            }
-
-            static ElementData product() {
-                return new ElementData(By.className("favorite-product"));
             }
 
             static ElementData placeholder() {
@@ -647,66 +704,188 @@ public class Elements {
                 return new ElementData(By.xpath("//*[@id='wrap']/div/div/div/div/div[2]" + "/div/div[2]/div[2]/a[31]"));
             }
 
-            static ElementData deleteFromFavoritesButton() {
-                return new ElementData(By.className("favorite-button--active"));
+            interface Product {
+                static ElementData snippet() {
+                    return new ElementData(By.xpath("//*[@class='favorite-product']"),
+                            "сниппет любимого продукта");
+                }
+
+                static ElementData plusButton() {
+                    return new ElementData(By.xpath("//*[@class='favorite-product']//button[@class='bt bt--buy cart-actions__btn cart-actions__btn--visible']"),
+                            "кнопка \"+\" в сниппете любимого продукта");
+                }
+
+                static ElementData minusButton() {
+                    return new ElementData(By.xpath("//*[@class='favorite-product']//button[contains(@class,'cart-actions__btn--left')]"),
+                            "кнопка \"-\" в сниппете любимого продукта");
+                }
+
+                static ElementData favButton() {
+                    return new ElementData(By.xpath("//*[@class='favorite-product']//div[contains(@class,'favorite-button')]"),
+                            "кнопка избранного в сниппете любимого продукта");
+                }
+            }
+        }
+
+        /** Модалка "Доставка" */
+        interface DeliveryModal {
+
+            static ElementData popup() {
+                return new ElementData(By.xpath("//*[@class='modal-content']"));
+            }
+
+            static ElementData title() {
+                return new ElementData("Доставка", By.xpath("//*[@class='modal-title']"));
+            }
+
+            static ElementData closeButton() {
+                return new ElementData(By.xpath("//*[@class='modal-content']//button[@class='close']"));
+            }
+        }
+
+        /** Модалка "Партнеры" */
+        interface PartnersModal {
+
+            static ElementData popup() {
+                return new ElementData(By.cssSelector(".modal-lg > div:nth-child(1)"));
+            }
+
+            static ElementData title() {
+                return new ElementData("Наши партнеры", By.cssSelector(".modal-title"));
+            }
+
+            static ElementData closeButton() {
+                return new ElementData(By.cssSelector(".close"));
+            }
+        }
+
+        /** Модалка "Оплата" */
+        interface PaymentModal {
+
+            static ElementData popup() {
+                return new ElementData(By.cssSelector(".modal-lg > div:nth-child(1)"));
+            }
+
+            static ElementData title() {
+                return new ElementData("Какие существуют способы оплаты?", By.cssSelector(".modal-title"));
+            }
+
+            static ElementData closeButton() {
+                return new ElementData(By.cssSelector(".close"));
             }
         }
 
         /** Футер */
-        static ElementData footer() {
-            return new ElementData(By.className("footer"));
-        }
-
         interface Footer {
 
-            static ElementData aboutCompanyButton() {
-                return new ElementData(By.xpath("//a[@class='footer__link' and text()='О компании']"),
+            static ElementData container() {
+                return new ElementData(By.xpath("//footer[@id='new-home-footer']"),
+                        "блок футера");
+            }
+
+            static ElementData info() {
+                return new ElementData(By.xpath("//div[@class='footer-info']"),
+                        "сео-инфоблок над футером");
+            }
+
+            static ElementData instamartLogo() {
+                return new ElementData(By.xpath("//footer//div[@class='footer__logo']"),
+                        "логотип \"Инстамарт\" в футере");
+            }
+
+            static ElementData instamartTitle() {
+                return new ElementData(By.xpath("//footer//div[@class='footer__title' and text()='Инстамарт']"),
+                        "подзаголовок \"Инстамарт\" в футере");
+            }
+
+            static ElementData aboutCompanyLink() {
+                return new ElementData(By.xpath("//footer//a[@class='footer__link' and text()='О компании']"),
                         "ссылка \"О компании\" в футере");
             }
 
-            static ElementData contactsButton() {
-                return new ElementData(By.xpath("//a[@class='footer__link' and text()='Контакты']"),
+            static ElementData vacanciesLink() {
+                return new ElementData(By.xpath("//footer//a[@class='footer__link' and text()='Вакансии']"),
+                        "ссылка \"Вакансии\" в футере");
+            }
+
+            static ElementData partnersButton() {
+                return new ElementData(By.xpath("//footer//button[@class='footer__link' and text()='Партнеры']"),
+                        "ссылка \"Партнеры\" в футере");
+            }
+
+            static ElementData contactsLink() {
+                return new ElementData(By.xpath("//footer//a[@class='footer__link' and text()='Контакты']"),
                         "ссылка \"Контакты\" в футере");
             }
 
+            static ElementData customerHelpTitle() {
+                return new ElementData(By.xpath("//footer//div[@class='footer__title' and contains(text(),'Помощь')]"),
+                        "подзаголовок \"Помощь покупателю\" в футере");
+            }
+
             static ElementData deliveryButton() {
-                return new ElementData(By.xpath("//button[@class='footer__link' and text()='Доставка']"),
+                return new ElementData(By.xpath("//footer//button[@class='footer__link' and text()='Доставка']"),
                         "ссылка \"Доставка\" в футере");
             }
 
             static ElementData paymentButton() {
-                return new ElementData(By.xpath("//button[@class='footer__link' and text()='Оплата']"),
+                return new ElementData(By.xpath("//footer//button[@class='footer__link' and text()='Оплата']"),
                         "ссылка \"Оплата\" в футере");
             }
 
-            static ElementData partnersButton() {
-                return new ElementData(By.xpath("//button[@class='footer__link' and text()='Партнеры']"),
-                        "ссылка \"Партнеры\" в футере");
-            }
-
             static ElementData faqButton() {
-                return new ElementData(By.xpath("//a[@class='footer__link' and text()='FAQ']"),
+                return new ElementData(By.xpath("//footer//a[@class='footer__link' and text()='FAQ']"),
                         "ссылка \"FAQ\" в футере");
             }
 
-            static ElementData feedbackFormButton() {
-                return new ElementData(By.xpath("//a[@class='footer__link' and text()='Форма обратной связи']"),
-                        "ссылка на обратную связь в футере");
+            static ElementData hotlinePhoneNumber() {
+                return new ElementData(By.xpath("//footer//a[@href='" + companyHotlinePhoneLink + "' and text()='" + companyHotlinePhoneNumber + "']"),
+                        "телефон-ссылка горячей линии в футере");
             }
 
-            static ElementData returnPolicyButton() {
-                return new ElementData(By.xpath("//a[@class='info-link' and text()='Политика возврата']"),
+            static ElementData hotlineWorkhoursText() {
+                return new ElementData(By.xpath("//footer//span[text()='" + companyHotlineWorkhours + "']"),
+                        "время работы горячей линии в футере");
+            }
+
+            static ElementData facebookButton() {
+                return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='https://www.facebook.com/instamart.ru']"),
+                        "кнопка \"Facebook\" в футере");
+            }
+
+            static ElementData vkontakteButton() {
+                return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='http://vk.com/instamart']"),
+                        "кнопка \"Вконтакте\" в футере");
+            }
+
+            static ElementData instagramButton() {
+                return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='https://www.instagram.com/instamart']"),
+                        "кнопка \"Instagram\" в футере");
+            }
+
+            static ElementData appstoreButton() {
+                return new ElementData(By.xpath("//footer//a[@href='https://app.adjust.com/zgmyh1y?campaign=footer'][1]"),
+                        "кнопка \"Appstore\" в футере");
+            }
+
+            static ElementData googlePlayButton() {
+                return new ElementData(By.xpath("//footer//a[@href='https://app.adjust.com/zgmyh1y?campaign=footer'][2]"),
+                        "кнопка \"GooglePlay\" в футере");
+            }
+
+            static ElementData returnsPolicyLink() {
+                return new ElementData(By.xpath("//footer//a[contains(@class,'footer__link') and text()='Политика возврата']"),
                         "ссылка на политику возвратов в футере");
             }
 
-            static ElementData publicOfferButton() {
-                return new ElementData(By.xpath("//a[@class='info-link' and text()='Публичная оферта']"),
-                        "ссылка на публичную в футере");
+            static ElementData personalDataPolicyLink() {
+                return new ElementData(By.xpath("//footer//a[contains(@class,'footer__link') and text()='Обработка персональных данных']"),
+                        "ссылка на политику обработки персональных данных в футере");
             }
 
-            static ElementData personalDataPolicyButton() {
-                return new ElementData(By.xpath("//a[@class='info-link' and text()='Политика обработки персональных данных']"),
-                        "ссылка на политику персональных данных в футере");
+            static ElementData publicOfferLink() {
+                return new ElementData(By.xpath("//footer//a[contains(@class,'footer__link') and text()='Публичная оферта']"),
+                        "ссылка на публичную оферту в футере");
             }
         }
 
@@ -1100,216 +1279,60 @@ public class Elements {
     public interface Admin {
 
         static ElementData container() {
-            return new ElementData(By.className("admin"));
+            return new ElementData(By.xpath("//body[@class='admin']"),
+                    "контейнер админки");
+        }
+
+        static ElementData menuButton(String name) {
+            return new ElementData(By.xpath("//nav[@id='admin-menu']//span[text()='" + name + "']"),
+                    "кнопка \"" + name + "\" в навигационном меню админки");
+        }
+
+        static ElementData submenuButton(String name) {
+            return new ElementData(By.xpath("//nav[@class='admin-sub-menu']//*[text()='" + name + "']"),
+                    "кнопка \"" + name + "\" в навигационном субменю админки");
         }
 
         /** Шапка админки */
         interface Header {
 
+            static ElementData logo() {
+                return new ElementData(By.xpath("//header//img[@id='logo']"),
+                        "логотип в шапке админки");
+            }
+
+            static ElementData userAccount() {
+                return new ElementData(By.xpath("//header//li[@data-hook='user-logged-in-as']"),
+                        "учетка пользователя в шапке админки");
+            }
+
             static ElementData logoutButton() {
-                return new ElementData(By.xpath("//*[@id='login-nav']/li[3]/a"));
+                return new ElementData(By.xpath("//header//a[text()='Выйти']"),
+                        "кнопка \"Выйти\" в шапке админки");
             }
 
-            static ElementData profileButton() {
-                return new ElementData("Учетная запись", By.xpath("//*[@id='login-nav']/li[2]/a"));
+            static ElementData accountButton() {
+                return new ElementData(By.xpath("//header//a[text()='Учетная запись']"),
+                        "кнопка \"Учетная запись\"");
             }
 
-            static ElementData backToListButton() {
-                return new ElementData("Назад к списку", By.xpath("//*[@id='login-nav']/li[4]/a"));
-            }
-
-            /** Меню админки */
-            interface Menu {
-
-                static ElementData ordersButton() {
-                    return new ElementData(By.xpath("//*[contains(@href,'/admin/shipments')]//*[contains(text(),'Заказы')]"));
-                }
-
-                static ElementData storesButton() {
-                    return new ElementData("Магазины", By.xpath("//*[@id='admin-menu']/div/div/ul/li[2]/a/span"));
-                }
-
-                static ElementData productsButton() {
-                    return new ElementData("Продукты", By.xpath("//*[@id='admin-menu']/div/div/ul/li[3]/a/span"));
-                }
-
-                static ElementData importButton() {
-                    return new ElementData("Импорт", By.xpath("//*[@id='admin-menu']/div/div/ul/li[4]/a/span"));
-                }
-
-                static ElementData reportsButton() {
-                    return new ElementData("Отчеты", By.xpath("//*[@id='admin-menu']/div/div/ul/li[5]/a/span"));
-                }
-
-                static ElementData settingsButton() {
-                    return new ElementData("Настройки", By.xpath("//*[@id='admin-menu']/div/div/ul/li[6]/a/span"));
-                }
-
-                static ElementData marketingButton() {
-                    return new ElementData("Маркетинг", By.xpath("//*[@id='admin-menu']/div/div/ul/li[7]/a/span"));
-                }
-
-                static ElementData usersButton() {
-                    return new ElementData("Пользователи", By.xpath("//*[@id='admin-menu']/div/div/ul/li[8]/a/span"));
-                }
-
-                static ElementData pagesButton() {
-                    return new ElementData("Страницы", By.xpath("//*[@id='admin-menu']/div/div/ul/li[9]/a/span"));
-                }
-            }
-
-            /** Подменю "Заказы" */
-            interface SubmenuOrders {
-
-                static ElementData multiOrderButton() {
-                    return new ElementData("Мульти заказ", By.xpath("//*[@id='sub_nav']/li[1]/a"));
-
-                }
-
-                static ElementData exportButton() {
-                    return new ElementData("Export", By.xpath("//*[@id='sub_nav']/li[2]/a"));
-                }
-
-                static ElementData veerouteButton() {
-                    return new ElementData("Veeroute", By.xpath("//*[@id='sub_nav']/li[3]/a"));
-                }
-            }
-
-            /** Подменю "Магазины" */
-            interface SubmenuStores {
-
-                static ElementData retailersButton() {
-                    return new ElementData("Ритейлеры", By.xpath("//*[@id='sub_nav']/li[1]/a"));
-                }
-
-                static ElementData zonesButton() {
-                    return new ElementData("Зоны", By.xpath("//*[@id='sub_nav']/li[2]/a"));
-                }
-            }
-
-            /** Подменю "Продукты" */
-            interface SubmenuProducts {
-
-                static ElementData subProductsButton() {
-                    return new ElementData("Продукты", By.xpath("//*[@id='sub_nav']/li[1]/a"));
-                }
-
-                static ElementData productsStatsButton() {
-                    return new ElementData("Статистика", By.xpath("//*[@id='sub_nav']/li[2]/a"));
-                }
-
-                static ElementData optionTypesButton() {
-                    return new ElementData("Option Types", By.xpath("//*[@id='sub_nav']/li[3]/a"));
-                }
-
-                static ElementData propertiesButton() {
-                    return new ElementData("Properties", By.xpath("//*[@id='sub_nav']/li[4]/a"));
-                }
-
-                static ElementData prototypesButton() {
-                    return new ElementData("Prototypes", By.xpath("//*[@id='sub_nav']/li[5]/a"));
-                }
-
-                static ElementData brandsButtton() {
-                    return new ElementData("Бренды", By.xpath("//*[@id='sub_nav']/li[6]/a"));
-                }
-
-                static ElementData producersButton() {
-                    return new ElementData("Производители", By.xpath("//*[@id='sub_nav']/li[7]/a"));
-                }
-
-                static ElementData producersCountriesButton() {
-                    return new ElementData("Страны производства", By.xpath("//*[@id='sub_nav']/li[8]/a"));
-                }
-            }
-
-            /** Подменю "Импорт" */
-            interface SubmenuImport {
-
-                static ElementData queueOfTasksButton() {
-                    return new ElementData("Очередь задач", By.xpath("//*[@id='sub_nav']/li[1]/a"));
-                }
-
-                static ElementData importStatsButton() {
-                    return new ElementData("Статистика", By.xpath("//*[@id='sub_nav']/li[2]/a"));
-                }
-
-                static ElementData archiveButton() {
-                    return new ElementData("Архив", By.xpath("//*[@id='sub_nav']/li[3]/a"));
-                }
-
-                static ElementData blackListButton() {
-                    return new ElementData("Черный список Gm", By.xpath("//*[@id='sub_nav']/li[4]/a"));
-                }
-
-                static ElementData categoryButton() {
-                    return new ElementData("Категории", By.xpath("//*[@id='sub_nav']/li[5]/a"));
-                }
-
-                static ElementData filtersButton() {
-                    return new ElementData("Фильтры", By.xpath("//*[@id='sub_nav']/li[6]/a"));
-                }
-
-                static ElementData importProductsButton() {
-                    return new ElementData("Продукты", By.xpath("//*[@id='sub_nav']/li[7]/a"));
-                }
-
-                static ElementData priceButton() {
-                    return new ElementData("Цены", By.xpath("//*[@id='sub_nav']/li[8]/a"));
-                }
-
-                static ElementData imagesButton() {
-                    return new ElementData("Изображения", By.xpath("//*[@id='sub_nav']/li[9]/a"));
-                }
-            }
-
-            /** Подменю "Маркетинг" */
-            interface SubmenuMarketing {
-
-                static ElementData promoCardsButton() {
-                    return new ElementData("Промо карточки", By.xpath("//*[@id='sub_nav']/li[1]/a/span"));
-                }
-
-                static ElementData promoActionButton() {
-                    return new ElementData("Промо акции", By.xpath("//*[@id='sub_nav']/li[2]/a/span"));
-                }
-
-                static ElementData welcomeBannersButton() {
-                    return new ElementData("Welcome баннеры", By.xpath("//*[@id='sub_nav']/li[3]/a/span"));
-                }
-
-                static ElementData advertisementButton() {
-                    return new ElementData("Реклама", By.xpath("//*[@id='sub_nav']/li[4]/a/span"));
-                }
-
-                static ElementData yandexMarketButton() {
-                    return new ElementData("Яндекс.Маркет", By.xpath("//*[@id='sub_nav']/li[5]/a/span"));
-                }
-
-                static ElementData cartsButton() {
-                    return new ElementData("Корзины", By.xpath("//*[@id='sub_nav']/li[6]/a/span"));
-                }
-
-                static ElementData bonusCardsButton() {
-                    return new ElementData("Бонусные карты", By.xpath("//*[@id='sub_nav']/li[7]/a/span"));
-                }
-
-
-                static ElementData retailersProgramsButton() {
-                    return new ElementData("Программы ритейлеров", By.xpath("//*[@id='sub_nav']/li[8]/a/span"));
-                }
-
-                static ElementData newCitiesButton() {
-                    return new ElementData("Новые Города", By.xpath("//*[@id='sub_nav']/li[9]/a/span"));
-                }
+            static ElementData backButton() {
+                return new ElementData(By.xpath("//header//a[text()='Назад к списку']"),
+                        "кнопка \"Назад к списку\"");
             }
         }
 
         /** Раздел Shipments в админке */
         interface Shipments {
 
-            static ElementData emptyListPlaceholder() {
+            static ElementData placeholder() {
                 return new ElementData(By.className("no-objects-found"));
+            }
+
+            static ElementData filter(String name) {
+                return new ElementData(
+                        By.xpath("//label[text()='Способ оплаты']//following-sibling::div//input"),
+                        "фильтр заказов \"" + name + "\"");
             }
 
             static ElementData firstOrderInTable() {
@@ -1328,13 +1351,36 @@ public class Elements {
                 return new ElementData(By.id("search_number"));
             }
 
-            static ElementData searchButton() {
-                return new ElementData(By.xpath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[1]/form[1]" +
-                                "/div[7]/div[1]/button[1]"));
+
+
+            static ElementData completedOnlyCheckbox() {
+                return new ElementData(By.id("search_only_completed"),
+                        "чекбокс \"Показывать только завершенные заказы\"");
             }
 
-            static ElementData b2bCheckbox() {
-                return new ElementData(By.id("search_only_b2b"));
+            static ElementData b2bOnlyCheckbox() {
+                return new ElementData(By.id("search_only_b2b"),
+                        "чекбокс \"Только B2B клиенты\"");
+            }
+
+            static ElementData metroOnlyCheckbox() {
+                return new ElementData(By.id("search_tenant"),
+                        "чекбокс \"Только заказы с сайта метро\"");
+            }
+
+            static ElementData deliveryChangedOnlyCheckbox() {
+                return new ElementData(By.id("search_delivery_window_changed"),
+                        "чекбокс \"Только с переносом времени доставки\"");
+            }
+
+            static ElementData searchButton() {
+                return new ElementData(By.xpath("//button[@class='icon-search button']"),
+                        "кнопка \"Применить фильтр\"");
+            }
+
+            static ElementData dismissButton() {
+                return new ElementData(By.xpath("//a[@class='button icon-remove']"),
+                        "кнопка \"Сбросить фильтр\"");
             }
 
             interface Order {

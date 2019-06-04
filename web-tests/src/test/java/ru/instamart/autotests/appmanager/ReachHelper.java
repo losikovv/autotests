@@ -17,19 +17,19 @@ public class ReachHelper extends HelperBase {
         if(!kraken.detect().isOnCheckout()){
             kraken.perform().refresh(); // Скипаем возможный алерт о минимальном заказе
             kraken.shopping().collectItems();
-            kraken.shopping().proceedToCheckout();
+            ShopHelper.Cart.proceedToCheckout();
         }
     }
 
-    public void admin() throws Exception{
+    public void admin() {
         admin("");
     }
 
-    public void admin(Pages page) throws Exception {
+    public void admin(Pages page) {
         admin(getPagePath());
     }
 
-    public void admin(String path) throws Exception{
+    public void admin(String path) {
         kraken.get().adminURL();
         if (kraken.detect().isOnSite()) {
             kraken.perform().quickLogout();

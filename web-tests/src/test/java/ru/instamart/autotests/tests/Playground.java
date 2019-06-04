@@ -1,9 +1,9 @@
 package ru.instamart.autotests.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
+import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.models.*;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
@@ -65,7 +65,7 @@ public class Playground extends TestBase {
         kraken.get().page(Pages.Site.Retailers.metro());
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
 
         OrderDetailsData details = new OrderDetailsData();
         details.setAddressDetails(
@@ -109,7 +109,7 @@ public class Playground extends TestBase {
     @Test
     public void cancelTestOrders() throws Exception {
         kraken.cleanup().orders();
-        Assert.assertFalse(kraken.detect().element(Elements.Admin.Shipments.emptyListPlaceholder()),
+        Assert.assertFalse(kraken.detect().element(Elements.Admin.Shipments.placeholder()),
                 "Отменились не все тестовые заказы\n");
     }
 
@@ -131,10 +131,10 @@ public class Playground extends TestBase {
     @Test
     public void catalog() throws Exception {
         kraken.get().page("metro");
-        kraken.await().simply(5);
-        kraken.shopping().openCatalog();
-        kraken.await().simply(5);
-        kraken.perform().click(By.xpath("//a[contains(text(),'Овощи и фрукты')]"));
-        kraken.await().simply(5);
+        //kraken.await().simply(5);
+        ShopHelper.CatalogDrawer.open();
+        //kraken.await().simply(5);
+        ShopHelper.CatalogDrawer.close();
+       // kraken.await().simply(5);
     }
 }

@@ -13,10 +13,11 @@ public class Config {
 
     // TIMEOUTS
     public final static int basicTimeout = 2;
-    public final static int waitingTimeout = 10;
+    public final static int waitingTimeout = 15;
 
     // TEST EXECUTION SETTINGS
-    public final static boolean verbose = false;
+    public final static boolean verbose = true;
+    public final static boolean debug = false;
     public final static boolean multiSessionMode = false;
     public final static boolean fullScreenMode = false;
     public final static boolean doCleanupAfterTestRun = true;
@@ -27,6 +28,8 @@ public class Config {
     public final static boolean enableJivositeTests = true;
     public final static boolean enableRetailRocketTests = false;
     public final static boolean enableTenantTests = false;
+    public final static boolean enablePage404Tests = false;
+
 
     // CONFIGURE ORDER TESTS
     public final static boolean testRetailerOrders = true;
@@ -34,21 +37,29 @@ public class Config {
     public final static boolean testReplacementsOrders = true;
     public final static boolean testRepeatOrders = true;
 
-    // GLOBAL CONSTANTS
+    // COMPANY PARAMS
     public final static String companyName = "instamart";
     public final static String companyDomain = companyName + ".ru";
+    public final static String companyHotlinePhoneNumber = "+7 800 222-11-00";
+    public final static String companyHotlinePhoneLink = "tel:+78002221100";
+    public final static String companyHotlineWorkhours = "с 7:00 до 24:00";
+    public final static String companyHotlineWorkhoursShort = "7:00 - 24:00";
+
+
+    // TEST PARAMS
     public final static String testDomain = "example.com";
     public final static String testMark = "autotest";
     public final static String testOrder = "R384014557";
     public final static String testShipment = "H44617031667";
+
+    // DELIVERY PARAMS // TODO убрать, определять стоимость доставки во время тестов
     public final static int minOrderSum = 2000;
-    // TODO убрать, определять стоимость доставки во время тестов
     public final static int MetroHighDeliveryPrice = 299;
     public final static int MetroMediumDeliveryPrice = 199;
     public final static int MetroLowDeliveryPrice = 99;
     public final static int VkusvillDeliveryPrice = 190;
 
-    // DEFAULT TEST ORDER PARAMETERS
+    // DEFAULT TEST ORDER PARAMS
     public static OrderDetailsData testOrderDetails() {
         return new OrderDetailsData(
                 new AddressDetailsData(

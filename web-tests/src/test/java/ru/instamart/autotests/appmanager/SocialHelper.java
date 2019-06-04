@@ -70,9 +70,9 @@ public class SocialHelper extends HelperBase {
     private void allowAccessVK() {
         if (kraken.detect().isElementPresent(Elements.Social.Vkontakte.allowAccessButton())) {
             kraken.perform().click(Elements.Social.Vkontakte.allowAccessButton());
-            kraken.perform().printMessage("> разрешаем Инстамарту доступ к аккаунту ВК");
+            message("> разрешаем Инстамарту доступ к аккаунту ВК");
         } else {
-            kraken.perform().printMessage("> у Инстамарта уже есть доступ к аккаунту ВК");}
+            message("> у Инстамарта уже есть доступ к аккаунту ВК");}
     }
 
     /** Инициировать авторизацию/регистрацию через ВК */
@@ -83,7 +83,7 @@ public class SocialHelper extends HelperBase {
         kraken.perform().switchToNextWindow();
 
         if(!kraken.detect().isElementPresent(Elements.Social.Vkontakte.emailField())) {
-            printMessage("⚠ Проблемы с производительностью: слишком медленно открывается окно ВК\n");
+            message("⚠ Проблемы с производительностью: слишком медленно открывается окно ВК\n");
             kraken.await().implicitly(5); // Дополнительное ожидание открытия окна ВК при тормозах
         }
     }
@@ -149,9 +149,9 @@ public class SocialHelper extends HelperBase {
     private void allowAccessFB() {
         if (kraken.detect().isElementPresent(Elements.Social.Facebook.allowAccessButton())) {
             kraken.perform().click(Elements.Social.Facebook.allowAccessButton());
-            kraken.perform().printMessage("> разрешаем Инстамарту доступ к аккаунту FB");
+            message("> разрешаем Инстамарту доступ к аккаунту FB");
         } else {
-            kraken.perform().printMessage("> у Инстамарта уже есть доступ к аккаунту FB");}
+            message("> у Инстамарта уже есть доступ к аккаунту FB");}
     }
 
     /** Инициировать авторизацию через Facebook */
@@ -162,7 +162,7 @@ public class SocialHelper extends HelperBase {
         kraken.perform().switchToNextWindow();
 
         if(!kraken.detect().isElementPresent(Elements.Social.Facebook.emailField())) {
-            printMessage("⚠ Проблемы с производительностью: слишком медленно открывается окно FB\n");
+            message("⚠ Проблемы с производительностью: слишком медленно открывается окно FB\n");
             kraken.await().implicitly(5); // Дополнительное ожидание открытия окна FB при тормозах
         }
     }

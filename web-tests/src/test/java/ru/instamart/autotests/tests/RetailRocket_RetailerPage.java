@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Widgets;
+import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
 
@@ -101,7 +102,7 @@ public class RetailRocket_RetailerPage extends TestBase {
     public void successAddItemFromRecentlyViewedWidget() {
         kraken.drop().cart();
         kraken.shopping().openFirstItemCard();
-        kraken.shopping().closeItemCard();
+        ShopHelper.ItemCard.close();
         kraken.perform().refresh();
         kraken.shopping().addItem(Widgets.RetailRocket.MainPage.RecentlyViewed());
 

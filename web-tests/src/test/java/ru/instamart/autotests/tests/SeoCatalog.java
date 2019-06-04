@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.application.Config.enableSeoCatalogTests;
 import static ru.instamart.autotests.application.Environments.instamart_staging;
@@ -68,18 +69,18 @@ public class SeoCatalog extends TestBase {
         skipOn(instamart_staging());
         SoftAssert softAssert = new SoftAssert();
         kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitPlusButton();
+        ShopHelper.ItemCard.hitPlusButton();
 
         softAssert.assertTrue(kraken.detect().isAddressModalOpen(),
                 "Не открывается адресная модалка после добавления товара на странице SEO-каталога");
 
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
-        kraken.shopping().closeItemCard();
+        ShopHelper.ItemCard.close();
 
         softAssert.assertTrue(kraken.detect().isShippingAddressSet(),
                 "Адрес доставки не был введен при попытке добавления товара в корзину на странице SEO-каталога");
 
-        softAssert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.product()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.Product.snippet()),
                 "SEO-каталог не перезагрузился на обычный каталог");
 
         softAssert.assertAll();
@@ -95,14 +96,14 @@ public class SeoCatalog extends TestBase {
         skipOn(instamart_staging());
         SoftAssert softAssert = new SoftAssert();
         kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitPlusButton();
+        ShopHelper.ItemCard.hitPlusButton();
         kraken.perform().click(Elements.Site.AddressModal.authButton());
         kraken.perform().loginAs(session.user);
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает авторизация при попытке добавления товара в корзину на странице SEO-каталога");
 
-        softAssert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.product()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.Product.snippet()),
                 "SEO-каталог не перезагрузился на обычный каталог");
 
         softAssert.assertAll();
@@ -118,7 +119,7 @@ public class SeoCatalog extends TestBase {
         skipOn(instamart_staging());
         SoftAssert softAssert = new SoftAssert();
         kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitPlusButton();
+        ShopHelper.ItemCard.hitPlusButton();
         kraken.perform().click(Elements.Site.AddressModal.authButton());
         kraken.perform().registration();
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
@@ -126,7 +127,7 @@ public class SeoCatalog extends TestBase {
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает регистрация при попытке добавления товара в корзину на странице SEO-каталога");
 
-        softAssert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.product()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.Product.snippet()),
                 "SEO-каталог не перезагрузился на обычный каталог");
 
         softAssert.assertAll();

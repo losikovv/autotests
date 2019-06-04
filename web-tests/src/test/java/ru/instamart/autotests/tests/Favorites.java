@@ -1,12 +1,12 @@
 package ru.instamart.autotests.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.testdata.generate;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
@@ -15,7 +15,7 @@ import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 // Тесты любимых товаров
 
 
-public class FavoriteProducts extends TestBase {
+public class Favorites extends TestBase {
 
 
     @BeforeMethod(alwaysRun = true)
@@ -68,7 +68,7 @@ public class FavoriteProducts extends TestBase {
         kraken.get().page(Pages.Site.Retailers.metro());
 
         kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
+        ShopHelper.ItemCard.addToFavorites();
 
         Assert.assertFalse(kraken.detect().isFavoritesEmpty(),
                 "Не работает добавление любимого товара из карточки товара\n");
@@ -102,7 +102,7 @@ public class FavoriteProducts extends TestBase {
 
         kraken.shopping().hitFirstItemAddToFavoritesButton();
         kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
+        ShopHelper.ItemCard.addToFavorites();
 
         Assert.assertTrue(kraken.detect().isFavoritesEmpty(),
                 "Не работает удаление любимого товара из карточки товара\n");
@@ -241,7 +241,7 @@ public class FavoriteProducts extends TestBase {
 
         kraken.get().page(Pages.Site.Retailers.metro());
         kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
+        ShopHelper.ItemCard.addToFavorites();
 
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
                 "\nНе открывается модалка регистрации после попытки добавления товара из карточки в любимые товары");
@@ -288,7 +288,7 @@ public class FavoriteProducts extends TestBase {
 
         kraken.get().page(Pages.Site.Retailers.metro());
         kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitAddToFavoritesButton();
+        ShopHelper.ItemCard.addToFavorites();
 
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
                 "\nНе открывается модалка авторизации после попытки добавления товара из карточки в избранное");
@@ -315,7 +315,7 @@ public class FavoriteProducts extends TestBase {
 
         kraken.shopping().hitFirstItemPlusButton();
         kraken.await().implicitly(1); // ждем пока уберется алерт
-        kraken.shopping().openCart();
+        ShopHelper.Cart.open();
 
         softAssert.assertTrue(kraken.detect().isCartOpen(),
                 "\nНе открывается корзина из списка любимых товаров\n");
@@ -339,7 +339,7 @@ public class FavoriteProducts extends TestBase {
 
         kraken.shopping().hitFirstItemPlusButton();
         kraken.await().implicitly(1); // ждем пока уберется алерт
-        kraken.shopping().openCart();
+        ShopHelper.Cart.open();
 
         softAssert.assertTrue(kraken.detect().isCartOpen(),
                 "\nНе открывается корзина из списка любимых товаров\n");

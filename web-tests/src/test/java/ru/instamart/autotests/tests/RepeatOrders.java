@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.annotations.AfterMethod;
 import ru.instamart.autotests.application.*;
+import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.application.Config.testRepeatOrders;
 
@@ -35,7 +36,7 @@ public class RepeatOrders extends TestBase {
     )
     public void successRepeatLastOrderAndPayWithCardOnline() throws Exception {
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
 
         kraken.checkout().complete(PaymentTypes.cardOnline());
 
@@ -50,7 +51,7 @@ public class RepeatOrders extends TestBase {
     )
     public void successRepeatLastOrderAndPayWithCardCourier() throws Exception {
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
 
         kraken.checkout().complete(PaymentTypes.cardCourier());
 
@@ -65,7 +66,7 @@ public class RepeatOrders extends TestBase {
     )
     public void successRepeatLastOrderAndPayWithCash() throws Exception {
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
 
         kraken.checkout().complete(PaymentTypes.cash());
 
@@ -80,7 +81,7 @@ public class RepeatOrders extends TestBase {
     )
     public void successRepeatLastOrderAndPayWithBank() throws Exception {
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
 
         kraken.checkout().complete(PaymentTypes.bankTransfer());
 

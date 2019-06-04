@@ -11,7 +11,8 @@ import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
-import static ru.instamart.autotests.application.Config.verbose;
+import static ru.instamart.autotests.appmanager.HelperBase.message;
+import static ru.instamart.autotests.appmanager.HelperBase.verboseMessage;
 
 // Basic test class
 
@@ -19,97 +20,86 @@ public class TestBase {
 
     protected static final ApplicationManager kraken = new ApplicationManager(Config.browser);
 
-
     @BeforeSuite(alwaysRun = true)
     public void setUp() throws Exception {
         kraken.rise();
     }
-
 
     @AfterSuite(alwaysRun = true)
     public void tearDown() throws Exception {
         kraken.stop();
     }
 
+    /** Проверить валидность элемента (преход работает + целевая страница доступна) */
+    void validateTransition(ElementData element) {
+        assertTransition(element);
+        assertPageIsAvailable();
+    }
 
-    /**
-     * Проверить возможность перехода на страницу и ее доступность
-     */
+    /** Проверить работоспособность перехода по ссылке элемента */
+    void assertTransition(ElementData element) {
+        verboseMessage("Проверяем > " + element.getDescription());
+        String startPage = kraken.grab().currentURL();
+        kraken.perform().click(element);
+        Assert.assertFalse(
+                kraken.grab().currentURL().equalsIgnoreCase(startPage),
+                    "Не работает " + element.getDescription() + " (" + element.getLocator().toString().substring(3) + ") на странице " + startPage
+                            + "\n Нет перехода, остались на той же странице");
+        verboseMessage("✓ Успешный переход");
+        // TODO добаить проверку на соответствие currentURL и targetURL, для этого добавить targetURL в ElementData
+    }
+
+    /**  Проверить возможность перехода на страницу */
+    void assertTransition(Pages page) {
+        assertTransition(kraken.grab().fullBaseUrl + Pages.getPagePath());
+    }
+
+    /** Проверить возможность перехода на страницу по указанному url */
+    void assertTransition(String URL) {
+        message("Переход по прямой ссылке " + URL);
+        kraken.get().url(URL);
+        Assert.assertTrue(
+                kraken.grab().currentURL().equalsIgnoreCase(URL),
+                    "Невозможно перейти на страницу " + URL + " по прямой ссылке\n"
+                        + "Вместо нее попадаем на " + kraken.grab().currentURL() + "\n"
+        );
+        message("✓ Успешно");
+    }
+
+    /** Проверить возможность перехода на страницу и ее доступность */
     void assertPageIsAvailable(Pages page) throws AssertionError {
         assertPageIsAvailable(kraken.grab().fullBaseUrl + Pages.getPagePath());
     }
 
-    /**
-     * Проверить возможность перехода на страницу по указанному url и ее доступность
-     */
+    /** Проверить возможность перехода на страницу по указанному url и ее доступность */
     void assertPageIsAvailable(String URL) throws AssertionError {
         assertTransition(URL);
         assertPageIsAvailable();
     }
 
-    /**
-     * Проверить возможность перехода на страницу
-     */
-    void assertTransition(Pages page) {
-        assertTransition(kraken.grab().fullBaseUrl + Pages.getPagePath());
-    }
-
-    /**
-     * Проверить возможность перехода на страницу по указанному url
-     */
-    void assertTransition(String URL) {
-        kraken.perform().printMessage("Переход по прямой ссылке " + URL);
-        kraken.get().url(URL);
-        Assert.assertTrue(kraken.grab().currentURL().equalsIgnoreCase(URL),
-                "Невозможно перейти на страницу " + URL + " по прямой ссылке\n"
-                        + "Вместо нее попадаем на " + kraken.grab().currentURL() + "\n"
-        );
-        kraken.perform().printMessage("✓ Успешно");
-    }
-
-    /**
-     * Проверить работоспособность перехода по страницам
-     */
-    void assertTransition(ElementData element) {
-        String startPage = kraken.grab().currentURL();
-        if(verbose) kraken.perform().printMessage("Проверяем : " + element.getDescription());
-        kraken.perform().click(element);
-        Assert.assertFalse(kraken.grab().currentURL().equalsIgnoreCase(startPage),
-                "Не работает " + element.getDescription() + " ( " + element.getLocator() + " )\nна странице " + startPage + "\n");
-    }
-
-    /**
-     * Проверить доступность текущей страницы
-     */
+    /** Проверить доступность текущей страницы */
     void assertPageIsAvailable() throws AssertionError {
         String page = kraken.grab().currentURL();
         Assert.assertFalse(kraken.detect().is404(), "Ошибка 404 на странице " + page + "\n");
         Assert.assertFalse(kraken.detect().is500(), "Ошибка 500 на странице " + page + "\n");
-        kraken.perform().printMessage("✓ Страница доступна (" + page + ")\n");
+        message("✓ Страница доступна (" + page + ")\n");
     }
 
-    /**
-     * Проверить что текущая страница недоступна с ошибкой 404
-     */
+    /** Проверить что текущая страница недоступна с ошибкой 404 */
     void assertPageIs404() throws AssertionError {
         Assert.assertTrue(kraken.detect().is404(), "Нет ошибки 404 на странице " + kraken.grab().currentURL() + "\n");
     }
 
-    /**
-     * Проверить возможность перехода на страницу и ее недоступность с ошибкой 404
-     */
+    /** Проверить возможность перехода на страницу и ее недоступность с ошибкой 404 */
     void assertPageIs404(Pages page) throws AssertionError {
         assertPageIs404(kraken.grab().fullBaseUrl + Pages.getPagePath());
     }
 
-    /**
-     * Проверить возможность перехода на страницу по указанному url и ее недоступность с ошибкой 404
-     */
+    /** Проверить возможность перехода на страницу по указанному url и ее недоступность с ошибкой 404 */
     void assertPageIs404(String URL) throws AssertionError {
         assertTransition(URL);
         assertPageIs404();
     }
-
 
     /** Проверка недоступности страницы для перехода */
     void assertPageIsUnavailable(Pages page) throws AssertionError {
@@ -118,10 +108,11 @@ public class TestBase {
 
     /** Проверка недоступности страницы для перехода по прямой ссылке */
     void assertPageIsUnavailable(String URL) throws AssertionError {
-        kraken.perform().printMessage("Проверяем недоступность перехода на страницу " + URL);
+        message("Проверяем недоступность перехода на страницу " + URL);
         kraken.get().url(URL);
-        Assert.assertFalse(kraken.grab().currentURL().equalsIgnoreCase(URL),
-                "Можно попасть на страницу " + kraken.grab().currentURL() + " по прямой ссылке\n");
+        Assert.assertFalse(
+                kraken.grab().currentURL().equalsIgnoreCase(URL),
+                    "Можно попасть на страницу " + kraken.grab().currentURL() + " по прямой ссылке\n");
     }
 
     /** Проверка доступности зокументации заказа */
@@ -132,38 +123,39 @@ public class TestBase {
 
     /** Пропуск теста */
     void skip() throws SkipException{
-        kraken.perform().printMessage("Пропускаем тест");
+        message("Пропускаем тест");
             throw new SkipException("Пропускаем тест");
     }
 
-    /** Пропуск теста на указанном окружении */
+    /** Пропуск теста на окружении */
     void skipOn(EnvironmentData environment) throws SkipException{
         if (kraken.detect().environment(environment)) {
-            kraken.perform().printMessage("Пропускаем тест на " + environment.getName());
-            throw new SkipException("Пропускаем тест");
+            message("Пропускаем тест на окружении " + environment.getName());
+                throw new SkipException("Пропускаем тест");
         }
     }
 
-    /** Пропуск теста на указанном окружении */
+    /** Пропуск теста на тенанте */
     void skipOn(String tenant) throws SkipException {
         if (kraken.detect().tenant(tenant)) {
-            kraken.perform().printMessage("Пропускаем тест для тенанта " + tenant);
-            throw new SkipException("Пропускаем тест");
+            message("Пропускаем тест для тенанта " + tenant);
+                throw new SkipException("Пропускаем тест");
         }
     }
 
     /** Прогон теста только на указанном окружении */
     void testOn(EnvironmentData environment) throws SkipException{
         if (!kraken.detect().environment(environment)) {
-            kraken.perform().printMessage("Пропускаем тест не на " + environment.getName());
+            message("Тест только для окружения " + environment.getName());
             throw new SkipException("Пропускаем тест");
         }
     }
 
+    // TODO testOn(tenant)
+
     @DataProvider
-    Object[][] generateUserData() throws Exception {
+    Object[][] generateUserData() {
     UserData testuser = generate.testCredentials("user");
     return new Object[][] {{testuser}};
     }
-    
 }

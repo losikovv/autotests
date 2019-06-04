@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Widgets;
+import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
 
@@ -23,7 +24,7 @@ public class RetailRocket_Cart extends TestBase {
     public void preconditions() {
         kraken.get().page("metro");
         kraken.shopping().addFirstItemOnPageToCart();
-        kraken.shopping().openCart();
+        ShopHelper.Cart.open();
     }
 
     @Test(enabled = enableRetailRocketTests,
@@ -57,7 +58,7 @@ public class RetailRocket_Cart extends TestBase {
     )
     public void successAddItemFromDontForgetToBuyWidget() {
         kraken.shopping().addItem(Widgets.RetailRocket.Cart.DontForgetToBuy());
-        kraken.shopping().removeItemFromCart();
+        ShopHelper.Cart.removeItem();
 
         Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.Cart.DontForgetToBuy()),
                 "Не добавляется товар в корзину из блока 'Не забудьте купить' в корзине");

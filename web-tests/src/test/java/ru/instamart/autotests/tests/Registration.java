@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
+import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
@@ -309,7 +310,7 @@ public class Registration extends TestBase {
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
 
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
 
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
                 "\nНе открывается авторизационная модалка при переходе неавторизованным из корзины в чекаут");

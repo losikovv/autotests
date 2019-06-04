@@ -9,7 +9,6 @@ import ru.instamart.autotests.models.EnvironmentData;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
-import static ru.instamart.autotests.application.Config.verbose;
 import static ru.instamart.autotests.application.Config.waitingTimeout;
 
 public class WaitingHelper extends HelperBase {
@@ -20,11 +19,11 @@ public class WaitingHelper extends HelperBase {
 
     /** Просто задержка на указанное время */
     public void simply(int seconds) {
-        if(verbose) printMessage("Задержка на " + seconds + " сек.");
+        debugMessage("Задержка на " + seconds + " сек.");
         try {
             Thread.sleep(seconds*1000);
         } catch (InterruptedException i) {
-
+        debugMessage("Прервано");
         }
     }
 

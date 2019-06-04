@@ -67,7 +67,7 @@ public class SearchProducts extends TestBase {
     public void successItemSearchUsingCategorySuggests(){
         kraken.search().fillSearchFieldWith("Мороженое");
 
-        Assert.assertTrue(kraken.detect().isCategorySuggestsPresent(),
+        Assert.assertTrue(kraken.detect().isSearchCategorySuggestsPresent(),
                 "Отсутствуют категорийные подсказки\n");
 
         kraken.search().hitCategorySuggest();
@@ -89,7 +89,7 @@ public class SearchProducts extends TestBase {
         kraken.get().page("metro");
         kraken.search().fillSearchFieldWith("Мороженое");
 
-        Assert.assertTrue(kraken.detect().isProductSuggestsPresent(),
+        Assert.assertTrue(kraken.detect().isSearchProductSuggestsPresent(),
                 "Отсутствуют товарные подсказки\n");
 
         kraken.search().hitProductSuggest();

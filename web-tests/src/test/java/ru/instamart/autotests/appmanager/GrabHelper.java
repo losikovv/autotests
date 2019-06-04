@@ -8,7 +8,6 @@ import ru.instamart.autotests.models.ElementData;
 import ru.instamart.autotests.models.EnvironmentData;
 
 import static java.lang.Integer.parseInt;
-import static ru.instamart.autotests.application.Config.verbose;
 
 public class GrabHelper extends HelperBase{
 
@@ -81,7 +80,9 @@ public class GrabHelper extends HelperBase{
 
     /** Взять кол-во добавленного в корзину товара из каунтера в карточке */
     public int itemQuantity() {
-        return parseInt(kraken.grab().text(Elements.Site.ItemCard.quantity()));
+        String quantity = kraken.grab().text(Elements.Site.ItemCard.quantity());
+        if(quantity.equals("")) return 0;
+        else return parseInt(quantity);
     }
 
     /** Взять целочисленную сумму корзины */
@@ -91,12 +92,12 @@ public class GrabHelper extends HelperBase{
 
     /** Взять строку с суммой корзины */
     public String cartTotal() {
-        kraken.shopping().openCart();
+        ShopHelper.Cart.open();
         String cartTotal = kraken.detect().isElementDisplayed(Elements.Site.Cart.total()) ? text(Elements.Site.Cart.total()) : null;
         if (cartTotal == null) {
-            printMessage("> в корзине пусто");
+            message("> в корзине пусто");
         } else {
-            printMessage("> сумма корзины " + cartTotal);
+            message("> сумма корзины " + cartTotal);
         }
         return cartTotal;
     }
@@ -105,21 +106,21 @@ public class GrabHelper extends HelperBase{
     public String currentOrderNumber() {
         String url = kraken.grab().currentURL();
         String number = url.substring(url.length()-10);
-        if(verbose) kraken.perform().printMessage("Номер заказа: " + number + "\n");
+        verboseMessage("Номер заказа: " + number + "\n");
         return number;
     }
 
     /** Взять номер доставки на странице заказа */
     public String shipmentNumber() {
         String number = kraken.grab().text(Elements.Site.UserProfile.OrderDetailsPage.shipmentNumber());
-        if(verbose) {kraken.perform().printMessage("Номер доставки: " + number);}
+        verboseMessage("Номер доставки: " + number);
         return number;
     }
 
     /** Взять способ оплаты на странице заказа */
     public String shipmentPayment() {
         String payment = kraken.grab().text(Elements.Site.UserProfile.OrderDetailsPage.shipmentPayment());
-        if(verbose) {kraken.perform().printMessage("Способ оплаты: " + payment);}
+        verboseMessage("Способ оплаты: " + payment);
         return payment;
     }
 
@@ -132,7 +133,7 @@ public class GrabHelper extends HelperBase{
 
     /** Взять сумму минимального заказа из алерта в корзине */
     public int minOrderSum() {
-        kraken.shopping().openCart();
+        ShopHelper.Cart.open();
         if (kraken.detect().isElementDisplayed(Elements.Site.Cart.alertText())) {
             String text = text(Elements.Site.Cart.alertText());
             return parseInt(((text).substring((text.length() - 8), (text.length() - 3))).replaceAll(
@@ -152,11 +153,12 @@ public class GrabHelper extends HelperBase{
         String wisdom = null;
         for (int i = 1; i <= 39; i++) {
             String text = kraken.grab().text(Elements.Page404.quote(i));
+            debugMessage(">>>>>>>>>>>> " + text);
             if (!text.equals("")) {
                 wisdom = text;
             }
         }
-        kraken.perform().printMessage("\nКотомудрость: " + wisdom);
+        verboseMessage("\nКотомудрость: " + wisdom);
         return wisdom;
     }
 }

@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Widgets;
+import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
 
@@ -116,7 +117,7 @@ public class RetailRocket_ItemCard extends TestBase {
 
         kraken.shopping().openFirstItemCard();
         kraken.shopping().addItem(Widgets.RetailRocket.ItemCard.WithThisItemBuy());
-        kraken.shopping().closeItemCard();
+        ShopHelper.ItemCard.close();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не добавляется в корзину товар из виджета 'C этим товаром покупают' в карточке товара");
@@ -133,7 +134,7 @@ public class RetailRocket_ItemCard extends TestBase {
 
         kraken.shopping().openFirstItemCard();
         kraken.shopping().addItem(Widgets.RetailRocket.ItemCard.SimilarItems());
-        kraken.shopping().closeItemCard();
+        ShopHelper.ItemCard.close();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не добавляется в корзину товар из виджета 'Похожие товары' в карточке товара");
@@ -150,7 +151,7 @@ public class RetailRocket_ItemCard extends TestBase {
 
         kraken.shopping().openFirstItemCard();
         kraken.shopping().addItem(Widgets.RetailRocket.ItemCard.RecentlyViewed());
-        kraken.shopping().closeItemCard();
+        ShopHelper.ItemCard.close();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не добавляется в корзину товар из виджета 'Вы недавно смотрели' в карточке товара");

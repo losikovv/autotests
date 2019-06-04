@@ -3,9 +3,12 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.*;
 import ru.instamart.autotests.models.EnvironmentData;
 
+import static ru.instamart.autotests.application.Config.debug;
+import static ru.instamart.autotests.application.Config.verbose;
+
 public class HelperBase {
     WebDriver driver;
-    ApplicationManager kraken;
+    static ApplicationManager kraken;
     public String baseUrl;
     public String fullBaseUrl;
     public String adminUrl;
@@ -18,16 +21,24 @@ public class HelperBase {
         this.adminUrl = environment.getAdminURL();
         this.kraken = app;
     }
-    //private final Wait<WebDriver> wait = new WebDriverWait(driver, 5).ignoring(StaleElementReferenceException.class, ElementNotVisibleException.class);
 
-    //public final Wait<WebDriver> waitFluently = new FluentWait<WebDriver>(driver).withMessage("Element was not found").withTimeout(10, TimeUnit.SECONDS).pollingEvery(1, TimeUnit.SECONDS);
-
-
-    /**
-     * Отправить сообщение в консоль
-     */
-    public void printMessage(String message) {
+    /** Отправить сообщение в консоль */
+    public static void message(String message) {
         System.out.println(message);
+    }
+
+    /** Отправить verbose-сообщение в консоль */
+    public static void verboseMessage(String message) {
+        if(verbose) {
+            message(message);
+        }
+    }
+
+    /** Отправить debug-сообщение в консоль */
+    public static void debugMessage(String message) {
+        if(debug) {
+            message(message);
+        }
     }
 
     /**
@@ -37,13 +48,10 @@ public class HelperBase {
         try {
             Alert alert = driver.switchTo().alert();
             String alertText = alert.getText();
-            if (acceptNextAlert) {
+            if(acceptNextAlert) {
                 alert.accept();
-            } else {
-                alert.dismiss();
-            }
-            // DEBUG
-            //printMessage("> handling alert [" + alertText + "]");
+            } else alert.dismiss();
+            debugMessage("> handling alert [" + alertText + "]");
         } finally {
             acceptNextAlert = true;
         }

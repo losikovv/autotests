@@ -3,6 +3,7 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.application.Config.testCitiesOrders;
 
@@ -32,7 +33,7 @@ public class Order_Cities extends TestBase {
         kraken.shipAddress().change(Addresses.Moscow.defaultAddress());
 
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -49,7 +50,7 @@ public class Order_Cities extends TestBase {
         kraken.shipAddress().change(Addresses.SaintPetersburg.defaultAddress());
 
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -66,7 +67,7 @@ public class Order_Cities extends TestBase {
         kraken.shipAddress().change(Addresses.Kazan.defaultAddress());
 
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -82,7 +83,7 @@ public class Order_Cities extends TestBase {
         kraken.shipAddress().change(Addresses.Ekaterinburg.defaultAddress());
 
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -98,7 +99,7 @@ public class Order_Cities extends TestBase {
         kraken.shipAddress().change(Addresses.NizhnyNovgorod.defaultAddress());
 
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -114,7 +115,7 @@ public class Order_Cities extends TestBase {
         kraken.shipAddress().change(Addresses.RostovNaDonu.defaultAddress());
 
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -130,7 +131,7 @@ public class Order_Cities extends TestBase {
         kraken.shipAddress().change(Addresses.Ufa.defaultAddress());
 
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),

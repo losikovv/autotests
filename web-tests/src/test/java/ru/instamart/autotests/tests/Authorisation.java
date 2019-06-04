@@ -8,6 +8,7 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Users;
+import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
@@ -19,12 +20,10 @@ import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
 public class Authorisation extends TestBase {
 
-
     @BeforeMethod(alwaysRun = true)
     public void quickLogout() {
         kraken.perform().quickLogout();
     }
-
 
     @Test(
             description = "Негативный тест попытки авторизации с пустыми реквизитами",
@@ -34,7 +33,9 @@ public class Authorisation extends TestBase {
     public void noAuthWithEmptyRequisites() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().authorisation("", "");
+        kraken.perform().openAuthModal();
+        kraken.perform().authSequence("", "");
+        kraken.perform().sendForm();
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
                 Elements.Site.AuthModal.errorMessage("Укажите email")),
@@ -51,7 +52,6 @@ public class Authorisation extends TestBase {
         softAssert.assertAll();
     }
 
-    
     @Test(
             description = "Негативный тест попытки авторизации без email",
             groups = {"regression"},
@@ -60,7 +60,9 @@ public class Authorisation extends TestBase {
     public void noAuthWithoutEmail() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().authorisation("", "instamart");
+        kraken.perform().openAuthModal();
+        kraken.perform().authSequence("", "instamart");
+        kraken.perform().sendForm();
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
                 Elements.Site.AuthModal.errorMessage("Укажите email")),
@@ -73,7 +75,6 @@ public class Authorisation extends TestBase {
         softAssert.assertAll();
     }
 
-
     @Test(
             description = "Негативный тест попытки авторизации без пароля",
             groups = {"regression"},
@@ -82,7 +83,9 @@ public class Authorisation extends TestBase {
     public void noAuthWithoutPassword() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().authorisation(Users.superuser().getEmail(), "");
+        kraken.perform().openAuthModal();
+        kraken.perform().authSequence(Users.superuser().getEmail(), "");
+        kraken.perform().sendForm();
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
                 Elements.Site.AuthModal.errorMessage("Укажите пароль")),
@@ -95,7 +98,6 @@ public class Authorisation extends TestBase {
         softAssert.assertAll();
     }
 
-
     @Test(
             description = "Негативный тест попытки авторизации несуществующим юзером",
             groups = {"regression"},
@@ -104,10 +106,12 @@ public class Authorisation extends TestBase {
     public void noAuthWithNonexistingUser() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().authorisation("nonexistinguser@example.com", "password");
+        kraken.perform().openAuthModal();
+        kraken.perform().authSequence("nonexistinguser@example.com", "password");
+        kraken.perform().sendForm();
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
-                Elements.Site.AuthModal.errorMessage("Неверный email или пароль\n")),
+                Elements.Site.AuthModal.errorMessage("Неверный email или пароль")),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
         kraken.get().baseUrl();
@@ -117,7 +121,6 @@ public class Authorisation extends TestBase {
         softAssert.assertAll();
     }
 
-
     @Test(
             description = "Негативный тест попытки авторизации с неверным паролем",
             groups = {"acceptance","regression"},
@@ -126,7 +129,9 @@ public class Authorisation extends TestBase {
     public void noAuthWithWrongPassword() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().authorisation(Users.superuser().getEmail(), "wrongpassword");
+        kraken.perform().openAuthModal();
+        kraken.perform().authSequence(Users.superuser().getEmail(), "wrongpassword");
+        kraken.perform().sendForm();
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
                 Elements.Site.AuthModal.errorMessage("Неверный email или пароль")),
@@ -139,7 +144,6 @@ public class Authorisation extends TestBase {
         softAssert.assertAll();
     }
 
-
     @Test(
             description = "Негативный тест попытки авторизовать пользователя с длинными полями",
             groups = {"regression"},
@@ -148,10 +152,12 @@ public class Authorisation extends TestBase {
     public void noAuthWithLongFields() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().authorisation(generate.testCredentials("user",129));
+        kraken.perform().openAuthModal();
+        kraken.perform().authSequence(generate.testCredentials("user",129));
+        kraken.perform().sendForm();
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
-                Elements.Site.AuthModal.errorMessage("Неверный email или пароль\n")),
+                Elements.Site.AuthModal.errorMessage("Неверный email или пароль")),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
         kraken.get().baseUrl();
@@ -183,7 +189,6 @@ public class Authorisation extends TestBase {
         softAssert.assertAll();
     }
 
-
     @Test(
             description = "Тест успешной авторизации на лендинге",
             groups = {"smoke","acceptance","regression"},
@@ -195,7 +200,6 @@ public class Authorisation extends TestBase {
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает авторизация на лендинге\n");
     }
-
 
     @Test(
             description = "Тест успешной авторизации на витрине",
@@ -210,7 +214,6 @@ public class Authorisation extends TestBase {
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает авторизация на витрине магазина\n");
     }
-
 
     @Test(
             description = "Тест авторизации из адресной модалки феникса",
@@ -235,7 +238,6 @@ public class Authorisation extends TestBase {
         softAssert.assertAll();
     }
 
-
     @Test(
             description = "Тест успешной авторизации из корзины",
             groups = {"regression"},
@@ -250,7 +252,7 @@ public class Authorisation extends TestBase {
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
 
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
 
         softAssert.assertTrue(kraken.detect().isAuthModalOpen(),
                 "\nНе открывается авторизационная модалка при переходе неавторизованным из корзины в чекаут");
@@ -271,7 +273,6 @@ public class Authorisation extends TestBase {
         softAssert.assertAll();
     }
 
-
     @Test(
             description = "Тест успешной авторизации через ВКонтакте",
             groups = {"regression"},
@@ -290,7 +291,6 @@ public class Authorisation extends TestBase {
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает авторизация через ВКонтакте\n");
     }
-
 
     @Test(
             description = "Тест успешной авторизации через Facebook",
@@ -327,11 +327,101 @@ public class Authorisation extends TestBase {
         assertPageIsAvailable(Pages.Site.Profile.addresses());
     }
 
+    @Test(
+            description = "Тест работы с меню профиля",
+            groups = {"smoke","acceptance","regression"},
+            priority = 115
+    )
+    public void successOperateProfileMenu() throws Exception, AssertionError {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.get().baseUrl();
+        kraken.perform().loginAs(session.user);
+
+        ShopHelper.AccountMenu.open();
+
+        softAssert.assertTrue(
+                kraken.detect().isAccountMenuOpen(),
+                    "Не открывается всплывающее меню профиля\n");
+
+        ShopHelper.AccountMenu.close();
+
+        softAssert.assertFalse(
+                kraken.detect().isAccountMenuOpen(),
+                    "Не закрывается всплывающее меню профиля\n");
+
+        softAssert.assertAll();
+    }
+
+    @Test(
+            description = "Тест наличия элементов в меню профиля",
+            groups = {"smoke","acceptance","regression"},
+            priority = 116
+    )
+    public void successCheckProfileMenuElements() throws Exception, AssertionError {
+        kraken.get().baseUrl();
+        kraken.perform().loginAs(session.user);
+
+        ShopHelper.AccountMenu.open();
+
+        kraken.check().elementPresence(Elements.Site.AccountMenu.popup());
+        kraken.check().elementPresence(Elements.Site.AccountMenu.header());
+        kraken.check().elementPresence(Elements.Site.AccountMenu.profileButton());
+        kraken.check().elementPresence(Elements.Site.AccountMenu.ordersHistoryButton());
+        kraken.check().elementPresence(Elements.Site.AccountMenu.termsButton());
+        kraken.check().elementPresence(Elements.Site.AccountMenu.logoutButton());
+        kraken.check().elementPresence(Elements.Site.AccountMenu.deliveryButton());
+        kraken.check().elementPresence(Elements.Site.AccountMenu.paymentButton());
+        kraken.check().elementPresence(Elements.Site.AccountMenu.faqButton());
+        kraken.check().elementPresence(Elements.Site.AccountMenu.contactsButton());
+    }
+
+    @Test(
+            description = "Тест валидации элементов в меню профиля",
+            groups = {"smoke","acceptance","regression"},
+            priority = 117
+    )
+    public void successValidateProfileMenuButtons() throws Exception, AssertionError {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.get().baseUrl();
+        kraken.perform().loginAs(session.user);
+
+        ShopHelper.AccountMenu.open();
+        validateTransition(Elements.Site.AccountMenu.profileButton());
+
+        ShopHelper.AccountMenu.open();
+        validateTransition(Elements.Site.AccountMenu.ordersHistoryButton());
+
+        ShopHelper.AccountMenu.open();
+        validateTransition(Elements.Site.AccountMenu.termsButton());
+
+        ShopHelper.AccountMenu.open();
+        kraken.perform().click(Elements.Site.AccountMenu.deliveryButton());
+        softAssert.assertTrue(
+                kraken.detect().isDeliveryModalOpen(),
+                    "Не открывается модалка \"Доставка\" из всплывающего меню \"Профиль\"\n");
+        kraken.perform().refresh();
+
+        ShopHelper.AccountMenu.open();
+        kraken.perform().click(Elements.Site.AccountMenu.paymentButton());
+        softAssert.assertTrue(
+                kraken.detect().isPaymentModalOpen(),
+                    "Не открывается модалка \"Оплата\" из всплывающего меню \"Профиль\"\n");
+        kraken.perform().refresh();
+
+        ShopHelper.AccountMenu.open();
+        validateTransition(Elements.Site.AccountMenu.faqButton());
+
+
+        ShopHelper.AccountMenu.open();
+        validateTransition(Elements.Site.AccountMenu.contactsButton());
+
+        softAssert.assertAll();
+    }
 
     @Test(
             description = "Тест успешной деавторизации",
             groups = {"acceptance","regression"},
-            priority = 115
+            priority = 118
     )
     public void successLogout() throws Exception, AssertionError {
         kraken.perform().loginAs(session.user);
@@ -341,7 +431,9 @@ public class Authorisation extends TestBase {
         assertPageIsAvailable(); // Assert there is no problems after logout
 
         kraken.get().page("metro");
-        Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Не работает деавторизация\n");
+
+        Assert.assertFalse(
+                kraken.detect().isUserAuthorised(),
+                    "Не работает деавторизация\n");
     }
 }

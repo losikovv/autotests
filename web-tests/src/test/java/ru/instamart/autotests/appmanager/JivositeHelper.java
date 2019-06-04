@@ -14,31 +14,31 @@ public class JivositeHelper extends HelperBase {
     /** Открыть чат jivosite */
     public void open() {
         if(!kraken.detect().isJivositeChatAvailable()) {
-            kraken.perform().printMessage("> разворачиваем виджет Jivosite");
+            message("> разворачиваем виджет Jivosite");
             kraken.perform().click(Elements.Site.Jivosite.openButton());
             kraken.await().implicitly(1); // Ожидание разворачивания виджета Jivosite
         } else {
-            kraken.perform().printMessage("> виджет Jivosite развернут");
+            message("> виджет Jivosite развернут");
         }
     }
 
     /** Свернуть чат jivosite */
     public void close() {
         if(kraken.detect().isJivositeChatAvailable()) {
-            kraken.perform().printMessage("> сворачиваем виджет Jivosite");
+            message("> сворачиваем виджет Jivosite");
             kraken.perform().click(Elements.Site.Jivosite.closeButton());
             kraken.await().implicitly(1); // Ожидание сворачивания виджета Jivosite
         } else {
-            kraken.perform().printMessage("> виджет Jivosite свернут");
+            message("> виджет Jivosite свернут");
         }
     }
 
     /** Отправить сообщение в Jivosite */
     public void sendMessage(String text) {
-        kraken.perform().printMessage("Jivosite");
+        message("Jivosite");
         kraken.await().implicitly(2);
         open();
-        kraken.perform().printMessage("> отправляем сообщение: " + text);
+        message("> отправляем сообщение: " + text);
         kraken.perform().fillField(Elements.Site.Jivosite.messageField(), text);
         kraken.perform().click(Elements.Site.Jivosite.sendMessageButton());
         kraken.await().implicitly(2); // Ожидание отправки сообщения в Jivosite

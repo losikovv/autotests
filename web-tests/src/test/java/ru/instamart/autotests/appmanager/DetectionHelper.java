@@ -8,8 +8,6 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.*;
 
-import static ru.instamart.autotests.application.Config.verbose;
-
 public class DetectionHelper extends HelperBase {
 
     DetectionHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
@@ -42,21 +40,17 @@ public class DetectionHelper extends HelperBase {
         }
     }
 
-    /**
-     * Задетектить элемент
-     */
+    //Todo убрать
     public boolean element(ElementData element) {
         return element(element.getLocator(), element.getText());
     }
 
-    /**
-     * Задетектить элемент по локатору
-     */
+    //Todo убрать
     public boolean element(By locator, String text) {
         return isElementPresent(locator) && kraken.grab().text(locator).equals(text);
     }
 
-    // Todo убрать метод, везде заменить на element(Elements element)
+    // Todo убрать
     public boolean element(String xpath, String text) {
         return isElementPresent(By.xpath(xpath)) && kraken.grab().text(By.xpath(xpath)).equals(text);
     }
@@ -65,7 +59,7 @@ public class DetectionHelper extends HelperBase {
      * Определить отображается ли элемент
      */
     public boolean isElementPresent(ElementData element) {
-        return isElementPresent(element.getLocator());
+        return (isElementPresent(element.getLocator()));
     }
 
     /**
@@ -144,7 +138,7 @@ public class DetectionHelper extends HelperBase {
      * Определить находимся на сайте или нет
      */
     public boolean isOnSite() {
-        return isElementPresent(Elements.Site.footer());
+        return isElementPresent(Elements.Site.Footer.container());
     }
 
     /**
@@ -166,9 +160,7 @@ public class DetectionHelper extends HelperBase {
      */
     public boolean is404() {
         if (isElementPresent(Elements.Page404.title())) {
-            if(verbose) {
-                kraken.perform().printMessage("⚠ 404 на " + kraken.grab().currentURL()+ "\n");
-            }
+            verboseMessage("404 на " + kraken.grab().currentURL()+ "\n");
             return true;
         } else return false;
     }
@@ -178,7 +170,7 @@ public class DetectionHelper extends HelperBase {
      */
     public boolean is500() {
         if (element(Elements.Page500.placeholder())) {
-            if(verbose) { kraken.perform().printMessage("⚠ 500 на " + kraken.grab().currentURL()+ "\n"); }
+            verboseMessage("⚠ 500 на " + kraken.grab().currentURL()+ "\n");
             return true;
         } else return false;
     }
@@ -224,7 +216,7 @@ public class DetectionHelper extends HelperBase {
      */
     public boolean isAddressOutOfZone() {
         if (isElementPresent(Elements.Site.AddressModal.titleOutOfZone())) {
-            if(verbose) { printMessage("Адрес не в зоне доставки"); }
+            verboseMessage("Адрес не в зоне доставки");
             return true;
         } else {
             return false;
@@ -252,18 +244,18 @@ public class DetectionHelper extends HelperBase {
     /** Детектим пустой результат поиска */
     public boolean isSearchResultsEmpty() {
         if(isElementPresent(Elements.Site.Catalog.emptySearchPlaceholder())){
-            if(verbose) { printMessage("Пустой результат поиска"); }
+            verboseMessage("Пустой результат поиска");
             return true;
         } else return false;
     }
 
     /** Проверяем наличие товарных саджестов */
-    public boolean isProductSuggestsPresent() {
+    public boolean isSearchProductSuggestsPresent() {
         return kraken.detect().isElementPresent(Elements.Site.Header.Search.productSuggest());
     }
 
     /** Проверяем наличие категорийного саджеста */
-    public boolean isCategorySuggestsPresent() {
+    public boolean isSearchCategorySuggestsPresent() {
         return kraken.detect().isElementPresent(Elements.Site.Header.Search.categorySuggest());
     }
 
@@ -272,17 +264,23 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить открыта ли модалка авторизации/регистрации */
     public boolean isAuthModalOpen() {
-        return isElementDisplayed(Elements.Site.AuthModal.popup());
+        if (isElementDisplayed(Elements.Site.AuthModal.popup())) {
+            debugMessage("> модалка авторизации открыта");
+            return true;
+        } else {
+            debugMessage("> модалка авторизации закрыта");
+            return false;
+        }
     }
 
     /** Определить авторизован ли пользователь */
     public boolean isUserAuthorised() {
-        if(verbose) {  printMessage("Проверяем авторизованность..."); }
-        if (element(Elements.Site.Header.profileButton()) || isInAdmin()) {
-            if(verbose) { printMessage("✓ Авторизован\n"); }
+        verboseMessage("Проверяем авторизованность...");
+        if (kraken.detect().isElementPresent(Elements.Site.Header.profileButton())) {
+            debugMessage("✓ Авторизован\n");
             return true;
         } else {
-            if(verbose) { printMessage("Не авторизован\n"); }
+            debugMessage("Не авторизован\n");
             return false;
         }
     }
@@ -293,10 +291,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить отправлена ли форма восстановления пароля */
     public boolean isRecoveryRequested(){
         if (kraken.detect().element(Elements.Site.AuthModal.successRecoveryText())) {
-            if(verbose) { printMessage("Запрошено восстановление пароля"); }
+            verboseMessage("Запрошено восстановление пароля");
             return true;
         } else {
-            if(verbose) { printMessage("Запрос восстановления пароля не отправлен"); }
+            verboseMessage("Запрос восстановления пароля не отправлен");
             return false;
         }
     }
@@ -307,19 +305,19 @@ public class DetectionHelper extends HelperBase {
     /** Определить активен ли верхний заказ на странице списка заказов */
     public boolean isLastOrderActive() {
         if(isElementPresent(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(2))) {
-            if (verbose) { printMessage("Крайний заказ активен"); }
+            verboseMessage("Крайний заказ активен");
             return true;
         } else {
-            if(verbose) { printMessage("Крайний заказ неактивен"); }
+        verboseMessage("Крайний заказ неактивен");
             return false;
         }
     }
 
     /** Определить активен ли заказ на странице деталей */
     public boolean isOrderActive() {
-        if(verbose) {  printMessage("Проверяем страницу заказа..."); }
+        verboseMessage("Проверяем страницу заказа...");
         if (isElementDisplayed(Elements.Site.UserProfile.OrderDetailsPage.activeOrderAttribute()) && !isOrderCanceled()) {
-            if(verbose) {  printMessage("✓ Заказ активен\n"); }
+        verboseMessage("✓ Заказ активен\n");
             return true;
         } else return false;
     }
@@ -328,10 +326,10 @@ public class DetectionHelper extends HelperBase {
     public boolean isOrderCanceled(){
         if (isInAdmin()) {
             if (element(Elements.Admin.Shipments.Order.Details.canceledOrderAttribute())) {
-                if(verbose) { printMessage("Заказ отменен"); }
+                verboseMessage("Заказ отменен");
                 return true;
             } else {
-                if(verbose) { printMessage("Заказ активен"); }
+                verboseMessage("Заказ активен");
                 return false;
             }
         } else {
@@ -345,16 +343,16 @@ public class DetectionHelper extends HelperBase {
     /** Определяем выбран ли адрес доставки */
     public boolean isShippingAddressSet() {
         if (isElementPresent((Elements.Site.Header.currentShipAddress()))) {
-            if(verbose) { printMessage("Выбран адрес доставки: " + kraken.grab().currentShipAddress()); }
+            verboseMessage("Выбран адрес доставки: " + kraken.grab().currentShipAddress());
             return true;
         } else {
-            if(verbose) { printMessage("Адрес доставки не выбран\n"); }
+            verboseMessage("Адрес доставки не выбран\n");
             return false;
         }
     }
 
     /** Определить показаны ли адресные саджесты */
-    public boolean isAnyAddressSuggestsAvailable() {
+    public boolean isShippingAddressSuggestsPresent() {
         return isElementPresent(Elements.Site.AddressModal.addressSuggest());
     }
 
@@ -372,12 +370,12 @@ public class DetectionHelper extends HelperBase {
     }
 
     /**Определить доступен ли селектор магазинов*/
-    public boolean isStoreSelectorAvailaible(){
-        if (kraken.detect().isElementDisplayed(Elements.Site.Header.changeStoreButton())){
-            printMessage("Селектор магазинов доступен");
+    public boolean isStoreButtonDisplayed(){
+        if (kraken.detect().isElementDisplayed(Elements.Site.Header.storeButton())){
+            debugMessage("Селектор магазинов доступен");
             return true;
         } else {
-            printMessage("Селектор магазинов недоступен");
+            debugMessage("Селектор магазинов недоступен");
             return false;
         }
     }
@@ -388,10 +386,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить открыта ли шторка каталога */
     public boolean isCatalogDrawerOpen() {
         if (kraken.detect().isElementDisplayed(Elements.Site.CatalogDrawer.drawer())) {
-            if(verbose) { printMessage("Шторка каталога открыта"); }
+            debugMessage("Шторка каталога открыта");
             return true;
         } else {
-            if(verbose) { printMessage("Шторка каталога закрыта"); }
+            debugMessage("Шторка каталога закрыта");
             return false;
         }
     }
@@ -401,11 +399,11 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить есть ли товары на странице */
     public boolean isProductAvailable() {
-        if(kraken.detect().isElementPresent(Elements.Site.Catalog.product())){
-            if(verbose) { printMessage("✓ Есть доступные товары"); }
+        if(kraken.detect().isElementPresent(Elements.Site.Catalog.Product.snippet())){
+            debugMessage("✓ Есть доступные товары");
             return true;
         } else {
-            if(verbose) { printMessage("Нет доступных товаров!"); }
+            debugMessage("Нет доступных товаров!");
             return false;
         }
     }
@@ -416,10 +414,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить открыта ли карточка товара */
     public boolean isItemCardOpen() {
         if(kraken.detect().isElementPresent(Elements.Site.ItemCard.popup())){
-            if(verbose) { printMessage("> открыта карточка товара " + kraken.grab().currentURL()); }
+            verboseMessage("> открыта карточка товара " + kraken.grab().currentURL());
             return true;
         } else {
-            if(verbose) { printMessage("Карточка товара закрыта"); }
+            verboseMessage("Карточка товара закрыта");
             return false;
         }
     }
@@ -438,10 +436,10 @@ public class DetectionHelper extends HelperBase {
             kraken.get().favoritesPage();
         }
         if(kraken.detect().isElementPresent(Elements.Site.Favorites.placeholder())){
-            if(verbose) { printMessage("Нет любимых товаров\n"); }
+            verboseMessage("Нет любимых товаров\n");
            return true;
         } else {
-            if(verbose) { printMessage("Есть любимые товары\n"); }
+            verboseMessage("Есть любимые товары\n");
             return false;
         }
     }
@@ -466,41 +464,41 @@ public class DetectionHelper extends HelperBase {
     /** Определить открыта ли корзина */
     public boolean isCartOpen() {
         if (isElementDisplayed(Elements.Site.Cart.drawer())){
-            if(verbose) {printMessage("Корзина открыта");}
+            debugMessage("Корзина открыта");
             return true;
         } else {
-            if(verbose) {printMessage("Корзина закрыта");}
+            debugMessage("Корзина закрыта");
             return false;
         }
     }
 
     /** Определить пуста ли корзина */
     public boolean isCartEmpty() {
-        kraken.shopping().openCart();
+        ShopHelper.Cart.open();
         if (isElementPresent(Elements.Site.Cart.placeholder())) {
-            if(verbose) {printMessage("Корзина пуста");}
+            debugMessage("Корзина пуста");
             return true;
         } else {
-            if(verbose) {printMessage("Корзина не пуста");}
+            debugMessage("Корзина не пуста");
             return false;
         }
     }
 
     /** Определить активна ли кнопка перехода в чекаут в корзине */
     public boolean isCheckoutButtonActive() {
-        kraken.shopping().openCart();
+        ShopHelper.Cart.open();
         if(isElementEnabled(Elements.Site.Cart.checkoutButton())){
-            if(verbose) {printMessage("Кнопка перехода в чекаут активна");}
+            debugMessage("Кнопка перехода в чекаут активна");
             return true;
         } else {
-            if(verbose) {printMessage("Кнопка перехода в чекаут неактивна");}
+            debugMessage("Кнопка перехода в чекаут неактивна");
             return false;
         }
     }
 
     /** Определить отображается ли сумма заказа */
     public boolean isCartTotalDisplayed() {
-        kraken.shopping().openCart();
+        ShopHelper.Cart.open();
         return isElementDisplayed(Elements.Site.Cart.total());
     }
 
@@ -540,10 +538,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить добавлен ли промокод в чекауте */
     public boolean isPromocodeApplied() {
         if (kraken.detect().element(Elements.Site.Checkout.appliedPromocodeAttribute())) {
-            if(verbose) { printMessage("✓ Промокод применён\n"); }
+            verboseMessage("✓ Промокод применён\n");
             return true;
         } else {
-            if(verbose) { printMessage("Промокод не применён\n"); }
+            verboseMessage("Промокод не применён\n");
             return false;
         }
     }
@@ -581,12 +579,12 @@ public class DetectionHelper extends HelperBase {
     // ======= Widgets =======
 
     public boolean isWidgetPresent(WidgetData widget){
-        printMessage(kraken.grab().currentURL());
+        kraken.grab().currentURL();
         if(widget.getProvider().equals("RetailRocket")){
             return isElementPresent(Elements.RetailRocket.widget(widget.getId()));
                     //&& kraken.grab().text(Elements.RetailRocket.title(widget.getId())).equals(widget.getName());
         } else
-            printMessage("В детекторе не найден провайдер виджета");
+            message("В детекторе не найден провайдер виджета");
             return false;
     }
 
@@ -596,10 +594,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить открыт ли виджет Jivosite */
     public boolean isJivositeOpen() {
         if (isElementDisplayed(Elements.Site.Jivosite.sendMessageButton())){
-            if(verbose) { printMessage("Чат Jivosite развернут\n"); }
+            verboseMessage("Чат Jivosite развернут\n");
             return true;
         } else {
-            if(verbose) { printMessage("Чат Jivosite свернут\n"); }
+            verboseMessage("Чат Jivosite свернут\n");
             return false;
         }
     }
@@ -612,10 +610,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить отправлено ли сообщение в Jivosite */
     public boolean isJivositeMessageSent() {
         if (isElementDisplayed(Elements.Site.Jivosite.sentMessage())){
-            if(verbose) {  printMessage("Сообщение отправлено"); }
+            verboseMessage("Сообщение отправлено");
             return true;
         } else {
-            if(verbose) { printMessage("Сообщение не отправлено"); }
+            verboseMessage("Сообщение не отправлено");
             return false;
         }
     }
@@ -624,35 +622,10 @@ public class DetectionHelper extends HelperBase {
     public boolean isJivositeWidgetAvailable () {
         kraken.await().implicitly(2); // Ожидание подгрузки виджета Jivosite
         if (isElementDisplayed(Elements.Site.Jivosite.widget())){
-            if(verbose) { printMessage("Виджет Jivosite доступен\n"); }
+            verboseMessage("Виджет Jivosite доступен\n");
             return true;
         } else {
-            if(verbose) { printMessage("Виджет Jivosite недоступен\n"); }
-            return false;
-        }
-    }
-
-    // ======= Tenant =======
-
-    /** Определить доступны ли Контакты в меню профиля*/
-    public boolean isContactsOnProfileAvailaible() {
-        kraken.perform().click(Elements.Site.Header.profileButton());
-        if (isElementDisplayed(Elements.Site.AccountMenu.contactsLink())){
-            printMessage("Контакты в меню профиля доступны\n");
-            return true;
-        } else {
-            printMessage("Контакты недоступны в меню профиля\n");
-            return false;
-        }
-    }
-
-    //** Определить доступен ли тенант-футер*/
-    public boolean isTenantFooterAvailable() {
-        if (isElementDisplayed(Elements.Tenant.tenantFooter())){
-            printMessage("Тенант-футер доступен\n");
-            return true;
-        } else {
-            printMessage("Тенант-футер недоступен\n");
+            verboseMessage("Виджет Jivosite недоступен\n");
             return false;
         }
     }

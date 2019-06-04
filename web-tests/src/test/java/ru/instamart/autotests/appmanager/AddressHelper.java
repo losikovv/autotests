@@ -1,16 +1,10 @@
 package ru.instamart.autotests.appmanager;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.models.EnvironmentData;
-
-import java.util.concurrent.TimeUnit;
-
-import static ru.instamart.autotests.application.Config.waitingTimeout;
 
 public class AddressHelper extends HelperBase {
 
@@ -22,7 +16,7 @@ public class AddressHelper extends HelperBase {
      * Установить адрес доставки
      */
     public void set(String address) {
-        printMessage("Устанавливаем адрес доставки >>> " + address + "\n");
+        message("Устанавливаем адрес доставки >>> " + address + "\n");
         if (kraken.grab().currentURL().equals(fullBaseUrl)) {
             kraken.perform().fillField(Elements.Landing.addressField(), address);
             kraken.await().implicitly(1); // Ожидание загрузки адресных саджестов
@@ -43,7 +37,7 @@ public class AddressHelper extends HelperBase {
      * Изменить адрес доставки
      */
     public void change(String address) {
-        printMessage("Изменяем адрес доставки >>> " + address + "\n");
+        message("Изменяем адрес доставки >>> " + address + "\n");
         openAddressModal();
         clearAddressField();
         fill(address);
@@ -66,7 +60,8 @@ public class AddressHelper extends HelperBase {
      * Выбрать первый адресный саджест
      */
     private void selectAddressSuggest() {
-        if (kraken.detect().isAnyAddressSuggestsAvailable()) {
+        // TODO переделать на fluent-ожидание подсказок
+        if (kraken.detect().isShippingAddressSuggestsPresent()) {
             kraken.perform().click(Elements.Site.AddressModal.addressSuggest());
             kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Site.AddressModal.saveButton().getLocator()),
                     "Неактивна кнопка сохранения адреса");
@@ -80,7 +75,7 @@ public class AddressHelper extends HelperBase {
      */
     public void openAddressModal() {
         if (kraken.detect().isAddressModalOpen()) {
-            printMessage("Пропускаем открытие модалки адреса, она уже открыта");
+            message("Пропускаем открытие модалки адреса, она уже открыта");
         } else {
             kraken.perform().click(Elements.Site.Header.shipAddressButton());
             kraken.await().implicitly(1); // Ожидание анимации открытия адресной модалки
@@ -108,7 +103,8 @@ public class AddressHelper extends HelperBase {
     public void submit() throws AssertionError {
         kraken.perform().click(Elements.Site.AddressModal.saveButton());
         if (kraken.detect().isAddressOutOfZone()) {
-            throw new AssertionError("Указанный адрес вне зоны доставки");
+            verboseMessage("Выбранный адрес вне зоны доставки");
+            kraken.perform().refresh();
         } else {
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(
@@ -133,7 +129,7 @@ public class AddressHelper extends HelperBase {
             kraken.perform().click(Elements.Site.AddressModal.closeButton());
             kraken.await().implicitly(1); // Ожидание анимации закрытия адресной модалки
         } else {
-            printMessage("Пропускаем закрытие модалки адреса, она уже закрыта");
+            message("Пропускаем закрытие модалки адреса, она уже закрыта");
         }
     }
 }

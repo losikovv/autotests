@@ -5,6 +5,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.appmanager.ShopHelper;
 
 
 // Тесты промоушенов
@@ -13,7 +14,7 @@ public class PromoCodes extends TestBase {
 
 
     @BeforeMethod(alwaysRun = true)
-    public void preconditions() throws Exception {
+    public void preconditions() {
         kraken.get().baseUrl();
         kraken.drop().auth();
         kraken.perform().registration();
@@ -28,7 +29,7 @@ public class PromoCodes extends TestBase {
     )
     public void successOrderWithFirstOrderPromo() {
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
 
         kraken.checkout().addPromocode("frstord");
 
@@ -46,7 +47,7 @@ public class PromoCodes extends TestBase {
     )
     public void successOrderWithOrderSumPromo() {
         kraken.shopping().collectItems(2100);
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
 
         kraken.checkout().addPromocode("2000mtr");
 
@@ -65,7 +66,7 @@ public class PromoCodes extends TestBase {
     public void successOrderWithNewUserPromo () {
         kraken.search().item("молоко");
         kraken.shopping().collectItems(2000);
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
 
         kraken.checkout().addPromocode("newusr");
 
@@ -83,7 +84,7 @@ public class PromoCodes extends TestBase {
     )
     public void successOrderWithCertainOrderPromo() {
         kraken.shopping().collectItems(2100);
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
 
         kraken.checkout().addPromocode("crtnord");
 
@@ -101,12 +102,12 @@ public class PromoCodes extends TestBase {
     )
     public void successOrderWithSeriesOfOrdersPromo() {
         kraken.shopping().collectItems(2000);
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         kraken.get().baseUrl();
         kraken.shopping().collectItems(2000);
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().addPromocode("srsoford");
 
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),

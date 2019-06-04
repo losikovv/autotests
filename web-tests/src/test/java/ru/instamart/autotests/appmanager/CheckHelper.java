@@ -41,10 +41,20 @@ public class CheckHelper extends HelperBase {
 
     private void orderDocument(String docname) {
         ElementData docLink = Elements.Site.UserProfile.OrderDetailsPage.document(docname);
-        printMessage("Скачиваем : " + docname);
+        message("Скачиваем : " + docname);
         if (kraken.detect().isElementPresent(docLink)) {
             kraken.perform().click(docLink);
         } else
             throw new AssertionError("Документ \"" + docname + "\" недоступен для скачивания\nна странице " + kraken.grab().currentURL());
+    }
+
+    /** Проверка наличия элемента на странице */
+    public void elementPresence(ElementData element) throws AssertionError{
+        if (kraken.detect().isElementPresent(element)) {
+            debugMessage("На " + kraken.grab().currentURL() + " есть " + element.getDescription());
+        } else {
+            throw new AssertionError(
+                    "Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL());
+        }
     }
 }

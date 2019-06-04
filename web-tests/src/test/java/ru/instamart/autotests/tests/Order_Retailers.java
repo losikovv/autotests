@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.application.Config.testRetailerOrders;
 
@@ -30,7 +31,7 @@ public class Order_Retailers extends TestBase {
         kraken.drop().cart();
 
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -52,7 +53,7 @@ public class Order_Retailers extends TestBase {
         //Assert.assertTrue(kraken.detect().isRetailerLoyaltyAvailable(),"Не доступна бонусная программа Вкусвилл \n");
         //kraken.checkout().addLoyalty(LoyaltyPrograms.vkusvill());
         //Assert.assertTrue(kraken.detect().isLoyaltyAdded(LoyaltyPrograms.vkusvill()),"Не применяется бонусная программа Вкусвилл\n");
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -70,7 +71,7 @@ public class Order_Retailers extends TestBase {
         kraken.drop().cart();
 
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -88,7 +89,7 @@ public class Order_Retailers extends TestBase {
         kraken.drop().cart();
 
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),

@@ -12,16 +12,16 @@ public class CleanupHelper extends HelperBase {
     }
 
     public void all() throws Exception {
-        printMessage("\n================== CLEANUP AFTER TESTRUN ( " + kraken.session.id + " ) ==================\n");
+        message("\n================== CLEANUP AFTER TESTRUN ( " + kraken.session.id + " ) ==================\n");
             try {
                 orders();
             } catch (WebDriverException w) {
-                printMessage("❌ НЕ УДАЛОСЬ ПРОВЕСТИ ОТМЕНУ ВСЕХ ТЕСТОВЫХ ЗАКАЗОВ ❌\n");
+                message("❌ НЕ УДАЛОСЬ ПРОВЕСТИ ОТМЕНУ ВСЕХ ТЕСТОВЫХ ЗАКАЗОВ ❌\n");
             }
             try {
                 users();
             } catch (WebDriverException w) {
-                printMessage("❌ НЕ УДАЛОСЬ ПРОВЕСТИ УДАЛЕНИЕ ВСЕХ ТЕСТОВЫХ ЮЗЕРОВ ❌\n");
+                message("❌ НЕ УДАЛОСЬ ПРОВЕСТИ УДАЛЕНИЕ ВСЕХ ТЕСТОВЫХ ЮЗЕРОВ ❌\n");
             }
     }
 
@@ -29,7 +29,7 @@ public class CleanupHelper extends HelperBase {
      * Удаление тестовых юзеров по дефолтному списку
      */
     public void users() throws Exception {
-        printMessage("Удаление тестовых пользователей");
+        message("Удаление тестовых пользователей");
         //TODO в соло-режиме удалять всех тестовых пользователей
         users(kraken.session.userList);
     }
@@ -40,13 +40,13 @@ public class CleanupHelper extends HelperBase {
     public void users(String usersListPath) throws Exception {
         kraken.reach().admin(usersListPath);
         if (kraken.detect().isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
-            printMessage("> удаляем пользователя " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
+            message("> удаляем пользователя " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
             kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
             kraken.await().implicitly(1); // Ожидание удаления предыдущего тестового пользователя
             users(usersListPath); // Keep deleting users, recursively
         } else {
-            printMessage("✓ Все тестовые пользователи удалены\n");
+            message("✓ Все тестовые пользователи удалены\n");
         }
     }
 
@@ -54,7 +54,7 @@ public class CleanupHelper extends HelperBase {
      * Отмена тестовых заказов по дефолтному списку
      */
     public void orders() throws Exception {
-        printMessage("Отмена тестовых заказов");
+        message("Отмена тестовых заказов");
         //TODO в соло-режиме отменять все тестовые заказы
         orders(kraken.session.orderList);
     }
@@ -64,13 +64,13 @@ public class CleanupHelper extends HelperBase {
      */
     public void orders(String ordersListPath) throws Exception {
         kraken.reach().admin(ordersListPath);
-        if (!kraken.detect().isElementPresent(Elements.Admin.Shipments.emptyListPlaceholder())) {
+        if (!kraken.detect().isElementPresent(Elements.Admin.Shipments.placeholder())) {
             kraken.perform().click(Elements.Admin.Shipments.firstOrderInTable());
             kraken.await().implicitly(1); // Ожидание отмены предыдущего тестового заказа
             kraken.admin().cancelOrder(); // todo добавить проверку, отменять только если тестовый заказ
             orders(ordersListPath); // Keep cancelling orders recursively
         } else {
-            printMessage("✓ Все тестовые заказы отменены\n");
+            message("✓ Все тестовые заказы отменены\n");
         }
     }
 }

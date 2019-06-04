@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.*;
+import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.models.CreditCardData;
 import ru.instamart.autotests.models.JuridicalData;
 import ru.instamart.autotests.models.UserData;
@@ -117,7 +118,7 @@ public class Order extends TestBase{
         //Assert.assertFalse(kraken.detect().isCheckoutButtonActive(),
         //        "Не выполнено предусловие: корзина не набралась до суммы минимального заказа\n");
 
-        kraken.shopping().proceedToCheckout();
+        ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),

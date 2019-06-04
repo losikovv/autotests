@@ -12,7 +12,6 @@ import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
 import static ru.instamart.autotests.application.Config.multiSessionMode;
-import static ru.instamart.autotests.application.Config.verbose;
 
 
 public class PerformHelper extends HelperBase {
@@ -23,32 +22,35 @@ public class PerformHelper extends HelperBase {
 
     // ======= Базовые действия =======
 
+    // TODO Обернуть методы click один в другой
     /** Кликнуть элемент */
     public void click(ElementData element) {
         try {
+            debugMessage("Клик по: " + element.getDescription());
             driver.findElement(element.getLocator()).click();
         }
         catch (NoSuchElementException n) {
-            printMessage("Не нажимается " + element.getDescription()
-                    + "\nЭлемент не найден " + element.getLocator() + "\nна " + kraken.grab().currentURL() + "\n");
+            message("Не нажимается " + element.getDescription()
+                    + "\nЭлемент не найден по " + element.getLocator().toString().substring(3) + "\nна " + kraken.grab().currentURL() + "\n");
         }
         catch (ElementNotVisibleException v) {
-            printMessage("Не нажимается " + element.getDescription()
-                    + "\nЭлемент не отображается " + element.getLocator() + "\nна " + kraken.grab().currentURL() + "\n");
+            message("Не нажимается " + element.getDescription()
+                    + "\nЭлемент по " + element.getLocator().toString().substring(3) + " невидим\nна " + kraken.grab().currentURL() + "\n");
         }
     }
 
+    // TODO убрать все использования в тестах и хелперах, оставить метод только для удобства дебага
     /** Кликнуть элемент по локатору */
     public void click(By locator) {
         try {
             driver.findElement(locator).click();
         }
         catch (NoSuchElementException n) {
-            printMessage("Невозможно нажать на элемент <" + locator
+            message("Невозможно нажать на элемент <" + locator
                     + ">\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
         }
         catch (ElementNotVisibleException v) {
-            printMessage("Невозможно нажать на элемент <" + locator
+            message("Невозможно нажать на элемент <" + locator
                     + ">\nЭлемент не отображается на " + kraken.grab().currentURL() + "\n");
         }
     }
@@ -64,7 +66,7 @@ public class PerformHelper extends HelperBase {
             new Actions(driver).moveToElement(driver.findElement(locator)).perform();
         }
         catch (ElementNotVisibleException v) {
-            printMessage("Невозможно навестись на элемент <" + locator
+            message("Невозможно навестись на элемент <" + locator
                     + ">\nЭлемент не отображается на " + kraken.grab().currentURL() + "\n");
         }
     }
@@ -131,23 +133,6 @@ public class PerformHelper extends HelperBase {
     }
 
 
-    // ======= Меню аккаунта =======
-
-    /** Открыть меню аккаунта */
-    public void openAccountMenu() {
-        if(!kraken.detect().isAccountMenuOpen()) {
-            click(Elements.Site.Header.profileButton());
-        } else printMessage("Пропускаем открытие меню аккаунта, оно уже открыто");
-    }
-
-    /** Закрыть меню аккаунта */
-    public void closeAccountMenu() {
-        if(kraken.detect().isAccountMenuOpen()) {
-            click(Elements.Site.Header.profileButton());
-        } else printMessage("Пропускаем закрытие меню аккаунта, оно уже закрыто");
-    }
-
-
     // ======= Регистрация =======
 
     /** Зарегистрировать тестового юзера со сгенерированными реквизитами */
@@ -162,7 +147,7 @@ public class PerformHelper extends HelperBase {
 
     /** Зарегистрировать нового юзера с указанными реквизитами */
     public void registration(String name, String email, String password, String passwordConfirmation) {
-        printMessage("Регистрируемся (" + email + " / " + password + ")");
+        message("Регистрируемся (" + email + " / " + password + ")");
         openAuthModal();
         regSequence(name,email,password,passwordConfirmation);
         // TODO переделать на fluent-ожидание
@@ -196,21 +181,21 @@ public class PerformHelper extends HelperBase {
         if (!startURL.equals(fullBaseUrl) && kraken.detect().isUserAuthorised()) {
             kraken.get().profilePage();
             String currentUserEmail = kraken.grab().text(Elements.Site.UserProfile.AccountPage.email());
-            printMessage("Юзер: " + currentUserEmail);
+            message("Юзер: " + currentUserEmail);
             if(currentUserEmail == null || !currentUserEmail.equals(user.getEmail())) {
                 quickLogout();
             }
             kraken.get().url(startURL);
         }
         authorisation(user);
-        // TODO переделать на проверку наличия ошибки (Пользователь не найден)
         // TODO + добавить ожидание закрытия модалки авторизации в метод авторизации
-        if(multiSessionMode && kraken.detect().isAuthModalOpen()) {
-            printMessage(">>> Юзер " + user.getEmail() + " не найден, регистрируем\n");
-            // костыль для stage-окружений
-            if(kraken.environment.getServer().equals("staging")) {
-                kraken.get().baseUrl();
-            }
+        if(multiSessionMode && kraken.detect().isElementPresent(
+                Elements.Site.AuthModal.errorMessage("Неверный email или пароль"))) {
+                    message(">>> Юзер " + user.getEmail() + " не найден, регистрируем\n");
+                    // костыль для stage-окружений
+                    if(kraken.environment.getServer().equals("staging")) {
+                        kraken.get().baseUrl();
+                    }
             registration(user);
             if(user.getRole().equals("admin")) {
                 quickLogout();
@@ -220,49 +205,51 @@ public class PerformHelper extends HelperBase {
                 authorisation(user);
             }
         }
-        printMessage("Уровень прав: " + user.getRole() + "\n");
+        message("Уровень прав: " + user.getRole() + "\n");
     }
 
     /** Залогиниться с реквизитами из переданного объекта UserData */
-    public void authorisation(UserData userData) throws Exception {
+    public void authorisation(UserData userData) {
         authorisation(userData.getEmail(), userData.getPassword());
     }
 
     /** Залогиниться с указанными реквизитами */
-    public void authorisation(String email, String password) throws Exception {
+    public void authorisation(String email, String password) {
         if (!kraken.detect().isUserAuthorised()) {
-            printMessage("Авторизуемся (" + email + " / " + password + ")");
+            message("Авторизуемся (" + email + " / " + password + ")");
             openAuthModal();
             authSequence(email, password);
             sendForm();
-            // TODO добавить проверку на тормоза и обернуть в нее задержку для стабильности
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Site.AuthModal.popup().getLocator()), "Не проходит авторизация\n");
         } else {
-            printMessage("Пропускаем авторизацию, уже авторизованы");
+            message("Пропускаем авторизацию, уже авторизованы");
         }
     }
 
     /** Авторизационная последовательность с реквизитами из переданного объекта UserData */
-    public void authSequence(UserData role) throws Exception {
+    public void authSequence(UserData role) {
         authSequence(role.getEmail(), role.getPassword());
     }
 
     /** Авторизационная последовательность с указанными реквизитами */
-    private void authSequence(String email, String password) throws Exception {
+    public void authSequence(String email, String password) {
         switchToAuthorisationTab();
         fillAuthorisationForm(email, password);
     }
 
     /** Деавторизоваться */
     public void logout() {
-        if (!kraken.detect().isInAdmin()) {
+        if (kraken.detect().isInAdmin()) {
+            click(Elements.Admin.Header.logoutButton());
+        } else {
             click(Elements.Site.Header.profileButton());
             click(Elements.Site.AccountMenu.logoutButton());
-        } else {
-            click(Elements.Admin.Header.logoutButton());
         }
         kraken.await().implicitly(1); // Ожидание деавторизации и подгрузки лендинга
         if(kraken.detect().isOnLanding()) {
-            printMessage("Логаут\n");
+            verboseMessage("Логаут\n");
         }
     }
 
@@ -271,7 +258,7 @@ public class PerformHelper extends HelperBase {
         kraken.get().page("logout");
         kraken.await().simply(1); // Ожидание деавторизации и подгрузки лендинга
         if(kraken.detect().isOnLanding()) {
-            printMessage("Быстрый логаут\n");
+            message("Быстрый логаут\n");
         }
     }
 
@@ -284,7 +271,7 @@ public class PerformHelper extends HelperBase {
 
     /** Авторизоваться в гугл почте */
     public void authGmail(String gmail, String password) {
-        if(verbose) { printMessage("> авторизовываемся в гугл почте..."); }
+        verboseMessage("> авторизовываемся в гугл почте...");
         kraken.get().url("https://mail.google.com/mail/u/0/h/");
         fillField(By.name("identifier"), gmail);
         click(By.id("identifierNext"));
@@ -296,14 +283,14 @@ public class PerformHelper extends HelperBase {
 
     /** Открыть крайнее письмо в цепочке писем от Инстамарт */
     public void openLastGmail() {
-        if(verbose) { printMessage("> открываем крайнее письмо от Инстамарт"); }
+        verboseMessage("> открываем крайнее письмо от Инстамарт");
         click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Instamart'])[1]/following::span[1]"));
         click(By.linkText("- Показать цитируемый текст -"));
     }
 
     /** Нажать кнопку сброса пароля в письме */
     public void clickRecoveryInMail() {
-        if(verbose) { printMessage("> нажимаем кнопку сброса пароля в письме"); }
+        verboseMessage("> нажимаем кнопку сброса пароля в письме");
         click(By.linkText("СБРОСИТЬ ПАРОЛЬ"));
         kraken.await().implicitly(1); // Ожидание перехода из письма на сайт Инстамарт
         switchToNextWindow();
@@ -313,10 +300,8 @@ public class PerformHelper extends HelperBase {
 
     /** Открыть форму авторизации/регистрации */
     public void openAuthModal(){
-        if (kraken.detect().isAuthModalOpen()) {
-            if(verbose) { printMessage("> модалка авторизации открыта"); }
-        } else {
-            if(verbose) { printMessage("> открываем модалку авторизации"); }
+        if (!kraken.detect().isAuthModalOpen()) {
+            verboseMessage("> открываем модалку авторизации");
             if (kraken.detect().isOnLanding()) {
                 click(Elements.Landing.loginButton());
             } else {
@@ -332,13 +317,13 @@ public class PerformHelper extends HelperBase {
 
     /** Переключиться на вкладку регистрации */
     private void switchToRegistrationTab(){
-        if(verbose) { printMessage("> переключаемся на вкладку регистрации"); }
+        verboseMessage("> переключаемся на вкладку регистрации");
         click(Elements.Site.AuthModal.registrationTab());
     }
 
     /** Заполнить поля формы регистрации */
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation, boolean agreementConfirmation) {
-        if(verbose) { printMessage("> заполняем поля формы регистрации"); }
+        verboseMessage("> заполняем поля формы регистрации");
         fillField(Elements.Site.AuthModal.nameField(), name);
         fillField(Elements.Site.AuthModal.emailField(), email);
         fillField(Elements.Site.AuthModal.passwordField(), password);
@@ -348,9 +333,9 @@ public class PerformHelper extends HelperBase {
 
     /** Отправить форму */
     public void sendForm(){
-        if(verbose) { printMessage("> отправляем форму\n"); }
+        verboseMessage("> отправляем форму\n");
         click(Elements.Site.AuthModal.submitButton());
-        kraken.await().implicitly(2); // Ожидание авторизации
+        kraken.await().implicitly(1); // Ожидание авторизации
     }
 
     /** Закрыть форму авторизации/регистрации */
@@ -360,48 +345,48 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Переключиться на вкладку авторизации */
-    private void switchToAuthorisationTab() throws Exception {
+    private void switchToAuthorisationTab() {
         try {
-            if(verbose) { printMessage("> переключаемся на вкладку авторизации"); }
+            verboseMessage("> переключаемся на вкладку авторизации");
             click(Elements.Site.AuthModal.authorisationTab());
         } catch (ElementNotInteractableException e) {
-            printMessage(" > что-то пошло не так, пробуем ещё раз...");
-            if(verbose) { click(Elements.Site.AuthModal.authorisationTab()); }
+            debugMessage(" > что-то пошло не так, пробуем ещё раз...");
+            click(Elements.Site.AuthModal.authorisationTab());
         }
     }
 
     /** Заполнить поля формы авторизации */
     private void fillAuthorisationForm(String email, String password) {
-        if(verbose) { printMessage("> заполняем поля формы авторизации..."); }
+        verboseMessage("> заполняем поля формы авторизации...");
         fillField(Elements.Site.AuthModal.emailField(), email);
         fillField(Elements.Site.AuthModal.passwordField(), password);
     }
 
     /** Перейти в форму восстановления пароля */
     private void proceedToPasswordRecovery(){
-        if(verbose) { printMessage("> переходим в форму восстановления пароля"); }
+        verboseMessage("> переходим в форму восстановления пароля");
         click(Elements.Site.AuthModal.forgotPasswordButton());
     }
 
     /** Запросить восстановление пароля */
-    public void recoverPassword(String email) throws Exception {
+    public void recoverPassword(String email) {
         openAuthModal();
         switchToAuthorisationTab();
         proceedToPasswordRecovery();
-        if(verbose) { printMessage("> запрашиваем восстановление пароля для " + email); }
+        verboseMessage("> запрашиваем восстановление пароля для " + email);
         fillField(Elements.Site.AuthModal.emailField(),email);
         sendForm();
         kraken.await().implicitly(1); // Ожидание раздизабливания кнопки подтверждения восстановления пароля
     }
 
     /** Запросить восстановление пароля для указанной роли*/
-    public void recoverPasswordAs(UserData role) throws Exception {
+    public void recoverPasswordAs(UserData role) {
         recoverPassword(role.getEmail());
     }
 
     /** Придумать новый пароль для восстановления пароля */
     public void submitRecovery(String password, String passwordConfirmation) {
-        printMessage("> задаем новый пароль...\n");
+        message("> задаем новый пароль...\n");
         fillField(By.name("password"), password);
         fillField(By.name("passwordConfirmation"), passwordConfirmation);
         click(By.className("auth-modal__button"));
@@ -415,44 +400,44 @@ public class PerformHelper extends HelperBase {
         if (!kraken.detect().isShippingAddressSet()) {
             kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         }
-            kraken.shopping().collectItems();
-            kraken.shopping().proceedToCheckout();
-            kraken.checkout().complete();
+        kraken.shopping().collectItems();
+        ShopHelper.Cart.proceedToCheckout();
+        kraken.checkout().complete();
     }
 
     /** Повторить крайний заказ */
     public void repeatLastOrder() {
-        printMessage("Повторяем крайний заказ\n");
+        message("Повторяем крайний заказ\n");
         kraken.get().url(baseUrl + "user/orders");
         if(kraken.detect().element(Elements.Site.UserProfile.OrdersPage.placeholder())) {
-            printMessage("У пользователя нет заказов для повтора, делаем новый заказ\n");
+            message("У пользователя нет заказов для повтора, делаем новый заказ\n");
             kraken.get().page("metro");
             order();
             cancelLastOrder();
         }
         if(kraken.detect().isLastOrderActive()) {
-            if(verbose) {printMessage("Для повтора жмем 2 кнопку\n");}
+            verboseMessage("Для повтора жмем 2 кнопку\n");
             click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(2));
         } else {
-            if(verbose) {printMessage("Для повтора жмем 1 кнопку\n");}
+            verboseMessage("Для повтора жмем 1 кнопку\n");
             click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton());
         }
         // TODO заменить на умное ожидание
         kraken.await().implicitly(2); // Ожидание добавления в корзину товаров из предыдущего заказа
         if(kraken.detect().isInProfile()){
-            printMessage("❕Тормозит повтор заказа❕");
+            message("❕Тормозит повтор заказа❕");
             kraken.await().implicitly(2); // Доп. ожидание добавления в корзину товаров из предыдущего заказа при тормозах
         }
     }
 
     /** Отменить крайний заказ */
     public void cancelLastOrder() {
-        printMessage("Отменяем крайний заказ");
+        message("Отменяем крайний заказ");
         kraken.get().url(baseUrl + "user/orders");
         if(kraken.detect().isLastOrderActive()) {
             click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(1));
-            printMessage("✓ OK\n");
-        } else printMessage("> Заказ не активен\n");
+            message("✓ OK\n");
+        } else message("> Заказ не активен\n");
         kraken.await().implicitly(2); // Ожидание отмены заказа
     }
 }

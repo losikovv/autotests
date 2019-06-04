@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.appmanager.ShopHelper;
 
 
 // Тесты адреса доставки по Фениксу
@@ -19,11 +20,19 @@ public class ShippingAddress extends TestBase{
             priority = 301
     )
     public void noShippingAddressByDefault() {
+        SoftAssert softAssert = new SoftAssert();
         kraken.perform().quickLogout();
         kraken.get().page("metro");
 
-        Assert.assertFalse(kraken.detect().isShippingAddressSet(),
-                "По умолчанию установлен адрес доставки, хотя адрес не должен быть выбран\n");
+        softAssert.assertFalse(
+                kraken.detect().isShippingAddressSet(),
+                    "По дефолту выбран адрес доставки\n");
+
+        softAssert.assertTrue(
+                kraken.detect().isElementPresent(Elements.Site.Header.shipAddressPlaceholder()),
+                    "Не отображается плейсхолдер при невыбранном адресе доставки\n");
+
+        softAssert.assertAll();
     }
 
 
@@ -34,18 +43,21 @@ public class ShippingAddress extends TestBase{
     )
     public void successOperateDefaultShoplist() {
         kraken.get().page("metro");
-        kraken.shopping().openStoreSelector();
+        ShopHelper.StoreSelector.open();
 
-        Assert.assertTrue(kraken.detect().isStoreSelectorOpen(),
-                "Не открывается дефолтный список магазинов\n");
+        Assert.assertTrue(
+                kraken.detect().isStoreSelectorOpen(),
+                    "Не открывается дефолтный список магазинов\n");
 
-        Assert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
-                "Дефолтный список магазинов пуст\n");
+        Assert.assertFalse(
+                kraken.detect().isStoreSelectorEmpty(),
+                    "Дефолтный список магазинов пуст\n");
 
-        kraken.shopping().closeStoreSelector();
+        ShopHelper.StoreSelector.close();
 
-        Assert.assertFalse(kraken.detect().isStoreSelectorOpen(),
-                "Не закрывается дефолтный список магазинов\n");
+        Assert.assertFalse(
+                kraken.detect().isStoreSelectorOpen(),
+                    "Не закрывается дефолтный список магазинов\n");
     }
 
     //TODO successOperateShoplist()
@@ -74,18 +86,24 @@ public class ShippingAddress extends TestBase{
     )
     public void noAvailableShopsOutOfDeliveryZone() {
         SoftAssert softAssert = new SoftAssert();
-
         kraken.get().page("metro");
         kraken.shipAddress().set(Addresses.Moscow.outOfZoneAddress());
-        kraken.perform().refresh();
-        kraken.perform().switchToActiveElement();
-        kraken.shopping().openStoreSelector();
 
-        softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(), // TODO тест падает из-за бага в детекторе
-                "Не открывается список магазинов вне зоны доставки\n");
+        ShopHelper.StoreSelector.open();
 
-        softAssert.assertTrue(kraken.detect().isStoreSelectorEmpty(),
-                "Не пуст список магазинов с адресом вне зоны доставки\n");
+        softAssert.assertTrue(
+                kraken.detect().isStoreSelectorOpen(),
+                    "Не открывается список магазинов вне зоны доставки\n");
+
+        softAssert.assertTrue(
+                kraken.detect().isStoreSelectorEmpty(),
+                    "Не пуст список магазинов с адресом вне зоны доставки\n");
+
+        ShopHelper.StoreSelector.close();
+
+        Assert.assertFalse(
+                kraken.detect().isStoreSelectorOpen(),
+                    "Не закрывается пустой список магазинов\n");
 
         softAssert.assertAll();
     }
@@ -205,15 +223,15 @@ public class ShippingAddress extends TestBase{
         kraken.perform().quickLogout();
         kraken.get().page("metro");
         kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitPlusButton();
+        ShopHelper.ItemCard.hitPlusButton();
 
         softAssert.assertTrue(kraken.detect().isAddressModalOpen(),
         "Не открывается адресная модалка после добавления товара");
 
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress()); // TODO обработать кейс когда после ввода адреса товар недоступен
-        kraken.shopping().closeItemCard();
+        ShopHelper.ItemCard.close();
 
-        softAssert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.product()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.Product.snippet()),
                 "Не перезагрузился контент в соответствии с указанным адресом");
 
         softAssert.assertTrue(kraken.detect().isShippingAddressSet(),
@@ -240,7 +258,7 @@ public class ShippingAddress extends TestBase{
 
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
 
-        softAssert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.product()),
+        softAssert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Catalog.Product.snippet()),
                 "Не перезагрузился контент в соответствии с указанным адресом");
 
         softAssert.assertTrue(kraken.detect().isShippingAddressSet(),
@@ -267,7 +285,7 @@ public class ShippingAddress extends TestBase{
 
         kraken.perform().click(Elements.Site.StoresModal.firstStoreAvailable());
         kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitPlusButton();
+        ShopHelper.ItemCard.hitPlusButton();
 
         softAssert.assertFalse(kraken.detect().isChangeStoreModalOpen(),
                 "В модалке не выбирается магазин по новому адресу");
@@ -295,7 +313,7 @@ public class ShippingAddress extends TestBase{
         kraken.perform().click(Elements.Site.StoresModal.pickNewAddressButton());
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
         kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitPlusButton();
+        ShopHelper.ItemCard.hitPlusButton();
 
         softAssert.assertFalse(kraken.detect().isChangeStoreModalOpen(),
                 "В модалке не выбирается новый адрес");
@@ -323,12 +341,11 @@ public class ShippingAddress extends TestBase{
         kraken.perform().click(Elements.Site.AddressModal.pickNewAddressButton());
         kraken.shipAddress().set(Addresses.Moscow.testAddress());
         kraken.shopping().openFirstItemCard();
-        kraken.shopping().hitPlusButton();
+        ShopHelper.ItemCard.hitPlusButton();
 
         softAssert.assertFalse(kraken.detect().isChangeStoreModalOpen(),
                 "В модалке не выбирается новый адрес");
 
         softAssert.assertAll();
     }
-
 }

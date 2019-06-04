@@ -12,7 +12,7 @@ public class SearchHelper extends HelperBase {
 
     /** Осуществить поиск товара по запросу */
     public void item(String query) {
-        printMessage("Поиск товаров по запросу \"" + query + "\"...");
+        message("Поиск товаров по запросу \"" + query + "\"...");
         fillSearchFieldWith(query);
         hitSearchButton();
         kraken.await().implicitly(1); // Ожидание загрузки результатов поиска
@@ -20,13 +20,13 @@ public class SearchHelper extends HelperBase {
 
     /** Заполнить поле поиска */
     public void fillSearchFieldWith(String query) {
-        kraken.perform().fillField(Elements.Site.Header.Search.searchField(), query);
+        kraken.perform().fillField(Elements.Site.Header.Search.inputField(), query);
         kraken.await().implicitly(1); // Ожидание загрузки поисковых саджестов
     }
 
     /** Нажать кнопку поиска */
     public void hitSearchButton() {
-        kraken.perform().click((Elements.Site.Header.Search.searchButton()));
+        kraken.perform().click((Elements.Site.Header.Search.sendButton()));
     }
 
     /** Нажать на категорийный саджест */
