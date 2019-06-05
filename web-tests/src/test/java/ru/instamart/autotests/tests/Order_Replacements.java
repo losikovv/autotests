@@ -21,17 +21,13 @@ public class Order_Replacements extends TestBase {
         kraken.drop().cart();
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void preconditions() {
-        kraken.reach().checkout();
-    }
-
     @Test(enabled = testReplacementsOrders,
             description = "Тест заказа с политикой Звонить / Заменять",
             groups = {"acceptance","regression"},
             priority = 911
     )
-    public void successOrderWithCallAndReplacePolicy() throws Exception {
+    public void successOrderWithCallAndReplacePolicy() {
+        kraken.reach().checkout();
         kraken.checkout().complete(ReplacementPolicies.callAndReplace());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -53,7 +49,8 @@ public class Order_Replacements extends TestBase {
             groups = {"acceptance","regression"},
             priority = 912
     )
-    public void successOrderWithCallAndRemovePolicy() throws Exception {
+    public void successOrderWithCallAndRemovePolicy() {
+        kraken.reach().checkout();
         kraken.checkout().complete(ReplacementPolicies.callAndRemove());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -75,7 +72,8 @@ public class Order_Replacements extends TestBase {
             groups = {"acceptance","regression"},
             priority = 913
     )
-    public void successOrderWithReplacePolicy() throws Exception {
+    public void successOrderWithReplacePolicy() {
+        kraken.reach().checkout();
         kraken.checkout().complete(ReplacementPolicies.replace());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -97,7 +95,8 @@ public class Order_Replacements extends TestBase {
             groups = {"acceptance","regression"},
             priority = 914
     )
-    public void successOrderWithRemovePolicy() throws Exception {
+    public void successOrderWithRemovePolicy() {
+        kraken.reach().checkout();
         kraken.checkout().complete(ReplacementPolicies.remove());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),

@@ -209,7 +209,7 @@ public class Authorisation extends TestBase {
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
         skipOn("metro");
         kraken.get().page("vkusvill");
-        kraken.perform().loginAs(session.user);
+        kraken.perform().loginAs(session.admin);
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
                 "Не работает авторизация на витрине магазина\n");
@@ -318,7 +318,7 @@ public class Authorisation extends TestBase {
     )
     public void successCheckProfilePages() throws Exception, AssertionError {
         kraken.get().baseUrl();
-        kraken.perform().loginAs(session.user);
+        kraken.perform().loginAs(session.admin);
 
         // TODO переделать на assertPagesAvailable(Pages.Site.Profile.*)
         assertPageIsAvailable(Pages.Site.Profile.edit());
@@ -335,7 +335,7 @@ public class Authorisation extends TestBase {
     public void successOperateProfileMenu() throws Exception, AssertionError {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().baseUrl();
-        kraken.perform().loginAs(session.user);
+        kraken.perform().loginAs(session.admin);
 
         ShopHelper.AccountMenu.open();
 
@@ -353,16 +353,18 @@ public class Authorisation extends TestBase {
     }
 
     @Test(
-            description = "Тест наличия элементов в меню профиля",
+            description = "Тест валидации элементов в меню профиля",
             groups = {"smoke","acceptance","regression"},
-            priority = 116
+            priority = 117
     )
-    public void successCheckProfileMenuElements() throws Exception, AssertionError {
+    public void successValidateProfileMenu() throws Exception, AssertionError {
+        SoftAssert softAssert = new SoftAssert();
         kraken.get().baseUrl();
-        kraken.perform().loginAs(session.user);
+        kraken.perform().loginAs(session.admin);
 
         ShopHelper.AccountMenu.open();
 
+        // Проверяем наличие элементов
         kraken.check().elementPresence(Elements.Site.AccountMenu.popup());
         kraken.check().elementPresence(Elements.Site.AccountMenu.header());
         kraken.check().elementPresence(Elements.Site.AccountMenu.profileButton());
@@ -373,19 +375,8 @@ public class Authorisation extends TestBase {
         kraken.check().elementPresence(Elements.Site.AccountMenu.paymentButton());
         kraken.check().elementPresence(Elements.Site.AccountMenu.faqButton());
         kraken.check().elementPresence(Elements.Site.AccountMenu.contactsButton());
-    }
 
-    @Test(
-            description = "Тест валидации элементов в меню профиля",
-            groups = {"smoke","acceptance","regression"},
-            priority = 117
-    )
-    public void successValidateProfileMenuButtons() throws Exception, AssertionError {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().baseUrl();
-        kraken.perform().loginAs(session.user);
-
-        ShopHelper.AccountMenu.open();
+        // Валидируем ссылки
         validateTransition(Elements.Site.AccountMenu.profileButton());
 
         ShopHelper.AccountMenu.open();
@@ -424,7 +415,7 @@ public class Authorisation extends TestBase {
             priority = 118
     )
     public void successLogout() throws Exception, AssertionError {
-        kraken.perform().loginAs(session.user);
+        kraken.perform().loginAs(session.admin);
 
         kraken.perform().logout();
 

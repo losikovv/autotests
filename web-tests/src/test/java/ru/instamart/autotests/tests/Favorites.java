@@ -50,7 +50,7 @@ public class Favorites extends TestBase {
             groups = {"acceptance","regression"},
             priority = 503
     )
-    public void noFavoriteProductsByDefault() throws Exception {
+    public void noFavoritesByDefault() {
         kraken.perform().registration();
 
         Assert.assertTrue(kraken.detect().isFavoritesEmpty(),

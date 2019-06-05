@@ -47,6 +47,8 @@ public class ShopHelper extends HelperBase {
         }
 
         public static void goToDepartment(String name) {
+            kraken.perform().hoverOn(Elements.Site.CatalogDrawer.category(name));
+            kraken.perform().hoverOn(Elements.Site.CatalogDrawer.category(name));
             kraken.perform().click(Elements.Site.CatalogDrawer.category(name));
         }
 
@@ -215,7 +217,7 @@ public class ShopHelper extends HelperBase {
             );
             debugMessage("Жмем +1");
             kraken.perform().click(Elements.Site.ItemCard.plusButton());
-            kraken.await().simply(1); // Ожидание добавления +1 товара в карточке
+            //kraken.await().simply(1); // Ожидание добавления +1 товара в карточке
             kraken.await().fluently(
                     ExpectedConditions
                             .elementToBeClickable(button.getLocator())
@@ -356,7 +358,9 @@ public class ShopHelper extends HelperBase {
     }
 
     private void addItem(int neededQuantity) {
-        debugMessage("В каунтере " + kraken.grab().itemQuantity());
+        int quantity = kraken.grab().itemQuantity();
+        debugMessage("В каунтере " + quantity);
+        if (quantity == 1) kraken.await().implicitly(2);
         if (kraken.grab().itemQuantity() < neededQuantity) {
             ItemCard.hitPlusButton();
             addItem(neededQuantity);

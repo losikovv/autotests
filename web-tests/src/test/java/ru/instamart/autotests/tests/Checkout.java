@@ -20,7 +20,7 @@ public class Checkout extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preparingForCheckout() throws Exception {
-        kraken.get().page("metro");
+        kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.user);
     }
 

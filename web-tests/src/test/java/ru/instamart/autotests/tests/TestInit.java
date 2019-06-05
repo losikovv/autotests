@@ -14,14 +14,19 @@ public class TestInit extends TestBase {
         kraken.get().page("metro");
     }
 
-    // TODO checkLandingElements
+    // TODO successValidateLanding
 
     @Test(
-            description = "Проверка наличия элементов в шапке сайта",
+            description = "Тест валидности элементов и ссылок в шапке сайта",
             groups = {"smoke","acceptance","regression"},
             priority = 11
     )
-    public void successCheckHeaderElements() {
+    public void successValidateHeader() {
+        checkHeaderElementsPresence();
+        validateHeaderLinks();
+    }
+
+    private void checkHeaderElementsPresence() {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.check().elementPresence(Elements.Site.Header.container());
@@ -50,26 +55,21 @@ public class TestInit extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(
-            description = "Тест валидности ссылок в шапке сайта",
-            groups = {"smoke","acceptance","regression"},
-            priority = 12
-    )
-    public void successValidateHeaderLinks() {
+    private void validateHeaderLinks() {
         validateTransition(Elements.Site.Header.aboutCompanyButton());
         validateTransition(Elements.Site.Header.contactsButton());
         validateTransition(Elements.Site.Header.helpButton());
         validateTransition(Elements.Site.Header.deliveryButton());
-            //TODO доделать обработку и проверку открытия новых вкладок
-            //validateTransition(Elements.Site.Header.corporativeCustomersButton());
-            //validateTransition(Elements.Site.Header.mnogoruButton());
+        //TODO доделать обработку и проверку открытия новых вкладок
+        //validateTransition(Elements.Site.Header.corporativeCustomersButton());
+        //validateTransition(Elements.Site.Header.mnogoruButton());
         validateTransition(Elements.Site.Header.logo());
     }
 
     @Test(
             description = "Тест доступности витрин активных рителйеров",
             groups = {"smoke","acceptance","regression"},
-            priority = 13
+            priority = 12
     )
     public void successCheckActiveRetailerPages() throws AssertionError {
         assertPageIsAvailable(Pages.Site.Retailers.metro());
@@ -81,7 +81,7 @@ public class TestInit extends TestBase {
     @Test(
             description = "Тест недоступности витрин неактивных рителйеров",
             groups = {"smoke","acceptance","regression"},
-            priority = 14
+            priority = 13
     )
     public void successCheckInactiveRetailerPages() throws AssertionError {
         assertPageIs404(Pages.Site.Retailers.karusel());
@@ -95,7 +95,7 @@ public class TestInit extends TestBase {
     @Test(
             description = "Тест доступности партнерских лендингов",
             groups = {"smoke","acceptance","regression"},
-            priority = 15
+            priority = 14
     )
     public void successCheckPartnersLandings() throws AssertionError {
         assertPageIsAvailable(Pages.Site.Landings.mnogoru());
@@ -105,7 +105,7 @@ public class TestInit extends TestBase {
     @Test(
             description = "Тест доступности статических страниц",
             groups = {"smoke","acceptance","regression"},
-            priority = 16
+            priority = 15
     )
     public void successCheckStaticPages() throws AssertionError {
         assertPageIsAvailable(Pages.Site.Static.about());
@@ -119,12 +119,18 @@ public class TestInit extends TestBase {
     }
 
     @Test(
-            description = "Проверка наличия элементов в футере сайта",
+            description = "Тест валидности элементов и ссылок в футере сайта",
             groups = {"smoke","acceptance","regression"},
-            priority = 17
+            priority = 16
     )
-    public void successCheckFooterElements() {
+    public void successValidateFooter() {
         kraken.get().page("metro");
+        checkFooterElementsPresence();
+        validateFooterLinks();
+        openFooterModals();
+    }
+
+    private void checkFooterElementsPresence() {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.check().elementPresence(Elements.Site.Footer.info());
@@ -160,27 +166,16 @@ public class TestInit extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(
-            description = "Тест валидности ссылок в футере сайта",
-            groups = {"smoke","acceptance","regression"},
-            priority = 18
-    )
-    public void successValidateFooterLinks() {
+    private void validateFooterLinks() {
         validateTransition(Elements.Site.Footer.aboutCompanyLink());
         validateTransition(Elements.Site.Footer.contactsLink());
         // validateTransition(Elements.Site.Footer.faqButton()); // заслоняет живосайт
         validateTransition(Elements.Site.Footer.returnsPolicyLink());
         validateTransition(Elements.Site.Footer.publicOfferLink());
-        //TODO валидировать и остальные элементы
+        //TODO валидировать и остальные ссылки
     }
 
-    @Test(
-            description = "Тест открытия модалок из футера",
-            groups = {"smoke","acceptance","regression"},
-            priority = 19
-    )
-    public void successOpenFooterModals() {
-
+    private void openFooterModals() {
         kraken.get().page(Pages.Site.Retailers.metro());
         kraken.perform().click(Elements.Site.Footer.deliveryButton());
         Assert.assertTrue(kraken.detect().isDeliveryModalOpen(),

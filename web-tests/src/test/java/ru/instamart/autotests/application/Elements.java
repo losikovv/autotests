@@ -1167,19 +1167,23 @@ public class Elements {
             interface AccountPage {
 
                 static ElementData email() {
-                    return new ElementData(By.xpath("//*[@id='wrap']/div/div/div/div/div[1]/div/div[2]/div/div/div[2]/div[2]/div[2]"));
+                    return new ElementData(By.xpath("//div[@class='user-profile-field__label' and text()='Email']//following-sibling::div[@class='user-profile-field__value']"),
+                            "email юзера на странице информации об аккаунте");
                 }
 
                 static ElementData changePasswordButton() {
-                    return new ElementData(By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[1]/div[3]/button"));
+                    return new ElementData(By.xpath("//div[@class='user-profile-field__label' and text()='Пароль']//following-sibling::div[@class='user-profile-field__actions']/button[text()='Изменить']"),
+                            "кнопка изменения пароля на странице информации об аккаунте");
                 }
 
                 static ElementData changeEmailButton() {
-                    return new ElementData(By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[2]/div[3]/button"));
+                    return new ElementData(By.xpath("//div[@class='user-profile-field__label' and text()='Email']//following-sibling::div[@class='user-profile-field__actions']/button[text()='Изменить']"),
+                            "кнопка изменения email на странице информации об аккаунте");
                 }
 
                 static ElementData changeNameButton() {
-                    return new ElementData( By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[3]/div[3]/button"));
+                    return new ElementData( By.xpath("//div[@class='user-profile-field__label' and text()='Имя и Фамилия']//following-sibling::div[@class='user-profile-field__actions']/button[text()='Изменить']"),
+                            "кнопка изменения имени и фамилии на странице информации об аккаунте");
                 }
             }
 
