@@ -1,5 +1,6 @@
 package ru.instamart.autotests.tests;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
@@ -10,6 +11,11 @@ import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 // Тесты админки
 
 public class Administration extends TestBase {
+
+    @BeforeClass(alwaysRun = true)
+    public void setup() {
+        kraken.get().page("metro");
+    }
 
     @Test(  enabled = enableAdministrationTests,
             description = "Тест недоступности админки пользователю без админ. прав",
@@ -58,7 +64,7 @@ public class Administration extends TestBase {
             description = "Проверка наличия элементов в шапке админки",
             groups = {"smoke","acceptance","regression"},
             priority = 2003
-    ) public void successCheckHeaderElements() {
+    ) public void successValidateHeader() {
         kraken.reach().admin();
         kraken.check().elementPresence(Elements.Admin.Header.logo());
         kraken.check().elementPresence(Elements.Admin.Header.userAccount());

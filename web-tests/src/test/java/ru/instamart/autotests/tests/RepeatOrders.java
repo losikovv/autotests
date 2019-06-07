@@ -17,7 +17,7 @@ import static ru.instamart.autotests.application.Config.testRepeatOrders;
 public class RepeatOrders extends TestBase {
 
     @BeforeClass(alwaysRun = true)
-    public void setup()throws Exception {
+    public void setup() throws Exception {
         kraken.get().page("metro");
         kraken.perform().loginAs(kraken.session.admin);
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
@@ -34,7 +34,7 @@ public class RepeatOrders extends TestBase {
             groups = {"acceptance","regression"},
             priority = 1001
     )
-    public void successRepeatLastOrderAndPayWithCardOnline() throws Exception {
+    public void successRepeatLastOrderAndPayWithCardOnline() {
         kraken.shopping().collectItems();
         ShopHelper.Cart.proceedToCheckout();
 
@@ -49,7 +49,7 @@ public class RepeatOrders extends TestBase {
             groups = {"acceptance","regression"},
             priority = 1002
     )
-    public void successRepeatLastOrderAndPayWithCardCourier() throws Exception {
+    public void successRepeatLastOrderAndPayWithCardCourier() {
         kraken.shopping().collectItems();
         ShopHelper.Cart.proceedToCheckout();
 
@@ -64,7 +64,7 @@ public class RepeatOrders extends TestBase {
             groups = {"acceptance","regression"},
             priority = 1003
     )
-    public void successRepeatLastOrderAndPayWithCash() throws Exception {
+    public void successRepeatLastOrderAndPayWithCash() {
         kraken.shopping().collectItems();
         ShopHelper.Cart.proceedToCheckout();
 
@@ -79,7 +79,7 @@ public class RepeatOrders extends TestBase {
             groups = {"acceptance","regression"},
             priority = 1004
     )
-    public void successRepeatLastOrderAndPayWithBank() throws Exception {
+    public void successRepeatLastOrderAndPayWithBank() {
         kraken.shopping().collectItems();
         ShopHelper.Cart.proceedToCheckout();
 
@@ -90,7 +90,7 @@ public class RepeatOrders extends TestBase {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void cancelLastOrder()throws Exception {
+    public void cancelLastOrder() {
         kraken.perform().cancelLastOrder();
     }
 }

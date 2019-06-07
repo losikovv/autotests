@@ -188,7 +188,6 @@ public class PerformHelper extends HelperBase {
             kraken.get().url(startURL);
         }
         authorisation(user);
-        // TODO + добавить ожидание закрытия модалки авторизации в метод авторизации
         if(multiSessionMode && kraken.detect().isElementPresent(
                 Elements.Site.AuthModal.errorMessage("Неверный email или пароль"))) {
                     message(">>> Юзер " + user.getEmail() + " не найден, регистрируем\n");

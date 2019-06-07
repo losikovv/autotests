@@ -18,6 +18,15 @@ public class Elements {
         }
     }
 
+    /** Страница 502 ошибки CloudFlare */
+    public interface Page502 {
+
+        static ElementData title() {
+            return new ElementData(By.xpath("//span[@class='cf-error-code' and text()='502']"),
+                    "текст ошибки 502");
+        }
+    }
+
     /** Страница 404 ошибки */
     public interface Page404 {
 
@@ -61,14 +70,25 @@ public class Elements {
     /** Лендинг */
     public interface Landing {
 
-        static ElementData header() {
+        static ElementData logo() {
+            return new ElementData(By.xpath("//header//a[@class='logo']"),
+                    "логотип в шапке лендинга");
+        }
+
+        static ElementData loginButton() {
+            return new ElementData(By.xpath("//header//a[text()='Вход']"),
+                    "кнопка \"Вход\" в шапке лендинга");
+        }
+
+        static ElementData title() {
             return new ElementData(
-                    By.xpath("//*[@class='top-line' and text()='Попробуйте сегодня и получите бесплатную доставку первого заказа!']"),
-                    "рекламный топ-хедер лендинга");
+                    By.xpath("//h1[@class='window__title' and contains(text(),'Доставка продуктов на дом и в офис')]"),
+                    "главный тайтл лендинга");
         }
 
         static ElementData addressField() {
-            return new ElementData(By.id("header_ship_address"));
+            return new ElementData(By.xpath("//input[@id='header_ship_address']"),
+                    "поле ввода адреса доставки на лендинге");
         }
 
         static ElementData addressSuggest() {
@@ -76,11 +96,28 @@ public class Elements {
         }
 
         static ElementData selectStoreButton() {
-            return new ElementData("Выбрать магазин", By.cssSelector(".ship-address-selector-form__action"));
+            return new ElementData(By.xpath("//button[text()='Выбрать магазин']"),
+                    "кнопка \"Выбрать магазин\" на лендинге");
         }
 
-        static ElementData loginButton() {
-            return new ElementData(By.linkText("Вход"));
+        static ElementData goToCatalogButton() {
+            return new ElementData(By.xpath("//a[text()='Перейти в каталог']"),
+                    "кнопка \"Перейти в каталог\" на лендинге");
+        }
+
+        static ElementData phoneField() {
+            return new ElementData(By.xpath("//input[@class='mobile-promo__input']"),
+                    "поле ввода телефона на лендинге");
+        }
+
+        static ElementData getDownloadLinkButton() {
+            return new ElementData(By.xpath("//button[text()='Получить ссылку на скачивание']"),
+                    "кнопка \"Получить ссылку на скачивание\" на лендинге");
+        }
+
+        static ElementData successDownloadLinkPlaceholder() {
+            return new ElementData(By.xpath("//div[@class='mobile-promo__success' and text()='Вам отправлено СМС со ссылкой на наше приложение']"),
+                    "текст успешного запроса ссылки на скачку прилоджения на лендинге");
         }
     }
 
@@ -109,113 +146,113 @@ public class Elements {
             static ElementData shipAddressPlaceholder() {
                 return new ElementData(
                         By.xpath("//header//div[text()='Укажите ваш адрес для отображения доступных магазинов']"),
-                            "плейсхолдер пустого адреса доставки в шапке");
+                            "плейсхолдер пустого адреса доставки в шапке сайта");
             }
 
             static ElementData shipAddressButton() {
                 return new ElementData(
                         By.xpath("//header//button[@class='ship-address-selector__edit-btn']"),
-                            "кнопка выбора/изменения адреса доставки в шапке");
+                            "кнопка выбора/изменения адреса доставки в шапке сайта");
             }
 
             static ElementData currentShipAddress() {
                 return new ElementData(
                         By.xpath("//header//span[@class='ship-address-selector__full-address']"),
-                            "текущий адрес доставки в шапке");
+                            "текущий адрес доставки в шапке сайта");
             }
 
             static ElementData hotlinePhoneNumber() {
                 return new ElementData(
                         By.xpath("//header//a[@href='" + companyHotlinePhoneLink + "']//span[text()='" + companyHotlinePhoneNumber + "']"),
-                            "ссылка-телефон горячей линии в шапке");
+                            "ссылка-телефон горячей линии в шапке сайта");
             }
 
             static ElementData hotlineWorkhoursText() {
                 return new ElementData(
                         By.xpath("//header//span[text()='" + companyHotlineWorkhoursShort + "']"),
-                            "часы работы горячей линии в шапке");
+                            "часы работы горячей линии в шапке сайта");
             }
 
             static ElementData logo() {
                 return new ElementData(
                         By.xpath("//header//div[@class='header-logo']"),
-                            "логотип компании в шапке");
+                            "логотип компании в шапке сайта");
             }
 
             static ElementData aboutCompanyButton() {
                 return new ElementData(
                         By.xpath("//header//a[@class='navbar-button']//span[text()='О компании']"),
-                            "кнопка \"О компании\" в шапке");
+                            "кнопка \"О компании\" в шапке сайта");
             }
 
             static ElementData contactsButton() {
                 return new ElementData(
                         By.xpath("//header//a[@class='navbar-button']//span[text()='Контакты']"),
-                            "кнопка \"Контакты\" в шапке");
+                            "кнопка \"Контакты\" в шапке сайта");
             }
 
             static ElementData helpButton() {
                 return new ElementData(
                         By.xpath("//header//a[@class='navbar-button']//span[text()='Помощь']"),
-                            "кнопка \"Помощь\" в шапке");
+                            "кнопка \"Помощь\" в шапке сайта");
             }
 
             static ElementData deliveryButton() {
                 return new ElementData(
                         By.xpath("//header//a[@class='navbar-button']//span[text()='Доставка и оплата']"),
-                            "кнопка \"Доставка и оплата\" в шапке");
+                            "кнопка \"Доставка и оплата\" в шапке сайта");
             }
             static ElementData corporativeCustomersButton() {
                 return new ElementData(
                         By.xpath("//header//a[@class='navbar-button']//span[text()='Корпоративным клиентам']"),
-                            "кнопка \"Корпоративным клиентам\" в шапке");
+                            "кнопка \"Корпоративным клиентам\" в шапке сайта");
             }
 
             static ElementData mnogoruButton() {
                 return new ElementData(
                         By.xpath("//header//a[@class='navbar-button']//div[@class='navbar-button__mnogoru']"),
-                        "кнопка \"МногоРу\" в шапке");
+                        "кнопка \"МногоРу\" в шапке сайта");
             }
 
             static ElementData catalogButton() {
                 switch (Config.environment.getTenant()) {
                     case "metro" :
                         return new ElementData(By.xpath("//header//button[@class='header__button-catalog']"),
-                                "кнопка открытия каталога категорий в шапке Метро");
+                                "кнопка открытия каталога категорий в шапке сайта Метро");
                     default:
                         return new ElementData(By.xpath("//header//button[contains(@class,'navbar-button--catalog')]"),
-                                "кнопка открытия каталога категорий в шапке");
+                                "кнопка открытия каталога категорий в шапке сайта");
                 }
             }
 
             static ElementData storeButton() {
                 return new ElementData(
                         By.xpath("//header//div[@class='search-container-selector']"),
-                            "кнопка выбора магазина в шапке");
+                            "кнопка выбора магазина в шапке сайта");
             }
 
             static ElementData loginButton() {
                 return new ElementData(
                         By.xpath("//header//a[contains(@class,'header-icon--login')]"),
-                        "кнопка \"Войти\" в шапке");
+                        "кнопка \"Войти\" в шапке сайта");
             }
 
             static ElementData favoritesButton() {
                 return new ElementData(
                         By.xpath("//header//a[@class='header-icon' and @href='/user/favorites']"),
-                            "кнопка избранного в шапке");
+                            "кнопка избранного в шапке сайта");
             }
 
             static ElementData profileButton() {
                 return new ElementData(
                         By.xpath("//header//div[@class='header-menu-toggle__btn']//a[@class='header-icon']"),
-                            "кнопка профиля в шапке");
+                            "кнопка профиля в шапке сайта");
             }
 
             static ElementData cartButton() {
                 return new ElementData(
                         By.xpath("//header//div[contains(@class,'open-new-cart') and contains(@class,'header-icon')]"),
-                            "кнопка открытия корзины в шапке");
+                            "кнопка открытия корзины в шапке сайта");
             }
 
             /** Поиск в шапке */
@@ -223,12 +260,12 @@ public class Elements {
 
                 static ElementData inputField() {
                     return new ElementData(By.xpath("//header//input[@type='search']"),
-                            "поле ввода поиска");
+                            "поле ввода поиска в шапке сайта");
                 }
 
                 static ElementData sendButton() {
                     return new ElementData(By.xpath("//header//button[@class='header-search__btn']"),
-                            "кнопка отправки поиска");
+                            "кнопка отправки поиска в шапке сайта");
                 }
 
                 static ElementData categorySuggest() {

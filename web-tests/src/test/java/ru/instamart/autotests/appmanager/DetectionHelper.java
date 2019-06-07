@@ -131,7 +131,7 @@ public class DetectionHelper extends HelperBase {
      * Определить находимся на лендинге или нет
      */
     public boolean isOnLanding() {
-        return isElementPresent(Elements.Landing.header());
+        return isElementPresent(Elements.Landing.title());
     }
 
     /**
@@ -169,8 +169,18 @@ public class DetectionHelper extends HelperBase {
      * Определить 500 ошибку на текущей странице
      */
     public boolean is500() {
-        if (element(Elements.Page500.placeholder())) {
+        if (isElementPresent(Elements.Page500.placeholder())) {
             verboseMessage("⚠ 500 на " + kraken.grab().currentURL()+ "\n");
+            return true;
+        } else return false;
+    }
+
+    /**
+     * Определить 502 ошибку на текущей странице
+     */
+    public boolean is502() {
+        if (isElementPresent(Elements.Page502.title())) {
+            verboseMessage("⚠ 502 на " + kraken.grab().currentURL()+ "\n");
             return true;
         } else return false;
     }
@@ -418,7 +428,7 @@ public class DetectionHelper extends HelperBase {
             verboseMessage("> открыта карточка товара " + kraken.grab().currentURL());
             return true;
         } else {
-            verboseMessage("Карточка товара закрыта");
+            debugMessage("Карточка товара закрыта");
             return false;
         }
     }
@@ -555,12 +565,6 @@ public class DetectionHelper extends HelperBase {
         return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + loyalty.getPosition() + "]/div[2]")); // TODO вынести в  Elements
     }
 
-    /**Определить доступна ли программа лояльности ритейлера в чекауте */
-    public boolean isRetailerLoyaltyAvailable() {
-        return kraken.detect().element(
-                "//aside/div/div[4]/div[2]", "Карты лояльности магазинов"); // TODO вынести в Elements
-    }
-
     /** Определить активен ли шаг чекаута в данный момент, по наличию кнопок "Продолжить" */
     public boolean isCheckoutStepActive(int step) {
         return isElementPresent((By.xpath("(//button[@type='button'])[" + step + "]"))); // TODO вынести в Elements
@@ -569,11 +573,6 @@ public class DetectionHelper extends HelperBase {
     /** Определить активна ли кнопка отправки заказа */
     public boolean isSendButtonActive() {
         return isElementEnabled(By.xpath("//aside/div/div[1]/div/button")); // TODO вынести в Elements
-    }
-
-    //**Определить доступны ли программы лояльности в чекауте*/
-    public boolean isLoyaltyAvailaible(){
-    return isElementDisplayed(Elements.Site.Checkout.loyaltyPrograms());
     }
 
 

@@ -364,12 +364,12 @@ public class CheckoutHelper extends HelperBase {
         kraken.await().fluently(
                 ExpectedConditions.elementToBeClickable(
                         Elements.Site.Checkout.sendOrderButton().getLocator()),
-                "\nНеактивна кнопка отправки заказа\n");
+                "Неактивна кнопка отправки заказа\n");
         kraken.perform().click(Elements.Site.Checkout.sendOrderButton());
         kraken.await().fluently(
                 ExpectedConditions.visibilityOfElementLocated(
                         Elements.Site.UserProfile.OrderDetailsPage.activeOrderAttribute().getLocator()),
-                "\nНе отправляется заказ\n");
+                "Не отправляется заказ\n");
         message("✓ Заказ оформлен\n");
     }
 

@@ -150,7 +150,7 @@ public class ShoppingCart extends TestBase {
             groups = {"acceptance","regression"},
             priority = 626
     )
-    public void successAddItemToCartFromCatalog() throws Exception {
+    public void successAddAndRemoveItemFromCatalogSnippet() throws Exception {
         kraken.get().page("metro");
         kraken.perform().loginAs(session.user);
         kraken.drop().cart();
@@ -160,13 +160,14 @@ public class ShoppingCart extends TestBase {
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не добавляется товар в корзину из сниппета товара в каталоге\n");
 
-        ShopHelper.Cart.open();
+        ShopHelper.Cart.close();
         kraken.shopping().hitFirstItemMinusButton();
 
         Assert.assertTrue(kraken.detect().isCartEmpty(),
                 "Не удаляется товар из корзины из сниппета товара в каталоге\n");
-
     }
+
+    //TODO successAddAndRemoveItemFromItemCard()
 
     @Test(
             description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером",

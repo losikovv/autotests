@@ -82,7 +82,8 @@ public class TestBase {
         String page = kraken.grab().currentURL();
         Assert.assertFalse(kraken.detect().is404(), "Ошибка 404 на странице " + page + "\n");
         Assert.assertFalse(kraken.detect().is500(), "Ошибка 500 на странице " + page + "\n");
-        message("✓ Страница доступна (" + page + ")\n");
+        Assert.assertFalse(kraken.detect().is502(), "Ошибка 502 на странице " + page + "\n");
+        verboseMessage("✓ Страница доступна\n(" + page + ")\n");
     }
 
     /** Проверить что текущая страница недоступна с ошибкой 404 */

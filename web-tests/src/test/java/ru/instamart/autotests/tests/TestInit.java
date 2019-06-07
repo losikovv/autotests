@@ -1,20 +1,38 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 
 public class TestInit extends TestBase {
 
-    @BeforeClass(alwaysRun = true)
-    public void setup() {
-        kraken.get().page("metro");
+    @Test(
+            description = "Тест валидности элементов и ссылок лендинга",
+            groups = {"smoke","acceptance","regression"},
+            priority = 10
+    )
+    public void successValidateLanding() {
+        checkLandingElementsPresence();
+
+        kraken.perform().fillField(Elements.Landing.phoneField(),"9629422123");
+        kraken.perform().click(Elements.Landing.getDownloadLinkButton());
+
+        Assert.assertTrue(
+                kraken.detect().isElementPresent(
+                        Elements.Landing.successDownloadLinkPlaceholder()));
     }
 
-    // TODO successValidateLanding
+    private void checkLandingElementsPresence() {
+        kraken.check().elementPresence(Elements.Landing.logo());
+        kraken.check().elementPresence(Elements.Landing.loginButton());
+        kraken.check().elementPresence(Elements.Landing.title());
+        kraken.check().elementPresence(Elements.Landing.addressField());
+        kraken.check().elementPresence(Elements.Landing.selectStoreButton());
+        kraken.check().elementPresence(Elements.Landing.goToCatalogButton());
+        kraken.check().elementPresence(Elements.Landing.phoneField());
+        kraken.check().elementPresence(Elements.Landing.getDownloadLinkButton());
+    }
 
     @Test(
             description = "Тест валидности элементов и ссылок в шапке сайта",
@@ -22,13 +40,13 @@ public class TestInit extends TestBase {
             priority = 11
     )
     public void successValidateHeader() {
+        kraken.get().page("metro");
+
         checkHeaderElementsPresence();
         validateHeaderLinks();
     }
 
     private void checkHeaderElementsPresence() {
-        SoftAssert softAssert = new SoftAssert();
-
         kraken.check().elementPresence(Elements.Site.Header.container());
 
         kraken.check().elementPresence(Elements.Site.Header.shipAddressPlaceholder());
@@ -51,8 +69,6 @@ public class TestInit extends TestBase {
         kraken.check().elementPresence(Elements.Site.Header.favoritesButton());
         kraken.check().elementPresence(Elements.Site.Header.loginButton());
         kraken.check().elementPresence(Elements.Site.Header.cartButton());
-
-        softAssert.assertAll();
     }
 
     private void validateHeaderLinks() {
@@ -125,14 +141,13 @@ public class TestInit extends TestBase {
     )
     public void successValidateFooter() {
         kraken.get().page("metro");
+
         checkFooterElementsPresence();
         validateFooterLinks();
         openFooterModals();
     }
 
     private void checkFooterElementsPresence() {
-        SoftAssert softAssert = new SoftAssert();
-
         kraken.check().elementPresence(Elements.Site.Footer.info());
         kraken.check().elementPresence(Elements.Site.Footer.container());
 
@@ -162,8 +177,6 @@ public class TestInit extends TestBase {
         kraken.check().elementPresence(Elements.Site.Footer.returnsPolicyLink());
         kraken.check().elementPresence(Elements.Site.Footer.personalDataPolicyLink());
         kraken.check().elementPresence(Elements.Site.Footer.publicOfferLink());
-
-        softAssert.assertAll();
     }
 
     private void validateFooterLinks() {
@@ -176,7 +189,8 @@ public class TestInit extends TestBase {
     }
 
     private void openFooterModals() {
-        kraken.get().page(Pages.Site.Retailers.metro());
+        kraken.get().baseUrl();
+
         kraken.perform().click(Elements.Site.Footer.deliveryButton());
         Assert.assertTrue(kraken.detect().isDeliveryModalOpen(),
                 "Не открывается модалка 'Доставка' из футера\n");
