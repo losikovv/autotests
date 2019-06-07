@@ -10,7 +10,7 @@ import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
-public class ShoppingCart extends TestBase {
+public class Cart extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {

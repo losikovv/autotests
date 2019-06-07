@@ -8,7 +8,7 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.ShopHelper;
 
-public class ShoppingCatalog extends TestBase {
+public class Catalog extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {

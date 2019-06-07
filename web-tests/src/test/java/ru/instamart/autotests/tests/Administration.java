@@ -14,7 +14,8 @@ public class Administration extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        kraken.get().page("metro");
+        kraken.perform().quickLogout();
+        //kraken.get().page("metro");
     }
 
     @Test(  enabled = enableAdministrationTests,

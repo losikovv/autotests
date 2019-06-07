@@ -13,6 +13,7 @@ public class TestInit extends TestBase {
             priority = 10
     )
     public void successValidateLanding() {
+        skipOn("metro");
         checkLandingElementsPresence();
 
         kraken.perform().fillField(Elements.Landing.phoneField(),"9629422123");
@@ -40,6 +41,7 @@ public class TestInit extends TestBase {
             priority = 11
     )
     public void successValidateHeader() {
+        skipOn("metro"); // TODO сделать тест для тенанта
         kraken.get().page("metro");
 
         checkHeaderElementsPresence();
@@ -88,6 +90,7 @@ public class TestInit extends TestBase {
             priority = 12
     )
     public void successCheckActiveRetailerPages() throws AssertionError {
+        skipOn("metro"); // TODO сделать тест для тенанта
         assertPageIsAvailable(Pages.Site.Retailers.metro());
         assertPageIsAvailable(Pages.Site.Retailers.vkusvill());
         assertPageIsAvailable(Pages.Site.Retailers.lenta());
@@ -140,6 +143,7 @@ public class TestInit extends TestBase {
             priority = 16
     )
     public void successValidateFooter() {
+        skipOn("metro"); // TODO сделать тест для тенанта
         kraken.get().page("metro");
 
         checkFooterElementsPresence();
