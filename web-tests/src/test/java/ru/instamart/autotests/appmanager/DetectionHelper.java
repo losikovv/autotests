@@ -285,7 +285,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить авторизован ли пользователь */
     public boolean isUserAuthorised() {
-        verboseMessage("Проверяем авторизованность...");
+        debugMessage("Проверяем авторизованность...");
         if (kraken.detect().isElementPresent(Elements.Site.Header.profileButton())
                 && !kraken.detect().isElementPresent(Elements.Site.Header.loginButton()) ) {
             debugMessage("✓ Авторизован\n");
