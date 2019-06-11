@@ -21,13 +21,13 @@ public class ShopHelper extends HelperBase {
 
         /** Открыть шторку выбора магазина */
         public static void open() {
-            kraken.perform().click(Elements.Site.Header.storeButton());
+            kraken.perform().click(Elements.Header.storeButton());
             kraken.await().implicitly(1); // Ожидание открытия шторки выбора магазина
         }
 
         /** Закрыть шторку выбора магазина */
         public static void close() {
-            kraken.perform().click(Elements.Site.StoreSelector.closeButton());
+            kraken.perform().click(Elements.StoreSelector.closeButton());
             kraken.await().implicitly(1); // Ожидание закрытия шторки выбора магазина
         }
     }
@@ -38,33 +38,33 @@ public class ShopHelper extends HelperBase {
         /** Открыть шторку каталога */
         public static void open() {
             if (!kraken.detect().isCatalogDrawerOpen()) {
-                kraken.perform().click(Elements.Site.Header.catalogButton());
+                kraken.perform().click(Elements.Header.catalogButton());
                 kraken.await().simply(1); // Ожидание анимации открытия шторки каталога
                 kraken.await().fluently(
                         ExpectedConditions.elementToBeClickable(
-                                Elements.Site.CatalogDrawer.closeButton().getLocator()),"Не открылась шторка каталога\n");
+                                Elements.CatalogDrawer.closeButton().getLocator()),"Не открылась шторка каталога\n");
             }
         }
 
         public static void goToDepartment(String name) {
-            kraken.perform().hoverOn(Elements.Site.CatalogDrawer.category(name));
-            kraken.perform().hoverOn(Elements.Site.CatalogDrawer.category(name));
-            kraken.perform().click(Elements.Site.CatalogDrawer.category(name));
+            kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
+            kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
+            kraken.perform().click(Elements.CatalogDrawer.category(name));
         }
 
         public static void goToTaxon(String name) {
-            kraken.perform().hoverOn(Elements.Site.CatalogDrawer.category(name));
-            kraken.perform().click(Elements.Site.CatalogDrawer.category(name));
+            kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
+            kraken.perform().click(Elements.CatalogDrawer.category(name));
         }
 
         /** Закрыть шторку каталога */
         public static void close() {
             if (kraken.detect().isCatalogDrawerOpen()) {
-                kraken.perform().click(Elements.Site.CatalogDrawer.closeButton());
+                kraken.perform().click(Elements.CatalogDrawer.closeButton());
                 kraken.await().simply(1); // Ожидание анимации закрытия шторки каталога
                 kraken.await().fluently(
                         ExpectedConditions.invisibilityOfElementLocated(
-                                Elements.Site.CatalogDrawer.drawer().getLocator()));
+                                Elements.CatalogDrawer.drawer().getLocator()));
             }
         }
     }
@@ -74,13 +74,13 @@ public class ShopHelper extends HelperBase {
 
         public static void open() {
             if(!kraken.detect().isAccountMenuOpen()) {
-                kraken.perform().click(Elements.Site.Header.profileButton());
+                kraken.perform().click(Elements.Header.profileButton());
             } else verboseMessage("Пропускаем открытие меню аккаунта, уже открыто");
         }
 
         public static void close() {
             if(kraken.detect().isAccountMenuOpen()) {
-                kraken.perform().click(Elements.Site.Header.profileButton());
+                kraken.perform().click(Elements.Header.profileButton());
             } else verboseMessage("Пропускаем закрытие меню аккаунта, уже закрыто");
         }
     }
@@ -105,25 +105,25 @@ public class ShopHelper extends HelperBase {
         }
 
         kraken.await().fluently(
-                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.popup().getLocator()),
+                ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.popup().getLocator()),
                 "Не открывается карточка товара из виджета");
 
         kraken.perform().switchToActiveElement();
 
         kraken.await().fluently(
-                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.image().getLocator()),
+                ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.image().getLocator()),
                 "Не отображается контент в карточке товара из виджета");
     }
 
     /** Открываем карточку первого товара в каталоге или списке любимых товаров */
     public void openFirstItemCard() {
-        kraken.perform().click(Elements.Site.Catalog.Product.snippet());
+        kraken.perform().click(Elements.Catalog.Product.snippet());
         kraken.await().fluently(
-                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.popup().getLocator()),
+                ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.popup().getLocator()),
                 "Не открывается карточка товара");
         kraken.perform().switchToActiveElement();
         kraken.await().fluently(
-                ExpectedConditions.visibilityOfElementLocated(Elements.Site.ItemCard.image().getLocator()),
+                ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.image().getLocator()),
                 "Не отображается контент в карточке товара");
     }
 
@@ -134,34 +134,34 @@ public class ShopHelper extends HelperBase {
 
     /** Навестись на первый товар из каталога или списка любимых товаров */
     private void hoverOnItemSnippet() {
-        kraken.perform().hoverOn(Elements.Site.Catalog.Product.snippet());
+        kraken.perform().hoverOn(Elements.Catalog.Product.snippet());
     }
 
     /** Добавить в корзину первый товар из каталога или списка любимых товаров */
     public void hitFirstItemPlusButton() {
         hoverOnItemSnippet();
-        kraken.perform().click(Elements.Site.Catalog.Product.plusButton());
+        kraken.perform().click(Elements.Catalog.Product.plusButton());
         kraken.await().implicitly(1); // Ожидание добавления товара в корзину
     }
 
     /** Удалить из корзины первый товар из каталога или списка любимых товаров */
     public void hitFirstItemMinusButton() {
         hoverOnItemSnippet();
-        kraken.perform().click(Elements.Site.Catalog.Product.minusButton());
+        kraken.perform().click(Elements.Catalog.Product.minusButton());
         kraken.await().implicitly(1); // Ожидание удаления товара из корзины
     }
 
     /** Добавить любимый товар из каталога или списка любимых товаров */
     public void hitFirstItemAddToFavoritesButton() {
         hoverOnItemSnippet();
-        kraken.perform().click(Elements.Site.Catalog.Product.favButton());
+        kraken.perform().click(Elements.Catalog.Product.favButton());
         kraken.await().implicitly(1); // Ожидание добавления любимого товара
     }
 
     /** Удалить любимый товар из каталога или списка любимых товаров */
     public void hitFirstItemDeleteFromFavoritesButton() {
         hoverOnItemSnippet();
-        kraken.perform().click(Elements.Site.Favorites.Product.minusButton());
+        kraken.perform().click(Elements.Favorites.Product.minusButton());
         kraken.await().implicitly(1); // Ожидание добавления товара в корзину из избранного
     }
 
@@ -170,32 +170,32 @@ public class ShopHelper extends HelperBase {
 
     /** Открыть любимые товары по кнопке */
     public void openFavorites() {
-        kraken.perform().click(Elements.Site.Header.favoritesButton());
+        kraken.perform().click(Elements.Header.favoritesButton());
         kraken.await().implicitly(2); // Ожидание открытия Любимых товаров
         //TODO добавить fluent-ожидание
     }
 
     /** Отобразить все любимые товары */
     public void filterFavoritesAllItems() {
-        kraken.perform().click(Elements.Site.Favorites.allItemsFilterButton());
+        kraken.perform().click(Elements.Favorites.allItemsFilterButton());
         kraken.await().implicitly(1); // Ожидание открытия вкладки Все Товары в избранном
     }
 
     /** Отобразить любимые товары, которые есть в наличии */
     public void filterFavoritesInStock() {
-        kraken.perform().click(Elements.Site.Favorites.inStockFilterButton());
+        kraken.perform().click(Elements.Favorites.inStockFilterButton());
         kraken.await().implicitly(1); // Ожидание открытия вкладки В наличии в избранном
     }
 
     /** Отобразить любимые товары, которых нет в наличии */
     public void filterFavoritesNotInStock() {
-        kraken.perform().click(Elements.Site.Favorites.outOfStockFilterButton());
+        kraken.perform().click(Elements.Favorites.outOfStockFilterButton());
         kraken.await().implicitly(1); // Ожидание открытия вкладки Не в наличии в избранном
     }
 
     /** Нажать кнопку "Показать ещё" в списке любимых товаров */
     public void hitShowMoreFavorites() {
-        kraken.perform().click(Elements.Site.Favorites.showMoreButton());
+        kraken.perform().click(Elements.Favorites.showMoreButton());
         kraken.await().implicitly(1); // Ожидание загрузки следующей страницы любимых товаров
     }
 
@@ -206,17 +206,17 @@ public class ShopHelper extends HelperBase {
 
         /** Нажать кнопку [+] в карточке товара */
         public static void hitPlusButton() {
-            ElementData button = Elements.Site.ItemCard.plusButton();
+            ElementData button = Elements.ItemCard.plusButton();
             // Побеждаем модалку обновления цен
-            if(kraken.detect().isElementPresent(Elements.Site.PricesModal.popup())) {
-                kraken.perform().click(Elements.Site.PricesModal.refreshPricesButton());
+            if(kraken.detect().isElementPresent(Elements.PricesModal.popup())) {
+                kraken.perform().click(Elements.PricesModal.refreshPricesButton());
             }
             kraken.await().fluently(
                     ExpectedConditions
                             .elementToBeClickable(button.getLocator())
             );
             debugMessage("Жмем +1");
-            kraken.perform().click(Elements.Site.ItemCard.plusButton());
+            kraken.perform().click(Elements.ItemCard.plusButton());
             //kraken.await().simply(1); // Ожидание добавления +1 товара в карточке
             kraken.await().fluently(
                     ExpectedConditions
@@ -226,8 +226,8 @@ public class ShopHelper extends HelperBase {
 
         /** Нажать кнопку [-] в карточке товара */
         public static void hitMinusButton() {
-            if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.minusButton())) {
-                kraken.perform().click(Elements.Site.ItemCard.minusButton());
+            if (kraken.detect().isElementDisplayed(Elements.ItemCard.minusButton())) {
+                kraken.perform().click(Elements.ItemCard.minusButton());
                 kraken.await().simply(1); // Ожидание убавления -1 товара в карточке
             } else {
                 message("⚠ Кнопка 'Минус' не отображается");
@@ -236,8 +236,8 @@ public class ShopHelper extends HelperBase {
 
         /** Нажать кнопку добавления любимого товара в карточке товара */
         public static void addToFavorites() {
-            if (kraken.detect().isElementDisplayed(Elements.Site.ItemCard.addToFavoritesButton())) {
-                kraken.perform().click(Elements.Site.ItemCard.addToFavoritesButton());
+            if (kraken.detect().isElementDisplayed(Elements.ItemCard.addToFavoritesButton())) {
+                kraken.perform().click(Elements.ItemCard.addToFavoritesButton());
                 kraken.await().implicitly(1); // Ожидание добавления любимого товара
             } else {
                 message("⚠ Нет кнопки добавления любимого товара");
@@ -247,10 +247,10 @@ public class ShopHelper extends HelperBase {
         /** Закрыть карточку товара */
         public static void close() {
             verboseMessage("> закрываем карточку товара");
-            kraken.perform().click(Elements.Site.ItemCard.closeButton());
+            kraken.perform().click(Elements.ItemCard.closeButton());
             kraken.await().implicitly(1); // Ожидание анимации закрытия карточки товара
             kraken.await().fluently(
-                    ExpectedConditions.invisibilityOfElementLocated(Elements.Site.ItemCard.popup().getLocator()));
+                    ExpectedConditions.invisibilityOfElementLocated(Elements.ItemCard.popup().getLocator()));
         }
     }
 
@@ -260,11 +260,11 @@ public class ShopHelper extends HelperBase {
         public static void open() {
             if (!kraken.detect().isCartOpen()) {
                 debugMessage("> открываем корзину");
-                kraken.perform().click(Elements.Site.Header.cartButton());
+                kraken.perform().click(Elements.Header.cartButton());
                 kraken.await().simply(1); // Ожидание анимации открытия корзины
                 kraken.await().fluently(
                         ExpectedConditions.elementToBeClickable(
-                                Elements.Site.Cart.closeButton().getLocator()),
+                                Elements.Cart.closeButton().getLocator()),
                         "Не открылась корзина\n");
             } else {
                 verboseMessage("Пропускаем открытие корзины, уже открыта");
@@ -275,11 +275,11 @@ public class ShopHelper extends HelperBase {
         public static void close() {
             if (kraken.detect().isCartOpen()) {
                 debugMessage("> закрываем корзину");
-                kraken.perform().click(Elements.Site.Cart.closeButton());
+                kraken.perform().click(Elements.Cart.closeButton());
                 kraken.await().simply(1);
                 kraken.await().fluently(
                         ExpectedConditions.invisibilityOfElementLocated(
-                                Elements.Site.Cart.drawer().getLocator()),
+                                Elements.Cart.drawer().getLocator()),
                         "\nНе закрылась корзина\n");
             } else {
                 verboseMessage("Пропускаем закрытие корзины, уже закрыта");
@@ -288,30 +288,30 @@ public class ShopHelper extends HelperBase {
 
         /** Убрать товар из корзины */
         public static void removeItem() {
-            kraken.perform().hoverOn(Elements.Site.Cart.item());
+            kraken.perform().hoverOn(Elements.Cart.item());
             kraken.await().implicitly(1);
-            kraken.perform().click(Elements.Site.Cart.itemRemoveButton());
+            kraken.perform().click(Elements.Cart.itemRemoveButton());
             kraken.await().implicitly(1); // Ожидание удаления продукта из корзины
         }
 
         /** Увеличить количество товара в корзине */
         public static void increaseItemQuantity() {
-            kraken.perform().hoverOn(Elements.Site.Cart.item());
-            kraken.perform().click(Elements.Site.Cart.itemUpButton());
+            kraken.perform().hoverOn(Elements.Cart.item());
+            kraken.perform().click(Elements.Cart.itemUpButton());
             kraken.await().implicitly(1); // Ожидание увеличения количества товара в корзине
         }
 
         /** Уменьшить количество товара в корзине */
         public static void decreaseItemQuantity() {
-            kraken.perform().hoverOn(Elements.Site.Cart.item());
-            kraken.perform().click(Elements.Site.Cart.itemDownButton());
+            kraken.perform().hoverOn(Elements.Cart.item());
+            kraken.perform().click(Elements.Cart.itemDownButton());
             kraken.await().implicitly(1); // Ожидание уменьшения количества товара в корзине
         }
 
         /** Перейти в чекаут нажатием кнопки "Сделать заказ" в корзине */
         public static void proceedToCheckout() {
             if (kraken.detect().isCheckoutButtonActive()) {
-                kraken.perform().click(Elements.Site.Cart.checkoutButton());
+                kraken.perform().click(Elements.Cart.checkoutButton());
             } else {
                 message("Кнопка перехода в чекаут неактивна");
                 throw new AssertionError("Не удается перейти в чекаут");

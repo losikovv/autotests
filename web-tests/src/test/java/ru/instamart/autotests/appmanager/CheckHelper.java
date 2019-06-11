@@ -40,7 +40,7 @@ public class CheckHelper extends HelperBase {
     }
 
     private void orderDocument(String docname) {
-        ElementData docLink = Elements.Site.UserProfile.OrderDetailsPage.document(docname);
+        ElementData docLink = Elements.UserProfile.OrderDetailsPage.document(docname);
         message("Скачиваем : " + docname);
         if (kraken.detect().isElementPresent(docLink)) {
             kraken.perform().click(docLink);

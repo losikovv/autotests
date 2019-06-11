@@ -65,46 +65,46 @@ public class Profile extends TestBase {
         ShopHelper.AccountMenu.open();
 
         // Проверяем наличие элементов
-        kraken.check().elementPresence(Elements.Site.AccountMenu.popup());
-        kraken.check().elementPresence(Elements.Site.AccountMenu.header());
-        kraken.check().elementPresence(Elements.Site.AccountMenu.profileButton());
-        kraken.check().elementPresence(Elements.Site.AccountMenu.ordersHistoryButton());
-        kraken.check().elementPresence(Elements.Site.AccountMenu.termsButton());
-        kraken.check().elementPresence(Elements.Site.AccountMenu.logoutButton());
-        kraken.check().elementPresence(Elements.Site.AccountMenu.deliveryButton());
-        kraken.check().elementPresence(Elements.Site.AccountMenu.paymentButton());
-        kraken.check().elementPresence(Elements.Site.AccountMenu.faqButton());
-        kraken.check().elementPresence(Elements.Site.AccountMenu.contactsButton());
+        kraken.check().elementPresence(Elements.AccountMenu.popup());
+        kraken.check().elementPresence(Elements.AccountMenu.header());
+        kraken.check().elementPresence(Elements.AccountMenu.profileButton());
+        kraken.check().elementPresence(Elements.AccountMenu.ordersHistoryButton());
+        kraken.check().elementPresence(Elements.AccountMenu.termsButton());
+        kraken.check().elementPresence(Elements.AccountMenu.logoutButton());
+        kraken.check().elementPresence(Elements.AccountMenu.deliveryButton());
+        kraken.check().elementPresence(Elements.AccountMenu.paymentButton());
+        kraken.check().elementPresence(Elements.AccountMenu.faqButton());
+        kraken.check().elementPresence(Elements.AccountMenu.contactsButton());
 
         // Валидируем ссылки
-        validateTransition(Elements.Site.AccountMenu.profileButton());
+        validateTransition(Elements.AccountMenu.profileButton());
 
         ShopHelper.AccountMenu.open();
-        validateTransition(Elements.Site.AccountMenu.ordersHistoryButton());
+        validateTransition(Elements.AccountMenu.ordersHistoryButton());
 
         ShopHelper.AccountMenu.open();
-        validateTransition(Elements.Site.AccountMenu.termsButton());
+        validateTransition(Elements.AccountMenu.termsButton());
 
         ShopHelper.AccountMenu.open();
-        kraken.perform().click(Elements.Site.AccountMenu.deliveryButton());
+        kraken.perform().click(Elements.AccountMenu.deliveryButton());
         softAssert.assertTrue(
                 kraken.detect().isDeliveryModalOpen(),
                 "Не открывается модалка \"Доставка\" из всплывающего меню \"Профиль\"\n");
         kraken.perform().refresh();
 
         ShopHelper.AccountMenu.open();
-        kraken.perform().click(Elements.Site.AccountMenu.paymentButton());
+        kraken.perform().click(Elements.AccountMenu.paymentButton());
         softAssert.assertTrue(
                 kraken.detect().isPaymentModalOpen(),
                 "Не открывается модалка \"Оплата\" из всплывающего меню \"Профиль\"\n");
         kraken.perform().refresh();
 
         ShopHelper.AccountMenu.open();
-        validateTransition(Elements.Site.AccountMenu.faqButton());
+        validateTransition(Elements.AccountMenu.faqButton());
 
 
         ShopHelper.AccountMenu.open();
-        validateTransition(Elements.Site.AccountMenu.contactsButton());
+        validateTransition(Elements.AccountMenu.contactsButton());
 
         softAssert.assertAll();
     }

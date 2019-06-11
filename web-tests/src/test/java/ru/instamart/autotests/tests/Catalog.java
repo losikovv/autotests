@@ -43,7 +43,7 @@ public class Catalog extends TestBase {
         ShopHelper.CatalogDrawer.open();
         ShopHelper.CatalogDrawer.goToDepartment("Овощи и фрукты");
 
-        Assert.assertTrue(kraken.detect().isElementDisplayed(Elements.Site.CategoryPage.title()),
+        Assert.assertTrue(kraken.detect().isElementDisplayed(Elements.CategoryPage.title()),
                 "Не открывается страница категории 1 уровня из шторки каталога");
     }
 
@@ -56,7 +56,7 @@ public class Catalog extends TestBase {
         ShopHelper.CatalogDrawer.open();
         ShopHelper.CatalogDrawer.goToTaxon("Грибы");
 
-        Assert.assertTrue(kraken.detect().isElementDisplayed(Elements.Site.CategoryPage.filters()),
+        Assert.assertTrue(kraken.detect().isElementDisplayed(Elements.CategoryPage.filters()),
                 "Не открывается страница категории 2 уровня из шторки каталога");
     }
 

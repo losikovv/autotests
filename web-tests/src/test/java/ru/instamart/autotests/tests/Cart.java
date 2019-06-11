@@ -107,7 +107,7 @@ public class Cart extends TestBase {
         ShopHelper.Cart.open();
         int sum1 = kraken.grab().cartTotalRounded();
 
-        kraken.perform().click(Elements.Site.Cart.item());
+        kraken.perform().click(Elements.Cart.item());
         ShopHelper.ItemCard.hitPlusButton();
         ShopHelper.ItemCard.close();
         int sum2 = kraken.grab().cartTotalRounded();
@@ -115,7 +115,7 @@ public class Cart extends TestBase {
         softAssert.assertTrue(sum1 < sum2,
                 "Не работает увеличение кол-ва товаров в корзине\n");
 
-        kraken.perform().click(Elements.Site.Cart.item());
+        kraken.perform().click(Elements.Cart.item());
         ShopHelper.ItemCard.hitMinusButton();
         ShopHelper.ItemCard.close();
         int sum3 = kraken.grab().cartTotalRounded();

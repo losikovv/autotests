@@ -41,7 +41,7 @@ public class Favorites extends TestBase {
         kraken.perform().loginAs(session.user);
         kraken.shopping().openFavorites();
 
-        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorites.container()),
+        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Favorites.container()),
                 "Не работает переход в любимые товары по кнопке в шапке\n");
     }
 
@@ -203,7 +203,7 @@ public class Favorites extends TestBase {
         kraken.jivosite().open();
 
         kraken.shopping().hitShowMoreFavorites();
-        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Site.Favorites.secondPageProduct()),
+        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Favorites.secondPageProduct()),
                 "Не рабоатет подгрузка страниц списка любимых товаров\n");
     }
 

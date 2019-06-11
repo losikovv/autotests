@@ -59,14 +59,14 @@ public class AdministrationShipments extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.get().ordersPage();
-        if(kraken.detect().isElementPresent(Elements.Site.UserProfile.OrdersPage.placeholder())) {
+        if(kraken.detect().isElementPresent(Elements.UserProfile.OrdersPage.placeholder())) {
             kraken.get().page("metro");
             kraken.perform().order();
         } else {
             if(kraken.detect().isLastOrderActive()) {
-                kraken.perform().click(Elements.Site.UserProfile.OrdersPage.lastOrderActionButton(1));
+                kraken.perform().click(Elements.UserProfile.OrdersPage.lastOrderActionButton(1));
             }
-            kraken.perform().click(Elements.Site.UserProfile.OrdersPage.lastOrderDetailsButton());
+            kraken.perform().click(Elements.UserProfile.OrdersPage.lastOrderDetailsButton());
         }
         kraken.get().adminOrderDetailsPage(kraken.grab().currentOrderNumber());
         softAssert.assertTrue(kraken.detect().isOrderCanceled(),

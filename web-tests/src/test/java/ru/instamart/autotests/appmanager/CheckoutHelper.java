@@ -125,22 +125,22 @@ public class CheckoutHelper extends HelperBase {
         if(contactsDetails.isNewPhone()) {
             deletePhoneNumbers();
             message("Добавляем номер телефона +7 " + contactsDetails.getPhone());
-            kraken.perform().fillField(Elements.Site.Checkout.phoneNumberField(), contactsDetails.getPhone());
+            kraken.perform().fillField(Elements.Checkout.phoneNumberField(), contactsDetails.getPhone());
         } else if(kraken.detect().isPhoneNumberEmpty()) {
             message("Добавляем номер телефона +7 " + contactsDetails.getPhone());
-            kraken.perform().fillField(Elements.Site.Checkout.phoneNumberField(), contactsDetails.getPhone());
+            kraken.perform().fillField(Elements.Checkout.phoneNumberField(), contactsDetails.getPhone());
             } else {
             message("Используем существующий номер телефона");
         }
     }
 
     public void chooseReplacementPolicy(ReplacementPolicyData policy) {
-        kraken.perform().click(Elements.Site.Checkout.replacementPolicy(policy.getPosition()));
+        kraken.perform().click(Elements.Checkout.replacementPolicy(policy.getPosition()));
         message("Выбираем способ замен #" + policy.getPosition() + " (" + policy.getUserDescription() + ")");
     }
 
     public void choosePaymentMethod (PaymentDetailsData paymentDetails) {
-        kraken.perform().click(Elements.Site.Checkout.paymentTypeSelector(paymentDetails.getPaymentType().getPosition()));
+        kraken.perform().click(Elements.Checkout.paymentTypeSelector(paymentDetails.getPaymentType().getPosition()));
         String description = paymentDetails.getPaymentType().getDescription();
         message("Выбираем оплату " + description);
 
@@ -181,21 +181,21 @@ public class CheckoutHelper extends HelperBase {
 
     public void chooseDeliveryTime(int day, int slot) {
         message("Переключаемся на " + day + " день");
-        kraken.perform().click(Elements.Site.Checkout.deliveryDaySelector(day));
+        kraken.perform().click(Elements.Checkout.deliveryDaySelector(day));
         kraken.await().implicitly(1); // Ожидание загрузки слотов дня в чекауте
-        if (kraken.detect().isElementPresent(Elements.Site.Checkout.deliveryWindowsPlaceholder())){
+        if (kraken.detect().isElementPresent(Elements.Checkout.deliveryWindowsPlaceholder())){
             throw new AssertionError("Нет доступных слотов доставки");
         }
         if(slot != 0) {
         message("Выбираем " + slot + " слот ("
-                + kraken.grab().text(Elements.Site.Checkout.slotTime(day, slot))
+                + kraken.grab().text(Elements.Checkout.slotTime(day, slot))
                 + " / "
-                + kraken.grab().text(Elements.Site.Checkout.slotPrice(day, slot))
+                + kraken.grab().text(Elements.Checkout.slotPrice(day, slot))
                 + ")\n");
-        kraken.perform().click(Elements.Site.Checkout.chooseSlotButton(day, slot));
+        kraken.perform().click(Elements.Checkout.chooseSlotButton(day, slot));
         } else {
             message("Выбираем первый доступный интервал доставки\n");
-            kraken.perform().click(Elements.Site.Checkout.chooseSlotButton());
+            kraken.perform().click(Elements.Checkout.chooseSlotButton());
         }
         // TODO заменить на fluent-ожидание исчезновения спиннера + 1 implicity
         kraken.await().implicitly(3); // Ожидание применения слота доставки в чекауте
@@ -207,14 +207,14 @@ public class CheckoutHelper extends HelperBase {
             message("Уже есть применённый промокод, поэтому сначала удаляем его... ");
             clearPromocode();
         }
-        kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
-        if (!kraken.detect().element(Elements.Site.Checkout.PromocodeModal.title())) {
+        kraken.perform().click(Elements.Checkout.addPromocodeButton());
+        if (!kraken.detect().element(Elements.Checkout.PromocodeModal.title())) {
             message("⚠ Не открывается промо-модалка\n");
             kraken.await().implicitly(1); // Ожидание открытия промо-модалки в чекауте
         }
         message("Применяем промокод '" + promocode + "'...");
-        kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), promocode);
-        kraken.perform().click(Elements.Site.Checkout.PromocodeModal.applyButton());
+        kraken.perform().fillField(Elements.Checkout.PromocodeModal.field(), promocode);
+        kraken.perform().click(Elements.Checkout.PromocodeModal.applyButton());
         kraken.await().implicitly(1); // Ожидание применения промокода в чекауте
     }
 
@@ -222,7 +222,7 @@ public class CheckoutHelper extends HelperBase {
     public void clearPromocode() {
         if (kraken.detect().isPromocodeApplied()) {
             message("Удаляем промокод...");
-            kraken.perform().click(Elements.Site.Checkout.clearPromocodeButton());
+            kraken.perform().click(Elements.Checkout.clearPromocodeButton());
             kraken.await().implicitly(1); // Ожидание удаления промокода в чекауте
         } else {
             message("Пропускаем удаление промокода, так как он не был применён");
@@ -279,7 +279,7 @@ public class CheckoutHelper extends HelperBase {
                 .withTimeout(waitingTimeout, TimeUnit.SECONDS)
                 .withMessage("Не открывается чекаут")
                 .pollingEvery(basicTimeout, TimeUnit.SECONDS)
-                .until(ExpectedConditions.presenceOfElementLocated(Elements.Site.Checkout.header().getLocator()));
+                .until(ExpectedConditions.presenceOfElementLocated(Elements.Checkout.header().getLocator()));
         message("✓ Чекаут\n");
     }
 
@@ -331,7 +331,7 @@ public class CheckoutHelper extends HelperBase {
 
     /** Нажимаем кнопки "Продолжить" в шагах чекаута */
     private void hitNextButton(int step) {
-        kraken.perform().click(Elements.Site.Checkout.nextButton(step));
+        kraken.perform().click(Elements.Checkout.nextButton(step));
         message("Жмем Продолжить\n");
         kraken.await().implicitly(1); // Ожидание загрузки следующего шага в чекауте
     }
@@ -340,19 +340,19 @@ public class CheckoutHelper extends HelperBase {
     private void hitChangeButton(int step) {
         switch (step) {
             case 1 :
-                kraken.perform().click(Elements.Site.Checkout.changeStepButton(step));
+                kraken.perform().click(Elements.Checkout.changeStepButton(step));
                 break;
             case 2 :
-                kraken.perform().click(Elements.Site.Checkout.changeStepButton(step));
+                kraken.perform().click(Elements.Checkout.changeStepButton(step));
                 break;
             case 3 :
-                kraken.perform().click(Elements.Site.Checkout.changeStepButton(step));
+                kraken.perform().click(Elements.Checkout.changeStepButton(step));
                 break;
             case 4 :
-                kraken.perform().click(Elements.Site.Checkout.changeStepButton(step));
+                kraken.perform().click(Elements.Checkout.changeStepButton(step));
                 break;
             case 5 :
-                kraken.perform().click(Elements.Site.Checkout.changeStep5Button());
+                kraken.perform().click(Elements.Checkout.changeStep5Button());
                 break;
         }
         message("Изменяем шаг " + step + "\n");
@@ -363,12 +363,12 @@ public class CheckoutHelper extends HelperBase {
     public void sendOrder() {
         kraken.await().fluently(
                 ExpectedConditions.elementToBeClickable(
-                        Elements.Site.Checkout.sendOrderButton().getLocator()),
+                        Elements.Checkout.sendOrderButton().getLocator()),
                 "Неактивна кнопка отправки заказа\n");
-        kraken.perform().click(Elements.Site.Checkout.sendOrderButton());
+        kraken.perform().click(Elements.Checkout.sendOrderButton());
         kraken.await().fluently(
                 ExpectedConditions.visibilityOfElementLocated(
-                        Elements.Site.UserProfile.OrderDetailsPage.activeOrderAttribute().getLocator()),
+                        Elements.UserProfile.OrderDetailsPage.activeOrderAttribute().getLocator()),
                 "Не отправляется заказ\n");
         message("✓ Заказ оформлен\n");
     }
@@ -376,9 +376,9 @@ public class CheckoutHelper extends HelperBase {
     /** Удалить все номера телефонов */
     private void deletePhoneNumbers() {
         if (kraken.detect().isPhoneNumberEmpty()) {
-            kraken.perform().click(Elements.Site.Checkout.editPhoneButton());
-            kraken.perform().click(Elements.Site.Checkout.deletePhoneButton());
-            message("Удоляем номер телефона " + kraken.grab().text(Elements.Site.Checkout.phoneNumber()));
+            kraken.perform().click(Elements.Checkout.editPhoneButton());
+            kraken.perform().click(Elements.Checkout.deletePhoneButton());
+            message("Удоляем номер телефона " + kraken.grab().text(Elements.Checkout.phoneNumber()));
             kraken.await().implicitly(1); // ожидание удаления предыдущего номера телефона
             deletePhoneNumbers();
         }
@@ -388,14 +388,14 @@ public class CheckoutHelper extends HelperBase {
     private void addNewPaymentCard(CreditCardData creditCardData) {
         message("Добавляем карту оплаты " + creditCardData.getCardNumber());
 
-        if (kraken.detect().isElementDisplayed(Elements.Site.Checkout.addPaymentCardButton())) {
-            kraken.perform().click(Elements.Site.Checkout.addPaymentCardButton());
+        if (kraken.detect().isElementDisplayed(Elements.Checkout.addPaymentCardButton())) {
+            kraken.perform().click(Elements.Checkout.addPaymentCardButton());
             fillPaymentCardDetails(creditCardData);
-            kraken.perform().click(Elements.Site.Checkout.PaymentCardModal.confirmButton());
+            kraken.perform().click(Elements.Checkout.PaymentCardModal.confirmButton());
             kraken.await().implicitly(1); // Ожидание добавления новой карты оплаты
 
-            kraken.perform().click(Elements.Site.Checkout.paymentCardTitle(
-                    kraken.grab().listSize(Elements.Site.Checkout.paymentCardsList())));
+            kraken.perform().click(Elements.Checkout.paymentCardTitle(
+                    kraken.grab().listSize(Elements.Checkout.paymentCardsList())));
             kraken.await().implicitly(1); // Ожидание применения новой карты оплаты
         } else {
             fillPaymentCardDetails(creditCardData);
@@ -404,11 +404,11 @@ public class CheckoutHelper extends HelperBase {
 
     /** Заполнить данные карты оплаты */
     private void fillPaymentCardDetails(CreditCardData creditCardData) {
-        kraken.perform().fillField(Elements.Site.Checkout.PaymentCardModal.cardNumberField(), creditCardData.getCardNumber());
-        kraken.perform().fillField(Elements.Site.Checkout.PaymentCardModal.monthField(), creditCardData.getExpiryMonth());
-        kraken.perform().fillField(Elements.Site.Checkout.PaymentCardModal.yearField(), creditCardData.getExpiryYear());
-        kraken.perform().fillField(Elements.Site.Checkout.PaymentCardModal.cvvField(), creditCardData.getCvvNumber());
-        kraken.perform().fillField(Elements.Site.Checkout.PaymentCardModal.nameField(), creditCardData.getCardholderName());
+        kraken.perform().fillField(Elements.Checkout.PaymentCardModal.cardNumberField(), creditCardData.getCardNumber());
+        kraken.perform().fillField(Elements.Checkout.PaymentCardModal.monthField(), creditCardData.getExpiryMonth());
+        kraken.perform().fillField(Elements.Checkout.PaymentCardModal.yearField(), creditCardData.getExpiryYear());
+        kraken.perform().fillField(Elements.Checkout.PaymentCardModal.cvvField(), creditCardData.getCvvNumber());
+        kraken.perform().fillField(Elements.Checkout.PaymentCardModal.nameField(), creditCardData.getCardholderName());
     }
 
     /** Удалить все карты оплаты, кроме одной */
@@ -421,16 +421,16 @@ public class CheckoutHelper extends HelperBase {
 
     /** Удалить карту оплаты */
     private void deletePaymentCard() {
-        kraken.perform().click(Elements.Site.Checkout.changePaymentCardButton());
+        kraken.perform().click(Elements.Checkout.changePaymentCardButton());
         message(
-                "Удаляем карту оплаты •••• " + kraken.grab().text(Elements.Site.Checkout.PaymentCardModal.cardNumber()));
-        kraken.perform().click(Elements.Site.Checkout.PaymentCardModal.deleteButton());
+                "Удаляем карту оплаты •••• " + kraken.grab().text(Elements.Checkout.PaymentCardModal.cardNumber()));
+        kraken.perform().click(Elements.Checkout.PaymentCardModal.deleteButton());
         kraken.await().implicitly(1); // Ожидание удаления карты оплаты
     }
 
     /** Выбрать карту оплаты */
     private void selectPaymentCard(CreditCardData creditCardData) {
-        ElementData title = Elements.Site.Checkout.paymentCardTitle(creditCardData);
+        ElementData title = Elements.Checkout.paymentCardTitle(creditCardData);
         if (kraken.detect().isElementDisplayed(title)) {
             message("Выбираем карту оплаты " + kraken.grab().text(title));
             kraken.perform().click(title);
@@ -442,9 +442,9 @@ public class CheckoutHelper extends HelperBase {
 
     /** Вести 3ds код на странице cloudpayments */
     private void cloudpaymentsFlow() {
-        if (kraken.detect().isElementDisplayed(Elements.Site.Checkout.Cloudpayments.answerField())) {
-            kraken.perform().fillField(Elements.Site.Checkout.Cloudpayments.answerField(), "4");
-            kraken.perform().click(Elements.Site.Checkout.Cloudpayments.confirmButton());
+        if (kraken.detect().isElementDisplayed(Elements.Checkout.Cloudpayments.answerField())) {
+            kraken.perform().fillField(Elements.Checkout.Cloudpayments.answerField(), "4");
+            kraken.perform().click(Elements.Checkout.Cloudpayments.confirmButton());
             kraken.await().implicitly(1); // Ожидание перехода со страницы cloudpayments
         }
     }
@@ -453,10 +453,10 @@ public class CheckoutHelper extends HelperBase {
     private void addNewJuridical(JuridicalData juridicalData) {
         message(
                 "Добавляем данные юр. лица " + juridicalData.getJuridicalName() + ", ИНН: " + juridicalData.getInn());
-        if (kraken.detect().isElementDisplayed(Elements.Site.Checkout.addJuridicalButton())) {
-            kraken.perform().click(Elements.Site.Checkout.addJuridicalButton());
+        if (kraken.detect().isElementDisplayed(Elements.Checkout.addJuridicalButton())) {
+            kraken.perform().click(Elements.Checkout.addJuridicalButton());
             fillJuridicalDetails(juridicalData);
-            kraken.perform().click(Elements.Site.Checkout.JuridicalModal.confirmButton());
+            kraken.perform().click(Elements.Checkout.JuridicalModal.confirmButton());
             kraken.await().implicitly(1); // Ожидание добавления нового юрлица
         } else {
             fillJuridicalDetails(juridicalData);
@@ -465,14 +465,14 @@ public class CheckoutHelper extends HelperBase {
 
     /** Заполнить данные юр. лица */
     private void fillJuridicalDetails(JuridicalData juridicalData) {
-        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.nameField(), juridicalData.getJuridicalName());
-        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.addressField(), juridicalData.getJuridicalAddress());
-        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.innField(), juridicalData.getInn());
-        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.kppField(), juridicalData.getKpp());
-        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.operatingAccountField(), juridicalData.getAccountNumber());
-        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.bikField(), juridicalData.getBik());
-        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.bankField(), juridicalData.getBankName());
-        kraken.perform().fillField(Elements.Site.Checkout.JuridicalModal.correspondentAccountField(), juridicalData.getCorrespondentAccountNumber());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.nameField(), juridicalData.getJuridicalName());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.addressField(), juridicalData.getJuridicalAddress());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.innField(), juridicalData.getInn());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.kppField(), juridicalData.getKpp());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.operatingAccountField(), juridicalData.getAccountNumber());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.bikField(), juridicalData.getBik());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.bankField(), juridicalData.getBankName());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.correspondentAccountField(), juridicalData.getCorrespondentAccountNumber());
     }
 
     /** Удалить всех юр. лиц, кроме одного */
@@ -485,17 +485,17 @@ public class CheckoutHelper extends HelperBase {
 
     /** Удалить юр. лицо */
     private void deleteJuridical() {
-        kraken.perform().click(Elements.Site.Checkout.changeJuridicalButton());
+        kraken.perform().click(Elements.Checkout.changeJuridicalButton());
         message(
-                "Удаляем данные юр. лица " + kraken.grab().value(Elements.Site.Checkout.JuridicalModal.nameField())
-                        + ", ИНН: " + kraken.grab().value(Elements.Site.Checkout.JuridicalModal.innField()));
-        kraken.perform().click(Elements.Site.Checkout.JuridicalModal.deleteButton());
+                "Удаляем данные юр. лица " + kraken.grab().value(Elements.Checkout.JuridicalModal.nameField())
+                        + ", ИНН: " + kraken.grab().value(Elements.Checkout.JuridicalModal.innField()));
+        kraken.perform().click(Elements.Checkout.JuridicalModal.deleteButton());
         kraken.await().implicitly(1); // Ожидание удаления юрлица
     }
 
     /** Выбрать юр. лицо */
     private void selectJuridical(JuridicalData juridicalData) {
-        ElementData title = Elements.Site.Checkout.juridicalTitle(juridicalData);
+        ElementData title = Elements.Checkout.juridicalTitle(juridicalData);
         if (kraken.detect().isElementDisplayed(title)) {
             message("Выбираем данные юр. лица " + kraken.grab().text(title));
             kraken.perform().click(title);
@@ -509,12 +509,12 @@ public class CheckoutHelper extends HelperBase {
 
     /** Изменить юр. лицо */
     private void changeJuridical(JuridicalData juridicalData) {
-        kraken.perform().click(Elements.Site.Checkout.changeJuridicalButton());
-        message("Меняем данные юр. лица\nС : " + kraken.grab().value(Elements.Site.Checkout.JuridicalModal.nameField())
-                + ", ИНН: " + kraken.grab().value(Elements.Site.Checkout.JuridicalModal.innField())
+        kraken.perform().click(Elements.Checkout.changeJuridicalButton());
+        message("Меняем данные юр. лица\nС : " + kraken.grab().value(Elements.Checkout.JuridicalModal.nameField())
+                + ", ИНН: " + kraken.grab().value(Elements.Checkout.JuridicalModal.innField())
                 + "\nНА: " + juridicalData.getJuridicalName() + ", ИНН: " + juridicalData.getInn());
         fillJuridicalDetails(juridicalData);
-        kraken.perform().click(Elements.Site.Checkout.JuridicalModal.confirmButton());
+        kraken.perform().click(Elements.Checkout.JuridicalModal.confirmButton());
         kraken.await().implicitly(1); // Ожидание сохранения изменений юрлица
     }
 }

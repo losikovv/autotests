@@ -9,7 +9,7 @@ public class Config {
     public final static String browser = BrowserType.FIREFOX;
 
     // ENVIRONMENT
-    public final static EnvironmentData environment = Environments.instamart_production();
+    public final static EnvironmentData environment = Environments.instamart_staging();
 
     // TIMEOUTS
     public final static int basicTimeout = 2;

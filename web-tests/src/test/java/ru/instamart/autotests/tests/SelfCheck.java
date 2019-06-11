@@ -18,7 +18,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест базового URL",
             groups ="selfcheck",
             priority = 10000)
-    public void initialCheck() throws Exception {
+    public void initialCheck() {
         kraken.get().baseUrl();
         Assert.assertEquals(kraken.grab().currentURL() , kraken.grab().fullBaseUrl);
     }
@@ -27,7 +27,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности работы методов навигации",
             groups ="selfcheck",
             priority = 10001)
-    public void checkNavigation() throws Exception {
+    public void checkNavigation() {
 
         kraken.get().page("metro");
         Assert.assertEquals(kraken.grab().currentURL() , kraken.grab().fullBaseUrl + "metro");
@@ -40,7 +40,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения модалки авторизации/регистрации",
             groups ="selfcheck",
             priority = 10002)
-    public void detectAuthModal() throws Exception {
+    public void detectAuthModal() {
 
         kraken.get().baseUrl();
 
@@ -103,7 +103,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения карточки товара",
             groups ="selfcheck",
             priority = 10005)
-    public void detectItemCard() throws Exception {
+    public void detectItemCard() {
 
         kraken.get().page("metro/interaktivnaya-igrushka-furreal-friends-pokormi-kotenka");
         Assert.assertTrue(kraken.detect().isItemCardOpen());
@@ -144,7 +144,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения 404 ошибки на страниице",
             groups ="selfcheck",
             priority = 10008)
-    public void detect404() throws Exception {
+    public void detect404() {
 
         kraken.get().page(Pages.page404());
         Assert.assertTrue(kraken.detect().is404());
@@ -157,7 +157,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения 500 ошибки на страниице",
             groups ="selfcheck",
             priority = 10009)
-    public void detect500() throws Exception {
+    public void detect500() {
 
         kraken.get().page(Pages.page500());
         Assert.assertTrue(kraken.detect().is500());
@@ -170,7 +170,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения шторки Каталога",
             groups ="selfcheck",
             priority = 10010)
-    public void detectCatalogDrawer() throws Exception {
+    public void detectCatalogDrawer() {
 
         kraken.get().page("metro");
 
@@ -265,7 +265,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения шторки корзины",
             groups ="selfcheck",
             priority = 10013)
-    public void detectCartDrawer() throws Exception {
+    public void detectCartDrawer() {
 
         kraken.get().page("metro");
 
@@ -280,14 +280,14 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения модалки Доставка",
             groups ="selfcheck",
             priority = 10014)
-    public void detectDeliveryModal() throws Exception {
+    public void detectDeliveryModal() {
 
         kraken.get().page("metro");
 
-        kraken.perform().click(Elements.Site.Header.deliveryButton());
+        kraken.perform().click(Elements.Header.deliveryButton());
         Assert.assertTrue(kraken.detect().isDeliveryModalOpen());
 
-        kraken.perform().click(Elements.Site.DeliveryModal.closeButton());
+        kraken.perform().click(Elements.DeliveryModal.closeButton());
         Assert.assertFalse(kraken.detect().isDeliveryModalOpen());
     }
 
@@ -295,14 +295,14 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения модалки Партнеры",
             groups ="selfcheck",
             priority = 10015)
-    public void detectPartnersModal() throws Exception {
+    public void detectPartnersModal() {
 
         kraken.get().page("metro");
 
         //kraken.perform().click(Elements.Site.Header.partnersButton());
         Assert.assertTrue(kraken.detect().isPartnersModalOpen());
 
-        kraken.perform().click(Elements.Site.PartnersModal.closeButton());
+        kraken.perform().click(Elements.PartnersModal.closeButton());
         Assert.assertFalse(kraken.detect().isPartnersModalOpen());
     }
 
@@ -310,14 +310,14 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения модалки Оплата",
             groups ="selfcheck",
             priority = 10016)
-    public void detectPaymentModal() throws Exception {
+    public void detectPaymentModal() {
 
         kraken.get().page("metro");
 
-        kraken.perform().click(Elements.Site.Footer.paymentButton());
+        kraken.perform().click(Elements.Footer.paymentButton());
         Assert.assertTrue(kraken.detect().isPaymentModalOpen());
 
-        kraken.perform().click(Elements.Site.PaymentModal.closeButton());
+        kraken.perform().click(Elements.PaymentModal.closeButton());
         Assert.assertFalse(kraken.detect().isPaymentModalOpen());
     }
 
@@ -325,7 +325,7 @@ public class SelfCheck extends TestBase {
      @Test(description = "Тест корректности определения модалки Адрес",
             groups ="selfcheck",
             priority = 10017)
-     public void detectAddressModal() throws Exception {
+     public void detectAddressModal() {
 
         kraken.get().page("metro");
 
@@ -341,7 +341,7 @@ public class SelfCheck extends TestBase {
             description = "Тест корректности определения суммы корзины",
             groups ="selfcheck",
             priority = 10018)
-    public void detectCartTotal() throws Exception {
+    public void detectCartTotal() {
         kraken.get().page("metro");
         if (!kraken.detect().isShippingAddressSet()) {
             kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
@@ -371,7 +371,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности определения заглушки адреса вне зоны доставки",
             groups ="selfcheck",
             priority = 10019)
-    public void detectAddressOutOfZone() throws Exception {
+    public void detectAddressOutOfZone() {
 
         kraken.get().page("metro");
         kraken.shipAddress().set(Addresses.Moscow.outOfZoneAddress());
@@ -386,7 +386,7 @@ public class SelfCheck extends TestBase {
     @Test(description = "Тест корректности работы ассертов",
             groups ="selfcheck",
             priority = 10020)
-    public void checkAsserts() throws Exception {
+    public void checkAsserts() {
 
         assertTransition("https://instamart.ru/auchan");
         assertTransition(Pages.Site.Retailers.vkusvill());

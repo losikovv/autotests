@@ -60,12 +60,12 @@ public class GrabHelper extends HelperBase{
 
     /** Взять текущий адрес доставки */
     public String currentShipAddress() {
-        return text(Elements.Site.Header.currentShipAddress());
+        return text(Elements.Header.currentShipAddress());
     }
 
     /** Взять строку с названием товара в карточке */
     public String itemName() {
-        return kraken.grab().text(Elements.Site.ItemCard.name());
+        return kraken.grab().text(Elements.ItemCard.name());
     }
 
     /** Взять целочисленную стоимость товара в карточке */
@@ -75,12 +75,12 @@ public class GrabHelper extends HelperBase{
 
     /** Взять строку со стоимостью товара в карточке */
     public String itemPrice() {
-        return kraken.grab().text(Elements.Site.ItemCard.price());
+        return kraken.grab().text(Elements.ItemCard.price());
     }
 
     /** Взять кол-во добавленного в корзину товара из каунтера в карточке */
     public int itemQuantity() {
-        String quantity = kraken.grab().text(Elements.Site.ItemCard.quantity());
+        String quantity = kraken.grab().text(Elements.ItemCard.quantity());
         if(quantity.equals("")) return 0;
         else return parseInt(quantity);
     }
@@ -93,7 +93,7 @@ public class GrabHelper extends HelperBase{
     /** Взять строку с суммой корзины */
     public String cartTotal() {
         ShopHelper.Cart.open();
-        String cartTotal = kraken.detect().isElementDisplayed(Elements.Site.Cart.total()) ? text(Elements.Site.Cart.total()) : null;
+        String cartTotal = kraken.detect().isElementDisplayed(Elements.Cart.total()) ? text(Elements.Cart.total()) : null;
         if (cartTotal == null) {
             message("> в корзине пусто");
         } else {
@@ -112,14 +112,14 @@ public class GrabHelper extends HelperBase{
 
     /** Взять номер доставки на странице заказа */
     public String shipmentNumber() {
-        String number = kraken.grab().text(Elements.Site.UserProfile.OrderDetailsPage.shipmentNumber());
+        String number = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.shipmentNumber());
         verboseMessage("Номер доставки: " + number);
         return number;
     }
 
     /** Взять способ оплаты на странице заказа */
     public String shipmentPayment() {
-        String payment = kraken.grab().text(Elements.Site.UserProfile.OrderDetailsPage.shipmentPayment());
+        String payment = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.shipmentPayment());
         verboseMessage("Способ оплаты: " + payment);
         return payment;
     }
@@ -134,8 +134,8 @@ public class GrabHelper extends HelperBase{
     /** Взять сумму минимального заказа из алерта в корзине */
     public int minOrderSum() {
         ShopHelper.Cart.open();
-        if (kraken.detect().isElementDisplayed(Elements.Site.Cart.alertText())) {
-            String text = text(Elements.Site.Cart.alertText());
+        if (kraken.detect().isElementDisplayed(Elements.Cart.alertText())) {
+            String text = text(Elements.Cart.alertText());
             int minOrderSum = parseInt(((text).substring((text.length() - 8), (text.length() - 3))).replaceAll(
                     "\\s", ""));
             debugMessage("Сумма минимального заказа в алерте корзины: " + minOrderSum + "р");

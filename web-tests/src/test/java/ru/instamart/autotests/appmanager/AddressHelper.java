@@ -25,7 +25,7 @@ public class AddressHelper extends HelperBase {
             kraken.await().implicitly(1); // Ожидание загрузки витрины магазина
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(
-                            Elements.Site.modalsFade().getLocator()), "\nНе пропадает адресная модалка\n");
+                            Elements.modalsFade().getLocator()), "\nНе пропадает адресная модалка\n");
         } else {
             openAddressModal();
             fill(address);
@@ -62,8 +62,8 @@ public class AddressHelper extends HelperBase {
     private void selectAddressSuggest() {
         // TODO переделать на fluent-ожидание подсказок
         if (kraken.detect().isShippingAddressSuggestsPresent()) {
-            kraken.perform().click(Elements.Site.AddressModal.addressSuggest());
-            kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Site.AddressModal.saveButton().getLocator()),
+            kraken.perform().click(Elements.AddressModal.addressSuggest());
+            kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.AddressModal.saveButton().getLocator()),
                     "Неактивна кнопка сохранения адреса");
         } else {
             throw new AssertionError("Нет адресных подсказок, невозможно выбрать адрес");
@@ -77,7 +77,7 @@ public class AddressHelper extends HelperBase {
         if (kraken.detect().isAddressModalOpen()) {
             message("Пропускаем открытие модалки адреса, она уже открыта");
         } else {
-            kraken.perform().click(Elements.Site.Header.shipAddressButton());
+            kraken.perform().click(Elements.Header.shipAddressButton());
             kraken.await().implicitly(1); // Ожидание анимации открытия адресной модалки
         }
     }
@@ -86,14 +86,14 @@ public class AddressHelper extends HelperBase {
      * Очисить поле в адресной модалке
      */
     public void clearAddressField() {
-        kraken.perform().fillField(Elements.Site.AddressModal.addressField(), "");
+        kraken.perform().fillField(Elements.AddressModal.addressField(), "");
     }
 
     /**
      * Ввести адрес в адресной модалке
      */
     public void fill(String address) {
-        kraken.perform().fillField(Elements.Site.AddressModal.addressField(), address);
+        kraken.perform().fillField(Elements.AddressModal.addressField(), address);
         selectAddressSuggest();
     }
 
@@ -101,14 +101,14 @@ public class AddressHelper extends HelperBase {
      * Применить введенный адрес в адресной модалке
      */
     public void submit() throws AssertionError {
-        kraken.perform().click(Elements.Site.AddressModal.saveButton());
+        kraken.perform().click(Elements.AddressModal.saveButton());
         if (kraken.detect().isAddressOutOfZone()) {
             verboseMessage("Выбранный адрес вне зоны доставки");
             kraken.perform().refresh();
         } else {
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(
-                            Elements.Site.AddressModal.popup().getLocator()),
+                            Elements.AddressModal.popup().getLocator()),
                     "Не применяется адрес доставки");
         }
     }
@@ -117,7 +117,7 @@ public class AddressHelper extends HelperBase {
      * Выбрать первый в списке предыдущий адрес в адресной модалке
      */
     public void choseRecent() {
-        kraken.perform().click(Elements.Site.AddressModal.recentAddress());
+        kraken.perform().click(Elements.AddressModal.recentAddress());
         kraken.await().implicitly(1); // Ожидание применения предыдущего адреса
     }
 
@@ -126,7 +126,7 @@ public class AddressHelper extends HelperBase {
      */
     public void closeAddressModal() {
         if (kraken.detect().isAddressModalOpen()) {
-            kraken.perform().click(Elements.Site.AddressModal.closeButton());
+            kraken.perform().click(Elements.AddressModal.closeButton());
             kraken.await().implicitly(1); // Ожидание анимации закрытия адресной модалки
         } else {
             message("Пропускаем закрытие модалки адреса, она уже закрыта");

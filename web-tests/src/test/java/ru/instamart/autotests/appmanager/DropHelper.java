@@ -24,7 +24,7 @@ public class DropHelper extends HelperBase {
     public void cart() {
         if (!kraken.detect().isCartEmpty()) {
             ShopHelper.Cart.removeItem();
-            if(kraken.detect().isElementPresent(Elements.Site.Cart.item())) {
+            if(kraken.detect().isElementPresent(Elements.Cart.item())) {
                 cart();
             }
         }

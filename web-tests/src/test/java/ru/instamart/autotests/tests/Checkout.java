@@ -60,9 +60,9 @@ public class Checkout extends TestBase {
     )
     public void noPromocodeAddedOnCancel(){
         kraken.reach().checkout();
-        kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
-        kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
-        kraken.perform().click(Elements.Site.Checkout.PromocodeModal.cancelButton());
+        kraken.perform().click(Elements.Checkout.addPromocodeButton());
+        kraken.perform().fillField(Elements.Checkout.PromocodeModal.field(), "unicorn");
+        kraken.perform().click(Elements.Checkout.PromocodeModal.cancelButton());
 
         Assert.assertFalse(kraken.detect().isPromocodeApplied(),
                 "При отмене добавления промокода, промокод все равно применяется\n");
@@ -75,9 +75,9 @@ public class Checkout extends TestBase {
     )
     public void noPromocodeAddedOnClose(){
         kraken.reach().checkout();
-        kraken.perform().click(Elements.Site.Checkout.addPromocodeButton());
-        kraken.perform().fillField(Elements.Site.Checkout.PromocodeModal.field(), "unicorn");
-        kraken.perform().click(Elements.Site.Checkout.PromocodeModal.closeButton());
+        kraken.perform().click(Elements.Checkout.addPromocodeButton());
+        kraken.perform().fillField(Elements.Checkout.PromocodeModal.field(), "unicorn");
+        kraken.perform().click(Elements.Checkout.PromocodeModal.closeButton());
 
         Assert.assertFalse(kraken.detect().isPromocodeApplied(),
                 "При закрытии модалки добавления промокода, промокод все равно применяется\n");

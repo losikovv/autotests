@@ -145,7 +145,7 @@ public class Metro extends TestBase {
         kraken.perform().loginAs(session.user);
         kraken.reach().checkout();
 
-        softAssert.assertFalse(kraken.detect().isElementDisplayed(Elements.Site.Checkout.loyaltyPrograms()),
+        softAssert.assertFalse(kraken.detect().isElementDisplayed(Elements.Checkout.loyaltyPrograms()),
                 "Программы лояльности доступны в чекауте деливери метро");
 
         kraken.get().baseUrl();
