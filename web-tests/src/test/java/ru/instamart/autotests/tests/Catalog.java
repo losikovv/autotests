@@ -39,7 +39,7 @@ public class Catalog extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 602
     )
-    public void successReachDepartmentCategoryFromCatalogDrawer() {
+    public void successGoToDepartmentFromCatalogDrawer() {
         ShopHelper.CatalogDrawer.open();
         ShopHelper.CatalogDrawer.goToDepartment("Овощи и фрукты");
 
@@ -52,7 +52,7 @@ public class Catalog extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 603
     )
-    public void successReachTaxonCategoryFromCatalogDrawer() {
+    public void successGoToTaxonFromCatalogDrawer() {
         ShopHelper.CatalogDrawer.open();
         ShopHelper.CatalogDrawer.goToTaxon("Грибы");
 
@@ -87,7 +87,7 @@ public class Catalog extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 605
     )
-    public void successOperateItemCardOnDepartmentCategoryPage() {
+    public void successOperateItemCardOnDepartmentPage() {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.get().page("metro");
@@ -110,7 +110,7 @@ public class Catalog extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 606
     )
-    public void successOperateItemCardOnTaxonCategoryPage() {
+    public void successOperateItemCardOnTaxonPage() {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.get().page("metro");

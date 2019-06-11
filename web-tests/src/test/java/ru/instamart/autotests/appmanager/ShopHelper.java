@@ -35,8 +35,8 @@ public class ShopHelper extends HelperBase {
     // Шторка каталога категорий
     public static class CatalogDrawer {
 
-        /** Открыть шторку каталога */
         public static void open() {
+            debugMessage("Открываем шторку каталога категорий");
             if (!kraken.detect().isCatalogDrawerOpen()) {
                 kraken.perform().click(Elements.Header.catalogButton());
                 kraken.await().simply(1); // Ожидание анимации открытия шторки каталога
@@ -47,18 +47,20 @@ public class ShopHelper extends HelperBase {
         }
 
         public static void goToDepartment(String name) {
+            verboseMessage("Переходим в департамент \"" + name + "\" в шторке каталога категорий");
             kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
             kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
             kraken.perform().click(Elements.CatalogDrawer.category(name));
         }
 
         public static void goToTaxon(String name) {
+            verboseMessage("Переходим в таксон \"" + name + "\" в шторке каталога категорий");
             kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
             kraken.perform().click(Elements.CatalogDrawer.category(name));
         }
 
-        /** Закрыть шторку каталога */
         public static void close() {
+            debugMessage("Закрываем шторку каталога категорий");
             if (kraken.detect().isCatalogDrawerOpen()) {
                 kraken.perform().click(Elements.CatalogDrawer.closeButton());
                 kraken.await().simply(1); // Ожидание анимации закрытия шторки каталога
@@ -73,12 +75,14 @@ public class ShopHelper extends HelperBase {
     public static class AccountMenu {
 
         public static void open() {
+            debugMessage("Открываем всплывающее меню профиля");
             if(!kraken.detect().isAccountMenuOpen()) {
                 kraken.perform().click(Elements.Header.profileButton());
             } else verboseMessage("Пропускаем открытие меню аккаунта, уже открыто");
         }
 
         public static void close() {
+            debugMessage("Закрываем всплывающее меню профиля");
             if(kraken.detect().isAccountMenuOpen()) {
                 kraken.perform().click(Elements.Header.profileButton());
             } else verboseMessage("Пропускаем закрытие меню аккаунта, уже закрыто");

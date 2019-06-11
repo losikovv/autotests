@@ -9,46 +9,43 @@ import ru.instamart.autotests.testdata.generate;
 // Тесты поиска товаров
 
 
-public class SearchProducts extends TestBase {
+public class Search extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
-    public void preconditions() throws Exception {
+    public void preconditions() {
         kraken.get().page("metro");
     }
-
 
     @Test(
             description = "Тест отправки пустого поискового запроса",
             groups = {"acceptance","regression"},
             priority = 401
     )
-    public void noSendEmptySearch(){
+    public void noSendEmptySearch() {
         kraken.search().item("");
 
         Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
                 "Показаны результаты для пустого поискового запроса\n");
     }
 
-
     @Test (
             description = "Тест поиска по запросу, не возвращающему результатов",
             groups = {"acceptance","regression"},
             priority = 402
     )
-    public void successSearchForNonexistingItem(){
+    public void successSearchForNonexistingItem() {
         kraken.search().item("смысл жизни");
 
         Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
                 "Показаны результаты для поискового запроса, не возвращающего результатов\n");
     }
 
-
     @Test (
             description = "Тест упешного поиска товаров",
             groups = {"acceptance","regression"},
             priority = 403
     )
-    public void successItemSearch(){
+    public void successSearchItem() {
         kraken.search().item("шоколад");
 
         Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
@@ -58,13 +55,12 @@ public class SearchProducts extends TestBase {
                 "Отсутствуют продукты в результатах поиска\n");
     }
 
-
     @Test (
             description = "Тест упешного поиска товаров c использованием категорийных саджестов",
             groups = {"acceptance","regression"},
             priority = 404
     )
-    public void successItemSearchUsingCategorySuggests(){
+    public void successSearchItemUsingCategorySuggests() {
         kraken.search().fillSearchFieldWith("Мороженое");
 
         Assert.assertTrue(kraken.detect().isSearchCategorySuggestsPresent(),
@@ -79,13 +75,12 @@ public class SearchProducts extends TestBase {
                 "Отсутствуют продукты в результатах поиска по категорийной подсказке\n");
     }
 
-
     @Test (
             description = "Тест упешного поиска товаров c использованием товарных саджестов",
             groups = {"acceptance","regression"},
             priority = 405
     )
-    public void successItemSearchUsingProductSuggests(){
+    public void successSearchItemUsingProductSuggests() {
         kraken.get().page("metro");
         kraken.search().fillSearchFieldWith("Мороженое");
 
@@ -98,13 +93,12 @@ public class SearchProducts extends TestBase {
                 "Не открыта карточка товара из товарной подсказки\n");
     }
 
-
     @Test (
             description = "Тест поиска по очень длинному запросу, не возвращающему результатов",
             groups = {"regression"},
             priority = 406
     )
-    public void successItemSearchWithLongQuery(){
+    public void successSearchItemWithLongQuery() {
         kraken.search().item(generate.string(1000));
 
         assertPageIsAvailable();
@@ -112,5 +106,4 @@ public class SearchProducts extends TestBase {
         Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
                 "Показаны результаты для длинного поискового запроса, не возвращающего результатов\n");
     }
-
 }
