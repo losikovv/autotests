@@ -88,7 +88,7 @@ public class TestBase {
 
     /** Проверить что текущая страница недоступна с ошибкой 404 */
     void assertPageIs404() throws AssertionError {
-        Assert.assertTrue(kraken.detect().is404(), "Нет ошибки 404 на странице " + kraken.grab().currentURL() + "\n");
+        Assert.assertTrue(kraken.detect().is404(), "Нет ожидаемой ошибки 404 на странице " + kraken.grab().currentURL() + "\n");
     }
 
     /** Проверить возможность перехода на страницу и ее недоступность с ошибкой 404 */

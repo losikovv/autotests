@@ -38,7 +38,7 @@ public class Order_Retailers extends TestBase {
                 "Не удалось оформить заказ в Метро Москва\n");
     }
 
-    @Test(enabled = testRetailerOrders,
+    @Test(enabled = false,
             description = "Тестовый заказ во Вкусвилл Москва с применением бонусной программы",
             groups = {"acceptance","regression"},
             priority = 942
@@ -78,7 +78,7 @@ public class Order_Retailers extends TestBase {
                 "Не удалось оформить заказ в Ашан Москва\n");
     }
 
-    @Test(enabled = testRetailerOrders,
+    @Test(enabled = false,
             description = "Тестовый заказ в Ленту Москва",
             groups = {"acceptance","regression"},
             priority = 944

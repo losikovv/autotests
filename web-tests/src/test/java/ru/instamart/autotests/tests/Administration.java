@@ -46,7 +46,7 @@ public class Administration extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 2002
     )
-    public void successCheckAdminPages() throws AssertionError {
+    public void successCheckAdminSections() throws AssertionError {
         kraken.reach().admin();
 
         // TODO переделать на assertPagesAvailable(Pages.Admin.*)

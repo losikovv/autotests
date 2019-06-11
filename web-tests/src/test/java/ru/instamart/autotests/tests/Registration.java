@@ -373,7 +373,7 @@ public class Registration extends TestBase {
         kraken.perform().click(Elements.AuthModal.submitButton());
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Не работает регистрация без согласия на получение почтовой рассылки");
+                "Не работает регистрация без согласия на получение почтовой рассылки\n");
     }
 
     @Test(
@@ -388,6 +388,6 @@ public class Registration extends TestBase {
         kraken.perform().click(Elements.AuthModal.submitButton());
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Не работает регистрация с согласием на получение почтовой рассылки");
+                "Не работает регистрация с согласием на получение почтовой рассылки\n");
     }
 }

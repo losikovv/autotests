@@ -173,11 +173,11 @@ public class TestInit extends TestBase {
 
         // Проверяем что доступны витрины активных ритейлеров
         assertPageIsAvailable(Pages.Site.Retailers.metro());
-        assertPageIsAvailable(Pages.Site.Retailers.vkusvill());
-        assertPageIsAvailable(Pages.Site.Retailers.lenta());
         assertPageIsAvailable(Pages.Site.Retailers.auchan());
 
         // Проверяем что недоступны витрины неактивных ритейлеров
+        assertPageIs404(Pages.Site.Retailers.vkusvill());
+        assertPageIs404(Pages.Site.Retailers.lenta());
         assertPageIs404(Pages.Site.Retailers.karusel());
         assertPageIs404(Pages.Site.Retailers.selgros());
         assertPageIs404(Pages.Site.Retailers.flora());

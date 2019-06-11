@@ -18,9 +18,10 @@ public class RepeatOrders extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() throws Exception {
-        kraken.get().page("metro");
+        kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.admin);
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
+        kraken.await().simply(5); // TODO протестить
         kraken.drop().cart();
     }
 
