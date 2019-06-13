@@ -189,7 +189,7 @@ public class PerformHelper extends HelperBase {
         }
         authorisation(user);
         if(multiSessionMode && kraken.detect().isElementPresent(
-                Elements.AuthModal.errorMessage("Неверный email или пароль"))) {
+                Elements.Modals.AuthModal.errorMessage("Неверный email или пароль"))) {
                     message(">>> Юзер " + user.getEmail() + " не найден, регистрируем\n");
                     // костыль для stage-окружений
                     if(kraken.environment.getServer().equals("staging")) {
@@ -221,7 +221,7 @@ public class PerformHelper extends HelperBase {
             sendForm();
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(
-                            Elements.AuthModal.popup().getLocator()), "Не проходит авторизация\n");
+                            Elements.Modals.AuthModal.popup().getLocator()), "Не проходит авторизация\n");
         } else {
             message("Пропускаем авторизацию, уже авторизованы");
         }
@@ -309,7 +309,7 @@ public class PerformHelper extends HelperBase {
             kraken.await().implicitly(1); // Ожидание открытия модалки авторизации/регистрации
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
-                            Elements.AuthModal.popup().getLocator())
+                            Elements.Modals.AuthModal.popup().getLocator())
             );
         }
     }
@@ -317,31 +317,31 @@ public class PerformHelper extends HelperBase {
     /** Переключиться на вкладку регистрации */
     private void switchToRegistrationTab(){
         verboseMessage("> переключаемся на вкладку регистрации");
-        click(Elements.AuthModal.registrationTab());
+        click(Elements.Modals.AuthModal.registrationTab());
     }
 
     /** Заполнить поля формы регистрации */
     private void fillRegistrationForm(String name, String email, String password, String passwordConfirmation, boolean agreementConfirmation) {
         verboseMessage("> заполняем поля формы регистрации");
-        fillField(Elements.AuthModal.nameField(), name);
-        fillField(Elements.AuthModal.emailField(), email);
-        fillField(Elements.AuthModal.passwordField(), password);
-        fillField(Elements.AuthModal.passwordConfirmationField(), passwordConfirmation);
+        fillField(Elements.Modals.AuthModal.nameField(), name);
+        fillField(Elements.Modals.AuthModal.emailField(), email);
+        fillField(Elements.Modals.AuthModal.passwordField(), password);
+        fillField(Elements.Modals.AuthModal.passwordConfirmationField(), passwordConfirmation);
         if (!agreementConfirmation) {
-            click(Elements.AuthModal.agreementCheckbox());
+            click(Elements.Modals.AuthModal.agreementCheckbox());
         }
     }
 
     /** Отправить форму */
     public void sendForm(){
         verboseMessage("> отправляем форму\n");
-        click(Elements.AuthModal.submitButton());
+        click(Elements.Modals.AuthModal.submitButton());
         kraken.await().implicitly(1); // Ожидание авторизации
     }
 
     /** Закрыть форму авторизации/регистрации */
     public void closeAuthModal(){
-        click(Elements.AuthModal.closeButton());
+        click(Elements.Modals.AuthModal.closeButton());
         kraken.await().implicitly(1); // Ожидание закрытия модалки авторизации
     }
 
@@ -349,24 +349,24 @@ public class PerformHelper extends HelperBase {
     private void switchToAuthorisationTab() {
         try {
             verboseMessage("> переключаемся на вкладку авторизации");
-            click(Elements.AuthModal.authorisationTab());
+            click(Elements.Modals.AuthModal.authorisationTab());
         } catch (ElementNotInteractableException e) {
             debugMessage(" > что-то пошло не так, пробуем ещё раз...");
-            click(Elements.AuthModal.authorisationTab());
+            click(Elements.Modals.AuthModal.authorisationTab());
         }
     }
 
     /** Заполнить поля формы авторизации */
     private void fillAuthorisationForm(String email, String password) {
         verboseMessage("> заполняем поля формы авторизации...");
-        fillField(Elements.AuthModal.emailField(), email);
-        fillField(Elements.AuthModal.passwordField(), password);
+        fillField(Elements.Modals.AuthModal.emailField(), email);
+        fillField(Elements.Modals.AuthModal.passwordField(), password);
     }
 
     /** Перейти в форму восстановления пароля */
     private void proceedToPasswordRecovery(){
         verboseMessage("> переходим в форму восстановления пароля");
-        click(Elements.AuthModal.forgotPasswordButton());
+        click(Elements.Modals.AuthModal.forgotPasswordButton());
     }
 
     /** Запросить восстановление пароля */
@@ -375,7 +375,7 @@ public class PerformHelper extends HelperBase {
         switchToAuthorisationTab();
         proceedToPasswordRecovery();
         verboseMessage("> запрашиваем восстановление пароля для " + email);
-        fillField(Elements.AuthModal.emailField(),email);
+        fillField(Elements.Modals.AuthModal.emailField(),email);
         sendForm();
         kraken.await().implicitly(1); // Ожидание раздизабливания кнопки подтверждения восстановления пароля
     }

@@ -145,21 +145,21 @@ public class TestInit extends TestBase {
         kraken.perform().click(Elements.Footer.deliveryButton());
         Assert.assertTrue(kraken.detect().isDeliveryModalOpen(),
                 "Не открывается модалка 'Доставка' из футера\n");
-        kraken.perform().click(Elements.DeliveryModal.closeButton());
+        kraken.perform().click(Elements.Modals.DeliveryModal.closeButton());
         assertPageIsAvailable();
 
         kraken.get().page(Pages.Site.Retailers.metro());
         kraken.perform().click(Elements.Footer.partnersButton());
         Assert.assertTrue(kraken.detect().isPartnersModalOpen(),
                 "Не открывается модалка 'Партнеры' из футера\n");
-        kraken.perform().click(Elements.PartnersModal.closeButton());
+        kraken.perform().click(Elements.Modals.PartnersModal.closeButton());
         assertPageIsAvailable();
 
         kraken.get().page(Pages.Site.Retailers.metro());
         kraken.perform().click(Elements.Footer.paymentButton());
         Assert.assertTrue(kraken.detect().isPaymentModalOpen(),
                 "Не открывается модалка 'Оплата' из футера\n");
-        kraken.perform().click(Elements.PaymentModal.closeButton());
+        kraken.perform().click(Elements.Modals.PaymentModal.closeButton());
         assertPageIsAvailable();
     }
 

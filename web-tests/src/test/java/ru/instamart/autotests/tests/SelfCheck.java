@@ -287,7 +287,7 @@ public class SelfCheck extends TestBase {
         kraken.perform().click(Elements.Header.deliveryButton());
         Assert.assertTrue(kraken.detect().isDeliveryModalOpen());
 
-        kraken.perform().click(Elements.DeliveryModal.closeButton());
+        kraken.perform().click(Elements.Modals.DeliveryModal.closeButton());
         Assert.assertFalse(kraken.detect().isDeliveryModalOpen());
     }
 
@@ -302,7 +302,7 @@ public class SelfCheck extends TestBase {
         //kraken.perform().click(Elements.Site.Header.partnersButton());
         Assert.assertTrue(kraken.detect().isPartnersModalOpen());
 
-        kraken.perform().click(Elements.PartnersModal.closeButton());
+        kraken.perform().click(Elements.Modals.PartnersModal.closeButton());
         Assert.assertFalse(kraken.detect().isPartnersModalOpen());
     }
 
@@ -317,7 +317,7 @@ public class SelfCheck extends TestBase {
         kraken.perform().click(Elements.Footer.paymentButton());
         Assert.assertTrue(kraken.detect().isPaymentModalOpen());
 
-        kraken.perform().click(Elements.PaymentModal.closeButton());
+        kraken.perform().click(Elements.Modals.PaymentModal.closeButton());
         Assert.assertFalse(kraken.detect().isPaymentModalOpen());
     }
 

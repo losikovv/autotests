@@ -97,7 +97,7 @@ public class SeoCatalog extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.shopping().openFirstItemCard();
         ShopHelper.ItemCard.hitPlusButton();
-        kraken.perform().click(Elements.AddressModal.authButton());
+        kraken.perform().click(Elements.Modals.AddressModal.authButton());
         kraken.perform().loginAs(session.user);
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
@@ -120,7 +120,7 @@ public class SeoCatalog extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.shopping().openFirstItemCard();
         ShopHelper.ItemCard.hitPlusButton();
-        kraken.perform().click(Elements.AddressModal.authButton());
+        kraken.perform().click(Elements.Modals.AddressModal.authButton());
         kraken.perform().registration();
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
 

@@ -212,8 +212,8 @@ public class ShopHelper extends HelperBase {
         public static void hitPlusButton() {
             ElementData button = Elements.ItemCard.plusButton();
             // Побеждаем модалку обновления цен
-            if(kraken.detect().isElementPresent(Elements.PricesModal.popup())) {
-                kraken.perform().click(Elements.PricesModal.refreshPricesButton());
+            if(kraken.detect().isElementPresent(Elements.Modals.PricesModal.popup())) {
+                kraken.perform().click(Elements.Modals.PricesModal.refreshPricesButton());
             }
             kraken.await().fluently(
                     ExpectedConditions
@@ -370,5 +370,4 @@ public class ShopHelper extends HelperBase {
             addItem(neededQuantity);
         }
     }
-
 }

@@ -185,40 +185,40 @@ public class DetectionHelper extends HelperBase {
      * Определить открыта ли модалка "Доставка"
      */
     public boolean isDeliveryModalOpen() {
-        return isElementDisplayed(Elements.DeliveryModal.popup())
-                && element(Elements.DeliveryModal.title());
+        return isElementDisplayed(Elements.Modals.DeliveryModal.popup())
+                && element(Elements.Modals.DeliveryModal.title());
     }
 
     /**
      * Определить открыта ли модалка "Оплата"
      */
     public boolean isPaymentModalOpen() {
-        return isElementDisplayed(Elements.PaymentModal.popup())
-                && element(Elements.PaymentModal.title());
+        return isElementDisplayed(Elements.Modals.PaymentModal.popup())
+                && element(Elements.Modals.PaymentModal.title());
     }
 
     /**
      * Определить открыт ли модалка "Партнеры"
      */
     public boolean isPartnersModalOpen() {
-        return isElementDisplayed(Elements.PartnersModal.popup())
-                && element(Elements.PartnersModal.title());
+        return isElementDisplayed(Elements.Modals.PartnersModal.popup())
+                && element(Elements.Modals.PartnersModal.title());
     }
 
     /**
      * Определить открыт ли модалка "Адрес"
      */
     public boolean isAddressModalOpen() {
-        return isElementDisplayed(Elements.AddressModal.popup())
-                && element(Elements.AddressModal.titleSet())
-                || element(Elements.AddressModal.titleChange());
+        return isElementDisplayed(Elements.Modals.AddressModal.popup())
+                && element(Elements.Modals.AddressModal.titleSet())
+                || element(Elements.Modals.AddressModal.titleChange());
     }
 
     /**
      * Определить показана ли заглушка "Адрес вне зоны доставки" в адресной модалке
      */
     public boolean isAddressOutOfZone() {
-        if (isElementPresent(Elements.AddressModal.titleOutOfZone())) {
+        if (isElementPresent(Elements.Modals.AddressModal.titleOutOfZone())) {
             verboseMessage("Адрес не в зоне доставки");
             return true;
         } else {
@@ -230,7 +230,7 @@ public class DetectionHelper extends HelperBase {
      * Определить открыта ли модалка "Выберите магазин"
      */
     public boolean isChangeStoreModalOpen() {
-        return isElementDisplayed(Elements.StoresModal.popup());
+        return isElementDisplayed(Elements.Modals.StoresModal.popup());
     }
 
 
@@ -267,7 +267,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить открыта ли модалка авторизации/регистрации */
     public boolean isAuthModalOpen() {
-        if (isElementDisplayed(Elements.AuthModal.popup())) {
+        if (isElementDisplayed(Elements.Modals.AuthModal.popup())) {
             debugMessage("> модалка авторизации открыта");
             return true;
         } else {
@@ -294,7 +294,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить отправлена ли форма восстановления пароля */
     public boolean isRecoveryRequested(){
-        if (kraken.detect().element(Elements.AuthModal.successRecoveryText())) {
+        if (kraken.detect().element(Elements.Modals.AuthModal.successRecoveryText())) {
             verboseMessage("Запрошено восстановление пароля");
             return true;
         } else {
@@ -357,7 +357,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить показаны ли адресные саджесты */
     public boolean isShippingAddressSuggestsPresent() {
-        return isElementPresent(Elements.AddressModal.addressSuggest());
+        return isElementPresent(Elements.Modals.AddressModal.addressSuggest());
     }
 
 

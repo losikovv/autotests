@@ -39,11 +39,11 @@ public class Authorisation extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
-                Elements.AuthModal.errorMessage("Укажите email")),
+                Elements.Modals.AuthModal.errorMessage("Укажите email")),
                 "Нет пользовательской ошибки пустого поля email\n");
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
-                Elements.AuthModal.errorMessage("Укажите пароль")),
+                Elements.Modals.AuthModal.errorMessage("Укажите пароль")),
                 "Нет пользовательской ошибки пустого поля Пароль\n");
 
         kraken.get().baseUrl();
@@ -68,7 +68,7 @@ public class Authorisation extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
-                Elements.AuthModal.errorMessage("Укажите email")),
+                Elements.Modals.AuthModal.errorMessage("Укажите email")),
                 "Нет пользовательской ошибки пустого поля email\n");
 
         kraken.get().baseUrl();
@@ -93,7 +93,7 @@ public class Authorisation extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
-                Elements.AuthModal.errorMessage("Укажите пароль")),
+                Elements.Modals.AuthModal.errorMessage("Укажите пароль")),
                 "Нет пользовательской ошибки пустого поля Пароль\n");
 
         kraken.get().baseUrl();
@@ -118,7 +118,7 @@ public class Authorisation extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
-                Elements.AuthModal.errorMessage("Неверный email или пароль")),
+                Elements.Modals.AuthModal.errorMessage("Неверный email или пароль")),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
         kraken.get().baseUrl();
@@ -143,7 +143,7 @@ public class Authorisation extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
-                Elements.AuthModal.errorMessage("Неверный email или пароль")),
+                Elements.Modals.AuthModal.errorMessage("Неверный email или пароль")),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
         kraken.get().baseUrl();
@@ -168,7 +168,7 @@ public class Authorisation extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         softAssert.assertTrue(kraken.detect().isElementPresent(
-                Elements.AuthModal.errorMessage("Неверный email или пароль")),
+                Elements.Modals.AuthModal.errorMessage("Неверный email или пароль")),
                 "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
 
         kraken.get().baseUrl();
@@ -241,7 +241,7 @@ public class Authorisation extends TestBase {
         kraken.get().page("metro");
 
         kraken.shipAddress().openAddressModal();
-        kraken.perform().click(Elements.AddressModal.authButton());
+        kraken.perform().click(Elements.Modals.AddressModal.authButton());
 
         SoftAssert softAssert = new SoftAssert();
 
@@ -261,7 +261,7 @@ public class Authorisation extends TestBase {
             groups = {"regression"},
             priority = 111
     )
-    public void successAuthFromCart() throws Exception {
+    public void successAuthFromCart() {
         final UserData testuser = generate.testCredentials("user");
 
         kraken.perform().registration(testuser);
