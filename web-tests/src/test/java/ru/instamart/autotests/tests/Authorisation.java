@@ -224,7 +224,7 @@ public class Authorisation extends TestBase {
     )
     public void successAuthOnRetailerPage() throws Exception, AssertionError {
         skipOn("metro");
-        kraken.get().page("vkusvill");
+        kraken.get().page("metro");
 
         kraken.perform().loginAs(session.admin);
 

@@ -24,12 +24,10 @@ public class Config {
 
     // CONFIGURE TESTS
     public final static boolean enableAdministrationTests = true;
-    public final static boolean enableSeoCatalogTests = false;
+    public final static boolean enableSeoCatalogTests = true;
     public final static boolean enableJivositeTests = true;
     public final static boolean enableRetailRocketTests = false;
-    public final static boolean enableTenantTests = false;
-    public final static boolean enablePage404Tests = false;
-
+    public final static boolean enablePage404Tests = true;
 
     // CONFIGURE ORDER TESTS
     public final static boolean testRetailerOrders = true;
@@ -44,7 +42,6 @@ public class Config {
     public final static String companyHotlinePhoneLink = "tel:+78002221100";
     public final static String companyHotlineWorkhours = "с 7:00 до 24:00";
     public final static String companyHotlineWorkhoursShort = "7:00 - 24:00";
-
 
     // TEST PARAMS
     public final static String testDomain = "example.com";

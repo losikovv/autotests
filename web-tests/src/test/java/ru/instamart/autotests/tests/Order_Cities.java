@@ -16,7 +16,7 @@ public class Order_Cities extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() throws Exception {
         kraken.get().baseUrl();
-        kraken.perform().loginAs(kraken.session.user);
+        kraken.perform().loginAs(kraken.session.admin);
     }
 
     @BeforeMethod(alwaysRun = true)

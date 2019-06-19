@@ -217,14 +217,16 @@ public class ShopHelper extends HelperBase {
             }
             kraken.await().fluently(
                     ExpectedConditions
-                            .elementToBeClickable(button.getLocator())
+                            .elementToBeClickable(button.getLocator()),
+                        "Некликабельна кнопка добавления товара в корзину"
             );
             debugMessage("Жмем +1");
             kraken.perform().click(Elements.ItemCard.plusButton());
             //kraken.await().simply(1); // Ожидание добавления +1 товара в карточке
             kraken.await().fluently(
                     ExpectedConditions
-                            .elementToBeClickable(button.getLocator())
+                            .elementToBeClickable(button.getLocator()),
+                        "Не раздизаблилась кнопка добавления товара в корзину"
             );
         }
 
@@ -263,6 +265,7 @@ public class ShopHelper extends HelperBase {
         /** Открыть корзину */
         public static void open() {
             if (!kraken.detect().isCartOpen()) {
+                kraken.perform().refresh(); // Доджим рандомные подвисания, из-за которых иногда не сразу открывается корзина
                 debugMessage("> открываем корзину");
                 kraken.perform().click(Elements.Header.cartButton());
                 kraken.await().simply(1); // Ожидание анимации открытия корзины
@@ -271,7 +274,7 @@ public class ShopHelper extends HelperBase {
                                 Elements.Cart.closeButton().getLocator()),
                         "Не открылась корзина\n");
             } else {
-                verboseMessage("Пропускаем открытие корзины, уже открыта");
+                debugMessage("Пропускаем открытие корзины, уже открыта");
             }
         }
 
@@ -293,7 +296,7 @@ public class ShopHelper extends HelperBase {
         /** Убрать товар из корзины */
         public static void removeItem() {
             kraken.perform().hoverOn(Elements.Cart.item());
-            kraken.await().implicitly(1);
+            kraken.await().implicitly(1);// TODO заменить на fluent-ожидание
             kraken.perform().click(Elements.Cart.itemRemoveButton());
             kraken.await().implicitly(1); // Ожидание удаления продукта из корзины
         }

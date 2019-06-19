@@ -30,7 +30,7 @@ public class Order_Replacements extends TestBase {
         kraken.checkout().complete(ReplacementPolicies.callAndReplace());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с политикой Звонить / Заменять\n");
+                "Не удалось оформить заказ с политикой \"Звонить / Заменять\"\n");
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
@@ -53,7 +53,7 @@ public class Order_Replacements extends TestBase {
         kraken.checkout().complete(ReplacementPolicies.callAndRemove());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с политикой Звонить / Убирать\n");
+                "Не удалось оформить заказ с политикой \"Звонить / Убирать\"\n");
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
@@ -76,7 +76,7 @@ public class Order_Replacements extends TestBase {
         kraken.checkout().complete(ReplacementPolicies.replace());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с политикой Не звонить / Заменять\n");
+                "Не удалось оформить заказ с политикой \"Не звонить / Заменять\"\n");
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
@@ -99,7 +99,7 @@ public class Order_Replacements extends TestBase {
         kraken.checkout().complete(ReplacementPolicies.remove());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с политикой Не звонить / Убирать\n");
+                "Не удалось оформить заказ с политикой \"Не звонить / Убирать\"\n");
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();

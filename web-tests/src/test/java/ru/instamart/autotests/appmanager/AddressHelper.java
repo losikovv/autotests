@@ -109,7 +109,7 @@ public class AddressHelper extends HelperBase {
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(
                             Elements.Modals.AddressModal.popup().getLocator()),
-                    "Не применяется адрес доставки");
+                    "Не применяется адрес доставки\n");
         }
     }
 
