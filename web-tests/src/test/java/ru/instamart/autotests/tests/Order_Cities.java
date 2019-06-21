@@ -154,6 +154,38 @@ public class Order_Cities extends TestBase {
                 "Не удалось оформить заказ в Метро Краснодар\n");
     }
 
+    @Test(enabled = testCitiesOrders,
+            description = "Тест заказа в Метро Самара",
+            groups = {"acceptance","regression"},
+            priority = 929
+    )
+    public void successOrderInSamara(){
+        kraken.shipAddress().change(Addresses.Samara.defaultAddress());
+
+        kraken.shopping().collectItems();
+        ShopHelper.Cart.proceedToCheckout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не удалось оформить заказ в Метро Самара\n");
+    }
+
+    @Test(enabled = testCitiesOrders,
+            description = "Тест заказа в Метро Воронеж",
+            groups = {"acceptance","regression"},
+            priority = 930
+    )
+    public void successOrderInVoronezh(){
+        kraken.shipAddress().change(Addresses.Voronezh.defaultAddress());
+
+        kraken.shopping().collectItems();
+        ShopHelper.Cart.proceedToCheckout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не удалось оформить заказ в Метро Воронеж\n");
+    }
+
     @AfterMethod(alwaysRun = true)
     public void postconditions(){
         kraken.perform().cancelLastOrder();

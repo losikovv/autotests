@@ -24,7 +24,6 @@ public abstract class Addresses {
         public static String outOfZoneAddress() {
             return addressString = "Подольск, ул Дружбы, д 15";
         }
-
     }
 
     public static class SaintPetersburg extends Addresses {
@@ -32,7 +31,6 @@ public abstract class Addresses {
         SaintPetersburg(String address) { super(address);}
 
         public static String defaultAddress() { return addressString = "Санкт-Петербург, Литейный пр-кт, д 10"; }
-
     }
 
     public static class Kazan extends Addresses {
@@ -44,7 +42,6 @@ public abstract class Addresses {
         public static String defaultAddress() {
             return addressString = "Казань, ул Мулланура Вахитова, д 10";
         }
-
     }
 
     public static class Ekaterinburg extends Addresses {
@@ -56,7 +53,6 @@ public abstract class Addresses {
         public static String defaultAddress() {
             return addressString = "Екатеринбург, ул Советская, д 9";
         }
-
     }
 
     public static class NizhnyNovgorod extends Addresses {
@@ -68,7 +64,6 @@ public abstract class Addresses {
         public static String defaultAddress() {
             return addressString = "Нижний Новгород, тер Гск Кузнечиха, д 1";
         }
-
     }
 
     public static class RostovNaDonu extends Addresses {
@@ -76,7 +71,6 @@ public abstract class Addresses {
         RostovNaDonu(String address) { super(address); }
 
         public static String defaultAddress() { return addressString = "Ростов-на-Дону, ул 2-й Пятилетки, д 23"; }
-
     }
 
     public static class Ufa extends Addresses {
@@ -84,15 +78,27 @@ public abstract class Addresses {
         Ufa(String address) { super(address); }
 
         public static String defaultAddress() { return addressString = "Уфа, ул Кирова, д 1"; }
-
     }
 
     public static class Krasnodar extends Addresses {
 
         Krasnodar(String address) { super(address); }
 
-        public static String defaultAddress() { return addressString = "Краснодар, ул Ленинградская, д 10"; }
+        public static String defaultAddress() { return addressString = "Краснодар, ул Аграрная, д 1"; }
+    }
 
+    public static class Samara extends Addresses {
+
+        Samara(String address) { super(address); }
+
+        public static String defaultAddress() { return addressString = "Самара, ул Ленинская, д 10"; }
+    }
+
+    public static class Voronezh extends Addresses {
+
+        Voronezh(String address) {super(address); }
+
+        public static String defaultAddress() { return addressString = "Воронеж, ул Ленина, д 12"; }
     }
 }
 

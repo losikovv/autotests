@@ -781,36 +781,40 @@ public class Elements {
     /** Любимые товары */
     public interface Favorites {
 
-        static ElementData container() {
-            return new ElementData(By.className("user-wrapper__container"));
+        static ElementData placeholder() {
+            return new ElementData(
+                    By.xpath("//h1[text()='Ваш список пуст']"),
+                        "плейсхолдер пустого списка любимых товаров");
         }
 
-        static ElementData placeholder() {
-            return new ElementData(By.className("empty-favorites"));
+        static ElementData favsFilterButton(String filterName) {
+            return new ElementData(
+                    By.xpath("//a[contains(@class,'favorite-list-filter__link') and text()='" + filterName + "']"),
+                        "кнопка фильтра \"" + filterName + "\" в любимых товарах");
         }
 
         static ElementData allItemsFilterButton() {
-            return new ElementData("Все товары", By.linkText("Все товары"));
+            return favsFilterButton("Все товары");
         }
 
         static ElementData inStockFilterButton() {
-            return new ElementData("В наличии", By.linkText("В наличии"));
+            return favsFilterButton("В наличии");
         }
 
         static ElementData outOfStockFilterButton() {
-            return new ElementData("Нет в наличии", By.linkText("Нет в наличии"));
+            return favsFilterButton("Нет в наличии");
         }
 
         static ElementData activeFilter() {
-            return new ElementData(By.xpath("//a[@class='favorite-list-filter__link favorite-list-filter__link--active']"));
+            return new ElementData(
+                    By.xpath("//a[contains(@class,'favorite-list-filter__link--active')]"),
+                        "активный фильтр любимых товаров");
         }
 
         static ElementData showMoreButton() {
-            return new ElementData("Показать еще", By.xpath("//*[@id='wrap']/div/div/div/" + "div/div[2]/div/div[2]/div[2]/div/button"));
-        }
-
-        static ElementData secondPageProduct() {
-            return new ElementData(By.xpath("//*[@id='wrap']/div/div/div/div/div[2]" + "/div/div[2]/div[2]/a[31]"));
+            return new ElementData(
+                    By.xpath("//button[text()='Показать еще']"),
+                        "кнопка \"Показать еще\"");
         }
 
         interface Product {

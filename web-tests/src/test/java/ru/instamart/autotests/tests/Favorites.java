@@ -41,7 +41,7 @@ public class Favorites extends TestBase {
         kraken.perform().loginAs(session.user);
         kraken.shopping().openFavorites();
 
-        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Favorites.container()),
+        Assert.assertTrue(kraken.detect().isInFavorites(),
                 "Не работает переход в любимые товары по кнопке в шапке\n");
     }
 
@@ -196,15 +196,24 @@ public class Favorites extends TestBase {
             groups = {"regression"},
             priority = 510
     )
-    public void successShowMoreLoad() throws Exception {
+    public void successShowMoreLoad() throws Exception, AssertionError {
         kraken.perform().loginAs(session.admin);
         kraken.get().favoritesPage();
-
         kraken.jivosite().open();
 
-        kraken.shopping().hitShowMoreFavorites();
-        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Favorites.secondPageProduct()),
-                "Не рабоатет подгрузка страниц списка любимых товаров\n");
+        if(kraken.detect().isElementPresent(Elements.Favorites.showMoreButton())) {
+            kraken.shopping().hitShowMoreFavorites();
+        } else {
+            throw new AssertionError("Не выполнены предусловия теста, нет кнопки подгрузки товаров\n");
+        }
+
+        while (kraken.detect().isElementPresent(Elements.Favorites.showMoreButton())) {
+            kraken.shopping().hitShowMoreFavorites();
+        }
+
+        Assert.assertTrue(
+                kraken.detect().isElementPresent(Elements.Favorites.Product.snippet()),
+                    "Не рабоатет подгрузка страниц списка любимых товаров\n");
     }
 
 

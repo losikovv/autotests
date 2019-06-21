@@ -24,7 +24,7 @@ public class Config {
 
     // CONFIGURE TESTS
     public final static boolean enableAdministrationTests = true;
-    public final static boolean enableSeoCatalogTests = true;
+    public final static boolean enableSeoCatalogTests = false;
     public final static boolean enableJivositeTests = true;
     public final static boolean enableRetailRocketTests = false;
     public final static boolean enablePage404Tests = true;

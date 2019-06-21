@@ -14,6 +14,10 @@ import ru.instamart.autotests.testdata.generate;
 
 public class Order extends TestBase{
 
+
+    // TODO переделать в тесты заказа новым пользоватеем (генерим нового, делаем заказ с новым телом,  с привязкой новой карты + повтор, заказ с новым юрлицом + повтор и все что тут есть)
+
+
     @BeforeMethod(alwaysRun = true)
     public void preconditions() throws Exception {
         kraken.get().baseUrl();

@@ -149,6 +149,13 @@ public class DetectionHelper extends HelperBase {
     }
 
     /**
+     * Определить находимся в списке любимых товаров или нет
+     */
+    public boolean isInFavorites() {
+        return kraken.grab().currentURL().equals(baseUrl + Pages.Site.Profile.favorites().getPagePath());
+    }
+
+    /**
      * Определить 404 ошибку на текущей странице
      */
     public boolean is404() {
@@ -436,7 +443,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить наличие пустого списка любимых товаров */
     public boolean isFavoritesEmpty() {
-        if(!kraken.grab().currentURL().equals(fullBaseUrl + Pages.Site.Profile.favorites().getPagePath())) {
+        if(!kraken.detect().isInFavorites()) {
             kraken.get().favoritesPage();
         }
         if(kraken.detect().isElementPresent(Elements.Favorites.placeholder())){
