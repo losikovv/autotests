@@ -235,32 +235,32 @@ public class CheckoutHelper extends HelperBase {
             clearBonus(bonus);
         }
         message("Добавляем бонус \"" + bonus.getName() + "\"");
-        kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + bonus.getPosition() + "]"));
+        kraken.perform().click(Elements.Checkout.bonusProgramsSelector(bonus.getPosition()));
         kraken.perform().fillField(By.name("number"), bonus.getCardNumber() + "\uE007");
         kraken.await().implicitly(1); // Ожидание применения бонуса в чекауте
     }
 
     /** Выбираем бонус в списке добавленных */
     public void selectBonus(BonusProgramData bonus) {
-        kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + bonus.getPosition() + "]"));
+        kraken.perform().click(Elements.Checkout.bonusProgramsSelector(bonus.getPosition()));
         kraken.await().implicitly(1); // Ожидание выбора бонусной программы в чекауте
     }
 
     /** Удаляем бонус */
     public void clearBonus(BonusProgramData bonus) {
         message("Удаляем бонусную программу \"" + bonus.getName() + "\"");
-        kraken.perform().click(By.xpath("//aside/div/div[3]/div[2]/div[" + bonus.getPosition() + "]/div[2]"));
-        kraken.perform().fillField(By.name("number"), 1 + "\uE004" + "\uE007");
+        kraken.perform().click(Elements.Checkout.bonusProgramsEditButton(bonus.getPosition()));
+        kraken.perform().click(Elements.Checkout.deleteBonusProgramButton());
         kraken.await().implicitly(1); // Ожидание удаления программы лояльности в чекауте
     }
 
     /** Добавляем программу лояльности */
     public void addLoyalty(LoyaltyProgramData loyalty) {
-        if (kraken.detect().isLoyaltyAdded(loyalty)) {
+        if (kraken.detect().isLoyaltyAdded()) {
             clearLoyalty();
         }
         message("Добавляем программу лояльности \"" + loyalty.getName() + "\"");
-        kraken.perform().click(By.xpath("//aside/div/div[4]/div[3]/div")); // TODO вынести в Elements
+        kraken.perform().click(Elements.Checkout.loyaltyProgramsSelector());
         kraken.perform().fillField(By.name("number"), loyalty.getCardNumber() + "\uE007");
         kraken.await().implicitly(1); // Ожидание применения программы лояльности ритейлера в чекауте
     }
@@ -268,8 +268,8 @@ public class CheckoutHelper extends HelperBase {
     /** Удаляем программу лояльности */
     public void clearLoyalty() {
         message("Удаляем программу лояльности");
-        kraken.perform().click(By.xpath("//aside/div/div[4]/div[3]/div")); // TODO вынести в Elements
-        kraken.perform().fillField(By.name("number"), 1 + "\uE004" + "\uE007");
+        kraken.perform().click(Elements.Checkout.loyaltyProgramsEditButton());
+        kraken.perform().click(Elements.Checkout.deleteBonusProgramButton());
         kraken.await().implicitly(1); // Ожидание удаления программы лояльности ритейлера в чекауте
     }
 

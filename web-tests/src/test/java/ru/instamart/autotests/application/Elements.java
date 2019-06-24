@@ -1043,6 +1043,26 @@ public class Elements {
                 return new ElementData(By.cssSelector("div.payment-method:nth-child(" + option + ") > div:nth-child(1)"));
             }
 
+            static ElementData bonusProgramsSelector(int option) {
+                return new ElementData(By.xpath("//aside/div/div[3]/div[2]/div[" + option + "]"));
+            }
+
+            static ElementData bonusProgramsEditButton(int option) {
+                return new ElementData(By.xpath("/html/body/div[3]/div/form/div/aside/div/div[3]/div[2]/div[" + option + "]/div[2]"));
+            }
+
+            static ElementData deleteBonusProgramButton() {
+                return new ElementData(By.xpath("//*[@id='react-modal']/div/div[2]/div/div/div[2]/div/form/div[2]/div/div[1]/button"));
+            }
+
+            static ElementData loyaltyProgramsSelector() {  // Переделать когда появится выбор нескольких программ лояльности
+                return new ElementData(By.xpath("/html/body/div[3]/div/form/div/aside/div/div[4]/div[2]/div"));
+            }
+
+            static ElementData loyaltyProgramsEditButton() { // Переделать когда появится выбор несколбких программ лояльности
+                return new ElementData(By.xpath("/html/body/div[3]/div/form/div/aside/div/div[4]/div[2]/div/div[2]"));
+            }
+
             static ElementData addPromocodeButton() {
                 return new ElementData("Применить промокод", By.linkText("Применить промокод"));
             }
@@ -1557,6 +1577,10 @@ public class Elements {
 
                     static ElementData replacementPolicy() {
                         return new ElementData(By.xpath("//*[@id='order_tab_summary']/dl/dl[1]/div[2]"));
+                    }
+
+                    static ElementData loyaltyProgram() {
+                        return new ElementData(By.xpath("//*[@id='content']/div/table/tbody/tr[5]"));
                     }
                 }
 

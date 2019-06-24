@@ -9,6 +9,7 @@ import ru.instamart.autotests.appmanager.ShopHelper;
 import static ru.instamart.autotests.application.Config.testRetailerOrders;
 
 
+
 // Тесты заказов во всех ритейлерах присутсвия
 
 

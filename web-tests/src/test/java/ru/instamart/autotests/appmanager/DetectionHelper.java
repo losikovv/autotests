@@ -558,11 +558,20 @@ public class DetectionHelper extends HelperBase {
     }
 
     public boolean isBonusAdded(BonusProgramData bonus) {
-        return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + bonus.getPosition() + "]/div[2]")); // TODO вынести в  Elements
+        return isElementPresent(Elements.Checkout.bonusProgramsEditButton(bonus.getPosition()));
+        //return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + bonus.getPosition() + "]/div[2]")); // TODO вынести в  Elements
     }
 
-    public boolean isLoyaltyAdded(LoyaltyProgramData loyalty) {
-        return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + loyalty.getPosition() + "]/div[2]")); // TODO вынести в  Elements
+    public boolean isLoyaltyAdded() {
+        return isElementPresent(Elements.Checkout.loyaltyProgramsEditButton()); // Переделать когдая появится несколько программ лояльности
+        //return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + loyalty.getPosition() + "]/div[2]")); // TODO вынести в  Elements
+    }
+
+
+    /**Определить доступна ли программа лояльности ритейлера в чекауте */
+    public boolean isRetailerLoyaltyAvailable() {
+        return kraken.detect().element(
+                "//aside/div/div[4]/div[2]", "Карты лояльности магазинов"); // TODO вынести в Elements
     }
 
     /** Определить активен ли шаг чекаута в данный момент, по наличию кнопок "Продолжить" */
