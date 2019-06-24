@@ -30,11 +30,11 @@ public class RetailRocket_ItemCard extends TestBase {
             priority = 11201
     )
     public void successCheckWithThisItemBuyWidget() {
-        kraken.shopping().openFirstItemCard();
+        ShopHelper.Catalog.Item.open();
 
-        Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.ItemCard.WithThisItemBuy()),
-                "Нет блока 'C этим товаром покупают' в картчоке товара");
-
+        Assert.assertTrue(
+                kraken.detect().isWidgetPresent(Widgets.RetailRocket.ItemCard.WithThisItemBuy()),
+                    "Нет блока 'C этим товаром покупают' в картчоке товара");
     }
 
     @Test (enabled = enableRetailRocketTests,
@@ -43,11 +43,11 @@ public class RetailRocket_ItemCard extends TestBase {
             priority = 11202
     )
     public void successCheckSimilarItemsWidget() {
-        kraken.shopping().openFirstItemCard();
+        ShopHelper.Catalog.Item.open();
 
-        Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.ItemCard.SimilarItems()),
-                "Нет блока 'Похожие товары' в картчоке товара");
-
+        Assert.assertTrue(
+                kraken.detect().isWidgetPresent(Widgets.RetailRocket.ItemCard.SimilarItems()),
+                    "Нет блока 'Похожие товары' в картчоке товара");
     }
 
     @Test (enabled = enableRetailRocketTests,
@@ -56,11 +56,11 @@ public class RetailRocket_ItemCard extends TestBase {
             priority = 11203
     )
     public void successCheckRecentlyViewedWidget() {
-        kraken.shopping().openFirstItemCard();
+        ShopHelper.Catalog.Item.open();
 
-        Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.ItemCard.RecentlyViewed()),
-                "Нет блока 'Вы недавно смотрели' в карточке товара");
-
+        Assert.assertTrue(
+                kraken.detect().isWidgetPresent(Widgets.RetailRocket.ItemCard.RecentlyViewed()),
+                    "Нет блока 'Вы недавно смотрели' в карточке товара");
     }
 
     @Test (enabled = enableRetailRocketTests,
@@ -70,11 +70,12 @@ public class RetailRocket_ItemCard extends TestBase {
             dependsOnMethods = "successCheckWithThisItemBuyWidget"
     )
     public void successOpenItemFromWithThisItemBuyWidget() {
-        kraken.shopping().openFirstItemCard();
+        ShopHelper.Catalog.Item.open();
 
-        kraken.shopping().openItemCard(Widgets.RetailRocket.ItemCard.WithThisItemBuy());
-        Assert.assertTrue(kraken.detect().isItemCardOpen(),
-                "Не открывается карточка товара из виджета 'С этим товаром покупают' в карточке товара");
+        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.ItemCard.WithThisItemBuy());
+        Assert.assertTrue(
+                kraken.detect().isItemCardOpen(),
+                    "Не открывается карточка товара из виджета 'С этим товаром покупают' в карточке товара");
     }
 
     @Test (enabled = enableRetailRocketTests,
@@ -84,11 +85,12 @@ public class RetailRocket_ItemCard extends TestBase {
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successOpenItemFromSimilarItemsWidget() {
-        kraken.shopping().openFirstItemCard();
+        ShopHelper.Catalog.Item.open();
 
-        kraken.shopping().openItemCard(Widgets.RetailRocket.ItemCard.SimilarItems());
-        Assert.assertTrue(kraken.detect().isItemCardOpen(),
-                "Не открывается карточка товара из виджета 'Похожие товары' в карточке товара");
+        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.ItemCard.SimilarItems());
+        Assert.assertTrue(
+                kraken.detect().isItemCardOpen(),
+                    "Не открывается карточка товара из виджета 'Похожие товары' в карточке товара");
     }
 
     @Test (enabled = enableRetailRocketTests,
@@ -98,11 +100,12 @@ public class RetailRocket_ItemCard extends TestBase {
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemFromRecentlyViewedWidget() {
-        kraken.shopping().openFirstItemCard();
+        ShopHelper.Catalog.Item.open();
 
-        kraken.shopping().openItemCard(Widgets.RetailRocket.ItemCard.RecentlyViewed());
-        Assert.assertTrue(kraken.detect().isItemCardOpen(),
-                "Не открывается карточка товара из виджета 'Вы недавно смотрели' в карточке товара");
+        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.ItemCard.RecentlyViewed());
+        Assert.assertTrue(
+                kraken.detect().isItemCardOpen(),
+                    "Не открывается карточка товара из виджета 'Вы недавно смотрели' в карточке товара");
 
     }
 
@@ -115,12 +118,13 @@ public class RetailRocket_ItemCard extends TestBase {
     public void successAddItemFromWithThisItemBuyWidget() {
         kraken.drop().cart();
 
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().addItem(Widgets.RetailRocket.ItemCard.WithThisItemBuy());
+        ShopHelper.Catalog.Item.open();
+        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.ItemCard.WithThisItemBuy());
         ShopHelper.ItemCard.close();
 
-        Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Не добавляется в корзину товар из виджета 'C этим товаром покупают' в карточке товара");
+        Assert.assertFalse(
+                kraken.detect().isCartEmpty(),
+                    "Не добавляется в корзину товар из виджета 'C этим товаром покупают' в карточке товара");
     }
 
     @Test(enabled = enableRetailRocketTests,
@@ -132,12 +136,13 @@ public class RetailRocket_ItemCard extends TestBase {
     public void successAddItemFromSimilarItemsWidget() {
         kraken.drop().cart();
 
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().addItem(Widgets.RetailRocket.ItemCard.SimilarItems());
+        ShopHelper.Catalog.Item.open();
+        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.ItemCard.SimilarItems());
         ShopHelper.ItemCard.close();
 
-        Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Не добавляется в корзину товар из виджета 'Похожие товары' в карточке товара");
+        Assert.assertFalse(
+                kraken.detect().isCartEmpty(),
+                    "Не добавляется в корзину товар из виджета 'Похожие товары' в карточке товара");
     }
 
     @Test(enabled = enableRetailRocketTests,
@@ -149,11 +154,12 @@ public class RetailRocket_ItemCard extends TestBase {
     public void successAddItemFromRecentlyViewedWidget() {
         kraken.drop().cart();
 
-        kraken.shopping().openFirstItemCard();
-        kraken.shopping().addItem(Widgets.RetailRocket.ItemCard.RecentlyViewed());
+        ShopHelper.Catalog.Item.open();
+        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.ItemCard.RecentlyViewed());
         ShopHelper.ItemCard.close();
 
-        Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Не добавляется в корзину товар из виджета 'Вы недавно смотрели' в карточке товара");
+        Assert.assertFalse(
+                kraken.detect().isCartEmpty(),
+                    "Не добавляется в корзину товар из виджета 'Вы недавно смотрели' в карточке товара");
     }
 }

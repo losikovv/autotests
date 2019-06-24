@@ -14,9 +14,7 @@ import ru.instamart.autotests.testdata.generate;
 
 public class Order extends TestBase{
 
-
     // TODO переделать в тесты заказа новым пользоватеем (генерим нового, делаем заказ с новым телом,  с привязкой новой карты + повтор, заказ с новым юрлицом + повтор и все что тут есть)
-
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() throws Exception {
@@ -59,7 +57,6 @@ public class Order extends TestBase{
         );
     }
 
-
     @Test(
             description = "Тест заказа с изменением юр. лица",
             groups = {"regression"},
@@ -91,7 +88,6 @@ public class Order extends TestBase{
         );
     }
 
-
     @Test(
             description = "Тест заказа с новой картой оплаты",
             groups = {"regression"},
@@ -108,20 +104,16 @@ public class Order extends TestBase{
                 "Не удалось оформить заказ с новой картой оплаты\n");
     }
 
-
     @Test(
             description = "Тест заказа с любимыми товарами",
             groups = {"regression"},
             priority = 962
     )
     public void successOrderWithFavProducts() throws Exception {
-        kraken.shopping().hitFirstItemAddToFavoritesButton();
+        ShopHelper.Catalog.Item.addToFavorites();
         kraken.get().favoritesPage();
+
         kraken.shopping().collectItems();
-
-        //Assert.assertFalse(kraken.detect().isCheckoutButtonActive(),
-        //        "Не выполнено предусловие: корзина не набралась до суммы минимального заказа\n");
-
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -168,7 +160,6 @@ public class Order extends TestBase{
 
         softAssert.assertAll();
     }
-
 
     @AfterMethod(alwaysRun = true)
     public void postconditions()throws Exception {

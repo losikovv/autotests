@@ -24,7 +24,7 @@ public class DropHelper extends HelperBase {
     public void cart() {
         ShopHelper.Cart.open();
         if (!kraken.detect().isCartEmpty()) {
-            ShopHelper.Cart.removeItem();
+            ShopHelper.Cart.Item.remove();
             if(kraken.detect().isElementPresent(Elements.Cart.item())) {
                 cart();
             }
@@ -35,7 +35,7 @@ public class DropHelper extends HelperBase {
     /** Очистить список избранного, удалив все любимые товары */
     public void favorites() {
         if (!kraken.detect().isFavoritesEmpty()) {
-            kraken.shopping().hitFirstItemDeleteFromFavoritesButton();
+            ShopHelper.Favorites.Item.removeFromFavorites();
             kraken.perform().refresh();
             favorites();
         }

@@ -24,7 +24,6 @@ public class RetailRocket_RetailerPage extends TestBase {
         kraken.get().page("metro");
     }
 
-
     @Test ( enabled = enableRetailRocketTests,
             description = "Тест наличия виджета 'Популярные товары' на главной",
             groups = {"acceptance","regression"},
@@ -32,10 +31,10 @@ public class RetailRocket_RetailerPage extends TestBase {
     )
     public void successCheckPopularItemsWidget() {
 
-        Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.MainPage.PopularItems()),
-                "Нет блока 'Популярные товары' на главной");
+        Assert.assertTrue(
+                kraken.detect().isWidgetPresent(Widgets.RetailRocket.MainPage.PopularItems()),
+                    "Нет блока 'Популярные товары' на главной");
     }
-
 
     @Test ( enabled = enableRetailRocketTests,
             description = "Тест наличия виджета 'Вы недавно смотрели' на главной",
@@ -44,11 +43,10 @@ public class RetailRocket_RetailerPage extends TestBase {
     )
     public void successCheckRecentlyViewedWidget() {
 
-        Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.MainPage.RecentlyViewed()),
-                "Нет блока 'Вы недавно смотрели' на главной");
+        Assert.assertTrue(
+                kraken.detect().isWidgetPresent(Widgets.RetailRocket.MainPage.RecentlyViewed()),
+                    "Нет блока 'Вы недавно смотрели' на главной");
     }
-
-
 
     @Test ( enabled = enableRetailRocketTests,
             description = "Тест успешного открытия карточки товара из виджета 'Популярные товары' на главной",
@@ -57,12 +55,12 @@ public class RetailRocket_RetailerPage extends TestBase {
             dependsOnMethods = "successCheckPopularItemsWidget"
     )
     public void successOpenItemFromPopularItemsWidget() {
-        kraken.shopping().openItemCard(Widgets.RetailRocket.MainPage.PopularItems());
+        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.MainPage.PopularItems());
 
-        Assert.assertTrue(kraken.detect().isItemCardOpen(),
-                "Не открывается карточка товара из виджета 'Популярные товары' на главной");
+        Assert.assertTrue(
+                kraken.detect().isItemCardOpen(),
+                    "Не открывается карточка товара из виджета 'Популярные товары' на главной");
     }
-
 
     @Test ( enabled = enableRetailRocketTests,
             description = "Тест успешного открытия карточки товара из виджета 'Вы недавно смотрели' на главной",
@@ -71,12 +69,12 @@ public class RetailRocket_RetailerPage extends TestBase {
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemFromRecentlyViewedWidget() {
-        kraken.shopping().openItemCard(Widgets.RetailRocket.MainPage.PopularItems());
+        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.MainPage.PopularItems());
 
-        Assert.assertTrue(kraken.detect().isItemCardOpen(),
-                "Не открывается карточка товара из виджета 'Вы недавно смотрели' на главной");
+        Assert.assertTrue(
+                kraken.detect().isItemCardOpen(),
+                    "Не открывается карточка товара из виджета 'Вы недавно смотрели' на главной");
     }
-
 
     @Test ( enabled = enableRetailRocketTests,
             description = "Тест успешного добавления товара из блока 'Популярные товары' на главной",
@@ -86,12 +84,13 @@ public class RetailRocket_RetailerPage extends TestBase {
     )
     public void successAddItemFromPopularItemsWidget() {
         kraken.drop().cart();
-        kraken.shopping().addItem(Widgets.RetailRocket.MainPage.PopularItems());
 
-        Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Не добавляется в корзину товар из виджета 'Популярные товары' на главной");
+        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.MainPage.PopularItems());
+
+        Assert.assertFalse(
+                kraken.detect().isCartEmpty(),
+                    "Не добавляется в корзину товар из виджета 'Популярные товары' на главной");
     }
-
 
     @Test ( enabled = enableRetailRocketTests,
             description = "Тест успешного добавления товара из блока 'Вы недавно смотрели' на главной",
@@ -101,12 +100,14 @@ public class RetailRocket_RetailerPage extends TestBase {
     )
     public void successAddItemFromRecentlyViewedWidget() {
         kraken.drop().cart();
-        kraken.shopping().openFirstItemCard();
+
+        ShopHelper.Catalog.Item.open();
         ShopHelper.ItemCard.close();
         kraken.perform().refresh();
-        kraken.shopping().addItem(Widgets.RetailRocket.MainPage.RecentlyViewed());
+        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.MainPage.RecentlyViewed());
 
-        Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Не добавляется в корзину товар из виджета 'Вы недавно смотрели' на главной");
+        Assert.assertFalse(
+                kraken.detect().isCartEmpty(),
+                    "Не добавляется в корзину товар из виджета 'Вы недавно смотрели' на главной");
     }
 }

@@ -23,7 +23,7 @@ public class RetailRocket_Cart extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
         kraken.get().page("metro");
-        kraken.shopping().addFirstItemOnPageToCart();
+        ShopHelper.Catalog.Item.addToCart();
         ShopHelper.Cart.open();
     }
 
@@ -33,8 +33,9 @@ public class RetailRocket_Cart extends TestBase {
             priority = 11401
     )
     public void successCheckDontForgetToBuyWidget() {
-        Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.Cart.DontForgetToBuy()),
-                "Нет блока 'Не забудьте купить' в картчоке товара");
+        Assert.assertTrue(
+                kraken.detect().isWidgetPresent(Widgets.RetailRocket.Cart.DontForgetToBuy()),
+                    "Нет блока 'Не забудьте купить' в картчоке товара");
     }
 
     @Test(enabled = enableRetailRocketTests,
@@ -44,10 +45,11 @@ public class RetailRocket_Cart extends TestBase {
             dependsOnMethods = "successCheckDontForgetToBuyWidget"
     )
     public void successOpenItemCardFromDontForgetToBuyWidget() {
-        kraken.shopping().openItemCard(Widgets.RetailRocket.Cart.DontForgetToBuy());
+        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.Cart.DontForgetToBuy());
 
-        Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.Cart.DontForgetToBuy()),
-                "Не открывается карточка товара из блока 'Не забудьте купить' в коризне");
+        Assert.assertTrue(
+                kraken.detect().isWidgetPresent(Widgets.RetailRocket.Cart.DontForgetToBuy()),
+                    "Не открывается карточка товара из блока 'Не забудьте купить' в коризне");
     }
 
     @Test (enabled = enableRetailRocketTests,
@@ -57,10 +59,11 @@ public class RetailRocket_Cart extends TestBase {
             dependsOnMethods = "successCheckDontForgetToBuyWidget"
     )
     public void successAddItemFromDontForgetToBuyWidget() {
-        kraken.shopping().addItem(Widgets.RetailRocket.Cart.DontForgetToBuy());
-        ShopHelper.Cart.removeItem();
+        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.Cart.DontForgetToBuy());
+        ShopHelper.Cart.Item.remove();
 
-        Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.Cart.DontForgetToBuy()),
-                "Не добавляется товар в корзину из блока 'Не забудьте купить' в корзине");
+        Assert.assertTrue(
+                kraken.detect().isWidgetPresent(Widgets.RetailRocket.Cart.DontForgetToBuy()),
+                    "Не добавляется товар в корзину из блока 'Не забудьте купить' в корзине");
     }
 }

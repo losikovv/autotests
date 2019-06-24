@@ -30,8 +30,9 @@ public class RetailRocket_Catalog extends TestBase {
             priority = 11101
     )
     public void successCheckCustomersChoiceWidget() {
-        Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.CatalogPage.CustomersChoice()),
-                "Нет блока 'Выбор покупателей' в каталоге");
+        Assert.assertTrue(
+                kraken.detect().isWidgetPresent(Widgets.RetailRocket.CatalogPage.CustomersChoice()),
+                    "Нет блока 'Выбор покупателей' в каталоге");
     }
 
     @Test ( enabled = enableRetailRocketTests,
@@ -40,8 +41,9 @@ public class RetailRocket_Catalog extends TestBase {
             priority = 11102
     )
     public void successCheckRecentlyViewedWidget() {
-        Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.CatalogPage.RecentlyViewed()),
-                "Нет блока 'Вы недавно смотрели' в каталоге");
+        Assert.assertTrue(
+                kraken.detect().isWidgetPresent(Widgets.RetailRocket.CatalogPage.RecentlyViewed()),
+                    "Нет блока 'Вы недавно смотрели' в каталоге");
     }
 
     @Test ( enabled = enableRetailRocketTests,
@@ -51,10 +53,11 @@ public class RetailRocket_Catalog extends TestBase {
             dependsOnMethods = "successCheckCustomersChoiceWidget"
     )
     public void successOpenItemFromCustomersChoiceWidget() {
-        kraken.shopping().openItemCard(Widgets.RetailRocket.CatalogPage.CustomersChoice());
+        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.CatalogPage.CustomersChoice());
 
-        Assert.assertTrue(kraken.detect().isItemCardOpen(),
-                "Не открывается карточка товара из виджета 'Выбор покупателей' в каталоге");
+        Assert.assertTrue(
+                kraken.detect().isItemCardOpen(),
+                    "Не открывается карточка товара из виджета 'Выбор покупателей' в каталоге");
     }
 
     @Test ( enabled = enableRetailRocketTests,
@@ -64,14 +67,15 @@ public class RetailRocket_Catalog extends TestBase {
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemFromRecentlyViewedWidget() {
-        kraken.shopping().openFirstItemCard();
+        ShopHelper.Catalog.Item.open();
         ShopHelper.ItemCard.close();
         kraken.perform().refresh();
 
-        kraken.shopping().openItemCard(Widgets.RetailRocket.CatalogPage.RecentlyViewed());
+        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.CatalogPage.RecentlyViewed());
 
-        Assert.assertTrue(kraken.detect().isItemCardOpen(),
-                "Не открывается карточка товара из виджета 'Выбор покупателей' в каталоге");
+        Assert.assertTrue(
+                kraken.detect().isItemCardOpen(),
+                    "Не открывается карточка товара из виджета 'Выбор покупателей' в каталоге");
     }
 
     @Test ( enabled = enableRetailRocketTests,
@@ -83,10 +87,11 @@ public class RetailRocket_Catalog extends TestBase {
     public void successAddItemFromCustomersChoiceWidget() {
         kraken.drop().cart();
 
-        kraken.shopping().addItem(Widgets.RetailRocket.CatalogPage.CustomersChoice());
+        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.CatalogPage.CustomersChoice());
 
-        Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Не добавляется в корзину товар из виджета 'Выбор покупателей' в каталоге");
+        Assert.assertFalse(
+                kraken.detect().isCartEmpty(),
+                    "Не добавляется в корзину товар из виджета 'Выбор покупателей' в каталоге");
     }
 
     @Test ( enabled = enableRetailRocketTests,
@@ -97,13 +102,14 @@ public class RetailRocket_Catalog extends TestBase {
     )
     public void successAddItemFromRecentlyViewedWidget() {
         kraken.drop().cart();
-        kraken.shopping().openFirstItemCard();
+        ShopHelper.Catalog.Item.open();
         ShopHelper.ItemCard.close();
         kraken.perform().refresh();
 
-        kraken.shopping().addItem(Widgets.RetailRocket.CatalogPage.RecentlyViewed());
+        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.CatalogPage.RecentlyViewed());
 
-        Assert.assertFalse(kraken.detect().isCartEmpty(),
-                "Не добавляется в корзину товар из виджета 'Вы недавно смотрели' в каталоге");
+        Assert.assertFalse(
+                kraken.detect().isCartEmpty(),
+                    "Не добавляется в корзину товар из виджета 'Вы недавно смотрели' в каталоге");
     }
 }

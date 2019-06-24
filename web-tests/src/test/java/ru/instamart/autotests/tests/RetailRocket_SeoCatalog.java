@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Widgets;
+import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
 
@@ -27,8 +28,9 @@ public class RetailRocket_SeoCatalog extends TestBase {
             priority = 11501
     )
     public void successCheckCustomersChoiceWidget() {
-        Assert.assertTrue(kraken.detect().isWidgetPresent(Widgets.RetailRocket.SeoCatalog.CustomersChoice()),
-                "Нет блока 'Выбор покупателей' в сео каталоге");
+        Assert.assertTrue(
+                kraken.detect().isWidgetPresent(Widgets.RetailRocket.SeoCatalog.CustomersChoice()),
+                    "Нет блока 'Выбор покупателей' в сео каталоге");
     }
 
     @Test(enabled = enableRetailRocketTests,
@@ -38,10 +40,11 @@ public class RetailRocket_SeoCatalog extends TestBase {
             dependsOnMethods = "successCheckCustomersChoiceWidget"
     )
     public void successOpenItemCardFromCustomersChoiceWidget() {
-        kraken.shopping().openItemCard(Widgets.RetailRocket.SeoCatalog.CustomersChoice());
+        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.SeoCatalog.CustomersChoice());
 
-        Assert.assertTrue(kraken.detect().isItemCardOpen(),
-                "Не открывается карточка товара из виджета 'Выбор покупателей' в сео каталоге");
+        Assert.assertTrue(
+                kraken.detect().isItemCardOpen(),
+                    "Не открывается карточка товара из виджета 'Выбор покупателей' в сео каталоге");
     }
 }
 
