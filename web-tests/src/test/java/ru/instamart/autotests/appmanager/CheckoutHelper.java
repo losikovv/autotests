@@ -19,6 +19,8 @@ public class CheckoutHelper extends HelperBase {
         super(driver, environment, app);
     }
 
+    // TODO РАЗБИТЬ НА ПОДКЛАССЫ КАК В SHOPHELPER
+
     public void complete() {
         makeOrder(Config.testOrderDetails());
     }

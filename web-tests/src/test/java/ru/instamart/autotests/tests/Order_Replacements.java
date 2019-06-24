@@ -29,8 +29,9 @@ public class Order_Replacements extends TestBase {
         kraken.reach().checkout();
         kraken.checkout().complete(ReplacementPolicies.callAndReplace());
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с политикой \"Звонить / Заменять\"\n");
+        Assert.assertTrue(
+                kraken.detect().isOrderActive(),
+                    "Не удалось оформить заказ с политикой \"Звонить / Заменять\"\n");
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
@@ -38,8 +39,8 @@ public class Order_Replacements extends TestBase {
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Admin.Shipments.Order.Details.replacementPolicy()),
-                ReplacementPolicies.callAndReplace().getInstruction(),
-                "Текст инструкции по сборке не совпадает с выбранной политикой замен"
+                    ReplacementPolicies.callAndReplace().getInstruction(),
+                        "Текст инструкции по сборке не совпадает с выбранной политикой замен"
         );
     }
 
@@ -52,8 +53,9 @@ public class Order_Replacements extends TestBase {
         kraken.reach().checkout();
         kraken.checkout().complete(ReplacementPolicies.callAndRemove());
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с политикой \"Звонить / Убирать\"\n");
+        Assert.assertTrue(
+                kraken.detect().isOrderActive(),
+                    "Не удалось оформить заказ с политикой \"Звонить / Убирать\"\n");
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
@@ -61,8 +63,8 @@ public class Order_Replacements extends TestBase {
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Admin.Shipments.Order.Details.replacementPolicy()),
-                ReplacementPolicies.callAndRemove().getInstruction(),
-                "Текст инструкции по сборке не совпадает с выбранной политикой замен"
+                    ReplacementPolicies.callAndRemove().getInstruction(),
+                        "Текст инструкции по сборке не совпадает с выбранной политикой замен"
         );
     }
 
@@ -75,8 +77,9 @@ public class Order_Replacements extends TestBase {
         kraken.reach().checkout();
         kraken.checkout().complete(ReplacementPolicies.replace());
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с политикой \"Не звонить / Заменять\"\n");
+        Assert.assertTrue(
+                kraken.detect().isOrderActive(),
+                    "Не удалось оформить заказ с политикой \"Не звонить / Заменять\"\n");
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
@@ -84,8 +87,8 @@ public class Order_Replacements extends TestBase {
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Admin.Shipments.Order.Details.replacementPolicy()),
-                ReplacementPolicies.replace().getInstruction(),
-                "Текст инструкции по сборке не совпадает с выбранной политикой замен"
+                    ReplacementPolicies.replace().getInstruction(),
+                        "Текст инструкции по сборке не совпадает с выбранной политикой замен"
         );
     }
 
@@ -98,8 +101,9 @@ public class Order_Replacements extends TestBase {
         kraken.reach().checkout();
         kraken.checkout().complete(ReplacementPolicies.remove());
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ с политикой \"Не звонить / Убирать\"\n");
+        Assert.assertTrue(
+                kraken.detect().isOrderActive(),
+                    "Не удалось оформить заказ с политикой \"Не звонить / Убирать\"\n");
 
         String number = kraken.grab().currentOrderNumber();
         kraken.perform().cancelLastOrder();
@@ -107,8 +111,8 @@ public class Order_Replacements extends TestBase {
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Admin.Shipments.Order.Details.replacementPolicy()),
-                ReplacementPolicies.remove().getInstruction(),
-                "Текст инструкции по сборке не совпадает с выбранной политикой замен"
+                    ReplacementPolicies.remove().getInstruction(),
+                        "Текст инструкции по сборке не совпадает с выбранной политикой замен"
         );
     }
 }

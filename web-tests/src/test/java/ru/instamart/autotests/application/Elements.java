@@ -1010,6 +1010,7 @@ public class Elements {
             }
         }
 
+    // TODO Update and rearrange locators
     /** Чекаут */
     public interface Checkout {
 
@@ -1493,6 +1494,7 @@ public class Elements {
             }
         }
 
+        // TODO Update locators
         /** Раздел Shipments в админке */
         interface Shipments {
 
@@ -1554,6 +1556,7 @@ public class Elements {
                         "кнопка \"Сбросить фильтр\"");
             }
 
+            // TODO Update locators
             interface Order {
 
                 /** Страница деталей заказа в админке */
@@ -1584,6 +1587,7 @@ public class Elements {
                     }
                 }
 
+                // TODO Update locators
                 /** Страница деталей оплаты заказа в админке */
                 interface Payments {
 
@@ -1592,6 +1596,7 @@ public class Elements {
                     }
                 }
 
+                // TODO Update locators
                 /** Страница реквизитов заказа в админке */
                 interface Requisites {
 
@@ -1606,6 +1611,7 @@ public class Elements {
             }
         }
 
+        // TODO Update locators
         /** Раздел Users в админке */
         interface Users {
 
@@ -1646,6 +1652,7 @@ public class Elements {
                 return new ElementData(By.id("q_tenant_eq"));
             }
 
+            // TODO Update locators
             /** Страница пользователя в админке */
             interface UserPage {
 

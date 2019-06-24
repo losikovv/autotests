@@ -1,14 +1,13 @@
 package ru.instamart.autotests.tests;
 
-// Тесты заказов со всеми бонусными программами ритейлеров
-
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.LoyaltyPrograms;
-import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.*;
+import ru.instamart.autotests.appmanager.ShopHelper;
+
+import static ru.instamart.autotests.application.Config.testOrderRetailerBonuses;
 
 public class Order_RetailerBonuses extends TestBase {
 
@@ -20,32 +19,31 @@ public class Order_RetailerBonuses extends TestBase {
         kraken.drop().cart();
     }
 
-    @Test(
-            description = "Тест вкус вилл",
+    @Test(  enabled = testOrderRetailerBonuses,
+            description = "Тест заказа с картой Метро (только WL)",
             groups = {"acceptance", "regression"},
-            priority = 1231256
+            priority = 961
     )
+    public void successOrderWithMetroCard() {
+        testOn(Environments.metro_production());
 
-    public void successOrderWithVkus() throws Exception {
-        kraken.get().page("vkusvill");
+        kraken.get().page("metro");
         kraken.shopping().collectItems();
-        kraken.shopping().proceedToCheckout();
-
+        ShopHelper.Cart.proceedToCheckout();
         
-        kraken.checkout().addLoyalty(LoyaltyPrograms.vkusvill());
-
+        kraken.checkout().addLoyalty(LoyaltyPrograms.metro());
         kraken.checkout().complete();
 
         String number = kraken.grab().currentOrderNumber();
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
-
-        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Admin.Shipments.Order.Details.loyaltyProgram()),
-                "Бонусная программа не применилась");
+        Assert.assertTrue(
+                kraken.detect().isElementPresent(Elements.Admin.Shipments.Order.Details.loyaltyProgram()),
+                    "В заказе не применилась карта Метро\n");
     }
 
-    // TODO Заказ c бонусной картой Вкусвилл + проверка в админке что в заказе есть бонусная программа
-
-    // TODO Заказ c бонусной картой Метро + проверка в админке что в заказе есть бонусная программа
-
+    @AfterMethod(alwaysRun = true)
+    public void postconditions() {
+        kraken.admin().cancelOrder();
+    }
 }

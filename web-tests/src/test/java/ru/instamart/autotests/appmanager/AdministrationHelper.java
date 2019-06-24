@@ -13,12 +13,12 @@ public class AdministrationHelper extends HelperBase {
         super(driver, environment, app);
     }
 
+    // TODO РАЗБИТЬ НА ПОДКЛАССЫ КАК В SHOPHELPER
+
     // ====== ORDERS =======
 
-    /**
-     * Найти заказ по номеру заказа или шипмента
-     */
-    public void searchOrder(String order) throws Exception {
+    /** Найти заказ по номеру заказа или шипмента */
+    public void searchOrder(String order) {
         kraken.reach().admin("shipments");
         message("Поиск заказа по номеру " + order);
         kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), order);
@@ -26,10 +26,8 @@ public class AdministrationHelper extends HelperBase {
         kraken.await().implicitly(2); // Ожидание поиска заказа в админке
     }
 
-    /**
-     * Найти заказ по номеру заказа или шипмента
-     */
-    public void searchOrder(String number, boolean b2b) throws Exception {
+    /** Найти заказ по номеру заказа или шипмента */
+    public void searchOrder(String number, boolean b2b) {
         kraken.reach().admin("shipments");
         message("Поиск B2B заказа по номеру " + number);
         kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), number);
@@ -37,9 +35,7 @@ public class AdministrationHelper extends HelperBase {
         kraken.perform().click(Elements.Admin.Shipments.searchButton());
     }
 
-    /**
-     * Возобновить заказ
-     */
+    /** Возобновить заказ */
     public void resumeOrder() {
         message("> возобновляем заказ " + kraken.grab().currentURL());
         kraken.perform().click(Elements.Admin.Shipments.Order.Details.resumeOrderButton());
@@ -47,21 +43,18 @@ public class AdministrationHelper extends HelperBase {
         kraken.await().implicitly(2); // Ожидание возобновления заказа в админке
     }
 
-    /**
-     * Cancel order on the page in admin panel with default test reason
-     */
+    /** Отменить заказ на текущей странице с тестовой причиной отмены */
     public void cancelOrder() {
         cancelOrder(4, "Тестовый заказ");
     }
 
-    public void cancelOrder(String orderNumber) throws Exception {
+    /** Отменить заказ по номеру с тестовой причиной отмены */
+    public void cancelOrder(String orderNumber) {
         kraken.reach().admin(Pages.Admin.Order.details(orderNumber));
         cancelOrder();
     }
 
-    /**
-     * Cancel order on the page in admin panel
-     */
+    /** Отменить заказ на текущей странице с указанными причинами отмены */
     public void cancelOrder(int reason, String details) {
         message("> отменяем заказ " + kraken.grab().currentURL());
         kraken.perform().click(Elements.Admin.Shipments.Order.Details.cancelOrderButton());
@@ -71,20 +64,15 @@ public class AdministrationHelper extends HelperBase {
         kraken.await().implicitly(2); // Ожидание отмены заказа в админке
     }
 
-    /**
-     * Выбрать причину и текст отмены заказа
-     */
+    /** Выбрать причину и текст отмены заказа */
     private void chooseCancellationReason(int reason, String details) {
         kraken.perform().click(By.id("cancellation_reason_id_" + reason));               // todo вынести в elements
         kraken.perform().fillField(By.id("cancellation_reason_details"),details);        // todo вынести в elements
     }
 
-
     // ====== USERS =======
 
-    /**
-     * Поиск пользователей
-     */
+    /** Поиск пользователей */
     public void searchUser(UserData userData) throws Exception {
         searchUser(userData.getEmail());
     }
@@ -107,16 +95,12 @@ public class AdministrationHelper extends HelperBase {
         kraken.await().implicitly(1); // Ожидание осуществления поиска юзера в админке
     }
 
-    /**
-     * Перейти в редактирование пользователя из указанного объекта userData
-     */
+    /** Перейти в редактирование пользователя из указанного объекта userData */
     public void editUser(UserData userData) throws Exception {
         editUser(userData.getEmail());
     }
 
-    /**
-     * Перейти в редактирование пользователя с указанием почты
-     */
+    /** Перейти в редактирование пользователя с указанием почты */
     public void editUser(String email) throws Exception {
         searchUser(email);
         if(kraken.grab().text(Elements.Admin.Users.firstUserLogin()).equals(email.toLowerCase())) {
@@ -128,9 +112,7 @@ public class AdministrationHelper extends HelperBase {
         }
     }
 
-    /**
-     * Перейти в редактирование первого пользователя в списке
-     */
+    /** Перейти в редактирование первого пользователя в списке */
     public void editFirstUserInList() {
         kraken.perform().click(Elements.Admin.Users.firstUserEditButton());
         kraken.await().implicitly(1); // Ожидание загрузки страницы пользователя в админке
@@ -151,17 +133,13 @@ public class AdministrationHelper extends HelperBase {
 
         }
 
-    /**
-     * Предоставить админские права пользователю из указанного объекта userData
-     */
+    /** Предоставить админские права пользователю из указанного объекта userData */
     public void grantAdminPrivileges(UserData userData) throws Exception {
         editUser(userData.getEmail());
         grantAdminPrivileges();
     }
 
-    /**
-     * Предоставить админские права в карточке пользователя
-     */
+    /** Предоставить админские права в карточке пользователя */
     public void grantAdminPrivileges() {
         if (kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.adminCheckbox())) {
             message("Административные права были предоставлены ранее");
@@ -173,17 +151,13 @@ public class AdministrationHelper extends HelperBase {
         }
     }
 
-    /**
-     * Отозвать админские права пользователю из указанного объекта userData
-     */
+    /** Отозвать админские права пользователю из указанного объекта userData */
     public void revokeAdminPrivileges(UserData userData) throws Exception {
         editUser(userData.getEmail());
         revokeAdminPrivileges();
     }
 
-    /**
-     * Отозвать админские права в карточке пользователя
-     */
+    /** Отозвать админские права в карточке пользователя */
     public void revokeAdminPrivileges() {
         if (kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.adminCheckbox())) {
             kraken.perform().click(Elements.Admin.Users.UserPage.adminCheckbox());
@@ -195,9 +169,7 @@ public class AdministrationHelper extends HelperBase {
         }
     }
 
-    /**
-     * Сменить пароль в карточке пользователя
-     */
+    /** Сменить пароль в карточке пользователя */
     public void changePassword(String password) {
         kraken.perform().fillField(Elements.Admin.Users.UserPage.passwordField(), password);
         kraken.perform().fillField(Elements.Admin.Users.UserPage.passwordConfirmationField(), password);
@@ -205,9 +177,7 @@ public class AdministrationHelper extends HelperBase {
         message("Смена пароля пользователя");
     }
 
-    /**
-     * Проставить флаг B2B в карточке пользователя
-     */
+    /** Проставить флаг B2B в карточке пользователя */
     public void grantB2B() {
         if (kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.b2bCheckbox())) {
             message("Пользователь уже B2B");
@@ -219,9 +189,7 @@ public class AdministrationHelper extends HelperBase {
         }
     }
 
-    /**
-     * Снять флаг B2B в карточке пользователя
-     */
+    /** Снять флаг B2B в карточке пользователя */
     public void revokeB2B() {
         if (kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.b2bCheckbox())) {
             kraken.perform().click(Elements.Admin.Users.UserPage.b2bCheckbox());
@@ -232,5 +200,4 @@ public class AdministrationHelper extends HelperBase {
             message("Пользователь уже не B2B");
         }
     }
-
 }

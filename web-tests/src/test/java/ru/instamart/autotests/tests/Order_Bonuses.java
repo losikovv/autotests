@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
 
-// Тесты заказов со всеми бонусными программами
+import static ru.instamart.autotests.application.Config.testOrderBonuses;
 
 public class Order_Bonuses extends TestBase {
 
@@ -24,45 +24,44 @@ public class Order_Bonuses extends TestBase {
         kraken.reach().checkout();
     }
 
-
-    @Test(
-            description = "Тест Много ру",
+    @Test(  enabled = testOrderBonuses,
+            description = "Тест заказа с добавлением бонусов Много.ру",
             groups = {"acceptance", "regression"},
-            priority = 1231231
+            priority = 951
     )
-    public void successOrderWithMnogoRu() throws Exception {
+    public void successOrderWithMnogoRu() {
         kraken.checkout().addBonus(BonusPrograms.mnogoru());
         kraken.checkout().complete();
 
         String number = kraken.grab().currentOrderNumber();
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
-
-        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Admin.Shipments.Order.Details.loyaltyProgram()),
-                "Бонусная программа не применилась");
-
+        Assert.assertTrue(
+                kraken.detect().isElementPresent(Elements.Admin.Shipments.Order.Details.loyaltyProgram()),
+                    "В заказе не применилась бонусная программа Много.ру\n");
     }
 
-    @Test(
-            description = "Тест аерофлот бонус",
+    @Test(  enabled = testOrderBonuses,
+            description = "Тест заказа с добавлением бонусов Аерофлот Бонус",
             groups = {"acceptance", "regression"},
-            priority = 1231233
+            priority = 952
 
     )
-    public void successOrderAeroflot() throws Exception {
+    public void successOrderAeroflot() {
         kraken.checkout().addBonus(BonusPrograms.aeroflot());
         kraken.checkout().complete();
 
         String number = kraken.grab().currentOrderNumber();
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
-
-        Assert.assertTrue(kraken.detect().isElementPresent(Elements.Admin.Shipments.Order.Details.loyaltyProgram()),
-                "Бонусная программа не применилась");
+        Assert.assertTrue(
+                kraken.detect().isElementPresent(
+                        Elements.Admin.Shipments.Order.Details.loyaltyProgram()),
+                "В заказе не применилась бонусная программа Аерофлот Бонус\n");
     }
 
-
-
-
-
+    @AfterMethod(alwaysRun = true)
+    public void postconditions() {
+        kraken.admin().cancelOrder();
+    }
 }

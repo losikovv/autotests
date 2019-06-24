@@ -34,6 +34,8 @@ public class Config {
     public final static boolean testCitiesOrders = true;
     public final static boolean testReplacementsOrders = true;
     public final static boolean testRepeatOrders = true;
+    public final static boolean testOrderBonuses = true;
+    public final static boolean testOrderRetailerBonuses = true;
 
     // COMPANY PARAMS
     public final static String companyName = "instamart";

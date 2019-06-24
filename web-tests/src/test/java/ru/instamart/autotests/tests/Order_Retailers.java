@@ -8,11 +8,6 @@ import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.application.Config.testRetailerOrders;
 
-
-
-// Тесты заказов во всех ритейлерах присутсвия
-
-
 public class Order_Retailers extends TestBase {
 
     @BeforeClass(alwaysRun = true)
@@ -35,36 +30,15 @@ public class Order_Retailers extends TestBase {
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ в Метро Москва\n");
-    }
-
-    @Test(enabled = false,
-            description = "Тестовый заказ во Вкусвилл Москва с применением бонусной программы",
-            groups = {"acceptance","regression"},
-            priority = 942
-    )
-    public void successOrderInVkusvill(){
-        skipOn(Environments.metro_production());
-        kraken.get().page("vkusvill");
-        kraken.drop().cart();
-
-        kraken.shopping().collectItems();
-        // TODO перенести проверку добавления карты Вкусвилл в тесты чекаута
-        //Assert.assertTrue(kraken.detect().isRetailerLoyaltyAvailable(),"Не доступна бонусная программа Вкусвилл \n");
-        //kraken.checkout().addLoyalty(LoyaltyPrograms.vkusvill());
-        //Assert.assertTrue(kraken.detect().isLoyaltyAdded(LoyaltyPrograms.vkusvill()),"Не применяется бонусная программа Вкусвилл\n");
-        ShopHelper.Cart.proceedToCheckout();
-        kraken.checkout().complete();
-
-        Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ во Вкусвилл Москва\n");
+        Assert.assertTrue(
+                kraken.detect().isOrderActive(),
+                    "Не удалось оформить заказ в Метро Москва\n");
     }
 
     @Test(enabled = testRetailerOrders,
             description = "Тестовый заказ в Ашан Москва",
             groups = {"acceptance","regression"},
-            priority = 943
+            priority = 942
     )
     public void successOrderInAuchan(){
         skipOn(Environments.metro_production());
@@ -75,26 +49,9 @@ public class Order_Retailers extends TestBase {
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ в Ашан Москва\n");
-    }
-
-    @Test(enabled = false,
-            description = "Тестовый заказ в Ленту Москва",
-            groups = {"acceptance","regression"},
-            priority = 944
-    )
-    public void successOrderInLenta(){
-        skipOn(Environments.metro_production());
-        kraken.get().page("lenta");
-        kraken.drop().cart();
-
-        kraken.shopping().collectItems();
-        ShopHelper.Cart.proceedToCheckout();
-        kraken.checkout().complete();
-
-        Assert.assertTrue(kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ в Ленту Москва\n");
+        Assert.assertTrue(
+                kraken.detect().isOrderActive(),
+                    "Не удалось оформить заказ в Ашан Москва\n");
     }
 
     @AfterMethod(alwaysRun = true)
