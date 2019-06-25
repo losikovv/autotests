@@ -1,10 +1,10 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
+import ru.instamart.autotests.appmanager.AdministrationHelper;
 import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.application.Config.testOrderRetailerBonuses;
@@ -41,6 +41,6 @@ public class Order_RetailerBonuses extends TestBase {
                 kraken.detect().isElementPresent(Elements.Admin.Shipments.Order.Details.loyaltyProgram()),
                     "В заказе не применилась карта Метро\n");
 
-        kraken.admin().cancelOrder();
+        AdministrationHelper.Orders.cancelOrder();
     }
 }

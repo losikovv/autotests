@@ -67,7 +67,7 @@ public class CleanupHelper extends HelperBase {
         if (!kraken.detect().isElementPresent(Elements.Admin.Shipments.placeholder())) {
             kraken.perform().click(Elements.Admin.Shipments.firstOrderInTable());
             kraken.await().implicitly(1); // Ожидание отмены предыдущего тестового заказа
-            kraken.admin().cancelOrder(); // todo добавить проверку, отменять только если тестовый заказ
+            AdministrationHelper.Orders.cancelOrder(); // todo добавить проверку, отменять только если тестовый заказ
             orders(ordersListPath); // Keep cancelling orders recursively
         } else {
             message("✓ Все тестовые заказы отменены\n");

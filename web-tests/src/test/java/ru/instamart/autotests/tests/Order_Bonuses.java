@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
+import ru.instamart.autotests.appmanager.AdministrationHelper;
 
 import static ru.instamart.autotests.application.Config.testOrderBonuses;
 
@@ -55,13 +56,12 @@ public class Order_Bonuses extends TestBase {
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
         Assert.assertTrue(
-                kraken.detect().isElementPresent(
-                        Elements.Admin.Shipments.Order.Details.loyaltyProgram()),
-                "В заказе не применилась бонусная программа Аерофлот Бонус\n");
+                kraken.detect().isElementPresent(Elements.Admin.Shipments.Order.Details.loyaltyProgram()),
+                    "В заказе не применилась бонусная программа Аерофлот Бонус\n");
     }
 
     @AfterMethod(alwaysRun = true)
     public void postconditions() {
-        kraken.admin().cancelOrder();
+        AdministrationHelper.Orders.cancelOrder();
     }
 }

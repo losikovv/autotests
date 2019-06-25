@@ -7,12 +7,12 @@ import static ru.instamart.autotests.application.Config.debug;
 import static ru.instamart.autotests.application.Config.verbose;
 
 public class HelperBase {
-    WebDriver driver;
+    static WebDriver driver;
     static ApplicationManager kraken;
     public String baseUrl;
     public String fullBaseUrl;
     public String adminUrl;
-    private boolean acceptNextAlert = true;
+    private static boolean acceptNextAlert = true;
 
     HelperBase(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
         this.driver = driver;
@@ -44,7 +44,7 @@ public class HelperBase {
     /**
      * Обработать алерт в зависимости от настройки acceptNextAlert
      */
-    void handleAlert() {
+    public static void handleAlert() {
         try {
             Alert alert = driver.switchTo().alert();
             String alertText = alert.getText();

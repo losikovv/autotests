@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.appmanager.AdministrationHelper;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
@@ -25,13 +26,15 @@ public class AdministrationShipments extends TestBase {
             priority = 2101
     )
     public void successSearchOrderByOrderNumber() throws Exception {
-        kraken.admin().searchOrder(testOrder);
+        AdministrationHelper.Orders.searchOrder(testOrder);
 
-        Assert.assertFalse(kraken.detect().isElementPresent(Elements.Admin.Shipments.placeholder()),
-                "Не работает поиск заказа в админке, пустой результат поиска\n");
+        Assert.assertFalse(
+                kraken.detect().isElementPresent(Elements.Admin.Shipments.placeholder()),
+                    "Не работает поиск заказа в админке, пустой результат поиска\n");
 
-        Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), testOrder,
-                "Не работает поиск заказа в админке, найден не тот шипмент\n");
+        Assert.assertEquals(
+                kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), testOrder,
+                    "Не работает поиск заказа в админке, найден не тот шипмент\n");
     }
 
     @Test(  enabled = enableAdministrationTests,
@@ -40,13 +43,15 @@ public class AdministrationShipments extends TestBase {
             priority = 2102
     )
     public void successSearchOrderByShipmentNumber() throws Exception {
-        kraken.admin().searchOrder(testShipment);
+        AdministrationHelper.Orders.searchOrder(testShipment);
 
-        Assert.assertFalse(kraken.detect().isElementPresent(Elements.Admin.Shipments.placeholder()),
-                "Не работает поиск шипмента в админке, пустой результат поиска\n");
+        Assert.assertFalse(
+                kraken.detect().isElementPresent(Elements.Admin.Shipments.placeholder()),
+                    "Не работает поиск шипмента в админке, пустой результат поиска\n");
 
-        Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstShipmentNumberInTable()), testShipment,
-                "Не работает поиск шипмента в админке, найден не тот шипмент\n");
+        Assert.assertEquals(
+                kraken.grab().text(Elements.Admin.Shipments.firstShipmentNumberInTable()), testShipment,
+                    "Не работает поиск шипмента в админке, найден не тот шипмент\n");
     }
 
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
@@ -69,16 +74,19 @@ public class AdministrationShipments extends TestBase {
             kraken.perform().click(Elements.UserProfile.OrdersPage.lastOrderDetailsButton());
         }
         kraken.get().adminOrderDetailsPage(kraken.grab().currentOrderNumber());
-        softAssert.assertTrue(kraken.detect().isOrderCanceled(),
-                "\nНе выполнились предусловия - заказ уже активен");
+        softAssert.assertTrue(
+                kraken.detect().isOrderCanceled(),
+                    "\nНе выполнились предусловия - заказ уже активен");
 
-        kraken.admin().resumeOrder();
-        softAssert.assertFalse(kraken.detect().isOrderCanceled(),
-                "\nНе возобновляется заказ через админку");
+        AdministrationHelper.Orders.resumeOrder();
+        softAssert.assertFalse(
+                kraken.detect().isOrderCanceled(),
+                    "\nНе возобновляется заказ через админку");
 
-        kraken.admin().cancelOrder();
-        softAssert.assertTrue(kraken.detect().isOrderCanceled(),
-                "\nНе отменяется заказ через админку");
+        AdministrationHelper.Orders.cancelOrder();
+        softAssert.assertTrue(
+                kraken.detect().isOrderCanceled(),
+                    "\nНе отменяется заказ через админку");
 
         softAssert.assertAll();
     }
@@ -93,19 +101,20 @@ public class AdministrationShipments extends TestBase {
         UserData testuser = generate.testCredentials("user");
         kraken.perform().registration(testuser);
 
-        kraken.admin().editUser(testuser);
-        kraken.admin().grantB2B();
+        AdministrationHelper.Users.editUser(testuser);
+        AdministrationHelper.Users.grantB2B();
         kraken.perform().quickLogout();
 
         kraken.perform().authorisation(testuser);
         kraken.perform().order();
         String number = kraken.grab().currentOrderNumber();
 
-        kraken.admin().searchOrder(number,true);
+        AdministrationHelper.Orders.searchOrder(number,true);
 
-        Assert.assertEquals(kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
-                "Не работает поиск B2B заказа в админке");
+        Assert.assertEquals(
+                kraken.grab().text(Elements.Admin.Shipments.firstOrderNumberInTable()), number,
+                    "Не работает поиск B2B заказа в админке");
 
-        kraken.admin().cancelOrder(number);
+        AdministrationHelper.Orders.cancelOrder(number);
     }
 }

@@ -63,7 +63,7 @@ public class SocialHelper extends HelperBase {
 
     /** Удалить пользователя ВК по умолчанию */
     public void deleteUserVK() throws Exception {
-        kraken.admin().deleteFirstFoundUser(Users.userVK().getEmail());
+        AdministrationHelper.Users.deleteFirstFoundUser(Users.userVK().getEmail());
     }
 
     /** Разрешить Инстамарту доступ к аккаунту ВК */
@@ -142,7 +142,7 @@ public class SocialHelper extends HelperBase {
 
     /** Удалить пользователя FB по умолчанию */
     public void deleteUserFB() throws Exception {
-        kraken.admin().deleteFirstFoundUser(Users.userFB().getEmail());
+        AdministrationHelper.Users.deleteFirstFoundUser(Users.userFB().getEmail());
     }
 
     /** Разрешить Инстамарту доступ к аккаунту FB */
