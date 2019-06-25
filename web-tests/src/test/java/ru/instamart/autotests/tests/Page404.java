@@ -74,9 +74,11 @@ public class Page404 extends TestBase {
         kraken.jivosite().open(); // для стабильности
 
         kraken.perform().click(Elements.Page404.catWisdomButton());
+        kraken.await().implicitly(1); // Ожидание котомудрости
         String firstWisdom = kraken.grab().catWisdom();
 
         kraken.perform().click(Elements.Page404.showMoreWisdomButton());
+        kraken.await().implicitly(1); // Ожидание новой котомудрости
         String anotherWisdom = kraken.grab().catWisdom();
 
         Assert.assertNotEquals(

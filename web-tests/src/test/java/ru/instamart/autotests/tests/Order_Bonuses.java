@@ -29,7 +29,7 @@ public class Order_Bonuses extends TestBase {
             groups = {"acceptance", "regression"},
             priority = 951
     )
-    public void successOrderWithMnogoRu() {
+    public void successOrderWithMnogoRuBonus() {
         kraken.checkout().addBonus(BonusPrograms.mnogoru());
         kraken.checkout().complete();
 
@@ -47,7 +47,7 @@ public class Order_Bonuses extends TestBase {
             priority = 952
 
     )
-    public void successOrderAeroflot() {
+    public void successOrderAeroflotBonus() {
         kraken.checkout().addBonus(BonusPrograms.aeroflot());
         kraken.checkout().complete();
 

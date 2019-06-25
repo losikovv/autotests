@@ -40,10 +40,7 @@ public class Order_RetailerBonuses extends TestBase {
         Assert.assertTrue(
                 kraken.detect().isElementPresent(Elements.Admin.Shipments.Order.Details.loyaltyProgram()),
                     "В заказе не применилась карта Метро\n");
-    }
 
-    @AfterMethod(alwaysRun = true)
-    public void postconditions() {
         kraken.admin().cancelOrder();
     }
 }
