@@ -3,7 +3,6 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.UserData;
 
@@ -74,19 +73,19 @@ public class AdministrationHelper extends HelperBase {
     public static class Users {
 
         /** Поиск пользователей */
-        public static void searchUser(UserData userData) throws Exception {
+        public static void searchUser(UserData userData) {
             searchUser(userData.getEmail());
         }
 
-        public static void searchUser(UserData userData, boolean b2b, boolean tenant) throws Exception {
+        public static void searchUser(UserData userData, boolean b2b, boolean tenant) {
             searchUser(userData.getEmail(), b2b, tenant);
         }
 
-        private static void searchUser(String email) throws Exception {
+        private static void searchUser(String email) {
             searchUser(email, false, false);
         }
 
-        private static void searchUser(String email, boolean b2b, boolean tenant) throws Exception {
+        private static void searchUser(String email, boolean b2b, boolean tenant) {
             kraken.reach().admin("users");
             message("Поиск пользователей по email " + email);
             kraken.perform().fillField(Elements.Admin.Users.searchField(), email);
@@ -97,12 +96,12 @@ public class AdministrationHelper extends HelperBase {
         }
 
         /** Перейти в редактирование пользователя из указанного объекта userData */
-        public static void editUser(UserData userData) throws Exception {
+        public static void editUser(UserData userData) {
             editUser(userData.getEmail());
         }
 
         /** Перейти в редактирование пользователя с указанием почты */
-        public static void editUser(String email) throws Exception {
+        public static void editUser(String email) {
             searchUser(email);
             if(kraken.grab().text(Elements.Admin.Users.firstUserLogin()).equals(email.toLowerCase())) {
                 editFirstUserInList();
@@ -121,7 +120,7 @@ public class AdministrationHelper extends HelperBase {
         }
 
         /** Удалить первого найденного пользователя */
-        public static void deleteFirstFoundUser(String email) throws Exception {
+        public static void deleteFirstFoundUser(String email) {
             searchUser(email);
             if (kraken.detect().isElementDisplayed(Elements.Admin.Users.firstUserLogin())) {
                 if (kraken.grab().text(Elements.Admin.Users.firstUserLogin()).equalsIgnoreCase(email)) {
@@ -135,7 +134,7 @@ public class AdministrationHelper extends HelperBase {
         }
 
         /** Предоставить админские права пользователю из указанного объекта userData */
-        public static void grantAdminPrivileges(UserData userData) throws Exception {
+        public static void grantAdminPrivileges(UserData userData) {
             editUser(userData.getEmail());
             grantAdminPrivileges();
         }
@@ -153,7 +152,7 @@ public class AdministrationHelper extends HelperBase {
         }
 
         /** Отозвать админские права пользователю из указанного объекта userData */
-        public static void revokeAdminPrivileges(UserData userData) throws Exception {
+        public static void revokeAdminPrivileges(UserData userData) {
             editUser(userData.getEmail());
             revokeAdminPrivileges();
         }

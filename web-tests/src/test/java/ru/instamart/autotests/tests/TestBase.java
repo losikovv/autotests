@@ -11,22 +11,24 @@ import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
+import static ru.instamart.autotests.application.Config.doCleanupAfterTestRun;
 import static ru.instamart.autotests.appmanager.HelperBase.message;
 import static ru.instamart.autotests.appmanager.HelperBase.verboseMessage;
-
-// Basic test class
 
 public class TestBase {
 
     protected static final ApplicationManager kraken = new ApplicationManager(Config.browser);
 
     @BeforeSuite(alwaysRun = true)
-    public void setUp() throws Exception {
+    public void start() throws Exception {
         kraken.rise();
     }
 
     @AfterSuite(alwaysRun = true)
-    public void tearDown() throws Exception {
+    public void cleanup() throws Exception {
+        if(doCleanupAfterTestRun) {
+            kraken.cleanup().all();
+        }
         kraken.stop();
     }
 

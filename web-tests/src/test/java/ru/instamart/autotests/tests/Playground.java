@@ -45,21 +45,21 @@ public class Playground extends TestBase {
     }
 
     @Test
-    public void makeOrder() throws Exception {
+    public void makeOrder() {
         kraken.perform().loginAs(session.user);
         kraken.reach().checkout();
         kraken.checkout().complete();
     }
 
     @Test
-    public void makeNewOrder() throws Exception {
+    public void makeNewOrder() {
         kraken.perform().loginAs(session.user);
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cash());
     }
 
     @Test
-    public void testNewOrder() throws Exception {
+    public void testNewOrder() {
 
         kraken.perform().loginAs(session.user);
         kraken.get().page(Pages.Site.Retailers.metro());
@@ -121,7 +121,7 @@ public class Playground extends TestBase {
     }
 
     @Test
-    public void testMultikraken() throws Exception {
+    public void testMultikraken() {
         kraken.perform().loginAs(session.admin);
         kraken.perform().order();
         //kraken.perform().loginAs(session.user);
@@ -129,7 +129,7 @@ public class Playground extends TestBase {
     }
 
     @Test
-    public void catalog() throws Exception {
+    public void catalog() {
         kraken.get().page("metro");
         //kraken.await().simply(5);
         ShopHelper.CatalogDrawer.open();

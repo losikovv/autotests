@@ -111,7 +111,7 @@ public class CheckoutHelper extends HelperBase {
     public void fillAddressDetails(AddressDetailsData addressDetails) {
             specifyDetail("apartment", addressDetails.getApartment());
             specifyDetail("floor", addressDetails.getFloor());
-            specifyDetail("elevator", addressDetails.isElevatorAvailable());
+            if(addressDetails.isElevatorAvailable()) { kraken.perform().click(Elements.Checkout.elevatorCheckbox()); }
             specifyDetail("entrance", addressDetails.getEntrance());
             specifyDetail("doorPhone", addressDetails.getDomofon());
             specifyDetail("order[special_instructions]", addressDetails.getComments());

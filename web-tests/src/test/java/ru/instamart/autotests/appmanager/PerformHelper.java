@@ -176,7 +176,7 @@ public class PerformHelper extends HelperBase {
     // ======= Авторизация / деавторизация =======
 
     /** Залогиниться юзером с указанной ролью */
-    public void loginAs(UserData user) throws Exception { //TODO использовать только session-юзеров
+    public void loginAs(UserData user) { //TODO использовать только session-юзеров
         String startURL = kraken.grab().currentURL();
         if (!startURL.equals(fullBaseUrl) && kraken.detect().isUserAuthorised()) {
             kraken.get().profilePage();
@@ -199,7 +199,7 @@ public class PerformHelper extends HelperBase {
             if(user.getRole().equals("admin")) {
                 quickLogout();
                 authorisation(Users.superadmin());
-                kraken.admin().grantAdminPrivileges(user);
+                AdministrationHelper.Users.grantAdminPrivileges(user);
                 quickLogout();
                 authorisation(user);
             }

@@ -1036,6 +1036,11 @@ public class Elements {
                 return new ElementData(By.className("checkout-finalize__button"));
             }
 
+            static ElementData elevatorCheckbox() {
+                return new ElementData(By.xpath("//span[text()='Есть лифт']//ancestor::div[@class='checkbox']"),
+                    "чекбокс \"Есть лифт\" в первом шаге чекаута");
+            }
+
             static ElementData replacementPolicy(int option) {
                 return new ElementData(By.cssSelector("div.replacement-policy:nth-child(" + option + ")"));
             }

@@ -48,7 +48,7 @@ public class Order_Bonuses extends TestBase {
             priority = 952
 
     )
-    public void successOrderAeroflotBonus() {
+    public void successOrderWithAeroflotBonus() {
         kraken.checkout().addBonus(BonusPrograms.aeroflot());
         kraken.checkout().complete();
 

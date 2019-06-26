@@ -147,10 +147,8 @@ public class ApplicationManager {
         System.out.println("USER: " + session.user.getEmail() + " / " + session.user.getPassword() + "\n");
     }
 
-    public void stop() throws Exception {
-        if(doCleanupAfterTestRun) { cleanup().all(); }
+    public void stop() {
         driver.quit();
-
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
