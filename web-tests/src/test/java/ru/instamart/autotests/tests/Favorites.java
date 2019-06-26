@@ -30,7 +30,7 @@ public class Favorites extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 502
     )
-    public void successOpenFavorites() throws Exception {
+    public void successOpenFavorites() {
         kraken.perform().loginAs(session.user);
 
         ShopHelper.Favorites.open();
@@ -56,7 +56,7 @@ public class Favorites extends TestBase {
             groups = {"regression"},
             priority = 504
     )
-    public void successAddFavoriteOnItemCard() throws Exception {
+    public void successAddFavoriteOnItemCard() {
         kraken.perform().loginAs(session.user);
         kraken.drop().favorites();
         kraken.get().page(Pages.Site.Retailers.metro());
@@ -75,7 +75,7 @@ public class Favorites extends TestBase {
             groups = {"regression"},
             priority = 505
     )
-    public void successAddFavoriteFromCatalog() throws Exception {
+    public void successAddFavoriteFromCatalog() {
         kraken.perform().loginAs(session.user);
         kraken.drop().favorites();
         kraken.get().page(Pages.Site.Retailers.metro());
@@ -91,7 +91,7 @@ public class Favorites extends TestBase {
             groups = {"regression"},
             priority = 506
     )
-    public void successDeleteFavoriteOnItemCard() throws Exception {
+    public void successDeleteFavoriteOnItemCard() {
         kraken.perform().loginAs(session.user);
         kraken.drop().favorites();
         kraken.get().page(Pages.Site.Retailers.metro());
@@ -109,7 +109,7 @@ public class Favorites extends TestBase {
             groups = {"regression"},
             priority = 507
     )
-    public void successDeleteFavoriteOnList() throws Exception {
+    public void successDeleteFavoriteOnList() {
         kraken.perform().loginAs(session.user);
         if (!kraken.detect().isFavoritesEmpty()) {
             kraken.drop().favorites();
@@ -129,7 +129,7 @@ public class Favorites extends TestBase {
             groups = {"regression"},
             priority = 508
     )
-    public void successCleanupFavorites() throws Exception {
+    public void successCleanupFavorites() {
         kraken.perform().loginAs(session.user);
 
         kraken.search().item("молоко");
@@ -161,7 +161,7 @@ public class Favorites extends TestBase {
             groups = {"acceptance","regression"},
             priority = 509
     )
-    public void successApplyFilters() throws Exception {
+    public void successApplyFilters() {
         SoftAssert softAssert = new SoftAssert();
         kraken.perform().loginAs(session.admin);
         kraken.get().favoritesPage();
@@ -195,10 +195,10 @@ public class Favorites extends TestBase {
             groups = {"regression"},
             priority = 510
     )
-    public void successShowMoreLoad() throws Exception, AssertionError {
+    public void successShowMoreLoad() throws AssertionError {
         kraken.perform().loginAs(session.admin);
         kraken.get().favoritesPage();
-        kraken.jivosite().open();
+        ShopHelper.Jivosite.open();
 
         if(kraken.detect().isElementPresent(Elements.Favorites.showMoreButton())) {
             ShopHelper.Favorites.showMore();
@@ -318,7 +318,7 @@ public class Favorites extends TestBase {
             groups = {"regression"},
             priority = 515
     )
-    public void successAddFavoriteProductsFromCardToCart() throws Exception {
+    public void successAddFavoriteProductsFromCardToCart() {
         SoftAssert softAssert = new SoftAssert();
         kraken.perform().loginAs(session.admin);
         kraken.drop().cart();
@@ -343,14 +343,13 @@ public class Favorites extends TestBase {
             groups = {"acceptance","regression"},
             priority = 516
     )
-    public void successAddFavoriteProductsFromListToCart() throws Exception {
+    public void successAddFavoriteProductToCart() {
         SoftAssert softAssert = new SoftAssert();
         kraken.perform().loginAs(session.admin);
         kraken.drop().cart();
         kraken.get().favoritesPage();
 
         ShopHelper.Favorites.Item.addToCart();
-        //kraken.await().implicitly(1); // ждем пока уберется алерт
         ShopHelper.Cart.open();
 
         softAssert.assertTrue(

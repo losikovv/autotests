@@ -9,7 +9,7 @@ public class Config {
     public final static String browser = BrowserType.FIREFOX;
 
     // ENVIRONMENT
-    public final static EnvironmentData environment = Environments.instamart_staging();
+    public final static EnvironmentData environment = Environments.instamart_production();
 
     // TIMEOUTS
     public final static int basicTimeout = 2;
@@ -31,7 +31,7 @@ public class Config {
 
     // CONFIGURE ORDER TESTS
     public final static boolean testRetailerOrders = true;
-    public final static boolean testCitiesOrders = true;
+    public final static boolean testCitiesOrders = false;
     public final static boolean testReplacementsOrders = true;
     public final static boolean testRepeatOrders = true;
     public final static boolean testOrderBonuses = true;

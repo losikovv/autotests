@@ -949,64 +949,68 @@ public class Elements {
     public interface Cart {
 
             static ElementData drawer() {
-                return new ElementData(By.xpath("//div[@class='drawer']//div[@class='new-cart']"),
-                        "шторка корзины");
+                return new ElementData(
+                        By.xpath("//div[@class='drawer']//div[@class='new-cart']"),
+                            "шторка корзины");
             }
 
             static ElementData closeButton() {
-                return new ElementData(By.xpath("//div[@class='new-cart']//*[@class='btn-close-cart']"),
-                        "кнопка закрытия корзины");
+                return new ElementData(
+                        By.xpath("//div[@class='new-cart']//*[@class='btn-close-cart']"),
+                            "кнопка закрытия корзины");
             }
 
             static ElementData placeholder() {
-                return new ElementData(By.xpath("//div[@class='new-cart']//div[@class='new-cart-empty__text' and text()='Ваша корзина пуста']"),
-                        "плейсхолдер пустой корзины");
+                return new ElementData(
+                        By.xpath("//div[@class='new-cart']//div[@class='new-cart-empty__text' and text()='Ваша корзина пуста']"),
+                            "плейсхолдер пустой корзины");
             }
 
             static ElementData alertText() {
-                return new ElementData(By.xpath("//div[@class='new-cart']//div[@class='cart-retailer__alert']"),
-                        "алерт с суммой минимального заказа в корзине");
+                return new ElementData(
+                        By.xpath("//div[@class='new-cart']//div[@class='cart-retailer__alert']"),
+                            "алерт с суммой минимального заказа в корзине");
             }
 
             static ElementData item() {
                 return new ElementData(
                         By.xpath("//div[@class='new-cart']//div[@class='cart-line-item']"),
-                        "ячейка товара в корзине");
+                            "ячейка товара в корзине");
             }
 
             static ElementData itemUpButton() {
                 return new ElementData(
                         By.className("//div[@class='new-cart']//div[@class='cart-line-item']//button[@class='line-item-counter__control'][1]"),
-                        "кнопка увеличения количества товара в корзине");
+                            "кнопка увеличения количества товара в корзине");
             }
 
             static ElementData itemQuantity() {
                 return new ElementData(
                         By.className("//div[@class='new-cart']//div[@class='cart-line-item']//span[@class='line-item-counter__text']"),
-                        "количество товара в корзине");
+                            "количество товара в корзине");
             }
 
             static ElementData itemDownButton() {
                 return new ElementData(
                         By.className("//div[@class='new-cart']//div[@class='cart-line-item']//button[@class='line-item-counter__control'][2]"),
-                        "кнопка уменьшения количества товара в корзине");
+                            "кнопка уменьшения количества товара в корзине");
             }
 
             static ElementData itemRemoveButton() {
                 return new ElementData(
                         By.xpath("//div[@class='new-cart']//div[@class='cart-line-item']//div[@class='cart-line-item__remove']"),
-                        "кнопка удаления товара в корзине");
+                            "кнопка удаления товара в корзине");
             }
 
             static ElementData checkoutButton() {
                 return new ElementData(By.xpath("//div[@class='new-cart']//button[@class='cart-checkout-link']"),
-                        "кнопка \"Сделать заказ\" в корзине");
+                            "кнопка \"Сделать заказ\" в корзине");
             }
 
             static ElementData total() {
-                //return new ElementData(By.cssSelector(".cart-checkout-link__well > div:nth-child(1)"));
-                return new ElementData(By.xpath("//div[@class='new-cart']//div[@class='cart-checkout-link__well']/child::div"),
-                        "сумма корзины");
+                return new ElementData(
+                        By.xpath("//div[@class='new-cart']//div[@class='cart-checkout-link__well']/child::div"),
+                            "сумма корзины");
             }
         }
 

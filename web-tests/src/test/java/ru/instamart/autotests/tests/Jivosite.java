@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.application.Config.enableJivositeTests;
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
@@ -16,7 +17,7 @@ public class Jivosite extends TestBase{
             groups = {"acceptance","regression"},
             priority = 1201
     )
-    public void noJivositeWidgetOnLanding () throws Exception {
+    public void noJivositeWidgetOnLanding() {
         kraken.perform().quickLogout();
 
         Assert.assertFalse(kraken.detect().isJivositeWidgetAvailable(),
@@ -29,7 +30,7 @@ public class Jivosite extends TestBase{
             groups = {"acceptance","regression"},
             priority = 1202
     )
-    public void noJivositeWidgetOnCheckout () throws Exception {
+    public void noJivositeWidgetOnCheckout() {
         kraken.perform().loginAs(session.admin);
         kraken.reach().checkout();
 
@@ -43,19 +44,19 @@ public class Jivosite extends TestBase{
             groups = {"acceptance","regression"},
             priority = 1203
     )
-    public void successOperateJivositeWidgetOnRetailerPage() throws Exception {
+    public void successOperateJivositeWidgetOnRetailerPage() {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
 
         Assert.assertTrue(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite недоступен на витрине ритейлера\n");
 
-        kraken.jivosite().open();
+        ShopHelper.Jivosite.open();
 
         softAssert.assertTrue(kraken.detect().isJivositeOpen(),
                 "Не разворачивается виджет Jivosite на витрине ритейлера\n");
 
-        kraken.jivosite().close();
+        ShopHelper.Jivosite.close();
 
         softAssert.assertFalse(kraken.detect().isJivositeOpen(),
                 "Не сворачивается виджет Jivosite на витрине ритейлера\n");
@@ -69,19 +70,19 @@ public class Jivosite extends TestBase{
             groups = {"acceptance","regression"},
             priority = 1204
     )
-    public void successOperateJivositeWidgetInCatalog() throws Exception {
+    public void successOperateJivositeWidgetInCatalog() {
         SoftAssert softAssert = new SoftAssert();
         kraken.search().item("хлеб");
 
         Assert.assertTrue(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite недоступен в каталоге\n");
 
-        kraken.jivosite().open();
+        ShopHelper.Jivosite.open();
 
         softAssert.assertTrue(kraken.detect().isJivositeOpen(),
                 "Не разворачивается виджет Jivosite в каталоге\n");
 
-        kraken.jivosite().close();
+        ShopHelper.Jivosite.close();
 
         softAssert.assertFalse(kraken.detect().isJivositeOpen(),
                 "Не сворачивается виджет Jivosite в каталоге\n");
@@ -95,19 +96,19 @@ public class Jivosite extends TestBase{
             groups = {"acceptance","regression"},
             priority = 1205
     )
-    public void successOperateJivositeWidgetOnPage404() throws Exception {
+    public void successOperateJivositeWidgetOnPage404() {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page(Pages.page404());
 
         Assert.assertTrue(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite недоступен на странице 404\n");
 
-        kraken.jivosite().open();
+        ShopHelper.Jivosite.open();
 
         softAssert.assertTrue(kraken.detect().isJivositeOpen(),
                 "Не разворачивается виджет Jivosite на странице 404\n");
 
-        kraken.jivosite().close();
+        ShopHelper.Jivosite.close();
 
         softAssert.assertFalse(kraken.detect().isJivositeOpen(),
                 "Не сворачивается виджет Jivosite на странице 404\n");
@@ -121,10 +122,10 @@ public class Jivosite extends TestBase{
             groups = {"regression"},
             priority = 1206
     )
-    public void successSendMessageToJivositeFromRetailerPage() throws Exception {
+    public void successSendMessageToJivositeFromRetailerPage() {
         kraken.get().page("metro");
 
-        kraken.jivosite().sendMessage("Тест");
+        ShopHelper.Jivosite.sendMessage("Тест");
 
         Assert.assertTrue(kraken.detect().isJivositeMessageSent(),
                 "Не отправляется сообщение в Jivosite\n");

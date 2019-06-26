@@ -22,6 +22,7 @@ public class Catalog extends TestBase {
             groups = {"acceptance","regression"},
             priority = 601
     )
+    // TODO переделать в successValidateCatalogDrawer - добавить чек элементов
     public void successOperateCatalogDrawer() {
         ShopHelper.CatalogDrawer.open();
         Assert.assertTrue(
@@ -61,6 +62,8 @@ public class Catalog extends TestBase {
                 kraken.detect().isElementDisplayed(Elements.CategoryPage.filters()),
                     "Не открывается страница категории 2 уровня из шторки каталога");
     }
+
+    // TODO добавить тест successValidateItemCard
 
     @Test(
             description = "Тест открывания/закрывания карточки продукта на главной",

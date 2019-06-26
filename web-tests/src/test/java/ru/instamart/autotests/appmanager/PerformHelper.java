@@ -64,6 +64,8 @@ public class PerformHelper extends HelperBase {
     public void hoverOn(By locator) {
         try {
             new Actions(driver).moveToElement(driver.findElement(locator)).perform();
+            // Todo протестить
+                kraken.await().implicitly(1);
         }
         catch (ElementNotVisibleException v) {
             message("Невозможно навестись на элемент <" + locator

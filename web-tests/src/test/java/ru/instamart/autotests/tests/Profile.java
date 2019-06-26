@@ -12,7 +12,7 @@ import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 public class Profile extends TestBase {
 
     @BeforeClass(alwaysRun = true)
-    public void setup() throws Exception {
+    public void setup() {
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.admin);
     }
@@ -43,13 +43,13 @@ public class Profile extends TestBase {
 
         softAssert.assertTrue(
                 kraken.detect().isAccountMenuOpen(),
-                "Не открывается всплывающее меню профиля\n");
+                    "Не открывается всплывающее меню профиля\n");
 
         ShopHelper.AccountMenu.close();
 
         softAssert.assertFalse(
                 kraken.detect().isAccountMenuOpen(),
-                "Не закрывается всплывающее меню профиля\n");
+                    "Не закрывается всплывающее меню профиля\n");
 
         softAssert.assertAll();
     }
@@ -87,21 +87,24 @@ public class Profile extends TestBase {
 
         ShopHelper.AccountMenu.open();
         kraken.perform().click(Elements.AccountMenu.deliveryButton());
+
         softAssert.assertTrue(
                 kraken.detect().isDeliveryModalOpen(),
-                "Не открывается модалка \"Доставка\" из всплывающего меню \"Профиль\"\n");
+                    "Не открывается модалка \"Доставка\" из всплывающего меню \"Профиль\"\n");
+
         kraken.perform().refresh();
 
         ShopHelper.AccountMenu.open();
         kraken.perform().click(Elements.AccountMenu.paymentButton());
+
         softAssert.assertTrue(
                 kraken.detect().isPaymentModalOpen(),
-                "Не открывается модалка \"Оплата\" из всплывающего меню \"Профиль\"\n");
+                    "Не открывается модалка \"Оплата\" из всплывающего меню \"Профиль\"\n");
+
         kraken.perform().refresh();
 
         ShopHelper.AccountMenu.open();
         validateTransition(Elements.AccountMenu.faqButton());
-
 
         ShopHelper.AccountMenu.open();
         validateTransition(Elements.AccountMenu.contactsButton());

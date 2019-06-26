@@ -31,7 +31,6 @@ public class ApplicationManager {
     public static SessionData session;
 
     private BrowseHelper browseHelper;
-    private NavigationHelper navigationHelper;
     private PerformHelper performHelper;
     private ReachHelper reachHelper;
     private DetectionHelper detectionHelper;
@@ -45,7 +44,6 @@ public class ApplicationManager {
     private CheckoutHelper checkoutHelper;
     private AdministrationHelper administrationHelper;
     private CleanupHelper cleanupHelper;
-    private JivositeHelper jivositeHelper;
     private WaitingHelper waitingHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
@@ -103,7 +101,6 @@ public class ApplicationManager {
 
     private void initHelpers() {
         browseHelper = new BrowseHelper(driver, environment, this);
-        navigationHelper = new NavigationHelper(driver, environment, this);
         performHelper = new PerformHelper(driver, environment, this);
         reachHelper = new ReachHelper(driver, environment, this);
         detectionHelper = new DetectionHelper(driver, environment, this);
@@ -117,7 +114,6 @@ public class ApplicationManager {
         checkoutHelper = new CheckoutHelper(driver, environment, this);
         administrationHelper = new AdministrationHelper(driver, environment, this);
         cleanupHelper = new CleanupHelper(driver, environment, this);
-        jivositeHelper = new JivositeHelper(driver, environment, this);
         waitingHelper = new WaitingHelper(driver, environment, this);
     }
 
@@ -156,7 +152,6 @@ public class ApplicationManager {
     }
 
     public BrowseHelper get() { return browseHelper; }
-    public NavigationHelper go() { return navigationHelper; }
     public PerformHelper perform() { return performHelper; }
     public ReachHelper reach() { return reachHelper; }
     public DetectionHelper detect() { return detectionHelper; }
@@ -170,6 +165,5 @@ public class ApplicationManager {
     public CheckoutHelper checkout() { return checkoutHelper; }
     public AdministrationHelper admin() { return administrationHelper; }
     public CleanupHelper cleanup() { return cleanupHelper; }
-    public JivositeHelper jivosite() { return jivositeHelper; }
     public WaitingHelper await() { return waitingHelper; }
 }

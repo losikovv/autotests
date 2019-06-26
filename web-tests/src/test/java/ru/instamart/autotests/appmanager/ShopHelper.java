@@ -49,14 +49,19 @@ public class ShopHelper extends HelperBase {
         public static void goToDepartment(String name) {
             verboseMessage("Переходим в департамент \"" + name + "\" в шторке каталога категорий");
             kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
-            kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
             kraken.perform().click(Elements.CatalogDrawer.category(name));
+            // TODO протестить
+                kraken.await().implicitly(1); // Ожидание разворота категории-департамента
+                //kraken.perform().click(Elements.CatalogDrawer.category(name));
         }
 
         public static void goToTaxon(String name) {
             verboseMessage("Переходим в таксон \"" + name + "\" в шторке каталога категорий");
             kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
             kraken.perform().click(Elements.CatalogDrawer.category(name));
+            // TODO протестить
+                kraken.await().implicitly(1); // Ожидание разворота категории-таксона
+            //kraken.perform().click(Elements.CatalogDrawer.category(name));
         }
 
         public static void close() {
@@ -86,6 +91,43 @@ public class ShopHelper extends HelperBase {
             if(kraken.detect().isAccountMenuOpen()) {
                 kraken.perform().click(Elements.Header.profileButton());
             } else verboseMessage("Пропускаем закрытие меню аккаунта, уже закрыто");
+        }
+    }
+
+    /**  Виджет чата Jivosite */
+    public static class Jivosite {
+
+        /** Открыть чат jivosite */
+        public static void open() {
+            if(!kraken.detect().isJivositeChatAvailable()) {
+                message("> разворачиваем виджет Jivosite");
+                kraken.perform().click(Elements.Jivosite.openButton());
+                kraken.await().implicitly(1); // Ожидание разворачивания виджета Jivosite
+            } else {
+                message("> виджет Jivosite развернут");
+            }
+        }
+
+        /** Свернуть чат jivosite */
+        public static void close() {
+            if(kraken.detect().isJivositeChatAvailable()) {
+                message("> сворачиваем виджет Jivosite");
+                kraken.perform().click(Elements.Jivosite.closeButton());
+                kraken.await().implicitly(1); // Ожидание сворачивания виджета Jivosite
+            } else {
+                message("> виджет Jivosite свернут");
+            }
+        }
+
+        /** Отправить сообщение в Jivosite */
+        public static void sendMessage(String text) {
+            message("Jivosite");
+            kraken.await().implicitly(2);
+            open();
+            message("> отправляем сообщение: " + text);
+            kraken.perform().fillField(Elements.Jivosite.messageField(), text);
+            kraken.perform().click(Elements.Jivosite.sendMessageButton());
+            kraken.await().implicitly(2); // Ожидание отправки сообщения в Jivosite
         }
     }
 
@@ -327,7 +369,7 @@ public class ShopHelper extends HelperBase {
             /** Убрать верхний товар из корзины */
             public static void remove() {
                 kraken.perform().hoverOn(Elements.Cart.item());
-                kraken.await().implicitly(1);// TODO заменить на fluent-ожидание
+                //TODO добавить fluent-ожидание
                 kraken.perform().click(Elements.Cart.itemRemoveButton());
                 kraken.await().implicitly(1); // Ожидание удаления продукта из корзины
             }
@@ -335,6 +377,8 @@ public class ShopHelper extends HelperBase {
             /** Увеличить количество верхнего товара в корзине */
             public static void increaseQuantity() {
                 kraken.perform().hoverOn(Elements.Cart.item());
+                // TODO протестить
+                    //kraken.await().implicitly(1);
                 kraken.perform().click(Elements.Cart.itemUpButton());
                 kraken.await().implicitly(1); // Ожидание увеличения количества товара в корзине
             }
@@ -342,6 +386,8 @@ public class ShopHelper extends HelperBase {
             /** Уменьшить количество верхнего товара в корзине */
             public static void decreaseQuantity() {
                 kraken.perform().hoverOn(Elements.Cart.item());
+                // TODO протестить
+                    //kraken.await().implicitly(1);
                 kraken.perform().click(Elements.Cart.itemDownButton());
                 kraken.await().implicitly(1); // Ожидание уменьшения количества товара в корзине
             }

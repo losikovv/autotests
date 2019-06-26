@@ -51,7 +51,7 @@ public class Cart extends TestBase {
             groups = {"acceptance","regression"},
             priority = 622
     )
-    public void successAddItemToCartFromItemCard()throws Exception, AssertionError {
+    public void successAddItemToCartFromItemCard()throws AssertionError {
         kraken.get().page("metro");
         kraken.perform().loginAs(session.user);
         kraken.drop().cart();
@@ -72,7 +72,7 @@ public class Cart extends TestBase {
             groups = {"acceptance","regression"},
             priority = 623
     )
-    public void successChangeItemQuantityInCart() throws Exception {
+    public void successChangeItemQuantityInCart() {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
         kraken.perform().loginAs(session.user);
@@ -104,7 +104,7 @@ public class Cart extends TestBase {
             groups = {"acceptance","regression"},
             priority = 624
     )
-    public void successChangeItemQuantityInCartViaItemCard() throws Exception {
+    public void successChangeItemQuantityInCartViaItemCard() {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
         kraken.perform().loginAs(session.user);
@@ -140,7 +140,7 @@ public class Cart extends TestBase {
             groups = {"acceptance","regression"},
             priority = 625
     )
-    public void successRemoveItemsFromCart() throws Exception {
+    public void successRemoveItemsFromCart() {
         kraken.get().page("metro");
         kraken.perform().loginAs(session.user);
         //kraken.search().item("хлеб");
@@ -161,7 +161,7 @@ public class Cart extends TestBase {
             groups = {"acceptance","regression"},
             priority = 626
     )
-    public void successAddItemToCartFromCatalogSnippet() throws Exception {
+    public void successAddItemToCartFromCatalogSnippet() {
         kraken.get().page("metro");
         kraken.perform().loginAs(session.user);
         kraken.drop().cart();

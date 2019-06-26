@@ -25,7 +25,7 @@ public class AdministrationShipments extends TestBase {
             groups = {"acceptance","regression"},
             priority = 2101
     )
-    public void successSearchOrderByOrderNumber() throws Exception {
+    public void successSearchOrderByOrderNumber() {
         AdministrationHelper.Orders.searchOrder(testOrder);
 
         Assert.assertFalse(
@@ -42,7 +42,7 @@ public class AdministrationShipments extends TestBase {
             groups = {"acceptance","regression"},
             priority = 2102
     )
-    public void successSearchOrderByShipmentNumber() throws Exception {
+    public void successSearchOrderByShipmentNumber() {
         AdministrationHelper.Orders.searchOrder(testShipment);
 
         Assert.assertFalse(
@@ -96,7 +96,7 @@ public class AdministrationShipments extends TestBase {
             groups = {"regression"},
             priority = 2104
     )
-    public void successSearchB2BOrder() throws Exception {
+    public void successSearchB2BOrder() {
         kraken.perform().quickLogout();
         UserData testuser = generate.testCredentials("user");
         kraken.perform().registration(testuser);
