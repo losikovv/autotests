@@ -52,16 +52,13 @@ public class ShopHelper extends HelperBase {
             kraken.perform().click(Elements.CatalogDrawer.category(name));
             // TODO протестить
                 kraken.await().implicitly(1); // Ожидание разворота категории-департамента
-                //kraken.perform().click(Elements.CatalogDrawer.category(name));
         }
 
         public static void goToTaxon(String name) {
             verboseMessage("Переходим в таксон \"" + name + "\" в шторке каталога категорий");
             kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
             kraken.perform().click(Elements.CatalogDrawer.category(name));
-            // TODO протестить
-                kraken.await().implicitly(1); // Ожидание разворота категории-таксона
-            //kraken.perform().click(Elements.CatalogDrawer.category(name));
+            kraken.await().implicitly(1); // Ожидание разворота категории-таксона
         }
 
         public static void close() {

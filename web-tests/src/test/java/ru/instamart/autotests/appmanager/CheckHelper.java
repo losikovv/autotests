@@ -49,12 +49,11 @@ public class CheckHelper extends HelperBase {
     }
 
     /** Проверка наличия элемента на странице */
-    public void elementPresence(ElementData element) throws AssertionError{
+    public void elementPresence(ElementData element) throws AssertionError {
         if (kraken.detect().isElementPresent(element)) {
             debugMessage("На " + kraken.grab().currentURL() + " есть " + element.getDescription());
-        } else {
-            throw new AssertionError(
-                    "Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL());
+        } else { throw new AssertionError(
+                "Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL());
         }
     }
 }

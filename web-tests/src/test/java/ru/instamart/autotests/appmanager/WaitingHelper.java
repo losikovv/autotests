@@ -21,9 +21,9 @@ public class WaitingHelper extends HelperBase {
     public void simply(int seconds) {
         debugMessage("Задержка на " + seconds + " сек.");
         try {
-            Thread.sleep(seconds*1000);
+            Thread.sleep(seconds * 1000);
         } catch (InterruptedException i) {
-        debugMessage("Прервано");
+            debugMessage("Прервано");
         }
     }
 

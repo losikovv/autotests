@@ -42,7 +42,7 @@ public class Catalog extends TestBase {
     )
     public void successGoToDepartmentFromCatalogDrawer() {
         ShopHelper.CatalogDrawer.open();
-        ShopHelper.CatalogDrawer.goToDepartment("Овощи и фрукты");
+        ShopHelper.CatalogDrawer.goToDepartment("Бакалея");
 
         Assert.assertTrue(
                 kraken.detect().isElementDisplayed(Elements.CategoryPage.title()),
@@ -96,6 +96,8 @@ public class Catalog extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.get().page("metro");
+            //TODO протестить
+                kraken.await().implicitly(2);
         ShopHelper.CatalogDrawer.open();
         ShopHelper.CatalogDrawer.goToDepartment("Овощи и фрукты");
 

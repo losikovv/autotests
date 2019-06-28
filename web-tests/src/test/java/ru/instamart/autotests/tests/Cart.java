@@ -24,12 +24,15 @@ public class Cart extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 620
     )
-    public void successValidateDefaultShoppingCart() throws AssertionError {
+    public void successValidateEmptyShoppingCart() throws AssertionError {
         ShopHelper.Cart.open();
 
         Assert.assertTrue(
                 kraken.detect().isCartOpen(),
                     "Не открывается корзина\n");
+
+        kraken.check().elementPresence(Elements.Cart.closeButton());
+        kraken.check().elementPresence(Elements.Cart.checkoutButton());
 
         Assert.assertTrue(
                 kraken.detect().isCartEmpty(),
