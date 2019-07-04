@@ -1690,5 +1690,74 @@ public class Elements {
                 }
             }
         }
+
+        /** Раздел статических страниц в админке **/
+        interface Pages {
+
+            static ElementData newPageButton() {
+                return new ElementData(
+                        By.xpath("//a[@class='button icon-plus']"), "кнопка \"Новая страница\"");
+            }
+
+            static ElementData table() {
+                return new ElementData(By.xpath("//table"), "таблица со списком страниц");
+            }
+
+            static ElementData tableEntry(String name) {
+                return new ElementData(
+                        By.xpath("//table//tbody//td[contains(text(),'" + name + "')]"),
+                        "запись в таблице \" + name + \"");
+            }
+
+            static ElementData editPageButton(String name) {
+                return new ElementData(
+                        By.xpath("//table//tbody//td[contains(text(),'" + name + "')]//following-sibling::td[@class='actions']//a[contains(@class,'icon-edit')]"),
+                        "кнопка редактирования записи \" + name + \" в таблице");
+            }
+
+            static ElementData deletePageButton(String name) {
+                return new ElementData(
+                        By.xpath("//table//tbody//td[contains(text(),'" + name + "')]//following-sibling::td[@class='actions']//a[contains(@class,'icon-trash')]"),
+                        "кнопка удаления записи \" + name + \" в таблице");
+            }
+
+            interface PageEditPage {
+
+                static ElementData pageNameField() {
+                    return new ElementData(
+                            By.xpath("//*[@id='page_title']"), "заголовок страницы");
+                }
+
+                static ElementData pageURLField() {
+                    return new ElementData(
+                            By.xpath("//*[@id='page_slug']"), "ссылка на страницу");
+                }
+
+                static ElementData pageDescriptionSourceButton() {
+                    return new ElementData(
+                            By.xpath("//a[@id='cke_13']"), "переключение на plain text в html-поле описания");
+                }
+
+                static ElementData pageDescriptionField() {
+                    return new ElementData(
+                            By.xpath("//*[@id='cke_1_contents']/textarea"), "поле описания");
+                }
+
+                static ElementData savePageButton() {
+                    return new ElementData(
+                            By.xpath("//*[@class='icon-refresh button']"), "кнопка \"изменить\"");
+                }
+
+            }
+        }
+    }
+
+    /** Статические страницы **/
+    public interface StaticPages{
+
+        static ElementData pageTitle() {
+            return new ElementData(By.xpath("//*[@class='inner-page__title']/h1"),
+                    "заголовок статической страницы");
+        }
     }
 }
