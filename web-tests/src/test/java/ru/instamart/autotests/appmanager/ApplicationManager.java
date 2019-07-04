@@ -85,7 +85,7 @@ public class ApplicationManager {
     private void initDriver() {
         switch (browser) {
             case BrowserType.FIREFOX:
-                System.setProperty("webdriver.gecko.driver", "/Users/tinwelen/Documents/GitHub/automag/web-tests/geckodriver");
+                //System.setProperty("webdriver.gecko.driver", "/Users/tinwelen/Documents/GitHub/automag/web-tests/geckodriver");
                 driver = new FirefoxDriver();
                 break;
             case BrowserType.CHROME:

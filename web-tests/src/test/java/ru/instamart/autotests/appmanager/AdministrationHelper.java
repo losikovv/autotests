@@ -238,13 +238,14 @@ public class AdministrationHelper extends HelperBase {
         }
 
         public static void editStaticPage(String name){
-            // нажать кнопку редактирования, заполнить поля/потыкать чекбоксы, сохранить и выйти в список,
+            // TODO нажать кнопку редактирования, заполнить поля/потыкать чекбоксы, сохранить и выйти в список,
         }
 
         public static void deleteStaticPage(String name){
             kraken.perform().click(Elements.Admin.Pages.deletePageButton(name));
-            HelperBase.handleAlert();
-            // проверить отсутствие страницы в списке
+            kraken.perform().handleAlert();
+            // TODO проверить отсутствие страницы в списке
+            // TODO добавить проверку что тестовая страничка - 404
         }
 
         // проверяем существование статической страницы

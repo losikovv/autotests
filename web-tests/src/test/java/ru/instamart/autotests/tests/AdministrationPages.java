@@ -9,16 +9,16 @@ import static ru.instamart.autotests.application.Config.enableAdministrationTest
 public class AdministrationPages extends TestBase{
 
     @BeforeMethod(alwaysRun = true)
-    public void reachAdministrationPanel() {
+    public void reachAdministration() {
         kraken.reach().admin();
     }
 
     @Test(  enabled = enableAdministrationTests,
             description = "Проверка вкладки статических страниц",
-            groups = {"ohmy"},
-            priority = 6666
+            groups = {"acceptance","regression"},
+            priority = 2801
     )
-    public void ValidatePagesRootPage() throws Exception {
+    public void ValidatePagesRootPage() {
         // TODO: вынести тестовую страницу в глобальные константы
         String testPageName = "О компании";
         AdministrationHelper.Pages.validatePagesPage(testPageName);
@@ -26,20 +26,20 @@ public class AdministrationPages extends TestBase{
 
     @Test(  enabled = enableAdministrationTests,
             description = "Проверка страницы создания статической страницы",
-            groups = {"ohmy"},
-            priority = 6667
+            groups = {"acceptance","regression"},
+            priority = 2802
     )
-    public void ValidatePagesCreationPage() throws Exception {
+    public void ValidatePagesCreationPage() {
         String testPageName = "О компании";
         AdministrationHelper.Pages.validateStaticPage(testPageName);
     }
 
     @Test(  enabled = enableAdministrationTests,
             description = "Тест создания и удаления статической страницы",
-            groups = {"ohmy"/*, "acceptance","regression"*/},
-            priority = 6668
+            groups = {"acceptance","regression"},
+            priority = 2803
     )
-    public void CreateDeletePage() throws Exception {
+    public void CreateDeletePage() {
         String pageName = "AAA";
         String pageURL = "testAAA";
         String desc = "я маленькая тестовая страничка, которую должен видеть только селен";
@@ -48,9 +48,7 @@ public class AdministrationPages extends TestBase{
         AdministrationHelper.Pages.createStaticPage(pageName, pageURL, desc);
         AdministrationHelper.Pages.validateStaticPage(pageName, pageURL);
 
-
         AdministrationHelper.Pages.editStaticPage(pageName);
         AdministrationHelper.Pages.deleteStaticPage(pageName);
-
     }
 }

@@ -23,9 +23,9 @@ public class AdministrationUsers extends TestBase {
     @Test(  enabled = enableAdministrationTests,
             description = "Тест поиска пользователя в админке",
             groups = {"acceptance","regression"},
-            priority = 2201
+            priority = 2701
     )
-    public void successSearchUser() throws Exception {
+    public void successSearchUser() {
         AdministrationHelper.Users.searchUser(Users.superuser());
 
         Assert.assertEquals(
@@ -36,9 +36,9 @@ public class AdministrationUsers extends TestBase {
     @Test(  enabled = enableAdministrationTests,
             description = "Тест предоставления и отзыва админских прав пользователю",
             groups = {"regression"},
-            priority = 2203
+            priority = 2702
     )
-    public void successGrantAndRevokeAdminPrivileges() throws Exception {
+    public void successGrantAndRevokeAdminPrivileges() {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.perform().quickLogout();
@@ -72,9 +72,9 @@ public class AdministrationUsers extends TestBase {
     @Test(  enabled = enableAdministrationTests,
             description = "Тест смены пароля пользователю",
             groups = {"regression"},
-            priority = 2204
+            priority = 2703
     )
-    public void successChangePassword() throws Exception {
+    public void successChangePassword() {
         kraken.perform().quickLogout();
         UserData testuser = generate.testCredentials("user");
         kraken.perform().registration();
@@ -95,9 +95,9 @@ public class AdministrationUsers extends TestBase {
     @Test(  enabled = enableAdministrationTests,
             description = "Тест проставления пользователю флага B2B",
             groups = {"regression"},
-            priority = 2205
+            priority = 2704
     )
-    public void successGrantB2BStatus() throws Exception {
+    public void successGrantB2BStatus() {
         kraken.perform().quickLogout();
         UserData testuser = generate.testCredentials("user");
         kraken.perform().registration(testuser);
@@ -114,9 +114,9 @@ public class AdministrationUsers extends TestBase {
     @Test(  enabled = enableAdministrationTests,
             description = "Тест поиска B2B пользователя в админке",
             groups = {"regression"},
-            priority = 2206
+            priority = 2705
     )
-    public void successSearchB2BUser() throws Exception {
+    public void successSearchB2BUser() {
         SoftAssert softAssert = new SoftAssert();
         kraken.perform().quickLogout();
         UserData testuser = generate.testCredentials("user");
@@ -141,9 +141,9 @@ public class AdministrationUsers extends TestBase {
     @Test(  enabled = enableAdministrationTests,
             description = "Тест снятия B2B флага у пользователя",
             groups = {"regression"},
-            priority = 2207
+            priority = 2706
     )
-    public void successRevokeB2BStatus() throws Exception {
+    public void successRevokeB2BStatus() {
         SoftAssert softAssert = new SoftAssert();
         kraken.perform().quickLogout();
         UserData testuser = generate.testCredentials("user");
