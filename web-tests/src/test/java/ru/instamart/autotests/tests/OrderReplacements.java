@@ -8,9 +8,9 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.ReplacementPolicies;
 
-import static ru.instamart.autotests.application.Config.testReplacementsOrders;
+import static ru.instamart.autotests.application.Config.testOrderReplacements;
 
-public class Order_Replacements extends TestBase {
+public class OrderReplacements extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() throws Exception {
@@ -20,7 +20,7 @@ public class Order_Replacements extends TestBase {
         kraken.drop().cart();
     }
 
-    @Test(enabled = testReplacementsOrders,
+    @Test(enabled = testOrderReplacements,
             description = "Тест заказа с политикой Звонить / Заменять",
             groups = {"acceptance","regression"},
             priority = 911
@@ -44,7 +44,7 @@ public class Order_Replacements extends TestBase {
         );
     }
 
-    @Test(enabled = testReplacementsOrders,
+    @Test(enabled = testOrderReplacements,
             description = "Тест заказа с политикой Звонить / Убирать",
             groups = {"acceptance","regression"},
             priority = 912
@@ -68,7 +68,7 @@ public class Order_Replacements extends TestBase {
         );
     }
 
-    @Test(enabled = testReplacementsOrders,
+    @Test(enabled = testOrderReplacements,
             description = "Тест заказа с политикой Не звонить / Заменять",
             groups = {"acceptance","regression"},
             priority = 913
@@ -92,7 +92,7 @@ public class Order_Replacements extends TestBase {
         );
     }
 
-    @Test(enabled = testReplacementsOrders,
+    @Test(enabled = testOrderReplacements,
             description = "Тест заказа с политикой Не звонить / Убирать",
             groups = {"acceptance","regression"},
             priority = 914

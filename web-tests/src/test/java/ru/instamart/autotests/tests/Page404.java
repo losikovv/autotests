@@ -7,7 +7,7 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.appmanager.ShopHelper;
 
-import static ru.instamart.autotests.application.Config.enablePage404Tests;
+import static ru.instamart.autotests.application.Config.testPage404;
 
 public class Page404 extends TestBase {
 
@@ -16,7 +16,7 @@ public class Page404 extends TestBase {
         kraken.get().page(Pages.page404());
     }
 
-    @Test(  enabled = enablePage404Tests,
+    @Test(  enabled = testPage404,
             description = "Тест познания котомудрости на странице 404",
             groups = {"acceptance","regression"},
             priority = 10001
@@ -30,7 +30,7 @@ public class Page404 extends TestBase {
                     "Не работает познание котомудрости на странице 404");
     }
 
-    @Test(  enabled = enablePage404Tests,
+    @Test(  enabled = testPage404,
             description = "Тест перехода на главную по одноименной кнопке на странице 404",
             groups = {"acceptance","regression"},
             priority = 10002
@@ -41,7 +41,7 @@ public class Page404 extends TestBase {
         validateTransition(Elements.Page404.toHomeButton());
     }
 
-    @Test(  enabled = enablePage404Tests,
+    @Test(  enabled = testPage404,
             description = "Тест перехода на главную по одноименной кнопке на странице 404 после познания котомудрости",
             groups = {"acceptance","regression"},
             priority = 10003
@@ -53,7 +53,7 @@ public class Page404 extends TestBase {
         validateTransition(Elements.Page404.toHomeButton());
     }
 
-    @Test(  enabled = enablePage404Tests,
+    @Test(  enabled = testPage404,
             description = "Тест перехода в каталог по кнопке 'Познать цены' на странице 404 после познания котомудрости",
             groups = {"acceptance","regression"},
             priority = 10004
@@ -66,12 +66,13 @@ public class Page404 extends TestBase {
         validateTransition(Elements.Page404.learnPricesButton());
     }
 
-    @Test(  enabled = enablePage404Tests,
+    @Test(  enabled = testPage404,
             description = "Тест познания новой котомудрости на странице 404 после познания первой",
             groups = {"acceptance","regression"},
             priority = 10005
     )
     public void successLearnMoreCatWisdom() throws AssertionError {
+        kraken.perform().refresh();
         ShopHelper.Jivosite.open(); // для стабильности
 
         kraken.perform().click(Elements.Page404.catWisdomButton());

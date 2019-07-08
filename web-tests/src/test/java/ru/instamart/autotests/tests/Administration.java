@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 
-import static ru.instamart.autotests.application.Config.enableAdministrationTests;
+import static ru.instamart.autotests.application.Config.testAdministration;
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
 // Тесты админки
@@ -18,7 +18,7 @@ public class Administration extends TestBase {
         //kraken.get().page("metro");
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест недоступности админки пользователю без админ. прав",
             groups = {"acceptance","regression"},
             priority = 2000
@@ -30,7 +30,7 @@ public class Administration extends TestBase {
         kraken.perform().quickLogout();
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест доступности админки пользователю c админ. правми",
             groups = {"acceptance","regression"},
             priority = 2001
@@ -41,7 +41,7 @@ public class Administration extends TestBase {
         assertPageIsAvailable(Pages.Admin.shipments());
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест доступности корневых разделов админки",
             groups = {"smoke","acceptance","regression"},
             priority = 2002
@@ -61,7 +61,7 @@ public class Administration extends TestBase {
         assertPageIsAvailable(Pages.Admin.pages());
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Проверка наличия элементов в шапке админки",
             groups = {"smoke","acceptance","regression"},
             priority = 2003
@@ -74,7 +74,7 @@ public class Administration extends TestBase {
         kraken.check().elementPresence(Elements.Admin.Header.backButton());
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест валидности ссылок навигационного меню в шапке админки",
             groups = {"smoke","acceptance","regression"},
             priority = 2004

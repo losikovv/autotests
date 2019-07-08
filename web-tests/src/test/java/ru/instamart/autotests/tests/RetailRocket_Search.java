@@ -8,7 +8,7 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Widgets;
 import ru.instamart.autotests.appmanager.ShopHelper;
 
-import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
+import static ru.instamart.autotests.application.Config.testRetailRocket;
 
 public class RetailRocket_Search extends TestBase {
 
@@ -24,7 +24,7 @@ public class RetailRocket_Search extends TestBase {
         kraken.get().page("metro");
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест наличия виджета 'Мы нашли для вас похожие товары' после поиска без результата",
             groups = {"acceptance", "regression"},
             priority = 11301
@@ -37,7 +37,7 @@ public class RetailRocket_Search extends TestBase {
                     "Нет блока 'Мы нашли для вас похожие товары' после поиска без результата");
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест наличия виджета 'Те, кто ищут выбирают' после поиска товара",
             groups = {"acceptance", "regression"},
             priority = 11302
@@ -50,7 +50,7 @@ public class RetailRocket_Search extends TestBase {
                     "Нет блока 'Те, кто ищут выбирают' после поиска товара");
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест наличия виджета 'Вы недавно смотрели' после поиска товара",
             groups = {"acceptance", "regression"},
             priority = 11303
@@ -63,7 +63,7 @@ public class RetailRocket_Search extends TestBase {
                     "Нет блока 'Вы недавно смотрели' после поиска товара");
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест открытия карточки товара из виджета 'Мы нашли для вас похожие товары' после поиска без результата",
             groups = {"acceptance", "regression"},
             priority = 11304,
@@ -79,7 +79,7 @@ public class RetailRocket_Search extends TestBase {
                     "Не открывается карточка товара из виджета 'Мы нашли для вас похожие товары' после поиска без результатов");
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест открытия карточки товара из виджета 'Те, кто ищут выбирают' после поиска товара",
             groups = {"acceptance", "regression"},
             priority = 11305,
@@ -95,7 +95,7 @@ public class RetailRocket_Search extends TestBase {
                     "Не открывается карточка товара из виджета 'Те кто ищут выбирают' после поиска товара");
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест открытия карточки товара из виджета 'Вы недавно смотрели' после поиска товара",
             groups = {"acceptance", "regression"},
             priority = 11306,
@@ -117,7 +117,7 @@ public class RetailRocket_Search extends TestBase {
     }
 
     // TODO не работает, починить
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест успешного добавления товара в корзину из виджета 'Мы нашли для вас похожие товары' после поиска без результата",
             groups = {"acceptance", "regression"},
             priority = 11307,
@@ -133,7 +133,7 @@ public class RetailRocket_Search extends TestBase {
                     "Не добавляется в корзину товар из виджета 'Мы нашли для вас похожие товары' после поиска без результата");
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест успешного добавления товара в корзину из виджета 'Те, кто ищут выбирают' после поиска товара",
             groups = {"acceptance", "regression"},
             priority = 11308,
@@ -148,7 +148,7 @@ public class RetailRocket_Search extends TestBase {
                     "Не добавляется в корзину товар из виджета 'Те, кто ищут выбирают' после поиска товара");
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест успешного добавления товара в корзину из виджета 'Вы недавно смотрели' после поиска товара",
             groups = {"acceptance", "regression"},
             priority = 11309,

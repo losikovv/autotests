@@ -8,7 +8,7 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Widgets;
 import ru.instamart.autotests.appmanager.ShopHelper;
 
-import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
+import static ru.instamart.autotests.application.Config.testRetailRocket;
 
 public class RetailRocket_Catalog extends TestBase {
 
@@ -24,7 +24,7 @@ public class RetailRocket_Catalog extends TestBase {
         kraken.get().page("metro/ovoshchi-i-frukty");
     }
 
-    @Test ( enabled = enableRetailRocketTests,
+    @Test ( enabled = testRetailRocket,
             description = "Тест наличия виджета 'Выбор покупателей' в каталоге",
             groups = {"acceptance", "regression"},
             priority = 11101
@@ -35,7 +35,7 @@ public class RetailRocket_Catalog extends TestBase {
                     "Нет блока 'Выбор покупателей' в каталоге");
     }
 
-    @Test ( enabled = enableRetailRocketTests,
+    @Test ( enabled = testRetailRocket,
             description = "Тест наличия виджета 'Вы недавно смотрели' в каталоге",
             groups = {"acceptance", "regression"},
             priority = 11102
@@ -46,7 +46,7 @@ public class RetailRocket_Catalog extends TestBase {
                     "Нет блока 'Вы недавно смотрели' в каталоге");
     }
 
-    @Test ( enabled = enableRetailRocketTests,
+    @Test ( enabled = testRetailRocket,
             description = "Тест успешного открытия карточки из виджета 'Выбор покупателей' в каталоге",
             groups = {"acceptance","regression"},
             priority = 11103,
@@ -60,7 +60,7 @@ public class RetailRocket_Catalog extends TestBase {
                     "Не открывается карточка товара из виджета 'Выбор покупателей' в каталоге");
     }
 
-    @Test ( enabled = enableRetailRocketTests,
+    @Test ( enabled = testRetailRocket,
             description = "Тест успешного открытия карточки из виджета 'Вы недавно смотрели' в каталоге",
             groups = {"acceptance", "regression"},
             priority = 11104,
@@ -78,7 +78,7 @@ public class RetailRocket_Catalog extends TestBase {
                     "Не открывается карточка товара из виджета 'Выбор покупателей' в каталоге");
     }
 
-    @Test ( enabled = enableRetailRocketTests,
+    @Test ( enabled = testRetailRocket,
             description = "Тест успешного добавления товара из виджета 'Выбор покупателей' в каталоге",
             groups = {"acceptance", "regression"},
             priority = 11105,
@@ -94,7 +94,7 @@ public class RetailRocket_Catalog extends TestBase {
                     "Не добавляется в корзину товар из виджета 'Выбор покупателей' в каталоге");
     }
 
-    @Test ( enabled = enableRetailRocketTests,
+    @Test ( enabled = testRetailRocket,
             description = "Тест успешного добавления товара из виджета 'Вы неавдно смотрели' в каталоге",
             groups = {"acceptance", "regression"},
             priority = 11106,

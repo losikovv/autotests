@@ -9,15 +9,10 @@ import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
-
-// Тесты цен доставки
-
-
-public class DeliveryPrices extends TestBase {
-
+public class OrderDeliveryPrices extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
-    public void preconditions() throws Exception {
+    public void preconditions() {
         kraken.get().page("metro");
         kraken.perform().loginAs(session.user);
     }

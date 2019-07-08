@@ -8,7 +8,7 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Widgets;
 import ru.instamart.autotests.appmanager.ShopHelper;
 
-import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
+import static ru.instamart.autotests.application.Config.testRetailRocket;
 
 
 public class RetailRocket_Cart extends TestBase {
@@ -27,7 +27,7 @@ public class RetailRocket_Cart extends TestBase {
         ShopHelper.Cart.open();
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест наличия виджета 'Не забудьте купить' в корзине",
             groups = {"acceptance", "regression"},
             priority = 11401
@@ -38,7 +38,7 @@ public class RetailRocket_Cart extends TestBase {
                     "Нет блока 'Не забудьте купить' в картчоке товара");
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест успешного открытия карточки из виджета 'Не забудьте купить' в корзине",
             groups = {"acceptance", "regression"},
             priority = 11402,
@@ -52,7 +52,7 @@ public class RetailRocket_Cart extends TestBase {
                     "Не открывается карточка товара из блока 'Не забудьте купить' в коризне");
     }
 
-    @Test (enabled = enableRetailRocketTests,
+    @Test (enabled = testRetailRocket,
             description = "Тест успешного добавления товара в корзину из виджета ' Не забудьте купить' в корзине",
             groups = {"acceptance", "regression"},
             priority = 11403,

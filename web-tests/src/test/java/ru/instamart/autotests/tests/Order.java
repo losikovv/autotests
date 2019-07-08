@@ -12,14 +12,18 @@ import ru.instamart.autotests.models.JuridicalData;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
-public class Order extends TestBase{
+import static ru.instamart.autotests.application.Config.testOrderRepeat;
+
+public class Order extends TestBase {
 
     // TODO переделать в тесты заказа новым пользоватеем (генерим нового, делаем заказ с новым телом,  с привязкой новой карты + повтор, заказ с новым юрлицом + повтор и все что тут есть)
 
     @BeforeMethod(alwaysRun = true)
-    public void preconditions() throws Exception {
+    public void preconditions() {
         kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.admin);
+        kraken.shipAddress().change(Addresses.Moscow.testAddress());
+        kraken.drop().cart();
     }
     // TODO Тесты на изменение телефона и контактов
 
@@ -31,7 +35,7 @@ public class Order extends TestBase{
             groups = {"regression"},
             priority = 959
     )
-    public void successCompleteCheckoutWithNewJuridical() throws Exception {
+    public void successCompleteCheckoutWithNewJuridical() {
         JuridicalData juridicalData = new JuridicalData(
                 "ООО \"Новый Пользователь\"",
                 generate.string(8),
@@ -62,7 +66,7 @@ public class Order extends TestBase{
             groups = {"regression"},
             priority = 960
     )
-    public void successCompleteCheckoutWithChangeJuridical() throws Exception {
+    public void successCompleteCheckoutWithChangeJuridical() {
         JuridicalData juridicalData = new JuridicalData(
                 "ООО \"Измененный Пользователь\"",
                 generate.string(8),
@@ -93,7 +97,7 @@ public class Order extends TestBase{
             groups = {"regression"},
             priority = 961
     )
-    public void successCompleteCheckoutWithNewPaymentCard() throws Exception {
+    public void successCompleteCheckoutWithNewPaymentCard() {
         testOn(Environments.instamart_staging());
         CreditCardData creditCardData = Config.testOrderDetails().getPaymentDetails().getCreditCard();
 
@@ -109,7 +113,7 @@ public class Order extends TestBase{
             groups = {"regression"},
             priority = 962
     )
-    public void successOrderWithFavProducts() throws Exception {
+    public void successOrderWithFavProducts() {
         ShopHelper.Catalog.Item.addToFavorites();
         kraken.get().favoritesPage();
 
@@ -126,7 +130,7 @@ public class Order extends TestBase{
             groups = {"regression"},
             priority = 1005
     )
-    public void successRepeatLastOrderWithNewPhone() throws Exception {
+    public void successRepeatLastOrderWithNewPhone() {
         SoftAssert softAssert = new SoftAssert();
         UserData userData = generate.testCredentials("user");
 
@@ -161,8 +165,72 @@ public class Order extends TestBase{
         softAssert.assertAll();
     }
 
+    @Test(enabled = testOrderRepeat,
+            description = "Повтор крайнего заказа и оплата картой онлайн",
+            groups = {"acceptance","regression"},
+            priority = 1001
+    )
+    public void successRepeatLastOrderAndPayWithCardOnline() {
+        kraken.perform().repeatLastOrder();
+        kraken.shopping().collectItems();
+        ShopHelper.Cart.proceedToCheckout();
+
+        kraken.checkout().complete(PaymentTypes.cardOnline());
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не оформляется повторный заказ с оплатой картой онлайн\n");
+    }
+
+    @Test(enabled = testOrderRepeat,
+            description = "Повтор крайнего заказа и оплата картой курьеру",
+            groups = {"regression"},
+            priority = 1002
+    )
+    public void successRepeatLastOrderAndPayWithCardCourier() {
+        kraken.perform().repeatLastOrder();
+        kraken.shopping().collectItems();
+        ShopHelper.Cart.proceedToCheckout();
+
+        kraken.checkout().complete(PaymentTypes.cardCourier());
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не оформляется повторный заказ с оплатой картой курьеру\n");
+    }
+
+    @Test(enabled = testOrderRepeat,
+            description = "Повтор крайнего заказа и оплата наличными",
+            groups = {"regression"},
+            priority = 1003
+    )
+    public void successRepeatLastOrderAndPayWithCash() {
+        kraken.perform().repeatLastOrder();
+        kraken.shopping().collectItems();
+        ShopHelper.Cart.proceedToCheckout();
+
+        kraken.checkout().complete(PaymentTypes.cash());
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не оформляется повторный заказ с оплатой наличными\n");
+    }
+
+    @Test(enabled = testOrderRepeat,
+            description = "Повтор крайнего заказа и оплата банковским переводом",
+            groups = {"regression"},
+            priority = 1004
+    )
+    public void successRepeatLastOrderAndPayWithBank() {
+        kraken.perform().repeatLastOrder();
+        kraken.shopping().collectItems();
+        ShopHelper.Cart.proceedToCheckout();
+
+        kraken.checkout().complete(PaymentTypes.bankTransfer());
+
+        Assert.assertTrue(kraken.detect().isOrderActive(),
+                "Не оформляется повторный заказ с оплатой банковским переводом\n");
+    }
+
     @AfterMethod(alwaysRun = true)
-    public void postconditions()throws Exception {
+    public void cancelLastOrder() {
         kraken.perform().cancelLastOrder();
     }
 }

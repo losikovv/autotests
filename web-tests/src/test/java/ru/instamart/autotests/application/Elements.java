@@ -1073,14 +1073,6 @@ public class Elements {
                 return new ElementData(By.xpath("/html/body/div[3]/div/form/div/aside/div/div[4]/div[2]/div/div[2]"));
             }
 
-            static ElementData addPromocodeButton() {
-                return new ElementData("Применить промокод", By.linkText("Применить промокод"));
-            }
-
-            static ElementData appliedPromocodeAttribute() {
-                return new ElementData("Промокод:", By.className("promo-codes__label"));
-            }
-
             static ElementData clearPromocodeButton() {
                 return new ElementData("Удалить", By.linkText("Удалить"));
             }
@@ -1274,29 +1266,64 @@ public class Elements {
                 }
             }
 
-            /** Модалка промокода */
-            interface PromocodeModal {
+            interface Promocode {
 
-                // TODO static ElementData popup()
-
-                static ElementData title() {
-                    return new ElementData("Введите промокод", By.className("modal-form__title"));
+                static ElementData addButton() {
+                    return new ElementData(
+                            By.xpath("//aside//a[text()='Применить промокод']"),
+                                "кнопка \"Применить промокод\" в чекауте");
                 }
 
-                static ElementData field() {
-                    return new ElementData(By.id("couponCode"));
+                static ElementData removeButton() {
+                    return new ElementData(
+                            By.xpath("//aside//div[@class='promo-codes']//a[text()='Удалить']"),
+                                "кнопка удаления промокода в чекауте");
                 }
 
-                static ElementData applyButton() {
-                    return new ElementData("Добавить код",By.xpath("//*[@id='react-modal']/div/div[2]/div/div/div[2]/form/div[2]/div/div[2]/button"));
-                }
+                interface Modal {
 
-                static ElementData cancelButton() {
-                    return new ElementData("Отменить", By.xpath("//*[@id='react-modal']/div/div[2]/div/div/div[2]/form/div[2]/div/div[1]/button"));
-                }
+                    static ElementData popup() {
+                        return new ElementData(
+                                By.xpath("//div[@class='modal-form__title' and text()='Введите промокод']//ancestor::div[@class='rc-modal__container']"),
+                                    "модалка ввода промокода в чекауте");
+                    }
 
-                static ElementData closeButton() {
-                    return new ElementData(By.className("rc-modal__close"));
+                    static ElementData closeButton() {
+                        return new ElementData(
+                                By.xpath("//button[@class='rc-modal__close']"),
+                                    "крестик закрытия модалки ввода промокода в чекауте");
+                    }
+
+                    static ElementData title() {
+                        return new ElementData(
+                                By.xpath("//div[@class='modal-form__title' and text()='Введите промокод']"),
+                                    "заголовок модалки ввода промокода в чекауте");
+                    }
+
+                    static ElementData inputField() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//input[@id='couponCode']"),
+                                    "поле ввода промокода");
+                    }
+
+                    static ElementData errorText() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//div[@class='checkout-input-error']"),
+                                    "текст ошибки применения промокода");
+                    }
+
+                    static ElementData cancelButton() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//button[text()='Отменить']"),
+                                    "кнопка отмены ввода промокода"
+                        );
+                    }
+
+                    static ElementData applyButton() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//button[text()='Добавить код']"),
+                                    "кнопка \"Добавить код\"");
+                    }
                 }
             }
 

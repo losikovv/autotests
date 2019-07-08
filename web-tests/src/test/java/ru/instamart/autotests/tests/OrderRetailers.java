@@ -6,9 +6,9 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Environments;
 import ru.instamart.autotests.appmanager.ShopHelper;
 
-import static ru.instamart.autotests.application.Config.testRetailerOrders;
+import static ru.instamart.autotests.application.Config.testOrderRetailers;
 
-public class Order_Retailers extends TestBase {
+public class OrderRetailers extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() throws Exception {
@@ -17,7 +17,7 @@ public class Order_Retailers extends TestBase {
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
     }
 
-    @Test(enabled = testRetailerOrders,
+    @Test(enabled = testOrderRetailers,
             description = "Тестовый заказ в Метро Москва",
             groups = {"acceptance","regression"},
             priority = 941
@@ -35,7 +35,7 @@ public class Order_Retailers extends TestBase {
                     "Не удалось оформить заказ в Метро Москва\n");
     }
 
-    @Test(enabled = testRetailerOrders,
+    @Test(enabled = testOrderRetailers,
             description = "Тестовый заказ в Ашан Москва",
             groups = {"acceptance","regression"},
             priority = 942

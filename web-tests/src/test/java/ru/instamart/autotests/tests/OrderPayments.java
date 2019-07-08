@@ -11,7 +11,7 @@ import ru.instamart.autotests.application.PaymentTypes;
 // Тесты заказов со всеми способами оплаты
 
 
-public class Order_Payments extends TestBase {
+public class OrderPayments extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() throws Exception {

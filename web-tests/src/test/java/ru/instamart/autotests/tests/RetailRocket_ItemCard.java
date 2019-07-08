@@ -8,7 +8,7 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Widgets;
 import ru.instamart.autotests.appmanager.ShopHelper;
 
-import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
+import static ru.instamart.autotests.application.Config.testRetailRocket;
 
 public class RetailRocket_ItemCard extends TestBase {
 
@@ -24,7 +24,7 @@ public class RetailRocket_ItemCard extends TestBase {
         kraken.get().page("metro");
     }
 
-    @Test ( enabled = enableRetailRocketTests,
+    @Test ( enabled = testRetailRocket,
             description = "Тест наличия виджета 'С этим товаром покупают' в карточке товара",
             groups = {"acceptance", "regression"},
             priority = 11201
@@ -37,7 +37,7 @@ public class RetailRocket_ItemCard extends TestBase {
                     "Нет блока 'C этим товаром покупают' в картчоке товара");
     }
 
-    @Test (enabled = enableRetailRocketTests,
+    @Test (enabled = testRetailRocket,
             description = "Тест наличия виджета 'Похожие товары' в карточке товара",
             groups = {"acceptance", "regression"},
             priority = 11202
@@ -50,7 +50,7 @@ public class RetailRocket_ItemCard extends TestBase {
                     "Нет блока 'Похожие товары' в картчоке товара");
     }
 
-    @Test (enabled = enableRetailRocketTests,
+    @Test (enabled = testRetailRocket,
             description = "Тест наличия виджета 'Вы недавно смотрели' в карточке товара",
             groups = {"acceptance", "regression"},
             priority = 11203
@@ -63,7 +63,7 @@ public class RetailRocket_ItemCard extends TestBase {
                     "Нет блока 'Вы недавно смотрели' в карточке товара");
     }
 
-    @Test (enabled = enableRetailRocketTests,
+    @Test (enabled = testRetailRocket,
             description = "Тест открытия карточки товара из виджета 'C этим товаром покупают' в карточке товара",
             groups = {"acceptance", "regression"},
             priority = 11204,
@@ -78,7 +78,7 @@ public class RetailRocket_ItemCard extends TestBase {
                     "Не открывается карточка товара из виджета 'С этим товаром покупают' в карточке товара");
     }
 
-    @Test (enabled = enableRetailRocketTests,
+    @Test (enabled = testRetailRocket,
             description = "Тест открытия карточки товара из виджета 'Похожие товары' в карточке товара",
             groups = {"acceptance", "regression"},
             priority = 11205,
@@ -93,7 +93,7 @@ public class RetailRocket_ItemCard extends TestBase {
                     "Не открывается карточка товара из виджета 'Похожие товары' в карточке товара");
     }
 
-    @Test (enabled = enableRetailRocketTests,
+    @Test (enabled = testRetailRocket,
             description = "Тест открытия карточки товара из виджета 'Вы недавно смотрели' в картчоке товара",
             groups = {"acceptance", "regression"},
             priority = 11206,
@@ -109,7 +109,7 @@ public class RetailRocket_ItemCard extends TestBase {
 
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест успешного добавления товара из виджета 'С этим товаром покупают' в карточке товара",
             groups = {"acceptance", "regression"},
             priority = 11207,
@@ -127,7 +127,7 @@ public class RetailRocket_ItemCard extends TestBase {
                     "Не добавляется в корзину товар из виджета 'C этим товаром покупают' в карточке товара");
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест успешного добавления товара из виджета 'Похожие товары' в карточке товара",
             groups = {"acceptance", "regression"},
             priority = 11208,
@@ -145,7 +145,7 @@ public class RetailRocket_ItemCard extends TestBase {
                     "Не добавляется в корзину товар из виджета 'Похожие товары' в карточке товара");
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест успешного добавления товара из виджета 'Вы недавно смотрели' в карточке товара",
             groups = {"acceptance", "regression"},
             priority = 11209,

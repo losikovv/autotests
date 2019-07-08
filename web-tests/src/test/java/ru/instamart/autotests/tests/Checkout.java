@@ -11,7 +11,7 @@ import static ru.instamart.autotests.application.BonusPrograms.mnogoru;
 public class Checkout extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
-    public void preparingForCheckout() throws Exception {
+    public void preparingForCheckout() {
         kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.admin);
     }
@@ -25,7 +25,8 @@ public class Checkout extends TestBase {
     )
     public void successAddPromocode(){
         kraken.reach().checkout();
-        kraken.checkout().addPromocode("unicorn");
+        
+        kraken.checkout().addPromocode(Promo.freeOrderDelivery());
 
         Assert.assertTrue(
                 kraken.detect().isPromocodeApplied(),
@@ -53,9 +54,9 @@ public class Checkout extends TestBase {
     )
     public void noPromocodeAddedOnCancel(){
         kraken.reach().checkout();
-        kraken.perform().click(Elements.Checkout.addPromocodeButton());
-        kraken.perform().fillField(Elements.Checkout.PromocodeModal.field(), "unicorn");
-        kraken.perform().click(Elements.Checkout.PromocodeModal.cancelButton());
+        kraken.perform().click(Elements.Checkout.Promocode.addButton());
+        kraken.perform().fillField(Elements.Checkout.Promocode.Modal.inputField(), "unicorn");
+        kraken.perform().click(Elements.Checkout.Promocode.Modal.cancelButton());
 
         Assert.assertFalse(
                 kraken.detect().isPromocodeApplied(),
@@ -67,11 +68,11 @@ public class Checkout extends TestBase {
             groups = {"regression"},
             priority = 704
     )
-    public void noPromocodeAddedOnClose(){
+    public void noPromocodeAddedOnModalClose(){
         kraken.reach().checkout();
-        kraken.perform().click(Elements.Checkout.addPromocodeButton());
-        kraken.perform().fillField(Elements.Checkout.PromocodeModal.field(), "unicorn");
-        kraken.perform().click(Elements.Checkout.PromocodeModal.closeButton());
+        kraken.perform().click(Elements.Checkout.Promocode.addButton());
+        kraken.perform().fillField(Elements.Checkout.Promocode.Modal.inputField(), "unicorn");
+        kraken.perform().click(Elements.Checkout.Promocode.Modal.closeButton());
 
         Assert.assertFalse(
                 kraken.detect().isPromocodeApplied(),

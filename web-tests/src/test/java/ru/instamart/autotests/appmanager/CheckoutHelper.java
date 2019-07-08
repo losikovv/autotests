@@ -204,31 +204,32 @@ public class CheckoutHelper extends HelperBase {
     }
 
     /** Добавляем промокод */
+    public void addPromocode(PromoData promo) {
+        verboseMessage("Акция " + promo.getDescription());
+        addPromocode(promo.getCode());
+    }
+
     public void addPromocode(String promocode) {
         if (kraken.detect().isPromocodeApplied()) {
-            message("Уже есть применённый промокод, поэтому сначала удаляем его... ");
+            verboseMessage("Уже есть применённый промокод, поэтому сначала удаляем его... ");
             clearPromocode();
         }
-        kraken.perform().click(Elements.Checkout.addPromocodeButton());
-        if (!kraken.detect().element(Elements.Checkout.PromocodeModal.title())) {
-            message("⚠ Не открывается промо-модалка\n");
-            kraken.await().implicitly(1); // Ожидание открытия промо-модалки в чекауте
-        }
+        kraken.perform().click(Elements.Checkout.Promocode.addButton());
         message("Применяем промокод '" + promocode + "'...");
-        kraken.perform().fillField(Elements.Checkout.PromocodeModal.field(), promocode);
-        kraken.perform().click(Elements.Checkout.PromocodeModal.applyButton());
+        kraken.perform().fillField(Elements.Checkout.Promocode.Modal.inputField(), promocode);
+        kraken.perform().click(Elements.Checkout.Promocode.Modal.applyButton());
         kraken.await().implicitly(1); // Ожидание применения промокода в чекауте
     }
 
     /** Удаляем промокод */
     public void clearPromocode() {
-        if (kraken.detect().isPromocodeApplied()) {
-            message("Удаляем промокод...");
-            kraken.perform().click(Elements.Checkout.clearPromocodeButton());
-            kraken.await().implicitly(1); // Ожидание удаления промокода в чекауте
-        } else {
-            message("Пропускаем удаление промокода, так как он не был применён");
+        if (!kraken.detect().isPromocodeApplied()) {
+            verboseMessage("Промокод не применён, применяем тестовый");
+            addPromocode(Promo.freeOrderDelivery());
         }
+        message("Удаляем промокод...");
+        kraken.perform().click(Elements.Checkout.Promocode.removeButton());
+        kraken.await().implicitly(1); // Ожидание удаления промокода в чекауте
     }
 
     /** Добавляем бонус */

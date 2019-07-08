@@ -22,14 +22,18 @@ public class Catalog extends TestBase {
             groups = {"acceptance","regression"},
             priority = 601
     )
-    // TODO переделать в successValidateCatalogDrawer - добавить чек элементов
-    public void successOperateCatalogDrawer() {
+    public void successValidateCatalogDrawer() {
         ShopHelper.CatalogDrawer.open();
+
         Assert.assertTrue(
                 kraken.detect().isCatalogDrawerOpen(),
                     "Не открывается шторка каталога\n");
 
+        kraken.check().elementPresence(Elements.CatalogDrawer.category("Бакалея"));
+        kraken.check().elementPresence(Elements.CatalogDrawer.closeButton());
+
         ShopHelper.CatalogDrawer.close();
+
         Assert.assertFalse(
                 kraken.detect().isCatalogDrawerOpen(),
                     "Не закрывается шторка каталога\n");
@@ -75,11 +79,13 @@ public class Catalog extends TestBase {
         kraken.get().page("metro");
 
         ShopHelper.Catalog.Item.open();
+
         softAssert.assertTrue(
                 kraken.detect().isItemCardOpen(),
                     "Не открывается карточка продукта на главной\n");
 
         ShopHelper.ItemCard.close();
+
         softAssert.assertFalse(
                 kraken.detect().isItemCardOpen(),
                     "Не закрывается карточка продукта на главной\n");
@@ -96,17 +102,17 @@ public class Catalog extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.get().page("metro");
-            //TODO протестить
-                kraken.await().implicitly(2);
         ShopHelper.CatalogDrawer.open();
         ShopHelper.CatalogDrawer.goToDepartment("Овощи и фрукты");
 
         ShopHelper.Catalog.Item.open();
+
         softAssert.assertTrue(
                 kraken.detect().isItemCardOpen(),
                     "Не открывается карточка продукта в department-категории\n");
 
         ShopHelper.ItemCard.close();
+
         softAssert.assertFalse(
                 kraken.detect().isItemCardOpen(),
                     "Не закрывается карточка продукта в department-категории\n");
@@ -127,11 +133,13 @@ public class Catalog extends TestBase {
         ShopHelper.CatalogDrawer.goToTaxon("Бакалея");
 
         ShopHelper.Catalog.Item.open();
+
         softAssert.assertTrue(
                 kraken.detect().isItemCardOpen(),
                     "Не открывается карточка продукта в taxon-категории\n");
 
         ShopHelper.ItemCard.close();
+
         softAssert.assertFalse(
                 kraken.detect().isItemCardOpen(),
                     "Не закрывается карточка продукта в taxon-категории\n");
@@ -149,11 +157,13 @@ public class Catalog extends TestBase {
         kraken.get().page("metro/search?keywords=хлеб");
 
         ShopHelper.Catalog.Item.open();
+
         softAssert.assertTrue(
                 kraken.detect().isItemCardOpen(),
                     "Не открывается карточка продукта в выдаче поиска\n");
 
         ShopHelper.ItemCard.close();
+
         softAssert.assertFalse(
                 kraken.detect().isItemCardOpen(),
                     "Не закрывается карточка продукта в выдаче поиска\n");

@@ -9,7 +9,7 @@ import ru.instamart.autotests.appmanager.AdministrationHelper;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
-import static ru.instamart.autotests.application.Config.enableAdministrationTests;
+import static ru.instamart.autotests.application.Config.testAdministration;
 import static ru.instamart.autotests.application.Config.testOrder;
 import static ru.instamart.autotests.application.Config.testShipment;
 
@@ -20,7 +20,7 @@ public class AdministrationShipments extends TestBase {
         kraken.reach().admin();
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест поиска заказа по номеру заказа в админке",
             groups = {"acceptance","regression"},
             priority = 2101
@@ -37,7 +37,7 @@ public class AdministrationShipments extends TestBase {
                     "Не работает поиск заказа в админке, найден не тот шипмент\n");
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест поиска заказа по номеру шипмента в админке",
             groups = {"acceptance","regression"},
             priority = 2102
@@ -55,7 +55,7 @@ public class AdministrationShipments extends TestBase {
     }
 
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест возобновления и отмены заказа через админку",
             groups = {"acceptance","regression"},
             priority = 2103
@@ -91,7 +91,7 @@ public class AdministrationShipments extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест поиска B2B заказа в админке",
             groups = {"regression"},
             priority = 2104

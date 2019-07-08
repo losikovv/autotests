@@ -11,7 +11,7 @@ public class CleanupHelper extends HelperBase {
         super(driver, environment, app);
     }
 
-    public void all() throws Exception {
+    public void all() {
         message("\n================== CLEANUP AFTER TESTRUN ( " + kraken.session.id + " ) ==================\n");
             try {
                 orders();
@@ -28,7 +28,7 @@ public class CleanupHelper extends HelperBase {
     /**
      * Удаление тестовых юзеров по дефолтному списку
      */
-    public void users() throws Exception {
+    public void users() {
         message("Удаление тестовых пользователей");
         //TODO в соло-режиме удалять всех тестовых пользователей
         users(kraken.session.userList);
@@ -37,7 +37,7 @@ public class CleanupHelper extends HelperBase {
     /**
      * Delete all users on a given page in admin panel
      */
-    public void users(String usersListPath) throws Exception {
+    public void users(String usersListPath) {
         kraken.reach().admin(usersListPath);
         if (kraken.detect().isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
             message("> удаляем пользователя " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
@@ -53,7 +53,7 @@ public class CleanupHelper extends HelperBase {
     /**
      * Отмена тестовых заказов по дефолтному списку
      */
-    public void orders() throws Exception {
+    public void orders() {
         message("Отмена тестовых заказов");
         //TODO в соло-режиме отменять все тестовые заказы
         orders(kraken.session.orderList);
@@ -62,7 +62,7 @@ public class CleanupHelper extends HelperBase {
     /**
      * Cancel all orders on a given page in admin panel
      */
-    public void orders(String ordersListPath) throws Exception {
+    public void orders(String ordersListPath) {
         kraken.reach().admin(ordersListPath);
         if (!kraken.detect().isElementPresent(Elements.Admin.Shipments.placeholder())) {
             kraken.perform().click(Elements.Admin.Shipments.firstOrderInTable());

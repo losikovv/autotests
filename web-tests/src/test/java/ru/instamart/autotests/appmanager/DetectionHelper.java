@@ -548,11 +548,11 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить добавлен ли промокод в чекауте */
     public boolean isPromocodeApplied() {
-        if (kraken.detect().element(Elements.Checkout.appliedPromocodeAttribute())) {
-            verboseMessage("✓ Промокод применён\n");
+        if (kraken.detect().isElementPresent(Elements.Checkout.Promocode.removeButton())) {
+            debugMessage("✓ Промокод применён\n");
             return true;
         } else {
-            verboseMessage("Промокод не применён\n");
+            debugMessage("Промокод не применён\n");
             return false;
         }
     }

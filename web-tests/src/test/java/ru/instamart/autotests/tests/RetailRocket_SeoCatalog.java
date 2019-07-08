@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Widgets;
 import ru.instamart.autotests.appmanager.ShopHelper;
 
-import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
+import static ru.instamart.autotests.application.Config.testRetailRocket;
 
 public class RetailRocket_SeoCatalog extends TestBase {
 
@@ -22,7 +22,7 @@ public class RetailRocket_SeoCatalog extends TestBase {
         kraken.get().page("categories/ovoshchi-i-frukty");
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест наличия виджета 'выбор покупатлей' в сео каталоге",
             groups = {"acceptance", "regression"},
             priority = 11501
@@ -33,7 +33,7 @@ public class RetailRocket_SeoCatalog extends TestBase {
                     "Нет блока 'Выбор покупателей' в сео каталоге");
     }
 
-    @Test(enabled = enableRetailRocketTests,
+    @Test(enabled = testRetailRocket,
             description = "Тест открытия карточки товара из виджета 'Вы недавно смотрели'",
             groups = {"acceptance", "regression"},
             priority = 11502,

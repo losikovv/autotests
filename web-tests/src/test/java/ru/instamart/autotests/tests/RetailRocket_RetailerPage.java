@@ -8,7 +8,7 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Widgets;
 import ru.instamart.autotests.appmanager.ShopHelper;
 
-import static ru.instamart.autotests.application.Config.enableRetailRocketTests;
+import static ru.instamart.autotests.application.Config.testRetailRocket;
 
 public class RetailRocket_RetailerPage extends TestBase {
 
@@ -24,7 +24,7 @@ public class RetailRocket_RetailerPage extends TestBase {
         kraken.get().page("metro");
     }
 
-    @Test ( enabled = enableRetailRocketTests,
+    @Test ( enabled = testRetailRocket,
             description = "Тест наличия виджета 'Популярные товары' на главной",
             groups = {"acceptance","regression"},
             priority = 11001
@@ -36,7 +36,7 @@ public class RetailRocket_RetailerPage extends TestBase {
                     "Нет блока 'Популярные товары' на главной");
     }
 
-    @Test ( enabled = enableRetailRocketTests,
+    @Test ( enabled = testRetailRocket,
             description = "Тест наличия виджета 'Вы недавно смотрели' на главной",
             groups = {"acceptance","regression"},
             priority = 11002
@@ -48,7 +48,7 @@ public class RetailRocket_RetailerPage extends TestBase {
                     "Нет блока 'Вы недавно смотрели' на главной");
     }
 
-    @Test ( enabled = enableRetailRocketTests,
+    @Test ( enabled = testRetailRocket,
             description = "Тест успешного открытия карточки товара из виджета 'Популярные товары' на главной",
             groups = {"acceptance","regression"},
             priority = 11003,
@@ -62,7 +62,7 @@ public class RetailRocket_RetailerPage extends TestBase {
                     "Не открывается карточка товара из виджета 'Популярные товары' на главной");
     }
 
-    @Test ( enabled = enableRetailRocketTests,
+    @Test ( enabled = testRetailRocket,
             description = "Тест успешного открытия карточки товара из виджета 'Вы недавно смотрели' на главной",
             groups = {"acceptance","regression"},
             priority = 11004,
@@ -76,7 +76,7 @@ public class RetailRocket_RetailerPage extends TestBase {
                     "Не открывается карточка товара из виджета 'Вы недавно смотрели' на главной");
     }
 
-    @Test ( enabled = enableRetailRocketTests,
+    @Test ( enabled = testRetailRocket,
             description = "Тест успешного добавления товара из блока 'Популярные товары' на главной",
             groups = {"acceptance","regression"},
             priority = 11005,
@@ -92,7 +92,7 @@ public class RetailRocket_RetailerPage extends TestBase {
                     "Не добавляется в корзину товар из виджета 'Популярные товары' на главной");
     }
 
-    @Test ( enabled = enableRetailRocketTests,
+    @Test ( enabled = testRetailRocket,
             description = "Тест успешного добавления товара из блока 'Вы недавно смотрели' на главной",
             groups = {"acceptance","regression"},
             priority = 11006,

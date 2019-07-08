@@ -107,14 +107,14 @@ public class Playground extends TestBase {
     }
 
     @Test
-    public void cancelTestOrders() throws Exception {
+    public void cancelTestOrders() {
         kraken.cleanup().orders();
         Assert.assertFalse(kraken.detect().element(Elements.Admin.Shipments.placeholder()),
                 "Отменились не все тестовые заказы\n");
     }
 
     @Test
-    public void deleteTestUsers() throws Exception {
+    public void deleteTestUsers() {
         kraken.cleanup().users();
         Assert.assertFalse(kraken.detect().element(Elements.Admin.Users.userlistFirstRow()),
                 "Удалились не все тестовые юзеры\n");

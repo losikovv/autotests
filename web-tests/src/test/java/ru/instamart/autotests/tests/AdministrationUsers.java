@@ -11,7 +11,7 @@ import ru.instamart.autotests.appmanager.AdministrationHelper;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 
-import static ru.instamart.autotests.application.Config.enableAdministrationTests;
+import static ru.instamart.autotests.application.Config.testAdministration;
 
 public class AdministrationUsers extends TestBase {
 
@@ -20,7 +20,7 @@ public class AdministrationUsers extends TestBase {
         kraken.reach().admin();
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест поиска пользователя в админке",
             groups = {"acceptance","regression"},
             priority = 2701
@@ -33,7 +33,7 @@ public class AdministrationUsers extends TestBase {
                     "Не работает поиск пользователя в админке");
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест предоставления и отзыва админских прав пользователю",
             groups = {"regression"},
             priority = 2702
@@ -69,7 +69,7 @@ public class AdministrationUsers extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест смены пароля пользователю",
             groups = {"regression"},
             priority = 2703
@@ -92,7 +92,7 @@ public class AdministrationUsers extends TestBase {
         kraken.perform().quickLogout();
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест проставления пользователю флага B2B",
             groups = {"regression"},
             priority = 2704
@@ -111,7 +111,7 @@ public class AdministrationUsers extends TestBase {
                     "Пользователю не проставляется флаг B2B");
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест поиска B2B пользователя в админке",
             groups = {"regression"},
             priority = 2705
@@ -138,7 +138,7 @@ public class AdministrationUsers extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест снятия B2B флага у пользователя",
             groups = {"regression"},
             priority = 2706

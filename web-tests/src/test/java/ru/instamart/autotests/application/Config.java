@@ -23,19 +23,25 @@ public class Config {
     public final static boolean doCleanupAfterTestRun = true;
 
     // CONFIGURE TESTS
-    public final static boolean enableAdministrationTests = true;
-    public final static boolean enableSeoCatalogTests = false;
-    public final static boolean enableJivositeTests = true;
-    public final static boolean enableRetailRocketTests = false;
-    public final static boolean enablePage404Tests = true;
+    public final static boolean testAdministration = true;
+    public final static boolean testSeoCatalog = false;
+    public final static boolean testJivosite = true;
+    public final static boolean testRetailRocket = false;
+    public final static boolean testPage404 = true;
 
     // CONFIGURE ORDER TESTS
-    public final static boolean testRetailerOrders = true;
-    public final static boolean testCitiesOrders = false;
-    public final static boolean testReplacementsOrders = true;
-    public final static boolean testRepeatOrders = true;
+    public final static boolean testOrderRetailers = true;
+    public final static boolean testOrderCities = true;
+    public final static boolean testOrderReplacements = true;
+    public final static boolean testOrderRepeat = true;
     public final static boolean testOrderBonuses = true;
     public final static boolean testOrderRetailerBonuses = true;
+
+    // CONFIGURE PROMO TESTS
+    public final static boolean testPromocodes = true;
+    public final static boolean testPromocodesFreeDelivery = true;
+    public final static boolean testPromocodesFixedDiscount = true;
+    public final static boolean testPromocodesPercentDiscount = true;
 
     // COMPANY PARAMS
     public final static String companyName = "instamart";

@@ -9,7 +9,7 @@ import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.application.Config.testOrderRetailerBonuses;
 
-public class Order_RetailerBonuses extends TestBase {
+public class OrderRetailerBonuses extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() throws Exception {
