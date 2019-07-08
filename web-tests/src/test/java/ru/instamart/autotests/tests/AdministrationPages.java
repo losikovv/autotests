@@ -47,8 +47,9 @@ public class AdministrationPages extends TestBase{
         kraken.get().adminPage("pages");
         AdministrationHelper.Pages.createStaticPage(pageName, pageURL, desc);
         AdministrationHelper.Pages.validateStaticPage(pageName, pageURL);
-
         AdministrationHelper.Pages.editStaticPage(pageName);
         AdministrationHelper.Pages.deleteStaticPage(pageName);
+            // TODO проверить отсутствие страницы в списке в админке
+            // TODO добавить проверку что тестовая страничка - 404 на сайте
     }
 }

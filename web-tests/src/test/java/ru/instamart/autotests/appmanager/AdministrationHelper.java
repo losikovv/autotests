@@ -214,11 +214,17 @@ public class AdministrationHelper extends HelperBase {
             kraken.check().elementPresence(Elements.Admin.Pages.deletePageButton(name));
         }
 
+        public static void switchSourceEditor(){
+            kraken.await().implicitly(1); // ждём, пока прогрузится html-ка с описанием
+            kraken.perform().click(Elements.Admin.Pages.PageEditPage.pageDescriptionSourceButton()); // минутка магии в html-редакторе
+        }
+
         public static void validateStaticPage(String name){
             kraken.get().adminPage("pages/new");
 
-            kraken.await().implicitly(1); // ждём, пока прогрузится html-ка с описанием
-            kraken.perform().click(Elements.Admin.Pages.PageEditPage.pageDescriptionSourceButton()); // минутка магии в html-редакторе
+            kraken.check().elementPresence(Elements.Admin.Pages.PageEditPage.pageNameField());
+            kraken.check().elementPresence(Elements.Admin.Pages.PageEditPage.pageURLField());
+            Pages.switchSourceEditor();
             kraken.check().elementPresence(Elements.Admin.Pages.PageEditPage.pageDescriptionField());
             kraken.check().elementPresence(Elements.Admin.Pages.PageEditPage.pageNameField());
             kraken.check().elementPresence(Elements.Admin.Pages.PageEditPage.pageURLField());
@@ -226,26 +232,35 @@ public class AdministrationHelper extends HelperBase {
 
         public static void createStaticPage(String name, String URL, String desc){
             kraken.perform().click(Elements.Admin.Pages.newPageButton());
-
             kraken.perform().fillField(Elements.Admin.Pages.PageEditPage.pageNameField(), name);
             kraken.perform().fillField(Elements.Admin.Pages.PageEditPage.pageURLField(), URL);
-            kraken.perform().click(Elements.Admin.Pages.PageEditPage.pageDescriptionSourceButton()); // минутка магии в html-редакторе
+            Pages.switchSourceEditor();
             kraken.perform().fillField(Elements.Admin.Pages.PageEditPage.pageDescriptionField(), desc);
-
             kraken.perform().click(Elements.Admin.Pages.PageEditPage.savePageButton());
 
             kraken.check().elementPresence(Elements.Admin.Pages.tableEntry(name));
         }
 
         public static void editStaticPage(String name){
-            // TODO нажать кнопку редактирования, заполнить поля/потыкать чекбоксы, сохранить и выйти в список,
+            // TODO: поправить метод так, чтобы он хоть что-нибудь толковое проверял
+            String pageDesc = "Abra Kadabra Ahalai Mahalai";
+            kraken.perform().click(Elements.Admin.Pages.editPageButton(name));
+            // TODO: проверить, что зашли в редактрование той страницы
+//            if (kraken.grab().value(Elements.Admin.Pages.PageEditPage.pageNameField()) == name) {
+                Pages.switchSourceEditor();
+                kraken.perform().fillField(Elements.Admin.Pages.PageEditPage.pageDescriptionField(), pageDesc);
+                kraken.await().implicitly(1);
+                kraken.perform().click(Elements.Admin.Pages.PageEditPage.savePageButton());
+//            }
+/*            else {
+                message("Редактируем не ту страницу");
+            }
+*/
         }
 
         public static void deleteStaticPage(String name){
             kraken.perform().click(Elements.Admin.Pages.deletePageButton(name));
             kraken.perform().handleAlert();
-            // TODO проверить отсутствие страницы в списке
-            // TODO добавить проверку что тестовая страничка - 404
         }
 
         // проверяем существование статической страницы

@@ -1725,12 +1725,12 @@ public class Elements {
 
                 static ElementData pageNameField() {
                     return new ElementData(
-                            By.xpath("//*[@id='page_title']"), "заголовок страницы");
+                            By.xpath("//*[@id='page_title']"), "поле названия страницы");
                 }
 
                 static ElementData pageURLField() {
                     return new ElementData(
-                            By.xpath("//*[@id='page_slug']"), "ссылка на страницу");
+                            By.xpath("//*[@id='page_slug']"), "поле ссылки на страницу");
                 }
 
                 static ElementData pageDescriptionSourceButton() {
