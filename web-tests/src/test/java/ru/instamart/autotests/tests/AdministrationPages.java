@@ -4,7 +4,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.appmanager.AdministrationHelper;
 
-import static ru.instamart.autotests.application.Config.enableAdministrationTests;
+import static ru.instamart.autotests.application.Config.testAdministration;
 
 public class AdministrationPages extends TestBase{
 
@@ -13,7 +13,7 @@ public class AdministrationPages extends TestBase{
         kraken.reach().admin();
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Проверка вкладки статических страниц",
             groups = {"acceptance","regression"},
             priority = 2801
@@ -24,7 +24,7 @@ public class AdministrationPages extends TestBase{
         AdministrationHelper.Pages.validatePagesPage(testPageName);
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Проверка страницы создания статической страницы",
             groups = {"acceptance","regression"},
             priority = 2802
@@ -34,7 +34,7 @@ public class AdministrationPages extends TestBase{
         AdministrationHelper.Pages.validateStaticPage(testPageName);
     }
 
-    @Test(  enabled = enableAdministrationTests,
+    @Test(  enabled = testAdministration,
             description = "Тест создания и удаления статической страницы",
             groups = {"acceptance","regression"},
             priority = 2803

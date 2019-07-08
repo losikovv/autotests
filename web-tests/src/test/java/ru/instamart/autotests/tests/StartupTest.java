@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 
-public class TestInit extends TestBase {
+public class StartupTest extends TestBase {
 
     @Test(
             description = "Тест валидности элементов и ссылок лендинга",
