@@ -65,7 +65,8 @@ public class PerformHelper extends HelperBase {
         try {
             new Actions(driver).moveToElement(driver.findElement(locator)).perform();
             // Todo протестить
-                kraken.await().implicitly(1);
+                kraken.await().simply(1); // Ожидание для стабильности
+                //kraken.await().implicitly(1);
         }
         catch (ElementNotVisibleException v) {
             message("Невозможно навестись на элемент <" + locator

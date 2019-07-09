@@ -70,9 +70,10 @@ public class Cart extends TestBase {
         ShopHelper.Cart.close();
     }
 
+    // TODO починить изменение кол-ва товаров в корзине
     @Test(
             description = "Тест на изменение кол-ва товаров в корзине",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 623
     )
     public void successChangeItemQuantityInCart() {
@@ -102,9 +103,10 @@ public class Cart extends TestBase {
         softAssert.assertAll();
     }
 
+    // TODO починить тест
     @Test(
             description = "Тест на изменение кол-ва товаров в корзине через карточку товара",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 624
     )
     public void successChangeItemQuantityInCartViaItemCard() {

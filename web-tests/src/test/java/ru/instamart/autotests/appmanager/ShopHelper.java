@@ -365,6 +365,7 @@ public class ShopHelper extends HelperBase {
 
             /** Убрать верхний товар из корзины */
             public static void remove() {
+                kraken.await().simply(1); // Ожидание для стабильности
                 kraken.perform().hoverOn(Elements.Cart.item());
                 //TODO добавить fluent-ожидание
                 kraken.perform().click(Elements.Cart.itemRemoveButton());
@@ -373,18 +374,16 @@ public class ShopHelper extends HelperBase {
 
             /** Увеличить количество верхнего товара в корзине */
             public static void increaseQuantity() {
+                kraken.await().simply(1); // Ожидание для стабильности
                 kraken.perform().hoverOn(Elements.Cart.item());
-                // TODO протестить
-                    //kraken.await().implicitly(1);
                 kraken.perform().click(Elements.Cart.itemUpButton());
                 kraken.await().implicitly(1); // Ожидание увеличения количества товара в корзине
             }
 
             /** Уменьшить количество верхнего товара в корзине */
             public static void decreaseQuantity() {
+                kraken.await().simply(1); // Ожидание для стабильности
                 kraken.perform().hoverOn(Elements.Cart.item());
-                // TODO протестить
-                    //kraken.await().implicitly(1);
                 kraken.perform().click(Elements.Cart.itemDownButton());
                 kraken.await().implicitly(1); // Ожидание уменьшения количества товара в корзине
             }
