@@ -7,19 +7,19 @@ import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.appmanager.AdministrationHelper;
 import ru.instamart.autotests.appmanager.ShopHelper;
 
-import static ru.instamart.autotests.application.Config.testOrderRetailerBonuses;
+import static ru.instamart.autotests.application.Config.testOrderRetailerCards;
 
-public class OrderRetailerBonuses extends TestBase {
+public class OrderRetailerCards extends TestBase {
 
     @BeforeClass(alwaysRun = true)
-    public void setup() throws Exception {
+    public void setup() {
         kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.admin);
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
         kraken.drop().cart();
     }
 
-    @Test(  enabled = testOrderRetailerBonuses,
+    @Test(  enabled = testOrderRetailerCards,
             description = "Тест заказа с картой Метро (только WL)",
             groups = {"acceptance", "regression"},
             priority = 961
@@ -31,7 +31,7 @@ public class OrderRetailerBonuses extends TestBase {
         kraken.shopping().collectItems();
         ShopHelper.Cart.proceedToCheckout();
         
-        kraken.checkout().addLoyalty(LoyaltyPrograms.metro());
+        kraken.checkout().addRetailerCard(RetailerCards.metro());
         kraken.checkout().complete();
 
         String number = kraken.grab().currentOrderNumber();

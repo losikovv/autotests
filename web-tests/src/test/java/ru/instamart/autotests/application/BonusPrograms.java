@@ -1,14 +1,22 @@
 package ru.instamart.autotests.application;
 
-import ru.instamart.autotests.models.BonusProgramData;
+import ru.instamart.autotests.models.LoyaltiesData;
 
 public class BonusPrograms {
 
-    public static BonusProgramData mnogoru() {
-        return new BonusProgramData("Много.Ру","11600350",1);
+    public static LoyaltiesData mnogoru() {
+        return new LoyaltiesData(
+                "Много.Ру",
+                "11600350",
+                "бонусная карта Много.Ру"
+        );
     }
 
-    public static BonusProgramData aeroflot() {
-        return new BonusProgramData("Аэрофлот-Бонус","71891831",2);
+    public static LoyaltiesData aeroflot() {
+        return new LoyaltiesData(
+                "«Аэрофлот Бонус»",
+                "71891831",
+                "карта Аэрофлот Бонус"
+        );
     }
 }

@@ -1053,30 +1053,6 @@ public class Elements {
                 return new ElementData(By.cssSelector("div.payment-method:nth-child(" + option + ") > div:nth-child(1)"));
             }
 
-            static ElementData bonusProgramsSelector(int option) {
-                return new ElementData(By.xpath("//aside/div/div[3]/div[2]/div[" + option + "]"));
-            }
-
-            static ElementData bonusProgramsEditButton(int option) {
-                return new ElementData(By.xpath("/html/body/div[3]/div/form/div/aside/div/div[3]/div[2]/div[" + option + "]/div[2]"));
-            }
-
-            static ElementData deleteBonusProgramButton() {
-                return new ElementData(By.xpath("//*[@id='react-modal']/div/div[2]/div/div/div[2]/div/form/div[2]/div/div[1]/button"));
-            }
-
-            static ElementData loyaltyProgramsSelector() {  // Переделать когда появится выбор нескольких программ лояльности
-                return new ElementData(By.xpath("/html/body/div[3]/div/form/div/aside/div/div[4]/div[2]/div"));
-            }
-
-            static ElementData loyaltyProgramsEditButton() { // Переделать когда появится выбор несколбких программ лояльности
-                return new ElementData(By.xpath("/html/body/div[3]/div/form/div/aside/div/div[4]/div[2]/div/div[2]"));
-            }
-
-            static ElementData clearPromocodeButton() {
-                return new ElementData("Удалить", By.linkText("Удалить"));
-            }
-
             /** Селектор дней доставки */
             static ElementData deliveryDaySelector(int day) {
                 return new ElementData(By.cssSelector("div.panel-tab:nth-child(" + day + ")"));
@@ -1274,7 +1250,7 @@ public class Elements {
                                 "кнопка \"Применить промокод\" в чекауте");
                 }
 
-                static ElementData removeButton() {
+                static ElementData deleteButton() {
                     return new ElementData(
                             By.xpath("//aside//div[@class='promo-codes']//a[text()='Удалить']"),
                                 "кнопка удаления промокода в чекауте");
@@ -1327,9 +1303,172 @@ public class Elements {
                 }
             }
 
-            /** Программы лояльности */
-            static ElementData loyaltyPrograms() {
-                return new ElementData(By.xpath("/html/body/div[3]/div/form/div/aside/div/div[3]"));
+            interface Bonus {
+
+                static ElementData programsList() {
+                    return new ElementData(
+                            By.xpath("//aside//div[@class='loyalty-programs']"),
+                                "блок бонусных программ в чекауте");
+                }
+
+                interface Program {
+
+                    static ElementData snippet(String name) {
+                        return new ElementData(
+                                By.xpath("//aside//div[contains(@class,'loyalty-program')]//div[@class='loyalty-program__name' and text()='" + name + "']"),
+                                "бонусная программа " + name + " в чекауте");
+                    }
+
+                    static ElementData activeSnippet(String name) {
+                        return new ElementData(
+                                By.xpath("//aside//div[contains(@class,'loyalty-program--active')]//div[@class='loyalty-program__name' and text()='" + name + "']"),
+                                    "активная бонусная программа " + name + " в чекауте");
+                    }
+
+                    static ElementData addButton(String name) {
+                        return new ElementData(
+                                By.xpath("//aside//div[contains(@class,'loyalty-program')]//div[@class='loyalty-program__name' and text()='" + name + "']//following-sibling::div[text()='Добавить карту']"),
+                                    "кнопка добавления бонусной программы " + name + " в чекауте");
+                    }
+
+                    static ElementData editButton(String name) {
+                        return new ElementData(
+                                By.xpath("//aside//div[contains(@class,'loyalty-program')]//div[@class='loyalty-program__name' and text()='" + name + "']//ancestor::div[contains(@class,'loyalty-program')]//div[@class='loyalty-program__edit']"),
+                                    "кнопка редактирования бонусной программы " + name + " в чекауте");
+                    }
+                }
+
+                interface AddModal {
+
+                    static ElementData popup() {
+                        return new ElementData(
+                                By.xpath("//div[@class='modal-form__title' and text()='Добавить новую карту']//ancestor::div[@class='rc-modal__container']"),
+                                    "модалка добавления бонусной программы в чекауте");
+                    }
+
+                    static ElementData closeButton() {
+                        return new ElementData(
+                                By.xpath("//button[@class='rc-modal__close']"),
+                                    "крестик закрытия модалки добавления бонусной программы в чекауте");
+                    }
+
+                    static ElementData title() {
+                        return new ElementData(
+                                By.xpath("//div[@class='modal-form__title' and text()='Добавить новую карту']"),
+                                    "заголовок модалки добавления бонусной программы в чекауте");
+                    }
+
+                    static ElementData inputField() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//input[@placeholder='Номер карты']"),
+                                    "поле ввода номера карты бонусной программы");
+                    }
+
+                    static ElementData errorText() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//div[@class='checkout-input-error']"),
+                                    "текст ошибки добавления бонусной программы");
+                    }
+
+                    static ElementData cancelButton() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//button[text()='Отменить']"),
+                                    "кнопка \"Отменить\""
+                        );
+                    }
+
+                    static ElementData saveButton() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//button[text()='Сохранить']"),
+                                    "кнопка \"Сохранить\"");
+                    }
+                }
+
+                interface EditModal {
+
+                    static ElementData popup() {
+                        return new ElementData(
+                                By.xpath("//div[@class='modal-form__title' and text()='Ваша бонусная карта']//ancestor::div[@class='rc-modal__container']"),
+                                    "модалка редактирования бонусной программы в чекауте");
+                    }
+
+                    static ElementData closeButton() {
+                        return new ElementData(
+                                By.xpath("//button[@class='rc-modal__close']"),
+                                    "крестик закрытия модалки редактирования бонусной программы в чекауте");
+                    }
+
+                    static ElementData title() {
+                        return new ElementData(
+                                By.xpath("//div[@class='modal-form__title' and text()='Ваша бонусная карта']"),
+                                    "заголовок модалки редактирования бонусной программы в чекауте");
+                    }
+
+                    static ElementData inputField() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//input[@placeholder='Номер карты']"),
+                                    "поле ввода номера карты бонусной программы");
+                    }
+
+                    static ElementData errorText() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//div[@class='checkout-input-error']"),
+                                    "текст ошибки редактирования бонусной программы");
+                    }
+
+                    static ElementData deleteButton() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//button[text()='Удалить']"),
+                                    "кнопка \"Удалить\""
+                        );
+                    }
+
+                    static ElementData cancelButton() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//button[text()='Отменить']"),
+                                "кнопка \"Отменить\""
+                        );
+                    }
+
+                    static ElementData saveButton() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//button[text()='Сохранить']"),
+                                "кнопка \"Сохранить\"");
+                    }
+                }
+            }
+
+            interface SideBar {
+
+                static ElementData itemsTotal() {
+                    return new ElementData(
+                            By.xpath("//aside//button[text()='Оформить заказ']"),
+                                "сумма \"Товары\" в боковой колонке чекаута");
+                }
+
+                static ElementData discount() {
+                    return new ElementData(
+                            By.xpath("//aside//button[text()='Оформить заказ']"),
+                                "сумма скидки в боковой колонке чекаута");
+                }
+
+                static ElementData deliveryPrice() {
+                    return new ElementData(
+                            By.xpath("//aside//button[text()='Оформить заказ']"),
+                                "стоимость доставки в боковой колонке чекаута");
+                }
+
+                static ElementData subTotal() {
+                    return new ElementData(
+                            By.xpath("//aside//button[text()='Оформить заказ']"),
+                                "сумма \"Итого\" в боковой колонке чекаута");
+                }
+
+                static ElementData sendOrder() {
+                    return new ElementData(
+                            By.xpath("//aside//button[text()='Оформить заказ']"),
+                                "кнопка \"Оформить заказ\" в боковой колонке чекаута");
+                }
             }
         }
 

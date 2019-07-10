@@ -18,6 +18,20 @@ public class Order extends TestBase {
 
     // TODO переделать в тесты заказа новым пользоватеем (генерим нового, делаем заказ с новым телом,  с привязкой новой карты + повтор, заказ с новым юрлицом + повтор и все что тут есть)
 
+    // TODO successOrderWithCash
+
+    // TODO successOrderWithNewBankCard
+
+    // TODO successOrderWithCardCourier
+
+    // TODO successOrderWithNewJuridical
+
+    // TODO successOrderWithBonus
+
+    // TODO successOrderWithPromocode
+
+    // TODO successOrderWithDocumentsNeeded
+
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
         kraken.get().baseUrl();

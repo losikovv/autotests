@@ -20,7 +20,7 @@ public class Metro extends TestBase {
             groups = {"regression"},
             priority = 9001
     )
-    public void newTenantFooter() throws Exception {
+    public void newTenantFooter() {
         skipOn("instamart");
         kraken.get().baseUrl();
 
@@ -32,7 +32,7 @@ public class Metro extends TestBase {
             groups = {"regression"},
             priority = 9002
     )
-    public void outStoreSelectorOnTenant() throws Exception {
+    public void outStoreSelectorOnTenant() {
         skipOn("instamart");
         kraken.get().baseUrl();
 
@@ -44,7 +44,7 @@ public class Metro extends TestBase {
             groups = {"regression"},
             priority = 9003
     )
-    public void outContactsOnTenantProfile() throws Exception {
+    public void outContactsOnTenantProfile() {
         skipOn("instamart");
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
@@ -56,7 +56,7 @@ public class Metro extends TestBase {
             groups = {"regression"},
             priority = 9004
     )
-    public void outJivositeOnTenant() throws Exception {
+    public void outJivositeOnTenant() {
         skipOn("instamart");
         kraken.get().baseUrl();
 
@@ -68,7 +68,7 @@ public class Metro extends TestBase {
             groups = {"regression"},
             priority = 9005
     )
-    public void outJivositeOnTenantCheckout() throws Exception {
+    public void outJivositeOnTenantCheckout() {
         skipOn("instamart");
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
@@ -82,7 +82,7 @@ public class Metro extends TestBase {
             groups = {"regression"},
             priority = 9006
     )
-    public void outJivositeOnTenantOrders() throws Exception {
+    public void outJivositeOnTenantOrders() {
         skipOn("instamart");
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
@@ -96,7 +96,7 @@ public class Metro extends TestBase {
             groups = {"regression"},
             priority = 9007
     )
-    public void outJivositeOnTenantProfile() throws Exception {
+    public void outJivositeOnTenantProfile() {
         skipOn("instamart");
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
@@ -110,7 +110,7 @@ public class Metro extends TestBase {
             groups = {"regression"},
             priority = 9008
     )
-    public void outJivositeOnTenantFavoritesPage() throws Exception {
+    public void outJivositeOnTenantFavoritesPage() {
         skipOn("instamart");
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
@@ -124,7 +124,7 @@ public class Metro extends TestBase {
             groups = {"regression"},
             priority = 9009
     )
-    public void outJivositeOnTenantAddressesPage() throws Exception {
+    public void outJivositeOnTenantAddressesPage() {
         skipOn("instamart");
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
@@ -134,19 +134,21 @@ public class Metro extends TestBase {
                 "Виджет живосайт доступен на странице адресов юзера на деливери метро");
     }
 
-    @Test(  description = "Отсутствие программ лояльности в чекауте деливери метро",
-            groups = {"regression"},
+    @Test(  description = "Тест отсутствия бонусных программ в чекауте delivery.metro-cc",
+            groups = {"metro"},
             priority = 9010
     )
-    public void outLoyaltyProgramsOnTenantCheckout() throws Exception {
+    public void noBonusProgramsOnTenantCheckout() {
         skipOn("instamart");
         SoftAssert softAssert = new SoftAssert();
+
         kraken.get().baseUrl();
         kraken.perform().loginAs(session.user);
         kraken.reach().checkout();
 
-        softAssert.assertFalse(kraken.detect().isElementDisplayed(Elements.Checkout.loyaltyPrograms()),
-                "Программы лояльности доступны в чекауте деливери метро");
+        softAssert.assertFalse(
+                kraken.detect().isElementDisplayed(Elements.Checkout.Bonus.programsList()),
+                    "Программы лояльности доступны в чекауте delivery.metro-cc");
 
         kraken.get().baseUrl();
         kraken.drop().cart();

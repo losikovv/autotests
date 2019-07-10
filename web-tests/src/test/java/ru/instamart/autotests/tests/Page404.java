@@ -36,7 +36,7 @@ public class Page404 extends TestBase {
             priority = 10002
     )
     public void successGoToHomepage() throws AssertionError {
-        ShopHelper.Jivosite.open();
+        //ShopHelper.Jivosite.open();
 
         validateTransition(Elements.Page404.toHomeButton());
     }

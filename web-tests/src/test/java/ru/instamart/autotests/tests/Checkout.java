@@ -1,7 +1,7 @@
 package ru.instamart.autotests.tests;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
 
@@ -10,7 +10,7 @@ import static ru.instamart.autotests.application.BonusPrograms.mnogoru;
 
 public class Checkout extends TestBase {
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeClass(alwaysRun = true)
     public void preparingForCheckout() {
         kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.admin);
@@ -19,7 +19,7 @@ public class Checkout extends TestBase {
     //TODO successValidateCheckout (все элементы во всех шагах и модалках)
 
     @Test(
-            description = "Тест применения промокода в чекауте",
+            description = "Тест успешного применения промокода в чекауте",
             groups = {"acceptance","regression"},
             priority = 701
     )
@@ -80,7 +80,7 @@ public class Checkout extends TestBase {
     }
 
     @Test(
-            description = "Тест добавления программ лояльности в чекауте",
+            description = "Тест успешного добавления всех доступных бонусных программ в чекауте",
             groups = {"acceptance","regression"},
             priority = 705
     )
@@ -102,38 +102,102 @@ public class Checkout extends TestBase {
     }
 
     @Test(
-            description = "Тест выбора программы лояльности в чекауте",
+            description = "Тест выбора добавленных бонусных программ в чекауте",
             groups = {"regression"},
             priority = 706
     )
     public void successSelectBonusPrograms(){
-        kraken.reach().checkout();
-        kraken.checkout().selectBonus(mnogoru());
-        kraken.checkout().selectBonus(aeroflot());
-        // TODO добавить проверки на наличие модалок после выбора
-    }
-
-    @Test(
-            description = "Тест удаления программ лояльности в чекауте",
-            groups = {"acceptance","regression"},
-            priority = 707
-    )
-    public void successClearBonusPrograms(){
         skipOn("metro");
         kraken.reach().checkout();
 
-        kraken.checkout().clearBonus(mnogoru());
+        kraken.checkout().addBonus(mnogoru());
+        kraken.checkout().addBonus(aeroflot());
+
+        kraken.checkout().selectBonus(mnogoru());
+
+        Assert.assertTrue(
+                kraken.detect().isBonusActive(mnogoru()),
+                    "Не выбирается бонусная программа " + mnogoru().getName() + " в чекауте\n");
+
+        kraken.checkout().selectBonus(aeroflot());
+
+        Assert.assertTrue(
+                kraken.detect().isBonusActive(aeroflot()),
+                    "Не выбирается бонусная программа " + aeroflot().getName() + " в чекауте\n");
+    }
+
+    @Test(
+            description = "Тест удаления всех бонусных программ в чекауте",
+            groups = {"acceptance","regression"},
+            priority = 707
+    )
+    public void successDeleteBonusPrograms(){
+        skipOn("metro");
+        kraken.reach().checkout();
+
+        kraken.checkout().deleteBonus(mnogoru());
+
         Assert.assertFalse(
                 kraken.detect().isBonusAdded(mnogoru()),
                     "Не удаляется бонусная программа " + mnogoru().getName() + " в чекауте");
 
-        kraken.checkout().clearBonus(aeroflot());
+        kraken.checkout().deleteBonus(aeroflot());
+
         Assert.assertFalse(
                 kraken.detect().isBonusAdded(aeroflot()),
                     "Не удаляется бонусная программа " + aeroflot().getName() + " в чекауте");
     }
 
-    //TODO successAddRetailerBonusProgram
+    // TODO расширить тесты бонусных программ
 
-    //TODO successClearRetailerBonusProgram
+        // TODO public void noAddBonusProgramOnCancel() {}
+
+        // TODO public void noAddBonusProgramOnModalClose() {}
+
+        // TODO public void noAddBonusProgramWithEmptyCardNumber() {}
+
+        // TODO public void noAddBonusProgramWithWrongCardNumber() {}
+
+        // TODO public void successEditBonusProgram() {}
+
+        // TODO public void noEditBonusProgramOnCancel() {}
+
+        // TODO public void noEditBonusProgramOnModalClose() {}
+
+        // TODO public void noEditBonusProgramWithSameCardNumber() {}
+
+        // TODO public void noEditBonusProgramWithEmptyCardNumber() {}
+
+        // TODO public void noDeleteBonusProgramOnCancel() {}
+
+        // TODO public void noDeleteBonusProgramOnModalClose() {}
+
+
+    // TODO написать тесты добавления карты ритейлера
+
+        // TODO public void successAddRetailerCard {}
+
+        // TODO public void noAddRetailerCardOnCancel {}
+
+        // TODO public void noAddRetailerCardOnModalClose {}
+
+        // TODO public void noAddRetailerCardWithWrongNumber {}
+
+        // TODO public void noAddRetailerCardWithEmptyNumber {}
+
+        // TODO public void successEditRetailerCard {}
+
+        // TODO public void noEditRetailerCardOnCancel {}
+
+        // TODO public void noEditRetailerCardOnModalClose {}
+
+        // TODO public void noEditRetailerCardWithSameCardNumber() {}
+
+        // TODO public void noEditRetailerCardWithEmptyCardNumber() {}
+
+        // TODO public void successDeleteRetailerCard {}
+
+        // TODO public void noDeleteRetailerCardOnCancel() {}
+
+        // TODO public void noDeleteRetailerCardOnModalClose() {}
 }

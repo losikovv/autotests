@@ -59,7 +59,7 @@ public class CheckoutHelper extends HelperBase {
         fillOrderDetails(orderDetails);
         if(orderDetails.getPromocode() != null) {addPromocode(orderDetails.getPromocode());}
         if(orderDetails.getBonus() != null) {addBonus(orderDetails.getBonus());}
-        if(orderDetails.getLoyalty() != null) { addLoyalty(orderDetails.getLoyalty());}
+        if(orderDetails.getRetailerCard() != null) { addRetailerCard(orderDetails.getRetailerCard());}
         sendOrder();
         if(orderDetails.getPaymentDetails().getPaymentType().getDescription().equalsIgnoreCase(PaymentTypes.cardOnline().getDescription())) {
             cloudpaymentsFlow();
@@ -228,52 +228,79 @@ public class CheckoutHelper extends HelperBase {
             addPromocode(Promo.freeOrderDelivery());
         }
         message("Удаляем промокод...");
-        kraken.perform().click(Elements.Checkout.Promocode.removeButton());
+        kraken.perform().click(Elements.Checkout.Promocode.deleteButton());
         kraken.await().implicitly(1); // Ожидание удаления промокода в чекауте
     }
 
-    /** Добавляем бонус */
-    public void addBonus(BonusProgramData bonus) {
+    /** Добавляем бонусную программу */
+    public void addBonus(LoyaltiesData bonus) {
         if (kraken.detect().isBonusAdded(bonus)) {
-            clearBonus(bonus);
+            deleteBonus(bonus);
         }
-        message("Добавляем бонус \"" + bonus.getName() + "\"");
-        kraken.perform().click(Elements.Checkout.bonusProgramsSelector(bonus.getPosition()));
-        kraken.perform().fillField(By.name("number"), bonus.getCardNumber() + "\uE007");
-        kraken.await().implicitly(1); // Ожидание применения бонуса в чекауте
+        verboseMessage("Добавляем бонусную программу " + bonus.getName());
+        kraken.perform().click(Elements.Checkout.Bonus.Program.addButton(bonus.getName()));
+        kraken.perform().fillField(Elements.Checkout.Bonus.AddModal.inputField(),bonus.getCardNumber());
+        kraken.perform().click(Elements.Checkout.Bonus.AddModal.saveButton());
+        kraken.await().implicitly(1); // Ожидание добавления бонусной программы в чекауте
     }
 
-    /** Выбираем бонус в списке добавленных */
-    public void selectBonus(BonusProgramData bonus) {
-        kraken.perform().click(Elements.Checkout.bonusProgramsSelector(bonus.getPosition()));
-        kraken.await().implicitly(1); // Ожидание выбора бонусной программы в чекауте
-    }
-
-    /** Удаляем бонус */
-    public void clearBonus(BonusProgramData bonus) {
-        message("Удаляем бонусную программу \"" + bonus.getName() + "\"");
-        kraken.perform().click(Elements.Checkout.bonusProgramsEditButton(bonus.getPosition()));
-        kraken.perform().click(Elements.Checkout.deleteBonusProgramButton());
-        kraken.await().implicitly(1); // Ожидание удаления программы лояльности в чекауте
-    }
-
-    /** Добавляем программу лояльности */
-    public void addLoyalty(LoyaltyProgramData loyalty) {
-        if (kraken.detect().isLoyaltyAdded()) {
-            clearLoyalty();
+    /** Редактируем бонусную программу */
+    public void editBonus(LoyaltiesData bonus) throws AssertionError {
+        if (kraken.detect().isBonusAdded(bonus)) {
+            verboseMessage("Редактируем бонусную программу " + bonus.getName());
+            kraken.perform().click(Elements.Checkout.Bonus.Program.addButton(bonus.getName()));
+            kraken.perform().fillField(Elements.Checkout.Bonus.AddModal.inputField(),bonus.getCardNumber());
+            kraken.perform().click(Elements.Checkout.Bonus.AddModal.saveButton());
+            kraken.await().implicitly(1); // Ожидание редактирования бонусной программы в чекауте
+        } else {
+            throw new AssertionError("Невозможно отредактировать бонусную программу " + bonus.getName() + ", так как она не добавлена");
         }
-        message("Добавляем программу лояльности \"" + loyalty.getName() + "\"");
-        kraken.perform().click(Elements.Checkout.loyaltyProgramsSelector());
-        kraken.perform().fillField(By.name("number"), loyalty.getCardNumber() + "\uE007");
-        kraken.await().implicitly(1); // Ожидание применения программы лояльности ритейлера в чекауте
     }
 
-    /** Удаляем программу лояльности */
-    public void clearLoyalty() {
-        message("Удаляем программу лояльности");
-        kraken.perform().click(Elements.Checkout.loyaltyProgramsEditButton());
-        kraken.perform().click(Elements.Checkout.deleteBonusProgramButton());
-        kraken.await().implicitly(1); // Ожидание удаления программы лояльности ритейлера в чекауте
+    /** Выбираем бонусную программу в списке добавленных */
+    public void selectBonus(LoyaltiesData bonus) throws AssertionError {
+        if (kraken.detect().isBonusAdded(bonus)) {
+            verboseMessage("Выбираем бонусную программу " + bonus.getName());
+            kraken.perform().click(Elements.Checkout.Bonus.Program.snippet(bonus.getName()));
+            kraken.await().simply(1); // Ожидание выбора бонусной программы в чекауте
+        } else {
+            throw new AssertionError("Невозможно выбрать бонусную программу " + bonus.getName() + ", так как она не добавлена");
+        }
+    }
+
+    /** Удаляем бонусную программу */
+    public void deleteBonus(LoyaltiesData bonus) throws AssertionError {
+        if (kraken.detect().isBonusAdded(bonus)) {
+            verboseMessage("Удаляем бонусную программу " + bonus.getName());
+            kraken.perform().click(Elements.Checkout.Bonus.Program.editButton(bonus.getName()));
+            kraken.perform().click(Elements.Checkout.Bonus.EditModal.deleteButton());
+            kraken.await().implicitly(1); // Ожидание удаления программы лояльности в чекауте
+        } else {
+            throw new AssertionError("Невозможно удалить бонусную программу " + bonus.getName() + ", так как она не добавлена");
+        }
+    }
+
+    // TODO переделать
+    /** Добавляем карту ритейлера */
+    public void addRetailerCard(LoyaltiesData card) {
+        if (kraken.detect().isRetailerCardAdded()) {
+            deleteRetailerCard();
+        }
+        message("Добавляем карту ритейлера \"" + card.getName() + "\"");
+        //kraken.perform().click(Elements.Checkout.loyaltyProgramsSelector());
+        //kraken.perform().fillField(By.name("number"), card.getCardNumber() + "\uE007");
+        kraken.await().implicitly(1); // Ожидание добавления карты ритейлера в чекауте
+    }
+
+    //TODO public void editRetailerCard(LoyaltiesData retailerCard) {
+
+    // TODO переделать
+    /** Удаляем карту ритейлера */
+    public void deleteRetailerCard() {
+        message("Удаляем карту ритейлера");
+        //kraken.perform().click(Elements.Checkout.loyaltyProgramsEditButton());
+        //kraken.perform().click(Elements.Checkout.deleteBonusProgramButton());
+        kraken.await().implicitly(1); // Ожидание удаления карты ритейлера в чекауте
     }
 
     /** Проверяем готовность чекаута перед заполнением */

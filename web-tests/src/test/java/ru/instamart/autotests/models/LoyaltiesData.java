@@ -1,15 +1,15 @@
 package ru.instamart.autotests.models;
 
-public class LoyaltyProgramData {
+public class LoyaltiesData {
 
     private final String name;
     private final String cardNumber;
-    private final int position;
+    private final String description;
 
-    public LoyaltyProgramData(String name, String cardNumber, int position) {
+    public LoyaltiesData(String name, String cardNumber, String description) {
         this.name = name;
         this.cardNumber = cardNumber;
-        this.position = position;
+        this.description = description;
     }
 
     public String getName() {
@@ -20,7 +20,7 @@ public class LoyaltyProgramData {
         return cardNumber;
     }
 
-    public int getPosition() {
-        return position;
+    public String getDescription() {
+        return description;
     }
 }

@@ -548,7 +548,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить добавлен ли промокод в чекауте */
     public boolean isPromocodeApplied() {
-        if (kraken.detect().isElementPresent(Elements.Checkout.Promocode.removeButton())) {
+        if (kraken.detect().isElementPresent(Elements.Checkout.Promocode.deleteButton())) {
             debugMessage("✓ Промокод применён\n");
             return true;
         } else {
@@ -557,14 +557,17 @@ public class DetectionHelper extends HelperBase {
         }
     }
 
-    public boolean isBonusAdded(BonusProgramData bonus) {
-        return isElementPresent(Elements.Checkout.bonusProgramsEditButton(bonus.getPosition()));
-        //return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + bonus.getPosition() + "]/div[2]")); // TODO вынести в  Elements
+    public boolean isBonusAdded(LoyaltiesData bonus) {
+        return isElementPresent(Elements.Checkout.Bonus.Program.editButton(bonus.getName()));
     }
 
-    public boolean isLoyaltyAdded() {
-        return isElementPresent(Elements.Checkout.loyaltyProgramsEditButton()); // Переделать когдая появится несколько программ лояльности
-        //return isElementPresent(By.xpath("//aside/div/div[3]/div[2]/div[" + loyalty.getPosition() + "]/div[2]")); // TODO вынести в  Elements
+    public boolean isBonusActive(LoyaltiesData bonus) {
+        return isElementPresent(Elements.Checkout.Bonus.Program.activeSnippet(bonus.getName()));
+    }
+
+    public boolean isRetailerCardAdded() {
+        //return isElementPresent(Elements.Checkout.loyaltyProgramsEditButton()); // Переделать
+        return false;
     }
 
 

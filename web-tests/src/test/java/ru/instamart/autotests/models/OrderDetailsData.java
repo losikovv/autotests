@@ -10,10 +10,10 @@ public class OrderDetailsData {
     private PaymentDetailsData paymentDetails;
     private DeliveryTimeData deliveryTime;
     private String promocode;
-    private BonusProgramData bonus;
-    private LoyaltyProgramData loyalty;
+    private LoyaltiesData bonus;
+    private LoyaltiesData retailerCard;
 
-    public OrderDetailsData(AddressDetailsData addressDetails, ContactsDetailsData contactsDetails, ReplacementPolicyData replacementPolicy, PaymentDetailsData paymentDetails, DeliveryTimeData deliveryTime, String promocode, BonusProgramData bonus, LoyaltyProgramData retailerBonus) {
+    public OrderDetailsData(AddressDetailsData addressDetails, ContactsDetailsData contactsDetails, ReplacementPolicyData replacementPolicy, PaymentDetailsData paymentDetails, DeliveryTimeData deliveryTime, String promocode, LoyaltiesData bonus, LoyaltiesData retailerCard) {
         this.addressDetails = addressDetails;
         this.contactsDetails = contactsDetails;
         this.replacementPolicy = replacementPolicy;
@@ -21,7 +21,7 @@ public class OrderDetailsData {
         this.deliveryTime = deliveryTime;
         this.promocode = promocode;
         this.bonus = bonus;
-        this.loyalty = retailerBonus;
+        this.retailerCard = retailerCard;
     }
 
     public OrderDetailsData(AddressDetailsData addressDetails, ContactsDetailsData contactsDetails, ReplacementPolicyData replacementPolicy, PaymentDetailsData paymentDetails, DeliveryTimeData deliveryTime) {
@@ -56,12 +56,13 @@ public class OrderDetailsData {
         this.promocode = promocode;
     }
 
-    public OrderDetailsData(BonusProgramData bonus) {
+    public OrderDetailsData(LoyaltiesData bonus) {
         this.bonus = bonus;
     }
 
-    public OrderDetailsData(LoyaltyProgramData retailerBonus) {
-        this.loyalty = retailerBonus;
+    public OrderDetailsData(LoyaltiesData bonus, LoyaltiesData retailerCard) {
+        this.bonus = bonus;
+        this.retailerCard = retailerCard;
     }
 
     public OrderDetailsData() {
@@ -128,55 +129,27 @@ public class OrderDetailsData {
         this.paymentDetails = new PaymentDetailsData (paymentType);
     }
 
-    public void setPaymentDetails(PaymentDetailsData paymentDetails) {
-        this.paymentDetails = paymentDetails;
-    }
-
     public PaymentDetailsData getPaymentDetails() {
         return paymentDetails;
     }
 
-
-
     public void setDeliveryTime(int day, int slot) {
         this.deliveryTime = new DeliveryTimeData(day,slot);
-    }
-
-    public void setDeliveryTime(DeliveryTimeData deliveryTime) {
-        this.deliveryTime = deliveryTime;
     }
 
     public DeliveryTimeData getDeliveryTime() {
         return deliveryTime;
     }
 
-
-
-    public void setPromocode (String promocode) {
-        this.promocode = promocode;
-    }
-
     public String getPromocode() {
         return promocode;
     }
 
-
-
-    public void setBonus(BonusProgramData bonus) {
-        this.bonus = bonus;
-    }
-
-    public BonusProgramData getBonus() {
+    public LoyaltiesData getBonus() {
         return bonus;
     }
 
-
-
-    public void setLoyalty(LoyaltyProgramData loyalty) {
-        this.loyalty = loyalty;
-    }
-
-    public LoyaltyProgramData getLoyalty() {
-        return loyalty;
+    public LoyaltiesData getRetailerCard() {
+        return retailerCard;
     }
 }
