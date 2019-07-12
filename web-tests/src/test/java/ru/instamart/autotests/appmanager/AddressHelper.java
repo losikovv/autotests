@@ -71,19 +71,23 @@ public class AddressHelper extends HelperBase {
     }
 
     /**
-     * Открыть модалку адреса
+     * Открыть модалку ввода адреса
      */
     public void openAddressModal() {
         if (kraken.detect().isAddressModalOpen()) {
-            message("Пропускаем открытие модалки адреса, она уже открыта");
+            debugMessage("Пропускаем открытие модалки адреса, она уже открыта");
         } else {
             kraken.perform().click(Elements.Header.shipAddressButton());
-            kraken.await().implicitly(1); // Ожидание анимации открытия адресной модалки
+            kraken.await().simply(1); // Ожидание анимации открытия адресной модалки
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            Elements.Modals.AddressModal.popup().getLocator()),
+                                "Не открылась модалка ввода адреса доставки\n");
         }
     }
 
     /**
-     * Очисить поле в адресной модалке
+     * Очистить поле в адресной модалке
      */
     public void clearAddressField() {
         kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), "");
@@ -94,6 +98,11 @@ public class AddressHelper extends HelperBase {
      */
     public void fill(String address) {
         kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), address);
+        kraken.await().fluently(
+                ExpectedConditions.visibilityOfElementLocated(
+                        Elements.Modals.AddressModal.addressSuggest().getLocator()),
+                            "Не подтянулись адресные подсказки\n"
+        );
         selectAddressSuggest();
     }
 

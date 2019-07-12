@@ -298,13 +298,13 @@ public class ShopHelper extends HelperBase {
                 kraken.perform().click(Elements.ItemCard.addToFavoritesButton());
                 kraken.await().implicitly(1); // Ожидание добавления любимого товара
             } else {
-                message("⚠ Нет кнопки добавления любимого товара");
+                throw new AssertionError("⚠ Нет кнопки добавления любимого товара\n");
             }
         }
 
         /** Закрыть карточку товара */
         public static void close() {
-            verboseMessage("> закрываем карточку товара");
+            debugMessage("> закрываем карточку товара");
             kraken.perform().click(Elements.ItemCard.closeButton());
             kraken.await().implicitly(1); // Ожидание анимации закрытия карточки товара
             kraken.await().fluently(
@@ -320,7 +320,7 @@ public class ShopHelper extends HelperBase {
                 kraken.perform().refresh(); // Доджим рандомные подвисания, из-за которых иногда не сразу открывается корзина
                 debugMessage("> открываем корзину");
                 kraken.perform().click(Elements.Header.cartButton());
-                kraken.await().simply(1); // Ожидание анимации открытия корзины
+                kraken.await().implicitly(1); // Ожидание анимации открытия корзины
                 kraken.await().fluently(
                         ExpectedConditions.elementToBeClickable(
                                 Elements.Cart.closeButton().getLocator()),

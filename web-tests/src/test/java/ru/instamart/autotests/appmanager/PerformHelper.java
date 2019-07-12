@@ -51,7 +51,7 @@ public class PerformHelper extends HelperBase {
         }
         catch (ElementNotVisibleException v) {
             message("Невозможно нажать на элемент <" + locator
-                    + ">\nЭлемент не отображается на " + kraken.grab().currentURL() + "\n");
+                    + ">\nЭлемент невидим на " + kraken.grab().currentURL() + "\n");
         }
     }
 
