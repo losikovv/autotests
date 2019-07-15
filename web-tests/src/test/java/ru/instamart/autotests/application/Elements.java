@@ -1295,7 +1295,7 @@ public class Elements {
                         );
                     }
 
-                    static ElementData applyButton() {
+                    static ElementData submitButton() {
                         return new ElementData(
                                 By.xpath("//div[@class='rc-modal__body']//button[text()='Добавить код']"),
                                     "кнопка \"Добавить код\"");

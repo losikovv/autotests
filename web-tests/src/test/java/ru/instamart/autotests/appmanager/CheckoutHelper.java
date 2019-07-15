@@ -57,7 +57,7 @@ public class CheckoutHelper extends HelperBase {
 
     public void makeOrder(OrderDetailsData orderDetails) {
         fillOrderDetails(orderDetails);
-        if(orderDetails.getPromocode() != null) {addPromocode(orderDetails.getPromocode());}
+        if(orderDetails.getPromocode() != null) {Promocode.add(orderDetails.getPromocode());}
         if(orderDetails.getBonus() != null) {Bonuses.add(orderDetails.getBonus());}
         if(orderDetails.getRetailerCard() != null) { addRetailerCard(orderDetails.getRetailerCard());}
         sendOrder();
@@ -203,35 +203,92 @@ public class CheckoutHelper extends HelperBase {
         kraken.await().implicitly(3); // Ожидание применения слота доставки в чекауте
     }
 
-    /** Добавляем промокод */
-    public void addPromocode(PromoData promo) {
-        verboseMessage("Акция " + promo.getDescription());
-        addPromocode(promo.getCode());
-    }
+    /** Промокод */
+    public static class Promocode {
 
-    public void addPromocode(String promocode) {
-        if (kraken.detect().isPromocodeApplied()) {
-            verboseMessage("Уже есть применённый промокод, поэтому сначала удаляем его... ");
-            clearPromocode();
+        /** Применить промокод по акции */
+        public static void add(PromoData promo) {
+            verboseMessage("Акция " + promo.getDescription());
+            add(promo.getCode());
         }
-        kraken.perform().click(Elements.Checkout.Promocode.addButton());
-        message("Применяем промокод '" + promocode + "'...");
-        kraken.perform().fillField(Elements.Checkout.Promocode.Modal.inputField(), promocode);
-        kraken.perform().click(Elements.Checkout.Promocode.Modal.applyButton());
-        kraken.await().implicitly(1); // Ожидание применения промокода в чекауте
-    }
 
-    /** Удаляем промокод */
-    public void clearPromocode() {
-        if (!kraken.detect().isPromocodeApplied()) {
-            verboseMessage("Промокод не применён, применяем тестовый");
-            addPromocode(Promo.freeOrderDelivery());
+        /** Применить промокод */
+        public static void add(String promocode) {
+            if (kraken.detect().isPromocodeApplied()) {
+                verboseMessage("Уже есть применённый промокод, поэтому сначала удаляем его... ");
+                delete();
+            }
+            kraken.perform().click(Elements.Checkout.Promocode.addButton());
+            message("Применяем промокод '" + promocode + "'...");
+            kraken.perform().fillField(Elements.Checkout.Promocode.Modal.inputField(), promocode);
+            kraken.perform().click(Elements.Checkout.Promocode.Modal.submitButton());
+            kraken.await().implicitly(1); // Ожидание применения промокода в чекауте
+            // TODO добавить fluent-ожидание
         }
-        message("Удаляем промокод...");
-        kraken.perform().click(Elements.Checkout.Promocode.deleteButton());
-        kraken.await().implicitly(1); // Ожидание удаления промокода в чекауте
+
+        /** Удалить промокод */
+        public static void delete() throws AssertionError {
+            if (kraken.detect().isPromocodeApplied()) {
+                verboseMessage("Удаляем промокод...");
+                kraken.perform().click(Elements.Checkout.Promocode.deleteButton());
+                kraken.await().implicitly(1); // Ожидание удаления промокода в чекауте
+                // TODO добавить fluent-ожидание
+            } else {
+                throw new AssertionError("Невозможно удалить промокод, так как он не применен");
+            }
+        }
+
+        /** Операции c модалкой промокода */
+        public static class Modal {
+
+            /** Открыть модалку */
+            public static void open() {
+                if (kraken.detect().isElementPresent(Elements.Checkout.Promocode.addButton())) {
+                    kraken.perform().click(Elements.Checkout.Promocode.addButton());
+                } else {
+                    throw new AssertionError("Невозможно открыть модалку ввода промокода, так как в данный момент применен промокод");
+                }
+            }
+
+            /** Закрыть модалку */
+            public static void fill(String promocode) {
+                if (kraken.detect().isElementPresent(Elements.Checkout.Promocode.Modal.popup())) {
+                    kraken.perform().fillField(Elements.Checkout.Promocode.Modal.inputField(), promocode);
+                } else {
+                    throw new AssertionError("Невозможно ввести промокод, так как не открыта модалка промокода");
+                }
+            }
+
+            /** Засубмитить модалку кнопкой "Добавить код" */
+            public static void submit() {
+                if (kraken.detect().isElementPresent(Elements.Checkout.Promocode.Modal.popup())) {
+                    kraken.perform().click(Elements.Checkout.Promocode.Modal.submitButton());
+                } else {
+                    throw new AssertionError("Невозможно нажать кнопку \"Отмена\", так как не открыта модалка промокода");
+                }
+            }
+
+            /** Закрыть модалку кнопкой "Отмена" */
+            public static void cancel() {
+                if (kraken.detect().isElementPresent(Elements.Checkout.Promocode.Modal.popup())) {
+                    kraken.perform().click(Elements.Checkout.Promocode.Modal.cancelButton());
+                } else {
+                    throw new AssertionError("Невозможно нажать кнопку \"Отмена\", так как не открыта модалка промокода");
+                }
+            }
+
+            /** Закрыть модалку */
+            public static void close() {
+                if (kraken.detect().isElementPresent(Elements.Checkout.Promocode.Modal.popup())) {
+                    kraken.perform().click(Elements.Checkout.Promocode.Modal.closeButton());
+                } else {
+                    debugMessage("Пропускаем закрытие модалки промокода, так как она не открыта");
+                }
+            }
+        }
     }
 
+    /** Бонусные программы */
     public static class Bonuses {
 
         /** Добавление бонусной программы */
