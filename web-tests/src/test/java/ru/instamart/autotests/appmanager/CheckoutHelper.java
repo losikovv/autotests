@@ -234,14 +234,12 @@ public class CheckoutHelper extends HelperBase {
 
     /** Добавляем бонусную программу */
     public void addBonus(LoyaltiesData bonus) {
-        if (kraken.detect().isBonusAdded(bonus)) {
-            deleteBonus(bonus);
-        }
         verboseMessage("Добавляем бонусную программу " + bonus.getName());
         kraken.perform().click(Elements.Checkout.Bonus.Program.addButton(bonus.getName()));
-        kraken.perform().fillField(Elements.Checkout.Bonus.AddModal.inputField(),bonus.getCardNumber());
-        kraken.perform().click(Elements.Checkout.Bonus.AddModal.saveButton());
+        kraken.perform().fillField(Elements.Checkout.Bonus.Modal.inputField(),bonus.getCardNumber());
+        kraken.perform().click(Elements.Checkout.Bonus.Modal.saveButton());
         kraken.await().implicitly(1); // Ожидание добавления бонусной программы в чекауте
+        // TODO добавить fluent-ожидание
     }
 
     /** Редактируем бонусную программу */
@@ -249,9 +247,10 @@ public class CheckoutHelper extends HelperBase {
         if (kraken.detect().isBonusAdded(bonus)) {
             verboseMessage("Редактируем бонусную программу " + bonus.getName());
             kraken.perform().click(Elements.Checkout.Bonus.Program.addButton(bonus.getName()));
-            kraken.perform().fillField(Elements.Checkout.Bonus.AddModal.inputField(),bonus.getCardNumber());
-            kraken.perform().click(Elements.Checkout.Bonus.AddModal.saveButton());
+            kraken.perform().fillField(Elements.Checkout.Bonus.Modal.inputField(),bonus.getCardNumber());
+            kraken.perform().click(Elements.Checkout.Bonus.Modal.saveButton());
             kraken.await().implicitly(1); // Ожидание редактирования бонусной программы в чекауте
+            // TODO добавить fluent-ожидание
         } else {
             throw new AssertionError("Невозможно отредактировать бонусную программу " + bonus.getName() + ", так как она не добавлена");
         }
@@ -273,10 +272,30 @@ public class CheckoutHelper extends HelperBase {
         if (kraken.detect().isBonusAdded(bonus)) {
             verboseMessage("Удаляем бонусную программу " + bonus.getName());
             kraken.perform().click(Elements.Checkout.Bonus.Program.editButton(bonus.getName()));
-            kraken.perform().click(Elements.Checkout.Bonus.EditModal.deleteButton());
+            kraken.perform().click(Elements.Checkout.Bonus.Modal.deleteButton());
             kraken.await().implicitly(1); // Ожидание удаления программы лояльности в чекауте
+            // TODO добавить fluent-ожидание
         } else {
             throw new AssertionError("Невозможно удалить бонусную программу " + bonus.getName() + ", так как она не добавлена");
+        }
+    }
+
+    /** Удаляем все добавленные бонусные программы */
+    public void deleteAllBonuses() {
+        verboseMessage("Удаляем все бонусные программы в чекауте\n");
+        if (kraken.detect().isBonusAdded(BonusPrograms.mnogoru())) {
+            deleteBonus(BonusPrograms.mnogoru());
+        }
+        if (kraken.detect().isBonusAdded(BonusPrograms.aeroflot())) {
+            deleteBonus(BonusPrograms.aeroflot());
+        }
+    }
+
+    public void closeBonusModal() {
+        if(kraken.detect().isElementPresent(Elements.Checkout.Bonus.Modal.popup())) {
+            kraken.perform().click(Elements.Checkout.Bonus.Modal.closeButton());
+        } else {
+            debugMessage("Пропускаем закрытие бонусной модалки, она не открыта\n");
         }
     }
 

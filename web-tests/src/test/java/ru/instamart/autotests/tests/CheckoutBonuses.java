@@ -1,6 +1,5 @@
 package ru.instamart.autotests.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -26,6 +25,7 @@ public class CheckoutBonuses extends TestBase {
         skipOn("metro");
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
+        kraken.checkout().deleteAllBonuses();
 
         kraken.checkout().addBonus(mnogoru());
 
@@ -59,6 +59,7 @@ public class CheckoutBonuses extends TestBase {
         skipOn("metro");
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
+        kraken.checkout().deleteAllBonuses();
 
         kraken.checkout().addBonus(mnogoru());
         kraken.checkout().addBonus(aeroflot());
@@ -87,6 +88,7 @@ public class CheckoutBonuses extends TestBase {
         skipOn("metro");
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
+        kraken.checkout().deleteAllBonuses();
 
         kraken.checkout().addBonus(mnogoru());
         kraken.checkout().deleteBonus(mnogoru());
