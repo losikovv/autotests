@@ -353,15 +353,20 @@ public class CheckoutHelper extends HelperBase {
         /** Операции c модалкой бонусных мрограмм */
         public static class Modal {
 
-            /** Открыть модалку */
             //TODO public void open() {bonus}
+
+            //TODO public void fill() {}
+
+            //TODO public void submit() {}
+
+            //TODO public void cancel() {}
 
             /** Закрыть модалку */
             public void close() {
                 if (kraken.detect().isElementPresent(Elements.Checkout.Bonus.Modal.popup())) {
                     kraken.perform().click(Elements.Checkout.Bonus.Modal.closeButton());
                 } else {
-                    debugMessage("Пропускаем закрытие бонусной модалки, она не открыта\n");
+                    debugMessage("Пропускаем закрытие бонусной модалки, так как она не открыта");
                 }
             }
         }
