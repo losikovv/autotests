@@ -218,10 +218,10 @@ public class CheckoutHelper extends HelperBase {
                 verboseMessage("Уже есть применённый промокод, поэтому сначала удаляем его... ");
                 delete();
             }
-            kraken.perform().click(Elements.Checkout.Promocode.addButton());
+            Modal.open();
             message("Применяем промокод '" + promocode + "'...");
-            kraken.perform().fillField(Elements.Checkout.Promocode.Modal.inputField(), promocode);
-            kraken.perform().click(Elements.Checkout.Promocode.Modal.submitButton());
+            Modal.fill(promocode);
+            Modal.submit();
             kraken.await().implicitly(1); // Ожидание применения промокода в чекауте
             // TODO добавить fluent-ожидание
         }
