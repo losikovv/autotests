@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.appmanager.AdministrationHelper;
+import ru.instamart.autotests.appmanager.CheckoutHelper;
 
 import static ru.instamart.autotests.application.Config.testOrderBonuses;
 
@@ -31,7 +32,7 @@ public class OrderBonuses extends TestBase {
             priority = 951
     )
     public void successOrderWithMnogoRuBonus() {
-        kraken.checkout().addBonus(BonusPrograms.mnogoru());
+        CheckoutHelper.Bonuses.add(BonusPrograms.mnogoru());
         kraken.checkout().complete();
 
         String number = kraken.grab().currentOrderNumber();
@@ -49,7 +50,7 @@ public class OrderBonuses extends TestBase {
 
     )
     public void successOrderWithAeroflotBonus() {
-        kraken.checkout().addBonus(BonusPrograms.aeroflot());
+        CheckoutHelper.Bonuses.add(BonusPrograms.aeroflot());
         kraken.checkout().complete();
 
         String number = kraken.grab().currentOrderNumber();
