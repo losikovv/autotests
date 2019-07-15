@@ -93,7 +93,8 @@ public class Catalog extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(
+    // TODO починить
+    @Test( enabled = false,
             description = "Тест открывания/закрывания карточки продукта в department-категории",
             groups = {"smoke","acceptance","regression"},
             priority = 605
@@ -120,7 +121,8 @@ public class Catalog extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(
+    // TODO починить
+    @Test(enabled = false,
             description = "Тест открывания/закрывания карточки продукта в taxon-категории",
             groups = {"smoke","acceptance","regression"},
             priority = 606

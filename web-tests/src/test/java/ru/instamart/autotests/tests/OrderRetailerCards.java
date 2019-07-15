@@ -21,7 +21,7 @@ public class OrderRetailerCards extends TestBase {
 
     @Test(  enabled = testOrderRetailerCards,
             description = "Тест заказа с картой Метро (только WL)",
-            groups = {"acceptance", "regression"},
+            groups = {"metro"},
             priority = 961
     )
     public void successOrderWithMetroCard() {

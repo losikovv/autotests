@@ -413,12 +413,11 @@ public class ShopHelper extends HelperBase {
             Catalog.Item.open();
             int itemPrice = kraken.grab().itemPriceRounded();
             // Формула расчета кол-ва товара
-            int neededQuantity = ((orderSum - cartTotal) / itemPrice) + 1;
+            int neededQuantity = ((orderSum - cartTotal) / (itemPrice - 1)) + 1;
             message("> добавляем в корзину \""
                     + kraken.grab().itemName() + "\" x " + neededQuantity + " шт\n"
                     + kraken.grab().currentURL()
                     + "\n");
-            // Накидываем товар, закрываем карточку и открываем корзину
             addItem(neededQuantity);
             ItemCard.close();
             Cart.open();

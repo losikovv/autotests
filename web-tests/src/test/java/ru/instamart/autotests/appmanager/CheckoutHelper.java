@@ -218,8 +218,8 @@ public class CheckoutHelper extends HelperBase {
                 verboseMessage("Уже есть применённый промокод, поэтому сначала удаляем его... ");
                 delete();
             }
+            verboseMessage("Применяем промокод '" + promocode + "'...");
             Modal.open();
-            message("Применяем промокод '" + promocode + "'...");
             Modal.fill(promocode);
             Modal.submit();
             kraken.await().implicitly(1); // Ожидание применения промокода в чекауте
