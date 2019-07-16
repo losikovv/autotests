@@ -166,33 +166,30 @@ public class Elements {
                             "логотип компании в шапке сайта");
             }
 
-            static ElementData aboutCompanyButton() {
+            static ElementData infoButton(String name) {
                 return new ElementData(
-                        By.xpath("//header//a[@class='navbar-button']//span[text()='О компании']"),
-                            "кнопка \"О компании\" в шапке сайта");
+                       By.xpath("//header//a[@class='navbar-button']//span[text()='" + name + "']"),
+                           "кнопка \"" + name + "\" в шапке сайта");
+            }
+
+
+            static ElementData howWeWorkButton() {
+                return infoButton("Как мы работаем");
             }
 
             static ElementData contactsButton() {
-                return new ElementData(
-                        By.xpath("//header//a[@class='navbar-button']//span[text()='Контакты']"),
-                            "кнопка \"Контакты\" в шапке сайта");
+                return infoButton("Контакты");
             }
 
             static ElementData helpButton() {
-                return new ElementData(
-                        By.xpath("//header//a[@class='navbar-button']//span[text()='Помощь']"),
-                            "кнопка \"Помощь\" в шапке сайта");
+                return infoButton("Помощь");
             }
 
             static ElementData deliveryButton() {
-                return new ElementData(
-                        By.xpath("//header//a[@class='navbar-button']//span[text()='Доставка и оплата']"),
-                            "кнопка \"Доставка и оплата\" в шапке сайта");
+                return infoButton("Доставка и оплата");
             }
             static ElementData corporativeCustomersButton() {
-                return new ElementData(
-                        By.xpath("//header//a[@class='navbar-button']//span[text()='Корпоративным клиентам']"),
-                            "кнопка \"Корпоративным клиентам\" в шапке сайта");
+                return infoButton("Корпоративным клиентам");
             }
 
             static ElementData mnogoruButton() {
@@ -283,29 +280,30 @@ public class Elements {
                     "логотип \"Инстамарт\" в футере");
         }
 
+        static ElementData infoLink(String name) {
+            return new ElementData(By.xpath("//footer//a[@class='footer__link' and text()='" + name + "']"),
+                    "ссылка \"" + name + "\" в футере");
+        }
+
         static ElementData instamartTitle() {
             return new ElementData(By.xpath("//footer//div[@class='footer__title' and text()='Инстамарт']"),
                     "подзаголовок \"Инстамарт\" в футере");
         }
 
         static ElementData aboutCompanyLink() {
-            return new ElementData(By.xpath("//footer//a[@class='footer__link' and text()='О компании']"),
-                    "ссылка \"О компании\" в футере");
+            return infoLink("О компании");
         }
 
         static ElementData vacanciesLink() {
-            return new ElementData(By.xpath("//footer//a[@class='footer__link' and text()='Вакансии']"),
-                    "ссылка \"Вакансии\" в футере");
+            return infoLink("Вакансии");
         }
 
         static ElementData partnersButton() {
-            return new ElementData(By.xpath("//footer//button[@class='footer__link' and text()='Партнеры']"),
-                    "ссылка \"Партнеры\" в футере");
+            return infoLink("Партнеры");
         }
 
         static ElementData contactsLink() {
-            return new ElementData(By.xpath("//footer//a[@class='footer__link' and text()='Контакты']"),
-                    "ссылка \"Контакты\" в футере");
+            return infoLink("Контакты");
         }
 
         static ElementData customerHelpTitle() {
@@ -314,18 +312,15 @@ public class Elements {
         }
 
         static ElementData deliveryButton() {
-            return new ElementData(By.xpath("//footer//button[@class='footer__link' and text()='Доставка']"),
-                    "ссылка \"Доставка\" в футере");
+            return infoLink("Доставка");
         }
 
         static ElementData paymentButton() {
-            return new ElementData(By.xpath("//footer//button[@class='footer__link' and text()='Оплата']"),
-                    "ссылка \"Оплата\" в футере");
+            return infoLink("Оплата");
         }
 
         static ElementData faqButton() {
-            return new ElementData(By.xpath("//footer//a[@class='footer__link' and text()='FAQ']"),
-                    "ссылка \"FAQ\" в футере");
+            return infoLink("FAQ");
         }
 
         static ElementData hotlinePhoneNumber() {

@@ -56,12 +56,11 @@ public class StartupTest extends TestBase {
         kraken.check().elementPresence(Elements.Header.hotlinePhoneNumber());
         kraken.check().elementPresence(Elements.Header.hotlineWorkhoursText());
 
-        kraken.check().elementPresence(Elements.Header.logo());
-        kraken.check().elementPresence(Elements.Header.aboutCompanyButton());
-        kraken.check().elementPresence(Elements.Header.contactsButton());
-        kraken.check().elementPresence(Elements.Header.helpButton());
-        kraken.check().elementPresence(Elements.Header.deliveryButton());
-        kraken.check().elementPresence(Elements.Header.corporativeCustomersButton());
+        kraken.check().elementPresence(Elements.Header.infoButton("Как мы работаем"));
+        kraken.check().elementPresence(Elements.Header.infoButton("Контакты"));
+        kraken.check().elementPresence(Elements.Header.infoButton("Помощь"));
+        kraken.check().elementPresence(Elements.Header.infoButton("Доставка и оплата"));
+        kraken.check().elementPresence(Elements.Header.infoButton("Корпоративным клиентам"));
         kraken.check().elementPresence(Elements.Header.mnogoruButton());
 
         kraken.check().elementPresence(Elements.Header.catalogButton());
@@ -74,10 +73,10 @@ public class StartupTest extends TestBase {
     }
 
     private void validateHeaderLinks() {
-        validateTransition(Elements.Header.aboutCompanyButton());
-        validateTransition(Elements.Header.contactsButton());
-        validateTransition(Elements.Header.helpButton());
-        validateTransition(Elements.Header.deliveryButton());
+        validateTransition(Elements.Header.infoButton("Как мы работаем"));
+        validateTransition(Elements.Header.infoButton("Контакты"));
+        validateTransition(Elements.Header.infoButton("Помощь"));
+        validateTransition(Elements.Header.infoButton("Доставка и оплата"));
         //TODO доделать обработку и проверку открытия новых вкладок
         //validateTransition(Elements.Site.Header.corporativeCustomersButton());
         //validateTransition(Elements.Site.Header.mnogoruButton());
@@ -105,15 +104,15 @@ public class StartupTest extends TestBase {
         kraken.check().elementPresence(Elements.Footer.instamartLogo());
 
         kraken.check().elementPresence(Elements.Footer.instamartTitle());
-        kraken.check().elementPresence(Elements.Footer.aboutCompanyLink());
-        kraken.check().elementPresence(Elements.Footer.vacanciesLink());
-        kraken.check().elementPresence(Elements.Footer.partnersButton());
-        kraken.check().elementPresence(Elements.Footer.contactsLink());
+            kraken.check().elementPresence(Elements.Footer.infoLink("О компании"));
+            kraken.check().elementPresence(Elements.Footer.infoLink("Вакансии"));
+            kraken.check().elementPresence(Elements.Footer.infoLink("Партнеры"));
+            kraken.check().elementPresence(Elements.Footer.infoLink("Контакты"));
 
         kraken.check().elementPresence(Elements.Footer.customerHelpTitle());
-        kraken.check().elementPresence(Elements.Footer.deliveryButton());
-        kraken.check().elementPresence(Elements.Footer.paymentButton());
-        kraken.check().elementPresence(Elements.Footer.faqButton());
+            kraken.check().elementPresence(Elements.Footer.infoLink("Доставка"));
+            kraken.check().elementPresence(Elements.Footer.infoLink("Оплата"));
+            kraken.check().elementPresence(Elements.Footer.infoLink("FAQ"));
 
         kraken.check().elementPresence(Elements.Footer.hotlinePhoneNumber());
         kraken.check().elementPresence(Elements.Footer.hotlineWorkhoursText());
@@ -131,9 +130,10 @@ public class StartupTest extends TestBase {
     }
 
     private void validateFooterLinks() {
-        validateTransition(Elements.Footer.aboutCompanyLink());
-        validateTransition(Elements.Footer.contactsLink());
-        // validateTransition(Elements.Site.Footer.faqButton()); // заслоняет живосайт
+        validateTransition(Elements.Footer.infoLink("О компании"));
+        validateTransition(Elements.Footer.infoLink("Контакты"));
+        validateTransition(Elements.Footer.infoLink("FAQ")); // заслоняет живосайт
+        
         validateTransition(Elements.Footer.returnsPolicyLink());
         validateTransition(Elements.Footer.publicOfferLink());
         //TODO валидировать и остальные ссылки
