@@ -22,6 +22,72 @@ public class AdministrationShipments extends TestBase {
 
     @Test(  enabled = testAdministration,
             description = "Тест поиска заказа по номеру заказа в админке",
+            groups = {"smoke","acceptance","regression"},
+            priority = 2100
+    )
+    public void validateAdminShipmentsElements() {
+        kraken.check().elementPresence(Elements.Admin.Shipments.title());
+
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.orderDateFrom());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.orderDateTo());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.customerName());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.customerSurname());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.juridicalNameContains());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.shopperLogin());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.driverLogin());
+
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.deliveryTimeFrom());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.deliveryTimeTo());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.phoneNumberContains());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.email());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.innNumber());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.invoiceNumber());
+
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.orderNumber());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.orderStatus());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.retailer());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.store());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.paymentMethod());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.paymentStatus());
+
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.promocode());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.itemsFrom());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.itemsTo());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.weightFrom());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Filters.weightTo());
+
+        kraken.check().elementPresence(Elements.Admin.Shipments.Checkboxes.completedOnly());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Checkboxes.b2bOnly());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Checkboxes.metroOnly());
+        kraken.check().elementPresence(Elements.Admin.Shipments.Checkboxes.deliveryChangedOnly());
+
+        kraken.check().elementPresence(Elements.Admin.Shipments.applyFilterButton());
+        kraken.check().elementPresence(Elements.Admin.Shipments.clearFilterButton());
+
+        kraken.check().elementPresence(Elements.Admin.Shipments.table());
+        kraken.check().elementPresence(Elements.Admin.Shipments.tableTitle("Номер"));
+        kraken.check().elementPresence(Elements.Admin.Shipments.tableTitle("Сумма"));
+        kraken.check().elementPresence(Elements.Admin.Shipments.tableTitle("Состояние оплаты"));
+        kraken.check().elementPresence(Elements.Admin.Shipments.tableTitle("Состояние доставки"));
+        kraken.check().elementPresence(Elements.Admin.Shipments.tableTitle("Ритейлер"));
+        kraken.check().elementPresence(Elements.Admin.Shipments.tableTitle("Дата и время доставки"));
+        kraken.check().elementPresence(Elements.Admin.Shipments.tableTitle("Комментарий"));
+        kraken.check().elementPresence(Elements.Admin.Shipments.tableTitle("Куда"));
+        kraken.check().elementPresence(Elements.Admin.Shipments.tableTitle("Сборщик"));
+        kraken.check().elementPresence(Elements.Admin.Shipments.tableTitle("Водитель"));
+        kraken.check().elementPresence(Elements.Admin.Shipments.tableTitle("Общий вес"));
+        kraken.check().elementPresence(Elements.Admin.Shipments.tableTitle("Документация"));
+        kraken.check().elementPresence(Elements.Admin.Shipments.tableTitle("Магазин сборки"));
+
+        //todo валидить элементы строки первого заказа
+    }
+
+    // TODO test shipmentsTableNotEmptyByDefault
+
+    // TODO test successShowEmptySearchPlaceholder
+
+    @Test(  enabled = testAdministration,
+            description = "Тест поиска заказа по номеру заказа в админке",
             groups = {"acceptance","regression"},
             priority = 2101
     )

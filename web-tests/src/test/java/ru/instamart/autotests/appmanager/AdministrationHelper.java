@@ -19,8 +19,8 @@ public class AdministrationHelper extends HelperBase {
         public static void searchOrder(String order) {
             kraken.reach().admin("shipments");
             message("Поиск заказа по номеру " + order);
-            kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), order);
-            kraken.perform().click(Elements.Admin.Shipments.searchButton());
+            kraken.perform().fillField(Elements.Admin.Shipments.Filters.orderNumber(), order);
+            kraken.perform().click(Elements.Admin.Shipments.applyFilterButton());
             kraken.await().implicitly(2); // Ожидание поиска заказа в админке
         }
 
@@ -28,9 +28,9 @@ public class AdministrationHelper extends HelperBase {
         public static void searchOrder(String number, boolean b2b) {
             kraken.reach().admin("shipments");
             message("Поиск B2B заказа по номеру " + number);
-            kraken.perform().fillField(Elements.Admin.Shipments.searchNumberField(), number);
-            kraken.perform().setCheckbox(Elements.Admin.Shipments.b2bOnlyCheckbox(),b2b);
-            kraken.perform().click(Elements.Admin.Shipments.searchButton());
+            kraken.perform().fillField(Elements.Admin.Shipments.Filters.orderNumber(), number);
+            kraken.perform().setCheckbox(Elements.Admin.Shipments.Checkboxes.b2bOnly(),b2b);
+            kraken.perform().click(Elements.Admin.Shipments.applyFilterButton());
         }
 
         /** Возобновить заказ */
