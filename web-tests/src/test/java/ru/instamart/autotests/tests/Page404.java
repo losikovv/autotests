@@ -21,7 +21,7 @@ public class Page404 extends TestBase {
             groups = {"acceptance","regression"},
             priority = 10001
     )
-    public void successLearnCatWisdom() throws AssertionError {
+    public void successLearnCatWisdom() {
         ShopHelper.Jivosite.open();
         kraken.perform().click(Elements.Page404.catWisdomButton());
 
@@ -35,7 +35,7 @@ public class Page404 extends TestBase {
             groups = {"acceptance","regression"},
             priority = 10002
     )
-    public void successGoToHomepage() throws AssertionError {
+    public void successGoToHomepage() {
         //ShopHelper.Jivosite.open();
 
         validateTransition(Elements.Page404.toHomeButton());
@@ -46,7 +46,7 @@ public class Page404 extends TestBase {
             groups = {"acceptance","regression"},
             priority = 10003
     )
-    public void successGoToHomepageAfterLearningCatWisdom() throws AssertionError {
+    public void successGoToHomepageAfterLearningCatWisdom() {
         ShopHelper.Jivosite.open();
         kraken.perform().click(Elements.Page404.catWisdomButton());
 
@@ -58,7 +58,7 @@ public class Page404 extends TestBase {
             groups = {"acceptance","regression"},
             priority = 10004
     )
-    public void successGoToCatalogAfterLearningCatWisdom() throws AssertionError {
+    public void successGoToCatalogAfterLearningCatWisdom() {
         ShopHelper.Jivosite.open();
         kraken.perform().click(Elements.Page404.catWisdomButton());
         ShopHelper.Jivosite.close();
@@ -71,7 +71,7 @@ public class Page404 extends TestBase {
             groups = {"acceptance","regression"},
             priority = 10005
     )
-    public void successLearnMoreCatWisdom() throws AssertionError {
+    public void successLearnMoreCatWisdom() {
         kraken.perform().refresh();
         ShopHelper.Jivosite.open(); // для стабильности
 

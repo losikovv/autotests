@@ -25,7 +25,7 @@ public class TestBase {
     }
 
     @AfterSuite(alwaysRun = true)
-    public void cleanup() throws Exception {
+    public void cleanup() {
         if(doCleanupAfterTestRun) {
             kraken.cleanup().all();
         }

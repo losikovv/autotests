@@ -1681,7 +1681,7 @@ public class Elements {
                         "кнопка \"Применить фильтр\"");
             }
 
-            static ElementData dismissButton() {
+            static ElementData clearFilterButton() {
                 return new ElementData(By.xpath("//a[@class='button icon-remove']"),
                         "кнопка \"Сбросить фильтр\"");
             }

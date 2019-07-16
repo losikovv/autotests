@@ -483,15 +483,16 @@ public class CheckoutHelper extends HelperBase {
 
     /** Нажимаем кнопку отправки заказа */
     public void sendOrder() {
+        verboseMessage("Отправляем заказ ...");
         kraken.await().fluently(
                 ExpectedConditions.elementToBeClickable(
                         Elements.Checkout.sendOrderButton().getLocator()),
-                "Неактивна кнопка отправки заказа\n");
+                            "Неактивна кнопка отправки заказа\n");
         kraken.perform().click(Elements.Checkout.sendOrderButton());
         kraken.await().fluently(
                 ExpectedConditions.visibilityOfElementLocated(
                         Elements.UserProfile.OrderDetailsPage.activeOrderAttribute().getLocator()),
-                "Не отправляется заказ\n");
+                            "Не отправляется заказ\n");
         message("✓ Заказ оформлен\n");
     }
 

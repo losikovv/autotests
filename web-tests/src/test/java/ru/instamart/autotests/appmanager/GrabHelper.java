@@ -152,14 +152,12 @@ public class GrabHelper extends HelperBase{
 
     /** Взять текст котомудрости */
     public String catWisdom() {
-        String wisdom = "";
+        String wisdom = null;
         for (int i = 1; i <= 39; i++) {
             String text = kraken.grab().text(Elements.Page404.quote(i));
             debugMessage(">>>>>>>>>>>> " + text);
             if (!text.equals("")) {
                 wisdom = text;
-            } else {
-                wisdom = null;
             }
         }
         verboseMessage("\nКотомудрость: " + wisdom);
