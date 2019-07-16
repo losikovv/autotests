@@ -133,7 +133,7 @@ public class StartupTest extends TestBase {
         validateTransition(Elements.Footer.infoLink("О компании"));
         validateTransition(Elements.Footer.infoLink("Контакты"));
         validateTransition(Elements.Footer.infoLink("FAQ")); // заслоняет живосайт
-        
+
         validateTransition(Elements.Footer.returnsPolicyLink());
         validateTransition(Elements.Footer.publicOfferLink());
         //TODO валидировать и остальные ссылки

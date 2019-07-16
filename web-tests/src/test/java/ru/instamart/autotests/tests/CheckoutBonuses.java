@@ -22,7 +22,7 @@ public class CheckoutBonuses extends TestBase {
             groups = {"acceptance","regression"},
             priority = 771
     )
-    public void successAddBonusPrograms(){
+    public void successAddBonusPrograms() {
         skipOn("metro");
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
@@ -56,7 +56,7 @@ public class CheckoutBonuses extends TestBase {
             groups = {"acceptance","regression"},
             priority = 772
     )
-    public void successSelectBonusPrograms(){
+    public void successSelectBonusPrograms() {
         skipOn("metro");
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
@@ -85,7 +85,7 @@ public class CheckoutBonuses extends TestBase {
             groups = {"acceptance","regression"},
             priority = 773
     )
-    public void successDeleteBonusPrograms(){
+    public void successDeleteBonusPrograms() {
         skipOn("metro");
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();

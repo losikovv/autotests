@@ -36,7 +36,7 @@ public class Shopping extends TestBase {
             groups = {"acceptance","regression"},
             priority = 652
     )
-    public void noAccessToCheckoutWithEmptyCart() throws Exception {
+    public void noAccessToCheckoutWithEmptyCart() {
         kraken.perform().loginAs(session.admin);
         kraken.get().page("metro");
         kraken.drop().cart();
@@ -50,7 +50,7 @@ public class Shopping extends TestBase {
             groups = {"acceptance","regression"},
             priority = 653
     )
-    public void noAccessToCheckoutWithCartBelowMinimalOrderSum() throws Exception {
+    public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
         kraken.perform().loginAs(session.user);
         kraken.get().page("metro");
 
@@ -77,7 +77,7 @@ public class Shopping extends TestBase {
             groups = {"acceptance","regression"},
             priority = 654
     )
-    public void successCollectItemsForMinOrder() throws Exception, AssertionError {
+    public void successCollectItemsForMinOrder() {
         kraken.perform().loginAs(session.user);
         kraken.get().page("metro");
         kraken.drop().cart();
@@ -94,7 +94,7 @@ public class Shopping extends TestBase {
             groups = {"regression"},
             priority = 655
     )
-    public void successGetCheckoutPageWithCartAboveMinimalOrderSum() throws Exception {
+    public void successGetCheckoutPageWithCartAboveMinimalOrderSum() {
         kraken.perform().loginAs(session.user);
         kraken.get().page("metro");
         kraken.shopping().collectItems();
@@ -108,7 +108,7 @@ public class Shopping extends TestBase {
             groups = {"acceptance","regression"},
             priority = 656
     )
-    public void successProceedFromCartToCheckout() throws Exception, AssertionError {
+    public void successProceedFromCartToCheckout() {
         kraken.perform().loginAs(session.user);
         kraken.get().page("metro");
         kraken.shopping().collectItems();
@@ -124,7 +124,7 @@ public class Shopping extends TestBase {
             groups = {"regression"},
             priority = 657
     )
-    public void successMergeShipAddressAndCartAfterAuthorisation() throws Exception {
+    public void successMergeShipAddressAndCartAfterAuthorisation() {
         SoftAssert softAssert = new SoftAssert();
 
         //TODO вынести в dataProvider
