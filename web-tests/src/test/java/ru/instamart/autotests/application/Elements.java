@@ -82,7 +82,7 @@ public class Elements {
 
         static ElementData title() {
             return new ElementData(
-                    By.xpath("//h1[@class='window__title' and contains(text(),'Доставка продуктов на дом и в офис')]"),
+                    By.xpath("//h1[@class='window__title' and contains(text(),'Доставка продуктов')]"),
                     "главный тайтл лендинга");
         }
 
@@ -281,7 +281,7 @@ public class Elements {
         }
 
         static ElementData infoLink(String name) {
-            return new ElementData(By.xpath("//footer//a[@class='footer__link' and text()='" + name + "']"),
+            return new ElementData(By.xpath("//footer//*[@class='footer__link' and text()='" + name + "']"),
                     "ссылка \"" + name + "\" в футере");
         }
 
