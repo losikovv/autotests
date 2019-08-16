@@ -2,24 +2,39 @@ package ru.instamart.autotests.models;
 
 public class ContactsDetailsData {
 
-    private String name;
-    private String surname;
+    private boolean changeFirstName;
+    private String firstName;
+    private boolean changeLastName;
+    private String lastName;
+    private boolean changeEmail;
     private String email;
-    private boolean newPhone;
+    private boolean addAnotherPhone;
     private String phone;
     private boolean sendEmail;
 
-    public ContactsDetailsData(String name, String surname, String email, boolean newPhone, String phone, boolean sendEmail) {
-        this.name = name;
-        this.surname = surname;
+    public ContactsDetailsData(boolean changeFirstName, String firstName, boolean changeLastName, String lastName, boolean changeEmail, String email, boolean addAnotherPhone, String phone, boolean sendEmail) {
+        this.changeFirstName = changeFirstName;
+        this.firstName = firstName;
+        this.changeLastName = changeLastName;
+        this.lastName = lastName;
+        this.changeEmail = changeEmail;
         this.email = email;
-        this.newPhone = newPhone;
+        this.addAnotherPhone = addAnotherPhone;
         this.phone = phone;
         this.sendEmail = sendEmail;
     }
 
-    public ContactsDetailsData(boolean newPhone, String phone) {
-        this.newPhone = newPhone;
+    public ContactsDetailsData(String firstName, String lastName, String email, boolean addAnotherPhone, String phone, boolean sendEmail) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.addAnotherPhone = addAnotherPhone;
+        this.phone = phone;
+        this.sendEmail = sendEmail;
+    }
+
+    public ContactsDetailsData(boolean addAnotherPhone, String phone) {
+        this.addAnotherPhone = addAnotherPhone;
         this.phone = phone;
     }
 
@@ -29,27 +44,39 @@ public class ContactsDetailsData {
 
     // Getters
 
-    public String getName() {
-        return name;
+    public boolean changeFirstName() {
+        return changeFirstName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public boolean changeLastName() {
+        return changeLastName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public boolean changeEmail() {
+        return changeEmail;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public boolean isNewPhone() {
-        return newPhone;
+    public boolean addNewPhone() {
+        return addAnotherPhone;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public boolean isSendEmail() {
+    public boolean sendEmails() {
         return sendEmail;
     }
 }

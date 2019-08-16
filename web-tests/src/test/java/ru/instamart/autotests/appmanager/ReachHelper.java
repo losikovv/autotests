@@ -4,8 +4,7 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.EnvironmentData;
-
-import static ru.instamart.autotests.application.Pages.getPagePath;
+import ru.instamart.autotests.models.PageData;
 
 public class ReachHelper extends HelperBase {
     ReachHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
@@ -25,16 +24,16 @@ public class ReachHelper extends HelperBase {
         admin("");
     }
 
-    public void admin(Pages page) {
-        admin(getPagePath());
+    public void admin(PageData page) {
+        admin(page.getPath());
     }
 
     public void admin(String path) {
-        kraken.get().adminURL();
+        kraken.get().page(Pages.Admin.login());
         if (kraken.detect().isOnSite()) {
             kraken.perform().quickLogout();
             if(!kraken.environment.getTenant().equalsIgnoreCase("instamart")){
-                kraken.get().adminURL();
+                kraken.get().page(Pages.Admin.login());
             }
             kraken.perform().authorisation(Users.superadmin());
         }

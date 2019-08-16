@@ -62,6 +62,7 @@ public class DetectionHelper extends HelperBase {
         return (isElementPresent(element.getLocator()));
     }
 
+    // Todo убрать все детекторы элементов по прямым локаторам
     /**
      * Определить отображается ли элемент по локатору
      */
@@ -81,6 +82,7 @@ public class DetectionHelper extends HelperBase {
         return isElementDisplayed(element.getLocator());
     }
 
+    // Todo убрать все детекторы элементов по прямым локаторам
     /**
      * Определить показан ли элемент по локатору
      */
@@ -99,6 +101,7 @@ public class DetectionHelper extends HelperBase {
         return isElementEnabled(element.getLocator());
     }
 
+    // Todo убрать все детекторы элементов по прямым локаторам
     /**
      * Определить доступен ли элемент по локатору
      */
@@ -109,22 +112,29 @@ public class DetectionHelper extends HelperBase {
     /**
      * Определить проставлен ли чекбокс
      */
-    public boolean isCheckboxSelected(ElementData element) {
-        return isCheckboxSelected(element.getLocator());
+    public boolean isCheckboxSet(ElementData element) {
+        return driver.findElement(element.getLocator()).isSelected();
     }
 
     /**
-     * Определить проставлен ли чекбокс по локатору
+     * Определить выбрана ли радиокнопка
      */
-    boolean isCheckboxSelected(By locator) {
-        return driver.findElement(locator).isSelected();
+    public boolean isRadioButtonSelected(ElementData element) {
+        return driver.findElement(element.getLocator()).isSelected();
+    }
+
+    /**
+     * Определить пустое ли поле
+     */
+    public boolean isFieldEmpty(ElementData element) {
+        return driver.findElement(element.getLocator()).getAttribute("value").equals("");
     }
 
     /**
      * Определить находимся на лендинге или нет
      */
     public boolean isOnLanding() {
-        return isElementPresent(Elements.Landing.title());
+        return isElementPresent(Elements.Landing.MainBlock.advantages());
     }
 
     /**
@@ -138,7 +148,7 @@ public class DetectionHelper extends HelperBase {
      * Определить находимся в админке или нет
      */
     public boolean isInAdmin() {
-        return isElementPresent(Elements.Admin.container());
+        return isElementPresent(Elements.Administration.container());
     }
 
     /**
@@ -152,7 +162,7 @@ public class DetectionHelper extends HelperBase {
      * Определить находимся в списке любимых товаров или нет
      */
     public boolean isInFavorites() {
-        return kraken.grab().currentURL().equals(baseUrl + Pages.Site.Profile.favorites().getPagePath());
+        return kraken.grab().currentURL().equals(baseUrl + Pages.Site.Profile.favorites().getPath());
     }
 
     /**
@@ -311,18 +321,31 @@ public class DetectionHelper extends HelperBase {
     }
 
 
-    // ======= Детали заказа =======
+    // ======= История заказов =======
 
     /** Определить активен ли верхний заказ на странице списка заказов */
-    public boolean isLastOrderActive() {
-        if(isElementPresent(Elements.UserProfile.OrdersPage.lastOrderActionButton(2))) {
-            verboseMessage("Крайний заказ активен");
+    public boolean isOrdersHistoryEmpty() {
+        if(kraken.detect().element(Elements.UserProfile.OrdersHistoryPage.placeholder())) {
+            debugMessage("У пользователя нет заказов на странице истории заказов");
             return true;
         } else {
-        verboseMessage("Крайний заказ неактивен");
+            debugMessage("У пользователя есть заказы на странице истории заказов");
             return false;
         }
     }
+
+    /** Определить активен ли верхний заказ на странице списка заказов */
+    public boolean isLastOrderActive() {
+        if(isElementPresent(Elements.UserProfile.OrdersHistoryPage.order.cancelButton())) {
+            debugMessage("Крайний заказ активен");
+            return true;
+        } else {
+        debugMessage("Крайний заказ не активен");
+            return false;
+        }
+    }
+
+    // ======= Детали заказа =======
 
     /** Определить активен ли заказ на странице деталей */
     public boolean isOrderActive() {
@@ -336,7 +359,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить отменен ли заказ на странице деталей */
     public boolean isOrderCanceled(){
         if (isInAdmin()) {
-            if (element(Elements.Admin.Shipments.Order.Details.canceledOrderAttribute())) {
+            if (element(Elements.Administration.ShipmentsSection.Order.Details.canceledOrderAttribute())) {
                 verboseMessage("Заказ отменен");
                 return true;
             } else {
@@ -522,8 +545,8 @@ public class DetectionHelper extends HelperBase {
     }
 
     /** Определить введен ли телефон на 2 шаге в чекауте */
-    public boolean isPhoneNumberEmpty() {
-        return isElementDisplayed(Elements.Checkout.phoneNumberField());
+    public boolean isNoPhonesAddedOnContactsStep() {
+        return isElementDisplayed(Elements.Checkout.ContactsStep.phoneInputField());
     }
 
     /** Определить введены ли данные юрлица на 4 шаге в чекауте */
@@ -558,11 +581,11 @@ public class DetectionHelper extends HelperBase {
     }
 
     public boolean isBonusAdded(LoyaltiesData bonus) {
-        return isElementPresent(Elements.Checkout.Bonus.Program.editButton(bonus.getName()));
+        return isElementPresent(Elements.Checkout.Bonuses.Program.editButton(bonus.getName()));
     }
 
     public boolean isBonusActive(LoyaltiesData bonus) {
-        return isElementPresent(Elements.Checkout.Bonus.Program.activeSnippet(bonus.getName()));
+        return isElementPresent(Elements.Checkout.Bonuses.Program.activeSnippet(bonus.getName()));
     }
 
     public boolean isRetailerCardAdded() {
@@ -570,21 +593,9 @@ public class DetectionHelper extends HelperBase {
         return false;
     }
 
-
-    /**Определить доступна ли программа лояльности ритейлера в чекауте */
-    public boolean isRetailerLoyaltyAvailable() {
-        return kraken.detect().element(
-                "//aside/div/div[4]/div[2]", "Карты лояльности магазинов"); // TODO вынести в Elements
-    }
-
     /** Определить активен ли шаг чекаута в данный момент, по наличию кнопок "Продолжить" */
     public boolean isCheckoutStepActive(int step) {
         return isElementPresent((By.xpath("(//button[@type='button'])[" + step + "]"))); // TODO вынести в Elements
-    }
-
-    /** Определить активна ли кнопка отправки заказа */
-    public boolean isSendButtonActive() {
-        return isElementEnabled(By.xpath("//aside/div/div[1]/div/button")); // TODO вынести в Elements
     }
 
 
@@ -594,7 +605,7 @@ public class DetectionHelper extends HelperBase {
         kraken.grab().currentURL();
         if(widget.getProvider().equals("RetailRocket")){
             return isElementPresent(Elements.RetailRocket.widget(widget.getId()));
-                    //&& kraken.grab().text(Elements.RetailRocket.title(widget.getId())).equals(widget.getName());
+                    //&& kraken.grab().text(Elements.RetailRocket.title(widget.getId())).equals(widget.getFirstName());
         } else
             message("В детекторе не найден провайдер виджета");
             return false;

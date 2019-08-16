@@ -4,12 +4,12 @@ public class CheckoutStepData {
 
     private int position;
     private String name;
-    private String description;
+    private String title;
 
-    public CheckoutStepData( int position, String name, String description) {
+    public CheckoutStepData( int position, String name, String title) {
         this.position = position;
         this.name = name;
-        this.description = description;
+        this.title = title;
     }
 
     public int getPosition() {
@@ -20,7 +20,7 @@ public class CheckoutStepData {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTitle() {
+        return title;
     }
 }

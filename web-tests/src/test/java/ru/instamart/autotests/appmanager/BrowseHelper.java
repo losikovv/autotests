@@ -4,6 +4,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.models.PageData;
 
 public class BrowseHelper extends HelperBase {
 
@@ -38,10 +39,8 @@ public class BrowseHelper extends HelperBase {
         url(fullBaseUrl + page);
     }
 
-    /** Перейти на страницу из переданного объекта */
-    public void page(Pages page) {
-        String path = Pages.getPagePath();
-        url(fullBaseUrl + path);
+    public void page(PageData page) {
+        url(fullBaseUrl + page.getPath());
     }
 
     /** Перейти на страницу чекаута */

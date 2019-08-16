@@ -4,14 +4,15 @@ import org.openqa.selenium.By;
 
 public class ElementData {
     private By locator;
-    private String text;
+    private String text; //todo убрать
     private String description;
 
-
+    // TODO убрать конструктор, все элементы перевести на нижний конструктор
     public ElementData(By locator){
         this.locator = locator;
     }
 
+    // TODO убрать конструктор, все элементы перевести на нижний конструктор
     public ElementData(String text, By locator){
         this.text = text;
         this.locator = locator;
@@ -28,7 +29,7 @@ public class ElementData {
 
     public String getText() {
         return text;
-    }
+    } //todo убрать
 
     public String getDescription() {
         return description;

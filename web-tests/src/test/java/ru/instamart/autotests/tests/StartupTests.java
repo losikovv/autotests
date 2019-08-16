@@ -1,0 +1,192 @@
+package ru.instamart.autotests.tests;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Pages;
+
+public class StartupTests extends TestBase {
+
+    @Test(
+            description = "Тест валидности элементов и ссылок в шапке сайта",
+            groups = {"smoke","acceptance","regression"},
+            priority = 11
+    )
+    public void successValidateSiteHeader() {
+        skipOn("metro");
+        kraken.get().page("metro");
+
+        assertPageIsAvailable();
+
+        checkHeaderElementsPresence();
+        validateHeaderLinks();
+    }
+
+    private void checkHeaderElementsPresence() {
+        assertElementPresence(Elements.Header.container());
+
+        assertElementPresence(Elements.Header.shipAddressPlaceholder());
+        assertElementPresence(Elements.Header.shipAddressButton());
+        assertElementPresence(Elements.Header.hotlinePhoneNumber());
+        assertElementPresence(Elements.Header.hotlineWorkhoursText());
+
+        assertElementPresence(Elements.Header.infoButton("Как мы работаем"));
+        assertElementPresence(Elements.Header.infoButton("Контакты"));
+        assertElementPresence(Elements.Header.infoButton("Помощь"));
+        assertElementPresence(Elements.Header.infoButton("Доставка и оплата"));
+        assertElementPresence(Elements.Header.infoButton("Корпоративным клиентам"));
+        assertElementPresence(Elements.Header.mnogoruButton());
+
+        assertElementPresence(Elements.Header.catalogButton());
+        assertElementPresence(Elements.Header.storeButton());
+        assertElementPresence(Elements.Header.Search.inputField());
+        assertElementPresence(Elements.Header.Search.sendButton());
+        assertElementPresence(Elements.Header.favoritesButton());
+        assertElementPresence(Elements.Header.loginButton());
+        assertElementPresence(Elements.Header.cartButton());
+    }
+
+    private void validateHeaderLinks() {
+        validateTransition(Elements.Header.infoButton("Как мы работаем"));
+        validateTransition(Elements.Header.infoButton("Контакты"));
+        validateTransition(Elements.Header.infoButton("Помощь"));
+        validateTransition(Elements.Header.infoButton("Доставка и оплата"));
+        //TODO доделать обработку и проверку открытия новых вкладок
+        //validateTransition(Elements.Site.Header.corporativeCustomersButton());
+        //validateTransition(Elements.Site.Header.mnogoruButton());
+        validateTransition(Elements.Header.logo());
+    }
+
+    @Test(
+            description = "Тест валидности элементов и ссылок в футере сайта",
+            groups = {"smoke","acceptance","regression"},
+            priority = 12
+    )
+    public void successValidateSiteFooter() {
+        skipOn("metro"); // TODO сделать тест для тенанта
+        kraken.get().page("metro");
+
+        assertPageIsAvailable();
+
+        checkFooterElementsPresence();
+        validateFooterLinks();
+        openFooterModals();
+    }
+
+    private void checkFooterElementsPresence() {
+        assertElementPresence(Elements.Footer.info());
+        assertElementPresence(Elements.Footer.container());
+
+        assertElementPresence(Elements.Footer.instamartLogo());
+
+        assertElementPresence(Elements.Footer.instamartTitle());
+            assertElementPresence(Elements.Footer.infoLink("О компании"));
+            assertElementPresence(Elements.Footer.infoLink("Вакансии"));
+            assertElementPresence(Elements.Footer.infoLink("Партнеры"));
+            assertElementPresence(Elements.Footer.infoLink("Контакты"));
+
+        assertElementPresence(Elements.Footer.customerHelpTitle());
+            assertElementPresence(Elements.Footer.infoLink("Доставка"));
+            assertElementPresence(Elements.Footer.infoLink("Оплата"));
+            assertElementPresence(Elements.Footer.infoLink("FAQ"));
+
+        assertElementPresence(Elements.Footer.hotlinePhoneNumber());
+        assertElementPresence(Elements.Footer.hotlineWorkhoursText());
+
+        assertElementPresence(Elements.Footer.facebookButton());
+        assertElementPresence(Elements.Footer.vkontakteButton());
+        assertElementPresence(Elements.Footer.instagramButton());
+
+        assertElementPresence(Elements.Footer.appstoreButton());
+        assertElementPresence(Elements.Footer.googlePlayButton());
+
+        assertElementPresence(Elements.Footer.returnsPolicyLink());
+        assertElementPresence(Elements.Footer.personalDataPolicyLink());
+        assertElementPresence(Elements.Footer.publicOfferLink());
+    }
+
+    private void validateFooterLinks() {
+        validateTransition(Elements.Footer.infoLink("О компании"));
+        validateTransition(Elements.Footer.infoLink("Контакты"));
+        //validateTransition(Elements.Footer.infoLink("FAQ")); // заслоняет живосайт
+
+        validateTransition(Elements.Footer.returnsPolicyLink());
+        validateTransition(Elements.Footer.publicOfferLink());
+        //TODO валидировать и остальные ссылки
+    }
+
+    private void openFooterModals() {
+        //TODO разбить на отдельные тесты
+
+        kraken.get().baseUrl();
+
+        kraken.perform().click(Elements.Footer.deliveryButton());
+        Assert.assertTrue(kraken.detect().isDeliveryModalOpen(),
+                "Не открывается модалка 'Доставка' из футера\n");
+        kraken.perform().click(Elements.Modals.DeliveryModal.closeButton());
+        assertPageIsAvailable();
+
+        kraken.get().page(Pages.Site.Retailers.metro());
+        kraken.perform().click(Elements.Footer.partnersButton());
+        Assert.assertTrue(kraken.detect().isPartnersModalOpen(),
+                "Не открывается модалка 'Партнеры' из футера\n");
+        kraken.perform().click(Elements.Modals.PartnersModal.closeButton());
+        assertPageIsAvailable();
+
+        kraken.get().page(Pages.Site.Retailers.metro());
+        kraken.perform().click(Elements.Footer.paymentButton());
+        Assert.assertTrue(kraken.detect().isPaymentModalOpen(),
+                "Не открывается модалка 'Оплата' из футера\n");
+        kraken.perform().click(Elements.Modals.PaymentModal.closeButton());
+        assertPageIsAvailable();
+    }
+
+    @Test(
+            description = "Тест доступности / недоступности витрин ритейлеров",
+            groups = {"smoke","acceptance","regression"},
+            priority = 13
+    )
+    public void successCheckRetailerPagesAreAvailabile() {
+        skipOn("metro"); // TODO сделать тест для тенанта
+
+        // Проверяем что доступны витрины активных ритейлеров
+        assertPageIsAvailable(Pages.Site.Retailers.metro());
+        assertPageIsAvailable(Pages.Site.Retailers.auchan());
+
+        // Проверяем что недоступны витрины неактивных ритейлеров
+        assertPageIs404(Pages.Site.Retailers.vkusvill());
+        assertPageIs404(Pages.Site.Retailers.lenta());
+        assertPageIs404(Pages.Site.Retailers.karusel());
+        assertPageIs404(Pages.Site.Retailers.selgros());
+        assertPageIs404(Pages.Site.Retailers.flora());
+        assertPageIs404(Pages.Site.Retailers.foodcity());
+        assertPageIs404(Pages.Site.Retailers.magnit());
+        assertPageIs404(Pages.Site.Retailers.testretailer());
+    }
+
+    @Test(
+            description = "Тест доступности партнерских лендингов",
+            groups = {"smoke","acceptance","regression"},
+            priority = 14
+    )
+    public void successCheckPartnerLandingsAreAvailabile() throws AssertionError {
+        assertPageIsAvailable(Pages.Site.Landings.mnogoru());
+        assertPageIsAvailable(Pages.Site.Landings.aeroflot());
+    }
+
+    @Test(
+            description = "Тест доступности статических страниц",
+            groups = {"smoke","acceptance","regression"},
+            priority = 15
+    )
+    public void successCheckStaticPagesAreAvailabile() throws AssertionError {
+        assertPageIsAvailable(Pages.Site.Static.about());
+        assertPageIsAvailable(Pages.Site.Static.delivery());
+        assertPageIsAvailable(Pages.Site.Static.rules());
+        assertPageIsAvailable(Pages.Site.Static.payment());
+        assertPageIsAvailable(Pages.Site.Static.returnPolicy());
+        assertPageIsAvailable(Pages.Site.Static.faq());
+        assertPageIsAvailable(Pages.Site.Static.terms());
+        assertPageIsAvailable(Pages.Site.Static.contacts());
+    }
+}

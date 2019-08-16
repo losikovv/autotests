@@ -39,9 +39,9 @@ public class CleanupHelper extends HelperBase {
      */
     public void users(String usersListPath) {
         kraken.reach().admin(usersListPath);
-        if (kraken.detect().isElementPresent(Elements.Admin.Users.userlistFirstRow())) {
-            message("> удаляем пользователя " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
-            kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
+        if (kraken.detect().isElementPresent(Elements.Administration.UsersSection.userlistFirstRow())) {
+            message("> удаляем пользователя " + kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()));
+            kraken.perform().click(Elements.Administration.UsersSection.firstUserDeleteButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
             kraken.await().implicitly(1); // Ожидание удаления предыдущего тестового пользователя
             users(usersListPath); // Keep deleting users, recursively
@@ -64,8 +64,8 @@ public class CleanupHelper extends HelperBase {
      */
     public void orders(String ordersListPath) {
         kraken.reach().admin(ordersListPath);
-        if (!kraken.detect().isElementPresent(Elements.Admin.Shipments.placeholder())) {
-            kraken.perform().click(Elements.Admin.Shipments.firstOrderInTable());
+        if (!kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.placeholder())) {
+            kraken.perform().click(Elements.Administration.ShipmentsSection.firstOrderInTable());
             kraken.await().implicitly(1); // Ожидание отмены предыдущего тестового заказа
             AdministrationHelper.Orders.cancelOrder(); // todo добавить проверку, отменять только если тестовый заказ
             orders(ordersListPath); // Keep cancelling orders recursively

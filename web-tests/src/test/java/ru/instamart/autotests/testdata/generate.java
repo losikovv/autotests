@@ -2,7 +2,8 @@ package ru.instamart.autotests.testdata;
 
 import ru.instamart.autotests.models.UserData;
 import java.util.Random;
-import static ru.instamart.autotests.application.Config.*;
+import static ru.instamart.autotests.application.Config.TestVariables.TestParams.*;
+import static ru.instamart.autotests.application.Config.TestVariables.CompanyParams.*;
 import static ru.instamart.autotests.appmanager.ApplicationManager.testrunId;
 
 public class generate {
