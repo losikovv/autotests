@@ -3,8 +3,8 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.*;
 import ru.instamart.autotests.models.EnvironmentData;
 
-import static ru.instamart.autotests.application.Config.debug;
-import static ru.instamart.autotests.application.Config.verbose;
+import static ru.instamart.autotests.application.Config.CoreSettings.debug;
+import static ru.instamart.autotests.application.Config.CoreSettings.verbose;
 
 public class HelperBase {
     static WebDriver driver;

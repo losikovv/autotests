@@ -19,7 +19,10 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
-import static ru.instamart.autotests.application.Config.*;
+import static ru.instamart.autotests.application.Config.CoreSettings.basicTimeout;
+import static ru.instamart.autotests.application.Config.CoreSettings.fullScreenMode;
+import static ru.instamart.autotests.application.Config.CoreSettings.multiSessionMode;
+import static ru.instamart.autotests.application.Config.TestVariables.TestParams.testMark;
 
 public class ApplicationManager {
 
@@ -34,7 +37,6 @@ public class ApplicationManager {
     private PerformHelper performHelper;
     private ReachHelper reachHelper;
     private DetectionHelper detectionHelper;
-    private CheckHelper checkHelper;
     private GrabHelper grabHelper;
     private DropHelper dropHelper;
     private SocialHelper socialHelper;
@@ -79,7 +81,7 @@ public class ApplicationManager {
     }
 
     private void initEnvironment() {
-        environment = Config.environment;
+        environment = Config.CoreSettings.environment;
     }
 
     private void initDriver() {
@@ -105,7 +107,6 @@ public class ApplicationManager {
         performHelper = new PerformHelper(driver, environment, this);
         reachHelper = new ReachHelper(driver, environment, this);
         detectionHelper = new DetectionHelper(driver, environment, this);
-        checkHelper = new CheckHelper(driver, environment, this);
         grabHelper = new GrabHelper(driver,environment,this);
         dropHelper = new DropHelper(driver,environment,this);
         socialHelper = new SocialHelper(driver, environment, this);
@@ -156,7 +157,6 @@ public class ApplicationManager {
     public PerformHelper perform() { return performHelper; }
     public ReachHelper reach() { return reachHelper; }
     public DetectionHelper detect() { return detectionHelper; }
-    public CheckHelper check() { return checkHelper; }
     public GrabHelper grab() { return grabHelper; }
     public DropHelper drop() { return dropHelper; }
     public SocialHelper social() { return socialHelper; }

@@ -324,7 +324,7 @@ public class ShopHelper extends HelperBase {
                 kraken.await().fluently(
                         ExpectedConditions.elementToBeClickable(
                                 Elements.Cart.closeButton().getLocator()),
-                        "Не открылась корзина\n");
+                        "\n\n> Не открылась корзина");
             } else {
                 debugMessage("Пропускаем открытие корзины, уже открыта");
             }
@@ -351,7 +351,7 @@ public class ShopHelper extends HelperBase {
                 kraken.perform().click(Elements.Cart.checkoutButton());
             } else {
                 message("Кнопка перехода в чекаут неактивна");
-                throw new AssertionError("Не удается перейти в чекаут");
+                throw new AssertionError("\n\n> Не удается перейти в чекаут");
             }
         }
 
@@ -394,7 +394,7 @@ public class ShopHelper extends HelperBase {
     public void collectItems() {
         if(!kraken.detect().isCheckoutButtonActive()) {
             Cart.close();
-            collectItems(Config.minOrderSum);
+            collectItems(Config.TestVariables.DeliveryPrices.minOrderSum);
         } else { message("Пропускаем набор товаров, в корзине достаточно товаров для оформления минимального заказа");}
     }
 

@@ -19,8 +19,8 @@ public class AdministrationHelper extends HelperBase {
         public static void searchOrder(String order) {
             kraken.reach().admin("shipments");
             message("Поиск заказа по номеру " + order);
-            kraken.perform().fillField(Elements.Admin.Shipments.Filters.orderNumber(), order);
-            kraken.perform().click(Elements.Admin.Shipments.applyFilterButton());
+            kraken.perform().fillField(Elements.Administration.ShipmentsSection.Filters.orderNumber(), order);
+            kraken.perform().click(Elements.Administration.ShipmentsSection.applyFilterButton());
             kraken.await().implicitly(2); // Ожидание поиска заказа в админке
         }
 
@@ -28,15 +28,15 @@ public class AdministrationHelper extends HelperBase {
         public static void searchOrder(String number, boolean b2b) {
             kraken.reach().admin("shipments");
             message("Поиск B2B заказа по номеру " + number);
-            kraken.perform().fillField(Elements.Admin.Shipments.Filters.orderNumber(), number);
-            kraken.perform().setCheckbox(Elements.Admin.Shipments.Checkboxes.b2bOnly(),b2b);
-            kraken.perform().click(Elements.Admin.Shipments.applyFilterButton());
+            kraken.perform().fillField(Elements.Administration.ShipmentsSection.Filters.orderNumber(), number);
+            kraken.perform().setCheckbox(Elements.Administration.ShipmentsSection.Checkboxes.b2bOnly(),b2b);
+            kraken.perform().click(Elements.Administration.ShipmentsSection.applyFilterButton());
         }
 
         /** Возобновить заказ */
         public static void resumeOrder() {
             message("> возобновляем заказ " + kraken.grab().currentURL());
-            kraken.perform().click(Elements.Admin.Shipments.Order.Details.resumeOrderButton());
+            kraken.perform().click(Elements.Administration.ShipmentsSection.Order.Details.resumeOrderButton());
             handleAlert();
             kraken.await().implicitly(2); // Ожидание возобновления заказа в админке
         }
@@ -55,17 +55,17 @@ public class AdministrationHelper extends HelperBase {
         /** Отменить заказ на текущей странице с указанными причинами отмены */
         public static void cancelOrder(int reason, String details) {
             message("> отменяем заказ " + kraken.grab().currentURL());
-            kraken.perform().click(Elements.Admin.Shipments.Order.Details.cancelOrderButton());
+            kraken.perform().click(Elements.Administration.ShipmentsSection.Order.Details.cancelOrderButton());
             handleAlert();
             chooseCancellationReason(reason, details);
-            kraken.perform().click(Elements.Admin.Shipments.Order.Details.confirmOrderCancellationButton());
+            kraken.perform().click(Elements.Administration.ShipmentsSection.Order.Details.confirmOrderCancellationButton());
             kraken.await().implicitly(2); // Ожидание отмены заказа в админке
         }
 
         /** Выбрать причину и текст отмены заказа */
         private static void chooseCancellationReason(int reason, String details) {
             kraken.perform().click(By.id("cancellation_reason_id_" + reason));               // todo вынести в elements
-            kraken.perform().fillField(By.id("cancellation_reason_details"),details);        // todo вынести в elements
+            kraken.perform().fillField(Elements.Administration.ShipmentsSection.Order.Details.cancellationReasonField(),details);
         }
     }
 
@@ -88,10 +88,10 @@ public class AdministrationHelper extends HelperBase {
         private static void searchUser(String email, boolean b2b, boolean tenant) {
             kraken.reach().admin("users");
             message("Поиск пользователей по email " + email);
-            kraken.perform().fillField(Elements.Admin.Users.searchField(), email);
-            kraken.perform().setCheckbox(Elements.Admin.Users.b2bCheckbox(), b2b);
-            kraken.perform().setCheckbox(Elements.Admin.Users.tenantCheckbox(), tenant);
-            kraken.perform().click(Elements.Admin.Users.searchButton());
+            kraken.perform().fillField(Elements.Administration.UsersSection.searchField(), email);
+            kraken.perform().setCheckbox(Elements.Administration.UsersSection.b2bCheckbox(), b2b);
+            kraken.perform().setCheckbox(Elements.Administration.UsersSection.tenantCheckbox(), tenant);
+            kraken.perform().click(Elements.Administration.UsersSection.searchButton());
             kraken.await().implicitly(1); // Ожидание осуществления поиска юзера в админке
         }
 
@@ -103,18 +103,18 @@ public class AdministrationHelper extends HelperBase {
         /** Перейти в редактирование пользователя с указанием почты */
         public static void editUser(String email) {
             searchUser(email);
-            if(kraken.grab().text(Elements.Admin.Users.firstUserLogin()).equals(email.toLowerCase())) {
+            if(kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()).equals(email.toLowerCase())) {
                 editFirstUserInList();
             } else {
                 message("! Найден не тот юзер !");
-                message("Первый email в списке по локатору: " + kraken.grab().text(Elements.Admin.Users.firstUserLogin()));
+                message("Первый email в списке по локатору: " + kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()));
                 message("А ищем: " + email);
             }
         }
 
         /** Перейти в редактирование первого пользователя в списке */
         public static void editFirstUserInList() {
-            kraken.perform().click(Elements.Admin.Users.firstUserEditButton());
+            kraken.perform().click(Elements.Administration.UsersSection.firstUserEditButton());
             kraken.await().implicitly(1); // Ожидание загрузки страницы пользователя в админке
             message("Редактирование пользователя " + kraken.grab().currentURL());
         }
@@ -122,9 +122,9 @@ public class AdministrationHelper extends HelperBase {
         /** Удалить первого найденного пользователя */
         public static void deleteFirstFoundUser(String email) {
             searchUser(email);
-            if (kraken.detect().isElementDisplayed(Elements.Admin.Users.firstUserLogin())) {
-                if (kraken.grab().text(Elements.Admin.Users.firstUserLogin()).equalsIgnoreCase(email)) {
-                    kraken.perform().click(Elements.Admin.Users.firstUserDeleteButton());
+            if (kraken.detect().isElementDisplayed(Elements.Administration.UsersSection.firstUserLogin())) {
+                if (kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()).equalsIgnoreCase(email)) {
+                    kraken.perform().click(Elements.Administration.UsersSection.firstUserDeleteButton());
                     kraken.perform().handleAlert();
                 } else {
                     message("Найден не тот пользователь!");
@@ -141,12 +141,12 @@ public class AdministrationHelper extends HelperBase {
 
         /** Предоставить админские права в карточке пользователя */
         public static void grantAdminPrivileges() {
-            if (kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.adminCheckbox())) {
+            if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.adminCheckbox())) {
                 message("Административные права были предоставлены ранее");
             } else {
-                kraken.perform().click(Elements.Admin.Users.UserPage.adminCheckbox());
+                kraken.perform().click(Elements.Administration.UsersSection.UserPage.adminCheckbox());
                 kraken.await().implicitly(1); // Ожидание проставления чекбокса админских прав
-                kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
+                kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
                 message("Предоставлены права администратора");
             }
         }
@@ -159,10 +159,10 @@ public class AdministrationHelper extends HelperBase {
 
         /** Отозвать админские права в карточке пользователя */
         public static void revokeAdminPrivileges() {
-            if (kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.adminCheckbox())) {
-                kraken.perform().click(Elements.Admin.Users.UserPage.adminCheckbox());
+            if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.adminCheckbox())) {
+                kraken.perform().click(Elements.Administration.UsersSection.UserPage.adminCheckbox());
                 kraken.await().implicitly(1); // Ожидание снятия чекбокса админских прав
-                kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
+                kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
                 message("Отозваны административные права");
             } else {
                 message("Пользователь не имеет административных прав");
@@ -171,30 +171,30 @@ public class AdministrationHelper extends HelperBase {
 
         /** Сменить пароль в карточке пользователя */
         public static void changePassword(String password) {
-            kraken.perform().fillField(Elements.Admin.Users.UserPage.passwordField(), password);
-            kraken.perform().fillField(Elements.Admin.Users.UserPage.passwordConfirmationField(), password);
-            kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
+            kraken.perform().fillField(Elements.Administration.UsersSection.UserPage.passwordField(), password);
+            kraken.perform().fillField(Elements.Administration.UsersSection.UserPage.passwordConfirmationField(), password);
+            kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
             message("Смена пароля пользователя");
         }
 
         /** Проставить флаг B2B в карточке пользователя */
         public static void grantB2B() {
-            if (kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.b2bCheckbox())) {
+            if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.b2bCheckbox())) {
                 message("Пользователь уже B2B");
             } else {
-                kraken.perform().click(Elements.Admin.Users.UserPage.b2bCheckbox());
+                kraken.perform().click(Elements.Administration.UsersSection.UserPage.b2bCheckbox());
                 kraken.await().implicitly(1); // Ожидание проставления чекбокса B2B
-                kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
+                kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
                 message("Проставлен флаг B2B");
             }
         }
 
         /** Снять флаг B2B в карточке пользователя */
         public static void revokeB2B() {
-            if (kraken.detect().isCheckboxSelected(Elements.Admin.Users.UserPage.b2bCheckbox())) {
-                kraken.perform().click(Elements.Admin.Users.UserPage.b2bCheckbox());
+            if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.b2bCheckbox())) {
+                kraken.perform().click(Elements.Administration.UsersSection.UserPage.b2bCheckbox());
                 kraken.await().implicitly(1); // Ожидание снятия чекбокса B2B
-                kraken.perform().click(Elements.Admin.Users.UserPage.saveButton());
+                kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
                 message("Снят флаг B2B");
             } else {
                 message("Пользователь уже не B2B");
@@ -205,52 +205,41 @@ public class AdministrationHelper extends HelperBase {
     /** Раздел СТРАНИЦЫ */
     public static class Pages {
 
-        public static void validatePagesPage(String name){
-            kraken.get().adminPage("pages");
-
-            kraken.check().elementPresence(Elements.Admin.Pages.table());
-            kraken.check().elementPresence(Elements.Admin.Pages.newPageButton());
-            kraken.check().elementPresence(Elements.Admin.Pages.editPageButton(name));
-            kraken.check().elementPresence(Elements.Admin.Pages.deletePageButton(name));
-        }
-
         public static void switchSourceEditor(){
             kraken.await().implicitly(1); // ждём, пока прогрузится html-ка с описанием
-            kraken.perform().click(Elements.Admin.Pages.PageEditPage.pageDescriptionSourceButton()); // минутка магии в html-редакторе
+            kraken.perform().click(Elements.Administration.PagesSection.PageEditPage.pageDescriptionSourceButton()); // минутка магии в html-редакторе
         }
 
         public static void validateStaticPage(String name){
             kraken.get().adminPage("pages/new");
 
-            kraken.check().elementPresence(Elements.Admin.Pages.PageEditPage.pageNameField());
-            kraken.check().elementPresence(Elements.Admin.Pages.PageEditPage.pageURLField());
+            //assertElementPresence(Elements.Administration.PagesSection.PageEditPage.pageNameField());
+            //assertElementPresence(Elements.Administration.PagesSection.PageEditPage.pageURLField());
             Pages.switchSourceEditor();
-            kraken.check().elementPresence(Elements.Admin.Pages.PageEditPage.pageDescriptionField());
-            kraken.check().elementPresence(Elements.Admin.Pages.PageEditPage.pageNameField());
-            kraken.check().elementPresence(Elements.Admin.Pages.PageEditPage.pageURLField());
+            //assertElementPresence(Elements.Administration.PagesSection.PageEditPage.pageDescriptionField());
+            //assertElementPresence(Elements.Administration.PagesSection.PageEditPage.pageNameField());
+            //assertElementPresence(Elements.Administration.PagesSection.PageEditPage.pageURLField());
         }
 
-        public static void createStaticPage(String name, String URL, String desc){
-            kraken.perform().click(Elements.Admin.Pages.newPageButton());
-            kraken.perform().fillField(Elements.Admin.Pages.PageEditPage.pageNameField(), name);
-            kraken.perform().fillField(Elements.Admin.Pages.PageEditPage.pageURLField(), URL);
+        public static void create(String name, String URL, String desc){
+            kraken.perform().click(Elements.Administration.PagesSection.newPageButton());
+            kraken.perform().fillField(Elements.Administration.PagesSection.PageEditPage.pageNameField(), name);
+            kraken.perform().fillField(Elements.Administration.PagesSection.PageEditPage.pageURLField(), URL);
             Pages.switchSourceEditor();
-            kraken.perform().fillField(Elements.Admin.Pages.PageEditPage.pageDescriptionField(), desc);
-            kraken.perform().click(Elements.Admin.Pages.PageEditPage.savePageButton());
-
-            kraken.check().elementPresence(Elements.Admin.Pages.tableEntry(name));
+            kraken.perform().fillField(Elements.Administration.PagesSection.PageEditPage.pageDescriptionField(), desc);
+            kraken.perform().click(Elements.Administration.PagesSection.PageEditPage.savePageButton());
         }
 
         public static void editStaticPage(String name){
             // TODO: поправить метод так, чтобы он хоть что-нибудь толковое проверял
             String pageDesc = "Abra Kadabra Ahalai Mahalai";
-            kraken.perform().click(Elements.Admin.Pages.editPageButton(name));
+            kraken.perform().click(Elements.Administration.PagesSection.editPageButton(name));
             // TODO: проверить, что зашли в редактрование той страницы
-//            if (kraken.grab().value(Elements.Admin.Pages.PageEditPage.pageNameField()) == name) {
+//            if (kraken.grab().value(Elements.Administration.PagesSection.PageEditPage.pageNameField()) == name) {
                 Pages.switchSourceEditor();
-                kraken.perform().fillField(Elements.Admin.Pages.PageEditPage.pageDescriptionField(), pageDesc);
+                kraken.perform().fillField(Elements.Administration.PagesSection.PageEditPage.pageDescriptionField(), pageDesc);
                 kraken.await().implicitly(1);
-                kraken.perform().click(Elements.Admin.Pages.PageEditPage.savePageButton());
+                kraken.perform().click(Elements.Administration.PagesSection.PageEditPage.savePageButton());
 //            }
 /*            else {
                 message("Редактируем не ту страницу");
@@ -258,9 +247,9 @@ public class AdministrationHelper extends HelperBase {
 */
         }
 
-        public static void deleteStaticPage(String name){
-            kraken.perform().click(Elements.Admin.Pages.deletePageButton(name));
-            kraken.perform().handleAlert();
+        public static void delete(String name){
+            kraken.perform().click(Elements.Administration.PagesSection.deletePageButton(name));
+            handleAlert();
         }
 
         // проверяем существование статической страницы

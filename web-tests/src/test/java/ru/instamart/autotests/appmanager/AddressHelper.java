@@ -17,20 +17,9 @@ public class AddressHelper extends HelperBase {
      */
     public void set(String address) {
         message("Устанавливаем адрес доставки >>> " + address + "\n");
-        if (kraken.grab().currentURL().equals(fullBaseUrl)) {
-            kraken.perform().fillField(Elements.Landing.addressField(), address);
-            kraken.await().implicitly(1); // Ожидание загрузки адресных саджестов
-            kraken.perform().click(Elements.Landing.addressSuggest());
-            kraken.perform().click(Elements.Landing.selectStoreButton());
-            kraken.await().implicitly(1); // Ожидание загрузки витрины магазина
-            kraken.await().fluently(
-                    ExpectedConditions.invisibilityOfElementLocated(
-                            Elements.Modals.fade().getLocator()), "\nНе пропадает адресная модалка\n");
-        } else {
-            openAddressModal();
-            fill(address);
-            submit();
-        }
+        openAddressModal();
+        fill(address);
+        submit();
     }
 
     /**
@@ -118,7 +107,7 @@ public class AddressHelper extends HelperBase {
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(
                             Elements.Modals.AddressModal.popup().getLocator()),
-                    "Не применяется адрес доставки\n");
+                                "Превышено время ожидания применения адреса доставки\n");
         }
     }
 

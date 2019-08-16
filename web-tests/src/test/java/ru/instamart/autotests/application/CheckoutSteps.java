@@ -13,38 +13,71 @@ public class CheckoutSteps {
     public static CheckoutStepData getStepDetails(int step) {
         switch (step) {
             case addressStepPosition :
-                return address();
+                return addressStep();
             case contactsStepPosition :
-                return contacts();
+                return contactsStep();
             case replacementsStepPosition :
-                return replacements();
+                return replacementsStep();
             case paymentStepPosition :
-                return payment();
+                return paymentStep();
             case deliveryStepPosition :
-                return delivery();
+                return deliveryStep();
             default:
                 return null;
         }
-
     }
 
-    public static CheckoutStepData address() {
+    public static CheckoutStepData addressStep() {
         return new CheckoutStepData (addressStepPosition,"Адрес","Уточните ваш адрес");
     }
 
-    public static CheckoutStepData contacts() {
+    public static CheckoutStepData contactsStep() {
         return new CheckoutStepData (contactsStepPosition,"Контакты","Добавьте свои контакты");
     }
 
-    public static CheckoutStepData replacements() {
+    public static CheckoutStepData replacementsStep() {
         return new CheckoutStepData (replacementsStepPosition,"Замены","Выберите способ осуществления замен");
     }
 
-    public static CheckoutStepData payment() {
+    public static CheckoutStepData paymentStep() {
         return new CheckoutStepData (paymentStepPosition,"Оплата","Выберите метод оплаты");
     }
 
-    public static CheckoutStepData delivery() {
+    public static CheckoutStepData deliveryStep() {
         return new CheckoutStepData (deliveryStepPosition,"Доставка","Выберите время доставки");
+    }
+
+    public static String getStepNameBy(String title){
+        switch (title){
+            case "Уточните ваш адрес":
+                return "Адрес";
+            case "Добавьте свои контакты":
+                return "Контакты";
+            case "Выберите способ осуществления замен":
+                return "Замены";
+            case "Выберите метод оплаты":
+                return "Оплата";
+            case "Выберите время доставки":
+                return "Доставка";
+            default:
+                return null;
+        }
+    }
+
+    public static String getStepTitleBy(String name){
+        switch (name){
+            case "Адрес":
+                return "Уточните ваш адрес";
+            case "Контакты":
+                return "Добавьте свои контакты";
+            case "Замены":
+                return "Выберите способ осуществления замен";
+            case "Оплата":
+                return "Выберите метод оплаты";
+            case "Доставка":
+                return "Выберите время доставки";
+            default:
+                return null;
+        }
     }
 }

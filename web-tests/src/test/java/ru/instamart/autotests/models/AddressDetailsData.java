@@ -56,7 +56,7 @@ public class AddressDetailsData {
 
     // Getters
 
-    public String getComments() {
+    public String getCommentaries() {
         return comments;
     }
 
@@ -76,7 +76,7 @@ public class AddressDetailsData {
         return domofon;
     }
 
-    public String getKind() {
+    public String getType() {
         return kind;
     }
 

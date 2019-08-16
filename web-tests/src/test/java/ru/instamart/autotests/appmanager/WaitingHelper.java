@@ -9,7 +9,7 @@ import ru.instamart.autotests.models.EnvironmentData;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
-import static ru.instamart.autotests.application.Config.waitingTimeout;
+import static ru.instamart.autotests.application.Config.CoreSettings.waitingTimeout;
 
 public class WaitingHelper extends HelperBase {
 

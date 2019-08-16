@@ -6,6 +6,7 @@ import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.models.*;
 
+import static ru.instamart.autotests.application.Config.TestVariables.testOrderDetails;
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 
 public class Playground extends TestBase {
@@ -33,7 +34,7 @@ public class Playground extends TestBase {
         kraken.perform().registration();
         kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         kraken.reach().checkout();
-        kraken.checkout().fillOrderDetails(Config.testOrderDetails());
+        kraken.checkout().fillOrderDetails(testOrderDetails());
     }
 
     @Test
@@ -109,14 +110,14 @@ public class Playground extends TestBase {
     @Test
     public void cancelTestOrders() {
         kraken.cleanup().orders();
-        Assert.assertFalse(kraken.detect().element(Elements.Admin.Shipments.placeholder()),
+        Assert.assertFalse(kraken.detect().element(Elements.Administration.ShipmentsSection.placeholder()),
                 "Отменились не все тестовые заказы\n");
     }
 
     @Test
     public void deleteTestUsers() {
         kraken.cleanup().users();
-        Assert.assertFalse(kraken.detect().element(Elements.Admin.Users.userlistFirstRow()),
+        Assert.assertFalse(kraken.detect().element(Elements.Administration.UsersSection.userlistFirstRow()),
                 "Удалились не все тестовые юзеры\n");
     }
 

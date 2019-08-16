@@ -6,12 +6,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.*;
-import ru.instamart.autotests.application.Config;
 
 import java.util.concurrent.TimeUnit;
 
-import static ru.instamart.autotests.application.Config.basicTimeout;
-import static ru.instamart.autotests.application.Config.waitingTimeout;
+import static ru.instamart.autotests.application.CheckoutSteps.*;
+import static ru.instamart.autotests.application.Config.TestVariables.testOrderDetails;
+import static ru.instamart.autotests.application.Config.CoreSettings.basicTimeout;
+import static ru.instamart.autotests.application.Config.CoreSettings.waitingTimeout;
 
 public class CheckoutHelper extends HelperBase {
 
@@ -19,10 +20,403 @@ public class CheckoutHelper extends HelperBase {
         super(driver, environment, app);
     }
 
-    // TODO РАЗБИТЬ НА ПОДКЛАССЫ КАК В SHOPHELPER
+    public static void hitNext(CheckoutStepData step){
+        verboseMessage("Жмем \"Продолжить\" в шаге \"" + step.getName() + "\"\n");
+        kraken.perform().click(Elements.Checkout.Step.nextButton(step));
+        kraken.await().simply(1); // Ожидание сохранения данных в шаге чекаута после нажатия "Продолжить"
+    }
+
+    public static void hitChange(CheckoutStepData step){
+        verboseMessage("Жмем \"Изменить\" в шаге \"" + step.getName() + "\"\n");
+        kraken.perform().click(Elements.Checkout.MinimizedStep.changeButton(step));
+        kraken.await().simply(1); // Ожидание разворота шага чекаута после нажатия "Изменить"
+    }
+
+    public static void hitSave(CheckoutStepData step){
+        verboseMessage("Жмем \"Сохранить\" в шаге \"" + step.getName() + "\"\n");
+        kraken.perform().click(Elements.Checkout.Step.saveButton(step));
+        kraken.await().simply(1); // Ожидание сохранения данных в шаге чекаута после нажатия "Сохранить"
+    }
+
+    public void sendOrderFromSidebar() {
+        verboseMessage("Отправляем заказ ...");
+        kraken.await().fluently(
+                ExpectedConditions.elementToBeClickable(
+                        Elements.Checkout.SideBar.sendOrderButton().getLocator()),
+                            "Неактивна кнопка отправки заказа\n");
+        kraken.perform().click(Elements.Checkout.SideBar.sendOrderButton());
+        kraken.await().fluently(
+                ExpectedConditions.visibilityOfElementLocated(
+                        Elements.UserProfile.OrderDetailsPage.activeOrderAttribute().getLocator()),
+                            "Превышено время отправки заказа\n");
+        message("✓ Заказ оформлен\n");
+    }
+
+    public void sendOrderFromBottomPanel() {
+        verboseMessage("Отправляем заказ ...");
+        kraken.await().fluently(
+                ExpectedConditions.elementToBeClickable(
+                        Elements.Checkout.sendOrderButton().getLocator()),
+                "Неактивна кнопка отправки заказа\n");
+        kraken.perform().click(Elements.Checkout.sendOrderButton());
+        kraken.await().fluently(
+                ExpectedConditions.visibilityOfElementLocated(
+                        Elements.UserProfile.OrderDetailsPage.activeOrderAttribute().getLocator()),
+                "Превышено время отправки заказа\n");
+        message("✓ Заказ оформлен\n");
+    }
+
+    public static class AddressStep {
+
+        public static void fill() {
+            verboseMessage("\nЗаполняем адрес доставки дефолтными тестовыми значениями из конфига");
+            fill(testOrderDetails().getAddressDetails());
+        }
+
+        public static void fill(AddressDetailsData addressDetails) {
+            debugMessage("Заполняем адрес доставки");
+            setType(addressDetails.getType());
+            fillApartment(addressDetails.getApartment());
+            fillFloor(addressDetails.getFloor());
+            setElevator(addressDetails.isElevatorAvailable());
+            fillEntrance(addressDetails.getEntrance());
+            fillDomofon(addressDetails.getDomofon());
+            fillCommentaries(addressDetails.getCommentaries());
+        }
+
+        public static void clear() {
+            verboseMessage("\nОчищаем все доступные поля адреса доставки и возвращаем настройки в дефолтное состояние");
+            setTypeHome();
+            fillApartment("");
+            fillFloor("");
+            setElevator(false);
+            fillEntrance("");
+            fillDomofon("");
+            fillCommentaries("");
+        }
+
+        public static void next(){
+            CheckoutHelper.hitNext(addressStep());
+        }
+
+        public static void change(){
+            CheckoutHelper.hitChange(addressStep());
+        }
+
+        public static void save(){
+            CheckoutHelper.hitSave(addressStep());
+        }
+
+        public static void setType(){
+            verboseMessage("Устанавливаем радиокнопку Тип дефолтным тестовым значением из конфига");
+            setType(testOrderDetails().getAddressDetails().getType());
+        }
+
+        public static void setType(String type){
+            switch (type){
+                case "home": setTypeHome(); break;
+                case "office": setTypeOffice(); break;
+                default: verboseMessage("> не удалось выбрать тип квартира / офис"); break;
+            }
+        }
+
+        public static void setTypeHome(){
+            verboseMessage("> тип: квартира");
+            kraken.perform().click(Elements.Checkout.AddressStep.homeRadioButton());
+        }
+
+        public static void setTypeOffice(){
+            verboseMessage("> тип: офис");
+            kraken.perform().click(Elements.Checkout.AddressStep.officeRadioButton());
+        }
+
+        public static void fillApartment(){
+            verboseMessage("Заполняем поле Номер квартиры/офиса дефолтным тестовым значением из конфига");
+            fillApartment(testOrderDetails().getAddressDetails().getApartment());
+        }
+
+        public static void fillApartment(String number){
+            verboseMessage("> номер: " + number);
+            kraken.perform().fillField(Elements.Checkout.AddressStep.apartmentInputField(), number);
+        }
+
+        public static void fillFloor(){
+            verboseMessage("Заполняем поле Этаж дефолтным тестовым значением из конфига");
+            fillFloor(testOrderDetails().getAddressDetails().getFloor());
+        }
+
+        public static void fillFloor(String number){
+            verboseMessage("> этаж: " + number);
+            kraken.perform().fillField(Elements.Checkout.AddressStep.floorInputField(), number);
+        }
+
+        public static void setElevator(){
+            verboseMessage("Устанавливаем чекбокс Есть лифт дефолтным тестовым значением из конфига");
+            setElevator(testOrderDetails().getAddressDetails().isElevatorAvailable());
+        }
+
+        public static void setElevator(boolean value){
+            if (value) verboseMessage("> лифт: есть");
+            else verboseMessage("> лифт: нет");
+            kraken.perform().setCheckbox(Elements.Checkout.AddressStep.elevatorCheckbox(), value);
+        }
+
+        public static void fillEntrance(){
+            verboseMessage("Заполняем поле Подъезд дефолтным тестовым значением из конфига");
+            fillEntrance(testOrderDetails().getAddressDetails().getEntrance());
+        }
+
+        public static void fillEntrance(String number){
+            verboseMessage("> подъезд: " + number);
+            kraken.perform().fillField(Elements.Checkout.AddressStep.entranceInputField(), number);
+        }
+
+        public static void fillDomofon(){
+            verboseMessage("Заполняем поле Домофон дефолтным тестовым значением из конфига");
+            fillDomofon(testOrderDetails().getAddressDetails().getDomofon());
+        }
+
+        public static void fillDomofon(String number){
+            verboseMessage("> домофон: " + number);
+            kraken.perform().fillField(Elements.Checkout.AddressStep.domofonInputField(), number);
+        }
+
+        public static void fillCommentaries(){
+            verboseMessage("Заполняем поле Комментарии дефолтным тестовым значением из конфига");
+            fillCommentaries(testOrderDetails().getAddressDetails().getCommentaries());
+        }
+
+        public static void fillCommentaries(String text){
+            verboseMessage("> комментарии по доставке: " + text);
+            kraken.perform().fillField(Elements.Checkout.AddressStep.commentariesInputField(), text);
+        }
+    }
+
+    public static class ContactsStep {
+
+        public static void fill() {
+            verboseMessage("\nЗаполняем контакты дефолтными тестовыми значениями из конфига");
+            fill(testOrderDetails().getContactsDetails());
+        }
+
+        public static void fill(ContactsDetailsData contactsDetails) {
+
+            // todo детектить пустые поля
+
+            if(contactsDetails.changeFirstName()) {
+                fillFirstName(contactsDetails.getFirstName());
+            }
+
+            if(contactsDetails.changeLastName()) {
+                fillLastName(contactsDetails.getLastName());
+            }
+
+            if(contactsDetails.changeEmail()) {
+                fillEmail(contactsDetails.getEmail());
+            }
+
+            if(kraken.detect().isElementPresent(Elements.Checkout.ContactsStep.phoneInputField())) {
+                fillPhone(contactsDetails.getPhone());
+            } else if(contactsDetails.addNewPhone()) {
+                Phones.addNewPhone(contactsDetails.getPhone());
+            }
+
+            setSendEmails(contactsDetails.sendEmails());
+        }
+
+        public static void clear() {
+            verboseMessage("\nОчищаем все доступные поля контактов, возвращаем настройки в дефолтное состояние и удаляем все добавленные телефоны");
+            fillFirstName("");
+            fillLastName("");
+            fillEmail("");
+            Phones.deleteAll();
+            setSendEmails(false);
+        }
+
+        public static void next() {
+            CheckoutHelper.hitNext(contactsStep());
+        }
+
+        public static void change() {
+            CheckoutHelper.hitChange(contactsStep());
+        }
+
+        public static void save() {
+            CheckoutHelper.hitSave(contactsStep());
+        }
+
+        public static void fillFirstName(String firstName) {
+            verboseMessage("> имя: " + firstName);
+            kraken.perform().fillField(Elements.Checkout.ContactsStep.firstNameInputField(), firstName);
+        }
+
+        public static void fillLastName(String lastName) {
+            verboseMessage("> фамилия: " + lastName);
+            kraken.perform().fillField(Elements.Checkout.ContactsStep.firstNameInputField(), lastName);
+        }
+
+        public static void fillEmail(String email) {
+            verboseMessage("> email: " + email);
+            kraken.perform().fillField(Elements.Checkout.ContactsStep.emailInputField(), email);
+        }
+
+        public static void fillPhone(String number) {
+            verboseMessage("> телефон: " + number);
+            kraken.perform().fillField(Elements.Checkout.ContactsStep.phoneInputField(), number);
+        }
+
+        public static class Phones {
+
+            //Todo public static class Modal > fill > submit > cancel > close
+
+            public static class TopEntry {
+
+                public static void edit(String newNumber) {
+                    verboseMessage("Изменяем верхний добавленный номер телефона на " + newNumber);
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.TopEntry.changeButton());
+                    kraken.perform().fillField(Elements.Checkout.ContactsStep.Phones.Modal.inputField(),newNumber);
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.Modal.submitButton());
+                }
+
+                public static void delete() {
+                    debugMessage("Удаляем верхний добавленный номер телефона");
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.TopEntry.changeButton());
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.Modal.deleteButton());
+                }
+            }
+
+            public static class ActiveEntry {
+
+                public static void edit(String newNumber) {
+                    verboseMessage("Изменяем активный добавленный номер телефона на " + newNumber);
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.ActiveEntry.changeButton());
+                    kraken.perform().fillField(Elements.Checkout.ContactsStep.Phones.Modal.inputField(),newNumber);
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.Modal.submitButton());
+                }
+
+                public static void delete() {
+                    debugMessage("Удаляем активный добавленный номер телефона");
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.ActiveEntry.changeButton());
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.Modal.deleteButton());
+                }
+            }
+
+            public static class NotActiveEntry {
+
+                public static void edit(String newNumber) {
+                    verboseMessage("Изменяем неактивный добавленный номер телефона на " + newNumber);
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.NotActiveEntry.changeButton());
+                    kraken.perform().fillField(Elements.Checkout.ContactsStep.Phones.Modal.inputField(),newNumber);
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.Modal.submitButton());
+                }
+
+                public static void delete() {
+                    debugMessage("Удаляем неактивный добавленный номер телефона");
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.NotActiveEntry.changeButton());
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.Modal.deleteButton());
+                }
+            }
+
+            public static void addNewPhone(String number) {
+                verboseMessage("Добавляем новый номер телефона: " + number);
+                kraken.perform().click(Elements.Checkout.ContactsStep.Phones.addNewPhoneButton());
+                kraken.perform().fillField(Elements.Checkout.ContactsStep.Phones.Modal.inputField(),number);
+                kraken.perform().click(Elements.Checkout.ContactsStep.Phones.Modal.submitButton());
+            }
+
+            public static void deleteAll() {
+                verboseMessage("Удаляем все добавленные номера телефонов");
+                if(kraken.detect().isElementPresent(Elements.Checkout.ContactsStep.phoneInputField())) {
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.TopEntry.changeButton());
+                    kraken.perform().click(Elements.Checkout.ContactsStep.Phones.Modal.deleteButton());
+                    deleteAll();
+                } else {
+
+                }
+            }
+        }
+
+        public static void setSendEmails(boolean value) {
+            if(value) verboseMessage("> отправлять письма с апдейтами по заказу: да");
+            else verboseMessage("> отправлять письма с апдейтами по заказу: нет");
+            kraken.perform().setCheckbox(Elements.Checkout.ContactsStep.sendEmailsCheckbox(), value);
+        }
+    }
+
+
+    public static class ReplacementsStep {
+
+        public static void choose(ReplacementPolicyData policy) {
+            choosePolicy(policy);
+        }
+
+        public static void choose(int policyPosition) {
+            //todo
+        }
+
+        public static void clear() {
+            verboseMessage("\nВозвращаем настройки в дефолтное состояние");
+            choosePolicy(ReplacementPolicies.callAndReplace());
+        }
+
+        public static void next() {
+            CheckoutHelper.hitNext(replacementsStep());
+        }
+
+        public static void change() {
+            CheckoutHelper.hitChange(replacementsStep());
+        }
+
+        public static void save() {
+            CheckoutHelper.hitSave(replacementsStep());
+        }
+    }
+
+    public static class PaymentStep {
+
+        public static void next() {
+            CheckoutHelper.hitNext(paymentStep());
+        }
+
+        public static void change() {
+            CheckoutHelper.hitChange(paymentStep());
+        }
+
+        public static void save() {
+            CheckoutHelper.hitSave(paymentStep());
+        }
+    }
+
+    public static class DeliveryStep {
+
+        public static void next() {
+            CheckoutHelper.hitNext(deliveryStep());
+        }
+
+        public static void change() {
+            CheckoutHelper.hitChange(deliveryStep());
+        }
+
+        public static void save() {
+            CheckoutHelper.hitSave(deliveryStep());
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void complete() {
-        makeOrder(Config.testOrderDetails());
+        makeOrder(testOrderDetails());
     }
 
     public void complete(PaymentTypeData payment) {
@@ -58,16 +452,17 @@ public class CheckoutHelper extends HelperBase {
     public void makeOrder(OrderDetailsData orderDetails) {
         fillOrderDetails(orderDetails);
         if(orderDetails.getPromocode() != null) {Promocode.add(orderDetails.getPromocode());}
-        if(orderDetails.getBonus() != null) {Bonuses.add(orderDetails.getBonus());}
+        if(orderDetails.getBonus() != null) {
+            CheckoutHelper.Bonuses.add(orderDetails.getBonus());}
         if(orderDetails.getRetailerCard() != null) { addRetailerCard(orderDetails.getRetailerCard());}
-        sendOrder();
+        sendOrderFromSidebar();
         if(orderDetails.getPaymentDetails().getPaymentType().getDescription().equalsIgnoreCase(PaymentTypes.cardOnline().getDescription())) {
             cloudpaymentsFlow();
         }
     }
 
     public void fillOrderDetails() {
-        fillOrderDetails(Config.testOrderDetails());
+        fillOrderDetails(testOrderDetails());
     }
 
     public void fillOrderDetails(OrderDetailsData orderDetails) {
@@ -80,27 +475,27 @@ public class CheckoutHelper extends HelperBase {
     private void fillStep(int position, OrderDetailsData orderDetails) {
         CheckoutStepData step = CheckoutSteps.getStepDetails(position);
         assert step != null;
-        if (initStep(step.getPosition(), step.getDescription())) {
+        if (initStep(step.getPosition(), step.getTitle())) {
             message("Шаг " + step.getPosition() + " - " + step.getName());
         } else {
             hitChangeButton(step.getPosition());
         }
         switch (step.getName()) {
             case "Адрес" :
-                fillAddressDetails(orderDetails.getAddressDetails());
-                hitNextButton(step.getPosition());
+                AddressStep.fill(orderDetails.getAddressDetails());
+                AddressStep.next();
                 break;
             case "Контакты" :
-                fillContactsDetails(orderDetails.getContactsDetails());
-                hitNextButton(step.getPosition());
+                ContactsStep.fill(orderDetails.getContactsDetails());
+                ContactsStep.next();
                 break;
             case "Замены" :
-                chooseReplacementPolicy(orderDetails.getReplacementPolicy());
-                hitNextButton(step.getPosition());
+                choosePolicy(orderDetails.getReplacementPolicy());
+                ReplacementsStep.next();
                 break;
             case "Оплата" :
                 choosePaymentMethod(orderDetails.getPaymentDetails());
-                hitNextButton(step.getPosition());
+                PaymentStep.next();
                 break;
             case "Доставка" :
                 chooseDeliveryTime(orderDetails.getDeliveryTime());
@@ -108,35 +503,7 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-    public void fillAddressDetails(AddressDetailsData addressDetails) {
-            specifyDetail("apartment", addressDetails.getApartment());
-            specifyDetail("floor", addressDetails.getFloor());
-            if(addressDetails.isElevatorAvailable()) { kraken.perform().click(Elements.Checkout.elevatorCheckbox()); }
-            specifyDetail("entrance", addressDetails.getEntrance());
-            specifyDetail("doorPhone", addressDetails.getDomofon());
-            specifyDetail("order[special_instructions]", addressDetails.getComments());
-    }
-
-    public void fillContactsDetails(ContactsDetailsData contactsDetails) {
-        if(contactsDetails.getName() != null) specifyDetail("order[ship_address_attributes][firstname]", contactsDetails.getName());
-        if(contactsDetails.getSurname() != null) specifyDetail("order[ship_address_attributes][lastname]", contactsDetails.getSurname());
-        if(contactsDetails.getEmail() != null) specifyDetail("order[email]", contactsDetails.getEmail());
-        // TODO сделать проставление галки согласия на коммерческие коммуникации
-        //if(contactsDetails.isSendEmail()) specifyDetail("order[send_emails]", contactsDetails.isSendEmail()); // TODO переделать
-
-        if(contactsDetails.isNewPhone()) {
-            deletePhoneNumbers();
-            message("Добавляем номер телефона +7 " + contactsDetails.getPhone());
-            kraken.perform().fillField(Elements.Checkout.phoneNumberField(), contactsDetails.getPhone());
-        } else if(kraken.detect().isPhoneNumberEmpty()) {
-            message("Добавляем номер телефона +7 " + contactsDetails.getPhone());
-            kraken.perform().fillField(Elements.Checkout.phoneNumberField(), contactsDetails.getPhone());
-            } else {
-            message("Используем существующий номер телефона");
-        }
-    }
-
-    public void chooseReplacementPolicy(ReplacementPolicyData policy) {
+    public static void choosePolicy(ReplacementPolicyData policy) {
         kraken.perform().click(Elements.Checkout.replacementPolicy(policy.getPosition()));
         message("Выбираем способ замен #" + policy.getPosition() + " (" + policy.getUserDescription() + ")");
     }
@@ -152,7 +519,7 @@ public class CheckoutHelper extends HelperBase {
                 if (paymentDetails.getCreditCard() != null) {
                     addNewPaymentCard(paymentDetails.getCreditCard());
                 } else {
-                    addNewPaymentCard(Config.testOrderDetails().getPaymentDetails().getCreditCard());
+                    addNewPaymentCard(testOrderDetails().getPaymentDetails().getCreditCard());
                 }
             } else {
                 if (paymentDetails.getCreditCard() != null) {
@@ -167,7 +534,7 @@ public class CheckoutHelper extends HelperBase {
                 if (paymentDetails.getJuridical() != null) {
                     addNewJuridical(paymentDetails.getJuridical());
                 } else {
-                    addNewJuridical(Config.testOrderDetails().getPaymentDetails().getJuridical());
+                    addNewJuridical(testOrderDetails().getPaymentDetails().getJuridical());
                 }
             } else {
                 if (paymentDetails.getJuridical() != null) {
@@ -294,9 +661,9 @@ public class CheckoutHelper extends HelperBase {
         /** Добавление бонусной программы */
         public static void add(LoyaltiesData bonus) {
             verboseMessage("Добавляем бонусную программу " + bonus.getName());
-            kraken.perform().click(Elements.Checkout.Bonus.Program.addButton(bonus.getName()));
-            kraken.perform().fillField(Elements.Checkout.Bonus.Modal.inputField(), bonus.getCardNumber());
-            kraken.perform().click(Elements.Checkout.Bonus.Modal.saveButton());
+            kraken.perform().click(Elements.Checkout.Bonuses.Program.addButton(bonus.getName()));
+            kraken.perform().fillField(Elements.Checkout.Bonuses.Modal.inputField(), bonus.getCardNumber());
+            kraken.perform().click(Elements.Checkout.Bonuses.Modal.saveButton());
             kraken.await().implicitly(1); // Ожидание добавления бонусной программы в чекауте
             // TODO добавить fluent-ожидание
         }
@@ -305,9 +672,9 @@ public class CheckoutHelper extends HelperBase {
         public static void edit(LoyaltiesData bonus) throws AssertionError {
             if (kraken.detect().isBonusAdded(bonus)) {
                 verboseMessage("Редактируем бонусную программу " + bonus.getName());
-                kraken.perform().click(Elements.Checkout.Bonus.Program.addButton(bonus.getName()));
-                kraken.perform().fillField(Elements.Checkout.Bonus.Modal.inputField(), bonus.getCardNumber());
-                kraken.perform().click(Elements.Checkout.Bonus.Modal.saveButton());
+                kraken.perform().click(Elements.Checkout.Bonuses.Program.addButton(bonus.getName()));
+                kraken.perform().fillField(Elements.Checkout.Bonuses.Modal.inputField(), bonus.getCardNumber());
+                kraken.perform().click(Elements.Checkout.Bonuses.Modal.saveButton());
                 kraken.await().implicitly(1); // Ожидание редактирования бонусной программы в чекауте
                 // TODO добавить fluent-ожидание
             } else {
@@ -319,7 +686,7 @@ public class CheckoutHelper extends HelperBase {
         public static void select(LoyaltiesData bonus) throws AssertionError {
             if (kraken.detect().isBonusAdded(bonus)) {
                 verboseMessage("Выбираем бонусную программу " + bonus.getName());
-                kraken.perform().click(Elements.Checkout.Bonus.Program.snippet(bonus.getName()));
+                kraken.perform().click(Elements.Checkout.Bonuses.Program.snippet(bonus.getName()));
                 kraken.await().simply(1); // Ожидание выбора бонусной программы в чекауте
             } else {
                 throw new AssertionError("Невозможно выбрать бонусную программу " + bonus.getName() + ", так как она не добавлена");
@@ -330,8 +697,8 @@ public class CheckoutHelper extends HelperBase {
         public static void delete(LoyaltiesData bonus) throws AssertionError {
             if (kraken.detect().isBonusAdded(bonus)) {
                 verboseMessage("Удаляем бонусную программу " + bonus.getName());
-                kraken.perform().click(Elements.Checkout.Bonus.Program.editButton(bonus.getName()));
-                kraken.perform().click(Elements.Checkout.Bonus.Modal.deleteButton());
+                kraken.perform().click(Elements.Checkout.Bonuses.Program.editButton(bonus.getName()));
+                kraken.perform().click(Elements.Checkout.Bonuses.Modal.deleteButton());
                 kraken.await().implicitly(1); // Ожидание удаления программы лояльности в чекауте
                 // TODO добавить fluent-ожидание
             } else {
@@ -363,8 +730,8 @@ public class CheckoutHelper extends HelperBase {
 
             /** Закрыть модалку */
             public void close() {
-                if (kraken.detect().isElementPresent(Elements.Checkout.Bonus.Modal.popup())) {
-                    kraken.perform().click(Elements.Checkout.Bonus.Modal.closeButton());
+                if (kraken.detect().isElementPresent(Elements.Checkout.Bonuses.Modal.popup())) {
+                    kraken.perform().click(Elements.Checkout.Bonuses.Modal.closeButton());
                 } else {
                     debugMessage("Пропускаем закрытие бонусной модалки, так как она не открыта");
                 }
@@ -430,34 +797,6 @@ public class CheckoutHelper extends HelperBase {
         }
     }
 
-    /** Заполняем текстовые детали заказа в шагах чекаута */
-    private void specifyDetail(String field, String value) {
-        kraken.perform().fillField(By.name(field), value);
-        message("- " + field + ": " + value);
-    }
-
-    /** Заполняем логические детали заказа в шагах чекаута */
-    private void specifyDetail(String field, boolean value) {
-        if (value) {
-            if (!kraken.detect().isCheckboxSelected(By.name(field))) {
-                kraken.perform().click(By.name(field));
-            }
-            message("- " + field + ": ✓");
-        } else {
-            if (kraken.detect().isCheckboxSelected(By.name(field))) {
-                kraken.perform().click(By.name(field));
-            }
-            message("- " + field + ": ✕");
-        }
-    }
-
-    /** Нажимаем кнопки "Продолжить" в шагах чекаута */
-    private void hitNextButton(int step) {
-        kraken.perform().click(Elements.Checkout.nextButton(step));
-        message("Жмем Продолжить\n");
-        kraken.await().implicitly(1); // Ожидание загрузки следующего шага в чекауте
-    }
-
     /** Нажимаем кнопки "Изменить" в шагах чекаута */
     private void hitChangeButton(int step) {
         switch (step) {
@@ -481,24 +820,9 @@ public class CheckoutHelper extends HelperBase {
         kraken.await().implicitly(1); // Ожидание разворачивания шага в чекауте
     }
 
-    /** Нажимаем кнопку отправки заказа */
-    public void sendOrder() {
-        verboseMessage("Отправляем заказ ...");
-        kraken.await().fluently(
-                ExpectedConditions.elementToBeClickable(
-                        Elements.Checkout.sendOrderButton().getLocator()),
-                            "Неактивна кнопка отправки заказа\n");
-        kraken.perform().click(Elements.Checkout.sendOrderButton());
-        kraken.await().fluently(
-                ExpectedConditions.visibilityOfElementLocated(
-                        Elements.UserProfile.OrderDetailsPage.activeOrderAttribute().getLocator()),
-                            "Не отправляется заказ\n");
-        message("✓ Заказ оформлен\n");
-    }
-
     /** Удалить все номера телефонов */
     private void deletePhoneNumbers() {
-        if (kraken.detect().isPhoneNumberEmpty()) {
+        if (kraken.detect().isNoPhonesAddedOnContactsStep()) {
             kraken.perform().click(Elements.Checkout.editPhoneButton());
             kraken.perform().click(Elements.Checkout.deletePhoneButton());
             message("Удоляем номер телефона " + kraken.grab().text(Elements.Checkout.phoneNumber()));

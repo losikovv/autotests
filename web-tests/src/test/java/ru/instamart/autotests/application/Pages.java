@@ -1,44 +1,71 @@
 package ru.instamart.autotests.application;
 
-public class Pages {
-    private static String pageTitle;
-    private static String pagePath;
+import ru.instamart.autotests.models.PageData;
 
-    // todo возвращать не path, а url c подставленной переменной окружения baseURL + path
-    Pages(String title, String path) {
-        pageTitle = title;
-        pagePath = path;
+public class Pages {
+
+    public static PageData page404() {
+        return new PageData("nowhere");
     }
 
-    public static Pages page404() { return new Pages(null, "nowhere"); }
-    public static Pages page500() { return new Pages(null, "stores/21/shipping_methods"); }
+    public static PageData page500() {
+        return new PageData("stores/21/shipping_methods");
+    }
 
     public interface Site {
 
-        static Pages checkout() {
-            return new Pages(
-                    "Доставка продуктов на дом из интернет-магазина. Купить продукты на дом в Москве — Instamart",
+        static PageData checkout() {
+            return new PageData(
                     "checkout/edit");
         }
 
         interface Retailers {
-            static Pages metro() { return new Pages(null, "metro"); }
-            static Pages vkusvill() { return new Pages(null, "vkusvill"); }
-            static Pages lenta() { return new Pages(null, "lenta"); }
-            static Pages karusel() { return new Pages(null, "karusel"); }
-            static Pages auchan() { return new Pages(null, "auchan"); }
-            static Pages selgros() { return new Pages(null, "selgros"); }
-            static Pages flora() { return new Pages(null, "flora"); }
-            static Pages foodcity() { return new Pages(null, "foodcity"); }
-            static Pages magnit() { return new Pages(null, "magnit"); }
-            static Pages testretailer() { return new Pages(null, "testretailer"); }
+
+            static PageData metro() {
+                return new PageData( "metro");
+            }
+
+            static PageData vkusvill() {
+                return new PageData( "vkusvill");
+            }
+
+            static PageData lenta() {
+                return new PageData("lenta");
+            }
+
+            static PageData karusel() {
+                return new PageData( "karusel");
+            }
+
+            static PageData auchan() {
+                return new PageData( "auchan");
+            }
+
+            static PageData selgros() {
+                return new PageData( "selgros");
+            }
+
+            static PageData flora() {
+                return new PageData("flora");
+            }
+
+            static PageData foodcity() {
+                return new PageData( "foodcity");
+            }
+
+            static PageData magnit() {
+                return new PageData( "magnit");
+            }
+
+            static PageData testretailer() {
+                return new PageData( "testretailer");
+            }
         }
 
         interface Catalog {
 
-            static Pages seo() {
-                return new Pages(
-                        "Гречневая крупа купить в Москве. Скидки до 50% – Инстамарт",
+            static PageData seo() {
+                return new PageData(
                         "categories/bakalieia/krupy/griechnievaia");
             }
 
@@ -46,44 +73,43 @@ public class Pages {
 
         interface Landings {
 
-            static Pages instamart() {
-                return new Pages(
-                        "Доставка продуктов на дом в Москве от интернет-магазина Instamart ",
+            static PageData instamart() {
+                return new PageData(
                         "");
             }
 
-            static Pages mnogoru() {
-                return new Pages("Много.ру",
+            static PageData mnogoru() {
+                return new PageData(
                         "mnogoru");
             }
 
-            static Pages aeroflot() {
-                return new Pages("Аэрофлот Бонус",
+            static PageData aeroflot() {
+                return new PageData(
                         "aeroflot_09-02-31-12");
             }
 
-            static Pages sovest() {
-                return new Pages("Совесть",
+            static PageData sovest() {
+                return new PageData(
                         "sovest");
             }
 
-            static Pages halva() {
-                return new Pages("Халва",
+            static PageData halva() {
+                return new PageData(
                         "halva");
             }
 
-            static Pages feedback() {
-                return new Pages("Оцените нас!",
+            static PageData feedback() {
+                return new PageData(
                         "landings/feedback");
             }
 
-            static Pages kazan() {
-                return new Pages("г. Казань - Instamart",
+            static PageData kazan() {
+                return new PageData(
                         "cities/kazan");
             }
 
-            static Pages mobile() {
-                return new Pages("METRO - доставка продуктов на дом",
+            static PageData mobile() {
+                return new PageData(
                         "landings/m-general-white");
             }
 
@@ -94,71 +120,71 @@ public class Pages {
 
         interface Static {
 
-            static Pages about() {
-                return new Pages("Информация о компании Instamart",
+            static PageData about() {
+                return new PageData(
                         "about");
             }
 
-            static Pages delivery() {
-                return new Pages("Доставка",
+            static PageData delivery() {
+                return new PageData(
                         "delivery");
             }
 
-            static Pages rules() {
-                return new Pages("Правила работы",
+            static PageData rules() {
+                return new PageData(
                         "rules");
             }
 
-            static Pages payment() {
-                return new Pages("Оплата",
+            static PageData payment() {
+                return new PageData(
                         "payment");
             }
 
-            static Pages returnPolicy() {
-                return new Pages("Политика возврата - Instamart",
+            static PageData returnPolicy() {
+                return new PageData(
                         "return");
             }
 
-            static Pages faq() {
-                return new Pages("FAQ - Instamart",
+            static PageData faq() {
+                return new PageData(
                         "faq");
             }
 
-            static Pages terms() {
-                return new Pages("Публичная офферта",
+            static PageData terms() {
+                return new PageData(
                         "terms");
             }
 
-            static Pages contacts() {
-                return new Pages("Контакты - Instamart",
+            static PageData contacts() {
+                return new PageData(
                         "contacts");
             }
         }
 
         interface Profile {
 
-            static Pages edit() {
-                return new Pages("Информация об аккаунте",
+            static PageData edit() {
+                return new PageData(
                         "user/edit");
             }
 
-            static Pages favorites() {
-                return new Pages("Любимые товары",
+            static PageData favorites() {
+                return new PageData(
                         "user/favorites");
             }
 
-            static Pages orders() {
-                return new Pages("Заказы",
+            static PageData orders() {
+                return new PageData(
                         "user/orders");
             }
 
-            static Pages addresses() {
-                return new Pages("Адреса",
+            static PageData addresses() {
+                return new PageData(
                         "user/addresses");
             }
 
-            static Pages orderDetails(String orderNumber) {
-                return new Pages(null,
+            static PageData orderDetails(String orderNumber) {
+                return new PageData(
                         "user/orders/" + orderNumber);
             }
 
@@ -168,80 +194,71 @@ public class Pages {
 
     public interface Admin {
 
-        static Pages shipments() {
-            return new Pages("Spree Администрирование: Отправки",
+        static PageData login() {
+            return new PageData("admin/login",
+                    "страница авторизации админки");
+        }
+
+        static PageData shipments() {
+            return new PageData(
                     "admin/shipments");
         }
 
-        static Pages retailers() {
-            return new Pages("Spree Администрирование: Retailers",
+        static PageData retailers() {
+            return new PageData(
                     "admin/retailers");
         }
 
-        static Pages products() {
-            return new Pages("Spree Администрирование: Товары",
+        static PageData products() {
+            return new PageData(
                     "admin/products");
         }
 
-        static Pages imports() {
-            return new Pages("Spree Администрирование: Imports",
+        static PageData imports() {
+            return new PageData(
                     "admin/imports");
         }
 
-        static Pages settings() {
-            return new Pages("Spree Администрирование: Общие настройки",
+        static PageData settings() {
+            return new PageData(
                     "admin/general_settings/edit");
         }
 
-        static Pages marketing() {
-            return new Pages("Spree Администрирование: Promo Cards",
+        static PageData marketing() {
+            return new PageData(
                     "admin/promo_cards");
         }
 
-        static Pages staff() {
-            return new Pages("Spree Администрирование: Shoppers",
+        static PageData staff() {
+            return new PageData(
                     "admin/shoppers");
         }
 
-        static Pages users() {
-            return new Pages("Spree Администрирование: Пользователи",
+        static PageData users() {
+            return new PageData(
                     "admin/users");
         }
 
-        static Pages pages() {
-            return new Pages("Spree Администрирование: Страницы",
+        static PageData pages() {
+            return new PageData(
                     "admin/pages");
         }
 
         public interface Order {
 
-            static Pages details(String number) {
-                return new Pages("Spree Администрирование: Заказы",
+            static PageData details(String number) {
+                return new PageData(
                         "orders/" + number + "/edit");
             }
 
-            static Pages payments(String number) {
-                return new Pages("Spree Администрирование: Платежи",
+            static PageData payments(String number) {
+                return new PageData(
                         "orders/" + number + "/payments");
             }
 
-            static Pages requisites(String number) {
-                return new Pages("Spree Администрирование: Реквизиты клиента",
-                        "orders/" + number + "/customer");
+            static PageData requisites(String number) {
+                return new PageData("orders/" + number + "/customer");
             }
-
         }
-
     }
-
-    public static String getPageTitle() {
-        return pageTitle;
-    }
-
-    public static String getPagePath() {
-        return pagePath;
-    }
-
-    // TODO public static String getPageUrl() { return fullBaseUrl + pagePath; }
-
 }

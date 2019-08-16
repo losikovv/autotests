@@ -100,5 +100,19 @@ public abstract class Addresses {
 
         public static String defaultAddress() { return addressString = "Воронеж, ул Ленина, д 12"; }
     }
+
+    public static class Omsk extends Addresses {
+
+        Omsk(String address) {super(address); }
+
+        public static String defaultAddress() { return addressString = "Омск, ул Омская, д 110"; }
+    }
+
+    public static class Volgograd extends Addresses {
+
+        Volgograd(String address) {super(address); }
+
+        public static String defaultAddress() { return addressString = "Волгоград, ул Абаканская, д 11"; }
+    }
 }
 

@@ -5,113 +5,131 @@ import ru.instamart.autotests.models.*;
 
 public class Config {
 
-    // BROWSER
-    public final static String browser = BrowserType.FIREFOX;
+    public interface CoreSettings {
+        String browser = BrowserType.FIREFOX;
+        EnvironmentData environment = Environments.instamart_production();
 
-    // ENVIRONMENT
-    public final static EnvironmentData environment = Environments.instamart_staging();
+        int basicTimeout = 2;
+        int waitingTimeout = 20;
 
-    // TIMEOUTS
-    public final static int basicTimeout = 2;
-    public final static int waitingTimeout = 15;
+        boolean verbose = true;
+        boolean debug = false;
+        boolean multiSessionMode = false;
+        boolean fullScreenMode = false;
+        boolean doCleanupAfterTestRun = true;
+    }
 
-    // TEST EXECUTION SETTINGS
-    public final static boolean verbose = true;
-    public final static boolean debug = false;
-    public final static boolean multiSessionMode = false;
-    public final static boolean fullScreenMode = false;
-    public final static boolean doCleanupAfterTestRun = true;
+    public interface TestsConfiguration {
 
-    // ENABLE TESTS
-    public final static boolean testAdministration = true;
-    public final static boolean testSeoCatalog = false;
-    public final static boolean testJivosite = true;
-    public final static boolean testRetailRocket = false;
-    public final static boolean testPage404 = true;
+        interface AdministrationTests {
+            boolean enableShipmentsSectionTests = true;
+            boolean enableUsersSectionTests = true;
+            boolean enablePagesSectionTests = true;
+        }
 
-    // ENABLE CHECKOUT TESTS
-    public final static boolean testCheckout = true;
-    public final static boolean testCheckoutPromocode = true;
-    public final static boolean testCheckoutBonuses = true;
-    public final static boolean testCheckoutRetailerCard = true;
+        interface CheckoutTests {
+            boolean enableAddressStepTests = true;
+            boolean enableContactsStepTests = true;
+            boolean enableReplacementsStepTests = true;
+            boolean enablePaymentStepTests = true;
+            boolean enableDeliveryStepTests = true;
+            boolean enablePromocodesTests = true;
+            boolean enableBonusesTests = true;
+            boolean enableRetailerCardsTests = true;
+        }
 
-    // ENABLE ORDER TESTS
-    public final static boolean testOrderRetailers = true;
-    public final static boolean testOrderCities = true;
-    public final static boolean testOrderReplacements = true;
-    public final static boolean testOrderRepeat = true;
-    public final static boolean testOrderBonuses = true;
-    public final static boolean testOrderRetailerCards = true;
+        interface OrdersTests {
+            boolean enableOrderRetailersTests = true;
+            boolean enableOrderCitiesTests = true;
+            boolean enableOrderReplacementsTests = true;
+            boolean enableOrderRepeatTests = true;
+            boolean enableOrderBonusesTests = true;
+            boolean enableOrderRetailerCardsTests = true;
+        }
 
-    // ENABLE PROMO TESTS
-    public final static boolean testPromo = true;
-    public final static boolean testPromoFreeDelivery = true;
-    public final static boolean testPromoFixedDiscount = true;
-    public final static boolean testPromoPercentDiscount = true;
+        interface PromoTests {
+            boolean enablePromoFreeDeliveryTests = true;
+            boolean enablePromoFixedDiscountTests = true;
+            boolean enablePromoPercentDiscountTests = true;
+        }
 
-    // COMPANY PARAMS
-    public final static String companyName = "instamart";
-    public final static String companyDomain = companyName + ".ru";
-    public final static String companyHotlinePhoneNumber = "+7 800 222-11-00";
-    public final static String companyHotlinePhoneLink = "tel:+78002221100";
-    public final static String companyHotlineWorkhours = "с 7:00 до 24:00";
-    public final static String companyHotlineWorkhoursShort = "7:00 - 24:00";
+        interface AddonsTests {
+            boolean enableSeoCatalogTests = false;
+            boolean enableJivositeTests = true;
+            boolean enableRetailRocketTest = false;
+            boolean enablePage404test = true;
+        }
+    }
 
-    // TEST PARAMS
-    public final static String testDomain = "example.com";
-    public final static String testMark = "autotest";
-    public final static String testOrder = "R384014557";
-    public final static String testShipment = "H44617031667";
+    public interface TestVariables {
 
-    // DELIVERY PARAMS // TODO убрать, определять стоимость доставки во время тестов
-    public final static int minOrderSum = 2000;
-    public final static int MetroHighDeliveryPrice = 299;
-    public final static int MetroMediumDeliveryPrice = 199;
-    public final static int MetroLowDeliveryPrice = 99;
-    public final static int VkusvillDeliveryPrice = 190;
+        interface CompanyParams {
+            String companyName = "instamart";
+            String companyDomain = companyName + ".ru";
+            String companyHotlinePhoneNumber = "+7 800 222-11-00";
+            String companyHotlinePhoneLink = "tel:+78002221100";
+            String companyHotlineWorkhours = "с 7:00 до 24:00";
+            String companyHotlineWorkhoursShort = "7:00 - 24:00";
+        }
 
-    // DEFAULT TEST ORDER PARAMS
-    public static OrderDetailsData testOrderDetails() {
-        return new OrderDetailsData(
-                new AddressDetailsData(
-                        "flat",
-                        "1",
-                        "22",
-                        true, "333",
-                        "44ключ4444",
-                        "ТЕСТОВЫЙ ЗАКАЗ / НЕ СОБИРАТЬ"
-                ),
-                new ContactsDetailsData(
-                        null,
-                        null,
-                        null,
-                        false,
-                        "1234567890",
-                        true
-                ),
-                ReplacementPolicies.callAndReplace(),
-                new PaymentDetailsData(
-                        PaymentTypes.cash(),
-                        false,
-                        new CreditCardData(
-                                "4242424242424242",
-                                "12",
-                                "2049",
-                                "IVAN IVANOV",
-                                "404"),
-                        false,
-                        new JuridicalData(
-                                "ООО \"Автотест\"",
-                                "ул. Тестовская, 88",
-                                "1111111111111",
-                                "222222222",
-                                "33333333333333333333",
-                                "444444444",
-                                "Банк Тестовый",
-                                "55555555555555555555"
-                        )
-                ),
-                new DeliveryTimeData(7)
-        );
+        interface TestParams {
+            String testDomain = "example.com";
+            String testMark = "autotest";
+            String testOrder = "R384014557";
+            String testShipment = "H44617031667";
+        }
+
+        // TODO убрать, определять стоимость доставки во время тестов
+        interface DeliveryPrices {
+            int minOrderSum = 2000;
+            int MetroHighDeliveryPrice = 299;
+            int MetroMediumDeliveryPrice = 199;
+            int MetroLowDeliveryPrice = 99;
+            int VkusvillDeliveryPrice = 190;
+        }
+
+        static OrderDetailsData testOrderDetails() {
+            return new OrderDetailsData(
+                    new AddressDetailsData(
+                            "office",
+                            "1",
+                            "22",
+                            true, "333",
+                            "44 ключ 4444",
+                            "ТЕСТОВЫЙ ЗАКАЗ / НЕ СОБИРАТЬ"
+                    ),
+                    new ContactsDetailsData(
+                            "1234567890"
+                    ),
+                    ReplacementPolicies.callAndReplace(),
+                    new PaymentDetailsData(
+                            PaymentTypes.cash(),
+                            false,
+                            new CreditCardData(
+                                    "4242424242424242",
+                                    "12",
+                                    "2049",
+                                    "IVAN IVANOV",
+                                    "404"),
+                            false,
+                            new JuridicalData(
+                                    "ООО \"Автотест\"",
+                                    "ул. Тестовская, 88",
+                                    "1111111111111",
+                                    "222222222",
+                                    "33333333333333333333",
+                                    "444444444",
+                                    "Банк Тестовый",
+                                    "55555555555555555555"
+                            )
+                    ),
+                    new DeliveryTimeData(7)
+            );
+        }
+
+        static OrderDetailsData DefaultCheckoutState() {
+            // TODO
+            return null;
+        }
     }
 }

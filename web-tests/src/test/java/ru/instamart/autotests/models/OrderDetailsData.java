@@ -66,11 +66,11 @@ public class OrderDetailsData {
     }
 
     public OrderDetailsData() {
-        this.addressDetails = Config.testOrderDetails().getAddressDetails();
-        this.contactsDetails = Config.testOrderDetails().getContactsDetails();
-        this.replacementPolicy = Config.testOrderDetails().getReplacementPolicy();
-        this.paymentDetails = Config.testOrderDetails().getPaymentDetails();
-        this.deliveryTime = Config.testOrderDetails().getDeliveryTime();
+        this.addressDetails = Config.TestVariables.testOrderDetails().getAddressDetails();
+        this.contactsDetails = Config.TestVariables.testOrderDetails().getContactsDetails();
+        this.replacementPolicy = Config.TestVariables.testOrderDetails().getReplacementPolicy();
+        this.paymentDetails = Config.TestVariables.testOrderDetails().getPaymentDetails();
+        this.deliveryTime = Config.TestVariables.testOrderDetails().getDeliveryTime();
     }
 
 
