@@ -284,7 +284,7 @@ public class SelfCheckTests extends TestBase {
 
         kraken.get().page("metro");
 
-        kraken.perform().click(Elements.Header.deliveryButton());
+        kraken.perform().click(Elements.Header.deliveryInfoButton());
         Assert.assertTrue(kraken.detect().isDeliveryModalOpen());
 
         kraken.perform().click(Elements.Modals.DeliveryModal.closeButton());
@@ -346,7 +346,7 @@ public class SelfCheckTests extends TestBase {
         if (!kraken.detect().isShippingAddressSet()) {
             kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
         }
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         // корзина пустая
         Assert.assertFalse(kraken.detect().isCartTotalDisplayed());

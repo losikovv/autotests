@@ -33,14 +33,17 @@ public class TestBase {
         kraken.stop();
     }
     /** Метод-обертка для красивого вывода ошибок зафейленных тестов */
-    public String failMessage(String text) {
+    protected String failMessage(String text) {
         return "\n\n> " + text;
     }
 
     /** Проверить наличие и видимость элемента на странице */
     public void assertElementPresence(ElementData element) {
+        verboseMessage("Проверяем наличие элемента: " + element.getDescription() + "\n> " + element.getLocator());
+
         Assert.assertTrue(kraken.detect().isElementPresent(element),
                 "Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL() + "\n");
+        verboseMessage("✓ Успешно\n");
     }
 
     /** Проверить что поле пустое */
@@ -93,7 +96,7 @@ public class TestBase {
 
     /** Проверить работоспособность перехода по ссылке элемента */
     public void assertTransition(ElementData element) {
-        verboseMessage("Проверяем > " + element.getDescription());
+        verboseMessage("Валидируем работу элемента: " + element.getDescription());
         String startPage = kraken.grab().currentURL();
         kraken.perform().click(element);
         // Todo придумать кондиционную задержку

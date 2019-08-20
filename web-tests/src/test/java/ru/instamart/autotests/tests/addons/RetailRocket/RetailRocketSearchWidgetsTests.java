@@ -103,7 +103,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemCardFromRecentlyViewedWidget() {
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
         ShopHelper.Catalog.Item.open();
         ShopHelper.ItemCard.close();
         kraken.perform().refresh();
@@ -156,7 +156,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successAddItemFromRecentlyViewedWidget() {
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
         ShopHelper.Catalog.Item.open();
         ShopHelper.ItemCard.close();
         kraken.perform().refresh();

@@ -7,6 +7,7 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.ReplacementPolicies;
+import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.OrdersTests.enableOrderReplacementsTests;
@@ -18,7 +19,7 @@ public class OrdersReplacementsTests extends TestBase {
         kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.admin);
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
     }
 
     @Test(enabled = enableOrderReplacementsTests,

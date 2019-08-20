@@ -25,7 +25,7 @@ public class OrdersRetailers extends TestBase {
     )
     public void successOrderInMetro(){
         kraken.get().page("metro");
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         kraken.shopping().collectItems();
         ShopHelper.Cart.proceedToCheckout();
@@ -44,7 +44,7 @@ public class OrdersRetailers extends TestBase {
     public void successOrderInAuchan(){
         skipOn(Environments.metro_production());
         kraken.get().page("auchan");
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         kraken.shopping().collectItems();
         ShopHelper.Cart.proceedToCheckout();

@@ -25,7 +25,7 @@ public class ShoppingCartTests extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 620
     )
-    public void successValidateEmptyShoppingCart() throws AssertionError {
+    public void successValidateEmptyShoppingCart() {
         ShopHelper.Cart.open();
 
         Assert.assertTrue(
@@ -38,11 +38,11 @@ public class ShoppingCartTests extends TestBase {
 
         Assert.assertTrue(
                 kraken.detect().isCartEmpty(),
-                    failMessage("Корзина не пуста"));
+                    failMessage("Корзина не пуста по дефолту для нового неавторизованного юзера"));
 
         Assert.assertFalse(
                 kraken.detect().isCheckoutButtonActive(),
-                    failMessage("Кнопка чекаута активна в пустой козине"));
+                    failMessage("Кнопка чекаута активна при пустой козине"));
 
         ShopHelper.Cart.close();
 
@@ -56,10 +56,10 @@ public class ShoppingCartTests extends TestBase {
             groups = {"acceptance","regression"},
             priority = 622
     )
-    public void successAddItemToCartFromItemCard()throws AssertionError {
+    public void successAddItemToCartFromItemCard() {
         kraken.get().page("metro");
         kraken.perform().loginAs(session.user);
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.open();
             ShopHelper.ItemCard.addToCart();
@@ -82,7 +82,7 @@ public class ShoppingCartTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
         kraken.perform().loginAs(session.user);
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.addToCart();
         ShopHelper.Cart.open();
@@ -115,7 +115,7 @@ public class ShoppingCartTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
         kraken.perform().loginAs(session.user);
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.addToCart();
         ShopHelper.Cart.open();
@@ -130,7 +130,8 @@ public class ShoppingCartTests extends TestBase {
                 sum1 < sum2,
                     failMessage("Не работает увеличение кол-ва товаров в корзине"));
 
-        kraken.perform().click(Elements.Cart.item());
+        ShopHelper.Cart.Item.open();
+        kraken.perform().click(Elements.Cart.item.openButton());
         ShopHelper.ItemCard.removeFromCart();
         ShopHelper.ItemCard.close();
         int sum3 = kraken.grab().cartTotalRounded();
@@ -157,7 +158,7 @@ public class ShoppingCartTests extends TestBase {
                     "Не выполнены предусловия теста, корзина пуста");
         }
 
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         Assert.assertTrue(
                 kraken.detect().isCartEmpty(),
@@ -171,7 +172,7 @@ public class ShoppingCartTests extends TestBase {
     public void successAddItemToCartFromCatalogSnippet() {
         kraken.get().page("metro");
         kraken.perform().loginAs(session.user);
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.addToCart();
 

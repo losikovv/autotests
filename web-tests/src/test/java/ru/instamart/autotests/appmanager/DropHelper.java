@@ -1,15 +1,14 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.models.EnvironmentData;
 
 public class DropHelper extends HelperBase {
 
+    // TODO выпилить этот хелпер
     DropHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
         super(driver, environment, app);
     }
-
 
     /** Деавторизоваться, оставшись на текущей странице */
     public void auth() {
@@ -18,18 +17,6 @@ public class DropHelper extends HelperBase {
             kraken.perform().quickLogout();
             kraken.get().url(currentURL);
         }
-    }
-
-    /** Очистить корзину, удалив все товары */
-    public void cart() {
-        ShopHelper.Cart.open();
-        if (!kraken.detect().isCartEmpty()) {
-            ShopHelper.Cart.Item.remove();
-            if(kraken.detect().isElementPresent(Elements.Cart.item())) {
-                cart();
-            }
-        }
-        ShopHelper.Cart.close();
     }
 
     /** Очистить список избранного, удалив все любимые товары */

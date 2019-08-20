@@ -200,7 +200,7 @@ public class Elements {
 
             static ElementData shipAddressButton() {
                 return new ElementData(
-                        By.xpath("//header//button[@class='ship-address-selector__edit-btn']"),
+                        By.xpath("//header//*[@data-qa='ship-address-selector']//*[@data-qa='select-button']"),
                             "кнопка выбора/изменения адреса доставки в шапке сайта");
             }
 
@@ -228,76 +228,71 @@ public class Elements {
                             "логотип компании в шапке сайта");
             }
 
-            static ElementData infoButton(String name) {
+            private static ElementData infoButton(String name) {
                 return new ElementData(
-                       By.xpath("//header//a[@class='navbar-button']//span[text()='" + name + "']"),
-                           "кнопка \"" + name + "\" в шапке сайта");
+                       By.xpath("//header//*[contains(text(),'" + name + "')]//ancestor::*[@data-qa='header-navbar-button']"),
+                           "инфокнопка \"" + name + "\" в шапке сайта");
             }
 
 
-            static ElementData howWeWorkButton() {
+            static ElementData howWeWorkInfoButton() {
                 return infoButton("Как мы работаем");
             }
 
-            static ElementData contactsButton() {
+            static ElementData contactsInfoButton() {
                 return infoButton("Контакты");
             }
 
-            static ElementData helpButton() {
+            static ElementData helpInfoButton() {
                 return infoButton("Помощь");
             }
 
-            static ElementData deliveryButton() {
+            static ElementData deliveryInfoButton() {
                 return infoButton("Доставка и оплата");
             }
-            static ElementData corporativeCustomersButton() {
+
+            static ElementData corporativeCustomersInfoButton() {
                 return infoButton("Корпоративным клиентам");
             }
 
             static ElementData mnogoruButton() {
                 return new ElementData(
                         By.xpath("//header//a[@class='navbar-button']//div[@class='navbar-button__mnogoru']"),
-                        "кнопка \"МногоРу\" в шапке сайта");
+                            "кнопка \"МногоРу\" в шапке сайта");
             }
 
             static ElementData catalogButton() {
-                switch (Config.CoreSettings.environment.getTenant()) {
-                    case "metro" :
-                        return new ElementData(By.xpath("//header//button[@class='header__button-catalog']"),
-                                "кнопка открытия каталога категорий в шапке сайта Метро");
-                    default:
-                        return new ElementData(By.xpath("//header//button[contains(@class,'navbar-button--catalog')]"),
-                                "кнопка открытия каталога категорий в шапке сайта");
-                }
+                return new ElementData(By.xpath("//header//*[@data-qa='catalog-button']"),
+                            "кнопка открытия каталога категорий в шапке сайта");
             }
 
             static ElementData storeButton() {
                 return new ElementData(
-                        By.xpath("//header//div[@class='search-container-selector']"),
+                        By.xpath("//header//*[@data-qa='open-store-selector-button']"),
                             "кнопка выбора магазина в шапке сайта");
             }
 
             static ElementData loginButton() {
                 return new ElementData(
                         By.xpath("//header//a[contains(@class,'header-icon--login')]"),
-                        "кнопка \"Войти\" в шапке сайта");
+                            "кнопка \"Войти\" в шапке сайта");
             }
 
             static ElementData favoritesButton() {
                 return new ElementData(
-                        By.xpath("//header//a[@class='header-icon' and @href='/user/favorites']"),
+                        By.xpath("//header//*[@data-qa='favorites-link']"),
                             "кнопка избранного в шапке сайта");
             }
 
             static ElementData profileButton() {
                 return new ElementData(
-                        By.xpath("//header//div[@class='header-menu-toggle__btn']//a[@class='header-icon']"),
+                        By.xpath("//header//*[@data-qa='menu-toggle']//*[@data-qa='toggle-button']"),
                             "кнопка профиля в шапке сайта");
             }
 
             static ElementData cartButton() {
                 return new ElementData(
-                        By.xpath("//header//div[contains(@class,'open-new-cart') and contains(@class,'header-icon')]"),
+                        By.xpath("//header//*[@data-qa='open-cart-button']"),
                             "кнопка открытия корзины в шапке сайта");
             }
 
@@ -310,22 +305,29 @@ public class Elements {
             /** Поиск в шапке */
             interface Search {
 
+                static ElementData container() {
+                    return new ElementData(By.xpath("//header//*[@data-qa='search-container']"),
+                            "поисковая строка в шапке сайта");
+                }
+
                 static ElementData inputField() {
-                    return new ElementData(By.xpath("//header//input[@type='search']"),
-                            "поле ввода поиска в шапке сайта");
+                    return new ElementData(By.xpath("//header//*[@data-qa='search-container']//input[@type='search']"),
+                            "поле ввода поискового запроса в шапке сайта");
                 }
 
                 static ElementData sendButton() {
-                    return new ElementData(By.xpath("//header//button[@class='header-search__btn']"),
-                            "кнопка отправки поиска в шапке сайта");
+                    return new ElementData(By.xpath("//header//*[@data-qa='search-container']//button[@type='submit']"),
+                            "кнопка отправки поискового запроса в шапке сайта");
                 }
 
                 static ElementData categorySuggest() {
-                    return new ElementData(By.className("header-search-list-category"));
+                    return new ElementData(By.className("header-search-list-category"),
+                            "категорийная поисковая подсказка");
                 }
 
                 static ElementData productSuggest() {
-                    return new ElementData(By.className("header-search-list-product"));
+                    return new ElementData(By.className("header-search-list-product"),
+                            "товарная поисковая подсказка");
                 }
             }
         }
@@ -663,20 +665,30 @@ public class Elements {
 
         static ElementData drawer() {
             return new ElementData(
-                    By.xpath("//div[@class='drawer']//div[@class='store-selector']"),
-                    "шторка выбора магазинов");
+                    By.xpath("//*[@data-qa='store-selector']"),
+                        "шторка выбора магазинов");
         }
 
         static ElementData closeButton() {
             return new ElementData(
-                    By.xpath("//div[@class='drawer']//button[@class='store-selector__close']"),
-                    "кнопка закрытия шторки выбора магазинов");
+                    By.xpath("//*[@data-qa='store-selector']//*[@data-qa='close-button']"),
+                        "кнопка закрытия шторки выбора магазинов");
         }
 
         static ElementData placeholder() {
             return new ElementData(
-                    By.xpath("//div[@class='drawer']//div[@class='store-selector__empty' and text()='Нет доступных магазинов по выбранному адресу']"),
-                    "плейсхолдер пустой шторки выбора магазинов");
+                    By.xpath("//*[@data-qa='store-selector']//div[@class='store-selector__empty' and text()='Нет доступных магазинов по выбранному адресу']"),
+                        "плейсхолдер пустой шторки выбора магазинов");
+        }
+
+        static ElementData storeCard() {
+            return storeCard(1);
+        }
+
+        static ElementData storeCard(int position) {
+            return new ElementData(
+                    By.xpath("//*[@data-qa='store-card'][" + position + "]"),
+                        position + "карточка магазина в шторке выбора магазинов");
         }
     }
 
@@ -684,12 +696,12 @@ public class Elements {
     public interface CatalogDrawer {
 
         static ElementData drawer() {
-            return new ElementData(By.xpath("//div[@class='drawer']//div[@class='category-menu']"),
+            return new ElementData(By.xpath("//*[@data-qa='category-menu']"),
                     "шторка каталога категорий");
         }
 
         static ElementData closeButton() {
-            return new ElementData(By.xpath("//button[@class='category-menu__close']"),
+            return new ElementData(By.xpath("//*[@data-qa='category-menu']//*[@data-qa='close-button']"),
                     "кнопка закрытия шторки каталога категорий");
         }
         static ElementData category(String name) {
@@ -703,53 +715,53 @@ public class Elements {
 
         static ElementData popup() {
             return new ElementData(
-                    By.xpath("//div[@class='account-menu']"), "всплывающее меню профиля");
+                    By.xpath("//header//*[@data-qa='account-menu']"), "всплывающее меню профиля");
         }
 
         static ElementData header() {
 
             return new ElementData(
-                    By.xpath("//div[@class='account-menu']//div[@class='account-menu__header']"),
+                    By.xpath("//header//*[@data-qa='account-menu']//div[@class='account-menu__header']"),
                     "заголовок с именем юзера во всплывающем меню профиля");
         }
 
         static ElementData profileButton() {
-            return new ElementData(By.xpath("//div[@class='account-menu']//a[@href='/user/edit']"),
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//a[@href='/user/edit']"),
                     "кнопка \"Профиль\" во всплывающем меню профиля");
         }
 
         static ElementData ordersHistoryButton() {
-            return new ElementData(By.xpath("//div[@class='account-menu']//a[@href='/user/orders']"),
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//a[@href='/user/orders']"),
                     "кнопка \"История заказов\" во всплывающем меню профиля");
         }
 
         static ElementData termsButton() {
-            return new ElementData(By.xpath("//div[@class='account-menu']//a[@href='/terms']"),
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//a[@href='/terms']"),
                     "кнопка \"Условия пользования\" во всплывающем меню профиля");
         }
 
         static ElementData logoutButton() {
-            return new ElementData(By.xpath("//div[@class='account-menu']//a[@href='/logout']"),
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//a[@href='/logout']"),
                     "кнопка \"Выйти\" во всплывающем меню профиля");
         }
 
         static ElementData deliveryButton() {
-            return new ElementData(By.xpath("//div[@class='account-menu']//button[text()='Доставка']"),
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//button[text()='Доставка']"),
                     "кнопка \"Доставка\" во всплывающем меню профиля");
         }
 
         static ElementData paymentButton() {
-            return new ElementData(By.xpath("//div[@class='account-menu']//button[text()='Оплата']"),
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//button[text()='Оплата']"),
                     "кнопка \"Оплата\" во всплывающем меню профиля");
         }
 
         static ElementData faqButton() {
-            return new ElementData(By.xpath("//div[@class='account-menu']//a[@href='/faq']"),
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//a[@href='/faq']"),
                     "кнопка \"FAQ\" во всплывающем меню профиля");
         }
 
         static ElementData contactsButton() {
-            return new ElementData(By.xpath("//div[@class='account-menu']//a[@href='/contacts']"),
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//a[@href='/contacts']"),
                     "кнопка \"Контакты\" во всплывающем меню профиля");
         }
     }
@@ -1025,67 +1037,76 @@ public class Elements {
 
             static ElementData drawer() {
                 return new ElementData(
-                        By.xpath("//div[@class='drawer']//div[@class='new-cart']"),
+                        By.xpath("//*[@data-qa='cart']"),
                             "шторка корзины");
             }
 
             static ElementData closeButton() {
                 return new ElementData(
-                        By.xpath("//div[@class='new-cart']//*[@class='btn-close-cart']"),
+                        By.xpath("//*[@data-qa='cart']//*[@data-qa='close-button']"),
                             "кнопка закрытия корзины");
             }
 
             static ElementData placeholder() {
                 return new ElementData(
-                        By.xpath("//div[@class='new-cart']//div[@class='new-cart-empty__text' and text()='Ваша корзина пуста']"),
+                        By.xpath("//*[@data-qa='cart']//div[@class='new-cart-empty__text' and text()='Ваша корзина пуста']"),
                             "плейсхолдер пустой корзины");
             }
 
             static ElementData alertText() {
                 return new ElementData(
-                        By.xpath("//div[@class='new-cart']//div[@class='cart-retailer__alert']"),
+                        By.xpath("//*[@data-qa='cart']//div[@class='cart-retailer__alert']"),
                             "алерт с суммой минимального заказа в корзине");
             }
 
-            static ElementData item() {
-                return new ElementData(
-                        By.xpath("//div[@class='new-cart']//div[@class='cart-line-item']"),
-                            "ячейка товара в корзине");
-            }
+            interface item {
 
-            static ElementData itemUpButton() {
-                return new ElementData(
-                        By.className("//div[@class='new-cart']//div[@class='cart-line-item']//button[@class='line-item-counter__control'][1]"),
-                            "кнопка увеличения количества товара в корзине");
-            }
+                static ElementData snippet() {
+                    return new ElementData(
+                            By.xpath("//*[@data-qa='cart']//*[@data-qa='line-item']//div[@class='cart-line-item']"),
+                                "ячейка верхнего товара в корзине");
+                }
 
-            static ElementData itemQuantity() {
-                return new ElementData(
-                        By.className("//div[@class='new-cart']//div[@class='cart-line-item']//span[@class='line-item-counter__text']"),
-                            "количество товара в корзине");
-            }
+                static ElementData openButton() {
+                    return new ElementData(
+                            By.xpath("//*[@data-qa='cart']//*[@data-qa='line-item']//*[@data-qa='open-button']"),
+                                "кнопка открытия верхнего товара в корзине");
+                }
 
-            static ElementData itemDownButton() {
-                return new ElementData(
-                        By.className("//div[@class='new-cart']//div[@class='cart-line-item']//button[@class='line-item-counter__control'][2]"),
-                            "кнопка уменьшения количества товара в корзине");
-            }
+                static ElementData increaseButton() {
+                    return new ElementData(
+                            By.xpath("//*[@data-qa='cart']//*[@data-qa='line-item']//*[@data-qa='increase-button']"),
+                                "кнопка увеличения количества верхнего товара в корзине");
+                }
 
-            static ElementData itemRemoveButton() {
-                return new ElementData(
-                        By.xpath("//div[@class='new-cart']//div[@class='cart-line-item']//div[@class='cart-line-item__remove']"),
-                            "кнопка удаления товара в корзине");
+                static ElementData counter() {
+                    return new ElementData(
+                            By.xpath("//*[@data-qa='cart']//*[@data-qa='line-item']//*[@data-qa='line-item-counter']//span[@class='line-item-counter__text']"),
+                                "количество верхнего товара в корзине");
+                }
+
+                static ElementData decreaseButton() {
+                    return new ElementData(
+                            By.xpath("//*[@data-qa='cart']//*[@data-qa='line-item']//*[@data-qa='decrease-button']"),
+                                "кнопка уменьшения количества верхнего товара в корзине");
+                }
+
+                static ElementData removeButton() {
+                    return new ElementData(
+                            By.xpath("//*[@data-qa='cart']//*[@data-qa='line-item']//*[@data-qa='remove-button']"),
+                                "кнопка удаления верхнего товара в корзине");
+                }
             }
 
             static ElementData checkoutButton() {
-                return new ElementData(By.xpath("//div[@class='new-cart']//button[@class='cart-checkout-link']"),
-                            "кнопка \"Сделать заказ\" в корзине");
+                return new ElementData(By.xpath("//*[@data-qa='cart']//*[@data-qa='checkout-button']"),
+                            "кнопка 'Сделать заказ' в корзине");
             }
 
             static ElementData total() {
                 return new ElementData(
-                        By.xpath("//div[@class='new-cart']//div[@class='cart-checkout-link__well']/child::div"),
-                            "сумма корзины");
+                        By.xpath("//*[@data-qa='cart']//*[@data-qa='checkout-button']//div[@class='cart-checkout-link__well']/child::div"),
+                            "сумма заказа в корзине");
             }
         }
 

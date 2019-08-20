@@ -86,7 +86,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckCustomersChoiceWidget"
     )
     public void successAddItemFromCustomersChoiceWidget() {
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.CatalogPage.CustomersChoice());
 
@@ -102,7 +102,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successAddItemFromRecentlyViewedWidget() {
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
         ShopHelper.Catalog.Item.open();
         ShopHelper.ItemCard.close();
         kraken.perform().refresh();

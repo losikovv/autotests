@@ -355,36 +355,50 @@ public class ShopHelper extends HelperBase {
             }
         }
 
+        /** Очистить корзину, удалив все товары */
+        public static void drop() {
+            verboseMessage("Очищаем козину, удаляя все товары");
+            open();
+            if (!kraken.detect().isCartEmpty()) {
+                Item.remove();
+                if(kraken.detect().isElementPresent(Elements.Cart.item.snippet())) {
+                    drop();
+                }
+            }
+            verboseMessage("✓ Готово\n");
+            close();
+        }
+
         /** Сниппет товара в корзине */
         public static class Item {
 
             /** Открыть карточку верхнего товара в корзине */
             public static void open() {
-                    kraken.perform().click(Elements.Cart.item());
+                    kraken.perform().click(Elements.Cart.item.openButton());
             }
 
             /** Убрать верхний товар из корзины */
             public static void remove() {
                 kraken.await().simply(1); // Ожидание для стабильности
-                kraken.perform().hoverOn(Elements.Cart.item());
+                kraken.perform().hoverOn(Elements.Cart.item.snippet());
                 //TODO добавить fluent-ожидание
-                kraken.perform().click(Elements.Cart.itemRemoveButton());
+                kraken.perform().click(Elements.Cart.item.removeButton());
                 kraken.await().implicitly(1); // Ожидание удаления продукта из корзины
             }
 
             /** Увеличить количество верхнего товара в корзине */
             public static void increaseQuantity() {
-                kraken.await().simply(1); // Ожидание для стабильности
-                kraken.perform().hoverOn(Elements.Cart.item());
-                kraken.perform().click(Elements.Cart.itemUpButton());
+                kraken.await().implicitly(1); // Ожидание для стабильности
+                kraken.perform().hoverOn(Elements.Cart.item.snippet());
+                kraken.perform().click(Elements.Cart.item.increaseButton());
                 kraken.await().implicitly(1); // Ожидание увеличения количества товара в корзине
             }
 
             /** Уменьшить количество верхнего товара в корзине */
             public static void decreaseQuantity() {
-                kraken.await().simply(1); // Ожидание для стабильности
-                kraken.perform().hoverOn(Elements.Cart.item());
-                kraken.perform().click(Elements.Cart.itemDownButton());
+                kraken.await().implicitly(1); // Ожидание для стабильности
+                kraken.perform().hoverOn(Elements.Cart.item.snippet());
+                kraken.perform().click(Elements.Cart.item.decreaseButton());
                 kraken.await().implicitly(1); // Ожидание уменьшения количества товара в корзине
             }
         }

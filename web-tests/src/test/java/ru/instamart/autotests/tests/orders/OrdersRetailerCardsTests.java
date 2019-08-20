@@ -17,7 +17,7 @@ public class OrdersRetailerCardsTests extends TestBase {
         kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.admin);
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
     }
 
     @Test(  enabled = enableOrderRetailerCardsTests,

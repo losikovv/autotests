@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.appmanager.AdministrationHelper;
 import ru.instamart.autotests.appmanager.CheckoutHelper;
+import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.OrdersTests.enableOrderBonusesTests;
@@ -19,7 +20,7 @@ public class OrdersBonusesTests extends TestBase {
         kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.admin);
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
     }
 
     @BeforeMethod(alwaysRun = true)

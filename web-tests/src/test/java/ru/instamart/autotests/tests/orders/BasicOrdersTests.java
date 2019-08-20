@@ -38,7 +38,7 @@ public class BasicOrdersTests extends TestBase {
         kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.admin);
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
     }
     // TODO Тесты на изменение телефона и контактов
 

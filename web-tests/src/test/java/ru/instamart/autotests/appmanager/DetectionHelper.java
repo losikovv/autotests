@@ -509,7 +509,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить пуста ли корзина */
     public boolean isCartEmpty() {
         ShopHelper.Cart.open();
-        if (isElementPresent(Elements.Cart.placeholder())) {
+        if (isElementDisplayed(Elements.Cart.placeholder())) {
             debugMessage("Корзина пуста");
             return true;
         } else {

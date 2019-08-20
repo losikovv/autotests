@@ -84,7 +84,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckPopularItemsWidget"
     )
     public void successAddItemFromPopularItemsWidget() {
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.MainPage.PopularItems());
 
@@ -100,7 +100,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successAddItemFromRecentlyViewedWidget() {
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.open();
         ShopHelper.ItemCard.close();

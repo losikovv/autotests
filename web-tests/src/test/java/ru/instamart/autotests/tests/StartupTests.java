@@ -18,11 +18,6 @@ public class StartupTests extends TestBase {
 
         assertPageIsAvailable();
 
-        checkHeaderElementsPresence();
-        validateHeaderLinks();
-    }
-
-    private void checkHeaderElementsPresence() {
         assertElementPresence(Elements.Header.container());
 
         assertElementPresence(Elements.Header.shipAddressPlaceholder());
@@ -30,11 +25,11 @@ public class StartupTests extends TestBase {
         assertElementPresence(Elements.Header.hotlinePhoneNumber());
         assertElementPresence(Elements.Header.hotlineWorkhoursText());
 
-        assertElementPresence(Elements.Header.infoButton("Как мы работаем"));
-        assertElementPresence(Elements.Header.infoButton("Контакты"));
-        assertElementPresence(Elements.Header.infoButton("Помощь"));
-        assertElementPresence(Elements.Header.infoButton("Доставка и оплата"));
-        assertElementPresence(Elements.Header.infoButton("Корпоративным клиентам"));
+        assertElementPresence(Elements.Header.howWeWorkInfoButton());
+        assertElementPresence(Elements.Header.contactsInfoButton());
+        assertElementPresence(Elements.Header.helpInfoButton());
+        assertElementPresence(Elements.Header.deliveryInfoButton());
+        assertElementPresence(Elements.Header.corporativeCustomersInfoButton());
         assertElementPresence(Elements.Header.mnogoruButton());
 
         assertElementPresence(Elements.Header.catalogButton());
@@ -44,16 +39,15 @@ public class StartupTests extends TestBase {
         assertElementPresence(Elements.Header.favoritesButton());
         assertElementPresence(Elements.Header.loginButton());
         assertElementPresence(Elements.Header.cartButton());
-    }
 
-    private void validateHeaderLinks() {
-        validateTransition(Elements.Header.infoButton("Как мы работаем"));
-        validateTransition(Elements.Header.infoButton("Контакты"));
-        validateTransition(Elements.Header.infoButton("Помощь"));
-        validateTransition(Elements.Header.infoButton("Доставка и оплата"));
+        // todo вынести валидации отдельными тестами
+        validateTransition(Elements.Header.howWeWorkInfoButton());
+        validateTransition(Elements.Header.contactsInfoButton());
+        validateTransition(Elements.Header.helpInfoButton());
+        validateTransition(Elements.Header.deliveryInfoButton());
         //TODO доделать обработку и проверку открытия новых вкладок
-        //validateTransition(Elements.Site.Header.corporativeCustomersButton());
-        //validateTransition(Elements.Site.Header.mnogoruButton());
+        //validateNewTabOpening(Elements.Site.Header.corporativeCustomersInfoButton());
+        //validateNewTabOpening(Elements.Site.Header.mnogoruButton());
         validateTransition(Elements.Header.logo());
     }
 

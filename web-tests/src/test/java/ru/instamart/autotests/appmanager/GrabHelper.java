@@ -136,7 +136,7 @@ public class GrabHelper extends HelperBase{
         ShopHelper.Cart.open();
         if (kraken.detect().isElementDisplayed(Elements.Cart.alertText())) {
             String text = text(Elements.Cart.alertText());
-            int minOrderSum = parseInt(((text).substring((text.length() - 8), (text.length() - 3))).replaceAll(
+            int minOrderSum = parseInt(((text).substring((text.length() - 9), (text.length() - 3))).replaceAll(
                     "\\s", ""));
             debugMessage("Сумма минимального заказа в алерте корзины: " + minOrderSum + "р");
             return minOrderSum;

@@ -324,7 +324,7 @@ public class UserFavoritesTests extends TestBase {
     public void successAddFavoriteProductsFromCardToCart() {
         SoftAssert softAssert = new SoftAssert();
         kraken.perform().loginAs(session.admin);
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
         kraken.get().favoritesPage();
 
         ShopHelper.Catalog.Item.addToCart();
@@ -349,7 +349,7 @@ public class UserFavoritesTests extends TestBase {
     public void successAddFavoriteProductToCart() {
         SoftAssert softAssert = new SoftAssert();
         kraken.perform().loginAs(session.admin);
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
         kraken.get().favoritesPage();
 
         ShopHelper.Favorites.Item.addToCart();

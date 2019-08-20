@@ -3,6 +3,7 @@ package ru.instamart.autotests.tests.shopping;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -11,6 +12,17 @@ public class ShoppingSearchTests extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
         kraken.get().page("metro");
+    }
+
+    @Test(
+            description = "Тест валидации элементлов поиска",
+            groups = {"acceptance","regression"},
+            priority = 500
+    )
+    public void successValidateSearch() {
+        assertElementPresence(Elements.Header.Search.container());
+        assertElementPresence(Elements.Header.Search.inputField());
+        assertElementPresence(Elements.Header.Search.sendButton());
     }
 
     @Test(

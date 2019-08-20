@@ -117,7 +117,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckWithThisItemBuyWidget"
     )
     public void successAddItemFromWithThisItemBuyWidget() {
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.open();
         ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.ItemCard.WithThisItemBuy());
@@ -135,7 +135,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successAddItemFromSimilarItemsWidget() {
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.open();
         ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.ItemCard.SimilarItems());
@@ -153,7 +153,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successAddItemFromRecentlyViewedWidget() {
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.open();
         ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.ItemCard.RecentlyViewed());

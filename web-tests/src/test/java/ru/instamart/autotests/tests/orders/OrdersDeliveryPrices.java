@@ -26,7 +26,7 @@ public class OrdersDeliveryPrices extends TestBase {
     )
     public void successCheckMetroDeliveryPriceDiscount() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         kraken.get().baseUrl();
         kraken.search().item("Haagen");

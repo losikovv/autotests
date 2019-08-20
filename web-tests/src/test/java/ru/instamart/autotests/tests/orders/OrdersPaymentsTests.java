@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.PaymentTypes;
+import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.tests.TestBase;
 
 public class OrdersPaymentsTests extends TestBase {
@@ -15,7 +16,7 @@ public class OrdersPaymentsTests extends TestBase {
         kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.admin);
         kraken.shipAddress().change(Addresses.Moscow.testAddress());
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
     }
 
 

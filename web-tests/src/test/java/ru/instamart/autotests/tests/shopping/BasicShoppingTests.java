@@ -40,7 +40,7 @@ public class BasicShoppingTests extends TestBase {
     public void noAccessToCheckoutWithEmptyCart() {
         kraken.perform().loginAs(session.admin);
         kraken.get().page("metro");
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         assertPageIsUnavailable(
                 Pages.Site.checkout());
@@ -56,7 +56,7 @@ public class BasicShoppingTests extends TestBase {
         kraken.get().page("metro");
 
         if (kraken.detect().isCheckoutButtonActive()) {
-            kraken.drop().cart();
+            ShopHelper.Cart.drop();
         }
 
         if (kraken.detect().isCartEmpty()) {
@@ -81,7 +81,7 @@ public class BasicShoppingTests extends TestBase {
     public void successCollectItemsForMinOrder() {
         kraken.perform().loginAs(session.user);
         kraken.get().page("metro");
-        kraken.drop().cart();
+        ShopHelper.Cart.drop();
 
         kraken.shopping().collectItems();
 
