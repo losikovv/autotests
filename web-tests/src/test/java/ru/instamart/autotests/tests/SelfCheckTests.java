@@ -9,6 +9,7 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.appmanager.ShopHelper;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
+import static ru.instamart.autotests.appmanager.HelperBase.verboseMessage;
 
 // Тесты самопроверки кракена
 
@@ -190,7 +191,7 @@ public class SelfCheckTests extends TestBase {
         kraken.perform().quickLogout();
 
         //landing
-        kraken.shipAddress().set(Addresses.Moscow.testAddress());
+        ShopHelper.ShippingAddress.set(Addresses.Moscow.testAddress());
 
         softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
                 "\nНе открывается дефолтный селектор магазинов на лендинге");
@@ -230,7 +231,7 @@ public class SelfCheckTests extends TestBase {
         kraken.perform().quickLogout();
 
         //landing
-        kraken.shipAddress().set(Addresses.Moscow.outOfZoneAddress());
+        ShopHelper.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
 
         softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
                 "\nНе открывается пустой селектор магазинов на лендинге");
@@ -329,10 +330,10 @@ public class SelfCheckTests extends TestBase {
 
         kraken.get().page("metro");
 
-        kraken.shipAddress().openAddressModal();
+        ShopHelper.ShippingAddress.openAddressModal();
         Assert.assertTrue(kraken.detect().isAddressModalOpen());
 
-        kraken.shipAddress().closeAddressModal();
+        ShopHelper.ShippingAddress.closeAddressModal();
         Assert.assertFalse(kraken.detect().isAddressModalOpen());
     }
 
@@ -344,14 +345,14 @@ public class SelfCheckTests extends TestBase {
     public void detectCartTotal() {
         kraken.get().page("metro");
         if (!kraken.detect().isShippingAddressSet()) {
-            kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+            ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
         ShopHelper.Cart.drop();
 
         // корзина пустая
         Assert.assertFalse(kraken.detect().isCartTotalDisplayed());
         Assert.assertNull(kraken.grab().cartTotal());
-        kraken.perform().message("Сумма корзины = " + kraken.grab().cartTotal());
+        verboseMessage("Сумма корзины = " + kraken.grab().cartTotal());
 
         // корзина не пустая, но меньше суммы мин заказа
         ShopHelper.Cart.close();
@@ -359,12 +360,12 @@ public class SelfCheckTests extends TestBase {
         kraken.shopping().collectItems(1);
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
         Assert.assertNotNull(kraken.grab().cartTotal());
-        kraken.perform().message("Сумма корзины = " + kraken.grab().cartTotal());
+        verboseMessage("Сумма корзины = " + kraken.grab().cartTotal());
 
         // корзина не пустая, больше суммы мин заказа
         kraken.shopping().collectItems();
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
-        kraken.perform().message("Сумма корзины = " + kraken.grab().cartTotal());
+        verboseMessage("Сумма корзины = " + kraken.grab().cartTotal());
     }
 
 
@@ -374,11 +375,11 @@ public class SelfCheckTests extends TestBase {
     public void detectAddressOutOfZone() {
 
         kraken.get().page("metro");
-        kraken.shipAddress().set(Addresses.Moscow.outOfZoneAddress());
+        ShopHelper.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
         Assert.assertTrue(kraken.detect().isAddressOutOfZone());
 
         kraken.get().page("metro");
-        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         Assert.assertFalse(kraken.detect().isAddressOutOfZone());
     }
 

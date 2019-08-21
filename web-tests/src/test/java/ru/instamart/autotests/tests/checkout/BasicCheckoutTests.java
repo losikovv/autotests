@@ -46,7 +46,7 @@ public class BasicCheckoutTests extends TestBase {
     }
 
     @Test(  description = "Тест валидации заполненного чекаута",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 1900
     )
     public void successValidateFilledCheckoutPage() {

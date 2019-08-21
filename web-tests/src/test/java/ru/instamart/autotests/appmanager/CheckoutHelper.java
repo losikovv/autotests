@@ -39,7 +39,7 @@ public class CheckoutHelper extends HelperBase {
     }
 
     public void sendOrderFromSidebar() {
-        verboseMessage("Отправляем заказ ...");
+        verboseMessage("Отправляем заказ...");
         kraken.await().fluently(
                 ExpectedConditions.elementToBeClickable(
                         Elements.Checkout.SideBar.sendOrderButton().getLocator()),
@@ -48,7 +48,7 @@ public class CheckoutHelper extends HelperBase {
         kraken.await().fluently(
                 ExpectedConditions.visibilityOfElementLocated(
                         Elements.UserProfile.OrderDetailsPage.activeOrderAttribute().getLocator()),
-                            "Превышено время отправки заказа\n");
+                            "Превышено время ожидания отправки заказа\n");
         message("✓ Заказ оформлен\n");
     }
 

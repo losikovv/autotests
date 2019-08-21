@@ -103,7 +103,7 @@ public class TestBase {
         Assert.assertFalse(
                 kraken.grab().currentURL().equalsIgnoreCase(startPage),
                     "\n\n > Не работает " + element.getDescription()
-                                + "\n > Элемент по локатору " + element.getLocator().toString().substring(3) + " на странице " + startPage
+                                + "\n > Локатор " + element.getLocator().toString().substring(3) + " на странице " + startPage
                                     + "\n > Нет перехода на целевую страницу\n\n");
         verboseMessage("✓ Успешный переход");
         // TODO добавить проверку на соответствие currentURL и targetURL, для этого добавить targetURL в ElementData

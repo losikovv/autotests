@@ -66,8 +66,7 @@ public class LandingPageTests extends TestBase {
     @Test(
             description = "Тест перехода по ссылке 'Помощь' в шапке лендинга",
             groups = {"acceptance","regression"},
-            //priority = 53,
-            dependsOnMethods = "successValidateLanding"
+            priority = 53
     )
     public void successAssertTransitionOnHeaderHelpLink() {
         assertTransition(Elements.Landing.MainBlock.helpLink());

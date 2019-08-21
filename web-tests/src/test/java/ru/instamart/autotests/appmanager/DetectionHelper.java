@@ -377,7 +377,7 @@ public class DetectionHelper extends HelperBase {
     /** Определяем выбран ли адрес доставки */
     public boolean isShippingAddressSet() {
         if (isElementPresent((Elements.Header.currentShipAddress()))) {
-            verboseMessage("Выбран адрес доставки: " + kraken.grab().currentShipAddress());
+            verboseMessage("Выбран адрес доставки: " + kraken.grab().currentShipAddress() + "\n");
             return true;
         } else {
             verboseMessage("Адрес доставки не выбран\n");

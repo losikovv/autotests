@@ -15,7 +15,7 @@ public class OrdersPaymentsTests extends TestBase {
     public void setup() {
         kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.admin);
-        kraken.shipAddress().change(Addresses.Moscow.testAddress());
+        ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
         ShopHelper.Cart.drop();
     }
 

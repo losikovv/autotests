@@ -17,7 +17,7 @@ public class RetailRocketCartWidgetsTests extends TestBase {
     public void setup() {
         kraken.perform().quickLogout();
         kraken.get().page("metro");
-        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @BeforeMethod(alwaysRun = true)

@@ -15,10 +15,10 @@ import static ru.instamart.autotests.application.Config.TestsConfiguration.Order
 public class OrdersReplacementsTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
-    public void setup() throws Exception {
+    public void setup() {
         kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.admin);
-        kraken.shipAddress().change(Addresses.Moscow.testAddress());
+        ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
         ShopHelper.Cart.drop();
     }
 

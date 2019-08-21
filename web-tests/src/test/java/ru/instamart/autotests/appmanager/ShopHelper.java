@@ -16,6 +16,109 @@ public class ShopHelper extends HelperBase {
         super(driver, environment, app);
     }
 
+    /** Адрес доставки */
+    public static class ShippingAddress {
+
+        /** Установить адрес доставки */
+        public static void set(String address) {
+            message("Устанавливаем адрес доставки >>> " + address + "\n");
+            openAddressModal();
+            fill(address);
+            submit();
+        }
+
+        /** Изменить адрес доставки */
+        public static void change(String address) {
+            message("Изменяем адрес доставки >>> " + address + "\n");
+            openAddressModal();
+            clearAddressField();
+            fill(address);
+            submit();
+        }
+
+        /** Свапнуть тестовый и дефолтные адреса */
+        public static void swap() {
+            if (kraken.grab().currentShipAddress().equals(Addresses.Moscow.defaultAddress())) {
+                change(Addresses.Moscow.testAddress());
+            } else {
+                change(Addresses.Moscow.testAddress());
+                change(Addresses.Moscow.defaultAddress());
+            }
+        }
+
+        /** Выбрать первый адресный саджест */
+        private static void selectAddressSuggest() {
+            // TODO переделать на fluent-ожидание подсказок
+            if (kraken.detect().isShippingAddressSuggestsPresent()) {
+                kraken.perform().click(Elements.Modals.AddressModal.addressSuggest());
+                kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.saveButton().getLocator()),
+                        "Неактивна кнопка сохранения адреса");
+            } else {
+                throw new AssertionError("Нет адресных подсказок, невозможно выбрать адрес");
+            }
+        }
+
+        /** Открыть модалку ввода адреса */
+        public static void openAddressModal() {
+            if (kraken.detect().isAddressModalOpen()) {
+                debugMessage("Пропускаем открытие модалки адреса, она уже открыта");
+            } else {
+                kraken.perform().click(Elements.Header.shipAddressButton());
+                kraken.await().simply(1); // Ожидание анимации открытия адресной модалки
+                kraken.await().fluently(
+                        ExpectedConditions.visibilityOfElementLocated(
+                                Elements.Modals.AddressModal.popup().getLocator()),
+                        "Не открылась модалка ввода адреса доставки\n");
+            }
+        }
+
+        /** Очистить поле в адресной модалке */
+        public static void clearAddressField() {
+            kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), "");
+        }
+
+        /** Ввести адрес в адресной модалке */
+        public static void fill(String address) {
+            kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), address);
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            Elements.Modals.AddressModal.addressSuggest().getLocator()),
+                    "Не подтянулись адресные подсказки\n"
+            );
+            selectAddressSuggest();
+        }
+
+        /** Применить введенный адрес в адресной модалке */
+        public static void submit() throws AssertionError {
+            kraken.perform().click(Elements.Modals.AddressModal.saveButton());
+            if (kraken.detect().isAddressOutOfZone()) {
+                verboseMessage("Выбранный адрес вне зоны доставки");
+                kraken.perform().refresh();
+            } else {
+                kraken.await().fluently(
+                        ExpectedConditions.invisibilityOfElementLocated(
+                                Elements.Modals.AddressModal.popup().getLocator()),
+                        "Превышено время ожидания применения адреса доставки\n");
+            }
+        }
+
+        /** Выбрать первый в списке предыдущий адрес в адресной модалке */
+        public static void choseRecent() {
+            kraken.perform().click(Elements.Modals.AddressModal.recentAddress());
+            kraken.await().implicitly(1); // Ожидание применения предыдущего адреса
+        }
+
+        /** Закрыть модалку адреса */
+        public static void closeAddressModal() {
+            if (kraken.detect().isAddressModalOpen()) {
+                kraken.perform().click(Elements.Modals.AddressModal.closeButton());
+                kraken.await().implicitly(1); // Ожидание анимации закрытия адресной модалки
+            } else {
+                message("Пропускаем закрытие модалки адреса, она уже закрыта");
+            }
+        }
+    }
+
     /** Шторка выбора магазина */
     public static class StoreSelector {
 
@@ -415,7 +518,7 @@ public class ShopHelper extends HelperBase {
     /** Набрать корзину на указанную сумму */
     public void collectItems(int orderSum) {
         if(!kraken.detect().isShippingAddressSet()) {
-            kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+            ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
         message("Собираем корзину товаров на сумму " + orderSum + "\u20BD...");
         int cartTotal = kraken.grab().cartTotalRounded();
@@ -429,9 +532,7 @@ public class ShopHelper extends HelperBase {
             // Формула расчета кол-ва товара
             int neededQuantity = ((orderSum - cartTotal) / (itemPrice - 1)) + 1;
             message("> добавляем в корзину \""
-                    + kraken.grab().itemName() + "\" x " + neededQuantity + " шт\n"
-                    + kraken.grab().currentURL()
-                    + "\n");
+                    + kraken.grab().itemName() + "\" x " + neededQuantity + " шт\n> " + kraken.grab().currentURL() + "\n");
             addItem(neededQuantity);
             ItemCard.close();
             Cart.open();

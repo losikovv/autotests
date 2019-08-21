@@ -261,7 +261,7 @@ public class UserAuthorisationTests extends TestBase {
     public void successAuthFromAddressModal() throws AssertionError {
         kraken.get().page("metro");
 
-        kraken.shipAddress().openAddressModal();
+        ShopHelper.ShippingAddress.openAddressModal();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
 
         SoftAssert softAssert = new SoftAssert();
@@ -290,7 +290,7 @@ public class UserAuthorisationTests extends TestBase {
         kraken.perform().registration(testuser);
         kraken.perform().quickLogout();
         kraken.get().page("metro");
-        kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         kraken.shopping().collectItems();
         ShopHelper.Cart.proceedToCheckout();

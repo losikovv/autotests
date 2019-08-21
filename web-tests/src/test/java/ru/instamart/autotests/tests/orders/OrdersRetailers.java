@@ -15,7 +15,7 @@ public class OrdersRetailers extends TestBase {
     public void setup() throws Exception {
         kraken.get().baseUrl();
         kraken.perform().loginAs(kraken.session.admin);
-        kraken.shipAddress().change(Addresses.Moscow.testAddress());
+        ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
     }
 
     @Test(enabled = enableOrderRetailersTests,

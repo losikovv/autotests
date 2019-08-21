@@ -339,14 +339,14 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Отправить форму */
-    public void sendForm(){
+    public void sendForm() {
         verboseMessage("> отправляем форму\n");
         click(Elements.Modals.AuthModal.submitButton());
-        kraken.await().implicitly(1); // Ожидание авторизации
+        kraken.await().implicitly(2); // Ожидание авторизации
     }
 
     /** Закрыть форму авторизации/регистрации */
-    public void closeAuthModal(){
+    public void closeAuthModal() {
         click(Elements.Modals.AuthModal.closeButton());
         kraken.await().implicitly(1); // Ожидание закрытия модалки авторизации
     }
@@ -405,7 +405,7 @@ public class PerformHelper extends HelperBase {
     /** Оформить тестовый заказ */
     public void order() {
         if (!kraken.detect().isShippingAddressSet()) {
-            kraken.shipAddress().set(Addresses.Moscow.defaultAddress());
+            ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
         kraken.shopping().collectItems();
         ShopHelper.Cart.proceedToCheckout();
@@ -431,11 +431,11 @@ public class PerformHelper extends HelperBase {
 
     /** Отменить крайний заказ */
     public void cancelLastOrder() {
-        message("Отменяем крайний заказ");
+        message("Отменяем крайний заказ...");
         kraken.get().url(baseUrl + "user/orders");
         if(kraken.detect().isLastOrderActive()) {
             click(Elements.UserProfile.OrdersHistoryPage.order.cancelButton());
-            message("✓ OK\n");
+            message("✓ Заказ отменен\n");
         } else message("> Заказ не активен\n");
         kraken.await().implicitly(2); // Ожидание отмены заказа
     }
