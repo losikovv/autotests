@@ -206,14 +206,14 @@ public class ShoppingCartTests extends TestBase {
 
         kraken.perform().registration();
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
-        kraken.search().item("молоко");
+        ShopHelper.Search.item("молоко");
         ShopHelper.Catalog.Item.addToCart();
         int sum1 = kraken.grab().minOrderSum();
 
         softAssert.assertNotEquals(sum1, 0, "Не отображается сумма минимального первого заказа\n");
 
         kraken.perform().order();
-        kraken.search().item("молоко");
+        ShopHelper.Search.item("молоко");
         ShopHelper.Catalog.Item.addToCart();
         int sum2 = kraken.grab().minOrderSum();
 

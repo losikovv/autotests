@@ -61,7 +61,7 @@ public class BasicShoppingTests extends TestBase {
 
         if (kraken.detect().isCartEmpty()) {
             ShopHelper.Cart.close();
-            kraken.search().item("хлеб"); // Костыль для случаев когда первый товар на главной дороже минимального заказа
+            ShopHelper.Search.item("хлеб"); // Костыль для случаев когда первый товар на главной дороже минимального заказа
             ShopHelper.Catalog.Item.addToCart();
         }
 

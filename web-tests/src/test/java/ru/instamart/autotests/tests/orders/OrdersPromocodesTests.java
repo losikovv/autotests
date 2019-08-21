@@ -83,7 +83,7 @@ public class OrdersPromocodesTests extends TestBase {
             priority = 1403
     )
     public void successOrderWithNewUserPromo () {
-        kraken.search().item("молоко");
+        ShopHelper.Search.item("молоко");
         kraken.shopping().collectItems(2000);
         ShopHelper.Cart.proceedToCheckout();
 

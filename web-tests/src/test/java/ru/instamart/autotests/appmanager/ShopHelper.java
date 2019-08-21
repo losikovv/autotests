@@ -301,6 +301,51 @@ public class ShopHelper extends HelperBase {
         }
     }
 
+    /** Поиск товаров */
+    public static class Search {
+
+        /** Осуществить поиск товара по запросу */
+        public static void item(String query) {
+            verboseMessage("Поиск товаров по запросу \"" + query + "\"...");
+            Field.fill(query);
+            Button.hit();
+            kraken.await().implicitly(1); // Ожидание загрузки результатов поиска
+        }
+
+        public static class Field {
+
+            public static void fill(String query) {
+                debugMessage("> Заполняем поле поиска: " + query);
+                kraken.perform().fillField(Elements.Header.Search.inputField(), query);
+                kraken.await().implicitly(1); // Ожидание загрузки поисковых саджестов
+            }
+        }
+
+        public static class Button {
+
+            public static void hit() {
+                debugMessage("> Нажимаем кнопку поиска");
+                kraken.perform().click((Elements.Header.Search.sendButton()));
+            }
+        }
+
+        public static class CategorySuggest {
+
+            public static void hit() {
+                debugMessage("> Нажимаем категорийную подсказку в поиске");
+                kraken.perform().click(Elements.Header.Search.categorySuggest());
+            }
+        }
+
+        public static class ProductSuggest {
+
+            public static void hit() {
+                debugMessage("> Нажимаем товарную подсказку в поиске");
+                kraken.perform().click(Elements.Header.Search.productSuggest());
+            }
+        }
+    }
+
     /** Любимые товары */
     public static class Favorites {
 

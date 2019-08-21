@@ -135,22 +135,22 @@ public class UserFavoritesTests extends TestBase {
     public void successCleanupFavorites() {
         kraken.perform().loginAs(session.user);
 
-        kraken.search().item("молоко");
+        ShopHelper.Search.item("молоко");
         ShopHelper.Catalog.Item.addToFavorites();
 
-        kraken.search().item("сыр");
+        ShopHelper.Search.item("сыр");
         ShopHelper.Catalog.Item.addToFavorites();
 
-        kraken.search().item("вода");
+        ShopHelper.Search.item("вода");
         ShopHelper.Catalog.Item.addToFavorites();
 
-        kraken.search().item("бананы");
+        ShopHelper.Search.item("бананы");
         ShopHelper.Catalog.Item.addToFavorites();
 
-        kraken.search().item("яйца");
+        ShopHelper.Search.item("яйца");
         ShopHelper.Catalog.Item.addToFavorites();
 
-        kraken.search().item("хлеб");
+        ShopHelper.Search.item("хлеб");
         ShopHelper.Catalog.Item.addToFavorites();
 
         kraken.drop().favorites();

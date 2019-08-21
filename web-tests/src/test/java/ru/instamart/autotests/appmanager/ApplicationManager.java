@@ -40,7 +40,6 @@ public class ApplicationManager {
     private GrabHelper grabHelper;
     private DropHelper dropHelper;
     private SocialHelper socialHelper;
-    private SearchHelper searchHelper;
     private ShopHelper shopHelper;
     private CheckoutHelper checkoutHelper;
     private AdministrationHelper administrationHelper;
@@ -109,7 +108,6 @@ public class ApplicationManager {
         grabHelper = new GrabHelper(driver,environment,this);
         dropHelper = new DropHelper(driver,environment,this);
         socialHelper = new SocialHelper(driver, environment, this);
-        searchHelper = new SearchHelper(driver, environment, this);
         shopHelper = new ShopHelper(driver, environment, this);
         checkoutHelper = new CheckoutHelper(driver, environment, this);
         administrationHelper = new AdministrationHelper(driver, environment, this);
@@ -158,7 +156,6 @@ public class ApplicationManager {
     public GrabHelper grab() { return grabHelper; }
     public DropHelper drop() { return dropHelper; }
     public SocialHelper social() { return socialHelper; }
-    public SearchHelper search() { return searchHelper; }
     public ShopHelper shopping() { return shopHelper; }
     public CheckoutHelper checkout() { return checkoutHelper; }
     public AdministrationHelper admin() { return administrationHelper; }
