@@ -517,6 +517,51 @@ public class ShopHelper extends HelperBase {
             close();
         }
 
+        /** Набрать корзину на минимальную сумму, достаточную для оформления заказа */
+        public static void collect() {
+            if(!kraken.detect().isCheckoutButtonActive()) {
+                Cart.close();
+                collect(Config.TestVariables.DeliveryPrices.minOrderSum);
+            } else { message("Пропускаем набор товаров, в корзине достаточно товаров для оформления минимального заказа");}
+        }
+
+        /** Набрать корзину на указанную сумму */
+        public static void collect(int orderSum) {
+            if(!kraken.detect().isShippingAddressSet()) {
+                ShippingAddress.set(Addresses.Moscow.defaultAddress());
+            }
+            message("Собираем корзину товаров на сумму " + orderSum + "\u20BD...");
+            int cartTotal = kraken.grab().cartTotalRounded();
+            if(cartTotal < orderSum) {
+                Cart.close();
+                if(!kraken.detect().isProductAvailable()) {
+                    message(" > Нет товаров на текущей странице " + kraken.grab().currentURL());
+                    kraken.get().page(Pages.Site.Retailers.metro());}
+                Catalog.Item.open();
+                int itemPrice = kraken.grab().itemPriceRounded();
+                // Формула расчета кол-ва товара
+                int neededQuantity = ((orderSum - cartTotal) / (itemPrice - 1)) + 1;
+                message("> добавляем в корзину \""
+                        + kraken.grab().itemName() + "\" x " + neededQuantity + " шт\n> " + kraken.grab().currentURL() + "\n");
+                addItem(neededQuantity);
+                ItemCard.close();
+                Cart.open();
+            } else {
+                message("В корзине достаточно товаров");
+            }
+        }
+
+        /** Луп набора товара до необходимого количества */
+        private static void addItem(int neededQuantity) {
+            int quantity = kraken.grab().itemQuantity();
+            debugMessage("В каунтере " + quantity);
+            if (quantity == 1) kraken.await().implicitly(2);
+            if (kraken.grab().itemQuantity() < neededQuantity) {
+                ItemCard.addToCart();
+                addItem(neededQuantity);
+            }
+        }
+
         /** Сниппет товара в корзине */
         public static class Item {
 
@@ -549,50 +594,6 @@ public class ShopHelper extends HelperBase {
                 kraken.perform().click(Elements.Cart.item.decreaseButton());
                 kraken.await().implicitly(1); // Ожидание уменьшения количества товара в корзине
             }
-        }
-    }
-
-    /** Набрать корзину на минимальную сумму, достаточную для оформления заказа */
-    public void collectItems() {
-        if(!kraken.detect().isCheckoutButtonActive()) {
-            Cart.close();
-            collectItems(Config.TestVariables.DeliveryPrices.minOrderSum);
-        } else { message("Пропускаем набор товаров, в корзине достаточно товаров для оформления минимального заказа");}
-    }
-
-    /** Набрать корзину на указанную сумму */
-    public void collectItems(int orderSum) {
-        if(!kraken.detect().isShippingAddressSet()) {
-            ShippingAddress.set(Addresses.Moscow.defaultAddress());
-        }
-        message("Собираем корзину товаров на сумму " + orderSum + "\u20BD...");
-        int cartTotal = kraken.grab().cartTotalRounded();
-        if(cartTotal < orderSum) {
-            Cart.close();
-            if(!kraken.detect().isProductAvailable()) {
-                message(" > Нет товаров на текущей странице " + kraken.grab().currentURL());
-                kraken.get().page(Pages.Site.Retailers.metro());}
-            Catalog.Item.open();
-            int itemPrice = kraken.grab().itemPriceRounded();
-            // Формула расчета кол-ва товара
-            int neededQuantity = ((orderSum - cartTotal) / (itemPrice - 1)) + 1;
-            message("> добавляем в корзину \""
-                    + kraken.grab().itemName() + "\" x " + neededQuantity + " шт\n> " + kraken.grab().currentURL() + "\n");
-            addItem(neededQuantity);
-            ItemCard.close();
-            Cart.open();
-        } else {
-            message("В корзине достаточно товаров");
-        }
-    }
-
-    private void addItem(int neededQuantity) {
-        int quantity = kraken.grab().itemQuantity();
-        debugMessage("В каунтере " + quantity);
-        if (quantity == 1) kraken.await().implicitly(2);
-        if (kraken.grab().itemQuantity() < neededQuantity) {
-            ItemCard.addToCart();
-            addItem(neededQuantity);
         }
     }
 }

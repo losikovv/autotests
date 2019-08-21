@@ -132,7 +132,7 @@ public class BasicOrdersTests extends TestBase {
         ShopHelper.Catalog.Item.addToFavorites();
         kraken.get().favoritesPage();
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -187,7 +187,7 @@ public class BasicOrdersTests extends TestBase {
     )
     public void successRepeatLastOrderAndPayWithCardOnline() {
         kraken.perform().repeatLastOrder();
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
 
         kraken.checkout().complete(PaymentTypes.cardOnline());
@@ -203,7 +203,7 @@ public class BasicOrdersTests extends TestBase {
     )
     public void successRepeatLastOrderAndPayWithCardCourier() {
         kraken.perform().repeatLastOrder();
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
 
         kraken.checkout().complete(PaymentTypes.cardCourier());
@@ -219,7 +219,7 @@ public class BasicOrdersTests extends TestBase {
     )
     public void successRepeatLastOrderAndPayWithCash() {
         kraken.perform().repeatLastOrder();
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
 
         kraken.checkout().complete(PaymentTypes.cash());
@@ -235,7 +235,7 @@ public class BasicOrdersTests extends TestBase {
     )
     public void successRepeatLastOrderAndPayWithBank() {
         kraken.perform().repeatLastOrder();
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
 
         kraken.checkout().complete(PaymentTypes.bankTransfer());

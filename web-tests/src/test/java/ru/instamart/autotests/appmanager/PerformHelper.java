@@ -407,7 +407,7 @@ public class PerformHelper extends HelperBase {
         if (!kraken.detect().isShippingAddressSet()) {
             ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
     }

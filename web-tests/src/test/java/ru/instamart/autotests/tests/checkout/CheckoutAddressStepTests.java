@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.CheckoutHelper;
+import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.models.AddressDetailsData;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -19,7 +20,7 @@ public class CheckoutAddressStepTests extends TestBase {
     public void preparingForCheckout() {
         kraken.perform().quickLogout();
         kraken.perform().registration();
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -240,7 +241,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного изменения ранее заполненных полей",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 1112
     )
     public void successChangeProvidedStepData() {

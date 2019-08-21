@@ -351,7 +351,7 @@ public class UserRegistrationTests extends TestBase {
         kraken.get().page("metro");
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
 
         softAssert.assertTrue(

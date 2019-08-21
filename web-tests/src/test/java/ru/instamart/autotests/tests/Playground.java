@@ -26,7 +26,7 @@ public class Playground extends TestBase {
     public void regUserAndPrepareForCheckout() {
         kraken.perform().registration();
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
     }
 
     @Test
@@ -65,7 +65,7 @@ public class Playground extends TestBase {
         kraken.perform().loginAs(session.user);
         kraken.get().page(Pages.Site.Retailers.metro());
         ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
 
         OrderDetailsData details = new OrderDetailsData();

@@ -27,7 +27,7 @@ public class OrdersRetailers extends TestBase {
         kraken.get().page("metro");
         ShopHelper.Cart.drop();
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -46,7 +46,7 @@ public class OrdersRetailers extends TestBase {
         kraken.get().page("auchan");
         ShopHelper.Cart.drop();
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 

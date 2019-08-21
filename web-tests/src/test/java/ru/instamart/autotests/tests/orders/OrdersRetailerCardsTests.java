@@ -29,7 +29,7 @@ public class OrdersRetailerCardsTests extends TestBase {
         testOn(Environments.metro_production());
 
         kraken.get().page("metro");
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         
         kraken.checkout().addRetailerCard(RetailerCards.metro());

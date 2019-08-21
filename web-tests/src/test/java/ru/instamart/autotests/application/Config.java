@@ -7,7 +7,7 @@ public class Config {
 
     public interface CoreSettings {
         String browser = BrowserType.FIREFOX;
-        EnvironmentData environment = Environments.instamart_production();
+        EnvironmentData environment = Environments.instamart_staging();
 
         int basicTimeout = 2;
         int waitingTimeout = 20;

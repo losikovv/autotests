@@ -30,7 +30,7 @@ public class OrdersDeliveryPrices extends TestBase {
 
         kraken.get().baseUrl();
         ShopHelper.Search.item("Haagen");
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().fillOrderDetails();
         softAssert.assertEquals(kraken.grab().roundedSum(Elements.Checkout.deliveryPrice()), Config.TestVariables.DeliveryPrices.MetroHighDeliveryPrice,
@@ -38,14 +38,14 @@ public class OrdersDeliveryPrices extends TestBase {
 
         kraken.get().baseUrl();
         ShopHelper.Search.item("Haagen");
-        kraken.shopping().collectItems(5000);
+        ShopHelper.Cart.collect(5000);
         ShopHelper.Cart.proceedToCheckout();
         softAssert.assertEquals(kraken.grab().roundedSum(Elements.Checkout.deliveryPrice()), Config.TestVariables.DeliveryPrices.MetroMediumDeliveryPrice,
                 "\nНекорректная цена доставки в чекауте при средней корзине" );
 
         kraken.get().baseUrl();
         ShopHelper.Search.item("Haagen");
-        kraken.shopping().collectItems(10000);
+        ShopHelper.Cart.collect(10000);
         ShopHelper.Cart.proceedToCheckout();
         softAssert.assertEquals(kraken.grab().roundedSum(Elements.Checkout.deliveryPrice()), Config.TestVariables.DeliveryPrices.MetroLowDeliveryPrice,
                 "\nНекорректная цена доставки в чекауте при большой корзине" );

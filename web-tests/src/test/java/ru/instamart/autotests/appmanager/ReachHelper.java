@@ -15,7 +15,7 @@ public class ReachHelper extends HelperBase {
         kraken.get().checkoutPage();
         if(!kraken.detect().isOnCheckout()){
             kraken.perform().refresh(); // Скипаем возможный алерт о минимальном заказе
-            kraken.shopping().collectItems();
+            ShopHelper.Cart.collect();
             ShopHelper.Cart.proceedToCheckout();
         }
     }

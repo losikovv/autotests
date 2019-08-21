@@ -46,7 +46,7 @@ public class OrdersPromocodesTests extends TestBase {
             priority = 1401
     )
     public void successOrderWithFirstOrderPromo() {
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
 
         CheckoutHelper.Promocode.add(Promo.fixedDiscountOnFirstOrder());
@@ -65,7 +65,7 @@ public class OrdersPromocodesTests extends TestBase {
     )
     public void successOrderWithRetailerPromo() {
         kraken.get().page("metro");
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
 
         CheckoutHelper.Promocode.add(Promo.fixedDiscountForRetailer("metro"));
@@ -84,7 +84,7 @@ public class OrdersPromocodesTests extends TestBase {
     )
     public void successOrderWithNewUserPromo () {
         ShopHelper.Search.item("молоко");
-        kraken.shopping().collectItems(2000);
+        ShopHelper.Cart.collect(2000);
         ShopHelper.Cart.proceedToCheckout();
 
         CheckoutHelper.Promocode.add(Promo.fixedDiscountForNewUser());
@@ -102,7 +102,7 @@ public class OrdersPromocodesTests extends TestBase {
             priority = 1404
     )
     public void successOrderWithCertainOrderPromo() {
-        kraken.shopping().collectItems(2100);
+        ShopHelper.Cart.collect(2100);
         ShopHelper.Cart.proceedToCheckout();
 
         //CheckoutHelper.Promocode.add("crtnord");
@@ -121,12 +121,12 @@ public class OrdersPromocodesTests extends TestBase {
             priority = 1405
     )
     public void successOrderWithSeriesOfOrdersPromo() {
-        kraken.shopping().collectItems(2000);
+        ShopHelper.Cart.collect(2000);
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         kraken.get().baseUrl();
-        kraken.shopping().collectItems(2000);
+        ShopHelper.Cart.collect(2000);
         ShopHelper.Cart.proceedToCheckout();
         //CheckoutHelper.Promocode.add("srsoford");
 

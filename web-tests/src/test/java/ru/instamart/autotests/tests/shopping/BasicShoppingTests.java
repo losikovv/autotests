@@ -83,7 +83,7 @@ public class BasicShoppingTests extends TestBase {
         kraken.get().page("metro");
         ShopHelper.Cart.drop();
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
 
         Assert.assertTrue(
                 kraken.detect().isCheckoutButtonActive(),
@@ -98,7 +98,7 @@ public class BasicShoppingTests extends TestBase {
     public void successGetCheckoutPageWithCartAboveMinimalOrderSum() {
         kraken.perform().loginAs(session.user);
         kraken.get().page("metro");
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
 
         assertPageIsAvailable(
                 Pages.Site.checkout());
@@ -112,7 +112,7 @@ public class BasicShoppingTests extends TestBase {
     public void successProceedFromCartToCheckout() {
         kraken.perform().loginAs(session.user);
         kraken.get().page("metro");
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
 
         ShopHelper.Cart.proceedToCheckout();
 

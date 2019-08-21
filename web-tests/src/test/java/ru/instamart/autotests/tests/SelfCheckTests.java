@@ -357,13 +357,13 @@ public class SelfCheckTests extends TestBase {
         // корзина не пустая, но меньше суммы мин заказа
         ShopHelper.Cart.close();
         ShopHelper.Search.item("молоко");
-        kraken.shopping().collectItems(1);
+        ShopHelper.Cart.collect(1);
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
         Assert.assertNotNull(kraken.grab().cartTotal());
         verboseMessage("Сумма корзины = " + kraken.grab().cartTotal());
 
         // корзина не пустая, больше суммы мин заказа
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
         verboseMessage("Сумма корзины = " + kraken.grab().cartTotal());
     }

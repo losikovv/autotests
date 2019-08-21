@@ -292,7 +292,7 @@ public class UserAuthorisationTests extends TestBase {
         kraken.get().page("metro");
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
 
         SoftAssert softAssert = new SoftAssert();

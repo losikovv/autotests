@@ -33,21 +33,25 @@ public class CheckoutBonusesTests extends TestBase {
 
         softAssert.assertTrue(
                 kraken.detect().isBonusAdded(mnogoru()),
-                    "Не добавляется бонусная программа " + mnogoru().getName() + " в чекауте\n");
+                    failMessage("Не добавляется бонусная программа " + mnogoru().getName() + " в чекауте")
+        );
 
         softAssert.assertTrue(
                 kraken.detect().isBonusActive(mnogoru()),
-                    "Бонусная программа " + mnogoru().getName() + " неактивна после добавления в чекауте\n");
+                    failMessage("Бонусная программа " + mnogoru().getName() + " неактивна после добавления в чекауте")
+        );
 
         CheckoutHelper.Bonuses.add(aeroflot());
 
         softAssert.assertTrue(
                 kraken.detect().isBonusAdded(aeroflot()),
-                    "Не добавляется бонусная программа " + aeroflot().getName() + " в чекауте\n");
+                    failMessage("Не добавляется бонусная программа " + aeroflot().getName() + " в чекауте")
+        );
 
         softAssert.assertTrue(
                 kraken.detect().isBonusActive(aeroflot()),
-                    "Бонусная программа " + aeroflot().getName() + " неактивна после добавления в чекауте\n");
+                    failMessage("Бонусная программа " + aeroflot().getName() + " неактивна после добавления в чекауте")
+        );
 
         softAssert.assertAll();
     }

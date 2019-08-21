@@ -29,7 +29,7 @@ public class OrdersCities extends TestBase {
     public void successOrderInMoscow() {
         ShopHelper.ShippingAddress.change(Addresses.Moscow.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -46,7 +46,7 @@ public class OrdersCities extends TestBase {
     public void successOrderInSaintPetersburg() {
         ShopHelper.ShippingAddress.change(Addresses.SaintPetersburg.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -63,7 +63,7 @@ public class OrdersCities extends TestBase {
     public void successOrderInKazan() {
         ShopHelper.ShippingAddress.change(Addresses.Kazan.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -80,7 +80,7 @@ public class OrdersCities extends TestBase {
     public void successOrderInEkaterinburg() {
         ShopHelper.ShippingAddress.change(Addresses.Ekaterinburg.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -97,7 +97,7 @@ public class OrdersCities extends TestBase {
     public void successOrderInNizhnyNovgorod() {
         ShopHelper.ShippingAddress.change(Addresses.NizhnyNovgorod.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -114,7 +114,7 @@ public class OrdersCities extends TestBase {
     public void successOrderInRostovNaDonu() {
         ShopHelper.ShippingAddress.change(Addresses.RostovNaDonu.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -131,7 +131,7 @@ public class OrdersCities extends TestBase {
     public void successOrderInUfa() {
         ShopHelper.ShippingAddress.change(Addresses.Ufa.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -148,7 +148,7 @@ public class OrdersCities extends TestBase {
     public void successOrderInKrasnodar() {
         ShopHelper.ShippingAddress.change(Addresses.Krasnodar.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -165,7 +165,7 @@ public class OrdersCities extends TestBase {
     public void successOrderInSamara() {
         ShopHelper.ShippingAddress.change(Addresses.Samara.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -182,7 +182,7 @@ public class OrdersCities extends TestBase {
     public void successOrderInVoronezh() {
         ShopHelper.ShippingAddress.change(Addresses.Voronezh.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -201,7 +201,7 @@ public class OrdersCities extends TestBase {
     public void successOrderInOmsk() {
         ShopHelper.ShippingAddress.change(Addresses.Omsk.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -220,7 +220,7 @@ public class OrdersCities extends TestBase {
     public void successOrderInVolgograd() {
         ShopHelper.ShippingAddress.change(Addresses.Volgograd.defaultAddress());
 
-        kraken.shopping().collectItems();
+        ShopHelper.Cart.collect();
         ShopHelper.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
