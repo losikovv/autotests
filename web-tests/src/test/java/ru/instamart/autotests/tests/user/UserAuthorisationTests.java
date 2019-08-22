@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Tenants;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.appmanager.SocialHelper;
@@ -243,7 +244,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 109
     )
     public void successAuthOnRetailerPage() throws AssertionError {
-        skipOn("metro");
+        skipTestOn(Tenants.metro());
         kraken.get().page("metro");
 
         kraken.perform().loginAs(session.admin);
@@ -326,7 +327,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 112
     )
     public void successAuthWithVK() throws AssertionError {
-        skip(); // TODO включить когда будет тестовый акк VK
+        skipTest(); // TODO включить когда будет тестовый акк VK
 
         kraken.get().page("metro");
         SocialHelper.Vkontakte.initAuth();
@@ -348,7 +349,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 113
     )
     public void successAuthWithFB() throws AssertionError {
-        skip(); // TODO включить когда будет тестовый акк VK
+        skipTest(); // TODO включить когда будет тестовый акк VK
 
         kraken.get().page("metro");
         SocialHelper.Facebook.initAuth();

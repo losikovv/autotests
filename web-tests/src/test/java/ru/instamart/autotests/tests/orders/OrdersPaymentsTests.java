@@ -22,7 +22,11 @@ public class OrdersPaymentsTests extends TestBase {
 
     @Test(
             description = "Тест заказа с оплатой наличными",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 2101
     )
     public void successOrderWithCashAndCheckDocuments() {
@@ -41,7 +45,11 @@ public class OrdersPaymentsTests extends TestBase {
 
     @Test(
             description = "Тест заказа с оплатой картой онлайн",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 2102
     )
     public void successOrderWithCardOnlineAndCheckDocuments() {
@@ -60,7 +68,11 @@ public class OrdersPaymentsTests extends TestBase {
 
     @Test(
             description = "Тест заказа с оплатой картой курьеру",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 2103
     )
     public void successOrderWithCardCourierAndCheckDocuments() {
@@ -79,7 +91,11 @@ public class OrdersPaymentsTests extends TestBase {
 
     @Test(
             description = "Тест заказа с оплатой банковским переводом",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 2104
     )
     public void successOrderWithBankTransferAndCheckDocuments() {

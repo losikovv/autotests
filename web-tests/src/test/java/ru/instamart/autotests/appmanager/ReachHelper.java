@@ -2,6 +2,7 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.Tenants;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.PageData;
@@ -32,7 +33,7 @@ public class ReachHelper extends HelperBase {
         kraken.get().page(Pages.Admin.login());
         if (kraken.detect().isOnSite()) {
             kraken.perform().quickLogout();
-            if(!kraken.environment.getTenant().equalsIgnoreCase("instamart")){
+            if(!kraken.environment.getTenant().getAlias().equals(Tenants.instamart().getAlias())){
                 kraken.get().page(Pages.Admin.login());
             }
             kraken.perform().authorisation(Users.superadmin());

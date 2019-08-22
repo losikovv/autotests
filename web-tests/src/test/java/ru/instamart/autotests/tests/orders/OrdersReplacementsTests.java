@@ -24,7 +24,11 @@ public class OrdersReplacementsTests extends TestBase {
 
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Звонить / Заменять",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 2201
     )
     public void successOrderWithCallAndReplacePolicy() {
@@ -48,7 +52,11 @@ public class OrdersReplacementsTests extends TestBase {
 
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Звонить / Убирать",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 2202
     )
     public void successOrderWithCallAndRemovePolicy() {
@@ -72,7 +80,11 @@ public class OrdersReplacementsTests extends TestBase {
 
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Не звонить / Заменять",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 2203
     )
     public void successOrderWithReplacePolicy() {
@@ -96,7 +108,11 @@ public class OrdersReplacementsTests extends TestBase {
 
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Не звонить / Убирать",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 2204
     )
     public void successOrderWithRemovePolicy() {

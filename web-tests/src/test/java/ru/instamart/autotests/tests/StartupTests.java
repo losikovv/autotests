@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.Tenants;
 
 public class StartupTests extends TestBase {
 
@@ -12,8 +13,9 @@ public class StartupTests extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 11
     )
-    public void successValidateSiteHeader() {
-        skipOn("metro");
+    public void successValidateInstamartHeader() {
+        runTestOnlyOn(Tenants.instamart());
+
         kraken.get().page("metro");
 
         assertPageIsAvailable();
@@ -33,7 +35,7 @@ public class StartupTests extends TestBase {
         assertElementPresence(Elements.Header.mnogoruButton());
 
         assertElementPresence(Elements.Header.catalogButton());
-        assertElementPresence(Elements.Header.storeButton());
+        if(!kraken.detect().tenant(Tenants.metro())) assertElementPresence(Elements.Header.storeButton());
         assertElementPresence(Elements.Header.Search.inputField());
         assertElementPresence(Elements.Header.Search.sendButton());
         assertElementPresence(Elements.Header.favoritesButton());
@@ -56,8 +58,9 @@ public class StartupTests extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 12
     )
-    public void successValidateSiteFooter() {
-        skipOn("metro"); // TODO сделать тест для тенанта
+    public void successValidateInstamartFooter() {
+        runTestOnlyOn(Tenants.instamart());
+
         kraken.get().page("metro");
 
         assertPageIsAvailable();
@@ -140,8 +143,8 @@ public class StartupTests extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 13
     )
-    public void successCheckRetailerPagesAreAvailabile() {
-        skipOn("metro"); // TODO сделать тест для тенанта
+    public void successCheckRetailerPagesAreAvailable() {
+        skipTestOn(Tenants.metro()); // TODO сделать тест для тенанта
 
         // Проверяем что доступны витрины активных ритейлеров
         assertPageIsAvailable(Pages.Site.Retailers.metro());
@@ -163,7 +166,7 @@ public class StartupTests extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 14
     )
-    public void successCheckPartnerLandingsAreAvailabile() throws AssertionError {
+    public void successCheckPartnerLandingsAreAvailable() {
         assertPageIsAvailable(Pages.Site.Landings.mnogoru());
         assertPageIsAvailable(Pages.Site.Landings.aeroflot());
     }
@@ -173,7 +176,7 @@ public class StartupTests extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 15
     )
-    public void successCheckStaticPagesAreAvailabile() throws AssertionError {
+    public void successCheckStaticPagesAreAvailabile() {
         assertPageIsAvailable(Pages.Site.Static.about());
         assertPageIsAvailable(Pages.Site.Static.delivery());
         assertPageIsAvailable(Pages.Site.Static.rules());

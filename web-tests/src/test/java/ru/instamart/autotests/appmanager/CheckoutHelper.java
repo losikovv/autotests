@@ -21,24 +21,24 @@ public class CheckoutHelper extends HelperBase {
     }
 
     public static void hitNext(CheckoutStepData step){
-        verboseMessage("Жмем \"Продолжить\" в шаге \"" + step.getName() + "\"\n");
+        verboseMessage("Жмем 'Продолжить' в шаге '" + step.getName() + "'\n");
         kraken.perform().click(Elements.Checkout.Step.nextButton(step));
         kraken.await().simply(1); // Ожидание сохранения данных в шаге чекаута после нажатия "Продолжить"
     }
 
     public static void hitChange(CheckoutStepData step){
-        verboseMessage("Жмем \"Изменить\" в шаге \"" + step.getName() + "\"\n");
+        verboseMessage("Жмем 'Изменить' в шаге '" + step.getName() + "'\n");
         kraken.perform().click(Elements.Checkout.MinimizedStep.changeButton(step));
         kraken.await().simply(1); // Ожидание разворота шага чекаута после нажатия "Изменить"
     }
 
     public static void hitSave(CheckoutStepData step){
-        verboseMessage("Жмем \"Сохранить\" в шаге \"" + step.getName() + "\"\n");
+        verboseMessage("Жмем 'Сохранить' в шаге '" + step.getName() + "'\n");
         kraken.perform().click(Elements.Checkout.Step.saveButton(step));
         kraken.await().simply(1); // Ожидание сохранения данных в шаге чекаута после нажатия "Сохранить"
     }
 
-    public void sendOrderFromSidebar() {
+    public static void sendOrderFromSidebar() {
         verboseMessage("Отправляем заказ...");
         kraken.await().fluently(
                 ExpectedConditions.elementToBeClickable(
@@ -52,7 +52,7 @@ public class CheckoutHelper extends HelperBase {
         message("✓ Заказ оформлен\n");
     }
 
-    public void sendOrderFromBottomPanel() {
+    public static void sendOrderFromBottomPanel() {
         verboseMessage("Отправляем заказ ...");
         kraken.await().fluently(
                 ExpectedConditions.elementToBeClickable(

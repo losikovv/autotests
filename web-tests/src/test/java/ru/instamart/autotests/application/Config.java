@@ -7,10 +7,10 @@ public class Config {
 
     public interface CoreSettings {
         String browser = BrowserType.FIREFOX;
-        EnvironmentData environment = Environments.instamart_staging();
+        EnvironmentData environment = Environments.sbermarket_staging();
 
         int basicTimeout = 2;
-        int waitingTimeout = 20;
+        int waitingTimeout = 40;
 
         boolean verbose = true;
         boolean debug = false;

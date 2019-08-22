@@ -113,7 +113,7 @@ public class BasicOrdersTests extends TestBase {
             priority = 2002
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
-        testOn(Environments.instamart_staging());
+        runTestOnlyOn(Environments.instamart_staging());
         CreditCardData creditCardData = Config.TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
 
         kraken.reach().checkout();

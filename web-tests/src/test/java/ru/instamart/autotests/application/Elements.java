@@ -14,6 +14,12 @@ import static ru.instamart.autotests.application.Config.TestVariables.CompanyPar
 
 public class Elements {
 
+    public static ElementData spinner() {
+        return new ElementData(
+                By.xpath("//div[@class='spinner-container']"),
+                    "спиннер загрузки");
+    }
+
     /** Страница 500 ошибки */
     public interface Page500 {
 

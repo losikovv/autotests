@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Tenants;
 import ru.instamart.autotests.tests.TestBase;
 
 public class LandingPageTests extends TestBase {
@@ -20,12 +21,12 @@ public class LandingPageTests extends TestBase {
     }
 
     @Test(
-            description = "Тест валидности и наличия элемнтов лендинга",
+            description = "Тест валидности и наличия элемнтов лендинга Инстамарт",
             groups = {"smoke","acceptance","regression"},
             priority = 51
     )
     public void successValidateLanding() {
-        skipOn("metro");
+        runTestOnlyOn(Tenants.instamart());
 
         assertPageIsAvailable();
 

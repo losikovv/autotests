@@ -12,7 +12,11 @@ public class UserShippingAddressTests extends TestBase {
 
     @Test(
             description = "Тест на то что по дефолту на витрине ритейлера не выбран адрес",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 301
     )
     public void noShippingAddressByDefault() {
@@ -33,7 +37,11 @@ public class UserShippingAddressTests extends TestBase {
 
     @Test(
             description = "Тест дефолтного списка магазинов при отсутствии адреса доставки",
-            groups = {"smoke","acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 302
     )
     public void successOperateDefaultShoplist() {
@@ -59,10 +67,14 @@ public class UserShippingAddressTests extends TestBase {
 
     @Test(
             description = "Тест отмены ввода адреса доставки на витрине ритейлера",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 303
     )
-    public void noShippingAddressSetOnCancel() {
+    public void noShippingAddressSetOnClose() {
         kraken.get().page("metro");
         ShopHelper.ShippingAddress.openAddressModal();
         ShopHelper.ShippingAddress.fill(Addresses.Moscow.defaultAddress());
@@ -70,12 +82,16 @@ public class UserShippingAddressTests extends TestBase {
 
         Assert.assertFalse(
                 kraken.detect().isShippingAddressSet(),
-                    "Адрес доставки установлен после отмены ввода\n");
+                    "Адрес доставки установлен после отмены ввода закрытием модалки\n");
     }
 
     @Test(
             description = "Тест на отсутствие доступных магазинов по адресу вне зоны доставки",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 304
     )
     public void noAvailableShopsOutOfDeliveryZone() {
@@ -104,7 +120,11 @@ public class UserShippingAddressTests extends TestBase {
 
     @Test(
             description = "Тест ввода адреса доставки на витрине ритейлера",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 305
     )
     public void successSetShippingAddressOnRetailerPage() {
@@ -126,7 +146,11 @@ public class UserShippingAddressTests extends TestBase {
 
     @Test(
             description = "Тест отмены изменения адреса доставки",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 306
     )
     public void noChangeShippingAddressOnCancel() {
@@ -154,7 +178,11 @@ public class UserShippingAddressTests extends TestBase {
 
     @Test(
             description = "Тест изменения адреса доставки",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 307
     )
     public void successChangeShippingAddress() {
@@ -180,7 +208,11 @@ public class UserShippingAddressTests extends TestBase {
 
     @Test(
             description = "Тест изменения адреса на предыдущий из списка адресной модалки",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 308
     )
     public void successChangeShippingAddressToRecent() throws Exception {
@@ -211,7 +243,11 @@ public class UserShippingAddressTests extends TestBase {
 
     @Test(
             description = "Тест на ввод адреса в модалке после добавления товара из карточки",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 309
     )
     public void successSetShippingAddressAfterAddingProductFromItemCard() throws Exception {
@@ -241,7 +277,11 @@ public class UserShippingAddressTests extends TestBase {
 
     @Test(
             description = "Тест на ввод адреса в модалке после добавления товара из каталога",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 310
     )
     public void successSetShippingAddressAfterAddingProductFromCatalog() {
@@ -270,7 +310,11 @@ public class UserShippingAddressTests extends TestBase {
 
     @Test(
             description = "Тест на успешный выбор нового магазина в модалке феникса после изменения адреса доставки",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 311
     )
     public void successSelectNewStoreAfterShipAddressChange() {
@@ -299,7 +343,11 @@ public class UserShippingAddressTests extends TestBase {
     @Test(
             description = "Тест на успешный выбор нового адреса в модалке феникса после ввода адреса," +
                     " по которому нет доставки текущего ритейлера",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 312
     )
     public void successSetNewAddressAfterOutOfRetailerZoneAddressChange() {
@@ -327,7 +375,11 @@ public class UserShippingAddressTests extends TestBase {
     
     @Test(
             description = "Тест на успешный выбор нового адреса в модалке феникса, после ввода адреса вне зоны доставки",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 313
     )
     public void successSetNewAddressAfterOutOfZoneAddressChange() {

@@ -4,6 +4,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
+import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.application.Tenants;
 import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -42,7 +44,8 @@ public class BasicCheckoutTests extends TestBase {
         assertElementPresence(Elements.Checkout.SideBar.itemsTotal());
         assertElementPresence(Elements.Checkout.SideBar.total());
         assertElementPresence(Elements.Checkout.Promocode.addButton());
-        assertElementPresence(Elements.Checkout.Bonuses.list());
+
+        if (kraken.detect().tenant(Tenants.instamart())) assertElementPresence(Elements.Checkout.Bonuses.list());
         assertElementPresence(Elements.Checkout.SideBar.sendOrderButton());
     }
 

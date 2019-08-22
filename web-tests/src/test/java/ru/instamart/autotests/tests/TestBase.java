@@ -6,10 +6,7 @@ import org.testng.annotations.*;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.ApplicationManager;
-import ru.instamart.autotests.models.ElementData;
-import ru.instamart.autotests.models.EnvironmentData;
-import ru.instamart.autotests.models.PageData;
-import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.models.*;
 import ru.instamart.autotests.testdata.generate;
 
 import static ru.instamart.autotests.application.Config.CoreSettings.doCleanupAfterTestRun;
@@ -185,13 +182,13 @@ public class TestBase {
     }
 
     /** Пропуск теста */
-    public void skip() throws SkipException{
+    public void skipTest() throws SkipException{
         message("Пропускаем тест");
             throw new SkipException("Пропускаем тест");
     }
 
     /** Пропуск теста на окружении */
-    public void skipOn(EnvironmentData environment) throws SkipException{
+    public void skipTestOn(EnvironmentData environment) throws SkipException{
         if (kraken.detect().environment(environment)) {
             message("Пропускаем тест на окружении " + environment.getName());
                 throw new SkipException("Пропускаем тест");
@@ -199,22 +196,28 @@ public class TestBase {
     }
 
     /** Пропуск теста на тенанте */
-    public void skipOn(String tenant) throws SkipException {
+    public void skipTestOn(TenantData tenant) throws SkipException {
         if (kraken.detect().tenant(tenant)) {
-            message("Пропускаем тест для тенанта " + tenant);
+            message("Пропускаем тест для тенанта " + tenant.getName());
                 throw new SkipException("Пропускаем тест");
         }
     }
 
-    /** Прогон теста только на указанном окружении */
-    public void testOn(EnvironmentData environment) throws SkipException{
+    /** Проведение теста только на указанном окружении */
+    public void runTestOnlyOn(EnvironmentData environment) throws SkipException {
         if (!kraken.detect().environment(environment)) {
             message("Тест только для окружения " + environment.getName());
             throw new SkipException("Пропускаем тест");
         }
     }
 
-    // TODO testOn(tenant)
+    /** Проведение теста только на указанном тенанте */
+    public void runTestOnlyOn(TenantData tenant) {
+        if (!kraken.detect().tenant(tenant)) {
+            message("Тест только для тенанта " + tenant.getName());
+            throw new SkipException("Пропускаем тест");
+        }
+    }
 
     @DataProvider
     Object[][] generateUserData() {

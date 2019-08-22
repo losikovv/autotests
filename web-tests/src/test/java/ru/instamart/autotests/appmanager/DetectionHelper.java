@@ -14,18 +14,14 @@ public class DetectionHelper extends HelperBase {
         super(driver, environment, app);
     }
 
-    /**
-     * Определить в каком тестовом окружении находимся
-     */
+    /** Определить в каком тестовом окружении находимся */
     public boolean environment(EnvironmentData environment) {
         return kraken.environment.getName().equals(environment.getName());
     }
 
-    /**
-     * Определить тенант
-     */
-    public boolean tenant(String tenantName) {
-        return kraken.environment.getTenant().equals(tenantName);
+    /** Определить тенант */
+    public boolean tenant(TenantData tenant) {
+        return kraken.environment.getTenant().getAlias().equals(tenant.getAlias());
     }
 
     /**

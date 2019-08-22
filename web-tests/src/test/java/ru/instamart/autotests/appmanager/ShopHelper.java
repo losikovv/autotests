@@ -48,11 +48,14 @@ public class ShopHelper extends HelperBase {
 
         /** Выбрать первый адресный саджест */
         private static void selectAddressSuggest() {
-            // TODO переделать на fluent-ожидание подсказок
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(Elements.spinner().getLocator())
+            );
             if (kraken.detect().isShippingAddressSuggestsPresent()) {
                 kraken.perform().click(Elements.Modals.AddressModal.addressSuggest());
-                kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.saveButton().getLocator()),
-                        "Неактивна кнопка сохранения адреса");
+                kraken.await().fluently(
+                        ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.saveButton().getLocator()),
+                            "Неактивна кнопка сохранения адреса");
             } else {
                 throw new AssertionError("Нет адресных подсказок, невозможно выбрать адрес");
             }
@@ -304,7 +307,6 @@ public class ShopHelper extends HelperBase {
     /** Поиск товаров */
     public static class Search {
 
-        /** Осуществить поиск товара по запросу */
         public static void item(String query) {
             verboseMessage("Поиск товаров по запросу \"" + query + "\"...");
             Field.fill(query);

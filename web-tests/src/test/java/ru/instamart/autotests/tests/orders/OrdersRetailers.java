@@ -20,7 +20,10 @@ public class OrdersRetailers extends TestBase {
 
     @Test(enabled = enableOrderRetailersTests,
             description = "Тестовый заказ в Метро Москва",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 2401
     )
     public void successOrderInMetro(){
@@ -38,11 +41,14 @@ public class OrdersRetailers extends TestBase {
 
     @Test(enabled = enableOrderRetailersTests,
             description = "Тестовый заказ в Ашан Москва",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 2402
     )
     public void successOrderInAuchan(){
-        skipOn(Environments.metro_production());
+        skipTestOn(Environments.metro_production());
         kraken.get().page("auchan");
         ShopHelper.Cart.drop();
 

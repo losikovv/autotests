@@ -1,26 +1,26 @@
 package ru.instamart.autotests.models;
 
 public class EnvironmentData {
-    private String tenant;
+    private TenantData tenant;
     private String server;
     private String host;
     private String auth;
 
-    public EnvironmentData(String tenant, String server, String host, String httpAuth) {
+    public EnvironmentData(TenantData tenant, String server, String host, String httpAuth) {
         this.tenant = tenant;
         this.server = server;
         this.host = host;
         this.auth = httpAuth;
     }
 
-    public String getTenant() {
+    public TenantData getTenant() {
         return tenant;
     }
 
     public String getServer() { return server; }
 
     public String getName() {
-        return tenant + "-" + server;
+        return tenant.getAlias() + "-" + server;
     }
 
     public String getHost() {

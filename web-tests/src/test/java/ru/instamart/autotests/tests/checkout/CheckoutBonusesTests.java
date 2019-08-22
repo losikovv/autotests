@@ -3,6 +3,7 @@ package ru.instamart.autotests.tests.checkout;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.autotests.application.Tenants;
 import ru.instamart.autotests.appmanager.CheckoutHelper;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -24,7 +25,7 @@ public class CheckoutBonusesTests extends TestBase {
             priority = 1701
     )
     public void successAddBonusPrograms() {
-        skipOn("metro");
+        skipTestOn(Tenants.metro());
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
         CheckoutHelper.Bonuses.deleteAll();
@@ -62,7 +63,7 @@ public class CheckoutBonusesTests extends TestBase {
             priority = 1702
     )
     public void successSelectBonusPrograms() {
-        skipOn("metro");
+        skipTestOn(Tenants.metro());
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
         CheckoutHelper.Bonuses.deleteAll();
@@ -91,7 +92,7 @@ public class CheckoutBonusesTests extends TestBase {
             priority = 1703
     )
     public void successDeleteBonusPrograms() {
-        skipOn("metro");
+        skipTestOn(Tenants.metro());
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
         CheckoutHelper.Bonuses.deleteAll();

@@ -383,7 +383,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 214
     )
     public void successRegWithVK() throws AssertionError {
-        skip(); // TODO включить когда будет тестовый акк VK
+        skipTest(); // TODO включить когда будет тестовый акк VK
 
         SocialHelper.Vkontakte.denyAccess();
         SocialHelper.Vkontakte.deleteUser();
@@ -408,7 +408,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 215
     )
     public void successRegWithFB() throws AssertionError {
-        skip(); // TODO включить когда будет тестовый акк VK
+        skipTest(); // TODO включить когда будет тестовый акк VK
 
         SocialHelper.Facebook.denyAccess();
         SocialHelper.Facebook.deleteUser();

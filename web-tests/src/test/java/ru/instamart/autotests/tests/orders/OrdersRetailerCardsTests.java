@@ -26,7 +26,7 @@ public class OrdersRetailerCardsTests extends TestBase {
             priority = 2601
     )
     public void successOrderWithMetroCard() {
-        testOn(Environments.metro_production());
+        runTestOnlyOn(Environments.metro_production());
 
         kraken.get().page("metro");
         ShopHelper.Cart.collect();
