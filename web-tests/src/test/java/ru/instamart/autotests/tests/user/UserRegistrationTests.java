@@ -322,13 +322,15 @@ public class UserRegistrationTests extends TestBase {
 
         softAssert.assertFalse(
                 kraken.detect().isAuthModalOpen(),
-                    "Не закрывается заполненная регистрационная модалка\n");
+                    failMessage("Не закрывается заполненная регистрационная модалка")
+        );
 
         kraken.get().baseUrl();
 
         softAssert.assertFalse(
                 kraken.detect().isUserAuthorised(),
-                    "Произошла регистрация пользователя после заполнения всех полей и закрытия модалки\n");
+                    failMessage("Произошла регистрация пользователя после заполнения всех полей и закрытия модалки")
+        );
 
         softAssert.assertAll();
     }
@@ -343,7 +345,8 @@ public class UserRegistrationTests extends TestBase {
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
-                    "\n\n> Не работает регистрация на лендинге > ");
+                    failMessage("Не работает регистрация на лендинге")
+        );
     }
 
     @Test(

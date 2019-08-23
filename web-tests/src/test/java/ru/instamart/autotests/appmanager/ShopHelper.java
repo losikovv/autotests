@@ -474,7 +474,7 @@ public class ShopHelper extends HelperBase {
                 kraken.await().fluently(
                         ExpectedConditions.elementToBeClickable(
                                 Elements.Cart.closeButton().getLocator()),
-                        "\n\n> Не открылась корзина");
+                        "Не открылась корзина\n\n");
             } else {
                 debugMessage("Пропускаем открытие корзины, уже открыта");
             }
@@ -489,7 +489,7 @@ public class ShopHelper extends HelperBase {
                 kraken.await().fluently(
                         ExpectedConditions.invisibilityOfElementLocated(
                                 Elements.Cart.drawer().getLocator()),
-                        "\nНе закрылась корзина\n");
+                        "Не закрылась корзина\n\n");
             } else {
                 verboseMessage("Пропускаем закрытие корзины, уже закрыта");
             }
