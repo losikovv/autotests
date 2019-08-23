@@ -315,7 +315,8 @@ public class PerformHelper extends HelperBase {
             kraken.await().implicitly(1); // Ожидание открытия модалки авторизации/регистрации
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
-                            Elements.Modals.AuthModal.popup().getLocator())
+                            Elements.Modals.AuthModal.popup().getLocator()),
+                                "\n> Превышено время ожидания открытия модалки авторизации/регистрации"
             );
         }
     }

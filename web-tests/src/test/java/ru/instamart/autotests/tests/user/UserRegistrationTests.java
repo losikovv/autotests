@@ -21,11 +21,16 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 201
     )
     public void noRegWithEmptyRequisites() {
         SoftAssert softAssert = new SoftAssert();
+        kraken.get().page("metro");
 
         kraken.perform().registration(
                 null,
@@ -65,11 +70,16 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без имени",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 202
     )
     public void noRegWithoutName() {
         SoftAssert softAssert = new SoftAssert();
+        kraken.get().page("metro");
 
         kraken.perform().registration(
                 null,
@@ -94,11 +104,16 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без email",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 203
     )
     public void noRegWithoutEmail() {
         SoftAssert softAssert = new SoftAssert();
+        kraken.get().page("metro");
 
         kraken.perform().registration(
                 "Test User",
@@ -123,11 +138,16 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без пароля",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 204
     )
     public void noRegWithoutPassword() {
         SoftAssert softAssert = new SoftAssert();
+        kraken.get().page("metro");
 
         kraken.perform().registration("Test User", "test@example.com", null, "12345678");
 
@@ -147,11 +167,16 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без подтверждения пароля",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 205
     )
     public void noRegWithoutPasswordConfirmation() {
         SoftAssert softAssert = new SoftAssert();
+        kraken.get().page("metro");
 
         kraken.perform().registration(
                 "Test User",
@@ -176,11 +201,16 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с несовпадающими паролями",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 206
     )
     public void noRegWithWrongPasswordConfirmation() {
         SoftAssert softAssert = new SoftAssert();
+        kraken.get().page("metro");
 
         kraken.perform().registration(
                 "Test User",
@@ -205,11 +235,16 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки повторно зарегистрировать существующего пользователя",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 207
     )
     public void noRegWithExistingEmail() {
         SoftAssert softAssert = new SoftAssert();
+        kraken.get().page("metro");
 
         kraken.perform().registration("Test User", Users.superuser().getEmail(),
                 "12345678", "12345678");
@@ -230,11 +265,16 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с длинными полями",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 208
     )
     public void noRegWithLongFields() {
         SoftAssert softAssert = new SoftAssert();
+        kraken.get().page("metro");
 
         kraken.perform().registration(generate.testCredentials("user", 100));
 
@@ -265,11 +305,16 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест отмены регистрации после заполнения всех полей",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 209
     )
     public void noRegOnCancel() {
         SoftAssert softAssert = new SoftAssert();
+        kraken.get().page("metro");
 
         kraken.perform().openAuthModal();
         kraken.perform().regSequence(generate.testCredentials("user"));
@@ -303,10 +348,14 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Регистрация нового пользователя на витрине магазина",
-            groups = {"acceptance", "regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 211
     )
-    public void successRegOnRetailerPage() {
+    public void successRegOnMainPage() {
         kraken.get().page("metro");
 
         kraken.perform().registration();
@@ -318,7 +367,11 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест регистрации из адресной модалки феникса",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 212
     )
     public void successRegFromAddressModal() throws AssertionError {
@@ -343,12 +396,17 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест регистрации при переходе из корзины в чекаут",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 213
     )
     public void successRegFromCart() {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
+
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         ShopHelper.Cart.collect();
@@ -379,11 +437,16 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест успешной регистрации через ВКонтакте",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 214
     )
     public void successRegWithVK() throws AssertionError {
         skipTest(); // TODO включить когда будет тестовый акк VK
+        kraken.get().page("metro");
 
         SocialHelper.Vkontakte.denyAccess();
         SocialHelper.Vkontakte.deleteUser();
@@ -404,11 +467,16 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест успешной регистрации через Facebook",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 215
     )
     public void successRegWithFB() throws AssertionError {
         skipTest(); // TODO включить когда будет тестовый акк VK
+        kraken.get().page("metro");
 
         SocialHelper.Facebook.denyAccess();
         SocialHelper.Facebook.deleteUser();
@@ -429,10 +497,16 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест успешной регистрации без проставленной галки согласия на почтовую рассылку",
-            groups = {"acceptance", "regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 216
     )
     public void successRegWithoutMailingCheckbox() {
+        kraken.get().page("metro");
+
         kraken.perform().openAuthModal();
         kraken.perform().regSequence(generate.testCredentials("user"), false );
         kraken.perform().click(Elements.Modals.AuthModal.submitButton());
@@ -444,10 +518,16 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест успешной регистрации с заново проставленной галкой согласия на почтовую рассылку",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 217
     )
     public void successRegWithMailingCheckbox() {
+        kraken.get().page("metro");
+
         kraken.perform().openAuthModal();
         kraken.perform().regSequence(generate.testCredentials("user"), false );
         kraken.perform().click(Elements.Modals.AuthModal.agreementCheckbox());

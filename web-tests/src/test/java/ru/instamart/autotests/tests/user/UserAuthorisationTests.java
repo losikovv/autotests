@@ -31,10 +31,14 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки авторизации с пустыми реквизитами",
-            groups = {"acceptance", "regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 101
     )
-    public void noAuthWithEmptyRequisites() throws AssertionError {
+    public void noAuthWithEmptyRequisites() {
         kraken.get().page("metro");
 
         kraken.perform().openAuthModal();
@@ -63,10 +67,14 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки авторизации без email",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 102
     )
-    public void noAuthWithoutEmail() throws AssertionError {
+    public void noAuthWithoutEmail() {
         kraken.get().page("metro");
 
         kraken.perform().openAuthModal();
@@ -90,10 +98,14 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки авторизации без пароля",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 103
     )
-    public void noAuthWithoutPassword() throws AssertionError {
+    public void noAuthWithoutPassword() {
         kraken.get().page("metro");
 
         kraken.perform().openAuthModal();
@@ -117,10 +129,14 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки авторизации несуществующим юзером",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 104
     )
-    public void noAuthWithNonexistingUser() throws AssertionError {
+    public void noAuthWithNonexistingUser() {
         kraken.get().page("metro");
 
         kraken.perform().openAuthModal();
@@ -144,10 +160,14 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки авторизации с неверным паролем",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 105
     )
-    public void noAuthWithWrongPassword() throws AssertionError {
+    public void noAuthWithWrongPassword() {
         kraken.get().page("metro");
 
         kraken.perform().openAuthModal();
@@ -171,10 +191,14 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки авторизовать пользователя с длинными полями",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 106
     )
-    public void noAuthWithLongFields() throws AssertionError {
+    public void noAuthWithLongFields() {
         kraken.get().page("metro");
 
         kraken.perform().openAuthModal();
@@ -198,10 +222,14 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест отмены авторизации после заполнения всех полей",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 107
     )
-    public void noAuthOnCancel() throws AssertionError {
+    public void noAuthOnCancel() {
         kraken.get().page("metro");
 
         kraken.perform().openAuthModal();
@@ -224,11 +252,11 @@ public class UserAuthorisationTests extends TestBase {
     }
 
     @Test(
-            description = "Тест успешной авторизации на лендинге",
+            description = "Тест успешной авторизации на лендинге Инстамарта",
             groups = {"smoke","acceptance","regression"},
             priority = 108
     )
-    public void successAuthOnLanding() throws AssertionError {
+    public void successAuthOnLanding() {
         kraken.perform().quickLogout();
 
         kraken.perform().loginAs(session.admin);
@@ -240,10 +268,14 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест успешной авторизации на витрине",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 109
     )
-    public void successAuthOnRetailerPage() throws AssertionError {
+    public void successAuthOnMainPage() {
         skipTestOn(Tenants.metro());
         kraken.get().page("metro");
 
@@ -256,10 +288,14 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест авторизации из адресной модалки феникса",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 110
     )
-    public void successAuthFromAddressModal() throws AssertionError {
+    public void successAuthFromAddressModal() {
         kraken.get().page("metro");
 
         ShopHelper.ShippingAddress.openAddressModal();
@@ -282,7 +318,11 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест успешной авторизации из корзины",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 111
     )
     public void successAuthFromCart() {
@@ -323,10 +363,14 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест успешной авторизации через ВКонтакте",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 112
     )
-    public void successAuthWithVK() throws AssertionError {
+    public void successAuthWithVK() {
         skipTest(); // TODO включить когда будет тестовый акк VK
 
         kraken.get().page("metro");
@@ -345,10 +389,14 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест успешной авторизации через Facebook",
-            groups = {"regression"},
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
             priority = 113
     )
-    public void successAuthWithFB() throws AssertionError {
+    public void successAuthWithFB() {
         skipTest(); // TODO включить когда будет тестовый акк VK
 
         kraken.get().page("metro");
@@ -367,10 +415,14 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест успешной деавторизации",
-            groups = {"acceptance","regression"},
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
             priority = 114
     )
-    public void successLogout() throws AssertionError {
+    public void successLogout() {
         kraken.get().page("metro");
 
         kraken.perform().loginAs(session.admin);
