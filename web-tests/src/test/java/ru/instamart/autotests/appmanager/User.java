@@ -312,7 +312,7 @@ public class User extends HelperBase {
          * Заполнить поля формы авторизации
          */
         private static void fillAuthorisationForm(String email, String password) {
-            verboseMessage("> заполняем поля формы авторизации...");
+            verboseMessage("> заполняем поля формы авторизации");
             kraken.perform().fillField(Elements.Modals.AuthModal.emailField(), email);
             kraken.perform().fillField(Elements.Modals.AuthModal.passwordField(), password);
         }

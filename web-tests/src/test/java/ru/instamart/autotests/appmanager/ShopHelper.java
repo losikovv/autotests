@@ -504,7 +504,7 @@ public class ShopHelper extends HelperBase {
 
         /** Очистить корзину, удалив все товары */
         public static void drop() {
-            verboseMessage("Очищаем козину, удаляя все товары");
+            verboseMessage("Очищаем козину, удаляя все товары...");
             open();
             if (!kraken.detect().isCartEmpty()) {
                 Item.remove();
