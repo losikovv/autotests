@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
@@ -17,7 +18,7 @@ public class BasicShoppingTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         kraken.get().page("metro");
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
@@ -38,7 +39,7 @@ public class BasicShoppingTests extends TestBase {
             priority = 652
     )
     public void noAccessToCheckoutWithEmptyCart() {
-        kraken.perform().loginAs(session.admin);
+        User.Do.loginAs(session.admin);
         kraken.get().page("metro");
         ShopHelper.Cart.drop();
 
@@ -52,7 +53,7 @@ public class BasicShoppingTests extends TestBase {
             priority = 653
     )
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         kraken.get().page("metro");
 
         if (kraken.detect().isCheckoutButtonActive()) {
@@ -79,7 +80,7 @@ public class BasicShoppingTests extends TestBase {
             priority = 654
     )
     public void successCollectItemsForMinOrder() {
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         kraken.get().page("metro");
         ShopHelper.Cart.drop();
 
@@ -96,7 +97,7 @@ public class BasicShoppingTests extends TestBase {
             priority = 655
     )
     public void successGetCheckoutPageWithCartAboveMinimalOrderSum() {
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         kraken.get().page("metro");
         ShopHelper.Cart.collect();
 
@@ -110,7 +111,7 @@ public class BasicShoppingTests extends TestBase {
             priority = 656
     )
     public void successProceedFromCartToCheckout() {
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         kraken.get().page("metro");
         ShopHelper.Cart.collect();
 
@@ -132,14 +133,14 @@ public class BasicShoppingTests extends TestBase {
         //TODO вынести в dataProvider
         final UserData testuser = generate.testCredentials("user");
         kraken.get().baseUrl();
-        kraken.perform().registration(testuser);
+        User.Do.registration(testuser);
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         ShopHelper.Catalog.Item.addToCart();
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
 
         kraken.get().page("metro");
         ShopHelper.ShippingAddress.set(Addresses.Moscow.testAddress());
-        kraken.perform().authorisation(testuser);
+        User.Do.login(testuser);
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),

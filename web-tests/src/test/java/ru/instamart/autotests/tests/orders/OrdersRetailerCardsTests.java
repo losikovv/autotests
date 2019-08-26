@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.appmanager.AdministrationHelper;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.OrdersTests.enableOrderRetailerCardsTests;
@@ -15,7 +16,7 @@ public class OrdersRetailerCardsTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         kraken.get().baseUrl();
-        kraken.perform().loginAs(kraken.session.admin);
+        User.Do.loginAs(kraken.session.admin);
         ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
         ShopHelper.Cart.drop();
     }

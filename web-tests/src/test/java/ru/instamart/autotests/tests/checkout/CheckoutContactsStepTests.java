@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.CheckoutHelper;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.CheckoutTests.enableContactsStepTests;
@@ -14,8 +15,8 @@ public class CheckoutContactsStepTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preparingForCheckout() {
-        kraken.perform().quickLogout();
-        kraken.perform().registration();
+        User.Do.quickLogout();
+        User.Do.registration();
         ShopHelper.Cart.collect();
     }
 

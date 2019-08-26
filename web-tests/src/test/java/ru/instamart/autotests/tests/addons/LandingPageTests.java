@@ -6,18 +6,19 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Tenants;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 public class LandingPageTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
     }
 
     @BeforeMethod(alwaysRun = true)
     public void quickLogout() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
     }
 
     @Test(

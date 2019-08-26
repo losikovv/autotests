@@ -7,13 +7,14 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 public class ShoppingCatalogTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         kraken.get().page("metro");
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }

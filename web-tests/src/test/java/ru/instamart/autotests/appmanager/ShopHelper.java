@@ -2,10 +2,7 @@ package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.application.Config;
-import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.models.ElementData;
 import ru.instamart.autotests.models.EnvironmentData;
 import ru.instamart.autotests.models.WidgetData;
@@ -308,7 +305,7 @@ public class ShopHelper extends HelperBase {
     public static class Search {
 
         public static void item(String query) {
-            verboseMessage("Поиск товаров по запросу \"" + query + "\"...");
+            verboseMessage("Поиск товаров по запросу '" + query + "'...");
             Field.fill(query);
             Button.hit();
             kraken.await().implicitly(1); // Ожидание загрузки результатов поиска

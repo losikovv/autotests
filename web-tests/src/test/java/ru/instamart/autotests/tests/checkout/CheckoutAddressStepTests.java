@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.CheckoutHelper;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.models.AddressDetailsData;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -18,8 +19,8 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preparingForCheckout() {
-        kraken.perform().quickLogout();
-        kraken.perform().registration();
+        User.Do.quickLogout();
+        User.Do.registration();
         ShopHelper.Cart.collect();
     }
 

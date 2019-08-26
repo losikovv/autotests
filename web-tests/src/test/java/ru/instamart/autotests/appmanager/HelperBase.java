@@ -10,7 +10,7 @@ public class HelperBase {
     static WebDriver driver;
     static ApplicationManager kraken;
     public String baseUrl;
-    public String fullBaseUrl;
+    public static String fullBaseUrl;
     public String adminUrl;
     private static boolean acceptNextAlert = true;
 
@@ -41,9 +41,7 @@ public class HelperBase {
         }
     }
 
-    /**
-     * Обработать алерт в зависимости от настройки acceptNextAlert
-     */
+    /** Обработать алерт в зависимости от настройки acceptNextAlert */
     public static void handleAlert() {
         try {
             Alert alert = driver.switchTo().alert();
@@ -57,29 +55,8 @@ public class HelperBase {
         }
     }
 
-    /**
-     * Удалить все куки
-     */
+    /** Удалить куки */
     public void deleteAllCookies() {
         driver.manage().deleteAllCookies();
-    }
-
-    /**
-     * Округлить цену до целого числа, отбросив копейки, пробелы и знак рубля
-     */
-    int round(String price) {
-        if (price == null) {
-            return 0;
-        } else {
-            return Integer.parseInt(((price).substring(0, (price.length() - 5))).replaceAll("\\s", ""));
-        }
-    }
-
-    /**
-     * Выбрать 10-значный номер телефона из строки, отбросив скобки и +7
-     */
-    String strip(String phoneNumber) {
-        String phone = phoneNumber.replaceAll("\\D", "");
-        return phone.substring(phone.length()-10);
     }
 }

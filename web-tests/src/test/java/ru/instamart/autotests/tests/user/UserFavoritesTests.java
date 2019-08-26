@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -16,7 +17,7 @@ public class UserFavoritesTests extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void quickLogout() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
     }
 
     @Test(  description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
@@ -32,7 +33,7 @@ public class UserFavoritesTests extends TestBase {
             priority = 402
     )
     public void successOpenFavorites() {
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
 
         ShopHelper.Favorites.open();
 
@@ -48,7 +49,7 @@ public class UserFavoritesTests extends TestBase {
             priority = 403
     )
     public void noFavoriteItemsByDefault() {
-        kraken.perform().registration();
+        User.Do.registration();
 
         Assert.assertTrue(
                 kraken.detect().isFavoritesEmpty(),
@@ -60,7 +61,7 @@ public class UserFavoritesTests extends TestBase {
             priority = 404
     )
     public void successAddFavoriteOnItemCard() {
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         kraken.drop().favorites();
         kraken.get().page(Pages.Site.Retailers.metro());
 
@@ -79,7 +80,7 @@ public class UserFavoritesTests extends TestBase {
             priority = 405
     )
     public void successAddFavoriteFromCatalog() {
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         kraken.drop().favorites();
         kraken.get().page(Pages.Site.Retailers.metro());
 
@@ -95,7 +96,7 @@ public class UserFavoritesTests extends TestBase {
             priority = 406
     )
     public void successDeleteFavoriteOnItemCard() {
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         kraken.drop().favorites();
         kraken.get().page(Pages.Site.Retailers.metro());
 
@@ -113,7 +114,7 @@ public class UserFavoritesTests extends TestBase {
             priority = 407
     )
     public void successDeleteFavoriteOnList() {
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         if (!kraken.detect().isFavoritesEmpty()) {
             kraken.drop().favorites();
         } else {
@@ -133,7 +134,7 @@ public class UserFavoritesTests extends TestBase {
             priority = 408
     )
     public void successCleanupFavorites() {
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
 
         ShopHelper.Search.item("молоко");
         ShopHelper.Catalog.Item.addToFavorites();
@@ -166,7 +167,8 @@ public class UserFavoritesTests extends TestBase {
     )
     public void successApplyFilters() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().loginAs(session.admin);
+
+        User.Do.loginAs(session.admin);
         kraken.get().favoritesPage();
 
         softAssert.assertTrue(
@@ -199,7 +201,7 @@ public class UserFavoritesTests extends TestBase {
             priority = 410
     )
     public void successShowMoreLoad() throws AssertionError {
-        kraken.perform().loginAs(session.admin);
+        User.Do.loginAs(session.admin);
         kraken.get().favoritesPage();
         ShopHelper.Jivosite.open();
 
@@ -233,8 +235,8 @@ public class UserFavoritesTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе открывается модалка регистрации после попытки добавления товара из каталога в любимые товары");
 
-        kraken.perform().regSequence(generate.testCredentials("user"));
-        kraken.perform().sendForm();
+        User.Do.regSequence(generate.testCredentials("user"));
+        User.Do.sendForm();
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -258,8 +260,8 @@ public class UserFavoritesTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе открывается модалка регистрации после попытки добавления товара из карточки в любимые товары");
 
-        kraken.perform().regSequence(generate.testCredentials("user"));
-        kraken.perform().sendForm();
+        User.Do.regSequence(generate.testCredentials("user"));
+        User.Do.sendForm();
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -282,8 +284,8 @@ public class UserFavoritesTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе открывается модалка авторизации после попытки добавления товара из каталога в избранное");
 
-        kraken.perform().authSequence(session.user);
-        kraken.perform().sendForm();
+        User.Do.authSequence(session.user);
+        User.Do.sendForm();
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -307,8 +309,8 @@ public class UserFavoritesTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе открывается модалка авторизации после попытки добавления товара из карточки в избранное");
 
-        kraken.perform().authSequence(session.user);
-        kraken.perform().sendForm();
+        User.Do.authSequence(session.user);
+        User.Do.sendForm();
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -323,7 +325,8 @@ public class UserFavoritesTests extends TestBase {
     )
     public void successAddFavoriteProductsFromCardToCart() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().loginAs(session.admin);
+
+        User.Do.loginAs(session.admin);
         ShopHelper.Cart.drop();
         kraken.get().favoritesPage();
 
@@ -348,7 +351,8 @@ public class UserFavoritesTests extends TestBase {
     )
     public void successAddFavoriteProductToCart() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().loginAs(session.admin);
+
+        User.Do.loginAs(session.admin);
         ShopHelper.Cart.drop();
         kraken.get().favoritesPage();
 

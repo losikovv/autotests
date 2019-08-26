@@ -6,6 +6,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 public class UserShippingAddressTests extends TestBase {
@@ -21,7 +22,7 @@ public class UserShippingAddressTests extends TestBase {
     )
     public void noShippingAddressByDefault() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         kraken.get().page("metro");
 
         softAssert.assertFalse(
@@ -218,8 +219,8 @@ public class UserShippingAddressTests extends TestBase {
     public void successChangeShippingAddressToRecent() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().quickLogout();
-        kraken.perform().registration();
+        User.Do.quickLogout();
+        User.Do.registration();
         ShopHelper.ShippingAddress.set(Addresses.Moscow.testAddress());
         kraken.perform().order();
         kraken.perform().cancelLastOrder();
@@ -253,7 +254,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successSetShippingAddressAfterAddingProductFromItemCard() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         kraken.get().page("metro");
         ShopHelper.Catalog.Item.addToCart();
         ShopHelper.ItemCard.addToCart();
@@ -287,7 +288,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successSetShippingAddressAfterAddingProductFromCatalog() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         kraken.get().page("metro");
         ShopHelper.Catalog.Item.addToCart();
 
@@ -320,7 +321,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successSelectNewStoreAfterShipAddressChange() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         kraken.get().page("vkusvill");
         ShopHelper.ShippingAddress.change(Addresses.Kazan.defaultAddress());
 
@@ -353,7 +354,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successSetNewAddressAfterOutOfRetailerZoneAddressChange() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         kraken.get().page("lenta");
         ShopHelper.ShippingAddress.change(Addresses.Kazan.defaultAddress());
 
@@ -385,7 +386,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successSetNewAddressAfterOutOfZoneAddressChange() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         kraken.get().page("metro");
         ShopHelper.ShippingAddress.change(Addresses.Moscow.outOfZoneAddress());
 

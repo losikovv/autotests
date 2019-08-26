@@ -48,7 +48,7 @@ public class Elements {
 
         static ElementData catWisdomButton() {
             return new ElementData(By.xpath("//a[text()='ПОЗНАТЬ КОТОМУДРОСТЬ']"),
-                    "кнопка \"Познать котомудрость\" на странице 404");
+                    "кнопка 'Познать котомудрость' на странице 404");
         }
 
         //todo сделать нормальный локатор
@@ -64,17 +64,17 @@ public class Elements {
 
         static ElementData toHomeButton() {
             return new ElementData(By.xpath("//a[@class='error-page__link' and text()='на главную']"),
-                    "кнопка \"На главную\" на странице 404");
+                    "кнопка 'На главную' на странице 404");
         }
 
         static ElementData learnPricesButton() {
             return new ElementData(By.xpath("//a[text()='Познать цены *']"),
-                    "кнопка \"Познать цены\" на странице 404");
+                    "кнопка 'Познать цены' на странице 404");
         }
 
         static ElementData showMoreWisdomButton() {
             return new ElementData(By.xpath("//a[@class='error-page__link' and text()='ещё котомудрость']"),
-                    "кнопка \"Еще котомудрость\" на странице 404");
+                    "кнопка 'Еще котомудрость' на странице 404");
         }
     }
 
@@ -95,13 +95,13 @@ public class Elements {
 
             static ElementData howWeWorkLink() {
                 return new ElementData(By.xpath("//header//a[contains(text(),'Как мы работаем?')]"),
-                        "ссылка \"Как мы работаем?\" в шапке лендинга");
+                        "ссылка 'Как мы работаем?' в шапке лендинга");
             }
 
 
             static ElementData helpLink() {
                 return new ElementData(By.xpath("//header//a[contains(text(),'Помощь')]"),
-                        "ссылка \"Помощь\" в шапке лендинга");
+                        "ссылка 'Помощь' в шапке лендинга");
             }
 
             static ElementData mnogoruLogo() {
@@ -116,7 +116,7 @@ public class Elements {
 
             static ElementData loginButton() {
                 return new ElementData(By.xpath("//header//a[text()='Вход']"),
-                        "кнопка \"Вход\" в шапке лендинга");
+                        "кнопка 'Вход' в шапке лендинга");
             }
 
             static ElementData mainTitle() {
@@ -127,7 +127,7 @@ public class Elements {
 
             static ElementData goToCatalogButton() {
                 return new ElementData(By.xpath("//a[text()='Перейти в каталог']"),
-                        "кнопка \"Перейти в каталог\" в главном блоке лендинга");
+                        "кнопка 'Перейти в каталог' в главном блоке лендинга");
             }
 
             static ElementData advantages() {
@@ -145,7 +145,7 @@ public class Elements {
 
             static ElementData goToCatalogButton() {
                 return new ElementData(By.xpath("//div[@class='promo block' and @id='new-home-promo']//a[text()='Перейти в каталог']"),
-                        "кнопка \"Перейти в каталог\" в промоблоке цен как в магазине на лендинге");
+                        "кнопка 'Перейти в каталог' в промоблоке цен как в магазине на лендинге");
             }
         }
 
@@ -171,7 +171,7 @@ public class Elements {
 
             static ElementData sendLinkButton() {
                 return new ElementData(By.xpath("//button[text()='Получить ссылку на скачивание']"),
-                        "кнопка \"Получить ссылку на скачивание\" в промоблоке мобильного приложения на лендинге");
+                        "кнопка 'Получить ссылку на скачивание' в промоблоке мобильного приложения на лендинге");
             }
 
             static ElementData successPlaceholder() {
@@ -237,7 +237,7 @@ public class Elements {
             private static ElementData infoButton(String name) {
                 return new ElementData(
                        By.xpath("//header//*[contains(text(),'" + name + "')]//ancestor::*[@data-qa='header-navbar-button']"),
-                           "инфокнопка \"" + name + "\" в шапке сайта");
+                           "инфокнопка '" + name + "' в шапке сайта");
             }
 
 
@@ -281,7 +281,7 @@ public class Elements {
             static ElementData loginButton() {
                 return new ElementData(
                         By.xpath("//header//a[contains(@class,'header-icon--login')]"),
-                            "кнопка \"Войти\" в шапке сайта");
+                            "кнопка 'Войти' в шапке сайта");
             }
 
             static ElementData favoritesButton() {

@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.AdministrationHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
@@ -164,15 +165,15 @@ public class AdministrationShipmentsSectionTests extends TestBase {
             priority = 10104
     )
     public void successSearchB2BOrder() {
-        kraken.perform().quickLogout();
         UserData testuser = generate.testCredentials("user");
-        kraken.perform().registration(testuser);
+        User.Do.quickLogout();
+        User.Do.registration(testuser);
 
         AdministrationHelper.Users.editUser(testuser);
         AdministrationHelper.Users.grantB2B();
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
 
-        kraken.perform().authorisation(testuser);
+        User.Do.login(testuser);
         kraken.perform().order();
         String number = kraken.grab().currentOrderNumber();
 

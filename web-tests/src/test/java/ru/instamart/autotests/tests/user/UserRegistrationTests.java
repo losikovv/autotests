@@ -9,6 +9,7 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.appmanager.SocialHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -16,7 +17,7 @@ public class UserRegistrationTests extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void quickLogout() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
     }
 
     @Test(
@@ -32,7 +33,7 @@ public class UserRegistrationTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
 
-        kraken.perform().registration(
+        User.Do.registration(
                 null,
                 null,
                 null,
@@ -81,7 +82,7 @@ public class UserRegistrationTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
 
-        kraken.perform().registration(
+        User.Do.registration(
                 null,
                 "test@example.com",
                 "12345678",
@@ -115,7 +116,7 @@ public class UserRegistrationTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
 
-        kraken.perform().registration(
+        User.Do.registration(
                 "Test User",
                 null,
                 "12345678",
@@ -149,7 +150,7 @@ public class UserRegistrationTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
 
-        kraken.perform().registration("Test User", "test@example.com", null, "12345678");
+        User.Do.registration("Test User", "test@example.com", null, "12345678");
 
         softAssert.assertTrue(
                 kraken.detect().isElementPresent(
@@ -178,7 +179,7 @@ public class UserRegistrationTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
 
-        kraken.perform().registration(
+        User.Do.registration(
                 "Test User",
                 "test@example.com",
                 "12345678",
@@ -212,7 +213,7 @@ public class UserRegistrationTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
 
-        kraken.perform().registration(
+        User.Do.registration(
                 "Test User",
                 "test@example.com",
                 "12345678",
@@ -246,7 +247,7 @@ public class UserRegistrationTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
 
-        kraken.perform().registration("Test User", Users.superuser().getEmail(),
+        User.Do.registration("Test User", Users.superuser().getEmail(),
                 "12345678", "12345678");
 
         softAssert.assertTrue(
@@ -276,7 +277,7 @@ public class UserRegistrationTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
 
-        kraken.perform().registration(generate.testCredentials("user", 100));
+        User.Do.registration(generate.testCredentials("user", 100));
 
         softAssert.assertTrue(
                 kraken.detect().isElementPresent(
@@ -316,9 +317,9 @@ public class UserRegistrationTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
 
-        kraken.perform().openAuthModal();
-        kraken.perform().regSequence(generate.testCredentials("user"));
-        kraken.perform().closeAuthModal();
+        User.Do.openAuthModal();
+        User.Do.regSequence(generate.testCredentials("user"));
+        User.Do.closeAuthModal();
 
         softAssert.assertFalse(
                 kraken.detect().isAuthModalOpen(),
@@ -341,7 +342,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 210
     )
     public void successRegOnLanding() {
-        kraken.perform().registration();
+        User.Do.registration();
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -361,7 +362,7 @@ public class UserRegistrationTests extends TestBase {
     public void successRegOnMainPage() {
         kraken.get().page("metro");
 
-        kraken.perform().registration();
+        User.Do.registration();
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -388,7 +389,7 @@ public class UserRegistrationTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе работает переход на авторизацию из адресной модалки");
 
-        kraken.perform().registration();
+        User.Do.registration();
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -419,7 +420,7 @@ public class UserRegistrationTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе открывается авторизационная модалка при переходе неавторизованным из корзины в чекаут");
 
-        kraken.perform().registration();
+        User.Do.registration();
 
         softAssert.assertTrue(
                 kraken.detect().isOnCheckout(),
@@ -453,7 +454,7 @@ public class UserRegistrationTests extends TestBase {
 
         SocialHelper.Vkontakte.denyAccess();
         SocialHelper.Vkontakte.deleteUser();
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
 
         SocialHelper.Vkontakte.initAuth();
 
@@ -483,7 +484,7 @@ public class UserRegistrationTests extends TestBase {
 
         SocialHelper.Facebook.denyAccess();
         SocialHelper.Facebook.deleteUser();
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
 
         SocialHelper.Facebook.initAuth();
 
@@ -510,9 +511,9 @@ public class UserRegistrationTests extends TestBase {
     public void successRegWithoutMailingCheckbox() {
         kraken.get().page("metro");
 
-        kraken.perform().openAuthModal();
-        kraken.perform().regSequence(generate.testCredentials("user"), false );
-        kraken.perform().click(Elements.Modals.AuthModal.submitButton());
+        User.Do.openAuthModal();// todo вынести в Shop.AuthModal.open()
+        User.Do.regSequence(generate.testCredentials("user"), false );
+        kraken.perform().click(Elements.Modals.AuthModal.submitButton()); // todo вынести в Shop.AuthModal.submit()
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -531,8 +532,8 @@ public class UserRegistrationTests extends TestBase {
     public void successRegWithMailingCheckbox() {
         kraken.get().page("metro");
 
-        kraken.perform().openAuthModal();
-        kraken.perform().regSequence(generate.testCredentials("user"), false );
+        User.Do.openAuthModal();
+        User.Do.regSequence(generate.testCredentials("user"), false );
         kraken.perform().click(Elements.Modals.AuthModal.agreementCheckbox());
         kraken.perform().click(Elements.Modals.AuthModal.submitButton());
 

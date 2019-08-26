@@ -4,6 +4,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
@@ -12,7 +13,7 @@ public class BasicAdministrationTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
     }
 
 
@@ -27,10 +28,10 @@ public class BasicAdministrationTests extends TestBase {
             priority = 10000
     )
     public void noAccessToAdministrationWithoutAdminPrivileges() {
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
 
         assertPageIsUnavailable(Pages.Admin.shipments());
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
     }
 
     @Test(  description = "Тест доступности админки пользователю c админ. правми",
@@ -38,7 +39,7 @@ public class BasicAdministrationTests extends TestBase {
             priority = 10001
     )
     public void successAccessAdministrationThroughAuthOnSite() {
-        kraken.perform().loginAs(session.admin);
+        User.Do.loginAs(session.admin);
 
         assertPageIsAvailable(Pages.Admin.shipments());
     }

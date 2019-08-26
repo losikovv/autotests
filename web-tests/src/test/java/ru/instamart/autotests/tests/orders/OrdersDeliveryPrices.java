@@ -6,6 +6,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
@@ -15,7 +16,7 @@ public class OrdersDeliveryPrices extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
         kraken.get().page("metro");
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
     }
 
     // TODO переделать тесты

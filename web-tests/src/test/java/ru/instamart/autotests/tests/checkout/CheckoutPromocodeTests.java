@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Promo;
 import ru.instamart.autotests.appmanager.CheckoutHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 public class CheckoutPromocodeTests extends TestBase {
@@ -12,7 +13,7 @@ public class CheckoutPromocodeTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void prepareForCheckout() {
         kraken.get().baseUrl();
-        kraken.perform().loginAs(kraken.session.admin);
+        User.Do.loginAs(kraken.session.admin);
     }
 
     @Test(

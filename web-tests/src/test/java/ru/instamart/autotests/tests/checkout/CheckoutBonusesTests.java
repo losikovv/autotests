@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Tenants;
 import ru.instamart.autotests.appmanager.CheckoutHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.BonusPrograms.aeroflot;
@@ -16,7 +17,7 @@ public class CheckoutBonusesTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void prepareForCheckout() {
         kraken.get().baseUrl();
-        kraken.perform().loginAs(kraken.session.admin);
+        User.Do.loginAs(kraken.session.admin);
     }
 
     @Test(  enabled = enableBonusesTests,

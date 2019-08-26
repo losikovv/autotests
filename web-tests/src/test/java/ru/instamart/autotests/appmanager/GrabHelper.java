@@ -131,6 +131,15 @@ public class GrabHelper extends HelperBase{
         return round(text(element));
     }
 
+    /** Округлить цену до целого числа, отбросив копейки, пробелы и знак рубля */
+    private int round(String price) {
+        if (price == null) {
+            return 0;
+        } else {
+            return Integer.parseInt(((price).substring(0, (price.length() - 5))).replaceAll("\\s", ""));
+        }
+    }
+
     /** Взять сумму минимального заказа из алерта в корзине */
     public int minOrderSum() {
         ShopHelper.Cart.open();
@@ -148,6 +157,12 @@ public class GrabHelper extends HelperBase{
         if (kraken.detect().isElementDisplayed(element)) {
             return strip(value(element));
         } else return null;
+    }
+
+    /** Выбрать 10-значный номер телефона из строки, отбросив скобки и +7 */
+    private String strip(String phoneNumber) {
+        String phone = phoneNumber.replaceAll("\\D", "");
+        return phone.substring(phone.length()-10);
     }
 
     /** Взять текст котомудрости */

@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.AddonsTests.enableJivositeTests;
@@ -19,7 +20,7 @@ public class JivositeTests extends TestBase {
             priority = 11101
     )
     public void noJivositeWidgetOnLanding() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
 
         Assert.assertFalse(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite доступен на лендинге");
@@ -32,7 +33,7 @@ public class JivositeTests extends TestBase {
             priority = 11102
     )
     public void noJivositeWidgetOnCheckout() {
-        kraken.perform().loginAs(session.admin);
+        User.Do.loginAs(session.admin);
         kraken.reach().checkout();
 
         Assert.assertFalse(kraken.detect().isJivositeWidgetAvailable(),

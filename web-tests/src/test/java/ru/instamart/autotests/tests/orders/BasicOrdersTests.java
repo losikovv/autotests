@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.models.CreditCardData;
 import ru.instamart.autotests.models.JuridicalData;
 import ru.instamart.autotests.models.UserData;
@@ -36,7 +37,7 @@ public class BasicOrdersTests extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
         kraken.get().baseUrl();
-        kraken.perform().loginAs(kraken.session.admin);
+        User.Do.loginAs(kraken.session.admin);
         ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
         ShopHelper.Cart.drop();
     }
@@ -149,8 +150,8 @@ public class BasicOrdersTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         UserData userData = generate.testCredentials("user");
 
-        kraken.perform().quickLogout();
-        kraken.perform().registration(userData);
+        User.Do.quickLogout();
+        User.Do.registration(userData);
         kraken.perform().order();
 
         String order1 = kraken.grab().currentOrderNumber();
@@ -160,8 +161,8 @@ public class BasicOrdersTests extends TestBase {
         softAssert.assertEquals(kraken.grab().strippedPhoneNumber(Elements.Administration.ShipmentsSection.Order.Requisites.phoneField()), Config.TestVariables.testOrderDetails().getContactsDetails().getPhone(),
                 "Номер телефона в админке не совпадает с указанным номером во время заказа");
 
-        kraken.perform().quickLogout();
-        kraken.perform().authorisation(userData);
+        User.Do.quickLogout();
+        User.Do.login(userData);
         kraken.perform().repeatLastOrder();
         String phone = generate.digitString(10);
         kraken.reach().checkout();

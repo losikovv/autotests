@@ -6,6 +6,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
@@ -15,7 +16,7 @@ public class UserProfileTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         kraken.get().baseUrl();
-        kraken.perform().loginAs(session.admin);
+        User.Do.loginAs(session.admin);
     }
 
     @Test(

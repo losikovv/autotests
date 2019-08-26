@@ -8,6 +8,7 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Promo;
 import ru.instamart.autotests.appmanager.CheckoutHelper;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 // Тесты заказов с промокодами
@@ -36,7 +37,7 @@ public class OrdersPromocodesTests extends TestBase {
     public void preconditions() {
         kraken.get().baseUrl();
         kraken.drop().auth();
-        kraken.perform().registration();
+        User.Do.registration();
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 

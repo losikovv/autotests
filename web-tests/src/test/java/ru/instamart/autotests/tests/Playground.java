@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.models.*;
 
 import static ru.instamart.autotests.application.Config.TestVariables.testOrderDetails;
@@ -13,25 +14,25 @@ public class Playground extends TestBase {
 
     @Test
     public void regUser() {
-        kraken.perform().registration();
+        User.Do.registration();
     }
 
     @Test
     public void regUserAndSetAddress() {
-        kraken.perform().registration();
+        User.Do.registration();
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @Test
     public void regUserAndPrepareForCheckout() {
-        kraken.perform().registration();
+        User.Do.registration();
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         ShopHelper.Cart.collect();
     }
 
     @Test
     public void regUserAndPrepareForOrder() {
-        kraken.perform().registration();
+        User.Do.registration();
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         kraken.checkout().fillOrderDetails(testOrderDetails());
@@ -39,7 +40,7 @@ public class Playground extends TestBase {
 
     @Test
     public void regUserAndMakeOrder() {
-        kraken.perform().registration();
+        User.Do.registration();
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -47,14 +48,14 @@ public class Playground extends TestBase {
 
     @Test
     public void makeOrder() {
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         kraken.reach().checkout();
         kraken.checkout().complete();
     }
 
     @Test
     public void makeNewOrder() {
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cash());
     }
@@ -62,7 +63,7 @@ public class Playground extends TestBase {
     @Test
     public void testNewOrder() {
 
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         kraken.get().page(Pages.Site.Retailers.metro());
         ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
         ShopHelper.Cart.collect();
@@ -123,7 +124,7 @@ public class Playground extends TestBase {
 
     @Test
     public void testMultikraken() {
-        kraken.perform().loginAs(session.admin);
+        User.Do.loginAs(session.admin);
         kraken.perform().order();
         //kraken.perform().loginAs(session.user);
         //kraken.perform().order();

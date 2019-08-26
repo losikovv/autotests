@@ -8,6 +8,7 @@ import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.AddonsTests.enableSeoCatalogTests;
@@ -100,7 +101,7 @@ public class SeoCatalogTests extends TestBase {
         ShopHelper.Catalog.Item.open();
         ShopHelper.ItemCard.addToCart();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -124,7 +125,7 @@ public class SeoCatalogTests extends TestBase {
         ShopHelper.Catalog.Item.open();
         ShopHelper.ItemCard.addToCart();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
-        kraken.perform().registration();
+        User.Do.registration();
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         softAssert.assertTrue(

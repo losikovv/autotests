@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.OrdersTests.enableOrderCitiesTests;
@@ -13,7 +14,7 @@ public class OrdersCities extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         kraken.get().baseUrl();
-        kraken.perform().loginAs(kraken.session.admin);
+        User.Do.loginAs(kraken.session.admin);
     }
 
     @BeforeMethod(alwaysRun = true)

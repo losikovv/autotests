@@ -11,6 +11,7 @@ import ru.instamart.autotests.application.Tenants;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.appmanager.ShopHelper;
 import ru.instamart.autotests.appmanager.SocialHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
@@ -21,12 +22,12 @@ public class UserAuthorisationTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
     }
 
     @BeforeMethod(alwaysRun = true)
     public void quickLogout() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
     }
 
     @Test(
@@ -41,9 +42,9 @@ public class UserAuthorisationTests extends TestBase {
     public void noAuthWithEmptyRequisites() {
         kraken.get().page("metro");
 
-        kraken.perform().openAuthModal();
-        kraken.perform().authSequence("", "");
-        kraken.perform().sendForm();
+        User.Do.openAuthModal();
+        User.Do.authSequence("", "");
+        User.Do.sendForm();
 
         SoftAssert softAssert = new SoftAssert();
 
@@ -77,9 +78,9 @@ public class UserAuthorisationTests extends TestBase {
     public void noAuthWithoutEmail() {
         kraken.get().page("metro");
 
-        kraken.perform().openAuthModal();
-        kraken.perform().authSequence("", "instamart");
-        kraken.perform().sendForm();
+        User.Do.openAuthModal();
+        User.Do.authSequence("", "instamart");
+        User.Do.sendForm();
 
         SoftAssert softAssert = new SoftAssert();
 
@@ -108,9 +109,9 @@ public class UserAuthorisationTests extends TestBase {
     public void noAuthWithoutPassword() {
         kraken.get().page("metro");
 
-        kraken.perform().openAuthModal();
-        kraken.perform().authSequence(Users.superuser().getEmail(), "");
-        kraken.perform().sendForm();
+        User.Do.openAuthModal();
+        User.Do.authSequence(Users.superuser().getEmail(), "");
+        User.Do.sendForm();
 
         SoftAssert softAssert = new SoftAssert();
 
@@ -139,9 +140,9 @@ public class UserAuthorisationTests extends TestBase {
     public void noAuthWithNonexistingUser() {
         kraken.get().page("metro");
 
-        kraken.perform().openAuthModal();
-        kraken.perform().authSequence("nonexistinguser@example.com", "password");
-        kraken.perform().sendForm();
+        User.Do.openAuthModal();
+        User.Do.authSequence("nonexistinguser@example.com", "password");
+        User.Do.sendForm();
 
         SoftAssert softAssert = new SoftAssert();
 
@@ -170,9 +171,9 @@ public class UserAuthorisationTests extends TestBase {
     public void noAuthWithWrongPassword() {
         kraken.get().page("metro");
 
-        kraken.perform().openAuthModal();
-        kraken.perform().authSequence(Users.superuser().getEmail(), "wrongpassword");
-        kraken.perform().sendForm();
+        User.Do.openAuthModal();
+        User.Do.authSequence(Users.superuser().getEmail(), "wrongpassword");
+        User.Do.sendForm();
 
         SoftAssert softAssert = new SoftAssert();
 
@@ -201,9 +202,9 @@ public class UserAuthorisationTests extends TestBase {
     public void noAuthWithLongFields() {
         kraken.get().page("metro");
 
-        kraken.perform().openAuthModal();
-        kraken.perform().authSequence(generate.testCredentials("user",129));
-        kraken.perform().sendForm();
+        User.Do.openAuthModal();
+        User.Do.authSequence(generate.testCredentials("user",129));
+        User.Do.sendForm();
 
         SoftAssert softAssert = new SoftAssert();
 
@@ -232,9 +233,9 @@ public class UserAuthorisationTests extends TestBase {
     public void noAuthOnCancel() {
         kraken.get().page("metro");
 
-        kraken.perform().openAuthModal();
-        kraken.perform().authSequence(Users.superuser());
-        kraken.perform().closeAuthModal();
+        User.Do.openAuthModal();
+        User.Do.authSequence(Users.superuser());
+        User.Do.closeAuthModal();
 
         SoftAssert softAssert = new SoftAssert();
 
@@ -257,9 +258,9 @@ public class UserAuthorisationTests extends TestBase {
             priority = 108
     )
     public void successAuthOnLanding() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
 
-        kraken.perform().loginAs(session.admin);
+        User.Do.loginAs(session.admin);
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -279,7 +280,7 @@ public class UserAuthorisationTests extends TestBase {
         skipTestOn(Tenants.metro());
         kraken.get().page("metro");
 
-        kraken.perform().loginAs(session.admin);
+        User.Do.loginAs(session.admin);
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -307,7 +308,7 @@ public class UserAuthorisationTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе работает переход на авторизацию из адресной модалки");
 
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -328,8 +329,8 @@ public class UserAuthorisationTests extends TestBase {
     public void successAuthFromCart() {
         final UserData testuser = generate.testCredentials("user");
 
-        kraken.perform().registration(testuser);
-        kraken.perform().quickLogout();
+        User.Do.registration(testuser);
+        User.Do.quickLogout();
         kraken.get().page("metro");
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
@@ -342,7 +343,7 @@ public class UserAuthorisationTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе открывается авторизационная модалка при переходе неавторизованным из корзины в чекаут");
 
-        kraken.perform().authorisation(testuser);
+        User.Do.login(testuser);
 
         softAssert.assertTrue(
                 kraken.detect().isOnCheckout(),
@@ -425,8 +426,8 @@ public class UserAuthorisationTests extends TestBase {
     public void successLogout() {
         kraken.get().page("metro");
 
-        kraken.perform().loginAs(session.admin);
-        kraken.perform().logout();
+        User.Do.loginAs(session.admin);
+        User.Do.logout();
 
         assertPageIsAvailable(); // Assert there is no problems after logout
 

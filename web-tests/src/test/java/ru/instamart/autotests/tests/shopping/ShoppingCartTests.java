@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
@@ -15,7 +16,7 @@ public class ShoppingCartTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         kraken.get().page("metro");
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
@@ -58,7 +59,7 @@ public class ShoppingCartTests extends TestBase {
     )
     public void successAddItemToCartFromItemCard() {
         kraken.get().page("metro");
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.open();
@@ -80,8 +81,9 @@ public class ShoppingCartTests extends TestBase {
     )
     public void successChangeItemQuantityInCart() {
         SoftAssert softAssert = new SoftAssert();
+
         kraken.get().page("metro");
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.addToCart();
@@ -113,8 +115,9 @@ public class ShoppingCartTests extends TestBase {
     )
     public void successChangeItemQuantityInCartViaItemCard() {
         SoftAssert softAssert = new SoftAssert();
+
         kraken.get().page("metro");
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.addToCart();
@@ -150,7 +153,7 @@ public class ShoppingCartTests extends TestBase {
     )
     public void successRemoveItemsFromCart() {
         kraken.get().page("metro");
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         //kraken.search().item("хлеб");
         ShopHelper.Catalog.Item.addToCart();
         if(kraken.detect().isCartEmpty()){
@@ -171,7 +174,7 @@ public class ShoppingCartTests extends TestBase {
     )
     public void successAddItemToCartFromCatalogSnippet() {
         kraken.get().page("metro");
-        kraken.perform().loginAs(session.user);
+        User.Do.loginAs(session.user);
         ShopHelper.Cart.drop();
 
         ShopHelper.Catalog.Item.addToCart();
@@ -202,9 +205,9 @@ public class ShoppingCartTests extends TestBase {
     )
     public void successChangeMinOrderSum() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
 
-        kraken.perform().registration();
+        User.Do.registration();
         ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         ShopHelper.Search.item("молоко");
         ShopHelper.Catalog.Item.addToCart();

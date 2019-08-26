@@ -3,8 +3,9 @@ package ru.instamart.autotests.tests.orders;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.application.Environments;
+import ru.instamart.autotests.application.Tenants;
 import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.OrdersTests.enableOrderRetailersTests;
@@ -12,9 +13,9 @@ import static ru.instamart.autotests.application.Config.TestsConfiguration.Order
 public class OrdersRetailers extends TestBase {
 
     @BeforeClass(alwaysRun = true)
-    public void setup() throws Exception {
+    public void setup() {
         kraken.get().baseUrl();
-        kraken.perform().loginAs(kraken.session.admin);
+        User.Do.loginAs(kraken.session.admin);
         ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
     }
 
@@ -22,6 +23,7 @@ public class OrdersRetailers extends TestBase {
             description = "Тестовый заказ в Метро Москва",
             groups = {
                     "acceptance", "regression",
+                    "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 2401
@@ -48,7 +50,7 @@ public class OrdersRetailers extends TestBase {
             priority = 2402
     )
     public void successOrderInAuchan(){
-        skipTestOn(Environments.metro_production());
+        skipTestOn(Tenants.metro());
         kraken.get().page("auchan");
         ShopHelper.Cart.drop();
 

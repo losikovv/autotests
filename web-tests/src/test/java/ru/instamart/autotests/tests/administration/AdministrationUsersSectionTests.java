@@ -8,6 +8,7 @@ import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Users;
 import ru.instamart.autotests.appmanager.AdministrationHelper;
+import ru.instamart.autotests.appmanager.User;
 import ru.instamart.autotests.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
@@ -42,14 +43,14 @@ public class AdministrationUsersSectionTests extends TestBase {
     public void successGrantAndRevokeAdminPrivileges() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         UserData testuser = generate.testCredentials("admin");
-        kraken.perform().registration(testuser);
+        User.Do.registration(testuser);
 
         AdministrationHelper.Users.grantAdminPrivileges(testuser);
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
 
-        kraken.perform().authorisation(testuser);
+        User.Do.login(testuser);
         kraken.get().page(Pages.Admin.shipments());
 
         softAssert.assertTrue(
@@ -57,16 +58,16 @@ public class AdministrationUsersSectionTests extends TestBase {
                     "Пользователю не предоставляются админские права");
 
         AdministrationHelper.Users.revokeAdminPrivileges(testuser);
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
 
-        kraken.perform().authorisation(testuser);
+        User.Do.login(testuser);
         kraken.get().page(Pages.Admin.shipments());
 
         softAssert.assertFalse(
                 kraken.detect().isInAdmin(),
                     "У пользователя не снимаются админские права");
 
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         softAssert.assertAll();
     }
 
@@ -76,21 +77,21 @@ public class AdministrationUsersSectionTests extends TestBase {
             priority = 10703
     )
     public void successChangePassword() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         UserData testuser = generate.testCredentials("user");
-        kraken.perform().registration();
+        User.Do.registration();
 
         AdministrationHelper.Users.editUser(testuser);
         AdministrationHelper.Users.changePassword("654321");
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
 
-        kraken.perform().authorisation(testuser.getEmail(), "654321");
+        User.Do.login(testuser.getEmail(), "654321");
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
                     "Не удалось авторизоваться пользователем после смены пароля через админку");
 
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
     }
 
     @Test(  enabled = enableUsersSectionTests,
@@ -99,9 +100,9 @@ public class AdministrationUsersSectionTests extends TestBase {
             priority = 10704
     )
     public void successGrantB2BStatus() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         UserData testuser = generate.testCredentials("user");
-        kraken.perform().registration(testuser);
+        User.Do.registration(testuser);
 
         AdministrationHelper.Users.editUser(testuser);
         AdministrationHelper.Users.grantB2B();
@@ -119,9 +120,9 @@ public class AdministrationUsersSectionTests extends TestBase {
     )
     public void successSearchB2BUser() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         UserData testuser = generate.testCredentials("user");
-        kraken.perform().registration(testuser);
+        User.Do.registration(testuser);
 
         AdministrationHelper.Users.editUser(testuser);
         AdministrationHelper.Users.grantB2B();
@@ -146,15 +147,15 @@ public class AdministrationUsersSectionTests extends TestBase {
     )
     public void successRevokeB2BStatus() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         UserData testuser = generate.testCredentials("user");
-        kraken.perform().registration(testuser);
+        User.Do.registration(testuser);
 
         AdministrationHelper.Users.editUser(testuser);
         AdministrationHelper.Users.grantB2B();
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
 
-        kraken.perform().authorisation(testuser);
+        User.Do.login(testuser);
         kraken.perform().order();
         String number = kraken.grab().currentOrderNumber();
 

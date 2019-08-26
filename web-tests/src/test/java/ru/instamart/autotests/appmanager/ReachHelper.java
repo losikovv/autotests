@@ -32,17 +32,17 @@ public class ReachHelper extends HelperBase {
     public void admin(String path) {
         kraken.get().page(Pages.Admin.login());
         if (kraken.detect().isOnSite()) {
-            kraken.perform().quickLogout();
+            User.Do.quickLogout();
             if(!kraken.environment.getTenant().getAlias().equals(Tenants.instamart().getAlias())){
                 kraken.get().page(Pages.Admin.login());
             }
-            kraken.perform().authorisation(Users.superadmin());
+            User.Do.login(Users.superadmin());
         }
         kraken.get().adminPage(path);
     }
 
     public void seoCatalog() {
-        kraken.perform().quickLogout();
+        User.Do.quickLogout();
         deleteAllCookies();
         kraken.get().seoCatalogPage();
     }
