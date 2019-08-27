@@ -5,14 +5,14 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.application.libs.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Tenants;
 import ru.instamart.autotests.application.Users;
-import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.platform.Shop;
 import ru.instamart.autotests.appmanager.SocialHelper;
-import ru.instamart.autotests.appmanager.User;
-import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.appmanager.platform.User;
+import ru.instamart.autotests.appmanager.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -299,7 +299,7 @@ public class UserAuthorisationTests extends TestBase {
     public void successAuthFromAddressModal() {
         kraken.get().page("metro");
 
-        ShopHelper.ShippingAddress.openAddressModal();
+        Shop.ShippingAddress.openAddressModal();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
 
         SoftAssert softAssert = new SoftAssert();
@@ -332,10 +332,10 @@ public class UserAuthorisationTests extends TestBase {
         User.Do.registration(testuser);
         User.Do.quickLogout();
         kraken.get().page("metro");
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
 
         SoftAssert softAssert = new SoftAssert();
 

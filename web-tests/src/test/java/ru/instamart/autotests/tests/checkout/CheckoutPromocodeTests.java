@@ -3,9 +3,9 @@ package ru.instamart.autotests.tests.checkout;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.application.Promo;
-import ru.instamart.autotests.appmanager.CheckoutHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.application.libs.Promos;
+import ru.instamart.autotests.appmanager.platform.Checkout;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 public class CheckoutPromocodeTests extends TestBase {
@@ -24,7 +24,7 @@ public class CheckoutPromocodeTests extends TestBase {
     public void successAddPromocode(){
         kraken.reach().checkout();
 
-        CheckoutHelper.Promocode.add(Promo.freeOrderDelivery());
+        Checkout.Promocode.add(Promos.freeOrderDelivery());
 
         Assert.assertTrue(
                 kraken.detect().isPromocodeApplied(),
@@ -39,10 +39,10 @@ public class CheckoutPromocodeTests extends TestBase {
     public void successDeletePromocode(){
         kraken.reach().checkout();
         if(!kraken.detect().isPromocodeApplied()) {
-            CheckoutHelper.Promocode.add(Promo.freeOrderDelivery());
+            Checkout.Promocode.add(Promos.freeOrderDelivery());
         }
 
-        CheckoutHelper.Promocode.delete();
+        Checkout.Promocode.delete();
 
         Assert.assertFalse(
                 kraken.detect().isPromocodeApplied(),
@@ -57,9 +57,9 @@ public class CheckoutPromocodeTests extends TestBase {
     public void noPromocodeAddedOnCancel(){
         kraken.reach().checkout();
 
-        CheckoutHelper.Promocode.Modal.open();
-        CheckoutHelper.Promocode.Modal.fill(Promo.freeOrderDelivery().getCode());
-        CheckoutHelper.Promocode.Modal.cancel();
+        Checkout.Promocode.Modal.open();
+        Checkout.Promocode.Modal.fill(Promos.freeOrderDelivery().getCode());
+        Checkout.Promocode.Modal.cancel();
 
         Assert.assertFalse(
                 kraken.detect().isPromocodeApplied(),
@@ -74,9 +74,9 @@ public class CheckoutPromocodeTests extends TestBase {
     public void noPromocodeAddedOnModalClose(){
         kraken.reach().checkout();
 
-        CheckoutHelper.Promocode.Modal.open();
-        CheckoutHelper.Promocode.Modal.fill(Promo.freeOrderDelivery().getCode());
-        CheckoutHelper.Promocode.Modal.close();
+        Checkout.Promocode.Modal.open();
+        Checkout.Promocode.Modal.fill(Promos.freeOrderDelivery().getCode());
+        Checkout.Promocode.Modal.close();
 
         Assert.assertFalse(
                 kraken.detect().isPromocodeApplied(),

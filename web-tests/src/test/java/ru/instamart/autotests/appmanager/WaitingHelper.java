@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
-import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.appmanager.models.EnvironmentData;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;

@@ -6,7 +6,7 @@ import org.testng.annotations.*;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.appmanager.ApplicationManager;
-import ru.instamart.autotests.models.*;
+import ru.instamart.autotests.appmanager.models.*;
 import ru.instamart.autotests.testdata.generate;
 
 import static ru.instamart.autotests.application.Config.CoreSettings.doCleanupAfterTestRun;

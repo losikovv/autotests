@@ -4,10 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.application.Widgets;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.application.libs.Addresses;
+import ru.instamart.autotests.application.libs.Widgets;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.AddonsTests.enableRetailRocketTest;
@@ -18,7 +18,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
     public void setup() {
         User.Do.quickLogout();
         kraken.get().page("metro");
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -32,7 +32,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             priority = 12301
     )
     public void successCheckSimilarItemsWidget() {
-        ShopHelper.Search.item("смысл жизни");
+        Shop.Search.item("смысл жизни");
 
         Assert.assertTrue(
                 kraken.detect().isWidgetPresent(Widgets.RetailRocket.Search.SimilarItems()),
@@ -45,7 +45,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             priority = 12302
     )
     public void successCheckFindersChoiceWidget() {
-        ShopHelper.Search.item("макароны");
+        Shop.Search.item("макароны");
 
         Assert.assertTrue(
                 kraken.detect().isWidgetPresent(Widgets.RetailRocket.Search.FindersChoice()),
@@ -58,7 +58,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             priority = 12303
     )
     public void successCheckRecentlyViewedWidget() {
-        ShopHelper.Search.item("макароны");
+        Shop.Search.item("макароны");
 
         Assert.assertTrue(
                 kraken.detect().isWidgetPresent(Widgets.RetailRocket.Search.RecentlyViewed()),
@@ -72,9 +72,9 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successOpenItemCardFromSimilarItemsWidget() {
-        ShopHelper.Search.item("смысл жизни");
+        Shop.Search.item("смысл жизни");
 
-        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.Search.SimilarItems());
+        Shop.Catalog.Item.open(Widgets.RetailRocket.Search.SimilarItems());
 
         Assert.assertTrue(
                 kraken.detect().isItemCardOpen(),
@@ -88,9 +88,9 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckFindersChoiceWidget"
     )
     public void successOpenItemCardFromFindersChoiceWidget() {
-        ShopHelper.Search.item("жир");
+        Shop.Search.item("жир");
 
-        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.Search.FindersChoice());
+        Shop.Catalog.Item.open(Widgets.RetailRocket.Search.FindersChoice());
 
         Assert.assertTrue(
                 kraken.detect().isItemCardOpen(),
@@ -104,14 +104,14 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemCardFromRecentlyViewedWidget() {
-        ShopHelper.Cart.drop();
-        ShopHelper.Catalog.Item.open();
-        ShopHelper.ItemCard.close();
+        Shop.Cart.drop();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.close();
         kraken.perform().refresh();
 
-        ShopHelper.Search.item("жир");
+        Shop.Search.item("жир");
 
-        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.Search.RecentlyViewed());
+        Shop.Catalog.Item.open(Widgets.RetailRocket.Search.RecentlyViewed());
 
         Assert.assertTrue(
                 kraken.detect().isItemCardOpen(),
@@ -126,9 +126,9 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successAddItemFromSimilarItemsWidget() {
-        ShopHelper.Search.item("смысл жизни");
+        Shop.Search.item("смысл жизни");
 
-        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.Search.SimilarItems());
+        Shop.Catalog.Item.addToCart(Widgets.RetailRocket.Search.SimilarItems());
 
         Assert.assertFalse(
                 kraken.detect().isCartEmpty(),
@@ -142,8 +142,8 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckFindersChoiceWidget"
     )
     public void successAddItemFromFindersChoiceWidget() {
-        ShopHelper.Search.item("жир");
-        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.Search.FindersChoice());
+        Shop.Search.item("жир");
+        Shop.Catalog.Item.addToCart(Widgets.RetailRocket.Search.FindersChoice());
 
         Assert.assertFalse(
                 kraken.detect().isCartEmpty(),
@@ -157,13 +157,13 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successAddItemFromRecentlyViewedWidget() {
-        ShopHelper.Cart.drop();
-        ShopHelper.Catalog.Item.open();
-        ShopHelper.ItemCard.close();
+        Shop.Cart.drop();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.close();
         kraken.perform().refresh();
 
-        ShopHelper.Search.item("жир");
-        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.Search.RecentlyViewed());
+        Shop.Search.item("жир");
+        Shop.Catalog.Item.addToCart(Widgets.RetailRocket.Search.RecentlyViewed());
 
         Assert.assertFalse(
                 kraken.detect().isCartEmpty(),

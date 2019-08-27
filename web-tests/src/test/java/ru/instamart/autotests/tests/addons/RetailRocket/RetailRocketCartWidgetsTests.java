@@ -4,10 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.application.Widgets;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.application.libs.Addresses;
+import ru.instamart.autotests.application.libs.Widgets;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.AddonsTests.enableRetailRocketTest;
@@ -18,14 +18,14 @@ public class RetailRocketCartWidgetsTests extends TestBase {
     public void setup() {
         User.Do.quickLogout();
         kraken.get().page("metro");
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
         kraken.get().page("metro");
-        ShopHelper.Catalog.Item.addToCart();
-        ShopHelper.Cart.open();
+        Shop.Catalog.Item.addToCart();
+        Shop.Cart.open();
     }
 
     @Test(enabled = enableRetailRocketTest,
@@ -46,7 +46,7 @@ public class RetailRocketCartWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckDontForgetToBuyWidget"
     )
     public void successOpenItemCardFromDontForgetToBuyWidget() {
-        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.Cart.DontForgetToBuy());
+        Shop.Catalog.Item.open(Widgets.RetailRocket.Cart.DontForgetToBuy());
 
         Assert.assertTrue(
                 kraken.detect().isWidgetPresent(Widgets.RetailRocket.Cart.DontForgetToBuy()),
@@ -60,8 +60,8 @@ public class RetailRocketCartWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckDontForgetToBuyWidget"
     )
     public void successAddItemFromDontForgetToBuyWidget() {
-        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.Cart.DontForgetToBuy());
-        ShopHelper.Cart.Item.remove();
+        Shop.Catalog.Item.addToCart(Widgets.RetailRocket.Cart.DontForgetToBuy());
+        Shop.Cart.Item.remove();
 
         Assert.assertTrue(
                 kraken.detect().isWidgetPresent(Widgets.RetailRocket.Cart.DontForgetToBuy()),

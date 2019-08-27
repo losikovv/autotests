@@ -5,13 +5,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.appmanager.CheckoutHelper;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
-import ru.instamart.autotests.models.AddressDetailsData;
+import ru.instamart.autotests.appmanager.platform.Checkout;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
+import ru.instamart.autotests.appmanager.models.AddressDetailsData;
 import ru.instamart.autotests.tests.TestBase;
 
-import static ru.instamart.autotests.application.CheckoutSteps.addressStep;
+import static ru.instamart.autotests.application.libs.CheckoutSteps.addressStep;
 import static ru.instamart.autotests.application.Config.TestsConfiguration.CheckoutTests.enableAddressStepTests;
 import static ru.instamart.autotests.application.Config.TestVariables.testOrderDetails;
 
@@ -21,7 +21,7 @@ public class CheckoutAddressStepTests extends TestBase {
     public void preparingForCheckout() {
         User.Do.quickLogout();
         User.Do.registration();
-        ShopHelper.Cart.collect();
+        Shop.Cart.collect();
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -62,7 +62,7 @@ public class CheckoutAddressStepTests extends TestBase {
             priority = 1101
     )
     public void successProceedNextWithDefaultStepState() {
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.next();
 
         assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -73,8 +73,8 @@ public class CheckoutAddressStepTests extends TestBase {
             priority = 1102
     )
     public void successProceedNextWithOnlyTypeChanged() {
-        CheckoutHelper.AddressStep.setType();
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.setType();
+        Checkout.AddressStep.next();
 
         assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -85,8 +85,8 @@ public class CheckoutAddressStepTests extends TestBase {
             priority = 1103
     )
     public void successProceedNextWithOnlyApartmentProvided() {
-        CheckoutHelper.AddressStep.fillApartment();
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.fillApartment();
+        Checkout.AddressStep.next();
 
         assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -97,8 +97,8 @@ public class CheckoutAddressStepTests extends TestBase {
             priority = 1104
     )
     public void successProceedNextWithOnlyFloorProvided() {
-        CheckoutHelper.AddressStep.fillFloor();
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.fillFloor();
+        Checkout.AddressStep.next();
 
         assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -109,8 +109,8 @@ public class CheckoutAddressStepTests extends TestBase {
             priority = 1105
     )
     public void successProceedNextWithOnlyElevatorChanged() {
-        CheckoutHelper.AddressStep.setElevator();
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.setElevator();
+        Checkout.AddressStep.next();
 
         assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -121,8 +121,8 @@ public class CheckoutAddressStepTests extends TestBase {
             priority = 1106
     )
     public void successProceedNextWithOnlyEntranceProvided() {
-        CheckoutHelper.AddressStep.fillEntrance();
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.fillEntrance();
+        Checkout.AddressStep.next();
 
         assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -133,8 +133,8 @@ public class CheckoutAddressStepTests extends TestBase {
             priority = 1107
     )
     public void successProceedNextWithOnlyDomofonProvided() {
-        CheckoutHelper.AddressStep.fillDomofon();
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.fillDomofon();
+        Checkout.AddressStep.next();
 
         assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -145,8 +145,8 @@ public class CheckoutAddressStepTests extends TestBase {
             priority = 1108
     )
     public void successProceedNextWithOnlyCommentariesProvided() {
-        CheckoutHelper.AddressStep.fillCommentaries();
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.fillCommentaries();
+        Checkout.AddressStep.next();
 
         assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -157,11 +157,11 @@ public class CheckoutAddressStepTests extends TestBase {
             priority = 1109
     )
     public void successProceedNextWithClearedFields() {
-        CheckoutHelper.AddressStep.fill();
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.fill();
+        Checkout.AddressStep.next();
         kraken.perform().refresh();
-        CheckoutHelper.AddressStep.clear();
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.clear();
+        Checkout.AddressStep.next();
 
         assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -172,8 +172,8 @@ public class CheckoutAddressStepTests extends TestBase {
             priority = 1110
     )
     public void successFillAllFieldsAndProceedNext() {
-        CheckoutHelper.AddressStep.fill();
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.fill();
+        Checkout.AddressStep.next();
 
         assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -186,9 +186,9 @@ public class CheckoutAddressStepTests extends TestBase {
     public void successKeepProvidedStepData() {
         SoftAssert softAssert = new SoftAssert();
 
-        CheckoutHelper.AddressStep.clear();
-        CheckoutHelper.AddressStep.fill();
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.clear();
+        Checkout.AddressStep.fill();
+        Checkout.AddressStep.next();
 
         assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
 
@@ -246,11 +246,11 @@ public class CheckoutAddressStepTests extends TestBase {
             priority = 1112
     )
     public void successChangeProvidedStepData() {
-        CheckoutHelper.AddressStep.fill();
-        CheckoutHelper.AddressStep.next();
-        CheckoutHelper.AddressStep.change();
+        Checkout.AddressStep.fill();
+        Checkout.AddressStep.next();
+        Checkout.AddressStep.change();
 
-        CheckoutHelper.AddressStep.fill(
+        Checkout.AddressStep.fill(
                 new AddressDetailsData(
                         "home",
                         "5",
@@ -260,7 +260,7 @@ public class CheckoutAddressStepTests extends TestBase {
                         "5555",
                         "55555")
         );
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.next();
 
         kraken.reach().checkout();
 

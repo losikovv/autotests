@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
@@ -27,27 +27,27 @@ public class OrdersDeliveryPrices extends TestBase {
     )
     public void successCheckMetroDeliveryPriceDiscount() {
         SoftAssert softAssert = new SoftAssert();
-        ShopHelper.Cart.drop();
+        Shop.Cart.drop();
 
         kraken.get().baseUrl();
-        ShopHelper.Search.item("Haagen");
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Search.item("Haagen");
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().fillOrderDetails();
         softAssert.assertEquals(kraken.grab().roundedSum(Elements.Checkout.deliveryPrice()), Config.TestVariables.DeliveryPrices.MetroHighDeliveryPrice,
                 "\nНекорректная цена доставки в чекауте при малой корзине");
 
         kraken.get().baseUrl();
-        ShopHelper.Search.item("Haagen");
-        ShopHelper.Cart.collect(5000);
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Search.item("Haagen");
+        Shop.Cart.collect(5000);
+        Shop.Cart.proceedToCheckout();
         softAssert.assertEquals(kraken.grab().roundedSum(Elements.Checkout.deliveryPrice()), Config.TestVariables.DeliveryPrices.MetroMediumDeliveryPrice,
                 "\nНекорректная цена доставки в чекауте при средней корзине" );
 
         kraken.get().baseUrl();
-        ShopHelper.Search.item("Haagen");
-        ShopHelper.Cart.collect(10000);
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Search.item("Haagen");
+        Shop.Cart.collect(10000);
+        Shop.Cart.proceedToCheckout();
         softAssert.assertEquals(kraken.grab().roundedSum(Elements.Checkout.deliveryPrice()), Config.TestVariables.DeliveryPrices.MetroLowDeliveryPrice,
                 "\nНекорректная цена доставки в чекауте при большой корзине" );
 

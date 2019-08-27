@@ -3,8 +3,8 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.models.EnvironmentData;
-import ru.instamart.autotests.models.PageData;
+import ru.instamart.autotests.appmanager.models.EnvironmentData;
+import ru.instamart.autotests.appmanager.models.PageData;
 
 public class BrowseHelper extends HelperBase {
 

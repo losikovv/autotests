@@ -6,8 +6,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -35,7 +35,7 @@ public class UserFavoritesTests extends TestBase {
     public void successOpenFavorites() {
         User.Do.loginAs(session.user);
 
-        ShopHelper.Favorites.open();
+        Shop.Favorites.open();
 
         assertPageIsAvailable();
 
@@ -65,10 +65,10 @@ public class UserFavoritesTests extends TestBase {
         kraken.drop().favorites();
         kraken.get().page(Pages.Site.Retailers.metro());
 
-        ShopHelper.Catalog.Item.open();
-        ShopHelper.ItemCard.addToFavorites();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.addToFavorites();
 
-        ShopHelper.Favorites.open();
+        Shop.Favorites.open();
 
         Assert.assertFalse(
                 kraken.detect().isFavoritesEmpty(),
@@ -84,7 +84,7 @@ public class UserFavoritesTests extends TestBase {
         kraken.drop().favorites();
         kraken.get().page(Pages.Site.Retailers.metro());
 
-        ShopHelper.Catalog.Item.addToCart();
+        Shop.Catalog.Item.addToCart();
 
         Assert.assertFalse(
                 kraken.detect().isFavoritesEmpty(),
@@ -100,9 +100,9 @@ public class UserFavoritesTests extends TestBase {
         kraken.drop().favorites();
         kraken.get().page(Pages.Site.Retailers.metro());
 
-        ShopHelper.Catalog.Item.addToFavorites();
-        ShopHelper.Catalog.Item.open();
-        ShopHelper.ItemCard.addToFavorites();
+        Shop.Catalog.Item.addToFavorites();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.addToFavorites();
 
         Assert.assertTrue(
                 kraken.detect().isFavoritesEmpty(),
@@ -119,9 +119,9 @@ public class UserFavoritesTests extends TestBase {
             kraken.drop().favorites();
         } else {
             kraken.get().page(Pages.Site.Retailers.metro());
-            ShopHelper.Catalog.Item.addToFavorites();
+            Shop.Catalog.Item.addToFavorites();
             kraken.get().favoritesPage();
-            ShopHelper.Favorites.Item.removeFromFavorites();
+            Shop.Favorites.Item.removeFromFavorites();
         }
 
         Assert.assertTrue(
@@ -136,23 +136,23 @@ public class UserFavoritesTests extends TestBase {
     public void successCleanupFavorites() {
         User.Do.loginAs(session.user);
 
-        ShopHelper.Search.item("молоко");
-        ShopHelper.Catalog.Item.addToFavorites();
+        Shop.Search.item("молоко");
+        Shop.Catalog.Item.addToFavorites();
 
-        ShopHelper.Search.item("сыр");
-        ShopHelper.Catalog.Item.addToFavorites();
+        Shop.Search.item("сыр");
+        Shop.Catalog.Item.addToFavorites();
 
-        ShopHelper.Search.item("вода");
-        ShopHelper.Catalog.Item.addToFavorites();
+        Shop.Search.item("вода");
+        Shop.Catalog.Item.addToFavorites();
 
-        ShopHelper.Search.item("бананы");
-        ShopHelper.Catalog.Item.addToFavorites();
+        Shop.Search.item("бананы");
+        Shop.Catalog.Item.addToFavorites();
 
-        ShopHelper.Search.item("яйца");
-        ShopHelper.Catalog.Item.addToFavorites();
+        Shop.Search.item("яйца");
+        Shop.Catalog.Item.addToFavorites();
 
-        ShopHelper.Search.item("хлеб");
-        ShopHelper.Catalog.Item.addToFavorites();
+        Shop.Search.item("хлеб");
+        Shop.Catalog.Item.addToFavorites();
 
         kraken.drop().favorites();
 
@@ -175,19 +175,19 @@ public class UserFavoritesTests extends TestBase {
                 kraken.detect().isFavoritesFiltered("all"),
                     "\nВ любимых товарах по умолчанию не применен фильтр \"Все товары\"");
 
-        ShopHelper.Favorites.applyFilterInStock();
+        Shop.Favorites.applyFilterInStock();
 
         softAssert.assertTrue(
                 kraken.detect().isFavoritesFiltered("inStock"),
                     "\nВ любимых товарах не применяется фильтр \"В наличии\"");
 
-        ShopHelper.Favorites.applyFilterNotInStock();
+        Shop.Favorites.applyFilterNotInStock();
 
         softAssert.assertTrue(
                 kraken.detect().isFavoritesFiltered("outOfStock"),
                     "\nВ любимых товарах не применяется фильтр \"Нет в наличии\"");
 
-        ShopHelper.Favorites.applyFilterAllItems();
+        Shop.Favorites.applyFilterAllItems();
 
         softAssert.assertTrue(
                 kraken.detect().isFavoritesFiltered("all"),
@@ -203,17 +203,17 @@ public class UserFavoritesTests extends TestBase {
     public void successShowMoreLoad() throws AssertionError {
         User.Do.loginAs(session.admin);
         kraken.get().favoritesPage();
-        ShopHelper.Jivosite.open();
+        Shop.Jivosite.open();
 
         if(kraken.detect().isElementPresent(Elements.Favorites.showMoreButton())) {
-            ShopHelper.Favorites.showMore();
+            Shop.Favorites.showMore();
         } else {
             throw new AssertionError(
                     "Не выполнены предусловия теста, нет кнопки подгрузки товаров\n");
         }
 
         while (kraken.detect().isElementPresent(Elements.Favorites.showMoreButton())) {
-            ShopHelper.Favorites.showMore();
+            Shop.Favorites.showMore();
         }
 
         Assert.assertTrue(
@@ -229,7 +229,7 @@ public class UserFavoritesTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.get().page(Pages.Site.Retailers.metro());
-        ShopHelper.Catalog.Item.addToFavorites();
+        Shop.Catalog.Item.addToFavorites();
 
         softAssert.assertTrue(
                 kraken.detect().isAuthModalOpen(),
@@ -253,8 +253,8 @@ public class UserFavoritesTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.get().page(Pages.Site.Retailers.metro());
-        ShopHelper.Catalog.Item.open();
-        ShopHelper.ItemCard.addToFavorites();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.addToFavorites();
 
         softAssert.assertTrue(
                 kraken.detect().isAuthModalOpen(),
@@ -278,7 +278,7 @@ public class UserFavoritesTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.get().page(Pages.Site.Retailers.metro());
-        ShopHelper.Catalog.Item.addToFavorites();
+        Shop.Catalog.Item.addToFavorites();
 
         softAssert.assertTrue(
                 kraken.detect().isAuthModalOpen(),
@@ -302,8 +302,8 @@ public class UserFavoritesTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.get().page(Pages.Site.Retailers.metro());
-        ShopHelper.Catalog.Item.open();
-        ShopHelper.ItemCard.addToFavorites();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.addToFavorites();
 
         softAssert.assertTrue(
                 kraken.detect().isAuthModalOpen(),
@@ -327,12 +327,12 @@ public class UserFavoritesTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         User.Do.loginAs(session.admin);
-        ShopHelper.Cart.drop();
+        Shop.Cart.drop();
         kraken.get().favoritesPage();
 
-        ShopHelper.Catalog.Item.addToCart();
+        Shop.Catalog.Item.addToCart();
         kraken.await().implicitly(1); // ждем пока уберется алерт
-        ShopHelper.Cart.open();
+        Shop.Cart.open();
 
         softAssert.assertTrue(
                 kraken.detect().isCartOpen(),
@@ -353,11 +353,11 @@ public class UserFavoritesTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         User.Do.loginAs(session.admin);
-        ShopHelper.Cart.drop();
+        Shop.Cart.drop();
         kraken.get().favoritesPage();
 
-        ShopHelper.Favorites.Item.addToCart();
-        ShopHelper.Cart.open();
+        Shop.Favorites.Item.addToCart();
+        Shop.Cart.open();
 
         softAssert.assertTrue(
                 kraken.detect().isCartOpen(),

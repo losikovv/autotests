@@ -4,8 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.models.ElementData;
-import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.models.ElementData;
+import ru.instamart.autotests.appmanager.models.EnvironmentData;
 
 import static java.lang.Integer.parseInt;
 
@@ -92,7 +93,7 @@ public class GrabHelper extends HelperBase{
 
     /** Взять строку с суммой корзины */
     public String cartTotal() {
-        ShopHelper.Cart.open();
+        Shop.Cart.open();
         String cartTotal = kraken.detect().isElementDisplayed(Elements.Cart.total()) ? text(Elements.Cart.total()) : null;
         if (cartTotal == null) {
             message("> в корзине пусто");
@@ -142,7 +143,7 @@ public class GrabHelper extends HelperBase{
 
     /** Взять сумму минимального заказа из алерта в корзине */
     public int minOrderSum() {
-        ShopHelper.Cart.open();
+        Shop.Cart.open();
         if (kraken.detect().isElementDisplayed(Elements.Cart.alertText())) {
             String text = text(Elements.Cart.alertText());
             int minOrderSum = parseInt(((text).substring((text.length() - 9), (text.length() - 3))).replaceAll(

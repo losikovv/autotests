@@ -6,10 +6,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
-import ru.instamart.autotests.appmanager.AdministrationHelper;
-import ru.instamart.autotests.appmanager.CheckoutHelper;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.application.libs.Addresses;
+import ru.instamart.autotests.application.libs.BonusPrograms;
+import ru.instamart.autotests.appmanager.platform.Administration;
+import ru.instamart.autotests.appmanager.platform.Checkout;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.OrdersTests.enableOrderBonusesTests;
@@ -20,8 +22,8 @@ public class OrdersBonusesTests extends TestBase {
     public void setup() {
         kraken.get().baseUrl();
         User.Do.loginAs(kraken.session.admin);
-        ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
-        ShopHelper.Cart.drop();
+        Shop.ShippingAddress.change(Addresses.Moscow.testAddress());
+        Shop.Cart.drop();
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -39,7 +41,7 @@ public class OrdersBonusesTests extends TestBase {
             priority = 2501
     )
     public void successOrderWithMnogoRuBonus() {
-        CheckoutHelper.Bonuses.add(BonusPrograms.mnogoru());
+        Checkout.Bonuses.add(BonusPrograms.mnogoru());
         kraken.checkout().complete();
 
         String number = kraken.grab().currentOrderNumber();
@@ -61,7 +63,7 @@ public class OrdersBonusesTests extends TestBase {
 
     )
     public void successOrderWithAeroflotBonus() {
-        CheckoutHelper.Bonuses.add(BonusPrograms.aeroflot());
+        Checkout.Bonuses.add(BonusPrograms.aeroflot());
         kraken.checkout().complete();
 
         String number = kraken.grab().currentOrderNumber();
@@ -74,6 +76,6 @@ public class OrdersBonusesTests extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void postconditions() {
-        AdministrationHelper.Orders.cancelOrder();
+        Administration.Orders.cancelOrder();
     }
 }

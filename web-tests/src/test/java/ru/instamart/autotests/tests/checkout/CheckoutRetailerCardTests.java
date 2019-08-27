@@ -1,7 +1,7 @@
 package ru.instamart.autotests.tests.checkout;
 
 import org.testng.annotations.BeforeClass;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 public class CheckoutRetailerCardTests extends TestBase {

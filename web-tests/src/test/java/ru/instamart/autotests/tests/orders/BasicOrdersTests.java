@@ -6,11 +6,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.*;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
-import ru.instamart.autotests.models.CreditCardData;
-import ru.instamart.autotests.models.JuridicalData;
-import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.application.libs.Addresses;
+import ru.instamart.autotests.application.libs.PaymentTypes;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
+import ru.instamart.autotests.appmanager.models.CreditCardData;
+import ru.instamart.autotests.appmanager.models.JuridicalData;
+import ru.instamart.autotests.appmanager.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -38,8 +40,8 @@ public class BasicOrdersTests extends TestBase {
     public void preconditions() {
         kraken.get().baseUrl();
         User.Do.loginAs(kraken.session.admin);
-        ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
-        ShopHelper.Cart.drop();
+        Shop.ShippingAddress.change(Addresses.Moscow.testAddress());
+        Shop.Cart.drop();
     }
     // TODO Тесты на изменение телефона и контактов
 
@@ -130,11 +132,11 @@ public class BasicOrdersTests extends TestBase {
             priority = 2003
     )
     public void successOrderWithFavProducts() {
-        ShopHelper.Catalog.Item.addToFavorites();
+        Shop.Catalog.Item.addToFavorites();
         kraken.get().favoritesPage();
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -188,8 +190,8 @@ public class BasicOrdersTests extends TestBase {
     )
     public void successRepeatLastOrderAndPayWithCardOnline() {
         kraken.perform().repeatLastOrder();
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
 
         kraken.checkout().complete(PaymentTypes.cardOnline());
 
@@ -204,8 +206,8 @@ public class BasicOrdersTests extends TestBase {
     )
     public void successRepeatLastOrderAndPayWithCardCourier() {
         kraken.perform().repeatLastOrder();
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
 
         kraken.checkout().complete(PaymentTypes.cardCourier());
 
@@ -220,8 +222,8 @@ public class BasicOrdersTests extends TestBase {
     )
     public void successRepeatLastOrderAndPayWithCash() {
         kraken.perform().repeatLastOrder();
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
 
         kraken.checkout().complete(PaymentTypes.cash());
 
@@ -236,8 +238,8 @@ public class BasicOrdersTests extends TestBase {
     )
     public void successRepeatLastOrderAndPayWithBank() {
         kraken.perform().repeatLastOrder();
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
 
         kraken.checkout().complete(PaymentTypes.bankTransfer());
 

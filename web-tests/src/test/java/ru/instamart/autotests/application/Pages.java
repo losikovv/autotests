@@ -1,6 +1,6 @@
 package ru.instamart.autotests.application;
 
-import ru.instamart.autotests.models.PageData;
+import ru.instamart.autotests.appmanager.models.PageData;
 
 public class Pages {
 

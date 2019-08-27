@@ -3,10 +3,11 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.application.libs.Addresses;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.models.ElementData;
-import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.models.ElementData;
+import ru.instamart.autotests.appmanager.models.EnvironmentData;
 
 
 public class PerformHelper extends HelperBase {
@@ -119,10 +120,10 @@ public class PerformHelper extends HelperBase {
     /** Оформить тестовый заказ */
     public void order() {
         if (!kraken.detect().isShippingAddressSet()) {
-            ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+            Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
     }
 

@@ -1,13 +1,15 @@
 package ru.instamart.autotests.application;
 
 import org.openqa.selenium.remote.BrowserType;
-import ru.instamart.autotests.models.*;
+import ru.instamart.autotests.application.libs.PaymentTypes;
+import ru.instamart.autotests.application.libs.ReplacementPolicies;
+import ru.instamart.autotests.appmanager.models.*;
 
 public class Config {
 
     public interface CoreSettings {
         String browser = BrowserType.FIREFOX;
-        EnvironmentData environment = Environments.instamart_staging();
+        EnvironmentData environment = Environments.instamart_production();
 
         int basicTimeout = 2;
         int waitingTimeout = 60;

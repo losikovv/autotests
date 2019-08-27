@@ -4,11 +4,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.application.libs.Addresses;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.AddonsTests.enableSeoCatalogTests;
@@ -54,7 +54,7 @@ public class SeoCatalogTests extends TestBase {
     )
     public void successOpenItemCardOnSeoCatalog() {
         skipTestOn(instamart_staging());
-        ShopHelper.Catalog.Item.open();
+        Shop.Catalog.Item.open();
 
         Assert.assertTrue(
                 kraken.detect().isItemCardOpen(),
@@ -69,15 +69,15 @@ public class SeoCatalogTests extends TestBase {
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() throws Exception {
         skipTestOn(instamart_staging());
         SoftAssert softAssert = new SoftAssert();
-        ShopHelper.Catalog.Item.open();
-        ShopHelper.ItemCard.addToCart();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.addToCart();
 
         softAssert.assertTrue(
                 kraken.detect().isAddressModalOpen(),
                     "Не открывается адресная модалка после добавления товара на странице SEO-каталога");
 
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
-        ShopHelper.ItemCard.close();
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.ItemCard.close();
 
         softAssert.assertTrue(
                 kraken.detect().isShippingAddressSet(),
@@ -98,8 +98,8 @@ public class SeoCatalogTests extends TestBase {
     public void successAuthFromItemCardOnSeoCatalog() throws Exception {
         skipTestOn(instamart_staging());
         SoftAssert softAssert = new SoftAssert();
-        ShopHelper.Catalog.Item.open();
-        ShopHelper.ItemCard.addToCart();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.addToCart();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
         User.Do.loginAs(session.user);
 
@@ -122,11 +122,11 @@ public class SeoCatalogTests extends TestBase {
     public void successRegFromItemCardOnSeoCatalog() {
         skipTestOn(instamart_staging());
         SoftAssert softAssert = new SoftAssert();
-        ShopHelper.Catalog.Item.open();
-        ShopHelper.ItemCard.addToCart();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.addToCart();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
         User.Do.registration();
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),

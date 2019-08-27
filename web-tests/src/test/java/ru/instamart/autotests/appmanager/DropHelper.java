@@ -1,7 +1,9 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.WebDriver;
-import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
+import ru.instamart.autotests.appmanager.models.EnvironmentData;
 
 public class DropHelper extends HelperBase {
 
@@ -22,7 +24,7 @@ public class DropHelper extends HelperBase {
     /** Очистить список избранного, удалив все любимые товары */
     public void favorites() {
         if (!kraken.detect().isFavoritesEmpty()) {
-            ShopHelper.Favorites.Item.removeFromFavorites();
+            Shop.Favorites.Item.removeFromFavorites();
             kraken.perform().refresh();
             favorites();
         }

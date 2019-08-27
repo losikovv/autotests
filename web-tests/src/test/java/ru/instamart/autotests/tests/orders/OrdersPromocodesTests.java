@@ -4,11 +4,11 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.application.Promo;
-import ru.instamart.autotests.appmanager.CheckoutHelper;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.application.libs.Addresses;
+import ru.instamart.autotests.application.libs.Promos;
+import ru.instamart.autotests.appmanager.platform.Checkout;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 // Тесты заказов с промокодами
@@ -38,7 +38,7 @@ public class OrdersPromocodesTests extends TestBase {
         kraken.get().baseUrl();
         kraken.drop().auth();
         User.Do.registration();
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @Test(
@@ -47,10 +47,10 @@ public class OrdersPromocodesTests extends TestBase {
             priority = 1401
     )
     public void successOrderWithFirstOrderPromo() {
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
 
-        CheckoutHelper.Promocode.add(Promo.fixedDiscountOnFirstOrder());
+        Checkout.Promocode.add(Promos.fixedDiscountOnFirstOrder());
 
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
                 "Не применяется промокод со скидкой на первый заказ\n");
@@ -66,10 +66,10 @@ public class OrdersPromocodesTests extends TestBase {
     )
     public void successOrderWithRetailerPromo() {
         kraken.get().page("metro");
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
 
-        CheckoutHelper.Promocode.add(Promo.fixedDiscountForRetailer("metro"));
+        Checkout.Promocode.add(Promos.fixedDiscountForRetailer("metro"));
 
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
                 "Не применяется промокод со скидкой ля ритейлера\n");
@@ -84,11 +84,11 @@ public class OrdersPromocodesTests extends TestBase {
             priority = 1403
     )
     public void successOrderWithNewUserPromo () {
-        ShopHelper.Search.item("молоко");
-        ShopHelper.Cart.collect(2000);
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Search.item("молоко");
+        Shop.Cart.collect(2000);
+        Shop.Cart.proceedToCheckout();
 
-        CheckoutHelper.Promocode.add(Promo.fixedDiscountForNewUser());
+        Checkout.Promocode.add(Promos.fixedDiscountForNewUser());
 
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
                 "Не применяется промокод со скидкой для новых пользователей\n");
@@ -103,11 +103,11 @@ public class OrdersPromocodesTests extends TestBase {
             priority = 1404
     )
     public void successOrderWithCertainOrderPromo() {
-        ShopHelper.Cart.collect(2100);
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect(2100);
+        Shop.Cart.proceedToCheckout();
 
-        //CheckoutHelper.Promocode.add("crtnord");
-        //CheckoutHelper.Promocode.add(Promocodes.);
+        //Checkout.Promocode.add("crtnord");
+        //Checkout.Promocode.add(Promocodes.);
 
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
                 "Не применяется промокод на бесплатную доставку на первый заказ\n");
@@ -122,14 +122,14 @@ public class OrdersPromocodesTests extends TestBase {
             priority = 1405
     )
     public void successOrderWithSeriesOfOrdersPromo() {
-        ShopHelper.Cart.collect(2000);
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect(2000);
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         kraken.get().baseUrl();
-        ShopHelper.Cart.collect(2000);
-        ShopHelper.Cart.proceedToCheckout();
-        //CheckoutHelper.Promocode.add("srsoford");
+        Shop.Cart.collect(2000);
+        Shop.Cart.proceedToCheckout();
+        //Checkout.Promocode.add("srsoford");
 
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
                 "Не применяется промокод на скидку на второй заказ\n");

@@ -3,9 +3,12 @@ package ru.instamart.autotests.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
-import ru.instamart.autotests.models.*;
+import ru.instamart.autotests.application.libs.Addresses;
+import ru.instamart.autotests.application.libs.PaymentTypes;
+import ru.instamart.autotests.application.libs.ReplacementPolicies;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
+import ru.instamart.autotests.appmanager.models.*;
 
 import static ru.instamart.autotests.application.Config.TestVariables.testOrderDetails;
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
@@ -20,20 +23,20 @@ public class Playground extends TestBase {
     @Test
     public void regUserAndSetAddress() {
         User.Do.registration();
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @Test
     public void regUserAndPrepareForCheckout() {
         User.Do.registration();
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
-        ShopHelper.Cart.collect();
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.Cart.collect();
     }
 
     @Test
     public void regUserAndPrepareForOrder() {
         User.Do.registration();
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         kraken.checkout().fillOrderDetails(testOrderDetails());
     }
@@ -41,7 +44,7 @@ public class Playground extends TestBase {
     @Test
     public void regUserAndMakeOrder() {
         User.Do.registration();
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         kraken.checkout().complete();
     }
@@ -65,9 +68,9 @@ public class Playground extends TestBase {
 
         User.Do.loginAs(session.user);
         kraken.get().page(Pages.Site.Retailers.metro());
-        ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.ShippingAddress.change(Addresses.Moscow.testAddress());
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
 
         OrderDetailsData details = new OrderDetailsData();
         details.setAddressDetails(
@@ -134,9 +137,9 @@ public class Playground extends TestBase {
     public void catalog() {
         kraken.get().page("metro");
         //kraken.await().simply(5);
-        ShopHelper.CatalogDrawer.open();
+        Shop.CatalogDrawer.open();
         //kraken.await().simply(5);
-        ShopHelper.CatalogDrawer.close();
+        Shop.CatalogDrawer.close();
        // kraken.await().simply(5);
     }
 }

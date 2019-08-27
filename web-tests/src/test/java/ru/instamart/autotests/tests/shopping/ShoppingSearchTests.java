@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.platform.Shop;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -32,7 +32,7 @@ public class ShoppingSearchTests extends TestBase {
             priority = 501
     )
     public void noSendEmptySearchRequest() {
-        ShopHelper.Search.item("");
+        Shop.Search.item("");
 
         Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
                 "Показаны результаты для пустого поискового запроса\n");
@@ -44,7 +44,7 @@ public class ShoppingSearchTests extends TestBase {
             priority = 502
     )
     public void successSearchForNonexistingItem() {
-        ShopHelper.Search.item("говно жопа");
+        Shop.Search.item("говно жопа");
 
         assertPageIsAvailable();
 
@@ -58,7 +58,7 @@ public class ShoppingSearchTests extends TestBase {
             priority = 503
     )
     public void successSearchItem() {
-        ShopHelper.Search.item("шоколад");
+        Shop.Search.item("шоколад");
 
         assertPageIsAvailable();
 
@@ -79,12 +79,12 @@ public class ShoppingSearchTests extends TestBase {
             priority = 504
     )
     public void successSearchItemUsingCategorySuggests() {
-        ShopHelper.Search.Field.fill("Мороженое");
+        Shop.Search.Field.fill("Мороженое");
 
         Assert.assertTrue(kraken.detect().isSearchCategorySuggestsPresent(),
                 "Отсутствуют категорийные подсказки\n");
 
-        ShopHelper.Search.CategorySuggest.hit();
+        Shop.Search.CategorySuggest.hit();
 
         Assert.assertFalse(
                 kraken.detect().isSearchResultsEmpty(),
@@ -104,12 +104,12 @@ public class ShoppingSearchTests extends TestBase {
     )
     public void successSearchItemUsingProductSuggests() {
         kraken.get().page("metro");
-        ShopHelper.Search.Field.fill("Мороженое");
+        Shop.Search.Field.fill("Мороженое");
 
         Assert.assertTrue(kraken.detect().isSearchProductSuggestsPresent(),
                 "Отсутствуют товарные подсказки\n");
 
-        ShopHelper.Search.ProductSuggest.hit();
+        Shop.Search.ProductSuggest.hit();
 
         Assert.assertTrue(kraken.detect().isItemCardOpen(),
                 "Не открыта карточка товара из товарной подсказки\n");
@@ -121,7 +121,7 @@ public class ShoppingSearchTests extends TestBase {
             priority = 506
     )
     public void successSearchItemWithLongQuery() {
-        ShopHelper.Search.item(generate.string(1000));
+        Shop.Search.item(generate.string(1000));
 
         assertPageIsAvailable();
 

@@ -4,9 +4,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.*;
-import ru.instamart.autotests.appmanager.AdministrationHelper;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.application.libs.Addresses;
+import ru.instamart.autotests.application.libs.RetailerCards;
+import ru.instamart.autotests.appmanager.platform.Administration;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.OrdersTests.enableOrderRetailerCardsTests;
@@ -17,8 +19,8 @@ public class OrdersRetailerCardsTests extends TestBase {
     public void setup() {
         kraken.get().baseUrl();
         User.Do.loginAs(kraken.session.admin);
-        ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
-        ShopHelper.Cart.drop();
+        Shop.ShippingAddress.change(Addresses.Moscow.testAddress());
+        Shop.Cart.drop();
     }
 
     @Test(  enabled = enableOrderRetailerCardsTests,
@@ -30,8 +32,8 @@ public class OrdersRetailerCardsTests extends TestBase {
         runTestOnlyOn(Environments.metro_production());
 
         kraken.get().page("metro");
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         
         kraken.checkout().addRetailerCard(RetailerCards.metro());
         kraken.checkout().complete();
@@ -43,6 +45,6 @@ public class OrdersRetailerCardsTests extends TestBase {
                 kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.Order.Details.loyaltyProgram()),
                     "В заказе не применилась карта Метро\n");
 
-        AdministrationHelper.Orders.cancelOrder();
+        Administration.Orders.cancelOrder();
     }
 }

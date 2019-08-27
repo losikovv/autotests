@@ -4,11 +4,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.application.libs.Addresses;
 import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
-import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
+import ru.instamart.autotests.appmanager.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -20,7 +20,7 @@ public class BasicShoppingTests extends TestBase {
     public void setup() {
         User.Do.quickLogout();
         kraken.get().page("metro");
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @Test(
@@ -41,7 +41,7 @@ public class BasicShoppingTests extends TestBase {
     public void noAccessToCheckoutWithEmptyCart() {
         User.Do.loginAs(session.admin);
         kraken.get().page("metro");
-        ShopHelper.Cart.drop();
+        Shop.Cart.drop();
 
         assertPageIsUnavailable(
                 Pages.Site.checkout());
@@ -57,13 +57,13 @@ public class BasicShoppingTests extends TestBase {
         kraken.get().page("metro");
 
         if (kraken.detect().isCheckoutButtonActive()) {
-            ShopHelper.Cart.drop();
+            Shop.Cart.drop();
         }
 
         if (kraken.detect().isCartEmpty()) {
-            ShopHelper.Cart.close();
-            ShopHelper.Search.item("хлеб"); // Костыль для случаев когда первый товар на главной дороже минимального заказа
-            ShopHelper.Catalog.Item.addToCart();
+            Shop.Cart.close();
+            Shop.Search.item("хлеб"); // Костыль для случаев когда первый товар на главной дороже минимального заказа
+            Shop.Catalog.Item.addToCart();
         }
 
         Assert.assertTrue(
@@ -82,9 +82,9 @@ public class BasicShoppingTests extends TestBase {
     public void successCollectItemsForMinOrder() {
         User.Do.loginAs(session.user);
         kraken.get().page("metro");
-        ShopHelper.Cart.drop();
+        Shop.Cart.drop();
 
-        ShopHelper.Cart.collect();
+        Shop.Cart.collect();
 
         Assert.assertTrue(
                 kraken.detect().isCheckoutButtonActive(),
@@ -99,7 +99,7 @@ public class BasicShoppingTests extends TestBase {
     public void successGetCheckoutPageWithCartAboveMinimalOrderSum() {
         User.Do.loginAs(session.user);
         kraken.get().page("metro");
-        ShopHelper.Cart.collect();
+        Shop.Cart.collect();
 
         assertPageIsAvailable(
                 Pages.Site.checkout());
@@ -113,9 +113,9 @@ public class BasicShoppingTests extends TestBase {
     public void successProceedFromCartToCheckout() {
         User.Do.loginAs(session.user);
         kraken.get().page("metro");
-        ShopHelper.Cart.collect();
+        Shop.Cart.collect();
 
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.proceedToCheckout();
 
         Assert.assertTrue(
                 kraken.detect().isOnCheckout(),
@@ -134,12 +134,12 @@ public class BasicShoppingTests extends TestBase {
         final UserData testuser = generate.testCredentials("user");
         kraken.get().baseUrl();
         User.Do.registration(testuser);
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
-        ShopHelper.Catalog.Item.addToCart();
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.Catalog.Item.addToCart();
         User.Do.quickLogout();
 
         kraken.get().page("metro");
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.testAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.testAddress());
         User.Do.login(testuser);
 
         softAssert.assertTrue(

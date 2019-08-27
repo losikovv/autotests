@@ -3,8 +3,9 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Users;
-import ru.instamart.autotests.models.EnvironmentData;
-import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.appmanager.platform.Administration;
+import ru.instamart.autotests.appmanager.models.EnvironmentData;
+import ru.instamart.autotests.appmanager.models.UserData;
 
 public class SocialHelper extends HelperBase {
 
@@ -78,7 +79,7 @@ public class SocialHelper extends HelperBase {
 
         /** Удалить пользователя ВК по умолчанию */
         public static void deleteUser() {
-            AdministrationHelper.Users.deleteFirstFoundUser(Users.userVK().getEmail());
+            Administration.Users.deleteFirstFoundUser(Users.userVK().getEmail());
         }
 
         /** Разрешить Инстамарту доступ к аккаунту ВК */
@@ -160,7 +161,7 @@ public class SocialHelper extends HelperBase {
 
         /** Удалить пользователя FB по умолчанию */
         public static void deleteUser() {
-            AdministrationHelper.Users.deleteFirstFoundUser(Users.userFB().getEmail());
+            Administration.Users.deleteFirstFoundUser(Users.userFB().getEmail());
         }
 
         /** Разрешить Инстамарту доступ к аккаунту FB */

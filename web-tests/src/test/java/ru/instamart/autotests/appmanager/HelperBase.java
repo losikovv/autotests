@@ -1,7 +1,7 @@
 package ru.instamart.autotests.appmanager;
 
 import org.openqa.selenium.*;
-import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.appmanager.models.EnvironmentData;
 
 import static ru.instamart.autotests.application.Config.CoreSettings.debug;
 import static ru.instamart.autotests.application.Config.CoreSettings.verbose;
@@ -10,7 +10,7 @@ public class HelperBase {
     static WebDriver driver;
     static ApplicationManager kraken;
     public String baseUrl;
-    public static String fullBaseUrl;
+    public String fullBaseUrl;
     public String adminUrl;
     private static boolean acceptNextAlert = true;
 

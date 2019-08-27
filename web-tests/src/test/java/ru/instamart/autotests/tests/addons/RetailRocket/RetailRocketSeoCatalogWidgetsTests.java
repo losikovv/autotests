@@ -4,9 +4,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.application.Widgets;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.application.libs.Widgets;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.AddonsTests.enableRetailRocketTest;
@@ -42,7 +42,7 @@ public class RetailRocketSeoCatalogWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckCustomersChoiceWidget"
     )
     public void successOpenItemCardFromCustomersChoiceWidget() {
-        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.SeoCatalog.CustomersChoice());
+        Shop.Catalog.Item.open(Widgets.RetailRocket.SeoCatalog.CustomersChoice());
 
         Assert.assertTrue(
                 kraken.detect().isItemCardOpen(),

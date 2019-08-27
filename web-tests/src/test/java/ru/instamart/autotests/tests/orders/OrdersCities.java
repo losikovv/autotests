@@ -2,9 +2,9 @@ package ru.instamart.autotests.tests.orders;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
-import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.application.libs.Addresses;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.OrdersTests.enableOrderCitiesTests;
@@ -32,15 +32,15 @@ public class OrdersCities extends TestBase {
             priority = 2301
     )
     public void successOrderInMoscow() {
-        ShopHelper.ShippingAddress.change(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddress.change(Addresses.Moscow.defaultAddress());
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
                 kraken.detect().isOrderActive(),
-                    "Не удалось оформить заказ в METRO в Москве\n");
+                    failMessage("Не удалось оформить заказ в METRO в Москве"));
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -53,15 +53,15 @@ public class OrdersCities extends TestBase {
             priority = 2302
     )
     public void successOrderInSaintPetersburg() {
-        ShopHelper.ShippingAddress.change(Addresses.SaintPetersburg.defaultAddress());
+        Shop.ShippingAddress.change(Addresses.SaintPetersburg.defaultAddress());
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
                 kraken.detect().isOrderActive(),
-                    "Не оформляется заказ в METRO в Санкт-Петербурге\n");
+                    failMessage("Не оформляется заказ в METRO в Санкт-Петербурге"));
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -74,15 +74,15 @@ public class OrdersCities extends TestBase {
             priority = 2303
     )
     public void successOrderInKazan() {
-        ShopHelper.ShippingAddress.change(Addresses.Kazan.defaultAddress());
+        Shop.ShippingAddress.change(Addresses.Kazan.defaultAddress());
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
                 kraken.detect().isOrderActive(),
-                    "Не удалось оформить заказ в METRO в Казани\n");
+                    failMessage("Не удалось оформить заказ в METRO в Казани"));
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -95,15 +95,15 @@ public class OrdersCities extends TestBase {
             priority = 2304
     )
     public void successOrderInEkaterinburg() {
-        ShopHelper.ShippingAddress.change(Addresses.Ekaterinburg.defaultAddress());
+        Shop.ShippingAddress.change(Addresses.Ekaterinburg.defaultAddress());
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
                 kraken.detect().isOrderActive(),
-                    "Не удалось оформить заказ в METRO в Екатеринбурге\n");
+                    failMessage("Не удалось оформить заказ в METRO в Екатеринбурге"));
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -116,15 +116,15 @@ public class OrdersCities extends TestBase {
             priority = 2305
     )
     public void successOrderInNizhnyNovgorod() {
-        ShopHelper.ShippingAddress.change(Addresses.NizhnyNovgorod.defaultAddress());
+        Shop.ShippingAddress.change(Addresses.NizhnyNovgorod.defaultAddress());
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
                 kraken.detect().isOrderActive(),
-                    "Не удалось оформить заказ в METRO в Нижнем Новгороде\n");
+                    failMessage("Не удалось оформить заказ в METRO в Нижнем Новгороде"));
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -137,15 +137,15 @@ public class OrdersCities extends TestBase {
             priority = 2306
     )
     public void successOrderInRostovNaDonu() {
-        ShopHelper.ShippingAddress.change(Addresses.RostovNaDonu.defaultAddress());
+        Shop.ShippingAddress.change(Addresses.RostovNaDonu.defaultAddress());
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
                 kraken.detect().isOrderActive(),
-                    "Не удалось оформить заказ в METRO в Ростове-на-Дону\n");
+                    failMessage("Не удалось оформить заказ в METRO в Ростове-на-Дону"));
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -158,15 +158,15 @@ public class OrdersCities extends TestBase {
             priority = 2307
     )
     public void successOrderInUfa() {
-        ShopHelper.ShippingAddress.change(Addresses.Ufa.defaultAddress());
+        Shop.ShippingAddress.change(Addresses.Ufa.defaultAddress());
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
                 kraken.detect().isOrderActive(),
-                    "Не удалось оформить заказ в METRO в Уфе\n");
+                    failMessage("Не удалось оформить заказ в METRO в Уфе"));
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -179,15 +179,15 @@ public class OrdersCities extends TestBase {
             priority = 2308
     )
     public void successOrderInKrasnodar() {
-        ShopHelper.ShippingAddress.change(Addresses.Krasnodar.defaultAddress());
+        Shop.ShippingAddress.change(Addresses.Krasnodar.defaultAddress());
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
                 kraken.detect().isOrderActive(),
-                    "Не удалось оформить заказ в METRO в Краснодаре\n");
+                    failMessage("Не удалось оформить заказ в METRO в Краснодаре"));
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -200,15 +200,15 @@ public class OrdersCities extends TestBase {
             priority = 2309
     )
     public void successOrderInSamara() {
-        ShopHelper.ShippingAddress.change(Addresses.Samara.defaultAddress());
+        Shop.ShippingAddress.change(Addresses.Samara.defaultAddress());
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
                 kraken.detect().isOrderActive(),
-                    "Не удалось оформить заказ в METRO в Самаре\n");
+                    failMessage("Не удалось оформить заказ в METRO в Самаре"));
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -221,15 +221,15 @@ public class OrdersCities extends TestBase {
             priority = 2310
     )
     public void successOrderInVoronezh() {
-        ShopHelper.ShippingAddress.change(Addresses.Voronezh.defaultAddress());
+        Shop.ShippingAddress.change(Addresses.Voronezh.defaultAddress());
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
                 kraken.detect().isOrderActive(),
-                    "Не удалось оформить заказ в METRO в Воронеже\n");
+                    failMessage("Не удалось оформить заказ в METRO в Воронеже"));
 
         kraken.perform().cancelLastOrder();
     }
@@ -244,15 +244,15 @@ public class OrdersCities extends TestBase {
             priority = 2311
     )
     public void successOrderInOmsk() {
-        ShopHelper.ShippingAddress.change(Addresses.Omsk.defaultAddress());
+        Shop.ShippingAddress.change(Addresses.Omsk.defaultAddress());
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
                 kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ в METRO в Омске\n");
+                    failMessage("Не удалось оформить заказ в METRO в Омске"));
 
         kraken.perform().cancelLastOrder();
     }
@@ -267,15 +267,38 @@ public class OrdersCities extends TestBase {
             priority = 2312
     )
     public void successOrderInVolgograd() {
-        ShopHelper.ShippingAddress.change(Addresses.Volgograd.defaultAddress());
+        Shop.ShippingAddress.change(Addresses.Volgograd.defaultAddress());
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
                 kraken.detect().isOrderActive(),
-                "Не удалось оформить заказ в METRO в Волгограде\n");
+                    failMessage("Не удалось оформить заказ в METRO в Волгограде"));
+
+        kraken.perform().cancelLastOrder();
+    }
+
+    @Test(enabled = enableOrderCitiesTests,
+            description = "Тест заказа в METRO в Новосибирске",
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
+            priority = 2312
+    )
+    public void successOrderInNovosibirsk() {
+        Shop.ShippingAddress.change(Addresses.Volgograd.defaultAddress());
+
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderActive(),
+                    failMessage("Не удалось оформить заказ в METRO в Новосибирске"));
 
         kraken.perform().cancelLastOrder();
     }
@@ -287,6 +310,6 @@ public class OrdersCities extends TestBase {
 
     @AfterClass(alwaysRun = true)
     public void resetDefaultAddress() {
-        ShopHelper.ShippingAddress.change(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddress.change(Addresses.Moscow.defaultAddress());
     }
 }

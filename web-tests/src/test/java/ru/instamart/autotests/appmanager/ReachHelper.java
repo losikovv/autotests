@@ -4,8 +4,10 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Tenants;
 import ru.instamart.autotests.application.Users;
-import ru.instamart.autotests.models.EnvironmentData;
-import ru.instamart.autotests.models.PageData;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
+import ru.instamart.autotests.appmanager.models.EnvironmentData;
+import ru.instamart.autotests.appmanager.models.PageData;
 
 public class ReachHelper extends HelperBase {
     ReachHelper(WebDriver driver, EnvironmentData environment, ApplicationManager app) {
@@ -16,8 +18,8 @@ public class ReachHelper extends HelperBase {
         kraken.get().checkoutPage();
         if(!kraken.detect().isOnCheckout()){
             kraken.perform().refresh(); // Скипаем возможный алерт о минимальном заказе
-            ShopHelper.Cart.collect();
-            ShopHelper.Cart.proceedToCheckout();
+            Shop.Cart.collect();
+            Shop.Cart.proceedToCheckout();
         }
     }
 

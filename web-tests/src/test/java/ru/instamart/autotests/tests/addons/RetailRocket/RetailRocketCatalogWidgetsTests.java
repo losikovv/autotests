@@ -4,10 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.application.Widgets;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.application.libs.Addresses;
+import ru.instamart.autotests.application.libs.Widgets;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.AddonsTests.enableRetailRocketTest;
@@ -18,7 +18,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
     public void setup() {
         User.Do.quickLogout();
         kraken.get().page("metro/ovoshchi-i-frukty");
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -55,7 +55,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckCustomersChoiceWidget"
     )
     public void successOpenItemFromCustomersChoiceWidget() {
-        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.CatalogPage.CustomersChoice());
+        Shop.Catalog.Item.open(Widgets.RetailRocket.CatalogPage.CustomersChoice());
 
         Assert.assertTrue(
                 kraken.detect().isItemCardOpen(),
@@ -69,11 +69,11 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemFromRecentlyViewedWidget() {
-        ShopHelper.Catalog.Item.open();
-        ShopHelper.ItemCard.close();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.close();
         kraken.perform().refresh();
 
-        ShopHelper.Catalog.Item.open(Widgets.RetailRocket.CatalogPage.RecentlyViewed());
+        Shop.Catalog.Item.open(Widgets.RetailRocket.CatalogPage.RecentlyViewed());
 
         Assert.assertTrue(
                 kraken.detect().isItemCardOpen(),
@@ -87,9 +87,9 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckCustomersChoiceWidget"
     )
     public void successAddItemFromCustomersChoiceWidget() {
-        ShopHelper.Cart.drop();
+        Shop.Cart.drop();
 
-        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.CatalogPage.CustomersChoice());
+        Shop.Catalog.Item.addToCart(Widgets.RetailRocket.CatalogPage.CustomersChoice());
 
         Assert.assertFalse(
                 kraken.detect().isCartEmpty(),
@@ -103,12 +103,12 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successAddItemFromRecentlyViewedWidget() {
-        ShopHelper.Cart.drop();
-        ShopHelper.Catalog.Item.open();
-        ShopHelper.ItemCard.close();
+        Shop.Cart.drop();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.close();
         kraken.perform().refresh();
 
-        ShopHelper.Catalog.Item.addToCart(Widgets.RetailRocket.CatalogPage.RecentlyViewed());
+        Shop.Catalog.Item.addToCart(Widgets.RetailRocket.CatalogPage.RecentlyViewed());
 
         Assert.assertFalse(
                 kraken.detect().isCartEmpty(),

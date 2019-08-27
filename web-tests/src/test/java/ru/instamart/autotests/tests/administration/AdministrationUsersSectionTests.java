@@ -7,9 +7,9 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
 import ru.instamart.autotests.application.Users;
-import ru.instamart.autotests.appmanager.AdministrationHelper;
-import ru.instamart.autotests.appmanager.User;
-import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.appmanager.platform.Administration;
+import ru.instamart.autotests.appmanager.platform.User;
+import ru.instamart.autotests.appmanager.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -28,7 +28,7 @@ public class AdministrationUsersSectionTests extends TestBase {
             priority = 10701
     )
     public void successSearchUser() {
-        AdministrationHelper.Users.searchUser(Users.superuser());
+        Administration.Users.searchUser(Users.superuser());
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()), Users.superuser().getEmail(),
@@ -47,7 +47,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         UserData testuser = generate.testCredentials("admin");
         User.Do.registration(testuser);
 
-        AdministrationHelper.Users.grantAdminPrivileges(testuser);
+        Administration.Users.grantAdminPrivileges(testuser);
         User.Do.quickLogout();
 
         User.Do.login(testuser);
@@ -57,7 +57,7 @@ public class AdministrationUsersSectionTests extends TestBase {
                 kraken.detect().isInAdmin(),
                     "Пользователю не предоставляются админские права");
 
-        AdministrationHelper.Users.revokeAdminPrivileges(testuser);
+        Administration.Users.revokeAdminPrivileges(testuser);
         User.Do.quickLogout();
 
         User.Do.login(testuser);
@@ -81,8 +81,8 @@ public class AdministrationUsersSectionTests extends TestBase {
         UserData testuser = generate.testCredentials("user");
         User.Do.registration();
 
-        AdministrationHelper.Users.editUser(testuser);
-        AdministrationHelper.Users.changePassword("654321");
+        Administration.Users.editUser(testuser);
+        Administration.Users.changePassword("654321");
         User.Do.quickLogout();
 
         User.Do.login(testuser.getEmail(), "654321");
@@ -104,8 +104,8 @@ public class AdministrationUsersSectionTests extends TestBase {
         UserData testuser = generate.testCredentials("user");
         User.Do.registration(testuser);
 
-        AdministrationHelper.Users.editUser(testuser);
-        AdministrationHelper.Users.grantB2B();
+        Administration.Users.editUser(testuser);
+        Administration.Users.grantB2B();
         kraken.perform().refresh();
 
         Assert.assertTrue(
@@ -124,10 +124,10 @@ public class AdministrationUsersSectionTests extends TestBase {
         UserData testuser = generate.testCredentials("user");
         User.Do.registration(testuser);
 
-        AdministrationHelper.Users.editUser(testuser);
-        AdministrationHelper.Users.grantB2B();
+        Administration.Users.editUser(testuser);
+        Administration.Users.grantB2B();
 
-        AdministrationHelper.Users.searchUser(testuser, true,false);
+        Administration.Users.searchUser(testuser, true,false);
 
         softAssert.assertEquals(
                 kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()), testuser.getEmail(),
@@ -151,30 +151,30 @@ public class AdministrationUsersSectionTests extends TestBase {
         UserData testuser = generate.testCredentials("user");
         User.Do.registration(testuser);
 
-        AdministrationHelper.Users.editUser(testuser);
-        AdministrationHelper.Users.grantB2B();
+        Administration.Users.editUser(testuser);
+        Administration.Users.grantB2B();
         User.Do.quickLogout();
 
         User.Do.login(testuser);
         kraken.perform().order();
         String number = kraken.grab().currentOrderNumber();
 
-        AdministrationHelper.Users.editUser(testuser);
-        AdministrationHelper.Users.revokeB2B();
+        Administration.Users.editUser(testuser);
+        Administration.Users.revokeB2B();
 
-        AdministrationHelper.Users.searchUser(testuser , true,false);
+        Administration.Users.searchUser(testuser , true,false);
 
         softAssert.assertFalse(
                 kraken.detect().isElementPresent(Elements.Administration.UsersSection.firstUserLogin()),
                     "Пользователь находится как B2B после снятия флага");
 
-        AdministrationHelper.Orders.searchOrder(number, true);
+        Administration.Orders.searchOrder(number, true);
 
         softAssert.assertEquals(
                 kraken.grab().text(Elements.Administration.ShipmentsSection.firstOrderNumberInTable()), number,
                     "Не работает поиск старого B2B заказа после снятия B2B флага у пользователя");
 
-        AdministrationHelper.Orders.cancelOrder(number);
+        Administration.Orders.cancelOrder(number);
         softAssert.assertAll();
     }
 }

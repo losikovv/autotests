@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
@@ -41,13 +41,13 @@ public class UserProfileTests extends TestBase {
     public void successOperateProfileMenu() throws AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        ShopHelper.AccountMenu.open();
+        Shop.AccountMenu.open();
 
         softAssert.assertTrue(
                 kraken.detect().isAccountMenuOpen(),
                     failMessage("Не открывается всплывающее меню профиля"));
 
-        ShopHelper.AccountMenu.close();
+        Shop.AccountMenu.close();
 
         softAssert.assertFalse(
                 kraken.detect().isAccountMenuOpen(),
@@ -64,7 +64,7 @@ public class UserProfileTests extends TestBase {
     public void successValidateProfileMenu() throws AssertionError {
         SoftAssert softAssert = new SoftAssert();
 
-        ShopHelper.AccountMenu.open();
+        Shop.AccountMenu.open();
 
         assertElementPresence(Elements.AccountMenu.popup());
         assertElementPresence(Elements.AccountMenu.header());
@@ -80,13 +80,13 @@ public class UserProfileTests extends TestBase {
         // Валидируем ссылки
         validateTransition(Elements.AccountMenu.profileButton());
 
-        ShopHelper.AccountMenu.open();
+        Shop.AccountMenu.open();
         validateTransition(Elements.AccountMenu.ordersHistoryButton());
 
-        ShopHelper.AccountMenu.open();
+        Shop.AccountMenu.open();
         validateTransition(Elements.AccountMenu.termsButton());
 
-        ShopHelper.AccountMenu.open();
+        Shop.AccountMenu.open();
         kraken.perform().click(Elements.AccountMenu.deliveryButton());
 
         softAssert.assertTrue(
@@ -95,7 +95,7 @@ public class UserProfileTests extends TestBase {
 
         kraken.perform().refresh();
 
-        ShopHelper.AccountMenu.open();
+        Shop.AccountMenu.open();
         kraken.perform().click(Elements.AccountMenu.paymentButton());
 
         softAssert.assertTrue(
@@ -104,10 +104,10 @@ public class UserProfileTests extends TestBase {
 
         kraken.perform().refresh();
 
-        ShopHelper.AccountMenu.open();
+        Shop.AccountMenu.open();
         validateTransition(Elements.AccountMenu.faqButton());
 
-        ShopHelper.AccountMenu.open();
+        Shop.AccountMenu.open();
         validateTransition(Elements.AccountMenu.contactsButton());
 
         softAssert.assertAll();

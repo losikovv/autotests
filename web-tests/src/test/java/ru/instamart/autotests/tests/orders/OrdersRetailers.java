@@ -2,10 +2,10 @@ package ru.instamart.autotests.tests.orders;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
-import ru.instamart.autotests.application.Addresses;
+import ru.instamart.autotests.application.libs.Addresses;
 import ru.instamart.autotests.application.Tenants;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.OrdersTests.enableOrderRetailersTests;
@@ -16,7 +16,7 @@ public class OrdersRetailers extends TestBase {
     public void setup() {
         kraken.get().baseUrl();
         User.Do.loginAs(kraken.session.admin);
-        ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
+        Shop.ShippingAddress.change(Addresses.Moscow.testAddress());
     }
 
     @Test(enabled = enableOrderRetailersTests,
@@ -30,10 +30,10 @@ public class OrdersRetailers extends TestBase {
     )
     public void successOrderInMetro(){
         kraken.get().page("metro");
-        ShopHelper.Cart.drop();
+        Shop.Cart.drop();
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -52,10 +52,10 @@ public class OrdersRetailers extends TestBase {
     public void successOrderInAuchan(){
         skipTestOn(Tenants.metro());
         kraken.get().page("auchan");
-        ShopHelper.Cart.drop();
+        Shop.Cart.drop();
 
-        ShopHelper.Cart.collect();
-        ShopHelper.Cart.proceedToCheckout();
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
         Assert.assertTrue(

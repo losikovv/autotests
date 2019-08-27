@@ -3,7 +3,8 @@ package ru.instamart.autotests.appmanager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.models.EnvironmentData;
+import ru.instamart.autotests.appmanager.platform.Administration;
+import ru.instamart.autotests.appmanager.models.EnvironmentData;
 
 public class CleanupHelper extends HelperBase {
 
@@ -67,7 +68,7 @@ public class CleanupHelper extends HelperBase {
         if (!kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.placeholder())) {
             kraken.perform().click(Elements.Administration.ShipmentsSection.firstOrderInTable());
             kraken.await().implicitly(1); // Ожидание отмены предыдущего тестового заказа
-            AdministrationHelper.Orders.cancelOrder(); // todo добавить проверку, отменять только если тестовый заказ
+            Administration.Orders.cancelOrder(); // todo добавить проверку, отменять только если тестовый заказ
             orders(ordersListPath); // Keep cancelling orders recursively
         } else {
             message("✓ Все тестовые заказы отменены\n");

@@ -5,9 +5,9 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.application.libs.Addresses;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
 import static ru.instamart.autotests.appmanager.HelperBase.verboseMessage;
@@ -92,10 +92,10 @@ public class SelfCheckTests extends TestBase {
         kraken.get().baseUrl();
         User.Do.loginAs(session.admin);
 
-        ShopHelper.AccountMenu.open();
+        Shop.AccountMenu.open();
         Assert.assertTrue(kraken.detect().isAccountMenuOpen());
 
-        ShopHelper.AccountMenu.close();
+        Shop.AccountMenu.close();
         Assert.assertFalse(kraken.detect().isAccountMenuOpen());
     }
 
@@ -174,10 +174,10 @@ public class SelfCheckTests extends TestBase {
 
         kraken.get().page("metro");
 
-        ShopHelper.StoreSelector.open();
+        Shop.StoreSelector.open();
         Assert.assertTrue(kraken.detect().isCatalogDrawerOpen());
 
-        ShopHelper.StoreSelector.close();
+        Shop.StoreSelector.close();
         Assert.assertFalse(kraken.detect().isCatalogDrawerOpen());
     }
 
@@ -190,7 +190,7 @@ public class SelfCheckTests extends TestBase {
         User.Do.quickLogout();
 
         //landing
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.testAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.testAddress());
 
         softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
                 "\nНе открывается дефолтный селектор магазинов на лендинге");
@@ -198,14 +198,14 @@ public class SelfCheckTests extends TestBase {
         softAssert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
                 "\nПусто в дефолтном селекторе магазинов на лендинге");
 
-        ShopHelper.StoreSelector.open();
+        Shop.StoreSelector.open();
 
         softAssert.assertFalse(kraken.detect().isStoreSelectorOpen(),
                 "\nНе закрывается дефолтный селектор магазинов на лендинге");
 
         //retailer
         kraken.get().page("metro");
-        ShopHelper.StoreSelector.open();
+        Shop.StoreSelector.open();
 
         softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
                 "\nНе открывается дефолтный селектор магазинов на витрине ритейлера");
@@ -213,7 +213,7 @@ public class SelfCheckTests extends TestBase {
         softAssert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
                 "\nПусто в дефолтном селекторе магазинов на витрине ритейлера");
 
-        ShopHelper.StoreSelector.close();
+        Shop.StoreSelector.close();
 
         softAssert.assertFalse(kraken.detect().isStoreSelectorOpen(),
                 "\nНе закрывается дефолтный селектор магазинов на витрине ритейлера");
@@ -230,7 +230,7 @@ public class SelfCheckTests extends TestBase {
         User.Do.quickLogout();
 
         //landing
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
 
         softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
                 "\nНе открывается пустой селектор магазинов на лендинге");
@@ -238,14 +238,14 @@ public class SelfCheckTests extends TestBase {
         softAssert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
                 "\nНе определяется пустой селектор магазинов на лендинге");
 
-        ShopHelper.StoreSelector.close();;
+        Shop.StoreSelector.close();;
 
         softAssert.assertFalse(kraken.detect().isStoreSelectorOpen(),
                 "\nНе закрывается пустой селектор магазинов на лендинге");
 
         //retailer
         kraken.get().page("metro");
-        ShopHelper.StoreSelector.open();;
+        Shop.StoreSelector.open();;
 
         softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
                 "\nНе открывается пустой селектор магазинов на витрине ритейлера");
@@ -253,7 +253,7 @@ public class SelfCheckTests extends TestBase {
         softAssert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
                 "\nНе определяется пустой селектор магазинов на витрине ритейлера");
 
-        ShopHelper.StoreSelector.close();;
+        Shop.StoreSelector.close();;
 
         softAssert.assertFalse(kraken.detect().isStoreSelectorOpen(),
                 "\nНе закрывается пустой селектор магазинов на витрине ритейлера");
@@ -269,10 +269,10 @@ public class SelfCheckTests extends TestBase {
 
         kraken.get().page("metro");
 
-        ShopHelper.Cart.open();
+        Shop.Cart.open();
         Assert.assertTrue(kraken.detect().isCartOpen());
 
-        ShopHelper.Cart.close();
+        Shop.Cart.close();
         Assert.assertFalse(kraken.detect().isCartOpen());
     }
 
@@ -329,10 +329,10 @@ public class SelfCheckTests extends TestBase {
 
         kraken.get().page("metro");
 
-        ShopHelper.ShippingAddress.openAddressModal();
+        Shop.ShippingAddress.openAddressModal();
         Assert.assertTrue(kraken.detect().isAddressModalOpen());
 
-        ShopHelper.ShippingAddress.closeAddressModal();
+        Shop.ShippingAddress.closeAddressModal();
         Assert.assertFalse(kraken.detect().isAddressModalOpen());
     }
 
@@ -344,9 +344,9 @@ public class SelfCheckTests extends TestBase {
     public void detectCartTotal() {
         kraken.get().page("metro");
         if (!kraken.detect().isShippingAddressSet()) {
-            ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+            Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
-        ShopHelper.Cart.drop();
+        Shop.Cart.drop();
 
         // корзина пустая
         Assert.assertFalse(kraken.detect().isCartTotalDisplayed());
@@ -354,15 +354,15 @@ public class SelfCheckTests extends TestBase {
         verboseMessage("Сумма корзины = " + kraken.grab().cartTotal());
 
         // корзина не пустая, но меньше суммы мин заказа
-        ShopHelper.Cart.close();
-        ShopHelper.Search.item("молоко");
-        ShopHelper.Cart.collect(1);
+        Shop.Cart.close();
+        Shop.Search.item("молоко");
+        Shop.Cart.collect(1);
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
         Assert.assertNotNull(kraken.grab().cartTotal());
         verboseMessage("Сумма корзины = " + kraken.grab().cartTotal());
 
         // корзина не пустая, больше суммы мин заказа
-        ShopHelper.Cart.collect();
+        Shop.Cart.collect();
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
         verboseMessage("Сумма корзины = " + kraken.grab().cartTotal());
     }
@@ -374,11 +374,11 @@ public class SelfCheckTests extends TestBase {
     public void detectAddressOutOfZone() {
 
         kraken.get().page("metro");
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
         Assert.assertTrue(kraken.detect().isAddressOutOfZone());
 
         kraken.get().page("metro");
-        ShopHelper.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         Assert.assertFalse(kraken.detect().isAddressOutOfZone());
     }
 

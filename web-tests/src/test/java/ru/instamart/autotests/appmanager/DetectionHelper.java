@@ -6,7 +6,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.models.*;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.models.*;
 
 public class DetectionHelper extends HelperBase {
 
@@ -504,7 +505,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить пуста ли корзина */
     public boolean isCartEmpty() {
-        ShopHelper.Cart.open();
+        Shop.Cart.open();
         if (isElementDisplayed(Elements.Cart.placeholder())) {
             debugMessage("Корзина пуста");
             return true;
@@ -516,7 +517,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить активна ли кнопка перехода в чекаут в корзине */
     public boolean isCheckoutButtonActive() {
-        ShopHelper.Cart.open();
+        Shop.Cart.open();
         if(isElementEnabled(Elements.Cart.checkoutButton())){
             debugMessage("Кнопка перехода в чекаут активна");
             return true;
@@ -528,7 +529,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить отображается ли сумма заказа */
     public boolean isCartTotalDisplayed() {
-        ShopHelper.Cart.open();
+        Shop.Cart.open();
         return isElementDisplayed(Elements.Cart.total());
     }
 

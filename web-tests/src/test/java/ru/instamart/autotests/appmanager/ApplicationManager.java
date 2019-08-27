@@ -9,8 +9,12 @@ import org.openqa.selenium.safari.SafariDriver;
 
 import ru.instamart.autotests.application.Config;
 import ru.instamart.autotests.application.Users;
-import ru.instamart.autotests.models.EnvironmentData;
-import ru.instamart.autotests.models.SessionData;
+import ru.instamart.autotests.appmanager.platform.Administration;
+import ru.instamart.autotests.appmanager.platform.Checkout;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
+import ru.instamart.autotests.appmanager.models.EnvironmentData;
+import ru.instamart.autotests.appmanager.models.SessionData;
 import ru.instamart.autotests.testdata.generate;
 
 import java.io.BufferedReader;
@@ -29,7 +33,7 @@ public class ApplicationManager {
     public final static String testrunId = generate.testRunId();
 
     protected WebDriver driver;
-    protected EnvironmentData environment;
+    public EnvironmentData environment;
     private String browser;
     public static SessionData session;
 
@@ -40,9 +44,10 @@ public class ApplicationManager {
     private GrabHelper grabHelper;
     private DropHelper dropHelper;
     private SocialHelper socialHelper;
-    private ShopHelper shopHelper;
-    private CheckoutHelper checkoutHelper;
-    private AdministrationHelper administrationHelper;
+    private Shop shopHelper;
+    private User userHelper;
+    private Checkout checkoutHelper;
+    private Administration administrationHelper;
     private CleanupHelper cleanupHelper;
     private WaitingHelper waitingHelper;
 
@@ -108,9 +113,10 @@ public class ApplicationManager {
         grabHelper = new GrabHelper(driver,environment,this);
         dropHelper = new DropHelper(driver,environment,this);
         socialHelper = new SocialHelper(driver, environment, this);
-        shopHelper = new ShopHelper(driver, environment, this);
-        checkoutHelper = new CheckoutHelper(driver, environment, this);
-        administrationHelper = new AdministrationHelper(driver, environment, this);
+        shopHelper = new Shop(driver, environment, this);
+        userHelper = new User(driver, environment, this);
+        checkoutHelper = new Checkout(driver, environment, this);
+        administrationHelper = new Administration(driver, environment, this);
         cleanupHelper = new CleanupHelper(driver, environment, this);
         waitingHelper = new WaitingHelper(driver, environment, this);
     }
@@ -156,9 +162,10 @@ public class ApplicationManager {
     public GrabHelper grab() { return grabHelper; }
     public DropHelper drop() { return dropHelper; }
     public SocialHelper social() { return socialHelper; }
-    public ShopHelper shopping() { return shopHelper; }
-    public CheckoutHelper checkout() { return checkoutHelper; }
-    public AdministrationHelper admin() { return administrationHelper; }
+    public Shop shopping() { return shopHelper; }
+    public User user() { return userHelper; }
+    public Checkout checkout() { return checkoutHelper; }
+    public Administration admin() { return administrationHelper; }
     public CleanupHelper cleanup() { return cleanupHelper; }
     public WaitingHelper await() { return waitingHelper; }
 }

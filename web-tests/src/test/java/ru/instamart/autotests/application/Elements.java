@@ -1,12 +1,12 @@
 package ru.instamart.autotests.application;
 
 import org.openqa.selenium.By;
-import ru.instamart.autotests.models.CheckoutStepData;
-import ru.instamart.autotests.models.CreditCardData;
-import ru.instamart.autotests.models.ElementData;
-import ru.instamart.autotests.models.JuridicalData;
+import ru.instamart.autotests.appmanager.models.CheckoutStepData;
+import ru.instamart.autotests.appmanager.models.CreditCardData;
+import ru.instamart.autotests.appmanager.models.ElementData;
+import ru.instamart.autotests.appmanager.models.JuridicalData;
 
-import static ru.instamart.autotests.application.CheckoutSteps.*;
+import static ru.instamart.autotests.application.libs.CheckoutSteps.*;
 import static ru.instamart.autotests.application.Config.TestVariables.CompanyParams.companyHotlineWorkhours;
 import static ru.instamart.autotests.application.Config.TestVariables.CompanyParams.companyHotlineWorkhoursShort;
 import static ru.instamart.autotests.application.Config.TestVariables.CompanyParams.companyHotlinePhoneLink;

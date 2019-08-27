@@ -5,7 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Pages;
-import ru.instamart.autotests.appmanager.ShopHelper;
+import ru.instamart.autotests.appmanager.platform.Shop;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.AddonsTests.enablePage404test;
@@ -23,7 +23,7 @@ public class Page404Tests extends TestBase {
             priority = 11001
     )
     public void successLearnCatWisdom() {
-        ShopHelper.Jivosite.open();
+        Shop.Jivosite.open();
         kraken.perform().click(Elements.Page404.catWisdomButton());
 
         Assert.assertTrue(
@@ -37,7 +37,7 @@ public class Page404Tests extends TestBase {
             priority = 11002
     )
     public void successGoToHomepage() {
-        //ShopHelper.Jivosite.open();
+        //Shop.Jivosite.open();
 
         validateTransition(Elements.Page404.toHomeButton());
     }
@@ -48,7 +48,7 @@ public class Page404Tests extends TestBase {
             priority = 11003
     )
     public void successGoToHomepageAfterLearningCatWisdom() {
-        ShopHelper.Jivosite.open();
+        Shop.Jivosite.open();
         kraken.perform().click(Elements.Page404.catWisdomButton());
 
         validateTransition(Elements.Page404.toHomeButton());
@@ -60,9 +60,9 @@ public class Page404Tests extends TestBase {
             priority = 11004
     )
     public void successGoToCatalogAfterLearningCatWisdom() {
-        ShopHelper.Jivosite.open();
+        Shop.Jivosite.open();
         kraken.perform().click(Elements.Page404.catWisdomButton());
-        ShopHelper.Jivosite.close();
+        Shop.Jivosite.close();
 
         validateTransition(Elements.Page404.learnPricesButton());
     }
@@ -74,7 +74,7 @@ public class Page404Tests extends TestBase {
     )
     public void successLearnMoreCatWisdom() {
         kraken.perform().refresh();
-        ShopHelper.Jivosite.open(); // для стабильности
+        Shop.Jivosite.open(); // для стабильности
 
         kraken.perform().click(Elements.Page404.catWisdomButton());
         kraken.await().implicitly(1); // Ожидание котомудрости

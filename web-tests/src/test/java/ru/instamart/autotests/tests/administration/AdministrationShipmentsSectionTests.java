@@ -5,9 +5,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.appmanager.AdministrationHelper;
-import ru.instamart.autotests.appmanager.User;
-import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.appmanager.platform.Administration;
+import ru.instamart.autotests.appmanager.platform.User;
+import ru.instamart.autotests.appmanager.models.UserData;
 import ru.instamart.autotests.testdata.generate;
 import ru.instamart.autotests.tests.TestBase;
 
@@ -94,7 +94,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
             priority = 10101
     )
     public void successSearchOrderByOrderNumber() {
-        AdministrationHelper.Orders.searchOrder(testOrder);
+        Administration.Orders.searchOrder(testOrder);
 
         Assert.assertFalse(
                 kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.placeholder()),
@@ -111,7 +111,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
             priority = 10102
     )
     public void successSearchOrderByShipmentNumber() {
-        AdministrationHelper.Orders.searchOrder(testShipment);
+        Administration.Orders.searchOrder(testShipment);
 
         Assert.assertFalse(
                 kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.placeholder()),
@@ -146,12 +146,12 @@ public class AdministrationShipmentsSectionTests extends TestBase {
                 kraken.detect().isOrderCanceled(),
                     "\nНе выполнились предусловия - заказ уже активен");
 
-        AdministrationHelper.Orders.resumeOrder();
+        Administration.Orders.resumeOrder();
         softAssert.assertFalse(
                 kraken.detect().isOrderCanceled(),
                     "\nНе возобновляется заказ через админку");
 
-        AdministrationHelper.Orders.cancelOrder();
+        Administration.Orders.cancelOrder();
         softAssert.assertTrue(
                 kraken.detect().isOrderCanceled(),
                     "\nНе отменяется заказ через админку");
@@ -169,20 +169,20 @@ public class AdministrationShipmentsSectionTests extends TestBase {
         User.Do.quickLogout();
         User.Do.registration(testuser);
 
-        AdministrationHelper.Users.editUser(testuser);
-        AdministrationHelper.Users.grantB2B();
+        Administration.Users.editUser(testuser);
+        Administration.Users.grantB2B();
         User.Do.quickLogout();
 
         User.Do.login(testuser);
         kraken.perform().order();
         String number = kraken.grab().currentOrderNumber();
 
-        AdministrationHelper.Orders.searchOrder(number,true);
+        Administration.Orders.searchOrder(number,true);
 
         Assert.assertEquals(
                 kraken.grab().text(Elements.Administration.ShipmentsSection.firstOrderNumberInTable()), number,
                     "Не работает поиск B2B заказа в админке");
 
-        AdministrationHelper.Orders.cancelOrder(number);
+        Administration.Orders.cancelOrder(number);
     }
 }

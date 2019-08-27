@@ -1,6 +1,6 @@
 package ru.instamart.autotests.testdata;
 
-import ru.instamart.autotests.models.UserData;
+import ru.instamart.autotests.appmanager.models.UserData;
 import java.util.Random;
 import static ru.instamart.autotests.application.Config.TestVariables.TestParams.*;
 import static ru.instamart.autotests.application.Config.TestVariables.CompanyParams.*;

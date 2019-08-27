@@ -4,10 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.autotests.application.Addresses;
-import ru.instamart.autotests.application.PaymentTypes;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.application.libs.Addresses;
+import ru.instamart.autotests.application.libs.PaymentTypes;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 public class OrdersPaymentsTests extends TestBase {
@@ -16,8 +16,8 @@ public class OrdersPaymentsTests extends TestBase {
     public void setup() {
         kraken.get().baseUrl();
         User.Do.loginAs(kraken.session.admin);
-        ShopHelper.ShippingAddress.change(Addresses.Moscow.testAddress());
-        ShopHelper.Cart.drop();
+        Shop.ShippingAddress.change(Addresses.Moscow.testAddress());
+        Shop.Cart.drop();
     }
 
 

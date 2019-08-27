@@ -3,7 +3,7 @@ package ru.instamart.autotests.tests.administration;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.appmanager.AdministrationHelper;
+import ru.instamart.autotests.appmanager.platform.Administration;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.AdministrationTests.enablePagesSectionTests;
@@ -38,7 +38,7 @@ public class AdministrationPagesSectionTests extends TestBase {
     )
     public void ValidatePagesCreationPage() {
         String testPageName = "О компании";
-        AdministrationHelper.Pages.validateStaticPage(testPageName);
+        Administration.Pages.validateStaticPage(testPageName);
     }
 
     @Test(  enabled = enablePagesSectionTests,
@@ -53,15 +53,15 @@ public class AdministrationPagesSectionTests extends TestBase {
 
         kraken.get().adminPage("pages");
 
-        AdministrationHelper.Pages.create(pageName, pageURL, desc);
+        Administration.Pages.create(pageName, pageURL, desc);
             assertElementPresence(Elements.Administration.PagesSection.tableEntry(pageName));
 
-        AdministrationHelper.Pages.validateStaticPage(pageName, pageURL);
+        Administration.Pages.validateStaticPage(pageName, pageURL);
         kraken.detect().isElementPresent(Elements.StaticPages.pageTitle());
 
-        AdministrationHelper.Pages.editStaticPage(pageName);
+        Administration.Pages.editStaticPage(pageName);
 
-        AdministrationHelper.Pages.delete(pageName);
+        Administration.Pages.delete(pageName);
             // TODO проверить отсутствие страницы в списке в админке
             // TODO добавить проверку что тестовая страничка - 404 на сайте
     }

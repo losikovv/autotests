@@ -1,6 +1,6 @@
 package ru.instamart.autotests.application;
 
-import ru.instamart.autotests.models.TenantData;
+import ru.instamart.autotests.appmanager.models.TenantData;
 
 public class Tenants {
 

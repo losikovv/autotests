@@ -5,8 +5,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
 import ru.instamart.autotests.application.Tenants;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.appmanager.ApplicationManager.session;
@@ -17,7 +17,7 @@ public class BasicCheckoutTests extends TestBase {
     public void preparingForCheckout() {
         User.Do.quickLogout();
         User.Do.loginAs(session.user);
-        ShopHelper.Cart.collect();
+        Shop.Cart.collect();
     }
 
     @BeforeMethod(alwaysRun = true)

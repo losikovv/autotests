@@ -4,9 +4,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.autotests.application.Elements;
-import ru.instamart.autotests.appmanager.CheckoutHelper;
-import ru.instamart.autotests.appmanager.ShopHelper;
-import ru.instamart.autotests.appmanager.User;
+import ru.instamart.autotests.appmanager.platform.Checkout;
+import ru.instamart.autotests.appmanager.platform.Shop;
+import ru.instamart.autotests.appmanager.platform.User;
 import ru.instamart.autotests.tests.TestBase;
 
 import static ru.instamart.autotests.application.Config.TestsConfiguration.CheckoutTests.enableContactsStepTests;
@@ -17,13 +17,13 @@ public class CheckoutContactsStepTests extends TestBase {
     public void preparingForCheckout() {
         User.Do.quickLogout();
         User.Do.registration();
-        ShopHelper.Cart.collect();
+        Shop.Cart.collect();
     }
 
     @BeforeMethod(alwaysRun = true)
     public void reachCheckoutAndOpenContactsStep() {
         kraken.reach().checkout();
-        CheckoutHelper.AddressStep.next();
+        Checkout.AddressStep.next();
     }
 
     @Test(  enabled = enableContactsStepTests,
