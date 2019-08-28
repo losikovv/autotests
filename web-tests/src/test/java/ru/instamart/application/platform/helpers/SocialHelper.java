@@ -20,7 +20,7 @@ public class SocialHelper extends HelperBase {
         /** Инициировать авторизацию/регистрацию через ВК */
         public static void initAuth() {
             kraken.get().page("login");
-            kraken.perform().click(Elements.Modals.AuthModal.vkontakte());
+            kraken.perform().click(Elements.Modals.AuthModal.vkontakteButton());
             kraken.await().implicitly(1); // Ожидание открытия окна ВКонтакте
             kraken.perform().switchToNextWindow();
 
@@ -99,7 +99,7 @@ public class SocialHelper extends HelperBase {
         /** Инициировать авторизацию через Facebook */
         public static void initAuth() {
             kraken.get().page("login");
-            kraken.perform().click(Elements.Modals.AuthModal.facebook());
+            kraken.perform().click(Elements.Modals.AuthModal.facebookButton());
             kraken.await().implicitly(2); // Ожидание открытия окна Facebook
             kraken.perform().switchToNextWindow();
 

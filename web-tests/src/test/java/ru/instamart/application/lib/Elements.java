@@ -279,8 +279,8 @@ public class Elements {
 
             static ElementData loginButton() {
                 return new ElementData(
-                        By.xpath("//header//a[contains(@class,'header-icon--login')]"),
-                            "кнопка 'Войти' в шапке сайта");
+                        By.xpath("//header//*[@data-qa='login-button']"),
+                            "кнопка входа в шапке сайта");
             }
 
             static ElementData favoritesButton() {
@@ -291,7 +291,7 @@ public class Elements {
 
             static ElementData profileButton() {
                 return new ElementData(
-                        By.xpath("//header//*[@data-qa='menu-toggle']//*[@data-qa='toggle-button']"),
+                        By.xpath("//header//*[@data-qa='profile-button']"),
                             "кнопка профиля в шапке сайта");
             }
 
@@ -454,82 +454,152 @@ public class Elements {
 
         static ElementData fade() {
             return new ElementData(By.xpath("//div[@class='frame fade-enter-done']"),
-                    "Тень модалок");
+                    "тень модалок");
         }
 
-        // TODO update locators
         /** Модалка авторизации-регистрации */
         interface AuthModal {
 
         static ElementData popup() {
-            return new ElementData(By.className("auth-modal"));
+            return new ElementData(By.xpath("//*[@class='auth-modal']"),
+                    "поп-ап модалки авторизации");
         }
 
         static ElementData closeButton() {
-            return new ElementData(By.xpath("//button[@class='modal-wrapper__close']"));
+            return new ElementData(By.xpath("//*[@class='auth-modal']//button[@class='modal-wrapper__close']"),
+                    "крестик закрытия модалки авторизации");
         }
 
         static ElementData authorisationTab() {
-            return new ElementData(By.xpath("//button[contains(text(),'Вход')]"),
+            return new ElementData(By.xpath("//*[@class='auth-modal']//button[text()='Вход']"),
                     "кнопка переключения на вкладку авторизации в модалке авторизации");
         }
 
         static ElementData registrationTab() {
-            return new ElementData(By.xpath("//button[contains(text(),'Регистрация')]"),
+            return new ElementData(By.xpath("//*[@class='auth-modal']//button[text()='Регистрация']"),
                     "кнопка переключения на вкладку регистрации в модалке авторизации");
         }
 
         static ElementData nameField() {
-            return new ElementData(By.name("fullname"));
+            return new ElementData(By.xpath("//*[@class='auth-modal']//input[@name='fullname']"),
+                    "поле 'Имя и фамилия' в модалке авторизации");
         }
 
         static ElementData emailField() {
-            return new ElementData(By.name("email"));
+            return new ElementData(By.xpath("//*[@class='auth-modal']//input[@name='email']"),
+                    "поле 'Электронная почта' в модалке авторизации");
         }
 
         static ElementData passwordField() {
-            return new ElementData(By.name("password"));
+            return new ElementData(By.xpath("//*[@class='auth-modal']//input[@name='password']"),
+                    "поле 'Пароль' в модалке авторизации");
         }
 
         static ElementData passwordConfirmationField() {
-            return new ElementData(By.name("passwordConfirmation"));
+            return new ElementData(By.xpath("//*[@class='auth-modal']//input[@name='passwordConfirmation']"),
+                    "поле 'Подтверждение пароля' в модалке авторизации");
         }
 
+        // todo update locator
+        static ElementData errorMessage(String text) {
+            return new ElementData(By.xpath("//*[contains(@class, 'auth-input__error') and contains(text(),'" + text + "')]"),
+                    "текст пользовательской ошибки в полях модалки авторизации");
+        }
+
+        static ElementData personalDataWarningText() {
+            return new ElementData(By.xpath("//*[@class='auth-modal']//div[@class='privacy-terms']//text()']"),
+                    "текст предупреждения о согласии с условиями на обработку персональных данных в модалке авторизации");
+        }
+
+        static ElementData personalDataAgreementLink() {
+            return new ElementData(By.xpath("//*[@class='auth-modal']//*[@class='privacy-terms__link']"),
+                    "ссылка на условия обработки персональных данных в модалке авторизации");
+        }
+
+        // todo rememberMeCheckbox
+
+        // todo update locator
         static ElementData agreementCheckbox() { return new ElementData(By.className("checkbox__check"),
                 "чекбокс согласия на получение почтовой рассылки в модалке авторизации"); }
 
         static ElementData forgotPasswordButton() {
-            return new ElementData("Забыли пароль?", By.className("auth-modal__forgotten"));
+            return new ElementData(By.xpath("//*[@class='auth-modal']//*[text()='Забыли пароль?']"));
         }
 
         static ElementData submitButton() {
-            return new ElementData(By.className("auth-modal__button"));
+            return new ElementData(By.xpath("//*[@class='auth-modal']//button[@type='submit']"));
         }
 
-        static ElementData successRecoveryText() {
-            return new ElementData("На указанный вами E-mail высланы инструкции по восстановлению пароля.",
-                    By.cssSelector(".auth-modal__recovery-text > span:nth-child(1)"));
-        }
+        // todo sberIdButton
 
-        static ElementData errorMessage(String text) {
-            return new ElementData(null,
-                    (By.xpath("//*[contains(@class, 'auth-input__error') and contains(text(),'" + text + "')]")));
-        }
+        // todo mailRuButton
 
-        static ElementData vkontakte() {
+        static ElementData vkontakteButton() {
             return new ElementData(null,
                     By.xpath("//div[@class='auth-modal__social-icon auth-modal__social-icon--vkontakte']"));
         }
 
-        static ElementData facebook() {
+        static ElementData facebookButton() {
             return new ElementData(null,
                     By.xpath("//div[@class='auth-modal__social-icon auth-modal__social-icon--facebook']"));
         }
     }
 
-        // TODO update locators
-        /** Адресные модалки Феникса */
-        interface AddressModal {
+    /** Модалка авторизации-регистрации */
+    interface PasswordRecoveryModal {
+
+        static ElementData closeButton() {
+            return new ElementData(
+                    By.xpath("//button[@class='modal-wrapper__close']"),
+                        "крестик закрытия модалки восстановления пароля");
+        }
+
+        static ElementData backButton() {
+            return new ElementData(
+                    By.xpath("//div[@class='auth-modal__back']"),
+                        "кнопка 'Вернуться назад' в модалке восстановления пароля");
+        }
+
+        static ElementData emailField() {
+            return new ElementData(
+                    By.xpath("//input[@name='email']"),
+                        "поле 'Пароль' в модалке восстановления пароля");
+        }
+
+        static ElementData passwordField() {
+            return new ElementData(
+                    By.xpath("//input[@name='password']"),
+                        "поле 'Пароль' в модалке восстановления пароля");
+        }
+
+        static ElementData passwordConfirmationField() {
+            return new ElementData(
+                    By.xpath("//input[@name='passwordConfirmation']"),
+                        "поле 'Подтверждение пароля' в модалке восстановления пароля");
+        }
+
+        static ElementData submitRequestButton() {
+            return new ElementData(
+                    By.xpath("//button[@type='submit' and text()='Восстановить']"),
+                        "кнопка отправки запроса на восстановление пароля в модалке восстановления пароля");
+        }
+
+        static ElementData submitRecoveryButton() {
+            return new ElementData(
+                    By.xpath("//button[@type='submit' and text()='Сохранить и войти']"),
+                        "кнопка восстановления пароля в модалке восстановления пароля");
+        }
+
+        static ElementData successRecoveryRequestText() {
+            return new ElementData(
+                    By.xpath("//*[@class='auth-modal']//*[@class='auth-modal__recovery-text']//span"),
+                        "текст успешного запроса в модалке восстановления пароля");
+        }
+    }
+
+    // TODO update locators
+    /** Адресные модалки Феникса */
+    interface AddressModal {
 
         static ElementData header() {
             return new ElementData(By.className("address-modal__header"));
@@ -746,8 +816,8 @@ public class Elements {
         }
 
         static ElementData logoutButton() {
-            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//a[@href='/logout']"),
-                    "кнопка \"Выйти\" во всплывающем меню профиля");
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//*[text()='Выйти']//ancestor::a"),
+                    "кнопка 'Выйти' во всплывающем меню профиля");
         }
 
         static ElementData deliveryButton() {
@@ -775,8 +845,9 @@ public class Elements {
     public interface UserProfile {
 
         static ElementData menu() {
-            return new ElementData(null,
-                    By.className("user-menu"));
+            return new ElementData(
+                    By.className("user-menu"),
+                        "боковое меню в разделе профиля");
         }
 
         /** Страница аккаунта */
@@ -2637,54 +2708,6 @@ public class Elements {
         static ElementData pageTitle() {
             return new ElementData(By.xpath("//*[@class='inner-page__title']/h1"),
                     "заголовок статической страницы");
-        }
-    }
-
-    public interface PasswordRecovery {
-
-        interface RecoveryModal {
-
-            static ElementData closeButton() {
-                return new ElementData(
-                        By.xpath("//button[@class='modal-wrapper__close']"),
-                            "крестик закрытия модалки восстановления пароля");
-            }
-
-            static ElementData backButton() {
-                return new ElementData(
-                        By.xpath("//div[@class='auth-modal__back']"),
-                            "кнопка 'Вернуться назад' в модалке восстановления пароля");
-            }
-
-            static ElementData emailField() {
-                return new ElementData(
-                        By.xpath("//input[@name='email']"),
-                            "поле 'Пароль' в модалке восстановления пароля");
-            }
-
-            static ElementData passwordField() {
-                return new ElementData(
-                        By.xpath("//input[@name='password']"),
-                            "поле 'Пароль' в модалке восстановления пароля");
-            }
-
-            static ElementData passwordConfirmationField() {
-                return new ElementData(
-                        By.xpath("//input[@name='passwordConfirmation']"),
-                            "поле 'Подтверждение пароля' в модалке восстановления пароля");
-            }
-
-            static ElementData submitRequestButton() {
-                return new ElementData(
-                        By.xpath("//button[@type='submit' and text()='Восстановить']"),
-                            "кнопка отправки запроса на восстановление пароля в модалке восстановления пароля");
-            }
-
-            static ElementData submitRecoveryButton() {
-                return new ElementData(
-                        By.xpath("//button[@type='submit' and text()='Сохранить и войти']"),
-                            "кнопка восстановления пароля в модалке восстановления пароля");
-            }
         }
     }
 

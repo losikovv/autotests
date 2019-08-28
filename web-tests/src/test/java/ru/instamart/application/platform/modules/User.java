@@ -80,7 +80,8 @@ public class User extends Base {
         private static void loginOnSite(String email, String password) {
             verboseMessage("Авторизуемся на сайте (" + email + " / " + password + ")");
             Shop.AuthModal.open();
-            authSequence(email, password);
+            Shop.AuthModal.switchToAuthorisationTab();
+            Shop.AuthModal.fillAuthorisationForm(email, password);
             Shop.AuthModal.submit();
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(
@@ -98,24 +99,10 @@ public class User extends Base {
         }
 
         /**
-         * Авторизационная последовательность с реквизитами из переданного объекта UserData
-         */
-        public static void authSequence(UserData role) {
-            authSequence(role.getEmail(), role.getPassword());
-        }
-
-        /**
-         * Авторизационная последовательность с указанными реквизитами
-         */
-        public static void authSequence(String email, String password) {
-            Shop.AuthModal.switchToAuthorisationTab();
-            Shop.AuthModal.fillAuthorisationForm(email, password);
-        }
-
-        /**
          * Деавторизоваться
          */
         public static void logout() {
+            verboseMessage("Логаут...");
             if (kraken.detect().isInAdmin()) {
                 kraken.perform().click(Elements.Administration.Header.logoutButton());
             } else {
@@ -123,19 +110,17 @@ public class User extends Base {
                 kraken.perform().click(Elements.AccountMenu.logoutButton());
             }
             kraken.await().implicitly(1); // Ожидание деавторизации и подгрузки лендинга
-            if (kraken.detect().isOnLanding()) {
-                verboseMessage("Логаут\n");
+            if (!kraken.detect().isUserAuthorised()) {
+                verboseMessage("✓ Готово\n");
             }
         }
 
-        /**
-         * Деавторизоваться быстро по прямой ссылке
-         */
         public static void quickLogout() {
+            verboseMessage("Быстрый логаут...");
             kraken.get().page("logout");
             kraken.await().simply(1); // Ожидание деавторизации и подгрузки лендинга
             if (kraken.detect().isOnLanding()) {
-                message("Быстрый логаут\n");
+                verboseMessage("✓ Готово\n");
             }
         }
 
@@ -238,21 +223,20 @@ public class User extends Base {
         /**
          * Запросить восстановление пароля для указанной роли
          */
-        public static void recoverPasswordAs(UserData role) {
-            recoverPassword(role.getEmail());
+        public static void requestPasswordRecovery(UserData role) {
+            requestPasswordRecovery(role.getEmail());
         }
 
         /**
          * Запросить восстановление пароля
          */
-        public static void recoverPassword(String email) {
+        public static void requestPasswordRecovery(String email) {
             Shop.AuthModal.open();
             Shop.AuthModal.switchToAuthorisationTab();
             Shop.AuthModal.proceedToPasswordRecovery();
             verboseMessage("> запрашиваем восстановление пароля для " + email);
-            kraken.perform().fillField(Elements.Modals.AuthModal.emailField(), email);
+            Shop.RecoveryModal.fillRequestForm(email);
             Shop.AuthModal.submit();
-            kraken.await().implicitly(1); // Ожидание раздизабливания кнопки подтверждения восстановления пароля
         }
     }
 }

@@ -284,7 +284,8 @@ public class UserFavoritesTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе открывается модалка авторизации после попытки добавления товара из каталога в избранное");
 
-        User.Do.authSequence(session.user);
+        Shop.AuthModal.switchToAuthorisationTab();
+        Shop.AuthModal.fillAuthorisationForm(session.user.getEmail(), session.user.getPassword());
         Shop.AuthModal.submit();
 
         softAssert.assertTrue(
@@ -309,7 +310,8 @@ public class UserFavoritesTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе открывается модалка авторизации после попытки добавления товара из карточки в избранное");
 
-        User.Do.authSequence(session.user);
+        Shop.AuthModal.switchToAuthorisationTab();
+        Shop.AuthModal.fillAuthorisationForm(session.user.getEmail(), session.user.getPassword());
         Shop.AuthModal.submit();
 
         softAssert.assertTrue(

@@ -53,11 +53,6 @@ public class DetectionHelper extends HelperBase {
         return isElementPresent(locator) && kraken.grab().text(locator).equals(text);
     }
 
-    // Todo убрать
-    public boolean element(String xpath, String text) {
-        return isElementPresent(By.xpath(xpath)) && kraken.grab().text(By.xpath(xpath)).equals(text);
-    }
-
     /**
      * Определить отображается ли элемент
      */
@@ -314,7 +309,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить отправлена ли форма восстановления пароля */
     public boolean isRecoveryRequested(){
-        if (kraken.detect().element(Elements.Modals.AuthModal.successRecoveryText())) {
+        if (kraken.detect().element(Elements.Modals.PasswordRecoveryModal.successRecoveryRequestText())) {
             verboseMessage("Запрошено восстановление пароля");
             return true;
         } else {

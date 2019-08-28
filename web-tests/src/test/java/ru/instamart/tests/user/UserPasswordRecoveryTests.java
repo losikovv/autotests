@@ -23,10 +23,10 @@ public class UserPasswordRecoveryTests extends TestBase {
             priority = 451
     )
     public void noRecoveryWithEmptyEmail() {
-        User.Do.recoverPassword(null);
+        User.Do.requestPasswordRecovery("");
 
         Assert.assertFalse(kraken.detect().isRecoveryRequested(),
-                "Отправляется запрос на восстановление пароля с пустым полем email\n");
+                failMessage("Отправляется запрос на восстановление пароля с пустым полем email"));
     }
 
     @Test(
@@ -35,10 +35,10 @@ public class UserPasswordRecoveryTests extends TestBase {
             priority = 452
     )
     public void noRecoveryWithWrongEmail() {
-        User.Do.recoverPassword("wrongemail.example.com");
+        User.Do.requestPasswordRecovery("wrongemail.example.com");
 
         Assert.assertFalse(kraken.detect().isRecoveryRequested(),
-                "Отправляется запрос на восстановление пароля с некорректным email\n");
+                failMessage("Отправляется запрос на восстановление пароля с некорректным email"));
     }
 
     @Test(
@@ -47,10 +47,10 @@ public class UserPasswordRecoveryTests extends TestBase {
             priority = 453
     )
     public void noRecoveryForNonexistingUser() {
-        User.Do.recoverPassword("nonexistinguser@example.com");
+        User.Do.requestPasswordRecovery("nonexistinguser@example.com");
 
         Assert.assertFalse(kraken.detect().isRecoveryRequested(),
-                "Отправляется запрос на восстановление пароля для несуществующего пользователя\n");
+                failMessage("Отправляется запрос на восстановление пароля для несуществующего пользователя"));
     }
 
     @Test(
@@ -59,10 +59,10 @@ public class UserPasswordRecoveryTests extends TestBase {
             priority = 454
     )
     public void successRequestRecoveryOnLanding() {
-        User.Do.recoverPasswordAs(Users.superuser());
+        User.Do.requestPasswordRecovery(Users.superuser());
 
         Assert.assertTrue(kraken.detect().isRecoveryRequested(),
-                "Не отправляется запрос на восстановление пароля на лендинге\n");
+                failMessage("Не отправляется запрос на восстановление пароля на лендинге"));
     }
 
     @Test(
@@ -73,10 +73,10 @@ public class UserPasswordRecoveryTests extends TestBase {
     public void successRequestRecoveryOnRetailer() {
         kraken.get().page("metro");
 
-        User.Do.recoverPasswordAs(Users.superuser());
+        User.Do.requestPasswordRecovery(Users.superuser());
 
         Assert.assertTrue(kraken.detect().isRecoveryRequested(),
-                "Не отправляется запрос на восстановление пароля на витрине ритейлера\n");
+                failMessage("Не отправляется запрос на восстановление пароля на витрине ритейлера"));
     }
 
     @Test (
@@ -85,13 +85,13 @@ public class UserPasswordRecoveryTests extends TestBase {
             priority = 456
     )
     public void successOpenAuthModalAfterRecovery() {
-        User.Do.recoverPasswordAs(Users.superuser());
+        User.Do.requestPasswordRecovery(Users.superuser());
 
         Shop.RecoveryModal.close();
         Shop.AuthModal.open();
 
         Assert.assertFalse(kraken.detect().isRecoveryRequested(),
-                "Невозможно открыть авторизационную модалку после отправки формы восстановления пароля\n");
+                failMessage("Невозможно открыть авторизационную модалку после отправки формы восстановления пароля"));
     }
 
     @Test (
@@ -100,13 +100,13 @@ public class UserPasswordRecoveryTests extends TestBase {
             priority = 457
     )
     public void successAuthWithCurrentPasswordAfterRecoveryRequest() {
-        User.Do.recoverPasswordAs(AppManager.session.user);
+        User.Do.requestPasswordRecovery(AppManager.session.user);
         kraken.get().baseUrl();
 
         User.Do.loginAs(AppManager.session.user);
 
         Assert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Невозможно авторизоваться с текущим паролем после запроса на восстановление пароля\n");
+                failMessage("Невозможно авторизоваться с текущим паролем после запроса на восстановление пароля"));
     }
 
     @Test (
@@ -116,7 +116,7 @@ public class UserPasswordRecoveryTests extends TestBase {
     )
     public void successPasswordRecovery() {
         SoftAssert softAssert = new SoftAssert();
-        User.Do.recoverPasswordAs(Users.userGmail());
+        User.Do.requestPasswordRecovery(Users.userGmail());
 
         User.Do.authGmail(Users.userGmail());
         User.Do.openLastGmail();
@@ -128,10 +128,10 @@ public class UserPasswordRecoveryTests extends TestBase {
         User.Do.login(Users.userGmail().getEmail(), "password1");
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
-                "Невозможно авторизоваться с новым паролем после восстановления пароля\n");
+                failMessage("Невозможно авторизоваться с новым паролем после восстановления пароля"));
 
         User.Do.quickLogout();
-        User.Do.recoverPasswordAs(Users.userGmail());
+        User.Do.requestPasswordRecovery(Users.userGmail());
 
         kraken.get().url("https://mail.google.com/mail/u/0/h/");
         User.Do.openLastGmail();
@@ -143,6 +143,6 @@ public class UserPasswordRecoveryTests extends TestBase {
         User.Do.login(Users.userGmail().getEmail(), "password1");
         
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
-                "Возможно авторизоваться со старым паролем после восстановления пароля!\n");
+                failMessage("Возможно авторизоваться со старым паролем после восстановления пароля!"));
     }
 }

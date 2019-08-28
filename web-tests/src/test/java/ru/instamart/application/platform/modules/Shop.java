@@ -91,37 +91,37 @@ public class Shop extends Base {
 
         public static void close() {
             verboseMessage("> закрываем модалку\n");
-            kraken.perform().click(Elements.PasswordRecovery.RecoveryModal.closeButton());
+            kraken.perform().click(Elements.Modals.PasswordRecoveryModal.closeButton());
         }
 
         public static void proceedBack() {
             verboseMessage("> возвращаемся назад\n");
-            kraken.perform().click(Elements.PasswordRecovery.RecoveryModal.backButton());
+            kraken.perform().click(Elements.Modals.PasswordRecoveryModal.backButton());
             kraken.await().simply(1); // Ожидание возврата назад из формы восстановления пароля
         }
 
         public static void fillRequestForm(String email) {
             verboseMessage("> заполняем форму запроса восстановления пароля");
-            kraken.perform().fillField(Elements.PasswordRecovery.RecoveryModal.emailField(), email);
+            kraken.perform().fillField(Elements.Modals.PasswordRecoveryModal.emailField(), email);
             submitRequest();
         }
 
         public static void fillRecoveryForm(String password, String passwordConfirmation) {
             verboseMessage("> заполняем форму восстановления пароля");
-            kraken.perform().fillField(Elements.PasswordRecovery.RecoveryModal.passwordField(), password);
-            kraken.perform().fillField(Elements.PasswordRecovery.RecoveryModal.passwordConfirmationField(), passwordConfirmation);
+            kraken.perform().fillField(Elements.Modals.PasswordRecoveryModal.passwordField(), password);
+            kraken.perform().fillField(Elements.Modals.PasswordRecoveryModal.passwordConfirmationField(), passwordConfirmation);
             submitRecovery();
         }
 
         public static void submitRequest() {
             verboseMessage("> отправляем форму\n");
-            kraken.perform().click(Elements.PasswordRecovery.RecoveryModal.submitRequestButton());
+            kraken.perform().click(Elements.Modals.PasswordRecoveryModal.submitRequestButton());
             kraken.await().implicitly(1); // Ожидание восстановления пароля
         }
 
         public static void submitRecovery() {
             verboseMessage("> отправляем форму\n");
-            kraken.perform().click(Elements.PasswordRecovery.RecoveryModal.submitRecoveryButton());
+            kraken.perform().click(Elements.Modals.PasswordRecoveryModal.submitRecoveryButton());
             kraken.await().implicitly(1); // Ожидание восстановления пароля
         }
     }

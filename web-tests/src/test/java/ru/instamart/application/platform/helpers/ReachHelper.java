@@ -37,9 +37,6 @@ public class ReachHelper extends HelperBase {
         kraken.get().page(Pages.Admin.login());
         if (kraken.detect().isOnSite()) {
             User.Do.quickLogout();
-            if(!kraken.environment.getTenant().getAlias().equals(Tenants.instamart().getAlias())){
-                kraken.get().page(Pages.Admin.login());
-            }
             User.Do.login(Users.superadmin());
         }
         kraken.get().adminPage(path);

@@ -42,7 +42,8 @@ public class UserAuthorisationTests extends TestBase {
         kraken.get().page("metro");
 
         Shop.AuthModal.open();
-        User.Do.authSequence("", "");
+        Shop.AuthModal.switchToAuthorisationTab();
+        Shop.AuthModal.fillAuthorisationForm("", "");
         Shop.AuthModal.submit();
 
         SoftAssert softAssert = new SoftAssert();
@@ -58,6 +59,7 @@ public class UserAuthorisationTests extends TestBase {
                         "Нет пользовательской ошибки пустого поля Пароль\n");
 
         kraken.get().baseUrl();
+
         Assert.assertFalse(
                 kraken.detect().isUserAuthorised(),
                         "Произошла авторизация с пустыми реквизитами"+"\n");
@@ -78,7 +80,8 @@ public class UserAuthorisationTests extends TestBase {
         kraken.get().page("metro");
 
         Shop.AuthModal.open();
-        User.Do.authSequence("", "instamart");
+        Shop.AuthModal.switchToAuthorisationTab();
+        Shop.AuthModal.fillAuthorisationForm("", "instamart");
         Shop.AuthModal.submit();
 
         SoftAssert softAssert = new SoftAssert();
@@ -109,7 +112,8 @@ public class UserAuthorisationTests extends TestBase {
         kraken.get().page("metro");
 
         Shop.AuthModal.open();
-        User.Do.authSequence(Users.superuser().getEmail(), "");
+        Shop.AuthModal.switchToAuthorisationTab();
+        Shop.AuthModal.fillAuthorisationForm(Users.superuser().getEmail(), "");
         Shop.AuthModal.submit();
 
         SoftAssert softAssert = new SoftAssert();
@@ -140,7 +144,8 @@ public class UserAuthorisationTests extends TestBase {
         kraken.get().page("metro");
 
         Shop.AuthModal.open();
-        User.Do.authSequence("nonexistinguser@example.com", "password");
+        Shop.AuthModal.switchToAuthorisationTab();
+        Shop.AuthModal.fillAuthorisationForm("nonexistinguser@example.com", "password");
         Shop.AuthModal.submit();
 
         SoftAssert softAssert = new SoftAssert();
@@ -171,7 +176,8 @@ public class UserAuthorisationTests extends TestBase {
         kraken.get().page("metro");
 
         Shop.AuthModal.open();
-        User.Do.authSequence(Users.superuser().getEmail(), "wrongpassword");
+        Shop.AuthModal.switchToAuthorisationTab();
+        Shop.AuthModal.fillAuthorisationForm(Users.superuser().getEmail(), "wrongpassword");
         Shop.AuthModal.submit();
 
         SoftAssert softAssert = new SoftAssert();
@@ -199,23 +205,24 @@ public class UserAuthorisationTests extends TestBase {
             priority = 106
     )
     public void noAuthWithLongFields() {
+        SoftAssert softAssert = new SoftAssert();
+        UserData testUser = generate.testCredentials("user",129);
         kraken.get().page("metro");
 
         Shop.AuthModal.open();
-        User.Do.authSequence(generate.testCredentials("user",129));
+        Shop.AuthModal.switchToAuthorisationTab();
+        Shop.AuthModal.fillAuthorisationForm(testUser.getEmail(), testUser.getPassword());
         Shop.AuthModal.submit();
 
-        SoftAssert softAssert = new SoftAssert();
-
         softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Неверный email или пароль")),
-                        "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
+                kraken.detect().isElementPresent(Elements.Modals.AuthModal.errorMessage("Неверный email или пароль")),
+                    failMessage("Нет пользовательской ошибки авторизации с неверным email или паролем"));
 
         kraken.get().baseUrl();
+
         softAssert.assertFalse(
                 kraken.detect().isUserAuthorised(),
-                    "Произошла авторизация при наличии ошибок заполнения формы авторизации\n");
+                    failMessage("Произошла авторизация при наличии ошибок заполнения формы авторизации"));
 
         softAssert.assertAll();
     }
@@ -233,7 +240,8 @@ public class UserAuthorisationTests extends TestBase {
         kraken.get().page("metro");
 
         Shop.AuthModal.open();
-        User.Do.authSequence(Users.superuser());
+        Shop.AuthModal.switchToAuthorisationTab();
+        Shop.AuthModal.fillAuthorisationForm(Users.superuser().getEmail(), Users.superuser().getPassword());
         Shop.AuthModal.close();
 
         SoftAssert softAssert = new SoftAssert();
@@ -413,13 +421,35 @@ public class UserAuthorisationTests extends TestBase {
     }
 
     @Test(
+            description = "Тест успешной авторизации через Facebook",
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
+            },
+            priority = 113
+    )
+    public void successAuthWithMailRu() {
+        skipTest(); // TODO включить когда будет тестовый акк Mail
+
+        kraken.get().page("metro");
+        // todo SocialHelper.MailRu.initAuth();
+
+        // todo SocialHelper.MailRu.submitAuth();
+
+        Assert.assertTrue(
+                kraken.detect().isUserAuthorised(),
+                    "Не работает авторизация через MailRu\n");
+    }
+
+    @Test(
             description = "Тест успешной деавторизации",
             groups = {
                     "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
-            priority = 114
+            priority = 115
     )
     public void successLogout() {
         kraken.get().page("metro");
