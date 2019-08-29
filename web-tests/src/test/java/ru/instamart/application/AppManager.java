@@ -13,7 +13,7 @@ import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.platform.helpers.*;
 import ru.instamart.application.platform.modules.Checkout;
 import ru.instamart.application.platform.modules.Shop;
-import ru.instamart.application.models.EnvironmentData;
+import ru.instamart.application.models.ServerData;
 import ru.instamart.application.models.SessionData;
 import ru.instamart.testdata.generate;
 
@@ -33,7 +33,7 @@ public class AppManager {
     public final static String testrunId = generate.testRunId();
 
     protected WebDriver driver;
-    public EnvironmentData environment;
+    public ServerData server;
     private String browser;
     public static SessionData session;
 
@@ -64,7 +64,7 @@ public class AppManager {
         initHelpers();
         applyOptions();
         revealKraken();
-        driver.get(environment.getBaseURL(true));
+        driver.get(server.getBaseURL(true));
     }
 
     private void initTestSession() {
@@ -84,7 +84,7 @@ public class AppManager {
     }
 
     private void initEnvironment() {
-        environment = Config.CoreSettings.environment;
+        server = Config.CoreSettings.server;
     }
 
     private void initDriver() {
@@ -106,19 +106,19 @@ public class AppManager {
     }
 
     private void initHelpers() {
-        browseHelper = new BrowseHelper(driver, environment, this);
-        performHelper = new PerformHelper(driver, environment, this);
-        reachHelper = new ReachHelper(driver, environment, this);
-        detectionHelper = new DetectionHelper(driver, environment, this);
-        grabHelper = new GrabHelper(driver,environment,this);
-        dropHelper = new DropHelper(driver,environment,this);
-        socialHelper = new SocialHelper(driver, environment, this);
-        shopHelper = new Shop(driver, environment, this);
-        userHelper = new User(driver, environment, this);
-        checkoutHelper = new Checkout(driver, environment, this);
-        administrationHelper = new Administration(driver, environment, this);
-        cleanupHelper = new CleanupHelper(driver, environment, this);
-        waitingHelper = new WaitingHelper(driver, environment, this);
+        browseHelper = new BrowseHelper(driver, server, this);
+        performHelper = new PerformHelper(driver, server, this);
+        reachHelper = new ReachHelper(driver, server, this);
+        detectionHelper = new DetectionHelper(driver, server, this);
+        grabHelper = new GrabHelper(driver, server,this);
+        dropHelper = new DropHelper(driver, server,this);
+        socialHelper = new SocialHelper(driver, server, this);
+        shopHelper = new Shop(driver, server, this);
+        userHelper = new User(driver, server, this);
+        checkoutHelper = new Checkout(driver, server, this);
+        administrationHelper = new Administration(driver, server, this);
+        cleanupHelper = new CleanupHelper(driver, server, this);
+        waitingHelper = new WaitingHelper(driver, server, this);
     }
 
     private void applyOptions() {
@@ -135,7 +135,7 @@ public class AppManager {
         }
         in.close();
 
-        System.out.println("\nENVIRONMENT: " + environment.getName() + " ( " + environment.getHost() + " )");
+        System.out.println("\nENVIRONMENT: " + server.getName() + " ( " + server.getHost() + " )");
 
         if(multiSessionMode) {
             System.out.println("\nTEST RUN: " + session.id);

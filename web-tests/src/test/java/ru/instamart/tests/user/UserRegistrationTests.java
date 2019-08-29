@@ -8,7 +8,7 @@ import ru.instamart.application.lib.Users;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.platform.helpers.SocialHelper;
 import ru.instamart.application.lib.Addresses;
-import ru.instamart.application.lib.Elements;
+import ru.instamart.application.Elements;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.testdata.generate;
 import ru.instamart.tests.TestBase;

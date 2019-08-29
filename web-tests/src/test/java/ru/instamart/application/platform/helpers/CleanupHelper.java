@@ -4,12 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import ru.instamart.application.platform.modules.Administration;
 import ru.instamart.application.AppManager;
-import ru.instamart.application.lib.Elements;
-import ru.instamart.application.models.EnvironmentData;
+import ru.instamart.application.Elements;
+import ru.instamart.application.models.ServerData;
 
 public class CleanupHelper extends HelperBase {
 
-    public CleanupHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
+    public CleanupHelper(WebDriver driver, ServerData environment, AppManager app) {
         super(driver, environment, app);
     }
 

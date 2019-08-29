@@ -4,10 +4,10 @@ import org.openqa.selenium.By;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.application.lib.Elements;
+import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Users;
 import ru.instamart.application.AppManager;
-import ru.instamart.application.models.EnvironmentData;
+import ru.instamart.application.models.ServerData;
 import ru.instamart.application.models.UserData;
 import ru.instamart.testdata.generate;
 
@@ -15,7 +15,7 @@ import static ru.instamart.application.Config.CoreSettings.multiSessionMode;
 
 public class User extends Base {
 
-    public User(WebDriver driver, EnvironmentData environment, AppManager app) {
+    public User(WebDriver driver, ServerData environment, AppManager app) {
         super(driver, environment, app);
     }
 
@@ -220,6 +220,8 @@ public class User extends Base {
             kraken.perform().switchToNextWindow();
         }
 
+        //todo requestPasswordRecovery(UserData user)
+
         /**
          * Запросить восстановление пароля для указанной роли
          */
@@ -236,7 +238,7 @@ public class User extends Base {
             Shop.AuthModal.proceedToPasswordRecovery();
             verboseMessage("> запрашиваем восстановление пароля для " + email);
             Shop.RecoveryModal.fillRequestForm(email);
-            Shop.AuthModal.submit();
+            Shop.RecoveryModal.submitRequest();
         }
     }
 }

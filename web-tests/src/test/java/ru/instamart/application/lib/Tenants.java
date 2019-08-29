@@ -13,7 +13,7 @@ public class Tenants {
     }
 
     public static TenantData sbermarket() {
-        return new TenantData("СберМаркет", "sbermarket");
+        return new TenantData("СберМАРКЕТ", "sbermarket");
     }
 
 }

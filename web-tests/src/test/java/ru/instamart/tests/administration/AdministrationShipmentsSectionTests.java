@@ -5,7 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.application.Config;
-import ru.instamart.application.lib.Elements;
+import ru.instamart.application.Elements;
 import ru.instamart.application.models.UserData;
 import ru.instamart.application.platform.modules.Administration;
 import ru.instamart.application.platform.modules.User;

@@ -6,29 +6,29 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.application.models.*;
 import ru.instamart.application.AppManager;
-import ru.instamart.application.lib.Elements;
+import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.application.platform.modules.Shop;
 
 public class DetectionHelper extends HelperBase {
 
-    public DetectionHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
+    public DetectionHelper(WebDriver driver, ServerData environment, AppManager app) {
         super(driver, environment, app);
     }
 
     /** Определить в каком тестовом окружении находимся */
-    public boolean environment(EnvironmentData environment) {
-        return kraken.environment.getName().equals(environment.getName());
+    public boolean environment(ServerData environment) {
+        return kraken.server.getName().equals(environment.getName());
     }
 
     /** Определить серверное окружение */
     public boolean server(String server) {
-        return kraken.environment.getServer().equals(server);
+        return kraken.server.getEnvironment().equals(server);
     }
 
     /** Определить тенант */
     public boolean tenant(TenantData tenant) {
-        return kraken.environment.getTenant().getAlias().equals(tenant.getAlias());
+        return kraken.server.getTenant().getAlias().equals(tenant.getAlias());
     }
 
     /**

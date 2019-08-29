@@ -2,7 +2,7 @@ package ru.instamart.application.platform.helpers;
 
 import org.openqa.selenium.*;
 import ru.instamart.application.AppManager;
-import ru.instamart.application.models.EnvironmentData;
+import ru.instamart.application.models.ServerData;
 
 import static ru.instamart.application.Config.CoreSettings.debug;
 import static ru.instamart.application.Config.CoreSettings.verbose;
@@ -15,7 +15,7 @@ public class HelperBase {
     public String adminUrl;
     private static boolean acceptNextAlert = true;
 
-    HelperBase(WebDriver driver, EnvironmentData environment, AppManager app) {
+    HelperBase(WebDriver driver, ServerData environment, AppManager app) {
         this.driver = driver;
         this.baseUrl = environment.getBaseURL(false);
         this.fullBaseUrl = environment.getBaseURL(true);

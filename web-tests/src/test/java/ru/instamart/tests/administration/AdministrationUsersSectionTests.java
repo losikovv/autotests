@@ -7,7 +7,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.application.lib.Users;
 import ru.instamart.application.platform.modules.Administration;
 import ru.instamart.application.platform.modules.User;
-import ru.instamart.application.lib.Elements;
+import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.application.models.UserData;
 import ru.instamart.testdata.generate;

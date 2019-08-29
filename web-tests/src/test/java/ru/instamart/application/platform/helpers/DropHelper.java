@@ -2,14 +2,14 @@ package ru.instamart.application.platform.helpers;
 
 import org.openqa.selenium.WebDriver;
 import ru.instamart.application.AppManager;
-import ru.instamart.application.models.EnvironmentData;
+import ru.instamart.application.models.ServerData;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
 
 public class DropHelper extends HelperBase {
 
     // TODO выпилить этот хелпер
-    public DropHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
+    public DropHelper(WebDriver driver, ServerData environment, AppManager app) {
         super(driver, environment, app);
     }
 

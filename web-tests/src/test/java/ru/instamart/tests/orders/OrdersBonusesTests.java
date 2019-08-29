@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.application.lib.Addresses;
 import ru.instamart.application.lib.BonusPrograms;
-import ru.instamart.application.lib.Elements;
+import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.application.platform.modules.Administration;
 import ru.instamart.application.platform.modules.Checkout;
@@ -34,11 +34,7 @@ public class OrdersBonusesTests extends TestBase {
 
     @Test(  enabled = enableOrderBonusesTests,
             description = "Тест заказа с добавлением бонусов Много.ру",
-            groups = {
-                    "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
+            groups = {"acceptance", "regression"},
             priority = 2501
     )
     public void successOrderWithMnogoRuBonus() {
@@ -55,11 +51,7 @@ public class OrdersBonusesTests extends TestBase {
 
     @Test(  enabled = enableOrderBonusesTests,
             description = "Тест заказа с добавлением бонусов Аерофлот Бонус",
-            groups = {
-                    "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
+            groups = {"acceptance", "regression"},
             priority = 2502
 
     )

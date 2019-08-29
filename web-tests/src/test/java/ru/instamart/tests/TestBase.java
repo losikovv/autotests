@@ -5,7 +5,7 @@ import org.testng.SkipException;
 import org.testng.annotations.*;
 import ru.instamart.application.models.*;
 import ru.instamart.application.Config;
-import ru.instamart.application.lib.Elements;
+import ru.instamart.application.Elements;
 import ru.instamart.application.AppManager;
 import ru.instamart.testdata.generate;
 
@@ -188,7 +188,7 @@ public class TestBase {
     }
 
     /** Пропуск теста на окружении */
-    public void skipTestOn(EnvironmentData environment) throws SkipException{
+    public void skipTestOn(ServerData environment) throws SkipException{
         if (kraken.detect().environment(environment)) {
             message("Пропускаем тест на окружении " + environment.getName());
                 throw new SkipException("Пропускаем тест");
@@ -204,7 +204,7 @@ public class TestBase {
     }
 
     /** Проведение теста только на указанном окружении */
-    public void runTestOnlyOn(EnvironmentData environment) throws SkipException {
+    public void runTestOnlyOn(ServerData environment) throws SkipException {
         if (!kraken.detect().environment(environment)) {
             message("Тест только для окружения " + environment.getName());
             throw new SkipException("Пропускаем тест");

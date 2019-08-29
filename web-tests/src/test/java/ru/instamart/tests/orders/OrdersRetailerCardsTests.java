@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.application.Config;
+import ru.instamart.application.Elements;
+import ru.instamart.application.Servers;
 import ru.instamart.application.lib.*;
 import ru.instamart.application.platform.modules.Administration;
 import ru.instamart.application.platform.modules.Shop;
@@ -26,7 +28,7 @@ public class OrdersRetailerCardsTests extends TestBase {
             priority = 2601
     )
     public void successOrderWithMetroCard() {
-        runTestOnlyOn(Environments.metro_production());
+        runTestOnlyOn(Servers.metro_production());
 
         kraken.get().page("metro");
         Shop.Cart.collect();

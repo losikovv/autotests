@@ -4,16 +4,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.lib.Addresses;
-import ru.instamart.application.lib.Elements;
+import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.application.models.ElementData;
 import ru.instamart.application.models.WidgetData;
 import ru.instamart.application.Config;
-import ru.instamart.application.models.EnvironmentData;
+import ru.instamart.application.models.ServerData;
 
 public class Shop extends Base {
 
-    public Shop(WebDriver driver, EnvironmentData environment, AppManager app) {
+    public Shop(WebDriver driver, ServerData environment, AppManager app) {
         super(driver, environment, app);
     }
 

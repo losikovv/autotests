@@ -1,7 +1,6 @@
 package ru.instamart.application;
 
 import org.openqa.selenium.remote.BrowserType;
-import ru.instamart.application.lib.Environments;
 import ru.instamart.application.lib.PaymentTypes;
 import ru.instamart.application.lib.ReplacementPolicies;
 import ru.instamart.application.models.*;
@@ -10,7 +9,7 @@ public class Config {
 
     public interface CoreSettings {
         String browser = BrowserType.FIREFOX;
-        EnvironmentData environment = Environments.instamart_staging();
+        ServerData server = Servers.instamart_staging();
 
         int basicTimeout = 2;
         int waitingTimeout = 60;
@@ -126,7 +125,7 @@ public class Config {
                                     "55555555555555555555"
                             )
                     ),
-                    new DeliveryTimeData(7)
+                    new DeliveryTimeData(3, 1)
             );
         }
 

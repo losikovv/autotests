@@ -2,14 +2,14 @@ package ru.instamart.application.platform.modules;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.application.lib.Elements;
+import ru.instamart.application.Elements;
 import ru.instamart.application.AppManager;
-import ru.instamart.application.models.EnvironmentData;
+import ru.instamart.application.models.ServerData;
 import ru.instamart.application.models.UserData;
 
 public class Administration extends Base {
 
-    public Administration(WebDriver driver, EnvironmentData environment, AppManager app) {
+    public Administration(WebDriver driver, ServerData environment, AppManager app) {
         super(driver, environment, app);
     }
 

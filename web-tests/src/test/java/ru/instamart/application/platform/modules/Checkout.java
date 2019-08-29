@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.application.AppManager;
+import ru.instamart.application.Elements;
 import ru.instamart.application.lib.*;
 import ru.instamart.application.models.*;
 
@@ -16,7 +17,7 @@ import static ru.instamart.application.Config.CoreSettings.waitingTimeout;
 
 public class Checkout extends Base {
 
-    public Checkout(WebDriver driver, EnvironmentData environment, AppManager app) {
+    public Checkout(WebDriver driver, ServerData environment, AppManager app) {
         super(driver, environment, app);
     }
 

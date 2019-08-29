@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Config;
+import ru.instamart.application.Elements;
 import ru.instamart.application.lib.*;
 import ru.instamart.application.models.OrderDetailsData;
 import ru.instamart.application.platform.modules.Shop;

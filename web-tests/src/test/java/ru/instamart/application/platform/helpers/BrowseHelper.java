@@ -5,11 +5,11 @@ import org.openqa.selenium.WebDriver;
 import ru.instamart.application.models.PageData;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.lib.Pages;
-import ru.instamart.application.models.EnvironmentData;
+import ru.instamart.application.models.ServerData;
 
 public class BrowseHelper extends HelperBase {
 
-    public BrowseHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
+    public BrowseHelper(WebDriver driver, ServerData environment, AppManager app) {
         super(driver, environment, app);
     }
 

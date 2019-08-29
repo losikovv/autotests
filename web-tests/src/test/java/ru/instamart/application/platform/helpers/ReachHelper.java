@@ -3,16 +3,15 @@ package ru.instamart.application.platform.helpers;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.lib.Pages;
-import ru.instamart.application.lib.Tenants;
 import ru.instamart.application.lib.Users;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
-import ru.instamart.application.models.EnvironmentData;
+import ru.instamart.application.models.ServerData;
 import ru.instamart.application.models.PageData;
 
 public class ReachHelper extends HelperBase {
 
-    public ReachHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
+    public ReachHelper(WebDriver driver, ServerData environment, AppManager app) {
         super(driver, environment, app);
     }
 

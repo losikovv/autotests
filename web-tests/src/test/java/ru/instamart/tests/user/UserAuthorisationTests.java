@@ -10,7 +10,7 @@ import ru.instamart.application.models.UserData;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.platform.helpers.SocialHelper;
 import ru.instamart.application.lib.Addresses;
-import ru.instamart.application.lib.Elements;
+import ru.instamart.application.Elements;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.testdata.generate;
 import ru.instamart.tests.TestBase;
@@ -457,12 +457,49 @@ public class UserAuthorisationTests extends TestBase {
         User.Do.loginAs(session.admin);
         User.Do.logout();
 
-        assertPageIsAvailable(); // Assert there is no problems after logout
+        assertPageIsAvailable();
 
         kraken.get().page("metro");
 
         Assert.assertFalse(
                 kraken.detect().isUserAuthorised(),
-                    "Не работает деавторизация\n");
+                    failMessage("Не работает логаут"));
+    }
+
+    @Test(
+            description = "Тест сброса адреса доставки и корзины после деавторизации",
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
+            priority = 116
+    )
+    public void successClearShipAddressAndShoppingCartAfterLogout() {
+        kraken.get().page("metro");
+
+        User.Do.loginAs(session.admin);
+        Shop.ShippingAddress.change(Addresses.Moscow.defaultAddress());
+        Shop.Catalog.Item.addToCart();
+        User.Do.logout();
+
+        kraken.get().page("metro");
+
+        Assert.assertFalse(
+                kraken.detect().isUserAuthorised(),
+                    failMessage("Не выполнены предусловия - не работает логаут"));
+
+        SoftAssert softAssert = new SoftAssert();
+
+        softAssert.assertFalse(
+                kraken.detect().isUserAuthorised(),
+                    failMessage("Не сбросился адрес доставки после логаута"));
+
+        softAssert.assertTrue(
+                kraken.detect().isCartEmpty(),
+                    failMessage("Не сбросилась корзина после логаута"));
+
+        softAssert.assertAll();
     }
 }
+

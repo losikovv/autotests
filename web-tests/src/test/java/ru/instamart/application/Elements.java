@@ -1,6 +1,7 @@
-package ru.instamart.application.lib;
+package ru.instamart.application;
 
 import org.openqa.selenium.By;
+import ru.instamart.application.lib.CheckoutSteps;
 import ru.instamart.application.models.CheckoutStepData;
 import ru.instamart.application.models.CreditCardData;
 import ru.instamart.application.models.ElementData;

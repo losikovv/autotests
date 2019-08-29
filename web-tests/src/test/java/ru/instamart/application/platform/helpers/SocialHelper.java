@@ -2,15 +2,15 @@ package ru.instamart.application.platform.helpers;
 
 import org.openqa.selenium.WebDriver;
 import ru.instamart.application.AppManager;
-import ru.instamart.application.lib.Elements;
+import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Users;
 import ru.instamart.application.platform.modules.Administration;
-import ru.instamart.application.models.EnvironmentData;
+import ru.instamart.application.models.ServerData;
 import ru.instamart.application.models.UserData;
 
 public class SocialHelper extends HelperBase {
 
-    public SocialHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
+    public SocialHelper(WebDriver driver, ServerData environment, AppManager app) {
         super(driver, environment, app);
     }
 

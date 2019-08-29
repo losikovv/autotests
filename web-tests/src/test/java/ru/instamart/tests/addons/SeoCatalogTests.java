@@ -4,10 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.application.lib.Environments;
+import ru.instamart.application.Servers;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.lib.Addresses;
-import ru.instamart.application.lib.Elements;
+import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.tests.TestBase;
@@ -28,7 +28,7 @@ public class SeoCatalogTests extends TestBase {
             priority = 9100
     )
     public void successCheckSeoPage() {
-        skipTestOn(Environments.instamart_staging());
+        skipTestOn(Servers.instamart_staging());
 
         assertPageIsAvailable(
                 Pages.Site.Catalog.seo());
@@ -40,7 +40,7 @@ public class SeoCatalogTests extends TestBase {
             priority = 9101
     )
     public void successCheckProductsOnSeoCatalog() {
-        skipTestOn(Environments.instamart_staging());
+        skipTestOn(Servers.instamart_staging());
 
         Assert.assertTrue(
                 kraken.detect().isElementPresent(Elements.SeoCatalog.product()),
@@ -53,7 +53,7 @@ public class SeoCatalogTests extends TestBase {
             priority = 9102
     )
     public void successOpenItemCardOnSeoCatalog() {
-        skipTestOn(Environments.instamart_staging());
+        skipTestOn(Servers.instamart_staging());
         Shop.Catalog.Item.open();
 
         Assert.assertTrue(
@@ -67,7 +67,7 @@ public class SeoCatalogTests extends TestBase {
             priority = 9103
     )
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() throws Exception {
-        skipTestOn(Environments.instamart_staging());
+        skipTestOn(Servers.instamart_staging());
         SoftAssert softAssert = new SoftAssert();
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToCart();
@@ -96,7 +96,7 @@ public class SeoCatalogTests extends TestBase {
             priority = 9104
     )
     public void successAuthFromItemCardOnSeoCatalog() throws Exception {
-        skipTestOn(Environments.instamart_staging());
+        skipTestOn(Servers.instamart_staging());
         SoftAssert softAssert = new SoftAssert();
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToCart();
@@ -120,7 +120,7 @@ public class SeoCatalogTests extends TestBase {
             priority = 9105
     )
     public void successRegFromItemCardOnSeoCatalog() {
-        skipTestOn(Environments.instamart_staging());
+        skipTestOn(Servers.instamart_staging());
         SoftAssert softAssert = new SoftAssert();
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToCart();

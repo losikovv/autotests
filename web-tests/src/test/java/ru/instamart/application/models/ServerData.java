@@ -1,14 +1,14 @@
 package ru.instamart.application.models;
 
-public class EnvironmentData {
+public class ServerData {
     private TenantData tenant;
-    private String server;
+    private String environment;
     private String host;
     private String auth;
 
-    public EnvironmentData(TenantData tenant, String server, String host, String httpAuth) {
+    public ServerData(TenantData tenant, String environment, String host, String httpAuth) {
         this.tenant = tenant;
-        this.server = server;
+        this.environment = environment;
         this.host = host;
         this.auth = httpAuth;
     }
@@ -17,10 +17,10 @@ public class EnvironmentData {
         return tenant;
     }
 
-    public String getServer() { return server; }
+    public String getEnvironment() { return environment; }
 
     public String getName() {
-        return tenant.getAlias() + "-" + server;
+        return tenant.getAlias() + "-" + environment;
     }
 
     public String getHost() {
@@ -28,12 +28,12 @@ public class EnvironmentData {
     }
 
     public String getBaseURL(boolean httpAuth) {
-        if(httpAuth) return "https://" + auth + host + "/";
+        if(httpAuth) return "https://" + auth + "@" + host + "/";
         else return "https://" + host + "/";
     }
 
     public String getAdminURL() {
-        if(server.equalsIgnoreCase("production")) return "https://instamart.ru/admin/";
+        if(environment.equalsIgnoreCase("production")) return "https://instamart.ru/admin/";
         else return "https://staging.instamart.ru/admin/";
     }
 }

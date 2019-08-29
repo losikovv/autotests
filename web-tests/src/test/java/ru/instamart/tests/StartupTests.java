@@ -3,8 +3,10 @@ package ru.instamart.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.application.lib.Tenants;
-import ru.instamart.application.lib.Elements;
+import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
+
+import static ru.instamart.application.lib.Tenants.metro;
 
 public class StartupTests extends TestBase {
 
@@ -35,7 +37,7 @@ public class StartupTests extends TestBase {
         assertElementPresence(Elements.Header.mnogoruButton());
 
         assertElementPresence(Elements.Header.catalogButton());
-        if(!kraken.detect().tenant(Tenants.metro())) assertElementPresence(Elements.Header.storeButton());
+        if(!kraken.detect().tenant(metro())) assertElementPresence(Elements.Header.storeButton());
         assertElementPresence(Elements.Header.Search.inputField());
         assertElementPresence(Elements.Header.Search.sendButton());
         assertElementPresence(Elements.Header.favoritesButton());
@@ -144,7 +146,7 @@ public class StartupTests extends TestBase {
             priority = 13
     )
     public void successCheckRetailerPagesAreAvailable() {
-        skipTestOn(Tenants.metro()); // TODO сделать тест для тенанта
+        skipTestOn(metro()); // TODO сделать тест для тенанта
 
         // Проверяем что доступны витрины активных ритейлеров
         assertPageIsAvailable(Pages.Site.Retailers.metro());
