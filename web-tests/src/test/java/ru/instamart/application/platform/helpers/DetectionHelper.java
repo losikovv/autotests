@@ -309,7 +309,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить отправлена ли форма восстановления пароля */
     public boolean isRecoveryRequested(){
-        if (kraken.detect().element(Elements.Modals.PasswordRecoveryModal.successRecoveryRequestText())) {
+        if (kraken.detect().isElementPresent(Elements.Modals.PasswordRecoveryModal.successRecoveryRequestText())) {
             verboseMessage("Запрошено восстановление пароля");
             return true;
         } else {

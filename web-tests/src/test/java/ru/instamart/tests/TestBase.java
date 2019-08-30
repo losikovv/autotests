@@ -36,11 +36,12 @@ public class TestBase {
 
     /** Проверить наличие и видимость элемента на странице */
     public void assertElementPresence(ElementData element) {
-        verboseMessage("Проверяем наличие элемента: " + element.getDescription() + "\n> " + element.getLocator());
+        verboseMessage("Проверяем наличие элемента на странице " + kraken.grab().currentURL() + "\n> " + element.getLocator());
 
         Assert.assertTrue(kraken.detect().isElementPresent(element),
                 "Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL() + "\n");
-        verboseMessage("✓ Успешно\n");
+
+        verboseMessage("✓ Успешно: " + element.getDescription() + "\n");
     }
 
     /** Проверить что поле пустое */

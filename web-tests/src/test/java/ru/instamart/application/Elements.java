@@ -2259,12 +2259,12 @@ public class Elements {
 
         static ElementData menuButton(String name) {
             return new ElementData(By.xpath("//nav[@id='admin-menu']//span[text()='" + name + "']"),
-                    "кнопка \"" + name + "\" в навигационном меню админки");
+                    "кнопка '" + name + "' в навигационном меню админки");
         }
 
         static ElementData submenuButton(String name) {
             return new ElementData(By.xpath("//nav[@class='admin-sub-menu']//*[text()='" + name + "']"),
-                    "кнопка \"" + name + "\" в навигационном субменю админки");
+                    "кнопка '" + name + "' в навигационном субменю админки");
         }
 
         /** Шапка админки */

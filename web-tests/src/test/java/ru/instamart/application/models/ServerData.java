@@ -28,7 +28,7 @@ public class ServerData {
     }
 
     public String getBaseURL(boolean httpAuth) {
-        if(httpAuth) return "https://" + auth + "@" + host + "/";
+        if(httpAuth && !auth.equals("")) return "https://" + auth + "@" + host + "/";
         else return "https://" + host + "/";
     }
 

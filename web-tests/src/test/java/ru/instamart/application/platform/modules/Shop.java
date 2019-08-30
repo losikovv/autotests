@@ -103,14 +103,12 @@ public class Shop extends Base {
         public static void fillRequestForm(String email) {
             verboseMessage("> заполняем форму запроса восстановления пароля");
             kraken.perform().fillField(Elements.Modals.PasswordRecoveryModal.emailField(), email);
-            submitRequest();
         }
 
         public static void fillRecoveryForm(String password, String passwordConfirmation) {
             verboseMessage("> заполняем форму восстановления пароля");
             kraken.perform().fillField(Elements.Modals.PasswordRecoveryModal.passwordField(), password);
             kraken.perform().fillField(Elements.Modals.PasswordRecoveryModal.passwordConfirmationField(), passwordConfirmation);
-            submitRecovery();
         }
 
         public static void submitRequest() {

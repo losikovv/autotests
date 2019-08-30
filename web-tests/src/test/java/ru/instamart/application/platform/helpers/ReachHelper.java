@@ -2,6 +2,7 @@ package ru.instamart.application.platform.helpers;
 
 import org.openqa.selenium.WebDriver;
 import ru.instamart.application.AppManager;
+import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.application.lib.Users;
 import ru.instamart.application.platform.modules.Shop;
@@ -34,8 +35,11 @@ public class ReachHelper extends HelperBase {
 
     public void admin(String path) {
         kraken.get().page(Pages.Admin.login());
-        if (kraken.detect().isOnSite()) {
+        kraken.await().simply(1);// Ожидание редиректа в админку если авторизованы админом
+        if (!kraken.detect().isInAdmin()) {
             User.Do.quickLogout();
+            User.Do.login(Users.superadmin());
+        } else {
             User.Do.login(Users.superadmin());
         }
         kraken.get().adminPage(path);
