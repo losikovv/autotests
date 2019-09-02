@@ -531,18 +531,28 @@ public class Elements {
             return new ElementData(By.xpath("//*[@class='auth-modal']//button[@type='submit']"));
         }
 
-        // todo sberIdButton
-
-        // todo mailRuButton
-
         static ElementData vkontakteButton() {
-            return new ElementData(null,
-                    By.xpath("//div[@class='auth-modal__social-icon auth-modal__social-icon--vkontakte']"));
+            return new ElementData(
+                    By.xpath("//div[@class='auth-modal__social-icon auth-modal__social-icon--vkontakte']"),
+                        "кнопка авторизации через Vkontakte");
         }
 
         static ElementData facebookButton() {
-            return new ElementData(null,
-                    By.xpath("//div[@class='auth-modal__social-icon auth-modal__social-icon--facebook']"));
+            return new ElementData(
+                    By.xpath("//div[@class='auth-modal__social-icon auth-modal__social-icon--facebook']"),
+                        "кнопка авторизации через Facebook");
+        }
+
+        static ElementData mailruButton() {
+            return new ElementData(
+                    By.xpath("//div[@class='auth-modal__social-icon auth-modal__social-icon--mail_ru']"),
+                        "кнопка авторизации через Mail.ru");
+        }
+
+        static ElementData sberButton() {
+            return new ElementData(
+                    By.xpath("//*[@class='auth-modal__icon-sberbank']//ancestor::button"),
+                        "кнопка авторизации через Sber ID");
         }
     }
 
@@ -2131,7 +2141,7 @@ public class Elements {
     /** Социальные сети */
     public interface Social {
 
-        /** ВКонтакте */
+        /** ВКонтакте auth form */
         interface Vkontakte {
 
             static ElementData emailField() {
@@ -2180,7 +2190,7 @@ public class Elements {
             }
         }
 
-        /** Facebook */
+        /** Facebook auth form */
         interface Facebook {
 
             static ElementData emailField() {
@@ -2218,6 +2228,22 @@ public class Elements {
 
             static ElementData loginButton() {
                 return new ElementData(By.name("login"));
+            }
+        }
+
+        /** Sber ID auth form */
+        interface Sber {
+
+            static ElementData loginField() {
+                return new ElementData(By.xpath("//input[@id='login']"));
+            }
+
+            static ElementData passwordField() {
+                return new ElementData(By.xpath("//input[@id='password']"));
+            }
+
+            static ElementData submitButton() {
+                return new ElementData(By.xpath("//button[@type='submit']"));
             }
         }
     }

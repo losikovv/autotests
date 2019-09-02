@@ -370,11 +370,7 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест успешной авторизации через ВКонтакте",
-            groups = {
-                    "regression",
-                    "metro-regression",
-                    "sbermarket-regression"
-            },
+            groups = {"acceptance","regression"},
             priority = 112
     )
     public void successAuthWithVK() {
@@ -397,10 +393,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест успешной авторизации через Facebook",
             groups = {
-                    "regression",
-                    "metro-regression",
-                    "sbermarket-regression"
-            },
+                    "acceptance","regression"},
             priority = 113
     )
     public void successAuthWithFB() {
@@ -421,12 +414,8 @@ public class UserAuthorisationTests extends TestBase {
     }
 
     @Test(
-            description = "Тест успешной авторизации через Facebook",
-            groups = {
-                    "regression",
-                    "metro-regression",
-                    "sbermarket-regression"
-            },
+            description = "Тест успешной авторизации через MailRu",
+            groups = {"acceptance","regression"},
             priority = 113
     )
     public void successAuthWithMailRu() {
@@ -440,6 +429,25 @@ public class UserAuthorisationTests extends TestBase {
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
                     "Не работает авторизация через MailRu\n");
+    }
+
+
+    @Test(
+            description = "Тест успешной авторизации через Sber ID",
+            groups = {
+                    "acceptance","regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            },
+            priority = 114
+    )
+    public void successAuthWithSberID() {
+        kraken.get().page("metro");
+
+        User.Auth.withSberID(Users.sber());
+
+        Assert.assertTrue(
+                kraken.detect().isUserAuthorised(),
+                    failMessage("Не работает авторизация через Sber ID"));
     }
 
     @Test(

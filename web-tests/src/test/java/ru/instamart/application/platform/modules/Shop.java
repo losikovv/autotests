@@ -74,16 +74,26 @@ public class Shop extends Base {
             }
         }
 
-        // todo hitVkButton()
-
-        // todo hitFbButton()
-
-        // todo hitMailRuButton()
-
         public static void submit() {
             verboseMessage("> отправляем форму\n");
             kraken.perform().click(Elements.Modals.AuthModal.submitButton());
             kraken.await().implicitly(2); // Ожидание авторизации/регистрации
+        }
+
+        public static void hitVkontakteButton() {
+            kraken.perform().click(Elements.Modals.AuthModal.vkontakteButton());
+        }
+
+        public static void hitFacebookButton() {
+            kraken.perform().click(Elements.Modals.AuthModal.facebookButton());
+        }
+
+        public static void hitMailRuButton() {
+            kraken.perform().click(Elements.Modals.AuthModal.mailruButton());
+        }
+
+        public static void hitSberIdButton() {
+            kraken.perform().click(Elements.Modals.AuthModal.sberButton());
         }
     }
 
@@ -691,9 +701,13 @@ public class Shop extends Base {
 
             /** Убрать верхний товар из корзины */
             public static void remove() {
-                kraken.await().simply(1); // Ожидание для стабильности
                 kraken.perform().hoverOn(Elements.Cart.item.snippet());
-                //TODO добавить fluent-ожидание
+                kraken.await().simply(1);
+                kraken.perform().hoverOn(Elements.Cart.item.snippet());
+                kraken.await().fluently(
+                        ExpectedConditions.elementToBeClickable(
+                                Elements.Cart.item.removeButton().getLocator()),
+                                    "Не появилась кнопка удаления товара в корзине\n\n");
                 kraken.perform().click(Elements.Cart.item.removeButton());
                 kraken.await().implicitly(1); // Ожидание удаления продукта из корзины
             }

@@ -254,4 +254,21 @@ public class User extends Base {
             Shop.RecoveryModal.submitRequest();
         }
     }
+
+    public static class Auth {
+
+        public static void withSberID(UserData user) {
+            Shop.AuthModal.open();
+            Shop.AuthModal.hitSberIdButton();
+            kraken.await().simply(2); // Ожидание открытия фрейма авторизации Sber ID
+            kraken.perform().switchToNextWindow();
+
+            kraken.perform().fillField(Elements.Social.Sber.loginField(),user.getName());
+            kraken.perform().fillField(Elements.Social.Sber.passwordField(),user.getPassword());
+            kraken.perform().click(Elements.Social.Sber.submitButton());
+
+            kraken.perform().switchToNextWindow();
+            kraken.await().simply(5); // Ожидание открытия авторизации по Sber ID
+        }
+    }
 }

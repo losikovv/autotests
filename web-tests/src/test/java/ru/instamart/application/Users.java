@@ -72,4 +72,14 @@ public abstract class Users {
             return new UserData (role, email, password, name);
         }
     }
+
+
+    public static UserData sber(){
+        return new UserData(
+                "user",
+                "",
+                "",
+                "21visetu",
+                "79629422123");
+    }
 }
