@@ -9,7 +9,7 @@ public class Config {
 
     public interface CoreSettings {
         String browser = BrowserType.FIREFOX;
-        ServerData server = Servers.instamart_production();
+        ServerData server = Servers.instamart_staging();
 
         int basicTimeout = 2;
         int waitingTimeout = 60;
@@ -125,7 +125,7 @@ public class Config {
                                     "55555555555555555555"
                             )
                     ),
-                    new DeliveryTimeData(3, 1)
+                    new DeliveryTimeData(7, 1)
             );
         }
 

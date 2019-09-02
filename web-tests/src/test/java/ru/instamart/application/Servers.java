@@ -1,6 +1,5 @@
 package ru.instamart.application;
 
-import ru.instamart.application.lib.Tenants;
 import ru.instamart.application.models.ServerData;
 
 public class Servers {

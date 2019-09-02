@@ -4,6 +4,8 @@ import ru.instamart.application.AppManager;
 import ru.instamart.application.Config;
 import ru.instamart.application.models.UserData;
 
+import static ru.instamart.application.Config.CoreSettings.debug;
+
 import java.util.Random;
 
 public class generate {
@@ -60,12 +62,14 @@ public class generate {
             testuser.setPassword(prefix + "-" + testuser.getPassword());
             testuser.setName(prefix + "-" + testuser.getName());
         }
-        System.out.println("Сгенерированы тестовые реквизиты для роли " + role);
-        System.out.println("Телефон: " + testuser.getPhone());
-        System.out.println("Email: " + testuser.getEmail());
-        System.out.println("Пароль: " + testuser.getPassword());
-        System.out.println("Имя: " + testuser.getName());
-        System.out.println("\n");
+        if(debug) {
+            System.out.println("Сгенерированы тестовые реквизиты для роли " + role);
+            System.out.println("Телефон: " + testuser.getPhone());
+            System.out.println("Email: " + testuser.getEmail());
+            System.out.println("Пароль: " + testuser.getPassword());
+            System.out.println("Имя: " + testuser.getName());
+            System.out.println("\n");
+        }
         return testuser;
     }
     

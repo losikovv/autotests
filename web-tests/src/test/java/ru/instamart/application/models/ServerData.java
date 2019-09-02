@@ -33,7 +33,6 @@ public class ServerData {
     }
 
     public String getAdminURL() {
-        if(environment.equalsIgnoreCase("production")) return "https://instamart.ru/admin/";
-        else return "https://staging.instamart.ru/admin/";
+        return getBaseURL(true) + "admin/";
     }
 }

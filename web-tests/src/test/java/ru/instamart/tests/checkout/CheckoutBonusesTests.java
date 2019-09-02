@@ -3,7 +3,7 @@ package ru.instamart.tests.checkout;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.application.lib.Tenants;
+import ru.instamart.application.Tenants;
 import ru.instamart.application.platform.modules.Checkout;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.tests.TestBase;

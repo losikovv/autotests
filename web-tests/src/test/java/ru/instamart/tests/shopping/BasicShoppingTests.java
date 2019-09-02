@@ -98,6 +98,7 @@ public class BasicShoppingTests extends TestBase {
     public void successGetCheckoutPageWithCartAboveMinimalOrderSum() {
         User.Do.loginAs(AppManager.session.user);
         kraken.get().page("metro");
+
         Shop.Cart.collect();
 
         assertPageIsAvailable(

@@ -7,7 +7,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import ru.instamart.application.lib.Users;
 import ru.instamart.application.platform.modules.Administration;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.platform.helpers.*;

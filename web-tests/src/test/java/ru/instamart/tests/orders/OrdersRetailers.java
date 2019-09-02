@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.instamart.application.Config;
 import ru.instamart.application.lib.Addresses;
-import ru.instamart.application.lib.Tenants;
+import ru.instamart.application.Tenants;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.tests.TestBase;

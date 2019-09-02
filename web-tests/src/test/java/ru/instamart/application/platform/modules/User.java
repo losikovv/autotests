@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.application.Elements;
-import ru.instamart.application.lib.Users;
+import ru.instamart.application.Users;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.models.ServerData;
 import ru.instamart.application.models.UserData;
@@ -72,7 +72,7 @@ public class User extends Base {
                 if (!kraken.detect().isUserAuthorised()) {
                     loginOnSite(email, password);
                 } else {
-                    message("Пропускаем авторизацию, уже авторизованы");
+                    verboseMessage("Пропускаем авторизацию, уже авторизованы");
                 }
             }
         }
@@ -98,23 +98,36 @@ public class User extends Base {
                             Elements.Administration.Header.userEmail().getLocator()), "Не проходит авторизация в админке\n");
         }
 
-        /**
-         * Деавторизоваться
-         */
+        /** Деавторизация */
         public static void logout() {
-            verboseMessage("Логаут...");
-            if (kraken.detect().isInAdmin()) {
-                kraken.perform().click(Elements.Administration.Header.logoutButton());
+            if(kraken.detect().isUserAuthorised()) {
+                verboseMessage("Логаут...");
+                if (kraken.detect().isInAdmin()) {
+                    logoutOnAdministration();
+                } else {
+                    logoutOnSite();
+                }
+                kraken.await().implicitly(1); // Ожидание деавторизации и подгрузки лендинга
+                if (!kraken.detect().isUserAuthorised()) {
+                    verboseMessage("✓ Готово\n");
+                }
             } else {
-                kraken.perform().click(Elements.Header.profileButton());
-                kraken.perform().click(Elements.AccountMenu.logoutButton());
-            }
-            kraken.await().implicitly(1); // Ожидание деавторизации и подгрузки лендинга
-            if (!kraken.detect().isUserAuthorised()) {
-                verboseMessage("✓ Готово\n");
+                verboseMessage("Пропускаем деавторизацию, уже разлогинены");
             }
         }
 
+        private static void logoutOnSite() {
+            verboseMessage("> Деавторизуемся на сайте");
+            kraken.perform().click(Elements.Header.profileButton());
+            kraken.perform().click(Elements.AccountMenu.logoutButton());
+        }
+
+        private static void logoutOnAdministration() {
+            verboseMessage("> Деавторизуемся в админке");
+            kraken.perform().click(Elements.Administration.Header.logoutButton());
+        }
+
+        /** Быстрая деавторизация переходом на logout */
         public static void quickLogout() {
             verboseMessage("Быстрый логаут...");
             kraken.get().page("logout");

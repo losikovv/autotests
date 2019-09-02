@@ -2,11 +2,11 @@ package ru.instamart.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.application.lib.Tenants;
+import ru.instamart.application.Tenants;
 import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
 
-import static ru.instamart.application.lib.Tenants.metro;
+import static ru.instamart.application.Tenants.metro;
 
 public class StartupTests extends TestBase {
 

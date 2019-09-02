@@ -3,7 +3,7 @@ package ru.instamart.application.platform.helpers;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Elements;
-import ru.instamart.application.lib.Users;
+import ru.instamart.application.Users;
 import ru.instamart.application.platform.modules.Administration;
 import ru.instamart.application.models.ServerData;
 import ru.instamart.application.models.UserData;

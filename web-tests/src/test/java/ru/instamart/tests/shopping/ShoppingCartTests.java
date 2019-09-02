@@ -26,15 +26,18 @@ public class ShoppingCartTests extends TestBase {
             groups = {"smoke","acceptance","regression"},
             priority = 620
     )
-    public void successValidateEmptyShoppingCart() {
+    public void successValidateDefaultCart() {
         Shop.Cart.open();
 
         Assert.assertTrue(
                 kraken.detect().isCartOpen(),
                     failMessage("Не открывается корзина"));
 
-        // todo добавить больше элементов
+        assertElementPresence(Elements.Cart.drawer());
         assertElementPresence(Elements.Cart.closeButton());
+        assertElementPresence(Elements.Cart.placeholder());
+        assertElementPresence(Elements.Cart.total());
+        assertElementPresence(Elements.Cart.alertText());
         assertElementPresence(Elements.Cart.checkoutButton());
 
         Assert.assertTrue(

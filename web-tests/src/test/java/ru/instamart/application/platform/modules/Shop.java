@@ -651,8 +651,15 @@ public class Shop extends Base {
                     kraken.get().page(Pages.Site.Retailers.metro());}
                 Catalog.Item.open();
                 int itemPrice = kraken.grab().itemPriceRounded();
+
                 // Формула расчета кол-ва товара
-                int neededQuantity = ((orderSum - cartTotal) / (itemPrice - 1)) + 1;
+                int neededQuantity;
+                if(cartTotal > 0) {
+                    neededQuantity = ((orderSum - cartTotal) / (itemPrice - 1)) + 2;
+                } else {
+                    neededQuantity = ((orderSum - cartTotal) / (itemPrice - 1)) + 1;
+                }
+
                 message("> добавляем в корзину \""
                         + kraken.grab().itemName() + "\" x " + neededQuantity + " шт\n> " + kraken.grab().currentURL() + "\n");
                 addItem(neededQuantity);

@@ -150,6 +150,13 @@ public class DetectionHelper extends HelperBase {
     }
 
     /**
+     * Определить находимся на логин-странице админки или нет
+     */
+    public boolean isOnAdminLoginPage() {
+        return isElementPresent(Elements.Administration.LoginPage.title());
+    }
+
+    /**
      * Определить находимся в разделе профиля пользователя или нет
      */
     public boolean isInProfile() {
@@ -294,13 +301,25 @@ public class DetectionHelper extends HelperBase {
     /** Определить авторизован ли пользователь */
     public boolean isUserAuthorised() {
         debugMessage("Проверяем авторизованность...");
-        if (kraken.detect().isElementPresent(Elements.Header.profileButton())
-                && !kraken.detect().isElementPresent(Elements.Header.loginButton()) ) {
-            debugMessage("✓ Авторизован\n");
-            return true;
+        if (kraken.detect().isInAdmin()) {
+            debugMessage("> в админке");
+            if (kraken.detect().isOnAdminLoginPage()) {
+                debugMessage("Не авторизован\n");
+                return false;
+            } else {
+                debugMessage("✓ Авторизован\n");
+                return true;
+            }
         } else {
-            debugMessage("Не авторизован\n");
-            return false;
+            debugMessage("> на сайте");
+            if (kraken.detect().isElementPresent(Elements.Header.profileButton())
+                    && !kraken.detect().isElementPresent(Elements.Header.loginButton()) ) {
+                debugMessage("✓ Авторизован\n");
+                return true;
+            } else {
+                debugMessage("Не авторизован\n");
+                return false;
+            }
         }
     }
 

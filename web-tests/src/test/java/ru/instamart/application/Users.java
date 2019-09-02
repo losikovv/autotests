@@ -1,4 +1,4 @@
-package ru.instamart.application.lib;
+package ru.instamart.application;
 
 import ru.instamart.application.models.UserData;
 

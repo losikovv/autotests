@@ -1210,7 +1210,7 @@ public class Elements {
 
             static ElementData title(CheckoutStepData step) {
                 return new ElementData(By.xpath("//div[@class='panel-header__text' and text()='" + step.getTitle() + "']"),
-                        "иконка шага \"" + step.getName() + "\" в чекауте");
+                        "тайтл шага \"" + step.getName() + "\" в чекауте");
             }
 
             static ElementData nextButton(CheckoutStepData step) {
@@ -2228,26 +2228,26 @@ public class Elements {
         interface LoginPage {
 
             static ElementData title() {
-                return new ElementData(By.xpath("//h1[text()='Вход']"),
+                return new ElementData(By.xpath("//body[@class='admin']//h1[text()='Вход']"),
                         "заголовок 'Вход' на странице авторизации админки");
             }
 
             static ElementData emailField() {
-                return new ElementData(By.xpath("//input[@name='email']"),
+                return new ElementData(By.xpath("//body[@class='admin']//input[@name='email']"),
                         "поле ввода email на странице авторизации админки");
             }
 
             // todo emailFieldErrorText
 
             static ElementData passwordField() {
-                return new ElementData(By.xpath("//input[@name='password']"),
+                return new ElementData(By.xpath("//body[@class='admin']//input[@name='password']"),
                         "поле ввода пароля на странице авторизации админки");
             }
 
             // todo passwordFieldErrorText
 
             static ElementData submitButton() {
-                return new ElementData(By.xpath("//span[text()='Войти']//ancestor::button[@type='submit']"),
+                return new ElementData(By.xpath("//body[@class='admin']//span[text()='Войти']//ancestor::button[@type='submit']"),
                         "кнопка 'Войти' на странице авторизации админки");
             }
         }

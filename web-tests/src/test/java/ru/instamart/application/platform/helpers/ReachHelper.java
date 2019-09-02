@@ -2,9 +2,8 @@ package ru.instamart.application.platform.helpers;
 
 import org.openqa.selenium.WebDriver;
 import ru.instamart.application.AppManager;
-import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
-import ru.instamart.application.lib.Users;
+import ru.instamart.application.Users;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.models.ServerData;
@@ -34,15 +33,15 @@ public class ReachHelper extends HelperBase {
     }
 
     public void admin(String path) {
-        kraken.get().page(Pages.Admin.login());
-        kraken.await().simply(1);// Ожидание редиректа в админку если авторизованы админом
-        if (!kraken.detect().isInAdmin()) {
-            User.Do.quickLogout();
-            User.Do.login(Users.superadmin());
-        } else {
+        debugMessage("Пытаемся попасть на страницу " + path + " админки...");
+        kraken.get().adminPage(path);
+        kraken.await().simply(1);// Ожидание редиректа
+        if (kraken.detect().isOnAdminLoginPage()) {
+            debugMessage("> недостаточно прав, перелогиниваемся суперадмином на логин-странице админки");
             User.Do.login(Users.superadmin());
         }
         kraken.get().adminPage(path);
+        debugMessage("✓ Готово");
     }
 
     public void seoCatalog() {
