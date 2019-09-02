@@ -36,8 +36,6 @@ public class ShoppingCartTests extends TestBase {
         assertElementPresence(Elements.Cart.drawer());
         assertElementPresence(Elements.Cart.closeButton());
         assertElementPresence(Elements.Cart.placeholder());
-        assertElementPresence(Elements.Cart.total());
-        assertElementPresence(Elements.Cart.alertText());
         assertElementPresence(Elements.Cart.checkoutButton());
 
         Assert.assertTrue(

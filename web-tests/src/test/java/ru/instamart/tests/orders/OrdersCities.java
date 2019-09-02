@@ -287,7 +287,7 @@ public class OrdersCities extends TestBase {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
-            priority = 2312
+            priority = 2313
     )
     public void successOrderInNovosibirsk() {
         Shop.ShippingAddress.change(Addresses.Novosibirsk.defaultAddress());

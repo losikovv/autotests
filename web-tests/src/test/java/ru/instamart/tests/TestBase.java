@@ -38,52 +38,60 @@ public class TestBase {
     public void assertElementPresence(ElementData element) {
         verboseMessage("Проверяем наличие элемента на странице " + kraken.grab().currentURL() + "\n> " + element.getLocator());
 
-        Assert.assertTrue(kraken.detect().isElementPresent(element),
-                "Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL() + "\n");
+        Assert.assertTrue(
+                kraken.detect().isElementPresent(element),
+                    failMessage("Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL()));
 
         verboseMessage("✓ Успешно: " + element.getDescription() + "\n");
     }
 
     /** Проверить что поле пустое */
     public void assertFieldIsEmpty(ElementData element) {
-        Assert.assertTrue(kraken.detect().isFieldEmpty(element),
-                "Не пустое " + element.getDescription() + " >");
+        Assert.assertTrue(
+                kraken.detect().isFieldEmpty(element),
+                    failMessage("Не пустое " + element.getDescription()));
     }
 
     /** Проверить что поле не пустое */
     public void assertFieldIsNotEmpty(ElementData element) {
-        Assert.assertFalse(kraken.detect().isFieldEmpty(element),
-                "Пустое " + element.getDescription() + " >");
+        Assert.assertFalse(
+                kraken.detect().isFieldEmpty(element),
+                    failMessage("Пустое " + element.getDescription()));
     }
 
     /** Проверить что поле заполнено ожидаемым текстом */
     public void assertFieldIsFilled(ElementData element, String expectedText) {
-        Assert.assertEquals(kraken.grab().value(element), expectedText,
-                "Некорректно заполнено " + element.getDescription() + " >");
+        Assert.assertEquals(
+                kraken.grab().value(element), expectedText,
+                    failMessage("Некорректно заполнено " + element.getDescription()));
     }
 
     /** Проверить что чекбокс проставлен */
     public void assertCheckboxIsSet(ElementData element) {
-        Assert.assertTrue(kraken.detect().isCheckboxSet(element),
-                "Не проставлен " + element.getDescription() + " >");
+        Assert.assertTrue(
+                kraken.detect().isCheckboxSet(element),
+                    failMessage("Не проставлен " + element.getDescription()));
     }
 
     /** Проверить что чекбокс не проставлен */
     public void assertCheckboxIsNotSet(ElementData element) {
-        Assert.assertFalse(kraken.detect().isCheckboxSet(element),
-                "Проставлен " + element.getDescription() + " >");
+        Assert.assertFalse(
+                kraken.detect().isCheckboxSet(element),
+                    failMessage("Проставлен " + element.getDescription()));
     }
 
     /** Проверить что радиокнопка выбрана */
     public void assertRadioButtonIsSelected(ElementData element) {
-        Assert.assertTrue(kraken.detect().isRadioButtonSelected(element),
-                "Не выбрана " + element.getDescription() + " >");
+        Assert.assertTrue(
+                kraken.detect().isRadioButtonSelected(element),
+                    failMessage("Не выбрана " + element.getDescription()));
     }
 
     /** Проверить что радиокнопка не выбрана */
     public void assertRadioButtonIsNotSelected(ElementData element) {
-        Assert.assertFalse(kraken.detect().isRadioButtonSelected(element),
-                "Выбрана " + element.getDescription() + " >");
+        Assert.assertFalse(
+                kraken.detect().isRadioButtonSelected(element),
+                    failMessage("Выбрана " + element.getDescription()));
     }
 
     /** Проверить валидность элемента (преход работает + целевая страница доступна) */
@@ -140,9 +148,18 @@ public class TestBase {
     /** Проверить доступность текущей страницы */
     public void assertPageIsAvailable() throws AssertionError {
         String page = kraken.grab().currentURL();
-        Assert.assertFalse(kraken.detect().is404(), "\n\n> Ошибка 404 на странице " + page);
-        Assert.assertFalse(kraken.detect().is500(), "\n\n> Ошибка 500 на странице " + page);
-        Assert.assertFalse(kraken.detect().is502(), "\n\n> Ошибка 502 на странице " + page);
+        Assert.assertFalse(
+                kraken.detect().is404(),
+                    failMessage("Ошибка 404 на странице " + page)
+        );
+        Assert.assertFalse(
+                kraken.detect().is500(),
+                    failMessage("Ошибка 500 на странице " + page)
+        );
+        Assert.assertFalse(
+                kraken.detect().is502(),
+                    failMessage("Ошибка 502 на странице " + page )
+        );
         verboseMessage("✓ Страница " + page + " доступна\n");
     }
 
