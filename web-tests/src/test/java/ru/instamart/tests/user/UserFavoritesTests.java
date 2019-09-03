@@ -285,7 +285,7 @@ public class UserFavoritesTests extends TestBase {
                     "\nНе открывается модалка авторизации после попытки добавления товара из каталога в избранное");
 
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(session.user.getEmail(), session.user.getPassword());
+        Shop.AuthModal.fillAuthorisationForm(session.user.getLogin(), session.user.getPassword());
         Shop.AuthModal.submit();
 
         softAssert.assertTrue(
@@ -311,7 +311,7 @@ public class UserFavoritesTests extends TestBase {
                     "\nНе открывается модалка авторизации после попытки добавления товара из карточки в избранное");
 
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(session.user.getEmail(), session.user.getPassword());
+        Shop.AuthModal.fillAuthorisationForm(session.user.getLogin(), session.user.getPassword());
         Shop.AuthModal.submit();
 
         softAssert.assertTrue(

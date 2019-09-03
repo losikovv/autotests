@@ -125,7 +125,7 @@ public class UserPasswordRecoveryTests extends TestBase {
         Shop.RecoveryModal.submitRecovery();
 
         User.Do.quickLogout();
-        User.Do.login(Users.userGmail().getEmail(), "password1");
+        User.Do.login(Users.userGmail().getLogin(), "password1");
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 failMessage("Невозможно авторизоваться с новым паролем после восстановления пароля"));
@@ -140,7 +140,7 @@ public class UserPasswordRecoveryTests extends TestBase {
         Shop.RecoveryModal.submitRecovery();
 
         User.Do.quickLogout();
-        User.Do.login(Users.userGmail().getEmail(), "password1");
+        User.Do.login(Users.userGmail().getLogin(), "password1");
         
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 failMessage("Возможно авторизоваться со старым паролем после восстановления пароля!"));

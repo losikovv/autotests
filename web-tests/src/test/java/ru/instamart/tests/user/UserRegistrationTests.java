@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.application.Users;
 import ru.instamart.application.platform.modules.User;
-import ru.instamart.application.platform.helpers.SocialHelper;
 import ru.instamart.application.lib.Addresses;
 import ru.instamart.application.Elements;
 import ru.instamart.application.platform.modules.Shop;
@@ -247,7 +246,7 @@ public class UserRegistrationTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
 
-        User.Do.registration("Test User", Users.superuser().getEmail(),
+        User.Do.registration("Test User", Users.superuser().getLogin(),
                 "12345678", "12345678");
 
         softAssert.assertTrue(
@@ -440,73 +439,13 @@ public class UserRegistrationTests extends TestBase {
     }
 
     @Test(
-            description = "Тест успешной регистрации через ВКонтакте",
-            groups = {
-                    "regression",
-                    "metro-regression",
-                    "sbermarket-regression"
-            },
-            priority = 214
-    )
-    public void successRegWithVK() throws AssertionError {
-        skipTest(); // TODO включить когда будет тестовый акк VK
-        kraken.get().page("metro");
-
-        SocialHelper.Vkontakte.denyAccess();
-        SocialHelper.Vkontakte.deleteUser();
-        User.Do.quickLogout();
-
-        SocialHelper.Vkontakte.initAuth();
-
-        Assert.assertTrue(
-                kraken.detect().isElementPresent(Elements.Social.Vkontakte.emailField()),
-                    "Не открывается окно регистрации через Вконтакте");
-
-        SocialHelper.Vkontakte.submitAuth();
-
-        Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "Не работает регистрация через ВКонтакте\n");
-    }
-
-    @Test(
-            description = "Тест успешной регистрации через Facebook",
-            groups = {
-                    "regression",
-                    "metro-regression",
-                    "sbermarket-regression"
-            },
-            priority = 215
-    )
-    public void successRegWithFB() throws AssertionError {
-        skipTest(); // TODO включить когда будет тестовый акк VK
-        kraken.get().page("metro");
-
-        SocialHelper.Facebook.denyAccess();
-        SocialHelper.Facebook.deleteUser();
-        User.Do.quickLogout();
-
-        SocialHelper.Facebook.initAuth();
-
-        Assert.assertTrue(
-                kraken.detect().isElementPresent(Elements.Social.Facebook.emailField()),
-                    "Не открывается окно регистрации через Facebook\n");
-
-        SocialHelper.Facebook.submitAuth();
-
-        Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "Не работает регистрация через Facebook\n");
-    }
-
-    @Test(
             description = "Тест успешной регистрации без проставленной галки согласия на почтовую рассылку",
             groups = {
                     "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
-            priority = 216
+            priority = 214
     )
     public void successRegWithoutMailingCheckbox() {
         kraken.get().page("metro");
@@ -527,7 +466,7 @@ public class UserRegistrationTests extends TestBase {
                     "metro-regression",
                     "sbermarket-regression"
             },
-            priority = 217
+            priority = 215
     )
     public void successRegWithMailingCheckbox() {
         kraken.get().page("metro");
@@ -541,4 +480,12 @@ public class UserRegistrationTests extends TestBase {
                 kraken.detect().isUserAuthorised(),
                     "Не работает регистрация с согласием на получение почтовой рассылки\n");
     }
+
+    // todo public void successRegWithVkontakte() {}
+
+    // todo public void successRegWithFacebook() {}
+
+    // todo public void successRegWithMailRu() {}
+
+    // todo public void successRegWithSberId() {}
 }

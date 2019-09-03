@@ -2,14 +2,14 @@ package ru.instamart.application.models;
 
 public class UserData {
     private String role;
-    private String email;
+    private String login;
     private String phone;
     private String password;
     private String name;
 
     public UserData( String role, String email, String phone, String password, String name) {
         this.role = role;
-        this.email = email;
+        this.login = email;
         this.phone = phone;
         this.password = password;
         this.name = name;
@@ -17,21 +17,21 @@ public class UserData {
 
     public UserData( String role, String email, String password, String name) {
         this.role = role;
-        this.email = email;
+        this.login = email;
         this.password = password;
         this.name = name;
     }
 
-    //public UserData(String role, String email, String password) { this.email = email;this.password = password;this.role = role; }
+    //public UserData(String role, String login, String password) { this.login = login;this.password = password;this.role = role; }
 
-    public UserData(String email, String password) {
-        this.email = email;
+    public UserData(String login, String password) {
+        this.login = login;
         this.password = password;
     }
 
     public String getRole() { return role; }
 
-    public String getEmail() { return email; }
+    public String getLogin() { return login; }
 
     public String getPhone() { return phone; }
 
@@ -41,7 +41,7 @@ public class UserData {
 
     public void setRole(String role) { this.role = role; }
 
-    public void setEmail(String email) { this.email = email; }
+    public void setLogin(String login) { this.login = login; }
 
     public void setPhone(String phone) { this.phone = phone; }
 

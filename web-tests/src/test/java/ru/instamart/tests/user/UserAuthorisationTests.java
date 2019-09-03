@@ -8,7 +8,6 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.application.Users;
 import ru.instamart.application.models.UserData;
 import ru.instamart.application.platform.modules.User;
-import ru.instamart.application.platform.helpers.SocialHelper;
 import ru.instamart.application.lib.Addresses;
 import ru.instamart.application.Elements;
 import ru.instamart.application.platform.modules.Shop;
@@ -113,7 +112,7 @@ public class UserAuthorisationTests extends TestBase {
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(Users.superuser().getEmail(), "");
+        Shop.AuthModal.fillAuthorisationForm(Users.superuser().getLogin(), "");
         Shop.AuthModal.submit();
 
         SoftAssert softAssert = new SoftAssert();
@@ -177,7 +176,7 @@ public class UserAuthorisationTests extends TestBase {
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(Users.superuser().getEmail(), "wrongpassword");
+        Shop.AuthModal.fillAuthorisationForm(Users.superuser().getLogin(), "wrongpassword");
         Shop.AuthModal.submit();
 
         SoftAssert softAssert = new SoftAssert();
@@ -211,7 +210,7 @@ public class UserAuthorisationTests extends TestBase {
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(testUser.getEmail(), testUser.getPassword());
+        Shop.AuthModal.fillAuthorisationForm(testUser.getLogin(), testUser.getPassword());
         Shop.AuthModal.submit();
 
         softAssert.assertTrue(
@@ -241,7 +240,7 @@ public class UserAuthorisationTests extends TestBase {
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(Users.superuser().getEmail(), Users.superuser().getPassword());
+        Shop.AuthModal.fillAuthorisationForm(Users.superuser().getLogin(), Users.superuser().getPassword());
         Shop.AuthModal.close();
 
         SoftAssert softAssert = new SoftAssert();
@@ -373,77 +372,58 @@ public class UserAuthorisationTests extends TestBase {
             groups = {"acceptance","regression"},
             priority = 112
     )
-    public void successAuthWithVK() {
-        skipTest(); // TODO включить когда будет тестовый акк VK
-
+    public void successAuthWithVkontakte() {
         kraken.get().page("metro");
-        SocialHelper.Vkontakte.initAuth();
 
-        Assert.assertTrue(
-                kraken.detect().isElementPresent(Elements.Social.Vkontakte.emailField()),
-                    "Не открывается окно авторизации через Вконтакте\n");
-
-        SocialHelper.Vkontakte.submitAuth();
+        User.Auth.withVkontakte(Users.vkontakte());
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
-                    "Не работает авторизация через ВКонтакте\n");
+                    failMessage("Не работает авторизация через ВКонтакте"));
     }
 
     @Test(
             description = "Тест успешной авторизации через Facebook",
-            groups = {
-                    "acceptance","regression"},
-            priority = 113
+            priority = 113,
+            groups = {"acceptance","regression"}
     )
-    public void successAuthWithFB() {
-        skipTest(); // TODO включить когда будет тестовый акк VK
-
+    public void successAuthWithFacebook() {
         kraken.get().page("metro");
-        SocialHelper.Facebook.initAuth();
 
-        Assert.assertTrue(
-                kraken.detect().isElementPresent(Elements.Social.Facebook.emailField()),
-                    "Не открывается окно авторизации через Facebook\n");
-
-        SocialHelper.Facebook.submitAuth();
+        User.Auth.withFacebook(Users.facebook());
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
-                    "Не работает авторизация через Facebook\n");
+                    failMessage("Не работает авторизация через Facebook"));
     }
 
-    @Test(
+    @Test( enabled = false, // надо придумать как избежать в дальнейших тестах блокирующего окошка Mail.ru
             description = "Тест успешной авторизации через MailRu",
             groups = {"acceptance","regression"},
-            priority = 113
+            priority = 114
     )
     public void successAuthWithMailRu() {
-        skipTest(); // TODO включить когда будет тестовый акк Mail
-
         kraken.get().page("metro");
-        // todo SocialHelper.MailRu.initAuth();
 
-        // todo SocialHelper.MailRu.submitAuth();
+        User.Auth.withMailRu(Users.mailRu());
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
-                    "Не работает авторизация через MailRu\n");
+                    failMessage("Не работает авторизация через MailRu"));
     }
 
 
     @Test(
             description = "Тест успешной авторизации через Sber ID",
+            priority = 115,
             groups = {
                     "acceptance","regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 114
+                    "sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithSberID() {
         kraken.get().page("metro");
 
-        User.Auth.withSberID(Users.sber());
+        User.Auth.withSberID(Users.sberId());
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -452,12 +432,11 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест успешной деавторизации",
+            priority = 116,
             groups = {
                     "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 115
+                    "sbermarket-acceptance","sbermarket-regression"}
     )
     public void successLogout() {
         kraken.get().page("metro");
@@ -476,12 +455,11 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест сброса адреса доставки и корзины после деавторизации",
+            priority = 117,
             groups = {
                     "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 116
+                    "sbermarket-acceptance","sbermarket-regression"}
     )
     public void successClearShipAddressAndShoppingCartAfterLogout() {
         kraken.get().page("metro");

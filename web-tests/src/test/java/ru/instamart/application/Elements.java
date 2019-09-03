@@ -2141,93 +2141,65 @@ public class Elements {
     /** Социальные сети */
     public interface Social {
 
-        /** ВКонтакте auth form */
+        /** Vkontakte auth form */
         interface Vkontakte {
 
-            static ElementData emailField() {
-                return new ElementData(By.name("email"));
+            static ElementData loginField() {
+                return new ElementData(By.xpath("//input[@name='email']"),
+                        "поле ввода логина формы авторизации Vkontakte");
             }
 
             static ElementData passwordField() {
-                return new ElementData(By.name("pass"));
+                return new ElementData(By.xpath("//input[@name='pass']"),
+                        "поле ввода пароля формы авторизации Vkontakte");
             }
 
             static ElementData submitButton() {
-                return new ElementData(By.id("install_allow"));
-            }
-
-            static ElementData allowAccessButton() {
-                return new ElementData(null,
-                        By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/button[1]"));
-            }
-
-            static ElementData denyAccessButton() {
-                return new ElementData(null,
-                        By.xpath("//div[@id='app3856350']//div[@class='apps_settings_action_remove']"));
-            }
-
-            static ElementData profileButton() {
-                return new ElementData(By.xpath("//a[@id='top_profile_link']"));
-            }
-
-            static ElementData logoutButton() {
-                return new ElementData(By.xpath("//a[@id='top_logout_link']"));
-            }
-
-            interface index {
-
-                static ElementData emailField() {
-                    return new ElementData(By.id("index_email"));
-                }
-
-                static ElementData passwordField() {
-                    return new ElementData(By.id("index_pass"));
-                }
-
-                static ElementData loginButton() {
-                    return new ElementData(By.id("index_login_button"));
-                }
+                return new ElementData(By.xpath("//button[@type='submit']"),
+                        "кнопка отправки формы авторизации Vkontakte");
             }
         }
 
         /** Facebook auth form */
         interface Facebook {
 
-            static ElementData emailField() {
-                return new ElementData(By.name("email"));
+            static ElementData loginField() {
+                return new ElementData(By.xpath("//input[@id='email']"),
+                        "поле ввода логина формы авторизации Facebook");
             }
 
             static ElementData passwordField() {
-                return new ElementData(By.name("pass"));
+                return new ElementData(By.xpath("//input[@id='pass']"),
+                        "поле ввода пароля формы авторизации Facebook");
             }
 
             static ElementData submitButton() {
-                return new ElementData(By.id("loginbutton"));
+                return new ElementData(By.xpath("//input[@type='submit']"),
+                        "кнопка отправки формы авторизации Facebook");
+            }
+        }
+
+        /** Mail.ru auth form */
+        interface MailRu {
+
+            static ElementData loginField() {
+                return new ElementData(By.xpath("//input[@name='Login']"),
+                        "поле ввода логина формы авторизации Mail.ru");
             }
 
-            static ElementData allowAccessButton() {
-                return new ElementData(By.name("__CONFIRM__"));
+            static ElementData passwordField() {
+                return new ElementData(By.xpath("//input[@name='Password']"),
+                        "поле ввода пароля формы авторизации Mail.ru");
             }
 
-            static ElementData instamartButton() {
-                return new ElementData(By.linkText("Instamart"));
+            static ElementData submitButton() {
+                return new ElementData(By.xpath("//button[@data-name='user-login']"),
+                        "кнопка отправки формы авторизации Mail.ru");
             }
 
-            static ElementData denyAccessButton() { //TODO переделать локатор
-                return new ElementData(
-                        By.xpath("/html[1]/body[1]/div[1]/div[1]/div[4]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]" +
-                                "/div[4]/div[3]/a[1]")); }
-
-            static ElementData confirmDenyAccessButton() {
-                return new ElementData(By.name("confirmed"));
-            }
-
-            static ElementData logoutButton() {
-                return new ElementData(By.id("mbasic_logout_button"));
-            }
-
-            static ElementData loginButton() {
-                return new ElementData(By.name("login"));
+            static ElementData loginButton(String login) {
+                return new ElementData(By.xpath("//*[@data-name='login' and @data-value='" + login + "@mail.ru']"),
+                        "кнопка выбора аккаунта в форме авторизации Mail.ru");
             }
         }
 
@@ -2235,15 +2207,18 @@ public class Elements {
         interface Sber {
 
             static ElementData loginField() {
-                return new ElementData(By.xpath("//input[@id='login']"));
+                return new ElementData(By.xpath("//input[@id='login']"),
+                        "поле ввода логина формы авторизации Sber ID");
             }
 
             static ElementData passwordField() {
-                return new ElementData(By.xpath("//input[@id='password']"));
+                return new ElementData(By.xpath("//input[@id='password']"),
+                        "поле ввода пароля формы авторизации Sber ID");
             }
 
             static ElementData submitButton() {
-                return new ElementData(By.xpath("//button[@type='submit']"));
+                return new ElementData(By.xpath("//button[@type='submit']"),
+                        "кнопка отправки формы авторизации Sber ID");
             }
         }
     }

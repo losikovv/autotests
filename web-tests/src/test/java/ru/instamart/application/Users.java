@@ -4,19 +4,18 @@ import ru.instamart.application.models.UserData;
 
 public abstract class Users {
 
+    // todo убрать
     public static UserData superadmin(){
         return superadmin.getCredentials();
     }
 
+    // todo убрать
     public static UserData superuser(){
         return superuser.getCredentials();
     }
 
+    // todo переделать
     public static UserData userGmail(){ return userGmail.getCredentials(); }
-
-    public static UserData userVK(){ return userVK.getCredentials(); }
-
-    public static UserData userFB(){ return userFB.getCredentials(); }
 
     public static class superadmin {
         private static String role = "superadmin";
@@ -28,6 +27,7 @@ public abstract class Users {
         public static UserData getCredentials() { return new UserData (role, email, phone, password, name); }
     }
 
+    // todo переделать
     public static class superuser {
         private static String role = "superuser";
         private static String email = "instatestuser@yandex.ru";
@@ -40,6 +40,7 @@ public abstract class Users {
         }
     }
 
+    // todo переделать
     public static class userGmail {
         private static String role = "user";
         private static String email = "instamart";
@@ -51,35 +52,19 @@ public abstract class Users {
         }
     }
 
-    public static class userVK {
-        private static String role = "user";
-        private static String email= "instamart.qa@mail.ru";
-        private static String password = "hex78.Berwyn";
-        private static String name = "Instamart QA";
-
-        public static UserData getCredentials() {
-            return new UserData (role, email, password, name);
-        }
+    public static UserData vkontakte() {
+        return new UserData("instamart.qa@mail.ru", "hex78.Berwyn");
     }
 
-    public static class userFB {
-        private static String role = "user";
-        private static String email= "instamart.qa@mail.ru";
-        private static String password = "hex78.Berwyn";
-        private static String name = "Instamart QA";
-
-        public static UserData getCredentials() {
-            return new UserData (role, email, password, name);
-        }
+    public static UserData facebook() {
+        return new UserData("instamart.qa@mail.ru", "hex78.Berwyn");
     }
 
+    public static UserData mailRu() {
+        return new UserData("instamart.qa", "hex78.Berwyn");
+    }
 
-    public static UserData sber(){
-        return new UserData(
-                "user",
-                "",
-                "",
-                "21visetu",
-                "79629422123");
+    public static UserData sberId() {
+        return new UserData("79629422123", "21visetu");
     }
 }

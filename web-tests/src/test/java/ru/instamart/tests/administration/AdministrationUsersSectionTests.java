@@ -31,7 +31,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         Administration.Users.searchUser(Users.superuser());
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()), Users.superuser().getEmail(),
+                kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()), Users.superuser().getLogin(),
                     "Не работает поиск пользователя в админке");
     }
 
@@ -85,7 +85,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         Administration.Users.changePassword("654321");
         User.Do.quickLogout();
 
-        User.Do.login(testuser.getEmail(), "654321");
+        User.Do.login(testuser.getLogin(), "654321");
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -130,7 +130,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         Administration.Users.searchUser(testuser, true,false);
 
         softAssert.assertEquals(
-                kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()), testuser.getEmail(),
+                kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()), testuser.getLogin(),
                     "Не работает поиск B2B пользователя в админке");
 
         softAssert.assertTrue(
@@ -162,13 +162,13 @@ public class AdministrationUsersSectionTests extends TestBase {
         Administration.Users.editUser(testuser);
         Administration.Users.revokeB2B();
 
-        Administration.Users.searchUser(testuser , true,false);
+        Administration.Users.searchUser(testuser ,true,false);
 
         softAssert.assertFalse(
                 kraken.detect().isElementPresent(Elements.Administration.UsersSection.firstUserLogin()),
                     "Пользователь находится как B2B после снятия флага");
 
-        Administration.Orders.searchOrder(number, true);
+        Administration.Orders.searchOrder(number,true);
 
         softAssert.assertEquals(
                 kraken.grab().text(Elements.Administration.ShipmentsSection.firstOrderNumberInTable()), number,

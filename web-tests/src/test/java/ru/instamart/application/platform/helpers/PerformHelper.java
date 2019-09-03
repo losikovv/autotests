@@ -10,7 +10,6 @@ import ru.instamart.application.Elements;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.models.ServerData;
 
-
 public class PerformHelper extends HelperBase {
 
     public PerformHelper(WebDriver driver, ServerData environment, AppManager app) {
@@ -24,14 +23,25 @@ public class PerformHelper extends HelperBase {
             driver.findElement(element.getLocator()).click();
         }
         catch (NoSuchElementException n) {
-            message("Отсутствует " + element.getDescription()
-                    + "\nЭлемент по " + element.getLocator().toString().substring(3)
-                    + " \n не найден на " + kraken.grab().currentURL() + "\n");
+            throw new AssertionError(
+                    "\n\nОтсутствует " + element.getDescription()
+                            + "\n> элемент не найден на " + kraken.grab().currentURL()
+                            + "\n> по " + element.getLocator().toString().substring(3)
+            );
         }
         catch (ElementNotVisibleException v) {
-            message("Отсутствует " + element.getDescription()
-                    + "\nЭлемент по " + element.getLocator().toString().substring(3)
-                    + " \nневидим на " + kraken.grab().currentURL() + "\n");
+            throw new AssertionError(
+                    "\n\nОтсутствует " + element.getDescription()
+                            + "\n> элемент невидим на " + kraken.grab().currentURL()
+                            + "\n> по " + element.getLocator().toString().substring(3)
+            );
+        }
+        catch (ElementNotInteractableException i) {
+            throw new AssertionError(
+                    "\n\nОтсутствует " + element.getDescription()
+                            + "\n> элемент недоступен на " + kraken.grab().currentURL()
+                            + "\n> по " + element.getLocator().toString().substring(3)
+            );
         }
     }
 

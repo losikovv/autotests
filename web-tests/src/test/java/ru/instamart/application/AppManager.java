@@ -42,7 +42,6 @@ public class AppManager {
     private DetectionHelper detectionHelper;
     private GrabHelper grabHelper;
     private DropHelper dropHelper;
-    private SocialHelper socialHelper;
     private Shop shopHelper;
     private User userHelper;
     private Checkout checkoutHelper;
@@ -111,7 +110,6 @@ public class AppManager {
         detectionHelper = new DetectionHelper(driver, server, this);
         grabHelper = new GrabHelper(driver, server,this);
         dropHelper = new DropHelper(driver, server,this);
-        socialHelper = new SocialHelper(driver, server, this);
         shopHelper = new Shop(driver, server, this);
         userHelper = new User(driver, server, this);
         checkoutHelper = new Checkout(driver, server, this);
@@ -142,8 +140,8 @@ public class AppManager {
             System.out.println("\nTEST RUN: " + session.id + " (SOLO MODE)");
         }
 
-        System.out.println("ADMIN: " + session.admin.getEmail() + " / " + session.admin.getPassword());
-        System.out.println("USER: " + session.user.getEmail() + " / " + session.user.getPassword() + "\n");
+        System.out.println("ADMIN: " + session.admin.getLogin() + " / " + session.admin.getPassword());
+        System.out.println("USER: " + session.user.getLogin() + " / " + session.user.getPassword() + "\n");
     }
 
     public void stop() {
@@ -160,7 +158,6 @@ public class AppManager {
     public DetectionHelper detect() { return detectionHelper; }
     public GrabHelper grab() { return grabHelper; }
     public DropHelper drop() { return dropHelper; }
-    public SocialHelper social() { return socialHelper; }
     public Shop shopping() { return shopHelper; }
     public User user() { return userHelper; }
     public Checkout checkout() { return checkoutHelper; }

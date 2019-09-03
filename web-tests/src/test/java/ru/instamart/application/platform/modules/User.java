@@ -30,7 +30,7 @@ public class User extends Base {
                 kraken.get().profilePage();
                 String currentUserEmail = kraken.grab().text(Elements.UserProfile.AccountPage.email());
                 message("Юзер: " + currentUserEmail);
-                if (currentUserEmail == null || !currentUserEmail.equals(user.getEmail())) {
+                if (currentUserEmail == null || !currentUserEmail.equals(user.getLogin())) {
                     quickLogout();
                 }
                 kraken.get().url(startURL);
@@ -38,7 +38,7 @@ public class User extends Base {
             login(user);
             if (multiSessionMode && kraken.detect().isElementPresent(
                     Elements.Modals.AuthModal.errorMessage("Неверный email или пароль"))) {
-                message(">>> Юзер " + user.getEmail() + " не найден, регистрируем\n");
+                message(">>> Юзер " + user.getLogin() + " не найден, регистрируем\n");
                 // костыль для stage-окружений
                 if (kraken.detect().server("staging")) {
                     kraken.get().baseUrl();
@@ -59,7 +59,7 @@ public class User extends Base {
          * Залогиниться с реквизитами из переданного объекта UserData
          */
         public static void login(UserData userData) {
-            login(userData.getEmail(), userData.getPassword());
+            login(userData.getLogin(), userData.getPassword());
         }
 
         /**
@@ -151,7 +151,7 @@ public class User extends Base {
          * Зарегистрировать нового юзера с реквизитами из переданного объекта UserData
          */
         public static void registration(UserData userData) {
-            registration(userData.getName(), userData.getEmail(), userData.getPassword(), userData.getPassword());
+            registration(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
         }
 
         /**
@@ -171,7 +171,7 @@ public class User extends Base {
          * Регистрационная последовательность с реквизитами из переданного объекта UserData
          */
         public static void regSequence(UserData userData) {
-            regSequence(userData.getName(), userData.getEmail(), userData.getPassword(), userData.getPassword());
+            regSequence(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
         }
 
         /**
@@ -179,7 +179,7 @@ public class User extends Base {
          */
         public static void regSequence(UserData userData, boolean agreement) {
             Shop.AuthModal.switchToRegistrationTab();
-            Shop.AuthModal.fillRegistrationForm(userData.getName(), userData.getEmail(), userData.getPassword(), userData.getPassword(), agreement);
+            Shop.AuthModal.fillRegistrationForm(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword(), agreement);
         }
 
         /**
@@ -197,7 +197,7 @@ public class User extends Base {
          * Авторизоваться в гугл почте с определённой ролью
          */
         public static void authGmail(UserData role) {
-            authGmail(Users.userGmail().getEmail(), Users.userGmail().getPassword());
+            authGmail(Users.userGmail().getLogin(), Users.userGmail().getPassword());
         }
 
         /**
@@ -239,7 +239,7 @@ public class User extends Base {
          * Запросить восстановление пароля для указанной роли
          */
         public static void requestPasswordRecovery(UserData role) {
-            requestPasswordRecovery(role.getEmail());
+            requestPasswordRecovery(role.getLogin());
         }
 
         /**
@@ -257,18 +257,62 @@ public class User extends Base {
 
     public static class Auth {
 
+        public static void withVkontakte(UserData user) {
+            Shop.AuthModal.open();
+            Shop.AuthModal.hitVkontakteButton();
+            kraken.await().simply(2); // Ожидание открытия фрейма авторизации Vkontakte
+            kraken.perform().switchToNextWindow();
+
+            kraken.perform().fillField(Elements.Social.Vkontakte.loginField(),user.getLogin());
+            kraken.perform().fillField(Elements.Social.Vkontakte.passwordField(),user.getPassword());
+            kraken.perform().click(Elements.Social.Vkontakte.submitButton());
+
+            kraken.perform().switchToNextWindow();
+            kraken.await().simply(5); // Ожидание авторизации через Vkontakte
+        }
+
+        public static void withFacebook(UserData user) {
+            Shop.AuthModal.open();
+            Shop.AuthModal.hitFacebookButton();
+            kraken.await().simply(2); // Ожидание открытия фрейма авторизации Facebook
+            kraken.perform().switchToNextWindow();
+
+            kraken.perform().fillField(Elements.Social.Facebook.loginField(),user.getLogin());
+            kraken.perform().fillField(Elements.Social.Facebook.passwordField(),user.getPassword());
+            kraken.perform().click(Elements.Social.Facebook.submitButton());
+
+            kraken.perform().switchToNextWindow();
+            kraken.await().simply(5); // Ожидание авторизации через Facebook
+        }
+
+        public static void withMailRu(UserData user) {
+            Shop.AuthModal.open();
+            Shop.AuthModal.hitMailRuButton();
+            kraken.await().simply(2); // Ожидание открытия фрейма авторизации Mail.ru
+            kraken.perform().switchToNextWindow();
+
+            kraken.perform().fillField(Elements.Social.MailRu.loginField(),user.getLogin());
+            kraken.perform().fillField(Elements.Social.MailRu.passwordField(),user.getPassword());
+            kraken.perform().click(Elements.Social.MailRu.submitButton());
+
+            kraken.perform().click(Elements.Social.MailRu.loginButton(user.getLogin()));
+
+            kraken.perform().switchToNextWindow();
+            kraken.await().simply(5); // Ожидание авторизации через Mail.ru
+        }
+
         public static void withSberID(UserData user) {
             Shop.AuthModal.open();
             Shop.AuthModal.hitSberIdButton();
             kraken.await().simply(2); // Ожидание открытия фрейма авторизации Sber ID
             kraken.perform().switchToNextWindow();
 
-            kraken.perform().fillField(Elements.Social.Sber.loginField(),user.getName());
+            kraken.perform().fillField(Elements.Social.Sber.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Sber.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Sber.submitButton());
 
             kraken.perform().switchToNextWindow();
-            kraken.await().simply(5); // Ожидание открытия авторизации по Sber ID
+            kraken.await().simply(5); // Ожидание авторизации через Sber ID
         }
     }
 }

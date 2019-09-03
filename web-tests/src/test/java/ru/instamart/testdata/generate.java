@@ -58,14 +58,14 @@ public class generate {
         UserData testuser = new UserData(role, testUserEmail(role, testUserId), testUserPhone(testUserId), Config.TestVariables.CompanyParams.companyName, testUserName(role));
         if (prefixLength > 0) {
             String prefix = literalString(prefixLength);
-            testuser.setEmail(prefix + "-" + testuser.getEmail());
+            testuser.setLogin(prefix + "-" + testuser.getLogin());
             testuser.setPassword(prefix + "-" + testuser.getPassword());
             testuser.setName(prefix + "-" + testuser.getName());
         }
         if(debug) {
             System.out.println("Сгенерированы тестовые реквизиты для роли " + role);
             System.out.println("Телефон: " + testuser.getPhone());
-            System.out.println("Email: " + testuser.getEmail());
+            System.out.println("Email: " + testuser.getLogin());
             System.out.println("Пароль: " + testuser.getPassword());
             System.out.println("Имя: " + testuser.getName());
             System.out.println("\n");

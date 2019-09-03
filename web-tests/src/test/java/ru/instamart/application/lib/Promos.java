@@ -85,7 +85,7 @@ public class Promos {
 
     // TODO завести
     public static PromoData fixedDiscountForUser(UserData user) {
-        switch(user.getEmail()) {
+        switch(user.getLogin()) {
             case "autotestuser@instamart.ru" :
                 return new PromoData(
                         "fixedDiscountForAutotestUser",
@@ -103,7 +103,7 @@ public class Promos {
 
     // TODO завести
     public static PromoData fixedDiscountForB2bUser(UserData user) {
-        switch(user.getEmail()) {
+        switch(user.getLogin()) {
             case "autotestuser@instamart.ru" :
                 return new PromoData(
                         "fixedDiscountForB2BUser",
@@ -122,7 +122,7 @@ public class Promos {
     // TODO
     public static PromoData referralPromo(UserData user) {
         // код разный на окружениях, попытаться сделать одинаковый для autotest юзера, руками в базе стейджа
-        switch(user.getEmail()) {
+        switch(user.getLogin()) {
             case "autotestuser@instamart.ru" :
                 return new PromoData(
                         "fixedDiscountForB2BUser",

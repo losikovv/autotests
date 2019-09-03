@@ -9,7 +9,7 @@ public class Config {
 
     public interface CoreSettings {
         String browser = BrowserType.FIREFOX;
-        ServerData server = Servers.sbermarket_preprod();
+        ServerData server = Servers.instamart_staging();
 
         int basicTimeout = 2;
         int waitingTimeout = 60;

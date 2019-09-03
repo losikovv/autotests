@@ -75,11 +75,11 @@ public class Administration extends Base {
 
         /** Поиск пользователей */
         public static void searchUser(UserData userData) {
-            searchUser(userData.getEmail());
+            searchUser(userData.getLogin());
         }
 
         public static void searchUser(UserData userData, boolean b2b, boolean tenant) {
-            searchUser(userData.getEmail(), b2b, tenant);
+            searchUser(userData.getLogin(), b2b, tenant);
         }
 
         private static void searchUser(String email) {
@@ -98,7 +98,7 @@ public class Administration extends Base {
 
         /** Перейти в редактирование пользователя из указанного объекта userData */
         public static void editUser(UserData userData) {
-            editUser(userData.getEmail());
+            editUser(userData.getLogin());
         }
 
         /** Перейти в редактирование пользователя с указанием почты */
@@ -136,7 +136,7 @@ public class Administration extends Base {
 
         /** Предоставить админские права пользователю из указанного объекта userData */
         public static void grantAdminPrivileges(UserData userData) {
-            editUser(userData.getEmail());
+            editUser(userData.getLogin());
             grantAdminPrivileges();
         }
 
@@ -154,7 +154,7 @@ public class Administration extends Base {
 
         /** Отозвать админские права пользователю из указанного объекта userData */
         public static void revokeAdminPrivileges(UserData userData) {
-            editUser(userData.getEmail());
+            editUser(userData.getLogin());
             revokeAdminPrivileges();
         }
 
