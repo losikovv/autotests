@@ -4,11 +4,11 @@ public class PaymentDetailsData {
 
     private PaymentTypeData paymentType;
     private boolean newCreditCard;
-    private CreditCardData creditCard;
+    private PaymentCardData creditCard;
     private boolean newJuridical;
     private JuridicalData juridical;
 
-    public PaymentDetailsData(PaymentTypeData paymentType, boolean newCreditCard, CreditCardData creditCard, boolean newJuridical, JuridicalData juridical) {
+    public PaymentDetailsData(PaymentTypeData paymentType, boolean newCreditCard, PaymentCardData creditCard, boolean newJuridical, JuridicalData juridical) {
         this.paymentType = paymentType;
         this.newCreditCard = newCreditCard;
         this.creditCard = creditCard;
@@ -16,7 +16,7 @@ public class PaymentDetailsData {
         this.juridical = juridical;
     }
 
-    public PaymentDetailsData(PaymentTypeData paymentType, boolean newCreditCard, CreditCardData creditCard) {
+    public PaymentDetailsData(PaymentTypeData paymentType, boolean newCreditCard, PaymentCardData creditCard) {
         this.paymentType = paymentType;
         this.newCreditCard = newCreditCard;
         this.creditCard = creditCard;
@@ -42,7 +42,7 @@ public class PaymentDetailsData {
         return newCreditCard;
     }
 
-    public CreditCardData getCreditCard() {
+    public PaymentCardData getCreditCard() {
         return creditCard;
     }
 

@@ -113,11 +113,11 @@ public class OrderDetailsData {
 
 
 
-    public void setPaymentDetails(PaymentTypeData paymentType, boolean addNewCreditCard, CreditCardData creditCard, boolean addNewJuridical, JuridicalData juridical) {
+    public void setPaymentDetails(PaymentTypeData paymentType, boolean addNewCreditCard, PaymentCardData creditCard, boolean addNewJuridical, JuridicalData juridical) {
         this.paymentDetails = new PaymentDetailsData (paymentType, addNewCreditCard, creditCard, addNewJuridical, juridical);
     }
 
-    public void setPaymentDetails(PaymentTypeData paymentType, boolean addNewCreditCard, CreditCardData creditCard) {
+    public void setPaymentDetails(PaymentTypeData paymentType, boolean addNewCreditCard, PaymentCardData creditCard) {
         this.paymentDetails = new PaymentDetailsData (paymentType, addNewCreditCard, creditCard);
     }
 

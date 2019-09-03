@@ -80,8 +80,8 @@ public class BasicShoppingTests extends TestBase {
     )
     public void successCollectItemsForMinOrder() {
         User.Do.loginAs(AppManager.session.user);
-        kraken.get().page("metro");
         Shop.Cart.drop();
+        kraken.get().page("metro");
 
         Shop.Cart.collect();
 

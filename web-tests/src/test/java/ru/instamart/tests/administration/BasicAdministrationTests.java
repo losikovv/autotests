@@ -35,8 +35,11 @@ public class BasicAdministrationTests extends TestBase {
     }
 
     @Test(  description = "Тест доступности админки пользователю c админ. правми",
-            groups = {"acceptance","regression"},
-            priority = 10001
+            priority = 10001,
+            groups = {
+                    "acceptance","regression",
+                    "metro-acceptance","metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAccessAdministrationThroughAuthOnSite() {
         User.Do.loginAs(session.admin);
@@ -45,8 +48,11 @@ public class BasicAdministrationTests extends TestBase {
     }
 
     @Test(  description = "Тест доступности корневых разделов админки",
-            groups = {"smoke","acceptance","regression"},
-            priority = 10002
+            priority = 10002,
+            groups = {
+                    "acceptance","regression",
+                    "metro-acceptance","metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"}
     )
     public void successCheckAdminSections() {
         kraken.reach().admin();
@@ -64,17 +70,24 @@ public class BasicAdministrationTests extends TestBase {
     }
 
     @Test(  description = "Проверка наличия элементов в шапке админки",
-            groups = {"smoke","acceptance","regression"},
-            priority = 10003
-    ) public void successValidateHeader() {
+            priority = 10003,
+            groups = {
+                    "acceptance","regression",
+                    "metro-acceptance","metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"}
+                    )
+    public void successValidateHeader() {
         kraken.reach().admin();
         assertElementPresence(Elements.Administration.Header.userEmail());
         assertElementPresence(Elements.Administration.Header.logoutButton());
     }
 
     @Test(  description = "Тест валидности ссылок навигационного меню в шапке админки",
-            groups = {"smoke","acceptance","regression"},
-            priority = 10004
+            priority = 10004,
+            groups = {
+                    "acceptance","regression",
+                    "metro-acceptance","metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"}
     )
     public void successValidateNavigationMenu() {
         kraken.reach().admin();

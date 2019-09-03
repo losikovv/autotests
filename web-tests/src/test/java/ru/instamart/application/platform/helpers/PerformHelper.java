@@ -23,11 +23,17 @@ public class PerformHelper extends HelperBase {
             driver.findElement(element.getLocator()).click();
         }
         catch (NoSuchElementException n) {
-            throw new AssertionError(
-                    "\n\nОтсутствует " + element.getDescription()
-                            + "\n> элемент не найден на " + kraken.grab().currentURL()
-                            + "\n> по " + element.getLocator().toString().substring(3)
-            );
+            if(kraken.detect().is502()) {
+                throw new AssertionError(
+                        "\n\nОшибка 502 CloudFlare\n> на " + kraken.grab().currentURL()
+                );
+            } else {
+                throw new AssertionError(
+                        "\n\nОтсутствует " + element.getDescription()
+                                + "\n> элемент не найден на " + kraken.grab().currentURL()
+                                + "\n> по " + element.getLocator().toString().substring(3)
+                );
+            }
         }
         catch (ElementNotVisibleException v) {
             throw new AssertionError(

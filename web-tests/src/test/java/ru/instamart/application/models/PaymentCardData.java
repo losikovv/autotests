@@ -1,6 +1,6 @@
 package ru.instamart.application.models;
 
-public class CreditCardData {
+public class PaymentCardData {
 
     private final String cardNumber;
     private final String expiryMonth;
@@ -8,7 +8,7 @@ public class CreditCardData {
     private final String cardholderName;
     private final String cvvNumber;
 
-    public CreditCardData(String cardNumber, String expiryMonth, String expiryYear, String cardholderName, String cvvNumber) {
+    public PaymentCardData(String cardNumber, String expiryMonth, String expiryYear, String cardholderName, String cvvNumber) {
         this.cardNumber = cardNumber;
         this.expiryMonth = expiryMonth;
         this.expiryYear = expiryYear;

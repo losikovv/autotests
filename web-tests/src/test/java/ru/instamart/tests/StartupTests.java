@@ -10,7 +10,7 @@ import static ru.instamart.application.Tenants.metro;
 
 public class StartupTests extends TestBase {
 
-    @Test(
+    @Test( //todo сделать отдельные тесты под тенанты
             description = "Тест валидности элементов и ссылок в шапке сайта",
             groups = {"smoke","acceptance","regression"},
             priority = 11
@@ -175,8 +175,12 @@ public class StartupTests extends TestBase {
 
     @Test(
             description = "Тест доступности статических страниц",
-            groups = {"smoke","acceptance","regression"},
-            priority = 15
+            priority = 15,
+            groups = {
+                    "smoke","acceptance","regression",
+                    "metro-smoke","metro-acceptance","metro-regression",
+                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
+            }
     )
     public void successCheckStaticPagesAreAvailabile() {
         assertPageIsAvailable(Pages.Site.Static.about());

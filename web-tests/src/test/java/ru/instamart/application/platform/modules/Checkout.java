@@ -438,7 +438,7 @@ public class Checkout extends Base {
         makeOrder(details);
     }
 
-    public void complete(PaymentTypeData payment, boolean newPaymentCard, CreditCardData card) {
+    public void complete(PaymentTypeData payment, boolean newPaymentCard, PaymentCardData card) {
         OrderDetailsData details = new OrderDetailsData();
         details.setPaymentDetails(payment, newPaymentCard, card);
         makeOrder(details);
@@ -833,7 +833,7 @@ public class Checkout extends Base {
     }
 
     /** Добавить новую карту оплаты */
-    private void addNewPaymentCard(CreditCardData creditCardData) {
+    private void addNewPaymentCard(PaymentCardData creditCardData) {
         message("Добавляем карту оплаты " + creditCardData.getCardNumber());
 
         if (kraken.detect().isElementDisplayed(Elements.Checkout.addPaymentCardButton())) {
@@ -851,7 +851,7 @@ public class Checkout extends Base {
     }
 
     /** Заполнить данные карты оплаты */
-    private void fillPaymentCardDetails(CreditCardData creditCardData) {
+    private void fillPaymentCardDetails(PaymentCardData creditCardData) {
         kraken.perform().fillField(Elements.Checkout.PaymentCardModal.cardNumberField(), creditCardData.getCardNumber());
         kraken.perform().fillField(Elements.Checkout.PaymentCardModal.monthField(), creditCardData.getExpiryMonth());
         kraken.perform().fillField(Elements.Checkout.PaymentCardModal.yearField(), creditCardData.getExpiryYear());
@@ -877,7 +877,7 @@ public class Checkout extends Base {
     }
 
     /** Выбрать карту оплаты */
-    private void selectPaymentCard(CreditCardData creditCardData) {
+    private void selectPaymentCard(PaymentCardData creditCardData) {
         ElementData title = Elements.Checkout.paymentCardTitle(creditCardData);
         if (kraken.detect().isElementDisplayed(title)) {
             message("Выбираем карту оплаты " + kraken.grab().text(title));

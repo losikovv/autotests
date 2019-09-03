@@ -1,6 +1,8 @@
 package ru.instamart.application;
 
 import org.openqa.selenium.remote.BrowserType;
+import ru.instamart.application.lib.Juridicals;
+import ru.instamart.application.lib.PaymentCards;
 import ru.instamart.application.lib.PaymentTypes;
 import ru.instamart.application.lib.ReplacementPolicies;
 import ru.instamart.application.models.*;
@@ -9,7 +11,7 @@ public class Config {
 
     public interface CoreSettings {
         String browser = BrowserType.FIREFOX;
-        ServerData server = Servers.instamart_staging();
+        ServerData server = Servers.sbermarket_staging();
 
         int basicTimeout = 2;
         int waitingTimeout = 60;
@@ -107,23 +109,9 @@ public class Config {
                     new PaymentDetailsData(
                             PaymentTypes.cash(),
                             false,
-                            new CreditCardData(
-                                    "4242424242424242",
-                                    "12",
-                                    "2049",
-                                    "IVAN IVANOV",
-                                    "404"),
+                            PaymentCards.testCard(),
                             false,
-                            new JuridicalData(
-                                    "ООО \"Автотест\"",
-                                    "ул. Тестовская, 88",
-                                    "1111111111111",
-                                    "222222222",
-                                    "33333333333333333333",
-                                    "444444444",
-                                    "Банк Тестовый",
-                                    "55555555555555555555"
-                            )
+                            Juridicals.testJuridical()
                     ),
                     new DeliveryTimeData(7, 1)
             );

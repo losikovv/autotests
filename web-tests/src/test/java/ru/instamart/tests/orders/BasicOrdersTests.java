@@ -11,7 +11,7 @@ import ru.instamart.application.lib.*;
 import ru.instamart.application.Config;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
-import ru.instamart.application.models.CreditCardData;
+import ru.instamart.application.models.PaymentCardData;
 import ru.instamart.application.models.JuridicalData;
 import ru.instamart.application.models.UserData;
 import ru.instamart.testdata.generate;
@@ -118,7 +118,7 @@ public class BasicOrdersTests extends TestBase {
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
         runTestOnlyOn(Servers.instamart_staging());
-        CreditCardData creditCardData = Config.TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
+        PaymentCardData creditCardData = Config.TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
 
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cardOnline(), true, creditCardData);

@@ -21,16 +21,22 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
-            groups = {"acceptance","regression"},
-            priority = 401
+            priority = 401,
+            groups = {
+                    "acceptance","regression",
+                    "metro-acceptance","metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"}
     )
     public void noAccessToFavoritesForUnauthorizedUser(){
         assertPageIsUnavailable(Pages.Site.Profile.favorites());
     }
 
     @Test(  description = "Переход в любимые товары по кнопке",
-            groups = {"smoke","acceptance","regression"},
-            priority = 402
+            priority = 402,
+            groups = {
+                    "smoke","acceptance","regression",
+                    "metro-smoke","metro-acceptance","metro-regression",
+                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     )
     public void successOpenFavorites() {
         User.Do.loginAs(session.user);
@@ -45,8 +51,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Проверка пустого списка любимых товаров для нового пользователя",
-            groups = {"acceptance","regression"},
-            priority = 403
+            priority = 403,
+            groups = {
+                    "acceptance","regression",
+                    "metro-acceptance","metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"}
     )
     public void noFavoriteItemsByDefault() {
         User.Do.registration();
@@ -57,8 +66,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Добавление любимого товара из карточки товара и проверка списка",
-            groups = {"regression"},
-            priority = 404
+            priority = 404,
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"}
     )
     public void successAddFavoriteOnItemCard() {
         User.Do.loginAs(session.user);
@@ -76,8 +88,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного добавления любомого товара из сниппета в каталоге",
-            groups = {"regression"},
-            priority = 405
+            priority = 405,
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"}
     )
     public void successAddFavoriteFromCatalog() {
         User.Do.loginAs(session.user);
@@ -92,8 +107,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Удаление любимого товара из карточки товара и проверка списка",
-            groups = {"regression"},
-            priority = 406
+            priority = 406,
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"}
     )
     public void successDeleteFavoriteOnItemCard() {
         User.Do.loginAs(session.user);
@@ -110,8 +128,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Удаление любимого товара из списка",
-            groups = {"regression"},
-            priority = 407
+            priority = 407,
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"}
     )
     public void successDeleteFavoriteOnList() {
         User.Do.loginAs(session.user);
@@ -130,8 +151,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Удаление всех любимых товаров",
-            groups = {"regression"},
-            priority = 408
+            priority = 408,
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"}
     )
     public void successCleanupFavorites() {
         User.Do.loginAs(session.user);
@@ -162,8 +186,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Проверка работоспособности фильтров Любимых товаров",
-            groups = {"acceptance","regression"},
-            priority = 409
+            priority = 409,
+            groups = {
+                    "acceptance","regression",
+                    "metro-acceptance","metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"}
     )
     public void successApplyFilters() {
         SoftAssert softAssert = new SoftAssert();
@@ -197,8 +224,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Проверка работоспособности подгрузки страниц в Любимых товарах",
-            groups = {"regression"},
-            priority = 410
+            priority = 410,
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"}
     )
     public void successShowMoreLoad() throws AssertionError {
         User.Do.loginAs(session.admin);
@@ -222,8 +252,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Регистрация, при попытке добавить товар из каталога в любимые товары неавторизованным",
-            groups = {"regression"},
-            priority = 411
+            priority = 411,
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"}
     )
     public void successRegAfterAddFavoriteOnCatalog() {
         SoftAssert softAssert = new SoftAssert();
@@ -246,8 +279,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Регистрация, при попытке добавить товар из карточки товара в любимые товары неавторизованным",
-            groups = {"regression"},
-            priority = 412
+            priority = 412,
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"}
     )
     public void successRegAfterAddFavoriteOnItemCard() {
         SoftAssert softAssert = new SoftAssert();
@@ -271,8 +307,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Авторизация, при попытке добавить товар из каталога в избранное неавторизованным",
-            groups = {"regression"},
-            priority = 413
+            priority = 413,
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"}
     )
     public void successAuthAfterAddFavoriteOnCatalog() {
         SoftAssert softAssert = new SoftAssert();
@@ -296,8 +335,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным",
-            groups = {"regression"},
-            priority = 414
+            priority = 414,
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"}
     )
     public void successAuthAfterAddFavoriteOnItemCard() {
         SoftAssert softAssert = new SoftAssert();
@@ -322,8 +364,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров",
-            groups = {"regression"},
-            priority = 415
+            priority = 415,
+            groups = {
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"}
     )
     public void successAddFavoriteProductsFromCardToCart() {
         SoftAssert softAssert = new SoftAssert();
@@ -348,8 +393,11 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Тест добавления товаров в корзину из списка любимых товаров",
-            groups = {"acceptance","regression"},
-            priority = 416
+            priority = 416,
+            groups = {
+                    "acceptance","regression",
+                    "metro-acceptance","metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAddFavoriteProductToCart() {
         SoftAssert softAssert = new SoftAssert();

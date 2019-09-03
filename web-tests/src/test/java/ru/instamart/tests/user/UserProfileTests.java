@@ -21,11 +21,14 @@ public class UserProfileTests extends TestBase {
 
     @Test(
             description = "Тест доступности страниц профиля пользователя",
-            groups = {"smoke","acceptance","regression"},
-            priority = 151
+            priority = 151,
+            groups = {
+                    "smoke","acceptance","regression",
+                    "metro-smoke","metro-acceptance","metro-regression",
+                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
+            }
     )
-    public void successCheckProfilePages() throws AssertionError {
-
+    public void successCheckProfilePages() {
         // TODO переделать на assertPagesAvailable(Pages.Site.Profile.*)
         assertPageIsAvailable(Pages.Site.Profile.edit());
         assertPageIsAvailable(Pages.Site.Profile.favorites());
@@ -35,10 +38,14 @@ public class UserProfileTests extends TestBase {
 
     @Test(
             description = "Тест работы с меню профиля",
-            groups = {"smoke","acceptance","regression"},
-            priority = 152
+            priority = 152,
+            groups = {
+                    "smoke","acceptance","regression",
+                    "metro-smoke","metro-acceptance","metro-regression",
+                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
+            }
     )
-    public void successOperateProfileMenu() throws AssertionError {
+    public void successOperateProfileMenu() {
         SoftAssert softAssert = new SoftAssert();
 
         Shop.AccountMenu.open();
@@ -57,11 +64,15 @@ public class UserProfileTests extends TestBase {
     }
 
     @Test(
-            description = "Тест валидации элементов в меню профиля",
-            groups = {"smoke","acceptance","regression"},
-            priority = 153
+            description = "Тест валидации элементов в меню профиля", //todo сделать отдельные тесты под тенанты
+            priority = 153,
+            groups = {
+                    "smoke","acceptance","regression",
+                    "metro-smoke","metro-acceptance","metro-regression",
+                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
+            }
     )
-    public void successValidateProfileMenu() throws AssertionError {
+    public void successValidateProfileMenu() {
         SoftAssert softAssert = new SoftAssert();
 
         Shop.AccountMenu.open();

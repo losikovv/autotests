@@ -66,9 +66,11 @@ public class UserPasswordRecoveryTests extends TestBase {
     }
 
     @Test(
-            description = "Тест успешной отправки восстановления пароля на витрине ритейлера",
-            groups = {"acceptance","regression"},
-            priority = 455
+            description = "Тест успешной отправки восстановления пароля на главной",
+            priority = 455,
+            groups = {
+                    "acceptance","regression",
+                    "sbermarket-acceptance","sbermarket-regression"}
     )
     public void successRequestRecoveryOnRetailer() {
         kraken.get().page("metro");

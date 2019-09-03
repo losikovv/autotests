@@ -703,7 +703,7 @@ public class Shop extends Base {
             public static void remove() {
                 kraken.perform().hoverOn(Elements.Cart.item.snippet());
                 kraken.await().simply(1);
-                kraken.perform().hoverOn(Elements.Cart.item.snippet());
+                kraken.perform().hoverOn(Elements.Cart.item.snippet()); // небольшой костылек для стобильности
                 kraken.await().fluently(
                         ExpectedConditions.elementToBeClickable(
                                 Elements.Cart.item.removeButton().getLocator()),

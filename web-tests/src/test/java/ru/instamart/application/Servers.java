@@ -29,7 +29,7 @@ public class Servers {
     }
 
     public static ServerData sbermarket_staging() {
-        return new ServerData(Tenants.sbermarket(),"staging", "staging.instamart.ru" , "babur:hex78%2EBerwyn");
+        return new ServerData(Tenants.sbermarket(),"staging", "storefront.staging.instamart.ru" , "babur:hex78%2EBerwyn");
     }
 
     public static ServerData sbermarket_cloud_staging() {

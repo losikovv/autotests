@@ -3,7 +3,7 @@ package ru.instamart.application;
 import org.openqa.selenium.By;
 import ru.instamart.application.lib.CheckoutSteps;
 import ru.instamart.application.models.CheckoutStepData;
-import ru.instamart.application.models.CreditCardData;
+import ru.instamart.application.models.PaymentCardData;
 import ru.instamart.application.models.ElementData;
 import ru.instamart.application.models.JuridicalData;
 
@@ -551,7 +551,7 @@ public class Elements {
 
         static ElementData sberButton() {
             return new ElementData(
-                    By.xpath("//*[@class='auth-modal__icon-sberbank']//ancestor::button"),
+                    By.xpath("//button[contains(@class,'sberbank_button')]"),
                         "кнопка авторизации через Sber ID");
         }
     }
@@ -1770,7 +1770,7 @@ public class Elements {
                 return new ElementData(By.xpath("//div[4]/div[2]/div/div/div[2]/div[2]/div[1]/div[" + number + "]/div/div/div/span[2]/span"));
             }
 
-            static ElementData paymentCardTitle(CreditCardData creditCardData) {
+            static ElementData paymentCardTitle(PaymentCardData creditCardData) {
                 String number = creditCardData.getCardNumber();
                 return new ElementData(By.xpath("//span[contains(text(),'•••• " + number.substring(number.length()-4) + "')]"));
             }

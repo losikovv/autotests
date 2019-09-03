@@ -2,7 +2,6 @@ package ru.instamart.application.platform.helpers;
 
 import org.openqa.selenium.WebDriver;
 import ru.instamart.application.AppManager;
-import ru.instamart.application.lib.Pages;
 import ru.instamart.application.Users;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;

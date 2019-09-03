@@ -38,12 +38,11 @@ public class UserShippingAddressTests extends TestBase {
 
     @Test(
             description = "Тест дефолтного списка магазинов при отсутствии адреса доставки",
+            priority = 302,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 302
+            }
     )
     public void successOperateDefaultShoplist() {
         kraken.get().page("metro");

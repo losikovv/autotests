@@ -461,7 +461,7 @@ public class UserAuthorisationTests extends TestBase {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"}
     )
-    public void successClearShipAddressAndShoppingCartAfterLogout() {
+    public void noShipAddressAndEmptyCartAfterLogout() {
         kraken.get().page("metro");
 
         User.Do.loginAs(session.admin);
