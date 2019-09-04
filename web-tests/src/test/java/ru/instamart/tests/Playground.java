@@ -1,11 +1,13 @@
 package ru.instamart.tests;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Config;
 import ru.instamart.application.Elements;
 import ru.instamart.application.lib.*;
+import ru.instamart.application.models.ElementData;
 import ru.instamart.application.models.OrderDetailsData;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
