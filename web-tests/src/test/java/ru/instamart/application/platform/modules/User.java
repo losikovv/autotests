@@ -21,9 +21,6 @@ public class User extends Base {
 
     public static class Do {
 
-        /**
-         * Залогиниться юзером с указанной ролью
-         */
         public static void loginAs(UserData user) { //TODO использовать только session-юзеров
             String startURL = kraken.grab().currentURL();
             if (!startURL.equals(fullBaseUrl) && kraken.detect().isUserAuthorised()) {
@@ -31,11 +28,11 @@ public class User extends Base {
                 String currentUserEmail = kraken.grab().text(Elements.UserProfile.AccountPage.email());
                 message("Юзер: " + currentUserEmail);
                 if (currentUserEmail == null || !currentUserEmail.equals(user.getLogin())) {
-                    quickLogout();
+                    User.Logout.quickly();
                 }
                 kraken.get().url(startURL);
             }
-            login(user);
+            Auth.withEmail(user);
             if (multiSessionMode && kraken.detect().isElementPresent(
                     Elements.Modals.AuthModal.errorMessage("Неверный email или пароль"))) {
                 message(">>> Юзер " + user.getLogin() + " не найден, регистрируем\n");
@@ -43,38 +40,16 @@ public class User extends Base {
                 if (kraken.detect().server("staging")) {
                     kraken.get().baseUrl();
                 }
-                login(user);
+                Auth.withEmail(user);
                 if (user.getRole().equals("admin")) {
-                    quickLogout();
-                    login(Users.superadmin());
+                    User.Logout.quickly();
+                    Auth.withEmail(Users.superadmin());
                     Administration.Users.grantAdminPrivileges(user);
-                    quickLogout();
-                    login(user);
+                    User.Logout.quickly();
+                    Auth.withEmail(user);
                 }
             }
             message("Уровень прав: " + user.getRole() + "\n");
-        }
-
-        /**
-         * Залогиниться с реквизитами из переданного объекта UserData
-         */
-        public static void login(UserData userData) {
-            login(userData.getLogin(), userData.getPassword());
-        }
-
-        /**
-         * Залогиниться с указанными реквизитами
-         */
-        public static void login(String email, String password) {
-            if (kraken.detect().isInAdmin()) {
-                loginOnAdministration(email, password);
-            } else {
-                if (!kraken.detect().isUserAuthorised()) {
-                    loginOnSite(email, password);
-                } else {
-                    verboseMessage("Пропускаем авторизацию, уже авторизованы");
-                }
-            }
         }
 
         private static void loginOnSite(String email, String password) {
@@ -98,24 +73,6 @@ public class User extends Base {
                             Elements.Administration.Header.userEmail().getLocator()), "Не проходит авторизация в админке\n");
         }
 
-        /** Деавторизация */
-        public static void logout() {
-            if(kraken.detect().isUserAuthorised()) {
-                verboseMessage("Логаут...");
-                if (kraken.detect().isInAdmin()) {
-                    logoutOnAdministration();
-                } else {
-                    logoutOnSite();
-                }
-                kraken.await().implicitly(1); // Ожидание деавторизации и подгрузки лендинга
-                if (!kraken.detect().isUserAuthorised()) {
-                    verboseMessage("✓ Готово\n");
-                }
-            } else {
-                verboseMessage("Пропускаем деавторизацию, уже разлогинены");
-            }
-        }
-
         private static void logoutOnSite() {
             verboseMessage("> Деавторизуемся на сайте");
             kraken.perform().click(Elements.Header.profileButton());
@@ -125,16 +82,6 @@ public class User extends Base {
         private static void logoutOnAdministration() {
             verboseMessage("> Деавторизуемся в админке");
             kraken.perform().click(Elements.Administration.Header.logoutButton());
-        }
-
-        /** Быстрая деавторизация переходом на logout */
-        public static void quickLogout() {
-            verboseMessage("Быстрый логаут...");
-            kraken.get().page("logout");
-            kraken.await().simply(1); // Ожидание деавторизации и подгрузки лендинга
-            if (kraken.detect().isOnLanding()) {
-                verboseMessage("✓ Готово\n");
-            }
         }
 
 
@@ -257,7 +204,27 @@ public class User extends Base {
 
     public static class Auth {
 
+        public static void withEmail(UserData user) {
+            withEmail(user.getLogin(), user.getPassword());
+        }
+
+        public static void withEmail(String email, String password) {
+            if (kraken.detect().isInAdmin()) {
+                User.Do.loginOnAdministration(email, password);
+            } else {
+                if (!kraken.detect().isUserAuthorised()) {
+                    User.Do.loginOnSite(email, password);
+                } else {
+                    verboseMessage("Пропускаем авторизацию, уже авторизованы");
+                }
+            }
+        }
+
         public static void withVkontakte(UserData user) {
+            if (kraken.detect().isInAdmin()) {
+                verboseMessage("Переходим на base url для авторизации через Vkontakte");
+                kraken.get().baseUrl();
+            }
             Shop.AuthModal.open();
             Shop.AuthModal.hitVkontakteButton();
             kraken.await().simply(2); // Ожидание открытия фрейма авторизации Vkontakte
@@ -266,12 +233,17 @@ public class User extends Base {
             kraken.perform().fillField(Elements.Social.Vkontakte.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Vkontakte.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Vkontakte.submitButton());
+            kraken.await().simply(1); // Ожидание авторизации через Vkontakte
 
             kraken.perform().switchToNextWindow();
-            kraken.await().simply(5); // Ожидание авторизации через Vkontakte
+            kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()));
         }
 
         public static void withFacebook(UserData user) {
+            if (kraken.detect().isInAdmin()) {
+                verboseMessage("Переходим на base url для авторизации через Facebook");
+                kraken.get().baseUrl();
+            }
             Shop.AuthModal.open();
             Shop.AuthModal.hitFacebookButton();
             kraken.await().simply(2); // Ожидание открытия фрейма авторизации Facebook
@@ -280,12 +252,17 @@ public class User extends Base {
             kraken.perform().fillField(Elements.Social.Facebook.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Facebook.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Facebook.submitButton());
+            kraken.await().simply(1); // Ожидание авторизации через Facebook
 
             kraken.perform().switchToNextWindow();
-            kraken.await().simply(5); // Ожидание авторизации через Facebook
+            kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()));
         }
 
         public static void withMailRu(UserData user) {
+            if (kraken.detect().isInAdmin()) {
+                verboseMessage("Переходим на base url для авторизации через Mail.ru");
+                kraken.get().baseUrl();
+            }
             Shop.AuthModal.open();
             Shop.AuthModal.hitMailRuButton();
             kraken.await().simply(2); // Ожидание открытия фрейма авторизации Mail.ru
@@ -296,12 +273,17 @@ public class User extends Base {
             kraken.perform().click(Elements.Social.MailRu.submitButton());
 
             kraken.perform().click(Elements.Social.MailRu.loginButton(user.getLogin()));
+            kraken.await().simply(1); // Ожидание авторизации через Mail.ru
 
             kraken.perform().switchToNextWindow();
-            kraken.await().simply(5); // Ожидание авторизации через Mail.ru
+            kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()));
         }
 
         public static void withSberID(UserData user) {
+            if (kraken.detect().isInAdmin()) {
+                verboseMessage("Переходим на base url для авторизации через Sber ID");
+                kraken.get().baseUrl();
+            }
             Shop.AuthModal.open();
             Shop.AuthModal.hitSberIdButton();
             kraken.await().simply(2); // Ожидание открытия фрейма авторизации Sber ID
@@ -310,9 +292,41 @@ public class User extends Base {
             kraken.perform().fillField(Elements.Social.Sber.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Sber.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Sber.submitButton());
+            kraken.await().simply(3); // Ожидание авторизации через Sber ID
 
             kraken.perform().switchToNextWindow();
-            kraken.await().simply(5); // Ожидание авторизации через Sber ID
+            kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()));
+        }
+    }
+
+    public static class Logout {
+
+        /** Ручная деавторизация через пользовательское меню */
+        public static void manually() {
+            if(kraken.detect().isUserAuthorised()) {
+                verboseMessage("Логаут...");
+                if (kraken.detect().isInAdmin()) {
+                    User.Do.logoutOnAdministration();
+                } else {
+                    User.Do.logoutOnSite();
+                }
+                kraken.await().implicitly(1); // Ожидание деавторизации и подгрузки лендинга
+                if (!kraken.detect().isUserAuthorised()) {
+                    verboseMessage("✓ Готово\n");
+                }
+            } else {
+                verboseMessage("Пропускаем деавторизацию, уже разлогинены");
+            }
+        }
+
+        /** Быстрая деавторизация прямым переходом на /logout */
+        public static void quickly() {
+            verboseMessage("Быстрый логаут...");
+            kraken.get().page("logout");
+            kraken.await().simply(1); // Ожидание деавторизации и подгрузки лендинга
+            if (kraken.detect().isOnLanding()) {
+                verboseMessage("✓ Готово\n");
+            }
         }
     }
 }

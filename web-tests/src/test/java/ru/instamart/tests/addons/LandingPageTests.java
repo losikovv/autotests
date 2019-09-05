@@ -13,12 +13,12 @@ public class LandingPageTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
     }
 
     @BeforeMethod(alwaysRun = true)
     public void quickLogout() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
     }
 
     @Test(

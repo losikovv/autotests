@@ -276,8 +276,7 @@ public class Shop extends Base {
             verboseMessage("Переходим в департамент \"" + name + "\" в шторке каталога категорий");
             kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
             kraken.perform().click(Elements.CatalogDrawer.category(name));
-            // TODO протестить
-                kraken.await().implicitly(1); // Ожидание разворота категории-департамента
+            kraken.await().implicitly(1); // Ожидание разворота категории-департамента
         }
 
         public static void goToTaxon(String name) {

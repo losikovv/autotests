@@ -19,7 +19,7 @@ public class JivositeTests extends TestBase {
             priority = 11101
     )
     public void noJivositeWidgetOnLanding() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
 
         Assert.assertFalse(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite доступен на лендинге");

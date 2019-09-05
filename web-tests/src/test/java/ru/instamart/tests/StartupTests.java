@@ -55,6 +55,10 @@ public class StartupTests extends TestBase {
         validateTransition(Elements.Header.logo());
     }
 
+    // todo public void successValidateDeliveryMetroHeader()
+
+    // todo public void successValidateSbermarketHeader()
+
     @Test(
             description = "Тест валидности элементов и ссылок в футере сайта",
             groups = {"smoke","acceptance","regression"},
@@ -71,6 +75,10 @@ public class StartupTests extends TestBase {
         validateFooterLinks();
         openFooterModals();
     }
+
+    // todo public void successValidateDeliveryMetroFooter()
+
+    // todo public void successValidateSbermarketFooter()
 
     private void checkFooterElementsPresence() {
         assertElementPresence(Elements.Footer.info());

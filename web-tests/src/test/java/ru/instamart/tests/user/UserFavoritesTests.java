@@ -17,7 +17,7 @@ public class UserFavoritesTests extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void quickLogout() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
     }
 
     @Test(  description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",

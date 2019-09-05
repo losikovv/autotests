@@ -16,7 +16,7 @@ public class ShoppingCartTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
         kraken.get().page("metro");
         Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
@@ -206,7 +206,7 @@ public class ShoppingCartTests extends TestBase {
     )
     public void successChangeMinOrderSum() {
         SoftAssert softAssert = new SoftAssert();
-        User.Do.quickLogout();
+        User.Logout.quickly();
 
         User.Do.registration();
         Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());

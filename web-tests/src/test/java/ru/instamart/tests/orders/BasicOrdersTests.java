@@ -153,7 +153,7 @@ public class BasicOrdersTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         UserData userData = generate.testCredentials("user");
 
-        User.Do.quickLogout();
+        User.Logout.quickly();
         User.Do.registration(userData);
         kraken.perform().order();
 
@@ -164,8 +164,8 @@ public class BasicOrdersTests extends TestBase {
         softAssert.assertEquals(kraken.grab().strippedPhoneNumber(Elements.Administration.ShipmentsSection.Order.Requisites.phoneField()), Config.TestVariables.testOrderDetails().getContactsDetails().getPhone(),
                 "Номер телефона в админке не совпадает с указанным номером во время заказа");
 
-        User.Do.quickLogout();
-        User.Do.login(userData);
+        User.Logout.quickly();
+        User.Auth.withEmail(userData);
         kraken.perform().repeatLastOrder();
         String phone = generate.digitString(10);
         kraken.reach().checkout();

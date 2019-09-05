@@ -22,7 +22,7 @@ public class UserShippingAddressTests extends TestBase {
     )
     public void noShippingAddressByDefault() {
         SoftAssert softAssert = new SoftAssert();
-        User.Do.quickLogout();
+        User.Logout.quickly();
         kraken.get().page("metro");
 
         softAssert.assertFalse(
@@ -218,7 +218,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successChangeShippingAddressToRecent() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
-        User.Do.quickLogout();
+        User.Logout.quickly();
         User.Do.registration();
         Shop.ShippingAddress.set(Addresses.Moscow.testAddress());
         kraken.perform().order();
@@ -253,7 +253,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successSetShippingAddressAfterAddingProductFromItemCard() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
-        User.Do.quickLogout();
+        User.Logout.quickly();
         kraken.get().page("metro");
         Shop.Catalog.Item.addToCart();
         Shop.ItemCard.addToCart();
@@ -287,7 +287,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successSetShippingAddressAfterAddingProductFromCatalog() {
         SoftAssert softAssert = new SoftAssert();
 
-        User.Do.quickLogout();
+        User.Logout.quickly();
         kraken.get().page("metro");
         Shop.Catalog.Item.addToCart();
 
@@ -320,7 +320,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successSelectNewStoreAfterShipAddressChange() {
         SoftAssert softAssert = new SoftAssert();
 
-        User.Do.quickLogout();
+        User.Logout.quickly();
         kraken.get().page("vkusvill");
         Shop.ShippingAddress.change(Addresses.Kazan.defaultAddress());
 
@@ -353,7 +353,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successSetNewAddressAfterOutOfRetailerZoneAddressChange() {
         SoftAssert softAssert = new SoftAssert();
 
-        User.Do.quickLogout();
+        User.Logout.quickly();
         kraken.get().page("lenta");
         Shop.ShippingAddress.change(Addresses.Kazan.defaultAddress());
 
@@ -385,7 +385,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successSetNewAddressAfterOutOfZoneAddressChange() {
         SoftAssert softAssert = new SoftAssert();
 
-        User.Do.quickLogout();
+        User.Logout.quickly();
         kraken.get().page("metro");
         Shop.ShippingAddress.change(Addresses.Moscow.outOfZoneAddress());
 

@@ -17,7 +17,7 @@ public class Servers {
     }
 
     public static ServerData metro_staging() {
-        return new ServerData(Tenants.metro(),"staging", "staging.instamart.ru" , "babur:hex78%2EBerwyn");
+        return new ServerData(Tenants.metro(),"staging", "storefront.staging.instamart.ru" , "babur:hex78%2EBerwyn");
     }
 
     public static ServerData sbermarket_production() {

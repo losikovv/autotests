@@ -43,14 +43,14 @@ public class AdministrationUsersSectionTests extends TestBase {
     public void successGrantAndRevokeAdminPrivileges() {
         SoftAssert softAssert = new SoftAssert();
 
-        User.Do.quickLogout();
+        User.Logout.quickly();
         UserData testuser = generate.testCredentials("admin");
         User.Do.registration(testuser);
 
         Administration.Users.grantAdminPrivileges(testuser);
-        User.Do.quickLogout();
+        User.Logout.quickly();
 
-        User.Do.login(testuser);
+        User.Auth.withEmail(testuser);
         kraken.get().page(Pages.Admin.shipments());
 
         softAssert.assertTrue(
@@ -58,16 +58,16 @@ public class AdministrationUsersSectionTests extends TestBase {
                     "Пользователю не предоставляются админские права");
 
         Administration.Users.revokeAdminPrivileges(testuser);
-        User.Do.quickLogout();
+        User.Logout.quickly();
 
-        User.Do.login(testuser);
+        User.Auth.withEmail(testuser);
         kraken.get().page(Pages.Admin.shipments());
 
         softAssert.assertFalse(
                 kraken.detect().isInAdmin(),
                     "У пользователя не снимаются админские права");
 
-        User.Do.quickLogout();
+        User.Logout.quickly();
         softAssert.assertAll();
     }
 
@@ -77,21 +77,21 @@ public class AdministrationUsersSectionTests extends TestBase {
             priority = 10703
     )
     public void successChangePassword() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
         UserData testuser = generate.testCredentials("user");
         User.Do.registration();
 
         Administration.Users.editUser(testuser);
         Administration.Users.changePassword("654321");
-        User.Do.quickLogout();
+        User.Logout.quickly();
 
-        User.Do.login(testuser.getLogin(), "654321");
+        User.Auth.withEmail(testuser.getLogin(), "654321");
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
                     "Не удалось авторизоваться пользователем после смены пароля через админку");
 
-        User.Do.quickLogout();
+        User.Logout.quickly();
     }
 
     @Test(  enabled = enableUsersSectionTests,
@@ -100,7 +100,7 @@ public class AdministrationUsersSectionTests extends TestBase {
             priority = 10704
     )
     public void successGrantB2BStatus() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
         UserData testuser = generate.testCredentials("user");
         User.Do.registration(testuser);
 
@@ -120,7 +120,7 @@ public class AdministrationUsersSectionTests extends TestBase {
     )
     public void successSearchB2BUser() {
         SoftAssert softAssert = new SoftAssert();
-        User.Do.quickLogout();
+        User.Logout.quickly();
         UserData testuser = generate.testCredentials("user");
         User.Do.registration(testuser);
 
@@ -147,15 +147,15 @@ public class AdministrationUsersSectionTests extends TestBase {
     )
     public void successRevokeB2BStatus() {
         SoftAssert softAssert = new SoftAssert();
-        User.Do.quickLogout();
+        User.Logout.quickly();
         UserData testuser = generate.testCredentials("user");
         User.Do.registration(testuser);
 
         Administration.Users.editUser(testuser);
         Administration.Users.grantB2B();
-        User.Do.quickLogout();
+        User.Logout.quickly();
 
-        User.Do.login(testuser);
+        User.Auth.withEmail(testuser);
         kraken.perform().order();
         String number = kraken.grab().currentOrderNumber();
 

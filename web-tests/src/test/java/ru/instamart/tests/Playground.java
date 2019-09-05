@@ -141,4 +141,52 @@ public class Playground extends TestBase {
         Shop.CatalogDrawer.close();
        // kraken.await().simply(5);
     }
+
+
+    @Test
+    public void slackWipeout() {
+        String email = "";
+
+        ElementData emailField = new ElementData(By.xpath("//input[@placeholder='Search current members']"));
+        ElementData optionsButton = new ElementData(By.xpath("//button[contains(@class,'p-admin_member_table__menu_button')]"));
+        ElementData deactivateButton = new ElementData(By.xpath("//div[@class='c-menu_item__label' and text()='Deactivate account']"));
+        ElementData deactivateApproveButton = new ElementData(By.xpath("//button[@data-qa='dialog_go']"));
+
+        loginSlack();
+        searchSlackUser(email, emailField);
+        deactivateSlackUser(optionsButton, deactivateButton, deactivateApproveButton);
+
+        if(kraken.detect().isElementPresent(optionsButton)) {
+            throw new AssertionError("Пользователь " + email + " не был деактивирован");
+        }
+    }
+
+    private void loginSlack() {
+        kraken.get().url("https://instamart.slack.com/admin");
+        ElementData emailLoginField = new ElementData(By.xpath("//input[@id='email']"));
+        ElementData passwordLoginField = new ElementData(By.xpath("//input[@id='password']"));
+        ElementData loginSubmitButton = new ElementData(By.xpath("//button[@id='signin_btn']"));
+
+        String loginEmail = "stanislav.klimov@instamart.ru";
+        String loginPassword = "";
+
+        kraken.perform().fillField(emailLoginField,loginEmail);
+        kraken.perform().fillField(passwordLoginField,loginPassword);
+        kraken.perform().click(loginSubmitButton);
+        kraken.await().simply(2);
+    }
+
+    private void searchSlackUser(String email, ElementData emailField) {
+        kraken.get().url("https://instamart.slack.com/admin");
+        kraken.perform().fillField(emailField,email);
+        kraken.await().simply(1);
+    }
+
+    private void deactivateSlackUser(ElementData optionsButton, ElementData deactivateButton, ElementData deactivateApproveButton) {
+        kraken.perform().click(optionsButton);
+        kraken.await().simply(2);
+        kraken.perform().click(deactivateButton);
+        kraken.perform().click(deactivateApproveButton);
+        kraken.await().simply(3);
+    }
 }

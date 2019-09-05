@@ -24,14 +24,12 @@ public class OrdersCities extends TestBase {
 
     @Test(enabled = enableOrderCitiesTests,
             description = "Тест заказа в METRO в Москве",
+            priority = 2301,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2301
-    )
-    public void successOrderInMoscow() {
+                    "metro-acceptance", "metro-regression"
+            }
+    ) public void successOrderInMoscow() {
         Shop.ShippingAddress.change(Addresses.Moscow.defaultAddress());
 
         Shop.Cart.collect();
@@ -45,14 +43,12 @@ public class OrdersCities extends TestBase {
 
     @Test(enabled = enableOrderCitiesTests,
             description = "Тест заказа в METRO в Санкт-Петербурге",
+            priority = 2302,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2302
-    )
-    public void successOrderInSaintPetersburg() {
+                    "metro-acceptance", "metro-regression"
+            }
+    ) public void successOrderInSaintPetersburg() {
         Shop.ShippingAddress.change(Addresses.SaintPetersburg.defaultAddress());
 
         Shop.Cart.collect();
@@ -66,14 +62,12 @@ public class OrdersCities extends TestBase {
 
     @Test(enabled = enableOrderCitiesTests,
             description = "Тест заказа в METRO в Казани",
+            priority = 2303,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2303
-    )
-    public void successOrderInKazan() {
+                    "metro-acceptance", "metro-regression"
+            }
+    ) public void successOrderInKazan() {
         Shop.ShippingAddress.change(Addresses.Kazan.defaultAddress());
 
         Shop.Cart.collect();
@@ -87,14 +81,12 @@ public class OrdersCities extends TestBase {
 
     @Test(enabled = enableOrderCitiesTests,
             description = "Тест заказа в METRO в Екатеринбурге",
+            priority = 2304,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2304
-    )
-    public void successOrderInEkaterinburg() {
+                    "metro-acceptance", "metro-regression"
+            }
+    ) public void successOrderInEkaterinburg() {
         Shop.ShippingAddress.change(Addresses.Ekaterinburg.defaultAddress());
 
         Shop.Cart.collect();
@@ -108,14 +100,12 @@ public class OrdersCities extends TestBase {
 
     @Test(enabled = enableOrderCitiesTests,
             description = "Тест заказа в METRO в Нижнем Новгороде",
+            priority = 2305,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2305
-    )
-    public void successOrderInNizhnyNovgorod() {
+                    "metro-acceptance", "metro-regression"
+            }
+    ) public void successOrderInNizhnyNovgorod() {
         Shop.ShippingAddress.change(Addresses.NizhnyNovgorod.defaultAddress());
 
         Shop.Cart.collect();
@@ -129,14 +119,13 @@ public class OrdersCities extends TestBase {
 
     @Test(enabled = enableOrderCitiesTests,
             description = "Тест заказа в METRO в Ростове-на-Дону",
+            priority = 2306,
             groups = {
                     "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2306
-    )
-    public void successOrderInRostovNaDonu() {
+            }
+    ) public void successOrderInRostovNaDonu() {
         Shop.ShippingAddress.change(Addresses.RostovNaDonu.defaultAddress());
 
         Shop.Cart.collect();
@@ -150,14 +139,12 @@ public class OrdersCities extends TestBase {
 
     @Test(enabled = enableOrderCitiesTests,
             description = "Тест заказа в METRO в Уфе",
+            priority = 2307,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2307
-    )
-    public void successOrderInUfa() {
+                    "metro-acceptance", "metro-regression"
+            }
+    ) public void successOrderInUfa() {
         Shop.ShippingAddress.change(Addresses.Ufa.defaultAddress());
 
         Shop.Cart.collect();
@@ -171,14 +158,13 @@ public class OrdersCities extends TestBase {
 
     @Test(enabled = enableOrderCitiesTests,
             description = "Тест заказа в METRO в Краснодаре",
+            priority = 2308,
             groups = {
                     "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2308
-    )
-    public void successOrderInKrasnodar() {
+            }
+    ) public void successOrderInKrasnodar() {
         Shop.ShippingAddress.change(Addresses.Krasnodar.defaultAddress());
 
         Shop.Cart.collect();
@@ -192,14 +178,12 @@ public class OrdersCities extends TestBase {
 
     @Test(enabled = enableOrderCitiesTests,
             description = "Тест заказа в METRO в Самаре",
+            priority = 2309,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2309
-    )
-    public void successOrderInSamara() {
+                    "metro-acceptance", "metro-regression"
+            }
+    ) public void successOrderInSamara() {
         Shop.ShippingAddress.change(Addresses.Samara.defaultAddress());
 
         Shop.Cart.collect();
@@ -213,14 +197,12 @@ public class OrdersCities extends TestBase {
 
     @Test(enabled = enableOrderCitiesTests,
             description = "Тест заказа в METRO в Воронеже",
+            priority = 2310,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2310
-    )
-    public void successOrderInVoronezh() {
+                    "metro-acceptance", "metro-regression"
+            }
+    ) public void successOrderInVoronezh() {
         Shop.ShippingAddress.change(Addresses.Voronezh.defaultAddress());
 
         Shop.Cart.collect();
@@ -236,14 +218,12 @@ public class OrdersCities extends TestBase {
 
     @Test(enabled = enableOrderCitiesTests,
             description = "Тест заказа в METRO в Омске",
+            priority = 2311,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2311
-    )
-    public void successOrderInOmsk() {
+                    "metro-acceptance", "metro-regression"
+            }
+    ) public void successOrderInOmsk() {
         Shop.ShippingAddress.change(Addresses.Omsk.defaultAddress());
 
         Shop.Cart.collect();
@@ -259,14 +239,12 @@ public class OrdersCities extends TestBase {
 
     @Test(enabled = enableOrderCitiesTests,
             description = "Тест заказа в METRO в Волгограде",
+            priority = 2312,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2312
-    )
-    public void successOrderInVolgograd() {
+                    "metro-acceptance", "metro-regression"
+            }
+    ) public void successOrderInVolgograd() {
         Shop.ShippingAddress.change(Addresses.Volgograd.defaultAddress());
 
         Shop.Cart.collect();
@@ -282,14 +260,12 @@ public class OrdersCities extends TestBase {
 
     @Test(enabled = enableOrderCitiesTests,
             description = "Тест заказа в METRO в Новосибирске",
+            priority = 2313,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2313
-    )
-    public void successOrderInNovosibirsk() {
+                    "metro-acceptance", "metro-regression"
+            }
+    ) public void successOrderInNovosibirsk() {
         Shop.ShippingAddress.change(Addresses.Novosibirsk.defaultAddress());
 
         Shop.Cart.collect();

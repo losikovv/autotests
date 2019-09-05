@@ -20,12 +20,12 @@ public class UserAuthorisationTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
     }
 
     @BeforeMethod(alwaysRun = true)
     public void quickLogout() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
     }
 
     @Test(
@@ -264,7 +264,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 108
     )
     public void successAuthOnLanding() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
 
         User.Do.loginAs(session.admin);
 
@@ -335,7 +335,7 @@ public class UserAuthorisationTests extends TestBase {
         final UserData testuser = generate.testCredentials("user");
 
         User.Do.registration(testuser);
-        User.Do.quickLogout();
+        User.Logout.quickly();
         kraken.get().page("metro");
         Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
@@ -348,7 +348,7 @@ public class UserAuthorisationTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе открывается авторизационная модалка при переходе неавторизованным из корзины в чекаут");
 
-        User.Do.login(testuser);
+        User.Auth.withEmail(testuser);
 
         softAssert.assertTrue(
                 kraken.detect().isOnCheckout(),
@@ -428,64 +428,6 @@ public class UserAuthorisationTests extends TestBase {
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
                     failMessage("Не работает авторизация через Sber ID"));
-    }
-
-    @Test(
-            description = "Тест успешной деавторизации",
-            priority = 116,
-            groups = {
-                    "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"}
-    )
-    public void successLogout() {
-        kraken.get().page("metro");
-
-        User.Do.loginAs(session.admin);
-        User.Do.logout();
-
-        assertPageIsAvailable();
-
-        kraken.get().page("metro");
-
-        Assert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    failMessage("Не работает логаут"));
-    }
-
-    @Test(
-            description = "Тест сброса адреса доставки и корзины после деавторизации",
-            priority = 117,
-            groups = {
-                    "acceptance", "regression",
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"}
-    )
-    public void noShipAddressAndEmptyCartAfterLogout() {
-        kraken.get().page("metro");
-
-        User.Do.loginAs(session.admin);
-        Shop.ShippingAddress.change(Addresses.Moscow.defaultAddress());
-        Shop.Catalog.Item.addToCart();
-        User.Do.logout();
-
-        kraken.get().page("metro");
-
-        Assert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    failMessage("Не выполнены предусловия - не работает логаут"));
-
-        SoftAssert softAssert = new SoftAssert();
-
-        softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    failMessage("Не сбросился адрес доставки после логаута"));
-
-        softAssert.assertTrue(
-                kraken.detect().isCartEmpty(),
-                    failMessage("Не сбросилась корзина после логаута"));
-
-        softAssert.assertAll();
     }
 }
 

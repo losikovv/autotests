@@ -13,7 +13,7 @@ public class BasicAdministrationTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
     }
 
 
@@ -24,24 +24,19 @@ public class BasicAdministrationTests extends TestBase {
     // TODO сделать тест перехода в корневые разделы админки по прямым ссылкам без админ привилегий
 
     @Test(  description = "Тест недоступности админки пользователю без админ. прав",
-            groups = {"acceptance","regression"},
-            priority = 10000
-    )
-    public void noAccessToAdministrationWithoutAdminPrivileges() {
+            priority = 10000,
+            groups = {"acceptance","regression"}
+    ) public void noAccessToAdministrationWithoutAdminPrivileges() {
         User.Do.loginAs(session.user);
 
         assertPageIsUnavailable(Pages.Admin.shipments());
-        User.Do.quickLogout();
+        User.Logout.quickly();
     }
 
     @Test(  description = "Тест доступности админки пользователю c админ. правми",
             priority = 10001,
-            groups = {
-                    "acceptance","regression",
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"}
-    )
-    public void successAccessAdministrationThroughAuthOnSite() {
+            groups = {"acceptance","regression"}
+    ) public void successAccessAdministrationThroughAuthOnSite() {
         User.Do.loginAs(session.admin);
 
         assertPageIsAvailable(Pages.Admin.shipments());
@@ -49,12 +44,8 @@ public class BasicAdministrationTests extends TestBase {
 
     @Test(  description = "Тест доступности корневых разделов админки",
             priority = 10002,
-            groups = {
-                    "acceptance","regression",
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"}
-    )
-    public void successCheckAdminSections() {
+            groups = {"acceptance","regression"}
+    ) public void successCheckAdminSections() {
         kraken.reach().admin();
 
         // TODO переделать на assertPagesAvailable(Pages.Admin.*)
@@ -71,12 +62,8 @@ public class BasicAdministrationTests extends TestBase {
 
     @Test(  description = "Проверка наличия элементов в шапке админки",
             priority = 10003,
-            groups = {
-                    "acceptance","regression",
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"}
-                    )
-    public void successValidateHeader() {
+            groups = {"acceptance","regression"}
+    ) public void successValidateHeader() {
         kraken.reach().admin();
         assertElementPresence(Elements.Administration.Header.userEmail());
         assertElementPresence(Elements.Administration.Header.logoutButton());
@@ -84,12 +71,8 @@ public class BasicAdministrationTests extends TestBase {
 
     @Test(  description = "Тест валидности ссылок навигационного меню в шапке админки",
             priority = 10004,
-            groups = {
-                    "acceptance","regression",
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"}
-    )
-    public void successValidateNavigationMenu() {
+            groups = {"acceptance","regression"}
+    ) public void successValidateNavigationMenu() {
         kraken.reach().admin();
 
         validateTransition(Elements.Administration.menuButton("Заказы"));

@@ -12,7 +12,7 @@ public class AdministrationAccessTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
     }
 
     @BeforeMethod(alwaysRun = true)

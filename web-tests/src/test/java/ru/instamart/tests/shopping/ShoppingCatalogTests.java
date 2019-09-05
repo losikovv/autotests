@@ -14,7 +14,7 @@ public class ShoppingCatalogTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
         kraken.get().page("metro");
         Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }

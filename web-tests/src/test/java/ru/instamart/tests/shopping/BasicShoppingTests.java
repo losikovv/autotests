@@ -17,7 +17,7 @@ public class BasicShoppingTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
         kraken.get().page("metro");
         Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
@@ -136,11 +136,11 @@ public class BasicShoppingTests extends TestBase {
         User.Do.registration(testuser);
         Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         Shop.Catalog.Item.addToCart();
-        User.Do.quickLogout();
+        User.Logout.quickly();
 
         kraken.get().page("metro");
         Shop.ShippingAddress.set(Addresses.Moscow.testAddress());
-        User.Do.login(testuser);
+        User.Auth.withEmail(testuser);
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),

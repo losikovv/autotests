@@ -76,7 +76,7 @@ public class SelfCheckTests extends TestBase {
         User.Do.loginAs(session.admin);
         Assert.assertTrue(kraken.detect().isUserAuthorised());
 
-        User.Do.logout();
+        User.Logout.manually();
         Assert.assertFalse(kraken.detect().isUserAuthorised());
     }
 
@@ -187,7 +187,7 @@ public class SelfCheckTests extends TestBase {
             priority = 10011)
     public void detectDefaultStoresDrawer() {
         SoftAssert softAssert = new SoftAssert();
-        User.Do.quickLogout();
+        User.Logout.quickly();
 
         //landing
         Shop.ShippingAddress.set(Addresses.Moscow.testAddress());
@@ -227,7 +227,7 @@ public class SelfCheckTests extends TestBase {
             priority = 10012)
     public void detectEmptyStoresDrawer() {
         SoftAssert softAssert = new SoftAssert();
-        User.Do.quickLogout();
+        User.Logout.quickly();
 
         //landing
         Shop.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());

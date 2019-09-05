@@ -16,7 +16,7 @@ public class UserRegistrationTests extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void quickLogout() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
     }
 
     @Test(

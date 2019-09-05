@@ -15,11 +15,11 @@ public class HelperBase {
     public String adminUrl;
     private static boolean acceptNextAlert = true;
 
-    HelperBase(WebDriver driver, ServerData environment, AppManager app) {
+    HelperBase(WebDriver driver, ServerData server, AppManager app) {
         this.driver = driver;
-        this.baseUrl = environment.getBaseURL(false);
-        this.fullBaseUrl = environment.getBaseURL(true);
-        this.adminUrl = environment.getAdminURL();
+        this.baseUrl = server.getBaseURL(false);
+        this.fullBaseUrl = server.getBaseURL(true);
+        this.adminUrl = server.getAdminURL();
         this.kraken = app;
     }
 

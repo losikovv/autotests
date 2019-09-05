@@ -31,7 +31,7 @@ public class TestBase {
     }
     /** Метод-обертка для красивого вывода ошибок зафейленных тестов */
     protected String failMessage(String text) {
-        return "\n\n> " + text;
+        return "\n\n> " + text + "\n\n";
     }
 
     /** Проверить наличие и видимость элемента на странице */
@@ -40,7 +40,8 @@ public class TestBase {
 
         Assert.assertTrue(
                 kraken.detect().isElementPresent(element),
-                    failMessage("Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL()));
+                    failMessage("Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL()
+                            + "\n> " + element.getLocator()));
 
         verboseMessage("✓ Успешно: " + element.getDescription() + "\n");
     }

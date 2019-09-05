@@ -14,7 +14,7 @@ public class UserPasswordRecoveryTests extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void quickLogout() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
     }
 
     @Test(
@@ -126,13 +126,13 @@ public class UserPasswordRecoveryTests extends TestBase {
         Shop.RecoveryModal.fillRecoveryForm("password1", "password1");
         Shop.RecoveryModal.submitRecovery();
 
-        User.Do.quickLogout();
-        User.Do.login(Users.userGmail().getLogin(), "password1");
+        User.Logout.quickly();
+        User.Auth.withEmail(Users.userGmail().getLogin(), "password1");
 
         softAssert.assertTrue(kraken.detect().isUserAuthorised(),
                 failMessage("Невозможно авторизоваться с новым паролем после восстановления пароля"));
 
-        User.Do.quickLogout();
+        User.Logout.quickly();
         User.Do.requestPasswordRecovery(Users.userGmail());
 
         kraken.get().url("https://mail.google.com/mail/u/0/h/");
@@ -141,8 +141,8 @@ public class UserPasswordRecoveryTests extends TestBase {
         Shop.RecoveryModal.fillRecoveryForm("password2", "password2");
         Shop.RecoveryModal.submitRecovery();
 
-        User.Do.quickLogout();
-        User.Do.login(Users.userGmail().getLogin(), "password1");
+        User.Logout.quickly();
+        User.Auth.withEmail(Users.userGmail().getLogin(), "password1");
         
         Assert.assertFalse(kraken.detect().isUserAuthorised(),
                 failMessage("Возможно авторизоваться со старым паролем после восстановления пароля!"));

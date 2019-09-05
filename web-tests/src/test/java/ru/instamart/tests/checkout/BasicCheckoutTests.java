@@ -14,7 +14,7 @@ public class BasicCheckoutTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preparingForCheckout() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
         User.Do.loginAs(AppManager.session.user);
         Shop.Cart.collect();
     }

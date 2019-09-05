@@ -15,7 +15,7 @@ public class CheckoutContactsStepTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preparingForCheckout() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
         User.Do.registration();
         Shop.Cart.collect();
     }

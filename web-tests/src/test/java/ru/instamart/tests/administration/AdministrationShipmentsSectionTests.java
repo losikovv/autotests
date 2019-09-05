@@ -57,7 +57,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
 
         assertElementPresence(Elements.Administration.ShipmentsSection.Checkboxes.completedOnly());
         assertElementPresence(Elements.Administration.ShipmentsSection.Checkboxes.b2bOnly());
-        assertElementPresence(Elements.Administration.ShipmentsSection.Checkboxes.metroOnly());
+        // todo переделано на мультиселетор, обновить assertElementPresence(Elements.Administration.ShipmentsSection.Checkboxes.metroOnly());
         assertElementPresence(Elements.Administration.ShipmentsSection.Checkboxes.deliveryChangedOnly());
 
         assertElementPresence(Elements.Administration.ShipmentsSection.applyFilterButton());
@@ -163,14 +163,14 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     )
     public void successSearchB2BOrder() {
         UserData testuser = generate.testCredentials("user");
-        User.Do.quickLogout();
+        User.Logout.quickly();
         User.Do.registration(testuser);
 
         Administration.Users.editUser(testuser);
         Administration.Users.grantB2B();
-        User.Do.quickLogout();
+        User.Logout.quickly();
 
-        User.Do.login(testuser);
+        User.Auth.withEmail(testuser);
         kraken.perform().order();
         String number = kraken.grab().currentOrderNumber();
 

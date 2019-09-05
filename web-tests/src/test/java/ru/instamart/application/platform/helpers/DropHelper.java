@@ -17,7 +17,7 @@ public class DropHelper extends HelperBase {
     public void auth() {
         if (kraken.detect().isUserAuthorised()) {
             String currentURL = kraken.grab().currentURL();
-            User.Do.quickLogout();
+            User.Logout.quickly();
             kraken.get().url(currentURL);
         }
     }

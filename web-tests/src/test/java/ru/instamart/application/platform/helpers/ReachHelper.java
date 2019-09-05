@@ -37,14 +37,14 @@ public class ReachHelper extends HelperBase {
         kraken.await().simply(1);// Ожидание редиректа
         if (kraken.detect().isOnAdminLoginPage()) {
             debugMessage("> недостаточно прав, перелогиниваемся суперадмином на логин-странице админки");
-            User.Do.login(Users.superadmin());
+            User.Auth.withEmail(Users.superadmin());
         }
         kraken.get().adminPage(path);
         debugMessage("✓ Готово");
     }
 
     public void seoCatalog() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
         deleteAllCookies();
         kraken.get().seoCatalogPage();
     }

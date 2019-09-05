@@ -19,7 +19,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preparingForCheckout() {
-        User.Do.quickLogout();
+        User.Logout.quickly();
         User.Do.registration();
         Shop.Cart.collect();
     }
@@ -160,6 +160,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fill();
         Checkout.AddressStep.next();
         kraken.perform().refresh();
+
         Checkout.AddressStep.clear();
         Checkout.AddressStep.next();
 

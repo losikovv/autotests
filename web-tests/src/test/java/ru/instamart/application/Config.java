@@ -72,8 +72,8 @@ public class Config {
             String companyDomain = companyName + ".ru";
             String companyHotlinePhoneNumber = "+7 800 222-11-00";
             String companyHotlinePhoneLink = "tel:+78002221100";
-            String companyHotlineWorkhours = "с 7:00 до 24:00";
-            String companyHotlineWorkhoursShort = "7:00 - 24:00";
+            String companyHotlineWorkhours = "с 5:00 до 24:00";
+            String companyHotlineWorkhoursShort = "5:00 - 24:00";
         }
 
         interface TestParams {
