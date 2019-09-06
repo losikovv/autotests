@@ -11,7 +11,7 @@ public class Config {
 
     public interface CoreSettings {
         String browser = BrowserType.FIREFOX;
-        ServerData server = Servers.instamart_production();
+        ServerData server = Servers.sbermarket_production();
 
         int basicTimeout = 2;
         int waitingTimeout = 60;
@@ -44,7 +44,7 @@ public class Config {
 
         interface OrdersTests {
             boolean enableOrderRetailersTests = true;
-            boolean enableOrderCitiesTests = false;
+            boolean enableOrderCitiesTests = true;
             boolean enableOrderReplacementsTests = true;
             boolean enableOrderRepeatTests = true;
             boolean enableOrderBonusesTests = true;

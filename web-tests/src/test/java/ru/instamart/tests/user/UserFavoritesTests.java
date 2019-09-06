@@ -155,9 +155,9 @@ public class UserFavoritesTests extends TestBase {
             groups = {
                     "regression",
                     "metro-regression",
-                    "sbermarket-regression"}
-    )
-    public void successCleanupFavorites() {
+                    "sbermarket-regression"
+            }
+    ) public void successCleanupFavorites() {
         User.Do.loginAs(session.user);
 
         Shop.Search.item("молоко");
@@ -190,35 +190,39 @@ public class UserFavoritesTests extends TestBase {
             groups = {
                     "acceptance","regression",
                     "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"}
-    )
-    public void successApplyFilters() {
+                    "sbermarket-acceptance","sbermarket-regression"
+            }
+    ) public void successApplyFilters() {
         SoftAssert softAssert = new SoftAssert();
 
         User.Do.loginAs(session.admin);
         kraken.get().favoritesPage();
 
+        Assert.assertTrue(
+                !kraken.detect().isFavoritesEmpty(),
+                    failMessage("Не выполнено предусловие, у пользователя нет любимых товаров"));
+
         softAssert.assertTrue(
                 kraken.detect().isFavoritesFiltered("all"),
-                    "\nВ любимых товарах по умолчанию не применен фильтр \"Все товары\"");
+                    failMessage("\nВ любимых товарах по умолчанию не применен фильтр \"Все товары\""));
 
         Shop.Favorites.applyFilterInStock();
 
         softAssert.assertTrue(
                 kraken.detect().isFavoritesFiltered("inStock"),
-                    "\nВ любимых товарах не применяется фильтр \"В наличии\"");
+                    failMessage("\nВ любимых товарах не применяется фильтр \"В наличии\""));
 
         Shop.Favorites.applyFilterNotInStock();
 
         softAssert.assertTrue(
                 kraken.detect().isFavoritesFiltered("outOfStock"),
-                    "\nВ любимых товарах не применяется фильтр \"Нет в наличии\"");
+                    failMessage("\nВ любимых товарах не применяется фильтр \"Нет в наличии\""));
 
         Shop.Favorites.applyFilterAllItems();
 
         softAssert.assertTrue(
                 kraken.detect().isFavoritesFiltered("all"),
-                    "\nВ любимых товарах не применяется фильтр \"Все товары\"");
+                    failMessage("\nВ любимых товарах не применяется фильтр \"Все товары\""));
 
         softAssert.assertAll();
     }
