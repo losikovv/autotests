@@ -12,13 +12,11 @@ public class Base {
     static AppManager kraken;
     public String baseUrl;
     public static String fullBaseUrl;
-    public String adminUrl;
 
     Base(WebDriver driver, ServerData environment, AppManager app) {
         this.driver = driver;
         this.baseUrl = environment.getBaseURL(false);
         this.fullBaseUrl = environment.getBaseURL(true);
-        this.adminUrl = environment.getAdminURL();
         this.kraken = app;
     }
 

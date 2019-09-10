@@ -37,7 +37,7 @@ public class UserProfileTests extends TestBase {
     }
 
     @Test(
-            description = "Тест работы с меню профиля",
+            description = "Тест работы с меню профиля Instamart",
             priority = 152,
             groups = {
                     "smoke","acceptance","regression",
@@ -45,7 +45,7 @@ public class UserProfileTests extends TestBase {
                     "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
             }
     )
-    public void successOperateProfileMenu() {
+    public void successValidateProfileMenuInstamart() {
         SoftAssert softAssert = new SoftAssert();
 
         Shop.AccountMenu.open();

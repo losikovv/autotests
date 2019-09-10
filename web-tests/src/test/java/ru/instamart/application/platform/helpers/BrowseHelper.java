@@ -2,6 +2,7 @@ package ru.instamart.application.platform.helpers;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import ru.instamart.application.Servers;
 import ru.instamart.application.models.PageData;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.lib.Pages;
@@ -30,11 +31,6 @@ public class BrowseHelper extends HelperBase {
         url(fullBaseUrl);
     }
 
-    public void adminURL() {
-        url(adminUrl);
-    }
-
-
     /** Перейти на страницу */
     public void page(String page) {
         url(fullBaseUrl + page);
@@ -60,9 +56,26 @@ public class BrowseHelper extends HelperBase {
         kraken.await().implicitly(2); // Ожидание загрузки Любимых товаров
     }
 
+    public void adminURL() {
+        adminPage("");
+    }
+
     /** Перейти на страницу в админке */
     public void adminPage(String path) {
-        url(adminUrl + path);
+        switch(kraken.server.getEnvironment()) {
+            case "production" :
+                url( Servers.instamart_production().getBaseURL(true)+ "admin/" + path);
+                break;
+            case "preprod" :
+                url( Servers.instamart_preprod().getBaseURL(true)+ "admin/" + path);
+                break;
+            case "staging" :
+                url( Servers.instamart_staging().getBaseURL(true)+ "admin/" + path);
+                break;
+
+            default: throw new AssertionError("Неопределенное окружение");
+        }
+
     }
 
     /** Перейти на страницу заказа в админке */

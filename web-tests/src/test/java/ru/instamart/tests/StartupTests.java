@@ -10,14 +10,14 @@ import static ru.instamart.application.Tenants.metro;
 
 public class StartupTests extends TestBase {
 
-    @Test( //todo сделать отдельные тесты под тенанты
-            description = "Тест валидности элементов и ссылок в шапке сайта",
-            groups = {"smoke","acceptance","regression"},
-            priority = 11
-    )
-    public void successValidateInstamartHeader() {
-        runTestOnlyOn(Tenants.instamart());
+    //todo сделать отдельные тесты под тенанты
 
+    @Test(
+            description = "Тест валидности элементов и ссылок в шапке Instamart",
+            priority = 11,
+            groups = {"smoke","acceptance","regression"}
+    ) public void successValidateHeaderInstamart() {
+        runTestOnlyOn(Tenants.instamart());
         kraken.get().page("metro");
 
         assertPageIsAvailable();
@@ -55,16 +55,15 @@ public class StartupTests extends TestBase {
         validateTransition(Elements.Header.logo());
     }
 
-    // todo public void successValidateDeliveryMetroHeader()
+    // todo public void successValidateHeaderDeliveryMetro()
 
-    // todo public void successValidateSbermarketHeader()
+    // todo public void successValidateHeaderSbermarket()
 
     @Test(
             description = "Тест валидности элементов и ссылок в футере сайта",
-            groups = {"smoke","acceptance","regression"},
-            priority = 12
-    )
-    public void successValidateInstamartFooter() {
+            priority = 12,
+            groups = {"smoke","acceptance","regression"}
+    ) public void successValidateFooterInstamart() {
         runTestOnlyOn(Tenants.instamart());
 
         kraken.get().page("metro");
@@ -76,9 +75,9 @@ public class StartupTests extends TestBase {
         openFooterModals();
     }
 
-    // todo public void successValidateDeliveryMetroFooter()
+    // todo public void successValidateFooterDeliveryMetro()
 
-    // todo public void successValidateSbermarketFooter()
+    // todo public void successValidateFooterSbermarket()
 
     private void checkFooterElementsPresence() {
         assertElementPresence(Elements.Footer.info());
@@ -150,10 +149,9 @@ public class StartupTests extends TestBase {
 
     @Test(
             description = "Тест доступности / недоступности витрин ритейлеров",
-            groups = {"smoke","acceptance","regression"},
-            priority = 13
-    )
-    public void successCheckRetailerPagesAreAvailable() {
+            priority = 13,
+            groups = {"smoke","acceptance","regression"}
+    ) public void successCheckRetailerPagesAreAvailable() {
         skipTestOn(metro()); // TODO сделать тест для тенанта
 
         // Проверяем что доступны витрины активных ритейлеров
@@ -173,10 +171,9 @@ public class StartupTests extends TestBase {
 
     @Test(
             description = "Тест доступности партнерских лендингов",
-            groups = {"smoke","acceptance","regression"},
-            priority = 14
-    )
-    public void successCheckPartnerLandingsAreAvailable() {
+            priority = 14,
+            groups = {"smoke","acceptance","regression"}
+    ) public void successCheckPartnerLandingsAreAvailable() {
         assertPageIsAvailable(Pages.Site.Landings.mnogoru());
         assertPageIsAvailable(Pages.Site.Landings.aeroflot());
     }
@@ -189,8 +186,7 @@ public class StartupTests extends TestBase {
                     "metro-smoke","metro-acceptance","metro-regression",
                     "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
             }
-    )
-    public void successCheckStaticPagesAreAvailabile() {
+    ) public void successCheckStaticPagesAreAvailabile() {
         assertPageIsAvailable(Pages.Site.Static.about());
         assertPageIsAvailable(Pages.Site.Static.delivery());
         assertPageIsAvailable(Pages.Site.Static.rules());

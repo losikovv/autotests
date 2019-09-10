@@ -31,8 +31,4 @@ public class ServerData {
         if(httpAuth && !auth.equals("")) return "https://" + auth + "@" + host + "/";
         else return "https://" + host + "/";
     }
-
-    public String getAdminURL() {
-        return getBaseURL(true) + "admin/";
-    }
 }

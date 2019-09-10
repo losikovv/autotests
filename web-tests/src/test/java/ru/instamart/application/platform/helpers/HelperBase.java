@@ -12,14 +12,12 @@ public class HelperBase {
     static AppManager kraken;
     public String baseUrl;
     public String fullBaseUrl;
-    public String adminUrl;
     private static boolean acceptNextAlert = true;
 
     HelperBase(WebDriver driver, ServerData server, AppManager app) {
         this.driver = driver;
         this.baseUrl = server.getBaseURL(false);
         this.fullBaseUrl = server.getBaseURL(true);
-        this.adminUrl = server.getAdminURL();
         this.kraken = app;
     }
 
