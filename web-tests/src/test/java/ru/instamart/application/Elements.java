@@ -212,7 +212,7 @@ public class Elements {
 
             static ElementData currentShipAddress() {
                 return new ElementData(
-                        By.xpath("//header//span[@class='ship-address-selector__full-address']"),
+                        By.xpath("//header//*[@data-qa='current-ship-address']"),
                             "текущий адрес доставки в шапке сайта");
             }
 
@@ -801,54 +801,55 @@ public class Elements {
 
         static ElementData popup() {
             return new ElementData(
-                    By.xpath("//header//*[@data-qa='account-menu']"), "всплывающее меню профиля");
+                    By.xpath("//header//*[@data-qa='account-menu']"),
+                        "всплывающее меню профиля");
         }
 
         static ElementData header() {
 
             return new ElementData(
-                    By.xpath("//header//*[@data-qa='account-menu']//div[@class='account-menu__header']"),
-                    "заголовок с именем юзера во всплывающем меню профиля");
+                    By.xpath("//header//*[@data-qa='account-menu']//*[@data-qa='account-menu-username']"),
+                        "заголовок с именем юзера во всплывающем меню профиля");
         }
 
         static ElementData profileButton() {
-            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//a[@href='/user/edit']"),
-                    "кнопка \"Профиль\" во всплывающем меню профиля");
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//*[@data-qa='account-menu-profile']"),
+                    "кнопка 'Профиль' во всплывающем меню профиля");
         }
 
         static ElementData ordersHistoryButton() {
-            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//a[@href='/user/orders']"),
-                    "кнопка \"История заказов\" во всплывающем меню профиля");
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//*[@data-qa='account-menu-orders']"),
+                    "кнопка 'История заказов' во всплывающем меню профиля");
         }
 
         static ElementData termsButton() {
-            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//a[@href='/terms']"),
-                    "кнопка \"Условия пользования\" во всплывающем меню профиля");
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//*[@data-qa='account-menu-terms']"),
+                    "кнопка 'Условия пользования' во всплывающем меню профиля");
         }
 
         static ElementData logoutButton() {
-            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//*[text()='Выйти']//ancestor::a"),
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//*[@data-qa='account-menu-logout']"),
                     "кнопка 'Выйти' во всплывающем меню профиля");
         }
 
         static ElementData deliveryButton() {
-            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//button[text()='Доставка']"),
-                    "кнопка \"Доставка\" во всплывающем меню профиля");
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//*[@data-qa='account-menu-delivery']"),
+                    "кнопка 'Доставка' во всплывающем меню профиля");
         }
 
         static ElementData paymentButton() {
-            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//button[text()='Оплата']"),
-                    "кнопка \"Оплата\" во всплывающем меню профиля");
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//*[@data-qa='account-menu-payment']"),
+                    "кнопка 'Оплата' во всплывающем меню профиля");
         }
 
         static ElementData faqButton() {
-            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//a[@href='/faq']"),
-                    "кнопка \"FAQ\" во всплывающем меню профиля");
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//*[@data-qa='account-menu-faq']"),
+                    "кнопка 'FAQ' во всплывающем меню профиля");
         }
 
         static ElementData contactsButton() {
-            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//a[@href='/contacts']"),
-                    "кнопка \"Контакты\" во всплывающем меню профиля");
+            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//*[@data-qa='account-menu-contacts']"),
+                    "кнопка 'Контакты' во всплывающем меню профиля");
         }
     }
 

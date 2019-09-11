@@ -21,9 +21,9 @@ public class ShoppingSearchTests extends TestBase {
             priority = 500
     )
     public void successValidateSearch() {
-        assertElementPresence(Elements.Header.Search.container());
-        assertElementPresence(Elements.Header.Search.inputField());
-        assertElementPresence(Elements.Header.Search.sendButton());
+        assertPresence(Elements.Header.Search.container());
+        assertPresence(Elements.Header.Search.inputField());
+        assertPresence(Elements.Header.Search.sendButton());
     }
 
     @Test(

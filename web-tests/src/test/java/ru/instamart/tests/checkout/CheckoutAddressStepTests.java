@@ -37,11 +37,11 @@ public class CheckoutAddressStepTests extends TestBase {
     public void successValidateDefaultAddressStep() {
         assertPageIsAvailable();
 
-        assertElementPresence(Elements.Checkout.AddressStep.panel());
-        assertElementPresence(Elements.Checkout.AddressStep.icon());
-        assertElementPresence(Elements.Checkout.AddressStep.title());
+        assertPresence(Elements.Checkout.AddressStep.panel());
+        assertPresence(Elements.Checkout.AddressStep.icon());
+        assertPresence(Elements.Checkout.AddressStep.title());
 
-        assertElementPresence(Elements.Checkout.AddressStep.deliveryAddress());
+        assertPresence(Elements.Checkout.AddressStep.deliveryAddress());
 
         assertRadioButtonIsSelected(Elements.Checkout.AddressStep.homeRadioButton());
         assertRadioButtonIsNotSelected(Elements.Checkout.AddressStep.officeRadioButton());
@@ -53,7 +53,7 @@ public class CheckoutAddressStepTests extends TestBase {
         assertFieldIsEmpty(Elements.Checkout.AddressStep.domofonInputField());
         assertFieldIsEmpty(Elements.Checkout.AddressStep.commentariesInputField());
 
-        assertElementPresence(Elements.Checkout.AddressStep.nextButton());
+        assertPresence(Elements.Checkout.AddressStep.nextButton());
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -64,7 +64,7 @@ public class CheckoutAddressStepTests extends TestBase {
     public void successProceedNextWithDefaultStepState() {
         Checkout.AddressStep.next();
 
-        assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -76,7 +76,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.setType();
         Checkout.AddressStep.next();
 
-        assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -88,7 +88,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fillApartment();
         Checkout.AddressStep.next();
 
-        assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -100,7 +100,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fillFloor();
         Checkout.AddressStep.next();
 
-        assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -112,7 +112,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.setElevator();
         Checkout.AddressStep.next();
 
-        assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -124,7 +124,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fillEntrance();
         Checkout.AddressStep.next();
 
-        assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -136,7 +136,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fillDomofon();
         Checkout.AddressStep.next();
 
-        assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -148,7 +148,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fillCommentaries();
         Checkout.AddressStep.next();
 
-        assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -164,7 +164,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.clear();
         Checkout.AddressStep.next();
 
-        assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -176,7 +176,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fill();
         Checkout.AddressStep.next();
 
-        assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -191,7 +191,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fill();
         Checkout.AddressStep.next();
 
-        assertElementPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
 
         kraken.reach().checkout();
 

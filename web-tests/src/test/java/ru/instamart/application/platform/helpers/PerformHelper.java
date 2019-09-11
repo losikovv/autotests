@@ -9,6 +9,7 @@ import ru.instamart.application.lib.Addresses;
 import ru.instamart.application.Elements;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.models.ServerData;
+import ru.instamart.application.platform.modules.User;
 
 public class PerformHelper extends HelperBase {
 
@@ -137,7 +138,7 @@ public class PerformHelper extends HelperBase {
     /** Оформить тестовый заказ */
     public void order() {
         if (!kraken.detect().isShippingAddressSet()) {
-            Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+            User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();

@@ -19,7 +19,7 @@ public class BasicShoppingTests extends TestBase {
     public void setup() {
         User.Logout.quickly();
         kraken.get().page("metro");
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @Test(
@@ -134,12 +134,12 @@ public class BasicShoppingTests extends TestBase {
         final UserData testuser = generate.testCredentials("user");
         kraken.get().baseUrl();
         User.Do.registration(testuser);
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         Shop.Catalog.Item.addToCart();
         User.Logout.quickly();
 
         kraken.get().page("metro");
-        Shop.ShippingAddress.set(Addresses.Moscow.testAddress());
+        User.ShippingAddress.set(Addresses.Moscow.testAddress());
         User.Auth.withEmail(testuser);
 
         softAssert.assertTrue(

@@ -31,21 +31,21 @@ public class BasicCheckoutTests extends TestBase {
     public void successValidateDefaultCheckoutPage() {
         assertPageIsAvailable();
 
-        assertElementPresence(Elements.Checkout.header());
+        assertPresence(Elements.Checkout.header());
 
-        assertElementPresence(Elements.Checkout.AddressStep.panel());
-        assertElementPresence(Elements.Checkout.ContactsStep.minimizedPanel());
-        assertElementPresence(Elements.Checkout.ReplacementsStep.minimizedPanel());
-        assertElementPresence(Elements.Checkout.PaymentStep.minimizedPanel());
-        assertElementPresence(Elements.Checkout.DeliveryStep.minimizedPanel());
+        assertPresence(Elements.Checkout.AddressStep.panel());
+        assertPresence(Elements.Checkout.ContactsStep.minimizedPanel());
+        assertPresence(Elements.Checkout.ReplacementsStep.minimizedPanel());
+        assertPresence(Elements.Checkout.PaymentStep.minimizedPanel());
+        assertPresence(Elements.Checkout.DeliveryStep.minimizedPanel());
 
-        assertElementPresence(Elements.Checkout.SideBar.panel());
-        assertElementPresence(Elements.Checkout.SideBar.itemsTotal());
-        assertElementPresence(Elements.Checkout.SideBar.total());
-        assertElementPresence(Elements.Checkout.Promocode.addButton());
+        assertPresence(Elements.Checkout.SideBar.panel());
+        assertPresence(Elements.Checkout.SideBar.itemsTotal());
+        assertPresence(Elements.Checkout.SideBar.total());
+        assertPresence(Elements.Checkout.Promocode.addButton());
 
-        if (kraken.detect().tenant(Tenants.instamart())) assertElementPresence(Elements.Checkout.Bonuses.list());
-        assertElementPresence(Elements.Checkout.SideBar.sendOrderButton());
+        if (kraken.detect().tenant(Tenants.instamart())) assertPresence(Elements.Checkout.Bonuses.list());
+        assertPresence(Elements.Checkout.SideBar.sendOrderButton());
     }
 
     @Test(  description = "Тест валидации заполненного чекаута",

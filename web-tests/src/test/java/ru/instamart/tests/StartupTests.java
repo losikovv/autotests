@@ -22,27 +22,27 @@ public class StartupTests extends TestBase {
 
         assertPageIsAvailable();
 
-        assertElementPresence(Elements.Header.container());
+        assertPresence(Elements.Header.container());
 
-        assertElementPresence(Elements.Header.shipAddressPlaceholder());
-        assertElementPresence(Elements.Header.shipAddressButton());
-        assertElementPresence(Elements.Header.hotlinePhoneNumber());
-        assertElementPresence(Elements.Header.hotlineWorkhoursText());
+        assertPresence(Elements.Header.shipAddressPlaceholder());
+        assertPresence(Elements.Header.shipAddressButton());
+        assertPresence(Elements.Header.hotlinePhoneNumber());
+        assertPresence(Elements.Header.hotlineWorkhoursText());
 
-        assertElementPresence(Elements.Header.howWeWorkInfoButton());
-        assertElementPresence(Elements.Header.contactsInfoButton());
-        assertElementPresence(Elements.Header.helpInfoButton());
-        assertElementPresence(Elements.Header.deliveryInfoButton());
-        assertElementPresence(Elements.Header.corporativeCustomersInfoButton());
-        assertElementPresence(Elements.Header.mnogoruButton());
+        assertPresence(Elements.Header.howWeWorkInfoButton());
+        assertPresence(Elements.Header.contactsInfoButton());
+        assertPresence(Elements.Header.helpInfoButton());
+        assertPresence(Elements.Header.deliveryInfoButton());
+        assertPresence(Elements.Header.corporativeCustomersInfoButton());
+        assertPresence(Elements.Header.mnogoruButton());
 
-        assertElementPresence(Elements.Header.catalogButton());
-        if(!kraken.detect().tenant(metro())) assertElementPresence(Elements.Header.storeButton());
-        assertElementPresence(Elements.Header.Search.inputField());
-        assertElementPresence(Elements.Header.Search.sendButton());
-        assertElementPresence(Elements.Header.favoritesButton());
-        assertElementPresence(Elements.Header.loginButton());
-        assertElementPresence(Elements.Header.cartButton());
+        assertPresence(Elements.Header.catalogButton());
+        if(!kraken.detect().tenant(metro())) assertPresence(Elements.Header.storeButton());
+        assertPresence(Elements.Header.Search.inputField());
+        assertPresence(Elements.Header.Search.sendButton());
+        assertPresence(Elements.Header.favoritesButton());
+        assertPresence(Elements.Header.loginButton());
+        assertPresence(Elements.Header.cartButton());
 
         // todo вынести валидации отдельными тестами
         validateTransition(Elements.Header.howWeWorkInfoButton());
@@ -80,35 +80,35 @@ public class StartupTests extends TestBase {
     // todo public void successValidateFooterSbermarket()
 
     private void checkFooterElementsPresence() {
-        assertElementPresence(Elements.Footer.info());
-        assertElementPresence(Elements.Footer.container());
+        assertPresence(Elements.Footer.info());
+        assertPresence(Elements.Footer.container());
 
-        assertElementPresence(Elements.Footer.instamartLogo());
+        assertPresence(Elements.Footer.instamartLogo());
 
-        assertElementPresence(Elements.Footer.instamartTitle());
-            assertElementPresence(Elements.Footer.infoLink("О компании"));
-            assertElementPresence(Elements.Footer.infoLink("Вакансии"));
-            assertElementPresence(Elements.Footer.infoLink("Партнеры"));
-            assertElementPresence(Elements.Footer.infoLink("Контакты"));
+        assertPresence(Elements.Footer.instamartTitle());
+            assertPresence(Elements.Footer.infoLink("О компании"));
+            assertPresence(Elements.Footer.infoLink("Вакансии"));
+            assertPresence(Elements.Footer.infoLink("Партнеры"));
+            assertPresence(Elements.Footer.infoLink("Контакты"));
 
-        assertElementPresence(Elements.Footer.customerHelpTitle());
-            assertElementPresence(Elements.Footer.infoLink("Доставка"));
-            assertElementPresence(Elements.Footer.infoLink("Оплата"));
-            assertElementPresence(Elements.Footer.infoLink("FAQ"));
+        assertPresence(Elements.Footer.customerHelpTitle());
+            assertPresence(Elements.Footer.infoLink("Доставка"));
+            assertPresence(Elements.Footer.infoLink("Оплата"));
+            assertPresence(Elements.Footer.infoLink("FAQ"));
 
-        assertElementPresence(Elements.Footer.hotlinePhoneNumber());
-        assertElementPresence(Elements.Footer.hotlineWorkhoursText());
+        assertPresence(Elements.Footer.hotlinePhoneNumber());
+        assertPresence(Elements.Footer.hotlineWorkhoursText());
 
-        assertElementPresence(Elements.Footer.facebookButton());
-        assertElementPresence(Elements.Footer.vkontakteButton());
-        assertElementPresence(Elements.Footer.instagramButton());
+        assertPresence(Elements.Footer.facebookButton());
+        assertPresence(Elements.Footer.vkontakteButton());
+        assertPresence(Elements.Footer.instagramButton());
 
-        assertElementPresence(Elements.Footer.appstoreButton());
-        assertElementPresence(Elements.Footer.googlePlayButton());
+        assertPresence(Elements.Footer.appstoreButton());
+        assertPresence(Elements.Footer.googlePlayButton());
 
-        assertElementPresence(Elements.Footer.returnsPolicyLink());
-        assertElementPresence(Elements.Footer.personalDataPolicyLink());
-        assertElementPresence(Elements.Footer.publicOfferLink());
+        assertPresence(Elements.Footer.returnsPolicyLink());
+        assertPresence(Elements.Footer.personalDataPolicyLink());
+        assertPresence(Elements.Footer.publicOfferLink());
     }
 
     private void validateFooterLinks() {

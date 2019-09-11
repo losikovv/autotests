@@ -22,20 +22,20 @@ public class Playground extends TestBase {
     @Test
     public void regUserAndSetAddress() {
         User.Do.registration();
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @Test
     public void regUserAndPrepareForCheckout() {
         User.Do.registration();
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         Shop.Cart.collect();
     }
 
     @Test
     public void regUserAndPrepareForOrder() {
         User.Do.registration();
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         kraken.checkout().fillOrderDetails(Config.TestVariables.testOrderDetails());
     }
@@ -43,7 +43,7 @@ public class Playground extends TestBase {
     @Test
     public void regUserAndMakeOrder() {
         User.Do.registration();
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         kraken.checkout().complete();
     }
@@ -67,7 +67,7 @@ public class Playground extends TestBase {
 
         User.Do.loginAs(AppManager.session.user);
         kraken.get().page(Pages.Site.Retailers.metro());
-        Shop.ShippingAddress.change(Addresses.Moscow.testAddress());
+        User.ShippingAddress.change(Addresses.Moscow.testAddress());
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
 

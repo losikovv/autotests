@@ -214,12 +214,12 @@ public class Administration extends Base {
         public static void validateStaticPage(String name){
             kraken.get().adminPage("pages/new");
 
-            //assertElementPresence(Elements.Administration.PagesSection.PageEditPage.pageNameField());
-            //assertElementPresence(Elements.Administration.PagesSection.PageEditPage.pageURLField());
+            //assertPresence(Elements.Administration.PagesSection.PageEditPage.pageNameField());
+            //assertPresence(Elements.Administration.PagesSection.PageEditPage.pageURLField());
             Pages.switchSourceEditor();
-            //assertElementPresence(Elements.Administration.PagesSection.PageEditPage.pageDescriptionField());
-            //assertElementPresence(Elements.Administration.PagesSection.PageEditPage.pageNameField());
-            //assertElementPresence(Elements.Administration.PagesSection.PageEditPage.pageURLField());
+            //assertPresence(Elements.Administration.PagesSection.PageEditPage.pageDescriptionField());
+            //assertPresence(Elements.Administration.PagesSection.PageEditPage.pageNameField());
+            //assertPresence(Elements.Administration.PagesSection.PageEditPage.pageURLField());
         }
 
         public static void create(String name, String URL, String desc){

@@ -25,10 +25,10 @@ public class AdministrationAccessTests extends TestBase {
             priority = 10051
     )
     public void successValidateAdministrationLoginPage() {
-        assertElementPresence(Elements.Administration.LoginPage.title());
-        assertElementPresence(Elements.Administration.LoginPage.emailField());
-        assertElementPresence(Elements.Administration.LoginPage.passwordField());
-        assertElementPresence(Elements.Administration.LoginPage.submitButton());
+        assertPresence(Elements.Administration.LoginPage.title());
+        assertPresence(Elements.Administration.LoginPage.emailField());
+        assertPresence(Elements.Administration.LoginPage.passwordField());
+        assertPresence(Elements.Administration.LoginPage.submitButton());
     }
 
     //todo noAuthWithEmptyFields

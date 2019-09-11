@@ -65,8 +65,8 @@ public class BasicAdministrationTests extends TestBase {
             groups = {"acceptance","regression"}
     ) public void successValidateHeader() {
         kraken.reach().admin();
-        assertElementPresence(Elements.Administration.Header.userEmail());
-        assertElementPresence(Elements.Administration.Header.logoutButton());
+        assertPresence(Elements.Administration.Header.userEmail());
+        assertPresence(Elements.Administration.Header.logoutButton());
     }
 
     @Test(  description = "Тест валидности ссылок навигационного меню в шапке админки",

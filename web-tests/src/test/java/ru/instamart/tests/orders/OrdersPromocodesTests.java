@@ -38,7 +38,7 @@ public class OrdersPromocodesTests extends TestBase {
         kraken.get().baseUrl();
         kraken.drop().auth();
         User.Do.registration();
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @Test(

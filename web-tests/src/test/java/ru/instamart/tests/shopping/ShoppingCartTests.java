@@ -18,7 +18,7 @@ public class ShoppingCartTests extends TestBase {
     public void setup() {
         User.Logout.quickly();
         kraken.get().page("metro");
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @Test(
@@ -33,10 +33,10 @@ public class ShoppingCartTests extends TestBase {
                 kraken.detect().isCartOpen(),
                     failMessage("Не открывается корзина"));
 
-        assertElementPresence(Elements.Cart.drawer());
-        assertElementPresence(Elements.Cart.closeButton());
-        assertElementPresence(Elements.Cart.placeholder());
-        assertElementPresence(Elements.Cart.checkoutButton());
+        assertPresence(Elements.Cart.drawer());
+        assertPresence(Elements.Cart.closeButton());
+        assertPresence(Elements.Cart.placeholder());
+        assertPresence(Elements.Cart.checkoutButton());
 
         Assert.assertTrue(
                 kraken.detect().isCartEmpty(),
@@ -209,7 +209,7 @@ public class ShoppingCartTests extends TestBase {
         User.Logout.quickly();
 
         User.Do.registration();
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         Shop.Search.item("молоко");
         Shop.Catalog.Item.addToCart();
         int sum1 = kraken.grab().minOrderSum();

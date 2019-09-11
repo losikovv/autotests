@@ -25,10 +25,10 @@ public class AdministrationPagesSectionTests extends TestBase {
         String page = "О компании";
         kraken.get().adminPage("pages");
 
-        assertElementPresence(Elements.Administration.PagesSection.table());
-        assertElementPresence(Elements.Administration.PagesSection.newPageButton());
-        assertElementPresence(Elements.Administration.PagesSection.editPageButton(page));
-        assertElementPresence(Elements.Administration.PagesSection.deletePageButton(page));
+        assertPresence(Elements.Administration.PagesSection.table());
+        assertPresence(Elements.Administration.PagesSection.newPageButton());
+        assertPresence(Elements.Administration.PagesSection.editPageButton(page));
+        assertPresence(Elements.Administration.PagesSection.deletePageButton(page));
     }
 
     @Test(  enabled = enablePagesSectionTests,
@@ -54,7 +54,7 @@ public class AdministrationPagesSectionTests extends TestBase {
         kraken.get().adminPage("pages");
 
         Administration.Pages.create(pageName, pageURL, desc);
-            assertElementPresence(Elements.Administration.PagesSection.tableEntry(pageName));
+            assertPresence(Elements.Administration.PagesSection.tableEntry(pageName));
 
         Administration.Pages.validateStaticPage(pageName, pageURL);
         kraken.detect().isElementPresent(Elements.StaticPages.pageTitle());

@@ -18,7 +18,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
     public void setup() {
         User.Logout.quickly();
         kraken.get().page("metro/ovoshchi-i-frukty");
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @BeforeMethod(alwaysRun = true)

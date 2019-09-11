@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.application.Elements;
 import ru.instamart.application.Users;
 import ru.instamart.application.AppManager;
+import ru.instamart.application.lib.Addresses;
 import ru.instamart.application.models.ServerData;
 import ru.instamart.application.models.UserData;
 import ru.instamart.testdata.generate;
@@ -326,6 +327,36 @@ public class User extends Base {
             kraken.await().simply(1); // Ожидание деавторизации и подгрузки лендинга
             if (kraken.detect().isOnLanding()) {
                 verboseMessage("✓ Готово\n");
+            }
+        }
+    }
+
+    public static class ShippingAddress {
+
+        /** Установить адрес доставки */
+        public static void set(String address) {
+            message("Устанавливаем адрес доставки >>> " + address + "\n");
+            Shop.ShippingAddressModal.open();
+            Shop.ShippingAddressModal.fill(address);
+            Shop.ShippingAddressModal.submit();
+        }
+
+        /** Изменить адрес доставки */
+        public static void change(String address) {
+            message("Изменяем адрес доставки >>> " + address + "\n");
+            Shop.ShippingAddressModal.open();
+            Shop.ShippingAddressModal.clearAddressField();
+            Shop.ShippingAddressModal.fill(address);
+            Shop.ShippingAddressModal.submit();
+        }
+
+        /** Свапнуть тестовый и дефолтные адреса */
+        public static void swap() {
+            if (kraken.grab().currentShipAddress().equals(Addresses.Moscow.defaultAddress())) {
+                change(Addresses.Moscow.testAddress());
+            } else {
+                change(Addresses.Moscow.testAddress());
+                change(Addresses.Moscow.defaultAddress());
             }
         }
     }

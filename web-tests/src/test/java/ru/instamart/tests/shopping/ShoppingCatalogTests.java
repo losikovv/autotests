@@ -16,7 +16,7 @@ public class ShoppingCatalogTests extends TestBase {
     public void setup() {
         User.Logout.quickly();
         kraken.get().page("metro");
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @Test(
@@ -31,8 +31,8 @@ public class ShoppingCatalogTests extends TestBase {
                 kraken.detect().isCatalogDrawerOpen(),
                     "Не открывается шторка каталога\n");
 
-        assertElementPresence(Elements.CatalogDrawer.category("Бакалея"));
-        assertElementPresence(Elements.CatalogDrawer.closeButton());
+        assertPresence(Elements.CatalogDrawer.category("Бакалея"));
+        assertPresence(Elements.CatalogDrawer.closeButton());
 
         Shop.CatalogDrawer.close();
 

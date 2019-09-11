@@ -34,18 +34,18 @@ public class CheckoutContactsStepTests extends TestBase {
     public void successValidateDefaultContactsStep() {
         assertPageIsAvailable();
 
-        assertElementPresence(Elements.Checkout.ContactsStep.panel());
-        assertElementPresence(Elements.Checkout.ContactsStep.icon());
-        assertElementPresence(Elements.Checkout.ContactsStep.title());
+        assertPresence(Elements.Checkout.ContactsStep.panel());
+        assertPresence(Elements.Checkout.ContactsStep.icon());
+        assertPresence(Elements.Checkout.ContactsStep.title());
 
-        assertElementPresence(Elements.Checkout.ContactsStep.firstNameInputField());
-        assertElementPresence(Elements.Checkout.ContactsStep.lastNameInputField());
-        assertElementPresence(Elements.Checkout.ContactsStep.emailInputField());
-        assertElementPresence(Elements.Checkout.ContactsStep.phonesTitle());
-        assertElementPresence(Elements.Checkout.ContactsStep.phoneInputField());
-        assertElementPresence(Elements.Checkout.ContactsStep.sendEmailsCheckbox());
+        assertPresence(Elements.Checkout.ContactsStep.firstNameInputField());
+        assertPresence(Elements.Checkout.ContactsStep.lastNameInputField());
+        assertPresence(Elements.Checkout.ContactsStep.emailInputField());
+        assertPresence(Elements.Checkout.ContactsStep.phonesTitle());
+        assertPresence(Elements.Checkout.ContactsStep.phoneInputField());
+        assertPresence(Elements.Checkout.ContactsStep.sendEmailsCheckbox());
 
-        assertElementPresence(Elements.Checkout.ContactsStep.nextButton());
+        assertPresence(Elements.Checkout.ContactsStep.nextButton());
     }
 
     // todo noProceedNextWithEmptyFields

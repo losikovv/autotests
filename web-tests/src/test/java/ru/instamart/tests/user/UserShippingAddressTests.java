@@ -76,9 +76,9 @@ public class UserShippingAddressTests extends TestBase {
     )
     public void noShippingAddressSetOnClose() {
         kraken.get().page("metro");
-        Shop.ShippingAddress.openAddressModal();
-        Shop.ShippingAddress.fill(Addresses.Moscow.defaultAddress());
-        Shop.ShippingAddress.closeAddressModal();
+        Shop.ShippingAddressModal.open();
+        Shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddressModal.close();
 
         Assert.assertFalse(
                 kraken.detect().isShippingAddressSet(),
@@ -97,7 +97,7 @@ public class UserShippingAddressTests extends TestBase {
     public void noAvailableShopsOutOfDeliveryZone() {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");
-        Shop.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
+        User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
 
         Shop.StoreSelector.open();
 
@@ -131,7 +131,7 @@ public class UserShippingAddressTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.get().page("metro");
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         softAssert.assertTrue(
                 kraken.detect().isShippingAddressSet(),
@@ -158,12 +158,12 @@ public class UserShippingAddressTests extends TestBase {
 
         kraken.get().page("metro");
         if(!kraken.detect().isShippingAddressSet()) {
-            Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+            User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
 
-        Shop.ShippingAddress.openAddressModal();
-        Shop.ShippingAddress.fill(Addresses.Moscow.testAddress());
-        Shop.ShippingAddress.closeAddressModal();
+        Shop.ShippingAddressModal.open();
+        Shop.ShippingAddressModal.fill(Addresses.Moscow.testAddress());
+        Shop.ShippingAddressModal.close();
 
         softAssert.assertTrue(
                 kraken.detect().isShippingAddressSet(),
@@ -190,10 +190,10 @@ public class UserShippingAddressTests extends TestBase {
 
         kraken.get().page("metro");
         if(!kraken.detect().isShippingAddressSet()) {
-            Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+            User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
 
-        Shop.ShippingAddress.change(Addresses.Moscow.testAddress());
+        User.ShippingAddress.change(Addresses.Moscow.testAddress());
 
         softAssert.assertTrue(
                 kraken.detect().isShippingAddressSet(),
@@ -220,15 +220,15 @@ public class UserShippingAddressTests extends TestBase {
 
         User.Logout.quickly();
         User.Do.registration();
-        Shop.ShippingAddress.set(Addresses.Moscow.testAddress());
+        User.ShippingAddress.set(Addresses.Moscow.testAddress());
         kraken.perform().order();
         kraken.perform().cancelLastOrder();
         kraken.get().baseUrl();
-        Shop.ShippingAddress.change(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.change(Addresses.Moscow.defaultAddress());
 
-        Shop.ShippingAddress.openAddressModal();
-        Shop.ShippingAddress.choseRecent();
-        Shop.ShippingAddress.submit();
+        Shop.ShippingAddressModal.open();
+        Shop.ShippingAddressModal.chooseRecentAddress();
+        Shop.ShippingAddressModal.submit();
 
         softAssert.assertTrue(
                 kraken.detect().isShippingAddressSet(),
@@ -261,7 +261,7 @@ public class UserShippingAddressTests extends TestBase {
         softAssert.assertTrue(kraken.detect().isAddressModalOpen(),
         "Не открывается адресная модалка после добавления товара");
 
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress()); // TODO обработать кейс когда после ввода адреса товар недоступен
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress()); // TODO обработать кейс когда после ввода адреса товар недоступен
         Shop.ItemCard.close();
 
         softAssert.assertTrue(
@@ -295,7 +295,7 @@ public class UserShippingAddressTests extends TestBase {
                 kraken.detect().isAddressModalOpen(),
                     "\n> Не открывается адресная модалка после добавления товара");
 
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         softAssert.assertTrue(
                 kraken.detect().isElementPresent(Elements.Catalog.Product.snippet()),
@@ -322,7 +322,7 @@ public class UserShippingAddressTests extends TestBase {
 
         User.Logout.quickly();
         kraken.get().page("vkusvill");
-        Shop.ShippingAddress.change(Addresses.Kazan.defaultAddress());
+        User.ShippingAddress.change(Addresses.Kazan.defaultAddress());
 
         softAssert.assertTrue(
                 kraken.detect().isChangeStoreModalOpen(),
@@ -355,14 +355,14 @@ public class UserShippingAddressTests extends TestBase {
 
         User.Logout.quickly();
         kraken.get().page("lenta");
-        Shop.ShippingAddress.change(Addresses.Kazan.defaultAddress());
+        User.ShippingAddress.change(Addresses.Kazan.defaultAddress());
 
         softAssert.assertTrue(
                 kraken.detect().isChangeStoreModalOpen(),
                     "\n> Не открывается модалка с магазинами доступными по новому адресу");
 
         kraken.perform().click(Elements.Modals.StoresModal.pickNewAddressButton());
-        Shop.ShippingAddress.set(Addresses.Moscow.testAddress());
+        User.ShippingAddress.set(Addresses.Moscow.testAddress());
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToCart();
 
@@ -387,14 +387,14 @@ public class UserShippingAddressTests extends TestBase {
 
         User.Logout.quickly();
         kraken.get().page("metro");
-        Shop.ShippingAddress.change(Addresses.Moscow.outOfZoneAddress());
+        User.ShippingAddress.change(Addresses.Moscow.outOfZoneAddress());
 
         softAssert.assertTrue(
                 kraken.detect().isAddressOutOfZone(),
                     "\n> Не открывается модалка Адрес вне зоны доставки");
 
         kraken.perform().click(Elements.Modals.AddressModal.pickNewAddressButton());
-        Shop.ShippingAddress.set(Addresses.Moscow.testAddress());
+        User.ShippingAddress.set(Addresses.Moscow.testAddress());
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToCart();
 

@@ -44,7 +44,7 @@ public class Config {
 
         interface OrdersTests {
             boolean enableOrderRetailersTests = true;
-            boolean enableOrderCitiesTests = true;
+            boolean enableOrderCitiesTests = false;
             boolean enableOrderReplacementsTests = true;
             boolean enableOrderRepeatTests = true;
             boolean enableOrderBonusesTests = true;

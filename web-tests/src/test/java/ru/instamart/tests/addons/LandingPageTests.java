@@ -31,29 +31,29 @@ public class LandingPageTests extends TestBase {
 
         assertPageIsAvailable();
 
-        assertElementPresence(Elements.Landing.MainBlock.logo());
-        assertElementPresence(Elements.Landing.MainBlock.howWeWorkLink());
-        assertElementPresence(Elements.Landing.MainBlock.helpLink());
-        assertElementPresence(Elements.Landing.MainBlock.mnogoruLogo());
-        assertElementPresence(Elements.Landing.MainBlock.hotlineLink());
-        assertElementPresence(Elements.Landing.MainBlock.loginButton());
+        assertPresence(Elements.Landing.MainBlock.logo());
+        assertPresence(Elements.Landing.MainBlock.howWeWorkLink());
+        assertPresence(Elements.Landing.MainBlock.helpLink());
+        assertPresence(Elements.Landing.MainBlock.mnogoruLogo());
+        assertPresence(Elements.Landing.MainBlock.hotlineLink());
+        assertPresence(Elements.Landing.MainBlock.loginButton());
 
-        assertElementPresence(Elements.Landing.MainBlock.mainTitle());
-        assertElementPresence(Elements.Landing.MainBlock.goToCatalogButton());
-        assertElementPresence(Elements.Landing.MainBlock.advantages());
+        assertPresence(Elements.Landing.MainBlock.mainTitle());
+        assertPresence(Elements.Landing.MainBlock.goToCatalogButton());
+        assertPresence(Elements.Landing.MainBlock.advantages());
 
-        assertElementPresence(Elements.Landing.PricesPromoBlock.panel());
-        assertElementPresence(Elements.Landing.PricesPromoBlock.goToCatalogButton());
+        assertPresence(Elements.Landing.PricesPromoBlock.panel());
+        assertPresence(Elements.Landing.PricesPromoBlock.goToCatalogButton());
 
-        assertElementPresence(Elements.Landing.UserReviewsPromoBlock.panel());
+        assertPresence(Elements.Landing.UserReviewsPromoBlock.panel());
 
-        assertElementPresence(Elements.Landing.MobileAppPromoBlock.panel());
-        assertElementPresence(Elements.Landing.MobileAppPromoBlock.phoneField());
-        assertElementPresence(Elements.Landing.MobileAppPromoBlock.sendLinkButton());
+        assertPresence(Elements.Landing.MobileAppPromoBlock.panel());
+        assertPresence(Elements.Landing.MobileAppPromoBlock.phoneField());
+        assertPresence(Elements.Landing.MobileAppPromoBlock.sendLinkButton());
 
-        assertElementPresence(Elements.Landing.SeoBlock.panel());
+        assertPresence(Elements.Landing.SeoBlock.panel());
 
-        assertElementPresence(Elements.Footer.container());
+        assertPresence(Elements.Footer.container());
     }
 
     @Test(

@@ -30,7 +30,7 @@ public class OrdersCities extends TestBase {
                     "metro-acceptance", "metro-regression"
             }
     ) public void successOrderInMoscow() {
-        Shop.ShippingAddress.change(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.change(Addresses.Moscow.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -49,7 +49,7 @@ public class OrdersCities extends TestBase {
                     "metro-acceptance", "metro-regression"
             }
     ) public void successOrderInSaintPetersburg() {
-        Shop.ShippingAddress.change(Addresses.SaintPetersburg.defaultAddress());
+        User.ShippingAddress.change(Addresses.SaintPetersburg.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -68,7 +68,7 @@ public class OrdersCities extends TestBase {
                     "metro-acceptance", "metro-regression"
             }
     ) public void successOrderInKazan() {
-        Shop.ShippingAddress.change(Addresses.Kazan.defaultAddress());
+        User.ShippingAddress.change(Addresses.Kazan.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -87,7 +87,7 @@ public class OrdersCities extends TestBase {
                     "metro-acceptance", "metro-regression"
             }
     ) public void successOrderInEkaterinburg() {
-        Shop.ShippingAddress.change(Addresses.Ekaterinburg.defaultAddress());
+        User.ShippingAddress.change(Addresses.Ekaterinburg.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -106,7 +106,7 @@ public class OrdersCities extends TestBase {
                     "metro-acceptance", "metro-regression"
             }
     ) public void successOrderInNizhnyNovgorod() {
-        Shop.ShippingAddress.change(Addresses.NizhnyNovgorod.defaultAddress());
+        User.ShippingAddress.change(Addresses.NizhnyNovgorod.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -126,7 +126,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInRostovNaDonu() {
-        Shop.ShippingAddress.change(Addresses.RostovNaDonu.defaultAddress());
+        User.ShippingAddress.change(Addresses.RostovNaDonu.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -145,7 +145,7 @@ public class OrdersCities extends TestBase {
                     "metro-acceptance", "metro-regression"
             }
     ) public void successOrderInUfa() {
-        Shop.ShippingAddress.change(Addresses.Ufa.defaultAddress());
+        User.ShippingAddress.change(Addresses.Ufa.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -165,7 +165,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInKrasnodar() {
-        Shop.ShippingAddress.change(Addresses.Krasnodar.defaultAddress());
+        User.ShippingAddress.change(Addresses.Krasnodar.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -184,7 +184,7 @@ public class OrdersCities extends TestBase {
                     "metro-acceptance", "metro-regression"
             }
     ) public void successOrderInSamara() {
-        Shop.ShippingAddress.change(Addresses.Samara.defaultAddress());
+        User.ShippingAddress.change(Addresses.Samara.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -203,7 +203,7 @@ public class OrdersCities extends TestBase {
                     "metro-acceptance", "metro-regression"
             }
     ) public void successOrderInVoronezh() {
-        Shop.ShippingAddress.change(Addresses.Voronezh.defaultAddress());
+        User.ShippingAddress.change(Addresses.Voronezh.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -224,7 +224,7 @@ public class OrdersCities extends TestBase {
                     "metro-acceptance", "metro-regression"
             }
     ) public void successOrderInOmsk() {
-        Shop.ShippingAddress.change(Addresses.Omsk.defaultAddress());
+        User.ShippingAddress.change(Addresses.Omsk.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -245,7 +245,7 @@ public class OrdersCities extends TestBase {
                     "metro-acceptance", "metro-regression"
             }
     ) public void successOrderInVolgograd() {
-        Shop.ShippingAddress.change(Addresses.Volgograd.defaultAddress());
+        User.ShippingAddress.change(Addresses.Volgograd.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -266,7 +266,7 @@ public class OrdersCities extends TestBase {
                     "metro-acceptance", "metro-regression"
             }
     ) public void successOrderInNovosibirsk() {
-        Shop.ShippingAddress.change(Addresses.Novosibirsk.defaultAddress());
+        User.ShippingAddress.change(Addresses.Novosibirsk.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -286,6 +286,6 @@ public class OrdersCities extends TestBase {
 
     @AfterClass(alwaysRun = true)
     public void resetDefaultAddress() {
-        Shop.ShippingAddress.change(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.change(Addresses.Moscow.defaultAddress());
     }
 }

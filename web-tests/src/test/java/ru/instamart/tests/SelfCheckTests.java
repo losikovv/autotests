@@ -190,7 +190,7 @@ public class SelfCheckTests extends TestBase {
         User.Logout.quickly();
 
         //landing
-        Shop.ShippingAddress.set(Addresses.Moscow.testAddress());
+        User.ShippingAddress.set(Addresses.Moscow.testAddress());
 
         softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
                 "\nНе открывается дефолтный селектор магазинов на лендинге");
@@ -230,7 +230,7 @@ public class SelfCheckTests extends TestBase {
         User.Logout.quickly();
 
         //landing
-        Shop.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
+        User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
 
         softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
                 "\nНе открывается пустой селектор магазинов на лендинге");
@@ -329,10 +329,10 @@ public class SelfCheckTests extends TestBase {
 
         kraken.get().page("metro");
 
-        Shop.ShippingAddress.openAddressModal();
+        Shop.ShippingAddressModal.open();
         Assert.assertTrue(kraken.detect().isAddressModalOpen());
 
-        Shop.ShippingAddress.closeAddressModal();
+        Shop.ShippingAddressModal.close();
         Assert.assertFalse(kraken.detect().isAddressModalOpen());
     }
 
@@ -344,7 +344,7 @@ public class SelfCheckTests extends TestBase {
     public void detectCartTotal() {
         kraken.get().page("metro");
         if (!kraken.detect().isShippingAddressSet()) {
-            Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+            User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
         Shop.Cart.drop();
 
@@ -374,11 +374,11 @@ public class SelfCheckTests extends TestBase {
     public void detectAddressOutOfZone() {
 
         kraken.get().page("metro");
-        Shop.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
+        User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
         Assert.assertTrue(kraken.detect().isAddressOutOfZone());
 
         kraken.get().page("metro");
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         Assert.assertFalse(kraken.detect().isAddressOutOfZone());
     }
 

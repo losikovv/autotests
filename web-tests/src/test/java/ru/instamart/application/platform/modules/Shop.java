@@ -135,54 +135,10 @@ public class Shop extends Base {
     }
 
     /** Адрес доставки */
-    public static class ShippingAddress {
-
-        // TODO переименовать в класс ShippingAddressModal, методы set / change / swap - вынести в User
-
-        /** Установить адрес доставки */
-        public static void set(String address) {
-            message("Устанавливаем адрес доставки >>> " + address + "\n");
-            openAddressModal();
-            fill(address);
-            submit();
-        }
-
-        /** Изменить адрес доставки */
-        public static void change(String address) {
-            message("Изменяем адрес доставки >>> " + address + "\n");
-            openAddressModal();
-            clearAddressField();
-            fill(address);
-            submit();
-        }
-
-        /** Свапнуть тестовый и дефолтные адреса */
-        public static void swap() {
-            if (kraken.grab().currentShipAddress().equals(Addresses.Moscow.defaultAddress())) {
-                change(Addresses.Moscow.testAddress());
-            } else {
-                change(Addresses.Moscow.testAddress());
-                change(Addresses.Moscow.defaultAddress());
-            }
-        }
-
-        /** Выбрать первый адресный саджест */
-        private static void selectAddressSuggest() {
-            kraken.await().fluently(
-                    ExpectedConditions.invisibilityOfElementLocated(Elements.spinner().getLocator())
-            );
-            if (kraken.detect().isShippingAddressSuggestsPresent()) {
-                kraken.perform().click(Elements.Modals.AddressModal.addressSuggest());
-                kraken.await().fluently(
-                        ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.saveButton().getLocator()),
-                            "Неактивна кнопка сохранения адреса");
-            } else {
-                throw new AssertionError("Нет адресных подсказок, невозможно выбрать адрес");
-            }
-        }
+    public static class ShippingAddressModal {
 
         /** Открыть модалку ввода адреса */
-        public static void openAddressModal() {
+        public static void open() {
             if (kraken.detect().isAddressModalOpen()) {
                 debugMessage("Пропускаем открытие модалки адреса, она уже открыта");
             } else {
@@ -211,6 +167,21 @@ public class Shop extends Base {
             selectAddressSuggest();
         }
 
+        /** Выбрать первый адресный саджест */
+        private static void selectAddressSuggest() {
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(Elements.spinner().getLocator())
+            );
+            if (kraken.detect().isShippingAddressSuggestsPresent()) {
+                kraken.perform().click(Elements.Modals.AddressModal.addressSuggest());
+                kraken.await().fluently(
+                        ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.saveButton().getLocator()),
+                        "Неактивна кнопка сохранения адреса");
+            } else {
+                throw new AssertionError("Нет адресных подсказок, невозможно выбрать адрес");
+            }
+        }
+
         /** Применить введенный адрес в адресной модалке */
         public static void submit() throws AssertionError {
             kraken.perform().click(Elements.Modals.AddressModal.saveButton());
@@ -226,13 +197,13 @@ public class Shop extends Base {
         }
 
         /** Выбрать первый в списке предыдущий адрес в адресной модалке */
-        public static void choseRecent() {
+        public static void chooseRecentAddress() {
             kraken.perform().click(Elements.Modals.AddressModal.recentAddress());
             kraken.await().implicitly(1); // Ожидание применения предыдущего адреса
         }
 
         /** Закрыть модалку адреса */
-        public static void closeAddressModal() {
+        public static void close() {
             if (kraken.detect().isAddressModalOpen()) {
                 kraken.perform().click(Elements.Modals.AddressModal.closeButton());
                 kraken.await().implicitly(1); // Ожидание анимации закрытия адресной модалки
@@ -649,7 +620,7 @@ public class Shop extends Base {
         /** Набрать корзину на указанную сумму */
         public static void collect(int orderSum) {
             if(!kraken.detect().isShippingAddressSet()) {
-                ShippingAddress.set(Addresses.Moscow.defaultAddress());
+                User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
             }
             message("Собираем корзину товаров на сумму " + orderSum + "\u20BD...");
             int cartTotal = kraken.grab().cartTotalRounded();

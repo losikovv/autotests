@@ -304,7 +304,7 @@ public class UserAuthorisationTests extends TestBase {
     public void successAuthFromAddressModal() {
         kraken.get().page("metro");
 
-        Shop.ShippingAddress.openAddressModal();
+        Shop.ShippingAddressModal.open();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
 
         SoftAssert softAssert = new SoftAssert();
@@ -337,7 +337,7 @@ public class UserAuthorisationTests extends TestBase {
         User.Do.registration(testuser);
         User.Logout.quickly();
         kraken.get().page("metro");
-        Shop.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();

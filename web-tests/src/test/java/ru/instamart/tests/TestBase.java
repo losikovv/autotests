@@ -35,7 +35,7 @@ public class TestBase {
     }
 
     /** Проверить наличие и видимость элемента на странице */
-    public void assertElementPresence(ElementData element) {
+    public void assertPresence(ElementData element) {
         verboseMessage("Проверяем наличие элемента на странице " + kraken.grab().currentURL() + "\n> " + element.getLocator());
 
         Assert.assertTrue(
@@ -44,6 +44,18 @@ public class TestBase {
                             + "\n> " + element.getLocator()));
 
         verboseMessage("✓ Успешно: " + element.getDescription() + "\n");
+    }
+
+    /** Проверить отсутствие элемента на странице */
+    public void assertAbsence(ElementData element) {
+        verboseMessage("Проверяем отсутствие элемента на странице " + kraken.grab().currentURL() + "\n> " + element.getLocator());
+
+        Assert.assertFalse(
+                kraken.detect().isElementPresent(element),
+                    failMessage("Присутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL()
+                        + "\n> " + element.getLocator()));
+
+        verboseMessage("✓ " + element.getDescription() + " отсутствует\n");
     }
 
     /** Проверить что поле пустое */
