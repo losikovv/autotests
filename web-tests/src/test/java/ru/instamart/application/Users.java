@@ -14,9 +14,6 @@ public abstract class Users {
         return superuser.getCredentials();
     }
 
-    // todo переделать
-    public static UserData userGmail(){ return userGmail.getCredentials(); }
-
     public static class superadmin {
         private static String role = "superadmin";
         private static String phone = "7777777777";
@@ -50,6 +47,10 @@ public abstract class Users {
         public static UserData getCredentials() {
             return new UserData (role, email, password, name);
         }
+    }
+
+    public static UserData gmail() {
+        return new UserData("instamartmailtest@gmail.com", "instamart");
     }
 
     public static UserData vkontakte() {

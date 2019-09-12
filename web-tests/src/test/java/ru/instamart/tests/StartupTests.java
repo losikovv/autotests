@@ -14,7 +14,7 @@ public class StartupTests extends TestBase {
 
     @Test(
             description = "Тест валидности элементов и ссылок в шапке Instamart",
-            priority = 11,
+            priority = 101,
             groups = {"smoke","acceptance","regression"}
     ) public void successValidateHeaderInstamart() {
         runTestOnlyOn(Tenants.instamart());
@@ -61,7 +61,7 @@ public class StartupTests extends TestBase {
 
     @Test(
             description = "Тест валидности элементов и ссылок в футере сайта",
-            priority = 12,
+            priority = 102,
             groups = {"smoke","acceptance","regression"}
     ) public void successValidateFooterInstamart() {
         runTestOnlyOn(Tenants.instamart());
@@ -149,7 +149,7 @@ public class StartupTests extends TestBase {
 
     @Test(
             description = "Тест доступности / недоступности витрин ритейлеров",
-            priority = 13,
+            priority = 103,
             groups = {"smoke","acceptance","regression"}
     ) public void successCheckRetailerPagesAreAvailable() {
         skipTestOn(metro()); // TODO сделать тест для тенанта
@@ -171,7 +171,7 @@ public class StartupTests extends TestBase {
 
     @Test(
             description = "Тест доступности партнерских лендингов",
-            priority = 14,
+            priority = 104,
             groups = {"smoke","acceptance","regression"}
     ) public void successCheckPartnerLandingsAreAvailable() {
         assertPageIsAvailable(Pages.Site.Landings.mnogoru());
@@ -180,7 +180,7 @@ public class StartupTests extends TestBase {
 
     @Test(
             description = "Тест доступности статических страниц",
-            priority = 15,
+            priority = 105,
             groups = {
                     "smoke","acceptance","regression",
                     "metro-smoke","metro-acceptance","metro-regression",

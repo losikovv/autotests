@@ -124,7 +124,7 @@ public class Shop extends Base {
         public static void submitRequest() {
             verboseMessage("> отправляем форму\n");
             kraken.perform().click(Elements.Modals.PasswordRecoveryModal.submitRequestButton());
-            kraken.await().implicitly(1); // Ожидание восстановления пароля
+            kraken.await().simply(5); // Ожидание отправки письма восстановлкния пароля
         }
 
         public static void submitRecovery() {

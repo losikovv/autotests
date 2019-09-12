@@ -139,67 +139,38 @@ public class User extends Base {
         }
 
 
-        // ======= Работа с Gmail =======
+        public static class Gmail{
 
-        /**
-         * Авторизоваться в гугл почте с определённой ролью
-         */
-        public static void authGmail(UserData role) {
-            authGmail(Users.userGmail().getLogin(), Users.userGmail().getPassword());
-        }
+            public static void auth() {
+                auth(Users.gmail().getLogin(), Users.gmail().getPassword());
+            }
 
-        /**
-         * Авторизоваться в гугл почте
-         */
-        public static void authGmail(String gmail, String password) {
-            verboseMessage("> авторизовываемся в гугл почте...");
-            kraken.get().url("https://mail.google.com/mail/u/0/h/");
-            kraken.perform().fillField(Elements.GMail.AuthPage.idField(), gmail);
-            kraken.perform().click(Elements.GMail.AuthPage.idNextButton());
-            kraken.await().implicitly(1); // Ожидание загрузки страницы ввода пароля Gmail
-            kraken.perform().fillField(Elements.GMail.AuthPage.passwordField(), password);
-            kraken.perform().click(Elements.GMail.AuthPage.passwordNextButton());
-            kraken.await().implicitly(1); // Ожидание авторизации в Gmail
-        }
+            public static void auth(String login, String password) {
+                verboseMessage("> переходим в веб-интерфейс Gmail...");
+                kraken.get().url("https://mail.google.com/mail/u/0/h/");
+                if(kraken.detect().isElementPresent(Elements.Social.Gmail.AuthForm.loginField())) {
+                    verboseMessage("> авторизуепмся в Gmail...");
+                    kraken.perform().fillField(Elements.Social.Gmail.AuthForm.loginField(), login);
+                    kraken.perform().click(Elements.Social.Gmail.AuthForm.loginNextButton());
+                    kraken.await().simply(1); // Ожидание загрузки страницы ввода пароля Gmail
+                    kraken.perform().fillField(Elements.Social.Gmail.AuthForm.passwordField(), password);
+                    kraken.perform().click(Elements.Social.Gmail.AuthForm.passwordNextButton());
+                    kraken.await().simply(1); // Ожидание авторизации в Gmail
+                }
+            }
 
-        /**
-         * Открыть крайнее письмо в цепочке писем от Инстамарт
-         */
-        public static void openLastGmail() {
-            verboseMessage("> открываем крайнее письмо от Инстамарт");
-            kraken.perform().click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Instamart'])[1]/following::span[1]"));
-            kraken.perform().click(By.linkText("- Показать цитируемый текст -"));
-        }
+            public static void openLastMail() {
+                verboseMessage("> открываем крайнее письмо от Инстамарт");
+                kraken.perform().click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Instamart'])[1]/following::span[1]"));
+                kraken.perform().click(By.linkText("- Показать цитируемый текст -"));
+            }
 
-        /**
-         * Нажать кнопку сброса пароля в письме
-         */
-        public static void clickRecoveryInMail() {
-            verboseMessage("> нажимаем кнопку сброса пароля в письме");
-            kraken.perform().click(By.linkText("СБРОСИТЬ ПАРОЛЬ"));
-            kraken.await().implicitly(1); // Ожидание перехода из письма на сайт Инстамарт
-            kraken.perform().switchToNextWindow();
-        }
-
-        //todo requestPasswordRecovery(UserData user)
-
-        /**
-         * Запросить восстановление пароля для указанной роли
-         */
-        public static void requestPasswordRecovery(UserData role) {
-            requestPasswordRecovery(role.getLogin());
-        }
-
-        /**
-         * Запросить восстановление пароля
-         */
-        public static void requestPasswordRecovery(String email) {
-            Shop.AuthModal.open();
-            Shop.AuthModal.switchToAuthorisationTab();
-            Shop.AuthModal.proceedToPasswordRecovery();
-            verboseMessage("> запрашиваем восстановление пароля для " + email);
-            Shop.RecoveryModal.fillRequestForm(email);
-            Shop.RecoveryModal.submitRequest();
+            public static void proceedToRecovery() {
+                verboseMessage("> нажимаем кнопку сброса пароля в письме");
+                kraken.perform().click(By.xpath("//a[contains(text(),'Продолжить')]"));
+                kraken.await().implicitly(1); // Ожидание перехода из письма на сайт Инстамарт
+                kraken.perform().switchToNextWindow();
+            }
         }
     }
 
@@ -358,6 +329,31 @@ public class User extends Base {
                 change(Addresses.Moscow.testAddress());
                 change(Addresses.Moscow.defaultAddress());
             }
+        }
+    }
+
+    public static class PasswordRecovery {
+
+        public static void request(UserData user) {
+            request(user.getLogin());
+        }
+
+        public static void request(String email) {
+            Shop.AuthModal.open();
+            Shop.AuthModal.switchToAuthorisationTab();
+            Shop.AuthModal.proceedToPasswordRecovery();
+            verboseMessage("> запрашиваем восстановление пароля для " + email);
+            Shop.RecoveryModal.fillRequestForm(email);
+            Shop.RecoveryModal.submitRequest();
+        }
+
+        public static void complete(UserData user, String recoveredPassword) {
+            User.Do.Gmail.auth();
+            User.Do.Gmail.openLastMail();
+            User.Do.Gmail.proceedToRecovery();
+            verboseMessage("> восстановливаем пароль '" + recoveredPassword + "' для " + user.getLogin());
+            Shop.RecoveryModal.fillRecoveryForm(recoveredPassword, recoveredPassword);
+            Shop.RecoveryModal.submitRecovery();
         }
     }
 }

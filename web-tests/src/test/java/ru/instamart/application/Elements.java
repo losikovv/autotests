@@ -2222,6 +2222,36 @@ public class Elements {
                         "кнопка отправки формы авторизации Sber ID");
             }
         }
+
+        interface Gmail {
+
+            interface AuthForm {
+
+                static ElementData loginField() {
+                    return new ElementData(By.xpath("//input[@id='identifierId']"),
+                            "поле ввода логина формы авторизации Gmail");
+                }
+
+                static ElementData loginNextButton() {
+                    return new ElementData(By.xpath("//*[@role='button' and @id='identifierNext']"),
+                            "кнопка 'Далее' в форме ввода логина Gmail");
+                }
+
+                static ElementData passwordField() {
+                    return new ElementData(By.xpath("//input[@name='password']"),
+                            "поле ввода пароля формы авторизации Gmail");
+                }
+
+                static ElementData passwordNextButton() {
+                    return new ElementData(By.xpath("//*[@role='button' and @id='passwordNext']"),
+                            "кнопка 'Далее' в форме ввода пароля Gmail");
+                }
+            }
+
+            interface MailInterface {
+
+            }
+        }
     }
 
     /** Админка */
@@ -2711,36 +2741,6 @@ public class Elements {
         static ElementData pageTitle() {
             return new ElementData(By.xpath("//*[@class='inner-page__title']/h1"),
                     "заголовок статической страницы");
-        }
-    }
-
-    public interface GMail {
-
-        interface AuthPage{
-
-            static ElementData idField() {
-                return new ElementData(
-                        By.name("identifier"),
-                        "поле 'id' на странице авторизации Gmail");
-            }
-
-            static ElementData idNextButton() {
-                return new ElementData(
-                        By.name("identifier"),
-                        "кнопка 'Далее' на странице ввода id авторизации Gmail");
-            }
-
-            static ElementData passwordField() {
-                return new ElementData(
-                        By.name("password"),
-                        "поле 'Пароль' на странице авторизации Gmail");
-            }
-
-            static ElementData passwordNextButton() {
-                return new ElementData(
-                        By.id("passwordNext"),
-                        "кнопка 'Далее' на странице ввода пароля авторизации Gmail");
-            }
         }
     }
 }

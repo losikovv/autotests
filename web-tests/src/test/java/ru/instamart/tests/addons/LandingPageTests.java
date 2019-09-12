@@ -23,8 +23,8 @@ public class LandingPageTests extends TestBase {
 
     @Test(
             description = "Тест валидности и наличия элемнтов лендинга Инстамарт",
-            groups = {"smoke","acceptance","regression"},
-            priority = 51
+            priority = 51,
+            groups = {"smoke","acceptance","regression"}
     )
     public void successValidateLanding() {
         runTestOnlyOn(Tenants.instamart());
@@ -114,6 +114,6 @@ public class LandingPageTests extends TestBase {
         Assert.assertTrue(
                 kraken.detect().isElementPresent(
                         Elements.Landing.MobileAppPromoBlock.successPlaceholder()),
-                "Не отправилась ссылка на скачивание мобильного приложения с лендинга");
+                            "Не отправилась ссылка на скачивание мобильного приложения с лендинга");
     }
 }
