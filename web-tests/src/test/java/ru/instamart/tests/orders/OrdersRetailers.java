@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.instamart.application.lib.Addresses;
 import ru.instamart.application.Tenants;
+import ru.instamart.application.lib.Pages;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.tests.TestBase;
@@ -28,7 +29,7 @@ public class OrdersRetailers extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInMetro(){
-        kraken.get().page("metro");
+        assertPageIsAvailable(Pages.Site.Retailers.metro());
         Shop.Cart.drop();
 
         Shop.Cart.collect();
@@ -49,7 +50,7 @@ public class OrdersRetailers extends TestBase {
             }
     ) public void successOrderInAuchan(){
         skipTestOn(Tenants.metro());
-        kraken.get().page("auchan");
+        assertPageIsAvailable(Pages.Site.Retailers.auchan());
         Shop.Cart.drop();
 
         Shop.Cart.collect();
@@ -70,7 +71,7 @@ public class OrdersRetailers extends TestBase {
             }
     ) public void successOrderInAzbukaVkusa(){
         skipTestOn(Tenants.metro());
-        kraken.get().page("azbukavkusa");
+        assertPageIsAvailable(Pages.Site.Retailers.azbuka());
         Shop.Cart.drop();
 
         Shop.Cart.collect();

@@ -29,6 +29,10 @@ public class Pages {
                 return new PageData( "vkusvill");
             }
 
+            static PageData azbuka() {
+                return new PageData( "azbukavkusa");
+            }
+
             static PageData lenta() {
                 return new PageData("lenta");
             }
