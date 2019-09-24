@@ -14,7 +14,6 @@ import static ru.instamart.application.platform.helpers.HelperBase.verboseMessag
 
 public class SelfCheckTests extends TestBase {
 
-
     @Test(description = "Тест базового URL",
             groups ="selfcheck",
             priority = 10000)
@@ -22,7 +21,6 @@ public class SelfCheckTests extends TestBase {
         kraken.get().baseUrl();
         Assert.assertEquals(kraken.grab().currentURL() , kraken.grab().fullBaseUrl);
     }
-
 
     @Test(description = "Тест корректности работы методов навигации",
             groups ="selfcheck",
@@ -35,7 +33,6 @@ public class SelfCheckTests extends TestBase {
         kraken.get().page(Pages.Site.Static.faq());
         Assert.assertEquals(kraken.grab().currentURL() , kraken.grab().fullBaseUrl + Pages.Site.Static.faq().getPath());
     }
-
 
     @Test(description = "Тест корректности определения модалки авторизации/регистрации",
             groups ="selfcheck",
@@ -59,7 +56,6 @@ public class SelfCheckTests extends TestBase {
         Assert.assertFalse(kraken.detect().isAuthModalOpen());
     }
 
-
     @Test(description = "Тест корректности определения авторизованности пользователя",
             groups ="selfcheck",
             priority = 10003)
@@ -80,9 +76,7 @@ public class SelfCheckTests extends TestBase {
         Assert.assertFalse(kraken.detect().isUserAuthorised());
     }
 
-
     // TODO public void detectAddressModal() throws Exception { }
-
 
     @Test(description = "Тест корректности определения меню Профиль",
             groups ="selfcheck",
@@ -99,7 +93,6 @@ public class SelfCheckTests extends TestBase {
         Assert.assertFalse(kraken.detect().isAccountMenuOpen());
     }
 
-
     @Test(description = "Тест корректности определения карточки товара",
             groups ="selfcheck",
             priority = 10005)
@@ -111,7 +104,6 @@ public class SelfCheckTests extends TestBase {
         kraken.get().page("metro/eliektronika");
         Assert.assertFalse(kraken.detect().isItemCardOpen());
     }
-
 
     @Test(description = "Тест корректности определения что находимся на сайте",
             groups ="selfcheck",
@@ -126,7 +118,6 @@ public class SelfCheckTests extends TestBase {
         Assert.assertFalse(kraken.detect().isOnSite());
     }
 
-
     @Test(description = "Тест корректности определения что находимся в админке",
             groups ="selfcheck",
             priority = 10007)
@@ -140,7 +131,6 @@ public class SelfCheckTests extends TestBase {
         Assert.assertTrue(kraken.detect().isInAdmin());
     }
 
-
     @Test(description = "Тест корректности определения 404 ошибки на страниице",
             groups ="selfcheck",
             priority = 10008)
@@ -153,7 +143,6 @@ public class SelfCheckTests extends TestBase {
         Assert.assertFalse(kraken.detect().is404());
     }
 
-
     @Test(description = "Тест корректности определения 500 ошибки на страниице",
             groups ="selfcheck",
             priority = 10009)
@@ -165,7 +154,6 @@ public class SelfCheckTests extends TestBase {
         kraken.get().page("metro");
         Assert.assertFalse(kraken.detect().is500());
     }
-
 
     @Test(description = "Тест корректности определения шторки Каталога",
             groups ="selfcheck",
@@ -180,7 +168,6 @@ public class SelfCheckTests extends TestBase {
         Shop.StoreSelector.close();
         Assert.assertFalse(kraken.detect().isCatalogDrawerOpen());
     }
-
 
     @Test(description = "Тест корректности определения дефолтного селектора магазинов",
             groups ="selfcheck",
@@ -221,7 +208,6 @@ public class SelfCheckTests extends TestBase {
         softAssert.assertAll();
     }
 
-
     @Test(description = "Тест корректности определения пустого селектора магазинов",
             groups ="selfcheck",
             priority = 10012)
@@ -261,7 +247,6 @@ public class SelfCheckTests extends TestBase {
         softAssert.assertAll();
     }
 
-
     @Test(description = "Тест корректности определения шторки корзины",
             groups ="selfcheck",
             priority = 10013)
@@ -275,7 +260,6 @@ public class SelfCheckTests extends TestBase {
         Shop.Cart.close();
         Assert.assertFalse(kraken.detect().isCartOpen());
     }
-
 
     @Test(description = "Тест корректности определения модалки Доставка",
             groups ="selfcheck",
@@ -291,7 +275,6 @@ public class SelfCheckTests extends TestBase {
         Assert.assertFalse(kraken.detect().isDeliveryModalOpen());
     }
 
-
     @Test(description = "Тест корректности определения модалки Партнеры",
             groups ="selfcheck",
             priority = 10015)
@@ -305,7 +288,6 @@ public class SelfCheckTests extends TestBase {
         kraken.perform().click(Elements.Modals.PartnersModal.closeButton());
         Assert.assertFalse(kraken.detect().isPartnersModalOpen());
     }
-
 
     @Test(description = "Тест корректности определения модалки Оплата",
             groups ="selfcheck",
@@ -321,7 +303,6 @@ public class SelfCheckTests extends TestBase {
         Assert.assertFalse(kraken.detect().isPaymentModalOpen());
     }
 
-
      @Test(description = "Тест корректности определения модалки Адрес",
             groups ="selfcheck",
             priority = 10017)
@@ -335,7 +316,6 @@ public class SelfCheckTests extends TestBase {
         Shop.ShippingAddressModal.close();
         Assert.assertFalse(kraken.detect().isAddressModalOpen());
     }
-
 
     @Test(
             description = "Тест корректности определения суммы корзины",
@@ -367,7 +347,6 @@ public class SelfCheckTests extends TestBase {
         verboseMessage("Сумма корзины = " + kraken.grab().cartTotal());
     }
 
-
     @Test(description = "Тест корректности определения заглушки адреса вне зоны доставки",
             groups ="selfcheck",
             priority = 10019)
@@ -381,7 +360,6 @@ public class SelfCheckTests extends TestBase {
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         Assert.assertFalse(kraken.detect().isAddressOutOfZone());
     }
-
 
     @Test(description = "Тест корректности работы ассертов",
             groups ="selfcheck",

@@ -603,7 +603,7 @@ public class Elements {
 
         static ElementData successRecoveryRequestText() {
             return new ElementData(
-                    By.xpath("//*[@class='auth-modal']//*[@class='auth-modal__recovery-text']//span"),
+                    By.xpath("//*[@class='auth-modal']//*[@class='auth-modal__recovery-text']//span[text()='На указанный вами E-mail высланы инструкции по восстановлению пароля.']"),
                         "текст успешного запроса в модалке восстановления пароля");
         }
     }

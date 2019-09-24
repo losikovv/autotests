@@ -26,6 +26,8 @@ public class UserPasswordRecoveryTests extends TestBase {
     ) public void noRecoveryRequestWithEmptyEmail() {
         User.PasswordRecovery.request("");
 
+        // todo проверять что показана пользовательская ошибка
+
         Assert.assertFalse(
                 kraken.detect().isRecoveryRequested(),
                     failMessage("Отправляется запрос на восстановление пароля с пустым полем email"));
@@ -42,6 +44,8 @@ public class UserPasswordRecoveryTests extends TestBase {
     ) public void noRecoveryRequestWithWrongEmail() {
         User.PasswordRecovery.request("wrongemail.example.com");
 
+        // todo проверять что показана пользовательская ошибка
+
         Assert.assertFalse(
                 kraken.detect().isRecoveryRequested(),
                     failMessage("Отправляется запрос на восстановление пароля с некорректным email"));
@@ -57,6 +61,8 @@ public class UserPasswordRecoveryTests extends TestBase {
             }
     ) public void noRecoveryRequestForNonexistingUser() {
         User.PasswordRecovery.request("nonexistinguser@example.com");
+
+        // todo проверять что показана пользовательская ошибка
 
         Assert.assertFalse(
                 kraken.detect().isRecoveryRequested(),
@@ -153,13 +159,13 @@ public class UserPasswordRecoveryTests extends TestBase {
                     failMessage("Невозможно авторизоваться с новым паролем после восстановления пароля"));
     }
 
-    @Test ( dependsOnMethods = "successAuthWithNewPasswordAfterCompletePasswordRecovery",
+    @Test (
             description = "Тест на авторизацию с новым паролем после восстановления",
             priority = 459,
             groups = {
-                    "acceptance","regression",
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "regression",
+                    "metro-regression",
+                    "sbermarket-regression"
             }
     ) public void noAuthWithOldPasswordAfterCompletePasswordRecovery() {
         User.PasswordRecovery.request(Users.gmail());

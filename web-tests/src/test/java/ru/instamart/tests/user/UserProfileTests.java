@@ -49,7 +49,6 @@ public class UserProfileTests extends TestBase {
         assertPresence(Elements.AccountMenu.termsButton());
         assertPresence(Elements.AccountMenu.logoutButton());
         assertPresence(Elements.AccountMenu.deliveryButton());
-        assertPresence(Elements.AccountMenu.paymentButton());
         assertPresence(Elements.AccountMenu.faqButton());
         assertPresence(Elements.AccountMenu.contactsButton());
 
@@ -196,9 +195,7 @@ public class UserProfileTests extends TestBase {
             description = "Тест валидации кнопки 'Оплата' в меню профиля",
             priority = 158,
             groups = {
-                    "acceptance","regression",
                     "metro-smoke","metro-acceptance","metro-regression",
-                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successValidatePaymentButton() {
         Shop.AccountMenu.open();

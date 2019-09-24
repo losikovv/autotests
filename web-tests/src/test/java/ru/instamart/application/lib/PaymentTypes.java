@@ -2,6 +2,7 @@ package ru.instamart.application.lib;
 
 import ru.instamart.application.models.PaymentTypeData;
 
+// todo удалить или переделать
 public class PaymentTypes {
 
     private static int position = cash().getPosition();

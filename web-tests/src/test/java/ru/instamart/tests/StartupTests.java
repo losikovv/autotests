@@ -93,7 +93,6 @@ public class StartupTests extends TestBase {
 
         assertPresence(Elements.Footer.customerHelpTitle());
             assertPresence(Elements.Footer.infoLink("Доставка"));
-            assertPresence(Elements.Footer.infoLink("Оплата"));
             assertPresence(Elements.Footer.infoLink("FAQ"));
 
         assertPresence(Elements.Footer.hotlinePhoneNumber());
@@ -137,13 +136,6 @@ public class StartupTests extends TestBase {
         Assert.assertTrue(kraken.detect().isPartnersModalOpen(),
                 "Не открывается модалка 'Партнеры' из футера\n");
         kraken.perform().click(Elements.Modals.PartnersModal.closeButton());
-        assertPageIsAvailable();
-
-        kraken.get().page(Pages.Site.Retailers.metro());
-        kraken.perform().click(Elements.Footer.paymentButton());
-        Assert.assertTrue(kraken.detect().isPaymentModalOpen(),
-                "Не открывается модалка 'Оплата' из футера\n");
-        kraken.perform().click(Elements.Modals.PaymentModal.closeButton());
         assertPageIsAvailable();
     }
 

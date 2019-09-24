@@ -181,7 +181,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного запоминания ранее заполненных полей",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 1111
     )
     public void successKeepProvidedStepData() {

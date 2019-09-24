@@ -11,10 +11,10 @@ public class Config {
 
     public interface CoreSettings {
         String browser = BrowserType.FIREFOX;
-        ServerData server = Servers.sbermarket_staging();
+        ServerData server = Servers.instamart_production();
 
         int basicTimeout = 2;
-        int waitingTimeout = 60;
+        int waitingTimeout = 20;
 
         boolean verbose = true;
         boolean debug = false;
@@ -44,7 +44,7 @@ public class Config {
 
         interface OrdersTests {
             boolean enableOrderRetailersTests = true;
-            boolean enableOrderCitiesTests = false;
+            boolean enableOrderCitiesTests = true;
             boolean enableOrderReplacementsTests = true;
             boolean enableOrderRepeatTests = true;
             boolean enableOrderBonusesTests = true;
@@ -100,14 +100,14 @@ public class Config {
                             "22",
                             true, "333",
                             "44 ключ 4444",
-                            "ТЕСТОВЫЙ ЗАКАЗ / НЕ СОБИРАТЬ"
+                            "test"
                     ),
                     new ContactsDetailsData(
                             "1234567890"
                     ),
                     ReplacementPolicies.callAndReplace(),
                     new PaymentDetailsData(
-                            PaymentTypes.cash(),
+                            PaymentTypes.cardCourier(),
                             false,
                             PaymentCards.testCard(),
                             false,
