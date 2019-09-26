@@ -515,7 +515,7 @@ public class Checkout extends Base {
         if(kraken.detect().isPaymentTypeAvailable(description)){
             message("Выбираем оплату " + description);
             kraken.perform().click(Elements.Checkout.paymentTypeSelector(description));
-        } else throw new AssertionError("Оплата " + description + " недоступна");
+        } else throw new AssertionError("В чекауте недоступна оплата " + description);
 
         if (description.equalsIgnoreCase(PaymentTypes.cardOnline().getDescription())) {
             if (paymentDetails.isNewCreditCard()) {
