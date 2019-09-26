@@ -17,6 +17,7 @@ public class OrdersPaymentsTests extends TestBase {
         kraken.get().baseUrl();
         User.Do.loginAs(kraken.session.admin);
         User.ShippingAddress.change(Addresses.Moscow.testAddress());
+        kraken.get().page("metro");
         Shop.Cart.drop();
     }
 
@@ -24,15 +25,13 @@ public class OrdersPaymentsTests extends TestBase {
     @Test(
             description = "Тест заказа с оплатой наличными",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 2101
     )
     public void successOrderWithCashAndCheckDocuments() {
         kraken.reach().checkout();
-        kraken.checkout().complete();
+        kraken.checkout().complete(PaymentTypes.cash());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не удалось оформить заказ с оплатой наличными\n");

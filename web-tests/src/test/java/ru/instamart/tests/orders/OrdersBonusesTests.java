@@ -30,6 +30,7 @@ public class OrdersBonusesTests extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
         kraken.reach().checkout();
+        Checkout.Bonuses.deleteAll();
     }
 
     @Test(  enabled = enableOrderBonusesTests,

@@ -26,7 +26,7 @@ public class LandingPageTests extends TestBase {
             priority = 51,
             groups = {"smoke","acceptance","regression"}
     )
-    public void successValidateLanding() {
+    public void successValidateInstamartLanding() {
         runTestOnlyOn(Tenants.instamart());
 
         assertPageIsAvailable();

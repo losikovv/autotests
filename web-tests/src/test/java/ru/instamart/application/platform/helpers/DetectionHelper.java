@@ -615,6 +615,13 @@ public class DetectionHelper extends HelperBase {
         return isElementPresent((By.xpath("(//button[@type='button'])[" + step + "]"))); // TODO вынести в Elements
     }
 
+    public boolean isPaymentTypeAvailable(String paymentType) {
+        return isElementPresent(Elements.Checkout.paymentTypeSelector(paymentType));
+    }
+
+    public boolean isPaymentTypeActive(String paymentType) {
+        return isElementPresent(Elements.Checkout.activePaymentTypeSelector(paymentType));
+    }
 
     // ======= Widgets =======
 

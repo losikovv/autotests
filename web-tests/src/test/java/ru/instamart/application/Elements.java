@@ -1693,8 +1693,16 @@ public class Elements {
                 return new ElementData(By.cssSelector("div.replacement-policy:nth-child(" + option + ")"));
             }
 
-            static ElementData paymentTypeSelector(int option) {
-                return new ElementData(By.cssSelector("div.payment-method:nth-child(" + option + ") > div:nth-child(1)"));
+            static ElementData paymentTypeSelector(String option) {
+                return new ElementData(
+                        By.xpath("//*[@class='payment-method__name' and text()='" + option + "']//parent::*[@class='payment-method']"),
+                            "кнопка выбора способа оплаты " + option);
+            }
+
+            static ElementData activePaymentTypeSelector(String option) {
+                return new ElementData(
+                     By.xpath("//*[@class='payment-method__name' and text()='" + option + "']//parent::*[contains(@class,'payment-method--active')]"),
+                        "активная кнопка способа оплаты " + option);
             }
 
             /** Селектор дней доставки */

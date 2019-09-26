@@ -510,9 +510,12 @@ public class Checkout extends Base {
     }
 
     public void choosePaymentMethod (PaymentDetailsData paymentDetails) {
-        kraken.perform().click(Elements.Checkout.paymentTypeSelector(paymentDetails.getPaymentType().getPosition()));
+
         String description = paymentDetails.getPaymentType().getDescription();
-        message("Выбираем оплату " + description);
+        if(kraken.detect().isPaymentTypeAvailable(description)){
+            message("Выбираем оплату " + description);
+            kraken.perform().click(Elements.Checkout.paymentTypeSelector(description));
+        } else throw new AssertionError("Оплата " + description + " недоступна");
 
         if (description.equalsIgnoreCase(PaymentTypes.cardOnline().getDescription())) {
             if (paymentDetails.isNewCreditCard()) {
