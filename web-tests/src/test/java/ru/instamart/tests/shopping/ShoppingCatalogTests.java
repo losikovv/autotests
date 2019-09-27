@@ -48,7 +48,7 @@ public class ShoppingCatalogTests extends TestBase {
     )
     public void successGoToDepartmentFromCatalogDrawer() {
         Shop.CatalogDrawer.open();
-        Shop.CatalogDrawer.goToDepartment("Бакалея");
+        Shop.CatalogDrawer.goToDepartment("Сыры");
 
         assertPageIsAvailable();
 
