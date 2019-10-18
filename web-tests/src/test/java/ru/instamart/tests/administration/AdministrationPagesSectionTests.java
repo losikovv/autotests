@@ -33,7 +33,7 @@ public class AdministrationPagesSectionTests extends TestBase {
 
     @Test(  enabled = enablePagesSectionTests,
             description = "Проверка страницы создания статической страницы",
-            groups = {"acceptance","regression"},
+            groups = {},
             priority = 10802
     )
     public void ValidatePagesCreationPage() {
@@ -43,7 +43,7 @@ public class AdministrationPagesSectionTests extends TestBase {
 
     @Test(  enabled = enablePagesSectionTests,
             description = "Тест создания и удаления статической страницы",
-            groups = {"acceptance","regression"},
+            groups = {},
             priority = 10803
     )
     public void CreateDeletePage() {

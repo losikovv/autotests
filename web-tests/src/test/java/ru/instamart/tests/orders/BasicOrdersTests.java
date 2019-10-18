@@ -186,7 +186,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(enabled = enableOrderRepeatTests,
             description = "Повтор крайнего заказа и оплата картой онлайн",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 2005
     )
     public void successRepeatLastOrderAndPayWithCardOnline() {
@@ -202,7 +202,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(enabled = enableOrderRepeatTests,
             description = "Повтор крайнего заказа и оплата картой курьеру",
-            groups = {"regression"},
+            groups = {"acceptance","regression"},
             priority = 2006
     )
     public void successRepeatLastOrderAndPayWithCardCourier() {

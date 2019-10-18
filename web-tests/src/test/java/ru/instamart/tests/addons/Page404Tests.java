@@ -68,7 +68,7 @@ public class Page404Tests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,
             description = "Тест познания новой котомудрости на странице 404 после познания первой",
-            groups = {"acceptance","regression"},
+            groups = {"regression"},
             priority = 11005
     )
     public void successLearnMoreCatWisdom() {

@@ -2094,36 +2094,45 @@ public class Elements {
     public interface Jivosite {
 
             static ElementData widget() {
-                return new ElementData(By.id("jvlabelWrap"));
+                return new ElementData(
+                        By.xpath("//jdiv[@id='jvlabelWrap']"),
+                            "виджет Jivosite");
             }
 
             static ElementData openButton() {
-                return new ElementData(By.xpath(
-                        "//*[@id=\"jvlabelWrap\"]/jdiv/jdiv[1]"));
+                return new ElementData(
+                        By.xpath("//jdiv[@id='jvlabelWrap']//jdiv[@class='hoverl_6R']"),
+                            "панель виджета Jivosite");
             }
 
             static ElementData closeButton() {
-                return new ElementData(By.xpath(
-                        "//*[@id=\"jivo_close_button\"]/jdiv"));
+                return new ElementData(
+                        By.xpath("//jdiv[@id='jivo_close_button']"),
+                            "кнопка закрытия виджета Jivosite");
             }
 
             static ElementData chatArea() {
-                return  new ElementData(By.className("container_CV"));
+                return new ElementData(
+                        By.className("container_CV"),
+                            "чат виджета Jivosite");
             }
 
             static ElementData messageField() {
-                return  new ElementData(By.xpath(
-                        "//*[@id=\"jcont_content_wrapper\"]/jdiv[2]/jdiv/jdiv[4]/jdiv/jdiv/jdiv[1]/textarea"));
+                return new ElementData(
+                        By.xpath("//textarea[@class='inputField_2G']"),
+                            "поле сообщения виджета Jivosite");
             }
 
             static ElementData sendMessageButton() {
-                return  new ElementData(By.xpath(
-                        "//*[@id=\"jcont_content_wrapper\"]/jdiv[2]/jdiv/jdiv[4]/jdiv/jdiv/jdiv[2]/jdiv"));
+                return new ElementData(
+                        By.xpath("//jdiv[@class='sendButton_1o']"),
+                            "кнопка отправки ссобщения в виджете Jivosite");
             }
 
             static ElementData sentMessage(String text) {
-                return new ElementData(By.xpath(
-                        "//*[@id='scrollbar-container']//*[text()='" + text + "']"));
+                return new ElementData(
+                        By.xpath("//*[@id='scrollbar-container']//*[text()='" + text + "']"),
+                            "");
             }
         }
 
