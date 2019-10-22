@@ -10,34 +10,6 @@ import ru.instamart.tests.TestBase;
 
 public class AdministrationAccessTests extends TestBase {
 
-    @BeforeClass(alwaysRun = true)
-    public void setup() {
-        User.Logout.quickly();
-    }
-
-    @BeforeMethod(alwaysRun = true)
-    public void getAdminLoginPage() {
-        kraken.get().page(Pages.Admin.login());
-    }
-
-    @Test(  description = "Тест успешной валидации логин-страницы админки",
-            groups = {"acceptance","regression"},
-            priority = 10051
-    )
-    public void successValidateAdministrationLoginPage() {
-        assertPresence(Elements.Administration.LoginPage.title());
-        assertPresence(Elements.Administration.LoginPage.emailField());
-        assertPresence(Elements.Administration.LoginPage.passwordField());
-        assertPresence(Elements.Administration.LoginPage.submitButton());
-    }
-
-    //todo noAuthWithEmptyFields
-
-    //todo noAuthWithWrongPassword
-
-    //todo noAuthWithIncorrectUsername
-
-    //todo noAuthWithNonexistingUsername
-
-    //todo successAuth
+    //TODO сделать тесты на проверку доступов всех ролей пользователей админки
+    //priority = 10071
 }

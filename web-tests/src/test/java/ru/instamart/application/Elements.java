@@ -2286,14 +2286,20 @@ public class Elements {
                         "поле ввода email на странице авторизации админки");
             }
 
-            // todo emailFieldErrorText
+            static ElementData emailFieldErrorText(String text) {
+                return new ElementData(By.xpath("//body[@class='admin']//input[@name='email']//ancestor::span//following-sibling::div[@class='ant-form-explain' and text()='" + text + "']"),
+                        "текст ошибки поля ввода email на странице авторизации админки");
+            }
 
             static ElementData passwordField() {
                 return new ElementData(By.xpath("//body[@class='admin']//input[@name='password']"),
                         "поле ввода пароля на странице авторизации админки");
             }
 
-            // todo passwordFieldErrorText
+            static ElementData passwordFieldErrorText(String text) {
+                return new ElementData(By.xpath("//body[@class='admin']//input[@name='password']//ancestor::span//following-sibling::div[@class='ant-form-explain' and text()='" + text + "']"),
+                        "текст ошибки поля ввода email на странице авторизации админки");
+            }
 
             static ElementData submitButton() {
                 return new ElementData(By.xpath("//body[@class='admin']//span[text()='Войти']//ancestor::button[@type='submit']"),
