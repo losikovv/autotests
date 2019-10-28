@@ -10,29 +10,35 @@ import java.util.Random;
 
 public class generate {
 
-    /**
-     * Сгенерировать int c рандомным числом указанной длины
-     */
-    public static int integer(int length) {
-        return Integer.parseInt(digitString(length));
+    public static String testRunId() {
+        return literalString(3).toUpperCase() + digitalString(6);
+    }
+
+    public static String userId() {
+        return digitalString(7);
     }
 
     /**
      * Сгенерировать рандомноую строку указанной длины
      */
     public static String string(int length) {
-        return generate.string("string", length);
+        return generate.string("digital", length);
     }
 
-    /**
-     * Сгенерировать рандомноую буквенную строку указанной длины
-     */
-    public static String literalString(int length) { return generate.string("literal", length); }
+    /** Сгенерировать рандомноую буквенную строку указанной длины */
+    public static String literalString(int length) {
+        return generate.string("literal", length);
+    }
 
-    /**
-     * Сгенерировать рандомноую цифровую строку указанной длины
-     */
-    public static String digitString(int length) { return generate.string("integer", length); }
+    /** Сгенерировать рандомноую цифровую строку указанной длины*/
+    public static String digitalString(int length) {
+        return generate.string("digital", length);
+    }
+
+    /** Сгенерировать int c рандомным числом указанной длины */
+    public static int integer(int length) {
+        return Integer.parseInt(digitalString(length));
+    }
 
     public static String testUserPhone(String userId) {
         return "777" + userId;
@@ -72,17 +78,8 @@ public class generate {
         }
         return testuser;
     }
-    
-    public static String testRunId() {
-        return string("literal", 9).toUpperCase();
-    }
 
-    private static String userId() {
-        return string("integer", 7);
-    }
-
-
-    public static String string(String symbols , int length) {
+    private static String string(String symbols, int length) {
         return buildString(symbols, length);
     }
 
@@ -99,7 +96,7 @@ public class generate {
 
     private static String symbolSetSwitcher(String symbolsSet) {
         switch (symbolsSet) {
-            case "integer":
+            case "digital":
                 return "123456789";
             case "string":
                 return "1234567890abcdefghijklmnopqrstuvwxyz";

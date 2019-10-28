@@ -103,7 +103,6 @@ public class BasicAdministrationTests extends TestBase {
             validateTransition(Elements.Administration.submenuButton("Бонусные карты"));
             validateTransition(Elements.Administration.submenuButton("Программы ритейлеров"));
             validateTransition(Elements.Administration.submenuButton("Реферальная программа"));
-            validateTransition(Elements.Administration.submenuButton("Промоигра"));
             validateTransition(Elements.Administration.submenuButton("Новые Города"));
             validateTransition(Elements.Administration.submenuButton("In App баннеры"));
             validateTransition(Elements.Administration.submenuButton("Промо карточки"));

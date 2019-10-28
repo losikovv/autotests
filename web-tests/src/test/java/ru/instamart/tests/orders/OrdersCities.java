@@ -27,7 +27,8 @@ public class OrdersCities extends TestBase {
             priority = 2301,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression"
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInMoscow() {
         User.ShippingAddress.change(Addresses.Moscow.defaultAddress());
@@ -46,7 +47,8 @@ public class OrdersCities extends TestBase {
             priority = 2302,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression"
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInSaintPetersburg() {
         User.ShippingAddress.change(Addresses.SaintPetersburg.defaultAddress());
@@ -65,7 +67,8 @@ public class OrdersCities extends TestBase {
             priority = 2303,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression"
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInKazan() {
         User.ShippingAddress.change(Addresses.Kazan.defaultAddress());
@@ -84,7 +87,8 @@ public class OrdersCities extends TestBase {
             priority = 2304,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression"
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInEkaterinburg() {
         User.ShippingAddress.change(Addresses.Ekaterinburg.defaultAddress());
@@ -103,7 +107,8 @@ public class OrdersCities extends TestBase {
             priority = 2305,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression"
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInNizhnyNovgorod() {
         User.ShippingAddress.change(Addresses.NizhnyNovgorod.defaultAddress());
@@ -142,7 +147,8 @@ public class OrdersCities extends TestBase {
             priority = 2307,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression"
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInUfa() {
         User.ShippingAddress.change(Addresses.Ufa.defaultAddress());
@@ -181,7 +187,8 @@ public class OrdersCities extends TestBase {
             priority = 2309,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression"
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInSamara() {
         User.ShippingAddress.change(Addresses.Samara.defaultAddress());
@@ -200,7 +207,8 @@ public class OrdersCities extends TestBase {
             priority = 2310,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression"
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInVoronezh() {
         User.ShippingAddress.change(Addresses.Voronezh.defaultAddress());
@@ -221,7 +229,8 @@ public class OrdersCities extends TestBase {
             priority = 2311,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression"
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInOmsk() {
         User.ShippingAddress.change(Addresses.Omsk.defaultAddress());
@@ -242,7 +251,8 @@ public class OrdersCities extends TestBase {
             priority = 2312,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression"
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInVolgograd() {
         User.ShippingAddress.change(Addresses.Volgograd.defaultAddress());
@@ -263,7 +273,8 @@ public class OrdersCities extends TestBase {
             priority = 2313,
             groups = {
                     "acceptance", "regression",
-                    "metro-acceptance", "metro-regression"
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInNovosibirsk() {
         User.ShippingAddress.change(Addresses.Novosibirsk.defaultAddress());
@@ -278,6 +289,29 @@ public class OrdersCities extends TestBase {
 
         kraken.perform().cancelLastOrder();
     }
+
+    @Test(enabled = enableOrderCitiesTests,
+            description = "Тест заказа в METRO в Челябинске",
+            priority = 2314,
+            groups = {
+                    "acceptance", "regression",
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInChelyabinsk() {
+        User.ShippingAddress.change(Addresses.Chelyabinsk.defaultAddress());
+
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderActive(),
+                    failMessage("Не удалось оформить заказ в METRO в Челябинске"));
+
+        kraken.perform().cancelLastOrder();
+    }
+
 
     @AfterMethod(alwaysRun = true)
     public void postconditions() {

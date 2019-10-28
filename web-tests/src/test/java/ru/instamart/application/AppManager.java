@@ -135,9 +135,9 @@ public class AppManager {
         System.out.println("\nENVIRONMENT: " + server.getName() + " ( " + server.getHost() + " )");
 
         if(multiSessionMode) {
-            System.out.println("\nTEST RUN: " + session.id);
+            System.out.println("\nTEST RUN ID: " + session.id);
         } else {
-            System.out.println("\nTEST RUN: " + session.id + " (SOLO MODE)");
+            System.out.println("\nTEST RUN ID: " + session.id + " (SOLO MODE)");
         }
 
         System.out.println("ADMIN: " + session.admin.getLogin() + " / " + session.admin.getPassword());

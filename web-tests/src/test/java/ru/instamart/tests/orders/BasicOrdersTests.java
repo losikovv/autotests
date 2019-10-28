@@ -58,12 +58,12 @@ public class BasicOrdersTests extends TestBase {
         JuridicalData juridicalData = new JuridicalData(
                 "ООО \"Новый Пользователь\"",
                 generate.string(8),
-                generate.digitString(13),
-                generate.digitString(9),
-                generate.digitString(20),
-                generate.digitString(9),
+                generate.digitalString(13),
+                generate.digitalString(9),
+                generate.digitalString(20),
+                generate.digitalString(9),
                 generate.string(8),
-                generate.digitString(20)
+                generate.digitalString(20)
         );
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer(), true, juridicalData);
@@ -89,12 +89,12 @@ public class BasicOrdersTests extends TestBase {
         JuridicalData juridicalData = new JuridicalData(
                 "ООО \"Измененный Пользователь\"",
                 generate.string(8),
-                generate.digitString(13),
-                generate.digitString(9),
-                generate.digitString(20),
-                generate.digitString(9),
+                generate.digitalString(13),
+                generate.digitalString(9),
+                generate.digitalString(20),
+                generate.digitalString(9),
                 generate.string(8),
-                generate.digitString(20)
+                generate.digitalString(20)
         );
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer(), false, juridicalData);
@@ -167,7 +167,7 @@ public class BasicOrdersTests extends TestBase {
         User.Logout.quickly();
         User.Auth.withEmail(userData);
         kraken.perform().repeatLastOrder();
-        String phone = generate.digitString(10);
+        String phone = generate.digitalString(10);
         kraken.reach().checkout();
         kraken.checkout().complete(true, phone);
 

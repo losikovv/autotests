@@ -10,8 +10,8 @@ import ru.instamart.application.models.*;
 public class Config {
 
     public interface CoreSettings {
-        String browser = BrowserType.FIREFOX;
-        ServerData server = Servers.instamart_staging();
+        String browser = BrowserType.CHROME;
+        ServerData server = Servers.instamart_production();
 
         int basicTimeout = 2;
         int waitingTimeout = 20;
@@ -44,7 +44,7 @@ public class Config {
 
         interface OrdersTests {
             boolean enableOrderRetailersTests = true;
-            boolean enableOrderCitiesTests = false;
+            boolean enableOrderCitiesTests = true;
             boolean enableOrderReplacementsTests = true;
             boolean enableOrderRepeatTests = true;
             boolean enableOrderBonusesTests = true;

@@ -121,5 +121,12 @@ public abstract class Addresses {
 
         public static String defaultAddress() { return addressString = "Новосибирск, ул Северная, д 11"; }
     }
+
+    public static class Chelyabinsk extends Addresses {
+
+        Chelyabinsk(String address) {super(address); }
+
+        public static String defaultAddress() { return addressString = "Челябинск, ул Ленина, д 10"; }
+    }
 }
 

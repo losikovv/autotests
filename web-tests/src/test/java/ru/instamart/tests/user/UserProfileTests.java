@@ -118,9 +118,7 @@ public class UserProfileTests extends TestBase {
         assertPresence(Elements.AccountMenu.termsButton());
         assertPresence(Elements.AccountMenu.logoutButton());
         assertPresence(Elements.AccountMenu.deliveryButton());
-        assertPresence(Elements.AccountMenu.paymentButton());
         assertPresence(Elements.AccountMenu.faqButton());
-        assertAbsence(Elements.AccountMenu.contactsButton());
 
         Shop.AccountMenu.close();
 
