@@ -1695,7 +1695,7 @@ public class Elements {
 
             static ElementData paymentTypeSelector(String option) {
                 return new ElementData(
-                        By.xpath("//*[@class='payment-method__name' and text()='" + option + "']//parent::*[@class='payment-method']"),
+                        By.xpath("//*[@class='payment-method__name' and text()='" + option + "']//parent::*[contains(@class,'payment-method')]"),
                             "кнопка выбора способа оплаты " + option);
             }
 

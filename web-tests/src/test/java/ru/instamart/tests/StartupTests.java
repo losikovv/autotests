@@ -87,13 +87,14 @@ public class StartupTests extends TestBase {
 
         assertPresence(Elements.Footer.instamartTitle());
             assertPresence(Elements.Footer.infoLink("О компании"));
-            assertPresence(Elements.Footer.infoLink("Вакансии"));
-            assertPresence(Elements.Footer.infoLink("Партнеры"));
             assertPresence(Elements.Footer.infoLink("Контакты"));
+            assertPresence(Elements.Footer.infoLink("Вакансии"));
+            assertPresence(Elements.Footer.infoLink("Документы"));
 
         assertPresence(Elements.Footer.customerHelpTitle());
+            assertPresence(Elements.Footer.infoLink("Как мы работаем"));
             assertPresence(Elements.Footer.infoLink("Доставка"));
-            assertPresence(Elements.Footer.infoLink("FAQ"));
+            assertPresence(Elements.Footer.infoLink("Помощь"));
 
         assertPresence(Elements.Footer.hotlinePhoneNumber());
         assertPresence(Elements.Footer.hotlineWorkhoursText());
