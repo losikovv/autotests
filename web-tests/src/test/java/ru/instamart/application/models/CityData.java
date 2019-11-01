@@ -1,13 +1,15 @@
 package ru.instamart.application.models;
 
+import java.util.List;
+
 public class CityData {
 
     private final String name;
     private final String prepositionalName;
-    private final String[] addresses;
+    private final List<String> addresses;
 
 
-    public CityData(String name, String prepositionalName, String[] addresses) {
+    public CityData(String name, String prepositionalName, List<String> addresses) {
         this.name = name;
         this.prepositionalName = prepositionalName;
         this.addresses = addresses;
@@ -21,7 +23,7 @@ public class CityData {
         return prepositionalName;
     }
 
-    public String[] getAddresses() {
+    public List<String> getAddresses() {
         return addresses;
     }
 }

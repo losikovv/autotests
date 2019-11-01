@@ -1203,7 +1203,7 @@ public class Elements {
     public interface Checkout {
 
         static ElementData header() {
-            return new ElementData(By.className("chekout-header"),
+            return new ElementData(By.xpath("//header[contains(@class,'checkout-header')]"),
                     "шапка чекаута");
         }
 
@@ -2084,7 +2084,7 @@ public class Elements {
 
                 static ElementData sendOrderButton() {
                     return new ElementData(
-                            By.xpath("//aside//button[text()='Оформить заказ']"),
+                            By.xpath("//aside//*[text()='Оформить заказ']//parent::button"),
                                 "кнопка \"Оформить заказ\" в боковой колонке чекаута");
                 }
             }

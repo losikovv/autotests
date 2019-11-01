@@ -12,6 +12,8 @@ import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.tests.TestBase;
 
+import static org.testng.Assert.assertTrue;
+
 public class OrdersRetailerCardsTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
@@ -40,7 +42,7 @@ public class OrdersRetailerCardsTests extends TestBase {
         String number = kraken.grab().currentOrderNumber();
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
-        Assert.assertTrue(
+        assertTrue(
                 kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.Order.Details.loyaltyProgram()),
                     "В заказе не применилась карта Метро\n");
 

@@ -11,7 +11,7 @@ public class Config {
 
     public interface CoreSettings {
         String browser = BrowserType.CHROME;
-        ServerData server = Servers.instamart_production();
+        ServerData server = Servers.instamart_staging();
 
         int basicTimeout = 2;
         int waitingTimeout = 20;
