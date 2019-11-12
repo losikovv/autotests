@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Config;
+import ru.instamart.application.Elements;
 import ru.instamart.application.models.ServerData;
 
 import java.util.concurrent.TimeUnit;
@@ -30,7 +31,7 @@ public class WaitingHelper extends HelperBase {
     /** Ожидание, равное переданному значению умноженному на переменную 'implicitlyWait' в конфиге */
     public void implicitly(int duration){
         for (int i = 1; i <= duration; i++){
-            kraken.detect().isElementPresent(By.xpath("//*[@id='nowhere']"));
+            kraken.detect().isElementPresent(Elements.none());
         }
     }
 

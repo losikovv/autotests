@@ -262,7 +262,7 @@ public class UserAuthorisationTests extends TestBase {
             description = "Тест успешной авторизации на лендинге Инстамарта",
             groups = {"smoke","acceptance","regression"},
             priority = 118
-    ) public void successAuthOnLanding() {
+    ) public void successAuthOnInstamartLanding() {
         User.Logout.quickly();
 
         User.Do.loginAs(session.admin);
@@ -368,8 +368,11 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест успешной авторизации через ВКонтакте",
-            groups = {"acceptance","regression"},
-            priority = 122
+            priority = 122,
+            groups = {
+                    "acceptance","regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            }
     )
     public void successAuthWithVkontakte() {
         kraken.get().page("metro");
@@ -384,7 +387,10 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест успешной авторизации через Facebook",
             priority = 123,
-            groups = {"acceptance","regression"}
+            groups = {
+                    "acceptance","regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            }
     )
     public void successAuthWithFacebook() {
         kraken.get().page("metro");
@@ -398,8 +404,11 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test( enabled = false, // надо придумать как избежать в дальнейших тестах блокирующего окошка Mail.ru
             description = "Тест успешной авторизации через MailRu",
-            groups = {"acceptance","regression"},
-            priority = 124
+            priority = 124,
+            groups = {
+                    "acceptance","regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            }
     )
     public void successAuthWithMailRu() {
         kraken.get().page("metro");
@@ -417,7 +426,8 @@ public class UserAuthorisationTests extends TestBase {
             priority = 125,
             groups = {
                     "acceptance","regression",
-                    "sbermarket-acceptance","sbermarket-regression"}
+                    "sbermarket-acceptance","sbermarket-regression"
+            }
     )
     public void successAuthWithSberID() {
         kraken.get().page("metro");

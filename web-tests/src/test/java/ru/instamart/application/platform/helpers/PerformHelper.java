@@ -121,8 +121,8 @@ public class PerformHelper extends HelperBase {
     }
 
     /** Переключиться на дефолтный контент */
-    void switchToDefaultContent() {
-        driver.switchTo().parentFrame();
+    public void switchToDefaultContent() {
+        //driver.switchTo().parentFrame();
         driver.switchTo().defaultContent();
     }
 

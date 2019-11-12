@@ -1,6 +1,5 @@
 package ru.instamart.application.platform.helpers;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -43,30 +42,12 @@ public class DetectionHelper extends HelperBase {
         }
     }
 
-    //Todo убрать
-    public boolean element(ElementData element) {
-        return element(element.getLocator(), element.getText());
-    }
-
-    //Todo убрать
-    public boolean element(By locator, String text) {
-        return isElementPresent(locator) && kraken.grab().text(locator).equals(text);
-    }
-
     /**
-     * Определить отображается ли элемент
+     * Определить представлен ли элемент
      */
     public boolean isElementPresent(ElementData element) {
-        return (isElementPresent(element.getLocator()));
-    }
-
-    // Todo убрать все детекторы элементов по прямым локаторам
-    /**
-     * Определить отображается ли элемент по локатору
-     */
-    public boolean isElementPresent(By locator) {
         try {
-            driver.findElement(locator);
+            driver.findElement(element.getLocator());
             return true;
         } catch (NoSuchElementException e) {
             return false;
@@ -77,16 +58,8 @@ public class DetectionHelper extends HelperBase {
      * Определить показан ли элемент
      */
     public boolean isElementDisplayed(ElementData element) {
-        return isElementDisplayed(element.getLocator());
-    }
-
-    // Todo убрать все детекторы элементов по прямым локаторам
-    /**
-     * Определить показан ли элемент по локатору
-     */
-    public boolean isElementDisplayed(By locator) {
         try {
-            return driver.findElement(locator).isDisplayed();
+            return driver.findElement(element.getLocator()).isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
@@ -96,15 +69,7 @@ public class DetectionHelper extends HelperBase {
      * Определить доступен ли элемент
      */
     public boolean isElementEnabled(ElementData element) {
-        return isElementEnabled(element.getLocator());
-    }
-
-    // Todo убрать все детекторы элементов по прямым локаторам
-    /**
-     * Определить доступен ли элемент по локатору
-     */
-    public boolean isElementEnabled(By locator) {
-        return driver.findElement(locator).isEnabled();
+        return driver.findElement(element.getLocator()).isEnabled();
     }
 
     /**
@@ -207,24 +172,21 @@ public class DetectionHelper extends HelperBase {
      * Определить открыта ли модалка "Доставка"
      */
     public boolean isDeliveryModalOpen() {
-        return isElementDisplayed(Elements.Modals.DeliveryModal.popup())
-                && element(Elements.Modals.DeliveryModal.title());
+        return isElementDisplayed(Elements.Modals.DeliveryModal.popup());
     }
 
     /**
      * Определить открыта ли модалка "Оплата"
      */
     public boolean isPaymentModalOpen() {
-        return isElementDisplayed(Elements.Modals.PaymentModal.popup())
-                && element(Elements.Modals.PaymentModal.title());
+        return isElementDisplayed(Elements.Modals.PaymentModal.popup());
     }
 
     /**
      * Определить открыт ли модалка "Партнеры"
      */
     public boolean isPartnersModalOpen() {
-        return isElementDisplayed(Elements.Modals.PartnersModal.popup())
-                && element(Elements.Modals.PartnersModal.title());
+        return isElementDisplayed(Elements.Modals.PartnersModal.popup());
     }
 
     /**
@@ -232,8 +194,8 @@ public class DetectionHelper extends HelperBase {
      */
     public boolean isAddressModalOpen() {
         return isElementDisplayed(Elements.Modals.AddressModal.popup())
-                && element(Elements.Modals.AddressModal.titleSet())
-                || element(Elements.Modals.AddressModal.titleChange());
+                && isElementDisplayed(Elements.Modals.AddressModal.titleSet())
+                || isElementDisplayed(Elements.Modals.AddressModal.titleChange());
     }
 
     /**
@@ -342,7 +304,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить активен ли верхний заказ на странице списка заказов */
     public boolean isOrdersHistoryEmpty() {
-        if(kraken.detect().element(Elements.UserProfile.OrdersHistoryPage.placeholder())) {
+        if(kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.placeholder())) {
             debugMessage("У пользователя нет заказов на странице истории заказов");
             return true;
         } else {
@@ -376,7 +338,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить отменен ли заказ на странице деталей */
     public boolean isOrderCanceled(){
         if (isInAdmin()) {
-            if (element(Elements.Administration.ShipmentsSection.Order.Details.canceledOrderAttribute())) {
+            if (isElementPresent(Elements.Administration.ShipmentsSection.Order.Details.canceledOrderAttribute())) {
                 verboseMessage("Заказ отменен");
                 return true;
             } else {
@@ -384,7 +346,7 @@ public class DetectionHelper extends HelperBase {
                 return false;
             }
         } else {
-            return element(Elements.UserProfile.OrderDetailsPage.canceledOrderAttribute());
+            return isElementPresent(Elements.UserProfile.OrderDetailsPage.canceledOrderAttribute());
         }
     }
 
@@ -611,8 +573,8 @@ public class DetectionHelper extends HelperBase {
     }
 
     /** Определить активен ли шаг чекаута в данный момент, по наличию кнопок "Продолжить" */
-    public boolean isCheckoutStepActive(int step) {
-        return isElementPresent((By.xpath("(//button[@type='button'])[" + step + "]"))); // TODO вынести в Elements
+    public boolean isCheckoutStepActive(CheckoutStepData step) {
+        return isElementPresent(Elements.Checkout.Step.nextButton(step));
     }
 
     public boolean isPaymentTypeAvailable(String paymentType) {

@@ -20,6 +20,11 @@ public class Elements {
                     "спиннер загрузки");
     }
 
+    public static ElementData none() {
+        return new ElementData(
+                By.xpath("//*[@id='nowhere']"),"none");
+    }
+
     /** Страница 500 ошибки */
     public interface Page500 {
 

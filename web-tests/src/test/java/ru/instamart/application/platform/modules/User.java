@@ -227,6 +227,11 @@ public class User extends Base {
             kraken.await().simply(1); // Ожидание авторизации через Facebook
 
             kraken.perform().switchToNextWindow();
+            //TOdo добавить проверку на то что вернулись в основное окно
+            if(!kraken.detect().isOnSite()){
+                kraken.perform().switchToNextWindow();
+                kraken.perform().switchToDefaultContent();
+            }
             kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()));
         }
 

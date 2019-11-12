@@ -476,7 +476,7 @@ public class Checkout extends Base {
     private void fillStep(int position, OrderDetailsData orderDetails) {
         CheckoutStepData step = CheckoutSteps.getStepDetails(position);
         assert step != null;
-        if (initStep(step.getPosition(), step.getTitle())) {
+        if (initStep(step)) {
             message("Шаг " + step.getPosition() + " - " + step.getName());
         } else {
             hitChangeButton(step.getPosition());
@@ -777,24 +777,24 @@ public class Checkout extends Base {
     }
 
     /** Проверяем готовность шага чекаута перед заполнением */
-    private boolean initStep(int stepNumber, String stepName) {
-        if (stepNumber != 5) { // костыль на случай если слот доставки остался выбраным в предыдущих тестах
-            if (kraken.detect().isCheckoutStepActive(stepNumber)) {
+    private boolean initStep(CheckoutStepData step) {
+        if (step.getPosition() != 5) { // костыль на случай если слот доставки остался выбраным в предыдущих тестах
+            if (kraken.detect().isCheckoutStepActive(step)) {
                 //message("Шаг " + stepNumber + " - " + stepName);
                 return true;
             } else {
                 kraken.await().implicitly(1); // Задержка для стабильности, если шаг не развернулся из-за тормозов
-                if (!kraken.detect().isCheckoutStepActive(stepNumber)) {
-                    message("Не открывается шаг " + stepNumber);
+                if (!kraken.detect().isCheckoutStepActive(step)) {
+                    message("Не открывается " + step.getPosition() + " шаг - " + step.getName());
                     return false;
                 } else return true;
             }
         } else {
-            if (kraken.detect().isElementDisplayed(By.className("windows-selector-panel"))) {
-                message("Шаг " + stepNumber + " - " + stepName);
+            if (kraken.detect().isElementDisplayed(Elements.Checkout.Step.panel(CheckoutSteps.deliveryStep()))) {
+                //message("Шаг " + step.getPosition() + " - " + step.getName());
                 return true;
             } else {
-                message("Шаг " + stepNumber + " - " + stepName);
+                message("Шаг " + step.getPosition() + " - " + step.getName());
                 message("Слот доставки уже выбран\n");
                 return false;
             }

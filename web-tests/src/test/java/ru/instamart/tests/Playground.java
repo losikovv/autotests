@@ -6,13 +6,46 @@ import org.testng.annotations.Test;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Config;
 import ru.instamart.application.Elements;
+import ru.instamart.application.Users;
 import ru.instamart.application.lib.*;
 import ru.instamart.application.models.ElementData;
 import ru.instamart.application.models.OrderDetailsData;
+import ru.instamart.application.models.UserData;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
 
+import java.io.IOException;
+
 public class Playground extends TestBase {
+
+
+    @Test
+    public void vibory() throws IOException {
+        if(1>0) {
+            vote();
+            vibory();
+        }
+
+    }
+
+    public void vote() throws IOException {
+        kraken.rise();
+        kraken.get().url("https://docs.google.com/forms/d/e/1FAIpQLScl1Lji8-tG3r355VL4WYWJ68KVS9ShcFvnjOCjVj0NlefAOA/viewform");
+        kraken.perform().fillField(Elements.Social.Gmail.AuthForm.loginField(), "devices@instamart.ru");
+        kraken.perform().click(Elements.Social.Gmail.AuthForm.loginNextButton());
+        kraken.await().simply(1); // Ожидание загрузки страницы ввода пароля Gmail
+        kraken.perform().fillField(Elements.Social.Gmail.AuthForm.passwordField(),"hex78.Berwyn");
+        kraken.perform().click(Elements.Social.Gmail.AuthForm.passwordNextButton());
+        kraken.await().simply(2); // Ожидание авторизации в Gmail
+
+        // кек
+        kraken.await().simply(1); //
+
+        kraken.perform().click(By.xpath("//*[text()='Отправить']"));
+        kraken.await().simply(1); //
+        kraken.stop();
+    }
+
 
     @Test
     public void regUser() {
@@ -113,14 +146,14 @@ public class Playground extends TestBase {
     @Test
     public void cancelTestOrders() {
         kraken.cleanup().orders();
-        Assert.assertFalse(kraken.detect().element(Elements.Administration.ShipmentsSection.placeholder()),
+        Assert.assertFalse(kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.placeholder()),
                 "Отменились не все тестовые заказы\n");
     }
 
     @Test
     public void deleteTestUsers() {
         kraken.cleanup().users();
-        Assert.assertFalse(kraken.detect().element(Elements.Administration.UsersSection.userlistFirstRow()),
+        Assert.assertFalse(kraken.detect().isElementPresent(Elements.Administration.UsersSection.userlistFirstRow()),
                 "Удалились не все тестовые юзеры\n");
     }
 
