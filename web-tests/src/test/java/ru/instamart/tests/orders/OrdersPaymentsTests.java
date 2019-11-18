@@ -5,6 +5,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.application.lib.Addresses;
+import ru.instamart.application.lib.Pages;
 import ru.instamart.application.lib.PaymentTypes;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
@@ -14,7 +15,7 @@ public class OrdersPaymentsTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        kraken.get().baseUrl();
+        kraken.get().page(Pages.Site.Retailers.metro());
         User.Do.loginAs(kraken.session.admin);
         User.ShippingAddress.change(Addresses.Moscow.testAddress());
         kraken.get().page("metro");

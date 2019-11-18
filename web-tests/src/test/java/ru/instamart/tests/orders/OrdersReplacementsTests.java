@@ -17,7 +17,7 @@ public class OrdersReplacementsTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        kraken.get().baseUrl();
+        kraken.get().page(Pages.Site.Retailers.metro());
         User.Do.loginAs(kraken.session.admin);
         User.ShippingAddress.change(Addresses.Moscow.testAddress());
         Shop.Cart.drop();

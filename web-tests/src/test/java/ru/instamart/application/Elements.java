@@ -84,113 +84,134 @@ public class Elements {
     }
 
     /** Лендинг */
-    public interface Landing {
+    public interface Landings {
 
-        interface MainBlock {
+        interface Instamart {
 
-            static ElementData logo() {
-                return new ElementData(By.xpath("//header//a[@class='logo']"),
-                        "логотип в шапке лендинга");
+            interface MainBlock {
+
+                static ElementData logo() {
+                    return new ElementData(By.xpath("//header//a[@class='logo']"),
+                            "логотип в шапке лендинга");
+                }
+
+                static ElementData title() {
+                    return new ElementData(By.xpath("//h1[@class='window__title' and contains(text(),'Доставка продуктов')]"),
+                            "главный тайтл лендинга");
+                }
+
+                static ElementData howWeWorkLink() {
+                    return new ElementData(By.xpath("//header//a[contains(text(),'Как мы работаем?')]"),
+                            "ссылка 'Как мы работаем?' в шапке лендинга");
+                }
+
+
+                static ElementData helpLink() {
+                    return new ElementData(By.xpath("//header//a[contains(text(),'Помощь')]"),
+                            "ссылка 'Помощь' в шапке лендинга");
+                }
+
+                static ElementData mnogoruLogo() {
+                    return new ElementData(By.xpath("//header//a[@href='/mnogoru']//img"),
+                            "логотип Много.ру в шапке лендинга");
+                }
+
+                static ElementData hotlineLink() {
+                    return new ElementData(By.xpath("//header//a[@href='tel:+78002221100']//span[text()='+7 800 222-11-00']"),
+                            "ссылка на телефон горячей линии в шапке лендинга");
+                }
+
+                static ElementData loginButton() {
+                    return new ElementData(By.xpath("//header//a[text()='Вход']"),
+                            "кнопка 'Вход' в шапке лендинга");
+                }
+
+                static ElementData mainTitle() {
+                    return new ElementData(
+                            By.xpath("//h1[@class='window__title' and contains(text(),'Доставка')]"),
+                            "главный тайтл в главном блоке лендинга");
+                }
+
+                static ElementData goToCatalogButton() {
+                    return new ElementData(By.xpath("//a[text()='Перейти в каталог']"),
+                            "кнопка 'Перейти в каталог' в главном блоке лендинга");
+                }
+
+                static ElementData advantages() {
+                    return new ElementData(By.xpath("//div[@class='advantages']"),
+                            "список преимуществ в главном блоке лендинга");
+                }
             }
 
-            static ElementData title() {
-                return new ElementData(By.xpath("//h1[@class='window__title' and contains(text(),'Доставка продуктов')]"),
-                    "главный тайтл лендинга");
+            interface PricesPromoBlock {
+
+                static ElementData panel() {
+                    return new ElementData(By.xpath("//div[@class='promo block' and @id='new-home-promo']"),
+                            "промоблок цен как в магазине на лендинге");
+                }
+
+                static ElementData goToCatalogButton() {
+                    return new ElementData(By.xpath("//div[@class='promo block' and @id='new-home-promo']//a[text()='Перейти в каталог']"),
+                            "кнопка 'Перейти в каталог' в промоблоке цен как в магазине на лендинге");
+                }
             }
 
-            static ElementData howWeWorkLink() {
-                return new ElementData(By.xpath("//header//a[contains(text(),'Как мы работаем?')]"),
-                        "ссылка 'Как мы работаем?' в шапке лендинга");
+            interface UserReviewsPromoBlock {
+
+                static ElementData panel() {
+                    return new ElementData(By.xpath("//div[@id='new-home-reviews']"),
+                            "промоблок пользовательских отзывов на лендинге");
+                }
             }
 
+            interface MobileAppPromoBlock {
 
-            static ElementData helpLink() {
-                return new ElementData(By.xpath("//header//a[contains(text(),'Помощь')]"),
-                        "ссылка 'Помощь' в шапке лендинга");
+                static ElementData panel() {
+                    return new ElementData(By.xpath("//div[@class='promo mobile-promo block']"),
+                            "промоблок мобильного приложения на лендинге");
+                }
+
+                static ElementData phoneField() {
+                    return new ElementData(By.xpath("//input[@class='mobile-promo__input']"),
+                            "поле ввода телефона в промоблоке мобильного приложения на лендинге");
+                }
+
+                static ElementData sendLinkButton() {
+                    return new ElementData(By.xpath("//button[text()='Получить ссылку на скачивание']"),
+                            "кнопка 'Получить ссылку на скачивание' в промоблоке мобильного приложения на лендинге");
+                }
+
+                static ElementData successPlaceholder() {
+                    return new ElementData(By.xpath("//div[@class='mobile-promo__success' and text()='Вам отправлено СМС со ссылкой на наше приложение']"),
+                            "текст успешного запроса ссылки в промоблоке мобильного приложения на лендинге");
+                }
             }
 
-            static ElementData mnogoruLogo() {
-                return new ElementData(By.xpath("//header//a[@href='/mnogoru']//img"),
-                        "логотип Много.ру в шапке лендинга");
+            interface SeoBlock {
+
+                static ElementData panel() {
+                    return new ElementData(By.xpath("//div[@class='promo mobile-promo block']"),
+                            "SEO-блок на лендинге");
+                }
             }
 
-            static ElementData hotlineLink() {
-                return new ElementData(By.xpath("//header//a[@href='tel:+78002221100']//span[text()='+7 800 222-11-00']"),
-                        "ссылка на телефон горячей линии в шапке лендинга");
-            }
-
-            static ElementData loginButton() {
-                return new ElementData(By.xpath("//header//a[text()='Вход']"),
-                        "кнопка 'Вход' в шапке лендинга");
-            }
-
-            static ElementData mainTitle() {
-                return new ElementData(
-                        By.xpath("//h1[@class='window__title' and contains(text(),'Доставка')]"),
-                        "главный тайтл в главном блоке лендинга");
-            }
-
-            static ElementData goToCatalogButton() {
-                return new ElementData(By.xpath("//a[text()='Перейти в каталог']"),
-                        "кнопка 'Перейти в каталог' в главном блоке лендинга");
-            }
-
-            static ElementData advantages() {
-                return new ElementData(By.xpath("//div[@class='advantages']"),
-                        "список преимуществ в главном блоке лендинга");
-            }
         }
 
-        interface PricesPromoBlock {
+        interface Sbermarket {
 
-            static ElementData panel() {
-                return new ElementData(By.xpath("//div[@class='promo block' and @id='new-home-promo']"),
-                        "промоблок цен как в магазине на лендинге");
+            interface Header {
+
+                static ElementData logo() {
+                    return new ElementData(By.xpath("//header//*[contains(@class,'home-logo')]"),
+                            "логотип Сбермаркета в шапке лендинга");
+                }
             }
 
-            static ElementData goToCatalogButton() {
-                return new ElementData(By.xpath("//div[@class='promo block' and @id='new-home-promo']//a[text()='Перейти в каталог']"),
-                        "кнопка 'Перейти в каталог' в промоблоке цен как в магазине на лендинге");
-            }
+
         }
 
-        interface UserReviewsPromoBlock {
-
-            static ElementData panel() {
-                return new ElementData(By.xpath("//div[@id='new-home-reviews']"),
-                        "промоблок пользовательских отзывов на лендинге");
-            }
-        }
-
-        interface MobileAppPromoBlock {
-
-            static ElementData panel() {
-                return new ElementData(By.xpath("//div[@class='promo mobile-promo block']"),
-                        "промоблок мобильного приложения на лендинге");
-            }
-
-            static ElementData phoneField() {
-                return new ElementData(By.xpath("//input[@class='mobile-promo__input']"),
-                        "поле ввода телефона в промоблоке мобильного приложения на лендинге");
-            }
-
-            static ElementData sendLinkButton() {
-                return new ElementData(By.xpath("//button[text()='Получить ссылку на скачивание']"),
-                        "кнопка 'Получить ссылку на скачивание' в промоблоке мобильного приложения на лендинге");
-            }
-
-            static ElementData successPlaceholder() {
-                return new ElementData(By.xpath("//div[@class='mobile-promo__success' and text()='Вам отправлено СМС со ссылкой на наше приложение']"),
-                        "текст успешного запроса ссылки в промоблоке мобильного приложения на лендинге");
-            }
-        }
-
-        interface SeoBlock {
-
-            static ElementData panel() {
-                return new ElementData(By.xpath("//div[@class='promo mobile-promo block']"),
-                        "SEO-блок на лендинге");
-            }
+        interface Referral {
+            // TODO
         }
     }
 
@@ -430,12 +451,12 @@ public class Elements {
         }
 
         static ElementData appstoreButton() {
-            return new ElementData(By.xpath("//footer//a[@href='https://app.adjust.com/zgmyh1y?campaign=footer'][1]"),
+            return new ElementData(By.xpath("//footer//a[@href='https://app.adjust.com/zd136zy?campaign=footer'][1]"),
                     "кнопка \"Appstore\" в футере");
         }
 
         static ElementData googlePlayButton() {
-            return new ElementData(By.xpath("//footer//a[@href='https://app.adjust.com/zgmyh1y?campaign=footer'][2]"),
+            return new ElementData(By.xpath("//footer//a[@href='https://app.adjust.com/zd136zy?campaign=footer'][2]"),
                     "кнопка \"GooglePlay\" в футере");
         }
 
@@ -2083,7 +2104,7 @@ public class Elements {
 
                 static ElementData total() {
                     return new ElementData(
-                            By.xpath("//aside//div[@class='checkout-summary__total']//div//div"),
+                            By.xpath("//aside//*[text()='Итого']//following-sibling::span//div//text()"),
                                 "сумма \"Итого\" в боковой колонке чекаута");
                 }
 

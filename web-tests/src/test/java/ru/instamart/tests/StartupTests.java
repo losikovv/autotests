@@ -34,7 +34,6 @@ public class StartupTests extends TestBase {
         assertPresence(Elements.Header.helpInfoButton());
         assertPresence(Elements.Header.deliveryInfoButton());
         assertPresence(Elements.Header.corporativeCustomersInfoButton());
-        assertPresence(Elements.Header.mnogoruButton());
 
         assertPresence(Elements.Header.catalogButton());
         if(!kraken.detect().tenant(metro())) assertPresence(Elements.Header.storeButton());
@@ -131,12 +130,6 @@ public class StartupTests extends TestBase {
                 "Не открывается модалка 'Доставка' из футера\n");
         kraken.perform().click(Elements.Modals.DeliveryModal.closeButton());
         assertPageIsAvailable();
-
-        kraken.get().page(Pages.Site.Retailers.metro());
-        kraken.perform().click(Elements.Footer.partnersButton());
-        Assert.assertTrue(kraken.detect().isPartnersModalOpen(),
-                "Не открывается модалка 'Партнеры' из футера\n");
-        kraken.perform().click(Elements.Modals.PartnersModal.closeButton());
         assertPageIsAvailable();
     }
 
@@ -152,7 +145,7 @@ public class StartupTests extends TestBase {
         assertPageIsAvailable(Pages.Site.Retailers.auchan());
 
         // Проверяем что недоступны витрины неактивных ритейлеров
-        assertPageIs404(Pages.Site.Retailers.vkusvill());
+        //assertPageIs404(Pages.Site.Retailers.vkusvill());
         assertPageIs404(Pages.Site.Retailers.lenta());
         assertPageIs404(Pages.Site.Retailers.karusel());
         assertPageIs404(Pages.Site.Retailers.selgros());

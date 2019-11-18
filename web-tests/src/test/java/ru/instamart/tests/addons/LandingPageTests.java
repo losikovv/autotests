@@ -31,27 +31,27 @@ public class LandingPageTests extends TestBase {
 
         assertPageIsAvailable();
 
-        assertPresence(Elements.Landing.MainBlock.logo());
-        assertPresence(Elements.Landing.MainBlock.howWeWorkLink());
-        assertPresence(Elements.Landing.MainBlock.helpLink());
-        assertPresence(Elements.Landing.MainBlock.mnogoruLogo());
-        assertPresence(Elements.Landing.MainBlock.hotlineLink());
-        assertPresence(Elements.Landing.MainBlock.loginButton());
+        assertPresence(Elements.Landings.Instamart.MainBlock.logo());
+        assertPresence(Elements.Landings.Instamart.MainBlock.howWeWorkLink());
+        assertPresence(Elements.Landings.Instamart.MainBlock.helpLink());
+        assertPresence(Elements.Landings.Instamart.MainBlock.mnogoruLogo());
+        assertPresence(Elements.Landings.Instamart.MainBlock.hotlineLink());
+        assertPresence(Elements.Landings.Instamart.MainBlock.loginButton());
 
-        assertPresence(Elements.Landing.MainBlock.mainTitle());
-        assertPresence(Elements.Landing.MainBlock.goToCatalogButton());
-        assertPresence(Elements.Landing.MainBlock.advantages());
+        assertPresence(Elements.Landings.Instamart.MainBlock.mainTitle());
+        assertPresence(Elements.Landings.Instamart.MainBlock.goToCatalogButton());
+        assertPresence(Elements.Landings.Instamart.MainBlock.advantages());
 
-        assertPresence(Elements.Landing.PricesPromoBlock.panel());
-        assertPresence(Elements.Landing.PricesPromoBlock.goToCatalogButton());
+        assertPresence(Elements.Landings.Instamart.PricesPromoBlock.panel());
+        assertPresence(Elements.Landings.Instamart.PricesPromoBlock.goToCatalogButton());
 
-        assertPresence(Elements.Landing.UserReviewsPromoBlock.panel());
+        assertPresence(Elements.Landings.Instamart.UserReviewsPromoBlock.panel());
 
-        assertPresence(Elements.Landing.MobileAppPromoBlock.panel());
-        assertPresence(Elements.Landing.MobileAppPromoBlock.phoneField());
-        assertPresence(Elements.Landing.MobileAppPromoBlock.sendLinkButton());
+        assertPresence(Elements.Landings.Instamart.MobileAppPromoBlock.panel());
+        assertPresence(Elements.Landings.Instamart.MobileAppPromoBlock.phoneField());
+        assertPresence(Elements.Landings.Instamart.MobileAppPromoBlock.sendLinkButton());
 
-        assertPresence(Elements.Landing.SeoBlock.panel());
+        assertPresence(Elements.Landings.Instamart.SeoBlock.panel());
 
         assertPresence(Elements.Footer.container());
     }
@@ -62,7 +62,7 @@ public class LandingPageTests extends TestBase {
             priority = 52
     )
     public void successAssertTransitionOnHeaderHowWeWorkLink() {
-        assertTransition(Elements.Landing.MainBlock.howWeWorkLink());
+        assertTransition(Elements.Landings.Instamart.MainBlock.howWeWorkLink());
     }
 
     @Test(
@@ -71,7 +71,7 @@ public class LandingPageTests extends TestBase {
             priority = 53
     )
     public void successAssertTransitionOnHeaderHelpLink() {
-        assertTransition(Elements.Landing.MainBlock.helpLink());
+        assertTransition(Elements.Landings.Instamart.MainBlock.helpLink());
     }
 
     //todo починить тест, сделав метод детектящий открытие новой вкладки
@@ -81,7 +81,7 @@ public class LandingPageTests extends TestBase {
             priority = 54
     )
     public void successAssertTransitionOnHeaderMnogoruLogo() {
-        assertTransition(Elements.Landing.MainBlock.mnogoruLogo());
+        assertTransition(Elements.Landings.Instamart.MainBlock.mnogoruLogo());
     }
 
     @Test(
@@ -90,7 +90,7 @@ public class LandingPageTests extends TestBase {
             priority = 55
     )
     public void successAssertTransitionOnGoToCatalogButtonFromMainBlock() {
-        assertTransition(Elements.Landing.MainBlock.goToCatalogButton());
+        assertTransition(Elements.Landings.Instamart.MainBlock.goToCatalogButton());
     }
 
     @Test(
@@ -99,7 +99,7 @@ public class LandingPageTests extends TestBase {
             priority = 56
     )
     public void successAssertTransitionOnGoToCatalogButtonFromPricesPromoBlock() {
-        assertTransition(Elements.Landing.PricesPromoBlock.goToCatalogButton());
+        assertTransition(Elements.Landings.Instamart.PricesPromoBlock.goToCatalogButton());
     }
 
     @Test(
@@ -108,12 +108,12 @@ public class LandingPageTests extends TestBase {
             priority = 57
     )
     public void successSendAppDownloadLinkFromAppPromoBlock() {
-        kraken.perform().fillField(Elements.Landing.MobileAppPromoBlock.phoneField(),"9629422123");
-        kraken.perform().click(Elements.Landing.MobileAppPromoBlock.sendLinkButton());
+        kraken.perform().fillField(Elements.Landings.Instamart.MobileAppPromoBlock.phoneField(),"9629422123");
+        kraken.perform().click(Elements.Landings.Instamart.MobileAppPromoBlock.sendLinkButton());
 
         Assert.assertTrue(
                 kraken.detect().isElementPresent(
-                        Elements.Landing.MobileAppPromoBlock.successPlaceholder()),
+                        Elements.Landings.Instamart.MobileAppPromoBlock.successPlaceholder()),
                             "Не отправилась ссылка на скачивание мобильного приложения с лендинга");
     }
 }

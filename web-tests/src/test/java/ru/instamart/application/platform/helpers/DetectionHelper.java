@@ -97,7 +97,7 @@ public class DetectionHelper extends HelperBase {
      * Определить находимся на лендинге или нет
      */
     public boolean isOnLanding() {
-        return isElementPresent(Elements.Landing.MainBlock.advantages());
+        return isElementPresent(Elements.Landings.Instamart.MainBlock.advantages());
     }
 
     /**
