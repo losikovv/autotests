@@ -26,7 +26,7 @@ public class OrdersRetailerCardsTests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.OrdersTests.enableOrderRetailerCardsTests,
             description = "Тест заказа с картой Метро (только WL)",
-            groups = {"metro"},
+            groups = {"metro-acceptance"},
             priority = 2601
     )
     public void successOrderWithMetroCard() {

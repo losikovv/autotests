@@ -21,7 +21,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AdministrationTests.enableShipmentsSectionTests,
             description = "Тест валидации дефолтной странгицы списка заказаов в админке",
-            groups = {"smoke","acceptance","regression"},
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"},
             priority = 10100
     )
     public void validateDefaultAdminShipmentsPage() {
@@ -87,7 +87,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AdministrationTests.enableShipmentsSectionTests,
             description = "Тест поиска заказа по номеру заказа в админке",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 10101
     )
     public void successSearchOrderByOrderNumber() {
@@ -104,7 +104,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AdministrationTests.enableShipmentsSectionTests,
             description = "Тест поиска заказа по номеру шипмента в админке",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 10102
     )
     public void successSearchOrderByShipmentNumber() {
@@ -122,7 +122,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
     @Test(  enabled = Config.TestsConfiguration.AdministrationTests.enableShipmentsSectionTests,
             description = "Тест возобновления и отмены заказа через админку",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 10103
     )
     public void successResumeAndCancelOrder() {
@@ -158,7 +158,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AdministrationTests.enableShipmentsSectionTests,
             description = "Тест поиска B2B заказа в админке",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 10104
     )
     public void successSearchB2BOrder() {

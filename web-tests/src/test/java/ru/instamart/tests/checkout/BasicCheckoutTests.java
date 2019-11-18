@@ -25,7 +25,7 @@ public class BasicCheckoutTests extends TestBase {
     }
 
     @Test(  description = "Тест валидации дефолтного чекаута",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1000
     )
     public void successValidateDefaultCheckoutPage() {
@@ -49,7 +49,7 @@ public class BasicCheckoutTests extends TestBase {
     }
 
     @Test(  description = "Тест валидации заполненного чекаута",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 1900
     )
     public void successValidateFilledCheckoutPage() {

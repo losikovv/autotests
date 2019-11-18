@@ -23,7 +23,7 @@ public class ShoppingCartTests extends TestBase {
 
     @Test(
             description = "Тест валидации дефолтной корзины",
-            groups = {"smoke","acceptance","regression"},
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"},
             priority = 620
     )
     public void successValidateDefaultCart() {
@@ -55,7 +55,7 @@ public class ShoppingCartTests extends TestBase {
 
     @Test(
             description = "Тест успешного добавления товара в корзину из карточки товара",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 622
     )
     public void successAddItemToCartFromItemCard() {
@@ -77,7 +77,7 @@ public class ShoppingCartTests extends TestBase {
     // TODO починить изменение кол-ва товаров в корзине
     @Test(
             description = "Тест на изменение кол-ва товаров в корзине",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 623
     )
     public void successChangeItemQuantityInCart() {
@@ -111,7 +111,7 @@ public class ShoppingCartTests extends TestBase {
     // TODO починить тест
     @Test(
             description = "Тест на изменение кол-ва товаров в корзине через карточку товара",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 624
     )
     public void successChangeItemQuantityInCartViaItemCard() {
@@ -149,7 +149,7 @@ public class ShoppingCartTests extends TestBase {
 
     @Test(
             description = "Тест на удаление товаров из корзины",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 625
     )
     public void successRemoveItemsFromCart() {
@@ -170,7 +170,7 @@ public class ShoppingCartTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 626
     )
     public void successAddItemToCartFromCatalogSnippet() {
@@ -201,7 +201,7 @@ public class ShoppingCartTests extends TestBase {
 
     @Test(
             description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 627
     )
     public void successChangeMinOrderSum() {

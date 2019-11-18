@@ -90,9 +90,97 @@ public class Elements {
 
             interface Header {
 
+                static ElementData container() {
+                    return new ElementData(By.xpath("//header"),
+                            "шапка лендинга Сбермаркета");
+                }
+
                 static ElementData logo() {
                     return new ElementData(By.xpath("//header//*[contains(@class,'home-logo')]"),
                             "логотип Сбермаркета в шапке лендинга");
+                }
+
+                static ElementData loginButton() {
+                    return new ElementData(By.xpath("//header//button[text()='Войти']"),
+                            "кнопка входа в шапке лендинга Сбермаркета");
+                }
+            }
+
+            interface MainBlock{
+
+                static ElementData container() {
+                    return new ElementData(By.xpath("//div[contains(@class,'home-landing__description')]"),
+                            "главный блок лендинга Сбермаркета");
+                }
+
+                static ElementData illustration() {
+                    return new ElementData(By.xpath("//div[contains(@class,'home-landing__description')]//div[@class='home-landing__img']"),
+                            "главная иллюстрация лендинга Сбермаркета");
+                }
+
+                static ElementData title() {
+                    return new ElementData(By.xpath("//div[contains(@class,'home-landing__description')]//h1[@class='home-landing__h1']"),
+                            "главный заголовок лендинга Сбермаркета");
+                }
+
+                static ElementData text() {
+                    return new ElementData(By.xpath("//div[contains(@class,'home-landing__description')]//div[@class='home-landing__text']"),
+                            "текст лендинга Сбермаркета");
+                }
+
+                interface Stores {
+
+                    static ElementData list() {
+                        return new ElementData(By.xpath("//div[contains(@class,'home-landing__description')]//div[@class='stores']"),
+                                "список магазинов на лендинге Сбермаркета");
+                    }
+
+                    static ElementData button(int position) {
+                        return new ElementData(By.xpath("//div[@class='stores']//a[@class='stores-block'][" + position + "]"),
+                                "кнопка " + position + " магазина на лендинге Сбермаркета");
+                    }
+                }
+            }
+
+            interface AdvantagesBlock {
+
+                static ElementData container() {
+                    return new ElementData(By.xpath("//div[@class='advantages']"),
+                            "блок преимуществ на лендинге Сбермаркета");
+                }
+            }
+
+            interface ZonesBlock {
+
+                static ElementData container() {
+                    return new ElementData(By.xpath("//div[@class='home-landing__zones']"),
+                            "блок зон доставки на лендинге Сбермаркета");
+                }
+            }
+
+            interface OrderBlock {
+
+                static ElementData container() {
+                    return new ElementData(By.xpath("//div[@class='home-landing__order']"),
+                            "блок механики заказа на лендинге Сбермаркета");
+                }
+            }
+
+            interface AppsBlock {
+
+                static ElementData container() {
+                    return new ElementData(By.xpath("//div[@class='home-landing__app']"),
+                            "блок моб. приложений на лендинге Сбермаркета");
+                }
+
+                static ElementData appstoreButton() {
+                    return new ElementData(By.xpath("//div[@class='home-landing__app']//*[text()='AppStore']//ancestor::a"),
+                            "кнопка перехода в AppStore на лендинге Сбермаркета");
+                }
+
+                static ElementData googleplayButton() {
+                    return new ElementData(By.xpath("//div[@class='home-landing__app']//*[text()='Google Play']//ancestor::a"),
+                            "кнопка перехода в Google Play на лендинге Сбермаркета");
                 }
             }
         }

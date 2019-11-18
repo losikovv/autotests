@@ -18,7 +18,7 @@ public class Page404Tests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,
             description = "Тест познания котомудрости на странице 404",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11001
     )
     public void successLearnCatWisdom() {
@@ -32,7 +32,7 @@ public class Page404Tests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,
             description = "Тест перехода на главную по одноименной кнопке на странице 404",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11002
     )
     public void successGoToHomepage() {
@@ -43,7 +43,7 @@ public class Page404Tests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,
             description = "Тест перехода на главную по одноименной кнопке на странице 404 после познания котомудрости",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11003
     )
     public void successGoToHomepageAfterLearningCatWisdom() {
@@ -55,7 +55,7 @@ public class Page404Tests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,
             description = "Тест перехода в каталог по кнопке 'Познать цены' на странице 404 после познания котомудрости",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11004
     )
     public void successGoToCatalogAfterLearningCatWisdom() {
@@ -68,7 +68,7 @@ public class Page404Tests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,
             description = "Тест познания новой котомудрости на странице 404 после познания первой",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 11005
     )
     public void successLearnMoreCatWisdom() {

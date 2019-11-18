@@ -25,9 +25,7 @@ public class OrdersPaymentsTests extends TestBase {
 
     @Test(
             description = "Тест заказа с оплатой наличными",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-            },
+            groups = {"metro-acceptance", "metro-regression",},
             priority = 2101
     )
     public void successOrderWithCashAndCheckDocuments() {
@@ -47,7 +45,6 @@ public class OrdersPaymentsTests extends TestBase {
     @Test(
             description = "Тест заказа с оплатой картой онлайн",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
@@ -70,7 +67,6 @@ public class OrdersPaymentsTests extends TestBase {
     @Test(
             description = "Тест заказа с оплатой картой курьеру",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
@@ -93,7 +89,6 @@ public class OrdersPaymentsTests extends TestBase {
     @Test(
             description = "Тест заказа с оплатой банковским переводом",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },

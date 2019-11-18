@@ -24,7 +24,7 @@ public class AdministrationUsersSectionTests extends TestBase {
 
     @Test(  enabled = enableUsersSectionTests,
             description = "Тест поиска пользователя в админке",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 10701
     )
     public void successSearchUser() {
@@ -37,7 +37,7 @@ public class AdministrationUsersSectionTests extends TestBase {
 
     @Test(  enabled = enableUsersSectionTests,
             description = "Тест предоставления и отзыва админских прав пользователю",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 10702
     )
     public void successGrantAndRevokeAdminPrivileges() {
@@ -73,7 +73,7 @@ public class AdministrationUsersSectionTests extends TestBase {
 
     @Test(  enabled = enableUsersSectionTests,
             description = "Тест смены пароля пользователю",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 10703
     )
     public void successChangePassword() {
@@ -96,7 +96,7 @@ public class AdministrationUsersSectionTests extends TestBase {
 
     @Test(  enabled = enableUsersSectionTests,
             description = "Тест проставления пользователю флага B2B",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 10704
     )
     public void successGrantB2BStatus() {
@@ -115,7 +115,7 @@ public class AdministrationUsersSectionTests extends TestBase {
 
     @Test(  enabled = enableUsersSectionTests,
             description = "Тест поиска B2B пользователя в админке",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 10705
     )
     public void successSearchB2BUser() {
@@ -142,7 +142,7 @@ public class AdministrationUsersSectionTests extends TestBase {
 
     @Test(  enabled = enableUsersSectionTests,
             description = "Тест снятия B2B флага у пользователя",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 10706
     )
     public void successRevokeB2BStatus() {

@@ -26,7 +26,6 @@ public class OrdersReplacementsTests extends TestBase {
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Звонить / Заменять",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
@@ -54,7 +53,6 @@ public class OrdersReplacementsTests extends TestBase {
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Звонить / Убирать",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
@@ -82,7 +80,6 @@ public class OrdersReplacementsTests extends TestBase {
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Не звонить / Заменять",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
@@ -110,7 +107,6 @@ public class OrdersReplacementsTests extends TestBase {
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Не звонить / Убирать",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },

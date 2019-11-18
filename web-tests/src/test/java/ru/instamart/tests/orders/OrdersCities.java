@@ -26,7 +26,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Москве",
             priority = 2301,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance", "sbermarket-regression"
             }
@@ -46,7 +45,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Санкт-Петербурге",
             priority = 2302,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance", "sbermarket-regression"
             }
@@ -66,7 +64,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Казани",
             priority = 2303,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance", "sbermarket-regression"
             }
@@ -86,7 +83,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Екатеринбурге",
             priority = 2304,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance", "sbermarket-regression"
             }
@@ -106,7 +102,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Нижнем Новгороде",
             priority = 2305,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance", "sbermarket-regression"
             }
@@ -126,7 +121,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Ростове-на-Дону",
             priority = 2306,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -146,7 +140,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Уфе",
             priority = 2307,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance", "sbermarket-regression"
             }
@@ -166,7 +159,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Краснодаре",
             priority = 2308,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -186,7 +178,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Самаре",
             priority = 2309,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance", "sbermarket-regression"
             }
@@ -206,7 +197,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Воронеже",
             priority = 2310,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance", "sbermarket-regression"
             }
@@ -228,7 +218,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Омске",
             priority = 2311,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance", "sbermarket-regression"
             }
@@ -250,7 +239,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Волгограде",
             priority = 2312,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance", "sbermarket-regression"
             }
@@ -272,7 +260,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Новосибирске",
             priority = 2313,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance", "sbermarket-regression"
             }
@@ -294,7 +281,6 @@ public class OrdersCities extends TestBase {
             description = "Тест заказа в METRO в Челябинске",
             priority = 2314,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance", "sbermarket-regression"
             }

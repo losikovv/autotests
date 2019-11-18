@@ -22,7 +22,7 @@ public class CheckoutBonusesTests extends TestBase {
 
     @Test(  enabled = enableBonusesTests,
             description = "Тест успешного добавления всех доступных бонусных программ в чекауте",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1701
     )
     public void successAddBonusPrograms() {
@@ -60,7 +60,7 @@ public class CheckoutBonusesTests extends TestBase {
 
     @Test(  enabled = enableBonusesTests,
             description = "Тест выбора добавленных бонусных программ в чекауте",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1702
     )
     public void successSelectBonusPrograms() {
@@ -89,7 +89,7 @@ public class CheckoutBonusesTests extends TestBase {
 
     @Test(  enabled = enableBonusesTests,
             description = "Тест удаления всех бонусных программ в чекауте",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1703
     )
     public void successDeleteBonusPrograms() {

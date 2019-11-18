@@ -21,7 +21,7 @@ public class ShoppingCatalogTests extends TestBase {
 
     @Test(
             description = "Тест работы cо шторкой каталога",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 601
     )
     public void successValidateCatalogDrawer() {
@@ -43,7 +43,7 @@ public class ShoppingCatalogTests extends TestBase {
 
     @Test(
             description = "Тест открытия категории 1 уровня из шторки каталога",
-            groups = {"smoke","acceptance","regression"},
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"},
             priority = 602
     )
     public void successGoToDepartmentFromCatalogDrawer() {
@@ -59,7 +59,7 @@ public class ShoppingCatalogTests extends TestBase {
 
     @Test(
             description = "Тест открытия категории 2 уровня из шторки каталога",
-            groups = {"smoke","acceptance","regression"},
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"},
             priority = 603
     )
     public void successGoToTaxonFromCatalogDrawer() {
@@ -77,7 +77,7 @@ public class ShoppingCatalogTests extends TestBase {
 
     @Test(
             description = "Тест открывания/закрывания карточки продукта на главной",
-            groups = {"smoke","acceptance","regression"},
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"},
             priority = 604
     )
     public void successOperateItemCardOnRetailerPage() {
@@ -102,7 +102,7 @@ public class ShoppingCatalogTests extends TestBase {
     // TODO починить
     @Test( enabled = false,
             description = "Тест открывания/закрывания карточки продукта в department-категории",
-            groups = {"smoke","acceptance","regression"},
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"},
             priority = 605
     )
     public void successOperateItemCardOnDepartmentPage() {
@@ -130,7 +130,7 @@ public class ShoppingCatalogTests extends TestBase {
     // TODO починить
     @Test(enabled = false,
             description = "Тест открывания/закрывания карточки продукта в taxon-категории",
-            groups = {"smoke","acceptance","regression"},
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"},
             priority = 606
     )
     public void successOperateItemCardOnTaxonPage() {
@@ -157,7 +157,7 @@ public class ShoppingCatalogTests extends TestBase {
 
     @Test(
             description = "Тест открывания/закрывания карточки продукта в выдаче поиска",
-            groups = {"smoke","acceptance","regression"},
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"},
             priority = 607
     )
     public void successOperateItemCardOnSearchPage() {

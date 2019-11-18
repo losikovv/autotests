@@ -13,11 +13,10 @@ public class StartupTests extends TestBase {
     //todo сделать отдельные тесты под тенанты
 
     @Test(
-            description = "Тест валидности элементов и ссылок в шапке Instamart",
+            description = "Тест валидности элементов и ссылок в шапке Сбермарткета",
             priority = 101,
-            groups = {"smoke","acceptance","regression"}
-    ) public void successValidateHeaderInstamart() {
-        runTestOnlyOn(Tenants.instamart());
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+    ) public void successValidateHeaderSbermarket() {
         kraken.get().page("metro");
 
         assertPageIsAvailable();
@@ -61,10 +60,8 @@ public class StartupTests extends TestBase {
     @Test(
             description = "Тест валидности элементов и ссылок в футере сайта",
             priority = 102,
-            groups = {"smoke","acceptance","regression"}
-    ) public void successValidateFooterInstamart() {
-        runTestOnlyOn(Tenants.instamart());
-
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+    ) public void successValidateFooterSbermarket() {
         kraken.get().page("metro");
 
         assertPageIsAvailable();
@@ -136,16 +133,17 @@ public class StartupTests extends TestBase {
     @Test(
             description = "Тест доступности / недоступности витрин ритейлеров",
             priority = 103,
-            groups = {"smoke","acceptance","regression"}
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     ) public void successCheckRetailerPagesAreAvailable() {
-        skipTestOn(metro()); // TODO сделать тест для тенанта
+        // TODO сделать отдельный тест для тенанта метро
 
         // Проверяем что доступны витрины активных ритейлеров
         assertPageIsAvailable(Pages.Site.Retailers.metro());
         assertPageIsAvailable(Pages.Site.Retailers.auchan());
+        assertPageIsAvailable(Pages.Site.Retailers.azbuka());
 
         // Проверяем что недоступны витрины неактивных ритейлеров
-        //assertPageIs404(Pages.Site.Retailers.vkusvill());
+        assertPageIs404(Pages.Site.Retailers.vkusvill());
         assertPageIs404(Pages.Site.Retailers.lenta());
         assertPageIs404(Pages.Site.Retailers.karusel());
         assertPageIs404(Pages.Site.Retailers.selgros());
@@ -158,7 +156,7 @@ public class StartupTests extends TestBase {
     @Test(
             description = "Тест доступности партнерских лендингов",
             priority = 104,
-            groups = {"smoke","acceptance","regression"}
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     ) public void successCheckPartnerLandingsAreAvailable() {
         assertPageIsAvailable(Pages.Site.Landings.mnogoru());
         assertPageIsAvailable(Pages.Site.Landings.aeroflot());
@@ -168,7 +166,6 @@ public class StartupTests extends TestBase {
             description = "Тест доступности статических страниц",
             priority = 105,
             groups = {
-                    "smoke","acceptance","regression",
                     "metro-smoke","metro-acceptance","metro-regression",
                     "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
             }

@@ -17,7 +17,7 @@ public class AdministrationPagesSectionTests extends TestBase {
 
     @Test(  enabled = enablePagesSectionTests,
             description = "Проверка вкладки статических страниц",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 10801
     )
     public void ValidatePagesRootPage() {

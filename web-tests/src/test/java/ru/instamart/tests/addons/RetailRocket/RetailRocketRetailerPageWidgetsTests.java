@@ -27,7 +27,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
 
     @Test ( enabled = Config.TestsConfiguration.AddonsTests.enableRetailRocketTest,
             description = "Тест наличия виджета 'Популярные товары' на главной",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 12001
     )
     public void successCheckPopularItemsWidget() {
@@ -39,7 +39,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
 
     @Test ( enabled = Config.TestsConfiguration.AddonsTests.enableRetailRocketTest,
             description = "Тест наличия виджета 'Вы недавно смотрели' на главной",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 12002
     )
     public void successCheckRecentlyViewedWidget() {
@@ -51,7 +51,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
 
     @Test ( enabled = Config.TestsConfiguration.AddonsTests.enableRetailRocketTest,
             description = "Тест успешного открытия карточки товара из виджета 'Популярные товары' на главной",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 12003,
             dependsOnMethods = "successCheckPopularItemsWidget"
     )
@@ -65,7 +65,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
 
     @Test ( enabled = Config.TestsConfiguration.AddonsTests.enableRetailRocketTest,
             description = "Тест успешного открытия карточки товара из виджета 'Вы недавно смотрели' на главной",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 12004,
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
@@ -79,7 +79,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
 
     @Test ( enabled = Config.TestsConfiguration.AddonsTests.enableRetailRocketTest,
             description = "Тест успешного добавления товара из блока 'Популярные товары' на главной",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 12005,
             dependsOnMethods = "successCheckPopularItemsWidget"
     )
@@ -95,7 +95,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
 
     @Test ( enabled = Config.TestsConfiguration.AddonsTests.enableRetailRocketTest,
             description = "Тест успешного добавления товара из блока 'Вы недавно смотрели' на главной",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 12006,
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )

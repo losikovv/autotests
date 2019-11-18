@@ -25,7 +25,7 @@ public class BasicAdministrationTests extends TestBase {
 
     @Test(  description = "Тест недоступности админки пользователю без админ. прав",
             priority = 10000,
-            groups = {"acceptance","regression"}
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     ) public void noAccessToAdministrationWithoutAdminPrivileges() {
         User.Do.loginAs(session.user);
 
@@ -35,7 +35,7 @@ public class BasicAdministrationTests extends TestBase {
 
     @Test(  description = "Тест доступности админки пользователю c админ. правми",
             priority = 10001,
-            groups = {"acceptance","regression"}
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     ) public void successAccessAdministrationThroughAuthOnSite() {
         User.Do.loginAs(session.admin);
 
@@ -44,7 +44,7 @@ public class BasicAdministrationTests extends TestBase {
 
     @Test(  description = "Тест доступности корневых разделов админки",
             priority = 10002,
-            groups = {"acceptance","regression"}
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     ) public void successCheckAdminSections() {
         kraken.reach().admin();
 
@@ -62,7 +62,7 @@ public class BasicAdministrationTests extends TestBase {
 
     @Test(  description = "Проверка наличия элементов в шапке админки",
             priority = 10003,
-            groups = {"acceptance","regression"}
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     ) public void successValidateHeader() {
         kraken.reach().admin();
         assertPresence(Elements.Administration.Header.userEmail());
@@ -71,7 +71,7 @@ public class BasicAdministrationTests extends TestBase {
 
     @Test(  description = "Тест валидности ссылок навигационного меню в шапке админки",
             priority = 10004,
-            groups = {"acceptance","regression"}
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     ) public void successValidateNavigationMenu() {
         kraken.reach().admin();
 

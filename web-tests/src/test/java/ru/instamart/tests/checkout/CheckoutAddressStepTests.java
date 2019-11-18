@@ -31,7 +31,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест валидации дефолтного шага Адрес в чекауте",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1100
     )
     public void successValidateDefaultAddressStep() {
@@ -58,7 +58,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного прохода далее без заполнения деталей адреса",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1101
     )
     public void successProceedNextWithDefaultStepState() {
@@ -69,7 +69,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного прохода далее только с измененным значением радиокнопки Тип адреса",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 1102
     )
     public void successProceedNextWithOnlyTypeChanged() {
@@ -81,7 +81,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного прохода далее только с заполненным полем Квартира/офис",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 1103
     )
     public void successProceedNextWithOnlyApartmentProvided() {
@@ -93,7 +93,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного прохода далее только с заполненным полем Этаж",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 1104
     )
     public void successProceedNextWithOnlyFloorProvided() {
@@ -105,7 +105,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного прохода далее только с измененным значением чекбокса Есть лифт",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 1105
     )
     public void successProceedNextWithOnlyElevatorChanged() {
@@ -117,7 +117,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного прохода далее только с заполненным полем Подъезд",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 1106
     )
     public void successProceedNextWithOnlyEntranceProvided() {
@@ -129,7 +129,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного прохода далее только с заполненным полем Код домофона",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 1107
     )
     public void successProceedNextWithOnlyDomofonProvided() {
@@ -141,7 +141,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного прохода далее только с заполненным полем Комментарии по доставке",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 1108
     )
     public void successProceedNextWithOnlyCommentariesProvided() {
@@ -153,7 +153,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного прохода далее с очищенными полями",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1109
     )
     public void successProceedNextWithClearedFields() {
@@ -169,7 +169,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного прохода далее с заполненными полями",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1110
     )
     public void successFillAllFieldsAndProceedNext() {
@@ -181,7 +181,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного запоминания ранее заполненных полей",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 1111
     )
     public void successKeepProvidedStepData() {
@@ -243,7 +243,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
     @Test(  enabled = enableAddressStepTests,
             description = "Тест успешного изменения ранее заполненных полей",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 1112
     )
     public void successChangeProvidedAddressData() {

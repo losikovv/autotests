@@ -23,7 +23,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
             priority = 401,
             groups = {
-                    "acceptance","regression",
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"}
     )
@@ -34,7 +33,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Переход в любимые товары по кнопке",
             priority = 402,
             groups = {
-                    "smoke","acceptance","regression",
                     "metro-smoke","metro-acceptance","metro-regression",
                     "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     )
@@ -53,7 +51,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Проверка пустого списка любимых товаров для нового пользователя",
             priority = 403,
             groups = {
-                    "acceptance","regression",
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"}
     )
@@ -68,7 +65,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Добавление любимого товара из карточки товара и проверка списка",
             priority = 404,
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"}
     )
@@ -90,7 +86,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Тест успешного добавления любомого товара из сниппета в каталоге",
             priority = 405,
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"}
     )
@@ -109,7 +104,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Удаление любимого товара из карточки товара и проверка списка",
             priority = 406,
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"}
     )
@@ -130,7 +124,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Удаление любимого товара из списка",
             priority = 407,
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"}
     )
@@ -153,7 +146,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Удаление всех любимых товаров",
             priority = 408,
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             }
@@ -188,7 +180,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Проверка работоспособности фильтров Любимых товаров",
             priority = 409,
             groups = {
-                    "acceptance","regression",
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -230,7 +221,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Проверка работоспособности подгрузки страниц в Любимых товарах",
             priority = 410,
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"}
     )
@@ -258,7 +248,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Регистрация, при попытке добавить товар из каталога в любимые товары неавторизованным",
             priority = 411,
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"}
     )
@@ -285,7 +274,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Регистрация, при попытке добавить товар из карточки товара в любимые товары неавторизованным",
             priority = 412,
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"}
     )
@@ -313,7 +301,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Авторизация, при попытке добавить товар из каталога в избранное неавторизованным",
             priority = 413,
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"}
     )
@@ -341,7 +328,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным",
             priority = 414,
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"}
     )
@@ -370,7 +356,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров",
             priority = 415,
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"}
     )
@@ -399,7 +384,6 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Тест добавления товаров в корзину из списка любимых товаров",
             priority = 416,
             groups = {
-                    "acceptance","regression",
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"}
     )

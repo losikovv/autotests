@@ -11,7 +11,7 @@ public class Config {
 
     public interface CoreSettings {
         String browser = BrowserType.FIREFOX;
-        ServerData server = Servers.sbermarket_production();
+        ServerData server = Servers.sbermarket_staging();
 
         int basicTimeout = 2;
         int waitingTimeout = 20;

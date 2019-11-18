@@ -4,18 +4,6 @@ import ru.instamart.application.models.ServerData;
 
 public class Servers {
 
-    public static ServerData instamart_production() {
-        return new ServerData(Tenants.instamart(), "production", "instamart.ru" , "");
-    }
-
-    public static ServerData instamart_preprod() {
-        return new ServerData(Tenants.instamart(),"preprod", "staging.instamart.ru" , "sbermart:JBWFKC35d4cp");
-    }
-
-    public static ServerData instamart_staging() {
-        return new ServerData(Tenants.instamart(),"staging", "storefront.staging.instamart.ru" , "babur:hex78%2EBerwyn");
-    }
-
     public static ServerData metro_production() {
         return new ServerData(Tenants.metro(),"production", "delivery.metro-cc.ru" , "");
     }

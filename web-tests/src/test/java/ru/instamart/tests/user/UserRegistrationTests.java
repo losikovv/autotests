@@ -22,7 +22,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
@@ -71,7 +70,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без имени",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -105,7 +103,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без email",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -139,7 +136,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без пароля",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -168,7 +164,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без подтверждения пароля",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -202,7 +197,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с несовпадающими паролями",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -236,7 +230,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки повторно зарегистрировать существующего пользователя",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
@@ -266,7 +259,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с длинными полями",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -306,7 +298,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест отмены регистрации после заполнения всех полей",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -337,7 +328,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Регистрация нового пользователя на лендинге",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 210
     )
     public void successRegOnLanding() {
@@ -352,7 +343,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Регистрация нового пользователя на витрине магазина",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
@@ -371,7 +361,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест регистрации из адресной модалки феникса",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -400,7 +389,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест регистрации при переходе из корзины в чекаут",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -441,7 +429,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест успешной регистрации без проставленной галки согласия на почтовую рассылку",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
@@ -462,7 +449,6 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест успешной регистрации с заново проставленной галкой согласия на почтовую рассылку",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },

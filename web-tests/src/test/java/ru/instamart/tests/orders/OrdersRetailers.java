@@ -24,7 +24,6 @@ public class OrdersRetailers extends TestBase {
             description = "Тестовый заказ в Метро Москва",
             priority = 2401,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -45,7 +44,6 @@ public class OrdersRetailers extends TestBase {
             description = "Тестовый заказ в Ашан Москва",
             priority = 2402,
             groups = {
-                    "acceptance", "regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInAuchan(){
@@ -66,7 +64,6 @@ public class OrdersRetailers extends TestBase {
             description = "Тестовый заказ в Азбука Вкуса Москва",
             priority = 2403,
             groups = {
-                    "acceptance", "regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInAzbukaVkusa(){

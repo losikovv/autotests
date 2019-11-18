@@ -24,7 +24,7 @@ public class BasicShoppingTests extends TestBase {
 
     @Test(
             description = "Тест недоступности чекаута неавторизованному юзеру",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 651
     )
     public void noAccessToCheckoutForUnauthorizedUser() {
@@ -34,7 +34,7 @@ public class BasicShoppingTests extends TestBase {
 
     @Test(
             description = "Тест недоступности чекаута по прямой ссылке при пустой корзине",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 652
     )
     public void noAccessToCheckoutWithEmptyCart() {
@@ -48,7 +48,7 @@ public class BasicShoppingTests extends TestBase {
 
     @Test(
             description = "Тест недоступности чекаута по прямой ссылке при сумме корзины меньше минимального заказа",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 653
     )
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
@@ -75,7 +75,7 @@ public class BasicShoppingTests extends TestBase {
 
     @Test(
             description = "Тест набора корзины до суммы, достаточной для заказа",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 654
     )
     public void successCollectItemsForMinOrder() {
@@ -92,7 +92,7 @@ public class BasicShoppingTests extends TestBase {
 
     @Test(
             description = "Тест доступности чекаута по прямой ссылке при сумме корзины выше минимального заказа",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 655
     )
     public void successGetCheckoutPageWithCartAboveMinimalOrderSum() {
@@ -107,7 +107,7 @@ public class BasicShoppingTests extends TestBase {
 
     @Test(
             description = "Тест успешного перехода из корзины в чекаут при сумме выше минимального заказа",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 656
     )
     public void successProceedFromCartToCheckout() {
@@ -124,7 +124,7 @@ public class BasicShoppingTests extends TestBase {
 
     @Test(
             description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 657
     )
     public void successMergeShipAddressAndCartAfterAuthorisation() {

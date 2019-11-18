@@ -1,5 +1,6 @@
 package ru.instamart.tests.landings;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -7,6 +8,8 @@ import ru.instamart.application.Tenants;
 import ru.instamart.application.Elements;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.tests.TestBase;
+
+import static ru.instamart.application.AppManager.session;
 
 public class SbermarketLandingTests extends TestBase {
 
@@ -21,20 +24,63 @@ public class SbermarketLandingTests extends TestBase {
     }
 
     @Test(
-            description = "Тест валидности и наличия элемнтов лендинга Сбермаркет",
+            description = "Тест валидности и наличия элемнтов лендинга Сбермаркета",
             priority = 51,
-            groups = {"smoke","acceptance","regression"}
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     )
-    public void successValidateInstamartLanding() {
+    public void successValidateSbermarketLanding() {
         runTestOnlyOn(Tenants.sbermarket());
 
         assertPageIsAvailable();
 
+        assertPresence(Elements.Landings.SbermarketLanding.Header.container());
+        assertPresence(Elements.Landings.SbermarketLanding.Header.logo());
+        assertPresence(Elements.Landings.SbermarketLanding.Header.loginButton());
+
+        assertPresence(Elements.Landings.SbermarketLanding.MainBlock.container());
+        assertPresence(Elements.Landings.SbermarketLanding.MainBlock.illustration());
+        assertPresence(Elements.Landings.SbermarketLanding.MainBlock.title());
+        assertPresence(Elements.Landings.SbermarketLanding.MainBlock.text());
+
+        assertPresence(Elements.Landings.SbermarketLanding.MainBlock.Stores.list());
+        assertPresence(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1));
+
+        assertPresence(Elements.Landings.SbermarketLanding.AdvantagesBlock.container());
+        assertPresence(Elements.Landings.SbermarketLanding.ZonesBlock.container());
+        assertPresence(Elements.Landings.SbermarketLanding.OrderBlock.container());
+        assertPresence(Elements.Landings.SbermarketLanding.AppsBlock.container());
+
+        assertPresence(Elements.Landings.SbermarketLanding.AppsBlock.appstoreButton());
+        assertPresence(Elements.Landings.SbermarketLanding.AppsBlock.googleplayButton());
+
         assertPresence(Elements.Footer.container());
     }
 
+    @Test(
+            description = "Тест перехода в каталог магазина с лендинга Сбермаркета",
+            priority = 52,
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+    )
+    public void successGoToCatalogFromSbermarketLanding() {
+        runTestOnlyOn(Tenants.sbermarket());
 
-    // todo тесты наличия всех элементов
-    // todo тесты переходов вкаталог магазинов
-    // todo тест авторизации на лендосе
+        kraken.perform().click(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1));
+
+        Assert.assertFalse(
+                kraken.detect().isOnLanding(),
+                    failMessage("Не работает переход в каталог магазина с лендинга Сбермаркета"));
+    }
+
+    @Test(
+            description = "Тест авторизации на лендинге Сбермаркета",
+            priority = 53,
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+    )
+    public void successAuthorizationOnSbermarketLanding() {
+        runTestOnlyOn(Tenants.sbermarket());
+
+        kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
+
+        User.Do.loginAs(session.user);
+    }
 }

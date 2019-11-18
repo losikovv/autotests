@@ -30,7 +30,7 @@ public class RetailRocketCartWidgetsTests extends TestBase {
 
     @Test(enabled = enableRetailRocketTest,
             description = "Тест наличия виджета 'Не забудьте купить' в корзине",
-            groups = {"acceptance", "regression"},
+            groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12401
     )
     public void successCheckDontForgetToBuyWidget() {
@@ -41,7 +41,7 @@ public class RetailRocketCartWidgetsTests extends TestBase {
 
     @Test(enabled = enableRetailRocketTest,
             description = "Тест успешного открытия карточки из виджета 'Не забудьте купить' в корзине",
-            groups = {"acceptance", "regression"},
+            groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12402,
             dependsOnMethods = "successCheckDontForgetToBuyWidget"
     )
@@ -55,7 +55,7 @@ public class RetailRocketCartWidgetsTests extends TestBase {
 
     @Test (enabled = enableRetailRocketTest,
             description = "Тест успешного добавления товара в корзину из виджета ' Не забудьте купить' в корзине",
-            groups = {"acceptance", "regression"},
+            groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12403,
             dependsOnMethods = "successCheckDontForgetToBuyWidget"
     )

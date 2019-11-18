@@ -28,40 +28,6 @@ public class UserProfileTests extends TestBase {
     }
 
     @Test(
-            description = "Тест валидации меню профиля Instamart",
-            priority = 151,
-            groups = {
-                    "smoke","acceptance","regression",
-            }
-    ) public void successValidateProfileMenuInstamart() {
-        SoftAssert softAssert = new SoftAssert();
-
-        Shop.AccountMenu.open();
-
-        softAssert.assertTrue(
-                kraken.detect().isAccountMenuOpen(),
-                    failMessage("Не открывается всплывающее меню профиля Instamart"));
-
-        assertPresence(Elements.AccountMenu.popup());
-        assertPresence(Elements.AccountMenu.header());
-        assertPresence(Elements.AccountMenu.profileButton());
-        assertPresence(Elements.AccountMenu.ordersHistoryButton());
-        assertPresence(Elements.AccountMenu.termsButton());
-        assertPresence(Elements.AccountMenu.logoutButton());
-        assertPresence(Elements.AccountMenu.deliveryButton());
-        assertPresence(Elements.AccountMenu.faqButton());
-        assertPresence(Elements.AccountMenu.contactsButton());
-
-        Shop.AccountMenu.close();
-
-        softAssert.assertFalse(
-                kraken.detect().isAccountMenuOpen(),
-                    failMessage("Не закрывается всплывающее меню профиля Instamart"));
-
-        softAssert.assertAll();
-    }
-
-    @Test(
             description = "Тест валидации меню профиля Delivery Metro",
             priority = 152,
             groups = {
@@ -133,7 +99,6 @@ public class UserProfileTests extends TestBase {
             description = "Тест валидации кнопки 'Профиль' в меню профиля",
             priority = 154,
             groups = {
-                    "acceptance","regression",
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -147,7 +112,6 @@ public class UserProfileTests extends TestBase {
             description = "Тест валидации кнопки 'История заказов' в меню профиля",
             priority = 155,
             groups = {
-                    "acceptance","regression",
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -161,7 +125,6 @@ public class UserProfileTests extends TestBase {
             description = "Тест валидации кнопки 'Условия использования' в меню профиля",
             priority = 156,
             groups = {
-                    "acceptance","regression",
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -175,9 +138,7 @@ public class UserProfileTests extends TestBase {
             description = "Тест валидации кнопки 'Доставка' в меню профиля",
             priority = 157,
             groups = {
-                    "acceptance","regression",
                     "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successValidateDeliveryButton() {
         Shop.AccountMenu.open();
@@ -209,7 +170,6 @@ public class UserProfileTests extends TestBase {
             description = "Тест валидации кнопки 'FAQ' в меню профиля",
             priority = 159,
             groups = {
-                    "acceptance","regression",
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -217,21 +177,6 @@ public class UserProfileTests extends TestBase {
         Shop.AccountMenu.open();
 
         validateTransition(Elements.AccountMenu.faqButton());
-    }
-
-    @Test(
-            description = "Тест валидации кнопки 'Контакты' в меню профиля",
-            priority = 160,
-            groups = {
-                    "acceptance","regression",
-            }
-    ) public void successValidateContactsButton() {
-        skipTestOn(Tenants.metro());
-        skipTestOn(Tenants.sbermarket());
-
-        Shop.AccountMenu.open();
-
-        validateTransition(Elements.AccountMenu.contactsButton());
     }
 
     @Test(

@@ -4,10 +4,6 @@ import ru.instamart.application.models.TenantData;
 
 public class Tenants {
 
-    public static TenantData instamart() {
-        return new TenantData("Инстамарт", "instamart");
-    }
-
     public static TenantData metro() {
         return new TenantData("METRO Delivery CC", "metro");
     }

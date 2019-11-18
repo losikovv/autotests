@@ -17,7 +17,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test(
             description = "Тест валидации элементлов поиска",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 500
     )
     public void successValidateSearch() {
@@ -28,7 +28,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test(
             description = "Тест отправки пустого поискового запроса",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 501
     )
     public void noSendEmptySearchRequest() {
@@ -40,7 +40,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test (
             description = "Тест поиска по запросу, не возвращающему результатов",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 502
     )
     public void successSearchForNonexistingItem() {
@@ -54,7 +54,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test (
             description = "Тест упешного поиска товаров",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 503
     )
     public void successSearchItem() {
@@ -75,7 +75,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test (
             description = "Тест упешного поиска товаров c использованием категорийных саджестов",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 504
     )
     public void successSearchItemUsingCategorySuggests() {
@@ -99,7 +99,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test (
             description = "Тест упешного поиска товаров c использованием товарных саджестов",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 505
     )
     public void successSearchItemUsingProductSuggests() {
@@ -117,7 +117,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test (
             description = "Тест поиска по очень длинному запросу, не возвращающему результатов",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 506
     )
     public void successSearchItemWithLongQuery() {

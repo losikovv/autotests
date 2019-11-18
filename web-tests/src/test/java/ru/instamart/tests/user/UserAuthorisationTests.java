@@ -31,7 +31,6 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации с пустыми реквизитами",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
@@ -69,7 +68,6 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации без email",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -101,7 +99,6 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации без пароля",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -133,7 +130,6 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации несуществующим юзером",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -165,7 +161,6 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации с неверным паролем",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
@@ -197,7 +192,6 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизовать пользователя с длинными полями",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -229,7 +223,6 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест отмены авторизации после заполнения всех полей",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -259,23 +252,8 @@ public class UserAuthorisationTests extends TestBase {
     }
 
     @Test(
-            description = "Тест успешной авторизации на лендинге Инстамарта",
-            groups = {"smoke","acceptance","regression"},
-            priority = 118
-    ) public void successAuthOnInstamartLanding() {
-        User.Logout.quickly();
-
-        User.Do.loginAs(session.admin);
-
-        Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "Не работает авторизация на лендинге\n");
-    }
-
-    @Test(
             description = "Тест успешной авторизации на витрине",
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
@@ -294,7 +272,6 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест авторизации из адресной модалки феникса",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -324,7 +301,6 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест успешной авторизации из корзины",
             groups = {
-                    "regression",
                     "metro-regression",
                     "sbermarket-regression"
             },
@@ -369,10 +345,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест успешной авторизации через ВКонтакте",
             priority = 122,
-            groups = {
-                    "acceptance","regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            }
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithVkontakte() {
         kraken.get().page("metro");
@@ -387,10 +360,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест успешной авторизации через Facebook",
             priority = 123,
-            groups = {
-                    "acceptance","regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            }
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithFacebook() {
         kraken.get().page("metro");
@@ -405,10 +375,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test( enabled = false, // надо придумать как избежать в дальнейших тестах блокирующего окошка Mail.ru
             description = "Тест успешной авторизации через MailRu",
             priority = 124,
-            groups = {
-                    "acceptance","regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            }
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithMailRu() {
         kraken.get().page("metro");
@@ -424,10 +391,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест успешной авторизации через Sber ID",
             priority = 125,
-            groups = {
-                    "acceptance","regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            }
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithSberID() {
         kraken.get().page("metro");

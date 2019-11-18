@@ -51,7 +51,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Тест заказа с добавлением нового юр. лица",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 2000
     )
     public void successCompleteCheckoutWithNewJuridical() {
@@ -82,7 +82,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Тест заказа с изменением юр. лица",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 2001
     )
     public void successCompleteCheckoutWithChangeJuridical() {
@@ -113,7 +113,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Тест заказа с новой картой оплаты",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 2002
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
@@ -129,7 +129,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Тест заказа с любимыми товарами",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 2003
     )
     public void successOrderWithFavProducts() {
@@ -146,7 +146,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Повтор крайнего заказа c новым номером телефона",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 2004
     )
     public void successRepeatLastOrderWithNewPhone() {
@@ -186,7 +186,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(enabled = enableOrderRepeatTests,
             description = "Повтор крайнего заказа и оплата картой онлайн",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 2005
     )
     public void successRepeatLastOrderAndPayWithCardOnline() {
@@ -202,7 +202,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(enabled = enableOrderRepeatTests,
             description = "Повтор крайнего заказа и оплата картой курьеру",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 2006
     )
     public void successRepeatLastOrderAndPayWithCardCourier() {
@@ -218,7 +218,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(enabled = enableOrderRepeatTests,
             description = "Повтор крайнего заказа и оплата наличными",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 2007
     )
     public void successRepeatLastOrderAndPayWithCash() {
@@ -234,7 +234,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(enabled = enableOrderRepeatTests,
             description = "Повтор крайнего заказа и оплата банковским переводом",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 2008
     )
     public void successRepeatLastOrderAndPayWithBank() {

@@ -15,7 +15,7 @@ public class JivositeTests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enableJivositeTests,
             description = "Тест отсутствия виджета Jivosite на лендинге",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11101
     )
     public void noJivositeWidgetOnLanding() {
@@ -28,7 +28,7 @@ public class JivositeTests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enableJivositeTests,
             description = "Тест отсутствия виджета Jivosite в чекауте",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11102
     )
     public void noJivositeWidgetOnCheckout() {
@@ -42,7 +42,7 @@ public class JivositeTests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enableJivositeTests,
             description = "Тест работы с виджетом Jivosite на витрине ритейлера",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11103
     )
     public void successOperateJivositeWidgetOnRetailerPage() {
@@ -68,7 +68,7 @@ public class JivositeTests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enableJivositeTests,
             description = "Тест работы с виджетом Jivosite в каталоге",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11104
     )
     public void successOperateJivositeWidgetInCatalog() {
@@ -94,7 +94,7 @@ public class JivositeTests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enableJivositeTests,
             description = "Тест работы с виджетом Jivosite на странице 404",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11105
     )
     public void successOperateJivositeWidgetOnPage404() {
@@ -120,7 +120,7 @@ public class JivositeTests extends TestBase {
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enableJivositeTests,
             description = "Тест успешной отправки сообщения в Jivosite",
-            groups = {"regression"},
+            groups = {"sbermarket-regression"},
             priority = 11106
     )
     public void successSendMessageToJivositeFromRetailerPage() {

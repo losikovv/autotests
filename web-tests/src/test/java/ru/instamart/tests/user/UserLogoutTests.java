@@ -21,7 +21,6 @@ public class UserLogoutTests extends TestBase {
     @Test(  description = "Тест успешной быстрой деавторизации",
             priority = 126,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -43,7 +42,6 @@ public class UserLogoutTests extends TestBase {
     @Test(  description = "Тест успешной деавторизации",
             priority = 127,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -65,7 +63,6 @@ public class UserLogoutTests extends TestBase {
     @Test(  description = "Тест сброса адреса доставки и корзины после деавторизации",
             priority = 128,
             groups = {
-                    "acceptance", "regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }

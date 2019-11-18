@@ -53,6 +53,17 @@ public class User extends Base {
             message("Уровень прав: " + user.getRole() + "\n");
         }
 
+        private static void loginOnSberLanding(String email, String password) {
+            verboseMessage("Авторизуемся на лендинге Сбермаркет (" + email + " / " + password + ")");
+            kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
+            Shop.AuthModal.switchToAuthorisationTab();
+            Shop.AuthModal.fillAuthorisationForm(email, password);
+            Shop.AuthModal.submit();
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Modals.AuthModal.popup().getLocator()), "Не проходит авторизация на лендинге Сбермаркет\n");
+        }
+
         private static void loginOnSite(String email, String password) {
             verboseMessage("Авторизуемся на сайте (" + email + " / " + password + ")");
             Shop.AuthModal.open();

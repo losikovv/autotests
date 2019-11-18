@@ -28,7 +28,7 @@ public class CheckoutContactsStepTests extends TestBase {
 
     @Test(  enabled = enableContactsStepTests,
             description = "Тест валидации шага Контакты в чекауте",
-            groups = {"acceptance","regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1200
     )
     public void successValidateDefaultContactsStep() {

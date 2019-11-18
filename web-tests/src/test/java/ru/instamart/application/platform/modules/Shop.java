@@ -23,7 +23,7 @@ public class Shop extends Base {
             if (!kraken.detect().isAuthModalOpen()) {
                 verboseMessage("> открываем модалку авторизации");
                 if (kraken.detect().isOnLanding()) {
-                    kraken.perform().click(Elements.Landings.Instamart.MainBlock.loginButton());
+                    kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
                 } else {
                     kraken.perform().click(Elements.Header.loginButton());
                 }
