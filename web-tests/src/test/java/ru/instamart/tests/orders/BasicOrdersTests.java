@@ -117,7 +117,7 @@ public class BasicOrdersTests extends TestBase {
             priority = 2002
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
-        runTestOnlyOn(Servers.instamart_staging());
+        runTestOnlyOn(Servers.sbermarket_staging());
         PaymentCardData creditCardData = Config.TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
 
         kraken.reach().checkout();

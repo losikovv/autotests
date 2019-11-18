@@ -28,7 +28,7 @@ public class SeoCatalogTests extends TestBase {
             priority = 9100
     )
     public void successCheckSeoPage() {
-        skipTestOn(Servers.instamart_staging());
+        skipTestOn(Servers.sbermarket_staging());
 
         assertPageIsAvailable(
                 Pages.Site.Catalog.seo());
@@ -40,7 +40,7 @@ public class SeoCatalogTests extends TestBase {
             priority = 9101
     )
     public void successCheckProductsOnSeoCatalog() {
-        skipTestOn(Servers.instamart_staging());
+        skipTestOn(Servers.sbermarket_staging());
 
         Assert.assertTrue(
                 kraken.detect().isElementPresent(Elements.SeoCatalog.product()),
@@ -53,7 +53,7 @@ public class SeoCatalogTests extends TestBase {
             priority = 9102
     )
     public void successOpenItemCardOnSeoCatalog() {
-        skipTestOn(Servers.instamart_staging());
+        skipTestOn(Servers.sbermarket_staging());
         Shop.Catalog.Item.open();
 
         Assert.assertTrue(
@@ -67,7 +67,7 @@ public class SeoCatalogTests extends TestBase {
             priority = 9103
     )
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() throws Exception {
-        skipTestOn(Servers.instamart_staging());
+        skipTestOn(Servers.sbermarket_staging());
         SoftAssert softAssert = new SoftAssert();
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToCart();
@@ -96,7 +96,7 @@ public class SeoCatalogTests extends TestBase {
             priority = 9104
     )
     public void successAuthFromItemCardOnSeoCatalog() throws Exception {
-        skipTestOn(Servers.instamart_staging());
+        skipTestOn(Servers.sbermarket_staging());
         SoftAssert softAssert = new SoftAssert();
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToCart();
@@ -120,7 +120,7 @@ public class SeoCatalogTests extends TestBase {
             priority = 9105
     )
     public void successRegFromItemCardOnSeoCatalog() {
-        skipTestOn(Servers.instamart_staging());
+        skipTestOn(Servers.sbermarket_staging());
         SoftAssert softAssert = new SoftAssert();
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToCart();
