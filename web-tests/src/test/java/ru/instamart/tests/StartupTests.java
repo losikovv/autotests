@@ -2,7 +2,6 @@ package ru.instamart.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.instamart.application.Tenants;
 import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
 
@@ -48,8 +47,7 @@ public class StartupTests extends TestBase {
         validateTransition(Elements.Header.helpInfoButton());
         validateTransition(Elements.Header.deliveryInfoButton());
         //TODO доделать обработку и проверку открытия новых вкладок
-        //validateNewTabOpening(Elements.Site.Header.corporativeCustomersInfoButton());
-        //validateNewTabOpening(Elements.Site.Header.mnogoruButton());
+        //validateNewTabOpening(Elements.Header.corporativeCustomersInfoButton());
         validateTransition(Elements.Header.logo());
     }
 
@@ -58,7 +56,7 @@ public class StartupTests extends TestBase {
     // todo public void successValidateHeaderSbermarket()
 
     @Test(
-            description = "Тест валидности элементов и ссылок в футере сайта",
+            description = "Тест валидности элементов и ссылок в футере Сбермаркета",
             priority = 102,
             groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     ) public void successValidateFooterSbermarket() {
@@ -73,10 +71,8 @@ public class StartupTests extends TestBase {
 
     // todo public void successValidateFooterDeliveryMetro()
 
-    // todo public void successValidateFooterSbermarket()
 
     private void checkFooterElementsPresence() {
-        assertPresence(Elements.Footer.info());
         assertPresence(Elements.Footer.container());
 
         assertPresence(Elements.Footer.instamartLogo());

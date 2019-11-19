@@ -11,7 +11,7 @@ import java.util.Random;
 public class generate {
 
     public static String testRunId() {
-        return literalString(3).toUpperCase() + digitalString(6);
+        return literalString(9).toUpperCase();
     }
 
     public static String userId() {
