@@ -1,7 +1,7 @@
 package ru.instamart.tests.landings;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.application.Tenants;
@@ -13,13 +13,13 @@ import static ru.instamart.application.AppManager.session;
 
 public class SbermarketLandingTests extends TestBase {
 
-    @BeforeClass(alwaysRun = true)
-    public void setup() {
+    @BeforeMethod(alwaysRun = true)
+    public void quickLogout() {
         User.Logout.quickly();
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void quickLogout() {
+    @AfterClass(alwaysRun = true)
+    public void setup() {
         User.Logout.quickly();
     }
 

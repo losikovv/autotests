@@ -277,6 +277,10 @@ public class User extends Base {
             kraken.await().simply(2); // Ожидание открытия фрейма авторизации Sber ID
             kraken.perform().switchToNextWindow();
 
+            if (kraken.detect().isElementPresent(Elements.Social.Sber.loginField())) {
+                kraken.perform().click(Elements.Social.Sber.loginButton());
+            }
+
             kraken.perform().fillField(Elements.Social.Sber.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Sber.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Sber.submitButton());

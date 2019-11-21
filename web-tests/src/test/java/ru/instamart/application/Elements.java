@@ -358,7 +358,7 @@ public class Elements {
 
         static ElementData instamartLogo() {
             return new ElementData(By.xpath("//footer//div[@class='footer__logo']"),
-                    "логотип \"Инстамарт\" в футере");
+                    "логотип \"Сбермаркет\" в футере");
         }
 
         static ElementData infoLink(String name) {
@@ -366,9 +366,9 @@ public class Elements {
                     "ссылка \"" + name + "\" в футере");
         }
 
-        static ElementData instamartTitle() {
-            return new ElementData(By.xpath("//footer//div[@class='footer__title' and text()='Instamart']"),
-                    "подзаголовок \"Инстамарт\" в футере");
+        static ElementData sbermarketTitle() {
+            return new ElementData(By.xpath("//footer//div[@class='footer__title' and text()='СберМаркет']"),
+                    "подзаголовок \"Сбермаркет\" в футере");
         }
 
         static ElementData aboutCompanyLink() {
@@ -430,12 +430,12 @@ public class Elements {
         }
 
         static ElementData appstoreButton() {
-            return new ElementData(By.xpath("//footer//a[@href='https://app.adjust.com/zd136zy?campaign=footer'][1]"),
+            return new ElementData(By.xpath("//footer//a[@href='https://app.adjust.com/kfrpj8y?campaign=footer'][1]"),
                     "кнопка \"Appstore\" в футере");
         }
 
         static ElementData googlePlayButton() {
-            return new ElementData(By.xpath("//footer//a[@href='https://app.adjust.com/zd136zy?campaign=footer'][2]"),
+            return new ElementData(By.xpath("//footer//a[@href='https://app.adjust.com/kfrpj8y?campaign=footer'][2]"),
                     "кнопка \"GooglePlay\" в футере");
         }
 
@@ -1220,7 +1220,7 @@ public class Elements {
             }
 
             static ElementData icon(CheckoutStepData step) {
-                return new ElementData(By.xpath("//div[@class='panel-header__text' and text()='" + step.getTitle() + "']//preceding::*[@class='panel-header__ico']"),
+                return new ElementData(By.xpath("//div[@class='panel-header__text' and text()='" + step.getTitle() + "']//preceding::*[contains(@class,'indicator')]"),
                         "иконка шага \"" + step.getName() + "\" в чекауте");
             }
 
@@ -2229,6 +2229,11 @@ public class Elements {
         /** Sber ID auth form */
         interface Sber {
 
+            static ElementData loginButton() {
+                return new ElementData(By.xpath("//div[@data-type='login']"),
+                        "кнопка Логин в форме авторизации Sber ID");
+            }
+
             static ElementData loginField() {
                 return new ElementData(By.xpath("//input[@id='login']"),
                         "поле ввода логина формы авторизации Sber ID");
@@ -2631,73 +2636,102 @@ public class Elements {
             }
         }
 
-        // TODO Update locators
         /** Раздел Users в админке */
         interface UsersSection {
 
-            static ElementData userlistFirstRow() {
-                return new ElementData(By.xpath("//*[@id='content']/div/table/tbody/tr"));
-            }
-
-            static ElementData firstUserLogin() {
-                return new ElementData(By.xpath("//*[@id='content']/div/table/tbody/tr[1]/td[1]/div[1]/a"));
-            }
-
-            static ElementData firstUserDeleteButton() {
-                return new ElementData(By.xpath("//*[@id='content']/div/table/tbody/tr/td[3]/a[2]"));
-            }
-
-            static ElementData firstUserEditButton() {
-                return new ElementData(By.xpath(
-                        "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[3]/a[1]"));
-            }
-
-            static ElementData firstUserB2BLabel() {
-                return new ElementData("B2B", By.className("b2b_client"));
-            }
-
-            static ElementData searchField() {
-                return new ElementData(By.id("q_email_cont"));
+            static ElementData emailField() {
+                return new ElementData(
+                        By.xpath("//input[@id='search_email']"),
+                            "поле ввода email на странице списка пользователей");
             }
 
             static ElementData searchButton() {
-                return new ElementData(By.xpath("//*[@id=\"spree/user_search\"]/div[5]/button"));
+                return new ElementData(
+                        By.xpath("//button[text()='Поиск']"),
+                            "кнопка 'Поиск' на странице списка пользователей");
             }
 
-            static ElementData b2bCheckbox() {
-                return new ElementData(By.id("q_b2b_true"));
+            static ElementData userlistFirstRow() {
+                return new ElementData(By.xpath("//*[@id='content']/div/table/tbody/tr"),
+                        "первая строка таблицы пользоватетелй");
             }
 
-            static ElementData tenantCheckbox() {
-                return new ElementData(By.id("q_tenant_eq"));
+            static ElementData userEmail() {
+                return new ElementData(By.xpath("//*[@id='content']//div[@class='user_email']//a"));
             }
+
+            static ElementData editUserButton() {
+                return new ElementData(By.xpath(
+                        "//a[@data-action='edit']"),
+                            "кнопка редактирования пользователя на странице списка пользователей");
+            }
+
+            static ElementData deleteUserButton() {
+                return new ElementData(
+                        By.xpath("//a[@data-action='remove']"),
+                            "кнопка удаления пользователя на странице списка пользователей");
+            }
+
+            //static ElementData firstUserB2BLabel() {
+            //    return new ElementData("B2B", By.className("b2b_client"));
+            //}
+
+            //static ElementData b2bCheckbox() {
+            //    return new ElementData(By.id("q_b2b_true"));
+            //}
+
+            //static ElementData tenantCheckbox() {
+            //    return new ElementData(By.id("q_tenant_eq"));
+            //}
 
             // TODO Update locators
             /** Страница пользователя в админке */
             interface UserPage {
 
-                static ElementData adminCheckbox() {
+                static ElementData returnBackButton() {
+                    return new ElementData(By.xpath("//a[text()='Вернуться к списку пользователей']"),
+                            "кнопка 'Вернуться к списку пользователей' на странице редактирования пользователя");
+                }
+
+                static ElementData emailField() {
+                    return new ElementData(By.xpath("//input[@id='user_email']"),
+                            "поле 'Электронная почта' на странице редактирования пользователя");
+                }
+
+                static ElementData passwordField() {
+                    return new ElementData(By.xpath("//input[@id='user_password']"),
+                            "поле 'Пароль' на странице редактирования пользователя");
+                }
+
+                static ElementData passwordConfirmationField() {
+                    return new ElementData(By.xpath("//input[@id='uuser_password_confirmation']"),
+                            "поле 'Подтверждение пароля' на странице редактирования пользователя");
+                }
+
+                static ElementData b2bCheckbox() {
+                    return new ElementData(By.id("user_b2b"),
+                            "чекбокс признака b2b-клиента на странице редактирования пользователя");
+                }
+
+                static ElementData adminRoleCheckbox() {
                     return new ElementData(By.xpath(
                             "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[2]/form[1]/div[2]" +
                                     "/div[2]/div[1]/ul[1]/li[1]/input[1]"));
                 }
 
+                static ElementData commentField() {
+                    return new ElementData(By.xpath("//textarea[@id='user_customer_comment']"),
+                            "поле 'Примечание' на странице редактирования пользователя");
+                }
+
                 static ElementData saveButton() {
-                    return new ElementData(By.xpath(
-                            "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[2]/form[1]/div[3]" +
-                                    "/div[1]/button[1]"));
+                    return new ElementData(By.xpath("//button[text()='Изменить']"),
+                            "кнопка 'Изменить' на странице редактирования пользователя");
                 }
 
-                static ElementData passwordField() {
-                    return new ElementData(By.id("user_password"));
-                }
-
-                static ElementData passwordConfirmationField() {
-                    return new ElementData(By.id("user_password_confirmation"));
-                }
-
-                static ElementData b2bCheckbox() {
-                    return new ElementData(By.id("user_b2b"));
+                static ElementData cancelButton() {
+                    return new ElementData(By.xpath("//a[text()='Отменить']"),
+                            "кнопка 'Отменить' на странице редактирования пользователя");
                 }
             }
         }

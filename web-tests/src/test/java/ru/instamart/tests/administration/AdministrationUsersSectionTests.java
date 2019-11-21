@@ -28,10 +28,10 @@ public class AdministrationUsersSectionTests extends TestBase {
             priority = 10701
     )
     public void successSearchUser() {
-        Administration.Users.searchUser(Users.superuser());
+        Administration.Users.searchUser(Users.superadmin());
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()), Users.superuser().getLogin(),
+                kraken.grab().text(Elements.Administration.UsersSection.userEmail()), Users.superuser().getLogin(),
                     "Не работает поиск пользователя в админке");
     }
 
@@ -114,33 +114,6 @@ public class AdministrationUsersSectionTests extends TestBase {
     }
 
     @Test(  enabled = enableUsersSectionTests,
-            description = "Тест поиска B2B пользователя в админке",
-            groups = {"sbermarket-regression"},
-            priority = 10705
-    )
-    public void successSearchB2BUser() {
-        SoftAssert softAssert = new SoftAssert();
-        User.Logout.quickly();
-        UserData testuser = generate.testCredentials("user");
-        User.Do.registration(testuser);
-
-        Administration.Users.editUser(testuser);
-        Administration.Users.grantB2B();
-
-        Administration.Users.searchUser(testuser, true,false);
-
-        softAssert.assertEquals(
-                kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()), testuser.getLogin(),
-                    "Не работает поиск B2B пользователя в админке");
-
-        softAssert.assertTrue(
-                kraken.detect().isElementDisplayed(Elements.Administration.UsersSection.firstUserB2BLabel()),
-                    "У пользователя не отображается B2B метка");
-
-        softAssert.assertAll();
-    }
-
-    @Test(  enabled = enableUsersSectionTests,
             description = "Тест снятия B2B флага у пользователя",
             groups = {"sbermarket-regression"},
             priority = 10706
@@ -162,10 +135,10 @@ public class AdministrationUsersSectionTests extends TestBase {
         Administration.Users.editUser(testuser);
         Administration.Users.revokeB2B();
 
-        Administration.Users.searchUser(testuser ,true,false);
+        Administration.Users.searchUser(testuser);
 
         softAssert.assertFalse(
-                kraken.detect().isElementPresent(Elements.Administration.UsersSection.firstUserLogin()),
+                kraken.detect().isElementPresent(Elements.Administration.UsersSection.userEmail()),
                     "Пользователь находится как B2B после снятия флага");
 
         Administration.Orders.searchOrder(number,true);

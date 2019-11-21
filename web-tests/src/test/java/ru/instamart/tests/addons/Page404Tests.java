@@ -22,7 +22,7 @@ public class Page404Tests extends TestBase {
             priority = 11001
     )
     public void successLearnCatWisdom() {
-        Shop.Jivosite.open();
+        //Shop.Jivosite.open();
         kraken.perform().click(Elements.Page404.catWisdomButton());
 
         Assert.assertTrue(
@@ -47,7 +47,7 @@ public class Page404Tests extends TestBase {
             priority = 11003
     )
     public void successGoToHomepageAfterLearningCatWisdom() {
-        Shop.Jivosite.open();
+        //Shop.Jivosite.open();
         kraken.perform().click(Elements.Page404.catWisdomButton());
 
         validateTransition(Elements.Page404.toHomeButton());
@@ -59,9 +59,9 @@ public class Page404Tests extends TestBase {
             priority = 11004
     )
     public void successGoToCatalogAfterLearningCatWisdom() {
-        Shop.Jivosite.open();
+        //Shop.Jivosite.open();
         kraken.perform().click(Elements.Page404.catWisdomButton());
-        Shop.Jivosite.close();
+        //Shop.Jivosite.close();
 
         validateTransition(Elements.Page404.learnPricesButton());
     }

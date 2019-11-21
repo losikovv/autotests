@@ -71,6 +71,9 @@ public class UserLogoutTests extends TestBase {
 
         User.Do.loginAs(session.admin);
         User.ShippingAddress.change(Addresses.Moscow.defaultAddress());
+
+        kraken.get().page("metro");
+        kraken.await().simply(2);
         Shop.Catalog.Item.addToCart();
         User.Logout.manually();
 

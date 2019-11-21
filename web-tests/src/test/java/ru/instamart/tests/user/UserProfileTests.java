@@ -68,7 +68,7 @@ public class UserProfileTests extends TestBase {
             groups = {
                     "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
             }
-    ) public void successValidateProfileMenuSbermarket() {
+    ) public void successValidateSbermarketProfileMenu() {
         SoftAssert softAssert = new SoftAssert();
 
         Shop.AccountMenu.open();

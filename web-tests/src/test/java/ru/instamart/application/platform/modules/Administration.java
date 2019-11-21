@@ -78,22 +78,12 @@ public class Administration extends Base {
             searchUser(userData.getLogin());
         }
 
-        public static void searchUser(UserData userData, boolean b2b, boolean tenant) {
-            searchUser(userData.getLogin(), b2b, tenant);
-        }
-
-        private static void searchUser(String email) {
-            searchUser(email, false, false);
-        }
-
-        private static void searchUser(String email, boolean b2b, boolean tenant) {
+        public static void searchUser(String email) {
             kraken.reach().admin("users");
-            message("Поиск пользователей по email " + email);
-            kraken.perform().fillField(Elements.Administration.UsersSection.searchField(), email);
-            kraken.perform().setCheckbox(Elements.Administration.UsersSection.b2bCheckbox(), b2b);
-            kraken.perform().setCheckbox(Elements.Administration.UsersSection.tenantCheckbox(), tenant);
+            message("Поиск пользователя " + email);
+            kraken.perform().fillField(Elements.Administration.UsersSection.emailField(), email);
             kraken.perform().click(Elements.Administration.UsersSection.searchButton());
-            kraken.await().implicitly(1); // Ожидание осуществления поиска юзера в админке
+            kraken.await().simply(1); // Ожидание осуществления поиска юзера в админке
         }
 
         /** Перейти в редактирование пользователя из указанного объекта userData */
@@ -104,28 +94,23 @@ public class Administration extends Base {
         /** Перейти в редактирование пользователя с указанием почты */
         public static void editUser(String email) {
             searchUser(email);
-            if(kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()).equals(email.toLowerCase())) {
-                editFirstUserInList();
+            if(kraken.grab().text(Elements.Administration.UsersSection.userEmail()).equals(email.toLowerCase())) {
+                kraken.perform().click(Elements.Administration.UsersSection.editUserButton());
+                kraken.await().implicitly(1); // Ожидание загрузки страницы пользователя в админке
+                message("Редактирование пользователя " + kraken.grab().currentURL());
             } else {
                 message("! Найден не тот юзер !");
-                message("Первый email в списке по локатору: " + kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()));
+                message("Первый email в списке по локатору: " + kraken.grab().text(Elements.Administration.UsersSection.userEmail()));
                 message("А ищем: " + email);
             }
         }
 
-        /** Перейти в редактирование первого пользователя в списке */
-        public static void editFirstUserInList() {
-            kraken.perform().click(Elements.Administration.UsersSection.firstUserEditButton());
-            kraken.await().implicitly(1); // Ожидание загрузки страницы пользователя в админке
-            message("Редактирование пользователя " + kraken.grab().currentURL());
-        }
-
         /** Удалить первого найденного пользователя */
-        public static void deleteFirstFoundUser(String email) {
+        public static void deleteUser(String email) {
             searchUser(email);
-            if (kraken.detect().isElementDisplayed(Elements.Administration.UsersSection.firstUserLogin())) {
-                if (kraken.grab().text(Elements.Administration.UsersSection.firstUserLogin()).equalsIgnoreCase(email)) {
-                    kraken.perform().click(Elements.Administration.UsersSection.firstUserDeleteButton());
+            if (kraken.detect().isElementDisplayed(Elements.Administration.UsersSection.userEmail())) {
+                if (kraken.grab().text(Elements.Administration.UsersSection.userEmail()).equalsIgnoreCase(email)) {
+                    kraken.perform().click(Elements.Administration.UsersSection.deleteUserButton());
                     kraken.perform().handleAlert();
                 } else {
                     message("Найден не тот пользователь!");
@@ -142,10 +127,10 @@ public class Administration extends Base {
 
         /** Предоставить админские права в карточке пользователя */
         public static void grantAdminPrivileges() {
-            if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.adminCheckbox())) {
+            if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox())) {
                 message("Административные права были предоставлены ранее");
             } else {
-                kraken.perform().click(Elements.Administration.UsersSection.UserPage.adminCheckbox());
+                kraken.perform().click(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox());
                 kraken.await().implicitly(1); // Ожидание проставления чекбокса админских прав
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
                 message("Предоставлены права администратора");
@@ -160,8 +145,8 @@ public class Administration extends Base {
 
         /** Отозвать админские права в карточке пользователя */
         public static void revokeAdminPrivileges() {
-            if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.adminCheckbox())) {
-                kraken.perform().click(Elements.Administration.UsersSection.UserPage.adminCheckbox());
+            if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox())) {
+                kraken.perform().click(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox());
                 kraken.await().implicitly(1); // Ожидание снятия чекбокса админских прав
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
                 message("Отозваны административные права");

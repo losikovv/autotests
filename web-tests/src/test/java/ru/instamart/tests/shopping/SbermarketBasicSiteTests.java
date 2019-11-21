@@ -1,13 +1,14 @@
-package ru.instamart.tests;
+package ru.instamart.tests.shopping;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
+import ru.instamart.tests.TestBase;
 
 import static ru.instamart.application.Tenants.metro;
 
-public class StartupTests extends TestBase {
+public class SbermarketBasicSiteTests extends TestBase {
 
     //todo сделать отдельные тесты под тенанты
 
@@ -24,7 +25,7 @@ public class StartupTests extends TestBase {
 
         assertPresence(Elements.Header.shipAddressPlaceholder());
         assertPresence(Elements.Header.shipAddressButton());
-        assertPresence(Elements.Header.hotlinePhoneNumber());
+        //assertPresence(Elements.Header.hotlinePhoneNumber());
         assertPresence(Elements.Header.hotlineWorkhoursText());
 
         assertPresence(Elements.Header.howWeWorkInfoButton());
@@ -77,7 +78,7 @@ public class StartupTests extends TestBase {
 
         assertPresence(Elements.Footer.instamartLogo());
 
-        assertPresence(Elements.Footer.instamartTitle());
+        assertPresence(Elements.Footer.sbermarketTitle());
             assertPresence(Elements.Footer.infoLink("О компании"));
             assertPresence(Elements.Footer.infoLink("Контакты"));
             assertPresence(Elements.Footer.infoLink("Вакансии"));
@@ -88,7 +89,7 @@ public class StartupTests extends TestBase {
             assertPresence(Elements.Footer.infoLink("Доставка"));
             assertPresence(Elements.Footer.infoLink("Помощь"));
 
-        assertPresence(Elements.Footer.hotlinePhoneNumber());
+        //assertPresence(Elements.Footer.hotlinePhoneNumber());
         assertPresence(Elements.Footer.hotlineWorkhoursText());
 
         assertPresence(Elements.Footer.facebookButton());
@@ -137,9 +138,9 @@ public class StartupTests extends TestBase {
         assertPageIsAvailable(Pages.Site.Retailers.metro());
         assertPageIsAvailable(Pages.Site.Retailers.auchan());
         assertPageIsAvailable(Pages.Site.Retailers.azbuka());
+        assertPageIsAvailable(Pages.Site.Retailers.vkusvill());
 
         // Проверяем что недоступны витрины неактивных ритейлеров
-        assertPageIs404(Pages.Site.Retailers.vkusvill());
         assertPageIs404(Pages.Site.Retailers.lenta());
         assertPageIs404(Pages.Site.Retailers.karusel());
         assertPageIs404(Pages.Site.Retailers.selgros());
