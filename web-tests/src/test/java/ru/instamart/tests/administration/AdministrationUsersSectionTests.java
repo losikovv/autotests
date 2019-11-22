@@ -31,7 +31,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         Administration.Users.searchUser(Users.superadmin());
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.UsersSection.userEmail()), Users.superuser().getLogin(),
+                kraken.grab().text(Elements.Administration.UsersSection.userEmail()), Users.superadmin().getLogin(),
                     "Не работает поиск пользователя в админке");
     }
 

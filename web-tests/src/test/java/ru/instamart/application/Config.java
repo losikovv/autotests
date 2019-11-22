@@ -59,7 +59,7 @@ public class Config {
 
         interface AddonsTests {
             boolean enableSeoCatalogTests = false;
-            boolean enableJivositeTests = true;
+            boolean enableJivositeTests = false;
             boolean enableRetailRocketTest = false;
             boolean enablePage404test = true;
         }

@@ -4,16 +4,16 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.application.AppManager;
-import ru.instamart.application.Config;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.tests.TestBase;
 
+import static ru.instamart.application.Config.TestsConfiguration.AddonsTests.enableJivositeTests;
+
 public class JivositeTests extends TestBase {
 
-
-    @Test(  enabled = Config.TestsConfiguration.AddonsTests.enableJivositeTests,
+    @Test(  enabled = enableJivositeTests,
             description = "Тест отсутствия виджета Jivosite на лендинге",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11101
@@ -25,8 +25,7 @@ public class JivositeTests extends TestBase {
                 "Виджет Jivosite доступен на лендинге");
     }
 
-
-    @Test(  enabled = Config.TestsConfiguration.AddonsTests.enableJivositeTests,
+    @Test(  enabled = enableJivositeTests,
             description = "Тест отсутствия виджета Jivosite в чекауте",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11102
@@ -39,8 +38,7 @@ public class JivositeTests extends TestBase {
                 "Виджет Jivosite доступен в чекауте");
     }
 
-
-    @Test(  enabled = Config.TestsConfiguration.AddonsTests.enableJivositeTests,
+    @Test(  enabled = enableJivositeTests,
             description = "Тест работы с виджетом Jivosite на витрине ритейлера",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11103
@@ -65,8 +63,7 @@ public class JivositeTests extends TestBase {
         softAssert.assertAll();
     }
 
-
-    @Test(  enabled = Config.TestsConfiguration.AddonsTests.enableJivositeTests,
+    @Test(  enabled = enableJivositeTests,
             description = "Тест работы с виджетом Jivosite в каталоге",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11104
@@ -91,8 +88,7 @@ public class JivositeTests extends TestBase {
         softAssert.assertAll();
     }
 
-
-    @Test(  enabled = Config.TestsConfiguration.AddonsTests.enableJivositeTests,
+    @Test(  enabled = enableJivositeTests,
             description = "Тест работы с виджетом Jivosite на странице 404",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11105
@@ -117,8 +113,7 @@ public class JivositeTests extends TestBase {
         softAssert.assertAll();
     }
 
-
-    @Test(  enabled = Config.TestsConfiguration.AddonsTests.enableJivositeTests,
+    @Test(  enabled = enableJivositeTests,
             description = "Тест успешной отправки сообщения в Jivosite",
             groups = {"sbermarket-regression"},
             priority = 11106
