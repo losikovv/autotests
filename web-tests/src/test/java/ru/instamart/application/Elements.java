@@ -393,7 +393,7 @@ public class Elements {
         }
 
         static ElementData deliveryButton() {
-            return infoLink("Доставка");
+            return infoLink("Доставка и оплата");
         }
 
         static ElementData paymentButton() {

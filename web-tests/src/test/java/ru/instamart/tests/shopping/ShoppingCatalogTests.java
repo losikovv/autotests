@@ -17,6 +17,7 @@ public class ShoppingCatalogTests extends TestBase {
         User.Logout.quickly();
         kraken.get().page("metro");
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        kraken.get().page("metro"); // TODO заменить на метод выбора первого магаза в модалке
     }
 
     @Test(
@@ -48,7 +49,7 @@ public class ShoppingCatalogTests extends TestBase {
     )
     public void successGoToDepartmentFromCatalogDrawer() {
         Shop.CatalogDrawer.open();
-        Shop.CatalogDrawer.goToDepartment("Сыры");
+        Shop.CatalogDrawer.goToDepartment("Молочные продукты");
 
         assertPageIsAvailable();
 

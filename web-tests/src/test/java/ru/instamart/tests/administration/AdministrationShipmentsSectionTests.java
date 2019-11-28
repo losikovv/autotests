@@ -6,20 +6,24 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.application.Config;
 import ru.instamart.application.Elements;
+import ru.instamart.application.lib.Pages;
 import ru.instamart.application.models.UserData;
 import ru.instamart.application.platform.modules.Administration;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.testdata.generate;
 import ru.instamart.tests.TestBase;
 
+import static ru.instamart.application.Config.TestsConfiguration.AdministrationTests.enableShipmentsSectionTests;
+
 public class AdministrationShipmentsSectionTests extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void reachAdministrationPanel() {
         kraken.reach().admin();
+        kraken.get().page(Pages.Admin.shipments());
     }
 
-    @Test(  enabled = Config.TestsConfiguration.AdministrationTests.enableShipmentsSectionTests,
+    @Test(  enabled = enableShipmentsSectionTests,
             description = "Тест валидации дефолтной странгицы списка заказаов в админке",
             groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"},
             priority = 10100
@@ -85,7 +89,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
 
     // TODO test successShowEmptySearchPlaceholder
 
-    @Test(  enabled = Config.TestsConfiguration.AdministrationTests.enableShipmentsSectionTests,
+    @Test(  enabled = enableShipmentsSectionTests,
             description = "Тест поиска заказа по номеру заказа в админке",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 10101
@@ -102,7 +106,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
                     "Не работает поиск заказа в админке, найден не тот шипмент\n");
     }
 
-    @Test(  enabled = Config.TestsConfiguration.AdministrationTests.enableShipmentsSectionTests,
+    @Test(  enabled = enableShipmentsSectionTests,
             description = "Тест поиска заказа по номеру шипмента в админке",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 10102
@@ -120,7 +124,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     }
 
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
-    @Test(  enabled = Config.TestsConfiguration.AdministrationTests.enableShipmentsSectionTests,
+    @Test(  enabled = enableShipmentsSectionTests,
             description = "Тест возобновления и отмены заказа через админку",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 10103
@@ -156,7 +160,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  enabled = Config.TestsConfiguration.AdministrationTests.enableShipmentsSectionTests,
+    @Test(  enabled = enableShipmentsSectionTests,
             description = "Тест поиска B2B заказа в админке",
             groups = {"sbermarket-regression"},
             priority = 10104

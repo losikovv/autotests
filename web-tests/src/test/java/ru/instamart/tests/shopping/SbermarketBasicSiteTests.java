@@ -86,7 +86,7 @@ public class SbermarketBasicSiteTests extends TestBase {
 
         assertPresence(Elements.Footer.customerHelpTitle());
             assertPresence(Elements.Footer.infoLink("Как мы работаем"));
-            assertPresence(Elements.Footer.infoLink("Доставка"));
+            assertPresence(Elements.Footer.infoLink("Доставка и оплата"));
             assertPresence(Elements.Footer.infoLink("Помощь"));
 
         //assertPresence(Elements.Footer.hotlinePhoneNumber());
