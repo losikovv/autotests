@@ -29,7 +29,7 @@ public class BasicShoppingTests extends TestBase {
     )
     public void noAccessToCheckoutForUnauthorizedUser() {
         assertPageIsUnavailable(
-                Pages.Site.checkout());
+                Pages.checkout());
     }
 
     @Test(
@@ -43,7 +43,7 @@ public class BasicShoppingTests extends TestBase {
         Shop.Cart.drop();
 
         assertPageIsUnavailable(
-                Pages.Site.checkout());
+                Pages.checkout());
     }
 
     @Test(
@@ -70,7 +70,7 @@ public class BasicShoppingTests extends TestBase {
                     failMessage("Не выполнены предусловия теста"));
 
         assertPageIsUnavailable(
-                Pages.Site.checkout());
+                Pages.checkout());
     }
 
     @Test(
@@ -102,7 +102,7 @@ public class BasicShoppingTests extends TestBase {
         Shop.Cart.collect();
 
         assertPageIsAvailable(
-                Pages.Site.checkout());
+                Pages.checkout());
     }
 
     @Test(

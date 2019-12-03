@@ -12,188 +12,127 @@ public class Pages {
         return new PageData("stores/21/shipping_methods");
     }
 
-    public interface Site {
+    public static PageData checkout() { return new PageData("checkout/edit"); }
 
-        static PageData checkout() {
-            return new PageData(
-                    "checkout/edit");
+    public static PageData seo_catalog() { return new PageData("categories/bakalieia/krupy/griechnievaia"); }
+
+    public interface Retailers {
+
+        static PageData metro() {
+            return new PageData( "metro");
         }
 
-        interface Retailers {
-
-            static PageData metro() {
-                return new PageData( "metro");
-            }
-
-            static PageData vkusvill() {
-                return new PageData( "vkusvill");
-            }
-
-            static PageData azbuka() {
-                return new PageData( "azbukavkusa");
-            }
-
-            static PageData lenta() {
-                return new PageData("lenta");
-            }
-
-            static PageData karusel() {
-                return new PageData( "karusel");
-            }
-
-            static PageData auchan() {
-                return new PageData( "auchan");
-            }
-
-            static PageData selgros() {
-                return new PageData( "selgros");
-            }
-
-            static PageData flora() {
-                return new PageData("flora");
-            }
-
-            static PageData foodcity() {
-                return new PageData( "foodcity");
-            }
-
-            static PageData magnit() {
-                return new PageData( "magnit");
-            }
-
-            static PageData testretailer() {
-                return new PageData( "testretailer");
-            }
+        static PageData vkusvill() {
+            return new PageData( "vkusvill");
         }
 
-        interface Catalog {
-
-            static PageData seo() {
-                return new PageData(
-                        "categories/bakalieia/krupy/griechnievaia");
-            }
-
+        static PageData azbuka() {
+            return new PageData( "azbukavkusa");
         }
 
-        interface Landings {
-
-            static PageData instamart() {
-                return new PageData(
-                        "");
-            }
-
-            static PageData mnogoru() {
-                return new PageData(
-                        "mnogoru");
-            }
-
-            static PageData aeroflot() {
-                return new PageData(
-                        "aeroflot_09-02-31-12");
-            }
-
-            static PageData sovest() {
-                return new PageData(
-                        "sovest");
-            }
-
-            static PageData halva() {
-                return new PageData(
-                        "halva");
-            }
-
-            static PageData feedback() {
-                return new PageData(
-                        "landings/feedback");
-            }
-
-            static PageData kazan() {
-                return new PageData(
-                        "cities/kazan");
-            }
-
-            static PageData mobile() {
-                return new PageData(
-                        "landings/m-general-white");
-            }
-
-            // TODO Дописать лендинг вкусвилл
-
-            // TODO Дописать лендинг метро
+        static PageData lenta() {
+            return new PageData("lenta");
         }
 
-        interface Static {
-
-            static PageData about() {
-                return new PageData(
-                        "about");
-            }
-
-            static PageData delivery() {
-                return new PageData(
-                        "delivery");
-            }
-
-            static PageData rules() {
-                return new PageData(
-                        "rules");
-            }
-
-            static PageData payment() {
-                return new PageData(
-                        "payment");
-            }
-
-            static PageData returnPolicy() {
-                return new PageData(
-                        "return");
-            }
-
-            static PageData faq() {
-                return new PageData(
-                        "faq");
-            }
-
-            static PageData terms() {
-                return new PageData(
-                        "terms");
-            }
-
-            static PageData contacts() {
-                return new PageData(
-                        "contacts");
-            }
+        static PageData karusel() {
+            return new PageData( "karusel");
         }
 
-        interface Profile {
-
-            static PageData edit() {
-                return new PageData(
-                        "user/edit");
-            }
-
-            static PageData favorites() {
-                return new PageData(
-                        "user/favorites");
-            }
-
-            static PageData orders() {
-                return new PageData(
-                        "user/orders");
-            }
-
-            static PageData addresses() {
-                return new PageData(
-                        "user/addresses");
-            }
-
-            static PageData orderDetails(String orderNumber) {
-                return new PageData(
-                        "user/orders/" + orderNumber);
-            }
-
+        static PageData auchan() {
+            return new PageData( "auchan");
         }
 
+        static PageData selgros() {
+            return new PageData( "selgros");
+        }
+
+        static PageData flora() {
+            return new PageData("flora");
+        }
+
+        static PageData foodcity() {
+            return new PageData( "foodcity");
+        }
+
+        static PageData magnit() {
+            return new PageData( "magnit");
+        }
+
+        static PageData testretailer() {
+            return new PageData( "testretailer");
+        }
+    }
+
+    public interface Landings {
+
+        static PageData mnogoru() { return new PageData("mnogoru"); }
+
+        static PageData aeroflot() { return new PageData("aeroflot_09-02-31-12"); }
+
+        static PageData sovest() { return new PageData("sovest"); }
+
+        static PageData halva() { return new PageData("halva"); }
+
+        static PageData feedback() { return new PageData("landings/feedback"); }
+
+        static PageData kazan() { return new PageData("cities/kazan"); }
+
+        static PageData mobile() { return new PageData("landings/m-general-white"); }
+
+        // TODO Дописать лендинг вкусвилл
+
+        // TODO Дописать лендинг метро
+    }
+
+    public interface Profile {
+
+        static PageData edit() { return new PageData("user/edit"); }
+
+        static PageData favorites() { return new PageData("user/favorites"); }
+
+        static PageData orders() { return new PageData("user/orders"); }
+
+        static PageData addresses() { return new PageData("user/addresses"); }
+
+        static PageData orderDetails(String orderNumber) { return new PageData("user/orders/" + orderNumber); }
+    }
+
+    public interface Sbermarket {
+
+        static PageData about() { return new PageData("about"); }
+
+        static PageData delivery() { return new PageData("delivery-sbermarket"); }
+
+        static PageData rules() { return new PageData("rules-sbermarket"); }
+
+        static PageData payment() { return new PageData("payment"); }
+
+        static PageData returnPolicy() { return new PageData("return"); }
+
+        static PageData faq() { return new PageData("faq-sbermarket"); }
+
+        static PageData terms() { return new PageData("terms-sbermarket"); }
+
+        static PageData contacts() { return new PageData("contacts"); }
+    }
+
+    public interface Metro {
+
+        static PageData about() { return new PageData("about-metro"); }
+
+        static PageData delivery() { return new PageData("delivery-metro"); }
+
+        static PageData rules() { return new PageData("rules-metro"); }
+
+        static PageData payment() { return new PageData("payment-metro"); }
+
+        static PageData returnPolicy() { return new PageData("return"); }
+
+        static PageData faq() { return new PageData("faq-metro"); }
+
+        static PageData terms() { return new PageData("terms-metro"); }
+
+        static PageData contacts() { return new PageData("contacts"); }
     }
 
     public interface Admin {

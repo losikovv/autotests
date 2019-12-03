@@ -31,7 +31,7 @@ public class SeoCatalogTests extends TestBase {
         skipTestOn(Servers.sbermarket_staging());
 
         assertPageIsAvailable(
-                Pages.Site.Catalog.seo());
+                Pages.seo_catalog());
     }
 
     @Test(  enabled = enableSeoCatalogTests,

@@ -28,7 +28,7 @@ public class OrdersRetailers extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInMetro(){
-        assertPageIsAvailable(Pages.Site.Retailers.metro());
+        assertPageIsAvailable(Pages.Retailers.metro());
         Shop.Cart.drop();
 
         Shop.Cart.collect();
@@ -48,7 +48,7 @@ public class OrdersRetailers extends TestBase {
             }
     ) public void successOrderInAuchan(){
         skipTestOn(Tenants.metro());
-        assertPageIsAvailable(Pages.Site.Retailers.auchan());
+        assertPageIsAvailable(Pages.Retailers.auchan());
         Shop.Cart.drop();
 
         Shop.Cart.collect();
@@ -68,7 +68,7 @@ public class OrdersRetailers extends TestBase {
             }
     ) public void successOrderInAzbukaVkusa(){
         skipTestOn(Tenants.metro());
-        assertPageIsAvailable(Pages.Site.Retailers.azbuka());
+        assertPageIsAvailable(Pages.Retailers.azbuka());
         Shop.Cart.drop();
 
         Shop.Cart.collect();

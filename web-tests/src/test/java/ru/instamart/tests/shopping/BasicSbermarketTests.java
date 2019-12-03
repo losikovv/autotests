@@ -8,7 +8,7 @@ import ru.instamart.tests.TestBase;
 
 import static ru.instamart.application.Tenants.metro;
 
-public class SbermarketBasicSiteTests extends TestBase {
+public class BasicSbermarketTests extends TestBase {
 
     //todo сделать отдельные тесты под тенанты
 
@@ -86,6 +86,7 @@ public class SbermarketBasicSiteTests extends TestBase {
 
         assertPresence(Elements.Footer.customerHelpTitle());
             assertPresence(Elements.Footer.infoLink("Как мы работаем"));
+            assertPresence(Elements.Footer.infoLink("Зоны доставки"));
             assertPresence(Elements.Footer.infoLink("Доставка и оплата"));
             assertPresence(Elements.Footer.infoLink("Помощь"));
 
@@ -120,9 +121,7 @@ public class SbermarketBasicSiteTests extends TestBase {
         kraken.get().baseUrl();
 
         kraken.perform().click(Elements.Footer.deliveryButton());
-        Assert.assertTrue(kraken.detect().isDeliveryModalOpen(),
-                "Не открывается модалка 'Доставка' из футера\n");
-        kraken.perform().click(Elements.Modals.DeliveryModal.closeButton());
+
         assertPageIsAvailable();
         assertPageIsAvailable();
     }
@@ -135,19 +134,19 @@ public class SbermarketBasicSiteTests extends TestBase {
         // TODO сделать отдельный тест для тенанта метро
 
         // Проверяем что доступны витрины активных ритейлеров
-        assertPageIsAvailable(Pages.Site.Retailers.metro());
-        assertPageIsAvailable(Pages.Site.Retailers.auchan());
-        assertPageIsAvailable(Pages.Site.Retailers.azbuka());
-        assertPageIsAvailable(Pages.Site.Retailers.vkusvill());
+        assertPageIsAvailable(Pages.Retailers.metro());
+        assertPageIsAvailable(Pages.Retailers.auchan());
+        assertPageIsAvailable(Pages.Retailers.azbuka());
+        assertPageIsAvailable(Pages.Retailers.vkusvill());
 
         // Проверяем что недоступны витрины неактивных ритейлеров
-        assertPageIs404(Pages.Site.Retailers.lenta());
-        assertPageIs404(Pages.Site.Retailers.karusel());
-        assertPageIs404(Pages.Site.Retailers.selgros());
-        assertPageIs404(Pages.Site.Retailers.flora());
-        assertPageIs404(Pages.Site.Retailers.foodcity());
-        assertPageIs404(Pages.Site.Retailers.magnit());
-        assertPageIs404(Pages.Site.Retailers.testretailer());
+        assertPageIs404(Pages.Retailers.lenta());
+        assertPageIs404(Pages.Retailers.karusel());
+        assertPageIs404(Pages.Retailers.selgros());
+        assertPageIs404(Pages.Retailers.flora());
+        assertPageIs404(Pages.Retailers.foodcity());
+        assertPageIs404(Pages.Retailers.magnit());
+        assertPageIs404(Pages.Retailers.testretailer());
     }
 
     @Test(
@@ -155,8 +154,8 @@ public class SbermarketBasicSiteTests extends TestBase {
             priority = 104,
             groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     ) public void successCheckPartnerLandingsAreAvailable() {
-        assertPageIsAvailable(Pages.Site.Landings.mnogoru());
-        assertPageIsAvailable(Pages.Site.Landings.aeroflot());
+        assertPageIsAvailable(Pages.Landings.mnogoru());
+        assertPageIsAvailable(Pages.Landings.aeroflot());
     }
 
     @Test(
@@ -167,13 +166,13 @@ public class SbermarketBasicSiteTests extends TestBase {
                     "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successCheckStaticPagesAreAvailabile() {
-        assertPageIsAvailable(Pages.Site.Static.about());
-        assertPageIsAvailable(Pages.Site.Static.delivery());
-        assertPageIsAvailable(Pages.Site.Static.rules());
-        assertPageIsAvailable(Pages.Site.Static.payment());
-        assertPageIsAvailable(Pages.Site.Static.returnPolicy());
-        assertPageIsAvailable(Pages.Site.Static.faq());
-        assertPageIsAvailable(Pages.Site.Static.terms());
-        assertPageIsAvailable(Pages.Site.Static.contacts());
+        assertPageIsAvailable(Pages.Sbermarket.about());
+        assertPageIsAvailable(Pages.Sbermarket.delivery());
+        assertPageIsAvailable(Pages.Sbermarket.rules());
+        assertPageIsAvailable(Pages.Sbermarket.payment());
+        assertPageIsAvailable(Pages.Sbermarket.returnPolicy());
+        assertPageIsAvailable(Pages.Sbermarket.faq());
+        assertPageIsAvailable(Pages.Sbermarket.terms());
+        assertPageIsAvailable(Pages.Sbermarket.contacts());
     }
 }

@@ -49,7 +49,7 @@ public class ShoppingCatalogTests extends TestBase {
     )
     public void successGoToDepartmentFromCatalogDrawer() {
         Shop.CatalogDrawer.open();
-        Shop.CatalogDrawer.goToDepartment("Молочные продукты");
+        Shop.CatalogDrawer.goToDepartment("Овощи и фрукты");
 
         assertPageIsAvailable();
 

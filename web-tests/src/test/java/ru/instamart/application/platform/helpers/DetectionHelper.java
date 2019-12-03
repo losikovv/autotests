@@ -132,7 +132,7 @@ public class DetectionHelper extends HelperBase {
      * Определить находимся в списке любимых товаров или нет
      */
     public boolean isInFavorites() {
-        return kraken.grab().currentURL().equals(baseUrl + Pages.Site.Profile.favorites().getPath());
+        return kraken.grab().currentURL().equals(baseUrl + Pages.Profile.favorites().getPath());
     }
 
     /**

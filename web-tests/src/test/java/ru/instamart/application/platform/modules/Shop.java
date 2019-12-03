@@ -628,7 +628,7 @@ public class Shop extends Base {
                 Cart.close();
                 if(!kraken.detect().isProductAvailable()) {
                     message(" > Нет товаров на текущей странице " + kraken.grab().currentURL());
-                    kraken.get().page(Pages.Site.Retailers.metro());}
+                    kraken.get().page(Pages.Retailers.metro());}
                 Catalog.Item.open();
                 int itemPrice = kraken.grab().itemPriceRounded();
 

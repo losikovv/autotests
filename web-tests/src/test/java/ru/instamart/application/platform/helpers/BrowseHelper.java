@@ -52,7 +52,7 @@ public class BrowseHelper extends HelperBase {
 
     /** Перейти на страницу любимых товаров */
     public void favoritesPage() {
-        page(Pages.Site.Profile.favorites());
+        page(Pages.Profile.favorites());
         kraken.await().implicitly(2); // Ожидание загрузки Любимых товаров
     }
 
@@ -85,7 +85,7 @@ public class BrowseHelper extends HelperBase {
 
     /** Перейти на страницу SEO-каталога */
     public void seoCatalogPage() {
-        page(Pages.Site.Catalog.seo());
+        page(Pages.seo_catalog());
         kraken.await().implicitly(1); // Ожидание загрузки SEO-каталога
     }
 

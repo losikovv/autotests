@@ -189,9 +189,9 @@ public class UserProfileTests extends TestBase {
             }
     ) public void successCheckProfilePagesAreAvailable() {
         // TODO переделать на assertPagesAvailable(Pages.Site.Profile.*)
-        assertPageIsAvailable(Pages.Site.Profile.edit());
-        assertPageIsAvailable(Pages.Site.Profile.favorites());
-        assertPageIsAvailable(Pages.Site.Profile.orders());
-        assertPageIsAvailable(Pages.Site.Profile.addresses());
+        assertPageIsAvailable(Pages.Profile.edit());
+        assertPageIsAvailable(Pages.Profile.favorites());
+        assertPageIsAvailable(Pages.Profile.orders());
+        assertPageIsAvailable(Pages.Profile.addresses());
     }
 }

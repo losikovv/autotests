@@ -415,12 +415,12 @@ public class Elements {
         }
 
         static ElementData facebookButton() {
-            return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='https://www.facebook.com/instamart.ru']"),
+            return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='https://www.facebook.com/sbermarket.ru']"),
                     "кнопка \"Facebook\" в футере");
         }
 
         static ElementData vkontakteButton() {
-            return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='http://vk.com/instamart']"),
+            return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='http://vk.com/sbermarket_ru']"),
                     "кнопка \"Вконтакте\" в футере");
         }
 

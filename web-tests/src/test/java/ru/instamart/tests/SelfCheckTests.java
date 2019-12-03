@@ -30,8 +30,8 @@ public class SelfCheckTests extends TestBase {
         kraken.get().page("metro");
         Assert.assertEquals(kraken.grab().currentURL() , kraken.grab().fullBaseUrl + "metro");
 
-        kraken.get().page(Pages.Site.Static.faq());
-        Assert.assertEquals(kraken.grab().currentURL() , kraken.grab().fullBaseUrl + Pages.Site.Static.faq().getPath());
+        kraken.get().page(Pages.Sbermarket.faq());
+        Assert.assertEquals(kraken.grab().currentURL() , kraken.grab().fullBaseUrl + Pages.Sbermarket.faq().getPath());
     }
 
     @Test(description = "Тест корректности определения модалки авторизации/регистрации",
@@ -59,7 +59,7 @@ public class SelfCheckTests extends TestBase {
     @Test(description = "Тест корректности определения авторизованности пользователя",
             groups ="selfcheck",
             priority = 10003)
-    public void detectAuthorisation() throws Exception {
+    public void detectAuthorisation() {
 
         kraken.drop().auth();
 
@@ -81,7 +81,7 @@ public class SelfCheckTests extends TestBase {
     @Test(description = "Тест корректности определения меню Профиль",
             groups ="selfcheck",
             priority = 10004)
-    public void detectAccountMenu() throws Exception {
+    public void detectAccountMenu() {
 
         kraken.get().baseUrl();
         User.Do.loginAs(session.admin);
@@ -108,9 +108,9 @@ public class SelfCheckTests extends TestBase {
     @Test(description = "Тест корректности определения что находимся на сайте",
             groups ="selfcheck",
             priority = 10006)
-    public void detectIsOnSite() throws Exception {
+    public void detectIsOnSite() {
 
-        kraken.get().page(Pages.Site.Static.faq());
+        kraken.get().page(Pages.Sbermarket.faq());
         Assert.assertTrue(kraken.detect().isOnSite());
 
         User.Do.loginAs(session.admin);
@@ -121,9 +121,9 @@ public class SelfCheckTests extends TestBase {
     @Test(description = "Тест корректности определения что находимся в админке",
             groups ="selfcheck",
             priority = 10007)
-    public void detectIsInAdmin() throws Exception {
+    public void detectIsInAdmin() {
 
-        kraken.get().page(Pages.Site.Static.contacts());
+        kraken.get().page(Pages.Sbermarket.contacts());
         Assert.assertFalse(kraken.detect().isInAdmin());
 
         User.Do.loginAs(session.admin);
@@ -367,17 +367,17 @@ public class SelfCheckTests extends TestBase {
     public void checkAsserts() {
 
         assertTransition("https://instamart.ru/auchan");
-        assertTransition(Pages.Site.Retailers.vkusvill());
+        assertTransition(Pages.Retailers.vkusvill());
 
         assertPageIsAvailable("https://instamart.ru/auchan");
-        assertPageIsAvailable(Pages.Site.Static.contacts());
+        assertPageIsAvailable(Pages.Sbermarket.contacts());
         assertPageIsAvailable();
 
         assertPageIs404(Pages.page404());
         assertPageIs404("https://instamart.ru/nowhere");
         assertPageIs404();
 
-        assertPageIsUnavailable(Pages.Site.checkout());
+        assertPageIsUnavailable(Pages.checkout());
         assertPageIsUnavailable("https://instamart.ru/checkout/edit");
     }
 }

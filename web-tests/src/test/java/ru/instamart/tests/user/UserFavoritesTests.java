@@ -27,7 +27,7 @@ public class UserFavoritesTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"}
     )
     public void noAccessToFavoritesForUnauthorizedUser(){
-        assertPageIsUnavailable(Pages.Site.Profile.favorites());
+        assertPageIsUnavailable(Pages.Profile.favorites());
     }
 
     @Test(  description = "Переход в любимые товары по кнопке",
@@ -71,7 +71,7 @@ public class UserFavoritesTests extends TestBase {
     public void successAddFavoriteOnItemCard() {
         User.Do.loginAs(session.user);
         kraken.drop().favorites();
-        kraken.get().page(Pages.Site.Retailers.metro());
+        kraken.get().page(Pages.Retailers.metro());
 
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToFavorites();
@@ -92,7 +92,7 @@ public class UserFavoritesTests extends TestBase {
     public void successAddFavoriteFromCatalog() {
         User.Do.loginAs(session.user);
         kraken.drop().favorites();
-        kraken.get().page(Pages.Site.Retailers.metro());
+        kraken.get().page(Pages.Retailers.metro());
 
         Shop.Catalog.Item.addToCart();
 
@@ -110,7 +110,7 @@ public class UserFavoritesTests extends TestBase {
     public void successDeleteFavoriteOnItemCard() {
         User.Do.loginAs(session.user);
         kraken.drop().favorites();
-        kraken.get().page(Pages.Site.Retailers.metro());
+        kraken.get().page(Pages.Retailers.metro());
 
         Shop.Catalog.Item.addToFavorites();
         Shop.Catalog.Item.open();
@@ -132,7 +132,7 @@ public class UserFavoritesTests extends TestBase {
         if (!kraken.detect().isFavoritesEmpty()) {
             kraken.drop().favorites();
         } else {
-            kraken.get().page(Pages.Site.Retailers.metro());
+            kraken.get().page(Pages.Retailers.metro());
             Shop.Catalog.Item.addToFavorites();
             kraken.get().favoritesPage();
             Shop.Favorites.Item.removeFromFavorites();
@@ -254,7 +254,7 @@ public class UserFavoritesTests extends TestBase {
     public void successRegAfterAddFavoriteOnCatalog() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page(Pages.Site.Retailers.metro());
+        kraken.get().page(Pages.Retailers.metro());
         Shop.Catalog.Item.addToFavorites();
 
         softAssert.assertTrue(
@@ -280,7 +280,7 @@ public class UserFavoritesTests extends TestBase {
     public void successRegAfterAddFavoriteOnItemCard() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page(Pages.Site.Retailers.metro());
+        kraken.get().page(Pages.Retailers.metro());
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToFavorites();
 
@@ -307,7 +307,7 @@ public class UserFavoritesTests extends TestBase {
     public void successAuthAfterAddFavoriteOnCatalog() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page(Pages.Site.Retailers.metro());
+        kraken.get().page(Pages.Retailers.metro());
         Shop.Catalog.Item.addToFavorites();
 
         softAssert.assertTrue(
@@ -334,7 +334,7 @@ public class UserFavoritesTests extends TestBase {
     public void successAuthAfterAddFavoriteOnItemCard() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page(Pages.Site.Retailers.metro());
+        kraken.get().page(Pages.Retailers.metro());
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToFavorites();
 
