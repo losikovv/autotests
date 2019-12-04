@@ -64,18 +64,17 @@ public class BrowseHelper extends HelperBase {
     public void adminPage(String path) {
         switch(kraken.server.getEnvironment()) {
             case "production" :
-                url( Servers.sbermarket_production().getBaseURL(true)+ "admin/" + path);
+                url( Servers.instamart_production().getBaseURL(true)+ "admin/" + path);
                 break;
             case "preprod" :
                 url( Servers.sbermarket_preprod().getBaseURL(true)+ "admin/" + path);
                 break;
             case "staging" :
-                url( Servers.sbermarket_staging().getBaseURL(true)+ "admin/" + path);
+                url( Servers.instamart_staging().getBaseURL(true)+ "admin/" + path);
                 break;
 
             default: throw new AssertionError("Неопределенное окружение");
         }
-
     }
 
     /** Перейти на страницу заказа в админке */

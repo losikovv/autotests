@@ -162,7 +162,6 @@ public class BasicSbermarketTests extends TestBase {
             description = "Тест доступности статических страниц",
             priority = 105,
             groups = {
-                    "metro-smoke","metro-acceptance","metro-regression",
                     "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successCheckStaticPagesAreAvailabile() {
