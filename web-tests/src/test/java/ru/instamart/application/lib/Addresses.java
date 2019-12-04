@@ -128,5 +128,19 @@ public abstract class Addresses {
 
         public static String defaultAddress() { return addressString = "Челябинск, ул Ленина, д 10"; }
     }
+
+    public static class Tyumen extends Addresses {
+
+        Tyumen(String address) {super(address); }
+
+        public static String defaultAddress() { return addressString = "Тюмень, ул Абалакская, д 12"; }
+    }
+
+    public static class Perm extends Addresses {
+
+        Perm(String address) {super(address); }
+
+        public static String defaultAddress() { return addressString = "Пермь, ул Абаканская, д 10"; }
+    }
 }
 

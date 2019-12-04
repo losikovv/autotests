@@ -11,7 +11,7 @@ public class Config {
 
     public interface CoreSettings {
         String browser = BrowserType.FIREFOX;
-        ServerData server = Servers.metro_production();
+        ServerData server = Servers.sbermarket_staging();
 
         int basicTimeout = 2;
         int waitingTimeout = 20;
@@ -43,7 +43,7 @@ public class Config {
         }
 
         interface OrdersTests {
-            boolean enableOrderCitiesTests = false;
+            boolean enableOrderCitiesTests = true;
             boolean enableOrderBonusesTests = true;
             boolean enableOrderReplacementsTests = true;
             boolean enableOrderRepeatTests = true;

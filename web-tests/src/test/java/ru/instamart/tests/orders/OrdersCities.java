@@ -298,6 +298,47 @@ public class OrdersCities extends TestBase {
         kraken.perform().cancelLastOrder();
     }
 
+    @Test(enabled = enableOrderCitiesTests,
+            description = "Тест заказа в METRO в Тюмени",
+            priority = 2315,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInTyumen() {
+        User.ShippingAddress.change(Addresses.Tyumen.defaultAddress());
+
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderActive(),
+                    failMessage("Не удалось оформить заказ в METRO в Тюмени"));
+
+        kraken.perform().cancelLastOrder();
+    }
+
+    @Test(enabled = enableOrderCitiesTests,
+            description = "Тест заказа в METRO в Перми",
+            priority = 2316,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInPerm() {
+        User.ShippingAddress.change(Addresses.Perm.defaultAddress());
+
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderActive(),
+                    failMessage("Не удалось оформить заказ в METRO в Gthvb"));
+
+        kraken.perform().cancelLastOrder();
+    }
 
     @AfterMethod(alwaysRun = true)
     public void postconditions() {
