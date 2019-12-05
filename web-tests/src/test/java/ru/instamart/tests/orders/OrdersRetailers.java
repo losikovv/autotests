@@ -1,12 +1,16 @@
 package ru.instamart.tests.orders;
 
 import org.testng.Assert;
-import org.testng.annotations.*;
-import ru.instamart.application.lib.Addresses;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import ru.instamart.application.AppManager;
 import ru.instamart.application.Tenants;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
+import ru.instamart.application.rest.RestAddresses;
+import ru.instamart.application.rest.RestRetailers;
 import ru.instamart.tests.TestBase;
 
 import static ru.instamart.application.Config.TestsConfiguration.OrdersTests.enableOrderRetailersTests;
@@ -16,8 +20,7 @@ public class OrdersRetailers extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         kraken.get().baseUrl();
-        User.Do.loginAs(kraken.session.admin);
-        User.ShippingAddress.change(Addresses.Moscow.testAddress());
+        User.Do.loginAs(AppManager.session.admin);
     }
 
     @Test(enabled = enableOrderRetailersTests,
@@ -29,9 +32,9 @@ public class OrdersRetailers extends TestBase {
             }
     ) public void successOrderInMetro(){
         assertPageIsAvailable(Pages.Retailers.metro());
-        Shop.Cart.drop();
 
-        Shop.Cart.collect();
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), RestRetailers.metro);
+
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -49,9 +52,9 @@ public class OrdersRetailers extends TestBase {
     ) public void successOrderInAuchan(){
         skipTestOn(Tenants.metro());
         assertPageIsAvailable(Pages.Retailers.auchan());
-        Shop.Cart.drop();
 
-        Shop.Cart.collect();
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), RestRetailers.auchan);
+
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -69,9 +72,9 @@ public class OrdersRetailers extends TestBase {
     ) public void successOrderInAzbukaVkusa(){
         skipTestOn(Tenants.metro());
         assertPageIsAvailable(Pages.Retailers.azbuka());
-        Shop.Cart.drop();
 
-        Shop.Cart.collect();
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), RestRetailers.azbuka);
+
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
@@ -80,8 +83,28 @@ public class OrdersRetailers extends TestBase {
                     failMessage("Не удалось оформить заказ в Азбука Вкуса Москва"));
     }
 
+    @Test(enabled = enableOrderRetailersTests,
+            description = "Тестовый заказ в Вкусвилл Москва",
+            priority = 2404,
+            groups = {
+                    "sbermarket-acceptance","sbermarket-regression"
+            }
+    ) public void successOrderInVkusvill(){
+        skipTestOn(Tenants.metro());
+        assertPageIsAvailable(Pages.Retailers.vkusvill());
+
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), RestRetailers.vkusvill);
+
+        Shop.Cart.proceedToCheckout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderActive(),
+                failMessage("Не удалось оформить заказ в Вкусвилл Москва"));
+    }
+
     @AfterMethod(alwaysRun = true)
     public void postconditions() {
-        kraken.perform().cancelLastOrder();
+        kraken.rest().cancelCurrentOrder();
     }
 }

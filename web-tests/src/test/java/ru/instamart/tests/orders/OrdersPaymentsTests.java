@@ -3,23 +3,26 @@ package ru.instamart.tests.orders;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.application.lib.Addresses;
-import ru.instamart.application.lib.Pages;
+import ru.instamart.application.AppManager;
 import ru.instamart.application.lib.PaymentTypes;
-import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
+import ru.instamart.application.rest.RestAddresses;
 import ru.instamart.tests.TestBase;
 
 public class OrdersPaymentsTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        kraken.get().page(Pages.Retailers.metro());
-        User.Do.loginAs(kraken.session.admin);
-        User.ShippingAddress.change(Addresses.Moscow.testAddress());
-        kraken.get().page("metro");
-        Shop.Cart.drop();
+        kraken.get().baseUrl();
+        User.Do.loginAs(AppManager.session.admin);
+    }
+
+    @BeforeMethod(alwaysRun = true)
+    public void preconditions() {
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.learningCenter());
+        kraken.reach().checkout();
     }
 
 
@@ -29,7 +32,6 @@ public class OrdersPaymentsTests extends TestBase {
             priority = 2101
     )
     public void successOrderWithCashAndCheckDocuments() {
-        kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cash());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -51,7 +53,6 @@ public class OrdersPaymentsTests extends TestBase {
             priority = 2102
     )
     public void successOrderWithCardOnlineAndCheckDocuments() {
-        kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cardOnline());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -73,7 +74,6 @@ public class OrdersPaymentsTests extends TestBase {
             priority = 2103
     )
     public void successOrderWithCardCourierAndCheckDocuments() {
-        kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cardCourier());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -95,7 +95,6 @@ public class OrdersPaymentsTests extends TestBase {
             priority = 2104
     )
     public void successOrderWithBankTransferAndCheckDocuments() {
-        kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
@@ -109,6 +108,6 @@ public class OrdersPaymentsTests extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void postconditions() {
-        kraken.perform().cancelLastOrder();
+        kraken.rest().cancelCurrentOrder();
     }
 }

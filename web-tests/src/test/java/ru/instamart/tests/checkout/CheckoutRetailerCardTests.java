@@ -1,7 +1,9 @@
 package ru.instamart.tests.checkout;
 
 import org.testng.annotations.BeforeClass;
+import ru.instamart.application.AppManager;
 import ru.instamart.application.platform.modules.User;
+import ru.instamart.application.rest.RestAddresses;
 import ru.instamart.tests.TestBase;
 
 public class CheckoutRetailerCardTests extends TestBase {
@@ -9,7 +11,9 @@ public class CheckoutRetailerCardTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void prepareForCheckout() {
         kraken.get().baseUrl();
-        User.Do.loginAs(kraken.session.admin);
+        User.Do.loginAs(AppManager.session.admin);
+
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
     }
 
     // TODO написать тесты добавления карты ритейлера (priority = 1800)

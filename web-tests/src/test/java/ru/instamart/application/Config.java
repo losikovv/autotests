@@ -16,11 +16,11 @@ public class Config {
         int basicTimeout = 2;
         int waitingTimeout = 20;
 
-        boolean verbose = true;
+        boolean verbose = false;
         boolean debug = false;
         boolean multiSessionMode = false;
         boolean fullScreenMode = false;
-        boolean doCleanupAfterTestRun = true;
+        boolean doCleanupAfterTestRun = false;
     }
 
     public interface TestsConfiguration {
@@ -68,19 +68,22 @@ public class Config {
     public interface TestVariables {
 
         interface CompanyParams {
-            String companyName = "instamart";
+            String companyName = "sbermarket";
             String companyDomain = companyName + ".ru";
             String companyHotlinePhoneNumber = "+7 800 222-11-00";
             String companyHotlinePhoneLink = "tel:+78002221100";
             String companyHotlineWorkhours = "с 5:00 до 1:00";
             String companyHotlineWorkhoursShort = "5:00 - 1:00";
+            String companyFacebookLink = "https://www.facebook.com/sbermarket.ru/";
+            String companyVkontakteLink = "http://vk.com/sbermarket_ru";
+            String companyTwitterLink = "https://twitter.com/sbermarket_ru";
+            String companyInstagramLink = "https://www.instagram.com/sbermarket.ru/";
+            String companyAdjustFooterAppLink = "https://app.adjust.com/kfrpj8y?campaign=footer";
         }
 
         interface TestParams {
             String testDomain = "example.com";
             String testMark = "autotest";
-            String testOrder = "R384014557";
-            String testShipment = "H44617031667";
         }
 
         // TODO убрать, определять стоимость доставки во время тестов

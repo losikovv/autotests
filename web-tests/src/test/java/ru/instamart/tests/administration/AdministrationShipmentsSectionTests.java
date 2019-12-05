@@ -95,15 +95,17 @@ public class AdministrationShipmentsSectionTests extends TestBase {
             priority = 10101
     )
     public void successSearchOrderByOrderNumber() {
-        Administration.Orders.searchOrder(Config.TestVariables.TestParams.testOrder);
+        final String orderNumber = kraken.grab().text(Elements.Administration.ShipmentsSection.firstOrderNumberInTable());
+
+        Administration.Orders.searchOrder(orderNumber);
 
         Assert.assertFalse(
                 kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.placeholder()),
                     "Не работает поиск заказа в админке, пустой результат поиска\n");
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.ShipmentsSection.firstOrderNumberInTable()), Config.TestVariables.TestParams.testOrder,
-                    "Не работает поиск заказа в админке, найден не тот шипмент\n");
+                kraken.grab().text(Elements.Administration.ShipmentsSection.firstOrderNumberInTable()), orderNumber,
+                    "Не работает поиск заказа в админке, найден не тот ордер\n");
     }
 
     @Test(  enabled = enableShipmentsSectionTests,
@@ -112,14 +114,16 @@ public class AdministrationShipmentsSectionTests extends TestBase {
             priority = 10102
     )
     public void successSearchOrderByShipmentNumber() {
-        Administration.Orders.searchOrder(Config.TestVariables.TestParams.testShipment);
+        String shipmentNumber = kraken.grab().text(Elements.Administration.ShipmentsSection.firstShipmentNumberInTable());
+
+        Administration.Orders.searchOrder(shipmentNumber);
 
         Assert.assertFalse(
                 kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.placeholder()),
                     "Не работает поиск шипмента в админке, пустой результат поиска\n");
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.ShipmentsSection.firstShipmentNumberInTable()), Config.TestVariables.TestParams.testShipment,
+                kraken.grab().text(Elements.Administration.ShipmentsSection.firstShipmentNumberInTable()), shipmentNumber,
                     "Не работает поиск шипмента в админке, найден не тот шипмент\n");
     }
 

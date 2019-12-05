@@ -5,14 +5,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.application.lib.Addresses;
-import ru.instamart.application.lib.BonusPrograms;
+import ru.instamart.application.AppManager;
 import ru.instamart.application.Elements;
+import ru.instamart.application.lib.BonusPrograms;
 import ru.instamart.application.lib.Pages;
-import ru.instamart.application.platform.modules.Administration;
 import ru.instamart.application.platform.modules.Checkout;
-import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
+import ru.instamart.application.rest.RestAddresses;
 import ru.instamart.tests.TestBase;
 
 import static ru.instamart.application.Config.TestsConfiguration.OrdersTests.enableOrderBonusesTests;
@@ -21,14 +20,13 @@ public class OrdersBonusesTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        kraken.get().baseUrl();
-        User.Do.loginAs(kraken.session.admin);
-        User.ShippingAddress.change(Addresses.Moscow.defaultAddress());
-        Shop.Cart.drop();
+        User.Do.loginAs(AppManager.session.admin);
     }
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+
         kraken.reach().checkout();
         Checkout.Bonuses.deleteAll();
     }
@@ -70,6 +68,6 @@ public class OrdersBonusesTests extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void postconditions() {
-        Administration.Orders.cancelOrder();
+        kraken.rest().cancelCurrentOrder();
     }
 }

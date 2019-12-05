@@ -3,9 +3,11 @@ package ru.instamart.tests.checkout;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.application.AppManager;
 import ru.instamart.application.lib.Promos;
 import ru.instamart.application.platform.modules.Checkout;
 import ru.instamart.application.platform.modules.User;
+import ru.instamart.application.rest.RestAddresses;
 import ru.instamart.tests.TestBase;
 
 public class CheckoutPromocodeTests extends TestBase {
@@ -13,7 +15,9 @@ public class CheckoutPromocodeTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void prepareForCheckout() {
         kraken.get().baseUrl();
-        User.Do.loginAs(kraken.session.admin);
+        User.Do.loginAs(AppManager.session.admin);
+
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
     }
 
     @Test(

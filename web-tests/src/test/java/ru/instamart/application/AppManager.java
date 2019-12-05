@@ -14,6 +14,7 @@ import ru.instamart.application.platform.modules.Checkout;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.models.ServerData;
 import ru.instamart.application.models.SessionData;
+import ru.instamart.application.rest.RestHelper;
 import ru.instamart.testdata.generate;
 
 import java.io.BufferedReader;
@@ -48,6 +49,7 @@ public class AppManager {
     private Administration administrationHelper;
     private CleanupHelper cleanupHelper;
     private WaitingHelper waitingHelper;
+    private RestHelper restHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
 
@@ -116,6 +118,7 @@ public class AppManager {
         administrationHelper = new Administration(driver, server, this);
         cleanupHelper = new CleanupHelper(driver, server, this);
         waitingHelper = new WaitingHelper(driver, server, this);
+        restHelper = new RestHelper();
     }
 
     private void applyOptions() {
@@ -164,4 +167,5 @@ public class AppManager {
     public Administration admin() { return administrationHelper; }
     public CleanupHelper cleanup() { return cleanupHelper; }
     public WaitingHelper await() { return waitingHelper; }
+    public RestHelper rest() { return restHelper; }
 }

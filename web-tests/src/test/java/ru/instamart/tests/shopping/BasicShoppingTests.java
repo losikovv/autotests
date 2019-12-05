@@ -10,6 +10,7 @@ import ru.instamart.application.lib.Pages;
 import ru.instamart.application.models.UserData;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
+import ru.instamart.application.rest.RestAddresses;
 import ru.instamart.testdata.generate;
 import ru.instamart.tests.TestBase;
 
@@ -38,9 +39,9 @@ public class BasicShoppingTests extends TestBase {
             priority = 652
     )
     public void noAccessToCheckoutWithEmptyCart() {
-        User.Do.loginAs(AppManager.session.admin);
-        kraken.get().page("metro");
-        Shop.Cart.drop();
+        User.Do.loginAs(AppManager.session.user);
+
+        kraken.rest().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
 
         assertPageIsUnavailable(
                 Pages.checkout());
@@ -53,10 +54,9 @@ public class BasicShoppingTests extends TestBase {
     )
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
         User.Do.loginAs(AppManager.session.user);
-        kraken.get().page("metro");
 
         if (kraken.detect().isCheckoutButtonActive()) {
-            Shop.Cart.drop();
+            kraken.rest().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
         }
 
         if (kraken.detect().isCartEmpty()) {
@@ -65,6 +65,7 @@ public class BasicShoppingTests extends TestBase {
             Shop.Catalog.Item.addToCart();
         }
 
+        kraken.get().page("metro");
         Assert.assertTrue(
                 !kraken.detect().isCartEmpty() && !kraken.detect().isCheckoutButtonActive(),
                     failMessage("Не выполнены предусловия теста"));
@@ -80,11 +81,10 @@ public class BasicShoppingTests extends TestBase {
     )
     public void successCollectItemsForMinOrder() {
         User.Do.loginAs(AppManager.session.user);
-        Shop.Cart.drop();
+
+        kraken.rest().fillCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
+
         kraken.get().page("metro");
-
-        Shop.Cart.collect();
-
         Assert.assertTrue(
                 kraken.detect().isCheckoutButtonActive(),
                     failMessage("Кнопка чекаута не активна, при минимальной сумме заказа в корзине"));
@@ -97,9 +97,8 @@ public class BasicShoppingTests extends TestBase {
     )
     public void successGetCheckoutPageWithCartAboveMinimalOrderSum() {
         User.Do.loginAs(AppManager.session.user);
-        kraken.get().page("metro");
 
-        Shop.Cart.collect();
+        kraken.rest().fillCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
 
         assertPageIsAvailable(
                 Pages.checkout());
@@ -112,9 +111,9 @@ public class BasicShoppingTests extends TestBase {
     )
     public void successProceedFromCartToCheckout() {
         User.Do.loginAs(AppManager.session.user);
-        kraken.get().page("metro");
-        Shop.Cart.collect();
+        kraken.rest().fillCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
 
+        kraken.get().page("metro");
         Shop.Cart.proceedToCheckout();
 
         Assert.assertTrue(

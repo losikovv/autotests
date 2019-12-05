@@ -4,9 +4,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.application.Elements;
+import ru.instamart.application.models.UserData;
 import ru.instamart.application.platform.modules.Checkout;
-import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
+import ru.instamart.application.rest.RestAddresses;
 import ru.instamart.tests.TestBase;
 
 import static ru.instamart.application.Config.TestsConfiguration.CheckoutTests.enableContactsStepTests;
@@ -16,8 +17,9 @@ public class CheckoutContactsStepTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void preparingForCheckout() {
         User.Logout.quickly();
-        User.Do.registration();
-        Shop.Cart.collect();
+        UserData user = User.Do.registration();
+
+        kraken.rest().fillCart(user, RestAddresses.Moscow.defaultAddress());
     }
 
     @BeforeMethod(alwaysRun = true)

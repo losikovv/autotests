@@ -6,8 +6,8 @@ import org.testng.annotations.Test;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Elements;
 import ru.instamart.application.Tenants;
-import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
+import ru.instamart.application.rest.RestAddresses;
 import ru.instamart.tests.TestBase;
 
 public class BasicCheckoutTests extends TestBase {
@@ -16,7 +16,8 @@ public class BasicCheckoutTests extends TestBase {
     public void preparingForCheckout() {
         User.Logout.quickly();
         User.Do.loginAs(AppManager.session.user);
-        Shop.Cart.collect();
+
+        kraken.rest().fillCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
     }
 
     @BeforeMethod(alwaysRun = true)

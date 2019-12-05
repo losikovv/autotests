@@ -5,6 +5,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.application.AppManager;
 import ru.instamart.application.Elements;
 import ru.instamart.application.Servers;
 import ru.instamart.application.lib.*;
@@ -14,6 +15,7 @@ import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.models.PaymentCardData;
 import ru.instamart.application.models.JuridicalData;
 import ru.instamart.application.models.UserData;
+import ru.instamart.application.rest.RestAddresses;
 import ru.instamart.testdata.generate;
 import ru.instamart.tests.TestBase;
 
@@ -40,9 +42,9 @@ public class BasicOrdersTests extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
         kraken.get().baseUrl();
-        User.Do.loginAs(kraken.session.admin);
-        User.ShippingAddress.change(Addresses.Moscow.testAddress());
-        Shop.Cart.drop();
+        User.Do.loginAs(AppManager.session.admin);
+
+        kraken.rest().dropCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
     }
     // TODO Тесты на изменение телефона и контактов
 
@@ -55,6 +57,8 @@ public class BasicOrdersTests extends TestBase {
             priority = 2000
     )
     public void successCompleteCheckoutWithNewJuridical() {
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+
         JuridicalData juridicalData = new JuridicalData(
                 "ООО \"Новый Пользователь\"",
                 generate.string(8),
@@ -86,6 +90,8 @@ public class BasicOrdersTests extends TestBase {
             priority = 2001
     )
     public void successCompleteCheckoutWithChangeJuridical() {
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+
         JuridicalData juridicalData = new JuridicalData(
                 "ООО \"Измененный Пользователь\"",
                 generate.string(8),
@@ -117,6 +123,8 @@ public class BasicOrdersTests extends TestBase {
             priority = 2002
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+
         runTestOnlyOn(Servers.sbermarket_staging());
         PaymentCardData creditCardData = Config.TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
 

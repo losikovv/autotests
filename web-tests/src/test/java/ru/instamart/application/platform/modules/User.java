@@ -102,8 +102,10 @@ public class User extends Base {
         /**
          * Зарегистрировать тестового юзера со сгенерированными реквизитами
          */
-        public static void registration() {
-            registration(generate.testCredentials("user"));
+        public static UserData registration() {
+            UserData data = generate.testCredentials("user");
+            registration(data);
+            return data;
         }
 
         /**

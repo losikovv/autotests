@@ -7,10 +7,7 @@ import ru.instamart.application.models.PaymentCardData;
 import ru.instamart.application.models.ElementData;
 import ru.instamart.application.models.JuridicalData;
 
-import static ru.instamart.application.Config.TestVariables.CompanyParams.companyHotlineWorkhours;
-import static ru.instamart.application.Config.TestVariables.CompanyParams.companyHotlineWorkhoursShort;
-import static ru.instamart.application.Config.TestVariables.CompanyParams.companyHotlinePhoneLink;
-import static ru.instamart.application.Config.TestVariables.CompanyParams.companyHotlinePhoneNumber;
+import static ru.instamart.application.Config.TestVariables.CompanyParams.*;
 
 public class Elements {
 
@@ -239,7 +236,7 @@ public class Elements {
                             "логотип компании в шапке сайта");
             }
 
-            private static ElementData infoButton(String name) {
+            static ElementData infoButton(String name) {
                 return new ElementData(
                        By.xpath("//header//*[contains(text(),'" + name + "')]//ancestor::*[@data-qa='header-navbar-button']"),
                            "инфокнопка '" + name + "' в шапке сайта");
@@ -358,17 +355,17 @@ public class Elements {
 
         static ElementData instamartLogo() {
             return new ElementData(By.xpath("//footer//div[@class='footer__logo']"),
-                    "логотип \"Сбермаркет\" в футере");
+                    "логотип 'Сбермаркет' в футере");
         }
 
         static ElementData infoLink(String name) {
             return new ElementData(By.xpath("//footer//*[@class='footer__link' and text()='" + name + "']"),
-                    "ссылка \"" + name + "\" в футере");
+                    "ссылка '" + name + "' в футере");
         }
 
         static ElementData sbermarketTitle() {
             return new ElementData(By.xpath("//footer//div[@class='footer__title' and text()='СберМаркет']"),
-                    "подзаголовок \"Сбермаркет\" в футере");
+                    "подзаголовок 'Сбермаркет' в футере");
         }
 
         static ElementData aboutCompanyLink() {
@@ -389,7 +386,7 @@ public class Elements {
 
         static ElementData customerHelpTitle() {
             return new ElementData(By.xpath("//footer//div[@class='footer__title' and contains(text(),'Помощь')]"),
-                    "подзаголовок \"Помощь покупателю\" в футере");
+                    "подзаголовок 'Помощь покупателю' в футере");
         }
 
         static ElementData deliveryButton() {
@@ -415,28 +412,33 @@ public class Elements {
         }
 
         static ElementData facebookButton() {
-            return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='https://www.facebook.com/sbermarket.ru']"),
-                    "кнопка \"Facebook\" в футере");
+            return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='" + companyFacebookLink + "']"),
+                    "кнопка Facebook в футере");
         }
 
         static ElementData vkontakteButton() {
-            return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='http://vk.com/sbermarket_ru']"),
-                    "кнопка \"Вконтакте\" в футере");
+            return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='" + companyVkontakteLink + "']"),
+                    "кнопка Вконтакте в футере");
         }
 
         static ElementData instagramButton() {
-            return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='https://www.instagram.com/instamart']"),
-                    "кнопка \"Instagram\" в футере");
+            return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='" + companyInstagramLink + "']"),
+                    "кнопка Instagram в футере");
+        }
+
+        static ElementData twitterButton() {
+            return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='" + companyTwitterLink + "']"),
+                    "кнопка Twitter в футере");
         }
 
         static ElementData appstoreButton() {
-            return new ElementData(By.xpath("//footer//a[@href='https://app.adjust.com/kfrpj8y?campaign=footer'][1]"),
-                    "кнопка \"Appstore\" в футере");
+            return new ElementData(By.xpath("//footer//a[@href='" + companyAdjustFooterAppLink + "'][1]"),
+                    "кнопка Appstore в футере");
         }
 
         static ElementData googlePlayButton() {
-            return new ElementData(By.xpath("//footer//a[@href='https://app.adjust.com/kfrpj8y?campaign=footer'][2]"),
-                    "кнопка \"GooglePlay\" в футере");
+            return new ElementData(By.xpath("//footer//a[@href='" + companyAdjustFooterAppLink + "'][2]"),
+                    "кнопка GooglePlay в футере");
         }
 
         static ElementData returnsPolicyLink() {
@@ -1727,7 +1729,7 @@ public class Elements {
 
             /** Интервал слота доставки */
             static ElementData slotTime(int day, int position) {
-                return new ElementData( By.xpath("//*[@id='deliveryDay-" + (day-1) + "']/div[" + position + "]/span"));
+                return new ElementData( By.xpath("//*[@id='deliveryDay-" + (day-1) + "']/div[" + position + "]/div/span"));
             }
 
             /** Стоимость слота доставки */

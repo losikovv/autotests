@@ -2,9 +2,9 @@ package ru.instamart.tests.orders;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
+import ru.instamart.application.AppManager;
 import ru.instamart.application.platform.modules.User;
-import ru.instamart.application.lib.Addresses;
-import ru.instamart.application.platform.modules.Shop;
+import ru.instamart.application.rest.RestAddresses;
 import ru.instamart.tests.TestBase;
 
 import static ru.instamart.application.Config.TestsConfiguration.OrdersTests.enableOrderCitiesTests;
@@ -14,7 +14,7 @@ public class OrdersCities extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         kraken.get().baseUrl();
-        User.Do.loginAs(kraken.session.admin);
+        User.Do.loginAs(AppManager.session.admin);
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -30,10 +30,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInMoscow() {
-        User.ShippingAddress.change(Addresses.Moscow.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -49,10 +48,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInSaintPetersburg() {
-        User.ShippingAddress.change(Addresses.SaintPetersburg.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.SaintPetersburg.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -68,10 +66,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInKazan() {
-        User.ShippingAddress.change(Addresses.Kazan.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Kazan.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -87,10 +84,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInEkaterinburg() {
-        User.ShippingAddress.change(Addresses.Ekaterinburg.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Ekaterinburg.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -106,10 +102,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInNizhnyNovgorod() {
-        User.ShippingAddress.change(Addresses.NizhnyNovgorod.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.NizhnyNovgorod.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -125,10 +120,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInRostovNaDonu() {
-        User.ShippingAddress.change(Addresses.RostovNaDonu.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.RostovNaDonu.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -144,10 +138,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInUfa() {
-        User.ShippingAddress.change(Addresses.Ufa.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Ufa.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -163,10 +156,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInKrasnodar() {
-        User.ShippingAddress.change(Addresses.Krasnodar.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Krasnodar.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -182,10 +174,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInSamara() {
-        User.ShippingAddress.change(Addresses.Samara.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Samara.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -201,10 +192,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInVoronezh() {
-        User.ShippingAddress.change(Addresses.Voronezh.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Voronezh.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -222,10 +212,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInOmsk() {
-        User.ShippingAddress.change(Addresses.Omsk.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Omsk.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -243,10 +232,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInVolgograd() {
-        User.ShippingAddress.change(Addresses.Volgograd.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Volgograd.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -264,10 +252,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInNovosibirsk() {
-        User.ShippingAddress.change(Addresses.Novosibirsk.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Novosibirsk.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -285,10 +272,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInChelyabinsk() {
-        User.ShippingAddress.change(Addresses.Chelyabinsk.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Chelyabinsk.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -306,10 +292,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInTyumen() {
-        User.ShippingAddress.change(Addresses.Tyumen.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Tyumen.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -327,10 +312,9 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInPerm() {
-        User.ShippingAddress.change(Addresses.Perm.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Perm.defaultAddress());
 
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.reach().checkout();
         kraken.checkout().complete();
 
         Assert.assertTrue(
@@ -342,11 +326,11 @@ public class OrdersCities extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void postconditions() {
-        kraken.perform().cancelLastOrder();
+        kraken.rest().cancelCurrentOrder();
     }
 
     @AfterClass(alwaysRun = true)
     public void resetDefaultAddress() {
-        User.ShippingAddress.change(Addresses.Moscow.defaultAddress());
+        kraken.rest().setAddress(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
     }
 }

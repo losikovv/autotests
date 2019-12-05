@@ -66,6 +66,6 @@ public abstract class Users {
     }
 
     public static UserData sberId() {
-        return new UserData("79629422123", "hex78.Berwyn");
+        return new UserData("79629422123", "Bobylev1");
     }
 }

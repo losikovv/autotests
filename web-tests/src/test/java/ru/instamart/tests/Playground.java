@@ -6,13 +6,16 @@ import org.testng.annotations.Test;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Config;
 import ru.instamart.application.Elements;
-import ru.instamart.application.Users;
-import ru.instamart.application.lib.*;
+import ru.instamart.application.lib.Addresses;
+import ru.instamart.application.lib.Pages;
+import ru.instamart.application.lib.PaymentTypes;
+import ru.instamart.application.lib.ReplacementPolicies;
 import ru.instamart.application.models.ElementData;
 import ru.instamart.application.models.OrderDetailsData;
 import ru.instamart.application.models.UserData;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
+import ru.instamart.application.rest.RestAddresses;
 
 import java.io.IOException;
 
@@ -46,6 +49,13 @@ public class Playground extends TestBase {
         kraken.stop();
     }
 
+
+    @Test
+    public void restOrder() {
+        UserData user = new UserData("","");
+        kraken.rest().order(user, RestAddresses.Moscow.learningCenter());
+        kraken.rest().cancelCurrentOrder();
+    }
 
     @Test
     public void regUser() {

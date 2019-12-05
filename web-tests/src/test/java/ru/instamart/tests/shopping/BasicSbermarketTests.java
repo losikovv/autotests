@@ -96,6 +96,7 @@ public class BasicSbermarketTests extends TestBase {
         assertPresence(Elements.Footer.facebookButton());
         assertPresence(Elements.Footer.vkontakteButton());
         assertPresence(Elements.Footer.instagramButton());
+        assertPresence(Elements.Footer.twitterButton());
 
         assertPresence(Elements.Footer.appstoreButton());
         assertPresence(Elements.Footer.googlePlayButton());

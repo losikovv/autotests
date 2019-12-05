@@ -4,9 +4,9 @@ import ru.instamart.application.AppManager;
 import ru.instamart.application.Config;
 import ru.instamart.application.models.UserData;
 
-import static ru.instamart.application.Config.CoreSettings.debug;
-
 import java.util.Random;
+
+import static ru.instamart.application.Config.CoreSettings.debug;
 
 public class generate {
 

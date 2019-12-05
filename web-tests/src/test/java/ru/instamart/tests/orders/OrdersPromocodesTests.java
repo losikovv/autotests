@@ -4,11 +4,12 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.application.lib.Addresses;
 import ru.instamart.application.lib.Promos;
+import ru.instamart.application.models.UserData;
 import ru.instamart.application.platform.modules.Checkout;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
+import ru.instamart.application.rest.RestAddresses;
 import ru.instamart.tests.TestBase;
 
 // Тесты заказов с промокодами
@@ -33,12 +34,14 @@ import ru.instamart.tests.TestBase;
 
 public class OrdersPromocodesTests extends TestBase {
 
+    private UserData user;
+
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
-        kraken.get().baseUrl();
-        kraken.drop().auth();
-        User.Do.registration();
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.Logout.quickly();
+        this.user = User.Do.registration();
+
+        kraken.rest().fillCart(this.user, RestAddresses.Moscow.defaultAddress());
     }
 
     @Test(
@@ -47,7 +50,6 @@ public class OrdersPromocodesTests extends TestBase {
             priority = 1401
     )
     public void successOrderWithFirstOrderPromo() {
-        Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
 
         Checkout.Promocode.add(Promos.fixedDiscountOnFirstOrder());
@@ -65,8 +67,6 @@ public class OrdersPromocodesTests extends TestBase {
             priority = 1402
     )
     public void successOrderWithRetailerPromo() {
-        kraken.get().page("metro");
-        Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
 
         Checkout.Promocode.add(Promos.fixedDiscountForRetailer("metro"));
@@ -84,8 +84,6 @@ public class OrdersPromocodesTests extends TestBase {
             priority = 1403
     )
     public void successOrderWithNewUserPromo () {
-        Shop.Search.item("молоко");
-        Shop.Cart.collect(2000);
         Shop.Cart.proceedToCheckout();
 
         Checkout.Promocode.add(Promos.fixedDiscountForNewUser());
@@ -103,7 +101,6 @@ public class OrdersPromocodesTests extends TestBase {
             priority = 1404
     )
     public void successOrderWithCertainOrderPromo() {
-        Shop.Cart.collect(2100);
         Shop.Cart.proceedToCheckout();
 
         //Checkout.Promocode.add("crtnord");
@@ -122,12 +119,10 @@ public class OrdersPromocodesTests extends TestBase {
             priority = 1405
     )
     public void successOrderWithSeriesOfOrdersPromo() {
-        Shop.Cart.collect(2000);
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
-        kraken.get().baseUrl();
-        Shop.Cart.collect(2000);
+        kraken.rest().fillCart(this.user, RestAddresses.Moscow.defaultAddress());
         Shop.Cart.proceedToCheckout();
         //Checkout.Promocode.add("srsoford");
 
@@ -139,7 +134,7 @@ public class OrdersPromocodesTests extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void postconditions() {
-        kraken.cleanup().orders();
+        kraken.rest().cancelCurrentOrder();
     }
 }
 
