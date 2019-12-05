@@ -87,7 +87,7 @@ public class UserPasswordRecoveryTests extends TestBase {
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
-    ) public void successRecoveryRecoveryOnMainPage() {
+    ) public void successRequestRecoveryOnMainPage() {
         kraken.get().page("metro");
 
         User.PasswordRecovery.request(Users.superuser());
@@ -137,8 +137,8 @@ public class UserPasswordRecoveryTests extends TestBase {
             description = "Тест на авторизацию с новым паролем после восстановления",
             priority = 458,
             groups = {
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "metro-regression",
+                    "sbermarket-regression"
             }
     ) public void successAuthWithNewPasswordAfterCompletePasswordRecovery() {
         User.PasswordRecovery.request(Users.gmail());
