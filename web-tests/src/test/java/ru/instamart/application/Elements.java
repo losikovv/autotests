@@ -694,12 +694,13 @@ public class Elements {
         static ElementData popup() {
             return new ElementData(
                     By.xpath("//div[contains(@class,'prices-modal')]"),
-                    "поп-ап модалки обновления цен");
+                        "поп-ап модалки обновления цен"
+            );
         }
 
         static ElementData refreshPricesButton() {
             return new ElementData(By.className("//div[contains(@class,'prices-modal')]//a[@class='prices-modal__btn']"),
-                    "кнопка обновления в модалке цен"
+                    "кнопка 'Обновить цены' в модалке цен"
             );
         }
     }

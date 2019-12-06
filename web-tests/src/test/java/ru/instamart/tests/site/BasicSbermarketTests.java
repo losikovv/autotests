@@ -1,4 +1,4 @@
-package ru.instamart.tests.shopping;
+package ru.instamart.tests.site;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

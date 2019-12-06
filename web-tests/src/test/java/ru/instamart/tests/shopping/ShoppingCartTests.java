@@ -54,9 +54,28 @@ public class ShoppingCartTests extends TestBase {
     }
 
     @Test(
-            description = "Тест успешного добавления товара в корзину из карточки товара",
+            description = "Тест успешного добавления товара в корзину неавторизованным юзером",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 622
+    )
+    public void successAddItemToCartUnauthorized() {
+        User.Logout.quickly();
+        kraken.get().page("metro");
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+
+        Shop.Catalog.Item.addToCart();
+
+        Assert.assertFalse(
+                kraken.detect().isCartEmpty(),
+                    failMessage("Не добавляется товар в корзину неавторизованным юзером"));
+
+        Shop.Cart.close();
+    }
+
+    @Test(
+            description = "Тест успешного добавления товара в корзину из карточки товара",
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
+            priority = 623
     )
     public void successAddItemToCartFromItemCard() {
         kraken.get().page("metro");
@@ -78,7 +97,7 @@ public class ShoppingCartTests extends TestBase {
     @Test(
             description = "Тест на изменение кол-ва товаров в корзине",
             groups = {"sbermarket-regression"},
-            priority = 623
+            priority = 624
     )
     public void successChangeItemQuantityInCart() {
         SoftAssert softAssert = new SoftAssert();
@@ -112,7 +131,7 @@ public class ShoppingCartTests extends TestBase {
     @Test(
             description = "Тест на изменение кол-ва товаров в корзине через карточку товара",
             groups = {"sbermarket-regression"},
-            priority = 624
+            priority = 625
     )
     public void successChangeItemQuantityInCartViaItemCard() {
         SoftAssert softAssert = new SoftAssert();
@@ -150,12 +169,11 @@ public class ShoppingCartTests extends TestBase {
     @Test(
             description = "Тест на удаление товаров из корзины",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 625
+            priority = 626
     )
     public void successRemoveItemsFromCart() {
         kraken.get().page("metro");
         User.Do.loginAs(session.user);
-        //kraken.search().item("хлеб");
         Shop.Catalog.Item.addToCart();
         if(kraken.detect().isCartEmpty()){
             throw new AssertionError(
@@ -171,7 +189,7 @@ public class ShoppingCartTests extends TestBase {
 
     @Test(  description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 626
+            priority = 627
     )
     public void successAddItemToCartFromCatalogSnippet() {
         kraken.get().page("metro");
@@ -202,7 +220,7 @@ public class ShoppingCartTests extends TestBase {
     @Test(
             description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером",
             groups = {"sbermarket-regression"},
-            priority = 627
+            priority = 628
     )
     public void successChangeMinOrderSum() {
         SoftAssert softAssert = new SoftAssert();

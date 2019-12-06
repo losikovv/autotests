@@ -14,7 +14,7 @@ import ru.instamart.application.rest.RestAddresses;
 import ru.instamart.testdata.generate;
 import ru.instamart.tests.TestBase;
 
-public class BasicShoppingTests extends TestBase {
+public class ShoppingTestsForExistingUser extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
@@ -24,33 +24,21 @@ public class BasicShoppingTests extends TestBase {
     }
 
     @Test(
-            description = "Тест недоступности чекаута неавторизованному юзеру",
+            description = "Тест недоступности чекаута по прямой ссылке неавторизованному юзеру c выбранным адресом и пустой корзиной",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 651
+            priority = 661
     )
-    public void noAccessToCheckoutForUnauthorizedUser() {
-        assertPageIsUnavailable(
-                Pages.checkout());
-    }
-
-    @Test(
-            description = "Тест недоступности чекаута по прямой ссылке при пустой корзине",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 652
-    )
-    public void noAccessToCheckoutWithEmptyCart() {
+    public void noAccessToCheckoutForAuthorizedUserWithShipAddressAndEmptyCart() {
         User.Do.loginAs(AppManager.session.user);
-
         kraken.rest().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
 
-        assertPageIsUnavailable(
-                Pages.checkout());
+        assertPageIsUnavailable(Pages.checkout());
     }
 
     @Test(
-            description = "Тест недоступности чекаута по прямой ссылке при сумме корзины меньше минимального заказа",
+            description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 653
+            priority = 662
     )
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
         User.Do.loginAs(AppManager.session.user);
@@ -68,65 +56,45 @@ public class BasicShoppingTests extends TestBase {
         kraken.get().page("metro");
         Assert.assertTrue(
                 !kraken.detect().isCartEmpty() && !kraken.detect().isCheckoutButtonActive(),
-                    failMessage("Не выполнены предусловия теста"));
+                failMessage("Не выполнены предусловия теста"));
 
         assertPageIsUnavailable(
                 Pages.checkout());
     }
 
     @Test(
-            description = "Тест набора корзины до суммы, достаточной для заказа",
+            description = "Тест набора корзины до суммы, достаточной для оформления заказа",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 654
+            priority = 663
     )
     public void successCollectItemsForMinOrder() {
-        User.Do.loginAs(AppManager.session.user);
+        SoftAssert softAssert = new SoftAssert();
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
-        kraken.rest().fillCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
+        Shop.Cart.collect();
 
-        kraken.get().page("metro");
-        Assert.assertTrue(
+        softAssert.assertTrue(
                 kraken.detect().isCheckoutButtonActive(),
-                    failMessage("Кнопка чекаута не активна, при минимальной сумме заказа в корзине"));
-    }
+                    failMessage("Кнопка чекаута не активна при минимальной сумме заказа в корзине"));
 
-    @Test(
-            description = "Тест доступности чекаута по прямой ссылке при сумме корзины выше минимального заказа",
-            groups = {"sbermarket-regression"},
-            priority = 655
-    )
-    public void successGetCheckoutPageWithCartAboveMinimalOrderSum() {
-        User.Do.loginAs(AppManager.session.user);
-
-        kraken.rest().fillCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
-
-        assertPageIsAvailable(
-                Pages.checkout());
-    }
-
-    @Test(
-            description = "Тест успешного перехода из корзины в чекаут при сумме выше минимального заказа",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 656
-    )
-    public void successProceedFromCartToCheckout() {
-        User.Do.loginAs(AppManager.session.user);
-        kraken.rest().fillCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
-
-        kraken.get().page("metro");
         Shop.Cart.proceedToCheckout();
 
-        Assert.assertTrue(
+        softAssert.assertTrue(
                 kraken.detect().isOnCheckout(),
                     failMessage("Не удалось перейти из корзины в чекаут"));
+
+        assertPageIsAvailable(Pages.checkout());
+        softAssert.assertAll();
     }
 
     @Test(
             description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации",
-            groups = {"sbermarket-regression"},
-            priority = 657
-    )
-    public void successMergeShipAddressAndCartAfterAuthorisation() {
+            priority = 664,
+            groups = {
+                    "sbermarket-acceptance","sbermarket-regression",
+                    "metro-acceptance","metro-regression",
+            }
+    ) public void successMergeShipAddressAndCartAfterAuthorisation() {
         SoftAssert softAssert = new SoftAssert();
 
         //TODO вынести в dataProvider
@@ -143,19 +111,19 @@ public class BasicShoppingTests extends TestBase {
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),
-                    failMessage("Не удалось авторизоваться"));
+                failMessage("Не удалось авторизоваться"));
 
         softAssert.assertTrue(
                 kraken.detect().isShippingAddressSet(),
-                    failMessage("Слетел адрес доставки при авторизации"));
+                failMessage("Слетел адрес доставки при авторизации"));
 
         softAssert.assertEquals(
                 kraken.grab().currentShipAddress(), Addresses.Moscow.defaultAddress(),
-                    failMessage("Не обновился адрес доставки при авторизации"));
+                failMessage("Не обновился адрес доставки при авторизации"));
 
         softAssert.assertFalse(
                 kraken.detect().isCartEmpty(),
-                    failMessage("Не смержиласть корзина при авторизации"));
+                failMessage("Не смержиласть корзина при авторизации"));
 
         softAssert.assertAll();
     }
