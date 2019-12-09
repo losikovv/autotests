@@ -19,19 +19,21 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
 
     @Test(
             description = "Тест недоступности чекаута неавторизованному юзеру",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 651
-    )
-    public void noAccessToCheckoutByDefault() {
+            priority = 651,
+            groups = {"sbermarket-acceptance","sbermarket-regression",
+                    "metro-acceptance","metro-regression"
+            }
+    ) public void noAccessToCheckoutByDefault() {
         assertPageIsUnavailable(Pages.checkout());
     }
 
     @Test(
             description = "Тест недоступности чекаута неавторизованному юзеру c выбранным адресом и пустой корзиной",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 652
-    )
-    public void noAccessToCheckoutForUnauthorizedUserWithShipAddressAndEmptyCart() {
+            priority = 652,
+            groups = {"sbermarket-acceptance","sbermarket-regression",
+                    "metro-acceptance","metro-regression"
+            }
+    ) public void noAccessToCheckoutForUnauthorizedUserWithShipAddressAndEmptyCart() {
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         assertPageIsUnavailable(Pages.checkout());
@@ -39,10 +41,11 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
 
     @Test(
             description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 653
-    )
-    public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
+            priority = 653,
+            groups = {"sbermarket-acceptance","sbermarket-regression",
+                    "metro-acceptance","metro-regression"
+            }
+    ) public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         Shop.Cart.drop();
 
@@ -59,10 +62,11 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
 
     @Test(
             description = "Тест набора корзины до суммы, достаточной для заказа",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 654
-    )
-    public void successCollectItemsForOrder() {
+            priority = 654,
+            groups = {"sbermarket-acceptance","sbermarket-regression",
+                    "metro-acceptance","metro-regression"
+            }
+    ) public void successCollectItemsForOrder() {
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         Shop.Cart.collect();

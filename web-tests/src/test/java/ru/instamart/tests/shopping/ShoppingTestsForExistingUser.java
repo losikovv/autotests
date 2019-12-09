@@ -19,17 +19,18 @@ public class ShoppingTestsForExistingUser extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         User.Logout.quickly();
-        kraken.get().page("metro");
+        User.Do.loginAs(AppManager.session.user);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @Test(
             description = "Тест недоступности чекаута по прямой ссылке неавторизованному юзеру c выбранным адресом и пустой корзиной",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 661
-    )
-    public void noAccessToCheckoutForAuthorizedUserWithShipAddressAndEmptyCart() {
-        User.Do.loginAs(AppManager.session.user);
+            priority = 661,
+            groups = {
+                    "sbermarket-acceptance","sbermarket-regression",
+                    "metro-acceptance","metro-regression",
+            }
+    ) public void noAccessToCheckoutForAuthorizedUserWithShipAddressAndEmptyCart() {
         kraken.rest().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
 
         assertPageIsUnavailable(Pages.checkout());
@@ -37,11 +38,12 @@ public class ShoppingTestsForExistingUser extends TestBase {
 
     @Test(
             description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 662
-    )
-    public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
-        User.Do.loginAs(AppManager.session.user);
+            priority = 662,
+            groups = {
+                    "sbermarket-acceptance","sbermarket-regression",
+                    "metro-acceptance","metro-regression",
+            }
+    ) public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
 
         if (kraken.detect().isCheckoutButtonActive()) {
             kraken.rest().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
@@ -64,10 +66,12 @@ public class ShoppingTestsForExistingUser extends TestBase {
 
     @Test(
             description = "Тест набора корзины до суммы, достаточной для оформления заказа",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 663
-    )
-    public void successCollectItemsForMinOrder() {
+            priority = 663,
+            groups = {
+                    "sbermarket-acceptance","sbermarket-regression",
+                    "metro-acceptance","metro-regression",
+            }
+    ) public void successCollectItemsForMinOrder() {
         SoftAssert softAssert = new SoftAssert();
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 

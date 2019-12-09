@@ -1,5 +1,6 @@
 package ru.instamart.tests.administration;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.application.platform.modules.User;
@@ -39,7 +40,7 @@ public class BasicAdministrationTests extends TestBase {
     ) public void successAccessAdministrationThroughAuthOnSite() {
         User.Do.loginAs(session.admin);
 
-        assertPageIsAvailable(Pages.Admin.shipments());
+        Assert.assertTrue(kraken.detect().isInAdmin());
     }
 
     @Test(  description = "Тест доступности корневых разделов админки",
@@ -60,8 +61,17 @@ public class BasicAdministrationTests extends TestBase {
         assertPageIsAvailable(Pages.Admin.pages());
     }
 
-    @Test(  description = "Проверка наличия элементов в шапке админки",
+    @Test(  description = "Тест доступности вьюхи oktell",
             priority = 10003,
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
+    ) public void successCheckOktellView() {
+        kraken.reach().admin();
+
+        assertPageIsAvailable(Pages.Admin.oktell());
+    }
+
+    @Test(  description = "Проверка наличия элементов в шапке админки",
+            priority = 10004,
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     ) public void successValidateHeader() {
         kraken.reach().admin();
@@ -70,7 +80,7 @@ public class BasicAdministrationTests extends TestBase {
     }
 
     @Test(  description = "Тест валидности ссылок навигационного меню в шапке админки",
-            priority = 10004,
+            priority = 10005,
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     ) public void successValidateNavigationMenu() {
         kraken.reach().admin();

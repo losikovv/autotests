@@ -111,7 +111,7 @@ public class DetectionHelper extends HelperBase {
      * Определить находимся в админке или нет
      */
     public boolean isInAdmin() {
-        return isElementPresent(Elements.Administration.container());
+        return isElementPresent(Elements.Administration.insideContainer());
     }
 
     /**

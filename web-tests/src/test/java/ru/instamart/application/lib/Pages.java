@@ -187,6 +187,11 @@ public class Pages {
                     "admin/pages");
         }
 
+        static PageData oktell() {
+            return new PageData(
+                    "widgets/oktell_order_view");
+        }
+
         public interface Order {
 
             static PageData details(String number) {

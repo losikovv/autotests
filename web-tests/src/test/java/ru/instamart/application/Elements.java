@@ -2320,9 +2320,9 @@ public class Elements {
             }
         }
 
-        static ElementData container() {
-            return new ElementData(By.xpath("//body[@class='admin']"),
-                    "контейнер админки");
+        static ElementData insideContainer() {
+            return new ElementData(By.xpath("//body[@class='admin']//*[@id='admin-menu']"),
+                    "контейнер внутренней части админки");
         }
 
         static ElementData menuButton(String name) {

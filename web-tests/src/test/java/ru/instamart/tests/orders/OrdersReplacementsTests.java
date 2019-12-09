@@ -19,6 +19,7 @@ public class OrdersReplacementsTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
+        kraken.get().baseUrl();
         User.Do.loginAs(AppManager.session.admin);
     }
 

@@ -194,7 +194,7 @@ public class User extends Base {
         }
 
         public static void withEmail(String email, String password) {
-            if (kraken.detect().isInAdmin()) {
+            if (kraken.detect().isOnAdminLoginPage()) {
                 User.Do.loginOnAdministration(email, password);
             } else {
                 if (!kraken.detect().isUserAuthorised()) {
