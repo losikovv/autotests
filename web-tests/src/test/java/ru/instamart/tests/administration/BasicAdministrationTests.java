@@ -46,7 +46,7 @@ public class BasicAdministrationTests extends TestBase {
     @Test(  description = "Тест доступности корневых разделов админки",
             priority = 10002,
             groups = {"sbermarket-acceptance","sbermarket-regression"}
-    ) public void successCheckAdminSections() {
+    ) public void successCheckAdminSectionsAvailability() {
         kraken.reach().admin();
 
         // TODO переделать на assertPagesAvailable(Pages.Admin.*)
@@ -64,7 +64,7 @@ public class BasicAdministrationTests extends TestBase {
     @Test(  description = "Тест доступности вьюхи oktell",
             priority = 10003,
             groups = {"sbermarket-acceptance","sbermarket-regression"}
-    ) public void successCheckOktellView() {
+    ) public void successCheckOktellViewAvailability() {
         kraken.reach().admin();
 
         assertPageIsAvailable(Pages.Admin.oktell());

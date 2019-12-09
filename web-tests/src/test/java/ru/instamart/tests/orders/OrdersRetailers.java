@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Tenants;
+import ru.instamart.application.lib.Addresses;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
@@ -21,6 +22,7 @@ public class OrdersRetailers extends TestBase {
     public void setup() {
         kraken.get().baseUrl();
         User.Do.loginAs(AppManager.session.admin);
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @Test(enabled = enableOrderRetailersTests,

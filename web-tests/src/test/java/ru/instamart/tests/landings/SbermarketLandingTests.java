@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.application.Tenants;
 import ru.instamart.application.Elements;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.tests.TestBase;
@@ -29,8 +28,6 @@ public class SbermarketLandingTests extends TestBase {
             groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     )
     public void successValidateSbermarketLanding() {
-        runTestOnlyOn(Tenants.sbermarket());
-
         assertPageIsAvailable();
 
         assertPresence(Elements.Landings.SbermarketLanding.Header.container());
@@ -62,8 +59,6 @@ public class SbermarketLandingTests extends TestBase {
             groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     )
     public void successGoToCatalogFromSbermarketLanding() {
-        runTestOnlyOn(Tenants.sbermarket());
-
         kraken.perform().click(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1));
 
         Assert.assertFalse(
@@ -77,8 +72,6 @@ public class SbermarketLandingTests extends TestBase {
             groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthorizationOnSbermarketLanding() {
-        runTestOnlyOn(Tenants.sbermarket());
-
         kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
 
         User.Do.loginAs(session.user);
