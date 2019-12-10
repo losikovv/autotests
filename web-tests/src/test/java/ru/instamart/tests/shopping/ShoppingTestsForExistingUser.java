@@ -20,11 +20,11 @@ public class ShoppingTestsForExistingUser extends TestBase {
     public void setup() {
         User.Logout.quickly();
         User.Do.loginAs(AppManager.session.user);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        kraken.rest().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
     }
 
     @Test(
-            description = "Тест недоступности чекаута по прямой ссылке неавторизованному юзеру c выбранным адресом и пустой корзиной",
+            description = "Тест недоступности чекаута по прямой ссылке авторизованному юзеру c выбранным адресом и пустой корзиной",
             priority = 661,
             groups = {
                     "sbermarket-acceptance","sbermarket-regression",
@@ -103,6 +103,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
 
         //TODO вынести в dataProvider
         final UserData testuser = generate.testCredentials("user");
+        User.Logout.quickly();
         kraken.get().baseUrl();
         User.Do.registration(testuser);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());

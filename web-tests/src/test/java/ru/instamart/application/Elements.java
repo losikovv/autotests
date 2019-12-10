@@ -1107,7 +1107,8 @@ public class Elements {
             }
 
             static ElementData plusButton() {
-                return new ElementData(By.className("popup-cart-actions__btn--right"));
+                return new ElementData(By.className("popup-cart-actions__btn--right"),
+                        "кнопка + к карточке товара");
             }
 
             static ElementData minusButton() {

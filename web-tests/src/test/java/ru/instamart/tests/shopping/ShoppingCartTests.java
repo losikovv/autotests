@@ -59,9 +59,6 @@ public class ShoppingCartTests extends TestBase {
             priority = 622
     )
     public void successAddItemToCartUnauthorized() {
-        User.Logout.quickly();
-        kraken.get().page("metro");
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         Shop.Catalog.Item.addToCart();
 

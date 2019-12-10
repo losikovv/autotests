@@ -75,4 +75,6 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
                 kraken.detect().isCheckoutButtonActive(),
                     failMessage("Кнопка чекаута не активна при минимальной сумме заказа в корзине"));
     }
+
+    // TODO добавить тест на появление модалки авторизации при переходе в чекаут
 }

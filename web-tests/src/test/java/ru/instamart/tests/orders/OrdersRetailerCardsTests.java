@@ -18,13 +18,13 @@ public class OrdersRetailerCardsTests extends TestBase {
     public void setup() {
         kraken.get().baseUrl();
         User.Do.loginAs(kraken.session.admin);
-        User.ShippingAddress.change(Addresses.Moscow.testAddress());
+        User.ShippingAddress.change(Addresses.Moscow.defaultAddress());
         Shop.Cart.drop();
     }
 
     @Test(  enabled = Config.TestsConfiguration.OrdersTests.enableOrderRetailerCardsTests,
-            description = "Тест заказа с картой Метро (только WL)",
-            groups = {"metro-acceptance"},
+            description = "Тест заказа с картой Метро (только METRO WL)",
+            groups = {"metro-acceptance","metro-regression"},
             priority = 2601
     )
     public void successOrderWithMetroCard() {
@@ -41,6 +41,29 @@ public class OrdersRetailerCardsTests extends TestBase {
         assertTrue(
                 kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.Order.Details.loyaltyProgram()),
                     "В заказе не применилась карта Метро\n");
+
+        Administration.Orders.cancelOrder();
+    }
+
+    @Test(  enabled = Config.TestsConfiguration.OrdersTests.enableOrderRetailerCardsTests,
+            description = "Тест заказа с картой Вкусвилл (только Sbermarket)",
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
+            priority = 2602
+    )
+    public void successOrderWithVkusvillCard() {
+        kraken.get().page(Pages.Retailers.vkusvill());
+        Shop.Cart.collect();
+        Shop.Cart.proceedToCheckout();
+
+        kraken.checkout().addRetailerCard(RetailerCards.vkusvill());
+        kraken.checkout().complete();
+
+        String number = kraken.grab().currentOrderNumber();
+        kraken.reach().admin(Pages.Admin.Order.details(number));
+
+        assertTrue(
+                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.Order.Details.loyaltyProgram()),
+                "В заказе не применилась карта Вкусвилл\n");
 
         Administration.Orders.cancelOrder();
     }

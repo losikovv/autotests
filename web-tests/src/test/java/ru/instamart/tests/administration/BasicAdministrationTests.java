@@ -39,6 +39,7 @@ public class BasicAdministrationTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     ) public void successAccessAdministrationThroughAuthOnSite() {
         User.Do.loginAs(session.admin);
+        kraken.get().page(Pages.Admin.shipments());
 
         Assert.assertTrue(kraken.detect().isInAdmin());
     }
