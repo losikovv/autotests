@@ -74,7 +74,17 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
         Assert.assertTrue(
                 kraken.detect().isCheckoutButtonActive(),
                     failMessage("Кнопка чекаута не активна при минимальной сумме заказа в корзине"));
-    }
 
-    // TODO добавить тест на появление модалки авторизации при переходе в чекаут
+        Shop.Cart.proceedToCheckout();
+
+        Assert.assertFalse(
+                kraken.detect().isOnCheckout(),
+                    failMessage("Можно перейти в чекаут неаторизованным юзером с набранной корзиной"));
+
+        Assert.assertTrue(
+                kraken.detect().isAuthModalOpen(),
+                    failMessage("Не запрашивается авторизация при попытке перехода в чекаут неавторизованным юзером с набранной корзиной"));
+
+        assertPageIsUnavailable(Pages.checkout());
+    }
 }

@@ -590,8 +590,8 @@ public class Shop extends Base {
             if (kraken.detect().isCheckoutButtonActive()) {
                 kraken.perform().click(Elements.Cart.checkoutButton());
             } else {
-                message("Кнопка перехода в чекаут неактивна");
-                throw new AssertionError("\n\n> Не удается перейти в чекаут");
+                verboseMessage("Кнопка перехода в чекаут неактивна");
+                throw new AssertionError("\n\n> Не удается перейти в чекаут из корзины, кнопка перехода неактивна");
             }
         }
 

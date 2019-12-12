@@ -101,12 +101,13 @@ public class ShoppingTestsForExistingUser extends TestBase {
     ) public void successMergeShipAddressAndCartAfterAuthorisation() {
         SoftAssert softAssert = new SoftAssert();
 
-        //TODO вынести в dataProvider
+        //TODO переписать под набор корзины и авторизацию + проверку адреса и переход в чекаут
         final UserData testuser = generate.testCredentials("user");
         User.Logout.quickly();
         kraken.get().baseUrl();
         User.Do.registration(testuser);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        kraken.await().simply(5); //todo протестить
         Shop.Catalog.Item.addToCart();
         User.Logout.quickly();
 
