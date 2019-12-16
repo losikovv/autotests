@@ -11,7 +11,7 @@ public class Config {
 
     public interface CoreSettings {
         String browser = BrowserType.FIREFOX;
-        ServerData server = Servers.sbermarket_production();
+        ServerData server = Servers.sbermarket_staging();
 
         int basicTimeout = 2;
         int waitingTimeout = 20;
@@ -75,7 +75,7 @@ public class Config {
             String companyHotlineWorkhours = "с 5:00 до 1:00";
             String companyHotlineWorkhoursShort = "5:00 - 1:00";
             String companyFacebookLink = "https://www.facebook.com/sbermarket.ru/";
-            String companyVkontakteLink = "http://vk.com/sbermarket_ru";
+            String companyVkontakteLink = "https://vk.com/sbermarket_ru";
             String companyTwitterLink = "https://twitter.com/sbermarket_ru";
             String companyInstagramLink = "https://www.instagram.com/sbermarket.ru/";
             String companyAdjustFooterAppLink = "https://app.adjust.com/kfrpj8y?campaign=footer";

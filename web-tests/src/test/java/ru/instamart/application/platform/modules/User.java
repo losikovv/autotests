@@ -314,10 +314,21 @@ public class User extends Base {
         }
 
         /** Быстрая деавторизация прямым переходом на /logout */
-        public static void quickly() {
+        public static void quick() {
             verboseMessage("Быстрый логаут...");
             kraken.get().page("logout");
             kraken.await().simply(1); // Ожидание деавторизации и подгрузки лендинга
+            if (kraken.detect().isOnLanding()) {
+                verboseMessage("✓ Готово\n");
+            }
+        }
+
+        /** Быстрая деавторизация удалением кук */
+        public static void quickly() {
+            verboseMessage("Удаляем куки...");
+            driver.manage().deleteAllCookies();
+            kraken.get().baseUrl();
+            //kraken.await().simply(1); // Ожидание деавторизации и подгрузки лендинга
             if (kraken.detect().isOnLanding()) {
                 verboseMessage("✓ Готово\n");
             }
