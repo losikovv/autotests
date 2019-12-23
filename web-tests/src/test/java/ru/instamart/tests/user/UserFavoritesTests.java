@@ -33,7 +33,7 @@ public class UserFavoritesTests extends TestBase {
     @Test(  description = "Переход в любимые товары по кнопке",
             priority = 402,
             groups = {
-                    "metro-smoke","metro-acceptance","metro-regression",
+                    "metro-acceptance","metro-regression",
                     "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     )
     public void successOpenFavorites() {

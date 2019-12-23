@@ -1,6 +1,5 @@
 package ru.instamart.tests.site;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
@@ -32,7 +31,7 @@ public class BasicSbermarketTests extends TestBase {
         assertPresence(Elements.Header.contactsInfoButton());
         assertPresence(Elements.Header.helpInfoButton());
         assertPresence(Elements.Header.deliveryInfoButton());
-        assertPresence(Elements.Header.corporativeCustomersInfoButton());
+        assertPresence(Elements.Header.forBusinessButton());
 
         assertPresence(Elements.Header.catalogButton());
         if(!kraken.detect().tenant(metro())) assertPresence(Elements.Header.storeButton());
@@ -47,8 +46,6 @@ public class BasicSbermarketTests extends TestBase {
         validateTransition(Elements.Header.contactsInfoButton());
         validateTransition(Elements.Header.helpInfoButton());
         validateTransition(Elements.Header.deliveryInfoButton());
-        //TODO доделать обработку и проверку открытия новых вкладок
-        //validateNewTabOpening(Elements.Header.corporativeCustomersInfoButton());
         validateTransition(Elements.Header.logo());
     }
 

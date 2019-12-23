@@ -75,13 +75,7 @@ public class Pages {
 
         static PageData feedback() { return new PageData("landings/feedback"); }
 
-        static PageData kazan() { return new PageData("cities/kazan"); }
-
         static PageData mobile() { return new PageData("landings/m-general-white"); }
-
-        // TODO Дописать лендинг вкусвилл
-
-        // TODO Дописать лендинг метро
     }
 
     public interface Profile {
@@ -90,9 +84,7 @@ public class Pages {
 
         static PageData favorites() { return new PageData("user/favorites"); }
 
-        static PageData orders() { return new PageData("user/orders"); }
-
-        static PageData addresses() { return new PageData("user/addresses"); }
+        static PageData shipments() { return new PageData("user/shipments"); }
 
         static PageData orderDetails(String orderNumber) { return new PageData("user/orders/" + orderNumber); }
     }

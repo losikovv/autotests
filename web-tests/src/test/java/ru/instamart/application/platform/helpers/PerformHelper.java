@@ -3,6 +3,7 @@ package ru.instamart.application.platform.helpers;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.instamart.application.lib.Pages;
 import ru.instamart.application.models.ElementData;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.lib.Addresses;
@@ -148,7 +149,7 @@ public class PerformHelper extends HelperBase {
     /** Повторить крайний заказ */
     public void repeatLastOrder() {
         message("Повторяем крайний заказ\n");
-        kraken.get().url(baseUrl + "user/orders");
+        kraken.get().page(Pages.Profile.shipments());
         if(kraken.detect().isOrdersHistoryEmpty()) {
             throw new AssertionError("Невозможно повторить заказ, у пользователя нет заказов в истории\n");
         } else {

@@ -11,6 +11,11 @@ import static ru.instamart.application.Config.TestsConfiguration.OrdersTests.ena
 
 public class OrdersCities extends TestBase {
 
+    @DataProvider(name="city")
+    public static Object[][] cityDataProvider() {
+        return new Object[][] { { 1 }, { 2 }, { 3 } };
+    }
+
     @BeforeClass(alwaysRun = true)
     public void setup() {
         kraken.get().baseUrl();

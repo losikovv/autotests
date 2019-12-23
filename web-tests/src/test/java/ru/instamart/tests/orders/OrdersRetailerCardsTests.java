@@ -27,7 +27,7 @@ public class OrdersRetailerCardsTests extends TestBase {
             groups = {"metro-acceptance","metro-regression"},
             priority = 2601
     )
-    public void successOrderWithMetroCard() {
+    public void successOrderWithMetroRetailerCard() {
         kraken.get().page("metro");
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
@@ -50,7 +50,7 @@ public class OrdersRetailerCardsTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 2602
     )
-    public void successOrderWithVkusvillCard() {
+    public void successOrderWithVkusvillRetailerCard() {
         kraken.get().page(Pages.Retailers.vkusvill());
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();

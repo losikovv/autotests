@@ -6,10 +6,10 @@ public class CityData {
 
     private final String name;
     private final String prepositionalName;
-    private final List<String> addresses;
+    private final Object addresses;
 
 
-    public CityData(String name, String prepositionalName, List<String> addresses) {
+    public CityData(String name, String prepositionalName, Object addresses) {
         this.name = name;
         this.prepositionalName = prepositionalName;
         this.addresses = addresses;
@@ -23,7 +23,7 @@ public class CityData {
         return prepositionalName;
     }
 
-    public List<String> getAddresses() {
+    public Object getAddresses() {
         return addresses;
     }
 }

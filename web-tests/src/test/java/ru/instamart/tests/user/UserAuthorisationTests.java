@@ -255,7 +255,7 @@ public class UserAuthorisationTests extends TestBase {
             description = "Тест успешной авторизации на витрине",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-smoke", "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 119
     )

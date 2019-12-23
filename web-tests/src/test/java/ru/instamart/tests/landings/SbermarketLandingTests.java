@@ -23,7 +23,7 @@ public class SbermarketLandingTests extends TestBase {
     }
 
     @Test(
-            description = "Тест валидности и наличия элемнтов лендинга Сбермаркета",
+            description = "Тест валидности и наличия элементов лендинга Сбермаркета",
             priority = 51,
             groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     )

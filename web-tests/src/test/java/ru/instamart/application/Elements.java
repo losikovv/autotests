@@ -259,8 +259,8 @@ public class Elements {
                 return infoButton("Доставка и оплата");
             }
 
-            static ElementData corporativeCustomersInfoButton() {
-                return infoButton("Корпоративным клиентам");
+            static ElementData forBusinessButton() {
+                return infoButton("\uD83D\uDC69\u200D\uD83D\uDCBB Для бизнеса");
             }
 
             static ElementData mnogoruButton() {
@@ -664,7 +664,8 @@ public class Elements {
         }
 
         static ElementData titleOutOfZone() {
-            return new ElementData (By.xpath("//div[text()='Адрес не в зоне доставки']"));
+            return new ElementData (By.xpath("//div[text()='Адрес не в зоне доставки']"),
+                    "");
         }
 
         static ElementData pickNewAddressButton() {
@@ -905,7 +906,7 @@ public class Elements {
             interface order {
 
                 static ElementData snippet() {
-                    return new ElementData(By.xpath("//div[@class='user-orders__item user-block']"),
+                    return new ElementData(By.xpath("//a[contains(@class,'shipment')]//button[text()='Повторить']"),
                             "сниппет верхнего заказа на странице истории заказов");
                 }
 

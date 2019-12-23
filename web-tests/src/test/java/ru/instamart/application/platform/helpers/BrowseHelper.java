@@ -66,9 +66,6 @@ public class BrowseHelper extends HelperBase {
             case "production" :
                 url( Servers.instamart_production().getBaseURL(true)+ "admin/" + path);
                 break;
-            case "preprod" :
-                url( Servers.sbermarket_preprod().getBaseURL(true)+ "admin/" + path);
-                break;
             case "staging" :
                 url( Servers.instamart_staging().getBaseURL(true)+ "admin/" + path);
                 break;

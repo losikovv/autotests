@@ -33,7 +33,7 @@ public class UserProfileTests extends TestBase {
             groups = {
                     "metro-smoke","metro-acceptance","metro-regression"
             }
-    ) public void successValidateProfileMenuDeliveryMetro() {
+    ) public void successValidateMetroTenantProfileMenu() {
         SoftAssert softAssert = new SoftAssert();
 
         Shop.AccountMenu.open();
@@ -68,7 +68,7 @@ public class UserProfileTests extends TestBase {
             groups = {
                     "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
             }
-    ) public void successValidateSbermarketProfileMenu() {
+    ) public void successValidateSbermarketTenantProfileMenu() {
         SoftAssert softAssert = new SoftAssert();
 
         Shop.AccountMenu.open();
@@ -154,7 +154,7 @@ public class UserProfileTests extends TestBase {
             description = "Тест валидации кнопки 'Оплата' в меню профиля",
             priority = 158,
             groups = {
-                    "metro-smoke","metro-acceptance","metro-regression",
+                    "metro-acceptance","metro-regression",
             }
     ) public void successValidatePaymentButton() {
         Shop.AccountMenu.open();
@@ -188,10 +188,8 @@ public class UserProfileTests extends TestBase {
                     "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successCheckProfilePagesAreAvailable() {
-        // TODO переделать на assertPagesAvailable(Pages.Site.Profile.*)
         assertPageIsAvailable(Pages.Profile.edit());
         assertPageIsAvailable(Pages.Profile.favorites());
-        assertPageIsAvailable(Pages.Profile.orders());
-        assertPageIsAvailable(Pages.Profile.addresses());
+        assertPageIsAvailable(Pages.Profile.shipments());
     }
 }

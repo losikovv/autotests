@@ -143,7 +143,8 @@ public class AdministrationShipmentsSectionTests extends TestBase {
             kraken.get().ordersPage();
         }
         if(kraken.detect().isLastOrderActive()) {
-                kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.cancelButton());
+            kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
+            kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.cancelButton());
         }
         kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.detailsButton());
         kraken.get().adminOrderDetailsPage(kraken.grab().currentOrderNumber());

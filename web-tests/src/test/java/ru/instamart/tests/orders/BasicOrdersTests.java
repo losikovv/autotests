@@ -210,7 +210,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(enabled = enableOrderRepeatTests,
             description = "Повтор крайнего заказа и оплата картой курьеру",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
+            groups = {"sbermarket-regression"},
             priority = 2006
     )
     public void successRepeatLastOrderAndPayWithCardCourier() {

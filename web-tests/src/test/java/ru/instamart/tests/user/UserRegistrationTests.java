@@ -343,7 +343,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Регистрация нового пользователя на витрине магазина",
             groups = {
-                    "metro-acceptance", "metro-regression",
+                    "metro-smoke", "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 211
