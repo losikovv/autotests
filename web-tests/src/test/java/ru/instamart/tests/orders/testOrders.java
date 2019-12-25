@@ -2,7 +2,6 @@ package ru.instamart.tests.orders;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.rest.RestAddresses;
@@ -10,11 +9,20 @@ import ru.instamart.tests.TestBase;
 
 public class testOrders extends TestBase {
 
-    @Test(dataProvider = "data",
+    @DataProvider(name="cities")
+    public static Object[][] citiesDataProvider() {
+        return new Object[][] {
+                { 1 },
+                { 2 },
+                { 3 }
+        };
+    }
+
+    @Test(dataProvider = "cities",
             description = "Тест заказа в METRO",
             priority = 2301
     )
-    public void successOrderInCity(int param) {
+    public void successOrderInCities(int param) {
         System.out.println(">>> ТЕСТ С ПАРАМЕТРОМ " + param);
         kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
 
@@ -26,14 +34,4 @@ public class testOrders extends TestBase {
                     failMessage("Не удалось оформить заказ " + param));
     }
 
-    @DataProvider(name="city")
-    public static Object[][] cityDataProvider() {
-        return new Object[][] { { 1 }, { 2 }, { 3 } };
-    }
-/*
-    @Factory(dataProvider = "data")
-    Object[] citiesTestFactory() {
-        return new Object[] { new testOrders(1), new testOrders(2)};
-    }
-*/
 }
