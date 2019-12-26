@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Custom suite" parallel="none">
+  <test verbose="1" name="web-tests">
+    <groups>
+      <run>
+        <include name="sbermarket-acceptance"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="ru.instamart.tests.administration.AdministrationAccessTests"/>
+      <class name="ru.instamart.tests.administration.AdministrationLoginTests"/>
+      <class name="ru.instamart.tests.administration.AdministrationPagesSectionTests"/>
+      <class name="ru.instamart.tests.administration.AdministrationShipmentsSectionTests"/>
+      <class name="ru.instamart.tests.administration.AdministrationUsersSectionTests"/>
+      <class name="ru.instamart.tests.administration.BasicAdministrationTests"/>
+      <class name="ru.instamart.tests.checkout.BasicCheckoutTests"/>
+      <class name="ru.instamart.tests.site.BasicMetroTests"/>
+      <class name="ru.instamart.tests.orders.BasicOrdersTests"/>
+      <class name="ru.instamart.tests.site.BasicSbermarketTests"/>
+      <class name="ru.instamart.tests.checkout.CheckoutAddressStepTests"/>
+      <class name="ru.instamart.tests.checkout.CheckoutBonusesTests"/>
+      <class name="ru.instamart.tests.checkout.CheckoutContactsStepTests"/>
+      <class name="ru.instamart.tests.checkout.CheckoutDeliveryStepTests"/>
+      <class name="ru.instamart.tests.checkout.CheckoutPaymentStepTests"/>
+      <class name="ru.instamart.tests.checkout.CheckoutPromocodeTests"/>
+      <class name="ru.instamart.tests.checkout.CheckoutReplacementsStepTests"/>
+      <class name="ru.instamart.tests.checkout.CheckoutRetailerCardTests"/>
+      <class name="ru.instamart.tests.addons.JivositeTests"/>
+      <class name="ru.instamart.tests.landings.MassHiringLandingTests"/>
+      <class name="ru.instamart.tests.orders.OrdersBonusesTests"/>
+      <class name="ru.instamart.tests.orders.OrdersCities"/>
+      <class name="ru.instamart.tests.orders.OrdersPaymentsTests"/>
+      <class name="ru.instamart.tests.orders.OrdersPromocodesTests"/>
+      <class name="ru.instamart.tests.orders.OrdersReplacementsTests"/>
+      <class name="ru.instamart.tests.orders.OrdersRetailerCardsTests"/>
+      <class name="ru.instamart.tests.orders.OrdersRetailers"/>
+      <class name="ru.instamart.tests.addons.Page404Tests"/>
+      <class name="ru.instamart.tests.Playground"/>
+      <class name="ru.instamart.tests.landings.ReferralLandingTests"/>
+      <class name="ru.instamart.tests.addons.RetailRocket.RetailRocketCartWidgetsTests"/>
+      <class name="ru.instamart.tests.addons.RetailRocket.RetailRocketCatalogWidgetsTests"/>
+      <class name="ru.instamart.tests.addons.RetailRocket.RetailRocketItemCardWidgetsTests"/>
+      <class name="ru.instamart.tests.addons.RetailRocket.RetailRocketRetailerPageWidgetsTests"/>
+      <class name="ru.instamart.tests.addons.RetailRocket.RetailRocketSearchWidgetsTests"/>
+      <class name="ru.instamart.tests.addons.RetailRocket.RetailRocketSeoCatalogWidgetsTests"/>
+      <class name="ru.instamart.tests.landings.SbermarketLandingTests"/>
+      <class name="ru.instamart.tests.SelfCheckTests"/>
+      <class name="ru.instamart.tests.addons.SeoCatalogTests"/>
+      <class name="ru.instamart.tests.shopping.ShoppingCartTests"/>
+      <class name="ru.instamart.tests.shopping.ShoppingCatalogTests"/>
+      <class name="ru.instamart.tests.shopping.ShoppingSearchTests"/>
+      <class name="ru.instamart.tests.shopping.ShoppingTestsForExistingUser"/>
+      <class name="ru.instamart.tests.shopping.ShoppingTestsForUnauthorizedUser"/>
+      <class name="ru.instamart.tests.TestBase"/>
+      <class name="ru.instamart.tests.orders.testOrders"/>
+      <class name="ru.instamart.tests.user.UserAuthorisationTests"/>
+      <class name="ru.instamart.tests.user.UserFavoritesTests"/>
+      <class name="ru.instamart.tests.user.UserLogoutTests"/>
+      <class name="ru.instamart.tests.user.UserPasswordRecoveryTests"/>
+      <class name="ru.instamart.tests.user.UserPersonalDataPolicyTests"/>
+      <class name="ru.instamart.tests.user.UserProfileTests"/>
+      <class name="ru.instamart.tests.user.UserRegistrationTests"/>
+      <class name="ru.instamart.tests.user.UserShippingAddressTests"/>
+    </classes>
+  </test> <!-- web-tests -->
+</suite> <!-- Custom suite -->

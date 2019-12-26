@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.application.AppManager;
+import ru.instamart.application.Tenants;
 import ru.instamart.application.lib.PaymentTypes;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.rest.RestAddresses;
@@ -21,7 +22,7 @@ public class OrdersPaymentsTests extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.learningCenter());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
     }
 
@@ -32,6 +33,7 @@ public class OrdersPaymentsTests extends TestBase {
             priority = 2101
     )
     public void successOrderWithCashAndCheckDocuments() {
+        skipTestOn(Tenants.sbermarket());
         kraken.checkout().complete(PaymentTypes.cash());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
