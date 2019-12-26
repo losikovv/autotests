@@ -142,7 +142,7 @@ public class BasicOrdersTests extends TestBase {
     )
     public void successOrderWithFavProducts() {
         Shop.Catalog.Item.addToFavorites();
-        kraken.get().favoritesPage();
+        kraken.get().userFavoritesPage();
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();

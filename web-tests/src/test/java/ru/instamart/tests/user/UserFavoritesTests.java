@@ -27,7 +27,7 @@ public class UserFavoritesTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"}
     )
     public void noAccessToFavoritesForUnauthorizedUser(){
-        assertPageIsUnavailable(Pages.Profile.favorites());
+        assertPageIsUnavailable(Pages.UserProfile.favorites());
     }
 
     @Test(  description = "Переход в любимые товары по кнопке",
@@ -134,7 +134,7 @@ public class UserFavoritesTests extends TestBase {
         } else {
             kraken.get().page(Pages.Retailers.metro());
             Shop.Catalog.Item.addToFavorites();
-            kraken.get().favoritesPage();
+            kraken.get().userFavoritesPage();
             Shop.Favorites.Item.removeFromFavorites();
         }
 
@@ -187,7 +187,7 @@ public class UserFavoritesTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         User.Do.loginAs(session.admin);
-        kraken.get().favoritesPage();
+        kraken.get().userFavoritesPage();
 
         Assert.assertTrue(
                 !kraken.detect().isFavoritesEmpty(),
@@ -226,7 +226,7 @@ public class UserFavoritesTests extends TestBase {
     )
     public void successShowMoreLoad() throws AssertionError {
         User.Do.loginAs(session.admin);
-        kraken.get().favoritesPage();
+        kraken.get().userFavoritesPage();
         Shop.Jivosite.open();
 
         if(kraken.detect().isElementPresent(Elements.Favorites.showMoreButton())) {
@@ -364,7 +364,7 @@ public class UserFavoritesTests extends TestBase {
 
         User.Do.loginAs(session.admin);
         Shop.Cart.drop();
-        kraken.get().favoritesPage();
+        kraken.get().userFavoritesPage();
 
         Shop.Catalog.Item.addToCart();
         kraken.await().implicitly(1); // ждем пока уберется алерт
@@ -392,7 +392,7 @@ public class UserFavoritesTests extends TestBase {
 
         User.Do.loginAs(session.admin);
         Shop.Cart.drop();
-        kraken.get().favoritesPage();
+        kraken.get().userFavoritesPage();
 
         Shop.Favorites.Item.addToCart();
         Shop.Cart.open();

@@ -132,7 +132,7 @@ public class DetectionHelper extends HelperBase {
      * Определить находимся в списке любимых товаров или нет
      */
     public boolean isInFavorites() {
-        return kraken.grab().currentURL().equals(baseUrl + Pages.Profile.favorites().getPath());
+        return kraken.grab().currentURL().equals(baseUrl + Pages.UserProfile.favorites().getPath());
     }
 
     /**
@@ -304,7 +304,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить активен ли верхний заказ на странице списка заказов */
     public boolean isOrdersHistoryEmpty() {
-        if(kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.placeholder())) {
+        if(kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder())) {
             debugMessage("У пользователя нет заказов на странице истории заказов");
             return true;
         } else {
@@ -314,6 +314,7 @@ public class DetectionHelper extends HelperBase {
     }
 
     /** Определить активен ли верхний заказ на странице списка заказов */
+    /*
     public boolean isLastOrderActive() {
         if(isElementPresent(Elements.UserProfile.OrdersHistoryPage.order.cancelButton())) {
             debugMessage("Крайний заказ активен");
@@ -323,6 +324,7 @@ public class DetectionHelper extends HelperBase {
             return false;
         }
     }
+    */
 
     // ======= Детали заказа =======
 
@@ -446,7 +448,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить наличие пустого списка любимых товаров */
     public boolean isFavoritesEmpty() {
         if(!kraken.detect().isInFavorites()) {
-            kraken.get().favoritesPage();
+            kraken.get().userFavoritesPage();
         }
         if(kraken.detect().isElementPresent(Elements.Favorites.placeholder())){
             verboseMessage("Нет любимых товаров\n");

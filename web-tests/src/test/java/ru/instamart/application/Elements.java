@@ -898,32 +898,102 @@ public class Elements {
         /** Страница истории заказов */
         interface OrdersHistoryPage {
 
-            static ElementData placeholder() {
-                return new ElementData(By.xpath("//div[@class='no-content__text' and text()='У вас нет завершенных заказов']"),
-                        "плейсхолдер пустой истории заказов");
+            //todo allOrdersFilterButton
+
+            static ElementData activeOrdersFilterButton() {
+                return new ElementData(By.xpath("//button[@data-qa='user-shipment-list-selector-active']"),
+                        "кнопка фильтра активных заказов в истории заказов");
+            }
+
+            static ElementData completeOrdersFilterButton() {
+                return new ElementData(By.xpath("//button[@data-qa='user-shipment-list-selector-inactive']"),
+                        "кнопка фильтра завершенных заказов в истории заказов");
+            }
+
+            //todo ordersPlaceholder
+
+            static ElementData activeOrdersPlaceholder() {
+                return new ElementData(By.xpath("//h3[text()='У вас нет активных заказов']"),
+                        "плейсхолдер пустой истории активных заказов");
+            }
+
+            static ElementData completeOrdersPlaceholder() {
+                return new ElementData(By.xpath("//h3[text()='У вас нет завершенных заказов']"),
+                        "плейсхолдер пустой истории завершенных заказов");
+            }
+
+            static ElementData goShoppingButton() {
+                return new ElementData(By.xpath("//*[@data-qa='user-shipment-list-buy-more']"),
+                        "кнопка 'Перейти к покупкам' на плейсхолдере пустой истории заказов");
             }
 
             interface order {
 
                 static ElementData snippet() {
-                    return new ElementData(By.xpath("//a[contains(@class,'shipment')]//button[text()='Повторить']"),
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-list-shipment']"),
                             "сниппет верхнего заказа на странице истории заказов");
                 }
 
-                static ElementData cancelButton() {
-                    return new ElementData(By.xpath("//div[@class='user-orders__item user-block']//button[text()='Отменить']"),
-                            "кнопка отмены верхнего заказа на странице истории заказов");
+                static ElementData snippet(int position) {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-list-shipment']["+position+"]"),
+                            "сниппет " + position + " заказа на странице истории заказов");
+                }
+
+                static ElementData positionsCount() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-list-shipment-count']"),
+                            "количество позиций в сниппете заказа на странице истории заказов");
+                }
+
+                static ElementData weight() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-list-shipment-weight']"),
+                            "вес в сниппете заказа на странице истории заказов");
+                }
+
+                static ElementData price() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-list-shipment-price']"),
+                            "стоимость в сниппете заказа на странице истории заказов");
+                }
+
+                static ElementData retailerLogo() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-list-shipment-logo']"),
+                            "лого ритейлера в сниппете заказа на странице истории заказов");
+                }
+
+                static ElementData shipmentDate() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-list-shipment-date']"),
+                            "дата доставки в сниппете заказа на странице истории заказов");
+                }
+
+                static ElementData shipmentInterval() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-list-shipment-interval']"),
+                            "интервал доставки в сниппете заказа на странице истории заказов");
+                }
+
+                static ElementData shipmentOldSlot() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-list-shipment-previous-date']"),
+                            "устаревший слот доставки в сниппете заказа на странице истории заказов");
+                }
+
+                static ElementData shipmentNumber() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-list-shipment-number']"),
+                            "номер доставки в сниппете заказа на странице истории заказов");
+                }
+
+                static ElementData shipmentStatus() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-list-shipment-state']"),
+                            "статус доставки в сниппете заказа на странице истории заказов");
+                }
+
+                static ElementData shipmentItems() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-list-shipment-products']"),
+                            "превью товаров в сниппете заказа на странице истории заказов");
                 }
 
                 static ElementData repeatButton() {
-                    return new ElementData(By.xpath("//div[@class='user-orders__item user-block']//button[text()='Повторить']"),
+                    return new ElementData(By.xpath("//button[@data-qa='user-shipment-list-shipment-repeat']"),
                             "кнопка повтора верхнего заказа на странице истории заказов");
                 }
 
-                static ElementData detailsButton() {
-                    return new ElementData(By.xpath("//div[@class='user-orders__item user-block']//a[text()='Детали заказа']"),
-                            "кнопка деталей верхнего заказа на странице истории заказов");
-                }
             }
         }
 
@@ -958,6 +1028,11 @@ public class Elements {
             static ElementData document(String name) {
                 return new ElementData(By.xpath("//a[text()='" + name + "']"),
                         "ссылка на \"" + name + "\"");
+            }
+
+            static ElementData cancelButton() {
+                return new ElementData(By.xpath("//button[text()='Отменить заказ']"),
+                        "кнопка отмены заказа на странице деталей заказа");
             }
         }
     }

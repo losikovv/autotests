@@ -78,7 +78,7 @@ public class Pages {
         static PageData mobile() { return new PageData("landings/m-general-white"); }
     }
 
-    public interface Profile {
+    public interface UserProfile {
 
         static PageData edit() { return new PageData("user/edit"); }
 

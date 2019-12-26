@@ -25,7 +25,7 @@ public class User extends Base {
         public static void loginAs(UserData user) { //TODO использовать только session-юзеров
             String startURL = kraken.grab().currentURL();
             if (!startURL.equals(fullBaseUrl) && kraken.detect().isUserAuthorised()) {
-                kraken.get().profilePage();
+                kraken.get().userProfilePage();
                 String currentUserEmail = kraken.grab().text(Elements.UserProfile.AccountPage.email());
                 message("Юзер: " + currentUserEmail);
                 if (currentUserEmail == null || !currentUserEmail.equals(user.getLogin())) {

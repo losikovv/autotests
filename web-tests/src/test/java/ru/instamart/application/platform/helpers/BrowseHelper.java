@@ -42,22 +42,7 @@ public class BrowseHelper extends HelperBase {
 
     /** Перейти на страницу чекаута */
     public void checkoutPage() {
-        page("checkout/edit?");
-    }
-
-    /** Перейти на страницу профиля */
-    public void profilePage() {
-        page("user/edit");
-    }
-
-    /** Перейти на страницу любимых товаров */
-    public void favoritesPage() {
-        page(Pages.Profile.favorites());
-        kraken.await().implicitly(2); // Ожидание загрузки Любимых товаров
-    }
-
-    public void adminURL() {
-        adminPage("");
+        page(Pages.checkout());
     }
 
     /** Перейти на страницу в админке */
@@ -85,14 +70,19 @@ public class BrowseHelper extends HelperBase {
         kraken.await().implicitly(1); // Ожидание загрузки SEO-каталога
     }
 
-    /** Перейти на страницу заказов юзера */
-    public void ordersPage(){
-        page("user/orders");
+    /** Перейти на страницу профиля */
+    public void userProfilePage() {
+        page(Pages.UserProfile.edit());
     }
 
-    /** Перейти на страницу адресов юзера */
-    public void addressesPage(){
-        page("user/addresses");
+    /** Перейти на страницу любимых товаров */
+    public void userFavoritesPage() {
+        page(Pages.UserProfile.favorites());
+    }
+
+    /** Перейти на страницу заказов юзера */
+    public void userShipmentsPage(){
+        page(Pages.UserProfile.shipments());
     }
 
     // TODO сделать метод go принимающий массив элементов и кликающий их по очереди

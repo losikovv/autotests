@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.application.Config;
 import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.application.models.UserData;
@@ -136,17 +135,18 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     public void successResumeAndCancelOrder() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().ordersPage();
+        kraken.get().userShipmentsPage();
         if(kraken.detect().isOrdersHistoryEmpty()) {
             kraken.get().page("metro");
             kraken.perform().order();
-            kraken.get().ordersPage();
+            kraken.get().userShipmentsPage();
         }
-        if(kraken.detect().isLastOrderActive()) {
-            kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
-            kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.cancelButton());
-        }
-        kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.detailsButton());
+
+        kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.activeOrdersFilterButton());
+        kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
+        kraken.perform().click(Elements.UserProfile.OrderDetailsPage.cancelButton());
+
+        kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
         kraken.get().adminOrderDetailsPage(kraken.grab().currentOrderNumber());
         softAssert.assertTrue(
                 kraken.detect().isOrderCanceled(),

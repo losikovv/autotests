@@ -149,7 +149,7 @@ public class PerformHelper extends HelperBase {
     /** Повторить крайний заказ */
     public void repeatLastOrder() {
         message("Повторяем крайний заказ\n");
-        kraken.get().page(Pages.Profile.shipments());
+        kraken.get().page(Pages.UserProfile.shipments());
         if(kraken.detect().isOrdersHistoryEmpty()) {
             throw new AssertionError("Невозможно повторить заказ, у пользователя нет заказов в истории\n");
         } else {
@@ -166,11 +166,13 @@ public class PerformHelper extends HelperBase {
     /** Отменить крайний заказ */
     public void cancelLastOrder() {
         message("Отменяем крайний заказ...");
-        kraken.get().url(baseUrl + "user/orders");
-        if(kraken.detect().isLastOrderActive()) {
-            click(Elements.UserProfile.OrdersHistoryPage.order.cancelButton());
+        kraken.get().page(Pages.UserProfile.shipments());
+
+        if(!kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder())) {
+            click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
+            click(Elements.UserProfile.OrderDetailsPage.cancelButton());
+            kraken.await().implicitly(2); // Ожидание отмены заказа
             message("✓ Заказ отменен\n");
         } else message("> Заказ не активен\n");
-        kraken.await().implicitly(2); // Ожидание отмены заказа
     }
 }

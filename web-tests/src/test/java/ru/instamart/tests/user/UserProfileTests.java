@@ -5,21 +5,18 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.application.Tenants;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.tests.TestBase;
 
-import static ru.instamart.application.AppManager.session;
-
 public class UserProfileTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
         kraken.get().baseUrl();
-        User.Do.loginAs(session.admin);
+        User.Do.registration();
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -188,8 +185,38 @@ public class UserProfileTests extends TestBase {
                     "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successCheckProfilePagesAreAvailable() {
-        assertPageIsAvailable(Pages.Profile.edit());
-        assertPageIsAvailable(Pages.Profile.favorites());
-        assertPageIsAvailable(Pages.Profile.shipments());
+        assertPageIsAvailable(Pages.UserProfile.edit());
+        assertPageIsAvailable(Pages.UserProfile.favorites());
+        assertPageIsAvailable(Pages.UserProfile.shipments());
+    }
+
+    @Test(
+            description = "Тест валидации дефолтных страниц истории заказов",
+            priority = 162,
+            groups = {
+                    "smoke","acceptance","regression",
+                    "metro-smoke","metro-acceptance","metro-regression",
+                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
+            }
+    ) public void successValidateDefaultOrderHistory() {
+        SoftAssert softAssert = new SoftAssert();
+        kraken.get().userShipmentsPage();
+
+        kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.completeOrdersFilterButton());
+        softAssert.assertTrue(
+                kraken.detect().isElementPresent(
+                        Elements.UserProfile.OrdersHistoryPage.completeOrdersPlaceholder()));
+
+        kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.activeOrdersFilterButton());
+        softAssert.assertTrue(
+                kraken.detect().isElementPresent(
+                        Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder()));
+
+        kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.goShoppingButton());
+        softAssert.assertFalse(
+                kraken.detect().isElementPresent(
+                        Elements.UserProfile.OrdersHistoryPage.completeOrdersPlaceholder()));
+
+        softAssert.assertAll();
     }
 }
