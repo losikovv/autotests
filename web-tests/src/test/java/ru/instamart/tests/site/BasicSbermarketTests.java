@@ -136,9 +136,9 @@ public class BasicSbermarketTests extends TestBase {
         assertPageIsAvailable(Pages.Retailers.auchan());
         assertPageIsAvailable(Pages.Retailers.azbuka());
         assertPageIsAvailable(Pages.Retailers.vkusvill());
+        assertPageIsAvailable(Pages.Retailers.lenta());
 
         // Проверяем что недоступны витрины неактивных ритейлеров
-        assertPageIs404(Pages.Retailers.lenta());
         assertPageIs404(Pages.Retailers.karusel());
         assertPageIs404(Pages.Retailers.selgros());
         assertPageIs404(Pages.Retailers.flora());
