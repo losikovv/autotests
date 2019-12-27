@@ -12,12 +12,92 @@ dependencies {
 	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 }
 
-task sberAcceptanceTests(type: Test) {
+task sberSmoke(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        include 'sbermarket-acceptance'
+        suites 'src/test/suite.xml'
+        includeGroups 'sbermarket-smoke'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
     }
 }
 
+task sberAcceptance(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/suite.xml'
+        includeGroups 'sbermarket-acceptance'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
+
+task sberRegression(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/suite.xml'
+        includeGroups 'sbermarket-regression'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
+
+task metroSmoke(type: Test){
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/suite.xml'
+        includeGroups 'metro-smoke'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
+
+task metroAcceptance(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/suite.xml'
+        includeGroups 'metro-acceptance'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
+
+task metroRegression(type: Test){
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/suite.xml'
+        includeGroups 'metro-regression'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
+
+/* trying to add custom listeners
+task sberRegression(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/suite.xml'
+        includeGroups 'sbermarket-regression'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+        options {
+            listeners.add("src/main/java/utils/MyTestListerAdapter.java")
+        }
+    }
+}
+*/
 

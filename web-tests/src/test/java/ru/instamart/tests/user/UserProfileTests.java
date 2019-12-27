@@ -194,9 +194,8 @@ public class UserProfileTests extends TestBase {
             description = "Тест валидации дефолтных страниц истории заказов",
             priority = 162,
             groups = {
-                    "smoke","acceptance","regression",
-                    "metro-smoke","metro-acceptance","metro-regression",
-                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
+                    "metro-acceptance","metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successValidateDefaultOrderHistory() {
         SoftAssert softAssert = new SoftAssert();

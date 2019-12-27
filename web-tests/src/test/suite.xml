@@ -4,7 +4,12 @@
   <test verbose="1" name="web-tests">
     <groups>
       <run>
+        <include name="sbermarket-smoke"/>
         <include name="sbermarket-acceptance"/>
+        <include name="sbermarket-regression"/>
+        <include name="metro-smoke"/>
+        <include name="metro-acceptance"/>
+        <include name="metro-regression"/>
       </run>
     </groups>
     <classes>
