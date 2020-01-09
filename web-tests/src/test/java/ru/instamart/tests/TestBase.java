@@ -15,7 +15,8 @@ import static ru.instamart.application.platform.helpers.HelperBase.verboseMessag
 
 public class TestBase {
 
-    protected static final AppManager kraken = new AppManager(Config.CoreSettings.browser);
+    protected static final AppManager kraken
+            = new AppManager(System.getProperty("browser", Config.CoreSettings.browser));
 
     @BeforeSuite(alwaysRun = true)
     public void start() throws Exception {

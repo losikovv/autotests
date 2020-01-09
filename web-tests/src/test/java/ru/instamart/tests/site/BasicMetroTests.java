@@ -25,13 +25,20 @@ public class BasicMetroTests extends TestBase {
     }
 
     @Test(
-            description = "Тест недоступности витрин других ритейлеров",
+            description = "Тест доступности / недоступности витрин ритейлеров Metro Delivery-CC",
             groups = {"metro-smoke","metro-acceptance","metro-regression"},
             priority = 103
-    ) public void successCheckOtherRetailersAreUnavailable() {
+    ) public void successCheckMetroRetailers() {
         assertPageIs404(Pages.Retailers.auchan());
         assertPageIs404(Pages.Retailers.azbuka());
         assertPageIs404(Pages.Retailers.vkusvill());
+        assertPageIs404(Pages.Retailers.lenta());
+        assertPageIs404(Pages.Retailers.karusel());
+        assertPageIs404(Pages.Retailers.selgros());
+        assertPageIs404(Pages.Retailers.flora());
+        assertPageIs404(Pages.Retailers.foodcity());
+        assertPageIs404(Pages.Retailers.magnit());
+        assertPageIs404(Pages.Retailers.testretailer());
 
         assertPageIsAvailable(Pages.Retailers.metro());
     }

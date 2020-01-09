@@ -125,11 +125,10 @@ public class BasicSbermarketTests extends TestBase {
     }
 
     @Test(
-            description = "Тест доступности / недоступности витрин ритейлеров",
+            description = "Тест доступности / недоступности витрин ритейлеров Сбермаркета ",
             priority = 103,
             groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
-    ) public void successCheckRetailerPagesAreAvailable() {
-        // TODO сделать отдельный тест для тенанта метро
+    ) public void successCheckSbermarketRetailers() {
 
         // Проверяем что доступны витрины активных ритейлеров
         assertPageIsAvailable(Pages.Retailers.metro());

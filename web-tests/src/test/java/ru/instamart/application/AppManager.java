@@ -127,7 +127,7 @@ public class AppManager {
     }
 
     private void revealKraken() throws IOException {
-        BufferedReader in = new BufferedReader(new FileReader("banner.txt"));
+        BufferedReader in = new BufferedReader(new FileReader("src/test/resources/banner.txt"));
         String line = in.readLine();
         while(line !=null) {
             System.out.println(line);
