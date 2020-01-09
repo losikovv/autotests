@@ -10,7 +10,7 @@ import ru.instamart.application.models.*;
 public class Config {
 
     public interface CoreSettings {
-        String browser = BrowserType.FIREFOX;
+        String defaultBrowser = BrowserType.FIREFOX;
         ServerData server = Servers.sbermarket_staging();
 
         int basicTimeout = 2;
