@@ -8,7 +8,7 @@ import ru.instamart.application.Elements;
 import ru.instamart.application.Users;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.lib.Addresses;
-import ru.instamart.application.models.ServerData;
+import ru.instamart.application.models.EnvironmentData;
 import ru.instamart.application.models.UserData;
 import ru.instamart.testdata.generate;
 
@@ -16,7 +16,7 @@ import static ru.instamart.application.Config.CoreSettings.multiSessionMode;
 
 public class User extends Base {
 
-    public User(WebDriver driver, ServerData environment, AppManager app) {
+    public User(WebDriver driver, EnvironmentData environment, AppManager app) {
         super(driver, environment, app);
     }
 
@@ -24,7 +24,7 @@ public class User extends Base {
 
         public static void loginAs(UserData user) { //TODO использовать только session-юзеров
             String startURL = kraken.grab().currentURL();
-            if (!startURL.equals(fullBaseUrl) && kraken.detect().isUserAuthorised()) {
+            if (!startURL.equals(kraken.environment.getBasicUrlWithHttpAuth()) && kraken.detect().isUserAuthorised()) {
                 kraken.get().userProfilePage();
                 String currentUserEmail = kraken.grab().text(Elements.UserProfile.AccountPage.email());
                 message("Юзер: " + currentUserEmail);

@@ -5,8 +5,6 @@ import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.tests.TestBase;
 
-import static ru.instamart.application.Tenants.metro;
-
 public class BasicSbermarketTests extends TestBase {
 
     //todo сделать отдельные тесты под тенанты
@@ -34,7 +32,7 @@ public class BasicSbermarketTests extends TestBase {
         assertPresence(Elements.Header.forBusinessButton());
 
         assertPresence(Elements.Header.catalogButton());
-        if(!kraken.detect().tenant(metro())) assertPresence(Elements.Header.storeButton());
+        if(!kraken.detect().tenant("metro")) assertPresence(Elements.Header.storeButton());
         assertPresence(Elements.Header.Search.inputField());
         assertPresence(Elements.Header.Search.sendButton());
         assertPresence(Elements.Header.favoritesButton());

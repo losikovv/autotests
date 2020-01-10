@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Elements;
-import ru.instamart.application.Servers;
+import ru.instamart.application.Environments;
 import ru.instamart.application.lib.*;
 import ru.instamart.application.Config;
 import ru.instamart.application.platform.modules.Shop;
@@ -123,9 +123,9 @@ public class BasicOrdersTests extends TestBase {
             priority = 2002
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
+        runTestOnlyOnEnvironment("sbermarket_staging");
         kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
 
-        runTestOnlyOn(Servers.sbermarket_staging());
         PaymentCardData creditCardData = Config.TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
 
         kraken.reach().checkout();

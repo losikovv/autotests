@@ -33,7 +33,7 @@ public class OrdersPaymentsTests extends TestBase {
             priority = 2101
     )
     public void successOrderWithCashAndCheckDocuments() {
-        skipTestOn(Tenants.sbermarket());
+        skipTestOnTenant("sbermarket");
         kraken.checkout().complete(PaymentTypes.cash());
 
         Assert.assertTrue(kraken.detect().isOrderActive(),

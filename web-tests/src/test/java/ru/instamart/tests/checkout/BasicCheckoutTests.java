@@ -45,7 +45,7 @@ public class BasicCheckoutTests extends TestBase {
         //assertPresence(Elements.Checkout.SideBar.total());
         assertPresence(Elements.Checkout.Promocode.addButton());
 
-        if (kraken.detect().tenant(Tenants.sbermarket())) assertPresence(Elements.Checkout.Bonuses.list());
+        if (kraken.detect().tenant("sbermarket")) assertPresence(Elements.Checkout.Bonuses.list());
         assertPresence(Elements.Checkout.SideBar.sendOrderButton());
     }
 

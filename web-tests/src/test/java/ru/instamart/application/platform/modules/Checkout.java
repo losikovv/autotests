@@ -16,7 +16,7 @@ import static ru.instamart.application.Config.CoreSettings.waitingTimeout;
 
 public class Checkout extends Base {
 
-    public Checkout(WebDriver driver, ServerData environment, AppManager app) {
+    public Checkout(WebDriver driver, EnvironmentData environment, AppManager app) {
         super(driver, environment, app);
     }
 

@@ -2,21 +2,19 @@ package ru.instamart.application.platform.modules;
 
 import org.openqa.selenium.*;
 import ru.instamart.application.AppManager;
-import ru.instamart.application.models.ServerData;
+import ru.instamart.application.models.EnvironmentData;
 
 import static ru.instamart.application.Config.CoreSettings.debug;
 import static ru.instamart.application.Config.CoreSettings.verbose;
 
 public class Base {
     static WebDriver driver;
+    public static EnvironmentData environment;
     static AppManager kraken;
-    public String baseUrl;
-    public static String fullBaseUrl;
 
-    Base(WebDriver driver, ServerData environment, AppManager app) {
+    Base(WebDriver driver, EnvironmentData environment, AppManager app) {
         this.driver = driver;
-        this.baseUrl = environment.getBaseURL(false);
-        this.fullBaseUrl = environment.getBaseURL(true);
+        this.environment = environment;
         this.kraken = app;
     }
 

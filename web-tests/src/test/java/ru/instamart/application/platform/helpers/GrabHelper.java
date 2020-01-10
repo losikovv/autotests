@@ -7,13 +7,13 @@ import ru.instamart.application.models.ElementData;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Elements;
 import ru.instamart.application.platform.modules.Shop;
-import ru.instamart.application.models.ServerData;
+import ru.instamart.application.models.EnvironmentData;
 
 import static java.lang.Integer.parseInt;
 
 public class GrabHelper extends HelperBase{
 
-    public GrabHelper(WebDriver driver, ServerData environment, AppManager app) {
+    public GrabHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
         super(driver, environment, app);
     }
 

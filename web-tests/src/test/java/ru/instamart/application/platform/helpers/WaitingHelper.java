@@ -6,14 +6,14 @@ import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Config;
 import ru.instamart.application.Elements;
-import ru.instamart.application.models.ServerData;
+import ru.instamart.application.models.EnvironmentData;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 public class WaitingHelper extends HelperBase {
 
-    public WaitingHelper(WebDriver driver, ServerData environment, AppManager app) {
+    public WaitingHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
         super(driver, environment, app);
     }
 

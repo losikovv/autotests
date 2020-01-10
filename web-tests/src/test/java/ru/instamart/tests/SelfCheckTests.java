@@ -19,7 +19,7 @@ public class SelfCheckTests extends TestBase {
             priority = 10000)
     public void initialCheck() {
         kraken.get().baseUrl();
-        Assert.assertEquals(kraken.grab().currentURL() , kraken.grab().fullBaseUrl);
+        Assert.assertEquals(kraken.grab().currentURL() , kraken.environment.getBasicUrlWithHttpAuth());
     }
 
     @Test(description = "Тест корректности работы методов навигации",
@@ -28,10 +28,10 @@ public class SelfCheckTests extends TestBase {
     public void checkNavigation() {
 
         kraken.get().page("metro");
-        Assert.assertEquals(kraken.grab().currentURL() , kraken.grab().fullBaseUrl + "metro");
+        Assert.assertEquals(kraken.grab().currentURL() , kraken.environment.getBasicUrlWithHttpAuth() + "metro");
 
         kraken.get().page(Pages.Sbermarket.faq());
-        Assert.assertEquals(kraken.grab().currentURL() , kraken.grab().fullBaseUrl + Pages.Sbermarket.faq().getPath());
+        Assert.assertEquals(kraken.grab().currentURL() , kraken.environment.getBasicUrlWithHttpAuth() + Pages.Sbermarket.faq().getPath());
     }
 
     @Test(description = "Тест корректности определения модалки авторизации/регистрации",

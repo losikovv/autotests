@@ -5,12 +5,12 @@ import ru.instamart.application.AppManager;
 import ru.instamart.application.Users;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
-import ru.instamart.application.models.ServerData;
+import ru.instamart.application.models.EnvironmentData;
 import ru.instamart.application.models.PageData;
 
 public class ReachHelper extends HelperBase {
 
-    public ReachHelper(WebDriver driver, ServerData environment, AppManager app) {
+    public ReachHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
         super(driver, environment, app);
     }
 

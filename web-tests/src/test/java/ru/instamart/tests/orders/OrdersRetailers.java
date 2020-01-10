@@ -52,7 +52,7 @@ public class OrdersRetailers extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInAuchan(){
-        skipTestOn(Tenants.metro());
+        runTestOnlyOnTenant("sbermarket");
         assertPageIsAvailable(Pages.Retailers.auchan());
 
         kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), RestRetailers.auchan);
@@ -72,7 +72,7 @@ public class OrdersRetailers extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInAzbukaVkusa(){
-        skipTestOn(Tenants.metro());
+        runTestOnlyOnTenant("sbermarket");
         assertPageIsAvailable(Pages.Retailers.azbuka());
 
         kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), RestRetailers.azbuka);
@@ -92,7 +92,7 @@ public class OrdersRetailers extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInVkusvill(){
-        skipTestOn(Tenants.metro());
+        runTestOnlyOnTenant("sbermarket");
         assertPageIsAvailable(Pages.Retailers.vkusvill());
 
         kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), RestRetailers.vkusvill);

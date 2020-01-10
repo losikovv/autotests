@@ -2,21 +2,20 @@ package ru.instamart.application.platform.helpers;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import ru.instamart.application.Servers;
 import ru.instamart.application.models.PageData;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.lib.Pages;
-import ru.instamart.application.models.ServerData;
+import ru.instamart.application.models.EnvironmentData;
 
 public class BrowseHelper extends HelperBase {
 
-    public BrowseHelper(WebDriver driver, ServerData environment, AppManager app) {
+    public BrowseHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
         super(driver, environment, app);
     }
 
     /** Перейти на указанный URL*/
     public void url(String url) {
-        if (url.equals(fullBaseUrl)) {
+        if (url.equals(environment.getBasicUrl())) {
             debugMessage("Переходим по базовому URL >>> " + url + "\n");
         }
         try {
@@ -28,16 +27,16 @@ public class BrowseHelper extends HelperBase {
 
     /** Перейти на базовый URL */
     public void baseUrl() {
-        url(fullBaseUrl);
+        url(environment.getBasicUrlWithHttpAuth());
     }
 
     /** Перейти на страницу */
     public void page(String page) {
-        url(fullBaseUrl + page);
+        url(environment.getBasicUrlWithHttpAuth() + page);
     }
 
     public void page(PageData page) {
-        url(fullBaseUrl + page.getPath());
+        url(environment.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     /** Перейти на страницу чекаута */
@@ -47,16 +46,7 @@ public class BrowseHelper extends HelperBase {
 
     /** Перейти на страницу в админке */
     public void adminPage(String path) {
-        switch(kraken.server.getEnvironment()) {
-            case "production" :
-                url( Servers.instamart_production().getBaseURL(true)+ "admin/" + path);
-                break;
-            case "staging" :
-                url( Servers.instamart_staging().getBaseURL(true)+ "admin/" + path);
-                break;
-
-            default: throw new AssertionError("Неопределенное окружение");
-        }
+        url(kraken.environment.getAdminUrlWithHttpAuth() + path);
     }
 
     /** Перейти на страницу заказа в админке */

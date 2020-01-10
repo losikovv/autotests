@@ -132,7 +132,7 @@ public class TestBase {
     //todo переименовать
     /**  Проверить возможность перехода на страницу */
     public void assertTransition(PageData page) {
-        assertTransition(kraken.grab().fullBaseUrl + page.getPath());
+        assertTransition(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     //todo переименовать
@@ -150,7 +150,7 @@ public class TestBase {
 
     /** Проверить возможность перехода на страницу и ее доступность */
     public void assertPageIsAvailable(PageData page) {
-        assertPageIsAvailable(kraken.grab().fullBaseUrl + page.getPath());
+        assertPageIsAvailable(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     /** Проверить возможность перехода на страницу по указанному url и ее доступность */
@@ -184,7 +184,7 @@ public class TestBase {
 
     /** Проверить возможность перехода на страницу и ее недоступность с ошибкой 404 */
     public void assertPageIs404(PageData page)  {
-        assertPageIs404(kraken.grab().fullBaseUrl + page.getPath());
+        assertPageIs404(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     /** Проверить возможность перехода на страницу по указанному url и ее недоступность с ошибкой 404 */
@@ -195,7 +195,7 @@ public class TestBase {
 
     /** Проверка недоступности страницы для перехода */
     public void assertPageIsUnavailable(PageData page) {
-        assertPageIsUnavailable(kraken.grab().fullBaseUrl + page.getPath());
+        assertPageIsUnavailable(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     /** Проверка недоступности страницы для перехода по прямой ссылке */
@@ -220,33 +220,41 @@ public class TestBase {
     }
 
     /** Пропуск теста на окружении */
-    public void skipTestOn(ServerData environment) throws SkipException{
+    public void skipTestOnEnvironment(String environment) throws SkipException {
         if (kraken.detect().environment(environment)) {
-            message("Пропускаем тест на окружении " + environment.getName());
+            message("Пропускаем тест на окружении " + environment);
                 throw new SkipException("Пропускаем тест");
         }
     }
 
     /** Пропуск теста на тенанте */
-    public void skipTestOn(TenantData tenant) throws SkipException {
+    public void skipTestOnTenant(String tenant) throws SkipException {
         if (kraken.detect().tenant(tenant)) {
-            message("Пропускаем тест для тенанта " + tenant.getName());
-                throw new SkipException("Пропускаем тест");
+            message("Пропускаем тест для тенанта " + tenant);
+            throw new SkipException("Пропускаем тест");
+        }
+    }
+
+    /** Пропуск теста на сервере */
+    public void skipTestOnServer(String server) throws SkipException {
+        if (kraken.detect().server(server)) {
+            message("Пропускаем тест на " + server);
+            throw new SkipException("Пропускаем тест");
         }
     }
 
     /** Проведение теста только на указанном окружении */
-    public void runTestOnlyOn(ServerData environment) throws SkipException {
+    public void runTestOnlyOnEnvironment(String environment) throws SkipException {
         if (!kraken.detect().environment(environment)) {
-            message("Тест только для окружения " + environment.getName());
+            message("Тест только для окружения " + environment);
             throw new SkipException("Пропускаем тест");
         }
     }
 
     /** Проведение теста только на указанном тенанте */
-    public void runTestOnlyOn(TenantData tenant) {
+    public void runTestOnlyOnTenant(String tenant) {
         if (!kraken.detect().tenant(tenant)) {
-            message("Тест только для тенанта " + tenant.getName());
+            message("Тест только для тенанта " + tenant);
             throw new SkipException("Пропускаем тест");
         }
     }

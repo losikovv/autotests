@@ -5,6 +5,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.response.Response;
 import ru.instamart.application.models.UserData;
+import ru.instamart.application.platform.modules.Base;
 import ru.instamart.application.rest.objects.*;
 import ru.instamart.application.rest.objects.responses.*;
 
@@ -15,9 +16,9 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.config.EncoderConfig.encoderConfig;
-import static ru.instamart.application.platform.modules.Base.fullBaseUrl;
 
 public class RestHelper {
+    private String fullBaseUrl = Base.environment.getBasicUrlWithHttpAuth();
     private String token;
     private String currentOrderNumber;
     private int currentSid;

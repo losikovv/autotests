@@ -12,14 +12,13 @@ import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.platform.helpers.*;
 import ru.instamart.application.platform.modules.Checkout;
 import ru.instamart.application.platform.modules.Shop;
-import ru.instamart.application.models.ServerData;
+import ru.instamart.application.models.EnvironmentData;
 import ru.instamart.application.models.SessionData;
 import ru.instamart.application.rest.RestHelper;
 import ru.instamart.testdata.generate;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
@@ -30,10 +29,11 @@ import static ru.instamart.application.Config.TestVariables.TestParams.testMark;
 
 public class AppManager {
 
+    private Properties properties = new Properties();
     public final static String testrunId = generate.testRunId();
 
     protected WebDriver driver;
-    public ServerData server;
+    static public EnvironmentData environment;
     private String browser;
     public static SessionData session;
 
@@ -58,13 +58,32 @@ public class AppManager {
     }
 
     public void rise() throws IOException {
+        setEnvironment();
         initTestSession();
-        initEnvironment();
         initDriver();
         initHelpers();
         applyOptions();
         revealKraken();
-        driver.get(server.getBaseURL(true));
+        getBasicUrl();
+    }
+
+    public void getBasicUrl() {
+        driver.get(environment.getBasicUrlWithHttpAuth());
+    }
+
+    private void setEnvironment() throws IOException {
+        String env = System.getProperty("env", Config.CoreSettings.defaultEnvironment);
+        properties = new Properties();
+        properties.load(
+                new FileReader(
+                    new File(String.format("src/test/resources/environment_configs/%s.properties", env))));
+        environment = new EnvironmentData(
+                properties.getProperty("tenant"),
+                properties.getProperty("server"),
+                properties.getProperty("basicUrl"),
+                properties.getProperty("adminUrl"),
+                properties.getProperty("httpAuth")
+        );
     }
 
     private void initTestSession() {
@@ -81,10 +100,6 @@ public class AppManager {
                     "users?q%5Bemail_cont%5D=" + testrunId + "-" + testMark
             );
         }
-    }
-
-    private void initEnvironment() {
-        server = Config.CoreSettings.server;
     }
 
     private void initDriver() {
@@ -106,18 +121,18 @@ public class AppManager {
     }
 
     private void initHelpers() {
-        browseHelper = new BrowseHelper(driver, server, this);
-        performHelper = new PerformHelper(driver, server, this);
-        reachHelper = new ReachHelper(driver, server, this);
-        detectionHelper = new DetectionHelper(driver, server, this);
-        grabHelper = new GrabHelper(driver, server,this);
-        dropHelper = new DropHelper(driver, server,this);
-        shopHelper = new Shop(driver, server, this);
-        userHelper = new User(driver, server, this);
-        checkoutHelper = new Checkout(driver, server, this);
-        administrationHelper = new Administration(driver, server, this);
-        cleanupHelper = new CleanupHelper(driver, server, this);
-        waitingHelper = new WaitingHelper(driver, server, this);
+        browseHelper = new BrowseHelper(driver, environment, this);
+        performHelper = new PerformHelper(driver, environment, this);
+        reachHelper = new ReachHelper(driver, environment, this);
+        detectionHelper = new DetectionHelper(driver, environment, this);
+        grabHelper = new GrabHelper(driver, environment,this);
+        dropHelper = new DropHelper(driver, environment,this);
+        shopHelper = new Shop(driver, environment, this);
+        userHelper = new User(driver, environment, this);
+        checkoutHelper = new Checkout(driver, environment, this);
+        administrationHelper = new Administration(driver, environment, this);
+        cleanupHelper = new CleanupHelper(driver, environment, this);
+        waitingHelper = new WaitingHelper(driver, environment, this);
         restHelper = new RestHelper();
     }
 
@@ -135,7 +150,7 @@ public class AppManager {
         }
         in.close();
 
-        System.out.println("\nENVIRONMENT: " + server.getName() + " ( " + server.getHost() + " )");
+        System.out.println("\nENVIRONMENT: " + environment.getName() + " ( " + environment.getBasicUrl() + " )");
 
         if(multiSessionMode) {
             System.out.println("\nTEST RUN ID: " + session.id);

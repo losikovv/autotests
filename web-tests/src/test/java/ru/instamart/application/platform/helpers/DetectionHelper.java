@@ -11,23 +11,23 @@ import ru.instamart.application.platform.modules.Shop;
 
 public class DetectionHelper extends HelperBase {
 
-    public DetectionHelper(WebDriver driver, ServerData environment, AppManager app) {
+    public DetectionHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
         super(driver, environment, app);
     }
 
     /** Определить в каком тестовом окружении находимся */
-    public boolean environment(ServerData environment) {
-        return kraken.server.getName().equals(environment.getName());
+    public boolean environment(String environment) {
+        return kraken.environment.getName().equals(environment);
     }
 
     /** Определить серверное окружение */
     public boolean server(String server) {
-        return kraken.server.getEnvironment().equals(server);
+        return kraken.environment.getServer().equals(server);
     }
 
     /** Определить тенант */
-    public boolean tenant(TenantData tenant) {
-        return kraken.server.getTenant().getAlias().equals(tenant.getAlias());
+    public boolean tenant(String tenant) {
+        return kraken.environment.getTenant().equals(tenant);
     }
 
     /**
@@ -132,7 +132,7 @@ public class DetectionHelper extends HelperBase {
      * Определить находимся в списке любимых товаров или нет
      */
     public boolean isInFavorites() {
-        return kraken.grab().currentURL().equals(baseUrl + Pages.UserProfile.favorites().getPath());
+        return kraken.grab().currentURL().equals(kraken.environment.getBasicUrl() + Pages.UserProfile.favorites().getPath());
     }
 
     /**

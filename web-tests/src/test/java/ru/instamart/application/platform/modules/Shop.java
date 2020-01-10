@@ -9,11 +9,11 @@ import ru.instamart.application.lib.Pages;
 import ru.instamart.application.models.ElementData;
 import ru.instamart.application.models.WidgetData;
 import ru.instamart.application.Config;
-import ru.instamart.application.models.ServerData;
+import ru.instamart.application.models.EnvironmentData;
 
 public class Shop extends Base {
 
-    public Shop(WebDriver driver, ServerData environment, AppManager app) {
+    public Shop(WebDriver driver, EnvironmentData environment, AppManager app) {
         super(driver, environment, app);
     }
 

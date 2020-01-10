@@ -30,7 +30,7 @@ public class CheckoutBonusesTests extends TestBase {
             priority = 1701
     )
     public void successAddBonusPrograms() {
-        skipTestOn(Tenants.metro());
+        skipTestOnTenant("metro");
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
         Checkout.Bonuses.deleteAll();
@@ -68,7 +68,7 @@ public class CheckoutBonusesTests extends TestBase {
             priority = 1702
     )
     public void successSelectBonusPrograms() {
-        skipTestOn(Tenants.metro());
+        skipTestOnTenant("metro");
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
         Checkout.Bonuses.deleteAll();
@@ -97,7 +97,7 @@ public class CheckoutBonusesTests extends TestBase {
             priority = 1703
     )
     public void successDeleteBonusPrograms() {
-        skipTestOn(Tenants.metro());
+        skipTestOnTenant("metro");
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
         Checkout.Bonuses.deleteAll();
