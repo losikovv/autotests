@@ -28,7 +28,7 @@ public class SeoCatalogTests extends TestBase {
             priority = 9100
     )
     public void successCheckSeoPage() {
-        skipTestOnTenant("sbermarket_staging");
+        skipTestOnServer("staging");
 
         assertPageIsAvailable(
                 Pages.seo_catalog());

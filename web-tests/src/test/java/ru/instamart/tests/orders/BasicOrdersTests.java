@@ -123,7 +123,7 @@ public class BasicOrdersTests extends TestBase {
             priority = 2002
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
-        runTestOnlyOnEnvironment("sbermarket_staging");
+        runTestOnlyOnServer("staging");
         kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
 
         PaymentCardData creditCardData = Config.TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();

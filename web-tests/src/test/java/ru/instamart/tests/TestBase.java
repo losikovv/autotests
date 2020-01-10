@@ -259,6 +259,14 @@ public class TestBase {
         }
     }
 
+    /** Проведение теста только на указанном сервере */
+    public void runTestOnlyOnServer(String server) {
+        if (!kraken.detect().server(server)) {
+            message("Тест только для " + server);
+            throw new SkipException("Пропускаем тест");
+        }
+    }
+
     @DataProvider
     Object[][] generateUserData() {
     UserData testuser = generate.testCredentials("user");

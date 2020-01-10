@@ -5,22 +5,22 @@ public class Environments {
     static class sbermarket {
 
         public static String production() {
-            return "sbermarket_production";
+            return "sbermarket-production";
         }
 
         public static String staging() {
-            return "sbermarket_staging";
+            return "sbermarket-staging";
         }
     }
 
     static class metro {
 
         public static String production() {
-            return "metro_production";
+            return "metro-production";
         }
 
         public static String staging() {
-            return "metro_staging";
+            return "metro-staging";
         }
     }
 }

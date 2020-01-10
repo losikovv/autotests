@@ -32,7 +32,7 @@ public class EnvironmentData {
     }
 
     public String getBasicUrlWithHttpAuth() {
-        return "https://" + this.httpAuth + "@" + basicUrl + "/";
+        return "https://" + httpAuth + basicUrl + "/";
     }
 
     public String getAdminUrl() {
@@ -40,6 +40,6 @@ public class EnvironmentData {
     }
 
     public String getAdminUrlWithHttpAuth() {
-        return "https://" + this.httpAuth + "@" + adminUrl + "/";
+        return "https://" + httpAuth + adminUrl + "/";
     }
 }
