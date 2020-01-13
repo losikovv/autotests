@@ -18,7 +18,7 @@ public class OrdersRetailerCardsTests extends TestBase {
     public void setup() {
         kraken.get().baseUrl();
         User.Do.loginAs(kraken.session.admin);
-        User.ShippingAddress.change(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         Shop.Cart.drop();
     }
 

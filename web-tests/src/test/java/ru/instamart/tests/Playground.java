@@ -110,7 +110,7 @@ public class Playground extends TestBase {
 
         User.Do.loginAs(AppManager.session.user);
         kraken.get().page(Pages.Retailers.metro());
-        User.ShippingAddress.change(Addresses.Moscow.testAddress());
+        User.ShippingAddress.set(Addresses.Moscow.testAddress());
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
 

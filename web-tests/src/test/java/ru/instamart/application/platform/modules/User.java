@@ -339,17 +339,13 @@ public class User extends Base {
 
         /** Установить адрес доставки */
         public static void set(String address) {
-            message("Устанавливаем адрес доставки >>> " + address + "\n");
             Shop.ShippingAddressModal.open();
-            Shop.ShippingAddressModal.fill(address);
-            Shop.ShippingAddressModal.submit();
-        }
-
-        /** Изменить адрес доставки */
-        public static void change(String address) {
-            message("Изменяем адрес доставки >>> " + address + "\n");
-            Shop.ShippingAddressModal.open();
-            Shop.ShippingAddressModal.clearAddressField();
+            if(kraken.grab().text(Elements.Modals.AddressModal.addressField()).equals("")) {
+                message("Устанавливаем адрес доставки >>> " + address + "\n");
+            } else {
+                message("Изменяем адрес доставки >>> " + address + "\n");
+                Shop.ShippingAddressModal.clearAddressField();
+            }
             Shop.ShippingAddressModal.fill(address);
             Shop.ShippingAddressModal.submit();
         }
@@ -357,10 +353,10 @@ public class User extends Base {
         /** Свапнуть тестовый и дефолтные адреса */
         public static void swap() {
             if (kraken.grab().currentShipAddress().equals(Addresses.Moscow.defaultAddress())) {
-                change(Addresses.Moscow.testAddress());
+                set(Addresses.Moscow.testAddress());
             } else {
-                change(Addresses.Moscow.testAddress());
-                change(Addresses.Moscow.defaultAddress());
+                set(Addresses.Moscow.testAddress());
+                set(Addresses.Moscow.defaultAddress());
             }
         }
     }

@@ -70,7 +70,7 @@ public class UserLogoutTests extends TestBase {
         kraken.get().page("metro");
 
         User.Do.loginAs(session.admin);
-        User.ShippingAddress.change(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         kraken.get().page("metro");
         kraken.await().simply(2);
