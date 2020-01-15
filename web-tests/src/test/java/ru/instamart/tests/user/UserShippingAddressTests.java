@@ -134,7 +134,10 @@ public class UserShippingAddressTests extends TestBase {
 
         softAssert.assertEquals(
                 kraken.grab().currentShipAddress(), Addresses.Moscow.defaultAddress(),
-                    "\n> Установленный адрес доставки не совпадает с введенным");
+                    "\n> Установленный адрес доставки не совпадает с введенным"
+                            +"\n> Установлен адрес: " + kraken.grab().currentShipAddress()
+                            +"\n> Ожидаемый адрес: " + Addresses.Moscow.defaultAddress()
+        );
 
         softAssert.assertAll();
     }

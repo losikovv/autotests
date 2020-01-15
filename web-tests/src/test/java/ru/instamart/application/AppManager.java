@@ -29,7 +29,6 @@ import static ru.instamart.application.Config.TestVariables.TestParams.testMark;
 
 public class AppManager {
 
-    private Properties properties = new Properties();
     public final static String testrunId = generate.testRunId();
 
     protected WebDriver driver;
@@ -72,8 +71,8 @@ public class AppManager {
     }
 
     private void setEnvironment() throws IOException {
+        Properties properties = new Properties();
         String env = System.getProperty("env", Config.CoreSettings.defaultEnvironment);
-        properties = new Properties();
         properties.load(
                 new FileReader(
                     new File(String.format("src/test/resources/environment_configs/%s.properties", env))));

@@ -159,6 +159,7 @@ public class Shop extends Base {
         /** Ввести адрес в адресной модалке */
         public static void fill(String address) {
             kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), address);
+            kraken.await().simply(1); // Ожидание адресных подсказок
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
                             Elements.Modals.AddressModal.addressSuggest().getLocator()),
@@ -175,7 +176,7 @@ public class Shop extends Base {
             if (kraken.detect().isShippingAddressSuggestsPresent()) {
                 kraken.perform().click(Elements.Modals.AddressModal.addressSuggest());
                 kraken.await().fluently(
-                        ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.saveButton().getLocator()),
+                        ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.submitButton().getLocator()),
                         "Неактивна кнопка сохранения адреса");
             } else {
                 throw new AssertionError("Нет адресных подсказок, невозможно выбрать адрес");
@@ -184,7 +185,7 @@ public class Shop extends Base {
 
         /** Применить введенный адрес в адресной модалке */
         public static void submit() throws AssertionError {
-            kraken.perform().click(Elements.Modals.AddressModal.saveButton());
+            kraken.perform().click(Elements.Modals.AddressModal.submitButton());
             if (kraken.detect().isAddressOutOfZone()) {
                 verboseMessage("Выбранный адрес вне зоны доставки");
                 kraken.perform().refresh();

@@ -619,24 +619,29 @@ public class Elements {
     /** Адресные модалки Феникса */
     interface AddressModal {
 
-        static ElementData header() {
-            return new ElementData(By.className("address-modal__header"));
+        static ElementData popup() {
+            return new ElementData(By.className("address-modal"));
         }
 
         static ElementData closeButton() {
-            return new ElementData(By.className("address-modal__header"));
+            return new ElementData(
+                    By.xpath("//button[@data-qa='address-modal-close']"),
+                    "крестик закрытия модалки выбора адреса");
         }
 
         static ElementData addressField() {
-            return new ElementData(By.id("ship_address"));
+            return new ElementData(By.xpath("//input[@data-qa='address-modal-input']"),
+                    "поле ввода адреса в модалке выбора адреса");
         }
 
         static ElementData addressSuggest() {
-            return new ElementData(By.className("modal-address-autocomplete__dropdown-item"));
+            return new ElementData(
+                    By.xpath("//*[@data-qa='address-autocomplete-dropdown']//*[@id='downshift-0-item-0']"),
+                    "адресная подсказка в модалке выбора адреса");
         }
 
-        static ElementData saveButton() {
-            return new ElementData("Сохранить", By.className("address-modal__button"));
+        static ElementData submitButton() {
+            return new ElementData(By.xpath("//button[@data-qa='address-modal-submit']"));
         }
 
         static ElementData recentAddressesList() {
@@ -649,10 +654,6 @@ public class Elements {
 
         static ElementData authButton() {
             return new ElementData(By.className("address-modal__to-login-link"));
-        }
-
-        static ElementData popup() {
-            return new ElementData(By.className("address-modal"));
         }
 
         static ElementData titleSet() {
@@ -898,7 +899,10 @@ public class Elements {
         /** Страница истории заказов */
         interface OrdersHistoryPage {
 
-            //todo allOrdersFilterButton
+            static ElementData allOrdersFilterButton() {
+                return new ElementData(By.xpath("//button[@data-qa='user-shipment-list-selector-all']"),
+                        "кнопка фильтра всех заказов в истории заказов");
+            }
 
             static ElementData activeOrdersFilterButton() {
                 return new ElementData(By.xpath("//button[@data-qa='user-shipment-list-selector-active']"),
@@ -2661,11 +2665,14 @@ public class Elements {
                 interface Details {
 
                     static ElementData resumeOrderButton() {
-                        return new ElementData(By.className("icon-resume"));
+                        return new ElementData(
+                                By.xpath("//button[@class='icon-resume button']"),
+                                "кнопка возобновления заказа на странице деталей заказа в админке");
                     }
 
                     static ElementData cancelOrderButton() {
-                        return new ElementData(By.className("icon-cancel"));
+                        return new ElementData(By.xpath("//a[@class='button icon-cancel']"),
+                                "кнопка отмены заказа на странице деталей заказа в админке");
                     }
 
                     static ElementData confirmOrderCancellationButton() {

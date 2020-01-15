@@ -107,7 +107,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
         kraken.get().baseUrl();
         User.Do.registration(testuser);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
-        kraken.await().simply(5); //todo протестить
+        kraken.perform().refresh();
         Shop.Catalog.Item.addToCart();
         User.Logout.quickly();
 

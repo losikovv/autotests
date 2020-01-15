@@ -211,6 +211,8 @@ public class UserProfileTests extends TestBase {
                 kraken.detect().isElementPresent(
                         Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder()));
 
+        kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.allOrdersFilterButton());
+
         kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.goShoppingButton());
         softAssert.assertFalse(
                 kraken.detect().isElementPresent(

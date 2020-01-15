@@ -75,6 +75,11 @@ public class BrowseHelper extends HelperBase {
         page(Pages.UserProfile.shipments());
     }
 
+    /** Перейти на страницу деталей заказа */
+    public void userShipmentPage(String shipmentNumber){
+        page(Pages.UserProfile.orderDetails(shipmentNumber));
+    }
+
     // TODO сделать метод go принимающий массив элементов и кликающий их по очереди
     // TODO public void go(Elements[] elements){ }
 }

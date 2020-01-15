@@ -14,7 +14,7 @@ public class Config {
         String defaultEnvironment = Environments.sbermarket.staging();
 
         int basicTimeout = 2;
-        int waitingTimeout = 20;
+        int waitingTimeout = 10;
 
         boolean verbose = false;
         boolean debug = false;

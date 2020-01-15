@@ -14,7 +14,7 @@ public abstract class Addresses {
         }
 
         public static String defaultAddress() {
-            return addressString = "Москва, пер Казачий 2-й, д 11 стр 2";
+            return addressString = "Москва, пр-кт Мира, д 211 стр 1";
         }
 
         public static String testAddress() {

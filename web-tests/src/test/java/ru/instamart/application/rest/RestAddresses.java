@@ -19,10 +19,10 @@ public class RestAddresses {
         public static Address defaultAddress() {
             return new Address(
                     "Москва",
-                    "Бутиковский пер.",
-                    "2",
-                    55.7392742,
-                    37.6029192);
+                    "просп. Мира",
+                    "211, стр. 1",
+                    55.844041,
+                    37.66265);
         }
     }
 

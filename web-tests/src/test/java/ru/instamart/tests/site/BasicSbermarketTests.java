@@ -5,6 +5,8 @@ import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.tests.TestBase;
 
+import static ru.instamart.application.lib.Retailers.*;
+
 public class BasicSbermarketTests extends TestBase {
 
     //todo сделать отдельные тесты под тенанты
@@ -128,20 +130,18 @@ public class BasicSbermarketTests extends TestBase {
             groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     ) public void successCheckSbermarketRetailers() {
 
-        // Проверяем что доступны витрины активных ритейлеров
-        assertPageIsAvailable(Pages.Retailers.metro());
-        assertPageIsAvailable(Pages.Retailers.auchan());
-        assertPageIsAvailable(Pages.Retailers.azbuka());
-        assertPageIsAvailable(Pages.Retailers.vkusvill());
-        assertPageIsAvailable(Pages.Retailers.lenta());
+        assertRetailerIsAvailable(metro);
+        assertRetailerIsAvailable(auchan);
+        assertRetailerIsAvailable(azbuka);
+        assertRetailerIsAvailable(vkusvill);
+        assertRetailerIsAvailable(lenta);
 
-        // Проверяем что недоступны витрины неактивных ритейлеров
-        assertPageIs404(Pages.Retailers.karusel());
-        assertPageIs404(Pages.Retailers.selgros());
-        assertPageIs404(Pages.Retailers.flora());
-        assertPageIs404(Pages.Retailers.foodcity());
-        assertPageIs404(Pages.Retailers.magnit());
-        assertPageIs404(Pages.Retailers.testretailer());
+        assertRetailerIsUnavailable(karusel);
+        assertRetailerIsUnavailable(selgros);
+        assertRetailerIsUnavailable(flora);
+        assertRetailerIsUnavailable(foodcity);
+        assertRetailerIsUnavailable(magnit);
+        assertRetailerIsUnavailable(testretailer);
     }
 
     @Test(

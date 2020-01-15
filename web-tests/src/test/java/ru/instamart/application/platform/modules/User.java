@@ -340,10 +340,11 @@ public class User extends Base {
         /** Установить адрес доставки */
         public static void set(String address) {
             Shop.ShippingAddressModal.open();
-            if(kraken.grab().text(Elements.Modals.AddressModal.addressField()).equals("")) {
-                message("Устанавливаем адрес доставки >>> " + address + "\n");
+            String currentAddress = kraken.grab().value(Elements.Modals.AddressModal.addressField());
+            if(currentAddress.equals("")) {
+                message("Устанавливаем адрес доставки: " + address + "\n");
             } else {
-                message("Изменяем адрес доставки >>> " + address + "\n");
+                message("Изменяем адрес доставки:\n" + currentAddress + " >>> " + address + "\n");
                 Shop.ShippingAddressModal.clearAddressField();
             }
             Shop.ShippingAddressModal.fill(address);

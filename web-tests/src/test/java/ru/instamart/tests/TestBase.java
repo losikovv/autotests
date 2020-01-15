@@ -140,12 +140,21 @@ public class TestBase {
     public void assertTransition(String URL) {
         message("Переход по прямой ссылке " + URL);
         kraken.get().url(URL);
+        kraken.await().simply(1);
         Assert.assertTrue(
                 kraken.grab().currentURL().equalsIgnoreCase(URL),
                     "Невозможно перейти на страницу " + URL + " по прямой ссылке\n"
                         + "Вместо нее попадаем на " + kraken.grab().currentURL() + "\n"
         );
         message("✓ Успешно");
+    }
+
+    public void assertRetailerIsAvailable(String retailer) {
+        assertPageIsAvailable(kraken.environment.getBasicUrlWithHttpAuth() + retailer);
+    }
+
+    public void assertRetailerIsUnavailable(String retailer) {
+        assertPageIs404(kraken.environment.getBasicUrlWithHttpAuth() + retailer);
     }
 
     /** Проверить возможность перехода на страницу и ее доступность */
