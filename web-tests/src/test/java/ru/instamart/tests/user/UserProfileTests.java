@@ -201,19 +201,22 @@ public class UserProfileTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().userShipmentsPage();
 
-        kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.completeOrdersFilterButton());
+        Shop.UserProfile.OrderHistory.applyFilterComplete();
         softAssert.assertTrue(
                 kraken.detect().isElementPresent(
                         Elements.UserProfile.OrdersHistoryPage.completeOrdersPlaceholder()));
 
-        kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.activeOrdersFilterButton());
+        Shop.UserProfile.OrderHistory.applyFilterActive();
         softAssert.assertTrue(
                 kraken.detect().isElementPresent(
                         Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder()));
 
-        kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.allOrdersFilterButton());
+        Shop.UserProfile.OrderHistory.applyFilterAll();
+        softAssert.assertTrue(
+                kraken.detect().isElementPresent(
+                        Elements.UserProfile.OrdersHistoryPage.allOrdersPlaceholder()));
 
-        kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.goShoppingButton());
+        Shop.UserProfile.OrderHistory.goShopping();
         softAssert.assertFalse(
                 kraken.detect().isElementPresent(
                         Elements.UserProfile.OrdersHistoryPage.completeOrdersPlaceholder()));

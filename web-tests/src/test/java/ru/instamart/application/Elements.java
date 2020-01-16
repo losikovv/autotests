@@ -914,7 +914,10 @@ public class Elements {
                         "кнопка фильтра завершенных заказов в истории заказов");
             }
 
-            //todo ordersPlaceholder
+            static ElementData allOrdersPlaceholder() {
+                return new ElementData(By.xpath("//h3[text()='У вас нет завершенных заказов']"),
+                        "плейсхолдер пустой истории заказов");
+            }
 
             static ElementData activeOrdersPlaceholder() {
                 return new ElementData(By.xpath("//h3[text()='У вас нет активных заказов']"),

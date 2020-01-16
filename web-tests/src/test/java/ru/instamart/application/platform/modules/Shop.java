@@ -439,6 +439,31 @@ public class Shop extends Base {
         }
     }
 
+    public static class UserProfile {
+
+        public static class OrderHistory {
+
+            public static void applyFilterAll() {
+                kraken.await().simply(1); // Ожидание подгрузки фильтров
+                kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.allOrdersFilterButton());
+            }
+
+            public static void applyFilterComplete() {
+                kraken.await().simply(1); // Ожидание подгрузки фильтров
+                kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.completeOrdersFilterButton());
+            }
+
+            public static void applyFilterActive() {
+                kraken.await().simply(1); // Ожидание подгрузки фильтров
+                kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.activeOrdersFilterButton());
+            }
+
+            public static void goShopping() {
+                kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.goShoppingButton());
+            }
+        }
+    }
+
     /** Любимые товары */
     public static class Favorites {
 

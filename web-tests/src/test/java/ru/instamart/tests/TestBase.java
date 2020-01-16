@@ -30,6 +30,7 @@ public class TestBase {
         }
         kraken.stop();
     }
+
     /** Метод-обертка для красивого вывода ошибок зафейленных тестов */
     protected String failMessage(String text) {
         return "\n\n> " + text + "\n\n";
