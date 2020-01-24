@@ -202,7 +202,7 @@ public class Elements {
 
             static ElementData shipAddressPlaceholder() {
                 return new ElementData(
-                        By.xpath("//header//div[text()='Укажите ваш адрес для отображения доступных магазинов']"),
+                        By.xpath("//header//span[text()='Укажите ваш адрес для отображения доступных магазинов']"),
                             "плейсхолдер пустого адреса доставки в шапке сайта");
             }
 
@@ -314,17 +314,17 @@ public class Elements {
             interface Search {
 
                 static ElementData container() {
-                    return new ElementData(By.xpath("//header//*[@data-qa='search-container']"),
+                    return new ElementData(By.xpath("//header//*[@data-qa='search']"),
                             "поисковая строка в шапке сайта");
                 }
 
                 static ElementData inputField() {
-                    return new ElementData(By.xpath("//header//*[@data-qa='search-container']//input[@type='search']"),
+                    return new ElementData(By.xpath("//header//*[@data-qa='search']//input[@type='search']"),
                             "поле ввода поискового запроса в шапке сайта");
                 }
 
                 static ElementData sendButton() {
-                    return new ElementData(By.xpath("//header//*[@data-qa='search-container']//button[@type='submit']"),
+                    return new ElementData(By.xpath("//header//*[@data-qa='search']//button"),
                             "кнопка отправки поискового запроса в шапке сайта");
                 }
 

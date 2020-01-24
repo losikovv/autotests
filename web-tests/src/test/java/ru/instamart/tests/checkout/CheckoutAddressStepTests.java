@@ -45,7 +45,7 @@ public class CheckoutAddressStepTests extends TestBase {
 
         assertPresence(Elements.Checkout.AddressStep.deliveryAddress());
 
-        assertRadioButtonIsSelected(Elements.Checkout.AddressStep.homeRadioButton());
+        assertRadioButtonIsNotSelected(Elements.Checkout.AddressStep.homeRadioButton());
         assertRadioButtonIsNotSelected(Elements.Checkout.AddressStep.officeRadioButton());
 
         assertFieldIsEmpty(Elements.Checkout.AddressStep.apartmentInputField());
