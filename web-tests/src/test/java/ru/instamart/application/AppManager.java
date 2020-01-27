@@ -90,7 +90,7 @@ public class AppManager {
 
     public void riseRest() throws IOException {
         initTestSession();
-        initEnvironment();
+        setEnvironment();
         initRestHelpers();
         revealKraken();
     }
@@ -146,7 +146,7 @@ public class AppManager {
     }
 
     private void initRestHelpers() {
-        administrationHelper = new Administration(driver, server, this);
+        administrationHelper = new Administration(driver, environment, this);
         restHelper = new RestHelper();
     }
 

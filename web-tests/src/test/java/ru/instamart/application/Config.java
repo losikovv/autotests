@@ -11,7 +11,7 @@ public class Config {
 
     public interface CoreSettings {
         String defaultBrowser = BrowserType.FIREFOX;
-        String defaultEnvironment = Environments.sbermarket.staging();
+        String defaultEnvironment = Environments.sbermarket.production();
 
         int basicTimeout = 2;
         int waitingTimeout = 10;
