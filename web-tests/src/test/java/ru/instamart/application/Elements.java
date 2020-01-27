@@ -202,7 +202,7 @@ public class Elements {
 
             static ElementData shipAddressPlaceholder() {
                 return new ElementData(
-                        By.xpath("//header//span[text()='Укажите ваш адрес для отображения доступных магазинов']"),
+                        By.xpath("//header//*[text()='Укажите ваш адрес для отображения доступных магазинов']"),
                             "плейсхолдер пустого адреса доставки в шапке сайта");
             }
 
