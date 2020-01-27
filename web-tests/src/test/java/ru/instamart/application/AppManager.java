@@ -56,6 +56,9 @@ public class AppManager {
         this.browser = browser;
     }
 
+    public AppManager() {
+    }
+
     public void rise() throws IOException {
         setEnvironment();
         initTestSession();
@@ -83,6 +86,13 @@ public class AppManager {
                 properties.getProperty("adminUrl"),
                 properties.getProperty("httpAuth")
         );
+    }
+
+    public void riseRest() throws IOException {
+        initTestSession();
+        initEnvironment();
+        initRestHelpers();
+        revealKraken();
     }
 
     private void initTestSession() {
@@ -132,6 +142,11 @@ public class AppManager {
         administrationHelper = new Administration(driver, environment, this);
         cleanupHelper = new CleanupHelper(driver, environment, this);
         waitingHelper = new WaitingHelper(driver, environment, this);
+        restHelper = new RestHelper();
+    }
+
+    private void initRestHelpers() {
+        administrationHelper = new Administration(driver, server, this);
         restHelper = new RestHelper();
     }
 

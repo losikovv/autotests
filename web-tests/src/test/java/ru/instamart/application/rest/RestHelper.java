@@ -10,21 +10,16 @@ import ru.instamart.application.rest.objects.*;
 import ru.instamart.application.rest.objects.responses.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.config.EncoderConfig.encoderConfig;
 
-public class RestHelper {
+public class RestHelper extends Requests {
     private String fullBaseUrl = Base.environment.getBasicUrlWithHttpAuth();
-    private String token;
-    private String currentOrderNumber;
     private int currentSid;
     private int currentAddressId;
     private int currentShipmentId;
-    private String currentShipmentNumber;
     private int currentDeliveryWindowId;
     private int minSum;
 
@@ -51,51 +46,15 @@ public class RestHelper {
     }
 
     /*
-      МЕТОДЫ ЗАПРОСОВ
+      МЕТОДЫ ОБРАБОТКИ ОТВЕТОВ REST API (ПРИВАТНЫЕ)
      */
 
     /**
-     * Авторизация
+     * Удаляем товары из корзины
      */
-    private void postSessions(UserData user) {
-        Response response = given()
-                .auth()
-                .preemptive()
-                .basic(user.getLogin(),user.getPassword())
-                .post(EndPoints.sessions);
-        noErrors(response);
+    private void deleteItemsFromCart() {
+        Response response = deleteShipments();
 
-        token = response.as(SessionsResponse.class).getSession().getAccess_token();
-
-        System.out.println("Авторизуемся: " + user.getLogin());
-        System.out.println("access_token: " + token + "\n");
-    }
-
-    /**
-     * Узнаем номер заказа
-     */
-    private void postOrders() {
-        Response response = given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .post(EndPoints.orders);
-        noErrors(response);
-
-        currentOrderNumber = response.as(OrdersResponse.class).getOrder().getNumber();
-
-        System.out.println("Номер текущего заказа: " + currentOrderNumber + "\n");
-    }
-
-    /**
-     * Удаляем старые шипменты
-     */
-    private void deleteShipments() {
-        Response response = given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .delete(EndPoints.Orders.shipments, currentOrderNumber);
         noErrors(response);
 
         String order = response.as(OrdersResponse.class).getOrder().getNumber();
@@ -103,62 +62,38 @@ public class RestHelper {
         System.out.println("Удалены все доставки у заказа: " + order + "\n");
     }
 
+
     /**
      * Изменение/применение параматров адреса из объекта адреса
      */
-    private void putShipAddressChange(Address address) {
-        Map<String, Object> data = new HashMap<>();
+    private void setAddressAttributes(Address address) {
+        Response response = putShipAddressChange(address);
 
-        if (address.getCity() != null) data.put("ship_address[city]", address.getCity());
-        if (address.getStreet() != null) data.put("ship_address[street]", address.getStreet());
-        if (address.getBuilding() != null) data.put("ship_address[building]", address.getBuilding());
-        if (address.getDoor_phone() != null) data.put("ship_address[door_phone]", address.getDoor_phone());
-        if (address.getApartment() != null) data.put("ship_address[apartment]", address.getApartment());
-        if (address.getComments() != null) data.put("ship_address[comments]", address.getComments());
-        if (address.getFloor() != null) data.put("ship_address[floor]", address.getFloor());
-        if (address.getEntrance() != null) data.put("ship_address[entrance]", address.getEntrance());
-        if (address.getLat() != null) data.put("ship_address[lat]", address.getLat());
-        if (address.getLon() != null) data.put("ship_address[lon]", address.getLon());
-        if (address.getFirst_name() != null) data.put("ship_address[first_name]", address.getFirst_name());
-        if (address.getLast_name() != null) data.put("ship_address[last_name]", address.getLast_name());
-        if (address.getBlock() != null) data.put("ship_address[block]", address.getBlock());
-
-        putShipAddressChange(data);
-    }
-
-    /**
-     * Изменение/применение параматров адреса из "мапы"
-     */
-    private void putShipAddressChange(Map<String, Object> data) {
-        Response response = given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .log()
-                .params()
-                .formParams(data)
-                .put(EndPoints.Orders.ship_address_change, currentOrderNumber);
         noErrors(response);
 
-        Address address = response.as(ShipAddressChangeResponse.class).getShip_address_change().getOrder().getAddress();
+        Address addressFromResponse = response
+                .as(ShipAddressChangeResponse.class)
+                .getShip_address_change()
+                .getOrder()
+                .getAddress();
         currentAddressId = address.getId();
 
-        System.out.println("Применен адрес: " + address.getFull_address());
-        System.out.println("door_phone: " + address.getDoor_phone());
-        System.out.println("apartment: " + address.getApartment());
-        System.out.println("comments: " + address.getComments());
-        System.out.println("floor: " + address.getFloor());
-        System.out.println("entrance: " + address.getEntrance());
-        System.out.println("first_name: " + address.getFirst_name());
-        System.out.println("last_name: " + address.getLast_name());
-        System.out.println("block: " + address.getBlock() + "\n");
+        System.out.println("Применен адрес: " + addressFromResponse.getFull_address());
+        System.out.println("door_phone: " + addressFromResponse.getDoor_phone());
+        System.out.println("apartment: " + addressFromResponse.getApartment());
+        System.out.println("comments: " + addressFromResponse.getComments());
+        System.out.println("floor: " + addressFromResponse.getFloor());
+        System.out.println("entrance: " + addressFromResponse.getEntrance());
+        System.out.println("first_name: " + addressFromResponse.getFirst_name());
+        System.out.println("last_name: " + addressFromResponse.getLast_name());
+        System.out.println("block: " + addressFromResponse.getBlock() + "\n");
     }
 
     /**
-     * Получаем список продуктов по умолчанию (1 продукт из 1 категории)
+     * Получаем продукт (1-й продукт из 1-й категории)
      */
-    private Product getDepartments(int sid) {
-        return getDepartments(sid,1,1).get(0);
+    private Product getProduct(int sid) {
+        return getProducts(sid,1,1).get(0);
     }
 
     /**
@@ -167,12 +102,9 @@ public class RestHelper {
      * @param numberOfDepartments количество категорий, из которых берем продукты
      * @param numberOfLineItemsFromEachDepartment количество продуктов из каждой категории (не больше 6)
      */
-    private List<Product> getDepartments(int sid, int numberOfDepartments, int numberOfLineItemsFromEachDepartment) {
-        Response response = given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .get(EndPoints.departments, sid, numberOfLineItemsFromEachDepartment);
+    private List<Product> getProducts(int sid, int numberOfDepartments, int numberOfLineItemsFromEachDepartment) {
+        Response response = getDepartments(sid, numberOfLineItemsFromEachDepartment);
+
         noErrors(response);
 
         DepartmentsResponse departmentsResponse = response.as(DepartmentsResponse.class);
@@ -200,27 +132,18 @@ public class RestHelper {
     /**
      * Добавляем список товаров в корзину
      */
-    public void postLineItems(List<Product> products, int quantity) {
+    public void addItemsToCart(List<Product> products, int quantity) {
         for (Product product : products) {
-            postLineItems(product.getId(), quantity);
+            addItemToCart(product.getId(), quantity);
         }
     }
 
     /**
      * Добавляем товар в корзину
      */
-    private void postLineItems(int productId, int quantity) {
-        Map<String, Object> data = new HashMap<>();
-        data.put("line_item[order_number]", currentOrderNumber);
-        data.put("line_item[product_id]", productId);
-        data.put("line_item[quantity]", quantity);
+    private void addItemToCart(int productId, int quantity) {
+        Response response = postLineItems(productId, quantity);
 
-        Response response = given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .formParams(data)
-                .post(EndPoints.line_items);
         noErrors(response);
 
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
@@ -237,12 +160,9 @@ public class RestHelper {
      * Получаем id и номер шипмента
      * Получаем минимальную сумму заказа, если сумма не набрана
      */
-    private void getOrdersCurrent() {
-        Response response = given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .get(EndPoints.Orders.current);
+    private void getMinSum() {
+        Response response = getOrdersCurrent();
+
         noErrors(response);
 
         Shipment shipment = response.as(OrdersResponse.class).getOrder().getShipments().get(0);
@@ -264,12 +184,9 @@ public class RestHelper {
     /**
      * Получаем первый доступный слот
      */
-    private void getShippingRates() {
-        Response response = given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .get(EndPoints.Shipments.shipping_rates, currentShipmentNumber);
+    private void getFirstAvailableDeliveryWindow() {
+        Response response = getShippingRates();
+
         noErrors(response);
 
         DeliveryWindow deliveryWindow = response.as(ShippingRatesResponse.class).getShipping_rates().get(0).getDelivery_window();
@@ -284,25 +201,19 @@ public class RestHelper {
     }
 
     /**
-     * Применяем необходимые параметры к заказу
+     * Применяем дефолтные параметры к заказу
      */
-    private void putOrders() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("order[address_attributes][id]", currentAddressId);
-        data.put("order[replacement_policy_id]", 1);
-        data.put("order[phone_attributes][value]", "+7 (111) 111 11 11");
-        data.put("order[address_attributes][instructions]", "Тестовый заказ");
-        data.put("order[payment_attributes][payment_tool_id]", 21198); // картой курьеру
-        data.put("order[shipments_attributes][][id]", currentShipmentId);
-        data.put("order[shipments_attributes][][delivery_window_id]", currentDeliveryWindowId);
-        data.put("order[shipments_attributes][][shipping_method_id]", 2);
+    private void setDefaultOrderAttributes() {
+        Response response = putOrders(
+                currentAddressId,
+                1,
+                "+7 (111) 111 11 11",
+                "Тестовый заказ",
+                21198, // картой курьеру на проде
+                currentShipmentId,
+                currentDeliveryWindowId,
+                2);
 
-        Response response = given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .formParams(data)
-                .put(EndPoints.Orders.number, currentOrderNumber);
         noErrors(response);
 
         System.out.println("Применен слот для заказа: " + response.as(OrdersResponse.class).getOrder().getNumber() + "\n");
@@ -311,26 +222,30 @@ public class RestHelper {
     /**
      * Завершаем оформление заказа
      */
-    private void postOrdersCompletion() {
-        Response response = given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .post(EndPoints.Orders.completion, currentOrderNumber);
+    private void completeOrder() {
+        Response response = postOrdersCompletion();
+
         noErrors(response);
 
         System.out.println("Оформлен заказ: " + response.as(OrdersResponse.class).getOrder().getNumber() + "\n");
     }
 
     /**
+     * Завершаем оформление заказа
+     */
+    private Response postOrdersCompletion() {
+        return given()
+                    .header(
+                            "Authorization",
+                            "Token token=" + token)
+                    .post(EndPoints.Orders.completion, currentOrderNumber);
+    }
+
+    /**
      * Отменяем заказ по номеру
      */
-    private void postOrdersCancellations(String number) {
-        Response response = given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .post(EndPoints.Orders.cancellations, number);
+    private void cancelOrder(String number) {
+        Response response = postOrdersCancellations(number);
 
         if (noErrors(response)) {
             System.out.println("Отменен заказ: " + response
@@ -339,21 +254,29 @@ public class RestHelper {
     }
 
     /**
+     * Отменяем заказ по номеру
+     */
+    private Response postOrdersCancellations(String number) {
+        return given()
+                    .header(
+                            "Authorization",
+                            "Token token=" + token)
+                    .post(EndPoints.Orders.cancellations, number);
+    }
+
+    /**
      * Получаем первый доступный магазин (берем координаты из обьекта необходимого адреса)
      */
-    private void getStores(Address address) {
-        getStores(address.getLat(), address.getLon());
+    private void getSid(Address address) {
+        getSid(address.getLat(), address.getLon());
     }
 
     /**
      * Получаем первый доступный магазин по координатам
      */
-    private void getStores(double lat, double lon) {
-        Response response = given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .get(EndPoints.stores, lat, lon);
+    private void getSid(double lat, double lon) {
+        Response response = getStores(lat, lon);
+
         noErrors(response);
 
         List<Store> stores = response.as(StoresResponse.class).getStores();
@@ -371,21 +294,29 @@ public class RestHelper {
     }
 
     /**
+     * Получаем список доступных магазинов по координатам
+     */
+    private Response getStores(double lat, double lon) {
+        return given()
+                .header(
+                        "Authorization",
+                        "Token token=" + token)
+                .get(EndPoints.stores, lat, lon);
+    }
+
+    /**
      * Получаем первый доступный магазин определенного ритейлера (берем координаты из обьекта необходимого адреса)
      */
-    private void getStores(Address address, String retailer) {
-        getStores(address.getLat(), address.getLon(), retailer);
+    private void getSid(Address address, String retailer) {
+        getSid(address.getLat(), address.getLon(), retailer);
     }
 
     /**
      * Получаем первый доступный магазин определенного ритейлера по координатам
      */
-    private void getStores(double lat, double lon, String retailer) {
-        Response response = given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .get(EndPoints.stores, lat, lon);
+    private void getSid(double lat, double lon, String retailer) {
+        Response response = getStores(lat, lon);
+
         noErrors(response);
 
         List<Store> stores = response.as(StoresResponse.class).getStores();
@@ -417,45 +348,92 @@ public class RestHelper {
      * Наполняем корзину до минимальной суммы заказа в конкретном магазине
      */
     private void fillCartOnSid(int sid) {
-        Product product = getDepartments(sid);
+        Product product = getProduct(sid);
 
-        postLineItems(product.getId(),1);
-        getOrdersCurrent();
+        addItemToCart(product.getId(),1);
+        getMinSum();
 
         if (minSum > 0) {
             double price = product.getPrice();
             int itemsPerPack = product.getItems_per_pack();
             double quantity = minSum/(price * itemsPerPack);
 
-            postLineItems(product.getId(), ((int) Math.ceil(quantity)));
+            addItemToCart(product.getId(), ((int) Math.ceil(quantity)));
         }
     }
 
-    /*
-      МЕТОДЫ ДЛЯ ИСПОЛЬЗОВАНИЯ В ТЕСТАХ
+    /**
+     * Авторизация
      */
+    private void authorisation(String email, String password) {
+        Response response = postSessions(email, password);
+
+        noErrors(response);
+
+        token = response.as(SessionsResponse.class).getSession().getAccess_token();
+
+        System.out.println("Авторизуемся: " + email);
+        System.out.println("access_token: " + token + "\n");
+    }
+
+    /**
+     * Авторизация с данными из объекта юзера
+     */
+    private void authorisation(UserData user) {
+        authorisation(user.getLogin(), user.getPassword());
+    }
+
+    /**
+     * Узнаем номер заказа
+     */
+    private void getCurrentOrderNumber() {
+        Response response = postOrder();
+
+        noErrors(response);
+
+        currentOrderNumber = response.as(OrdersResponse.class).getOrder().getNumber();
+
+        System.out.println("Номер текущего заказа: " + currentOrderNumber + "\n");
+    }
+
+    /*
+      МЕТОДЫ ДЛЯ ИСПОЛЬЗОВАНИЯ В GUI ТЕСТАХ (ПУБЛИЧНЫЕ)
+     */
+
+    /**
+     * Регистрация
+     */
+    public void registration(String email, String firstName, String lastName, String password) {
+        Response response = postUsers(email, firstName, lastName, password);
+
+        noErrors(response);
+
+        String registeredEmail = response.as(UsersResponse.class).getUser().getEmail();
+
+        System.out.println("Зарегистрирован: " + registeredEmail + "\n");
+    }
 
     /**
      * Поменять адрес у юзера
      */
     public void setAddress(UserData user, Address address) {
-        postSessions(user);
-        postOrders();
+        authorisation(user);
+        getCurrentOrderNumber();
 
-        putShipAddressChange(address);
+        setAddressAttributes(address);
     }
 
     /**
      * Наполнить корзину по умолчанию у юзера по определенному адресу
      */
     public void fillCart(UserData user, Address address) {
-        postSessions(user);
-        postOrders();
-        deleteShipments();
+        authorisation(user);
+        getCurrentOrderNumber();
+        deleteItemsFromCart();
 
-        getStores(address);
+        getSid(address);
         address.setId(currentSid);
-        putShipAddressChange(address);
+        setAddressAttributes(address);
 
         fillCartOnSid(currentSid);
     }
@@ -464,13 +442,13 @@ public class RestHelper {
      * Наполнить корзину у юзера по определенному адресу у определенного ритейлера
      */
     public void fillCart(UserData user, Address address, String retailer) {
-        postSessions(user);
-        postOrders();
-        deleteShipments();
+        authorisation(user);
+        getCurrentOrderNumber();
+        deleteItemsFromCart();
 
-        getStores(address, retailer);
+        getSid(address, retailer);
         address.setId(currentSid);
-        putShipAddressChange(address);
+        setAddressAttributes(address);
 
         fillCartOnSid(currentSid);
     }
@@ -479,13 +457,13 @@ public class RestHelper {
      * Очистить корзину у юзера по определенному адресу
      */
     public void dropCart(UserData user, Address address) {
-        postSessions(user);
-        postOrders();
-        deleteShipments();
+        authorisation(user);
+        getCurrentOrderNumber();
+        deleteItemsFromCart();
 
-        getStores(address);
+        getSid(address);
         address.setId(currentSid);
-        putShipAddressChange(address);
+        setAddressAttributes(address);
     }
 
     /**
@@ -494,9 +472,9 @@ public class RestHelper {
     public String order(UserData user, Address address) {
         fillCart(user, address);
 
-        getShippingRates();
-        putOrders();
-        postOrdersCompletion();
+        getFirstAvailableDeliveryWindow();
+        setDefaultOrderAttributes();
+        completeOrder();
 
         return currentOrderNumber;
     }
@@ -505,6 +483,6 @@ public class RestHelper {
      * Отменить последний заказ (с которым взаимодействовали в этой сессии через REST API)
      */
     public void cancelCurrentOrder() {
-        if (currentOrderNumber != null) postOrdersCancellations(currentOrderNumber);
+        if (currentOrderNumber != null) cancelOrder(currentOrderNumber);
     }
 }

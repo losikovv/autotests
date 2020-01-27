@@ -1,0 +1,162 @@
+package ru.instamart.tests.api.v2;
+
+import org.testng.annotations.Test;
+import ru.instamart.application.rest.RestBase;
+import ru.instamart.application.rest.objects.responses.ErrorResponse;
+import ru.instamart.application.rest.objects.responses.UsersResponse;
+
+import static org.testng.Assert.assertEquals;
+import static ru.instamart.application.rest.Requests.postUsers;
+
+public class RegistrationTests extends RestBase {
+    private String firstName = "autotester";
+    private String lastName = "api";
+    private String minCharPassword = "instam";
+
+    @Test(
+            description = "Успешная регистрация",
+            groups = {"rest_api"},
+            priority = 1
+    )
+    public void successRegistration() {
+        String email = email();
+
+        response = postUsers(
+                email,
+                firstName,
+                lastName,
+                minCharPassword);
+
+        assertEquals(response.getStatusCode(), 200);
+        assertEquals(response.as(UsersResponse.class).getUser().getEmail(), email);
+    }
+
+    @Test(
+            description = "Неверный формат email",
+            groups = {"rest_api"},
+            priority = 2
+    )
+    public void wrongEmailFormat() {
+        String email = "example.com";
+
+        response = postUsers(
+                email,
+                firstName,
+                lastName,
+                minCharPassword);
+
+        assertEquals(response.getStatusCode(), 422);
+        assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
+                "Неверный формат email");
+    }
+
+    @Test(
+            description = "короткий пароль",
+            groups = {"rest_api"},
+            priority = 3
+    )
+    public void shortPassword() {
+        String password = "insta";
+
+        response = postUsers(
+                email(),
+                firstName,
+                lastName,
+                password);
+
+        assertEquals(response.getStatusCode(), 422);
+        assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
+                "Не может быть короче 6 символов");
+    }
+
+    @Test(
+            description = "пустой email",
+            groups = {"rest_api"},
+            priority = 4
+    )
+    public void emptyEmail() {
+        response = postUsers(
+                "",
+                firstName,
+                lastName,
+                minCharPassword);
+
+        assertEquals(response.getStatusCode(), 422);
+        assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
+                "не может быть пустым");
+    }
+
+    @Test(
+            description = "пустое имя",
+            groups = {"rest_api"},
+            priority = 5
+    )
+    public void emptyFirstName() {
+        String email = email();
+
+        response = postUsers(
+                email,
+                "",
+                "api",
+                minCharPassword);
+
+        assertEquals(response.getStatusCode(), 200);
+        assertEquals(response.as(UsersResponse.class).getUser().getEmail(), email);
+    }
+
+    @Test(
+            description = "пустая фамилия",
+            groups = {"rest_api"},
+            priority = 6
+    )
+    public void emptyLastName() {
+        String email = email();
+
+        response = postUsers(
+                email,
+                "autotester",
+                "",
+                minCharPassword);
+
+        assertEquals(response.getStatusCode(), 200);
+        assertEquals(response.as(UsersResponse.class).getUser().getEmail(), email);
+    }
+
+    @Test(
+            description = "пустые имя и фамилия",
+            groups = {"rest_api"},
+            priority = 7
+    )
+    public void emptyFirstAndLastNames() {
+        String email = email();
+
+        response = postUsers(
+                email,
+                "",
+                "",
+                minCharPassword);
+
+        assertEquals(response.getStatusCode(), 422);
+        assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
+                "не может быть пустым");
+    }
+
+    @Test(
+            description = "пустой пароль",
+            groups = {"rest_api"},
+            priority = 8
+    )
+    public void emptyPassword() {
+        String email = email();
+
+        response = postUsers(
+                email,
+                "autotester",
+                "api",
+                "");
+
+        assertEquals(response.getStatusCode(), 422);
+        assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
+                "не может быть пустым");
+    }
+}
