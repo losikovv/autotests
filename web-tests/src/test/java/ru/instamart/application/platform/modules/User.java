@@ -10,6 +10,7 @@ import ru.instamart.application.AppManager;
 import ru.instamart.application.lib.Addresses;
 import ru.instamart.application.models.EnvironmentData;
 import ru.instamart.application.models.UserData;
+import ru.instamart.application.rest.objects.Address;
 import ru.instamart.testdata.generate;
 
 import static ru.instamart.application.Config.CoreSettings.multiSessionMode;
@@ -336,6 +337,10 @@ public class User extends Base {
     }
 
     public static class ShippingAddress {
+
+        public static void set(Address address) {
+            set(address.getCity() + " " + address.getStreet() + " " + address.getBuilding());
+        }
 
         /** Установить адрес доставки */
         public static void set(String address) {

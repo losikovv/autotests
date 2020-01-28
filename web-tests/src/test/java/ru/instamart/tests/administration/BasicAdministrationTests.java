@@ -41,7 +41,9 @@ public class BasicAdministrationTests extends TestBase {
         User.Do.loginAs(session.admin);
         kraken.get().page(Pages.Admin.shipments());
 
-        Assert.assertTrue(kraken.detect().isInAdmin());
+        Assert.assertTrue(
+                kraken.detect().isInAdmin(),
+                    "Не доступна админка пользователю c админ. правми");
     }
 
     @Test(  description = "Тест доступности корневых разделов админки",

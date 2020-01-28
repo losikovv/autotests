@@ -24,6 +24,18 @@ public class RestAddresses {
                     55.844041,
                     37.66265);
         }
+
+        public static class Vkusvill {
+
+            public static Address michurinsky() {
+                return new Address(
+                        "Москва",
+                        "Мичуринский пр",
+                        "16",
+                        55.703119,
+                        37.506047);
+            }
+        }
     }
 
     public static class SaintPetersburg {

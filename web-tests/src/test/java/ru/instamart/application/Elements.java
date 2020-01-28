@@ -2142,6 +2142,69 @@ public class Elements {
                 }
             }
 
+            interface RetailerCard {
+
+                static ElementData input() {
+                    return new ElementData(
+                            By.xpath("//div[@class='retailer-card__label']"),
+                            "поле ввода карты ритейлера в чекауте");
+                }
+
+                interface Modal {
+
+                    static ElementData popup() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__container']"),
+                                "модалка карты ритейлера в чекауте");
+                    }
+
+                    static ElementData closeButton() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__container']//button[@class='rc-modal__close']"),
+                                "крестик закрытия модалки карты ритейлера в чекауте");
+                    }
+
+                    static ElementData title() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__container']//div[@class='modal-form__title']"),
+                                "заголовок модалки карты ритейлера в чекауте");
+                    }
+
+                    static ElementData inputField() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//input[@placeholder='Номер карты']"),
+                                "поле ввода номера карты в модалке карты ритейлера в чекауте");
+                    }
+
+                    static ElementData errorText() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//div[@class='checkout-input-error']"),
+                                "текст ошибки в модалке карты ритейлера в чекауте");
+                    }
+
+                    static ElementData deleteButton() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//button[text()='Удалить']"),
+                                "кнопка \"Удалить\" в модалке карты ритейлера в чекауте"
+                        );
+                    }
+
+                    static ElementData cancelButton() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//button[text()='Отменить']"),
+                                "кнопка \"Отменить\" в модалке карты ритейлера в чекауте"
+                        );
+                    }
+
+                    static ElementData saveButton() {
+                        return new ElementData(
+                                By.xpath("//div[@class='rc-modal__body']//button[text()='Сохранить']"),
+                                "кнопка \"Сохранить\" в модалке карты ритейлера в чекауте");
+                    }
+                }
+
+            }
+
             interface SideBar {
 
                 static ElementData panel() {

@@ -2,12 +2,15 @@ package ru.instamart.tests.orders;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.application.AppManager;
 import ru.instamart.application.Config;
 import ru.instamart.application.Elements;
 import ru.instamart.application.lib.*;
 import ru.instamart.application.platform.modules.Administration;
+import ru.instamart.application.platform.modules.Checkout;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
+import ru.instamart.application.rest.RestAddresses;
 import ru.instamart.tests.TestBase;
 
 import static org.testng.Assert.assertTrue;
@@ -29,10 +32,10 @@ public class OrdersRetailerCardsTests extends TestBase {
     )
     public void successOrderWithMetroRetailerCard() {
         kraken.get().page("metro");
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.reach().checkout();
         
-        kraken.checkout().addRetailerCard(RetailerCards.metro());
+        Checkout.RetailerCards.addCard(RetailerCards.metro());
         kraken.checkout().complete();
 
         String number = kraken.grab().currentOrderNumber();
@@ -52,10 +55,11 @@ public class OrdersRetailerCardsTests extends TestBase {
     )
     public void successOrderWithVkusvillRetailerCard() {
         kraken.get().page(Pages.Retailers.vkusvill());
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
+        User.ShippingAddress.set(RestAddresses.Moscow.Vkusvill.michurinsky());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.reach().checkout();
 
-        kraken.checkout().addRetailerCard(RetailerCards.vkusvill());
+        Checkout.RetailerCards.addCard(RetailerCards.vkusvill());
         kraken.checkout().complete();
 
         String number = kraken.grab().currentOrderNumber();

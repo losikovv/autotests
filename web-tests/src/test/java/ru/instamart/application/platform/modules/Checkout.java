@@ -454,7 +454,7 @@ public class Checkout extends Base {
         if(orderDetails.getPromocode() != null) {Promocode.add(orderDetails.getPromocode());}
         if(orderDetails.getBonus() != null) {
             Checkout.Bonuses.add(orderDetails.getBonus());}
-        if(orderDetails.getRetailerCard() != null) { addRetailerCard(orderDetails.getRetailerCard());}
+        if(orderDetails.getRetailerCard() != null) {RetailerCards.addCard(orderDetails.getRetailerCard());}
         sendOrderFromSidebar();
         if(orderDetails.getPaymentDetails().getPaymentType().getDescription().equalsIgnoreCase(PaymentTypes.cardOnline().getDescription())) {
             cloudpaymentsFlow();
@@ -742,27 +742,28 @@ public class Checkout extends Base {
         }
     }
 
-    // TODO переделать
-    /** Добавляем карту ритейлера */
-    public void addRetailerCard(LoyaltiesData card) {
-        if (kraken.detect().isRetailerCardAdded()) {
-            deleteRetailerCard();
+    /** Карты ритейлера */
+    public static class RetailerCards {
+
+        /** Добавляем карту ритейлера */
+        public static void addCard(LoyaltiesData card) {
+            if (kraken.detect().isRetailerCardAdded()) {
+                deleteCard();
+            }
+            message("Добавляем карту ритейлера \"" + card.getName() + "\"");
+            kraken.perform().click(Elements.Checkout.RetailerCard.input());
+            kraken.perform().fillField(Elements.Checkout.RetailerCard.Modal.inputField(),card.getCardNumber() + "\uE007");
+            kraken.perform().click(Elements.Checkout.RetailerCard.Modal.saveButton());
+            kraken.await().implicitly(1); // Ожидание добавления карты ритейлера в чекауте
         }
-        message("Добавляем карту ритейлера \"" + card.getName() + "\"");
-        //kraken.perform().click(Elements.Checkout.loyaltyProgramsSelector());
-        //kraken.perform().fillField(By.name("number"), card.getCardNumber() + "\uE007");
-        kraken.await().implicitly(1); // Ожидание добавления карты ритейлера в чекауте
-    }
 
-    //TODO public void editRetailerCard(LoyaltiesData retailerCard) {
-
-    // TODO переделать
-    /** Удаляем карту ритейлера */
-    public void deleteRetailerCard() {
-        message("Удаляем карту ритейлера");
-        //kraken.perform().click(Elements.Checkout.loyaltyProgramsEditButton());
-        //kraken.perform().click(Elements.Checkout.deleteBonusProgramButton());
-        kraken.await().implicitly(1); // Ожидание удаления карты ритейлера в чекауте
+        /** Удаляем карту ритейлера */
+        public static void deleteCard() {
+            message("Удаляем карту ритейлера");
+            kraken.perform().click(Elements.Checkout.RetailerCard.input());
+            kraken.perform().click(Elements.Checkout.RetailerCard.Modal.deleteButton());
+            kraken.await().implicitly(1); // Ожидание удаления карты ритейлера в чекауте
+        }
     }
 
     /** Проверяем готовность чекаута перед заполнением */
