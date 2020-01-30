@@ -78,6 +78,13 @@ public class Pages {
         static PageData mobile() { return new PageData("landings/m-general-white"); }
     }
 
+    public interface ServicePages {
+
+        static PageData giftCertificates() { return new PageData("gift_certificates/new"); }
+
+        static PageData massHiring() { return new PageData("landings/job"); }
+    }
+
     public interface UserProfile {
 
         static PageData edit() { return new PageData("user/edit"); }

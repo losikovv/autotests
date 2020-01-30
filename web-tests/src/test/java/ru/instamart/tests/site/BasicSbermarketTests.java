@@ -154,8 +154,17 @@ public class BasicSbermarketTests extends TestBase {
     }
 
     @Test(
-            description = "Тест доступности статических страниц",
+            description = "Тест доступности сервисных страниц",
             priority = 105,
+            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+    ) public void successServicePagesAreAvailable() {
+        assertPageIsAvailable(Pages.ServicePages.giftCertificates());
+        assertPageIsAvailable(Pages.ServicePages.massHiring());
+    }
+
+    @Test(
+            description = "Тест доступности статических страниц",
+            priority = 106,
             groups = {
                     "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
             }

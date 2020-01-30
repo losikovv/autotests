@@ -125,7 +125,9 @@ public class ShoppingTestsForExistingUser extends TestBase {
 
         softAssert.assertEquals(
                 kraken.grab().currentShipAddress(), Addresses.Moscow.defaultAddress(),
-                failMessage("Не обновился адрес доставки при авторизации"));
+                failMessage("Не обновился адрес доставки при авторизации\n"
+                + "Ожидаемый адрес: " + Addresses.Moscow.defaultAddress() + "\n"
+                + "Текущий адрес: " + kraken.grab().currentShipAddress()));
 
         softAssert.assertFalse(
                 kraken.detect().isCartEmpty(),
