@@ -336,6 +336,6 @@ public class OrdersCities extends TestBase {
 
     @AfterClass(alwaysRun = true)
     public void resetDefaultAddress() {
-        kraken.rest().setAddress(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(RestAddresses.Moscow.defaultAddress());
     }
 }

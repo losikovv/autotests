@@ -232,7 +232,7 @@ public class Elements {
 
             static ElementData logo() {
                 return new ElementData(
-                        By.xpath("//header//div[@class='header-logo']"),
+                        By.xpath("//header//a[contains(@class,'logo')]"),
                             "логотип компании в шапке сайта");
             }
 
@@ -319,7 +319,7 @@ public class Elements {
                 }
 
                 static ElementData inputField() {
-                    return new ElementData(By.xpath("//header//*[@data-qa='search']//input[@type='search']"),
+                    return new ElementData(By.xpath("//header//*[@data-qa='search']//input"),
                             "поле ввода поискового запроса в шапке сайта");
                 }
 
