@@ -15,7 +15,7 @@ public class UserProfileTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        kraken.get().baseUrl();
+        User.Logout.quickly();
         User.Do.registration();
     }
 
