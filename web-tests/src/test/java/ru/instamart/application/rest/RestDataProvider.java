@@ -2,6 +2,7 @@ package ru.instamart.application.rest;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import ru.instamart.application.models.EnvironmentData;
 import ru.instamart.application.rest.objects.Product;
 import ru.instamart.application.rest.objects.Retailer;
 import ru.instamart.application.rest.objects.Store;
@@ -10,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestDataProvider extends RestHelper {
+
+    public RestDataProvider(EnvironmentData environment) {
+        super(environment);
+    }
 
     @DataProvider(name = "retailers")
     public static Object[][] getAvailableRetailers() {

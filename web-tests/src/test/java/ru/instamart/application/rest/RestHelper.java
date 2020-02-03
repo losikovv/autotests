@@ -6,8 +6,8 @@ import io.restassured.filter.log.ErrorLoggingFilter;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import ru.instamart.application.models.EnvironmentData;
 import ru.instamart.application.models.UserData;
-import ru.instamart.application.platform.modules.Base;
 import ru.instamart.application.rest.objects.*;
 import ru.instamart.application.rest.objects.responses.*;
 
@@ -28,8 +28,8 @@ public class RestHelper extends Requests {
     private int currentShipmentMethodId;
     private int minSum;
 
-    public RestHelper() {
-        String fullBaseUrl = Base.environment.getBasicUrlWithHttpAuth();
+    public RestHelper(EnvironmentData environment) {
+        String fullBaseUrl = environment.getBasicUrlWithHttpAuth();
         baseURI = fullBaseUrl.substring(0, fullBaseUrl.length() - 1);
         basePath = "api/";
         port = 443;

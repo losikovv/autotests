@@ -142,12 +142,12 @@ public class AppManager {
         administrationHelper = new Administration(driver, environment, this);
         cleanupHelper = new CleanupHelper(driver, environment, this);
         waitingHelper = new WaitingHelper(driver, environment, this);
-        restHelper = new RestHelper();
+        restHelper = new RestHelper(environment);
     }
 
     private void initRestHelpers() {
         administrationHelper = new Administration(driver, environment, this);
-        restHelper = new RestHelper();
+        restHelper = new RestHelper(environment);
     }
 
     private void applyOptions() {
