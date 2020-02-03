@@ -27,7 +27,7 @@ public class OrdersPaymentsTests extends TestBase {
     }
 
 
-    @Test(
+    @Test( enabled = false,
             description = "Тест заказа с оплатой наличными",
             groups = {"metro-acceptance", "metro-regression",},
             priority = 2101
