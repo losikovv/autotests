@@ -99,21 +99,23 @@ public class Requests {
     }
 
     /**
-     * Получение прдуктов в выбранном магазине
+     * Получение продуктов в выбранном магазине
      */
-    public Response getDepartments(int sid, int numberOfLineItems) {
-        return given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .get(EndPoints.departments, sid, numberOfLineItems);
+    static Response getDepartments(int sid, int numberOfLineItems) {
+        return given().get(EndPoints.departments, sid, numberOfLineItems);
     }
 
+    /**
+     * Получить инфо о продукте
+     */
+    public static Response getProducts(long id) {
+        return given().get(EndPoints.Products.id, id);
+    }
 
     /**
      * Добавляем товар в корзину
      */
-    public Response postLineItems(int productId, int quantity) {
+    public Response postLineItems(Long productId, int quantity) {
         Map<String, Object> data = new HashMap<>();
         data.put("line_item[order_number]", currentOrderNumber);
         data.put("line_item[product_id]", productId);
@@ -123,6 +125,8 @@ public class Requests {
                 .header(
                         "Authorization",
                         "Token token=" + token)
+                .log()
+                .params()
                 .formParams(data)
                 .post(EndPoints.line_items);
     }
@@ -150,6 +154,13 @@ public class Requests {
     }
 
     /**
+     * Получаем доступные способы доставки
+     */
+    public Response getShippingMethod(int sid) {
+        return given().get(EndPoints.shipping_methods, sid);
+    }
+
+    /**
      * Применяем необходимые параметры к заказу
      */
     public Response putOrders(int sid, int replacementPolicyId, String phoneNumber, String instructions,
@@ -168,8 +179,81 @@ public class Requests {
                 .header(
                         "Authorization",
                         "Token token=" + token)
+                .log()
+                .params()
                 .formParams(data)
                 .put(EndPoints.Orders.number, currentOrderNumber);
     }
 
+    /**
+     * Получаем список всех доступных ритейлеров
+     */
+    static Response getRetailers() {
+        return given().get(EndPoints.retailers);
+    }
+
+    /**
+     * Получаем список всех доступных ритейлеров (api v1)
+     */
+    static Response getRetailersV1() {
+        return given().get(EndPoints.retailersV1);
+    }
+
+    /**
+     * Получаем список всех доступных магазинов
+     */
+    static Response getStores() {
+        return given().get(EndPoints.stores);
+    }
+
+    /**
+     * Получаем список доступных магазинов по координатам
+     */
+    Response getStores(double lat, double lon) {
+        return given().get(EndPoints.Stores.byCoordinates, lat, lon);
+    }
+
+    /**
+     * Получаем данные о конкретном магазине
+     */
+    Response getStores(int sid) {
+        return given().get(EndPoints.Stores.sid, sid);
+    }
+
+    /**
+     * Получаем список способов оплаты для юзера
+     */
+    Response getPaymentTools() {
+        return given()
+                .header(
+                        "Authorization",
+                        "Token token=" + token)
+                .header("Client-Id",
+                        "InstamartApp")
+                .header("Client-Ver",
+                        "5.0")
+                .get(EndPoints.payment_tools);
+    }
+
+    /**
+     * Завершаем оформление заказа
+     */
+    Response postOrdersCompletion() {
+        return given()
+                .header(
+                        "Authorization",
+                        "Token token=" + token)
+                .post(EndPoints.Orders.completion, currentOrderNumber);
+    }
+
+    /**
+     * Отменяем заказ по номеру
+     */
+    Response postOrdersCancellations(String number) {
+        return given()
+                .header(
+                        "Authorization",
+                        "Token token=" + token)
+                .post(EndPoints.Orders.cancellations, number);
+    }
 }

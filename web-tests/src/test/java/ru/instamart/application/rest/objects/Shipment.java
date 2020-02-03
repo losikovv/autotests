@@ -24,37 +24,6 @@ public class Shipment extends BaseObject {
     public Shipment() {
     }
 
-    /**
-     *
-     * @param alerts
-     * @param next_deliveries
-     * @param number
-     * @param total
-     * @param promotions
-     * @param cost
-     * @param retailer
-     * @param item_total
-     * @param delivery_window
-     * @param id
-     * @param state
-     * @param line_items
-     */
-    public Shipment(Integer id, String number, Double cost, Double item_total, Double total, String state, List<Alert> alerts, List<Promotion> promotions, List<NextDelivery> next_deliveries, List<LineItem> line_items, DeliveryWindow delivery_window, Retailer retailer) {
-        super();
-        this.id = id;
-        this.number = number;
-        this.cost = cost;
-        this.item_total = item_total;
-        this.total = total;
-        this.state = state;
-        this.alerts = alerts;
-        this.promotions = promotions;
-        this.next_deliveries = next_deliveries;
-        this.line_items = line_items;
-        this.delivery_window = delivery_window;
-        this.retailer = retailer;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -135,7 +104,7 @@ public class Shipment extends BaseObject {
         this.line_items = line_items;
     }
 
-    public Object getDelivery_window() {
+    public DeliveryWindow getDelivery_window() {
         return delivery_window;
     }
 

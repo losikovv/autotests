@@ -10,35 +10,13 @@ public class Retailer extends BaseObject {
     private String logo;
     private Boolean available;
     private String environment;
+    private String key;
 
     /**
      * No args constructor for use in serialization
      *
      */
     public Retailer() {
-    }
-
-    /**
-     *
-     * @param environment
-     * @param color
-     * @param logo_background_color
-     * @param name
-     * @param available
-     * @param logo
-     * @param id
-     * @param slug
-     */
-    public Retailer(Integer id, String name, String slug, String color, String logo_background_color, String logo, Boolean available, String environment) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.slug = slug;
-        this.color = color;
-        this.logo_background_color = logo_background_color;
-        this.logo = logo;
-        this.available = available;
-        this.environment = environment;
     }
 
     public Integer getId() {
@@ -105,4 +83,11 @@ public class Retailer extends BaseObject {
         this.environment = environment;
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 }

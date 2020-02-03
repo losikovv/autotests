@@ -6,39 +6,13 @@ public class Store extends BaseObject {
 
     private Integer id;
     private String name;
+    private NextDelivery next_delivery;
     private List<List<Zone>> zones = null;
     private String uuid;
     private Retailer retailer;
     private Location location;
     private List<Service> services = null;
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public Store() {
-    }
-
-    /**
-     *
-     * @param retailer
-     * @param name
-     * @param location
-     * @param id
-     * @param services
-     * @param zones
-     * @param uuid
-     */
-    public Store(Integer id, String name, List<List<Zone>> zones, String uuid, Retailer retailer, Location location, List<Service> services) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.zones = zones;
-        this.uuid = uuid;
-        this.retailer = retailer;
-        this.location = location;
-        this.services = services;
-    }
+    private List<OperationalTime> operational_times = null;
 
     public Integer getId() {
         return id;
@@ -54,6 +28,14 @@ public class Store extends BaseObject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public NextDelivery getNext_delivery() {
+        return next_delivery;
+    }
+
+    public void setNext_delivery(NextDelivery next_delivery) {
+        this.next_delivery = next_delivery;
     }
 
     public List<List<Zone>> getZones() {
@@ -94,6 +76,14 @@ public class Store extends BaseObject {
 
     public void setServices(List<Service> services) {
         this.services = services;
+    }
+
+    public List<OperationalTime> getOperational_times() {
+        return operational_times;
+    }
+
+    public void setOperational_times(List<OperationalTime> operational_times) {
+        this.operational_times = operational_times;
     }
 
 }

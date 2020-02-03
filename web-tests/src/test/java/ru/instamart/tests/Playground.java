@@ -12,10 +12,8 @@ import ru.instamart.application.lib.PaymentTypes;
 import ru.instamart.application.lib.ReplacementPolicies;
 import ru.instamart.application.models.ElementData;
 import ru.instamart.application.models.OrderDetailsData;
-import ru.instamart.application.models.UserData;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
-import ru.instamart.application.rest.RestAddresses;
 
 import java.io.IOException;
 
@@ -49,11 +47,9 @@ public class Playground extends TestBase {
         kraken.stop();
     }
 
-
     @Test
     public void restOrder() {
-        UserData user = new UserData("","");
-        kraken.rest().order(user, RestAddresses.Moscow.learningCenter());
+        kraken.rest().order(AppManager.session.user, 1);
         kraken.rest().cancelCurrentOrder();
     }
 

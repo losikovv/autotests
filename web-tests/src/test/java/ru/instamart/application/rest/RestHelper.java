@@ -2,13 +2,17 @@ package ru.instamart.application.rest;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.ErrorLoggingFilter;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import ru.instamart.application.models.UserData;
 import ru.instamart.application.platform.modules.Base;
 import ru.instamart.application.rest.objects.*;
 import ru.instamart.application.rest.objects.responses.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,33 +20,113 @@ import static io.restassured.RestAssured.*;
 import static io.restassured.config.EncoderConfig.encoderConfig;
 
 public class RestHelper extends Requests {
-    private String fullBaseUrl = Base.environment.getBasicUrlWithHttpAuth();
     private int currentSid;
     private int currentAddressId;
     private int currentShipmentId;
     private int currentDeliveryWindowId;
+    private int currentPaymentToolId;
+    private int currentShipmentMethodId;
     private int minSum;
 
     public RestHelper() {
+        String fullBaseUrl = Base.environment.getBasicUrlWithHttpAuth();
         baseURI = fullBaseUrl.substring(0, fullBaseUrl.length() - 1);
-        basePath = "api/v2/";
+        basePath = "api/";
         port = 443;
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
 
         RestAssured.requestSpecification = new RequestSpecBuilder()
                 .log(LogDetail.METHOD)
                 .log(LogDetail.URI)
+                .addFilter(new ErrorLoggingFilter())
                 .build();
     }
 
-    private boolean noErrors(Response response) {
-        if (response.getStatusCode() != 200) {
-            System.out.print("\033[0;91m");
-            response.prettyPeek();
-            System.out.print("\u001B[0m");
-            return false;
+    /**
+     * Округляем double до 6 символов после запятой
+     */
+    private static double roundToSixDecimalPlaces(double value) {
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(6, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    /**
+     * Высчитываем центроид зоны доставки
+     */
+    private Zone getCentroid(List<Zone> zones) {
+        double sumLat = 0;
+        double sumLon = 0;
+
+        for (Zone zone : zones) {
+            sumLat += zone.getLat();
+            sumLon += zone.getLon();
         }
-        return true;
+        Zone newZone = new Zone();
+
+        newZone.setLat(roundToSixDecimalPlaces(sumLat / zones.size()));
+        newZone.setLon(roundToSixDecimalPlaces(sumLon / zones.size()));
+
+        System.out.println("Получены координаты: lat " + newZone.getLat() + ", lon " + newZone.getLon() + "\n");
+
+        return newZone;
+    }
+
+    /**
+     * Высчитываем центроид зоны доставки (2й способ)
+     */
+    private Zone getCentroid2(List<Zone> zones) {
+        int lastZoneIndex = zones.size() - 1;
+        double lat = 0;
+        double lon = 0;
+        double area = 0;
+        double tmp;
+        int k;
+
+        for (int i = 0; i <= lastZoneIndex; i++) {
+            k = (i + 1) % (lastZoneIndex + 1);
+            tmp = zones.get(i).getLat() * zones.get(k).getLon() - zones.get(k).getLat() * zones.get(i).getLon();
+            area += tmp;
+            lat += (zones.get(i).getLat() + zones.get(k).getLat()) * tmp;
+            lon += (zones.get(i).getLon() + zones.get(k).getLon()) * tmp;
+        }
+        area *= 0.5;
+        lat *= 1 / (6 * area);
+        lon *= 1 / (6 * area);
+
+        Zone newZone = new Zone();
+
+        newZone.setLat(roundToSixDecimalPlaces(lat));
+        newZone.setLon(roundToSixDecimalPlaces(lon));
+
+        System.out.println("Получены координаты: lat " + newZone.getLat() + ", lon " + newZone.getLon() + "\n");
+
+        return newZone;
+    }
+
+    /**
+     * Получить последнюю зону доставки магазина
+     */
+    private List<Zone> getLastZones(Store store) {
+        return store.getZones().get(store.getZones().size() - 1);
+    }
+
+    /**
+     * Зеленый текст
+     */
+    private void printSuccess(String success) {
+        System.out.print("\u001b[32m");
+        System.out.println(success);
+        System.out.print("\u001B[0m");
+    }
+
+    /**
+     * Красный текст
+     */
+    private void printError(String error) {
+        System.out.print("\033[0;91m");
+        System.out.println(error);
+        System.out.print("\u001B[0m");
     }
 
     /*
@@ -55,11 +139,9 @@ public class RestHelper extends Requests {
     private void deleteItemsFromCart() {
         Response response = deleteShipments();
 
-        noErrors(response);
-
         String order = response.as(OrdersResponse.class).getOrder().getNumber();
 
-        System.out.println("Удалены все доставки у заказа: " + order + "\n");
+        printSuccess("Удалены все доставки у заказа: " + order + "\n");
     }
 
 
@@ -69,63 +151,75 @@ public class RestHelper extends Requests {
     private void setAddressAttributes(Address address) {
         Response response = putShipAddressChange(address);
 
-        noErrors(response);
-
         Address addressFromResponse = response
                 .as(ShipAddressChangeResponse.class)
                 .getShip_address_change()
                 .getOrder()
                 .getAddress();
-        currentAddressId = address.getId();
+        currentAddressId = addressFromResponse.getId();
 
-        System.out.println("Применен адрес: " + addressFromResponse.getFull_address());
-        System.out.println("door_phone: " + addressFromResponse.getDoor_phone());
-        System.out.println("apartment: " + addressFromResponse.getApartment());
-        System.out.println("comments: " + addressFromResponse.getComments());
-        System.out.println("floor: " + addressFromResponse.getFloor());
-        System.out.println("entrance: " + addressFromResponse.getEntrance());
+        printSuccess("Применен адрес: " + addressFromResponse.getFull_address());
+        printSuccess("lat: " + addressFromResponse.getLat());
+        printSuccess("lon: " + addressFromResponse.getLon());
         System.out.println("first_name: " + addressFromResponse.getFirst_name());
-        System.out.println("last_name: " + addressFromResponse.getLast_name());
-        System.out.println("block: " + addressFromResponse.getBlock() + "\n");
+        System.out.println(" last_name: " + addressFromResponse.getLast_name());
+        System.out.println("        id: " + addressFromResponse.getId());
+        System.out.println("door_phone: " + addressFromResponse.getDoor_phone());
+        System.out.println(" apartment: " + addressFromResponse.getApartment());
+        System.out.println("  comments: " + addressFromResponse.getComments());
+        System.out.println("     floor: " + addressFromResponse.getFloor());
+        System.out.println("  entrance: " + addressFromResponse.getEntrance());
+        System.out.println("     block: " + addressFromResponse.getBlock() + "\n");
     }
 
     /**
-     * Получаем продукт (1-й продукт из 1-й категории)
+     * Получаем любой продукт (1-й продукт из 1-й категории) для оформления заказа
      */
-    private Product getProduct(int sid) {
-        return getProducts(sid,1,1).get(0);
+    private Product getFirstProductFromStore(int sid) {
+        return getProductsFromEachDepartmentInStore(
+                sid,
+                1,
+                true)
+                .get(0);
     }
 
     /**
      * Получаем список продуктов
      * @param sid сид магазина
-     * @param numberOfDepartments количество категорий, из которых берем продукты
      * @param numberOfLineItemsFromEachDepartment количество продуктов из каждой категории (не больше 6)
      */
-    private List<Product> getProducts(int sid, int numberOfDepartments, int numberOfLineItemsFromEachDepartment) {
-        Response response = getDepartments(sid, numberOfLineItemsFromEachDepartment);
+    public static List<Product> getProductsFromEachDepartmentInStore(
+            int sid, int numberOfLineItemsFromEachDepartment, boolean catchExceptions) {
 
-        noErrors(response);
+        List<Department> departments = getDepartments(sid, numberOfLineItemsFromEachDepartment).as(DepartmentsResponse.class).getDepartments();
 
-        DepartmentsResponse departmentsResponse = response.as(DepartmentsResponse.class);
+        Assert.assertNotEquals(
+                departments.size(),
+                0,
+                "Не импортированы товары для магазина " + sid + "\n");
 
         List<Product> products = new ArrayList<>();
 
-        for (int d = 0; d < numberOfDepartments; d++) {
+        for (Department department : departments)
+            for (int i = 0; i < numberOfLineItemsFromEachDepartment; i++)
+                try {
+                    Product product = department.getProducts().get(i);
+                    products.add(product);
 
-            for (int i = 0; i < numberOfLineItemsFromEachDepartment; i++) {
+                    System.out.println("Получена информация о товаре: " + product.getName());
+                    System.out.println("department: " + department.getName());
+                    System.out.println("        id: " + product.getId());
+                    System.out.println("     count: " + product.getItems_per_pack());
+                    System.out.println("    volume: " + product.getHuman_volume());
+                    System.out.println("     price: " + product.getPrice() + "\n");
 
-                Product product = departmentsResponse.getDepartments().get(d).getProducts().get(i);
-                products.add(product);
+                } catch (NullPointerException e) {
+                    String string = "Показывается пустая категория "
+                            + department.getName() + " у сида " + sid + "\n";
 
-                System.out.println("Получена информация о товаре: " + product.getName());
-                System.out.println("department: " + departmentsResponse.getDepartments().get(d).getName());
-                System.out.println("id: " + product.getId());
-                System.out.println("count: " + product.getItems_per_pack());
-                System.out.println("volume: " + product.getHuman_volume());
-                System.out.println("price: " + product.getPrice() + "\n");
-            }
-        }
+                    if (catchExceptions) System.out.println(string);
+                    else throw new NullPointerException(string);
+                }
         return products;
     }
 
@@ -141,18 +235,16 @@ public class RestHelper extends Requests {
     /**
      * Добавляем товар в корзину
      */
-    private void addItemToCart(int productId, int quantity) {
+    private void addItemToCart(Long productId, int quantity) {
         Response response = postLineItems(productId, quantity);
-
-        noErrors(response);
 
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
         Product product = lineItem.getProduct();
 
-        System.out.println("В корзину добавлен товар: " + product.getName());
-        System.out.println("id: " + product.getId());
-        System.out.println("volume: " + product.getHuman_volume());
-        System.out.println("quantity: " + lineItem.getQuantity());
+        printSuccess("В корзину добавлен товар: " + product.getName());
+        System.out.println("         id: " + product.getId());
+        System.out.println("     volume: " + product.getHuman_volume());
+        System.out.println("   quantity: " + lineItem.getQuantity());
         System.out.println("total_price: " + lineItem.getTotal() + "\n");
     }
 
@@ -163,16 +255,14 @@ public class RestHelper extends Requests {
     private void getMinSum() {
         Response response = getOrdersCurrent();
 
-        noErrors(response);
-
         Shipment shipment = response.as(OrdersResponse.class).getOrder().getShipments().get(0);
 
         if (shipment.getAlerts().size() > 0) {
             String alertMessage = shipment.getAlerts().get(0).getMessage().replaceAll("[^0-9]","");
             minSum = Integer.parseInt(alertMessage.substring(0, alertMessage.length()-2));
-            System.out.println("Минимальная сумма корзины: " + minSum);
+            printSuccess("Минимальная сумма корзины: " + minSum);
         } else {
-            System.out.println("Минимальная сумма корзины набрана");
+            printSuccess("Минимальная сумма корзины набрана");
         }
 
         currentShipmentId = shipment.getId();
@@ -184,12 +274,15 @@ public class RestHelper extends Requests {
     /**
      * Получаем первый доступный слот
      */
-    private void getFirstAvailableDeliveryWindow() {
-        Response response = getShippingRates();
+    private void getAvailableDeliveryWindow() {
+        List<ShippingRate> shippingRates = getShippingRates().as(ShippingRatesResponse.class).getShipping_rates();
 
-        noErrors(response);
+        Assert.assertNotEquals(
+                shippingRates.size(),
+                0,
+                "Нет слотов в выбранном магазине");
 
-        DeliveryWindow deliveryWindow = response.as(ShippingRatesResponse.class).getShipping_rates().get(0).getDelivery_window();
+        DeliveryWindow deliveryWindow = shippingRates.get(0).getDelivery_window();
 
         currentDeliveryWindowId = deliveryWindow.getId();
         String starts = deliveryWindow.getStarts_at();
@@ -197,7 +290,55 @@ public class RestHelper extends Requests {
 
         System.out.println("Получена информация о слоте:");
         System.out.println("Начинается: " + starts);
-        System.out.println("Кончается:  " + ends + "\n");
+        System.out.println(" Кончается:  " + ends + "\n");
+    }
+
+    /**
+     * Получаем первый доступный способ доставки
+     */
+    private void getAvailableShippingMethod() {
+        List<ShippingMethod> shippingMethods = getShippingMethod(currentSid).as(ShippingMethodsResponse.class).getShipping_methods();
+
+        Assert.assertNotEquals(
+                shippingMethods.size(),
+                0,
+                "Нет способов доставки в выбранном магазине");
+
+        ShippingMethod shippingMethod = shippingMethods.get(0);
+
+        currentShipmentMethodId = shippingMethod.getId();
+
+        System.out.println("Получена информация о способе доставки " + shippingMethod.getName());
+        System.out.println("id:  " + shippingMethod.getId() + "\n");
+    }
+
+
+    /**
+     * Выбираем id способа оплаты (по умолчанию Картой курьеру)
+     */
+    private void getAvailablePaymentTool() {
+        Response response = getPaymentTools();
+
+        List<PaymentTool> paymentTools = response.as(PaymentToolsResponse.class).getPayment_tools();
+
+        System.out.println("Список доступных способов оплаты:");
+        for (PaymentTool paymentTool : paymentTools) {
+            System.out.println("- " + paymentTool.getName() + ", id: " + paymentTool.getId());
+        }
+
+        int i = 0;
+        try {
+            while (!paymentTools.get(i).getName().equalsIgnoreCase("Картой курьеру")) {
+                i++;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            i = paymentTools.size() - 1; // выбираем последний способ, если нет картой курьеру
+        }
+        PaymentTool selectedPaymentTool = paymentTools.get(i);
+
+        currentPaymentToolId = selectedPaymentTool.getId();
+
+        printSuccess("Выбран способ оплаты: " + selectedPaymentTool.getName() + ", id: " + selectedPaymentTool.getId() + "\n");
     }
 
     /**
@@ -208,15 +349,19 @@ public class RestHelper extends Requests {
                 currentAddressId,
                 1,
                 "+7 (111) 111 11 11",
-                "Тестовый заказ",
-                21198, // картой курьеру на проде
+                "test",
+                currentPaymentToolId,
                 currentShipmentId,
                 currentDeliveryWindowId,
-                2);
+                currentShipmentMethodId);
 
-        noErrors(response);
-
-        System.out.println("Применен слот для заказа: " + response.as(OrdersResponse.class).getOrder().getNumber() + "\n");
+        Order order = response.as(OrdersResponse.class).getOrder();
+        printSuccess("Применены атрибуты для заказа: " + order.getNumber());
+        System.out.println("        full_address: " + order.getAddress().getFull_address());
+        System.out.println("  replacement_policy: " + order.getReplacement_policy().getDescription());
+        System.out.println("  delivery_starts_at: " + order.getShipments().get(0).getDelivery_window().getStarts_at());
+        System.out.println("    delivery_ends_at: " + order.getShipments().get(0).getDelivery_window().getEnds_at());
+        System.out.println("special_instructions: " + order.getSpecial_instructions() + "\n");
     }
 
     /**
@@ -225,20 +370,7 @@ public class RestHelper extends Requests {
     private void completeOrder() {
         Response response = postOrdersCompletion();
 
-        noErrors(response);
-
-        System.out.println("Оформлен заказ: " + response.as(OrdersResponse.class).getOrder().getNumber() + "\n");
-    }
-
-    /**
-     * Завершаем оформление заказа
-     */
-    private Response postOrdersCompletion() {
-        return given()
-                    .header(
-                            "Authorization",
-                            "Token token=" + token)
-                    .post(EndPoints.Orders.completion, currentOrderNumber);
+        printSuccess("Оформлен заказ: " + response.as(OrdersResponse.class).getOrder().getNumber() + "\n");
     }
 
     /**
@@ -247,119 +379,141 @@ public class RestHelper extends Requests {
     private void cancelOrder(String number) {
         Response response = postOrdersCancellations(number);
 
-        if (noErrors(response)) {
-            System.out.println("Отменен заказ: " + response
+        printSuccess("Отменен заказ: " + response
                     .as(CancellationsResponse.class).getCancellation().getOrder().getNumber() + "\n");
-        }
     }
 
     /**
-     * Отменяем заказ по номеру
+     * Выбираем первый доступный магазин (берем координаты из обьекта необходимого адреса)
      */
-    private Response postOrdersCancellations(String number) {
-        return given()
-                    .header(
-                            "Authorization",
-                            "Token token=" + token)
-                    .post(EndPoints.Orders.cancellations, number);
+    private void getSidByCoordinates(Address address) {
+        getSidByCoordinates(address.getLat(), address.getLon());
     }
 
     /**
-     * Получаем первый доступный магазин (берем координаты из обьекта необходимого адреса)
+     * Выбираем первый доступный магазин по координатам
      */
-    private void getSid(Address address) {
-        getSid(address.getLat(), address.getLon());
+    private void getSidByCoordinates(double lat, double lon) {
+        Store store = availableStores(lat, lon).get(0);
+
+        currentSid = store.getId();
+
+        printSuccess("Выбран магазин: " + store.getName());
+        System.out.println("sid: " + store.getId() + "\n");
     }
 
     /**
-     * Получаем первый доступный магазин по координатам
+     * Выбираем первый доступный магазин определенного ритейлера (берем координаты из обьекта необходимого адреса)
      */
-    private void getSid(double lat, double lon) {
-        Response response = getStores(lat, lon);
-
-        noErrors(response);
-
-        List<Store> stores = response.as(StoresResponse.class).getStores();
-
-        if (stores.size() > 0) {
-            Store store = stores.get(0);
-            currentSid = store.getId();
-            System.out.println("Выбран магазин: " + store.getName());
-            System.out.println("sid: " + store.getId() + "\n");
-        } else {
-            System.out.print("\033[0;91m");
-            System.out.println("По выбранному адресу нет магазинов\n");
-            System.out.print("\u001B[0m");
-        }
+    private void getSidByCoordinates(Address address, String retailer) {
+        if (address.getLat() == null || address.getLon() == null)
+            throw new NullPointerException("Не указаны координаты");
+        getSidByCoordinates(address.getLat(), address.getLon(), retailer);
     }
 
     /**
-     * Получаем список доступных магазинов по координатам
+     * Выбираем первый доступный магазин определенного ритейлера по координатам
      */
-    private Response getStores(double lat, double lon) {
-        return given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .get(EndPoints.stores, lat, lon);
-    }
+    private void getSidByCoordinates(double lat, double lon, String retailer) {
+        List<Store> stores = availableStores(lat, lon);
 
-    /**
-     * Получаем первый доступный магазин определенного ритейлера (берем координаты из обьекта необходимого адреса)
-     */
-    private void getSid(Address address, String retailer) {
-        getSid(address.getLat(), address.getLon(), retailer);
-    }
+        for (Store store : stores) {
+            if (retailer.equalsIgnoreCase(store.getRetailer().getSlug())) {
 
-    /**
-     * Получаем первый доступный магазин определенного ритейлера по координатам
-     */
-    private void getSid(double lat, double lon, String retailer) {
-        Response response = getStores(lat, lon);
+                currentSid = store.getId();
 
-        noErrors(response);
-
-        List<Store> stores = response.as(StoresResponse.class).getStores();
-
-        if (stores.size() > 0) {
-            for (Store store : stores) {
-                if (retailer.equalsIgnoreCase(store.getRetailer().getSlug())) {
-                    currentSid = store.getId();
-                    System.out.println("Выбран магазин: " + store.getName());
-                    System.out.println("sid: " + store.getId() + "\n");
-                    break;
-                }
+                printSuccess("Выбран магазин: " + store.getName() + ", sid: " + store.getId() + "\n");
+                return;
             }
-            System.out.print("\033[0;91m");
-            System.out.println("По выбранному адресу нет такого ритейлера\n");
-            System.out.print("\u001B[0m");
-        } else {
-            System.out.print("\033[0;91m");
-            System.out.println("По выбранному адресу нет магазинов\n");
-            System.out.print("\u001B[0m");
         }
+        printError("По выбранному адресу нет ретейлера " + retailer + "\n");
     }
 
-    /*
-      МЕТОДЫ ИЗ НЕСКОЛЬКИХ ЗАПРОСОВ
+    /**
+     * Получить адрес доставки, зная только sid
      */
+    private Address getAddressBySid(int sid) {
+        currentSid = sid;
+        Response response = getStores(sid);
+
+        Store store = response.as(StoreResponse.class).getStore();
+
+        Location location = store.getLocation();
+        System.out.println("Получен адрес " + location.getFull_address());
+
+        Address address = new Address(location);
+
+        if (sid == 109) address.setCoordinates(getCentroid2(getLastZones(store))); //опора для зоны METRO, Копейск, просп. Победы
+        else address.setCoordinates(getCentroid(getLastZones(store)));
+
+        return address;
+    }
 
     /**
-     * Наполняем корзину до минимальной суммы заказа в конкретном магазине
+     * Получить список активных ритейлеров как список объектов Retailer
      */
-    private void fillCartOnSid(int sid) {
-        Product product = getProduct(sid);
+    public static List<Retailer> availableRetailers() {
+        List<Retailer> retailers = getRetailers().as(RetailersResponse.class).getRetailers();
 
-        addItemToCart(product.getId(),1);
-        getMinSum();
-
-        if (minSum > 0) {
-            double price = product.getPrice();
-            int itemsPerPack = product.getItems_per_pack();
-            double quantity = minSum/(price * itemsPerPack);
-
-            addItemToCart(product.getId(), ((int) Math.ceil(quantity)));
+        System.out.println("Список активных ретейлеров:");
+        for (Retailer retailer : retailers) {
+            System.out.println("- " + retailer.getName()  + ", id: " + retailer.getId());
         }
+        System.out.println();
+
+        return retailers;
+    }
+
+    /**
+     * Получить список активных ритейлеров как список объектов Retailer
+     */
+    public static List<Retailer> availableRetailersV1() {
+        List<Retailer> retailers = getRetailersV1().as(RetailersResponse.class).getRetailers();
+
+        System.out.println("Список активных ретейлеров:");
+        for (Retailer retailer : retailers)
+            if (retailer.getAvailable()) System.out.println("- " + retailer.getName() + ", id: " + retailer.getId());
+        System.out.println();
+
+        System.out.println("Список неактивных ретейлеров:");
+        for (Retailer retailer : retailers)
+            if (!retailer.getAvailable()) System.out.println("- " + retailer.getName() + ", id: " + retailer.getId());
+        System.out.println();
+
+        return retailers;
+    }
+
+    /**
+     * Получить список активных магазинов как список объектов Store
+     */
+    public static List<Store> availableStores() {
+        List<Store> stores = getStores().as(StoresResponse.class).getStores();
+
+        System.out.println("Список активных магазинов:");
+        for (Store store : stores) {
+            System.out.println("- " + store.getName() + ", sid: " + store.getId());
+        }
+        System.out.println("\n");
+
+        return stores;
+    }
+
+    /**
+     * Получить по координатам список активных магазинов как список объектов Store
+     */
+    private List<Store> availableStores(double lat, double lon) {
+        List<Store> stores = getStores(lat, lon).as(StoresResponse.class).getStores();
+
+        if (stores.size() > 0) {
+            System.out.println("Список активных магазинов:");
+            for (Store store : stores) {
+                System.out.println("- " + store.getName() + ", sid: " + store.getId());
+            }
+        } else {
+            printError("По выбранному адресу нет магазинов");
+        }
+
+        return stores;
     }
 
     /**
@@ -367,8 +521,6 @@ public class RestHelper extends Requests {
      */
     private void authorisation(String email, String password) {
         Response response = postSessions(email, password);
-
-        noErrors(response);
 
         token = response.as(SessionsResponse.class).getSession().getAccess_token();
 
@@ -389,11 +541,43 @@ public class RestHelper extends Requests {
     private void getCurrentOrderNumber() {
         Response response = postOrder();
 
-        noErrors(response);
-
         currentOrderNumber = response.as(OrdersResponse.class).getOrder().getNumber();
 
         System.out.println("Номер текущего заказа: " + currentOrderNumber + "\n");
+    }
+
+    /*
+      МЕТОДЫ ИЗ НЕСКОЛЬКИХ ЗАПРОСОВ
+     */
+
+    /**
+     * Наполняем корзину до минимальной суммы заказа в конкретном магазине
+     */
+    private void fillCartOnSid(int sid) {
+        Product product = getFirstProductFromStore(sid);
+
+        addItemToCart(product.getId(),1);
+        getMinSum();
+
+        if (minSum > 0) {
+            double price = product.getPrice();
+            int itemsPerPack = product.getItems_per_pack();
+            double quantity = minSum/(price * itemsPerPack);
+
+            addItemToCart(product.getId(), ((int) Math.ceil(quantity)));
+        }
+    }
+
+    /**
+     * Применяем атрибуты заказа (способ оплаты и слот) и завершаем его
+     */
+    private void setDefaultAttributesAndCompleteOrder() {
+        getAvailablePaymentTool();
+        getAvailableShippingMethod();
+        getAvailableDeliveryWindow();
+
+        setDefaultOrderAttributes();
+        completeOrder();
     }
 
     /*
@@ -403,14 +587,27 @@ public class RestHelper extends Requests {
     /**
      * Регистрация
      */
-    public void registration(String email, String firstName, String lastName, String password) {
-        Response response = postUsers(email, firstName, lastName, password);
-
-        noErrors(response);
+    public void registration(UserData user) {
+        Response response = postUsers(
+                user.getLogin(),
+                user.getName(),
+                "",
+                user.getPassword());
 
         String registeredEmail = response.as(UsersResponse.class).getUser().getEmail();
 
-        System.out.println("Зарегистрирован: " + registeredEmail + "\n");
+        printSuccess("Зарегистрирован: " + registeredEmail + "\n");
+    }
+
+    /**
+     * Регистрация
+     */
+    public void registration(String email, String firstName, String lastName, String password) {
+        Response response = postUsers(email, firstName, lastName, password);
+
+        String registeredEmail = response.as(UsersResponse.class).getUser().getEmail();
+
+        printSuccess("Зарегистрирован: " + registeredEmail + "\n");
     }
 
     /**
@@ -424,58 +621,78 @@ public class RestHelper extends Requests {
     }
 
     /**
-     * Наполнить корзину по умолчанию у юзера по определенному адресу
+     * Наполнить корзину и выбрать адрес по умолчанию у юзера по определенному адресу
      */
     public void fillCart(UserData user, Address address) {
         authorisation(user);
         getCurrentOrderNumber();
         deleteItemsFromCart();
 
-        getSid(address);
-        address.setId(currentSid);
+        address.setFirst_name(user.getName());
+        getSidByCoordinates(address);
         setAddressAttributes(address);
 
         fillCartOnSid(currentSid);
     }
 
     /**
-     * Наполнить корзину у юзера по определенному адресу у определенного ритейлера
+     * Наполнить корзину и выбрать адрес у юзера по определенному адресу у определенного ритейлера
      */
     public void fillCart(UserData user, Address address, String retailer) {
         authorisation(user);
         getCurrentOrderNumber();
         deleteItemsFromCart();
 
-        getSid(address, retailer);
-        address.setId(currentSid);
+        address.setFirst_name(user.getName());
+        getSidByCoordinates(address, retailer);
         setAddressAttributes(address);
 
         fillCartOnSid(currentSid);
     }
 
     /**
-     * Очистить корзину у юзера по определенному адресу
+     * Наполнить корзину и выбрать адрес у юзера в определенном магазине
+     */
+    public void fillCart(UserData user, int sid) {
+        authorisation(user);
+        getCurrentOrderNumber();
+        deleteItemsFromCart();
+
+        Address address = getAddressBySid(sid);
+        address.setFirst_name(user.getName());
+
+        setAddressAttributes(address);
+
+        fillCartOnSid(sid);
+    }
+
+    /**
+     * Очистить корзину  и выбрать адрес у юзера по определенному адресу
      */
     public void dropCart(UserData user, Address address) {
         authorisation(user);
         getCurrentOrderNumber();
         deleteItemsFromCart();
 
-        getSid(address);
-        address.setId(currentSid);
+        getSidByCoordinates(address);
         setAddressAttributes(address);
     }
 
     /**
      * Оформить тестовый заказ у юзера по определенному адресу
      */
-    public String order(UserData user, Address address) {
-        fillCart(user, address);
+    public String order(UserData user, Address address, String retailer) {
+        fillCart(user, address, retailer);
+        setDefaultAttributesAndCompleteOrder();
+        return currentOrderNumber;
+    }
 
-        getFirstAvailableDeliveryWindow();
-        setDefaultOrderAttributes();
-        completeOrder();
-
+    /**
+     * Оформить тестовый заказ у юзера в определенном магазине
+     */
+    public String order(UserData user, int sid) {
+        fillCart(user, sid);
+        setDefaultAttributesAndCompleteOrder();
         return currentOrderNumber;
     }
 

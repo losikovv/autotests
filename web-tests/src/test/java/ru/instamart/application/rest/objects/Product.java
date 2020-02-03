@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Product extends BaseObject {
 
-    private Integer id;
+    private Long id;
     private String sku;
     private String retailer_sku;
     private String name;
@@ -22,38 +22,11 @@ public class Product extends BaseObject {
     public Product() {
     }
 
-    /**
-     *
-     * @param original_price
-     * @param images
-     * @param price
-     * @param name
-     * @param discount
-     * @param retailer_sku
-     * @param items_per_pack
-     * @param id
-     * @param sku
-     * @param human_volume
-     */
-    public Product(Integer id, String sku, String retailer_sku, String name, Double price, Double original_price, Double discount, String human_volume, Integer items_per_pack, List<Image> images) {
-        super();
-        this.id = id;
-        this.sku = sku;
-        this.retailer_sku = retailer_sku;
-        this.name = name;
-        this.price = price;
-        this.original_price = original_price;
-        this.discount = discount;
-        this.human_volume = human_volume;
-        this.items_per_pack = items_per_pack;
-        this.images = images;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

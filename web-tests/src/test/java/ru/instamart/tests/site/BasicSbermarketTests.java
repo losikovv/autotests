@@ -3,9 +3,8 @@ package ru.instamart.tests.site;
 import org.testng.annotations.Test;
 import ru.instamart.application.Elements;
 import ru.instamart.application.lib.Pages;
+import ru.instamart.application.rest.RestDataProvider;
 import ru.instamart.tests.TestBase;
-
-import static ru.instamart.application.lib.Retailers.*;
 
 public class BasicSbermarketTests extends TestBase {
 
@@ -124,24 +123,15 @@ public class BasicSbermarketTests extends TestBase {
         assertPageIsAvailable();
     }
 
-    @Test(
+    @Test(  dataProvider = "retailersV1" ,
+            dataProviderClass = RestDataProvider.class,
             description = "Тест доступности / недоступности витрин ритейлеров Сбермаркета ",
             priority = 103,
             groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
-    ) public void successCheckSbermarketRetailers() {
+    ) public void successCheckSbermarketRetailers(String slug, boolean available) {
 
-        assertRetailerIsAvailable(metro);
-        assertRetailerIsAvailable(auchan);
-        assertRetailerIsAvailable(azbuka);
-        assertRetailerIsAvailable(vkusvill);
-        assertRetailerIsAvailable(lenta);
-
-        assertRetailerIsUnavailable(karusel);
-        assertRetailerIsUnavailable(selgros);
-        assertRetailerIsUnavailable(flora);
-        assertRetailerIsUnavailable(foodcity);
-        assertRetailerIsUnavailable(magnit);
-        assertRetailerIsUnavailable(testretailer);
+        if (available) assertRetailerIsAvailable(slug);
+        else assertRetailerIsUnavailable(slug);
     }
 
     @Test(

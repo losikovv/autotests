@@ -26,45 +26,6 @@ public class Address extends BaseObject {
     public Address() {
     }
 
-    /**
-     *
-     * @param lon
-     * @param building
-     * @param street
-     * @param full_address
-     * @param block
-     * @param apartment
-     * @param door_phone
-     * @param kind
-     * @param entrance
-     * @param city
-     * @param id
-     * @param first_name
-     * @param floor
-     * @param last_name
-     * @param lat
-     * @param comments
-     */
-    public Address(Integer id, String first_name, String last_name, String full_address, String city, String street, String building, String block, String entrance, String floor, String apartment, String comments, Double lat, Double lon, String kind, String door_phone) {
-        super();
-        this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.full_address = full_address;
-        this.city = city;
-        this.street = street;
-        this.building = building;
-        this.block = block;
-        this.entrance = entrance;
-        this.floor = floor;
-        this.apartment = apartment;
-        this.comments = comments;
-        this.lat = lat;
-        this.lon = lon;
-        this.kind = kind;
-        this.door_phone = door_phone;
-    }
-
     public Address(String city, String street, String building, Double lat, Double lon) {
         super();
         this.city = city;
@@ -72,6 +33,20 @@ public class Address extends BaseObject {
         this.building = building;
         this.lat = lat;
         this.lon = lon;
+    }
+
+    public Address(Location location) {
+        super();
+        this.city = location.getCity();
+        this.street = location.getStreet();
+        this.building = location.getBuilding();
+        this.lat = location.getLat();
+        this.lon = location.getLon();
+    }
+
+    public void setCoordinates(Zone zone) {
+        this.lat = zone.getLat();
+        this.lon = zone.getLon();
     }
 
     public Integer getId() {

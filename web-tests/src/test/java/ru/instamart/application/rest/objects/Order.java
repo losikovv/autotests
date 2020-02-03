@@ -13,65 +13,15 @@ public class Order extends BaseObject {
     private Double promo_total;
     private Object shipment_state;
     private Object payment_state;
-    private Object special_instructions;
+    private String special_instructions;
     private String created_at;
     private String updated_at;
     private Object completed_at;
     private Address address;
-    private Object payment;
-    private Object replacement_policy;
+    private Payment payment;
+    private ReplacementPolicy replacement_policy;
     private List<Shipment> shipments = null;
     private List<Object> promotion_codes = null;
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public Order() {
-    }
-
-    /**
-     *
-     * @param item_count
-     * @param promo_total
-     * @param promotion_codes
-     * @param special_instructions
-     * @param payment_state
-     * @param address
-     * @param created_at
-     * @param item_total
-     * @param shipment_state
-     * @param shipments
-     * @param replacement_policy
-     * @param number
-     * @param completed_at
-     * @param total
-     * @param ship_total
-     * @param updated_at
-     * @param payment
-     * @param adjustment_total
-     */
-    public Order(String number, Double total, Integer item_count, Double item_total, Double ship_total, Double adjustment_total, Double promo_total, Object shipment_state, Object payment_state, Object special_instructions, String created_at, String updated_at, Object completed_at, Address address, Object payment, Object replacement_policy, List<Shipment> shipments, List<Object> promotion_codes) {
-        super();
-        this.number = number;
-        this.total = total;
-        this.item_count = item_count;
-        this.item_total = item_total;
-        this.ship_total = ship_total;
-        this.adjustment_total = adjustment_total;
-        this.promo_total = promo_total;
-        this.shipment_state = shipment_state;
-        this.payment_state = payment_state;
-        this.special_instructions = special_instructions;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.completed_at = completed_at;
-        this.address = address;
-        this.payment = payment;
-        this.replacement_policy = replacement_policy;
-        this.shipments = shipments;
-        this.promotion_codes = promotion_codes;
-    }
 
     public String getNumber() {
         return number;
@@ -145,11 +95,11 @@ public class Order extends BaseObject {
         this.payment_state = payment_state;
     }
 
-    public Object getSpecial_instructions() {
+    public String getSpecial_instructions() {
         return special_instructions;
     }
 
-    public void setSpecial_instructions(Object special_instructions) {
+    public void setSpecial_instructions(String special_instructions) {
         this.special_instructions = special_instructions;
     }
 
@@ -185,19 +135,19 @@ public class Order extends BaseObject {
         this.address = address;
     }
 
-    public Object getPayment() {
+    public Payment getPayment() {
         return payment;
     }
 
-    public void setPayment(Object payment) {
+    public void setPayment(Payment payment) {
         this.payment = payment;
     }
 
-    public Object getReplacement_policy() {
+    public ReplacementPolicy getReplacement_policy() {
         return replacement_policy;
     }
 
-    public void setReplacement_policy(Object replacement_policy) {
+    public void setReplacement_policy(ReplacementPolicy replacement_policy) {
         this.replacement_policy = replacement_policy;
     }
 
