@@ -13,8 +13,7 @@ import java.util.List;
 
 public class RetailerTests extends RestBase {
 
-    @BeforeClass(description = "Проверка самих провайдеров",
-            groups = {})
+    @BeforeClass(description = "Проверка самих провайдеров")
     public void selfTest() {
         RestDataProvider.getAvailableRetailers();
     }

@@ -5,21 +5,13 @@ public class Errors extends BaseObject {
     private String email;
     private String password;
     private String fullname;
+    private String shipments;
 
     /**
      * No args constructor for use in serialization
      *
      */
     public Errors() {
-    }
-
-    /**
-     *
-     * @param email
-     */
-    public Errors(String email) {
-        super();
-        this.email = email;
     }
 
     public String getEmail() {
@@ -44,5 +36,13 @@ public class Errors extends BaseObject {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public String getShipments() {
+        return shipments;
+    }
+
+    public void setShipments(String shipments) {
+        this.shipments = shipments;
     }
 }

@@ -16,6 +16,10 @@ public class RestDataProvider extends RestHelper {
         super(environment);
     }
 
+    @Test()
+    public void selfTestRetailers() {
+        RestDataProvider.getAvailableRetailers();
+    }
     @DataProvider(name = "retailers")
     public static Object[][] getAvailableRetailers() {
 
@@ -30,7 +34,7 @@ public class RestDataProvider extends RestHelper {
     }
 
     @Test()
-    public void selfTestRetailerV1() {
+    public void selfTestRetailersV1() {
         RestDataProvider.getAvailableRetailersV1();
     }
     @DataProvider(name = "retailersV1")
@@ -47,6 +51,10 @@ public class RestDataProvider extends RestHelper {
         return retailerArray;
     }
 
+    @Test()
+    public void selfTestStores() {
+        RestDataProvider.getAvailableStores();
+    }
     @DataProvider(name = "stores")
     public static Object[][] getAvailableStores() {
 
@@ -61,6 +69,10 @@ public class RestDataProvider extends RestHelper {
         return storeArray;
     }
 
+    @Test()
+    public void selfTestProducts() {
+        RestDataProvider.getMainPageProducts();
+    }
     @DataProvider(name = "products")
     public static Object[][] getMainPageProducts() {
 

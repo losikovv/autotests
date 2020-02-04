@@ -12,8 +12,7 @@ import java.util.UUID;
 
 public class StoreTests extends RestBase {
 
-    @BeforeClass(description = "Проверка самих провайдеров",
-            groups = {})
+    @BeforeClass(description = "Проверка самих провайдеров")
     public void selfTest() {
         RestDataProvider.getAvailableStores();
     }

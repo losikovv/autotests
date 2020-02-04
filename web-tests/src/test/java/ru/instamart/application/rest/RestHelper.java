@@ -290,7 +290,7 @@ public class RestHelper extends Requests {
 
         System.out.println("Получена информация о слоте:");
         System.out.println("Начинается: " + starts);
-        System.out.println(" Кончается:  " + ends + "\n");
+        System.out.println(" Кончается: " + ends + "\n");
     }
 
     /**
@@ -370,6 +370,16 @@ public class RestHelper extends Requests {
     private void completeOrder() {
         Response response = postOrdersCompletion();
 
+        String string = "Выбранный интервал стал недоступен";
+        if (response.getStatusCode() == 422) {
+            if (response.as(ErrorResponse.class).getErrors().getShipments().contains(string)) {
+                printError(string);
+                System.out.println();
+                getAvailableDeliveryWindow();
+                setDefaultOrderAttributes();
+                response = postOrdersCompletion();
+            }
+        }
         printSuccess("Оформлен заказ: " + response.as(OrdersResponse.class).getOrder().getNumber() + "\n");
     }
 
@@ -659,7 +669,9 @@ public class RestHelper extends Requests {
         deleteItemsFromCart();
 
         Address address = getAddressBySid(sid);
-        address.setFirst_name(user.getName());
+        String[] fullName = user.getName().split(" ",2);
+        if (fullName.length > 0) address.setFirst_name(fullName[0]);
+        if (fullName.length > 1) address.setLast_name(fullName[1]);
 
         setAddressAttributes(address);
 

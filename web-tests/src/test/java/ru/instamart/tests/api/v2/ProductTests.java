@@ -8,8 +8,7 @@ import ru.instamart.application.rest.RestDataProvider;
 
 public class ProductTests extends RestBase {
 
-    @BeforeClass(description = "Проверка самих провайдеров",
-            groups = {})
+    @BeforeClass(description = "Проверка самих провайдеров")
     public void selfTest() {
         RestDataProvider.getMainPageProducts();
     }
@@ -22,6 +21,6 @@ public class ProductTests extends RestBase {
 
         System.out.println(name);
 
-        Requests.getProducts(id).prettyPrint();
+        Requests.getProducts(id);
     }
 }
