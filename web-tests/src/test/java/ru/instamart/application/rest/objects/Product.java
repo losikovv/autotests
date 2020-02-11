@@ -13,7 +13,10 @@ public class Product extends BaseObject {
     private Double discount;
     private String human_volume;
     private Integer items_per_pack;
+    private String description;
     private List<Image> images = null;
+    private List<Property> properties = null;
+    private List<Object> related_products = null;
 
     /**
      * No args constructor for use in serialization
@@ -94,12 +97,36 @@ public class Product extends BaseObject {
         this.items_per_pack = items_per_pack;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public List<Image> getImages() {
         return images;
     }
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public List<Property> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(List<Property> properties) {
+        this.properties = properties;
+    }
+
+    public List<Object> getRelated_products() {
+        return related_products;
+    }
+
+    public void setRelated_products(List<Object> related_products) {
+        this.related_products = related_products;
     }
 
 }

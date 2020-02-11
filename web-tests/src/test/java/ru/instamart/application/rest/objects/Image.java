@@ -15,23 +15,6 @@ public class Image extends BaseObject {
     public Image() {
     }
 
-    /**
-     *
-     * @param small_url
-     * @param product_url
-     * @param original_url
-     * @param preview_url
-     * @param mini_url
-     */
-    public Image(String mini_url, String small_url, String product_url, String preview_url, String original_url) {
-        super();
-        this.mini_url = mini_url;
-        this.small_url = small_url;
-        this.product_url = product_url;
-        this.preview_url = preview_url;
-        this.original_url = original_url;
-    }
-
     public String getMini_url() {
         return mini_url;
     }

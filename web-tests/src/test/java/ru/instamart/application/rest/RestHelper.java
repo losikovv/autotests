@@ -26,7 +26,7 @@ public class RestHelper extends Requests {
     private int currentDeliveryWindowId;
     private int currentPaymentToolId;
     private int currentShipmentMethodId;
-    private int minSum;
+    private int minSum = 0;
 
     public RestHelper(EnvironmentData environment) {
         String fullBaseUrl = environment.getBasicUrlWithHttpAuth();
@@ -43,11 +43,11 @@ public class RestHelper extends Requests {
     }
 
     /**
-     * Округляем double до 6 символов после запятой
+     * Округляем double до определенного количества символов после запятой
      */
-    private static double roundToSixDecimalPlaces(double value) {
+    private static double roundBigDecimal(double value, int decimal) {
         BigDecimal bd = new BigDecimal(Double.toString(value));
-        bd = bd.setScale(6, RoundingMode.HALF_UP);
+        bd = bd.setScale(decimal, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
 
@@ -64,8 +64,8 @@ public class RestHelper extends Requests {
         }
         Zone newZone = new Zone();
 
-        newZone.setLat(roundToSixDecimalPlaces(sumLat / zones.size()));
-        newZone.setLon(roundToSixDecimalPlaces(sumLon / zones.size()));
+        newZone.setLat(roundBigDecimal(sumLat / zones.size(),6));
+        newZone.setLon(roundBigDecimal(sumLon / zones.size(),6));
 
         System.out.println("Получены координаты: lat " + newZone.getLat() + ", lon " + newZone.getLon() + "\n");
 
@@ -96,8 +96,8 @@ public class RestHelper extends Requests {
 
         Zone newZone = new Zone();
 
-        newZone.setLat(roundToSixDecimalPlaces(lat));
-        newZone.setLon(roundToSixDecimalPlaces(lon));
+        newZone.setLat(roundBigDecimal(lat,6));
+        newZone.setLon(roundBigDecimal(lon,6));
 
         System.out.println("Получены координаты: lat " + newZone.getLat() + ", lon " + newZone.getLon() + "\n");
 
@@ -144,6 +144,17 @@ public class RestHelper extends Requests {
         printSuccess("Удалены все доставки у заказа: " + order + "\n");
     }
 
+    /**
+     * Изменение/применение параматров адреса из объекта адреса с указанием имени и фамилии юзера
+     */
+    private void setAddressAttributes(UserData user, Address address) {
+        String[] fullName = new String[0];
+        if (user.getName() != null) fullName = user.getName().split(" ",2);
+        if (fullName.length > 0) address.setFirst_name(fullName[0]);
+        if (fullName.length > 1) address.setLast_name(fullName[1]);
+
+        setAddressAttributes(address);
+    }
 
     /**
      * Изменение/применение параматров адреса из объекта адреса
@@ -235,7 +246,7 @@ public class RestHelper extends Requests {
     /**
      * Добавляем товар в корзину
      */
-    private void addItemToCart(Long productId, int quantity) {
+    private void addItemToCart(long productId, int quantity) {
         Response response = postLineItems(productId, quantity);
 
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
@@ -269,6 +280,36 @@ public class RestHelper extends Requests {
         currentShipmentNumber = shipment.getNumber();
 
         System.out.println("Номер доставки: " + currentShipmentNumber + "\n");
+    }
+
+    /**
+     * Узнаем вес продукта, полученного через GET v2/departments
+     */
+    private double getProductWeight(Product product) {
+        double itemWeight = 0;
+        String volume = product.getHuman_volume();
+
+        if (volume.contains(" кг.") || volume.contains(" л.")) {
+            itemWeight = Double.parseDouble(volume.split(" ")[0]);
+        } else if (volume.contains(" г.")) {
+            itemWeight = Double.parseDouble(volume.split(" ")[0]) / 1000;
+        } else if (volume.contains(" шт.")) {
+            List<Property> properties = getProducts(product.getId())
+                    .as(ProductResponse.class)
+                    .getProduct()
+                    .getProperties();
+
+            int i = 0;
+            while (!properties.get(i).getName().equalsIgnoreCase("вес")) i++;
+
+            itemWeight = Double.parseDouble((
+                    properties.get(i).getValue()
+                            .split(" ")[0])
+                    .replace(",","."));
+
+            System.out.println("Узнаём вес продукта: " + itemWeight + " кг.\n");
+        }
+        return itemWeight;
     }
 
     /**
@@ -396,14 +437,14 @@ public class RestHelper extends Requests {
     /**
      * Выбираем первый доступный магазин (берем координаты из обьекта необходимого адреса)
      */
-    private void getSidByCoordinates(Address address) {
-        getSidByCoordinates(address.getLat(), address.getLon());
+    private void getCurrentSid(Address address) {
+        getCurrentSid(address.getLat(), address.getLon());
     }
 
     /**
      * Выбираем первый доступный магазин по координатам
      */
-    private void getSidByCoordinates(double lat, double lon) {
+    private void getCurrentSid(double lat, double lon) {
         Store store = availableStores(lat, lon).get(0);
 
         currentSid = store.getId();
@@ -415,16 +456,16 @@ public class RestHelper extends Requests {
     /**
      * Выбираем первый доступный магазин определенного ритейлера (берем координаты из обьекта необходимого адреса)
      */
-    private void getSidByCoordinates(Address address, String retailer) {
+    private void getCurrentSid(Address address, String retailer) {
         if (address.getLat() == null || address.getLon() == null)
             throw new NullPointerException("Не указаны координаты");
-        getSidByCoordinates(address.getLat(), address.getLon(), retailer);
+        getCurrentSid(address.getLat(), address.getLon(), retailer);
     }
 
     /**
      * Выбираем первый доступный магазин определенного ритейлера по координатам
      */
-    private void getSidByCoordinates(double lat, double lon, String retailer) {
+    private void getCurrentSid(double lat, double lon, String retailer) {
         List<Store> stores = availableStores(lat, lon);
 
         for (Store store : stores) {
@@ -564,18 +605,36 @@ public class RestHelper extends Requests {
      * Наполняем корзину до минимальной суммы заказа в конкретном магазине
      */
     private void fillCartOnSid(int sid) {
-        Product product = getFirstProductFromStore(sid);
+        List<Product> products = getProductsFromEachDepartmentInStore(
+                sid,
+                1,
+                true);
 
+        int i = 0;
+        Product product = products.get(i);
         addItemToCart(product.getId(),1);
         getMinSum();
 
-        if (minSum > 0) {
-            double price = product.getPrice();
-            int itemsPerPack = product.getItems_per_pack();
-            double quantity = minSum/(price * itemsPerPack);
+        int quantity = 1;
+        double cartWeight;
+        do {
+            product = products.get(i++);
 
-            addItemToCart(product.getId(), ((int) Math.ceil(quantity)));
-        }
+            if (minSum > 0) {
+                double price = product.getPrice();
+                int itemsPerPack = product.getItems_per_pack();
+                quantity = (int) Math.ceil(minSum/(price * itemsPerPack));
+            }
+
+            cartWeight = roundBigDecimal(getProductWeight(product) * quantity,3);
+
+            String string = "Вес корзины: " + cartWeight + " кг.";
+            if (cartWeight > 40) printError(string + " Выбираем другой товар\n");
+            else if (cartWeight > 0) printSuccess(string);
+
+        } while (cartWeight > 40);
+
+        if (minSum > 0) addItemToCart(product.getId(), quantity);
     }
 
     /**
@@ -598,15 +657,18 @@ public class RestHelper extends Requests {
      * Регистрация
      */
     public void registration(UserData user) {
-        Response response = postUsers(
+        String[] fullName = new String[0];
+        String firstName = null;
+        String lastName = null;
+        if (user.getName() != null) fullName = user.getName().split(" ",2);
+        if (fullName.length > 0) firstName = fullName[0];
+        if (fullName.length > 1) lastName = fullName[1];
+
+        registration(
                 user.getLogin(),
-                user.getName(),
-                "",
+                firstName,
+                lastName,
                 user.getPassword());
-
-        String registeredEmail = response.as(UsersResponse.class).getUser().getEmail();
-
-        printSuccess("Зарегистрирован: " + registeredEmail + "\n");
     }
 
     /**
@@ -634,14 +696,9 @@ public class RestHelper extends Requests {
      * Наполнить корзину и выбрать адрес по умолчанию у юзера по определенному адресу
      */
     public void fillCart(UserData user, Address address) {
-        authorisation(user);
-        getCurrentOrderNumber();
-        deleteItemsFromCart();
+        dropCart(user, address);
 
-        address.setFirst_name(user.getName());
-        getSidByCoordinates(address);
-        setAddressAttributes(address);
-
+        getCurrentSid(address);
         fillCartOnSid(currentSid);
     }
 
@@ -649,14 +706,9 @@ public class RestHelper extends Requests {
      * Наполнить корзину и выбрать адрес у юзера по определенному адресу у определенного ритейлера
      */
     public void fillCart(UserData user, Address address, String retailer) {
-        authorisation(user);
-        getCurrentOrderNumber();
-        deleteItemsFromCart();
+        dropCart(user, address);
 
-        address.setFirst_name(user.getName());
-        getSidByCoordinates(address, retailer);
-        setAddressAttributes(address);
-
+        getCurrentSid(address, retailer);
         fillCartOnSid(currentSid);
     }
 
@@ -664,30 +716,20 @@ public class RestHelper extends Requests {
      * Наполнить корзину и выбрать адрес у юзера в определенном магазине
      */
     public void fillCart(UserData user, int sid) {
-        authorisation(user);
-        getCurrentOrderNumber();
-        deleteItemsFromCart();
-
-        Address address = getAddressBySid(sid);
-        String[] fullName = user.getName().split(" ",2);
-        if (fullName.length > 0) address.setFirst_name(fullName[0]);
-        if (fullName.length > 1) address.setLast_name(fullName[1]);
-
-        setAddressAttributes(address);
+        dropCart(user, getAddressBySid(sid));
 
         fillCartOnSid(sid);
     }
 
     /**
-     * Очистить корзину  и выбрать адрес у юзера по определенному адресу
+     * Очистить корзину и выбрать адрес у юзера
      */
     public void dropCart(UserData user, Address address) {
         authorisation(user);
         getCurrentOrderNumber();
         deleteItemsFromCart();
 
-        getSidByCoordinates(address);
-        setAddressAttributes(address);
+        setAddressAttributes(user, address);
     }
 
     /**
