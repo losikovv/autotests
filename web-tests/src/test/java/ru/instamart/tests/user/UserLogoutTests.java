@@ -86,7 +86,7 @@ public class UserLogoutTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
+                kraken.detect().isShippingAddressSet(),
                     failMessage("Не сбросился адрес доставки после логаута"));
 
         softAssert.assertTrue(
