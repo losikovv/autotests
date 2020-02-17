@@ -282,30 +282,30 @@ public class RestHelper extends Requests {
      * Узнаем вес продукта, полученного через GET v2/departments
      */
     private double getProductWeight(Product product) {
-        double itemWeight = 0;
-        String volume = product.getHuman_volume();
+        String string = product.getHuman_volume();
 
-        if (volume.contains(" кг.") || volume.contains(" л.")) {
-            itemWeight = Double.parseDouble(volume.split(" ")[0]);
-        } else if (volume.contains(" г.")) {
-            itemWeight = Double.parseDouble(volume.split(" ")[0]) / 1000;
-        } else if (volume.contains(" шт.")) {
+        if (string.contains(" шт.")) {
             List<Property> properties = getProducts(product.getId())
                     .as(ProductResponse.class)
                     .getProduct()
                     .getProperties();
 
             int i = 0;
-            while (!properties.get(i).getName().equalsIgnoreCase("вес")) i++;
+            while (!(properties.get(i).getName().equalsIgnoreCase("вес") ||
+                    properties.get(i).getName().equalsIgnoreCase("объем"))) i++;
 
-            itemWeight = Double.parseDouble((
-                    properties.get(i).getValue()
-                            .split(" ")[0])
-                    .replace(",","."));
-
-            System.out.println("Узнаём вес продукта: " + itemWeight + " кг.\n");
+            string = properties.get(i).getValue();
         }
-        return itemWeight;
+
+        double productWeight = Double.parseDouble((string.split(" ")[0]).replace(",","."));
+
+        if (string.contains(" кг") || string.contains(" л")) {
+            System.out.println("Вес продукта: " + productWeight + " кг.");
+            return productWeight;
+        } else if (string.contains(" г") || string.contains(" мл")) {
+            System.out.println("Вес продукта: " + productWeight / 1000 + " кг.");
+            return productWeight / 1000;
+        } else throw new Error("Неизвестный тип веса/объема: " + string);
     }
 
     /**
