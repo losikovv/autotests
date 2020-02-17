@@ -86,16 +86,13 @@ public class RestHelper extends Requests {
         double stepLat = (Collections.max(lats) - lat) / numberOfTries;
         double stepLon = (Collections.max(lons) - lon) / numberOfTries;
 
-        Zone point = new Zone();
-        for (int i = 0; i <= numberOfTries; i++) {
+        Zone point = new Zone(lat, lon);
+        for (int i = 0; !isPointInPolygon(points, point) && i < numberOfTries; i++) {
             lat = roundBigDecimal(lat + stepLat,6);
             lon = roundBigDecimal(lon + stepLon,6);
 
             point.setLat(lat);
             point.setLon(lon);
-
-            if (isPointInPolygon(points, point)) break;
-            if (i == numberOfTries) break;
         }
         return point;
     }
