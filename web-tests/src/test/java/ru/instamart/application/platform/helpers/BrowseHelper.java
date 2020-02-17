@@ -46,7 +46,7 @@ public class BrowseHelper extends HelperBase {
 
     /** Перейти на страницу в админке */
     public void adminPage(String path) {
-        url(kraken.environment.getAdminUrlWithHttpAuth() + path);
+        url(environment.getAdminUrlWithHttpAuth() + path);
     }
 
     /** Перейти на страницу заказа в админке */

@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Elements;
-import ru.instamart.application.lib.Pages;
 import ru.instamart.application.models.UserData;
 import ru.instamart.application.platform.modules.Administration;
 import ru.instamart.application.platform.modules.User;
@@ -21,7 +20,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void reachAdministrationPanel() {
         kraken.reach().admin();
-        kraken.get().page(Pages.Admin.shipments());
+        kraken.get().adminPage("shipments");
     }
 
     @Test(  enabled = enableShipmentsSectionTests,
