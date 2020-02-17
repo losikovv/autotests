@@ -1,30 +1,34 @@
 package ru.instamart.application;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
-
-import ru.instamart.application.platform.modules.Administration;
-import ru.instamart.application.platform.modules.User;
-import ru.instamart.application.platform.helpers.*;
-import ru.instamart.application.platform.modules.Checkout;
-import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.models.EnvironmentData;
 import ru.instamart.application.models.SessionData;
+import ru.instamart.application.platform.helpers.*;
+import ru.instamart.application.platform.modules.Administration;
+import ru.instamart.application.platform.modules.Checkout;
+import ru.instamart.application.platform.modules.Shop;
+import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.rest.RestHelper;
 import ru.instamart.testdata.generate;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
-import static ru.instamart.application.Config.CoreSettings.basicTimeout;
-import static ru.instamart.application.Config.CoreSettings.fullScreenMode;
-import static ru.instamart.application.Config.CoreSettings.multiSessionMode;
+import static ru.instamart.application.Config.CoreSettings.*;
 import static ru.instamart.application.Config.TestVariables.TestParams.testMark;
 
 public class AppManager {
@@ -112,20 +116,33 @@ public class AppManager {
     }
 
     private void initDriver() {
-        switch (browser) {
-            case BrowserType.FIREFOX:
-                //System.setProperty("webdriver.gecko.driver", "/Users/tinwelen/Documents/GitHub/automag/web-tests/geckodriver");
-                driver = new FirefoxDriver();
-                break;
-            case BrowserType.CHROME:
-                driver = new ChromeDriver();
-                break;
-            case BrowserType.SAFARI:
-                driver = new SafariDriver();
-                break;
-            case BrowserType.IE:
-                driver = new InternetExplorerDriver(); // there is no IE driver for mac yet :(
-                break;
+        if (docker) {
+            DesiredCapabilities caps = new DesiredCapabilities();
+            caps.setBrowserName(browser); // Chrome, FF, Opera
+            caps.setCapability("enableVNC", true);
+            caps.setCapability("enableVideo", video);
+            caps.setCapability("timeZone", "Europe/Moscow");
+            try {
+                driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), caps);
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            switch (browser) {
+                case BrowserType.FIREFOX:
+                    //System.setProperty("webdriver.gecko.driver", "/Users/tinwelen/Documents/GitHub/automag/web-tests/geckodriver");
+                    driver = new FirefoxDriver();
+                    break;
+                case BrowserType.CHROME:
+                    driver = new ChromeDriver();
+                    break;
+                case BrowserType.SAFARI:
+                    driver = new SafariDriver();
+                    break;
+                case BrowserType.IE:
+                    driver = new InternetExplorerDriver(); // there is no IE driver for mac yet :(
+                    break;
+            }
         }
     }
 

@@ -16,6 +16,9 @@ public class Config {
         int basicTimeout = 2;
         int waitingTimeout = 10;
 
+        boolean docker = false;
+        boolean video = false;
+
         boolean verbose = false;
         boolean debug = false;
         boolean multiSessionMode = false;
