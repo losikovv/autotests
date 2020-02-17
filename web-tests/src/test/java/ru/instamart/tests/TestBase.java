@@ -1,12 +1,17 @@
 package ru.instamart.tests;
 
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.SkipException;
-import org.testng.annotations.*;
-import ru.instamart.application.models.*;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.DataProvider;
+import ru.instamart.application.AppManager;
 import ru.instamart.application.Config;
 import ru.instamart.application.Elements;
-import ru.instamart.application.AppManager;
+import ru.instamart.application.models.ElementData;
+import ru.instamart.application.models.PageData;
+import ru.instamart.application.models.UserData;
 import ru.instamart.testdata.generate;
 
 import static ru.instamart.application.Config.CoreSettings.doCleanupAfterTestRun;
@@ -120,12 +125,12 @@ public class TestBase {
         verboseMessage("Валидируем работу элемента: " + element.getDescription());
         String startPage = kraken.grab().currentURL();
         kraken.perform().click(element);
-        // Todo придумать кондиционную задержку
-        Assert.assertFalse(
-                kraken.grab().currentURL().equalsIgnoreCase(startPage),
-                    "\n\n > Не работает " + element.getDescription()
-                                + "\n > " + element.getLocator().toString().substring(3) + " на странице " + startPage
-                                    + "\n > Нет перехода на целевую страницу\n\n");
+
+        kraken.await().fluently(ExpectedConditions.not(ExpectedConditions.urlToBe(startPage)),
+                "\n\n > Не работает " + element.getDescription()
+                        + "\n > " + element.getLocator().toString().substring(3) + " на странице " + startPage
+                        + "\n > Нет перехода на целевую страницу\n\n");
+
         verboseMessage("✓ Успешный переход");
         // TODO добавить проверку на соответствие currentURL и targetURL, для этого добавить targetURL в ElementData
     }
