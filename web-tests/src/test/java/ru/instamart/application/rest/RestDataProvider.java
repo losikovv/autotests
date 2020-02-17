@@ -6,6 +6,7 @@ import ru.instamart.application.models.EnvironmentData;
 import ru.instamart.application.rest.objects.Product;
 import ru.instamart.application.rest.objects.Retailer;
 import ru.instamart.application.rest.objects.Store;
+import ru.instamart.application.rest.objects.Zone;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,39 @@ public class RestDataProvider extends RestHelper {
             storeArray[i][1] = storeList.get(i).getId();
         }
         return storeArray;
+    }
+
+    @DataProvider(name = "zones")
+    public static Object[][] getAvailableZones() {
+
+        List<Store> stores = availableStores();
+
+        List<Store> newStores  = new ArrayList<>();
+        List<String> zoneNames = new ArrayList<>();
+        List<Zone> coordinates = new ArrayList<>();
+
+        for (Store store : stores) {
+            List<List<Zone>> zones = store.getZones();
+            for (int i = 0; i < zones.size(); i++) {
+                Store newStore = new Store();
+                newStore.setId(store.getId());
+                newStore.setName(store.getName());
+
+                newStores.add(newStore);
+                zoneNames.add("Зона #" + (i + 1));
+                coordinates.add(getInnerPoint(zones.get(i)));
+            }
+        }
+        Object[][] zoneArray = new Object[newStores.size()][5];
+
+        for (int i = 0; i < newStores.size(); i++) {
+            zoneArray[i][0] = newStores.get(i).getName();
+            zoneArray[i][1] = newStores.get(i).getId();
+            zoneArray[i][2] = zoneNames.get(i);
+            zoneArray[i][3] = coordinates.get(i).getLat();
+            zoneArray[i][4] = coordinates.get(i).getLon();
+        }
+        return zoneArray;
     }
 
     @Test()

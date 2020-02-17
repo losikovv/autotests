@@ -14,6 +14,7 @@ import ru.instamart.application.rest.objects.responses.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static io.restassured.RestAssured.*;
@@ -52,56 +53,51 @@ public class RestHelper extends Requests {
     }
 
     /**
-     * Высчитываем центроид зоны доставки
+     * Проверяем, попадают ли координаты в зону доставки
      */
-    private Zone getCentroid(List<Zone> zones) {
-        double sumLat = 0;
-        double sumLon = 0;
-
-        for (Zone zone : zones) {
-            sumLat += zone.getLat();
-            sumLon += zone.getLon();
+    private static boolean isPointInPolygon(List<Zone> points, Zone point) {
+        int i, j;
+        boolean result = false;
+        for (i = 0, j = points.size() - 1; i < points.size(); j = i++) {
+            if (((points.get(i).getLon() > point.getLon()) != (points.get(j).getLon() > point.getLon())) &&
+                    (point.getLat() < (points.get(j).getLat() - points.get(i).getLat())
+                            * (point.getLon() - points.get(i).getLon())
+                            / (points.get(j).getLon() - points.get(i).getLon())
+                            + points.get(i).getLat()))
+                result = !result;
         }
-        Zone newZone = new Zone();
-
-        newZone.setLat(roundBigDecimal(sumLat / zones.size(),6));
-        newZone.setLon(roundBigDecimal(sumLon / zones.size(),6));
-
-        System.out.println("Получены координаты: lat " + newZone.getLat() + ", lon " + newZone.getLon() + "\n");
-
-        return newZone;
+        return result;
     }
 
     /**
-     * Высчитываем центроид зоны доставки (2й способ)
+     * Получаем координаты, которые попадают в зону доставки
      */
-    private Zone getCentroid2(List<Zone> zones) {
-        int lastZoneIndex = zones.size() - 1;
-        double lat = 0;
-        double lon = 0;
-        double area = 0;
-        double tmp;
-        int k;
+    static Zone getInnerPoint(List<Zone> points) {
+        List<Double> lats = new ArrayList<>();
+        List<Double> lons = new ArrayList<>();
 
-        for (int i = 0; i <= lastZoneIndex; i++) {
-            k = (i + 1) % (lastZoneIndex + 1);
-            tmp = zones.get(i).getLat() * zones.get(k).getLon() - zones.get(k).getLat() * zones.get(i).getLon();
-            area += tmp;
-            lat += (zones.get(i).getLat() + zones.get(k).getLat()) * tmp;
-            lon += (zones.get(i).getLon() + zones.get(k).getLon()) * tmp;
+        for (Zone point : points) {
+            lats.add(point.getLat());
+            lons.add(point.getLon());
         }
-        area *= 0.5;
-        lat *= 1 / (6 * area);
-        lon *= 1 / (6 * area);
+        int numberOfTries = 100;
+        double lat = Collections.min(lats);
+        double lon = Collections.min(lons);
+        double stepLat = (Collections.max(lats) - lat) / numberOfTries;
+        double stepLon = (Collections.max(lons) - lon) / numberOfTries;
 
-        Zone newZone = new Zone();
+        Zone point = new Zone();
+        for (int i = 0; i <= numberOfTries; i++) {
+            lat = roundBigDecimal(lat + stepLat,6);
+            lon = roundBigDecimal(lon + stepLon,6);
 
-        newZone.setLat(roundBigDecimal(lat,6));
-        newZone.setLon(roundBigDecimal(lon,6));
+            point.setLat(lat);
+            point.setLon(lon);
 
-        System.out.println("Получены координаты: lat " + newZone.getLat() + ", lon " + newZone.getLon() + "\n");
-
-        return newZone;
+            if (isPointInPolygon(points, point)) break;
+            if (i == numberOfTries) break;
+        }
+        return point;
     }
 
     /**
@@ -114,7 +110,7 @@ public class RestHelper extends Requests {
     /**
      * Зеленый текст
      */
-    private void printSuccess(String success) {
+    static void printSuccess(String success) {
         System.out.print("\u001b[32m");
         System.out.println(success);
         System.out.print("\u001B[0m");
@@ -123,7 +119,7 @@ public class RestHelper extends Requests {
     /**
      * Красный текст
      */
-    private void printError(String error) {
+    static void printError(String error) {
         System.out.print("\033[0;91m");
         System.out.println(error);
         System.out.print("\u001B[0m");
@@ -494,8 +490,7 @@ public class RestHelper extends Requests {
 
         Address address = new Address(location);
 
-        if (sid == 109) address.setCoordinates(getCentroid2(getLastZones(store))); //опора для зоны METRO, Копейск, просп. Победы
-        else address.setCoordinates(getCentroid(getLastZones(store)));
+        address.setCoordinates(getInnerPoint(getLastZones(store)));
 
         return address;
     }
@@ -722,6 +717,19 @@ public class RestHelper extends Requests {
     }
 
     /**
+     * Наполнить корзину и выбрать адрес у юзера в определенном магазине по определенным координатам
+     */
+    public void fillCart(UserData user, int sid, double lat, double lon) {
+        Address address = getAddressBySid(sid);
+        address.setLat(lat);
+        address.setLon(lon);
+
+        dropCart(user, address);
+
+        fillCartOnSid(sid);
+    }
+
+    /**
      * Очистить корзину и выбрать адрес у юзера
      */
     public void dropCart(UserData user, Address address) {
@@ -746,6 +754,15 @@ public class RestHelper extends Requests {
      */
     public String order(UserData user, int sid) {
         fillCart(user, sid);
+        setDefaultAttributesAndCompleteOrder();
+        return currentOrderNumber;
+    }
+
+    /**
+     * Оформить тестовый заказ у юзера в определенном магазине по определенным координатам
+     */
+    public String order(UserData user, int sid, double lat, double lon) {
+        fillCart(user, sid, lat, lon);
         setDefaultAttributesAndCompleteOrder();
         return currentOrderNumber;
     }
