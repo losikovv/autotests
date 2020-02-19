@@ -134,6 +134,25 @@ public class Pages {
         static PageData contacts() { return new PageData("contacts"); }
     }
 
+    public interface Lenta {
+
+        static PageData about() { return new PageData("about-lenta"); }
+
+        static PageData delivery() { return new PageData("delivery-lenta"); }
+
+        static PageData rules() { return new PageData("rules-lenta"); }
+
+        static PageData payment() { return new PageData("payment-lenta"); }
+
+        static PageData returnPolicy() { return new PageData("return"); }
+
+        static PageData faq() { return new PageData("faq-lenta"); }
+
+        static PageData terms() { return new PageData("terms-lenta"); }
+
+        static PageData contacts() { return new PageData("contacts"); }
+    }
+
     public interface Admin {
 
         static PageData login() {

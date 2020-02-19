@@ -12,7 +12,7 @@ public class BasicMetroTests extends TestBase {
             priority = 101
     ) public void successValidateMetroTenantHeader() {
         //todo
-        //throw new AssertionError() {};
+        throw new AssertionError() {};
     }
 
     @Test(
@@ -21,7 +21,7 @@ public class BasicMetroTests extends TestBase {
             priority = 102
     ) public void successValidateMetroTenantFooter() {
         //todo
-        //throw new AssertionError() {};
+        throw new AssertionError() {};
     }
 
     @Test(
