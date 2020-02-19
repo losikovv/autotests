@@ -12,4 +12,8 @@ public class Tenants {
         return new TenantData("СберМАРКЕТ", "sbermarket");
     }
 
+    public static TenantData lenta() {
+        return new TenantData("ЛЕНТА", "lenta");
+    }
+
 }
