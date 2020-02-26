@@ -1007,30 +1007,56 @@ public class Elements {
         /** Страница деталей заказа */
         interface OrderDetailsPage {
 
+            interface Sidebar {
+
+                static ElementData container() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-summary']"),
+                            "плашка сайдбара на странице деталей заказа");
+                }
+
+                static ElementData shipmentInterval() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-interval']"),
+                            "интервал доставки на странице деталей заказа");
+                }
+
+                static ElementData shipmentNumber() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-number']"),
+                            "номер доставки на странице деталей заказа");
+                }
+
+                static ElementData paymentMethod() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-payment-method']"),
+                            "способ оплаты на странице деталей заказа");
+                }
+
+                static ElementData shipmentCost() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-products-cost']"),
+                            "стоимость доставки на странице деталей заказа");
+                }
+
+                static ElementData shipmentItemsCount() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-products-count']"),
+                            "количество позиций доставки на странице деталей заказа");
+                }
+
+                static ElementData shipmentItemsWeight() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-products-weight']"),
+                            "вес доставки на странице деталей заказа");
+                }
+
+            }
+
+
             static ElementData activeOrderAttribute() {
                 return new ElementData(By.className("user-order"),
                         "признак активного заказа");
             }
 
             static ElementData canceledOrderAttribute() {
-                return new ElementData(By.className("user-order-shipment-header__container--canceled"),
-                        "признак отмененного заказа");
+                return new ElementData(By.xpath("//*[@data-qa='user-shipment-status' and @id='shipment-canceled']"),
+                        "статус отмененного заказа");
             }
 
-            static ElementData deliveryPrice() {
-                return new ElementData(By.xpath("//*[@id='wrap']/div/div/div/div/div[2]/div/div/div[3]/div/div/div/div[1]/div[2]/div"),
-                        "стоимость доставки");
-            }
-
-            static ElementData shipmentNumber() {
-                return new ElementData(By.xpath("//div[2]/div/div[1]/div/div/div/div[1]/strong[1]"),
-                        "номер доставки");
-            }
-
-            static ElementData shipmentPayment() {
-                return new ElementData(By.cssSelector("div.user-order-shipment-summary__item:nth-child(2)"),
-                        "способ оплаты");
-            }
 
             static ElementData document(String name) {
                 return new ElementData(By.xpath("//a[text()='" + name + "']"),
