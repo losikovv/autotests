@@ -147,7 +147,7 @@ public class BasicOrdersTests extends TestBase {
         kraken.perform().order();
 
         String order1 = kraken.grab().currentOrderNumber();
-        kraken.perform().cancelLastActiveOrder();
+        kraken.perform().cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(order1));
 
         softAssert.assertEquals(kraken.grab().strippedPhoneNumber(Elements.Administration.ShipmentsSection.Order.Requisites.phoneField()), Config.TestVariables.testOrderDetails().getContactsDetails().getPhone(),
@@ -164,7 +164,7 @@ public class BasicOrdersTests extends TestBase {
                 "Не оформляется повторный заказ с новым номером телефона\n");
 
         String order2 = kraken.grab().currentOrderNumber();
-        kraken.perform().cancelLastActiveOrder();
+        kraken.perform().cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(order2));
 
         softAssert.assertEquals(kraken.grab().strippedPhoneNumber(Elements.Administration.ShipmentsSection.Order.Requisites.phoneField()), phone,
@@ -238,7 +238,7 @@ public class BasicOrdersTests extends TestBase {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void cancelLastOrder() {
-        kraken.perform().cancelLastActiveOrder();
+    public void cancelOrder() {
+        kraken.perform().cancelOrder();
     }
 }

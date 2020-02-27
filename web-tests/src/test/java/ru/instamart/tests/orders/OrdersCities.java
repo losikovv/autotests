@@ -11,11 +11,6 @@ import static ru.instamart.application.Config.TestsConfiguration.OrdersTests.ena
 
 public class OrdersCities extends TestBase {
 
-    @DataProvider(name="city")
-    public static Object[][] cityDataProvider() {
-        return new Object[][] { { 1 }, { 2 }, { 3 } };
-    }
-
     @BeforeClass(alwaysRun = true)
     public void setup() {
         kraken.get().baseUrl();
@@ -205,8 +200,6 @@ public class OrdersCities extends TestBase {
         Assert.assertTrue(
                 kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Воронеже"));
-
-        kraken.perform().cancelLastActiveOrder();
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -225,8 +218,6 @@ public class OrdersCities extends TestBase {
         Assert.assertTrue(
                 kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Омске"));
-
-        kraken.perform().cancelLastActiveOrder();
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -245,8 +236,6 @@ public class OrdersCities extends TestBase {
         Assert.assertTrue(
                 kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Волгограде"));
-
-        kraken.perform().cancelLastActiveOrder();
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -265,8 +254,6 @@ public class OrdersCities extends TestBase {
         Assert.assertTrue(
                 kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Новосибирске"));
-
-        kraken.perform().cancelLastActiveOrder();
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -285,8 +272,6 @@ public class OrdersCities extends TestBase {
         Assert.assertTrue(
                 kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Челябинске"));
-
-        kraken.perform().cancelLastActiveOrder();
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -305,8 +290,6 @@ public class OrdersCities extends TestBase {
         Assert.assertTrue(
                 kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Тюмени"));
-
-        kraken.perform().cancelLastActiveOrder();
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -324,14 +307,12 @@ public class OrdersCities extends TestBase {
 
         Assert.assertTrue(
                 kraken.detect().isOrderPlaced(),
-                    failMessage("Не удалось оформить заказ в METRO в Gthvb"));
-
-        kraken.perform().cancelLastActiveOrder();
+                    failMessage("Не удалось оформить заказ в METRO в Перми"));
     }
 
     @AfterMethod(alwaysRun = true)
     public void postconditions() {
-        kraken.rest().cancelCurrentOrder();
+        kraken.perform().cancelOrder();
     }
 
     @AfterClass(alwaysRun = true)
