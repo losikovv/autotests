@@ -1043,9 +1043,30 @@ public class Elements {
                     return new ElementData(By.xpath("//*[@data-qa='user-shipment-products-weight']"),
                             "вес доставки на странице деталей заказа");
                 }
-
             }
 
+            interface CancelOrderModal {
+
+                static ElementData popup() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-modal-cancel']"),
+                            "поп-ап модалки отмены заказа");
+                }
+
+                static ElementData yesButton() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-modal-cancel']//button[@data-qa='user-shipment-modal-cancel-btn-cancel']"),
+                            "кнопка 'Да, отменить' в модалке отмены заказа");
+                }
+
+                static ElementData noButton() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-modal-cancel']//button[@data-qa='user-shipment-modal-cancel-btn-dismiss']"),
+                            "кнопка 'Не отменять' в модалке отмены заказа");
+                }
+
+                static ElementData closeButton() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-modal-cancel']//button[@data-qa='user-shipment-modal-cancel-close']"),
+                            "крестик закрытия модалки отмены заказа");
+                }
+            }
 
             static ElementData activeOrderAttribute() {
                 return new ElementData(By.className("user-order"),
