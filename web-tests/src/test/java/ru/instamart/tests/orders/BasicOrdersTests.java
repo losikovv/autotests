@@ -59,18 +59,9 @@ public class BasicOrdersTests extends TestBase {
     public void successCompleteCheckoutWithNewJuridical() {
         kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
 
-        JuridicalData juridicalData = new JuridicalData(
-                "ООО \"Новый Пользователь\"",
-                generate.string(8),
-                generate.digitalString(13),
-                generate.digitalString(9),
-                generate.digitalString(20),
-                generate.digitalString(9),
-                generate.string(8),
-                generate.digitalString(20)
-        );
+        JuridicalData company = generate.juridical();
         kraken.reach().checkout();
-        kraken.checkout().complete(PaymentTypes.bankTransfer(), true, juridicalData);
+        kraken.checkout().complete(PaymentTypes.bankTransfer(), true, company);
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не удалось оформить заказ с добавлением нового юр. лица\n");
@@ -79,7 +70,7 @@ public class BasicOrdersTests extends TestBase {
         kraken.perform().cancelLastOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(number));
 
-        Assert.assertEquals(kraken.grab().value(Elements.Administration.ShipmentsSection.Order.Requisites.innField()), juridicalData.getInn(),
+        Assert.assertEquals(kraken.grab().value(Elements.Administration.ShipmentsSection.Order.Requisites.innField()), company.getInn(),
                 "Данные юр. лица не совпадают с указанными пользователем\n"
         );
     }
@@ -92,18 +83,9 @@ public class BasicOrdersTests extends TestBase {
     public void successCompleteCheckoutWithChangeJuridical() {
         kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
 
-        JuridicalData juridicalData = new JuridicalData(
-                "ООО \"Измененный Пользователь\"",
-                generate.string(8),
-                generate.digitalString(13),
-                generate.digitalString(9),
-                generate.digitalString(20),
-                generate.digitalString(9),
-                generate.string(8),
-                generate.digitalString(20)
-        );
+        JuridicalData newCompany = generate.juridical();
         kraken.reach().checkout();
-        kraken.checkout().complete(PaymentTypes.bankTransfer(), false, juridicalData);
+        kraken.checkout().complete(PaymentTypes.bankTransfer(), false, newCompany);
 
         Assert.assertTrue(kraken.detect().isOrderActive(),
                 "Не удалось оформить заказ с с изменением юр. лица\n");
@@ -112,7 +94,7 @@ public class BasicOrdersTests extends TestBase {
         kraken.perform().cancelLastOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(number));
 
-        Assert.assertEquals(kraken.grab().value(Elements.Administration.ShipmentsSection.Order.Requisites.innField()), juridicalData.getInn(),
+        Assert.assertEquals(kraken.grab().value(Elements.Administration.ShipmentsSection.Order.Requisites.innField()), newCompany.getInn(),
                 "Данные юр. лица не совпадают с указанными пользователем\n"
         );
     }

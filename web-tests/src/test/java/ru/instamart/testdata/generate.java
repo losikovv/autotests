@@ -2,6 +2,7 @@ package ru.instamart.testdata;
 
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Config;
+import ru.instamart.application.models.JuridicalData;
 import ru.instamart.application.models.UserData;
 
 import java.util.Random;
@@ -16,6 +17,19 @@ public class generate {
 
     public static String userId() {
         return digitalString(7);
+    }
+
+    public static JuridicalData juridical() {
+        return new JuridicalData(
+                "ЗАО \"Лидер-" + generate.digitalString(4) + "\"",
+                generate.string(8),
+                generate.digitalString(13),
+                generate.digitalString(9),
+                generate.digitalString(20),
+                generate.digitalString(9),
+                generate.string(8),
+                generate.digitalString(20)
+        );
     }
 
     /**
