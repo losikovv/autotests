@@ -217,7 +217,7 @@ public class UserShippingAddressTests extends TestBase {
         User.Do.registration();
         User.ShippingAddress.set(Addresses.Moscow.testAddress());
         kraken.perform().order();
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelLastActiveOrder();
         kraken.get().baseUrl();
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 

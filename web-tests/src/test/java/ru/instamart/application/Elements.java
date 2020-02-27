@@ -1007,6 +1007,39 @@ public class Elements {
         /** Страница деталей заказа */
         interface OrderDetailsPage {
 
+            interface OrderStatus {
+
+                static ElementData placed() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-status' and @id='shipment-ready']"),
+                            "статус заказа 'Ожидает сборки' на странице деталей заказа");
+                }
+
+                static ElementData collecting() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-status' and @id='shipment-collecting']"),
+                            "статус заказа 'Собирается' на странице деталей заказа");
+                }
+
+                static ElementData shipping() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-status' and @id='shipment-shipping']"),
+                            "статус заказа 'В пути' на странице деталей заказа");
+                }
+
+                static ElementData canceled() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-status' and @id='shipment-canceled']"),
+                            "статус заказа 'Отменен' на странице деталей заказа");
+                }
+
+                static ElementData shipped() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-status' and @id='shipment-shipped']"),
+                            "статус заказа 'Доставлен' на странице деталей заказа");
+                }
+                
+                static ElementData carryover() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-status' and @id='shipment-carryover']"),
+                            "статус заказа 'Перенесен' на странице деталей заказа");
+                }
+            }
+
             interface Sidebar {
 
                 static ElementData container() {

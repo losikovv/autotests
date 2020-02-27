@@ -40,7 +40,7 @@ public class OrdersRetailers extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в Метро Москва"));
     }
 
@@ -60,7 +60,7 @@ public class OrdersRetailers extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в Ашан Москва"));
     }
 
@@ -80,7 +80,7 @@ public class OrdersRetailers extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в Азбука Вкуса Москва"));
     }
 
@@ -99,7 +99,7 @@ public class OrdersRetailers extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                 failMessage("Не удалось оформить заказ в Вкусвилл Москва"));
     }
 
@@ -118,7 +118,7 @@ public class OrdersRetailers extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в Лента Москва"));
     }
 

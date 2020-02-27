@@ -30,7 +30,7 @@ public class testOrders extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ " + param));
     }
 

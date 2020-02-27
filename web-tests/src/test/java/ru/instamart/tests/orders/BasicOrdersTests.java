@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Elements;
-import ru.instamart.application.Environments;
 import ru.instamart.application.lib.*;
 import ru.instamart.application.Config;
 import ru.instamart.application.platform.modules.Shop;
@@ -63,11 +62,11 @@ public class BasicOrdersTests extends TestBase {
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer(), true, company);
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не удалось оформить заказ с добавлением нового юр. лица\n");
 
         String number = kraken.grab().currentOrderNumber();
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(number));
 
         Assert.assertEquals(kraken.grab().value(Elements.Administration.ShipmentsSection.Order.Requisites.innField()), company.getInn(),
@@ -87,11 +86,11 @@ public class BasicOrdersTests extends TestBase {
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer(), false, newCompany);
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не удалось оформить заказ с с изменением юр. лица\n");
 
         String number = kraken.grab().currentOrderNumber();
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(number));
 
         Assert.assertEquals(kraken.grab().value(Elements.Administration.ShipmentsSection.Order.Requisites.innField()), newCompany.getInn(),
@@ -113,7 +112,7 @@ public class BasicOrdersTests extends TestBase {
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cardOnline(), true, creditCardData);
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не удалось оформить заказ с новой картой оплаты\n");
     }
 
@@ -130,7 +129,7 @@ public class BasicOrdersTests extends TestBase {
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не оформляется заказ с любимыми товарами\n");
     }
 
@@ -148,7 +147,7 @@ public class BasicOrdersTests extends TestBase {
         kraken.perform().order();
 
         String order1 = kraken.grab().currentOrderNumber();
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelLastActiveOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(order1));
 
         softAssert.assertEquals(kraken.grab().strippedPhoneNumber(Elements.Administration.ShipmentsSection.Order.Requisites.phoneField()), Config.TestVariables.testOrderDetails().getContactsDetails().getPhone(),
@@ -161,11 +160,11 @@ public class BasicOrdersTests extends TestBase {
         kraken.reach().checkout();
         kraken.checkout().complete(true, phone);
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не оформляется повторный заказ с новым номером телефона\n");
 
         String order2 = kraken.grab().currentOrderNumber();
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelLastActiveOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(order2));
 
         softAssert.assertEquals(kraken.grab().strippedPhoneNumber(Elements.Administration.ShipmentsSection.Order.Requisites.phoneField()), phone,
@@ -186,7 +185,7 @@ public class BasicOrdersTests extends TestBase {
 
         kraken.checkout().complete(PaymentTypes.cardOnline());
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не оформляется повторный заказ с оплатой картой онлайн\n");
     }
 
@@ -202,7 +201,7 @@ public class BasicOrdersTests extends TestBase {
 
         kraken.checkout().complete(PaymentTypes.cardCourier());
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не оформляется повторный заказ с оплатой картой курьеру\n");
     }
 
@@ -218,7 +217,7 @@ public class BasicOrdersTests extends TestBase {
 
         kraken.checkout().complete(PaymentTypes.cash());
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не оформляется повторный заказ с оплатой наличными\n");
     }
 
@@ -234,12 +233,12 @@ public class BasicOrdersTests extends TestBase {
 
         kraken.checkout().complete(PaymentTypes.bankTransfer());
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не оформляется повторный заказ с оплатой банковским переводом\n");
     }
 
     @AfterMethod(alwaysRun = true)
     public void cancelLastOrder() {
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelLastActiveOrder();
     }
 }

@@ -328,11 +328,11 @@ public class DetectionHelper extends HelperBase {
 
     // ======= Детали заказа =======
 
-    /** Определить активен ли заказ на странице деталей */
-    public boolean isOrderActive() {
+    /** Определить оформлен ли заказ на странице деталей */
+    public boolean isOrderPlaced() {
         verboseMessage("Проверяем страницу заказа...");
-        if (isElementDisplayed(Elements.UserProfile.OrderDetailsPage.activeOrderAttribute()) && !isOrderCanceled()) {
-        verboseMessage("✓ Заказ активен\n");
+        if (isElementPresent(Elements.UserProfile.OrderDetailsPage.OrderStatus.placed())) {
+        verboseMessage("✓ Заказ оформлен\n");
             return true;
         } else return false;
     }

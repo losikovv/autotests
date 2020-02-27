@@ -46,8 +46,8 @@ public class Checkout extends Base {
                             "Неактивна кнопка отправки заказа\n");
         kraken.perform().click(Elements.Checkout.SideBar.sendOrderButton());
         kraken.await().fluently(
-                ExpectedConditions.visibilityOfElementLocated(
-                        Elements.UserProfile.OrderDetailsPage.activeOrderAttribute().getLocator()),
+                ExpectedConditions.invisibilityOfElementLocated(
+                        Elements.Checkout.header().getLocator()),
                             "Превышено время ожидания отправки заказа\n");
         message("✓ Заказ оформлен\n");
     }
@@ -60,8 +60,8 @@ public class Checkout extends Base {
                 "Неактивна кнопка отправки заказа\n");
         kraken.perform().click(Elements.Checkout.sendOrderButton());
         kraken.await().fluently(
-                ExpectedConditions.visibilityOfElementLocated(
-                        Elements.UserProfile.OrderDetailsPage.activeOrderAttribute().getLocator()),
+                ExpectedConditions.invisibilityOfElementLocated(
+                        Elements.Checkout.header().getLocator()),
                 "Превышено время отправки заказа\n");
         message("✓ Заказ оформлен\n");
     }

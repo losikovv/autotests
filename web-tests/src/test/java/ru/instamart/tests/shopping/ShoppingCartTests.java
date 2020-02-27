@@ -244,7 +244,7 @@ public class ShoppingCartTests extends TestBase {
                 sum1 < sum2,
                     "Сумма минимального заказа не изменилась после первого заказа\n");
 
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelLastActiveOrder();
         softAssert.assertAll();
     }
 }

@@ -163,20 +163,26 @@ public class PerformHelper extends HelperBase {
         }
     }
 
-    /** Отменить крайний заказ */
-    public void cancelLastOrder() {
-        message("Отменяем крайний заказ...");
+    /** Отменить крайний активный заказ */
+    public void cancelLastActiveOrder() {
+        message("Отменяем крайний активный заказ...");
         kraken.get().page(Pages.UserProfile.shipments());
+        click(Elements.UserProfile.OrdersHistoryPage.activeOrdersFilterButton());
         if(!kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder())) {
             click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
+            cancelOrder();
+        } else message("> Заказ не активен\n");
+    }
+
+    /** Отменить заказ на странице деталей заказа */
+    public void cancelOrder() {
             click(Elements.UserProfile.OrderDetailsPage.cancelButton());
             kraken.await().simply(1); // Ожидание анимации открытия модалки отмены заказа
             click(Elements.UserProfile.OrderDetailsPage.CancelOrderModal.yesButton());
             kraken.await().fluently(
                     ExpectedConditions.presenceOfElementLocated(Elements.UserProfile.OrderDetailsPage.CancelOrderModal.popup().getLocator()),
-                        "Не отменился заказ за допустимое время ожидания\n"
+                    "Не отменился заказ за допустимое время ожидания\n"
             );
             message("✓ Заказ отменен\n");
-        } else message("> Заказ не активен\n");
     }
 }

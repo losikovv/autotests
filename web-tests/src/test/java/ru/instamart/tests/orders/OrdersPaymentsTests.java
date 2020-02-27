@@ -6,7 +6,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.application.AppManager;
-import ru.instamart.application.Tenants;
 import ru.instamart.application.lib.PaymentTypes;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.rest.RestAddresses;
@@ -36,7 +35,7 @@ public class OrdersPaymentsTests extends TestBase {
         skipTestOnTenant("sbermarket");
         kraken.checkout().complete(PaymentTypes.cash());
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не удалось оформить заказ с оплатой наличными\n");
 
         Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.cash().getDescription()),
@@ -57,7 +56,7 @@ public class OrdersPaymentsTests extends TestBase {
     public void successOrderWithCardOnlineAndCheckDocuments() {
         kraken.checkout().complete(PaymentTypes.cardOnline());
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не удалось оформить заказ с оплатой картой онлайн\n");
 
         Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.cardOnline().getDescription()),
@@ -78,7 +77,7 @@ public class OrdersPaymentsTests extends TestBase {
     public void successOrderWithCardCourierAndCheckDocuments() {
         kraken.checkout().complete(PaymentTypes.cardCourier());
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не удалось оформить заказ с оплатой картой курьеру\n");
 
         Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.cardCourier().getDescription()),
@@ -99,7 +98,7 @@ public class OrdersPaymentsTests extends TestBase {
     public void successOrderWithBankTransferAndCheckDocuments() {
         kraken.checkout().complete(PaymentTypes.bankTransfer());
 
-        Assert.assertTrue(kraken.detect().isOrderActive(),
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не удалось оформить заказ с оплатой банковским переводом\n");
 
         Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.bankTransfer().getDescription()),

@@ -41,7 +41,7 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Москве"));
     }
 
@@ -59,7 +59,7 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не оформляется заказ в METRO в Санкт-Петербурге"));
     }
 
@@ -77,7 +77,7 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Казани"));
     }
 
@@ -95,7 +95,7 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Екатеринбурге"));
     }
 
@@ -113,7 +113,7 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Нижнем Новгороде"));
     }
 
@@ -131,7 +131,7 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Ростове-на-Дону"));
     }
 
@@ -149,7 +149,7 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Уфе"));
     }
 
@@ -167,7 +167,7 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Краснодаре"));
     }
 
@@ -185,7 +185,7 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Самаре"));
     }
 
@@ -203,10 +203,10 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Воронеже"));
 
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelLastActiveOrder();
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -223,10 +223,10 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Омске"));
 
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelLastActiveOrder();
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -243,10 +243,10 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Волгограде"));
 
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelLastActiveOrder();
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -263,10 +263,10 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Новосибирске"));
 
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelLastActiveOrder();
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -283,10 +283,10 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Челябинске"));
 
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelLastActiveOrder();
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -303,10 +303,10 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Тюмени"));
 
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelLastActiveOrder();
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -323,10 +323,10 @@ public class OrdersCities extends TestBase {
         kraken.checkout().complete();
 
         Assert.assertTrue(
-                kraken.detect().isOrderActive(),
+                kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ в METRO в Gthvb"));
 
-        kraken.perform().cancelLastOrder();
+        kraken.perform().cancelLastActiveOrder();
     }
 
     @AfterMethod(alwaysRun = true)
