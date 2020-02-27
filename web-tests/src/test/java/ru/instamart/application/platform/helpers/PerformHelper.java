@@ -167,7 +167,6 @@ public class PerformHelper extends HelperBase {
     public void cancelLastOrder() {
         message("Отменяем крайний заказ...");
         kraken.get().page(Pages.UserProfile.shipments());
-
         if(!kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder())) {
             click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
             click(Elements.UserProfile.OrderDetailsPage.cancelButton());
