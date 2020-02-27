@@ -23,7 +23,7 @@ public class generate {
         return new JuridicalData(
                 "ЗАО \"Лидер-" + generate.digitalString(4) + "\"",
                 generate.string(8),
-                generate.digitalString(13),
+                generate.digitalString(12),
                 generate.digitalString(9),
                 generate.digitalString(20),
                 generate.digitalString(9),

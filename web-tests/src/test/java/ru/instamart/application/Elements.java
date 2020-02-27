@@ -1971,44 +1971,59 @@ public class Elements {
             /** Модалка юр.лица */
             interface JuridicalModal {
 
+                static ElementData innField() {
+                    return new ElementData(By.xpath("//input[@name='requisites.inn']"),
+                            "поле ввода ИНН в модалке юр.лица в чекауте");
+                }
+
                 static ElementData nameField() {
-                    return new ElementData(By.name("name"));
+                    return new ElementData(By.xpath("//input[@name='requisites.name']"),
+                            "поле ввода названия юр.лица в модалке юр.лица в чекауте");
                 }
 
                 static ElementData addressField() {
-                    return new ElementData(By.name("address"));
-                }
-
-                static ElementData innField() {
-                    return new ElementData(By.name("inn"));
+                    return new ElementData(By.xpath("//input[@name='requisites.address']"),
+                            "поле ввода юр.адреса в модалке юр.лица в чекауте");
                 }
 
                 static ElementData kppField() {
-                    return new ElementData(By.name("kpp"));
+                    return new ElementData(By.xpath("//input[@name='requisites.kpp']"),
+                            "поле ввода КПП в модалке юр.лица в чекауте");
                 }
 
                 static ElementData operatingAccountField() {
-                    return new ElementData(By.name("operatingAccount"));
+                    return new ElementData(By.xpath("//input[@name='requisites.operatingAccount']"),
+                            "поле ввода рассчетного счета в модалке юр.лица в чекауте");
                 }
 
                 static ElementData bikField() {
-                    return new ElementData(By.name("bik"));
+                    return new ElementData(By.xpath("//input[@name='requisites.bik']"),
+                            "поле ввода БИК в модалке юр.лица в чекауте");
                 }
 
                 static ElementData bankField() {
-                    return new ElementData(By.name("bank"));
+                    return new ElementData(By.xpath("//input[@name='requisites.bank']"),
+                            "поле ввода названия банка в модалке юр.лица в чекауте");
                 }
 
                 static ElementData correspondentAccountField() {
-                    return new ElementData(By.name("correspondentAccount"));
+                    return new ElementData(By.xpath("//input[@name='requisites.correspondentAccount']"),
+                            "поле ввода корреспондентского счета в модалке юр.лица в чекауте");
                 }
 
                 static ElementData deleteButton() {
-                    return new ElementData(By.xpath("//button[contains(text(),'Удалить')]"));
+                    return new ElementData(By.xpath("//button[contains(text(),'Удалить')]"),
+                            "кнопка 'Удалить' в модалке юр.лица в чекауте");
+                }
+
+                static ElementData cancelButton() {
+                    return new ElementData(By.xpath("//button[contains(text(),'Отменить')]"),
+                            "кнопка 'Отменить' в модалке юр.лица в чекауте");
                 }
 
                 static ElementData confirmButton() {
-                    return new ElementData(By.xpath("//button[contains(text(),'Сохранить')]"));
+                    return new ElementData(By.xpath("//button[contains(text(),'Сохранить')]"),
+                            "кнопка 'Сохранить' в модалке юр.лица в чекауте");
                 }
             }
 
