@@ -239,6 +239,6 @@ public class BasicOrdersTests extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void cancelOrder() {
-        kraken.perform().cancelOrder();
+        kraken.perform().cancelLastActiveOrder();
     }
 }
