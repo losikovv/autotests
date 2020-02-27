@@ -2,7 +2,6 @@ package ru.instamart.application.rest;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.instamart.application.models.EnvironmentData;
 import ru.instamart.application.rest.objects.Product;
 import ru.instamart.application.rest.objects.Retailer;
 import ru.instamart.application.rest.objects.Store;
@@ -11,14 +10,12 @@ import ru.instamart.application.rest.objects.Zone;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestDataProvider extends RestHelper {
+import static ru.instamart.application.rest.RestHelper.*;
 
-    public RestDataProvider(EnvironmentData environment) {
-        super(environment);
-    }
+public class RestDataProvider extends RestBase {
 
     @Test()
-    public void selfTestRetailers() {
+    public static void selfTestRetailers() {
         RestDataProvider.getAvailableRetailers();
     }
     @DataProvider(name = "retailers")
@@ -61,44 +58,41 @@ public class RestDataProvider extends RestHelper {
 
         List<Store> storeList = availableStores();
 
-        Object[][] storeArray = new Object[storeList.size()][2];
+        Object[][] storeArray = new Object[storeList.size()][1];
 
         for (int i = 0; i < storeList.size(); i++) {
-            storeArray[i][0] = storeList.get(i).getName();
-            storeArray[i][1] = storeList.get(i).getId();
+            storeArray[i][0] = storeList.get(i);
         }
         return storeArray;
     }
 
+    @Test()
+    public static void selfTestZones() {
+        RestDataProvider.getAvailableZones();
+    }
     @DataProvider(name = "zones")
     public static Object[][] getAvailableZones() {
 
         List<Store> stores = availableStores();
 
-        List<Store> newStores  = new ArrayList<>();
+        List<Store> zoneStores = new ArrayList<>();
         List<String> zoneNames = new ArrayList<>();
         List<Zone> coordinates = new ArrayList<>();
 
         for (Store store : stores) {
             List<List<Zone>> zones = store.getZones();
             for (int i = 0; i < zones.size(); i++) {
-                Store newStore = new Store();
-                newStore.setId(store.getId());
-                newStore.setName(store.getName());
-
-                newStores.add(newStore);
+                zoneStores.add(store);
                 zoneNames.add("Зона #" + (i + 1));
                 coordinates.add(getInnerPoint(zones.get(i)));
             }
         }
-        Object[][] zoneArray = new Object[newStores.size()][5];
+        Object[][] zoneArray = new Object[zoneStores.size()][3];
 
-        for (int i = 0; i < newStores.size(); i++) {
-            zoneArray[i][0] = newStores.get(i).getName();
-            zoneArray[i][1] = newStores.get(i).getId();
-            zoneArray[i][2] = zoneNames.get(i);
-            zoneArray[i][3] = coordinates.get(i).getLat();
-            zoneArray[i][4] = coordinates.get(i).getLon();
+        for (int i = 0; i < zoneStores.size(); i++) {
+            zoneArray[i][0] = zoneStores.get(i);
+            zoneArray[i][1] = zoneNames.get(i);
+            zoneArray[i][2] = coordinates.get(i);
         }
         return zoneArray;
     }
@@ -110,20 +104,19 @@ public class RestDataProvider extends RestHelper {
     @DataProvider(name = "products")
     public static Object[][] getMainPageProducts() {
 
-        List<Store> storeList = availableStores();
-        List<Product> productList = new ArrayList<>();
+        List<Store> stores = availableStores();
+        List<Product> products = new ArrayList<>();
 
-        for (Store store : storeList) {
-            productList.addAll(getProductsFromEachDepartmentInStore(
+        for (Store store : stores) {
+            products.addAll(getProductsFromEachDepartmentInStore(
                     store.getId(),
-                    1,
+                    6,
                     true));
         }
-        Object[][] productArray = new Object[productList.size()][2];
+        Object[][] productArray = new Object[products.size()][1];
 
-        for (int i = 0; i < productList.size(); i++) {
-            productArray[i][0] = productList.get(i).getName();
-            productArray[i][1] = productList.get(i).getId();
+        for (int i = 0; i < products.size(); i++) {
+            productArray[i][0] = products.get(i);
         }
         return productArray;
     }

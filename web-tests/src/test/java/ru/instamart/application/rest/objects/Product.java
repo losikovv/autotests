@@ -1,6 +1,7 @@
 package ru.instamart.application.rest.objects;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 public class Product extends BaseObject {
 
@@ -129,4 +130,17 @@ public class Product extends BaseObject {
         this.related_products = related_products;
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(
+                ", ",
+                "",
+                "")
+                .add(name)
+                .add("id: " + id)
+                .add("price: " + price)
+                .add("human_volume: " + human_volume)
+                .add("items_per_pack: " + items_per_pack)
+                .toString();
+    }
 }

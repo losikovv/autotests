@@ -1,5 +1,7 @@
 package ru.instamart.application.models;
 
+import ru.instamart.application.AppManager;
+
 public class PageData {
     private String path;
     private String description;
@@ -21,5 +23,10 @@ public class PageData {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public String toString() {
+        return AppManager.environment.getBasicUrlWithHttpAuth() + path;
     }
 }

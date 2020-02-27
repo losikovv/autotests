@@ -8,7 +8,7 @@ public class Department extends BaseObject {
     private Integer taxon_id;
     private String type;
     private String name;
-    private Integer products_count;
+    private int products_count;
     private List<Product> products = null;
 
     /**
@@ -68,7 +68,7 @@ public class Department extends BaseObject {
         this.name = name;
     }
 
-    public Integer getProducts_count() {
+    public int getProducts_count() {
         return products_count;
     }
 

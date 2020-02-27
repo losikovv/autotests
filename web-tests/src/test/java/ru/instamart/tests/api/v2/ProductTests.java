@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.instamart.application.rest.Requests;
 import ru.instamart.application.rest.RestBase;
 import ru.instamart.application.rest.RestDataProvider;
+import ru.instamart.application.rest.objects.Product;
 
 public class ProductTests extends RestBase {
 
@@ -17,10 +18,10 @@ public class ProductTests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             description = "Тест продуктов на главных страницах всех магазинов",
             groups = {})
-    public void productsOnMainPages(String name, long id) {
+    public void productsOnMainPages(Product product) {
 
-        System.out.println(name);
+        System.out.println(product);
 
-        Requests.getProducts(id);
+        Requests.getProducts(product.getId());
     }
 }

@@ -2,7 +2,7 @@ package ru.instamart.application.rest.objects.responses;
 
 import ru.instamart.application.rest.objects.Store;
 
-public class StoreResponse {
+public class StoreResponse extends BaseResponseObject {
 
     private Store store;
 

@@ -1,5 +1,7 @@
 package ru.instamart.application.rest.objects;
 
+import java.util.StringJoiner;
+
 public class Address extends BaseObject {
 
     private Integer id;
@@ -33,15 +35,6 @@ public class Address extends BaseObject {
         this.building = building;
         this.lat = lat;
         this.lon = lon;
-    }
-
-    public Address(Location location) {
-        super();
-        this.city = location.getCity();
-        this.street = location.getStreet();
-        this.building = location.getBuilding();
-        this.lat = location.getLat();
-        this.lon = location.getLon();
     }
 
     public void setCoordinates(Zone zone) {
@@ -177,4 +170,23 @@ public class Address extends BaseObject {
         this.door_phone = door_phone;
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(
+                "\n",
+                full_address + "\n",
+                "\n")
+                .add("       lat: " + lat)
+                .add("       lon: " + lon)
+                .add("first_name: " + first_name)
+                .add(" last_name: " + last_name)
+                .add("        id: " + id)
+                .add("door_phone: " + door_phone)
+                .add(" apartment: " + apartment)
+                .add("     floor: " + floor)
+                .add("  entrance: " + entrance)
+                .add("     block: " + block)
+                .add("  comments: " + comments)
+                .toString();
+    }
 }

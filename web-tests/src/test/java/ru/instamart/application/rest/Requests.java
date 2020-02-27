@@ -101,21 +101,21 @@ public class Requests {
     /**
      * Получение продуктов в выбранном магазине
      */
-    static Response getDepartments(int sid, int numberOfLineItems) {
-        return given().get(EndPoints.departments, sid, numberOfLineItems);
+    static Response getDepartments(int sid, int numberOfProductsFromEachDepartment) {
+        return given().get(EndPoints.departments, sid, numberOfProductsFromEachDepartment);
     }
 
     /**
      * Получить инфо о продукте
      */
-    public static Response getProducts(long id) {
-        return given().get(EndPoints.Products.id, id);
+    public static Response getProducts(long productId) {
+        return given().get(EndPoints.Products.id, productId);
     }
 
     /**
      * Добавляем товар в корзину
      */
-    public Response postLineItems(Long productId, int quantity) {
+    public Response postLineItems(long productId, int quantity) {
         Map<String, Object> data = new HashMap<>();
         data.put("line_item[order_number]", currentOrderNumber);
         data.put("line_item[product_id]", productId);
@@ -210,7 +210,7 @@ public class Requests {
      * Получаем список доступных магазинов по координатам
      */
     Response getStores(double lat, double lon) {
-        return given().get(EndPoints.Stores.byCoordinates, lat, lon);
+        return given().get(EndPoints.Stores.coordinates, lat, lon);
     }
 
     /**

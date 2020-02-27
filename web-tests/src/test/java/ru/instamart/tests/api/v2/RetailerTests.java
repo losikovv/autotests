@@ -6,7 +6,6 @@ import ru.instamart.application.AppManager;
 import ru.instamart.application.rest.RestBase;
 import ru.instamart.application.rest.RestDataProvider;
 import ru.instamart.application.rest.RestHelper;
-import ru.instamart.application.rest.objects.Address;
 import ru.instamart.application.rest.objects.Store;
 
 import java.util.List;
@@ -29,9 +28,9 @@ public class RetailerTests extends RestBase {
         while (!stores.get(i).getRetailer().getSlug().equalsIgnoreCase(slug)) i++;
         Store store = stores.get(i);
 
-        System.out.println("!!! Оформляем заказ в " + store.getName() + " !!!");
+        System.out.println("Оформляем заказ в " + store.getName() + "\n");
 
-        kraken.rest().order(AppManager.session.user, new Address(store.getLocation()), slug);
+        kraken.rest().order(AppManager.session.user, store.getLocation(), slug);
         kraken.rest().cancelCurrentOrder();
     }
 }

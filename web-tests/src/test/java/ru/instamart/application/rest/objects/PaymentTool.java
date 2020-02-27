@@ -1,5 +1,7 @@
 package ru.instamart.application.rest.objects;
 
+import java.util.StringJoiner;
+
 public class PaymentTool extends BaseObject {
 
     private Integer id;
@@ -39,4 +41,15 @@ public class PaymentTool extends BaseObject {
         this.source = source;
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(
+                ", ",
+                "",
+                "")
+                .add(name)
+                .add("id: " + id)
+                .add("type: " + type)
+                .toString();
+    }
 }

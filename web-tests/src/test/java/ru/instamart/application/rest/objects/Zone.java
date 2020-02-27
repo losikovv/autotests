@@ -39,4 +39,9 @@ public class Zone extends BaseObject {
         this.lat = lat;
     }
 
+    @Override
+    public String toString() {
+        return "lat: " + lat + ", lon: " + lon;
+    }
+
 }

@@ -1,6 +1,7 @@
 package ru.instamart.application.rest.objects;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 public class Store extends BaseObject {
 
@@ -10,7 +11,7 @@ public class Store extends BaseObject {
     private List<List<Zone>> zones = null;
     private String uuid;
     private Retailer retailer;
-    private Location location;
+    private Address location;
     private List<Service> services = null;
     private List<OperationalTime> operational_times = null;
 
@@ -62,11 +63,11 @@ public class Store extends BaseObject {
         this.retailer = retailer;
     }
 
-    public Location getLocation() {
+    public Address getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(Address location) {
         this.location = location;
     }
 
@@ -84,6 +85,19 @@ public class Store extends BaseObject {
 
     public void setOperational_times(List<OperationalTime> operational_times) {
         this.operational_times = operational_times;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(
+                ", ",
+                "",
+                "")
+                .add(getRetailer().getName())
+                .add(getLocation().getCity())
+                .add(getLocation().getStreet())
+                .add("sid: " + id)
+                .toString();
     }
 
 }

@@ -14,6 +14,7 @@ import ru.instamart.application.models.ElementData;
 import ru.instamart.application.models.OrderDetailsData;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
+import ru.instamart.application.rest.RestHelper;
 
 import java.io.IOException;
 
@@ -51,6 +52,14 @@ public class Playground extends TestBase {
     public void restOrder() {
         kraken.rest().order(AppManager.session.user, 1);
         kraken.rest().cancelCurrentOrder();
+    }
+
+    @Test
+    public void restDepartments() {
+        RestHelper.getProductsFromEachDepartmentInStore(
+                128,
+                6, // 6 is max
+                false);
     }
 
     @Test

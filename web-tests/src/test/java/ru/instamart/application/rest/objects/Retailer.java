@@ -1,5 +1,7 @@
 package ru.instamart.application.rest.objects;
 
+import java.util.StringJoiner;
+
 public class Retailer extends BaseObject {
 
     private Integer id;
@@ -89,5 +91,16 @@ public class Retailer extends BaseObject {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(
+                ", ",
+                "",
+                "")
+                .add(name)
+                .add("id: " + id)
+                .toString();
     }
 }

@@ -205,6 +205,11 @@ public class Pages {
                     "admin/pages");
         }
 
+        static PageData stores(int sid) {
+            return new PageData(
+                    "admin/stores/" + sid);
+        }
+
         static PageData oktell() {
             return new PageData(
                     "widgets/oktell_order_view");

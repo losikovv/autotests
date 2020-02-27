@@ -1,5 +1,7 @@
 package ru.instamart.application.rest.objects;
 
+import java.util.StringJoiner;
+
 public class LineItem extends BaseObject {
 
     private Integer id;
@@ -94,4 +96,16 @@ public class LineItem extends BaseObject {
         this.product = product;
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(
+                ", ",
+                "В корзину добавлен товар:\n",
+                "\n")
+                .add(getProduct().getName())
+                .add("id: " + getProduct().getId())
+                .add("quantity: " + quantity)
+                .add("total: " + total)
+                .toString();
+    }
 }

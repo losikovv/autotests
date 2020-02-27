@@ -1,5 +1,7 @@
 package ru.instamart.application.rest.objects;
 
+import java.util.StringJoiner;
+
 public class DeliveryWindow extends BaseObject {
 
     private Integer id;
@@ -50,4 +52,15 @@ public class DeliveryWindow extends BaseObject {
         this.ends_at = ends_at;
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(
+                "\n",
+                "Получена информация о слоте: ",
+                "\n")
+                .add("id: " + id)
+                .add("starts_at: " + starts_at)
+                .add("  ends_at: " + ends_at)
+                .toString();
+    }
 }
