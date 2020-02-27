@@ -1033,7 +1033,7 @@ public class Elements {
                     return new ElementData(By.xpath("//*[@data-qa='user-shipment-status' and @id='shipment-shipped']"),
                             "статус заказа 'Доставлен' на странице деталей заказа");
                 }
-                
+
                 static ElementData carryover() {
                     return new ElementData(By.xpath("//*[@data-qa='user-shipment-status' and @id='shipment-carryover']"),
                             "статус заказа 'Перенесен' на странице деталей заказа");
@@ -1076,6 +1076,16 @@ public class Elements {
                     return new ElementData(By.xpath("//*[@data-qa='user-shipment-products-weight']"),
                             "вес доставки на странице деталей заказа");
                 }
+
+                static ElementData repeatOrderButton() {
+                    return new ElementData(By.xpath("//button[@data-qa='user-shipment-repeat']"),
+                            "кнопка повтора заказа на странице деталей заказа");
+                }
+
+                static ElementData cancelOrderButton() {
+                    return new ElementData(By.xpath("//button[@data-qa='user-shipment-cancel']"),
+                            "кнопка отмены заказа на странице деталей заказа");
+                }
             }
 
             interface CancelOrderModal {
@@ -1101,25 +1111,10 @@ public class Elements {
                 }
             }
 
-            static ElementData activeOrderAttribute() {
-                return new ElementData(By.className("user-order"),
-                        "признак активного заказа");
-            }
-
-            static ElementData canceledOrderAttribute() {
-                return new ElementData(By.xpath("//*[@data-qa='user-shipment-status' and @id='shipment-canceled']"),
-                        "статус отмененного заказа");
-            }
-
 
             static ElementData document(String name) {
                 return new ElementData(By.xpath("//a[text()='" + name + "']"),
                         "ссылка на \"" + name + "\"");
-            }
-
-            static ElementData cancelButton() {
-                return new ElementData(By.xpath("//button[text()='Отменить заказ']"),
-                        "кнопка отмены заказа на странице деталей заказа");
             }
         }
     }

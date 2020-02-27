@@ -348,7 +348,7 @@ public class DetectionHelper extends HelperBase {
                 return false;
             }
         } else {
-            return isElementPresent(Elements.UserProfile.OrderDetailsPage.canceledOrderAttribute());
+            return isElementPresent(Elements.UserProfile.OrderDetailsPage.OrderStatus.canceled());
         }
     }
 

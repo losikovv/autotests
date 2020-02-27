@@ -176,7 +176,7 @@ public class PerformHelper extends HelperBase {
 
     /** Отменить заказ на странице деталей заказа */
     public void cancelOrder() {
-            click(Elements.UserProfile.OrderDetailsPage.cancelButton());
+            click(Elements.UserProfile.OrderDetailsPage.Sidebar.cancelOrderButton());
             kraken.await().simply(1); // Ожидание анимации открытия модалки отмены заказа
             click(Elements.UserProfile.OrderDetailsPage.CancelOrderModal.yesButton());
             kraken.await().fluently(

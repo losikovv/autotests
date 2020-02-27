@@ -140,7 +140,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
         kraken.reach().checkout();
         kraken.checkout().complete();
         final String shipment = kraken.grab().currentOrderNumber();
-        kraken.perform().click(Elements.UserProfile.OrderDetailsPage.cancelButton());
+        kraken.perform().cancelOrder();
 
         kraken.get().adminOrderDetailsPage(shipment);
         softAssert.assertTrue(
