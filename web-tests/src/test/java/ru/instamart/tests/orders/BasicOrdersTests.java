@@ -57,7 +57,7 @@ public class BasicOrdersTests extends TestBase {
             priority = 2000
     )
     public void successCompleteCheckoutWithNewJuridical() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.learningCenter());
 
         JuridicalData company = generate.juridical();
         kraken.reach().checkout();

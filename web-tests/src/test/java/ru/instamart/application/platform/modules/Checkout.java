@@ -915,15 +915,15 @@ public class Checkout extends Base {
     }
 
     /** Заполнить данные юр. лица */
-    private void fillJuridicalDetails(JuridicalData juridicalData) {
-        kraken.perform().fillField(Elements.Checkout.JuridicalModal.nameField(), juridicalData.getJuridicalName());
-        kraken.perform().fillField(Elements.Checkout.JuridicalModal.addressField(), juridicalData.getJuridicalAddress());
-        kraken.perform().fillField(Elements.Checkout.JuridicalModal.innField(), juridicalData.getInn());
-        kraken.perform().fillField(Elements.Checkout.JuridicalModal.kppField(), juridicalData.getKpp());
-        kraken.perform().fillField(Elements.Checkout.JuridicalModal.operatingAccountField(), juridicalData.getAccountNumber());
-        kraken.perform().fillField(Elements.Checkout.JuridicalModal.bikField(), juridicalData.getBik());
-        kraken.perform().fillField(Elements.Checkout.JuridicalModal.bankField(), juridicalData.getBankName());
-        kraken.perform().fillField(Elements.Checkout.JuridicalModal.correspondentAccountField(), juridicalData.getCorrespondentAccountNumber());
+    private void fillJuridicalDetails(JuridicalData companyRequisites) {
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.nameField(), companyRequisites.getJuridicalName());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.addressField(), companyRequisites.getJuridicalAddress());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.innField(), companyRequisites.getInn());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.kppField(), companyRequisites.getKpp());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.operatingAccountField(), companyRequisites.getAccountNumber());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.bikField(), companyRequisites.getBik());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.bankField(), companyRequisites.getBankName());
+        kraken.perform().fillField(Elements.Checkout.JuridicalModal.correspondentAccountField(), companyRequisites.getCorrespondentAccountNumber());
     }
 
     /** Удалить всех юр. лиц, кроме одного */
