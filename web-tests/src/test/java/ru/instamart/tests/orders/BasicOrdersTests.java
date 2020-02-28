@@ -133,46 +133,6 @@ public class BasicOrdersTests extends TestBase {
                 "Не оформляется заказ с любимыми товарами\n");
     }
 
-    @Test(
-            description = "Повтор крайнего заказа c новым номером телефона",
-            groups = {"sbermarket-regression"},
-            priority = 2004
-    )
-    public void successRepeatLastOrderWithNewPhone() {
-        SoftAssert softAssert = new SoftAssert();
-        UserData userData = generate.testCredentials("user");
-
-        User.Logout.quickly();
-        User.Do.registration(userData);
-        kraken.perform().order();
-
-        String order1 = kraken.grab().currentOrderNumber();
-        kraken.perform().cancelOrder();
-        kraken.reach().admin(Pages.Admin.Order.requisites(order1));
-
-        softAssert.assertEquals(kraken.grab().strippedPhoneNumber(Elements.Administration.ShipmentsSection.Order.Requisites.phoneField()), Config.TestVariables.testOrderDetails().getContactsDetails().getPhone(),
-                "Номер телефона в админке не совпадает с указанным номером во время заказа");
-
-        User.Logout.quickly();
-        User.Auth.withEmail(userData);
-        kraken.perform().repeatLastOrder();
-        String phone = generate.digitalString(10);
-        kraken.reach().checkout();
-        kraken.checkout().complete(true, phone);
-
-        Assert.assertTrue(kraken.detect().isOrderPlaced(),
-                "Не оформляется повторный заказ с новым номером телефона\n");
-
-        String order2 = kraken.grab().currentOrderNumber();
-        kraken.perform().cancelOrder();
-        kraken.reach().admin(Pages.Admin.Order.requisites(order2));
-
-        softAssert.assertEquals(kraken.grab().strippedPhoneNumber(Elements.Administration.ShipmentsSection.Order.Requisites.phoneField()), phone,
-                "Номер телефона в админке не совпадает с указанным номером во время заказа");
-
-        softAssert.assertAll();
-    }
-
     @AfterMethod(alwaysRun = true)
     public void cancelOrder() {
         kraken.perform().cancelLastActiveOrder();

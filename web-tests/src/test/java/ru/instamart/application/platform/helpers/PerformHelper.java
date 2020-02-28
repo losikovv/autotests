@@ -146,7 +146,7 @@ public class PerformHelper extends HelperBase {
         kraken.checkout().complete();
     }
 
-    /** Повторить крайний заказ */
+    /** Повторить крайний заказ с экрана истории заказов */
     public void repeatLastOrder() {
         message("Повторяем крайний заказ\n");
         kraken.get().page(Pages.UserProfile.shipments());
@@ -154,13 +154,21 @@ public class PerformHelper extends HelperBase {
             throw new AssertionError("Невозможно повторить заказ, у пользователя нет заказов в истории\n");
         } else {
             click(Elements.UserProfile.OrdersHistoryPage.order.repeatButton());
-            kraken.await().implicitly(1); // Ожидание добавления в корзину товаров из предыдущего заказа
-            // TODO протестить ожидание
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(Elements.Cart.drawer().getLocator()),
-                        "Не добавились товары в корзину при повторе заказа\n"
-            );
+                        "Не добавились товары в корзину при повторе заказа\n");
         }
+    }
+
+    /** Повторить заказ с экрана деталей заказа */
+    public void repeatOrder() {
+        message("Повторяем заказ\n");
+        click(Elements.UserProfile.OrderDetailsPage.OrderSummary.repeatOrderButton());
+        kraken.await().simply(1); // Ожидание анимации открытия модалки повтора заказа
+        click(Elements.UserProfile.OrderDetailsPage.RepeatOrderModal.yesButton());
+        kraken.await().fluently(
+                ExpectedConditions.visibilityOfElementLocated(Elements.Cart.drawer().getLocator()),
+                    "Не добавились товары в корзину при повторе заказа\n");
     }
 
     /** Отменить крайний активный заказ */
