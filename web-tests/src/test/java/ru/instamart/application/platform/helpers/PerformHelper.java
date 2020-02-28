@@ -157,7 +157,7 @@ public class PerformHelper extends HelperBase {
             kraken.await().implicitly(1); // Ожидание добавления в корзину товаров из предыдущего заказа
             // TODO протестить ожидание
             kraken.await().fluently(
-                    ExpectedConditions.visibilityOfElementLocated(Elements.Header.cartCounter().getLocator()),
+                    ExpectedConditions.visibilityOfElementLocated(Elements.Cart.drawer().getLocator()),
                         "Не добавились товары в корзину при повторе заказа\n"
             );
         }
