@@ -304,7 +304,7 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить активен ли верхний заказ на странице списка заказов */
     public boolean isOrdersHistoryEmpty() {
-        if(kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder())) {
+        if(kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.allOrdersPlaceholder())) {
             debugMessage("У пользователя нет заказов на странице истории заказов");
             return true;
         } else {
@@ -312,19 +312,6 @@ public class DetectionHelper extends HelperBase {
             return false;
         }
     }
-
-    /** Определить активен ли верхний заказ на странице списка заказов */
-    /*
-    public boolean isLastOrderActive() {
-        if(isElementPresent(Elements.UserProfile.OrdersHistoryPage.order.cancelButton())) {
-            debugMessage("Крайний заказ активен");
-            return true;
-        } else {
-        debugMessage("Крайний заказ не активен");
-            return false;
-        }
-    }
-    */
 
     // ======= Детали заказа =======
 

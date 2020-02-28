@@ -1111,6 +1111,28 @@ public class Elements {
                 }
             }
 
+            interface RepeatOrderModal {
+
+                static ElementData popup() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-modal-repeat']"),
+                            "поп-ап модалки повтора заказа");
+                }
+
+                static ElementData yesButton() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-modal-repeat']//button[@data-qa='user-shipment-modal-repeat-btn-repeat']"),
+                            "кнопка 'Добавить товары' в модалке повтора заказа");
+                }
+
+                static ElementData noButton() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-modal-repeat']//button[@data-qa='user-shipment-modal-repeat-btn-dismiss']"),
+                            "кнопка 'Не добавлять' в модалке повтора заказа");
+                }
+
+                static ElementData closeButton() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-modal-repeat']//button[@data-qa='user-shipment-modal-repeat-close']"),
+                            "крестик закрытия модалки повтора заказа");
+                }
+            }
 
             static ElementData document(String name) {
                 return new ElementData(By.xpath("//a[text()='" + name + "']"),
