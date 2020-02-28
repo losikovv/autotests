@@ -114,14 +114,14 @@ public class GrabHelper extends HelperBase{
 
     /** Взять номер доставки на странице заказа */
     public String shipmentNumber() {
-        String number = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.Sidebar.shipmentNumber());
+        String number = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentNumber());
         verboseMessage("Номер доставки: " + number);
         return number;
     }
 
     /** Взять способ оплаты на странице заказа */
     public String shipmentPayment() {
-        String payment = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.Sidebar.paymentMethod());
+        String payment = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderSummary.paymentMethod());
         verboseMessage("Способ оплаты: " + payment);
         return payment;
     }

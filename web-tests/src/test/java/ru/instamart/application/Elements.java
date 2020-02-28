@@ -1040,11 +1040,34 @@ public class Elements {
                 }
             }
 
-            interface Sidebar {
+            interface OrderAssembly {
+
+                static ElementData allItemsButton() {
+                    return new ElementData(By.xpath("//button[@data-qa='user-shipment-assembly-items-all']"),
+                            "кнопка 'Все' в блоке сборки на странице деталей заказа");
+                }
+
+                static ElementData collectedItemsButton() {
+                    return new ElementData(By.xpath("//button[@data-qa='user-shipment-assembly-items-collected']"),
+                            "кнопка 'Собрано' в блоке сборки на странице деталей заказа");
+                }
+
+                static ElementData replacedItemsButton() {
+                    return new ElementData(By.xpath("//button[@data-qa='user-shipment-assembly-items-replaced']"),
+                            "кнопка 'Замены' в блоке сборки на странице деталей заказа");
+                }
+
+                static ElementData canceledItemsButton() {
+                    return new ElementData(By.xpath("//button[@data-qa='user-shipment-assembly-items-canceled']"),
+                            "кнопка 'Отмены' в блоке сборки на странице деталей заказа");
+                }
+            }
+
+            interface OrderSummary {
 
                 static ElementData container() {
                     return new ElementData(By.xpath("//*[@data-qa='user-shipment-summary']"),
-                            "плашка сайдбара на странице деталей заказа");
+                            "плашка деталей на странице деталей заказа");
                 }
 
                 static ElementData shipmentInterval() {
@@ -1085,6 +1108,14 @@ public class Elements {
                 static ElementData cancelOrderButton() {
                     return new ElementData(By.xpath("//button[@data-qa='user-shipment-cancel']"),
                             "кнопка отмены заказа на странице деталей заказа");
+                }
+            }
+
+            interface OrderDocuments {
+
+                static ElementData container() {
+                    return new ElementData(By.xpath("todo"),
+                            "плашка документов на странице деталей заказа");
                 }
             }
 
