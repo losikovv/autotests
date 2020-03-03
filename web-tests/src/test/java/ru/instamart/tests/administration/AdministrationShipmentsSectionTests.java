@@ -139,10 +139,10 @@ public class AdministrationShipmentsSectionTests extends TestBase {
         kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         kraken.checkout().complete();
-        final String shipment = kraken.grab().currentOrderNumber();
+        //final String shipment = kraken.grab().currentOrderNumber();
         kraken.perform().cancelOrder();
 
-        kraken.get().adminOrderDetailsPage(shipment);
+        //kraken.get().adminOrderDetailsPage(shipment);
         softAssert.assertTrue(
                 kraken.detect().isOrderCanceled(),
                     "\nНе выполнились предусловия - заказ уже активен");
@@ -176,7 +176,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
 
         User.Auth.withEmail(testuser);
         kraken.perform().order();
-        String number = kraken.grab().currentOrderNumber();
+        String number = kraken.grab().shipmentNumber();
 
         Administration.Orders.searchOrder(number,true);
 

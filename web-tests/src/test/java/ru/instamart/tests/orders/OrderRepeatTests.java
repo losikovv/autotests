@@ -83,7 +83,7 @@ public class OrderRepeatTests extends TestBase {
                     "metro-regression", "metro-acceptance",
                     "lenta-regression", "lenta-acceptance",}
     )
-    public void noRepeatOrderAfterClose() {
+    public void noRepeatOrderAfterModalClose() {
         kraken.get().userShipmentsPage();
         kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
         kraken.perform().click(Elements.UserProfile.OrderDetailsPage.OrderSummary.repeatOrderButton());

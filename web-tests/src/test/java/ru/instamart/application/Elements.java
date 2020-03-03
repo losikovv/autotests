@@ -1080,6 +1080,31 @@ public class Elements {
                             "номер доставки на странице деталей заказа");
                 }
 
+                static ElementData trigger() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-summary-trigger']"),
+                            "триггер разворота доп. деталей на странице деталей заказа");
+                }
+
+                static ElementData shipmentAddress() {
+                    return new ElementData(By.xpath("//*[@qakey='user-shipment-address']"),
+                            "адрес доставки на странице деталей заказа");
+                }
+
+                static ElementData shipmentPhone() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-phone']"),
+                            "телефон получателя на странице деталей заказа");
+                }
+
+                static ElementData shipmentEmail() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-email']"),
+                            "email получателя на странице деталей заказа");
+                }
+
+                static ElementData shipmentReplacementPolicy() {
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-replacement-policy']"),
+                            "способ замен на странице деталей заказа");
+                }
+
                 static ElementData paymentMethod() {
                     return new ElementData(By.xpath("//*[@data-qa='user-shipment-payment-method']"),
                             "способ оплаты на странице деталей заказа");

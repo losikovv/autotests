@@ -6,8 +6,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.application.AppManager;
-import ru.instamart.application.Elements;
-import ru.instamart.application.lib.Pages;
 import ru.instamart.application.lib.ReplacementPolicies;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.rest.RestAddresses;
@@ -31,102 +29,86 @@ public class OrdersReplacementsTests extends TestBase {
 
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Звонить / Заменять",
+            priority = 2201,
             groups = {
+                    "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2201
-    )
-    public void successOrderWithCallAndReplacePolicy() {
+            }
+    ) public void successOrderWithCallAndReplacePolicy() {
         kraken.checkout().complete(ReplacementPolicies.callAndReplace());
 
         Assert.assertTrue(
                 kraken.detect().isOrderPlaced(),
-                    "Не удалось оформить заказ с политикой \"Звонить / Заменять\"\n");
-
-        String number = kraken.grab().currentOrderNumber();
-        kraken.reach().admin(Pages.Admin.Order.details(number));
+                    failMessage("Не удалось оформить заказ с политикой \"Звонить / Заменять\""));
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.ShipmentsSection.Order.Details.replacementPolicy()),
-                    ReplacementPolicies.callAndReplace().getInstruction(),
-                        "Текст инструкции по сборке не совпадает с выбранной политикой замен"
-        );
+                kraken.grab().shipmentReplacementPolicy(),
+                    ReplacementPolicies.callAndReplace().getUserDescription(),
+                        failMessage("Текст инструкции по сборке не совпадает с выбранной политикой замен"));
     }
 
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Звонить / Убирать",
+            priority = 2201,
             groups = {
+                    "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2202
-    )
-    public void successOrderWithCallAndRemovePolicy() {
+            }
+    ) public void successOrderWithCallAndRemovePolicy() {
         kraken.checkout().complete(ReplacementPolicies.callAndRemove());
 
         Assert.assertTrue(
                 kraken.detect().isOrderPlaced(),
-                    "Не удалось оформить заказ с политикой \"Звонить / Убирать\"\n");
-
-        String number = kraken.grab().currentOrderNumber();
-        kraken.reach().admin(Pages.Admin.Order.details(number));
+                    failMessage("Не удалось оформить заказ с политикой \"Звонить / Убирать\""));
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.ShipmentsSection.Order.Details.replacementPolicy()),
-                    ReplacementPolicies.callAndRemove().getInstruction(),
-                        "Текст инструкции по сборке не совпадает с выбранной политикой замен"
-        );
+                kraken.grab().shipmentReplacementPolicy(),
+                    ReplacementPolicies.callAndRemove().getUserDescription(),
+                        failMessage("Текст инструкции по сборке не совпадает с выбранной политикой замен"));
     }
 
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Не звонить / Заменять",
+            priority = 2203,
             groups = {
+                    "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2203
-    )
-    public void successOrderWithReplacePolicy() {
+            }
+    ) public void successOrderWithReplacePolicy() {
         kraken.checkout().complete(ReplacementPolicies.replace());
 
         Assert.assertTrue(
                 kraken.detect().isOrderPlaced(),
-                    "Не удалось оформить заказ с политикой \"Не звонить / Заменять\"\n");
-
-        String number = kraken.grab().currentOrderNumber();
-        kraken.reach().admin(Pages.Admin.Order.details(number));
+                    failMessage("Не удалось оформить заказ с политикой \"Не звонить / Заменять\""));
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.ShipmentsSection.Order.Details.replacementPolicy()),
-                    ReplacementPolicies.replace().getInstruction(),
-                        "Текст инструкции по сборке не совпадает с выбранной политикой замен"
-        );
+                kraken.grab().shipmentReplacementPolicy(),
+                    ReplacementPolicies.replace().getUserDescription(),
+                        failMessage("Текст инструкции по сборке не совпадает с выбранной политикой замен"));
     }
 
     @Test(enabled = enableOrderReplacementsTests,
             description = "Тест заказа с политикой Не звонить / Убирать",
+            priority = 2204,
             groups = {
+                    "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2204
-    )
-    public void successOrderWithRemovePolicy() {
+            }
+    ) public void successOrderWithRemovePolicy() {
         kraken.checkout().complete(ReplacementPolicies.remove());
 
         Assert.assertTrue(
                 kraken.detect().isOrderPlaced(),
-                    "Не удалось оформить заказ с политикой \"Не звонить / Убирать\"\n");
-
-        String number = kraken.grab().currentOrderNumber();
-        kraken.reach().admin(Pages.Admin.Order.details(number));
+                    failMessage("Не удалось оформить заказ с политикой \"Не звонить / Убирать\""));
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.ShipmentsSection.Order.Details.replacementPolicy()),
-                    ReplacementPolicies.remove().getInstruction(),
-                        "Текст инструкции по сборке не совпадает с выбранной политикой замен"
-        );
+                kraken.grab().shipmentReplacementPolicy(),
+                    ReplacementPolicies.remove().getUserDescription(),
+                        failMessage("Текст инструкции по сборке не совпадает с выбранной политикой замен"));
     }
 
     @AfterMethod(alwaysRun = true)

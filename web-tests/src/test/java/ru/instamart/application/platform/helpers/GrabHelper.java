@@ -104,14 +104,6 @@ public class GrabHelper extends HelperBase{
         return cartTotal;
     }
 
-    /** Взять текущий номер заказа на странице заказа */
-    public String currentOrderNumber() {
-        String url = kraken.grab().currentURL();
-        String number = url.substring(url.length()-10);
-        verboseMessage("Номер заказа: " + number + "\n");
-        return number;
-    }
-
     /** Взять номер доставки на странице заказа */
     public String shipmentNumber() {
         String number = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentNumber());
@@ -124,6 +116,18 @@ public class GrabHelper extends HelperBase{
         String payment = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderSummary.paymentMethod());
         verboseMessage("Способ оплаты: " + payment);
         return payment;
+    }
+
+    /** Взять способ замен на странице заказа */
+    public String shipmentReplacementPolicy() {
+        if(!kraken.detect().isElementDisplayed(
+                Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentReplacementPolicy())){
+            kraken.perform().click(Elements.UserProfile.OrderDetailsPage.OrderSummary.trigger());
+        }
+        kraken.await().simply(1); // Ожидание разворота доп.деталей заказа
+        String policy = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentReplacementPolicy());
+        verboseMessage("Способ оплаты: " + policy);
+        return policy;
     }
 
 

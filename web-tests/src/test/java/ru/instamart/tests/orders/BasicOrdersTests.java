@@ -63,9 +63,9 @@ public class BasicOrdersTests extends TestBase {
         kraken.checkout().complete(PaymentTypes.bankTransfer(), true, company);
 
         Assert.assertTrue(kraken.detect().isOrderPlaced(),
-                "Не удалось оформить заказ с добавлением нового юр. лица\n");
+                failMessage("Не удалось оформить заказ с добавлением нового юр. лица"));
 
-        String number = kraken.grab().currentOrderNumber();
+        String number = kraken.grab().shipmentNumber();
         kraken.perform().cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(number));
 
@@ -89,7 +89,7 @@ public class BasicOrdersTests extends TestBase {
         Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не удалось оформить заказ с с изменением юр. лица\n");
 
-        String number = kraken.grab().currentOrderNumber();
+        String number = kraken.grab().shipmentNumber();
         kraken.perform().cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(number));
 

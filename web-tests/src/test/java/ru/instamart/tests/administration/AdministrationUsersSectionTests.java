@@ -130,7 +130,7 @@ public class AdministrationUsersSectionTests extends TestBase {
 
         User.Auth.withEmail(testuser);
         kraken.perform().order();
-        String number = kraken.grab().currentOrderNumber();
+        String number = kraken.grab().shipmentNumber();
 
         Administration.Users.editUser(testuser);
         Administration.Users.revokeB2B();

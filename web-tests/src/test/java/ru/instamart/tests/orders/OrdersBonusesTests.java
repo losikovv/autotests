@@ -40,7 +40,7 @@ public class OrdersBonusesTests extends TestBase {
         Checkout.Bonuses.add(BonusPrograms.mnogoru());
         kraken.checkout().complete();
 
-        String number = kraken.grab().currentOrderNumber();
+        String number = kraken.grab().shipmentNumber();
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
         Assert.assertTrue(
@@ -58,7 +58,7 @@ public class OrdersBonusesTests extends TestBase {
         Checkout.Bonuses.add(BonusPrograms.aeroflot());
         kraken.checkout().complete();
 
-        String number = kraken.grab().currentOrderNumber();
+        String number = kraken.grab().shipmentNumber();
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
         Assert.assertTrue(

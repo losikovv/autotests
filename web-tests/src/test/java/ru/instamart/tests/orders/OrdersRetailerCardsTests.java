@@ -38,14 +38,13 @@ public class OrdersRetailerCardsTests extends TestBase {
         Checkout.RetailerCards.addCard(RetailerCards.metro());
         kraken.checkout().complete();
 
-        String number = kraken.grab().currentOrderNumber();
+        String number = kraken.grab().shipmentNumber();
+        kraken.perform().cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
         assertTrue(
                 kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.Order.Details.loyaltyProgram()),
                     "В заказе не применилась карта Метро\n");
-
-        Administration.Orders.cancelOrder();
     }
 
     @Test(  enabled = Config.TestsConfiguration.OrdersTests.enableOrderRetailerCardsTests,
@@ -62,13 +61,12 @@ public class OrdersRetailerCardsTests extends TestBase {
         Checkout.RetailerCards.addCard(RetailerCards.vkusvill());
         kraken.checkout().complete();
 
-        String number = kraken.grab().currentOrderNumber();
+        String number = kraken.grab().shipmentNumber();
+        kraken.perform().cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
         assertTrue(
                 kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.Order.Details.loyaltyProgram()),
                 "В заказе не применилась карта Вкусвилл\n");
-
-        Administration.Orders.cancelOrder();
     }
 }
