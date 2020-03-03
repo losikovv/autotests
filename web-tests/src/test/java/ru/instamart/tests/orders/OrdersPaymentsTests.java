@@ -33,7 +33,7 @@ public class OrdersPaymentsTests extends TestBase {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
-    ) public void successOrderWithCardOnlineAndCheckDocuments() {
+    ) public void successOrderWithCardOnline() {
         kraken.checkout().complete(PaymentTypes.cardOnline());
 
         Assert.assertTrue(
@@ -53,7 +53,7 @@ public class OrdersPaymentsTests extends TestBase {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
-    ) public void successOrderWithCardCourierAndCheckDocuments() {
+    ) public void successOrderWithCardCourier() {
         kraken.checkout().complete(PaymentTypes.cardCourier());
 
         Assert.assertTrue(
@@ -73,7 +73,7 @@ public class OrdersPaymentsTests extends TestBase {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
-    ) public void successOrderWithBankTransferAndCheckDocuments() {
+    ) public void successOrderWithBankTransfer() {
         kraken.checkout().complete(PaymentTypes.bankTransfer());
 
         Assert.assertTrue(
