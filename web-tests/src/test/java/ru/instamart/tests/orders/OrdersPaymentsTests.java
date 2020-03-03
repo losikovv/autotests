@@ -25,86 +25,64 @@ public class OrdersPaymentsTests extends TestBase {
         kraken.reach().checkout();
     }
 
-
-    @Test( enabled = false,
-            description = "Тест заказа с оплатой наличными",
-            groups = {"metro-acceptance", "metro-regression",},
-            priority = 2101
-    )
-    public void successOrderWithCashAndCheckDocuments() {
-        skipTestOnTenant("sbermarket");
-        kraken.checkout().complete(PaymentTypes.cash());
-
-        Assert.assertTrue(kraken.detect().isOrderPlaced(),
-                "Не удалось оформить заказ с оплатой наличными\n");
-
-        Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.cash().getDescription()),
-                "Способ оплаты в деталях заказа не совпадает с выбранным во время оформления");
-
-        assertOrderDocumentsAreAvailable();
-    }
-
-
     @Test(
             description = "Тест заказа с оплатой картой онлайн",
+            priority = 2102,
             groups = {
+                    "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2102
-    )
-    public void successOrderWithCardOnlineAndCheckDocuments() {
+            }
+    ) public void successOrderWithCardOnlineAndCheckDocuments() {
         kraken.checkout().complete(PaymentTypes.cardOnline());
 
-        Assert.assertTrue(kraken.detect().isOrderPlaced(),
-                "Не удалось оформить заказ с оплатой картой онлайн\n");
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ с оплатой картой онлайн"));
 
-        Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.cardOnline().getDescription()),
-                "Способ оплаты в деталях заказа не совпадает с выбранным во время оформления");
-
-        assertOrderDocumentsAreAvailable();
+        Assert.assertTrue(
+                kraken.grab().shipmentPayment().equals(PaymentTypes.cardOnline().getDescription()),
+                    failMessage("Способ оплаты в деталях заказа не совпадает с выбранным во время оформления"));
     }
-
 
     @Test(
             description = "Тест заказа с оплатой картой курьеру",
+            priority = 2103,
             groups = {
+                    "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2103
-    )
-    public void successOrderWithCardCourierAndCheckDocuments() {
+            }
+    ) public void successOrderWithCardCourierAndCheckDocuments() {
         kraken.checkout().complete(PaymentTypes.cardCourier());
 
-        Assert.assertTrue(kraken.detect().isOrderPlaced(),
-                "Не удалось оформить заказ с оплатой картой курьеру\n");
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ с оплатой картой курьеру"));
 
-        Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.cardCourier().getDescription()),
-                "Способ оплаты в деталях заказа не совпадает с выбранным во время оформления");
-
-        assertOrderDocumentsAreAvailable();
+        Assert.assertTrue(
+                kraken.grab().shipmentPayment().equals(PaymentTypes.cardCourier().getDescription()),
+                    failMessage("Способ оплаты в деталях заказа не совпадает с выбранным во время оформления"));
     }
-
 
     @Test(
             description = "Тест заказа с оплатой банковским переводом",
+            priority = 2104,
             groups = {
+                    "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 2104
-    )
-    public void successOrderWithBankTransferAndCheckDocuments() {
+            }
+    ) public void successOrderWithBankTransferAndCheckDocuments() {
         kraken.checkout().complete(PaymentTypes.bankTransfer());
 
-        Assert.assertTrue(kraken.detect().isOrderPlaced(),
-                "Не удалось оформить заказ с оплатой банковским переводом\n");
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ с оплатой банковским переводом"));
 
-        Assert.assertTrue(kraken.grab().shipmentPayment().equals(PaymentTypes.bankTransfer().getDescription()),
-                "Способ оплаты в деталях заказа не совпадает с выбранным во время оформления");
-
-        assertOrderDocumentsAreAvailable();
+        Assert.assertTrue(
+                kraken.grab().shipmentPayment().equals(PaymentTypes.bankTransfer().getDescription()),
+                    failMessage("Способ оплаты в деталях заказа не совпадает с выбранным во время оформления"));
     }
 
     @AfterMethod(alwaysRun = true)
