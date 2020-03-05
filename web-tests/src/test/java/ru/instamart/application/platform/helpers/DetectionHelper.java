@@ -327,7 +327,7 @@ public class DetectionHelper extends HelperBase {
     /** Определить отменен ли заказ на странице деталей */
     public boolean isOrderCanceled(){
         if (isInAdmin()) {
-            if (isElementPresent(Elements.Administration.ShipmentsSection.Order.Details.canceledOrderAttribute())) {
+            if (isElementPresent(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.canceledOrderAttribute())) {
                 verboseMessage("Заказ отменен");
                 return true;
             } else {

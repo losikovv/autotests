@@ -2673,227 +2673,226 @@ public class Elements {
                             "заголовок на странице поиска заказов");
             }
 
-            /** Фильтры заказов */
-            interface Filters {
+            interface OrdersSearchPage {
 
-                static ElementData orderDateFrom() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Дата заказа']//following-sibling::div//input[@id='search_completed_at_st']"),
+                /** Фильтры заказов */
+                interface Filters {
+
+                    static ElementData orderDateFrom() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Дата заказа']//following-sibling::div//input[@id='search_completed_at_st']"),
                                 "фильтр \"Дата заказа - Начало\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData orderDateTo() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Дата заказа']//following-sibling::div//input[@id='search_completed_at_end']"),
+                    static ElementData orderDateTo() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Дата заказа']//following-sibling::div//input[@id='search_completed_at_end']"),
                                 "фильтр \"Дата заказа - Конец\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData customerName() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Имя']//following-sibling::input[@id='search_first_name']"),
+                    static ElementData customerName() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Имя']//following-sibling::input[@id='search_first_name']"),
                                 "фильтр \"Имя\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData customerSurname() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Фамилия']//following-sibling::input[@id='search_last_name']"),
+                    static ElementData customerSurname() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Фамилия']//following-sibling::input[@id='search_last_name']"),
                                 "фильтр \"Фамилия\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData juridicalNameContains() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Юридическое лицо содержит']//following-sibling::input[@id='search_order_company_name']"),
+                    static ElementData juridicalNameContains() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Юридическое лицо содержит']//following-sibling::input[@id='search_order_company_name']"),
                                 "фильтр \"Юридическое лицо содержит\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData shopperLogin() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Логин сборщика']//following-sibling::input[@id='search_shopper_login']"),
+                    static ElementData shopperLogin() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Логин сборщика']//following-sibling::input[@id='search_shopper_login']"),
                                 "фильтр \"Логин сборщика\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData driverLogin() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Логин водителя']//following-sibling::input[@id='search_driver_login']"),
+                    static ElementData driverLogin() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Логин водителя']//following-sibling::input[@id='search_driver_login']"),
                                 "фильтр \"Логин водителя\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData deliveryTimeFrom() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Дата и время доставки']//following-sibling::div//input[@id='search_delivery_window_starts_at_st']"),
+                    static ElementData deliveryTimeFrom() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Дата и время доставки']//following-sibling::div//input[@id='search_delivery_window_starts_at_st']"),
                                 "фильтр \"Дата и время доставки - От\n\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData deliveryTimeTo() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Дата и время доставки']//following-sibling::div//input[@id='search_delivery_window_starts_at_end']"),
+                    static ElementData deliveryTimeTo() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Дата и время доставки']//following-sibling::div//input[@id='search_delivery_window_starts_at_end']"),
                                 "фильтр \"Дата и время доставки - До\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData phoneNumberContains() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Телефон содержит']//following-sibling::input[@id='search_order_phone']"),
+                    static ElementData phoneNumberContains() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Телефон содержит']//following-sibling::input[@id='search_order_phone']"),
                                 "фильтр \"Телефон содержит\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData email() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Электронная почта']//following-sibling::input[@id='search_email']"),
+                    static ElementData email() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Электронная почта']//following-sibling::input[@id='search_email']"),
                                 "фильтр \"Электронная почта\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData innNumber() {
-                    return new ElementData(
-                            By.xpath("//label[text()='ИНН']//following-sibling::input[@id='search_inn']"),
+                    static ElementData innNumber() {
+                        return new ElementData(
+                                By.xpath("//label[text()='ИНН']//following-sibling::input[@id='search_inn']"),
                                 "фильтр \"ИНН\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData invoiceNumber() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Номер накладной']//following-sibling::input[@id='search_invoice_number']"),
+                    static ElementData invoiceNumber() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Номер накладной']//following-sibling::input[@id='search_invoice_number']"),
                                 "фильтр \"Номер накладной\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData orderNumber() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Заказ']//following-sibling::input[@id='search_number']"),
+                    static ElementData orderNumber() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Заказ']//following-sibling::input[@id='search_number']"),
                                 "фильтр \"Заказ\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData orderStatus() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Статус']//following-sibling::div[@id='s2id_search_state']"),
+                    static ElementData orderStatus() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Статус']//following-sibling::div[@id='s2id_search_state']"),
                                 "фильтр \"Статус\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData retailer() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Ритейлер']//following-sibling::div[@id='s2id_search_retailer_id']"),
+                    static ElementData retailer() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Ритейлер']//following-sibling::div[@id='s2id_search_retailer_id']"),
                                 "фильтр \"Ритейлер\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData store() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Магазин сборки']//following-sibling::div[@id='s2id_search_store_id']"),
+                    static ElementData store() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Магазин сборки']//following-sibling::div[@id='s2id_search_store_id']"),
                                 "фильтр \"Магазин сборки\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData paymentMethod() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Способ оплаты']//following-sibling::div[@id='s2id_search_payment_method_id']"),
+                    static ElementData paymentMethod() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Способ оплаты']//following-sibling::div[@id='s2id_search_payment_method_id']"),
                                 "фильтр \"Способ оплаты\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData paymentStatus() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Состояние оплаты']//following-sibling::div[@id='s2id_search_payment_state']"),
+                    static ElementData paymentStatus() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Состояние оплаты']//following-sibling::div[@id='s2id_search_payment_state']"),
                                 "фильтр \"Состояние оплаты\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData promocode() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Промокод']//following-sibling::input[@id='search_coupon_code']"),
+                    static ElementData promocode() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Промокод']//following-sibling::input[@id='search_coupon_code']"),
                                 "фильтр \"Промокод\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData itemsFrom() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Число позиций']//following-sibling::div//input[@id='search_item_count_st']"),
+                    static ElementData itemsFrom() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Число позиций']//following-sibling::div//input[@id='search_item_count_st']"),
                                 "фильтр \"Число позиций - От\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData itemsTo() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Число позиций']//following-sibling::div//input[@id='search_item_count_end']"),
+                    static ElementData itemsTo() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Число позиций']//following-sibling::div//input[@id='search_item_count_end']"),
                                 "фильтр \"Число позиций - До\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData weightFrom() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Вес, кг.']//following-sibling::div//input[@id='search_total_weight_st']"),
+                    static ElementData weightFrom() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Вес, кг.']//following-sibling::div//input[@id='search_total_weight_st']"),
                                 "фильтр \"Вес, кг. - От\" на странице поиска заказов");
-                }
+                    }
 
-                static ElementData weightTo() {
-                    return new ElementData(
-                            By.xpath("//label[text()='Вес, кг.']//following-sibling::div//input[@id='search_total_weight_end']"),
+                    static ElementData weightTo() {
+                        return new ElementData(
+                                By.xpath("//label[text()='Вес, кг.']//following-sibling::div//input[@id='search_total_weight_end']"),
                                 "фильтр \"Вес, кг. - До\" на странице поиска заказов");
+                    }
+
+                    static ElementData completedOnly() {
+                        return new ElementData(By.xpath("//input[@id='search_only_completed']"),
+                                "чекбокс \"Показывать только завершенные заказы\" на странице поиска заказов");
+                    }
+
+                    static ElementData b2bOnly() {
+                        return new ElementData(By.xpath("//input[@id='search_only_b2b']"),
+                                "чекбокс \"Только B2B клиенты\" на странице поиска заказов");
+                    }
+
+                    static ElementData metroOnly() {
+                        return new ElementData(By.xpath("//input[@id='search_tenant']"),
+                                "чекбокс \"Только заказы с сайта метро\" на странице поиска заказов");
+                    }
+
+                    static ElementData deliveryChangedOnly() {
+                        return new ElementData(By.xpath("//input[@id='search_delivery_window_changed']"),
+                                "чекбокс \"Только с переносом времени доставки\" на странице поиска заказов");
+                    }
+
+                    static ElementData applyFilterButton() {
+                        return new ElementData(By.xpath("//button[@class='icon-search button']"),
+                                "кнопка \"Применить фильтр\"");
+                    }
+
+                    static ElementData clearFilterButton() {
+                        return new ElementData(By.xpath("//a[@class='button icon-remove']"),
+                                "кнопка \"Сбросить фильтр\"");
+                    }
                 }
-            }
 
-            /** Чекбоксы фильтации заказов */
-            interface Checkboxes {
+                /** Фильтры заказов */
+                interface OrdersTable {
 
-                static ElementData completedOnly() {
-                    return new ElementData(By.xpath("//input[@id='search_only_completed']"),
-                            "чекбокс \"Показывать только завершенные заказы\" на странице поиска заказов");
+                    static ElementData container() {
+                        return new ElementData(
+                                By.xpath("//table[@id='listing_orders']"),
+                                "таблица с заказами на странице поиска заказов");
+                    }
+
+                    static ElementData placeholder() {
+                        return new ElementData(
+                                By.xpath("//div[@class='no-objects-found']//span[text()='No Orders Found']"),
+                                "плейсхолдер пустого результата поиска на странице поиска заказов");
+                    }
+
+                    static ElementData column(String name) {
+                        return new ElementData(
+                                By.xpath("//table[@id='listing_orders']//th[text()='" + name + "']"),
+                                "заголовок \"" + name + "\" в таблице с заказами на странице поиска заказов");
+                    }
+
+                    interface orderRow {
+
+                        static ElementData container() {
+                            return new ElementData(By.xpath("//*[@id='listing_orders']/tbody/tr/td[14]/a"));
+                        }
+
+                        static ElementData orderNumber() {
+                            return new ElementData(By.xpath("//*[@id='listing_orders']/tbody/tr/td[1]/span[2]/a"));
+                        }
+
+                        static ElementData shipmentNumber() {
+                            return new ElementData(By.xpath("//*[@id='listing_orders']/tbody/tr/td[1]/span[1]/a"));
+                        }
+                    }
                 }
-
-                static ElementData b2bOnly() {
-                    return new ElementData(By.xpath("//input[@id='search_only_b2b']"),
-                            "чекбокс \"Только B2B клиенты\" на странице поиска заказов");
-                }
-
-                static ElementData metroOnly() {
-                    return new ElementData(By.xpath("//input[@id='search_tenant']"),
-                            "чекбокс \"Только заказы с сайта метро\" на странице поиска заказов");
-                }
-
-                static ElementData deliveryChangedOnly() {
-                    return new ElementData(By.xpath("//input[@id='search_delivery_window_changed']"),
-                            "чекбокс \"Только с переносом времени доставки\" на странице поиска заказов");
-                }
-            }
-
-            static ElementData applyFilterButton() {
-                return new ElementData(By.xpath("//button[@class='icon-search button']"),
-                        "кнопка \"Применить фильтр\"");
-            }
-
-            static ElementData clearFilterButton() {
-                return new ElementData(By.xpath("//a[@class='button icon-remove']"),
-                        "кнопка \"Сбросить фильтр\"");
-            }
-
-            static ElementData placeholder() {
-                return new ElementData(
-                        By.xpath("//div[@class='no-objects-found']//span[text()='No Orders Found']"),
-                            "плейсхолдер пустого результата поиска на странице поиска заказов");
-            }
-
-            static ElementData table() {
-                return new ElementData(
-                        By.xpath("//table[@id='listing_orders']"),
-                        "таблица с заказами на странице поиска заказов");
-            }
-
-            static ElementData tableTitle(String name) {
-                return new ElementData(
-                        By.xpath("//table[@id='listing_orders']//th[text()='" + name + "']"),
-                        "заголовок \"" + name + "\" в таблице с заказами на странице поиска заказов");
-            }
-
-            interface shipmentRow {
-                // TODO
-            }
-
-            // TODO remove
-            static ElementData firstOrderInTable() {
-                return new ElementData(By.xpath("//*[@id='listing_orders']/tbody/tr/td[14]/a"));
-            }
-
-            // TODO remove
-            static ElementData firstShipmentNumberInTable() {
-                return new ElementData(By.xpath("//*[@id='listing_orders']/tbody/tr/td[1]/span[1]/a"));
-            }
-
-            // TODO remove
-            static ElementData firstOrderNumberInTable() {
-                return new ElementData(By.xpath("//*[@id='listing_orders']/tbody/tr/td[1]/span[2]/a"));
             }
 
             // TODO Update locators
-            interface Order {
+            interface OrderDetailsPage {
 
                 /** Страница деталей заказа в админке */
                 interface Details {

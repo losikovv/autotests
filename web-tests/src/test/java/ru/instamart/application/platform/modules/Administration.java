@@ -20,8 +20,8 @@ public class Administration extends Base {
         public static void searchOrder(String order) {
             kraken.reach().admin("shipments");
             message("Поиск заказа по номеру " + order);
-            kraken.perform().fillField(Elements.Administration.ShipmentsSection.Filters.orderNumber(), order);
-            kraken.perform().click(Elements.Administration.ShipmentsSection.applyFilterButton());
+            kraken.perform().fillField(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderNumber(), order);
+            kraken.perform().click(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.applyFilterButton());
             kraken.await().implicitly(2); // Ожидание поиска заказа в админке
         }
 
@@ -29,15 +29,15 @@ public class Administration extends Base {
         public static void searchOrder(String number, boolean b2b) {
             kraken.reach().admin("shipments");
             message("Поиск B2B заказа по номеру " + number);
-            kraken.perform().fillField(Elements.Administration.ShipmentsSection.Filters.orderNumber(), number);
-            kraken.perform().setCheckbox(Elements.Administration.ShipmentsSection.Checkboxes.b2bOnly(),b2b);
-            kraken.perform().click(Elements.Administration.ShipmentsSection.applyFilterButton());
+            kraken.perform().fillField(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderNumber(), number);
+            kraken.perform().setCheckbox(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.b2bOnly(),b2b);
+            kraken.perform().click(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.applyFilterButton());
         }
 
         /** Возобновить заказ */
         public static void resumeOrder() {
             message("> возобновляем заказ " + kraken.grab().currentURL());
-            kraken.perform().click(Elements.Administration.ShipmentsSection.Order.Details.resumeOrderButton());
+            kraken.perform().click(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.resumeOrderButton());
             handleAlert();
             kraken.await().implicitly(2); // Ожидание возобновления заказа в админке
         }
@@ -56,17 +56,17 @@ public class Administration extends Base {
         /** Отменить заказ на текущей странице с указанными причинами отмены */
         public static void cancelOrder(int reason, String details) {
             message("> отменяем заказ " + kraken.grab().currentURL());
-            kraken.perform().click(Elements.Administration.ShipmentsSection.Order.Details.cancelOrderButton());
+            kraken.perform().click(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.cancelOrderButton());
             handleAlert();
             chooseCancellationReason(reason, details);
-            kraken.perform().click(Elements.Administration.ShipmentsSection.Order.Details.confirmOrderCancellationButton());
+            kraken.perform().click(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.confirmOrderCancellationButton());
             kraken.await().implicitly(2); // Ожидание отмены заказа в админке
         }
 
         /** Выбрать причину и текст отмены заказа */
         private static void chooseCancellationReason(int reason, String details) {
             kraken.perform().click(By.id("cancellation_reason_id_" + reason));               // todo вынести в elements
-            kraken.perform().fillField(Elements.Administration.ShipmentsSection.Order.Details.cancellationReasonField(),details);
+            kraken.perform().fillField(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.cancellationReasonField(),details);
         }
     }
 

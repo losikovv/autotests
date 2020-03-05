@@ -144,7 +144,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         Administration.Orders.searchOrder(number,true);
 
         softAssert.assertEquals(
-                kraken.grab().text(Elements.Administration.ShipmentsSection.firstOrderNumberInTable()), number,
+                kraken.grab().text(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.orderNumber()), number,
                     "Не работает поиск старого B2B заказа после снятия B2B флага у пользователя");
 
         Administration.Orders.cancelOrder(number);

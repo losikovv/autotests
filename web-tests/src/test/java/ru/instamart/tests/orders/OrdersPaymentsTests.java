@@ -40,9 +40,10 @@ public class OrdersPaymentsTests extends TestBase {
                 kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ с оплатой картой онлайн"));
 
-        Assert.assertTrue(
-                kraken.grab().shipmentPayment().equals(PaymentTypes.cardOnline().getDescription()),
-                    failMessage("Способ оплаты в деталях заказа не совпадает с выбранным во время оформления"));
+        Assert.assertEquals(
+                kraken.grab().shipmentPayment(),
+                    PaymentTypes.cardOnline().getDescription(),
+                        failMessage("Способ оплаты в деталях заказа не совпадает с выбранным во время оформления"));
     }
 
     @Test(
@@ -60,9 +61,10 @@ public class OrdersPaymentsTests extends TestBase {
                 kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ с оплатой картой курьеру"));
 
-        Assert.assertTrue(
-                kraken.grab().shipmentPayment().equals(PaymentTypes.cardCourier().getDescription()),
-                    failMessage("Способ оплаты в деталях заказа не совпадает с выбранным во время оформления"));
+        Assert.assertEquals(
+                kraken.grab().shipmentPayment(),
+                    PaymentTypes.cardCourier().getDescription(),
+                        failMessage("Способ оплаты в деталях заказа не совпадает с выбранным во время оформления"));
     }
 
     @Test(
@@ -80,9 +82,10 @@ public class OrdersPaymentsTests extends TestBase {
                 kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ с оплатой банковским переводом"));
 
-        Assert.assertTrue(
-                kraken.grab().shipmentPayment().equals(PaymentTypes.bankTransfer().getDescription()),
-                    failMessage("Способ оплаты в деталях заказа не совпадает с выбранным во время оформления"));
+        Assert.assertEquals(
+                kraken.grab().shipmentPayment(),
+                    PaymentTypes.bankTransfer().getDescription(),
+                        failMessage("Способ оплаты в деталях заказа не совпадает с выбранным во время оформления"));
     }
 
     @AfterMethod(alwaysRun = true)

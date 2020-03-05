@@ -161,7 +161,7 @@ public class Playground extends TestBase {
     @Test
     public void cancelTestOrders() {
         kraken.cleanup().orders();
-        Assert.assertFalse(kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.placeholder()),
+        Assert.assertFalse(kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.placeholder()),
                 "Отменились не все тестовые заказы\n");
     }
 

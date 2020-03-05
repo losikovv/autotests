@@ -9,6 +9,7 @@ import ru.instamart.application.AppManager;
 import ru.instamart.application.Elements;
 import ru.instamart.application.lib.BonusPrograms;
 import ru.instamart.application.lib.Pages;
+import ru.instamart.application.platform.modules.Administration;
 import ru.instamart.application.platform.modules.Checkout;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.rest.RestAddresses;
@@ -41,10 +42,11 @@ public class OrdersBonusesTests extends TestBase {
         kraken.checkout().complete();
 
         String number = kraken.grab().shipmentNumber();
-        kraken.reach().admin(Pages.Admin.Order.details(number));
+        kraken.reach().admin();
+        Administration.Orders.searchOrder(number);
 
         Assert.assertTrue(
-                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.Order.Details.loyaltyProgram()),
+                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.loyaltyProgram()),
                     "В заказе не применилась бонусная программа Много.ру\n");
     }
 
@@ -62,7 +64,7 @@ public class OrdersBonusesTests extends TestBase {
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
         Assert.assertTrue(
-                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.Order.Details.loyaltyProgram()),
+                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.loyaltyProgram()),
                     "В заказе не применилась бонусная программа Аерофлот Бонус\n");
     }
 

@@ -69,7 +69,7 @@ public class BasicOrdersTests extends TestBase {
         kraken.perform().cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(number));
 
-        Assert.assertEquals(kraken.grab().value(Elements.Administration.ShipmentsSection.Order.Requisites.innField()), company.getInn(),
+        Assert.assertEquals(kraken.grab().value(Elements.Administration.ShipmentsSection.OrderDetailsPage.Requisites.innField()), company.getInn(),
                 "Данные юр. лица не совпадают с указанными пользователем\n"
         );
     }
@@ -93,7 +93,7 @@ public class BasicOrdersTests extends TestBase {
         kraken.perform().cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(number));
 
-        Assert.assertEquals(kraken.grab().value(Elements.Administration.ShipmentsSection.Order.Requisites.innField()), newCompany.getInn(),
+        Assert.assertEquals(kraken.grab().value(Elements.Administration.ShipmentsSection.OrderDetailsPage.Requisites.innField()), newCompany.getInn(),
                 "Данные юр. лица не совпадают с указанными пользователем\n"
         );
     }

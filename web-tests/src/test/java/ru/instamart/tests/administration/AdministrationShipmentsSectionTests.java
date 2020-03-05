@@ -31,56 +31,56 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     public void validateDefaultAdminShipmentsPage() {
         assertPresence(Elements.Administration.ShipmentsSection.title());
 
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.orderDateFrom());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.orderDateTo());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.customerName());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.customerSurname());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.juridicalNameContains());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.shopperLogin());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.driverLogin());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderDateFrom());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderDateTo());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.customerName());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.customerSurname());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.juridicalNameContains());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.shopperLogin());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.driverLogin());
 
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.deliveryTimeFrom());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.deliveryTimeTo());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.phoneNumberContains());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.email());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.innNumber());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.invoiceNumber());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.deliveryTimeFrom());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.deliveryTimeTo());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.phoneNumberContains());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.email());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.innNumber());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.invoiceNumber());
 
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.orderNumber());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.orderStatus());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.retailer());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.store());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.paymentMethod());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.paymentStatus());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderNumber());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderStatus());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.retailer());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.store());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.paymentMethod());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.paymentStatus());
 
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.promocode());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.itemsFrom());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.itemsTo());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.weightFrom());
-        assertPresence(Elements.Administration.ShipmentsSection.Filters.weightTo());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.promocode());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.itemsFrom());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.itemsTo());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.weightFrom());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.weightTo());
 
-        assertPresence(Elements.Administration.ShipmentsSection.Checkboxes.completedOnly());
-        assertPresence(Elements.Administration.ShipmentsSection.Checkboxes.b2bOnly());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.completedOnly());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.b2bOnly());
         // todo переделано на мультиселетор, обновить assertPresence(Elements.Administration.ShipmentsSection.Checkboxes.metroOnly());
-        assertPresence(Elements.Administration.ShipmentsSection.Checkboxes.deliveryChangedOnly());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.deliveryChangedOnly());
 
-        assertPresence(Elements.Administration.ShipmentsSection.applyFilterButton());
-        assertPresence(Elements.Administration.ShipmentsSection.clearFilterButton());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.applyFilterButton());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.clearFilterButton());
 
-        assertPresence(Elements.Administration.ShipmentsSection.table());
-        assertPresence(Elements.Administration.ShipmentsSection.tableTitle("Номер"));
-        assertPresence(Elements.Administration.ShipmentsSection.tableTitle("Сумма"));
-        assertPresence(Elements.Administration.ShipmentsSection.tableTitle("Состояние оплаты"));
-        assertPresence(Elements.Administration.ShipmentsSection.tableTitle("Состояние доставки"));
-        assertPresence(Elements.Administration.ShipmentsSection.tableTitle("Ритейлер"));
-        assertPresence(Elements.Administration.ShipmentsSection.tableTitle("Дата и время доставки"));
-        assertPresence(Elements.Administration.ShipmentsSection.tableTitle("Комментарий"));
-        assertPresence(Elements.Administration.ShipmentsSection.tableTitle("Куда"));
-        assertPresence(Elements.Administration.ShipmentsSection.tableTitle("Сборщик"));
-        assertPresence(Elements.Administration.ShipmentsSection.tableTitle("Водитель"));
-        assertPresence(Elements.Administration.ShipmentsSection.tableTitle("Общий вес"));
-        assertPresence(Elements.Administration.ShipmentsSection.tableTitle("Документация"));
-        assertPresence(Elements.Administration.ShipmentsSection.tableTitle("Магазин сборки"));
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.container());
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Номер"));
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Сумма"));
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Состояние оплаты"));
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Состояние доставки"));
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Ритейлер"));
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Дата и время доставки"));
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Комментарий"));
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Куда"));
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Сборщик"));
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Водитель"));
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Общий вес"));
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Документация"));
+        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Магазин сборки"));
 
         //todo валидить элементы строки первого заказа
     }
@@ -95,16 +95,16 @@ public class AdministrationShipmentsSectionTests extends TestBase {
             priority = 10101
     )
     public void successSearchOrderByOrderNumber() {
-        final String orderNumber = kraken.grab().text(Elements.Administration.ShipmentsSection.firstOrderNumberInTable());
+        final String orderNumber = kraken.grab().text(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.orderNumber());
 
         Administration.Orders.searchOrder(orderNumber);
 
         Assert.assertFalse(
-                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.placeholder()),
+                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.placeholder()),
                     "Не работает поиск заказа в админке, пустой результат поиска\n");
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.ShipmentsSection.firstOrderNumberInTable()), orderNumber,
+                kraken.grab().text(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.orderNumber()), orderNumber,
                     "Не работает поиск заказа в админке, найден не тот ордер\n");
     }
 
@@ -114,16 +114,15 @@ public class AdministrationShipmentsSectionTests extends TestBase {
             priority = 10102
     )
     public void successSearchOrderByShipmentNumber() {
-        String shipmentNumber = kraken.grab().text(Elements.Administration.ShipmentsSection.firstShipmentNumberInTable());
-
+        String shipmentNumber = kraken.grab().text(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.shipmentNumber());
         Administration.Orders.searchOrder(shipmentNumber);
 
         Assert.assertFalse(
-                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.placeholder()),
+                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.placeholder()),
                     "Не работает поиск шипмента в админке, пустой результат поиска\n");
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.ShipmentsSection.firstShipmentNumberInTable()), shipmentNumber,
+                kraken.grab().text(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.shipmentNumber()), shipmentNumber,
                     "Не работает поиск шипмента в админке, найден не тот шипмент\n");
     }
 
@@ -181,7 +180,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
         Administration.Orders.searchOrder(number,true);
 
         Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.ShipmentsSection.firstOrderNumberInTable()), number,
+                kraken.grab().text(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.orderNumber()), number,
                     "Не работает поиск B2B заказа в админке");
 
         Administration.Orders.cancelOrder(number);

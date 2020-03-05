@@ -43,7 +43,7 @@ public class OrdersRetailerCardsTests extends TestBase {
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
         assertTrue(
-                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.Order.Details.loyaltyProgram()),
+                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.loyaltyProgram()),
                     "В заказе не применилась карта Метро\n");
     }
 
@@ -66,7 +66,7 @@ public class OrdersRetailerCardsTests extends TestBase {
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
         assertTrue(
-                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.Order.Details.loyaltyProgram()),
+                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.loyaltyProgram()),
                 "В заказе не применилась карта Вкусвилл\n");
     }
 }
