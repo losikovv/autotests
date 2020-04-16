@@ -93,6 +93,17 @@ public class PerformHelper extends HelperBase {
         }
     }
 
+    public void fillField(By locator, String text) {
+        click(locator);
+        if (text != null) {
+            String existingText = kraken.grab().value(locator);
+            if (!text.equals(existingText)) {
+                driver.findElement(locator).clear();
+                driver.findElement(locator).sendKeys(text);
+            }
+        }
+    }
+
     /** Установить чекбокс */
     public void setCheckbox(ElementData element, boolean value) {
         if(value) {

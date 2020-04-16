@@ -76,6 +76,10 @@ public class Pages {
         static PageData feedback() { return new PageData("landings/feedback"); }
 
         static PageData mobile() { return new PageData("landings/m-general-white"); }
+
+        static PageData driversHiring() { return new PageData("landings/driver-job"); }
+
+        static PageData sberAppPromo() { return new PageData("landings/sbermarket-promo"); }
     }
 
     public interface ServicePages {
@@ -215,7 +219,7 @@ public class Pages {
                     "widgets/oktell_order_view");
         }
 
-        public interface Order {
+        interface Order {
 
             static PageData details(String number) {
                 return new PageData(

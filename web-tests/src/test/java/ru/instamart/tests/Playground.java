@@ -16,37 +16,7 @@ import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.rest.RestHelper;
 
-import java.io.IOException;
-
 public class Playground extends TestBase {
-
-
-    @Test
-    public void vibory() throws IOException {
-        if(1>0) {
-            vote();
-            vibory();
-        }
-
-    }
-
-    public void vote() throws IOException {
-        kraken.rise();
-        kraken.get().url("https://docs.google.com/forms/d/e/1FAIpQLScl1Lji8-tG3r355VL4WYWJ68KVS9ShcFvnjOCjVj0NlefAOA/viewform");
-        kraken.perform().fillField(Elements.Social.Gmail.AuthForm.loginField(), "devices@instamart.ru");
-        kraken.perform().click(Elements.Social.Gmail.AuthForm.loginNextButton());
-        kraken.await().simply(1); // Ожидание загрузки страницы ввода пароля Gmail
-        kraken.perform().fillField(Elements.Social.Gmail.AuthForm.passwordField(),"hex78.Berwyn");
-        kraken.perform().click(Elements.Social.Gmail.AuthForm.passwordNextButton());
-        kraken.await().simply(2); // Ожидание авторизации в Gmail
-
-        // кек
-        kraken.await().simply(1); //
-
-        kraken.perform().click(By.xpath("//*[text()='Отправить']"));
-        kraken.await().simply(1); //
-        kraken.stop();
-    }
 
     @Test
     public void restOrder() {

@@ -189,6 +189,24 @@ public class Elements {
         interface MassHiringLanding {
             // TODO
         }
+
+        interface driversHiringLanding {
+
+            static ElementData submitButton() {
+                return new ElementData(
+                        By.xpath("//button[@class='driverJob__formButton']"),
+                            "кнопка отправки заявки на лендинге найма водителей Сбермаркета");
+            }
+        }
+
+        interface sberAppPromoLanding {
+
+            static ElementData submitButton() {
+                return new ElementData(
+                        By.xpath("//button[@class='submit' and text()='Отправить SMS клиенту']"),
+                            "кнопка отправки смс на промо-лендинге приложения Сбермаркета");
+            }
+        }
     }
 
     /** Шапка сайта */
@@ -615,18 +633,27 @@ public class Elements {
         }
     }
 
-    // TODO update locators
     /** Адресные модалки Феникса */
     interface AddressModal {
 
         static ElementData popup() {
-            return new ElementData(By.className("address-modal"));
+            return new ElementData(By.xpath("//*[@data-qa='address-edit']"),
+                    "поп-ап адресной модалки");
         }
 
         static ElementData closeButton() {
-            return new ElementData(
-                    By.xpath("//button[@data-qa='address-modal-close']"),
+            return new ElementData(By.xpath("//button[@data-qa='address-modal-close']"),
                     "крестик закрытия модалки выбора адреса");
+        }
+
+        static ElementData deliveryButton() {
+            return new ElementData(By.xpath("//button[@data-qa='address-edit-selector-delivery']"),
+                    "кнопка 'Доставка' в адресной модалке");
+        }
+
+        static ElementData pickupButton() {
+            return new ElementData(By.xpath("//button[@data-qa='address-edit-selector-pickup']"),
+                    "кнопка 'Самовывоз' в адресной модалке");
         }
 
         static ElementData addressField() {
