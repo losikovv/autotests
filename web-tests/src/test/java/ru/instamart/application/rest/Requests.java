@@ -12,9 +12,9 @@ import static io.restassured.RestAssured.given;
  * МЕТОДЫ ЗАПРОСОВ REST API
  */
 public class Requests {
-    String token;
-    String currentOrderNumber;
-    String currentShipmentNumber;
+    ThreadLocal<String> token = new ThreadLocal<>();
+    ThreadLocal<String> currentOrderNumber = new ThreadLocal<>();
+    ThreadLocal<String> currentShipmentNumber = new ThreadLocal<>();
 
     /**
      * Регистрация
@@ -51,9 +51,8 @@ public class Requests {
      */
     public Response postOrder() {
         return given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
+                .header("Authorization",
+                        "Token token=" + token.get())
                 .post(EndPoints.orders);
     }
 
@@ -62,10 +61,9 @@ public class Requests {
      */
     public Response deleteShipments() {
         return given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .delete(EndPoints.Orders.shipments, currentOrderNumber);
+                .header("Authorization",
+                        "Token token=" + token.get())
+                .delete(EndPoints.Orders.shipments, currentOrderNumber.get());
     }
 
     /**
@@ -89,13 +87,12 @@ public class Requests {
         if (address.getBlock() != null) data.put("ship_address[block]", address.getBlock());
 
         return given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
+                .header("Authorization",
+                        "Token token=" + token.get())
                 .log()
                 .params()
                 .formParams(data)
-                .put(EndPoints.Orders.ship_address_change, currentOrderNumber);
+                .put(EndPoints.Orders.ship_address_change, currentOrderNumber.get());
     }
 
     /**
@@ -103,6 +100,20 @@ public class Requests {
      */
     static Response getDepartments(int sid, int numberOfProductsFromEachDepartment) {
         return given().get(EndPoints.departments, sid, numberOfProductsFromEachDepartment);
+    }
+
+    /**
+     * Получение таксонов в выбранном магазине
+     */
+    static Response getTaxons(int sid) {
+        return given().get(EndPoints.Taxons.sid, sid);
+    }
+
+    /**
+     * Получение конкретного таксона в выбранном магазине
+     */
+    static Response getTaxons(int taxonId, int sid) {
+        return given().get(EndPoints.Taxons.id, taxonId, sid);
     }
 
     /**
@@ -117,14 +128,13 @@ public class Requests {
      */
     public Response postLineItems(long productId, int quantity) {
         Map<String, Object> data = new HashMap<>();
-        data.put("line_item[order_number]", currentOrderNumber);
+        data.put("line_item[order_number]", currentOrderNumber.get());
         data.put("line_item[product_id]", productId);
         data.put("line_item[quantity]", quantity);
 
         return given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
+                .header("Authorization",
+                        "Token token=" + token.get())
                 .log()
                 .params()
                 .formParams(data)
@@ -136,9 +146,8 @@ public class Requests {
      */
     public Response getOrdersCurrent() {
         return given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
+                .header("Authorization",
+                        "Token token=" + token.get())
                 .get(EndPoints.Orders.current);
     }
 
@@ -147,10 +156,9 @@ public class Requests {
      */
     public Response getShippingRates() {
         return given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .get(EndPoints.Shipments.shipping_rates, currentShipmentNumber);
+                .header("Authorization",
+                        "Token token=" + token.get())
+                .get(EndPoints.Shipments.shipping_rates, currentShipmentNumber.get());
     }
 
     /**
@@ -176,13 +184,12 @@ public class Requests {
         data.put("order[shipments_attributes][][shipping_method_id]", shipmentMethodId);
 
         return given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
+                .header("Authorization",
+                        "Token token=" + token.get())
                 .log()
                 .params()
                 .formParams(data)
-                .put(EndPoints.Orders.number, currentOrderNumber);
+                .put(EndPoints.Orders.number, currentOrderNumber.get());
     }
 
     /**
@@ -225,9 +232,8 @@ public class Requests {
      */
     Response getPaymentTools() {
         return given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
+                .header("Authorization",
+                        "Token token=" + token.get())
                 .header("Client-Id",
                         "InstamartApp")
                 .header("Client-Ver",
@@ -240,10 +246,9 @@ public class Requests {
      */
     Response postOrdersCompletion() {
         return given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
-                .post(EndPoints.Orders.completion, currentOrderNumber);
+                .header("Authorization",
+                        "Token token=" + token.get())
+                .post(EndPoints.Orders.completion, currentOrderNumber.get());
     }
 
     /**
@@ -251,9 +256,8 @@ public class Requests {
      */
     Response postOrdersCancellations(String number) {
         return given()
-                .header(
-                        "Authorization",
-                        "Token token=" + token)
+                .header("Authorization",
+                        "Token token=" + token.get())
                 .post(EndPoints.Orders.cancellations, number);
     }
 }

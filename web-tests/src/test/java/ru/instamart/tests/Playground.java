@@ -3,6 +3,7 @@ package ru.instamart.tests;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Config;
 import ru.instamart.application.Elements;
@@ -26,10 +27,9 @@ public class Playground extends TestBase {
 
     @Test
     public void restDepartments() {
-        RestHelper.getProductsFromEachDepartmentInStore(
-                128,
-                6, // 6 is max
-                false);
+        SoftAssert softAssert = new SoftAssert();
+        RestHelper.getProductsFromEachDepartmentInStore(128, softAssert);
+        softAssert.assertAll();
     }
 
     @Test

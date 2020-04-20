@@ -18,6 +18,11 @@ final class EndPoints {
         static final String sid = "v2/stores/{sid}";
     }
 
+    static final class Taxons {
+        static final String id = "v2/taxons/{id}?sid={sid}";
+        static final String sid = "v2/taxons/?sid={sid}";
+    }
+
     static final class Products {
         static final String id = "v2/products/{id}";
     }

@@ -2,7 +2,6 @@ package ru.instamart.application.rest;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.instamart.application.rest.objects.Product;
 import ru.instamart.application.rest.objects.Retailer;
 import ru.instamart.application.rest.objects.Store;
 import ru.instamart.application.rest.objects.Zone;
@@ -16,8 +15,9 @@ public class RestDataProvider extends RestBase {
 
     @Test()
     public static void selfTestRetailers() {
-        RestDataProvider.getAvailableRetailers();
+        getAvailableRetailers();
     }
+
     @DataProvider(name = "retailers")
     public static Object[][] getAvailableRetailers() {
 
@@ -33,8 +33,9 @@ public class RestDataProvider extends RestBase {
 
     @Test()
     public void selfTestRetailersV1() {
-        RestDataProvider.getAvailableRetailersV1();
+        getAvailableRetailersV1();
     }
+
     @DataProvider(name = "retailersV1")
     public static Object[][] getAvailableRetailersV1() {
 
@@ -51,8 +52,14 @@ public class RestDataProvider extends RestBase {
 
     @Test()
     public void selfTestStores() {
-        RestDataProvider.getAvailableStores();
+        getAvailableStores();
     }
+
+    @DataProvider(name = "stores-parallel", parallel = true)
+    public static Object[][] getAvailableStoresParallel() {
+        return getAvailableStores();
+    }
+
     @DataProvider(name = "stores")
     public static Object[][] getAvailableStores() {
 
@@ -68,8 +75,14 @@ public class RestDataProvider extends RestBase {
 
     @Test()
     public static void selfTestZones() {
-        RestDataProvider.getAvailableZones();
+        getAvailableZones();
     }
+
+    @DataProvider(name = "zones-parallel", parallel = true)
+    public static Object[][] getAvailableZonesParallel() {
+        return getAvailableZones();
+    }
+
     @DataProvider(name = "zones")
     public static Object[][] getAvailableZones() {
 
@@ -95,29 +108,5 @@ public class RestDataProvider extends RestBase {
             zoneArray[i][2] = coordinates.get(i);
         }
         return zoneArray;
-    }
-
-    @Test()
-    public void selfTestProducts() {
-        RestDataProvider.getMainPageProducts();
-    }
-    @DataProvider(name = "products")
-    public static Object[][] getMainPageProducts() {
-
-        List<Store> stores = availableStores();
-        List<Product> products = new ArrayList<>();
-
-        for (Store store : stores) {
-            products.addAll(getProductsFromEachDepartmentInStore(
-                    store.getId(),
-                    6,
-                    true));
-        }
-        Object[][] productArray = new Object[products.size()][1];
-
-        for (int i = 0; i < products.size(); i++) {
-            productArray[i][0] = products.get(i);
-        }
-        return productArray;
     }
 }

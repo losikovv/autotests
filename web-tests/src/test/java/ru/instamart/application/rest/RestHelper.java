@@ -24,18 +24,19 @@ import java.util.StringJoiner;
 import static io.restassured.RestAssured.*;
 import static io.restassured.config.EncoderConfig.encoderConfig;
 import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.Matchers.not;
 
 public class RestHelper extends Requests {
     private static String fullBaseUrl;
-    private int currentSid;
-    private int currentAddressId;
-    private int currentShipmentId;
-    private int currentDeliveryWindowId;
-    private int currentPaymentToolId;
-    private int currentShipmentMethodId;
-    private int minSum;
-    private boolean minSumNotReached;
-    private boolean productWeightNotDefined;
+    private ThreadLocal<Integer> currentSid = new ThreadLocal<>();
+    private ThreadLocal<Integer> currentAddressId = new ThreadLocal<>();
+    private ThreadLocal<Integer> currentShipmentId = new ThreadLocal<>();
+    private ThreadLocal<Integer> currentDeliveryWindowId = new ThreadLocal<>();
+    private ThreadLocal<Integer> currentPaymentToolId = new ThreadLocal<>();
+    private ThreadLocal<Integer> currentShipmentMethodId = new ThreadLocal<>();
+    private ThreadLocal<Integer> minSum = new ThreadLocal<>();
+    private ThreadLocal<Boolean> minSumNotReached = new ThreadLocal<>();
+    private ThreadLocal<Boolean> productWeightNotDefined = new ThreadLocal<>();
 
     public RestHelper(EnvironmentData environment) {
         fullBaseUrl = environment.getBasicUrlWithHttpAuth();
@@ -53,6 +54,8 @@ public class RestHelper extends Requests {
 
         responseSpecification = new ResponseSpecBuilder()
                 .expectResponseTime(lessThan(30000L))
+                .expectStatusCode(not(429))
+                .expectStatusCode(not(500))
                 .build();
     }
 
@@ -125,26 +128,48 @@ public class RestHelper extends Requests {
      * Красный текст
      */
     static void printError(Object string) {
-        System.out.println(redText(string));
-    }
-
-    private static String redText(Object string) {
-        return "\033[0;91m" + string.toString() + "\u001B[0m";
+        System.err.println(string);
     }
 
     /*
-      МЕТОДЫ ОБРАБОТКИ ОТВЕТОВ REST API (ПРИВАТНЫЕ)
+      МЕТОДЫ ОБРАБОТКИ ОТВЕТОВ REST API
      */
+
+    public static List<Taxon> getCategories(int sid) {
+        List<Taxon> taxons = getTaxons(sid).as(TaxonsResponse.class).getTaxons();
+        System.out.println(taxons);
+        return taxons;
+    }
+
+    public Taxon getCategory(int id, int sid) {
+        Taxon taxon = getTaxons(id, sid).as(TaxonResponse.class).getTaxon();
+        System.out.println(taxon);
+        return taxon;
+    }
+
+    public static void assertProductsCountEqualsChildrenSum(Taxon taxon, SoftAssert softAssert) {
+        List<Taxon> children = taxon.getChildren();
+        if (children == null) return;
+        int sum = 0;
+        for (Taxon child : children) {
+            sum += child.getProducts_count();
+            assertProductsCountEqualsChildrenSum(child, softAssert);
+        }
+        softAssert.assertEquals(sum, taxon.getProducts_count(),
+                "\n" + taxon.getName() +
+                        ", id: " + taxon.getId() +
+                        ", children_sum: " + sum +
+                        ", product_count: " + taxon.getProducts_count());
+    }
 
     /**
      * Удаляем товары из корзины
      */
     private void deleteItemsFromCart() {
-        String orderNumber = deleteShipments()
-                .as(OrdersResponse.class)
-                .getOrder()
-                .getNumber();
-        System.out.println("Удалены все доставки у заказа: " + orderNumber + "\n");
+        Response response = deleteShipments();
+
+        Order order = response.as(OrdersResponse.class).getOrder();
+        System.out.println("Удалены все доставки у заказа: " + order.getNumber() + "\n");
     }
 
     /**
@@ -163,25 +188,31 @@ public class RestHelper extends Requests {
      * Изменение/применение параматров адреса из объекта адреса
      */
     private void setAddressAttributes(Address address) {
-        Address addressFromResponse = putShipAddressChange(address)
+        Response response = putShipAddressChange(address);
+
+        Address addressFromResponse = response
                 .as(ShipAddressChangeResponse.class)
                 .getShip_address_change()
                 .getOrder()
                 .getAddress();
-        currentAddressId = addressFromResponse.getId();
+        currentAddressId.set(addressFromResponse.getId());
 
         printSuccess("Применен адрес: " + addressFromResponse);
     }
 
-    /**
-     * Получаем любой продукт (1-й продукт из 1-й категории) для оформления заказа
-     */
-    private Product getFirstProductFromStore(int sid) {
-        return getProductsFromEachDepartmentInStore(
-                sid,
-                1,
-                true)
-                .get(0);
+    /** Получаем список продуктов: по одному из каждой категории */
+    public static List<Product> getProductFromEachDepartmentInStore(int sid) {
+        return getProductsFromEachDepartmentInStore(sid, 1, new SoftAssert());
+    }
+
+    /** Получаем список продуктов: максимум (6) из каждой категории */
+    public static List<Product> getProductsFromEachDepartmentInStore(int sid) {
+        return getProductsFromEachDepartmentInStore(sid, 6, new SoftAssert());
+    }
+
+    /** Получаем список продуктов: максимум (6) из каждой категории и проверяем корректность категорий */
+    public static List<Product> getProductsFromEachDepartmentInStore(int sid, SoftAssert softAssert) {
+        return getProductsFromEachDepartmentInStore(sid, 6, softAssert);
     }
 
     /**
@@ -189,10 +220,10 @@ public class RestHelper extends Requests {
      * @param sid сид магазина
      * @param numberOfProductsFromEachDepartment количество продуктов из каждой категории (не больше 6)
      */
-    public static List<Product> getProductsFromEachDepartmentInStore(
-            int sid, int numberOfProductsFromEachDepartment, boolean catchExceptions) {
-        SoftAssert softAssert = new SoftAssert();
-        List<Department> departments = getDepartments(sid, numberOfProductsFromEachDepartment).as(DepartmentsResponse.class).getDepartments();
+    private static List<Product> getProductsFromEachDepartmentInStore(
+            int sid, int numberOfProductsFromEachDepartment, SoftAssert softAssert) {
+        List<Department> departments = getDepartments(sid, numberOfProductsFromEachDepartment)
+                .as(DepartmentsResponse.class).getDepartments();
 
         String storeUrl = fullBaseUrl + "?sid=" + sid;
 
@@ -225,7 +256,6 @@ public class RestHelper extends Requests {
             }
             System.out.println(productsString);
         }
-        if (!catchExceptions) softAssert.assertAll();
         return products;
     }
 
@@ -242,7 +272,8 @@ public class RestHelper extends Requests {
      * Добавляем товар в корзину
      */
     private void addItemToCart(long productId, int quantity) {
-        LineItem lineItem = postLineItems(productId, quantity).as(LineItemResponse.class).getLine_item();
+        Response response = postLineItems(productId, quantity);
+        LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
 
         printSuccess(lineItem);
     }
@@ -259,16 +290,16 @@ public class RestHelper extends Requests {
                 .get(0);
         if (shipment.getAlerts().size() > 0) {
             String alertMessage = shipment.getAlerts().get(0).getMessage().replaceAll("[^0-9]","");
-            minSum = Integer.parseInt(alertMessage.substring(0, alertMessage.length() - 2));
-            printSuccess("Минимальная сумма корзины: " + minSum);
-            minSumNotReached = true;
+            minSum.set(Integer.parseInt(alertMessage.substring(0, alertMessage.length() - 2)));
+            printSuccess("Минимальная сумма корзины: " + minSum.get());
+            minSumNotReached.set(true);
         } else {
             printSuccess("Минимальная сумма корзины набрана");
-            minSumNotReached = false;
+            minSumNotReached.set(false);
         }
-        currentShipmentId = shipment.getId();
-        currentShipmentNumber = shipment.getNumber();
-        System.out.println("Номер доставки: " + currentShipmentNumber + "\n");
+        currentShipmentId.set(shipment.getId());
+        currentShipmentNumber.set(shipment.getNumber());
+        System.out.println("Номер доставки: " + currentShipmentNumber.get() + "\n");
     }
 
     /**
@@ -294,15 +325,15 @@ public class RestHelper extends Requests {
 
         if (humanVolume.contains(" кг") || humanVolume.contains(" л")) {
             System.out.println(product + "\nВес продукта: " + productWeight + " кг.");
-            productWeightNotDefined = false;
+            productWeightNotDefined.set(false);
             return productWeight;
         } else if (humanVolume.contains(" г") || humanVolume.contains(" мл")) {
             System.out.println(product + "\nВес продукта: " + productWeight / 1000 + " кг.");
-            productWeightNotDefined = false;
+            productWeightNotDefined.set(false);
             return productWeight / 1000;
         } else {
             System.out.println(product + "\nНеизвестный тип веса/объема: " + humanVolume);
-            productWeightNotDefined = true;
+            productWeightNotDefined.set(true);
             return 0;
         }
     }
@@ -316,11 +347,11 @@ public class RestHelper extends Requests {
         Assert.assertNotEquals(
                 shippingRates.size(),
                 0,
-                "Нет слотов в магазине\n" + Pages.Admin.stores(currentSid));
+                "Нет слотов в магазине\n" + Pages.Admin.stores(currentSid.get()));
 
         DeliveryWindow deliveryWindow = shippingRates.get(0).getDelivery_window();
 
-        currentDeliveryWindowId = deliveryWindow.getId();
+        currentDeliveryWindowId.set(deliveryWindow.getId());
 
         System.out.println(deliveryWindow);
     }
@@ -329,16 +360,17 @@ public class RestHelper extends Requests {
      * Получаем первый доступный способ доставки
      */
     private void getAvailableShippingMethod() {
-        List<ShippingMethod> shippingMethods = getShippingMethod(currentSid).as(ShippingMethodsResponse.class).getShipping_methods();
+        List<ShippingMethod> shippingMethods = getShippingMethod(currentSid.get())
+                .as(ShippingMethodsResponse.class).getShipping_methods();
 
         Assert.assertNotEquals(
                 shippingMethods.size(),
                 0,
-                "Нет способов доставки в магазине\n" + Pages.Admin.stores(currentSid));
+                "Нет способов доставки в магазине\n" + Pages.Admin.stores(currentSid.get()));
 
         ShippingMethod shippingMethod = shippingMethods.get(0);
 
-        currentShipmentMethodId = shippingMethod.getId();
+        currentShipmentMethodId.set(shippingMethod.getId());
 
         System.out.println(shippingMethod);
     }
@@ -357,11 +389,11 @@ public class RestHelper extends Requests {
         for (int i = 0; i < paymentTools.size(); i++) {
             String selectedPaymentTool = greenText(paymentTools.get(i) + " <<< Выбран");
             if (paymentTools.get(i).getName().equalsIgnoreCase("Картой курьеру")) {
-                currentPaymentToolId = paymentTools.get(i).getId();
+                currentPaymentToolId.set(paymentTools.get(i).getId());
                 availablePaymentTools.add(selectedPaymentTool);
                 cardCourier = true;
             } else if (i == paymentTools.size() - 1 && !cardCourier) { // выбираем последний способ, если нет картой курьеру
-                currentPaymentToolId = paymentTools.get(i).getId();
+                currentPaymentToolId.set(paymentTools.get(i).getId());
                 availablePaymentTools.add(selectedPaymentTool);
             } else availablePaymentTools.add(paymentTools.get(i).toString());
         }
@@ -373,14 +405,15 @@ public class RestHelper extends Requests {
      */
     private void setDefaultOrderAttributes() {
         Response response = putOrders(
-                currentAddressId,
+                currentAddressId.get(),
                 1,
                 "+7 (987) 654 32 10",
                 "test",
-                currentPaymentToolId,
-                currentShipmentId,
-                currentDeliveryWindowId,
-                currentShipmentMethodId);
+                currentPaymentToolId.get(),
+                currentShipmentId.get(),
+                currentDeliveryWindowId.get(),
+                currentShipmentMethodId.get());
+
         Order order = response.as(OrdersResponse.class).getOrder();
         printSuccess("Применены атрибуты для заказа: " + order.getNumber());
         System.out.println("        full_address: " + order.getAddress().getFull_address());
@@ -395,31 +428,31 @@ public class RestHelper extends Requests {
      */
     private void completeOrder() {
         Response response = postOrdersCompletion();
-
-        String notAvailableDeliveryWindow = "Выбранный интервал стал недоступен";
-        if (response.getStatusCode() == 422)
-            if (response.as(ErrorResponse.class)
-                    .getErrors()
-                    .getShipments()
-                    .contains(notAvailableDeliveryWindow)) {
-                printError(notAvailableDeliveryWindow);
-                System.out.println();
-                getAvailableDeliveryWindow();
-                setDefaultOrderAttributes();
-                response = postOrdersCompletion();
-            }
-        printSuccess("Оформлен заказ: " + response.as(OrdersResponse.class).getOrder().getNumber() + "\n");
+        if (response.getStatusCode() == 422) {
+            Errors errors = response.as(ErrorResponse.class).getErrors();
+            if (errors.getShipments() != null) {
+                String notAvailableDeliveryWindow = "Выбранный интервал стал недоступен";
+                if (errors.getShipments().contains(notAvailableDeliveryWindow)) {
+                    printError(notAvailableDeliveryWindow);
+                    System.out.println();
+                    getAvailableDeliveryWindow();
+                    setDefaultOrderAttributes();
+                    response = postOrdersCompletion();
+                }
+            } else Assert.fail(response.prettyPrint());
+        }
+        Order order = response.as(OrdersResponse.class).getOrder();
+        printSuccess("Оформлен заказ: " + order.getNumber() + "\n");
     }
 
     /**
      * Отменяем заказ по номеру
      */
     private void cancelOrder(String number) {
-        printSuccess("Отменен заказ: " + postOrdersCancellations(number)
-                .as(CancellationsResponse.class)
-                .getCancellation()
-                .getOrder()
-                .getNumber() + "\n");
+        Response response = postOrdersCancellations(number);
+
+        Order order = response.as(CancellationsResponse.class).getCancellation().getOrder();
+        printSuccess("Отменен заказ: " + order.getNumber() + "\n");
     }
 
     /**
@@ -435,7 +468,7 @@ public class RestHelper extends Requests {
     private void getCurrentSid(double lat, double lon) {
         Store store = availableStores(lat, lon).get(0);
 
-        currentSid = store.getId();
+        currentSid.set(store.getId());
 
         printSuccess("Выбран магазин: " + store);
     }
@@ -458,7 +491,7 @@ public class RestHelper extends Requests {
         for (Store store : stores) {
             if (retailer.equalsIgnoreCase(store.getRetailer().getSlug())) {
 
-                currentSid = store.getId();
+                currentSid.set(store.getId());
 
                 printSuccess("Выбран магазин: " + store + "\n");
                 return;
@@ -471,7 +504,7 @@ public class RestHelper extends Requests {
      * Получить адрес доставки, зная только sid
      */
     private Address getAddressBySid(int sid) {
-        currentSid = sid;
+        currentSid.set(sid);
         Response response = getStores(sid);
 
         if (response.statusCode() == 422)
@@ -574,14 +607,21 @@ public class RestHelper extends Requests {
 
     /**
      * Авторизация
+     * На сервере стоит ограничение - не больше 20 авторизаций в минуту с одного IP,
+     * поэтому для мультипоточности реализованы synchronized + ожидание 3.1 секунды
      */
-    private void authorisation(String email, String password) {
-        token = postSessions(email, password)
+    synchronized private void authorisation(String email, String password) {
+        try {
+            Thread.sleep(3100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        token.set(postSessions(email, password)
                 .as(SessionsResponse.class)
                 .getSession()
-                .getAccess_token();
+                .getAccess_token());
         System.out.println("Авторизуемся: " + email);
-        System.out.println("access_token: " + token + "\n");
+        System.out.println("access_token: " + token.get() + "\n");
     }
 
     /**
@@ -595,11 +635,11 @@ public class RestHelper extends Requests {
      * Узнаем номер заказа
      */
     private void getCurrentOrderNumber() {
-        currentOrderNumber = postOrder()
+        currentOrderNumber.set(postOrder()
                 .as(OrdersResponse.class)
                 .getOrder()
-                .getNumber();
-        System.out.println("Номер текущего заказа: " + currentOrderNumber + "\n");
+                .getNumber());
+        System.out.println("Номер текущего заказа: " + currentOrderNumber.get() + "\n");
     }
 
     /*
@@ -610,26 +650,23 @@ public class RestHelper extends Requests {
      * Наполняем корзину до минимальной суммы заказа в конкретном магазине
      */
     private void fillCartOnSid(int sid) {
-        List<Product> products = getProductsFromEachDepartmentInStore(
-                sid,
-                1,
-                true);
+        List<Product> products = getProductFromEachDepartmentInStore(sid);
         addItemToCart(products.get(0).getId(),1);
         getMinSum();
 
         int quantity = 1;
         for (Product product : products) {
-            if (minSumNotReached) quantity = (int) Math.ceil(minSum / (product.getPrice() * product.getItems_per_pack()));
+            if (minSumNotReached.get()) quantity = (int) Math.ceil(minSum.get() / (product.getPrice() * product.getItems_per_pack()));
 
             double cartWeight = roundBigDecimal(getProductWeight(product) * quantity,3);
 
             String cartWeightText = "Вес корзины: " + cartWeight + " кг.\n";
             String anotherProductText = "Выбираем другой товар\n";
             if (cartWeight > 40) printError(cartWeightText + anotherProductText);
-            else if (productWeightNotDefined) printError(anotherProductText);
+            else if (productWeightNotDefined.get()) printError(anotherProductText);
             else {
                 printSuccess(cartWeightText);
-                if (minSumNotReached) addItemToCart(product.getId(), quantity);
+                if (minSumNotReached.get()) addItemToCart(product.getId(), quantity);
                 break;
             }
         }
@@ -697,7 +734,7 @@ public class RestHelper extends Requests {
         dropCart(user, address);
 
         getCurrentSid(address);
-        fillCartOnSid(currentSid);
+        fillCartOnSid(currentSid.get());
     }
 
     /**
@@ -707,7 +744,7 @@ public class RestHelper extends Requests {
         dropCart(user, address);
 
         getCurrentSid(address, retailer);
-        fillCartOnSid(currentSid);
+        fillCartOnSid(currentSid.get());
     }
 
     /**
@@ -748,7 +785,7 @@ public class RestHelper extends Requests {
     public String order(UserData user, Address address, String retailer) {
         fillCart(user, address, retailer);
         setDefaultAttributesAndCompleteOrder();
-        return currentOrderNumber;
+        return currentOrderNumber.get();
     }
 
     /**
@@ -757,7 +794,7 @@ public class RestHelper extends Requests {
     public String order(UserData user, int sid) {
         fillCart(user, sid);
         setDefaultAttributesAndCompleteOrder();
-        return currentOrderNumber;
+        return currentOrderNumber.get();
     }
 
     /**
@@ -766,13 +803,13 @@ public class RestHelper extends Requests {
     public String order(UserData user, int sid, Zone coordinates) {
         fillCart(user, sid, coordinates);
         setDefaultAttributesAndCompleteOrder();
-        return currentOrderNumber;
+        return currentOrderNumber.get();
     }
 
     /**
      * Отменить последний заказ (с которым взаимодействовали в этой сессии через REST API)
      */
     public void cancelCurrentOrder() {
-        if (currentOrderNumber != null) cancelOrder(currentOrderNumber);
+        if (currentOrderNumber != null) cancelOrder(currentOrderNumber.get());
     }
 }

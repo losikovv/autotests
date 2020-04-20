@@ -6,7 +6,7 @@ import ru.instamart.application.AppManager;
 
 import java.util.UUID;
 
-public class RestBase {
+public abstract class RestBase {
     protected static final AppManager kraken = new AppManager();
     protected Response response;
 

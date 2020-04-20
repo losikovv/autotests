@@ -27,6 +27,8 @@ public class PageData {
 
     @Override
     public String toString() {
-        return AppManager.environment.getBasicUrlWithHttpAuth() + path;
+        if (path.contains("admin")) {
+            return AppManager.environment.getAdminUrlWithHttpAuth() + path.substring(6);
+        } else return AppManager.environment.getBasicUrlWithHttpAuth() + path;
     }
 }
