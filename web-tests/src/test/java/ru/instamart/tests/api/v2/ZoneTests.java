@@ -32,7 +32,7 @@ public class ZoneTests extends RestBase {
                 "Василий Автотестов");
 
         kraken.rest().registration(user);
-        kraken.rest().order(user, store.getId());
+        kraken.rest().order(user, store.getId(), coordinates);
         kraken.rest().cancelCurrentOrder();
     }
 }
