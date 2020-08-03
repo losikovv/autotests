@@ -11,10 +11,10 @@ public class Config {
 
     public interface CoreSettings {
         String defaultBrowser = BrowserType.CHROME;
-        String defaultEnvironment = Environments.sbermarket.staging();
+        String defaultEnvironment = Environments.sbermarket.yc_staging();
 
         int basicTimeout = 2;
-        int waitingTimeout = 10;
+        int waitingTimeout = 15;
 
         boolean docker = false;
         boolean video = false;
@@ -75,8 +75,8 @@ public class Config {
             String companyDomain = companyName + ".ru";
             String companyHotlinePhoneNumber = "+7 800 222-11-00";
             String companyHotlinePhoneLink = "tel:+78002221100";
-            String companyHotlineWorkhours = "с 5:00 до 1:00";
-            String companyHotlineWorkhoursShort = "5:00 - 1:00";
+            String companyHotlineWorkhours = "Круглосуточно";
+            String companyHotlineWorkhoursShort = "Круглосуточно";
             String companyFacebookLink = "https://www.facebook.com/sbermarket.ru/";
             String companyVkontakteLink = "https://vk.com/sbermarket_ru";
             String companyTwitterLink = "https://twitter.com/sbermarket_ru";

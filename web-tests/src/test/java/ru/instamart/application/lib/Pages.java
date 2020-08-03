@@ -80,13 +80,15 @@ public class Pages {
         static PageData driversHiring() { return new PageData("landings/driver-job"); }
 
         static PageData sberAppPromo() { return new PageData("landings/sbermarket-promo"); }
+
+        static PageData massHiring() { return new PageData("landings/job"); }
+
+        static PageData b2b() { return new PageData("business"); }
     }
 
     public interface ServicePages {
 
         static PageData giftCertificates() { return new PageData("gift_certificates/new"); }
-
-        static PageData massHiring() { return new PageData("landings/job"); }
     }
 
     public interface UserProfile {

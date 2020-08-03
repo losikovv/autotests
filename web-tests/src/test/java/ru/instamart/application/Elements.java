@@ -220,7 +220,7 @@ public class Elements {
 
             static ElementData shipAddressPlaceholder() {
                 return new ElementData(
-                        By.xpath("//header//*[text()='Укажите ваш адрес для отображения доступных магазинов']"),
+                        By.xpath("//header//*[text()='Выберите адрес доставки']"),
                             "плейсхолдер пустого адреса доставки в шапке сайта");
             }
 
@@ -680,15 +680,27 @@ public class Elements {
         }
 
         static ElementData authButton() {
-            return new ElementData(By.className("address-modal__to-login-link"));
+            return new ElementData(
+                    By.xpath("//*[@data-qa='address-modal-login' and text()='Войти']"),
+                            "кнопка перехода в авторизацию в модалке выбора адреса");
         }
 
-        static ElementData titleSet() {
-            return new ElementData ("Введите адрес доставки", By.className("address-modal__header"));
+        static ElementData deliverySelector() {
+            return new ElementData(
+                    By.xpath("//button[@data-qa='address-edit-selector-delivery' and text()='Доставка']"),
+                    "кнопка переключения на доставку в модалке выбора адреса");
         }
 
-        static ElementData titleChange() {
-            return new ElementData ("Редактирование адреса", By.className("address-modal__header"));
+        static ElementData pickupSelector() {
+            return new ElementData(
+                    By.xpath("//button[@data-qa='address-edit-selector-pickup' and text()='Самовывоз']"),
+                    "кнопка переключения на самовывоз в модалке выбора адреса");
+        }
+
+        static ElementData title() {
+            return new ElementData (
+                    By.xpath("//*[@class='address-modal__header' and text()='Выберите способ получения']"),
+                    "заголовок модалки выбора адреса");
         }
 
         static ElementData titleOutOfZone() {

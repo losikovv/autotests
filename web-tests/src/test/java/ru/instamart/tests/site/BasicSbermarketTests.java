@@ -149,7 +149,7 @@ public class BasicSbermarketTests extends TestBase {
             groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     ) public void successServicePagesAreAvailable() {
         assertPageIsAvailable(Pages.ServicePages.giftCertificates());
-        assertPageIsAvailable(Pages.ServicePages.massHiring());
+        assertPageIsAvailable(Pages.Landings.massHiring());
     }
 
     @Test(

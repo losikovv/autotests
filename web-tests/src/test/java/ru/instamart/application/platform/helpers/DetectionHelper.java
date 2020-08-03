@@ -194,8 +194,7 @@ public class DetectionHelper extends HelperBase {
      */
     public boolean isAddressModalOpen() {
         return isElementDisplayed(Elements.Modals.AddressModal.popup())
-                && isElementDisplayed(Elements.Modals.AddressModal.titleSet())
-                || isElementDisplayed(Elements.Modals.AddressModal.titleChange());
+                 && isElementDisplayed(Elements.Modals.AddressModal.title());
     }
 
     /**
