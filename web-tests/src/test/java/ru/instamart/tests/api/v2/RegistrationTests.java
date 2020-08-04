@@ -9,9 +9,9 @@ import static org.testng.Assert.assertEquals;
 import static ru.instamart.application.rest.Requests.postUsers;
 
 public class RegistrationTests extends RestBase {
-    private String firstName = "autotester";
-    private String lastName = "api";
-    private String minCharPassword = "instam";
+    private final String firstName = "autotester";
+    private final String lastName = "api";
+    private final String minCharPassword = "instam";
 
     @Test(
             description = "Успешная регистрация",

@@ -20,6 +20,7 @@ public class Address extends BaseObject {
     private Double lon;
     private String kind;
     private String door_phone;
+    private Boolean delivery_to_door;
 
     /**
      * No args constructor for use in serialization
@@ -188,5 +189,13 @@ public class Address extends BaseObject {
                 .add("     block: " + block)
                 .add("  comments: " + comments)
                 .toString();
+    }
+
+    public Boolean getDelivery_to_door() {
+        return delivery_to_door;
+    }
+
+    public void setDelivery_to_door(Boolean delivery_to_door) {
+        this.delivery_to_door = delivery_to_door;
     }
 }

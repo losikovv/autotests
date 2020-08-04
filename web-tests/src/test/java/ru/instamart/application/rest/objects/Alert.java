@@ -4,6 +4,7 @@ public class Alert extends BaseObject {
 
     private String message;
     private String full_message;
+    private String type;
 
     /**
      * No args constructor for use in serialization
@@ -39,4 +40,11 @@ public class Alert extends BaseObject {
         this.full_message = full_message;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

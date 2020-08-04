@@ -23,20 +23,19 @@ import java.util.StringJoiner;
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.config.EncoderConfig.encoderConfig;
-import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.not;
 
 public class RestHelper extends Requests {
     private static String fullBaseUrl;
-    private ThreadLocal<Integer> currentSid = new ThreadLocal<>();
-    private ThreadLocal<Integer> currentAddressId = new ThreadLocal<>();
-    private ThreadLocal<Integer> currentShipmentId = new ThreadLocal<>();
-    private ThreadLocal<Integer> currentDeliveryWindowId = new ThreadLocal<>();
-    private ThreadLocal<Integer> currentPaymentToolId = new ThreadLocal<>();
-    private ThreadLocal<Integer> currentShipmentMethodId = new ThreadLocal<>();
-    private ThreadLocal<Integer> minSum = new ThreadLocal<>();
-    private ThreadLocal<Boolean> minSumNotReached = new ThreadLocal<>();
-    private ThreadLocal<Boolean> productWeightNotDefined = new ThreadLocal<>();
+    private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
+    private final ThreadLocal<Integer> currentAddressId = new ThreadLocal<>();
+    private final ThreadLocal<Integer> currentShipmentId = new ThreadLocal<>();
+    private final ThreadLocal<Integer> currentDeliveryWindowId = new ThreadLocal<>();
+    private final ThreadLocal<PaymentTool> currentPaymentTool = new ThreadLocal<>();
+    private final ThreadLocal<Integer> currentShipmentMethodId = new ThreadLocal<>();
+    private final ThreadLocal<Integer> minSum = new ThreadLocal<>();
+    private final ThreadLocal<Boolean> minSumNotReached = new ThreadLocal<>();
+    private final ThreadLocal<Boolean> productWeightNotDefined = new ThreadLocal<>();
 
     public RestHelper(EnvironmentData environment) {
         fullBaseUrl = environment.getBasicUrlWithHttpAuth();
@@ -53,7 +52,7 @@ public class RestHelper extends Requests {
                 .build();
 
         responseSpecification = new ResponseSpecBuilder()
-                .expectResponseTime(lessThan(30000L))
+                //.expectResponseTime(lessThan(30000L))
                 .expectStatusCode(not(429))
                 .expectStatusCode(not(500))
                 .build();
@@ -389,11 +388,11 @@ public class RestHelper extends Requests {
         for (int i = 0; i < paymentTools.size(); i++) {
             String selectedPaymentTool = greenText(paymentTools.get(i) + " <<< Выбран");
             if (paymentTools.get(i).getName().equalsIgnoreCase("Картой курьеру")) {
-                currentPaymentToolId.set(paymentTools.get(i).getId());
+                currentPaymentTool.set(paymentTools.get(i));
                 availablePaymentTools.add(selectedPaymentTool);
                 cardCourier = true;
             } else if (i == paymentTools.size() - 1 && !cardCourier) { // выбираем последний способ, если нет картой курьеру
-                currentPaymentToolId.set(paymentTools.get(i).getId());
+                currentPaymentTool.set(paymentTools.get(i));
                 availablePaymentTools.add(selectedPaymentTool);
             } else availablePaymentTools.add(paymentTools.get(i).toString());
         }
@@ -409,11 +408,14 @@ public class RestHelper extends Requests {
                 1,
                 "+7 (987) 654 32 10",
                 "test",
-                currentPaymentToolId.get(),
+                currentPaymentTool.get().getId(),
                 currentShipmentId.get(),
                 currentDeliveryWindowId.get(),
                 currentShipmentMethodId.get());
-
+        Assert.assertEquals(
+                response.statusCode(),
+                200,
+                response.prettyPrint());
         Order order = response.as(OrdersResponse.class).getOrder();
         printSuccess("Применены атрибуты для заказа: " + order.getNumber());
         System.out.println("        full_address: " + order.getAddress().getFull_address());
@@ -430,6 +432,7 @@ public class RestHelper extends Requests {
         Response response = postOrdersCompletion();
         if (response.getStatusCode() == 422) {
             Errors errors = response.as(ErrorResponse.class).getErrors();
+
             if (errors.getShipments() != null) {
                 String notAvailableDeliveryWindow = "Выбранный интервал стал недоступен";
                 if (errors.getShipments().contains(notAvailableDeliveryWindow)) {
@@ -438,11 +441,22 @@ public class RestHelper extends Requests {
                     getAvailableDeliveryWindow();
                     setDefaultOrderAttributes();
                     response = postOrdersCompletion();
-                }
-            } else Assert.fail(response.prettyPrint());
+                } else Assert.fail(response.prettyPrint());
+            }
+            if (errors.getPayments() != null) {
+                String notAvailablePaymentMethod = "Заказ не может быть оплачен указанным способом";
+                if (errors.getPayments().contains(notAvailablePaymentMethod)) {
+                    Assert.fail("\n" + notAvailablePaymentMethod + "\n" + currentPaymentTool.get() + "\n");
+                } else Assert.fail(response.prettyPrint());
+            }
         }
-        Order order = response.as(OrdersResponse.class).getOrder();
-        printSuccess("Оформлен заказ: " + order.getNumber() + "\n");
+        if (response.as(OrdersResponse.class).getOrder() != null) {
+            Order order = response.as(OrdersResponse.class).getOrder();
+            if (order.getShipments().get(0).getAlerts().size() > 0) {
+                System.out.println(order.getShipments().get(0).getAlerts().get(0).getFull_message());
+            }
+            printSuccess("Оформлен заказ: " + order.getNumber() + "\n");
+        }
     }
 
     /**
@@ -517,10 +531,12 @@ public class RestHelper extends Requests {
         Store store = response.as(StoreResponse.class).getStore();
 
         Address address = store.getLocation();
-        System.out.println("Получен адрес " + address.getFull_address() + "\n");
+        System.out.println("Получен адрес " + address.getFull_address());
 
         List<List<Zone>> zones = store.getZones();
-        address.setCoordinates(getInnerPoint(zones.get(zones.size() - 1)));
+        Zone zone = getInnerPoint(zones.get(zones.size() - 1));
+        address.setCoordinates(zone);
+        System.out.println("Выбраны координаты: " + zone + "\n");
 
         return address;
     }

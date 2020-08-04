@@ -24,6 +24,8 @@ public class Config {
         boolean multiSessionMode = false;
         boolean fullScreenMode = false;
         boolean doCleanupAfterTestRun = false;
+
+        boolean restIgnoreProperties = true;
     }
 
     public interface TestsConfiguration {

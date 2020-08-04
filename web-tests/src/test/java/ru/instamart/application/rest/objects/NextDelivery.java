@@ -2,6 +2,7 @@ package ru.instamart.application.rest.objects;
 
 public class NextDelivery extends BaseObject {
 
+    private Integer id;
     private Double price;
     private String summary;
     private String starts_at;
@@ -45,4 +46,12 @@ public class NextDelivery extends BaseObject {
     public String getStarts_at() { return starts_at; }
 
     public void setStarts_at(String starts_at) { this.starts_at = starts_at; }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

@@ -7,6 +7,7 @@ public class Errors extends BaseObject {
     private String fullname;
     private String shipments;
     private String base;
+    private String payments;
 
     /**
      * No args constructor for use in serialization
@@ -53,5 +54,13 @@ public class Errors extends BaseObject {
 
     public void setBase(String base) {
         this.base = base;
+    }
+
+    public String getPayments() {
+        return payments;
+    }
+
+    public void setPayments(String payments) {
+        this.payments = payments;
     }
 }

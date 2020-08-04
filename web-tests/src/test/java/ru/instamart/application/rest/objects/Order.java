@@ -20,6 +20,7 @@ public class Order extends BaseObject {
     private Address address;
     private Payment payment;
     private ReplacementPolicy replacement_policy;
+    private String email;
     private List<Shipment> shipments = null;
     private List<Object> promotion_codes = null;
 
@@ -167,4 +168,11 @@ public class Order extends BaseObject {
         this.promotion_codes = promotion_codes;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

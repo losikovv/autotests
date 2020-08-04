@@ -16,6 +16,9 @@ public class Shipment extends BaseObject {
     private List<LineItem> line_items = null;
     private DeliveryWindow delivery_window;
     private Retailer retailer;
+    private String driver_name;
+    private String driver_phone;
+    private String external_partners_service;
 
     /**
      * No args constructor for use in serialization
@@ -120,4 +123,27 @@ public class Shipment extends BaseObject {
         this.retailer = retailer;
     }
 
+    public String getDriver_name() {
+        return driver_name;
+    }
+
+    public void setDriver_name(String driver_name) {
+        this.driver_name = driver_name;
+    }
+
+    public String getDriver_phone() {
+        return driver_phone;
+    }
+
+    public void setDriver_phone(String driver_phone) {
+        this.driver_phone = driver_phone;
+    }
+
+    public String getExternal_partners_service() {
+        return external_partners_service;
+    }
+
+    public void setExternal_partners_service(String external_partners_service) {
+        this.external_partners_service = external_partners_service;
+    }
 }

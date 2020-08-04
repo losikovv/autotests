@@ -13,6 +13,7 @@ public class Product extends BaseObject {
     private Double original_price;
     private Double discount;
     private String human_volume;
+    private String discount_ends_at;
     private Integer items_per_pack;
     private String description;
     private List<Image> images = null;
@@ -142,5 +143,13 @@ public class Product extends BaseObject {
                 .add("human_volume: " + human_volume)
                 .add("items_per_pack: " + items_per_pack)
                 .toString();
+    }
+
+    public String getDiscount_ends_at() {
+        return discount_ends_at;
+    }
+
+    public void setDiscount_ends_at(String discount_ends_at) {
+        this.discount_ends_at = discount_ends_at;
     }
 }
