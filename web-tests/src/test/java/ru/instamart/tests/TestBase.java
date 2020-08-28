@@ -24,11 +24,11 @@ public class TestBase {
     protected static final AppManager kraken
             = new AppManager(System.getProperty("browser", Config.CoreSettings.defaultBrowser));
 
-    @BeforeSuite(alwaysRun = true)
+    @BeforeSuite(groups = {"sbermarket-smoke","testing","metro-smoke"})
     public void start() throws Exception {
         kraken.rise();
     }
-
+    //todo при запуске API тестов не должен стартовать браузер
     @AfterSuite(alwaysRun = true)
     public void cleanup() {
         if(doCleanupAfterTestRun) {
@@ -36,6 +36,14 @@ public class TestBase {
         }
         kraken.stop();
     }
+    //todo сюда нужно вкорячить нормальный обработчик, инстанс браузера должен киляться даже во время дебага
+   /* @AfterTest(alwaysRun = true)
+    public void cleanupTest() {
+        if(doCleanupAfterTestRun) {
+            kraken.cleanup().all();
+        }
+        kraken.stop();
+    }*/
 
     /** Метод-обертка для красивого вывода ошибок зафейленных тестов */
     protected String failMessage(String text) {

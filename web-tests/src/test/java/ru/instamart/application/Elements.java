@@ -300,8 +300,14 @@ public class Elements {
 
             static ElementData loginButton() {
                 return new ElementData(
-                        By.xpath("//header//*[@data-qa='login-button']"),
+                        By.xpath("//*[@id=\"wrap\"]/div[1]/div/header/div/button"),
+                        "кнопка входа в шапке сайта");
+                        /*By.xpath("//header//*[@data-qa='login-button']"),
                             "кнопка входа в шапке сайта");
+
+                         */
+
+
             }
 
             static ElementData favoritesButton() {

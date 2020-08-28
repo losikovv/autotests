@@ -5,6 +5,10 @@
     <groups>
       <run>
         <include name="sbermarket-smoke"/>
+        <include name="testing"/>
+        <include name="rest"/>
+        <include name="rest-testing"/>
+        <include name="rest-zones"/>
         <include name="sbermarket-acceptance"/>
         <include name="sbermarket-regression"/>
         <include name="metro-smoke"/>
@@ -21,6 +25,7 @@
       <class name="ru.instamart.tests.administration.BasicAdministrationTests"/>
       <class name="ru.instamart.tests.checkout.BasicCheckoutTests"/>
       <class name="ru.instamart.tests.site.BasicMetroTests"/>
+      <class name="ru.instamart.tests.site.BasicLentaTests"/>
       <class name="ru.instamart.tests.orders.BasicOrdersTests"/>
       <class name="ru.instamart.tests.site.BasicSbermarketTests"/>
       <class name="ru.instamart.tests.checkout.CheckoutAddressStepTests"/>
@@ -33,8 +38,11 @@
       <class name="ru.instamart.tests.checkout.CheckoutRetailerCardTests"/>
       <class name="ru.instamart.tests.addons.JivositeTests"/>
       <class name="ru.instamart.tests.landings.MassHiringLandingTests"/>
+      <class name="ru.instamart.tests.landings.DriversHiringLandingTests"/>
+      <class name="ru.instamart.tests.landings.SbermarketAppPromoLandingTests"/>
       <class name="ru.instamart.tests.orders.OrdersBonusesTests"/>
       <class name="ru.instamart.tests.orders.OrdersCities"/>
+      <class name="ru.instamart.tests.orders.OrderRepeatTests"/>
       <class name="ru.instamart.tests.orders.OrdersPaymentsTests"/>
       <class name="ru.instamart.tests.orders.OrdersPromocodesTests"/>
       <class name="ru.instamart.tests.orders.OrdersReplacementsTests"/>
@@ -59,6 +67,10 @@
       <class name="ru.instamart.tests.shopping.ShoppingTestsForUnauthorizedUser"/>
       <class name="ru.instamart.tests.TestBase"/>
       <class name="ru.instamart.tests.orders.testOrders"/>
+      <class name="ru.instamart.tests.api.v2.StoreTests"/>
+      <class name="ru.instamart.tests.api.v2.ZoneTests"/>
+      <class name="ru.instamart.tests.api.v2.RegistrationTests"/>
+      <class name="ru.instamart.tests.api.v2.RetailerTests"/>
       <class name="ru.instamart.tests.user.UserAuthorisationTests"/>
       <class name="ru.instamart.tests.user.UserFavoritesTests"/>
       <class name="ru.instamart.tests.user.UserLogoutTests"/>

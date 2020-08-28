@@ -22,6 +22,7 @@ public class PerformHelper extends HelperBase {
     public void click(ElementData element) {
         debugMessage("Клик по: " + element.getDescription());
         try {
+            //driver.findElements(By.tagName("Button")).get(0).getText()
             driver.findElement(element.getLocator()).click();
         }
         catch (NoSuchElementException n) {

@@ -20,7 +20,7 @@ public class ZoneTests extends RestBase {
     @Test(  dataProvider = "zones-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест первых заказов во всех зонах всех магазинов",
-            groups = {"rest"})
+            groups = {"rest","rest-zones"})
     public void firstOrderByZone(Store store, String zoneName, Zone coordinates) {
         System.out.println("Оформляем заказ в " + store);
         System.out.println(zoneName);

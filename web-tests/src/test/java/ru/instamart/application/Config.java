@@ -11,7 +11,7 @@ public class Config {
 
     public interface CoreSettings {
         String defaultBrowser = BrowserType.CHROME;
-        String defaultEnvironment = Environments.sbermarket.yc_staging();
+        String defaultEnvironment = Environments.sbermarket.staging();
 
         int basicTimeout = 2;
         int waitingTimeout = 15;
@@ -19,11 +19,11 @@ public class Config {
         boolean docker = false;
         boolean video = false;
 
-        boolean verbose = false;
+        boolean verbose = true;
         boolean debug = false;
         boolean multiSessionMode = false;
         boolean fullScreenMode = false;
-        boolean doCleanupAfterTestRun = false;
+        boolean doCleanupAfterTestRun = false; // todo разобраться что это
 
         boolean restIgnoreProperties = true;
     }

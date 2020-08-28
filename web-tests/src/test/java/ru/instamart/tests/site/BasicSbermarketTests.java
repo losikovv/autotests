@@ -13,7 +13,7 @@ public class BasicSbermarketTests extends TestBase {
     @Test(
             description = "Тест валидности элементов и ссылок в шапке Сбермарткета",
             priority = 101,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-smoke","testing","sbermarket-acceptance","sbermarket-regression"}
     ) public void successValidateHeaderSbermarket() {
         kraken.get().page("metro");
 
@@ -55,7 +55,7 @@ public class BasicSbermarketTests extends TestBase {
     @Test(
             description = "Тест валидности элементов и ссылок в футере Сбермаркета",
             priority = 102,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-smoke","testing","sbermarket-acceptance","sbermarket-regression"}
     ) public void successValidateFooterSbermarket() {
         kraken.get().page("metro");
 
@@ -119,6 +119,7 @@ public class BasicSbermarketTests extends TestBase {
 
         kraken.perform().click(Elements.Footer.deliveryButton());
 
+        // todo Почему один и тот же метод 2 раза?
         assertPageIsAvailable();
         assertPageIsAvailable();
     }
@@ -127,7 +128,7 @@ public class BasicSbermarketTests extends TestBase {
             dataProviderClass = RestDataProvider.class,
             description = "Тест доступности / недоступности витрин ритейлеров Сбермаркета ",
             priority = 103,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-smoke","testing","sbermarket-acceptance","sbermarket-regression"}
     ) public void successCheckSbermarketRetailers(String slug, boolean available) {
 
         if (available) assertRetailerIsAvailable(slug);
@@ -137,7 +138,7 @@ public class BasicSbermarketTests extends TestBase {
     @Test(
             description = "Тест доступности партнерских лендингов",
             priority = 104,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-smoke","testing","sbermarket-acceptance","sbermarket-regression"}
     ) public void successCheckPartnerLandingsAreAvailable() {
         assertPageIsAvailable(Pages.Landings.mnogoru());
         assertPageIsAvailable(Pages.Landings.aeroflot());
@@ -156,7 +157,7 @@ public class BasicSbermarketTests extends TestBase {
             description = "Тест доступности статических страниц",
             priority = 106,
             groups = {
-                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-smoke","testing","sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successCheckStaticPagesAreAvailabile() {
         assertPageIsAvailable(Pages.Sbermarket.about());

@@ -5,8 +5,8 @@ repositories {
 }
 
 dependencies {
-	compile 'io.rest-assured:rest-assured:4.1.1'
-	compile 'io.rest-assured:json-schema-validator:4.1.1'
+    testCompile 'io.rest-assured:rest-assured:4.1.1'
+    compile 'io.rest-assured:json-schema-validator:4.1.1'
 	compile 'org.testng:testng:6.8.8'
     compile 'org.seleniumhq.selenium:selenium-java:3.8.1'
 	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
@@ -30,6 +30,73 @@ task sberSmoke(type: Test) {
         systemProperty 'env',"${env}"
     }
 }
+
+task restRegress(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'rest'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+}
+
+
+task restTesting(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'rest-testing'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+}
+
+task restZones(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'rest-zones'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+}
+
+
+task Testing(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'testing'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    //todo дублирование кода я не уверен, что эту секцию нужно дублировать в каждой конфигурации, скорее наоборот
+    /*if (project.hasProperty('browser')) {
+        systemProperty 'browser',"${browser}"
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }*/
+}
+
 
 task sberAcceptance(type: Test) {
     useTestNG() {

@@ -16,7 +16,7 @@ public class BasicLentaTests  extends TestBase {
     }
 
     @Test(
-            description = "Тест валидности элементов и ссылок в подвале Lenta",
+            description = "Тест валидности элементов и ссылок в футере Lenta",
             groups = {"lenta-smoke","lenta-acceptance","lenta-regression"},
             priority = 102
     ) public void successValidateLentaTenantFooter() {

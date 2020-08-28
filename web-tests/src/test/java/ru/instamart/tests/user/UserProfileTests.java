@@ -28,7 +28,7 @@ public class UserProfileTests extends TestBase {
             description = "Тест валидации меню профиля Delivery Metro",
             priority = 152,
             groups = {
-                    "metro-smoke","metro-acceptance","metro-regression"
+                    "metro-smoke","metro-acceptance","metro-regression","testing"
             }
     ) public void successValidateMetroTenantProfileMenu() {
         SoftAssert softAssert = new SoftAssert();
@@ -151,7 +151,7 @@ public class UserProfileTests extends TestBase {
             description = "Тест валидации кнопки 'Оплата' в меню профиля",
             priority = 158,
             groups = {
-                    "metro-acceptance","metro-regression",
+                    "metro-acceptance","metro-regression"
             }
     ) public void successValidatePaymentButton() {
         Shop.AccountMenu.open();

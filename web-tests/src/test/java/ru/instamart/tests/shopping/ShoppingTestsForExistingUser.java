@@ -28,7 +28,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
             priority = 661,
             groups = {
                     "sbermarket-acceptance","sbermarket-regression",
-                    "metro-acceptance","metro-regression",
+                    "metro-acceptance","metro-regression"
             }
     ) public void noAccessToCheckoutForAuthorizedUserWithShipAddressAndEmptyCart() {
         kraken.rest().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
@@ -41,7 +41,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
             priority = 662,
             groups = {
                     "sbermarket-acceptance","sbermarket-regression",
-                    "metro-acceptance","metro-regression",
+                    "metro-acceptance","metro-regression"
             }
     ) public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
 
@@ -69,7 +69,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
             priority = 663,
             groups = {
                     "sbermarket-acceptance","sbermarket-regression",
-                    "metro-acceptance","metro-regression",
+                    "metro-acceptance","metro-regression"
             }
     ) public void successCollectItemsForMinOrder() {
         SoftAssert softAssert = new SoftAssert();
@@ -96,7 +96,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
             priority = 664,
             groups = {
                     "sbermarket-acceptance","sbermarket-regression",
-                    "metro-acceptance","metro-regression",
+                    "metro-acceptance","metro-regression"
             }
     ) public void successMergeShipAddressAndCartAfterAuthorisation() {
         SoftAssert softAssert = new SoftAssert();

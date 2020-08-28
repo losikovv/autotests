@@ -27,7 +27,7 @@ public class OrderRepeatTests extends TestBase {
             groups = {
                     "sbermarket-regression", "sbermarket-acceptance",
                     "metro-regression", "metro-acceptance",
-                    "lenta-regression", "lenta-acceptance",}
+                    "lenta-regression", "lenta-acceptance"}
     )
     public void successRepeatLastOrderFromOrderHistory() {
         kraken.perform().repeatLastOrder();
@@ -43,7 +43,7 @@ public class OrderRepeatTests extends TestBase {
             groups = {
                     "sbermarket-regression", "sbermarket-acceptance",
                     "metro-regression", "metro-acceptance",
-                    "lenta-regression", "lenta-acceptance",}
+                    "lenta-regression", "lenta-acceptance"}
     )
     public void successRepeatOrderFromOrderDetails() {
         kraken.get().userShipmentsPage();
@@ -61,7 +61,7 @@ public class OrderRepeatTests extends TestBase {
             groups = {
                     "sbermarket-regression", "sbermarket-acceptance",
                     "metro-regression", "metro-acceptance",
-                    "lenta-regression", "lenta-acceptance",}
+                    "lenta-regression", "lenta-acceptance"}
     )
     public void noRepeatOrderAfterCancel() {
         kraken.get().userShipmentsPage();
@@ -81,7 +81,7 @@ public class OrderRepeatTests extends TestBase {
             groups = {
                     "sbermarket-regression", "sbermarket-acceptance",
                     "metro-regression", "metro-acceptance",
-                    "lenta-regression", "lenta-acceptance",}
+                    "lenta-regression", "lenta-acceptance"}
     )
     public void noRepeatOrderAfterModalClose() {
         kraken.get().userShipmentsPage();

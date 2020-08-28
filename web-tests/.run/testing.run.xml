@@ -1,11 +1,12 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="sbermarket-regression" type="TestNG">
+  <configuration default="false" name="testing" type="TestNG">
+    <output_file path="$PROJECT_DIR$/../Logs" is_save="true" />
     <useClassPathOnly />
     <option name="SUITE_NAME" value="" />
     <option name="PACKAGE_NAME" value="" />
     <option name="MAIN_CLASS_NAME" value="" />
     <option name="METHOD_NAME" value="" />
-    <option name="GROUP_NAME" value="sbermarket-regression" />
+    <option name="GROUP_NAME" value="testing" />
     <option name="TEST_OBJECT" value="GROUP" />
     <option name="PARAMETERS" value="" />
     <option name="OUTPUT_DIRECTORY" value="" />
