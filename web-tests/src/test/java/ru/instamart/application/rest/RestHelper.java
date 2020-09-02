@@ -36,6 +36,7 @@ public class RestHelper extends Requests {
     private final ThreadLocal<Integer> minSum = new ThreadLocal<>();
     private final ThreadLocal<Boolean> minSumNotReached = new ThreadLocal<>();
     private final ThreadLocal<Boolean> productWeightNotDefined = new ThreadLocal<>();
+    private final ThreadLocal<Boolean> orderCompleted = new ThreadLocal<>();
 
     public RestHelper(EnvironmentData environment) {
         fullBaseUrl = environment.getBasicUrlWithHttpAuth();
@@ -115,18 +116,18 @@ public class RestHelper extends Requests {
     /**
      * Зеленый текст
      */
-    static void printSuccess(Object string) {
+    static void printSuccess(String string) {
         System.out.println(greenText(string));
     }
 
-    private static String greenText(Object string) {
+    private static String greenText(String string) {
         return "\u001b[32m" + string.toString() + "\u001B[0m";
     }
 
     /**
      * Красный текст
      */
-    static void printError(Object string) {
+    static void printError(String string) {
         System.err.println(string);
     }
 
@@ -172,7 +173,7 @@ public class RestHelper extends Requests {
     }
 
     /**
-     * Изменение/применение параматров адреса из объекта адреса с указанием имени и фамилии юзера
+     * Изменение/применение параметров адреса из объекта адреса с указанием имени и фамилии юзера
      */
     private void setAddressAttributes(UserData user, Address address) {
         String[] fullName = new String[0];
@@ -274,7 +275,7 @@ public class RestHelper extends Requests {
         Response response = postLineItems(productId, quantity);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
 
-        printSuccess(lineItem);
+        printSuccess(lineItem.toString());
     }
 
     /**
@@ -429,6 +430,7 @@ public class RestHelper extends Requests {
      * Завершаем оформление заказа
      */
     private void completeOrder() {
+        orderCompleted.set(false);
         Response response = postOrdersCompletion();
         if (response.getStatusCode() == 422) {
             Errors errors = response.as(ErrorResponse.class).getErrors();
@@ -446,7 +448,9 @@ public class RestHelper extends Requests {
             if (errors.getPayments() != null) {
                 String notAvailablePaymentMethod = "Заказ не может быть оплачен указанным способом";
                 if (errors.getPayments().contains(notAvailablePaymentMethod)) {
-                    Assert.fail("\n" + notAvailablePaymentMethod + "\n" + currentPaymentTool.get() + "\n");
+                    printError("\n" + notAvailablePaymentMethod + "\n" + currentPaymentTool.get() + "\n");
+                    //ToDo помечать тест желтым, если заказ не может быть оплачен указанным способом
+                    return;
                 } else Assert.fail(response.prettyPrint());
             }
         }
@@ -456,6 +460,7 @@ public class RestHelper extends Requests {
                 System.out.println(order.getShipments().get(0).getAlerts().get(0).getFull_message());
             }
             printSuccess("Оформлен заказ: " + order.getNumber() + "\n");
+            orderCompleted.set(true);
         }
     }
 
@@ -826,6 +831,6 @@ public class RestHelper extends Requests {
      * Отменить последний заказ (с которым взаимодействовали в этой сессии через REST API)
      */
     public void cancelCurrentOrder() {
-        if (currentOrderNumber != null) cancelOrder(currentOrderNumber.get());
+        if (currentOrderNumber != null && orderCompleted.get()) cancelOrder(currentOrderNumber.get());
     }
 }

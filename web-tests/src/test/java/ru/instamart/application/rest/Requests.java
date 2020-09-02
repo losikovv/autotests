@@ -1,8 +1,11 @@
 package ru.instamart.application.rest;
 
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import ru.instamart.application.rest.objects.Address;
 
+import javax.net.ssl.SSLHandshakeException;
+import java.net.SocketException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +20,36 @@ public class Requests {
     ThreadLocal<String> currentShipmentNumber = new ThreadLocal<>();
 
     /**
+     * Обходим тормоза интернета
+     */
+    private static RequestSpecification givenExceptions()
+            throws SSLHandshakeException, SocketException, IllegalStateException {
+        return given();
+    }
+
+    /**
+     * Обходим тормоза интернета
+     */
+    private static RequestSpecification givenCatch() {
+        for (int i = 0; i < 10; i++) {
+            try {
+                try {
+                    try {
+                        return givenExceptions();
+                    } catch (SocketException socketException) {
+                        System.out.println(socketException);
+                    }
+                } catch (SSLHandshakeException sslHandshakeException) {
+                    System.out.println(sslHandshakeException);
+                }
+            } catch (IllegalStateException illegalStateException) {
+                System.out.println(illegalStateException);
+            }
+        }
+        return given();
+    }
+
+    /**
      * Регистрация
      */
     public static Response postUsers(String email, String firstName, String lastName, String password) {
@@ -28,7 +61,7 @@ public class Requests {
 
         System.out.println();
 
-        return given()
+        return givenCatch()
                 .log()
                 .params()
                 .formParams(data)
@@ -39,7 +72,7 @@ public class Requests {
      * Авторизация
      */
     public Response postSessions(String email, String password) {
-        return given()
+        return givenCatch()
                 .auth()
                 .preemptive()
                 .basic(email, password)
@@ -50,7 +83,7 @@ public class Requests {
      * Создание заказа (если еще не создан)
      */
     public Response postOrder() {
-        return given()
+        return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
                 .post(EndPoints.orders);
@@ -60,7 +93,7 @@ public class Requests {
      * Удаление всех шипментов у заказа
      */
     public Response deleteShipments() {
-        return given()
+        return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
                 .delete(EndPoints.Orders.shipments, currentOrderNumber.get());
@@ -86,7 +119,7 @@ public class Requests {
         if (address.getLast_name() != null) data.put("ship_address[last_name]", address.getLast_name());
         if (address.getBlock() != null) data.put("ship_address[block]", address.getBlock());
 
-        return given()
+        return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
                 .log()
@@ -99,28 +132,28 @@ public class Requests {
      * Получение продуктов в выбранном магазине
      */
     static Response getDepartments(int sid, int numberOfProductsFromEachDepartment) {
-        return given().get(EndPoints.departments, sid, numberOfProductsFromEachDepartment);
+        return givenCatch().get(EndPoints.departments, sid, numberOfProductsFromEachDepartment);
     }
 
     /**
      * Получение таксонов в выбранном магазине
      */
     static Response getTaxons(int sid) {
-        return given().get(EndPoints.Taxons.sid, sid);
+        return givenCatch().get(EndPoints.Taxons.sid, sid);
     }
 
     /**
      * Получение конкретного таксона в выбранном магазине
      */
     static Response getTaxons(int taxonId, int sid) {
-        return given().get(EndPoints.Taxons.id, taxonId, sid);
+        return givenCatch().get(EndPoints.Taxons.id, taxonId, sid);
     }
 
     /**
      * Получить инфо о продукте
      */
     public static Response getProducts(long productId) {
-        return given().get(EndPoints.Products.id, productId);
+        return givenCatch().get(EndPoints.Products.id, productId);
     }
 
     /**
@@ -132,7 +165,7 @@ public class Requests {
         data.put("line_item[product_id]", productId);
         data.put("line_item[quantity]", quantity);
 
-        return given()
+        return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
                 .log()
@@ -145,7 +178,7 @@ public class Requests {
      * Получить информацию о текущем заказе
      */
     public Response getOrdersCurrent() {
-        return given()
+        return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
                 .get(EndPoints.Orders.current);
@@ -155,7 +188,7 @@ public class Requests {
      * Получаем доступные слоты
      */
     public Response getShippingRates() {
-        return given()
+        return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
                 .get(EndPoints.Shipments.shipping_rates, currentShipmentNumber.get());
@@ -165,7 +198,7 @@ public class Requests {
      * Получаем доступные способы доставки
      */
     public Response getShippingMethod(int sid) {
-        return given().get(EndPoints.shipping_methods, sid);
+        return givenCatch().get(EndPoints.shipping_methods, sid);
     }
 
     /**
@@ -183,7 +216,7 @@ public class Requests {
         data.put("order[shipments_attributes][][delivery_window_id]", deliveryWindowId);
         data.put("order[shipments_attributes][][shipping_method_id]", shipmentMethodId);
 
-        return given()
+        return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
                 .log()
@@ -196,42 +229,42 @@ public class Requests {
      * Получаем список всех доступных ритейлеров
      */
     static Response getRetailers() {
-        return given().get(EndPoints.retailers);
+        return givenCatch().get(EndPoints.retailers);
     }
 
     /**
      * Получаем список всех доступных ритейлеров (api v1)
      */
     static Response getRetailersV1() {
-        return given().get(EndPoints.retailersV1);
+        return givenCatch().get(EndPoints.retailersV1);
     }
 
     /**
      * Получаем список всех доступных магазинов
      */
     static Response getStores() {
-        return given().get(EndPoints.stores);
+        return givenCatch().get(EndPoints.stores);
     }
 
     /**
      * Получаем список доступных магазинов по координатам
      */
     Response getStores(double lat, double lon) {
-        return given().get(EndPoints.Stores.coordinates, lat, lon);
+        return givenCatch().get(EndPoints.Stores.coordinates, lat, lon);
     }
 
     /**
      * Получаем данные о конкретном магазине
      */
     Response getStores(int sid) {
-        return given().get(EndPoints.Stores.sid, sid);
+        return givenCatch().get(EndPoints.Stores.sid, sid);
     }
 
     /**
      * Получаем список способов оплаты для юзера
      */
     Response getPaymentTools() {
-        return given()
+        return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
                 .header("Client-Id",
@@ -245,7 +278,7 @@ public class Requests {
      * Завершаем оформление заказа
      */
     Response postOrdersCompletion() {
-        return given()
+        return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
                 .post(EndPoints.Orders.completion, currentOrderNumber.get());
@@ -255,7 +288,7 @@ public class Requests {
      * Отменяем заказ по номеру
      */
     Response postOrdersCancellations(String number) {
-        return given()
+        return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
                 .post(EndPoints.Orders.cancellations, number);
