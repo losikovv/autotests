@@ -23,10 +23,11 @@ public class UserRegistrationTests extends TestBase {
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-acceptance","testing","sbermarket-regression"
             },
             priority = 201
     )
+
     public void noRegWithEmptyRequisites() {
         SoftAssert softAssert = new SoftAssert();
         kraken.get().page("metro");

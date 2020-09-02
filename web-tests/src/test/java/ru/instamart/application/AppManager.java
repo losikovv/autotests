@@ -1,7 +1,9 @@
 package ru.instamart.application;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
@@ -18,24 +20,26 @@ import ru.instamart.application.platform.modules.User;
 import ru.instamart.application.rest.RestHelper;
 import ru.instamart.testdata.generate;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import static org.testng.Assert.fail;
 import static ru.instamart.application.Config.CoreSettings.*;
+import static ru.instamart.application.Config.TestVariables.*;
 import static ru.instamart.application.Config.TestVariables.TestParams.testMark;
 
 public class AppManager {
 
     public final static String testrunId = generate.testRunId();
 
-    protected WebDriver driver;
+    public WebDriver driver;
     static public EnvironmentData environment;
     private String browser;
     public static SessionData session;
@@ -130,21 +134,37 @@ public class AppManager {
         } else {
             switch (browser) {
                 case BrowserType.FIREFOX:
+                    if(doCleanupBeforeTestRun){
+                        cleanProcessByName(BrowserType.FIREFOX);
+                    }
                     //System.setProperty("webdriver.gecko.driver", "/Users/tinwelen/Documents/GitHub/automag/web-tests/geckodriver");
                     driver = new FirefoxDriver();
                     break;
                 case BrowserType.CHROME:
+                    if(doCleanupBeforeTestRun){
+                        cleanProcessByName(BrowserType.CHROME);
+                    }
+                    ChromeDriverService chromeDriverService = ChromeDriverService.createDefaultService();
+                    int port = chromeDriverService.getUrl().getPort();
                     driver = new ChromeDriver();
+                    System.out.println(String.format("\nChromedriver запущен на порту: %1$s",port));
                     break;
                 case BrowserType.SAFARI:
+                    if(doCleanupBeforeTestRun){
+                        cleanProcessByName(BrowserType.SAFARI);
+                    }
                     driver = new SafariDriver();
                     break;
                 case BrowserType.IE:
+                    if(doCleanupBeforeTestRun){
+                        cleanProcessByName(BrowserType.IE);
+                    }
                     driver = new InternetExplorerDriver(); // there is no IE driver for mac yet :(
                     break;
             }
         }
     }
+
 
     private void initHelpers() {
         browseHelper = new BrowseHelper(driver, environment, this);
@@ -180,6 +200,9 @@ public class AppManager {
             line = in.readLine();
         }
         in.close();
+        Config.isKrakenRevealen = true; // это вот как раз то самое место где она в true ставиться
+        // на данный момент решил вопрос через группы при старте тест сьютов
+
 
         System.out.println("\nENVIRONMENT: " + environment.getName() + " ( " + environment.getBasicUrl() + " )");
 
@@ -201,6 +224,82 @@ public class AppManager {
             fail(verificationErrorString);
         }
     }
+
+    /**
+     * Этот метод чистииит окружение после тестов и перед ними
+     * удаляет процессы с запущенными браузерами, если используется докер, то скипается
+     * Удаляет только инстансы созданные селениумом, нормальный браузер не убивается
+     * Метод отлажен на MACOS и 100% не будет работать на линухе, или винде
+     * @param name имя браузера
+     */
+     public void cleanProcessByName(String name){
+         if(name.equals("chrome")) {
+             String cdriver = "chromedriver";
+             String browserInst = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+             Long amount = ProcessHandle.allProcesses()
+                     .filter(p -> p.info().commandLine().map(c -> c.contains(cdriver))
+                             .orElse(false)).count();
+             Long amountBro = ProcessHandle.allProcesses()
+                     .filter(p -> p.info().commandLine().map(c -> c.contains(browserInst))
+                             .orElse(false)).count();
+             //Если есть запущенные chromedriver, то убиваем их
+             if(amount>0){
+                 processKiller(cdriver);
+             }
+             //если есть запущенные Инстансы Селениума, то и их киляем
+             if(amountBro>0){
+                 processKiller("test-type=webdriver");
+             }
+         }
+     }
+
+     private void processKiller(String name){
+         try {
+             String[] COMPOSED_COMMAND = {
+                     "/bin/bash",
+                     "-c",
+                     "/usr/bin/pgrep -f \""+name+"\" | xargs kill",};
+            // Process p = Runtime.getRuntime().exec(COMPOSED_COMMAND);
+             Runtime.getRuntime().exec(COMPOSED_COMMAND);
+             System.out.println(String.format("\nПроцесс с PID: %1$s завершен принудительно",name));
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+     }
+    /**
+     * Метод удаляет процесс по PID пока не нужно, но может пригодится
+     */
+     private void processKillerByPID(String pid){
+         String command = "kill -9 "+ pid;
+         try {
+             Runtime.getRuntime().exec(command);
+             System.out.println(String.format("\nПроцесс с PID: %1$s завершен принудительно",pid));
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+     }
+
+    /**
+     * Метод поиска PID у процесса
+     * @param args массив объектов ProcessHandle
+     * @param browserName Имя объекта для поиска
+     * @return возвращает PID
+     */
+     private Long pidFinder(Object [] args, String browserName){
+         Long pid;
+         for (String arg:(String[]) args[0]){
+             if(arg.contains("webdriver")){
+                 pid=ProcessHandle
+                         .allProcesses()
+                         .filter(p -> p.info().commandLine().map(c -> c.contains(browserName))
+                                 .orElse(false)).findFirst().get().pid();
+                 System.out.println(String.format("\nНайден старый инстанс браузера запущенный Selenium с PID: %1$s",pid));
+                 return pid;
+             }
+         }
+         return null;
+     }
+
 
     public BrowseHelper get() { return browseHelper; }
     public PerformHelper perform() { return performHelper; }

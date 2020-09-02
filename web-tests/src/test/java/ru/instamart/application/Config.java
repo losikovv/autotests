@@ -8,6 +8,9 @@ import ru.instamart.application.lib.ReplacementPolicies;
 import ru.instamart.application.models.*;
 
 public class Config {
+    public static boolean isKrakenRevealen = false; // Переменная для обозначения запущен кракен или нет,
+    // может понадобится для раздельного запуска API и UI пусть полежит тут, если нормально настроим
+    // то удалим эту штуку
 
     public interface CoreSettings {
         String defaultBrowser = BrowserType.CHROME;
@@ -23,7 +26,9 @@ public class Config {
         boolean debug = false;
         boolean multiSessionMode = false;
         boolean fullScreenMode = false;
-        boolean doCleanupAfterTestRun = false; // todo разобраться что это
+        boolean doCleanupAfterTestRun = true;
+        boolean doCleanupBeforeTestRun = true; //Все существующие инстансы браузера связанные с selenium будут удалены, рабочий браузер не убивается
+
 
         boolean restIgnoreProperties = true;
     }
@@ -69,6 +74,8 @@ public class Config {
             boolean enablePage404test = true;
         }
     }
+
+
 
     public interface TestVariables {
 
