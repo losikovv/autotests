@@ -38,6 +38,9 @@ final class EndPoints {
         static final String number = "v2/orders/{number}";
         static final String completion = "v2/orders/{number}/completion";
         static final String cancellations = "v2/orders/{number}/cancellations?reason=test";
+        static final String statusActive = "v2/orders?status=active";
+        static final String statusComplete = "v2/orders?status=complete";
+        static final String statusCanceled = "v2/orders?status=canceled";
     }
 
     static final class Shipments {

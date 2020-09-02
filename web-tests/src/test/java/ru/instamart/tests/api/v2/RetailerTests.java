@@ -20,8 +20,9 @@ public class RetailerTests extends RestBase {
     @Test(  dataProvider = "retailers",
             dataProviderClass = RestDataProvider.class,
             description = "Тест заказов у каждого ретейлера",
-            groups = {})
+            groups = {"create-order"})
     public void orderByRetailer(String slug) {
+        //ToDo вынести получение stores в data provider для ускорения теста
         List<Store> stores = RestHelper.availableStores();
 
         int i = 0;

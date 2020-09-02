@@ -121,7 +121,7 @@ public class RestHelper extends Requests {
     }
 
     private static String greenText(String string) {
-        return "\u001b[32m" + string.toString() + "\u001B[0m";
+        return "\u001b[32m" + string + "\u001B[0m";
     }
 
     /**
@@ -168,7 +168,7 @@ public class RestHelper extends Requests {
     private void deleteItemsFromCart() {
         Response response = deleteShipments();
 
-        Order order = response.as(OrdersResponse.class).getOrder();
+        Order order = response.as(OrderResponse.class).getOrder();
         System.out.println("Удалены все доставки у заказа: " + order.getNumber() + "\n");
     }
 
@@ -273,6 +273,7 @@ public class RestHelper extends Requests {
      */
     private void addItemToCart(long productId, int quantity) {
         Response response = postLineItems(productId, quantity);
+        response.then().statusCode(200);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
 
         printSuccess(lineItem.toString());
@@ -284,7 +285,7 @@ public class RestHelper extends Requests {
      */
     private void getMinSum() {
         Shipment shipment = getOrdersCurrent()
-                .as(OrdersResponse.class)
+                .as(OrderResponse.class)
                 .getOrder()
                 .getShipments()
                 .get(0);
@@ -417,7 +418,7 @@ public class RestHelper extends Requests {
                 response.statusCode(),
                 200,
                 response.prettyPrint());
-        Order order = response.as(OrdersResponse.class).getOrder();
+        Order order = response.as(OrderResponse.class).getOrder();
         printSuccess("Применены атрибуты для заказа: " + order.getNumber());
         System.out.println("        full_address: " + order.getAddress().getFull_address());
         System.out.println("  replacement_policy: " + order.getReplacement_policy().getDescription());
@@ -454,8 +455,8 @@ public class RestHelper extends Requests {
                 } else Assert.fail(response.prettyPrint());
             }
         }
-        if (response.as(OrdersResponse.class).getOrder() != null) {
-            Order order = response.as(OrdersResponse.class).getOrder();
+        if (response.as(OrderResponse.class).getOrder() != null) {
+            Order order = response.as(OrderResponse.class).getOrder();
             if (order.getShipments().get(0).getAlerts().size() > 0) {
                 System.out.println(order.getShipments().get(0).getAlerts().get(0).getFull_message());
             }
@@ -657,10 +658,28 @@ public class RestHelper extends Requests {
      */
     private void getCurrentOrderNumber() {
         currentOrderNumber.set(postOrder()
-                .as(OrdersResponse.class)
+                .as(OrderResponse.class)
                 .getOrder()
                 .getNumber());
         System.out.println("Номер текущего заказа: " + currentOrderNumber.get() + "\n");
+    }
+
+    /**
+     * Получаем список активных (принят, собирается, в пути) заказов
+     */
+    private List<Order> activeOrders() {
+        List<Order> orders = getActiveOrders().as(OrdersResponse.class).getOrders();
+
+        if (orders.size() < 1) {
+            System.out.println("Нет активных заказов");
+        } else {
+            System.out.println("Список активных заказов:");
+            for (Order order : orders) {
+                System.out.println(order.getNumber());
+            }
+            System.out.println();
+        }
+        return orders;
     }
 
     /*
@@ -832,5 +851,15 @@ public class RestHelper extends Requests {
      */
     public void cancelCurrentOrder() {
         if (currentOrderNumber != null && orderCompleted.get()) cancelOrder(currentOrderNumber.get());
+    }
+
+    /**
+     * Отменить активные (принят, собирается, в пути) заказы
+     */
+    public void cancelActiveOrders() {
+        List<Order> orders = activeOrders();
+        for (Order order : orders) {
+            cancelOrder(order.getNumber());
+        }
     }
 }

@@ -72,7 +72,7 @@ public class StoreTests extends RestBase {
     @Test(  dataProvider = "stores",
             dataProviderClass = RestDataProvider.class,
             description = "Тест заказов во всех магазинах",
-            groups = {})
+            groups = {"create-order"})
     public void orderByStore(Store store) {
         System.out.println("Оформляем заказ в " + store + "\n");
 
@@ -83,7 +83,7 @@ public class StoreTests extends RestBase {
     @Test(  dataProvider = "stores-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест первых заказов во всех магазинах",
-            groups = {})
+            groups = {"create-order"})
     public void firstOrderByStore(Store store) {
         System.out.println("Оформляем первый заказ в " + store);
 

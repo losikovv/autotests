@@ -80,6 +80,16 @@ public class Requests {
     }
 
     /**
+     * Получаем активные (принят, собирается, в пути) заказы
+     */
+    public Response getActiveOrders() {
+        return givenCatch()
+                .header("Authorization",
+                        "Token token=" + token.get())
+                .get(EndPoints.Orders.statusActive);
+    }
+
+    /**
      * Создание заказа (если еще не создан)
      */
     public Response postOrder() {
