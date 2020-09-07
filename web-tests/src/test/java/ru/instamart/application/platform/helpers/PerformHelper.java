@@ -12,6 +12,8 @@ import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.models.EnvironmentData;
 import ru.instamart.application.platform.modules.User;
 
+import java.util.List;
+
 public class PerformHelper extends HelperBase {
 
     public PerformHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
@@ -61,11 +63,25 @@ public class PerformHelper extends HelperBase {
             driver.findElement(locator).click();
         }
         catch (NoSuchElementException n) {
-            message("Невозможно нажать на элемент <" + locator
+            throw new AssertionError("Невозможно нажать на элемент <" + locator
                     + ">\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
         }
         catch (ElementNotVisibleException v) {
-            message("Невозможно нажать на элемент <" + locator
+            throw new AssertionError("Невозможно нажать на элемент <" + locator
+                    + ">\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
+        }
+    }
+
+    public void click(WebElement element){
+        try {
+            element.click();
+        }
+        catch (NoSuchElementException n) {
+            message("Невозможно нажать на элемент <" +
+                     ">\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
+        }
+        catch (ElementNotVisibleException v) {
+            message("Невозможно нажать на элемент <"
                     + ">\nЭлемент невидим на " + kraken.grab().currentURL() + "\n");
         }
     }
@@ -204,5 +220,19 @@ public class PerformHelper extends HelperBase {
                     "Не отменился заказ за допустимое время ожидания\n"
             );
             message("✓ Заказ отменен\n");
+    }
+
+    /** Поиск чаилда с помощью тега и текста*/
+    public WebElement findChildElementByTagAndText(WebElement parent, By tag, String text){
+        List<WebElement> elements = parent.findElements(tag);
+        for(WebElement element:elements){
+            if(element.getText().equals(text)){
+                verboseMessage(("> Элемент найден по тегу <" + tag
+                        + "> и тексту: "+text));
+                return element;
+            }
+        }
+        throw new AssertionError("Невозможно найти элемент по тегу <" + tag
+                + "> и тексту: "+text+"\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
     }
 }

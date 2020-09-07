@@ -26,6 +26,7 @@ public class ZoneTests extends RestBase {
         System.out.println(zoneName);
         System.out.println(coordinates + "\n");
 
+        //todo разобраться с рандомными заказами
         UserData user = new UserData(
                 UUID.randomUUID() + "@example.com",
                 "instamart",

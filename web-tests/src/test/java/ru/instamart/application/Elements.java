@@ -300,8 +300,13 @@ public class Elements {
 
             static ElementData loginButton() {
                 return new ElementData(
-                        By.xpath("//*[@id=\"wrap\"]/div[1]/div/header/div/button"),
+                        //todo нужно будет проверить в каких элементах может сломаться
+                        /*By.xpath("//*[@id=\"wrap\"]/div[1]/div/header/div/button"),
+
+                         */
+                        By.linkText("Войти"),
                         "кнопка входа в шапке сайта");
+
                         /*By.xpath("//header//*[@data-qa='login-button']"),
                             "кнопка входа в шапке сайта");
 
@@ -493,8 +498,14 @@ public class Elements {
         interface AuthModal {
 
         static ElementData popup() {
-            return new ElementData(By.xpath("//*[@class='auth-modal']"),
+            return new ElementData(By.xpath("//*[@class='wrapper__root__2y0mH']"),
                     "поп-ап модалки авторизации");
+            //By.xpath("//*[@class='auth-modal']")  старое значение
+        }
+
+        static ElementData phoneNumber(){
+            return new ElementData(By.xpath("//*[@class='input__container__2rdvv']//input[@id='tel-login-form-input']"),
+                    "поле для ввода номера телефона");
         }
 
         static ElementData closeButton() {
@@ -584,6 +595,11 @@ public class Elements {
             return new ElementData(
                     By.xpath("//button[contains(@class,'sberbank_button')]"),
                         "кнопка авторизации через Sber ID");
+        }
+
+        static ElementData continueButton(){
+            return new ElementData(By.xpath("//*[@class='auth__viewContainer__15pPy']//button[@type='submit']"),
+                    "кнопка Продолжить на модалке авторизации");
         }
     }
 

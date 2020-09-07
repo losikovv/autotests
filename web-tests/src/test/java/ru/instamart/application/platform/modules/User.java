@@ -113,17 +113,38 @@ public class User extends Base {
          * Зарегистрировать нового юзера с реквизитами из переданного объекта UserData
          */
         public static void registration(UserData userData) {
-            registration(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
+            registration(userData.getName(), userData.getLogin(), userData.getPassword(),
+                    userData.getPassword());
         }
 
         /**
          * Зарегистрировать нового юзера с указанными реквизитами
          */
-        public static void registration(String name, String email, String password, String passwordConfirmation) {
+        //todo удалить этот метод после того как закончу с актуализацией всех тестов регистрации
+        public static void registration(String name, String email, String password,
+                                        String passwordConfirmation) {
             //todo попробовать обернуть в проверку авторизованности и делать логаут при необходимости
             message("Регистрируемся (" + email + " / " + password + ")");
             Shop.AuthModal.open();
             regSequence(name, email, password, passwordConfirmation);
+            // TODO переделать на fluent-ожидание
+            kraken.await().implicitly(1); // Ожидание раздизебливания кнопки подтверждения регистрации
+            Shop.AuthModal.submit();
+        }
+
+        /**
+         * Зарегистрировать нового юзера с указанными реквизитами с проверкой на тип модалки по телефону или по почте
+         */
+        public static void registration(String name, String email,
+                                        String password, String passwordConfirmation,
+                                        String phone,String sms) {
+            //todo попробовать обернуть в проверку авторизованности и делать логаут при необходимости
+            message("Регистрируемся (" + email + " / " + password + ")");
+            Shop.AuthModal.open();
+            if(Shop.AuthModal.checkAutorisationModalDialog().equals("модалка с телефоном")){
+                regSequenceMobile(phone, sms);
+                String a ="";
+            }else regSequence(name, email, password, passwordConfirmation);
             // TODO переделать на fluent-ожидание
             kraken.await().implicitly(1); // Ожидание раздизебливания кнопки подтверждения регистрации
             Shop.AuthModal.submit();
@@ -150,6 +171,11 @@ public class User extends Base {
         public static void regSequence(String name, String email, String password, String passwordConfirmation) {
             Shop.AuthModal.switchToRegistrationTab();
             Shop.AuthModal.fillRegistrationForm(name, email, password, passwordConfirmation, true);
+        }
+
+        public static void regSequenceMobile(String phone, String sms){
+            //todo доделать регистрацию через мобилку
+            Shop.AuthModal.fillRegistrationFormByPhone(phone, sms);
         }
 
 

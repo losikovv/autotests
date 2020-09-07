@@ -27,12 +27,13 @@ public class UserRegistrationTests extends TestBase {
             },
             priority = 201
     )
-
     public void noRegWithEmptyRequisites() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
+        kraken.get().page("metro"); // Переход на страничку Метро
 
         User.Do.registration(
+                null,
+                null,
                 null,
                 null,
                 null,

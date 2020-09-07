@@ -1,6 +1,8 @@
 package ru.instamart.application.platform.modules;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.lib.Addresses;
@@ -10,6 +12,9 @@ import ru.instamart.application.models.ElementData;
 import ru.instamart.application.models.WidgetData;
 import ru.instamart.application.Config;
 import ru.instamart.application.models.EnvironmentData;
+import ru.instamart.application.platform.helpers.PerformHelper;
+
+import java.util.List;
 
 public class Shop extends Base {
 
@@ -49,7 +54,19 @@ public class Shop extends Base {
 
         public static void switchToRegistrationTab() {
             verboseMessage("> переключаемся на вкладку регистрации");
-            kraken.perform().click(Elements.Modals.AuthModal.registrationTab());
+            WebElement parent = driver.findElement(Elements.Modals.AuthModal.popup().getLocator());
+            WebElement element = kraken.perform().findChildElementByTagAndText(parent,By.tagName("button"),"Регистрация");
+            kraken.perform().click(element);
+        }
+
+        public static String checkAutorisationModalDialog(){
+            verboseMessage("> проверяем тип модалки авторизации");
+            List<WebElement> phone =driver.findElements(Elements.Modals.AuthModal.phoneNumber().getLocator());
+            if(phone.size()>0){
+                return "модалка с телефоном";
+            }else {
+                return "модалка с почтой";
+            }
         }
 
         public static void proceedToPasswordRecovery() {
@@ -72,6 +89,12 @@ public class Shop extends Base {
             if (!agreementConfirmation) {
                 kraken.perform().click(Elements.Modals.AuthModal.agreementCheckbox());
             }
+        }
+
+        public static void fillRegistrationFormByPhone(String phone, String smsCode){
+            verboseMessage("> заполняем поля формы регистрации по телефону");
+            kraken.perform().fillField(Elements.Modals.AuthModal.phoneNumber(),phone);
+            kraken.perform().click(Elements.Modals.AuthModal.continueButton());
         }
 
         public static void submit() {

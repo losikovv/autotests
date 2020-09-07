@@ -87,6 +87,7 @@ public class StoreTests extends RestBase {
     public void firstOrderByStore(Store store) {
         System.out.println("Оформляем первый заказ в " + store);
 
+        //todo разобраться с рандомными заказами
         UserData user = new UserData(
                 UUID.randomUUID() + "@example.com",
                 "instamart",
