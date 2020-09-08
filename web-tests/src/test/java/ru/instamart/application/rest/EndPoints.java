@@ -2,8 +2,9 @@ package ru.instamart.application.rest;
 
 final class EndPoints {
     static final String retailers = "v2/retailers";
-    static final String retailersV1 = "retailers";
+    static final String retailers_v1 = "retailers";
     static final String stores = "v2/stores";
+    static final String products = "v2/products";
     static final String users = "v2/users";
     static final String sessions = "v2/sessions";
     static final String orders = "v2/orders";
@@ -12,6 +13,7 @@ final class EndPoints {
     static final String payment_tools = "v2/payment_tools";
     static final String payment_tool_types = "v2/payment_tool_types";
     static final String shipping_methods = "v2/shipping_methods?sid={sid}";
+    static final String search_suggestions = "v2/searches/suggestions?sid={sid}&q={q}";
 
     static final class Stores {
         static final String coordinates = "v2/stores?lat={lat}&lon={lon}";
@@ -25,6 +27,7 @@ final class EndPoints {
 
     static final class Products {
         static final String id = "v2/products/{id}";
+        static final String sid = "v2/products?sid={sid}&q={q}";
     }
 
     static final class Users {
@@ -38,9 +41,9 @@ final class EndPoints {
         static final String number = "v2/orders/{number}";
         static final String completion = "v2/orders/{number}/completion";
         static final String cancellations = "v2/orders/{number}/cancellations?reason=test";
-        static final String statusActive = "v2/orders?status=active";
-        static final String statusComplete = "v2/orders?status=complete";
-        static final String statusCanceled = "v2/orders?status=canceled";
+        static final String statusActive = "v2/orders?status=active&page={p}";
+        static final String statusComplete = "v2/orders?status=complete&page={p}";
+        static final String statusCanceled = "v2/orders?status=canceled&page={p}";
     }
 
     static final class Shipments {

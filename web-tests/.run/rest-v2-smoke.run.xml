@@ -1,15 +1,17 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="api.v2" type="TestNG">
-    <module name="web-tests" />
+  <configuration default="false" name="rest-v2-smoke" type="TestNG" show_console_on_std_err="true" show_console_on_std_out="true">
     <useClassPathOnly />
     <option name="SUITE_NAME" value="" />
-    <option name="PACKAGE_NAME" value="ru.instamart.tests.api.v2" />
+    <option name="PACKAGE_NAME" value="" />
     <option name="MAIN_CLASS_NAME" value="" />
     <option name="METHOD_NAME" value="" />
-    <option name="GROUP_NAME" value="" />
-    <option name="TEST_OBJECT" value="PACKAGE" />
+    <option name="GROUP_NAME" value="rest-v2-smoke" />
+    <option name="TEST_OBJECT" value="GROUP" />
     <option name="PARAMETERS" value="" />
     <option name="OUTPUT_DIRECTORY" value="" />
+    <option name="TEST_SEARCH_SCOPE">
+      <value defaultName="wholeProject" />
+    </option>
     <option name="PROPERTIES_FILE" value="" />
     <properties />
     <listeners />

@@ -1,4 +1,4 @@
-package ru.instamart.tests.api.v2;
+package ru.instamart.tests.api.v2.dataprovider;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -20,7 +20,7 @@ public class RetailerTests extends RestBase {
     @Test(  dataProvider = "retailers",
             dataProviderClass = RestDataProvider.class,
             description = "Тест заказов у каждого ретейлера",
-            groups = {"create-order"})
+            groups = {})
     public void orderByRetailer(String slug) {
         //ToDo вынести получение stores в data provider для ускорения теста
         List<Store> stores = RestHelper.availableStores();

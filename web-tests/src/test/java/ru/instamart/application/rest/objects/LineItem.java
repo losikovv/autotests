@@ -6,39 +6,13 @@ public class LineItem extends BaseObject {
 
     private Integer id;
     private Integer quantity;
+    private Integer packs;
     private Double price;
     private Double total;
+    private Double discount;
     private Object customer_comment;
     private Boolean product_in_stock;
     private Product product;
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public LineItem() {
-    }
-
-    /**
-     *
-     * @param product_in_stock
-     * @param total
-     * @param product
-     * @param quantity
-     * @param price
-     * @param id
-     * @param customer_comment
-     */
-    public LineItem(Integer id, Integer quantity, Double price, Double total, Object customer_comment, Boolean product_in_stock, Product product) {
-        super();
-        this.id = id;
-        this.quantity = quantity;
-        this.price = price;
-        this.total = total;
-        this.customer_comment = customer_comment;
-        this.product_in_stock = product_in_stock;
-        this.product = product;
-    }
 
     public Integer getId() {
         return id;
@@ -94,6 +68,22 @@ public class LineItem extends BaseObject {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Integer getPacks() {
+        return packs;
+    }
+
+    public void setPacks(Integer packs) {
+        this.packs = packs;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
     }
 
     @Override

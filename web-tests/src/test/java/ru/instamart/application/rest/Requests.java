@@ -15,8 +15,8 @@ import static io.restassured.RestAssured.given;
  * МЕТОДЫ ЗАПРОСОВ REST API
  */
 public class Requests {
-    ThreadLocal<String> token = new ThreadLocal<>();
-    ThreadLocal<String> currentOrderNumber = new ThreadLocal<>();
+    static ThreadLocal<String> token = new ThreadLocal<>();
+    static ThreadLocal<String> currentOrderNumber = new ThreadLocal<>();
     ThreadLocal<String> currentShipmentNumber = new ThreadLocal<>();
 
     /**
@@ -86,7 +86,37 @@ public class Requests {
         return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
-                .get(EndPoints.Orders.statusActive);
+                .get(EndPoints.Orders.statusActive, "");
+    }
+
+    /**
+     * Получаем активные (принят, собирается, в пути) заказы с указанием страницы
+     */
+    public Response getActiveOrders(int page) {
+        return givenCatch()
+                .header("Authorization",
+                        "Token token=" + token.get())
+                .get(EndPoints.Orders.statusActive, page);
+    }
+
+    /**
+     * Получение заказов
+     */
+    public static Response getOrders() {
+        return givenCatch()
+                .header("Authorization",
+                        "Token token=" + token.get())
+                .get(EndPoints.orders);
+    }
+
+    /**
+     * Получение заказа по номеру
+     */
+    public static Response getOrder(String number) {
+        return givenCatch()
+                .header("Authorization",
+                        "Token token=" + token.get())
+                .get(EndPoints.Orders.number, number);
     }
 
     /**
@@ -148,7 +178,7 @@ public class Requests {
     /**
      * Получение таксонов в выбранном магазине
      */
-    static Response getTaxons(int sid) {
+    public static Response getTaxons(int sid) {
         return givenCatch().get(EndPoints.Taxons.sid, sid);
     }
 
@@ -160,6 +190,13 @@ public class Requests {
     }
 
     /**
+     * Получить продукты
+     */
+    public static Response getProducts(int sid, String query) {
+        return givenCatch().get(EndPoints.Products.sid, sid, query);
+    }
+
+    /**
      * Получить инфо о продукте
      */
     public static Response getProducts(long productId) {
@@ -167,9 +204,16 @@ public class Requests {
     }
 
     /**
+     * Получение поисковых подсказок
+     */
+    public static Response getSearchSuggestions(int sid, String query) {
+        return givenCatch().get(EndPoints.search_suggestions, sid, query);
+    }
+
+    /**
      * Добавляем товар в корзину
      */
-    public Response postLineItems(long productId, int quantity) {
+    public static Response postLineItems(long productId, int quantity) {
         Map<String, Object> data = new HashMap<>();
         data.put("line_item[order_number]", currentOrderNumber.get());
         data.put("line_item[product_id]", productId);
@@ -187,7 +231,7 @@ public class Requests {
     /**
      * Получить информацию о текущем заказе
      */
-    public Response getOrdersCurrent() {
+    public static Response getOrdersCurrent() {
         return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
@@ -246,13 +290,13 @@ public class Requests {
      * Получаем список всех доступных ритейлеров (api v1)
      */
     static Response getRetailersV1() {
-        return givenCatch().get(EndPoints.retailersV1);
+        return givenCatch().get(EndPoints.retailers_v1);
     }
 
     /**
      * Получаем список всех доступных магазинов
      */
-    static Response getStores() {
+    public static Response getStores() {
         return givenCatch().get(EndPoints.stores);
     }
 
@@ -266,7 +310,7 @@ public class Requests {
     /**
      * Получаем данные о конкретном магазине
      */
-    Response getStores(int sid) {
+    public static Response getStores(int sid) {
         return givenCatch().get(EndPoints.Stores.sid, sid);
     }
 

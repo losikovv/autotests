@@ -54,6 +54,7 @@ public class RestHelper extends Requests {
 
         responseSpecification = new ResponseSpecBuilder()
                 //.expectResponseTime(lessThan(30000L))
+                .expectStatusCode(not(401))
                 .expectStatusCode(not(429))
                 .expectStatusCode(not(500))
                 .build();
@@ -129,6 +130,13 @@ public class RestHelper extends Requests {
      */
     static void printError(String string) {
         System.err.println(string);
+    }
+
+    /**
+     * Логаут (чистим токен для авторизации)
+     */
+    public void logout() {
+        token.set(null);
     }
 
     /*
@@ -470,7 +478,7 @@ public class RestHelper extends Requests {
      */
     private void cancelOrder(String number) {
         Response response = postOrdersCancellations(number);
-
+        Assert.assertEquals(response.statusCode(),200, response.body().toString());;
         Order order = response.as(CancellationsResponse.class).getCancellation().getOrder();
         printSuccess("Отменен заказ: " + order.getNumber() + "\n");
     }
@@ -632,7 +640,7 @@ public class RestHelper extends Requests {
      * На сервере стоит ограничение - не больше 20 авторизаций в минуту с одного IP,
      * поэтому для мультипоточности реализованы synchronized + ожидание 3.1 секунды
      */
-    synchronized private void authorisation(String email, String password) {
+    synchronized public void authorisation(String email, String password) {
         try {
             Thread.sleep(3100);
         } catch (InterruptedException e) {
@@ -649,14 +657,14 @@ public class RestHelper extends Requests {
     /**
      * Авторизация с данными из объекта юзера
      */
-    private void authorisation(UserData user) {
+    public void authorisation(UserData user) {
         authorisation(user.getLogin(), user.getPassword());
     }
 
     /**
      * Узнаем номер заказа
      */
-    private void getCurrentOrderNumber() {
+    public void getCurrentOrderNumber() {
         currentOrderNumber.set(postOrder()
                 .as(OrderResponse.class)
                 .getOrder()
@@ -668,11 +676,18 @@ public class RestHelper extends Requests {
      * Получаем список активных (принят, собирается, в пути) заказов
      */
     private List<Order> activeOrders() {
-        List<Order> orders = getActiveOrders().as(OrdersResponse.class).getOrders();
+        OrdersResponse response = getActiveOrders().as(OrdersResponse.class);
+        List<Order> orders = response.getOrders();
 
         if (orders.size() < 1) {
             System.out.println("Нет активных заказов");
         } else {
+            int pages = response.getMeta().getTotal_pages();
+            if (pages > 1) {
+                for (int i = 2; i <= pages; i++) {
+                    orders.addAll(getActiveOrders(i).as(OrdersResponse.class).getOrders());
+                }
+            }
             System.out.println("Список активных заказов:");
             for (Order order : orders) {
                 System.out.println(order.getNumber());

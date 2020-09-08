@@ -3,29 +3,12 @@ package ru.instamart.application.rest.objects;
 public class NextDelivery extends BaseObject {
 
     private Integer id;
+    private Integer store_id;
     private Double price;
     private String summary;
     private String starts_at;
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public NextDelivery() {
-    }
-
-    /**
-     *
-     * @param summary
-     * @param price
-     * @param starts_at
-     */
-    public NextDelivery(Double price, String summary, String starts_at) {
-        super();
-        this.price = price;
-        this.summary = summary;
-        this.starts_at = starts_at;
-    }
+    private String ends_at;
+    private String kind;
 
     public Double getPrice() {
         return price;
@@ -54,4 +37,29 @@ public class NextDelivery extends BaseObject {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public String getEnds_at() {
+        return ends_at;
+    }
+
+    public void setEnds_at(String ends_at) {
+        this.ends_at = ends_at;
+    }
+
+    public Integer getStore_id() {
+        return store_id;
+    }
+
+    public void setStore_id(Integer store_id) {
+        this.store_id = store_id;
+    }
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
 }

@@ -1,4 +1,4 @@
-package ru.instamart.tests.api.v2;
+package ru.instamart.tests.api.v2.endpoints;
 
 import org.testng.annotations.Test;
 import ru.instamart.application.rest.RestBase;
@@ -8,15 +8,15 @@ import ru.instamart.application.rest.objects.responses.UsersResponse;
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.application.rest.Requests.postUsers;
 
-public class RegistrationTests extends RestBase {
+public class Users extends RestBase {
     private final String firstName = "autotester";
     private final String lastName = "api";
     private final String minCharPassword = "instam";
 
     @Test(
             description = "Успешная регистрация",
-            groups = {"rest_api"},
-            priority = 1
+            groups = {"rest"},
+            priority = 100
     )
     public void successRegistration() {
         String email = email();
@@ -33,8 +33,8 @@ public class RegistrationTests extends RestBase {
 
     @Test(
             description = "Неверный формат email",
-            groups = {"rest_api"},
-            priority = 2
+            groups = {"rest"},
+            priority = 101
     )
     public void wrongEmailFormat() {
         String email = "example.com";
@@ -52,8 +52,8 @@ public class RegistrationTests extends RestBase {
 
     @Test(
             description = "короткий пароль",
-            groups = {"rest_api"},
-            priority = 3
+            groups = {"rest"},
+            priority = 102
     )
     public void shortPassword() {
         String password = "insta";
@@ -71,8 +71,8 @@ public class RegistrationTests extends RestBase {
 
     @Test(
             description = "пустой email",
-            groups = {"rest_api"},
-            priority = 4
+            groups = {"rest"},
+            priority = 103
     )
     public void emptyEmail() {
         response = postUsers(
@@ -88,8 +88,8 @@ public class RegistrationTests extends RestBase {
 
     @Test(
             description = "пустое имя",
-            groups = {"rest_api"},
-            priority = 5
+            groups = {"rest"},
+            priority = 104
     )
     public void emptyFirstName() {
         String email = email();
@@ -106,8 +106,8 @@ public class RegistrationTests extends RestBase {
 
     @Test(
             description = "пустая фамилия",
-            groups = {"rest_api"},
-            priority = 6
+            groups = {"rest"},
+            priority = 105
     )
     public void emptyLastName() {
         String email = email();
@@ -124,8 +124,8 @@ public class RegistrationTests extends RestBase {
 
     @Test(
             description = "пустые имя и фамилия",
-            groups = {"rest_api"},
-            priority = 7
+            groups = {"rest"},
+            priority = 106
     )
     public void emptyFirstAndLastNames() {
         String email = email();
@@ -143,8 +143,8 @@ public class RegistrationTests extends RestBase {
 
     @Test(
             description = "пустой пароль",
-            groups = {"rest_api"},
-            priority = 8
+            groups = {"rest"},
+            priority = 107
     )
     public void emptyPassword() {
         String email = email();

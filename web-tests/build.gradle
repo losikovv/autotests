@@ -47,12 +47,12 @@ task restRegress(type: Test) {
 }
 
 
-task restTesting(type: Test) {
+task restSmoke(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/suite.xml'
-        includeGroups 'rest-testing'
+        includeGroups 'rest-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }

@@ -1,6 +1,5 @@
 package ru.instamart.tests;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.SkipException;
@@ -24,12 +23,20 @@ public class TestBase {
     protected static final AppManager kraken
             = new AppManager(System.getProperty("browser", Config.CoreSettings.defaultBrowser));
 
-    @BeforeSuite(groups = {"sbermarket-smoke","testing","metro-smoke"})
+    @BeforeSuite(groups = {
+            "smoke","acceptance","regression","testing",
+            "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression",
+            "metro-smoke","metro-acceptance","metro-regression"
+    })
     public void start() throws Exception {
         kraken.rise();
     }
     //todo при запуске API тестов не должен стартовать браузер
-    @AfterSuite(alwaysRun = true)
+    @AfterSuite(groups = {
+            "smoke","acceptance","regression","testing",
+            "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression",
+            "metro-smoke","metro-acceptance","metro-regression"
+    })
     public void cleanup() {
         if(doCleanupAfterTestRun) {
             kraken.cleanup().all();

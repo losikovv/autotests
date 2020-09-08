@@ -1,4 +1,4 @@
-package ru.instamart.tests.api.v2;
+package ru.instamart.tests.api.v2.dataprovider;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -7,8 +7,6 @@ import ru.instamart.application.rest.RestBase;
 import ru.instamart.application.rest.RestDataProvider;
 import ru.instamart.application.rest.objects.Store;
 import ru.instamart.application.rest.objects.Zone;
-
-import java.util.UUID;
 
 public class ZoneTests extends RestBase {
 
@@ -20,17 +18,13 @@ public class ZoneTests extends RestBase {
     @Test(  dataProvider = "zones-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест первых заказов во всех зонах всех магазинов",
-            groups = {"rest","rest-zones","create-order"})
+            groups = {"rest","rest-zones"})
     public void firstOrderByZone(Store store, String zoneName, Zone coordinates) {
         System.out.println("Оформляем заказ в " + store);
         System.out.println(zoneName);
         System.out.println(coordinates + "\n");
 
-        //todo разобраться с рандомными заказами
-        UserData user = new UserData(
-                UUID.randomUUID() + "@example.com",
-                "instamart",
-                "Василий Автотестов");
+        UserData user = user();
 
         kraken.rest().registration(user);
         kraken.rest().order(user, store.getId(), coordinates);

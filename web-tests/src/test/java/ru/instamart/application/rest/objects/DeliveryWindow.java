@@ -9,26 +9,7 @@ public class DeliveryWindow extends BaseObject {
     private String ends_at;
     private String weight_balance;
     private String items_count_balance;
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public DeliveryWindow() {
-    }
-
-    /**
-     *
-     * @param starts_at
-     * @param id
-     * @param ends_at
-     */
-    public DeliveryWindow(Integer id, String starts_at, String ends_at) {
-        super();
-        this.id = id;
-        this.starts_at = starts_at;
-        this.ends_at = ends_at;
-    }
+    private String kind;
 
     public Integer getId() {
         return id;
@@ -70,6 +51,14 @@ public class DeliveryWindow extends BaseObject {
         this.items_count_balance = items_count_balance;
     }
 
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(
@@ -81,6 +70,7 @@ public class DeliveryWindow extends BaseObject {
                 .add("            ends_at: " + ends_at)
                 .add("     weight_balance: " + weight_balance)
                 .add("items_count_balance: " + items_count_balance)
+                .add("               kind: " + kind)
                 .toString();
     }
 }

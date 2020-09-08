@@ -3,7 +3,8 @@ package ru.instamart.application.rest.objects;
 public class Meta extends BaseObject {
 
     private Integer current_page;
-    private Object next_page;
+    private Integer next_page;
+    private Integer previous_page;
     private Integer total_pages;
     private Integer per_page;
     private Integer total_count;
@@ -20,8 +21,16 @@ public class Meta extends BaseObject {
         return next_page;
     }
 
-    public void setNext_page(Object next_page) {
+    public void setNext_page(Integer next_page) {
         this.next_page = next_page;
+    }
+
+    public Object getPrevious_page() {
+        return previous_page;
+    }
+
+    public void setPrevious_page(Integer previous_page) {
+        this.previous_page = previous_page;
     }
 
     public Integer getTotal_pages() {

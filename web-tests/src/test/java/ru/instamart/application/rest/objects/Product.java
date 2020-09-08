@@ -13,10 +13,13 @@ public class Product extends BaseObject {
     private Double original_price;
     private Double discount;
     private String human_volume;
+    private Double volume;
+    private String volume_type;
     private String discount_ends_at;
     private Integer items_per_pack;
     private String description;
     private List<Image> images = null;
+    private Image image;
     private List<Property> properties = null;
     private List<Object> related_products = null;
 
@@ -91,6 +94,22 @@ public class Product extends BaseObject {
         this.human_volume = human_volume;
     }
 
+    public Double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Double volume) {
+        this.volume = volume;
+    }
+
+    public String getVolume_type() {
+        return volume_type;
+    }
+
+    public void setVolume_type(String volume_type) {
+        this.volume_type = volume_type;
+    }
+
     public Integer getItems_per_pack() {
         return items_per_pack;
     }
@@ -113,6 +132,14 @@ public class Product extends BaseObject {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public List<Property> getProperties() {

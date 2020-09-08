@@ -1,4 +1,4 @@
-package ru.instamart.tests.api.v2;
+package ru.instamart.tests.api.v2.dataprovider;
 
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;
@@ -15,7 +15,6 @@ import ru.instamart.application.rest.objects.Store;
 import ru.instamart.application.rest.objects.Taxon;
 
 import java.util.List;
-import java.util.UUID;
 
 import static ru.instamart.application.rest.RestHelper.getProductsFromEachDepartmentInStore;
 
@@ -72,7 +71,7 @@ public class StoreTests extends RestBase {
     @Test(  dataProvider = "stores",
             dataProviderClass = RestDataProvider.class,
             description = "Тест заказов во всех магазинах",
-            groups = {"create-order"})
+            groups = {})
     public void orderByStore(Store store) {
         System.out.println("Оформляем заказ в " + store + "\n");
 
@@ -83,15 +82,11 @@ public class StoreTests extends RestBase {
     @Test(  dataProvider = "stores-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест первых заказов во всех магазинах",
-            groups = {"create-order"})
+            groups = {})
     public void firstOrderByStore(Store store) {
         System.out.println("Оформляем первый заказ в " + store);
 
-        //todo разобраться с рандомными заказами
-        UserData user = new UserData(
-                UUID.randomUUID() + "@example.com",
-                "instamart",
-                "Василий Автотестов");
+        UserData user = user();
 
         kraken.rest().registration(user);
         kraken.rest().order(user, store.getId());

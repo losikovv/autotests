@@ -21,6 +21,7 @@ public class Order extends BaseObject {
     private Payment payment;
     private ReplacementPolicy replacement_policy;
     private String email;
+    private String uuid;
     private List<Shipment> shipments = null;
     private List<Object> promotion_codes = null;
 
@@ -174,5 +175,13 @@ public class Order extends BaseObject {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

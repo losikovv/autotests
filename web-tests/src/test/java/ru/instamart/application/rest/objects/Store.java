@@ -10,6 +10,12 @@ public class Store extends BaseObject {
     private NextDelivery next_delivery;
     private List<List<Zone>> zones = null;
     private String uuid;
+    private Boolean express_delivery;
+    private Double min_order_amount;
+    private Double min_first_order_amount;
+    private Double min_order_amount_pickup;
+    private Double min_first_order_amount_pickup;
+    private Boolean available_for_pickup;
     private Retailer retailer;
     private Address location;
     private List<Service> services = null;
@@ -85,6 +91,54 @@ public class Store extends BaseObject {
 
     public void setOperational_times(List<OperationalTime> operational_times) {
         this.operational_times = operational_times;
+    }
+
+    public Boolean getExpress_delivery() {
+        return express_delivery;
+    }
+
+    public void setExpress_delivery(Boolean express_delivery) {
+        this.express_delivery = express_delivery;
+    }
+
+    public Double getMin_order_amount() {
+        return min_order_amount;
+    }
+
+    public void setMin_order_amount(Double min_order_amount) {
+        this.min_order_amount = min_order_amount;
+    }
+
+    public Double getMin_first_order_amount() {
+        return min_first_order_amount;
+    }
+
+    public void setMin_first_order_amount(Double min_first_order_amount) {
+        this.min_first_order_amount = min_first_order_amount;
+    }
+
+    public Double getMin_order_amount_pickup() {
+        return min_order_amount_pickup;
+    }
+
+    public void setMin_order_amount_pickup(Double min_order_amount_pickup) {
+        this.min_order_amount_pickup = min_order_amount_pickup;
+    }
+
+    public Double getMin_first_order_amount_pickup() {
+        return min_first_order_amount_pickup;
+    }
+
+    public void setMin_first_order_amount_pickup(Double min_first_order_amount_pickup) {
+        this.min_first_order_amount_pickup = min_first_order_amount_pickup;
+    }
+
+    public Boolean getAvailable_for_pickup() {
+        return available_for_pickup;
+    }
+
+    public void setAvailable_for_pickup(Boolean available_for_pickup) {
+        this.available_for_pickup = available_for_pickup;
     }
 
     @Override
