@@ -318,15 +318,24 @@ public class RestHelper extends Requests {
         String humanVolume = product.getHuman_volume();
 
         if (humanVolume.contains(" шт.")) {
+            boolean productHasWeightProperty = false;
             List<Property> properties = getProducts(product.getId())
                     .as(ProductResponse.class)
                     .getProduct()
                     .getProperties();
             for (Property property : properties) {
-                if (property.getName().equalsIgnoreCase("вес") ||
-                        property.getName().equalsIgnoreCase("объем")) {
+                if (property.getName().equalsIgnoreCase("вес")) {
                     humanVolume = property.getValue();
+                    productHasWeightProperty = true;
                     break;
+                }
+            }
+            if (!productHasWeightProperty) {
+                for (Property property : properties) {
+                    if (property.getName().equalsIgnoreCase("объем")) {
+                        humanVolume = property.getValue();
+                        break;
+                    }
                 }
             }
         }
@@ -341,7 +350,7 @@ public class RestHelper extends Requests {
             productWeightNotDefined.set(false);
             return productWeight / 1000;
         } else {
-            System.out.println(product + "\nНеизвестный тип веса/объема: " + humanVolume);
+            printError(product + "\nНеизвестный тип веса/объема: " + humanVolume);
             productWeightNotDefined.set(true);
             return 0;
         }
@@ -478,7 +487,7 @@ public class RestHelper extends Requests {
      */
     private void cancelOrder(String number) {
         Response response = postOrdersCancellations(number);
-        Assert.assertEquals(response.statusCode(),200, response.body().toString());;
+        Assert.assertEquals(response.statusCode(),200, response.body().toString());
         Order order = response.as(CancellationsResponse.class).getCancellation().getOrder();
         printSuccess("Отменен заказ: " + order.getNumber() + "\n");
     }
@@ -576,8 +585,8 @@ public class RestHelper extends Requests {
     /**
      * Получить список активных ритейлеров как список объектов Retailer
      */
-    public static List<Retailer> availableRetailersV1() {
-        List<Retailer> retailers = getRetailersV1().as(RetailersResponse.class).getRetailers();
+    public static List<Retailer> availableRetailersSpree() {
+        List<Retailer> retailers = getRetailersSpree().as(RetailersResponse.class).getRetailers();
 
         StringJoiner availableRetailers = new StringJoiner(
                 "\n• ",
@@ -599,11 +608,26 @@ public class RestHelper extends Requests {
     }
 
     /**
-     * Получить список активных магазинов как список объектов Store
+     * Получить список активных магазинов как список объектов Store (с зонами доставки)
      */
     public static List<Store> availableStores() {
         List<Store> stores = getStores().as(StoresResponse.class).getStores();
 
+        printAvailableStores(stores);
+
+        return stores;
+    }
+
+    /**
+     * Получить список активных магазинов как список объектов Store (без зон доставки)
+     */
+    public static List<Store> availableStoresWithoutZones() {
+        List<Retailer> retailers = availableRetailers();
+        List<Store> stores = new ArrayList<>();
+
+        for (Retailer retailer : retailers) {
+            stores.addAll(getRetailerStoresSpree(retailer.getId()).as(StoresResponse.class).getStores());
+        }
         printAvailableStores(stores);
 
         return stores;

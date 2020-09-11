@@ -33,13 +33,13 @@ public class RestDataProvider extends RestBase {
 
     @Test()
     public void selfTestRetailersV1() {
-        getAvailableRetailersV1();
+        getAvailableRetailersSpree();
     }
 
-    @DataProvider(name = "retailersV1")
-    public static Object[][] getAvailableRetailersV1() {
+    @DataProvider(name = "retailersSpree")
+    public static Object[][] getAvailableRetailersSpree() {
 
-        List<Retailer> retailerList = availableRetailersV1();
+        List<Retailer> retailerList = availableRetailersSpree();
 
         Object[][] retailerArray = new Object[retailerList.size()][2];
 
@@ -63,7 +63,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "stores")
     public static Object[][] getAvailableStores() {
 
-        List<Store> storeList = availableStores();
+        List<Store> storeList = availableStoresWithoutZones();
 
         Object[][] storeArray = new Object[storeList.size()][1];
 

@@ -287,9 +287,16 @@ public class Requests {
     }
 
     /**
-     * Получаем список всех доступных ритейлеров (api v1)
+     * Получаем список всех доступных магазинов у ритейлера (spree api)
      */
-    static Response getRetailersV1() {
+    static Response getRetailerStoresSpree(int retailerId) {
+        return givenCatch().get(EndPoints.Retailers.stores, retailerId);
+    }
+
+    /**
+     * Получаем список всех доступных ритейлеров (spree api)
+     */
+    static Response getRetailersSpree() {
         return givenCatch().get(EndPoints.retailers_v1);
     }
 

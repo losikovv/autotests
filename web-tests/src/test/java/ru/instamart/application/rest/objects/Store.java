@@ -143,13 +143,18 @@ public class Store extends BaseObject {
 
     @Override
     public String toString() {
-        return new StringJoiner(
+        StringJoiner stringJoiner = new StringJoiner(
                 ", ",
                 "",
-                "")
-                .add(getRetailer().getName())
+                "");
+        if (getRetailer() != null) {
+            stringJoiner.add(getRetailer().getName());
+        } else stringJoiner.add(getName());
+
+        if (getLocation() != null) stringJoiner
                 .add(getLocation().getCity())
-                .add(getLocation().getStreet())
+                .add(getLocation().getStreet());
+        return stringJoiner
                 .add("sid: " + id)
                 .toString();
     }

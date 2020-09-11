@@ -124,7 +124,7 @@ public class BasicSbermarketTests extends TestBase {
         assertPageIsAvailable();
     }
 
-    @Test(  dataProvider = "retailersV1" ,
+    @Test(  dataProvider = "retailersSpree" ,
             dataProviderClass = RestDataProvider.class,
             description = "Тест доступности / недоступности витрин ритейлеров Сбермаркета ",
             priority = 103,

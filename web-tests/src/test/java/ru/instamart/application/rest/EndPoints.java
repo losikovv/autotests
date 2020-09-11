@@ -15,6 +15,10 @@ final class EndPoints {
     static final String shipping_methods = "v2/shipping_methods?sid={sid}";
     static final String search_suggestions = "v2/searches/suggestions?sid={sid}&q={q}";
 
+    static final class Retailers {
+        static final String stores = "retailers/{id}/stores";
+    }
+
     static final class Stores {
         static final String coordinates = "v2/stores?lat={lat}&lon={lon}";
         static final String sid = "v2/stores/{sid}";
