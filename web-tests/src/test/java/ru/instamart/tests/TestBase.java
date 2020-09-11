@@ -4,6 +4,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 import ru.instamart.application.AppManager;
@@ -31,7 +32,7 @@ public class TestBase {
     public void start() throws Exception {
         kraken.rise();
     }
-    //todo при запуске API тестов не должен стартовать браузер
+
     @AfterSuite(groups = {
             "smoke","acceptance","regression","testing",
             "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression",
@@ -43,14 +44,10 @@ public class TestBase {
         }
         kraken.stop();
     }
-    //todo сюда нужно вкорячить нормальный обработчик, инстанс браузера должен киляться даже во время дебага
-   /* @AfterTest(alwaysRun = true)
-    public void cleanupTest() {
-        if(doCleanupAfterTestRun) {
-            kraken.cleanup().all();
-        }
+    @AfterTest(alwaysRun = true)
+    public void cleanupAfterTest(){
         kraken.stop();
-    }*/
+    }
 
     /** Метод-обертка для красивого вывода ошибок зафейленных тестов */
     protected String failMessage(String text) {

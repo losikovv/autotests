@@ -12,7 +12,6 @@ import ru.instamart.application.models.ElementData;
 import ru.instamart.application.models.WidgetData;
 import ru.instamart.application.Config;
 import ru.instamart.application.models.EnvironmentData;
-import ru.instamart.application.platform.helpers.PerformHelper;
 
 import java.util.List;
 
@@ -28,22 +27,37 @@ public class Shop extends Base {
             if (!kraken.detect().isAuthModalOpen()) {
                 verboseMessage("> открываем модалку авторизации");
                 if (kraken.detect().isOnLanding()) {
-                    kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
+                    try {
+                        kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
+                    }catch (Exception ex){
+                        kraken.perform().click(Elements.Header.loginButton());
+                    }
                 } else {
-                    kraken.perform().click(Elements.Header.loginButton());
+                    try {
+                        kraken.perform().click(Elements.Header.loginButton());
+                    }catch (Exception ex){
+                        kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
+                    }
+
                 }
                 kraken.await().implicitly(1); // Ожидание открытия модалки авторизации/регистрации
-                kraken.await().fluently(
-                        ExpectedConditions.visibilityOfElementLocated(
-                                Elements.Modals.AuthModal.popup().getLocator()),
-                        "\n> Превышено время ожидания открытия модалки авторизации/регистрации"
-                );
+                try{
+                    kraken.await().fluently(
+                            ExpectedConditions.visibilityOfElementLocated(
+                                    Elements.Modals.AuthModal.popup().getLocator()),
+                            "\n> Превышено время ожидания открытия модалки авторизации/регистрации");
+                }catch (Exception ex){
+                    kraken.await().fluently(
+                            ExpectedConditions.visibilityOfElementLocated(
+                                    Elements.Modals.AuthModal.popupMail().getLocator()),
+                            "\n> Превышено время ожидания открытия модалки авторизации/регистрации");
+                }
             }
         }
 
         public static void close() {
             debugMessage("> закрываем форму авторизации");
-            kraken.perform().click(Elements.Modals.AuthModal.closeButton());
+            kraken.perform().click(Elements.ItemCard.closeButton());
             kraken.await().implicitly(1); // Ожидание закрытия модалки авторизации
         }
 
@@ -53,8 +67,10 @@ public class Shop extends Base {
         }
 
         public static void switchToRegistrationTab() {
+
             verboseMessage("> переключаемся на вкладку регистрации");
-            WebElement parent = driver.findElement(Elements.Modals.AuthModal.popup().getLocator());
+            kraken.await().fluently(ExpectedConditions.elementToBeClickable(driver.findElement(Elements.Modals.AuthModal.popupMail().getLocator())));
+            WebElement parent = driver.findElement(Elements.Modals.AuthModal.popupMail().getLocator());
             WebElement element = kraken.perform().findChildElementByTagAndText(parent,By.tagName("button"),"Регистрация");
             kraken.perform().click(element);
         }
@@ -87,7 +103,7 @@ public class Shop extends Base {
             kraken.perform().fillField(Elements.Modals.AuthModal.passwordField(), password);
             kraken.perform().fillField(Elements.Modals.AuthModal.passwordConfirmationField(), passwordConfirmation);
             if (!agreementConfirmation) {
-                kraken.perform().click(Elements.Modals.AuthModal.agreementCheckbox());
+                kraken.perform().setCheckbox(Elements.Modals.AuthModal.checkBoxes(),2);
             }
         }
 
@@ -691,7 +707,7 @@ public class Shop extends Base {
 
                 message("> добавляем в корзину \""
                         + kraken.grab().itemName() + "\" x " + neededQuantity + " шт\n> " + kraken.grab().currentURL() + "\n");
-                addItem(neededQuantity);
+                addItemByText(neededQuantity);
                 ItemCard.close();
                 Cart.open();
             } else {
@@ -708,6 +724,25 @@ public class Shop extends Base {
                 ItemCard.addToCart();
                 addItem(neededQuantity);
             }
+        }
+
+        /** Луп набора товара до необходимого количества */
+        private static void addItemByText(int neededQuantity) {
+            String quantity = kraken.grab().itemQuantityByText();
+            debugMessage("Количество товара: " + quantity);
+            kraken.grab().addItemCard();
+            kraken.await().fluently(
+                    ExpectedConditions.elementToBeClickable(
+                            Elements.ItemCard.cartNew().getLocator()),
+                    "иконка корзины не появилась\n");
+            if (neededQuantity==1) kraken.await().implicitly(2);
+            else kraken.grab().addItemCard(neededQuantity);
+            /*
+            if (kraken.grab().itemQuantity() < neededQuantity) {
+                ItemCard.addToCart();
+                addItem(neededQuantity);
+            }
+             */
         }
 
         /** Сниппет товара в корзине */

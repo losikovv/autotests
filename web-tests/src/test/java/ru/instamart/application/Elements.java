@@ -7,6 +7,8 @@ import ru.instamart.application.models.PaymentCardData;
 import ru.instamart.application.models.ElementData;
 import ru.instamart.application.models.JuridicalData;
 
+import java.util.List;
+
 import static ru.instamart.application.Config.TestVariables.CompanyParams.*;
 
 public class Elements {
@@ -130,6 +132,11 @@ public class Elements {
                     static ElementData list() {
                         return new ElementData(By.xpath("//div[contains(@class,'home-landing__description')]//div[@class='stores']"),
                                 "список магазинов на лендинге Сбермаркета");
+                    }
+
+                    static ElementData homeLanding(){
+                        return new ElementData(By.xpath("//div[contains(@class,'home_landing')]"),
+                                "главный лендинг сбермаркета");
                     }
 
                     static ElementData button(int position) {
@@ -300,19 +307,8 @@ public class Elements {
 
             static ElementData loginButton() {
                 return new ElementData(
-                        //todo нужно будет проверить в каких элементах может сломаться
-                        /*By.xpath("//*[@id=\"wrap\"]/div[1]/div/header/div/button"),
-
-                         */
-                        By.linkText("Войти"),
+                        By.xpath("//header//*[@data-qa='login-button']"),
                         "кнопка входа в шапке сайта");
-
-                        /*By.xpath("//header//*[@data-qa='login-button']"),
-                            "кнопка входа в шапке сайта");
-
-                         */
-
-
             }
 
             static ElementData favoritesButton() {
@@ -497,49 +493,62 @@ public class Elements {
         /** Модалка авторизации-регистрации */
         interface AuthModal {
 
+            //todo очень плохо, что сейчас приходится в xpath менять имя рута много раз
+            // нужно вынести все руты в один элемент и наследоваться от него
+            // создам задачку на data-qa атрибут это сильно повысит стабильность автотестов на модалке например его нет
         static ElementData popup() {
-            return new ElementData(By.xpath("//*[@class='wrapper__root__2y0mH']"),
+            return new ElementData(By.xpath("//*[contains(@class,'auth')]"),
                     "поп-ап модалки авторизации");
-            //By.xpath("//*[@class='auth-modal']")  старое значение
         }
 
-        static ElementData phoneNumber(){
-            return new ElementData(By.xpath("//*[@class='input__container__2rdvv']//input[@id='tel-login-form-input']"),
+        static ElementData popupMail() {
+            return new ElementData(By.xpath("//*[contains(@class,'auth')]"),
+                    "поп-ап модалки авторизации");
+        }
+       /* static ElementData popupMail() {
+            return new ElementData(By.xpath("//*[@class='wrapper_2y0mH']"),
+                    "поп-ап модалки авторизации");
+        }
+        */
+
+        static ElementData phoneNumber() {
+            return new ElementData(By.xpath("//*[contains(@class,'input__container')]//input[@id='tel-login-form-input']"),
                     "поле для ввода номера телефона");
         }
 
-        static ElementData closeButton() {
-            return new ElementData(By.xpath("//*[@class='auth-modal']//button[@class='modal-wrapper__close']"),
+        // Старое значение модалки auth-modal пусть пока тут поживет, проверим как часто это значение меняется
+        static ElementData closeButton(){
+            return new ElementData(By.xpath("//*[contains(@class,'wrapper')]//button[@class='modal-wrapper__close']"),
                     "крестик закрытия модалки авторизации");
         }
 
         static ElementData authorisationTab() {
-            return new ElementData(By.xpath("//*[@class='auth-modal']//button[text()='Вход']"),
+            return new ElementData(By.xpath("//*[contains(@class,'wrapper')]//button[text()='Вход']"),
                     "кнопка переключения на вкладку авторизации в модалке авторизации");
         }
 
         static ElementData registrationTab() {
-            return new ElementData(By.xpath("//*[@class='auth-modal']//button[text()='Регистрация']"),
+            return new ElementData(By.xpath("//*[@class='auth-modal__form']//button[text()='Регистрация']"),
                     "кнопка переключения на вкладку регистрации в модалке авторизации");
         }
 
         static ElementData nameField() {
-            return new ElementData(By.xpath("//*[@class='auth-modal']//input[@name='fullname']"),
+            return new ElementData(By.xpath("//*[contains(@class,'wrapper')]//input[@name='fullname']"),
                     "поле 'Имя и фамилия' в модалке авторизации");
         }
 
         static ElementData emailField() {
-            return new ElementData(By.xpath("//*[@class='auth-modal']//input[@name='email']"),
+            return new ElementData(By.xpath("//*[contains(@class,'wrapper')]//input[@name='email']"),
                     "поле 'Электронная почта' в модалке авторизации");
         }
 
         static ElementData passwordField() {
-            return new ElementData(By.xpath("//*[@class='auth-modal']//input[@name='password']"),
+            return new ElementData(By.xpath("//*[contains(@class,'wrapper')]//input[@name='password']"),
                     "поле 'Пароль' в модалке авторизации");
         }
 
         static ElementData passwordConfirmationField() {
-            return new ElementData(By.xpath("//*[@class='auth-modal']//input[@name='passwordConfirmation']"),
+            return new ElementData(By.xpath("//*[contains(@class,'wrapper')]//input[@name='passwordConfirmation']"),
                     "поле 'Подтверждение пароля' в модалке авторизации");
         }
 
@@ -550,44 +559,48 @@ public class Elements {
         }
 
         static ElementData personalDataWarningText() {
-            return new ElementData(By.xpath("//*[@class='auth-modal']//div[@class='privacy-terms']//text()']"),
+            return new ElementData(By.xpath("//*[@class='auth-modal__form']//div[@class='privacy-terms']//text()']"),
                     "текст предупреждения о согласии с условиями на обработку персональных данных в модалке авторизации");
         }
 
         static ElementData personalDataAgreementLink() {
-            return new ElementData(By.xpath("//*[@class='auth-modal']//*[@class='privacy-terms__link']"),
+            return new ElementData(By.xpath("//*[@class='auth-modal__form']//*[@class='privacy-terms__link']"),
                     "ссылка на условия обработки персональных данных в модалке авторизации");
         }
 
         // todo rememberMeCheckbox
-
-        // todo update locator
-        static ElementData agreementCheckbox() { return new ElementData(By.className("checkbox__check"),
+        static ElementData agreementCheckbox() { return new ElementData(
+                By.xpath("//div[contains(@class,'block_checkbox') and text()='Согласен']"),
                 "чекбокс согласия на получение почтовой рассылки в модалке авторизации"); }
 
+        static ElementData checkBoxes(){
+            return new ElementData(By.xpath("//span[contains(@class,' checkbox_')]"),
+                    "объект возвращает 2 чекбокса 'Хочу заказать для бизнеса' и 'Согласен на рекламную рассылку'");
+        }
+
         static ElementData forgotPasswordButton() {
-            return new ElementData(By.xpath("//*[@class='auth-modal']//*[text()='Забыли пароль?']"));
+            return new ElementData(By.xpath("//*[@class='auth-modal__form']//*[text()='Забыли пароль?']"));
         }
 
         static ElementData submitButton() {
-            return new ElementData(By.xpath("//*[@class='auth-modal']//button[@type='submit']"));
+            return new ElementData(By.xpath("//*[contains(@class,'auth')]//button[@type='submit']"));
         }
 
         static ElementData vkontakteButton() {
             return new ElementData(
-                    By.xpath("//div[@class='auth-modal__social-icon auth-modal__social-icon--vkontakte']"),
+                    By.xpath("//div[@class='auth-modal__form__social-icon auth-modal__social-icon--vkontakte']"),
                         "кнопка авторизации через Vkontakte");
         }
 
         static ElementData facebookButton() {
             return new ElementData(
-                    By.xpath("//div[@class='auth-modal__social-icon auth-modal__social-icon--facebook']"),
+                    By.xpath("//div[@class='auth-modal__form__social-icon auth-modal__social-icon--facebook']"),
                         "кнопка авторизации через Facebook");
         }
 
         static ElementData mailruButton() {
             return new ElementData(
-                    By.xpath("//div[@class='auth-modal__social-icon auth-modal__social-icon--mail_ru']"),
+                    By.xpath("//div[contains(@class,'social-icon auth-modal__social-icon--mail_ru')]"),
                         "кнопка авторизации через Mail.ru");
         }
 
@@ -598,7 +611,7 @@ public class Elements {
         }
 
         static ElementData continueButton(){
-            return new ElementData(By.xpath("//*[@class='auth__viewContainer__15pPy']//button[@type='submit']"),
+            return new ElementData(By.xpath("//*[contains(@class,'auth__viewContainer')]//button[@type='submit']"),
                     "кнопка Продолжить на модалке авторизации");
         }
     }
@@ -683,14 +696,34 @@ public class Elements {
                     "поле ввода адреса в модалке выбора адреса");
         }
 
+        static ElementData adressImageOnMap(){
+            return new ElementData(By.xpath("//*[contains(@class,'notice')]"),
+                    "иголка адреса на карте");
+        }
+        static ElementData modalMapWithText(){
+            return new ElementData(By.xpath("//*[contains(@class,'map')]//*[contains(@class,'float-button-icon')]"),
+                    "модалка с картой и текстом ошибки");
+        }
+
+        static ElementData errorOnTheMap(){
+            return new ElementData(By.xpath("//*[contains(@class,'map')]//*[contains(@class,'map')]"),
+                    "ошибка неточного адреса");
+        }
+
         static ElementData addressSuggest() {
             return new ElementData(
-                    By.xpath("//*[@data-qa='address-autocomplete-dropdown']//*[@id='downshift-0-item-0']"),
+                    /*By.xpath("//*[@data-qa='address-autocomplete-dropdown']//*[@id='downshift-0-item-0']"),
+                    "адресная подсказка в модалке выбора адреса");
+                     */
+            By.xpath("//*[contains(@class,'search_select')]//*[contains(@class,'dropdown')]"),
                     "адресная подсказка в модалке выбора адреса");
         }
 
         static ElementData submitButton() {
-            return new ElementData(By.xpath("//button[@data-qa='address-modal-submit']"));
+            //return new ElementData(By.xpath("//button[@data-qa='address-modal-submit']"));
+            return new ElementData(
+                    By.xpath("//*[contains(@class,'address-modal')]//*[contains(text(),'Сохранить')]"),
+                    "кнопка сохранить адрес в модалке");
         }
 
         static ElementData recentAddressesList() {
@@ -1375,19 +1408,31 @@ public class Elements {
     public interface ItemCard {
 
             static ElementData popup() {
-                return new ElementData(By.className("product-popup"));
+                return new ElementData(By.xpath("//*[contains(@class,'product_cards')]"),
+                        "попап с карточкой товара");
+                //return new ElementData(By.className("product-popup"));
             }
 
             static ElementData name() {
-                return new ElementData(By.xpath("//h1[@class='product-popup__title']"));
+                return new ElementData(By.xpath("//h1[contains(@class,'popup')]"),
+                        "имя товара из карточки");
             }
 
             static ElementData image() {
-                return new ElementData(By.className("product-popup__img"));
+                return new ElementData(By.xpath("//*[contains(@class,'preview_cell')]"),"");
+                //return new ElementData(By.className("product-popup__img"));
             }
 
             static ElementData price() {
-                return new ElementData(By.xpath("//div[@class='product-popup__price']//span"));
+                return new ElementData(By.xpath("//div[contains(@class,'popup')]//div[contains(@class,' components')]//span"),
+                        "цена товара из карточки");
+                //return new ElementData(By.xpath("//div[@class='product-popup__price']//span"));
+            }
+
+            static ElementData prices() {
+                return new ElementData(By.xpath("//div[contains(@class,'popup')]//div[contains(@class,' components')]//span"),
+                    "цена товара из карточки");
+                //return new ElementData(By.xpath("//div[@class='product-popup__price']//span"));
             }
 
             static ElementData quantity() {
@@ -1395,12 +1440,28 @@ public class Elements {
                 "каунтер количества добавленного в корзину товара в карточке товара");
             }
 
+            static ElementData quantityByText() {
+                return new ElementData(By.xpath("//div[@itemprop='offers']//div[contains(@class,'_description')]"),
+                    "каунтер количества доступного товара в карточке товара");
+            }
+
+            static ElementData offersElement(){
+                return new ElementData(By.xpath("//*[contains(@itemprop,'offers')]"),
+                        "секция с ценой, скидкой и кнопками на карточке товара");
+            }
+
+            static ElementData cartNew(){
+                return new ElementData(By.xpath("//*[contains(@class,'product__cart-counter--with-icon')]"),
+                "иконка корзины с добавленным элементом");
+            }
+
             static ElementData saleBadge() {
                 return new ElementData(By.className("sale-badge"));
             }
 
             static ElementData closeButton() {
-                return new ElementData(By.className("close"));
+                return new ElementData(By.xpath("//*[contains(@class,'wrapper_')]//*[contains(@aria-label,'Закрыть')]"),
+                        "кнопка закрыть модалку карточки продукта");
             }
 
             static ElementData plusButton() {

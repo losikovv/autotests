@@ -1,13 +1,15 @@
 package ru.instamart.application.platform.helpers;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.application.models.ElementData;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Elements;
 import ru.instamart.application.platform.modules.Shop;
 import ru.instamart.application.models.EnvironmentData;
+
+import java.util.List;
+import java.util.regex.Pattern;
 
 import static java.lang.Integer.parseInt;
 
@@ -46,6 +48,17 @@ public class GrabHelper extends HelperBase{
         }
     }
 
+    /** Взять текст элемента по локатору */
+    public String text(By locator, int i) {
+        try {
+            return driver.findElement(locator).getText();
+        } catch (NoSuchElementException e) {
+            return null;
+        }catch (Exception ex){
+            return driver.findElements(locator).get(i).getText();
+        }
+    }
+
     /** Взять текст из заполненного поля по элементу */
     public String value(ElementData element) {
         return value(element.getLocator());
@@ -67,7 +80,7 @@ public class GrabHelper extends HelperBase{
 
     /** Взять строку с названием товара в карточке */
     public String itemName() {
-        return kraken.grab().text(Elements.ItemCard.name());
+        return kraken.grab().text(Elements.ItemCard.name().getLocator(),0);
     }
 
     /** Взять целочисленную стоимость товара в карточке */
@@ -77,7 +90,7 @@ public class GrabHelper extends HelperBase{
 
     /** Взять строку со стоимостью товара в карточке */
     public String itemPrice() {
-        return kraken.grab().text(Elements.ItemCard.price());
+        return kraken.grab().text(Elements.ItemCard.prices());
     }
 
     /** Взять кол-во добавленного в корзину товара из каунтера в карточке */
@@ -86,6 +99,44 @@ public class GrabHelper extends HelperBase{
         if(quantity.equals("")) return 0;
         else return parseInt(quantity);
     }
+    /** Взять кол-во добавленного в корзину товара из каунтера в карточке */
+    public String itemQuantityByText() {
+        String quantity = kraken.grab().text(Elements.ItemCard.quantityByText());
+        if(quantity.equals("Товара много")) return quantity;
+        else return "количество товара ограничено, может не хватить для выполнения теста";
+    }
+
+    /** Добавить первую единицу товара с карточки товара*/
+    public void addItemCard(){
+        try{
+            kraken.perform().findChildElementByTagAndText(
+                    driver.findElement(Elements.ItemCard.offersElement().getLocator())
+                    ,By.tagName("button"),"Купить")
+                    .click();
+        }catch (NoSuchElementException ex){
+            throw new ElementClickInterceptedException("невозможно нажать на кнопку купить");
+        }
+    }
+
+    /** Добавить несколько единиц товара с карточки товара к существующему товару*/
+    public void addItemCard(int count){
+        try{
+            for (int i=1;i<count;i++){
+                kraken.perform().findChildElementByTagAndText(
+                        driver.findElement(Elements.ItemCard.offersElement().getLocator())
+                        ,By.tagName("button"),"+ Купить")
+                        .click();
+                kraken.await().fluently(
+                        ExpectedConditions.textMatches(
+                                Elements.ItemCard.cartNew().getLocator(), Pattern.compile(String.valueOf((i+1)))),
+                        "иконка корзины не появилась\n");
+            }
+        }catch (NoSuchElementException ex){
+            throw new ElementClickInterceptedException("невозможно нажать на кнопку купить");
+        }
+    }
+
+
 
     /** Взять целочисленную сумму корзины */
     public int cartTotalRounded() {

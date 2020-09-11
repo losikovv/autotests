@@ -2,12 +2,14 @@ package ru.instamart.application.platform.helpers;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Config;
 import ru.instamart.application.Elements;
 import ru.instamart.application.models.EnvironmentData;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -49,4 +51,21 @@ public class WaitingHelper extends HelperBase {
                 .ignoring(NoSuchElementException.class)
                 .until(conditions);
     }
+
+    public void byElementIsPresentByText(List<WebElement> elements, String text, int timer){
+        for (WebElement element:elements){
+            if(element.getText().equals(text)){
+                for (int i = 0; i<timer; i++){
+                    if (element.isDisplayed())return;
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+
 }

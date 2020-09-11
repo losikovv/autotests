@@ -3,6 +3,7 @@ package ru.instamart.application.platform.helpers;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import ru.instamart.application.models.*;
 import ru.instamart.application.AppManager;
 import ru.instamart.application.Elements;
@@ -80,6 +81,13 @@ public class DetectionHelper extends HelperBase {
     }
 
     /**
+     * Определить проставлен ли чекбокс
+     */
+    public boolean isCheckboxSet(WebElement element) {
+        return element.isSelected();
+    }
+
+    /**
      * Определить выбрана ли радиокнопка
      */
     public boolean isRadioButtonSelected(ElementData element) {
@@ -97,7 +105,7 @@ public class DetectionHelper extends HelperBase {
      * Определить находимся на лендинге или нет
      */
     public boolean isOnLanding() {
-        return isElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.list());
+        return isElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.homeLanding());
     }
 
     /**

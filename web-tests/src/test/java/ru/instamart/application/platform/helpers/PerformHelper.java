@@ -77,14 +77,15 @@ public class PerformHelper extends HelperBase {
             element.click();
         }
         catch (NoSuchElementException n) {
-            message("Невозможно нажать на элемент <" +
+            throw new AssertionError("Невозможно нажать на элемент <" +
                      ">\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
         }
         catch (ElementNotVisibleException v) {
-            message("Невозможно нажать на элемент <"
+            throw new AssertionError("Невозможно нажать на элемент <"
                     + ">\nЭлемент невидим на " + kraken.grab().currentURL() + "\n");
         }
     }
+
 
     /** Навестисть на элемент */
     public void hoverOn(ElementData element) {
@@ -130,6 +131,14 @@ public class PerformHelper extends HelperBase {
             if(kraken.detect().isCheckboxSet(element))
                 click(element);
         }
+    }
+    /** Установить чекбокс по номеру элемента в списке*/
+    public void setCheckbox(ElementData element, int counter){
+        //В данном случае это скорее костыль, так как конкретный чекбокс найти очень сложно, клик по
+        //тексту, чекбокс не переводит в статус true/false
+        //также нельзя найти атрибут по которому будет понятно в каком статусе объект
+        List<WebElement> elements = driver.findElements(element.getLocator());
+        click(elements.get(counter-1));
     }
 
     /** Переключиться на фреймами по имени или id */

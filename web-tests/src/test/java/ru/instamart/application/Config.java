@@ -14,16 +14,16 @@ public class Config {
 
     public interface CoreSettings {
         String defaultBrowser = BrowserType.CHROME;
-        String defaultEnvironment = Environments.sbermarket.staging();
+        String defaultEnvironment = Environments.sbermarket.production();
 
         int basicTimeout = 2;
-        int waitingTimeout = 15;
+        int waitingTimeout = 45;
 
         boolean docker = false;
         boolean video = false;
 
         boolean verbose = true;
-        boolean debug = false;
+        boolean debug = true;
         boolean multiSessionMode = false;
         boolean fullScreenMode = false;
         boolean doCleanupAfterTestRun = true;
@@ -100,7 +100,7 @@ public class Config {
 
         // TODO убрать, определять стоимость доставки во время тестов
         interface DeliveryPrices {
-            int minOrderSum = 2000;
+            int minOrderSum = 2500;
             int MetroHighDeliveryPrice = 299;
             int MetroMediumDeliveryPrice = 199;
             int MetroLowDeliveryPrice = 99;

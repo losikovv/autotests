@@ -10,6 +10,7 @@ import ru.instamart.application.AppManager;
 import ru.instamart.application.lib.Addresses;
 import ru.instamart.application.models.EnvironmentData;
 import ru.instamart.application.models.UserData;
+import ru.instamart.application.platform.helpers.WaitingHelper;
 import ru.instamart.application.rest.objects.Address;
 import ru.instamart.testdata.generate;
 
@@ -135,19 +136,23 @@ public class User extends Base {
         /**
          * Зарегистрировать нового юзера с указанными реквизитами с проверкой на тип модалки по телефону или по почте
          */
-        public static void registration(String name, String email,
+        public static String registration(String name, String email,
                                         String password, String passwordConfirmation,
                                         String phone,String sms) {
             //todo попробовать обернуть в проверку авторизованности и делать логаут при необходимости
             message("Регистрируемся (" + email + " / " + password + ")");
             Shop.AuthModal.open();
-            if(Shop.AuthModal.checkAutorisationModalDialog().equals("модалка с телефоном")){
+            String modalType = Shop.AuthModal.checkAutorisationModalDialog();
+            if(modalType.equals("модалка с телефоном")){
                 regSequenceMobile(phone, sms);
-                String a ="";
-            }else regSequence(name, email, password, passwordConfirmation);
-            // TODO переделать на fluent-ожидание
-            kraken.await().implicitly(1); // Ожидание раздизебливания кнопки подтверждения регистрации
-            Shop.AuthModal.submit();
+                return modalType;
+            }else {
+                regSequence(name, email, password, passwordConfirmation);
+                // TODO переделать на fluent-ожидание
+                kraken.await().implicitly(1); // Ожидание раздизебливания кнопки подтверждения регистрации
+                Shop.AuthModal.submit();
+                return modalType;
+            }
         }
 
         /**
@@ -371,13 +376,24 @@ public class User extends Base {
         /** Установить адрес доставки */
         public static void set(String address) {
             Shop.ShippingAddressModal.open();
+            kraken.await().fluently(
+                    ExpectedConditions.elementToBeClickable(
+                            Elements.Modals.AddressModal.modalMapWithText().getLocator()),
+                    "Не подтянулись адресные подсказки\n"
+            );
             String currentAddress = kraken.grab().value(Elements.Modals.AddressModal.addressField());
+            if(currentAddress.equals("")){
+                kraken.await().implicitly(5);//текущая локация подставляется автоматически,
+                // нужно подождать, пока элемент прогрузится
+                currentAddress = kraken.grab().value(Elements.Modals.AddressModal.addressField());
+            }
             if(currentAddress.equals("")) {
                 message("Устанавливаем адрес доставки: " + address + "\n");
             } else {
                 message("Изменяем адрес доставки:\n" + currentAddress + " >>> " + address + "\n");
                 Shop.ShippingAddressModal.clearAddressField();
             }
+            //todo нужно допилить проверку"
             Shop.ShippingAddressModal.fill(address);
             Shop.ShippingAddressModal.submit();
         }
