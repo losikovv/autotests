@@ -147,13 +147,18 @@ public class Store extends BaseObject {
                 ", ",
                 "",
                 "");
-        if (getRetailer() != null) {
-            stringJoiner.add(getRetailer().getName());
-        } else stringJoiner.add(getName());
-
-        if (getLocation() != null) stringJoiner
-                .add(getLocation().getCity())
-                .add(getLocation().getStreet());
+        if (getRetailer() == null || getLocation() == null) {
+            stringJoiner.add(getName());
+        } else {
+            if (getRetailer() != null) {
+                stringJoiner.add(getRetailer().getName());
+            }
+            if (getLocation() != null) {
+                stringJoiner
+                        .add(getLocation().getCity())
+                        .add(getLocation().getStreet());
+            }
+        }
         return stringJoiner
                 .add("sid: " + id)
                 .toString();

@@ -7,6 +7,7 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.application.lib.Pages;
 import ru.instamart.application.models.EnvironmentData;
@@ -16,10 +17,7 @@ import ru.instamart.application.rest.objects.responses.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.*;
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.config.EncoderConfig.encoderConfig;
@@ -139,6 +137,52 @@ public class RestHelper extends Requests {
         token.set(null);
     }
 
+
+    /**
+     * Определяем, есть ли в списке указанный инт
+     */
+    public static boolean listContainsInt(int integer, List<Integer> list) {
+        for (int intFromList : list)
+            if (integer == intFromList) {
+                return true;
+            }
+        return false;
+    }
+
+    /**
+     * Определяем, есть ли в хэшэ указанная пара из инта и стринга
+     */
+    public static boolean hashMapContainsIntAndString(int integer, String string, HashMap<Integer, String> hashMap) {
+        if (hashMap.containsKey(integer)) {
+            return hashMap.get(integer).contains(string);
+        }
+        return false;
+    }
+
+    /**
+     * Пропускаем тест, если доступен только самовывоз
+     * ToDo убрать хардкод данных
+     * ToDo если самовывоз, не скипать тест, а оформлять заказ через сайт
+     */
+    public void skipTestIfOnlyPickupIsAvailable(Store store, String zoneName) {
+        List<Integer> pickupRetailers = new ArrayList<>();
+        pickupRetailers.add(
+                53 //провино
+        );
+        HashMap<Integer, String> pickupZones = new HashMap<>();
+        pickupZones.put(
+                104, "Зона #4" //METRO, Воронеж, Семилуки Займище
+        );
+        if (listContainsInt(store.getRetailer().getId(), pickupRetailers) ||
+                hashMapContainsIntAndString(store.getId(), zoneName, pickupZones)) {
+            throw new SkipException("Доступен только самовывоз\nsid: " + store.getId() + "\n" + zoneName);
+        }
+    }
+
+    public void skipTestIfOnlyPickupIsAvailable(Store store) {
+        skipTestIfOnlyPickupIsAvailable(store, null);
+    }
+
     /*
       МЕТОДЫ ОБРАБОТКИ ОТВЕТОВ REST API
      */
@@ -245,12 +289,12 @@ public class RestHelper extends Requests {
         for (Department department : departments) {
             List<Product> productsFromDepartment = department.getProducts();
             if (productsFromDepartment == null) {
-                softAssert.fail("Показывается пустая категория " + department.getName() + "\n" + storeUrl);
+                softAssert.fail("\nПоказывается пустая категория " + department.getName() + "\n" + storeUrl);
                 continue;
             }
             if (department.getProducts_count() <= 6)
                 softAssert.assertEquals(productsFromDepartment.size(), department.getProducts_count(),
-                        "В категории " + department.getName() + " отображается "
+                        "\nВ категории " + department.getName() + " отображается "
                                 + productsFromDepartment.size() + " товаров, в products_count указано "
                                 + department.getProducts_count() + "\n" + storeUrl);
 
@@ -627,6 +671,19 @@ public class RestHelper extends Requests {
 
         for (Retailer retailer : retailers) {
             stores.addAll(getRetailerStoresSpree(retailer.getId()).as(StoresResponse.class).getStores());
+        }
+        printAvailableStores(stores);
+
+        return stores;
+    }
+
+    /**
+     * Получить список активных магазинов у ретейлера (без зон доставки)
+     */
+    public static List<Store> availableStores(Retailer retailer) {
+        List<Store> stores = getRetailerStoresSpree(retailer.getId()).as(StoresResponse.class).getStores();
+        for (Store store : stores) {
+            store.setRetailer(retailer);
         }
         printAvailableStores(stores);
 

@@ -26,7 +26,7 @@ public class RestDataProvider extends RestBase {
         Object[][] retailerArray = new Object[retailerList.size()][1];
 
         for (int i = 0; i < retailerList.size(); i++) {
-            retailerArray[i][0] = retailerList.get(i).getSlug();
+            retailerArray[i][0] = retailerList.get(i);
         }
         return retailerArray;
     }

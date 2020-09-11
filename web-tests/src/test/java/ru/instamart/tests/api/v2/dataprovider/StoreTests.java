@@ -40,7 +40,7 @@ public class StoreTests extends RestBase {
     @Test(  dataProvider = "stores-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест продуктов на главных страницах всех магазинов",
-            groups = {"rest"})
+            groups = {})
     public void productsOnMainPages(Store store) {
         System.out.println(store + "\n" + RestAssured.baseURI + "/api/v2/departments?sid=" + store.getId() + "\n");
 
