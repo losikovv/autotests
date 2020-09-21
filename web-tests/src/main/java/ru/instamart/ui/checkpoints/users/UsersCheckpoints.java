@@ -1,6 +1,6 @@
-package ru.instamart.ui.checkpoints.users;
+package instamart.ui.checkpoints.users;
 
-import org.testng.asserts.SoftAssert;
+import  org.testng.asserts.SoftAssert;
 
 public class UsersCheckpoints {
     SoftAssert softAssert = new SoftAssert();

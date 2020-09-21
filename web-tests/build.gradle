@@ -6,12 +6,23 @@ repositories {
 
 dependencies {
     implementation 'org.jetbrains:annotations:19.0.0'
-    testCompile 'io.rest-assured:rest-assured:4.1.1'
-    compile 'io.rest-assured:json-schema-validator:4.1.1'
-	compile 'org.testng:testng:6.8.8'
-    compile 'org.seleniumhq.selenium:selenium-java:3.8.1'
-	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    compile 'io.rest-assured:rest-assured:4.1.1'
+    implementation 'io.rest-assured:json-schema-validator:4.1.1'
+	implementation 'org.testng:testng:6.8.8'
+    implementation 'org.seleniumhq.selenium:selenium-java:3.8.1'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+}
+
+sourceSets {
+    main {
+        java.srcDir file('src/main/java/ru')
+        resources.srcDir file('src/main/resources')
+    }
+    test {
+        java.srcDir file('src/test/')
+        resources.srcDir file('src/test/resources')
+    }
 }
 
 task sberSmoke(type: Test) {
