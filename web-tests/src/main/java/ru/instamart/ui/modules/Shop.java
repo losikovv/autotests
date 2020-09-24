@@ -63,6 +63,8 @@ public class Shop extends Base {
 
         public static void switchToAuthorisationTab() {
             verboseMessage("> переключаемся на вкладку авторизации");
+            if(driver.findElement(Elements.Modals.AuthModal.authorisationTab()
+                    .getLocator()).getAttribute("class").contains("undefined")) return;
             kraken.perform().click(Elements.Modals.AuthModal.authorisationTab());
         }
 
@@ -120,15 +122,27 @@ public class Shop extends Base {
         }
 
         public static void hitVkontakteButton() {
-            kraken.perform().click(Elements.Modals.AuthModal.vkontakteButton());
+            WebElement vkontakteButton =
+                    kraken.perform().findChildElementByTagAndIndex(
+                            Elements.Modals.AuthModal.socialButtonsSectionParent(),
+                            By.tagName("button"),0);
+            kraken.perform().click(vkontakteButton);
         }
 
         public static void hitFacebookButton() {
-            kraken.perform().click(Elements.Modals.AuthModal.facebookButton());
+            WebElement facebookButton =
+                    kraken.perform().findChildElementByTagAndIndex(
+                            Elements.Modals.AuthModal.socialButtonsSectionParent(),
+                            By.tagName("button"),1);
+            kraken.perform().click(facebookButton);
         }
 
         public static void hitMailRuButton() {
-            kraken.perform().click(Elements.Modals.AuthModal.mailruButton());
+            WebElement mailButton =
+                    kraken.perform().findChildElementByTagAndIndex(
+                            Elements.Modals.AuthModal.socialButtonsSectionParent(),
+                            By.tagName("button"),2);
+            kraken.perform().click(mailButton);
         }
 
         public static void hitSberIdButton() {

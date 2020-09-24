@@ -16,13 +16,13 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         User.Logout.quickly();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
     }
 
     @Test ( enabled = Config.TestsConfiguration.AddonsTests.enableRetailRocketTest,

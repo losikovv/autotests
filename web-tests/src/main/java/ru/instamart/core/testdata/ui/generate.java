@@ -70,7 +70,7 @@ public class generate {
     }
 
     public static UserData testCredentials(String role) {
-        return testCredentials(role, 0);
+        return testCredentials(role, 5);
     }
 
     public static UserData testCredentials(String role, int prefixLength) {

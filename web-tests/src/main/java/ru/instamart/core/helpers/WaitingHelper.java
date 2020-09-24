@@ -43,6 +43,19 @@ public class WaitingHelper extends HelperBase {
         fluently(conditions,"");
     }
 
+    public void fluentlyWithWindowsHandler(Function conditions){
+        for (String winHandle : driver.getWindowHandles()) {
+            try{
+                driver.switchTo().window(winHandle); // switch focus of WebDriver to the next found window handle
+                fluently(conditions,"");
+            }catch (Exception ex){
+                verboseMessage("окно закрыто продолжаем поиск");
+                continue;
+            }
+
+        }
+    }
+
     public void fluently(Function conditions, String message){
         new FluentWait<>(driver)
                 .withTimeout(Config.CoreSettings.waitingTimeout, TimeUnit.SECONDS)

@@ -244,4 +244,16 @@ public class PerformHelper extends HelperBase {
         throw new AssertionError("Невозможно найти элемент по тегу <" + tag
                 + "> и тексту: "+text+"\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
     }
+
+    /**Это функция работает как костыль, пока у нас нет дата атрибутов, она берет парента и возвращает чаилда по индексу
+     * нужно от нее отказаться, когла сделаем дата атрибут*/
+    public WebElement findChildElementByTagAndIndex(ElementData parent,By tag, Integer index){
+        List<WebElement> elements = driver.findElement(parent.getLocator()).findElements(tag);
+        try{
+            return elements.get(index);
+        }catch (Exception ex){
+            throw new AssertionError("Невозможно найти элемент по тегу <" + tag
+                    + "> и индексу: "+index+"\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
+        }
+    }
 }

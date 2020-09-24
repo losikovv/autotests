@@ -1,12 +1,13 @@
 package ru.instamart.tests.addons;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import instamart.core.common.AppManager;
+import instamart.core.settings.Config;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.settings.Config.TestsConfiguration.AddonsTests.enableJivositeTests;
@@ -45,7 +46,7 @@ public class JivositeTests extends TestBase {
     )
     public void successOperateJivositeWidgetOnRetailerPage() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Assert.assertTrue(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite недоступен на витрине ритейлера\n");
@@ -120,7 +121,7 @@ public class JivositeTests extends TestBase {
     )
     public void successSendMessageToJivositeFromRetailerPage() {
         String testMessage = "тест";
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.Jivosite.sendMessage(testMessage);
 

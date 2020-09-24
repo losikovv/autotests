@@ -152,7 +152,7 @@ public class Playground extends TestBase {
 
     @Test
     public void catalog() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         //kraken.await().simply(5);
         Shop.CatalogDrawer.open();
         //kraken.await().simply(5);

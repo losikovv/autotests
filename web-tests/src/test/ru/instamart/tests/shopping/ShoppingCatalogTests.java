@@ -1,13 +1,14 @@
 package ru.instamart.tests.shopping;
 
+import instamart.core.settings.Config;
+import instamart.ui.common.lib.Addresses;
+import instamart.ui.modules.Shop;
+import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.modules.User;
-import instamart.ui.common.lib.Addresses;
-import instamart.ui.modules.Shop;
 import ru.instamart.tests.TestBase;
 
 public class ShoppingCatalogTests extends TestBase {
@@ -15,9 +16,9 @@ public class ShoppingCatalogTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         User.Logout.quickly();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
-        kraken.get().page("metro"); // TODO заменить на метод выбора первого магаза в модалке
+        kraken.get().page(Config.CoreSettings.defaultTenant);
     }
 
     @Test(
@@ -83,7 +84,7 @@ public class ShoppingCatalogTests extends TestBase {
     )
     public void successOperateItemCardOnRetailerPage() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.Catalog.Item.open();
 
@@ -109,7 +110,7 @@ public class ShoppingCatalogTests extends TestBase {
     public void successOperateItemCardOnDepartmentPage() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Shop.CatalogDrawer.open();
         Shop.CatalogDrawer.goToDepartment("Овощи и фрукты");
 
@@ -137,7 +138,7 @@ public class ShoppingCatalogTests extends TestBase {
     public void successOperateItemCardOnTaxonPage() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Shop.CatalogDrawer.open();
         Shop.CatalogDrawer.goToTaxon("Бакалея");
 

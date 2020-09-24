@@ -1,12 +1,13 @@
 package ru.instamart.tests.shopping;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import instamart.core.settings.Config;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class ShoppingTestsForUnauthorizedUser extends TestBase {
@@ -14,7 +15,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void setup() {
         User.Logout.quickly();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
     }
 
     @Test(

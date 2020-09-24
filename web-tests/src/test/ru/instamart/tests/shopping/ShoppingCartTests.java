@@ -1,13 +1,14 @@
 package ru.instamart.tests.shopping;
 
+import instamart.core.settings.Config;
+import instamart.ui.common.lib.Addresses;
+import instamart.ui.modules.Shop;
+import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import instamart.ui.modules.User;
-import instamart.ui.common.lib.Addresses;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.modules.Shop;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.common.AppManager.session;
@@ -17,7 +18,7 @@ public class ShoppingCartTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         User.Logout.quickly();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
     }
 
@@ -75,7 +76,7 @@ public class ShoppingCartTests extends TestBase {
             priority = 623
     )
     public void successAddItemToCartFromItemCard() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.Do.loginAs(session.user);
         Shop.Cart.drop();
 
@@ -99,7 +100,7 @@ public class ShoppingCartTests extends TestBase {
     public void successChangeItemQuantityInCart() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.Do.loginAs(session.user);
         Shop.Cart.drop();
 
@@ -133,7 +134,7 @@ public class ShoppingCartTests extends TestBase {
     public void successChangeItemQuantityInCartViaItemCard() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.Do.loginAs(session.user);
         Shop.Cart.drop();
 
@@ -169,7 +170,7 @@ public class ShoppingCartTests extends TestBase {
             priority = 626
     )
     public void successRemoveItemsFromCart() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.Do.loginAs(session.user);
         Shop.Catalog.Item.addToCart();
         if(kraken.detect().isCartEmpty()){
@@ -189,7 +190,7 @@ public class ShoppingCartTests extends TestBase {
             priority = 627
     )
     public void successAddItemToCartFromCatalogSnippet() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.Do.loginAs(session.user);
         Shop.Cart.drop();
 

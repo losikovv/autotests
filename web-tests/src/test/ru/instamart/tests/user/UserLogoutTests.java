@@ -1,12 +1,13 @@
 package ru.instamart.tests.user;
 
+import instamart.core.settings.Config;
+import instamart.ui.common.lib.Addresses;
+import instamart.ui.modules.Shop;
+import instamart.ui.modules.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import instamart.ui.common.lib.Addresses;
-import instamart.ui.modules.Shop;
-import instamart.ui.modules.User;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.common.AppManager.session;
@@ -25,14 +26,14 @@ public class UserLogoutTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successQuickLogout() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         User.Do.loginAs(session.admin);
         User.Logout.quickly();
 
         assertPageIsAvailable();
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Assert.assertFalse(
                 kraken.detect().isUserAuthorised(),
@@ -46,14 +47,14 @@ public class UserLogoutTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successManualLogout() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         User.Do.loginAs(session.admin);
         User.Logout.manually();
 
         assertPageIsAvailable();
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Assert.assertFalse(
                 kraken.detect().isUserAuthorised(),
@@ -67,17 +68,17 @@ public class UserLogoutTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void noShipAddressAndEmptyCartAfterLogout() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         User.Do.loginAs(session.admin);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         kraken.await().simply(2);
         Shop.Catalog.Item.addToCart();
         User.Logout.manually();
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Assert.assertFalse(
                 kraken.detect().isUserAuthorised(),

@@ -1,11 +1,12 @@
 package ru.instamart.tests.user;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class UserPasswordRecoveryTests extends TestBase {
@@ -88,7 +89,7 @@ public class UserPasswordRecoveryTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successRequestRecoveryOnMainPage() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         User.PasswordRecovery.request(Users.superuser());
 

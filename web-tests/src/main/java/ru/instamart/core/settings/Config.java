@@ -4,6 +4,7 @@ import instamart.core.testdata.Environments;
 import instamart.core.testdata.ui.PaymentCards;
 import instamart.core.testdata.ui.PaymentTypes;
 import instamart.core.testdata.ui.Juridicals;
+import instamart.core.testdata.ui.Tenants;
 import instamart.ui.common.lib.ReplacementPolicies;
 import instamart.ui.common.pagesdata.*;
 import org.openqa.selenium.remote.BrowserType;
@@ -12,10 +13,12 @@ public class Config {
     public static boolean isKrakenRevealen = false; // Переменная для обозначения запущен кракен или нет,
     // может понадобится для раздельного запуска API и UI пусть полежит тут, если нормально настроим
     // то удалим эту штуку
+    private boolean mobileAuth;
 
     public interface CoreSettings {
         String defaultBrowser = BrowserType.CHROME;
         String defaultEnvironment = Environments.sbermarket.staging();
+        String defaultTenant = Tenants.metro().getAlias();
 
         int basicTimeout = 2;
         int waitingTimeout = 45;
@@ -25,6 +28,7 @@ public class Config {
 
         boolean verbose = true;
         boolean debug = true;
+
         boolean multiSessionMode = false;
         boolean fullScreenMode = false;
         boolean doCleanupAfterTestRun = true;
@@ -32,6 +36,13 @@ public class Config {
 
 
         boolean restIgnoreProperties = true;
+
+    }
+    /** Это временный костыль пока мы живем с разными типами авторизаци на стейдже и проде, когда переедем
+     * полностью на мобилку, это нужно будет удалить */
+    public boolean mobileAuth(){
+        if (CoreSettings.defaultEnvironment.equals("sbermarket-production"))return mobileAuth=false;
+        else return mobileAuth=true;
     }
 
     public interface TestsConfiguration {

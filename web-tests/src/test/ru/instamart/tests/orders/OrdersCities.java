@@ -1,10 +1,11 @@
 package ru.instamart.tests.orders;
 
+import instamart.api.common.RestAddresses;
+import instamart.core.common.AppManager;
+import instamart.core.settings.Config;
+import instamart.ui.modules.User;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import instamart.core.common.AppManager;
-import instamart.ui.modules.User;
-import instamart.api.common.RestAddresses;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.settings.Config.TestsConfiguration.OrdersTests.enableOrderCitiesTests;
@@ -19,7 +20,7 @@ public class OrdersCities extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
     }
 
     @Test(enabled = enableOrderCitiesTests,

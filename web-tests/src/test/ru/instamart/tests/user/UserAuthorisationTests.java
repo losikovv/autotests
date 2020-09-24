@@ -1,23 +1,26 @@
 package ru.instamart.tests.user;
 
-import org.testng.Assert;
+import instamart.core.settings.Config;
+import instamart.core.testdata.Users;
+import instamart.core.testdata.ui.generate;
+import instamart.ui.checkpoints.BaseUICheckpoints;
+import instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
+import instamart.ui.common.lib.Addresses;
+import instamart.ui.common.pagesdata.UserData;
+import instamart.ui.modules.Shop;
+import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import instamart.core.testdata.Users;
-import instamart.ui.common.pagesdata.UserData;
-import instamart.ui.modules.User;
-import instamart.ui.common.lib.Addresses;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.modules.Shop;
-import instamart.core.testdata.ui.generate;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.common.AppManager.session;
 
 public class UserAuthorisationTests extends TestBase {
-
+    Config config = new Config();
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
     @BeforeClass(alwaysRun = true)
     public void setup() {
         User.Logout.quickly();
@@ -31,277 +34,192 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации с пустыми реквизитами",
             groups = {
-                    "metro-acceptance", "metro-regression",
+                    "metro-acceptance", "metro-regression","testing",
                     "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 111
     )
     public void noAuthWithEmptyRequisites() {
-        kraken.get().page("metro");
+        if(config.mobileAuth())skipTest();
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
         Shop.AuthModal.fillAuthorisationForm("", "");
         Shop.AuthModal.submit();
 
-        SoftAssert softAssert = new SoftAssert();
+        baseChecks.checkIsErrorMessageElementPresent("Укажите email",
+                "Нет пользовательской ошибки пустого поля email");
 
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Укажите email")),
-                        "Нет пользовательской ошибки пустого поля email\n");
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Укажите пароль")),
-                        "Нет пользовательской ошибки пустого поля Пароль\n");
-
-        kraken.get().baseUrl();
-
-        Assert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                        "Произошла авторизация с пустыми реквизитами"+"\n");
-
-        softAssert.assertAll();
+        baseChecks.checkIsErrorMessageElementPresent("Укажите пароль",
+                "Нет пользовательской ошибки пустого поля Пароль");
+        authChecks.checkIsUserNotAuthorized("Произошла авторизация с пустыми реквизитами");
     }
 
     @Test(
             description = "Негативный тест попытки авторизации без email",
             groups = {
-                    "metro-regression",
+                    "metro-regression","testing",
                     "sbermarket-regression"
             },
             priority = 112
     )
     public void noAuthWithoutEmail() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
         Shop.AuthModal.fillAuthorisationForm("", "instamart");
         Shop.AuthModal.submit();
 
-        SoftAssert softAssert = new SoftAssert();
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Укажите email")),
-                        "Нет пользовательской ошибки пустого поля email\n");
-
-        kraken.get().baseUrl();
-        Assert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    "Произошла авторизация без email\n");
-
-        softAssert.assertAll();
+        baseChecks.checkIsErrorMessageElementPresent("Укажите email",
+                "Нет пользовательской ошибки пустого поля email");
+        authChecks.checkIsUserNotAuthorized("Произошла авторизация без email");
     }
 
     @Test(
             description = "Негативный тест попытки авторизации без пароля",
             groups = {
-                    "metro-regression",
+                    "metro-regression","testing",
                     "sbermarket-regression"
             },
             priority = 113
     )
     public void noAuthWithoutPassword() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
         Shop.AuthModal.fillAuthorisationForm(Users.superuser().getLogin(), "");
         Shop.AuthModal.submit();
 
-        SoftAssert softAssert = new SoftAssert();
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Укажите пароль")),
-                        "Нет пользовательской ошибки пустого поля Пароль\n");
-
-        kraken.get().baseUrl();
-        Assert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    "Произошла авторизация без пароля"+"\n");
-
-        softAssert.assertAll();
+        baseChecks.checkIsErrorMessageElementPresent("Укажите пароль",
+                "Нет пользовательской ошибки пустого поля Пароль");
+        authChecks.checkIsUserNotAuthorized("Произошла авторизация без пароля");
     }
 
     @Test(
             description = "Негативный тест попытки авторизации несуществующим юзером",
             groups = {
-                    "metro-regression",
+                    "metro-regression","testing",
                     "sbermarket-regression"
             },
             priority = 114
     )
     public void noAuthWithNonexistingUser() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
         Shop.AuthModal.fillAuthorisationForm("nonexistinguser@example.com", "password");
         Shop.AuthModal.submit();
 
-        SoftAssert softAssert = new SoftAssert();
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Неверный email или пароль")),
-                        "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
-
-        kraken.get().baseUrl();
-        Assert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    "Произошла авторизация несуществующим юзером"+"\n");
-
-        softAssert.assertAll();
+        baseChecks.checkIsErrorMessageElementPresent("Неверный email или пароль",
+                "Нет пользовательской ошибки авторизации с неверным email или паролем");
+        authChecks.checkIsUserNotAuthorized("Произошла авторизация несуществующим юзером");
     }
 
     @Test(
             description = "Негативный тест попытки авторизации с неверным паролем",
             groups = {
-                    "metro-acceptance", "metro-regression",
+                    "metro-acceptance", "metro-regression","testing",
                     "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 115
     )
     public void noAuthWithWrongPassword() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
         Shop.AuthModal.fillAuthorisationForm(Users.superuser().getLogin(), "wrongpassword");
         Shop.AuthModal.submit();
 
-        SoftAssert softAssert = new SoftAssert();
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Неверный email или пароль")),
-                        "Нет пользовательской ошибки авторизации с неверным email или паролем\n");
-
-        kraken.get().baseUrl();
-        Assert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    "Произошла авторизация с неверным паролем"+"\n");
-
-        softAssert.assertAll();
+        baseChecks.checkIsErrorMessageElementPresent("Неверный email или пароль",
+                "Нет пользовательской ошибки авторизации с неверным email или паролем");
+        authChecks.checkIsUserNotAuthorized("Произошла авторизация с неверным паролем");
     }
 
     @Test(
             description = "Негативный тест попытки авторизовать пользователя с длинными полями",
             groups = {
-                    "metro-regression",
+                    "metro-regression","testing",
                     "sbermarket-regression"
             },
             priority = 116
     )
     public void noAuthWithLongFields() {
-        SoftAssert softAssert = new SoftAssert();
         UserData testUser = generate.testCredentials("user",129);
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
         Shop.AuthModal.fillAuthorisationForm(testUser.getLogin(), testUser.getPassword());
         Shop.AuthModal.submit();
 
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(Elements.Modals.AuthModal.errorMessage("Неверный email или пароль")),
-                    failMessage("Нет пользовательской ошибки авторизации с неверным email или паролем"));
-
-        kraken.get().baseUrl();
-
-        softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    failMessage("Произошла авторизация при наличии ошибок заполнения формы авторизации"));
-
-        softAssert.assertAll();
+        baseChecks.checkIsErrorMessageElementPresent("Неверный email или пароль",
+                "Нет пользовательской ошибки авторизации с неверным email или паролем");
+        authChecks.checkIsUserNotAuthorized("Произошла авторизация при наличии ошибок заполнения формы авторизации");
     }
 
     @Test(
             description = "Тест отмены авторизации после заполнения всех полей",
             groups = {
-                    "metro-regression",
+                    "metro-regression","testing",
                     "sbermarket-regression"
             },
             priority = 117
     )
     public void noAuthOnModalClose() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
         Shop.AuthModal.fillAuthorisationForm(Users.superuser().getLogin(), Users.superuser().getPassword());
         Shop.AuthModal.close();
 
-        SoftAssert softAssert = new SoftAssert();
-
-        softAssert.assertFalse(
-                kraken.detect().isAuthModalOpen(),
-                    "Не закрывается заполненная авторизационная модалка\n");
-
-        kraken.get().baseUrl();
-
-        softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    "Произошла авторизация после заполнения всех полей и закрытия модалки\n");
-
-        softAssert.assertAll();
+        baseChecks.checkIsAuthModalClosed();
+        authChecks.checkIsUserNotAuthorized("Произошла авторизация после заполнения всех полей и закрытия модалки");
     }
 
     @Test(
             description = "Тест успешной авторизации на витрине",
             groups = {
-                    "metro-acceptance", "metro-regression",
+                    "metro-acceptance", "metro-regression","testing",
                     "sbermarket-smoke", "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 119
     )
     public void successAuthOnMainPage() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         User.Do.loginAs(session.admin);
 
-        Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "Не работает авторизация на витрине магазина\n");
+        authChecks.checkIsUserAuthorized("Не работает авторизация на витрине магазина");
     }
 
     @Test(
             description = "Тест авторизации из адресной модалки феникса",
             groups = {
-                    "metro-regression",
+                    "metro-regression","testing",
                     "sbermarket-regression"
             },
             priority = 120
     )
     public void successAuthFromAddressModal() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.ShippingAddressModal.open();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
-
-        SoftAssert softAssert = new SoftAssert();
-
-        softAssert.assertTrue(
-                kraken.detect().isAuthModalOpen(),
-                    "\nНе работает переход на авторизацию из адресной модалки");
-
+        baseChecks.checkIsAuthModalOpen("Не работает переход на авторизацию из адресной модалки");
         User.Do.loginAs(session.user);
-
-        softAssert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "\nНе работает авторизация из адресной модалки феникса");
-
-        softAssert.assertAll();
+        authChecks.checkIsUserAuthorized("Не работает авторизация из адресной модалки феникса");
     }
 
     @Test(
             description = "Тест успешной авторизации из корзины",
             groups = {
-                    "metro-regression",
+                    "metro-regression","testing",
                     "sbermarket-regression"
             },
             priority = 121
@@ -311,96 +229,64 @@ public class UserAuthorisationTests extends TestBase {
 
         User.Do.registration(testuser);
         User.Logout.quickly();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
 
-        SoftAssert softAssert = new SoftAssert();
-
-        softAssert.assertTrue(
-                kraken.detect().isAuthModalOpen(),
-                    "\nНе открывается авторизационная модалка при переходе неавторизованным из корзины в чекаут");
-
+        baseChecks.checkIsAuthModalOpen("Не открывается авторизационная модалка при переходе" +
+                " неавторизованным пользователем из корзины в чекаут");
         User.Auth.withEmail(testuser);
-
-        softAssert.assertTrue(
-                kraken.detect().isOnCheckout(),
-                    "\nНет автоперехода в чекаут после авторизации из корзины");
-
+        authChecks.checkAutoCheckoutRedirect("Нет автоперехода в чекаут после авторизации из корзины");
         kraken.get().baseUrl();
-
-        softAssert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "\nНе работает авторизация из корзины");
-
-        softAssert.assertFalse(
-                kraken.detect().isCartEmpty(),
-                    "\nПропали товары после авторизации из корзины");
-
-        softAssert.assertAll();
+        authChecks.checkIsUserAuthorized("Не работает авторизация из корзины");
+        baseChecks.checkIsCartEmpty("Авторизация из корзины",
+                "Пропали товары после авторизации из корзины");
     }
 
     @Test(
             description = "Тест успешной авторизации через ВКонтакте",
             priority = 122,
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-acceptance","testing","sbermarket-regression"}
     )
     public void successAuthWithVkontakte() {
-        kraken.get().page("metro");
-
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.Auth.withVkontakte(Users.vkontakte());
-
-        Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    failMessage("Не работает авторизация через ВКонтакте"));
+        authChecks.checkIsUserAuthorized("Не работает авторизация через ВКонтакте");
     }
 
     @Test(
             description = "Тест успешной авторизации через Facebook",
             priority = 123,
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-acceptance","testing","sbermarket-regression"}
     )
     public void successAuthWithFacebook() {
-        kraken.get().page("metro");
-
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.Auth.withFacebook(Users.facebook());
-
-        Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    failMessage("Не работает авторизация через Facebook"));
+        authChecks.checkIsUserAuthorized("Не работает авторизация через Facebook");
     }
 
-    @Test( enabled = false, // надо придумать как избежать в дальнейших тестах блокирующего окошка Mail.ru
-            description = "Тест успешной авторизации через MailRu",
+    @Test(  description = "Тест успешной авторизации через MailRu",
             priority = 124,
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-acceptance","testing","sbermarket-regression"}
     )
     public void successAuthWithMailRu() {
-        kraken.get().page("metro");
-
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.Auth.withMailRu(Users.mailRu());
-
-        Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    failMessage("Не работает авторизация через MailRu"));
+        authChecks.checkIsUserAuthorized("Не работает авторизация через MailRu");
     }
 
 
     @Test(
             description = "Тест успешной авторизации через Sber ID",
             priority = 125,
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-acceptance","testing","sbermarket-regression"}
     )
     public void successAuthWithSberID() {
-        kraken.get().page("metro");
-
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.Auth.withSberID(Users.sberId());
-
-        Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    failMessage("Не работает авторизация через Sber ID"));
+        authChecks.checkIsUserAuthorized("Не работает авторизация через Sber ID");
     }
 }
 

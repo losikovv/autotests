@@ -1,12 +1,13 @@
 package ru.instamart.tests.user;
 
+import instamart.core.settings.Config;
+import instamart.ui.common.lib.Addresses;
+import instamart.ui.modules.Shop;
+import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import instamart.ui.modules.User;
-import instamart.ui.common.lib.Addresses;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.modules.Shop;
 import ru.instamart.tests.TestBase;
 
 public class UserShippingAddressTests extends TestBase {
@@ -22,7 +23,7 @@ public class UserShippingAddressTests extends TestBase {
     public void noShippingAddressByDefault() {
         SoftAssert softAssert = new SoftAssert();
         User.Logout.quickly();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         softAssert.assertFalse(
                 kraken.detect().isShippingAddressSet(),
@@ -43,7 +44,7 @@ public class UserShippingAddressTests extends TestBase {
             }
     )
     public void successOperateDefaultShoplist() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Shop.StoreSelector.open();
 
         Assert.assertTrue(
@@ -72,7 +73,7 @@ public class UserShippingAddressTests extends TestBase {
             priority = 303
     )
     public void noShippingAddressSetOnClose() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Shop.ShippingAddressModal.open();
         Shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         Shop.ShippingAddressModal.close();
@@ -92,7 +93,7 @@ public class UserShippingAddressTests extends TestBase {
     )
     public void noAvailableShopsOutOfDeliveryZone() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
 
         Shop.StoreSelector.open();
@@ -125,7 +126,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successSetShippingAddressOnRetailerPage() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         softAssert.assertTrue(
@@ -153,7 +154,7 @@ public class UserShippingAddressTests extends TestBase {
     public void noChangeShippingAddressOnCancel() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         if(!kraken.detect().isShippingAddressSet()) {
             User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
@@ -184,7 +185,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successChangeShippingAddress() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         if(!kraken.detect().isShippingAddressSet()) {
             User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
@@ -248,7 +249,7 @@ public class UserShippingAddressTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         User.Logout.quickly();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Shop.Catalog.Item.addToCart();
         Shop.ItemCard.addToCart();
 
@@ -281,7 +282,7 @@ public class UserShippingAddressTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         User.Logout.quickly();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Shop.Catalog.Item.addToCart();
 
         softAssert.assertTrue(
@@ -376,7 +377,7 @@ public class UserShippingAddressTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         User.Logout.quickly();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
 
         softAssert.assertTrue(

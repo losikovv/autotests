@@ -584,11 +584,16 @@ public class Elements {
         static ElementData submitButton() {
             return new ElementData(By.xpath("//*[contains(@class,'auth')]//button[@type='submit']"));
         }
-
+        //ToDo здесь нужно добавить дата атрибут с именем, так как кнопки друг от друга ни как не отличаются
         static ElementData vkontakteButton() {
             return new ElementData(
                     By.xpath("//div[@class='auth-modal__form__social-icon auth-modal__social-icon--vkontakte']"),
                         "кнопка авторизации через Vkontakte");
+        }
+
+        static ElementData socialButtonsSectionParent(){
+            return new ElementData(By.xpath("//div[contains(@class,'omni_auth_buttons')]"),
+                    "Парент объект для кнопок авторизации через социальные сети");
         }
 
         static ElementData facebookButton() {
@@ -2645,18 +2650,28 @@ public class Elements {
         interface MailRu {
 
             static ElementData loginField() {
-                return new ElementData(By.xpath("//input[@name='Login']"),
+                return new ElementData(By.xpath("//input[@name='username']"),
                         "поле ввода логина формы авторизации Mail.ru");
             }
 
             static ElementData passwordField() {
-                return new ElementData(By.xpath("//input[@name='Password']"),
+                return new ElementData(By.xpath("//*[@class='login-row password']//input"),
+                        "поле ввода пароля формы авторизации Mail.ru");
+            }
+            static ElementData passwordFieldUp(){
+                return new ElementData(By.xpath("//*[@class='login-row password']"),
                         "поле ввода пароля формы авторизации Mail.ru");
             }
 
+
             static ElementData submitButton() {
-                return new ElementData(By.xpath("//button[@data-name='user-login']"),
+                return new ElementData(By.xpath("//button[@data-test-id='submit-button']"),
                         "кнопка отправки формы авторизации Mail.ru");
+            }
+
+            static ElementData nextButton(){
+                return new ElementData(By.xpath("//button[@data-test-id='next-button']"),
+                        "кнопка для перехода на ввод пароля");
             }
 
             static ElementData loginButton(String login) {
@@ -2674,13 +2689,18 @@ public class Elements {
             }
 
             static ElementData loginField() {
-                return new ElementData(By.xpath("//input[@id='login']"),
+                return new ElementData(By.xpath("//input[@name='login']"),
                         "поле ввода логина формы авторизации Sber ID");
             }
 
             static ElementData passwordField() {
-                return new ElementData(By.xpath("//input[@id='password']"),
+                return new ElementData(By.xpath("//input[@name='password']"),
                         "поле ввода пароля формы авторизации Sber ID");
+            }
+
+            static ElementData sberButtonsSection(){
+                return new ElementData(By.tagName("nav"),
+                        "парент объект кнопок авторизации через сбер ID");
             }
 
             static ElementData submitButton() {

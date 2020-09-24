@@ -2,6 +2,7 @@ package instamart.ui.modules;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import instamart.core.common.AppManager;
 import instamart.ui.objectsmap.Elements;
@@ -250,8 +251,9 @@ public class User extends Base {
             kraken.perform().click(Elements.Social.Vkontakte.submitButton());
             kraken.await().simply(1); // Ожидание авторизации через Vkontakte
 
-            kraken.perform().switchToNextWindow();
-            kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()));
+            kraken.await().fluentlyWithWindowsHandler(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Modals.AuthModal.popup().getLocator()));
         }
 
         public static void withFacebook(UserData user) {
@@ -269,13 +271,14 @@ public class User extends Base {
             kraken.perform().click(Elements.Social.Facebook.submitButton());
             kraken.await().simply(1); // Ожидание авторизации через Facebook
 
-            kraken.perform().switchToNextWindow();
             //TOdo добавить проверку на то что вернулись в основное окно
             if(!kraken.detect().isOnSite()){
                 kraken.perform().switchToNextWindow();
                 kraken.perform().switchToDefaultContent();
             }
-            kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()));
+            kraken.await().fluentlyWithWindowsHandler(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Modals.AuthModal.popup().getLocator()));
         }
 
         public static void withMailRu(UserData user) {
@@ -285,18 +288,24 @@ public class User extends Base {
             }
             Shop.AuthModal.open();
             Shop.AuthModal.hitMailRuButton();
-            kraken.await().simply(2); // Ожидание открытия фрейма авторизации Mail.ru
+            kraken.await().simply(5); // Ожидание открытия фрейма авторизации Mail.ru
             kraken.perform().switchToNextWindow();
 
             kraken.perform().fillField(Elements.Social.MailRu.loginField(),user.getLogin());
+            kraken.perform().click(Elements.Social.MailRu.nextButton());
+            kraken.await().simply(2);
+            kraken.perform().click(Elements.Social.MailRu.passwordFieldUp());
             kraken.perform().fillField(Elements.Social.MailRu.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.MailRu.submitButton());
 
-            kraken.perform().click(Elements.Social.MailRu.loginButton(user.getLogin()));
-            kraken.await().simply(1); // Ожидание авторизации через Mail.ru
+           // kraken.perform().click(Elements.Social.MailRu.loginButton(user.getLogin()));
+           // kraken.await().simply(1); // Ожидание авторизации через Mail.ru
 
-            kraken.perform().switchToNextWindow();
-            kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()));
+           // kraken.perform().switchToNextWindow();
+//            kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()));
+            kraken.await().fluentlyWithWindowsHandler(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Modals.AuthModal.popup().getLocator()));
         }
 
         public static void withSberID(UserData user) {
@@ -306,19 +315,22 @@ public class User extends Base {
             }
             Shop.AuthModal.open();
             Shop.AuthModal.hitSberIdButton();
-            kraken.await().simply(2); // Ожидание открытия фрейма авторизации Sber ID
-            kraken.perform().switchToNextWindow();
-
-            if (kraken.detect().isElementPresent(Elements.Social.Sber.loginField())) {
-                kraken.perform().click(Elements.Social.Sber.loginButton());
-            }
+            //kraken.await().simply(2); // Ожидание открытия фрейма авторизации Sber ID
+            //kraken.perform().switchToNextWindow();
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
+                    Elements.Social.Sber.sberButtonsSection().getLocator()));
+            WebElement parent = driver.findElement(Elements.Social.Sber.sberButtonsSection().getLocator());
+            kraken.perform().findChildElementByTagAndText(parent,By.tagName("button"),"Логин").click();
+//            if (kraken.detect().isElementPresent(Elements.Social.Sber.loginField())) {
+//                kraken.perform().click(Elements.Social.Sber.loginButton());
+//            }
 
             kraken.perform().fillField(Elements.Social.Sber.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Sber.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Sber.submitButton());
-            kraken.await().simply(3); // Ожидание авторизации через Sber ID
+            //kraken.await().simply(3); // Ожидание авторизации через Sber ID
 
-            kraken.perform().switchToNextWindow();
+            //kraken.perform().switchToNextWindow();
             kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()));
         }
     }

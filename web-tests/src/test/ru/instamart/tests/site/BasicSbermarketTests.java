@@ -1,9 +1,10 @@
 package ru.instamart.tests.site;
 
-import org.testng.annotations.Test;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.common.lib.Pages;
+import instamart.core.settings.Config;
 import instamart.core.testdata.dataprovider.RestDataProvider;
+import instamart.ui.common.lib.Pages;
+import instamart.ui.objectsmap.Elements;
+import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class BasicSbermarketTests extends TestBase {
@@ -15,7 +16,7 @@ public class BasicSbermarketTests extends TestBase {
             priority = 101,
             groups = {"sbermarket-smoke","testing","sbermarket-acceptance","sbermarket-regression"}
     ) public void successValidateHeaderSbermarket() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         assertPageIsAvailable();
 
@@ -57,7 +58,7 @@ public class BasicSbermarketTests extends TestBase {
             priority = 102,
             groups = {"sbermarket-smoke","testing","sbermarket-acceptance","sbermarket-regression"}
     ) public void successValidateFooterSbermarket() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         assertPageIsAvailable();
 

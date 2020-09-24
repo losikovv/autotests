@@ -1,17 +1,17 @@
 package ru.instamart.tests.user;
 
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
-import instamart.ui.modules.User;
-import instamart.ui.common.lib.Addresses;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.modules.Shop;
 import instamart.core.testdata.ui.generate;
+import instamart.ui.checkpoints.BaseUICheckpoints;
+import instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
+import instamart.ui.common.lib.Addresses;
+import instamart.ui.modules.Shop;
+import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class UserRegistrationTests extends TestBase {
@@ -21,6 +21,8 @@ public class UserRegistrationTests extends TestBase {
         User.Logout.quickly();
     }
     public static String modalType;
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
     String env = System.getProperty("env", Config.CoreSettings.defaultEnvironment);
 
     @Test(
@@ -32,8 +34,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 201
     )
     public void noRegWithEmptyRequisites() {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro"); // Переход на страничку Метро
+        kraken.get().page(Config.CoreSettings.defaultTenant); // Переход на страничку Метро
 
         modalType = User.Do.registration(
                 null,
@@ -44,35 +45,18 @@ public class UserRegistrationTests extends TestBase {
                 null
         );
         if(modalType.equals("модалка с почтой")){
-            //todo отладить тест для прода
-            softAssert.assertTrue(
-                    kraken.detect().isElementPresent(
-                            Elements.Modals.AuthModal.errorMessage("Укажите имя и фамилию")),
-                    "Нет пользовательской ошибки пустого поля name\n");
-
-            softAssert.assertTrue(
-                    kraken.detect().isElementPresent(
-                            Elements.Modals.AuthModal.errorMessage("Укажите пароль")),
-                    "Нет пользовательской ошибки пустого поля email\n");
-
-            softAssert.assertTrue(
-                    kraken.detect().isElementPresent(
-                            Elements.Modals.AuthModal.errorMessage("Укажите пароль")),
-                    "Нет пользовательской ошибки пустого поля password\n");
-
-            softAssert.assertTrue(
-                    kraken.detect().isElementPresent(
-                            Elements.Modals.AuthModal.errorMessage("Подтвердите пароль")),
-                    "Нет пользовательской ошибки пустого поля password confirmation\n");
+            baseChecks.checkIsErrorMessageElementPresent("Укажите имя и фамилию",
+                    "Нет пользовательской ошибки пустого поля name");
+            baseChecks.checkIsErrorMessageElementPresent("Укажите email",
+                    "Нет пользовательской ошибки пустого поля email");
+            baseChecks.checkIsErrorMessageElementPresent("Укажите пароль",
+                    "Нет пользовательской ошибки пустого поля password");
+            baseChecks.checkIsErrorMessageElementPresent("Подтвердите пароль",
+                    "Нет пользовательской ошибки пустого поля password confirmation");
         }
 
         kraken.get().baseUrl();
-
-        softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    "Произошла регистрация пользователя с пустыми реквизитами\n");
-
-        softAssert.assertAll();
+        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя с пустыми реквизитами");
     }
 
     @Test(
@@ -85,8 +69,7 @@ public class UserRegistrationTests extends TestBase {
     )
     public void noRegWithoutName() {
         if(env.contains("staging")){skipTest();}//todo проверить как работает если несколько тестов, закрывается ли браузер
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         // для стейджа телефон 799999999999 код 1111
         User.Do.registration(
                 null,
@@ -94,19 +77,10 @@ public class UserRegistrationTests extends TestBase {
                 "12345678",
                 "12345678"
         );
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Укажите имя и фамилию")),
-                        "Нет пользовательской ошибки пустого поля name\n");
-
+        baseChecks.checkIsErrorMessageElementPresent("Укажите имя и фамилию",
+                "Нет пользовательской ошибки пустого поля name");
         kraken.get().baseUrl();
-
-        softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    "Произошла регистрация пользователя без имени\n");
-
-        softAssert.assertAll();
+        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя без имени");
     }
 
     @Test(
@@ -119,8 +93,7 @@ public class UserRegistrationTests extends TestBase {
     )
     public void noRegWithoutNameMobile() {
         if(env.contains("production")){skipTest();}//todo проверить как работает если несколько тестов, закрывается ли браузер
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         // для стейджа телефон 799999999999 код 1111
         User.Do.registration(
                 null,
@@ -128,19 +101,10 @@ public class UserRegistrationTests extends TestBase {
                 "12345678",
                 "12345678"
         );
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                        Elements.Modals.AuthModal.errorMessage("Укажите имя и фамилию")),
-                "Нет пользовательской ошибки пустого поля name\n");
-
+        baseChecks.checkIsErrorMessageElementPresent("Укажите имя и фамилию",
+                "Нет пользовательской ошибки пустого поля name");
         kraken.get().baseUrl();
-
-        softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                "Произошла регистрация пользователя без имени\n");
-
-        softAssert.assertAll();
+        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя без имени");
     }
 
     @Test(
@@ -152,8 +116,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 203
     )
     public void noRegWithoutEmail() {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         User.Do.registration(
                 "Test User",
@@ -161,19 +124,10 @@ public class UserRegistrationTests extends TestBase {
                 "12345678",
                 "12345678"
         );
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Укажите email")),
-                        "Нет пользовательской ошибки пустого поля email\n");
-
+        baseChecks.checkIsErrorMessageElementPresent("Укажите email",
+                "Нет пользовательской ошибки пустого поля email");
         kraken.get().baseUrl();
-
-        softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    "Произошла регистрация пользователя без email\n");
-
-        softAssert.assertAll();
+        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя без email");
     }
 
     @Test(
@@ -185,23 +139,13 @@ public class UserRegistrationTests extends TestBase {
             priority = 204
     )
     public void noRegWithoutPassword() {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
-
-        User.Do.registration("Test User", "test@example.com", null, "12345678");
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Укажите пароль")),
-                        "Нет пользовательской ошибки пустого поля password\n");
-
+        kraken.get().page(Config.CoreSettings.defaultTenant);
+        User.Do.registration("Test User", "test@example.com",
+                null, "12345678");
+        baseChecks.checkIsErrorMessageElementPresent("Укажите пароль",
+                "Нет пользовательской ошибки пустого поля password");
         kraken.get().baseUrl();
-
-        softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    "Произошла регистрация пользователя без пароля\n");
-
-        softAssert.assertAll();
+        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя без пароля");
     }
 
     @Test(
@@ -213,28 +157,17 @@ public class UserRegistrationTests extends TestBase {
             priority = 205
     )
     public void noRegWithoutPasswordConfirmation() {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
-
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.Do.registration(
                 "Test User",
                 "test@example.com",
                 "12345678",
                 null
         );
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Подтвердите пароль")),
-                        "Нет пользовательской ошибки пустого поля password confirmation\n");
-
+        baseChecks.checkIsErrorMessageElementPresent("Подтвердите пароль",
+                "Нет пользовательской ошибки пустого поля password confirmation");
         kraken.get().baseUrl();
-
-        softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    "Произошла регистрация пользователя без подтверждения пароля\n");
-
-        softAssert.assertAll();
+        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя без подтверждения пароля");
     }
 
     @Test(
@@ -246,28 +179,17 @@ public class UserRegistrationTests extends TestBase {
             priority = 206
     )
     public void noRegWithWrongPasswordConfirmation() {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
-
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.Do.registration(
                 "Test User",
                 "test@example.com",
                 "12345678",
                 "12345679"
         );
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Введенные пароли должны совпадать")),
-                        "Нет пользовательской ошибки несовпадения пароля\n");
-
+        baseChecks.checkIsErrorMessageElementPresent("Введенные пароли должны совпадать",
+                "Нет пользовательской ошибки несовпадения пароля");
         kraken.get().baseUrl();
-
-        softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    "Произошла регистрация пользователя с несовпадающим подтверждёнием пароля\n");
-
-        softAssert.assertAll();
+        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя с несовпадающим подтверждёнием пароля");
     }
 
     @Test(
@@ -279,24 +201,13 @@ public class UserRegistrationTests extends TestBase {
             priority = 207
     )
     public void noRegWithExistingEmail() {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
-
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.Do.registration("Test User", Users.superuser().getLogin(),
                 "12345678", "12345678");
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Этот email уже зарегистрирован")),
-                        "Нет пользовательской ошибки регистрации с уже зарегистрированным email\n");
-
+        baseChecks.checkIsErrorMessageElementPresent("Этот email уже зарегистрирован",
+                "Нет пользовательской ошибки регистрации с уже зарегистрированным email");
         kraken.get().baseUrl();
-
-        softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    "Произошла регистрация пользователя с уже используемым email\n");
-
-        softAssert.assertAll();
+        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя с уже используемым email");
     }
 
     @Test(
@@ -308,32 +219,18 @@ public class UserRegistrationTests extends TestBase {
             priority = 208
     )
     public void noRegWithLongFields() {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         User.Do.registration(generate.testCredentials("user", 150));
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Имя должно содержать не более 128 символов")),
-                        "Нет пользовательской ошибки превышения длины поля name\n");
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Email адрес должен содержать не более 128 символов")),
-                        "Нет пользовательской ошибки превышения длины поля email\n");
-
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                    Elements.Modals.AuthModal.errorMessage("Пароль должен содержать не более 128 символов")),
-                        "Нет пользовательской ошибки превышения длины поля password\n");
-
+        baseChecks.checkIsErrorMessageElementPresent("Имя должно содержать не более 128 символов",
+                "Нет пользовательской ошибки превышения длины поля name");
+        baseChecks.checkIsErrorMessageElementPresent("Email адрес должен содержать не более 128 символов",
+                "Нет пользовательской ошибки превышения длины поля email");
+        baseChecks.checkIsErrorMessageElementPresent("Пароль должен содержать не более 128 символов",
+                "Нет пользовательской ошибки превышения длины поля password");
         kraken.get().baseUrl();
-        softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    "Произошла регистрация пользователя с ошибками заполнения формы регистрации длинными полями\n");
-
-        softAssert.assertAll();
+        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя" +
+                " с ошибками заполнения формы регистрации длинными полями");
     }
 
     @Test(
@@ -345,9 +242,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 209
     )
     public void noRegOnCancel() {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
-
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Shop.AuthModal.open();
         kraken.await().fluently(
                 ExpectedConditions.elementToBeClickable(
@@ -355,20 +250,10 @@ public class UserRegistrationTests extends TestBase {
                 "Модалка авторизации не открыта\n");
         User.Do.regSequence(generate.testCredentials("user"));
         Shop.AuthModal.close();
-
-        softAssert.assertFalse(
-                kraken.detect().isAuthModalOpen(),
-                    failMessage("Не закрывается заполненная регистрационная модалка")
-        );
-
+        baseChecks.checkIsAuthModalClosed();
         kraken.get().baseUrl();
-
-        softAssert.assertFalse(
-                kraken.detect().isUserAuthorised(),
-                    failMessage("Произошла регистрация пользователя после заполнения всех полей и закрытия модалки")
-        );
-
-        softAssert.assertAll();
+        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя " +
+                "после заполнения всех полей и закрытия модалки");
     }
 
     @Test(
@@ -378,11 +263,7 @@ public class UserRegistrationTests extends TestBase {
     )
     public void successRegOnLanding() {
         User.Do.registration();
-
-        Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    failMessage("Не работает регистрация на лендинге")
-        );
+        authChecks.checkIsUserAuthorized("Не работает регистрация на лендинге");
     }
 
     @Test(
@@ -394,13 +275,9 @@ public class UserRegistrationTests extends TestBase {
             priority = 211
     )
     public void successRegOnMainPage() {
-        kraken.get().page("metro");
-
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.Do.registration();
-
-        Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "Не работает регистрация на витрине магазина\n");
+        authChecks.checkIsUserAuthorized("Не работает регистрация на витрине магазина");
     }
 
     @Test(
@@ -412,23 +289,14 @@ public class UserRegistrationTests extends TestBase {
             priority = 212
     )
     public void successRegFromAddressModal() throws AssertionError {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.ShippingAddressModal.open();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
 
-        softAssert.assertTrue(
-                kraken.detect().isAuthModalOpen(),
-                    "\nНе работает переход на авторизацию из адресной модалки");
-
+        baseChecks.checkIsAuthModalOpen("Не работает переход на авторизацию из адресной модалки");
         User.Do.registration();
-
-        softAssert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "\nНе работает регистрация из адресной модалки феникса");
-
-        softAssert.assertAll();
+        authChecks.checkIsUserAuthorized("Не работает регистрация из адресной модалки феникса");
     }
 
     @Test(
@@ -440,35 +308,19 @@ public class UserRegistrationTests extends TestBase {
             priority = 213
     )
     public void successRegFromCart() {
-        SoftAssert softAssert = new SoftAssert();
-        kraken.get().page("metro");
-
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
-
-        softAssert.assertTrue(
-                kraken.detect().isAuthModalOpen(),
-                    "\nНе открывается авторизационная модалка при переходе неавторизованным из корзины в чекаут");
-
+        baseChecks.checkIsAuthModalOpen("Не открывается авторизационная" +
+                " модалка при переходе неавторизованным из корзины в чекаут");
         User.Do.registration();
-
-        softAssert.assertTrue(
-                kraken.detect().isOnCheckout(),
-                    "\nНет автоперехода в чекаут после регистрации из корзины");
-
+        authChecks.checkAutoCheckoutRedirect("Нет автоперехода в чекаут после регистрации из корзины");
         kraken.get().baseUrl();
-
-        softAssert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "\nНе работает регистрация из корзины");
-
-        softAssert.assertFalse(
-                kraken.detect().isCartEmpty(),
-                    "\nПропали товары после регистрации из корзины");
-
-        softAssert.assertAll();
+        authChecks.checkIsUserAuthorized("Не работает регистрация из корзины");
+        baseChecks.checkIsCartEmpty("регистрации из корзины",
+                "Пропали товары после регистрации из корзины");
     }
 
     @Test(
@@ -480,15 +332,12 @@ public class UserRegistrationTests extends TestBase {
             priority = 214
     )
     public void successRegWithoutMailingCheckbox() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.AuthModal.open();
         User.Do.regSequence(generate.testCredentials("user"), false ); // todo вынести в Shop.AuthModal.fill()
         Shop.AuthModal.submit();
-
-        Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    failMessage("Не работает регистрация без согласия на получение почтовой рассылки"));
+        authChecks.checkIsUserAuthorized("Не работает регистрация без согласия на получение почтовой рассылки");
     }
 
     @Test(
@@ -500,7 +349,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 215
     )
     public void successRegWithMailingCheckbox() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.AuthModal.open();
         User.Do.regSequence(generate.testCredentials("user"), false );
@@ -508,9 +357,7 @@ public class UserRegistrationTests extends TestBase {
         kraken.perform().setCheckbox(Elements.Modals.AuthModal.checkBoxes(),2);
         kraken.perform().click(Elements.Modals.AuthModal.submitButton());
         kraken.await().implicitly(5);
-        Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "Не работает регистрация с согласием на получение почтовой рассылки\n");
+        authChecks.checkIsUserAuthorized("Не работает регистрация с согласием на получение почтовой рассылки");
     }
 
     // todo public void successRegWithVkontakte() {}

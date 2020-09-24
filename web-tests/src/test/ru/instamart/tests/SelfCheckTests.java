@@ -1,13 +1,14 @@
 package ru.instamart.tests;
 
+import instamart.core.settings.Config;
+import instamart.ui.common.lib.Addresses;
+import instamart.ui.common.lib.Pages;
+import instamart.ui.modules.Shop;
+import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.common.lib.Pages;
-import instamart.ui.common.lib.Addresses;
-import instamart.ui.modules.Shop;
-import instamart.ui.modules.User;
 
 import static instamart.core.common.AppManager.session;
 import static instamart.core.helpers.HelperBase.verboseMessage;
@@ -27,7 +28,7 @@ public class SelfCheckTests extends TestBase {
             priority = 10001)
     public void checkNavigation() {
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Assert.assertEquals(kraken.grab().currentURL() , kraken.environment.getBasicUrlWithHttpAuth() + "metro");
 
         kraken.get().page(Pages.Sbermarket.faq());
@@ -47,7 +48,7 @@ public class SelfCheckTests extends TestBase {
         Shop.AuthModal.close();
         Assert.assertFalse(kraken.detect().isAuthModalOpen());
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.AuthModal.open();
         Assert.assertTrue(kraken.detect().isAuthModalOpen());
@@ -66,7 +67,7 @@ public class SelfCheckTests extends TestBase {
         kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised());
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Assert.assertFalse(kraken.detect().isUserAuthorised());
 
         User.Do.loginAs(session.admin);
@@ -139,7 +140,7 @@ public class SelfCheckTests extends TestBase {
         kraken.get().page(Pages.page404());
         Assert.assertTrue(kraken.detect().is404());
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Assert.assertFalse(kraken.detect().is404());
     }
 
@@ -151,7 +152,7 @@ public class SelfCheckTests extends TestBase {
         kraken.get().page(Pages.page500());
         Assert.assertTrue(kraken.detect().is500());
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Assert.assertFalse(kraken.detect().is500());
     }
 
@@ -160,7 +161,7 @@ public class SelfCheckTests extends TestBase {
             priority = 10010)
     public void detectCatalogDrawer() {
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.StoreSelector.open();
         Assert.assertTrue(kraken.detect().isCatalogDrawerOpen());
@@ -191,7 +192,7 @@ public class SelfCheckTests extends TestBase {
                 "\nНе закрывается дефолтный селектор магазинов на лендинге");
 
         //retailer
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Shop.StoreSelector.open();
 
         softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
@@ -230,7 +231,7 @@ public class SelfCheckTests extends TestBase {
                 "\nНе закрывается пустой селектор магазинов на лендинге");
 
         //retailer
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Shop.StoreSelector.open();;
 
         softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
@@ -252,7 +253,7 @@ public class SelfCheckTests extends TestBase {
             priority = 10013)
     public void detectCartDrawer() {
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.Cart.open();
         Assert.assertTrue(kraken.detect().isCartOpen());
@@ -266,7 +267,7 @@ public class SelfCheckTests extends TestBase {
             priority = 10014)
     public void detectDeliveryModal() {
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         kraken.perform().click(Elements.Header.deliveryInfoButton());
         Assert.assertTrue(kraken.detect().isDeliveryModalOpen());
@@ -280,7 +281,7 @@ public class SelfCheckTests extends TestBase {
             priority = 10015)
     public void detectPartnersModal() {
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         //kraken.perform().click(Elements.Site.Header.partnersButton());
         Assert.assertTrue(kraken.detect().isPartnersModalOpen());
@@ -294,7 +295,7 @@ public class SelfCheckTests extends TestBase {
             priority = 10016)
     public void detectPaymentModal() {
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         kraken.perform().click(Elements.Footer.paymentButton());
         Assert.assertTrue(kraken.detect().isPaymentModalOpen());
@@ -308,7 +309,7 @@ public class SelfCheckTests extends TestBase {
             priority = 10017)
      public void detectAddressModal() {
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
 
         Shop.ShippingAddressModal.open();
         Assert.assertTrue(kraken.detect().isAddressModalOpen());
@@ -322,7 +323,7 @@ public class SelfCheckTests extends TestBase {
             groups ="selfcheck",
             priority = 10018)
     public void detectCartTotal() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         if (!kraken.detect().isShippingAddressSet()) {
             User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
@@ -352,11 +353,11 @@ public class SelfCheckTests extends TestBase {
             priority = 10019)
     public void detectAddressOutOfZone() {
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
         Assert.assertTrue(kraken.detect().isAddressOutOfZone());
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         Assert.assertFalse(kraken.detect().isAddressOutOfZone());
     }

@@ -1,17 +1,18 @@
 package ru.instamart.tests.shopping;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+import instamart.api.common.RestAddresses;
 import instamart.core.common.AppManager;
+import instamart.core.settings.Config;
+import instamart.core.testdata.ui.generate;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
-import instamart.api.common.RestAddresses;
-import instamart.core.testdata.ui.generate;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
 public class ShoppingTestsForExistingUser extends TestBase {
@@ -55,7 +56,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
             Shop.Catalog.Item.addToCart();
         }
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Assert.assertTrue(
                 !kraken.detect().isCartEmpty() && !kraken.detect().isCheckoutButtonActive(),
                 failMessage("Не выполнены предусловия теста"));
@@ -111,7 +112,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
         Shop.Catalog.Item.addToCart();
         User.Logout.quickly();
 
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         User.ShippingAddress.set(Addresses.Moscow.testAddress());
         User.Auth.withEmail(testuser);
 

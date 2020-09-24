@@ -1,18 +1,19 @@
 package ru.instamart.tests.shopping;
 
+import instamart.core.settings.Config;
+import instamart.core.testdata.ui.generate;
+import instamart.ui.modules.Shop;
+import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.modules.Shop;
-import instamart.core.testdata.ui.generate;
 import ru.instamart.tests.TestBase;
 
 public class ShoppingSearchTests extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
     }
 
     @Test(
@@ -103,7 +104,7 @@ public class ShoppingSearchTests extends TestBase {
             priority = 505
     )
     public void successSearchItemUsingProductSuggests() {
-        kraken.get().page("metro");
+        kraken.get().page(Config.CoreSettings.defaultTenant);
         Shop.Search.Field.fill("Мороженое");
 
         Assert.assertTrue(kraken.detect().isSearchProductSuggestsPresent(),
