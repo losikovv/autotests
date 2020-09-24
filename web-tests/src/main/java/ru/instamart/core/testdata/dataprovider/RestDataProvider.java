@@ -1,5 +1,6 @@
 package instamart.core.testdata.dataprovider;
 
+import instamart.core.testdata.AuthProviders;
 import instamart.api.common.RestBase;
 import instamart.api.objects.Retailer;
 import instamart.api.objects.Store;
@@ -13,6 +14,16 @@ import java.util.List;
 import static instamart.api.common.RestHelper.*;
 
 public class RestDataProvider extends RestBase {
+
+    @DataProvider(name = "authProviders")
+    public static Object[][] getAuthProviders() {
+        Object[][] authProviderArray = new Object[4][1];
+        authProviderArray[0][0] = AuthProviders.Metro.ID;
+        authProviderArray[1][0] = AuthProviders.SberApp.ID;
+        authProviderArray[2][0] = AuthProviders.Vkontakte.ID;
+        authProviderArray[3][0] = AuthProviders.Facebook.ID;
+        return authProviderArray;
+    }
 
     @Test()
     public static void selfTestRetailers() {

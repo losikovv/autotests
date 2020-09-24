@@ -14,6 +14,8 @@ final class EndPoints {
     static final String payment_tool_types = "v2/payment_tool_types";
     static final String shipping_methods = "v2/shipping_methods?sid={sid}";
     static final String search_suggestions = "v2/searches/suggestions?sid={sid}&q={q}";
+    static final String favorites_list = "v2/favorites_list/items?sid={sid}";
+    static final String onboarding_pages = "v2/onboarding_pages";
 
     static final class Retailers {
         static final String stores = "retailers/{id}/stores";
@@ -22,6 +24,7 @@ final class EndPoints {
     static final class Stores {
         static final String coordinates = "v2/stores?lat={lat}&lon={lon}";
         static final String sid = "v2/stores/{sid}";
+        static final String promotion_cards = "v2/stores/{sid}/promotion_cards";
     }
 
     static final class Taxons {
@@ -40,6 +43,7 @@ final class EndPoints {
 
     static final class Orders {
         static final String shipments = "v2/orders/{number}/shipments";
+        static final String line_items = "v2/orders/{number}/line_items";
         static final String ship_address_change = "v2/orders/{number}/ship_address_change";
         static final String current = "v2/orders/current";
         static final String number = "v2/orders/{number}";
@@ -48,9 +52,22 @@ final class EndPoints {
         static final String statusActive = "v2/orders?status=active&page={p}";
         static final String statusComplete = "v2/orders?status=complete&page={p}";
         static final String statusCanceled = "v2/orders?status=canceled&page={p}";
+        static final String unrated = "v2/orders/unrated";
     }
 
     static final class Shipments {
         static final String shipping_rates = "v2/shipments/{number}/shipping_rates";
+    }
+
+    static final class LineItems {
+        static final String id = "v2/line_items/{id}";
+    }
+
+    static final class Promotions {
+        static final String referral_program = "v2/promotions/referral_program";
+    }
+
+    static final class AuthProviders {
+        static final String sessions = "v2/auth_providers/{provider}/sessions";
     }
 }

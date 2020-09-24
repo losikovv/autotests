@@ -6,26 +6,6 @@ public class Session extends BaseObject {
     private String expires_at;
     private Boolean is_valid;
 
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public Session() {
-    }
-
-    /**
-     *
-     * @param expires_at
-     * @param access_token
-     * @param is_valid
-     */
-    public Session(String access_token, String expires_at, Boolean is_valid) {
-        super();
-        this.access_token = access_token;
-        this.expires_at = expires_at;
-        this.is_valid = is_valid;
-    }
-
     public String getAccess_token() {
         return access_token;
     }

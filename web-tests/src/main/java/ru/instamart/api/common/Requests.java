@@ -1,8 +1,11 @@
 package instamart.api.common;
 
 import instamart.api.objects.Address;
+import instamart.core.testdata.AuthProviders;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.json.simple.JSONObject;
 
 import javax.net.ssl.SSLHandshakeException;
 import java.net.SocketException;
@@ -77,6 +80,45 @@ public class Requests {
                 .preemptive()
                 .basic(email, password)
                 .post(EndPoints.sessions);
+    }
+
+    /**
+     * Авторизация через стороннего провайдера
+     */
+    public static Response postAuthProvidersSessions(String authProviderId) {
+        JSONObject sessionParams = new JSONObject();
+        JSONObject requestParams = new JSONObject();
+        requestParams.put("session", sessionParams);
+        switch (authProviderId) {
+            case AuthProviders.Metro.ID:
+                sessionParams.put("uid", AuthProviders.Metro.SESSION_UID);
+                sessionParams.put("digest", AuthProviders.Metro.SESSION_DIGEST);
+                return givenCatch()
+                        .body(requestParams)
+                        .contentType(ContentType.JSON)
+                        .log().body()
+                        .post(EndPoints.AuthProviders.sessions, authProviderId);
+            case AuthProviders.SberApp.ID:
+                sessionParams.put("uid", AuthProviders.SberApp.SESSION_UID);
+                sessionParams.put("digest", AuthProviders.SberApp.SESSION_DIGEST);
+                return givenCatch()
+                        .body(requestParams)
+                        .contentType(ContentType.JSON)
+                        .log().body()
+                        .post(EndPoints.AuthProviders.sessions, authProviderId);
+            case AuthProviders.Vkontakte.ID:
+                return givenCatch()
+                        .param("session[uid]", AuthProviders.Vkontakte.SESSION_UID)
+                        .log().params()
+                        .post(EndPoints.AuthProviders.sessions, authProviderId);
+            case AuthProviders.Facebook.ID:
+                return givenCatch()
+                        .param("session[uid]", AuthProviders.Facebook.SESSION_UID)
+                        .log().params()
+                        .post(EndPoints.AuthProviders.sessions, authProviderId);
+            default:
+                throw new IllegalStateException("Unexpected value: " + authProviderId);
+        }
     }
 
     /**
@@ -185,7 +227,7 @@ public class Requests {
     /**
      * Получение конкретного таксона в выбранном магазине
      */
-    static Response getTaxons(int taxonId, int sid) {
+    public static Response getTaxons(int taxonId, int sid) {
         return givenCatch().get(EndPoints.Taxons.id, taxonId, sid);
     }
 
@@ -229,6 +271,26 @@ public class Requests {
     }
 
     /**
+     * Удаляем товар из корзины
+     */
+    public static Response deleteLineItems(long productId) {
+        return givenCatch()
+                .header("Authorization",
+                        "Token token=" + token.get())
+                .delete(EndPoints.LineItems.id, productId);
+    }
+
+    /**
+     * Получаем товары в заказе
+     */
+    public static Response getOrderLineItems(String orderNumber) {
+        return givenCatch()
+                .header("Authorization",
+                        "Token token=" + token.get())
+                .get(EndPoints.Orders.line_items, orderNumber);
+    }
+
+    /**
      * Получить информацию о текущем заказе
      */
     public static Response getOrdersCurrent() {
@@ -236,6 +298,16 @@ public class Requests {
                 .header("Authorization",
                         "Token token=" + token.get())
                 .get(EndPoints.Orders.current);
+    }
+
+    /**
+     * Получаем заказы для оценки
+     */
+    public static Response getUnratedOrders() {
+        return givenCatch()
+                .header("Authorization",
+                        "Token token=" + token.get())
+                .get(EndPoints.Orders.unrated);
     }
 
     /**
@@ -322,9 +394,40 @@ public class Requests {
     }
 
     /**
+     * Получаем промоакции в магазине
+     */
+    public static Response getStorePromotionCards(int sid) {
+        return givenCatch().get(EndPoints.Stores.promotion_cards, sid);
+    }
+
+    /**
+     * Получаем любимые товары
+     */
+    public static Response getFavoritesListItems(int sid) {
+        return givenCatch()
+                .header("Authorization",
+                        "Token token=" + token.get())
+                .get(EndPoints.favorites_list, sid);
+    }
+
+    /**
+     * Получаем экраны онбординга
+     */
+    public static Response getOnboardingPages() {
+        return givenCatch().get(EndPoints.onboarding_pages);
+    }
+
+    /**
+     * Получаем инфу о реферальной программе
+     */
+    public static Response getReferralProgram() {
+        return givenCatch().get(EndPoints.Promotions.referral_program);
+    }
+
+    /**
      * Получаем список способов оплаты для юзера
      */
-    Response getPaymentTools() {
+    public static Response getPaymentTools() {
         return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())

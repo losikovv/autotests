@@ -19,11 +19,10 @@ public class Products extends RestBase {
             priority = 2)
     public void getProducts() {
         response = Requests.getProducts(1, "");
-        List<Product> products = response.as(ProductsResponse.class).getProducts();
 
         assertEquals(response.getStatusCode(), 200);
+        List<Product> products = response.as(ProductsResponse.class).getProducts();
         assertNotNull(products, "Не вернулись продукты");
-
         productId = products.get(0).getId();
     }
 

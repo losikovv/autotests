@@ -1,13 +1,14 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import instamart.core.common.AppManager;
 import instamart.api.common.Requests;
 import instamart.api.common.RestBase;
 import instamart.api.objects.Order;
+import instamart.api.objects.responses.LineItemsResponse;
 import instamart.api.objects.responses.OrderResponse;
 import instamart.api.objects.responses.OrdersResponse;
+import instamart.core.common.AppManager;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.util.List;
 
@@ -27,9 +28,9 @@ public class Orders extends RestBase {
             priority = 4)
     public void getOrders() {
         response = Requests.getOrders();
-        List<Order> orders = response.as(OrdersResponse.class).getOrders();
 
         assertEquals(response.getStatusCode(), 200);
+        List<Order> orders = response.as(OrdersResponse.class).getOrders();
         assertNotNull(orders, "Не вернулись заказы");
         orderNumber = orders.get(0).getNumber();
     }
@@ -53,5 +54,27 @@ public class Orders extends RestBase {
 
         assertEquals(response.getStatusCode(), 200);
         assertNotNull(response.as(OrderResponse.class).getOrder(), "Не вернулся заказ по номеру");
+    }
+
+    @Test(  description = "Получаем заказы для оценки",
+            groups = {"rest-smoke","rest-v2-smoke"},
+            priority = 16)
+    public void getUnratedOrders() {
+        response = Requests.getUnratedOrders();
+
+        assertEquals(response.getStatusCode(), 200);
+        assertNotNull(response.as(OrdersResponse.class).getOrders(), "Не вернулись заказы для оценки");
+    }
+
+
+    @Test(  description = "Получаем товары в заказе",
+            groups = {"rest-smoke","rest-v2-smoke"},
+            priority = 17,
+            dependsOnMethods = "getOrders")
+    public void getOrderLineItems() {
+        response = Requests.getOrderLineItems(orderNumber);
+
+        assertEquals(response.getStatusCode(), 200);
+        assertNotNull(response.as(LineItemsResponse.class).getLine_items(), "Не вернулись товары заказа");
     }
 }

@@ -7,6 +7,7 @@ public class Image extends BaseObject {
     private String product_url;
     private String preview_url;
     private String original_url;
+    private String default_url;
 
     /**
      * No args constructor for use in serialization
@@ -55,4 +56,11 @@ public class Image extends BaseObject {
         this.original_url = original_url;
     }
 
+    public String getDefault_url() {
+        return default_url;
+    }
+
+    public void setDefault_url(String default_url) {
+        this.default_url = default_url;
+    }
 }
