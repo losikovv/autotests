@@ -41,7 +41,7 @@ public class UserAuthorisationTests extends TestBase {
     )
     public void noAuthWithEmptyRequisites() {
         if(config.mobileAuth())skipTest();
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -65,7 +65,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 112
     )
     public void noAuthWithoutEmail() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -86,7 +86,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 113
     )
     public void noAuthWithoutPassword() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -107,7 +107,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 114
     )
     public void noAuthWithNonexistingUser() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -128,7 +128,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 115
     )
     public void noAuthWithWrongPassword() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -150,7 +150,7 @@ public class UserAuthorisationTests extends TestBase {
     )
     public void noAuthWithLongFields() {
         UserData testUser = generate.testCredentials("user",129);
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -171,7 +171,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 117
     )
     public void noAuthOnModalClose() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -191,7 +191,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 119
     )
     public void successAuthOnMainPage() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         User.Do.loginAs(session.admin);
 
@@ -207,7 +207,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 120
     )
     public void successAuthFromAddressModal() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.ShippingAddressModal.open();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
@@ -229,7 +229,7 @@ public class UserAuthorisationTests extends TestBase {
 
         User.Do.registration(testuser);
         User.Logout.quickly();
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         Shop.Cart.collect();
@@ -251,7 +251,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {"sbermarket-acceptance","testing","sbermarket-regression"}
     )
     public void successAuthWithVkontakte() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Auth.withVkontakte(Users.vkontakte());
         authChecks.checkIsUserAuthorized("Не работает авторизация через ВКонтакте");
     }
@@ -262,7 +262,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {"sbermarket-acceptance","testing","sbermarket-regression"}
     )
     public void successAuthWithFacebook() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Auth.withFacebook(Users.facebook());
         authChecks.checkIsUserAuthorized("Не работает авторизация через Facebook");
     }
@@ -272,7 +272,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {"sbermarket-acceptance","testing","sbermarket-regression"}
     )
     public void successAuthWithMailRu() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Auth.withMailRu(Users.mailRu());
         authChecks.checkIsUserAuthorized("Не работает авторизация через MailRu");
     }
@@ -284,7 +284,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {"sbermarket-acceptance","testing","sbermarket-regression"}
     )
     public void successAuthWithSberID() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Auth.withSberID(Users.sberId());
         authChecks.checkIsUserAuthorized("Не работает авторизация через Sber ID");
     }

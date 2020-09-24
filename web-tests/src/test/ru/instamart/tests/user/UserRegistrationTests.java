@@ -34,7 +34,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 201
     )
     public void noRegWithEmptyRequisites() {
-        kraken.get().page(Config.CoreSettings.defaultTenant); // Переход на страничку Метро
+        kraken.get().page(Config.CoreSettings.defaultRetailer); // Переход на страничку Метро
 
         modalType = User.Do.registration(
                 null,
@@ -69,7 +69,7 @@ public class UserRegistrationTests extends TestBase {
     )
     public void noRegWithoutName() {
         if(env.contains("staging")){skipTest();}//todo проверить как работает если несколько тестов, закрывается ли браузер
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         // для стейджа телефон 799999999999 код 1111
         User.Do.registration(
                 null,
@@ -93,7 +93,7 @@ public class UserRegistrationTests extends TestBase {
     )
     public void noRegWithoutNameMobile() {
         if(env.contains("production")){skipTest();}//todo проверить как работает если несколько тестов, закрывается ли браузер
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         // для стейджа телефон 799999999999 код 1111
         User.Do.registration(
                 null,
@@ -116,7 +116,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 203
     )
     public void noRegWithoutEmail() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         User.Do.registration(
                 "Test User",
@@ -139,7 +139,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 204
     )
     public void noRegWithoutPassword() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Do.registration("Test User", "test@example.com",
                 null, "12345678");
         baseChecks.checkIsErrorMessageElementPresent("Укажите пароль",
@@ -157,7 +157,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 205
     )
     public void noRegWithoutPasswordConfirmation() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Do.registration(
                 "Test User",
                 "test@example.com",
@@ -179,7 +179,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 206
     )
     public void noRegWithWrongPasswordConfirmation() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Do.registration(
                 "Test User",
                 "test@example.com",
@@ -201,7 +201,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 207
     )
     public void noRegWithExistingEmail() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Do.registration("Test User", Users.superuser().getLogin(),
                 "12345678", "12345678");
         baseChecks.checkIsErrorMessageElementPresent("Этот email уже зарегистрирован",
@@ -219,7 +219,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 208
     )
     public void noRegWithLongFields() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         User.Do.registration(generate.testCredentials("user", 150));
         baseChecks.checkIsErrorMessageElementPresent("Имя должно содержать не более 128 символов",
@@ -242,7 +242,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 209
     )
     public void noRegOnCancel() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         Shop.AuthModal.open();
         kraken.await().fluently(
                 ExpectedConditions.elementToBeClickable(
@@ -275,7 +275,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 211
     )
     public void successRegOnMainPage() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Do.registration();
         authChecks.checkIsUserAuthorized("Не работает регистрация на витрине магазина");
     }
@@ -289,7 +289,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 212
     )
     public void successRegFromAddressModal() throws AssertionError {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.ShippingAddressModal.open();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
@@ -308,7 +308,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 213
     )
     public void successRegFromCart() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         Shop.Cart.collect();
@@ -332,7 +332,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 214
     )
     public void successRegWithoutMailingCheckbox() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.AuthModal.open();
         User.Do.regSequence(generate.testCredentials("user"), false ); // todo вынести в Shop.AuthModal.fill()
@@ -349,7 +349,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 215
     )
     public void successRegWithMailingCheckbox() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.AuthModal.open();
         User.Do.regSequence(generate.testCredentials("user"), false );

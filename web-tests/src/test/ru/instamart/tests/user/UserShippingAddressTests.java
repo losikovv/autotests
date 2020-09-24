@@ -23,7 +23,7 @@ public class UserShippingAddressTests extends TestBase {
     public void noShippingAddressByDefault() {
         SoftAssert softAssert = new SoftAssert();
         User.Logout.quickly();
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         softAssert.assertFalse(
                 kraken.detect().isShippingAddressSet(),
@@ -44,7 +44,7 @@ public class UserShippingAddressTests extends TestBase {
             }
     )
     public void successOperateDefaultShoplist() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         Shop.StoreSelector.open();
 
         Assert.assertTrue(
@@ -73,7 +73,7 @@ public class UserShippingAddressTests extends TestBase {
             priority = 303
     )
     public void noShippingAddressSetOnClose() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         Shop.ShippingAddressModal.open();
         Shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         Shop.ShippingAddressModal.close();
@@ -93,7 +93,7 @@ public class UserShippingAddressTests extends TestBase {
     )
     public void noAvailableShopsOutOfDeliveryZone() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
 
         Shop.StoreSelector.open();
@@ -126,7 +126,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successSetShippingAddressOnRetailerPage() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
         softAssert.assertTrue(
@@ -154,7 +154,7 @@ public class UserShippingAddressTests extends TestBase {
     public void noChangeShippingAddressOnCancel() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         if(!kraken.detect().isShippingAddressSet()) {
             User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
@@ -185,7 +185,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successChangeShippingAddress() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         if(!kraken.detect().isShippingAddressSet()) {
             User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
         }
@@ -249,7 +249,7 @@ public class UserShippingAddressTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         User.Logout.quickly();
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         Shop.Catalog.Item.addToCart();
         Shop.ItemCard.addToCart();
 
@@ -282,7 +282,7 @@ public class UserShippingAddressTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         User.Logout.quickly();
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         Shop.Catalog.Item.addToCart();
 
         softAssert.assertTrue(
@@ -377,7 +377,7 @@ public class UserShippingAddressTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         User.Logout.quickly();
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
 
         softAssert.assertTrue(

@@ -20,7 +20,7 @@ public class OrdersCities extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
     }
 
     @Test(enabled = enableOrderCitiesTests,

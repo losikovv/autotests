@@ -16,9 +16,9 @@ public class ShoppingCatalogTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         User.Logout.quickly();
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
     }
 
     @Test(
@@ -84,7 +84,7 @@ public class ShoppingCatalogTests extends TestBase {
     )
     public void successOperateItemCardOnRetailerPage() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.Catalog.Item.open();
 
@@ -110,7 +110,7 @@ public class ShoppingCatalogTests extends TestBase {
     public void successOperateItemCardOnDepartmentPage() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         Shop.CatalogDrawer.open();
         Shop.CatalogDrawer.goToDepartment("Овощи и фрукты");
 
@@ -138,7 +138,7 @@ public class ShoppingCatalogTests extends TestBase {
     public void successOperateItemCardOnTaxonPage() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         Shop.CatalogDrawer.open();
         Shop.CatalogDrawer.goToTaxon("Бакалея");
 

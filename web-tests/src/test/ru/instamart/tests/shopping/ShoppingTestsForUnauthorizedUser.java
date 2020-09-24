@@ -15,7 +15,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
     @BeforeMethod(alwaysRun = true)
     public void setup() {
         User.Logout.quickly();
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
     }
 
     @Test(

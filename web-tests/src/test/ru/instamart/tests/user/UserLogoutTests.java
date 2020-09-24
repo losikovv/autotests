@@ -26,14 +26,14 @@ public class UserLogoutTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successQuickLogout() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         User.Do.loginAs(session.admin);
         User.Logout.quickly();
 
         assertPageIsAvailable();
 
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Assert.assertFalse(
                 kraken.detect().isUserAuthorised(),
@@ -47,14 +47,14 @@ public class UserLogoutTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successManualLogout() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         User.Do.loginAs(session.admin);
         User.Logout.manually();
 
         assertPageIsAvailable();
 
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Assert.assertFalse(
                 kraken.detect().isUserAuthorised(),
@@ -68,17 +68,17 @@ public class UserLogoutTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void noShipAddressAndEmptyCartAfterLogout() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         User.Do.loginAs(session.admin);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
 
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         kraken.await().simply(2);
         Shop.Catalog.Item.addToCart();
         User.Logout.manually();
 
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Assert.assertFalse(
                 kraken.detect().isUserAuthorised(),

@@ -18,7 +18,7 @@ public class Config {
     public interface CoreSettings {
         String defaultBrowser = BrowserType.CHROME;
         String defaultEnvironment = Environments.sbermarket.staging();
-        String defaultTenant = Tenants.metro().getAlias();
+        String defaultRetailer = Tenants.metro().getAlias();
 
         int basicTimeout = 2;
         int waitingTimeout = 45;

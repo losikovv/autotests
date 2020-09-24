@@ -46,7 +46,7 @@ public class JivositeTests extends TestBase {
     )
     public void successOperateJivositeWidgetOnRetailerPage() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Assert.assertTrue(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite недоступен на витрине ритейлера\n");
@@ -121,7 +121,7 @@ public class JivositeTests extends TestBase {
     )
     public void successSendMessageToJivositeFromRetailerPage() {
         String testMessage = "тест";
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.Jivosite.sendMessage(testMessage);
 

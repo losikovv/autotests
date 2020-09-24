@@ -16,7 +16,7 @@ public class BasicSbermarketTests extends TestBase {
             priority = 101,
             groups = {"sbermarket-smoke","testing","sbermarket-acceptance","sbermarket-regression"}
     ) public void successValidateHeaderSbermarket() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         assertPageIsAvailable();
 
@@ -58,7 +58,7 @@ public class BasicSbermarketTests extends TestBase {
             priority = 102,
             groups = {"sbermarket-smoke","testing","sbermarket-acceptance","sbermarket-regression"}
     ) public void successValidateFooterSbermarket() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         assertPageIsAvailable();
 

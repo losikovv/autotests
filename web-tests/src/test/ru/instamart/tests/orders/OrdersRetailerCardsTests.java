@@ -32,7 +32,7 @@ public class OrdersRetailerCardsTests extends TestBase {
             priority = 2601
     )
     public void successOrderWithMetroRetailerCard() {
-        kraken.get().page(Config.CoreSettings.defaultTenant);
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         
