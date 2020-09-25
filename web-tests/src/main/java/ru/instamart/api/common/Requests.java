@@ -1,6 +1,7 @@
 package instamart.api.common;
 
 import instamart.api.objects.Address;
+import instamart.core.common.AppManager;
 import instamart.core.testdata.AuthProviders;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -330,10 +331,11 @@ public class Requests {
     /**
      * Применяем необходимые параметры к заказу
      */
-    public Response putOrders(int sid, int replacementPolicyId, String phoneNumber, String instructions,
-                               int paymentToolId, int shipmentId, int deliveryWindowId, int shipmentMethodId) {
+    public Response putOrders(//int addressId, //параметр ломает оформление заказа в некоторых магазинах
+                              int replacementPolicyId, String phoneNumber, String instructions,
+                              int paymentToolId, int shipmentId, int deliveryWindowId, int shipmentMethodId) {
         Map<String, Object> data = new HashMap<>();
-        data.put("order[address_attributes][id]", sid);
+        //data.put("order[address_attributes][id]", addressId);
         data.put("order[replacement_policy_id]", replacementPolicyId);
         data.put("order[phone_attributes][value]", phoneNumber);
         data.put("order[address_attributes][instructions]", instructions);
@@ -376,7 +378,12 @@ public class Requests {
      * Получаем список всех доступных магазинов
      */
     public static Response getStores() {
-        return givenCatch().get(EndPoints.stores);
+        if (AppManager.environment.getBasicUrl().equalsIgnoreCase("sbermarket.ru")) {
+            return givenCatch()
+                    .baseUri("https://api.sbermarket.ru")
+                    .basePath("")
+                    .get(EndPoints.stores);
+        } else return givenCatch().get(EndPoints.stores);
     }
 
     /**

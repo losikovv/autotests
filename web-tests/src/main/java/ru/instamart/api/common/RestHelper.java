@@ -95,7 +95,7 @@ public class RestHelper extends Requests {
             lats.add(point.getLat());
             lons.add(point.getLon());
         }
-        int numberOfTries = 100;
+        int numberOfTries = 1000;
         double lat = Collections.min(lats);
         double lon = Collections.min(lons);
         double stepLat = (Collections.max(lats) - lat) / numberOfTries;
@@ -467,7 +467,7 @@ public class RestHelper extends Requests {
      */
     private void setDefaultOrderAttributes() {
         Response response = putOrders(
-                currentAddressId.get(),
+                //currentAddressId.get(), //параметр ломает оформление заказа в некоторых магазинах
                 1,
                 "+7 (987) 654 32 10",
                 "test",
@@ -475,10 +475,7 @@ public class RestHelper extends Requests {
                 currentShipmentId.get(),
                 currentDeliveryWindowId.get(),
                 currentShipmentMethodId.get());
-        Assert.assertEquals(
-                response.statusCode(),
-                200,
-                response.prettyPrint());
+        Assert.assertEquals(response.statusCode(), 200, response.body().toString());
         Order order = response.as(OrderResponse.class).getOrder();
         printSuccess("Применены атрибуты для заказа: " + order.getNumber());
         System.out.println("        full_address: " + order.getAddress().getFull_address());
@@ -505,7 +502,7 @@ public class RestHelper extends Requests {
                     getAvailableDeliveryWindow();
                     setDefaultOrderAttributes();
                     response = postOrdersCompletion();
-                } else Assert.fail(response.prettyPrint());
+                } else Assert.fail(response.body().toString());
             }
             if (errors.getPayments() != null) {
                 String notAvailablePaymentMethod = "Заказ не может быть оплачен указанным способом";
@@ -513,7 +510,7 @@ public class RestHelper extends Requests {
                     printError("\n" + notAvailablePaymentMethod + "\n" + currentPaymentTool.get() + "\n");
                     //ToDo помечать тест желтым, если заказ не может быть оплачен указанным способом
                     return;
-                } else Assert.fail(response.prettyPrint());
+                } else Assert.fail(response.body().toString());
             }
         }
         if (response.as(OrderResponse.class).getOrder() != null) {
