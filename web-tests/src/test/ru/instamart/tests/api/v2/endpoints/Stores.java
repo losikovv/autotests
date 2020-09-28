@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
+import instamart.api.common.RestAddresses;
 import instamart.api.objects.responses.PromotionCardsResponse;
 import org.testng.annotations.Test;
 import instamart.api.common.Requests;
@@ -21,14 +22,17 @@ public class Stores extends RestBase {
         assertNotNull(response.as(StoreResponse.class).getStore(), "Не вернулся магазин");
     }
 
-    @Test(  description = "Получаем список всех магазинов",
+    @Test(  description = "Получаем список всех магазинов по указанным координатам",
             groups = {"rest-smoke","rest-v2-smoke"},
             priority = 7)
-    public void getAllStores() {
-        response = Requests.getStores();
+    public void getStoresByCoordinates() {
+        response = Requests.getStores(
+                RestAddresses.Moscow.defaultAddress().getLat(),
+                RestAddresses.Moscow.defaultAddress().getLon());
 
         assertEquals(response.getStatusCode(), 200);
-        assertNotNull(response.as(StoresResponse.class).getStores(), "Не вернулись магазины");
+        assertNotNull(response.as(StoresResponse.class).getStores(),
+                "Не вернулись магазины по указанным координатам");
     }
 
     @Test(  description = "Получаем промоакции в магазине",

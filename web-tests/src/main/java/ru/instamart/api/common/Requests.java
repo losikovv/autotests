@@ -1,7 +1,6 @@
 package instamart.api.common;
 
 import instamart.api.objects.Address;
-import instamart.core.common.AppManager;
 import instamart.core.testdata.AuthProviders;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -375,21 +374,9 @@ public class Requests {
     }
 
     /**
-     * Получаем список всех доступных магазинов
-     */
-    public static Response getStores() {
-        if (AppManager.environment.getBasicUrl().equalsIgnoreCase("sbermarket.ru")) {
-            return givenCatch()
-                    .baseUri("https://api.sbermarket.ru")
-                    .basePath("")
-                    .get(EndPoints.stores);
-        } else return givenCatch().get(EndPoints.stores);
-    }
-
-    /**
      * Получаем список доступных магазинов по координатам
      */
-    Response getStores(double lat, double lon) {
+    public static Response getStores(double lat, double lon) {
         return givenCatch().get(EndPoints.Stores.coordinates, lat, lon);
     }
 

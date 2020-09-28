@@ -1,10 +1,10 @@
 package instamart.core.testdata.dataprovider;
 
-import instamart.core.testdata.AuthProviders;
 import instamart.api.common.RestBase;
 import instamart.api.objects.Retailer;
 import instamart.api.objects.Store;
 import instamart.api.objects.Zone;
+import instamart.core.testdata.AuthProviders;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -75,7 +75,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "stores")
     public static Object[][] getAvailableStores() {
 
-        List<Store> storeList = availableStoresWithoutZones();
+        List<Store> storeList = availableStores();
 
         Object[][] storeArray = new Object[storeList.size()][1];
 
@@ -105,7 +105,7 @@ public class RestDataProvider extends RestBase {
         List<Zone> coordinates = new ArrayList<>();
 
         for (Store store : stores) {
-            List<List<Zone>> zones = store.getZones();
+            List<List<Zone>> zones = storeZones(store.getId());
             for (int i = 0; i < zones.size(); i++) {
                 zoneStores.add(store);
                 zoneNames.add("Зона #" + (i + 1));

@@ -649,25 +649,18 @@ public class RestHelper extends Requests {
     }
 
     /**
-     * Получить список активных магазинов как список объектов Store (с зонами доставки)
-     */
-    public static List<Store> availableStores() {
-        List<Store> stores = getStores().as(StoresResponse.class).getStores();
-
-        printAvailableStores(stores);
-
-        return stores;
-    }
-
-    /**
      * Получить список активных магазинов как список объектов Store (без зон доставки)
      */
-    public static List<Store> availableStoresWithoutZones() {
+    public static List<Store> availableStores() {
         List<Retailer> retailers = availableRetailers();
         List<Store> stores = new ArrayList<>();
 
         for (Retailer retailer : retailers) {
-            stores.addAll(getRetailerStoresSpree(retailer.getId()).as(StoresResponse.class).getStores());
+            List<Store> retailerStores = getRetailerStoresSpree(retailer.getId()).as(StoresResponse.class).getStores();
+            for (Store retailerStore: retailerStores) {
+                retailerStore.setRetailer(retailer);
+                stores.add(retailerStore);
+            }
         }
         printAvailableStores(stores);
 
@@ -711,6 +704,13 @@ public class RestHelper extends Requests {
             availableStores.add(store.toString());
         }
         System.out.println(availableStores);
+    }
+
+    /**
+     * Получить список зон доставки магазина
+     */
+    public static List<List<Zone>> storeZones(int sid) {
+        return getStores(sid).as(StoreResponse.class).getStore().getZones();
     }
 
     /**
