@@ -267,8 +267,33 @@ public class Shop extends Base {
         }
     }
 
+    /** Модалка выбора магазина */
+    public static class StoresModal {
+
+        /** Выбрать первый доступный магазин */
+        public static void selectFirstStore() {
+            if(kraken.detect().isStoresModalOpen()) {
+                kraken.perform().click(Elements.Modals.StoresModal.firstStoreAvailable());
+                kraken.await().fluently(
+                        ExpectedConditions.invisibilityOfElementLocated(
+                                (Elements.Modals.StoresModal.popup().getLocator())));
+            } else {
+                throw new AssertionError(
+                        "Не открылась модалка выбора магазинов по новому адресу");
+            }
+        }
+    }
+
     /** Шторка выбора магазина */
-    public static class StoreSelector {
+    public static class StoresDrawer {
+
+        /** Выбрать первый доступный магазин */
+        public static void selectFirstStore() {
+            if(!kraken.detect().isStoresDrawerOpen()) {
+                open();
+            }
+            kraken.perform().click(Elements.StoreSelector.storeCard());
+        }
 
         /** Открыть шторку выбора магазина */
         public static void open() {
@@ -450,6 +475,15 @@ public class Shop extends Base {
 
     /** Поиск товаров */
     public static class Search {
+
+        public static void nonexistingItem() {
+            item(Config.TestVariables.TestParams.ItemSearch.emptyResultsQuery);
+        }
+
+        // TODO придумать решение для nonfood-магазинов - поиск заведомо существующего товара
+        public static void existingItem() {
+            item(Config.TestVariables.TestParams.ItemSearch.testQuery);
+        }
 
         public static void item(String query) {
             verboseMessage("Поиск товаров по запросу '" + query + "'...");

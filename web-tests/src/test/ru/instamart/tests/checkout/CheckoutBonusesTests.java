@@ -118,7 +118,7 @@ public class CheckoutBonusesTests extends TestBase {
         softAssert.assertAll();
     }
 
-    // TODO расширить тесты бонусных программ:
+    // TODO расширить тесты бонусных программ - ATST-237
 
         // TODO public void noAddBonusProgramOnCancel() {}
 

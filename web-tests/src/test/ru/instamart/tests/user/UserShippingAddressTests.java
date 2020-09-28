@@ -45,20 +45,20 @@ public class UserShippingAddressTests extends TestBase {
     )
     public void successOperateDefaultShoplist() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-        Shop.StoreSelector.open();
+        Shop.StoresDrawer.open();
 
         Assert.assertTrue(
-                kraken.detect().isStoreSelectorOpen(),
+                kraken.detect().isStoresDrawerOpen(),
                     "\n> Не открывается дефолтный список магазинов\n");
 
         Assert.assertFalse(
-                kraken.detect().isStoreSelectorEmpty(),
+                kraken.detect().isStoresDrawerEmpty(),
                     "\n> Дефолтный список магазинов пуст\n");
 
-        Shop.StoreSelector.close();
+        Shop.StoresDrawer.close();
 
         Assert.assertFalse(
-                kraken.detect().isStoreSelectorOpen(),
+                kraken.detect().isStoresDrawerOpen(),
                     "\n> Не закрывается дефолтный список магазинов\n");
     }
 
@@ -96,20 +96,20 @@ public class UserShippingAddressTests extends TestBase {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
 
-        Shop.StoreSelector.open();
+        Shop.StoresDrawer.open();
 
         softAssert.assertTrue(
-                kraken.detect().isStoreSelectorOpen(),
+                kraken.detect().isStoresDrawerOpen(),
                     "\n> Не открывается список магазинов вне зоны доставки\n");
 
         softAssert.assertTrue(
-                kraken.detect().isStoreSelectorEmpty(),
+                kraken.detect().isStoresDrawerEmpty(),
                     "\n> Не пуст список магазинов с адресом вне зоны доставки\n");
 
-        Shop.StoreSelector.close();
+        Shop.StoresDrawer.close();
 
         Assert.assertFalse(
-                kraken.detect().isStoreSelectorOpen(),
+                kraken.detect().isStoresDrawerOpen(),
                     "Не закрывается пустой список магазинов\n");
 
         softAssert.assertAll();
@@ -321,7 +321,7 @@ public class UserShippingAddressTests extends TestBase {
                 kraken.detect().isChangeStoreModalOpen(),
                     "Не открывается модалка с магазинами доступными по новому адресу");
 
-        kraken.perform().click(Elements.Modals.StoresModal.firstStoreAvailable()); // TODO Сделать метод в Shop
+        Shop.StoresModal.selectFirstStore();
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToCart();
 

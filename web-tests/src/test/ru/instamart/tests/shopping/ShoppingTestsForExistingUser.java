@@ -52,7 +52,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
 
         if (kraken.detect().isCartEmpty()) {
             Shop.Cart.close();
-            Shop.Search.item("хлеб"); // Костыль для случаев когда первый товар на главной дороже минимального заказа
+            Shop.Search.existingItem();
             Shop.Catalog.Item.addToCart();
         }
 

@@ -17,6 +17,8 @@ import static instamart.core.settings.Config.TestsConfiguration.AdministrationTe
 
 public class AdministrationShipmentsSectionTests extends TestBase {
 
+    // TODO актуализировать тесты и зарезолвить тудушки - ATST-234
+
     @BeforeMethod(alwaysRun = true)
     public void reachAdministrationPanel() {
         kraken.reach().admin();

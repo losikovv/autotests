@@ -14,6 +14,8 @@ import static instamart.core.settings.Config.TestsConfiguration.CheckoutTests.en
 
 public class CheckoutContactsStepTests extends TestBase {
 
+    // TODO расширить тесты, см тудушки - ATST-238
+
     @BeforeClass(alwaysRun = true)
     public void preparingForCheckout() {
         User.Logout.quickly();

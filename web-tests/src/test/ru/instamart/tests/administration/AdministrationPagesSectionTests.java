@@ -10,6 +10,8 @@ import static instamart.core.settings.Config.TestsConfiguration.AdministrationTe
 
 public class AdministrationPagesSectionTests extends TestBase {
 
+    // TODO актуализировать тесты в классе - ATST-233
+
     @BeforeMethod(alwaysRun = true)
     public void reachAdministration() {
         kraken.reach().admin();
@@ -21,7 +23,7 @@ public class AdministrationPagesSectionTests extends TestBase {
             priority = 10801
     )
     public void ValidatePagesRootPage() {
-        // TODO: вынести тестовую страницу в глобальные константы
+        // TODO: вынести тестовую страницу в глобальные константы - ATST-233
         String page = "О компании";
         kraken.get().adminPage("pages");
 
@@ -62,7 +64,7 @@ public class AdministrationPagesSectionTests extends TestBase {
         Administration.Pages.editStaticPage(pageName);
 
         Administration.Pages.delete(pageName);
-            // TODO проверить отсутствие страницы в списке в админке
-            // TODO добавить проверку что тестовая страничка - 404 на сайте
+            // TODO проверить отсутствие страницы в списке в админке - ATST-233
+            // TODO добавить проверку что тестовая страничка - 404 на сайте - ATST-233
     }
 }

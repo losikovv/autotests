@@ -191,13 +191,6 @@ public class DetectionHelper extends HelperBase {
     }
 
     /**
-     * Определить открыт ли модалка "Партнеры"
-     */
-    public boolean isPartnersModalOpen() {
-        return isElementDisplayed(Elements.Modals.PartnersModal.popup());
-    }
-
-    /**
      * Определить открыт ли модалка "Адрес"
      */
     public boolean isAddressModalOpen() {
@@ -366,15 +359,21 @@ public class DetectionHelper extends HelperBase {
     }
 
 
+    // ======= Модалка выбора магазинов =======
+
+    public boolean isStoresModalOpen() {
+        return kraken.detect().isElementDisplayed(Elements.Modals.StoresModal.popup());
+    }
+
     // ======= Шторка выбора магазинов =======
 
     /** Определить открыта ли шторка выбора магазина */
-    public boolean isStoreSelectorOpen() {
+    public boolean isStoresDrawerOpen() {
         return kraken.detect().isElementDisplayed(Elements.StoreSelector.drawer());
     }
 
     /** Определить пуст ли селектор */
-    public boolean isStoreSelectorEmpty() {
+    public boolean isStoresDrawerEmpty() {
         return kraken.detect().isElementDisplayed(Elements.StoreSelector.placeholder());
     }
 

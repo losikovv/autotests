@@ -45,7 +45,7 @@ public class ShoppingSearchTests extends TestBase {
             priority = 502
     )
     public void successSearchForNonexistingItem() {
-        Shop.Search.item("говно жопа");
+        Shop.Search.nonexistingItem();
 
         assertPageIsAvailable();
 

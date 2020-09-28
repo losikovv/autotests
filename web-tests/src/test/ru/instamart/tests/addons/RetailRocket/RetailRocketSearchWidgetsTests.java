@@ -33,7 +33,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             priority = 12301
     )
     public void successCheckSimilarItemsWidget() {
-        Shop.Search.item("говно жопа");
+        Shop.Search.nonexistingItem();
 
         Assert.assertTrue(
                 kraken.detect().isWidgetPresent(Widgets.RetailRocket.Search.SimilarItems()),
@@ -73,7 +73,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successOpenItemCardFromSimilarItemsWidget() {
-        Shop.Search.item("говно жопа");
+        Shop.Search.nonexistingItem();
 
         Shop.Catalog.Item.open(Widgets.RetailRocket.Search.SimilarItems());
 
@@ -119,7 +119,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
                     "Не открывается карточка товара из виджета 'Вы недавно смотрели' после поиска товара");
     }
 
-    // TODO не работает, починить
+    // TODO не работает, починить - ATST-231
     @Test(enabled = enableRetailRocketTest,
             description = "Тест успешного добавления товара в корзину из виджета 'Мы нашли для вас похожие товары' после поиска без результата",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
@@ -127,7 +127,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successAddItemFromSimilarItemsWidget() {
-        Shop.Search.item("говно жопа");
+        Shop.Search.nonexistingItem();
 
         Shop.Catalog.Item.addToCart(Widgets.RetailRocket.Search.SimilarItems());
 

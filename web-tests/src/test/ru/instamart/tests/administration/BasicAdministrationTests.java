@@ -12,6 +12,8 @@ import static instamart.core.common.AppManager.session;
 
 public class BasicAdministrationTests extends TestBase {
 
+    //TODO актуализировать базовые тесты, все лишнее вынести в отдельные классы и порешать тудушки - ATST-235
+
     @BeforeClass(alwaysRun = true)
     public void setup() {
         User.Logout.quickly();

@@ -183,13 +183,6 @@ public class GrabHelper extends HelperBase{
         return policy;
     }
 
-
-    // TODO переделать
-    /** Взять округленное значение цены из указанного элемента */
-    public int roundedSum(ElementData element) {
-        return round(text(element));
-    }
-
     /** Округлить цену до целого числа, отбросив копейки, пробелы и знак рубля */
     private int round(String price) {
         if (price == null) {

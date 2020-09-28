@@ -71,7 +71,7 @@ public class JivositeTests extends TestBase {
     )
     public void successOperateJivositeWidgetInCatalog() {
         SoftAssert softAssert = new SoftAssert();
-        Shop.Search.item("хлеб");
+        Shop.Search.existingItem();
 
         Assert.assertTrue(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite недоступен в каталоге\n");

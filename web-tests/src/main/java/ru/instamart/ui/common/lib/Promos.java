@@ -38,7 +38,7 @@ public class Promos {
         );
     }
 
-    // TODO завести
+    // TODO завести - ATST-229
     public static PromoData fixedDiscount() {
         return new PromoData(
                 "fixedDiscount",
@@ -47,7 +47,7 @@ public class Promos {
         );
     }
 
-    // TODO завести
+    // TODO завести - ATST-229
     public static PromoData fixedDiscountOnFirstOrder() {
         return new PromoData(
                 "fixedDiscountOnFirstOrder",
@@ -56,7 +56,7 @@ public class Promos {
         );
     }
 
-    // TODO завести
+    // TODO завести - ATST-229
     public static PromoData fixedDiscountOnOrderAboveSum() {
         return new PromoData(
                 "fixedDiscountOnOrderAboveSum",
@@ -65,7 +65,7 @@ public class Promos {
         );
     }
 
-    // TODO завести
+    // TODO завести - ATST-229
     public static PromoData fixedDiscountOnOrderUnderSum() {
         return new PromoData(
                 "fixedDiscountOnOrderUnderSum",
@@ -74,7 +74,7 @@ public class Promos {
         );
     }
 
-    // TODO завести
+    // TODO завести - ATST-229
     public static PromoData fixedDiscountForNewUser() {
         return new PromoData(
                 "fixedDiscountForNewUser",
@@ -83,7 +83,7 @@ public class Promos {
         );
     }
 
-    // TODO завести
+    // TODO завести - ATST-229
     public static PromoData fixedDiscountForUser(UserData user) {
         switch(user.getLogin()) {
             case "autotestuser@instamart.ru" :
@@ -101,7 +101,7 @@ public class Promos {
         }
     }
 
-    // TODO завести
+    // TODO завести - ATST-229
     public static PromoData fixedDiscountForB2bUser(UserData user) {
         switch(user.getLogin()) {
             case "autotestuser@instamart.ru" :
@@ -119,7 +119,7 @@ public class Promos {
         }
     }
 
-    // TODO
+    // TODO - ATST-229
     public static PromoData referralPromo(UserData user) {
         // код разный на окружениях, попытаться сделать одинаковый для autotest юзера, руками в базе стейджа
         switch(user.getLogin()) {
@@ -138,9 +138,9 @@ public class Promos {
         }
     }
 
-    // TODO public static PromoData fixedDiscountForItem
+    // TODO public static PromoData fixedDiscountForItem  - ATST-229
 
-    // TODO
+    // TODO - ATST-229
     public static PromoData fixedDiscountForRetailer(String retailer) {
         switch(retailer) {
             case "metro" :
@@ -164,7 +164,7 @@ public class Promos {
         }
     }
 
-    // TODO
+    // TODO - ATST-229
     public static PromoData fixedDiscountForRegion(RegionData region) {
         switch(region.getAlias()) {
             case "msk" :
@@ -194,7 +194,7 @@ public class Promos {
         }
     }
 
-    // TODO завести
+    // TODO завести - ATST-229
     public static PromoData fixedDiscountForTenant(String tenant) {
         switch(tenant) {
             case "instamart":
@@ -218,17 +218,17 @@ public class Promos {
         }
     }
 
-    // TODO
+    // TODO - ATST-229
     public static PromoData oldPromo() {
         return null;
     }
 
-    // TODO
+    // TODO - ATST-229
     public static PromoData futurePromo() {
         return null;
     }
 
-    // TODO public static PromoData fixedDiscountForCertainOrder
+    // TODO public static PromoData fixedDiscountForCertainOrder - ATST-229
 
-    // TODO public static PromoData fixedDiscountForSerialOrder
+    // TODO public static PromoData fixedDiscountForSerialOrder - ATST-229
 }

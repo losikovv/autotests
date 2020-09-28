@@ -64,8 +64,8 @@ public class Administration extends Base {
         }
 
         /** Выбрать причину и текст отмены заказа */
-        private static void chooseCancellationReason(int reason, String details) {
-            kraken.perform().click(By.id("cancellation_reason_id_" + reason));               // todo вынести в elements
+        private static void chooseCancellationReason(int reasonPosition, String details) {
+            kraken.perform().click(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.cancellationReasonType(reasonPosition));
             kraken.perform().fillField(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.cancellationReasonField(),details);
         }
     }

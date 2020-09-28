@@ -82,7 +82,7 @@ public class Config {
         interface AddonsTests {
             boolean enableSeoCatalogTests = false;
             boolean enableJivositeTests = false;
-            boolean enableRetailRocketTest = false;
+            boolean enableRetailRocketTest = true;
             boolean enablePage404test = true;
         }
     }
@@ -108,15 +108,16 @@ public class Config {
         interface TestParams {
             String testDomain = "example.com";
             String testMark = "autotest";
+
+            interface ItemSearch {
+                String testQuery = "хлеб";
+                String emptyResultsQuery = "смысл жизни";
+            }
         }
 
-        // TODO убрать, определять стоимость доставки во время тестов
+        // TODO убрать, определять стоимость доставки во время тестов - ATST-224
         interface DeliveryPrices {
             int minOrderSum = 2500;
-            int MetroHighDeliveryPrice = 299;
-            int MetroMediumDeliveryPrice = 199;
-            int MetroLowDeliveryPrice = 99;
-            int VkusvillDeliveryPrice = 190;
         }
 
         static OrderDetailsData testOrderDetails() {
@@ -142,11 +143,6 @@ public class Config {
                     ),
                     new DeliveryTimeData(6, 1)
             );
-        }
-
-        static OrderDetailsData DefaultCheckoutState() {
-            // TODO
-            return null;
         }
     }
 }

@@ -51,7 +51,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
         Shop.Cart.drop();
 
         // Для случаев когда первый товар на главной дороже минимального заказа
-        Shop.Search.item("хлеб");
+        Shop.Search.existingItem();
         Shop.Catalog.Item.addToCart();
 
         Assert.assertTrue(

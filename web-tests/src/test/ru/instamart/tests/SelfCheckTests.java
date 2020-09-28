@@ -163,10 +163,10 @@ public class SelfCheckTests extends TestBase {
 
         kraken.get().page(Config.CoreSettings.defaultRetailer);
 
-        Shop.StoreSelector.open();
+        Shop.StoresDrawer.open();
         Assert.assertTrue(kraken.detect().isCatalogDrawerOpen());
 
-        Shop.StoreSelector.close();
+        Shop.StoresDrawer.close();
         Assert.assertFalse(kraken.detect().isCatalogDrawerOpen());
     }
 
@@ -180,30 +180,30 @@ public class SelfCheckTests extends TestBase {
         //landing
         User.ShippingAddress.set(Addresses.Moscow.testAddress());
 
-        softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
+        softAssert.assertTrue(kraken.detect().isStoresDrawerOpen(),
                 "\nНе открывается дефолтный селектор магазинов на лендинге");
 
-        softAssert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
+        softAssert.assertFalse(kraken.detect().isStoresDrawerEmpty(),
                 "\nПусто в дефолтном селекторе магазинов на лендинге");
 
-        Shop.StoreSelector.open();
+        Shop.StoresDrawer.open();
 
-        softAssert.assertFalse(kraken.detect().isStoreSelectorOpen(),
+        softAssert.assertFalse(kraken.detect().isStoresDrawerOpen(),
                 "\nНе закрывается дефолтный селектор магазинов на лендинге");
 
         //retailer
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-        Shop.StoreSelector.open();
+        Shop.StoresDrawer.open();
 
-        softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
+        softAssert.assertTrue(kraken.detect().isStoresDrawerOpen(),
                 "\nНе открывается дефолтный селектор магазинов на витрине ритейлера");
 
-        softAssert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
+        softAssert.assertFalse(kraken.detect().isStoresDrawerEmpty(),
                 "\nПусто в дефолтном селекторе магазинов на витрине ритейлера");
 
-        Shop.StoreSelector.close();
+        Shop.StoresDrawer.close();
 
-        softAssert.assertFalse(kraken.detect().isStoreSelectorOpen(),
+        softAssert.assertFalse(kraken.detect().isStoresDrawerOpen(),
                 "\nНе закрывается дефолтный селектор магазинов на витрине ритейлера");
 
         softAssert.assertAll();
@@ -219,30 +219,30 @@ public class SelfCheckTests extends TestBase {
         //landing
         User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
 
-        softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
+        softAssert.assertTrue(kraken.detect().isStoresDrawerOpen(),
                 "\nНе открывается пустой селектор магазинов на лендинге");
 
-        softAssert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
+        softAssert.assertFalse(kraken.detect().isStoresDrawerEmpty(),
                 "\nНе определяется пустой селектор магазинов на лендинге");
 
-        Shop.StoreSelector.close();;
+        Shop.StoresDrawer.close();;
 
-        softAssert.assertFalse(kraken.detect().isStoreSelectorOpen(),
+        softAssert.assertFalse(kraken.detect().isStoresDrawerOpen(),
                 "\nНе закрывается пустой селектор магазинов на лендинге");
 
         //retailer
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-        Shop.StoreSelector.open();;
+        Shop.StoresDrawer.open();;
 
-        softAssert.assertTrue(kraken.detect().isStoreSelectorOpen(),
+        softAssert.assertTrue(kraken.detect().isStoresDrawerOpen(),
                 "\nНе открывается пустой селектор магазинов на витрине ритейлера");
 
-        softAssert.assertFalse(kraken.detect().isStoreSelectorEmpty(),
+        softAssert.assertFalse(kraken.detect().isStoresDrawerEmpty(),
                 "\nНе определяется пустой селектор магазинов на витрине ритейлера");
 
-        Shop.StoreSelector.close();;
+        Shop.StoresDrawer.close();;
 
-        softAssert.assertFalse(kraken.detect().isStoreSelectorOpen(),
+        softAssert.assertFalse(kraken.detect().isStoresDrawerOpen(),
                 "\nНе закрывается пустой селектор магазинов на витрине ритейлера");
 
         softAssert.assertAll();
@@ -275,21 +275,7 @@ public class SelfCheckTests extends TestBase {
         kraken.perform().click(Elements.Modals.DeliveryModal.closeButton());
         Assert.assertFalse(kraken.detect().isDeliveryModalOpen());
     }
-
-    @Test(description = "Тест корректности определения модалки Партнеры",
-            groups ="selfcheck",
-            priority = 10015)
-    public void detectPartnersModal() {
-
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
-
-        //kraken.perform().click(Elements.Site.Header.partnersButton());
-        Assert.assertTrue(kraken.detect().isPartnersModalOpen());
-
-        kraken.perform().click(Elements.Modals.PartnersModal.closeButton());
-        Assert.assertFalse(kraken.detect().isPartnersModalOpen());
-    }
-
+    
     @Test(description = "Тест корректности определения модалки Оплата",
             groups ="selfcheck",
             priority = 10016)

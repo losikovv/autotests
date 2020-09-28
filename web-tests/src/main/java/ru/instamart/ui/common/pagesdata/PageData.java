@@ -6,7 +6,6 @@ public class PageData {
     private String path;
     private String description;
 
-    // Todo временный конструктор
     public PageData(String path){
         this.path = path;
         this.description = null;

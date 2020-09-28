@@ -56,7 +56,7 @@ public class PerformHelper extends HelperBase {
         }
     }
 
-    // TODO убрать в тестах и хелперах все методы использующие прямой локатор
+    // TODO убрать в тестах и хелперах все методы использующие прямой локатор - ATST-227
     /** Кликнуть элемент по локатору */
     public void click(By locator) {
         try {
@@ -107,17 +107,6 @@ public class PerformHelper extends HelperBase {
             if (!text.equals(existingText)) {
                 driver.findElement(element.getLocator()).clear();
                 driver.findElement(element.getLocator()).sendKeys(text);
-            }
-        }
-    }
-
-    public void fillField(By locator, String text) {
-        click(locator);
-        if (text != null) {
-            String existingText = kraken.grab().value(locator);
-            if (!text.equals(existingText)) {
-                driver.findElement(locator).clear();
-                driver.findElement(locator).sendKeys(text);
             }
         }
     }

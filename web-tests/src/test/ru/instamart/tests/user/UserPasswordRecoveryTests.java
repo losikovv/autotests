@@ -11,6 +11,8 @@ import ru.instamart.tests.TestBase;
 
 public class UserPasswordRecoveryTests extends TestBase {
 
+    // todo не трогать до перехода на авторизацию по номера телефона, изменится логика восстановления
+
     @BeforeMethod(alwaysRun = true)
     public void quickLogout() {
         User.Logout.quickly();
@@ -24,9 +26,7 @@ public class UserPasswordRecoveryTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void noRecoveryRequestWithEmptyEmail() {
-        User.PasswordRecovery.request("");
-
-        // todo проверять что показана пользовательская ошибка
+        User.PasswordRecovery.request(""); // todo проверять что показана пользовательская ошибка
 
         Assert.assertFalse(
                 kraken.detect().isRecoveryRequested(),
@@ -41,9 +41,7 @@ public class UserPasswordRecoveryTests extends TestBase {
                     "sbermarket-regression",
             }
     ) public void noRecoveryRequestWithWrongEmail() {
-        User.PasswordRecovery.request("wrongemail.example.com");
-
-        // todo проверять что показана пользовательская ошибка
+        User.PasswordRecovery.request("wrongemail.example.com"); // todo проверять что показана пользовательская ошибка
 
         Assert.assertFalse(
                 kraken.detect().isRecoveryRequested(),
@@ -58,9 +56,7 @@ public class UserPasswordRecoveryTests extends TestBase {
                     "sbermarket-regression",
             }
     ) public void noRecoveryRequestForNonexistingUser() {
-        User.PasswordRecovery.request("nonexistinguser@example.com");
-
-        // todo проверять что показана пользовательская ошибка
+        User.PasswordRecovery.request("nonexistinguser@example.com"); // todo проверять что показана пользовательская ошибка
 
         Assert.assertFalse(
                 kraken.detect().isRecoveryRequested(),

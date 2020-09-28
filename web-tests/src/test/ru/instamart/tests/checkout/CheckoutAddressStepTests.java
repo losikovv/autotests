@@ -18,6 +18,8 @@ import static instamart.ui.common.lib.CheckoutSteps.addressStep;
 
 public class CheckoutAddressStepTests extends TestBase {
 
+    // TODO актуализировать тесты - ATST-236
+
     @BeforeClass(alwaysRun = true)
     public void preparingForCheckout() {
         User.Logout.quickly();

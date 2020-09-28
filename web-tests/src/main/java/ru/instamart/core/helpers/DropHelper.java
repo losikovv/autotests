@@ -8,7 +8,7 @@ import instamart.ui.modules.User;
 
 public class DropHelper extends HelperBase {
 
-    // TODO выпилить этот хелпер
+    // TODO выпилить этот хелпер - ATST-228
     public DropHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
         super(driver, environment, app);
     }
