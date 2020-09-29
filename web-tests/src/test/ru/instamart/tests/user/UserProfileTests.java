@@ -28,7 +28,7 @@ public class UserProfileTests extends TestBase {
             description = "Тест валидации меню профиля Delivery Metro",
             priority = 152,
             groups = {
-                    "metro-smoke","metro-acceptance","metro-regression","testing"
+                    "metro-smoke","metro-acceptance","metro-regression"
             }
     ) public void successValidateMetroTenantProfileMenu() {
         SoftAssert softAssert = new SoftAssert();

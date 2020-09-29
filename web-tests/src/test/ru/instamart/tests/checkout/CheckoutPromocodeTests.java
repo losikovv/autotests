@@ -22,7 +22,7 @@ public class CheckoutPromocodeTests extends TestBase {
 
     @Test(
             description = "Тест успешного применения промокода в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression","testing"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1601
     )
     public void successAddPromocode(){
@@ -37,7 +37,7 @@ public class CheckoutPromocodeTests extends TestBase {
 
     @Test(
             description = "Тест удаления промокода в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression","testing"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1602
     )
     public void successDeletePromocode(){
@@ -55,7 +55,7 @@ public class CheckoutPromocodeTests extends TestBase {
 
     @Test(
             description = "Тест недобавления промокода при нажатии кнопки Отмена",
-            groups = {"sbermarket-acceptance","sbermarket-regression","testing"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1603
     )
     public void noPromocodeAddedOnCancel(){
@@ -72,7 +72,7 @@ public class CheckoutPromocodeTests extends TestBase {
 
     @Test(
             description = "Тест недобавления промокода при закрытии модалки промокода",
-            groups = {"sbermarket-acceptance","sbermarket-regression","testing"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1604
     )
     public void noPromocodeAddedOnModalClose(){

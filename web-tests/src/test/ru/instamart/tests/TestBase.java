@@ -27,8 +27,8 @@ public class TestBase {
     @BeforeSuite(groups = {
             "smoke","acceptance","regression","testing",
             "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression",
-            "metro-smoke","metro-acceptance","metro-regression"
-    })
+            "metro-smoke","metro-acceptance","metro-regression"},
+            description = "Выпускаем Кракена")
     public void start() throws Exception {
         kraken.rise();
     }
@@ -36,15 +36,16 @@ public class TestBase {
     @AfterSuite(groups = {
             "smoke","acceptance","regression","testing",
             "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression",
-            "metro-smoke","metro-acceptance","metro-regression"
-    })
+            "metro-smoke","metro-acceptance","metro-regression"},
+            description = "Очищаем окружение от артефактов после тестов, завершаем процессы браузеров")
     public void cleanup() {
         if(doCleanupAfterTestRun) {
             kraken.cleanup().all();
         }
         kraken.stop();
     }
-    @AfterTest(alwaysRun = true)
+    @AfterTest(alwaysRun = true,
+               description = "завершаем процессы браузеров")
     public void cleanupAfterTest(){
         kraken.stop();
     }

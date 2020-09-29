@@ -1,5 +1,6 @@
 package ru.instamart.tests.user;
 
+import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
 import instamart.core.testdata.ui.generate;
@@ -10,6 +11,9 @@ import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Description;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -19,18 +23,33 @@ import static instamart.core.common.AppManager.session;
 
 public class UserAuthorisationTests extends TestBase {
     Config config = new Config();
+    ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
-    @BeforeClass(alwaysRun = true)
+
+    @BeforeClass(alwaysRun = true,
+            description ="Проверяем залогинен ли пользователь до старта скоупа тестов, если да то завершаем сессию")
     public void setup() {
         User.Logout.quickly();
     }
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true,
+            description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
+        capture.start();
         User.Logout.quickly();
     }
+    @AfterMethod(alwaysRun = true,
+                description ="Добавление сообщений из консоли в лог теста")
+    public void afterTest(){
+        String value = capture.stop();
+        Allure.addAttachment("Системный лог теста",value);
+        //        Allure.getLifecycle().updateTestCase((g) -> {
+//            g.setStatusDetails( g.getStatusDetails().setMessage("blablablabl"));
+//        }); пусть полежит тут, это фунция обновления тест кейса, в будущем может пригодится
+    }
 
+    @Description("Тест пытается авторизоваться с пустыми реквизитами")
     @Test(
             description = "Негативный тест попытки авторизации с пустыми реквизитами",
             groups = {
@@ -54,8 +73,10 @@ public class UserAuthorisationTests extends TestBase {
         baseChecks.checkIsErrorMessageElementPresent("Укажите пароль",
                 "Нет пользовательской ошибки пустого поля Пароль");
         authChecks.checkIsUserNotAuthorized("Произошла авторизация с пустыми реквизитами");
+
     }
 
+    @Description("Тест юзер пытается авторизоваться без email")
     @Test(
             description = "Негативный тест попытки авторизации без email",
             groups = {
@@ -143,7 +164,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизовать пользователя с длинными полями",
             groups = {
-                    "metro-regression","testing",
+                    "metro-regression",
                     "sbermarket-regression"
             },
             priority = 116
@@ -165,7 +186,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест отмены авторизации после заполнения всех полей",
             groups = {
-                    "metro-regression","testing",
+                    "metro-regression",
                     "sbermarket-regression"
             },
             priority = 117
@@ -185,7 +206,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест успешной авторизации на витрине",
             groups = {
-                    "metro-acceptance", "metro-regression","testing",
+                    "metro-acceptance", "metro-regression",
                     "sbermarket-smoke", "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 119
@@ -201,7 +222,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест авторизации из адресной модалки феникса",
             groups = {
-                    "metro-regression","testing",
+                    "metro-regression",
                     "sbermarket-regression"
             },
             priority = 120
@@ -219,7 +240,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест успешной авторизации из корзины",
             groups = {
-                    "metro-regression","testing",
+                    "metro-regression",
                     "sbermarket-regression"
             },
             priority = 121
@@ -248,7 +269,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест успешной авторизации через ВКонтакте",
             priority = 122,
-            groups = {"sbermarket-acceptance","testing","sbermarket-regression"}
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithVkontakte() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
@@ -259,7 +280,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест успешной авторизации через Facebook",
             priority = 123,
-            groups = {"sbermarket-acceptance","testing","sbermarket-regression"}
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithFacebook() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
@@ -269,7 +290,7 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(  description = "Тест успешной авторизации через MailRu",
             priority = 124,
-            groups = {"sbermarket-acceptance","testing","sbermarket-regression"}
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithMailRu() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
@@ -281,7 +302,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Тест успешной авторизации через Sber ID",
             priority = 125,
-            groups = {"sbermarket-acceptance","testing","sbermarket-regression"}
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithSberID() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);

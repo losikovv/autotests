@@ -252,10 +252,19 @@ public class DetectionHelper extends HelperBase {
     /** Определить открыта ли модалка авторизации/регистрации */
     public boolean isAuthModalOpen() {
         if (isElementDisplayed(Elements.Modals.AuthModal.popup())) {
-            debugMessage("> модалка авторизации открыта");
+            verboseMessage("> модалка авторизации открыта");
             return true;
         } else {
-            debugMessage("> модалка авторизации закрыта");
+            verboseMessage("> модалка авторизации закрыта");
+            return false;
+        }
+    }
+    /** Определить присутствует ли на стартовой странице рекламный банер */
+    public boolean isPromoModalOpen(){
+        if(isElementDisplayed(Elements.Modals.AuthModal.promoModalButton())){
+            verboseMessage("> на стартовой странице присутствует рекламный банер");
+            return true;
+        }else {
             return false;
         }
     }

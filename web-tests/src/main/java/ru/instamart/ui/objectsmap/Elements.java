@@ -498,6 +498,10 @@ public class Elements {
             return new ElementData(By.xpath("//*[contains(@class,'auth')]"),
                     "поп-ап модалки авторизации");
         }
+        static ElementData promoModalButton(){
+            return new ElementData(By.xpath("//*[contains(@class,'free_delivery_promo__info')]//button"),
+                    "поп-ап с рекламой мешающий авторизации/регистрации пользователя");
+        }
 
         static ElementData popupMail() {
             return new ElementData(By.xpath("//*[contains(@class,'auth')]"),

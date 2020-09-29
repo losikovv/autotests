@@ -1,5 +1,6 @@
 package ru.instamart.tests.user;
 
+import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
 import instamart.core.testdata.ui.generate;
@@ -9,27 +10,46 @@ import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class UserRegistrationTests extends TestBase {
 
-    @BeforeMethod(alwaysRun = true)
-    public void quickLogout() {
-        User.Logout.quickly();
-    }
+    ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
     public static String modalType;
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
     String env = System.getProperty("env", Config.CoreSettings.defaultEnvironment);
 
+    @BeforeClass(alwaysRun = true,
+            description ="Проверяем залогинен ли пользователь до старта скоупа тестов, если да то завершаем сессию")
+    public void setup() {
+        User.Logout.quickly();
+    }
+
+    @BeforeMethod(alwaysRun = true,
+            description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
+    public void quickLogout() {
+        capture.start();
+        User.Logout.quickly();
+    }
+    @AfterMethod(alwaysRun = true,
+            description ="Добавление сообщений из консоли в лог теста")
+    public void afterTest(){
+        String value = capture.stop();
+        Allure.addAttachment("Системный лог теста",value);
+    }
+
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","testing","sbermarket-regression"
+                    "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 201
     )
@@ -62,7 +82,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без имени",
             groups = {
-                    "metro-regression","testing","metro-acceptance",
+                    "metro-regression","metro-acceptance",
                     "sbermarket-regression"
             },
             priority = 202
@@ -86,7 +106,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без кода подтверждения",
             groups = {
-                    "metro-regression","testing","metro-acceptance",
+                    "metro-regression","metro-acceptance",
                     "sbermarket-regression"
             },
             priority = 202
@@ -110,7 +130,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без email",
             groups = {
-                    "metro-regression","testing","metro-acceptance",
+                    "metro-regression","metro-acceptance",
                     "sbermarket-regression"
             },
             priority = 203
@@ -133,7 +153,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без пароля",
             groups = {
-                    "metro-regression","testing","metro-acceptance",
+                    "metro-regression","metro-acceptance",
                     "sbermarket-regression"
             },
             priority = 204
@@ -151,7 +171,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без подтверждения пароля",
             groups = {
-                    "metro-regression","testing","metro-acceptance",
+                    "metro-regression","metro-acceptance",
                     "sbermarket-regression"
             },
             priority = 205
@@ -173,7 +193,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с несовпадающими паролями",
             groups = {
-                    "metro-regression","testing","metro-acceptance",
+                    "metro-regression","metro-acceptance",
                     "sbermarket-regression"
             },
             priority = 206
@@ -195,7 +215,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки повторно зарегистрировать существующего пользователя",
             groups = {
-                    "metro-acceptance", "metro-regression","testing",
+                    "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 207
@@ -213,7 +233,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с длинными полями",
             groups = {
-                    "metro-regression","testing","metro-acceptance",
+                    "metro-regression","metro-acceptance",
                     "sbermarket-regression"
             },
             priority = 208
@@ -236,7 +256,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест отмены регистрации после заполнения всех полей",
             groups = {
-                    "metro-regression","testing","metro-acceptance",
+                    "metro-regression","metro-acceptance",
                     "sbermarket-regression"
             },
             priority = 209
@@ -258,7 +278,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Регистрация нового пользователя на лендинге",
-            groups = {"sbermarket-acceptance","sbermarket-regression","metro-acceptance","testing"},
+            groups = {"sbermarket-acceptance","sbermarket-regression","metro-acceptance"},
             priority = 210
     )
     public void successRegOnLanding() {
@@ -269,7 +289,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Регистрация нового пользователя на витрине магазина",
             groups = {
-                    "metro-smoke", "metro-acceptance", "metro-regression","testing",
+                    "metro-smoke", "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 211
@@ -283,7 +303,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест регистрации из адресной модалки феникса",
             groups = {
-                    "metro-regression","testing","metro-acceptance",
+                    "metro-regression","metro-acceptance",
                     "sbermarket-regression"
             },
             priority = 212
@@ -302,7 +322,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест регистрации при переходе из корзины в чекаут",
             groups = {
-                    "metro-regression","testing",
+                    "metro-regression",
                     "sbermarket-regression"
             },
             priority = 213
@@ -343,7 +363,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест успешной регистрации с заново проставленной галкой согласия на почтовую рассылку",
             groups = {
-                    "metro-regression","testing",
+                    "metro-regression",
                     "sbermarket-regression"
             },
             priority = 215

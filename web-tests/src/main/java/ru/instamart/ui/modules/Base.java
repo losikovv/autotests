@@ -21,6 +21,7 @@ public class Base {
 
     /** Отправить сообщение в консоль */
     public static void message(String message) {
+        //Reporter.log(message,false);
         System.out.println(message);
     }
 
