@@ -26,3 +26,5 @@ web-tests/src/test/java/ru/instamart/application/Users.java
 web-tests/src/test/java/ru/instamart/application/Servers.java
 web-tests/src/test/java/ru/instamart/tests/Playground.java
 
+web-tests/.allure/allure-2.8.1
+web-tests/logs

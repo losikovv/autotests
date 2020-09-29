@@ -1,10 +1,9 @@
 package instamart.ui.modules;
 
 import instamart.core.common.AppManager;
-import instamart.ui.objectsmap.Elements;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
-import org.openqa.selenium.By;
+import instamart.ui.objectsmap.Elements;
 import org.openqa.selenium.WebDriver;
 
 public class Administration extends Base {
