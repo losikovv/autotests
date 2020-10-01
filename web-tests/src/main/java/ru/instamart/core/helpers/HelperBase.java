@@ -3,6 +3,8 @@ package instamart.core.helpers;
 import org.openqa.selenium.*;
 import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static instamart.core.settings.Config.CoreSettings.debug;
 import static instamart.core.settings.Config.CoreSettings.verbose;
@@ -12,6 +14,7 @@ public class HelperBase {
     static AppManager kraken;
     static EnvironmentData environment;
     private static boolean acceptNextAlert = true;
+    private static final Logger LOGGER = LoggerFactory.getLogger(HelperBase.class);
 
     HelperBase(WebDriver driver, EnvironmentData environment, AppManager app) {
         this.driver = driver;
@@ -27,14 +30,14 @@ public class HelperBase {
     /** Отправить verbose-сообщение в консоль */
     public static void verboseMessage(String message) {
         if(verbose) {
-            message(message);
+            LOGGER.debug(message);
         }
     }
 
     /** Отправить debug-сообщение в консоль */
     public static void debugMessage(String message) {
         if(debug) {
-            message(message);
+            LOGGER.debug(message);
         }
     }
 

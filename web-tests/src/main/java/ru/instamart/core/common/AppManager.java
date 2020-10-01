@@ -5,12 +5,12 @@ import instamart.core.helpers.*;
 import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
 import instamart.core.testdata.ui.generate;
+import instamart.ui.common.pagesdata.EnvironmentData;
+import instamart.ui.common.pagesdata.SessionData;
 import instamart.ui.modules.Administration;
 import instamart.ui.modules.Checkout;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
-import instamart.ui.common.pagesdata.EnvironmentData;
-import instamart.ui.common.pagesdata.SessionData;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -20,11 +20,11 @@ import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Properties;
@@ -58,6 +58,7 @@ public class AppManager {
     private RestHelper restHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppManager.class);
 
     public AppManager(String browser) {
         this.browser = browser;
@@ -67,6 +68,8 @@ public class AppManager {
     }
 
     public void rise() throws IOException {
+        setDefaultUncaughtExceptionHandler();
+        SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
         setEnvironment();
         initTestSession();
         initDriver();
@@ -96,10 +99,20 @@ public class AppManager {
     }
 
     public void riseRest() throws IOException {
+        setDefaultUncaughtExceptionHandler();
+        SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
         initTestSession();
         setEnvironment();
         initRestHelpers();
         revealKraken();
+    }
+
+    private static void setDefaultUncaughtExceptionHandler() {
+        try {
+            Thread.setDefaultUncaughtExceptionHandler((t, e) -> LOGGER.error("Uncaught Exception detected in thread " + t, e));
+        } catch (SecurityException e) {
+            LOGGER.error("Could not set the Default Uncaught Exception Handler", e);
+        }
     }
 
     private void initTestSession() {

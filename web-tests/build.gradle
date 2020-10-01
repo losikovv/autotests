@@ -40,6 +40,7 @@ dependencies {
     implementation 'org.seleniumhq.selenium:selenium-java:3.8.1'
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    compile group: 'uk.org.lidalia', name: 'sysout-over-slf4j', version: '1.0.2'
 }
 //runtime group: 'org.aspectj', name: 'aspectjweaver', version: '1.6.10'
 repositories {
