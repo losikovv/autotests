@@ -2,6 +2,7 @@ package instamart.ui.checkpoints;
 
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import static instamart.core.helpers.HelperBase.verboseMessage;
@@ -50,6 +51,30 @@ public class BaseUICheckpoints {
                 kraken.detect().isCartEmpty(),
                 "\n"+errorMessage);
         softAssertAll();
+    }
+
+    /** Проверить доступность текущей страницы */
+    @Step("Проверяем доступность текущей страницы")
+    public void assertPageIsAvailable() throws AssertionError {
+        String page = kraken.grab().currentURL();
+        Assert.assertFalse(
+                kraken.detect().is404(),
+                failMessage("Ошибка 404 на странице " + page)
+        );
+        Assert.assertFalse(
+                kraken.detect().is500(),
+                failMessage("Ошибка 500 на странице " + page)
+        );
+        Assert.assertFalse(
+                kraken.detect().is502(),
+                failMessage("Ошибка 502 на странице " + page )
+        );
+        verboseMessage("✓ Страница " + page + " доступна\n");
+    }
+
+    /** Метод-обертка для красивого вывода ошибок зафейленных тестов */
+    protected String failMessage(String text) {
+        return "\n\n> " + text + "\n\n";
     }
 
     public void softAssertAll(){
