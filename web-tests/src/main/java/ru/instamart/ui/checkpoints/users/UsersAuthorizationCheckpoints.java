@@ -14,7 +14,7 @@ public class UsersAuthorizationCheckpoints extends BaseUICheckpoints {
     /**Проверяем, что пользователь не авторизован на сайте*/
     @Step("Проверяем, что пользователь не авторизован на сайте")
     public void checkIsUserNotAuthorized(String message){
-        verboseMessage("Проверяем, что пользователь не авторизован на сайте");
+        verboseMessage("> проверяем, что пользователь не авторизован на сайте");
         kraken.get().baseUrl();
         Assert.assertFalse(
                 kraken.detect().isUserAuthorised(),
@@ -24,7 +24,7 @@ public class UsersAuthorizationCheckpoints extends BaseUICheckpoints {
     /**Проверяем, что пользователь авторизован на сайте*/
     @Step("Проверяем, что пользователь авторизован на сайте")
     public void checkIsUserAuthorized(String message){
-        verboseMessage("Проверяем, что пользователь авторизован на сайте");
+        verboseMessage("> проверяем, что пользователь авторизован на сайте");
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
                 message+"\n");
@@ -33,7 +33,7 @@ public class UsersAuthorizationCheckpoints extends BaseUICheckpoints {
     /**Проверяем, что при авторизации из корзины происходит редирект в чекаут*/
     @Step("Проверяем, что при авторизации из корзины происходит редирект в чекаут")
     public void checkAutoCheckoutRedirect(String message){
-        verboseMessage("Проверяем, что при авторизации из корзины происходит редирект в чекаут\n");
+        verboseMessage("> проверяем, что при авторизации из корзины происходит редирект в чекаут\n");
         softAssert.assertTrue(
                 kraken.detect().isOnCheckout(),
                 "\n"+message);

@@ -16,7 +16,7 @@ public class BaseUICheckpoints {
     @Step("Проверяем, что текст ошибки: {0} отображается на экране")
     public void checkIsErrorMessageElementPresent(String successMessage,
                                                      String errorMessage){
-        verboseMessage("Проверяем, что текст ошибки: " +successMessage+
+        verboseMessage("> проверяем, что текст ошибки: " +successMessage+
                     " отображается на экране\n");
         softAssert.assertTrue(
                 kraken.detect().isElementPresent(
@@ -28,7 +28,7 @@ public class BaseUICheckpoints {
     /**Функция проверяет, что модальное окно авторизации закрыто*/
     @Step("Проверяем, что модалка авторизации закрыта")
     public void checkIsAuthModalClosed(){
-        verboseMessage("Проверяем, что модалка авторизации закрыта\n");
+        verboseMessage("> рроверяем, что модалка авторизации закрыта\n");
         softAssert.assertFalse(
                 kraken.detect().isAuthModalOpen(),
                 "Не закрывается заполненная авторизационная модалка\n");
@@ -38,7 +38,7 @@ public class BaseUICheckpoints {
     /**Функция проверяет, что модальное окно авторизации открыто*/
     @Step("Проверяем, что модалка авторизации открыта")
     public void checkIsAuthModalOpen(String errorMessage){
-        verboseMessage("Проверяем, что модалка авторизации открыта\n");
+        verboseMessage("> проверяем, что модалка авторизации открыта\n");
         softAssert.assertTrue(
                 kraken.detect().isAuthModalOpen(),
                 "\n"+errorMessage);
@@ -46,10 +46,17 @@ public class BaseUICheckpoints {
     }
     @Step("Проверяем, что корзина не пуста после действия: {0}")
     public void checkIsCartEmpty(String action,String errorMessage){
-        verboseMessage("Проверяем, что корзина не пуста после действия: "+action+"\n");
+        verboseMessage("> проверяем, что корзина не пуста после действия: "+action+"\n");
         softAssert.assertFalse(
                 kraken.detect().isCartEmpty(),
                 "\n"+errorMessage);
+        softAssertAll();
+    }
+    @Step("Проверяем, что корзина очистилась после действия: {0}")
+    public void checkIsCartNotEmpty(String action){
+        verboseMessage("> проверяем, что корзина очистилась после действия: "+action+"\n");
+        softAssert.assertTrue(kraken.detect().isCartEmpty(),
+                    failMessage("Не сбросилась корзина после: "+action));
         softAssertAll();
     }
 

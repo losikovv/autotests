@@ -503,6 +503,11 @@ public class Elements {
                     "поп-ап с рекламой мешающий авторизации/регистрации пользователя");
         }
 
+        static ElementData expressDelivery(){
+            return new ElementData(By.xpath("//div[contains(@class,'wrapper')]//button[contains(@aria-label,'Закрыть')]"),
+                    "поп-ап с рекламой экспресс доставки");
+        }
+
         static ElementData popupMail() {
             return new ElementData(By.xpath("//*[contains(@class,'auth')]"),
                     "поп-ап модалки авторизации");

@@ -1,9 +1,12 @@
 package instamart.ui.modules;
 
 import instamart.core.common.AppManager;
+import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.common.pagesdata.EnvironmentData;
+import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static instamart.core.settings.Config.CoreSettings.debug;
 import static instamart.core.settings.Config.CoreSettings.verbose;
@@ -45,5 +48,22 @@ public class Base {
         String alertText = alert.getText();
         alert.accept();
         debugMessage("> handling alert [" + alertText + "]");
+    }
+
+    @Step("проверяем наличие рекламных банеров на странице")
+    public static void catchAndCloseAd(ElementData data, int timer){
+        if(kraken.await().fluentlyPossibleAppearance(
+                ExpectedConditions.elementToBeClickable(
+                        data.getLocator()),
+                "\n> поп-ап с рекламой не появился",timer)){
+            verboseMessage("> на странице обнаружен рекламный баннер");
+            do{
+                kraken.await().simply(1);
+                if(kraken.detect().isPromoModalOpen(data)){
+                    kraken.perform().click(data);
+                }
+            }while (kraken.detect().isPromoModalOpen(data));
+        }
+        verboseMessage("> все хорошо, на странице нет рекламных баннеров");
     }
 }

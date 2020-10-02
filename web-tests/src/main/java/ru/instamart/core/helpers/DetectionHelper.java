@@ -260,9 +260,9 @@ public class DetectionHelper extends HelperBase {
         }
     }
     /** Определить присутствует ли на стартовой странице рекламный банер */
-    public boolean isPromoModalOpen(){
-        if(isElementDisplayed(Elements.Modals.AuthModal.promoModalButton())){
-            verboseMessage("> на стартовой странице присутствует рекламный банер");
+    public boolean isPromoModalOpen(ElementData data){
+        if(isElementDisplayed(data)){
+            verboseMessage("> на странице присутствует рекламный банер");
             return true;
         }else {
             return false;
