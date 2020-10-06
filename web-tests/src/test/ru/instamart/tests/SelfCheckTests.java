@@ -178,7 +178,7 @@ public class SelfCheckTests extends TestBase {
         User.Logout.quickly();
 
         //landing
-        User.ShippingAddress.set(Addresses.Moscow.testAddress());
+        User.ShippingAddress.set(Addresses.Moscow.testAddress(),true);
 
         softAssert.assertTrue(kraken.detect().isStoresDrawerOpen(),
                 "\nНе открывается дефолтный селектор магазинов на лендинге");
@@ -217,7 +217,7 @@ public class SelfCheckTests extends TestBase {
         User.Logout.quickly();
 
         //landing
-        User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
+        User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress(),true);
 
         softAssert.assertTrue(kraken.detect().isStoresDrawerOpen(),
                 "\nНе открывается пустой селектор магазинов на лендинге");
@@ -311,7 +311,7 @@ public class SelfCheckTests extends TestBase {
     public void detectCartTotal() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         if (!kraken.detect().isShippingAddressSet()) {
-            User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+            User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         }
         Shop.Cart.drop();
 
@@ -340,11 +340,11 @@ public class SelfCheckTests extends TestBase {
     public void detectAddressOutOfZone() {
 
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-        User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress());
+        User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress(),true);
         Assert.assertTrue(kraken.detect().isAddressOutOfZone());
 
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         Assert.assertFalse(kraken.detect().isAddressOutOfZone());
     }
 

@@ -17,7 +17,7 @@ public class ShoppingCatalogTests extends TestBase {
     public void setup() {
         User.Logout.quickly();
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         kraken.get().page(Config.CoreSettings.defaultRetailer);
     }
 

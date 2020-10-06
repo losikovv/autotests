@@ -21,7 +21,7 @@ public class OrdersRetailers extends TestBase {
     public void setup() {
         kraken.get().baseUrl();
         User.Do.loginAs(AppManager.session.admin);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
     }
 
     @Test(enabled = enableOrderRetailersTests,

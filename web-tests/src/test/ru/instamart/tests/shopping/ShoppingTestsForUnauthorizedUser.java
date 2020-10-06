@@ -35,7 +35,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
                     "metro-acceptance","metro-regression"
             }
     ) public void noAccessToCheckoutForUnauthorizedUserWithShipAddressAndEmptyCart() {
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
 
         assertPageIsUnavailable(Pages.checkout());
     }
@@ -47,7 +47,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
                     "metro-acceptance","metro-regression"
             }
     ) public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         Shop.Cart.drop();
 
         // Для случаев когда первый товар на главной дороже минимального заказа
@@ -68,7 +68,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
                     "metro-acceptance","metro-regression"
             }
     ) public void successCollectItemsForOrder() {
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
 
         Shop.Cart.collect();
 

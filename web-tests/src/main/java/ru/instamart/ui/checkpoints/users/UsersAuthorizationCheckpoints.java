@@ -37,7 +37,6 @@ public class UsersAuthorizationCheckpoints extends BaseUICheckpoints {
         softAssert.assertTrue(
                 kraken.detect().isOnCheckout(),
                 "\n"+message);
-        softAssertAll();
+        softAssert.assertAll();
     }
-
 }

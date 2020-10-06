@@ -53,7 +53,7 @@ public class UserLogoutTests extends TestBase {
 
         User.Do.loginAs(session.admin);
         User.Logout.quickly();
-        baseChecks.assertPageIsAvailable();
+        baseChecks.checkPageIsAvailable();
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         authChecks.checkIsUserNotAuthorized("Не работает быстрый логаут");
     }
@@ -61,14 +61,14 @@ public class UserLogoutTests extends TestBase {
     @Test(  description = "Тест успешной деавторизации",
             priority = 127,
             groups = {
-                    "metro-acceptance", "metro-regression","testing",
+                    "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successManualLogout() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Do.loginAs(session.admin);
         User.Logout.manually();
-        baseChecks.assertPageIsAvailable();
+        baseChecks.checkPageIsAvailable();
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         authChecks.checkIsUserNotAuthorized("Не работает логаут");
     }
@@ -76,13 +76,13 @@ public class UserLogoutTests extends TestBase {
     @Test(  description = "Тест сброса адреса доставки и корзины после деавторизации",
             priority = 128,
             groups = {
-                    "metro-acceptance", "metro-regression","testing",
+                    "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void noShipAddressAndEmptyCartAfterLogout() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Do.loginAs(session.admin);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         kraken.await().simply(2);
         Shop.Catalog.Item.addToCart();

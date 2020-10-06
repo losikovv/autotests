@@ -780,7 +780,7 @@ public class Shop extends Base {
         @Step("Набираем корзину на указанную сумму: {0}")
         public static void collect(int orderSum) {
             if(!kraken.detect().isShippingAddressSet()) {
-                User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+                User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
             }
             verboseMessage("> собираем корзину товаров на сумму " + orderSum + "\u20BD...");
             int cartTotal = kraken.grab().cartTotalRounded();

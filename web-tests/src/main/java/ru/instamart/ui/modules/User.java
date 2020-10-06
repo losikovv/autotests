@@ -384,13 +384,13 @@ public class User extends Base {
 
     public static class ShippingAddress {
 
-        public static void set(Address address) {
-            set(address.getCity() + " " + address.getStreet() + " " + address.getBuilding());
+        public static void set(Address address,boolean submit) {
+            set(address.getCity() + " " + address.getStreet() + " " + address.getBuilding(), submit);
         }
 
         /** Установить адрес доставки */
-        @Step("Устанавливаем адрес доставки: {0}")
-        public static void set(String address) {
+        @Step("Устанавливаем адрес доставки: {0}, сохраняем? {1}")
+        public static void set(String address, boolean submit) {
             Shop.ShippingAddressModal.open();
             kraken.await().fluently(
                     ExpectedConditions.elementToBeClickable(
@@ -411,17 +411,17 @@ public class User extends Base {
             }
             //todo нужно допилить проверку"
             Shop.ShippingAddressModal.fill(address);
-            Shop.ShippingAddressModal.submit();
+            if(submit)Shop.ShippingAddressModal.submit();
         }
 
         /** Свапнуть тестовый и дефолтные адреса */
         @Step("Свапаем тестовый и дефолтные адреса")
         public static void swap() {
             if (kraken.grab().currentShipAddress().equals(Addresses.Moscow.defaultAddress())) {
-                set(Addresses.Moscow.testAddress());
+                set(Addresses.Moscow.testAddress(),true);
             } else {
-                set(Addresses.Moscow.testAddress());
-                set(Addresses.Moscow.defaultAddress());
+                set(Addresses.Moscow.testAddress(),true);
+                set(Addresses.Moscow.defaultAddress(),true);
             }
         }
     }

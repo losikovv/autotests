@@ -165,7 +165,7 @@ public class PerformHelper extends HelperBase {
     /** Оформить тестовый заказ */
     public void order() {
         if (!kraken.detect().isShippingAddressSet()) {
-            User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+            User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         }
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();

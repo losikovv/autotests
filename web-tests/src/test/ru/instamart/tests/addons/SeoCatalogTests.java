@@ -75,7 +75,7 @@ public class SeoCatalogTests extends TestBase {
                 kraken.detect().isAddressModalOpen(),
                     "Не открывается адресная модалка после добавления товара на странице SEO-каталога");
 
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         Shop.ItemCard.close();
 
         softAssert.assertTrue(
@@ -125,7 +125,7 @@ public class SeoCatalogTests extends TestBase {
         Shop.ItemCard.addToCart();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
         User.Do.registration();
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),

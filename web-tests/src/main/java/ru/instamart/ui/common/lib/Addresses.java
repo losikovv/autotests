@@ -14,11 +14,13 @@ public abstract class Addresses {
         }
 
         public static String defaultAddress() {
-            return addressString = "Москва, пр-кт Мира, д 211 стр 1";
+            //return addressString = "Москва, пр-кт Мира, д 211 стр 1";
+            return addressString = "проспект Мира, 211к1";
         }
 
         public static String testAddress() {
-            return addressString = "Москва, Ленинский пр-кт, д 67";
+            return addressString = "Ленинский проспект, 67";
+            //return addressString = "Москва, Ленинский пр-кт, д 67";
         }
 
         public static String outOfZoneAddress() {

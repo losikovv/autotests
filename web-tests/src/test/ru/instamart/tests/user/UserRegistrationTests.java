@@ -329,7 +329,7 @@ public class UserRegistrationTests extends TestBase {
     )
     public void successRegFromCart() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
 
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();

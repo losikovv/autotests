@@ -74,7 +74,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
             }
     ) public void successCollectItemsForMinOrder() {
         SoftAssert softAssert = new SoftAssert();
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
 
         Shop.Cart.collect();
 
@@ -107,13 +107,13 @@ public class ShoppingTestsForExistingUser extends TestBase {
         User.Logout.quickly();
         kraken.get().baseUrl();
         User.Do.registration(testuser);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         kraken.perform().refresh();
         Shop.Catalog.Item.addToCart();
         User.Logout.quickly();
 
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-        User.ShippingAddress.set(Addresses.Moscow.testAddress());
+        User.ShippingAddress.set(Addresses.Moscow.testAddress(),true);
         User.Auth.withEmail(testuser);
 
         softAssert.assertTrue(

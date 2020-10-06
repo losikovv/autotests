@@ -45,7 +45,7 @@ public class TestBase {
         kraken.stop();
     }
     @AfterTest(alwaysRun = true,
-               description = "завершаем процессы браузеров")
+               description = "Завершаем процессы браузеров")
     public void cleanupAfterTest(){
         kraken.stop();
     }

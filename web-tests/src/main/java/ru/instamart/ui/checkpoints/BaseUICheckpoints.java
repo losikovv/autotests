@@ -1,5 +1,6 @@
 package instamart.ui.checkpoints;
 
+import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.testng.Assert;
@@ -22,7 +23,7 @@ public class BaseUICheckpoints {
                 kraken.detect().isElementPresent(
                         Elements.Modals.AuthModal.errorMessage(successMessage)),
                 errorMessage+"\n");
-        softAssertAll();
+        softAssert.assertAll();
     }
 
     /**Функция проверяет, что модальное окно авторизации закрыто*/
@@ -32,7 +33,7 @@ public class BaseUICheckpoints {
         softAssert.assertFalse(
                 kraken.detect().isAuthModalOpen(),
                 "Не закрывается заполненная авторизационная модалка\n");
-        softAssertAll();
+        softAssert.assertAll();
     }
 
     /**Функция проверяет, что модальное окно авторизации открыто*/
@@ -42,7 +43,7 @@ public class BaseUICheckpoints {
         softAssert.assertTrue(
                 kraken.detect().isAuthModalOpen(),
                 "\n"+errorMessage);
-        softAssertAll();
+        softAssert.assertAll();
     }
     @Step("Проверяем, что корзина не пуста после действия: {0}")
     public void checkIsCartEmpty(String action,String errorMessage){
@@ -50,19 +51,19 @@ public class BaseUICheckpoints {
         softAssert.assertFalse(
                 kraken.detect().isCartEmpty(),
                 "\n"+errorMessage);
-        softAssertAll();
+        softAssert.assertAll();
     }
     @Step("Проверяем, что корзина очистилась после действия: {0}")
     public void checkIsCartNotEmpty(String action){
         verboseMessage("> проверяем, что корзина очистилась после действия: "+action+"\n");
         softAssert.assertTrue(kraken.detect().isCartEmpty(),
                     failMessage("Не сбросилась корзина после: "+action));
-        softAssertAll();
+        softAssert.assertAll();
     }
 
     /** Проверить доступность текущей страницы */
     @Step("Проверяем доступность текущей страницы")
-    public void assertPageIsAvailable() throws AssertionError {
+    public void checkPageIsAvailable() throws AssertionError {
         String page = kraken.grab().currentURL();
         Assert.assertFalse(
                 kraken.detect().is404(),
@@ -79,13 +80,28 @@ public class BaseUICheckpoints {
         verboseMessage("✓ Страница " + page + " доступна\n");
     }
 
+    /**Проверяем присутсвие элемента на странице*/
+    @Step("Проверяем присутсвие элемента на странице: {0}")
+    public void checkIsElementPresent(ElementData element, String message){
+        verboseMessage("> проверяем, что элемент присутсвует на странице: "+element);
+        softAssert.assertTrue(
+                kraken.detect().isElementPresent(element),
+                "\n"+message+"\n");
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем {2}")
+    public void checkIsStringValuesNotEquals(String firstString, String secondString,
+                                             String stepDescription, String errorMessage){
+        verboseMessage("> "+stepDescription);
+        softAssert.assertNotEquals(
+                firstString, secondString,
+                "\n> "+errorMessage);
+        softAssert.assertAll();
+    }
+
     /** Метод-обертка для красивого вывода ошибок зафейленных тестов */
     protected String failMessage(String text) {
         return "\n\n> " + text + "\n\n";
-    }
-
-    public void softAssertAll(){
-        //todo прикрутить сюда создание скриншотов
-        softAssert.assertAll();
     }
 }

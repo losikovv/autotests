@@ -19,7 +19,7 @@ public class ShoppingCartTests extends TestBase {
     public void setup() {
         User.Logout.quickly();
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
     }
 
     @Test(
@@ -225,7 +225,7 @@ public class ShoppingCartTests extends TestBase {
         User.Logout.quickly();
 
         User.Do.registration();
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         Shop.Search.item("молоко");
         Shop.Catalog.Item.addToCart();
         int sum1 = kraken.grab().minOrderSum();

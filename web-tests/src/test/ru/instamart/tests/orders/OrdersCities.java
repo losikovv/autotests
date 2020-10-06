@@ -318,6 +318,6 @@ public class OrdersCities extends TestBase {
 
     @AfterClass(alwaysRun = true)
     public void resetDefaultAddress() {
-        User.ShippingAddress.set(RestAddresses.Moscow.defaultAddress());
+        User.ShippingAddress.set(RestAddresses.Moscow.defaultAddress(),true);
     }
 }
