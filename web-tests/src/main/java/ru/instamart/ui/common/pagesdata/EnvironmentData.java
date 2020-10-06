@@ -52,6 +52,7 @@ public class EnvironmentData {
 
     public String getShopperUrl() {return "https://" + shopperUrl + "/";}
 
+
     public int getDefaultSid() {
         return Integer.parseInt(defaultSid);
     }

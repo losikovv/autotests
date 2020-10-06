@@ -1,6 +1,7 @@
 package instamart.api.shopper;
 
 public class ShopperApiEndpoints {
+
     static final String shopper = "shopper";
     static final String sessions = "sessions";
     static final String assemblies = "assemblies";

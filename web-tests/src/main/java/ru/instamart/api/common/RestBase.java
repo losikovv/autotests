@@ -13,6 +13,8 @@ import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
+import instamart.core.common.AppManager;
+import instamart.ui.common.pagesdata.UserData;
 
 import java.util.UUID;
 
