@@ -13,6 +13,7 @@ import io.qameta.allure.Allure;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
 public class UserShippingAddressTests extends TestBase {
@@ -45,6 +46,7 @@ public class UserShippingAddressTests extends TestBase {
             priority = 301
     )
     public void noShippingAddressByDefault() {
+        SoftAssert softAssert = new SoftAssert();
         User.Logout.quickly();
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         shippingChecks.checkIsShippingAddressNotSet("Выбираем дефолтный адрес доставки");
@@ -95,6 +97,7 @@ public class UserShippingAddressTests extends TestBase {
             priority = 304
     )
     public void noAvailableShopsOutOfDeliveryZone() {
+        SoftAssert softAssert = new SoftAssert();
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddressMoscow(),true);
         shippingChecks.checkIsAddressOutOfZone(
