@@ -31,7 +31,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInMoscow() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -49,7 +49,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInSaintPetersburg() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.SaintPetersburg.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.SaintPetersburg.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -67,7 +67,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInKazan() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Kazan.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Kazan.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -85,7 +85,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInEkaterinburg() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Ekaterinburg.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Ekaterinburg.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -103,7 +103,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInNizhnyNovgorod() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.NizhnyNovgorod.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.NizhnyNovgorod.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -121,7 +121,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInRostovNaDonu() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.RostovNaDonu.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.RostovNaDonu.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -139,7 +139,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInUfa() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Ufa.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Ufa.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -157,7 +157,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInKrasnodar() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Krasnodar.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Krasnodar.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -175,7 +175,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInSamara() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Samara.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Samara.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -193,7 +193,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInVoronezh() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Voronezh.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Voronezh.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -211,7 +211,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInOmsk() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Omsk.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Omsk.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -229,7 +229,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInVolgograd() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Volgograd.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Volgograd.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -247,7 +247,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInNovosibirsk() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Novosibirsk.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Novosibirsk.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -265,7 +265,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInChelyabinsk() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Chelyabinsk.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Chelyabinsk.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -283,7 +283,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInTyumen() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Tyumen.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Tyumen.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -301,7 +301,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInPerm() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Perm.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Perm.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();

@@ -17,7 +17,7 @@ public class OrderRepeatTests extends TestBase {
     public void preconditions() {
         kraken.get().baseUrl();
         User.Do.loginAs(AppManager.session.admin);
-        kraken.rest().dropCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().dropCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
     }
 
     @Test(

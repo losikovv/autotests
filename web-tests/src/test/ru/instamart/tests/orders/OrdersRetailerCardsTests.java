@@ -33,7 +33,7 @@ public class OrdersRetailerCardsTests extends TestBase {
     )
     public void successOrderWithMetroRetailerCard() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         
         Checkout.RetailerCards.addCard(RetailerCards.metro());
@@ -56,7 +56,7 @@ public class OrdersRetailerCardsTests extends TestBase {
     public void successOrderWithVkusvillRetailerCard() {
         kraken.get().page(Pages.Retailers.vkusvill());
         User.ShippingAddress.set(RestAddresses.Moscow.Vkusvill.michurinsky());
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
 
         Checkout.RetailerCards.addCard(RetailerCards.vkusvill());

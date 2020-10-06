@@ -41,7 +41,7 @@ public class OrdersPromocodesTests extends TestBase {
         User.Logout.quickly();
         this.user = User.Do.registration();
 
-        kraken.rest().fillCart(this.user, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(this.user, RestAddresses.Moscow.defaultAddress());
     }
 
     @Test(
@@ -122,7 +122,7 @@ public class OrdersPromocodesTests extends TestBase {
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
 
-        kraken.rest().fillCart(this.user, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(this.user, RestAddresses.Moscow.defaultAddress());
         Shop.Cart.proceedToCheckout();
         //Checkout.Promocode.add("srsoford");
 
@@ -134,7 +134,7 @@ public class OrdersPromocodesTests extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void postconditions() {
-        kraken.rest().cancelCurrentOrder();
+        kraken.apiV2().cancelCurrentOrder();
     }
 }
 

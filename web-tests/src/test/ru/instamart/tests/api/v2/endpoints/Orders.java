@@ -1,11 +1,11 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.common.Requests;
+import instamart.api.v2.ApiV2Requests;
 import instamart.api.common.RestBase;
-import instamart.api.objects.Order;
-import instamart.api.objects.responses.LineItemsResponse;
-import instamart.api.objects.responses.OrderResponse;
-import instamart.api.objects.responses.OrdersResponse;
+import instamart.api.v2.objects.Order;
+import instamart.api.v2.responses.LineItemsResponse;
+import instamart.api.v2.responses.OrderResponse;
+import instamart.api.v2.responses.OrdersResponse;
 import instamart.core.common.AppManager;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -20,14 +20,14 @@ public class Orders extends RestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
-        kraken.rest().authorisation(AppManager.session.admin);
+        kraken.apiV2().authorisation(AppManager.session.admin);
     }
 
     @Test(  description = "Получаем заказы",
             groups = {"rest-smoke","rest-v2-smoke"},
             priority = 4)
     public void getOrders() {
-        response = Requests.getOrders();
+        response = ApiV2Requests.getOrders();
 
         assertEquals(response.getStatusCode(), 200);
         List<Order> orders = response.as(OrdersResponse.class).getOrders();
@@ -39,7 +39,7 @@ public class Orders extends RestBase {
             groups = {"rest-smoke","rest-v2-smoke"},
             priority = 5)
     public void getCurrentOrder() {
-        response = Requests.getOrdersCurrent();
+        response = ApiV2Requests.getOrdersCurrent();
 
         assertEquals(response.getStatusCode(), 200);
         assertNotNull(response.as(OrderResponse.class).getOrder(), "Не вернулся текущий заказ");
@@ -50,7 +50,7 @@ public class Orders extends RestBase {
             priority = 9,
             dependsOnMethods = "getOrders")
     public void getOrder() {
-        response = Requests.getOrder(orderNumber);
+        response = ApiV2Requests.getOrder(orderNumber);
 
         assertEquals(response.getStatusCode(), 200);
         assertNotNull(response.as(OrderResponse.class).getOrder(), "Не вернулся заказ по номеру");
@@ -60,7 +60,7 @@ public class Orders extends RestBase {
             groups = {"rest-smoke","rest-v2-smoke"},
             priority = 16)
     public void getUnratedOrders() {
-        response = Requests.getUnratedOrders();
+        response = ApiV2Requests.getUnratedOrders();
 
         assertEquals(response.getStatusCode(), 200);
         assertNotNull(response.as(OrdersResponse.class).getOrders(), "Не вернулись заказы для оценки");
@@ -72,7 +72,7 @@ public class Orders extends RestBase {
             priority = 17,
             dependsOnMethods = "getOrders")
     public void getOrderLineItems() {
-        response = Requests.getOrderLineItems(orderNumber);
+        response = ApiV2Requests.getOrderLineItems(orderNumber);
 
         assertEquals(response.getStatusCode(), 200);
         assertNotNull(response.as(LineItemsResponse.class).getLine_items(), "Не вернулись товары заказа");

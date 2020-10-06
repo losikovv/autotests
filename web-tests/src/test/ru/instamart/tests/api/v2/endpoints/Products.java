@@ -1,11 +1,11 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import org.testng.annotations.Test;
-import instamart.api.common.Requests;
+import instamart.api.v2.ApiV2Requests;
 import instamart.api.common.RestBase;
-import instamart.api.objects.Product;
-import instamart.api.objects.responses.ProductResponse;
-import instamart.api.objects.responses.ProductsResponse;
+import instamart.api.v2.objects.Product;
+import instamart.api.v2.responses.ProductResponse;
+import instamart.api.v2.responses.ProductsResponse;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class Products extends RestBase {
             groups = {"rest-smoke","rest-v2-smoke"},
             priority = 2)
     public void getProducts() {
-        response = Requests.getProducts(1, "");
+        response = ApiV2Requests.getProducts(1, "");
 
         assertEquals(response.getStatusCode(), 200);
         List<Product> products = response.as(ProductsResponse.class).getProducts();
@@ -31,7 +31,7 @@ public class Products extends RestBase {
             priority = 10,
             dependsOnMethods = "getProducts")
     public void getProduct() {
-        response = Requests.getProducts(productId);
+        response = ApiV2Requests.getProducts(productId);
 
         assertEquals(response.getStatusCode(), 200);
         assertNotNull(response.as(ProductResponse.class).getProduct(), "Не вернулся продукт");

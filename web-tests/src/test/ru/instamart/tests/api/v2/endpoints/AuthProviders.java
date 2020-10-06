@@ -1,8 +1,8 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.common.Requests;
+import instamart.api.v2.ApiV2Requests;
 import instamart.api.common.RestBase;
-import instamart.api.objects.responses.SessionsResponse;
+import instamart.api.v2.responses.SessionsResponse;
 import instamart.core.common.AppManager;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import org.testng.SkipException;
@@ -22,7 +22,7 @@ public class AuthProviders extends RestBase {
         if (AppManager.environment.getServer().equalsIgnoreCase("staging")) {
             throw new SkipException("staging");
         }
-        response = Requests.postAuthProvidersSessions(authProviderId);
+        response = ApiV2Requests.postAuthProvidersSessions(authProviderId);
 
         assertEquals(response.getStatusCode(), 200);
         assertNotNull(response.as(SessionsResponse.class).getSession());

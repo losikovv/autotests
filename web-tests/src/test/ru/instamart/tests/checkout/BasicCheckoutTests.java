@@ -16,7 +16,7 @@ public class BasicCheckoutTests extends TestBase {
         User.Logout.quickly();
         User.Do.loginAs(AppManager.session.user);
 
-        kraken.rest().fillCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
     }
 
     @BeforeMethod(alwaysRun = true)

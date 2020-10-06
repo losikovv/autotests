@@ -17,7 +17,7 @@ public class CheckoutPromocodeTests extends TestBase {
         kraken.get().baseUrl();
         User.Do.loginAs(AppManager.session.admin);
 
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
     }
 
     @Test(

@@ -1,8 +1,8 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.common.Requests;
+import instamart.api.v2.ApiV2Requests;
 import instamart.api.common.RestBase;
-import instamart.api.objects.responses.OnboardingPagesResponse;
+import instamart.api.v2.responses.OnboardingPagesResponse;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -14,7 +14,7 @@ public class OnboardingPages extends RestBase {
             groups = {"rest-smoke","rest-v2-smoke"},
             priority = 15)
     public void getOnboardingPages() {
-        response = Requests.getOnboardingPages();
+        response = ApiV2Requests.getOnboardingPages();
 
         assertEquals(response.getStatusCode(), 200);
         assertNotNull(response.as(OnboardingPagesResponse.class).getOnboarding_pages(),

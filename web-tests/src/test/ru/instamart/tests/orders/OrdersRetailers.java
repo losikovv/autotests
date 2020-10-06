@@ -34,7 +34,7 @@ public class OrdersRetailers extends TestBase {
     ) public void successOrderInMetro(){
         assertPageIsAvailable(Pages.Retailers.metro());
 
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), metro);
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), metro);
 
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
@@ -54,7 +54,7 @@ public class OrdersRetailers extends TestBase {
         runTestOnlyOnTenant("sbermarket");
         assertPageIsAvailable(Pages.Retailers.auchan());
 
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), auchan);
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), auchan);
 
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
@@ -74,7 +74,7 @@ public class OrdersRetailers extends TestBase {
         runTestOnlyOnTenant("sbermarket");
         assertPageIsAvailable(Pages.Retailers.azbuka());
 
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), azbuka);
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), azbuka);
 
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
@@ -93,7 +93,7 @@ public class OrdersRetailers extends TestBase {
     ) public void successOrderInVkusvill(){
         runTestOnlyOnTenant("sbermarket");
         assertRetailerIsAvailable(vkusvill);
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), vkusvill);
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), vkusvill);
 
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
@@ -112,7 +112,7 @@ public class OrdersRetailers extends TestBase {
     ) public void successOrderInLenta(){
         runTestOnlyOnTenant("sbermarket");
         assertRetailerIsAvailable(lenta);
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), lenta);
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), lenta);
 
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
@@ -124,6 +124,6 @@ public class OrdersRetailers extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void postconditions() {
-        kraken.rest().cancelCurrentOrder();
+        kraken.apiV2().cancelCurrentOrder();
     }
 }

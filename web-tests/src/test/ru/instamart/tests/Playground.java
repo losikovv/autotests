@@ -13,20 +13,20 @@ import instamart.ui.common.lib.ReplacementPolicies;
 import instamart.ui.common.pagesdata.OrderDetailsData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
-import instamart.api.common.RestHelper;
+import instamart.api.v2.ApiV2Helper;
 
 public class Playground extends TestBase {
 
     @Test
     public void restOrder() {
-        kraken.rest().order(AppManager.session.user, 1);
-        kraken.rest().cancelCurrentOrder();
+        kraken.apiV2().order(AppManager.session.user, 1);
+        kraken.apiV2().cancelCurrentOrder();
     }
 
     @Test
     public void restDepartments() {
         SoftAssert softAssert = new SoftAssert();
-        RestHelper.getProductsFromEachDepartmentInStore(128, softAssert);
+        ApiV2Helper.getProductsFromEachDepartmentInStore(128, softAssert);
         softAssert.assertAll();
     }
 

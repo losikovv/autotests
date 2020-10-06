@@ -1,6 +1,6 @@
 package instamart.api.common;
 
-import instamart.api.objects.Address;
+import instamart.api.v2.objects.Address;
 
 public class RestAddresses {
 

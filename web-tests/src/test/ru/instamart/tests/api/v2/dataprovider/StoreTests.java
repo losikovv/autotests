@@ -6,17 +6,17 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.UserData;
-import instamart.api.common.Requests;
+import instamart.api.v2.ApiV2Requests;
 import instamart.api.common.RestBase;
 import instamart.core.testdata.dataprovider.RestDataProvider;
-import instamart.api.common.RestHelper;
-import instamart.api.objects.Product;
-import instamart.api.objects.Store;
-import instamart.api.objects.Taxon;
+import instamart.api.v2.ApiV2Helper;
+import instamart.api.v2.objects.Product;
+import instamart.api.v2.objects.Store;
+import instamart.api.v2.objects.Taxon;
 
 import java.util.List;
 
-import static instamart.api.common.RestHelper.getProductsFromEachDepartmentInStore;
+import static instamart.api.v2.ApiV2Helper.getProductsFromEachDepartmentInStore;
 
 public class StoreTests extends RestBase {
 
@@ -33,7 +33,7 @@ public class StoreTests extends RestBase {
         System.out.println(store + "\n");
 
         SoftAssert softAssert = new SoftAssert();
-        RestHelper.getProductsFromEachDepartmentInStore(store.getId(), softAssert);
+        ApiV2Helper.getProductsFromEachDepartmentInStore(store.getId(), softAssert);
         softAssert.assertAll();
     }
 
@@ -47,7 +47,7 @@ public class StoreTests extends RestBase {
         SoftAssert softAssert = new SoftAssert();
         List<Product> products = getProductsFromEachDepartmentInStore(store.getId());
         for (Product product : products) {
-            softAssert.assertEquals(Requests.getProducts(product.getId()).getStatusCode(),200,
+            softAssert.assertEquals(ApiV2Requests.getProducts(product.getId()).getStatusCode(),200,
                     "\n" + product + " " + RestAssured.baseURI + "/api/v2/products/" + product.getId());
         }
         softAssert.assertAll();
@@ -61,9 +61,9 @@ public class StoreTests extends RestBase {
         System.out.println(store + "\n");
 
         SoftAssert softAssert = new SoftAssert();
-        List<Taxon> taxons = RestHelper.getCategories(store.getId());
+        List<Taxon> taxons = ApiV2Helper.getCategories(store.getId());
         for (Taxon taxon : taxons) {
-            RestHelper.assertProductsCountEqualsChildrenSum(taxon, softAssert);
+            ApiV2Helper.assertProductsCountEqualsChildrenSum(taxon, softAssert);
         }
         softAssert.assertAll();
     }
@@ -75,8 +75,8 @@ public class StoreTests extends RestBase {
     public void orderByStore(Store store) {
         System.out.println("Оформляем заказ в " + store + "\n");
 
-        kraken.rest().order(AppManager.session.user, store.getId());
-        kraken.rest().cancelCurrentOrder();
+        kraken.apiV2().order(AppManager.session.user, store.getId());
+        kraken.apiV2().cancelCurrentOrder();
     }
 
     @Test(  dataProvider = "stores-parallel",
@@ -88,8 +88,8 @@ public class StoreTests extends RestBase {
 
         UserData user = user();
 
-        kraken.rest().registration(user);
-        kraken.rest().order(user, store.getId());
-        kraken.rest().cancelCurrentOrder();
+        kraken.apiV2().registration(user);
+        kraken.apiV2().order(user, store.getId());
+        kraken.apiV2().cancelCurrentOrder();
     }
 }

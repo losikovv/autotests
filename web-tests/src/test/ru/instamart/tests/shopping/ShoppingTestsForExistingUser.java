@@ -21,7 +21,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
     public void setup() {
         User.Logout.quickly();
         User.Do.loginAs(AppManager.session.user);
-        kraken.rest().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
     }
 
     @Test(
@@ -32,7 +32,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
                     "metro-acceptance","metro-regression"
             }
     ) public void noAccessToCheckoutForAuthorizedUserWithShipAddressAndEmptyCart() {
-        kraken.rest().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
 
         assertPageIsUnavailable(Pages.checkout());
     }
@@ -47,7 +47,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
     ) public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
 
         if (kraken.detect().isCheckoutButtonActive()) {
-            kraken.rest().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
+            kraken.apiV2().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
         }
 
         if (kraken.detect().isCartEmpty()) {

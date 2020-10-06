@@ -40,7 +40,7 @@ public class BasicOrdersTests extends TestBase {
         kraken.get().baseUrl();
         User.Do.loginAs(AppManager.session.admin);
 
-        kraken.rest().dropCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().dropCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
     }
     // TODO Тесты на изменение телефона и контактов
 
@@ -53,7 +53,7 @@ public class BasicOrdersTests extends TestBase {
             priority = 2000
     )
     public void successCompleteCheckoutWithNewJuridical() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.learningCenter());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.learningCenter());
 
         JuridicalData company = generate.juridical();
         kraken.reach().checkout();
@@ -77,7 +77,7 @@ public class BasicOrdersTests extends TestBase {
             priority = 2001
     )
     public void successCompleteCheckoutWithChangeJuridical() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
 
         JuridicalData newCompany = generate.juridical();
         kraken.reach().checkout();
@@ -102,7 +102,7 @@ public class BasicOrdersTests extends TestBase {
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
         runTestOnlyOnServer("staging");
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
 
         PaymentCardData creditCardData = Config.TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
 

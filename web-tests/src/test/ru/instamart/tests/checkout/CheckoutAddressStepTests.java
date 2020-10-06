@@ -25,7 +25,7 @@ public class CheckoutAddressStepTests extends TestBase {
         User.Logout.quickly();
         UserData user = User.Do.registration();
 
-        kraken.rest().fillCart(user, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(user, RestAddresses.Moscow.defaultAddress());
     }
 
     @BeforeMethod(alwaysRun = true)

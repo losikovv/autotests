@@ -1,12 +1,12 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.objects.LineItem;
+import instamart.api.v2.objects.LineItem;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import instamart.api.common.Requests;
+import instamart.api.v2.ApiV2Requests;
 import instamart.api.common.RestBase;
-import instamart.api.objects.responses.LineItemResponse;
-import instamart.api.objects.responses.ProductsResponse;
+import instamart.api.v2.responses.LineItemResponse;
+import instamart.api.v2.responses.ProductsResponse;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -17,8 +17,8 @@ public class LineItems extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        kraken.rest().getCurrentOrderNumber();
-        productId = Requests
+        kraken.apiV2().getCurrentOrderNumber();
+        productId = ApiV2Requests
                 .getProducts(1, "")
                 .as(ProductsResponse.class)
                 .getProducts()
@@ -30,7 +30,7 @@ public class LineItems extends RestBase {
             groups = {"rest-smoke","rest-v2-smoke"},
             priority = 8)
     public void postLineItems() {
-        response = Requests.postLineItems(productId,1);
+        response = ApiV2Requests.postLineItems(productId,1);
 
         assertEquals(response.getStatusCode(), 200);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
@@ -43,7 +43,7 @@ public class LineItems extends RestBase {
             priority = 19,
             dependsOnMethods = "postLineItems")
     public void deleteLineItems() {
-        response = Requests.deleteLineItems(lineItemId);
+        response = ApiV2Requests.deleteLineItems(lineItemId);
 
         assertEquals(response.getStatusCode(), 200);
         assertNotNull(response.as(LineItemResponse.class).getLine_item(), "Не удалился товар из корзины");

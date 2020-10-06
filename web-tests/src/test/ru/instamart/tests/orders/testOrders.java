@@ -24,7 +24,7 @@ public class testOrders extends TestBase {
     )
     public void successOrderInCities(int param) {
         System.out.println(">>> ТЕСТ С ПАРАМЕТРОМ " + param);
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();

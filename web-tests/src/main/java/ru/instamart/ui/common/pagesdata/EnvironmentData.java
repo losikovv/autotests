@@ -1,18 +1,21 @@
 package instamart.ui.common.pagesdata;
 
 public class EnvironmentData {
-    private String tenant;
-    private String server;
-    private String basicUrl;
-    private String adminUrl;
-    private String httpAuth;
+    private final String tenant;
+    private final String server;
+    private final String basicUrl;
+    private final String adminUrl;
+    private final String httpAuth;
+    private final String shopperUrl;
 
-    public EnvironmentData(String tenant, String server, String basicUrl, String adminUrl, String httpAuth) {
+    public EnvironmentData(String tenant, String server, String basicUrl,
+                           String adminUrl, String httpAuth, String shopperUrl) {
         this.tenant = tenant;
         this.server = server;
         this.basicUrl = basicUrl;
         this.adminUrl = adminUrl;
         this.httpAuth = httpAuth;
+        this.shopperUrl = shopperUrl;
     }
 
     public String getTenant() {
@@ -42,4 +45,6 @@ public class EnvironmentData {
     public String getAdminUrlWithHttpAuth() {
         return "https://" + httpAuth + adminUrl + "/";
     }
+
+    public String getShopperUrl() {return "https://" + shopperUrl + "/";}
 }

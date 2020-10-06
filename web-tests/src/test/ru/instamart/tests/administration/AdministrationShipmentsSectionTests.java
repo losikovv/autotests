@@ -137,7 +137,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     public void successResumeAndCancelOrder() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         kraken.checkout().complete();
         //final String shipment = kraken.grab().currentOrderNumber();

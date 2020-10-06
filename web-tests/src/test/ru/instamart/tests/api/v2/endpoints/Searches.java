@@ -1,9 +1,9 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import org.testng.annotations.Test;
-import instamart.api.common.Requests;
+import instamart.api.v2.ApiV2Requests;
 import instamart.api.common.RestBase;
-import instamart.api.objects.responses.SearchSuggestionsResponse;
+import instamart.api.v2.responses.SearchSuggestionsResponse;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -14,7 +14,7 @@ public class Searches extends RestBase {
             groups = {"rest-smoke","rest-v2-smoke"},
             priority = 3)
     public void getSearchSuggestions() {
-        response = Requests.getSearchSuggestions(1, "");
+        response = ApiV2Requests.getSearchSuggestions(1, "");
 
         assertEquals(response.getStatusCode(), 200);
         assertNotNull(response.as(SearchSuggestionsResponse.class).getSuggestion(),

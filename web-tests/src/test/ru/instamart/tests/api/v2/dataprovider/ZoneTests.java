@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.api.common.RestBase;
 import instamart.core.testdata.dataprovider.RestDataProvider;
-import instamart.api.objects.Store;
-import instamart.api.objects.Zone;
+import instamart.api.v2.objects.Store;
+import instamart.api.v2.objects.Zone;
 
 public class ZoneTests extends RestBase {
 
@@ -20,7 +20,7 @@ public class ZoneTests extends RestBase {
             description = "Тест первых заказов во всех зонах всех магазинов",
             groups = {"rest-zones"})
     public void firstOrderByZone(Store store, String zoneName, Zone coordinates) {
-        kraken.rest().skipTestIfOnlyPickupIsAvailable(store, zoneName);
+        kraken.apiV2().skipTestIfOnlyPickupIsAvailable(store, zoneName);
 
         System.out.println("Оформляем заказ в " + store);
         System.out.println(zoneName);
@@ -28,8 +28,8 @@ public class ZoneTests extends RestBase {
 
         UserData user = user();
 
-        kraken.rest().registration(user);
-        kraken.rest().order(user, store.getId(), coordinates);
-        kraken.rest().cancelCurrentOrder();
+        kraken.apiV2().registration(user);
+        kraken.apiV2().order(user, store.getId(), coordinates);
+        kraken.apiV2().cancelCurrentOrder();
     }
 }

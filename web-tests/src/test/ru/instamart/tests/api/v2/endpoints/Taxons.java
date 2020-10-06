@@ -1,10 +1,10 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.common.Requests;
+import instamart.api.v2.ApiV2Requests;
 import instamart.api.common.RestBase;
-import instamart.api.objects.Taxon;
-import instamart.api.objects.responses.TaxonResponse;
-import instamart.api.objects.responses.TaxonsResponse;
+import instamart.api.v2.objects.Taxon;
+import instamart.api.v2.responses.TaxonResponse;
+import instamart.api.v2.responses.TaxonsResponse;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class Taxons extends RestBase {
             groups = {"rest-smoke","rest-v2-smoke"},
             priority = 6)
     public void getTaxons() {
-        response = Requests.getTaxons(1);
+        response = ApiV2Requests.getTaxons(1);
 
         assertEquals(response.getStatusCode(), 200);
         List<Taxon> taxons = response.as(TaxonsResponse.class).getTaxons();
@@ -32,7 +32,7 @@ public class Taxons extends RestBase {
             priority = 11,
             dependsOnMethods = "getTaxons")
     public void getTaxon() {
-        response = Requests.getTaxons(taxonId,1);
+        response = ApiV2Requests.getTaxons(taxonId,1);
 
         assertEquals(response.getStatusCode(), 200);
         assertNotNull(response.as(TaxonResponse.class).getTaxon(), "Не вернулся таксон");

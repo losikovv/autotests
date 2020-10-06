@@ -21,7 +21,7 @@ public class OrdersPaymentsTests extends TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
-        kraken.rest().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
     }
 
@@ -90,6 +90,6 @@ public class OrdersPaymentsTests extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void postconditions() {
-        kraken.rest().cancelCurrentOrder();
+        kraken.apiV2().cancelCurrentOrder();
     }
 }

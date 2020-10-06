@@ -1,8 +1,8 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.common.Requests;
+import instamart.api.v2.ApiV2Requests;
 import instamart.api.common.RestBase;
-import instamart.api.objects.responses.ReferralProgramResponse;
+import instamart.api.v2.responses.ReferralProgramResponse;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -14,7 +14,7 @@ public class Promotions extends RestBase {
             groups = {"rest-smoke","rest-v2-smoke"},
             priority = 18)
     public void getReferralProgram() {
-        response = Requests.getReferralProgram();
+        response = ApiV2Requests.getReferralProgram();
 
         assertEquals(response.getStatusCode(), 200);
         assertNotNull(response.as(ReferralProgramResponse.class).getReferral_program(),

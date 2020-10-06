@@ -1,6 +1,7 @@
 package instamart.core.common;
 
-import instamart.api.common.RestHelper;
+import instamart.api.shopper.ShopperApiHelper;
+import instamart.api.v2.ApiV2Helper;
 import instamart.core.helpers.*;
 import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
@@ -55,7 +56,8 @@ public class AppManager {
     private Administration administrationHelper;
     private CleanupHelper cleanupHelper;
     private WaitingHelper waitingHelper;
-    private RestHelper restHelper;
+    private ApiV2Helper apiV2Helper;
+    private ShopperApiHelper shopperApiHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
     private static final Logger LOGGER = LoggerFactory.getLogger(AppManager.class);
@@ -94,7 +96,8 @@ public class AppManager {
                 properties.getProperty("server"),
                 properties.getProperty("basicUrl"),
                 properties.getProperty("adminUrl"),
-                properties.getProperty("httpAuth")
+                properties.getProperty("httpAuth"),
+                properties.getProperty("shopperUrl")
         );
     }
 
@@ -191,12 +194,14 @@ public class AppManager {
         administrationHelper = new Administration(driver, environment, this);
         cleanupHelper = new CleanupHelper(driver, environment, this);
         waitingHelper = new WaitingHelper(driver, environment, this);
-        restHelper = new RestHelper(environment);
+        apiV2Helper = new ApiV2Helper();
+        shopperApiHelper = new ShopperApiHelper();
     }
 
     private void initRestHelpers() {
         administrationHelper = new Administration(driver, environment, this);
-        restHelper = new RestHelper(environment);
+        apiV2Helper = new ApiV2Helper();
+        shopperApiHelper = new ShopperApiHelper();
     }
 
     private void applyOptions() {
@@ -325,5 +330,6 @@ public class AppManager {
     public Administration admin() { return administrationHelper; }
     public CleanupHelper cleanup() { return cleanupHelper; }
     public WaitingHelper await() { return waitingHelper; }
-    public RestHelper rest() { return restHelper; }
+    public ApiV2Helper apiV2() { return apiV2Helper; }
+    public ShopperApiHelper shopperApi() { return shopperApiHelper; }
 }
