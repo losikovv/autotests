@@ -62,15 +62,46 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
         softAssert.assertAll();
     }
 
-    @Step("Проверяем, что утановленный адрес: \"{1}\" \nсовпадает с дефолтным: \"{0}\"")
+    @Step("Проверяем, что утановленный адрес: \"{0}\" \n совпадает с адресом, отображаемом на странице: \"{1}\"")
     public void checkIsSetAddresEqualsToInput(String defaultAddress, String currentAddress){
-        verboseMessage("> проверяем, что дефолтный: "+defaultAddress+"\n адрес совпадает с введенным: "+currentAddress);
-        softAssert.assertEquals(
-                currentAddress, defaultAddress,
-                "\n> Установленный адрес доставки не совпадает с введенным"
-                        +"\n> Установлен адрес: " + currentAddress
-                        +"\n> Ожидаемый адрес: " + defaultAddress
-        );
+        String []defaultAdressList = defaultAddress.split(", ");
+        verboseMessage("> проверяем, что установленный адрес: "+defaultAddress+
+                 "\n совпадает с адресом на странице: "+currentAddress);
+        String checkState ="";
+        for(String check: defaultAdressList){
+            if(currentAddress.contains(check)) checkState = "contains";
+            else{
+                verboseMessage("> в введенном адресе отсутсвует: "+check);
+                checkState ="doesn't";
+            }
+            softAssert.assertEquals(
+                    checkState, "contains",
+                    "\n> В адресе отображаемом на странице отсутсвует элемент: "
+                            +"\n> отображаемый адрес: " + currentAddress
+                            +"\n> Ожидаемый элемент: " + check
+            );
+        }
+        softAssert.assertAll();
+    }
+
+    @Step("\"Проверяем, что утановленный адрес:\"{0}\" не изменился")
+    public void checkIsSetAddressDoesntEqualToInput(String defaultAddress, String currentAddress){
+        String []defaultAdressList = defaultAddress.split(", ");
+        verboseMessage("> проверяем, что адрес доставки не изменился: "+defaultAddress);
+        String checkState ="";
+        for(String check: defaultAdressList){
+            if(currentAddress.contains(check)) checkState = "contains";
+            else{
+                verboseMessage("> в введенном адресе отсутсвует: "+check);
+                checkState ="doesn't";
+            }
+            softAssert.assertNotEquals(
+                    checkState, "contains",
+                    "\n> Адрес доставки изменен после выбора предыдущего: "
+                            +"\n> отображаемый адрес: " + currentAddress
+                            +"\n> Ожидаемый элемент: " + check
+            );
+        }
         softAssert.assertAll();
     }
 

@@ -399,19 +399,26 @@ public class User extends Base {
             );
             String currentAddress = kraken.grab().value(Elements.Modals.AddressModal.addressField());
             if(currentAddress.equals("")){
-                kraken.await().implicitly(5);//текущая локация подставляется автоматически,
+                kraken.await().implicitly(3);//текущая локация подставляется автоматически,
                 // нужно подождать, пока элемент прогрузится
                 currentAddress = kraken.grab().value(Elements.Modals.AddressModal.addressField());
-            }
-            if(currentAddress.equals("")) {
-                verboseMessage("> устанавливаем адрес доставки: " + address + "\n");
+                if(currentAddress.equals(""))verboseMessage("> устанавливаем адрес доставки: " + address + "\n");
+                else Shop.ShippingAddressModal.clearAddressField();
             } else {
                 verboseMessage("> изменяем адрес доставки:\n" + currentAddress + " >>> " + address + "\n");
                 Shop.ShippingAddressModal.clearAddressField();
             }
             //todo нужно допилить проверку"
             Shop.ShippingAddressModal.fill(address);
-            if(submit)Shop.ShippingAddressModal.submit();
+            if(submit){
+                kraken.await().simply(2);
+                kraken.await().fluently(
+                        ExpectedConditions.elementToBeClickable(
+                                Elements.Modals.AddressModal.submitButton().getLocator()),
+                        "Кнопка сохранить не активна\n"
+                );
+                Shop.ShippingAddressModal.submit();
+            }
         }
 
         /** Свапнуть тестовый и дефолтные адреса */

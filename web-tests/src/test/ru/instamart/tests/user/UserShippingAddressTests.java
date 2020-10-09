@@ -22,6 +22,7 @@ public class UserShippingAddressTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
     ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
+    String env = System.getProperty("env", Config.CoreSettings.defaultEnvironment);
 
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
@@ -151,24 +152,13 @@ public class UserShippingAddressTests extends TestBase {
             priority = 307
     )
     public void successChangeShippingAddress() {
-        SoftAssert softAssert = new SoftAssert();
-
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         if(!kraken.detect().isShippingAddressSet()) {
             User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         }
-
         User.ShippingAddress.set(Addresses.Moscow.testAddress(),true);
-
-        softAssert.assertTrue(
-                kraken.detect().isShippingAddressSet(),
-                    "\n> Адрес доставки сбрасывается при попытке изменения");
-
-        softAssert.assertEquals(
-                kraken.grab().currentShipAddress(), Addresses.Moscow.testAddress(),
-                    "\n> Не изменяется адрес доставки");
-
-        softAssert.assertAll();
+        shippingChecks.checkIsShippingAddressSet("Адрес доставки сбрасывается при попытке изменения");
+        shippingChecks.checkIsSetAddresEqualsToInput(Addresses.Moscow.testAddress(),kraken.grab().currentShipAddress());
     }
 
     @Test(
@@ -180,8 +170,8 @@ public class UserShippingAddressTests extends TestBase {
             priority = 308
     )
     public void successChangeShippingAddressToRecent() {
-        SoftAssert softAssert = new SoftAssert();
-
+        if(env.contains("production")){skipTest();}
+        //ToDo логика чекаута сильно изменилась, нужна дополнительная отладка на стейдже
         User.Logout.quickly();
         User.Do.registration();
         User.ShippingAddress.set(Addresses.Moscow.testAddress(),true);
@@ -194,15 +184,9 @@ public class UserShippingAddressTests extends TestBase {
         Shop.ShippingAddressModal.chooseRecentAddress();
         Shop.ShippingAddressModal.submit();
 
-        softAssert.assertTrue(
-                kraken.detect().isShippingAddressSet(),
-                    "\n> Адрес доставки сброшен после выбора предыдущего");
-
-        softAssert.assertNotEquals(
-                kraken.grab().currentShipAddress(), Addresses.Moscow.testAddress(),
-                    "\n> Адрес доставки изменен после выбора предыдущего");
-
-        softAssert.assertAll();
+        shippingChecks.checkIsShippingAddressSet("Адрес доставки сброшен после выбора предыдущего");
+        shippingChecks.checkIsSetAddressDoesntEqualToInput(kraken.grab().currentShipAddress(),
+                Addresses.Moscow.testAddress());
     }
 
     @Test(

@@ -729,7 +729,7 @@ public class Elements {
                     /*By.xpath("//*[@data-qa='address-autocomplete-dropdown']//*[@id='downshift-0-item-0']"),
                     "адресная подсказка в модалке выбора адреса");
                      */
-            By.xpath("//*[contains(@class,'search_select')]//*[contains(@class,'dropdown')]"),
+                    By.xpath("//*[contains(@class,'search_select')]//*[text()]"),
                     "адресная подсказка в модалке выбора адреса");
         }
 
@@ -1373,6 +1373,11 @@ public class Elements {
             static ElementData snippet() {
                 return new ElementData(By.xpath("//*[@class='product']"),
                         "сниппет продукта");
+            }
+
+            static ElementData firstProductOnSnippet(){
+                return new ElementData(By.xpath(""),
+                        "");
             }
 
             static ElementData plusButton() {

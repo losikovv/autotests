@@ -223,7 +223,7 @@ public class Shop extends Base {
         @Step("Вводим адрес в адресной модалке: {0}")
         public static void fill(String address) {
             kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), address);
-            kraken.await().simply(1); // Ожидание адресных подсказок
+            kraken.await().simply(2); // Ожидание адресных подсказок
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
                             Elements.Modals.AddressModal.addressSuggest().getLocator()),
@@ -434,6 +434,13 @@ public class Shop extends Base {
             /** Добавить товар в корзину через сниппет товара в каталоге */
             @Step("Добавляем товар в корзину через сниппет товара в каталоге")
             public static void addToCart() {
+                kraken.perform().hoverOn(Elements.Catalog.Product.snippet());
+                kraken.perform().click(Elements.Catalog.Product.plusButton());
+                kraken.await().implicitly(1); // Ожидание добавления товара в корзину
+            }
+
+            @Step("Добавляем товар в корзину через сниппет товара в каталоге")
+            public static void addToCartNewView() {
                 kraken.perform().hoverOn(Elements.Catalog.Product.snippet());
                 kraken.perform().click(Elements.Catalog.Product.plusButton());
                 kraken.await().implicitly(1); // Ожидание добавления товара в корзину
