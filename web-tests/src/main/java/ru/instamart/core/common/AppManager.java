@@ -90,14 +90,16 @@ public class AppManager {
         String env = System.getProperty("env", Config.CoreSettings.defaultEnvironment);
         properties.load(
                 new FileReader(
-                    new File(String.format("src/test/resources/environment_configs/%s.properties", env))));
+                        new File(String.format("src/test/resources/environment_configs/%s.properties", env))));
         environment = new EnvironmentData(
                 properties.getProperty("tenant"),
                 properties.getProperty("server"),
                 properties.getProperty("basicUrl"),
                 properties.getProperty("adminUrl"),
                 properties.getProperty("httpAuth"),
-                properties.getProperty("shopperUrl")
+                properties.getProperty("shopperUrl"),
+                properties.getProperty("defaultSid"),
+                properties.getProperty("defaultShopperSid")
         );
     }
 
