@@ -24,8 +24,13 @@ public abstract class Addresses {
         }
 
         public static String outOfZoneAddress() {
+            return addressString = "село Каракулино, 1";
+        }
+
+        public static String outOfZoneAddressMoscow() {
             return addressString = "Подольск, ул Дружбы, д 15";
         }
+
     }
 
     public static class SaintPetersburg extends Addresses {

@@ -223,7 +223,7 @@ public class Shop extends Base {
         @Step("Вводим адрес в адресной модалке: {0}")
         public static void fill(String address) {
             kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), address);
-            kraken.await().simply(2); // Ожидание адресных подсказок
+            kraken.await().simply(3); // Ожидание адресных подсказок
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
                             Elements.Modals.AddressModal.addressSuggest().getLocator()),
@@ -254,7 +254,7 @@ public class Shop extends Base {
             kraken.perform().click(Elements.Modals.AddressModal.submitButton());
             if (kraken.detect().isAddressOutOfZone()) {
                 verboseMessage("> выбранный адрес вне зоны доставки");
-                kraken.perform().refresh();
+                //kraken.perform().refresh();
             } else {
                 kraken.await().fluently(
                         ExpectedConditions.invisibilityOfElementLocated(
@@ -478,6 +478,7 @@ public class Shop extends Base {
             /** Открыть карточку товара в каталоге */
             @Step("Открываем карточку товара в каталоге")
             public static void open() {
+                catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),2);
                 kraken.perform().click(Elements.Catalog.Product.snippet());
                 kraken.await().fluently(
                         ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.popup().getLocator()),
@@ -657,21 +658,21 @@ public class Shop extends Base {
     /** Карточка товара */
     public static class ItemCard {
 
-        /** Добавить товар в корзину по кнопке [+] в карточке товара */
-        @Step("Добавляем товар в корзину по кнопке [+] в карточке товара")
+        /** Добавить товар в корзину по кнопке [купить] в карточке товара */
+        @Step("Добавляем товар в корзину по кнопке [купить] в карточке товара")
         public static void addToCart() {
-            ElementData button = Elements.ItemCard.plusButton();
+            ElementData button = Elements.ItemCard.buyButton();
             // Побеждаем модалку обновления цен
             if(kraken.detect().isElementPresent(Elements.Modals.PricesModal.popup())) {
-                kraken.perform().click(Elements.Modals.PricesModal.refreshPricesButton());
+                //kraken.perform().click(Elements.Modals.PricesModal.refreshPricesButton());
             }
             kraken.await().fluently(
                     ExpectedConditions
                             .elementToBeClickable(button.getLocator()),
                         "Некликабельна кнопка добавления товара в корзину"
             );
-            verboseMessage("> жмем +1");
-            kraken.perform().click(Elements.ItemCard.plusButton());
+            verboseMessage("> жмем купить");
+            kraken.perform().click(Elements.ItemCard.buyButton());
             //kraken.await().simply(1); // Ожидание добавления +1 товара в карточке
             kraken.await().fluently(
                     ExpectedConditions

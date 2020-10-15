@@ -793,7 +793,8 @@ public class Elements {
         }
 
         static ElementData firstStoreAvailable() {
-            return new ElementData(By.className("store-card"), "первый магазин в модалке выбора магазина");
+            return new ElementData(By.xpath("//*[contains(@class,'stores-modal__')]//a[@data-qa='store-card']"),
+                    "первый магазин в модалке выбора магазина");
         }
 
         static ElementData pickNewAddressButton() {
@@ -1371,7 +1372,7 @@ public class Elements {
 
         interface Product {
             static ElementData snippet() {
-                return new ElementData(By.xpath("//*[@class='product']"),
+                return new ElementData(By.xpath("//*[@class='product']//*[contains(@class,'product__img')]//img[contains(@alt,text())]"),
                         "сниппет продукта");
             }
 
@@ -1485,6 +1486,11 @@ public class Elements {
             static ElementData plusButton() {
                 return new ElementData(By.className("popup-cart-actions__btn--right"),
                         "кнопка + в карточке товара");
+            }
+
+            static ElementData buyButton() {
+                return new ElementData(By.xpath("//button[contains(text(),'Купить')]"),
+                    "кнопка купить в карточке товара");
             }
 
             static ElementData minusButton() {

@@ -84,7 +84,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
         softAssert.assertAll();
     }
 
-    @Step("\"Проверяем, что утановленный адрес:\"{0}\" не изменился")
+    @Step("Проверяем, что утановленный адрес:\"{0}\" не изменился")
     public void checkIsSetAddressDoesntEqualToInput(String defaultAddress, String currentAddress){
         String []defaultAdressList = defaultAddress.split(", ");
         verboseMessage("> проверяем, что адрес доставки не изменился: "+defaultAddress);
@@ -102,6 +102,41 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
                             +"\n> Ожидаемый элемент: " + check
             );
         }
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем, что модальное окно ввода адреса доставки открыто")
+    public void checkIsAddressModalOpen(String errorMessage){
+        verboseMessage("> проверяем, что модальное окно ввода адреса доставки открыто");
+        softAssert.assertTrue(kraken.detect().isAddressModalOpen(),
+                errorMessage);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем, что модальное окно выбора альтернативного магазина открыто")
+    public void checkisChangeStoreModalOpen(String errorMessage){
+        verboseMessage("> проверяем, что модальное окно выбора альтернативного магазина открыто");
+        softAssert.assertTrue(
+                kraken.detect().isChangeStoreModalOpen(),
+                errorMessage);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем, что модальное окно выбора альтернативного магазина не открылось")
+    public void checkIsChangeStoreModalNotOpen(String errorMessage){
+        verboseMessage("> проверяем, что модальное окно выбора альтернативного магазина не открылось");
+        softAssert.assertFalse(
+                kraken.detect().isChangeStoreModalOpen(),
+                errorMessage);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем, что модальное окно Адрес вне зоны доставки появилось")
+    public void checkIsAddressOutOfZone(String errorMessage){
+        verboseMessage("> проверяем, что модальное окно Адрес вне зоны доставки появилось");
+        softAssert.assertTrue(
+                kraken.detect().isAddressOutOfZone(),
+                errorMessage);
         softAssert.assertAll();
     }
 
