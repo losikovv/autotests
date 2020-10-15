@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  automag:
+    build:
+      context: "."
+      dockerfile: "Dockerfile"
+    volumes:
+      - .:/home/gradle/automag
