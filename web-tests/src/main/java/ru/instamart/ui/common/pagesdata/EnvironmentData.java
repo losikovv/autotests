@@ -7,15 +7,19 @@ public class EnvironmentData {
     private final String adminUrl;
     private final String httpAuth;
     private final String shopperUrl;
+    private final String defaultSid;
+    private final String defaultShopperSid;
 
-    public EnvironmentData(String tenant, String server, String basicUrl,
-                           String adminUrl, String httpAuth, String shopperUrl) {
+    public EnvironmentData(String tenant, String server, String basicUrl, String adminUrl, String httpAuth,
+                           String shopperUrl, String defaultSid, String defaultShopperSid) {
         this.tenant = tenant;
         this.server = server;
         this.basicUrl = basicUrl;
         this.adminUrl = adminUrl;
         this.httpAuth = httpAuth;
         this.shopperUrl = shopperUrl;
+        this.defaultSid = defaultSid;
+        this.defaultShopperSid = defaultShopperSid;
     }
 
     public String getTenant() {
@@ -47,4 +51,12 @@ public class EnvironmentData {
     }
 
     public String getShopperUrl() {return "https://" + shopperUrl + "/";}
+
+    public int getDefaultSid() {
+        return Integer.parseInt(defaultSid);
+    }
+
+    public int getDefaultShopperSid() {
+        return Integer.parseInt(defaultShopperSid);
+    }
 }

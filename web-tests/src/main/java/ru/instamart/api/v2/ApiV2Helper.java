@@ -12,6 +12,7 @@ import org.testng.asserts.SoftAssert;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ApiV2Helper extends ApiV2Requests {
@@ -99,6 +100,17 @@ public class ApiV2Helper extends ApiV2Requests {
      */
     static void printError(String string) {
         System.err.println(string);
+    }
+
+
+    /**
+     * Ассерт, что дата доставки заказа сегодня
+     */
+    public void assertIsDeliveryToday(Order order) {
+        String today = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        String deliveryTime = order.getShipments().get(0).getDelivery_window().getStarts_at();
+        if (!deliveryTime.contains(today)) org.junit.Assert.fail("Заказ оформлен не на сегодня\ntoday: " +
+                today + "\ndelivery time: " + deliveryTime);
     }
 
     /**
@@ -459,7 +471,7 @@ public class ApiV2Helper extends ApiV2Requests {
     /**
      * Завершаем оформление заказа
      */
-    private void completeOrder() {
+    private Order completeOrder() {
         orderCompleted.set(false);
         Response response = postOrdersCompletion();
         if (response.getStatusCode() == 422) {
@@ -480,7 +492,7 @@ public class ApiV2Helper extends ApiV2Requests {
                 if (errors.getPayments().contains(notAvailablePaymentMethod)) {
                     printError("\n" + notAvailablePaymentMethod + "\n" + currentPaymentTool.get() + "\n");
                     //ToDo помечать тест желтым, если заказ не может быть оплачен указанным способом
-                    return;
+                    return null;
                 } else Assert.fail(response.body().toString());
             }
         }
@@ -491,7 +503,9 @@ public class ApiV2Helper extends ApiV2Requests {
             }
             printSuccess("Оформлен заказ: " + order.getNumber() + "\n");
             orderCompleted.set(true);
+            return response.as(OrderResponse.class).getOrder();
         }
+        return null;
     }
 
     /**
@@ -684,6 +698,10 @@ public class ApiV2Helper extends ApiV2Requests {
         return getStores(sid).as(StoreResponse.class).getStore().getZones();
     }
 
+    public String getStoreName(int sid) {
+        return getStores(sid).as(StoreResponse.class).getStore().getName();
+    }
+
     /**
      * Авторизация
      * На сервере стоит ограничение - не больше 20 авторизаций в минуту с одного IP,
@@ -779,13 +797,13 @@ public class ApiV2Helper extends ApiV2Requests {
     /**
      * Применяем атрибуты заказа (способ оплаты и слот) и завершаем его
      */
-    private void setDefaultAttributesAndCompleteOrder() {
+    private Order setDefaultAttributesAndCompleteOrder() {
         getAvailablePaymentTool();
         getAvailableShippingMethod();
         getAvailableDeliveryWindow();
 
         setDefaultOrderAttributes();
-        completeOrder();
+        return completeOrder();
     }
 
     /*
@@ -886,28 +904,25 @@ public class ApiV2Helper extends ApiV2Requests {
     /**
      * Оформить тестовый заказ у юзера по определенному адресу
      */
-    public String order(UserData user, Address address, String retailer) {
+    public Order order(UserData user, Address address, String retailer) {
         fillCart(user, address, retailer);
-        setDefaultAttributesAndCompleteOrder();
-        return currentOrderNumber.get();
+        return setDefaultAttributesAndCompleteOrder();
     }
 
     /**
      * Оформить тестовый заказ у юзера в определенном магазине
      */
-    public String order(UserData user, int sid) {
+    public Order order(UserData user, int sid) {
         fillCart(user, sid);
-        setDefaultAttributesAndCompleteOrder();
-        return currentOrderNumber.get();
+        return setDefaultAttributesAndCompleteOrder();
     }
 
     /**
      * Оформить тестовый заказ у юзера в определенном магазине по определенным координатам
      */
-    public String order(UserData user, int sid, Zone coordinates) {
+    public Order order(UserData user, int sid, Zone coordinates) {
         fillCart(user, sid, coordinates);
-        setDefaultAttributesAndCompleteOrder();
-        return currentOrderNumber.get();
+        return setDefaultAttributesAndCompleteOrder();
     }
 
     /**

@@ -2,6 +2,7 @@ package instamart.api.v2.objects;
 
 import instamart.api.common.BaseObject;
 
+import java.util.List;
 import java.util.StringJoiner;
 
 public class Retailer extends BaseObject {
@@ -15,6 +16,8 @@ public class Retailer extends BaseObject {
     private Boolean available;
     private String environment;
     private String key;
+    private List<Object> requirements = null;
+    private Object retailer_agreement;
 
     /**
      * No args constructor for use in serialization
@@ -104,5 +107,21 @@ public class Retailer extends BaseObject {
                 .add(name)
                 .add("id: " + id)
                 .toString();
+    }
+
+    public List<Object> getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(List<Object> requirements) {
+        this.requirements = requirements;
+    }
+
+    public Object getRetailer_agreement() {
+        return retailer_agreement;
+    }
+
+    public void setRetailer_agreement(Object retailer_agreement) {
+        this.retailer_agreement = retailer_agreement;
     }
 }

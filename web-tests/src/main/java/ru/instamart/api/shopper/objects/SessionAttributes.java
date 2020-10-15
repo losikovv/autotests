@@ -2,7 +2,7 @@ package instamart.api.shopper.objects;
 
 import instamart.api.common.BaseObject;
 
-public class Attributes extends BaseObject {
+public class SessionAttributes extends BaseObject {
 
     private String accessToken;
     private String refreshToken;

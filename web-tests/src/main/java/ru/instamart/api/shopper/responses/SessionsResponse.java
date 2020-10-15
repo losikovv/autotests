@@ -2,17 +2,17 @@ package instamart.api.shopper.responses;
 
 
 import instamart.api.common.BaseResponseObject;
-import instamart.api.shopper.objects.Data;
+import instamart.api.shopper.objects.SessionData;
 
 public class SessionsResponse extends BaseResponseObject {
 
-    private Data data;
+    private SessionData data;
 
-    public Data getData() {
+    public SessionData getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(SessionData data) {
         this.data = data;
     }
 

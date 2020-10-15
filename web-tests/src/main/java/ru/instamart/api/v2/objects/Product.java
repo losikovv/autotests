@@ -24,6 +24,7 @@ public class Product extends BaseObject {
     private Image image;
     private List<Property> properties = null;
     private List<Object> related_products = null;
+    private List<Object> requirements = null;
 
     /**
      * No args constructor for use in serialization
@@ -180,5 +181,13 @@ public class Product extends BaseObject {
 
     public void setDiscount_ends_at(String discount_ends_at) {
         this.discount_ends_at = discount_ends_at;
+    }
+
+    public List<Object> getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(List<Object> requirements) {
+        this.requirements = requirements;
     }
 }

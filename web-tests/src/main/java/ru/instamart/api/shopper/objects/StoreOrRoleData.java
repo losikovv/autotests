@@ -2,10 +2,11 @@ package instamart.api.shopper.objects;
 
 import instamart.api.common.BaseObject;
 
-public class Data extends BaseObject {
+public class StoreOrRoleData extends BaseObject {
 
     private String id;
     private String type;
+    private StoreOrRoleAttributes attributes;
 
     public String getId() {
         return id;
@@ -21,6 +22,14 @@ public class Data extends BaseObject {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public StoreOrRoleAttributes getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(StoreOrRoleAttributes attributes) {
+        this.attributes = attributes;
     }
 
 }

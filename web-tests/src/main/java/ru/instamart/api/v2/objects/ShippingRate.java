@@ -10,6 +10,7 @@ public class ShippingRate extends BaseObject {
     private Boolean is_drop;
     private Boolean is_free;
     private DeliveryWindow delivery_window;
+    private Boolean is_express_delivery;
 
     /**
      * No args constructor for use in serialization
@@ -85,4 +86,11 @@ public class ShippingRate extends BaseObject {
         this.delivery_window = delivery_window;
     }
 
+    public Boolean getIs_express_delivery() {
+        return is_express_delivery;
+    }
+
+    public void setIs_express_delivery(Boolean is_express_delivery) {
+        this.is_express_delivery = is_express_delivery;
+    }
 }

@@ -22,6 +22,12 @@ public abstract class Users {
                 "autotest superuser");
     }
 
+    public static UserData shopper(){
+        return new UserData(
+                "kraken",
+                "instamart");
+    }
+
     public static UserData gmail() {
         return new UserData(
                 "instamartmailtest@gmail.com",

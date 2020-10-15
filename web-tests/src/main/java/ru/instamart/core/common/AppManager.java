@@ -97,7 +97,9 @@ public class AppManager {
                 properties.getProperty("basicUrl"),
                 properties.getProperty("adminUrl"),
                 properties.getProperty("httpAuth"),
-                properties.getProperty("shopperUrl")
+                properties.getProperty("shopperUrl"),
+                properties.getProperty("defaultSid"),
+                properties.getProperty("defaultShopperSid")
         );
     }
 

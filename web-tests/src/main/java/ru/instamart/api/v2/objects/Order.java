@@ -26,6 +26,7 @@ public class Order extends BaseObject {
     private String uuid;
     private List<Shipment> shipments = null;
     private List<Object> promotion_codes = null;
+    private String shipping_method_kind;
 
     public String getNumber() {
         return number;
@@ -185,5 +186,13 @@ public class Order extends BaseObject {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getShipping_method_kind() {
+        return shipping_method_kind;
+    }
+
+    public void setShipping_method_kind(String shipping_method_kind) {
+        this.shipping_method_kind = shipping_method_kind;
     }
 }

@@ -22,6 +22,7 @@ public class Shipment extends BaseObject {
     private String driver_phone;
     private String external_partners_service;
     private List<Object> shipping_team_members = null;
+    private List<Object> requirements = null;
 
     /**
      * No args constructor for use in serialization
@@ -156,5 +157,13 @@ public class Shipment extends BaseObject {
 
     public void setShipping_team_members(List<Object> shipping_team_members) {
         this.shipping_team_members = shipping_team_members;
+    }
+
+    public List<Object> getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(List<Object> requirements) {
+        this.requirements = requirements;
     }
 }

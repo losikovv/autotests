@@ -75,7 +75,8 @@ public class RestBase {
     @AfterMethod(description = "Отмена активных заказов после каждого теста",
                  alwaysRun = true)
     public void cancelActiveOrders() {
-        if (ApiV2Requests.authorized()) {
+        if (ApiV2Requests.authorized() &&
+                AppManager.environment.getServer().equalsIgnoreCase("production")) {
             System.out.println("Отменяем активные заказы");
             kraken.apiV2().cancelActiveOrders();
         }
