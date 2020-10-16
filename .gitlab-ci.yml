@@ -1,5 +1,5 @@
 demo_job_1:
   script:
-    - "echo Hello Worlds"
+    - "echo Hello World"
   tags:
     - ci
