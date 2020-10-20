@@ -2,11 +2,11 @@ package ru.instamart.tests.api.v2.endpoints;
 
 import org.testng.annotations.Test;
 import instamart.api.common.RestBase;
-import instamart.api.v2.responses.ErrorResponse;
-import instamart.api.v2.responses.UsersResponse;
+import instamart.api.responses.v2.ErrorResponse;
+import instamart.api.responses.v2.UsersResponse;
 
 import static org.testng.Assert.assertEquals;
-import static instamart.api.v2.ApiV2Requests.postUsers;
+import static instamart.api.requests.ApiV2Requests.postUsers;
 
 public class Users extends RestBase {
     private final String firstName = "autotester";

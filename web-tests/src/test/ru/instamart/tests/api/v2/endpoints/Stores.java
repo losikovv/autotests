@@ -1,12 +1,12 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.common.RestAddresses;
-import instamart.api.v2.responses.PromotionCardsResponse;
+import instamart.api.responses.v2.PromotionCardsResponse;
 import org.testng.annotations.Test;
-import instamart.api.v2.ApiV2Requests;
+import instamart.api.requests.ApiV2Requests;
 import instamart.api.common.RestBase;
-import instamart.api.v2.responses.StoreResponse;
-import instamart.api.v2.responses.StoresResponse;
+import instamart.api.responses.v2.StoreResponse;
+import instamart.api.responses.v2.StoresResponse;
 
 import static org.testng.Assert.*;
 

@@ -1,10 +1,10 @@
 package ru.instamart.tests.api.shopper.endpoints;
 
 import instamart.api.common.RestBase;
-import instamart.api.shopper.ShopperApiRequests;
-import instamart.api.shopper.objects.AssemblyData;
-import instamart.api.shopper.responses.*;
-import instamart.api.v2.objects.Order;
+import instamart.api.objects.shopper.AssemblyData;
+import instamart.api.objects.v2.Order;
+import instamart.api.requests.ShopperApiRequests;
+import instamart.api.responses.shopper.*;
 import instamart.core.common.AppManager;
 import instamart.core.testdata.Users;
 import instamart.ui.common.pagesdata.UserData;

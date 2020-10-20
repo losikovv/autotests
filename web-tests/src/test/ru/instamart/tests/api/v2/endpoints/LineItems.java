@@ -1,12 +1,12 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.v2.objects.LineItem;
+import instamart.api.objects.v2.LineItem;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import instamart.api.v2.ApiV2Requests;
+import instamart.api.requests.ApiV2Requests;
 import instamart.api.common.RestBase;
-import instamart.api.v2.responses.LineItemResponse;
-import instamart.api.v2.responses.ProductsResponse;
+import instamart.api.responses.v2.LineItemResponse;
+import instamart.api.responses.v2.ProductsResponse;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
