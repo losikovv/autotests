@@ -6,17 +6,17 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.UserData;
-import instamart.api.v2.ApiV2Requests;
+import instamart.api.requests.ApiV2Requests;
 import instamart.api.common.RestBase;
 import instamart.core.testdata.dataprovider.RestDataProvider;
-import instamart.api.v2.ApiV2Helper;
-import instamart.api.v2.objects.Product;
-import instamart.api.v2.objects.Store;
-import instamart.api.v2.objects.Taxon;
+import instamart.api.helpers.ApiV2Helper;
+import instamart.api.objects.v2.Product;
+import instamart.api.objects.v2.Store;
+import instamart.api.objects.v2.Taxon;
 
 import java.util.List;
 
-import static instamart.api.v2.ApiV2Helper.getProductsFromEachDepartmentInStore;
+import static instamart.api.helpers.ApiV2Helper.getProductsFromEachDepartmentInStore;
 
 public class StoreTests extends RestBase {
 

@@ -11,7 +11,7 @@ import instamart.core.testdata.Users;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
-import instamart.api.v2.objects.Address;
+import instamart.api.objects.v2.Address;
 import instamart.core.testdata.ui.generate;
 
 import static instamart.core.settings.Config.CoreSettings.multiSessionMode;

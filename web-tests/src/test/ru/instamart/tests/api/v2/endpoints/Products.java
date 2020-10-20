@@ -1,11 +1,11 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import org.testng.annotations.Test;
-import instamart.api.v2.ApiV2Requests;
+import instamart.api.requests.ApiV2Requests;
 import instamart.api.common.RestBase;
-import instamart.api.v2.objects.Product;
-import instamart.api.v2.responses.ProductResponse;
-import instamart.api.v2.responses.ProductsResponse;
+import instamart.api.objects.v2.Product;
+import instamart.api.responses.v2.ProductResponse;
+import instamart.api.responses.v2.ProductsResponse;
 
 import java.util.List;
 

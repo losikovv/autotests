@@ -1,7 +1,8 @@
 package instamart.core.common;
 
-import instamart.api.shopper.ShopperApiHelper;
-import instamart.api.v2.ApiV2Helper;
+import instamart.api.helpers.ApiHelper;
+import instamart.api.helpers.ApiV2Helper;
+import instamart.api.helpers.ShopperApiHelper;
 import instamart.core.helpers.*;
 import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
@@ -25,7 +26,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Properties;
@@ -58,6 +62,7 @@ public class AppManager {
     private WaitingHelper waitingHelper;
     private ApiV2Helper apiV2Helper;
     private ShopperApiHelper shopperApiHelper;
+    private ApiHelper apiHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
     private static final Logger LOGGER = LoggerFactory.getLogger(AppManager.class);
@@ -198,12 +203,14 @@ public class AppManager {
         waitingHelper = new WaitingHelper(driver, environment, this);
         apiV2Helper = new ApiV2Helper();
         shopperApiHelper = new ShopperApiHelper();
+        apiHelper = new ApiHelper();
     }
 
     private void initRestHelpers() {
         administrationHelper = new Administration(driver, environment, this);
         apiV2Helper = new ApiV2Helper();
         shopperApiHelper = new ShopperApiHelper();
+        apiHelper = new ApiHelper();
     }
 
     private void applyOptions() {
@@ -334,4 +341,5 @@ public class AppManager {
     public WaitingHelper await() { return waitingHelper; }
     public ApiV2Helper apiV2() { return apiV2Helper; }
     public ShopperApiHelper shopperApi() { return shopperApiHelper; }
+    public ApiHelper api() {return apiHelper; }
 }

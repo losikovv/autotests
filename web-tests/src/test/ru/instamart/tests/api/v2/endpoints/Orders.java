@@ -1,11 +1,11 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.v2.ApiV2Requests;
+import instamart.api.requests.ApiV2Requests;
 import instamart.api.common.RestBase;
-import instamart.api.v2.objects.Order;
-import instamart.api.v2.responses.LineItemsResponse;
-import instamart.api.v2.responses.OrderResponse;
-import instamart.api.v2.responses.OrdersResponse;
+import instamart.api.objects.v2.Order;
+import instamart.api.responses.v2.LineItemsResponse;
+import instamart.api.responses.v2.OrderResponse;
+import instamart.api.responses.v2.OrdersResponse;
 import instamart.core.common.AppManager;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

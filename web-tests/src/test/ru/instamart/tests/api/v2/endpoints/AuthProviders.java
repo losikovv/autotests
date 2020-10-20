@@ -1,8 +1,8 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.v2.ApiV2Requests;
+import instamart.api.requests.ApiV2Requests;
 import instamart.api.common.RestBase;
-import instamart.api.v2.responses.SessionsResponse;
+import instamart.api.responses.v2.SessionsResponse;
 import instamart.core.common.AppManager;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import org.testng.SkipException;

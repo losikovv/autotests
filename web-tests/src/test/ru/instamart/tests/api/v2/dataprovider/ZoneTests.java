@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.api.common.RestBase;
 import instamart.core.testdata.dataprovider.RestDataProvider;
-import instamart.api.v2.objects.Store;
-import instamart.api.v2.objects.Zone;
+import instamart.api.objects.v2.Store;
+import instamart.api.objects.v2.Zone;
 
 public class ZoneTests extends RestBase {
 

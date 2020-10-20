@@ -1,6 +1,6 @@
 package instamart.api.common;
 
-import instamart.api.v2.ApiV2Requests;
+import instamart.api.requests.ApiV2Requests;
 import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.UserData;
 import io.restassured.builder.RequestSpecBuilder;
@@ -13,8 +13,6 @@ import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
-import instamart.core.common.AppManager;
-import instamart.ui.common.pagesdata.UserData;
 
 import java.util.UUID;
 

@@ -5,9 +5,9 @@ import org.testng.annotations.Test;
 import instamart.core.common.AppManager;
 import instamart.api.common.RestBase;
 import instamart.core.testdata.dataprovider.RestDataProvider;
-import instamart.api.v2.ApiV2Helper;
-import instamart.api.v2.objects.Retailer;
-import instamart.api.v2.objects.Store;
+import instamart.api.helpers.ApiV2Helper;
+import instamart.api.objects.v2.Retailer;
+import instamart.api.objects.v2.Store;
 
 public class RetailerTests extends RestBase {
 

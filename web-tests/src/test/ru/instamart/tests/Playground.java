@@ -13,7 +13,7 @@ import instamart.ui.common.lib.ReplacementPolicies;
 import instamart.ui.common.pagesdata.OrderDetailsData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
-import instamart.api.v2.ApiV2Helper;
+import instamart.api.helpers.ApiV2Helper;
 
 public class Playground extends TestBase {
 

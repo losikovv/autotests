@@ -1,9 +1,9 @@
 package instamart.core.testdata.dataprovider;
 
 import instamart.api.common.RestBase;
-import instamart.api.v2.objects.Retailer;
-import instamart.api.v2.objects.Store;
-import instamart.api.v2.objects.Zone;
+import instamart.api.objects.v2.Retailer;
+import instamart.api.objects.v2.Store;
+import instamart.api.objects.v2.Zone;
 import instamart.core.testdata.AuthProviders;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static instamart.api.v2.ApiV2Helper.*;
+import static instamart.api.helpers.ApiV2Helper.*;
 
 public class RestDataProvider extends RestBase {
 
