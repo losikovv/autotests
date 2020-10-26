@@ -1,5 +1,7 @@
-demo_job_1:
+image: centos:7
+
+testAuto:
   script:
-    - "echo Hello Worldss"
+    - "echo Hello Worlds"
   tags:
     - ci
