@@ -1,11 +1,11 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.requests.ApiV2Requests;
+import instamart.api.checkpoints.ApiV2Checkpoints;
 import instamart.api.common.RestBase;
+import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.OnboardingPagesResponse;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
 public class OnboardingPages extends RestBase {
@@ -15,8 +15,7 @@ public class OnboardingPages extends RestBase {
             priority = 15)
     public void getOnboardingPages() {
         response = ApiV2Requests.getOnboardingPages();
-
-        assertEquals(response.getStatusCode(), 200);
+        ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(OnboardingPagesResponse.class).getOnboarding_pages(),
                 "Не вернулись экраны онборлдинга");
     }

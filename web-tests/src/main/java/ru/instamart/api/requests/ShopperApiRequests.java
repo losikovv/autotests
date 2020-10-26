@@ -45,6 +45,14 @@ public class ShopperApiRequests {
     /**
      * Получаем инфу о шоппере
      */
+    public static Response getCurrentAppVersion() {
+        return givenWithAuth()
+                .get(ShopperApiEndpoints.current_app_version);
+    }
+
+    /**
+     * Получаем инфу о шоппере
+     */
     public static Response getShopper() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.shopper);
@@ -55,7 +63,7 @@ public class ShopperApiRequests {
      */
     public static Response getShopperShipments() {
         return givenWithAuth()
-                .get(ShopperApiEndpoints.Shoppers.shipments);
+                .get(ShopperApiEndpoints.Shopper.shipments);
     }
 
     /**
@@ -63,7 +71,30 @@ public class ShopperApiRequests {
      */
     public static Response getShopperAssemblies() {
         return givenWithAuth()
-                .get(ShopperApiEndpoints.Shoppers.assemblies);
+                .get(ShopperApiEndpoints.Shopper.assemblies);
+    }
+
+    /**
+     * Создаём смену для сборщика
+     */
+    public static Response postShopperOperationShifts(
+            int roleId, boolean started, String planStartsAt, String planEndsAt, double lat, double lon) {
+        JSONObject requestParams = new JSONObject();
+        JSONObject operationShift = new JSONObject();
+        JSONObject location = new JSONObject();
+        requestParams.put("operation_shift", operationShift);
+        requestParams.put("location", location);
+        operationShift.put("role_id", roleId);
+        operationShift.put("started", started);
+        operationShift.put("plan_starts_at", planStartsAt);
+        operationShift.put("plan_ends_at", planEndsAt);
+        location.put("latitude", lat);
+        location.put("longitude", lon);
+        return givenWithAuth()
+                .body(requestParams)
+                .contentType(ContentType.JSON)
+                .log().body()
+                .post(ShopperApiEndpoints.Shopper.operation_shifts);
     }
 
     /**
@@ -71,7 +102,31 @@ public class ShopperApiRequests {
      */
     public static Response getShopperOperationShifts() {
         return givenWithAuth()
-                .get(ShopperApiEndpoints.Shoppers.operation_shifts);
+                .get(ShopperApiEndpoints.Shopper.operation_shifts);
+    }
+
+    /**
+     * Получаем список заказов для сборщика
+     */
+    public static Response getPackerShipments() {
+        return givenWithAuth()
+                .get(ShopperApiEndpoints.Packer.shipments);
+    }
+
+    /**
+     * Получаем список доставок сборщика
+     */
+    public static Response getPackerAssemblies() {
+        return givenWithAuth()
+                .get(ShopperApiEndpoints.Packer.assemblies);
+    }
+
+    /**
+     * Получаем список заказов для водителя
+     */
+    public static Response getDriverShipments() {
+        return givenWithAuth()
+                .get(ShopperApiEndpoints.Driver.shipments);
     }
 
     /**
@@ -90,6 +145,14 @@ public class ShopperApiRequests {
     public static Response getShipment(String shipmentId) {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.Shipments.id, shipmentId);
+    }
+
+    /**
+     * Получаем стоки заказа
+     */
+    public static Response getShipmentStocks(String shipmentId) {
+        return givenWithAuth()
+                .get(ShopperApiEndpoints.Shipments.stocks, shipmentId);
     }
 
     /**
@@ -132,6 +195,14 @@ public class ShopperApiRequests {
     }
 
     /**
+     * Получаем предзамены для товара
+     */
+    public static Response getAssemblyItemPrereplacements(String assemblyItemId) {
+        return givenWithAuth()
+                .get(ShopperApiEndpoints.AssemblyItems.prereplacements, assemblyItemId);
+    }
+
+    /**
      * Получаем тикеты хелпдеска
      */
     public static Response getHelpdeskTickets(String shipmentId) {
@@ -145,5 +216,37 @@ public class ShopperApiRequests {
     public static Response getRoutes() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.routes);
+    }
+
+    /**
+     * Получаем причины отмен
+     */
+    public static Response getCancelReasons() {
+        return givenWithAuth()
+                .get(ShopperApiEndpoints.cancel_reasons);
+    }
+
+    /**
+     * Получаем причины несоответсвия
+     */
+    public static Response getClarifyReasons() {
+        return givenWithAuth()
+                .get(ShopperApiEndpoints.clarify_reasons);
+    }
+
+    /**
+     * Получаем причины возврата
+     */
+    public static Response getReturnReasons() {
+        return givenWithAuth()
+                .get(ShopperApiEndpoints.return_reasons);
+    }
+
+    /**
+     * Получаем марс токен (стоки метро)
+     */
+    public static Response getMarsToken() {
+        return givenWithAuth()
+                .get(ShopperApiEndpoints.mars_token);
     }
 }

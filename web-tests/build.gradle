@@ -77,12 +77,12 @@ task sberSmoke(type: Test) {
     }
 }
 
-task restRegress(type: Test) {
+task apiRegress(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/suite.xml'
-        includeGroups 'rest'
+        includeGroups 'rest-smoke', 'rest'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
@@ -92,8 +92,37 @@ task restRegress(type: Test) {
     }
 }
 
+task apiV2Regress(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'rest-v2-smoke', 'rest'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+}
 
-task restSmoke(type: Test) {
+task apiShopperRegress(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'rest-shopper-smoke'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+}
+
+task apiSmoke(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
@@ -108,7 +137,37 @@ task restSmoke(type: Test) {
     }
 }
 
-task restZones(type: Test) {
+task apiV2Smoke(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'rest-v2-smoke'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+}
+
+task apiShopperSmoke(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'rest-shopper-smoke'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+}
+
+task apiZones(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true

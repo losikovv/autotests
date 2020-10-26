@@ -1,13 +1,13 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.requests.ApiV2Requests;
+import instamart.api.checkpoints.ApiV2Checkpoints;
 import instamart.api.common.RestBase;
+import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.PaymentToolsResponse;
 import instamart.core.common.AppManager;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
 public class PaymentTools extends RestBase {
@@ -22,8 +22,7 @@ public class PaymentTools extends RestBase {
             priority = 20)
     public void getPaymentTools() {
         response = ApiV2Requests.getPaymentTools();
-
-        assertEquals(response.getStatusCode(), 200);
+        ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(PaymentToolsResponse.class).getPayment_tools(),
                 "Не вернулась инфа о спобах оплаты");
     }

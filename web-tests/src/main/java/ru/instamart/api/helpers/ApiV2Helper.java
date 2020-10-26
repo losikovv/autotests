@@ -1,5 +1,6 @@
 package instamart.api.helpers;
 
+import instamart.api.checkpoints.ApiV2Checkpoints;
 import instamart.api.objects.v2.*;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.*;
@@ -13,8 +14,9 @@ import org.testng.asserts.SoftAssert;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static instamart.ui.modules.Base.kraken;
 
 public class ApiV2Helper extends HelperBase {
     private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
@@ -86,16 +88,6 @@ public class ApiV2Helper extends HelperBase {
     }
 
     /**
-     * Ассерт, что дата доставки заказа сегодня
-     */
-    public void assertIsDeliveryToday(Order order) {
-        String today = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-        String deliveryTime = order.getShipments().get(0).getDelivery_window().getStarts_at();
-        if (!deliveryTime.contains(today)) org.junit.Assert.fail("Заказ оформлен не на сегодня\ntoday: " +
-                today + "\ndelivery time: " + deliveryTime);
-    }
-
-    /**
      * Логаут (чистим токен для авторизации)
      */
     public void logout() {
@@ -140,21 +132,6 @@ public class ApiV2Helper extends HelperBase {
         Taxon taxon = ApiV2Requests.getTaxons(id, sid).as(TaxonResponse.class).getTaxon();
         System.out.println(taxon);
         return taxon;
-    }
-
-    public static void assertProductsCountEqualsChildrenSum(Taxon taxon, SoftAssert softAssert) {
-        List<Taxon> children = taxon.getChildren();
-        if (children == null) return;
-        int sum = 0;
-        for (Taxon child : children) {
-            sum += child.getProducts_count();
-            assertProductsCountEqualsChildrenSum(child, softAssert);
-        }
-        softAssert.assertEquals(sum, taxon.getProducts_count(),
-                "\n" + taxon.getName() +
-                        ", id: " + taxon.getId() +
-                        ", children_sum: " + sum +
-                        ", product_count: " + taxon.getProducts_count());
     }
 
     /**
@@ -268,15 +245,7 @@ public class ApiV2Helper extends HelperBase {
      */
     private void addItemToCart(long productId, int quantity) {
         Response response = ApiV2Requests.postLineItems(productId, quantity);
-        switch (response.statusCode()) {
-            case 200: break;
-            case 404:
-            case 422:
-                Assert.fail(response.as(ErrorResponse.class).getErrors().getBase());
-                break;
-            default:
-                Assert.fail("Unexpected status code: " + response.statusCode() + "\n" + response.body().print());
-        }
+        ApiV2Checkpoints.assertStatusCode200(response);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
 
         printSuccess(lineItem.toString());
@@ -426,7 +395,7 @@ public class ApiV2Helper extends HelperBase {
                 currentShipmentId.get(),
                 currentDeliveryWindowId.get(),
                 currentShipmentMethodId.get());
-        Assert.assertEquals(response.statusCode(),200, response.body().print());
+        ApiV2Checkpoints.assertStatusCode200(response);
         Order order = response.as(OrderResponse.class).getOrder();
         printSuccess("Применены атрибуты для заказа: " + order.getNumber());
         System.out.println("        full_address: " + order.getAddress().getFull_address());
@@ -481,7 +450,7 @@ public class ApiV2Helper extends HelperBase {
      */
     private void cancelOrder(String number) {
         Response response = ApiV2Requests.postOrdersCancellations(number);
-        Assert.assertEquals(response.statusCode(),200, response.body().print());
+        ApiV2Checkpoints.assertStatusCode200(response);
         Order order = response.as(CancellationsResponse.class).getCancellation().getOrder();
         printSuccess("Отменен заказ: " + order.getNumber() + "\n");
     }
@@ -676,11 +645,7 @@ public class ApiV2Helper extends HelperBase {
      * поэтому для мультипоточности реализованы synchronized + ожидание 3.1 секунды
      */
     synchronized public void authorisation(String email, String password) {
-        try {
-            Thread.sleep(3100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        kraken.await().simply(3.1);
         ApiV2Requests.token.set(ApiV2Requests.postSessions(email, password)
                 .as(SessionsResponse.class)
                 .getSession()

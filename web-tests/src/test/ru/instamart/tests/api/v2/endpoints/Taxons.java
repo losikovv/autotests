@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
+import instamart.api.checkpoints.ApiV2Checkpoints;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Taxon;
@@ -20,8 +21,7 @@ public class Taxons extends RestBase {
             priority = 6)
     public void getTaxons() {
         response = ApiV2Requests.getTaxons(1);
-
-        assertEquals(response.getStatusCode(), 200);
+        ApiV2Checkpoints.assertStatusCode200(response);
         List<Taxon> taxons = response.as(TaxonsResponse.class).getTaxons();
         assertNotNull(taxons, "Не вернулись таксоны");
         taxonId = taxons.get(0).getId();
@@ -33,8 +33,7 @@ public class Taxons extends RestBase {
             dependsOnMethods = "getTaxons")
     public void getTaxon() {
         response = ApiV2Requests.getTaxons(taxonId,1);
-
-        assertEquals(response.getStatusCode(), 200);
+        ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(TaxonResponse.class).getTaxon(), "Не вернулся таксон");
     }
 }
