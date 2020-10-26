@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.v2.dataprovider;
 
+import instamart.api.checkpoints.ApiV2Checkpoints;
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -63,7 +64,7 @@ public class StoreTests extends RestBase {
         SoftAssert softAssert = new SoftAssert();
         List<Taxon> taxons = ApiV2Helper.getCategories(store.getId());
         for (Taxon taxon : taxons) {
-            ApiV2Helper.assertProductsCountEqualsChildrenSum(taxon, softAssert);
+            ApiV2Checkpoints.assertProductsCountEqualsChildrenSum(taxon, softAssert);
         }
         softAssert.assertAll();
     }

@@ -7,7 +7,7 @@ import instamart.api.responses.v2.UsersResponse;
 
 import static org.testng.Assert.assertEquals;
 import static instamart.api.requests.ApiV2Requests.postUsers;
-
+//TODO переделать на датапровайдер
 public class Users extends RestBase {
     private final String firstName = "autotester";
     private final String lastName = "api";

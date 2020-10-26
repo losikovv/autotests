@@ -26,7 +26,7 @@ public class RestBase {
     public static RequestSpecification customerRequestSpec;
     public static RequestSpecification shopperRequestSpec;
 
-    @BeforeSuite(groups = {"rest","rest-zones","rest-smoke","rest-v2-smoke"})
+    @BeforeSuite(groups = {"rest","rest-zones","rest-smoke","rest-v2-smoke","rest-shopper-smoke"})
     public void start() throws Exception {
         kraken.riseRest();
         initSpec();
@@ -67,9 +67,9 @@ public class RestBase {
     }
 
     @BeforeClass(alwaysRun = true,
-                 groups = {"rest","rest-zones","rest-smoke","rest-v2-smoke"})
+                 groups = {"rest","rest-zones","rest-smoke","rest-v2-smoke","rest-shopper-smoke"})
     public void logout() {
-        kraken.apiV2().logout();
+        if(ApiV2Requests.authorized()) kraken.apiV2().logout();
     }
 
     @AfterMethod(description = "Отмена активных заказов после каждого теста",

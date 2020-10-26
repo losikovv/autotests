@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
+import instamart.api.checkpoints.ApiV2Checkpoints;
 import org.testng.annotations.Test;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.common.RestBase;
@@ -19,8 +20,7 @@ public class Products extends RestBase {
             priority = 2)
     public void getProducts() {
         response = ApiV2Requests.getProducts(1, "");
-
-        assertEquals(response.getStatusCode(), 200);
+        ApiV2Checkpoints.assertStatusCode200(response);
         List<Product> products = response.as(ProductsResponse.class).getProducts();
         assertNotNull(products, "Не вернулись продукты");
         productId = products.get(0).getId();
@@ -32,8 +32,7 @@ public class Products extends RestBase {
             dependsOnMethods = "getProducts")
     public void getProduct() {
         response = ApiV2Requests.getProducts(productId);
-
-        assertEquals(response.getStatusCode(), 200);
+        ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(ProductResponse.class).getProduct(), "Не вернулся продукт");
     }
 

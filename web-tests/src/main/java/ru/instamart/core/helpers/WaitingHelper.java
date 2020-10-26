@@ -20,10 +20,10 @@ public class WaitingHelper extends HelperBase {
     }
 
     /** Просто задержка на указанное время */
-    public void simply(int seconds) {
+    public static void simply(double seconds) {
         debugMessage("Задержка на " + seconds + " сек.");
         try {
-            Thread.sleep(seconds * 1000);
+            Thread.sleep((long) (seconds * 1000));
         } catch (InterruptedException i) {
             debugMessage("Прервано");
         }

@@ -1,14 +1,14 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.requests.ApiV2Requests;
+import instamart.api.checkpoints.ApiV2Checkpoints;
 import instamart.api.common.RestBase;
+import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.SessionsResponse;
 import instamart.core.common.AppManager;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
 public class AuthProviders extends RestBase {
@@ -24,7 +24,7 @@ public class AuthProviders extends RestBase {
         }
         response = ApiV2Requests.postAuthProvidersSessions(authProviderId);
 
-        assertEquals(response.getStatusCode(), 200);
+        ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(SessionsResponse.class).getSession());
     }
 

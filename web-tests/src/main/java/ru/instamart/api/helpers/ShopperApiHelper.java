@@ -1,17 +1,20 @@
 package instamart.api.helpers;
 
-import instamart.api.requests.ShopperApiRequests;
 import instamart.api.objects.shopper.AssemblyData;
 import instamart.api.objects.shopper.ShipmentData;
+import instamart.api.requests.ShopperApiRequests;
 import instamart.api.responses.shopper.AssembliesResponse;
 import instamart.api.responses.shopper.SessionsResponse;
 import instamart.api.responses.shopper.ShipmentsResponse;
 import instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
-import org.junit.Assert;
+import org.testng.Assert;
 
 import java.util.List;
 import java.util.StringJoiner;
+
+import static instamart.api.checkpoints.ShopperApiCheckpoints.assertStatusCode200;
+import static instamart.ui.modules.Base.kraken;
 
 public class ShopperApiHelper extends HelperBase {
 
@@ -43,11 +46,7 @@ public class ShopperApiHelper extends HelperBase {
      * Получаем shipment id по shipment number
      */
     private String getShipmentIdIteration(String shipmentNumber) {
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        kraken.await().simply(10);
         String shipmentId = null;
         Response response = ShopperApiRequests.getShopperShipments();
         List<ShipmentData> shipments = response.as(ShipmentsResponse.class).getData();
@@ -60,7 +59,7 @@ public class ShopperApiHelper extends HelperBase {
             String number = shipment.getAttributes().getNumber();
             if (shipment.getAttributes().getNumber().equalsIgnoreCase(shipmentNumber)) {
                 shipmentId = shipment.getId();
-                availableShipmentNumbers.add(number + " <<< Выбран");
+                availableShipmentNumbers.add(greenText(number + " <<< Выбран"));
             } else availableShipmentNumbers.add(number);
         }
         System.out.println(availableShipmentNumbers);
@@ -85,6 +84,7 @@ public class ShopperApiHelper extends HelperBase {
      */
     public String getCurrentAssemblyId() {
         Response response = ShopperApiRequests.getShopperAssemblies();
+        assertStatusCode200(response);
         List<AssemblyData> assemblies = response.as(AssembliesResponse.class).getData();
         if (assemblies.size() > 0) {
             System.out.println("Получаем id собираемой сборки: " + assemblies.get(0).getId());
@@ -104,5 +104,19 @@ public class ShopperApiHelper extends HelperBase {
             System.out.println("Удаляем сборку: " + currentAssemblyId);
             ShopperApiRequests.deleteAssembly(currentAssemblyId);
         }
+    }
+
+    /**
+     * Создаем смену сборщику
+     */
+    public void createShopperShift() {
+        Response response = ShopperApiRequests.postShopperOperationShifts(
+                1,
+                true,
+                getTodayDateAndTime(),
+                getNextDayDateAndTime(),
+                55.751244,
+                37.618423);
+        response.prettyPeek();
     }
 }
