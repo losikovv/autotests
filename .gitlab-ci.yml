@@ -4,4 +4,4 @@ testAuto:
   script:
     - "echo Hello Worlds"
   tags:
-    - ci
+    - k8s-stage
