@@ -23,7 +23,8 @@ public class ShipmentfulTests extends RestBase {
     String assemblyItemId;
     Integer itemQty;
 
-    @BeforeClass(alwaysRun = true)
+    @BeforeClass(alwaysRun = true,
+                 description = "Оформляем заказ")
     public void preconditions() {
         UserData user = user();
         kraken.apiV2().registration(user);
@@ -34,15 +35,15 @@ public class ShipmentfulTests extends RestBase {
         shipmentId = kraken.shopperApi().getShipmentId(order.getShipments().get(0).getNumber());
     }
 
-    @AfterClass(alwaysRun = true)
+    @AfterClass(alwaysRun = true,
+                description = "Удаляем текущую сборку")
     public void cleanup() {
         if (kraken.shopperApi().authorized())
             kraken.shopperApi().deleteCurrentAssembly();
     }
 
     @Test(  description = "Создаём сборку",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 101)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void postAssembly() {
         response = ShopperApiRequests.postAssembly(shipmentId);
         assertStatusCode200(response);
@@ -58,7 +59,6 @@ public class ShipmentfulTests extends RestBase {
 
     @Test(  description = "Получаем сборку по номеру",
             groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 102,
             dependsOnMethods = "postAssembly")
     public void getAssembly() {
         response = ShopperApiRequests.getAssembly(assemblyId);
@@ -72,8 +72,7 @@ public class ShipmentfulTests extends RestBase {
     }
 
     @Test(  description = "Получаем все заказы сборщика",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 103)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getShopperShipments() {
         response = ShopperApiRequests.getShopperShipments();
         assertStatusCode200(response);
@@ -83,7 +82,6 @@ public class ShipmentfulTests extends RestBase {
 
     @Test(  description = "Получаем все сборки сборщика",
             groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 104,
             dependsOnMethods = "postAssembly")
     public void getShopperAssemblies() {
         response = ShopperApiRequests.getShopperAssemblies();
@@ -97,7 +95,6 @@ public class ShipmentfulTests extends RestBase {
 
     @Test(  description = "Собираем товар",
             groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 105,
             dependsOnMethods = {"postAssembly", "getAssembly"})
     public void patchAssemblyItem() {
         response = ShopperApiRequests.patchAssemblyItem(assemblyId, assemblyItemId, itemQty);
@@ -106,8 +103,7 @@ public class ShipmentfulTests extends RestBase {
     }
 
     @Test(  description = "Получаем тикеты хелпдеска",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 106)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getHelpdeskTickets() {
         response = ShopperApiRequests.getHelpdeskTickets(shipmentId);
         assertStatusCode200(response);
@@ -116,8 +112,7 @@ public class ShipmentfulTests extends RestBase {
     }
 
     @Test(  description = "Получаем заказ",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 107)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getShipment() {
         response = ShopperApiRequests.getShipment(shipmentId);
         assertStatusCode200(response);
@@ -131,7 +126,6 @@ public class ShipmentfulTests extends RestBase {
 
     @Test(  description = "Получаем предзамены",
             groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 115,
             dependsOnMethods = "postAssembly")
     public void getAssemblyItemPrereplacements() {
         response = ShopperApiRequests.getAssemblyItemPrereplacements(assemblyItemId);
@@ -141,8 +135,7 @@ public class ShipmentfulTests extends RestBase {
     }
 
     @Test(  description = "Получаем инфу о стоках товаров в заказе",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 120)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getShipmentStock() {
         response = ShopperApiRequests.getShipmentStocks(shipmentId);
         assertStatusCode200(response);

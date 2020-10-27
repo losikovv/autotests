@@ -21,6 +21,8 @@ import static instamart.ui.modules.Base.kraken;
 public class ApiV2Helper extends HelperBase {
     private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentAddressId = new ThreadLocal<>();
+    public final ThreadLocal<String> currentOrderNumber = new ThreadLocal<>();
+    private final ThreadLocal<String> currentShipmentNumber = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentShipmentId = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentDeliveryWindowId = new ThreadLocal<>();
     private final ThreadLocal<PaymentTool> currentPaymentTool = new ThreadLocal<>();
@@ -119,7 +121,7 @@ public class ApiV2Helper extends HelperBase {
     }
 
     /*
-      МЕТОДЫ ОБРАБОТКИ ОТВЕТОВ REST API
+      МЕТОДЫ ОБРАБОТКИ ОТВЕТОВ API V2
      */
 
     public static List<Taxon> getCategories(int sid) {
@@ -138,7 +140,7 @@ public class ApiV2Helper extends HelperBase {
      * Удаляем товары из корзины
      */
     private void deleteItemsFromCart() {
-        Response response = ApiV2Requests.deleteShipments();
+        Response response = ApiV2Requests.deleteShipments(currentOrderNumber.get());
 
         Order order = response.as(OrderResponse.class).getOrder();
         System.out.println("Удалены все доставки у заказа: " + order.getNumber() + "\n");
@@ -160,7 +162,7 @@ public class ApiV2Helper extends HelperBase {
      * Изменение/применение параматров адреса из объекта адреса
      */
     private void setAddressAttributes(Address address) {
-        Response response = ApiV2Requests.putShipAddressChange(address);
+        Response response = ApiV2Requests.putShipAddressChange(address, currentOrderNumber.get());
 
         Address addressFromResponse = response
                 .as(ShipAddressChangeResponse.class)
@@ -244,7 +246,7 @@ public class ApiV2Helper extends HelperBase {
      * Добавляем товар в корзину
      */
     private void addItemToCart(long productId, int quantity) {
-        Response response = ApiV2Requests.postLineItems(productId, quantity);
+        Response response = ApiV2Requests.postLineItems(productId, quantity, currentOrderNumber.get());
         ApiV2Checkpoints.assertStatusCode200(response);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
 
@@ -271,8 +273,8 @@ public class ApiV2Helper extends HelperBase {
             minSumNotReached.set(false);
         }
         currentShipmentId.set(shipment.getId());
-        ApiV2Requests.currentShipmentNumber.set(shipment.getNumber());
-        System.out.println("Номер доставки: " + ApiV2Requests.currentShipmentNumber.get() + "\n");
+        currentShipmentNumber.set(shipment.getNumber());
+        System.out.println("Номер доставки: " + currentShipmentNumber.get() + "\n");
     }
 
     /**
@@ -324,7 +326,9 @@ public class ApiV2Helper extends HelperBase {
      * Получаем первый доступный слот
      */
     private void getAvailableDeliveryWindow() {
-        List<ShippingRate> shippingRates = ApiV2Requests.getShippingRates().as(ShippingRatesResponse.class).getShipping_rates();
+        List<ShippingRate> shippingRates = ApiV2Requests
+                .getShippingRates(currentShipmentNumber
+                        .get()).as(ShippingRatesResponse.class).getShipping_rates();
 
         Assert.assertNotEquals(
                 shippingRates.size(),
@@ -394,7 +398,8 @@ public class ApiV2Helper extends HelperBase {
                 currentPaymentTool.get().getId(),
                 currentShipmentId.get(),
                 currentDeliveryWindowId.get(),
-                currentShipmentMethodId.get());
+                currentShipmentMethodId.get(),
+                currentOrderNumber.get());
         ApiV2Checkpoints.assertStatusCode200(response);
         Order order = response.as(OrderResponse.class).getOrder();
         printSuccess("Применены атрибуты для заказа: " + order.getNumber());
@@ -410,7 +415,7 @@ public class ApiV2Helper extends HelperBase {
      */
     private Order completeOrder() {
         orderCompleted.set(false);
-        Response response = ApiV2Requests.postOrdersCompletion();
+        Response response = ApiV2Requests.postOrdersCompletion(currentOrderNumber.get());
         if (response.getStatusCode() == 422) {
             Errors errors = response.as(ErrorResponse.class).getErrors();
 
@@ -421,7 +426,7 @@ public class ApiV2Helper extends HelperBase {
                     System.out.println();
                     getAvailableDeliveryWindow();
                     setDefaultOrderAttributes();
-                    response = ApiV2Requests.postOrdersCompletion();
+                    response = ApiV2Requests.postOrdersCompletion(currentOrderNumber.get());
                 } else Assert.fail(response.body().toString());
             }
             if (errors.getPayments() != null) {
@@ -646,7 +651,9 @@ public class ApiV2Helper extends HelperBase {
      */
     synchronized public void authorisation(String email, String password) {
         kraken.await().simply(3.1);
-        ApiV2Requests.token.set(ApiV2Requests.postSessions(email, password)
+        Response response = ApiV2Requests.postSessions(email, password);
+        ApiV2Checkpoints.assertStatusCode200(response);
+        ApiV2Requests.token.set(response
                 .as(SessionsResponse.class)
                 .getSession()
                 .getAccess_token());
@@ -665,11 +672,11 @@ public class ApiV2Helper extends HelperBase {
      * Узнаем номер заказа
      */
     public void getCurrentOrderNumber() {
-        ApiV2Requests.currentOrderNumber.set(ApiV2Requests.postOrder()
+        currentOrderNumber.set(ApiV2Requests.postOrder()
                 .as(OrderResponse.class)
                 .getOrder()
                 .getNumber());
-        System.out.println("Номер текущего заказа: " + ApiV2Requests.currentOrderNumber.get() + "\n");
+        System.out.println("Номер текущего заказа: " + currentOrderNumber.get() + "\n");
     }
 
     /**
@@ -765,7 +772,9 @@ public class ApiV2Helper extends HelperBase {
      * Регистрация
      */
     public void registration(String email, String firstName, String lastName, String password) {
-        String registeredEmail = ApiV2Requests.postUsers(email, firstName, lastName, password)
+        Response response =  ApiV2Requests.postUsers(email, firstName, lastName, password);
+        ApiV2Checkpoints.assertStatusCode200(response);
+        String registeredEmail = response
                 .as(UsersResponse.class)
                 .getUser()
                 .getEmail();
@@ -862,8 +871,8 @@ public class ApiV2Helper extends HelperBase {
      * Отменить последний заказ (с которым взаимодействовали в этой сессии через REST API)
      */
     public void cancelCurrentOrder() {
-        if (ApiV2Requests.currentOrderNumber != null && orderCompleted.get())
-            cancelOrder(ApiV2Requests.currentOrderNumber.get());
+        if (currentOrderNumber.get() != null && orderCompleted.get())
+            cancelOrder(currentOrderNumber.get());
     }
 
     /**

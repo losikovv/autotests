@@ -22,8 +22,7 @@ public class ShipmentlessTests extends RestBase {
     }
 
     @Test(  description = "Получаем инфу о сборщике",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 108)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getShopper() {
         response = ShopperApiRequests.getShopper();
         assertStatusCode200(response);
@@ -35,8 +34,7 @@ public class ShipmentlessTests extends RestBase {
     }
 
     @Test(  description = "Получаем маршруты",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 109)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getRoutes() {
         response = ShopperApiRequests.getRoutes();
         assertStatusCode200(response);
@@ -44,8 +42,7 @@ public class ShipmentlessTests extends RestBase {
     }
 
     @Test(  description = "Получаем смены сборщика",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 110)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getShopperOperationShifts() {
         response = ShopperApiRequests.getShopperOperationShifts();
         assertStatusCode200(response);
@@ -53,8 +50,7 @@ public class ShipmentlessTests extends RestBase {
     }
 
     @Test(  description = "Получаем заказы водителя",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 111)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getDriverShipments() {
         response = ShopperApiRequests.getDriverShipments();
         assertStatusCode200(response);
@@ -62,8 +58,7 @@ public class ShipmentlessTests extends RestBase {
     }
 
     @Test(  description = "Получаем причины отмен",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 112)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getCancelReasons() {
         response = ShopperApiRequests.getCancelReasons();
         assertStatusCode200(response);
@@ -72,8 +67,7 @@ public class ShipmentlessTests extends RestBase {
     }
 
     @Test(  description = "Получаем причины несоответсвия",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 112)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getClarifyReasons() {
         response = ShopperApiRequests.getClarifyReasons();
         assertStatusCode200(response);
@@ -82,8 +76,7 @@ public class ShipmentlessTests extends RestBase {
     }
 
     @Test(  description = "Получаем причины возврата",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 112)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getReturnReasons() {
         response = ShopperApiRequests.getReturnReasons();
         assertStatusCode200(response);
@@ -92,8 +85,7 @@ public class ShipmentlessTests extends RestBase {
     }
 
     @Test(  description = "Получаем марс токен (стоки метро)",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 113)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getMarsToken() {
         response = ShopperApiRequests.getMarsToken();
         assertStatusCode200(response);
@@ -102,8 +94,7 @@ public class ShipmentlessTests extends RestBase {
     }
 
     @Test(  description = "Получаем заказы для упаковщика",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 116)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getPackerShipments() {
         response = ShopperApiRequests.getPackerShipments();
         assertStatusCode200(response);
@@ -112,8 +103,7 @@ public class ShipmentlessTests extends RestBase {
     }
 
     @Test(  description = "Получаем сборки упаковщика",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 117)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getPackerAssemblies() {
         response = ShopperApiRequests.getPackerAssemblies();
         assertStatusCode200(response);
@@ -122,8 +112,7 @@ public class ShipmentlessTests extends RestBase {
     }
 
     @Test(  description = "Получаем инфу о текущей версии приложения",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 118)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getCurrentAppVersion() {
         response = ShopperApiRequests.getCurrentAppVersion();
         assertStatusCode200(response);
@@ -132,8 +121,7 @@ public class ShipmentlessTests extends RestBase {
     }
 
     @Test(  description = "Поиск товаров",
-            groups = {"rest-smoke","rest-shopper-smoke"},
-            priority = 119)
+            groups = {"rest-smoke","rest-shopper-smoke"})
     public void getStoreOffers() {
         response = ShopperApiRequests.getStoreOffers(
                 AppManager.environment.getDefaultShopperSid(),

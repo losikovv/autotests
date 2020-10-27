@@ -11,8 +11,7 @@ import static org.testng.Assert.assertNotNull;
 public class Searches extends RestBase {
 
     @Test(  description = "Получаем поисковые подсказки",
-            groups = {"rest-smoke","rest-v2-smoke"},
-            priority = 3)
+            groups = {"rest-smoke","rest-v2-smoke"})
     public void getSearchSuggestions() {
         response = ApiV2Requests.getSearchSuggestions(1, "");
         ApiV2Checkpoints.assertStatusCode200(response);

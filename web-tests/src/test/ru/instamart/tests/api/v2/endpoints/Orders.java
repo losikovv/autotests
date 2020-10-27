@@ -18,15 +18,14 @@ import static org.testng.Assert.assertNotNull;
 public class Orders extends RestBase {
     private String orderNumber;
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         if (!ApiV2Requests.authorized()) kraken.apiV2().authorisation(AppManager.session.admin);
         ApiV2Requests.postOrder();
     }
 
     @Test(  description = "Получаем заказы",
-            groups = {"rest-smoke","rest-v2-smoke"},
-            priority = 4)
+            groups = {"rest-smoke","rest-v2-smoke"})
     public void getOrders() {
         response = ApiV2Requests.getOrders();
         ApiV2Checkpoints.assertStatusCode200(response);
@@ -36,8 +35,7 @@ public class Orders extends RestBase {
     }
 
     @Test(  description = "Получаем текущий заказ",
-            groups = {"rest-smoke","rest-v2-smoke"},
-            priority = 5)
+            groups = {"rest-smoke","rest-v2-smoke"})
     public void getCurrentOrder() {
         response = ApiV2Requests.getOrdersCurrent();
         ApiV2Checkpoints.assertStatusCode200(response);
@@ -46,7 +44,6 @@ public class Orders extends RestBase {
 
     @Test(  description = "Получаем заказ",
             groups = {"rest-smoke","rest-v2-smoke"},
-            priority = 9,
             dependsOnMethods = "getOrders")
     public void getOrder() {
         response = ApiV2Requests.getOrder(orderNumber);
@@ -55,8 +52,7 @@ public class Orders extends RestBase {
     }
 
     @Test(  description = "Получаем заказы для оценки",
-            groups = {"rest-smoke","rest-v2-smoke"},
-            priority = 16)
+            groups = {"rest-smoke","rest-v2-smoke"})
     public void getUnratedOrders() {
         response = ApiV2Requests.getUnratedOrders();
         ApiV2Checkpoints.assertStatusCode200(response);
@@ -66,7 +62,6 @@ public class Orders extends RestBase {
 
     @Test(  description = "Получаем товары в заказе",
             groups = {"rest-smoke","rest-v2-smoke"},
-            priority = 17,
             dependsOnMethods = "getOrders")
     public void getOrderLineItems() {
         response = ApiV2Requests.getOrderLineItems(orderNumber);

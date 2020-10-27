@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Custom suite" parallel="none">
-  <test verbose="1" name="web-tests">
+<suite name="Web UI suite" parallel="none">
+  <test verbose="1" name="Web UI tests">
     <groups>
       <run>
         <include name="sbermarket-smoke"/>
         <include name="testing"/>
-        <include name="rest"/>
-        <include name="rest-zones"/>
-        <include name="rest-smoke"/>
-        <include name="rest-v2-smoke"/>
-        <include name="rest-shopper-smoke"/>
         <include name="sbermarket-acceptance"/>
         <include name="sbermarket-regression"/>
         <include name="metro-smoke"/>
@@ -69,18 +64,6 @@
       <class name="ru.instamart.tests.shopping.ShoppingTestsForUnauthorizedUser"/>
       <class name="ru.instamart.tests.TestBase"/>
       <class name="ru.instamart.tests.orders.testOrders"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Taxons"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Searches"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Products"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Orders"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Stores"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.LineItems"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Users"/>
-      <class name="ru.instamart.tests.api.v2.dataprovider.StoreTests"/>
-      <class name="ru.instamart.tests.api.v2.dataprovider.ZoneTests"/>
-      <class name="ru.instamart.tests.api.v2.dataprovider.RetailerTests"/>
-      <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentfulTests"/>
-      <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentlessTests"/>
       <class name="ru.instamart.tests.user.UserAuthorisationTests"/>
       <class name="ru.instamart.tests.user.UserFavoritesTests"/>
       <class name="ru.instamart.tests.user.UserLogoutTests"/>

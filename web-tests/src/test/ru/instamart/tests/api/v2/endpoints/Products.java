@@ -16,8 +16,7 @@ public class Products extends RestBase {
     private long productId;
 
     @Test(  description = "Получаем продукты",
-            groups = {"rest-smoke","rest-v2-smoke"},
-            priority = 2)
+            groups = {"rest-smoke","rest-v2-smoke"})
     public void getProducts() {
         response = ApiV2Requests.getProducts(1, "");
         ApiV2Checkpoints.assertStatusCode200(response);
@@ -28,7 +27,6 @@ public class Products extends RestBase {
 
     @Test(  description = "Получаем продукт",
             groups = {"rest-smoke","rest-v2-smoke"},
-            priority = 10,
             dependsOnMethods = "getProducts")
     public void getProduct() {
         response = ApiV2Requests.getProducts(productId);

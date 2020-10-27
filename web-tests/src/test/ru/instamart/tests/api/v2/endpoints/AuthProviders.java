@@ -16,11 +16,10 @@ public class AuthProviders extends RestBase {
     @Test(  dataProvider = "authProviders",
             dataProviderClass = RestDataProvider.class,
             description = "Авторизуемся через стороннего провайдера",
-            groups = {"rest-smoke","rest-v2-smoke"},
-            priority = 14)
+            groups = {"rest-smoke","rest-v2-smoke"})
     public void postAuthProvidersSessions(String authProviderId) {
         if (AppManager.environment.getServer().equalsIgnoreCase("staging")) {
-            throw new SkipException("staging");
+            throw new SkipException("Скипаем тесты на стэйдже");
         }
         response = ApiV2Requests.postAuthProvidersSessions(authProviderId);
 

@@ -4,6 +4,7 @@ import instamart.api.common.RestBase;
 import instamart.api.endpoints.ApiV2EndPoints;
 import instamart.api.objects.v2.Address;
 import instamart.core.testdata.AuthProviders;
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -21,8 +22,6 @@ import static io.restassured.RestAssured.given;
  */
 public class ApiV2Requests {
     public static ThreadLocal<String> token = new ThreadLocal<>();
-    public static ThreadLocal<String> currentOrderNumber = new ThreadLocal<>();
-    public static ThreadLocal<String> currentShipmentNumber = new ThreadLocal<>();
 
     public static boolean authorized() {
         return token.get() != null;
@@ -61,6 +60,7 @@ public class ApiV2Requests {
     /**
      * Регистрация
      */
+    @Step
     public static Response postUsers(String email, String firstName, String lastName, String password) {
         Map<String, Object> data = new HashMap<>();
         data.put("user[email]", email);
@@ -80,17 +80,21 @@ public class ApiV2Requests {
     /**
      * Авторизация
      */
+    @Step
     public static Response postSessions(String email, String password) {
         return givenCatch()
                 .auth()
                 .preemptive()
                 .basic(email, password)
+                .header("Client-Id",
+                        "InstamartApp")
                 .post(ApiV2EndPoints.sessions);
     }
 
     /**
      * Авторизация через стороннего провайдера
      */
+    @Step
     public static Response postAuthProvidersSessions(String authProviderId) {
         JSONObject sessionParams = new JSONObject();
         JSONObject requestParams = new JSONObject();
@@ -130,6 +134,7 @@ public class ApiV2Requests {
     /**
      * Получаем активные (принят, собирается, в пути) заказы
      */
+    @Step
     public static Response getActiveOrders() {
         return givenCatch()
                 .header("Authorization",
@@ -140,6 +145,7 @@ public class ApiV2Requests {
     /**
      * Получаем активные (принят, собирается, в пути) заказы с указанием страницы
      */
+    @Step
     public static Response getActiveOrders(int page) {
         return givenCatch()
                 .header("Authorization",
@@ -150,6 +156,7 @@ public class ApiV2Requests {
     /**
      * Получение заказов
      */
+    @Step
     public static Response getOrders() {
         return givenCatch()
                 .header("Authorization",
@@ -160,6 +167,7 @@ public class ApiV2Requests {
     /**
      * Получение заказа по номеру
      */
+    @Step
     public static Response getOrder(String number) {
         return givenCatch()
                 .header("Authorization",
@@ -170,27 +178,32 @@ public class ApiV2Requests {
     /**
      * Создание заказа (если еще не создан)
      */
+    @Step
     public static Response postOrder() {
         return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
+                .header("Client-Id",
+                        "InstamartApp")
                 .post(ApiV2EndPoints.orders);
     }
 
     /**
      * Удаление всех шипментов у заказа
      */
-    public static Response deleteShipments() {
+    @Step
+    public static Response deleteShipments(String orderNumber) {
         return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
-                .delete(ApiV2EndPoints.Orders.shipments, currentOrderNumber.get());
+                .delete(ApiV2EndPoints.Orders.shipments, orderNumber);
     }
 
     /**
      * Изменение/применение параметров адреса
      */
-    public static Response putShipAddressChange(Address address) {
+    @Step
+    public static Response putShipAddressChange(Address address, String orderNumber) {
         Map<String, Object> data = new HashMap<>();
 
         if (address.getCity() != null) data.put("ship_address[city]", address.getCity());
@@ -213,12 +226,13 @@ public class ApiV2Requests {
                 .log()
                 .params()
                 .formParams(data)
-                .put(ApiV2EndPoints.Orders.ship_address_change, currentOrderNumber.get());
+                .put(ApiV2EndPoints.Orders.ship_address_change, orderNumber);
     }
 
     /**
      * Получение продуктов в выбранном магазине
      */
+    @Step
     public static Response getDepartments(int sid, int numberOfProductsFromEachDepartment) {
         return givenCatch().get(ApiV2EndPoints.departments, sid, numberOfProductsFromEachDepartment);
     }
@@ -226,6 +240,7 @@ public class ApiV2Requests {
     /**
      * Получение таксонов в выбранном магазине
      */
+    @Step
     public static Response getTaxons(int sid) {
         return givenCatch().get(ApiV2EndPoints.Taxons.sid, sid);
     }
@@ -233,6 +248,7 @@ public class ApiV2Requests {
     /**
      * Получение конкретного таксона в выбранном магазине
      */
+    @Step
     public static Response getTaxons(int taxonId, int sid) {
         return givenCatch().get(ApiV2EndPoints.Taxons.id, taxonId, sid);
     }
@@ -240,6 +256,7 @@ public class ApiV2Requests {
     /**
      * Получить продукты
      */
+    @Step
     public static Response getProducts(int sid, String query) {
         return givenCatch().get(ApiV2EndPoints.Products.sid, sid, query);
     }
@@ -247,6 +264,7 @@ public class ApiV2Requests {
     /**
      * Получить инфо о продукте
      */
+    @Step
     public static Response getProducts(long productId) {
         return givenCatch().get(ApiV2EndPoints.Products.id, productId);
     }
@@ -254,6 +272,7 @@ public class ApiV2Requests {
     /**
      * Получение поисковых подсказок
      */
+    @Step
     public static Response getSearchSuggestions(int sid, String query) {
         return givenCatch().get(ApiV2EndPoints.search_suggestions, sid, query);
     }
@@ -261,9 +280,10 @@ public class ApiV2Requests {
     /**
      * Добавляем товар в корзину
      */
-    public static Response postLineItems(long productId, int quantity) {
+    @Step
+    public static Response postLineItems(long productId, int quantity, String orderNumber) {
         Map<String, Object> data = new HashMap<>();
-        data.put("line_item[order_number]", currentOrderNumber.get());
+        data.put("line_item[order_number]", orderNumber);
         data.put("line_item[product_id]", productId);
         data.put("line_item[quantity]", quantity);
 
@@ -279,6 +299,7 @@ public class ApiV2Requests {
     /**
      * Удаляем товар из корзины
      */
+    @Step
     public static Response deleteLineItems(long productId) {
         return givenCatch()
                 .header("Authorization",
@@ -289,6 +310,7 @@ public class ApiV2Requests {
     /**
      * Получаем товары в заказе
      */
+    @Step
     public static Response getOrderLineItems(String orderNumber) {
         return givenCatch()
                 .header("Authorization",
@@ -299,6 +321,7 @@ public class ApiV2Requests {
     /**
      * Получить информацию о текущем заказе
      */
+    @Step
     public static Response getOrdersCurrent() {
         return givenCatch()
                 .header("Authorization",
@@ -309,6 +332,7 @@ public class ApiV2Requests {
     /**
      * Получаем заказы для оценки
      */
+    @Step
     public static Response getUnratedOrders() {
         return givenCatch()
                 .header("Authorization",
@@ -319,16 +343,18 @@ public class ApiV2Requests {
     /**
      * Получаем доступные слоты
      */
-    public static Response getShippingRates() {
+    @Step
+    public static Response getShippingRates(String shipmentNumber) {
         return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
-                .get(ApiV2EndPoints.Shipments.shipping_rates, currentShipmentNumber.get());
+                .get(ApiV2EndPoints.Shipments.shipping_rates, shipmentNumber);
     }
 
     /**
      * Получаем доступные способы доставки
      */
+    @Step
     public static Response getShippingMethod(int sid) {
         return givenCatch().get(ApiV2EndPoints.shipping_methods, sid);
     }
@@ -336,9 +362,11 @@ public class ApiV2Requests {
     /**
      * Применяем необходимые параметры к заказу
      */
+    @Step
     public static Response putOrders(//int addressId, //параметр ломает оформление заказа в некоторых магазинах
                                      int replacementPolicyId, String phoneNumber, String instructions,
-                                     int paymentToolId, int shipmentId, int deliveryWindowId, int shipmentMethodId) {
+                                     int paymentToolId, int shipmentId, int deliveryWindowId, int shipmentMethodId,
+                                     String orderNumber) {
         Map<String, Object> data = new HashMap<>();
         //data.put("order[address_attributes][id]", addressId);
         data.put("order[replacement_policy_id]", replacementPolicyId);
@@ -355,12 +383,13 @@ public class ApiV2Requests {
                 .log()
                 .params()
                 .formParams(data)
-                .put(ApiV2EndPoints.Orders.number, currentOrderNumber.get());
+                .put(ApiV2EndPoints.Orders.number, orderNumber);
     }
 
     /**
      * Получаем список всех доступных ритейлеров
      */
+    @Step
     public static Response getRetailers() {
         return givenCatch().get(ApiV2EndPoints.retailers);
     }
@@ -368,6 +397,7 @@ public class ApiV2Requests {
     /**
      * Получаем список всех доступных магазинов у ритейлера (spree api)
      */
+    @Step
     public static Response getRetailerStoresSpree(int retailerId) {
         return givenCatch().get(ApiV2EndPoints.Retailers.stores, retailerId);
     }
@@ -375,6 +405,7 @@ public class ApiV2Requests {
     /**
      * Получаем список всех доступных ритейлеров (spree api)
      */
+    @Step
     public static Response getRetailersSpree() {
         return givenCatch().get(ApiV2EndPoints.retailers_v1);
     }
@@ -382,6 +413,7 @@ public class ApiV2Requests {
     /**
      * Получаем список доступных магазинов по координатам
      */
+    @Step
     public static Response getStores(double lat, double lon) {
         return givenCatch().get(ApiV2EndPoints.Stores.coordinates, lat, lon);
     }
@@ -389,6 +421,7 @@ public class ApiV2Requests {
     /**
      * Получаем данные о конкретном магазине
      */
+    @Step
     public static Response getStores(int sid) {
         return givenCatch().get(ApiV2EndPoints.Stores.sid, sid);
     }
@@ -396,6 +429,7 @@ public class ApiV2Requests {
     /**
      * Получаем промоакции в магазине
      */
+    @Step
     public static Response getStorePromotionCards(int sid) {
         return givenCatch().get(ApiV2EndPoints.Stores.promotion_cards, sid);
     }
@@ -403,6 +437,7 @@ public class ApiV2Requests {
     /**
      * Получаем любимые товары
      */
+    @Step
     public static Response getFavoritesListItems(int sid) {
         return givenCatch()
                 .header("Authorization",
@@ -413,6 +448,7 @@ public class ApiV2Requests {
     /**
      * Получаем экраны онбординга
      */
+    @Step
     public static Response getOnboardingPages() {
         return givenCatch().get(ApiV2EndPoints.onboarding_pages);
     }
@@ -420,6 +456,7 @@ public class ApiV2Requests {
     /**
      * Получаем инфу о реферальной программе
      */
+    @Step
     public static Response getReferralProgram() {
         return givenCatch().get(ApiV2EndPoints.Promotions.referral_program);
     }
@@ -427,6 +464,7 @@ public class ApiV2Requests {
     /**
      * Получаем список способов оплаты для юзера
      */
+    @Step
     public static Response getPaymentTools() {
         return givenCatch()
                 .header("Authorization",
@@ -441,20 +479,22 @@ public class ApiV2Requests {
     /**
      * Завершаем оформление заказа
      */
-    public static Response postOrdersCompletion() {
+    @Step
+    public static Response postOrdersCompletion(String orderNumber) {
         return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
-                .post(ApiV2EndPoints.Orders.completion, currentOrderNumber.get());
+                .post(ApiV2EndPoints.Orders.completion, orderNumber);
     }
 
     /**
      * Отменяем заказ по номеру
      */
-    public static Response postOrdersCancellations(String number) {
+    @Step
+    public static Response postOrdersCancellations(String orderNumber) {
         return givenCatch()
                 .header("Authorization",
                         "Token token=" + token.get())
-                .post(ApiV2EndPoints.Orders.cancellations, number);
+                .post(ApiV2EndPoints.Orders.cancellations, orderNumber);
     }
 }
