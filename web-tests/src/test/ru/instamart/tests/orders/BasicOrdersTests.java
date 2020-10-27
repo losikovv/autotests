@@ -49,7 +49,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Тест заказа с добавлением нового юр. лица",
-            groups = {"sbermarket-regression"},
+            groups = {"sbermarket-regression","testing"},
             priority = 2000
     )
     public void successCompleteCheckoutWithNewJuridical() {
@@ -73,7 +73,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Тест заказа с изменением юр. лица",
-            groups = {"sbermarket-regression"},
+            groups = {"sbermarket-regression","testing"},
             priority = 2001
     )
     public void successCompleteCheckoutWithChangeJuridical() {
@@ -97,7 +97,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Тест заказа с новой картой оплаты",
-            groups = {"sbermarket-regression"},
+            groups = {"sbermarket-regression","testing"},
             priority = 2002
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
@@ -115,7 +115,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Тест заказа с любимыми товарами",
-            groups = {"sbermarket-regression"},
+            groups = {"sbermarket-regression","testing"},
             priority = 2003
     )
     public void successOrderWithFavProducts() {
