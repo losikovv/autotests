@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="REST API suite" parallel="none">
+  <test verbose="1" name="REST API tests">
+    <groups>
+      <run>
+        <include name="rest"/>
+        <include name="rest-zones"/>
+        <include name="rest-smoke"/>
+        <include name="rest-v2-smoke"/>
+        <include name="rest-shopper-smoke"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="ru.instamart.tests.api.v2.endpoints.Taxons"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Searches"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Products"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Orders"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Stores"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.LineItems"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Users"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.AuthProviders"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.FavoritesList"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Taxons"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.OnboardingPages"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.PaymentTools"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Promotions"/>
+      <class name="ru.instamart.tests.api.v2.dataprovider.StoreTests"/>
+      <class name="ru.instamart.tests.api.v2.dataprovider.ZoneTests"/>
+      <class name="ru.instamart.tests.api.v2.dataprovider.RetailerTests"/>
+      <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentfulTests"/>
+      <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentlessTests"/>
+    </classes>
+  </test> <!-- web-tests -->
+</suite> <!-- Custom suite -->

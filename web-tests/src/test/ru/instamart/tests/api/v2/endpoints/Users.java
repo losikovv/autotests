@@ -15,8 +15,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "Успешная регистрация",
-            groups = {"rest"},
-            priority = 100
+            groups = {"rest"}
     )
     public void successRegistration() {
         String email = email();
@@ -33,8 +32,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "Неверный формат email",
-            groups = {"rest"},
-            priority = 101
+            groups = {"rest"}
     )
     public void wrongEmailFormat() {
         String email = "example.com";
@@ -52,8 +50,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "короткий пароль",
-            groups = {"rest"},
-            priority = 102
+            groups = {"rest"}
     )
     public void shortPassword() {
         String password = "insta";
@@ -71,8 +68,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустой email",
-            groups = {"rest"},
-            priority = 103
+            groups = {"rest"}
     )
     public void emptyEmail() {
         response = postUsers(
@@ -88,8 +84,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустое имя",
-            groups = {"rest"},
-            priority = 104
+            groups = {"rest"}
     )
     public void emptyFirstName() {
         String email = email();
@@ -106,8 +101,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустая фамилия",
-            groups = {"rest"},
-            priority = 105
+            groups = {"rest"}
     )
     public void emptyLastName() {
         String email = email();
@@ -124,8 +118,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустые имя и фамилия",
-            groups = {"rest"},
-            priority = 106
+            groups = {"rest"}
     )
     public void emptyFirstAndLastNames() {
         String email = email();
@@ -143,8 +136,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустой пароль",
-            groups = {"rest"},
-            priority = 107
+            groups = {"rest"}
     )
     public void emptyPassword() {
         String email = email();

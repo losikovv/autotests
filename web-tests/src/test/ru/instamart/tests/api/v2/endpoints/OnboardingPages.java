@@ -11,8 +11,7 @@ import static org.testng.Assert.assertNotNull;
 public class OnboardingPages extends RestBase {
 
     @Test(  description = "Получаем экраны онбординга",
-            groups = {"rest-smoke","rest-v2-smoke"},
-            priority = 15)
+            groups = {"rest-smoke","rest-v2-smoke"})
     public void getOnboardingPages() {
         response = ApiV2Requests.getOnboardingPages();
         ApiV2Checkpoints.assertStatusCode200(response);

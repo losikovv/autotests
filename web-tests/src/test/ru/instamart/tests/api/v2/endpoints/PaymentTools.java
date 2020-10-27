@@ -12,14 +12,13 @@ import static org.testng.Assert.assertNotNull;
 
 public class PaymentTools extends RestBase {
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         kraken.apiV2().authorisation(AppManager.session.admin);
     }
 
     @Test(  description = "Получаем инфу способах оплаты",
-            groups = {"rest-smoke","rest-v2-smoke"},
-            priority = 20)
+            groups = {"rest-smoke","rest-v2-smoke"})
     public void getPaymentTools() {
         response = ApiV2Requests.getPaymentTools();
         ApiV2Checkpoints.assertStatusCode200(response);

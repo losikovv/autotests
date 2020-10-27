@@ -2,6 +2,7 @@ package instamart.api.requests;
 
 import instamart.api.common.RestBase;
 import instamart.api.endpoints.ShopperApiEndpoints;
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -34,17 +35,19 @@ public class ShopperApiRequests {
     /**
      * Авторизация
      */
-    public static Response postSessions(String email, String password) {
+    @Step
+    public static Response postSessions(String login, String password) {
         return givenWithSpec()
                 .auth()
                 .preemptive()
-                .basic(email, password)
+                .basic(login, password)
                 .post(ShopperApiEndpoints.sessions);
     }
 
     /**
      * Получаем инфу о шоппере
      */
+    @Step
     public static Response getCurrentAppVersion() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.current_app_version);
@@ -53,6 +56,7 @@ public class ShopperApiRequests {
     /**
      * Получаем инфу о шоппере
      */
+    @Step
     public static Response getShopper() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.shopper);
@@ -61,6 +65,7 @@ public class ShopperApiRequests {
     /**
      * Получаем список заказов для сборщика
      */
+    @Step
     public static Response getShopperShipments() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.Shopper.shipments);
@@ -69,6 +74,7 @@ public class ShopperApiRequests {
     /**
      * Получаем список доставок сборщика
      */
+    @Step
     public static Response getShopperAssemblies() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.Shopper.assemblies);
@@ -77,6 +83,7 @@ public class ShopperApiRequests {
     /**
      * Создаём смену для сборщика
      */
+    @Step
     public static Response postShopperOperationShifts(
             int roleId, boolean started, String planStartsAt, String planEndsAt, double lat, double lon) {
         JSONObject requestParams = new JSONObject();
@@ -100,6 +107,7 @@ public class ShopperApiRequests {
     /**
      * Получаем список смен сборщика
      */
+    @Step
     public static Response getShopperOperationShifts() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.Shopper.operation_shifts);
@@ -108,6 +116,7 @@ public class ShopperApiRequests {
     /**
      * Получаем список заказов для сборщика
      */
+    @Step
     public static Response getPackerShipments() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.Packer.shipments);
@@ -116,6 +125,7 @@ public class ShopperApiRequests {
     /**
      * Получаем список доставок сборщика
      */
+    @Step
     public static Response getPackerAssemblies() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.Packer.assemblies);
@@ -124,6 +134,7 @@ public class ShopperApiRequests {
     /**
      * Получаем список заказов для водителя
      */
+    @Step
     public static Response getDriverShipments() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.Driver.shipments);
@@ -132,6 +143,7 @@ public class ShopperApiRequests {
     /**
      * Создаем доставку
      */
+    @Step
     public static Response postAssembly(String shipmentId) {
         return givenWithAuth()
                 .formParam("shipment_id", shipmentId)
@@ -142,6 +154,7 @@ public class ShopperApiRequests {
     /**
      * Получаем заказ
      */
+    @Step
     public static Response getShipment(String shipmentId) {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.Shipments.id, shipmentId);
@@ -150,6 +163,7 @@ public class ShopperApiRequests {
     /**
      * Получаем стоки заказа
      */
+    @Step
     public static Response getShipmentStocks(String shipmentId) {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.Shipments.stocks, shipmentId);
@@ -158,6 +172,7 @@ public class ShopperApiRequests {
     /**
      * Получаем доставку
      */
+    @Step
     public static Response getAssembly(String assemblyId) {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.Assemblies.id, assemblyId);
@@ -166,6 +181,7 @@ public class ShopperApiRequests {
     /**
      * Удаляем доставку
      */
+    @Step
     public static Response deleteAssembly(String assemblyId) {
         return givenWithAuth()
                 .delete(ShopperApiEndpoints.Assemblies.id, assemblyId);
@@ -174,6 +190,7 @@ public class ShopperApiRequests {
     /**
      * Ищем товары
      */
+    @Step
     public static Response getStoreOffers(int shopperSid, String query) {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.Stores.offers, shopperSid, query);
@@ -182,6 +199,7 @@ public class ShopperApiRequests {
     /**
      * Собираем товар
      */
+    @Step
     public static Response patchAssemblyItem(String assemblyId, String itemId, int itemQty) {
         JSONObject requestParams = new JSONObject();
         JSONObject assemblyItem = new JSONObject();
@@ -197,6 +215,7 @@ public class ShopperApiRequests {
     /**
      * Получаем предзамены для товара
      */
+    @Step
     public static Response getAssemblyItemPrereplacements(String assemblyItemId) {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.AssemblyItems.prereplacements, assemblyItemId);
@@ -205,6 +224,7 @@ public class ShopperApiRequests {
     /**
      * Получаем тикеты хелпдеска
      */
+    @Step
     public static Response getHelpdeskTickets(String shipmentId) {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.Helpdesk.tickets, shipmentId);
@@ -213,6 +233,7 @@ public class ShopperApiRequests {
     /**
      * Получаем маршруты
      */
+    @Step
     public static Response getRoutes() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.routes);
@@ -221,6 +242,7 @@ public class ShopperApiRequests {
     /**
      * Получаем причины отмен
      */
+    @Step
     public static Response getCancelReasons() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.cancel_reasons);
@@ -229,6 +251,7 @@ public class ShopperApiRequests {
     /**
      * Получаем причины несоответсвия
      */
+    @Step
     public static Response getClarifyReasons() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.clarify_reasons);
@@ -237,6 +260,7 @@ public class ShopperApiRequests {
     /**
      * Получаем причины возврата
      */
+    @Step
     public static Response getReturnReasons() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.return_reasons);
@@ -245,6 +269,7 @@ public class ShopperApiRequests {
     /**
      * Получаем марс токен (стоки метро)
      */
+    @Step
     public static Response getMarsToken() {
         return givenWithAuth()
                 .get(ShopperApiEndpoints.mars_token);

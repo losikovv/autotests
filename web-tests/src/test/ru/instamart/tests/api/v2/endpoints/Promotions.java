@@ -11,8 +11,7 @@ import static org.testng.Assert.assertNotNull;
 public class Promotions extends RestBase {
 
     @Test(  description = "Получаем инфу о реферальной программе",
-            groups = {"rest-smoke","rest-v2-smoke"},
-            priority = 18)
+            groups = {"rest-smoke","rest-v2-smoke"})
     public void getReferralProgram() {
         response = ApiV2Requests.getReferralProgram();
         ApiV2Checkpoints.assertStatusCode200(response);

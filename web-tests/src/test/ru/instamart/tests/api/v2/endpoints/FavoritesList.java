@@ -12,14 +12,13 @@ import static org.testng.Assert.assertNotNull;
 
 public class FavoritesList extends RestBase {
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         kraken.apiV2().authorisation(AppManager.session.admin);
     }
 
     @Test(  description = "Получаем любимые товары",
-            groups = {"rest-smoke","rest-v2-smoke"},
-            priority = 13)
+            groups = {"rest-smoke","rest-v2-smoke"})
     public void getFavoritesListItems() {
         response = ApiV2Requests.getFavoritesListItems(1);
         ApiV2Checkpoints.assertStatusCode200(response);
