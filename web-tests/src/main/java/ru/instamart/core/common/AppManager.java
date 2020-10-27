@@ -7,12 +7,14 @@ import instamart.core.helpers.*;
 import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
 import instamart.core.testdata.ui.generate;
+import instamart.ui.common.pagesdata.BrowserData;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.SessionData;
 import instamart.ui.modules.Administration;
 import instamart.ui.modules.Checkout;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -45,6 +47,7 @@ public class AppManager {
 
     public WebDriver driver;
     static public EnvironmentData environment;
+    static public BrowserData browserData;
     private String browser;
     public static SessionData session;
 
@@ -169,6 +172,7 @@ public class AppManager {
                     ChromeDriverService chromeDriverService = ChromeDriverService.createDefaultService();
                     int port = chromeDriverService.getUrl().getPort();
                     driver = new ChromeDriver();
+                    getCapabilities(driver);
                     System.out.println(String.format("\nChromedriver запущен на порту: %1$s",port));
                     break;
                 case BrowserType.SAFARI:
@@ -185,6 +189,12 @@ public class AppManager {
                     break;
             }
         }
+    }
+
+    private void getCapabilities(WebDriver driver){
+        Capabilities cap = ((RemoteWebDriver) driver).getCapabilities();
+        browserData = new BrowserData(cap.getBrowserName(),
+                cap.getPlatform().toString(),cap.getVersion());
     }
 
 

@@ -31,6 +31,7 @@ allure {
 
 dependencies {
     compile "org.aspectj:aspectjweaver:1.9.2"
+   // implementation 'com.github.automatedowl:allure-environment-writer:v1.0.0'
     implementation "io.qameta.allure:allure-gradle:"+allureVersion
     implementation "io.qameta.allure:allure-java-commons:"+allureVersion
     implementation 'org.jetbrains:annotations:19.0.0'

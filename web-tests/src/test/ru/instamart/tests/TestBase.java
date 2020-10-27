@@ -1,5 +1,13 @@
 package ru.instamart.tests;
 
+import com.google.common.collect.ImmutableMap;
+import instamart.core.common.AppManager;
+import instamart.core.settings.Config;
+import instamart.core.testdata.ui.generate;
+import instamart.ui.common.pagesdata.ElementData;
+import instamart.ui.common.pagesdata.PageData;
+import instamart.ui.common.pagesdata.UserData;
+import instamart.ui.objectsmap.Elements;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.SkipException;
@@ -7,17 +15,11 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
-import instamart.core.common.AppManager;
-import instamart.core.settings.Config;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.common.pagesdata.ElementData;
-import instamart.ui.common.pagesdata.PageData;
-import instamart.ui.common.pagesdata.UserData;
-import instamart.core.testdata.ui.generate;
 
-import static instamart.core.settings.Config.CoreSettings.doCleanupAfterTestRun;
+import static instamart.core.helpers.AllureHelper.allureEnvironmentWriter;
 import static instamart.core.helpers.HelperBase.message;
 import static instamart.core.helpers.HelperBase.verboseMessage;
+import static instamart.core.settings.Config.CoreSettings.doCleanupAfterTestRun;
 
 public class TestBase {
 
@@ -31,6 +33,17 @@ public class TestBase {
             description = "Выпускаем Кракена")
     public void start() throws Exception {
         kraken.rise();
+        allureEnvironmentWriter(
+                ImmutableMap.<String, String>builder()
+                        .put("Browser", System.getProperty("browser", Config.CoreSettings.defaultBrowser))
+                        .put("Browser.Version", AppManager.browserData.getVersion())
+                        .put("Operation system", AppManager.browserData.getOs())
+                        .put("Tenant", AppManager.environment.getTenant())
+                        .put("URL", AppManager.environment.getBasicUrl())
+                        .put("Administration", AppManager.environment.getAdminUrl())
+                        .put("Shopper", AppManager.environment.getShopperUrl())
+                        .build(), System.getProperty("user.dir")
+                        + "/build/allure-results/");
     }
 
     @AfterSuite(groups = {
