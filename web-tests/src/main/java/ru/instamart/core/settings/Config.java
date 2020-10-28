@@ -16,22 +16,22 @@ public class Config {
     private boolean mobileAuth;
 
     public interface CoreSettings {
-        String defaultBrowser = BrowserType.CHROME;
-        String defaultEnvironment = Environments.sbermarket.staging();
+        String defaultBrowser = BrowserType.CHROME; //если с запуском тестов не передается название браузера то используется дефолтный
+        String defaultEnvironment = Environments.sbermarket.staging(); // Дефолтное окружение, если при запуске другое не было указано
         String defaultRetailer = Tenants.metro().getAlias();
 
         int basicTimeout = 2;
         int waitingTimeout = 25;
 
-        boolean docker = false;
-        boolean video = false;
+        boolean docker = false; // Переключатель включает прогон в селенойде
+        boolean video = false; // Включает запись видео
 
-        boolean verbose = true;
-        boolean debug = true;
+        boolean verbose = true; // Выводит сообщения в системный лог
+        boolean debug = true; // Тоже самое как verbose
 
         boolean multiSessionMode = false;
-        boolean fullScreenMode = false;
-        boolean doCleanupAfterTestRun = true;
+        boolean fullScreenMode = false; // запуск тестов на полном экране
+        boolean doCleanupAfterTestRun = true; // удаление всех сущностей после теста
         boolean doCleanupBeforeTestRun = true; //Все существующие инстансы браузера связанные с selenium будут удалены, рабочий браузер не убивается
 
 
@@ -45,6 +45,7 @@ public class Config {
         else return mobileAuth=true;
     }
 
+    //Секция переключателей для различных тестовых коллекций
     public interface TestsConfiguration {
 
         interface AdministrationTests {
@@ -120,6 +121,7 @@ public class Config {
             int minOrderSum = 2500;
         }
 
+        // TODO вынести в тестовые данные
         static OrderDetailsData testOrderDetails() {
             return new OrderDetailsData(
                     new AddressDetailsData(

@@ -153,6 +153,7 @@ public class AppManager {
             caps.setCapability("timeZone", "Europe/Moscow");
             try {
                 driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), caps);
+                getCapabilities(driver);
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
@@ -164,6 +165,7 @@ public class AppManager {
                     }
                     //System.setProperty("webdriver.gecko.driver", "/Users/tinwelen/Documents/GitHub/automag/web-tests/geckodriver");
                     driver = new FirefoxDriver();
+                    getCapabilities(driver);
                     break;
                 case BrowserType.CHROME:
                     if(doCleanupBeforeTestRun){
@@ -180,17 +182,20 @@ public class AppManager {
                         cleanProcessByName(BrowserType.SAFARI);
                     }
                     driver = new SafariDriver();
+                    getCapabilities(driver);
                     break;
                 case BrowserType.IE:
                     if(doCleanupBeforeTestRun){
                         cleanProcessByName(BrowserType.IE);
                     }
                     driver = new InternetExplorerDriver(); // there is no IE driver for mac yet :(
+                    getCapabilities(driver);
                     break;
             }
         }
     }
 
+    /**функция получает данные о браузере и тестовой машине */
     private void getCapabilities(WebDriver driver){
         Capabilities cap = ((RemoteWebDriver) driver).getCapabilities();
         browserData = new BrowserData(cap.getBrowserName(),
