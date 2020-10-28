@@ -1,5 +1,5 @@
 testAuto:
-  then: manual
+  when: manual
   image: gradle:jdk11
   script:
     - cd web-tests
