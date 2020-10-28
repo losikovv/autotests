@@ -7,6 +7,7 @@ testAuto:
   tags:
     - k8s-stage
   artifacts:
+    when: always
     paths:
       - web-tests/build/allure-results/
     expire_in: 1 week
