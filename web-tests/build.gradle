@@ -60,6 +60,11 @@ sourceSets {
     }
 }
 
+task allureCopyHistoryDir(type: Copy) {
+    from "build/reports/allure-report/history"
+    into "build/allure-results/history"
+}
+
 task sberSmoke(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
