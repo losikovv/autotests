@@ -1,7 +1,12 @@
-image: centos:7
-
 testAuto:
+  then: manual
+  image: gradle:jdk11
   script:
-    - "echo Hello Worlds"
+    - cd web-tests
+    - ./gradlew clean restSmoke -Penv=sbermarket-yc-staging allureReport
   tags:
     - k8s-stage
+  artifacts:
+    paths:
+      - web-tests/build/allure-results/
+    expire_in: 1 week
