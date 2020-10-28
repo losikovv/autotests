@@ -3,7 +3,7 @@ testAuto:
   image: gradle:jdk11
   script:
     - cd web-tests
-    - ./gradlew clean restSmoke -Penv=sbermarket-yc-staging allureReport
+    - ./gradlew clean apiV2Regress -Penv=sbermarket-staging allureReport
   tags:
     - k8s-stage
   artifacts:
