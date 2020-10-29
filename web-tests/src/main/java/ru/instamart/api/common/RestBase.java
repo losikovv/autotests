@@ -1,5 +1,6 @@
 package instamart.api.common;
 
+import com.google.common.collect.ImmutableMap;
 import instamart.api.requests.ApiV2Requests;
 import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.UserData;
@@ -16,6 +17,7 @@ import org.testng.annotations.BeforeSuite;
 
 import java.util.UUID;
 
+import static instamart.core.helpers.AllureHelper.allureEnvironmentWriter;
 import static io.restassured.RestAssured.*;
 import static io.restassured.config.EncoderConfig.encoderConfig;
 import static org.hamcrest.Matchers.not;
@@ -31,6 +33,14 @@ public class RestBase {
     public void start() throws Exception {
         kraken.riseRest();
         initSpec();
+        allureEnvironmentWriter(
+                ImmutableMap.<String, String>builder()
+                        .put("Tenant", AppManager.environment.getTenant())
+                        .put("URL", AppManager.environment.getBasicUrl())
+                        .put("Administration", AppManager.environment.getAdminUrl())
+                        .put("Shopper", AppManager.environment.getShopperUrl())
+                        .build(), System.getProperty("user.dir")
+                        + "/build/allure-results/");
     }
 
     private void initSpec() {

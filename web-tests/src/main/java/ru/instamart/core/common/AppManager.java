@@ -78,8 +78,7 @@ public class AppManager {
     }
 
     public void rise() throws IOException {
-        setDefaultUncaughtExceptionHandler();
-        SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
+        setLogs();
         setEnvironment();
         initTestSession();
         initDriver();
@@ -112,12 +111,18 @@ public class AppManager {
     }
 
     public void riseRest() throws IOException {
-        setDefaultUncaughtExceptionHandler();
-        SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
+        setLogs();
         initTestSession();
         setEnvironment();
         initRestHelpers();
         revealKraken();
+    }
+
+    public void setLogs() {
+        if (log) {
+            setDefaultUncaughtExceptionHandler();
+            SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
+        }
     }
 
     private static void setDefaultUncaughtExceptionHandler() {
