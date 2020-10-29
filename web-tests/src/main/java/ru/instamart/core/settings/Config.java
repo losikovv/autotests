@@ -16,7 +16,7 @@ public class Config {
     private boolean mobileAuth;
 
     public interface CoreSettings {
-        String defaultBrowser = BrowserType.CHROME; //если с запуском тестов не передается название браузера то используется дефолтный
+        String defaultBrowser = BrowserType.CHROME; // Если с запуском тестов не передается название браузера то используется дефолтный
         String defaultEnvironment = Environments.sbermarket.staging(); // Дефолтное окружение, если при запуске другое не было указано
         String defaultRetailer = Tenants.metro().getAlias();
 
@@ -28,16 +28,16 @@ public class Config {
 
         boolean verbose = true; // Выводит сообщения в системный лог
         boolean debug = true; // Тоже самое как verbose
+        boolean log = false; // Запись логов в файл
 
-        boolean multiSessionMode = false;
-        boolean fullScreenMode = false; // запуск тестов на полном экране
-        boolean doCleanupAfterTestRun = true; // удаление всех сущностей после теста
+        boolean multiSessionMode = false; // Возможность запускать несколько кракенов одновременно (возможно устарело)
+        boolean fullScreenMode = false; // Запуск тестов на полном экране
+        boolean doCleanupAfterTestRun = true; // Удаление всех сущностей после теста
         boolean doCleanupBeforeTestRun = true; //Все существующие инстансы браузера связанные с selenium будут удалены, рабочий браузер не убивается
 
-
-        boolean restIgnoreProperties = true;
-
+        boolean restIgnoreProperties = true; // RestAssured игнорирует неизвестные поля в ответах
     }
+
     /** Это временный костыль пока мы живем с разными типами авторизаци на стейдже и проде, когда переедем
      * полностью на мобилку, это нужно будет удалить */
     public boolean mobileAuth(){

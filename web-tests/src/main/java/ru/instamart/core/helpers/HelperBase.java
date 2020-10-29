@@ -6,8 +6,7 @@ import instamart.ui.common.pagesdata.EnvironmentData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static instamart.core.settings.Config.CoreSettings.debug;
-import static instamart.core.settings.Config.CoreSettings.verbose;
+import static instamart.core.settings.Config.CoreSettings.*;
 
 public class HelperBase {
     static WebDriver driver;
@@ -30,14 +29,16 @@ public class HelperBase {
     /** Отправить verbose-сообщение в консоль */
     public static void verboseMessage(String message) {
         if(verbose) {
-            LOGGER.debug(message);
+            if (log) LOGGER.debug(message);
+            else message(message);
         }
     }
 
     /** Отправить debug-сообщение в консоль */
     public static void debugMessage(String message) {
         if(debug) {
-            LOGGER.debug(message);
+            if (log) LOGGER.debug(message);
+            else message(message);
         }
     }
 
