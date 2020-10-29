@@ -1,7 +1,13 @@
-image: centos:7
-
 testAuto:
+  when: manual
+  image: gradle:jdk11
   script:
-    - "echo Hello Worlds"
+    - cd web-tests
+    - ./gradlew clean apiV2Regress -Penv=sbermarket-staging allureReport
   tags:
     - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/build/allure-results/
+    expire_in: 1 week
