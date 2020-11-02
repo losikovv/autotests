@@ -6,6 +6,7 @@ testAuto:
   script:
     - echo $P_ENV
     - echo $TEST_SET
+    - ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     - brew cask install chromedriver
     - cd web-tests
     - ./gradlew clean sberSmoke -Penv=$P_ENV -Pbrowser=chrome allureReport
