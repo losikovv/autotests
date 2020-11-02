@@ -1,9 +1,12 @@
 testAuto:
   when: manual
-  image: docker pull selenoid/chrome
+  image: gradle:jdk11
   script:
     - echo $P_ENV
     - echo $TEST_SET
+    - docker pull selenoid/chrome
+    - chmod +x cm
+    - ./cm selenoid start --vnc
     - cd web-tests
     - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=chrome allureReport
   tags:
