@@ -1,10 +1,9 @@
 testAuto:
   when: manual
-  image: gradle:jdk11
+  image: docker-registry/selenoid/chrome:79.0
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - docker pull selenoid/chrome
     - chmod +x cm
     - ./cm selenoid start --vnc
     - cd web-tests
