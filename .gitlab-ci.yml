@@ -2,7 +2,7 @@ testAuto:
   when: manual
   image: gradle:jdk11
   variables:
-    $P_ENV
+    P_ENV: $P_ENV
   services:
     - selenium/standalone-chrome
   script:
