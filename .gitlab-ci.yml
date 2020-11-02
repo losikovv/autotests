@@ -2,8 +2,10 @@ testAuto:
   when: manual
   image: gradle:jdk11
   script:
+    - echo $P_ENV
+    - echo $TEST_SET
     - cd web-tests
-    - ./gradlew clean apiV2Regress -Penv=sbermarket-staging allureReport
+    - ./gradlew clean $TEST_SET -Penv=$P_ENV allureReport
   tags:
     - k8s-stage
   artifacts:
