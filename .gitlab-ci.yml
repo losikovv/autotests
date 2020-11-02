@@ -1,9 +1,12 @@
 testAuto:
   when: manual
-  image: selenoid/chrome
+  image: gradle:jdk11
   script:
     - echo $P_ENV
     - echo $TEST_SET
+    - curl -Lo cm https://github.com/aerokube/cm/releases/download/1.7.0/cm_darwin_amd64
+    - chmod +x ./cm
+    - ./cm selenoid start --vnc
     - cd web-tests
     - ./gradlew clean sberSmoke -Penv=$P_ENV -Pbrowser=chrome allureReport
   tags:
