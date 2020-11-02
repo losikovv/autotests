@@ -1,6 +1,6 @@
 testAuto:
   when: manual
-  image: docker-registry/selenoid/chrome:79.0
+  image: selenoid/chrome
   script:
     - echo $P_ENV
     - echo $TEST_SET
