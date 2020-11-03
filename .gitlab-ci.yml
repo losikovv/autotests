@@ -6,10 +6,9 @@ testAuto:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    - brew cask install chromedriver
+    - echo $BROWSER
     - cd web-tests
-    - ./gradlew clean sberSmoke -Penv=$P_ENV -Pbrowser=chrome allureReport
+    - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER allureReport
   tags:
     - k8s-stage
   artifacts:
