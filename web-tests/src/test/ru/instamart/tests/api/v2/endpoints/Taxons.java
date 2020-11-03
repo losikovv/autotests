@@ -6,6 +6,7 @@ import instamart.api.objects.v2.Taxon;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.TaxonResponse;
 import instamart.api.responses.v2.TaxonsResponse;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import static org.testng.Assert.assertNotNull;
 public class Taxons extends RestBase {
     private int taxonId;
 
+    @CaseId(11)
     @Test(  description = "Получаем таксоны (подкатегории)",
             groups = {"rest-smoke","rest-v2-smoke"})
     public void getTaxons() {
@@ -25,6 +27,7 @@ public class Taxons extends RestBase {
         taxonId = taxons.get(0).getId();
     }
 
+    @CaseId(6)
     @Test(  description = "Получаем таксон (подкатегорию)",
             groups = {"rest-smoke","rest-v2-smoke"},
             dependsOnMethods = "getTaxons")

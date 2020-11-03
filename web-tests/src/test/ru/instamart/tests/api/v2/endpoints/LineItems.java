@@ -6,6 +6,7 @@ import instamart.api.objects.v2.LineItem;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.LineItemResponse;
 import instamart.api.responses.v2.ProductsResponse;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -26,6 +27,7 @@ public class LineItems extends RestBase {
                 .getId();
     }
 
+    @CaseId(8)
     @Test(  description = "Добавляем товар в корзину",
             groups = {"rest-smoke","rest-v2-smoke"})
     public void postLineItems() {
@@ -36,6 +38,7 @@ public class LineItems extends RestBase {
         lineItemId = lineItem.getId();
     }
 
+    @CaseId(18)
     @Test(  description = "Удаляем товар из корзины",
             groups = {"rest-smoke","rest-v2-smoke"},
             dependsOnMethods = "postLineItems")

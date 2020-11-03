@@ -3,6 +3,7 @@ package instamart.api.common;
 import com.google.common.collect.ImmutableMap;
 import instamart.api.requests.ApiV2Requests;
 import instamart.core.common.AppManager;
+import instamart.core.listeners.TmsListener;
 import instamart.ui.common.pagesdata.UserData;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -41,6 +42,7 @@ public class RestBase {
                         .put("Shopper", AppManager.environment.getShopperUrl())
                         .build(), System.getProperty("user.dir")
                         + "/build/allure-results/");
+        TmsListener.setProjectCode("APIAT");
     }
 
     private void initSpec() {

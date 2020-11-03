@@ -6,6 +6,7 @@ import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.SessionsResponse;
 import instamart.core.common.AppManager;
 import instamart.core.testdata.dataprovider.RestDataProvider;
+import io.qase.api.annotation.CaseId;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 
@@ -13,6 +14,7 @@ import static org.testng.Assert.assertNotNull;
 
 public class AuthProviders extends RestBase {
 
+    @CaseId(14)
     @Test(  dataProvider = "authProviders",
             dataProviderClass = RestDataProvider.class,
             description = "Авторизуемся через стороннего провайдера",

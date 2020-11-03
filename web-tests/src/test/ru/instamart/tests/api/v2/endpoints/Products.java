@@ -1,6 +1,7 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.checkpoints.ApiV2Checkpoints;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.common.RestBase;
@@ -15,6 +16,7 @@ import static org.testng.Assert.*;
 public class Products extends RestBase {
     private long productId;
 
+    @CaseId(2)
     @Test(  description = "Получаем продукты",
             groups = {"rest-smoke","rest-v2-smoke"})
     public void getProducts() {
@@ -25,6 +27,7 @@ public class Products extends RestBase {
         productId = products.get(0).getId();
     }
 
+    @CaseId(10)
     @Test(  description = "Получаем продукт",
             groups = {"rest-smoke","rest-v2-smoke"},
             dependsOnMethods = "getProducts")
