@@ -2,17 +2,19 @@ package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.checkpoints.ApiV2Checkpoints;
 import instamart.api.common.RestAddresses;
-import instamart.api.responses.v2.PromotionCardsResponse;
-import org.testng.annotations.Test;
-import instamart.api.requests.ApiV2Requests;
 import instamart.api.common.RestBase;
+import instamart.api.requests.ApiV2Requests;
+import instamart.api.responses.v2.PromotionCardsResponse;
 import instamart.api.responses.v2.StoreResponse;
 import instamart.api.responses.v2.StoresResponse;
+import io.qase.api.annotation.CaseId;
+import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertNotNull;
 
 public class Stores extends RestBase {
 
+    @CaseId(1)
     @Test(  description = "Получаем магазин",
             groups = {"rest-smoke","rest-v2-smoke"})
     public void getStore() {
@@ -21,6 +23,7 @@ public class Stores extends RestBase {
         assertNotNull(response.as(StoreResponse.class).getStore(), "Не вернулся магазин");
     }
 
+    @CaseId(7)
     @Test(  description = "Получаем список всех магазинов по указанным координатам",
             groups = {"rest-smoke","rest-v2-smoke"})
     public void getStoresByCoordinates() {
@@ -32,6 +35,7 @@ public class Stores extends RestBase {
                 "Не вернулись магазины по указанным координатам");
     }
 
+    @CaseId(12)
     @Test(  description = "Получаем промоакции в магазине",
             groups = {"rest-smoke","rest-v2-smoke"})
     public void getStorePromotionCards() {

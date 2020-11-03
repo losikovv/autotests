@@ -207,7 +207,6 @@ public class AppManager {
                 cap.getPlatform().toString(),cap.getVersion());
     }
 
-
     private void initHelpers() {
         browseHelper = new BrowseHelper(driver, environment, this);
         performHelper = new PerformHelper(driver, environment, this);
@@ -346,7 +345,6 @@ public class AppManager {
          return null;
      }
 
-
     public BrowseHelper get() { return browseHelper; }
     public PerformHelper perform() { return performHelper; }
     public ReachHelper reach() { return reachHelper; }
@@ -361,5 +359,5 @@ public class AppManager {
     public WaitingHelper await() { return waitingHelper; }
     public ApiV2Helper apiV2() { return apiV2Helper; }
     public ShopperApiHelper shopperApi() { return shopperApiHelper; }
-    public ApiHelper api() {return apiHelper; }
+    public ApiHelper api() { return apiHelper; }
 }

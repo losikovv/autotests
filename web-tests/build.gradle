@@ -42,6 +42,8 @@ dependencies {
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile group: 'uk.org.lidalia', name: 'sysout-over-slf4j', version: '1.0.2'
+    compile group: 'io.qase', name: 'qase-api', version: '1.0.2'
+    compile group: 'io.qase', name: 'qase-testng', version: '1.0.2'
 }
 //runtime group: 'org.aspectj', name: 'aspectjweaver', version: '1.6.10'
 repositories {
@@ -81,6 +83,9 @@ task sberSmoke(type: Test) {
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
     }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
 }
 
 task apiRegress(type: Test) {
@@ -95,6 +100,9 @@ task apiRegress(type: Test) {
     }
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
     }
 }
 
@@ -111,6 +119,9 @@ task apiV2Regress(type: Test) {
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
     }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
 }
 
 task apiShopperRegress(type: Test) {
@@ -125,6 +136,9 @@ task apiShopperRegress(type: Test) {
     }
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
     }
 }
 
@@ -141,6 +155,9 @@ task apiSmoke(type: Test) {
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
     }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
 }
 
 task apiV2Smoke(type: Test) {
@@ -155,6 +172,10 @@ task apiV2Smoke(type: Test) {
     }
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+        systemProperty 'qase.suite.id', 1
     }
 }
 
@@ -171,6 +192,10 @@ task apiShopperSmoke(type: Test) {
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
     }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+        systemProperty 'qase.suite.id', 3
+    }
 }
 
 task apiZones(type: Test) {
@@ -185,6 +210,9 @@ task apiZones(type: Test) {
     }
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
     }
 }
 
@@ -225,6 +253,9 @@ task sberAcceptance(type: Test) {
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
     }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
 }
 
 task sberRegression(type: Test) {
@@ -242,6 +273,9 @@ task sberRegression(type: Test) {
     }
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
     }
 }
 
@@ -261,6 +295,9 @@ task metroSmoke(type: Test){
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
     }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
 }
 
 task metroAcceptance(type: Test) {
@@ -278,6 +315,9 @@ task metroAcceptance(type: Test) {
     }
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
     }
 }
 
@@ -297,6 +337,9 @@ task metroRegression(type: Test){
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
     }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
 }
 
 task lentaSmoke(type: Test){
@@ -314,6 +357,9 @@ task lentaSmoke(type: Test){
     }
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
     }
 }
 
@@ -333,6 +379,9 @@ task lentaAcceptance(type: Test) {
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
     }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
 }
 
 task lentaRegression(type: Test){
@@ -350,6 +399,9 @@ task lentaRegression(type: Test){
     }
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
     }
 }
 

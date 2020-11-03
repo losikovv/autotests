@@ -2,6 +2,7 @@ package ru.instamart.tests;
 
 import com.google.common.collect.ImmutableMap;
 import instamart.core.common.AppManager;
+import instamart.core.listeners.TmsListener;
 import instamart.core.settings.Config;
 import instamart.core.testdata.ui.generate;
 import instamart.ui.common.pagesdata.ElementData;
@@ -44,6 +45,7 @@ public class TestBase {
                         .put("Shopper", AppManager.environment.getShopperUrl())
                         .build(), System.getProperty("user.dir")
                         + "/build/allure-results/");
+        TmsListener.setProjectCode("TESTAU");
     }
 
     @AfterSuite(groups = {

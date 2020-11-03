@@ -8,6 +8,7 @@ import instamart.api.responses.v2.LineItemsResponse;
 import instamart.api.responses.v2.OrderResponse;
 import instamart.api.responses.v2.OrdersResponse;
 import instamart.core.common.AppManager;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -24,6 +25,7 @@ public class Orders extends RestBase {
         ApiV2Requests.postOrder();
     }
 
+    @CaseId(4)
     @Test(  description = "Получаем заказы",
             groups = {"rest-smoke","rest-v2-smoke"})
     public void getOrders() {
@@ -34,6 +36,7 @@ public class Orders extends RestBase {
         orderNumber = orders.get(0).getNumber();
     }
 
+    @CaseId(5)
     @Test(  description = "Получаем текущий заказ",
             groups = {"rest-smoke","rest-v2-smoke"})
     public void getCurrentOrder() {
@@ -42,6 +45,7 @@ public class Orders extends RestBase {
         assertNotNull(response.as(OrderResponse.class).getOrder(), "Не вернулся текущий заказ");
     }
 
+    @CaseId(9)
     @Test(  description = "Получаем заказ",
             groups = {"rest-smoke","rest-v2-smoke"},
             dependsOnMethods = "getOrders")
@@ -51,6 +55,7 @@ public class Orders extends RestBase {
         assertNotNull(response.as(OrderResponse.class).getOrder(), "Не вернулся заказ по номеру");
     }
 
+    @CaseId(19)
     @Test(  description = "Получаем заказы для оценки",
             groups = {"rest-smoke","rest-v2-smoke"})
     public void getUnratedOrders() {
@@ -59,7 +64,7 @@ public class Orders extends RestBase {
         assertNotNull(response.as(OrdersResponse.class).getOrders(), "Не вернулись заказы для оценки");
     }
 
-
+    @CaseId(16)
     @Test(  description = "Получаем товары в заказе",
             groups = {"rest-smoke","rest-v2-smoke"},
             dependsOnMethods = "getOrders")
