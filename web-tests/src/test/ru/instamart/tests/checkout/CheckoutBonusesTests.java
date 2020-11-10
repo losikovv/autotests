@@ -14,12 +14,10 @@ import static instamart.core.testdata.ui.BonusPrograms.aeroflot;
 import static instamart.core.testdata.ui.BonusPrograms.mnogoru;
 
 public class CheckoutBonusesTests extends TestBase {
-
     @BeforeClass(alwaysRun = true)
     public void prepareForCheckout() {
         kraken.get().baseUrl();
         User.Do.loginAs(AppManager.session.admin);
-
         kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
     }
 

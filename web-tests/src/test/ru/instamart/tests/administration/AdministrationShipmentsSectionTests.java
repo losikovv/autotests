@@ -1,26 +1,26 @@
 package ru.instamart.tests.administration;
 
+import instamart.api.common.RestAddresses;
+import instamart.core.common.AppManager;
+import instamart.core.testdata.ui.generate;
+import instamart.ui.common.pagesdata.UserData;
+import instamart.ui.modules.Administration;
+import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import instamart.core.common.AppManager;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.common.pagesdata.UserData;
-import instamart.ui.modules.Administration;
-import instamart.ui.modules.User;
-import instamart.api.common.RestAddresses;
-import instamart.core.testdata.ui.generate;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.settings.Config.TestsConfiguration.AdministrationTests.enableShipmentsSectionTests;
 
 public class AdministrationShipmentsSectionTests extends TestBase {
-
     // TODO актуализировать тесты и зарезолвить тудушки - ATST-234
 
-    @BeforeMethod(alwaysRun = true)
-    public void reachAdministrationPanel() {
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
         kraken.reach().admin();
         kraken.get().adminPage("shipments");
     }

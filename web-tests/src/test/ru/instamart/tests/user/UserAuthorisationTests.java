@@ -1,6 +1,5 @@
 package ru.instamart.tests.user;
 
-import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
 import instamart.core.testdata.ui.generate;
@@ -11,9 +10,7 @@ import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
-import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -22,8 +19,7 @@ import ru.instamart.tests.TestBase;
 import static instamart.core.common.AppManager.session;
 
 public class UserAuthorisationTests extends TestBase {
-    Config config = new Config();
-    ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
+//    Config config = new Config();
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
 
@@ -36,18 +32,12 @@ public class UserAuthorisationTests extends TestBase {
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
-        capture.start();
         User.Logout.quickly();
     }
-    @AfterMethod(alwaysRun = true,
-                description ="Добавление сообщений из консоли в лог теста")
-    public void afterTest(){
-        String value = capture.stop();
-        Allure.addAttachment("Системный лог теста",value);
+
         //        Allure.getLifecycle().updateTestCase((g) -> {
 //            g.setStatusDetails( g.getStatusDetails().setMessage("blablablabl"));
 //        }); пусть полежит тут, это фунция обновления тест кейса, в будущем может пригодится
-    }
 
     @Description("Тест пытается авторизоваться с пустыми реквизитами")
     @Test(
@@ -59,7 +49,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 111
     )
     public void noAuthWithEmptyRequisites() {
-        if(config.mobileAuth())skipTest();
+       // if(config.mobileAuth())skipTest();
         kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.AuthModal.open();

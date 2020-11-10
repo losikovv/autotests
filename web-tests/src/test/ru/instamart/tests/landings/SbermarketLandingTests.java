@@ -1,26 +1,14 @@
 package ru.instamart.tests.landings;
 
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import instamart.ui.objectsmap.Elements;
 import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.common.AppManager.session;
 
 public class SbermarketLandingTests extends TestBase {
-
-    @BeforeMethod(alwaysRun = true)
-    public void quickLogout() {
-        User.Logout.quickly();
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void setup() {
-        User.Logout.quickly();
-    }
 
     @Test(
             description = "Тест валидности и наличия элементов лендинга Сбермаркета",

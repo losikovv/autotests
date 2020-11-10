@@ -1,15 +1,15 @@
 package ru.instamart.tests.checkout;
 
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import instamart.ui.objectsmap.Elements;
+import instamart.api.common.RestAddresses;
 import instamart.ui.common.pagesdata.AddressDetailsData;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Checkout;
 import instamart.ui.modules.User;
-import instamart.api.common.RestAddresses;
+import instamart.ui.objectsmap.Elements;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.settings.Config.TestVariables.testOrderDetails;
@@ -17,19 +17,18 @@ import static instamart.core.settings.Config.TestsConfiguration.CheckoutTests.en
 import static instamart.ui.common.lib.CheckoutSteps.addressStep;
 
 public class CheckoutAddressStepTests extends TestBase {
-
     // TODO актуализировать тесты - ATST-236
 
     @BeforeClass(alwaysRun = true)
     public void preparingForCheckout() {
         User.Logout.quickly();
         UserData user = User.Do.registration();
-
         kraken.apiV2().fillCart(user, RestAddresses.Moscow.defaultAddress());
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void reachCheckoutAndOpenAddressStep() {
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
         kraken.reach().checkout();
     }
 

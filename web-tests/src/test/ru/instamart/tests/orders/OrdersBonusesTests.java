@@ -1,35 +1,40 @@
 package ru.instamart.tests.orders;
 
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import instamart.api.common.RestAddresses;
 import instamart.core.common.AppManager;
-import instamart.ui.objectsmap.Elements;
 import instamart.core.testdata.ui.BonusPrograms;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Administration;
 import instamart.ui.modules.Checkout;
 import instamart.ui.modules.User;
-import instamart.api.common.RestAddresses;
+import instamart.ui.objectsmap.Elements;
+import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.settings.Config.TestsConfiguration.OrdersTests.enableOrderBonusesTests;
 
 public class OrdersBonusesTests extends TestBase {
-
     @BeforeClass(alwaysRun = true)
     public void setup() {
         User.Do.loginAs(AppManager.session.admin);
     }
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true,
+            description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void preconditions() {
         kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
-
         kraken.reach().checkout();
         Checkout.Bonuses.deleteAll();
+    }
+    @AfterMethod(alwaysRun = true,
+            description ="Очищаем окружение после теста")
+    public void afterTest(ITestResult result){
+        kraken.apiV2().cancelCurrentOrder();
     }
 
     @Test(  enabled = enableOrderBonusesTests,
@@ -68,8 +73,4 @@ public class OrdersBonusesTests extends TestBase {
                     "В заказе не применилась бонусная программа Аерофлот Бонус\n");
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void postconditions() {
-        kraken.apiV2().cancelCurrentOrder();
-    }
 }

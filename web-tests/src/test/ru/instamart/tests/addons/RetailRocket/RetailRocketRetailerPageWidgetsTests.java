@@ -1,14 +1,14 @@
 package ru.instamart.tests.addons.RetailRocket;
 
+import instamart.core.settings.Config;
+import instamart.ui.common.lib.Addresses;
+import instamart.ui.common.lib.Widgets;
+import instamart.ui.modules.Shop;
+import instamart.ui.modules.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import instamart.core.settings.Config;
-import instamart.ui.common.lib.Addresses;
-import instamart.ui.modules.Shop;
-import instamart.ui.modules.User;
-import instamart.ui.common.lib.Widgets;
 import ru.instamart.tests.TestBase;
 
 public class RetailRocketRetailerPageWidgetsTests extends TestBase {
@@ -20,8 +20,9 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void preconditions() {
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
     }
 

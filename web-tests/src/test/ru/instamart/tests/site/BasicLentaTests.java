@@ -1,7 +1,7 @@
 package ru.instamart.tests.site;
 
-import org.testng.annotations.Test;
 import instamart.ui.common.lib.Pages;
+import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class BasicLentaTests  extends TestBase {

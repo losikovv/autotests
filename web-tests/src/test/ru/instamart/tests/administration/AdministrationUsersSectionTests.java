@@ -1,24 +1,24 @@
 package ru.instamart.tests.administration;
 
+import instamart.core.testdata.Users;
+import instamart.core.testdata.ui.generate;
+import instamart.ui.common.lib.Pages;
+import instamart.ui.common.pagesdata.UserData;
+import instamart.ui.modules.Administration;
+import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import instamart.core.testdata.Users;
-import instamart.ui.modules.Administration;
-import instamart.ui.modules.User;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.common.lib.Pages;
-import instamart.ui.common.pagesdata.UserData;
-import instamart.core.testdata.ui.generate;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.settings.Config.TestsConfiguration.AdministrationTests.enableUsersSectionTests;
 
 public class AdministrationUsersSectionTests extends TestBase {
-
-    @BeforeMethod(alwaysRun = true)
-    public void reachAdministrationPanel() {
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
         kraken.reach().admin();
     }
 

@@ -120,35 +120,28 @@ public class Shop extends Base {
         @Step("Отправляем форму")
         public static void submit() {
             verboseMessage("> отправляем форму\n");
-            kraken.perform().click(Elements.Modals.AuthModal.submitButton());
+            kraken.perform().click(Elements.Modals.AuthModal.submitButtonRegistration());
             kraken.await().implicitly(2); // Ожидание авторизации/регистрации
         }
         @Step("Нажимаем кнопку авторизация через Vkontakte")
         public static void hitVkontakteButton() {
             verboseMessage("> нажимаем кнопку авторизация через Vkontakte\n");
-            WebElement vkontakteButton =
-                    kraken.perform().findChildElementByTagAndIndex(
-                            Elements.Modals.AuthModal.socialButtonsSectionParent(),
-                            By.tagName("button"),0);
-            kraken.perform().click(vkontakteButton);
+            kraken.perform().click(Elements.Modals.AuthModal.vkontakteButton());
         }
         @Step("Нажимаем кнопку авторизация через Facebook")
         public static void hitFacebookButton() {
             verboseMessage("> нажимаем кнопку авторизация через Facebook\n");
-            WebElement facebookButton =
-                    kraken.perform().findChildElementByTagAndIndex(
-                            Elements.Modals.AuthModal.socialButtonsSectionParent(),
-                            By.tagName("button"),1);
-            kraken.perform().click(facebookButton);
+            kraken.perform().click(Elements.Modals.AuthModal.facebookButton());
         }
         @Step("Нажимаем кнопку авторизация через MailRu")
         public static void hitMailRuButton() {
             verboseMessage("> нажимаем кнопку авторизация через MailRu\n");
-            WebElement mailButton =
-                    kraken.perform().findChildElementByTagAndIndex(
-                            Elements.Modals.AuthModal.socialButtonsSectionParent(),
-                            By.tagName("button"),2);
-            kraken.perform().click(mailButton);
+            kraken.perform().click(Elements.Modals.AuthModal.mailruButton());
+//            WebElement mailButton =
+//                    kraken.perform().findChildElementByTagAndIndex(
+//                            Elements.Modals.AuthModal.socialButtonsSectionParent(),
+//                            By.tagName("button"),2);
+//            kraken.perform().click(mailButton);
         }
         @Step("Нажимаем кнопку авторизация через SberID")
         public static void hitSberIdButton() {

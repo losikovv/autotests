@@ -1,24 +1,24 @@
 package ru.instamart.tests.administration;
 
+import instamart.core.helpers.ConsoleOutputCapturerHelper;
+import instamart.ui.common.lib.Pages;
+import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import instamart.ui.modules.User;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.common.lib.Pages;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.common.AppManager.session;
 
 public class BasicAdministrationTests extends TestBase {
-
+    ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
     //TODO актуализировать базовые тесты, все лишнее вынести в отдельные классы и порешать тудушки - ATST-235
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
         User.Logout.quickly();
     }
-
 
     // TODO перенести все тесты доступа в AdministrationAccessTests
 

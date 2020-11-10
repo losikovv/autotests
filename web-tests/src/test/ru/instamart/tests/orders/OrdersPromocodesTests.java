@@ -1,15 +1,16 @@
 package ru.instamart.tests.orders;
 
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import instamart.api.common.RestAddresses;
 import instamart.ui.common.lib.Promos;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Checkout;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
-import instamart.api.common.RestAddresses;
+import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 // Тесты заказов с промокодами
@@ -33,15 +34,19 @@ import ru.instamart.tests.TestBase;
 
 
 public class OrdersPromocodesTests extends TestBase {
-
     private UserData user;
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
     public void preconditions() {
         User.Logout.quickly();
         this.user = User.Do.registration();
-
         kraken.apiV2().fillCart(this.user, RestAddresses.Moscow.defaultAddress());
+    }
+
+    @AfterMethod(alwaysRun = true,
+            description ="Очищаем окружение после теста")
+    public void afterTest(ITestResult result){kraken.apiV2().cancelCurrentOrder();
     }
 
     @Test(
@@ -130,11 +135,6 @@ public class OrdersPromocodesTests extends TestBase {
                 "Не применяется промокод на скидку на второй заказ\n");
 
         kraken.checkout().complete();
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void postconditions() {
-        kraken.apiV2().cancelCurrentOrder();
     }
 }
 

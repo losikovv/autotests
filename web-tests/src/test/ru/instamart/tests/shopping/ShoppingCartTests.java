@@ -14,8 +14,8 @@ import ru.instamart.tests.TestBase;
 import static instamart.core.common.AppManager.session;
 
 public class ShoppingCartTests extends TestBase {
-
-    @BeforeClass(alwaysRun = true)
+    @BeforeClass(alwaysRun = true,
+            description = "Подготавливаем тестовое окружение к тестовому прогону")
     public void setup() {
         User.Logout.quickly();
         kraken.get().page(Config.CoreSettings.defaultRetailer);

@@ -132,14 +132,14 @@ public class Elements {
                                 "список магазинов на лендинге Сбермаркета");
                     }
 
-                    static ElementData homeLanding(){
-                        return new ElementData(By.xpath("//div[contains(@class,'home_landing')]"),
-                                "главный лендинг сбермаркета");
-                    }
-
                     static ElementData button(int position) {
                         return new ElementData(By.xpath("//div[@class='stores']//a[@class='stores-block'][" + position + "]"),
                                 "кнопка " + position + " магазина на лендинге Сбермаркета");
+                    }
+
+                    static ElementData homeLanding(){
+                        return new ElementData(By.xpath("//div[contains(@class,'home_landing')]"),
+                                "главный лендинг сбермаркета");
                     }
                 }
             }
@@ -591,13 +591,17 @@ public class Elements {
         }
 
         static ElementData submitButton() {
-            return new ElementData(By.xpath("//*[contains(@class,'auth')]//button[@type='submit']"),
+            return new ElementData(By.xpath("//button[@data-qa='login_form_submit_button']"),
                     "кнопка отправки в модалке авторизации");
+        }
+        static ElementData submitButtonRegistration() {
+            return new ElementData(By.xpath("//button[@data-qa='registration_form_submit_button']"),
+                        "кнопка отправки в модалке авторизации");
         }
         //ToDo здесь нужно добавить дата атрибут с именем, так как кнопки друг от друга ни как не отличаются
         static ElementData vkontakteButton() {
             return new ElementData(
-                    By.xpath("//div[@class='auth-modal__form__social-icon auth-modal__social-icon--vkontakte']"),
+                    By.xpath("//button[@data-qa='vkontakte']"),
                         "кнопка авторизации через Vkontakte");
         }
 
@@ -608,19 +612,19 @@ public class Elements {
 
         static ElementData facebookButton() {
             return new ElementData(
-                    By.xpath("//div[@class='auth-modal__form__social-icon auth-modal__social-icon--facebook']"),
+                    By.xpath("//button[@data-qa='facebook']"),
                         "кнопка авторизации через Facebook");
         }
 
         static ElementData mailruButton() {
             return new ElementData(
-                    By.xpath("//div[contains(@class,'social-icon auth-modal__social-icon--mail_ru')]"),
+                    By.xpath("//button[@data-qa='mail_ru']"),
                         "кнопка авторизации через Mail.ru");
         }
 
         static ElementData sberButton() {
             return new ElementData(
-                    By.xpath("//button[contains(@class,'sberbank_button')]"),
+                    By.xpath("//button[@data-qa='sber_id']"),
                         "кнопка авторизации через Sber ID");
         }
 

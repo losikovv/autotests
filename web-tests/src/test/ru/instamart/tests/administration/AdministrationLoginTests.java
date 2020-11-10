@@ -1,14 +1,14 @@
 package ru.instamart.tests.administration;
 
+import instamart.core.testdata.Users;
+import instamart.ui.common.lib.Pages;
+import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import instamart.ui.objectsmap.Elements;
-import instamart.core.testdata.Users;
-import instamart.ui.common.lib.Pages;
-import instamart.ui.modules.User;
 import ru.instamart.tests.TestBase;
 
 public class AdministrationLoginTests extends TestBase {
@@ -18,8 +18,9 @@ public class AdministrationLoginTests extends TestBase {
         User.Logout.quickly();
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void getAdminLoginPage() {
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
         kraken.get().page(Pages.Admin.login());
     }
 

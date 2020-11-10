@@ -1,22 +1,20 @@
 package ru.instamart.tests.checkout;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import instamart.api.common.RestAddresses;
 import instamart.core.common.AppManager;
 import instamart.ui.common.lib.Promos;
 import instamart.ui.modules.Checkout;
 import instamart.ui.modules.User;
-import instamart.api.common.RestAddresses;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class CheckoutPromocodeTests extends TestBase {
-
     @BeforeClass(alwaysRun = true)
     public void prepareForCheckout() {
         kraken.get().baseUrl();
         User.Do.loginAs(AppManager.session.admin);
-
         kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
     }
 

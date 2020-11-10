@@ -1,21 +1,22 @@
 package ru.instamart.tests.user;
 
+import instamart.core.testdata.ui.generate;
+import instamart.ui.common.lib.Pages;
+import instamart.ui.modules.Shop;
+import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.common.lib.Pages;
-import instamart.ui.modules.Shop;
-import instamart.ui.modules.User;
-import instamart.core.testdata.ui.generate;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.common.AppManager.session;
 
 public class UserFavoritesTests extends TestBase {
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
     public void quickLogout() {
         User.Logout.quickly();
     }

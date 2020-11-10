@@ -1,5 +1,6 @@
 package instamart.core.helpers;
 
+import io.qameta.allure.Attachment;
 import org.openqa.selenium.*;
 import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
@@ -59,5 +60,12 @@ public class HelperBase {
     /** Удалить куки */
     public void deleteAllCookies() {
         driver.manage().deleteAllCookies();
+    }
+
+    /** Создаем скриншот и добавляем его в Allure*/
+    @Attachment(value = "Скриншот с веб страницы", type = "image/png")
+    public static byte[] takeScreenshot() {
+        // Take a screenshot as byte array and return
+        return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
     }
 }

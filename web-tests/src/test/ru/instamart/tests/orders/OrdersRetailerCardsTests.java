@@ -3,9 +3,9 @@ package ru.instamart.tests.orders;
 import instamart.api.common.RestAddresses;
 import instamart.core.common.AppManager;
 import instamart.core.settings.Config;
+import instamart.core.testdata.ui.RetailerCards;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
-import instamart.core.testdata.ui.RetailerCards;
 import instamart.ui.modules.Checkout;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
@@ -17,8 +17,8 @@ import ru.instamart.tests.TestBase;
 import static org.testng.Assert.assertTrue;
 
 public class OrdersRetailerCardsTests extends TestBase {
-
-    @BeforeClass(alwaysRun = true)
+    @BeforeClass(alwaysRun = true,
+            description = "Подготавливаем тестовое окружение к прогону тестов")
     public void setup() {
         kraken.get().baseUrl();
         User.Do.loginAs(kraken.session.admin);
