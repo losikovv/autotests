@@ -1,6 +1,5 @@
 package ru.instamart.tests.user;
 
-import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
 import instamart.core.testdata.ui.generate;
@@ -10,39 +9,21 @@ import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
-import io.qameta.allure.Allure;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class UserRegistrationTests extends TestBase {
-
-    ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
     public static String modalType;
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
     String env = System.getProperty("env", Config.CoreSettings.defaultEnvironment);
 
-    @BeforeClass(alwaysRun = true,
-            description ="Проверяем залогинен ли пользователь до старта скоупа тестов, если да то завершаем сессию")
-    public void setup() {
-        User.Logout.quickly();
-    }
-
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
-        capture.start();
         User.Logout.quickly();
-    }
-    @AfterMethod(alwaysRun = true,
-            description ="Добавление сообщений из консоли в лог теста")
-    public void afterTest(){
-        String value = capture.stop();
-        Allure.addAttachment("Системный лог теста",value);
     }
 
     @Test(

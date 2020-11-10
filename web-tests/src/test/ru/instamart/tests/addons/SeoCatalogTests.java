@@ -15,9 +15,9 @@ import static instamart.core.common.AppManager.session;
 import static instamart.core.settings.Config.TestsConfiguration.AddonsTests.enableSeoCatalogTests;
 
 public class SeoCatalogTests extends TestBase {
-
-    @BeforeMethod(alwaysRun = true)
-    public void reachSeoCatalog() {
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
         kraken.reach().seoCatalog();
     }
 

@@ -6,12 +6,13 @@ import instamart.core.settings.Config;
 import instamart.core.testdata.ui.PaymentTypes;
 import instamart.core.testdata.ui.generate;
 import instamart.ui.common.lib.Pages;
+import instamart.ui.common.pagesdata.JuridicalData;
+import instamart.ui.common.pagesdata.PaymentCardData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
-import instamart.ui.common.pagesdata.JuridicalData;
-import instamart.ui.common.pagesdata.PaymentCardData;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -35,12 +36,19 @@ public class BasicOrdersTests extends TestBase {
 
     // TODO successOrderWithDocumentsNeeded
 
-    @BeforeMethod(alwaysRun = true)
+
+    @BeforeMethod(alwaysRun = true,
+            description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void preconditions() {
         kraken.get().baseUrl();
         User.Do.loginAs(AppManager.session.admin);
-
         kraken.apiV2().dropCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+    }
+
+    @AfterMethod(alwaysRun = true,
+            description ="Очистка окружения после теста")
+    public void afterTest(ITestResult result){
+        kraken.perform().cancelLastActiveOrder();
     }
     // TODO Тесты на изменение телефона и контактов
 
@@ -130,8 +138,4 @@ public class BasicOrdersTests extends TestBase {
                 "Не оформляется заказ с любимыми товарами\n");
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void cancelOrder() {
-        kraken.perform().cancelLastActiveOrder();
-    }
 }

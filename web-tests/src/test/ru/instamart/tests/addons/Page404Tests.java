@@ -1,18 +1,18 @@
 package ru.instamart.tests.addons;
 
+import instamart.core.settings.Config;
+import instamart.ui.common.lib.Pages;
+import instamart.ui.modules.Shop;
+import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import instamart.core.settings.Config;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.common.lib.Pages;
-import instamart.ui.modules.Shop;
 import ru.instamart.tests.TestBase;
 
 public class Page404Tests extends TestBase {
-
-    @BeforeMethod(alwaysRun = true)
-    public void getPage404() {
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
         kraken.get().page(Pages.page404());
     }
 

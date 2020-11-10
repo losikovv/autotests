@@ -1,6 +1,5 @@
 package ru.instamart.tests.user;
 
-import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.settings.Config;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.checkpoints.users.ShippingAddressCheckpoints;
@@ -8,9 +7,6 @@ import instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
-import io.qameta.allure.Allure;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
@@ -18,29 +14,15 @@ import ru.instamart.tests.TestBase;
 import static instamart.core.common.AppManager.session;
 
 public class UserLogoutTests extends TestBase {
-    ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
     ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
 
-    @BeforeClass(alwaysRun = true)
-    public void setup() {
-        User.Logout.quickly();
-    }
     @BeforeMethod(alwaysRun = true,
-            description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
+            description ="Выполняем шаги предусловий для теста")
     public void quickLogout() {
-        capture.start();
         User.Logout.quickly();
     }
-    @AfterMethod(alwaysRun = true,
-            description ="Добавление сообщений из консоли в лог теста")
-    public void afterTest(){
-        String value = capture.stop();
-        Allure.addAttachment("Системный лог теста",value);
-    }
-
-
 
     @Test(  description = "Тест успешной быстрой деавторизации",
             priority = 126,

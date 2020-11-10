@@ -1,19 +1,19 @@
 package ru.instamart.tests.administration;
 
+import instamart.ui.modules.Administration;
+import instamart.ui.objectsmap.Elements;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.modules.Administration;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.settings.Config.TestsConfiguration.AdministrationTests.enablePagesSectionTests;
 
 public class AdministrationPagesSectionTests extends TestBase {
-
     // TODO актуализировать тесты в классе - ATST-233
 
-    @BeforeMethod(alwaysRun = true)
-    public void reachAdministration() {
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
         kraken.reach().admin();
     }
 

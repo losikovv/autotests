@@ -13,7 +13,8 @@ public class UserPasswordRecoveryTests extends TestBase {
 
     // todo не трогать до перехода на авторизацию по номера телефона, изменится логика восстановления
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true,
+            description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
         User.Logout.quickly();
     }

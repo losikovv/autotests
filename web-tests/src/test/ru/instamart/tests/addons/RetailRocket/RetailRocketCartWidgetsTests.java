@@ -1,5 +1,6 @@
 package ru.instamart.tests.addons.RetailRocket;
 
+import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.settings.Config;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Widgets;
@@ -22,12 +23,15 @@ public class RetailRocketCartWidgetsTests extends TestBase {
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void preconditions() {
+    ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловия для теста")
+    public void beforeTest() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         Shop.Catalog.Item.addToCart();
         Shop.Cart.open();
     }
+
 
     @Test(enabled = enableRetailRocketTest,
             description = "Тест наличия виджета 'Не забудьте купить' в корзине",

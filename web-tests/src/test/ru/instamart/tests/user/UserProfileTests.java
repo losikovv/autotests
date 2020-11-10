@@ -1,27 +1,28 @@
 package ru.instamart.tests.user;
 
+import instamart.ui.common.lib.Pages;
+import instamart.ui.modules.Shop;
+import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import instamart.ui.modules.User;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.common.lib.Pages;
-import instamart.ui.modules.Shop;
 import ru.instamart.tests.TestBase;
 
 public class UserProfileTests extends TestBase {
 
-    @BeforeClass(alwaysRun = true)
+    @BeforeClass(alwaysRun = true,
+            description = "Подготавливаем тестовое окружение к тестовому прогону")
     public void setup() {
-        User.Logout.quickly();
         User.Do.registration();
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void preconditions() {
-        kraken.get().baseUrl();
+    @BeforeMethod(alwaysRun = true,
+            description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
+    public void quickLogout() {
+        User.Logout.quickly();
     }
 
     @Test(

@@ -1,12 +1,12 @@
 package ru.instamart.tests.addons.RetailRocket;
 
+import instamart.ui.common.lib.Widgets;
+import instamart.ui.modules.Shop;
+import instamart.ui.modules.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import instamart.ui.modules.User;
-import instamart.ui.common.lib.Widgets;
-import instamart.ui.modules.Shop;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.settings.Config.TestsConfiguration.AddonsTests.enableRetailRocketTest;
@@ -19,10 +19,12 @@ public class RetailRocketSeoCatalogWidgetsTests extends TestBase {
         kraken.get().page("categories/ovoshchi-i-frukty");
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void preconditions () {
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
         kraken.get().page("categories/ovoshchi-i-frukty");
     }
+
 
     @Test(enabled = enableRetailRocketTest,
             description = "Тест наличия виджета 'выбор покупатлей' в сео каталоге",

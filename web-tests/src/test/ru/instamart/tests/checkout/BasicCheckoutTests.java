@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class BasicCheckoutTests extends TestBase {
-
     @BeforeClass(alwaysRun = true)
     public void preparingForCheckout() {
         User.Logout.quickly();
@@ -19,10 +18,12 @@ public class BasicCheckoutTests extends TestBase {
         kraken.apiV2().fillCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void reachCheckout() {
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
         kraken.reach().checkout();
     }
+
 
     @Test(  description = "Тест валидации дефолтного чекаута",
             groups = {"sbermarket-acceptance","sbermarket-regression"},

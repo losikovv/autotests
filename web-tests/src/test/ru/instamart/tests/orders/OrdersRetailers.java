@@ -1,27 +1,34 @@
 package ru.instamart.tests.orders;
 
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import instamart.api.common.RestAddresses;
 import instamart.core.common.AppManager;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
-import instamart.api.common.RestAddresses;
+import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.settings.Config.TestsConfiguration.OrdersTests.enableOrderRetailersTests;
 import static instamart.ui.common.lib.Retailers.*;
 
 public class OrdersRetailers extends TestBase {
-
-    @BeforeClass(alwaysRun = true)
+    @BeforeClass(alwaysRun = true,
+            description = "Подготавливаем тестовое окружение к прогону тестов")
     public void setup() {
         kraken.get().baseUrl();
         User.Do.loginAs(AppManager.session.admin);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+    }
+
+    @AfterMethod(alwaysRun = true,
+            description ="Очищаем тестовое окружение после теста")
+    public void afterTest(ITestResult result) {
+        kraken.apiV2().cancelCurrentOrder();
     }
 
     @Test(enabled = enableOrderRetailersTests,
@@ -122,8 +129,5 @@ public class OrdersRetailers extends TestBase {
                     failMessage("Не удалось оформить заказ в Лента Москва"));
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void postconditions() {
-        kraken.apiV2().cancelCurrentOrder();
-    }
+
 }

@@ -1,18 +1,19 @@
 package ru.instamart.tests.landings;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import instamart.ui.objectsmap.Elements;
 import instamart.ui.common.lib.Pages;
+import instamart.ui.objectsmap.Elements;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class DriversHiringLandingTests extends TestBase {
-
-    @BeforeClass(alwaysRun = true)
-    public void preconditions() {
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
         kraken.get().page(Pages.Landings.driversHiring());
     }
+
 
     @Test(
             description = "Тест лендинга найма водителей Сбермаркета",

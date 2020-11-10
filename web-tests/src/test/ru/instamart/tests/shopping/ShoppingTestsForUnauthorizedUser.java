@@ -12,8 +12,9 @@ import ru.instamart.tests.TestBase;
 
 public class ShoppingTestsForUnauthorizedUser extends TestBase {
 
-    @BeforeMethod(alwaysRun = true)
-    public void setup() {
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
         User.Logout.quickly();
         kraken.get().page(Config.CoreSettings.defaultRetailer);
     }

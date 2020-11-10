@@ -16,7 +16,7 @@ public class JivositeTests extends TestBase {
 
     @Test(  enabled = enableJivositeTests,
             description = "Тест отсутствия виджета Jivosite на лендинге",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression","testing"},
             priority = 11101
     )
     public void noJivositeWidgetOnLanding() {
@@ -28,7 +28,7 @@ public class JivositeTests extends TestBase {
 
     @Test(  enabled = enableJivositeTests,
             description = "Тест отсутствия виджета Jivosite в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression","testing"},
             priority = 11102
     )
     public void noJivositeWidgetOnCheckout() {
@@ -41,7 +41,7 @@ public class JivositeTests extends TestBase {
 
     @Test(  enabled = enableJivositeTests,
             description = "Тест работы с виджетом Jivosite на витрине ритейлера",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression","testing"},
             priority = 11103
     )
     public void successOperateJivositeWidgetOnRetailerPage() {
@@ -66,7 +66,7 @@ public class JivositeTests extends TestBase {
 
     @Test(  enabled = enableJivositeTests,
             description = "Тест работы с виджетом Jivosite в каталоге",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression","testing"},
             priority = 11104
     )
     public void successOperateJivositeWidgetInCatalog() {
@@ -91,7 +91,7 @@ public class JivositeTests extends TestBase {
 
     @Test(  enabled = enableJivositeTests,
             description = "Тест работы с виджетом Jivosite на странице 404",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression","testing"},
             priority = 11105
     )
     public void successOperateJivositeWidgetOnPage404() {
@@ -116,7 +116,7 @@ public class JivositeTests extends TestBase {
 
     @Test(  enabled = enableJivositeTests,
             description = "Тест успешной отправки сообщения в Jivosite",
-            groups = {"sbermarket-regression"},
+            groups = {"sbermarket-regression","testing"},
             priority = 11106
     )
     public void successSendMessageToJivositeFromRetailerPage() {

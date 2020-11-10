@@ -22,8 +22,9 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void preconditions() {
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
     }
 

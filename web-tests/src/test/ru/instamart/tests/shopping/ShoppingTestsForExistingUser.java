@@ -16,8 +16,8 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
 public class ShoppingTestsForExistingUser extends TestBase {
-
-    @BeforeClass(alwaysRun = true)
+    @BeforeClass(alwaysRun = true,
+            description = "Подготавливаем тестовое окружение к тестовому прогону")
     public void setup() {
         User.Logout.quickly();
         User.Do.loginAs(AppManager.session.user);

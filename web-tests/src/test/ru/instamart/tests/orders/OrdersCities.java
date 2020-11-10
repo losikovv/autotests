@@ -5,6 +5,7 @@ import instamart.core.common.AppManager;
 import instamart.core.settings.Config;
 import instamart.ui.modules.User;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 import ru.instamart.tests.TestBase;
 
@@ -18,9 +19,22 @@ public class OrdersCities extends TestBase {
         User.Do.loginAs(AppManager.session.admin);
     }
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
     public void preconditions() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
+    }
+
+    @AfterMethod(alwaysRun = true,
+            description ="Очищаем окружение после теста")
+    public void afterTest(ITestResult result){
+        kraken.perform().cancelOrder();
+    }
+
+    @AfterClass(alwaysRun = true,
+            description = "Меняем дефолтный адрес доставки на Москву")
+    public void resetDefaultAddress() {
+        User.ShippingAddress.set(RestAddresses.Moscow.defaultAddress(),true);
     }
 
     @Test(enabled = enableOrderCitiesTests,
@@ -311,13 +325,4 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Перми"));
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void postconditions() {
-        kraken.perform().cancelOrder();
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void resetDefaultAddress() {
-        User.ShippingAddress.set(RestAddresses.Moscow.defaultAddress(),true);
-    }
 }

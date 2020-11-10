@@ -321,6 +321,7 @@ public class User extends Base {
             }
             Shop.AuthModal.open();
             Shop.AuthModal.hitSberIdButton();
+            //TODO тест сломан, отладить на новом стейдже
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                     Elements.Social.Sber.sberButtonsSection().getLocator()));
             WebElement parent = driver.findElement(Elements.Social.Sber.sberButtonsSection().getLocator());
