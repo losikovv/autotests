@@ -1,7 +1,8 @@
 package instamart.api.common;
 
 import com.google.common.collect.ImmutableMap;
-import instamart.api.requests.ApiV2Requests;
+import instamart.api.helpers.ApiV2Helper;
+import instamart.api.helpers.ShopperApiHelper;
 import instamart.core.common.AppManager;
 import instamart.core.listeners.TmsListener;
 import instamart.ui.common.pagesdata.UserData;
@@ -25,11 +26,18 @@ import static org.hamcrest.Matchers.not;
 
 public class RestBase {
     protected static final AppManager kraken = new AppManager();
+    protected static final ApiV2Helper apiV2 = new ApiV2Helper();
+    protected static final ShopperApiHelper shopper = new ShopperApiHelper();
     protected Response response;
     public static RequestSpecification customerRequestSpec;
     public static RequestSpecification shopperRequestSpec;
 
-    @BeforeSuite(groups = {"rest","rest-zones","rest-smoke","rest-v2-smoke","rest-shopper-smoke"},
+    @BeforeSuite(groups = {
+            "api-zones",
+            "api-v2-smoke",
+            "api-shopper-smoke",
+            "api-v2-regress",
+            "api-shopper-regress"},
                  description = "Инициализация")
     public void start() throws Exception {
         kraken.riseRest();
@@ -80,19 +88,27 @@ public class RestBase {
     }
 
     @BeforeClass(alwaysRun = true,
-                 groups = {"rest","rest-zones","rest-smoke","rest-v2-smoke","rest-shopper-smoke"},
+                 groups = {
+                         "api-zones",
+                         "api-v2-smoke",
+                         "api-shopper-smoke",
+                         "api-v2-regress",
+                         "api-shopper-regress"},
                  description = "Логаут")
     public void logout() {
-        if (ApiV2Requests.authorized()) kraken.apiV2().logout();
+        apiV2.logout();
     }
 
     @AfterMethod(description = "Отмена активных заказов",
+                 groups = {
+                    "api-zones",
+                    "api-shopper-regress"},
                  alwaysRun = true)
     public void cancelActiveOrders() {
-        if (ApiV2Requests.authorized() &&
+        if (apiV2.authorized() &&
                 AppManager.environment.getServer().equalsIgnoreCase("production")) {
             System.out.println("Отменяем активные заказы");
-            kraken.apiV2().cancelActiveOrders();
+            apiV2.cancelActiveOrders();
         }
     }
 

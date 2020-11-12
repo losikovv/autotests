@@ -1,4 +1,4 @@
-package ru.instamart.tests.api.v2.dataprovider;
+package ru.instamart.tests.api.v2.e2e;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -18,9 +18,9 @@ public class ZoneTests extends RestBase {
     @Test(  dataProvider = "zones-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест первых заказов во всех зонах всех магазинов",
-            groups = {"rest-zones"})
+            groups = {"api-zones"})
     public void firstOrderByZone(Store store, String zoneName, Zone coordinates) {
-        kraken.apiV2().skipTestIfOnlyPickupIsAvailable(store, zoneName);
+        apiV2.skipTestIfOnlyPickupIsAvailable(store, zoneName);
 
         System.out.println("Оформляем заказ в " + store);
         System.out.println(zoneName);
@@ -28,8 +28,8 @@ public class ZoneTests extends RestBase {
 
         UserData user = user();
 
-        kraken.apiV2().registration(user);
-        kraken.apiV2().order(user, store.getId(), coordinates);
-        kraken.apiV2().cancelCurrentOrder();
+        apiV2.registration(user);
+        apiV2.order(user, store.getId(), coordinates);
+        apiV2.cancelCurrentOrder();
     }
 }

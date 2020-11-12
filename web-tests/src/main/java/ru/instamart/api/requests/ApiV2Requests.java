@@ -23,10 +23,6 @@ import static io.restassured.RestAssured.given;
 public class ApiV2Requests {
     public static ThreadLocal<String> token = new ThreadLocal<>();
 
-    public static boolean authorized() {
-        return token.get() != null;
-    }
-
     /**
      * Обходим тормоза интернета + Добавляем спеки к запросу
      */

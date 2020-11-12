@@ -21,13 +21,13 @@ public class Orders extends RestBase {
 
     @BeforeMethod(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        if (!ApiV2Requests.authorized()) kraken.apiV2().authorisation(AppManager.session.admin);
+        if (!apiV2.authorized()) apiV2.authorisation(AppManager.session.admin);
         ApiV2Requests.postOrder();
     }
 
     @CaseId(4)
     @Test(  description = "Получаем заказы",
-            groups = {"rest-smoke","rest-v2-smoke"})
+            groups = {"api-v2-smoke"})
     public void getOrders() {
         response = ApiV2Requests.getOrders();
         ApiV2Checkpoints.assertStatusCode200(response);
@@ -38,7 +38,7 @@ public class Orders extends RestBase {
 
     @CaseId(5)
     @Test(  description = "Получаем текущий заказ",
-            groups = {"rest-smoke","rest-v2-smoke"})
+            groups = {"api-v2-smoke"})
     public void getCurrentOrder() {
         response = ApiV2Requests.getOrdersCurrent();
         ApiV2Checkpoints.assertStatusCode200(response);
@@ -47,7 +47,7 @@ public class Orders extends RestBase {
 
     @CaseId(9)
     @Test(  description = "Получаем заказ",
-            groups = {"rest-smoke","rest-v2-smoke"},
+            groups = {"api-v2-smoke"},
             dependsOnMethods = "getOrders")
     public void getOrder() {
         response = ApiV2Requests.getOrder(orderNumber);
@@ -57,7 +57,7 @@ public class Orders extends RestBase {
 
     @CaseId(19)
     @Test(  description = "Получаем заказы для оценки",
-            groups = {"rest-smoke","rest-v2-smoke"})
+            groups = {"api-v2-smoke"})
     public void getUnratedOrders() {
         response = ApiV2Requests.getUnratedOrders();
         ApiV2Checkpoints.assertStatusCode200(response);
@@ -66,7 +66,7 @@ public class Orders extends RestBase {
 
     @CaseId(16)
     @Test(  description = "Получаем товары в заказе",
-            groups = {"rest-smoke","rest-v2-smoke"},
+            groups = {"api-v2-smoke"},
             dependsOnMethods = "getOrders")
     public void getOrderLineItems() {
         response = ApiV2Requests.getOrderLineItems(orderNumber);

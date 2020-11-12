@@ -65,7 +65,7 @@ public class DeliveryWindow extends BaseObject {
     public String toString() {
         return new StringJoiner(
                 "\n",
-                "Получена информация о слоте: ",
+                "Получена информация о слоте:\n",
                 "\n")
                 .add("                 id: " + id)
                 .add("          starts_at: " + starts_at)

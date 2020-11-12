@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="rest-shopper-smoke" type="TestNG" show_console_on_std_err="true" show_console_on_std_out="true">
+  <configuration default="false" name="api-shopper-smoke" type="TestNG" show_console_on_std_err="true" show_console_on_std_out="true">
     <useClassPathOnly />
     <option name="SUITE_NAME" value="" />
     <option name="PACKAGE_NAME" value="" />
     <option name="MAIN_CLASS_NAME" value="" />
     <option name="METHOD_NAME" value="" />
-    <option name="GROUP_NAME" value="rest-shopper-smoke" />
+    <option name="GROUP_NAME" value="api-shopper-smoke" />
     <option name="TEST_OBJECT" value="GROUP" />
     <option name="PARAMETERS" value="" />
     <option name="OUTPUT_DIRECTORY" value="" />

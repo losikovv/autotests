@@ -15,12 +15,12 @@ public class PaymentTools extends RestBase {
 
     @BeforeMethod(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        kraken.apiV2().authorisation(AppManager.session.admin);
+        apiV2.authorisation(AppManager.session.admin);
     }
 
     @CaseId(20)
     @Test(  description = "Получаем инфу способах оплаты",
-            groups = {"rest-smoke","rest-v2-smoke"})
+            groups = {"api-v2-smoke"})
     public void getPaymentTools() {
         response = ApiV2Requests.getPaymentTools();
         ApiV2Checkpoints.assertStatusCode200(response);

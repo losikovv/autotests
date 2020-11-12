@@ -16,7 +16,6 @@ public class ShopperApiCheckpoints {
     public static void assertStatusCode200(Response response) {
         switch (response.statusCode()) {
             case 200: break;
-            case 400:
             case 401:
             case 422:
                 Assert.assertEquals(response.statusCode(),200, getErrorDetails(response));

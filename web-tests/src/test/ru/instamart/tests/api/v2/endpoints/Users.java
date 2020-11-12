@@ -15,7 +15,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "Успешная регистрация",
-            groups = {"rest"}
+            groups = {"api-v2-regress"}
     )
     public void successRegistration() {
         String email = email();
@@ -32,7 +32,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "Неверный формат email",
-            groups = {"rest"}
+            groups = {"api-v2-regress"}
     )
     public void wrongEmailFormat() {
         String email = "example.com";
@@ -50,7 +50,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "короткий пароль",
-            groups = {"rest"}
+            groups = {"api-v2-regress"}
     )
     public void shortPassword() {
         String password = "insta";
@@ -68,7 +68,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустой email",
-            groups = {"rest"}
+            groups = {"api-v2-regress"}
     )
     public void emptyEmail() {
         response = postUsers(
@@ -84,7 +84,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустое имя",
-            groups = {"rest"}
+            groups = {"api-v2-regress"}
     )
     public void emptyFirstName() {
         String email = email();
@@ -101,7 +101,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустая фамилия",
-            groups = {"rest"}
+            groups = {"api-v2-regress"}
     )
     public void emptyLastName() {
         String email = email();
@@ -118,7 +118,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустые имя и фамилия",
-            groups = {"rest"}
+            groups = {"api-v2-regress"}
     )
     public void emptyFirstAndLastNames() {
         String email = email();
@@ -136,7 +136,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустой пароль",
-            groups = {"rest"}
+            groups = {"api-v2-regress"}
     )
     public void emptyPassword() {
         String email = email();

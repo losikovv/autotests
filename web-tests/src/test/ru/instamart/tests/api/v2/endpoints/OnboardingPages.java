@@ -13,7 +13,7 @@ public class OnboardingPages extends RestBase {
 
     @CaseId(15)
     @Test(  description = "Получаем экраны онбординга",
-            groups = {"rest-smoke","rest-v2-smoke"})
+            groups = {"api-v2-smoke"})
     public void getOnboardingPages() {
         response = ApiV2Requests.getOnboardingPages();
         ApiV2Checkpoints.assertStatusCode200(response);

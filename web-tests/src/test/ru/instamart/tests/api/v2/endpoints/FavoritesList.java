@@ -15,12 +15,12 @@ public class FavoritesList extends RestBase {
 
     @BeforeMethod(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        kraken.apiV2().authorisation(AppManager.session.admin);
+        apiV2.authorisation(AppManager.session.admin);
     }
 
     @CaseId(13)
     @Test(  description = "Получаем любимые товары",
-            groups = {"rest-smoke","rest-v2-smoke"})
+            groups = {"api-v2-smoke"})
     public void getFavoritesListItems() {
         response = ApiV2Requests.getFavoritesListItems(1);
         ApiV2Checkpoints.assertStatusCode200(response);

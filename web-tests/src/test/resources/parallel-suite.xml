@@ -8,8 +8,8 @@
       </run>
     </groups>
     <classes>
-      <class name="ru.instamart.tests.api.v2.dataprovider.StoreTests"/>
-      <class name="ru.instamart.tests.api.v2.dataprovider.ZoneTests"/>
+      <class name="ru.instamart.tests.api.v2.e2e.StoreTests"/>
+      <class name="ru.instamart.tests.api.v2.e2e.ZoneTests"/>
     </classes>
   </test> <!-- rest-api-tests -->
 </suite> <!-- Custom suite -->
