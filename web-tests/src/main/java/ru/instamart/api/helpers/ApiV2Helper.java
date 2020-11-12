@@ -89,11 +89,18 @@ public class ApiV2Helper extends HelperBase {
         return point;
     }
 
+    public boolean authorized() {
+        return ApiV2Requests.token.get() != null;
+    }
+
     /**
      * Логаут (чистим токен для авторизации)
      */
     public void logout() {
-        ApiV2Requests.token.set(null);
+        if (authorized()) {
+            ApiV2Requests.token.set(null);
+            System.out.println("Чистим токен");
+        }
     }
 
     /**
@@ -671,12 +678,13 @@ public class ApiV2Helper extends HelperBase {
     /**
      * Узнаем номер заказа
      */
-    public void getCurrentOrderNumber() {
+    public String getCurrentOrderNumber() {
         currentOrderNumber.set(ApiV2Requests.postOrder()
                 .as(OrderResponse.class)
                 .getOrder()
                 .getNumber());
         System.out.println("Номер текущего заказа: " + currentOrderNumber.get() + "\n");
+        return currentOrderNumber.get();
     }
 
     /**
@@ -709,22 +717,28 @@ public class ApiV2Helper extends HelperBase {
      */
 
     /**
-     * Наполняем корзину до минимальной суммы заказа в конкретном магазине
+     * Наполняем корзину разными товарами до минимальной суммы заказа в конкретном магазине
      */
-    private void fillCartOnSid(int sid) {
+    private void fillCartOnSid(int sid, int items) {
         List<Product> products = getProductFromEachDepartmentInStore(sid);
-        addItemToCart(products.get(0).getId(),1);
+        double initialCartWeight = 0;
+        for (int i = 0; i < items; i++) {
+            Product product = products.get(i);
+            addItemToCart(product.getId(),1);
+            initialCartWeight += (getProductWeight(product) * product.getItems_per_pack());
+        }
         getMinSum();
-
         int quantity = 1;
         for (Product product : products) {
-            if (minSumNotReached.get()) quantity = (int) Math.ceil(minSum.get() / (product.getPrice() * product.getItems_per_pack()));
+            if (minSumNotReached.get())
+                quantity = (int) Math.ceil(minSum.get() / (product.getPrice() * product.getItems_per_pack()));
 
-            double cartWeight = roundBigDecimal(getProductWeight(product) * quantity,3);
+            double finalCartWeight = roundBigDecimal(
+                    (getProductWeight(product) * quantity) + initialCartWeight, 3);
 
-            String cartWeightText = "Вес корзины: " + cartWeight + " кг.\n";
+            String cartWeightText = "Вес корзины: " + finalCartWeight + " кг.\n";
             String anotherProductText = "Выбираем другой товар\n";
-            if (cartWeight > 40) printError(cartWeightText + anotherProductText);
+            if (finalCartWeight > 40) printError(cartWeightText + anotherProductText);
             else if (productWeightNotDefined.get()) printError(anotherProductText);
             else {
                 printSuccess(cartWeightText);
@@ -732,6 +746,13 @@ public class ApiV2Helper extends HelperBase {
                 break;
             }
         }
+    }
+
+    /**
+     * Наполняем корзину до минимальной суммы заказа в конкретном магазине
+     */
+    private void fillCartOnSid(int sid) {
+        fillCartOnSid(sid,1);
     }
 
     /**
@@ -856,6 +877,15 @@ public class ApiV2Helper extends HelperBase {
      */
     public Order order(UserData user, int sid) {
         fillCart(user, sid);
+        return setDefaultAttributesAndCompleteOrder();
+    }
+
+    /**
+     * Оформить тестовый заказ у юзера в определенном магазине
+     */
+    public Order order(UserData user, int sid, int itemsNumber) {
+        dropCart(user, getAddressBySid(sid));
+        fillCartOnSid(sid, itemsNumber);
         return setDefaultAttributesAndCompleteOrder();
     }
 

@@ -2,12 +2,12 @@ package instamart.api.objects.shopper;
 
 import instamart.api.objects.BaseObject;
 
-public class AssemblyItemData extends BaseObject {
+public class PackageSetData extends BaseObject {
 
     private String id;
     private String type;
-    private AssemblyItemAttributes attributes;
-    private AssemblyItemRelationships relationships;
+    private PackageSetAttributes attributes;
+    private PackageSetRelationships relationships;
 
     public String getId() {
         return id;
@@ -25,19 +25,19 @@ public class AssemblyItemData extends BaseObject {
         this.type = type;
     }
 
-    public AssemblyItemAttributes getAttributes() {
+    public PackageSetAttributes getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(AssemblyItemAttributes attributes) {
+    public void setAttributes(PackageSetAttributes attributes) {
         this.attributes = attributes;
     }
 
-    public AssemblyItemRelationships getRelationships() {
+    public PackageSetRelationships getRelationships() {
         return relationships;
     }
 
-    public void setRelationships(AssemblyItemRelationships relationships) {
+    public void setRelationships(PackageSetRelationships relationships) {
         this.relationships = relationships;
     }
 

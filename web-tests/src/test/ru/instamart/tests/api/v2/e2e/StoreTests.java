@@ -1,4 +1,4 @@
-package ru.instamart.tests.api.v2.dataprovider;
+package ru.instamart.tests.api.v2.e2e;
 
 import instamart.api.checkpoints.ApiV2Checkpoints;
 import io.restassured.RestAssured;
@@ -29,7 +29,7 @@ public class StoreTests extends RestBase {
     @Test(  dataProvider = "stores-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест категорий на главных страницах всех магазинов",
-            groups = {"rest"})
+            groups = {})
     public void departmentsOnMainPages(Store store) {
         System.out.println(store + "\n");
 
@@ -76,8 +76,8 @@ public class StoreTests extends RestBase {
     public void orderByStore(Store store) {
         System.out.println("Оформляем заказ в " + store + "\n");
 
-        kraken.apiV2().order(AppManager.session.user, store.getId());
-        kraken.apiV2().cancelCurrentOrder();
+        apiV2.order(AppManager.session.user, store.getId());
+        apiV2.cancelCurrentOrder();
     }
 
     @Test(  dataProvider = "stores-parallel",
@@ -89,8 +89,8 @@ public class StoreTests extends RestBase {
 
         UserData user = user();
 
-        kraken.apiV2().registration(user);
-        kraken.apiV2().order(user, store.getId());
-        kraken.apiV2().cancelCurrentOrder();
+        apiV2.registration(user);
+        apiV2.order(user, store.getId());
+        apiV2.cancelCurrentOrder();
     }
 }

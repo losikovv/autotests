@@ -13,7 +13,7 @@ public class Searches extends RestBase {
 
     @CaseId(3)
     @Test(  description = "Получаем поисковые подсказки",
-            groups = {"rest-smoke","rest-v2-smoke"})
+            groups = {"api-v2-smoke"})
     public void getSearchSuggestions() {
         response = ApiV2Requests.getSearchSuggestions(1, "");
         ApiV2Checkpoints.assertStatusCode200(response);

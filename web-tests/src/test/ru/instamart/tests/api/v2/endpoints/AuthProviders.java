@@ -18,7 +18,7 @@ public class AuthProviders extends RestBase {
     @Test(  dataProvider = "authProviders",
             dataProviderClass = RestDataProvider.class,
             description = "Авторизуемся через стороннего провайдера",
-            groups = {"rest-smoke","rest-v2-smoke"})
+            groups = {"api-v2-smoke"})
     public void postAuthProvidersSessions(String authProviderId) {
         if (AppManager.environment.getServer().equalsIgnoreCase("staging")) {
             throw new SkipException("Скипаем тесты на стэйдже");

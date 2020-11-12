@@ -27,23 +27,23 @@ public class ShipmentfulTests extends RestBase {
                  description = "Оформляем заказ")
     public void preconditions() {
         UserData user = user();
-        kraken.apiV2().registration(user);
-        Order order = kraken.apiV2().order(user, AppManager.environment.getDefaultSid());
+        apiV2.registration(user);
+        Order order = apiV2.order(user, AppManager.environment.getDefaultSid());
         ApiV2Checkpoints.assertIsDeliveryToday(order);
-        kraken.shopperApi().authorisation(Users.shopper());
-        kraken.shopperApi().deleteCurrentAssembly();
-        shipmentId = kraken.shopperApi().getShipmentId(order.getShipments().get(0).getNumber());
+        shopper.authorisation(Users.shopper());
+        shopper.deleteCurrentAssembly();
+        shipmentId = shopper.getShipmentId(order.getShipments().get(0).getNumber());
     }
 
     @AfterClass(alwaysRun = true,
                 description = "Удаляем текущую сборку")
     public void cleanup() {
-        if (kraken.shopperApi().authorized())
-            kraken.shopperApi().deleteCurrentAssembly();
+        if (shopper.authorized())
+            shopper.deleteCurrentAssembly();
     }
 
     @Test(  description = "Создаём сборку",
-            groups = {"rest-smoke","rest-shopper-smoke"})
+            groups = {"api-shopper-smoke"})
     public void postAssembly() {
         response = ShopperApiRequests.postAssembly(shipmentId);
         assertStatusCode200(response);
@@ -58,7 +58,7 @@ public class ShipmentfulTests extends RestBase {
     }
 
     @Test(  description = "Получаем сборку по номеру",
-            groups = {"rest-smoke","rest-shopper-smoke"},
+            groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
     public void getAssembly() {
         response = ShopperApiRequests.getAssembly(assemblyId);
@@ -72,7 +72,7 @@ public class ShipmentfulTests extends RestBase {
     }
 
     @Test(  description = "Получаем все заказы сборщика",
-            groups = {"rest-smoke","rest-shopper-smoke"})
+            groups = {"api-shopper-smoke"})
     public void getShopperShipments() {
         response = ShopperApiRequests.getShopperShipments();
         assertStatusCode200(response);
@@ -81,7 +81,7 @@ public class ShipmentfulTests extends RestBase {
     }
 
     @Test(  description = "Получаем все сборки сборщика",
-            groups = {"rest-smoke","rest-shopper-smoke"},
+            groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
     public void getShopperAssemblies() {
         response = ShopperApiRequests.getShopperAssemblies();
@@ -94,7 +94,7 @@ public class ShipmentfulTests extends RestBase {
     }
 
     @Test(  description = "Собираем товар",
-            groups = {"rest-smoke","rest-shopper-smoke"},
+            groups = {"api-shopper-smoke"},
             dependsOnMethods = {"postAssembly", "getAssembly"})
     public void patchAssemblyItem() {
         response = ShopperApiRequests.patchAssemblyItem(assemblyId, assemblyItemId, itemQty);
@@ -103,7 +103,7 @@ public class ShipmentfulTests extends RestBase {
     }
 
     @Test(  description = "Получаем тикеты хелпдеска",
-            groups = {"rest-smoke","rest-shopper-smoke"})
+            groups = {"api-shopper-smoke"})
     public void getHelpdeskTickets() {
         response = ShopperApiRequests.getHelpdeskTickets(shipmentId);
         assertStatusCode200(response);
@@ -112,7 +112,7 @@ public class ShipmentfulTests extends RestBase {
     }
 
     @Test(  description = "Получаем заказ",
-            groups = {"rest-smoke","rest-shopper-smoke"})
+            groups = {"api-shopper-smoke"})
     public void getShipment() {
         response = ShopperApiRequests.getShipment(shipmentId);
         assertStatusCode200(response);
@@ -125,7 +125,7 @@ public class ShipmentfulTests extends RestBase {
     }
 
     @Test(  description = "Получаем предзамены",
-            groups = {"rest-smoke","rest-shopper-smoke"},
+            groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
     public void getAssemblyItemPrereplacements() {
         response = ShopperApiRequests.getAssemblyItemPrereplacements(assemblyItemId);
@@ -135,7 +135,7 @@ public class ShipmentfulTests extends RestBase {
     }
 
     @Test(  description = "Получаем инфу о стоках товаров в заказе",
-            groups = {"rest-smoke","rest-shopper-smoke"})
+            groups = {"api-shopper-smoke"})
     public void getShipmentStock() {
         response = ShopperApiRequests.getShipmentStocks(shipmentId);
         assertStatusCode200(response);

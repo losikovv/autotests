@@ -18,7 +18,7 @@ public class Products extends RestBase {
 
     @CaseId(2)
     @Test(  description = "Получаем продукты",
-            groups = {"rest-smoke","rest-v2-smoke"})
+            groups = {"api-v2-smoke"})
     public void getProducts() {
         response = ApiV2Requests.getProducts(1, "");
         ApiV2Checkpoints.assertStatusCode200(response);
@@ -29,12 +29,11 @@ public class Products extends RestBase {
 
     @CaseId(10)
     @Test(  description = "Получаем продукт",
-            groups = {"rest-smoke","rest-v2-smoke"},
+            groups = {"api-v2-smoke"},
             dependsOnMethods = "getProducts")
     public void getProduct() {
         response = ApiV2Requests.getProducts(productId);
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(ProductResponse.class).getProduct(), "Не вернулся продукт");
     }
-
 }

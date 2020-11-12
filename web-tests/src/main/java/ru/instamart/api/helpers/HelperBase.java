@@ -1,7 +1,5 @@
 package instamart.api.helpers;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,30 +42,5 @@ public class HelperBase {
             return hashMap.get(integer).contains(string);
         }
         return false;
-    }
-
-    /**
-     * Получаем текущие дату и время
-     */
-    public static String getTodayDateAndTime() {
-        return getDateAndTime(0);
-    }
-
-    /**
-     * Получаем завтрашнюю дату с текущим временем
-     */
-    public static String getNextDayDateAndTime() {
-        return getDateAndTime(1);
-    }
-
-    /**
-     * Получаем текущие дату и время
-     * @param dayOffset - смещение дня относительно сегодня
-     */
-    private static String getDateAndTime(int dayOffset) {
-        final Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, dayOffset);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        return formatter.format(cal.getTime());
     }
 }

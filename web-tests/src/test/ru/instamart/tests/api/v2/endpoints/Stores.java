@@ -16,7 +16,7 @@ public class Stores extends RestBase {
 
     @CaseId(1)
     @Test(  description = "Получаем магазин",
-            groups = {"rest-smoke","rest-v2-smoke"})
+            groups = {"api-v2-smoke"})
     public void getStore() {
         response = ApiV2Requests.getStores(1);
         ApiV2Checkpoints.assertStatusCode200(response);
@@ -25,7 +25,7 @@ public class Stores extends RestBase {
 
     @CaseId(7)
     @Test(  description = "Получаем список всех магазинов по указанным координатам",
-            groups = {"rest-smoke","rest-v2-smoke"})
+            groups = {"api-v2-smoke"})
     public void getStoresByCoordinates() {
         response = ApiV2Requests.getStores(
                 RestAddresses.Moscow.defaultAddress().getLat(),
@@ -37,7 +37,7 @@ public class Stores extends RestBase {
 
     @CaseId(12)
     @Test(  description = "Получаем промоакции в магазине",
-            groups = {"rest-smoke","rest-v2-smoke"})
+            groups = {"api-v2-smoke"})
     public void getStorePromotionCards() {
         response = ApiV2Requests.getStorePromotionCards(1);
         ApiV2Checkpoints.assertStatusCode200(response);

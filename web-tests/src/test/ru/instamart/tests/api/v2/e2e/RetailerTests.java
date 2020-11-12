@@ -1,4 +1,4 @@
-package ru.instamart.tests.api.v2.dataprovider;
+package ru.instamart.tests.api.v2.e2e;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -19,13 +19,13 @@ public class RetailerTests extends RestBase {
     @Test(  dataProvider = "retailers",
             dataProviderClass = RestDataProvider.class,
             description = "Тест заказов у каждого ретейлера",
-            groups = {"rest"})
+            groups = {})
     public void orderByRetailer(Retailer retailer) {
         Store store = ApiV2Helper.availableStores(retailer).get(0);
-        kraken.apiV2().skipTestIfOnlyPickupIsAvailable(store);
+        apiV2.skipTestIfOnlyPickupIsAvailable(store);
         System.out.println("Оформляем заказ в " + store.getName() + "\n");
 
-        kraken.apiV2().order(AppManager.session.user, store.getId());
-        kraken.apiV2().cancelCurrentOrder();
+        apiV2.order(AppManager.session.user, store.getId());
+        apiV2.cancelCurrentOrder();
     }
 }

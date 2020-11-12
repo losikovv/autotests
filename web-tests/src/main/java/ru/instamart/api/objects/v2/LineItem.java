@@ -11,9 +11,11 @@ public class LineItem extends BaseObject {
     private Integer packs;
     private Double price;
     private Double total;
+    private Double promo_total;
     private Double discount;
     private Object customer_comment;
     private Boolean product_in_stock;
+    private Double total_diff;
     private Product product;
 
     public Integer getId() {
@@ -99,5 +101,21 @@ public class LineItem extends BaseObject {
                 .add("quantity: " + quantity)
                 .add("total: " + total)
                 .toString();
+    }
+
+    public Double getPromo_total() {
+        return promo_total;
+    }
+
+    public void setPromo_total(Double promo_total) {
+        this.promo_total = promo_total;
+    }
+
+    public Double getTotal_diff() {
+        return total_diff;
+    }
+
+    public void setTotal_diff(Double total_diff) {
+        this.total_diff = total_diff;
     }
 }

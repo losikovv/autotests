@@ -13,7 +13,7 @@ public class Promotions extends RestBase {
 
     @CaseId(17)
     @Test(  description = "Получаем инфу о реферальной программе",
-            groups = {"rest-smoke","rest-v2-smoke"})
+            groups = {"api-v2-smoke"})
     public void getReferralProgram() {
         response = ApiV2Requests.getReferralProgram();
         ApiV2Checkpoints.assertStatusCode200(response);

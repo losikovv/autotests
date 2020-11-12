@@ -93,7 +93,7 @@ task apiRegress(type: Test) {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/api-suite.xml'
-        includeGroups 'rest-smoke', 'rest'
+        includeGroups 'api-v2-smoke', 'api-v2-regress', 'api-shopper-smoke', 'api-shopper-regress'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
@@ -111,7 +111,7 @@ task apiV2Regress(type: Test) {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/api-suite.xml'
-        includeGroups 'rest-v2-smoke', 'rest'
+        includeGroups 'api-v2-smoke', 'api-v2-regress'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
@@ -129,7 +129,7 @@ task apiShopperRegress(type: Test) {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/api-suite.xml'
-        includeGroups 'rest-shopper-smoke'
+        includeGroups 'api-shopper-smoke', 'api-shopper-regress'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
@@ -147,7 +147,7 @@ task apiSmoke(type: Test) {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/api-suite.xml'
-        includeGroups 'rest-smoke'
+        includeGroups 'api-v2-smoke', 'api-shopper-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
@@ -165,7 +165,7 @@ task apiV2Smoke(type: Test) {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/api-suite.xml'
-        includeGroups 'rest-v2-smoke'
+        includeGroups 'api-v2-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
@@ -184,7 +184,7 @@ task apiShopperSmoke(type: Test) {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/api-suite.xml'
-        includeGroups 'rest-shopper-smoke'
+        includeGroups 'api-shopper-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
@@ -203,7 +203,7 @@ task apiZones(type: Test) {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/api-suite.xml'
-        includeGroups 'rest-zones'
+        includeGroups 'api-zones'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }

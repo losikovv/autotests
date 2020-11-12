@@ -8,8 +8,7 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 
 public class ApiV2Checkpoints {
@@ -41,7 +40,7 @@ public class ApiV2Checkpoints {
      */
     @Step("Проверяем, что дата доставки заказа сегодня")
     public static void assertIsDeliveryToday(Order order) {
-        String today = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        String today = String.valueOf(LocalDate.now());
         String deliveryTime = order.getShipments().get(0).getDelivery_window().getStarts_at();
         if (!deliveryTime.contains(today)) org.junit.Assert.fail("Заказ оформлен не на сегодня\ntoday: " +
                 today + "\ndelivery time: " + deliveryTime);
