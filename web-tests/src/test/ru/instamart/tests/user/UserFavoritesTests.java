@@ -71,7 +71,7 @@ public class UserFavoritesTests extends TestBase {
     )
     public void successAddFavoriteOnItemCard() {
         User.Do.loginAs(session.user);
-        kraken.drop().favorites();
+        kraken.reach().cleanFavorites();
         kraken.get().page(Pages.Retailers.metro());
 
         Shop.Catalog.Item.open();
@@ -92,7 +92,7 @@ public class UserFavoritesTests extends TestBase {
     )
     public void successAddFavoriteFromCatalog() {
         User.Do.loginAs(session.user);
-        kraken.drop().favorites();
+        kraken.reach().cleanFavorites();
         kraken.get().page(Pages.Retailers.metro());
 
         Shop.Catalog.Item.addToCart();
@@ -110,7 +110,7 @@ public class UserFavoritesTests extends TestBase {
     )
     public void successDeleteFavoriteOnItemCard() {
         User.Do.loginAs(session.user);
-        kraken.drop().favorites();
+        kraken.reach().cleanFavorites();
         kraken.get().page(Pages.Retailers.metro());
 
         Shop.Catalog.Item.addToFavorites();
@@ -131,7 +131,7 @@ public class UserFavoritesTests extends TestBase {
     public void successDeleteFavoriteOnList() {
         User.Do.loginAs(session.user);
         if (!kraken.detect().isFavoritesEmpty()) {
-            kraken.drop().favorites();
+            kraken.reach().cleanFavorites();
         } else {
             kraken.get().page(Pages.Retailers.metro());
             Shop.Catalog.Item.addToFavorites();
@@ -171,7 +171,7 @@ public class UserFavoritesTests extends TestBase {
         Shop.Search.item("хлеб");
         Shop.Catalog.Item.addToFavorites();
 
-        kraken.drop().favorites();
+        kraken.reach().cleanFavorites();
 
         Assert.assertTrue(
                 kraken.detect().isFavoritesEmpty(),

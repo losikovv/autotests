@@ -207,17 +207,17 @@ public class User extends Base {
                 }
             }
 
-            @Step("Открываем крайнее письмо от Инстамарт")
+            @Step("открываем последнее полученное письмо от СберМаркет")
             public static void openLastMail() {
-                verboseMessage("> открываем крайнее письмо от Инстамарт");
-                kraken.perform().click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Instamart'])[1]/following::span[1]"));
-                kraken.perform().click(By.linkText("- Показать цитируемый текст -"));
+                verboseMessage("> открываем последнее полученное письмо от СберМаркет");
+                kraken.perform().click(Elements.EmailConfirmation.lastEmail());
+                kraken.perform().click(Elements.EmailConfirmation.linkText());
             }
 
             @Step("Нажимаем кнопку сброса пароля в письме")
             public static void proceedToRecovery() {
                 verboseMessage("> нажимаем кнопку сброса пароля в письме");
-                kraken.perform().click(By.xpath("//a[contains(text(),'Продолжить')]"));
+                kraken.perform().click(Elements.EmailConfirmation.passwordRecovery());
                 kraken.await().implicitly(1); // Ожидание перехода из письма на сайт Инстамарт
                 kraken.perform().switchToNextWindow();
             }

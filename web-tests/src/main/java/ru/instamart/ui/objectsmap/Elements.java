@@ -3326,4 +3326,22 @@ public class Elements {
                     "заголовок статической страницы");
         }
     }
+    /** Письмо с подтверждением */
+    public interface EmailConfirmation{
+
+        static ElementData lastEmail() {
+            return new ElementData(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Instamart'])[1]/following::span[1]"),
+                    "последнее полученное письмо от СберМаркета");
+        }
+
+        static ElementData linkText() {
+            return new ElementData(By.linkText("- Показать цитируемый текст -"),
+                    "цитируемый текст");
+        }
+
+        static ElementData passwordRecovery() {
+            return new ElementData(By.xpath("//a[contains(text(),'Продолжить')]"),
+                    "сброс пароля");
+        }
+    }
 }

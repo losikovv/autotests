@@ -16,12 +16,12 @@ public class BrowseHelper extends HelperBase {
     /** Перейти на указанный URL*/
     public void url(String url) {
         if (url.equals(environment.getBasicUrl())) {
-            debugMessage("Переходим по базовому URL >>> " + url + "\n");
+            verboseMessage("Переходим по базовому URL >>> " + url + "\n");
         }
         try {
             driver.get(url);
         } catch (TimeoutException t) {
-            debugMessage("Истекло время перехода по URL " + url + "\n");
+            verboseMessage("Истекло время перехода по URL " + url + "\n");
         }
     }
 

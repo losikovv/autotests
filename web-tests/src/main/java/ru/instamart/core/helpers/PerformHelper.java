@@ -20,11 +20,10 @@ public class PerformHelper extends HelperBase {
         super(driver, environment, app);
     }
 
-    /** Кликнуть элемент */
+    /** Кликнуть элемент предпочтительно использование именно этого метода*/
     public void click(ElementData element) {
-        debugMessage("Клик по: " + element.getDescription());
+        verboseMessage("Клик по: " + element.getDescription());
         try {
-            //driver.findElements(By.tagName("Button")).get(0).getText()
             driver.findElement(element.getLocator()).click();
         }
         catch (NoSuchElementException n) {
@@ -56,24 +55,10 @@ public class PerformHelper extends HelperBase {
         }
     }
 
-    // TODO убрать в тестах и хелперах все методы использующие прямой локатор - ATST-227
-    /** Кликнуть элемент по локатору */
-    public void click(By locator) {
-        try {
-            driver.findElement(locator).click();
-        }
-        catch (NoSuchElementException n) {
-            throw new AssertionError("Невозможно нажать на элемент <" + locator
-                    + ">\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
-        }
-        catch (ElementNotVisibleException v) {
-            throw new AssertionError("Невозможно нажать на элемент <" + locator
-                    + ">\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
-        }
-    }
-
+    /** Клик по элементу*/
     public void click(WebElement element){
         try {
+            verboseMessage("Клик по: " + element.toString().replaceAll("^[^->]*",""));
             element.click();
         }
         catch (NoSuchElementException n) {
@@ -230,7 +215,7 @@ public class PerformHelper extends HelperBase {
                 return element;
             }
         }
-        throw new AssertionError("Невозможно найти элемент по тегу <" + tag
+        throw new NoSuchElementException("Невозможно найти элемент по тегу <" + tag
                 + "> и тексту: "+text+"\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
     }
 
