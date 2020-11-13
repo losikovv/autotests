@@ -1,7 +1,9 @@
 package instamart.api.helpers;
 
 import instamart.api.checkpoints.ApiV2Checkpoints;
+import instamart.api.enums.v2.OrderStatus;
 import instamart.api.objects.v2.*;
+import instamart.api.requests.ApiV1Requests;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.*;
 import instamart.core.common.AppManager;
@@ -132,13 +134,13 @@ public class ApiV2Helper extends HelperBase {
      */
 
     public static List<Taxon> getCategories(int sid) {
-        List<Taxon> taxons = ApiV2Requests.getTaxons(sid).as(TaxonsResponse.class).getTaxons();
+        List<Taxon> taxons = ApiV2Requests.Taxons.GET(sid).as(TaxonsResponse.class).getTaxons();
         System.out.println(taxons);
         return taxons;
     }
 
     public Taxon getCategory(int id, int sid) {
-        Taxon taxon = ApiV2Requests.getTaxons(id, sid).as(TaxonResponse.class).getTaxon();
+        Taxon taxon = ApiV2Requests.Taxons.GET(id, sid).as(TaxonResponse.class).getTaxon();
         System.out.println(taxon);
         return taxon;
     }
@@ -147,7 +149,7 @@ public class ApiV2Helper extends HelperBase {
      * Удаляем товары из корзины
      */
     private void deleteItemsFromCart() {
-        Response response = ApiV2Requests.deleteShipments(currentOrderNumber.get());
+        Response response = ApiV2Requests.Orders.Shipments.DELETE(currentOrderNumber.get());
 
         Order order = response.as(OrderResponse.class).getOrder();
         System.out.println("Удалены все доставки у заказа: " + order.getNumber() + "\n");
@@ -169,7 +171,7 @@ public class ApiV2Helper extends HelperBase {
      * Изменение/применение параматров адреса из объекта адреса
      */
     private void setAddressAttributes(Address address) {
-        Response response = ApiV2Requests.putShipAddressChange(address, currentOrderNumber.get());
+        Response response = ApiV2Requests.Orders.ShipAddressChange.PUT(address, currentOrderNumber.get());
 
         Address addressFromResponse = response
                 .as(ShipAddressChangeResponse.class)
@@ -203,7 +205,7 @@ public class ApiV2Helper extends HelperBase {
      */
     private static List<Product> getProductsFromEachDepartmentInStore(
             int sid, int numberOfProductsFromEachDepartment, SoftAssert softAssert) {
-        List<Department> departments = ApiV2Requests.getDepartments(sid, numberOfProductsFromEachDepartment)
+        List<Department> departments = ApiV2Requests.Departments.GET(sid, numberOfProductsFromEachDepartment)
                 .as(DepartmentsResponse.class).getDepartments();
 
         String storeUrl = AppManager.environment.getBasicUrlWithHttpAuth() + "?sid=" + sid;
@@ -253,7 +255,7 @@ public class ApiV2Helper extends HelperBase {
      * Добавляем товар в корзину
      */
     private void addItemToCart(long productId, int quantity) {
-        Response response = ApiV2Requests.postLineItems(productId, quantity, currentOrderNumber.get());
+        Response response = ApiV2Requests.LineItems.POST(productId, quantity, currentOrderNumber.get());
         ApiV2Checkpoints.assertStatusCode200(response);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
 
@@ -265,7 +267,7 @@ public class ApiV2Helper extends HelperBase {
      * Получаем минимальную сумму заказа, если сумма не набрана
      */
     private void getMinSum() {
-        Shipment shipment = ApiV2Requests.getOrdersCurrent()
+        Shipment shipment = ApiV2Requests.Orders.Current.GET()
                 .as(OrderResponse.class)
                 .getOrder()
                 .getShipments()
@@ -292,7 +294,7 @@ public class ApiV2Helper extends HelperBase {
 
         if (humanVolume.contains(" шт.")) {
             boolean productHasWeightProperty = false;
-            List<Property> properties = ApiV2Requests.getProducts(product.getId())
+            List<Property> properties = ApiV2Requests.Products.GET(product.getId())
                     .as(ProductResponse.class)
                     .getProduct()
                     .getProperties();
@@ -333,8 +335,8 @@ public class ApiV2Helper extends HelperBase {
      * Получаем первый доступный слот
      */
     private void getAvailableDeliveryWindow() {
-        List<ShippingRate> shippingRates = ApiV2Requests
-                .getShippingRates(currentShipmentNumber
+        List<ShippingRate> shippingRates = ApiV2Requests.Shipments.ShippingRates
+                .GET(currentShipmentNumber
                         .get()).as(ShippingRatesResponse.class).getShipping_rates();
 
         Assert.assertNotEquals(
@@ -353,7 +355,7 @@ public class ApiV2Helper extends HelperBase {
      * Получаем первый доступный способ доставки
      */
     private void getAvailableShippingMethod() {
-        List<ShippingMethod> shippingMethods = ApiV2Requests.getShippingMethod(currentSid.get())
+        List<ShippingMethod> shippingMethods = ApiV2Requests.ShippingMethods.GET(currentSid.get())
                 .as(ShippingMethodsResponse.class).getShipping_methods();
 
         Assert.assertNotEquals(
@@ -372,7 +374,7 @@ public class ApiV2Helper extends HelperBase {
      * Выбираем id способа оплаты (по умолчанию Картой курьеру)
      */
     private void getAvailablePaymentTool() {
-        List<PaymentTool> paymentTools = ApiV2Requests.getPaymentTools().as(PaymentToolsResponse.class).getPayment_tools();
+        List<PaymentTool> paymentTools = ApiV2Requests.PaymentTools.GET().as(PaymentToolsResponse.class).getPayment_tools();
 
         StringJoiner availablePaymentTools = new StringJoiner(
                 "\n• ",
@@ -397,7 +399,7 @@ public class ApiV2Helper extends HelperBase {
      * Применяем дефолтные параметры к заказу
      */
     private void setDefaultOrderAttributes() {
-        Response response = ApiV2Requests.putOrders(
+        Response response = ApiV2Requests.Orders.PUT(
                 //currentAddressId.get(), //параметр ломает оформление заказа в некоторых магазинах
                 1,
                 "+7 (987) 654 32 10",
@@ -422,7 +424,7 @@ public class ApiV2Helper extends HelperBase {
      */
     private Order completeOrder() {
         orderCompleted.set(false);
-        Response response = ApiV2Requests.postOrdersCompletion(currentOrderNumber.get());
+        Response response = ApiV2Requests.Orders.Completion.POST(currentOrderNumber.get());
         if (response.getStatusCode() == 422) {
             Errors errors = response.as(ErrorResponse.class).getErrors();
 
@@ -433,7 +435,7 @@ public class ApiV2Helper extends HelperBase {
                     System.out.println();
                     getAvailableDeliveryWindow();
                     setDefaultOrderAttributes();
-                    response = ApiV2Requests.postOrdersCompletion(currentOrderNumber.get());
+                    response = ApiV2Requests.Orders.Completion.POST(currentOrderNumber.get());
                 } else Assert.fail(response.body().toString());
             }
             if (errors.getPayments() != null) {
@@ -460,8 +462,8 @@ public class ApiV2Helper extends HelperBase {
     /**
      * Отменяем заказ по номеру
      */
-    private void cancelOrder(String number) {
-        Response response = ApiV2Requests.postOrdersCancellations(number);
+    private void cancelOrder(String orderNumber) {
+        Response response = ApiV2Requests.Orders.Cancellations.POST(orderNumber, "test");
         ApiV2Checkpoints.assertStatusCode200(response);
         Order order = response.as(CancellationsResponse.class).getCancellation().getOrder();
         printSuccess("Отменен заказ: " + order.getNumber() + "\n");
@@ -517,7 +519,7 @@ public class ApiV2Helper extends HelperBase {
      */
     private Address getAddressBySid(int sid) {
         currentSid.set(sid);
-        Response response = ApiV2Requests.getStores(sid);
+        Response response = ApiV2Requests.Stores.GET(sid);
 
         if (response.statusCode() == 422)
             if (response.as(ErrorResponse.class)
@@ -543,7 +545,7 @@ public class ApiV2Helper extends HelperBase {
      * Получить список активных ритейлеров как список объектов Retailer
      */
     public static List<Retailer> availableRetailers() {
-        List<Retailer> retailers = ApiV2Requests.getRetailers().as(RetailersResponse.class).getRetailers();
+        List<Retailer> retailers = ApiV2Requests.Retailers.GET().as(RetailersResponse.class).getRetailers();
 
         StringJoiner availableRetailers = new StringJoiner(
                 "\n• ",
@@ -561,7 +563,7 @@ public class ApiV2Helper extends HelperBase {
      * Получить список активных ритейлеров как список объектов Retailer
      */
     public static List<Retailer> availableRetailersSpree() {
-        List<Retailer> retailers = ApiV2Requests.getRetailersSpree().as(RetailersResponse.class).getRetailers();
+        List<Retailer> retailers = ApiV1Requests.Retailers.GET().as(RetailersResponse.class).getRetailers();
 
         StringJoiner availableRetailers = new StringJoiner(
                 "\n• ",
@@ -590,7 +592,7 @@ public class ApiV2Helper extends HelperBase {
         List<Store> stores = new ArrayList<>();
 
         for (Retailer retailer : retailers) {
-            List<Store> retailerStores = ApiV2Requests.getRetailerStoresSpree(retailer.getId()).as(StoresResponse.class).getStores();
+            List<Store> retailerStores = ApiV1Requests.Retailers.Stores.GET(retailer.getId()).as(StoresResponse.class).getStores();
             for (Store retailerStore: retailerStores) {
                 retailerStore.setRetailer(retailer);
                 stores.add(retailerStore);
@@ -605,7 +607,7 @@ public class ApiV2Helper extends HelperBase {
      * Получить список активных магазинов у ретейлера (без зон доставки)
      */
     public static List<Store> availableStores(Retailer retailer) {
-        List<Store> stores = ApiV2Requests.getRetailerStoresSpree(retailer.getId()).as(StoresResponse.class).getStores();
+        List<Store> stores = ApiV1Requests.Retailers.Stores.GET(retailer.getId()).as(StoresResponse.class).getStores();
         for (Store store : stores) {
             store.setRetailer(retailer);
         }
@@ -618,7 +620,7 @@ public class ApiV2Helper extends HelperBase {
      * Получить по координатам список активных магазинов как список объектов Store
      */
     private List<Store> availableStores(double lat, double lon) {
-        List<Store> stores = ApiV2Requests.getStores(lat, lon).as(StoresResponse.class).getStores();
+        List<Store> stores = ApiV2Requests.Stores.GET(lat, lon).as(StoresResponse.class).getStores();
 
         if (stores.size() > 0) {
             printAvailableStores(stores);
@@ -644,11 +646,11 @@ public class ApiV2Helper extends HelperBase {
      * Получить список зон доставки магазина
      */
     public static List<List<Zone>> storeZones(int sid) {
-        return ApiV2Requests.getStores(sid).as(StoreResponse.class).getStore().getZones();
+        return ApiV2Requests.Stores.GET(sid).as(StoreResponse.class).getStore().getZones();
     }
 
     public String getStoreName(int sid) {
-        return ApiV2Requests.getStores(sid).as(StoreResponse.class).getStore().getName();
+        return ApiV2Requests.Stores.GET(sid).as(StoreResponse.class).getStore().getName();
     }
 
     /**
@@ -658,7 +660,7 @@ public class ApiV2Helper extends HelperBase {
      */
     synchronized public void authorisation(String email, String password) {
         kraken.await().simply(3.1);
-        Response response = ApiV2Requests.postSessions(email, password);
+        Response response = ApiV2Requests.Sessions.POST(email, password);
         ApiV2Checkpoints.assertStatusCode200(response);
         ApiV2Requests.token.set(response
                 .as(SessionsResponse.class)
@@ -679,7 +681,7 @@ public class ApiV2Helper extends HelperBase {
      * Узнаем номер заказа
      */
     public String getCurrentOrderNumber() {
-        currentOrderNumber.set(ApiV2Requests.postOrder()
+        currentOrderNumber.set(ApiV2Requests.Orders.POST()
                 .as(OrderResponse.class)
                 .getOrder()
                 .getNumber());
@@ -691,7 +693,7 @@ public class ApiV2Helper extends HelperBase {
      * Получаем список активных (принят, собирается, в пути) заказов
      */
     private List<Order> activeOrders() {
-        OrdersResponse response = ApiV2Requests.getActiveOrders().as(OrdersResponse.class);
+        OrdersResponse response = ApiV2Requests.Orders.GET(OrderStatus.ACTIVE).as(OrdersResponse.class);
         List<Order> orders = response.getOrders();
 
         if (orders.size() < 1) {
@@ -700,7 +702,7 @@ public class ApiV2Helper extends HelperBase {
             int pages = response.getMeta().getTotal_pages();
             if (pages > 1) {
                 for (int i = 2; i <= pages; i++) {
-                    orders.addAll(ApiV2Requests.getActiveOrders(i).as(OrdersResponse.class).getOrders());
+                    orders.addAll(ApiV2Requests.Orders.GET(OrderStatus.ACTIVE, i).as(OrdersResponse.class).getOrders());
                 }
             }
             System.out.println("Список активных заказов:");
@@ -793,7 +795,7 @@ public class ApiV2Helper extends HelperBase {
      * Регистрация
      */
     public void registration(String email, String firstName, String lastName, String password) {
-        Response response =  ApiV2Requests.postUsers(email, firstName, lastName, password);
+        Response response =  ApiV2Requests.Users.POST(email, firstName, lastName, password);
         ApiV2Checkpoints.assertStatusCode200(response);
         String registeredEmail = response
                 .as(UsersResponse.class)

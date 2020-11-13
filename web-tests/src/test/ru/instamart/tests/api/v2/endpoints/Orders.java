@@ -22,14 +22,14 @@ public class Orders extends RestBase {
     @BeforeMethod(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         if (!apiV2.authorized()) apiV2.authorisation(AppManager.session.admin);
-        ApiV2Requests.postOrder();
+        ApiV2Requests.Orders.POST();
     }
 
     @CaseId(4)
     @Test(  description = "Получаем заказы",
             groups = {"api-v2-smoke"})
     public void getOrders() {
-        response = ApiV2Requests.getOrders();
+        response = ApiV2Requests.Orders.GET();
         ApiV2Checkpoints.assertStatusCode200(response);
         List<Order> orders = response.as(OrdersResponse.class).getOrders();
         assertNotNull(orders, "Не вернулись заказы");
@@ -40,7 +40,7 @@ public class Orders extends RestBase {
     @Test(  description = "Получаем текущий заказ",
             groups = {"api-v2-smoke"})
     public void getCurrentOrder() {
-        response = ApiV2Requests.getOrdersCurrent();
+        response = ApiV2Requests.Orders.Current.GET();
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(OrderResponse.class).getOrder(), "Не вернулся текущий заказ");
     }
@@ -50,7 +50,7 @@ public class Orders extends RestBase {
             groups = {"api-v2-smoke"},
             dependsOnMethods = "getOrders")
     public void getOrder() {
-        response = ApiV2Requests.getOrder(orderNumber);
+        response = ApiV2Requests.Orders.GET(orderNumber);
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(OrderResponse.class).getOrder(), "Не вернулся заказ по номеру");
     }
@@ -59,7 +59,7 @@ public class Orders extends RestBase {
     @Test(  description = "Получаем заказы для оценки",
             groups = {"api-v2-smoke"})
     public void getUnratedOrders() {
-        response = ApiV2Requests.getUnratedOrders();
+        response = ApiV2Requests.Orders.Unrated.GET();
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(OrdersResponse.class).getOrders(), "Не вернулись заказы для оценки");
     }
@@ -69,7 +69,7 @@ public class Orders extends RestBase {
             groups = {"api-v2-smoke"},
             dependsOnMethods = "getOrders")
     public void getOrderLineItems() {
-        response = ApiV2Requests.getOrderLineItems(orderNumber);
+        response = ApiV2Requests.Orders.LineItems.GET(orderNumber);
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(LineItemsResponse.class).getLine_items(), "Не вернулись товары заказа");
     }

@@ -1,10 +1,10 @@
 package instamart.core.testdata.dataprovider;
 
 import instamart.api.common.RestBase;
+import instamart.api.enums.v2.AuthProvider;
 import instamart.api.objects.v2.Retailer;
 import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Zone;
-import instamart.core.testdata.AuthProviders;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -18,10 +18,10 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "authProviders")
     public static Object[][] getAuthProviders() {
         Object[][] authProviderArray = new Object[4][1];
-        authProviderArray[0][0] = AuthProviders.Metro.ID;
-        authProviderArray[1][0] = AuthProviders.SberApp.ID;
-        authProviderArray[2][0] = AuthProviders.Vkontakte.ID;
-        authProviderArray[3][0] = AuthProviders.Facebook.ID;
+        authProviderArray[0][0] = AuthProvider.METRO;
+        authProviderArray[1][0] = AuthProvider.SBERAPP;
+        authProviderArray[2][0] = AuthProvider.VKONTAKTE;
+        authProviderArray[3][0] = AuthProvider.FACEBOOK;
         return authProviderArray;
     }
 

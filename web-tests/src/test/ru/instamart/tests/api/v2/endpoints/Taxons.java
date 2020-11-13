@@ -20,7 +20,7 @@ public class Taxons extends RestBase {
     @Test(  description = "Получаем таксоны (подкатегории)",
             groups = {"api-v2-smoke"})
     public void getTaxons() {
-        response = ApiV2Requests.getTaxons(1);
+        response = ApiV2Requests.Taxons.GET(1);
         ApiV2Checkpoints.assertStatusCode200(response);
         List<Taxon> taxons = response.as(TaxonsResponse.class).getTaxons();
         assertNotNull(taxons, "Не вернулись таксоны");
@@ -32,7 +32,7 @@ public class Taxons extends RestBase {
             groups = {"api-v2-smoke"},
             dependsOnMethods = "getTaxons")
     public void getTaxon() {
-        response = ApiV2Requests.getTaxons(taxonId,1);
+        response = ApiV2Requests.Taxons.GET(taxonId,1);
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(TaxonResponse.class).getTaxon(), "Не вернулся таксон");
     }

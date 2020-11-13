@@ -15,7 +15,7 @@ public class OnboardingPages extends RestBase {
     @Test(  description = "Получаем экраны онбординга",
             groups = {"api-v2-smoke"})
     public void getOnboardingPages() {
-        response = ApiV2Requests.getOnboardingPages();
+        response = ApiV2Requests.OnboardingPages.GET();
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(OnboardingPagesResponse.class).getOnboarding_pages(),
                 "Не вернулись экраны онборлдинга");

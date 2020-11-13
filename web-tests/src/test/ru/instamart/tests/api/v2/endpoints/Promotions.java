@@ -15,7 +15,7 @@ public class Promotions extends RestBase {
     @Test(  description = "Получаем инфу о реферальной программе",
             groups = {"api-v2-smoke"})
     public void getReferralProgram() {
-        response = ApiV2Requests.getReferralProgram();
+        response = ApiV2Requests.Promotions.ReferralProgram.GET();
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(ReferralProgramResponse.class).getReferral_program(),
                 "Не вернулась инфа о реферальной программе");

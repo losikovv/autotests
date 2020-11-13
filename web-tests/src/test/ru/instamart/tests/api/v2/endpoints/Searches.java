@@ -15,7 +15,7 @@ public class Searches extends RestBase {
     @Test(  description = "Получаем поисковые подсказки",
             groups = {"api-v2-smoke"})
     public void getSearchSuggestions() {
-        response = ApiV2Requests.getSearchSuggestions(1, "");
+        response = ApiV2Requests.Searches.Suggestions.GET(1, "");
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(SearchSuggestionsResponse.class).getSuggestion(),
                 "Не отображаются поисковые подсказки");

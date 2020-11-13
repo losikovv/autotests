@@ -2,6 +2,7 @@ package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.checkpoints.ApiV2Checkpoints;
 import instamart.api.common.RestBase;
+import instamart.api.enums.v2.AuthProvider;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.SessionsResponse;
 import instamart.core.common.AppManager;
@@ -19,11 +20,11 @@ public class AuthProviders extends RestBase {
             dataProviderClass = RestDataProvider.class,
             description = "Авторизуемся через стороннего провайдера",
             groups = {"api-v2-smoke"})
-    public void postAuthProvidersSessions(String authProviderId) {
+    public void postAuthProvidersSessions(AuthProvider authProvider) {
         if (AppManager.environment.getServer().equalsIgnoreCase("staging")) {
             throw new SkipException("Скипаем тесты на стэйдже");
         }
-        response = ApiV2Requests.postAuthProvidersSessions(authProviderId);
+        response = ApiV2Requests.AuthProviders.Sessions.POST(authProvider);
 
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(SessionsResponse.class).getSession());

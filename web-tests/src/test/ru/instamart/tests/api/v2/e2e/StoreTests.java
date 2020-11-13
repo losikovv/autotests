@@ -48,7 +48,7 @@ public class StoreTests extends RestBase {
         SoftAssert softAssert = new SoftAssert();
         List<Product> products = getProductsFromEachDepartmentInStore(store.getId());
         for (Product product : products) {
-            softAssert.assertEquals(ApiV2Requests.getProducts(product.getId()).getStatusCode(),200,
+            softAssert.assertEquals(ApiV2Requests.Products.GET(product.getId()).getStatusCode(),200,
                     "\n" + product + " " + RestAssured.baseURI + "/api/v2/products/" + product.getId());
         }
         softAssert.assertAll();

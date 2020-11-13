@@ -22,7 +22,7 @@ public class FavoritesList extends RestBase {
     @Test(  description = "Получаем любимые товары",
             groups = {"api-v2-smoke"})
     public void getFavoritesListItems() {
-        response = ApiV2Requests.getFavoritesListItems(1);
+        response = ApiV2Requests.FavoritesList.Items.GET(1);
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(FavoritesListItemsResponse.class).getItems(), "Не вернулись любимые товары");
     }
