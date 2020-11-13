@@ -22,7 +22,7 @@ public class PaymentTools extends RestBase {
     @Test(  description = "Получаем инфу способах оплаты",
             groups = {"api-v2-smoke"})
     public void getPaymentTools() {
-        response = ApiV2Requests.getPaymentTools();
+        response = ApiV2Requests.PaymentTools.GET();
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(PaymentToolsResponse.class).getPayment_tools(),
                 "Не вернулась инфа о спобах оплаты");

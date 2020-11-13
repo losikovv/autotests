@@ -6,7 +6,7 @@ import instamart.api.responses.v2.ErrorResponse;
 import instamart.api.responses.v2.UsersResponse;
 
 import static org.testng.Assert.assertEquals;
-import static instamart.api.requests.ApiV2Requests.postUsers;
+import static instamart.api.requests.ApiV2Requests.Users.POST;
 //TODO переделать на датапровайдер
 public class Users extends RestBase {
     private final String firstName = "autotester";
@@ -20,7 +20,7 @@ public class Users extends RestBase {
     public void successRegistration() {
         String email = email();
 
-        response = postUsers(
+        response = POST(
                 email,
                 firstName,
                 lastName,
@@ -37,7 +37,7 @@ public class Users extends RestBase {
     public void wrongEmailFormat() {
         String email = "example.com";
 
-        response = postUsers(
+        response = POST(
                 email,
                 firstName,
                 lastName,
@@ -55,7 +55,7 @@ public class Users extends RestBase {
     public void shortPassword() {
         String password = "insta";
 
-        response = postUsers(
+        response = POST(
                 email(),
                 firstName,
                 lastName,
@@ -71,7 +71,7 @@ public class Users extends RestBase {
             groups = {"api-v2-regress"}
     )
     public void emptyEmail() {
-        response = postUsers(
+        response = POST(
                 "",
                 firstName,
                 lastName,
@@ -89,7 +89,7 @@ public class Users extends RestBase {
     public void emptyFirstName() {
         String email = email();
 
-        response = postUsers(
+        response = POST(
                 email,
                 "",
                 "api",
@@ -106,7 +106,7 @@ public class Users extends RestBase {
     public void emptyLastName() {
         String email = email();
 
-        response = postUsers(
+        response = POST(
                 email,
                 "autotester",
                 "",
@@ -123,7 +123,7 @@ public class Users extends RestBase {
     public void emptyFirstAndLastNames() {
         String email = email();
 
-        response = postUsers(
+        response = POST(
                 email,
                 "",
                 "",
@@ -141,7 +141,7 @@ public class Users extends RestBase {
     public void emptyPassword() {
         String email = email();
 
-        response = postUsers(
+        response = POST(
                 email,
                 "autotester",
                 "api",

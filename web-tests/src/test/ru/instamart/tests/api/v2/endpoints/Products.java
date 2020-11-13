@@ -20,7 +20,7 @@ public class Products extends RestBase {
     @Test(  description = "Получаем продукты",
             groups = {"api-v2-smoke"})
     public void getProducts() {
-        response = ApiV2Requests.getProducts(1, "");
+        response = ApiV2Requests.Products.GET(1, "");
         ApiV2Checkpoints.assertStatusCode200(response);
         List<Product> products = response.as(ProductsResponse.class).getProducts();
         assertNotNull(products, "Не вернулись продукты");
@@ -32,7 +32,7 @@ public class Products extends RestBase {
             groups = {"api-v2-smoke"},
             dependsOnMethods = "getProducts")
     public void getProduct() {
-        response = ApiV2Requests.getProducts(productId);
+        response = ApiV2Requests.Products.GET(productId);
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(ProductResponse.class).getProduct(), "Не вернулся продукт");
     }

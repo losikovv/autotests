@@ -18,7 +18,7 @@ public class Stores extends RestBase {
     @Test(  description = "Получаем магазин",
             groups = {"api-v2-smoke"})
     public void getStore() {
-        response = ApiV2Requests.getStores(1);
+        response = ApiV2Requests.Stores.GET(1);
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(StoreResponse.class).getStore(), "Не вернулся магазин");
     }
@@ -27,7 +27,7 @@ public class Stores extends RestBase {
     @Test(  description = "Получаем список всех магазинов по указанным координатам",
             groups = {"api-v2-smoke"})
     public void getStoresByCoordinates() {
-        response = ApiV2Requests.getStores(
+        response = ApiV2Requests.Stores.GET(
                 RestAddresses.Moscow.defaultAddress().getLat(),
                 RestAddresses.Moscow.defaultAddress().getLon());
         ApiV2Checkpoints.assertStatusCode200(response);
@@ -39,7 +39,7 @@ public class Stores extends RestBase {
     @Test(  description = "Получаем промоакции в магазине",
             groups = {"api-v2-smoke"})
     public void getStorePromotionCards() {
-        response = ApiV2Requests.getStorePromotionCards(1);
+        response = ApiV2Requests.Stores.PromotionCards.GET(1);
         ApiV2Checkpoints.assertStatusCode200(response);
         assertNotNull(response.as(PromotionCardsResponse.class).getPromotion_cards(),
                 "Не вернулись промоакции магазина");
