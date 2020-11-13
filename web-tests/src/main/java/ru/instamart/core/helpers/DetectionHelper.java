@@ -271,24 +271,24 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить авторизован ли пользователь */
     public boolean isUserAuthorised() {
-        debugMessage("Проверяем авторизованность...");
+        verboseMessage("Проверяем авторизованность...");
         if (kraken.detect().isInAdmin()) {
-            debugMessage("> в админке");
+            verboseMessage("> в админке");
             if (kraken.detect().isOnAdminLoginPage()) {
-                debugMessage("Не авторизован\n");
+                verboseMessage("Не авторизован\n");
                 return false;
             } else {
-                debugMessage("✓ Авторизован\n");
+                verboseMessage("✓ Авторизован\n");
                 return true;
             }
         } else {
-            debugMessage("> на сайте");
+            verboseMessage("> на сайте");
             if (kraken.detect().isElementPresent(Elements.Header.profileButton())
                     && !kraken.detect().isElementPresent(Elements.Header.loginButton()) ) {
-                debugMessage("✓ Авторизован\n");
+                verboseMessage("✓ Авторизован\n");
                 return true;
             } else {
-                debugMessage("Не авторизован\n");
+                verboseMessage("Не авторизован\n");
                 return false;
             }
         }
@@ -314,10 +314,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить активен ли верхний заказ на странице списка заказов */
     public boolean isOrdersHistoryEmpty() {
         if(kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.allOrdersPlaceholder())) {
-            debugMessage("У пользователя нет заказов на странице истории заказов");
+            verboseMessage("У пользователя нет заказов на странице истории заказов");
             return true;
         } else {
-            debugMessage("У пользователя есть заказы на странице истории заказов");
+            verboseMessage("У пользователя есть заказы на странице истории заказов");
             return false;
         }
     }
@@ -389,10 +389,10 @@ public class DetectionHelper extends HelperBase {
     /**Определить доступен ли селектор магазинов*/
     public boolean isStoreButtonDisplayed(){
         if (kraken.detect().isElementDisplayed(Elements.Header.storeButton())){
-            debugMessage("Селектор магазинов доступен");
+            verboseMessage("Селектор магазинов доступен");
             return true;
         } else {
-            debugMessage("Селектор магазинов недоступен");
+            verboseMessage("Селектор магазинов недоступен");
             return false;
         }
     }
@@ -403,10 +403,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить открыта ли шторка каталога */
     public boolean isCatalogDrawerOpen() {
         if (kraken.detect().isElementDisplayed(Elements.CatalogDrawer.drawer())) {
-            debugMessage("Шторка каталога открыта");
+            verboseMessage("Шторка каталога открыта");
             return true;
         } else {
-            debugMessage("Шторка каталога закрыта");
+            verboseMessage("Шторка каталога закрыта");
             return false;
         }
     }
@@ -417,10 +417,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить есть ли товары на странице */
     public boolean isProductAvailable() {
         if(kraken.detect().isElementPresent(Elements.Catalog.Product.snippet())){
-            debugMessage("✓ Есть доступные товары");
+            verboseMessage("✓ Есть доступные товары");
             return true;
         } else {
-            debugMessage("Нет доступных товаров!");
+            verboseMessage("Нет доступных товаров!");
             return false;
         }
     }
@@ -434,7 +434,7 @@ public class DetectionHelper extends HelperBase {
             verboseMessage("> открыта карточка товара " + kraken.grab().currentURL());
             return true;
         } else {
-            debugMessage("Карточка товара закрыта");
+            verboseMessage("Карточка товара закрыта");
             return false;
         }
     }
@@ -481,10 +481,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить открыта ли корзина */
     public boolean isCartOpen() {
         if (isElementDisplayed(Elements.Cart.drawer())){
-            debugMessage("Корзина открыта");
+            verboseMessage("Корзина открыта");
             return true;
         } else {
-            debugMessage("Корзина закрыта");
+            verboseMessage("Корзина закрыта");
             return false;
         }
     }
@@ -493,10 +493,10 @@ public class DetectionHelper extends HelperBase {
     public boolean isCartEmpty() {
         Shop.Cart.open();
         if (isElementDisplayed(Elements.Cart.placeholder())) {
-            debugMessage("Корзина пуста");
+            verboseMessage("Корзина пуста");
             return true;
         } else {
-            debugMessage("Корзина не пуста");
+            verboseMessage("Корзина не пуста");
             return false;
         }
     }
@@ -505,10 +505,10 @@ public class DetectionHelper extends HelperBase {
     public boolean isCheckoutButtonActive() {
         Shop.Cart.open();
         if(isElementEnabled(Elements.Cart.checkoutButton())){
-            debugMessage("Кнопка перехода в чекаут активна");
+            verboseMessage("Кнопка перехода в чекаут активна");
             return true;
         } else {
-            debugMessage("Кнопка перехода в чекаут неактивна");
+            verboseMessage("Кнопка перехода в чекаут неактивна");
             return false;
         }
     }
@@ -555,10 +555,10 @@ public class DetectionHelper extends HelperBase {
     /** Определить добавлен ли промокод в чекауте */
     public boolean isPromocodeApplied() {
         if (kraken.detect().isElementPresent(Elements.Checkout.Promocode.deleteButton())) {
-            debugMessage("✓ Промокод применён\n");
+            verboseMessage("✓ Промокод применён\n");
             return true;
         } else {
-            debugMessage("Промокод не применён\n");
+            verboseMessage("Промокод не применён\n");
             return false;
         }
     }

@@ -56,7 +56,6 @@ public class AppManager {
     private ReachHelper reachHelper;
     private DetectionHelper detectionHelper;
     private GrabHelper grabHelper;
-    private DropHelper dropHelper;
     private Shop shopHelper;
     private User userHelper;
     private Checkout checkoutHelper;
@@ -213,7 +212,6 @@ public class AppManager {
         reachHelper = new ReachHelper(driver, environment, this);
         detectionHelper = new DetectionHelper(driver, environment, this);
         grabHelper = new GrabHelper(driver, environment,this);
-        dropHelper = new DropHelper(driver, environment,this);
         shopHelper = new Shop(driver, environment, this);
         userHelper = new User(driver, environment, this);
         checkoutHelper = new Checkout(driver, environment, this);
@@ -350,7 +348,6 @@ public class AppManager {
     public ReachHelper reach() { return reachHelper; }
     public DetectionHelper detect() { return detectionHelper; }
     public GrabHelper grab() { return grabHelper; }
-    public DropHelper drop() { return dropHelper; }
     public Shop shopping() { return shopHelper; }
     public User user() { return userHelper; }
     public Checkout checkout() { return checkoutHelper; }

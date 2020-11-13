@@ -62,7 +62,7 @@ public class SelfCheckTests extends TestBase {
             priority = 10003)
     public void detectAuthorisation() {
 
-        kraken.drop().auth();
+        kraken.reach().logout();
 
         kraken.get().baseUrl();
         Assert.assertFalse(kraken.detect().isUserAuthorised());

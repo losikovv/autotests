@@ -137,11 +137,6 @@ public class Shop extends Base {
         public static void hitMailRuButton() {
             verboseMessage("> нажимаем кнопку авторизация через MailRu\n");
             kraken.perform().click(Elements.Modals.AuthModal.mailruButton());
-//            WebElement mailButton =
-//                    kraken.perform().findChildElementByTagAndIndex(
-//                            Elements.Modals.AuthModal.socialButtonsSectionParent(),
-//                            By.tagName("button"),2);
-//            kraken.perform().click(mailButton);
         }
         @Step("Нажимаем кнопку авторизация через SberID")
         public static void hitSberIdButton() {

@@ -32,21 +32,39 @@ public class ReachHelper extends HelperBase {
     }
 
     public void admin(String path) {
-        debugMessage("Пытаемся попасть на страницу " + path + " админки...");
+        verboseMessage("Пытаемся попасть на страницу " + path + " админки...");
         kraken.get().adminPage(path);
         kraken.await().simply(1);// Ожидание редиректа
         if (kraken.detect().isOnAdminLoginPage()) {
-            debugMessage("> недостаточно прав, перелогиниваемся суперадмином на логин-странице админки");
+            verboseMessage("> недостаточно прав, перелогиниваемся суперадмином на логин-странице админки");
             User.Auth.withEmail(Users.superadmin());
         }
         kraken.get().adminPage(path);
-        debugMessage("✓ Готово");
+        verboseMessage("✓ Готово");
     }
 
     public void seoCatalog() {
         User.Logout.quickly();
         deleteAllCookies();
         kraken.get().seoCatalogPage();
+    }
+
+    /** Деавторизоваться, оставшись на текущей странице */
+    public void logout() {
+        if (kraken.detect().isUserAuthorised()) {
+            String currentURL = kraken.grab().currentURL();
+            User.Logout.quickly();
+            kraken.get().url(currentURL);
+        }
+    }
+
+    /** Очистить список избранного, удалив все любимые товары */
+    public void cleanFavorites() {
+        if (!kraken.detect().isFavoritesEmpty()) {
+            Shop.Favorites.Item.removeFromFavorites();
+            kraken.perform().refresh();
+            cleanFavorites();
+        }
     }
 
 }
