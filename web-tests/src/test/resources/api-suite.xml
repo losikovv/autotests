@@ -3,6 +3,7 @@
 <suite name="REST API suite" parallel="none">
   <listeners>
     <listener class-name="instamart.core.listeners.TmsListener"/>
+    <listener class-name="instamart.core.listeners.ConsoleLogListener"/>
   </listeners>
   <test verbose="1" name="REST API tests">
     <groups>

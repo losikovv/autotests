@@ -3,7 +3,8 @@
 <suite name="Web UI suite" parallel="none">
   <listeners>
     <listener class-name="instamart.core.listeners.TmsListener"/>
-    <listener class-name="instamart.core.listeners.AllureTestResultListener"/>
+    <listener class-name="instamart.core.listeners.ConsoleLogListener"/>
+    <listener class-name="instamart.core.listeners.ScreenShotListener"/>
   </listeners>
   <test verbose="1" name="Web UI tests">
     <groups>

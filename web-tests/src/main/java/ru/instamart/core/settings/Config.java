@@ -28,7 +28,7 @@ public class Config {
 
         boolean verbose = true; // Выводит сообщения в системный лог
         boolean debug = true; // Тоже самое как verbose
-        boolean log = false; // Запись логов в файл
+        boolean log = true; // Запись логов в файл
 
         boolean multiSessionMode = false; // Возможность запускать несколько кракенов одновременно (возможно устарело)
         boolean fullScreenMode = false; // Запуск тестов на полном экране

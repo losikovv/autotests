@@ -119,16 +119,7 @@ public class AppManager {
 
     public void setLogs() {
         if (log) {
-            setDefaultUncaughtExceptionHandler();
             SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
-        }
-    }
-
-    private static void setDefaultUncaughtExceptionHandler() {
-        try {
-            Thread.setDefaultUncaughtExceptionHandler((t, e) -> LOGGER.error("Uncaught Exception detected in thread " + t, e));
-        } catch (SecurityException e) {
-            LOGGER.error("Could not set the Default Uncaught Exception Handler", e);
         }
     }
 
