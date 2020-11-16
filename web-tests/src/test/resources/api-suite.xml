@@ -32,6 +32,7 @@
       <class name="ru.instamart.tests.api.v2.e2e.StoreTests"/>
       <class name="ru.instamart.tests.api.v2.e2e.ZoneTests"/>
       <class name="ru.instamart.tests.api.v2.e2e.RetailerTests"/>
+      <class name="ru.instamart.tests.api.v2.e2e.OrderTests"/>
       <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentfulTests"/>
       <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentlessTests"/>
       <class name="ru.instamart.tests.api.shopper.e2e.ShopperTests"/>
