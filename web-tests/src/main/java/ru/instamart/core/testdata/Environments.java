@@ -6,6 +6,8 @@ public class Environments {
 
         public static String production() { return "sbermarket-production"; }
 
+        public static String preprod() { return "sbermarket-preprod"; }
+
         public static String staging() { return "sbermarket-staging"; }
 
         public static String yc_staging() { return "sbermarket-yc-staging"; }

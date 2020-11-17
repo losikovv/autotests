@@ -90,7 +90,14 @@ public class User extends Base {
         @Step("Деавторизуемся на сайте")
         private static void logoutOnSite() {
             verboseMessage("> деавторизуемся на сайте");
-            kraken.perform().click(Elements.Header.profileButton());
+            for (int i=0;i<60;i++){
+                kraken.perform().click(Elements.Header.profileButton());
+                if(driver.findElement(Elements.AccountMenu.logoutButton().getLocator()).isDisplayed()){
+                    break;
+                }else{
+                    kraken.await().simply(0.3);
+                }
+            }
             kraken.perform().click(Elements.AccountMenu.logoutButton());
         }
         @Step("Деавторизуемся в админке")
@@ -132,7 +139,7 @@ public class User extends Base {
             regSequence(name, email, password, passwordConfirmation);
             // TODO переделать на fluent-ожидание
             kraken.await().implicitly(1); // Ожидание раздизебливания кнопки подтверждения регистрации
-            Shop.AuthModal.submit();
+            Shop.AuthModal.submitRegistration();
         }
 
         /**
@@ -152,7 +159,7 @@ public class User extends Base {
                 regSequence(name, email, password, passwordConfirmation);
                 // TODO переделать на fluent-ожидание
                 kraken.await().implicitly(1); // Ожидание раздизебливания кнопки подтверждения регистрации
-                Shop.AuthModal.submit();
+                Shop.AuthModal.submitRegistration();
                 return modalType;
             }
         }
