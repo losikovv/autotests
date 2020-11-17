@@ -120,8 +120,14 @@ public class Shop extends Base {
         @Step("Отправляем форму")
         public static void submit() {
             verboseMessage("> отправляем форму\n");
+            kraken.perform().click(Elements.Modals.AuthModal.submitButton());
+            kraken.await().implicitly(2); // Ожидание авторизации
+        }
+        @Step("Отправляем форму регистрации")
+        public static void submitRegistration() {
+            verboseMessage("> отправляем форму\n");
             kraken.perform().click(Elements.Modals.AuthModal.submitButtonRegistration());
-            kraken.await().implicitly(2); // Ожидание авторизации/регистрации
+            kraken.await().implicitly(2); // Ожидание регистрации
         }
         @Step("Нажимаем кнопку авторизация через Vkontakte")
         public static void hitVkontakteButton() {

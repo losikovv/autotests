@@ -30,7 +30,7 @@ public class UserRegistrationTests extends TestBase {
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-acceptance","sbermarket-regression","testing"
             },
             priority = 201
     )
