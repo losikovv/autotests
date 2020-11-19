@@ -150,9 +150,9 @@ public class GrabHelper extends HelperBase{
         Shop.Cart.open();
         String cartTotal = kraken.detect().isElementDisplayed(Elements.Cart.total()) ? text(Elements.Cart.total()) : null;
         if (cartTotal == null) {
-            message("> в корзине пусто");
+            verboseMessage("> в корзине пусто");
         } else {
-            message("> сумма корзины " + cartTotal);
+            verboseMessage("> сумма корзины " + cartTotal);
         }
         return cartTotal;
     }
@@ -199,7 +199,7 @@ public class GrabHelper extends HelperBase{
             String text = text(Elements.Cart.alertText());
             int minOrderSum = parseInt(((text).substring((text.length() - 9), (text.length() - 3))).replaceAll(
                     "\\s", ""));
-            debugMessage("Сумма минимального заказа в алерте корзины: " + minOrderSum + "р");
+            verboseMessage("Сумма минимального заказа в алерте корзины: " + minOrderSum + "р");
             return minOrderSum;
         } else return 0;
     }
@@ -222,7 +222,7 @@ public class GrabHelper extends HelperBase{
         String wisdom = null;
         for (int i = 1; i <= 39; i++) {
             String text = kraken.grab().text(Elements.Page404.quote(i));
-            debugMessage(">>>>>>>>>>>> " + text);
+            verboseMessage(">>>>>>>>>>>> " + text);
             if (!text.equals("")) {
                 wisdom = text;
             }

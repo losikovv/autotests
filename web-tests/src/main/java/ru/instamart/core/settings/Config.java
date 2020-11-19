@@ -17,7 +17,7 @@ public class Config {
 
     public interface CoreSettings {
         String defaultBrowser = BrowserType.CHROME; // Если с запуском тестов не передается название браузера то используется дефолтный
-        String defaultEnvironment = Environments.sbermarket.preprod(); // Дефолтное окружение, если при запуске другое не было указано
+        String defaultEnvironment = Environments.sbermarket.staging(); // Дефолтное окружение, если при запуске другое не было указано
         String defaultRetailer = Tenants.metro().getAlias();
 
         int basicTimeout = 2;
@@ -27,7 +27,6 @@ public class Config {
         boolean video = false; // Включает запись видео
 
         boolean verbose = true; // Выводит сообщения в системный лог
-        boolean debug = true; // Тоже самое как verbose
         boolean log = true; // Запись логов в файл
 
         boolean multiSessionMode = false; // Возможность запускать несколько кракенов одновременно (возможно устарело)

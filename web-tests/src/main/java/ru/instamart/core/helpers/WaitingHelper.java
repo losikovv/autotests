@@ -21,11 +21,11 @@ public class WaitingHelper extends HelperBase {
 
     /** Просто задержка на указанное время */
     public static void simply(double seconds) {
-        debugMessage("Задержка на " + seconds + " сек.");
+        verboseMessage("Задержка на " + seconds + " сек.");
         try {
             Thread.sleep((long) (seconds * 1000));
         } catch (InterruptedException i) {
-            debugMessage("Прервано");
+            verboseMessage("Прервано");
         }
     }
 

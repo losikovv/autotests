@@ -9,6 +9,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
+import static instamart.core.helpers.HelperBase.verboseMessage;
+
 public class testOrders extends TestBase {
     @DataProvider(name="cities")
     public static Object[][] citiesDataProvider() {
@@ -30,7 +32,7 @@ public class testOrders extends TestBase {
             priority = 2301
     )
     public void successOrderInCities(int param) {
-        System.out.println(">>> ТЕСТ С ПАРАМЕТРОМ " + param);
+        verboseMessage(">>> ТЕСТ С ПАРАМЕТРОМ " + param);
         kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
 
         kraken.reach().checkout();

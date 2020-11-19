@@ -6,6 +6,7 @@ import io.restassured.specification.RequestSpecification;
 import javax.net.ssl.SSLHandshakeException;
 import java.net.SocketException;
 
+import static instamart.core.helpers.HelperBase.verboseMessage;
 import static io.restassured.RestAssured.given;
 
 abstract class InstamartRequestsBase {
@@ -29,13 +30,13 @@ abstract class InstamartRequestsBase {
                     try {
                         return givenExceptions();
                     } catch (SocketException socketException) {
-                        System.out.println(socketException);
+                        verboseMessage(socketException);
                     }
                 } catch (SSLHandshakeException sslHandshakeException) {
-                    System.out.println(sslHandshakeException);
+                    verboseMessage(sslHandshakeException);
                 }
             } catch (IllegalStateException illegalStateException) {
-                System.out.println(illegalStateException);
+                verboseMessage(illegalStateException);
             }
         }
         return given().spec(RestBase.customerRequestSpec);

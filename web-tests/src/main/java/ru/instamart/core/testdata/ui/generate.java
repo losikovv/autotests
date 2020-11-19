@@ -7,7 +7,7 @@ import instamart.ui.common.pagesdata.UserData;
 
 import java.util.Random;
 
-import static instamart.core.settings.Config.CoreSettings.debug;
+import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public class generate {
 
@@ -82,14 +82,12 @@ public class generate {
             testuser.setPassword(prefix + "-" + testuser.getPassword());
             testuser.setName(prefix + "-" + testuser.getName());
         }
-        if(debug) {
-            System.out.println("Сгенерированы тестовые реквизиты для роли " + role);
-            System.out.println("Телефон: " + testuser.getPhone());
-            System.out.println("Email: " + testuser.getLogin());
-            System.out.println("Пароль: " + testuser.getPassword());
-            System.out.println("Имя: " + testuser.getName());
-            System.out.println("\n");
-        }
+        verboseMessage("Сгенерированы тестовые реквизиты для роли " + role);
+        verboseMessage("Телефон: " + testuser.getPhone());
+        verboseMessage("Email: " + testuser.getLogin());
+        verboseMessage("Пароль: " + testuser.getPassword());
+        verboseMessage("Имя: " + testuser.getName());
+        verboseMessage("\n");
         return testuser;
     }
 

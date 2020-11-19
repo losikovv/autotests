@@ -18,6 +18,7 @@ import instamart.api.objects.v2.Taxon;
 import java.util.List;
 
 import static instamart.api.helpers.ApiV2Helper.getProductsFromEachDepartmentInStore;
+import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public class StoreTests extends RestBase {
 
@@ -31,7 +32,7 @@ public class StoreTests extends RestBase {
             description = "Тест категорий на главных страницах всех магазинов",
             groups = {})
     public void departmentsOnMainPages(Store store) {
-        System.out.println(store + "\n");
+        verboseMessage(store + "\n");
 
         SoftAssert softAssert = new SoftAssert();
         ApiV2Helper.getProductsFromEachDepartmentInStore(store.getId(), softAssert);
@@ -43,7 +44,7 @@ public class StoreTests extends RestBase {
             description = "Тест продуктов на главных страницах всех магазинов",
             groups = {})
     public void productsOnMainPages(Store store) {
-        System.out.println(store + "\n" + RestAssured.baseURI + "/api/v2/departments?sid=" + store.getId() + "\n");
+        verboseMessage(store + "\n" + RestAssured.baseURI + "/api/v2/departments?sid=" + store.getId() + "\n");
 
         SoftAssert softAssert = new SoftAssert();
         List<Product> products = getProductsFromEachDepartmentInStore(store.getId());
@@ -59,7 +60,7 @@ public class StoreTests extends RestBase {
             description = "Тест количества товаров в таксонах",
             groups = {})
     public void categoriesProductsCount(Store store) {
-        System.out.println(store + "\n");
+        verboseMessage(store + "\n");
 
         SoftAssert softAssert = new SoftAssert();
         List<Taxon> taxons = ApiV2Helper.getCategories(store.getId());
@@ -74,7 +75,7 @@ public class StoreTests extends RestBase {
             description = "Тест заказов во всех магазинах",
             groups = {})
     public void orderByStore(Store store) {
-        System.out.println("Оформляем заказ в " + store + "\n");
+        verboseMessage("Оформляем заказ в " + store + "\n");
 
         apiV2.order(AppManager.session.user, store.getId());
         apiV2.cancelCurrentOrder();
@@ -85,7 +86,7 @@ public class StoreTests extends RestBase {
             description = "Тест первых заказов во всех магазинах",
             groups = {})
     public void firstOrderByStore(Store store) {
-        System.out.println("Оформляем первый заказ в " + store);
+        verboseMessage("Оформляем первый заказ в " + store);
 
         UserData user = user();
 

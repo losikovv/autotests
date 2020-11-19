@@ -1,15 +1,13 @@
 package instamart.ui.modules;
 
 import instamart.core.common.AppManager;
+import instamart.core.helpers.HelperBase;
 import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import static instamart.core.settings.Config.CoreSettings.debug;
-import static instamart.core.settings.Config.CoreSettings.verbose;
 
 public class Base {
     static WebDriver driver;
@@ -22,32 +20,12 @@ public class Base {
         this.kraken = app;
     }
 
-    /** Отправить сообщение в консоль */
-    public static void message(String message) {
-        //Reporter.log(message,false);
-        System.out.println(message);
-    }
-
-    /** Отправить verbose-сообщение в консоль */
-    public static void verboseMessage(String message) {
-        if(verbose) {
-            message(message);
-        }
-    }
-
-    /** Отправить debug-сообщение в консоль */
-    public static void debugMessage(String message) {
-        if(debug) {
-            message(message);
-        }
-    }
-
     /** Обработать алерт в зависимости от настройки acceptNextAlert */
     public static void handleAlert() {
         Alert alert = driver.switchTo().alert();
         String alertText = alert.getText();
         alert.accept();
-        debugMessage("> handling alert [" + alertText + "]");
+        HelperBase.verboseMessage("> handling alert [" + alertText + "]");
     }
 
     @Step("проверяем наличие рекламных банеров на странице")
@@ -56,7 +34,7 @@ public class Base {
                 ExpectedConditions.elementToBeClickable(
                         data.getLocator()),
                 "\n> поп-ап с рекламой не появился",timer)){
-            verboseMessage("> на странице обнаружен рекламный баннер");
+            HelperBase.verboseMessage("> на странице обнаружен рекламный баннер");
             do{
                 kraken.await().simply(1);
                 if(kraken.detect().isPromoModalOpen(data)){
@@ -64,6 +42,6 @@ public class Base {
                 }
             }while (kraken.detect().isPromoModalOpen(data));
         }
-        verboseMessage("> все хорошо, на странице нет рекламных баннеров");
+        HelperBase.verboseMessage("> все хорошо, на странице нет рекламных баннеров");
     }
 }

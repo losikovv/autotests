@@ -3,13 +3,15 @@ package instamart.api.helpers;
 import java.util.HashMap;
 import java.util.List;
 
-public class HelperBase {
+import static instamart.core.helpers.HelperBase.verboseMessage;
+
+abstract class ApiHelperBase {
 
     /**
      * Зеленый текст
      */
     static void printSuccess(String string) {
-        System.out.println(greenText(string));
+        verboseMessage(greenText(string));
     }
 
     static String greenText(String string) {
@@ -20,7 +22,11 @@ public class HelperBase {
      * Красный текст
      */
     static void printError(String string) {
-        System.err.println(string);
+        verboseMessage(redText(string));
+    }
+
+    static String redText(String string) {
+        return "\u001b[31m" + string + "\u001B[0m";
     }
 
     /**

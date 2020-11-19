@@ -597,7 +597,7 @@ public class DetectionHelper extends HelperBase {
             return isElementPresent(Elements.RetailRocket.widget(widget.getId()));
                     //&& kraken.grab().text(Elements.RetailRocket.title(widget.getId())).equals(widget.getFirstName());
         } else
-            message("В детекторе не найден провайдер виджета");
+            verboseMessage("В детекторе не найден провайдер виджета");
             return false;
     }
 

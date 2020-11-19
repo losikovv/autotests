@@ -9,6 +9,8 @@ import instamart.api.helpers.ApiV2Helper;
 import instamart.api.objects.v2.Retailer;
 import instamart.api.objects.v2.Store;
 
+import static instamart.core.helpers.HelperBase.verboseMessage;
+
 public class RetailerTests extends RestBase {
 
     @BeforeClass(description = "Проверка самих провайдеров")
@@ -23,7 +25,7 @@ public class RetailerTests extends RestBase {
     public void orderByRetailer(Retailer retailer) {
         Store store = ApiV2Helper.availableStores(retailer).get(0);
         apiV2.skipTestIfOnlyPickupIsAvailable(store);
-        System.out.println("Оформляем заказ в " + store.getName() + "\n");
+        verboseMessage("Оформляем заказ в " + store.getName() + "\n");
 
         apiV2.order(AppManager.session.user, store.getId());
         apiV2.cancelCurrentOrder();

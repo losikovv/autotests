@@ -13,6 +13,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 
+import static instamart.core.helpers.HelperBase.verboseMessage;
+
 public class AllureHelper {
 
     public static void allureEnvironmentWriter(ImmutableMap<String, String> environmentValuesSet)  {
@@ -44,7 +46,7 @@ public class AllureHelper {
                     new File( System.getProperty("user.dir")
                             + "/target/allure-results/environment.xml"));
             transformer.transform(source, result);
-            System.out.println("Allure environment data saved.");
+            verboseMessage("Allure environment data saved.");
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
         } catch (TransformerException tfe) {
@@ -81,7 +83,7 @@ public class AllureHelper {
             StreamResult result = new StreamResult(
                     new File( customResultsPath + "environment.xml"));
             transformer.transform(source, result);
-            System.out.println("Allure environment data saved.");
+            verboseMessage("Allure environment data saved.");
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
         } catch (TransformerException tfe) {

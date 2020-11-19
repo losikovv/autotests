@@ -19,8 +19,9 @@ import java.math.RoundingMode;
 import java.util.*;
 
 import static instamart.ui.modules.Base.kraken;
+import static instamart.core.helpers.HelperBase.verboseMessage;
 
-public class ApiV2Helper extends HelperBase {
+public class ApiV2Helper extends ApiHelperBase {
     private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentAddressId = new ThreadLocal<>();
     public final ThreadLocal<String> currentOrderNumber = new ThreadLocal<>();
@@ -101,7 +102,7 @@ public class ApiV2Helper extends HelperBase {
     public void logout() {
         if (authorized()) {
             ApiV2Requests.token.set(null);
-            System.out.println("Чистим токен");
+            verboseMessage("Чистим токен");
         }
     }
 
@@ -135,13 +136,13 @@ public class ApiV2Helper extends HelperBase {
 
     public static List<Taxon> getCategories(int sid) {
         List<Taxon> taxons = ApiV2Requests.Taxons.GET(sid).as(TaxonsResponse.class).getTaxons();
-        System.out.println(taxons);
+        verboseMessage(taxons);
         return taxons;
     }
 
     public Taxon getCategory(int id, int sid) {
         Taxon taxon = ApiV2Requests.Taxons.GET(id, sid).as(TaxonResponse.class).getTaxon();
-        System.out.println(taxon);
+        verboseMessage(taxon);
         return taxon;
     }
 
@@ -152,7 +153,7 @@ public class ApiV2Helper extends HelperBase {
         Response response = ApiV2Requests.Orders.Shipments.DELETE(currentOrderNumber.get());
 
         Order order = response.as(OrderResponse.class).getOrder();
-        System.out.println("Удалены все доставки у заказа: " + order.getNumber() + "\n");
+        verboseMessage("Удалены все доставки у заказа: " + order.getNumber() + "\n");
     }
 
     /**
@@ -237,7 +238,7 @@ public class ApiV2Helper extends HelperBase {
                 products.add(productFromDepartment);
                 productsString.add(productFromDepartment.toString());
             }
-            System.out.println(productsString);
+            verboseMessage(productsString);
         }
         return products;
     }
@@ -283,7 +284,7 @@ public class ApiV2Helper extends HelperBase {
         }
         currentShipmentId.set(shipment.getId());
         currentShipmentNumber.set(shipment.getNumber());
-        System.out.println("Номер доставки: " + currentShipmentNumber.get() + "\n");
+        verboseMessage("Номер доставки: " + currentShipmentNumber.get() + "\n");
     }
 
     /**
@@ -317,11 +318,11 @@ public class ApiV2Helper extends HelperBase {
         double productWeight = Double.parseDouble((humanVolume.split(" ")[0]).replace(",","."));
 
         if (humanVolume.contains(" кг") || humanVolume.contains(" л")) {
-            System.out.println(product + "\nВес продукта: " + productWeight + " кг.");
+            verboseMessage(product + "\nВес продукта: " + productWeight + " кг.");
             productWeightNotDefined.set(false);
             return productWeight;
         } else if (humanVolume.contains(" г") || humanVolume.contains(" мл")) {
-            System.out.println(product + "\nВес продукта: " + productWeight / 1000 + " кг.");
+            verboseMessage(product + "\nВес продукта: " + productWeight / 1000 + " кг.");
             productWeightNotDefined.set(false);
             return productWeight / 1000;
         } else {
@@ -348,7 +349,7 @@ public class ApiV2Helper extends HelperBase {
 
         currentDeliveryWindowId.set(deliveryWindow.getId());
 
-        System.out.println(deliveryWindow);
+        verboseMessage(deliveryWindow);
     }
 
     /**
@@ -367,7 +368,7 @@ public class ApiV2Helper extends HelperBase {
 
         currentShipmentMethodId.set(shippingMethod.getId());
 
-        System.out.println(shippingMethod);
+        verboseMessage(shippingMethod);
     }
 
     /**
@@ -392,7 +393,7 @@ public class ApiV2Helper extends HelperBase {
                 availablePaymentTools.add(selectedPaymentTool);
             } else availablePaymentTools.add(paymentTools.get(i).toString());
         }
-        System.out.println(availablePaymentTools);
+        verboseMessage(availablePaymentTools);
     }
 
     /**
@@ -412,11 +413,11 @@ public class ApiV2Helper extends HelperBase {
         ApiV2Checkpoints.assertStatusCode200(response);
         Order order = response.as(OrderResponse.class).getOrder();
         printSuccess("Применены атрибуты для заказа: " + order.getNumber());
-        System.out.println("        full_address: " + order.getAddress().getFull_address());
-        System.out.println("  replacement_policy: " + order.getReplacement_policy().getDescription());
-        System.out.println("  delivery_starts_at: " + order.getShipments().get(0).getDelivery_window().getStarts_at());
-        System.out.println("    delivery_ends_at: " + order.getShipments().get(0).getDelivery_window().getEnds_at());
-        System.out.println("special_instructions: " + order.getSpecial_instructions() + "\n");
+        verboseMessage("        full_address: " + order.getAddress().getFull_address());
+        verboseMessage("  replacement_policy: " + order.getReplacement_policy().getDescription());
+        verboseMessage("  delivery_starts_at: " + order.getShipments().get(0).getDelivery_window().getStarts_at());
+        verboseMessage("    delivery_ends_at: " + order.getShipments().get(0).getDelivery_window().getEnds_at());
+        verboseMessage("special_instructions: " + order.getSpecial_instructions() + "\n");
     }
 
     /**
@@ -431,8 +432,7 @@ public class ApiV2Helper extends HelperBase {
             if (errors.getShipments() != null) {
                 String notAvailableDeliveryWindow = "Выбранный интервал стал недоступен";
                 if (errors.getShipments().contains(notAvailableDeliveryWindow)) {
-                    printError(notAvailableDeliveryWindow);
-                    System.out.println();
+                    printError(notAvailableDeliveryWindow + "\n");
                     getAvailableDeliveryWindow();
                     setDefaultOrderAttributes();
                     response = ApiV2Requests.Orders.Completion.POST(currentOrderNumber.get());
@@ -450,7 +450,7 @@ public class ApiV2Helper extends HelperBase {
         if (response.as(OrderResponse.class).getOrder() != null) {
             Order order = response.as(OrderResponse.class).getOrder();
             if (order.getShipments().get(0).getAlerts().size() > 0) {
-                System.out.println(order.getShipments().get(0).getAlerts().get(0).getFull_message());
+                verboseMessage(order.getShipments().get(0).getAlerts().get(0).getFull_message());
             }
             printSuccess("Оформлен заказ: " + order.getNumber() + "\n");
             orderCompleted.set(true);
@@ -531,12 +531,12 @@ public class ApiV2Helper extends HelperBase {
         Store store = response.as(StoreResponse.class).getStore();
 
         Address address = store.getLocation();
-        System.out.println("Получен адрес " + address.getFull_address());
+        verboseMessage("Получен адрес " + address.getFull_address());
 
         List<List<Zone>> zones = store.getZones();
         Zone zone = getInnerPoint(zones.get(zones.size() - 1));
         address.setCoordinates(zone);
-        System.out.println("Выбраны координаты: " + zone + "\n");
+        verboseMessage("Выбраны координаты: " + zone + "\n");
 
         return address;
     }
@@ -554,7 +554,7 @@ public class ApiV2Helper extends HelperBase {
         for (Retailer retailer : retailers) {
             availableRetailers.add(retailer.toString());
         }
-        System.out.println(availableRetailers);
+        verboseMessage(availableRetailers);
 
         return retailers;
     }
@@ -571,7 +571,7 @@ public class ApiV2Helper extends HelperBase {
                 "\n");
         for (Retailer retailer : retailers)
             if (retailer.getAvailable()) availableRetailers.add(retailer.toString());
-        System.out.println(availableRetailers);
+        verboseMessage(availableRetailers);
 
         StringJoiner notAvailableRetailers = new StringJoiner(
                 "\n• ",
@@ -579,7 +579,7 @@ public class ApiV2Helper extends HelperBase {
                 "\n");
         for (Retailer retailer : retailers)
             if (!retailer.getAvailable()) notAvailableRetailers.add(retailer.toString());
-        System.out.println(notAvailableRetailers);
+        verboseMessage(notAvailableRetailers);
 
         return retailers;
     }
@@ -639,7 +639,7 @@ public class ApiV2Helper extends HelperBase {
         for (Store store : stores) {
             availableStores.add(store.toString());
         }
-        System.out.println(availableStores);
+        verboseMessage(availableStores);
     }
 
     /**
@@ -666,8 +666,8 @@ public class ApiV2Helper extends HelperBase {
                 .as(SessionsResponse.class)
                 .getSession()
                 .getAccess_token());
-        System.out.println("Авторизуемся: " + email + " / " + password);
-        System.out.println("access_token: " + ApiV2Requests.token.get() + "\n");
+        verboseMessage("Авторизуемся: " + email + " / " + password);
+        verboseMessage("access_token: " + ApiV2Requests.token.get() + "\n");
     }
 
     /**
@@ -685,7 +685,7 @@ public class ApiV2Helper extends HelperBase {
                 .as(OrderResponse.class)
                 .getOrder()
                 .getNumber());
-        System.out.println("Номер текущего заказа: " + currentOrderNumber.get() + "\n");
+        verboseMessage("Номер текущего заказа: " + currentOrderNumber.get() + "\n");
         return currentOrderNumber.get();
     }
 
@@ -697,7 +697,7 @@ public class ApiV2Helper extends HelperBase {
         List<Order> orders = response.getOrders();
 
         if (orders.size() < 1) {
-            System.out.println("Нет активных заказов");
+            verboseMessage("Нет активных заказов");
         } else {
             int pages = response.getMeta().getTotal_pages();
             if (pages > 1) {
@@ -705,11 +705,11 @@ public class ApiV2Helper extends HelperBase {
                     orders.addAll(ApiV2Requests.Orders.GET(OrderStatus.ACTIVE, i).as(OrdersResponse.class).getOrders());
                 }
             }
-            System.out.println("Список активных заказов:");
+            verboseMessage("Список активных заказов:");
             for (Order order : orders) {
-                System.out.println(order.getNumber());
+                verboseMessage(order.getNumber());
             }
-            System.out.println();
+            verboseMessage("");
         }
         return orders;
     }

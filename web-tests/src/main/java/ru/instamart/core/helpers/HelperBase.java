@@ -1,9 +1,12 @@
 package instamart.core.helpers;
 
-import io.qameta.allure.Attachment;
-import org.openqa.selenium.*;
 import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
+import io.qameta.allure.Attachment;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,24 +25,16 @@ public class HelperBase {
         this.kraken = app;
     }
 
-    /** Отправить сообщение в консоль */
-    public static void message(String message) {
-        System.out.println(message);
+    /** Отправить verbose-сообщение в консоль */
+    public static void verboseMessage(Object message) {
+        verboseMessage(message.toString());
     }
 
     /** Отправить verbose-сообщение в консоль */
     public static void verboseMessage(String message) {
         if(verbose) {
             if (log) LOGGER.debug(message);
-            else message(message);
-        }
-    }
-
-    /** Отправить debug-сообщение в консоль */
-    public static void debugMessage(String message) {
-        if(debug) {
-            if (log) LOGGER.debug(message);
-            else message(message);
+            else System.out.println(message);
         }
     }
 
@@ -51,7 +46,7 @@ public class HelperBase {
             if(acceptNextAlert) {
                 alert.accept();
             } else alert.dismiss();
-            debugMessage("> handling alert [" + alertText + "]");
+            verboseMessage("> handling alert [" + alertText + "]");
         } finally {
             acceptNextAlert = true;
         }

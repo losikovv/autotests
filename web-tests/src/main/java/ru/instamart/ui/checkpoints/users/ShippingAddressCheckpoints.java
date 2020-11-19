@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import static instamart.ui.modules.Base.kraken;
-import static instamart.ui.modules.Base.verboseMessage;
+import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public class ShippingAddressCheckpoints extends BaseUICheckpoints {
     SoftAssert softAssert = new SoftAssert();
