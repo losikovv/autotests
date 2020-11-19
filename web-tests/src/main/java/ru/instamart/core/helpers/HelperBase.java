@@ -60,7 +60,6 @@ public class HelperBase {
     /** Создаем скриншот и добавляем его в Allure*/
     @Attachment(value = "Скриншот с веб страницы", type = "image/png")
     public static byte[] takeScreenshot() {
-        // Take a screenshot as byte array and return
         return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
     }
 }

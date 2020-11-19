@@ -27,7 +27,7 @@ public class UserLogoutTests extends TestBase {
     @Test(  description = "Тест успешной быстрой деавторизации",
             priority = 126,
             groups = {
-                    "metro-acceptance", "metro-regression","testing",
+                    "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successQuickLogout() {

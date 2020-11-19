@@ -30,7 +30,7 @@ public class UserRegistrationTests extends TestBase {
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression","testing"
+                    "sbermarket-acceptance","sbermarket-regression",
             },
             priority = 201
     )
@@ -327,7 +327,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест успешной регистрации без проставленной галки согласия на почтовую рассылку",
             groups = {
-                    "metro-acceptance", "metro-regression", "testing",
+                    "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 214

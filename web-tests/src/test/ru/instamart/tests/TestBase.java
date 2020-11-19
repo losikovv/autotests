@@ -2,6 +2,8 @@ package ru.instamart.tests;
 
 import com.google.common.collect.ImmutableMap;
 import instamart.core.common.AppManager;
+import instamart.core.helpers.ConsoleOutputCapturerHelper;
+import instamart.core.helpers.HelperBase;
 import instamart.core.listeners.TmsListener;
 import instamart.core.settings.Config;
 import instamart.core.testdata.ui.generate;
@@ -9,13 +11,12 @@ import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.common.pagesdata.PageData;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.SkipException;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.DataProvider;
+import org.testng.annotations.*;
 
 import static instamart.core.helpers.AllureHelper.allureEnvironmentWriter;
 import static instamart.core.helpers.HelperBase.verboseMessage;
@@ -26,6 +27,7 @@ public class TestBase {
     protected static final AppManager kraken
             = new AppManager(System.getProperty("browser", Config.CoreSettings.defaultBrowser));
 
+    private static ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
     @BeforeSuite(groups = {
             "smoke","acceptance","regression","testing",
             "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression",
@@ -62,6 +64,23 @@ public class TestBase {
                description = "Завершаем процессы браузеров")
     public void cleanupAfterTest(){
         kraken.stop();
+    }
+
+    @BeforeMethod(alwaysRun = true,description = "Стартуем запись системного лога")
+    public void captureStart(){
+        capture.start();
+    }
+    @AfterMethod(alwaysRun = true,description = "Добавляем системный лог к тесту")
+    public void captureFinish(){
+        String value = capture.stop();
+        Allure.addAttachment("Системный лог теста",value);
+    }
+
+    @AfterMethod(alwaysRun = true,description = "Прикрепляем скриншот интерфейса на котором тест упал")
+    public void screenShot(ITestResult result){
+        if(!result.isSuccess()){
+            HelperBase.takeScreenshot();
+        }
     }
 
     /** Метод-обертка для красивого вывода ошибок зафейленных тестов */
