@@ -121,6 +121,7 @@ task apiV2Regress(type: Test) {
     }
     if (project.hasProperty('qase')) {
         systemProperty 'qase', "${qase}"
+        systemProperty 'qase.plan.id', 1
     }
 }
 
@@ -139,6 +140,7 @@ task apiShopperRegress(type: Test) {
     }
     if (project.hasProperty('qase')) {
         systemProperty 'qase', "${qase}"
+        systemProperty 'qase.plan.id', 2
     }
 }
 
@@ -175,7 +177,7 @@ task apiV2Smoke(type: Test) {
     }
     if (project.hasProperty('qase')) {
         systemProperty 'qase', "${qase}"
-        systemProperty 'qase.suite.id', 1
+        systemProperty 'qase.plan.id', 3
     }
 }
 
@@ -194,7 +196,7 @@ task apiShopperSmoke(type: Test) {
     }
     if (project.hasProperty('qase')) {
         systemProperty 'qase', "${qase}"
-        systemProperty 'qase.suite.id', 3
+        systemProperty 'qase.plan.id', 4
     }
 }
 

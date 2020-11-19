@@ -9,6 +9,7 @@ import instamart.api.responses.shopper.*;
 import instamart.core.common.AppManager;
 import instamart.core.testdata.Users;
 import instamart.ui.common.pagesdata.UserData;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -42,6 +43,15 @@ public class ShipmentfulTests extends RestBase {
             shopper.deleteCurrentAssembly();
     }
 
+    @CaseId(22)
+    @Test(  description = "Проверяем импортировался ли заказ",
+            groups = {"api-shopper-smoke"})
+    public void createOrderImport() {
+        //todo проверять сам вебхук
+        assertNotNull(shipmentId);
+    }
+
+    @CaseId(31)
     @Test(  description = "Создаём сборку",
             groups = {"api-shopper-smoke"})
     public void postAssembly() {
@@ -57,6 +67,7 @@ public class ShipmentfulTests extends RestBase {
                 .getId();
     }
 
+    @CaseId(21)
     @Test(  description = "Получаем сборку по номеру",
             groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
@@ -71,6 +82,7 @@ public class ShipmentfulTests extends RestBase {
                 "Не вернулась сборка");
     }
 
+    @CaseId(23)
     @Test(  description = "Получаем все заказы сборщика",
             groups = {"api-shopper-smoke"})
     public void getShopperShipments() {
@@ -80,6 +92,7 @@ public class ShipmentfulTests extends RestBase {
                 "Не вернулись заказы сборщика");
     }
 
+    @CaseId(24)
     @Test(  description = "Получаем все сборки сборщика",
             groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
@@ -93,6 +106,7 @@ public class ShipmentfulTests extends RestBase {
                 "Не вернулись сборки сборщика");
     }
 
+    @CaseId(25)
     @Test(  description = "Собираем товар",
             groups = {"api-shopper-smoke"},
             dependsOnMethods = {"postAssembly", "getAssembly"})
@@ -102,6 +116,7 @@ public class ShipmentfulTests extends RestBase {
         assertNotNull(response.as(AssemblyItemResponse.class).getData());
     }
 
+    @CaseId(26)
     @Test(  description = "Получаем тикеты хелпдеска",
             groups = {"api-shopper-smoke"})
     public void getHelpdeskTickets() {
@@ -111,6 +126,7 @@ public class ShipmentfulTests extends RestBase {
                 "Не вернулся заказ");
     }
 
+    @CaseId(27)
     @Test(  description = "Получаем заказ",
             groups = {"api-shopper-smoke"})
     public void getShipment() {
@@ -124,6 +140,7 @@ public class ShipmentfulTests extends RestBase {
                 "Не вернулся заказ");
     }
 
+    @CaseId(35)
     @Test(  description = "Получаем предзамены",
             groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
@@ -134,6 +151,7 @@ public class ShipmentfulTests extends RestBase {
                 "Не вернулись предзамены");
     }
 
+    @CaseId(40)
     @Test(  description = "Получаем инфу о стоках товаров в заказе",
             groups = {"api-shopper-smoke"})
     public void getShipmentStock() {

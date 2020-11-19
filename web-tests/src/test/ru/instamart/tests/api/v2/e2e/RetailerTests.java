@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.v2.e2e;
 
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import instamart.core.common.AppManager;
@@ -16,6 +17,7 @@ public class RetailerTests extends RestBase {
         RestDataProvider.getAvailableRetailers();
     }
 
+    @CaseId(104)
     @Test(  dataProvider = "retailers",
             dataProviderClass = RestDataProvider.class,
             description = "Тест заказов у каждого ретейлера",

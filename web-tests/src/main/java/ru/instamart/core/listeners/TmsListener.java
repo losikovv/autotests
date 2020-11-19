@@ -7,7 +7,8 @@ import io.qase.api.annotation.CaseId;
 import io.qase.api.enums.Automation;
 import io.qase.api.enums.RunResultStatus;
 import io.qase.api.exceptions.QaseException;
-import io.qase.api.models.v1.testcases.TestCase;
+import io.qase.api.models.v1.suites.Suite;
+import io.qase.api.models.v1.testplans.TestPlan;
 import io.qase.api.models.v1.testruns.TestRun;
 import io.qase.api.models.v1.testruns.TestRuns;
 import io.qase.api.services.TestCaseService;
@@ -37,7 +38,7 @@ public class TmsListener implements ITestListener {
     private static String projectCode;
     private String testRunName;
     private Long runId;
-    private List<Integer> casesList = new ArrayList<>();
+    private List<Integer> testCasesList = new ArrayList<>();
     private String hash;
 
     public static void setProjectCode(String projectCode) {
@@ -47,7 +48,7 @@ public class TmsListener implements ITestListener {
     @Override
     public void onStart(ITestContext context) {
         if (projectCode == null) qase = false;
-        getTestCases();
+        generateTestCasesList();
         createTestRun();
     }
 
@@ -80,25 +81,56 @@ public class TmsListener implements ITestListener {
     }
 
     /**
-     * Получаем список automated тест-кейсов
-     * Если suiteId указан, то из сьюта
-     * Если suiteId не указан, то из всего проекта
+     * Если planId указан, то из тест плана получаем список тест-кейсов
+     * Если planId не указан, но suiteId указан, то из сьюта получаем automated кейсы
+     * Если suiteId не указан, то из всего проекта получаем automated кейсы
      */
-    private void getTestCases() {
+    private void generateTestCasesList() {
         if (!qase) return;
-        TestCaseService.Filter filter = qaseApi.testCases().filter()
+        TestCaseService.Filter filter = qaseApi
+                .testCases()
+                .filter()
                 .automation(Automation.automated);
+        int planId = Integer.parseInt(System.getProperty("qase.plan.id","0"));
         int suiteId = Integer.parseInt(System.getProperty("qase.suite.id","0"));
-        if (suiteId != 0) {
+        if (planId != 0) {
+            TestPlan testPlan = qaseApi
+                    .testPlans()
+                    .get(projectCode, planId);
+            testRunName = testPlan.getTitle();
+            testPlan.getCases()
+                    .forEach(testCase -> testCasesList.add((int) testCase.getCaseId()));
+        } else if (suiteId != 0) {
             filter.suiteId(suiteId);
-            testRunName = qaseApi
-                    .suites().get(projectCode, suiteId).getTitle();
+            testRunName = qaseApi.suites().get(projectCode, suiteId).getTitle();
+            addTestCasesToList(filter);
+            List<Suite> suites = qaseApi.suites()
+                    .getAll(projectCode)
+                    .getSuiteList();
+            addTestCasesFromChildSuite(filter, suiteId, suites);
         } else {
-            testRunName = qaseApi
-                    .projects().get(projectCode).getTitle();
+            testRunName = qaseApi.projects().get(projectCode).getTitle();
+            addTestCasesToList(filter);
         }
-        List<TestCase> testCases = qaseApi.testCases().getAll(projectCode, filter).getTestCaseList();
-        testCases.forEach(testCase -> casesList.add((int) testCase.getId()));
+        if (testCasesList.size() == 0) qase = false;
+    }
+
+    private void addTestCasesFromChildSuite(TestCaseService.Filter filter, int parentId, List<Suite> suites) {
+        for (Suite suite : suites) {
+            if (suite.getParentId() != null && suite.getParentId() == parentId) {
+                int suiteId = (int) suite.getId();
+                filter.suiteId(suiteId);
+                addTestCasesToList(filter);
+                addTestCasesFromChildSuite(filter, suiteId, suites);
+            }
+        }
+    }
+
+    private void addTestCasesToList(TestCaseService.Filter filter) {
+        qaseApi.testCases()
+                .getAll(projectCode, filter)
+                .getTestCaseList()
+                .forEach(testCase -> testCasesList.add((int) testCase.getId()));
     }
 
     /**
@@ -106,11 +138,11 @@ public class TmsListener implements ITestListener {
      */
     private void createTestRun() {
         if (!qase) return;
-        Integer[] casesArray = new Integer[casesList.size()];
+        Integer[] casesArray = new Integer[testCasesList.size()];
         runId = qaseApi.testRuns().create(
                 projectCode,
                 testRunName + " [" + AppManager.environment.getName() + "] " + LocalDate.now(),
-                casesList.toArray(casesArray));
+                testCasesList.toArray(casesArray));
     }
 
     /**
@@ -118,7 +150,6 @@ public class TmsListener implements ITestListener {
      * @return получаем String c хэшэм для последующего апдейта результата
      */
     private String sendTestInProgress(ITestResult result) {
-        System.out.println(qase);
         if (!qase) return null;
         Long caseId = getCaseId(result);
         if (caseId != null) {
@@ -140,13 +171,19 @@ public class TmsListener implements ITestListener {
      */
     private void sendResult(ITestResult result, RunResultStatus status) {
         if (!qase) return;
-        Duration timeSpent = Duration.ofMillis(result.getEndMillis() - result.getStartMillis());
-        Optional<Throwable> resultThrowable = Optional.ofNullable(result.getThrowable());
+        Duration timeSpent = Duration
+                .ofMillis(result.getEndMillis() - result.getStartMillis());
+        Optional<Throwable> resultThrowable = Optional
+                .ofNullable(result.getThrowable());
         String comment = resultThrowable
-                .flatMap(throwable -> Optional.of(throwable.toString())).orElse(null);
-        Boolean isDefect = resultThrowable.flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
+                .flatMap(throwable -> Optional.of(throwable.toString()))
+                .orElse(null);
+        Boolean isDefect = resultThrowable
+                .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
                 .orElse(false);
-        String stacktrace = resultThrowable.flatMap(throwable -> Optional.of(getStacktrace(throwable))).orElse(null);
+        String stacktrace = resultThrowable
+                .flatMap(throwable -> Optional.of(getStacktrace(throwable)))
+                .orElse(null);
 
         Long caseId = getCaseId(result);
         if (caseId != null) {
@@ -183,7 +220,8 @@ public class TmsListener implements ITestListener {
      * Получаем CaseId из аннотации теста
      */
     private Long getCaseId(ITestResult result) {
-        Method method = result.getMethod()
+        Method method = result
+                .getMethod()
                 .getConstructorOrMethod()
                 .getMethod();
         if (method.isAnnotationPresent(CaseId.class)) {
@@ -206,7 +244,9 @@ public class TmsListener implements ITestListener {
     @Test
     public void deleteAllProjectTestRuns() {
         setProjectCode("");
-        TestRuns testRuns = qaseApi.testRuns().getAll(projectCode, true);
+        TestRuns testRuns = qaseApi
+                .testRuns()
+                .getAll(projectCode, true);
         List<TestRun> testRunList = testRuns.getTestRunList();
         testRunList.forEach(testRun -> qaseApi.testRuns().delete(projectCode, testRun.getId()));
     }

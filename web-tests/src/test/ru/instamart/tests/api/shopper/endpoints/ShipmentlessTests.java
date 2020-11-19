@@ -6,6 +6,7 @@ import instamart.api.requests.ShopperApiRequests;
 import instamart.api.responses.shopper.*;
 import instamart.core.common.AppManager;
 import instamart.core.testdata.Users;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -21,6 +22,7 @@ public class ShipmentlessTests extends RestBase {
         shopper.authorisation(Users.shopper());
     }
 
+    @CaseId(28)
     @Test(  description = "Получаем инфу о сборщике",
             groups = {"api-shopper-smoke"})
     public void getShopper() {
@@ -33,30 +35,31 @@ public class ShipmentlessTests extends RestBase {
                 "Не вернулась инфа о сборщике");
     }
 
+    @CaseId(29)
     @Test(  description = "Получаем маршруты",
             groups = {"api-shopper-smoke"})
     public void getRoutes() {
         response = ShopperApiRequests.Routes.GET();
         assertStatusCode200(response);
-        response.prettyPeek();
     }
 
+    @CaseId(30)
     @Test(  description = "Получаем смены сборщика",
             groups = {"api-shopper-smoke"})
     public void getShopperOperationShifts() {
         response = ShopperApiRequests.Shopper.OperationShifts.GET();
         assertStatusCode200(response);
-        response.prettyPeek();
     }
 
+    @CaseId(32)
     @Test(  description = "Получаем заказы водителя",
             groups = {"api-shopper-smoke"})
     public void getDriverShipments() {
         response = ShopperApiRequests.Driver.Shipments.GET();
         assertStatusCode200(response);
-        response.prettyPeek();
     }
 
+    @CaseId(33)
     @Test(  description = "Получаем причины отмен",
             groups = {"api-shopper-smoke"})
     public void getCancelReasons() {
@@ -66,6 +69,7 @@ public class ShipmentlessTests extends RestBase {
                 "Не вернулись причины отмен");
     }
 
+    @CaseId(33)
     @Test(  description = "Получаем причины уточнения",
             groups = {"api-shopper-smoke"})
     public void getClarifyReasons() {
@@ -75,6 +79,7 @@ public class ShipmentlessTests extends RestBase {
                 "Не вернулись причины уточнения");
     }
 
+    @CaseId(33)
     @Test(  description = "Получаем причины возврата",
             groups = {"api-shopper-smoke"})
     public void getReturnReasons() {
@@ -84,6 +89,7 @@ public class ShipmentlessTests extends RestBase {
                 "Не вернулись причины возврата");
     }
 
+    @CaseId(34)
     @Test(  description = "Получаем марс токен (стоки метро)",
             groups = {"api-shopper-smoke"})
     public void getMarsToken() {
@@ -93,6 +99,7 @@ public class ShipmentlessTests extends RestBase {
                 "Не вернулся марс токен");
     }
 
+    @CaseId(36)
     @Test(  description = "Получаем заказы для упаковщика",
             groups = {"api-shopper-smoke"})
     public void getPackerShipments() {
@@ -102,6 +109,7 @@ public class ShipmentlessTests extends RestBase {
                 "Не вернулись заказы для упаковщика");
     }
 
+    @CaseId(37)
     @Test(  description = "Получаем сборки упаковщика",
             groups = {"api-shopper-smoke"})
     public void getPackerAssemblies() {
@@ -111,6 +119,7 @@ public class ShipmentlessTests extends RestBase {
                 "Не вернулись сборки упаковщика");
     }
 
+    @CaseId(38)
     @Test(  description = "Получаем инфу о текущей версии приложения",
             groups = {"api-shopper-smoke"})
     public void getCurrentAppVersion() {
@@ -120,6 +129,7 @@ public class ShipmentlessTests extends RestBase {
                 "Не вернулась инфа о текущей версии приложения");
     }
 
+    @CaseId(39)
     @Test(  description = "Поиск товаров",
             groups = {"api-shopper-smoke"})
     public void getStoreOffers() {

@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.v2.e2e;
 
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import instamart.ui.common.pagesdata.UserData;
@@ -15,6 +16,7 @@ public class ZoneTests extends RestBase {
         RestDataProvider.getAvailableZones();
     }
 
+    @CaseId(109)
     @Test(  dataProvider = "zones-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест первых заказов во всех зонах всех магазинов",
