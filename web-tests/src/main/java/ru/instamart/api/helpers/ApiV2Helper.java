@@ -1,6 +1,5 @@
 package instamart.api.helpers;
 
-import instamart.api.checkpoints.ApiV2Checkpoints;
 import instamart.api.enums.v2.OrderStatus;
 import instamart.api.objects.v2.*;
 import instamart.api.requests.ApiV1Requests;
@@ -18,8 +17,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-import static instamart.ui.modules.Base.kraken;
+import static instamart.api.checkpoints.ApiV2Checkpoints.assertStatusCode200;
 import static instamart.core.helpers.HelperBase.verboseMessage;
+import static instamart.ui.modules.Base.kraken;
 
 public class ApiV2Helper extends ApiHelperBase {
     private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
@@ -257,7 +257,7 @@ public class ApiV2Helper extends ApiHelperBase {
      */
     private void addItemToCart(long productId, int quantity) {
         Response response = ApiV2Requests.LineItems.POST(productId, quantity, currentOrderNumber.get());
-        ApiV2Checkpoints.assertStatusCode200(response);
+        assertStatusCode200(response);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
 
         printSuccess(lineItem.toString());
@@ -410,7 +410,7 @@ public class ApiV2Helper extends ApiHelperBase {
                 currentDeliveryWindowId.get(),
                 currentShipmentMethodId.get(),
                 currentOrderNumber.get());
-        ApiV2Checkpoints.assertStatusCode200(response);
+        assertStatusCode200(response);
         Order order = response.as(OrderResponse.class).getOrder();
         printSuccess("Применены атрибуты для заказа: " + order.getNumber());
         verboseMessage("        full_address: " + order.getAddress().getFull_address());
@@ -464,7 +464,7 @@ public class ApiV2Helper extends ApiHelperBase {
      */
     private void cancelOrder(String orderNumber) {
         Response response = ApiV2Requests.Orders.Cancellations.POST(orderNumber, "test");
-        ApiV2Checkpoints.assertStatusCode200(response);
+        assertStatusCode200(response);
         Order order = response.as(CancellationsResponse.class).getCancellation().getOrder();
         printSuccess("Отменен заказ: " + order.getNumber() + "\n");
     }
@@ -661,7 +661,7 @@ public class ApiV2Helper extends ApiHelperBase {
     synchronized public void authorisation(String email, String password) {
         kraken.await().simply(3.1);
         Response response = ApiV2Requests.Sessions.POST(email, password);
-        ApiV2Checkpoints.assertStatusCode200(response);
+        assertStatusCode200(response);
         ApiV2Requests.token.set(response
                 .as(SessionsResponse.class)
                 .getSession()
@@ -681,7 +681,9 @@ public class ApiV2Helper extends ApiHelperBase {
      * Узнаем номер заказа
      */
     public String getCurrentOrderNumber() {
-        currentOrderNumber.set(ApiV2Requests.Orders.POST()
+        Response response = ApiV2Requests.Orders.POST();
+        assertStatusCode200(response);
+        currentOrderNumber.set(response
                 .as(OrderResponse.class)
                 .getOrder()
                 .getNumber());
@@ -796,7 +798,7 @@ public class ApiV2Helper extends ApiHelperBase {
      */
     public void registration(String email, String firstName, String lastName, String password) {
         Response response =  ApiV2Requests.Users.POST(email, firstName, lastName, password);
-        ApiV2Checkpoints.assertStatusCode200(response);
+        assertStatusCode200(response);
         String registeredEmail = response
                 .as(UsersResponse.class)
                 .getUser()

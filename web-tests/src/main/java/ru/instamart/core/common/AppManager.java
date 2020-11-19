@@ -24,8 +24,6 @@ import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 import java.io.BufferedReader;
@@ -67,7 +65,6 @@ public class AppManager {
     private ApiHelper apiHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
-    private static final Logger LOGGER = LoggerFactory.getLogger(AppManager.class);
 
     public AppManager(String browser) {
         this.browser = browser;

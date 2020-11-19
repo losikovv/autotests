@@ -12,7 +12,7 @@ public final class ApiV2EndPoints {
     public static final String SHIPPING_METHODS = "v2/shipping_methods?sid={sid}";
     public static final String ONBOARDING_PAGES = "v2/onboarding_pages";
     public static final String PRODUCTS = "v2/products?sid={sid}&q={query}";
-    public static final String TAXONS = "v2/taxons/?sid={sid}";
+    public static final String TAXONS = "v2/taxons?sid={sid}";
 
     public static final class Searches {
         public static final String SUGGESTIONS = "v2/searches/suggestions?sid={sid}&q={query}";

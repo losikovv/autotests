@@ -17,7 +17,7 @@ public class Config {
 
     public interface CoreSettings {
         String defaultBrowser = BrowserType.CHROME; // Если с запуском тестов не передается название браузера то используется дефолтный
-        String defaultEnvironment = Environments.sbermarket.staging(); // Дефолтное окружение, если при запуске другое не было указано
+        String defaultEnvironment = Environments.sbermarket.preprod(); // Дефолтное окружение, если при запуске другое не было указано
         String defaultRetailer = Tenants.metro().getAlias();
 
         int basicTimeout = 2;

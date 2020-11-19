@@ -51,8 +51,15 @@ public class ApiV2Requests extends InstamartRequestsBase {
                     .auth()
                     .preemptive()
                     .basic(email, password)
-                    .header("Client-Id",
-                            "InstamartApp")
+                    .post(ApiV2EndPoints.SESSIONS);
+        }
+        @Step("{method} /" + ApiV2EndPoints.SESSIONS)
+        public static Response POST(String email, String password, String clientId) {
+            return givenCatch()
+                    .auth()
+                    .preemptive()
+                    .basic(email, password)
+                    .header("Client-Id", clientId)
                     .post(ApiV2EndPoints.SESSIONS);
         }
     }
