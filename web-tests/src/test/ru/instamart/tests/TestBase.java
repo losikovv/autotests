@@ -18,7 +18,6 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
 import static instamart.core.helpers.AllureHelper.allureEnvironmentWriter;
-import static instamart.core.helpers.HelperBase.message;
 import static instamart.core.helpers.HelperBase.verboseMessage;
 import static instamart.core.settings.Config.CoreSettings.doCleanupAfterTestRun;
 
@@ -167,13 +166,13 @@ public class TestBase {
     //todo переименовать
     /**  Проверить возможность перехода на страницу */
     public void assertTransition(PageData page) {
-        assertTransition(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
+        assertTransition(AppManager.environment.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     //todo переименовать
     /** Проверить возможность перехода на страницу по указанному url */
     public void assertTransition(String URL) {
-        message("Переход по прямой ссылке " + URL);
+        verboseMessage("Переход по прямой ссылке " + URL);
         kraken.get().url(URL);
         kraken.await().simply(1);
         Assert.assertTrue(
@@ -181,7 +180,7 @@ public class TestBase {
                     "Невозможно перейти на страницу " + URL + " по прямой ссылке\n"
                         + "Вместо нее попадаем на " + kraken.grab().currentURL() + "\n"
         );
-        message("✓ Успешно");
+        verboseMessage("✓ Успешно");
     }
 
     public void assertRetailerIsAvailable(String retailer) {
@@ -244,7 +243,7 @@ public class TestBase {
 
     /** Проверка недоступности страницы для перехода по прямой ссылке */
     public void assertPageIsUnavailable(String URL) {
-        message("Проверяем недоступность перехода на страницу " + URL);
+        verboseMessage("Проверяем недоступность перехода на страницу " + URL);
         kraken.get().url(URL);
         Assert.assertFalse(
                 kraken.grab().currentURL().equalsIgnoreCase(URL),
@@ -259,14 +258,14 @@ public class TestBase {
 
     /** Пропуск теста */
     public void skipTest() throws SkipException{
-        message("Пропускаем тест");
+        verboseMessage("Пропускаем тест");
             throw new SkipException("Пропускаем тест");
     }
 
     /** Пропуск теста на окружении */
     public void skipTestOnEnvironment(String environment) throws SkipException {
         if (kraken.detect().environment(environment)) {
-            message("Пропускаем тест на окружении " + environment);
+            verboseMessage("Пропускаем тест на окружении " + environment);
                 throw new SkipException("Пропускаем тест");
         }
     }
@@ -274,7 +273,7 @@ public class TestBase {
     /** Пропуск теста на тенанте */
     public void skipTestOnTenant(String tenant) throws SkipException {
         if (kraken.detect().tenant(tenant)) {
-            message("Пропускаем тест для тенанта " + tenant);
+            verboseMessage("Пропускаем тест для тенанта " + tenant);
             throw new SkipException("Пропускаем тест");
         }
     }
@@ -282,7 +281,7 @@ public class TestBase {
     /** Пропуск теста на сервере */
     public void skipTestOnServer(String server) throws SkipException {
         if (kraken.detect().server(server)) {
-            message("Пропускаем тест на " + server);
+            verboseMessage("Пропускаем тест на " + server);
             throw new SkipException("Пропускаем тест");
         }
     }
@@ -290,7 +289,7 @@ public class TestBase {
     /** Проведение теста только на указанном окружении */
     public void runTestOnlyOnEnvironment(String environment) throws SkipException {
         if (!kraken.detect().environment(environment)) {
-            message("Тест только для окружения " + environment);
+            verboseMessage("Тест только для окружения " + environment);
             throw new SkipException("Пропускаем тест");
         }
     }
@@ -298,7 +297,7 @@ public class TestBase {
     /** Проведение теста только на указанном тенанте */
     public void runTestOnlyOnTenant(String tenant) {
         if (!kraken.detect().tenant(tenant)) {
-            message("Тест только для тенанта " + tenant);
+            verboseMessage("Тест только для тенанта " + tenant);
             throw new SkipException("Пропускаем тест");
         }
     }
@@ -306,7 +305,7 @@ public class TestBase {
     /** Проведение теста только на указанном сервере */
     public void runTestOnlyOnServer(String server) {
         if (!kraken.detect().server(server)) {
-            message("Тест только для " + server);
+            verboseMessage("Тест только для " + server);
             throw new SkipException("Пропускаем тест");
         }
     }
@@ -348,7 +347,7 @@ public class TestBase {
 
     public void assertOrderDocumentIsDownloadable(String docname) {
         ElementData docLink = Elements.UserProfile.OrderDetailsPage.document(docname);
-        message("Скачиваем : " + docname);
+        verboseMessage("Скачиваем : " + docname);
         if (kraken.detect().isElementPresent(docLink)) {
             kraken.perform().click(docLink);
         } else

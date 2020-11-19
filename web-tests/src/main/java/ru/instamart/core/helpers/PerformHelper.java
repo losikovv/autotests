@@ -79,7 +79,7 @@ public class PerformHelper extends HelperBase {
             kraken.await().simply(1); // Ожидание для стабильности
         }
         catch (ElementNotVisibleException v) {
-            message("Невозможно навестись на элемент <" + element.getLocator()
+            verboseMessage("Невозможно навестись на элемент <" + element.getLocator()
                     + ">\nЭлемент не отображается на " + kraken.grab().currentURL() + "\n");
         }
     }
@@ -159,7 +159,7 @@ public class PerformHelper extends HelperBase {
 
     /** Повторить крайний заказ с экрана истории заказов */
     public void repeatLastOrder() {
-        message("Повторяем крайний заказ\n");
+        verboseMessage("Повторяем крайний заказ\n");
         kraken.get().page(Pages.UserProfile.shipments());
         if(kraken.detect().isOrdersHistoryEmpty()) {
             throw new AssertionError("Невозможно повторить заказ, у пользователя нет заказов в истории\n");
@@ -173,7 +173,7 @@ public class PerformHelper extends HelperBase {
 
     /** Повторить заказ с экрана деталей заказа */
     public void repeatOrder() {
-        message("Повторяем заказ\n");
+        verboseMessage("Повторяем заказ\n");
         click(Elements.UserProfile.OrderDetailsPage.OrderSummary.repeatOrderButton());
         kraken.await().simply(1); // Ожидание анимации открытия модалки повтора заказа
         click(Elements.UserProfile.OrderDetailsPage.RepeatOrderModal.yesButton());
@@ -184,13 +184,13 @@ public class PerformHelper extends HelperBase {
 
     /** Отменить крайний активный заказ */
     public void cancelLastActiveOrder() {
-        message("Отменяем крайний активный заказ...");
+        verboseMessage("Отменяем крайний активный заказ...");
         kraken.get().page(Pages.UserProfile.shipments());
         click(Elements.UserProfile.OrdersHistoryPage.activeOrdersFilterButton());
         if(!kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder())) {
             click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
             cancelOrder();
-        } else message("> Заказ не активен\n");
+        } else verboseMessage("> Заказ не активен\n");
     }
 
     /** Отменить заказ на странице деталей заказа */
@@ -202,7 +202,7 @@ public class PerformHelper extends HelperBase {
                     ExpectedConditions.presenceOfElementLocated(Elements.UserProfile.OrderDetailsPage.CancelOrderModal.popup().getLocator()),
                     "Не отменился заказ за допустимое время ожидания\n"
             );
-            message("✓ Заказ отменен\n");
+            verboseMessage("✓ Заказ отменен\n");
     }
 
     /** Поиск чаилда с помощью тега и текста*/

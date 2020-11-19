@@ -9,6 +9,8 @@ import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Zone;
 
+import static instamart.core.helpers.HelperBase.verboseMessage;
+
 public class ZoneTests extends RestBase {
 
     @BeforeClass(description = "Проверка самих провайдеров")
@@ -24,9 +26,9 @@ public class ZoneTests extends RestBase {
     public void firstOrderByZone(Store store, String zoneName, Zone coordinates) {
         apiV2.skipTestIfOnlyPickupIsAvailable(store, zoneName);
 
-        System.out.println("Оформляем заказ в " + store);
-        System.out.println(zoneName);
-        System.out.println(coordinates + "\n");
+        verboseMessage("Оформляем заказ в " + store);
+        verboseMessage(zoneName);
+        verboseMessage(coordinates + "\n");
 
         UserData user = user();
 

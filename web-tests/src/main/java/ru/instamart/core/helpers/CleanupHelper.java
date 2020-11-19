@@ -14,16 +14,16 @@ public class CleanupHelper extends HelperBase {
     }
 
     public void all() {
-        message("\n================== CLEANUP AFTER TESTRUN ( " + kraken.session.id + " ) ==================\n");
+        verboseMessage("\n================== CLEANUP AFTER TESTRUN ( " + kraken.session.id + " ) ==================\n");
             try {
                 orders();
             } catch (WebDriverException w) {
-                message("❌ НЕ УДАЛОСЬ ПРОВЕСТИ ОТМЕНУ ВСЕХ ТЕСТОВЫХ ЗАКАЗОВ ❌\n");
+                verboseMessage("❌ НЕ УДАЛОСЬ ПРОВЕСТИ ОТМЕНУ ВСЕХ ТЕСТОВЫХ ЗАКАЗОВ ❌\n");
             }
             try {
                 users();
             } catch (WebDriverException w) {
-                message("❌ НЕ УДАЛОСЬ ПРОВЕСТИ УДАЛЕНИЕ ВСЕХ ТЕСТОВЫХ ЮЗЕРОВ ❌\n");
+                verboseMessage("❌ НЕ УДАЛОСЬ ПРОВЕСТИ УДАЛЕНИЕ ВСЕХ ТЕСТОВЫХ ЮЗЕРОВ ❌\n");
             }
     }
 
@@ -31,7 +31,7 @@ public class CleanupHelper extends HelperBase {
      * Удаление тестовых юзеров по дефолтному списку
      */
     public void users() {
-        message("Удаление тестовых пользователей");
+        verboseMessage("Удаление тестовых пользователей");
         //TODO в соло-режиме удалять всех тестовых пользователей
         users(kraken.session.userList);
     }
@@ -42,13 +42,13 @@ public class CleanupHelper extends HelperBase {
     public void users(String usersListPath) {
         kraken.reach().admin(usersListPath);
         if (kraken.detect().isElementPresent(Elements.Administration.UsersSection.userlistFirstRow())) {
-            message("> удаляем пользователя " + kraken.grab().text(Elements.Administration.UsersSection.userEmail()));
+            verboseMessage("> удаляем пользователя " + kraken.grab().text(Elements.Administration.UsersSection.userEmail()));
             kraken.perform().click(Elements.Administration.UsersSection.deleteUserButton()); // todo обернуть в проверку, выполнять только если тестовый юзер
             handleAlert();
             kraken.await().implicitly(1); // Ожидание удаления предыдущего тестового пользователя
             users(usersListPath); // Keep deleting users, recursively
         } else {
-            message("✓ Все тестовые пользователи удалены\n");
+            verboseMessage("✓ Все тестовые пользователи удалены\n");
         }
     }
 
@@ -56,7 +56,7 @@ public class CleanupHelper extends HelperBase {
      * Отмена тестовых заказов по дефолтному списку
      */
     public void orders() {
-        message("Отмена тестовых заказов");
+        verboseMessage("Отмена тестовых заказов");
         //TODO в соло-режиме отменять все тестовые заказы
         orders(kraken.session.orderList);
     }
@@ -72,7 +72,7 @@ public class CleanupHelper extends HelperBase {
             Administration.Orders.cancelOrder(); // todo добавить проверку, отменять только если тестовый заказ
             orders(ordersListPath); // Keep cancelling orders recursively
         } else {
-            message("✓ Все тестовые заказы отменены\n");
+            verboseMessage("✓ Все тестовые заказы отменены\n");
         }
     }
 }

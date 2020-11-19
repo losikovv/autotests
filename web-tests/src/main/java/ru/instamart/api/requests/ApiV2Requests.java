@@ -34,8 +34,6 @@ public class ApiV2Requests extends InstamartRequestsBase {
             data.put("user[last_name]", lastName);
             data.put("user[password]", password);
 
-            System.out.println();
-
             return givenCatch()
                     .log()
                     .params()

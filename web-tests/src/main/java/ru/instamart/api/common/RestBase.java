@@ -20,6 +20,7 @@ import org.testng.annotations.BeforeSuite;
 import java.util.UUID;
 
 import static instamart.core.helpers.AllureHelper.allureEnvironmentWriter;
+import static instamart.core.helpers.HelperBase.verboseMessage;
 import static io.restassured.RestAssured.*;
 import static io.restassured.config.EncoderConfig.encoderConfig;
 import static org.hamcrest.Matchers.not;
@@ -107,7 +108,7 @@ public class RestBase {
     public void cancelActiveOrders() {
         if (apiV2.authorized() &&
                 AppManager.environment.getServer().equalsIgnoreCase("production")) {
-            System.out.println("Отменяем активные заказы");
+            verboseMessage("Отменяем активные заказы");
             apiV2.cancelActiveOrders();
         }
     }
