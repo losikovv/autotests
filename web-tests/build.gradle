@@ -14,7 +14,7 @@ java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
 }
-String allureVersion = '2.8.1'
+String allureVersion = '2.13.1'
 allure {
     version = allureVersion
     aspectjweaver = true
@@ -30,9 +30,9 @@ allure {
 }
 
 dependencies {
-    compile "org.aspectj:aspectjweaver:1.9.2"
-   // implementation 'com.github.automatedowl:allure-environment-writer:v1.0.0'
-    implementation "io.qameta.allure:allure-gradle:"+allureVersion
+    compile "org.aspectj:aspectjweaver:1.9.6"
+    //implementation "io.qameta.allure:allure-gradle:2.8.1"
+    implementation "io.qameta.allure:allure-testng:"+allureVersion
     implementation "io.qameta.allure:allure-java-commons:"+allureVersion
     implementation 'org.jetbrains:annotations:19.0.0'
     compile 'io.rest-assured:rest-assured:4.1.1'

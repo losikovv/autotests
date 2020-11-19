@@ -4,8 +4,10 @@ import com.google.common.collect.ImmutableMap;
 import instamart.api.helpers.ApiV2Helper;
 import instamart.api.helpers.ShopperApiHelper;
 import instamart.core.common.AppManager;
+import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.listeners.TmsListener;
 import instamart.ui.common.pagesdata.UserData;
+import io.qameta.allure.Allure;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.ErrorLoggingFilter;
@@ -15,6 +17,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import java.util.UUID;
@@ -32,6 +35,7 @@ public class RestBase {
     protected Response response;
     public static RequestSpecification customerRequestSpec;
     public static RequestSpecification shopperRequestSpec;
+    private static ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
 
     @BeforeSuite(groups = {
             "api-zones",
@@ -111,6 +115,15 @@ public class RestBase {
             verboseMessage("Отменяем активные заказы");
             apiV2.cancelActiveOrders();
         }
+    }
+    @BeforeMethod(alwaysRun = true,description = "Стартуем запись системного лога")
+    public void captureStart(){
+        capture.start();
+    }
+    @AfterMethod(alwaysRun = true,description = "Добавляем системный лог к тесту")
+    public void captureFinish(){
+        String value = capture.stop();
+        Allure.addAttachment("Системный лог теста",value);
     }
 
     public String email() {

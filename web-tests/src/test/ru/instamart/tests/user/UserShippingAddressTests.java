@@ -29,7 +29,7 @@ public class UserShippingAddressTests extends TestBase {
     @Test(
             description = "Тест на то что по дефолту на витрине ритейлера не выбран адрес",
             groups = {
-                    "metro-acceptance", "metro-regression","testing",
+                    "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 301
@@ -47,7 +47,7 @@ public class UserShippingAddressTests extends TestBase {
             description = "Тест дефолтного списка магазинов при отсутствии адреса доставки",
             priority = 302,
             groups = {
-                    "sbermarket-acceptance","sbermarket-regression","testing"
+                    "sbermarket-acceptance","sbermarket-regression",
             }
     )
     public void successOperateDefaultShoplist() {
@@ -65,7 +65,7 @@ public class UserShippingAddressTests extends TestBase {
             description = "Тест отмены ввода адреса доставки на витрине ритейлера",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression","testing"
+                    "sbermarket-acceptance","sbermarket-regression",
             },
             priority = 303
     )
@@ -81,7 +81,7 @@ public class UserShippingAddressTests extends TestBase {
             description = "Тест на отсутствие доступных магазинов по адресу вне зоны доставки",
             groups = {
                     "metro-regression",
-                    "sbermarket-regression","testing"
+                    "sbermarket-regression",
             },
             priority = 304
     )
@@ -103,7 +103,7 @@ public class UserShippingAddressTests extends TestBase {
             description = "Тест ввода адреса доставки на витрине ритейлера",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression","testing"
+                    "sbermarket-acceptance","sbermarket-regression",
             },
             priority = 305
     )
@@ -119,7 +119,7 @@ public class UserShippingAddressTests extends TestBase {
             description = "Тест отмены изменения адреса доставки",
             groups = {
                     "metro-regression",
-                    "sbermarket-regression","testing"
+                    "sbermarket-regression",
             },
             priority = 306
     )
@@ -141,7 +141,7 @@ public class UserShippingAddressTests extends TestBase {
             description = "Тест изменения адреса доставки",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression","testing"
+                    "sbermarket-acceptance","sbermarket-regression",
             },
             priority = 307
     )
@@ -159,7 +159,7 @@ public class UserShippingAddressTests extends TestBase {
             description = "Тест изменения адреса на предыдущий из списка адресной модалки",
             groups = {
                     "metro-regression",
-                    "sbermarket-regression","testing"
+                    "sbermarket-regression",
             },
             priority = 308
     )
@@ -187,7 +187,7 @@ public class UserShippingAddressTests extends TestBase {
             description = "Тест на ввод адреса в модалке после добавления товара из каталога",
             groups = {
                     "metro-regression",
-                    "sbermarket-regression","testing"
+                    "sbermarket-regression",
             },
             priority = 310
     )
@@ -205,7 +205,7 @@ public class UserShippingAddressTests extends TestBase {
             description = "Тест на успешный выбор нового магазина в модалке феникса после изменения адреса доставки",
             groups = {
                     "metro-regression",
-                    "sbermarket-regression","testing"
+                    "sbermarket-regression",
             },
             priority = 311
     )
@@ -227,7 +227,7 @@ public class UserShippingAddressTests extends TestBase {
                     " по которому нет доставки текущего ритейлера",
             groups = {
                     "metro-regression",
-                    "sbermarket-regression","testing"
+                    "sbermarket-regression",
             },
             priority = 312
     )
@@ -248,7 +248,7 @@ public class UserShippingAddressTests extends TestBase {
             description = "Тест на успешный выбор нового адреса в модалке феникса, после ввода адреса вне зоны доставки",
             groups = {
                     "metro-regression",
-                    "sbermarket-regression","testing"
+                    "sbermarket-regression",
             },
             priority = 313
     )

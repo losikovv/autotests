@@ -133,7 +133,7 @@ public class UserAuthorisationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки авторизации с неверным паролем",
             groups = {
-                    "metro-acceptance", "metro-regression","testing",
+                    "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 115
