@@ -1,6 +1,7 @@
 package ru.instamart.tests.api.v2.e2e;
 
 import instamart.api.checkpoints.ApiV2Checkpoints;
+import io.qase.api.annotation.CaseId;
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -26,6 +27,7 @@ public class StoreTests extends RestBase {
         RestDataProvider.getAvailableStores();
     }
 
+    @CaseId(105)
     @Test(  dataProvider = "stores-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест категорий на главных страницах всех магазинов",
@@ -38,6 +40,7 @@ public class StoreTests extends RestBase {
         softAssert.assertAll();
     }
 
+    @CaseId(106)
     @Test(  dataProvider = "stores-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест продуктов на главных страницах всех магазинов",
@@ -54,6 +57,7 @@ public class StoreTests extends RestBase {
         softAssert.assertAll();
     }
 
+    @CaseId(107)
     @Test(  dataProvider = "stores-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест количества товаров в таксонах",
@@ -63,9 +67,7 @@ public class StoreTests extends RestBase {
 
         SoftAssert softAssert = new SoftAssert();
         List<Taxon> taxons = ApiV2Helper.getCategories(store.getId());
-        for (Taxon taxon : taxons) {
-            ApiV2Checkpoints.assertProductsCountEqualsChildrenSum(taxon, softAssert);
-        }
+        taxons.forEach(taxon -> ApiV2Checkpoints.assertProductsCountEqualsChildrenSum(taxon, softAssert));
         softAssert.assertAll();
     }
 
@@ -80,6 +82,7 @@ public class StoreTests extends RestBase {
         apiV2.cancelCurrentOrder();
     }
 
+    @CaseId(108)
     @Test(  dataProvider = "stores-parallel",
             dataProviderClass = RestDataProvider.class,
             description = "Тест первых заказов во всех магазинах",
