@@ -17,22 +17,26 @@ public class ApiV2Checkpoints {
      * Ассерт, что статус код 200
      */
     public static void assertStatusCode200(Response response) {
+        assertStatusCode200(response, "");
+    }
+
+    public static void assertStatusCode200(Response response, String message) {
+        String responseText = response.body().print();
         switch (response.statusCode()) {
-            case 200: break;
+            case 200:
+            case 404:
+                break;
             case 400:
             case 401:
             case 403:
-            case 404:
             case 422:
-                Assert.assertEquals(response.statusCode(),200,
-                        response.as(ErrorResponse.class).getErrors().getBase());
+                responseText = response.as(ErrorResponse.class).getErrors().getBase();
                 break;
             case 502:
-                Assert.assertEquals(response.statusCode(),200,
-                        "СЕРВЕР ЛЕЖИТ");
-            default:
-                Assert.assertEquals(response.statusCode(),200, response.body().print());
+                responseText = "СЕРВЕР ЛЕЖИТ";
+                break;
         }
+        Assert.assertEquals(response.statusCode(),200, message + "\n" + responseText);
     }
 
     /**
