@@ -2,7 +2,7 @@ package ru.instamart.tests.user;
 
 import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
-import instamart.core.testdata.ui.generate;
+import instamart.core.testdata.ui.Generate;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
 import instamart.ui.common.lib.Addresses;
@@ -160,7 +160,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 116
     )
     public void noAuthWithLongFields() {
-        UserData testUser = generate.testCredentials("user",129);
+        UserData testUser = Generate.testCredentials("user",129);
         kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.AuthModal.open();
@@ -236,7 +236,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 121
     )
     public void successAuthFromCart() {
-        final UserData testuser = generate.testCredentials("user");
+        final UserData testuser = Generate.testCredentials("user");
 
         User.Do.registration(testuser);
         User.Logout.quickly();

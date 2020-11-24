@@ -149,6 +149,7 @@ public class UserPasswordRecoveryTests extends TestBase {
                     failMessage("Невозможно авторизоваться с новым паролем после восстановления пароля"));
     }
 
+    //TODO Проверить почему 2 теста
     @Test (
             description = "Тест на авторизацию с новым паролем после восстановления",
             priority = 459,

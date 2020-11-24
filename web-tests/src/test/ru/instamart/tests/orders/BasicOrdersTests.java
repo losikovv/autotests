@@ -4,7 +4,7 @@ import instamart.api.common.RestAddresses;
 import instamart.core.common.AppManager;
 import instamart.core.settings.Config;
 import instamart.core.testdata.ui.PaymentTypes;
-import instamart.core.testdata.ui.generate;
+import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.JuridicalData;
 import instamart.ui.common.pagesdata.PaymentCardData;
@@ -63,7 +63,7 @@ public class BasicOrdersTests extends TestBase {
     public void successCompleteCheckoutWithNewJuridical() {
         kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.learningCenter());
 
-        JuridicalData company = generate.juridical();
+        JuridicalData company = Generate.juridical();
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer(), true, company);
 
@@ -87,7 +87,7 @@ public class BasicOrdersTests extends TestBase {
     public void successCompleteCheckoutWithChangeJuridical() {
         kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
 
-        JuridicalData newCompany = generate.juridical();
+        JuridicalData newCompany = Generate.juridical();
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer(), false, newCompany);
 

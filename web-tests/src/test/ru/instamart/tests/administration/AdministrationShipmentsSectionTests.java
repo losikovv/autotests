@@ -2,7 +2,7 @@ package ru.instamart.tests.administration;
 
 import instamart.api.common.RestAddresses;
 import instamart.core.common.AppManager;
-import instamart.core.testdata.ui.generate;
+import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Administration;
 import instamart.ui.modules.User;
@@ -167,7 +167,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
             priority = 10104
     )
     public void successSearchB2BOrder() {
-        UserData testuser = generate.testCredentials("user");
+        UserData testuser = Generate.testCredentials("user");
         User.Logout.quickly();
         User.Do.registration(testuser);
 

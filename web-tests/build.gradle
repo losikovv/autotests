@@ -30,6 +30,7 @@ allure {
 }
 
 dependencies {
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '3.14.0'
     compile "org.aspectj:aspectjweaver:1.9.6"
     //implementation "io.qameta.allure:allure-gradle:2.8.1"
     implementation "io.qameta.allure:allure-testng:"+allureVersion
@@ -85,6 +86,7 @@ task sberSmoke(type: Test) {
     }
     if (project.hasProperty('qase')) {
         systemProperty 'qase', "${qase}"
+        systemProperty 'qase.plan.id', 2
     }
 }
 

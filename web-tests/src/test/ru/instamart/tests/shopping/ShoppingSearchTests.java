@@ -1,7 +1,7 @@
 package ru.instamart.tests.shopping;
 
 import instamart.core.settings.Config;
-import instamart.core.testdata.ui.generate;
+import instamart.core.testdata.ui.Generate;
 import instamart.ui.modules.Shop;
 import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
@@ -123,7 +123,7 @@ public class ShoppingSearchTests extends TestBase {
             priority = 506
     )
     public void successSearchItemWithLongQuery() {
-        Shop.Search.item(generate.string(1000));
+        Shop.Search.item(Generate.string(1000));
 
         assertPageIsAvailable();
 

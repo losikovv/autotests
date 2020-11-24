@@ -13,7 +13,7 @@ import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.api.objects.v2.Address;
-import instamart.core.testdata.ui.generate;
+import instamart.core.testdata.ui.Generate;
 
 import static instamart.core.settings.Config.CoreSettings.multiSessionMode;
 
@@ -115,7 +115,7 @@ public class User extends Base {
          */
         @Step("Регистрируем тестового юзера со сгенерированными реквизитами")
         public static UserData registration() {
-            UserData data = generate.testCredentials("user");
+            UserData data = Generate.testCredentials("user");
             registration(data);
             return data;
         }
@@ -150,13 +150,14 @@ public class User extends Base {
         public static String registration(String name, String email,
                                         String password, String passwordConfirmation,
                                         String phone,String sms) {
-            HelperBase.verboseMessage("> регистрируемся (" + email + " / " + password + ")");
             Shop.AuthModal.open();
             String modalType = Shop.AuthModal.checkAutorisationModalDialog();
             if(modalType.equals("модалка с телефоном")){
+                HelperBase.verboseMessage("> регистрируемся ( телефон" + phone + " / смс" + sms + ")");
                 regSequenceMobile(phone, sms);
                 return modalType;
             }else {
+                HelperBase.verboseMessage("> регистрируемся (" + email + " / " + password + ")");
                 regSequence(name, email, password, passwordConfirmation);
                 // TODO переделать на fluent-ожидание
                 kraken.await().implicitly(1); // Ожидание раздизебливания кнопки подтверждения регистрации
@@ -189,9 +190,9 @@ public class User extends Base {
         }
 
         public static void regSequenceMobile(String phone, String sms){
-            //todo доделать регистрацию через мобилку
-            Shop.AuthModal.fillRegistrationFormByPhone(phone, sms);
-        }
+            Shop.AuthModal.fillRegistrationFormByPhone(phone);
+            Shop.AuthModal.sendSms(sms);
+       }
 
 
         public static class Gmail{

@@ -6,7 +6,7 @@ import instamart.api.helpers.ShopperApiHelper;
 import instamart.core.helpers.*;
 import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
-import instamart.core.testdata.ui.generate;
+import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.pagesdata.BrowserData;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.SessionData;
@@ -17,13 +17,15 @@ import instamart.ui.modules.User;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 import java.io.BufferedReader;
@@ -41,7 +43,7 @@ import static org.testng.Assert.fail;
 
 public class AppManager {
 
-    public final static String testrunId = generate.testRunId();
+    public final static String testrunId = Generate.testRunId();
 
     public WebDriver driver;
     static public EnvironmentData environment;
@@ -65,6 +67,7 @@ public class AppManager {
     private ApiHelper apiHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppManager.class);
 
     public AppManager(String browser) {
         this.browser = browser;
@@ -123,7 +126,7 @@ public class AppManager {
     private void initTestSession() {
         if (multiSessionMode) {
             session = new SessionData(
-                    testrunId, generate.testCredentials("admin"), generate.testCredentials("user"),
+                    testrunId, Generate.testCredentials("admin"), Generate.testCredentials("user"),
                     "shipments?search%5Blast_name%5D=" + testrunId + "&search%5Bstate%5D%5B%5D=ready",
                     "users?q%5Bemail_cont%5D=" + testrunId + "-" + testMark
             );
@@ -163,11 +166,20 @@ public class AppManager {
                     if(doCleanupBeforeTestRun){
                         cleanProcessByName(BrowserType.CHROME);
                     }
-                    ChromeDriverService chromeDriverService = ChromeDriverService.createDefaultService();
-                    int port = chromeDriverService.getUrl().getPort();
-                    driver = new ChromeDriver();
+                    //ChromeDriverService chromeDriverService = ChromeDriverService.createDefaultService();
+                    //int port = chromeDriverService.getUrl().getPort();
+                    ChromeOptions options = new ChromeOptions();
+                    if ((System.getProperty("os.name")).contains("Mac")) {
+                        System.setProperty("webdriver.chrome.driver", "WebDriverMac/chromedriver");
+                    } else {
+                        options.addArguments("--headless");
+                        options.addArguments("--disable-extensions");
+                        options.addArguments("--no-sandbox");
+                        System.setProperty("webdriver.chrome.driver", "WebDriverLinux/chromedriver");
+                    }
+                    driver = new ChromeDriver(options);
                     getCapabilities(driver);
-                    System.out.println(String.format("\nChromedriver запущен на порту: %1$s",port));
+                    //System.out.println(String.format("\nChromedriver запущен на порту: %1$s",port));
                     break;
                 case BrowserType.SAFARI:
                     if(doCleanupBeforeTestRun){

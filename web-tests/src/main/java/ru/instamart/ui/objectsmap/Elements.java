@@ -519,8 +519,13 @@ public class Elements {
         */
 
         static ElementData phoneNumber() {
-            return new ElementData(By.xpath("//*[contains(@class,'input__container')]//input[@id='tel-login-form-input']"),
+            return new ElementData(By.xpath("//div[contains(@class,'FormGroup__root')]"),
                     "поле для ввода номера телефона");
+        }
+
+        static ElementData smsCode() {
+            return new ElementData(By.xpath("//input[@data-qa='sms_confirm_input']"),
+                    "поле для ввода кода из смс");
         }
 
         // Старое значение модалки auth-modal пусть пока тут поживет, проверим как часто это значение меняется
@@ -629,7 +634,7 @@ public class Elements {
         }
 
         static ElementData continueButton(){
-            return new ElementData(By.xpath("//*[contains(@class,'auth__viewContainer')]//button[@type='submit']"),
+            return new ElementData(By.xpath("//button[@data-qa='tel_login_form_button']"),
                     "кнопка Продолжить на модалке авторизации");
         }
     }

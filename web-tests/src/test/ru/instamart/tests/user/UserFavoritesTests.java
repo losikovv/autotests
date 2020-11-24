@@ -1,6 +1,6 @@
 package ru.instamart.tests.user;
 
-import instamart.core.testdata.ui.generate;
+import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
@@ -122,6 +122,7 @@ public class UserFavoritesTests extends TestBase {
                     "Не работает удаление любимого товара из карточки товара\n");
     }
 
+    //TODO возможно дублирует тест 408
     @Test(  description = "Удаление любимого товара из списка",
             priority = 407,
             groups = {
@@ -262,7 +263,7 @@ public class UserFavoritesTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе открывается модалка регистрации после попытки добавления товара из каталога в любимые товары");
 
-        User.Do.regSequence(generate.testCredentials("user"));
+        User.Do.regSequence(Generate.testCredentials("user"));
         Shop.AuthModal.submit();
 
         softAssert.assertTrue(
@@ -289,7 +290,7 @@ public class UserFavoritesTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе открывается модалка регистрации после попытки добавления товара из карточки в любимые товары");
 
-        User.Do.regSequence(generate.testCredentials("user"));
+        User.Do.regSequence(Generate.testCredentials("user"));
         Shop.AuthModal.submit();
 
         softAssert.assertTrue(

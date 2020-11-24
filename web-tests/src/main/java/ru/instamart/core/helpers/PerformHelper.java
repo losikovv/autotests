@@ -1,16 +1,16 @@
 package instamart.core.helpers;
 
+import instamart.core.common.AppManager;
+import instamart.ui.common.lib.Addresses;
+import instamart.ui.common.lib.Pages;
+import instamart.ui.common.pagesdata.ElementData;
+import instamart.ui.common.pagesdata.EnvironmentData;
+import instamart.ui.modules.Shop;
+import instamart.ui.modules.User;
+import instamart.ui.objectsmap.Elements;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import instamart.ui.common.lib.Pages;
-import instamart.ui.common.pagesdata.ElementData;
-import instamart.core.common.AppManager;
-import instamart.ui.common.lib.Addresses;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.modules.Shop;
-import instamart.ui.common.pagesdata.EnvironmentData;
-import instamart.ui.modules.User;
 
 import java.util.List;
 
@@ -94,6 +94,14 @@ public class PerformHelper extends HelperBase {
                 driver.findElement(element.getLocator()).sendKeys(text);
             }
         }
+    }
+
+    /** Заполнить поле через метод Action*/
+    public void fillFieldAction(ElementData element, String text){
+        click(element);
+        var element1 = driver.findElement(element.getLocator());
+        Actions actions = new Actions(driver);
+        actions.click(element1).sendKeys(text).perform();
     }
 
     /** Установить чекбокс */

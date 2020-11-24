@@ -3,7 +3,7 @@ package ru.instamart.tests.shopping;
 import instamart.api.common.RestAddresses;
 import instamart.core.common.AppManager;
 import instamart.core.settings.Config;
-import instamart.core.testdata.ui.generate;
+import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.UserData;
@@ -103,7 +103,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         //TODO переписать под набор корзины и авторизацию + проверку адреса и переход в чекаут
-        final UserData testuser = generate.testCredentials("user");
+        final UserData testuser = Generate.testCredentials("user");
         User.Logout.quickly();
         kraken.get().baseUrl();
         User.Do.registration(testuser);
