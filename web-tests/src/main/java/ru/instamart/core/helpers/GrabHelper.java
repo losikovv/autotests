@@ -1,10 +1,10 @@
 package instamart.core.helpers;
 
 import instamart.core.common.AppManager;
-import instamart.ui.modules.Shop;
-import instamart.ui.objectsmap.Elements;
 import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.common.pagesdata.EnvironmentData;
+import instamart.ui.modules.Shop;
+import instamart.ui.objectsmap.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
@@ -19,6 +19,22 @@ public class GrabHelper extends HelperBase{
 
     public GrabHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
         super(driver, environment, app);
+    }
+
+    /** Взять sid из текущего URL */
+    public int sidFromUrl() {
+        String url = currentURL();
+        int index = url.indexOf("?sid=");
+        if (index == -1) return 1;
+        char[] chars = url.toCharArray();
+        int i = index + 5;
+        String sidString = "";
+        while (i < chars.length && Character.isDigit(chars[i])) {
+            sidString += chars[i];
+            i++;
+        }
+        if (sidString.isEmpty()) return 1;
+        return parseInt(sidString);
     }
 
     /** Взять текущий URL */
