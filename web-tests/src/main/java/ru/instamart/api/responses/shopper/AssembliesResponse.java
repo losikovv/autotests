@@ -1,15 +1,15 @@
 package instamart.api.responses.shopper;
 
-import instamart.api.responses.BaseResponseObject;
 import instamart.api.objects.shopper.AssemblyData;
-import instamart.api.objects.shopper.ShipmentData;
+import instamart.api.objects.shopper.AssemblyIncluded;
+import instamart.api.responses.BaseResponseObject;
 
 import java.util.List;
 
 public class AssembliesResponse extends BaseResponseObject {
 
     private List<AssemblyData> data = null;
-    private List<ShipmentData> included = null;
+    private List<AssemblyIncluded> included = null;
 
     public List<AssemblyData> getData() {
         return data;
@@ -19,11 +19,11 @@ public class AssembliesResponse extends BaseResponseObject {
         this.data = data;
     }
 
-    public List<ShipmentData> getIncluded() {
+    public List<AssemblyIncluded> getIncluded() {
         return included;
     }
 
-    public void setIncluded(List<ShipmentData> included) {
+    public void setIncluded(List<AssemblyIncluded> included) {
         this.included = included;
     }
 

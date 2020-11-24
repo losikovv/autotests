@@ -26,10 +26,15 @@ public class ShopperApiCheckpoints {
     }
 
     public static String getErrorDetails(Response response) {
-        List<Error> errors = response.as(ErrorResponse.class).getErrors();
-        StringJoiner stringJoiner = new StringJoiner(", ");
-        if (errors != null) for (Error error : errors) stringJoiner.add(error.getDetail());
-        else stringJoiner.add(response.body().toString());
-        return stringJoiner.toString();
+        try {
+            List<Error> errors = response.as(ErrorResponse.class).getErrors();
+            StringJoiner stringJoiner = new StringJoiner(", ");
+            if (errors != null) for (Error error : errors) stringJoiner.add(error.getDetail());
+            else stringJoiner.add(response.body().toString());
+            return stringJoiner.toString();
+        } catch (IllegalStateException e) {
+            Assert.fail(response.statusLine());
+            return null;
+        }
     }
 }

@@ -2,14 +2,14 @@ package instamart.api.objects.shopper;
 
 import instamart.api.objects.BaseObject;
 
-public class StoreOrRoleAttributes extends BaseObject {
+public class ShopperIncludedAttributes extends BaseObject {
 
     /**
-     * Both
+     * Base attributes
      */
     private String name;
     /**
-     * Store
+     * Store attributes
      */
     private String uuid;
     private Integer operationalZoneId;
@@ -25,8 +25,17 @@ public class StoreOrRoleAttributes extends BaseObject {
     private Boolean boxScanning;
     private Object deliveryAreaId;
     private Address location;
+    private String scheduleType;
+    private String scheduleTypeHumanName;
     /**
-     * Role
+     * Equipment attributes
+     */
+    private Integer shopperId;
+    private String serial;
+    private String suppliedAt;
+    private Object kind;
+    /**
+     * Role attributes
      */
     private String humanName;
 
@@ -158,4 +167,51 @@ public class StoreOrRoleAttributes extends BaseObject {
         this.humanName = humanName;
     }
 
+    public Integer getShopperId() {
+        return shopperId;
+    }
+
+    public void setShopperId(Integer shopperId) {
+        this.shopperId = shopperId;
+    }
+
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
+    public String getSuppliedAt() {
+        return suppliedAt;
+    }
+
+    public void setSuppliedAt(String suppliedAt) {
+        this.suppliedAt = suppliedAt;
+    }
+
+    public Object getKind() {
+        return kind;
+    }
+
+    public void setKind(Object kind) {
+        this.kind = kind;
+    }
+
+    public String getScheduleType() {
+        return scheduleType;
+    }
+
+    public void setScheduleType(String scheduleType) {
+        this.scheduleType = scheduleType;
+    }
+
+    public String getScheduleTypeHumanName() {
+        return scheduleTypeHumanName;
+    }
+
+    public void setScheduleTypeHumanName(String scheduleTypeHumanName) {
+        this.scheduleTypeHumanName = scheduleTypeHumanName;
+    }
 }

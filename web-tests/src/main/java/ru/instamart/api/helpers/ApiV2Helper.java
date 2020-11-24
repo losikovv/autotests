@@ -24,7 +24,7 @@ import static instamart.ui.modules.Base.kraken;
 public class ApiV2Helper extends ApiHelperBase {
     private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentAddressId = new ThreadLocal<>();
-    public final ThreadLocal<String> currentOrderNumber = new ThreadLocal<>();
+    private final ThreadLocal<String> currentOrderNumber = new ThreadLocal<>();
     private final ThreadLocal<String> currentShipmentNumber = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentShipmentId = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentDeliveryWindowId = new ThreadLocal<>();
@@ -35,13 +35,10 @@ public class ApiV2Helper extends ApiHelperBase {
     private final ThreadLocal<Boolean> productWeightNotDefined = new ThreadLocal<>();
     private final ThreadLocal<Boolean> orderCompleted = new ThreadLocal<>();
 
-    public ApiV2Helper() {
-    }
-
     /**
      * Округляем double до определенного количества символов после запятой
      */
-    private static double roundBigDecimal(double value, int decimal) {
+    private double roundBigDecimal(double value, int decimal) {
         BigDecimal bd = new BigDecimal(Double.toString(value));
         bd = bd.setScale(decimal, RoundingMode.HALF_UP);
         return bd.doubleValue();
@@ -50,7 +47,7 @@ public class ApiV2Helper extends ApiHelperBase {
     /**
      * Проверяем, попадают ли координаты в зону доставки
      */
-    private static boolean isPointInPolygon(List<Zone> points, Zone point) {
+    private boolean isPointInPolygon(List<Zone> points, Zone point) {
         int i, j;
         boolean result = false;
         for (i = 0, j = points.size() - 1; i < points.size(); j = i++) {
@@ -67,7 +64,7 @@ public class ApiV2Helper extends ApiHelperBase {
     /**
      * Получаем координаты, которые попадают в зону доставки
      */
-    public static Zone getInnerPoint(List<Zone> points) {
+    public Zone getInnerPoint(List<Zone> points) {
         List<Double> lats = new ArrayList<>();
         List<Double> lons = new ArrayList<>();
 
@@ -93,7 +90,7 @@ public class ApiV2Helper extends ApiHelperBase {
     }
 
     public boolean authorized() {
-        return ApiV2Requests.token.get() != null;
+        return ApiV2Requests.getToken() != null;
     }
 
     /**
@@ -101,7 +98,7 @@ public class ApiV2Helper extends ApiHelperBase {
      */
     public void logout() {
         if (authorized()) {
-            ApiV2Requests.token.set(null);
+            ApiV2Requests.setToken(null);
             verboseMessage("Чистим токен");
         }
     }
@@ -134,7 +131,7 @@ public class ApiV2Helper extends ApiHelperBase {
       МЕТОДЫ ОБРАБОТКИ ОТВЕТОВ API V2
      */
 
-    public static List<Taxon> getCategories(int sid) {
+    public List<Taxon> getCategories(int sid) {
         List<Taxon> taxons = ApiV2Requests.Taxons.GET(sid).as(TaxonsResponse.class).getTaxons();
         verboseMessage(taxons);
         return taxons;
@@ -185,17 +182,17 @@ public class ApiV2Helper extends ApiHelperBase {
     }
 
     /** Получаем список продуктов: по одному из каждой категории */
-    public static List<Product> getProductFromEachDepartmentInStore(int sid) {
+    public List<Product> getProductFromEachDepartmentInStore(int sid) {
         return getProductsFromEachDepartmentInStore(sid, 1, new SoftAssert());
     }
 
     /** Получаем список продуктов: максимум (6) из каждой категории */
-    public static List<Product> getProductsFromEachDepartmentInStore(int sid) {
+    public List<Product> getProductsFromEachDepartmentInStore(int sid) {
         return getProductsFromEachDepartmentInStore(sid, 6, new SoftAssert());
     }
 
     /** Получаем список продуктов: максимум (6) из каждой категории и проверяем корректность категорий */
-    public static List<Product> getProductsFromEachDepartmentInStore(int sid, SoftAssert softAssert) {
+    public List<Product> getProductsFromEachDepartmentInStore(int sid, SoftAssert softAssert) {
         return getProductsFromEachDepartmentInStore(sid, 6, softAssert);
     }
 
@@ -204,7 +201,7 @@ public class ApiV2Helper extends ApiHelperBase {
      * @param sid сид магазина
      * @param numberOfProductsFromEachDepartment количество продуктов из каждой категории (не больше 6)
      */
-    private static List<Product> getProductsFromEachDepartmentInStore(
+    private List<Product> getProductsFromEachDepartmentInStore(
             int sid, int numberOfProductsFromEachDepartment, SoftAssert softAssert) {
         List<Department> departments = ApiV2Requests.Departments.GET(sid, numberOfProductsFromEachDepartment)
                 .as(DepartmentsResponse.class).getDepartments();
@@ -263,11 +260,18 @@ public class ApiV2Helper extends ApiHelperBase {
         printSuccess(lineItem.toString());
     }
 
+    public int getMinSum(int sid) {
+        int minSum = getStore(sid).getMin_order_amount();
+        verboseMessage("Минимальная сумма корзины: " + minSum);
+        this.minSum.set(minSum);
+        return minSum;
+    }
+
     /**
      * Получаем id и номер шипмента
      * Получаем минимальную сумму заказа, если сумма не набрана
      */
-    private void getMinSum() {
+    private void getMinSumFromAlert() {
         Shipment shipment = ApiV2Requests.Orders.Current.GET()
                 .as(OrderResponse.class)
                 .getOrder()
@@ -544,7 +548,7 @@ public class ApiV2Helper extends ApiHelperBase {
     /**
      * Получить список активных ритейлеров как список объектов Retailer
      */
-    public static List<Retailer> availableRetailers() {
+    public List<Retailer> availableRetailers() {
         List<Retailer> retailers = ApiV2Requests.Retailers.GET().as(RetailersResponse.class).getRetailers();
 
         StringJoiner availableRetailers = new StringJoiner(
@@ -562,7 +566,7 @@ public class ApiV2Helper extends ApiHelperBase {
     /**
      * Получить список активных ритейлеров как список объектов Retailer
      */
-    public static List<Retailer> availableRetailersSpree() {
+    public List<Retailer> availableRetailersSpree() {
         List<Retailer> retailers = ApiV1Requests.Retailers.GET().as(RetailersResponse.class).getRetailers();
 
         StringJoiner availableRetailers = new StringJoiner(
@@ -587,7 +591,7 @@ public class ApiV2Helper extends ApiHelperBase {
     /**
      * Получить список активных магазинов как список объектов Store (без зон доставки)
      */
-    public static List<Store> availableStores() {
+    public List<Store> availableStores() {
         List<Retailer> retailers = availableRetailers();
         List<Store> stores = new ArrayList<>();
 
@@ -606,7 +610,7 @@ public class ApiV2Helper extends ApiHelperBase {
     /**
      * Получить список активных магазинов у ретейлера (без зон доставки)
      */
-    public static List<Store> availableStores(Retailer retailer) {
+    public List<Store> availableStores(Retailer retailer) {
         List<Store> stores = ApiV1Requests.Retailers.Stores.GET(retailer.getId()).as(StoresResponse.class).getStores();
         for (Store store : stores) {
             store.setRetailer(retailer);
@@ -631,7 +635,7 @@ public class ApiV2Helper extends ApiHelperBase {
         return stores;
     }
 
-    private static void printAvailableStores(List<Store> stores) {
+    private void printAvailableStores(List<Store> stores) {
         StringJoiner availableStores = new StringJoiner(
                 "\n• ",
                 "Список активных магазинов:\n• ",
@@ -645,12 +649,12 @@ public class ApiV2Helper extends ApiHelperBase {
     /**
      * Получить список зон доставки магазина
      */
-    public static List<List<Zone>> storeZones(int sid) {
+    public List<List<Zone>> storeZones(int sid) {
         return ApiV2Requests.Stores.GET(sid).as(StoreResponse.class).getStore().getZones();
     }
 
-    public String getStoreName(int sid) {
-        return ApiV2Requests.Stores.GET(sid).as(StoreResponse.class).getStore().getName();
+    public Store getStore(int sid) {
+        return ApiV2Requests.Stores.GET(sid).as(StoreResponse.class).getStore();
     }
 
     /**
@@ -662,12 +666,12 @@ public class ApiV2Helper extends ApiHelperBase {
         kraken.await().simply(3.1);
         Response response = ApiV2Requests.Sessions.POST(email, password);
         assertStatusCode200(response);
-        ApiV2Requests.token.set(response
+        ApiV2Requests.setToken(response
                 .as(SessionsResponse.class)
                 .getSession()
                 .getAccess_token());
         verboseMessage("Авторизуемся: " + email + " / " + password);
-        verboseMessage("access_token: " + ApiV2Requests.token.get() + "\n");
+        verboseMessage("access_token: " + ApiV2Requests.getToken() + "\n");
     }
 
     /**
@@ -731,7 +735,7 @@ public class ApiV2Helper extends ApiHelperBase {
             addItemToCart(product.getId(),1);
             initialCartWeight += (getProductWeight(product) * product.getItems_per_pack());
         }
-        getMinSum();
+        getMinSumFromAlert();
         int quantity = 1;
         for (Product product : products) {
             if (minSumNotReached.get())

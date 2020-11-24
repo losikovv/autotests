@@ -11,8 +11,6 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static instamart.api.helpers.ApiV2Helper.*;
-
 public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "authProviders")
@@ -33,7 +31,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "retailers")
     public static Object[][] getAvailableRetailers() {
 
-        List<Retailer> retailerList = availableRetailers();
+        List<Retailer> retailerList = apiV2.availableRetailers();
 
         Object[][] retailerArray = new Object[retailerList.size()][1];
 
@@ -51,7 +49,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "retailersSpree")
     public static Object[][] getAvailableRetailersSpree() {
 
-        List<Retailer> retailerList = availableRetailersSpree();
+        List<Retailer> retailerList = apiV2.availableRetailersSpree();
 
         Object[][] retailerArray = new Object[retailerList.size()][2];
 
@@ -75,7 +73,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "stores")
     public static Object[][] getAvailableStores() {
 
-        List<Store> storeList = availableStores();
+        List<Store> storeList = apiV2.availableStores();
 
         Object[][] storeArray = new Object[storeList.size()][1];
 
@@ -98,18 +96,18 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "zones")
     public static Object[][] getAvailableZones() {
 
-        List<Store> stores = availableStores();
+        List<Store> stores = apiV2.availableStores();
 
         List<Store> zoneStores = new ArrayList<>();
         List<String> zoneNames = new ArrayList<>();
         List<Zone> coordinates = new ArrayList<>();
 
         for (Store store : stores) {
-            List<List<Zone>> zones = storeZones(store.getId());
+            List<List<Zone>> zones = apiV2.storeZones(store.getId());
             for (int i = 0; i < zones.size(); i++) {
                 zoneStores.add(store);
                 zoneNames.add("Зона #" + (i + 1));
-                coordinates.add(getInnerPoint(zones.get(i)));
+                coordinates.add(apiV2.getInnerPoint(zones.get(i)));
             }
         }
         Object[][] zoneArray = new Object[zoneStores.size()][3];

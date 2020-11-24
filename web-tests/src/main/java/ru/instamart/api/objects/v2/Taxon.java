@@ -14,6 +14,8 @@ public class Taxon extends BaseObject {
     private Icon icon;
     private Icon alt_icon;
     private List<Taxon> children = null;
+    private List<PromoService> promo_services = null;
+    private List<Requirement> requirements = null;
 
     public Integer getId() {
         return id;
@@ -80,5 +82,21 @@ public class Taxon extends BaseObject {
                 .add("products_count: " + products_count);
         if (children != null) stringJoiner.add("\n" + name + " children: " + children);
         return stringJoiner.toString();
+    }
+
+    public List<PromoService> getPromo_services() {
+        return promo_services;
+    }
+
+    public void setPromo_services(List<PromoService> promo_services) {
+        this.promo_services = promo_services;
+    }
+
+    public List<Requirement> getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(List<Requirement> requirements) {
+        this.requirements = requirements;
     }
 }

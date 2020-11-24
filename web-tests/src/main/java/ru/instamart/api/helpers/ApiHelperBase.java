@@ -10,29 +10,29 @@ abstract class ApiHelperBase {
     /**
      * Зеленый текст
      */
-    static void printSuccess(String string) {
+    void printSuccess(String string) {
         verboseMessage(greenText(string));
     }
 
-    static String greenText(String string) {
+    String greenText(String string) {
         return "\u001b[32m" + string + "\u001B[0m";
     }
 
     /**
      * Красный текст
      */
-    static void printError(String string) {
+    void printError(String string) {
         verboseMessage(redText(string));
     }
 
-    static String redText(String string) {
+    private String redText(String string) {
         return "\u001b[31m" + string + "\u001B[0m";
     }
 
     /**
      * Определяем, есть ли в списке указанный инт
      */
-    public static boolean listContainsInt(int integer, List<Integer> list) {
+    public boolean listContainsInt(int integer, List<Integer> list) {
         for (int intFromList : list)
             if (integer == intFromList) {
                 return true;
@@ -43,7 +43,7 @@ abstract class ApiHelperBase {
     /**
      * Определяем, есть ли в хэшэ указанная пара из инта и стринга
      */
-    public static boolean hashMapContainsIntAndString(int integer, String string, HashMap<Integer, String> hashMap) {
+    public boolean hashMapContainsIntAndString(int integer, String string, HashMap<Integer, String> hashMap) {
         if (hashMap.containsKey(integer)) {
             return hashMap.get(integer).contains(string);
         }

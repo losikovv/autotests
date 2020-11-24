@@ -25,13 +25,10 @@ public class Product extends BaseObject {
     private List<Property> properties = null;
     private List<Object> related_products = null;
     private List<Object> requirements = null;
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public Product() {
-    }
+    private String price_type;
+    private Double grams_per_unit;
+    private Double unit_price;
+    private Double original_unit_price;
 
     public Long getId() {
         return id;
@@ -189,5 +186,37 @@ public class Product extends BaseObject {
 
     public void setRequirements(List<Object> requirements) {
         this.requirements = requirements;
+    }
+
+    public String getPrice_type() {
+        return price_type;
+    }
+
+    public void setPrice_type(String price_type) {
+        this.price_type = price_type;
+    }
+
+    public Double getGrams_per_unit() {
+        return grams_per_unit;
+    }
+
+    public void setGrams_per_unit(Double grams_per_unit) {
+        this.grams_per_unit = grams_per_unit;
+    }
+
+    public Double getUnit_price() {
+        return unit_price;
+    }
+
+    public void setUnit_price(Double unit_price) {
+        this.unit_price = unit_price;
+    }
+
+    public Double getOriginal_unit_price() {
+        return original_unit_price;
+    }
+
+    public void setOriginal_unit_price(Double original_unit_price) {
+        this.original_unit_price = original_unit_price;
     }
 }

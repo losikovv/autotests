@@ -115,11 +115,6 @@ public class Config {
             }
         }
 
-        // TODO убрать, определять стоимость доставки во время тестов - ATST-224
-        interface DeliveryPrices {
-            int minOrderSum = 2500;
-        }
-
         // TODO вынести в тестовые данные
         static OrderDetailsData testOrderDetails() {
             return new OrderDetailsData(

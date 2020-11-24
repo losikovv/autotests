@@ -2,14 +2,14 @@ package instamart.api.responses.shopper;
 
 import instamart.api.responses.BaseResponseObject;
 import instamart.api.objects.shopper.ShopperData;
-import instamart.api.objects.shopper.StoreOrRoleData;
+import instamart.api.objects.shopper.ShopperIncluded;
 
 import java.util.List;
 
 public class ShopperResponse extends BaseResponseObject {
 
     private ShopperData data;
-    private List<StoreOrRoleData> included = null;
+    private List<ShopperIncluded> included = null;
 
     public ShopperData getData() {
         return data;
@@ -19,11 +19,11 @@ public class ShopperResponse extends BaseResponseObject {
         this.data = data;
     }
 
-    public List<StoreOrRoleData> getIncluded() {
+    public List<ShopperIncluded> getIncluded() {
         return included;
     }
 
-    public void setIncluded(List<StoreOrRoleData> included) {
+    public void setIncluded(List<ShopperIncluded> included) {
         this.included = included;
     }
 

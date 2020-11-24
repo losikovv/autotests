@@ -38,7 +38,7 @@ public class Sessions extends RestBase {
                 AppManager.session.admin.getLogin(),
                 AppManager.session.admin.getPassword(),
                 "InstamartApp");
-        assertStatusCode200(response, "Не работает авторизация с c Client-Id: InstamartApp");
+        assertStatusCode200(response, "Не работает авторизация с Client-Id: InstamartApp");
         assertNotNull(response.as(SessionsResponse.class).getSession());
     }
 

@@ -10,7 +10,15 @@ import static instamart.core.helpers.HelperBase.verboseMessage;
 import static io.restassured.RestAssured.given;
 
 abstract class InstamartRequestsBase {
-    public static ThreadLocal<String> token = new ThreadLocal<>();
+    static ThreadLocal<String> token = new ThreadLocal<>();
+
+    public static String getToken() {
+        return token.get();
+    }
+
+    public static void setToken(String token) {
+        InstamartRequestsBase.token.set(token);
+    }
 
     /**
      * Обходим тормоза интернета + Добавляем спеки к запросу

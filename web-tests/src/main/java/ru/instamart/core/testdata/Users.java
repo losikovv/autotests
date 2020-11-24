@@ -9,7 +9,7 @@ public abstract class Users {
                 "superadmin",
                 "autotestuser@instamart.ru",
                 "7777777777",
-                "YortaQueojossO8",
+                "hex78.Berwyn",
                 "autotest superadmin");
     }
 
@@ -18,7 +18,7 @@ public abstract class Users {
                 "superuser",
                 "instatestuser@yandex.ru",
                 "1488148814",
-                "instamart",
+                "hex78.Berwyn",
                 "autotest superuser");
     }
 
