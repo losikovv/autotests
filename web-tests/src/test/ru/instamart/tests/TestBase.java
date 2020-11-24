@@ -6,7 +6,7 @@ import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.helpers.HelperBase;
 import instamart.core.listeners.TmsListener;
 import instamart.core.settings.Config;
-import instamart.core.testdata.ui.generate;
+import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.common.pagesdata.PageData;
 import instamart.ui.common.pagesdata.UserData;
@@ -331,7 +331,7 @@ public class TestBase {
 
     @DataProvider
     Object[][] generateUserData() {
-    UserData testuser = generate.testCredentials("user");
+    UserData testuser = Generate.testCredentials("user");
     return new Object[][] {{testuser}};
     }
 

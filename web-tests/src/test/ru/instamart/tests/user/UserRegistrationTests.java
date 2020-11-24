@@ -2,7 +2,7 @@ package ru.instamart.tests.user;
 
 import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
-import instamart.core.testdata.ui.generate;
+import instamart.core.testdata.ui.Generate;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
 import instamart.ui.common.lib.Addresses;
@@ -69,19 +69,24 @@ public class UserRegistrationTests extends TestBase {
             priority = 202
     )
     public void noRegWithoutName() {
-        if(env.contains("staging")){skipTest();}//todo проверить как работает если несколько тестов, закрывается ли браузер
+        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         // для стейджа телефон 799999999999 код 1111
-        User.Do.registration(
+        String phone = Generate.phoneNumber();
+        modalType = User.Do.registration(
                 null,
                 "test@example.com",
                 "12345678",
-                "12345678"
+                "12345678",
+                phone,
+                "1111"
         );
-        baseChecks.checkIsErrorMessageElementPresent("Укажите имя и фамилию",
-                "Нет пользовательской ошибки пустого поля name");
-        kraken.get().baseUrl();
-        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя без имени");
+        if(modalType.equals("модалка с почтой")){
+            baseChecks.checkIsErrorMessageElementPresent("Укажите имя и фамилию",
+                    "Нет пользовательской ошибки пустого поля name");
+            kraken.get().baseUrl();
+            authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя без имени");
+        }
     }
 
     @Test(
@@ -93,7 +98,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 202
     )
     public void noRegWithoutNameMobile() {
-        if(env.contains("production")){skipTest();}//todo проверить как работает если несколько тестов, закрывается ли браузер
+        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         // для стейджа телефон 799999999999 код 1111
         User.Do.registration(
@@ -117,6 +122,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 203
     )
     public void noRegWithoutEmail() {
+        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         User.Do.registration(
@@ -140,6 +146,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 204
     )
     public void noRegWithoutPassword() {
+        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Do.registration("Test User", "test@example.com",
                 null, "12345678");
@@ -158,6 +165,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 205
     )
     public void noRegWithoutPasswordConfirmation() {
+        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Do.registration(
                 "Test User",
@@ -180,6 +188,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 206
     )
     public void noRegWithWrongPasswordConfirmation() {
+        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Do.registration(
                 "Test User",
@@ -202,6 +211,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 207
     )
     public void noRegWithExistingEmail() {
+        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.Do.registration("Test User", Users.superuser().getLogin(),
                 "12345678", "12345678");
@@ -220,9 +230,10 @@ public class UserRegistrationTests extends TestBase {
             priority = 208
     )
     public void noRegWithLongFields() {
+        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.CoreSettings.defaultRetailer);
 
-        User.Do.registration(generate.testCredentials("user", 150));
+        User.Do.registration(Generate.testCredentials("user", 150));
         baseChecks.checkIsErrorMessageElementPresent("Имя должно содержать не более 128 символов",
                 "Нет пользовательской ошибки превышения длины поля name");
         baseChecks.checkIsErrorMessageElementPresent("Email адрес должен содержать не более 128 символов",
@@ -243,13 +254,14 @@ public class UserRegistrationTests extends TestBase {
             priority = 209
     )
     public void noRegOnCancel() {
+        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         Shop.AuthModal.open();
         kraken.await().fluently(
                 ExpectedConditions.elementToBeClickable(
                         Elements.Modals.AuthModal.popup().getLocator()),
                 "Модалка авторизации не открыта\n");
-        User.Do.regSequence(generate.testCredentials("user"));
+        User.Do.regSequence(Generate.testCredentials("user"));
         Shop.AuthModal.close();
         baseChecks.checkIsAuthModalClosed();
         kraken.get().baseUrl();
@@ -263,7 +275,15 @@ public class UserRegistrationTests extends TestBase {
             priority = 210
     )
     public void successRegOnLanding() {
-        User.Do.registration();
+        String phone = Generate.phoneNumber();
+        modalType = User.Do.registration(
+                "Test User",
+                "test@example.com",
+                "12345678",
+                "12345678",
+                phone,
+                "1111"
+        );
         authChecks.checkIsUserAuthorized("Не работает регистрация на лендинге");
     }
 
@@ -277,7 +297,15 @@ public class UserRegistrationTests extends TestBase {
     )
     public void successRegOnMainPage() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-        User.Do.registration();
+        String phone = Generate.phoneNumber();
+        modalType = User.Do.registration(
+                "Test User",
+                "test@example.com",
+                "12345678",
+                "12345678",
+                phone,
+                "1111"
+        );
         authChecks.checkIsUserAuthorized("Не работает регистрация на витрине магазина");
     }
 
@@ -290,6 +318,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 212
     )
     public void successRegFromAddressModal() throws AssertionError {
+        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.ShippingAddressModal.open();
@@ -309,6 +338,7 @@ public class UserRegistrationTests extends TestBase {
             priority = 213
     )
     public void successRegFromCart() {
+        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
 
@@ -333,10 +363,11 @@ public class UserRegistrationTests extends TestBase {
             priority = 214
     )
     public void successRegWithoutMailingCheckbox() {
+        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.AuthModal.open();
-        User.Do.regSequence(generate.testCredentials("user"), false ); // todo вынести в Shop.AuthModal.fill()
+        User.Do.regSequence(Generate.testCredentials("user"), false ); // todo вынести в Shop.AuthModal.fill()
         Shop.AuthModal.submit();
         authChecks.checkIsUserAuthorized("Не работает регистрация без согласия на получение почтовой рассылки");
     }
@@ -350,10 +381,11 @@ public class UserRegistrationTests extends TestBase {
             priority = 215
     )
     public void successRegWithMailingCheckbox() {
+        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.CoreSettings.defaultRetailer);
 
         Shop.AuthModal.open();
-        User.Do.regSequence(generate.testCredentials("user"), false );
+        User.Do.regSequence(Generate.testCredentials("user"), false );
         kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Modals.AuthModal.agreementCheckbox().getLocator()));
         kraken.perform().setCheckbox(Elements.Modals.AuthModal.checkBoxes(),2);
         kraken.perform().click(Elements.Modals.AuthModal.submitButton());

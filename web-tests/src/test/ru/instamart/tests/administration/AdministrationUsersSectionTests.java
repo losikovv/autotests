@@ -1,7 +1,7 @@
 package ru.instamart.tests.administration;
 
 import instamart.core.testdata.Users;
-import instamart.core.testdata.ui.generate;
+import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Administration;
@@ -44,7 +44,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         User.Logout.quickly();
-        UserData testuser = generate.testCredentials("admin");
+        UserData testuser = Generate.testCredentials("admin");
         User.Do.registration(testuser);
 
         Administration.Users.grantAdminPrivileges(testuser);
@@ -78,7 +78,7 @@ public class AdministrationUsersSectionTests extends TestBase {
     )
     public void successChangePassword() {
         User.Logout.quickly();
-        UserData testuser = generate.testCredentials("user");
+        UserData testuser = Generate.testCredentials("user");
         User.Do.registration();
 
         Administration.Users.editUser(testuser);
@@ -101,7 +101,7 @@ public class AdministrationUsersSectionTests extends TestBase {
     )
     public void successGrantB2BStatus() {
         User.Logout.quickly();
-        UserData testuser = generate.testCredentials("user");
+        UserData testuser = Generate.testCredentials("user");
         User.Do.registration(testuser);
 
         Administration.Users.editUser(testuser);
@@ -121,7 +121,7 @@ public class AdministrationUsersSectionTests extends TestBase {
     public void successRevokeB2BStatus() {
         SoftAssert softAssert = new SoftAssert();
         User.Logout.quickly();
-        UserData testuser = generate.testCredentials("user");
+        UserData testuser = Generate.testCredentials("user");
         User.Do.registration(testuser);
 
         Administration.Users.editUser(testuser);

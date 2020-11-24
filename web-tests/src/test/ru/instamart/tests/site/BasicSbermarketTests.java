@@ -4,6 +4,7 @@ import instamart.core.settings.Config;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.objectsmap.Elements;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
@@ -53,6 +54,7 @@ public class BasicSbermarketTests extends TestBase {
 
     // todo public void successValidateHeaderSbermarket()
 
+    @CaseId(6)
     @Test(
             description = "Тест валидности элементов и ссылок в футере Сбермаркета",
             priority = 102,
@@ -154,6 +156,7 @@ public class BasicSbermarketTests extends TestBase {
         assertPageIsAvailable(Pages.Landings.massHiring());
     }
 
+    @CaseId(9)
     @Test(
             description = "Тест доступности статических страниц",
             priority = 106,

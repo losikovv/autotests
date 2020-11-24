@@ -114,11 +114,18 @@ public class Shop extends Base {
             }
         }
         @Step("Заполняем поля формы регистрации по телефону")
-        public static void fillRegistrationFormByPhone(String phone, String smsCode){
+        public static void fillRegistrationFormByPhone(String phone){
             verboseMessage("> заполняем поля формы регистрации по телефону");
-            kraken.perform().fillField(Elements.Modals.AuthModal.phoneNumber(),phone);
+            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.phoneNumber(),phone);
             kraken.perform().click(Elements.Modals.AuthModal.continueButton());
         }
+
+        @Step("Отправляем код из смс")
+        public static void sendSms(String sms){
+            verboseMessage("> Отправляем код из смс");
+            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),sms);
+        }
+
         @Step("Отправляем форму")
         public static void submit() {
             verboseMessage("> отправляем форму\n");
