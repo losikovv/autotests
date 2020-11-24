@@ -13,10 +13,10 @@ public class Store extends BaseObject {
     private List<List<Zone>> zones = null;
     private String uuid;
     private Boolean express_delivery;
-    private Double min_order_amount;
-    private Double min_first_order_amount;
-    private Double min_order_amount_pickup;
-    private Double min_first_order_amount_pickup;
+    private int min_order_amount;
+    private int min_first_order_amount;
+    private int min_order_amount_pickup;
+    private int min_first_order_amount_pickup;
     private Boolean available_for_pickup;
     private Retailer retailer;
     private Address location;
@@ -103,35 +103,35 @@ public class Store extends BaseObject {
         this.express_delivery = express_delivery;
     }
 
-    public Double getMin_order_amount() {
+    public int getMin_order_amount() {
         return min_order_amount;
     }
 
-    public void setMin_order_amount(Double min_order_amount) {
+    public void setMin_order_amount(int min_order_amount) {
         this.min_order_amount = min_order_amount;
     }
 
-    public Double getMin_first_order_amount() {
+    public int getMin_first_order_amount() {
         return min_first_order_amount;
     }
 
-    public void setMin_first_order_amount(Double min_first_order_amount) {
+    public void setMin_first_order_amount(int min_first_order_amount) {
         this.min_first_order_amount = min_first_order_amount;
     }
 
-    public Double getMin_order_amount_pickup() {
+    public int getMin_order_amount_pickup() {
         return min_order_amount_pickup;
     }
 
-    public void setMin_order_amount_pickup(Double min_order_amount_pickup) {
+    public void setMin_order_amount_pickup(int min_order_amount_pickup) {
         this.min_order_amount_pickup = min_order_amount_pickup;
     }
 
-    public Double getMin_first_order_amount_pickup() {
+    public int getMin_first_order_amount_pickup() {
         return min_first_order_amount_pickup;
     }
 
-    public void setMin_first_order_amount_pickup(Double min_first_order_amount_pickup) {
+    public void setMin_first_order_amount_pickup(int min_first_order_amount_pickup) {
         this.min_first_order_amount_pickup = min_first_order_amount_pickup;
     }
 

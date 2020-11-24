@@ -1,19 +1,18 @@
 package ru.instamart.tests;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import instamart.core.common.AppManager;
 import instamart.core.settings.Config;
-import instamart.ui.objectsmap.Elements;
+import instamart.core.testdata.ui.PaymentTypes;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
-import instamart.core.testdata.ui.PaymentTypes;
 import instamart.ui.common.lib.ReplacementPolicies;
 import instamart.ui.common.pagesdata.OrderDetailsData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
-import instamart.api.helpers.ApiV2Helper;
+import instamart.ui.objectsmap.Elements;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class Playground extends TestBase {
 
@@ -26,7 +25,7 @@ public class Playground extends TestBase {
     @Test
     public void restDepartments() {
         SoftAssert softAssert = new SoftAssert();
-        ApiV2Helper.getProductsFromEachDepartmentInStore(128, softAssert);
+        kraken.apiV2().getProductsFromEachDepartmentInStore(128, softAssert);
         softAssert.assertAll();
     }
 

@@ -2,16 +2,18 @@ package instamart.api.objects.shopper;
 
 import instamart.api.objects.BaseObject;
 
+import java.util.List;
+
 public class Equipment extends BaseObject {
 
-    private Meta meta;
+    private List<Data> data = null;
 
-    public Meta getMeta() {
-        return meta;
+    public List<Data> getData() {
+        return data;
     }
 
-    public void setMeta(Meta meta) {
-        this.meta = meta;
+    public void setData(List<Data> data) {
+        this.data = data;
     }
 
 }

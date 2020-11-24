@@ -20,7 +20,15 @@ import static io.restassured.RestAssured.given;
  */
 @SuppressWarnings("unchecked")
 public class ShopperApiRequests {
-    public static String token;
+    private static String token;
+
+    public static String getToken() {
+        return token;
+    }
+
+    public static void setToken(String token) {
+        ShopperApiRequests.token = token;
+    }
 
     /**
      * Добавляем спеки к запросу

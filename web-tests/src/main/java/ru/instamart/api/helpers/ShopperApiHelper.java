@@ -22,10 +22,7 @@ import static instamart.api.checkpoints.ShopperApiCheckpoints.assertStatusCode20
 import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public class ShopperApiHelper extends ApiHelperBase {
-    String currentAssemblyId;
-
-    public ShopperApiHelper() {
-    }
+    private String currentAssemblyId;
 
     /**
      * Авторизация
@@ -33,13 +30,13 @@ public class ShopperApiHelper extends ApiHelperBase {
     public void authorisation(String userName, String password) {
         Response response = ShopperApiRequests.Sessions.POST(userName, password);
         assertStatusCode200(response);
-        ShopperApiRequests.token = response
+        ShopperApiRequests.setToken(response
                 .as(SessionsResponse.class)
                 .getData()
                 .getAttributes()
-                .getAccessToken();
+                .getAccessToken());
         verboseMessage("Авторизуемся: " + userName + " / " + password);
-        verboseMessage("access_token: " + ShopperApiRequests.token + "\n");
+        verboseMessage("access_token: " + ShopperApiRequests.getToken() + "\n");
     }
 
     public void authorisation(UserData user) {
@@ -47,14 +44,14 @@ public class ShopperApiHelper extends ApiHelperBase {
     }
 
     public boolean authorized() {
-        return ShopperApiRequests.token != null;
+        return ShopperApiRequests.getToken() != null;
     }
 
     /**
      * Логаут (чистим токен для авторизации)
      */
     public void logout() {
-        if (authorized()) ShopperApiRequests.token = null;
+        if (authorized()) ShopperApiRequests.setToken(null);
     }
 
     /**

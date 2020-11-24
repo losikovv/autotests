@@ -8,9 +8,6 @@ import instamart.ui.common.pagesdata.UserData;
 
 public class ApiHelper extends RestBase {
 
-    public ApiHelper() {
-    }
-
     /**
      * Регистрация
      */

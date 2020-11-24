@@ -1,6 +1,6 @@
 package instamart.api.endpoints;
 
-public class ApiV1Endpoints {
+public final class ApiV1Endpoints {
     public static final String RETAILERS = "retailers";
 
     public static final class Retailers {

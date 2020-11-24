@@ -17,6 +17,8 @@ public class LineItem extends BaseObject {
     private Boolean product_in_stock;
     private Double total_diff;
     private Product product;
+    private Double unit_price;
+    private Integer unit_quantity;
 
     public Integer getId() {
         return id;
@@ -117,5 +119,21 @@ public class LineItem extends BaseObject {
 
     public void setTotal_diff(Double total_diff) {
         this.total_diff = total_diff;
+    }
+
+    public Double getUnit_price() {
+        return unit_price;
+    }
+
+    public void setUnit_price(Double unit_price) {
+        this.unit_price = unit_price;
+    }
+
+    public Integer getUnit_quantity() {
+        return unit_quantity;
+    }
+
+    public void setUnit_quantity(Integer unit_quantity) {
+        this.unit_quantity = unit_quantity;
     }
 }

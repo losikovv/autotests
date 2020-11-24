@@ -775,7 +775,7 @@ public class Shop extends Base {
         public static void collect() {
             if(!kraken.detect().isCheckoutButtonActive()) {
                 Cart.close();
-                collect(Config.TestVariables.DeliveryPrices.minOrderSum);
+                collect(kraken.apiV2().getMinSum(1));
             } else { HelperBase.verboseMessage("> пропускаем набор товаров, в корзине достаточно товаров для оформления минимального заказа");}
         }
 
