@@ -1,6 +1,7 @@
 package ru.instamart.tests;
 
 import com.google.common.collect.ImmutableMap;
+import instamart.api.common.RestBase;
 import instamart.core.common.AppManager;
 import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.helpers.HelperBase;
@@ -35,6 +36,7 @@ public class TestBase {
             description = "Выпускаем Кракена")
     public void start() throws Exception {
         kraken.rise();
+        new RestBase().initSpec();
         allureEnvironmentWriter(
                 ImmutableMap.<String, String>builder()
                         .put("Browser", System.getProperty("browser", Config.CoreSettings.defaultBrowser))
