@@ -65,7 +65,7 @@ public class StoreTests extends RestBase {
         verboseMessage(store + "\n");
 
         SoftAssert softAssert = new SoftAssert();
-        List<Taxon> taxons = apiV2.getCategories(store.getId());
+        List<Taxon> taxons = apiV2.getTaxons(store.getId());
         taxons.forEach(taxon -> ApiV2Checkpoints.assertProductsCountEqualsChildrenSum(taxon, softAssert));
         softAssert.assertAll();
     }

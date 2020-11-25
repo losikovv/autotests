@@ -6,14 +6,23 @@ import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.SessionsResponse;
 import instamart.core.common.AppManager;
 import instamart.core.testdata.dataprovider.RestDataProvider;
+import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
 import org.testng.SkipException;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static instamart.api.checkpoints.ApiV2Checkpoints.assertStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
 public class Sessions extends RestBase {
+    UserData user;
+
+    @BeforeClass(alwaysRun = true, description = "Авторизация")
+    public void preconditions() {
+        user = user();
+        apiV2.registration(user);
+    }
 
     @CaseId(14)
     @Test(  dataProvider = "authProviders",
@@ -34,10 +43,7 @@ public class Sessions extends RestBase {
     @Test(  description = "Авторизуемся c Client-Id: InstamartApp (как мобильное приложение)",
             groups = {"api-v2-smoke"})
     public void postSessionsInstamartApp() {
-        response = ApiV2Requests.Sessions.POST(
-                AppManager.session.admin.getLogin(),
-                AppManager.session.admin.getPassword(),
-                "InstamartApp");
+        response = ApiV2Requests.Sessions.POST(user.getLogin(), user.getPassword(), "InstamartApp");
         assertStatusCode200(response, "Не работает авторизация с Client-Id: InstamartApp");
         assertNotNull(response.as(SessionsResponse.class).getSession());
     }

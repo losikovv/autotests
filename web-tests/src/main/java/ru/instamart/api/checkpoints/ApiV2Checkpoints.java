@@ -21,7 +21,7 @@ public class ApiV2Checkpoints {
     }
 
     public static void assertStatusCode200(Response response, String message) {
-        String responseText = response.body().print();
+        String responseText = "";
         switch (response.statusCode()) {
             case 200:
             case 404:
