@@ -56,7 +56,7 @@ tests:apiv2:
       - web-tests/build/allure-results/
     expire_in: 1 week
 
-tests:shopper:
+tests:apiShopper:
   when: manual
   stage: tests
   image: $CI_REGISTRY_IMAGE
@@ -74,7 +74,7 @@ tests:shopper:
       - web-tests/build/allure-results/
     expire_in: 1 week
 
-tests:zones:
+tests:apiZonesProductionOnly:
   when: manual
   stage: tests
   image: $CI_REGISTRY_IMAGE
