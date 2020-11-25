@@ -131,13 +131,13 @@ public class ApiV2Helper extends ApiHelperBase {
       МЕТОДЫ ОБРАБОТКИ ОТВЕТОВ API V2
      */
 
-    public List<Taxon> getCategories(int sid) {
+    public List<Taxon> getTaxons(int sid) {
         List<Taxon> taxons = ApiV2Requests.Taxons.GET(sid).as(TaxonsResponse.class).getTaxons();
         verboseMessage(taxons);
         return taxons;
     }
 
-    public Taxon getCategory(int id, int sid) {
+    public Taxon getTaxon(int id, int sid) {
         Taxon taxon = ApiV2Requests.Taxons.GET(id, sid).as(TaxonResponse.class).getTaxon();
         verboseMessage(taxon);
         return taxon;
@@ -230,7 +230,7 @@ public class ApiV2Helper extends ApiHelperBase {
             StringJoiner productsString = new StringJoiner(
                     "\n• ",
                     "Категория: " + department.getName() + "\n• ",
-                    "\n");
+                    "");
             for (Product productFromDepartment : productsFromDepartment) {
                 products.add(productFromDepartment);
                 productsString.add(productFromDepartment.toString());

@@ -4,18 +4,22 @@ import instamart.api.checkpoints.ApiV2Checkpoints;
 import instamart.api.common.RestBase;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.PaymentToolsResponse;
-import instamart.core.common.AppManager;
+import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertNotNull;
 
 public class PaymentTools extends RestBase {
 
-    @BeforeMethod(alwaysRun = true, description = "Авторизация")
+    @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        apiV2.authorisation(AppManager.session.admin);
+        if (!apiV2.authorized()) {
+            UserData user = user();
+            apiV2.registration(user);
+            apiV2.authorisation(user);
+        }
     }
 
     @CaseId(20)

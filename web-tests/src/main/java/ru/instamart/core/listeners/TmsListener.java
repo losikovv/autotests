@@ -58,7 +58,7 @@ public class TmsListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        hash = sendTestInProgress(result);
+        //hash = sendTestInProgress(result);
     }
 
     @Override
