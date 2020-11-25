@@ -37,10 +37,6 @@ public class RestBase {
     public static RequestSpecification shopperRequestSpec;
     private static ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
 
-    public RestBase() {
-        initSpec();
-    }
-
     @BeforeSuite(groups = {
             "api-zones",
             "api-v2-smoke",
@@ -50,7 +46,7 @@ public class RestBase {
                  description = "Инициализация")
     public void start() throws Exception {
         kraken.riseRest();
-        //initSpec();
+        initSpec();
         allureEnvironmentWriter(
                 ImmutableMap.<String, String>builder()
                         .put("Tenant", AppManager.environment.getTenant())
@@ -62,7 +58,7 @@ public class RestBase {
         TmsListener.setProjectCode("APIAT");
     }
 
-    private void initSpec() {
+    public void initSpec() {
         String customerFullBaseUrl = AppManager.environment.getBasicUrlWithHttpAuth();
         String shopperFullBaseUrl = AppManager.environment.getShopperUrl();
         port = 443;
