@@ -1,6 +1,27 @@
+stages:
+  - build
+  - tests
+build:
+  image:
+    name: registry.sbermarket.tech/docker/proxy/kaniko-project/executor:debug-v1.0.0
+    entrypoint: [""]
+  stage: build
+  tags:
+    - docker
+  script:
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - echo $CI_REGISTRY
+    - echo $IMAGE
+    - /kaniko/executor
+      --cache=true
+      --context $CI_PROJECT_DIR
+      --dockerfile $CI_PROJECT_DIR/Dockerfile
+      --destination $CI_REGISTRY_IMAGE
+
 testAuto:
   when: manual
   image: gradle:jdk11
+  stage: tests
   services:
     - selenium/standalone-chrome
   script:
@@ -9,6 +30,78 @@ testAuto:
     - echo $BROWSER
     - cd web-tests
     - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER allureReport
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/build/allure-results/
+    expire_in: 1 week
+
+tests:apiv2:
+  when: manual
+  stage: tests
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - echo $P_ENV
+    - echo $TEST_SET
+    - echo $BROWSER
+    - cd web-tests
+    - ./gradlew clean apiV2Regress -Penv=$P_ENV -Pqase=true allureReport
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/build/allure-results/
+    expire_in: 1 week
+
+tests:shopper:
+  when: manual
+  stage: tests
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - echo $P_ENV
+    - echo $TEST_SET
+    - echo $BROWSER
+    - cd web-tests
+    - ./gradlew build apiShopperRegress -Penv=$P_ENV -Pqase=true allureReport
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/build/allure-results/
+    expire_in: 1 week
+
+tests:zones:
+  when: manual
+  stage: tests
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - echo $P_ENV
+    - echo $TEST_SET
+    - echo $BROWSER
+    - cd web-tests
+    - ./gradlew build apiZones -Penv=$P_ENV -Pqase=true allureReport
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/build/allure-results/
+    expire_in: 1 week
+
+tests:smoke:
+  when: manual
+  stage: tests
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - echo $P_ENV
+    - echo $TEST_SET
+    - echo $BROWSER
+    - cd web-tests
+    - - ./gradlew build sberSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true allureReport
   tags:
     - k8s-stage
   artifacts:
