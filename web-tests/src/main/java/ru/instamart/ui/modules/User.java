@@ -192,6 +192,10 @@ public class User extends Base {
         public static void regSequenceMobile(String phone, String sms){
             Shop.AuthModal.fillRegistrationFormByPhone(phone);
             Shop.AuthModal.sendSms(sms);
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Modals.AuthModal.smsCode().getLocator()),
+                    "Превышено время редиректа с модалки авторизации через мобилку\n");
        }
 
 
