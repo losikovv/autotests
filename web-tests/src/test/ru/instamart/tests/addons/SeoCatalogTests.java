@@ -1,5 +1,6 @@
 package ru.instamart.tests.addons;
 
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
@@ -15,6 +16,7 @@ import static instamart.core.common.AppManager.session;
 import static instamart.core.settings.Config.TestsConfiguration.AddonsTests.enableSeoCatalogTests;
 
 public class SeoCatalogTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
@@ -29,7 +31,7 @@ public class SeoCatalogTests extends TestBase {
     public void successCheckSeoPage() {
         skipTestOnServer("staging");
 
-        assertPageIsAvailable(
+        baseChecks.checkPageIsAvailable(
                 Pages.seo_catalog());
     }
 

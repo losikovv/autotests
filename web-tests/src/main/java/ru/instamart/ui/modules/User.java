@@ -195,7 +195,7 @@ public class User extends Base {
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(
                             Elements.Modals.AuthModal.smsCode().getLocator()),
-                    "Превышено время редиректа с модалки авторизации через мобилку\n");
+                    "Превышено время редиректа с модалки авторизации через мобилку\n",60);
        }
 
 

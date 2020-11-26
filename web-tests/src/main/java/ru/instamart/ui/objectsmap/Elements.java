@@ -475,8 +475,8 @@ public class Elements {
         }
 
         static ElementData publicOfferLink() {
-            return new ElementData(By.xpath("//footer//a[contains(@class,'footer__link') and text()='Публичная оферта']"),
-                    "ссылка на публичную оферту в футере");
+            return new ElementData(By.xpath("//footer//a[contains(@class,'footer__link') and text()='Официальное уведомление']"),
+                    "ссылка на Официальное уведомление в футере");
         }
     }
 

@@ -3,6 +3,7 @@ package ru.instamart.tests.administration;
 import instamart.api.common.RestAddresses;
 import instamart.core.common.AppManager;
 import instamart.core.testdata.ui.Generate;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Administration;
 import instamart.ui.modules.User;
@@ -16,6 +17,7 @@ import ru.instamart.tests.TestBase;
 import static instamart.core.settings.Config.TestsConfiguration.AdministrationTests.enableShipmentsSectionTests;
 
 public class AdministrationShipmentsSectionTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     // TODO актуализировать тесты и зарезолвить тудушки - ATST-234
 
     @BeforeMethod(alwaysRun = true,
@@ -31,58 +33,58 @@ public class AdministrationShipmentsSectionTests extends TestBase {
             priority = 10100
     )
     public void validateDefaultAdminShipmentsPage() {
-        assertPresence(Elements.Administration.ShipmentsSection.title());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.title());
 
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderDateFrom());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderDateTo());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.customerName());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.customerSurname());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.juridicalNameContains());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.shopperLogin());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.driverLogin());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderDateFrom());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderDateTo());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.customerName());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.customerSurname());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.juridicalNameContains());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.shopperLogin());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.driverLogin());
 
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.deliveryTimeFrom());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.deliveryTimeTo());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.phoneNumberContains());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.email());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.innNumber());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.invoiceNumber());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.deliveryTimeFrom());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.deliveryTimeTo());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.phoneNumberContains());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.email());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.innNumber());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.invoiceNumber());
 
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderNumber());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderStatus());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.retailer());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.store());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.paymentMethod());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.paymentStatus());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderNumber());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderStatus());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.retailer());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.store());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.paymentMethod());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.paymentStatus());
 
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.promocode());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.itemsFrom());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.itemsTo());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.weightFrom());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.weightTo());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.promocode());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.itemsFrom());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.itemsTo());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.weightFrom());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.weightTo());
 
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.completedOnly());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.b2bOnly());
-        // todo переделано на мультиселетор, обновить assertPresence(Elements.Administration.ShipmentsSection.Checkboxes.metroOnly());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.deliveryChangedOnly());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.completedOnly());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.b2bOnly());
+        // todo переделано на мультиселетор, обновить baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.Checkboxes.metroOnly());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.deliveryChangedOnly());
 
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.applyFilterButton());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.clearFilterButton());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.applyFilterButton());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.clearFilterButton());
 
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.container());
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Номер"));
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Сумма"));
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Состояние оплаты"));
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Состояние доставки"));
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Ритейлер"));
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Дата и время доставки"));
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Комментарий"));
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Куда"));
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Сборщик"));
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Водитель"));
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Общий вес"));
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Документация"));
-        assertPresence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Магазин сборки"));
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.container());
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Номер"));
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Сумма"));
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Состояние оплаты"));
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Состояние доставки"));
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Ритейлер"));
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Дата и время доставки"));
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Комментарий"));
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Куда"));
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Сборщик"));
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Водитель"));
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Общий вес"));
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Документация"));
+        baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.column("Магазин сборки"));
 
         //todo валидить элементы строки первого заказа
     }

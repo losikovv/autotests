@@ -21,7 +21,7 @@ public class Config {
         String defaultRetailer = Tenants.metro().getAlias();
 
         int basicTimeout = 2;
-        int waitingTimeout = 60;
+        int waitingTimeout = 25;
 
         boolean docker = false; // Переключатель включает прогон в селенойде
         boolean video = false; // Включает запись видео

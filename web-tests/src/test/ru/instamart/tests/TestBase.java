@@ -13,7 +13,6 @@ import instamart.ui.common.pagesdata.PageData;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Allure;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.SkipException;
@@ -78,7 +77,7 @@ public class TestBase {
         Allure.addAttachment("Системный лог теста",value);
     }
 
-    @AfterMethod(alwaysRun = true,description = "Прикрепляем скриншот интерфейса на котором тест упал")
+    @AfterMethod(alwaysRun = true,description = "Прикрепляем скриншот интерфейса, если UI тест упал")
     public void screenShot(ITestResult result){
         if(!result.isSuccess()){
             HelperBase.takeScreenshot();
@@ -88,18 +87,6 @@ public class TestBase {
     /** Метод-обертка для красивого вывода ошибок зафейленных тестов */
     protected String failMessage(String text) {
         return "\n\n> " + text + "\n\n";
-    }
-
-    /** Проверить наличие и видимость элемента на странице */
-    public void assertPresence(ElementData element) {
-        verboseMessage("Проверяем наличие элемента на странице " + kraken.grab().currentURL() + "\n> " + element.getLocator());
-
-        Assert.assertTrue(
-                kraken.detect().isElementPresent(element),
-                    failMessage("Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL()
-                            + "\n> " + element.getLocator()));
-
-        verboseMessage("✓ Успешно: " + element.getDescription() + "\n");
     }
 
     /** Проверить отсутствие элемента на странице */
@@ -163,100 +150,6 @@ public class TestBase {
                     failMessage("Выбрана " + element.getDescription()));
     }
 
-    /** Проверить валидность элемента (преход работает + целевая страница доступна) */
-    public void validateTransition(ElementData element) {
-        assertTransition(element);
-        assertPageIsAvailable();
-    }
-
-    /** Проверить работоспособность перехода по ссылке элемента */
-    public void assertTransition(ElementData element) {
-        verboseMessage("Валидируем работу элемента: " + element.getDescription());
-        String startPage = kraken.grab().currentURL();
-        kraken.perform().click(element);
-
-        kraken.await().fluently(ExpectedConditions.not(ExpectedConditions.urlToBe(startPage)),
-                "\n\n > Не работает " + element.getDescription()
-                        + "\n > " + element.getLocator().toString().substring(3) + " на странице " + startPage
-                        + "\n > Нет перехода на целевую страницу\n\n");
-
-        verboseMessage("✓ Успешный переход");
-        // TODO добавить проверку на соответствие currentURL и targetURL, для этого добавить targetURL в ElementData
-    }
-
-    //todo переименовать
-    /**  Проверить возможность перехода на страницу */
-    public void assertTransition(PageData page) {
-        assertTransition(AppManager.environment.getBasicUrlWithHttpAuth() + page.getPath());
-    }
-
-    //todo переименовать
-    /** Проверить возможность перехода на страницу по указанному url */
-    public void assertTransition(String URL) {
-        verboseMessage("Переход по прямой ссылке " + URL);
-        kraken.get().url(URL);
-        kraken.await().simply(1);
-        Assert.assertTrue(
-                kraken.grab().currentURL().equalsIgnoreCase(URL),
-                    "Невозможно перейти на страницу " + URL + " по прямой ссылке\n"
-                        + "Вместо нее попадаем на " + kraken.grab().currentURL() + "\n"
-        );
-        verboseMessage("✓ Успешно");
-    }
-
-    public void assertRetailerIsAvailable(String retailer) {
-        assertPageIsAvailable(kraken.environment.getBasicUrlWithHttpAuth() + retailer);
-    }
-
-    public void assertRetailerIsUnavailable(String retailer) {
-        assertPageIs404(kraken.environment.getBasicUrlWithHttpAuth() + retailer);
-    }
-
-    /** Проверить возможность перехода на страницу и ее доступность */
-    public void assertPageIsAvailable(PageData page) {
-        assertPageIsAvailable(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
-    }
-
-    /** Проверить возможность перехода на страницу по указанному url и ее доступность */
-    public void assertPageIsAvailable(String URL) {
-        assertTransition(URL);
-        assertPageIsAvailable();
-    }
-
-    /** Проверить доступность текущей страницы */
-    public void assertPageIsAvailable() throws AssertionError {
-        String page = kraken.grab().currentURL();
-        Assert.assertFalse(
-                kraken.detect().is404(),
-                    failMessage("Ошибка 404 на странице " + page)
-        );
-        Assert.assertFalse(
-                kraken.detect().is500(),
-                    failMessage("Ошибка 500 на странице " + page)
-        );
-        Assert.assertFalse(
-                kraken.detect().is502(),
-                    failMessage("Ошибка 502 на странице " + page )
-        );
-        verboseMessage("✓ Страница " + page + " доступна\n");
-    }
-
-    /** Проверить что текущая страница недоступна с ошибкой 404 */
-    public void assertPageIs404() throws AssertionError {
-        Assert.assertTrue(kraken.detect().is404(), "\n\n> Нет ожидаемой ошибки 404 на странице " + kraken.grab().currentURL() + "\n");
-    }
-
-    /** Проверить возможность перехода на страницу и ее недоступность с ошибкой 404 */
-    public void assertPageIs404(PageData page)  {
-        assertPageIs404(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
-    }
-
-    /** Проверить возможность перехода на страницу по указанному url и ее недоступность с ошибкой 404 */
-    public void assertPageIs404(String URL) {
-        assertTransition(URL);
-        assertPageIs404();
-    }
-
     /** Проверка недоступности страницы для перехода */
     public void assertPageIsUnavailable(PageData page) {
         assertPageIsUnavailable(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
@@ -271,10 +164,10 @@ public class TestBase {
                     "\n\n> Можно попасть на страницу " + kraken.grab().currentURL() + " по прямой ссылке\n");
     }
 
-    /** Проверка доступности зокументации заказа */
+    /** Проверка доступности документации заказа */
     public void assertOrderDocumentsAreAvailable() {
         assertOrderDocumentsAreDownloadable();
-        assertPageIsAvailable();
+        //checkPageIsAvailable();
     }
 
     /** Пропуск теста */

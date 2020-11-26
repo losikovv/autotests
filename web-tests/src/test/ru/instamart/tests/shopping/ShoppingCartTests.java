@@ -1,6 +1,7 @@
 package ru.instamart.tests.shopping;
 
 import instamart.core.settings.Config;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
@@ -14,6 +15,7 @@ import ru.instamart.tests.TestBase;
 import static instamart.core.common.AppManager.session;
 
 public class ShoppingCartTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     @BeforeClass(alwaysRun = true,
             description = "Подготавливаем тестовое окружение к тестовому прогону")
     public void setup() {
@@ -34,10 +36,10 @@ public class ShoppingCartTests extends TestBase {
                 kraken.detect().isCartOpen(),
                     failMessage("Не открывается корзина"));
 
-        assertPresence(Elements.Cart.drawer());
-        assertPresence(Elements.Cart.closeButton());
-        assertPresence(Elements.Cart.placeholder());
-        assertPresence(Elements.Cart.checkoutButton());
+        baseChecks.checkIsElementPresent(Elements.Cart.drawer());
+        baseChecks.checkIsElementPresent(Elements.Cart.closeButton());
+        baseChecks.checkIsElementPresent(Elements.Cart.placeholder());
+        baseChecks.checkIsElementPresent(Elements.Cart.checkoutButton());
 
         Assert.assertTrue(
                 kraken.detect().isCartEmpty(),

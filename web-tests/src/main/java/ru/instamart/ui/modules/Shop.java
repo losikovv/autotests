@@ -123,7 +123,14 @@ public class Shop extends Base {
         @Step("Отправляем код из смс")
         public static void sendSms(String sms){
             verboseMessage("> Отправляем код из смс");
+//            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),"1");
+//            kraken.await().simply(0.5);
+//            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),"1");
+//            kraken.await().simply(0.5);
+//            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),"1");
+//            kraken.await().simply(0.5);
             kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),sms);
+            //kraken.perform().fillField(Elements.Modals.AuthModal.smsCode(),sms);
         }
 
         @Step("Отправляем форму")

@@ -1,10 +1,12 @@
 package ru.instamart.tests.site;
 
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class BasicMetroTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
     @Test(
             description = "Тест валидности элементов и ссылок в шапке METRO Delivery",
@@ -29,18 +31,17 @@ public class BasicMetroTests extends TestBase {
             groups = {"metro-smoke","metro-acceptance","metro-regression"},
             priority = 103
     ) public void successCheckMetroRetailers() {
-        assertPageIs404(Pages.Retailers.auchan());
-        assertPageIs404(Pages.Retailers.azbuka());
-        assertPageIs404(Pages.Retailers.vkusvill());
-        assertPageIs404(Pages.Retailers.lenta());
-        assertPageIs404(Pages.Retailers.karusel());
-        assertPageIs404(Pages.Retailers.selgros());
-        assertPageIs404(Pages.Retailers.flora());
-        assertPageIs404(Pages.Retailers.foodcity());
-        assertPageIs404(Pages.Retailers.magnit());
-        assertPageIs404(Pages.Retailers.testretailer());
-
-        assertPageIsAvailable(Pages.Retailers.metro());
+        baseChecks.checkPageIs404(Pages.Retailers.auchan());
+        baseChecks.checkPageIs404(Pages.Retailers.azbuka());
+        baseChecks.checkPageIs404(Pages.Retailers.vkusvill());
+        baseChecks.checkPageIs404(Pages.Retailers.lenta());
+        baseChecks.checkPageIs404(Pages.Retailers.karusel());
+        baseChecks.checkPageIs404(Pages.Retailers.selgros());
+        baseChecks.checkPageIs404(Pages.Retailers.flora());
+        baseChecks.checkPageIs404(Pages.Retailers.foodcity());
+        baseChecks.checkPageIs404(Pages.Retailers.magnit());
+        baseChecks.checkPageIs404(Pages.Retailers.testretailer());
+        baseChecks.checkPageIsAvailable(Pages.Retailers.metro());
     }
 
     @Test(
@@ -48,13 +49,13 @@ public class BasicMetroTests extends TestBase {
             groups = {"metro-smoke","metro-acceptance","metro-regression"},
             priority = 105
     ) public void successCheckMetroTenantStaticPages() {
-        assertPageIsAvailable(Pages.Metro.about());
-        assertPageIsAvailable(Pages.Metro.delivery());
-        assertPageIsAvailable(Pages.Metro.rules());
-        assertPageIsAvailable(Pages.Metro.payment());
-        assertPageIsAvailable(Pages.Metro.returnPolicy());
-        assertPageIsAvailable(Pages.Metro.faq());
-        assertPageIsAvailable(Pages.Metro.terms());
-        assertPageIsAvailable(Pages.Metro.contacts());
+        baseChecks.checkPageIsAvailable(Pages.Metro.about());
+        baseChecks.checkPageIsAvailable(Pages.Metro.delivery());
+        baseChecks.checkPageIsAvailable(Pages.Metro.rules());
+        baseChecks.checkPageIsAvailable(Pages.Metro.payment());
+        baseChecks.checkPageIsAvailable(Pages.Metro.returnPolicy());
+        baseChecks.checkPageIsAvailable(Pages.Metro.faq());
+        baseChecks.checkPageIsAvailable(Pages.Metro.terms());
+        baseChecks.checkPageIsAvailable(Pages.Metro.contacts());
     }
 }

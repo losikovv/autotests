@@ -4,6 +4,7 @@ import instamart.api.common.RestAddresses;
 import instamart.core.common.AppManager;
 import instamart.core.settings.Config;
 import instamart.core.testdata.ui.Generate;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.UserData;
@@ -16,6 +17,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
 public class ShoppingTestsForExistingUser extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     @BeforeClass(alwaysRun = true,
             description = "Подготавливаем тестовое окружение к тестовому прогону")
     public void setup() {
@@ -88,7 +90,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
                 kraken.detect().isOnCheckout(),
                     failMessage("Не удалось перейти из корзины в чекаут"));
 
-        assertPageIsAvailable(Pages.checkout());
+        baseChecks.checkPageIsAvailable(Pages.checkout());
         softAssert.assertAll();
     }
 

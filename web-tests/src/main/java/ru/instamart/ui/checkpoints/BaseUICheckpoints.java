@@ -1,8 +1,11 @@
 package instamart.ui.checkpoints;
 
+import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.ElementData;
+import instamart.ui.common.pagesdata.PageData;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -14,7 +17,7 @@ public class BaseUICheckpoints {
 
 
     /** Функция проверяет, что на модальном окне авторизации/регистрации присутствуют сообщения об ошибках*/
-    @Step("Проверяем, что текст ошибки: {0} отображается на экране")
+    @Step("Проверяем, что элемент: {0} отображается на экране")
     public void checkIsErrorMessageElementPresent(String successMessage,
                                                      String errorMessage){
         verboseMessage("> проверяем, что текст ошибки: " +successMessage+
@@ -61,6 +64,48 @@ public class BaseUICheckpoints {
         softAssert.assertAll();
     }
 
+    /** Проверить возможность перехода на страницу по указанному url и ее доступность */
+    @Step("Проверить возможность перехода на страницу по указанному url и ее доступность")
+    public void checkPageIsAvailable(String URL) {
+        checkTransition(URL);
+        checkPageIsAvailable();
+    }
+
+    /**  Проверить возможность перехода на страницу */
+    public void checkTransition(PageData page) {
+        checkTransition(AppManager.environment.getBasicUrlWithHttpAuth() + page.getPath());
+    }
+
+    /** Проверить возможность перехода на страницу по указанному url */
+    @Step("Проверить возможность перехода на страницу по указанному url: {0}")
+    public void checkTransition(String URL) {
+        verboseMessage("> переход по прямой ссылке " + URL);
+        kraken.get().url(URL);
+        kraken.await().simply(1);
+        Assert.assertTrue(
+                kraken.grab().currentURL().equalsIgnoreCase(URL),
+                "Невозможно перейти на страницу " + URL + " по прямой ссылке\n"
+                        + "Вместо нее попадаем на " + kraken.grab().currentURL() + "\n"
+        );
+        verboseMessage("✓ Успешно");
+    }
+
+    /** Проверить работоспособность перехода по ссылке элемента */
+    @Step("Проверить работоспособность перехода по ссылке элемента")
+    public void checkTransition(ElementData element) {
+        verboseMessage("> валидируем работу элемента: " + element.getDescription());
+        String startPage = kraken.grab().currentURL();
+        kraken.perform().click(element);
+
+        kraken.await().fluently(ExpectedConditions.not(ExpectedConditions.urlToBe(startPage)),
+                "\n\n > Не работает " + element.getDescription()
+                        + "\n > " + element.getLocator().toString().substring(3) + " на странице " + startPage
+                        + "\n > Нет перехода на целевую страницу\n\n");
+
+        verboseMessage("✓ Успешный переход");
+        // TODO добавить проверку на соответствие currentURL и targetURL, для этого добавить targetURL в ElementData
+    }
+
     /** Проверить доступность текущей страницы */
     @Step("Проверяем доступность текущей страницы")
     public void checkPageIsAvailable() throws AssertionError {
@@ -81,13 +126,15 @@ public class BaseUICheckpoints {
     }
 
     /**Проверяем присутсвие элемента на странице*/
-    @Step("Проверяем присутсвие элемента на странице: {0}")
-    public void checkIsElementPresent(ElementData element, String message){
-        verboseMessage("> проверяем, что элемент присутсвует на странице: "+element);
-        softAssert.assertTrue(
+    @Step("Проверяем присутсвие элемента на странице")
+    public void checkIsElementPresent(ElementData element){
+        verboseMessage("> проверяем наличие элемента на странице " + kraken.grab().currentURL() + "\n> " + element.getLocator());
+        Assert.assertTrue(
                 kraken.detect().isElementPresent(element),
-                "\n"+message+"\n");
-        softAssert.assertAll();
+                    failMessage("Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL()
+                            + "\n> " + element.getLocator()));
+
+        verboseMessage("✓ Успешно: " + element.getDescription() + "\n");
     }
 
     @Step("Проверяем {2}")
@@ -104,4 +151,45 @@ public class BaseUICheckpoints {
     protected String failMessage(String text) {
         return "\n\n> " + text + "\n\n";
     }
+
+    /** Проверить валидность элемента (преход работает + целевая страница доступна) */
+    public void checkTransitionValidation(ElementData element) {
+        checkTransition(element);
+        checkPageIsAvailable();
+    }
+
+    /** Проверить возможность перехода на страницу и ее доступность */
+    public void checkPageIsAvailable(PageData page) {
+        checkPageIsAvailable(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
+    }
+
+    /** Проверить доступность ретейлера*/
+    @Step("Проверить доступность ретейлера")
+    public void checkRetailerIsAvailable(String retailer) {
+        checkPageIsAvailable(kraken.environment.getBasicUrlWithHttpAuth() + retailer);
+    }
+    /** Проверить не доступность ретейлера*/
+    @Step("Проверить не доступность ретейлера")
+    public void checkRetailerIsUnavailable(String retailer) {
+        checkPageIs404(kraken.environment.getBasicUrlWithHttpAuth() + retailer);
+    }
+
+    /** Проверить возможность перехода на страницу по указанному url и ее недоступность с ошибкой 404 */
+    public void checkPageIs404(String URL) {
+        checkTransition(URL);
+        checkPageIs404();
+    }
+
+    /** Проверить что текущая страница недоступна с ошибкой 404 */
+    @Step("Проверить что текущая страница недоступна с ошибкой 404")
+    public void checkPageIs404() throws AssertionError {
+        Assert.assertTrue(kraken.detect().is404(), "\n\n> Нет ожидаемой ошибки 404 на странице " + kraken.grab().currentURL() + "\n");
+    }
+
+    /** Проверить возможность перехода на страницу и ее недоступность с ошибкой 404 */
+    @Step("Проверить возможность перехода на страницу и ее недоступность с ошибкой 404")
+    public void checkPageIs404(PageData page)  {
+        checkPageIs404(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
+    }
+
 }

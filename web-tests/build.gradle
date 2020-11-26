@@ -246,7 +246,7 @@ task sberAcceptance(type: Test) {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/suite.xml'
-        includeGroups 'sbermarket-acceptance'
+        includeGroups 'sbermarket-acceptance','sbermarket-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
@@ -267,7 +267,7 @@ task sberRegression(type: Test) {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/suite.xml'
-        includeGroups 'sbermarket-regression'
+        includeGroups 'sbermarket-regression','sbermarket-acceptance','sbermarket-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }

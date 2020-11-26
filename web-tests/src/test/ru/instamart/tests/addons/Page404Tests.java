@@ -1,6 +1,7 @@
 package ru.instamart.tests.addons;
 
 import instamart.core.settings.Config;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
 import instamart.ui.objectsmap.Elements;
@@ -10,6 +11,7 @@ import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class Page404Tests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
@@ -38,7 +40,7 @@ public class Page404Tests extends TestBase {
     public void successGoToHomepage() {
         //Shop.Jivosite.open();
 
-        validateTransition(Elements.Page404.toHomeButton());
+        baseChecks.checkTransitionValidation(Elements.Page404.toHomeButton());
     }
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,
@@ -50,7 +52,7 @@ public class Page404Tests extends TestBase {
         //Shop.Jivosite.open();
         kraken.perform().click(Elements.Page404.catWisdomButton());
 
-        validateTransition(Elements.Page404.toHomeButton());
+        baseChecks.checkTransitionValidation(Elements.Page404.toHomeButton());
     }
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,
@@ -63,7 +65,7 @@ public class Page404Tests extends TestBase {
         kraken.perform().click(Elements.Page404.catWisdomButton());
         //Shop.Jivosite.close();
 
-        validateTransition(Elements.Page404.learnPricesButton());
+        baseChecks.checkTransitionValidation(Elements.Page404.learnPricesButton());
     }
 
     @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,

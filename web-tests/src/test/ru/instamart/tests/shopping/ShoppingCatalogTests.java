@@ -1,6 +1,7 @@
 package ru.instamart.tests.shopping;
 
 import instamart.core.settings.Config;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
@@ -12,6 +13,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
 public class ShoppingCatalogTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     @BeforeClass(alwaysRun = true,
             description = "Подготавливаем тестовое окружение к тестовому прогону")
     public void setup() {
@@ -33,8 +35,8 @@ public class ShoppingCatalogTests extends TestBase {
                 kraken.detect().isCatalogDrawerOpen(),
                     "Не открывается шторка каталога\n");
 
-        assertPresence(Elements.CatalogDrawer.category("Бакалея"));
-        assertPresence(Elements.CatalogDrawer.closeButton());
+        baseChecks.checkIsElementPresent(Elements.CatalogDrawer.category("Бакалея"));
+        baseChecks.checkIsElementPresent(Elements.CatalogDrawer.closeButton());
 
         Shop.CatalogDrawer.close();
 
@@ -51,9 +53,7 @@ public class ShoppingCatalogTests extends TestBase {
     public void successGoToDepartmentFromCatalogDrawer() {
         Shop.CatalogDrawer.open();
         Shop.CatalogDrawer.goToDepartment("Овощи и фрукты");
-
-        assertPageIsAvailable();
-
+        baseChecks.checkPageIsAvailable();
         Assert.assertTrue(
                 kraken.detect().isElementDisplayed(Elements.CategoryPage.title()),
                     "Не открывается страница категории 1 уровня из шторки каталога");
@@ -67,9 +67,7 @@ public class ShoppingCatalogTests extends TestBase {
     public void successGoToTaxonFromCatalogDrawer() {
         Shop.CatalogDrawer.open();
         Shop.CatalogDrawer.goToTaxon("Грибы");
-
-        assertPageIsAvailable();
-
+        baseChecks.checkPageIsAvailable();
         Assert.assertTrue(
                 kraken.detect().isElementDisplayed(Elements.CategoryPage.filters()),
                     "Не открывается страница категории 2 уровня из шторки каталога");

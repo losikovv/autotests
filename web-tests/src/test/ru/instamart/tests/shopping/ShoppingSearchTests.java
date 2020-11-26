@@ -2,6 +2,7 @@ package ru.instamart.tests.shopping;
 
 import instamart.core.settings.Config;
 import instamart.core.testdata.ui.Generate;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.modules.Shop;
 import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
@@ -10,6 +11,7 @@ import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class ShoppingSearchTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
@@ -23,9 +25,9 @@ public class ShoppingSearchTests extends TestBase {
             priority = 500
     )
     public void successValidateSearch() {
-        assertPresence(Elements.Header.Search.container());
-        assertPresence(Elements.Header.Search.inputField());
-        assertPresence(Elements.Header.Search.sendButton());
+        baseChecks.checkIsElementPresent(Elements.Header.Search.container());
+        baseChecks.checkIsElementPresent(Elements.Header.Search.inputField());
+        baseChecks.checkIsElementPresent(Elements.Header.Search.sendButton());
     }
 
     @Test(
@@ -35,7 +37,6 @@ public class ShoppingSearchTests extends TestBase {
     )
     public void noSendEmptySearchRequest() {
         Shop.Search.item("");
-
         Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
                 "Показаны результаты для пустого поискового запроса\n");
     }
@@ -48,7 +49,7 @@ public class ShoppingSearchTests extends TestBase {
     public void successSearchForNonexistingItem() {
         Shop.Search.nonexistingItem();
 
-        assertPageIsAvailable();
+        baseChecks.checkPageIsAvailable();
 
         Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
                 "Показаны результаты для поискового запроса, не возвращающего результатов\n");
@@ -62,7 +63,7 @@ public class ShoppingSearchTests extends TestBase {
     public void successSearchItem() {
         Shop.Search.item("шоколад");
 
-        assertPageIsAvailable();
+        baseChecks.checkPageIsAvailable();
 
         Assert.assertFalse(
                 kraken.detect().isSearchResultsEmpty(),
@@ -125,7 +126,7 @@ public class ShoppingSearchTests extends TestBase {
     public void successSearchItemWithLongQuery() {
         Shop.Search.item(Generate.string(1000));
 
-        assertPageIsAvailable();
+        baseChecks.checkPageIsAvailable();
 
         Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
                 "Показаны результаты для длинного поискового запроса, не возвращающего результатов\n");

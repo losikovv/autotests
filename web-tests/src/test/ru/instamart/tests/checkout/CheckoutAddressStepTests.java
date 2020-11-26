@@ -1,6 +1,7 @@
 package ru.instamart.tests.checkout;
 
 import instamart.api.common.RestAddresses;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.pagesdata.AddressDetailsData;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Checkout;
@@ -17,6 +18,7 @@ import static instamart.core.settings.Config.TestsConfiguration.CheckoutTests.en
 import static instamart.ui.common.lib.CheckoutSteps.addressStep;
 
 public class CheckoutAddressStepTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     // TODO актуализировать тесты - ATST-236
 
     @BeforeClass(alwaysRun = true)
@@ -38,13 +40,13 @@ public class CheckoutAddressStepTests extends TestBase {
             priority = 1100
     )
     public void successValidateDefaultAddressStep() {
-        assertPageIsAvailable();
+        baseChecks.checkPageIsAvailable();
 
-        assertPresence(Elements.Checkout.AddressStep.panel());
-        assertPresence(Elements.Checkout.AddressStep.icon());
-        assertPresence(Elements.Checkout.AddressStep.title());
+        baseChecks.checkIsElementPresent(Elements.Checkout.AddressStep.panel());
+        baseChecks.checkIsElementPresent(Elements.Checkout.AddressStep.icon());
+        baseChecks.checkIsElementPresent(Elements.Checkout.AddressStep.title());
 
-        assertPresence(Elements.Checkout.AddressStep.deliveryAddress());
+        baseChecks.checkIsElementPresent(Elements.Checkout.AddressStep.deliveryAddress());
 
         assertRadioButtonIsNotSelected(Elements.Checkout.AddressStep.homeRadioButton());
         assertRadioButtonIsNotSelected(Elements.Checkout.AddressStep.officeRadioButton());
@@ -56,7 +58,7 @@ public class CheckoutAddressStepTests extends TestBase {
         assertFieldIsEmpty(Elements.Checkout.AddressStep.domofonInputField());
         assertFieldIsEmpty(Elements.Checkout.AddressStep.commentariesInputField());
 
-        assertPresence(Elements.Checkout.AddressStep.nextButton());
+        baseChecks.checkIsElementPresent(Elements.Checkout.AddressStep.nextButton());
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -67,7 +69,7 @@ public class CheckoutAddressStepTests extends TestBase {
     public void successProceedNextWithDefaultStepState() {
         Checkout.AddressStep.next();
 
-        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -79,7 +81,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.setType();
         Checkout.AddressStep.next();
 
-        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -91,7 +93,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fillApartment();
         Checkout.AddressStep.next();
 
-        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -103,7 +105,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fillFloor();
         Checkout.AddressStep.next();
 
-        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -115,7 +117,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.setElevator();
         Checkout.AddressStep.next();
 
-        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -127,7 +129,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fillEntrance();
         Checkout.AddressStep.next();
 
-        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -139,7 +141,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fillDomofon();
         Checkout.AddressStep.next();
 
-        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -151,7 +153,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fillCommentaries();
         Checkout.AddressStep.next();
 
-        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -167,7 +169,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.clear();
         Checkout.AddressStep.next();
 
-        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -179,7 +181,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fill();
         Checkout.AddressStep.next();
 
-        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
     @Test(  enabled = enableAddressStepTests,
@@ -194,7 +196,7 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.fill();
         Checkout.AddressStep.next();
 
-        assertPresence(Elements.Checkout.MinimizedStep.panel(addressStep()));
+        baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
 
         kraken.reach().checkout();
 

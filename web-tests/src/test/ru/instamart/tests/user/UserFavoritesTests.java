@@ -1,6 +1,7 @@
 package ru.instamart.tests.user;
 
 import instamart.core.testdata.ui.Generate;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
@@ -14,6 +15,7 @@ import ru.instamart.tests.TestBase;
 import static instamart.core.common.AppManager.session;
 
 public class UserFavoritesTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
@@ -42,7 +44,7 @@ public class UserFavoritesTests extends TestBase {
 
         Shop.Favorites.open();
 
-        assertPageIsAvailable();
+        baseChecks.checkPageIsAvailable();
 
         Assert.assertTrue(
                 kraken.detect().isInFavorites(),

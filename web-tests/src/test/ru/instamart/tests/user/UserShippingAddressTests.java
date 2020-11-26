@@ -35,12 +35,10 @@ public class UserShippingAddressTests extends TestBase {
             priority = 301
     )
     public void noShippingAddressByDefault() {
-        SoftAssert softAssert = new SoftAssert();
         User.Logout.quickly();
         kraken.get().page(Config.CoreSettings.defaultRetailer);
         shippingChecks.checkIsShippingAddressNotSet("Выбираем дефолтный адрес доставки");
-        baseChecks.checkIsElementPresent(Elements.Header.shipAddressPlaceholder(),
-                "Не отображается плейсхолдер при невыбранном адресе доставки");
+        baseChecks.checkIsElementPresent(Elements.Header.shipAddressPlaceholder());
     }
 
     @Test(
@@ -196,8 +194,7 @@ public class UserShippingAddressTests extends TestBase {
         Shop.Catalog.Item.addToCart();
         shippingChecks.checkIsAddressModalOpen("Не открывается адресная модалка после добавления товара");
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
-        baseChecks.checkIsElementPresent(Elements.Catalog.Product.snippet(),
-                "Не перезагрузился контент в соответствии с указанным адресом");
+        baseChecks.checkIsElementPresent(Elements.Catalog.Product.snippet());
         shippingChecks.checkIsShippingAddressSet("Адрес доставки не был введен");
     }
 

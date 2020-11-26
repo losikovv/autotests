@@ -1,5 +1,6 @@
 package ru.instamart.tests.landings;
 
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
@@ -9,6 +10,7 @@ import ru.instamart.tests.TestBase;
 import static instamart.core.common.AppManager.session;
 
 public class SbermarketLandingTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
     @Test(
             description = "Тест валидности и наличия элементов лендинга Сбермаркета",
@@ -16,29 +18,29 @@ public class SbermarketLandingTests extends TestBase {
             groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
     )
     public void successValidateSbermarketLanding() {
-        assertPageIsAvailable();
+        baseChecks.checkPageIsAvailable();
 
-        assertPresence(Elements.Landings.SbermarketLanding.Header.container());
-        assertPresence(Elements.Landings.SbermarketLanding.Header.logo());
-        assertPresence(Elements.Landings.SbermarketLanding.Header.loginButton());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.Header.container());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.Header.logo());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.Header.loginButton());
 
-        assertPresence(Elements.Landings.SbermarketLanding.MainBlock.container());
-        assertPresence(Elements.Landings.SbermarketLanding.MainBlock.illustration());
-        assertPresence(Elements.Landings.SbermarketLanding.MainBlock.title());
-        assertPresence(Elements.Landings.SbermarketLanding.MainBlock.text());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.container());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.illustration());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.title());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.text());
 
-        assertPresence(Elements.Landings.SbermarketLanding.MainBlock.Stores.list());
-        assertPresence(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1));
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.list());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1));
 
-        assertPresence(Elements.Landings.SbermarketLanding.AdvantagesBlock.container());
-        assertPresence(Elements.Landings.SbermarketLanding.ZonesBlock.container());
-        assertPresence(Elements.Landings.SbermarketLanding.OrderBlock.container());
-        assertPresence(Elements.Landings.SbermarketLanding.AppsBlock.container());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AdvantagesBlock.container());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.ZonesBlock.container());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.OrderBlock.container());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AppsBlock.container());
 
-        assertPresence(Elements.Landings.SbermarketLanding.AppsBlock.appstoreButton());
-        assertPresence(Elements.Landings.SbermarketLanding.AppsBlock.googleplayButton());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AppsBlock.appstoreButton());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AppsBlock.googleplayButton());
 
-        assertPresence(Elements.Footer.container());
+        baseChecks.checkIsElementPresent(Elements.Footer.container());
     }
 
     @Test(
@@ -61,7 +63,6 @@ public class SbermarketLandingTests extends TestBase {
     )
     public void successAuthorizationOnSbermarketLanding() {
         kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
-
         User.Do.loginAs(session.user);
     }
 }
