@@ -3,7 +3,8 @@ package ru.instamart.tests.landings;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
-import org.testng.Assert;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
@@ -11,19 +12,26 @@ import static instamart.core.common.AppManager.session;
 
 public class SbermarketLandingTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    @BeforeMethod(alwaysRun = true)
+    private void baseUrl(){
+        kraken.get().baseUrl();
+    }
 
     @Test(
             description = "Тест валидности и наличия элементов лендинга Сбермаркета",
             priority = 51,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-smoke"}
     )
     public void successValidateSbermarketLanding() {
+
         baseChecks.checkPageIsAvailable();
 
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.Header.container());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.Header.logo());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.Header.loginButton());
 
+        kraken.await().fluently(
+                ExpectedConditions.visibilityOfElementLocated(Elements.Landings.SbermarketLanding.MainBlock.container().getLocator()));
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.container());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.illustration());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.title());
@@ -37,8 +45,9 @@ public class SbermarketLandingTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.OrderBlock.container());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AppsBlock.container());
 
-        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AppsBlock.appstoreButton());
-        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AppsBlock.googleplayButton());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AppsBlock.appStoreButton());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AppsBlock.googlePlayButton());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AppsBlock.huaweiStoreButton());
 
         baseChecks.checkIsElementPresent(Elements.Footer.container());
     }
@@ -46,22 +55,21 @@ public class SbermarketLandingTests extends TestBase {
     @Test(
             description = "Тест перехода в каталог магазина с лендинга Сбермаркета",
             priority = 52,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-smoke"}
     )
     public void successGoToCatalogFromSbermarketLanding() {
         kraken.perform().click(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1));
-
-        Assert.assertFalse(
-                kraken.detect().isOnLanding(),
-                    failMessage("Не работает переход в каталог магазина с лендинга Сбермаркета"));
+        baseChecks.checkIsOnLanding();
     }
 
     @Test(
             description = "Тест авторизации на лендинге Сбермаркета",
             priority = 53,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {}
     )
+    @Deprecated
     public void successAuthorizationOnSbermarketLanding() {
+        //
         kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
         User.Do.loginAs(session.user);
     }

@@ -109,6 +109,7 @@ public class BaseUICheckpoints {
     /** Проверить доступность текущей страницы */
     @Step("Проверяем доступность текущей страницы")
     public void checkPageIsAvailable() throws AssertionError {
+        verboseMessage("> проверяем доступность текущей страницы");
         String page = kraken.grab().currentURL();
         Assert.assertFalse(
                 kraken.detect().is404(),
@@ -126,14 +127,13 @@ public class BaseUICheckpoints {
     }
 
     /**Проверяем присутсвие элемента на странице*/
-    @Step("Проверяем присутсвие элемента на странице")
+    @Step("Проверяем присутсвие элемента на странице: {element.description}")
     public void checkIsElementPresent(ElementData element){
         verboseMessage("> проверяем наличие элемента на странице " + kraken.grab().currentURL() + "\n> " + element.getLocator());
         Assert.assertTrue(
                 kraken.detect().isElementPresent(element),
                     failMessage("Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL()
                             + "\n> " + element.getLocator()));
-
         verboseMessage("✓ Успешно: " + element.getDescription() + "\n");
     }
 
@@ -183,6 +183,7 @@ public class BaseUICheckpoints {
     /** Проверить что текущая страница недоступна с ошибкой 404 */
     @Step("Проверить что текущая страница недоступна с ошибкой 404")
     public void checkPageIs404() throws AssertionError {
+        verboseMessage("> проверяем появление ошибки 404 на странице");
         Assert.assertTrue(kraken.detect().is404(), "\n\n> Нет ожидаемой ошибки 404 на странице " + kraken.grab().currentURL() + "\n");
     }
 
@@ -192,4 +193,12 @@ public class BaseUICheckpoints {
         checkPageIs404(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
+    /** Проверить возможность перехода в каталог магазина с лендинга Сбермаркета */
+    @Step("Проверить возможность перехода в каталог магазина с лендинга Сбермаркета")
+    public void checkIsOnLanding(){
+        verboseMessage("> проверяем возможность перехода в каталог выбранного магазина");
+        Assert.assertFalse(
+                kraken.detect().isOnLanding(),
+                failMessage("Не работает переход в каталог магазина с лендинга Сбермаркета"));
+    }
 }

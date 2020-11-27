@@ -147,7 +147,7 @@ public class BasicSbermarketTests extends TestBase {
             dataProviderClass = RestDataProvider.class,
             description = "Тест доступности / недоступности витрин ритейлеров Сбермаркета ",
             priority = 103,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-smoke"}
     ) public void successCheckSbermarketRetailers(String slug, boolean available) {
         if (available) baseChecks.checkRetailerIsAvailable(slug);
         else baseChecks.checkRetailerIsUnavailable(slug);
@@ -156,7 +156,7 @@ public class BasicSbermarketTests extends TestBase {
     @Test(
             description = "Тест доступности партнерских лендингов",
             priority = 104,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-smoke"}
     ) public void successCheckPartnerLandingsAreAvailable() {
         baseChecks.checkPageIsAvailable(Pages.Landings.mnogoru());
         baseChecks.checkPageIsAvailable(Pages.Landings.aeroflot());
@@ -165,7 +165,7 @@ public class BasicSbermarketTests extends TestBase {
     @Test(
             description = "Тест доступности сервисных страниц",
             priority = 105,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-smoke"}
     ) public void successServicePagesAreAvailable() {
         baseChecks.checkPageIsAvailable(Pages.ServicePages.giftCertificates());
         baseChecks.checkPageIsAvailable(Pages.Landings.massHiring());
@@ -176,7 +176,7 @@ public class BasicSbermarketTests extends TestBase {
             description = "Тест доступности статических страниц",
             priority = 106,
             groups = {
-                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-smoke"
             }
     ) public void successCheckStaticPagesAreAvailabile() {
         baseChecks.checkPageIsAvailable(Pages.Sbermarket.about());
