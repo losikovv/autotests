@@ -202,11 +202,57 @@ public class Elements {
 
         interface driversHiringLanding {
 
-            static ElementData submitButton() {
-                return new ElementData(
-                        By.xpath("//button[@class='driverJob__formButton']"),
+            interface DriverJobForm{
+
+                static ElementData submitButton() {
+                    return new ElementData(
+                            By.xpath("//button[@name='btnSubmit']"),
                             "кнопка отправки заявки на лендинге найма водителей Сбермаркета");
+                }
+
+                static ElementData nameField() {
+                    return new ElementData(
+                            By.xpath("//input[@name='full_name']"),
+                            "поле для ввода имени и фамилии");
+                }
+
+                static ElementData citySelector() {
+                    return new ElementData(
+                            By.xpath("//span[text()='Владивосток']"),
+                            "селектор с городами");
+                }
+
+                static ElementData countrySelector() {
+                    return new ElementData(
+                            By.xpath("//span[text()='РФ']"),
+                            "селектор с доступными гражданствами");
+                }
+
+                static ElementData phoneField() {
+                    return new ElementData(
+                            By.xpath("//input[@name='phone_number']"),
+                            "поле для ввода номера телефона водителя");
+                }
             }
+
+            static ElementData workConditions() {
+                return new ElementData(
+                        By.xpath("//div[@class='driverJob__middleBlock']"),
+                        "блок с условиями работы");
+            }
+
+            static ElementData howToJoin() {
+                return new ElementData(
+                        By.xpath("//h2[contains(text(),'команде просто')]"),
+                        "блок с описанием процесса трудоустройства");
+            }
+
+            static ElementData whatToDo() {
+                return new ElementData(
+                        By.xpath("//div[text()='Что нужно делать?']"),
+                        "блок с кратким описанием обязанностей");
+            }
+
         }
 
         interface sberAppPromoLanding {

@@ -30,7 +30,7 @@ allure {
 }
 
 dependencies {
-    implementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '3.14.0'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '2.43.0'
     compile "org.aspectj:aspectjweaver:1.9.6"
     //implementation "io.qameta.allure:allure-gradle:2.8.1"
     implementation "io.qameta.allure:allure-testng:"+allureVersion
@@ -231,13 +231,6 @@ task Testing(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    //todo дублирование кода я не уверен, что эту секцию нужно дублировать в каждой конфигурации, скорее наоборот
-    /*if (project.hasProperty('browser')) {
-        systemProperty 'browser',"${browser}"
-    }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }*/
 }
 
 
