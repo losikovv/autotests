@@ -25,7 +25,7 @@ public class SeoCatalogTests extends TestBase {
 
     @Test(  enabled = enableSeoCatalogTests,
             description = "Тест доступности страницы SEO-каталога",
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 9100
     )
     public void successCheckSeoPage() {

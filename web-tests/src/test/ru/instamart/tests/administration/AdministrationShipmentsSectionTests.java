@@ -29,7 +29,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
 
     @Test(  enabled = enableShipmentsSectionTests,
             description = "Тест валидации дефолтной странгицы списка заказаов в админке",
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 10100
     )
     public void validateDefaultAdminShipmentsPage() {

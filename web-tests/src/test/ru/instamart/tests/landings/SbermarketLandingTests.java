@@ -14,16 +14,16 @@ public class SbermarketLandingTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     @BeforeMethod(alwaysRun = true)
     private void baseUrl(){
+        User.Logout.quickly();
         kraken.get().baseUrl();
     }
 
     @Test(
             description = "Тест валидности и наличия элементов лендинга Сбермаркета",
             priority = 51,
-            groups = {"sbermarket-smoke"}
+            groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successValidateSbermarketLanding() {
-
         baseChecks.checkPageIsAvailable();
 
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.Header.container());
@@ -55,7 +55,7 @@ public class SbermarketLandingTests extends TestBase {
     @Test(
             description = "Тест перехода в каталог магазина с лендинга Сбермаркета",
             priority = 52,
-            groups = {"sbermarket-smoke"}
+            groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successGoToCatalogFromSbermarketLanding() {
         kraken.perform().click(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1));

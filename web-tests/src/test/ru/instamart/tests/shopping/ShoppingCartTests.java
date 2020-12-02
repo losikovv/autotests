@@ -26,7 +26,7 @@ public class ShoppingCartTests extends TestBase {
 
     @Test(
             description = "Тест валидации дефолтной корзины",
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"},
+            groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 620
     )
     public void successValidateDefaultCart() {

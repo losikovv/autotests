@@ -967,6 +967,10 @@ public class Elements {
             return new ElementData(By.xpath("//div[@class='category-menu-item__title' and text()='"+name+"']//ancestor::li[@class='category-menu-item']"),
                     "категория \"" + name + "\"");
         }
+        static ElementData categoryFirstLevel(String name) {
+            return new ElementData(By.linkText(name),
+                    "категория \"" + name + "\"");
+        }
     }
 
     /** Всплывающее меню профиля пользователя */

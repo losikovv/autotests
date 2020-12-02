@@ -15,6 +15,10 @@ import static instamart.ui.modules.Base.kraken;
 public class BaseUICheckpoints {
     private SoftAssert softAssert = new SoftAssert();
 
+    /** Метод-обертка для красивого вывода ошибок зафейленных тестов */
+    protected String failMessage(String text) {
+        return "\n\n> " + text + "\n\n";
+    }
 
     /** Функция проверяет, что на модальном окне авторизации/регистрации присутствуют сообщения об ошибках*/
     @Step("Проверяем, что элемент: {0} отображается на экране")
@@ -27,6 +31,7 @@ public class BaseUICheckpoints {
                         Elements.Modals.AuthModal.errorMessage(successMessage)),
                 errorMessage+"\n");
         softAssert.assertAll();
+        verboseMessage("✓ Успешно");
     }
 
     /**Функция проверяет, что модальное окно авторизации закрыто*/
@@ -37,6 +42,7 @@ public class BaseUICheckpoints {
                 kraken.detect().isAuthModalOpen(),
                 "Не закрывается заполненная авторизационная модалка\n");
         softAssert.assertAll();
+        verboseMessage("✓ Успешно");
     }
 
     /**Функция проверяет, что модальное окно авторизации открыто*/
@@ -47,21 +53,7 @@ public class BaseUICheckpoints {
                 kraken.detect().isAuthModalOpen(),
                 "\n"+errorMessage);
         softAssert.assertAll();
-    }
-    @Step("Проверяем, что корзина не пуста после действия: {0}")
-    public void checkIsCartEmpty(String action,String errorMessage){
-        verboseMessage("> проверяем, что корзина не пуста после действия: "+action+"\n");
-        softAssert.assertFalse(
-                kraken.detect().isCartEmpty(),
-                "\n"+errorMessage);
-        softAssert.assertAll();
-    }
-    @Step("Проверяем, что корзина очистилась после действия: {0}")
-    public void checkIsCartNotEmpty(String action){
-        verboseMessage("> проверяем, что корзина очистилась после действия: "+action+"\n");
-        softAssert.assertTrue(kraken.detect().isCartEmpty(),
-                    failMessage("Не сбросилась корзина после: "+action));
-        softAssert.assertAll();
+        verboseMessage("✓ Успешно");
     }
 
     /** Проверить возможность перехода на страницу по указанному url и ее доступность */
@@ -137,6 +129,16 @@ public class BaseUICheckpoints {
         verboseMessage("✓ Успешно: " + element.getDescription() + "\n");
     }
 
+    /** Проверяем отображение элемента на странице*/
+    @Step("Проверяем отображаение элемента на странице: {element.description}")
+    public void checkIsElementDisplayed(ElementData element, String errorMessage){
+        verboseMessage("> проверяем отображение элемента на странице " + kraken.grab().currentURL() + "\n> " + element.getLocator());
+        Assert.assertTrue(
+                kraken.detect().isElementDisplayed(element),
+                errorMessage);
+        verboseMessage("✓ Успешно: " + element.getDescription() + "\n");
+    }
+
     @Step("Проверяем {2}")
     public void checkIsStringValuesNotEquals(String firstString, String secondString,
                                              String stepDescription, String errorMessage){
@@ -145,12 +147,10 @@ public class BaseUICheckpoints {
                 firstString, secondString,
                 "\n> "+errorMessage);
         softAssert.assertAll();
+        verboseMessage("✓ Успешно");
     }
 
-    /** Метод-обертка для красивого вывода ошибок зафейленных тестов */
-    protected String failMessage(String text) {
-        return "\n\n> " + text + "\n\n";
-    }
+
 
     /** Проверить валидность элемента (преход работает + целевая страница доступна) */
     public void checkTransitionValidation(ElementData element) {
@@ -200,5 +200,6 @@ public class BaseUICheckpoints {
         Assert.assertFalse(
                 kraken.detect().isOnLanding(),
                 failMessage("Не работает переход в каталог магазина с лендинга Сбермаркета"));
+        verboseMessage("✓ Успешно");
     }
 }

@@ -4,6 +4,7 @@ import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.checkpoints.BaseUICheckpoints;
+import instamart.ui.checkpoints.users.ShoppingCartCheckpoints;
 import instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
@@ -17,6 +18,7 @@ import ru.instamart.tests.TestBase;
 public class UserRegistrationTests extends TestBase {
     public static String modalType;
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
     UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
     String env = System.getProperty("env", Config.CoreSettings.defaultEnvironment);
 
@@ -30,7 +32,7 @@ public class UserRegistrationTests extends TestBase {
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression",
+                    "sbermarket-Ui-smoke"
             },
             priority = 201
     )
@@ -271,7 +273,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Регистрация нового пользователя на лендинге",
-            groups = {"sbermarket-acceptance","sbermarket-regression","metro-acceptance"},
+            groups = {"metro-acceptance","sbermarket-Ui-smoke"},
             priority = 210
     )
     public void successRegOnLanding() {
@@ -291,7 +293,7 @@ public class UserRegistrationTests extends TestBase {
             description = "Регистрация нового пользователя на витрине магазина",
             groups = {
                     "metro-smoke", "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-Ui-smoke"
             },
             priority = 211
     )
@@ -350,7 +352,7 @@ public class UserRegistrationTests extends TestBase {
         authChecks.checkAutoCheckoutRedirect("Нет автоперехода в чекаут после регистрации из корзины");
         kraken.get().baseUrl();
         authChecks.checkIsUserAuthorized("Не работает регистрация из корзины");
-        baseChecks.checkIsCartEmpty("регистрации из корзины",
+        shopChecks.checkIsCartEmpty("регистрации из корзины",
                 "Пропали товары после регистрации из корзины");
     }
 

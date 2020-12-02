@@ -29,8 +29,7 @@ public class TestBase {
 
     private static ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
     @BeforeSuite(groups = {
-            "smoke","acceptance","regression","testing",
-            "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression",
+            "testing","sbermarket-Ui-smoke","sbermarket-acceptance","sbermarket-regression",
             "metro-smoke","metro-acceptance","metro-regression"},
             description = "Выпускаем Кракена")
     public void start() throws Exception {
@@ -51,8 +50,7 @@ public class TestBase {
     }
 
     @AfterSuite(groups = {
-            "smoke","acceptance","regression","testing",
-            "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression",
+            "testing", "sbermarket-Ui-smoke","sbermarket-acceptance","sbermarket-regression",
             "metro-smoke","metro-acceptance","metro-regression"},
             description = "Очищаем окружение от артефактов после тестов, завершаем процессы браузеров")
     public void cleanup() {

@@ -19,7 +19,7 @@ public class DriversHiringLandingTests extends TestBase {
     @Test(
             description = "Тест лендинга найма водителей Сбермаркета",
             priority = 41,
-            groups = {"sbermarket-smoke"}
+            groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successValidateSbermarketDriversHiringLanding() {
         baseChecks.checkPageIsAvailable();

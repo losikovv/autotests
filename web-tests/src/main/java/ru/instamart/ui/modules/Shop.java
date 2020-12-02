@@ -10,8 +10,10 @@ import instamart.ui.common.pagesdata.WidgetData;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
@@ -353,13 +355,19 @@ public class Shop extends Base {
         @Step("Переходим в департамент: {0} в шторке каталога категорий")
         public static void goToDepartment(String name) {
             verboseMessage("> переходим в департамент \"" + name + "\" в шторке каталога категорий");
-            kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
-            kraken.perform().click(Elements.CatalogDrawer.category(name));
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            Elements.CatalogDrawer.categoryFirstLevel(name).getLocator()));
+            kraken.perform().hoverOn(Elements.CatalogDrawer.categoryFirstLevel(name));
+            kraken.perform().click(Elements.CatalogDrawer.categoryFirstLevel(name));
             kraken.await().implicitly(1); // Ожидание разворота категории-департамента
         }
         @Step("Переходим в таксон: {0} в шторке каталога категорий")
         public static void goToTaxon(String name) {
             verboseMessage("> переходим в таксон \"" + name + "\" в шторке каталога категорий");
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            Elements.CatalogDrawer.category(name).getLocator()));
             kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
             kraken.perform().click(Elements.CatalogDrawer.category(name));
             kraken.await().implicitly(1); // Ожидание разворота категории-таксона
@@ -544,7 +552,9 @@ public class Shop extends Base {
             public static void fill(String query) {
                 verboseMessage("> заполняем поле поиска: " + query);
                 kraken.perform().fillField(Elements.Header.Search.inputField(), query);
+                Actions actions = new Actions(driver);
                 kraken.await().implicitly(1); // Ожидание загрузки поисковых саджестов
+                actions.sendKeys(Keys.ENTER).perform();
             }
         }
 

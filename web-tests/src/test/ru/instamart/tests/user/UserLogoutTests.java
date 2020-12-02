@@ -3,6 +3,7 @@ package ru.instamart.tests.user;
 import instamart.core.settings.Config;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.checkpoints.users.ShippingAddressCheckpoints;
+import instamart.ui.checkpoints.users.ShoppingCartCheckpoints;
 import instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
@@ -15,6 +16,7 @@ import static instamart.core.common.AppManager.session;
 
 public class UserLogoutTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
     UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
     ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
 
@@ -73,6 +75,6 @@ public class UserLogoutTests extends TestBase {
         authChecks.checkIsUserNotAuthorized("Не выполнены предусловия - не работает логаут");
         shippingChecks.checkIsShippingAddressNotSet("Логаут");
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-        baseChecks.checkIsCartNotEmpty("Логаут");
+        shopChecks.checkIsCartNotEmpty("Логаут");
     }
 }

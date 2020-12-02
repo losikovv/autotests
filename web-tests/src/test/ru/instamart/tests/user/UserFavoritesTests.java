@@ -15,6 +15,7 @@ import ru.instamart.tests.TestBase;
 import static instamart.core.common.AppManager.session;
 
 public class UserFavoritesTests extends TestBase {
+    public static String modalType;
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
     @BeforeMethod(alwaysRun = true,
@@ -37,10 +38,19 @@ public class UserFavoritesTests extends TestBase {
             priority = 402,
             groups = {
                     "metro-acceptance","metro-regression",
-                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+                    "sbermarket-Ui-smoke"}
     )
     public void successOpenFavorites() {
-        User.Do.loginAs(session.user);
+        //User.Do.loginAs(session.user);
+        String phone = Generate.phoneNumber();
+        modalType = User.Do.registration(
+                "Test User",
+                "test@example.com",
+                "12345678",
+                "12345678",
+                phone,
+                "1111"
+        );
 
         Shop.Favorites.open();
 

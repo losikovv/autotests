@@ -65,7 +65,7 @@ public class UserProfileTests extends TestBase {
             description = "Тест валидации меню профиля Sbermarket",
             priority = 153,
             groups = {
-                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-Ui-smoke","sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successValidateSbermarketTenantProfileMenu() {
         SoftAssert softAssert = new SoftAssert();
@@ -182,9 +182,8 @@ public class UserProfileTests extends TestBase {
             description = "Тест доступности страниц профиля пользователя",
             priority = 161,
             groups = {
-                    "smoke","acceptance","regression",
                     "metro-smoke","metro-acceptance","metro-regression",
-                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-Ui-smoke","sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successCheckProfilePagesAreAvailable() {
         baseChecks.checkPageIsAvailable(Pages.UserProfile.edit());

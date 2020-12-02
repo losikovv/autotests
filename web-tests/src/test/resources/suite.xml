@@ -7,7 +7,7 @@
   <test verbose="1" name="Web UI tests">
     <groups>
       <run>
-        <include name="sbermarket-smoke"/>
+        <include name="sbermarket-Ui-smoke"/>
         <include name="testing"/>
         <include name="sbermarket-acceptance"/>
         <include name="sbermarket-regression"/>

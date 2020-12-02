@@ -18,7 +18,7 @@ public class SbermarketAppPromoLandingTests extends TestBase {
     @Test(
             description = "Тест промо-лендинга приложения Сбермаркета",
             priority = 42,
-            groups = {"sbermarket-smoke"}
+            groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successValidateSbermarketAppPromoLanding() {
         baseChecks.checkPageIsAvailable();
