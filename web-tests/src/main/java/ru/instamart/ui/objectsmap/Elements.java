@@ -615,9 +615,14 @@ public class Elements {
                     "поле 'Подтверждение пароля' в модалке авторизации");
         }
 
-        // todo update locator
+
         static ElementData errorMessage(String text) {
             return new ElementData(By.xpath("//*[contains(@class, 'auth-input__error') and contains(text(),'" + text + "')]"),
+                    "текст пользовательской ошибки в полях модалки авторизации");
+        }
+
+        static ElementData errorPhoneMessage(String text) {
+            return new ElementData(By.xpath("//div[@data-qa='tel_login_form_error' and text()='"+text+"']"),
                     "текст пользовательской ошибки в полях модалки авторизации");
         }
 

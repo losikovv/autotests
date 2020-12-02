@@ -32,7 +32,7 @@ public class UserRegistrationTests extends TestBase {
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-Ui-smoke"
+                    "sbermarket-Ui-smoke","testing"
             },
             priority = 201
     )
@@ -44,7 +44,7 @@ public class UserRegistrationTests extends TestBase {
                 null,
                 null,
                 null,
-                null,
+                "",
                 null
         );
         if(modalType.equals("модалка с почтой")){
@@ -56,9 +56,11 @@ public class UserRegistrationTests extends TestBase {
                     "Нет пользовательской ошибки пустого поля password");
             baseChecks.checkIsErrorMessageElementPresent("Подтвердите пароль",
                     "Нет пользовательской ошибки пустого поля password confirmation");
+        }else{
+            baseChecks.checkIsErrorMessageElementPresentByPhone("Номер должен начинаться с \"+7 9...\"",
+                    "Нет пользовательской ошибки пустого номера телефона");
         }
-
-        kraken.get().baseUrl();
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
         authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя с пустыми реквизитами");
     }
 

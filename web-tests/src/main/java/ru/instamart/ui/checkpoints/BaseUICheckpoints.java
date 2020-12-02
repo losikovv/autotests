@@ -34,6 +34,19 @@ public class BaseUICheckpoints {
         verboseMessage("✓ Успешно");
     }
 
+    /** Функция проверяет, что на модальном окне регистрации по номеру телефона присутствуют сообщения об ошибке*/
+    @Step("Проверяем, что сообщение: {0} отображается на экране регистрации через мобилку")
+    public void checkIsErrorMessageElementPresentByPhone(String successMessage, String errorMessage){
+        verboseMessage("> проверяем, что текст ошибки: " +successMessage+
+                " отображается на экране\n");
+        softAssert.assertTrue(
+                kraken.detect().isElementPresent(
+                        Elements.Modals.AuthModal.errorPhoneMessage(successMessage)),
+                errorMessage+"\n");
+        softAssert.assertAll();
+        verboseMessage("✓ Успешно");
+    }
+
     /**Функция проверяет, что модальное окно авторизации закрыто*/
     @Step("Проверяем, что модалка авторизации закрыта")
     public void checkIsAuthModalClosed(){

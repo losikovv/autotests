@@ -3,8 +3,9 @@ package ru.instamart.tests.landings;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Flaky;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
@@ -12,7 +13,7 @@ import static instamart.core.common.AppManager.session;
 
 public class SbermarketLandingTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    @BeforeMethod(alwaysRun = true)
+    @BeforeClass(alwaysRun = true)
     private void baseUrl(){
         User.Logout.quickly();
         kraken.get().baseUrl();
@@ -23,6 +24,7 @@ public class SbermarketLandingTests extends TestBase {
             priority = 51,
             groups = {"testing","sbermarket-Ui-smoke"}
     )
+    @Flaky
     public void successValidateSbermarketLanding() {
         baseChecks.checkPageIsAvailable();
 
@@ -57,7 +59,12 @@ public class SbermarketLandingTests extends TestBase {
             priority = 52,
             groups = {"testing","sbermarket-Ui-smoke"}
     )
+    @Flaky
     public void successGoToCatalogFromSbermarketLanding() {
+        kraken.await().fluently(
+                ExpectedConditions
+                        .elementToBeClickable(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1).getLocator()),
+                "кнопка выбора ретейлера недоступна");
         kraken.perform().click(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1));
         baseChecks.checkIsOnLanding();
     }

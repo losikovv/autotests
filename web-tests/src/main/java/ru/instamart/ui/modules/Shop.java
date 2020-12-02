@@ -387,9 +387,15 @@ public class Shop extends Base {
 
     /** Всплывающее меню профиля */
     public static class AccountMenu {
+
         @Step("Открываем всплывающее меню профиля")
         public static void open() {
             verboseMessage("> открываем всплывающее меню профиля");
+            catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),1);
+            kraken.await().fluently(
+                    ExpectedConditions
+                            .elementToBeClickable(Elements.Header.profileButton().getLocator()),
+                    "кнопка перехода в профиль пользователя недоступна");
             if(!kraken.detect().isAccountMenuOpen()) {
                 kraken.perform().click(Elements.Header.profileButton());
             } else verboseMessage("> пропускаем открытие меню аккаунта, уже открыто");
@@ -614,8 +620,16 @@ public class Shop extends Base {
         /** Открыть любимые товары по кнопке в шапке сайта */
         @Step("Открываем любимые товары по кнопке в шапке сайта")
         public static void open() {
+            catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),1);
+            kraken.await().fluently(
+                    ExpectedConditions
+                            .elementToBeClickable(Elements.Header.favoritesButton().getLocator()),
+                    "кнопка перехода в любимые товары недоступна");
             kraken.perform().click(Elements.Header.favoritesButton());
-            kraken.await().implicitly(2); // Ожидание открытия Любимых товаров
+            kraken.await().fluently(
+                    ExpectedConditions
+                            .visibilityOfElementLocated(Elements.Favorites.placeholder().getLocator()),
+                    "Пустой список товаров не отобразился");
         }
 
         /** Показать все любимые товары */

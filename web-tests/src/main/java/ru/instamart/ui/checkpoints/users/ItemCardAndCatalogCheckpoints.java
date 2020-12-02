@@ -16,7 +16,7 @@ public class ItemCardAndCatalogCheckpoints extends BaseUICheckpoints {
         verboseMessage("> проверяем, что карточка товара открылась");
         softAssert.assertTrue(
                 kraken.detect().isItemCardOpen(),
-                errorMessage);;
+                errorMessage);
         softAssert.assertAll();
         verboseMessage("✓ Успешно");
     }
