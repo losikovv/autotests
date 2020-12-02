@@ -1,6 +1,7 @@
 package ru.instamart.tests.administration;
 
 import instamart.core.helpers.ConsoleOutputCapturerHelper;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
@@ -12,6 +13,7 @@ import ru.instamart.tests.TestBase;
 import static instamart.core.common.AppManager.session;
 
 public class BasicAdministrationTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
     //TODO актуализировать базовые тесты, все лишнее вынести в отдельные классы и порешать тудушки - ATST-235
 
@@ -55,15 +57,15 @@ public class BasicAdministrationTests extends TestBase {
         kraken.reach().admin();
 
         // TODO переделать на assertPagesAvailable(Pages.Admin.*)
-        assertPageIsAvailable(Pages.Admin.shipments());
-        assertPageIsAvailable(Pages.Admin.retailers());
-        assertPageIsAvailable(Pages.Admin.products());
-        assertPageIsAvailable(Pages.Admin.imports());
-        assertPageIsAvailable(Pages.Admin.settings());
-        assertPageIsAvailable(Pages.Admin.marketing());
-        assertPageIsAvailable(Pages.Admin.staff());
-        assertPageIsAvailable(Pages.Admin.users());
-        assertPageIsAvailable(Pages.Admin.pages());
+        baseChecks.checkPageIsAvailable(Pages.Admin.shipments());
+        baseChecks.checkPageIsAvailable(Pages.Admin.retailers());
+        baseChecks.checkPageIsAvailable(Pages.Admin.products());
+        baseChecks.checkPageIsAvailable(Pages.Admin.imports());
+        baseChecks.checkPageIsAvailable(Pages.Admin.settings());
+        baseChecks.checkPageIsAvailable(Pages.Admin.marketing());
+        baseChecks.checkPageIsAvailable(Pages.Admin.staff());
+        baseChecks.checkPageIsAvailable(Pages.Admin.users());
+        baseChecks.checkPageIsAvailable(Pages.Admin.pages());
     }
 
     @Test(  description = "Тест доступности вьюхи oktell",
@@ -72,7 +74,7 @@ public class BasicAdministrationTests extends TestBase {
     ) public void successCheckOktellViewAvailability() {
         kraken.reach().admin();
 
-        assertPageIsAvailable(Pages.Admin.oktell());
+        baseChecks.checkPageIsAvailable(Pages.Admin.oktell());
     }
 
     @Test(  description = "Проверка наличия элементов в шапке админки",
@@ -80,8 +82,8 @@ public class BasicAdministrationTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     ) public void successValidateHeader() {
         kraken.reach().admin();
-        assertPresence(Elements.Administration.Header.userEmail());
-        assertPresence(Elements.Administration.Header.logoutButton());
+        baseChecks.checkIsElementPresent(Elements.Administration.Header.userEmail());
+        baseChecks.checkIsElementPresent(Elements.Administration.Header.logoutButton());
     }
 
     @Test(  description = "Тест валидности ссылок навигационного меню в шапке админки",
@@ -90,43 +92,43 @@ public class BasicAdministrationTests extends TestBase {
     ) public void successValidateNavigationMenu() {
         kraken.reach().admin();
 
-        validateTransition(Elements.Administration.menuButton("Заказы"));
-            validateTransition(Elements.Administration.submenuButton("Veeroute"));
-            validateTransition(Elements.Administration.submenuButton("Мульти заказ"));
+        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Заказы"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Veeroute"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Мульти заказ"));
 
-        validateTransition(Elements.Administration.menuButton("Магазины"));
-            validateTransition(Elements.Administration.submenuButton("Регионы"));
-            validateTransition(Elements.Administration.submenuButton("Ритейлеры"));
+        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Магазины"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Регионы"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Ритейлеры"));
 
-        validateTransition(Elements.Administration.menuButton("Контент"));
-            validateTransition(Elements.Administration.submenuButton("Товарные опции"));
-            validateTransition(Elements.Administration.submenuButton("Свойства"));
-            validateTransition(Elements.Administration.submenuButton("Бренды"));
-            validateTransition(Elements.Administration.submenuButton("Производители"));
-            validateTransition(Elements.Administration.submenuButton("Страны производства"));
-            validateTransition(Elements.Administration.submenuButton("Категории"));
-            validateTransition(Elements.Administration.submenuButton("Импорт"));
-        validateTransition(Elements.Administration.submenuButton("Продукты"));
+        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Контент"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Товарные опции"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Свойства"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Бренды"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Производители"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Страны производства"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Категории"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Импорт"));
+        baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Продукты"));
 
-        validateTransition(Elements.Administration.menuButton("Настройки"));
+        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Настройки"));
 
-        validateTransition(Elements.Administration.menuButton("Маркетинг"));
-            validateTransition(Elements.Administration.submenuButton("Промоакции"));
-            validateTransition(Elements.Administration.submenuButton("Welcome баннеры"));
-            validateTransition(Elements.Administration.submenuButton("Реклама"));
-            validateTransition(Elements.Administration.submenuButton("Корзины"));
-            validateTransition(Elements.Administration.submenuButton("Бонусные карты"));
-            validateTransition(Elements.Administration.submenuButton("Программы ритейлеров"));
-            validateTransition(Elements.Administration.submenuButton("Реферальная программа"));
-            validateTransition(Elements.Administration.submenuButton("Новые Города"));
-            validateTransition(Elements.Administration.submenuButton("In App баннеры"));
-            validateTransition(Elements.Administration.submenuButton("Промо карточки"));
+        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Маркетинг"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Промоакции"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Welcome баннеры"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Реклама"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Корзины"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Бонусные карты"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Программы ритейлеров"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Реферальная программа"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Новые Города"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("In App баннеры"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Промо карточки"));
 
-        validateTransition(Elements.Administration.menuButton("Персонал"));
+        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Персонал"));
             //validateTransition(Elements.Administration.submenuButton("Сборщики"));
 
-        validateTransition(Elements.Administration.menuButton("Пользователи"));
+        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Пользователи"));
 
-        validateTransition(Elements.Administration.menuButton("Страницы"));
+        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Страницы"));
     }
 }

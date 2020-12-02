@@ -1,10 +1,12 @@
 package ru.instamart.tests.site;
 
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class BasicLentaTests  extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
     @Test(
             description = "Тест валидности элементов и ссылок в шапке Lenta",
@@ -29,18 +31,17 @@ public class BasicLentaTests  extends TestBase {
             groups = {"lenta-smoke","lenta-acceptance","lenta-regression"},
             priority = 103
     ) public void successCheckLentaRetailers() {
-        assertPageIs404(Pages.Retailers.metro());
-        assertPageIs404(Pages.Retailers.auchan());
-        assertPageIs404(Pages.Retailers.azbuka());
-        assertPageIs404(Pages.Retailers.vkusvill());
-        assertPageIs404(Pages.Retailers.karusel());
-        assertPageIs404(Pages.Retailers.selgros());
-        assertPageIs404(Pages.Retailers.flora());
-        assertPageIs404(Pages.Retailers.foodcity());
-        assertPageIs404(Pages.Retailers.magnit());
-        assertPageIs404(Pages.Retailers.testretailer());
-
-        assertPageIsAvailable(Pages.Retailers.lenta());
+        baseChecks.checkPageIs404(Pages.Retailers.metro());
+        baseChecks.checkPageIs404(Pages.Retailers.auchan());
+        baseChecks.checkPageIs404(Pages.Retailers.azbuka());
+        baseChecks.checkPageIs404(Pages.Retailers.vkusvill());
+        baseChecks.checkPageIs404(Pages.Retailers.karusel());
+        baseChecks.checkPageIs404(Pages.Retailers.selgros());
+        baseChecks.checkPageIs404(Pages.Retailers.flora());
+        baseChecks.checkPageIs404(Pages.Retailers.foodcity());
+        baseChecks.checkPageIs404(Pages.Retailers.magnit());
+        baseChecks.checkPageIs404(Pages.Retailers.testretailer());
+        baseChecks.checkPageIsAvailable(Pages.Retailers.lenta());
     }
 
     @Test(
@@ -48,14 +49,14 @@ public class BasicLentaTests  extends TestBase {
             groups = {"lenta-smoke","lenta-acceptance","lenta-regression"},
             priority = 105
     ) public void successCheckLentaTenantStaticPages() {
-        assertPageIsAvailable(Pages.Lenta.about());
-        assertPageIsAvailable(Pages.Lenta.delivery());
-        assertPageIsAvailable(Pages.Lenta.rules());
-        assertPageIsAvailable(Pages.Lenta.payment());
-        assertPageIsAvailable(Pages.Lenta.returnPolicy());
-        assertPageIsAvailable(Pages.Lenta.faq());
-        assertPageIsAvailable(Pages.Lenta.terms());
-        assertPageIsAvailable(Pages.Lenta.contacts());
+        baseChecks.checkPageIsAvailable(Pages.Lenta.about());
+        baseChecks.checkPageIsAvailable(Pages.Lenta.delivery());
+        baseChecks.checkPageIsAvailable(Pages.Lenta.rules());
+        baseChecks.checkPageIsAvailable(Pages.Lenta.payment());
+        baseChecks.checkPageIsAvailable(Pages.Lenta.returnPolicy());
+        baseChecks.checkPageIsAvailable(Pages.Lenta.faq());
+        baseChecks.checkPageIsAvailable(Pages.Lenta.terms());
+        baseChecks.checkPageIsAvailable(Pages.Lenta.contacts());
     }
 
 }

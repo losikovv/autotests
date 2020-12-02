@@ -18,7 +18,7 @@ build:
       --dockerfile $CI_PROJECT_DIR/Dockerfile
       --destination $CI_REGISTRY_IMAGE
 
-testAuto:
+CustomSuiteTestRun:
   when: manual
   image: gradle:jdk11
   stage: tests
@@ -29,7 +29,7 @@ testAuto:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER allureReport
+    - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true allureReport
   tags:
     - k8s-stage
   artifacts:
@@ -92,7 +92,7 @@ tests:apiZonesProductionOnly:
       - web-tests/build/allure-results/
     expire_in: 1 week
 
-tests:smoke:
+tests:UiSmoke:
   when: manual
   stage: tests
   image: $CI_REGISTRY_IMAGE

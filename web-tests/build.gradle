@@ -30,7 +30,7 @@ allure {
 }
 
 dependencies {
-    implementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '3.14.0'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '2.43.0'
     compile "org.aspectj:aspectjweaver:1.9.6"
     //implementation "io.qameta.allure:allure-gradle:2.8.1"
     implementation "io.qameta.allure:allure-testng:"+allureVersion
@@ -68,12 +68,12 @@ task allureCopyHistoryDir(type: Copy) {
     into "build/allure-results/history"
 }
 
-task sberSmoke(type: Test) {
+task sberUiSmoke(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/suite.xml'
-        includeGroups 'sbermarket-smoke'
+        includeGroups 'sbermarket-Ui-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
@@ -231,13 +231,6 @@ task Testing(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    //todo дублирование кода я не уверен, что эту секцию нужно дублировать в каждой конфигурации, скорее наоборот
-    /*if (project.hasProperty('browser')) {
-        systemProperty 'browser',"${browser}"
-    }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }*/
 }
 
 
@@ -246,7 +239,7 @@ task sberAcceptance(type: Test) {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/suite.xml'
-        includeGroups 'sbermarket-acceptance'
+        includeGroups 'sbermarket-acceptance','sbermarket-Ui-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
@@ -267,7 +260,7 @@ task sberRegression(type: Test) {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/suite.xml'
-        includeGroups 'sbermarket-regression'
+        includeGroups 'sbermarket-regression','sbermarket-acceptance','sbermarket-Ui-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }

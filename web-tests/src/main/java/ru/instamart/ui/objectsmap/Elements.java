@@ -106,34 +106,34 @@ public class Elements {
             interface MainBlock{
 
                 static ElementData container() {
-                    return new ElementData(By.xpath("//div[contains(@class,'home-landing__description')]"),
+                    return new ElementData(By.xpath("//*[contains(@class,'description__container')]"),
                             "главный блок лендинга Сбермаркета");
                 }
 
                 static ElementData illustration() {
-                    return new ElementData(By.xpath("//div[contains(@class,'home-landing__description')]//div[@class='home-landing__img']"),
+                    return new ElementData(By.xpath("//div[contains(@class,'home_landing')]//div[contains(@class,'mainImg')]"),
                             "главная иллюстрация лендинга Сбермаркета");
                 }
 
                 static ElementData title() {
-                    return new ElementData(By.xpath("//div[contains(@class,'home-landing__description')]//h1[@class='home-landing__h1']"),
+                    return new ElementData(By.xpath("//h1[contains(@class,'description') and starts-with(text(),'Продукты')]"),
                             "главный заголовок лендинга Сбермаркета");
                 }
 
                 static ElementData text() {
-                    return new ElementData(By.xpath("//div[contains(@class,'home-landing__description')]//div[@class='home-landing__text']"),
+                    return new ElementData(By.xpath("//div[contains(@class,'home_landing')]//div[contains(@class,'description__text')]"),
                             "текст лендинга Сбермаркета");
                 }
 
                 interface Stores {
 
                     static ElementData list() {
-                        return new ElementData(By.xpath("//div[contains(@class,'home-landing__description')]//div[@class='stores']"),
-                                "список магазинов на лендинге Сбермаркета");
+                        return new ElementData(By.xpath("//div[contains(@class,'home_landing')]//div[contains(@class,'description__storesContainer')]"),
+                                "блок со списком магазинов на лендинге Сбермаркета");
                     }
 
                     static ElementData button(int position) {
-                        return new ElementData(By.xpath("//div[@class='stores']//a[@class='stores-block'][" + position + "]"),
+                        return new ElementData(By.xpath("//div[contains(@class,'description__storesContainer')]//a[contains(@class,'description__store')][" + position + "]"),
                                 "кнопка " + position + " магазина на лендинге Сбермаркета");
                     }
 
@@ -147,7 +147,7 @@ public class Elements {
             interface AdvantagesBlock {
 
                 static ElementData container() {
-                    return new ElementData(By.xpath("//div[@class='advantages']"),
+                    return new ElementData(By.xpath("//div[contains(@class,'advantages__container')]"),
                             "блок преимуществ на лендинге Сбермаркета");
                 }
             }
@@ -155,7 +155,7 @@ public class Elements {
             interface ZonesBlock {
 
                 static ElementData container() {
-                    return new ElementData(By.xpath("//div[@class='home-landing__zones']"),
+                    return new ElementData(By.xpath("//div[contains(@class,'cities__container')]"),
                             "блок зон доставки на лендинге Сбермаркета");
                 }
             }
@@ -163,7 +163,8 @@ public class Elements {
             interface OrderBlock {
 
                 static ElementData container() {
-                    return new ElementData(By.xpath("//div[@class='home-landing__order']"),
+                    return new ElementData(By.xpath("//div[contains(@class,'steps__container')]" +
+                            "//*[text()='СберМаркет сходит в магазин вместо вас']"),
                             "блок механики заказа на лендинге Сбермаркета");
                 }
             }
@@ -171,18 +172,22 @@ public class Elements {
             interface AppsBlock {
 
                 static ElementData container() {
-                    return new ElementData(By.xpath("//div[@class='home-landing__app']"),
+                    return new ElementData(By.xpath("//div[contains(@class,'app__container')]"),
                             "блок моб. приложений на лендинге Сбермаркета");
                 }
 
-                static ElementData appstoreButton() {
-                    return new ElementData(By.xpath("//div[@class='home-landing__app']//*[text()='AppStore']//ancestor::a"),
+                static ElementData appStoreButton() {
+                    return new ElementData(By.xpath("//img[@loading='lazy' and contains(@src,'app-store')]"),
                             "кнопка перехода в AppStore на лендинге Сбермаркета");
                 }
 
-                static ElementData googleplayButton() {
-                    return new ElementData(By.xpath("//div[@class='home-landing__app']//*[text()='Google Play']//ancestor::a"),
+                static ElementData googlePlayButton() {
+                    return new ElementData(By.xpath("//img[@loading='lazy' and contains(@src,'play-market')]"),
                             "кнопка перехода в Google Play на лендинге Сбермаркета");
+                }
+                static ElementData huaweiStoreButton() {
+                    return new ElementData(By.xpath("//img[@loading='lazy' and contains(@src,'huawei-store')]"),
+                            "кнопка перехода в Huawei Store на лендинге Сбермаркета");
                 }
             }
         }
@@ -197,11 +202,57 @@ public class Elements {
 
         interface driversHiringLanding {
 
-            static ElementData submitButton() {
-                return new ElementData(
-                        By.xpath("//button[@class='driverJob__formButton']"),
+            interface DriverJobForm{
+
+                static ElementData submitButton() {
+                    return new ElementData(
+                            By.xpath("//button[@name='btnSubmit']"),
                             "кнопка отправки заявки на лендинге найма водителей Сбермаркета");
+                }
+
+                static ElementData nameField() {
+                    return new ElementData(
+                            By.xpath("//input[@name='full_name']"),
+                            "поле для ввода имени и фамилии");
+                }
+
+                static ElementData citySelector() {
+                    return new ElementData(
+                            By.xpath("//span[text()='Владивосток']"),
+                            "селектор с городами");
+                }
+
+                static ElementData countrySelector() {
+                    return new ElementData(
+                            By.xpath("//span[text()='РФ']"),
+                            "селектор с доступными гражданствами");
+                }
+
+                static ElementData phoneField() {
+                    return new ElementData(
+                            By.xpath("//input[@name='phone_number']"),
+                            "поле для ввода номера телефона водителя");
+                }
             }
+
+            static ElementData workConditions() {
+                return new ElementData(
+                        By.xpath("//div[@class='driverJob__middleBlock']"),
+                        "блок с условиями работы");
+            }
+
+            static ElementData howToJoin() {
+                return new ElementData(
+                        By.xpath("//h2[contains(text(),'команде просто')]"),
+                        "блок с описанием процесса трудоустройства");
+            }
+
+            static ElementData whatToDo() {
+                return new ElementData(
+                        By.xpath("//div[text()='Что нужно делать?']"),
+                        "блок с кратким описанием обязанностей");
+            }
+
         }
 
         interface sberAppPromoLanding {
@@ -367,7 +418,7 @@ public class Elements {
     public interface Footer {
 
         static ElementData container() {
-            return new ElementData(By.xpath("//footer[@id='new-home-footer']"),
+            return new ElementData(By.id("new-home-footer"),
                     "блок футера");
         }
 
@@ -475,8 +526,8 @@ public class Elements {
         }
 
         static ElementData publicOfferLink() {
-            return new ElementData(By.xpath("//footer//a[contains(@class,'footer__link') and text()='Публичная оферта']"),
-                    "ссылка на публичную оферту в футере");
+            return new ElementData(By.xpath("//footer//a[contains(@class,'footer__link') and text()='Официальное уведомление']"),
+                    "ссылка на Официальное уведомление в футере");
         }
     }
 
@@ -564,9 +615,14 @@ public class Elements {
                     "поле 'Подтверждение пароля' в модалке авторизации");
         }
 
-        // todo update locator
+
         static ElementData errorMessage(String text) {
             return new ElementData(By.xpath("//*[contains(@class, 'auth-input__error') and contains(text(),'" + text + "')]"),
+                    "текст пользовательской ошибки в полях модалки авторизации");
+        }
+
+        static ElementData errorPhoneMessage(String text) {
+            return new ElementData(By.xpath("//div[@data-qa='tel_login_form_error' and text()='"+text+"']"),
                     "текст пользовательской ошибки в полях модалки авторизации");
         }
 
@@ -914,6 +970,10 @@ public class Elements {
         }
         static ElementData category(String name) {
             return new ElementData(By.xpath("//div[@class='category-menu-item__title' and text()='"+name+"']//ancestor::li[@class='category-menu-item']"),
+                    "категория \"" + name + "\"");
+        }
+        static ElementData categoryFirstLevel(String name) {
+            return new ElementData(By.linkText(name),
                     "категория \"" + name + "\"");
         }
     }

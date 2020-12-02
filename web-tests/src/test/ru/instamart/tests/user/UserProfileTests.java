@@ -1,28 +1,35 @@
 package ru.instamart.tests.user;
 
+import instamart.core.testdata.ui.Generate;
+import instamart.ui.checkpoints.BaseUICheckpoints;
+import instamart.ui.checkpoints.users.AccountMenuCheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
 public class UserProfileTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    AccountMenuCheckpoints accountChecks = new AccountMenuCheckpoints();
 
     @BeforeClass(alwaysRun = true,
-            description = "Подготавливаем тестовое окружение к тестовому прогону")
-    public void setup() {
-        User.Do.registration();
-    }
-
-    @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
         User.Logout.quickly();
+        String phone = Generate.phoneNumber();
+        User.Do.registration(
+                null,
+                "test@example.com",
+                "12345678",
+                "12345678",
+                phone,
+                "1111"
+        );
     }
 
     @Test(
@@ -40,15 +47,15 @@ public class UserProfileTests extends TestBase {
                 kraken.detect().isAccountMenuOpen(),
                     failMessage("Не открывается всплывающее меню профиля Delivery Metro"));
 
-        assertPresence(Elements.AccountMenu.popup());
-        assertPresence(Elements.AccountMenu.header());
-        assertPresence(Elements.AccountMenu.profileButton());
-        assertPresence(Elements.AccountMenu.ordersHistoryButton());
-        assertPresence(Elements.AccountMenu.termsButton());
-        assertPresence(Elements.AccountMenu.logoutButton());
-        assertPresence(Elements.AccountMenu.deliveryButton());
-        assertPresence(Elements.AccountMenu.paymentButton());
-        assertPresence(Elements.AccountMenu.faqButton());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.popup());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.header());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.profileButton());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.ordersHistoryButton());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.termsButton());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.logoutButton());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.deliveryButton());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.paymentButton());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.faqButton());
         assertAbsence(Elements.AccountMenu.contactsButton());
 
         Shop.AccountMenu.close();
@@ -64,33 +71,20 @@ public class UserProfileTests extends TestBase {
             description = "Тест валидации меню профиля Sbermarket",
             priority = 153,
             groups = {
-                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-Ui-smoke","testing"
             }
     ) public void successValidateSbermarketTenantProfileMenu() {
-        SoftAssert softAssert = new SoftAssert();
-
         Shop.AccountMenu.open();
-
-        softAssert.assertTrue(
-                kraken.detect().isAccountMenuOpen(),
-                    failMessage("Не открывается всплывающее меню профиля Sbermarket"));
-
-        assertPresence(Elements.AccountMenu.popup());
-        assertPresence(Elements.AccountMenu.header());
-        assertPresence(Elements.AccountMenu.profileButton());
-        assertPresence(Elements.AccountMenu.ordersHistoryButton());
-        assertPresence(Elements.AccountMenu.termsButton());
-        assertPresence(Elements.AccountMenu.logoutButton());
-        assertPresence(Elements.AccountMenu.deliveryButton());
-        assertPresence(Elements.AccountMenu.faqButton());
-
+        accountChecks.checkIsAccountMenuOpen();
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.popup());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.header());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.logoutButton());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.profileButton());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.termsButton());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.deliveryButton());
+        baseChecks.checkIsElementPresent(Elements.AccountMenu.faqButton());
         Shop.AccountMenu.close();
-
-        softAssert.assertFalse(
-                kraken.detect().isAccountMenuOpen(),
-                    failMessage("Не закрывается всплывающее меню профиля Sbermarket"));
-
-        softAssert.assertAll();
+        accountChecks.checkIsAccountMenuClosed();
     }
 
     @Test(
@@ -98,12 +92,11 @@ public class UserProfileTests extends TestBase {
             priority = 154,
             groups = {
                     "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-Ui-smoke","testing"
             }
     ) public void successValidateUserProfileButton() {
         Shop.AccountMenu.open();
-
-        validateTransition(Elements.AccountMenu.profileButton());
+        baseChecks.checkTransitionValidation(Elements.AccountMenu.profileButton());
     }
 
     @Test(
@@ -113,10 +106,11 @@ public class UserProfileTests extends TestBase {
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
-    ) public void successValidateOrdersHistoryButton() {
+            )
+    @Deprecated
+        public void successValidateOrdersHistoryButton() {
         Shop.AccountMenu.open();
-
-        validateTransition(Elements.AccountMenu.ordersHistoryButton());
+        baseChecks.checkTransitionValidation(Elements.AccountMenu.ordersHistoryButton());
     }
 
     @Test(
@@ -124,25 +118,22 @@ public class UserProfileTests extends TestBase {
             priority = 156,
             groups = {
                     "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-acceptance","testing"
             }
     ) public void successValidateTermsButton() {
         Shop.AccountMenu.open();
-
-        validateTransition(Elements.AccountMenu.termsButton());
+        baseChecks.checkTransitionValidation(Elements.AccountMenu.termsButton());
     }
 
     @Test(
             description = "Тест валидации кнопки 'Доставка' в меню профиля",
             priority = 157,
             groups = {
-                    "metro-acceptance","metro-regression",
+                    "sbermarket-Ui-smoke","testing"
             }
     ) public void successValidateDeliveryButton() {
         Shop.AccountMenu.open();
-
         kraken.perform().click(Elements.AccountMenu.deliveryButton());
-
         Assert.assertTrue(
                 kraken.detect().isDeliveryModalOpen(),
                     failMessage("Не открывается модалка 'Доставка' из всплывающего меню 'Профиль'"));
@@ -169,26 +160,24 @@ public class UserProfileTests extends TestBase {
             priority = 159,
             groups = {
                     "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-acceptance","testing"
             }
     ) public void successValidateFaqButton() {
         Shop.AccountMenu.open();
-
-        validateTransition(Elements.AccountMenu.faqButton());
+        baseChecks.checkTransitionValidation(Elements.AccountMenu.faqButton());
     }
 
     @Test(
             description = "Тест доступности страниц профиля пользователя",
             priority = 161,
             groups = {
-                    "smoke","acceptance","regression",
                     "metro-smoke","metro-acceptance","metro-regression",
-                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-Ui-smoke","testing"
             }
     ) public void successCheckProfilePagesAreAvailable() {
-        assertPageIsAvailable(Pages.UserProfile.edit());
-        assertPageIsAvailable(Pages.UserProfile.favorites());
-        assertPageIsAvailable(Pages.UserProfile.shipments());
+        baseChecks.checkPageIsAvailable(Pages.UserProfile.edit());
+        baseChecks.checkPageIsAvailable(Pages.UserProfile.favorites());
+        baseChecks.checkPageIsAvailable(Pages.UserProfile.shipments());
     }
 
     @Test(

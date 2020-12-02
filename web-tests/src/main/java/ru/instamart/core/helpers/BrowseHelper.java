@@ -1,11 +1,12 @@
 package instamart.core.helpers;
 
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import instamart.ui.common.pagesdata.PageData;
 import instamart.core.common.AppManager;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.EnvironmentData;
+import instamart.ui.common.pagesdata.PageData;
+import io.qameta.allure.Step;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 
 public class BrowseHelper extends HelperBase {
 
@@ -14,6 +15,7 @@ public class BrowseHelper extends HelperBase {
     }
 
     /** Перейти на указанный URL*/
+    @Step("Перейти на указанный URL: {0}")
     public void url(String url) {
         if (url.equals(environment.getBasicUrl())) {
             verboseMessage("Переходим по базовому URL >>> " + url + "\n");
@@ -32,6 +34,7 @@ public class BrowseHelper extends HelperBase {
 
     /** Перейти на страницу */
     public void page(String page) {
+        verboseMessage("> переходим на страницу: "+environment.getBasicUrlWithHttpAuth() + page);
         url(environment.getBasicUrlWithHttpAuth() + page);
     }
 
