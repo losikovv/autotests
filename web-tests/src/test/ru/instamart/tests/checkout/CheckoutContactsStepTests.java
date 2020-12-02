@@ -1,6 +1,7 @@
 package ru.instamart.tests.checkout;
 
 import instamart.api.common.RestAddresses;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Checkout;
 import instamart.ui.modules.User;
@@ -13,6 +14,7 @@ import ru.instamart.tests.TestBase;
 import static instamart.core.settings.Config.TestsConfiguration.CheckoutTests.enableContactsStepTests;
 
 public class CheckoutContactsStepTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     // TODO расширить тесты, см тудушки - ATST-238
 
     @BeforeClass(alwaysRun = true)
@@ -35,20 +37,20 @@ public class CheckoutContactsStepTests extends TestBase {
             priority = 1200
     )
     public void successValidateDefaultContactsStep() {
-        assertPageIsAvailable();
+        baseChecks.checkPageIsAvailable();
 
-        assertPresence(Elements.Checkout.ContactsStep.panel());
-        assertPresence(Elements.Checkout.ContactsStep.icon());
-        assertPresence(Elements.Checkout.ContactsStep.title());
+        baseChecks.checkIsElementPresent(Elements.Checkout.ContactsStep.panel());
+        baseChecks.checkIsElementPresent(Elements.Checkout.ContactsStep.icon());
+        baseChecks.checkIsElementPresent(Elements.Checkout.ContactsStep.title());
 
-        assertPresence(Elements.Checkout.ContactsStep.firstNameInputField());
-        assertPresence(Elements.Checkout.ContactsStep.lastNameInputField());
-        assertPresence(Elements.Checkout.ContactsStep.emailInputField());
-        assertPresence(Elements.Checkout.ContactsStep.phonesTitle());
-        assertPresence(Elements.Checkout.ContactsStep.phoneInputField());
-        assertPresence(Elements.Checkout.ContactsStep.sendEmailsCheckbox());
+        baseChecks.checkIsElementPresent(Elements.Checkout.ContactsStep.firstNameInputField());
+        baseChecks.checkIsElementPresent(Elements.Checkout.ContactsStep.lastNameInputField());
+        baseChecks.checkIsElementPresent(Elements.Checkout.ContactsStep.emailInputField());
+        baseChecks.checkIsElementPresent(Elements.Checkout.ContactsStep.phonesTitle());
+        baseChecks.checkIsElementPresent(Elements.Checkout.ContactsStep.phoneInputField());
+        baseChecks.checkIsElementPresent(Elements.Checkout.ContactsStep.sendEmailsCheckbox());
 
-        assertPresence(Elements.Checkout.ContactsStep.nextButton());
+        baseChecks.checkIsElementPresent(Elements.Checkout.ContactsStep.nextButton());
     }
 
     // todo noProceedNextWithEmptyFields

@@ -2,6 +2,7 @@ package ru.instamart.tests.site;
 
 import instamart.core.settings.Config;
 import instamart.core.testdata.dataprovider.RestDataProvider;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.objectsmap.Elements;
 import io.qase.api.annotation.CaseId;
@@ -9,45 +10,74 @@ import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class BasicSbermarketTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
     //todo сделать отдельные тесты под тенанты
 
     @Test(
-            description = "Тест валидности элементов и ссылок в шапке Сбермарткета",
+            description = "Тест валидности элементов и ссылок в шапке Сбермаркета",
             priority = 101,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"testing","sbermarket-Ui-smoke"}
     ) public void successValidateHeaderSbermarket() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-
-        assertPageIsAvailable();
-
-        assertPresence(Elements.Header.container());
-
-        assertPresence(Elements.Header.shipAddressPlaceholder());
-        assertPresence(Elements.Header.shipAddressButton());
-        //assertPresence(Elements.Header.hotlinePhoneNumber());
-        assertPresence(Elements.Header.hotlineWorkhoursText());
-
-        assertPresence(Elements.Header.howWeWorkInfoButton());
-        assertPresence(Elements.Header.contactsInfoButton());
-        assertPresence(Elements.Header.helpInfoButton());
-        assertPresence(Elements.Header.deliveryInfoButton());
-        assertPresence(Elements.Header.forBusinessButton());
-
-        assertPresence(Elements.Header.catalogButton());
-        if(!kraken.detect().tenant("metro")) assertPresence(Elements.Header.storeButton());
-        assertPresence(Elements.Header.Search.inputField());
-        assertPresence(Elements.Header.Search.sendButton());
-        assertPresence(Elements.Header.favoritesButton());
-        assertPresence(Elements.Header.loginButton());
-        assertPresence(Elements.Header.cartButton());
-
-        // todo вынести валидации отдельными тестами
-        validateTransition(Elements.Header.howWeWorkInfoButton());
-        validateTransition(Elements.Header.contactsInfoButton());
-        validateTransition(Elements.Header.helpInfoButton());
-        validateTransition(Elements.Header.deliveryInfoButton());
-        validateTransition(Elements.Header.logo());
+        baseChecks.checkPageIsAvailable();
+        baseChecks.checkIsElementPresent(Elements.Header.container());
+        baseChecks.checkIsElementPresent(Elements.Header.shipAddressPlaceholder());
+        baseChecks.checkIsElementPresent(Elements.Header.shipAddressButton());
+        //baseChecks.checkIsElementPresent(Elements.Header.hotlinePhoneNumber());
+        baseChecks.checkIsElementPresent(Elements.Header.hotlineWorkhoursText());
+        baseChecks.checkIsElementPresent(Elements.Header.howWeWorkInfoButton());
+        baseChecks.checkIsElementPresent(Elements.Header.contactsInfoButton());
+        baseChecks.checkIsElementPresent(Elements.Header.helpInfoButton());
+        baseChecks.checkIsElementPresent(Elements.Header.deliveryInfoButton());
+        baseChecks.checkIsElementPresent(Elements.Header.forBusinessButton());
+        baseChecks.checkIsElementPresent(Elements.Header.catalogButton());
+        if(!kraken.detect().tenant("metro")) baseChecks.checkIsElementPresent(Elements.Header.storeButton());
+        baseChecks.checkIsElementPresent(Elements.Header.Search.inputField());
+        baseChecks.checkIsElementPresent(Elements.Header.Search.sendButton());
+        baseChecks.checkIsElementPresent(Elements.Header.favoritesButton());
+        baseChecks.checkIsElementPresent(Elements.Header.loginButton());
+        baseChecks.checkIsElementPresent(Elements.Header.cartButton());
+    }
+    @Test(
+            description = "Тест перехода из Сбермаркета на как мы работаем",
+            groups = {"testing","sbermarket-Ui-smoke"}
+    )
+    public void successTransitionHowWeWork(){
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        baseChecks.checkTransitionValidation(Elements.Header.howWeWorkInfoButton());
+    }
+    @Test(
+            description = "Тест перехода из Сбермаркета на информацию о контактах",
+            groups = {"testing","sbermarket-Ui-smoke"}
+    )
+    public void successTransitionContactsInfo(){
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        baseChecks.checkTransitionValidation(Elements.Header.contactsInfoButton());
+    }
+    @Test(
+            description = "Тест перехода из Сбермаркета на страничку с помощью для клиента",
+            groups = {"testing","sbermarket-Ui-smoke"}
+    )
+    public void successTransitionHelpInfo(){
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        baseChecks.checkTransitionValidation(Elements.Header.helpInfoButton());
+    }
+    @Test(
+            description = "Тест перехода из Сбермаркета на страничку с информацией о доставке",
+            groups = {"testing","sbermarket-Ui-smoke"}
+    )
+    public void successTransitionDeliveryInfo(){
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        baseChecks.checkTransitionValidation(Elements.Header.deliveryInfoButton());
+    }
+    @Test(
+            description = "Тест перехода из Сбермаркета на страничку с Logo",
+            groups = {"testing","sbermarket-Ui-smoke"}
+    )
+    public void successTransitionLogo(){
+        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        baseChecks.checkTransitionValidation(Elements.Header.logo());
     }
 
     // todo public void successValidateHeaderDeliveryMetro()
@@ -58,12 +88,10 @@ public class BasicSbermarketTests extends TestBase {
     @Test(
             description = "Тест валидности элементов и ссылок в футере Сбермаркета",
             priority = 102,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"testing","sbermarket-Ui-smoke"}
     ) public void successValidateFooterSbermarket() {
         kraken.get().page(Config.CoreSettings.defaultRetailer);
-
-        assertPageIsAvailable();
-
+        baseChecks.checkPageIsAvailable();
         checkFooterElementsPresence();
         validateFooterLinks();
         openFooterModals();
@@ -73,87 +101,74 @@ public class BasicSbermarketTests extends TestBase {
 
 
     private void checkFooterElementsPresence() {
-        assertPresence(Elements.Footer.container());
-
-        assertPresence(Elements.Footer.instamartLogo());
-
-        assertPresence(Elements.Footer.sbermarketTitle());
-            assertPresence(Elements.Footer.infoLink("О компании"));
-            assertPresence(Elements.Footer.infoLink("Контакты"));
-            assertPresence(Elements.Footer.infoLink("Вакансии"));
-            assertPresence(Elements.Footer.infoLink("Документы"));
-
-        assertPresence(Elements.Footer.customerHelpTitle());
-            assertPresence(Elements.Footer.infoLink("Как мы работаем"));
-            assertPresence(Elements.Footer.infoLink("Зоны доставки"));
-            assertPresence(Elements.Footer.infoLink("Доставка и оплата"));
-            assertPresence(Elements.Footer.infoLink("Помощь"));
-
-        //assertPresence(Elements.Footer.hotlinePhoneNumber());
-        assertPresence(Elements.Footer.hotlineWorkhoursText());
-
-        assertPresence(Elements.Footer.facebookButton());
-        assertPresence(Elements.Footer.vkontakteButton());
-        assertPresence(Elements.Footer.instagramButton());
-        //assertPresence(Elements.Footer.twitterButton());
-
-        assertPresence(Elements.Footer.appstoreButton());
-        assertPresence(Elements.Footer.googlePlayButton());
-
-        assertPresence(Elements.Footer.returnsPolicyLink());
-        assertPresence(Elements.Footer.personalDataPolicyLink());
-        assertPresence(Elements.Footer.publicOfferLink());
+        baseChecks.checkIsElementPresent(Elements.Footer.container());
+        baseChecks.checkIsElementPresent(Elements.Footer.instamartLogo());
+        baseChecks.checkIsElementPresent(Elements.Footer.sbermarketTitle());
+            baseChecks.checkIsElementPresent(Elements.Footer.infoLink("О компании"));
+            baseChecks.checkIsElementPresent(Elements.Footer.infoLink("Контакты"));
+            baseChecks.checkIsElementPresent(Elements.Footer.infoLink("Вакансии"));
+            baseChecks.checkIsElementPresent(Elements.Footer.infoLink("Документы"));
+        baseChecks.checkIsElementPresent(Elements.Footer.customerHelpTitle());
+            baseChecks.checkIsElementPresent(Elements.Footer.infoLink("Как мы работаем"));
+            baseChecks.checkIsElementPresent(Elements.Footer.infoLink("Зоны доставки"));
+            baseChecks.checkIsElementPresent(Elements.Footer.infoLink("Доставка и оплата"));
+            baseChecks.checkIsElementPresent(Elements.Footer.infoLink("Помощь"));
+        //baseChecks.checkIsElementPresent(Elements.Footer.hotlinePhoneNumber());
+        baseChecks.checkIsElementPresent(Elements.Footer.hotlineWorkhoursText());
+        baseChecks.checkIsElementPresent(Elements.Footer.facebookButton());
+        baseChecks.checkIsElementPresent(Elements.Footer.vkontakteButton());
+        baseChecks.checkIsElementPresent(Elements.Footer.instagramButton());
+        //baseChecks.checkIsElementPresent(Elements.Footer.twitterButton());
+        baseChecks.checkIsElementPresent(Elements.Footer.appstoreButton());
+        baseChecks.checkIsElementPresent(Elements.Footer.googlePlayButton());
+        baseChecks.checkIsElementPresent(Elements.Footer.returnsPolicyLink());
+        baseChecks.checkIsElementPresent(Elements.Footer.personalDataPolicyLink());
+        baseChecks.checkIsElementPresent(Elements.Footer.publicOfferLink());
     }
 
     private void validateFooterLinks() {
-        validateTransition(Elements.Footer.infoLink("О компании"));
-        validateTransition(Elements.Footer.infoLink("Контакты"));
+        baseChecks.checkTransitionValidation(Elements.Footer.infoLink("О компании"));
+        baseChecks.checkTransitionValidation(Elements.Footer.infoLink("Контакты"));
         //validateTransition(Elements.Footer.infoLink("FAQ")); // заслоняет живосайт
 
-        validateTransition(Elements.Footer.returnsPolicyLink());
-        validateTransition(Elements.Footer.publicOfferLink());
+        baseChecks.checkTransitionValidation(Elements.Footer.returnsPolicyLink());
+        baseChecks.checkTransitionValidation(Elements.Footer.publicOfferLink());
         //TODO валидировать и остальные ссылки
     }
 
     private void openFooterModals() {
         //TODO разбить на отдельные тесты
-
         kraken.get().baseUrl();
-
         kraken.perform().click(Elements.Footer.deliveryButton());
-
-        // todo Почему один и тот же метод 2 раза?
-        assertPageIsAvailable();
-        assertPageIsAvailable();
+        baseChecks.checkPageIsAvailable();
     }
 
     @Test(  dataProvider = "retailersSpree" ,
             dataProviderClass = RestDataProvider.class,
             description = "Тест доступности / недоступности витрин ритейлеров Сбермаркета ",
             priority = 103,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"testing","sbermarket-Ui-smoke"}
     ) public void successCheckSbermarketRetailers(String slug, boolean available) {
-
-        if (available) assertRetailerIsAvailable(slug);
-        else assertRetailerIsUnavailable(slug);
+        if (available) baseChecks.checkRetailerIsAvailable(slug);
+        else baseChecks.checkRetailerIsUnavailable(slug);
     }
 
     @Test(
             description = "Тест доступности партнерских лендингов",
             priority = 104,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"testing","sbermarket-Ui-smoke"}
     ) public void successCheckPartnerLandingsAreAvailable() {
-        assertPageIsAvailable(Pages.Landings.mnogoru());
-        assertPageIsAvailable(Pages.Landings.aeroflot());
+        baseChecks.checkPageIsAvailable(Pages.Landings.mnogoru());
+        baseChecks.checkPageIsAvailable(Pages.Landings.aeroflot());
     }
 
     @Test(
             description = "Тест доступности сервисных страниц",
             priority = 105,
-            groups = {"sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+            groups = {"testing","sbermarket-Ui-smoke"}
     ) public void successServicePagesAreAvailable() {
-        assertPageIsAvailable(Pages.ServicePages.giftCertificates());
-        assertPageIsAvailable(Pages.Landings.massHiring());
+        baseChecks.checkPageIsAvailable(Pages.ServicePages.giftCertificates());
+        baseChecks.checkPageIsAvailable(Pages.Landings.massHiring());
     }
 
     @CaseId(9)
@@ -161,16 +176,16 @@ public class BasicSbermarketTests extends TestBase {
             description = "Тест доступности статических страниц",
             priority = 106,
             groups = {
-                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"
+                    "testing","sbermarket-Ui-smoke"
             }
     ) public void successCheckStaticPagesAreAvailabile() {
-        assertPageIsAvailable(Pages.Sbermarket.about());
-        assertPageIsAvailable(Pages.Sbermarket.delivery());
-        assertPageIsAvailable(Pages.Sbermarket.rules());
-        assertPageIsAvailable(Pages.Sbermarket.payment());
-        assertPageIsAvailable(Pages.Sbermarket.returnPolicy());
-        assertPageIsAvailable(Pages.Sbermarket.faq());
-        assertPageIsAvailable(Pages.Sbermarket.terms());
-        assertPageIsAvailable(Pages.Sbermarket.contacts());
+        baseChecks.checkPageIsAvailable(Pages.Sbermarket.about());
+        baseChecks.checkPageIsAvailable(Pages.Sbermarket.delivery());
+        baseChecks.checkPageIsAvailable(Pages.Sbermarket.rules());
+        baseChecks.checkPageIsAvailable(Pages.Sbermarket.payment());
+        baseChecks.checkPageIsAvailable(Pages.Sbermarket.returnPolicy());
+        baseChecks.checkPageIsAvailable(Pages.Sbermarket.faq());
+        baseChecks.checkPageIsAvailable(Pages.Sbermarket.terms());
+        baseChecks.checkPageIsAvailable(Pages.Sbermarket.contacts());
     }
 }

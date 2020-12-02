@@ -65,6 +65,15 @@ public class WaitingHelper extends HelperBase {
                 .until(conditions);
     }
 
+    public void fluently(Function conditions, String message, int time){
+        new FluentWait<>(driver)
+                .withTimeout(time, TimeUnit.SECONDS)
+                .withMessage(message)
+                .pollingEvery(1, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class)
+                .until(conditions);
+    }
+
     public boolean fluentlyPossibleAppearance(Function conditions, String message, int time){
         try{
             new FluentWait<>(driver)
@@ -75,7 +84,7 @@ public class WaitingHelper extends HelperBase {
                     .until(conditions);
             return true;
         }catch (Exception ex){
-            verboseMessage("> Ожидаемый объект не появился в течернии: "+ time);
+            verboseMessage("> "+message+" в течении: "+ time);
             return false;
         }
     }

@@ -1,6 +1,7 @@
 package ru.instamart.tests.administration;
 
 import instamart.core.testdata.Users;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
@@ -12,6 +13,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
 public class AdministrationLoginTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
@@ -29,10 +31,10 @@ public class AdministrationLoginTests extends TestBase {
             priority = 10051
     )
     public void successValidateAdministrationLoginPage() {
-        assertPresence(Elements.Administration.LoginPage.title());
-        assertPresence(Elements.Administration.LoginPage.emailField());
-        assertPresence(Elements.Administration.LoginPage.passwordField());
-        assertPresence(Elements.Administration.LoginPage.submitButton());
+        baseChecks.checkIsElementPresent(Elements.Administration.LoginPage.title());
+        baseChecks.checkIsElementPresent(Elements.Administration.LoginPage.emailField());
+        baseChecks.checkIsElementPresent(Elements.Administration.LoginPage.passwordField());
+        baseChecks.checkIsElementPresent(Elements.Administration.LoginPage.submitButton());
     }
 
     @Test(  description = "Тест неуспешной авторизации с пустыми полями",

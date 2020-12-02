@@ -2,6 +2,7 @@ package ru.instamart.tests.checkout;
 
 import instamart.api.common.RestAddresses;
 import instamart.core.common.AppManager;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
 import org.testng.annotations.BeforeClass;
@@ -10,6 +11,7 @@ import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class BasicCheckoutTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     @BeforeClass(alwaysRun = true)
     public void preparingForCheckout() {
         User.Logout.quickly();
@@ -30,23 +32,23 @@ public class BasicCheckoutTests extends TestBase {
             priority = 1000
     )
     public void successValidateDefaultCheckoutPage() {
-        assertPageIsAvailable();
+        baseChecks.checkPageIsAvailable();
 
-        assertPresence(Elements.Checkout.header());
+        baseChecks.checkIsElementPresent(Elements.Checkout.header());
 
-        assertPresence(Elements.Checkout.AddressStep.panel());
-        assertPresence(Elements.Checkout.ContactsStep.minimizedPanel());
-        assertPresence(Elements.Checkout.ReplacementsStep.minimizedPanel());
-        assertPresence(Elements.Checkout.PaymentStep.minimizedPanel());
-        assertPresence(Elements.Checkout.DeliveryStep.minimizedPanel());
+        baseChecks.checkIsElementPresent(Elements.Checkout.AddressStep.panel());
+        baseChecks.checkIsElementPresent(Elements.Checkout.ContactsStep.minimizedPanel());
+        baseChecks.checkIsElementPresent(Elements.Checkout.ReplacementsStep.minimizedPanel());
+        baseChecks.checkIsElementPresent(Elements.Checkout.PaymentStep.minimizedPanel());
+        baseChecks.checkIsElementPresent(Elements.Checkout.DeliveryStep.minimizedPanel());
 
-        assertPresence(Elements.Checkout.SideBar.panel());
-        assertPresence(Elements.Checkout.SideBar.itemsTotal());
-        //assertPresence(Elements.Checkout.SideBar.total());
-        assertPresence(Elements.Checkout.Promocode.addButton());
+        baseChecks.checkIsElementPresent(Elements.Checkout.SideBar.panel());
+        baseChecks.checkIsElementPresent(Elements.Checkout.SideBar.itemsTotal());
+        //baseChecks.checkIsElementPresent(Elements.Checkout.SideBar.total());
+        baseChecks.checkIsElementPresent(Elements.Checkout.Promocode.addButton());
 
-        if (kraken.detect().tenant("sbermarket")) assertPresence(Elements.Checkout.Bonuses.list());
-        assertPresence(Elements.Checkout.SideBar.sendOrderButton());
+        if (kraken.detect().tenant("sbermarket")) baseChecks.checkIsElementPresent(Elements.Checkout.Bonuses.list());
+        baseChecks.checkIsElementPresent(Elements.Checkout.SideBar.sendOrderButton());
     }
 
     @Test(  description = "Тест валидации заполненного чекаута",
@@ -54,7 +56,7 @@ public class BasicCheckoutTests extends TestBase {
             priority = 1900
     )
     public void successValidateFilledCheckoutPage() {
-        assertPageIsAvailable();
+        baseChecks.checkPageIsAvailable();
         throw new AssertionError("TODO");
     }
 }

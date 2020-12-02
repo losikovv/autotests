@@ -1,5 +1,6 @@
 package ru.instamart.tests.administration;
 
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.modules.Administration;
 import instamart.ui.objectsmap.Elements;
 import org.testng.annotations.BeforeMethod;
@@ -9,6 +10,7 @@ import ru.instamart.tests.TestBase;
 import static instamart.core.settings.Config.TestsConfiguration.AdministrationTests.enablePagesSectionTests;
 
 public class AdministrationPagesSectionTests extends TestBase {
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     // TODO актуализировать тесты в классе - ATST-233
 
     @BeforeMethod(alwaysRun = true,
@@ -27,10 +29,10 @@ public class AdministrationPagesSectionTests extends TestBase {
         String page = "О компании";
         kraken.get().adminPage("pages");
 
-        assertPresence(Elements.Administration.PagesSection.table());
-        assertPresence(Elements.Administration.PagesSection.newPageButton());
-        assertPresence(Elements.Administration.PagesSection.editPageButton(page));
-        assertPresence(Elements.Administration.PagesSection.deletePageButton(page));
+        baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.table());
+        baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.newPageButton());
+        baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.editPageButton(page));
+        baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.deletePageButton(page));
     }
 
     @Test(  enabled = enablePagesSectionTests,
@@ -56,7 +58,7 @@ public class AdministrationPagesSectionTests extends TestBase {
         kraken.get().adminPage("pages");
 
         Administration.Pages.create(pageName, pageURL, desc);
-            assertPresence(Elements.Administration.PagesSection.tableEntry(pageName));
+            baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.tableEntry(pageName));
 
         Administration.Pages.validateStaticPage(pageName, pageURL);
         kraken.detect().isElementPresent(Elements.StaticPages.pageTitle());

@@ -1,6 +1,7 @@
 package ru.instamart.tests;
 
 import instamart.core.settings.Config;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
@@ -15,6 +16,7 @@ import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public class SelfCheckTests extends TestBase {
 
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     @Test(description = "Тест базового URL",
             groups ="selfcheck",
             priority = 10000)
@@ -353,16 +355,16 @@ public class SelfCheckTests extends TestBase {
             priority = 10020)
     public void checkAsserts() {
 
-        assertTransition("https://instamart.ru/auchan");
-        assertTransition(Pages.Retailers.vkusvill());
+        baseChecks.checkTransition("https://instamart.ru/auchan");
+        baseChecks.checkTransition(Pages.Retailers.vkusvill());
 
-        assertPageIsAvailable("https://instamart.ru/auchan");
-        assertPageIsAvailable(Pages.Sbermarket.contacts());
-        assertPageIsAvailable();
+        baseChecks.checkPageIsAvailable("https://instamart.ru/auchan");
+        baseChecks.checkTransition(Pages.Sbermarket.contacts());
+        baseChecks.checkPageIsAvailable();
 
-        assertPageIs404(Pages.page404());
-        assertPageIs404("https://instamart.ru/nowhere");
-        assertPageIs404();
+        baseChecks.checkPageIs404(Pages.page404());
+        baseChecks.checkPageIs404("https://instamart.ru/nowhere");
+        baseChecks.checkPageIs404();
 
         assertPageIsUnavailable(Pages.checkout());
         assertPageIsUnavailable("https://instamart.ru/checkout/edit");

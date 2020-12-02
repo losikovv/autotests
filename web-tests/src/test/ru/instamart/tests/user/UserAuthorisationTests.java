@@ -4,6 +4,7 @@ import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.checkpoints.BaseUICheckpoints;
+import instamart.ui.checkpoints.users.ShoppingCartCheckpoints;
 import instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.pagesdata.UserData;
@@ -21,6 +22,7 @@ import static instamart.core.common.AppManager.session;
 public class UserAuthorisationTests extends TestBase {
 //    Config config = new Config();
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
     UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
 
     @BeforeClass(alwaysRun = true,
@@ -197,7 +199,7 @@ public class UserAuthorisationTests extends TestBase {
             description = "Тест успешной авторизации на витрине",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-smoke", "sbermarket-acceptance","sbermarket-regression"
+                    "testing", "sbermarket-acceptance","sbermarket-regression"
             },
             priority = 119
     )
@@ -252,7 +254,7 @@ public class UserAuthorisationTests extends TestBase {
         authChecks.checkAutoCheckoutRedirect("Нет автоперехода в чекаут после авторизации из корзины");
         kraken.get().baseUrl();
         authChecks.checkIsUserAuthorized("Не работает авторизация из корзины");
-        baseChecks.checkIsCartEmpty("Авторизация из корзины",
+        shopChecks.checkIsCartEmpty("Авторизация из корзины",
                 "Пропали товары после авторизации из корзины");
     }
 

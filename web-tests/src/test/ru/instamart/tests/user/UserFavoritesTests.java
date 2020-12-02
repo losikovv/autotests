@@ -1,6 +1,8 @@
 package ru.instamart.tests.user;
 
 import instamart.core.testdata.ui.Generate;
+import instamart.ui.checkpoints.BaseUICheckpoints;
+import instamart.ui.checkpoints.users.FavoriteItemsCheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
@@ -14,6 +16,9 @@ import ru.instamart.tests.TestBase;
 import static instamart.core.common.AppManager.session;
 
 public class UserFavoritesTests extends TestBase {
+    public static String modalType;
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    FavoriteItemsCheckpoints favoriteChecks = new FavoriteItemsCheckpoints();
 
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
@@ -31,22 +36,28 @@ public class UserFavoritesTests extends TestBase {
         assertPageIsUnavailable(Pages.UserProfile.favorites());
     }
 
-    @Test(  description = "Переход в любимые товары по кнопке",
+    @Test(  description = "Переход в любимые товары по кнопке, новый пользователь",
             priority = 402,
             groups = {
                     "metro-acceptance","metro-regression",
-                    "sbermarket-smoke","sbermarket-acceptance","sbermarket-regression"}
+                    "sbermarket-Ui-smoke","testing"}
     )
     public void successOpenFavorites() {
-        User.Do.loginAs(session.user);
-
+        String phone = Generate.phoneNumber();
+        modalType = User.Do.registration(
+                "Test User",
+                "test@example.com",
+                "12345678",
+                "12345678",
+                phone,
+                "1111"
+        );
         Shop.Favorites.open();
-
-        assertPageIsAvailable();
-
-        Assert.assertTrue(
-                kraken.detect().isInFavorites(),
-                    "Не работает переход в любимые товары по кнопке в шапке\n");
+        baseChecks.checkPageIsAvailable();
+        favoriteChecks.checkIsFavoriteOpen();
+//        Assert.assertTrue(
+//                kraken.detect().isInFavorites(),
+//                    "Не работает переход в любимые товары по кнопке в шапке\n");
     }
 
     @Test(  description = "Проверка пустого списка любимых товаров для нового пользователя",
