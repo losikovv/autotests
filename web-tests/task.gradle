@@ -1,0 +1,23 @@
+task allureCopyHistoryDir(type: Copy) {
+    from "build/reports/allure-report/history"
+    into "build/allure-results/history"
+}
+
+task Testing(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'testing'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    //todo дублирование кода я не уверен, что эту секцию нужно дублировать в каждой конфигурации, скорее наоборот
+    /*if (project.hasProperty('browser')) {
+        systemProperty 'browser',"${browser}"
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }*/
+}
