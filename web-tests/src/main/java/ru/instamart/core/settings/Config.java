@@ -45,9 +45,11 @@ public final class Config {
         // Переменная для обозначения запущен кракен или нет
         IS_KRAKEN_REVEALEN = coreSettings.getBoolean("isKrakenRevealen", false);
 
-        // Если с запуском тестов не передается название браузера то используется дефолтный
+        // Если в core.properties нет переменной defaultBrowser, то будет браться значение из параметра запуска -Pbrowser
+        // если и там нет, то дефолтное BrowserType.CHROME
         DEFAULT_BROWSER = coreSettings.getString("defaultBrowser", System.getProperty("browser", BrowserType.CHROME));
-        // Дефолтное окружение, если при запуске другое не было указано
+        // Если в core.properties нет переменной defaultEnvironment, то будет браться значение из параметра запуска -Penv
+        // если и там нет, то дефолтное Environments.sbermarket.preprod()
         DEFAULT_ENVIRONMENT = coreSettings.getString("defaultEnvironment", System.getProperty("env", Environments.sbermarket.preprod()));
         DEFAULT_RETAILER = coreSettings.getString("defaultRetailer", Tenants.metro().getAlias());
 
@@ -72,9 +74,5 @@ public final class Config {
         DO_CLEANUP_AFTER_TEST_RUN = coreSettings.getBoolean("doCleanupAfterTestRun", true);
         // Все существующие инстансы браузера связанные с selenium будут удалены, рабочий браузер не убивается
         DO_CLEANUP_BEFORE_TEST_RUN = coreSettings.getBoolean("doCleanupBeforeTestRun", true);
-    }
-
-    public static void main(String[] args) {
-        Config.load();
     }
 }
