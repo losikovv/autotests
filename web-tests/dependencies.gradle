@@ -1,0 +1,47 @@
+ext.versions = [
+        qase: '1.0.2',
+        sysoutOverSlf4j: '1.0.2',
+        logback: '1.2.3',
+        jsonSimple: '1.1.1',
+        selenium: '3.8.1',
+        seleniumChromeDriver: '3.14.0',
+        testng: '6.8.8',
+        restAssured: '4.1.1',
+        jetbrainsAnnotations: '19.0.0',
+        allure: '2.13.1',
+        aspectjweaver: '1.9.6',
+]
+
+ext.lib = [
+        qaseApi: "io.qase:qase-api:$versions.qase",
+        qaseTestng: "io.qase:qase-testng:$versions.qase",
+        sysoutOverSlf4j: "uk.org.lidalia:sysout-over-slf4j:$versions.sysoutOverSlf4j",
+        logback: "ch.qos.logback:logback-classic:$versions.logback",
+        jsonSimple: "com.googlecode.json-simple:json-simple:$versions.jsonSimple",
+        seleniumJava: "org.seleniumhq.selenium:selenium-java:$versions.selenium",
+        seleniumChromeDriver: "org.seleniumhq.selenium:selenium-chrome-driver:$versions.seleniumChromeDriver",
+        testng: "org.testng:testng:$versions.testng",
+        restAssured: "io.rest-assured:rest-assured:$versions.restAssured",
+        restAssuredSchemaValidator: "io.rest-assured:json-schema-validator:$versions.restAssured",
+        jetbrainsAnnotations: "org.jetbrains:annotations:$versions.jetbrainsAnnotations",
+        aspectjweaver: "org.aspectj:aspectjweaver:$versions.aspectjweaver",
+        allureTestng: "io.qameta.allure:allure-testng:$versions.allure",
+        allureJavaCommons: "io.qameta.allure:allure-java-commons:$versions.allure"
+]
+
+dependencies {
+    compile lib.aspectjweaver
+    compile lib.sysoutOverSlf4j
+    compile lib.qaseApi
+    compile lib.qaseTestng
+    compile lib.restAssured
+    implementation lib.allureTestng
+    implementation lib.allureJavaCommons
+    implementation lib.jetbrainsAnnotations
+    implementation lib.seleniumChromeDriver
+    implementation lib.restAssuredSchemaValidator
+    implementation lib.testng
+    implementation lib.seleniumJava
+    implementation lib.jsonSimple
+    testImplementation lib.logback
+}
