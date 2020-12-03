@@ -1,0 +1,207 @@
+task sberSmoke(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'sbermarket-smoke'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser',"${browser}"
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+        systemProperty 'qase.plan.id', 2
+    }
+}
+
+task sberAcceptance(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'sbermarket-acceptance'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser',"${browser}"
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
+}
+
+task sberRegression(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'sbermarket-regression'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser',"${browser}"
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
+}
+
+task metroSmoke(type: Test){
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'metro-smoke'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser',"${browser}"
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
+}
+
+task metroAcceptance(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'metro-acceptance'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser',"${browser}"
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
+}
+
+task metroRegression(type: Test){
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'metro-regression'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser',"${browser}"
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
+}
+
+task lentaSmoke(type: Test){
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'lenta-smoke'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser',"${browser}"
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
+}
+
+task lentaAcceptance(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'lenta-acceptance'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser',"${browser}"
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
+}
+
+task lentaRegression(type: Test){
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'lenta-regression'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser',"${browser}"
+    }
+    if (project.hasProperty('env')) {
+        systemProperty 'env',"${env}"
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase', "${qase}"
+    }
+}
+
+/* trying to add custom listeners
+task sberRegression(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'sbermarket-regression'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+        options {
+            listeners.add("src/main/java/utils/MyTestListerAdapter.java")
+        }
+    }
+}
+*/
+
