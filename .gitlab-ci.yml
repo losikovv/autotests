@@ -29,7 +29,7 @@ CustomSuiteTestRun:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true allureReport
+    - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true
   tags:
     - k8s-stage
   artifacts:
@@ -47,7 +47,7 @@ tests:apiv2:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew clean apiV2Regress -Penv=$P_ENV -Pqase=true allureReport
+    - ./gradlew clean apiV2Regress -Penv=$P_ENV -Pqase=true
   tags:
     - k8s-stage
   artifacts:
@@ -65,7 +65,7 @@ tests:apiShopper:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build apiShopperRegress -Penv=$P_ENV -Pqase=true allureReport
+    - ./gradlew build apiShopperRegress -Penv=$P_ENV -Pqase=true
   tags:
     - k8s-stage
   artifacts:
@@ -83,7 +83,7 @@ tests:apiZonesProductionOnly:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build apiZones -Penv=$P_ENV -Pqase=true allureReport
+    - ./gradlew build apiZones -Penv=$P_ENV -Pqase=true
   tags:
     - k8s-stage
   artifacts:
@@ -101,7 +101,7 @@ tests:UiSmoke:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - - ./gradlew build sberSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true allureReport
+    - - ./gradlew build sberUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true
   tags:
     - k8s-stage
   artifacts:
