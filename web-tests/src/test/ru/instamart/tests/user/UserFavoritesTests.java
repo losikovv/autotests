@@ -7,6 +7,7 @@ import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Flaky;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -36,12 +37,14 @@ public class UserFavoritesTests extends TestBase {
         assertPageIsUnavailable(Pages.UserProfile.favorites());
     }
 
-    @Test(  description = "Переход в любимые товары по кнопке, новый пользователь",
+    @Test(  description = "Переход в любимые товары по кнопке, новый пользователь" +
+            "https://instamart.atlassian.net/browse/STF-6773",
             priority = 402,
             groups = {
                     "metro-acceptance","metro-regression",
                     "sbermarket-Ui-smoke","testing"}
     )
+    @Flaky
     public void successOpenFavorites() {
         String phone = Generate.phoneNumber();
         modalType = User.Do.registration(
@@ -55,9 +58,6 @@ public class UserFavoritesTests extends TestBase {
         Shop.Favorites.open();
         baseChecks.checkPageIsAvailable();
         favoriteChecks.checkIsFavoriteOpen();
-//        Assert.assertTrue(
-//                kraken.detect().isInFavorites(),
-//                    "Не работает переход в любимые товары по кнопке в шапке\n");
     }
 
     @Test(  description = "Проверка пустого списка любимых товаров для нового пользователя",
