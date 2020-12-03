@@ -1,7 +1,7 @@
 package instamart.core.testdata.ui;
 
 import instamart.core.common.AppManager;
-import instamart.core.settings.Config;
+import instamart.core.model.TestVariables;
 import instamart.ui.common.pagesdata.JuridicalData;
 import instamart.ui.common.pagesdata.UserData;
 
@@ -59,7 +59,7 @@ public class Generate {
     }
 
     public static String testUserName(String role) {
-        return Config.TestVariables.TestParams.testMark + "-" + role + " " + AppManager.testrunId;
+        return TestVariables.TestParams.testMark + "-" + role + " " + AppManager.testrunId;
     }
     /** Сгенерировать тестовый номер телефона */
     public static String phoneNumber(){
@@ -69,9 +69,9 @@ public class Generate {
 
     public static String testUserEmail(String role, String userId) {
         if(role.equals("admin")) {
-            return userId + "-" + AppManager.testrunId + "-" + Config.TestVariables.TestParams.testMark + "@" + Config.TestVariables.CompanyParams.companyDomain;
+            return userId + "-" + AppManager.testrunId + "-" + TestVariables.TestParams.testMark + "@" + TestVariables.CompanyParams.companyDomain;
         } else {
-            return userId + "-" + AppManager.testrunId + "-" + Config.TestVariables.TestParams.testMark + "@" + Config.TestVariables.TestParams.testDomain;}
+            return userId + "-" + AppManager.testrunId + "-" + TestVariables.TestParams.testMark + "@" + TestVariables.TestParams.testDomain;}
     }
 
     public static UserData testCredentials(String role) {
@@ -80,7 +80,7 @@ public class Generate {
 
     public static UserData testCredentials(String role, int prefixLength) {
         String testUserId = Generate.userId();
-        UserData testuser = new UserData(role, testUserEmail(role, testUserId), testUserPhone(testUserId), Config.TestVariables.CompanyParams.companyName, testUserName(role));
+        UserData testuser = new UserData(role, testUserEmail(role, testUserId), testUserPhone(testUserId), TestVariables.CompanyParams.companyName, testUserName(role));
         if (prefixLength > 0) {
             String prefix = literalString(prefixLength);
             testuser.setLogin(prefix + "-" + testuser.getLogin());

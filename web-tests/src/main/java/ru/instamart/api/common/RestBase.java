@@ -6,6 +6,7 @@ import instamart.api.helpers.ShopperApiHelper;
 import instamart.core.common.AppManager;
 import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.listeners.TmsListener;
+import instamart.core.settings.Config;
 import instamart.ui.common.pagesdata.UserData;
 import io.qameta.allure.Allure;
 import io.restassured.builder.RequestSpecBuilder;

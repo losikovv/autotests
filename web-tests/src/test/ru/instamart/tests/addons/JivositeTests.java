@@ -10,12 +10,9 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.settings.Config.TestsConfiguration.AddonsTests.enableJivositeTests;
-
 public class JivositeTests extends TestBase {
 
-    @Test(  enabled = enableJivositeTests,
-            description = "Тест отсутствия виджета Jivosite на лендинге",
+    @Test(  description = "Тест отсутствия виджета Jivosite на лендинге",
             groups = {"sbermarket-acceptance","sbermarket-regression",},
             priority = 11101
     )
@@ -26,8 +23,7 @@ public class JivositeTests extends TestBase {
                 "Виджет Jivosite доступен на лендинге");
     }
 
-    @Test(  enabled = enableJivositeTests,
-            description = "Тест отсутствия виджета Jivosite в чекауте",
+    @Test(  description = "Тест отсутствия виджета Jivosite в чекауте",
             groups = {"sbermarket-acceptance","sbermarket-regression",},
             priority = 11102
     )
@@ -39,14 +35,13 @@ public class JivositeTests extends TestBase {
                 "Виджет Jivosite доступен в чекауте");
     }
 
-    @Test(  enabled = enableJivositeTests,
-            description = "Тест работы с виджетом Jivosite на витрине ритейлера",
+    @Test(  description = "Тест работы с виджетом Jivosite на витрине ритейлера",
             groups = {"sbermarket-acceptance","sbermarket-regression",},
             priority = 11103
     )
     public void successOperateJivositeWidgetOnRetailerPage() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
 
         Assert.assertTrue(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite недоступен на витрине ритейлера\n");
@@ -64,8 +59,7 @@ public class JivositeTests extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  enabled = enableJivositeTests,
-            description = "Тест работы с виджетом Jivosite в каталоге",
+    @Test(  description = "Тест работы с виджетом Jivosite в каталоге",
             groups = {"sbermarket-acceptance","sbermarket-regression",},
             priority = 11104
     )
@@ -89,8 +83,7 @@ public class JivositeTests extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  enabled = enableJivositeTests,
-            description = "Тест работы с виджетом Jivosite на странице 404",
+    @Test(  description = "Тест работы с виджетом Jivosite на странице 404",
             groups = {"sbermarket-acceptance","sbermarket-regression",},
             priority = 11105
     )
@@ -114,14 +107,13 @@ public class JivositeTests extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  enabled = enableJivositeTests,
-            description = "Тест успешной отправки сообщения в Jivosite",
+    @Test(  description = "Тест успешной отправки сообщения в Jivosite",
             groups = {"sbermarket-regression",},
             priority = 11106
     )
     public void successSendMessageToJivositeFromRetailerPage() {
         String testMessage = "тест";
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
 
         Shop.Jivosite.sendMessage(testMessage);
 

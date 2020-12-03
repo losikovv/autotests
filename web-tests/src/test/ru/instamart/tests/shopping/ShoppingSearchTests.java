@@ -16,7 +16,7 @@ public class ShoppingSearchTests extends TestBase {
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
     }
 
     @Test(
@@ -106,7 +106,7 @@ public class ShoppingSearchTests extends TestBase {
             priority = 505
     )
     public void successSearchItemUsingProductSuggests() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.Search.Field.fill("Мороженое");
 
         Assert.assertTrue(kraken.detect().isSearchProductSuggestsPresent(),

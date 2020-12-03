@@ -11,8 +11,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.settings.Config.TestsConfiguration.CheckoutTests.enableContactsStepTests;
-
 public class CheckoutContactsStepTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     // TODO расширить тесты, см тудушки - ATST-238
@@ -31,8 +29,7 @@ public class CheckoutContactsStepTests extends TestBase {
         Checkout.AddressStep.next();
     }
 
-    @Test(  enabled = enableContactsStepTests,
-            description = "Тест валидации шага Контакты в чекауте",
+    @Test(  description = "Тест валидации шага Контакты в чекауте",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1200
     )

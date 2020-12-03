@@ -11,25 +11,22 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.settings.Config.TestsConfiguration.AddonsTests.enableRetailRocketTest;
-
 public class RetailRocketSearchWidgetsTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
         User.Logout.quickly();
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
     }
 
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
     }
 
-    @Test(enabled = enableRetailRocketTest,
-            description = "Тест наличия виджета 'Мы нашли для вас похожие товары' после поиска без результата",
+    @Test(  description = "Тест наличия виджета 'Мы нашли для вас похожие товары' после поиска без результата",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12301
     )
@@ -41,8 +38,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
                     "Нет блока 'Мы нашли для вас похожие товары' после поиска без результата");
     }
 
-    @Test(enabled = enableRetailRocketTest,
-            description = "Тест наличия виджета 'Те, кто ищут выбирают' после поиска товара",
+    @Test(  description = "Тест наличия виджета 'Те, кто ищут выбирают' после поиска товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12302
     )
@@ -54,8 +50,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
                     "Нет блока 'Те, кто ищут выбирают' после поиска товара");
     }
 
-    @Test(enabled = enableRetailRocketTest,
-            description = "Тест наличия виджета 'Вы недавно смотрели' после поиска товара",
+    @Test(  description = "Тест наличия виджета 'Вы недавно смотрели' после поиска товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12303
     )
@@ -67,8 +62,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
                     "Нет блока 'Вы недавно смотрели' после поиска товара");
     }
 
-    @Test(enabled = enableRetailRocketTest,
-            description = "Тест открытия карточки товара из виджета 'Мы нашли для вас похожие товары' после поиска без результата",
+    @Test(  description = "Тест открытия карточки товара из виджета 'Мы нашли для вас похожие товары' после поиска без результата",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12304,
             dependsOnMethods = "successCheckSimilarItemsWidget"
@@ -83,8 +77,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
                     "Не открывается карточка товара из виджета 'Мы нашли для вас похожие товары' после поиска без результатов");
     }
 
-    @Test(enabled = enableRetailRocketTest,
-            description = "Тест открытия карточки товара из виджета 'Те, кто ищут выбирают' после поиска товара",
+    @Test(  description = "Тест открытия карточки товара из виджета 'Те, кто ищут выбирают' после поиска товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12305,
             dependsOnMethods = "successCheckFindersChoiceWidget"
@@ -99,8 +92,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
                     "Не открывается карточка товара из виджета 'Те кто ищут выбирают' после поиска товара");
     }
 
-    @Test(enabled = enableRetailRocketTest,
-            description = "Тест открытия карточки товара из виджета 'Вы недавно смотрели' после поиска товара",
+    @Test(  description = "Тест открытия карточки товара из виджета 'Вы недавно смотрели' после поиска товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12306,
             dependsOnMethods = "successCheckRecentlyViewedWidget"
@@ -121,8 +113,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
     }
 
     // TODO не работает, починить - ATST-231
-    @Test(enabled = enableRetailRocketTest,
-            description = "Тест успешного добавления товара в корзину из виджета 'Мы нашли для вас похожие товары' после поиска без результата",
+    @Test(  description = "Тест успешного добавления товара в корзину из виджета 'Мы нашли для вас похожие товары' после поиска без результата",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12307,
             dependsOnMethods = "successCheckSimilarItemsWidget"
@@ -137,8 +128,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
                     "Не добавляется в корзину товар из виджета 'Мы нашли для вас похожие товары' после поиска без результата");
     }
 
-    @Test(enabled = enableRetailRocketTest,
-            description = "Тест успешного добавления товара в корзину из виджета 'Те, кто ищут выбирают' после поиска товара",
+    @Test(  description = "Тест успешного добавления товара в корзину из виджета 'Те, кто ищут выбирают' после поиска товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12308,
             dependsOnMethods = "successCheckFindersChoiceWidget"
@@ -152,8 +142,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
                     "Не добавляется в корзину товар из виджета 'Те, кто ищут выбирают' после поиска товара");
     }
 
-    @Test(enabled = enableRetailRocketTest,
-            description = "Тест успешного добавления товара в корзину из виджета 'Вы недавно смотрели' после поиска товара",
+    @Test(  description = "Тест успешного добавления товара в корзину из виджета 'Вы недавно смотрели' после поиска товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12309,
             dependsOnMethods = "successCheckRecentlyViewedWidget"

@@ -13,18 +13,18 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
 import static instamart.core.common.AppManager.session;
-import static instamart.core.settings.Config.TestsConfiguration.AddonsTests.enableSeoCatalogTests;
 
 public class SeoCatalogTests extends TestBase {
-    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    
+    private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
         kraken.reach().seoCatalog();
     }
 
-    @Test(  enabled = enableSeoCatalogTests,
-            description = "Тест доступности страницы SEO-каталога",
+    @Test(  description = "Тест доступности страницы SEO-каталога",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 9100
     )
@@ -35,8 +35,7 @@ public class SeoCatalogTests extends TestBase {
                 Pages.seo_catalog());
     }
 
-    @Test(  enabled = enableSeoCatalogTests,
-            description = "Тест доступности товаров на странице SEO-каталога",
+    @Test(  description = "Тест доступности товаров на странице SEO-каталога",
             groups = {"sbermarket-regression"},
             priority = 9101
     )
@@ -48,8 +47,7 @@ public class SeoCatalogTests extends TestBase {
                     "Нет товаров на странице SEO-каталога");
     }
 
-    @Test(  enabled = enableSeoCatalogTests,
-            description = "Тест открытия карточки товара на странице SEO-каталога",
+    @Test(  description = "Тест открытия карточки товара на странице SEO-каталога",
             groups = {"sbermarket-regression"},
             priority = 9102
     )
@@ -62,8 +60,7 @@ public class SeoCatalogTests extends TestBase {
                     "Нет открывается карточка товара на странице SEO-каталога");
     }
 
-    @Test(  enabled = enableSeoCatalogTests,
-            description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога",
+    @Test(  description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога",
             groups = {"sbermarket-regression"},
             priority = 9103
     )
@@ -91,8 +88,7 @@ public class SeoCatalogTests extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  enabled = enableSeoCatalogTests,
-            description = "Тест авторизации при попытке добавления товара в корзину на странице SEO-каталога",
+    @Test(  description = "Тест авторизации при попытке добавления товара в корзину на странице SEO-каталога",
             groups = {"sbermarket-regression"},
             priority = 9104
     )
@@ -115,8 +111,7 @@ public class SeoCatalogTests extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  enabled = enableSeoCatalogTests,
-            description = "Тест регистрации при попытке добавления товара в корзину на странице SEO-каталога",
+    @Test(  description = "Тест регистрации при попытке добавления товара в корзину на странице SEO-каталога",
             groups = {"sbermarket-regression"},
             priority = 9105
     )

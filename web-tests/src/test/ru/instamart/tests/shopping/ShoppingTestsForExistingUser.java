@@ -58,7 +58,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
             Shop.Catalog.Item.addToCart();
         }
 
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         Assert.assertTrue(
                 !kraken.detect().isCartEmpty() && !kraken.detect().isCheckoutButtonActive(),
                 failMessage("Не выполнены предусловия теста"));
@@ -114,7 +114,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
         Shop.Catalog.Item.addToCart();
         User.Logout.quickly();
 
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         User.ShippingAddress.set(Addresses.Moscow.testAddress(),true);
         User.Auth.withEmail(testuser);
 

@@ -9,8 +9,6 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.settings.Config.TestsConfiguration.OrdersTests.enableOrderCitiesTests;
-
 public class OrdersCities extends TestBase {
 
     @BeforeClass(alwaysRun = true)
@@ -22,7 +20,7 @@ public class OrdersCities extends TestBase {
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void preconditions() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
     }
 
     @AfterMethod(alwaysRun = true,
@@ -37,8 +35,7 @@ public class OrdersCities extends TestBase {
         User.ShippingAddress.set(RestAddresses.Moscow.defaultAddress(),true);
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Москве",
+    @Test(  description = "Тест заказа в METRO в Москве",
             priority = 2301,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -55,8 +52,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Москве"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Санкт-Петербурге",
+    @Test(  description = "Тест заказа в METRO в Санкт-Петербурге",
             priority = 2302,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -73,8 +69,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не оформляется заказ в METRO в Санкт-Петербурге"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Казани",
+    @Test(  description = "Тест заказа в METRO в Казани",
             priority = 2303,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -91,8 +86,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Казани"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Екатеринбурге",
+    @Test(  description = "Тест заказа в METRO в Екатеринбурге",
             priority = 2304,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -109,8 +103,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Екатеринбурге"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Нижнем Новгороде",
+    @Test(  description = "Тест заказа в METRO в Нижнем Новгороде",
             priority = 2305,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -127,8 +120,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Нижнем Новгороде"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Ростове-на-Дону",
+    @Test(  description = "Тест заказа в METRO в Ростове-на-Дону",
             priority = 2306,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -145,8 +137,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Ростове-на-Дону"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Уфе",
+    @Test(  description = "Тест заказа в METRO в Уфе",
             priority = 2307,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -163,8 +154,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Уфе"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Краснодаре",
+    @Test(  description = "Тест заказа в METRO в Краснодаре",
             priority = 2308,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -181,8 +171,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Краснодаре"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Самаре",
+    @Test(  description = "Тест заказа в METRO в Самаре",
             priority = 2309,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -199,8 +188,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Самаре"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Воронеже",
+    @Test(  description = "Тест заказа в METRO в Воронеже",
             priority = 2310,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -217,8 +205,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Воронеже"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Омске",
+    @Test(  description = "Тест заказа в METRO в Омске",
             priority = 2311,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -235,8 +222,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Омске"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Волгограде",
+    @Test(  description = "Тест заказа в METRO в Волгограде",
             priority = 2312,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -253,8 +239,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Волгограде"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Новосибирске",
+    @Test(  description = "Тест заказа в METRO в Новосибирске",
             priority = 2313,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -271,8 +256,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Новосибирске"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Челябинске",
+    @Test(  description = "Тест заказа в METRO в Челябинске",
             priority = 2314,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -289,8 +273,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Челябинске"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Тюмени",
+    @Test(  description = "Тест заказа в METRO в Тюмени",
             priority = 2315,
             groups = {
                     "metro-acceptance", "metro-regression",
@@ -307,8 +290,7 @@ public class OrdersCities extends TestBase {
                     failMessage("Не удалось оформить заказ в METRO в Тюмени"));
     }
 
-    @Test(enabled = enableOrderCitiesTests,
-            description = "Тест заказа в METRO в Перми",
+    @Test(  description = "Тест заказа в METRO в Перми",
             priority = 2316,
             groups = {
                     "metro-acceptance", "metro-regression",

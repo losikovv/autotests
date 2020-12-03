@@ -16,8 +16,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.settings.Config.TestsConfiguration.OrdersTests.enableOrderBonusesTests;
-
 public class OrdersBonusesTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
@@ -37,8 +35,7 @@ public class OrdersBonusesTests extends TestBase {
         kraken.apiV2().cancelCurrentOrder();
     }
 
-    @Test(  enabled = enableOrderBonusesTests,
-            description = "Тест заказа с добавлением бонусов Много.ру",
+    @Test(  description = "Тест заказа с добавлением бонусов Много.ру",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 2501
     )
@@ -55,8 +52,7 @@ public class OrdersBonusesTests extends TestBase {
                     "В заказе не применилась бонусная программа Много.ру\n");
     }
 
-    @Test(  enabled = enableOrderBonusesTests,
-            description = "Тест заказа с добавлением бонусов Аерофлот Бонус",
+    @Test(  description = "Тест заказа с добавлением бонусов Аерофлот Бонус",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 2502
 

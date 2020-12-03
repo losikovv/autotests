@@ -58,7 +58,7 @@ public class WaitingHelper extends HelperBase {
 
     public void fluently(Function conditions, String message){
         new FluentWait<>(driver)
-                .withTimeout(Config.CoreSettings.waitingTimeout, TimeUnit.SECONDS)
+                .withTimeout(Config.WAITING_TIMEOUT, TimeUnit.SECONDS)
                 .withMessage(message)
                 .pollingEvery(1, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class)

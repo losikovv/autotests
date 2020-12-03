@@ -86,7 +86,7 @@ public class UserPasswordRecoveryTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successRequestRecoveryOnMainPage() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         User.PasswordRecovery.request(Users.superuser());
 
         Assert.assertTrue(

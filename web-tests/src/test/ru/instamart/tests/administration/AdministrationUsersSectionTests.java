@@ -13,17 +13,15 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.settings.Config.TestsConfiguration.AdministrationTests.enableUsersSectionTests;
-
 public class AdministrationUsersSectionTests extends TestBase {
+    
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
         kraken.reach().admin();
     }
 
-    @Test(  enabled = enableUsersSectionTests,
-            description = "Тест поиска пользователя в админке",
+    @Test(  description = "Тест поиска пользователя в админке",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 10701
     )
@@ -35,8 +33,7 @@ public class AdministrationUsersSectionTests extends TestBase {
                     "Не работает поиск пользователя в админке");
     }
 
-    @Test(  enabled = enableUsersSectionTests,
-            description = "Тест предоставления и отзыва админских прав пользователю",
+    @Test(  description = "Тест предоставления и отзыва админских прав пользователю",
             groups = {"sbermarket-regression"},
             priority = 10702
     )
@@ -71,8 +68,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  enabled = enableUsersSectionTests,
-            description = "Тест смены пароля пользователю",
+    @Test(  description = "Тест смены пароля пользователю",
             groups = {"sbermarket-regression"},
             priority = 10703
     )
@@ -94,8 +90,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         User.Logout.quickly();
     }
 
-    @Test(  enabled = enableUsersSectionTests,
-            description = "Тест проставления пользователю флага B2B",
+    @Test(  description = "Тест проставления пользователю флага B2B",
             groups = {"sbermarket-regression"},
             priority = 10704
     )
@@ -113,8 +108,7 @@ public class AdministrationUsersSectionTests extends TestBase {
                     "Пользователю не проставляется флаг B2B");
     }
 
-    @Test(  enabled = enableUsersSectionTests,
-            description = "Тест снятия B2B флага у пользователя",
+    @Test(  description = "Тест снятия B2B флага у пользователя",
             groups = {"sbermarket-regression"},
             priority = 10706
     )

@@ -1,7 +1,7 @@
 package instamart.ui.modules;
 
 import instamart.core.common.AppManager;
-import instamart.core.settings.Config;
+import instamart.core.model.TestVariables;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.ElementData;
@@ -537,13 +537,13 @@ public class Shop extends Base {
     public static class Search {
         @Step("Ищем не существующий товар")
         public static void nonexistingItem() {
-            item(Config.TestVariables.TestParams.ItemSearch.emptyResultsQuery);
+            item(TestVariables.TestParams.ItemSearch.emptyResultsQuery);
         }
 
         // TODO придумать решение для nonfood-магазинов - поиск заведомо существующего товара
         @Step("Ищем существующий товар")
         public static void existingItem() {
-            item(Config.TestVariables.TestParams.ItemSearch.testQuery);
+            item(TestVariables.TestParams.ItemSearch.testQuery);
         }
         @Step("Ищем товары по запросу: {0}")
         public static void item(String query) {

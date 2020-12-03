@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static instamart.core.settings.Config.CoreSettings.*;
+import static instamart.core.settings.Config.*;
 
 public class HelperBase {
     static WebDriver driver;
@@ -32,8 +32,8 @@ public class HelperBase {
 
     /** Отправить verbose-сообщение в консоль */
     public static void verboseMessage(String message) {
-        if(verbose) {
-            if (log) LOGGER.debug(message);
+        if(VERBOSE) {
+            if (LOG) LOGGER.debug(message);
             else System.out.println(message);
         }
     }

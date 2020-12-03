@@ -24,8 +24,6 @@ import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 import java.io.BufferedReader;
@@ -37,8 +35,8 @@ import java.net.URI;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import static instamart.core.settings.Config.CoreSettings.*;
-import static instamart.core.settings.Config.TestVariables.TestParams.testMark;
+import static instamart.core.model.TestVariables.TestParams.testMark;
+import static instamart.core.settings.Config.*;
 import static org.testng.Assert.fail;
 
 public class AppManager {
@@ -48,7 +46,6 @@ public class AppManager {
     public WebDriver driver;
     static public EnvironmentData environment;
     static public BrowserData browserData;
-    private String browser;
     public static SessionData session;
 
     private BrowseHelper browseHelper;
@@ -67,13 +64,9 @@ public class AppManager {
     private ApiHelper apiHelper;
 
     private StringBuffer verificationErrors = new StringBuffer();
-    private static final Logger LOGGER = LoggerFactory.getLogger(AppManager.class);
-
-    public AppManager(String browser) {
-        this.browser = browser;
-    }
 
     public AppManager() {
+        Config.load();
     }
 
     public void rise() throws IOException {
@@ -93,10 +86,9 @@ public class AppManager {
 
     private void setEnvironment() throws IOException {
         Properties properties = new Properties();
-        String env = System.getProperty("env", Config.CoreSettings.defaultEnvironment);
         properties.load(
                 new FileReader(
-                        new File(String.format("src/test/resources/environment_configs/%s.properties", env))));
+                        new File(String.format("src/test/resources/environment_configs/%s.properties", DEFAULT_ENVIRONMENT))));
         environment = new EnvironmentData(
                 properties.getProperty("tenant"),
                 properties.getProperty("server"),
@@ -118,13 +110,13 @@ public class AppManager {
     }
 
     public void setLogs() {
-        if (log) {
+        if (LOG) {
             SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
         }
     }
 
     private void initTestSession() {
-        if (multiSessionMode) {
+        if (MULTI_SESSION_MODE) {
             session = new SessionData(
                     testrunId, Generate.testCredentials("admin"), Generate.testCredentials("user"),
                     "shipments?search%5Blast_name%5D=" + testrunId + "&search%5Bstate%5D%5B%5D=ready",
@@ -140,11 +132,11 @@ public class AppManager {
     }
 
     private void initDriver() {
-        if (docker) {
+        if (DOCKER) {
             DesiredCapabilities caps = new DesiredCapabilities();
-            caps.setBrowserName(browser); // Chrome, FF, Opera
+            caps.setBrowserName(DEFAULT_BROWSER); // Chrome, FF, Opera
             caps.setCapability("enableVNC", true);
-            caps.setCapability("enableVideo", video);
+            caps.setCapability("enableVideo", VIDEO);
             caps.setCapability("timeZone", "Europe/Moscow");
             try {
                 driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), caps);
@@ -153,9 +145,9 @@ public class AppManager {
                 throw new RuntimeException(e);
             }
         } else {
-            switch (browser) {
+            switch (DEFAULT_BROWSER) {
                 case BrowserType.FIREFOX:
-                    if(doCleanupBeforeTestRun){
+                    if(DO_CLEANUP_BEFORE_TEST_RUN){
                         cleanProcessByName(BrowserType.FIREFOX);
                     }
                     //System.setProperty("webdriver.gecko.driver", "/Users/tinwelen/Documents/GitHub/automag/web-tests/geckodriver");
@@ -163,7 +155,7 @@ public class AppManager {
                     getCapabilities(driver);
                     break;
                 case BrowserType.CHROME:
-                    if(doCleanupBeforeTestRun){
+                    if(DO_CLEANUP_BEFORE_TEST_RUN){
                         cleanProcessByName(BrowserType.CHROME);
                     }
                     //ChromeDriverService chromeDriverService = ChromeDriverService.createDefaultService();
@@ -182,14 +174,14 @@ public class AppManager {
                     //System.out.println(String.format("\nChromedriver запущен на порту: %1$s",port));
                     break;
                 case BrowserType.SAFARI:
-                    if(doCleanupBeforeTestRun){
+                    if(DO_CLEANUP_BEFORE_TEST_RUN){
                         cleanProcessByName(BrowserType.SAFARI);
                     }
                     driver = new SafariDriver();
                     getCapabilities(driver);
                     break;
                 case BrowserType.IE:
-                    if(doCleanupBeforeTestRun){
+                    if(DO_CLEANUP_BEFORE_TEST_RUN){
                         cleanProcessByName(BrowserType.IE);
                     }
                     driver = new InternetExplorerDriver(); // there is no IE driver for mac yet :(
@@ -231,8 +223,8 @@ public class AppManager {
     }
 
     private void applyOptions() {
-        if (fullScreenMode) {driver.manage().window().fullscreen(); }
-        if (basicTimeout > 0) {driver.manage().timeouts().implicitlyWait(basicTimeout, TimeUnit.SECONDS);}
+        if (FULL_SCREEN_MODE) {driver.manage().window().fullscreen(); }
+        if (BASIC_TIMEOUT > 0) {driver.manage().timeouts().implicitlyWait(BASIC_TIMEOUT, TimeUnit.SECONDS);}
     }
 
     private void revealKraken() throws IOException {
@@ -243,13 +235,13 @@ public class AppManager {
             line = in.readLine();
         }
         in.close();
-        Config.isKrakenRevealen = true; // это вот как раз то самое место где она в true ставиться
+        IS_KRAKEN_REVEALEN = true; // это вот как раз то самое место где она в true ставиться
         // на данный момент решил вопрос через группы при старте тест сьютов
 
 
         System.out.println("\nENVIRONMENT: " + environment.getName() + " ( " + environment.getBasicUrl() + " )");
 
-        if(multiSessionMode) {
+        if(MULTI_SESSION_MODE) {
             System.out.println("\nTEST RUN ID: " + session.id);
         } else {
             System.out.println("\nTEST RUN ID: " + session.id + " (SOLO MODE)");

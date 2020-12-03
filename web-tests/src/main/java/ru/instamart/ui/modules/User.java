@@ -1,6 +1,7 @@
 package instamart.ui.modules;
 
 import instamart.core.helpers.HelperBase;
+import instamart.core.settings.Config;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,8 +15,6 @@ import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.api.objects.v2.Address;
 import instamart.core.testdata.ui.Generate;
-
-import static instamart.core.settings.Config.CoreSettings.multiSessionMode;
 
 public class User extends Base {
 
@@ -38,7 +37,7 @@ public class User extends Base {
                 kraken.get().url(startURL);
             }
             Auth.withEmail(user);
-            if (multiSessionMode && kraken.detect().isElementPresent(
+            if (Config.MULTI_SESSION_MODE && kraken.detect().isElementPresent(
                     Elements.Modals.AuthModal.errorMessage("Неверный email или пароль"))) {
                 HelperBase.verboseMessage(">>> Юзер " + user.getLogin() + " не найден, регистрируем\n");
                 // костыль для stage-окружений

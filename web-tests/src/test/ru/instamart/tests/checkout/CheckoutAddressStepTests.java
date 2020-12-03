@@ -13,8 +13,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.settings.Config.TestVariables.testOrderDetails;
-import static instamart.core.settings.Config.TestsConfiguration.CheckoutTests.enableAddressStepTests;
+import static instamart.core.model.TestVariables.testOrderDetails;
 import static instamart.ui.common.lib.CheckoutSteps.addressStep;
 
 public class CheckoutAddressStepTests extends TestBase {
@@ -34,8 +33,7 @@ public class CheckoutAddressStepTests extends TestBase {
         kraken.reach().checkout();
     }
 
-    @Test(  enabled = enableAddressStepTests,
-            description = "Тест валидации дефолтного шага Адрес в чекауте",
+    @Test(  description = "Тест валидации дефолтного шага Адрес в чекауте",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1100
     )
@@ -61,8 +59,7 @@ public class CheckoutAddressStepTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Checkout.AddressStep.nextButton());
     }
 
-    @Test(  enabled = enableAddressStepTests,
-            description = "Тест успешного прохода далее без заполнения деталей адреса",
+    @Test(  description = "Тест успешного прохода далее без заполнения деталей адреса",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1101
     )
@@ -72,8 +69,7 @@ public class CheckoutAddressStepTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
-    @Test(  enabled = enableAddressStepTests,
-            description = "Тест успешного прохода далее только с измененным значением радиокнопки Тип адреса",
+    @Test(  description = "Тест успешного прохода далее только с измененным значением радиокнопки Тип адреса",
             groups = {"sbermarket-regression"},
             priority = 1102
     )
@@ -84,8 +80,7 @@ public class CheckoutAddressStepTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
-    @Test(  enabled = enableAddressStepTests,
-            description = "Тест успешного прохода далее только с заполненным полем Квартира/офис",
+    @Test(  description = "Тест успешного прохода далее только с заполненным полем Квартира/офис",
             groups = {"sbermarket-regression"},
             priority = 1103
     )
@@ -96,8 +91,7 @@ public class CheckoutAddressStepTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
-    @Test(  enabled = enableAddressStepTests,
-            description = "Тест успешного прохода далее только с заполненным полем Этаж",
+    @Test(  description = "Тест успешного прохода далее только с заполненным полем Этаж",
             groups = {"sbermarket-regression"},
             priority = 1104
     )
@@ -108,8 +102,7 @@ public class CheckoutAddressStepTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
-    @Test(  enabled = enableAddressStepTests,
-            description = "Тест успешного прохода далее только с измененным значением чекбокса Есть лифт",
+    @Test(  description = "Тест успешного прохода далее только с измененным значением чекбокса Есть лифт",
             groups = {"sbermarket-regression"},
             priority = 1105
     )
@@ -120,8 +113,7 @@ public class CheckoutAddressStepTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
-    @Test(  enabled = enableAddressStepTests,
-            description = "Тест успешного прохода далее только с заполненным полем Подъезд",
+    @Test(  description = "Тест успешного прохода далее только с заполненным полем Подъезд",
             groups = {"sbermarket-regression"},
             priority = 1106
     )
@@ -132,8 +124,7 @@ public class CheckoutAddressStepTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
-    @Test(  enabled = enableAddressStepTests,
-            description = "Тест успешного прохода далее только с заполненным полем Код домофона",
+    @Test(  description = "Тест успешного прохода далее только с заполненным полем Код домофона",
             groups = {"sbermarket-regression"},
             priority = 1107
     )
@@ -144,8 +135,7 @@ public class CheckoutAddressStepTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
-    @Test(  enabled = enableAddressStepTests,
-            description = "Тест успешного прохода далее только с заполненным полем Комментарии по доставке",
+    @Test(  description = "Тест успешного прохода далее только с заполненным полем Комментарии по доставке",
             groups = {"sbermarket-regression"},
             priority = 1108
     )
@@ -156,8 +146,7 @@ public class CheckoutAddressStepTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
-    @Test(  enabled = enableAddressStepTests,
-            description = "Тест успешного прохода далее с очищенными полями",
+    @Test(  description = "Тест успешного прохода далее с очищенными полями",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1109
     )
@@ -172,8 +161,7 @@ public class CheckoutAddressStepTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
-    @Test(  enabled = enableAddressStepTests,
-            description = "Тест успешного прохода далее с заполненными полями",
+    @Test(  description = "Тест успешного прохода далее с заполненными полями",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1110
     )
@@ -184,8 +172,7 @@ public class CheckoutAddressStepTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
 
-    @Test(  enabled = enableAddressStepTests,
-            description = "Тест успешного запоминания ранее заполненных полей",
+    @Test(  description = "Тест успешного запоминания ранее заполненных полей",
             groups = {"sbermarket-regression"},
             priority = 1111
     )
@@ -246,8 +233,7 @@ public class CheckoutAddressStepTests extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  enabled = enableAddressStepTests,
-            description = "Тест успешного изменения ранее заполненных полей",
+    @Test(  description = "Тест успешного изменения ранее заполненных полей",
             groups = {"sbermarket-regression"},
             priority = 1112
     )

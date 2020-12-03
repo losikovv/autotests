@@ -16,7 +16,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
         User.Logout.quickly();
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
     }
 
     @Test(
