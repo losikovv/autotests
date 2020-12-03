@@ -175,6 +175,7 @@ public class AppManager {
                         options.addArguments("--headless");
                         options.addArguments("--disable-extensions");
                         options.addArguments("--no-sandbox");
+                        options.addArguments("--disable-dev-shm-usage");
                         System.setProperty("webdriver.chrome.driver", "WebDriverLinux/chromedriver");
                     }
                     driver = new ChromeDriver(options);
