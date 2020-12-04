@@ -8,6 +8,7 @@ import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Flaky;
+import io.qase.api.annotation.CaseId;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -36,7 +37,7 @@ public class UserFavoritesTests extends TestBase {
     public void noAccessToFavoritesForUnauthorizedUser(){
         assertPageIsUnavailable(Pages.UserProfile.favorites());
     }
-
+    @CaseId(1264)
     @Test(  description = "Переход в любимые товары по кнопке, новый пользователь" +
             "https://instamart.atlassian.net/browse/STF-6773",
             priority = 402,

@@ -4,6 +4,7 @@ import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Flaky;
+import io.qase.api.annotation.CaseId;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -19,6 +20,7 @@ public class SbermarketLandingTests extends TestBase {
         kraken.get().baseUrl();
     }
 
+    @CaseId(1687)
     @Test(
             description = "Тест валидности и наличия элементов лендинга Сбермаркета",
             priority = 51,
@@ -27,7 +29,7 @@ public class SbermarketLandingTests extends TestBase {
     @Flaky
     public void successValidateSbermarketLanding() {
         baseChecks.checkPageIsAvailable();
-
+        kraken.perform().hoverOn(Elements.Landings.SbermarketLanding.Header.container());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.Header.container());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.Header.logo());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.Header.loginButton());
@@ -38,10 +40,8 @@ public class SbermarketLandingTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.illustration());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.title());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.text());
-
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.list());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1));
-
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AdvantagesBlock.container());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.ZonesBlock.container());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.OrderBlock.container());
@@ -54,12 +54,12 @@ public class SbermarketLandingTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Footer.container());
     }
 
+    @CaseId(1683)
     @Test(
             description = "Тест перехода в каталог магазина с лендинга Сбермаркета",
             priority = 52,
             groups = {"testing","sbermarket-Ui-smoke"}
     )
-    @Flaky
     public void successGoToCatalogFromSbermarketLanding() {
         kraken.await().fluently(
                 ExpectedConditions

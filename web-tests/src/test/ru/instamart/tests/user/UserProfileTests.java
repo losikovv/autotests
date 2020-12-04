@@ -7,6 +7,7 @@ import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qase.api.annotation.CaseId;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -66,7 +67,7 @@ public class UserProfileTests extends TestBase {
 
         softAssert.assertAll();
     }
-
+    @CaseId(1524)
     @Test(
             description = "Тест валидации меню профиля Sbermarket",
             priority = 153,
@@ -87,6 +88,7 @@ public class UserProfileTests extends TestBase {
         accountChecks.checkIsAccountMenuClosed();
     }
 
+    @CaseId(1525)
     @Test(
             description = "Тест валидации кнопки 'Профиль' в меню профиля",
             priority = 154,
@@ -99,6 +101,7 @@ public class UserProfileTests extends TestBase {
         baseChecks.checkTransitionValidation(Elements.AccountMenu.profileButton());
     }
 
+    @CaseId(1526)
     @Test(
             description = "Тест валидации кнопки 'История заказов' в меню профиля",
             priority = 155,
@@ -124,7 +127,7 @@ public class UserProfileTests extends TestBase {
         Shop.AccountMenu.open();
         baseChecks.checkTransitionValidation(Elements.AccountMenu.termsButton());
     }
-
+    @CaseId(1528)
     @Test(
             description = "Тест валидации кнопки 'Доставка' в меню профиля",
             priority = 157,
@@ -167,6 +170,7 @@ public class UserProfileTests extends TestBase {
         baseChecks.checkTransitionValidation(Elements.AccountMenu.faqButton());
     }
 
+    @CaseId(1531)
     @Test(
             description = "Тест доступности страниц профиля пользователя",
             priority = 161,
@@ -174,7 +178,8 @@ public class UserProfileTests extends TestBase {
                     "metro-smoke","metro-acceptance","metro-regression",
                     "sbermarket-Ui-smoke","testing"
             }
-    ) public void successCheckProfilePagesAreAvailable() {
+    )
+    public void successCheckProfilePagesAreAvailable() {
         baseChecks.checkPageIsAvailable(Pages.UserProfile.edit());
         baseChecks.checkPageIsAvailable(Pages.UserProfile.favorites());
         baseChecks.checkPageIsAvailable(Pages.UserProfile.shipments());
