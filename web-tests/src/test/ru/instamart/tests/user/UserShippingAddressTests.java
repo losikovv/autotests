@@ -18,7 +18,7 @@ public class UserShippingAddressTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
     ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
-    String env = System.getProperty("env", Config.CoreSettings.defaultEnvironment);
+    String env = Config.DEFAULT_ENVIRONMENT;
 
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
@@ -36,7 +36,7 @@ public class UserShippingAddressTests extends TestBase {
     )
     public void noShippingAddressByDefault() {
         User.Logout.quickly();
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         shippingChecks.checkIsShippingAddressNotSet("Выбираем дефолтный адрес доставки");
         baseChecks.checkIsElementPresent(Elements.Header.shipAddressPlaceholder());
     }
@@ -49,7 +49,7 @@ public class UserShippingAddressTests extends TestBase {
             }
     )
     public void successOperateDefaultShoplist() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.StoresDrawer.open();
         shippingChecks.checkIsStoresDrawerOpen("Не открывается дефолтный список магазинов");
         shippingChecks.checkIsStoresDrawerNotEmpty("Дефолтный список магазинов пуст");
@@ -68,7 +68,7 @@ public class UserShippingAddressTests extends TestBase {
             priority = 303
     )
     public void noShippingAddressSetOnClose() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.ShippingAddressModal.open();
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),false);
         Shop.ShippingAddressModal.close();
@@ -85,7 +85,7 @@ public class UserShippingAddressTests extends TestBase {
     )
     public void noAvailableShopsOutOfDeliveryZone() {
         SoftAssert softAssert = new SoftAssert();
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddressMoscow(),true);
         shippingChecks.checkIsAddressOutOfZone(
                 "Не открывается модалка Адрес вне зоны доставки");
@@ -106,7 +106,7 @@ public class UserShippingAddressTests extends TestBase {
             priority = 305
     )
     public void successSetShippingAddressOnRetailerPage() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         shippingChecks.checkIsShippingAddressSet("Адрес доставки не установлен");
         shippingChecks.checkIsSetAddresEqualsToInput(Addresses.Moscow.defaultAddress(),
@@ -122,7 +122,7 @@ public class UserShippingAddressTests extends TestBase {
             priority = 306
     )
     public void noChangeShippingAddressOnCancel() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         if(!kraken.detect().isShippingAddressSet()) {
             User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         }
@@ -144,7 +144,7 @@ public class UserShippingAddressTests extends TestBase {
             priority = 307
     )
     public void successChangeShippingAddress() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         if(!kraken.detect().isShippingAddressSet()) {
             User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         }
@@ -190,7 +190,7 @@ public class UserShippingAddressTests extends TestBase {
             priority = 310
     )
     public void successSetShippingAddressAfterAddingProductFromCatalog() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.Catalog.Item.addToCart();
         shippingChecks.checkIsAddressModalOpen("Не открывается адресная модалка после добавления товара");
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
@@ -250,7 +250,7 @@ public class UserShippingAddressTests extends TestBase {
             priority = 313
     )
     public void successSetNewAddressAfterOutOfZoneAddressChange() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress(),true);
         shippingChecks.checkIsAddressOutOfZone(
                 "Не открывается модалка Адрес вне зоны доставки");

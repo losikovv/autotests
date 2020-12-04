@@ -14,7 +14,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.settings.Config.TestsConfiguration.OrdersTests.enableOrderRetailersTests;
 import static instamart.ui.common.lib.Retailers.*;
 
 public class OrdersRetailers extends TestBase {
@@ -33,8 +32,7 @@ public class OrdersRetailers extends TestBase {
         kraken.apiV2().cancelCurrentOrder();
     }
 
-    @Test(enabled = enableOrderRetailersTests,
-            description = "Тестовый заказ в Метро Москва",
+    @Test(description = "Тестовый заказ в Метро Москва",
             priority = 2401,
             groups = {
                     "metro-acceptance","metro-regression",
@@ -53,8 +51,7 @@ public class OrdersRetailers extends TestBase {
                     failMessage("Не удалось оформить заказ в Метро Москва"));
     }
 
-    @Test(enabled = enableOrderRetailersTests,
-            description = "Тестовый заказ в Ашан Москва",
+    @Test(description = "Тестовый заказ в Ашан Москва",
             priority = 2402,
             groups = {
                     "sbermarket-acceptance","sbermarket-regression"
@@ -73,8 +70,7 @@ public class OrdersRetailers extends TestBase {
                     failMessage("Не удалось оформить заказ в Ашан Москва"));
     }
 
-    @Test(enabled = enableOrderRetailersTests,
-            description = "Тестовый заказ в Азбука Вкуса Москва",
+    @Test(description = "Тестовый заказ в Азбука Вкуса Москва",
             priority = 2403,
             groups = {
                     "sbermarket-acceptance","sbermarket-regression"
@@ -93,8 +89,7 @@ public class OrdersRetailers extends TestBase {
                     failMessage("Не удалось оформить заказ в Азбука Вкуса Москва"));
     }
 
-    @Test(enabled = enableOrderRetailersTests,
-            description = "Тестовый заказ в Вкусвилл Москва",
+    @Test(description = "Тестовый заказ в Вкусвилл Москва",
             priority = 2404,
             groups = {
                     "sbermarket-acceptance","sbermarket-regression"
@@ -112,8 +107,7 @@ public class OrdersRetailers extends TestBase {
                 failMessage("Не удалось оформить заказ в Вкусвилл Москва"));
     }
 
-    @Test(enabled = enableOrderRetailersTests,
-            description = "Тестовый заказ в Лента Москва",
+    @Test(description = "Тестовый заказ в Лента Москва",
             priority = 2405,
             groups = {
                     "sbermarket-acceptance","sbermarket-regression"

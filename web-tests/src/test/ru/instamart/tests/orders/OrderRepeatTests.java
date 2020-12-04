@@ -11,8 +11,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.settings.Config.TestsConfiguration.OrdersTests.enableOrderRepeatTests;
-
 public class OrderRepeatTests extends TestBase {
 
     @BeforeMethod(alwaysRun = true,
@@ -29,7 +27,6 @@ public class OrderRepeatTests extends TestBase {
     }
 
     @Test(
-            enabled = enableOrderRepeatTests,
             description = "Повтор крайнего заказа из истории заказов",
             priority = 2005,
             groups = {
@@ -45,7 +42,6 @@ public class OrderRepeatTests extends TestBase {
     }
 
     @Test(
-            enabled = enableOrderRepeatTests,
             description = "Повтор крайнего заказа со страницы заказа",
             priority = 2006,
             groups = {
@@ -63,7 +59,6 @@ public class OrderRepeatTests extends TestBase {
     }
 
     @Test(
-            enabled = enableOrderRepeatTests,
             description = "Отмена повтора заказа со страницы заказа",
             priority = 2007,
             groups = {
@@ -83,7 +78,6 @@ public class OrderRepeatTests extends TestBase {
     }
 
     @Test(
-            enabled = enableOrderRepeatTests,
             description = "Отмена повтора заказа со страницы заказа",
             priority = 2008,
             groups = {

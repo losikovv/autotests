@@ -19,7 +19,7 @@ public class BasicSbermarketTests extends TestBase {
             priority = 101,
             groups = {"testing","sbermarket-Ui-smoke"}
     ) public void successValidateHeaderSbermarket() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         baseChecks.checkPageIsAvailable();
         baseChecks.checkIsElementPresent(Elements.Header.container());
         baseChecks.checkIsElementPresent(Elements.Header.shipAddressPlaceholder());
@@ -44,7 +44,7 @@ public class BasicSbermarketTests extends TestBase {
             groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successTransitionHowWeWork(){
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         baseChecks.checkTransitionValidation(Elements.Header.howWeWorkInfoButton());
     }
     @Test(
@@ -52,7 +52,7 @@ public class BasicSbermarketTests extends TestBase {
             groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successTransitionContactsInfo(){
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         baseChecks.checkTransitionValidation(Elements.Header.contactsInfoButton());
     }
     @Test(
@@ -60,7 +60,7 @@ public class BasicSbermarketTests extends TestBase {
             groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successTransitionHelpInfo(){
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         baseChecks.checkTransitionValidation(Elements.Header.helpInfoButton());
     }
     @Test(
@@ -68,7 +68,7 @@ public class BasicSbermarketTests extends TestBase {
             groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successTransitionDeliveryInfo(){
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         baseChecks.checkTransitionValidation(Elements.Header.deliveryInfoButton());
     }
     @Test(
@@ -76,7 +76,7 @@ public class BasicSbermarketTests extends TestBase {
             groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successTransitionLogo(){
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         baseChecks.checkTransitionValidation(Elements.Header.logo());
     }
 
@@ -90,7 +90,7 @@ public class BasicSbermarketTests extends TestBase {
             priority = 102,
             groups = {"testing","sbermarket-Ui-smoke"}
     ) public void successValidateFooterSbermarket() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         baseChecks.checkPageIsAvailable();
         checkFooterElementsPresence();
         validateFooterLinks();

@@ -12,8 +12,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.settings.Config.TestsConfiguration.OrdersTests.enableOrderReplacementsTests;
-
 public class OrdersReplacementsTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
@@ -32,8 +30,7 @@ public class OrdersReplacementsTests extends TestBase {
             description ="Очищаем окружение после теста")
     public void afterTest(ITestResult result) {kraken.apiV2().cancelCurrentOrder(); }
 
-    @Test(enabled = enableOrderReplacementsTests,
-            description = "Тест заказа с политикой Звонить / Заменять",
+    @Test(description = "Тест заказа с политикой Звонить / Заменять",
             priority = 2201,
             groups = {
                     "lenta-acceptance", "lenta-regression",
@@ -53,8 +50,7 @@ public class OrdersReplacementsTests extends TestBase {
                         failMessage("Текст инструкции по сборке не совпадает с выбранной политикой замен"));
     }
 
-    @Test(enabled = enableOrderReplacementsTests,
-            description = "Тест заказа с политикой Звонить / Убирать",
+    @Test(description = "Тест заказа с политикой Звонить / Убирать",
             priority = 2201,
             groups = {
                     "lenta-acceptance", "lenta-regression",
@@ -74,8 +70,7 @@ public class OrdersReplacementsTests extends TestBase {
                         failMessage("Текст инструкции по сборке не совпадает с выбранной политикой замен"));
     }
 
-    @Test(enabled = enableOrderReplacementsTests,
-            description = "Тест заказа с политикой Не звонить / Заменять",
+    @Test(description = "Тест заказа с политикой Не звонить / Заменять",
             priority = 2203,
             groups = {
                     "lenta-acceptance", "lenta-regression",
@@ -95,8 +90,7 @@ public class OrdersReplacementsTests extends TestBase {
                         failMessage("Текст инструкции по сборке не совпадает с выбранной политикой замен"));
     }
 
-    @Test(enabled = enableOrderReplacementsTests,
-            description = "Тест заказа с политикой Не звонить / Убирать",
+    @Test(description = "Тест заказа с политикой Не звонить / Убирать",
             priority = 2204,
             groups = {
                     "lenta-acceptance", "lenta-regression",

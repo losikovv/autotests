@@ -26,13 +26,12 @@ public class OrdersRetailerCardsTests extends TestBase {
         Shop.Cart.drop();
     }
 
-    @Test(  enabled = Config.TestsConfiguration.OrdersTests.enableOrderRetailerCardsTests,
-            description = "Тест заказа с картой Метро (только METRO WL)",
+    @Test(  description = "Тест заказа с картой Метро (только METRO WL)",
             groups = {"metro-acceptance","metro-regression"},
             priority = 2601
     )
     public void successOrderWithMetroRetailerCard() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         
@@ -48,8 +47,7 @@ public class OrdersRetailerCardsTests extends TestBase {
                     "В заказе не применилась карта Метро\n");
     }
 
-    @Test(  enabled = Config.TestsConfiguration.OrdersTests.enableOrderRetailerCardsTests,
-            description = "Тест заказа с картой Вкусвилл (только Sbermarket)",
+    @Test(  description = "Тест заказа с картой Вкусвилл (только Sbermarket)",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 2602
     )

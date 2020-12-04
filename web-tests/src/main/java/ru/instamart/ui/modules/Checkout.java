@@ -2,6 +2,7 @@ package instamart.ui.modules;
 
 import instamart.core.common.AppManager;
 import instamart.core.helpers.HelperBase;
+import instamart.core.settings.Config;
 import instamart.core.testdata.ui.PaymentTypes;
 import instamart.core.testdata.ui.BonusPrograms;
 import instamart.ui.common.lib.CheckoutSteps;
@@ -14,9 +15,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import java.util.concurrent.TimeUnit;
 
-import static instamart.core.settings.Config.CoreSettings.basicTimeout;
-import static instamart.core.settings.Config.CoreSettings.waitingTimeout;
-import static instamart.core.settings.Config.TestVariables.testOrderDetails;
+import static instamart.core.testdata.TestVariables.testOrderDetails;
 
 public class Checkout extends Base {
 
@@ -773,9 +772,9 @@ public class Checkout extends Base {
     /** Проверяем готовность чекаута перед заполнением */
     private void initCheckout() {
         new FluentWait<>(driver)
-                .withTimeout(waitingTimeout, TimeUnit.SECONDS)
+                .withTimeout(Config.WAITING_TIMEOUT, TimeUnit.SECONDS)
                 .withMessage("Не открывается чекаут")
-                .pollingEvery(basicTimeout, TimeUnit.SECONDS)
+                .pollingEvery(Config.BASIC_TIMEOUT, TimeUnit.SECONDS)
                 .until(ExpectedConditions.presenceOfElementLocated(Elements.Checkout.header().getLocator()));
         HelperBase.verboseMessage("✓ Чекаут\n");
     }

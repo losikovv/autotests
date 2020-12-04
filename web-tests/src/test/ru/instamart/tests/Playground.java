@@ -1,6 +1,7 @@
 package ru.instamart.tests;
 
 import instamart.core.common.AppManager;
+import instamart.core.testdata.TestVariables;
 import instamart.core.settings.Config;
 import instamart.core.testdata.ui.PaymentTypes;
 import instamart.ui.common.lib.Addresses;
@@ -52,7 +53,7 @@ public class Playground extends TestBase {
         User.Do.registration();
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         kraken.reach().checkout();
-        kraken.checkout().fillOrderDetails(Config.TestVariables.testOrderDetails());
+        kraken.checkout().fillOrderDetails(TestVariables.testOrderDetails());
     }
 
     @Test
@@ -149,7 +150,7 @@ public class Playground extends TestBase {
 
     @Test
     public void catalog() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         //kraken.await().simply(5);
         Shop.CatalogDrawer.open();
         //kraken.await().simply(5);

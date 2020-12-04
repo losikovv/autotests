@@ -1,6 +1,5 @@
 package ru.instamart.tests.addons;
 
-import instamart.core.settings.Config;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
@@ -11,15 +10,16 @@ import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
 public class Page404Tests extends TestBase {
-    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    
+    private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
         kraken.get().page(Pages.page404());
     }
 
-    @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,
-            description = "Тест познания котомудрости на странице 404",
+    @Test(  description = "Тест познания котомудрости на странице 404",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11001
     )
@@ -32,8 +32,7 @@ public class Page404Tests extends TestBase {
                     "Не работает познание котомудрости на странице 404");
     }
 
-    @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,
-            description = "Тест перехода на главную по одноименной кнопке на странице 404",
+    @Test(  description = "Тест перехода на главную по одноименной кнопке на странице 404",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11002
     )
@@ -43,8 +42,7 @@ public class Page404Tests extends TestBase {
         baseChecks.checkTransitionValidation(Elements.Page404.toHomeButton());
     }
 
-    @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,
-            description = "Тест перехода на главную по одноименной кнопке на странице 404 после познания котомудрости",
+    @Test(  description = "Тест перехода на главную по одноименной кнопке на странице 404 после познания котомудрости",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11003
     )
@@ -55,8 +53,7 @@ public class Page404Tests extends TestBase {
         baseChecks.checkTransitionValidation(Elements.Page404.toHomeButton());
     }
 
-    @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,
-            description = "Тест перехода в каталог по кнопке 'Познать цены' на странице 404 после познания котомудрости",
+    @Test(  description = "Тест перехода в каталог по кнопке 'Познать цены' на странице 404 после познания котомудрости",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 11004
     )
@@ -68,8 +65,7 @@ public class Page404Tests extends TestBase {
         baseChecks.checkTransitionValidation(Elements.Page404.learnPricesButton());
     }
 
-    @Test(  enabled = Config.TestsConfiguration.AddonsTests.enablePage404test,
-            description = "Тест познания новой котомудрости на странице 404 после познания первой",
+    @Test(  description = "Тест познания новой котомудрости на странице 404 после познания первой",
             groups = {"sbermarket-regression"},
             priority = 11005
     )

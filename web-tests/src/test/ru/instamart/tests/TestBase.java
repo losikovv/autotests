@@ -20,12 +20,10 @@ import org.testng.annotations.*;
 
 import static instamart.core.helpers.AllureHelper.allureEnvironmentWriter;
 import static instamart.core.helpers.HelperBase.verboseMessage;
-import static instamart.core.settings.Config.CoreSettings.doCleanupAfterTestRun;
 
 public class TestBase {
 
-    protected static final AppManager kraken
-            = new AppManager(System.getProperty("browser", Config.CoreSettings.defaultBrowser));
+    protected static final AppManager kraken = new AppManager();
 
     private static ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
     @BeforeSuite(groups = {
@@ -37,7 +35,7 @@ public class TestBase {
         new RestBase().initSpec();
         allureEnvironmentWriter(
                 ImmutableMap.<String, String>builder()
-                        .put("Browser", System.getProperty("browser", Config.CoreSettings.defaultBrowser))
+                        .put("Browser", Config.DEFAULT_BROWSER)
                         .put("Browser.Version", AppManager.browserData.getVersion())
                         .put("Operation system", AppManager.browserData.getOs())
                         .put("Tenant", AppManager.environment.getTenant())
@@ -54,7 +52,7 @@ public class TestBase {
             "metro-smoke","metro-acceptance","metro-regression"},
             description = "Очищаем окружение от артефактов после тестов, завершаем процессы браузеров")
     public void cleanup() {
-        if(doCleanupAfterTestRun) {
+        if(Config.DO_CLEANUP_AFTER_TEST_RUN) {
             kraken.cleanup().all();
         }
         kraken.stop();

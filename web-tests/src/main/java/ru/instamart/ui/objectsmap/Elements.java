@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
 import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.common.pagesdata.CheckoutStepData;
 
-import static instamart.core.settings.Config.TestVariables.CompanyParams.*;
+import static instamart.core.testdata.TestVariables.CompanyParams.*;
 
 public class Elements {
 

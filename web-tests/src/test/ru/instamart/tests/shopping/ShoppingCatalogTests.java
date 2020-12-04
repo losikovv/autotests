@@ -18,7 +18,7 @@ public class ShoppingCatalogTests extends TestBase {
             description = "Подготавливаем тестовое окружение к тестовому прогону")
     public void setup() {
         User.Logout.quickly();
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
     }
 

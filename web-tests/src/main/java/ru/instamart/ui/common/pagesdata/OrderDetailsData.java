@@ -1,6 +1,6 @@
 package instamart.ui.common.pagesdata;
 
-import instamart.core.settings.Config;
+import instamart.core.testdata.TestVariables;
 
 public class OrderDetailsData {
 
@@ -66,11 +66,11 @@ public class OrderDetailsData {
     }
 
     public OrderDetailsData() {
-        this.addressDetails = Config.TestVariables.testOrderDetails().getAddressDetails();
-        this.contactsDetails = Config.TestVariables.testOrderDetails().getContactsDetails();
-        this.replacementPolicy = Config.TestVariables.testOrderDetails().getReplacementPolicy();
-        this.paymentDetails = Config.TestVariables.testOrderDetails().getPaymentDetails();
-        this.deliveryTime = Config.TestVariables.testOrderDetails().getDeliveryTime();
+        this.addressDetails = TestVariables.testOrderDetails().getAddressDetails();
+        this.contactsDetails = TestVariables.testOrderDetails().getContactsDetails();
+        this.replacementPolicy = TestVariables.testOrderDetails().getReplacementPolicy();
+        this.paymentDetails = TestVariables.testOrderDetails().getPaymentDetails();
+        this.deliveryTime = TestVariables.testOrderDetails().getDeliveryTime();
     }
 
 

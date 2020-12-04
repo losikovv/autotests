@@ -33,12 +33,12 @@ public class UserLogoutTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successQuickLogout() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
 
         User.Do.loginAs(session.admin);
         User.Logout.quickly();
         baseChecks.checkPageIsAvailable();
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         authChecks.checkIsUserNotAuthorized("Не работает быстрый логаут");
     }
 
@@ -49,11 +49,11 @@ public class UserLogoutTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successManualLogout() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         User.Do.loginAs(session.admin);
         User.Logout.manually();
         baseChecks.checkPageIsAvailable();
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         authChecks.checkIsUserNotAuthorized("Не работает логаут");
     }
 
@@ -64,17 +64,17 @@ public class UserLogoutTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void noShipAddressAndEmptyCartAfterLogout() {
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         User.Do.loginAs(session.admin);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         kraken.await().simply(2);
         Shop.Catalog.Item.addToCart();
         User.Logout.manually();
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         authChecks.checkIsUserNotAuthorized("Не выполнены предусловия - не работает логаут");
         shippingChecks.checkIsShippingAddressNotSet("Логаут");
-        kraken.get().page(Config.CoreSettings.defaultRetailer);
+        kraken.get().page(Config.DEFAULT_RETAILER);
         shopChecks.checkIsCartNotEmpty("Логаут");
     }
 }

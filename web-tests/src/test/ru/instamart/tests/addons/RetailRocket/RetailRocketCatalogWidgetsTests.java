@@ -10,8 +10,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.settings.Config.TestsConfiguration.AddonsTests.enableRetailRocketTest;
-
 public class RetailRocketCatalogWidgetsTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
@@ -28,8 +26,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
     }
 
 
-    @Test ( enabled = enableRetailRocketTest,
-            description = "Тест наличия виджета 'Выбор покупателей' в каталоге",
+    @Test ( description = "Тест наличия виджета 'Выбор покупателей' в каталоге",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12101
     )
@@ -39,8 +36,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
                     "Нет блока 'Выбор покупателей' в каталоге");
     }
 
-    @Test ( enabled = enableRetailRocketTest,
-            description = "Тест наличия виджета 'Вы недавно смотрели' в каталоге",
+    @Test ( description = "Тест наличия виджета 'Вы недавно смотрели' в каталоге",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12102
     )
@@ -50,8 +46,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
                     "Нет блока 'Вы недавно смотрели' в каталоге");
     }
 
-    @Test ( enabled = enableRetailRocketTest,
-            description = "Тест успешного открытия карточки из виджета 'Выбор покупателей' в каталоге",
+    @Test ( description = "Тест успешного открытия карточки из виджета 'Выбор покупателей' в каталоге",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 12103,
             dependsOnMethods = "successCheckCustomersChoiceWidget"
@@ -64,8 +59,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
                     "Не открывается карточка товара из виджета 'Выбор покупателей' в каталоге");
     }
 
-    @Test ( enabled = enableRetailRocketTest,
-            description = "Тест успешного открытия карточки из виджета 'Вы недавно смотрели' в каталоге",
+    @Test ( description = "Тест успешного открытия карточки из виджета 'Вы недавно смотрели' в каталоге",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12104,
             dependsOnMethods = "successCheckRecentlyViewedWidget"
@@ -82,8 +76,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
                     "Не открывается карточка товара из виджета 'Выбор покупателей' в каталоге");
     }
 
-    @Test ( enabled = enableRetailRocketTest,
-            description = "Тест успешного добавления товара из виджета 'Выбор покупателей' в каталоге",
+    @Test ( description = "Тест успешного добавления товара из виджета 'Выбор покупателей' в каталоге",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12105,
             dependsOnMethods = "successCheckCustomersChoiceWidget"
@@ -98,8 +91,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
                     "Не добавляется в корзину товар из виджета 'Выбор покупателей' в каталоге");
     }
 
-    @Test ( enabled = enableRetailRocketTest,
-            description = "Тест успешного добавления товара из виджета 'Вы неавдно смотрели' в каталоге",
+    @Test ( description = "Тест успешного добавления товара из виджета 'Вы неавдно смотрели' в каталоге",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
             priority = 12106,
             dependsOnMethods = "successCheckRecentlyViewedWidget"

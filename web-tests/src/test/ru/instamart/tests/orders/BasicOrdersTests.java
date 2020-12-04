@@ -2,7 +2,7 @@ package ru.instamart.tests.orders;
 
 import instamart.api.common.RestAddresses;
 import instamart.core.common.AppManager;
-import instamart.core.settings.Config;
+import instamart.core.testdata.TestVariables;
 import instamart.core.testdata.ui.PaymentTypes;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.lib.Pages;
@@ -112,7 +112,7 @@ public class BasicOrdersTests extends TestBase {
         runTestOnlyOnServer("staging");
         kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
 
-        PaymentCardData creditCardData = Config.TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
+        PaymentCardData creditCardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
 
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cardOnline(), true, creditCardData);

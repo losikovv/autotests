@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.settings.Config.TestsConfiguration.CheckoutTests.enableBonusesTests;
 import static instamart.core.testdata.ui.BonusPrograms.aeroflot;
 import static instamart.core.testdata.ui.BonusPrograms.mnogoru;
 
@@ -21,8 +20,7 @@ public class CheckoutBonusesTests extends TestBase {
         kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
     }
 
-    @Test(  enabled = enableBonusesTests,
-            description = "Тест успешного добавления всех доступных бонусных программ в чекауте",
+    @Test(  description = "Тест успешного добавления всех доступных бонусных программ в чекауте",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1701
     )
@@ -59,8 +57,7 @@ public class CheckoutBonusesTests extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  enabled = enableBonusesTests,
-            description = "Тест выбора добавленных бонусных программ в чекауте",
+    @Test(  description = "Тест выбора добавленных бонусных программ в чекауте",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1702
     )
@@ -88,8 +85,7 @@ public class CheckoutBonusesTests extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  enabled = enableBonusesTests,
-            description = "Тест удаления всех бонусных программ в чекауте",
+    @Test(  description = "Тест удаления всех бонусных программ в чекауте",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 1703
     )

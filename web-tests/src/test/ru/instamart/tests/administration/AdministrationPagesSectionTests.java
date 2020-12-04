@@ -7,10 +7,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.settings.Config.TestsConfiguration.AdministrationTests.enablePagesSectionTests;
-
 public class AdministrationPagesSectionTests extends TestBase {
-    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    
+    private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     // TODO актуализировать тесты в классе - ATST-233
 
     @BeforeMethod(alwaysRun = true,
@@ -19,8 +18,7 @@ public class AdministrationPagesSectionTests extends TestBase {
         kraken.reach().admin();
     }
 
-    @Test(  enabled = enablePagesSectionTests,
-            description = "Проверка вкладки статических страниц",
+    @Test(  description = "Проверка вкладки статических страниц",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
             priority = 10801
     )
@@ -35,8 +33,7 @@ public class AdministrationPagesSectionTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.deletePageButton(page));
     }
 
-    @Test(  enabled = enablePagesSectionTests,
-            description = "Проверка страницы создания статической страницы",
+    @Test(  description = "Проверка страницы создания статической страницы",
             groups = {},
             priority = 10802
     )
@@ -45,8 +42,7 @@ public class AdministrationPagesSectionTests extends TestBase {
         Administration.Pages.validateStaticPage(testPageName);
     }
 
-    @Test(  enabled = enablePagesSectionTests,
-            description = "Тест создания и удаления статической страницы",
+    @Test(  description = "Тест создания и удаления статической страницы",
             groups = {},
             priority = 10803
     )
