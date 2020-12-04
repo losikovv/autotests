@@ -35,7 +35,7 @@ import java.net.URI;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import static instamart.core.model.TestVariables.TestParams.testMark;
+import static instamart.core.testdata.TestVariables.TestParams.testMark;
 import static instamart.core.settings.Config.*;
 import static org.testng.Assert.fail;
 

@@ -1,7 +1,7 @@
 package ru.instamart.tests;
 
 import instamart.core.common.AppManager;
-import instamart.core.model.TestVariables;
+import instamart.core.testdata.TestVariables;
 import instamart.core.settings.Config;
 import instamart.core.testdata.ui.PaymentTypes;
 import instamart.ui.common.lib.Addresses;

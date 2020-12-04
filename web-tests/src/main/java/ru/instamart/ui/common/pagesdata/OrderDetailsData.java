@@ -1,6 +1,6 @@
 package instamart.ui.common.pagesdata;
 
-import instamart.core.model.TestVariables;
+import instamart.core.testdata.TestVariables;
 
 public class OrderDetailsData {
 

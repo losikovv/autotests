@@ -1,7 +1,7 @@
 package instamart.core.testdata.ui;
 
 import instamart.core.common.AppManager;
-import instamart.core.model.TestVariables;
+import instamart.core.testdata.TestVariables;
 import instamart.ui.common.pagesdata.JuridicalData;
 import instamart.ui.common.pagesdata.UserData;
 

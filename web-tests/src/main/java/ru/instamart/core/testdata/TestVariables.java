@@ -1,4 +1,4 @@
-package instamart.core.model;
+package instamart.core.testdata;
 
 import instamart.core.testdata.ui.Juridicals;
 import instamart.core.testdata.ui.PaymentCards;

@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.model.TestVariables.testOrderDetails;
+import static instamart.core.testdata.TestVariables.testOrderDetails;
 import static instamart.ui.common.lib.CheckoutSteps.addressStep;
 
 public class CheckoutAddressStepTests extends TestBase {

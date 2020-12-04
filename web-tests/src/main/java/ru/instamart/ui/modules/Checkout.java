@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import java.util.concurrent.TimeUnit;
 
-import static instamart.core.model.TestVariables.testOrderDetails;
+import static instamart.core.testdata.TestVariables.testOrderDetails;
 
 public class Checkout extends Base {
 

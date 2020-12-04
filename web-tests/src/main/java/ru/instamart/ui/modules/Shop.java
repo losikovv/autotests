@@ -1,7 +1,7 @@
 package instamart.ui.modules;
 
 import instamart.core.common.AppManager;
-import instamart.core.model.TestVariables;
+import instamart.core.testdata.TestVariables;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.ElementData;
