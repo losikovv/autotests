@@ -27,9 +27,10 @@ CustomSuiteTestRun:
   script:
     - echo $P_ENV
     - echo $TEST_SET
+    - echo $QASE
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true
+    - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE
   tags:
     - k8s-stage
   artifacts:
