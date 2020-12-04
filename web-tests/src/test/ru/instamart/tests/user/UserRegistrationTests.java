@@ -10,6 +10,7 @@ import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qase.api.annotation.CaseId;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -27,6 +28,7 @@ public class UserRegistrationTests extends TestBase {
         User.Logout.quickly();
     }
 
+    @CaseId(1552)
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {
@@ -272,6 +274,7 @@ public class UserRegistrationTests extends TestBase {
                 "после заполнения всех полей и закрытия модалки");
     }
 
+    @CaseId(1541)
     @Test(
             description = "Регистрация нового пользователя на лендинге",
             groups = {"metro-acceptance","sbermarket-Ui-smoke"},
@@ -290,6 +293,7 @@ public class UserRegistrationTests extends TestBase {
         authChecks.checkIsUserAuthorized("Не работает регистрация на лендинге");
     }
 
+    @CaseId(1543)
     @Test(
             description = "Регистрация нового пользователя на витрине магазина",
             groups = {

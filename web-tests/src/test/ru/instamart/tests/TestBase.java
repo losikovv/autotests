@@ -44,7 +44,7 @@ public class TestBase {
                         .put("Shopper", AppManager.environment.getShopperUrl())
                         .build(), System.getProperty("user.dir")
                         + "/build/allure-results/");
-        TmsListener.setProjectCode("TESTAU");
+        TmsListener.setProjectCode("STF");
     }
 
     @AfterSuite(groups = {

@@ -7,6 +7,7 @@ import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
@@ -22,6 +23,7 @@ public class ShoppingCatalogTests extends TestBase {
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
     }
 
+    @CaseId(1595)
     @Test(
             description = "Тест работы cо шторкой каталога",
             groups = {"testing","sbermarket-Ui-smoke"}
@@ -35,6 +37,7 @@ public class ShoppingCatalogTests extends TestBase {
         itemChecks.checkIsCatalogDrawerClosed("Не закрывается шторка каталога\n");
     }
 
+    @CaseId(1596)
     @Test(
             description = "Тест открытия категории 1 уровня из шторки каталога",
             groups = {"testing","sbermarket-Ui-smoke"}
@@ -47,6 +50,7 @@ public class ShoppingCatalogTests extends TestBase {
                 "Не открывается страница категории 1 уровня из шторки каталога");
     }
 
+    @CaseId(1597)
     @Test(
             description = "Тест открытия категории 2 уровня из шторки каталога",
             groups = {"testing","sbermarket-Ui-smoke"}
@@ -61,11 +65,11 @@ public class ShoppingCatalogTests extends TestBase {
 
     // TODO добавить тест successValidateItemCard
 
+    @CaseId(1598)
     @Test(
             description = "Тест открывания/закрывания карточки продукта на главной",
             groups = {"testing","sbermarket-Ui-smoke"}
     )
-
     public void successOperateItemCardOnRetailerPage() {
         Shop.Catalog.Item.open();
         itemChecks.checkIsItemCardOpen("Не открывается карточка продукта на главной\n");
@@ -73,6 +77,7 @@ public class ShoppingCatalogTests extends TestBase {
         itemChecks.checkIsItemCardClosed("Не закрывается карточка продукта на главной\n");
     }
 
+    @CaseId(1599)
     @Test(
             description = "Тест открывания/закрывания карточки продукта в department-категории",
             groups = {"testing","sbermarket-Ui-smoke"}
@@ -85,7 +90,7 @@ public class ShoppingCatalogTests extends TestBase {
         Shop.ItemCard.close();
         itemChecks.checkIsItemCardClosed("Не закрывается карточка продукта в department-категории\n");
     }
-
+    @CaseId(1600)
     @Test(
             description = "Тест открывания/закрывания карточки продукта в taxon-категории",
             groups = {"testing","sbermarket-Ui-smoke"}
@@ -99,6 +104,7 @@ public class ShoppingCatalogTests extends TestBase {
         itemChecks.checkIsItemCardClosed("Не закрывается карточка продукта в taxon-категории\n");
     }
 
+    @CaseId(1601)
     @Test(
             description = "Тест открывания/закрывания карточки продукта в выдаче поиска",
             groups = {"testing","sbermarket-Ui-smoke"}
