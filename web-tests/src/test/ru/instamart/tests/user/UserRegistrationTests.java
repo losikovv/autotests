@@ -277,7 +277,7 @@ public class UserRegistrationTests extends TestBase {
     @CaseId(1541)
     @Test(
             description = "Регистрация нового пользователя на лендинге",
-            groups = {"metro-acceptance","sbermarket-Ui-smoke"},
+            groups = {"metro-acceptance","sbermarket-Ui-smoke","MRAutoCheck"},
             priority = 210
     )
     public void successRegOnLanding() {

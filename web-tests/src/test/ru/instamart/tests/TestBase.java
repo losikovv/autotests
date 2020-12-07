@@ -5,7 +5,6 @@ import instamart.api.common.RestBase;
 import instamart.core.common.AppManager;
 import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.helpers.HelperBase;
-import instamart.core.listeners.ApiListener;
 import instamart.core.settings.Config;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.pagesdata.ElementData;
@@ -27,7 +26,7 @@ public class TestBase {
 
     private static ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
     @BeforeSuite(groups = {
-            "testing","sbermarket-Ui-smoke","sbermarket-acceptance","sbermarket-regression",
+            "testing","sbermarket-Ui-smoke","MRAutoCheck","sbermarket-acceptance","sbermarket-regression",
             "metro-smoke","metro-acceptance","metro-regression"},
             description = "Выпускаем Кракена")
     public void start() throws Exception {
@@ -47,7 +46,7 @@ public class TestBase {
     }
 
     @AfterSuite(groups = {
-            "testing", "sbermarket-Ui-smoke","sbermarket-acceptance","sbermarket-regression",
+            "testing", "sbermarket-Ui-smoke","MRAutoCheck","sbermarket-acceptance","sbermarket-regression",
             "metro-smoke","metro-acceptance","metro-regression"},
             description = "Очищаем окружение от артефактов после тестов, завершаем процессы браузеров")
     public void cleanup() {

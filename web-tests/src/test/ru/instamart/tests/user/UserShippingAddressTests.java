@@ -30,7 +30,7 @@ public class UserShippingAddressTests extends TestBase {
             description = "Тест на то что по дефолту на витрине ритейлера не выбран адрес",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "sbermarket-acceptance","sbermarket-regression","MRAutoCheck"
             },
             priority = 301
     )

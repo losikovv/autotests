@@ -5,7 +5,6 @@ import instamart.api.helpers.ApiV2Helper;
 import instamart.api.helpers.ShopperApiHelper;
 import instamart.core.common.AppManager;
 import instamart.core.helpers.ConsoleOutputCapturerHelper;
-import instamart.core.listeners.ApiListener;
 import instamart.ui.common.pagesdata.UserData;
 import io.qameta.allure.Allure;
 import io.restassured.builder.RequestSpecBuilder;
@@ -42,7 +41,8 @@ public class RestBase {
             "api-v2-smoke",
             "api-shopper-smoke",
             "api-v2-regress",
-            "api-shopper-regress"},
+            "api-shopper-regress",
+            "MRAutoCheck"},
                  description = "Инициализация")
     public void start() throws Exception {
         kraken.riseRest();
@@ -97,7 +97,8 @@ public class RestBase {
                          "api-v2-smoke",
                          "api-shopper-smoke",
                          "api-v2-regress",
-                         "api-shopper-regress"},
+                         "api-shopper-regress",
+                         "MRAutoCheck"},
                  description = "Логаут")
     public void logout() {
         apiV2.logout();
@@ -106,7 +107,8 @@ public class RestBase {
     @AfterMethod(description = "Отмена активных заказов",
                  groups = {
                     "api-zones",
-                    "api-shopper-regress"},
+                    "api-shopper-regress",
+                         "MRAutoCheck"},
                  alwaysRun = true)
     public void cancelActiveOrders() {
         if (apiV2.authorized() &&

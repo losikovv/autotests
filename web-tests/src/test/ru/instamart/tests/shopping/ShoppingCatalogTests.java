@@ -26,7 +26,7 @@ public class ShoppingCatalogTests extends TestBase {
     @CaseId(1595)
     @Test(
             description = "Тест работы cо шторкой каталога",
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"testing","sbermarket-Ui-smoke","MRAutoCheck"}
     )
     public void successValidateCatalogDrawer() {
         Shop.CatalogDrawer.open();
@@ -40,7 +40,7 @@ public class ShoppingCatalogTests extends TestBase {
     @CaseId(1596)
     @Test(
             description = "Тест открытия категории 1 уровня из шторки каталога",
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"testing","sbermarket-Ui-smoke","MRAutoCheck"}
     )
     public void successGoToDepartmentFromCatalogDrawer() {
         Shop.CatalogDrawer.open();
@@ -53,7 +53,7 @@ public class ShoppingCatalogTests extends TestBase {
     @CaseId(1597)
     @Test(
             description = "Тест открытия категории 2 уровня из шторки каталога",
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"testing","sbermarket-Ui-smoke","MRAutoCheck"}
     )
     public void successGoToTaxonFromCatalogDrawer() {
         Shop.CatalogDrawer.open();

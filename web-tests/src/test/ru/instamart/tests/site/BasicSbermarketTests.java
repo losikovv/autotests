@@ -151,7 +151,7 @@ public class BasicSbermarketTests extends TestBase {
             dataProviderClass = RestDataProvider.class,
             description = "Тест доступности / недоступности витрин ритейлеров Сбермаркета ",
             priority = 103,
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"testing","sbermarket-Ui-smoke","MRAutoCheck"}
     ) public void successCheckSbermarketRetailers(String slug, boolean available) {
         if (available) baseChecks.checkRetailerIsAvailable(slug);
         else baseChecks.checkRetailerIsUnavailable(slug);
