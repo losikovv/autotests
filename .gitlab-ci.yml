@@ -1,6 +1,9 @@
 stages:
   - build
   - tests
+  - history_copy
+  - reports
+  - make_report
 build:
   image:
     name: registry.sbermarket.tech/docker/proxy/kaniko-project/executor:debug-v1.0.0
@@ -124,3 +127,63 @@ tests:debug:
     - bash ./report.sh /build/allure-results http://allurerest.matthew.keenetic.link default
   tags:
     - k8s-stage
+
+tests:debugV2:
+  stage: tests
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - cd web-tests
+    - ./gradlew build debug
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/build/allure-results/
+    expire_in: 1 day
+
+history:
+  stage: history_copy
+  tags:
+    - docker
+  image: storytel/alpine-bash-curl
+  script:
+    - 'curl --location --output artifacts.zip "https://gitlab.sbermarket.tech/api/v4/projects/121/jobs/artifacts/master/download?job=pages&job_token=$CI_JOB_TOKEN"'
+    - apk add unzip
+    - unzip artifacts.zip
+    - chmod -R 777 public
+    - cp -r ./public/history ./web-tests/build/allure-results
+  allow_failure: true
+  artifacts:
+    paths:
+      - ./allure-results
+    expire_in: 1 day
+  rules:
+    - when: always
+
+allure:
+  stage: reports
+  tags:
+    - docker
+  image: frankescobar/allure-docker-service
+  script:
+    - allure generate -c ./allure-results -o ./allure-report
+  artifacts:
+    paths:
+      - ./allure-results
+      - ./allure-report
+    expire_in: 1 day
+  rules:
+    - when: always
+
+pages:
+  stage: make_report
+  script:
+    - mkdir public
+    - mv ./allure-report/* public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - when: always
+
