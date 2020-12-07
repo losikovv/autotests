@@ -121,6 +121,6 @@ tests:debug:
     - echo $P_ENV
     - cd web-tests
     - ./gradlew build debug
-    - debug.sh /build/allure-results http://allurerest.matthew.keenetic.link default
+    - bash ./debug.sh /build/allure-results http://allurerest.matthew.keenetic.link default
   tags:
     - k8s-stage
