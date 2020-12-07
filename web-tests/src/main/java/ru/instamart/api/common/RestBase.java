@@ -5,8 +5,7 @@ import instamart.api.helpers.ApiV2Helper;
 import instamart.api.helpers.ShopperApiHelper;
 import instamart.core.common.AppManager;
 import instamart.core.helpers.ConsoleOutputCapturerHelper;
-import instamart.core.listeners.TmsListener;
-import instamart.core.settings.Config;
+import instamart.core.listeners.ApiListener;
 import instamart.ui.common.pagesdata.UserData;
 import io.qameta.allure.Allure;
 import io.restassured.builder.RequestSpecBuilder;
@@ -56,7 +55,6 @@ public class RestBase {
                         .put("Shopper", AppManager.environment.getShopperUrl())
                         .build(), System.getProperty("user.dir")
                         + "/build/allure-results/");
-        TmsListener.setProjectCode("APIAT");
     }
 
     public void initSpec() {

@@ -65,10 +65,6 @@ public class AppManager {
 
     private StringBuffer verificationErrors = new StringBuffer();
 
-    public AppManager() {
-        Config.load();
-    }
-
     public void rise() throws IOException {
         setLogs();
         setEnvironment();
