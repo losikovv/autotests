@@ -11,13 +11,10 @@ import io.qase.api.enums.RunResultStatus;
 import io.qase.api.exceptions.QaseException;
 import io.qase.api.models.v1.suites.Suite;
 import io.qase.api.models.v1.testplans.TestPlan;
-import io.qase.api.models.v1.testruns.TestRun;
-import io.qase.api.models.v1.testruns.TestRuns;
 import io.qase.api.services.TestCaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
-import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
@@ -32,11 +29,11 @@ public final class QaseService {
 
     private static final Logger logger = LoggerFactory.getLogger(QaseService.class);
 
+    private final String projectCode;
     private final QaseApi qaseApi;
     private final List<Integer> testCasesList;
 
     private boolean qase = Boolean.parseBoolean(System.getProperty("qase","false"));
-    private String projectCode;
     private String testRunName;
     private Long runId;
     private String hash;
@@ -150,6 +147,10 @@ public final class QaseService {
         }
     }
 
+    public QaseApi getQaseApi() {
+        return qaseApi;
+    }
+
     private void addTestCasesFromChildSuite(final TestCaseService.Filter filter, final int parentId, final List<Suite> suites) {
         for (Suite suite : suites) {
             if (suite.getParentId() != null && suite.getParentId() == parentId) {
@@ -210,18 +211,5 @@ public final class QaseService {
             }
         }
         return null;
-    }
-
-    /**
-     * ЗАПУСК ТЕСТА УДАЛЯЕТ ВСЕ ТЕСТРАНЫ У УКАЗАННОГО ПРОЕКТА
-     */
-    @Test
-    public void deleteAllProjectTestRuns() {
-        this.projectCode = "";
-        final TestRuns testRuns = qaseApi
-                .testRuns()
-                .getAll(projectCode, true);
-        List<TestRun> testRunList = testRuns.getTestRunList();
-        testRunList.forEach(testRun -> qaseApi.testRuns().delete(projectCode, testRun.getId()));
     }
 }

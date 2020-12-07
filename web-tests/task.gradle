@@ -21,3 +21,15 @@ task Testing(type: Test) {
         systemProperty 'env',"${env}"
     }*/
 }
+
+task cleanup(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/setup-suite.xml'
+        includeGroups 'cleanup'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
