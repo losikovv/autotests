@@ -5,7 +5,7 @@ import instamart.api.common.RestBase;
 import instamart.core.common.AppManager;
 import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.helpers.HelperBase;
-import instamart.core.listeners.TmsListener;
+import instamart.core.listeners.ApiListener;
 import instamart.core.settings.Config;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.pagesdata.ElementData;
@@ -44,7 +44,6 @@ public class TestBase {
                         .put("Shopper", AppManager.environment.getShopperUrl())
                         .build(), System.getProperty("user.dir")
                         + "/build/allure-results/");
-        TmsListener.setProjectCode("STF");
     }
 
     @AfterSuite(groups = {

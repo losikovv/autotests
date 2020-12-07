@@ -1,6 +1,8 @@
-package instamart.core.listeners;
+package instamart.core.service;
 
 import instamart.core.common.AppManager;
+import instamart.core.settings.Config;
+import io.qameta.allure.Description;
 import io.qameta.allure.TmsLink;
 import io.qase.api.QaseApi;
 import io.qase.api.annotation.CaseId;
@@ -12,12 +14,10 @@ import io.qase.api.models.v1.testplans.TestPlan;
 import io.qase.api.models.v1.testruns.TestRun;
 import io.qase.api.models.v1.testruns.TestRuns;
 import io.qase.api.services.TestCaseService;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
 import org.testng.ITestResult;
+import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
@@ -28,56 +28,23 @@ import java.util.Optional;
 
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 
-/**
- * Листнер для отправки результатов в QASE
- */
-public class TmsListener implements ITestListener {
-    private static final Logger logger = LoggerFactory.getLogger(TmsListener.class);
-    private final QaseApi qaseApi = new QaseApi("c6f13d354e35e6561f66981f856b71a16daf8ba1");
+public final class QaseService {
+
+    private static final Logger logger = LoggerFactory.getLogger(QaseService.class);
+
+    private final QaseApi qaseApi;
+    private final List<Integer> testCasesList;
+
     private boolean qase = Boolean.parseBoolean(System.getProperty("qase","false"));
-    private static String projectCode;
+    private String projectCode;
     private String testRunName;
     private Long runId;
-    private List<Integer> testCasesList = new ArrayList<>();
     private String hash;
 
-    public static void setProjectCode(String projectCode) {
-        TmsListener.projectCode = projectCode;
-    }
-
-    @Override
-    public void onStart(ITestContext context) {
-        if (projectCode == null) qase = false;
-        generateTestCasesList();
-        createTestRun();
-    }
-
-    @Override
-    public void onFinish(ITestContext context) {
-    }
-
-    @Override
-    public void onTestStart(ITestResult result) {
-        //hash = sendTestInProgress(result);
-    }
-
-    @Override
-    public void onTestSuccess(ITestResult result) {
-        sendResult(result, RunResultStatus.passed);
-    }
-
-    @Override
-    public void onTestFailure(ITestResult result) {
-        sendResult(result, RunResultStatus.failed);
-    }
-
-    @Override
-    public void onTestSkipped(ITestResult result) {
-        sendResult(result, RunResultStatus.blocked);
-    }
-
-    @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+    public QaseService(final String projectCode) {
+        this.projectCode = projectCode;
+        this.qaseApi = new QaseApi(Config.QASE_API_TOKEN);
+        this.testCasesList = new ArrayList<>();
     }
 
     /**
@@ -85,18 +52,21 @@ public class TmsListener implements ITestListener {
      * Если planId не указан, но suiteId указан, то из сьюта получаем automated кейсы
      * Если suiteId не указан, то из всего проекта получаем automated кейсы
      */
-    private void generateTestCasesList() {
-        if (!qase) return;
-        TestCaseService.Filter filter = qaseApi
+    public void generateTestCasesList() {
+        if (!qase || projectCode == null) return;
+
+        final TestCaseService.Filter filter = qaseApi
                 .testCases()
                 .filter()
                 .automation(Automation.automated);
-        int planId = Integer.parseInt(System.getProperty("qase.plan.id","0"));
-        int suiteId = Integer.parseInt(System.getProperty("qase.suite.id","0"));
+        final int planId = Integer.parseInt(System.getProperty("qase.plan.id","0"));
+        final int suiteId = Integer.parseInt(System.getProperty("qase.suite.id","0"));
+
         if (planId != 0) {
-            TestPlan testPlan = qaseApi
+            final TestPlan testPlan = qaseApi
                     .testPlans()
                     .get(projectCode, planId);
+
             testRunName = testPlan.getTitle();
             testPlan.getCases()
                     .forEach(testCase -> testCasesList.add((int) testCase.getCaseId()));
@@ -104,7 +74,8 @@ public class TmsListener implements ITestListener {
             filter.suiteId(suiteId);
             testRunName = qaseApi.suites().get(projectCode, suiteId).getTitle();
             addTestCasesToList(filter);
-            List<Suite> suites = qaseApi.suites()
+
+            final List<Suite> suites = qaseApi.suites()
                     .getAll(projectCode)
                     .getSuiteList();
             addTestCasesFromChildSuite(filter, suiteId, suites);
@@ -115,30 +86,13 @@ public class TmsListener implements ITestListener {
         if (testCasesList.size() == 0) qase = false;
     }
 
-    private void addTestCasesFromChildSuite(TestCaseService.Filter filter, int parentId, List<Suite> suites) {
-        for (Suite suite : suites) {
-            if (suite.getParentId() != null && suite.getParentId() == parentId) {
-                int suiteId = (int) suite.getId();
-                filter.suiteId(suiteId);
-                addTestCasesToList(filter);
-                addTestCasesFromChildSuite(filter, suiteId, suites);
-            }
-        }
-    }
-
-    private void addTestCasesToList(TestCaseService.Filter filter) {
-        qaseApi.testCases()
-                .getAll(projectCode, filter)
-                .getTestCaseList()
-                .forEach(testCase -> testCasesList.add((int) testCase.getId()));
-    }
-
     /**
      * Создаём тест-ран с полученными кейсами
      */
-    private void createTestRun() {
-        if (!qase) return;
-        Integer[] casesArray = new Integer[testCasesList.size()];
+    public void createTestRun() {
+        if (!qase || projectCode == null) return;
+
+        final Integer[] casesArray = new Integer[testCasesList.size()];
         runId = qaseApi.testRuns().create(
                 projectCode,
                 testRunName + " [" + AppManager.environment.getName() + "] " + LocalDate.now(),
@@ -146,46 +100,26 @@ public class TmsListener implements ITestListener {
     }
 
     /**
-     * Отправляем инфу о том, что тест начат (статус "in_progress")
-     * @return получаем String c хэшэм для последующего апдейта результата
-     */
-    private String sendTestInProgress(ITestResult result) {
-        if (!qase) return null;
-        Long caseId = getCaseId(result);
-        if (caseId != null) {
-            try {
-                return qaseApi.testRunResults()
-                        .create(projectCode,
-                                runId,
-                                caseId,
-                                RunResultStatus.in_progress);
-            } catch (QaseException e) {
-                logger.error(e.getMessage());
-            }
-        }
-        return null;
-    }
-
-    /**
      * Отправляем статус прохождения теста
      */
-    private void sendResult(ITestResult result, RunResultStatus status) {
+    public void sendResult(final ITestResult result, final RunResultStatus status) {
         if (!qase) return;
-        Duration timeSpent = Duration
+
+        final Duration timeSpent = Duration
                 .ofMillis(result.getEndMillis() - result.getStartMillis());
-        Optional<Throwable> resultThrowable = Optional
+        final Optional<Throwable> resultThrowable = Optional
                 .ofNullable(result.getThrowable());
-        String comment = resultThrowable
+        final String comment = resultThrowable
                 .flatMap(throwable -> Optional.of(throwable.toString()))
                 .orElse(null);
-        Boolean isDefect = resultThrowable
+        final Boolean isDefect = resultThrowable
                 .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
                 .orElse(false);
-        String stacktrace = resultThrowable
+        final String stacktrace = resultThrowable
                 .flatMap(throwable -> Optional.of(getStacktrace(throwable)))
                 .orElse(null);
 
-        Long caseId = getCaseId(result);
+        final Long caseId = getCaseId(result);
         if (caseId != null) {
             try {
                 if (hash == null) {
@@ -216,11 +150,51 @@ public class TmsListener implements ITestListener {
         }
     }
 
+    private void addTestCasesFromChildSuite(final TestCaseService.Filter filter, final int parentId, final List<Suite> suites) {
+        for (Suite suite : suites) {
+            if (suite.getParentId() != null && suite.getParentId() == parentId) {
+                int suiteId = (int) suite.getId();
+                filter.suiteId(suiteId);
+                addTestCasesToList(filter);
+                addTestCasesFromChildSuite(filter, suiteId, suites);
+            }
+        }
+    }
+
+    private void addTestCasesToList(final TestCaseService.Filter filter) {
+        qaseApi.testCases()
+                .getAll(projectCode, filter)
+                .getTestCaseList()
+                .forEach(testCase -> testCasesList.add((int) testCase.getId()));
+    }
+
+    /**
+     * Отправляем инфу о том, что тест начат (статус "in_progress")
+     * @return получаем String c хэшэм для последующего апдейта результата
+     */
+    @Description
+    private String sendTestInProgress(ITestResult result) {
+        if (!qase) return null;
+        Long caseId = getCaseId(result);
+        if (caseId != null) {
+            try {
+                return qaseApi.testRunResults()
+                        .create(projectCode,
+                                runId,
+                                caseId,
+                                RunResultStatus.in_progress);
+            } catch (QaseException e) {
+                logger.error(e.getMessage());
+            }
+        }
+        return null;
+    }
+
     /**
      * Получаем CaseId из аннотации теста
      */
-    private Long getCaseId(ITestResult result) {
-        Method method = result
+    private Long getCaseId(final ITestResult result) {
+        final Method method = result
                 .getMethod()
                 .getConstructorOrMethod()
                 .getMethod();
@@ -243,8 +217,8 @@ public class TmsListener implements ITestListener {
      */
     @Test
     public void deleteAllProjectTestRuns() {
-        setProjectCode("");
-        TestRuns testRuns = qaseApi
+        this.projectCode = "";
+        final TestRuns testRuns = qaseApi
                 .testRuns()
                 .getAll(projectCode, true);
         List<TestRun> testRunList = testRuns.getTestRunList();
