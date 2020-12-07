@@ -24,7 +24,7 @@ public class ShipmentlessTests extends RestBase {
 
     @CaseId(28)
     @Test(  description = "Получаем инфу о сборщике",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke","MRAutoCheck"})
     public void getShopper() {
         response = ShopperApiRequests.Shopper.GET();
         assertStatusCode200(response);

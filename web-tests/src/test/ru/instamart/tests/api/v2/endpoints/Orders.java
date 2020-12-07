@@ -29,7 +29,7 @@ public class Orders extends RestBase {
 
     @CaseId(4)
     @Test(  description = "Получаем заказы",
-            groups = {"api-v2-smoke"})
+            groups = {"api-v2-smoke","MRAutoCheck"})
     public void getOrders() {
         response = ApiV2Requests.Orders.GET();
         ApiV2Checkpoints.assertStatusCode200(response);

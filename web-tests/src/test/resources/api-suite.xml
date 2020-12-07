@@ -12,6 +12,7 @@
         <include name="api-v2-regress"/>
         <include name="api-shopper-smoke"/>
         <include name="api-shopper-regress"/>
+        <include name="MRAutoCheck"/>
       </run>
     </groups>
     <classes>
