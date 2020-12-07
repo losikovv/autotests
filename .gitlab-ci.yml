@@ -110,3 +110,17 @@ tests:UiSmoke:
     paths:
       - web-tests/build/allure-results/
     expire_in: 1 week
+
+tests:debug:
+  when: manual
+  stage: tests
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - echo $REPORT
+    - echo $REPORT_URL
+    - echo $P_ENV
+    - cd web-tests
+    - ./gradlew build debug
+    - debug.sh /build/allure-results http://allurerest.matthew.keenetic.link default
+  tags:
+    - k8s-stage

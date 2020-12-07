@@ -21,3 +21,15 @@ task Testing(type: Test) {
         systemProperty 'env',"${env}"
     }*/
 }
+
+task debug(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/debug-suite.xml'
+        includeGroups 'debug'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
