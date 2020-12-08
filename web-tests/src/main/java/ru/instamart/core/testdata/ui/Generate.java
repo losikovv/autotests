@@ -6,6 +6,7 @@ import instamart.ui.common.pagesdata.JuridicalData;
 import instamart.ui.common.pagesdata.UserData;
 
 import java.util.Random;
+import java.util.UUID;
 
 import static instamart.core.helpers.HelperBase.verboseMessage;
 
@@ -94,6 +95,10 @@ public class Generate {
         verboseMessage("Имя: " + testuser.getName());
         verboseMessage("\n");
         return testuser;
+    }
+
+    public static String email() {
+        return UUID.randomUUID() + "@example.com";
     }
 
     private static String string(String symbols, int length) {

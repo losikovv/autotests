@@ -1,6 +1,6 @@
 package instamart.api.requests;
 
-import instamart.api.common.RestBase;
+import instamart.api.common.Specification;
 import instamart.api.endpoints.ShopperApiEndpoints;
 import instamart.api.enums.shopper.PackageSetLocation;
 import io.qameta.allure.Step;
@@ -34,7 +34,7 @@ public class ShopperApiRequests {
      * Добавляем спеки к запросу
      */
     private static RequestSpecification givenWithSpec() {
-        return given().spec(RestBase.shopperRequestSpec);
+        return given().spec(Specification.INSTANCE.getShopperRequestSpec());
     }
 
     /**

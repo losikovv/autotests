@@ -22,8 +22,8 @@ import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public class Shop extends Base {
 
-    public Shop(WebDriver driver, EnvironmentData environment, AppManager app) {
-        super(driver, environment, app);
+    public Shop(WebDriver driver, AppManager app) {
+        super(driver, app);
     }
 
     public static class AuthModal {

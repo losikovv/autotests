@@ -2,6 +2,7 @@ package instamart.ui.checkpoints;
 
 import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.ElementData;
+import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.PageData;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
@@ -78,7 +79,7 @@ public class BaseUICheckpoints {
 
     /**  Проверить возможность перехода на страницу */
     public void checkTransition(PageData page) {
-        checkTransition(AppManager.environment.getBasicUrlWithHttpAuth() + page.getPath());
+        checkTransition(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     /** Проверить возможность перехода на страницу по указанному url */
@@ -173,18 +174,18 @@ public class BaseUICheckpoints {
 
     /** Проверить возможность перехода на страницу и ее доступность */
     public void checkPageIsAvailable(PageData page) {
-        checkPageIsAvailable(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
+        checkPageIsAvailable(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     /** Проверить доступность ретейлера*/
     @Step("Проверить доступность ретейлера")
     public void checkRetailerIsAvailable(String retailer) {
-        checkPageIsAvailable(kraken.environment.getBasicUrlWithHttpAuth() + retailer);
+        checkPageIsAvailable(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer);
     }
     /** Проверить не доступность ретейлера*/
     @Step("Проверить не доступность ретейлера")
     public void checkRetailerIsUnavailable(String retailer) {
-        checkPageIs404(kraken.environment.getBasicUrlWithHttpAuth() + retailer);
+        checkPageIs404(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer);
     }
 
     /** Проверить возможность перехода на страницу по указанному url и ее недоступность с ошибкой 404 */
@@ -203,7 +204,7 @@ public class BaseUICheckpoints {
     /** Проверить возможность перехода на страницу и ее недоступность с ошибкой 404 */
     @Step("Проверить возможность перехода на страницу и ее недоступность с ошибкой 404")
     public void checkPageIs404(PageData page)  {
-        checkPageIs404(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
+        checkPageIs404(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     /** Проверить возможность перехода в каталог магазина с лендинга Сбермаркета */

@@ -2,6 +2,8 @@ package ru.instamart.tests.api.v2.e2e;
 
 import instamart.api.common.RestBase;
 import instamart.core.common.AppManager;
+import instamart.core.testdata.Users;
+import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterClass;
@@ -14,7 +16,7 @@ public class OrderTests extends RestBase {
     @BeforeClass(alwaysRun = true,
                  description = "Регистрация")
     public void preconditions() {
-        user = user();
+        user = Users.apiUser();
         apiV2.registration(user);
     }
 
@@ -27,6 +29,6 @@ public class OrderTests extends RestBase {
     @CaseId(101)
     @Test(description = "Тест оформления заказа", groups = "api-v2-regress")
     public void order() {
-        apiV2.order(user, AppManager.environment.getDefaultSid());
+        apiV2.order(user, EnvironmentData.INSTANCE.getDefaultSid());
     }
 }

@@ -16,8 +16,8 @@ import java.util.List;
 
 public class PerformHelper extends HelperBase {
 
-    public PerformHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
-        super(driver, environment, app);
+    public PerformHelper(WebDriver driver, AppManager app) {
+        super(driver, app);
     }
 
     /** Кликнуть элемент предпочтительно использование именно этого метода*/

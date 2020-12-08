@@ -7,6 +7,7 @@ import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Taxon;
 import instamart.api.requests.ApiV2Requests;
 import instamart.core.common.AppManager;
+import instamart.core.testdata.Users;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
@@ -89,7 +90,7 @@ public class StoreTests extends RestBase {
     public void firstOrderByStore(Store store) {
         verboseMessage("Оформляем первый заказ в " + store);
 
-        UserData user = user();
+        final UserData user = Users.apiUser();
 
         apiV2.registration(user);
         apiV2.order(user, store.getId());

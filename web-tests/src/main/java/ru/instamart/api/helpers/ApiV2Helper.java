@@ -7,6 +7,7 @@ import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.*;
 import instamart.core.common.AppManager;
 import instamart.ui.common.lib.Pages;
+import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -21,7 +22,8 @@ import static instamart.api.checkpoints.ApiV2Checkpoints.assertStatusCode200;
 import static instamart.core.helpers.HelperBase.verboseMessage;
 import static instamart.ui.modules.Base.kraken;
 
-public class ApiV2Helper extends ApiHelperBase {
+public final class ApiV2Helper extends ApiHelperBase {
+
     private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentAddressId = new ThreadLocal<>();
     private final ThreadLocal<String> currentOrderNumber = new ThreadLocal<>();
@@ -206,7 +208,7 @@ public class ApiV2Helper extends ApiHelperBase {
         List<Department> departments = ApiV2Requests.Departments.GET(sid, numberOfProductsFromEachDepartment)
                 .as(DepartmentsResponse.class).getDepartments();
 
-        String storeUrl = AppManager.environment.getBasicUrlWithHttpAuth() + "?sid=" + sid;
+        String storeUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + "?sid=" + sid;
 
         Assert.assertNotEquals(
                 departments.size(),

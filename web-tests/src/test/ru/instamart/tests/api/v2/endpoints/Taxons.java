@@ -5,7 +5,7 @@ import instamart.api.objects.v2.Taxon;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.TaxonResponse;
 import instamart.api.responses.v2.TaxonsResponse;
-import instamart.core.common.AppManager;
+import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 
@@ -21,7 +21,7 @@ public class Taxons extends RestBase {
     @Test(  description = "Получаем таксоны (подкатегории)",
             groups = {"api-v2-smoke"})
     public void getTaxons() {
-        response = ApiV2Requests.Taxons.GET(AppManager.environment.getDefaultSid());
+        response = ApiV2Requests.Taxons.GET(EnvironmentData.INSTANCE.getDefaultSid());
         assertStatusCode200(response);
         List<Taxon> taxons = response.as(TaxonsResponse.class).getTaxons();
         assertNotNull(taxons, "Не вернулись таксоны");
@@ -33,7 +33,7 @@ public class Taxons extends RestBase {
             groups = {"api-v2-smoke"},
             dependsOnMethods = "getTaxons")
     public void getTaxon() {
-        response = ApiV2Requests.Taxons.GET(taxonId, AppManager.environment.getDefaultSid());
+        response = ApiV2Requests.Taxons.GET(taxonId, EnvironmentData.INSTANCE.getDefaultSid());
         assertStatusCode200(response);
         assertNotNull(response.as(TaxonResponse.class).getTaxon(), "Не вернулся таксон");
     }

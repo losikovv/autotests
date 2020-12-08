@@ -17,8 +17,8 @@ import static java.lang.Integer.parseInt;
 
 public class GrabHelper extends HelperBase{
 
-    public GrabHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
-        super(driver, environment, app);
+    public GrabHelper(WebDriver driver, AppManager app) {
+        super(driver, app);
     }
 
     /** Взять sid из текущего URL */

@@ -1,12 +1,13 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import org.testng.annotations.Test;
 import instamart.api.common.RestBase;
 import instamart.api.responses.v2.ErrorResponse;
 import instamart.api.responses.v2.UsersResponse;
+import instamart.core.testdata.ui.Generate;
+import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
 import static instamart.api.requests.ApiV2Requests.Users.POST;
+import static org.testng.Assert.assertEquals;
 //TODO переделать на датапровайдер
 public class Users extends RestBase {
     private final String firstName = "autotester";
@@ -18,7 +19,7 @@ public class Users extends RestBase {
             groups = {"api-v2-regress"}
     )
     public void successRegistration() {
-        String email = email();
+        final String email = Generate.email();
 
         response = POST(
                 email,
@@ -56,7 +57,7 @@ public class Users extends RestBase {
         String password = "insta";
 
         response = POST(
-                email(),
+                Generate.email(),
                 firstName,
                 lastName,
                 password);
@@ -87,7 +88,7 @@ public class Users extends RestBase {
             groups = {"api-v2-regress"}
     )
     public void emptyFirstName() {
-        String email = email();
+        final String email = Generate.email();
 
         response = POST(
                 email,
@@ -104,7 +105,7 @@ public class Users extends RestBase {
             groups = {"api-v2-regress"}
     )
     public void emptyLastName() {
-        String email = email();
+        final String email = Generate.email();
 
         response = POST(
                 email,
@@ -121,7 +122,7 @@ public class Users extends RestBase {
             groups = {"api-v2-regress"}
     )
     public void emptyFirstAndLastNames() {
-        String email = email();
+        final String email = Generate.email();
 
         response = POST(
                 email,
@@ -139,7 +140,7 @@ public class Users extends RestBase {
             groups = {"api-v2-regress"}
     )
     public void emptyPassword() {
-        String email = email();
+        final String email = Generate.email();
 
         response = POST(
                 email,

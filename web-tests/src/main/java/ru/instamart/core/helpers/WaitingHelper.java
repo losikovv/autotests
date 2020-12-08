@@ -15,8 +15,8 @@ import java.util.function.Function;
 
 public class WaitingHelper extends HelperBase {
 
-    public WaitingHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
-        super(driver, environment, app);
+    public WaitingHelper(WebDriver driver, AppManager app) {
+        super(driver, app);
     }
 
     /** Просто задержка на указанное время */

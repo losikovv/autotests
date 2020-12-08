@@ -1,25 +1,50 @@
 package instamart.ui.common.pagesdata;
 
-public class EnvironmentData {
-    private final String tenant;
-    private final String server;
-    private final String basicUrl;
-    private final String adminUrl;
-    private final String httpAuth;
-    private final String shopperUrl;
-    private final String defaultSid;
-    private final String defaultShopperSid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-    public EnvironmentData(String tenant, String server, String basicUrl, String adminUrl, String httpAuth,
-                           String shopperUrl, String defaultSid, String defaultShopperSid) {
-        this.tenant = tenant;
-        this.server = server;
-        this.basicUrl = basicUrl;
-        this.adminUrl = adminUrl;
-        this.httpAuth = httpAuth;
-        this.shopperUrl = shopperUrl;
-        this.defaultSid = defaultSid;
-        this.defaultShopperSid = defaultShopperSid;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
+import static instamart.core.settings.Config.DEFAULT_ENVIRONMENT;
+
+public enum EnvironmentData {
+
+    INSTANCE;
+
+    private static final Logger logger = LoggerFactory.getLogger(EnvironmentData.class);
+
+    private String tenant;
+    private String server;
+    private String basicUrl;
+    private String adminUrl;
+    private String httpAuth;
+    private String shopperUrl;
+    private String defaultSid;
+    private String defaultShopperSid;
+
+    public void load() {
+        final String file = String.format("src/test/resources/environment_configs/%s.properties", DEFAULT_ENVIRONMENT);
+        final Properties properties = new Properties();
+
+        try {
+            properties.load(new FileReader(file));
+
+            this.tenant = properties.getProperty("tenant");
+            this.server = properties.getProperty("server");
+            this.basicUrl = properties.getProperty("basicUrl");
+            this.adminUrl = properties.getProperty("adminUrl");
+            this.httpAuth = properties.getProperty("httpAuth");
+            this.shopperUrl = properties.getProperty("shopperUrl");
+            this.defaultSid = properties.getProperty("defaultSid");
+            this.defaultShopperSid = properties.getProperty("defaultShopperSid");
+        } catch (FileNotFoundException e) {
+            logger.error("File {} not found", file);
+        } catch (IOException e) {
+            logger.error("Cant' load or parse file", e);
+        }
     }
 
     public String getTenant() {
@@ -51,7 +76,6 @@ public class EnvironmentData {
     }
 
     public String getShopperUrl() {return "https://" + shopperUrl + "/";}
-
 
     public int getDefaultSid() {
         return Integer.parseInt(defaultSid);

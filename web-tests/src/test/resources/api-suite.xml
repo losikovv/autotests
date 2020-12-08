@@ -2,6 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="REST API suite" parallel="none">
   <listeners>
+    <listener class-name="instamart.core.listeners.ApiExecutionListener"/>
     <listener class-name="instamart.core.listeners.ApiListener"/>
   </listeners>
   <test verbose="1" name="REST API tests">

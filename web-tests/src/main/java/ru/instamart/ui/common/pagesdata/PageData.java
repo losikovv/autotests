@@ -1,17 +1,16 @@
 package instamart.ui.common.pagesdata;
 
-import instamart.core.common.AppManager;
+public final class PageData {
 
-public class PageData {
-    private String path;
-    private String description;
+    private final String path;
+    private final String description;
 
-    public PageData(String path){
+    public PageData(final String path){
         this.path = path;
         this.description = null;
     }
 
-    public PageData(String path, String description){
+    public PageData(final String path, final String description){
         this.path = path;
         this.description = description;
     }
@@ -27,7 +26,7 @@ public class PageData {
     @Override
     public String toString() {
         if (path.contains("admin")) {
-            return AppManager.environment.getAdminUrlWithHttpAuth() + path.substring(6);
-        } else return AppManager.environment.getBasicUrlWithHttpAuth() + path;
+            return EnvironmentData.INSTANCE.getAdminUrlWithHttpAuth() + path.substring(6);
+        } else return EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + path;
     }
 }
