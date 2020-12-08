@@ -11,7 +11,7 @@ import java.io.IOException;
 public final class BannerService {
 
     private static final Logger logger = LoggerFactory.getLogger(BannerService.class);
-    private static final String BANNER_URL = "\"src/test/resources/banner.txt\"";
+    private static final String BANNER_URL = "src/test/resources/banner.txt";
 
     public static void printBanner() {
         try(final BufferedReader in = new BufferedReader(new FileReader(BANNER_URL));) {
