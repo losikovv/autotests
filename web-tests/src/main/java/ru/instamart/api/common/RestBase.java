@@ -41,8 +41,7 @@ public class RestBase {
             "api-v2-smoke",
             "api-shopper-smoke",
             "api-v2-regress",
-            "api-shopper-regress",
-            "MRAutoCheck"},
+            "api-shopper-regress"},
                  description = "Инициализация")
     public void start() throws Exception {
         kraken.riseRest();

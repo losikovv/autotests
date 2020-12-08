@@ -39,23 +39,18 @@ public class CheckoutAddressStepTests extends TestBase {
     )
     public void successValidateDefaultAddressStep() {
         baseChecks.checkPageIsAvailable();
-
         baseChecks.checkIsElementPresent(Elements.Checkout.AddressStep.panel());
         baseChecks.checkIsElementPresent(Elements.Checkout.AddressStep.icon());
         baseChecks.checkIsElementPresent(Elements.Checkout.AddressStep.title());
-
         baseChecks.checkIsElementPresent(Elements.Checkout.AddressStep.deliveryAddress());
-
-        assertRadioButtonIsNotSelected(Elements.Checkout.AddressStep.homeRadioButton());
-        assertRadioButtonIsNotSelected(Elements.Checkout.AddressStep.officeRadioButton());
-
-        assertFieldIsEmpty(Elements.Checkout.AddressStep.apartmentInputField());
-        assertFieldIsEmpty(Elements.Checkout.AddressStep.floorInputField());
-        assertCheckboxIsNotSet(Elements.Checkout.AddressStep.elevatorCheckbox());
-        assertFieldIsEmpty(Elements.Checkout.AddressStep.entranceInputField());
-        assertFieldIsEmpty(Elements.Checkout.AddressStep.domofonInputField());
-        assertFieldIsEmpty(Elements.Checkout.AddressStep.commentariesInputField());
-
+        baseChecks.checkRadioButtonIsNotSelected(Elements.Checkout.AddressStep.homeRadioButton());
+        baseChecks.checkRadioButtonIsNotSelected(Elements.Checkout.AddressStep.officeRadioButton());
+        baseChecks.checkFieldIsEmpty(Elements.Checkout.AddressStep.apartmentInputField());
+        baseChecks.checkFieldIsEmpty(Elements.Checkout.AddressStep.floorInputField());
+        baseChecks.checkCheckboxIsNotSet(Elements.Checkout.AddressStep.elevatorCheckbox());
+        baseChecks.checkFieldIsEmpty(Elements.Checkout.AddressStep.entranceInputField());
+        baseChecks.checkFieldIsEmpty(Elements.Checkout.AddressStep.domofonInputField());
+        baseChecks.checkFieldIsEmpty(Elements.Checkout.AddressStep.commentariesInputField());
         baseChecks.checkIsElementPresent(Elements.Checkout.AddressStep.nextButton());
     }
 
@@ -255,24 +250,17 @@ public class CheckoutAddressStepTests extends TestBase {
         Checkout.AddressStep.next();
 
         kraken.reach().checkout();
-
-        assertRadioButtonIsSelected(Elements.Checkout.AddressStep.homeRadioButton());
-
-        assertFieldIsNotEmpty(Elements.Checkout.AddressStep.apartmentInputField());
-        assertFieldIsFilled(Elements.Checkout.AddressStep.apartmentInputField(), "5");
-
-        assertFieldIsNotEmpty(Elements.Checkout.AddressStep.floorInputField());
-        assertFieldIsFilled(Elements.Checkout.AddressStep.floorInputField(), "55");
-
-        assertCheckboxIsNotSet(Elements.Checkout.AddressStep.elevatorCheckbox());
-
-        assertFieldIsNotEmpty(Elements.Checkout.AddressStep.entranceInputField());
-        assertFieldIsFilled(Elements.Checkout.AddressStep.entranceInputField(), "555");
-
-        assertFieldIsNotEmpty(Elements.Checkout.AddressStep.domofonInputField());
-        assertFieldIsFilled(Elements.Checkout.AddressStep.domofonInputField(), "5555");
-
-        assertFieldIsNotEmpty(Elements.Checkout.AddressStep.commentariesInputField());
-        assertFieldIsFilled(Elements.Checkout.AddressStep.commentariesInputField(), "55555");
+        baseChecks.checkRadioButtonIsSelected(Elements.Checkout.AddressStep.homeRadioButton());
+        baseChecks.checkFieldIsNotEmpty(Elements.Checkout.AddressStep.apartmentInputField());
+        baseChecks.checkFieldIsFilled(Elements.Checkout.AddressStep.apartmentInputField(), "5");
+        baseChecks.checkFieldIsNotEmpty(Elements.Checkout.AddressStep.floorInputField());
+        baseChecks.checkFieldIsFilled(Elements.Checkout.AddressStep.floorInputField(), "55");
+        baseChecks.checkCheckboxIsNotSet(Elements.Checkout.AddressStep.elevatorCheckbox());
+        baseChecks.checkFieldIsNotEmpty(Elements.Checkout.AddressStep.entranceInputField());
+        baseChecks.checkFieldIsFilled(Elements.Checkout.AddressStep.entranceInputField(), "555");
+        baseChecks.checkFieldIsNotEmpty(Elements.Checkout.AddressStep.domofonInputField());
+        baseChecks.checkFieldIsFilled(Elements.Checkout.AddressStep.domofonInputField(), "5555");
+        baseChecks.checkFieldIsNotEmpty(Elements.Checkout.AddressStep.commentariesInputField());
+        baseChecks.checkFieldIsFilled(Elements.Checkout.AddressStep.commentariesInputField(), "55555");
     }
 }

@@ -1,6 +1,7 @@
 package ru.instamart.tests.shopping;
 
 import instamart.core.settings.Config;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
@@ -18,6 +19,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
         User.Logout.quickly();
         kraken.get().page(Config.DEFAULT_RETAILER);
     }
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
     @Test(
             description = "Тест недоступности чекаута неавторизованному юзеру",
@@ -26,7 +28,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
                     "metro-acceptance","metro-regression"
             }
     ) public void noAccessToCheckoutByDefault() {
-        assertPageIsUnavailable(Pages.checkout());
+        baseChecks.checkPageIsUnavailable(Pages.checkout());
     }
 
     @Test(
@@ -38,7 +40,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
     ) public void noAccessToCheckoutForUnauthorizedUserWithShipAddressAndEmptyCart() {
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
 
-        assertPageIsUnavailable(Pages.checkout());
+        baseChecks.checkPageIsUnavailable(Pages.checkout());
     }
 
     @Test(
@@ -59,7 +61,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
                 !kraken.detect().isCartEmpty() && !kraken.detect().isCheckoutButtonActive(),
                     failMessage("Не выполнены предусловия теста"));
 
-        assertPageIsUnavailable(Pages.checkout());
+        baseChecks.checkPageIsUnavailable(Pages.checkout());
     }
 
     @Test(
@@ -87,6 +89,6 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     failMessage("Не запрашивается авторизация при попытке перехода в чекаут неавторизованным юзером с набранной корзиной"));
 
-        assertPageIsUnavailable(Pages.checkout());
+        baseChecks.checkPageIsUnavailable(Pages.checkout());
     }
 }
