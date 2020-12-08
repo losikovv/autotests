@@ -355,20 +355,16 @@ public class SelfCheckTests extends TestBase {
             groups ="selfcheck",
             priority = 10020)
     public void checkAsserts() {
-
         baseChecks.checkTransition("https://instamart.ru/auchan");
         baseChecks.checkTransition(Pages.Retailers.vkusvill());
-
         baseChecks.checkPageIsAvailable("https://instamart.ru/auchan");
         baseChecks.checkTransition(Pages.Sbermarket.contacts());
         baseChecks.checkPageIsAvailable();
-
         baseChecks.checkPageIs404(Pages.page404());
         baseChecks.checkPageIs404("https://instamart.ru/nowhere");
         baseChecks.checkPageIs404();
-
-        assertPageIsUnavailable(Pages.checkout());
-        assertPageIsUnavailable("https://instamart.ru/checkout/edit");
+        baseChecks.checkPageIsUnavailable(Pages.checkout());
+        baseChecks.checkPageIsUnavailable("https://instamart.ru/checkout/edit");
     }
 }
 
