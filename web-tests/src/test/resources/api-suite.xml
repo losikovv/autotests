@@ -12,7 +12,6 @@
         <include name="api-v2-regress"/>
         <include name="api-shopper-smoke"/>
         <include name="api-shopper-regress"/>
-        <include name="MRAutoCheck"/>
       </run>
     </groups>
     <classes>
@@ -37,5 +36,5 @@
       <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentlessTests"/>
       <class name="ru.instamart.tests.api.shopper.e2e.ShopperTests"/>
     </classes>
-  </test> <!-- web-tests -->
+  </test> <!-- api-tests -->
 </suite> <!-- Custom suite -->

@@ -1,6 +1,5 @@
 package ru.instamart.tests.administration;
 
-import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.User;
@@ -14,7 +13,6 @@ import static instamart.core.common.AppManager.session;
 
 public class BasicAdministrationTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    ConsoleOutputCapturerHelper capture = new ConsoleOutputCapturerHelper();
     //TODO актуализировать базовые тесты, все лишнее вынести в отдельные классы и порешать тудушки - ATST-235
 
     @BeforeClass(alwaysRun = true)
@@ -33,8 +31,7 @@ public class BasicAdministrationTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     ) public void noAccessToAdministrationWithoutAdminPrivileges() {
         User.Do.loginAs(session.user);
-
-        assertPageIsUnavailable(Pages.Admin.shipments());
+        baseChecks.checkPageIsUnavailable(Pages.Admin.shipments());
         User.Logout.quickly();
     }
 

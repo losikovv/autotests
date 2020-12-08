@@ -35,8 +35,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
             }
     ) public void noAccessToCheckoutForAuthorizedUserWithShipAddressAndEmptyCart() {
         kraken.apiV2().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
-
-        assertPageIsUnavailable(Pages.checkout());
+        baseChecks.checkPageIsUnavailable(Pages.checkout());
     }
 
     @Test(
@@ -62,9 +61,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
         Assert.assertTrue(
                 !kraken.detect().isCartEmpty() && !kraken.detect().isCheckoutButtonActive(),
                 failMessage("Не выполнены предусловия теста"));
-
-        assertPageIsUnavailable(
-                Pages.checkout());
+        baseChecks.checkPageIsUnavailable(Pages.checkout());
     }
 
     @Test(
