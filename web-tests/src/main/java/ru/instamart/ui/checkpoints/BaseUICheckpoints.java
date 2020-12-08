@@ -270,7 +270,7 @@ public class BaseUICheckpoints {
 
     /** Проверка недоступности страницы для перехода */
     public void checkPageIsUnavailable(PageData page) {
-        checkPageIsUnavailable(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
+        checkPageIsUnavailable(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     /** Проверка недоступности страницы для перехода по прямой ссылке */
