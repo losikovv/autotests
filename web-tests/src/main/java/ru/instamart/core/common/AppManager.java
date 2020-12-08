@@ -22,8 +22,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -54,9 +52,10 @@ public class AppManager {
     private WaitingHelper waitingHelper;
     private ApiV2Helper apiV2Helper;
 
+    //TODO: Он не наполняется, только занимает место в памяти instamart/core/common/AppManager.java:193
     private StringBuffer verificationErrors = new StringBuffer();
 
-    public void rise() throws IOException {
+    public void rise() {
         initTestSession();
         initDriver();
         initHelpers();
@@ -173,21 +172,12 @@ public class AppManager {
         if (BASIC_TIMEOUT > 0) {driver.manage().timeouts().implicitlyWait(BASIC_TIMEOUT, TimeUnit.SECONDS);}
     }
 
-    private void revealKraken() throws IOException {
-        BufferedReader in = new BufferedReader(new FileReader("src/test/resources/banner.txt"));
-        String line = in.readLine();
-        while(line !=null) {
-            System.out.println(line);
-            line = in.readLine();
-        }
-        in.close();
+    private void revealKraken() {
         IS_KRAKEN_REVEALEN = true; // это вот как раз то самое место где она в true ставиться
         // на данный момент решил вопрос через группы при старте тест сьютов
-
-
         System.out.println("\nENVIRONMENT: " + EnvironmentData.INSTANCE.getName() + " ( " + EnvironmentData.INSTANCE.getBasicUrl() + " )");
 
-        if(MULTI_SESSION_MODE) {
+        if (MULTI_SESSION_MODE) {
             System.out.println("\nTEST RUN ID: " + session.id);
         } else {
             System.out.println("\nTEST RUN ID: " + session.id + " (SOLO MODE)");
