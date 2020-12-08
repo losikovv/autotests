@@ -6,6 +6,7 @@ import instamart.api.requests.ApiV1Requests;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.*;
 import instamart.core.common.AppManager;
+import instamart.core.helpers.WaitingHelper;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
@@ -20,7 +21,6 @@ import java.util.*;
 
 import static instamart.api.checkpoints.ApiV2Checkpoints.assertStatusCode200;
 import static instamart.core.helpers.HelperBase.verboseMessage;
-import static instamart.ui.modules.Base.kraken;
 
 public final class ApiV2Helper extends ApiHelperBase {
 
@@ -665,7 +665,7 @@ public final class ApiV2Helper extends ApiHelperBase {
      * поэтому для мультипоточности реализованы synchronized + ожидание 3.1 секунды
      */
     synchronized public void authorisation(String email, String password) {
-        kraken.await().simply(3.1);
+        WaitingHelper.simply(3.1);
         Response response = ApiV2Requests.Sessions.POST(email, password);
         assertStatusCode200(response);
         ApiV2Requests.setToken(response
