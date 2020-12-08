@@ -15,13 +15,16 @@ public class AbstractExecutionListener implements IExecutionListener {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractExecutionListener.class);
 
+    // Нужно инициализировать в констркуторе, что бы гарантировать наличие конфигов до запуска чего либо
+    public AbstractExecutionListener() {
+        logger.info("Load config");
+        Config.load();
+    }
+
     @Override
     public void onExecutionStart() {
         logger.info("Load KRAKEN");
         BannerService.printBanner();
-
-        logger.info("Load config");
-        Config.load();
 
         logger.info("Load environment config");
         EnvironmentData.INSTANCE.load();
