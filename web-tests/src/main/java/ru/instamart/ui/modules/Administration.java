@@ -9,8 +9,8 @@ import org.openqa.selenium.WebDriver;
 
 public class Administration extends Base {
 
-    public Administration(WebDriver driver, EnvironmentData environment, AppManager app) {
-        super(driver, environment, app);
+    public Administration(WebDriver driver, AppManager app) {
+        super(driver, app);
     }
 
     /** Раздел ЗАКАЗЫ */

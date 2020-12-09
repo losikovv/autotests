@@ -2,8 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="MR UI-API suite" parallel="none">
   <listeners>
-    <listener class-name="instamart.core.listeners.UiListener"/>
-    <listener class-name="instamart.core.listeners.ApiListener"/>
+    <listener class-name="instamart.core.listeners.ExecutionListenerImpl"/>
   </listeners>
   <test verbose="1" name="MR UI-API suite">
     <groups>

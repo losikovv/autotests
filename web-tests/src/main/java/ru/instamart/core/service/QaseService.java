@@ -1,7 +1,7 @@
 package instamart.core.service;
 
-import instamart.core.common.AppManager;
 import instamart.core.settings.Config;
+import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.Description;
 import io.qameta.allure.TmsLink;
 import io.qase.api.QaseApi;
@@ -92,7 +92,7 @@ public final class QaseService {
         final Integer[] casesArray = new Integer[testCasesList.size()];
         runId = qaseApi.testRuns().create(
                 projectCode,
-                testRunName + " [" + AppManager.environment.getName() + "] " + LocalDate.now(),
+                testRunName + " [" + EnvironmentData.INSTANCE.getName() + "] " + LocalDate.now(),
                 testCasesList.toArray(casesArray));
     }
 

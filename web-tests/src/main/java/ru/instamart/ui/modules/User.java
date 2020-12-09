@@ -18,8 +18,8 @@ import instamart.core.testdata.ui.Generate;
 
 public class User extends Base {
 
-    public User(WebDriver driver, EnvironmentData environment, AppManager app) {
-        super(driver, environment, app);
+    public User(WebDriver driver, AppManager app) {
+        super(driver, app);
     }
 
     public static class Do {
@@ -27,7 +27,7 @@ public class User extends Base {
         @Step("Авторизация юзером")
         public static void loginAs(UserData user) { //TODO использовать только session-юзеров
             String startURL = kraken.grab().currentURL();
-            if (!startURL.equals(kraken.environment.getBasicUrlWithHttpAuth()) && kraken.detect().isUserAuthorised()) {
+            if (!startURL.equals(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth()) && kraken.detect().isUserAuthorised()) {
                 kraken.get().userProfilePage();
                 String currentUserEmail = kraken.grab().text(Elements.UserProfile.AccountPage.email());
                 HelperBase.verboseMessage("> юзер: " + currentUserEmail);

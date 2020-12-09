@@ -4,6 +4,7 @@ import instamart.core.settings.Config;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
+import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
@@ -22,7 +23,7 @@ public class SelfCheckTests extends TestBase {
             priority = 10000)
     public void initialCheck() {
         kraken.get().baseUrl();
-        Assert.assertEquals(kraken.grab().currentURL() , kraken.environment.getBasicUrlWithHttpAuth());
+        Assert.assertEquals(kraken.grab().currentURL() , EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth());
     }
 
     @Test(description = "Тест корректности работы методов навигации",
@@ -31,10 +32,10 @@ public class SelfCheckTests extends TestBase {
     public void checkNavigation() {
 
         kraken.get().page(Config.DEFAULT_RETAILER);
-        Assert.assertEquals(kraken.grab().currentURL() , kraken.environment.getBasicUrlWithHttpAuth() + "metro");
+        Assert.assertEquals(kraken.grab().currentURL() , EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + "metro");
 
         kraken.get().page(Pages.Sbermarket.faq());
-        Assert.assertEquals(kraken.grab().currentURL() , kraken.environment.getBasicUrlWithHttpAuth() + Pages.Sbermarket.faq().getPath());
+        Assert.assertEquals(kraken.grab().currentURL() , EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + Pages.Sbermarket.faq().getPath());
     }
 
     @Test(description = "Тест корректности определения модалки авторизации/регистрации",

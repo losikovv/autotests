@@ -4,8 +4,8 @@ import instamart.api.common.RestBase;
 import instamart.api.objects.shopper.Reason;
 import instamart.api.requests.ShopperApiRequests;
 import instamart.api.responses.shopper.*;
-import instamart.core.common.AppManager;
 import instamart.core.testdata.Users;
+import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -134,7 +134,7 @@ public class ShipmentlessTests extends RestBase {
             groups = {"api-shopper-smoke"})
     public void getStoreOffers() {
         response = ShopperApiRequests.Stores.Offers.GET(
-                AppManager.environment.getDefaultShopperSid(),
+                EnvironmentData.INSTANCE.getDefaultShopperSid(),
                 "хлеб");
         assertStatusCode200(response);
         assertNotNull(response.as(OffersResponse.class).getData().get(0).getAttributes().getName(),

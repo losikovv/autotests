@@ -19,8 +19,8 @@ import static instamart.core.testdata.TestVariables.testOrderDetails;
 
 public class Checkout extends Base {
 
-    public Checkout(WebDriver driver, EnvironmentData environment, AppManager app) {
-        super(driver, environment, app);
+    public Checkout(WebDriver driver, AppManager app) {
+        super(driver, app);
     }
 
     public static void hitNext(CheckoutStepData step){

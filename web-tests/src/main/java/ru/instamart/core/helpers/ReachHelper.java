@@ -10,8 +10,8 @@ import instamart.ui.common.pagesdata.PageData;
 
 public class ReachHelper extends HelperBase {
 
-    public ReachHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
-        super(driver, environment, app);
+    public ReachHelper(WebDriver driver, AppManager app) {
+        super(driver, app);
     }
 
     public void checkout() {

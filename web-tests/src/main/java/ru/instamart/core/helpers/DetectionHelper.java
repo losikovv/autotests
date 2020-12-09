@@ -12,23 +12,23 @@ import instamart.ui.modules.Shop;
 
 public class DetectionHelper extends HelperBase {
 
-    public DetectionHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
-        super(driver, environment, app);
+    public DetectionHelper(WebDriver driver, AppManager app) {
+        super(driver, app);
     }
 
     /** Определить в каком тестовом окружении находимся */
     public boolean environment(String environment) {
-        return kraken.environment.getName().equals(environment);
+        return EnvironmentData.INSTANCE.getName().equals(environment);
     }
 
     /** Определить серверное окружение */
     public boolean server(String server) {
-        return kraken.environment.getServer().equals(server);
+        return EnvironmentData.INSTANCE.getServer().equals(server);
     }
 
     /** Определить тенант */
     public boolean tenant(String tenant) {
-        return kraken.environment.getTenant().equals(tenant);
+        return EnvironmentData.INSTANCE.getTenant().equals(tenant);
     }
 
     /**
@@ -140,7 +140,7 @@ public class DetectionHelper extends HelperBase {
      * Определить находимся в списке любимых товаров или нет
      */
     public boolean isInFavorites() {
-        return kraken.grab().currentURL().equals(kraken.environment.getBasicUrl() + Pages.UserProfile.favorites().getPath());
+        return kraken.grab().currentURL().equals(EnvironmentData.INSTANCE.getBasicUrl() + Pages.UserProfile.favorites().getPath());
     }
 
     /**

@@ -1,10 +1,7 @@
 package instamart.core.common;
 
-import instamart.api.helpers.ApiHelper;
 import instamart.api.helpers.ApiV2Helper;
-import instamart.api.helpers.ShopperApiHelper;
 import instamart.core.helpers.*;
-import instamart.core.settings.Config;
 import instamart.core.testdata.Users;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.pagesdata.BrowserData;
@@ -24,19 +21,14 @@ import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
-import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import static instamart.core.testdata.TestVariables.TestParams.testMark;
 import static instamart.core.settings.Config.*;
+import static instamart.core.testdata.TestVariables.TestParams.testMark;
 import static org.testng.Assert.fail;
 
 public class AppManager {
@@ -44,7 +36,6 @@ public class AppManager {
     public final static String testrunId = Generate.testRunId();
 
     public WebDriver driver;
-    static public EnvironmentData environment;
     static public BrowserData browserData;
     public static SessionData session;
 
@@ -60,14 +51,11 @@ public class AppManager {
     private CleanupHelper cleanupHelper;
     private WaitingHelper waitingHelper;
     private ApiV2Helper apiV2Helper;
-    private ShopperApiHelper shopperApiHelper;
-    private ApiHelper apiHelper;
 
+    //TODO: Он не наполняется, только занимает место в памяти instamart/core/common/AppManager.java:193
     private StringBuffer verificationErrors = new StringBuffer();
 
-    public void rise() throws IOException {
-        setLogs();
-        setEnvironment();
+    public void rise() {
         initTestSession();
         initDriver();
         initHelpers();
@@ -77,38 +65,7 @@ public class AppManager {
     }
 
     public void getBasicUrl() {
-        driver.get(environment.getBasicUrlWithHttpAuth());
-    }
-
-    private void setEnvironment() throws IOException {
-        Properties properties = new Properties();
-        properties.load(
-                new FileReader(
-                        new File(String.format("src/test/resources/environment_configs/%s.properties", DEFAULT_ENVIRONMENT))));
-        environment = new EnvironmentData(
-                properties.getProperty("tenant"),
-                properties.getProperty("server"),
-                properties.getProperty("basicUrl"),
-                properties.getProperty("adminUrl"),
-                properties.getProperty("httpAuth"),
-                properties.getProperty("shopperUrl"),
-                properties.getProperty("defaultSid"),
-                properties.getProperty("defaultShopperSid")
-        );
-    }
-
-    public void riseRest() throws IOException {
-        setLogs();
-        initTestSession();
-        setEnvironment();
-        initRestHelpers();
-        revealKraken();
-    }
-
-    public void setLogs() {
-        if (LOG) {
-            SysOutOverSLF4J.sendSystemOutAndErrToSLF4J();
-        }
+        driver.get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth());
     }
 
     private void initTestSession() {
@@ -196,27 +153,18 @@ public class AppManager {
     }
 
     private void initHelpers() {
-        browseHelper = new BrowseHelper(driver, environment, this);
-        performHelper = new PerformHelper(driver, environment, this);
-        reachHelper = new ReachHelper(driver, environment, this);
-        detectionHelper = new DetectionHelper(driver, environment, this);
-        grabHelper = new GrabHelper(driver, environment,this);
-        shopHelper = new Shop(driver, environment, this);
-        userHelper = new User(driver, environment, this);
-        checkoutHelper = new Checkout(driver, environment, this);
-        administrationHelper = new Administration(driver, environment, this);
-        cleanupHelper = new CleanupHelper(driver, environment, this);
-        waitingHelper = new WaitingHelper(driver, environment, this);
+        browseHelper = new BrowseHelper(driver,  this);
+        performHelper = new PerformHelper(driver, this);
+        reachHelper = new ReachHelper(driver, this);
+        detectionHelper = new DetectionHelper(driver, this);
+        grabHelper = new GrabHelper(driver,this);
+        shopHelper = new Shop(driver, this);
+        userHelper = new User(driver, this);
+        checkoutHelper = new Checkout(driver, this);
+        administrationHelper = new Administration(driver, this);
+        cleanupHelper = new CleanupHelper(driver, this);
+        waitingHelper = new WaitingHelper(driver, this);
         apiV2Helper = new ApiV2Helper();
-        shopperApiHelper = new ShopperApiHelper();
-        apiHelper = new ApiHelper();
-    }
-
-    private void initRestHelpers() {
-        administrationHelper = new Administration(driver, environment, this);
-        apiV2Helper = new ApiV2Helper();
-        shopperApiHelper = new ShopperApiHelper();
-        apiHelper = new ApiHelper();
     }
 
     private void applyOptions() {
@@ -224,21 +172,12 @@ public class AppManager {
         if (BASIC_TIMEOUT > 0) {driver.manage().timeouts().implicitlyWait(BASIC_TIMEOUT, TimeUnit.SECONDS);}
     }
 
-    private void revealKraken() throws IOException {
-        BufferedReader in = new BufferedReader(new FileReader("src/test/resources/banner.txt"));
-        String line = in.readLine();
-        while(line !=null) {
-            System.out.println(line);
-            line = in.readLine();
-        }
-        in.close();
+    private void revealKraken() {
         IS_KRAKEN_REVEALEN = true; // это вот как раз то самое место где она в true ставиться
         // на данный момент решил вопрос через группы при старте тест сьютов
+        System.out.println("\nENVIRONMENT: " + EnvironmentData.INSTANCE.getName() + " ( " + EnvironmentData.INSTANCE.getBasicUrl() + " )");
 
-
-        System.out.println("\nENVIRONMENT: " + environment.getName() + " ( " + environment.getBasicUrl() + " )");
-
-        if(MULTI_SESSION_MODE) {
+        if (MULTI_SESSION_MODE) {
             System.out.println("\nTEST RUN ID: " + session.id);
         } else {
             System.out.println("\nTEST RUN ID: " + session.id + " (SOLO MODE)");
@@ -268,10 +207,10 @@ public class AppManager {
          if(name.equals("chrome")) {
              String cdriver = "chromedriver";
              String browserInst = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-             Long amount = ProcessHandle.allProcesses()
+             long amount = ProcessHandle.allProcesses()
                      .filter(p -> p.info().commandLine().map(c -> c.contains(cdriver))
                              .orElse(false)).count();
-             Long amountBro = ProcessHandle.allProcesses()
+             long amountBro = ProcessHandle.allProcesses()
                      .filter(p -> p.info().commandLine().map(c -> c.contains(browserInst))
                              .orElse(false)).count();
              //Если есть запущенные chromedriver, то убиваем их
@@ -293,7 +232,7 @@ public class AppManager {
                      "/usr/bin/pgrep -f \""+name+"\" | xargs kill",};
             // Process p = Runtime.getRuntime().exec(COMPOSED_COMMAND);
              Runtime.getRuntime().exec(COMPOSED_COMMAND);
-             System.out.println(String.format("\nПроцесс с PID: %1$s завершен принудительно",name));
+             System.out.printf("\nПроцесс с PID: %1$s завершен принудительно%n", name);
          } catch (IOException e) {
              e.printStackTrace();
          }
@@ -305,7 +244,7 @@ public class AppManager {
          String command = "kill -9 "+ pid;
          try {
              Runtime.getRuntime().exec(command);
-             System.out.println(String.format("\nПроцесс с PID: %1$s завершен принудительно",pid));
+             System.out.printf("\nПроцесс с PID: %1$s завершен принудительно%n", pid);
          } catch (IOException e) {
              e.printStackTrace();
          }
@@ -325,7 +264,7 @@ public class AppManager {
                          .allProcesses()
                          .filter(p -> p.info().commandLine().map(c -> c.contains(browserName))
                                  .orElse(false)).findFirst().get().pid();
-                 System.out.println(String.format("\nНайден старый инстанс браузера запущенный Selenium с PID: %1$s",pid));
+                 System.out.printf("\nНайден старый инстанс браузера запущенный Selenium с PID: %1$s%n", pid);
                  return pid;
              }
          }
@@ -344,6 +283,4 @@ public class AppManager {
     public CleanupHelper cleanup() { return cleanupHelper; }
     public WaitingHelper await() { return waitingHelper; }
     public ApiV2Helper apiV2() { return apiV2Helper; }
-    public ShopperApiHelper shopperApi() { return shopperApiHelper; }
-    public ApiHelper api() { return apiHelper; }
 }

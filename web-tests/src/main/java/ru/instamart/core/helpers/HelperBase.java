@@ -1,7 +1,6 @@
 package instamart.core.helpers;
 
 import instamart.core.common.AppManager;
-import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.OutputType;
@@ -10,18 +9,17 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static instamart.core.settings.Config.*;
+import static instamart.core.settings.Config.LOG;
+import static instamart.core.settings.Config.VERBOSE;
 
 public class HelperBase {
     static WebDriver driver;
     static AppManager kraken;
-    static EnvironmentData environment;
     private static boolean acceptNextAlert = true;
     private static final Logger LOGGER = LoggerFactory.getLogger(HelperBase.class);
 
-    HelperBase(WebDriver driver, EnvironmentData environment, AppManager app) {
+    HelperBase(WebDriver driver, AppManager app) {
         this.driver = driver;
-        this.environment = environment;
         this.kraken = app;
     }
 

@@ -1,17 +1,17 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.checkpoints.ApiV2Checkpoints;
-import io.qase.api.annotation.CaseId;
-import org.testng.annotations.Test;
-import instamart.api.requests.ApiV2Requests;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Product;
+import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.ProductResponse;
 import instamart.api.responses.v2.ProductsResponse;
+import io.qase.api.annotation.CaseId;
+import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertNotNull;
 
 public class Products extends RestBase {
     private long productId;

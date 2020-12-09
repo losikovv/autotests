@@ -4,8 +4,9 @@ import instamart.api.common.RestBase;
 import instamart.api.enums.v2.AuthProvider;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.SessionsResponse;
-import instamart.core.common.AppManager;
+import instamart.core.testdata.Users;
 import instamart.core.testdata.dataprovider.RestDataProvider;
+import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
 import org.testng.SkipException;
@@ -16,11 +17,11 @@ import static instamart.api.checkpoints.ApiV2Checkpoints.assertStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
 public class Sessions extends RestBase {
-    UserData user;
+    private UserData user;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        user = user();
+        user = Users.apiUser();
         apiV2.registration(user);
     }
 
@@ -30,7 +31,7 @@ public class Sessions extends RestBase {
             description = "Авторизуемся через стороннего провайдера",
             groups = {"api-v2-smoke"})
     public void postAuthProvidersSessions(AuthProvider authProvider) {
-        if (!AppManager.environment.getServer().equalsIgnoreCase("production")) {
+        if (!EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
             throw new SkipException("Скипаем тесты не на проде");
         }
         response = ApiV2Requests.AuthProviders.Sessions.POST(authProvider);
