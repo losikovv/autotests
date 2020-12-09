@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Clean up and setup suite" parallel="none">
     <listeners>
-        <listener class-name="instamart.core.listeners.SimplyExecutionListener"/>
+        <listener class-name="instamart.core.listeners.ExecutionListenerImpl"/>
     </listeners>
     <test verbose="1" name="REST API tests">
         <groups>

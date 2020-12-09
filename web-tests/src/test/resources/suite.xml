@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Web UI suite" parallel="none">
   <listeners>
-    <listener class-name="instamart.core.listeners.UIExecutionListener"/>
+    <listener class-name="instamart.core.listeners.ExecutionListenerImpl"/>
     <listener class-name="instamart.core.listeners.UiListener"/>
   </listeners>
   <test verbose="1" name="Web UI tests">

@@ -26,7 +26,6 @@ public final class UiListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        //hash = sendTestInProgress(result);
     }
 
     @Override

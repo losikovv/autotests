@@ -11,12 +11,12 @@ import uk.org.lidalia.sysoutslf4j.context.SysOutOverSLF4J;
 
 import static instamart.core.settings.Config.LOG;
 
-public class AbstractExecutionListener implements IExecutionListener {
+public class ExecutionListenerImpl implements IExecutionListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(AbstractExecutionListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExecutionListenerImpl.class);
 
     // Нужно инициализировать в констркуторе, что бы гарантировать наличие конфигов до запуска чего либо
-    public AbstractExecutionListener() {
+    public ExecutionListenerImpl() {
         logger.info("Load config");
         Config.load();
     }
