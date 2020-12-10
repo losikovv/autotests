@@ -5,9 +5,9 @@ import instamart.api.enums.shopper.PackageSetLocation;
 import instamart.api.objects.shopper.*;
 import instamart.api.requests.ShopperApiRequests;
 import instamart.api.responses.shopper.*;
-import instamart.core.common.AppManager;
 import instamart.core.helpers.WaitingHelper;
 import instamart.core.testdata.Users;
+import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -250,7 +250,7 @@ public class ShopperApiHelper extends ApiHelperBase {
     private List<OfferData> getOffers() {
         verboseMessage("\nПоиск товаров в магазине");
         Response response = ShopperApiRequests.Stores.Offers.GET(
-                AppManager.environment.getDefaultShopperSid(), "хлеб");
+                EnvironmentData.INSTANCE.getDefaultShopperSid(), "хлеб");
         assertStatusCode200(response);
         return response.as(OffersResponse.class).getData();
     }

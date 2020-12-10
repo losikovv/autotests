@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="sbermarket-smoke" type="TestNG">
+  <configuration default="false" name="mr-auto-check" type="TestNG">
     <useClassPathOnly />
     <option name="SUITE_NAME" value="" />
     <option name="PACKAGE_NAME" value="" />
     <option name="MAIN_CLASS_NAME" value="" />
     <option name="METHOD_NAME" value="" />
-    <option name="GROUP_NAME" value="sbermarket-smoke" />
+    <option name="GROUP_NAME" value="MRAutoCheck" />
     <option name="TEST_OBJECT" value="GROUP" />
     <option name="PARAMETERS" value="" />
     <option name="OUTPUT_DIRECTORY" value="" />

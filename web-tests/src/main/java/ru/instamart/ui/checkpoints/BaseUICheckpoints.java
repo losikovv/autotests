@@ -2,6 +2,7 @@ package instamart.ui.checkpoints;
 
 import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.ElementData;
+import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.PageData;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
@@ -78,7 +79,7 @@ public class BaseUICheckpoints {
 
     /**  Проверить возможность перехода на страницу */
     public void checkTransition(PageData page) {
-        checkTransition(AppManager.environment.getBasicUrlWithHttpAuth() + page.getPath());
+        checkTransition(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     /** Проверить возможность перехода на страницу по указанному url */
@@ -173,18 +174,18 @@ public class BaseUICheckpoints {
 
     /** Проверить возможность перехода на страницу и ее доступность */
     public void checkPageIsAvailable(PageData page) {
-        checkPageIsAvailable(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
+        checkPageIsAvailable(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     /** Проверить доступность ретейлера*/
     @Step("Проверить доступность ретейлера")
     public void checkRetailerIsAvailable(String retailer) {
-        checkPageIsAvailable(kraken.environment.getBasicUrlWithHttpAuth() + retailer);
+        checkPageIsAvailable(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer);
     }
     /** Проверить не доступность ретейлера*/
     @Step("Проверить не доступность ретейлера")
     public void checkRetailerIsUnavailable(String retailer) {
-        checkPageIs404(kraken.environment.getBasicUrlWithHttpAuth() + retailer);
+        checkPageIs404(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer);
     }
 
     /** Проверить возможность перехода на страницу по указанному url и ее недоступность с ошибкой 404 */
@@ -203,7 +204,7 @@ public class BaseUICheckpoints {
     /** Проверить возможность перехода на страницу и ее недоступность с ошибкой 404 */
     @Step("Проверить возможность перехода на страницу и ее недоступность с ошибкой 404")
     public void checkPageIs404(PageData page)  {
-        checkPageIs404(kraken.environment.getBasicUrlWithHttpAuth() + page.getPath());
+        checkPageIs404(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     /** Проверить возможность перехода в каталог магазина с лендинга Сбермаркета */
@@ -213,6 +214,104 @@ public class BaseUICheckpoints {
         Assert.assertFalse(
                 kraken.detect().isOnLanding(),
                 failMessage("Не работает переход в каталог магазина с лендинга Сбермаркета"));
+        verboseMessage("✓ Успешно");
+    }
+
+    /** Проверить отсутствие элемента на странице */
+    @Step("Проверить отсутствие элемента на странице")
+    public void checkElementAbsence(ElementData element) {
+        verboseMessage("> проверяем отсутствие элемента на странице " + kraken.grab().currentURL() + "\n> " + element.getLocator());
+        Assert.assertFalse(
+                kraken.detect().isElementPresent(element),
+                failMessage("Присутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL()
+                        + "\n> " + element.getLocator()));
+        verboseMessage("✓ " + element.getDescription() + " отсутствует\n");
+    }
+
+    /** Проверить что чекбокс проставлен */
+    @Step("Проверить что чекбокс проставлен")
+    public void checkCheckboxIsSet(ElementData element) {
+        verboseMessage("> проверяем что чекбокс на странице проставлен " + kraken.grab().currentURL());
+        Assert.assertTrue(
+                kraken.detect().isCheckboxSet(element),
+                failMessage("Не проставлен " + element.getDescription()));
+        verboseMessage("✓ Успешно");
+    }
+
+    /** Проверить что чекбокс не проставлен */
+    @Step("Проверить что чекбокс не проставлен")
+    public void checkCheckboxIsNotSet(ElementData element) {
+        verboseMessage("> проверяем что чекбокс на странице проставлен " + kraken.grab().currentURL());
+        Assert.assertFalse(
+                kraken.detect().isCheckboxSet(element),
+                failMessage("Проставлен " + element.getDescription()));
+        verboseMessage("✓ Успешно");
+    }
+
+    /** Проверить что радиокнопка выбрана */
+    @Step("Проверить что радиокнопка выбрана")
+    public void checkRadioButtonIsSelected(ElementData element) {
+        verboseMessage("> проверяем что радиобатон на странице выбран " + kraken.grab().currentURL());
+        Assert.assertTrue(
+                kraken.detect().isRadioButtonSelected(element),
+                failMessage("Не выбрана " + element.getDescription()));
+        verboseMessage("✓ Успешно");
+    }
+
+    /** Проверить что радиокнопка не выбрана */
+    @Step("Проверить что радиокнопка не выбрана")
+    public void checkRadioButtonIsNotSelected(ElementData element) {
+        verboseMessage("> проверяем что радиобатон на странице не выбран " + kraken.grab().currentURL());
+        Assert.assertFalse(
+                kraken.detect().isRadioButtonSelected(element),
+                failMessage("Выбрана " + element.getDescription()));
+        verboseMessage("✓ Успешно");
+    }
+
+    /** Проверка недоступности страницы для перехода */
+    public void checkPageIsUnavailable(PageData page) {
+        checkPageIsUnavailable(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
+    }
+
+    /** Проверка недоступности страницы для перехода по прямой ссылке */
+    @Step("Проверка недоступности страницы для перехода по прямой ссылке")
+    public void checkPageIsUnavailable(String URL) {
+        verboseMessage("> проверяем недоступность перехода на страницу " + URL);
+        kraken.get().url(URL);
+        Assert.assertFalse(
+                kraken.grab().currentURL().equalsIgnoreCase(URL),
+                "\n\n> Можно попасть на страницу " + kraken.grab().currentURL() + " по прямой ссылке\n");
+        verboseMessage("✓ Успешно");
+    }
+
+    /** Проверить что поле пустое */
+    @Step("Проверить что поле пустое")
+    public void checkFieldIsEmpty(ElementData element) {
+        verboseMessage("> проверяем что поле для ввода пустое на странице " + kraken.grab().currentURL());
+        Assert.assertTrue(
+                kraken.detect().isFieldEmpty(element),
+                failMessage("Не пустое " + element.getDescription()));
+        verboseMessage("✓ Успешно");
+    }
+
+    /** Проверить что поле не пустое */
+    @Step("Проверить что поле не пустое")
+    public void checkFieldIsNotEmpty(ElementData element) {
+        verboseMessage("> проверяем что поле для ввода не пустое на странице " + kraken.grab().currentURL());
+        Assert.assertFalse(
+                kraken.detect().isFieldEmpty(element),
+                failMessage("Пустое " + element.getDescription()));
+        verboseMessage("✓ Успешно");
+    }
+
+    /** Проверить что поле заполнено ожидаемым текстом */
+    @Step("Проверить что поле заполнено ожидаемым текстом")
+    public void checkFieldIsFilled(ElementData element, String expectedText) {
+        verboseMessage("> проверяем что поле для ввода заполненно ожидаемым текстом на странице "
+                + kraken.grab().currentURL());
+        Assert.assertEquals(
+                kraken.grab().value(element), expectedText,
+                failMessage("Некорректно заполнено " + element.getDescription()));
         verboseMessage("✓ Успешно");
     }
 }

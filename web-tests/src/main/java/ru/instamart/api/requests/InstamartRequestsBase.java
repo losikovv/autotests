@@ -1,6 +1,6 @@
 package instamart.api.requests;
 
-import instamart.api.common.RestBase;
+import instamart.api.common.Specification;
 import io.restassured.specification.RequestSpecification;
 
 import javax.net.ssl.SSLHandshakeException;
@@ -25,7 +25,7 @@ abstract class InstamartRequestsBase {
      */
     private static RequestSpecification givenExceptions()
             throws SSLHandshakeException, SocketException, IllegalStateException {
-        return given().spec(RestBase.customerRequestSpec);
+        return given().spec(Specification.INSTANCE.getCustomerRequestSpec());
     }
 
     /**
@@ -47,6 +47,6 @@ abstract class InstamartRequestsBase {
                 verboseMessage(illegalStateException);
             }
         }
-        return given().spec(RestBase.customerRequestSpec);
+        return given().spec(Specification.INSTANCE.getCustomerRequestSpec());
     }
 }

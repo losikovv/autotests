@@ -13,15 +13,38 @@ task Testing(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    //todo дублирование кода я не уверен, что эту секцию нужно дублировать в каждой конфигурации, скорее наоборот
-    /*if (project.hasProperty('browser')) {
+}
+
+task AutoMRCheck(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/mr-suite.xml'
+        includeGroups 'MRAutoCheck'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('browser')) {
         systemProperty 'browser',"${browser}"
     }
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
-    }*/
+    }
 }
 
+
+task cleanup(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/setup-suite.xml'
+        includeGroups 'cleanup'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
 task debug(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true

@@ -14,9 +14,8 @@ public class Base {
     public static EnvironmentData environment;
     public static AppManager kraken;
 
-    Base(WebDriver driver, EnvironmentData environment, AppManager app) {
+    Base(WebDriver driver, AppManager app) {
         this.driver = driver;
-        this.environment = environment;
         this.kraken = app;
     }
 

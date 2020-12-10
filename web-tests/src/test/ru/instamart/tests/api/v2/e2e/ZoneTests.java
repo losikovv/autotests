@@ -1,13 +1,14 @@
 package ru.instamart.tests.api.v2.e2e;
 
+import instamart.api.common.RestBase;
+import instamart.api.objects.v2.Store;
+import instamart.api.objects.v2.Zone;
+import instamart.core.testdata.Users;
+import instamart.core.testdata.dataprovider.RestDataProvider;
+import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import instamart.ui.common.pagesdata.UserData;
-import instamart.api.common.RestBase;
-import instamart.core.testdata.dataprovider.RestDataProvider;
-import instamart.api.objects.v2.Store;
-import instamart.api.objects.v2.Zone;
 
 import static instamart.core.helpers.HelperBase.verboseMessage;
 
@@ -30,7 +31,7 @@ public class ZoneTests extends RestBase {
         verboseMessage(zoneName);
         verboseMessage(coordinates + "\n");
 
-        UserData user = user();
+        final UserData user = Users.apiUser();
 
         apiV2.registration(user);
         apiV2.order(user, store.getId(), coordinates);

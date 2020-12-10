@@ -2,7 +2,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="REST API suite" parallel="none">
   <listeners>
-    <listener class-name="instamart.core.listeners.TmsListener"/>
+    <listener class-name="instamart.core.listeners.ExecutionListenerImpl"/>
+    <listener class-name="instamart.core.listeners.ApiListener"/>
   </listeners>
   <test verbose="1" name="REST API tests">
     <groups>
@@ -36,5 +37,5 @@
       <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentlessTests"/>
       <class name="ru.instamart.tests.api.shopper.e2e.ShopperTests"/>
     </classes>
-  </test> <!-- web-tests -->
+  </test> <!-- api-tests -->
 </suite> <!-- Custom suite -->

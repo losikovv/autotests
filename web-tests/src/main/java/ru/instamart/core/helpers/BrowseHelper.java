@@ -10,14 +10,14 @@ import org.openqa.selenium.WebDriver;
 
 public class BrowseHelper extends HelperBase {
 
-    public BrowseHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
-        super(driver, environment, app);
+    public BrowseHelper(WebDriver driver, AppManager app) {
+        super(driver, app);
     }
 
     /** Перейти на указанный URL*/
     @Step("Перейти на указанный URL: {0}")
     public void url(String url) {
-        if (url.equals(environment.getBasicUrl())) {
+        if (url.equals(EnvironmentData.INSTANCE.getBasicUrl())) {
             verboseMessage("Переходим по базовому URL >>> " + url + "\n");
         }
         try {
@@ -29,17 +29,17 @@ public class BrowseHelper extends HelperBase {
 
     /** Перейти на базовый URL */
     public void baseUrl() {
-        url(environment.getBasicUrlWithHttpAuth());
+        url(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth());
     }
 
     /** Перейти на страницу */
     public void page(String page) {
-        verboseMessage("> переходим на страницу: "+environment.getBasicUrlWithHttpAuth() + page);
-        url(environment.getBasicUrlWithHttpAuth() + page);
+        verboseMessage("> переходим на страницу: "+EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page);
+        url(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page);
     }
 
     public void page(PageData page) {
-        url(environment.getBasicUrlWithHttpAuth() + page.getPath());
+        url(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
     /** Перейти на страницу чекаута */
@@ -49,7 +49,7 @@ public class BrowseHelper extends HelperBase {
 
     /** Перейти на страницу в админке */
     public void adminPage(String path) {
-        url(environment.getAdminUrlWithHttpAuth() + path);
+        url(EnvironmentData.INSTANCE.getAdminUrlWithHttpAuth() + path);
     }
 
     /** Перейти на страницу заказа в админке */

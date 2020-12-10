@@ -1,8 +1,9 @@
 package instamart.core.testdata;
 
+import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.pagesdata.UserData;
 
-public abstract class Users {
+public final class Users {
 
     public static UserData superadmin(){
         return new UserData(
@@ -57,5 +58,12 @@ public abstract class Users {
         return new UserData(
                 "79629422123",
                 "Bobylev1");
+    }
+
+    public static UserData apiUser() {
+        return new UserData(
+                Generate.email(),
+                "instamart",
+                "Василий Автотестов");
     }
 }

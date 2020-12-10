@@ -40,7 +40,7 @@ public class ShoppingCatalogTests extends TestBase {
     @CaseId(1596)
     @Test(
             description = "Тест открытия категории 1 уровня из шторки каталога",
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"testing","sbermarket-Ui-smoke","MRAutoCheck"}
     )
     public void successGoToDepartmentFromCatalogDrawer() {
         Shop.CatalogDrawer.open();

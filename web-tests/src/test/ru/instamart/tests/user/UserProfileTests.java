@@ -57,7 +57,7 @@ public class UserProfileTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.AccountMenu.deliveryButton());
         baseChecks.checkIsElementPresent(Elements.AccountMenu.paymentButton());
         baseChecks.checkIsElementPresent(Elements.AccountMenu.faqButton());
-        assertAbsence(Elements.AccountMenu.contactsButton());
+        baseChecks.checkElementAbsence(Elements.AccountMenu.contactsButton());
 
         Shop.AccountMenu.close();
 

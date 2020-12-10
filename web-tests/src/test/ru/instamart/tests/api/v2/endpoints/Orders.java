@@ -7,6 +7,7 @@ import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.LineItemsResponse;
 import instamart.api.responses.v2.OrderResponse;
 import instamart.api.responses.v2.OrdersResponse;
+import instamart.core.testdata.Users;
 import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
@@ -20,7 +21,7 @@ public class Orders extends RestBase {
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         if (!apiV2.authorized()) {
-            UserData user = user();
+            final UserData user = Users.apiUser();
             apiV2.registration(user);
             apiV2.authorisation(user);
         }
@@ -29,7 +30,7 @@ public class Orders extends RestBase {
 
     @CaseId(4)
     @Test(  description = "Получаем заказы",
-            groups = {"api-v2-smoke"})
+            groups = {"api-v2-smoke","MRAutoCheck"})
     public void getOrders() {
         response = ApiV2Requests.Orders.GET();
         ApiV2Checkpoints.assertStatusCode200(response);

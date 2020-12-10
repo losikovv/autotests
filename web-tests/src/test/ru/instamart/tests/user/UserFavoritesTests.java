@@ -35,7 +35,7 @@ public class UserFavoritesTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"}
     )
     public void noAccessToFavoritesForUnauthorizedUser(){
-        assertPageIsUnavailable(Pages.UserProfile.favorites());
+        baseChecks.checkPageIsUnavailable(Pages.UserProfile.favorites());
     }
     @CaseId(1264)
     @Test(  description = "Переход в любимые товары по кнопке, новый пользователь" +
@@ -69,7 +69,6 @@ public class UserFavoritesTests extends TestBase {
     )
     public void noFavoriteItemsByDefault() {
         User.Do.registration();
-
         Assert.assertTrue(
                 kraken.detect().isFavoritesEmpty(),
                     "Дефолтный список любимых товаров у нового пользователя не пуст\n");

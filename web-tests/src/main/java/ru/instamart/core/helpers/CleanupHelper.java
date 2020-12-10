@@ -9,8 +9,8 @@ import instamart.ui.common.pagesdata.EnvironmentData;
 
 public class CleanupHelper extends HelperBase {
 
-    public CleanupHelper(WebDriver driver, EnvironmentData environment, AppManager app) {
-        super(driver, environment, app);
+    public CleanupHelper(WebDriver driver, AppManager app) {
+        super(driver, app);
     }
 
     public void all() {

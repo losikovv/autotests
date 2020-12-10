@@ -39,6 +39,8 @@ public final class Config {
     //TODO: Подумать о том что бы избавиться и перейти на валидацию схемы
     public static final boolean REST_IGNORE_PROPERTIES = true;
 
+    public static String QASE_API_TOKEN;
+
     public static void load() {
         final ConfigParser coreSettings = new ConfigParser(CONFIG_DIR+CORE_CONFIG_FILE);
 
@@ -74,5 +76,7 @@ public final class Config {
         DO_CLEANUP_AFTER_TEST_RUN = coreSettings.getBoolean("doCleanupAfterTestRun", true);
         // Все существующие инстансы браузера связанные с selenium будут удалены, рабочий браузер не убивается
         DO_CLEANUP_BEFORE_TEST_RUN = coreSettings.getBoolean("doCleanupBeforeTestRun", true);
+
+        QASE_API_TOKEN = coreSettings.getString("qaseApiToken", "");
     }
 }

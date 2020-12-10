@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Web UI suite" parallel="none">
+<suite name="MR UI-API suite" parallel="none">
   <listeners>
     <listener class-name="instamart.core.listeners.ExecutionListenerImpl"/>
-    <listener class-name="instamart.core.listeners.UiListener"/>
   </listeners>
-  <test verbose="1" name="Web UI tests">
+  <test verbose="1" name="MR UI-API suite">
     <groups>
       <run>
-        <include name="sbermarket-Ui-smoke"/>
-        <include name="testing"/>
-        <include name="sbermarket-acceptance"/>
-        <include name="sbermarket-regression"/>
-        <include name="metro-smoke"/>
-        <include name="metro-acceptance"/>
-        <include name="metro-regression"/>
+        <include name="MRAutoCheck"/>
       </run>
     </groups>
     <classes>
+      <class name="ru.instamart.tests.api.v2.endpoints.Taxons"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Searches"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Products"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Orders"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Stores"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.LineItems"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Users"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Sessions"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.FavoritesList"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Taxons"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.OnboardingPages"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.PaymentTools"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.Promotions"/>
+      <class name="ru.instamart.tests.api.v2.e2e.StoreTests"/>
+      <class name="ru.instamart.tests.api.v2.e2e.ZoneTests"/>
+      <class name="ru.instamart.tests.api.v2.e2e.RetailerTests"/>
+      <class name="ru.instamart.tests.api.v2.e2e.OrderTests"/>
+      <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentfulTests"/>
+      <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentlessTests"/>
+      <class name="ru.instamart.tests.api.shopper.e2e.ShopperTests"/>
       <class name="ru.instamart.tests.administration.AdministrationAccessTests"/>
       <class name="ru.instamart.tests.administration.AdministrationLoginTests"/>
       <class name="ru.instamart.tests.administration.AdministrationPagesSectionTests"/>
@@ -77,5 +90,5 @@
       <class name="ru.instamart.tests.user.UserRegistrationTests"/>
       <class name="ru.instamart.tests.user.UserShippingAddressTests"/>
     </classes>
-  </test> <!-- web-tests -->
+  </test> <!-- mr-tests -->
 </suite> <!-- Custom suite -->
