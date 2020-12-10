@@ -8,7 +8,7 @@ ext.versions = [
         testng: '6.8.8',
         restAssured: '4.1.1',
         jetbrainsAnnotations: '19.0.0',
-        allure: '2.13.6',
+        allure: '2.13.1',
         aspectjweaver: '1.9.6',
 ]
 
