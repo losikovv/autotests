@@ -25,12 +25,15 @@ CustomSuiteTestRun:
   services:
     - selenium/standalone-chrome
   script:
+    #- echo $REPORT
+    #- echo $REPORT_URL
     - echo $P_ENV
     - echo $TEST_SET
     - echo $QASE
     - echo $BROWSER
     - cd web-tests
     - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE
+    #- bash ./report.sh $REPORT $REPORT_URL $P_ENV
   tags:
     - k8s-stage
   artifacts:
@@ -44,11 +47,14 @@ tests:apiv2:
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
+    #- echo $REPORT
+    #- echo $REPORT_URL
     - echo $P_ENV
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
     - ./gradlew clean apiV2Regress -Penv=$P_ENV -Pqase=true
+    #- bash ./report.sh $REPORT $REPORT_URL $P_ENV
   tags:
     - k8s-stage
   artifacts:
@@ -62,11 +68,14 @@ tests:apiShopper:
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
+    #- echo $REPORT
+    #- echo $REPORT_URL
     - echo $P_ENV
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
     - ./gradlew build apiShopperRegress -Penv=$P_ENV -Pqase=true
+    #- bash ./report.sh $REPORT $REPORT_URL $P_ENV
   tags:
     - k8s-stage
   artifacts:
@@ -80,11 +89,14 @@ tests:apiZonesProductionOnly:
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
+    #- echo $REPORT
+    #- echo $REPORT_URL
     - echo $P_ENV
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
     - ./gradlew build apiZones -Penv=$P_ENV -Pqase=true
+    #- bash ./report.sh $REPORT $REPORT_URL $P_ENV
   tags:
     - k8s-stage
   artifacts:
@@ -98,11 +110,14 @@ tests:UiSmoke:
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
+    #- echo $REPORT
+    #- echo $REPORT_URL
     - echo $P_ENV
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - - ./gradlew build sberUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true
+    - ./gradlew build sberUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true
+    #- bash ./report.sh $REPORT $REPORT_URL $P_ENV
   tags:
     - k8s-stage
   artifacts:
@@ -121,7 +136,7 @@ tests:AutoMRCheck:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - - ./gradlew build AutoMRCheck -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=false
+    - ./gradlew build AutoMRCheck -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=false
   tags:
     - k8s-stage
   artifacts:
@@ -129,16 +144,3 @@ tests:AutoMRCheck:
     paths:
       - web-tests/build/allure-results/
     expire_in: 1 week
-
-tests:debug:
-  stage: tests
-  image: $CI_REGISTRY_IMAGE
-  script:
-    - echo $REPORT
-    - echo $REPORT_URL
-    - echo $P_ENV
-    - cd web-tests
-    - ./gradlew build debug
-    - bash ./report.sh /build/allure-results http://allurerest.matthew.keenetic.link default
-  tags:
-    - k8s-stage
