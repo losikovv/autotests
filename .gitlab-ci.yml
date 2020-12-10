@@ -43,7 +43,8 @@ CustomSuiteTestRun:
     expire_in: 1 week
 
 tests:apiv2:
-  when: manual
+  only:
+    - master
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
@@ -64,7 +65,8 @@ tests:apiv2:
     expire_in: 1 week
 
 tests:apiShopper:
-  when: manual
+  only:
+    - master
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
@@ -106,7 +108,8 @@ tests:apiZonesProductionOnly:
     expire_in: 1 week
 
 tests:UiSmoke:
-  when: manual
+  only:
+    - master
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
