@@ -35,8 +35,6 @@ public class ApiV2Requests extends InstamartRequestsBase {
             data.put("user[password]", password);
 
             return givenCatch()
-                    .log()
-                    .params()
                     .formParams(data)
                     .post(ApiV2EndPoints.USERS);
         }
@@ -233,8 +231,6 @@ public class ApiV2Requests extends InstamartRequestsBase {
             return givenCatch()
                     .header("Authorization",
                             "Token token=" + token.get())
-                    .log()
-                    .params()
                     .formParams(data)
                     .put(ApiV2EndPoints.Orders.NUMBER, orderNumber);
         }
@@ -288,8 +284,6 @@ public class ApiV2Requests extends InstamartRequestsBase {
                 return givenCatch()
                         .header("Authorization",
                                 "Token token=" + token.get())
-                        .log()
-                        .params()
                         .formParams(data)
                         .put(ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE, orderNumber);
             }
@@ -371,8 +365,6 @@ public class ApiV2Requests extends InstamartRequestsBase {
             return givenCatch()
                     .header("Authorization",
                             "Token token=" + token.get())
-                    .log()
-                    .params()
                     .formParams(data)
                     .post(ApiV2EndPoints.LINE_ITEMS);
         }
@@ -467,13 +459,11 @@ public class ApiV2Requests extends InstamartRequestsBase {
                         return givenCatch()
                                 .body(requestParams)
                                 .contentType(ContentType.JSON)
-                                .log().body()
                                 .post(ApiV2EndPoints.AuthProviders.SESSIONS, provider.getId());
                     case VKONTAKTE:
                     case FACEBOOK:
                         return givenCatch()
                                 .param("session[uid]", provider.getSessionUid())
-                                .log().params()
                                 .post(ApiV2EndPoints.AuthProviders.SESSIONS, provider.getId());
                     default:
                         throw new IllegalStateException("Unexpected value: " + provider.getId());

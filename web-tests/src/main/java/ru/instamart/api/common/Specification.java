@@ -1,10 +1,10 @@
 package instamart.api.common;
 
 import instamart.ui.common.pagesdata.EnvironmentData;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.filter.log.ErrorLoggingFilter;
-import io.restassured.filter.log.LogDetail;
+import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.specification.RequestSpecification;
 
@@ -20,8 +20,8 @@ public enum Specification {
     private RequestSpecification shopperRequestSpec;
 
     public void initSpec() {
-        String customerFullBaseUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth();
-        String shopperFullBaseUrl = EnvironmentData.INSTANCE.getShopperUrl();
+        final String customerFullBaseUrl = EnvironmentData.INSTANCE.getBasicUrl();
+        final String shopperFullBaseUrl = EnvironmentData.INSTANCE.getShopperUrl();
         port = 443;
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
         defaultParser = Parser.JSON;
@@ -31,25 +31,24 @@ public enum Specification {
                 .expectStatusCode(not(401))
                 .expectStatusCode(not(429))
                 .expectStatusCode(not(500))
+                .expectContentType(ContentType.JSON)
                 .build();
 
         customerRequestSpec = new RequestSpecBuilder()
-                .setBaseUri(customerFullBaseUrl.substring(0, customerFullBaseUrl.length() - 1))
+                .setBaseUri(customerFullBaseUrl)
                 .setBasePath("api/")
-                .log(LogDetail.METHOD)
-                .log(LogDetail.URI)
-                .addFilter(new ErrorLoggingFilter())
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssured())
                 .build();
 
         shopperRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(shopperFullBaseUrl.substring(0, shopperFullBaseUrl.length() - 1))
                 .setBasePath("")
+                .setAccept(ContentType.JSON)
                 .addHeader(
                         "Client-Ver",
                         "99.9.9")
-                .log(LogDetail.METHOD)
-                .log(LogDetail.URI)
-                .addFilter(new ErrorLoggingFilter())
+                .addFilter(new AllureRestAssured())
                 .build();
     }
 
