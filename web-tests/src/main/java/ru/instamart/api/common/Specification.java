@@ -20,7 +20,7 @@ public enum Specification {
     private RequestSpecification shopperRequestSpec;
 
     public void initSpec() {
-        final String customerFullBaseUrl = EnvironmentData.INSTANCE.getBasicUrl();
+        final String customerFullBaseUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth();
         final String shopperFullBaseUrl = EnvironmentData.INSTANCE.getShopperUrl();
         port = 443;
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
@@ -35,7 +35,7 @@ public enum Specification {
                 .build();
 
         customerRequestSpec = new RequestSpecBuilder()
-                .setBaseUri(customerFullBaseUrl)
+                .setBaseUri(customerFullBaseUrl.substring(0, customerFullBaseUrl.length() - 1))
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssured())
