@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Properties;
 
 import static instamart.core.settings.Config.DEFAULT_ENVIRONMENT;
@@ -15,6 +16,8 @@ public enum EnvironmentData {
     INSTANCE;
 
     private static final Logger logger = LoggerFactory.getLogger(EnvironmentData.class);
+
+    private static final String ENV_DIR = Objects.requireNonNull(EnvironmentData.class.getClassLoader().getResource("environment_configs/")).getPath();
 
     private String tenant;
     private String server;
@@ -26,7 +29,7 @@ public enum EnvironmentData {
     private String defaultShopperSid;
 
     public void load() {
-        final String file = String.format("src/test/resources/environment_configs/%s.properties", DEFAULT_ENVIRONMENT);
+        final String file = String.format(ENV_DIR+"%s.properties", DEFAULT_ENVIRONMENT);
         final Properties properties = new Properties();
 
         try {

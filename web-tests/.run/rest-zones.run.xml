@@ -11,7 +11,10 @@
     <option name="OUTPUT_DIRECTORY" value="" />
     <option name="PROPERTIES_FILE" value="" />
     <properties />
-    <listeners />
+    <listeners>
+      <listener class="instamart.core.listeners.ExecutionListenerImpl" />
+      <listener class="instamart.core.listeners.ApiListener" />
+    </listeners>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
