@@ -136,7 +136,6 @@ public class ShopperApiRequests {
                 return givenWithAuth()
                         .body(requestParams)
                         .contentType(ContentType.JSON)
-                        .log().body()
                         .post(ShopperApiEndpoints.Shopper.OPERATION_SHIFTS);
             }
         }
@@ -195,7 +194,6 @@ public class ShopperApiRequests {
         public static Response POST(String shipmentId) {
             return givenWithAuth()
                     .formParam("shipment_id", shipmentId)
-                    .log().params()
                     .post(ShopperApiEndpoints.ASSEMBLIES);
         }
 
@@ -222,7 +220,6 @@ public class ShopperApiRequests {
                 return givenWithAuth()
                         .body(requestParams)
                         .contentType(ContentType.JSON)
-                        .log().body()
                         .post(ShopperApiEndpoints.Assemblies.ITEMS, assemblyId);
             }
         }
@@ -268,7 +265,6 @@ public class ShopperApiRequests {
                 return givenWithAuth()
                         .body(requestParams)
                         .contentType(ContentType.JSON)
-                        .log().body()
                         .post(ShopperApiEndpoints.Assemblies.PACKAGE_SETS, assemblyId);
             }
 
@@ -296,7 +292,6 @@ public class ShopperApiRequests {
                 return givenWithAuth()
                         .body(requestParams)
                         .contentType(ContentType.JSON)
-                        .log().body()
                         .post(ShopperApiEndpoints.Assemblies.PACKAGE_SETS, assemblyId);
             }
 
@@ -346,7 +341,6 @@ public class ShopperApiRequests {
                 return givenWithAuth()
                         .body(requestParams)
                         .contentType(ContentType.JSON)
-                        .log().body()
                         .post(ShopperApiEndpoints.Assemblies.RECEIPTS, assemblyId);
             }
         }
@@ -393,7 +387,6 @@ public class ShopperApiRequests {
             return givenWithAuth()
                     .body(requestParams)
                     .contentType(ContentType.JSON)
-                    .log().body()
                     .patch(ShopperApiEndpoints.Assemblies.Items.ID, assemblyId, itemId);
         }
 
@@ -414,7 +407,6 @@ public class ShopperApiRequests {
             @Step("{method} /" + ShopperApiEndpoints.AssemblyItems.CANCELLATIONS)
             public static Response POST(String itemId, int reasonId) {
                 return givenWithAuth()
-                        .log().params()
                         .formParam("cancel_reason_id", reasonId)
                         .post(ShopperApiEndpoints.AssemblyItems.CANCELLATIONS, itemId);
             }
@@ -438,7 +430,6 @@ public class ShopperApiRequests {
                 return givenWithAuth()
                         .body(requestParams)
                         .contentType(ContentType.JSON)
-                        .log().body()
                         .post(ShopperApiEndpoints.AssemblyItems.REPLACEMENTS, itemId);
             }
         }
@@ -453,7 +444,6 @@ public class ShopperApiRequests {
                 return givenWithAuth()
                         .body(requestParams)
                         .contentType(ContentType.JSON)
-                        .log().body()
                         .post(ShopperApiEndpoints.AssemblyItems.CLARIFICATIONS, itemId);
             }
         }
@@ -480,7 +470,6 @@ public class ShopperApiRequests {
                 data.put("assembly_item[found_qty]", foundQty);
 
                 return givenWithAuth()
-                        .log().params()
                         .formParams(data)
                         .post(ShopperApiEndpoints.Replacements.ADDITIONAL_ITEMS, replacementId);
             }
