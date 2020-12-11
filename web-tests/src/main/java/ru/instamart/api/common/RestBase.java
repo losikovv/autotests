@@ -3,7 +3,6 @@ package instamart.api.common;
 import com.google.common.collect.ImmutableMap;
 import instamart.api.helpers.ApiV2Helper;
 import instamart.api.helpers.ShopperApiHelper;
-import instamart.core.common.AppManager;
 import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.Allure;

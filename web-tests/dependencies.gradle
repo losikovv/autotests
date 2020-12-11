@@ -26,7 +26,8 @@ ext.lib = [
         jetbrainsAnnotations: "org.jetbrains:annotations:$versions.jetbrainsAnnotations",
         aspectjweaver: "org.aspectj:aspectjweaver:$versions.aspectjweaver",
         allureTestng: "io.qameta.allure:allure-testng:$versions.allure",
-        allureJavaCommons: "io.qameta.allure:allure-java-commons:$versions.allure"
+        allureJavaCommons: "io.qameta.allure:allure-java-commons:$versions.allure",
+        allureRestAssuredReport: "io.qameta.allure:allure-rest-assured:$versions.allure"
 ]
 
 dependencies {
@@ -35,6 +36,7 @@ dependencies {
     compile lib.qaseApi
     compile lib.qaseTestng
     compile lib.restAssured
+    compile lib.allureRestAssuredReport
     implementation lib.allureTestng
     implementation lib.allureJavaCommons
     implementation lib.jetbrainsAnnotations
