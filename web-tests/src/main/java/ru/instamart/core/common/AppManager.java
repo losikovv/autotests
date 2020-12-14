@@ -221,6 +221,23 @@ public class AppManager {
              if(amountBro>0){
                  processKiller("test-type=webdriver");
              }
+         }if(name.equals("firefox")){
+             String gdriver = "geckodriver";
+             String browserInst = "Firefox";
+             long amount = ProcessHandle.allProcesses()
+                     .filter(p -> p.info().commandLine().map(c -> c.contains(gdriver))
+                             .orElse(false)).count();
+             long amountBro = ProcessHandle.allProcesses()
+                     .filter(p -> p.info().commandLine().map(c -> c.contains(browserInst))
+                             .orElse(false)).count();
+             //Если есть запущенные chromedriver, то убиваем их
+             if(amount>0){
+                 processKiller(gdriver);
+             }
+             //если есть запущенные Инстансы Селениума, то и их киляем
+             if(amountBro>0){
+                 processKiller("Firefox");
+             }
          }
      }
 
