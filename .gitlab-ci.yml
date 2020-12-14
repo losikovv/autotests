@@ -108,8 +108,7 @@ tests:apiZonesProductionOnly:
     expire_in: 1 week
 
 tests:UiSmoke:
-  only:
-    - master
+  when: manual
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
