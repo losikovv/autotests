@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="REST API suite" parallel="none">
+<suite name="REST API Suite" parallel="none">
   <listeners>
     <listener class-name="instamart.core.listeners.ExecutionListenerImpl"/>
     <listener class-name="instamart.core.listeners.ApiListener"/>
   </listeners>
-  <test verbose="1" name="REST API tests">
+  <test verbose="1" name="API v1 Tests">
+    <groups>
+      <run>   
+        <include name="api-v2-smoke"/>
+        <include name="api-v2-regress"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="ru.instamart.tests.api.v1.contracts.OperationalZones"/>
+      <class name="ru.instamart.tests.api.v1.contracts.Retailers"/>
+      <class name="ru.instamart.tests.api.v1.contracts.Stores"/>
+      <class name="ru.instamart.tests.api.v1.contracts.Offers"/>
+      <class name="ru.instamart.tests.api.v1.contracts.Orders"/>
+    </classes>
+  </test> <!-- api-v1-tests -->
+  <test verbose="1" name="API v2 Tests">
     <groups>
       <run>
         <include name="api-zones"/>
         <include name="api-v2-smoke"/>
         <include name="api-v2-regress"/>
-        <include name="api-shopper-smoke"/>
-        <include name="api-shopper-regress"/>
       </run>
     </groups>
     <classes>
@@ -33,14 +46,19 @@
       <class name="ru.instamart.tests.api.v2.e2e.ZoneTests"/>
       <class name="ru.instamart.tests.api.v2.e2e.RetailerTests"/>
       <class name="ru.instamart.tests.api.v2.e2e.OrderTests"/>
+    </classes>
+  </test> <!-- api-v2-tests -->
+  <test verbose="1" name="API Shopper Tests">
+    <groups>
+      <run>
+        <include name="api-shopper-smoke"/>
+        <include name="api-shopper-regress"/>
+      </run>
+    </groups>
+    <classes>
       <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentfulTests"/>
       <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentlessTests"/>
       <class name="ru.instamart.tests.api.shopper.e2e.ShopperTests"/>
-      <class name="ru.instamart.tests.api.v1.contracts.OperationalZones"/>
-      <class name="ru.instamart.tests.api.v1.contracts.Retailers"/>
-      <class name="ru.instamart.tests.api.v1.contracts.Stores"/>
-      <class name="ru.instamart.tests.api.v1.contracts.Offers"/>
-      <class name="ru.instamart.tests.api.v1.contracts.Orders"/>
     </classes>
-  </test> <!-- api-tests -->
+  </test> <!-- api-shopper-tests -->
 </suite> <!-- Custom suite -->
