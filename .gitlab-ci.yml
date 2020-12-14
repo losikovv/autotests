@@ -45,6 +45,7 @@ CustomSuiteTestRun:
 tests:apiv2:
   only:
     - master
+  resource_group: apiv2:$CI_COMMIT_REF_SLUG
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
@@ -67,6 +68,7 @@ tests:apiv2:
 tests:apiShopper:
   only:
     - master
+  resource_group: apishopper:$CI_COMMIT_REF_SLUG
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
@@ -86,7 +88,7 @@ tests:apiShopper:
       - web-tests/build/allure-results/
     expire_in: 1 week
 
-tests:apiZonesProductionOnly:
+tests:apiZonesProductionOnly:7
   when: manual
   stage: tests
   image: $CI_REGISTRY_IMAGE
@@ -110,6 +112,7 @@ tests:apiZonesProductionOnly:
 tests:UiSmoke:
   when: manual
   stage: tests
+  resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
   script:
     #- echo $REPORT
