@@ -5,7 +5,6 @@ import instamart.core.testdata.TestVariables;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.ElementData;
-import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.WidgetData;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
@@ -869,12 +868,15 @@ public class Shop extends Base {
             String quantity = kraken.grab().itemQuantityByText();
             verboseMessage("> количество товара: " + quantity);
             kraken.grab().addItemCard();
-            kraken.await().fluently(
-                    ExpectedConditions.elementToBeClickable(
-                            Elements.ItemCard.cartNew().getLocator()),
-                    "иконка корзины не появилась\n");
             if (neededQuantity==1) kraken.await().implicitly(2);
-            else kraken.grab().addItemCard(neededQuantity);
+            else {
+                kraken.await().fluently(
+                        ExpectedConditions.elementToBeClickable(
+                                Elements.ItemCard.cartNew().getLocator()),
+                        "иконка корзины не появилась\n");
+                kraken.grab().addItemCard(neededQuantity);
+            }
+
             /*
             if (kraken.grab().itemQuantity() < neededQuantity) {
                 ItemCard.addToCart();
