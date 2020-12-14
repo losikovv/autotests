@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": [
+    "marketing_sample_items"
+  ],
+  "properties": {
+    "marketing_sample_items": {
+      "type": "array"
+    }
+  }
+}

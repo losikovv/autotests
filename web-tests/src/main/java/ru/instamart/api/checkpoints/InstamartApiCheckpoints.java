@@ -4,6 +4,7 @@ import instamart.api.objects.v2.Order;
 import instamart.api.objects.v2.Taxon;
 import instamart.api.responses.v2.ErrorResponse;
 import io.qameta.allure.Step;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
@@ -11,7 +12,7 @@ import org.testng.asserts.SoftAssert;
 import java.time.LocalDate;
 import java.util.List;
 
-public class ApiV2Checkpoints {
+public class InstamartApiCheckpoints {
 
     /**
      * Ассерт, что статус код 200
@@ -21,16 +22,19 @@ public class ApiV2Checkpoints {
     }
 
     public static void assertStatusCode200(Response response, String message) {
+        response.then().assertThat().contentType(ContentType.JSON);
         String responseText = "";
         switch (response.statusCode()) {
             case 200:
-            case 404:
                 break;
             case 400:
             case 401:
             case 403:
+            case 404:
             case 422:
-                responseText = response.as(ErrorResponse.class).getErrors().getBase();
+                ErrorResponse errorResponse = response.as(ErrorResponse.class);
+                if (errorResponse.getErrors() != null) responseText = errorResponse.getErrors().getBase();
+                else if (errorResponse.getError() != null) responseText = errorResponse.getError();
                 break;
             case 502:
                 responseText = "СЕРВЕР ЛЕЖИТ";

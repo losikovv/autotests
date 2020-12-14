@@ -1,6 +1,6 @@
 package ru.instamart.tests.api.shopper.endpoints;
 
-import instamart.api.checkpoints.ApiV2Checkpoints;
+import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
 import instamart.api.objects.shopper.AssemblyData;
 import instamart.api.objects.v2.Order;
@@ -30,7 +30,7 @@ public class ShipmentfulTests extends RestBase {
         UserData user = Users.apiUser();
         apiV2.registration(user);
         Order order = apiV2.order(user, EnvironmentData.INSTANCE.getDefaultSid());
-        ApiV2Checkpoints.assertIsDeliveryToday(order);
+        InstamartApiCheckpoints.assertIsDeliveryToday(order);
         shopper.authorisation(Users.shopper());
         shopper.deleteCurrentAssembly();
         shipmentId = shopper.getShipmentId(order.getShipments().get(0).getNumber());

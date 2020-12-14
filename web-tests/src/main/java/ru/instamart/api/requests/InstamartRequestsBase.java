@@ -10,7 +10,7 @@ import static instamart.core.helpers.HelperBase.verboseMessage;
 import static io.restassured.RestAssured.given;
 
 abstract class InstamartRequestsBase {
-    static ThreadLocal<String> token = new ThreadLocal<>();
+    protected static ThreadLocal<String> token = new ThreadLocal<>();
 
     public static String getToken() {
         return token.get();
@@ -34,17 +34,9 @@ abstract class InstamartRequestsBase {
     static RequestSpecification givenCatch() {
         for (int i = 0; i < 10; i++) {
             try {
-                try {
-                    try {
-                        return givenExceptions();
-                    } catch (SocketException socketException) {
-                        verboseMessage(socketException);
-                    }
-                } catch (SSLHandshakeException sslHandshakeException) {
-                    verboseMessage(sslHandshakeException);
-                }
-            } catch (IllegalStateException illegalStateException) {
-                verboseMessage(illegalStateException);
+                return givenExceptions();
+            } catch (SocketException | IllegalStateException | SSLHandshakeException exception) {
+                verboseMessage(exception);
             }
         }
         return given().spec(Specification.INSTANCE.getCustomerRequestSpec());

@@ -1,6 +1,9 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.checkpoints.ApiV2Checkpoints;
+import instamart.api.checkpoints.InstamartApiCheckpoints;
+import io.qase.api.annotation.CaseId;
+import org.testng.annotations.Test;
+import instamart.api.requests.ApiV2Requests;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Product;
 import instamart.api.requests.ApiV2Requests;
@@ -21,7 +24,7 @@ public class Products extends RestBase {
             groups = {"api-v2-smoke"})
     public void getProducts() {
         response = ApiV2Requests.Products.GET(1, "");
-        ApiV2Checkpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.assertStatusCode200(response);
         List<Product> products = response.as(ProductsResponse.class).getProducts();
         assertNotNull(products, "Не вернулись продукты");
         productId = products.get(0).getId();
@@ -33,7 +36,7 @@ public class Products extends RestBase {
             dependsOnMethods = "getProducts")
     public void getProduct() {
         response = ApiV2Requests.Products.GET(productId);
-        ApiV2Checkpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(ProductResponse.class).getProduct(), "Не вернулся продукт");
     }
 }

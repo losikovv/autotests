@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": [
+    "stores",
+    "meta"
+  ],
+  "properties": {
+    "stores": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "retailer_slug",
+          "retailer_color",
+          "time_zone",
+          "uuid",
+          "has_conveyor",
+          "auto_routing",
+          "express_delivery",
+          "box_scanning",
+          "training",
+          "min_order_amount",
+          "min_first_order_amount",
+          "min_first_order_amount_pickup",
+          "min_order_amount_pickup",
+          "available_for_pickup",
+          "external_assembly",
+          "next_delivery"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "retailer_slug": {
+            "type": "string"
+          },
+          "retailer_color": {
+            "type": "string"
+          },
+          "time_zone": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "has_conveyor": {
+            "type": "boolean"
+          },
+          "auto_routing": {
+            "type": "boolean"
+          },
+          "express_delivery": {
+            "type": "boolean"
+          },
+          "box_scanning": {
+            "type": ["boolean", "null"]
+          },
+          "training": {
+            "type": ["boolean", "null"]
+          },
+          "min_order_amount": {
+            "type": "number"
+          },
+          "min_first_order_amount": {
+            "type": "number"
+          },
+          "min_first_order_amount_pickup": {
+            "type": "number"
+          },
+          "min_order_amount_pickup": {
+            "type": "number"
+          },
+          "available_for_pickup": {
+            "type": "boolean"
+          },
+          "external_assembly": {
+            "type": ["boolean", "null"]
+          },
+          "next_delivery": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "current_page",
+        "next_page",
+        "total_pages",
+        "per_page",
+        "total_count"
+      ],
+      "properties": {
+        "current_page": {
+          "type": "integer"
+        },
+        "next_page": {
+          "type": ["integer", "null"]
+        },
+        "total_pages": {
+          "type": "integer"
+        },
+        "per_page": {
+          "type": "integer"
+        },
+        "total_count": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

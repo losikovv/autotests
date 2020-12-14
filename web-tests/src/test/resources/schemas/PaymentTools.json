@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": [
+    "available_payment_tools"
+  ],
+  "properties": {
+    "available_payment_tools": {
+      "type": "array"
+    }
+  }
+}

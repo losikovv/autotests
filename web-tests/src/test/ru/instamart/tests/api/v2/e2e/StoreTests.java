@@ -1,12 +1,11 @@
 package ru.instamart.tests.api.v2.e2e;
 
-import instamart.api.checkpoints.ApiV2Checkpoints;
+import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Product;
 import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Taxon;
 import instamart.api.requests.ApiV2Requests;
-import instamart.core.common.AppManager;
 import instamart.core.testdata.Users;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.ui.common.pagesdata.UserData;
@@ -67,7 +66,7 @@ public class StoreTests extends RestBase {
 
         SoftAssert softAssert = new SoftAssert();
         List<Taxon> taxons = apiV2.getTaxons(store.getId());
-        taxons.forEach(taxon -> ApiV2Checkpoints.assertProductsCountEqualsChildrenSum(taxon, softAssert));
+        taxons.forEach(taxon -> InstamartApiCheckpoints.assertProductsCountEqualsChildrenSum(taxon, softAssert));
         softAssert.assertAll();
     }
 
@@ -78,7 +77,7 @@ public class StoreTests extends RestBase {
     public void orderByStore(Store store) {
         verboseMessage("Оформляем заказ в " + store + "\n");
 
-        apiV2.order(AppManager.session.user, store.getId());
+        apiV2.order(Users.superuser(), store.getId());
         apiV2.cancelCurrentOrder();
     }
 

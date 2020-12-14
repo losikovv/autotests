@@ -2,9 +2,9 @@ package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.common.RestBase;
 import instamart.api.responses.v2.ErrorResponse;
-import instamart.api.responses.v2.UsersResponse;
 import instamart.core.testdata.ui.Generate;
 import org.testng.annotations.Test;
+import instamart.api.responses.v2.UserResponse;
 
 import static instamart.api.requests.ApiV2Requests.Users.POST;
 import static org.testng.Assert.assertEquals;
@@ -28,7 +28,7 @@ public class Users extends RestBase {
                 minCharPassword);
 
         assertEquals(response.getStatusCode(), 200);
-        assertEquals(response.as(UsersResponse.class).getUser().getEmail(), email);
+        assertEquals(response.as(UserResponse.class).getUser().getEmail(), email);
     }
 
     @Test(
@@ -97,7 +97,7 @@ public class Users extends RestBase {
                 minCharPassword);
 
         assertEquals(response.getStatusCode(), 200);
-        assertEquals(response.as(UsersResponse.class).getUser().getEmail(), email);
+        assertEquals(response.as(UserResponse.class).getUser().getEmail(), email);
     }
 
     @Test(
@@ -114,7 +114,7 @@ public class Users extends RestBase {
                 minCharPassword);
 
         assertEquals(response.getStatusCode(), 200);
-        assertEquals(response.as(UsersResponse.class).getUser().getEmail(), email);
+        assertEquals(response.as(UserResponse.class).getUser().getEmail(), email);
     }
 
     @Test(

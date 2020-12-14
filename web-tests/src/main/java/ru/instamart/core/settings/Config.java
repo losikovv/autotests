@@ -1,13 +1,8 @@
 package instamart.core.settings;
 
 import instamart.core.testdata.Environments;
-import instamart.core.testdata.ui.PaymentCards;
-import instamart.core.testdata.ui.PaymentTypes;
-import instamart.core.testdata.ui.Juridicals;
 import instamart.core.testdata.ui.Tenants;
 import instamart.core.util.ConfigParser;
-import instamart.ui.common.lib.ReplacementPolicies;
-import instamart.ui.common.pagesdata.*;
 import org.openqa.selenium.remote.BrowserType;
 
 import java.util.Objects;

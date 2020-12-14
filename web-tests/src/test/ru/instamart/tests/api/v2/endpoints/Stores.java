@@ -1,6 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.checkpoints.ApiV2Checkpoints;
+import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestAddresses;
 import instamart.api.common.RestBase;
 import instamart.api.requests.ApiV2Requests;
@@ -19,7 +19,7 @@ public class Stores extends RestBase {
             groups = {"api-v2-smoke"})
     public void getStore() {
         response = ApiV2Requests.Stores.GET(1);
-        ApiV2Checkpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(StoreResponse.class).getStore(), "Не вернулся магазин");
     }
 
@@ -30,7 +30,7 @@ public class Stores extends RestBase {
         response = ApiV2Requests.Stores.GET(
                 RestAddresses.Moscow.defaultAddress().getLat(),
                 RestAddresses.Moscow.defaultAddress().getLon());
-        ApiV2Checkpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(StoresResponse.class).getStores(),
                 "Не вернулись магазины по указанным координатам");
     }
@@ -40,7 +40,7 @@ public class Stores extends RestBase {
             groups = {"api-v2-smoke"})
     public void getStorePromotionCards() {
         response = ApiV2Requests.Stores.PromotionCards.GET(1);
-        ApiV2Checkpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(PromotionCardsResponse.class).getPromotion_cards(),
                 "Не вернулись промоакции магазина");
     }

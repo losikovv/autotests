@@ -1,6 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.checkpoints.ApiV2Checkpoints;
+import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.LineItem;
 import instamart.api.requests.ApiV2Requests;
@@ -33,7 +33,7 @@ public class LineItems extends RestBase {
             groups = {"api-v2-smoke"})
     public void postLineItems() {
         response = ApiV2Requests.LineItems.POST(productId,1, orderNumber);
-        ApiV2Checkpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.assertStatusCode200(response);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
         assertNotNull(lineItem, "Не добавился товар в корзину");
         lineItemId = lineItem.getId();
@@ -45,7 +45,7 @@ public class LineItems extends RestBase {
             dependsOnMethods = "postLineItems")
     public void deleteLineItems() {
         response = ApiV2Requests.LineItems.DELETE(lineItemId);
-        ApiV2Checkpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(LineItemResponse.class).getLine_item(), "Не удалился товар из корзины");
     }
 
