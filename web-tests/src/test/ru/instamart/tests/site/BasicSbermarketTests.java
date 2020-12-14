@@ -153,9 +153,9 @@ public class BasicSbermarketTests extends TestBase {
             description = "Тест доступности / недоступности витрин ритейлеров Сбермаркета ",
             priority = 103,
             groups = {"testing","sbermarket-Ui-smoke","MRAutoCheck"}
-    ) public void successCheckSbermarketRetailers(String slug, boolean available) {
-        if (available) baseChecks.checkRetailerIsAvailable(slug);
-        else baseChecks.checkRetailerIsUnavailable(slug);
+    ) public void successCheckSbermarketRetailers(Retailer retailer) {
+        if (retailer.getAvailable()) baseChecks.checkRetailerIsAvailable(retailer.getSlug());
+        else baseChecks.checkRetailerIsUnavailable(retailer.getSlug());
     }
     @CaseId(1433)
     @Test(
