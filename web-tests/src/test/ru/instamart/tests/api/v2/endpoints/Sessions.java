@@ -13,7 +13,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static instamart.api.checkpoints.ApiV2Checkpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
 public class Sessions extends RestBase {

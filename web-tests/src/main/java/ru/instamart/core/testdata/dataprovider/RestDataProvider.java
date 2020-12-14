@@ -2,14 +2,17 @@ package instamart.core.testdata.dataprovider;
 
 import instamart.api.common.RestBase;
 import instamart.api.enums.v2.AuthProvider;
-import instamart.api.objects.v2.Retailer;
-import instamart.api.objects.v2.Store;
-import instamart.api.objects.v2.Zone;
+import instamart.api.objects.v1.Offer;
+import instamart.api.objects.v1.OperationalZone;
+import instamart.api.objects.v2.*;
+import instamart.api.requests.ApiV1Requests;
+import instamart.api.responses.v1.OperationalZonesResponse;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RestDataProvider extends RestBase {
 
@@ -34,7 +37,6 @@ public class RestDataProvider extends RestBase {
         List<Retailer> retailerList = apiV2.availableRetailers();
 
         Object[][] retailerArray = new Object[retailerList.size()][1];
-
         for (int i = 0; i < retailerList.size(); i++) {
             retailerArray[i][0] = retailerList.get(i);
         }
@@ -46,16 +48,19 @@ public class RestDataProvider extends RestBase {
         getAvailableRetailersSpree();
     }
 
+    @DataProvider(name = "retailersSpree-parallel", parallel = true)
+    public static Object[][] getAvailableRetailersSpreeParallel() {
+        return getAvailableRetailersSpree();
+    }
+
     @DataProvider(name = "retailersSpree")
     public static Object[][] getAvailableRetailersSpree() {
 
         List<Retailer> retailerList = apiV2.availableRetailersSpree();
 
-        Object[][] retailerArray = new Object[retailerList.size()][2];
-
+        Object[][] retailerArray = new Object[retailerList.size()][1];
         for (int i = 0; i < retailerList.size(); i++) {
-            retailerArray[i][0] = retailerList.get(i).getSlug();
-            retailerArray[i][1] = retailerList.get(i).getAvailable();
+            retailerArray[i][0] = retailerList.get(i);
         }
         return retailerArray;
     }
@@ -76,7 +81,27 @@ public class RestDataProvider extends RestBase {
         List<Store> storeList = apiV2.availableStores();
 
         Object[][] storeArray = new Object[storeList.size()][1];
+        for (int i = 0; i < storeList.size(); i++) {
+            storeArray[i][0] = storeList.get(i);
+        }
+        return storeArray;
+    }
 
+    @DataProvider(name = "storeOfEachRetailer-parallel", parallel = true)
+    public static Object[][] getStoreOfEachRetailerParallel() {
+        return getStoreOfEachRetailer();
+    }
+
+    @DataProvider(name = "storeOfEachRetailer")
+    public static Object[][] getStoreOfEachRetailer() {
+
+        List<Store> storeList = apiV2.availableRetailers()
+                .stream().parallel()
+                .map(apiV2::availableStores)
+                .map(retailerStores -> retailerStores.get(retailerStores.size() - 1))
+                .collect(Collectors.toList());
+
+        Object[][] storeArray = new Object[storeList.size()][1];
         for (int i = 0; i < storeList.size(); i++) {
             storeArray[i][0] = storeList.get(i);
         }
@@ -111,12 +136,57 @@ public class RestDataProvider extends RestBase {
             }
         }
         Object[][] zoneArray = new Object[zoneStores.size()][3];
-
         for (int i = 0; i < zoneStores.size(); i++) {
             zoneArray[i][0] = zoneStores.get(i);
             zoneArray[i][1] = zoneNames.get(i);
             zoneArray[i][2] = coordinates.get(i);
         }
         return zoneArray;
+    }
+
+    @DataProvider(name = "operationalZones", parallel = true)
+    public static Object[][] getOperationalZones() {
+
+        List<OperationalZone> operationalZoneList = ApiV1Requests.OperationalZones.GET()
+                .as(OperationalZonesResponse.class).getOperational_zones();
+
+        Object[][] operationalZoneArray = new Object[operationalZoneList.size()][1];
+        for (int i = 0; i < operationalZoneList.size(); i++) {
+            operationalZoneArray[i][0] = operationalZoneList.get(i);
+        }
+        return operationalZoneArray;
+    }
+
+    @Test()
+    public static void selfTestOfferOfEachRetailer() {
+        getOfferOfEachRetailer();
+    }
+
+    @DataProvider(name = "offerOfEachRetailer-parallel", parallel = true)
+    public static Object[][] getOfferOfEachRetailerParallel() {
+        return getOfferOfEachRetailer();
+    }
+
+    @DataProvider(name = "offerOfEachRetailer")
+    public static Object[][] getOfferOfEachRetailer() {
+
+        List<Store> storeList = apiV2.availableRetailers()
+                .stream().parallel()
+                .map(apiV2::availableStores)
+                .map(retailerStores -> retailerStores.get(retailerStores.size() - 1))
+                .collect(Collectors.toList());
+
+        List<Offer> offerList = storeList
+                .stream().parallel()
+                .map(store -> apiV2.getOffers(store.getUuid()))
+                .filter(storeOffers -> !storeOffers.isEmpty())
+                .map(storeOffers -> storeOffers.get(0))
+                .collect(Collectors.toList());
+
+        Object[][] offerArray = new Object[offerList.size()][1];
+        for (int i = 0; i < offerList.size(); i++) {
+            offerArray[i][0] = offerList.get(i);
+        }
+        return offerArray;
     }
 }

@@ -1,11 +1,12 @@
 package instamart.api.helpers;
 
 import instamart.api.enums.v2.OrderStatus;
+import instamart.api.objects.v1.Offer;
 import instamart.api.objects.v2.*;
 import instamart.api.requests.ApiV1Requests;
 import instamart.api.requests.ApiV2Requests;
+import instamart.api.responses.v1.OffersResponse;
 import instamart.api.responses.v2.*;
-import instamart.core.common.AppManager;
 import instamart.core.helpers.WaitingHelper;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.EnvironmentData;
@@ -19,10 +20,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-import static instamart.api.checkpoints.ApiV2Checkpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static instamart.core.helpers.HelperBase.verboseMessage;
 
-public final class ApiV2Helper extends ApiHelperBase {
+public final class InstamartApiHelper extends ApiHelperBase {
 
     private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentAddressId = new ThreadLocal<>();
@@ -119,7 +120,7 @@ public final class ApiV2Helper extends ApiHelperBase {
         pickupZones.put(
                 104, "Зона #4" //METRO, Воронеж, Семилуки Займище
         );
-        if (listContainsInt(store.getRetailer().getId(), pickupRetailers) ||
+        if (pickupRetailers.contains(store.getRetailer().getId()) ||
                 hashMapContainsIntAndString(store.getId(), zoneName, pickupZones)) {
             throw new SkipException("Доступен только самовывоз\nsid: " + store.getId() + "\n" + zoneName);
         }
@@ -263,10 +264,10 @@ public final class ApiV2Helper extends ApiHelperBase {
     }
 
     public int getMinSum(int sid) {
-        int minSum = getStore(sid).getMin_order_amount();
+        double minSum = getStore(sid).getMin_order_amount();
         verboseMessage("Минимальная сумма корзины: " + minSum);
-        this.minSum.set(minSum);
-        return minSum;
+        this.minSum.set((int) minSum);
+        return (int) minSum;
     }
 
     /**
@@ -349,7 +350,7 @@ public final class ApiV2Helper extends ApiHelperBase {
         Assert.assertNotEquals(
                 shippingRates.size(),
                 0,
-                "Нет слотов в магазине\n" + Pages.Admin.stores(currentSid.get()));
+                "Нет слотов в магазине " + Pages.Admin.stores(currentSid.get()));
 
         DeliveryWindow deliveryWindow = shippingRates.get(0).getDelivery_window();
 
@@ -532,7 +533,7 @@ public final class ApiV2Helper extends ApiHelperBase {
                     .getErrors()
                     .getBase()
                     .contains("По указанному адресу"))
-                Assert.fail(sid + " sid отключен");
+                Assert.fail("Магазин отключен " + Pages.Admin.stores(currentSid.get()));
 
         Store store = response.as(StoreResponse.class).getStore();
 
@@ -722,6 +723,14 @@ public final class ApiV2Helper extends ApiHelperBase {
         return orders;
     }
 
+    public List<Offer> getOffers(String storeUuid) {
+        return ApiV1Requests.Stores.Offers.GET(
+                storeUuid,
+                "вода",
+                "")
+                .as(OffersResponse.class).getOffers();
+    }
+
     /*
       МЕТОДЫ ИЗ НЕСКОЛЬКИХ ЗАПРОСОВ
      */
@@ -806,7 +815,7 @@ public final class ApiV2Helper extends ApiHelperBase {
         Response response =  ApiV2Requests.Users.POST(email, firstName, lastName, password);
         assertStatusCode200(response);
         String registeredEmail = response
-                .as(UsersResponse.class)
+                .as(UserResponse.class)
                 .getUser()
                 .getEmail();
         printSuccess("Зарегистрирован: " + registeredEmail + "\n");
@@ -911,7 +920,7 @@ public final class ApiV2Helper extends ApiHelperBase {
      * Отменить последний заказ (с которым взаимодействовали в этой сессии через REST API)
      */
     public void cancelCurrentOrder() {
-        if (currentOrderNumber.get() != null && orderCompleted.get())
+        if (currentOrderNumber.get() != null && orderCompleted.get() != null && orderCompleted.get())
             cancelOrder(currentOrderNumber.get());
     }
 

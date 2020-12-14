@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static instamart.api.checkpoints.ApiV2Checkpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
 public class Taxons extends RestBase {

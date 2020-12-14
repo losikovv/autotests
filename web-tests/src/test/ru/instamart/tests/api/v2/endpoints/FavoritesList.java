@@ -1,6 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.checkpoints.ApiV2Checkpoints;
+import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.FavoritesListItemsResponse;
@@ -28,7 +28,7 @@ public class FavoritesList extends RestBase {
             groups = {"api-v2-smoke"})
     public void getFavoritesListItems() {
         response = ApiV2Requests.FavoritesList.Items.GET(1);
-        ApiV2Checkpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(FavoritesListItemsResponse.class).getItems(), "Не вернулись любимые товары");
     }
 }

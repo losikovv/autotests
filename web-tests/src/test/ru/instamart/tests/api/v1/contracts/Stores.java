@@ -1,0 +1,45 @@
+package ru.instamart.tests.api.v1.contracts;
+
+import instamart.api.common.RestBase;
+import instamart.api.objects.v2.Store;
+import instamart.api.requests.ApiV1Requests;
+import instamart.core.testdata.dataprovider.RestDataProvider;
+import io.restassured.response.Response;
+import org.testng.annotations.Test;
+
+import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+
+public class Stores extends RestBase {
+
+    @Test(  description = "Контрактный тест списка магазинов",
+            groups = "api-v2-regress")
+    public void getStores() {
+        Response response = ApiV1Requests.Stores.GET();
+        assertStatusCode200(response);
+        response.then().body(matchesJsonSchemaInClasspath("schemas/Stores.json"));
+    }
+
+    @Test(  description = "Контрактный тест магазина",
+            groups = "api-v2-regress",
+            dataProviderClass = RestDataProvider.class,
+            dataProvider = "storeOfEachRetailer-parallel")
+    public void getStore(Store store) {
+        Response response = ApiV1Requests.Stores.GET(store.getUuid());
+        assertStatusCode200(response);
+        response.then().body(matchesJsonSchemaInClasspath("schemas/Store.json"));
+    }
+
+    @Test(  description = "Контрактный тест поиска товаров в магазине",
+            groups = "api-v2-regress",
+            dataProviderClass = RestDataProvider.class,
+            dataProvider = "storeOfEachRetailer-parallel")
+    public void getStoreOffers(Store store) {
+        Response response = ApiV1Requests.Stores.Offers.GET(
+                store.getUuid(),
+                "вода",
+                "");
+        assertStatusCode200(response);
+        response.then().body(matchesJsonSchemaInClasspath("schemas/Offers.json"));
+    }
+}

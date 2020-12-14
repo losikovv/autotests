@@ -11,7 +11,8 @@ public final class Users {
                 "autotestuser@instamart.ru",
                 "7777777777",
                 "hex78.Berwyn",
-                "autotest superadmin");
+                "autotest superadmin",
+                "E20135A0F9B9E9BC26D7222BAC");
     }
 
     public static UserData superuser(){

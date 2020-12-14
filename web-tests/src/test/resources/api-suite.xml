@@ -36,6 +36,11 @@
       <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentfulTests"/>
       <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentlessTests"/>
       <class name="ru.instamart.tests.api.shopper.e2e.ShopperTests"/>
+      <class name="ru.instamart.tests.api.v1.contracts.OperationalZones"/>
+      <class name="ru.instamart.tests.api.v1.contracts.Retailers"/>
+      <class name="ru.instamart.tests.api.v1.contracts.Stores"/>
+      <class name="ru.instamart.tests.api.v1.contracts.Offers"/>
+      <class name="ru.instamart.tests.api.v1.contracts.Orders"/>
     </classes>
   </test> <!-- api-tests -->
 </suite> <!-- Custom suite -->

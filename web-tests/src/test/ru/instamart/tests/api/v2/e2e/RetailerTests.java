@@ -1,9 +1,8 @@
 package ru.instamart.tests.api.v2.e2e;
 
 import instamart.api.common.RestBase;
-import instamart.api.objects.v2.Retailer;
 import instamart.api.objects.v2.Store;
-import instamart.core.common.AppManager;
+import instamart.core.testdata.Users;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
@@ -19,16 +18,15 @@ public class RetailerTests extends RestBase {
     }
 
     @CaseId(104)
-    @Test(  dataProvider = "retailers",
+    @Test(  dataProvider = "storeOfEachRetailer",
             dataProviderClass = RestDataProvider.class,
             description = "Тест заказов у каждого ретейлера",
             groups = {})
-    public void orderByRetailer(Retailer retailer) {
-        Store store = apiV2.availableStores(retailer).get(0);
+    public void orderByRetailer(Store store) {
         apiV2.skipTestIfOnlyPickupIsAvailable(store);
         verboseMessage("Оформляем заказ в " + store.getName() + "\n");
 
-        apiV2.order(AppManager.session.user, store.getId());
+        apiV2.order(Users.superuser(), store.getId());
         apiV2.cancelCurrentOrder();
     }
 }

@@ -1,5 +1,6 @@
 package ru.instamart.tests.site;
 
+import instamart.api.objects.v2.Retailer;
 import instamart.core.settings.Config;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.ui.checkpoints.BaseUICheckpoints;

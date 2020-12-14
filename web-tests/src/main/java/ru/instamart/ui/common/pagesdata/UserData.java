@@ -6,6 +6,16 @@ public class UserData {
     private String phone;
     private String password;
     private String name;
+    private String token;
+
+    public UserData( String role, String email, String phone, String password, String name, String token) {
+        this.role = role;
+        this.login = email;
+        this.phone = phone;
+        this.password = password;
+        this.name = name;
+        this.token = token;
+    }
 
     public UserData( String role, String email, String phone, String password, String name) {
         this.role = role;
@@ -54,4 +64,12 @@ public class UserData {
     public void setPassword(String password) { this.password = password; }
 
     public void setName(String name) { this.name = name; }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

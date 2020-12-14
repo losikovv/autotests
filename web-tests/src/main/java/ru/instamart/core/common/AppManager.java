@@ -1,6 +1,6 @@
 package instamart.core.common;
 
-import instamart.api.helpers.ApiV2Helper;
+import instamart.api.helpers.InstamartApiHelper;
 import instamart.core.helpers.*;
 import instamart.core.testdata.Users;
 import instamart.core.testdata.ui.Generate;
@@ -50,7 +50,7 @@ public class AppManager {
     private Administration administrationHelper;
     private CleanupHelper cleanupHelper;
     private WaitingHelper waitingHelper;
-    private ApiV2Helper apiV2Helper;
+    private InstamartApiHelper instamartApiHelper;
 
     //TODO: Он не наполняется, только занимает место в памяти instamart/core/common/AppManager.java:193
     private StringBuffer verificationErrors = new StringBuffer();
@@ -164,7 +164,7 @@ public class AppManager {
         administrationHelper = new Administration(driver, this);
         cleanupHelper = new CleanupHelper(driver, this);
         waitingHelper = new WaitingHelper(driver, this);
-        apiV2Helper = new ApiV2Helper();
+        instamartApiHelper = new InstamartApiHelper();
     }
 
     private void applyOptions() {
@@ -282,5 +282,5 @@ public class AppManager {
     public Administration admin() { return administrationHelper; }
     public CleanupHelper cleanup() { return cleanupHelper; }
     public WaitingHelper await() { return waitingHelper; }
-    public ApiV2Helper apiV2() { return apiV2Helper; }
+    public InstamartApiHelper apiV2() { return instamartApiHelper; }
 }

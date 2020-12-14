@@ -1,6 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.checkpoints.ApiV2Checkpoints;
+import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.SearchSuggestionsResponse;
@@ -16,7 +16,7 @@ public class Searches extends RestBase {
             groups = {"api-v2-smoke"})
     public void getSearchSuggestions() {
         response = ApiV2Requests.Searches.Suggestions.GET(1, "");
-        ApiV2Checkpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(SearchSuggestionsResponse.class).getSuggestion(),
                 "Не отображаются поисковые подсказки");
     }

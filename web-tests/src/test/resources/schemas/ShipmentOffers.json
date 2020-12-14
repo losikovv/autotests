@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": [
+    "offers"
+  ],
+  "properties": {
+    "offers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "uuid",
+          "stock",
+          "retailer_sku"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "stock": {
+            "type": "integer"
+          },
+          "retailer_sku": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

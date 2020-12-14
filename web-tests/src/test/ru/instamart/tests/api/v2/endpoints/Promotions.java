@@ -1,6 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.checkpoints.ApiV2Checkpoints;
+import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.ReferralProgramResponse;
@@ -16,7 +16,7 @@ public class Promotions extends RestBase {
             groups = {"api-v2-smoke"})
     public void getReferralProgram() {
         response = ApiV2Requests.Promotions.ReferralProgram.GET();
-        ApiV2Checkpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(ReferralProgramResponse.class).getReferral_program(),
                 "Не вернулась инфа о реферальной программе");
     }

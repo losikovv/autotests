@@ -1,7 +1,7 @@
 package instamart.api.common;
 
 import com.google.common.collect.ImmutableMap;
-import instamart.api.helpers.ApiV2Helper;
+import instamart.api.helpers.InstamartApiHelper;
 import instamart.api.helpers.ShopperApiHelper;
 import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.ui.common.pagesdata.EnvironmentData;
@@ -19,7 +19,7 @@ public class RestBase {
 
     private static final ConsoleOutputCapturerHelper CAPTURE_HELPER = new ConsoleOutputCapturerHelper();
 
-    protected static final ApiV2Helper apiV2 = new ApiV2Helper();
+    protected static final InstamartApiHelper apiV2 = new InstamartApiHelper();
     protected static final ShopperApiHelper shopper = new ShopperApiHelper();
     protected Response response;
 

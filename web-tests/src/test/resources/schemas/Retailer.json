@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": [
+    "retailer"
+  ],
+  "properties": {
+    "retailer": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "slug",
+        "available",
+        "key",
+        "color",
+        "logo",
+        "logo_background_color",
+        "icon"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "logo_background_color": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
