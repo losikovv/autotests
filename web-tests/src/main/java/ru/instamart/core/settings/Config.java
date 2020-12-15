@@ -51,7 +51,7 @@ public final class Config {
         DEFAULT_RETAILER = coreSettings.getString("defaultRetailer", Tenants.metro().getAlias());
 
         BASIC_TIMEOUT = coreSettings.getInt("basicTimeout", 2);
-        WAITING_TIMEOUT = coreSettings.getInt("waitingTimeout", 60);
+        WAITING_TIMEOUT = coreSettings.getInt("waitingTimeout", 30);
 
         // Переключатель включает прогон в селенойде
         DOCKER = coreSettings.getBoolean("docker", false);
