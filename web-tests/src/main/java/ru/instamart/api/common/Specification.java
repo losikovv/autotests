@@ -31,6 +31,7 @@ public enum Specification {
                 .expectStatusCode(not(401))
                 .expectStatusCode(not(429))
                 .expectStatusCode(not(500))
+                .expectStatusCode(not(502))
                 .expectContentType(ContentType.JSON)
                 .build();
 
