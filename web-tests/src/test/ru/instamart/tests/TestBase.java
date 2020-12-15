@@ -26,7 +26,7 @@ public class TestBase {
             "testing","sbermarket-Ui-smoke","MRAutoCheck","sbermarket-acceptance","sbermarket-regression",
             "metro-smoke","metro-acceptance","metro-regression"},
             description = "Выпускаем Кракена")
-    public void start() throws Exception {
+    public void start() {
         kraken.rise();
 
         allureEnvironmentWriter(
@@ -47,9 +47,7 @@ public class TestBase {
             "metro-smoke","metro-acceptance","metro-regression"},
             description = "Очищаем окружение от артефактов после тестов, завершаем процессы браузеров")
     public void cleanup() {
-        if (Config.DO_CLEANUP_AFTER_TEST_RUN) {
-            kraken.cleanup().all();
-        }
+        if (Config.DO_CLEANUP_AFTER_TEST_RUN) kraken.cleanup().all();
         kraken.stop();
     }
     @AfterTest(alwaysRun = true,
@@ -70,9 +68,7 @@ public class TestBase {
 
     @AfterMethod(alwaysRun = true,description = "Прикрепляем скриншот интерфейса, если UI тест упал")
     public void screenShot(final ITestResult result) {
-        if (!result.isSuccess()){
-            HelperBase.takeScreenshot();
-        }
+        if (!result.isSuccess()) HelperBase.takeScreenshot();
     }
 
     /** Метод-обертка для красивого вывода ошибок зафейленных тестов */
@@ -90,7 +86,7 @@ public class TestBase {
     public void skipTestOnEnvironment(String environment) throws SkipException {
         if (kraken.detect().environment(environment)) {
             verboseMessage("Пропускаем тест на окружении " + environment);
-                throw new SkipException("Пропускаем тест");
+            throw new SkipException("Пропускаем тест");
         }
     }
 

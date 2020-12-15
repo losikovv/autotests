@@ -1,27 +1,34 @@
 package instamart.core.service;
 
+import instamart.core.helpers.HelperBase;
 import instamart.core.settings.Config;
 import instamart.ui.common.pagesdata.EnvironmentData;
-import io.qameta.allure.Description;
 import io.qameta.allure.TmsLink;
 import io.qase.api.QaseApi;
+import io.qase.api.QaseApiClient;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.enums.Automation;
 import io.qase.api.enums.RunResultStatus;
 import io.qase.api.exceptions.QaseException;
+import io.qase.api.inner.GsonObjectMapper;
+import io.qase.api.models.v1.attachments.Attachment;
 import io.qase.api.models.v1.suites.Suite;
 import io.qase.api.models.v1.testplans.TestPlan;
 import io.qase.api.services.TestCaseService;
+import kong.unirest.Unirest;
+import kong.unirest.UnirestInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 
@@ -32,16 +39,26 @@ public final class QaseService {
     private final String projectCode;
     private final QaseApi qaseApi;
     private final List<Integer> testCasesList;
+    private boolean started = false;
+    private final QaseTestRunResultService qaseTestRunResultService;
 
     private boolean qase = Boolean.parseBoolean(System.getProperty("qase","false"));
     private String testRunName;
     private Long runId;
-    private String hash;
 
     public QaseService(final String projectCode) {
         this.projectCode = projectCode;
         this.qaseApi = new QaseApi(Config.QASE_API_TOKEN);
         this.testCasesList = new ArrayList<>();
+
+        // костыль, пока в https://github.com/qase-tms/qase-java/tree/master/qase-api не реализуют добавление скриншотов
+        UnirestInstance unirestInstance = Unirest.spawnInstance();
+        unirestInstance.config()
+                .setObjectMapper(new GsonObjectMapper())
+                .addShutdownHook(true)
+                .setDefaultHeader("Token", Config.QASE_API_TOKEN);
+        this.qaseTestRunResultService = new QaseTestRunResultService(
+                new QaseApiClient(unirestInstance, "https://api.qase.io/v1"));
     }
 
     /**
@@ -80,14 +97,15 @@ public final class QaseService {
             testRunName = qaseApi.projects().get(projectCode).getTitle();
             addTestCasesToList(filter);
         }
-        if (testCasesList.size() == 0) qase = false;
+        if (testCasesList.isEmpty()) qase = false;
     }
 
     /**
      * Создаём тест-ран с полученными кейсами
      */
     public void createTestRun() {
-        if (!qase || projectCode == null) return;
+        if (!qase || projectCode == null || started) return;
+        started = true;
 
         final Integer[] casesArray = new Integer[testCasesList.size()];
         runId = qaseApi.testRuns().create(
@@ -99,7 +117,7 @@ public final class QaseService {
     /**
      * Отправляем статус прохождения теста
      */
-    public void sendResult(final ITestResult result, final RunResultStatus status) {
+    public void sendResult(final ITestResult result,    final RunResultStatus status) {
         if (!qase) return;
 
         final Duration timeSpent = Duration
@@ -119,28 +137,58 @@ public final class QaseService {
         final Long caseId = getCaseId(result);
         if (caseId != null) {
             try {
-                if (hash == null) {
-                    qaseApi.testRunResults()
-                            .create(projectCode,
-                                    runId,
-                                    caseId,
-                                    status,
-                                    timeSpent,
-                                    null,
-                                    comment,
-                                    stacktrace,
-                                    isDefect);
-                } else {
-                    qaseApi.testRunResults()
-                            .update(projectCode,
-                                    runId,
-                                    hash,
-                                    status,
-                                    timeSpent,
-                                    null,
-                                    stacktrace,
-                                    isDefect);
-                }
+                qaseApi.testRunResults()
+                        .create(projectCode,
+                                runId,
+                                caseId,
+                                status,
+                                timeSpent,
+                                null,
+                                comment,
+                                stacktrace,
+                                isDefect);
+            } catch (QaseException e) {
+                logger.error(e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Отправляем статус прохождения теста с аттачем
+     */
+    public void sendResult(final ITestResult result,
+                           final RunResultStatus status,
+                           final List<String> attachmentsHash) {
+        if (!qase) return;
+
+        final Duration timeSpent = Duration
+                .ofMillis(result.getEndMillis() - result.getStartMillis());
+        final Optional<Throwable> resultThrowable = Optional
+                .ofNullable(result.getThrowable());
+        final String comment = resultThrowable
+                .flatMap(throwable -> Optional.of(throwable.toString()))
+                .orElse(null);
+        final Boolean isDefect = resultThrowable
+                .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
+                .orElse(false);
+        final String stacktrace = resultThrowable
+                .flatMap(throwable -> Optional.of(getStacktrace(throwable)))
+                .orElse(null);
+
+        final Long caseId = getCaseId(result);
+        if (caseId != null) {
+            try {
+                qaseTestRunResultService
+                        .create(projectCode,
+                                runId,
+                                caseId,
+                                status,
+                                timeSpent,
+                                null,
+                                comment,
+                                stacktrace,
+                                isDefect,
+                                attachmentsHash);
             } catch (QaseException e) {
                 logger.error(e.getMessage());
             }
@@ -170,28 +218,6 @@ public final class QaseService {
     }
 
     /**
-     * Отправляем инфу о том, что тест начат (статус "in_progress")
-     * @return получаем String c хэшэм для последующего апдейта результата
-     */
-    @Description
-    private String sendTestInProgress(ITestResult result) {
-        if (!qase) return null;
-        Long caseId = getCaseId(result);
-        if (caseId != null) {
-            try {
-                return qaseApi.testRunResults()
-                        .create(projectCode,
-                                runId,
-                                caseId,
-                                RunResultStatus.in_progress);
-            } catch (QaseException e) {
-                logger.error(e.getMessage());
-            }
-        }
-        return null;
-    }
-
-    /**
      * Получаем CaseId из аннотации теста
      */
     private Long getCaseId(final ITestResult result) {
@@ -211,5 +237,14 @@ public final class QaseService {
             }
         }
         return null;
+    }
+
+    public List<String> uploadScreenshot() {
+        File file = HelperBase.takeScreenshotFile();
+        return qaseApi.attachments()
+                .add(projectCode, file)
+                .stream()
+                .map(Attachment::getHash)
+                .collect(Collectors.toList());
     }
 }
