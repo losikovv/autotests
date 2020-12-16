@@ -1,0 +1,5 @@
+tasks.withType(Test) {
+    if (project.hasProperty('key')) {
+        systemProperty 'key',"${key}"
+    }
+}
