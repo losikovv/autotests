@@ -3,6 +3,7 @@ package instamart.core.listeners;
 import instamart.api.common.Specification;
 import instamart.core.service.BannerService;
 import instamart.core.settings.Config;
+import instamart.core.util.Crypt;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,9 @@ public class ExecutionListenerImpl implements IExecutionListener {
     public void onExecutionStart() {
         logger.info("Load KRAKEN");
         BannerService.printBanner();
+
+        logger.info("Init Crypt");
+        Crypt.INSTANCE.init();
 
         logger.info("Load environment config");
         EnvironmentData.INSTANCE.load();
