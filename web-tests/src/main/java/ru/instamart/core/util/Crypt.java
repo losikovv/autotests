@@ -36,6 +36,7 @@ public enum Crypt {
     }
 
     private void init() {
+        log.error("Key {}", SECRET_KEY); //FOR DEBUG
         try {
             final SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
             final KeySpec spec = new PBEKeySpec(SECRET_KEY.toCharArray(), SALT, ITERATIONS, KEYLEN_BITS);
