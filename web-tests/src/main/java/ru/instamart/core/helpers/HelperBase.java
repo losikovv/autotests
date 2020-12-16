@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+
 import static instamart.core.settings.Config.LOG;
 import static instamart.core.settings.Config.VERBOSE;
 
@@ -55,9 +57,14 @@ public class HelperBase {
         driver.manage().deleteAllCookies();
     }
 
-    /** Создаем скриншот и добавляем его в Allure*/
+    /** Создаем скриншот и добавляем его в Allure */
     @Attachment(value = "Скриншот с веб страницы", type = "image/png")
     public static byte[] takeScreenshot() {
-        return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+    }
+
+    /** Создаем скриншот для добавления его в Qase */
+    public static File takeScreenshotFile () {
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     }
 }

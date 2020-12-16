@@ -6,6 +6,8 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import java.util.List;
+
 public final class UiListener implements ITestListener {
 
     private final QaseService qaseService;
@@ -35,7 +37,8 @@ public final class UiListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        this.qaseService.sendResult(result, RunResultStatus.failed);
+        List<String> attachments = this.qaseService.uploadScreenshot();
+        this.qaseService.sendResult(result, RunResultStatus.failed, attachments);
     }
 
     @Override
