@@ -20,7 +20,7 @@ public enum Crypt {
     INSTANCE;
 
     private static final Logger log = LoggerFactory.getLogger(Crypt.class);
-    private static final String SECRET_KEY = System.getProperty("key", System.getenv("KEY"));
+    private final String SECRET_KEY = System.getProperty("key", System.getenv("KEY"));
 
     private final static int SALT_LEN = 8;
     private final int KEYLEN_BITS = 128;
