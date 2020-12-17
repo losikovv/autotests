@@ -13,17 +13,17 @@ public final class Users {
     public static UserData superadmin(){
         return new UserData(
                 "superadmin",
-                "autotestuser@instamart.ru",
+                Crypt.INSTANCE.decrypt("Gh1MsACysUuEYv98vkOuOOx/HVxUh5J54NKCNSJCPFQ="),
                 "7777777777",
                 PASSWD_1,
                 "autotest superadmin",
-                "E20135A0F9B9E9BC26D7222BAC");
+                Crypt.INSTANCE.decrypt("etIbXhyM1zqCCpiTObFcm0Bb5vTw6rAFrB5Ir9/shcQ="));
     }
 
     public static UserData superuser(){
         return new UserData(
                 "superuser",
-                "instatestuser@yandex.ru",
+                Crypt.INSTANCE.decrypt("aDPCwj7Br+dx8nAMvfc+/zywS4BuPQ25pLnnhiT3WnQ="),
                 "1488148814",
                 PASSWD_1,
                 "autotest superuser");
@@ -31,38 +31,38 @@ public final class Users {
 
     public static UserData shopper(){
         return new UserData(
-                "kraken",
+                Crypt.INSTANCE.decrypt("/IsVBUY1et+En340g78Rvg=="),
                 PASSWD_2);
     }
 
     public static UserData gmail() {
         return new UserData(
-                "instamartmailtest@gmail.com",
+                Crypt.INSTANCE.decrypt("mh5OayUtpk/8stH+dR7HBnyeKJB94fsqjaZfeO77LqI="),
                 PASSWD_2);
     }
 
     public static UserData vkontakte() {
 
         return new UserData(
-                "instamart.qa@mail.ru",
+                Crypt.INSTANCE.decrypt("6zWHFoRF1JgL9dmADTKTpQm7X0OkZzcK7JlvmU7dlLo="),
                 PASSWD_1);
     }
 
     public static UserData facebook() {
         return new UserData(
-                "instamart.qa@mail.ru",
+                Crypt.INSTANCE.decrypt("6zWHFoRF1JgL9dmADTKTpQm7X0OkZzcK7JlvmU7dlLo="),
                 PASSWD_1);
     }
 
     public static UserData mailRu() {
         return new UserData(
-                "instamart.qa",
+                Crypt.INSTANCE.decrypt("6F+U8tpf0M8xSLKvz+UawQ=="),
                 PASSWD_1);
     }
 
     public static UserData sberId() {
         return new UserData(
-                "79629422123",
+                Crypt.INSTANCE.decrypt("6ln1zIxi8BWCxz3YNZwc8w=="),
                 PASSWD_3);
     }
 

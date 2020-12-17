@@ -20,15 +20,14 @@ public class ExecutionListenerImpl implements IExecutionListener {
     public ExecutionListenerImpl() {
         logger.info("Load config");
         Config.load();
+        logger.info("Init Crypt");
+        Crypt.INSTANCE.init();
     }
 
     @Override
     public void onExecutionStart() {
         logger.info("Load KRAKEN");
         BannerService.printBanner();
-
-        logger.info("Init Crypt");
-        Crypt.INSTANCE.init();
 
         logger.info("Load environment config");
         EnvironmentData.INSTANCE.load();
