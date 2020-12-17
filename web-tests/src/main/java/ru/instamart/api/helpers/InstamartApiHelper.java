@@ -19,6 +19,7 @@ import org.testng.asserts.SoftAssert;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static instamart.core.helpers.HelperBase.verboseMessage;
@@ -135,15 +136,23 @@ public final class InstamartApiHelper extends ApiHelperBase {
      */
 
     public List<Taxon> getTaxons(int sid) {
-        List<Taxon> taxons = ApiV2Requests.Taxons.GET(sid).as(TaxonsResponse.class).getTaxons();
-        verboseMessage(taxons);
-        return taxons;
+        return ApiV2Requests.Taxons.GET(sid).as(TaxonsResponse.class).getTaxons();
     }
 
     public Taxon getTaxon(int id, int sid) {
-        Taxon taxon = ApiV2Requests.Taxons.GET(id, sid).as(TaxonResponse.class).getTaxon();
-        verboseMessage(taxon);
-        return taxon;
+        Response response = ApiV2Requests.Taxons.GET(id, sid);
+        assertStatusCode200(response);
+        return response.as(TaxonResponse.class).getTaxon();
+    }
+
+    public Set<Integer> getTaxonIds(int sid) {
+        return getTaxons(sid)
+                .stream()
+                .map(Taxon::getChildren)
+                .filter(Objects::nonNull)
+                .flatMap(Collection::stream)
+                .map(Taxon::getId)
+                .collect(Collectors.toSet());
     }
 
     /**

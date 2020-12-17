@@ -4,6 +4,7 @@ import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Retailer;
 import instamart.api.requests.ApiV1Requests;
 import instamart.core.testdata.dataprovider.RestDataProvider;
+import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
@@ -12,6 +13,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 
 public class Retailers extends RestBase {
 
+    @CaseId(122)
     @Test(  description = "Контрактный тест списка ритейлеров",
             groups = "api-v2-regress")
     public void getRetailers() {
@@ -20,6 +22,7 @@ public class Retailers extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/Retailers.json"));
     }
 
+    @CaseId(123)
     @Test(  description = "Контрактный тест ритейлера",
             groups = "api-v2-regress",
             dataProviderClass = RestDataProvider.class,
@@ -30,6 +33,7 @@ public class Retailers extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/Retailer.json"));
     }
 
+    @CaseId(124)
     @Test(  description = "Контрактный тест списка штрихкодов у ритейлера",
             groups = "api-v2-regress",
             dataProviderClass = RestDataProvider.class,

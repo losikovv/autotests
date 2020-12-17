@@ -7,6 +7,7 @@ import instamart.api.responses.v1.ShipmentResponse;
 import instamart.core.testdata.Users;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
+import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -38,6 +39,7 @@ public class Orders extends RestBase {
         apiV2.cancelCurrentOrder();
     }
 
+    @CaseId(114)
     @Test(  description = "Контрактный тест списка заказов",
             groups = "api-v2-regress")
     public void getOrders() {
@@ -46,6 +48,7 @@ public class Orders extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/Orders.json"));
     }
 
+    @CaseId(115)
     @Test(  description = "Контрактный тест инфы о заказе",
             groups = "api-v2-regress")
     public void getOrder() {
@@ -54,6 +57,7 @@ public class Orders extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/Order.json"));
     }
 
+    @CaseId(116)
     @Test(  description = "Контрактный тест инфы о шипменте",
             groups = "api-v2-regress")
     public void getShipment() {
@@ -64,6 +68,7 @@ public class Orders extends RestBase {
         shipmentUuid = response.as(ShipmentResponse.class).getShipment().getUuid();
     }
 
+    @CaseId(117)
     @Test(  description = "Контрактный тест списка офферов в шипменте",
             groups = "api-v2-regress")
     public void getShipmentOffers() {
@@ -72,6 +77,7 @@ public class Orders extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/ShipmentOffers.json"));
     }
 
+    @CaseId(118)
     @Test(  description = "Контрактный тест списка лайн айтемов в шимпенте",
             groups = "api-v2-regress")
     public void getLineItems() {
@@ -86,6 +92,7 @@ public class Orders extends RestBase {
                 .getProduct_sku();
     }
 
+    @CaseId(119)
     @Test(  description = "Контрактный тест списка предзамен для товара из шипмента",
             groups = "api-v2-regress",
             dependsOnMethods = "getLineItems")
@@ -97,6 +104,7 @@ public class Orders extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/Prereplacements.json"));
     }
 
+    @CaseId(120)
     @Test(  description = "Контрактный тест списка сэмплов в шипменте",
             groups = "api-v2-regress",
             dependsOnMethods = "getShipment")
@@ -106,6 +114,7 @@ public class Orders extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/MarketingSampleItems.json"));
     }
 
+    @CaseId(121)
     @Test(  description = "Контрактный тест списка способов оплаты в заказе",
             groups = "api-v2-regress")
     public void getShopperOrderAvailablePaymentTools() {
