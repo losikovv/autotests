@@ -4,6 +4,7 @@ import instamart.api.common.RestBase;
 import instamart.api.objects.v1.OperationalZone;
 import instamart.api.requests.ApiV1Requests;
 import instamart.core.testdata.dataprovider.RestDataProvider;
+import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
@@ -12,6 +13,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 
 public class OperationalZones extends RestBase {
 
+    @CaseId(112)
     @Test(  description = "Контрактный тест списка операционных зон",
             groups = "api-v2-regress")
     public void getOperationalZones() {
@@ -20,6 +22,7 @@ public class OperationalZones extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/OperationalZones.json"));
     }
 
+    @CaseId(113)
     @Test(  description = "Контрактный тест операционной зоны",
             groups = "api-v2-regress",
             dataProviderClass = RestDataProvider.class,

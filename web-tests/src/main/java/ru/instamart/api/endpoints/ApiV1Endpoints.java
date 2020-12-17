@@ -6,7 +6,7 @@ public final class ApiV1Endpoints {
     public static final String TOKENS = "tokens";
     public static final String STORES = "stores";
     public static final String OPERATIONAL_ZONES = "operational_zones";
-    public static final String ORDERS = "/orders?page=119647"; //119647 - last page 10.12.20
+    public static final String ORDERS = "orders?page=119647"; //119647 - last page 10.12.20
     public static final String LINE_ITEMS = "line_items?shipment_number={shipmentNumber}";
 
 
