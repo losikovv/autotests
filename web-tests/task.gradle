@@ -25,12 +25,6 @@ task AutoMRCheck(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser',"${browser}"
-    }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
 }
 
 task cleanup(type: Test) {

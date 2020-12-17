@@ -8,14 +8,7 @@ task sberUiSmoke(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser',"${browser}"
-    }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
     if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
         systemProperty 'qase.plan.id', 2
     }
 }
@@ -30,15 +23,6 @@ task sberAcceptance(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser',"${browser}"
-    }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
-    }
 }
 
 task sberRegression(type: Test) {
@@ -50,15 +34,6 @@ task sberRegression(type: Test) {
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
-    }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser',"${browser}"
-    }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
     }
 }
 
@@ -72,15 +47,6 @@ task metroSmoke(type: Test){
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser',"${browser}"
-    }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
-    }
 }
 
 task metroAcceptance(type: Test) {
@@ -92,15 +58,6 @@ task metroAcceptance(type: Test) {
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
-    }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser',"${browser}"
-    }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
     }
 }
 
@@ -114,15 +71,6 @@ task metroRegression(type: Test){
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser',"${browser}"
-    }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
-    }
 }
 
 task lentaSmoke(type: Test){
@@ -134,15 +82,6 @@ task lentaSmoke(type: Test){
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
-    }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser',"${browser}"
-    }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
     }
 }
 
@@ -156,15 +95,6 @@ task lentaAcceptance(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser',"${browser}"
-    }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
-    }
 }
 
 task lentaRegression(type: Test){
@@ -176,15 +106,6 @@ task lentaRegression(type: Test){
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
-    }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser',"${browser}"
-    }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
     }
 }
 
