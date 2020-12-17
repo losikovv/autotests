@@ -8,12 +8,6 @@ task apiZones(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
-    }
 }
 
 task apiShopperSmoke(type: Test) {
@@ -26,11 +20,7 @@ task apiShopperSmoke(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
     if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
         systemProperty 'qase.plan.id', 4
     }
 }
@@ -45,12 +35,6 @@ task apiSmoke(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
-    }
 }
 
 task apiShopperRegress(type: Test) {
@@ -63,11 +47,7 @@ task apiShopperRegress(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
     if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
         systemProperty 'qase.plan.id', 2
     }
 }
@@ -82,12 +62,6 @@ task apiRegress(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
-    }
 }
 
 task apiV2Regress(type: Test) {
@@ -100,11 +74,7 @@ task apiV2Regress(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
     if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
         systemProperty 'qase.plan.id', 1
     }
 }
@@ -119,11 +89,7 @@ task apiV2Smoke(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('env')) {
-        systemProperty 'env',"${env}"
-    }
     if (project.hasProperty('qase')) {
-        systemProperty 'qase', "${qase}"
         systemProperty 'qase.plan.id', 3
     }
 }
