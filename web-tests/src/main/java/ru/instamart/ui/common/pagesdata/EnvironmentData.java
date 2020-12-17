@@ -1,5 +1,6 @@
 package instamart.ui.common.pagesdata;
 
+import instamart.core.util.Crypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +40,7 @@ public enum EnvironmentData {
             this.server = properties.getProperty("server");
             this.basicUrl = properties.getProperty("basicUrl");
             this.adminUrl = properties.getProperty("adminUrl");
-            this.httpAuth = properties.getProperty("httpAuth");
+            this.httpAuth = Crypt.INSTANCE.decrypt(properties.getProperty("httpAuth"));
             this.shopperUrl = properties.getProperty("shopperUrl");
             this.defaultSid = properties.getProperty("defaultSid");
             this.defaultShopperSid = properties.getProperty("defaultShopperSid");

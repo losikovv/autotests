@@ -33,7 +33,6 @@ task AutoMRCheck(type: Test) {
     }
 }
 
-
 task cleanup(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true

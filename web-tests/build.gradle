@@ -16,6 +16,7 @@ repositories {
 }
 
 apply from: 'dependencies.gradle'
+apply from: 'variables.gradle'
 
 apply from: 'task.gradle'
 apply from: 'ui-task.gradle'

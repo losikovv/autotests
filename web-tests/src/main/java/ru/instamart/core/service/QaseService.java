@@ -2,6 +2,7 @@ package instamart.core.service;
 
 import instamart.core.helpers.HelperBase;
 import instamart.core.settings.Config;
+import instamart.core.util.Crypt;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.TmsLink;
 import io.qase.api.QaseApi;
@@ -48,7 +49,7 @@ public final class QaseService {
 
     public QaseService(final String projectCode) {
         this.projectCode = projectCode;
-        this.qaseApi = new QaseApi(Config.QASE_API_TOKEN);
+        this.qaseApi = new QaseApi(Crypt.INSTANCE.decrypt(Config.QASE_API_TOKEN));
         this.testCasesList = new ArrayList<>();
 
         // костыль, пока в https://github.com/qase-tms/qase-java/tree/master/qase-api не реализуют добавление скриншотов
@@ -56,7 +57,7 @@ public final class QaseService {
         unirestInstance.config()
                 .setObjectMapper(new GsonObjectMapper())
                 .addShutdownHook(true)
-                .setDefaultHeader("Token", Config.QASE_API_TOKEN);
+                .setDefaultHeader("Token", Crypt.INSTANCE.decrypt(Config.QASE_API_TOKEN));
         this.qaseTestRunResultService = new QaseTestRunResultService(
                 new QaseApiClient(unirestInstance, "https://api.qase.io/v1"));
     }
