@@ -29,20 +29,24 @@ public class ConsoleOutputCapturerHelper {
         System.setOut(custom);
     }
     /**Функция останавливает перехват записей в консоль и возвращает записанную стрингу*/
-    public String stop() {
-        if (!capturing) {
-            return "";
+    public String stop(){
+        try {
+            if (!capturing) {
+                return "";
+            }
+
+            System.setOut(previous);
+
+            String capturedValue = baos.toString();
+
+            baos = null;
+            previous = null;
+            capturing = false;
+
+            return capturedValue;
+        }catch (NullPointerException ex){
+            return "!!! can not capture logs for this test!!!";
         }
-
-        System.setOut(previous);
-
-        String capturedValue = baos.toString();
-
-        baos = null;
-        previous = null;
-        capturing = false;
-
-        return capturedValue;
     }
 
     private static class OutputStreamCombiner extends OutputStream {

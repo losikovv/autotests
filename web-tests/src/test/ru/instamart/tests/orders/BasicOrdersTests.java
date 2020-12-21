@@ -3,6 +3,7 @@ package ru.instamart.tests.orders;
 import instamart.api.common.RestAddresses;
 import instamart.core.testdata.TestVariables;
 import instamart.core.testdata.UserManager;
+import instamart.core.testdata.ui.Generate;
 import instamart.core.testdata.ui.PaymentTypes;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.JuridicalData;
@@ -40,7 +41,17 @@ public class BasicOrdersTests extends TestBase {
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void preconditions() {
         kraken.get().baseUrl();
-        User.Do.loginAs(UserManager.getDefaultAdmin());
+        //User.Do.loginAs(AppManager.session.admin);
+        String phone;
+        phone = Generate.phoneNumber();
+        User.Do.registration(
+                "Test User",
+                "test@example.com",
+                "12345678",
+                "12345678",
+                phone,
+                "1111"
+        );
         kraken.apiV2().dropCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
     }
 
@@ -122,7 +133,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Тест заказа с любимыми товарами",
-            groups = {"sbermarket-regression",},
+            groups = {"sbermarket-regression","testing"},
             priority = 2003
     )
     public void successOrderWithFavProducts() {

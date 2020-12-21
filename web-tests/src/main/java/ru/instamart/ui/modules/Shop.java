@@ -124,14 +124,7 @@ public class Shop extends Base {
         @Step("Отправляем код из смс")
         public static void sendSms(String sms){
             verboseMessage("> Отправляем код из смс");
-//            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),"1");
-//            kraken.await().simply(0.5);
-//            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),"1");
-//            kraken.await().simply(0.5);
-//            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),"1");
-//            kraken.await().simply(0.5);
             kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),sms);
-            //kraken.perform().fillField(Elements.Modals.AuthModal.smsCode(),sms);
         }
 
         @Step("Отправляем форму")
@@ -493,6 +486,7 @@ public class Shop extends Base {
             /** Добавить товар в любимые через сниппет товара в каталоге */
             @Step("Добавляем товар в любимые товары через сниппет товара в каталоге")
             public static void addToFavorites() {
+                catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),2);
                 kraken.perform().hoverOn(Elements.Catalog.Product.snippet());
                 kraken.perform().click(Elements.Catalog.Product.favButton());
                 kraken.await().implicitly(1); // Ожидание добавления любимого товара
@@ -753,7 +747,7 @@ public class Shop extends Base {
         @Step("Открываем корзину")
         public static void open() {
             if (!kraken.detect().isCartOpen()) {
-                kraken.perform().refresh(); // Доджим рандомные подвисания, из-за которых иногда не сразу открывается корзина
+                //kraken.perform().refresh(); // Доджим рандомные подвисания, из-за которых иногда не сразу открывается корзина
                 verboseMessage("> открываем корзину");
                 kraken.perform().click(Elements.Header.cartButton());
                 kraken.await().implicitly(1); // Ожидание анимации открытия корзины
@@ -823,8 +817,7 @@ public class Shop extends Base {
         public static void collect(int orderSum) {
             if(!kraken.detect().isShippingAddressSet()) {
                 User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
-            }
-            verboseMessage("> собираем корзину товаров на сумму " + orderSum + "\u20BD...");
+            }verboseMessage("> собираем корзину товаров на сумму " + orderSum + "\u20BD...");
             int cartTotal = kraken.grab().cartTotalRounded();
             if(cartTotal < orderSum) {
                 Cart.close();
