@@ -1,8 +1,7 @@
 package ru.instamart.tests.administration;
 
 import instamart.api.common.RestAddresses;
-import instamart.core.common.AppManager;
-import instamart.core.testdata.ui.Generate;
+import instamart.core.testdata.UserManager;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Administration;
@@ -134,7 +133,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     public void successResumeAndCancelOrder() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         kraken.checkout().complete();
         //final String shipment = kraken.grab().currentOrderNumber();
@@ -163,7 +162,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
             priority = 10104
     )
     public void successSearchB2BOrder() {
-        UserData testuser = Generate.testCredentials("user");
+        final UserData testuser = UserManager.getUser();
         User.Logout.quickly();
         User.Do.registration(testuser);
 

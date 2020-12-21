@@ -1,6 +1,7 @@
 package ru.instamart.tests.user;
 
 import instamart.core.settings.Config;
+import instamart.core.testdata.UserManager;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.checkpoints.users.ShippingAddressCheckpoints;
 import instamart.ui.checkpoints.users.ShoppingCartCheckpoints;
@@ -11,8 +12,6 @@ import instamart.ui.modules.User;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
-
-import static instamart.core.common.AppManager.session;
 
 public class UserLogoutTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
@@ -35,7 +34,7 @@ public class UserLogoutTests extends TestBase {
     ) public void successQuickLogout() {
         kraken.get().page(Config.DEFAULT_RETAILER);
 
-        User.Do.loginAs(session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         User.Logout.quickly();
         baseChecks.checkPageIsAvailable();
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -50,7 +49,7 @@ public class UserLogoutTests extends TestBase {
             }
     ) public void successManualLogout() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.loginAs(session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         User.Logout.manually();
         baseChecks.checkPageIsAvailable();
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -65,7 +64,7 @@ public class UserLogoutTests extends TestBase {
             }
     ) public void noShipAddressAndEmptyCartAfterLogout() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.loginAs(session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         kraken.get().page(Config.DEFAULT_RETAILER);
         kraken.await().simply(2);

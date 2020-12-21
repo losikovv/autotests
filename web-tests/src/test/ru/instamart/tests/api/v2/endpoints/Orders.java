@@ -7,7 +7,7 @@ import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.LineItemsResponse;
 import instamart.api.responses.v2.OrderResponse;
 import instamart.api.responses.v2.OrdersResponse;
-import instamart.core.testdata.Users;
+import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
@@ -21,7 +21,7 @@ public class Orders extends RestBase {
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         if (!apiV2.authorized()) {
-            final UserData user = Users.apiUser();
+            final UserData user = UserManager.getUser();
             apiV2.registration(user);
             apiV2.authorisation(user);
         }

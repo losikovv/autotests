@@ -5,9 +5,8 @@ import instamart.core.common.AppManager;
 import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.helpers.HelperBase;
 import instamart.core.settings.Config;
-import instamart.core.testdata.ui.Generate;
+import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
-import instamart.ui.common.pagesdata.UserData;
 import io.qameta.allure.Allure;
 import org.testng.ITestResult;
 import org.testng.SkipException;
@@ -47,7 +46,6 @@ public class TestBase {
             "metro-smoke","metro-acceptance","metro-regression"},
             description = "Очищаем окружение от артефактов после тестов, завершаем процессы браузеров")
     public void cleanup() {
-        if (Config.DO_CLEANUP_AFTER_TEST_RUN) kraken.cleanup().all();
         kraken.stop();
     }
     @AfterTest(alwaysRun = true,
@@ -132,7 +130,6 @@ public class TestBase {
 
     @DataProvider
     Object[][] generateUserData() {
-    UserData testuser = Generate.testCredentials("user");
-    return new Object[][] {{testuser}};
+    return new Object[][] {{UserManager.getUser()}};
     }
 }

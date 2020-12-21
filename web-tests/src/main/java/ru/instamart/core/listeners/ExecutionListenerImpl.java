@@ -3,6 +3,7 @@ package instamart.core.listeners;
 import instamart.api.common.Specification;
 import instamart.core.service.BannerService;
 import instamart.core.settings.Config;
+import instamart.core.testdata.UserManager;
 import instamart.core.util.Crypt;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import org.slf4j.Logger;
@@ -44,5 +45,6 @@ public class ExecutionListenerImpl implements IExecutionListener {
     @Override
     public void onExecutionFinish() {
         // Тут может быть код для очистки окружения после прогона тестов
+        logger.info("We create {} new users", UserManager.getUserDataList().size());
     }
 }

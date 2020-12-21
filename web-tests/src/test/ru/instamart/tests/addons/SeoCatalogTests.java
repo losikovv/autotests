@@ -1,5 +1,6 @@
 package ru.instamart.tests.addons;
 
+import instamart.core.testdata.UserManager;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
@@ -11,8 +12,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
-
-import static instamart.core.common.AppManager.session;
 
 public class SeoCatalogTests extends TestBase {
     
@@ -98,7 +97,7 @@ public class SeoCatalogTests extends TestBase {
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToCart();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
-        User.Do.loginAs(session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),

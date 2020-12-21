@@ -1,6 +1,7 @@
 package ru.instamart.tests.shopping;
 
 import instamart.core.settings.Config;
+import instamart.core.testdata.UserManager;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
@@ -11,8 +12,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
-
-import static instamart.core.common.AppManager.session;
 
 public class ShoppingCartTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
@@ -79,7 +78,7 @@ public class ShoppingCartTests extends TestBase {
     )
     public void successAddItemToCartFromItemCard() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.loginAs(session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
         Shop.Cart.drop();
 
         Shop.Catalog.Item.open();
@@ -103,7 +102,7 @@ public class ShoppingCartTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.loginAs(session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
         Shop.Cart.drop();
 
         Shop.Catalog.Item.addToCart();
@@ -137,7 +136,7 @@ public class ShoppingCartTests extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.loginAs(session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
         Shop.Cart.drop();
 
         Shop.Catalog.Item.addToCart();
@@ -173,7 +172,7 @@ public class ShoppingCartTests extends TestBase {
     )
     public void successRemoveItemsFromCart() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.loginAs(session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
         Shop.Catalog.Item.addToCart();
         if(kraken.detect().isCartEmpty()){
             throw new AssertionError(
@@ -193,7 +192,7 @@ public class ShoppingCartTests extends TestBase {
     )
     public void successAddItemToCartFromCatalogSnippet() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.loginAs(session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
         Shop.Cart.drop();
 
         Shop.Catalog.Item.addToCart();

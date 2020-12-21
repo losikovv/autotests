@@ -1,7 +1,7 @@
 package ru.instamart.tests.user;
 
 import instamart.core.settings.Config;
-import instamart.core.testdata.Users;
+import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.checkpoints.users.ShoppingCartCheckpoints;
@@ -16,8 +16,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
-
-import static instamart.core.common.AppManager.session;
 
 public class UserAuthorisationTests extends TestBase {
 //    Config config = new Config();
@@ -103,7 +101,7 @@ public class UserAuthorisationTests extends TestBase {
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(Users.superuser().getLogin(), "");
+        Shop.AuthModal.fillAuthorisationForm(UserManager.getDefaultUser().getLogin(), "");
         Shop.AuthModal.submit();
 
         baseChecks.checkIsErrorMessageElementPresent("Укажите пароль",
@@ -145,7 +143,7 @@ public class UserAuthorisationTests extends TestBase {
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(Users.superuser().getLogin(), "wrongpassword");
+        Shop.AuthModal.fillAuthorisationForm(UserManager.getDefaultUser().getLogin(), "wrongpassword");
         Shop.AuthModal.submit();
 
         baseChecks.checkIsErrorMessageElementPresent("Неверный email или пароль",
@@ -162,7 +160,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 116
     )
     public void noAuthWithLongFields() {
-        UserData testUser = Generate.testCredentials("user",129);
+        final UserData testUser = UserManager.getUser(129);
         kraken.get().page(Config.DEFAULT_RETAILER);
 
         Shop.AuthModal.open();
@@ -188,7 +186,7 @@ public class UserAuthorisationTests extends TestBase {
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(Users.superuser().getLogin(), Users.superuser().getPassword());
+        Shop.AuthModal.fillAuthorisationForm(UserManager.getDefaultUser().getLogin(), UserManager.getDefaultUser().getPassword());
         Shop.AuthModal.close();
 
         baseChecks.checkIsAuthModalClosed();
@@ -206,7 +204,7 @@ public class UserAuthorisationTests extends TestBase {
     public void successAuthOnMainPage() {
         kraken.get().page(Config.DEFAULT_RETAILER);
 
-        User.Do.loginAs(session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
 
         authChecks.checkIsUserAuthorized("Не работает авторизация на витрине магазина");
     }
@@ -225,7 +223,7 @@ public class UserAuthorisationTests extends TestBase {
         Shop.ShippingAddressModal.open();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
         baseChecks.checkIsAuthModalOpen("Не работает переход на авторизацию из адресной модалки");
-        User.Do.loginAs(session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
         authChecks.checkIsUserAuthorized("Не работает авторизация из адресной модалки феникса");
     }
 
@@ -238,7 +236,7 @@ public class UserAuthorisationTests extends TestBase {
             priority = 121
     )
     public void successAuthFromCart() {
-        final UserData testuser = Generate.testCredentials("user");
+        final UserData testuser = UserManager.getUser();
 
         User.Do.registration(testuser);
         User.Logout.quickly();
@@ -265,7 +263,7 @@ public class UserAuthorisationTests extends TestBase {
     )
     public void successAuthWithVkontakte() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Auth.withVkontakte(Users.vkontakte());
+        User.Auth.withVkontakte(UserManager.getDefaultVkUser());
         authChecks.checkIsUserAuthorized("Не работает авторизация через ВКонтакте");
     }
 
@@ -276,7 +274,7 @@ public class UserAuthorisationTests extends TestBase {
     )
     public void successAuthWithFacebook() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Auth.withFacebook(Users.facebook());
+        User.Auth.withFacebook(UserManager.getDefaultFbUser());
         authChecks.checkIsUserAuthorized("Не работает авторизация через Facebook");
     }
 
@@ -286,7 +284,7 @@ public class UserAuthorisationTests extends TestBase {
     )
     public void successAuthWithMailRu() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Auth.withMailRu(Users.mailRu());
+        User.Auth.withMailRu(UserManager.getDefaultMailRuUser());
         authChecks.checkIsUserAuthorized("Не работает авторизация через MailRu");
     }
 
@@ -298,7 +296,7 @@ public class UserAuthorisationTests extends TestBase {
     )
     public void successAuthWithSberID() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Auth.withSberID(Users.sberId());
+        User.Auth.withSberID(UserManager.getDefaultSberIdUser());
         authChecks.checkIsUserAuthorized("Не работает авторизация через Sber ID");
     }
 }

@@ -1,8 +1,7 @@
 package ru.instamart.tests.api.v2.e2e;
 
 import instamart.api.common.RestBase;
-import instamart.core.common.AppManager;
-import instamart.core.testdata.Users;
+import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
@@ -16,7 +15,7 @@ public class OrderTests extends RestBase {
     @BeforeClass(alwaysRun = true,
                  description = "Регистрация")
     public void preconditions() {
-        user = Users.apiUser();
+        user = UserManager.getUser();
         apiV2.registration(user);
     }
 

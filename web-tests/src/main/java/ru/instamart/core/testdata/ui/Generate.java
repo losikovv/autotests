@@ -10,7 +10,7 @@ import java.util.UUID;
 
 import static instamart.core.helpers.HelperBase.verboseMessage;
 
-public class Generate {
+public final class Generate {
 
     public static String testRunId() {
         return literalString(9).toUpperCase();
@@ -18,19 +18,6 @@ public class Generate {
 
     public static String userId() {
         return digitalString(7);
-    }
-
-    public static JuridicalData juridical() {
-        return new JuridicalData(
-                "ЗАО \"Лидер-" + Generate.digitalString(4) + "\"",
-                Generate.string(8),
-                Generate.digitalString(12),
-                Generate.digitalString(9),
-                Generate.digitalString(20),
-                Generate.digitalString(9),
-                Generate.string(8),
-                Generate.digitalString(20)
-        );
     }
 
     /**
@@ -66,35 +53,6 @@ public class Generate {
     public static String phoneNumber(){
         String phone = "9999999";
         return phone + digitalString(3);
-    }
-
-    public static String testUserEmail(String role, String userId) {
-        if(role.equals("admin")) {
-            return userId + "-" + AppManager.testrunId + "-" + TestVariables.TestParams.testMark + "@" + TestVariables.CompanyParams.companyDomain;
-        } else {
-            return userId + "-" + AppManager.testrunId + "-" + TestVariables.TestParams.testMark + "@" + TestVariables.TestParams.testDomain;}
-    }
-
-    public static UserData testCredentials(String role) {
-        return testCredentials(role, 5);
-    }
-
-    public static UserData testCredentials(String role, int prefixLength) {
-        String testUserId = Generate.userId();
-        UserData testuser = new UserData(role, testUserEmail(role, testUserId), testUserPhone(testUserId), TestVariables.CompanyParams.companyName, testUserName(role));
-        if (prefixLength > 0) {
-            String prefix = literalString(prefixLength);
-            testuser.setLogin(prefix + "-" + testuser.getLogin());
-            testuser.setPassword(prefix + "-" + testuser.getPassword());
-            testuser.setName(prefix + "-" + testuser.getName());
-        }
-        verboseMessage("Сгенерированы тестовые реквизиты для роли " + role);
-        verboseMessage("Телефон: " + testuser.getPhone());
-        verboseMessage("Email: " + testuser.getLogin());
-        verboseMessage("Пароль: " + testuser.getPassword());
-        verboseMessage("Имя: " + testuser.getName());
-        verboseMessage("\n");
-        return testuser;
     }
 
     public static String email() {

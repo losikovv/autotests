@@ -1,12 +1,11 @@
 package instamart.core.helpers;
 
-import org.openqa.selenium.WebDriver;
+import instamart.core.testdata.UserManager;
 import instamart.core.common.AppManager;
-import instamart.core.testdata.Users;
+import instamart.ui.common.pagesdata.PageData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
-import instamart.ui.common.pagesdata.EnvironmentData;
-import instamart.ui.common.pagesdata.PageData;
+import org.openqa.selenium.WebDriver;
 
 public class ReachHelper extends HelperBase {
 
@@ -37,7 +36,7 @@ public class ReachHelper extends HelperBase {
         kraken.await().simply(1);// Ожидание редиректа
         if (kraken.detect().isOnAdminLoginPage()) {
             verboseMessage("> недостаточно прав, перелогиниваемся суперадмином на логин-странице админки");
-            User.Auth.withEmail(Users.superadmin());
+            User.Auth.withEmail(UserManager.getDefaultAdmin());
         }
         kraken.get().adminPage(path);
         verboseMessage("✓ Готово");

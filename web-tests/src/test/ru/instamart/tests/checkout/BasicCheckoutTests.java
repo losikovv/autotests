@@ -1,7 +1,7 @@
 package ru.instamart.tests.checkout;
 
 import instamart.api.common.RestAddresses;
-import instamart.core.common.AppManager;
+import instamart.core.testdata.UserManager;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
@@ -15,9 +15,9 @@ public class BasicCheckoutTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void preparingForCheckout() {
         User.Logout.quickly();
-        User.Do.loginAs(AppManager.session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
 
-        kraken.apiV2().fillCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultUser(), RestAddresses.Moscow.defaultAddress());
     }
 
     @BeforeMethod(alwaysRun = true,

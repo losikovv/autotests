@@ -1,7 +1,7 @@
 package ru.instamart.tests.addons;
 
-import instamart.core.common.AppManager;
 import instamart.core.settings.Config;
+import instamart.core.testdata.UserManager;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
@@ -28,7 +28,7 @@ public class JivositeTests extends TestBase {
             priority = 11102
     )
     public void noJivositeWidgetOnCheckout() {
-        User.Do.loginAs(AppManager.session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         kraken.reach().checkout();
 
         Assert.assertFalse(kraken.detect().isJivositeWidgetAvailable(),

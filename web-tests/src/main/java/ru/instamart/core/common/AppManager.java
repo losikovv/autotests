@@ -2,11 +2,10 @@ package instamart.core.common;
 
 import instamart.api.helpers.InstamartApiHelper;
 import instamart.core.helpers.*;
-import instamart.core.testdata.Users;
+import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.pagesdata.BrowserData;
 import instamart.ui.common.pagesdata.EnvironmentData;
-import instamart.ui.common.pagesdata.SessionData;
 import instamart.ui.modules.Administration;
 import instamart.ui.modules.Checkout;
 import instamart.ui.modules.Shop;
@@ -28,7 +27,6 @@ import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
 import static instamart.core.settings.Config.*;
-import static instamart.core.testdata.TestVariables.TestParams.testMark;
 import static org.testng.Assert.fail;
 
 public class AppManager {
@@ -37,7 +35,6 @@ public class AppManager {
 
     public WebDriver driver;
     static public BrowserData browserData;
-    public static SessionData session;
 
     private BrowseHelper browseHelper;
     private PerformHelper performHelper;
@@ -48,7 +45,6 @@ public class AppManager {
     private User userHelper;
     private Checkout checkoutHelper;
     private Administration administrationHelper;
-    private CleanupHelper cleanupHelper;
     private WaitingHelper waitingHelper;
     private InstamartApiHelper instamartApiHelper;
 
@@ -56,7 +52,6 @@ public class AppManager {
     private StringBuffer verificationErrors = new StringBuffer();
 
     public void rise() {
-        initTestSession();
         initDriver();
         initHelpers();
         applyOptions();
@@ -66,22 +61,6 @@ public class AppManager {
 
     public void getBasicUrl() {
         driver.get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth());
-    }
-
-    private void initTestSession() {
-        if (MULTI_SESSION_MODE) {
-            session = new SessionData(
-                    testrunId, Generate.testCredentials("admin"), Generate.testCredentials("user"),
-                    "shipments?search%5Blast_name%5D=" + testrunId + "&search%5Bstate%5D%5B%5D=ready",
-                    "users?q%5Bemail_cont%5D=" + testrunId + "-" + testMark
-            );
-        } else {
-            session = new SessionData(
-                    testrunId, Users.superadmin(), Users.superuser(),
-                    "shipments?search%5Bfirst_name%5D=" + testMark + "&search%5Bstate%5D%5B%5D=ready",
-                    "users?q%5Bemail_cont%5D=" + testrunId + "-" + testMark
-            );
-        }
     }
 
     private void initDriver() {
@@ -162,7 +141,6 @@ public class AppManager {
         userHelper = new User(driver, this);
         checkoutHelper = new Checkout(driver, this);
         administrationHelper = new Administration(driver, this);
-        cleanupHelper = new CleanupHelper(driver, this);
         waitingHelper = new WaitingHelper(driver, this);
         instamartApiHelper = new InstamartApiHelper();
     }
@@ -176,15 +154,9 @@ public class AppManager {
         IS_KRAKEN_REVEALEN = true; // это вот как раз то самое место где она в true ставиться
         // на данный момент решил вопрос через группы при старте тест сьютов
         System.out.println("\nENVIRONMENT: " + EnvironmentData.INSTANCE.getName() + " ( " + EnvironmentData.INSTANCE.getBasicUrl() + " )");
-
-        if (MULTI_SESSION_MODE) {
-            System.out.println("\nTEST RUN ID: " + session.id);
-        } else {
-            System.out.println("\nTEST RUN ID: " + session.id + " (SOLO MODE)");
-        }
-
-        System.out.println("ADMIN: " + session.admin.getLogin() + " / " + session.admin.getPassword());
-        System.out.println("USER: " + session.user.getLogin() + " / " + session.user.getPassword() + "\n");
+        System.out.println("\nTEST RUN ID: " + testrunId);
+        System.out.println("ADMIN: " + UserManager.getDefaultAdmin().getLogin() + " / " + UserManager.getDefaultAdmin().getPassword());
+        System.out.println("USER: " + UserManager.getDefaultUser().getLogin() + " / " + UserManager.getDefaultUser().getPassword() + "\n");
     }
 
     public void stop() {
@@ -297,7 +269,6 @@ public class AppManager {
     public User user() { return userHelper; }
     public Checkout checkout() { return checkoutHelper; }
     public Administration admin() { return administrationHelper; }
-    public CleanupHelper cleanup() { return cleanupHelper; }
     public WaitingHelper await() { return waitingHelper; }
     public InstamartApiHelper apiV2() { return instamartApiHelper; }
 }

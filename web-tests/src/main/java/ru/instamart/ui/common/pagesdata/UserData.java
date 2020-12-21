@@ -1,6 +1,7 @@
 package instamart.ui.common.pagesdata;
 
-public class UserData {
+public final class UserData {
+
     private String role;
     private String login;
     private String phone;
@@ -8,41 +9,29 @@ public class UserData {
     private String name;
     private String token;
 
-    public UserData( String role, String email, String phone, String password, String name, String token) {
+    public UserData(final String role, final String login, final String phone, final String password, final String name, final String token) {
         this.role = role;
-        this.login = email;
+        this.login = login;
         this.phone = phone;
         this.password = password;
         this.name = name;
         this.token = token;
     }
 
-    public UserData( String role, String email, String phone, String password, String name) {
-        this.role = role;
-        this.login = email;
-        this.phone = phone;
-        this.password = password;
-        this.name = name;
+    public UserData( String role, String login, String phone, String password, String name) {
+        this(role, login, phone, password, name, null);
     }
 
-    public UserData( String role, String email, String password, String name) {
-        this.role = role;
-        this.login = email;
-        this.password = password;
-        this.name = name;
+    public UserData( String role, String login, String password, String name) {
+        this(role, login, null, password, name);
     }
 
-    public UserData(String email, String password, String name) {
-        this.login = email;
-        this.password = password;
-        this.name = name;
+    public UserData(String login, String password, String name) {
+        this(null, login, password, name);
     }
 
-    //public UserData(String role, String login, String password) { this.login = login;this.password = password;this.role = role; }
-
-    public UserData(String login, String password) {
-        this.login = login;
-        this.password = password;
+    public UserData(final String login, final String password) {
+        this(login, password, null);
     }
 
     public String getRole() { return role; }

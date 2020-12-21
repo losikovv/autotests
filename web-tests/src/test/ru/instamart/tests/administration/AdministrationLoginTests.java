@@ -1,6 +1,6 @@
 package ru.instamart.tests.administration;
 
-import instamart.core.testdata.Users;
+import instamart.core.testdata.UserManager;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.User;
@@ -118,7 +118,7 @@ public class AdministrationLoginTests extends TestBase {
     )
     public void noAuthWithShortPassword() {
 
-        kraken.perform().fillField(Elements.Administration.LoginPage.emailField(), Users.superuser().getLogin());
+        kraken.perform().fillField(Elements.Administration.LoginPage.emailField(), UserManager.getDefaultUser().getLogin());
         kraken.perform().fillField(Elements.Administration.LoginPage.passwordField(), "123");
         kraken.perform().click(Elements.Administration.LoginPage.submitButton());
 
@@ -140,7 +140,7 @@ public class AdministrationLoginTests extends TestBase {
     )
     public void noAuthWithWrongPassword() {
 
-        kraken.perform().fillField(Elements.Administration.LoginPage.emailField(), Users.superuser().getLogin());
+        kraken.perform().fillField(Elements.Administration.LoginPage.emailField(), UserManager.getDefaultUser().getLogin());
         kraken.perform().fillField(Elements.Administration.LoginPage.passwordField(), "wrongpassword");
         kraken.perform().click(Elements.Administration.LoginPage.submitButton());
 
@@ -162,7 +162,7 @@ public class AdministrationLoginTests extends TestBase {
     )
     public void successAuthOnAdminLoginPage() {
 
-        User.Auth.withEmail(Users.superadmin());
+        User.Auth.withEmail(UserManager.getDefaultAdmin());
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),

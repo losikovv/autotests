@@ -3,6 +3,7 @@ package ru.instamart.tests.shopping;
 import instamart.api.common.RestAddresses;
 import instamart.core.common.AppManager;
 import instamart.core.settings.Config;
+import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Addresses;
@@ -22,8 +23,8 @@ public class ShoppingTestsForExistingUser extends TestBase {
             description = "Подготавливаем тестовое окружение к тестовому прогону")
     public void setup() {
         User.Logout.quickly();
-        User.Do.loginAs(AppManager.session.user);
-        kraken.apiV2().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
+        User.Do.loginAs(UserManager.getDefaultUser());
+        kraken.apiV2().dropCart(UserManager.getDefaultUser(), RestAddresses.Moscow.defaultAddress());
     }
 
     @Test(
@@ -34,7 +35,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
                     "metro-acceptance","metro-regression"
             }
     ) public void noAccessToCheckoutForAuthorizedUserWithShipAddressAndEmptyCart() {
-        kraken.apiV2().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().dropCart(UserManager.getDefaultUser(), RestAddresses.Moscow.defaultAddress());
         baseChecks.checkPageIsUnavailable(Pages.checkout());
     }
 
@@ -48,7 +49,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
     ) public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
 
         if (kraken.detect().isCheckoutButtonActive()) {
-            kraken.apiV2().dropCart(AppManager.session.user, RestAddresses.Moscow.defaultAddress());
+            kraken.apiV2().dropCart(UserManager.getDefaultUser(), RestAddresses.Moscow.defaultAddress());
         }
 
         if (kraken.detect().isCartEmpty()) {
@@ -102,7 +103,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
         SoftAssert softAssert = new SoftAssert();
 
         //TODO переписать под набор корзины и авторизацию + проверку адреса и переход в чекаут
-        final UserData testuser = Generate.testCredentials("user");
+        final UserData testuser = UserManager.getUser();
         User.Logout.quickly();
         kraken.get().baseUrl();
         User.Do.registration(testuser);

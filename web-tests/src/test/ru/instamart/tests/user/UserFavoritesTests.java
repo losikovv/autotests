@@ -1,5 +1,6 @@
 package ru.instamart.tests.user;
 
+import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.checkpoints.users.FavoriteItemsCheckpoints;
@@ -14,8 +15,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.TestBase;
-
-import static instamart.core.common.AppManager.session;
 
 public class UserFavoritesTests extends TestBase {
     public static String modalType;
@@ -81,7 +80,7 @@ public class UserFavoritesTests extends TestBase {
                     "sbermarket-regression"}
     )
     public void successAddFavoriteOnItemCard() {
-        User.Do.loginAs(session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
         kraken.reach().cleanFavorites();
         kraken.get().page(Pages.Retailers.metro());
 
@@ -102,7 +101,7 @@ public class UserFavoritesTests extends TestBase {
                     "sbermarket-regression"}
     )
     public void successAddFavoriteFromCatalog() {
-        User.Do.loginAs(session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
         kraken.reach().cleanFavorites();
         kraken.get().page(Pages.Retailers.metro());
 
@@ -120,7 +119,7 @@ public class UserFavoritesTests extends TestBase {
                     "sbermarket-regression"}
     )
     public void successDeleteFavoriteOnItemCard() {
-        User.Do.loginAs(session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
         kraken.reach().cleanFavorites();
         kraken.get().page(Pages.Retailers.metro());
 
@@ -141,7 +140,7 @@ public class UserFavoritesTests extends TestBase {
                     "sbermarket-regression"}
     )
     public void successDeleteFavoriteOnList() {
-        User.Do.loginAs(session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
         if (!kraken.detect().isFavoritesEmpty()) {
             kraken.reach().cleanFavorites();
         } else {
@@ -163,7 +162,7 @@ public class UserFavoritesTests extends TestBase {
                     "sbermarket-regression"
             }
     ) public void successCleanupFavorites() {
-        User.Do.loginAs(session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
 
         Shop.Search.item("молоко");
         Shop.Catalog.Item.addToFavorites();
@@ -199,7 +198,7 @@ public class UserFavoritesTests extends TestBase {
     ) public void successApplyFilters() {
         SoftAssert softAssert = new SoftAssert();
 
-        User.Do.loginAs(session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         kraken.get().userFavoritesPage();
 
         Assert.assertTrue(
@@ -238,7 +237,7 @@ public class UserFavoritesTests extends TestBase {
                     "sbermarket-regression"}
     )
     public void successShowMoreLoad() throws AssertionError {
-        User.Do.loginAs(session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         kraken.get().userFavoritesPage();
         Shop.Jivosite.open();
 
@@ -274,7 +273,7 @@ public class UserFavoritesTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе открывается модалка регистрации после попытки добавления товара из каталога в любимые товары");
 
-        User.Do.regSequence(Generate.testCredentials("user"));
+        User.Do.regSequence(UserManager.getUser());
         Shop.AuthModal.submit();
 
         softAssert.assertTrue(
@@ -301,7 +300,7 @@ public class UserFavoritesTests extends TestBase {
                 kraken.detect().isAuthModalOpen(),
                     "\nНе открывается модалка регистрации после попытки добавления товара из карточки в любимые товары");
 
-        User.Do.regSequence(Generate.testCredentials("user"));
+        User.Do.regSequence(UserManager.getUser());
         Shop.AuthModal.submit();
 
         softAssert.assertTrue(
@@ -328,7 +327,7 @@ public class UserFavoritesTests extends TestBase {
                     "\nНе открывается модалка авторизации после попытки добавления товара из каталога в избранное");
 
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(session.user.getLogin(), session.user.getPassword());
+        Shop.AuthModal.fillAuthorisationForm(UserManager.getDefaultUser().getLogin(), UserManager.getDefaultUser().getPassword());
         Shop.AuthModal.submit();
 
         softAssert.assertTrue(
@@ -356,7 +355,7 @@ public class UserFavoritesTests extends TestBase {
                     "\nНе открывается модалка авторизации после попытки добавления товара из карточки в избранное");
 
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(session.user.getLogin(), session.user.getPassword());
+        Shop.AuthModal.fillAuthorisationForm(UserManager.getDefaultUser().getLogin(), UserManager.getDefaultUser().getPassword());
         Shop.AuthModal.submit();
 
         softAssert.assertTrue(
@@ -375,7 +374,7 @@ public class UserFavoritesTests extends TestBase {
     public void successAddFavoriteProductsFromCardToCart() {
         SoftAssert softAssert = new SoftAssert();
 
-        User.Do.loginAs(session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         Shop.Cart.drop();
         kraken.get().userFavoritesPage();
 
@@ -403,7 +402,7 @@ public class UserFavoritesTests extends TestBase {
     public void successAddFavoriteProductToCart() {
         SoftAssert softAssert = new SoftAssert();
 
-        User.Do.loginAs(session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         Shop.Cart.drop();
         kraken.get().userFavoritesPage();
 

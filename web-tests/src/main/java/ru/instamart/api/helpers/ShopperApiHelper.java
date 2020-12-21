@@ -5,8 +5,8 @@ import instamart.api.enums.shopper.PackageSetLocation;
 import instamart.api.objects.shopper.*;
 import instamart.api.requests.ShopperApiRequests;
 import instamart.api.responses.shopper.*;
+import instamart.core.testdata.UserManager;
 import instamart.core.helpers.WaitingHelper;
-import instamart.core.testdata.Users;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
@@ -139,7 +139,7 @@ public class ShopperApiHelper extends ApiHelperBase {
      * Простая сборка заказа
      */
     public void simpleCollect(String shipmentNumber) {
-        authorisation(Users.shopper());
+        authorisation(UserManager.getDefaultShopper());
         deleteCurrentAssembly();
         String shipmentId = getShipmentId(shipmentNumber);
 
@@ -162,7 +162,7 @@ public class ShopperApiHelper extends ApiHelperBase {
      * Сложная сборка заказа
      */
     public void complexCollect(String shipmentNumber) {
-        authorisation(Users.shopper());
+        authorisation(UserManager.getDefaultShopper());
         deleteCurrentAssembly();
         String shipmentId = getShipmentId(shipmentNumber);
 

@@ -4,7 +4,7 @@ import instamart.api.common.RestBase;
 import instamart.api.enums.v2.AuthProvider;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.SessionsResponse;
-import instamart.core.testdata.Users;
+import instamart.core.testdata.UserManager;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
@@ -21,7 +21,7 @@ public class Sessions extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        user = Users.apiUser();
+        user = UserManager.getUser();
         apiV2.registration(user);
     }
 

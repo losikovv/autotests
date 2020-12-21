@@ -1,8 +1,8 @@
 package ru.instamart.tests;
 
-import instamart.core.common.AppManager;
-import instamart.core.testdata.TestVariables;
 import instamart.core.settings.Config;
+import instamart.core.testdata.TestVariables;
+import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.PaymentTypes;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
@@ -10,8 +10,6 @@ import instamart.ui.common.lib.ReplacementPolicies;
 import instamart.ui.common.pagesdata.OrderDetailsData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
-import instamart.ui.objectsmap.Elements;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -19,7 +17,7 @@ public class Playground extends TestBase {
 
     @Test
     public void restOrder() {
-        kraken.apiV2().order(AppManager.session.user, 1);
+        kraken.apiV2().order(UserManager.getDefaultUser(), 1);
         kraken.apiV2().cancelCurrentOrder();
     }
 
@@ -66,14 +64,14 @@ public class Playground extends TestBase {
 
     @Test
     public void makeOrder() {
-        User.Do.loginAs(AppManager.session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
         kraken.reach().checkout();
         kraken.checkout().complete();
     }
 
     @Test
     public void makeNewOrder() {
-        User.Do.loginAs(AppManager.session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.cash());
     }
@@ -81,7 +79,7 @@ public class Playground extends TestBase {
     @Test
     public void testNewOrder() {
 
-        User.Do.loginAs(AppManager.session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
         kraken.get().page(Pages.Retailers.metro());
         User.ShippingAddress.set(Addresses.Moscow.testAddress(),true);
         Shop.Cart.collect();
@@ -127,22 +125,8 @@ public class Playground extends TestBase {
     }
 
     @Test
-    public void cancelTestOrders() {
-        kraken.cleanup().orders();
-        Assert.assertFalse(kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.placeholder()),
-                "Отменились не все тестовые заказы\n");
-    }
-
-    @Test
-    public void deleteTestUsers() {
-        kraken.cleanup().users();
-        Assert.assertFalse(kraken.detect().isElementPresent(Elements.Administration.UsersSection.userlistFirstRow()),
-                "Удалились не все тестовые юзеры\n");
-    }
-
-    @Test
     public void testMultikraken() {
-        User.Do.loginAs(AppManager.session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         kraken.perform().order();
         //kraken.perform().loginAs(session.user);
         //kraken.perform().order();
