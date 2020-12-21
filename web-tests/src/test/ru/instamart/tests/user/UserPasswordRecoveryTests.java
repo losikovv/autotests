@@ -1,7 +1,7 @@
 package ru.instamart.tests.user;
 
+import instamart.core.testdata.UserManager;
 import instamart.core.settings.Config;
-import instamart.core.testdata.Users;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import org.testng.Assert;
@@ -71,7 +71,7 @@ public class UserPasswordRecoveryTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successRecoveryRequestOnLanding() {
-        User.PasswordRecovery.request(Users.superuser());
+        User.PasswordRecovery.request(UserManager.getDefaultUser());
 
         Assert.assertTrue(
                 kraken.detect().isRecoveryRequested(),
@@ -87,7 +87,7 @@ public class UserPasswordRecoveryTests extends TestBase {
             }
     ) public void successRequestRecoveryOnMainPage() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.PasswordRecovery.request(Users.superuser());
+        User.PasswordRecovery.request(UserManager.getDefaultUser());
 
         Assert.assertTrue(
                 kraken.detect().isRecoveryRequested(),
@@ -102,7 +102,7 @@ public class UserPasswordRecoveryTests extends TestBase {
                     "sbermarket-regression",
             }
     ) public void successOpenAuthModalAfterRecoveryRequest() {
-        User.PasswordRecovery.request(Users.superuser());
+        User.PasswordRecovery.request(UserManager.getDefaultUser());
 
         Shop.RecoveryModal.close();
         Shop.AuthModal.open();
@@ -120,10 +120,10 @@ public class UserPasswordRecoveryTests extends TestBase {
                     "sbermarket-regression",
             }
     ) public void successAuthWithCurrentPasswordAfterRecoveryRequest() {
-        User.PasswordRecovery.request(Users.superuser());
+        User.PasswordRecovery.request(UserManager.getDefaultUser());
         kraken.get().baseUrl();
 
-        User.Do.loginAs(Users.superuser());
+        User.Do.loginAs(UserManager.getDefaultUser());
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -138,11 +138,11 @@ public class UserPasswordRecoveryTests extends TestBase {
                     "sbermarket-regression"
             }
     ) public void successAuthWithNewPasswordAfterCompletePasswordRecovery() {
-        User.PasswordRecovery.request(Users.gmail());
-        User.PasswordRecovery.complete(Users.gmail(),"newPassword");
+        User.PasswordRecovery.request(UserManager.getDefaultGmailUser());
+        User.PasswordRecovery.complete(UserManager.getDefaultGmailUser(),"newPassword");
         User.Logout.quickly();
 
-        User.Auth.withEmail(Users.gmail().getLogin(), "newPassword");
+        User.Auth.withEmail(UserManager.getDefaultGmailUser().getLogin(), "newPassword");
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -158,11 +158,11 @@ public class UserPasswordRecoveryTests extends TestBase {
                     "sbermarket-regression"
             }
     ) public void noAuthWithOldPasswordAfterCompletePasswordRecovery() {
-        User.PasswordRecovery.request(Users.gmail());
-        User.PasswordRecovery.complete(Users.gmail(),"password");
+        User.PasswordRecovery.request(UserManager.getDefaultGmailUser());
+        User.PasswordRecovery.complete(UserManager.getDefaultGmailUser(),"password");
         User.Logout.quickly();
 
-        User.Auth.withEmail(Users.gmail().getLogin(), "newPassword");
+        User.Auth.withEmail(UserManager.getDefaultGmailUser().getLogin(), "newPassword");
 
         Assert.assertFalse(
                 kraken.detect().isUserAuthorised(),

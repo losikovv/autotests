@@ -1,6 +1,7 @@
 package ru.instamart.tests;
 
 import instamart.core.settings.Config;
+import instamart.core.testdata.UserManager;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
@@ -12,7 +13,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import static instamart.core.common.AppManager.session;
 import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public class SelfCheckTests extends TestBase {
@@ -73,7 +73,7 @@ public class SelfCheckTests extends TestBase {
         kraken.get().page(Config.DEFAULT_RETAILER);
         Assert.assertFalse(kraken.detect().isUserAuthorised());
 
-        User.Do.loginAs(session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         Assert.assertTrue(kraken.detect().isUserAuthorised());
 
         User.Logout.manually();
@@ -88,7 +88,7 @@ public class SelfCheckTests extends TestBase {
     public void detectAccountMenu() {
 
         kraken.get().baseUrl();
-        User.Do.loginAs(session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
 
         Shop.AccountMenu.open();
         Assert.assertTrue(kraken.detect().isAccountMenuOpen());
@@ -117,7 +117,7 @@ public class SelfCheckTests extends TestBase {
         kraken.get().page(Pages.Sbermarket.faq());
         Assert.assertTrue(kraken.detect().isOnSite());
 
-        User.Do.loginAs(session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         kraken.get().page(Pages.Admin.retailers());
         Assert.assertFalse(kraken.detect().isOnSite());
     }
@@ -130,7 +130,7 @@ public class SelfCheckTests extends TestBase {
         kraken.get().page(Pages.Sbermarket.contacts());
         Assert.assertFalse(kraken.detect().isInAdmin());
 
-        User.Do.loginAs(session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         kraken.get().page(Pages.Admin.settings());
         Assert.assertTrue(kraken.detect().isInAdmin());
     }

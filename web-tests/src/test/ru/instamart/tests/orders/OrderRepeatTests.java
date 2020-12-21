@@ -1,7 +1,7 @@
 package ru.instamart.tests.orders;
 
 import instamart.api.common.RestAddresses;
-import instamart.core.common.AppManager;
+import instamart.core.testdata.UserManager;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
@@ -17,8 +17,8 @@ public class OrderRepeatTests extends TestBase {
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void preconditions() {
         kraken.get().baseUrl();
-        User.Do.loginAs(AppManager.session.admin);
-        kraken.apiV2().dropCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        User.Do.loginAs(UserManager.getDefaultAdmin());
+        kraken.apiV2().dropCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
     }
     @AfterMethod(alwaysRun = true,
             description ="Очистка окружения после теста")

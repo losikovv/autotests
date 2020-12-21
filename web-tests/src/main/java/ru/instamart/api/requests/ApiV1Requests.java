@@ -3,7 +3,7 @@ package instamart.api.requests;
 import instamart.api.endpoints.ApiV1Endpoints;
 import instamart.api.objects.v1.ShoppersBackend;
 import instamart.api.responses.v1.TokensResponse;
-import instamart.core.testdata.Users;
+import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.UserData;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
@@ -116,7 +116,7 @@ public class ApiV1Requests extends InstamartRequestsBase {
             @Step("{method} /" + ApiV1Endpoints.Shoppers.MARKETING_SAMPLE_ITEMS)
             public static Response GET(String shipmentUuid) {
                 return givenCatch()
-                        .header("X-Spree-Token", Users.superadmin().getToken())
+                        .header("X-Spree-Token", UserManager.getDefaultAdmin().getToken())
                         .get(ApiV1Endpoints.Shoppers.MARKETING_SAMPLE_ITEMS, shipmentUuid);
             }
         }
@@ -124,7 +124,7 @@ public class ApiV1Requests extends InstamartRequestsBase {
             @Step("{method} /" + ApiV1Endpoints.Shoppers.ORDER_AVAILABLE_PAYMENT_TOOLS)
             public static Response GET(String orderNumber) {
                 return givenCatch()
-                        .header("X-Spree-Token", Users.superadmin().getToken())
+                        .header("X-Spree-Token", UserManager.getDefaultAdmin().getToken())
                         .get(ApiV1Endpoints.Shoppers.ORDER_AVAILABLE_PAYMENT_TOOLS, orderNumber);
             }
         }

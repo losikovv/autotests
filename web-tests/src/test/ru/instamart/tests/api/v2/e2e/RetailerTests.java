@@ -2,7 +2,7 @@ package ru.instamart.tests.api.v2.e2e;
 
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Store;
-import instamart.core.testdata.Users;
+import instamart.core.testdata.UserManager;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
@@ -26,7 +26,7 @@ public class RetailerTests extends RestBase {
         apiV2.skipTestIfOnlyPickupIsAvailable(store);
         verboseMessage("Оформляем заказ в " + store.getName() + "\n");
 
-        apiV2.order(Users.superuser(), store.getId());
+        apiV2.order(UserManager.getDefaultUser(), store.getId());
         apiV2.cancelCurrentOrder();
     }
 }

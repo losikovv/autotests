@@ -1,7 +1,7 @@
 package ru.instamart.tests.orders;
 
 import instamart.api.common.RestAddresses;
-import instamart.core.common.AppManager;
+import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.BonusPrograms;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Administration;
@@ -19,13 +19,13 @@ import ru.instamart.tests.TestBase;
 public class OrdersBonusesTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
-        User.Do.loginAs(AppManager.session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
     }
 
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void preconditions() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         Checkout.Bonuses.deleteAll();
     }

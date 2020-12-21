@@ -4,7 +4,7 @@ import instamart.api.common.RestBase;
 import instamart.api.objects.shopper.Reason;
 import instamart.api.requests.ShopperApiRequests;
 import instamart.api.responses.shopper.*;
-import instamart.core.testdata.Users;
+import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
@@ -19,7 +19,7 @@ public class ShipmentlessTests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        shopper.authorisation(Users.shopper());
+        shopper.authorisation(UserManager.getDefaultShopper());
     }
 
     @CaseId(28)

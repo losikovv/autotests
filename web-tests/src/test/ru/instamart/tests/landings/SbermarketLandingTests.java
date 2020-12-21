@@ -1,5 +1,6 @@
 package ru.instamart.tests.landings;
 
+import instamart.core.testdata.UserManager;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
@@ -9,8 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
-
-import static instamart.core.common.AppManager.session;
 
 public class SbermarketLandingTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
@@ -78,6 +77,6 @@ public class SbermarketLandingTests extends TestBase {
     public void successAuthorizationOnSbermarketLanding() {
         //
         kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
-        User.Do.loginAs(session.user);
+        User.Do.loginAs(UserManager.getDefaultUser());
     }
 }

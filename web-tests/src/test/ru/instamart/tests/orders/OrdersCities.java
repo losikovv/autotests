@@ -1,8 +1,8 @@
 package ru.instamart.tests.orders;
 
 import instamart.api.common.RestAddresses;
-import instamart.core.common.AppManager;
 import instamart.core.settings.Config;
+import instamart.core.testdata.UserManager;
 import instamart.ui.modules.User;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -14,7 +14,7 @@ public class OrdersCities extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         kraken.get().baseUrl();
-        User.Do.loginAs(AppManager.session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
     }
 
     @BeforeMethod(alwaysRun = true,
@@ -42,7 +42,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInMoscow() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -59,7 +59,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInSaintPetersburg() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.SaintPetersburg.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.SaintPetersburg.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -76,7 +76,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInKazan() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Kazan.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Kazan.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -93,7 +93,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInEkaterinburg() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Ekaterinburg.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Ekaterinburg.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -110,7 +110,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInNizhnyNovgorod() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.NizhnyNovgorod.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.NizhnyNovgorod.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -127,7 +127,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInRostovNaDonu() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.RostovNaDonu.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.RostovNaDonu.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -144,7 +144,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInUfa() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Ufa.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Ufa.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -161,7 +161,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"
             }
     ) public void successOrderInKrasnodar() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Krasnodar.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Krasnodar.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -178,7 +178,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInSamara() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Samara.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Samara.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -195,7 +195,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInVoronezh() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Voronezh.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Voronezh.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -212,7 +212,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInOmsk() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Omsk.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Omsk.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -229,7 +229,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInVolgograd() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Volgograd.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Volgograd.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -246,7 +246,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInNovosibirsk() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Novosibirsk.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Novosibirsk.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -263,7 +263,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInChelyabinsk() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Chelyabinsk.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Chelyabinsk.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -280,7 +280,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInTyumen() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Tyumen.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Tyumen.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -297,7 +297,7 @@ public class OrdersCities extends TestBase {
                     "sbermarket-acceptance", "sbermarket-regression"
             }
     ) public void successOrderInPerm() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Perm.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Perm.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();

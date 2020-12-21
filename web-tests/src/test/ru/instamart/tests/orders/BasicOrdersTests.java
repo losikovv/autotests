@@ -1,10 +1,9 @@
 package ru.instamart.tests.orders;
 
 import instamart.api.common.RestAddresses;
-import instamart.core.common.AppManager;
 import instamart.core.testdata.TestVariables;
+import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.PaymentTypes;
-import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.JuridicalData;
 import instamart.ui.common.pagesdata.PaymentCardData;
@@ -41,8 +40,8 @@ public class BasicOrdersTests extends TestBase {
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void preconditions() {
         kraken.get().baseUrl();
-        User.Do.loginAs(AppManager.session.admin);
-        kraken.apiV2().dropCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        User.Do.loginAs(UserManager.getDefaultAdmin());
+        kraken.apiV2().dropCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
     }
 
     @AfterMethod(alwaysRun = true,
@@ -61,9 +60,9 @@ public class BasicOrdersTests extends TestBase {
             priority = 2000
     )
     public void successCompleteCheckoutWithNewJuridical() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.learningCenter());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.learningCenter());
 
-        JuridicalData company = Generate.juridical();
+        JuridicalData company = UserManager.juridical();
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer(), true, company);
 
@@ -85,9 +84,9 @@ public class BasicOrdersTests extends TestBase {
             priority = 2001
     )
     public void successCompleteCheckoutWithChangeJuridical() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
 
-        JuridicalData newCompany = Generate.juridical();
+        JuridicalData newCompany = UserManager.juridical();
         kraken.reach().checkout();
         kraken.checkout().complete(PaymentTypes.bankTransfer(), false, newCompany);
 
@@ -110,7 +109,7 @@ public class BasicOrdersTests extends TestBase {
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
         runTestOnlyOnServer("staging");
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
 
         PaymentCardData creditCardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
 

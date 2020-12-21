@@ -1,7 +1,7 @@
 package ru.instamart.tests.orders;
 
 import instamart.api.common.RestAddresses;
-import instamart.core.common.AppManager;
+import instamart.core.testdata.UserManager;
 import instamart.ui.common.lib.ReplacementPolicies;
 import instamart.ui.modules.User;
 import org.testng.Assert;
@@ -16,13 +16,13 @@ public class OrdersReplacementsTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         kraken.get().baseUrl();
-        User.Do.loginAs(AppManager.session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
     }
 
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
     }
 

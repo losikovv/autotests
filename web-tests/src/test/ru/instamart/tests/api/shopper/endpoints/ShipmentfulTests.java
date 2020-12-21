@@ -6,7 +6,7 @@ import instamart.api.objects.shopper.AssemblyData;
 import instamart.api.objects.v2.Order;
 import instamart.api.requests.ShopperApiRequests;
 import instamart.api.responses.shopper.*;
-import instamart.core.testdata.Users;
+import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
@@ -27,11 +27,11 @@ public class ShipmentfulTests extends RestBase {
     @BeforeClass(alwaysRun = true,
                  description = "Оформляем заказ")
     public void preconditions() {
-        UserData user = Users.apiUser();
-        apiV2.registration(user);
-        Order order = apiV2.order(user, EnvironmentData.INSTANCE.getDefaultSid());
+        final UserData userData = UserManager.getUser();
+        apiV2.registration(userData);
+        Order order = apiV2.order(userData, EnvironmentData.INSTANCE.getDefaultSid());
         InstamartApiCheckpoints.assertIsDeliveryToday(order);
-        shopper.authorisation(Users.shopper());
+        shopper.authorisation(UserManager.getDefaultShopper());
         shopper.deleteCurrentAssembly();
         shipmentId = shopper.getShipmentId(order.getShipments().get(0).getNumber());
     }

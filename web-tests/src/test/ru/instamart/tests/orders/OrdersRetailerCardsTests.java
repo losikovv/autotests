@@ -1,8 +1,8 @@
 package ru.instamart.tests.orders;
 
 import instamart.api.common.RestAddresses;
-import instamart.core.common.AppManager;
 import instamart.core.settings.Config;
+import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.RetailerCards;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
@@ -21,7 +21,7 @@ public class OrdersRetailerCardsTests extends TestBase {
             description = "Подготавливаем тестовое окружение к прогону тестов")
     public void setup() {
         kraken.get().baseUrl();
-        User.Do.loginAs(kraken.session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         Shop.Cart.drop();
     }
@@ -32,7 +32,7 @@ public class OrdersRetailerCardsTests extends TestBase {
     )
     public void successOrderWithMetroRetailerCard() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         
         Checkout.RetailerCards.addCard(RetailerCards.metro());
@@ -54,7 +54,7 @@ public class OrdersRetailerCardsTests extends TestBase {
     public void successOrderWithVkusvillRetailerCard() {
         kraken.get().page(Pages.Retailers.vkusvill());
         User.ShippingAddress.set(RestAddresses.Moscow.Vkusvill.michurinsky(),true);
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
 
         Checkout.RetailerCards.addCard(RetailerCards.vkusvill());

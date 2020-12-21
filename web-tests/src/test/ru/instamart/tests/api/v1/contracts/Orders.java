@@ -4,7 +4,7 @@ import instamart.api.common.RestBase;
 import instamart.api.requests.ApiV1Requests;
 import instamart.api.responses.v1.LineItemsResponse;
 import instamart.api.responses.v1.ShipmentResponse;
-import instamart.core.testdata.Users;
+import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
@@ -25,13 +25,13 @@ public class Orders extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        UserData user = Users.apiUser();
+        final UserData user = UserManager.getUser();
         apiV2.registration(user);
         instamart.api.objects.v2.Order order = apiV2.order(user, EnvironmentData.INSTANCE.getDefaultSid());
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
 
-        ApiV1Requests.UserSessions.POST(Users.superadmin());
+        ApiV1Requests.UserSessions.POST(UserManager.getDefaultAdmin());
     }
 
     @AfterClass(alwaysRun = true)

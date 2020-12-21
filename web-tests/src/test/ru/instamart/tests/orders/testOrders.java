@@ -1,7 +1,7 @@
 package ru.instamart.tests.orders;
 
 import instamart.api.common.RestAddresses;
-import instamart.core.common.AppManager;
+import instamart.core.testdata.UserManager;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -33,7 +33,7 @@ public class testOrders extends TestBase {
     )
     public void successOrderInCities(int param) {
         verboseMessage(">>> ТЕСТ С ПАРАМЕТРОМ " + param);
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress());
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
 
         kraken.reach().checkout();
         kraken.checkout().complete();

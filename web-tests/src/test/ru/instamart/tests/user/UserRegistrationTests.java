@@ -1,7 +1,7 @@
 package ru.instamart.tests.user;
 
 import instamart.core.settings.Config;
-import instamart.core.testdata.Users;
+import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.checkpoints.users.ShoppingCartCheckpoints;
@@ -219,7 +219,7 @@ public class UserRegistrationTests extends TestBase {
     public void noRegWithExistingEmail() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.registration("Test User", Users.superuser().getLogin(),
+        User.Do.registration("Test User", UserManager.getDefaultUser().getLogin(),
                 "12345678", "12345678");
         baseChecks.checkIsErrorMessageElementPresent("Этот email уже зарегистрирован",
                 "Нет пользовательской ошибки регистрации с уже зарегистрированным email");
@@ -239,7 +239,7 @@ public class UserRegistrationTests extends TestBase {
         if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.DEFAULT_RETAILER);
 
-        User.Do.registration(Generate.testCredentials("user", 150));
+        User.Do.registration(UserManager.getUser(150));
         baseChecks.checkIsErrorMessageElementPresent("Имя должно содержать не более 128 символов",
                 "Нет пользовательской ошибки превышения длины поля name");
         baseChecks.checkIsErrorMessageElementPresent("Email адрес должен содержать не более 128 символов",
@@ -267,7 +267,7 @@ public class UserRegistrationTests extends TestBase {
                 ExpectedConditions.elementToBeClickable(
                         Elements.Modals.AuthModal.popup().getLocator()),
                 "Модалка авторизации не открыта\n");
-        User.Do.regSequence(Generate.testCredentials("user"));
+        User.Do.regSequence(UserManager.getUser());
         Shop.AuthModal.close();
         baseChecks.checkIsAuthModalClosed();
         kraken.get().baseUrl();
@@ -389,7 +389,7 @@ public class UserRegistrationTests extends TestBase {
         if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.open();
-        User.Do.regSequence(Generate.testCredentials("user"), false ); // todo вынести в Shop.AuthModal.fill()
+        User.Do.regSequence(UserManager.getUser(), false ); // todo вынести в Shop.AuthModal.fill()
         Shop.AuthModal.submit();
         authChecks.checkIsUserAuthorized("Не работает регистрация без согласия на получение почтовой рассылки");
     }
@@ -407,7 +407,7 @@ public class UserRegistrationTests extends TestBase {
         kraken.get().page(Config.DEFAULT_RETAILER);
 
         Shop.AuthModal.open();
-        User.Do.regSequence(Generate.testCredentials("user"), false );
+        User.Do.regSequence(UserManager.getUser(), false );
         kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Modals.AuthModal.agreementCheckbox().getLocator()));
         kraken.perform().setCheckbox(Elements.Modals.AuthModal.checkBoxes(),2);
         kraken.perform().click(Elements.Modals.AuthModal.submitButton());

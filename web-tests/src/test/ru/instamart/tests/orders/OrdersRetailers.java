@@ -1,7 +1,7 @@
 package ru.instamart.tests.orders;
 
 import instamart.api.common.RestAddresses;
-import instamart.core.common.AppManager;
+import instamart.core.testdata.UserManager;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
@@ -22,7 +22,7 @@ public class OrdersRetailers extends TestBase {
             description = "Подготавливаем тестовое окружение к прогону тестов")
     public void setup() {
         kraken.get().baseUrl();
-        User.Do.loginAs(AppManager.session.admin);
+        User.Do.loginAs(UserManager.getDefaultAdmin());
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
     }
 
@@ -41,7 +41,7 @@ public class OrdersRetailers extends TestBase {
     ) public void successOrderInMetro(){
         baseChecks.checkPageIsAvailable(Pages.Retailers.metro());
 
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), metro);
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress(), metro);
 
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
@@ -60,7 +60,7 @@ public class OrdersRetailers extends TestBase {
         runTestOnlyOnTenant("sbermarket");
         baseChecks.checkPageIsAvailable(Pages.Retailers.auchan());
 
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), auchan);
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress(), auchan);
 
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
@@ -79,7 +79,7 @@ public class OrdersRetailers extends TestBase {
         runTestOnlyOnTenant("sbermarket");
         baseChecks.checkPageIsAvailable(Pages.Retailers.azbuka());
 
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), azbuka);
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress(), azbuka);
 
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
@@ -97,7 +97,7 @@ public class OrdersRetailers extends TestBase {
     ) public void successOrderInVkusvill(){
         runTestOnlyOnTenant("sbermarket");
         baseChecks.checkRetailerIsAvailable(vkusvill);
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), vkusvill);
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress(), vkusvill);
 
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
@@ -115,7 +115,7 @@ public class OrdersRetailers extends TestBase {
     ) public void successOrderInLenta(){
         runTestOnlyOnTenant("sbermarket");
         baseChecks.checkRetailerIsAvailable(lenta);
-        kraken.apiV2().fillCart(AppManager.session.admin, RestAddresses.Moscow.defaultAddress(), lenta);
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress(), lenta);
 
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();

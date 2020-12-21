@@ -1,20 +1,20 @@
 package instamart.ui.modules;
 
+import instamart.api.objects.v2.Address;
+import instamart.core.testdata.UserManager;
+import instamart.core.common.AppManager;
 import instamart.core.helpers.HelperBase;
 import instamart.core.settings.Config;
+import instamart.core.testdata.ui.Generate;
+import instamart.ui.common.lib.Addresses;
+import instamart.ui.common.pagesdata.EnvironmentData;
+import instamart.ui.common.pagesdata.UserData;
+import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import instamart.core.common.AppManager;
-import instamart.ui.objectsmap.Elements;
-import instamart.core.testdata.Users;
-import instamart.ui.common.lib.Addresses;
-import instamart.ui.common.pagesdata.EnvironmentData;
-import instamart.ui.common.pagesdata.UserData;
-import instamart.api.objects.v2.Address;
-import instamart.core.testdata.ui.Generate;
 
 public class User extends Base {
 
@@ -47,7 +47,7 @@ public class User extends Base {
                 Auth.withEmail(user);
                 if (user.getRole().equals("admin")) {
                     User.Logout.quickly();
-                    Auth.withEmail(Users.superadmin());
+                    Auth.withEmail(UserManager.getDefaultAdmin());
                     Administration.Users.grantAdminPrivileges(user);
                     User.Logout.quickly();
                     Auth.withEmail(user);
@@ -114,7 +114,7 @@ public class User extends Base {
          */
         @Step("Регистрируем тестового юзера со сгенерированными реквизитами")
         public static UserData registration() {
-            UserData data = Generate.testCredentials("user");
+            final UserData data = UserManager.getUser();
             registration(data);
             return data;
         }
@@ -203,7 +203,7 @@ public class User extends Base {
         public static class Gmail{
 
             public static void auth() {
-                auth(Users.gmail().getLogin(), Users.gmail().getPassword());
+                auth(UserManager.getDefaultGmailUser().getLogin(), UserManager.getDefaultGmailUser().getPassword());
             }
 
             @Step("Авторизуемся через Gmail")
