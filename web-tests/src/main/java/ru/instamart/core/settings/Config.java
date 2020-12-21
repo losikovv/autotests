@@ -44,7 +44,7 @@ public final class Config {
 
         // Если в core.properties нет переменной defaultBrowser, то будет браться значение из параметра запуска -Pbrowser
         // если и там нет, то дефолтное BrowserType.CHROME
-        DEFAULT_BROWSER = coreSettings.getString("defaultBrowser", System.getProperty("browser", BrowserType.FIREFOX));
+        DEFAULT_BROWSER = coreSettings.getString("defaultBrowser", System.getProperty("browser", BrowserType.CHROME));
         // Если в core.properties нет переменной defaultEnvironment, то будет браться значение из параметра запуска -Penv
         // если и там нет, то дефолтное Environments.sbermarket.preprod()
         DEFAULT_ENVIRONMENT = coreSettings.getString("defaultEnvironment", System.getProperty("env", Environments.sbermarket.preprod()));
