@@ -425,6 +425,17 @@ public class DetectionHelper extends HelperBase {
         }
     }
 
+    /** Определить есть ли любимые товары на странице */
+    public boolean isFavoriteProductAvailable() {
+        if(kraken.detect().isElementPresent(Elements.Catalog.Product.snippetFavorite())){
+            verboseMessage("✓ Есть доступные любимые товары");
+            return true;
+        } else {
+            verboseMessage("Нет доступных любимых товаров!");
+            return false;
+        }
+    }
+
 
     // ======= Карточка товара  =======
 

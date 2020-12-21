@@ -2,7 +2,6 @@ package instamart.core.helpers;
 
 import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.ElementData;
-import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.modules.Shop;
 import instamart.ui.objectsmap.Elements;
 import org.openqa.selenium.By;
@@ -10,8 +9,6 @@ import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.util.regex.Pattern;
 
 import static java.lang.Integer.parseInt;
 
@@ -140,15 +137,20 @@ public class GrabHelper extends HelperBase{
     public void addItemCard(int count){
         try{
             for (int i=1;i<count;i++){
-                kraken.perform().findChildElementByTagAndText(
-                        driver.findElement(Elements.ItemCard.offersElement().getLocator())
-                        ,By.tagName("button"),"+ Купить")
-                        .click();
-                kraken.await().fluently(
-                        ExpectedConditions.textMatches(
-                                Elements.ItemCard.cartNew().getLocator(), Pattern.compile(String.valueOf((i+1)))),
-                        "иконка корзины не появилась\n");
+//                kraken.perform().findChildElementByTagAndText(
+//                        driver.findElement(Elements.ItemCard.offersElement().getLocator())
+//                        ,By.tagName("button"),"+ Купить")
+//                        .click();
+//                kraken.await().fluently(
+//                        ExpectedConditions.textMatches(
+//                                Elements.ItemCard.cartNew().getLocator(), Pattern.compile(String.valueOf((i+1)))),
+//                        "иконка корзины не появилась\n");
+                kraken.perform().click(Elements.ItemCard.plusButton());
             }
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                            Elements.ItemCard.quantityByCount(count).getLocator()),
+                    "кнопка + не появилась\n");
         }catch (NoSuchElementException ex){
             throw new ElementClickInterceptedException("невозможно нажать на кнопку купить");
         }

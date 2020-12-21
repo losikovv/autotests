@@ -1445,6 +1445,16 @@ public class Elements {
                         "сниппет продукта");
             }
 
+            static ElementData snippetFavoriteButton() {
+                return new ElementData(By.xpath("//button[contains(@class,'bt--buy')]//*[contains(@class,'cart-actions__plus')]"),
+                        "кнопка добавить любимый товар");
+            }
+
+            static ElementData snippetFavorite() {
+                return new ElementData(By.xpath("//*[contains(@class,'favorites__head')]//*[contains(@class,'favorites__image')]//img[contains(@alt,text())]"),
+                        "сниппет любимого продукта");
+            }
+
             static ElementData firstProductOnSnippet(){
                 return new ElementData(By.xpath(""),
                         "");
@@ -1531,6 +1541,10 @@ public class Elements {
                 return new ElementData(By.xpath("//div[@itemprop='offers']//div[contains(@class,'_description')]"),
                     "каунтер количества доступного товара в карточке товара");
             }
+            static ElementData quantityByCount(int count) {
+                return new ElementData(By.xpath("//div[contains(@class,'popup_cart_actions__quantity') and contains(text(),'"+count+"')]"),
+                        "каунтер количества добавленного товара");
+            }
 
             static ElementData offersElement(){
                 return new ElementData(By.xpath("//*[contains(@itemprop,'offers')]"),
@@ -1553,7 +1567,7 @@ public class Elements {
             }
 
             static ElementData plusButton() {
-                return new ElementData(By.className("popup-cart-actions__btn--right"),
+                return new ElementData(By.xpath("//button[@type='button' and text()='+']"),
                         "кнопка + в карточке товара");
             }
 

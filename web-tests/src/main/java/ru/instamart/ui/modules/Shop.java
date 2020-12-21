@@ -625,6 +625,20 @@ public class Shop extends Base {
                     "Пустой список товаров не отобразился");
         }
 
+        /** Открыть карточку товара в каталоге */
+        @Step("Открываем карточку любимого товара в каталоге")
+        public static void openFavoritesSnipet() {
+            catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),2);
+            kraken.perform().click(Elements.Catalog.Product.snippetFavorite());
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.popup().getLocator()),
+                    "Не открывается карточка любимого товара");
+            kraken.perform().switchToActiveElement();
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.image().getLocator()),
+                    "Не отображается контент в карточке товара");
+        }
+
         /** Показать все любимые товары */
         @Step("Показываем все любимые товары")
         public static void applyFilterAllItems() {
@@ -821,12 +835,18 @@ public class Shop extends Base {
             int cartTotal = kraken.grab().cartTotalRounded();
             if(cartTotal < orderSum) {
                 Cart.close();
-                if(!kraken.detect().isProductAvailable()) {
-                    verboseMessage("> нет товаров на текущей странице " + kraken.grab().currentURL());
-                    kraken.get().page(Pages.Retailers.metro());}
-                Catalog.Item.open();
+                if(!kraken.detect().isProductAvailable())
+                {
+                    if(kraken.detect().isFavoriteProductAvailable()){
+                        verboseMessage("> находимся в карточке любимых товаров");
+                        Favorites.openFavoritesSnipet();
+                    }else{
+                        verboseMessage("> нет товаров на текущей странице " + kraken.grab().currentURL());
+                        kraken.get().page(Pages.Retailers.metro());
+                        Catalog.Item.open();
+                    }
+                }
                 int itemPrice = kraken.grab().itemPriceRounded();
-
                 // Формула расчета кол-ва товара
                 int neededQuantity;
                 if(cartTotal > 0) {
@@ -865,8 +885,8 @@ public class Shop extends Base {
             else {
                 kraken.await().fluently(
                         ExpectedConditions.elementToBeClickable(
-                                Elements.ItemCard.cartNew().getLocator()),
-                        "иконка корзины не появилась\n");
+                                Elements.ItemCard.plusButton().getLocator()),
+                        "кнопка + не появилась\n");
                 kraken.grab().addItemCard(neededQuantity);
             }
 
