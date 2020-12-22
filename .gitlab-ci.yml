@@ -99,7 +99,7 @@ tests:apiZonesProductionOnly:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build apiZones -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew build apiZones -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY --stacktrace
     #- bash ./report.sh $REPORT $REPORT_URL $P_ENV
   tags:
     - k8s-stage
