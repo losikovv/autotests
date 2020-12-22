@@ -99,7 +99,7 @@ tests:apiZonesProductionOnly:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build apiZones -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY --debug
+    - ./gradlew build apiZones -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
     #- bash ./report.sh $REPORT $REPORT_URL $P_ENV
   tags:
     - k8s-stage
@@ -107,7 +107,6 @@ tests:apiZonesProductionOnly:
     when: always
     paths:
       - web-tests/build/allure-results/
-      - web-tests/build/reports/tests/
     expire_in: 1 week
 
 tests:UiSmoke:

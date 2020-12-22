@@ -16,6 +16,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public enum Crypt {
@@ -23,13 +24,6 @@ public enum Crypt {
     INSTANCE;
 
     private static final Logger log = LoggerFactory.getLogger(Crypt.class);
-    private final String SECRET_KEY = System.getProperty("key",
-            Arrays.stream(FileUtils.foundFile(FileUtils.getResourceDir("config/"), "key_"))
-            .findFirst()
-            .get()
-            .getName()
-            .replace("key_", "")
-    );
 
     private final static int SALT_LEN = 8;
     private final int KEYLEN_BITS = 128;
@@ -42,14 +36,24 @@ public enum Crypt {
 
     public void init() {
         try {
+            String key = System.getProperty("key", null);
+            if (key == null) {
+                //For local run
+                final Optional<File> keyFile = Arrays.stream(FileUtils.foundFile(FileUtils.getResourceDir("config/"), "key_")).findFirst();
+                if (keyFile.isPresent()) {
+                    key = keyFile.get().getName().replace("key_", "");
+                } else {
+                    throw new InvalidKeySpecException("Secret Key not specified");
+                }
+            }
             final SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            final KeySpec spec = new PBEKeySpec(SECRET_KEY.toCharArray(), SALT, ITERATIONS, KEYLEN_BITS);
+            final KeySpec spec = new PBEKeySpec(key.toCharArray(), SALT, ITERATIONS, KEYLEN_BITS);
             final SecretKey tmp = secretKeyFactory.generateSecret(spec);
             this.secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
 
             cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeySpecException e) {
-            log.error("Can't init crypt algorithm");
+            log.error("Can't init crypt algorithm = {}", e.getMessage());
         }
     }
 
