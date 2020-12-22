@@ -7,20 +7,29 @@ import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.function.Supplier;
 
 public enum Crypt {
 
     INSTANCE;
 
     private static final Logger log = LoggerFactory.getLogger(Crypt.class);
-    private final String SECRET_KEY = System.getProperty("key", System.getenv("KEY"));
+    private final String SECRET_KEY = System.getProperty("key",
+            Arrays.stream(FileUtils.foundFile(FileUtils.getResourceDir("config/"), "key_"))
+            .findFirst()
+            .get()
+            .getName()
+            .replace("key_", "")
+    );
 
     private final static int SALT_LEN = 8;
     private final int KEYLEN_BITS = 128;

@@ -1,5 +1,6 @@
 package instamart.core.service;
 
+import instamart.core.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +14,7 @@ public final class BannerService {
 
     private static final Logger logger = LoggerFactory.getLogger(BannerService.class);
     private static final String BANNER_URL = "banner.txt";
-    private static final String RESOURCE = Objects.requireNonNull(BannerService.class.getClassLoader().getResource(BANNER_URL)).getPath();
+    private static final String RESOURCE = FileUtils.getResourceDir(BANNER_URL);
 
     public static void printBanner() {
         try(final BufferedReader in = new BufferedReader(new FileReader(RESOURCE))) {

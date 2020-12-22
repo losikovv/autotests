@@ -3,14 +3,14 @@ package instamart.core.settings;
 import instamart.core.testdata.Environments;
 import instamart.core.testdata.ui.Tenants;
 import instamart.core.util.ConfigParser;
+import instamart.core.util.FileUtils;
 import org.openqa.selenium.remote.BrowserType;
 
 import java.util.Objects;
 
 public final class Config {
 
-    private static final String CONFIG_DIR = Objects.requireNonNull(Config.class.getClassLoader().getResource("config/")).getPath();
-
+    private static final String CONFIG_DIR = FileUtils.getResourceDir("config/");
     /** Directories block */
     private static final String CORE_CONFIG_FILE = "core.properties";
 

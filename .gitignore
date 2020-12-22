@@ -28,3 +28,6 @@ web-tests/src/test/java/ru/instamart/tests/Playground.java
 
 web-tests/.allure
 web-tests/logs
+
+# Ignore key
+**/key_*
