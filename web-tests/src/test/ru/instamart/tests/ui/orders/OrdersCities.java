@@ -1,0 +1,310 @@
+package ru.instamart.tests.ui.orders;
+
+import instamart.api.common.RestAddresses;
+import instamart.core.settings.Config;
+import instamart.core.testdata.UserManager;
+import instamart.ui.modules.User;
+import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
+import ru.instamart.tests.ui.TestBase;
+
+public class OrdersCities extends TestBase {
+
+    @BeforeClass(alwaysRun = true)
+    public void setup() {
+        kraken.get().baseUrl();
+        User.Do.loginAs(UserManager.getDefaultAdmin());
+    }
+
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void preconditions() {
+        kraken.get().page(Config.DEFAULT_RETAILER);
+    }
+
+    @AfterMethod(alwaysRun = true,
+            description ="Очищаем окружение после теста")
+    public void afterTest(ITestResult result){
+        kraken.perform().cancelOrder();
+    }
+
+    @AfterClass(alwaysRun = true,
+            description = "Меняем дефолтный адрес доставки на Москву")
+    public void resetDefaultAddress() {
+        User.ShippingAddress.set(RestAddresses.Moscow.defaultAddress(),true);
+    }
+
+    @Test(  description = "Тест заказа в METRO в Москве",
+            priority = 2301,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInMoscow() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Москве"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Санкт-Петербурге",
+            priority = 2302,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInSaintPetersburg() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.SaintPetersburg.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не оформляется заказ в METRO в Санкт-Петербурге"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Казани",
+            priority = 2303,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInKazan() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Kazan.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Казани"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Екатеринбурге",
+            priority = 2304,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInEkaterinburg() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Ekaterinburg.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Екатеринбурге"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Нижнем Новгороде",
+            priority = 2305,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInNizhnyNovgorod() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.NizhnyNovgorod.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Нижнем Новгороде"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Ростове-на-Дону",
+            priority = 2306,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            }
+    ) public void successOrderInRostovNaDonu() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.RostovNaDonu.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Ростове-на-Дону"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Уфе",
+            priority = 2307,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInUfa() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Ufa.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Уфе"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Краснодаре",
+            priority = 2308,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"
+            }
+    ) public void successOrderInKrasnodar() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Krasnodar.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Краснодаре"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Самаре",
+            priority = 2309,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInSamara() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Samara.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Самаре"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Воронеже",
+            priority = 2310,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInVoronezh() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Voronezh.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Воронеже"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Омске",
+            priority = 2311,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInOmsk() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Omsk.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Омске"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Волгограде",
+            priority = 2312,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInVolgograd() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Volgograd.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Волгограде"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Новосибирске",
+            priority = 2313,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInNovosibirsk() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Novosibirsk.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Новосибирске"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Челябинске",
+            priority = 2314,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInChelyabinsk() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Chelyabinsk.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Челябинске"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Тюмени",
+            priority = 2315,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInTyumen() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Tyumen.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Тюмени"));
+    }
+
+    @Test(  description = "Тест заказа в METRO в Перми",
+            priority = 2316,
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"
+            }
+    ) public void successOrderInPerm() {
+        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Perm.defaultAddress());
+
+        kraken.reach().checkout();
+        kraken.checkout().complete();
+
+        Assert.assertTrue(
+                kraken.detect().isOrderPlaced(),
+                    failMessage("Не удалось оформить заказ в METRO в Перми"));
+    }
+
+}

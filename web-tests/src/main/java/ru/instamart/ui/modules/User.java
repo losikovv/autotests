@@ -2,6 +2,8 @@ package instamart.ui.modules;
 
 import instamart.api.objects.v2.Address;
 import instamart.core.common.AppManager;
+import instamart.core.helpers.HelperBase;
+import instamart.core.settings.Config;
 import instamart.core.testdata.UserManager;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.pagesdata.EnvironmentData;
@@ -423,7 +425,6 @@ public class User extends Base {
                 log.info("> изменяем адрес доставки: {} >>> {}", currentAddress, address);
                 Shop.ShippingAddressModal.clearAddressField();
             }
-            //todo нужно допилить проверку"
             Shop.ShippingAddressModal.fill(address);
             if(submit){
                 kraken.await().simply(2);
@@ -434,6 +435,14 @@ public class User extends Base {
                 );
                 Shop.ShippingAddressModal.submit();
             }
+        }
+
+        /** Ищем магазины по установленному адресу */
+        @Step("Поиск магазинв по адресу доставки: {0}")
+        public static void searchShopsByAddress(String address){
+            Shop.ShippingAddressModal.open();
+            Shop.ShippingAddressModal.fill(address);
+            Shop.ShippingAddressModal.findShops();
         }
 
         /** Свапнуть тестовый и дефолтные адреса */

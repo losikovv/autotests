@@ -12,10 +12,15 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 public class HelperBase {
-    static WebDriver driver;
-    static AppManager kraken;
+    public static WebDriver driver;
+    public static AppManager kraken;
     private static boolean acceptNextAlert = true;
     private static final Logger log = LoggerFactory.getLogger(HelperBase.class);
+
+//    public HelperBase(WebDriver driver, AppManager app) {
+//        this.driver = driver;
+//        this.kraken = app;
+//    }
 
     public HelperBase(final WebDriver driver, final AppManager app) {
         HelperBase.driver = driver;
