@@ -1,0 +1,94 @@
+package ru.instamart.tests.ui.shopping;
+
+import instamart.core.settings.Config;
+import instamart.ui.checkpoints.BaseUICheckpoints;
+import instamart.ui.common.lib.Addresses;
+import instamart.ui.common.lib.Pages;
+import instamart.ui.modules.Shop;
+import instamart.ui.modules.User;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import ru.instamart.tests.ui.TestBase;
+
+public class ShoppingTestsForUnauthorizedUser extends TestBase {
+
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
+        User.Logout.quickly();
+        kraken.get().page(Config.DEFAULT_RETAILER);
+    }
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+
+    @Test(
+            description = "Тест недоступности чекаута неавторизованному юзеру",
+            priority = 651,
+            groups = {"sbermarket-acceptance","sbermarket-regression",
+                    "metro-acceptance","metro-regression"
+            }
+    ) public void noAccessToCheckoutByDefault() {
+        baseChecks.checkPageIsUnavailable(Pages.checkout());
+    }
+
+    @Test(
+            description = "Тест недоступности чекаута неавторизованному юзеру c выбранным адресом и пустой корзиной",
+            priority = 652,
+            groups = {"sbermarket-acceptance","sbermarket-regression",
+                    "metro-acceptance","metro-regression"
+            }
+    ) public void noAccessToCheckoutForUnauthorizedUserWithShipAddressAndEmptyCart() {
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+
+        baseChecks.checkPageIsUnavailable(Pages.checkout());
+    }
+
+    @Test(
+            description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
+            priority = 653,
+            groups = {"sbermarket-acceptance","sbermarket-regression",
+                    "metro-acceptance","metro-regression"
+            }
+    ) public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        Shop.Cart.drop();
+
+        // Для случаев когда первый товар на главной дороже минимального заказа
+        Shop.Search.existingItem();
+        Shop.Catalog.Item.addToCart();
+
+        Assert.assertTrue(
+                !kraken.detect().isCartEmpty() && !kraken.detect().isCheckoutButtonActive(),
+                    failMessage("Не выполнены предусловия теста"));
+
+        baseChecks.checkPageIsUnavailable(Pages.checkout());
+    }
+
+    @Test(
+            description = "Тест набора корзины до суммы, достаточной для заказа",
+            priority = 654,
+            groups = {"sbermarket-acceptance","sbermarket-regression",
+                    "metro-acceptance","metro-regression"
+            }
+    ) public void successCollectItemsForOrder() {
+        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+
+        Shop.Cart.collect();
+
+        Assert.assertTrue(
+                kraken.detect().isCheckoutButtonActive(),
+                    failMessage("Кнопка чекаута не активна при минимальной сумме заказа в корзине"));
+
+        Shop.Cart.proceedToCheckout();
+
+        Assert.assertFalse(
+                kraken.detect().isOnCheckout(),
+                    failMessage("Можно перейти в чекаут неаторизованным юзером с набранной корзиной"));
+
+        Assert.assertTrue(
+                kraken.detect().isAuthModalOpen(),
+                    failMessage("Не запрашивается авторизация при попытке перехода в чекаут неавторизованным юзером с набранной корзиной"));
+
+        baseChecks.checkPageIsUnavailable(Pages.checkout());
+    }
+}

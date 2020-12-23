@@ -8,16 +8,15 @@ import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.common.pagesdata.WidgetData;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+
+//import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public class Shop extends Base {
 
@@ -207,6 +206,10 @@ public class Shop extends Base {
         public static void open() {
             if (kraken.detect().isAddressModalOpen()) {
                 log.info("> пропускаем открытие модалки адреса, она уже открыта");
+                kraken.await().fluently(
+                        ExpectedConditions.visibilityOfElementLocated(
+                                Elements.Modals.AddressModal.addressField().getLocator()),
+                        "Поле для ввода адреса не отображается в модалке\n");
             } else {
                 catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),1);
                 kraken.perform().click(Elements.Header.shipAddressButton());
@@ -245,9 +248,16 @@ public class Shop extends Base {
             );
             if (kraken.detect().isShippingAddressSuggestsPresent()) {
                 kraken.perform().click(Elements.Modals.AddressModal.addressSuggest());
-                kraken.await().fluently(
-                        ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.submitButton().getLocator()),
-                        "Неактивна кнопка сохранения адреса");
+                if(kraken.detect().isAddressModalOpenWithDeliveryButton()){
+                    kraken.await().fluently(
+                            ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.submitButton().getLocator()),
+                            "Неактивна кнопка сохранения адреса",2);
+                }else{
+                    kraken.await().fluently(
+                            ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.findShopButton().getLocator()),
+                            "Неактивна кнопка найти магазины",2);
+                }
+
             } else {
                 throw new AssertionError("Нет адресных подсказок, невозможно выбрать адрес");
             }
@@ -265,6 +275,24 @@ public class Shop extends Base {
                         ExpectedConditions.invisibilityOfElementLocated(
                                 Elements.Modals.AddressModal.popup().getLocator()),
                         "Превышено время ожидания применения адреса доставки\n");
+            }
+        }
+
+        /** Ищем доступные магазины по введенному адресу */
+        @Step("Ищем доступные магазины по введенному адресу")
+        public static void findShops() throws AssertionError {
+            kraken.perform().click(Elements.Modals.AddressModal.findShopButton());
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            Elements.StoreSelector.drawer().getLocator()),
+                    "Превышено время ожидания применения адреса доставки\n" +
+                            " или по выбранному адресу отсутсвует возможность доставки");
+            if (kraken.detect().isStoresDrawerOpen()) {
+                log.info("> по указанному адресу присутсвует несколько магазинов выбираем первый");
+                kraken.perform().click(Elements.StoreSelector.storeCard(1));
+            } else if(kraken.detect().isStoresErrorPresented()){
+                log.info("> по указанному адресу отсутвуют возможные магазины для доставки");
+                throw new ElementNotSelectableException("по указанному адресу отсутвуют возможные магазины для доставки");
             }
         }
 

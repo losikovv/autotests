@@ -106,7 +106,7 @@ public class Elements {
             interface MainBlock{
 
                 static ElementData container() {
-                    return new ElementData(By.xpath("//*[contains(@class,'description__container')]"),
+                    return new ElementData(By.xpath("//*[contains(@class,'description__topBlock')]"),
                             "главный блок лендинга Сбермаркета");
                 }
 
@@ -115,9 +115,9 @@ public class Elements {
                             "главная иллюстрация лендинга Сбермаркета");
                 }
 
-                static ElementData title() {
-                    return new ElementData(By.xpath("//h1[contains(@class,'description') and starts-with(text(),'Продукты')]"),
-                            "главный заголовок лендинга Сбермаркета");
+                static ElementData addressButton() {
+                    return new ElementData(By.xpath("//*[contains(@class,'description__textContainer')]//button[contains(text(),'Указать адрес доставки')]"),
+                            "кнопка с указанием адреса доставки на лендинге");
                 }
 
                 static ElementData text() {
@@ -128,12 +128,12 @@ public class Elements {
                 interface Stores {
 
                     static ElementData list() {
-                        return new ElementData(By.xpath("//div[contains(@class,'home_landing')]//div[contains(@class,'description__storesContainer')]"),
+                        return new ElementData(By.xpath("//div[contains(@class,'stores__root')]//*[contains(text(),'Наши партнёры')]"),
                                 "блок со списком магазинов на лендинге Сбермаркета");
                     }
 
                     static ElementData button(int position) {
-                        return new ElementData(By.xpath("//div[contains(@class,'description__storesContainer')]//a[contains(@class,'description__store')][" + position + "]"),
+                        return new ElementData(By.xpath("//div[contains(@class,'stores__store')]["+position+"]//button[contains(@class,'stores__storeCard')]"),
                                 "кнопка " + position + " магазина на лендинге Сбермаркета");
                     }
 
@@ -805,6 +805,12 @@ public class Elements {
                     "кнопка сохранить адрес в модалке");
         }
 
+        static ElementData findShopButton() {
+            return new ElementData(
+                    By.xpath("//button[(@type='button') and text()='Найти магазины']"),
+                    "кнопка найти магазины в модалке");
+        }
+
         static ElementData recentAddressesList() {
             return new ElementData(By.className("address-modal__addresses"),
                     "список предыдущих адресов в модалке выбора адреса");
@@ -953,6 +959,12 @@ public class Elements {
             return new ElementData(
                     By.xpath("//*[@data-qa='store-card'][" + position + "]"),
                         position + "карточка магазина в шторке выбора магазинов");
+        }
+
+        static ElementData errorMessageStore() {
+            return new ElementData(
+                    By.xpath("//*[text()='Нет доступных магазинов по выбранному адресу']"),
+                    "сообщение об отсутсвии магазинов по выбранному адресу доставки");
         }
     }
 

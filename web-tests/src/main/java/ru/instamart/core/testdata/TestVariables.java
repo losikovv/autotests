@@ -19,7 +19,7 @@ public interface TestVariables {
         String companyVkontakteLink = "https://vk.com/sbermarket_ru";
         String companyTwitterLink = "https://twitter.com/sbermarket_ru";
         String companyInstagramLink = "https://www.instagram.com/sbermarket.ru/";
-        String companyAdjustFooterAppLink = "https://app.adjust.com/kfrpj8y?campaign=footer";
+        String companyAdjustFooterAppLink = "https://app.adjust.com/kfrpj8y";
     }
 
     interface TestParams {

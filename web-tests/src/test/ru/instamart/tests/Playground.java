@@ -12,6 +12,7 @@ import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.tests.ui.TestBase;
 
 public class Playground extends TestBase {
 

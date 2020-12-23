@@ -7,7 +7,7 @@ import instamart.api.requests.ApiV1Requests;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v1.OffersResponse;
 import instamart.api.responses.v2.*;
-import instamart.core.helpers.WaitingHelper;
+import instamart.ui.helpers.WaitingHelper;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;

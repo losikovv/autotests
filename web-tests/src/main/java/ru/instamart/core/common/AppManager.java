@@ -1,11 +1,11 @@
 package instamart.core.common;
 
 import instamart.api.helpers.InstamartApiHelper;
-import instamart.core.helpers.*;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.pagesdata.BrowserData;
 import instamart.ui.common.pagesdata.EnvironmentData;
+import instamart.ui.helpers.*;
 import instamart.ui.modules.Administration;
 import instamart.ui.modules.Checkout;
 import instamart.ui.modules.Shop;
