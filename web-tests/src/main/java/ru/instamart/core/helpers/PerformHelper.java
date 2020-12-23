@@ -4,17 +4,20 @@ import instamart.core.common.AppManager;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.ElementData;
-import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class PerformHelper extends HelperBase {
+
+    private static final Logger log = LoggerFactory.getLogger(PerformHelper.class);
 
     public PerformHelper(WebDriver driver, AppManager app) {
         super(driver, app);
@@ -22,12 +25,12 @@ public class PerformHelper extends HelperBase {
 
     /** Кликнуть элемент предпочтительно использование именно этого метода*/
     public void click(ElementData element) {
-        verboseMessage("Клик по: " + element.getDescription());
+        log.info("Клик по: {}", element.getDescription());
         try {
             driver.findElement(element.getLocator()).click();
         }
         catch (NoSuchElementException n) {
-            if(kraken.detect().is502()) {
+            if (kraken.detect().is502()) {
                 throw new AssertionError(
                         "\n\nОшибка 502 CloudFlare\n> на " + kraken.grab().currentURL()
                 );
@@ -58,7 +61,7 @@ public class PerformHelper extends HelperBase {
     /** Клик по элементу*/
     public void click(WebElement element){
         try {
-            verboseMessage("Клик по: " + element.toString().replaceAll("^[^->]*",""));
+            log.info("Клик по: {}", element.toString().replaceAll("^[^->]*",""));
             element.click();
         }
         catch (NoSuchElementException n) {
@@ -79,8 +82,9 @@ public class PerformHelper extends HelperBase {
             kraken.await().simply(1); // Ожидание для стабильности
         }
         catch (ElementNotVisibleException v) {
-            verboseMessage("Невозможно навестись на элемент <" + element.getLocator()
-                    + ">\nЭлемент не отображается на " + kraken.grab().currentURL() + "\n");
+            log.error("Невозможно навестись на элемент <{}> \nЭлемент не отображается на {}",
+                    element.getLocator(),
+                    kraken.grab().currentURL());
         }
     }
 
@@ -106,11 +110,11 @@ public class PerformHelper extends HelperBase {
 
     /** Установить чекбокс */
     public void setCheckbox(ElementData element, boolean value) {
-        if(value) {
-            if(!kraken.detect().isCheckboxSet(element))
+        if (value) {
+            if (!kraken.detect().isCheckboxSet(element))
                 click(element);
         } else {
-            if(kraken.detect().isCheckboxSet(element))
+            if (kraken.detect().isCheckboxSet(element))
                 click(element);
         }
     }
@@ -167,9 +171,9 @@ public class PerformHelper extends HelperBase {
 
     /** Повторить крайний заказ с экрана истории заказов */
     public void repeatLastOrder() {
-        verboseMessage("Повторяем крайний заказ\n");
+        log.info("Повторяем крайний заказ");
         kraken.get().page(Pages.UserProfile.shipments());
-        if(kraken.detect().isOrdersHistoryEmpty()) {
+        if (kraken.detect().isOrdersHistoryEmpty()) {
             throw new AssertionError("Невозможно повторить заказ, у пользователя нет заказов в истории\n");
         } else {
             click(Elements.UserProfile.OrdersHistoryPage.order.repeatButton());
@@ -181,7 +185,7 @@ public class PerformHelper extends HelperBase {
 
     /** Повторить заказ с экрана деталей заказа */
     public void repeatOrder() {
-        verboseMessage("Повторяем заказ\n");
+        log.info("Повторяем заказ");
         click(Elements.UserProfile.OrderDetailsPage.OrderSummary.repeatOrderButton());
         kraken.await().simply(1); // Ожидание анимации открытия модалки повтора заказа
         click(Elements.UserProfile.OrderDetailsPage.RepeatOrderModal.yesButton());
@@ -192,13 +196,13 @@ public class PerformHelper extends HelperBase {
 
     /** Отменить крайний активный заказ */
     public void cancelLastActiveOrder() {
-        verboseMessage("Отменяем крайний активный заказ...");
+        log.info("Отменяем крайний активный заказ...");
         kraken.get().page(Pages.UserProfile.shipments());
         click(Elements.UserProfile.OrdersHistoryPage.activeOrdersFilterButton());
         if(!kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder())) {
             click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
             cancelOrder();
-        } else verboseMessage("> Заказ не активен\n");
+        } else log.warn("> Заказ не активен");
     }
 
     /** Отменить заказ на странице деталей заказа */
@@ -210,7 +214,7 @@ public class PerformHelper extends HelperBase {
                     ExpectedConditions.presenceOfElementLocated(Elements.UserProfile.OrderDetailsPage.CancelOrderModal.popup().getLocator()),
                     "Не отменился заказ за допустимое время ожидания\n"
             );
-            verboseMessage("✓ Заказ отменен\n");
+            log.info("✓ Заказ отменен");
     }
 
     /** Поиск чаилда с помощью тега и текста*/
@@ -218,8 +222,7 @@ public class PerformHelper extends HelperBase {
         List<WebElement> elements = parent.findElements(tag);
         for(WebElement element:elements){
             if(element.getText().equals(text)){
-                verboseMessage(("> Элемент найден по тегу <" + tag
-                        + "> и тексту: "+text));
+                log.info("> Элемент найден по тегу <{}> и тексту: {}", tag, text);
                 return element;
             }
         }
@@ -233,7 +236,7 @@ public class PerformHelper extends HelperBase {
         List<WebElement> elements = driver.findElement(parent.getLocator()).findElements(tag);
         try{
             return elements.get(index);
-        }catch (Exception ex){
+        } catch (Exception ex){
             throw new AssertionError("Невозможно найти элемент по тегу <" + tag
                     + "> и индексу: "+index+"\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
         }

@@ -2,13 +2,9 @@ package instamart.core.testdata.ui;
 
 import instamart.core.common.AppManager;
 import instamart.core.testdata.TestVariables;
-import instamart.ui.common.pagesdata.JuridicalData;
-import instamart.ui.common.pagesdata.UserData;
 
 import java.util.Random;
 import java.util.UUID;
-
-import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public final class Generate {
 

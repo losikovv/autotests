@@ -1,13 +1,14 @@
 package instamart.core.helpers;
 
+import instamart.core.common.AppManager;
+import instamart.core.settings.Config;
+import instamart.ui.objectsmap.Elements;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
-import instamart.core.common.AppManager;
-import instamart.core.settings.Config;
-import instamart.ui.objectsmap.Elements;
-import instamart.ui.common.pagesdata.EnvironmentData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -15,17 +16,19 @@ import java.util.function.Function;
 
 public class WaitingHelper extends HelperBase {
 
+    private static final Logger log = LoggerFactory.getLogger(WaitingHelper.class);
+
     public WaitingHelper(WebDriver driver, AppManager app) {
         super(driver, app);
     }
 
     /** Просто задержка на указанное время */
     public static void simply(double seconds) {
-        verboseMessage("Задержка на " + seconds + " сек.");
+        log.info("Задержка на {} сек.", seconds);
         try {
             Thread.sleep((long) (seconds * 1000));
         } catch (InterruptedException i) {
-            verboseMessage("Прервано");
+            log.error("Прервано");
         }
     }
 
@@ -45,11 +48,11 @@ public class WaitingHelper extends HelperBase {
 
     public void fluentlyWithWindowsHandler(Function conditions){
         for (String winHandle : driver.getWindowHandles()) {
-            try{
+            try {
                 driver.switchTo().window(winHandle); // switch focus of WebDriver to the next found window handle
                 fluently(conditions,"");
-            }catch (Exception ex){
-                verboseMessage("окно закрыто продолжаем поиск");
+            } catch (Exception ex){
+                log.error("окно закрыто продолжаем поиск");
                 continue;
             }
 
@@ -84,7 +87,7 @@ public class WaitingHelper extends HelperBase {
                     .until(conditions);
             return true;
         }catch (Exception ex){
-            verboseMessage("> "+message+" в течении: "+ time);
+            log.error("> {} в течении: {}", message, time);
             return false;
         }
     }
@@ -97,12 +100,10 @@ public class WaitingHelper extends HelperBase {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        log.error("Can't find element");
                     }
                 }
             }
         }
     }
-
-
 }

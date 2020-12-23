@@ -14,12 +14,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static instamart.core.helpers.HelperBase.verboseMessage;
-
 public class Shop extends Base {
+
+    private static final Logger log = LoggerFactory.getLogger(Shop.class);
 
     public Shop(WebDriver driver, AppManager app) {
         super(driver, app);
@@ -31,28 +33,28 @@ public class Shop extends Base {
         public static void open() {
             catchAndCloseAd(Elements.Modals.AuthModal.promoModalButton(),2);
             if (!kraken.detect().isAuthModalOpen()) {
-                verboseMessage("> открываем модалку авторизации");
+                log.info("> открываем модалку авторизации");
                 if (kraken.detect().isOnLanding()) {
                     try {
                         kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
-                    }catch (Exception ex){
+                    } catch (Exception ex){
                         kraken.perform().click(Elements.Header.loginButton());
                     }
                 } else {
                     try {
                         kraken.perform().click(Elements.Header.loginButton());
-                    }catch (Exception ex){
+                    } catch (Exception ex){
                         kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
                     }
 
                 }
                 kraken.await().implicitly(1); // Ожидание открытия модалки авторизации/регистрации
-                try{
+                try {
                     kraken.await().fluently(
                             ExpectedConditions.visibilityOfElementLocated(
                                     Elements.Modals.AuthModal.popup().getLocator()),
                             "\n> Превышено время ожидания открытия модалки авторизации/регистрации");
-                }catch (Exception ex){
+                } catch (Exception ex){
                     kraken.await().fluently(
                             ExpectedConditions.visibilityOfElementLocated(
                                     Elements.Modals.AuthModal.popupMail().getLocator()),
@@ -62,21 +64,20 @@ public class Shop extends Base {
         }
         @Step("Закрываем форму авторизации")
         public static void close() {
-            verboseMessage("> закрываем форму авторизации");
+            log.info("> закрываем форму авторизации");
             kraken.perform().click(Elements.ItemCard.closeButton());
             kraken.await().implicitly(1); // Ожидание закрытия модалки авторизации
         }
         @Step("Переключаемся на вкладку авторизации")
         public static void switchToAuthorisationTab() {
-            verboseMessage("> переключаемся на вкладку авторизации");
-            if(driver.findElement(Elements.Modals.AuthModal.authorisationTab()
+            log.info("> переключаемся на вкладку авторизации");
+            if (driver.findElement(Elements.Modals.AuthModal.authorisationTab()
                     .getLocator()).getAttribute("class").contains("undefined")) return;
             kraken.perform().click(Elements.Modals.AuthModal.authorisationTab());
         }
         @Step("Переключаемся на вкладку регистрации")
         public static void switchToRegistrationTab() {
-
-            verboseMessage("> переключаемся на вкладку регистрации");
+            log.info("> переключаемся на вкладку регистрации");
             kraken.await().fluently(ExpectedConditions.elementToBeClickable(driver.findElement(Elements.Modals.AuthModal.popupMail().getLocator())));
             WebElement parent = driver.findElement(Elements.Modals.AuthModal.popupMail().getLocator());
             WebElement element = kraken.perform().findChildElementByTagAndText(parent,By.tagName("button"),"Регистрация");
@@ -84,28 +85,28 @@ public class Shop extends Base {
         }
         @Step("Проверяем тип модалки авторизации")
         public static String checkAutorisationModalDialog(){
-            verboseMessage("> проверяем тип модалки авторизации");
+            log.info("> проверяем тип модалки авторизации");
             List<WebElement> phone =driver.findElements(Elements.Modals.AuthModal.phoneNumber().getLocator());
-            if(phone.size()>0){
+            if (phone.size()>0) {
                 return "модалка с телефоном";
-            }else {
+            } else {
                 return "модалка с почтой";
             }
         }
         @Step("Переходим в форму восстановления пароля")
         public static void proceedToPasswordRecovery() {
-            verboseMessage("> переходим в форму восстановления пароля");
+            log.info("> переходим в форму восстановления пароля");
             kraken.perform().click(Elements.Modals.AuthModal.forgotPasswordButton());
         }
         @Step("Заполняем поля формы авторизации")
         public static void fillAuthorisationForm(String email, String password) {
-            verboseMessage("> заполняем поля формы авторизации");
+            log.info("> заполняем поля формы авторизации");
             kraken.perform().fillField(Elements.Modals.AuthModal.emailField(), email);
             kraken.perform().fillField(Elements.Modals.AuthModal.passwordField(), password);
         }
         @Step("Заполняем поля формы регистрации")
         public static void fillRegistrationForm(String name, String email, String password, String passwordConfirmation, boolean agreementConfirmation) {
-            verboseMessage("> заполняем поля формы регистрации");
+            log.info("> заполняем поля формы регистрации");
             kraken.perform().fillField(Elements.Modals.AuthModal.nameField(), name);
             kraken.perform().fillField(Elements.Modals.AuthModal.emailField(), email);
             kraken.perform().fillField(Elements.Modals.AuthModal.passwordField(), password);
@@ -116,47 +117,47 @@ public class Shop extends Base {
         }
         @Step("Заполняем поля формы регистрации по телефону")
         public static void fillRegistrationFormByPhone(String phone){
-            verboseMessage("> заполняем поля формы регистрации по телефону");
+            log.info("> заполняем поля формы регистрации по телефону");
             kraken.perform().fillFieldAction(Elements.Modals.AuthModal.phoneNumber(),phone);
             kraken.perform().click(Elements.Modals.AuthModal.continueButton());
         }
 
         @Step("Отправляем код из смс")
         public static void sendSms(String sms){
-            verboseMessage("> Отправляем код из смс");
+            log.info("> Отправляем код из смс");
             kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),sms);
         }
 
         @Step("Отправляем форму")
         public static void submit() {
-            verboseMessage("> отправляем форму\n");
+            log.info("> отправляем форму");
             kraken.perform().click(Elements.Modals.AuthModal.submitButton());
             kraken.await().implicitly(2); // Ожидание авторизации
         }
         @Step("Отправляем форму регистрации")
         public static void submitRegistration() {
-            verboseMessage("> отправляем форму\n");
+            log.info("> отправляем форму");
             kraken.perform().click(Elements.Modals.AuthModal.submitButtonRegistration());
             kraken.await().implicitly(2); // Ожидание регистрации
         }
         @Step("Нажимаем кнопку авторизация через Vkontakte")
         public static void hitVkontakteButton() {
-            verboseMessage("> нажимаем кнопку авторизация через Vkontakte\n");
+            log.info("> нажимаем кнопку авторизация через Vkontakte");
             kraken.perform().click(Elements.Modals.AuthModal.vkontakteButton());
         }
         @Step("Нажимаем кнопку авторизация через Facebook")
         public static void hitFacebookButton() {
-            verboseMessage("> нажимаем кнопку авторизация через Facebook\n");
+            log.info("> нажимаем кнопку авторизация через Facebook");
             kraken.perform().click(Elements.Modals.AuthModal.facebookButton());
         }
         @Step("Нажимаем кнопку авторизация через MailRu")
         public static void hitMailRuButton() {
-            verboseMessage("> нажимаем кнопку авторизация через MailRu\n");
+            log.info("> нажимаем кнопку авторизация через MailRu");
             kraken.perform().click(Elements.Modals.AuthModal.mailruButton());
         }
         @Step("Нажимаем кнопку авторизация через SberID")
         public static void hitSberIdButton() {
-            verboseMessage("> нажимаем кнопку авторизация через SberID\n");
+            log.info("> нажимаем кнопку авторизация через SberID");
             kraken.perform().click(Elements.Modals.AuthModal.sberButton());
         }
     }
@@ -164,35 +165,35 @@ public class Shop extends Base {
     public static class RecoveryModal {
         @Step("Закрываем модалку")
         public static void close() {
-            verboseMessage("> закрываем модалку\n");
+            log.info("> закрываем модалку");
             kraken.perform().click(Elements.Modals.PasswordRecoveryModal.closeButton());
         }
         @Step("Возвращаемся назад")
         public static void proceedBack() {
-            verboseMessage("> возвращаемся назад\n");
+            log.info("> возвращаемся назад");
             kraken.perform().click(Elements.Modals.PasswordRecoveryModal.backButton());
             kraken.await().simply(1); // Ожидание возврата назад из формы восстановления пароля
         }
         @Step("Заполняем форму запроса восстановления пароля по email: {0}")
         public static void fillRequestForm(String email) {
-            verboseMessage("> заполняем форму запроса восстановления пароля");
+            log.info("> заполняем форму запроса восстановления пароля");
             kraken.perform().fillField(Elements.Modals.PasswordRecoveryModal.emailField(), email);
         }
         @Step("Заполняем форму восстановления пароля: {0}, {1}")
         public static void fillRecoveryForm(String password, String passwordConfirmation) {
-            verboseMessage("> заполняем форму восстановления пароля");
+            log.info("> заполняем форму восстановления пароля");
             kraken.perform().fillField(Elements.Modals.PasswordRecoveryModal.passwordField(), password);
             kraken.perform().fillField(Elements.Modals.PasswordRecoveryModal.passwordConfirmationField(), passwordConfirmation);
         }
         @Step("Отправляем форму")
         public static void submitRequest() {
-            verboseMessage("> отправляем форму\n");
+            log.info("> отправляем форму");
             kraken.perform().click(Elements.Modals.PasswordRecoveryModal.submitRequestButton());
             kraken.await().simply(5); // Ожидание отправки письма восстановлкния пароля
         }
         @Step("Отправляем форму")
         public static void submitRecovery() {
-            verboseMessage("> отправляем форму\n");
+            log.info("> отправляем форму");
             kraken.perform().click(Elements.Modals.PasswordRecoveryModal.submitRecoveryButton());
             kraken.await().implicitly(1); // Ожидание восстановления пароля
         }
@@ -205,7 +206,7 @@ public class Shop extends Base {
         @Step("Проверяем открыта ли модалка авторизации, если нет открываем")
         public static void open() {
             if (kraken.detect().isAddressModalOpen()) {
-                verboseMessage("> пропускаем открытие модалки адреса, она уже открыта");
+                log.info("> пропускаем открытие модалки адреса, она уже открыта");
             } else {
                 catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),1);
                 kraken.perform().click(Elements.Header.shipAddressButton());
@@ -257,7 +258,7 @@ public class Shop extends Base {
         public static void submit() throws AssertionError {
             kraken.perform().click(Elements.Modals.AddressModal.submitButton());
             if (kraken.detect().isAddressOutOfZone()) {
-                verboseMessage("> выбранный адрес вне зоны доставки");
+                log.info("> выбранный адрес вне зоны доставки");
                 //kraken.perform().refresh();
             } else {
                 kraken.await().fluently(
@@ -281,7 +282,7 @@ public class Shop extends Base {
                 kraken.perform().click(Elements.Modals.AddressModal.closeButton());
                 kraken.await().implicitly(1); // Ожидание анимации закрытия адресной модалки
             } else {
-                verboseMessage("> пропускаем закрытие модалки адреса, она уже закрыта");
+                log.info("> пропускаем закрытие модалки адреса, она уже закрыта");
             }
         }
     }
@@ -335,7 +336,7 @@ public class Shop extends Base {
     public static class CatalogDrawer {
         @Step("Открываем шторку каталога категорий")
         public static void open() {
-            verboseMessage("> открываем шторку каталога категорий");
+            log.info("> открываем шторку каталога категорий");
             if (!kraken.detect().isCatalogDrawerOpen()) {
                 kraken.perform().click(Elements.Header.catalogButton());
                 kraken.await().simply(1); // Ожидание анимации открытия шторки каталога
@@ -346,7 +347,7 @@ public class Shop extends Base {
         }
         @Step("Переходим в департамент: {0} в шторке каталога категорий")
         public static void goToDepartment(String name) {
-            verboseMessage("> переходим в департамент \"" + name + "\" в шторке каталога категорий");
+            log.info("> переходим в департамент {} в шторке каталога категорий", name);
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
                             Elements.CatalogDrawer.categoryFirstLevel(name).getLocator()));
@@ -356,7 +357,7 @@ public class Shop extends Base {
         }
         @Step("Переходим в таксон: {0} в шторке каталога категорий")
         public static void goToTaxon(String name) {
-            verboseMessage("> переходим в таксон \"" + name + "\" в шторке каталога категорий");
+            log.info("> переходим в таксон {} в шторке каталога категорий", name);
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
                             Elements.CatalogDrawer.category(name).getLocator()));
@@ -366,7 +367,7 @@ public class Shop extends Base {
         }
         @Step("Закрываем шторку каталога категорий")
         public static void close() {
-            verboseMessage("> закрываем шторку каталога категорий");
+            log.info("> закрываем шторку каталога категорий");
             if (kraken.detect().isCatalogDrawerOpen()) {
                 kraken.perform().click(Elements.CatalogDrawer.closeButton());
                 kraken.await().simply(1); // Ожидание анимации закрытия шторки каталога
@@ -382,7 +383,7 @@ public class Shop extends Base {
 
         @Step("Открываем всплывающее меню профиля")
         public static void open() {
-            verboseMessage("> открываем всплывающее меню профиля");
+            log.info("> открываем всплывающее меню профиля");
             catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),1);
             kraken.await().fluently(
                     ExpectedConditions
@@ -390,14 +391,14 @@ public class Shop extends Base {
                     "кнопка перехода в профиль пользователя недоступна");
             if(!kraken.detect().isAccountMenuOpen()) {
                 kraken.perform().click(Elements.Header.profileButton());
-            } else verboseMessage("> пропускаем открытие меню аккаунта, уже открыто");
+            } else log.info("> пропускаем открытие меню аккаунта, уже открыто");
         }
         @Step("Закрываем всплывающее меню профиля")
         public static void close() {
-            verboseMessage("> закрываем всплывающее меню профиля");
+            log.info("> закрываем всплывающее меню профиля");
             if(kraken.detect().isAccountMenuOpen()) {
                 kraken.perform().click(Elements.Header.profileButton());
-            } else verboseMessage("> пропускаем закрытие меню аккаунта, уже закрыто");
+            } else log.info("> пропускаем закрытие меню аккаунта, уже закрыто");
         }
     }
 
@@ -408,11 +409,11 @@ public class Shop extends Base {
         @Step("Открываем чат jivosite")
         public static void open() {
             if(!kraken.detect().isJivositeChatAvailable()) {
-                verboseMessage("> разворачиваем виджет Jivosite");
+                log.info("> разворачиваем виджет Jivosite");
                 kraken.perform().click(Elements.Jivosite.openButton());
                 kraken.await().implicitly(1); // Ожидание разворачивания виджета Jivosite
             } else {
-                verboseMessage("> виджет Jivosite развернут");
+                log.info("> виджет Jivosite развернут");
             }
         }
 
@@ -420,21 +421,21 @@ public class Shop extends Base {
         @Step("Сворачиваем чат jivosite")
         public static void close() {
             if(kraken.detect().isJivositeChatAvailable()) {
-                verboseMessage("> сворачиваем виджет Jivosite");
+                log.info("> сворачиваем виджет Jivosite");
                 kraken.perform().click(Elements.Jivosite.closeButton());
                 kraken.await().implicitly(1); // Ожидание сворачивания виджета Jivosite
             } else {
-                verboseMessage("> виджет Jivosite свернут");
+                log.info("> виджет Jivosite свернут");
             }
         }
 
         /** Отправить сообщение в Jivosite */
         @Step("Отправляем сообщение в Jivosite: {0}")
         public static void sendMessage(String text) {
-            verboseMessage("Jivosite");
+            log.info("Jivosite");
             kraken.await().implicitly(2);
             open();
-            verboseMessage("> отправляем сообщение: " + text);
+            log.info("> отправляем сообщение: {}", text);
             kraken.perform().fillField(Elements.Jivosite.messageField(), text);
             kraken.perform().click(Elements.Jivosite.sendMessageButton());
             kraken.await().implicitly(2); // Ожидание отправки сообщения в Jivosite
@@ -465,7 +466,7 @@ public class Shop extends Base {
             /** Добавить товар в корзину через сниппет товара в партнерском виджете */
             @Step("Добавляем товар в корзину через сниппет товара в партнерском виджете")
             public static void addToCart(WidgetData widget) {
-                verboseMessage("> добавляем в корзину товар из виджета " + widget.getId());
+                log.info("> добавляем в корзину товар из виджета {}", widget.getId());
                 if (widget.getProvider().equals("RetailRocket")) {
                     kraken.perform().hoverOn(Elements.RetailRocket.item(widget.getId()));
                     kraken.perform().click(Elements.RetailRocket.addButton(widget.getId()));
@@ -509,7 +510,7 @@ public class Shop extends Base {
             /** Открыть карточку товара в партнерском виджете */
             @Step("Открываем карточку товара в партнерском виджете")
             public static void open(WidgetData widget) {
-                verboseMessage("Открываем карточку товара из виджета " + widget.getId());
+                log.info("Открываем карточку товара из виджета {}", widget.getId());
 
                 if (widget.getProvider().equals("RetailRocket")) {
                     kraken.perform().click(Elements.RetailRocket.item(widget.getId()));
@@ -540,7 +541,7 @@ public class Shop extends Base {
         }
         @Step("Ищем товары по запросу: {0}")
         public static void item(String query) {
-            verboseMessage("> поиск товаров по запросу '" + query + "'...");
+            log.info("> поиск товаров по запросу '{}'...", query);
             Field.fill(query);
             Button.hit();
             kraken.await().implicitly(1); // Ожидание загрузки результатов поиска
@@ -549,7 +550,7 @@ public class Shop extends Base {
         public static class Field {
             @Step("Заполняем поле поиска: {0}")
             public static void fill(String query) {
-                verboseMessage("> заполняем поле поиска: " + query);
+                log.info("> заполняем поле поиска: {}", query);
                 kraken.perform().fillField(Elements.Header.Search.inputField(), query);
                 Actions actions = new Actions(driver);
                 kraken.await().implicitly(1); // Ожидание загрузки поисковых саджестов
@@ -560,7 +561,7 @@ public class Shop extends Base {
         public static class Button {
             @Step("Нажимаем кнопку поиска")
             public static void hit() {
-                verboseMessage("> нажимаем кнопку поиска");
+                log.info("> нажимаем кнопку поиска");
                 kraken.perform().click((Elements.Header.Search.sendButton()));
             }
         }
@@ -568,7 +569,7 @@ public class Shop extends Base {
         public static class CategorySuggest {
             @Step("Нажимаем категорийную подсказку в поиске")
             public static void hit() {
-                verboseMessage("> нажимаем категорийную подсказку в поиске");
+                log.info("> нажимаем категорийную подсказку в поиске");
                 kraken.perform().click(Elements.Header.Search.categorySuggest());
             }
         }
@@ -576,7 +577,7 @@ public class Shop extends Base {
         public static class ProductSuggest {
             @Step("Нажимаем товарную подсказку в поиске")
             public static void hit() {
-                verboseMessage("> нажимаем товарную подсказку в поиске");
+                log.info("> нажимаем товарную подсказку в поиске");
                 kraken.perform().click(Elements.Header.Search.productSuggest());
             }
         }
@@ -704,7 +705,7 @@ public class Shop extends Base {
         public static void addToCart() {
             ElementData button = Elements.ItemCard.buyButton();
             // Побеждаем модалку обновления цен
-            if(kraken.detect().isElementPresent(Elements.Modals.PricesModal.popup())) {
+            if (kraken.detect().isElementPresent(Elements.Modals.PricesModal.popup())) {
                 //kraken.perform().click(Elements.Modals.PricesModal.refreshPricesButton());
             }
             kraken.await().fluently(
@@ -712,7 +713,7 @@ public class Shop extends Base {
                             .elementToBeClickable(button.getLocator()),
                         "Некликабельна кнопка добавления товара в корзину"
             );
-            verboseMessage("> жмем купить");
+            log.info("> жмем купить");
             kraken.perform().click(Elements.ItemCard.buyButton());
             //kraken.await().simply(1); // Ожидание добавления +1 товара в карточке
             kraken.await().fluently(
@@ -729,7 +730,7 @@ public class Shop extends Base {
                 kraken.perform().click(Elements.ItemCard.minusButton());
                 kraken.await().simply(1); // Ожидание убавления -1 товара в карточке
             } else {
-                verboseMessage("> Кнопка 'Минус' не отображается");
+                log.info("> Кнопка 'Минус' не отображается");
             }
         }
 
@@ -747,7 +748,7 @@ public class Shop extends Base {
         /** Закрыть карточку товара */
         @Step("Закрываем карточку товара")
         public static void close() {
-            verboseMessage("> закрываем карточку товара");
+            log.info("> закрываем карточку товара");
             kraken.perform().click(Elements.ItemCard.closeButton());
             kraken.await().implicitly(1); // Ожидание анимации закрытия карточки товара
             kraken.await().fluently(
@@ -762,7 +763,7 @@ public class Shop extends Base {
         public static void open() {
             if (!kraken.detect().isCartOpen()) {
                 //kraken.perform().refresh(); // Доджим рандомные подвисания, из-за которых иногда не сразу открывается корзина
-                verboseMessage("> открываем корзину");
+                log.info("> открываем корзину");
                 kraken.perform().click(Elements.Header.cartButton());
                 kraken.await().implicitly(1); // Ожидание анимации открытия корзины
                 kraken.await().fluently(
@@ -770,7 +771,7 @@ public class Shop extends Base {
                                 Elements.Cart.closeButton().getLocator()),
                         "Не открылась корзина\n\n");
             } else {
-                verboseMessage("> пропускаем открытие корзины, уже открыта");
+                log.info("> пропускаем открытие корзины, уже открыта");
             }
         }
 
@@ -778,7 +779,7 @@ public class Shop extends Base {
         @Step("Закрываем корзину")
         public static void close() {
             if (kraken.detect().isCartOpen()) {
-                verboseMessage("> закрываем корзину");
+                log.info("> закрываем корзину");
                 kraken.perform().click(Elements.Cart.closeButton());
                 kraken.await().simply(1);
                 kraken.await().fluently(
@@ -786,7 +787,7 @@ public class Shop extends Base {
                                 Elements.Cart.drawer().getLocator()),
                         "Не закрылась корзина\n\n");
             } else {
-                verboseMessage("> пропускаем закрытие корзины, уже закрыта");
+                log.info("> пропускаем закрытие корзины, уже закрыта");
             }
         }
 
@@ -796,7 +797,7 @@ public class Shop extends Base {
             if (kraken.detect().isCheckoutButtonActive()) {
                 kraken.perform().click(Elements.Cart.checkoutButton());
             } else {
-                verboseMessage("> кнопка перехода в чекаут неактивна");
+                log.info("> кнопка перехода в чекаут неактивна");
                 throw new AssertionError("\n\n> Не удается перейти в чекаут из корзины, кнопка перехода неактивна");
             }
         }
@@ -804,7 +805,7 @@ public class Shop extends Base {
         /** Очистить корзину, удалив все товары */
         @Step("Очищаем корзину, удалив все товары")
         public static void drop() {
-            verboseMessage("> очищаем козину, удаляя все товары...");
+            log.info("> очищаем козину, удаляя все товары...");
             open();
             if (!kraken.detect().isCartEmpty()) {
                 Item.remove();
@@ -812,7 +813,7 @@ public class Shop extends Base {
                     drop();
                 }
             }
-            verboseMessage("✓ Готово\n");
+            log.info("✓ Готово");
             close();
         }
 
@@ -823,25 +824,25 @@ public class Shop extends Base {
                 Cart.close();
                 int sid = kraken.grab().sidFromUrl();
                 collect(kraken.apiV2().getMinSum(sid));
-            } else { verboseMessage("> пропускаем набор товаров, в корзине достаточно товаров для оформления минимального заказа");}
+            } else { log.info("> пропускаем набор товаров, в корзине достаточно товаров для оформления минимального заказа");}
         }
 
         /** Набрать корзину на указанную сумму */
         @Step("Набираем корзину на указанную сумму: {0}")
         public static void collect(int orderSum) {
-            if(!kraken.detect().isShippingAddressSet()) {
+            if (!kraken.detect().isShippingAddressSet()) {
                 User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
-            }verboseMessage("> собираем корзину товаров на сумму " + orderSum + "\u20BD...");
+            }
+            log.info("> собираем корзину товаров на сумму {}...", orderSum);
             int cartTotal = kraken.grab().cartTotalRounded();
-            if(cartTotal < orderSum) {
+            if (cartTotal < orderSum) {
                 Cart.close();
-                if(!kraken.detect().isProductAvailable())
-                {
-                    if(kraken.detect().isFavoriteProductAvailable()){
-                        verboseMessage("> находимся в карточке любимых товаров");
+                if (!kraken.detect().isProductAvailable()) {
+                    if (kraken.detect().isFavoriteProductAvailable()) {
+                        log.info("> находимся в карточке любимых товаров");
                         Favorites.openFavoritesSnipet();
-                    }else{
-                        verboseMessage("> нет товаров на текущей странице " + kraken.grab().currentURL());
+                    } else {
+                        log.info("> нет товаров на текущей странице {}", kraken.grab().currentURL());
                         kraken.get().page(Pages.Retailers.metro());
                         Catalog.Item.open();
                     }
@@ -849,26 +850,25 @@ public class Shop extends Base {
                 int itemPrice = kraken.grab().itemPriceRounded();
                 // Формула расчета кол-ва товара
                 int neededQuantity;
-                if(cartTotal > 0) {
+                if (cartTotal > 0) {
                     neededQuantity = ((orderSum - cartTotal) / (itemPrice - 1)) + 2;
                 } else {
                     neededQuantity = ((orderSum - cartTotal) / (itemPrice - 1)) + 1;
                 }
 
-                verboseMessage("> добавляем в корзину \""
-                        + kraken.grab().itemName() + "\" x " + neededQuantity + " шт\n> " + kraken.grab().currentURL() + "\n");
+                log.info("> добавляем в корзину {}х{}шт > {}", kraken.grab().itemName(), neededQuantity, kraken.grab().currentURL());
                 addItemByText(neededQuantity);
                 ItemCard.close();
                 Cart.open();
             } else {
-                verboseMessage("> в корзине достаточно товаров");
+                log.info("> в корзине достаточно товаров");
             }
         }
 
         /** Луп набора товара до необходимого количества */
         private static void addItem(int neededQuantity) {
             int quantity = kraken.grab().itemQuantity();
-            verboseMessage("> в каунтере " + quantity);
+            log.info("> в каунтере {}", quantity);
             if (quantity == 1) kraken.await().implicitly(2);
             if (kraken.grab().itemQuantity() < neededQuantity) {
                 ItemCard.addToCart();
@@ -879,7 +879,7 @@ public class Shop extends Base {
         /** Луп набора товара до необходимого количества */
         private static void addItemByText(int neededQuantity) {
             String quantity = kraken.grab().itemQuantityByText();
-            verboseMessage("> количество товара: " + quantity);
+            log.info("> количество товара: {}", quantity);
             kraken.grab().addItemCard();
             if (neededQuantity==1) kraken.await().implicitly(2);
             else {

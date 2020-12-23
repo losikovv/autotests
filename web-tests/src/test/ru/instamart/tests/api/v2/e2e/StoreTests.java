@@ -11,15 +11,17 @@ import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
 import io.restassured.RestAssured;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
-import static instamart.core.helpers.HelperBase.verboseMessage;
-
 public class StoreTests extends RestBase {
+
+    private static final Logger log = LoggerFactory.getLogger(StoreTests.class);
 
     @BeforeClass(description = "Проверка самих провайдеров")
     public void selfTest() {
@@ -32,7 +34,7 @@ public class StoreTests extends RestBase {
             description = "Тест категорий на главных страницах всех магазинов",
             groups = {})
     public void departmentsOnMainPages(Store store) {
-        verboseMessage(store + "\n");
+        log.info(store.toString());
 
         SoftAssert softAssert = new SoftAssert();
         apiV2.getProductsFromEachDepartmentInStore(store.getId(), softAssert);
@@ -45,11 +47,11 @@ public class StoreTests extends RestBase {
             description = "Тест продуктов на главных страницах всех магазинов",
             groups = {})
     public void productsOnMainPages(Store store) {
-        verboseMessage(store + "\n" + RestAssured.baseURI + "/api/v2/departments?sid=" + store.getId() + "\n");
+        log.info("Магазин {} url={}/api/v2/departments?sid={}", store, RestAssured.baseURI, store.getId());
 
-        SoftAssert softAssert = new SoftAssert();
-        List<Product> products = apiV2.getProductsFromEachDepartmentInStore(store.getId());
-        for (Product product : products) {
+        final SoftAssert softAssert = new SoftAssert();
+        final List<Product> products = apiV2.getProductsFromEachDepartmentInStore(store.getId());
+        for (final Product product : products) {
             softAssert.assertEquals(ApiV2Requests.Products.GET(product.getId()).getStatusCode(),200,
                     "\n" + product + " " + RestAssured.baseURI + "/api/v2/products/" + product.getId());
         }
@@ -62,10 +64,10 @@ public class StoreTests extends RestBase {
             description = "Тест количества товаров в таксонах",
             groups = {})
     public void categoriesProductsCount(Store store) {
-        verboseMessage(store + "\n");
+        log.info(store.toString());
 
-        SoftAssert softAssert = new SoftAssert();
-        List<Taxon> taxons = apiV2.getTaxons(store.getId());
+        final SoftAssert softAssert = new SoftAssert();
+        final List<Taxon> taxons = apiV2.getTaxons(store.getId());
         taxons.forEach(taxon -> InstamartApiCheckpoints.assertProductsCountEqualsChildrenSum(taxon, softAssert));
         softAssert.assertAll();
     }
@@ -75,7 +77,7 @@ public class StoreTests extends RestBase {
             description = "Тест заказов во всех магазинах",
             groups = {})
     public void orderByStore(Store store) {
-        verboseMessage("Оформляем заказ в " + store + "\n");
+        log.info("Оформляем заказ в {}", store);
 
         apiV2.order(UserManager.getDefaultUser(), store.getId());
         apiV2.cancelCurrentOrder();
@@ -87,7 +89,7 @@ public class StoreTests extends RestBase {
             description = "Тест первых заказов во всех магазинах",
             groups = {})
     public void firstOrderByStore(Store store) {
-        verboseMessage("Оформляем первый заказ в " + store);
+        log.info("Оформляем первый заказ в {}", store);
 
         final UserData userData = UserManager.getUser();
         apiV2.registration(userData);

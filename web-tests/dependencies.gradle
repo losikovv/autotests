@@ -1,6 +1,5 @@
 ext.versions = [
         qase: '1.0.2',
-        sysoutOverSlf4j: '1.0.2',
         logback: '1.2.3',
         jsonSimple: '1.1.1',
         selenium: '3.8.1',
@@ -15,7 +14,6 @@ ext.versions = [
 ext.lib = [
         qaseApi: "io.qase:qase-api:$versions.qase",
         qaseTestng: "io.qase:qase-testng:$versions.qase",
-        sysoutOverSlf4j: "uk.org.lidalia:sysout-over-slf4j:$versions.sysoutOverSlf4j",
         logback: "ch.qos.logback:logback-classic:$versions.logback",
         jsonSimple: "com.googlecode.json-simple:json-simple:$versions.jsonSimple",
         seleniumJava: "org.seleniumhq.selenium:selenium-java:$versions.selenium",
@@ -32,7 +30,6 @@ ext.lib = [
 
 dependencies {
     compile lib.aspectjweaver
-    compile lib.sysoutOverSlf4j
     compile lib.qaseApi
     compile lib.qaseTestng
     compile lib.restAssured

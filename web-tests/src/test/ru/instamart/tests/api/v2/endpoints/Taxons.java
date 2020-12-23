@@ -9,6 +9,8 @@ import instamart.api.responses.v2.TaxonsResponse;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qase.api.annotation.CaseId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -18,6 +20,9 @@ import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode
 import static org.testng.Assert.assertNotNull;
 
 public class Taxons extends RestBase {
+
+    private static final Logger log = LoggerFactory.getLogger(Taxons.class);
+
     private int taxonId;
 
     @CaseId(11)
@@ -48,7 +53,7 @@ public class Taxons extends RestBase {
             dataProvider = "stores-parallel")
     public void getTaxonsFromEachStore(Store store) {
         Set<Integer> taxonIds = apiV2.getTaxonIds(store.getId());
-        System.out.println(taxonIds.size());
+        log.info("Taxon size {}", taxonIds.size());
         taxonIds.parallelStream().forEach(taxonId -> apiV2.getTaxon(taxonId, store.getId()));
     }
 }

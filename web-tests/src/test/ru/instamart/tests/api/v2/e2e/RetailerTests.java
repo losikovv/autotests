@@ -5,12 +5,14 @@ import instamart.api.objects.v2.Store;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import io.qase.api.annotation.CaseId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static instamart.core.helpers.HelperBase.verboseMessage;
-
 public class RetailerTests extends RestBase {
+
+    private static final Logger log = LoggerFactory.getLogger(RetailerTests.class);
 
     @BeforeClass(description = "Проверка самих провайдеров")
     public void selfTest() {
@@ -24,7 +26,7 @@ public class RetailerTests extends RestBase {
             groups = {})
     public void orderByRetailer(Store store) {
         apiV2.skipTestIfOnlyPickupIsAvailable(store);
-        verboseMessage("Оформляем заказ в " + store.getName() + "\n");
+        log.info("Оформляем заказ в {}", store.getName());
 
         apiV2.order(UserManager.getDefaultUser(), store.getId());
         apiV2.cancelCurrentOrder();

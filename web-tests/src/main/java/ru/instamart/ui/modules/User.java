@@ -1,11 +1,8 @@
 package instamart.ui.modules;
 
 import instamart.api.objects.v2.Address;
-import instamart.core.testdata.UserManager;
 import instamart.core.common.AppManager;
-import instamart.core.helpers.HelperBase;
-import instamart.core.settings.Config;
-import instamart.core.testdata.ui.Generate;
+import instamart.core.testdata.UserManager;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
@@ -15,8 +12,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class User extends Base {
+
+    private static final Logger log = LoggerFactory.getLogger(User.class);
 
     public User(WebDriver driver, AppManager app) {
         super(driver, app);
@@ -30,16 +31,16 @@ public class User extends Base {
             if (!startURL.equals(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth()) && kraken.detect().isUserAuthorised()) {
                 kraken.get().userProfilePage();
                 String currentUserEmail = kraken.grab().text(Elements.UserProfile.AccountPage.email());
-                HelperBase.verboseMessage("> юзер: " + currentUserEmail);
+                log.info("> юзер: {}", currentUserEmail);
                 if (currentUserEmail == null || !currentUserEmail.equals(user.getLogin())) {
                     User.Logout.quickly();
                 }
                 kraken.get().url(startURL);
             }
             Auth.withEmail(user);
-            if (Config.MULTI_SESSION_MODE && kraken.detect().isElementPresent(
+            if (/*Config.MULTI_SESSION_MODE */false && kraken.detect().isElementPresent(
                     Elements.Modals.AuthModal.errorMessage("Неверный email или пароль"))) {
-                HelperBase.verboseMessage(">>> Юзер " + user.getLogin() + " не найден, регистрируем\n");
+                log.warn(">>> Юзер {}  не найден, регистрируем", user.getLogin());
                 // костыль для stage-окружений
                 if (kraken.detect().server("staging")) {
                     kraken.get().baseUrl();
@@ -53,11 +54,11 @@ public class User extends Base {
                     Auth.withEmail(user);
                 }
             }
-            HelperBase.verboseMessage("> уровень прав: " + user.getRole() + "\n");
+            log.info("> уровень прав: {}", user.getRole());
         }
         @Step("Авторизуемся на лендинге Сбермаркет")
         private static void loginOnSberLanding(String email, String password) {
-            HelperBase.verboseMessage("> авторизуемся на лендинге Сбермаркет (" + email + " / " + password + ")");
+            log.info("> авторизуемся на лендинге Сбермаркет ({}/{})", email, password);
             kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
             Shop.AuthModal.switchToAuthorisationTab();
             Shop.AuthModal.fillAuthorisationForm(email, password);
@@ -68,7 +69,7 @@ public class User extends Base {
         }
         @Step("Авторизуемся на сайте")
         private static void loginOnSite(String email, String password) {
-            HelperBase.verboseMessage("> авторизуемся на сайте (" + email + " / " + password + ")");
+            log.info("> авторизуемся на сайте ({}/{})", email, password);
             Shop.AuthModal.open();
             Shop.AuthModal.switchToAuthorisationTab();
             Shop.AuthModal.fillAuthorisationForm(email, password);
@@ -79,7 +80,7 @@ public class User extends Base {
         }
         @Step("Авторизуемся в админке")
         private static void loginOnAdministration(String email, String password) {
-            HelperBase.verboseMessage("> авторизуемся в админке (" + email + " / " + password + ")");
+            log.info("> авторизуемся в админке ({}/{})", email, password);
             kraken.perform().fillField(Elements.Administration.LoginPage.emailField(), email);
             kraken.perform().fillField(Elements.Administration.LoginPage.passwordField(), password);
             kraken.perform().click(Elements.Administration.LoginPage.submitButton());
@@ -89,7 +90,7 @@ public class User extends Base {
         }
         @Step("Деавторизуемся на сайте")
         private static void logoutOnSite() {
-            HelperBase.verboseMessage("> деавторизуемся на сайте");
+            log.info("> деавторизуемся на сайте");
             for (int i=0;i<60;i++){
                 kraken.perform().click(Elements.Header.profileButton());
                 if(driver.findElement(Elements.AccountMenu.logoutButton().getLocator()).isDisplayed()){
@@ -102,7 +103,7 @@ public class User extends Base {
         }
         @Step("Деавторизуемся в админке")
         private static void logoutOnAdministration() {
-            HelperBase.verboseMessage("> деавторизуемся в админке");
+            log.info("> деавторизуемся в админке");
             kraken.perform().click(Elements.Administration.Header.logoutButton());
         }
 
@@ -134,7 +135,7 @@ public class User extends Base {
         @Step("Регистрируем нового юзера с указанными реквизитами")
         public static void registration(String name, String email, String password,
                                         String passwordConfirmation) {
-            HelperBase.verboseMessage("> регистрируемся (" + email + " / " + password + ")");
+            log.info("> регистрируемся ({}/{})", email, password);
             Shop.AuthModal.open();
             regSequence(name, email, password, passwordConfirmation);
             // TODO переделать на fluent-ожидание
@@ -151,18 +152,17 @@ public class User extends Base {
                                         String phone,String sms) {
             Shop.AuthModal.open();
             String modalType = Shop.AuthModal.checkAutorisationModalDialog();
-            if(modalType.equals("модалка с телефоном")){
-                HelperBase.verboseMessage("> регистрируемся ( телефон" + phone + " / смс" + sms + ")");
+            if (modalType.equals("модалка с телефоном")){
+                log.info("> регистрируемся (телефон={} / смс={})", phone, sms);
                 regSequenceMobile(phone, sms);
-                return modalType;
-            }else {
-                HelperBase.verboseMessage("> регистрируемся (" + email + " / " + password + ")");
+            } else {
+                log.info("> регистрируемся ({}/{})", email, password);
                 regSequence(name, email, password, passwordConfirmation);
                 // TODO переделать на fluent-ожидание
                 kraken.await().implicitly(1); // Ожидание раздизебливания кнопки подтверждения регистрации
                 Shop.AuthModal.submitRegistration();
-                return modalType;
             }
+            return modalType;
         }
 
         /**
@@ -208,10 +208,10 @@ public class User extends Base {
 
             @Step("Авторизуемся через Gmail")
             public static void auth(String login, String password) {
-                HelperBase.verboseMessage("> переходим в веб-интерфейс Gmail...");
+                log.info("> переходим в веб-интерфейс Gmail...");
                 kraken.get().url("https://mail.google.com/mail/u/0/h/");
-                if(kraken.detect().isElementPresent(Elements.Social.Gmail.AuthForm.loginField())) {
-                    HelperBase.verboseMessage("> авторизуемся в Gmail...");
+                if (kraken.detect().isElementPresent(Elements.Social.Gmail.AuthForm.loginField())) {
+                    log.info("> авторизуемся в Gmail...");
                     kraken.perform().fillField(Elements.Social.Gmail.AuthForm.loginField(), login);
                     kraken.perform().click(Elements.Social.Gmail.AuthForm.loginNextButton());
                     kraken.await().simply(1); // Ожидание загрузки страницы ввода пароля Gmail
@@ -223,14 +223,14 @@ public class User extends Base {
 
             @Step("открываем последнее полученное письмо от СберМаркет")
             public static void openLastMail() {
-                HelperBase.verboseMessage("> открываем последнее полученное письмо от СберМаркет");
+                log.info("> открываем последнее полученное письмо от СберМаркет");
                 kraken.perform().click(Elements.EmailConfirmation.lastEmail());
                 kraken.perform().click(Elements.EmailConfirmation.linkText());
             }
 
             @Step("Нажимаем кнопку сброса пароля в письме")
             public static void proceedToRecovery() {
-                HelperBase.verboseMessage("> нажимаем кнопку сброса пароля в письме");
+                log.info("> нажимаем кнопку сброса пароля в письме");
                 kraken.perform().click(Elements.EmailConfirmation.passwordRecovery());
                 kraken.await().implicitly(1); // Ожидание перехода из письма на сайт Инстамарт
                 kraken.perform().switchToNextWindow();
@@ -252,7 +252,7 @@ public class User extends Base {
                 if (!kraken.detect().isUserAuthorised()) {
                     User.Do.loginOnSite(email, password);
                 } else {
-                    HelperBase.verboseMessage("> пропускаем авторизацию, уже авторизованы");
+                    log.info("> пропускаем авторизацию, уже авторизованы");
                 }
             }
         }
@@ -260,7 +260,7 @@ public class User extends Base {
         @Step("Переходим на base url для авторизации через Vkontakte")
         public static void withVkontakte(UserData user) {
             if (kraken.detect().isInAdmin()) {
-                HelperBase.verboseMessage("> переходим на base url для авторизации через Vkontakte");
+                log.info("> переходим на base url для авторизации через Vkontakte");
                 kraken.get().baseUrl();
             }
             Shop.AuthModal.open();
@@ -281,7 +281,7 @@ public class User extends Base {
         @Step("Переходим на base url для авторизации через Facebook")
         public static void withFacebook(UserData user) {
             if (kraken.detect().isInAdmin()) {
-                HelperBase.verboseMessage("> переходим на base url для авторизации через Facebook");
+                log.info("> переходим на base url для авторизации через Facebook");
                 kraken.get().baseUrl();
             }
             Shop.AuthModal.open();
@@ -307,7 +307,7 @@ public class User extends Base {
         @Step("Переходим на base url для авторизации через Mail.ru")
         public static void withMailRu(UserData user) {
             if (kraken.detect().isInAdmin()) {
-                HelperBase.verboseMessage("> переходим на base url для авторизации через Mail.ru");
+                log.info("> переходим на base url для авторизации через Mail.ru");
                 kraken.get().baseUrl();
             }
             Shop.AuthModal.open();
@@ -330,7 +330,7 @@ public class User extends Base {
         @Step("Переходим на base url для авторизации через Sber ID")
         public static void withSberID(UserData user) {
             if (kraken.detect().isInAdmin()) {
-                HelperBase.verboseMessage("> переходим на base url для авторизации через Sber ID");
+                log.info("> переходим на base url для авторизации через Sber ID");
                 kraken.get().baseUrl();
             }
             Shop.AuthModal.open();
@@ -358,7 +358,7 @@ public class User extends Base {
         public static void manually() {
             catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),1);
             if(kraken.detect().isUserAuthorised()) {
-                HelperBase.verboseMessage("> логаут...");
+                log.info("> логаут...");
                 if (kraken.detect().isInAdmin()) {
                     User.Do.logoutOnAdministration();
                 } else {
@@ -366,33 +366,33 @@ public class User extends Base {
                 }
                 kraken.await().implicitly(1); // Ожидание деавторизации и подгрузки лендинга
                 if (!kraken.detect().isUserAuthorised()) {
-                    HelperBase.verboseMessage("✓ Готово\n");
+                    log.info("✓ Готово");
                 }
             } else {
-                HelperBase.verboseMessage("> пропускаем деавторизацию, уже разлогинены");
+                log.info("> пропускаем деавторизацию, уже разлогинены");
             }
         }
 
         /** Быстрая деавторизация прямым переходом на /logout */
         @Step("Деавторизация прямым переходом на /logout")
         public static void quick() {
-            HelperBase.verboseMessage("> быстрый логаут...");
+            log.info("> быстрый логаут...");
             kraken.get().page("logout");
             kraken.await().simply(1); // Ожидание деавторизации и подгрузки лендинга
             if (kraken.detect().isOnLanding()) {
-                HelperBase.verboseMessage("✓ Готово\n");
+                log.info("✓ Готово");
             }
         }
 
         /** Быстрая деавторизация удалением кук */
         @Step("Делаем быструю деавторизацию пользователя с удалением файлов куки")
         public static void quickly() {
-            HelperBase.verboseMessage("> удаляем куки...");
+            log.info("> удаляем куки...");
             driver.manage().deleteAllCookies();
             kraken.get().baseUrl();
             //kraken.await().simply(1); // Ожидание деавторизации и подгрузки лендинга
             if (kraken.detect().isOnLanding()) {
-                HelperBase.verboseMessage("✓ Готово\n");
+                log.info("✓ Готово");
             }
         }
     }
@@ -417,10 +417,10 @@ public class User extends Base {
                 kraken.await().implicitly(3);//текущая локация подставляется автоматически,
                 // нужно подождать, пока элемент прогрузится
                 currentAddress = kraken.grab().value(Elements.Modals.AddressModal.addressField());
-                if(currentAddress.equals("")) HelperBase.verboseMessage("> устанавливаем адрес доставки: " + address + "\n");
+                if(currentAddress.equals("")) log.info("> устанавливаем адрес доставки: {}", address);
                 else Shop.ShippingAddressModal.clearAddressField();
             } else {
-                HelperBase.verboseMessage("> изменяем адрес доставки:\n" + currentAddress + " >>> " + address + "\n");
+                log.info("> изменяем адрес доставки: {} >>> {}", currentAddress, address);
                 Shop.ShippingAddressModal.clearAddressField();
             }
             //todo нужно допилить проверку"
@@ -459,7 +459,7 @@ public class User extends Base {
             Shop.AuthModal.open();
             Shop.AuthModal.switchToAuthorisationTab();
             Shop.AuthModal.proceedToPasswordRecovery();
-            HelperBase.verboseMessage("> запрашиваем восстановление пароля для " + email);
+            log.info("> запрашиваем восстановление пароля для {}", email);
             Shop.RecoveryModal.fillRequestForm(email);
             Shop.RecoveryModal.submitRequest();
         }
@@ -469,7 +469,7 @@ public class User extends Base {
             User.Do.Gmail.auth();
             User.Do.Gmail.openLastMail();
             User.Do.Gmail.proceedToRecovery();
-            HelperBase.verboseMessage("> восстановливаем пароль '" + recoveredPassword + "' для " + user.getLogin());
+            log.info("> восстановливаем пароль '{}' для {}", recoveredPassword, user.getLogin());
             Shop.RecoveryModal.fillRecoveryForm(recoveredPassword, recoveredPassword);
             Shop.RecoveryModal.submitRecovery();
         }

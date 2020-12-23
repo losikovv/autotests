@@ -11,42 +11,26 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
-import static instamart.core.settings.Config.LOG;
-import static instamart.core.settings.Config.VERBOSE;
-
 public class HelperBase {
     static WebDriver driver;
     static AppManager kraken;
     private static boolean acceptNextAlert = true;
-    private static final Logger LOGGER = LoggerFactory.getLogger(HelperBase.class);
+    private static final Logger log = LoggerFactory.getLogger(HelperBase.class);
 
-    HelperBase(WebDriver driver, AppManager app) {
-        this.driver = driver;
-        this.kraken = app;
-    }
-
-    /** Отправить verbose-сообщение в консоль */
-    public static void verboseMessage(Object message) {
-        verboseMessage(message.toString());
-    }
-
-    /** Отправить verbose-сообщение в консоль */
-    public static void verboseMessage(String message) {
-        if(VERBOSE) {
-            if (LOG) LOGGER.debug(message);
-            else System.out.println(message);
-        }
+    public HelperBase(final WebDriver driver, final AppManager app) {
+        HelperBase.driver = driver;
+        kraken = app;
     }
 
     /** Обработать алерт в зависимости от настройки acceptNextAlert */
     public static void handleAlert() {
         try {
-            Alert alert = driver.switchTo().alert();
-            String alertText = alert.getText();
-            if(acceptNextAlert) {
+            final Alert alert = driver.switchTo().alert();
+            final String alertText = alert.getText();
+            if (acceptNextAlert) {
                 alert.accept();
             } else alert.dismiss();
-            verboseMessage("> handling alert [" + alertText + "]");
+            log.info("> handling alert [{}]", alertText);
         } finally {
             acceptNextAlert = true;
         }

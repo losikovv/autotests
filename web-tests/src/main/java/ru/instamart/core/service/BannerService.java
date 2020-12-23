@@ -8,11 +8,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Objects;
 
 public final class BannerService {
 
     private static final Logger logger = LoggerFactory.getLogger(BannerService.class);
+
     private static final String BANNER_URL = "banner.txt";
     private static final String RESOURCE = FileUtils.getResourceDir(BANNER_URL);
 
@@ -20,7 +20,7 @@ public final class BannerService {
         try(final BufferedReader in = new BufferedReader(new FileReader(RESOURCE))) {
             String line = in.readLine();
             while(line !=null) {
-                System.out.println(line);
+                logger.info(line);
                 line = in.readLine();
             }
         } catch (FileNotFoundException e) {

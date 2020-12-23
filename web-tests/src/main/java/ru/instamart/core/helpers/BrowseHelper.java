@@ -1,14 +1,19 @@
 package instamart.core.helpers;
 
 import instamart.core.common.AppManager;
+import instamart.core.listeners.ExecutionListenerImpl;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.PageData;
 import io.qameta.allure.Step;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BrowseHelper extends HelperBase {
+
+    private static final Logger log = LoggerFactory.getLogger(BrowseHelper.class);
 
     public BrowseHelper(WebDriver driver, AppManager app) {
         super(driver, app);
@@ -18,12 +23,12 @@ public class BrowseHelper extends HelperBase {
     @Step("Перейти на указанный URL: {0}")
     public void url(String url) {
         if (url.equals(EnvironmentData.INSTANCE.getBasicUrl())) {
-            verboseMessage("Переходим по базовому URL >>> " + url + "\n");
+            log.info("Переходим по базовому URL >>> {}", url);
         }
         try {
             driver.get(url);
         } catch (TimeoutException t) {
-            verboseMessage("Истекло время перехода по URL " + url + "\n");
+            log.info("Истекло время перехода по URL {}", url);
         }
     }
 
@@ -34,7 +39,7 @@ public class BrowseHelper extends HelperBase {
 
     /** Перейти на страницу */
     public void page(String page) {
-        verboseMessage("> переходим на страницу: "+EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page);
+        log.info("> переходим на страницу: {}{}", EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth(), page);
         url(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page);
     }
 

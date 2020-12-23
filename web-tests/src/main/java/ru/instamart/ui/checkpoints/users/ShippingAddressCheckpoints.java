@@ -2,18 +2,22 @@ package instamart.ui.checkpoints.users;
 
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import io.qameta.allure.Step;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import static instamart.ui.modules.Base.kraken;
-import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public class ShippingAddressCheckpoints extends BaseUICheckpoints {
-    SoftAssert softAssert = new SoftAssert();
+
+    private static final Logger log = LoggerFactory.getLogger(ShippingAddressCheckpoints.class);
+
+    private final SoftAssert softAssert = new SoftAssert();
 
     @Step("Проверяем, адрес доставки: {0}")
     public void checkIsShippingAddressNotSet(String action){
-        verboseMessage("> проверяем, адрес доставки: "+ action);
+        log.info("> проверяем, адрес доставки: {}", action);
         softAssert.assertFalse(
                 kraken.detect().isShippingAddressSet(),
                 failMessage("Адрес доставки не корректен: "+ action));
@@ -22,7 +26,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
 
     @Step("Проверяем, что адрес доставки установлен:")
     public void checkIsShippingAddressSet(String errorMessage){
-        verboseMessage("> проверяем, что адрес доставки установлен");
+        log.info("> проверяем, что адрес доставки установлен");
         softAssert.assertTrue(
                 kraken.detect().isShippingAddressSet(),
                 failMessage(errorMessage));
@@ -31,7 +35,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
 
     @Step("Проверяем, что дефолтный список магазинов открыт")
     public void checkIsStoresDrawerOpen(String errorMessage){
-        verboseMessage("> проверяем, что дефолтный список магазинов открыт");
+        log.info("> проверяем, что дефолтный список магазинов открыт");
         Assert.assertTrue(
                 kraken.detect().isStoresDrawerOpen(),
                 "\n"+errorMessage+"\n");
@@ -39,7 +43,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
 
     @Step("Проверяем, что дефолтный список магазинов закрыт")
     public void checkIsStoresDrawerNotOpen(String errorMessage){
-        verboseMessage("> проверяем, что дефолтный список магазинов закрыт");
+        log.info("> проверяем, что дефолтный список магазинов закрыт");
         Assert.assertFalse(
                 kraken.detect().isStoresDrawerOpen(),
                 "\n"+errorMessage+"\n");
@@ -47,7 +51,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
 
     @Step("Проверяем, что дефолтный список магазинов не пустой")
     public void checkIsStoresDrawerNotEmpty(String errorMessage){
-        verboseMessage("> проверяем, что дефолтный список магазинов не пустой");
+        log.info("> проверяем, что дефолтный список магазинов не пустой");
         Assert.assertFalse(
                 kraken.detect().isStoresDrawerEmpty(),
                 "\n>"+errorMessage+"\n");
@@ -55,7 +59,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
 
     @Step("Проверяем, что дефолтный список магазинов пуст")
     public void checkIsStoresDrawerEmpty(String errorMessage){
-        verboseMessage("> проверяем, что дефолтный список магазинов пуст");
+        log.info("> проверяем, что дефолтный список магазинов пуст");
         softAssert.assertTrue(
                 kraken.detect().isStoresDrawerEmpty(),
                 "\n>"+errorMessage+"\n");
@@ -65,13 +69,14 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
     @Step("Проверяем, что утановленный адрес: \"{0}\" \n совпадает с адресом, отображаемом на странице: \"{1}\"")
     public void checkIsSetAddresEqualsToInput(String defaultAddress, String currentAddress){
         String []defaultAdressList = defaultAddress.split(", ");
-        verboseMessage("> проверяем, что установленный адрес: "+defaultAddress+
-                 "\n совпадает с адресом на странице: "+currentAddress);
-        String checkState ="";
+        log.info("> проверяем, что установленный адрес: {} совпадает с адресом на странице: {}",
+                defaultAddress,
+                currentAddress);
+        String checkState;
         for(String check: defaultAdressList){
-            if(currentAddress.contains(check)) checkState = "contains";
-            else{
-                verboseMessage("> в введенном адресе отсутсвует: "+check);
+            if (currentAddress.contains(check)) checkState = "contains";
+            else {
+                log.info("> в введенном адресе отсутсвует: {}", check);
                 checkState ="doesn't";
             }
             softAssert.assertEquals(
@@ -87,12 +92,12 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
     @Step("Проверяем, что утановленный адрес:\"{0}\" не изменился")
     public void checkIsSetAddressDoesntEqualToInput(String defaultAddress, String currentAddress){
         String []defaultAdressList = defaultAddress.split(", ");
-        verboseMessage("> проверяем, что адрес доставки не изменился: "+defaultAddress);
+        log.info("> проверяем, что адрес доставки не изменился: {}", defaultAddress);
         String checkState ="";
         for(String check: defaultAdressList){
-            if(currentAddress.contains(check)) checkState = "contains";
-            else{
-                verboseMessage("> в введенном адресе отсутсвует: "+check);
+            if (currentAddress.contains(check)) checkState = "contains";
+            else {
+                log.info("> в введенном адресе отсутсвует: {}", check);
                 checkState ="doesn't";
             }
             softAssert.assertNotEquals(
@@ -107,7 +112,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
 
     @Step("Проверяем, что модальное окно ввода адреса доставки открыто")
     public void checkIsAddressModalOpen(String errorMessage){
-        verboseMessage("> проверяем, что модальное окно ввода адреса доставки открыто");
+        log.info("> проверяем, что модальное окно ввода адреса доставки открыто");
         softAssert.assertTrue(kraken.detect().isAddressModalOpen(),
                 errorMessage);
         softAssert.assertAll();
@@ -115,7 +120,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
 
     @Step("Проверяем, что модальное окно выбора альтернативного магазина открыто")
     public void checkisChangeStoreModalOpen(String errorMessage){
-        verboseMessage("> проверяем, что модальное окно выбора альтернативного магазина открыто");
+        log.info("> проверяем, что модальное окно выбора альтернативного магазина открыто");
         softAssert.assertTrue(
                 kraken.detect().isChangeStoreModalOpen(),
                 errorMessage);
@@ -124,7 +129,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
 
     @Step("Проверяем, что модальное окно выбора альтернативного магазина не открылось")
     public void checkIsChangeStoreModalNotOpen(String errorMessage){
-        verboseMessage("> проверяем, что модальное окно выбора альтернативного магазина не открылось");
+        log.info("> проверяем, что модальное окно выбора альтернативного магазина не открылось");
         softAssert.assertFalse(
                 kraken.detect().isChangeStoreModalOpen(),
                 errorMessage);
@@ -133,7 +138,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
 
     @Step("Проверяем, что модальное окно Адрес вне зоны доставки появилось")
     public void checkIsAddressOutOfZone(String errorMessage){
-        verboseMessage("> проверяем, что модальное окно Адрес вне зоны доставки появилось");
+        log.info("> проверяем, что модальное окно Адрес вне зоны доставки появилось");
         softAssert.assertTrue(
                 kraken.detect().isAddressOutOfZone(),
                 errorMessage);

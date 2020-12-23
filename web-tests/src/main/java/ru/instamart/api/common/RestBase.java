@@ -3,21 +3,22 @@ package instamart.api.common;
 import com.google.common.collect.ImmutableMap;
 import instamart.api.helpers.InstamartApiHelper;
 import instamart.api.helpers.ShopperApiHelper;
-import instamart.core.helpers.ConsoleOutputCapturerHelper;
+import instamart.core.helpers.LogAttachmentHelper;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.Allure;
 import io.restassured.response.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import static instamart.core.helpers.AllureHelper.allureEnvironmentWriter;
-import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public class RestBase {
 
-    private static final ConsoleOutputCapturerHelper CAPTURE_HELPER = new ConsoleOutputCapturerHelper();
+    private static final Logger log = LoggerFactory.getLogger(RestBase.class);
 
     protected static final InstamartApiHelper apiV2 = new InstamartApiHelper();
     protected static final ShopperApiHelper shopper = new ShopperApiHelper();
@@ -64,18 +65,20 @@ public class RestBase {
     public void cancelActiveOrders() {
         if (apiV2.authorized() &&
                 EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
-            verboseMessage("Отменяем активные заказы");
+            log.info("Отменяем активные заказы");
             apiV2.cancelActiveOrders();
         }
     }
 
     @BeforeMethod(alwaysRun = true,description = "Стартуем запись системного лога")
     public void captureStart(){
-        CAPTURE_HELPER.start();
+        LogAttachmentHelper.start();
     }
 
     @AfterMethod(alwaysRun = true,description = "Добавляем системный лог к тесту")
     public void captureFinish() {
-        Allure.addAttachment("Системный лог теста",CAPTURE_HELPER.stop());
+        final String result = LogAttachmentHelper.getContent();
+        LogAttachmentHelper.stop();
+        Allure.addAttachment("Системный лог теста", result);
     }
 }

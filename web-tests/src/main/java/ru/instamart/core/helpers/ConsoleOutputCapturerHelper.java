@@ -7,7 +7,9 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
-public class ConsoleOutputCapturerHelper {
+@Deprecated
+public final class ConsoleOutputCapturerHelper {
+
     private ByteArrayOutputStream baos;
     private PrintStream previous;
     private boolean capturing;
@@ -44,7 +46,7 @@ public class ConsoleOutputCapturerHelper {
             capturing = false;
 
             return capturedValue;
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex){
             return "!!! can not capture logs for this test!!!";
         }
     }

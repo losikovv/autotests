@@ -2,24 +2,24 @@ package ru.instamart.tests;
 
 import com.google.common.collect.ImmutableMap;
 import instamart.core.common.AppManager;
-import instamart.core.helpers.ConsoleOutputCapturerHelper;
 import instamart.core.helpers.HelperBase;
+import instamart.core.helpers.LogAttachmentHelper;
 import instamart.core.settings.Config;
 import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.Allure;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 import org.testng.SkipException;
 import org.testng.annotations.*;
 
 import static instamart.core.helpers.AllureHelper.allureEnvironmentWriter;
-import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public class TestBase {
 
+    private static final Logger log = LoggerFactory.getLogger(TestBase.class);
     protected static final AppManager kraken = new AppManager();
-
-    private static final ConsoleOutputCapturerHelper CAPTURE_HELPER = new ConsoleOutputCapturerHelper();
 
     @BeforeSuite(groups = {
             "testing","sbermarket-Ui-smoke","MRAutoCheck","sbermarket-acceptance","sbermarket-regression",
@@ -56,12 +56,14 @@ public class TestBase {
 
     @BeforeMethod(alwaysRun = true,description = "Стартуем запись системного лога")
     public void captureStart() {
-        CAPTURE_HELPER.start();
+        LogAttachmentHelper.start();
     }
 
     @AfterMethod(alwaysRun = true,description = "Добавляем системный лог к тесту")
     public void captureFinish() {
-        Allure.addAttachment("Системный лог теста", CAPTURE_HELPER.stop());
+        final String result = LogAttachmentHelper.getContent();
+        LogAttachmentHelper.stop();
+        Allure.addAttachment("Системный лог теста", result);
     }
 
     @AfterMethod(alwaysRun = true,description = "Прикрепляем скриншот интерфейса, если UI тест упал")
@@ -76,14 +78,14 @@ public class TestBase {
 
     /** Пропуск теста */
     public void skipTest() throws SkipException{
-        verboseMessage("Пропускаем тест");
-            throw new SkipException("Пропускаем тест");
+        log.warn("Пропускаем тест");
+        throw new SkipException("Пропускаем тест");
     }
 
     /** Пропуск теста на окружении */
     public void skipTestOnEnvironment(String environment) throws SkipException {
         if (kraken.detect().environment(environment)) {
-            verboseMessage("Пропускаем тест на окружении " + environment);
+            log.warn("Пропускаем тест на окружении {}", environment);
             throw new SkipException("Пропускаем тест");
         }
     }
@@ -91,7 +93,7 @@ public class TestBase {
     /** Пропуск теста на тенанте */
     public void skipTestOnTenant(String tenant) throws SkipException {
         if (kraken.detect().tenant(tenant)) {
-            verboseMessage("Пропускаем тест для тенанта " + tenant);
+            log.warn("Пропускаем тест для тенанта {}", tenant);
             throw new SkipException("Пропускаем тест");
         }
     }
@@ -99,7 +101,7 @@ public class TestBase {
     /** Пропуск теста на сервере */
     public void skipTestOnServer(String server) throws SkipException {
         if (kraken.detect().server(server)) {
-            verboseMessage("Пропускаем тест на " + server);
+            log.warn("Пропускаем тест на {}", server);
             throw new SkipException("Пропускаем тест");
         }
     }
@@ -107,7 +109,7 @@ public class TestBase {
     /** Проведение теста только на указанном окружении */
     public void runTestOnlyOnEnvironment(String environment) throws SkipException {
         if (!kraken.detect().environment(environment)) {
-            verboseMessage("Тест только для окружения " + environment);
+            log.warn("Тест только для окружения {}", environment);
             throw new SkipException("Пропускаем тест");
         }
     }
@@ -115,7 +117,7 @@ public class TestBase {
     /** Проведение теста только на указанном тенанте */
     public void runTestOnlyOnTenant(String tenant) {
         if (!kraken.detect().tenant(tenant)) {
-            verboseMessage("Тест только для тенанта " + tenant);
+            log.warn("Тест только для тенанта {}", tenant);
             throw new SkipException("Пропускаем тест");
         }
     }
@@ -123,7 +125,7 @@ public class TestBase {
     /** Проведение теста только на указанном сервере */
     public void runTestOnlyOnServer(String server) {
         if (!kraken.detect().server(server)) {
-            verboseMessage("Тест только для " + server);
+            log.warn("Тест только для {}", server);
             throw new SkipException("Пропускаем тест");
         }
     }

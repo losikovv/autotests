@@ -9,15 +9,18 @@ import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import static instamart.core.helpers.HelperBase.verboseMessage;
-
 public class SelfCheckTests extends TestBase {
 
-    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    private static final Logger log = LoggerFactory.getLogger(SelfCheckTests.class);
+
+    private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+
     @Test(description = "Тест базового URL",
             groups ="selfcheck",
             priority = 10000)
@@ -30,7 +33,6 @@ public class SelfCheckTests extends TestBase {
             groups ="selfcheck",
             priority = 10001)
     public void checkNavigation() {
-
         kraken.get().page(Config.DEFAULT_RETAILER);
         Assert.assertEquals(kraken.grab().currentURL() , EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + "metro");
 
@@ -321,7 +323,7 @@ public class SelfCheckTests extends TestBase {
         // корзина пустая
         Assert.assertFalse(kraken.detect().isCartTotalDisplayed());
         Assert.assertNull(kraken.grab().cartTotal());
-        verboseMessage("Сумма корзины = " + kraken.grab().cartTotal());
+        log.info("Сумма корзины = {}", kraken.grab().cartTotal());
 
         // корзина не пустая, но меньше суммы мин заказа
         Shop.Cart.close();
@@ -329,12 +331,12 @@ public class SelfCheckTests extends TestBase {
         Shop.Cart.collect(1);
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
         Assert.assertNotNull(kraken.grab().cartTotal());
-        verboseMessage("Сумма корзины = " + kraken.grab().cartTotal());
+        log.info("Сумма корзины = {}", kraken.grab().cartTotal());
 
         // корзина не пустая, больше суммы мин заказа
         Shop.Cart.collect();
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
-        verboseMessage("Сумма корзины = " + kraken.grab().cartTotal());
+        log.info("Сумма корзины = {}", kraken.grab().cartTotal());
     }
 
     @Test(description = "Тест корректности определения заглушки адреса вне зоны доставки",

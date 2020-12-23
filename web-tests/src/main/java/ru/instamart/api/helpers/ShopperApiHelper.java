@@ -5,11 +5,13 @@ import instamart.api.enums.shopper.PackageSetLocation;
 import instamart.api.objects.shopper.*;
 import instamart.api.requests.ShopperApiRequests;
 import instamart.api.responses.shopper.*;
-import instamart.core.testdata.UserManager;
 import instamart.core.helpers.WaitingHelper;
+import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
 import java.time.LocalDateTime;
@@ -19,9 +21,11 @@ import java.util.List;
 import java.util.StringJoiner;
 
 import static instamart.api.checkpoints.ShopperApiCheckpoints.assertStatusCode200;
-import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public class ShopperApiHelper extends ApiHelperBase {
+
+    private static final Logger log = LoggerFactory.getLogger(ShopperApiHelper.class);
+
     private String currentAssemblyId;
 
     /**
@@ -35,8 +39,8 @@ public class ShopperApiHelper extends ApiHelperBase {
                 .getData()
                 .getAttributes()
                 .getAccessToken());
-        verboseMessage("Авторизуемся: " + userName + " / " + password);
-        verboseMessage("access_token: " + ShopperApiRequests.getToken() + "\n");
+        log.info("Авторизуемся: {} / {}", userName, password);
+        log.info("access_token: {}", ShopperApiRequests.getToken());
     }
 
     public void authorisation(UserData user) {
@@ -59,7 +63,7 @@ public class ShopperApiHelper extends ApiHelperBase {
      */
     private String getShipmentIdIteration(String shipmentNumber) {
         WaitingHelper.simply(10);
-        verboseMessage("\nПолучаем список доступных для сборки заказов");
+        log.info("Получаем список доступных для сборки заказов");
         String shipmentId = null;
         Response response = ShopperApiRequests.Shopper.Shipments.GET();
         assertStatusCode200(response);
@@ -73,10 +77,10 @@ public class ShopperApiHelper extends ApiHelperBase {
             String number = shipment.getAttributes().getNumber();
             if (shipment.getAttributes().getNumber().equalsIgnoreCase(shipmentNumber)) {
                 shipmentId = shipment.getId();
-                availableShipmentNumbers.add(greenText(number + " <<< Выбран"));
+                availableShipmentNumbers.add(number + " <<< Выбран");
             } else availableShipmentNumbers.add(number);
         }
-        verboseMessage(availableShipmentNumbers);
+        log.info(availableShipmentNumbers.toString());
         return shipmentId;
     }
 
@@ -87,7 +91,7 @@ public class ShopperApiHelper extends ApiHelperBase {
             shipmentId = getShipmentIdIteration(shipmentNumber);
             if (shipmentId != null) {
                 return shipmentId;
-            } else printError(error);
+            } else log.error(error);
         }
         Assert.fail(error);
         return null;
@@ -101,10 +105,10 @@ public class ShopperApiHelper extends ApiHelperBase {
         assertStatusCode200(response);
         List<AssemblyData> assemblies = response.as(AssembliesResponse.class).getData();
         if (assemblies.size() > 0) {
-            verboseMessage("Получаем id собираемой сборки: " + assemblies.get(0).getId());
+            log.info("Получаем id собираемой сборки: {}", assemblies.get(0).getId());
             return assemblies.get(0).getId();
         } else {
-            verboseMessage("Нет собираемой сборки\n");
+            log.info("Нет собираемой сборки");
             return null;
         }
     }
@@ -115,7 +119,7 @@ public class ShopperApiHelper extends ApiHelperBase {
     public void deleteCurrentAssembly() {
         String currentAssemblyId = getCurrentAssemblyId();
         if (currentAssemblyId != null) {
-            verboseMessage("Удаляем сборку: " + currentAssemblyId);
+            log.info("Удаляем сборку: {}", currentAssemblyId);
             Response response = ShopperApiRequests.Assemblies.DELETE(currentAssemblyId);
             assertStatusCode200(response);
         }
@@ -185,7 +189,7 @@ public class ShopperApiHelper extends ApiHelperBase {
      * Берем заказ в сборку
      */
     private AssemblyData startAssembly(String shipmentId) {
-        verboseMessage("Берем заказ в сборку");
+        log.info("Берем заказ в сборку");
         Response response = ShopperApiRequests.Assemblies.POST(shipmentId);
         assertStatusCode200(response);
         AssemblyData assembly = response.as(AssemblyResponse.class).getData();
@@ -239,16 +243,16 @@ public class ShopperApiHelper extends ApiHelperBase {
                             assemblyItem(items.get(i).getId(), items.get(i).getAttributes().getQty());
                         }
                     }
-                } else printError("\nВсего три товара в заказе\n");
-            } else printError("\nВсего два товара в заказе\n");
-        } else printError("\nВсего один товар в заказе\n");
+                } else log.error("Всего три товара в заказе");
+            } else log.error("Всего два товара в заказе");
+        } else log.error("Всего один товар в заказе");
 
         AssemblyItemData assemblyItem = addItem(offers.get(2).getAttributes().getUuid());
         approveItem(assemblyItem.getId());
     }
 
     private List<OfferData> getOffers() {
-        verboseMessage("\nПоиск товаров в магазине");
+        log.info("Поиск товаров в магазине");
         Response response = ShopperApiRequests.Stores.Offers.GET(
                 EnvironmentData.INSTANCE.getDefaultShopperSid(), "хлеб");
         assertStatusCode200(response);
@@ -259,7 +263,7 @@ public class ShopperApiHelper extends ApiHelperBase {
      * Получаем инфу о позициях в текущей сборке
      */
     private List<AssemblyItemData> getItems() {
-        verboseMessage("\nПолучаем инфу о позициях в сборке");
+        log.info("Получаем инфу о позициях в сборке");
         Response response = ShopperApiRequests.Assemblies.GET(currentAssemblyId);
         assertStatusCode200(response);
         return response.as(AssemblyResponse.class).getIncluded();
@@ -272,14 +276,14 @@ public class ShopperApiHelper extends ApiHelperBase {
      * @return возвращается объект со всей инфой о товаре
      */
     private AssemblyItemData assemblyItem(String assemblyItemId, int itemQty) {
-        verboseMessage("\nСобираем товар");
+        log.info("Собираем товар");
         Response response = ShopperApiRequests.AssemblyItems.PATCH(currentAssemblyId, assemblyItemId, itemQty);
         assertStatusCode200(response);
         return response.as(AssemblyItemResponse.class).getData();
     }
 
     private AssemblyItemData addItem(String offerUuid) {
-        verboseMessage("\nДобавляем новый товар");
+        log.info("Добавляем новый товар");
         Response response = ShopperApiRequests.Assemblies.Items.POST(currentAssemblyId, offerUuid,2);
         assertStatusCode200(response);
         return response.as(AssemblyItemResponse.class).getData();
@@ -287,21 +291,21 @@ public class ShopperApiHelper extends ApiHelperBase {
 
     private void cancelItem(String assemblyItemId) {
         int reasonId = getCancelReasons().get(0).getId();
-        verboseMessage("\nОтменяем товар");
+        log.info("Отменяем товар");
         Response response = ShopperApiRequests.AssemblyItems.Cancellations.POST(assemblyItemId, reasonId);
         assertStatusCode200(response);
     }
 
     private void clarifyItem(String assemblyItemId) {
         int reasonId = getClarifyReasons().get(0).getId();
-        verboseMessage("\nУточняем товар");
+        log.info("Уточняем товар");
         Response response = ShopperApiRequests.AssemblyItems.Clarifications.POST(assemblyItemId, reasonId);
         assertStatusCode200(response);
     }
 
     private ReplacementData replaceItem(String assemblyItemId, String offerUuid) {
         int reasonId = getCancelReasons().get(0).getId();
-        verboseMessage("\nЗаменяем товар");
+        log.info("Заменяем товар");
         Response response = ShopperApiRequests.AssemblyItems.Replacements.POST(
                 assemblyItemId, offerUuid, reasonId,2);
         assertStatusCode200(response);
@@ -309,28 +313,28 @@ public class ShopperApiHelper extends ApiHelperBase {
     }
 
     private List<Reason> getCancelReasons() {
-        verboseMessage("\nПолучаем список причин для отмен/замен");
+        log.info("Получаем список причин для отмен/замен");
         Response response = ShopperApiRequests.CancelReasons.GET();
         assertStatusCode200(response);
         return Arrays.asList(response.as(Reason[].class));
     }
 
     private List<Reason> getClarifyReasons() {
-        verboseMessage("\nПолучаем список причин для уточнения");
+        log.info("Получаем список причин для уточнения");
         Response response = ShopperApiRequests.ClarifyReasons.GET();
         assertStatusCode200(response);
         return Arrays.asList(response.as(Reason[].class));
     }
 
     private List<Reason> getReturnReasons() {
-        verboseMessage("\nПолучаем список причин для возврата");
+        log.info("Получаем список причин для возврата");
         Response response = ShopperApiRequests.ReturnReasons.GET();
         assertStatusCode200(response);
         return Arrays.asList(response.as(Reason[].class));
     }
 
     private AssemblyItemData additionalItemForReplacement(String replacementId, String offerUuid) {
-        verboseMessage("\nДополнительный товар для замены");
+        log.info("Дополнительный товар для замены");
         Response response = ShopperApiRequests.Replacements.AdditionalItems.POST(replacementId, offerUuid,2);
         assertStatusCode200(response);
         Assert.assertEquals(response.as(AssemblyItemResponse.class).getData().getAttributes().getState(),
@@ -339,7 +343,7 @@ public class ShopperApiHelper extends ApiHelperBase {
     }
 
     private void approveItem(String assemblyItemId) {
-        verboseMessage("\nПодтверждаем позицию");
+        log.info("Подтверждаем позицию");
         Response response = ShopperApiRequests.AssemblyItems.Approve.PATCH(assemblyItemId);
         assertStatusCode200(response);
         Assert.assertEquals(response.as(AssemblyItemResponse.class).getData().getAttributes().getState(),
@@ -350,13 +354,13 @@ public class ShopperApiHelper extends ApiHelperBase {
      * Завершаем сборку
      */
     private void approveAssembly() {
-        verboseMessage("\nЗавершаем сборку");
+        log.info("Завершаем сборку");
         Response response = ShopperApiRequests.Assemblies.Approve.PATCH(currentAssemblyId);
         assertStatusCode200(response);
     }
 
     private void startPaymentVerification() {
-        verboseMessage("\nПодтверждаем прохождение оплаты у сборки для передачи упаковщику");
+        log.info("Подтверждаем прохождение оплаты у сборки для передачи упаковщику");
         Response response = ShopperApiRequests.Assemblies.StartPaymentVerification.PUT(currentAssemblyId);
         assertStatusCode200(response);
         Assert.assertEquals(response.as(AssemblyResponse.class).getData().getAttributes().getState(),
@@ -364,7 +368,7 @@ public class ShopperApiHelper extends ApiHelperBase {
     }
 
     private void shopperCreatesPackageSets() {
-        verboseMessage("\nРаскладываем заказ для передачи упаковщику");
+        log.info("Раскладываем заказ для передачи упаковщику");
         int boxNumber = 10;
         Response response = ShopperApiRequests.Assemblies.PackageSets.POST(currentAssemblyId, boxNumber);
         assertStatusCode200(response);
@@ -372,7 +376,7 @@ public class ShopperApiHelper extends ApiHelperBase {
     }
 
     private void finishAssembling() {
-        verboseMessage("\nЗавершаем сборку для передачи упаковщику");
+        log.info("Завершаем сборку для передачи упаковщику");
         Response response = ShopperApiRequests.Assemblies.FinishAssembling.PUT(currentAssemblyId);
         assertStatusCode200(response);
         AssemblyAttributes attributes = response.as(AssemblyResponse.class).getData().getAttributes();
@@ -382,7 +386,7 @@ public class ShopperApiHelper extends ApiHelperBase {
     }
 
     private void packer() {
-        verboseMessage("\nБерем сборку упаковщиком>");
+        log.info("Берем сборку упаковщиком>");
         Response response = ShopperApiRequests.Assemblies.Packer.PUT(currentAssemblyId);
         assertStatusCode200(response);
         AssemblyAttributes attributes = response.as(AssemblyResponse.class).getData().getAttributes();
@@ -392,7 +396,7 @@ public class ShopperApiHelper extends ApiHelperBase {
     }
 
     private void startPurchasing() {
-        verboseMessage("\nНачинаем оплату на кассе");
+        log.info("Начинаем оплату на кассе");
         Response response = ShopperApiRequests.Assemblies.StartPurchasing.PUT(currentAssemblyId);
         assertStatusCode200(response);
         Assert.assertEquals(response.as(AssemblyResponse.class).getData().getAttributes().getState(),
@@ -400,7 +404,7 @@ public class ShopperApiHelper extends ApiHelperBase {
     }
 
     private void createReceipts() {
-        verboseMessage("\nОтправляем инфу о чеке");
+        log.info("Отправляем инфу о чеке");
         String
                 total = "1.0",
                 fiscalSecret = "1",
@@ -425,7 +429,7 @@ public class ShopperApiHelper extends ApiHelperBase {
     }
 
     private void startPackaging() {
-        verboseMessage("\nНачинаем упаковку");
+        log.info("Начинаем упаковку");
         Response response = ShopperApiRequests.Assemblies.StartPackaging.PATCH(currentAssemblyId);
         assertStatusCode200(response);
         Assert.assertEquals(response.as(AssemblyResponse.class).getData().getAttributes().getState(),
@@ -433,13 +437,13 @@ public class ShopperApiHelper extends ApiHelperBase {
     }
 
     private void getPackageSets() {
-        verboseMessage("\nСмотрим где лежит заказ для упаковки");
+        log.info("Смотрим где лежит заказ для упаковки");
         Response response = ShopperApiRequests.Assemblies.PackageSets.GET(currentAssemblyId);
         assertStatusCode200(response);
     }
 
     private void packerCreatesPackageSets() {
-        verboseMessage("\nРаскладываем упакованный заказ");
+        log.info("Раскладываем упакованный заказ");
         Response response = ShopperApiRequests.Assemblies.PackageSets.POST(
                 currentAssemblyId, 1,1,1,1);
         assertStatusCode200(response);
@@ -451,7 +455,7 @@ public class ShopperApiHelper extends ApiHelperBase {
     }
 
     private void finishPurchasing() {
-        verboseMessage("\nЗавершаем упаковку");
+        log.info("Завершаем упаковку");
         Response response = ShopperApiRequests.Assemblies.Purchase.PATCH(currentAssemblyId);
         assertStatusCode200(response);
         Assert.assertEquals(response.as(AssemblyResponse.class).getData().getAttributes().getState(),

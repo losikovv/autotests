@@ -4,13 +4,16 @@ import instamart.core.testdata.ui.Generate;
 import instamart.core.util.Crypt;
 import instamart.ui.common.pagesdata.JuridicalData;
 import instamart.ui.common.pagesdata.UserData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public final class UserManager {
+
+    private static final Logger log = LoggerFactory.getLogger(UserManager.class);
 
     private static final List<UserData> USER_DATA_LIST = new ArrayList<>();
 
@@ -180,12 +183,11 @@ public final class UserManager {
             testUser.setPassword(prefix + "-" + testUser.getPassword());
             testUser.setName(prefix + "-" + testUser.getName());
         }
-        verboseMessage("Сгенерированы тестовые реквизиты для роли " + role);
-        verboseMessage("Телефон: " + testUser.getPhone());
-        verboseMessage("Email: " + testUser.getLogin());
-        verboseMessage("Пароль: " + testUser.getPassword());
-        verboseMessage("Имя: " + testUser.getName());
-        verboseMessage("\n");
+        log.info("Сгенерированы тестовые реквизиты для роли {}", role);
+        log.info("Телефон: {}", testUser.getPhone());
+        log.info("Email: {}", testUser.getLogin());
+        log.info("Пароль: {}", testUser.getPassword());
+        log.info("Имя: {}", testUser.getName());
 
         return testUser;
     }
