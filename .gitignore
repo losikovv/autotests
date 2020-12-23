@@ -1,8 +1,9 @@
 # Ignore build folders
+.allure
 .gradle
 build
+logs
 out
-**/logs/*.log
 
 # Ignore Gradle GUI config
 gradle-app.setting
