@@ -25,9 +25,6 @@ public final class Config {
     public static int WAITING_TIMEOUT;
     public static boolean DOCKER;
     public static boolean VIDEO;
-    public static boolean VERBOSE;
-    public static boolean LOG;
-    public static boolean MULTI_SESSION_MODE;
     public static boolean FULL_SCREEN_MODE;
     public static boolean DO_CLEANUP_AFTER_TEST_RUN;
     public static boolean DO_CLEANUP_BEFORE_TEST_RUN;
@@ -58,13 +55,6 @@ public final class Config {
         // Включает запись видео
         VIDEO = coreSettings.getBoolean("video", false);
 
-        // Выводит сообщения в системный лог
-        VERBOSE = coreSettings.getBoolean("verbose", true);
-        // Запись логов в файл
-        LOG = coreSettings.getBoolean("log", true);
-
-        // Возможность запускать несколько кракенов одновременно (возможно устарело)
-        MULTI_SESSION_MODE = coreSettings.getBoolean("multiSessionMode", false);
         // Запуск тестов на полном экране
         FULL_SCREEN_MODE = coreSettings.getBoolean("fullScreenMode", false);
         // Удаление всех сущностей после теста

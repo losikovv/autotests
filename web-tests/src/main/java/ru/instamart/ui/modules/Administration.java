@@ -1,13 +1,15 @@
 package instamart.ui.modules;
 
 import instamart.core.common.AppManager;
-import instamart.core.helpers.HelperBase;
-import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.objectsmap.Elements;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Administration extends Base {
+
+    private static final Logger log = LoggerFactory.getLogger(Administration.class);
 
     public Administration(WebDriver driver, AppManager app) {
         super(driver, app);
@@ -19,7 +21,7 @@ public class Administration extends Base {
         /** Найти заказ по номеру заказа или шипмента */
         public static void searchOrder(String order) {
             kraken.reach().admin("shipments");
-            HelperBase.verboseMessage("Поиск заказа по номеру " + order);
+            log.info("Поиск заказа по номеру {}", order);
             kraken.perform().fillField(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderNumber(), order);
             kraken.perform().click(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.applyFilterButton());
             kraken.await().implicitly(2); // Ожидание поиска заказа в админке
@@ -28,7 +30,7 @@ public class Administration extends Base {
         /** Найти заказ по номеру заказа или шипмента */
         public static void searchOrder(String number, boolean b2b) {
             kraken.reach().admin("shipments");
-            HelperBase.verboseMessage("Поиск B2B заказа по номеру " + number);
+            log.info("Поиск B2B заказа по номеру {}", number);
             kraken.perform().fillField(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderNumber(), number);
             kraken.perform().setCheckbox(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.b2bOnly(),b2b);
             kraken.perform().click(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.applyFilterButton());
@@ -36,7 +38,7 @@ public class Administration extends Base {
 
         /** Возобновить заказ */
         public static void resumeOrder() {
-            HelperBase.verboseMessage("> возобновляем заказ " + kraken.grab().currentURL());
+            log.info("> возобновляем заказ {}", kraken.grab().currentURL());
             kraken.perform().click(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.resumeOrderButton());
             handleAlert();
             kraken.await().implicitly(2); // Ожидание возобновления заказа в админке
@@ -55,7 +57,7 @@ public class Administration extends Base {
 
         /** Отменить заказ на текущей странице с указанными причинами отмены */
         public static void cancelOrder(int reason, String details) {
-            HelperBase.verboseMessage("> отменяем заказ " + kraken.grab().currentURL());
+            log.info("> отменяем заказ {}", kraken.grab().currentURL());
             kraken.perform().click(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.cancelOrderButton());
             handleAlert();
             chooseCancellationReason(reason, details);
@@ -80,7 +82,7 @@ public class Administration extends Base {
 
         public static void searchUser(String email) {
             kraken.reach().admin("users");
-            HelperBase.verboseMessage("Поиск пользователя " + email);
+            log.info("Поиск пользователя {}", email);
             kraken.perform().fillField(Elements.Administration.UsersSection.emailField(), email);
             kraken.perform().click(Elements.Administration.UsersSection.searchButton());
             kraken.await().simply(1); // Ожидание осуществления поиска юзера в админке
@@ -94,14 +96,14 @@ public class Administration extends Base {
         /** Перейти в редактирование пользователя с указанием почты */
         public static void editUser(String email) {
             searchUser(email);
-            if(kraken.grab().text(Elements.Administration.UsersSection.userEmail()).equals(email.toLowerCase())) {
+            if (kraken.grab().text(Elements.Administration.UsersSection.userEmail()).equals(email.toLowerCase())) {
                 kraken.perform().click(Elements.Administration.UsersSection.editUserButton());
                 kraken.await().implicitly(1); // Ожидание загрузки страницы пользователя в админке
-                HelperBase.verboseMessage("Редактирование пользователя " + kraken.grab().currentURL());
+                log.info("Редактирование пользователя {}", kraken.grab().currentURL());
             } else {
-                HelperBase.verboseMessage("! Найден не тот юзер !");
-                HelperBase.verboseMessage("Первый email в списке по локатору: " + kraken.grab().text(Elements.Administration.UsersSection.userEmail()));
-                HelperBase.verboseMessage("А ищем: " + email);
+                log.warn("! Найден не тот юзер !");
+                log.warn("Первый email в списке по локатору: {}", kraken.grab().text(Elements.Administration.UsersSection.userEmail()));
+                log.warn("А ищем: {}", email);
             }
         }
 
@@ -113,10 +115,11 @@ public class Administration extends Base {
                     kraken.perform().click(Elements.Administration.UsersSection.deleteUserButton());
                     kraken.perform().handleAlert();
                 } else {
-                    HelperBase.verboseMessage("Найден не тот пользователь!");
+                    log.warn("Найден не тот пользователь!");
                 }
-            } else { HelperBase.verboseMessage("Пользователь уже удалён!"); }
-
+            } else {
+                log.warn("Пользователь уже удалён!");
+            }
         }
 
         /** Предоставить админские права пользователю из указанного объекта userData */
@@ -128,12 +131,12 @@ public class Administration extends Base {
         /** Предоставить админские права в карточке пользователя */
         public static void grantAdminPrivileges() {
             if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox())) {
-                HelperBase.verboseMessage("Административные права были предоставлены ранее");
+                log.warn("Административные права были предоставлены ранее");
             } else {
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox());
                 kraken.await().implicitly(1); // Ожидание проставления чекбокса админских прав
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
-                HelperBase.verboseMessage("Предоставлены права администратора");
+                log.info("Предоставлены права администратора");
             }
         }
 
@@ -149,9 +152,9 @@ public class Administration extends Base {
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox());
                 kraken.await().implicitly(1); // Ожидание снятия чекбокса админских прав
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
-                HelperBase.verboseMessage("Отозваны административные права");
+                log.info("Отозваны административные права");
             } else {
-                HelperBase.verboseMessage("Пользователь не имеет административных прав");
+                log.warn("Пользователь не имеет административных прав");
             }
         }
 
@@ -160,18 +163,18 @@ public class Administration extends Base {
             kraken.perform().fillField(Elements.Administration.UsersSection.UserPage.passwordField(), password);
             kraken.perform().fillField(Elements.Administration.UsersSection.UserPage.passwordConfirmationField(), password);
             kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
-            HelperBase.verboseMessage("Смена пароля пользователя");
+            log.info("Смена пароля пользователя");
         }
 
         /** Проставить флаг B2B в карточке пользователя */
         public static void grantB2B() {
             if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.b2bCheckbox())) {
-                HelperBase.verboseMessage("Пользователь уже B2B");
+                log.warn("Пользователь уже B2B");
             } else {
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.b2bCheckbox());
                 kraken.await().implicitly(1); // Ожидание проставления чекбокса B2B
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
-                HelperBase.verboseMessage("Проставлен флаг B2B");
+                log.info("Проставлен флаг B2B");
             }
         }
 
@@ -181,9 +184,9 @@ public class Administration extends Base {
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.b2bCheckbox());
                 kraken.await().implicitly(1); // Ожидание снятия чекбокса B2B
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
-                HelperBase.verboseMessage("Снят флаг B2B");
+                log.info("Снят флаг B2B");
             } else {
-                HelperBase.verboseMessage("Пользователь уже не B2B");
+                log.warn("Пользователь уже не B2B");
             }
         }
     }

@@ -2,6 +2,8 @@ package ru.instamart.tests.orders;
 
 import instamart.api.common.RestAddresses;
 import instamart.core.testdata.UserManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -9,9 +11,10 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.instamart.tests.TestBase;
 
-import static instamart.core.helpers.HelperBase.verboseMessage;
-
 public class testOrders extends TestBase {
+
+    private static final Logger log = LoggerFactory.getLogger(testOrders.class);
+
     @DataProvider(name="cities")
     public static Object[][] citiesDataProvider() {
         return new Object[][] {
@@ -32,7 +35,7 @@ public class testOrders extends TestBase {
             priority = 2301
     )
     public void successOrderInCities(int param) {
-        verboseMessage(">>> ТЕСТ С ПАРАМЕТРОМ " + param);
+        log.info(">>> ТЕСТ С ПАРАМЕТРОМ {}", param);
         kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
 
         kraken.reach().checkout();
@@ -42,5 +45,4 @@ public class testOrders extends TestBase {
                 kraken.detect().isOrderPlaced(),
                     failMessage("Не удалось оформить заказ " + param));
     }
-
 }

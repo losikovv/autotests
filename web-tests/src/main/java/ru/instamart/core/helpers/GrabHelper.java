@@ -9,10 +9,14 @@ import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static java.lang.Integer.parseInt;
 
 public class GrabHelper extends HelperBase{
+
+    private static final Logger log = LoggerFactory.getLogger(GrabHelper.class);
 
     public GrabHelper(WebDriver driver, AppManager app) {
         super(driver, app);
@@ -20,18 +24,21 @@ public class GrabHelper extends HelperBase{
 
     /** Взять sid из текущего URL */
     public int sidFromUrl() {
-        String url = currentURL();
-        int index = url.indexOf("?sid=");
+        final String url = currentURL();
+        final int index = url.indexOf("?sid=");
+
         if (index == -1) return 1;
-        char[] chars = url.toCharArray();
+
+        final char[] chars = url.toCharArray();
+        final StringBuilder sidString = new StringBuilder();
         int i = index + 5;
-        String sidString = "";
+
         while (i < chars.length && Character.isDigit(chars[i])) {
-            sidString += chars[i];
+            sidString.append(chars[i]);
             i++;
         }
-        if (sidString.isEmpty()) return 1;
-        return parseInt(sidString);
+        if (sidString.length() == 0) return 1;
+        return parseInt(sidString.toString());
     }
 
     /** Взять текущий URL */
@@ -69,7 +76,7 @@ public class GrabHelper extends HelperBase{
             return driver.findElement(locator).getText();
         } catch (NoSuchElementException e) {
             return null;
-        }catch (Exception ex){
+        } catch (Exception ex){
             return driver.findElements(locator).get(i).getText();
         }
     }
@@ -111,24 +118,24 @@ public class GrabHelper extends HelperBase{
     /** Взять кол-во добавленного в корзину товара из каунтера в карточке */
     public int itemQuantity() {
         String quantity = kraken.grab().text(Elements.ItemCard.quantity());
-        if(quantity.equals("")) return 0;
+        if (quantity.equals("")) return 0;
         else return parseInt(quantity);
     }
     /** Взять кол-во добавленного в корзину товара из каунтера в карточке */
     public String itemQuantityByText() {
         String quantity = kraken.grab().text(Elements.ItemCard.quantityByText());
-        if(quantity.equals("Товара много")) return quantity;
+        if (quantity.equals("Товара много")) return quantity;
         else return "количество товара ограничено, может не хватить для выполнения теста";
     }
 
     /** Добавить первую единицу товара с карточки товара*/
     public void addItemCard(){
-        try{
+        try {
             kraken.perform().findChildElementByTagAndText(
                     driver.findElement(Elements.ItemCard.offersElement().getLocator())
                     ,By.tagName("button"),"Купить")
                     .click();
-        }catch (NoSuchElementException ex){
+        } catch (NoSuchElementException ex){
             throw new ElementClickInterceptedException("невозможно нажать на кнопку купить");
         }
     }
@@ -156,8 +163,6 @@ public class GrabHelper extends HelperBase{
         }
     }
 
-
-
     /** Взять целочисленную сумму корзины */
     public int cartTotalRounded() {
        return round(cartTotal());
@@ -168,9 +173,9 @@ public class GrabHelper extends HelperBase{
         Shop.Cart.open();
         String cartTotal = kraken.detect().isElementDisplayed(Elements.Cart.total()) ? text(Elements.Cart.total()) : null;
         if (cartTotal == null) {
-            verboseMessage("> в корзине пусто");
+            log.warn("> в корзине пусто");
         } else {
-            verboseMessage("> сумма корзины " + cartTotal);
+            log.info("> сумма корзины {}", cartTotal);
         }
         return cartTotal;
     }
@@ -178,26 +183,26 @@ public class GrabHelper extends HelperBase{
     /** Взять номер доставки на странице заказа */
     public String shipmentNumber() {
         String number = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentNumber());
-        verboseMessage("Номер доставки: " + number);
+        log.info("Номер доставки: {}", number);
         return number;
     }
 
     /** Взять способ оплаты на странице заказа */
     public String shipmentPayment() {
         String payment = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderSummary.paymentMethod());
-        verboseMessage("Способ оплаты: " + payment);
+        log.info("Способ оплаты: {}", payment);
         return payment;
     }
 
     /** Взять способ замен на странице заказа */
     public String shipmentReplacementPolicy() {
-        if(!kraken.detect().isElementDisplayed(
-                Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentReplacementPolicy())){
+        if (!kraken.detect().isElementDisplayed(
+                Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentReplacementPolicy())) {
             kraken.perform().click(Elements.UserProfile.OrderDetailsPage.OrderSummary.trigger());
         }
         kraken.await().simply(1); // Ожидание разворота доп.деталей заказа
         String policy = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentReplacementPolicy());
-        verboseMessage("Способ оплаты: " + policy);
+        log.info("Способ оплаты: {}", policy);
         return policy;
     }
 
@@ -217,7 +222,7 @@ public class GrabHelper extends HelperBase{
             String text = text(Elements.Cart.alertText());
             int minOrderSum = parseInt(((text).substring((text.length() - 9), (text.length() - 3))).replaceAll(
                     "\\s", ""));
-            verboseMessage("Сумма минимального заказа в алерте корзины: " + minOrderSum + "р");
+            log.info("Сумма минимального заказа в алерте корзины: {}р", minOrderSum);
             return minOrderSum;
         } else return 0;
     }
@@ -240,12 +245,12 @@ public class GrabHelper extends HelperBase{
         String wisdom = null;
         for (int i = 1; i <= 39; i++) {
             String text = kraken.grab().text(Elements.Page404.quote(i));
-            verboseMessage(">>>>>>>>>>>> " + text);
+            log.info(">>>>>>>>>>>> {}", text);
             if (!text.equals("")) {
                 wisdom = text;
             }
         }
-        verboseMessage("\nКотомудрость: " + wisdom);
+        log.info("\nКотомудрость: {}", wisdom);
         return wisdom;
     }
 }

@@ -40,6 +40,7 @@ CustomSuiteTestRun:
     when: always
     paths:
       - web-tests/build/allure-results/
+      - web-tests/logs/
     expire_in: 1 week
 
 tests:apiv2:
@@ -63,6 +64,7 @@ tests:apiv2:
     when: always
     paths:
       - web-tests/build/allure-results/
+      - web-tests/logs/
     expire_in: 1 week
 
 tests:apiShopper:
@@ -86,6 +88,7 @@ tests:apiShopper:
     when: always
     paths:
       - web-tests/build/allure-results/
+      - web-tests/logs/
     expire_in: 1 week
 
 tests:apiZonesProductionOnly:
@@ -107,6 +110,7 @@ tests:apiZonesProductionOnly:
     when: always
     paths:
       - web-tests/build/allure-results/
+      - web-tests/logs/
     expire_in: 1 week
 
 tests:UiSmoke:
@@ -129,6 +133,7 @@ tests:UiSmoke:
     when: always
     paths:
       - web-tests/build/allure-results/
+      - web-tests/logs/
     expire_in: 1 week
 
 tests:AutoMRCheck:
@@ -148,4 +153,5 @@ tests:AutoMRCheck:
     when: always
     paths:
       - web-tests/build/allure-results/
+      - web-tests/logs/
     expire_in: 1 week

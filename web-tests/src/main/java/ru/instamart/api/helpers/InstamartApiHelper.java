@@ -12,6 +12,8 @@ import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.asserts.SoftAssert;
@@ -22,9 +24,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
-import static instamart.core.helpers.HelperBase.verboseMessage;
 
 public final class InstamartApiHelper extends ApiHelperBase {
+
+    private static final Logger log = LoggerFactory.getLogger(InstamartApiHelper.class);
 
     private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentAddressId = new ThreadLocal<>();
@@ -103,7 +106,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
     public void logout() {
         if (authorized()) {
             ApiV2Requests.setToken(null);
-            verboseMessage("Чистим токен");
+            log.info("Чистим токен");
         }
     }
 
@@ -162,7 +165,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
         Response response = ApiV2Requests.Orders.Shipments.DELETE(currentOrderNumber.get());
 
         Order order = response.as(OrderResponse.class).getOrder();
-        verboseMessage("Удалены все доставки у заказа: " + order.getNumber() + "\n");
+        log.info("Удалены все доставки у заказа: {}", order.getNumber());
     }
 
     /**
@@ -190,7 +193,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
                 .getAddress();
         currentAddressId.set(addressFromResponse.getId());
 
-        printSuccess("Применен адрес: " + addressFromResponse);
+        log.info("Применен адрес: {}", addressFromResponse);
     }
 
     /** Получаем список продуктов: по одному из каждой категории */
@@ -247,7 +250,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
                 products.add(productFromDepartment);
                 productsString.add(productFromDepartment.toString());
             }
-            verboseMessage(productsString);
+            log.info(productsString.toString());
         }
         return products;
     }
@@ -269,14 +272,14 @@ public final class InstamartApiHelper extends ApiHelperBase {
         assertStatusCode200(response);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
 
-        printSuccess(lineItem.toString());
+        log.info(lineItem.toString());
     }
 
     public int getMinSum(int sid) {
         double minSum = getStore(sid).getMin_order_amount();
         //TODO Костыль пока не починим получение минимальной суммы для нового пользователя
         minSum = 1500;
-        verboseMessage("Минимальная сумма корзины: " + minSum);
+        log.info("Минимальная сумма корзины: {}", minSum);
         this.minSum.set((int) minSum);
         return (int) minSum;
     }
@@ -294,15 +297,15 @@ public final class InstamartApiHelper extends ApiHelperBase {
         if (shipment.getAlerts().size() > 0) {
             String alertMessage = shipment.getAlerts().get(0).getMessage().replaceAll("[^0-9]","");
             minSum.set(Integer.parseInt(alertMessage.substring(0, alertMessage.length() - 2)));
-            printSuccess("Минимальная сумма корзины: " + minSum.get());
+            log.info("Минимальная сумма корзины: {}", minSum.get());
             minSumNotReached.set(true);
         } else {
-            printSuccess("Минимальная сумма корзины набрана");
+            log.warn("Минимальная сумма корзины набрана");
             minSumNotReached.set(false);
         }
         currentShipmentId.set(shipment.getId());
         currentShipmentNumber.set(shipment.getNumber());
-        verboseMessage("Номер доставки: " + currentShipmentNumber.get() + "\n");
+        log.info("Номер доставки: {}", currentShipmentNumber.get());
     }
 
     /**
@@ -336,15 +339,15 @@ public final class InstamartApiHelper extends ApiHelperBase {
         double productWeight = Double.parseDouble((humanVolume.split(" ")[0]).replace(",","."));
 
         if (humanVolume.contains(" кг") || humanVolume.contains(" л")) {
-            verboseMessage(product + "\nВес продукта: " + productWeight + " кг.");
+            log.info("{} Вес продукта: {} кг.",product, productWeight);
             productWeightNotDefined.set(false);
             return productWeight;
         } else if (humanVolume.contains(" г") || humanVolume.contains(" мл")) {
-            verboseMessage(product + "\nВес продукта: " + productWeight / 1000 + " кг.");
+            log.info("{} Вес продукта: {} кг.", product, productWeight / 1000);
             productWeightNotDefined.set(false);
             return productWeight / 1000;
         } else {
-            printError(product + "\nНеизвестный тип веса/объема: " + humanVolume);
+            log.info("{} Неизвестный тип веса/объема: {}", product, humanVolume);
             productWeightNotDefined.set(true);
             return 0;
         }
@@ -367,7 +370,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
 
         currentDeliveryWindowId.set(deliveryWindow.getId());
 
-        verboseMessage(deliveryWindow);
+        log.info(deliveryWindow.toString());
     }
 
     /**
@@ -386,7 +389,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
 
         currentShipmentMethodId.set(shippingMethod.getId());
 
-        verboseMessage(shippingMethod);
+        log.info(shippingMethod.toString());
     }
 
     /**
@@ -401,7 +404,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
                 "\n");
         boolean cardCourier = false;
         for (int i = 0; i < paymentTools.size(); i++) {
-            String selectedPaymentTool = greenText(paymentTools.get(i) + " <<< Выбран");
+            String selectedPaymentTool = paymentTools.get(i) + " <<< Выбран";
             if (paymentTools.get(i).getName().equalsIgnoreCase("Картой курьеру")) {
                 currentPaymentTool.set(paymentTools.get(i));
                 availablePaymentTools.add(selectedPaymentTool);
@@ -411,7 +414,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
                 availablePaymentTools.add(selectedPaymentTool);
             } else availablePaymentTools.add(paymentTools.get(i).toString());
         }
-        verboseMessage(availablePaymentTools);
+        log.info(availablePaymentTools.toString());
     }
 
     /**
@@ -430,12 +433,12 @@ public final class InstamartApiHelper extends ApiHelperBase {
                 currentOrderNumber.get());
         assertStatusCode200(response);
         Order order = response.as(OrderResponse.class).getOrder();
-        printSuccess("Применены атрибуты для заказа: " + order.getNumber());
-        verboseMessage("        full_address: " + order.getAddress().getFull_address());
-        verboseMessage("  replacement_policy: " + order.getReplacement_policy().getDescription());
-        verboseMessage("  delivery_starts_at: " + order.getShipments().get(0).getDelivery_window().getStarts_at());
-        verboseMessage("    delivery_ends_at: " + order.getShipments().get(0).getDelivery_window().getEnds_at());
-        verboseMessage("special_instructions: " + order.getSpecial_instructions() + "\n");
+        log.info("Применены атрибуты для заказа: {}", order.getNumber());
+        log.info("        full_address: {}", order.getAddress().getFull_address());
+        log.info("  replacement_policy: {}", order.getReplacement_policy().getDescription());
+        log.info("  delivery_starts_at: {}", order.getShipments().get(0).getDelivery_window().getStarts_at());
+        log.info("    delivery_ends_at: {}", order.getShipments().get(0).getDelivery_window().getEnds_at());
+        log.info("special_instructions: {}", order.getSpecial_instructions());
     }
 
     /**
@@ -450,7 +453,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
             if (errors.getShipments() != null) {
                 String notAvailableDeliveryWindow = "Выбранный интервал стал недоступен";
                 if (errors.getShipments().contains(notAvailableDeliveryWindow)) {
-                    printError(notAvailableDeliveryWindow + "\n");
+                    log.error(notAvailableDeliveryWindow);
                     getAvailableDeliveryWindow();
                     setDefaultOrderAttributes();
                     response = ApiV2Requests.Orders.Completion.POST(currentOrderNumber.get());
@@ -459,7 +462,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
             if (errors.getPayments() != null) {
                 String notAvailablePaymentMethod = "Заказ не может быть оплачен указанным способом";
                 if (errors.getPayments().contains(notAvailablePaymentMethod)) {
-                    printError("\n" + notAvailablePaymentMethod + "\n" + currentPaymentTool.get() + "\n");
+                    log.error("{} {}", notAvailablePaymentMethod, currentPaymentTool.get());
                     //ToDo помечать тест желтым, если заказ не может быть оплачен указанным способом
                     return null;
                 } else Assert.fail(response.body().toString());
@@ -468,9 +471,9 @@ public final class InstamartApiHelper extends ApiHelperBase {
         if (response.as(OrderResponse.class).getOrder() != null) {
             Order order = response.as(OrderResponse.class).getOrder();
             if (order.getShipments().get(0).getAlerts().size() > 0) {
-                verboseMessage(order.getShipments().get(0).getAlerts().get(0).getFull_message());
+                log.info(order.getShipments().get(0).getAlerts().get(0).getFull_message());
             }
-            printSuccess("Оформлен заказ: " + order.getNumber() + "\n");
+            log.info("Оформлен заказ: {}", order.getNumber());
             orderCompleted.set(true);
             return response.as(OrderResponse.class).getOrder();
         }
@@ -484,7 +487,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
         Response response = ApiV2Requests.Orders.Cancellations.POST(orderNumber, "test");
         assertStatusCode200(response);
         Order order = response.as(CancellationsResponse.class).getCancellation().getOrder();
-        printSuccess("Отменен заказ: " + order.getNumber() + "\n");
+        log.info("Отменен заказ: {}", order.getNumber());
     }
 
     /**
@@ -502,7 +505,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
 
         currentSid.set(store.getId());
 
-        printSuccess("Выбран магазин: " + store);
+        log.info("Выбран магазин: {}", store);
     }
 
     /**
@@ -525,11 +528,11 @@ public final class InstamartApiHelper extends ApiHelperBase {
 
                 currentSid.set(store.getId());
 
-                printSuccess("Выбран магазин: " + store + "\n");
+                log.info("Выбран магазин: {}", store);
                 return;
             }
         }
-        printError("По выбранному адресу нет ретейлера " + retailer + "\n");
+        log.error("По выбранному адресу нет ретейлера {}", retailer);
     }
 
     /**
@@ -549,12 +552,12 @@ public final class InstamartApiHelper extends ApiHelperBase {
         Store store = response.as(StoreResponse.class).getStore();
 
         Address address = store.getLocation();
-        verboseMessage("Получен адрес " + address.getFull_address());
+        log.info("Получен адрес {}", address.getFull_address());
 
         List<List<Zone>> zones = store.getZones();
         Zone zone = getInnerPoint(zones.get(zones.size() - 1));
         address.setCoordinates(zone);
-        verboseMessage("Выбраны координаты: " + zone + "\n");
+        log.info("Выбраны координаты: {}", zone);
 
         return address;
     }
@@ -572,7 +575,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
         for (Retailer retailer : retailers) {
             availableRetailers.add(retailer.toString());
         }
-        verboseMessage(availableRetailers);
+        log.info(availableRetailers.toString());
 
         return retailers;
     }
@@ -589,7 +592,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
                 "\n");
         for (Retailer retailer : retailers)
             if (retailer.getAvailable()) availableRetailers.add(retailer.toString());
-        verboseMessage(availableRetailers);
+        log.info(availableRetailers.toString());
 
         StringJoiner notAvailableRetailers = new StringJoiner(
                 "\n• ",
@@ -597,7 +600,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
                 "\n");
         for (Retailer retailer : retailers)
             if (!retailer.getAvailable()) notAvailableRetailers.add(retailer.toString());
-        verboseMessage(notAvailableRetailers);
+        log.info(notAvailableRetailers.toString());
 
         return retailers;
     }
@@ -643,7 +646,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
         if (stores.size() > 0) {
             printAvailableStores(stores);
         } else {
-            printError("По выбранному адресу нет магазинов");
+            log.error("По выбранному адресу нет магазинов");
         }
 
         return stores;
@@ -657,7 +660,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
         for (Store store : stores) {
             availableStores.add(store.toString());
         }
-        verboseMessage(availableStores);
+        log.info(availableStores.toString());
     }
 
     /**
@@ -684,8 +687,8 @@ public final class InstamartApiHelper extends ApiHelperBase {
                 .as(SessionsResponse.class)
                 .getSession()
                 .getAccess_token());
-        verboseMessage("Авторизуемся: " + email + " / " + password);
-        verboseMessage("access_token: " + ApiV2Requests.getToken() + "\n");
+        log.info("Авторизуемся: {} / {}", email, password);
+        log.info("access_token: {}", ApiV2Requests.getToken());
     }
 
     /**
@@ -705,7 +708,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
                 .as(OrderResponse.class)
                 .getOrder()
                 .getNumber());
-        verboseMessage("Номер текущего заказа: " + currentOrderNumber.get() + "\n");
+        log.info("Номер текущего заказа: {}", currentOrderNumber.get());
         return currentOrderNumber.get();
     }
 
@@ -717,7 +720,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
         List<Order> orders = response.getOrders();
 
         if (orders.size() < 1) {
-            verboseMessage("Нет активных заказов");
+            log.warn("Нет активных заказов");
         } else {
             int pages = response.getMeta().getTotal_pages();
             if (pages > 1) {
@@ -725,11 +728,10 @@ public final class InstamartApiHelper extends ApiHelperBase {
                     orders.addAll(ApiV2Requests.Orders.GET(OrderStatus.ACTIVE, i).as(OrdersResponse.class).getOrders());
                 }
             }
-            verboseMessage("Список активных заказов:");
+            log.info("Список активных заказов:");
             for (Order order : orders) {
-                verboseMessage(order.getNumber());
+                log.info(order.getNumber());
             }
-            verboseMessage("");
         }
         return orders;
     }
@@ -768,10 +770,10 @@ public final class InstamartApiHelper extends ApiHelperBase {
 
             String cartWeightText = "Вес корзины: " + finalCartWeight + " кг.\n";
             String anotherProductText = "Выбираем другой товар\n";
-            if (finalCartWeight > 40) printError(cartWeightText + anotherProductText);
-            else if (productWeightNotDefined.get()) printError(anotherProductText);
+            if (finalCartWeight > 40) log.error(cartWeightText + anotherProductText);
+            else if (productWeightNotDefined.get()) log.error(anotherProductText);
             else {
-                printSuccess(cartWeightText);
+                log.info(cartWeightText);
                 if (minSumNotReached.get()) addItemToCart(product.getId(), quantity);
                 break;
             }
@@ -829,7 +831,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
                 .as(UserResponse.class)
                 .getUser()
                 .getEmail();
-        printSuccess("Зарегистрирован: " + registeredEmail + "\n");
+        log.info("Зарегистрирован: {}", registeredEmail);
     }
 
     /**

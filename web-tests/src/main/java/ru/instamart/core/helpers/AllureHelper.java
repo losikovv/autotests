@@ -1,8 +1,11 @@
 package instamart.core.helpers;
 
 import com.google.common.collect.ImmutableMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -13,9 +16,9 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 
-import static instamart.core.helpers.HelperBase.verboseMessage;
-
 public class AllureHelper {
+
+    private static final Logger log = LoggerFactory.getLogger(AllureHelper.class);
 
     public static void allureEnvironmentWriter(ImmutableMap<String, String> environmentValuesSet)  {
         try {
@@ -46,14 +49,13 @@ public class AllureHelper {
                     new File( System.getProperty("user.dir")
                             + "/target/allure-results/environment.xml"));
             transformer.transform(source, result);
-            verboseMessage("Allure environment data saved.");
+            log.info("Allure environment data saved.");
         } catch (ParserConfigurationException pce) {
-            pce.printStackTrace();
+            log.error("[allureEnvironmentWriter] error while parsing={}", environmentValuesSet, pce);
         } catch (TransformerException tfe) {
-            tfe.printStackTrace();
+            log.error("[allureEnvironmentWriter] error while transform={}", environmentValuesSet, tfe);
         }
     }
-
 
     public static void allureEnvironmentWriter(ImmutableMap<String, String> environmentValuesSet,
                                                String customResultsPath)  {
@@ -83,11 +85,11 @@ public class AllureHelper {
             StreamResult result = new StreamResult(
                     new File( customResultsPath + "environment.xml"));
             transformer.transform(source, result);
-            verboseMessage("Allure environment data saved.");
+            log.info("Allure environment data saved.");
         } catch (ParserConfigurationException pce) {
-            pce.printStackTrace();
+            log.error("[allureEnvironmentWriter] error while parsing={}", environmentValuesSet, pce);
         } catch (TransformerException tfe) {
-            tfe.printStackTrace();
+            log.error("[allureEnvironmentWriter] error while transform={}", environmentValuesSet, tfe);
         }
     }
 }
