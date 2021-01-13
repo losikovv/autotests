@@ -415,11 +415,50 @@ public class UserRegistrationTests extends TestBase {
         authChecks.checkIsUserAuthorized("Не работает регистрация с согласием на получение почтовой рассылки");
     }
 
-    // todo public void successRegWithVkontakte() {}
+    @Test(
+            description = "Тест успешной регистрации через ВКонтакте",
+            priority = 122,
+            groups = {"sbermarket-Ui-smoke","testing"}
+    )
+    public void successRegWithVkontakte() {
+        kraken.get().page(Config.DEFAULT_RETAILER);
+        User.Auth.withVkontakte(UserManager.getDefaultVkUser());
+        authChecks.checkIsUserAuthorized("Не работает регистрация через ВКонтакте");
+    }
 
-    // todo public void successRegWithFacebook() {}
+    @Test(
+            description = "Тест успешной регистрации через Facebook",
+            priority = 123,
+            groups = {"sbermarket-Ui-smoke","testing"},
+            enabled = false
+    )
+    public void successRegWithFacebook() {
+        kraken.get().page(Config.DEFAULT_RETAILER);
+        User.Auth.withFacebook(UserManager.getDefaultFbUser());
+        authChecks.checkIsUserAuthorized("Не работает регистрация через Facebook");
+    }
 
-    // todo public void successRegWithMailRu() {}
+    @Test(  description = "Тест успешной регистрации через MailRu",
+            priority = 124,
+            groups = {"sbermarket-Ui-smoke","testing"},
+            enabled = false
+    )
+    public void successRegWithMailRu() {
+        kraken.get().page(Config.DEFAULT_RETAILER);
+        User.Auth.withMailRu(UserManager.getDefaultMailRuUser());
+        authChecks.checkIsUserAuthorized("Не работает регистрация через MailRu");
+    }
 
-    // todo public void successRegWithSberId() {}
+
+    @Test(
+            description = "Тест успешной регистрации через Sber ID",
+            priority = 125,
+            groups = {"sbermarket-Ui-smoke","testing"},
+            enabled = false
+    )
+    public void successRegWithSberID() {
+        kraken.get().page(Config.DEFAULT_RETAILER);
+        User.Auth.withSberID(UserManager.getDefaultSberIdUser());
+        authChecks.checkIsUserAuthorized("Не работает регистрация через Sber ID");
+    }
 }
