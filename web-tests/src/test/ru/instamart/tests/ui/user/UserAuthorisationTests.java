@@ -242,7 +242,7 @@ public class UserAuthorisationTests extends TestBase {
         kraken.get().page(Config.DEFAULT_RETAILER);
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
 
-        Shop.Cart.collect();
+        Shop.Cart.collectFirstTime();
         Shop.Cart.proceedToCheckout();
 
         baseChecks.checkIsAuthModalOpen("Не открывается авторизационная модалка при переходе" +

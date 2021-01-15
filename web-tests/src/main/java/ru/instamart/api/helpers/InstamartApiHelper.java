@@ -275,10 +275,15 @@ public final class InstamartApiHelper extends ApiHelperBase {
         log.info(lineItem.toString());
     }
 
-    public int getMinSum(int sid) {
+    public int getMinOrderAmount(int sid) {
         double minSum = getStore(sid).getMin_order_amount();
-        //TODO Костыль пока не починим получение минимальной суммы для нового пользователя
-        minSum = 1500;
+        log.info("Минимальная сумма корзины: {}", minSum);
+        this.minSum.set((int) minSum);
+        return (int) minSum;
+    }
+
+    public int getMinFirstOrderAmount(int sid) {
+        double minSum = getStore(sid).getMin_first_order_amount();
         log.info("Минимальная сумма корзины: {}", minSum);
         this.minSum.set((int) minSum);
         return (int) minSum;
