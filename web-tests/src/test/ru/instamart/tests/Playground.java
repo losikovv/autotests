@@ -44,7 +44,7 @@ public class Playground extends TestBase {
     public void regUserAndPrepareForCheckout() {
         User.Do.registration();
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
-        Shop.Cart.collect();
+        Shop.Cart.collectFirstTime();
     }
 
     @Test

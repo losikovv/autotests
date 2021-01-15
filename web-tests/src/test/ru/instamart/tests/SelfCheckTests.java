@@ -335,7 +335,7 @@ public class SelfCheckTests extends TestBase {
         log.info("Сумма корзины = {}", kraken.grab().cartTotal());
 
         // корзина не пустая, больше суммы мин заказа
-        Shop.Cart.collect();
+        Shop.Cart.collectFirstTime();
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
         log.info("Сумма корзины = {}", kraken.grab().cartTotal());
     }

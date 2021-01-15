@@ -851,8 +851,18 @@ public class Shop extends Base {
             if(!kraken.detect().isCheckoutButtonActive()) {
                 Cart.close();
                 int sid = kraken.grab().sidFromUrl();
-                collect(kraken.apiV2().getMinSum(sid));
+                collect(kraken.apiV2().getMinOrderAmount(sid));
             } else { log.info("> пропускаем набор товаров, в корзине достаточно товаров для оформления минимального заказа");}
+        }
+
+        /** Набрать корзину на минимальную сумму, достаточную для оформления первого заказа */
+        @Step("Набираем корзину на минимальную сумму, достаточную для оформления первого заказа")
+        public static void collectFirstTime() {
+            if(!kraken.detect().isCheckoutButtonActive()) {
+                Cart.close();
+                int sid = kraken.grab().sidFromUrl();
+                collect(kraken.apiV2().getMinFirstOrderAmount(sid));
+            } else { log.info("> пропускаем набор товаров, в корзине достаточно товаров для оформления минимального первого заказа");}
         }
 
         /** Набрать корзину на указанную сумму */

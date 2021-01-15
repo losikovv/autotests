@@ -73,7 +73,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
     ) public void successCollectItemsForOrder() {
         User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
 
-        Shop.Cart.collect();
+        Shop.Cart.collectFirstTime();
 
         Assert.assertTrue(
                 kraken.detect().isCheckoutButtonActive(),
