@@ -80,7 +80,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         Administration.Users.changePassword("654321");
         User.Logout.quickly();
 
-        User.Auth.withEmail(testuser.getLogin(), "654321");
+        User.Auth.withEmail(testuser.getLogin(), "654321","superuser");
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),

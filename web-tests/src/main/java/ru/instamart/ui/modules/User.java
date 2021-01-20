@@ -2,8 +2,6 @@ package instamart.ui.modules;
 
 import instamart.api.objects.v2.Address;
 import instamart.core.common.AppManager;
-import instamart.core.helpers.HelperBase;
-import instamart.core.settings.Config;
 import instamart.core.testdata.UserManager;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.pagesdata.EnvironmentData;
@@ -80,16 +78,25 @@ public class User extends Base {
                     ExpectedConditions.invisibilityOfElementLocated(
                             Elements.Modals.AuthModal.popup().getLocator()), "Не проходит авторизация на сайте\n");
         }
+
         @Step("Авторизуемся в админке")
-        private static void loginOnAdministration(String email, String password) {
+        private static void loginOnAdministration(String email, String password,String role) {
             log.info("> авторизуемся в админке ({}/{})", email, password);
             kraken.perform().fillField(Elements.Administration.LoginPage.emailField(), email);
             kraken.perform().fillField(Elements.Administration.LoginPage.passwordField(), password);
             kraken.perform().click(Elements.Administration.LoginPage.submitButton());
-            kraken.await().fluently(
-                    ExpectedConditions.presenceOfElementLocated(
-                            Elements.Administration.Header.userEmail().getLocator()), "Не проходит авторизация в админке\n");
+            if(role.equals("superuser")){
+                kraken.await().fluently(
+                        ExpectedConditions.visibilityOfElementLocated(
+                                Elements.Administration.LoginPage.emailFieldErrorText("Неверный email или пароль").getLocator()),
+                        "Произошла авторизация в админке пользователем не имеющим доступ в админку\n");
+            }else if(role.equals("superadmin")){
+                kraken.await().fluently(
+                        ExpectedConditions.invisibilityOfElementLocated(
+                                Elements.Administration.LoginPage.submitButton().getLocator()), "Не проходит авторизация в админке\n");
+            }
         }
+
         @Step("Деавторизуемся на сайте")
         private static void logoutOnSite() {
             log.info("> деавторизуемся на сайте");
@@ -243,13 +250,13 @@ public class User extends Base {
     public static class Auth {
 
         public static void withEmail(UserData user) {
-            withEmail(user.getLogin(), user.getPassword());
+            withEmail(user.getLogin(), user.getPassword(),user.getRole());
         }
 
         @Step("Авторизация через email")
-        public static void withEmail(String email, String password) {
+        public static void withEmail(String email, String password, String role) {
             if (kraken.detect().isOnAdminLoginPage()) {
-                User.Do.loginOnAdministration(email, password);
+                User.Do.loginOnAdministration(email, password,role);
             } else {
                 if (!kraken.detect().isUserAuthorised()) {
                     User.Do.loginOnSite(email, password);

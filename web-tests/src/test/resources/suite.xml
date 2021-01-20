@@ -9,6 +9,7 @@
     <groups>
       <run>
         <include name="sbermarket-Ui-smoke"/>
+        <include name="admin-ui-smoke"/>
         <include name="testing"/>
         <include name="sbermarket-acceptance"/>
         <include name="sbermarket-regression"/>

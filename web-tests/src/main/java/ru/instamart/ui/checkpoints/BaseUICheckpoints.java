@@ -103,14 +103,11 @@ public class BaseUICheckpoints {
         log.info("> валидируем работу элемента: {}", element.getDescription());
         String startPage = kraken.grab().currentURL();
         kraken.perform().click(element);
-
         kraken.await().fluently(ExpectedConditions.not(ExpectedConditions.urlToBe(startPage)),
                 "\n\n > Не работает " + element.getDescription()
                         + "\n > " + element.getLocator().toString().substring(3) + " на странице " + startPage
                         + "\n > Нет перехода на целевую страницу\n\n");
-
         log.info("✓ Успешный переход");
-        // TODO добавить проверку на соответствие currentURL и targetURL, для этого добавить targetURL в ElementData
     }
 
     /** Проверить доступность текущей страницы */
