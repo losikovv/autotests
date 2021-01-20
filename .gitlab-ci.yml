@@ -33,6 +33,9 @@ CustomSuiteTestRun:
     - echo $BROWSER
     - cd web-tests
     - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE -Pkey=$ATST_APP_SECRET_KEY
+    - wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.9.0/allure-commandline-2.9.0.tgz
+    - tar -xvpf allure-commandline-2.9.0.tgz
+    - ./allure-2.9.0/bin/allure generate --clean -o allure-reports build/allure-results
     #- bash ./report.sh $REPORT $REPORT_URL $P_ENV
   tags:
     - k8s-stage
@@ -41,6 +44,7 @@ CustomSuiteTestRun:
     paths:
       - web-tests/build/allure-results/
       - web-tests/logs/
+      - web-tests/allure-reports/
     expire_in: 1 week
 
 tests:apiv2:
