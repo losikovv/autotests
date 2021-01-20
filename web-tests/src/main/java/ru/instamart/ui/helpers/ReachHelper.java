@@ -43,7 +43,7 @@ public class ReachHelper extends HelperBase {
             log.warn("> недостаточно прав, перелогиниваемся суперадмином на логин-странице админки");
             User.Auth.withEmail(UserManager.getDefaultAdmin());
         }
-        kraken.get().adminPage(path);
+        //kraken.get().adminPage(path);
         log.info("✓ Готово");
     }
 

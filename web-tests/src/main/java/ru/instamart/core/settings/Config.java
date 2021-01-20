@@ -6,8 +6,6 @@ import instamart.core.util.ConfigParser;
 import instamart.core.util.FileUtils;
 import org.openqa.selenium.remote.BrowserType;
 
-import java.util.Objects;
-
 public final class Config {
 
     private static final String CONFIG_DIR = FileUtils.getResourceDir("config/");

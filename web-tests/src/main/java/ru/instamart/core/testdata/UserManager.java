@@ -81,7 +81,7 @@ public final class UserManager {
                     "7777777777",
                     PASSWD_1,
                     "autotest superadmin",
-                    Crypt.INSTANCE.decrypt("etIbXhyM1zqCCpiTObFcm0Bb5vTw6rAFrB5Ir9/shcQ=")
+                    Crypt.INSTANCE.decrypt("pPOEBSnWKrokeN1dNasL0g==")
             );
         }
         return defaultAdmin;

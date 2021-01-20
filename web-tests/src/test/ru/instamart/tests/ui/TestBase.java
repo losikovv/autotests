@@ -23,7 +23,7 @@ public class TestBase {
 
     @BeforeSuite(groups = {
             "testing","sbermarket-Ui-smoke","MRAutoCheck","sbermarket-acceptance","sbermarket-regression",
-            "metro-smoke","metro-acceptance","metro-regression"},
+            "metro-smoke","metro-acceptance","metro-regression","admin-ui-smoke"},
             description = "Выпускаем Кракена")
     public void start() {
         kraken.rise();
@@ -43,11 +43,12 @@ public class TestBase {
 
     @AfterSuite(groups = {
             "testing", "sbermarket-Ui-smoke","MRAutoCheck","sbermarket-acceptance","sbermarket-regression",
-            "metro-smoke","metro-acceptance","metro-regression"},
+            "metro-smoke","metro-acceptance","metro-regression","admin-ui-smoke"},
             description = "Очищаем окружение от артефактов после тестов, завершаем процессы браузеров")
     public void cleanup() {
         kraken.stop();
     }
+
     @AfterTest(alwaysRun = true,
                description = "Завершаем процессы браузеров")
     public void cleanupAfterTest(){
