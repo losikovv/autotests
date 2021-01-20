@@ -1,10 +1,13 @@
 package instamart.core.testdata.dataprovider;
 
 import instamart.api.common.RestBase;
+import instamart.api.common.Specification;
 import instamart.api.enums.v2.AuthProvider;
 import instamart.api.objects.v1.Offer;
 import instamart.api.objects.v1.OperationalZone;
-import instamart.api.objects.v2.*;
+import instamart.api.objects.v2.Retailer;
+import instamart.api.objects.v2.Store;
+import instamart.api.objects.v2.Zone;
 import instamart.api.requests.ApiV1Requests;
 import instamart.api.responses.v1.OperationalZonesResponse;
 import org.testng.annotations.DataProvider;
@@ -33,8 +36,11 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "retailers")
     public static Object[][] getAvailableRetailers() {
+        Specification.setResponseSpecDataProvider();
 
         List<Retailer> retailerList = apiV2.availableRetailers();
+
+        Specification.setResponseSpecDefault();
 
         Object[][] retailerArray = new Object[retailerList.size()][1];
         for (int i = 0; i < retailerList.size(); i++) {
@@ -55,8 +61,11 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "retailersSpree")
     public static Object[][] getAvailableRetailersSpree() {
+        Specification.setResponseSpecDataProvider();
 
         List<Retailer> retailerList = apiV2.availableRetailersSpree();
+
+        Specification.setResponseSpecDefault();
 
         Object[][] retailerArray = new Object[retailerList.size()][1];
         for (int i = 0; i < retailerList.size(); i++) {
@@ -77,8 +86,10 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "stores")
     public static Object[][] getAvailableStores() {
+        Specification.setResponseSpecDataProvider();
 
         List<Store> storeList = apiV2.availableStores();
+        Specification.setResponseSpecDefault();
 
         Object[][] storeArray = new Object[storeList.size()][1];
         for (int i = 0; i < storeList.size(); i++) {
@@ -94,12 +105,15 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "storeOfEachRetailer")
     public static Object[][] getStoreOfEachRetailer() {
+        Specification.setResponseSpecDataProvider();
 
         List<Store> storeList = apiV2.availableRetailers()
                 .stream().parallel()
                 .map(apiV2::availableStores)
                 .map(retailerStores -> retailerStores.get(retailerStores.size() - 1))
                 .collect(Collectors.toList());
+
+        Specification.setResponseSpecDefault();
 
         Object[][] storeArray = new Object[storeList.size()][1];
         for (int i = 0; i < storeList.size(); i++) {
@@ -120,6 +134,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "zones")
     public static Object[][] getAvailableZones() {
+        Specification.setResponseSpecDataProvider();
 
         List<Store> stores = apiV2.availableStores();
 
@@ -135,6 +150,8 @@ public class RestDataProvider extends RestBase {
                 coordinates.add(apiV2.getInnerPoint(zones.get(i)));
             }
         }
+        Specification.setResponseSpecDefault();
+
         Object[][] zoneArray = new Object[zoneStores.size()][3];
         for (int i = 0; i < zoneStores.size(); i++) {
             zoneArray[i][0] = zoneStores.get(i);
@@ -146,9 +163,12 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "operationalZones", parallel = true)
     public static Object[][] getOperationalZones() {
+        Specification.setResponseSpecDataProvider();
 
         List<OperationalZone> operationalZoneList = ApiV1Requests.OperationalZones.GET()
                 .as(OperationalZonesResponse.class).getOperational_zones();
+
+        Specification.setResponseSpecDefault();
 
         Object[][] operationalZoneArray = new Object[operationalZoneList.size()][1];
         for (int i = 0; i < operationalZoneList.size(); i++) {
@@ -169,6 +189,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "offerOfEachRetailer")
     public static Object[][] getOfferOfEachRetailer() {
+        Specification.setResponseSpecDataProvider();
 
         List<Store> storeList = apiV2.availableRetailers()
                 .stream().parallel()
@@ -182,6 +203,8 @@ public class RestDataProvider extends RestBase {
                 .filter(storeOffers -> !storeOffers.isEmpty())
                 .map(storeOffers -> storeOffers.get(0))
                 .collect(Collectors.toList());
+
+        Specification.setResponseSpecDefault();
 
         Object[][] offerArray = new Object[offerList.size()][1];
         for (int i = 0; i < offerList.size(); i++) {

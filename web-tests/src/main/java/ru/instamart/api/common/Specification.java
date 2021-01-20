@@ -7,6 +7,7 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.config.EncoderConfig.encoderConfig;
@@ -16,6 +17,8 @@ public enum Specification {
 
     INSTANCE;
 
+    private static ResponseSpecification responseSpecDefault;
+    private static ResponseSpecification responseSpecDataProvider;
     private RequestSpecification customerRequestSpec;
     private RequestSpecification shopperRequestSpec;
 
@@ -26,13 +29,23 @@ public enum Specification {
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
         defaultParser = Parser.JSON;
 
-        responseSpecification = new ResponseSpecBuilder()
+        responseSpecDefault = new ResponseSpecBuilder()
                 //.expectResponseTime(lessThan(30000L))
                 .expectStatusCode(not(401))
                 .expectStatusCode(not(429))
                 .expectStatusCode(not(500))
                 .expectStatusCode(not(502))
                 .expectContentType(ContentType.JSON)
+                .build();
+
+        responseSpecification = responseSpecDefault;
+
+        responseSpecDataProvider = new ResponseSpecBuilder()
+                //.expectResponseTime(lessThan(30000L))
+                .expectStatusCode(not(401))
+                .expectStatusCode(not(429))
+                .expectStatusCode(not(500))
+                .expectStatusCode(not(502))
                 .build();
 
         customerRequestSpec = new RequestSpecBuilder()
@@ -51,6 +64,14 @@ public enum Specification {
                         "99.9.9")
                 .addFilter(new AllureRestAssured())
                 .build();
+    }
+
+    static public void setResponseSpecDataProvider() {
+        responseSpecification = responseSpecDataProvider;
+    }
+
+    static public void setResponseSpecDefault() {
+        responseSpecification = responseSpecDefault;
     }
 
     public RequestSpecification getCustomerRequestSpec() {
