@@ -141,8 +141,7 @@ tests:UiSmoke:
     expire_in: 1 week
 
 tests:AdminUiSmoke:
-  only:
-    - master
+  when: manual
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
