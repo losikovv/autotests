@@ -10,6 +10,7 @@ task sberUiSmoke(type: Test) {
     }
     if (project.hasProperty('qase')) {
         systemProperty 'qase.plan.id', 2
+        systemProperty 'qase.Project', 'STF'
     }
 }
 
@@ -118,9 +119,11 @@ task adminUiSmoke(type: Test) {
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
+
     }
     if (project.hasProperty('qase')) {
-        systemProperty 'qase.plan.id', 2
+        systemProperty 'qase.plan.id', 1
+        systemProperty 'qase.Project', 'SA'
     }
 }
 

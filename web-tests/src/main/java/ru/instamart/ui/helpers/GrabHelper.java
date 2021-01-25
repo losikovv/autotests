@@ -5,10 +5,7 @@ import instamart.core.helpers.HelperBase;
 import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.modules.Shop;
 import instamart.ui.objectsmap.Elements;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -132,10 +129,13 @@ public class GrabHelper extends HelperBase {
     /** Добавить первую единицу товара с карточки товара*/
     public void addItemCard(){
         try {
-            kraken.perform().findChildElementByTagAndText(
-                    driver.findElement(Elements.ItemCard.offersElement().getLocator())
-                    ,By.tagName("button"),"Купить")
-                    .click();
+            kraken.await().
+                    fluently(ExpectedConditions.elementToBeClickable(Elements.ItemCard.buyButton().getLocator()),
+                            "Кнопка купить не доступна для нажатия");
+            kraken.perform().click(Elements.ItemCard.buyButton());
+            kraken.await().
+                    fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.ItemCard.buyButton().getLocator()),
+                            "кнопка купить не нажимается",10);
         } catch (NoSuchElementException ex){
             throw new ElementClickInterceptedException("невозможно нажать на кнопку купить");
         }

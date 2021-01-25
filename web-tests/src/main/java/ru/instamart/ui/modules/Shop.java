@@ -3,7 +3,6 @@ package instamart.ui.modules;
 import instamart.core.common.AppManager;
 import instamart.core.testdata.TestVariables;
 import instamart.ui.common.lib.Addresses;
-import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.common.pagesdata.WidgetData;
 import instamart.ui.objectsmap.Elements;
@@ -823,6 +822,7 @@ public class Shop extends Base {
         @Step("Переходим в чекаут нажатием кнопки \"Сделать заказ\" в корзине")
         public static void proceedToCheckout() {
             if (kraken.detect().isCheckoutButtonActive()) {
+                driver.manage().window().fullscreen();
                 kraken.perform().click(Elements.Cart.checkoutButton());
             } else {
                 log.info("> кнопка перехода в чекаут неактивна");
@@ -875,13 +875,14 @@ public class Shop extends Base {
             int cartTotal = kraken.grab().cartTotalRounded();
             if (cartTotal < orderSum) {
                 Cart.close();
-                if (!kraken.detect().isProductAvailable()) {
+                if (kraken.detect().isProductAvailable()) {
                     if (kraken.detect().isFavoriteProductAvailable()) {
                         log.info("> находимся в карточке любимых товаров");
                         Favorites.openFavoritesSnipet();
                     } else {
                         log.info("> нет товаров на текущей странице {}", kraken.grab().currentURL());
-                        kraken.get().page(Pages.Retailers.metro());
+                        //kraken.get().page(Pages.Retailers.metro());
+                        kraken.getBasicUrl();
                         Catalog.Item.open();
                     }
                 }
@@ -893,7 +894,6 @@ public class Shop extends Base {
                 } else {
                     neededQuantity = ((orderSum - cartTotal) / (itemPrice - 1)) + 1;
                 }
-
                 log.info("> добавляем в корзину {}х{}шт > {}", kraken.grab().itemName(), neededQuantity, kraken.grab().currentURL());
                 addItemByText(neededQuantity);
                 ItemCard.close();

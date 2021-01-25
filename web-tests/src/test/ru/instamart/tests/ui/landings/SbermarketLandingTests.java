@@ -59,11 +59,6 @@ public class SbermarketLandingTests extends TestBase {
             groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successGoToCatalogFromSbermarketLanding() {
-        kraken.await().fluently(
-                ExpectedConditions
-                        .elementToBeClickable(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1).getLocator()),
-                "кнопка выбора ретейлера недоступна");
-        kraken.perform().click(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1));
         User.ShippingAddress.searchShopsByAddress(Addresses.Moscow.defaultAddress());
         baseChecks.checkIsOnLanding();
     }
@@ -75,7 +70,6 @@ public class SbermarketLandingTests extends TestBase {
     )
     @Deprecated
     public void successAuthorizationOnSbermarketLanding() {
-        //
         kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
         User.Do.loginAs(UserManager.getDefaultUser());
     }

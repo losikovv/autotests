@@ -445,9 +445,15 @@ public class User extends Base {
         }
 
         /** Ищем магазины по установленному адресу */
-        @Step("Поиск магазинв по адресу доставки: {0}")
+        @Step("Поиск магазинов по адресу доставки: {0}")
         public static void searchShopsByAddress(String address){
+            kraken.await().fluently(
+                    ExpectedConditions
+                            .elementToBeClickable(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1).getLocator()),
+                    "кнопка выбора ретейлера недоступна");
+            kraken.perform().click(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1));
             Shop.ShippingAddressModal.open();
+            Shop.ShippingAddressModal.clearAddressField();
             Shop.ShippingAddressModal.fill(address);
             Shop.ShippingAddressModal.findShops();
         }

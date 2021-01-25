@@ -5,15 +5,22 @@ import instamart.core.settings.Config;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
+import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
 import io.qase.api.annotation.CaseId;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
 
 public class BasicSbermarketTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
-    //todo сделать отдельные тесты под тенанты
+    @BeforeMethod(alwaysRun = true,
+            description ="Завершаем сессию, текущего пользователя")
+    public void quickLogout() {
+        User.Logout.quickly();
+    }
+
     @CaseId(1438)
     @Test(
             description = "Тест валидности элементов и ссылок в шапке Сбермаркета",
