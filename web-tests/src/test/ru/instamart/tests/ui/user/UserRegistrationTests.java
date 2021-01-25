@@ -24,7 +24,7 @@ public class UserRegistrationTests extends TestBase {
     UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
 
     @BeforeMethod(alwaysRun = true,
-            description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
+            description ="Завершаем сессию, текущего пользователя")
     public void quickLogout() {
         User.Logout.quickly();
     }
@@ -59,7 +59,7 @@ public class UserRegistrationTests extends TestBase {
             baseChecks.checkIsErrorMessageElementPresent("Подтвердите пароль",
                     "Нет пользовательской ошибки пустого поля password confirmation");
         }else{
-            baseChecks.checkIsErrorMessageElementPresentByPhone("Номер должен начинаться с \"+7 9...\"",
+            baseChecks.checkIsErrorMessageElementPresentByPhone("Номер должен начинаться с \"+7 (9..\"",
                     "Нет пользовательской ошибки пустого номера телефона");
         }
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -342,16 +342,16 @@ public class UserRegistrationTests extends TestBase {
         authChecks.checkIsUserAuthorized("Не работает регистрация из адресной модалки феникса");
     }
 
+    @CaseId(748)
     @Test(
-            enabled = false,
+
             description = "Тест регистрации при переходе из корзины в чекаут",
             groups = {
                     "metro-regression",
-                    "sbermarket-regression","testing"
+                    "sbermarket-regression","testing","sbermarket-Ui-smoke"
             },
             priority = 213
     )
-    //TODO включить тест когда будет сделана задача ATST-310
     public void successRegFromCart() {
         phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -361,7 +361,6 @@ public class UserRegistrationTests extends TestBase {
         Shop.Cart.proceedToCheckout();
         baseChecks.checkIsAuthModalOpen("Не открывается авторизационная" +
                 " модалка при переходе неавторизованным из корзины в чекаут");
-        //User.Do.registration();
         User.Do.registration(
                 "Test User",
                 "test@example.com",
@@ -418,7 +417,8 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест успешной регистрации через ВКонтакте",
             priority = 122,
-            groups = {"sbermarket-Ui-smoke","testing"}
+            groups = {"sbermarket-Ui-smoke","testing"},
+            enabled = false
     )
     public void successRegWithVkontakte() {
         kraken.get().page(Config.DEFAULT_RETAILER);

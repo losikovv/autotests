@@ -152,7 +152,7 @@ tests:AdminUiSmoke:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=false -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
     #- bash ./report.sh $REPORT $REPORT_URL $P_ENV
   tags:
     - k8s-stage

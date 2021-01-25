@@ -4,6 +4,7 @@ import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
@@ -16,6 +17,7 @@ public class BasicAdministrationTests extends TestBase {
         User.Logout.quickly();
     }
 
+    @CaseId(419)
     @Test(  description = "Тест доступности корневых разделов админки",
             priority = 10002,
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
@@ -34,6 +36,7 @@ public class BasicAdministrationTests extends TestBase {
         baseChecks.checkPageIsAvailable(Pages.Admin.pages());
     }
 
+    @CaseId(420)
     @Test(  description = "Тест доступности вьюхи oktell",
             priority = 10003,
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
@@ -42,6 +45,7 @@ public class BasicAdministrationTests extends TestBase {
         baseChecks.checkPageIsAvailable(Pages.Admin.oktell());
     }
 
+    @CaseId(416)
     @Test(  description = "Проверка наличия элементов в шапке админки",
             priority = 10004,
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
@@ -51,6 +55,7 @@ public class BasicAdministrationTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Administration.Header.logoutButton());
     }
 
+    @CaseId(4)
     @Test(  description = "Тест валидности ссылок навигационного меню в шапке админки",
             priority = 10005,
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
