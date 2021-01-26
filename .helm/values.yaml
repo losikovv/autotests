@@ -1,0 +1,23 @@
+allure:
+  image: "frankescobar/allure-docker-service"
+  addenv:
+    CHECK_RESULTS_EVERY_SECONDS: "NONE"
+    KEEP_HISTORY: "1"
+    KEEP_HISTORY_LATEST: "25"
+    API_RESPONSE_LESS_VERBOSE: "1"
+    DEV_MODE: "0"
+    TLS: "1"
+    SECURITY_USER: "admin"
+    SECURITY_PASS: "Mep5NE2iGDU4dmQr5rzoWiwRYplL43"
+    SECURITY_ENABLED: "0"
+  ingress:
+    url: "allure-allure.k-stage.sbermarket.tech"
+    secretName: "k-stage-wild"
+allureui:
+  image: "frankescobar/allure-docker-service-ui"
+  ingress:
+    url: "allure.k-stage.sbermarket.tech"
+    secretName: "k-stage-wild"
+  addenv:
+    ALLURE_DOCKER_PUBLIC_API_URL: "https://allure-allure.k-stage.sbermarket.tech"
+    ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""
