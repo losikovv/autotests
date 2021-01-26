@@ -1,6 +1,8 @@
 package instamart.ui.checkpoints.users;
 
 import instamart.ui.checkpoints.BaseUICheckpoints;
+import instamart.ui.modules.Base;
+import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ public class ShoppingCartCheckpoints extends BaseUICheckpoints {
 
     @Step("Проверяем, что корзина не пуста после действия: {0}")
     public void checkIsCartEmpty(String action,String errorMessage){
+        Base.catchAndCloseAd(Elements.Modals.AuthModal.promoModalButton(),2);
         log.info("> проверяем, что корзина не пуста после действия: {}", action);
         softAssert.assertFalse(
                 kraken.detect().isCartEmpty(),

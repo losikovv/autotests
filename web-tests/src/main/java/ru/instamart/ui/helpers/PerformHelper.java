@@ -94,8 +94,17 @@ public class PerformHelper extends HelperBase {
         click(element);
         if (text != null) {
             String existingText = kraken.grab().value(element);
+            int attempt = 0;
             if (!text.equals(existingText)) {
-                driver.findElement(element.getLocator()).clear();
+                while (!existingText.equals("")){
+                    driver.findElement(element.getLocator()).clear();
+                    driver.findElement(element.getLocator()).sendKeys(Keys.BACK_SPACE);
+                    existingText = kraken.grab().value(element);
+                    attempt = attempt+1;
+                    if ((attempt==1000)){
+                        throw new ElementNotInteractableException("");
+                    }
+                }
                 driver.findElement(element.getLocator()).sendKeys(text);
             }
         }

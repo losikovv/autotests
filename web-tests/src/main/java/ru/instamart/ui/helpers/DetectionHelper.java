@@ -580,6 +580,11 @@ public class DetectionHelper extends HelperBase {
 
     /** Определить находимся ли в чекауте */
     public boolean isOnCheckout() {
+        //TODO здесь костыль тк на стейдже бага, но это чисто для отладки, не включать
+//        if(!kraken.detect().isElementPresent(Elements.Checkout.header())){
+//            kraken.getBasicUrl();
+//            kraken.reach().checkout();
+//        }
         return kraken.detect().isElementPresent(Elements.Checkout.header());
     }
 

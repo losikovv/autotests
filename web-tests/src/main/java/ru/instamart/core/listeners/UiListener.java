@@ -13,7 +13,8 @@ public final class UiListener implements ITestListener {
     private final QaseService qaseService;
 
     public UiListener() {
-        this.qaseService = new QaseService("STF");
+        String projectId = System.getProperty("qase.Project","STF");
+        this.qaseService = new QaseService(projectId);
     }
 
     @Override

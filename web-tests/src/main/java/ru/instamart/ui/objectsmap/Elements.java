@@ -1563,6 +1563,11 @@ public class Elements {
                         "секция с ценой, скидкой и кнопками на карточке товара");
             }
 
+            static ElementData buttonBuy(){
+                return new ElementData(By.xpath("//button[@type='button' and text()='Купить']"),
+                    "кнопка купить для на карточке товара");
+            }
+
             static ElementData cartNew(){
                 return new ElementData(By.xpath("//*[contains(@class,'product__cart-counter--with-icon')]"),
                 "иконка корзины с добавленным элементом");
