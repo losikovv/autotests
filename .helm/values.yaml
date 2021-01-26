@@ -1,0 +1,39 @@
+ingressAnnotations:
+  kubernetes.io/ingress.class: "nginx"
+  nginx.ingress.kubernetes.io/proxy-body-size: "30m"
+  nginx.ingress.kubernetes.io/proxy-read-timeout: "20s"
+  nginx.ingress.kubernetes.io/auth-realm: Authentication Required
+  nginx.ingress.kubernetes.io/cors-allow-origin: "https://allure.k-stage.sbermarket.tech"
+  nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+  nginx.ingress.kubernetes.io/enable-cors: "true"
+  nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+  nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, DELETE, HEAD, PATCH"
+  nginx.ingress.kubernetes.io/auth-secret: basic-auth-secret
+  nginx.ingress.kubernetes.io/auth-type: basic
+  nginx.ingress.kubernetes.io/configuration-snippet: |
+    satisfy any;
+  nginx.ingress.kubernetes.io/auth-url: "https://auth.k-stage.sbermarket.tech/oauth2/auth"
+  nginx.ingress.kubernetes.io/auth-signin: "https://auth.k-stage.sbermarket.tech/oauth2/start?rd=/redirect/$http_host$request_uri"
+allure:
+  image: "frankescobar/allure-docker-service"
+  addenv:
+    CHECK_RESULTS_EVERY_SECONDS: "NONE"
+    KEEP_HISTORY: "1"
+    KEEP_HISTORY_LATEST: "25"
+    API_RESPONSE_LESS_VERBOSE: "1"
+    DEV_MODE: "0"
+    TLS: "0"
+    SECURITY_USER: "babur"
+    SECURITY_PASS: "hex78.Berwyn"
+    SECURITY_ENABLED: "0"
+  ingress:
+    url: "allure-allure.k-stage.sbermarket.tech"
+    secretName: "k-stage-wild"
+allureui:
+  image: "frankescobar/allure-docker-service-ui"
+  ingress:
+    url: "allure.k-stage.sbermarket.tech"
+    secretName: "k-stage-wild"
+  addenv:
+    ALLURE_DOCKER_PUBLIC_API_URL: "https://allure-allure.k-stage.sbermarket.tech"
+    ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""

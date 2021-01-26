@@ -1,0 +1,62 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: allureui
+spec:
+  selector:
+    matchLabels:
+      app: allureui
+  template:
+    metadata:
+      annotations:
+        release: {{ .Release.Name }}
+      labels:
+        app: allureui
+    spec:
+      containers:
+      - name: allureui
+        image: {{ .Values.allureui.image }}
+        resources:
+          requests:
+            memory: "1Gi"
+        env:
+          {{- range $name, $value := .Values.allureui.addenv }}
+          - name: {{ $name }}
+            value: {{ $value | quote }}
+          {{- end }}
+        ports:
+        - name: allureui
+          containerPort: 5252
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: allureui
+spec:
+  ports:
+  - name: allureui
+    port: 5252
+  selector:
+    app: allureui
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: allureui
+  annotations:
+{{ toYaml .Values.ingressAnnotations | indent 4 }}
+spec:
+  tls:
+  - hosts:
+    - {{ .Values.allureui.ingress.url }}
+    secretName: {{ .Values.allureui.ingress.secretName }}
+  rules:
+  - host: {{ .Values.allureui.ingress.url }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: allureui
+          servicePort: 5252

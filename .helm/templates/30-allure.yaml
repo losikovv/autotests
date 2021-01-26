@@ -1,0 +1,84 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: allure
+spec:
+  selector:
+    matchLabels:
+      app: allure
+  serviceName: "allure"
+  template:
+    metadata:
+      annotations:
+        release: {{ .Release.Name }}
+      labels:
+        app: allure
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: allure
+        image: {{ .Values.allure.image }}
+        resources:
+          requests:
+            memory: "1Gi"
+        volumeMounts:
+        - mountPath: /app/projects
+          name: data
+        ports:
+        - name: allure
+          containerPort: 5050
+        env:
+          {{- range $name, $value := .Values.allure.addenv }}
+          - name: {{ $name }}
+            value: {{ $value | quote }}
+          {{- end }}
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
+      storageClassName: yc-network-ssd
+      volumeMode: Filesystem
+  updateStrategy:
+    type: RollingUpdate
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: allure
+spec:
+  ports:
+  - name: allure
+    port: 5050
+  selector:
+    app: allure
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: allure
+  annotations:
+{{ toYaml .Values.ingressAnnotations | indent 4 }}
+spec:
+  tls:
+  - hosts:
+    - {{ .Values.allure.ingress.url }}
+    secretName: {{ .Values.allure.ingress.secretName }}
+  rules:
+  - host: {{ .Values.allure.ingress.url }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: allure
+          servicePort: 5050
