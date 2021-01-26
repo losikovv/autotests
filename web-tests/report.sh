@@ -28,7 +28,7 @@ done
 # Отправляем через curl запрос на заливку отчета
 set -o xtrace
 echo "------------------SEND-RESULTS------------------"
-curl -X POST "$ALLURE_SERVER/allure-docker-service/send-results?project_id=$PROJECT_ID" -H 'Content-Type: multipart/form-data' $FILES -ik
+curl  -u $WEB_LOGIN:$WEB_PASSWORD -X POST "$ALLURE_SERVER/allure-docker-service/send-results?project_id=$PROJECT_ID" -H 'Content-Type: multipart/form-data' $FILES -ik
 
 
 # Если нужно сгенерировать отчет, нужно отправить запрос на эндпоинт GET /generate-report и выставить >> CHECK_RESULTS_EVERY_SECONDS: NONE в контейнере с отчетами
@@ -38,4 +38,4 @@ EXECUTION_NAME='Gitlab-CI'
 EXECUTION_FROM='https://gitlab.sbermarket.tech/qa/automag/'
 EXECUTION_TYPE='Gitlab-Gradle'
 # Отправляем через curl запрос на генерацию отчета
-RESPONSE=$(curl -X GET "$ALLURE_SERVER/allure-docker-service/generate-report?project_id=$PROJECT_ID&execution_name=$EXECUTION_NAME&execution_from=$EXECUTION_FROM&execution_type=$EXECUTION_TYPE" $FILES)
+RESPONSE=$(curl -u $WEB_LOGIN:$WEB_PASSWORD -X GET "$ALLURE_SERVER/allure-docker-service/generate-report?project_id=$PROJECT_ID&execution_name=$EXECUTION_NAME&execution_from=$EXECUTION_FROM&execution_type=$EXECUTION_TYPE" $FILES)

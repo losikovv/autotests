@@ -46,13 +46,7 @@ kind: Ingress
 metadata:
   name: allureui
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/proxy-body-size: "30m"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "20s"
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      satisfy any;
-    nginx.ingress.kubernetes.io/auth-url: "https://auth.k-stage.sbermarket.tech/oauth2/auth"
-    nginx.ingress.kubernetes.io/auth-signin: "https://auth.k-stage.sbermarket.tech/oauth2/start?rd=/redirect/$http_host$request_uri"
+{{ toYaml .Values.ingressAnnotations | indent 4 }}
 spec:
   tls:
   - hosts:
