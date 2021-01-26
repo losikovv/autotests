@@ -61,7 +61,7 @@ tests:apiv2:
     - echo $BROWSER
     - cd web-tests
     - ./gradlew clean apiV2Regress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY;
-      bash ./report.sh build/allure-results $ALLURE_SERVER $P_ENV
+      bash ./report.sh build/allure-results $ALLURE_SERVER kraken-api
   tags:
     - k8s-stage
   artifacts:
