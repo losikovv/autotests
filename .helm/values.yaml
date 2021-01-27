@@ -1,7 +1,7 @@
 ingressAnnotations:
   kubernetes.io/ingress.class: "nginx"
-  nginx.ingress.kubernetes.io/proxy-body-size: "30m"
-  nginx.ingress.kubernetes.io/proxy-read-timeout: "20s"
+  nginx.ingress.kubernetes.io/proxy-body-size: "1g"
+  nginx.ingress.kubernetes.io/proxy-read-timeout: "5m"
   nginx.ingress.kubernetes.io/auth-realm: Authentication Required
   nginx.ingress.kubernetes.io/cors-allow-origin: "https://allure.k-stage.sbermarket.tech"
   nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
