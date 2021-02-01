@@ -60,9 +60,7 @@ tests:apiv2:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew clean apiV2Regress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY;
-  after_script:
-    - bash ./report.sh build/allure-results $ALLURE_SERVER apiv2-regress
+    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY && bash ./report.sh build/allure-results $ALLURE_SERVER apiv2-regress
   tags:
     - k8s-stage
   artifacts:
@@ -85,9 +83,7 @@ tests:apiShopper:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
-  after_script:
-    - bash ./report.sh build/allure-results $ALLURE_SERVER shopper-api-regress
+    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY && bash ./report.sh build/allure-results $ALLURE_SERVER shopper-api-regress
   tags:
     - k8s-stage
   artifacts:
@@ -108,9 +104,7 @@ tests:apiZonesProductionOnly:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build apiZones -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
-  after_script:
-    - bash ./report.sh build/allure-results $ALLURE_SERVER rest-zones-production
+    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY && bash ./report.sh build/allure-results $ALLURE_SERVER rest-zones-production
   tags:
     - k8s-stage
   artifacts:
@@ -132,9 +126,7 @@ tests:UiSmoke:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build sberUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
-  after_script:
-    - bash ./report.sh build/allure-results $ALLURE_SERVER stf-ui-smoke
+    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY && bash ./report.sh build/allure-results $ALLURE_SERVER stf-ui-smoke
   tags:
     - k8s-stage
   artifacts:
@@ -156,9 +148,7 @@ tests:AdminUiSmoke:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
-  after_script:
-    - bash ./report.sh build/allure-results $ALLURE_SERVER admin-ui-smoke
+    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY && bash ./report.sh build/allure-results $ALLURE_SERVER admin-ui-smoke
   tags:
     - k8s-stage
   artifacts:
