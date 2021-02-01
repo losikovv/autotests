@@ -152,8 +152,7 @@ tests:AdminUiSmoke:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
-    - bash ./report.sh build/allure-results $ALLURE_SERVER admin-ui-smoke
+    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY && bash ./report.sh build/allure-results $ALLURE_SERVER admin-ui-smoke
   tags:
     - k8s-stage
   artifacts:
