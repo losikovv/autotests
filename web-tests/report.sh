@@ -26,6 +26,7 @@ for FILE in $FILES_TO_SEND; do
 done
 
 # Отправляем через curl запрос на заливку отчета
+set -o xtrace
 echo "------------------SEND-RESULTS------------------"
 curl  -u $WEB_LOGIN:$WEB_PASSWORD -X POST "$ALLURE_SERVER/allure-docker-service/send-results?project_id=$PROJECT_ID" -H 'Content-Type: multipart/form-data' $FILES -ik
 
