@@ -127,6 +127,18 @@ task adminUiSmoke(type: Test) {
     }
 }
 
+task testTask(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'testTask'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
+
 /* trying to add custom listeners
 task sberRegression(type: Test) {
     useTestNG() {

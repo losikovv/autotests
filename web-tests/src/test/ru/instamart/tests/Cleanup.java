@@ -4,6 +4,7 @@ import instamart.core.service.QaseService;
 import instamart.core.settings.Config;
 import io.qase.api.models.v1.testruns.TestRun;
 import io.qase.api.models.v1.testruns.TestRuns;
+import org.junit.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -28,5 +29,10 @@ public class Cleanup {
                 .getAll("", true);
         final List<TestRun> testRunList = testRuns.getTestRunList();
         testRunList.forEach(testRun -> qaseService.getQaseApi().testRuns().delete("", testRun.getId()));
+    }
+
+    @Test(groups = "testTask")
+    public void testTask() {
+        Assert.assertTrue(false);
     }
 }
