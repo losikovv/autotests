@@ -183,9 +183,6 @@ tests:TestTask:
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
-  before_script:
-    - $ALLURE_SERVER > ALLURE
-    - export AL=$ALLURE_SERVER
   script:
     #- echo $REPORT
     #- echo $REPORT_URL
@@ -196,9 +193,7 @@ tests:TestTask:
     - ./gradlew build testTask -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
-    - echo $(cat ALLURE)
-    - echo $AL
-    - bash ./report.sh build/allure-results $(cat ALLURE) default
+    - bash ./report.sh default
   tags:
     - k8s-stage
   artifacts:

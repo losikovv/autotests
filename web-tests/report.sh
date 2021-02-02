@@ -1,11 +1,9 @@
 #!/bin/bash
 
 # Дирректория где хранятся результаты алюра
-ALLURE_RESULTS_DIRECTORY=$1
-# URL куда будут отправляться данные
-ALLURE_SERVER=$2
+ALLURE_RESULTS_DIRECTORY="build/allure-results"
 # Проект в который будет записываться отчет
-PROJECT_ID=$3
+PROJECT_ID=$1
 
 # Получаем путь до баш крипта
 SCRIPT_PATH="${BASH_SOURCE[0]}"
