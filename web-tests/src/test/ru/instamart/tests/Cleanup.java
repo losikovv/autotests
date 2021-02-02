@@ -30,9 +30,4 @@ public class Cleanup {
         final List<TestRun> testRunList = testRuns.getTestRunList();
         testRunList.forEach(testRun -> qaseService.getQaseApi().testRuns().delete("", testRun.getId()));
     }
-
-    @Test(groups = "testTask")
-    public void testTask() {
-        Assert.assertTrue(false);
-    }
 }

@@ -3,15 +3,7 @@
 # Дирректория где хранятся результаты алюра
 ALLURE_RESULTS_DIRECTORY="build/allure-results"
 # Проект в который будет записываться отчет
-URL=$ALLURE_SERVER
 PROJECT_ID=$1
-
-echo $BROWSER
-echo $ATST_APP_SECRET_KEY
-echo $URL
-echo $ALLURE_SERVER
-echo $WEB_LOGIN
-echo $WEB_PASSWORD
 
 # Получаем путь до баш крипта
 SCRIPT_PATH="${BASH_SOURCE[0]}"
