@@ -55,7 +55,7 @@ tests:apiv2:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew clean build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
     - bash ./report.sh apiv2-regress
@@ -79,7 +79,7 @@ tests:apiShopper:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew clean build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
     - bash ./report.sh shopper-api-regress
@@ -101,7 +101,7 @@ tests:apiZonesProductionOnly:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew clean build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
     - bash ./report.sh rest-zones-production
@@ -124,7 +124,7 @@ tests:UiSmoke:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew clean build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
     - bash ./report.sh stf-ui-smoke
@@ -147,7 +147,7 @@ tests:AdminUiSmoke:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew clean build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
     - bash ./report.sh admin-ui-smoke
@@ -170,7 +170,7 @@ tests:AutoMRCheck:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build AutoMRCheck -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=false -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew clean build AutoMRCheck -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=false -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
     - bash ./report.sh default
