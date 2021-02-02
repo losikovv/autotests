@@ -78,6 +78,7 @@
       <class name="ru.instamart.tests.ui.user.UserProfileTests"/>
       <class name="ru.instamart.tests.ui.user.UserRegistrationTests"/>
       <class name="ru.instamart.tests.ui.user.UserShippingAddressTests"/>
+      <class name="ru.instamart.tests.Cleanup"/>
     </classes>
   </test> <!-- web-tests -->
 </suite> <!-- Custom suite -->
