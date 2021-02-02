@@ -192,7 +192,7 @@ tests:TestTask:
     - cd web-tests
     - ./gradlew build testTask -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
-    - ./report.sh build/allure-results $ALLURE_SERVER default
+    - bash ./report.sh build/allure-results $ALLURE_SERVER default
   tags:
     - k8s-stage
   artifacts:
