@@ -25,8 +25,6 @@ CustomSuiteTestRun:
   services:
     - selenium/standalone-chrome
   script:
-    #- echo $REPORT
-    #- echo $REPORT_URL
     - echo $P_ENV
     - echo $TEST_SET
     - echo $QASE
@@ -36,7 +34,6 @@ CustomSuiteTestRun:
     - wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.9.0/allure-commandline-2.9.0.tgz
     - tar -xvpf allure-commandline-2.9.0.tgz
     - ./allure-2.9.0/bin/allure generate --clean -o allure-reports build/allure-results
-    #- bash ./report.sh $REPORT $REPORT_URL $P_ENV
   tags:
     - k8s-stage
   artifacts:
@@ -54,13 +51,14 @@ tests:apiv2:
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
-    #- echo $REPORT
-    #- echo $REPORT_URL
     - echo $P_ENV
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY && bash ./report.sh build/allure-results $ALLURE_SERVER apiv2-regress
+    - ./gradlew build apiV2Regress -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+  after_script:
+    - cd web-tests
+    - bash ./report.sh apiv2-regress
   tags:
     - k8s-stage
   artifacts:
@@ -77,13 +75,14 @@ tests:apiShopper:
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
-    #- echo $REPORT
-    #- echo $REPORT_URL
     - echo $P_ENV
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY && bash ./report.sh build/allure-results $ALLURE_SERVER shopper-api-regress
+    - ./gradlew build apiShopperRegress -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+  after_script:
+    - cd web-tests
+    - bash ./report.sh shopper-api-regress
   tags:
     - k8s-stage
   artifacts:
@@ -98,13 +97,14 @@ tests:apiZonesProductionOnly:
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
-    #- echo $REPORT
-    #- echo $REPORT_URL
     - echo $P_ENV
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY && bash ./report.sh build/allure-results $ALLURE_SERVER rest-zones-production
+    - ./gradlew build apiZones -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+  after_script:
+    - cd web-tests
+    - bash ./report.sh rest-zones-production
   tags:
     - k8s-stage
   artifacts:
@@ -120,13 +120,14 @@ tests:UiSmoke:
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
   script:
-    #- echo $REPORT
-    #- echo $REPORT_URL
     - echo $P_ENV
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY && bash ./report.sh build/allure-results $ALLURE_SERVER stf-ui-smoke
+    - ./gradlew build sberUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+  after_script:
+    - cd web-tests
+    - bash ./report.sh stf-ui-smoke
   tags:
     - k8s-stage
   artifacts:
@@ -142,13 +143,14 @@ tests:AdminUiSmoke:
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
   script:
-    #- echo $REPORT
-    #- echo $REPORT_URL
     - echo $P_ENV
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY && bash ./report.sh build/allure-results $ALLURE_SERVER admin-ui-smoke
+    - ./gradlew clean build adminUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+  after_script:
+    - cd web-tests
+    - bash ./report.sh admin-ui-smoke
   tags:
     - k8s-stage
   artifacts:
@@ -168,7 +170,10 @@ tests:AutoMRCheck:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build AutoMRCheck -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=false -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew clean build AutoMRCheck -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=false -Pkey=$ATST_APP_SECRET_KEY
+  after_script:
+    - cd web-tests
+    - bash ./report.sh default
   tags:
     - k8s-stage
   artifacts:

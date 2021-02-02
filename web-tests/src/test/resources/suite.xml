@@ -16,6 +16,7 @@
         <include name="metro-smoke"/>
         <include name="metro-acceptance"/>
         <include name="metro-regression"/>
+        <include name="testTask"/>
       </run>
     </groups>
     <classes>
