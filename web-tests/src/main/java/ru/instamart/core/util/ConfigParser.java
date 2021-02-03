@@ -72,7 +72,6 @@ public final class ConfigParser {
         }
     }
 
-
     private String getValue(final String key) {
         final String value = this.properties.getProperty(key);
         return value != null ? value.trim() : null;

@@ -24,7 +24,7 @@
         "shmSize" : 268435456,
         "cpu" : "1.0",
         "mem" : "512m",
-        "path" : "/wd/hub",
+        "path" : "/",
         "env" : ["TZ=Europe/Moscow"]
       }
     }

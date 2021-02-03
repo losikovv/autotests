@@ -16,12 +16,13 @@ public final class Config {
     public static boolean IS_KRAKEN_REVEALEN;
     //Core
     public static String DEFAULT_BROWSER;
+    public static String BROWSER_VERSION;
     public static String DEFAULT_ENVIRONMENT;
     public static String DEFAULT_RETAILER;
 
     public static int BASIC_TIMEOUT;
     public static int WAITING_TIMEOUT;
-    public static boolean DOCKER;
+    public static String REMOTE_URL;
     public static boolean VIDEO;
     public static boolean FULL_SCREEN_MODE;
     public static boolean DO_CLEANUP_AFTER_TEST_RUN;
@@ -40,6 +41,7 @@ public final class Config {
         // Если в core.properties нет переменной defaultBrowser, то будет браться значение из параметра запуска -Pbrowser
         // если и там нет, то дефолтное BrowserType.CHROME
         DEFAULT_BROWSER = coreSettings.getString("defaultBrowser", System.getProperty("browser", BrowserType.CHROME));
+        BROWSER_VERSION = coreSettings.getString("browserVersion", System.getProperty("version", "latest"));
         // Если в core.properties нет переменной defaultEnvironment, то будет браться значение из параметра запуска -Penv
         // если и там нет, то дефолтное Environments.sbermarket.preprod()
         DEFAULT_ENVIRONMENT = coreSettings.getString("defaultEnvironment", System.getProperty("env", Environments.sbermarket.preprod()));
@@ -48,8 +50,7 @@ public final class Config {
         BASIC_TIMEOUT = coreSettings.getInt("basicTimeout", 2);
         WAITING_TIMEOUT = coreSettings.getInt("waitingTimeout", 30);
 
-        // Переключатель включает прогон в селенойде
-        DOCKER = coreSettings.getBoolean("docker", false);
+        REMOTE_URL = coreSettings.getString("remoteUrl", "http://localhost:4444/wd/hub");
         // Включает запись видео
         VIDEO = coreSettings.getBoolean("video", false);
 
