@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Web UI suite" data-provider-thread-count="3">
+<suite name="Web UI suite" parallel="none">
   <listeners>
     <listener class-name="instamart.core.listeners.ExecutionListenerImpl"/>
     <listener class-name="instamart.core.listeners.UiListener"/>
   </listeners>
-  <test verbose="1" name="Web UI tests" parallel="methods" thread-count="3">
+  <test verbose="1" name="Web UI tests">
     <groups>
       <run>
         <include name="sbermarket-Ui-smoke"/>
