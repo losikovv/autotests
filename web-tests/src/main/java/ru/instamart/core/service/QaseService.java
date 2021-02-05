@@ -15,6 +15,7 @@ import io.qase.api.inner.GsonObjectMapper;
 import io.qase.api.models.v1.attachments.Attachment;
 import io.qase.api.models.v1.suites.Suite;
 import io.qase.api.models.v1.testplans.TestPlan;
+import io.qase.api.models.v1.testruns.TestRun;
 import io.qase.api.services.TestCaseService;
 import kong.unirest.Unirest;
 import kong.unirest.UnirestInstance;
@@ -26,6 +27,7 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -247,5 +249,17 @@ public final class QaseService {
                 .stream()
                 .map(Attachment::getHash)
                 .collect(Collectors.toList());
+    }
+
+    public void deleteOldTestRuns() {
+        final List<TestRun> testRunList = qaseApi.testRuns()
+                .getAll(projectCode, true)
+                .getTestRunList();
+
+        for (TestRun testRun : testRunList) {
+            if (LocalDateTime.now().minusDays(7).isAfter(testRun.getStartTime())) {
+                qaseApi.testRuns().delete(projectCode, testRun.getId());
+            }
+        }
     }
 }
