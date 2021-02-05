@@ -31,8 +31,7 @@ public class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression","MRAutoCheck"
-            },
-            priority = 301
+            }
     )
     public void noShippingAddressByDefault() {
         User.Logout.quickly();

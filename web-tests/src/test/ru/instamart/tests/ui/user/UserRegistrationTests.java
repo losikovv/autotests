@@ -278,8 +278,7 @@ public class UserRegistrationTests extends TestBase {
     @CaseId(1541)
     @Test(
             description = "Регистрация нового пользователя на лендинге",
-            groups = {"metro-acceptance","sbermarket-Ui-smoke","MRAutoCheck","testing"},
-            priority = 210
+            groups = {"metro-acceptance","sbermarket-Ui-smoke","MRAutoCheck","testing"}
     )
     public void successRegOnLanding() {
         phone = Generate.phoneNumber();

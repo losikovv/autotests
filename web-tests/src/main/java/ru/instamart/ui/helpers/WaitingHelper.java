@@ -15,12 +15,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
-public class WaitingHelper extends HelperBase {
+public final class WaitingHelper extends HelperBase {
 
     private static final Logger log = LoggerFactory.getLogger(WaitingHelper.class);
 
-    public WaitingHelper(WebDriver driver, AppManager app) {
-        super(driver, app);
+    public WaitingHelper(final AppManager kraken) {
+        super(kraken);
     }
 
     /** Просто задержка на указанное время */
@@ -48,9 +48,9 @@ public class WaitingHelper extends HelperBase {
     }
 
     public void fluentlyWithWindowsHandler(Function conditions){
-        for (String winHandle : driver.getWindowHandles()) {
+        for (String winHandle : kraken.getWebDriver().getWindowHandles()) {
             try {
-                driver.switchTo().window(winHandle); // switch focus of WebDriver to the next found window handle
+                kraken.getWebDriver().switchTo().window(winHandle); // switch focus of WebDriver to the next found window handle
                 fluently(conditions,"");
             } catch (Exception ex){
                 log.error("окно закрыто продолжаем поиск");
@@ -61,7 +61,7 @@ public class WaitingHelper extends HelperBase {
     }
 
     public void fluently(Function conditions, String message){
-        new FluentWait<>(driver)
+        new FluentWait<>(kraken.getWebDriver())
                 .withTimeout(Config.WAITING_TIMEOUT, TimeUnit.SECONDS)
                 .withMessage(message)
                 .pollingEvery(1, TimeUnit.SECONDS)
@@ -70,7 +70,7 @@ public class WaitingHelper extends HelperBase {
     }
 
     public void fluently(Function conditions, String message, int time){
-        new FluentWait<>(driver)
+        new FluentWait<>(kraken.getWebDriver())
                 .withTimeout(time, TimeUnit.SECONDS)
                 .withMessage(message)
                 .pollingEvery(1, TimeUnit.SECONDS)
@@ -79,7 +79,7 @@ public class WaitingHelper extends HelperBase {
     }
 
     public void fluentlyMS(Function conditions, String message, int time){
-        new FluentWait<>(driver)
+        new FluentWait<>(kraken.getWebDriver())
                 .withTimeout(time, TimeUnit.MILLISECONDS)
                 .withMessage(message)
                 .pollingEvery(1, TimeUnit.MILLISECONDS)
@@ -89,7 +89,7 @@ public class WaitingHelper extends HelperBase {
 
     public boolean fluentlyPossibleAppearance(Function conditions, String message, int time){
         try{
-            new FluentWait<>(driver)
+            new FluentWait<>(kraken.getWebDriver())
                     .withTimeout(time, TimeUnit.SECONDS)
                     .withMessage(message)
                     .pollingEvery(1, TimeUnit.SECONDS)

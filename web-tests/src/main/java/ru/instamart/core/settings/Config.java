@@ -12,8 +12,6 @@ public final class Config {
     /** Directories block */
     private static final String CORE_CONFIG_FILE = "core.properties";
 
-    /** Variables block */
-    public static boolean IS_KRAKEN_REVEALEN;
     //Core
     public static String DEFAULT_BROWSER;
     public static String BROWSER_VERSION;
@@ -34,9 +32,6 @@ public final class Config {
 
     public static void load() {
         final ConfigParser coreSettings = new ConfigParser(CONFIG_DIR+CORE_CONFIG_FILE);
-
-        // Переменная для обозначения запущен кракен или нет
-        IS_KRAKEN_REVEALEN = coreSettings.getBoolean("isKrakenRevealen", false);
 
         // Если в core.properties нет переменной defaultBrowser, то будет браться значение из параметра запуска -Pbrowser
         // если и там нет, то дефолтное BrowserType.CHROME

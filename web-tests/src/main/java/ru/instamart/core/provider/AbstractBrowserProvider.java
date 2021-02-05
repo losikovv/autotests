@@ -5,18 +5,28 @@ import instamart.core.util.ProcessUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
+
+import static instamart.core.settings.Config.BASIC_TIMEOUT;
+import static instamart.core.settings.Config.FULL_SCREEN_MODE;
 
 public abstract class AbstractBrowserProvider {
 
@@ -24,22 +34,38 @@ public abstract class AbstractBrowserProvider {
 
     protected WebDriver driver;
 
-    public abstract void createDriver();
+    public abstract void createDriver(final String version);
 
     protected void createRemoteDriver(final DesiredCapabilities capabilities) {
         try {
-            driver = new RemoteWebDriver(
+            this.driver = new RemoteWebDriver(
                     URI.create(Config.REMOTE_URL).toURL(),
                     capabilities);
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             ((RemoteWebDriver)driver).setFileDetector(new LocalFileDetector());
+            applyOptions();
         } catch (Exception e) {
             log.error("Protocol exception ", e);
         }
     }
 
-    protected void createLocalChromeDriver(final ChromeOptions options) {
-        driver = new ChromeDriver(options);
+    protected void createLocalChromeDriver(final Optional<ChromeOptions> options) {
+        this.driver = options.map(ChromeDriver::new).orElseGet(ChromeDriver::new);
+        applyOptions();
+    }
+
+    protected void createLocalSafariDriver(final Optional<SafariOptions> options) {
+        this.driver = options.map(SafariDriver::new).orElseGet(SafariDriver::new);
+        applyOptions();
+    }
+
+    protected void createLocalFirefoxDriver(final Optional<FirefoxOptions> options) {
+        this.driver = options.map(FirefoxDriver::new).orElseGet(FirefoxDriver::new);
+        applyOptions();
+    }
+
+    protected void createLocalIEDriver(final Optional<InternetExplorerOptions> options) {
+        this.driver = options.map(InternetExplorerDriver::new).orElseGet(InternetExplorerDriver::new);
+        applyOptions();
     }
 
     /**
@@ -86,6 +112,11 @@ public abstract class AbstractBrowserProvider {
                 ProcessUtils.processKiller("Firefox");
             }
         }
+    }
+
+    private void applyOptions() {
+        if (FULL_SCREEN_MODE) {driver.manage().window().fullscreen(); }
+        if (BASIC_TIMEOUT > 0) {driver.manage().timeouts().implicitlyWait(BASIC_TIMEOUT, TimeUnit.SECONDS);}
     }
 
     /**

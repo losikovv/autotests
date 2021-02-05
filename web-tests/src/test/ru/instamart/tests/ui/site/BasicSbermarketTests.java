@@ -158,7 +158,6 @@ public class BasicSbermarketTests extends TestBase {
     @Test(  dataProvider = "retailersSpree" ,
             dataProviderClass = RestDataProvider.class,
             description = "Тест доступности / недоступности витрин ритейлеров Сбермаркета ",
-            priority = 103,
             groups = {"testing","sbermarket-Ui-smoke","MRAutoCheck"}
     ) public void successCheckSbermarketRetailers(Retailer retailer) {
         if (retailer.getAvailable()) baseChecks.checkRetailerIsAvailable(retailer.getSlug());

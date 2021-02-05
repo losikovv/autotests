@@ -12,12 +12,12 @@ import org.slf4j.LoggerFactory;
 
 import static java.lang.Integer.parseInt;
 
-public class GrabHelper extends HelperBase {
+public final class GrabHelper extends HelperBase {
 
     private static final Logger log = LoggerFactory.getLogger(GrabHelper.class);
 
-    public GrabHelper(WebDriver driver, AppManager app) {
-        super(driver, app);
+    public GrabHelper(final AppManager kraken) {
+        super(kraken);
     }
 
     /** Взять sid из текущего URL */
@@ -41,7 +41,7 @@ public class GrabHelper extends HelperBase {
 
     /** Взять текущий URL */
     public String currentURL() {
-        return driver.getCurrentUrl();
+        return kraken.getWebDriver().getCurrentUrl();
     }
 
     /** Взять количество элементов */
@@ -51,7 +51,7 @@ public class GrabHelper extends HelperBase {
 
     /** Взять количество элементов по локатору */
     public int listSize(By locator) {
-        return driver.findElements(locator).size();
+        return kraken.getWebDriver().findElements(locator).size();
     }
 
     /** Взять текст элемента */
@@ -62,7 +62,7 @@ public class GrabHelper extends HelperBase {
     /** Взять текст элемента по локатору */
     public String text(By locator) {
         try {
-            return driver.findElement(locator).getText();
+            return kraken.getWebDriver().findElement(locator).getText();
         } catch (NoSuchElementException e) {
             return null;
         }
@@ -71,11 +71,11 @@ public class GrabHelper extends HelperBase {
     /** Взять текст элемента по локатору */
     public String text(By locator, int i) {
         try {
-            return driver.findElement(locator).getText();
+            return kraken.getWebDriver().findElement(locator).getText();
         } catch (NoSuchElementException e) {
             return null;
         } catch (Exception ex){
-            return driver.findElements(locator).get(i).getText();
+            return kraken.getWebDriver().findElements(locator).get(i).getText();
         }
     }
 
@@ -87,7 +87,7 @@ public class GrabHelper extends HelperBase {
     /** Взять текст из заполненного поля по локатору */
     public String value(By locator) {
         try {
-            return driver.findElement(locator).getAttribute("value");
+            return kraken.getWebDriver().findElement(locator).getAttribute("value");
         } catch (NoSuchElementException e) {
             return null;
         }

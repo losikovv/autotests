@@ -16,19 +16,19 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class PerformHelper extends HelperBase {
+public final class PerformHelper extends HelperBase {
 
     private static final Logger log = LoggerFactory.getLogger(PerformHelper.class);
 
-    public PerformHelper(WebDriver driver, AppManager app) {
-        super(driver, app);
+    public PerformHelper(final AppManager kraken) {
+        super(kraken);
     }
 
     /** Кликнуть элемент предпочтительно использование именно этого метода*/
     public void click(ElementData element) {
         log.info("Клик по: {}", element.getDescription());
         try {
-            driver.findElement(element.getLocator()).click();
+            kraken.getWebDriver().findElement(element.getLocator()).click();
         }
         catch (NoSuchElementException n) {
             if (kraken.detect().is502()) {
@@ -79,7 +79,7 @@ public class PerformHelper extends HelperBase {
     /** Навестисть на элемент */
     public void hoverOn(ElementData element) {
         try {
-            new Actions(driver).moveToElement(driver.findElement(element.getLocator())).perform();
+            new Actions(kraken.getWebDriver()).moveToElement(kraken.getWebDriver().findElement(element.getLocator())).perform();
             kraken.await().simply(1); // Ожидание для стабильности
         }
         catch (ElementNotVisibleException v) {
@@ -97,15 +97,15 @@ public class PerformHelper extends HelperBase {
             int attempt = 0;
             if (!text.equals(existingText)) {
                 while (!existingText.equals("")){
-                    driver.findElement(element.getLocator()).clear();
-                    driver.findElement(element.getLocator()).sendKeys(Keys.BACK_SPACE);
+                    kraken.getWebDriver().findElement(element.getLocator()).clear();
+                    kraken.getWebDriver().findElement(element.getLocator()).sendKeys(Keys.BACK_SPACE);
                     existingText = kraken.grab().value(element);
                     attempt = attempt+1;
                     if ((attempt==1000)){
                         throw new ElementNotInteractableException("");
                     }
                 }
-                driver.findElement(element.getLocator()).sendKeys(text);
+                kraken.getWebDriver().findElement(element.getLocator()).sendKeys(text);
             }
         }
     }
@@ -113,8 +113,8 @@ public class PerformHelper extends HelperBase {
     /** Заполнить поле через метод Action*/
     public void fillFieldAction(ElementData element, String text){
         click(element);
-        var element1 = driver.findElement(element.getLocator());
-        Actions actions = new Actions(driver);
+        var element1 = kraken.getWebDriver().findElement(element.getLocator());
+        Actions actions = new Actions(kraken.getWebDriver());
         actions.click(element1).sendKeys(text).perform();
     }
 
@@ -133,36 +133,36 @@ public class PerformHelper extends HelperBase {
         //В данном случае это скорее костыль, так как конкретный чекбокс найти очень сложно, клик по
         //тексту, чекбокс не переводит в статус true/false
         //также нельзя найти атрибут по которому будет понятно в каком статусе объект
-        List<WebElement> elements = driver.findElements(element.getLocator());
+        List<WebElement> elements = kraken.getWebDriver().findElements(element.getLocator());
         click(elements.get(counter-1));
     }
 
     /** Переключиться на фреймами по имени или id */
     void switchToFrame(String nameOrId) {
-        driver.switchTo().frame(nameOrId);
+        kraken.getWebDriver().switchTo().frame(nameOrId);
     }
 
     /** Переключиться на активный элемент */
     public void switchToActiveElement() {
-        driver.switchTo().activeElement();
+        kraken.getWebDriver().switchTo().activeElement();
     }
 
     /** Переключиться на следующую вкладку */
     public void switchToNextWindow() {
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle); // switch focus of WebDriver to the next found window handle
+        for (String winHandle : kraken.getWebDriver().getWindowHandles()) {
+            kraken.getWebDriver().switchTo().window(winHandle); // switch focus of WebDriver to the next found window handle
         }
     }
 
     /** Переключиться на дефолтный контент */
     public void switchToDefaultContent() {
         //driver.switchTo().parentFrame();
-        driver.switchTo().defaultContent();
+        kraken.getWebDriver().switchTo().defaultContent();
     }
 
     /** Обновить страницу */
     public void refresh() {
-        driver.navigate().refresh();
+        kraken.getWebDriver().navigate().refresh();
         kraken.await().implicitly(1); // Ожидание обновления страницы
     }
 
@@ -243,7 +243,7 @@ public class PerformHelper extends HelperBase {
     /**Это функция работает как костыль, пока у нас нет дата атрибутов, она берет парента и возвращает чаилда по индексу
      * нужно от нее отказаться, когла сделаем дата атрибут*/
     public WebElement findChildElementByTagAndIndex(ElementData parent,By tag, Integer index){
-        List<WebElement> elements = driver.findElement(parent.getLocator()).findElements(tag);
+        List<WebElement> elements = kraken.getWebDriver().findElement(parent.getLocator()).findElements(tag);
         try{
             return elements.get(index);
         } catch (Exception ex){

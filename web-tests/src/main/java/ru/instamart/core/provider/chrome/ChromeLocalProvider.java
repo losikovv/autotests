@@ -5,12 +5,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.CapabilityType;
 
+import java.util.Optional;
+
 import static instamart.core.settings.Config.DO_CLEANUP_BEFORE_TEST_RUN;
 
 public final class ChromeLocalProvider extends AbstractBrowserProvider {
 
     @Override
-    public void createDriver() {
+    public void createDriver(final String version) {
         if (DO_CLEANUP_BEFORE_TEST_RUN) {
             cleanProcessByName(BrowserType.CHROME);
         }
@@ -26,6 +28,6 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         options.addArguments("--disable-dev-shm-usage");
         options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
 
-        createLocalChromeDriver(options);
+        createLocalChromeDriver(Optional.of(options));
     }
 }

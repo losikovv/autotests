@@ -11,10 +11,10 @@ import static instamart.core.settings.Config.VIDEO;
 public final class ChromeProvider extends AbstractBrowserProvider {
 
     @Override
-    public void createDriver() {
+    public void createDriver(final String version) {
         final DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setBrowserName(Config.DEFAULT_BROWSER);
-        capabilities.setVersion(Config.BROWSER_VERSION);
+        capabilities.setBrowserName("chrome");
+        capabilities.setVersion(version);
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
                 "enableVideo", VIDEO

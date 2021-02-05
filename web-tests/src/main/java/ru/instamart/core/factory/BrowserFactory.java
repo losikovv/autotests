@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 
 public final class BrowserFactory {
 
-    public static WebDriver createBrowserInstance(final String browserType) {
+    public static WebDriver createBrowserInstance(final String browserType, final String version) {
         AbstractBrowserProvider provider;
         switch (browserType) {
             case "chrome_local":
@@ -34,7 +34,7 @@ public final class BrowserFactory {
                 provider = new ChromeProvider();
                 break;
         }
-        provider.createDriver();
+        provider.createDriver(version);
 
         return provider.getWebDriver();
     }

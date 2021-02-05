@@ -7,6 +7,7 @@ import instamart.core.testdata.ui.PaymentTypes;
 import instamart.ui.common.lib.CheckoutSteps;
 import instamart.ui.common.lib.ReplacementPolicies;
 import instamart.ui.common.pagesdata.*;
+import instamart.ui.helpers.WaitingHelper;
 import instamart.ui.objectsmap.Elements;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,30 +19,30 @@ import java.util.concurrent.TimeUnit;
 
 import static instamart.core.testdata.TestVariables.testOrderDetails;
 
-public class Checkout extends Base {
+public final class Checkout extends Base {
 
     private static final Logger log = LoggerFactory.getLogger(Checkout.class);
 
-    public Checkout(WebDriver driver, AppManager app) {
-        super(driver, app);
+    public Checkout(final AppManager kraken) {
+        super(kraken);
     }
 
     public static void hitNext(CheckoutStepData step){
         log.info("Жмем 'Продолжить' в шаге '{}'", step.getName());
         kraken.perform().click(Elements.Checkout.Step.nextButton(step));
-        kraken.await().simply(1); // Ожидание сохранения данных в шаге чекаута после нажатия "Продолжить"
+        WaitingHelper.simply(1); // Ожидание сохранения данных в шаге чекаута после нажатия "Продолжить"
     }
 
     public static void hitChange(CheckoutStepData step){
         log.info("Жмем 'Изменить' в шаге '{}'", step.getName());
         kraken.perform().click(Elements.Checkout.MinimizedStep.changeButton(step));
-        kraken.await().simply(1); // Ожидание разворота шага чекаута после нажатия "Изменить"
+        WaitingHelper.simply(1); // Ожидание разворота шага чекаута после нажатия "Изменить"
     }
 
     public static void hitSave(CheckoutStepData step){
         log.info("Жмем 'Сохранить' в шаге '{}'", step.getName());
         kraken.perform().click(Elements.Checkout.Step.saveButton(step));
-        kraken.await().simply(1); // Ожидание сохранения данных в шаге чекаута после нажатия "Сохранить"
+        WaitingHelper.simply(1); // Ожидание сохранения данных в шаге чекаута после нажатия "Сохранить"
     }
 
     public static void sendOrderFromSidebar() {
@@ -765,7 +766,7 @@ public class Checkout extends Base {
 
     /** Проверяем готовность чекаута перед заполнением */
     private void initCheckout() {
-        new FluentWait<>(driver)
+        new FluentWait<>(kraken.getWebDriver())
                 .withTimeout(Config.WAITING_TIMEOUT, TimeUnit.SECONDS)
                 .withMessage("Не открывается чекаут")
                 .pollingEvery(Config.BASIC_TIMEOUT, TimeUnit.SECONDS)

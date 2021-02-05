@@ -12,10 +12,10 @@ public final class FirefoxProvider extends AbstractBrowserProvider {
 
 
     @Override
-    public void createDriver() {
+    public void createDriver(final String version) {
         final DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setBrowserName(Config.DEFAULT_BROWSER);
-        capabilities.setVersion(Config.BROWSER_VERSION);
+        capabilities.setBrowserName("firefox");
+        capabilities.setVersion(version);
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
                 "enableVideo", VIDEO
