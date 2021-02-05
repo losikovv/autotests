@@ -18,7 +18,7 @@ public final class WebDriverService {
 
     public WebDriver createOrGetDriver() {
         return this.webDriverMap.computeIfAbsent(Thread.currentThread().getId(), threadId ->
-                this.makeAutoClosable(Thread.currentThread(), BrowserFactory.createBrowserInstance("chrome", "latest"))
+                this.makeAutoClosable(Thread.currentThread(), BrowserFactory.createBrowserInstance("chrome_local", "latest"))
         );
     }
 
