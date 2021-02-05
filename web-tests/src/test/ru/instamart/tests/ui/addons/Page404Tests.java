@@ -20,8 +20,7 @@ public class Page404Tests extends TestBase {
     }
 
     @Test(  description = "Тест познания котомудрости на странице 404",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 11001
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successLearnCatWisdom() {
         //Shop.Jivosite.open();
@@ -33,8 +32,7 @@ public class Page404Tests extends TestBase {
     }
 
     @Test(  description = "Тест перехода на главную по одноименной кнопке на странице 404",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 11002
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successGoToHomepage() {
         //Shop.Jivosite.open();
@@ -43,8 +41,7 @@ public class Page404Tests extends TestBase {
     }
 
     @Test(  description = "Тест перехода на главную по одноименной кнопке на странице 404 после познания котомудрости",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 11003
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successGoToHomepageAfterLearningCatWisdom() {
         //Shop.Jivosite.open();
@@ -54,8 +51,7 @@ public class Page404Tests extends TestBase {
     }
 
     @Test(  description = "Тест перехода в каталог по кнопке 'Познать цены' на странице 404 после познания котомудрости",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 11004
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successGoToCatalogAfterLearningCatWisdom() {
         //Shop.Jivosite.open();
@@ -66,8 +62,7 @@ public class Page404Tests extends TestBase {
     }
 
     @Test(  description = "Тест познания новой котомудрости на странице 404 после познания первой",
-            groups = {"sbermarket-regression"},
-            priority = 11005
+            groups = {"sbermarket-regression"}
     )
     public void successLearnMoreCatWisdom() {
         kraken.perform().refresh();

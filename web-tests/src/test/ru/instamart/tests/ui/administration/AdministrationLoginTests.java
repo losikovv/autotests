@@ -27,8 +27,7 @@ public class AdministrationLoginTests extends TestBase {
     }
 
     @Test(  description = "Тест валидации элементов логин-страницы админки",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 10051
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successValidateAdministrationLoginPage() {
         baseChecks.checkIsElementPresent(Elements.Administration.LoginPage.title());
@@ -38,8 +37,7 @@ public class AdministrationLoginTests extends TestBase {
     }
 
     @Test(  description = "Тест неуспешной авторизации с пустыми полями",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 10052
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void noAuthWithEmptyFields() {
         SoftAssert softAssert = new SoftAssert();
@@ -69,8 +67,7 @@ public class AdministrationLoginTests extends TestBase {
     }
 
     @Test(  description = "Тест неуспешной авторизации с некорректным логином",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 10053
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void noAuthWithIncorrectUsername() {
 
@@ -91,8 +88,7 @@ public class AdministrationLoginTests extends TestBase {
     }
 
     @Test(  description = "Тест неуспешной авторизации с несуществующим логином",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 10054
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void noAuthWithNonexistingUser() {
 
@@ -113,8 +109,7 @@ public class AdministrationLoginTests extends TestBase {
     }
 
     @Test(  description = "Тест неуспешной авторизации с коротким паролем",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 10055
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void noAuthWithShortPassword() {
 
@@ -135,8 +130,7 @@ public class AdministrationLoginTests extends TestBase {
     }
 
     @Test(  description = "Тест неуспешной авторизации с неверным паролем",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 10056
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void noAuthWithWrongPassword() {
 
@@ -157,8 +151,7 @@ public class AdministrationLoginTests extends TestBase {
     }
 
     @Test(  description = "Тест успешной авторизации",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 10057
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthOnAdminLoginPage() {
 

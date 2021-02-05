@@ -27,8 +27,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
     }
 
     @Test ( description = "Тест наличия виджета 'Популярные товары' на главной",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 12001
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successCheckPopularItemsWidget() {
 
@@ -38,8 +37,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
     }
 
     @Test ( description = "Тест наличия виджета 'Вы недавно смотрели' на главной",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 12002
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successCheckRecentlyViewedWidget() {
 
@@ -50,7 +48,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
 
     @Test ( description = "Тест успешного открытия карточки товара из виджета 'Популярные товары' на главной",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 12003,
+
             dependsOnMethods = "successCheckPopularItemsWidget"
     )
     public void successOpenItemFromPopularItemsWidget() {
@@ -63,7 +61,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
 
     @Test ( description = "Тест успешного открытия карточки товара из виджета 'Вы недавно смотрели' на главной",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 12004,
+
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemFromRecentlyViewedWidget() {
@@ -76,7 +74,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
 
     @Test ( description = "Тест успешного добавления товара из блока 'Популярные товары' на главной",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 12005,
+
             dependsOnMethods = "successCheckPopularItemsWidget"
     )
     public void successAddItemFromPopularItemsWidget() {
@@ -91,7 +89,7 @@ public class RetailRocketRetailerPageWidgetsTests extends TestBase {
 
     @Test ( description = "Тест успешного добавления товара из блока 'Вы недавно смотрели' на главной",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 12006,
+
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successAddItemFromRecentlyViewedWidget() {

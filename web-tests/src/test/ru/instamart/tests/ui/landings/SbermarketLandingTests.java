@@ -22,7 +22,7 @@ public class SbermarketLandingTests extends TestBase {
     @CaseId(1687)
     @Test(
             description = "Тест валидности и наличия элементов лендинга Сбермаркета",
-            priority = 51,
+
             groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successValidateSbermarketLanding() {
@@ -55,7 +55,7 @@ public class SbermarketLandingTests extends TestBase {
     @CaseId(1683)
     @Test(
             description = "Тест перехода в каталог магазина с лендинга Сбермаркета",
-            priority = 52,
+
             groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successGoToCatalogFromSbermarketLanding() {
@@ -65,7 +65,7 @@ public class SbermarketLandingTests extends TestBase {
 
     @Test(
             description = "Тест авторизации на лендинге Сбермаркета",
-            priority = 53,
+
             groups = {}
     )
     @Deprecated

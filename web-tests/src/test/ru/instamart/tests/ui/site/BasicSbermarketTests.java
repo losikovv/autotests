@@ -24,7 +24,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1438)
     @Test(
             description = "Тест валидности элементов и ссылок в шапке Сбермаркета",
-            priority = 101,
+
             groups = {"testing","sbermarket-Ui-smoke"}
     ) public void successValidateHeaderSbermarket() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -100,7 +100,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1439)
     @Test(
             description = "Тест валидности элементов и ссылок в футере Сбермаркета",
-            priority = 102,
+
             groups = {"testing","sbermarket-Ui-smoke"}
     ) public void successValidateFooterSbermarket() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -166,7 +166,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1433)
     @Test(
             description = "Тест доступности партнерских лендингов",
-            priority = 104,
+
             groups = {"testing","sbermarket-Ui-smoke"}
     ) public void successCheckPartnerLandingsAreAvailable() {
         baseChecks.checkPageIsAvailable(Pages.Landings.mnogoru());
@@ -175,7 +175,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1814)
     @Test(
             description = "Тест доступности сервисных страниц",
-            priority = 105,
+
             groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successServicePagesAreAvailable() {
@@ -186,7 +186,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1432)
     @Test(
             description = "Тест доступности статических страниц",
-            priority = 106,
+
             groups = {
                     "testing","sbermarket-Ui-smoke"
             }

@@ -19,7 +19,7 @@ public class DriversHiringLandingTests extends TestBase {
     @CaseId(1686)
     @Test(
             description = "Тест лендинга найма водителей Сбермаркета",
-            priority = 41,
+
             groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successValidateSbermarketDriversHiringLanding() {

@@ -21,7 +21,7 @@ public class UserPasswordRecoveryTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки восстановления пароля с пустым полем email",
-            priority = 451,
+
             groups = {
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
@@ -36,7 +36,7 @@ public class UserPasswordRecoveryTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки восстановления пароля c некорректным email",
-            priority = 452,
+
             groups = {
                     "metro-regression",
                     "sbermarket-regression",
@@ -51,7 +51,7 @@ public class UserPasswordRecoveryTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки восстановления пароля для несуществующего пользователя",
-            priority = 453,
+
             groups = {
                     "metro-regression",
                     "sbermarket-regression",
@@ -66,7 +66,7 @@ public class UserPasswordRecoveryTests extends TestBase {
 
     @Test(
             description = "Тест успешной отправки восстановления пароля на лендинге",
-            priority = 454,
+
             groups = {
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -80,7 +80,7 @@ public class UserPasswordRecoveryTests extends TestBase {
 
     @Test(
             description = "Тест успешной отправки восстановления пароля на главной",
-            priority = 455,
+
             groups = {
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
@@ -96,7 +96,7 @@ public class UserPasswordRecoveryTests extends TestBase {
 
     @Test (
             description = "Тест возможности открыть авторизационную модалку после отправки формы восстановления пароля",
-            priority = 456,
+
             groups = {
                     "metro-regression",
                     "sbermarket-regression",
@@ -114,7 +114,7 @@ public class UserPasswordRecoveryTests extends TestBase {
 
     @Test (
             description = "Тест успешной авторизации с текущим паролем после отправки запроса на восстановление пароля",
-            priority = 457,
+
             groups = {
                     "metro-regression",
                     "sbermarket-regression",
@@ -132,7 +132,7 @@ public class UserPasswordRecoveryTests extends TestBase {
 
     @Test (
             description = "Тест на авторизацию с новым паролем после восстановления",
-            priority = 458,
+
             groups = {
                     "metro-regression",
                     "sbermarket-regression"
@@ -152,7 +152,7 @@ public class UserPasswordRecoveryTests extends TestBase {
     //TODO Проверить почему 2 теста
     @Test (
             description = "Тест на авторизацию с новым паролем после восстановления",
-            priority = 459,
+
             groups = {
                     "metro-regression",
                     "sbermarket-regression"

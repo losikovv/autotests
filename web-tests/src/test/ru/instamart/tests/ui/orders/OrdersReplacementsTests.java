@@ -31,7 +31,7 @@ public class OrdersReplacementsTests extends TestBase {
     public void afterTest(ITestResult result) {kraken.apiV2().cancelCurrentOrder(); }
 
     @Test(description = "Тест заказа с политикой Звонить / Заменять",
-            priority = 2201,
+
             groups = {
                     "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
@@ -51,7 +51,7 @@ public class OrdersReplacementsTests extends TestBase {
     }
 
     @Test(description = "Тест заказа с политикой Звонить / Убирать",
-            priority = 2201,
+
             groups = {
                     "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
@@ -71,7 +71,7 @@ public class OrdersReplacementsTests extends TestBase {
     }
 
     @Test(description = "Тест заказа с политикой Не звонить / Заменять",
-            priority = 2203,
+
             groups = {
                     "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
@@ -91,7 +91,7 @@ public class OrdersReplacementsTests extends TestBase {
     }
 
     @Test(description = "Тест заказа с политикой Не звонить / Убирать",
-            priority = 2204,
+
             groups = {
                     "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",

@@ -34,7 +34,7 @@ OrdersPaymentsTests extends TestBase {
 
     @Test(
             description = "Тест заказа с оплатой картой онлайн",
-            priority = 2102,
+
             groups = {
                     "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
@@ -55,7 +55,7 @@ OrdersPaymentsTests extends TestBase {
 
     @Test(
             description = "Тест заказа с оплатой картой курьеру",
-            priority = 2103,
+
             groups = {
                     "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
@@ -76,7 +76,7 @@ OrdersPaymentsTests extends TestBase {
 
     @Test(
             description = "Тест заказа с оплатой банковским переводом",
-            priority = 2104,
+
             groups = {
                     "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",

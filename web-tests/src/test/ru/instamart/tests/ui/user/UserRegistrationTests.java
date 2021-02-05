@@ -35,8 +35,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-Ui-smoke","testing"
-            },
-            priority = 201
+            }
     )
     public void noRegWithEmptyRequisites() {
         kraken.get().page(Config.DEFAULT_RETAILER); // Переход на страничку Метро
@@ -71,8 +70,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-regression","metro-acceptance",
                     "sbermarket-regression","testing"
-            },
-            priority = 202
+            }
     )
     public void noRegWithoutName() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -100,8 +98,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-regression","metro-acceptance",
                     "sbermarket-regression","testing"
-            },
-            priority = 202
+            }
     )
     public void noRegWithoutNameMobile() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -124,8 +121,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-regression","metro-acceptance",
                     "sbermarket-regression","testing"
-            },
-            priority = 203
+            }
     )
     public void noRegWithoutEmail() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -148,8 +144,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-regression","metro-acceptance",
                     "sbermarket-regression","testing"
-            },
-            priority = 204
+            }
     )
     public void noRegWithoutPassword() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -167,8 +162,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-regression","metro-acceptance",
                     "sbermarket-regression","testing"
-            },
-            priority = 205
+            }
     )
     public void noRegWithoutPasswordConfirmation() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -190,8 +184,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-regression","metro-acceptance",
                     "sbermarket-regression","testing"
-            },
-            priority = 206
+            }
     )
     public void noRegWithWrongPasswordConfirmation() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -213,8 +206,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression","testing"
-            },
-            priority = 207
+            }
     )
     public void noRegWithExistingEmail() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -232,8 +224,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-regression","metro-acceptance",
                     "sbermarket-regression","testing"
-            },
-            priority = 208
+            }
     )
     public void noRegWithLongFields() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -256,8 +247,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-regression","metro-acceptance",
                     "sbermarket-regression","testing"
-            },
-            priority = 209
+            }
     )
     public void noRegOnCancel() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -299,8 +289,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-smoke", "metro-acceptance", "metro-regression",
                     "sbermarket-Ui-smoke","testing"
-            },
-            priority = 211
+            }
     )
     public void successRegOnMainPage() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -321,8 +310,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-regression","metro-acceptance",
                     "sbermarket-regression","testing"
-            },
-            priority = 212
+            }
     )
     public void successRegFromAddressModal() throws AssertionError {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -348,8 +336,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-regression","testing","sbermarket-Ui-smoke"
-            },
-            priority = 213
+            }
     )
     public void successRegFromCart() {
         phone = Generate.phoneNumber();
@@ -380,8 +367,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression","testing"
-            },
-            priority = 214
+            }
     )
     public void successRegWithoutMailingCheckbox() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -397,8 +383,7 @@ public class UserRegistrationTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-regression","testing"
-            },
-            priority = 215
+            }
     )
     public void successRegWithMailingCheckbox() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -415,7 +400,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест успешной регистрации через ВКонтакте",
-            priority = 122,
+
             groups = {"sbermarket-Ui-smoke","testing"},
             enabled = false
     )
@@ -427,7 +412,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест успешной регистрации через Facebook",
-            priority = 123,
+
             groups = {"sbermarket-Ui-smoke","testing"},
             enabled = false
     )
@@ -438,7 +423,7 @@ public class UserRegistrationTests extends TestBase {
     }
 
     @Test(  description = "Тест успешной регистрации через MailRu",
-            priority = 124,
+
             groups = {"sbermarket-Ui-smoke","testing"},
             enabled = false
     )
@@ -451,7 +436,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест успешной регистрации через Sber ID",
-            priority = 125,
+
             groups = {"sbermarket-Ui-smoke","testing"},
             enabled = false
     )

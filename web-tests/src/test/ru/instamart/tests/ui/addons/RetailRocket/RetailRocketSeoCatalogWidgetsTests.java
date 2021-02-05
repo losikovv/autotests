@@ -25,8 +25,7 @@ public class RetailRocketSeoCatalogWidgetsTests extends TestBase {
 
 
     @Test(  description = "Тест наличия виджета 'выбор покупатлей' в сео каталоге",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12501
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successCheckCustomersChoiceWidget() {
         Assert.assertTrue(
@@ -36,7 +35,7 @@ public class RetailRocketSeoCatalogWidgetsTests extends TestBase {
 
     @Test(  description = "Тест открытия карточки товара из виджета 'Вы недавно смотрели'",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12502,
+
             dependsOnMethods = "successCheckCustomersChoiceWidget"
     )
     public void successOpenItemCardFromCustomersChoiceWidget() {

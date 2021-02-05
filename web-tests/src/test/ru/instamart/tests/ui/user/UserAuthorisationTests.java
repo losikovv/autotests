@@ -44,8 +44,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {
                     "metro-acceptance", "metro-regression","testing",
                     "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 111
+            }
     )
     public void noAuthWithEmptyRequisites() {
        // if(config.mobileAuth())skipTest();
@@ -71,8 +70,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {
                     "metro-regression","testing",
                     "sbermarket-regression"
-            },
-            priority = 112
+            }
     )
     public void noAuthWithoutEmail() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -92,8 +90,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {
                     "metro-regression","testing",
                     "sbermarket-regression"
-            },
-            priority = 113
+            }
     )
     public void noAuthWithoutPassword() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -113,8 +110,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {
                     "metro-regression","testing",
                     "sbermarket-regression"
-            },
-            priority = 114
+            }
     )
     public void noAuthWithNonexistingUser() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -134,8 +130,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 115
+            }
     )
     public void noAuthWithWrongPassword() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -155,8 +150,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-regression"
-            },
-            priority = 116
+            }
     )
     public void noAuthWithLongFields() {
         final UserData testUser = UserManager.getUser(129);
@@ -177,8 +171,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-regression"
-            },
-            priority = 117
+            }
     )
     public void noAuthOnModalClose() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -197,8 +190,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {
                     "metro-acceptance", "metro-regression",
                     "testing", "sbermarket-acceptance","sbermarket-regression"
-            },
-            priority = 119
+            }
     )
     public void successAuthOnMainPage() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -213,8 +205,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-regression"
-            },
-            priority = 120
+            }
     )
     public void successAuthFromAddressModal() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -231,8 +222,7 @@ public class UserAuthorisationTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-regression"
-            },
-            priority = 121
+            }
     )
     public void successAuthFromCart() {
         final UserData testuser = UserManager.getUser();
@@ -257,7 +247,7 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест успешной авторизации через ВКонтакте",
-            priority = 122,
+
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithVkontakte() {
@@ -268,7 +258,7 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест успешной авторизации через Facebook",
-            priority = 123,
+
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithFacebook() {
@@ -278,7 +268,7 @@ public class UserAuthorisationTests extends TestBase {
     }
 
     @Test(  description = "Тест успешной авторизации через MailRu",
-            priority = 124,
+
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithMailRu() {
@@ -290,7 +280,7 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест успешной авторизации через Sber ID",
-            priority = 125,
+
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithSberID() {

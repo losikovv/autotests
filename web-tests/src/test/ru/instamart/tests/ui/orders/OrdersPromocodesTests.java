@@ -51,8 +51,7 @@ public class OrdersPromocodesTests extends TestBase {
 
     @Test(
             description = "Тест применения промокода со скидкой на первый заказ",
-            groups = {"sbermarket-regression"},
-            priority = 1401
+            groups = {"sbermarket-regression"}
     )
     public void successOrderWithFirstOrderPromo() {
         Shop.Cart.proceedToCheckout();
@@ -68,8 +67,7 @@ public class OrdersPromocodesTests extends TestBase {
 
     @Test(
             description = "Тест заказа с промокодом на скидку для ритейлера",
-            groups = {"sbermarket-regression"},
-            priority = 1402
+            groups = {"sbermarket-regression"}
     )
     public void successOrderWithRetailerPromo() {
         Shop.Cart.proceedToCheckout();
@@ -85,8 +83,7 @@ public class OrdersPromocodesTests extends TestBase {
 
     @Test(
             description = "Тест заказа с промокодом на скидку для новых пользователей",
-            groups = {"sbermarket-regression"},
-            priority = 1403
+            groups = {"sbermarket-regression"}
     )
     public void successOrderWithNewUserPromo () {
         Shop.Cart.proceedToCheckout();
@@ -102,8 +99,7 @@ public class OrdersPromocodesTests extends TestBase {
 
     @Test(
             description = "Тест применения промокода на бесплатную доставку на первый заказ",
-            groups = {"sbermarket-regression"},
-            priority = 1404
+            groups = {"sbermarket-regression"}
     )
     public void successOrderWithCertainOrderPromo() {
         Shop.Cart.proceedToCheckout();
@@ -120,8 +116,7 @@ public class OrdersPromocodesTests extends TestBase {
 
     @Test(
             description = "Тест применения промокода на скидку на второй заказ",
-            groups = {"sbermarket-regression"},
-            priority = 1405
+            groups = {"sbermarket-regression"}
     )
     public void successOrderWithSeriesOfOrdersPromo() {
         Shop.Cart.proceedToCheckout();

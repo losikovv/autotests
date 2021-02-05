@@ -27,7 +27,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
 
     @Test(
             description = "Тест недоступности чекаута по прямой ссылке авторизованному юзеру c выбранным адресом и пустой корзиной",
-            priority = 661,
+
             groups = {
                     "sbermarket-acceptance","sbermarket-regression",
                     "metro-acceptance","metro-regression"
@@ -39,7 +39,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
 
     @Test(
             description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
-            priority = 662,
+
             groups = {
                     "sbermarket-acceptance","sbermarket-regression",
                     "metro-acceptance","metro-regression"
@@ -65,7 +65,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
 
     @Test(
             description = "Тест набора корзины до суммы, достаточной для оформления заказа",
-            priority = 663,
+
             groups = {
                     "sbermarket-acceptance","sbermarket-regression",
                     "metro-acceptance","metro-regression"
@@ -92,7 +92,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
 
     @Test(
             description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации",
-            priority = 664,
+
             groups = {
                     "sbermarket-acceptance","sbermarket-regression",
                     "metro-acceptance","metro-regression"

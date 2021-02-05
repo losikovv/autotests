@@ -27,8 +27,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
 
 
     @Test ( description = "Тест наличия виджета 'Выбор покупателей' в каталоге",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12101
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successCheckCustomersChoiceWidget() {
         Assert.assertTrue(
@@ -37,8 +36,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
     }
 
     @Test ( description = "Тест наличия виджета 'Вы недавно смотрели' в каталоге",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12102
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successCheckRecentlyViewedWidget() {
         Assert.assertTrue(
@@ -48,7 +46,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
 
     @Test ( description = "Тест успешного открытия карточки из виджета 'Выбор покупателей' в каталоге",
             groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 12103,
+
             dependsOnMethods = "successCheckCustomersChoiceWidget"
     )
     public void successOpenItemFromCustomersChoiceWidget() {
@@ -61,7 +59,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
 
     @Test ( description = "Тест успешного открытия карточки из виджета 'Вы недавно смотрели' в каталоге",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12104,
+
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemFromRecentlyViewedWidget() {
@@ -78,7 +76,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
 
     @Test ( description = "Тест успешного добавления товара из виджета 'Выбор покупателей' в каталоге",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12105,
+
             dependsOnMethods = "successCheckCustomersChoiceWidget"
     )
     public void successAddItemFromCustomersChoiceWidget() {
@@ -93,7 +91,7 @@ public class RetailRocketCatalogWidgetsTests extends TestBase {
 
     @Test ( description = "Тест успешного добавления товара из виджета 'Вы неавдно смотрели' в каталоге",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12106,
+
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successAddItemFromRecentlyViewedWidget() {
