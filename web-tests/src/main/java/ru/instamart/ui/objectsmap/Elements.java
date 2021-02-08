@@ -106,35 +106,45 @@ public class Elements {
             interface MainBlock{
 
                 static ElementData container() {
-                    return new ElementData(By.xpath("//*[contains(@class,'description__topBlock')]"),
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing']"),
                             "главный блок лендинга Сбермаркета");
                 }
 
                 static ElementData illustration() {
-                    return new ElementData(By.xpath("//div[contains(@class,'home_landing')]//div[contains(@class,'mainImg')]"),
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing']//div[contains(@class,'mainImg')]"),
                             "главная иллюстрация лендинга Сбермаркета");
                 }
 
                 static ElementData addressButton() {
-                    return new ElementData(By.xpath("//*[contains(@class,'description__textContainer')]//button[contains(text(),'Указать адрес доставки')]"),
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing']//*[contains(text(),'Указать адрес доставки')]"),
                             "кнопка с указанием адреса доставки на лендинге");
                 }
 
                 static ElementData text() {
-                    return new ElementData(By.xpath("//div[contains(@class,'home_landing')]//div[contains(@class,'description__text')]"),
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_description']"),
                             "текст лендинга Сбермаркета");
                 }
 
                 interface Stores {
 
                     static ElementData list() {
-                        return new ElementData(By.xpath("//div[contains(@class,'stores__root')]//*[contains(text(),'Наши партнёры')]"),
+                        return new ElementData(By.xpath("//*[@data-qa='home_landing_stores']//*[contains(text(),'Наши партнёры')]"),
                                 "блок со списком магазинов на лендинге Сбермаркета");
                     }
 
                     static ElementData button(int position) {
                         return new ElementData(By.xpath("//div[contains(@class,'stores__store')]["+position+"]//button[contains(@class,'stores__storeCard')]"),
                                 "кнопка " + position + " магазина на лендинге Сбермаркета");
+                    }
+
+                    static ElementData buttonAuchan() {
+                        return new ElementData(By.xpath("//*[@data-qa='home_landing_store_image_72']"),
+                                "кнопка выбора магазина Ашан");
+                    }
+
+                    static ElementData buttonMetro() {
+                        return new ElementData(By.xpath("//*[@data-qa='home_landing_store_image_1']"),
+                                "кнопка выбора магазина Метро");
                     }
 
                     static ElementData homeLanding(){
@@ -147,46 +157,89 @@ public class Elements {
             interface AdvantagesBlock {
 
                 static ElementData container() {
-                    return new ElementData(By.xpath("//div[contains(@class,'advantages__container')]"),
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_advantages']"),
                             "блок преимуществ на лендинге Сбермаркета");
+                }
+
+                static ElementData deliveryAdv() {
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_advantage_delivery']"),
+                            "преимущества быстрой доставки");
+                }
+
+                static ElementData heavyToDoorAdv() {
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_advantage_door']"),
+                            "преимущества доставки тяжелых товаров до двери");
+                }
+
+                static ElementData goodQualityAdv() {
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_advantage_best']"),
+                            "преимущества доставки товаров высокого качества");
+                }
+
+                static ElementData saleAdv() {
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_advantage_sale']"),
+                            "преимущества получения скидок от партнеров на большое количество товаров");
                 }
             }
 
             interface ZonesBlock {
 
                 static ElementData container() {
-                    return new ElementData(By.xpath("//div[contains(@class,'cities__container')]"),
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_cities']"),
                             "блок зон доставки на лендинге Сбермаркета");
+                }
+
+                static ElementData showAllButton() {
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_show_button' and text()='Показать все']"),
+                            "кнопка показать все города, где работает сбермаркет");
                 }
             }
 
             interface OrderBlock {
 
                 static ElementData container() {
-                    return new ElementData(By.xpath("//div[contains(@class,'steps__container')]" +
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_steps']" +
                             "//*[text()='СберМаркет сходит в магазин вместо вас']"),
                             "блок механики заказа на лендинге Сбермаркета");
+                }
+
+                static ElementData stepFirst() {
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_step_first']" +
+                            "//*[text()='выберите удобное время доставки заказа']"),
+                            "первый шаг заказа на лендинге Сбермаркета");
+                }
+
+                static ElementData stepSecond() {
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_step_second']" +
+                            "//*[contains(text(),'Специалист по закупкам соберет')]"),
+                            "второй шага заказа на лендинге Сбермаркета");
+                }
+
+                static ElementData stepThird() {
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_step_third']" +
+                            "//*[contains(text(),'Курьер привезет продукты')]"),
+                            "третий шаг заказа на лендинге Сбермаркета");
                 }
             }
 
             interface AppsBlock {
 
                 static ElementData container() {
-                    return new ElementData(By.xpath("//div[contains(@class,'app__container')]"),
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_app_stores']"),
                             "блок моб. приложений на лендинге Сбермаркета");
                 }
 
                 static ElementData appStoreButton() {
-                    return new ElementData(By.xpath("//img[@loading='lazy' and contains(@src,'app-store')]"),
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_google_play_app_container']"),
                             "кнопка перехода в AppStore на лендинге Сбермаркета");
                 }
 
                 static ElementData googlePlayButton() {
-                    return new ElementData(By.xpath("//img[@loading='lazy' and contains(@src,'play-market')]"),
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_app_store_app_container']"),
                             "кнопка перехода в Google Play на лендинге Сбермаркета");
                 }
                 static ElementData huaweiStoreButton() {
-                    return new ElementData(By.xpath("//img[@loading='lazy' and contains(@src,'huawei-store')]"),
+                    return new ElementData(By.xpath("//*[@data-qa='home_landing_huawei_store_app_container']"),
                             "кнопка перехода в Huawei Store на лендинге Сбермаркета");
                 }
             }
@@ -807,7 +860,7 @@ public class Elements {
 
         static ElementData findShopButton() {
             return new ElementData(
-                    By.xpath("//button[(@type='button') and text()='Найти магазины']"),
+                    By.xpath("//*[@data-qa='address-modal-submit']"),
                     "кнопка найти магазины в модалке");
         }
 
