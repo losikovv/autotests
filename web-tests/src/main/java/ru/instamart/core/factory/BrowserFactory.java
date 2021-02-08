@@ -14,24 +14,24 @@ public final class BrowserFactory {
     public static WebDriver createBrowserInstance(final String browserType, final String version) {
         AbstractBrowserProvider provider;
         switch (browserType) {
-            case "chrome_local":
-                provider = new ChromeLocalProvider();
-                break;
-            case "firefox_local":
+            case "firefox":
                 provider = new FirefoxLocalProvider();
                 break;
-            case "safari_local":
+            case "safari":
                 provider = new SafariLocalProvider();
                 break;
-            case "ie_local":
+            case "ie":
                 provider = new IELocalProvider();
                 break;
-            case "firefox":
+            case "firefox_remote":
                 provider = new FirefoxProvider();
+                break;
+            case "chrome_remote":
+                provider = new ChromeProvider();
                 break;
             case "chrome":
             default:
-                provider = new ChromeProvider();
+                provider = new ChromeLocalProvider();
                 break;
         }
         provider.createDriver(version);

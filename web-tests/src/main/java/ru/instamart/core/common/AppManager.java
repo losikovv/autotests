@@ -45,6 +45,12 @@ public final class AppManager {
     }
 
     public WebDriver getWebDriver() {
+        WebDriver webDriver = webDriverService.createOrGetDriver();
+        if (webDriver != null && !webDriverService.isStillAlive(webDriver)) {
+            webDriverService.closeDriver();
+        } else if (webDriver == null) {
+            webDriverService.closeDriver();
+        }
         return webDriverService.createOrGetDriver();
     }
 

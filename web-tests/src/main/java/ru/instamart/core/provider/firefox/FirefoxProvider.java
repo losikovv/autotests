@@ -10,12 +10,12 @@ import static instamart.core.settings.Config.VIDEO;
 
 public final class FirefoxProvider extends AbstractBrowserProvider {
 
-
     @Override
     public void createDriver(final String version) {
         final DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName("firefox");
-        capabilities.setVersion(version);
+        //TODO: Firefox не работает с версией, если "default": "latest",
+        //capabilities.setVersion(version);
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
                 "enableVideo", VIDEO

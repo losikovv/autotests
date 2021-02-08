@@ -32,7 +32,6 @@ public final class ExecutionListenerImpl implements IExecutionListener {
     public void onExecutionStart() {
         logger.info("Load KRAKEN");
         BannerService.printBanner();
-        revealKraken();
 
         logger.info("Load environment config");
         EnvironmentData.INSTANCE.load();
@@ -42,6 +41,7 @@ public final class ExecutionListenerImpl implements IExecutionListener {
 
         logger.info("Setup Allure report");
         setupAllureReport();
+        revealKraken();
     }
 
     private void setupAllureReport() {

@@ -59,7 +59,7 @@ public class RestDataProvider extends RestBase {
         return getAvailableRetailersSpree();
     }
 
-    @DataProvider(name = "retailersSpree", parallel = true)
+    @DataProvider(name = "retailersSpree")
     public static Object[][] getAvailableRetailersSpree() {
         Specification.setResponseSpecDataProvider();
 
