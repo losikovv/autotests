@@ -50,6 +50,7 @@ public abstract class AbstractBrowserProvider {
 
     protected void createLocalChromeDriver(final Optional<ChromeOptions> options) {
         this.driver = options.map(ChromeDriver::new).orElseGet(ChromeDriver::new);
+        log.error("Driver version is : {}", ((RemoteWebDriver)driver).getCapabilities().getVersion());
         applyOptions();
     }
 
