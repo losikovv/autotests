@@ -35,6 +35,7 @@ public enum Specification {
                 .expectStatusCode(not(429))
                 .expectStatusCode(not(500))
                 .expectStatusCode(not(502))
+                .expectStatusCode(not(503))
                 .expectContentType(ContentType.JSON)
                 .build();
 
@@ -46,6 +47,7 @@ public enum Specification {
                 .expectStatusCode(not(429))
                 .expectStatusCode(not(500))
                 .expectStatusCode(not(502))
+                .expectStatusCode(not(503))
                 .build();
 
         customerRequestSpec = new RequestSpecBuilder()

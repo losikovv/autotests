@@ -11,7 +11,8 @@ public final class ApiListener implements ITestListener {
     private final QaseService qaseService;
 
     public ApiListener() {
-        this.qaseService = new QaseService("APIAT");
+        String projectId = System.getProperty("qase.Project","INAPI");
+        this.qaseService = new QaseService(projectId);
     }
 
     @Override
