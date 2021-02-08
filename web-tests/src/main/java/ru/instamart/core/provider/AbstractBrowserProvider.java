@@ -19,7 +19,6 @@ import org.openqa.selenium.safari.SafariOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -50,7 +49,6 @@ public abstract class AbstractBrowserProvider {
 
     protected void createLocalChromeDriver(final Optional<ChromeOptions> options) {
         this.driver = options.map(ChromeDriver::new).orElseGet(ChromeDriver::new);
-        log.error("Driver version is : {}", ((RemoteWebDriver)driver).getCapabilities().getVersion());
         applyOptions();
     }
 
@@ -69,60 +67,17 @@ public abstract class AbstractBrowserProvider {
         applyOptions();
     }
 
-    /**
-     * Этот метод чистииит окружение после тестов и перед ними
-     * удаляет процессы с запущенными браузерами, если используется докер, то скипается
-     * Удаляет только инстансы созданные селениумом, нормальный браузер не убивается
-     * Метод отлажен на MACOS и 100% не будет работать на линухе, или винде
-     * @param name имя браузера
-     */
-    public void cleanProcessByName(final String name){
-        if (name.equals("chrome")) {
-            final String cdriver = "chromedriver";
-            final String browserInst = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-            final long amount = ProcessHandle.allProcesses()
-                    .filter(p -> p.info().commandLine().map(c -> c.contains(cdriver))
-                            .orElse(false)).count();
-            final long amountBro = ProcessHandle.allProcesses()
-                    .filter(p -> p.info().commandLine().map(c -> c.contains(browserInst))
-                            .orElse(false)).count();
-            //Если есть запущенные chromedriver, то убиваем их
-            if (amount > 0) {
-                ProcessUtils.processKiller(cdriver);
-            }
-            //если есть запущенные Инстансы Селениума, то и их киляем
-            if (amountBro > 0) {
-                ProcessUtils.processKiller("test-type=webdriver");
-            }
-        }
-        if (name.equals("firefox")) {
-            final String gdriver = "geckodriver";
-            final String browserInst = "Firefox";
-            final long amount = ProcessHandle.allProcesses()
-                    .filter(p -> p.info().commandLine().map(c -> c.contains(gdriver))
-                            .orElse(false)).count();
-            final long amountBro = ProcessHandle.allProcesses()
-                    .filter(p -> p.info().commandLine().map(c -> c.contains(browserInst))
-                            .orElse(false)).count();
-            //Если есть запущенные chromedriver, то убиваем их
-            if (amount > 0) {
-                ProcessUtils.processKiller(gdriver);
-            }
-            //если есть запущенные Инстансы Селениума, то и их киляем
-            if (amountBro > 0) {
-                ProcessUtils.processKiller("Firefox");
-            }
-        }
-    }
-
     private void applyOptions() {
-        if (FULL_SCREEN_MODE) {driver.manage().window().maximize(); }
-        if (BASIC_TIMEOUT > 0) {driver.manage().timeouts().implicitlyWait(BASIC_TIMEOUT, TimeUnit.SECONDS);}
+        if (FULL_SCREEN_MODE) {
+            driver.manage().window().maximize();
+        }
+        if (BASIC_TIMEOUT > 0) {
+            driver.manage().timeouts().implicitlyWait(BASIC_TIMEOUT, TimeUnit.SECONDS);
+        }
     }
 
     /**
-     * Уровни логирования
-     * @return
+     * Уровни логирования в браузере
      */
     protected LoggingPreferences getLogPref() {
         final LoggingPreferences logs = new LoggingPreferences();

@@ -22,6 +22,7 @@ public final class Config {
     public static int WAITING_TIMEOUT;
     public static String REMOTE_URL;
     public static boolean VIDEO;
+    public static boolean VNC;
     public static boolean FULL_SCREEN_MODE;
     public static boolean DO_CLEANUP_AFTER_TEST_RUN;
     public static boolean DO_CLEANUP_BEFORE_TEST_RUN;
@@ -48,6 +49,7 @@ public final class Config {
         REMOTE_URL = coreSettings.getString("remoteUrl", "http://localhost:4444/wd/hub");
         // Включает запись видео
         VIDEO = coreSettings.getBoolean("video", false);
+        VNC = coreSettings.getBoolean("vnc", false);
 
         // Запуск тестов на полном экране
         FULL_SCREEN_MODE = coreSettings.getBoolean("fullScreenMode", false);

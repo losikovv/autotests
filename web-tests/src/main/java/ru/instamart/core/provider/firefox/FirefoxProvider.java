@@ -7,6 +7,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.util.Map;
 
 import static instamart.core.settings.Config.VIDEO;
+import static instamart.core.settings.Config.VNC;
 
 public final class FirefoxProvider extends AbstractBrowserProvider {
 
@@ -17,7 +18,7 @@ public final class FirefoxProvider extends AbstractBrowserProvider {
         //TODO: Firefox не работает с версией, если "default": "latest",
         //capabilities.setVersion(version);
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-                "enableVNC", true,
+                "enableVNC", VNC,
                 "enableVideo", VIDEO
         ));
         createRemoteDriver(capabilities);

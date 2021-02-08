@@ -1,6 +1,7 @@
 package instamart.core.provider.chrome;
 
 import instamart.core.provider.AbstractBrowserProvider;
+import instamart.core.util.ProcessUtils;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.CapabilityType;
@@ -14,7 +15,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
     @Override
     public void createDriver(final String version) {
         if (DO_CLEANUP_BEFORE_TEST_RUN) {
-            cleanProcessByName(BrowserType.CHROME);
+            ProcessUtils.cleanProcessByName(BrowserType.CHROME);
         }
         final ChromeOptions options = new ChromeOptions();
         if ((System.getProperty("os.name")).contains("Mac")) {
