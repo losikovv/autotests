@@ -4,7 +4,6 @@ import instamart.core.service.QaseService;
 import instamart.core.settings.Config;
 import io.qase.api.models.v1.testruns.TestRun;
 import io.qase.api.models.v1.testruns.TestRuns;
-import org.junit.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 

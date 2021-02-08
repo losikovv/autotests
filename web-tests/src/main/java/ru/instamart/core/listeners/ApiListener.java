@@ -22,6 +22,7 @@ public final class ApiListener implements ITestListener {
 
     @Override
     public void onFinish(ITestContext context) {
+        this.qaseService.deleteOldTestRuns();
     }
 
     @Override
