@@ -40,9 +40,19 @@ public class SbermarketLandingTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.text());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.list());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1));
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.buttonAuchan());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.buttonMetro());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AdvantagesBlock.container());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AdvantagesBlock.deliveryAdv());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AdvantagesBlock.heavyToDoorAdv());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AdvantagesBlock.goodQualityAdv());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AdvantagesBlock.saleAdv());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.ZonesBlock.container());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.ZonesBlock.showAllButton());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.OrderBlock.container());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.OrderBlock.stepFirst());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.OrderBlock.stepSecond());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.OrderBlock.stepThird());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AppsBlock.container());
 
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AppsBlock.appStoreButton());
