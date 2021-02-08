@@ -21,19 +21,8 @@ task apiShopperSmoke(type: Test) {
         }
     }
     if (project.hasProperty('qase')) {
-        systemProperty 'qase.plan.id', 4
-    }
-}
-
-task apiSmoke(type: Test) {
-    useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
-        suites 'src/test/resources/api-suite.xml'
-        includeGroups 'api-v2-smoke', 'api-shopper-smoke'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
+        systemProperty 'qase.plan.id', 1
+        systemProperty 'qase.Project', 'SHAPI'
     }
 }
 
@@ -49,18 +38,7 @@ task apiShopperRegress(type: Test) {
     }
     if (project.hasProperty('qase')) {
         systemProperty 'qase.plan.id', 2
-    }
-}
-
-task apiRegress(type: Test) {
-    useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
-        suites 'src/test/resources/api-suite.xml'
-        includeGroups 'api-v2-smoke', 'api-v2-regress', 'api-shopper-smoke', 'api-shopper-regress'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
+        systemProperty 'qase.Project', 'SHAPI'
     }
 }
 
@@ -76,6 +54,7 @@ task apiV2Regress(type: Test) {
     }
     if (project.hasProperty('qase')) {
         systemProperty 'qase.plan.id', 1
+        systemProperty 'qase.Project', 'INAPI'
     }
 }
 
@@ -91,5 +70,6 @@ task apiV2Smoke(type: Test) {
     }
     if (project.hasProperty('qase')) {
         systemProperty 'qase.plan.id', 3
+        systemProperty 'qase.Project', 'INAPI'
     }
 }
