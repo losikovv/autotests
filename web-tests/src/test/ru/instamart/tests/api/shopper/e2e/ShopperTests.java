@@ -30,14 +30,14 @@ public class ShopperTests extends RestBase {
         if (shopper.authorized()) shopper.deleteCurrentAssembly();
     }
 
-    @CaseId(102)
+    @CaseId(1)
     @Test(  description = "Собираем все позиции в заказе",
             groups = {"api-shopper-regress"})
     public void simpleCollect() {
         shopper.simpleCollect(shipmentNumber);
     }
 
-    @CaseId(103)
+    @CaseId(2)
     @Test(  description = "Собираем/отменяем/заменяем позиции в заказе",
             groups = {"api-shopper-regress"})
     public void complexCollect() {

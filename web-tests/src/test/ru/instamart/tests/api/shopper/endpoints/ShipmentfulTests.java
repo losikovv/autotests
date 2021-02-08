@@ -43,7 +43,7 @@ public class ShipmentfulTests extends RestBase {
             shopper.deleteCurrentAssembly();
     }
 
-    @CaseId(22)
+    @CaseId(4)
     @Test(  description = "Проверяем импортировался ли заказ",
             groups = {"api-shopper-smoke"})
     public void createOrderImport() {
@@ -51,7 +51,7 @@ public class ShipmentfulTests extends RestBase {
         assertNotNull(shipmentId);
     }
 
-    @CaseId(31)
+    @CaseId(13)
     @Test(  description = "Создаём сборку",
             groups = {"api-shopper-smoke"})
     public void postAssembly() {
@@ -67,7 +67,7 @@ public class ShipmentfulTests extends RestBase {
                 .getId();
     }
 
-    @CaseId(21)
+    @CaseId(3)
     @Test(  description = "Получаем сборку по номеру",
             groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
@@ -82,7 +82,7 @@ public class ShipmentfulTests extends RestBase {
                 "Не вернулась сборка");
     }
 
-    @CaseId(23)
+    @CaseId(5)
     @Test(  description = "Получаем все заказы сборщика",
             groups = {"api-shopper-smoke"})
     public void getShopperShipments() {
@@ -92,7 +92,7 @@ public class ShipmentfulTests extends RestBase {
                 "Не вернулись заказы сборщика");
     }
 
-    @CaseId(24)
+    @CaseId(6)
     @Test(  description = "Получаем все сборки сборщика",
             groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
@@ -106,7 +106,7 @@ public class ShipmentfulTests extends RestBase {
                 "Не вернулись сборки сборщика");
     }
 
-    @CaseId(25)
+    @CaseId(7)
     @Test(  description = "Собираем товар",
             groups = {"api-shopper-smoke"},
             dependsOnMethods = {"postAssembly", "getAssembly"})
@@ -116,7 +116,7 @@ public class ShipmentfulTests extends RestBase {
         assertNotNull(response.as(AssemblyItemResponse.class).getData());
     }
 
-    @CaseId(26)
+    @CaseId(8)
     @Test(  description = "Получаем тикеты хелпдеска",
             groups = {"api-shopper-smoke"})
     public void getHelpdeskTickets() {
@@ -126,7 +126,7 @@ public class ShipmentfulTests extends RestBase {
                 "Не вернулся заказ");
     }
 
-    @CaseId(27)
+    @CaseId(9)
     @Test(  description = "Получаем заказ",
             groups = {"api-shopper-smoke"})
     public void getShipment() {
@@ -140,7 +140,7 @@ public class ShipmentfulTests extends RestBase {
                 "Не вернулся заказ");
     }
 
-    @CaseId(35)
+    @CaseId(17)
     @Test(  description = "Получаем предзамены",
             groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
@@ -151,7 +151,7 @@ public class ShipmentfulTests extends RestBase {
                 "Не вернулись предзамены");
     }
 
-    @CaseId(40)
+    @CaseId(22)
     @Test(  description = "Получаем инфу о стоках товаров в заказе",
             groups = {"api-shopper-smoke"})
     public void getShipmentStock() {
