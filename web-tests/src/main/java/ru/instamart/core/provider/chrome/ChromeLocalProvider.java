@@ -26,7 +26,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         options.addArguments("--disable-extensions");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
+        //options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
 
         createLocalChromeDriver(Optional.of(options));
     }
