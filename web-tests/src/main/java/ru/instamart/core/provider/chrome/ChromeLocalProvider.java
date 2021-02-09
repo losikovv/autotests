@@ -27,7 +27,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         options.addArguments("--disable-extensions");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--window-size=1920,1080");
+        //options.addArguments("--window-size=1920,1080");
         //options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
 
         createLocalChromeDriver(Optional.of(options));
