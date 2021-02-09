@@ -32,7 +32,7 @@ task debug(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/t.xml'
+        suites 'src/test/resources/d.xml'
         systemProperty 'env',"sbermarket-preprod"
         systemProperty 'qase', "false"
         testLogging {

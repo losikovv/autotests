@@ -18,7 +18,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
             ProcessUtils.cleanProcessByName(BrowserType.CHROME);
         }
         final ChromeOptions options = new ChromeOptions();
-        if ((System.getProperty("os.name")).contains("Mac")) {
+        if (System.getProperty("os.name").contains("Mac")) {
             System.setProperty("webdriver.chrome.driver", "WebDriverMac/chromedriver");
         } else {
             System.setProperty("webdriver.chrome.driver", "WebDriverLinux/chromedriver");
@@ -27,6 +27,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         options.addArguments("--disable-extensions");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--window-size=1920,1080");
         //options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
 
         createLocalChromeDriver(Optional.of(options));
