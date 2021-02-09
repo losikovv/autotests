@@ -115,7 +115,8 @@ tests:apiZonesProductionOnly:
     expire_in: 1 week
 
 tests:UiSmoke:
-  when: manual
+  only:
+    - master
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
@@ -138,7 +139,8 @@ tests:UiSmoke:
     expire_in: 1 week
 
 tests:AdminUiSmoke:
-  when: manual
+  only:
+    - master
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
