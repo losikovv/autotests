@@ -4,7 +4,7 @@
   <listeners>
     <listener class-name="instamart.core.listeners.ExecutionListenerImpl"/>
   </listeners>
-  <test verbose="1" name="MR UI-API suite" parallel="methods" thread-count="3">
+  <test verbose="1" name="MR UI-API suite">
     <groups>
       <run>
         <include name="MRAutoCheck"/>
