@@ -240,7 +240,7 @@
                 "type": "number"
               },
               "shelf_life": {
-                "type": "string"
+                "type": ["string", "null"]
               },
               "stock": {
                 "type": "integer"
