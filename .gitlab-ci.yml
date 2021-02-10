@@ -55,7 +55,7 @@ tests:apiv2:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build apiV2Regress -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew clean build apiV2Regress -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
     - bash ./report.sh apiv2-regress
@@ -79,7 +79,7 @@ tests:apiShopper:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build apiShopperRegress -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew clean build apiShopperRegress -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
     - bash ./report.sh shopper-api-regress
@@ -101,7 +101,7 @@ tests:apiZonesProductionOnly:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build apiZones -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew clean build apiZones -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
     - bash ./report.sh rest-zones-production
@@ -125,7 +125,7 @@ tests:UiSmoke:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew build sberUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew clean build sberUiSmoke -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
     - bash ./report.sh stf-ui-smoke
