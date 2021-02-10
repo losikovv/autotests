@@ -102,7 +102,7 @@
             "type": "boolean"
           },
           "dispatcher_comment": {
-            "type": "null"
+            "type": ["string", "null"]
           },
           "ship_address": {
             "type": ["object", "null"],
@@ -353,7 +353,7 @@
                   "type": "integer"
                 },
                 "shipped_at": {
-                  "type": "null"
+                  "type": ["string", "null"]
                 },
                 "state": {
                   "type": "string"
@@ -365,7 +365,7 @@
                   "type": "string"
                 },
                 "dispatcher_comment": {
-                  "type": "null"
+                  "type": ["string", "null"]
                 },
                 "store_id": {
                   "type": "integer"
@@ -386,7 +386,7 @@
                   "type": "string"
                 },
                 "driver_phone": {
-                  "type": "null"
+                  "type": ["string", "null"]
                 },
                 "shipping_method": {
                   "type": "object",
@@ -574,7 +574,7 @@
                   }
                 },
                 "retailer_card": {
-                  "type": "null"
+                  "type": ["object", "null"]
                 },
                 "shipping_category": {
                   "type": "object",

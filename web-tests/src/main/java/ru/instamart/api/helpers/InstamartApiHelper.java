@@ -87,8 +87,8 @@ public final class InstamartApiHelper extends ApiHelperBase {
 
         Zone point = new Zone(lat, lon);
         for (int i = 0; !isPointInPolygon(points, point) && i < numberOfTries; i++) {
-            lat = roundBigDecimal(lat + stepLat,6);
-            lon = roundBigDecimal(lon + stepLon,6);
+            lat = roundBigDecimal(lat + stepLat,7);
+            lon = roundBigDecimal(lon + stepLon,7);
 
             point.setLat(lat);
             point.setLon(lon);
@@ -250,7 +250,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
                 products.add(productFromDepartment);
                 productsString.add(productFromDepartment.toString());
             }
-            log.info(productsString.toString());
+            log.debug(productsString.toString());
         }
         return products;
     }
