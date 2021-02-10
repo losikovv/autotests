@@ -5,6 +5,9 @@ ALLURE_RESULTS_DIRECTORY="build/allure-results"
 # Проект в который будет записываться отчет
 PROJECT_ID=$1
 
+# Очистить директорию с результатами
+curl -u $WEB_LOGIN:$WEB_PASSWORD -X GET $ALLURE_SERVER"/allure-docker-service/clean-results?project_id=$PROJECT_ID" -H  "accept: */*"
+
 # Получаем путь до баш крипта
 SCRIPT_PATH="${BASH_SOURCE[0]}"
 # Строим полный путь
