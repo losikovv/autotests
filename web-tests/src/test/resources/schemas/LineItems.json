@@ -75,7 +75,7 @@
             "type": "string"
           },
           "assembly_issue": {
-            "type": "null"
+            "type": ["string", "null"]
           },
           "items_per_pack": {
             "type": "integer"
@@ -204,7 +204,7 @@
                 "type": "integer"
               },
               "discount_ends_at": {
-                "type": "null"
+                "type": ["string", "null"]
               },
               "price_type": {
                 "type": "string"
@@ -313,10 +313,10 @@
                     "type": "boolean"
                   },
                   "box_scanning": {
-                    "type": "null"
+                    "type": ["boolean", "null"]
                   },
                   "training": {
-                    "type": "null"
+                    "type": ["boolean", "null"]
                   },
                   "min_order_amount": {
                     "type": "number"
@@ -334,10 +334,10 @@
                     "type": "boolean"
                   },
                   "external_assembly": {
-                    "type": "null"
+                    "type": ["boolean", "null"]
                   },
                   "next_delivery": {
-                    "type": "null"
+                    "type": ["string", "null"]
                   },
                   "location": {
                     "type": "object",
@@ -383,34 +383,34 @@
                         "type": "string"
                       },
                       "block": {
-                        "type": "string"
+                        "type": ["string", "null"]
                       },
                       "floor": {
-                        "type": "null"
+                        "type": ["string", "null"]
                       },
                       "apartment": {
-                        "type": "string"
+                        "type": ["string", "null"]
                       },
                       "entrance": {
-                        "type": "null"
+                        "type": ["string", "null"]
                       },
                       "elevator": {
-                        "type": "null"
+                        "type": ["string", "null"]
                       },
                       "region": {
-                        "type": "null"
+                        "type": ["string", "null"]
                       },
                       "comments": {
-                        "type": "null"
+                        "type": ["string", "null"]
                       },
                       "phone": {
-                        "type": "string"
+                        "type": ["string", "null"]
                       },
                       "area": {
-                        "type": "string"
+                        "type": ["string", "null"]
                       },
                       "settlement": {
-                        "type": "null"
+                        "type": ["string", "null"]
                       },
                       "lat": {
                         "type": "number"
@@ -419,19 +419,19 @@
                         "type": "number"
                       },
                       "city_kladr_id": {
-                        "type": "null"
+                        "type": ["number", "null"]
                       },
                       "street_kladr_id": {
-                        "type": "null"
+                        "type": ["number", "null"]
                       },
                       "user_id": {
-                        "type": "null"
+                        "type": ["number", "null"]
                       },
                       "door_phone": {
-                        "type": "null"
+                        "type": ["string", "null"]
                       },
                       "kind": {
-                        "type": "null"
+                        "type": ["string", "null"]
                       },
                       "delivery_to_door": {
                         "type": "boolean"
@@ -505,7 +505,7 @@
             }
           },
           "master_category": {
-            "type": "null"
+            "type": ["object", "null"]
           }
         }
       }

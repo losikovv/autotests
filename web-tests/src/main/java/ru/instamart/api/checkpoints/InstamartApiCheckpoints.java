@@ -23,7 +23,7 @@ public class InstamartApiCheckpoints {
 
     public static void assertStatusCode200(Response response, String message) {
         response.then().assertThat().contentType(ContentType.JSON);
-        String responseText = "";
+        String responseText = response.statusLine();
         switch (response.statusCode()) {
             case 200:
                 break;

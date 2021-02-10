@@ -9,7 +9,7 @@ import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
-import org.testng.annotations.AfterClass;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -34,10 +34,11 @@ public class Orders extends RestBase {
         ApiV1Requests.UserSessions.POST(UserManager.getDefaultAdmin());
     }
 
-    @AfterClass(alwaysRun = true)
-    public void cleanup() {
-        apiV2.cancelCurrentOrder();
-    }
+//    todo разобраться почему cancelActiveOrders в RestBase действует на текущие тесты, и включить этот метод
+//    @AfterClass(alwaysRun = true)
+//    public void cleanup() {
+//        apiV2.cancelCurrentOrder();
+//    }
 
     @CaseId(114)
     @Test(  description = "Контрактный тест списка заказов",
@@ -109,6 +110,10 @@ public class Orders extends RestBase {
             groups = "api-v2-regress",
             dependsOnMethods = "getShipment")
     public void getShopperMarketingSampleItems() {
+        //todo убрать скип после выдачи прав SD-13260
+        if (EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
+            throw new SkipException("Скипаем тесты на проде");
+        }
         Response response = ApiV1Requests.Shoppers.MarketingSampleItems.GET(shipmentUuid);
         assertStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/MarketingSampleItems.json"));
@@ -118,6 +123,10 @@ public class Orders extends RestBase {
     @Test(  description = "Контрактный тест списка способов оплаты в заказе",
             groups = "api-v2-regress")
     public void getShopperOrderAvailablePaymentTools() {
+        //todo убрать скип после выдачи прав SD-13260
+        if (EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
+            throw new SkipException("Скипаем тесты на проде");
+        }
         Response response = ApiV1Requests.Shoppers.OrderAvailablePaymentTools.GET(orderNumber);
         assertStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/PaymentTools.json"));

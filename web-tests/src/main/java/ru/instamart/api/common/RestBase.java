@@ -58,8 +58,8 @@ public class RestBase {
 
     @AfterMethod(description = "Отмена активных заказов",
                  groups = {
-                    "api-zones",
-                    "api-shopper-regress",
+                         "api-zones",
+                         "api-shopper-regress",
                          "MRAutoCheck"},
                  alwaysRun = true)
     public void cancelActiveOrders() {
