@@ -7,12 +7,12 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Administration extends Base {
+public final class Administration extends Base {
 
     private static final Logger log = LoggerFactory.getLogger(Administration.class);
 
-    public Administration(WebDriver driver, AppManager app) {
-        super(driver, app);
+    public Administration(final AppManager kraken) {
+        super(kraken);
     }
 
     /** Раздел ЗАКАЗЫ */

@@ -15,8 +15,8 @@ public class BrowseHelper extends HelperBase {
 
     private static final Logger log = LoggerFactory.getLogger(BrowseHelper.class);
 
-    public BrowseHelper(WebDriver driver, AppManager app) {
-        super(driver, app);
+    public BrowseHelper(final AppManager kraken) {
+        super(kraken);
     }
 
     /** Перейти на указанный URL*/
@@ -26,7 +26,7 @@ public class BrowseHelper extends HelperBase {
             log.info("Переходим по базовому URL >>> {}", url);
         }
         try {
-            driver.get(url);
+            kraken.getWebDriver().get(url);
         } catch (TimeoutException t) {
             log.info("Истекло время перехода по URL {}", url);
         }

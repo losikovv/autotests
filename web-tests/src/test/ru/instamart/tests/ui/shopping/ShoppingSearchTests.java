@@ -21,8 +21,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test(
             description = "Тест валидации элементлов поиска",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 500
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successValidateSearch() {
         baseChecks.checkIsElementPresent(Elements.Header.Search.container());
@@ -32,8 +31,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test(
             description = "Тест отправки пустого поискового запроса",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 501
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void noSendEmptySearchRequest() {
         Shop.Search.item("");
@@ -43,8 +41,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test (
             description = "Тест поиска по запросу, не возвращающему результатов",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 502
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successSearchForNonexistingItem() {
         Shop.Search.nonexistingItem();
@@ -57,8 +54,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test (
             description = "Тест упешного поиска товаров",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 503
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successSearchItem() {
         Shop.Search.item("шоколад");
@@ -78,8 +74,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test (
             description = "Тест упешного поиска товаров c использованием категорийных саджестов",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 504
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successSearchItemUsingCategorySuggests() {
         Shop.Search.Field.fill("Мороженое");
@@ -102,8 +97,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test (
             description = "Тест упешного поиска товаров c использованием товарных саджестов",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 505
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successSearchItemUsingProductSuggests() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -120,8 +114,7 @@ public class ShoppingSearchTests extends TestBase {
 
     @Test (
             description = "Тест поиска по очень длинному запросу, не возвращающему результатов",
-            groups = {"sbermarket-regression"},
-            priority = 506
+            groups = {"sbermarket-regression"}
     )
     public void successSearchItemWithLongQuery() {
         Shop.Search.item(Generate.string(1000));

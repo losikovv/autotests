@@ -6,6 +6,7 @@ import instamart.core.testdata.UserManager;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
+import instamart.ui.helpers.WaitingHelper;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
@@ -15,12 +16,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class User extends Base {
+public final class User extends Base {
 
     private static final Logger log = LoggerFactory.getLogger(User.class);
 
-    public User(WebDriver driver, AppManager app) {
-        super(driver, app);
+    public User(final AppManager kraken) {
+        super(kraken);
     }
 
     public static class Do {
@@ -102,10 +103,10 @@ public class User extends Base {
             log.info("> деавторизуемся на сайте");
             for (int i=0;i<60;i++){
                 kraken.perform().click(Elements.Header.profileButton());
-                if(driver.findElement(Elements.AccountMenu.logoutButton().getLocator()).isDisplayed()){
+                if(kraken.getWebDriver().findElement(Elements.AccountMenu.logoutButton().getLocator()).isDisplayed()){
                     break;
                 }else{
-                    kraken.await().simply(0.3);
+                    WaitingHelper.simply(0.3);
                 }
             }
             kraken.perform().click(Elements.AccountMenu.logoutButton());
@@ -223,10 +224,10 @@ public class User extends Base {
                     log.info("> авторизуемся в Gmail...");
                     kraken.perform().fillField(Elements.Social.Gmail.AuthForm.loginField(), login);
                     kraken.perform().click(Elements.Social.Gmail.AuthForm.loginNextButton());
-                    kraken.await().simply(1); // Ожидание загрузки страницы ввода пароля Gmail
+                    WaitingHelper.simply(1); // Ожидание загрузки страницы ввода пароля Gmail
                     kraken.perform().fillField(Elements.Social.Gmail.AuthForm.passwordField(), password);
                     kraken.perform().click(Elements.Social.Gmail.AuthForm.passwordNextButton());
-                    kraken.await().simply(1); // Ожидание авторизации в Gmail
+                    WaitingHelper.simply(1); // Ожидание авторизации в Gmail
                 }
             }
 
@@ -274,13 +275,13 @@ public class User extends Base {
             }
             Shop.AuthModal.open();
             Shop.AuthModal.hitVkontakteButton();
-            kraken.await().simply(2); // Ожидание открытия фрейма авторизации Vkontakte
+            WaitingHelper.simply(2); // Ожидание открытия фрейма авторизации Vkontakte
             kraken.perform().switchToNextWindow();
 
             kraken.perform().fillField(Elements.Social.Vkontakte.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Vkontakte.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Vkontakte.submitButton());
-            kraken.await().simply(1); // Ожидание авторизации через Vkontakte
+            WaitingHelper.simply(1); // Ожидание авторизации через Vkontakte
 
             kraken.await().fluentlyWithWindowsHandler(
                     ExpectedConditions.invisibilityOfElementLocated(
@@ -295,13 +296,13 @@ public class User extends Base {
             }
             Shop.AuthModal.open();
             Shop.AuthModal.hitFacebookButton();
-            kraken.await().simply(2); // Ожидание открытия фрейма авторизации Facebook
+            WaitingHelper.simply(2); // Ожидание открытия фрейма авторизации Facebook
             kraken.perform().switchToNextWindow();
 
             kraken.perform().fillField(Elements.Social.Facebook.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Facebook.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Facebook.submitButton());
-            kraken.await().simply(1); // Ожидание авторизации через Facebook
+            WaitingHelper.simply(1); // Ожидание авторизации через Facebook
 
             //TOdo добавить проверку на то что вернулись в основное окно
             if(!kraken.detect().isOnSite()){
@@ -321,12 +322,12 @@ public class User extends Base {
             }
             Shop.AuthModal.open();
             Shop.AuthModal.hitMailRuButton();
-            kraken.await().simply(5); // Ожидание открытия фрейма авторизации Mail.ru
+            WaitingHelper.simply(5); // Ожидание открытия фрейма авторизации Mail.ru
             kraken.perform().switchToNextWindow();
 
             kraken.perform().fillField(Elements.Social.MailRu.loginField(),user.getLogin());
             kraken.perform().click(Elements.Social.MailRu.nextButton());
-            kraken.await().simply(2);
+            WaitingHelper.simply(2);
             kraken.perform().click(Elements.Social.MailRu.passwordFieldUp());
             kraken.perform().fillField(Elements.Social.MailRu.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.MailRu.submitButton());
@@ -347,7 +348,7 @@ public class User extends Base {
             //TODO тест сломан, отладить на новом стейдже
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                     Elements.Social.Sber.sberButtonsSection().getLocator()));
-            WebElement parent = driver.findElement(Elements.Social.Sber.sberButtonsSection().getLocator());
+            WebElement parent = kraken.getWebDriver().findElement(Elements.Social.Sber.sberButtonsSection().getLocator());
             kraken.perform().findChildElementByTagAndText(parent,By.tagName("button"),"Логин").click();
 
             kraken.perform().fillField(Elements.Social.Sber.loginField(),user.getLogin());
@@ -387,7 +388,7 @@ public class User extends Base {
         public static void quick() {
             log.info("> быстрый логаут...");
             kraken.get().page("logout");
-            kraken.await().simply(1); // Ожидание деавторизации и подгрузки лендинга
+            WaitingHelper.simply(1); // Ожидание деавторизации и подгрузки лендинга
             if (kraken.detect().isOnLanding()) {
                 log.info("✓ Готово");
             }
@@ -397,7 +398,7 @@ public class User extends Base {
         @Step("Делаем быструю деавторизацию пользователя с удалением файлов куки")
         public static void quickly() {
             log.info("> удаляем куки...");
-            driver.manage().deleteAllCookies();
+            kraken.getWebDriver().manage().deleteAllCookies();
             kraken.get().baseUrl();
             //kraken.await().simply(1); // Ожидание деавторизации и подгрузки лендинга
             if (kraken.detect().isOnLanding()) {
@@ -434,7 +435,7 @@ public class User extends Base {
             }
             Shop.ShippingAddressModal.fill(address);
             if(submit){
-                kraken.await().simply(2);
+                WaitingHelper.simply(2);
                 kraken.await().fluently(
                         ExpectedConditions.elementToBeClickable(
                                 Elements.Modals.AddressModal.submitButton().getLocator()),

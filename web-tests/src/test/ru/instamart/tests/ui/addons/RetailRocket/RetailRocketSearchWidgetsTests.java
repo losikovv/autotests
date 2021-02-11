@@ -27,8 +27,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
     }
 
     @Test(  description = "Тест наличия виджета 'Мы нашли для вас похожие товары' после поиска без результата",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12301
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successCheckSimilarItemsWidget() {
         Shop.Search.nonexistingItem();
@@ -39,8 +38,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
     }
 
     @Test(  description = "Тест наличия виджета 'Те, кто ищут выбирают' после поиска товара",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12302
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successCheckFindersChoiceWidget() {
         Shop.Search.item("макароны");
@@ -51,8 +49,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
     }
 
     @Test(  description = "Тест наличия виджета 'Вы недавно смотрели' после поиска товара",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12303
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successCheckRecentlyViewedWidget() {
         Shop.Search.item("макароны");
@@ -64,7 +61,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
 
     @Test(  description = "Тест открытия карточки товара из виджета 'Мы нашли для вас похожие товары' после поиска без результата",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12304,
+
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successOpenItemCardFromSimilarItemsWidget() {
@@ -79,7 +76,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
 
     @Test(  description = "Тест открытия карточки товара из виджета 'Те, кто ищут выбирают' после поиска товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12305,
+
             dependsOnMethods = "successCheckFindersChoiceWidget"
     )
     public void successOpenItemCardFromFindersChoiceWidget() {
@@ -94,7 +91,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
 
     @Test(  description = "Тест открытия карточки товара из виджета 'Вы недавно смотрели' после поиска товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12306,
+
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemCardFromRecentlyViewedWidget() {
@@ -115,7 +112,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
     // TODO не работает, починить - ATST-231
     @Test(  description = "Тест успешного добавления товара в корзину из виджета 'Мы нашли для вас похожие товары' после поиска без результата",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12307,
+
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successAddItemFromSimilarItemsWidget() {
@@ -130,7 +127,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
 
     @Test(  description = "Тест успешного добавления товара в корзину из виджета 'Те, кто ищут выбирают' после поиска товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12308,
+
             dependsOnMethods = "successCheckFindersChoiceWidget"
     )
     public void successAddItemFromFindersChoiceWidget() {
@@ -144,7 +141,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
 
     @Test(  description = "Тест успешного добавления товара в корзину из виджета 'Вы недавно смотрели' после поиска товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12309,
+
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successAddItemFromRecentlyViewedWidget() {

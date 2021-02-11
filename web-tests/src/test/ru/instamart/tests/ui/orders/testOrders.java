@@ -31,8 +31,7 @@ public class testOrders extends TestBase {
     }
 
     @Test(dataProvider = "cities",
-            description = "Тест заказа в METRO",
-            priority = 2301
+            description = "Тест заказа в METRO"
     )
     public void successOrderInCities(int param) {
         log.info(">>> ТЕСТ С ПАРАМЕТРОМ {}", param);

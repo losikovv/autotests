@@ -28,7 +28,7 @@ public class AdministrationAccessTests extends TestBase {
     //TODO сделать тесты на проверку доступов всех ролей пользователей админки - ATST-232
     @CaseId(417)
     @Test(  description = "Тест недоступности админки пользователю без админ. прав",
-            priority = 10000,
+
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     ) public void noAccessToAdministrationWithoutAdminPrivileges() {
         User.Do.loginAs(UserManager.getDefaultUser());
@@ -38,7 +38,7 @@ public class AdministrationAccessTests extends TestBase {
 
     @CaseId(418)
     @Test(  description = "Тест доступности админки пользователю c админ. правми",
-            priority = 10001,
+
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     ) public void successAccessAdministrationThroughAuthOnSite() {
         User.Do.loginAs(UserManager.getDefaultAdmin());

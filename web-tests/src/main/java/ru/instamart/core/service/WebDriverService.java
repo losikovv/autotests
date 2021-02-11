@@ -1,0 +1,89 @@
+package instamart.core.service;
+
+import instamart.core.factory.BrowserFactory;
+import instamart.core.helpers.CleanupThread;
+import org.openqa.selenium.NoSuchSessionException;
+import org.openqa.selenium.NoSuchWindowException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.UnreachableBrowserException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.Reporter;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import static instamart.core.settings.Config.BROWSER_VERSION;
+import static instamart.core.settings.Config.DEFAULT_BROWSER;
+
+public final class WebDriverService {
+
+    private static final Logger log = LoggerFactory.getLogger(WebDriverService.class);
+
+    private final Collection<Thread> allWebDriverThreads = new ConcurrentLinkedQueue<>();
+    private final AtomicBoolean isCleanStart = new AtomicBoolean(false);
+    private final Map<Long, WebDriver> webDriverMap = new ConcurrentHashMap<>();
+
+    public WebDriver createOrGetDriver() {
+        //Get browser from suite parameter
+        final Optional<String> browser = Optional.ofNullable(
+                Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browser")
+        );
+        //Get version from suite parameter
+        final Optional<String> version = Optional.ofNullable(
+                Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("version")
+        );
+        return this.webDriverMap.computeIfAbsent(Thread.currentThread().getId(), threadId ->
+                this.makeAutoClosable(
+                        Thread.currentThread(),
+                        //Create browser. Get browser from suite parameter or from -Pbrowser
+                        BrowserFactory.createBrowserInstance(browser.orElse(DEFAULT_BROWSER), version.orElse(BROWSER_VERSION))
+                )
+        );
+    }
+
+    public void closeDriver() {
+        final WebDriver webDriver = this.webDriverMap.remove(Thread.currentThread().getId());
+        if (webDriver != null) {
+            webDriver.quit();
+        }
+    }
+
+    public boolean isStillAlive(final WebDriver webDriver) {
+        try {
+            webDriver.getTitle();
+            return true;
+        }
+        catch (UnreachableBrowserException e) {
+            log.error("Browser is unreachable", e);
+            return false;
+        }
+        catch (NoSuchWindowException e) {
+            log.error( "Browser window is not found", e);
+            return false;
+        }
+        catch (NoSuchSessionException e) {
+            log.error("Browser session is not found", e);
+            return false;
+        }
+    }
+
+    private WebDriver makeAutoClosable(final Thread thread, final WebDriver webDriver) {
+        this.allWebDriverThreads.add(thread);
+
+        if (!this.isCleanStart.get()) {
+            synchronized(this) {
+                if (!this.isCleanStart.get()) {
+                    (new CleanupThread(this.allWebDriverThreads, this.webDriverMap)).start();
+                    this.isCleanStart.set(true);
+                }
+            }
+        }
+
+        return webDriver;
+    }
+}

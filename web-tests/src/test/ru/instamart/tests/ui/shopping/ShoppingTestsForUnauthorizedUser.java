@@ -23,7 +23,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
 
     @Test(
             description = "Тест недоступности чекаута неавторизованному юзеру",
-            priority = 651,
+
             groups = {"sbermarket-acceptance","sbermarket-regression",
                     "metro-acceptance","metro-regression"
             }
@@ -33,7 +33,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
 
     @Test(
             description = "Тест недоступности чекаута неавторизованному юзеру c выбранным адресом и пустой корзиной",
-            priority = 652,
+
             groups = {"sbermarket-acceptance","sbermarket-regression",
                     "metro-acceptance","metro-regression"
             }
@@ -45,7 +45,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
 
     @Test(
             description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
-            priority = 653,
+
             groups = {"sbermarket-acceptance","sbermarket-regression",
                     "metro-acceptance","metro-regression"
             }
@@ -66,7 +66,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
 
     @Test(
             description = "Тест набора корзины до суммы, достаточной для заказа",
-            priority = 654,
+
             groups = {"sbermarket-acceptance","sbermarket-regression",
                     "metro-acceptance","metro-regression"
             }

@@ -12,25 +12,20 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 public class HelperBase {
-    public static WebDriver driver;
-    public static AppManager kraken;
-    private static boolean acceptNextAlert = true;
+
     private static final Logger log = LoggerFactory.getLogger(HelperBase.class);
 
-//    public HelperBase(WebDriver driver, AppManager app) {
-//        this.driver = driver;
-//        this.kraken = app;
-//    }
+    public static AppManager kraken;
+    private static boolean acceptNextAlert = true;
 
-    public HelperBase(final WebDriver driver, final AppManager app) {
-        HelperBase.driver = driver;
-        kraken = app;
+    public HelperBase(final AppManager kraken) {
+        HelperBase.kraken = kraken;
     }
 
     /** Обработать алерт в зависимости от настройки acceptNextAlert */
     public static void handleAlert() {
         try {
-            final Alert alert = driver.switchTo().alert();
+            final Alert alert = kraken.getWebDriver().switchTo().alert();
             final String alertText = alert.getText();
             if (acceptNextAlert) {
                 alert.accept();
@@ -43,17 +38,17 @@ public class HelperBase {
 
     /** Удалить куки */
     public void deleteAllCookies() {
-        driver.manage().deleteAllCookies();
+        kraken.getWebDriver().manage().deleteAllCookies();
     }
 
     /** Создаем скриншот и добавляем его в Allure */
     @Attachment(value = "Скриншот с веб страницы", type = "image/png")
     public static byte[] takeScreenshot() {
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        return ((TakesScreenshot) kraken.getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
     /** Создаем скриншот для добавления его в Qase */
     public static File takeScreenshotFile () {
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        return ((TakesScreenshot) kraken.getWebDriver()).getScreenshotAs(OutputType.FILE);
     }
 }

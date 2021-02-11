@@ -36,8 +36,7 @@ public class OrdersBonusesTests extends TestBase {
     }
 
     @Test(  description = "Тест заказа с добавлением бонусов Много.ру",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 2501
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successOrderWithMnogoRuBonus() {
         Checkout.Bonuses.add(BonusPrograms.mnogoru());
@@ -53,8 +52,7 @@ public class OrdersBonusesTests extends TestBase {
     }
 
     @Test(  description = "Тест заказа с добавлением бонусов Аерофлот Бонус",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 2502
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
 
     )
     public void successOrderWithAeroflotBonus() {

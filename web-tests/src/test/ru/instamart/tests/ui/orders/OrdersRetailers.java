@@ -33,7 +33,7 @@ public class OrdersRetailers extends TestBase {
     }
 
     @Test(description = "Тестовый заказ в Метро Москва",
-            priority = 2401,
+
             groups = {
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
@@ -52,7 +52,7 @@ public class OrdersRetailers extends TestBase {
     }
 
     @Test(description = "Тестовый заказ в Ашан Москва",
-            priority = 2402,
+
             groups = {
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -71,7 +71,7 @@ public class OrdersRetailers extends TestBase {
     }
 
     @Test(description = "Тестовый заказ в Азбука Вкуса Москва",
-            priority = 2403,
+
             groups = {
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -90,7 +90,7 @@ public class OrdersRetailers extends TestBase {
     }
 
     @Test(description = "Тестовый заказ в Вкусвилл Москва",
-            priority = 2404,
+
             groups = {
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -108,7 +108,7 @@ public class OrdersRetailers extends TestBase {
     }
 
     @Test(description = "Тестовый заказ в Лента Москва",
-            priority = 2405,
+
             groups = {
                     "sbermarket-acceptance","sbermarket-regression"
             }

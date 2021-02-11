@@ -13,8 +13,7 @@ import ru.instamart.tests.ui.TestBase;
 public class JivositeTests extends TestBase {
 
     @Test(  description = "Тест отсутствия виджета Jivosite на лендинге",
-            groups = {"sbermarket-acceptance","sbermarket-regression",},
-            priority = 11101
+            groups = {"sbermarket-acceptance","sbermarket-regression",}
     )
     public void noJivositeWidgetOnLanding() {
         User.Logout.quickly();
@@ -24,8 +23,7 @@ public class JivositeTests extends TestBase {
     }
 
     @Test(  description = "Тест отсутствия виджета Jivosite в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression",},
-            priority = 11102
+            groups = {"sbermarket-acceptance","sbermarket-regression",}
     )
     public void noJivositeWidgetOnCheckout() {
         User.Do.loginAs(UserManager.getDefaultAdmin());
@@ -36,8 +34,7 @@ public class JivositeTests extends TestBase {
     }
 
     @Test(  description = "Тест работы с виджетом Jivosite на витрине ритейлера",
-            groups = {"sbermarket-acceptance","sbermarket-regression",},
-            priority = 11103
+            groups = {"sbermarket-acceptance","sbermarket-regression",}
     )
     public void successOperateJivositeWidgetOnRetailerPage() {
         SoftAssert softAssert = new SoftAssert();
@@ -60,8 +57,7 @@ public class JivositeTests extends TestBase {
     }
 
     @Test(  description = "Тест работы с виджетом Jivosite в каталоге",
-            groups = {"sbermarket-acceptance","sbermarket-regression",},
-            priority = 11104
+            groups = {"sbermarket-acceptance","sbermarket-regression",}
     )
     public void successOperateJivositeWidgetInCatalog() {
         SoftAssert softAssert = new SoftAssert();
@@ -84,8 +80,7 @@ public class JivositeTests extends TestBase {
     }
 
     @Test(  description = "Тест работы с виджетом Jivosite на странице 404",
-            groups = {"sbermarket-acceptance","sbermarket-regression",},
-            priority = 11105
+            groups = {"sbermarket-acceptance","sbermarket-regression",}
     )
     public void successOperateJivositeWidgetOnPage404() {
         SoftAssert softAssert = new SoftAssert();
@@ -108,8 +103,7 @@ public class JivositeTests extends TestBase {
     }
 
     @Test(  description = "Тест успешной отправки сообщения в Jivosite",
-            groups = {"sbermarket-regression",},
-            priority = 11106
+            groups = {"sbermarket-regression",}
     )
     public void successSendMessageToJivositeFromRetailerPage() {
         String testMessage = "тест";

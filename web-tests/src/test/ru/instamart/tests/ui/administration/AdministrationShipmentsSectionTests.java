@@ -26,8 +26,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     }
 
     @Test(  description = "Тест валидации дефолтной странгицы списка заказаов в админке",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 10100
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void validateDefaultAdminShipmentsPage() {
         baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.title());
@@ -91,8 +90,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     // TODO test successShowEmptySearchPlaceholder
 
     @Test(  description = "Тест поиска заказа по номеру заказа в админке",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 10101
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successSearchOrderByOrderNumber() {
         final String orderNumber = kraken.grab().text(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.orderNumber());
@@ -109,8 +107,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     }
 
     @Test(  description = "Тест поиска заказа по номеру шипмента в админке",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 10102
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successSearchOrderByShipmentNumber() {
         String shipmentNumber = kraken.grab().text(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.shipmentNumber());
@@ -127,8 +124,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
 
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
     @Test(  description = "Тест возобновления и отмены заказа через админку",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 10103
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successResumeAndCancelOrder() {
         SoftAssert softAssert = new SoftAssert();
@@ -158,8 +154,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     }
 
     @Test(  description = "Тест поиска B2B заказа в админке",
-            groups = {"sbermarket-regression"},
-            priority = 10104
+            groups = {"sbermarket-regression"}
     )
     public void successSearchB2BOrder() {
         final UserData testuser = UserManager.getUser();

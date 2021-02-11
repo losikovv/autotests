@@ -15,14 +15,12 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-//import static instamart.core.helpers.HelperBase.verboseMessage;
-
-public class Shop extends Base {
+public final class Shop extends Base {
 
     private static final Logger log = LoggerFactory.getLogger(Shop.class);
 
-    public Shop(WebDriver driver, AppManager app) {
-        super(driver, app);
+    public Shop(final AppManager kraken) {
+        super(kraken);
     }
 
     public static class AuthModal {
@@ -69,22 +67,22 @@ public class Shop extends Base {
         @Step("Переключаемся на вкладку авторизации")
         public static void switchToAuthorisationTab() {
             log.info("> переключаемся на вкладку авторизации");
-            if (driver.findElement(Elements.Modals.AuthModal.authorisationTab()
+            if (kraken.getWebDriver().findElement(Elements.Modals.AuthModal.authorisationTab()
                     .getLocator()).getAttribute("class").contains("undefined")) return;
             kraken.perform().click(Elements.Modals.AuthModal.authorisationTab());
         }
         @Step("Переключаемся на вкладку регистрации")
         public static void switchToRegistrationTab() {
             log.info("> переключаемся на вкладку регистрации");
-            kraken.await().fluently(ExpectedConditions.elementToBeClickable(driver.findElement(Elements.Modals.AuthModal.popupMail().getLocator())));
-            WebElement parent = driver.findElement(Elements.Modals.AuthModal.popupMail().getLocator());
+            kraken.await().fluently(ExpectedConditions.elementToBeClickable(kraken.getWebDriver().findElement(Elements.Modals.AuthModal.popupMail().getLocator())));
+            WebElement parent = kraken.getWebDriver().findElement(Elements.Modals.AuthModal.popupMail().getLocator());
             WebElement element = kraken.perform().findChildElementByTagAndText(parent,By.tagName("button"),"Регистрация");
             kraken.perform().click(element);
         }
         @Step("Проверяем тип модалки авторизации")
         public static String checkAutorisationModalDialog(){
             log.info("> проверяем тип модалки авторизации");
-            List<WebElement> phone =driver.findElements(Elements.Modals.AuthModal.phoneNumber().getLocator());
+            List<WebElement> phone = kraken.getWebDriver().findElements(Elements.Modals.AuthModal.phoneNumber().getLocator());
             if (phone.size()>0) {
                 return "модалка с телефоном";
             } else {
@@ -579,7 +577,7 @@ public class Shop extends Base {
             public static void fill(String query) {
                 log.info("> заполняем поле поиска: {}", query);
                 kraken.perform().fillField(Elements.Header.Search.inputField(), query);
-                Actions actions = new Actions(driver);
+                Actions actions = new Actions(kraken.getWebDriver());
                 kraken.await().implicitly(1); // Ожидание загрузки поисковых саджестов
                 actions.sendKeys(Keys.ENTER).perform();
             }
@@ -822,7 +820,7 @@ public class Shop extends Base {
         @Step("Переходим в чекаут нажатием кнопки \"Сделать заказ\" в корзине")
         public static void proceedToCheckout() {
             if (kraken.detect().isCheckoutButtonActive()) {
-                driver.manage().window().fullscreen();
+                kraken.getWebDriver().manage().window().fullscreen();
                 kraken.perform().click(Elements.Cart.checkoutButton());
             } else {
                 log.info("> кнопка перехода в чекаут неактивна");

@@ -19,7 +19,7 @@ public class BasicAdministrationTests extends TestBase {
 
     @CaseId(419)
     @Test(  description = "Тест доступности корневых разделов админки",
-            priority = 10002,
+
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     ) public void successCheckAdminSectionsAvailability() {
         kraken.get().page(Pages.Admin.login());
@@ -38,7 +38,7 @@ public class BasicAdministrationTests extends TestBase {
 
     @CaseId(420)
     @Test(  description = "Тест доступности вьюхи oktell",
-            priority = 10003,
+
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     ) public void successCheckOktellViewAvailability() {
         kraken.reach().admin();
@@ -47,7 +47,7 @@ public class BasicAdministrationTests extends TestBase {
 
     @CaseId(416)
     @Test(  description = "Проверка наличия элементов в шапке админки",
-            priority = 10004,
+
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     ) public void successValidateHeader() {
         kraken.reach().admin();
@@ -57,7 +57,7 @@ public class BasicAdministrationTests extends TestBase {
 
     @CaseId(4)
     @Test(  description = "Тест валидности ссылок навигационного меню в шапке админки",
-            priority = 10005,
+
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     ) public void successValidateNavigationMenu() {
         kraken.reach().admin();

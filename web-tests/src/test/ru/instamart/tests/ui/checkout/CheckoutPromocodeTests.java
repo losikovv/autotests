@@ -20,8 +20,7 @@ public class CheckoutPromocodeTests extends TestBase {
 
     @Test(
             description = "Тест успешного применения промокода в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 1601
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAddPromocode(){
         kraken.reach().checkout();
@@ -35,8 +34,7 @@ public class CheckoutPromocodeTests extends TestBase {
 
     @Test(
             description = "Тест удаления промокода в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 1602
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successDeletePromocode(){
         kraken.reach().checkout();
@@ -53,8 +51,7 @@ public class CheckoutPromocodeTests extends TestBase {
 
     @Test(
             description = "Тест недобавления промокода при нажатии кнопки Отмена",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 1603
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void noPromocodeAddedOnCancel(){
         kraken.reach().checkout();
@@ -70,8 +67,7 @@ public class CheckoutPromocodeTests extends TestBase {
 
     @Test(
             description = "Тест недобавления промокода при закрытии модалки промокода",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 1604
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void noPromocodeAddedOnModalClose(){
         kraken.reach().checkout();
