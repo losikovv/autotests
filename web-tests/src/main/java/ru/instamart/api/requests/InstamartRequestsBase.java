@@ -10,7 +10,7 @@ import java.net.SocketException;
 
 import static io.restassured.RestAssured.given;
 
-abstract class InstamartRequestsBase {
+public abstract class InstamartRequestsBase {
 
     private static final Logger log = LoggerFactory.getLogger(InstamartRequestsBase.class);
 
@@ -35,7 +35,7 @@ abstract class InstamartRequestsBase {
     /**
      * Обходим тормоза интернета + Добавляем спеки к запросу
      */
-    static RequestSpecification givenCatch() {
+    public static RequestSpecification givenCatch() {
         for (int i = 0; i < 10; i++) {
             try {
                 return givenExceptions();

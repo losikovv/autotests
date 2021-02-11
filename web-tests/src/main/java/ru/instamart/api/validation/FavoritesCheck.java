@@ -1,6 +1,10 @@
 package instamart.api.validation;
 
+import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.condition.FavoritesCondition;
+import instamart.api.responses.v2.FavoritesListItemsResponse;
+
+import static org.testng.Assert.assertNotNull;
 
 public final class FavoritesCheck {
 
@@ -11,6 +15,8 @@ public final class FavoritesCheck {
     }
 
     public FavoritesCondition emptyFavoritesList() {
+        InstamartApiCheckpoints.assertStatusCode200(favoritesCondition.getResponse());
+        assertNotNull(favoritesCondition.getResponse().as(FavoritesListItemsResponse.class).getItems(), "Не вернулись любимые товары");
         return favoritesCondition;
     }
 
