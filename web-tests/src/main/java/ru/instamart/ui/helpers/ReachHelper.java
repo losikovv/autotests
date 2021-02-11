@@ -10,12 +10,12 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ReachHelper extends HelperBase {
+public final class ReachHelper extends HelperBase {
 
     private static final Logger log = LoggerFactory.getLogger(ReachHelper.class);
 
-    public ReachHelper(WebDriver driver, AppManager app) {
-        super(driver, app);
+    public ReachHelper(final AppManager kraken) {
+        super(kraken);
     }
 
     public void checkout() {
@@ -38,7 +38,7 @@ public class ReachHelper extends HelperBase {
     public void admin(String path) {
         log.info("Пытаемся попасть на страницу {} админки...", path);
         kraken.get().adminPage(path);
-        kraken.await().simply(1);// Ожидание редиректа
+        WaitingHelper.simply(1);// Ожидание редиректа
         if (kraken.detect().isOnAdminLoginPage()) {
             log.warn("> недостаточно прав, перелогиниваемся суперадмином на логин-странице админки");
             User.Auth.withEmail(UserManager.getDefaultAdmin());
@@ -70,5 +70,4 @@ public class ReachHelper extends HelperBase {
             cleanFavorites();
         }
     }
-
 }

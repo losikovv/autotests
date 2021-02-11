@@ -19,8 +19,7 @@ public class AdministrationPagesSectionTests extends TestBase {
     }
 
     @Test(  description = "Проверка вкладки статических страниц",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 10801
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void ValidatePagesRootPage() {
         // TODO: вынести тестовую страницу в глобальные константы - ATST-233
@@ -34,8 +33,7 @@ public class AdministrationPagesSectionTests extends TestBase {
     }
 
     @Test(  description = "Проверка страницы создания статической страницы",
-            groups = {},
-            priority = 10802
+            groups = {}
     )
     public void ValidatePagesCreationPage() {
         String testPageName = "О компании";
@@ -43,8 +41,7 @@ public class AdministrationPagesSectionTests extends TestBase {
     }
 
     @Test(  description = "Тест создания и удаления статической страницы",
-            groups = {},
-            priority = 10803
+            groups = {}
     )
     public void CreateDeletePage() {
         String pageName = "AAA";

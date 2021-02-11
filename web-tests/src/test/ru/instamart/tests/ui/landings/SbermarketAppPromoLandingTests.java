@@ -19,7 +19,7 @@ public class SbermarketAppPromoLandingTests extends TestBase {
     @CaseId(1685)
     @Test(
             description = "Тест промо-лендинга приложения Сбермаркета",
-            priority = 42,
+
             groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successValidateSbermarketAppPromoLanding() {

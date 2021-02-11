@@ -30,8 +30,7 @@ public class CheckoutContactsStepTests extends TestBase {
     }
 
     @Test(  description = "Тест валидации шага Контакты в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 1200
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successValidateDefaultContactsStep() {
         baseChecks.checkPageIsAvailable();

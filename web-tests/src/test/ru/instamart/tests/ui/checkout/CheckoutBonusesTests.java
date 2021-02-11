@@ -21,8 +21,7 @@ public class CheckoutBonusesTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного добавления всех доступных бонусных программ в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 1701
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAddBonusPrograms() {
         skipTestOnTenant("metro");
@@ -58,8 +57,7 @@ public class CheckoutBonusesTests extends TestBase {
     }
 
     @Test(  description = "Тест выбора добавленных бонусных программ в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 1702
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successSelectBonusPrograms() {
         skipTestOnTenant("metro");
@@ -86,8 +84,7 @@ public class CheckoutBonusesTests extends TestBase {
     }
 
     @Test(  description = "Тест удаления всех бонусных программ в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 1703
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successDeleteBonusPrograms() {
         skipTestOnTenant("metro");

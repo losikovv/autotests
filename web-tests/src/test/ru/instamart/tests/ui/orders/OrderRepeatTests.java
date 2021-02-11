@@ -28,7 +28,7 @@ public class OrderRepeatTests extends TestBase {
 
     @Test(
             description = "Повтор крайнего заказа из истории заказов",
-            priority = 2005,
+
             groups = {
                     "sbermarket-regression", "sbermarket-acceptance",
                     "metro-regression", "metro-acceptance",
@@ -43,7 +43,7 @@ public class OrderRepeatTests extends TestBase {
 
     @Test(
             description = "Повтор крайнего заказа со страницы заказа",
-            priority = 2006,
+
             groups = {
                     "sbermarket-regression", "sbermarket-acceptance",
                     "metro-regression", "metro-acceptance",
@@ -60,7 +60,7 @@ public class OrderRepeatTests extends TestBase {
 
     @Test(
             description = "Отмена повтора заказа со страницы заказа",
-            priority = 2007,
+
             groups = {
                     "sbermarket-regression", "sbermarket-acceptance",
                     "metro-regression", "metro-acceptance",
@@ -79,7 +79,7 @@ public class OrderRepeatTests extends TestBase {
 
     @Test(
             description = "Отмена повтора заказа со страницы заказа",
-            priority = 2008,
+
             groups = {
                     "sbermarket-regression", "sbermarket-acceptance",
                     "metro-regression", "metro-acceptance",

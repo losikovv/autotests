@@ -1,6 +1,6 @@
 package instamart.core.testdata.ui;
 
-import instamart.core.common.AppManager;
+import instamart.core.listeners.ExecutionListenerImpl;
 import instamart.core.testdata.TestVariables;
 
 import java.util.Random;
@@ -43,7 +43,7 @@ public final class Generate {
     }
 
     public static String testUserName(String role) {
-        return TestVariables.TestParams.testMark + "-" + role + " " + AppManager.testrunId;
+        return TestVariables.TestParams.testMark + "-" + role + " " + ExecutionListenerImpl.runId;
     }
     /** Сгенерировать тестовый номер телефона */
     public static String phoneNumber(){

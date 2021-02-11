@@ -67,8 +67,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Тест заказа с добавлением нового юр. лица",
-            groups = {"sbermarket-regression",},
-            priority = 2000
+            groups = {"sbermarket-regression",}
     )
     public void successCompleteCheckoutWithNewJuridical() {
         kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.learningCenter());
@@ -91,8 +90,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Тест заказа с изменением юр. лица",
-            groups = {"sbermarket-regression",},
-            priority = 2001
+            groups = {"sbermarket-regression",}
     )
     public void successCompleteCheckoutWithChangeJuridical() {
         kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
@@ -115,8 +113,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Тест заказа с новой картой оплаты",
-            groups = {"sbermarket-regression",},
-            priority = 2002
+            groups = {"sbermarket-regression",}
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
         runTestOnlyOnServer("staging");
@@ -133,8 +130,7 @@ public class BasicOrdersTests extends TestBase {
 
     @Test(
             description = "Тест заказа с любимыми товарами",
-            groups = {"sbermarket-regression","testing"},
-            priority = 2003
+            groups = {"sbermarket-regression","testing"}
     )
     public void successOrderWithFavProducts() {
         Shop.Catalog.Item.addToFavorites();

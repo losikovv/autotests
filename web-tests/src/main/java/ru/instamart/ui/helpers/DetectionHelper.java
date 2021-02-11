@@ -14,12 +14,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DetectionHelper extends HelperBase {
+public final class DetectionHelper extends HelperBase {
 
     private static final Logger log = LoggerFactory.getLogger(DetectionHelper.class);
 
-    public DetectionHelper(WebDriver driver, AppManager app) {
-        super(driver, app);
+    public DetectionHelper(final AppManager kraken) {
+        super(kraken);
     }
 
     /** Определить в каком тестовом окружении находимся */
@@ -42,7 +42,7 @@ public class DetectionHelper extends HelperBase {
      */
     protected boolean isAlertPresent() {
         try {
-            driver.switchTo().alert();
+            kraken.getWebDriver().switchTo().alert();
             return true;
         } catch (NoAlertPresentException e) {
             return false;
@@ -54,7 +54,7 @@ public class DetectionHelper extends HelperBase {
      */
     public boolean isElementPresent(ElementData element) {
         try {
-            driver.findElement(element.getLocator());
+            kraken.getWebDriver().findElement(element.getLocator());
             return true;
         } catch (NoSuchElementException e) {
             return false;
@@ -66,7 +66,7 @@ public class DetectionHelper extends HelperBase {
      */
     public boolean isElementDisplayed(ElementData element) {
         try {
-            return driver.findElement(element.getLocator()).isDisplayed();
+            return kraken.getWebDriver().findElement(element.getLocator()).isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
@@ -89,14 +89,14 @@ public class DetectionHelper extends HelperBase {
      * Определить доступен ли элемент
      */
     public boolean isElementEnabled(ElementData element) {
-        return driver.findElement(element.getLocator()).isEnabled();
+        return kraken.getWebDriver().findElement(element.getLocator()).isEnabled();
     }
 
     /**
      * Определить проставлен ли чекбокс
      */
     public boolean isCheckboxSet(ElementData element) {
-        return driver.findElement(element.getLocator()).isSelected();
+        return kraken.getWebDriver().findElement(element.getLocator()).isSelected();
     }
 
     /**
@@ -110,14 +110,14 @@ public class DetectionHelper extends HelperBase {
      * Определить выбрана ли радиокнопка
      */
     public boolean isRadioButtonSelected(ElementData element) {
-        return driver.findElement(element.getLocator()).isSelected();
+        return kraken.getWebDriver().findElement(element.getLocator()).isSelected();
     }
 
     /**
      * Определить пустое ли поле
      */
     public boolean isFieldEmpty(ElementData element) {
-        return driver.findElement(element.getLocator()).getAttribute("value").equals("");
+        return kraken.getWebDriver().findElement(element.getLocator()).getAttribute("value").equals("");
     }
 
     /**

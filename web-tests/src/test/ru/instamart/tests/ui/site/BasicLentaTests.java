@@ -10,8 +10,7 @@ public class BasicLentaTests  extends TestBase {
 
     @Test(
             description = "Тест валидности элементов и ссылок в шапке Lenta",
-            groups = {"lenta-smoke","lenta-acceptance","lenta-regression"},
-            priority = 101
+            groups = {"lenta-smoke","lenta-acceptance","lenta-regression"}
     ) public void successValidateLentaTenantHeader() {
         //todo
         throw new AssertionError() {};
@@ -19,8 +18,7 @@ public class BasicLentaTests  extends TestBase {
 
     @Test(
             description = "Тест валидности элементов и ссылок в футере Lenta",
-            groups = {"lenta-smoke","lenta-acceptance","lenta-regression"},
-            priority = 102
+            groups = {"lenta-smoke","lenta-acceptance","lenta-regression"}
     ) public void successValidateLentaTenantFooter() {
         //todo
         throw new AssertionError() {};
@@ -28,8 +26,7 @@ public class BasicLentaTests  extends TestBase {
 
     @Test(
             description = "Тест доступности / недоступности витрин ритейлеров для Lenta",
-            groups = {"lenta-smoke","lenta-acceptance","lenta-regression"},
-            priority = 103
+            groups = {"lenta-smoke","lenta-acceptance","lenta-regression"}
     ) public void successCheckLentaRetailers() {
         baseChecks.checkPageIs404(Pages.Retailers.metro());
         baseChecks.checkPageIs404(Pages.Retailers.auchan());
@@ -46,8 +43,7 @@ public class BasicLentaTests  extends TestBase {
 
     @Test(
             description = "Тест доступности статических страниц Lenta",
-            groups = {"lenta-smoke","lenta-acceptance","lenta-regression"},
-            priority = 105
+            groups = {"lenta-smoke","lenta-acceptance","lenta-regression"}
     ) public void successCheckLentaTenantStaticPages() {
         baseChecks.checkPageIsAvailable(Pages.Lenta.about());
         baseChecks.checkPageIsAvailable(Pages.Lenta.delivery());

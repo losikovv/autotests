@@ -12,7 +12,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
 
-public class OrdersPaymentsTests extends TestBase {
+public class
+OrdersPaymentsTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         kraken.get().baseUrl();
@@ -33,7 +34,7 @@ public class OrdersPaymentsTests extends TestBase {
 
     @Test(
             description = "Тест заказа с оплатой картой онлайн",
-            priority = 2102,
+
             groups = {
                     "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
@@ -54,7 +55,7 @@ public class OrdersPaymentsTests extends TestBase {
 
     @Test(
             description = "Тест заказа с оплатой картой курьеру",
-            priority = 2103,
+
             groups = {
                     "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
@@ -75,7 +76,7 @@ public class OrdersPaymentsTests extends TestBase {
 
     @Test(
             description = "Тест заказа с оплатой банковским переводом",
-            priority = 2104,
+
             groups = {
                     "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",

@@ -28,8 +28,7 @@ public class BasicCheckoutTests extends TestBase {
 
 
     @Test(  description = "Тест валидации дефолтного чекаута",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 1000
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successValidateDefaultCheckoutPage() {
         baseChecks.checkPageIsAvailable();
@@ -52,8 +51,7 @@ public class BasicCheckoutTests extends TestBase {
     }
 
     @Test(  description = "Тест валидации заполненного чекаута",
-            groups = {"sbermarket-regression"},
-            priority = 1900
+            groups = {"sbermarket-regression"}
     )
     public void successValidateFilledCheckoutPage() {
         baseChecks.checkPageIsAvailable();

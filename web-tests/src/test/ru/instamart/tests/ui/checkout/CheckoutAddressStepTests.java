@@ -34,8 +34,7 @@ public class CheckoutAddressStepTests extends TestBase {
     }
 
     @Test(  description = "Тест валидации дефолтного шага Адрес в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 1100
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successValidateDefaultAddressStep() {
         baseChecks.checkPageIsAvailable();
@@ -55,8 +54,7 @@ public class CheckoutAddressStepTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного прохода далее без заполнения деталей адреса",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 1101
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successProceedNextWithDefaultStepState() {
         Checkout.AddressStep.next();
@@ -65,8 +63,7 @@ public class CheckoutAddressStepTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного прохода далее только с измененным значением радиокнопки Тип адреса",
-            groups = {"sbermarket-regression"},
-            priority = 1102
+            groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyTypeChanged() {
         Checkout.AddressStep.setType();
@@ -76,8 +73,7 @@ public class CheckoutAddressStepTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного прохода далее только с заполненным полем Квартира/офис",
-            groups = {"sbermarket-regression"},
-            priority = 1103
+            groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyApartmentProvided() {
         Checkout.AddressStep.fillApartment();
@@ -87,8 +83,7 @@ public class CheckoutAddressStepTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного прохода далее только с заполненным полем Этаж",
-            groups = {"sbermarket-regression"},
-            priority = 1104
+            groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyFloorProvided() {
         Checkout.AddressStep.fillFloor();
@@ -98,8 +93,7 @@ public class CheckoutAddressStepTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного прохода далее только с измененным значением чекбокса Есть лифт",
-            groups = {"sbermarket-regression"},
-            priority = 1105
+            groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyElevatorChanged() {
         Checkout.AddressStep.setElevator();
@@ -109,8 +103,7 @@ public class CheckoutAddressStepTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного прохода далее только с заполненным полем Подъезд",
-            groups = {"sbermarket-regression"},
-            priority = 1106
+            groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyEntranceProvided() {
         Checkout.AddressStep.fillEntrance();
@@ -120,8 +113,7 @@ public class CheckoutAddressStepTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного прохода далее только с заполненным полем Код домофона",
-            groups = {"sbermarket-regression"},
-            priority = 1107
+            groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyDomofonProvided() {
         Checkout.AddressStep.fillDomofon();
@@ -131,8 +123,7 @@ public class CheckoutAddressStepTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного прохода далее только с заполненным полем Комментарии по доставке",
-            groups = {"sbermarket-regression"},
-            priority = 1108
+            groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyCommentariesProvided() {
         Checkout.AddressStep.fillCommentaries();
@@ -142,8 +133,7 @@ public class CheckoutAddressStepTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного прохода далее с очищенными полями",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 1109
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successProceedNextWithClearedFields() {
         Checkout.AddressStep.fill();
@@ -157,8 +147,7 @@ public class CheckoutAddressStepTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного прохода далее с заполненными полями",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 1110
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successFillAllFieldsAndProceedNext() {
         Checkout.AddressStep.fill();
@@ -168,8 +157,7 @@ public class CheckoutAddressStepTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного запоминания ранее заполненных полей",
-            groups = {"sbermarket-regression"},
-            priority = 1111
+            groups = {"sbermarket-regression"}
     )
     public void successKeepProvidedStepData() {
         SoftAssert softAssert = new SoftAssert();
@@ -229,8 +217,7 @@ public class CheckoutAddressStepTests extends TestBase {
     }
 
     @Test(  description = "Тест успешного изменения ранее заполненных полей",
-            groups = {"sbermarket-regression"},
-            priority = 1112
+            groups = {"sbermarket-regression"}
     )
     public void successChangeProvidedAddressData() {
         Checkout.AddressStep.fill();

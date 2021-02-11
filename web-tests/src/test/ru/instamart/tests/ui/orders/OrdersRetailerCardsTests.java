@@ -27,8 +27,7 @@ public class OrdersRetailerCardsTests extends TestBase {
     }
 
     @Test(  description = "Тест заказа с картой Метро (только METRO WL)",
-            groups = {"metro-acceptance","metro-regression"},
-            priority = 2601
+            groups = {"metro-acceptance","metro-regression"}
     )
     public void successOrderWithMetroRetailerCard() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -48,8 +47,7 @@ public class OrdersRetailerCardsTests extends TestBase {
     }
 
     @Test(  description = "Тест заказа с картой Вкусвилл (только Sbermarket)",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 2602
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successOrderWithVkusvillRetailerCard() {
         kraken.get().page(Pages.Retailers.vkusvill());

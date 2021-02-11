@@ -21,8 +21,7 @@ public class AdministrationUsersSectionTests extends TestBase {
     }
 
     @Test(  description = "Тест поиска пользователя в админке",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 10701
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successSearchUser() {
         Administration.Users.searchUser(UserManager.getDefaultAdmin());
@@ -33,8 +32,7 @@ public class AdministrationUsersSectionTests extends TestBase {
     }
 
     @Test(  description = "Тест предоставления и отзыва админских прав пользователю",
-            groups = {"sbermarket-regression"},
-            priority = 10702
+            groups = {"sbermarket-regression"}
     )
     public void successGrantAndRevokeAdminPrivileges() {
         SoftAssert softAssert = new SoftAssert();
@@ -68,8 +66,7 @@ public class AdministrationUsersSectionTests extends TestBase {
     }
 
     @Test(  description = "Тест смены пароля пользователю",
-            groups = {"sbermarket-regression"},
-            priority = 10703
+            groups = {"sbermarket-regression"}
     )
     public void successChangePassword() {
         User.Logout.quickly();
@@ -90,8 +87,7 @@ public class AdministrationUsersSectionTests extends TestBase {
     }
 
     @Test(  description = "Тест проставления пользователю флага B2B",
-            groups = {"sbermarket-regression"},
-            priority = 10704
+            groups = {"sbermarket-regression"}
     )
     public void successGrantB2BStatus() {
         User.Logout.quickly();
@@ -108,8 +104,7 @@ public class AdministrationUsersSectionTests extends TestBase {
     }
 
     @Test(  description = "Тест снятия B2B флага у пользователя",
-            groups = {"sbermarket-regression"},
-            priority = 10706
+            groups = {"sbermarket-regression"}
     )
     public void successRevokeB2BStatus() {
         SoftAssert softAssert = new SoftAssert();

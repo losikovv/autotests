@@ -28,8 +28,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
 
 
     @Test ( description = "Тест наличия виджета 'С этим товаром покупают' в карточке товара",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12201
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successCheckWithThisItemBuyWidget() {
         Shop.Catalog.Item.open();
@@ -40,8 +39,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
     }
 
     @Test(  description = "Тест наличия виджета 'Похожие товары' в карточке товара",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12202
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successCheckSimilarItemsWidget() {
         Shop.Catalog.Item.open();
@@ -52,8 +50,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
     }
 
     @Test(  description = "Тест наличия виджета 'Вы недавно смотрели' в карточке товара",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12203
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successCheckRecentlyViewedWidget() {
         Shop.Catalog.Item.open();
@@ -65,7 +62,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
 
     @Test(  description = "Тест открытия карточки товара из виджета 'C этим товаром покупают' в карточке товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12204,
+
             dependsOnMethods = "successCheckWithThisItemBuyWidget"
     )
     public void successOpenItemFromWithThisItemBuyWidget() {
@@ -79,7 +76,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
 
     @Test(  description = "Тест открытия карточки товара из виджета 'Похожие товары' в карточке товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12205,
+
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successOpenItemFromSimilarItemsWidget() {
@@ -93,7 +90,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
 
     @Test(  description = "Тест открытия карточки товара из виджета 'Вы недавно смотрели' в картчоке товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12206,
+
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successOpenItemFromRecentlyViewedWidget() {
@@ -108,7 +105,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
 
     @Test(  description = "Тест успешного добавления товара из виджета 'С этим товаром покупают' в карточке товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12207,
+
             dependsOnMethods = "successCheckWithThisItemBuyWidget"
     )
     public void successAddItemFromWithThisItemBuyWidget() {
@@ -125,7 +122,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
 
     @Test(  description = "Тест успешного добавления товара из виджета 'Похожие товары' в карточке товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12208,
+
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successAddItemFromSimilarItemsWidget() {
@@ -142,7 +139,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
 
     @Test(  description = "Тест успешного добавления товара из виджета 'Вы недавно смотрели' в карточке товара",
             groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            priority = 12209,
+
             dependsOnMethods = "successCheckRecentlyViewedWidget"
     )
     public void successAddItemFromRecentlyViewedWidget() {

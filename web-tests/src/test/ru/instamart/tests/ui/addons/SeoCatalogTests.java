@@ -24,8 +24,7 @@ public class SeoCatalogTests extends TestBase {
     }
 
     @Test(  description = "Тест доступности страницы SEO-каталога",
-            groups = {"sbermarket-acceptance","sbermarket-regression"},
-            priority = 9100
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successCheckSeoPage() {
         skipTestOnServer("staging");
@@ -35,8 +34,7 @@ public class SeoCatalogTests extends TestBase {
     }
 
     @Test(  description = "Тест доступности товаров на странице SEO-каталога",
-            groups = {"sbermarket-regression"},
-            priority = 9101
+            groups = {"sbermarket-regression"}
     )
     public void successCheckProductsOnSeoCatalog() {
         skipTestOnServer("staging");
@@ -47,8 +45,7 @@ public class SeoCatalogTests extends TestBase {
     }
 
     @Test(  description = "Тест открытия карточки товара на странице SEO-каталога",
-            groups = {"sbermarket-regression"},
-            priority = 9102
+            groups = {"sbermarket-regression"}
     )
     public void successOpenItemCardOnSeoCatalog() {
         skipTestOnServer("staging");
@@ -60,8 +57,7 @@ public class SeoCatalogTests extends TestBase {
     }
 
     @Test(  description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога",
-            groups = {"sbermarket-regression"},
-            priority = 9103
+            groups = {"sbermarket-regression"}
     )
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() throws Exception {
         skipTestOnServer("staging");
@@ -88,8 +84,7 @@ public class SeoCatalogTests extends TestBase {
     }
 
     @Test(  description = "Тест авторизации при попытке добавления товара в корзину на странице SEO-каталога",
-            groups = {"sbermarket-regression"},
-            priority = 9104
+            groups = {"sbermarket-regression"}
     )
     public void successAuthFromItemCardOnSeoCatalog() {
         skipTestOnServer("staging");
@@ -111,8 +106,7 @@ public class SeoCatalogTests extends TestBase {
     }
 
     @Test(  description = "Тест регистрации при попытке добавления товара в корзину на странице SEO-каталога",
-            groups = {"sbermarket-regression"},
-            priority = 9105
+            groups = {"sbermarket-regression"}
     )
     public void successRegFromItemCardOnSeoCatalog() {
         skipTestOnServer("staging");

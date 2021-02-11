@@ -35,7 +35,7 @@ public class UserProfileTests extends TestBase {
 
     @Test(
             description = "Тест валидации меню профиля Delivery Metro",
-            priority = 152,
+
             groups = {
                     "metro-smoke","metro-acceptance","metro-regression"
             }
@@ -70,7 +70,7 @@ public class UserProfileTests extends TestBase {
     @CaseId(1524)
     @Test(
             description = "Тест валидации меню профиля Sbermarket",
-            priority = 153,
+
             groups = {
                     "sbermarket-Ui-smoke","testing"
             }
@@ -91,7 +91,7 @@ public class UserProfileTests extends TestBase {
     @CaseId(1525)
     @Test(
             description = "Тест валидации кнопки 'Профиль' в меню профиля",
-            priority = 154,
+
             groups = {
                     "metro-acceptance","metro-regression",
                     "sbermarket-Ui-smoke","testing"
@@ -104,7 +104,7 @@ public class UserProfileTests extends TestBase {
     @CaseId(1526)
     @Test(
             description = "Тест валидации кнопки 'История заказов' в меню профиля",
-            priority = 155,
+
             groups = {
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
@@ -118,7 +118,7 @@ public class UserProfileTests extends TestBase {
 
     @Test(
             description = "Тест валидации кнопки 'Условия использования' в меню профиля",
-            priority = 156,
+
             groups = {
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","testing"
@@ -130,7 +130,7 @@ public class UserProfileTests extends TestBase {
     @CaseId(1528)
     @Test(
             description = "Тест валидации кнопки 'Доставка' в меню профиля",
-            priority = 157,
+
             groups = {
                     "sbermarket-Ui-smoke","testing"
             }
@@ -144,7 +144,7 @@ public class UserProfileTests extends TestBase {
 
     @Test(
             description = "Тест валидации кнопки 'Оплата' в меню профиля",
-            priority = 158,
+
             groups = {
                     "metro-acceptance","metro-regression"
             }
@@ -160,7 +160,7 @@ public class UserProfileTests extends TestBase {
 
     @Test(
             description = "Тест валидации кнопки 'FAQ' в меню профиля",
-            priority = 159,
+
             groups = {
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","testing"
@@ -173,7 +173,7 @@ public class UserProfileTests extends TestBase {
     @CaseId(1531)
     @Test(
             description = "Тест доступности страниц профиля пользователя",
-            priority = 161,
+
             groups = {
                     "metro-smoke","metro-acceptance","metro-regression",
                     "sbermarket-Ui-smoke","testing"
@@ -187,7 +187,7 @@ public class UserProfileTests extends TestBase {
 
     @Test(
             description = "Тест валидации дефолтных страниц истории заказов",
-            priority = 162,
+
             groups = {
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"

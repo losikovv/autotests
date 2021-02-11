@@ -10,8 +10,7 @@ public class BasicMetroTests extends TestBase {
 
     @Test(
             description = "Тест валидности элементов и ссылок в шапке METRO Delivery",
-            groups = {"metro-smoke","metro-acceptance","metro-regression"},
-            priority = 101
+            groups = {"metro-smoke","metro-acceptance","metro-regression"}
     ) public void successValidateMetroTenantHeader() {
         //todo
         throw new AssertionError() {};
@@ -19,8 +18,7 @@ public class BasicMetroTests extends TestBase {
 
     @Test(
             description = "Тест валидности элементов и ссылок в подвале METRO Delivery",
-            groups = {"metro-smoke","metro-acceptance","metro-regression"},
-            priority = 102
+            groups = {"metro-smoke","metro-acceptance","metro-regression"}
     ) public void successValidateMetroTenantFooter() {
         //todo
         throw new AssertionError() {};
@@ -28,8 +26,7 @@ public class BasicMetroTests extends TestBase {
 
     @Test(
             description = "Тест доступности / недоступности витрин ритейлеров Metro Delivery-CC",
-            groups = {"metro-smoke","metro-acceptance","metro-regression"},
-            priority = 103
+            groups = {"metro-smoke","metro-acceptance","metro-regression"}
     ) public void successCheckMetroRetailers() {
         baseChecks.checkPageIs404(Pages.Retailers.auchan());
         baseChecks.checkPageIs404(Pages.Retailers.azbuka());
@@ -46,8 +43,7 @@ public class BasicMetroTests extends TestBase {
 
     @Test(
             description = "Тест доступности статических страниц на METRO Delivery",
-            groups = {"metro-smoke","metro-acceptance","metro-regression"},
-            priority = 105
+            groups = {"metro-smoke","metro-acceptance","metro-regression"}
     ) public void successCheckMetroTenantStaticPages() {
         baseChecks.checkPageIsAvailable(Pages.Metro.about());
         baseChecks.checkPageIsAvailable(Pages.Metro.delivery());

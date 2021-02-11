@@ -31,8 +31,7 @@ public class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression","MRAutoCheck"
-            },
-            priority = 301
+            }
     )
     public void noShippingAddressByDefault() {
         User.Logout.quickly();
@@ -43,7 +42,7 @@ public class UserShippingAddressTests extends TestBase {
 
     @Test(
             description = "Тест дефолтного списка магазинов при отсутствии адреса доставки",
-            priority = 302,
+
             groups = {
                     "sbermarket-acceptance","sbermarket-regression",
             }
@@ -64,8 +63,7 @@ public class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression",
-            },
-            priority = 303
+            }
     )
     public void noShippingAddressSetOnClose() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -80,8 +78,7 @@ public class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-regression",
-            },
-            priority = 304
+            }
     )
     public void noAvailableShopsOutOfDeliveryZone() {
         SoftAssert softAssert = new SoftAssert();
@@ -102,8 +99,7 @@ public class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression",
-            },
-            priority = 305
+            }
     )
     public void successSetShippingAddressOnRetailerPage() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -118,8 +114,7 @@ public class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-regression",
-            },
-            priority = 306
+            }
     )
     public void noChangeShippingAddressOnCancel() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -140,8 +135,7 @@ public class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression",
-            },
-            priority = 307
+            }
     )
     public void successChangeShippingAddress() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -158,8 +152,7 @@ public class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-regression",
-            },
-            priority = 308
+            }
     )
     public void successChangeShippingAddressToRecent() {
         if(env.contains("production")){skipTest();}
@@ -186,8 +179,7 @@ public class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-regression",
-            },
-            priority = 310
+            }
     )
     public void successSetShippingAddressAfterAddingProductFromCatalog() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -203,8 +195,7 @@ public class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-regression",
-            },
-            priority = 311
+            }
     )
     public void successSelectNewStoreAfterShipAddressChange() {
         kraken.get().page("vkusvill");
@@ -225,8 +216,7 @@ public class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-regression",
-            },
-            priority = 312
+            }
     )
     public void successSetNewAddressAfterOutOfRetailerZoneAddressChange() {
         kraken.get().page("lenta");
@@ -246,8 +236,7 @@ public class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-regression",
-            },
-            priority = 313
+            }
     )
     public void successSetNewAddressAfterOutOfZoneAddressChange() {
         kraken.get().page(Config.DEFAULT_RETAILER);
