@@ -7,7 +7,7 @@ import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
-import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -24,10 +24,11 @@ public class ShopperTests extends RestBase {
         InstamartApiCheckpoints.assertIsDeliveryToday(order);
     }
 
-    @AfterClass(alwaysRun = true,
+    @AfterMethod(alwaysRun = true,
             description = "Удаляем текущую сборку")
     public void cleanup() {
-        if (shopper.authorized()) shopper.deleteCurrentAssembly();
+        shopper.deleteCurrentAssembly();
+        apiV2.cancelCurrentOrder();
     }
 
     @CaseId(1)

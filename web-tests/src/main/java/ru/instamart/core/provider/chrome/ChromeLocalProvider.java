@@ -4,7 +4,6 @@ import instamart.core.provider.AbstractBrowserProvider;
 import instamart.core.util.ProcessUtils;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.BrowserType;
-import org.openqa.selenium.remote.CapabilityType;
 
 import java.util.Optional;
 
@@ -22,8 +21,8 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
             System.setProperty("webdriver.chrome.driver", "WebDriverMac/chromedriver");
         } else {
             System.setProperty("webdriver.chrome.driver", "WebDriverLinux/chromedriver");
+            options.addArguments("--headless");
         }
-        options.addArguments("--headless");
         options.addArguments("--disable-extensions");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");

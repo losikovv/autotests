@@ -5,10 +5,12 @@ import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Zone;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.dataprovider.RestDataProvider;
+import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -35,5 +37,15 @@ public class ZoneTests extends RestBase {
         apiV2.registration(userData);
         apiV2.order(userData, store.getId(), coordinates);
         apiV2.cancelCurrentOrder();
+    }
+
+    @AfterMethod(description = "Отмена активных заказов",
+                 alwaysRun = true)
+    public void cancelActiveOrders() {
+        if (apiV2.authorized() &&
+                EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
+            log.info("Отменяем активные заказы");
+            apiV2.cancelActiveOrders();
+        }
     }
 }
