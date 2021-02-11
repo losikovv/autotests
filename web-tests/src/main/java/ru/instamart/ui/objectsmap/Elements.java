@@ -2956,7 +2956,7 @@ public class Elements {
             }
 
             static ElementData emailFieldErrorText(String text) {
-                return new ElementData(By.xpath("//body[@class='admin']//input[@name='email']//ancestor::span//following-sibling::div[@class='ant-form-explain' and text()='" + text + "']"),
+                return new ElementData(By.xpath("//div[@role='alert' and text()='"+text+"']"),
                         "текст ошибки поля ввода email на странице авторизации админки");
             }
 
