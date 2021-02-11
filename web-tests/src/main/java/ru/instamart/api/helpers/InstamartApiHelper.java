@@ -938,7 +938,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Отменить последний заказ (с которым взаимодействовали в этой сессии через REST API)
      */
     public void cancelCurrentOrder() {
-        if (currentOrderNumber.get() != null && orderCompleted.get() != null && orderCompleted.get())
+        if (authorized() && currentOrderNumber.get() != null && orderCompleted.get() != null && orderCompleted.get())
             cancelOrder(currentOrderNumber.get());
     }
 

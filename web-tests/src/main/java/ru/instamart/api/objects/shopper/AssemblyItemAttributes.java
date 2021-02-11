@@ -9,7 +9,7 @@ public class AssemblyItemAttributes extends BaseObject {
     private Integer assemblyId;
     private Object issue;
     private Object issueMessage;
-    private Integer packs;
+    private String packs;
     private Integer itemsPerPack;
     private Integer quantity;
     private Integer foundQuantity;
@@ -34,7 +34,7 @@ public class AssemblyItemAttributes extends BaseObject {
     private Object foundQty;
     private List<Object> foundQtys = null;
     private Integer originalQuantity;
-    private Integer pcs;
+    private String pcs;
     private String productionDate;
     private String bestBefore;
     private Integer vatRate;
@@ -74,11 +74,11 @@ public class AssemblyItemAttributes extends BaseObject {
         this.issueMessage = issueMessage;
     }
 
-    public Integer getPacks() {
+    public String getPacks() {
         return packs;
     }
 
-    public void setPacks(Integer packs) {
+    public void setPacks(String packs) {
         this.packs = packs;
     }
 
@@ -274,11 +274,11 @@ public class AssemblyItemAttributes extends BaseObject {
         this.originalQuantity = originalQuantity;
     }
 
-    public Integer getPcs() {
+    public String getPcs() {
         return pcs;
     }
 
-    public void setPcs(Integer pcs) {
+    public void setPcs(String pcs) {
         this.pcs = pcs;
     }
 

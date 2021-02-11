@@ -117,6 +117,7 @@ public class ShopperApiHelper extends ApiHelperBase {
      * Удаляем текущую сборку
      */
     public void deleteCurrentAssembly() {
+        if (!authorized()) return;
         String currentAssemblyId = getCurrentAssemblyId();
         if (currentAssemblyId != null) {
             log.info("Удаляем сборку: {}", currentAssemblyId);
