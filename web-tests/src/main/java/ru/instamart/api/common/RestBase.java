@@ -56,20 +56,6 @@ public class RestBase {
         apiV2.logout();
     }
 
-    @AfterMethod(description = "Отмена активных заказов",
-                 groups = {
-                         "api-zones",
-                         "api-shopper-regress",
-                         "MRAutoCheck"},
-                 alwaysRun = true)
-    public void cancelActiveOrders() {
-        if (apiV2.authorized() &&
-                EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
-            log.info("Отменяем активные заказы");
-            apiV2.cancelActiveOrders();
-        }
-    }
-
     @BeforeMethod(alwaysRun = true,description = "Стартуем запись системного лога")
     public void captureStart(){
         LogAttachmentHelper.start();

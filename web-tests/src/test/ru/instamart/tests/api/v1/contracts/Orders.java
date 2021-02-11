@@ -10,6 +10,7 @@ import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.SkipException;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -34,11 +35,10 @@ public class Orders extends RestBase {
         ApiV1Requests.UserSessions.POST(UserManager.getDefaultAdmin());
     }
 
-//    todo разобраться почему cancelActiveOrders в RestBase действует на текущие тесты, и включить этот метод
-//    @AfterClass(alwaysRun = true)
-//    public void cleanup() {
-//        apiV2.cancelCurrentOrder();
-//    }
+    @AfterClass(alwaysRun = true)
+    public void cleanup() {
+        apiV2.cancelCurrentOrder();
+    }
 
     @CaseId(114)
     @Test(  description = "Контрактный тест списка заказов",

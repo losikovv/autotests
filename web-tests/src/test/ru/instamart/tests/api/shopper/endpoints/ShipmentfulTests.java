@@ -39,8 +39,7 @@ public class ShipmentfulTests extends RestBase {
     @AfterClass(alwaysRun = true,
                 description = "Удаляем текущую сборку")
     public void cleanup() {
-        if (shopper.authorized())
-            shopper.deleteCurrentAssembly();
+        shopper.deleteCurrentAssembly();
     }
 
     @CaseId(4)
