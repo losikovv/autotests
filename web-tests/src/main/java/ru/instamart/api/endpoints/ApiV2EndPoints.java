@@ -20,6 +20,8 @@ public final class ApiV2EndPoints {
 
     public static final class FavoritesList {
         public static final String ITEMS = "v2/favorites_list/items?sid={sid}";
+        public static final String ITEMS_SKU = "v2/favorites_list/products_sku";
+        public static final String ITEM = "v2/favorites_list/items";
     }
 
     public static final class Stores {

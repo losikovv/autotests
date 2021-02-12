@@ -1,51 +1,102 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
-import instamart.api.requests.ApiV2Requests;
-import instamart.api.responses.v2.FavoritesListItemsResponse;
-import instamart.core.listeners.ExecutionListenerImpl;
-import instamart.core.testdata.UserManager;
-import instamart.ui.common.pagesdata.UserData;
-import io.qase.api.annotation.CaseId;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
 import instamart.api.condition.FavoritesCondition;
+import io.qameta.allure.Feature;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertNotNull;
+@Feature("Избранное")
+public class FavoritesList extends RestBase {
 
-@Listeners(ExecutionListenerImpl.class)
-public class FavoritesList {
-
-    /*@BeforeClass(alwaysRun = true, description = "Авторизация")
+    @BeforeClass(alwaysRun = true, description = "Создание сессии")
     public void preconditions() {
-        if (!apiV2.authorized()) {
-            final UserData user = UserManager.getUser();
-            apiV2.registration(user);
-            apiV2.authorisation(user);
-        }
+        FavoritesCondition.makeSession();
     }
 
-    @CaseId(13)
-    @Test(  description = "Получаем любимые товары",
-            groups = {"api-v2-smoke"})
-    public void getFavoritesListItems() {
-        response = ApiV2Requests.FavoritesList.Items.GET(1);
-        InstamartApiCheckpoints.assertStatusCode200(response);
-        assertNotNull(response.as(FavoritesListItemsResponse.class).getItems(), "Не вернулись любимые товары");
-    }*/
-
-    @CaseId(13)
-    @Test(  description = "Получаем любимые товары",
+    @Test(  description = "Получаем пустой список любимых товаров",
             groups = {"api-v2-smoke"}
             )
-    public void foo() {
+    public void testEmptyFavoritesList() {
         FavoritesCondition
                 .newTest()
-                .registrationAndAuth(UserManager.getUser())
                 .getFavoritesItems(1)
                 .emptyFavoritesList();
+    }
+
+    @Test(  description = "Добавление товара в избранное",
+            groups = {"api-v2-smoke"},
+            enabled = false
+    )
+    public void testAddItemToFavoritesList() {
+        FavoritesCondition
+                .newTest()
+                .addToFavorites(1060837)
+                .itemWasAdded();
+    }
+
+    @Test(  description = "Добавление товара в избранное с несущетвующим id",
+            groups = {"api-v2-smoke"}
+    )
+    public void testNegativeAddItemToFavoritesList() {
+        FavoritesCondition
+                .newTest()
+                .addToFavorites(1)
+                .itemWasNotAdded();
+    }
+
+    @Test(  description = "Удаление товара из избранного по sku",
+            groups = {"api-v2-smoke"},
+            enabled = false
+    )
+    public void testDeleteItemToFavoritesList() {
+        FavoritesCondition
+                .newTest()
+                .addToFavorites(15886)
+                .itemWasAdded()
+                .removeFromFavorites(15886)
+                .itemWasRemoved();
+    }
+
+    @Test(  description = "Получаем пустой список sku любимых товаров",
+            groups = {"api-v2-smoke"}
+    )
+    public void testEmptySkuFavoritesList() {
+        FavoritesCondition
+                .newTest()
+                .getAllSkuItemsFromFavorites()
+                .emptySkuFavoritesList();
+    }
+
+    @Test(  description = "Добавление товара в избранное по его Sku",
+            groups = {"api-v2-smoke"}
+    )
+    public void testAddItemToFavoritesListBySku() {
+        FavoritesCondition
+                .newTest()
+                .addToFavoritesBySku(15886)
+                .itemWasAddedBySku();
+    }
+
+    @Test(  description = "Добавление товара в избранное с несущетвующим Sku",
+            groups = {"api-v2-smoke"}
+    )
+    public void testNegativeAddItemToFavoritesListBySku() {
+        FavoritesCondition
+                .newTest()
+                .addToFavoritesBySku(1)
+                .itemWasNotAddedBySku();
+    }
+
+    @Test(  description = "Удаление товара из избранного по sku",
+            groups = {"api-v2-smoke"}
+    )
+    public void testDeleteItemToFavoritesListBySku() {
+        FavoritesCondition
+                .newTest()
+                .addToFavoritesBySku(15886)
+                .itemWasAddedBySku()
+                .removeFromFavoritesBySku(15886)
+                .itemWasRemovedBySku();
     }
 }

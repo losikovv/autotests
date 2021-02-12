@@ -15,29 +15,39 @@ public final class FavoritesCondition implements ICondition<FavoritesCondition> 
         this.favoritesCheck = FavoritesCheck.newCheck(this);
     }
 
-    @Step("Получить список избранного")
+    @Step("Получить список избранного {sid}")
     public FavoritesCheck getFavoritesItems(final int sid) {
-        response = Favorites.GET(SessionFactory.getSession().getToken(), sid);
+        response = Favorites.getAllFavoriteItems(SessionFactory.getSession().getToken(), sid);
         return favoritesCheck;
     }
 
+    @Step("Получить список sku товаров из избранного")
     public FavoritesCheck getAllSkuItemsFromFavorites() {
+        response = Favorites.getAllFavoriteItemsBySku(SessionFactory.getSession().getToken());
         return favoritesCheck;
     }
 
-    public FavoritesCheck addToFavorites(final String id) {
+    @Step("Добавить товар {id} в избранное")
+    public FavoritesCheck addToFavorites(final int id) {
+        response = Favorites.addFavoriteItem(SessionFactory.getSession().getToken(), id);
         return favoritesCheck;
     }
 
-    public FavoritesCheck addToFavoritesBySku(final String sku) {
+    @Step("Добавить товар в избранное по его sku {sku}")
+    public FavoritesCheck addToFavoritesBySku(final int sku) {
+        response = Favorites.addFavoriteItemBySku(SessionFactory.getSession().getToken(), sku);
         return favoritesCheck;
     }
 
-    public FavoritesCheck removeFromFavorites(final String id) {
+    @Step("Удалить товар из избранного")
+    public FavoritesCheck removeFromFavorites(final int id) {
+        response = Favorites.deleteFavoriteItem(SessionFactory.getSession().getToken(), id);
         return favoritesCheck;
     }
 
-    public FavoritesCheck removeFromFavoritesBySku(final String sku) {
+    @Step("Удалить товар из избранного по его sku")
+    public FavoritesCheck removeFromFavoritesBySku(final int sku) {
+        response = Favorites.deleteFavoriteItemBySku(SessionFactory.getSession().getToken(), sku);
         return favoritesCheck;
     }
 
