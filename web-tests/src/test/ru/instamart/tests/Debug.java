@@ -1,5 +1,6 @@
 package ru.instamart.tests;
 
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.instamart.tests.ui.TestBase;
@@ -21,7 +22,7 @@ public class Debug extends TestBase {
     @Test(groups = "Foo")
     public void testMethodsOne() {
         kraken.getWebDriver().get("https://google.com");
-        Assert.assertTrue(false);
+        System.out.println(((RemoteWebDriver) kraken.getWebDriver()).getCapabilities().getVersion());
         long id = Thread.currentThread().getId();
         System.out.println("Simple test-method One. Thread id is: " + id);
     }
