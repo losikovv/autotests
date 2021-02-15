@@ -44,10 +44,10 @@ CustomSuiteTestRun:
       - web-tests/allure-reports/
     expire_in: 1 week
 
-tests:apiv2:
+tests:ApiInstamart:
   only:
     - master
-  resource_group: apiv2:$CI_COMMIT_REF_SLUG
+  resource_group: apiInstamart:$CI_COMMIT_REF_SLUG
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
@@ -55,10 +55,10 @@ tests:apiv2:
     - echo $TEST_SET
     - echo $BROWSER
     - cd web-tests
-    - ./gradlew clean build apiV2Regress -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
+    - ./gradlew clean build apiInstamartRegress -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
-    - bash ./report.sh apiv2-regress
+    - bash ./report.sh api-instamart-regress
   tags:
     - k8s-stage
   artifacts:
@@ -68,10 +68,10 @@ tests:apiv2:
       - web-tests/logs/
     expire_in: 1 week
 
-tests:apiShopper:
+tests:ApiShopper:
   only:
     - master
-  resource_group: apishopper:$CI_COMMIT_REF_SLUG
+  resource_group: apiShopper:$CI_COMMIT_REF_SLUG
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
@@ -82,7 +82,7 @@ tests:apiShopper:
     - ./gradlew clean build apiShopperRegress -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
-    - bash ./report.sh shopper-api-regress
+    - bash ./report.sh api-shopper-regress
   tags:
     - k8s-stage
   artifacts:
@@ -92,7 +92,7 @@ tests:apiShopper:
       - web-tests/logs/
     expire_in: 1 week
 
-tests:apiZonesProductionOnly:
+tests:ApiZonesProductionOnly:
   when: manual
   stage: tests
   image: $CI_REGISTRY_IMAGE
@@ -104,7 +104,7 @@ tests:apiZonesProductionOnly:
     - ./gradlew clean build apiZones -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=true -Pkey=$ATST_APP_SECRET_KEY
   after_script:
     - cd web-tests
-    - bash ./report.sh rest-zones-production
+    - bash ./report.sh api-zones-production
   tags:
     - k8s-stage
   artifacts:
