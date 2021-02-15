@@ -189,6 +189,7 @@ tests:Debug:
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
       when: manual
+      allow_failure: true
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
