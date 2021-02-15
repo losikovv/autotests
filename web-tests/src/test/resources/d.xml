@@ -3,7 +3,7 @@
 <suite name="Debug Suite">
     <groups>
         <run>
-            <include name="Foo"/>
+            <include name="debug"/>
         </run>
     </groups>
     <listeners>
@@ -11,7 +11,7 @@
     </listeners>
     <test name="v1">
         <classes>
-            <class name="ru.instamart.tests.Debug"/>
+            <class name="ru.instamart.tests.api.v2.endpoints.FavoritesList"/>
         </classes>
     </test>
 </suite>

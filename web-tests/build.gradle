@@ -29,9 +29,10 @@ java {
 
 allure {
     version = versions.allure
-    aspectjweaver = true
     autoconfigure = true
-    useTestNG {
+    aspectjweaver = true
+    allureJavaVersion = versions.allure
+    useTestNG(){
         version = versions.allure
     }
     downloadLink = "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/"+versions.allure+"/allure-commandline-"+versions.allure+".zip"

@@ -2,21 +2,25 @@ package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.common.RestBase;
 import instamart.api.condition.FavoritesCondition;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-@Feature("Избранное")
+@Epic(value = "Api")
+@Feature(value = "Избранное")
 public class FavoritesList extends RestBase {
 
-    @BeforeClass(alwaysRun = true, description = "Создание сессии")
+    @BeforeClass(alwaysRun = true)
+    @Story("Создание сессии")
     public void preconditions() {
         FavoritesCondition.makeSession();
     }
 
-    @Test(  description = "Получаем пустой список любимых товаров",
-            groups = {"api-v2-smoke"}
-            )
+    @CaseId(13)
+    @Test(groups = {"api-v2-regress"})
+    @Story("Получаем пустой список любимых товаров")
+    @Severity(SeverityLevel.NORMAL)
     public void testEmptyFavoritesList() {
         FavoritesCondition
                 .newTest()
@@ -24,10 +28,10 @@ public class FavoritesList extends RestBase {
                 .emptyFavoritesList();
     }
 
-    @Test(  description = "Добавление товара в избранное",
-            groups = {"api-v2-smoke"},
-            enabled = false
-    )
+    @CaseId(128)
+    @Test(groups = {"api-v2-smoke"})
+    @Story("Добавление товара в избранное")
+    @Severity(SeverityLevel.CRITICAL)
     public void testAddItemToFavoritesList() {
         FavoritesCondition
                 .newTest()
@@ -35,9 +39,10 @@ public class FavoritesList extends RestBase {
                 .itemWasAdded();
     }
 
-    @Test(  description = "Добавление товара в избранное с несущетвующим id",
-            groups = {"api-v2-smoke"}
-    )
+    @CaseId(129)
+    @Test(groups = {"api-v2-regress"})
+    @Story("Добавление товара в избранное с несуществующим id")
+    @Severity(SeverityLevel.NORMAL)
     public void testNegativeAddItemToFavoritesList() {
         FavoritesCondition
                 .newTest()
@@ -45,10 +50,10 @@ public class FavoritesList extends RestBase {
                 .itemWasNotAdded();
     }
 
-    @Test(  description = "Удаление товара из избранного по sku",
-            groups = {"api-v2-smoke"},
-            enabled = false
-    )
+    @CaseId(130)
+    @Test(groups = {"api-v2-smoke"})
+    @Story("Удаление товара из избранного")
+    @Severity(SeverityLevel.CRITICAL)
     public void testDeleteItemToFavoritesList() {
         FavoritesCondition
                 .newTest()
@@ -58,9 +63,10 @@ public class FavoritesList extends RestBase {
                 .itemWasRemoved();
     }
 
-    @Test(  description = "Получаем пустой список sku любимых товаров",
-            groups = {"api-v2-smoke"}
-    )
+    @CaseId(131)
+    @Test(groups = {"api-v2-regress"})
+    @Story("Получаем пустой список sku любимых товаров")
+    @Severity(SeverityLevel.NORMAL)
     public void testEmptySkuFavoritesList() {
         FavoritesCondition
                 .newTest()
@@ -68,9 +74,10 @@ public class FavoritesList extends RestBase {
                 .emptySkuFavoritesList();
     }
 
-    @Test(  description = "Добавление товара в избранное по его Sku",
-            groups = {"api-v2-smoke"}
-    )
+    @CaseId(132)
+    @Test(groups = {"api-v2-smoke"})
+    @Story("Добавление товара в избранное по его Sku")
+    @Severity(SeverityLevel.CRITICAL)
     public void testAddItemToFavoritesListBySku() {
         FavoritesCondition
                 .newTest()
@@ -78,9 +85,10 @@ public class FavoritesList extends RestBase {
                 .itemWasAddedBySku();
     }
 
-    @Test(  description = "Добавление товара в избранное с несущетвующим Sku",
-            groups = {"api-v2-smoke"}
-    )
+    @CaseId(133)
+    @Test(groups = {"api-v2-regress"})
+    @Story("Добавление товара в избранное с несуществующим Sku")
+    @Severity(SeverityLevel.NORMAL)
     public void testNegativeAddItemToFavoritesListBySku() {
         FavoritesCondition
                 .newTest()
@@ -88,9 +96,10 @@ public class FavoritesList extends RestBase {
                 .itemWasNotAddedBySku();
     }
 
-    @Test(  description = "Удаление товара из избранного по sku",
-            groups = {"api-v2-smoke"}
-    )
+    @CaseId(134)
+    @Test(groups = {"api-v2-regress"})
+    @Story("Удаление товара из избранного по sku")
+    @Severity(SeverityLevel.CRITICAL)
     public void testDeleteItemToFavoritesListBySku() {
         FavoritesCondition
                 .newTest()
