@@ -4,6 +4,7 @@ import instamart.ui.checkpoints.BaseUICheckpoints;
 import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import static instamart.ui.modules.Base.kraken;
@@ -31,6 +32,15 @@ public class AccountMenuCheckpoints extends BaseUICheckpoints {
                 kraken.detect().isAccountMenuOpen(),
                 failMessage("Не закрывается всплывающее меню профиля Sbermarket"));
         softAssert.assertAll();
+        log.info("✓ Успешно");
+    }
+
+    @Step("Проверяем, что открылась модалка с зонами доставки из меню профиля")
+    public void checkIsDeliveryMenuOpen(){
+        log.info("> проверяем, что открылась модалка с зонами доставки из меню профиля");
+        Assert.assertTrue(
+                kraken.detect().isDeliveryModalOpen(),
+                failMessage("Не открывается модалка 'Доставка' из всплывающего меню 'Профиль'"));
         log.info("✓ Успешно");
     }
 }

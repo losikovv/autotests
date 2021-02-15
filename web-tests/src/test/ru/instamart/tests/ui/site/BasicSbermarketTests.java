@@ -130,8 +130,8 @@ public class BasicSbermarketTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Footer.facebookButton());
         baseChecks.checkIsElementPresent(Elements.Footer.vkontakteButton());
         baseChecks.checkIsElementPresent(Elements.Footer.instagramButton());
-        //baseChecks.checkIsElementPresent(Elements.Footer.twitterButton());
-        baseChecks.checkIsElementPresent(Elements.Footer.appstoreButton());// TODO проверить
+        baseChecks.checkIsElementPresent(Elements.Footer.huaweiButton());
+        baseChecks.checkIsElementPresent(Elements.Footer.appstoreButton());
         baseChecks.checkIsElementPresent(Elements.Footer.googlePlayButton());
         baseChecks.checkIsElementPresent(Elements.Footer.returnsPolicyLink());
         baseChecks.checkIsElementPresent(Elements.Footer.personalDataPolicyLink());
