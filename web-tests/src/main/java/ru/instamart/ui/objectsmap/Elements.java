@@ -421,7 +421,7 @@ public class Elements {
 
             static ElementData profileButton() {
                 return new ElementData(
-                        By.xpath("//header//*[@data-qa='profile-button']"),
+                        By.xpath("//*[@data-qa='profile-button']"),
                             "кнопка профиля в шапке сайта");
             }
 
@@ -553,18 +553,18 @@ public class Elements {
                     "кнопка Instagram в футере");
         }
 
-        static ElementData twitterButton() {
-            return new ElementData(By.xpath("//footer//div[@class='footer__networks']//a[@href='" + companyTwitterLink + "']"),
-                    "кнопка Twitter в футере");
+        static ElementData huaweiButton() {
+            return new ElementData(By.xpath("//*[@data-qa='home_landing_huawei_store_footer']"),
+                    "кнопка huaweiStore в футере");
         }
 
         static ElementData appstoreButton() {
-            return new ElementData(By.xpath("//footer//a[@href='" + companyAdjustFooterAppLink + "'][1]"),
+            return new ElementData(By.xpath("//*[@data-qa='home_landing_app_store_footer']"),
                     "кнопка Appstore в футере");
         }
 
         static ElementData googlePlayButton() {
-            return new ElementData(By.xpath("//footer//a[@href='" + companyAdjustFooterAppLink + "'][2]"),
+            return new ElementData(By.xpath("//*[@data-qa='home_landing_google_play_footer']"),
                     "кнопка GooglePlay в футере");
         }
 
@@ -1097,6 +1097,11 @@ public class Elements {
         static ElementData contactsButton() {
             return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//*[@data-qa='account-menu-contacts']"),
                     "кнопка 'Контакты' во всплывающем меню профиля");
+        }
+
+        static ElementData deliveryModalButtonClose() {
+            return new ElementData(By.xpath("//div[@class='modal-content']//button[@class='close']"),
+                    "кнопка 'Закрыть' во всплывающем окне с зонами доставки");
         }
     }
 
@@ -1678,7 +1683,7 @@ public class Elements {
 
             static ElementData closeButton() {
                 return new ElementData(
-                        By.xpath("//*[@data-qa='cart']//*[@data-qa='close-button']"),
+                        By.xpath("//*[@data-qa='cart']//*[@data-qa='cart_close-button']"),
                             "кнопка закрытия корзины");
             }
 
@@ -1734,7 +1739,7 @@ public class Elements {
             }
 
             static ElementData checkoutButton() {
-                return new ElementData(By.xpath("//*[@data-qa='cart']//*[@data-qa='checkout-button']"),
+                return new ElementData(By.xpath("//*[@data-qa='cart']//*[@data-qa='cart_checkout_button']"),
                             "кнопка 'Сделать заказ' в корзине");
             }
 

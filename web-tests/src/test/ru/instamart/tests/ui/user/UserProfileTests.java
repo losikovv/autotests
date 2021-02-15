@@ -1,5 +1,6 @@
 package ru.instamart.tests.ui.user;
 
+import instamart.core.settings.Config;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.checkpoints.users.AccountMenuCheckpoints;
@@ -32,6 +33,7 @@ public class UserProfileTests extends TestBase {
                 "1111"
         );
     }
+
 
     @Test(
             description = "Тест валидации меню профиля Delivery Metro",
@@ -97,6 +99,7 @@ public class UserProfileTests extends TestBase {
                     "sbermarket-Ui-smoke","testing"
             }
     ) public void successValidateUserProfileButton() {
+        kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AccountMenu.open();
         baseChecks.checkTransitionValidation(Elements.AccountMenu.profileButton());
     }
@@ -137,9 +140,8 @@ public class UserProfileTests extends TestBase {
     ) public void successValidateDeliveryButton() {
         Shop.AccountMenu.open();
         kraken.perform().click(Elements.AccountMenu.deliveryButton());
-        Assert.assertTrue(
-                kraken.detect().isDeliveryModalOpen(),
-                    failMessage("Не открывается модалка 'Доставка' из всплывающего меню 'Профиль'"));
+        accountChecks.checkIsDeliveryMenuOpen();
+        kraken.perform().click(Elements.AccountMenu.deliveryModalButtonClose());
     }
 
     @Test(
@@ -180,6 +182,8 @@ public class UserProfileTests extends TestBase {
             }
     )
     public void successCheckProfilePagesAreAvailable() {
+        kraken.get().page(Config.DEFAULT_RETAILER);
+        Shop.AccountMenu.open();
         baseChecks.checkPageIsAvailable(Pages.UserProfile.edit());
         baseChecks.checkPageIsAvailable(Pages.UserProfile.favorites());
         baseChecks.checkPageIsAvailable(Pages.UserProfile.shipments());

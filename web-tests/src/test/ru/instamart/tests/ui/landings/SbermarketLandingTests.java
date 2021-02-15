@@ -7,13 +7,13 @@ import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
 import io.qase.api.annotation.CaseId;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
 
 public class SbermarketLandingTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    @BeforeClass(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     private void baseUrl(){
         User.Logout.quickly();
         kraken.get().baseUrl();
