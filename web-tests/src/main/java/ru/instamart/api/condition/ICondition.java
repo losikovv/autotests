@@ -9,8 +9,7 @@ import instamart.ui.common.pagesdata.UserData;
 public interface ICondition<T> {
 
     default void createSession() {
-        final UserData userData = UserManager.getUser();
-        registrationAndAuth(userData);
+        registrationAndAuth(UserManager.getUser());
     }
 
     default T auth(final String login, final String password) {

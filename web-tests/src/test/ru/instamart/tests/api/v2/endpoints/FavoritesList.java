@@ -11,6 +11,9 @@ import org.testng.annotations.Test;
 @Feature(value = "Избранное")
 public class FavoritesList extends RestBase {
 
+    private final long PRODUCT_ID = 239210;
+    private final int PRODUCT_SKU = 38732;
+
     @BeforeClass(alwaysRun = true)
     @Story("Создание сессии")
     public void preconditions() {
@@ -35,7 +38,7 @@ public class FavoritesList extends RestBase {
     public void testAddItemToFavoritesList() {
         FavoritesCondition
                 .newTest()
-                .addToFavorites(1060837)
+                .addToFavorites(PRODUCT_ID)
                 .itemWasAdded();
     }
 
@@ -57,9 +60,9 @@ public class FavoritesList extends RestBase {
     public void testDeleteItemToFavoritesList() {
         FavoritesCondition
                 .newTest()
-                .addToFavorites(15886)
+                .addToFavorites(PRODUCT_ID)
                 .itemWasAdded()
-                .removeFromFavorites(15886)
+                .removeFromFavorites(PRODUCT_ID)
                 .itemWasRemoved();
     }
 
@@ -81,7 +84,7 @@ public class FavoritesList extends RestBase {
     public void testAddItemToFavoritesListBySku() {
         FavoritesCondition
                 .newTest()
-                .addToFavoritesBySku(15886)
+                .addToFavoritesBySku(PRODUCT_SKU)
                 .itemWasAddedBySku();
     }
 
@@ -103,9 +106,9 @@ public class FavoritesList extends RestBase {
     public void testDeleteItemToFavoritesListBySku() {
         FavoritesCondition
                 .newTest()
-                .addToFavoritesBySku(15886)
+                .addToFavoritesBySku(PRODUCT_SKU)
                 .itemWasAddedBySku()
-                .removeFromFavoritesBySku(15886)
+                .removeFromFavoritesBySku(PRODUCT_SKU)
                 .itemWasRemovedBySku();
     }
 }

@@ -1,5 +1,6 @@
 package instamart.api.helpers;
 
+import instamart.api.action.Departments;
 import instamart.api.enums.v2.OrderStatus;
 import instamart.api.objects.v1.Offer;
 import instamart.api.objects.v2.*;
@@ -7,10 +8,10 @@ import instamart.api.requests.ApiV1Requests;
 import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v1.OffersResponse;
 import instamart.api.responses.v2.*;
-import instamart.ui.helpers.WaitingHelper;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
+import instamart.ui.helpers.WaitingHelper;
 import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -218,7 +219,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      */
     private List<Product> getProductsFromEachDepartmentInStore(
             int sid, int numberOfProductsFromEachDepartment, SoftAssert softAssert) {
-        List<Department> departments = ApiV2Requests.Departments.GET(sid, numberOfProductsFromEachDepartment)
+        List<Department> departments = Departments.GET(sid, numberOfProductsFromEachDepartment)
                 .as(DepartmentsResponse.class).getDepartments();
 
         String storeUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + "?sid=" + sid;

@@ -27,7 +27,7 @@ public final class Favorites {
     }
 
     @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEM)
-    public static Response addFavoriteItem(final String token, final int id) {
+    public static Response addFavoriteItem(final String token, final long id) {
         return givenCatch()
                 .header("Authorization",
                         "Token token=" + token)
@@ -45,7 +45,7 @@ public final class Favorites {
     }
 
     @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEM)
-    public static Response deleteFavoriteItem(final String token, final int id) {
+    public static Response deleteFavoriteItem(final String token, final long id) {
         return givenCatch()
                 .header("Authorization",
                         "Token token=" + token)

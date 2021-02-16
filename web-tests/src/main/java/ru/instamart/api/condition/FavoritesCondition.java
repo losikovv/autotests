@@ -28,7 +28,7 @@ public final class FavoritesCondition implements ICondition<FavoritesCondition> 
     }
 
     @Step("Добавить товар {id} в избранное")
-    public FavoritesCheck addToFavorites(final int id) {
+    public FavoritesCheck addToFavorites(final long id) {
         response = Favorites.addFavoriteItem(SessionFactory.getSession().getToken(), id);
         return favoritesCheck;
     }
@@ -40,7 +40,7 @@ public final class FavoritesCondition implements ICondition<FavoritesCondition> 
     }
 
     @Step("Удалить товар из избранного")
-    public FavoritesCheck removeFromFavorites(final int id) {
+    public FavoritesCheck removeFromFavorites(final long id) {
         response = Favorites.deleteFavoriteItem(SessionFactory.getSession().getToken(), id);
         return favoritesCheck;
     }
