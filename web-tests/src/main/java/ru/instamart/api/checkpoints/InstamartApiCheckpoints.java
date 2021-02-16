@@ -43,6 +43,14 @@ public class InstamartApiCheckpoints {
         Assert.assertEquals(response.statusCode(),200, message + "\n" + responseText);
     }
 
+    public static void assertStatusCode404(final Response response) {
+        Assert.assertEquals(response.statusCode(), 404);
+    }
+
+    public static void assertStatusCode422(final Response response) {
+        Assert.assertEquals(response.statusCode(), 422);
+    }
+
     /**
      * Ассерт, что дата доставки заказа сегодня
      */

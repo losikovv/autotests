@@ -108,15 +108,7 @@ public class ApiV2Requests extends InstamartRequestsBase {
             }
         }
     }
-    public static class Departments {
-        /**
-         * Получение продуктов в выбранном магазине
-         */
-        @Step("{method} /" + ApiV2EndPoints.DEPARTMENTS)
-        public static Response GET(int sid, int numberOfProductsFromEachDepartment) {
-            return givenCatch().get(ApiV2EndPoints.DEPARTMENTS, sid, numberOfProductsFromEachDepartment);
-        }
-    }
+
     public static class Taxons {
         /**
          * Получение таксонов в выбранном магазине
