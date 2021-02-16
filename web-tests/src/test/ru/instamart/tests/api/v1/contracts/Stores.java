@@ -15,7 +15,7 @@ public class Stores extends RestBase {
 
     @CaseId(125)
     @Test(  description = "Контрактный тест списка магазинов",
-            groups = "api-v2-regress")
+            groups = "api-instamart-regress")
     public void getStores() {
         Response response = ApiV1Requests.Stores.GET();
         assertStatusCode200(response);
@@ -24,7 +24,7 @@ public class Stores extends RestBase {
 
     @CaseId(126)
     @Test(  description = "Контрактный тест магазина",
-            groups = "api-v2-regress",
+            groups = "api-instamart-regress",
             dataProviderClass = RestDataProvider.class,
             dataProvider = "storeOfEachRetailer-parallel")
     public void getStore(Store store) {
@@ -35,7 +35,7 @@ public class Stores extends RestBase {
 
     @CaseId(127)
     @Test(  description = "Контрактный тест поиска товаров в магазине",
-            groups = "api-v2-regress",
+            groups = "api-instamart-regress",
             dataProviderClass = RestDataProvider.class,
             dataProvider = "storeOfEachRetailer-parallel")
     public void getStoreOffers(Store store) {

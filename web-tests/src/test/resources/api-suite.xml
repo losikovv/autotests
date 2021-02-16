@@ -8,8 +8,8 @@
   <test verbose="1" name="API v1 Tests">
     <groups>
       <run>   
-        <include name="api-v2-smoke"/>
-        <include name="api-v2-regress"/>
+        <include name="api-instamart-smoke"/>
+        <include name="api-instamart-regress"/>
       </run>
     </groups>
     <classes>
@@ -24,8 +24,8 @@
     <groups>
       <run>
         <include name="api-zones"/>
-        <include name="api-v2-smoke"/>
-        <include name="api-v2-regress"/>
+        <include name="api-instamart-smoke"/>
+        <include name="api-instamart-regress"/>
       </run>
     </groups>
     <classes>

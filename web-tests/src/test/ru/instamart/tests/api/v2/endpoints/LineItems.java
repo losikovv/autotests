@@ -30,7 +30,7 @@ public class LineItems extends RestBase {
 
     @CaseId(8)
     @Test(  description = "Добавляем товар в корзину",
-            groups = {"api-v2-smoke"})
+            groups = {"api-instamart-smoke"})
     public void postLineItems() {
         response = ApiV2Requests.LineItems.POST(productId,1, orderNumber);
         InstamartApiCheckpoints.assertStatusCode200(response);
@@ -41,7 +41,7 @@ public class LineItems extends RestBase {
 
     @CaseId(18)
     @Test(  description = "Удаляем товар из корзины",
-            groups = {"api-v2-smoke"},
+            groups = {"api-instamart-smoke"},
             dependsOnMethods = "postLineItems")
     public void deleteLineItems() {
         response = ApiV2Requests.LineItems.DELETE(lineItemId);

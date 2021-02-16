@@ -21,7 +21,7 @@ public class FavoritesList extends RestBase {
     }
 
     @CaseId(13)
-    @Test(groups = {"api-v2-regress"})
+    @Test(groups = {"api-instamart-regress"})
     @Story("Получаем пустой список любимых товаров")
     @Severity(SeverityLevel.NORMAL)
     public void testEmptyFavoritesList() {
@@ -32,7 +32,7 @@ public class FavoritesList extends RestBase {
     }
 
     @CaseId(128)
-    @Test(groups = {"api-v2-smoke"})
+    @Test(groups = {"api-instamart-smoke"})
     @Story("Добавление товара в избранное")
     @Severity(SeverityLevel.CRITICAL)
     public void testAddItemToFavoritesList() {
@@ -43,7 +43,7 @@ public class FavoritesList extends RestBase {
     }
 
     @CaseId(129)
-    @Test(groups = {"api-v2-regress"})
+    @Test(groups = {"api-instamart-regress"})
     @Story("Добавление товара в избранное с несуществующим id")
     @Severity(SeverityLevel.NORMAL)
     public void testNegativeAddItemToFavoritesList() {
@@ -54,7 +54,7 @@ public class FavoritesList extends RestBase {
     }
 
     @CaseId(130)
-    @Test(groups = {"api-v2-smoke"})
+    @Test(groups = {"api-instamart-smoke"})
     @Story("Удаление товара из избранного")
     @Severity(SeverityLevel.CRITICAL)
     public void testDeleteItemToFavoritesList() {
@@ -67,7 +67,7 @@ public class FavoritesList extends RestBase {
     }
 
     @CaseId(131)
-    @Test(groups = {"api-v2-regress"})
+    @Test(groups = {"api-instamart-regress"})
     @Story("Получаем пустой список sku любимых товаров")
     @Severity(SeverityLevel.NORMAL)
     public void testEmptySkuFavoritesList() {
@@ -78,7 +78,7 @@ public class FavoritesList extends RestBase {
     }
 
     @CaseId(132)
-    @Test(groups = {"api-v2-smoke"})
+    @Test(groups = {"api-instamart-smoke"})
     @Story("Добавление товара в избранное по его Sku")
     @Severity(SeverityLevel.CRITICAL)
     public void testAddItemToFavoritesListBySku() {
@@ -89,7 +89,7 @@ public class FavoritesList extends RestBase {
     }
 
     @CaseId(133)
-    @Test(groups = {"api-v2-regress"})
+    @Test(groups = {"api-instamart-regress"})
     @Story("Добавление товара в избранное с несуществующим Sku")
     @Severity(SeverityLevel.NORMAL)
     public void testNegativeAddItemToFavoritesListBySku() {
@@ -100,7 +100,7 @@ public class FavoritesList extends RestBase {
     }
 
     @CaseId(134)
-    @Test(groups = {"api-v2-regress"})
+    @Test(groups = {"api-instamart-regress"})
     @Story("Удаление товара из избранного по sku")
     @Severity(SeverityLevel.CRITICAL)
     public void testDeleteItemToFavoritesListBySku() {

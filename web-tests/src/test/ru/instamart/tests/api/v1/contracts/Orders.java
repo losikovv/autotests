@@ -42,7 +42,7 @@ public class Orders extends RestBase {
 
     @CaseId(114)
     @Test(  description = "Контрактный тест списка заказов",
-            groups = "api-v2-regress")
+            groups = "api-instamart-regress")
     public void getOrders() {
         Response response = ApiV1Requests.Orders.GET();
         assertStatusCode200(response);
@@ -51,7 +51,7 @@ public class Orders extends RestBase {
 
     @CaseId(115)
     @Test(  description = "Контрактный тест инфы о заказе",
-            groups = "api-v2-regress")
+            groups = "api-instamart-regress")
     public void getOrder() {
         Response response = ApiV1Requests.Orders.GET(orderNumber);
         assertStatusCode200(response);
@@ -60,7 +60,7 @@ public class Orders extends RestBase {
 
     @CaseId(116)
     @Test(  description = "Контрактный тест инфы о шипменте",
-            groups = "api-v2-regress")
+            groups = "api-instamart-regress")
     public void getShipment() {
         Response response = ApiV1Requests.Shipments.GET(shipmentNumber);
         assertStatusCode200(response);
@@ -71,7 +71,7 @@ public class Orders extends RestBase {
 
     @CaseId(117)
     @Test(  description = "Контрактный тест списка офферов в шипменте",
-            groups = "api-v2-regress")
+            groups = "api-instamart-regress")
     public void getShipmentOffers() {
         Response response = ApiV1Requests.Shipments.Offers.GET(shipmentNumber);
         assertStatusCode200(response);
@@ -80,7 +80,7 @@ public class Orders extends RestBase {
 
     @CaseId(118)
     @Test(  description = "Контрактный тест списка лайн айтемов в шимпенте",
-            groups = "api-v2-regress")
+            groups = "api-instamart-regress")
     public void getLineItems() {
         Response response = ApiV1Requests.LineItems.GET(shipmentNumber);
         assertStatusCode200(response);
@@ -95,7 +95,7 @@ public class Orders extends RestBase {
 
     @CaseId(119)
     @Test(  description = "Контрактный тест списка предзамен для товара из шипмента",
-            groups = "api-v2-regress",
+            groups = "api-instamart-regress",
             dependsOnMethods = "getLineItems")
     public void getShipmentProductsPrereplacements() {
         Response response = ApiV1Requests.Shipments.Products.Prereplacements.GET(
@@ -107,7 +107,7 @@ public class Orders extends RestBase {
 
     @CaseId(120)
     @Test(  description = "Контрактный тест списка сэмплов в шипменте",
-            groups = "api-v2-regress",
+            groups = "api-instamart-regress",
             dependsOnMethods = "getShipment")
     public void getShopperMarketingSampleItems() {
         //todo убрать скип после выдачи прав SD-13260
@@ -121,7 +121,7 @@ public class Orders extends RestBase {
 
     @CaseId(121)
     @Test(  description = "Контрактный тест списка способов оплаты в заказе",
-            groups = "api-v2-regress")
+            groups = "api-instamart-regress")
     public void getShopperOrderAvailablePaymentTools() {
         //todo убрать скип после выдачи прав SD-13260
         if (EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {

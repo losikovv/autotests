@@ -27,7 +27,7 @@ public class Taxons extends RestBase {
 
     @CaseId(11)
     @Test(  description = "Получаем таксоны (подкатегории)",
-            groups = {"api-v2-smoke"})
+            groups = {"api-instamart-smoke"})
     public void getTaxons() {
         response = ApiV2Requests.Taxons.GET(EnvironmentData.INSTANCE.getDefaultSid());
         assertStatusCode200(response);
@@ -38,7 +38,7 @@ public class Taxons extends RestBase {
 
     @CaseId(6)
     @Test(  description = "Получаем таксон (подкатегорию)",
-            groups = {"api-v2-smoke"},
+            groups = {"api-instamart-smoke"},
             dependsOnMethods = "getTaxons")
     public void getTaxon() {
         response = ApiV2Requests.Taxons.GET(taxonId, EnvironmentData.INSTANCE.getDefaultSid());

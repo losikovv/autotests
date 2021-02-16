@@ -16,7 +16,7 @@ public class Stores extends RestBase {
 
     @CaseId(1)
     @Test(  description = "Получаем магазин",
-            groups = {"api-v2-smoke"})
+            groups = {"api-instamart-smoke"})
     public void getStore() {
         response = ApiV2Requests.Stores.GET(1);
         InstamartApiCheckpoints.assertStatusCode200(response);
@@ -25,7 +25,7 @@ public class Stores extends RestBase {
 
     @CaseId(7)
     @Test(  description = "Получаем список всех магазинов по указанным координатам",
-            groups = {"api-v2-smoke"})
+            groups = {"api-instamart-smoke"})
     public void getStoresByCoordinates() {
         response = ApiV2Requests.Stores.GET(
                 RestAddresses.Moscow.defaultAddress().getLat(),
@@ -37,7 +37,7 @@ public class Stores extends RestBase {
 
     @CaseId(12)
     @Test(  description = "Получаем промоакции в магазине",
-            groups = {"api-v2-smoke"})
+            groups = {"api-instamart-smoke"})
     public void getStorePromotionCards() {
         response = ApiV2Requests.Stores.PromotionCards.GET(1);
         InstamartApiCheckpoints.assertStatusCode200(response);

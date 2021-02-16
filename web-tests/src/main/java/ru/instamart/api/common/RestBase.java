@@ -18,9 +18,9 @@ public class RestBase {
     @BeforeClass(alwaysRun = true,
                  groups = {
                          "api-zones",
-                         "api-v2-smoke",
+                         "api-instamart-smoke",
                          "api-shopper-smoke",
-                         "api-v2-regress",
+                         "api-instamart-regress",
                          "api-shopper-regress",
                          "MRAutoCheck"},
                  description = "Логаут")
