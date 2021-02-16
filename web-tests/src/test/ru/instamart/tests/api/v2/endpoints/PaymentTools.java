@@ -25,7 +25,7 @@ public class PaymentTools extends RestBase {
 
     @CaseId(20)
     @Test(  description = "Получаем инфу способах оплаты",
-            groups = {"api-v2-smoke"})
+            groups = {"api-instamart-smoke"})
     public void getPaymentTools() {
         response = ApiV2Requests.PaymentTools.GET();
         InstamartApiCheckpoints.assertStatusCode200(response);

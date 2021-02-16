@@ -26,7 +26,7 @@ public class OrderTests extends RestBase {
     }
 
     @CaseId(101)
-    @Test(description = "Тест оформления заказа", groups = "api-v2-regress")
+    @Test(description = "Тест оформления заказа", groups = "api-instamart-regress")
     public void order() {
         apiV2.order(user, EnvironmentData.INSTANCE.getDefaultSid());
     }

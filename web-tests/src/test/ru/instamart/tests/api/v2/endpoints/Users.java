@@ -16,7 +16,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "Успешная регистрация",
-            groups = {"api-v2-regress"}
+            groups = {"api-instamart-regress"}
     )
     public void successRegistration() {
         final String email = Generate.email();
@@ -33,7 +33,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "Неверный формат email",
-            groups = {"api-v2-regress"}
+            groups = {"api-instamart-regress"}
     )
     public void wrongEmailFormat() {
         String email = "example.com";
@@ -51,7 +51,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "короткий пароль",
-            groups = {"api-v2-regress"}
+            groups = {"api-instamart-regress"}
     )
     public void shortPassword() {
         String password = "insta";
@@ -69,7 +69,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустой email",
-            groups = {"api-v2-regress"}
+            groups = {"api-instamart-regress"}
     )
     public void emptyEmail() {
         response = POST(
@@ -85,7 +85,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустое имя",
-            groups = {"api-v2-regress"}
+            groups = {"api-instamart-regress"}
     )
     public void emptyFirstName() {
         final String email = Generate.email();
@@ -102,7 +102,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустая фамилия",
-            groups = {"api-v2-regress"}
+            groups = {"api-instamart-regress"}
     )
     public void emptyLastName() {
         final String email = Generate.email();
@@ -119,7 +119,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустые имя и фамилия",
-            groups = {"api-v2-regress"}
+            groups = {"api-instamart-regress"}
     )
     public void emptyFirstAndLastNames() {
         final String email = Generate.email();
@@ -137,7 +137,7 @@ public class Users extends RestBase {
 
     @Test(
             description = "пустой пароль",
-            groups = {"api-v2-regress"}
+            groups = {"api-instamart-regress"}
     )
     public void emptyPassword() {
         final String email = Generate.email();

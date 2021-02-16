@@ -42,12 +42,12 @@ task apiShopperRegress(type: Test) {
     }
 }
 
-task apiV2Regress(type: Test) {
+task apiInstamartRegress(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/api-suite.xml'
-        includeGroups 'api-v2-smoke', 'api-v2-regress'
+        includeGroups 'api-instamart-smoke', 'api-instamart-regress'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
@@ -58,12 +58,12 @@ task apiV2Regress(type: Test) {
     }
 }
 
-task apiV2Smoke(type: Test) {
+task apiInstamartSmoke(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/api-suite.xml'
-        includeGroups 'api-v2-smoke'
+        includeGroups 'api-instamart-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }

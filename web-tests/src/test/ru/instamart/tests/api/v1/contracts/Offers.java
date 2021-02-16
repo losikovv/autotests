@@ -15,7 +15,7 @@ public class Offers extends RestBase {
 
     @CaseId(111)
     @Test(  description = "Контрактный тест поиска товаров в магазине",
-            groups = "api-v2-regress",
+            groups = "api-instamart-regress",
             dataProviderClass = RestDataProvider.class,
             dataProvider = "offerOfEachRetailer-parallel")
     public void getOffer(Offer offer) {

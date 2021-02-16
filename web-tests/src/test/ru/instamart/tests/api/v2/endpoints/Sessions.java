@@ -29,7 +29,7 @@ public class Sessions extends RestBase {
     @Test(  dataProvider = "authProviders",
             dataProviderClass = RestDataProvider.class,
             description = "Авторизуемся через стороннего провайдера",
-            groups = {"api-v2-smoke"})
+            groups = {"api-instamart-smoke"})
     public void postAuthProvidersSessions(AuthProvider authProvider) {
         if (!EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
             throw new SkipException("Скипаем тесты не на проде");
@@ -42,7 +42,7 @@ public class Sessions extends RestBase {
 
     @CaseId(110)
     @Test(  description = "Авторизуемся c Client-Id: InstamartApp (как мобильное приложение)",
-            groups = {"api-v2-smoke"})
+            groups = {"api-instamart-smoke"})
     public void postSessionsInstamartApp() {
         response = ApiV2Requests.Sessions.POST(user.getLogin(), user.getPassword(), "InstamartApp");
         assertStatusCode200(response, "Не работает авторизация с Client-Id: InstamartApp");

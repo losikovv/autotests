@@ -15,7 +15,7 @@ public class OperationalZones extends RestBase {
 
     @CaseId(112)
     @Test(  description = "Контрактный тест списка операционных зон",
-            groups = "api-v2-regress")
+            groups = "api-instamart-regress")
     public void getOperationalZones() {
         Response response = ApiV1Requests.OperationalZones.GET();
         assertStatusCode200(response);
@@ -24,7 +24,7 @@ public class OperationalZones extends RestBase {
 
     @CaseId(113)
     @Test(  description = "Контрактный тест операционной зоны",
-            groups = "api-v2-regress",
+            groups = "api-instamart-regress",
             dataProviderClass = RestDataProvider.class,
             dataProvider = "operationalZones")
     public void getOperationalZone(OperationalZone operationalZone) {
