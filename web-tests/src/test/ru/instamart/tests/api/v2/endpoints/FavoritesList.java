@@ -62,7 +62,7 @@ public class FavoritesList extends RestBase {
                 .newTest()
                 .addToFavorites(PRODUCT_ID)
                 .itemWasAdded()
-                .removeFromFavorites(PRODUCT_ID)
+                .removeFirstItemFromFavorites()
                 .itemWasRemoved();
     }
 

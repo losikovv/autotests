@@ -2,11 +2,13 @@ package instamart.api.validation;
 
 import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.condition.FavoritesCondition;
+import instamart.api.responses.v2.FavoritesItemResponse;
 import instamart.api.responses.v2.FavoritesListItemsResponse;
 import instamart.api.responses.v2.FavoritesSkuListItemResponse;
 import io.qameta.allure.Step;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public final class FavoritesCheck {
 
@@ -49,6 +51,9 @@ public final class FavoritesCheck {
     @Step("Товар был добавлен в избранное")
     public FavoritesCondition itemWasAdded() {
         InstamartApiCheckpoints.assertStatusCode200(favoritesCondition.getResponse());
+        favoritesCondition.setAddedItemId(favoritesCondition
+                .getResponse()
+                .as(FavoritesItemResponse.class).getItem().getId());
         return favoritesCondition;
     }
 
