@@ -5,7 +5,7 @@ ext.versions = [
         selenium: '3.8.1',
         seleniumChromeDriver: '3.14.0',
         testng: '6.8.8',
-        restAssured: '4.3.1',
+        restAssured: '4.1.1',
         jetbrainsAnnotations: '19.0.0',
         allure: '2.13.8',
         aspectjweaver: '1.9.6',
@@ -36,8 +36,8 @@ dependencies {
     compile lib.allureRestAssuredReport
     compile lib.allureTestng
     compile lib.allureJavaCommons
-    //implementation lib.jetbrainsAnnotations
-    //implementation lib.seleniumChromeDriver
+    implementation lib.jetbrainsAnnotations
+    implementation lib.seleniumChromeDriver
     implementation lib.restAssuredSchemaValidator
     implementation lib.testng
     implementation lib.seleniumJava
