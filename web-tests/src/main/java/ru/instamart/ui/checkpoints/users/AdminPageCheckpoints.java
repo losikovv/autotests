@@ -1,6 +1,7 @@
 package instamart.ui.checkpoints.users;
 
 import instamart.ui.checkpoints.BaseUICheckpoints;
+import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,4 +24,35 @@ public class AdminPageCheckpoints extends BaseUICheckpoints {
         log.info("✓ Успешно");
     }
 
+    @Step("Проверяем, что пользователь не авторизован в Админке")
+    public void checkIsUserNotAutorisedAdminPage(String logMessage){
+        log.info("> проверяем, что юзер не авторизован в Админке");
+        Assert.assertFalse(
+                kraken.detect().isUserAuthorised(),failMessage(logMessage));
+        log.info("✓ Успешно");
+    }
+
+    @Step("Проверяем текст сообщения об ошибке для поля username при неудачной авторизации")
+    public void checkErrorMessageUserNameAdminPage(String message,String logMessage){
+        log.info("> проверяем, что текст сообщения об ошибке отображается и он соответсвует ожидаемому результату: "+message);
+        softAssert.assertTrue(
+                kraken.detect().isElementPresent(Elements.Administration.LoginPage.emailFieldErrorText(message)),
+                failMessage(logMessage)
+        );
+        softAssert.assertAll();
+        log.info("✓ Успешно");
+    }
+
+    @Step("Проверяем текст сообщения об ошибке для поля password при неудачной авторизации")
+    public void checkPasswordFieldErrorTextAdminPage(String message,String logMessage){
+        log.info("> проверяем, что текст сообщения об ошибкедля поля " +
+                "password отображается и он соответсвует ожидаемому результату: "+message);
+        softAssert.assertTrue(
+                kraken.detect().isElementPresent(
+                        Elements.Administration.LoginPage.passwordFieldErrorText(message)),
+                failMessage(logMessage)
+        );
+        softAssert.assertAll();
+        log.info("✓ Успешно");
+    }
 }
