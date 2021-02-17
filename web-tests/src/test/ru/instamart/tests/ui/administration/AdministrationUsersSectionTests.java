@@ -1,11 +1,13 @@
 package ru.instamart.tests.ui.administration;
 
 import instamart.core.testdata.UserManager;
+import instamart.ui.checkpoints.users.AdminSearchUsersCheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Administration;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qase.api.annotation.CaseId;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -13,22 +15,21 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 
 public class AdministrationUsersSectionTests extends TestBase {
-    
+    //private static String phone;
+    AdminSearchUsersCheckpoints searchChecks = new AdminSearchUsersCheckpoints();
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
         kraken.reach().admin();
     }
 
+    @CaseId(31)
     @Test(  description = "Тест поиска пользователя в админке",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void successSearchUser() {
         Administration.Users.searchUser(UserManager.getDefaultAdmin());
-
-        Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.UsersSection.userEmail()), UserManager.getDefaultAdmin().getLogin(),
-                    "Не работает поиск пользователя в админке");
+        searchChecks.checkSearchWorks();
     }
 
     @Test(  description = "Тест предоставления и отзыва админских прав пользователю",
@@ -45,6 +46,15 @@ public class AdministrationUsersSectionTests extends TestBase {
         User.Logout.quickly();
 
         User.Auth.withEmail(testuser);
+//        phone = Generate.phoneNumber();
+//        User.Do.registration(
+//                "Test User",
+//                "test@example.com",
+//                "12345678",
+//                "12345678",
+//                phone,
+//                "1111"
+//        );
         kraken.get().page(Pages.Admin.shipments());
 
         softAssert.assertTrue(

@@ -17,7 +17,6 @@ import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
 
 public class UserAuthorisationTests extends TestBase {
-//    Config config = new Config();
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
     UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
@@ -33,10 +32,6 @@ public class UserAuthorisationTests extends TestBase {
     public void quickLogout() {
         User.Logout.quickly();
     }
-
-        //        Allure.getLifecycle().updateTestCase((g) -> {
-//            g.setStatusDetails( g.getStatusDetails().setMessage("blablablabl"));
-//        }); пусть полежит тут, это фунция обновления тест кейса, в будущем может пригодится
 
     @Description("Тест пытается авторизоваться с пустыми реквизитами")
     @Test(
