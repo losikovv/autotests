@@ -10,6 +10,7 @@ import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeMethod;
@@ -329,6 +330,7 @@ public class UserRegistrationTests extends TestBase {
         authChecks.checkIsUserAuthorized("Не работает регистрация из адресной модалки феникса");
     }
 
+    @Issue(value = "STF-7130")
     @CaseId(748)
     @Test(
 

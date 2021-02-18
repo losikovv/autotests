@@ -23,7 +23,7 @@ public class OrderRepeatTests extends TestBase {
     @AfterMethod(alwaysRun = true,
             description ="Очистка окружения после теста")
     public void afterTest(ITestResult result){
-        kraken.perform().cancelLastActiveOrder();//TODO проверить нужно ли это здесь
+        kraken.perform().cancelLastActiveOrder();//TODO Проверяем нужно ли это здесь
     }
 
     @Test(

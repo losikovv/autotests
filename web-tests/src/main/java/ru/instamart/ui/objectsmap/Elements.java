@@ -2971,8 +2971,8 @@ public class Elements {
             }
 
             static ElementData passwordFieldErrorText(String text) {
-                return new ElementData(By.xpath("//body[@class='admin']//input[@name='password']//ancestor::span//following-sibling::div[@class='ant-form-explain' and text()='" + text + "']"),
-                        "текст ошибки поля ввода email на странице авторизации админки");
+                return new ElementData(By.xpath("//div[@role='alert' and text()='" + text + "']"),
+                        "текст ошибки поля ввода password на странице авторизации админки");
             }
 
             static ElementData submitButton() {

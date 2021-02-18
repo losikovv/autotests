@@ -71,20 +71,20 @@ public class BaseUICheckpoints {
         log.info("✓ Успешно");
     }
 
-    /** Проверить возможность перехода на страницу по указанному url и ее доступность */
-    @Step("Проверить возможность перехода на страницу по указанному url и ее доступность")
+    /** Проверяем возможность перехода на страницу по указанному url и ее доступность */
+    @Step("Проверяем возможность перехода на страницу по указанному url и ее доступность")
     public void checkPageIsAvailable(String URL) {
         checkTransition(URL);
         checkPageIsAvailable();
     }
 
-    /**  Проверить возможность перехода на страницу */
+    /**  Проверяем возможность перехода на страницу */
     public void checkTransition(PageData page) {
         checkTransition(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
-    /** Проверить возможность перехода на страницу по указанному url */
-    @Step("Проверить возможность перехода на страницу по указанному url: {0}")
+    /** Проверяем возможность перехода на страницу по указанному url */
+    @Step("Проверяем возможность перехода на страницу по указанному url: {0}")
     public void checkTransition(String URL) {
         log.info("> переход по прямой ссылке {}", URL);
         kraken.get().url(URL);
@@ -97,8 +97,8 @@ public class BaseUICheckpoints {
         log.info("✓ Успешно");
     }
 
-    /** Проверить работоспособность перехода по ссылке элемента */
-    @Step("Проверить работоспособность перехода по ссылке элемента")
+    /** Проверяем работоспособность перехода по ссылке элемента */
+    @Step("Проверяем работоспособность перехода по ссылке элемента")
     public void checkTransition(ElementData element) {
         log.info("> валидируем работу элемента: {}", element.getDescription());
         String startPage = kraken.grab().currentURL();
@@ -110,7 +110,7 @@ public class BaseUICheckpoints {
         log.info("✓ Успешный переход");
     }
 
-    /** Проверить доступность текущей страницы */
+    /** Проверяем доступность текущей страницы */
     @Step("Проверяем доступность текущей страницы")
     public void checkPageIsAvailable() throws AssertionError {
         log.info("> проверяем доступность текущей страницы");
@@ -162,49 +162,49 @@ public class BaseUICheckpoints {
         log.info("✓ Успешно");
     }
 
-    /** Проверить валидность элемента (преход работает + целевая страница доступна) */
+    /** Проверяем валидность элемента (преход работает + целевая страница доступна) */
     public void checkTransitionValidation(ElementData element) {
         checkTransition(element);
         checkPageIsAvailable();
     }
 
-    /** Проверить возможность перехода на страницу и ее доступность */
+    /** Проверяем возможность перехода на страницу и ее доступность */
     public void checkPageIsAvailable(PageData page) {
         checkPageIsAvailable(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
-    /** Проверить доступность ретейлера*/
-    @Step("Проверить доступность ретейлера")
+    /** Проверяем доступность ретейлера*/
+    @Step("Проверяем доступность ретейлера")
     public void checkRetailerIsAvailable(String retailer) {
         checkPageIsAvailable(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer);
     }
-    /** Проверить не доступность ретейлера*/
-    @Step("Проверить не доступность ретейлера")
+    /** Проверяем не доступность ретейлера*/
+    @Step("Проверяем не доступность ретейлера")
     public void checkRetailerIsUnavailable(String retailer) {
         checkPageIs404(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer);
     }
 
-    /** Проверить возможность перехода на страницу по указанному url и ее недоступность с ошибкой 404 */
+    /** Проверяем возможность перехода на страницу по указанному url и ее недоступность с ошибкой 404 */
     public void checkPageIs404(String URL) {
         checkTransition(URL);
         checkPageIs404();
     }
 
-    /** Проверить что текущая страница недоступна с ошибкой 404 */
-    @Step("Проверить что текущая страница недоступна с ошибкой 404")
+    /** Проверяем что текущая страница недоступна с ошибкой 404 */
+    @Step("Проверяем что текущая страница недоступна с ошибкой 404")
     public void checkPageIs404() throws AssertionError {
         log.info("> проверяем появление ошибки 404 на странице");
         Assert.assertTrue(kraken.detect().is404(), "\n\n> Нет ожидаемой ошибки 404 на странице " + kraken.grab().currentURL() + "\n");
     }
 
-    /** Проверить возможность перехода на страницу и ее недоступность с ошибкой 404 */
-    @Step("Проверить возможность перехода на страницу и ее недоступность с ошибкой 404")
+    /** Проверяем возможность перехода на страницу и ее недоступность с ошибкой 404 */
+    @Step("Проверяем возможность перехода на страницу и ее недоступность с ошибкой 404")
     public void checkPageIs404(PageData page)  {
         checkPageIs404(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
     }
 
-    /** Проверить возможность перехода в каталог магазина с лендинга Сбермаркета */
-    @Step("Проверить возможность перехода в каталог магазина с лендинга Сбермаркета")
+    /** Проверяем возможность перехода в каталог магазина с лендинга Сбермаркета */
+    @Step("Проверяем возможность перехода в каталог магазина с лендинга Сбермаркета")
     public void checkIsOnLanding(){
         log.info("> проверяем возможность перехода в каталог выбранного магазина");
         Assert.assertFalse(
@@ -213,8 +213,8 @@ public class BaseUICheckpoints {
         log.info("✓ Успешно");
     }
 
-    /** Проверить отсутствие элемента на странице */
-    @Step("Проверить отсутствие элемента на странице")
+    /** Проверяем отсутствие элемента на странице */
+    @Step("Проверяем отсутствие элемента на странице")
     public void checkElementAbsence(ElementData element) {
         log.info("> проверяем отсутствие элемента на странице {}> {}", kraken.grab().currentURL(), element.getLocator());
         Assert.assertFalse(
@@ -224,8 +224,18 @@ public class BaseUICheckpoints {
         log.info("✓ {} отсутствует", element.getDescription());
     }
 
-    /** Проверить что чекбокс проставлен */
-    @Step("Проверить что чекбокс проставлен")
+    /** Проверяем отсутствие элемента на странице */
+    @Step("Проверяем отсутствие элемента на странице")
+    public void checkElementAbsence(ElementData element, String errorMessage) {
+        log.info("> проверяем отсутствие элемента на странице {}> {}", kraken.grab().currentURL(), element.getLocator());
+        Assert.assertFalse(
+                kraken.detect().isElementPresent(element),
+                failMessage(errorMessage));
+        log.info("✓ Успешно");
+    }
+
+    /** Проверяем что чекбокс проставлен */
+    @Step("Проверяем что чекбокс проставлен")
     public void checkCheckboxIsSet(ElementData element) {
         log.info("> проверяем что чекбокс на странице проставлен {}", kraken.grab().currentURL());
         Assert.assertTrue(
@@ -234,8 +244,8 @@ public class BaseUICheckpoints {
         log.info("✓ Успешно");
     }
 
-    /** Проверить что чекбокс не проставлен */
-    @Step("Проверить что чекбокс не проставлен")
+    /** Проверяем что чекбокс не проставлен */
+    @Step("Проверяем что чекбокс не проставлен")
     public void checkCheckboxIsNotSet(ElementData element) {
         log.info("> проверяем что чекбокс на странице проставлен {}", kraken.grab().currentURL());
         Assert.assertFalse(
@@ -244,8 +254,8 @@ public class BaseUICheckpoints {
         log.info("✓ Успешно");
     }
 
-    /** Проверить что радиокнопка выбрана */
-    @Step("Проверить что радиокнопка выбрана")
+    /** Проверяем что радиокнопка выбрана */
+    @Step("Проверяем что радиокнопка выбрана")
     public void checkRadioButtonIsSelected(ElementData element) {
         log.info("> проверяем что радиобатон на странице выбран {}", kraken.grab().currentURL());
         Assert.assertTrue(
@@ -254,8 +264,8 @@ public class BaseUICheckpoints {
         log.info("✓ Успешно");
     }
 
-    /** Проверить что радиокнопка не выбрана */
-    @Step("Проверить что радиокнопка не выбрана")
+    /** Проверяем что радиокнопка не выбрана */
+    @Step("Проверяем что радиокнопка не выбрана")
     public void checkRadioButtonIsNotSelected(ElementData element) {
         log.info("> проверяем что радиобатон на странице не выбран {}", kraken.grab().currentURL());
         Assert.assertFalse(
@@ -280,8 +290,8 @@ public class BaseUICheckpoints {
         log.info("✓ Успешно");
     }
 
-    /** Проверить что поле пустое */
-    @Step("Проверить что поле пустое")
+    /** Проверяем что поле пустое */
+    @Step("Проверяем что поле пустое")
     public void checkFieldIsEmpty(ElementData element) {
         log.info("> проверяем что поле для ввода пустое на странице {}", kraken.grab().currentURL());
         Assert.assertTrue(
@@ -290,8 +300,8 @@ public class BaseUICheckpoints {
         log.info("✓ Успешно");
     }
 
-    /** Проверить что поле не пустое */
-    @Step("Проверить что поле не пустое")
+    /** Проверяем что поле не пустое */
+    @Step("Проверяем что поле не пустое")
     public void checkFieldIsNotEmpty(ElementData element) {
         log.info("> проверяем что поле для ввода не пустое на странице {}", kraken.grab().currentURL());
         Assert.assertFalse(
@@ -300,13 +310,24 @@ public class BaseUICheckpoints {
         log.info("✓ Успешно");
     }
 
-    /** Проверить что поле заполнено ожидаемым текстом */
-    @Step("Проверить что поле заполнено ожидаемым текстом")
+    /** Проверяем что поле заполнено ожидаемым текстом */
+    @Step("Проверяем что поле заполнено ожидаемым текстом")
     public void checkFieldIsFilled(ElementData element, String expectedText) {
         log.info("> проверяем что поле для ввода заполненно ожидаемым текстом на странице {}", kraken.grab().currentURL());
         Assert.assertEquals(
                 kraken.grab().value(element), expectedText,
                 failMessage("Некорректно заполнено " + element.getDescription()));
         log.info("✓ Успешно");
+    }
+
+    /** Проверяем, что текст на странице соответсветсвует ожидаемому результату */
+    @Step("Проверяем, что текст на странице соответсветсвует ожидаемому результату")
+    public void checkTextIsCorrectInElement(ElementData element, String expectedText, String errorMessage) {
+        log.info("> Проверяем, что текст на странице соответсветсвует ожидаемому результату {}", kraken.grab().currentURL());
+        Assert.assertEquals(
+                kraken.grab().text(element), expectedText,
+                failMessage(errorMessage));
+        log.info("✓ Успешно");
+
     }
 }
