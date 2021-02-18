@@ -10,6 +10,7 @@ public final class FavoritesCondition implements ICondition<FavoritesCondition> 
 
     private final FavoritesCheck favoritesCheck;
     private Response response;
+    private long addedItemId;
 
     private FavoritesCondition() {
         this.favoritesCheck = FavoritesCheck.newCheck(this);
@@ -40,8 +41,8 @@ public final class FavoritesCondition implements ICondition<FavoritesCondition> 
     }
 
     @Step("Удалить товар из избранного")
-    public FavoritesCheck removeFromFavorites(final long id) {
-        response = Favorites.deleteFavoriteItem(SessionFactory.getSession().getToken(), id);
+    public FavoritesCheck removeFirstItemFromFavorites() {
+        response = Favorites.deleteFavoriteItem(SessionFactory.getSession().getToken(), addedItemId);
         return favoritesCheck;
     }
 
@@ -61,5 +62,13 @@ public final class FavoritesCondition implements ICondition<FavoritesCondition> 
 
     public Response getResponse() {
         return response;
+    }
+
+    public long getAddedItemId() {
+        return addedItemId;
+    }
+
+    public void setAddedItemId(final long addedItemId) {
+        this.addedItemId = addedItemId;
     }
 }
