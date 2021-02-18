@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 public class FavoritesList extends RestBase {
 
     private final long PRODUCT_ID = 239210;
+    private final long PRODUCT_ID_2 = 239211;
     private final int PRODUCT_SKU = 38732;
 
     @BeforeClass(alwaysRun = true)
@@ -60,7 +61,7 @@ public class FavoritesList extends RestBase {
     public void testDeleteItemToFavoritesList() {
         FavoritesCondition
                 .newTest()
-                .addToFavorites(PRODUCT_ID)
+                .addToFavorites(PRODUCT_ID_2)
                 .itemWasAdded()
                 .removeFirstItemFromFavorites()
                 .itemWasRemoved();
