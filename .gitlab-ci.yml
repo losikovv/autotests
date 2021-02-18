@@ -1,35 +1,22 @@
-image: openjdk:11-jdk-slim
-
 stages:
   - build
   - tests
-
-before_script:
-  - echo `pwd`
-  - export GRADLE_USER_HOME=`pwd`/web-tests/.gradle
-  #- chmod +x ./gradlew
-
-cache:
-  key: $CI_PROJECT_NAME
-  paths:
-    - $GRADLE_USER_HOME/wrapper
-    - $GRADLE_USER_HOME/caches
-  policy: pull
-
 build:
+  image:
+    name: registry.sbermarket.tech/docker/proxy/kaniko-project/executor:debug-v1.0.0
+    entrypoint: [""]
   stage: build
+  tags:
+    - docker
   script:
-    - ./gradlew assemble
-  only:
-    changes:
-      - "*.gradle"
-      - gradle.properties
-  cache:
-    key: $CI_PROJECT_NAME
-    paths:
-      - $GRADLE_USER_HOME/wrapper
-      - $GRADLE_USER_HOME/caches
-    policy: push
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - echo $CI_REGISTRY
+    - echo $IMAGE
+    - /kaniko/executor
+      --cache=true
+      --context $CI_PROJECT_DIR
+      --dockerfile $CI_PROJECT_DIR/Dockerfile
+      --destination $CI_REGISTRY_IMAGE
 
 CustomSuiteTestRun:
   when: manual
@@ -58,7 +45,8 @@ CustomSuiteTestRun:
     expire_in: 1 week
 
 tests:ApiInstamart:
-  when: manual
+  only:
+    - master
   resource_group: apiInstamart:$CI_COMMIT_REF_SLUG
   stage: tests
   image: $CI_REGISTRY_IMAGE
@@ -80,7 +68,8 @@ tests:ApiInstamart:
     expire_in: 1 week
 
 tests:ApiShopper:
-  when: manual
+  only:
+    - master
   resource_group: apiShopper:$CI_COMMIT_REF_SLUG
   stage: tests
   image: $CI_REGISTRY_IMAGE
@@ -123,7 +112,8 @@ tests:ApiZonesProductionOnly:
     expire_in: 1 week
 
 tests:UiSmoke:
-  when: manual
+  only:
+    - master
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
@@ -145,7 +135,8 @@ tests:UiSmoke:
     expire_in: 1 week
 
 tests:AdminUiSmoke:
-  when: manual
+  only:
+    - master
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
@@ -167,7 +158,8 @@ tests:AdminUiSmoke:
     expire_in: 1 week
 
 tests:AutoMRCheck:
-  when: manual
+  only:
+    - merge_requests
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
