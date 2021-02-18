@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="REST API Suite" parallel="none">
+<suite name="REST API Suite" parallel="tests" thread-count="3">
   <listeners>
     <listener class-name="instamart.core.listeners.ExecutionListenerImpl"/>
     <listener class-name="instamart.core.listeners.ApiListener"/>
   </listeners>
-  <test verbose="1" name="API v1 Tests">
-    <groups>
-      <run>   
-        <include name="api-instamart-smoke"/>
-        <include name="api-instamart-regress"/>
-      </run>
-    </groups>
+  <test verbose="1" name="API v1 Tests" parallel="classes" thread-count="5">
     <classes>
       <class name="ru.instamart.tests.api.v1.contracts.OperationalZones"/>
       <class name="ru.instamart.tests.api.v1.contracts.Retailers"/>
@@ -20,14 +14,7 @@
       <class name="ru.instamart.tests.api.v1.contracts.Orders"/>
     </classes>
   </test> <!-- api-v1-tests -->
-  <test verbose="1" name="API v2 Tests">
-    <groups>
-      <run>
-        <include name="api-zones"/>
-        <include name="api-instamart-smoke"/>
-        <include name="api-instamart-regress"/>
-      </run>
-    </groups>
+  <test verbose="1" name="API v2 Tests" parallel="classes" thread-count="4">
     <classes>
       <class name="ru.instamart.tests.api.v2.endpoints.Taxons"/>
       <class name="ru.instamart.tests.api.v2.endpoints.Searches"/>
@@ -48,13 +35,7 @@
       <class name="ru.instamart.tests.api.v2.e2e.OrderTests"/>
     </classes>
   </test> <!-- api-v2-tests -->
-  <test verbose="1" name="API Shopper Tests">
-    <groups>
-      <run>
-        <include name="api-shopper-smoke"/>
-        <include name="api-shopper-regress"/>
-      </run>
-    </groups>
+  <test verbose="1" name="API Shopper Tests" parallel="classes" thread-count="3">
     <classes>
       <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentfulTests"/>
       <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentlessTests"/>

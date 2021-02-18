@@ -9,6 +9,7 @@ import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Flaky;
+import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -36,10 +37,10 @@ public class UserFavoritesTests extends TestBase {
     public void noAccessToFavoritesForUnauthorizedUser(){
         baseChecks.checkPageIsUnavailable(Pages.UserProfile.favorites());
     }
-    @CaseId(1264)
-    @Test(  description = "Переход в любимые товары по кнопке, новый пользователь" +
-            "https://instamart.atlassian.net/browse/STF-6773",
 
+    @Issue(value = "STF-6773")
+    @CaseId(1264)
+    @Test(  description = "Переход в любимые товары по кнопке, новый пользователь",
             groups = {
                     "metro-acceptance","metro-regression",
                     "sbermarket-Ui-smoke","testing"}
