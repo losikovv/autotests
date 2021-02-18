@@ -1,6 +1,6 @@
 # Ignore build folders
 .allure
-.gradle
+#.gradle
 build
 logs
 out
