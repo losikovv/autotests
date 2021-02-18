@@ -33,6 +33,7 @@ task debug(type: Test) {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
         suites 'src/test/resources/d.xml'
+        includeGroups 'debug'
         systemProperty 'env',"sbermarket-preprod"
         systemProperty 'qase', "false"
         testLogging {

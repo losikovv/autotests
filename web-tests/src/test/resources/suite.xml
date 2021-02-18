@@ -1,24 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Web UI suite">
+<suite name="Web UI suite" data-provider-thread-count="2">
   <listeners>
     <listener class-name="instamart.core.listeners.ExecutionListenerImpl"/>
     <listener class-name="instamart.core.listeners.UiListener"/>
   </listeners>
-  <test verbose="1" name="Web UI tests">
-    <groups>
-      <run>
-        <include name="sbermarket-Ui-smoke"/>
-        <include name="admin-ui-smoke"/>
-        <include name="testing"/>
-        <include name="sbermarket-acceptance"/>
-        <include name="sbermarket-regression"/>
-        <include name="metro-smoke"/>
-        <include name="metro-acceptance"/>
-        <include name="metro-regression"/>
-        <include name="testTask"/>
-      </run>
-    </groups>
+  <test verbose="1" name="Web UI tests" parallel="classes" thread-count="2">
     <classes>
       <class name="ru.instamart.tests.ui.administration.AdministrationAccessTests"/>
       <class name="ru.instamart.tests.ui.administration.AdministrationLoginTests"/>
