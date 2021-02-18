@@ -6,11 +6,11 @@ stages:
 
 before_script:
   - echo `pwd`
-  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - export GRADLE_USER_HOME=`pwd`/web-tests/.gradle
   #- chmod +x ./gradlew
 
 cache:
-  key: gradle-cache-key
+  key: $CI_PROJECT_NAME
   paths:
     - $GRADLE_USER_HOME/wrapper
     - $GRADLE_USER_HOME/caches
@@ -25,7 +25,7 @@ build:
       - "*.gradle"
       - gradle.properties
   cache:
-    key: gradle-cache-key
+    key: $CI_PROJECT_NAME
     paths:
       - $GRADLE_USER_HOME/wrapper
       - $GRADLE_USER_HOME/caches
