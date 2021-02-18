@@ -5,9 +5,16 @@ stages:
   - tests
 
 before_script:
-  - export GRADLE_USER_HOME=`pwd`/.gradle
-  - chmod +x ./gradlew
   - echo `pwd`
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  #- chmod +x ./gradlew
+
+cache:
+  key: gradle-cache-key
+  paths:
+    - $GRADLE_USER_HOME/wrapper
+    - $GRADLE_USER_HOME/caches
+  policy: pull
 
 build:
   stage: build
@@ -20,16 +27,9 @@ build:
   cache:
     key: gradle-cache-key
     paths:
-      - .gradle/wrapper
-      - .gradle/caches
+      - $GRADLE_USER_HOME/wrapper
+      - $GRADLE_USER_HOME/caches
     policy: push
-
-cache:
-  key: gradle-cache-key
-  paths:
-    - .gradle/wrapper
-    - .gradle/caches
-  policy: pull
 
 CustomSuiteTestRun:
   when: manual
