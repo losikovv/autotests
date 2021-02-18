@@ -223,7 +223,7 @@ public final class Administration extends Base {
             // TODO: поправить метод так, чтобы он хоть что-нибудь толковое проверял
             String pageDesc = "Abra Kadabra Ahalai Mahalai";
             kraken.perform().click(Elements.Administration.PagesSection.editPageButton(name));
-            // TODO: проверить, что зашли в редактрование той страницы
+            // TODO: Проверяем, что зашли в редактрование той страницы
 //            if (kraken.grab().value(Elements.Administration.PagesSection.PageEditPage.pageNameField()) == name) {
                 Pages.switchSourceEditor();
                 kraken.perform().fillField(Elements.Administration.PagesSection.PageEditPage.pageDescriptionField(), pageDesc);

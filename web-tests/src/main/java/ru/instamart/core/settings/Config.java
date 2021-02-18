@@ -37,6 +37,9 @@ public final class Config {
         // Если в core.properties нет переменной defaultBrowser, то будет браться значение из параметра запуска -Pbrowser
         // если и там нет, то дефолтное BrowserType.CHROME
         DEFAULT_BROWSER = coreSettings.getString("defaultBrowser", System.getProperty("browser", BrowserType.CHROME));
+        //DEFAULT_BROWSER = coreSettings.getString("defaultBrowser", System.getProperty("browser", "chrome_remote"));
+        //это как напоминалка, нужно просто сделать переключатель, ибо сейчас очень сложно
+        //BROWSER_VERSION = coreSettings.getString("browserVersion", System.getProperty("version", "84"));
         BROWSER_VERSION = coreSettings.getString("browserVersion", System.getProperty("version", "latest"));
         // Если в core.properties нет переменной defaultEnvironment, то будет браться значение из параметра запуска -Penv
         // если и там нет, то дефолтное Environments.sbermarket.preprod()

@@ -7,6 +7,7 @@ import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Administration;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qase.api.annotation.CaseId;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -25,8 +26,9 @@ public class AdministrationShipmentsSectionTests extends TestBase {
         kraken.get().adminPage("shipments");
     }
 
-    @Test(  description = "Тест валидации дефолтной странгицы списка заказаов в админке",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+    @CaseId(175)
+    @Test(  description = "Тест на корректное отображение элементов страницы со списком заказов в админке",
+            groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void validateDefaultAdminShipmentsPage() {
         baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.title());
@@ -89,40 +91,37 @@ public class AdministrationShipmentsSectionTests extends TestBase {
 
     // TODO test successShowEmptySearchPlaceholder
 
+    @CaseId(182)
     @Test(  description = "Тест поиска заказа по номеру заказа в админке",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void successSearchOrderByOrderNumber() {
-        final String orderNumber = kraken.grab().text(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.orderNumber());
-
+        final String orderNumber = kraken.grab()
+                .text(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.orderNumber());
         Administration.Orders.searchOrder(orderNumber);
-
-        Assert.assertFalse(
-                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.placeholder()),
-                    "Не работает поиск заказа в админке, пустой результат поиска\n");
-
-        Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.orderNumber()), orderNumber,
-                    "Не работает поиск заказа в админке, найден не тот ордер\n");
+        baseChecks.checkElementAbsence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.placeholder(),
+                "Не работает поиск заказа в админке, пустой результат поиска\n");
+        baseChecks.checkTextIsCorrectInElement(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.orderNumber(),
+                orderNumber,
+                "Не работает поиск заказа в админке, найден не тот ордер\n");
     }
 
+    @CaseId(445)
     @Test(  description = "Тест поиска заказа по номеру шипмента в админке",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void successSearchOrderByShipmentNumber() {
         String shipmentNumber = kraken.grab().text(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.shipmentNumber());
         Administration.Orders.searchOrder(shipmentNumber);
-
-        Assert.assertFalse(
-                kraken.detect().isElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.placeholder()),
-                    "Не работает поиск шипмента в админке, пустой результат поиска\n");
-
-        Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.shipmentNumber()), shipmentNumber,
-                    "Не работает поиск шипмента в админке, найден не тот шипмент\n");
+        baseChecks.checkElementAbsence(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.placeholder(),
+                "Не работает поиск шипмента в админке, пустой результат поиска\n");
+        baseChecks.checkTextIsCorrectInElement(Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.shipmentNumber(),
+                shipmentNumber,
+                "Не работает поиск шипмента в админке, найден не тот шипмент\n");
     }
 
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
+    // TODO поправить тест после того как починб тест заказа
     @Test(  description = "Тест возобновления и отмены заказа через админку",
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
@@ -153,8 +152,9 @@ public class AdministrationShipmentsSectionTests extends TestBase {
         softAssert.assertAll();
     }
 
+    // Нужен юзер
     @Test(  description = "Тест поиска B2B заказа в админке",
-            groups = {"sbermarket-regression"}
+            groups = {"sbermarket-regression","admin-ui-smoke"}
     )
     public void successSearchB2BOrder() {
         final UserData testuser = UserManager.getUser();
