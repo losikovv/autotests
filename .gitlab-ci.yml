@@ -45,8 +45,7 @@ CustomSuiteTestRun:
     expire_in: 1 week
 
 tests:ApiInstamart:
-  only:
-    - master
+  when: manual
   resource_group: apiInstamart:$CI_COMMIT_REF_SLUG
   stage: tests
   image: $CI_REGISTRY_IMAGE
@@ -68,8 +67,7 @@ tests:ApiInstamart:
     expire_in: 1 week
 
 tests:ApiShopper:
-  only:
-    - master
+  when: manual
   resource_group: apiShopper:$CI_COMMIT_REF_SLUG
   stage: tests
   image: $CI_REGISTRY_IMAGE
@@ -112,8 +110,7 @@ tests:ApiZonesProductionOnly:
     expire_in: 1 week
 
 tests:UiSmoke:
-  only:
-    - master
+  when: manual
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
@@ -135,8 +132,7 @@ tests:UiSmoke:
     expire_in: 1 week
 
 tests:AdminUiSmoke:
-  only:
-    - master
+  when: manual
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
@@ -158,8 +154,7 @@ tests:AdminUiSmoke:
     expire_in: 1 week
 
 tests:AutoMRCheck:
-  only:
-    - merge_requests
+  when: manual
   stage: tests
   image: $CI_REGISTRY_IMAGE
   script:
