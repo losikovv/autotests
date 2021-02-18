@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Web UI suite" data-provider-thread-count="2">
+<suite name="Web UI suite" data-provider-thread-count="1">
   <listeners>
     <listener class-name="instamart.core.listeners.ExecutionListenerImpl"/>
     <listener class-name="instamart.core.listeners.UiListener"/>
   </listeners>
-  <test verbose="1" name="Web UI tests" parallel="classes" thread-count="2">
+  <test verbose="1" name="Web UI tests" parallel="classes" thread-count="4">
     <classes>
       <class name="ru.instamart.tests.ui.administration.AdministrationAccessTests"/>
       <class name="ru.instamart.tests.ui.administration.AdministrationLoginTests"/>
