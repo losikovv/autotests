@@ -43,6 +43,10 @@ public class InstamartApiCheckpoints {
         Assert.assertEquals(response.statusCode(),200, message + "\n" + responseText);
     }
 
+    public static void assertStatusCode401(final Response response) {
+        Assert.assertEquals(response.statusCode(), 401);
+    }
+
     public static void assertStatusCode404(final Response response) {
         Assert.assertEquals(response.statusCode(), 404);
     }

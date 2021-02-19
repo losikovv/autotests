@@ -56,10 +56,6 @@ public final class FavoritesCondition implements ICondition<FavoritesCondition> 
         return new FavoritesCondition();
     }
 
-    public static void makeSession() {
-        new FavoritesCondition().createSession();
-    }
-
     public Response getResponse() {
         return response;
     }

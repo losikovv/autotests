@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
+import instamart.api.SessionFactory;
 import instamart.api.common.RestBase;
 import instamart.api.condition.FavoritesCondition;
 import io.qameta.allure.*;
@@ -18,7 +19,7 @@ public class FavoritesList extends RestBase {
     @BeforeClass(alwaysRun = true)
     @Story("Создание сессии")
     public void preconditions() {
-        FavoritesCondition.makeSession();
+        SessionFactory.makeSession();
     }
 
     @CaseId(13)

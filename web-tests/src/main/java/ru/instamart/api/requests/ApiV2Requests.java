@@ -39,28 +39,7 @@ public class ApiV2Requests extends InstamartRequestsBase {
                     .post(ApiV2EndPoints.USERS);
         }
     }
-    public static class Sessions {
-        /**
-         * Авторизация
-         */
-        @Step("{method} /" + ApiV2EndPoints.SESSIONS)
-        public static Response POST(String email, String password) {
-            return givenCatch()
-                    .auth()
-                    .preemptive()
-                    .basic(email, password)
-                    .post(ApiV2EndPoints.SESSIONS);
-        }
-        @Step("{method} /" + ApiV2EndPoints.SESSIONS)
-        public static Response POST(String email, String password, String clientId) {
-            return givenCatch()
-                    .auth()
-                    .preemptive()
-                    .basic(email, password)
-                    .header("Client-Id", clientId)
-                    .post(ApiV2EndPoints.SESSIONS);
-        }
-    }
+
     public static class Retailers {
         /**
          * Получаем список всех доступных ритейлеров
@@ -430,36 +409,6 @@ public class ApiV2Requests extends InstamartRequestsBase {
             @Step("{method} /" + ApiV2EndPoints.Promotions.REFERRAL_PROGRAM)
             public static Response GET() {
                 return givenCatch().get(ApiV2EndPoints.Promotions.REFERRAL_PROGRAM);
-            }
-        }
-    }
-    public static class AuthProviders {
-        public static class Sessions {
-            /**
-             * Авторизация через стороннего провайдера
-             */
-            @Step("{method} /" + ApiV2EndPoints.AuthProviders.SESSIONS)
-            public static Response POST(AuthProvider provider) {
-                JSONObject sessionParams = new JSONObject();
-                JSONObject requestParams = new JSONObject();
-                requestParams.put("session", sessionParams);
-                switch (provider) {
-                    case METRO:
-                    case SBERAPP:
-                        sessionParams.put("uid", provider.getSessionUid());
-                        sessionParams.put("digest", provider.getSessionDigest());
-                        return givenCatch()
-                                .body(requestParams)
-                                .contentType(ContentType.JSON)
-                                .post(ApiV2EndPoints.AuthProviders.SESSIONS, provider.getId());
-                    case VKONTAKTE:
-                    case FACEBOOK:
-                        return givenCatch()
-                                .param("session[uid]", provider.getSessionUid())
-                                .post(ApiV2EndPoints.AuthProviders.SESSIONS, provider.getId());
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + provider.getId());
-                }
             }
         }
     }

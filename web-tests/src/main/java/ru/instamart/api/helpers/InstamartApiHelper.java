@@ -1,5 +1,6 @@
 package instamart.api.helpers;
 
+import instamart.api.action.Authorization;
 import instamart.api.action.Departments;
 import instamart.api.enums.v2.OrderStatus;
 import instamart.api.objects.v1.Offer;
@@ -687,7 +688,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      */
     synchronized public void authorisation(String email, String password) {
         WaitingHelper.simply(3.1);
-        Response response = ApiV2Requests.Sessions.POST(email, password);
+        final Response response = Authorization.auth(email, password);
         assertStatusCode200(response);
         ApiV2Requests.setToken(response
                 .as(SessionsResponse.class)

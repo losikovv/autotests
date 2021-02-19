@@ -2,15 +2,24 @@ package instamart.api;
 
 import instamart.api.action.Authorization;
 import instamart.api.responses.v2.SessionsResponse;
+import instamart.core.testdata.UserManager;
+import instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
 import org.testng.Assert;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+
 public final class SessionFactory {
 
     private static final Map<Long, Session> sessionMap = new ConcurrentHashMap<>();
+
+    public static Session makeSession() {
+        final UserData userData = UserManager.getUser();
+        return createSession(userData.getLogin(), userData.getPassword());
+    }
 
     public static Session getSession() {
         final Session session = sessionMap.get(Thread.currentThread().getId());
@@ -21,7 +30,7 @@ public final class SessionFactory {
 
     public static void createSessionToken(final String login, final String password) {
         final Session session = sessionMap.get(Thread.currentThread().getId());
-        if (session != null && !session.getLogin().equals(login) && !session.getPassword().equals(password)) {
+        if (session != null && !session.getLogin().equals(login)) {
             sessionMap.put(Thread.currentThread().getId(), createSession(login, password));
         } else if (session == null) {
             sessionMap.put(Thread.currentThread().getId(), createSession(login, password));
@@ -33,7 +42,8 @@ public final class SessionFactory {
     }
 
     private static Session createSession(final String login, final String password) {
-        final Response response = Authorization.authorisation(login, password);
+        final Response response = Authorization.auth(login, password);
+        assertStatusCode200(response);
         final SessionsResponse sessionResponse = response.as(SessionsResponse.class);
         return new Session(login, password, sessionResponse.getSession().getAccess_token());
     }
