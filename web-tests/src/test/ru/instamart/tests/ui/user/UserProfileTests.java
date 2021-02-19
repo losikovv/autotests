@@ -30,7 +30,7 @@ public class UserProfileTests extends TestBase {
                 "12345678",
                 "12345678",
                 phone,
-                "1111"
+                "111111"
         );
     }
 

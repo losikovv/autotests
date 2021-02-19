@@ -10,7 +10,6 @@ import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
-import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeMethod;
@@ -84,7 +83,7 @@ public class UserRegistrationTests extends TestBase {
                 "12345678",
                 "12345678",
                 phone,
-                "1111"
+                "111111"
         );
         if(modalType.equals("модалка с почтой")){
             baseChecks.checkIsErrorMessageElementPresent("Укажите имя и фамилию",
@@ -279,7 +278,7 @@ public class UserRegistrationTests extends TestBase {
                 "12345678",
                 "12345678",
                 phone,
-                "1111"
+                "111111"
         );
         authChecks.checkIsUserAuthorized("Не работает регистрация на лендинге");
     }
@@ -301,7 +300,7 @@ public class UserRegistrationTests extends TestBase {
                 "12345678",
                 "12345678",
                 phone,
-                "1111"
+                "111111"
         );
         authChecks.checkIsUserAuthorized("Не работает регистрация на витрине магазина");
     }
@@ -325,12 +324,11 @@ public class UserRegistrationTests extends TestBase {
                 "12345678",
                 "12345678",
                 phone,
-                "1111"
+                "111111"
         );
         authChecks.checkIsUserAuthorized("Не работает регистрация из адресной модалки феникса");
     }
 
-    @Issue(value = "STF-7130")
     @CaseId(748)
     @Test(
 
@@ -355,8 +353,9 @@ public class UserRegistrationTests extends TestBase {
                 "12345678",
                 "12345678",
                 phone,
-                "1111"
+                "111111"
         );
+
         authChecks.checkAutoCheckoutRedirect("Нет автоперехода в чекаут после регистрации из корзины");
         kraken.get().baseUrl();
         authChecks.checkIsUserAuthorized("Не работает регистрация из корзины");

@@ -1,6 +1,7 @@
 package instamart.ui.modules;
 
 import instamart.core.common.AppManager;
+import instamart.core.settings.Config;
 import instamart.core.testdata.TestVariables;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.pagesdata.ElementData;
@@ -895,6 +896,7 @@ public final class Shop extends Base {
                 log.info("> добавляем в корзину {}х{}шт > {}", kraken.grab().itemName(), neededQuantity, kraken.grab().currentURL());
                 addItemByText(neededQuantity);
                 ItemCard.close();
+                kraken.get().page(Config.DEFAULT_RETAILER);
                 Cart.open();
             } else {
                 log.info("> в корзине достаточно товаров");

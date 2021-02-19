@@ -50,7 +50,7 @@ public class BasicOrdersTests extends TestBase {
                 "12345678",
                 "12345678",
                 phone,
-                "1111"
+                "111111"
         );
         kraken.apiV2().dropCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
     }
