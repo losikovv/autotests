@@ -66,7 +66,7 @@ public final class UserTest extends RestBase {
 
     @CaseId(157)
     @Issue("STF-7288")
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress"}, enabled = false)
     @Story("Попытка изменить данные для несуществующего email")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithIncorrectEmail() {
