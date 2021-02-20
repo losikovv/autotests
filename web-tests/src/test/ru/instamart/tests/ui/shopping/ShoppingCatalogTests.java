@@ -31,8 +31,8 @@ public class ShoppingCatalogTests extends TestBase {
     public void successValidateCatalogDrawer() {
         Shop.CatalogDrawer.open();
         itemChecks.checkIsCatalogDrawerOpen("Не открывается шторка каталога\n");
-        baseChecks.checkIsElementPresent(Elements.CatalogDrawer.category("Бакалея"));
-        baseChecks.checkIsElementPresent(Elements.CatalogDrawer.closeButton());
+        baseChecks.checkIsElementPresent(Elements.CatalogDrawer.categoryFirstLevel("Бакалея"),5);
+        baseChecks.checkIsElementPresent(Elements.CatalogDrawer.closeButton(),2);
         Shop.CatalogDrawer.close();
         itemChecks.checkIsCatalogDrawerClosed("Не закрывается шторка каталога\n");
     }
