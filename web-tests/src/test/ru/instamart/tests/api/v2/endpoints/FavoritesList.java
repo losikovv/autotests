@@ -8,7 +8,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-@Epic(value = "Api")
+@Epic(value = "ApiV2")
 @Feature(value = "Избранное")
 public class FavoritesList extends RestBase {
 
@@ -34,7 +34,7 @@ public class FavoritesList extends RestBase {
     }
 
     @CaseId(128)
-    @Test(groups = {"api-instamart-smoke"})
+    @Test(groups = {"api-instamart-smoke", "api-instamart-regress"})
     @Story("Добавление товара в избранное")
     @Severity(SeverityLevel.CRITICAL)
     public void testAddItemToFavoritesList() {
@@ -56,7 +56,7 @@ public class FavoritesList extends RestBase {
     }
 
     @CaseId(130)
-    @Test(groups = {"api-instamart-smoke"})
+    @Test(groups = {"api-instamart-smoke", "api-instamart-regress"})
     @Story("Удаление товара из избранного")
     @Severity(SeverityLevel.CRITICAL)
     public void testDeleteItemToFavoritesList() {
@@ -80,7 +80,7 @@ public class FavoritesList extends RestBase {
     }
 
     @CaseId(132)
-    @Test(groups = {"api-instamart-smoke"})
+    @Test(groups = {"api-instamart-smoke", "api-instamart-regress"})
     @Story("Добавление товара в избранное по его Sku")
     @Severity(SeverityLevel.CRITICAL)
     public void testAddItemToFavoritesListBySku() {

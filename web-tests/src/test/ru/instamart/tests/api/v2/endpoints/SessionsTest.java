@@ -13,7 +13,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 
-@Epic(value = "Api")
+@Epic(value = "ApiV2")
 @Feature(value = "Авторизация")
 public final class SessionsTest extends RestBase {
 

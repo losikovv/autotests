@@ -806,41 +806,6 @@ public final class InstamartApiHelper extends ApiHelperBase {
         return completeOrder();
     }
 
-    /*
-      МЕТОДЫ ДЛЯ ИСПОЛЬЗОВАНИЯ В ТЕСТАХ (ПУБЛИЧНЫЕ)
-     */
-
-    /**
-     * Регистрация
-     */
-    public void registration(UserData user) {
-        String[] fullName = new String[0];
-        String firstName = null;
-        String lastName = null;
-        if (user.getName() != null) fullName = user.getName().split(" ",2);
-        if (fullName.length > 0) firstName = fullName[0];
-        if (fullName.length > 1) lastName = fullName[1];
-
-        registration(
-                user.getLogin(),
-                firstName,
-                lastName,
-                user.getPassword());
-    }
-
-    /**
-     * Регистрация
-     */
-    public void registration(String email, String firstName, String lastName, String password) {
-        Response response =  ApiV2Requests.Users.POST(email, firstName, lastName, password);
-        assertStatusCode200(response);
-        String registeredEmail = response
-                .as(UserResponse.class)
-                .getUser()
-                .getEmail();
-        log.info("Зарегистрирован: {}", registeredEmail);
-    }
-
     /**
      * Поменять адрес у юзера
      */

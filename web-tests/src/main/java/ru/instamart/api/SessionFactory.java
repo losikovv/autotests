@@ -1,6 +1,7 @@
 package instamart.api;
 
 import instamart.api.action.Authorization;
+import instamart.api.action.Registration;
 import instamart.api.responses.v2.SessionsResponse;
 import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.UserData;
@@ -16,9 +17,10 @@ public final class SessionFactory {
 
     private static final Map<Long, Session> sessionMap = new ConcurrentHashMap<>();
 
-    public static Session makeSession() {
+    public static void makeSession() {
         final UserData userData = UserManager.getUser();
-        return createSession(userData.getLogin(), userData.getPassword());
+        Registration.registration(userData);
+        createSessionToken(userData.getLogin(), userData.getPassword());
     }
 
     public static Session getSession() {

@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.v2.e2e;
 
+import instamart.api.action.Registration;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Zone;
@@ -34,7 +35,7 @@ public class ZoneTests extends RestBase {
         log.info("Оформляем заказ в {} zone={} coordinates={}", store, zoneName, coordinates);
 
         final UserData userData = UserManager.getUser();
-        apiV2.registration(userData);
+        Registration.registration(userData);
         apiV2.order(userData, store.getId(), coordinates);
         apiV2.cancelCurrentOrder();
     }

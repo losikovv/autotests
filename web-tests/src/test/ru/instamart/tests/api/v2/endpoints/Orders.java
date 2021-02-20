@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
+import instamart.api.action.Registration;
 import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Order;
@@ -22,7 +23,7 @@ public class Orders extends RestBase {
     public void preconditions() {
         if (!apiV2.authorized()) {
             final UserData user = UserManager.getUser();
-            apiV2.registration(user);
+            Registration.registration(user);
             apiV2.authorisation(user);
         }
         ApiV2Requests.Orders.POST();

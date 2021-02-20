@@ -1,27 +1,30 @@
 package ru.instamart.tests.api.v2.endpoints;
 
+import instamart.api.action.Registration;
 import instamart.api.common.RestBase;
 import instamart.api.responses.v2.ErrorResponse;
-import instamart.core.testdata.ui.Generate;
-import org.testng.annotations.Test;
 import instamart.api.responses.v2.UserResponse;
+import instamart.core.testdata.ui.Generate;
+import io.qameta.allure.*;
+import org.testng.annotations.Test;
 
-import static instamart.api.requests.ApiV2Requests.Users.POST;
 import static org.testng.Assert.assertEquals;
 //TODO переделать на датапровайдер
-public class Users extends RestBase {
+@Epic("ApiV2")
+@Feature("Регистрация")
+public class RegistrationTest extends RestBase {
+
     private final String firstName = "autotester";
     private final String lastName = "api";
     private final String minCharPassword = "instam";
 
-    @Test(
-            description = "Успешная регистрация",
-            groups = {"api-instamart-regress"}
-    )
+    @Test(groups = {"api-instamart-regress"})
+    @Story("Успешная регистрация")
+    @Severity(SeverityLevel.BLOCKER)
     public void successRegistration() {
         final String email = Generate.email();
 
-        response = POST(
+        response = Registration.POST(
                 email,
                 firstName,
                 lastName,
@@ -31,14 +34,13 @@ public class Users extends RestBase {
         assertEquals(response.as(UserResponse.class).getUser().getEmail(), email);
     }
 
-    @Test(
-            description = "Неверный формат email",
-            groups = {"api-instamart-regress"}
-    )
+    @Test(groups = {"api-instamart-regress"})
+    @Story("Неверный формат email")
+    @Severity(SeverityLevel.NORMAL)
     public void wrongEmailFormat() {
         String email = "example.com";
 
-        response = POST(
+        response = Registration.POST(
                 email,
                 firstName,
                 lastName,
@@ -49,14 +51,13 @@ public class Users extends RestBase {
                 "Неверный формат email");
     }
 
-    @Test(
-            description = "короткий пароль",
-            groups = {"api-instamart-regress"}
-    )
+    @Test(groups = {"api-instamart-regress"})
+    @Story("Короткий пароль")
+    @Severity(SeverityLevel.NORMAL)
     public void shortPassword() {
         String password = "insta";
 
-        response = POST(
+        response = Registration.POST(
                 Generate.email(),
                 firstName,
                 lastName,
@@ -67,12 +68,11 @@ public class Users extends RestBase {
                 "Не может быть короче 6 символов");
     }
 
-    @Test(
-            description = "пустой email",
-            groups = {"api-instamart-regress"}
-    )
+    @Test(groups = {"api-instamart-regress"})
+    @Story("Пустой email")
+    @Severity(SeverityLevel.NORMAL)
     public void emptyEmail() {
-        response = POST(
+        response = Registration.POST(
                 "",
                 firstName,
                 lastName,
@@ -83,14 +83,13 @@ public class Users extends RestBase {
                 "не может быть пустым");
     }
 
-    @Test(
-            description = "пустое имя",
-            groups = {"api-instamart-regress"}
-    )
+    @Test(groups = {"api-instamart-regress"})
+    @Story("Пустое имя")
+    @Severity(SeverityLevel.NORMAL)
     public void emptyFirstName() {
         final String email = Generate.email();
 
-        response = POST(
+        response = Registration.POST(
                 email,
                 "",
                 "api",
@@ -100,14 +99,13 @@ public class Users extends RestBase {
         assertEquals(response.as(UserResponse.class).getUser().getEmail(), email);
     }
 
-    @Test(
-            description = "пустая фамилия",
-            groups = {"api-instamart-regress"}
-    )
+    @Test(groups = {"api-instamart-regress"})
+    @Story("Пустая фамилия")
+    @Severity(SeverityLevel.NORMAL)
     public void emptyLastName() {
         final String email = Generate.email();
 
-        response = POST(
+        response = Registration.POST(
                 email,
                 "autotester",
                 "",
@@ -117,14 +115,13 @@ public class Users extends RestBase {
         assertEquals(response.as(UserResponse.class).getUser().getEmail(), email);
     }
 
-    @Test(
-            description = "пустые имя и фамилия",
-            groups = {"api-instamart-regress"}
-    )
+    @Test(groups = {"api-instamart-regress"})
+    @Story("Пустые имя и фамилия")
+    @Severity(SeverityLevel.NORMAL)
     public void emptyFirstAndLastNames() {
         final String email = Generate.email();
 
-        response = POST(
+        response = Registration.POST(
                 email,
                 "",
                 "",
@@ -135,14 +132,13 @@ public class Users extends RestBase {
                 "не может быть пустым");
     }
 
-    @Test(
-            description = "пустой пароль",
-            groups = {"api-instamart-regress"}
-    )
+    @Test(groups = {"api-instamart-regress"})
+    @Story("Пустой пароль")
+    @Severity(SeverityLevel.NORMAL)
     public void emptyPassword() {
         final String email = Generate.email();
 
-        response = POST(
+        response = Registration.POST(
                 email,
                 "autotester",
                 "api",

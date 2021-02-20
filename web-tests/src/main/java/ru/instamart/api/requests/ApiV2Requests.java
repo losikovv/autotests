@@ -22,22 +22,7 @@ public class ApiV2Requests extends InstamartRequestsBase {
         /**
          * Регистрация
          */
-        @Step("{method} /" + ApiV2EndPoints.USERS)
-        public static Response POST(
-                String email,
-                String firstName,
-                String lastName,
-                String password) {
-            Map<String, Object> data = new HashMap<>();
-            data.put("user[email]", email);
-            data.put("user[first_name]", firstName);
-            data.put("user[last_name]", lastName);
-            data.put("user[password]", password);
 
-            return givenCatch()
-                    .formParams(data)
-                    .post(ApiV2EndPoints.USERS);
-        }
     }
 
     public static class Retailers {

@@ -4,7 +4,6 @@ import instamart.api.condition.SessionCondition;
 import instamart.api.responses.v2.SessionsResponse;
 import instamart.api.responses.v2.UserDataResponse;
 import instamart.ui.common.pagesdata.UserData;
-import io.restassured.response.Response;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.*;
 import static org.testng.Assert.assertEquals;

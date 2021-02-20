@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.v2.e2e;
 
+import instamart.api.action.Registration;
 import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Product;
@@ -92,7 +93,7 @@ public class StoreTests extends RestBase {
         log.info("Оформляем первый заказ в {}", store);
 
         final UserData userData = UserManager.getUser();
-        apiV2.registration(userData);
+        Registration.registration(userData);
         apiV2.order(userData, store.getId());
         apiV2.cancelCurrentOrder();
     }
