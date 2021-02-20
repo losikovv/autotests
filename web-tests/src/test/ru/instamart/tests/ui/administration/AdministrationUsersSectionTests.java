@@ -53,7 +53,7 @@ public class AdministrationUsersSectionTests extends TestBase {
 //                "12345678",
 //                "12345678",
 //                phone,
-//                "1111"
+//                "111111"
 //        );
         kraken.get().page(Pages.Admin.shipments());
 

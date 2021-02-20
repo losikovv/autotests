@@ -154,7 +154,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
 
     // Нужен юзер
     @Test(  description = "Тест поиска B2B заказа в админке",
-            groups = {"sbermarket-regression","admin-ui-smoke"}
+            groups = {"sbermarket-regression"}
     )
     public void successSearchB2BOrder() {
         final UserData testuser = UserManager.getUser();

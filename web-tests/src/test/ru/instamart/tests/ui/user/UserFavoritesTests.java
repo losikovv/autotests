@@ -53,7 +53,7 @@ public class UserFavoritesTests extends TestBase {
                 "12345678",
                 "12345678",
                 phone,
-                "1111"
+                "111111"
         );
         Shop.Favorites.open();
         baseChecks.checkPageIsAvailable();

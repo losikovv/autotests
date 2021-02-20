@@ -1637,22 +1637,22 @@ public class Elements {
             }
 
             static ElementData closeButton() {
-                return new ElementData(By.xpath("//*[contains(@class,'wrapper_')]//*[contains(@aria-label,'Закрыть')]"),
+                return new ElementData(By.xpath("//button[@data-qa='product_cards_close_button']"),
                         "кнопка закрыть модалку карточки продукта");
             }
 
             static ElementData plusButton() {
-                return new ElementData(By.xpath("//button[@type='button' and text()='+']"),
+                return new ElementData(By.xpath("//button[@data-qa='addToCart_plus']"),
                         "кнопка + в карточке товара");
             }
 
             static ElementData buyButton() {
-                return new ElementData(By.xpath("//button[contains(text(),'Купить')]"),
+                return new ElementData(By.xpath("//button[@data-qa='addToCart_buy_button']"),
                     "кнопка купить в карточке товара");
             }
 
             static ElementData minusButton() {
-                return new ElementData(By.className("popup-cart-actions__btn--left"),
+                return new ElementData(By.className("//button[@data-qa='addToCart_minus']"),
                         "кнопка минус в карточке товара");
             }
 
@@ -1662,7 +1662,7 @@ public class Elements {
             }
 
             static ElementData addToFavoritesButton() {
-                return new ElementData(By.xpath("//div[@itemprop='offers']//*[@role='button' and @class='favorite-button favorite-button-large']"),
+                return new ElementData(By.xpath("//button[@data-qa='addToCart_favorite']"),
                         "кнопка добавления товара в избранное в карточке товара");
             }
 
