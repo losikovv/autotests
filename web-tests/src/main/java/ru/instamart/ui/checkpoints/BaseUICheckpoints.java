@@ -141,6 +141,19 @@ public class BaseUICheckpoints {
         log.info("✓ Успешно: {}", element.getDescription());
     }
 
+    /**Проверяем присутсвие элемента на странице, с таймаутом*/
+    @Step("Проверяем присутсвие элемента на странице: {element.description} с таймаутом: {1}")
+    public void checkIsElementPresent(ElementData element, int time){
+        log.info("> проверяем наличие элемента на странице {}> {}", kraken.grab().currentURL(), element.getLocator());
+        kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(element.getLocator()),
+                "Отсутствует" + element.getDescription() + " на странице " + kraken.grab().currentURL(),time);
+        Assert.assertTrue(
+                kraken.detect().isElementPresent(element),
+                failMessage("Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL()
+                        + "\n> " + element.getLocator()));
+        log.info("✓ Успешно: {}", element.getDescription());
+    }
+
     /** Проверяем отображение элемента на странице*/
     @Step("Проверяем отображаение элемента на странице: {element.description}")
     public void checkIsElementDisplayed(ElementData element, String errorMessage){
