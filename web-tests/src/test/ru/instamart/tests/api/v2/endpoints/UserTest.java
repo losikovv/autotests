@@ -6,6 +6,7 @@ import instamart.api.common.RestBase;
 import instamart.api.objects.v2.User;
 import instamart.api.responses.v2.UserDataResponse;
 import io.qameta.allure.*;
+import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -23,6 +24,7 @@ public final class UserTest extends RestBase {
         SessionFactory.makeSession();
     }
 
+    @CaseId(150)
     @Test(groups = {"api-instamart-regress"})
     @Story("Изменение данных пользователя")
     @Severity(SeverityLevel.NORMAL)
@@ -62,7 +64,9 @@ public final class UserTest extends RestBase {
         Assert.assertFalse(user.getPromo_terms_accepted(), "Некорректное значение promo");
     }
 
-    @Test(groups = {"api-instamart-regress"}, enabled = false)
+    @CaseId(157)
+    @Issue("STF-7288")
+    @Test(groups = {"api-instamart-regress"})
     @Story("Попытка изменить данные для несуществующего email")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithIncorrectEmail() {
@@ -74,22 +78,27 @@ public final class UserTest extends RestBase {
                 null,
                 false
         );
-        assertStatusCode200(response);
+        assertStatusCode404(response);
     }
 
-    @Test(groups = {"api-instamart-regress"}, enabled = false)
+    @CaseId(159)
+    @Test(groups = {"api-instamart-regress"})
     @Story("Получение данных пользователя")
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserData() {
         final SessionFactory.Session session = SessionFactory.getSession();
         final Response response = Users.GET(
+                session.getToken(),
+                "InstamartApp",
                 session.getLogin()
         );
         assertStatusCode200(response);
         final User user = response.as(UserDataResponse.class).getUser();
-        Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректный email");
+        Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
+        Assert.assertEquals(user.getFirst_name(), "autotest-user", "Некорректное имя");
     }
 
+    @CaseId(558)
     @Test(groups = {"api-instamart-regress"})
     @Story("Попытка получить данные для несуществующего email")
     @Severity(SeverityLevel.NORMAL)
@@ -100,21 +109,7 @@ public final class UserTest extends RestBase {
         assertStatusCode404(response);
     }
 
-    @Test(groups = {"api-instamart-regress"}, enabled = false)
-    @Story("Получение расширенных данных пользователя")
-    @Severity(SeverityLevel.NORMAL)
-    public void testGetUserDataWithToken() {
-        final SessionFactory.Session session = SessionFactory.getSession();
-        final Response response = Users.GET(
-                session.getToken(),
-                session.getLogin()
-        );
-        assertStatusCode200(response);
-        final User user = response.as(UserDataResponse.class).getUser();
-        Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirst_name(), "autotest_user", "Некорректное имя");
-    }
-
+    @CaseId(160)
     @Test(groups = {"api-instamart-regress"})
     @Story("Попытка получение расширенных данных пользователя с невалидным token")
     @Severity(SeverityLevel.NORMAL)

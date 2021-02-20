@@ -21,6 +21,15 @@ public final class Users {
     }
 
     @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
+    public static Response GET(final String token, final String clientId, final String email) {
+        return givenCatch()
+                .header("Authorization",
+                        "Token token=" + token)
+                .header("Client-Id", clientId)
+                .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
+    }
+
+    @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
     public static Response GET(final String token, final String email) {
         return givenCatch()
                 .header("Authorization",
