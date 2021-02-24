@@ -7,7 +7,7 @@ import java.util.List;
 
 public class User extends BaseObject {
 
-    private Integer id;
+    private String id;
     private String email;
     private String display_email;
     private String email_md5;
@@ -26,11 +26,11 @@ public class User extends BaseObject {
     private Boolean has_confirmed_phone;
     private List<Role> roles = null;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

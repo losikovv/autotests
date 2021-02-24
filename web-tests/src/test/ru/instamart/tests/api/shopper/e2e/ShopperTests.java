@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.shopper.e2e;
 
+import instamart.api.action.Registration;
 import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Order;
@@ -18,7 +19,7 @@ public class ShopperTests extends RestBase {
             description = "Оформляем заказ")
     public void preconditions() {
         final UserData user = UserManager.getUser();
-        apiV2.registration(user);
+        Registration.registration(user);
         Order order = apiV2.order(user, EnvironmentData.INSTANCE.getDefaultSid(), 4);
         shipmentNumber = order.getShipments().get(0).getNumber();
         InstamartApiCheckpoints.assertIsDeliveryToday(order);

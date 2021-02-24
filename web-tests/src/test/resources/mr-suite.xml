@@ -18,8 +18,8 @@
       <class name="ru.instamart.tests.api.v2.endpoints.Orders"/>
       <class name="ru.instamart.tests.api.v2.endpoints.Stores"/>
       <class name="ru.instamart.tests.api.v2.endpoints.LineItems"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Users"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Sessions"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.RegistrationTest"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.SessionsTest"/>
       <class name="ru.instamart.tests.api.v2.endpoints.FavoritesList"/>
       <class name="ru.instamart.tests.api.v2.endpoints.Taxons"/>
       <class name="ru.instamart.tests.api.v2.endpoints.OnboardingPages"/>

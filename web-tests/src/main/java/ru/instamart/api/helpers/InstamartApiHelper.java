@@ -1,5 +1,6 @@
 package instamart.api.helpers;
 
+import instamart.api.action.Authorization;
 import instamart.api.action.Departments;
 import instamart.api.enums.v2.OrderStatus;
 import instamart.api.objects.v1.Offer;
@@ -687,7 +688,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      */
     synchronized public void authorisation(String email, String password) {
         WaitingHelper.simply(3.1);
-        Response response = ApiV2Requests.Sessions.POST(email, password);
+        final Response response = Authorization.auth(email, password);
         assertStatusCode200(response);
         ApiV2Requests.setToken(response
                 .as(SessionsResponse.class)
@@ -803,41 +804,6 @@ public final class InstamartApiHelper extends ApiHelperBase {
 
         setDefaultOrderAttributes();
         return completeOrder();
-    }
-
-    /*
-      МЕТОДЫ ДЛЯ ИСПОЛЬЗОВАНИЯ В ТЕСТАХ (ПУБЛИЧНЫЕ)
-     */
-
-    /**
-     * Регистрация
-     */
-    public void registration(UserData user) {
-        String[] fullName = new String[0];
-        String firstName = null;
-        String lastName = null;
-        if (user.getName() != null) fullName = user.getName().split(" ",2);
-        if (fullName.length > 0) firstName = fullName[0];
-        if (fullName.length > 1) lastName = fullName[1];
-
-        registration(
-                user.getLogin(),
-                firstName,
-                lastName,
-                user.getPassword());
-    }
-
-    /**
-     * Регистрация
-     */
-    public void registration(String email, String firstName, String lastName, String password) {
-        Response response =  ApiV2Requests.Users.POST(email, firstName, lastName, password);
-        assertStatusCode200(response);
-        String registeredEmail = response
-                .as(UserResponse.class)
-                .getUser()
-                .getEmail();
-        log.info("Зарегистрирован: {}", registeredEmail);
     }
 
     /**

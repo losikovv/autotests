@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.v1.contracts;
 
+import instamart.api.action.Registration;
 import instamart.api.common.RestBase;
 import instamart.api.requests.ApiV1Requests;
 import instamart.api.responses.v1.LineItemsResponse;
@@ -27,7 +28,7 @@ public class Orders extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         final UserData user = UserManager.getUser();
-        apiV2.registration(user);
+        Registration.registration(user);
         instamart.api.objects.v2.Order order = apiV2.order(user, EnvironmentData.INSTANCE.getDefaultSid());
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();

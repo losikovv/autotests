@@ -2,8 +2,6 @@ package instamart.api.endpoints;
 
 public final class ApiV2EndPoints {
     public static final String RETAILERS = "v2/retailers";
-    public static final String USERS = "v2/users";
-    public static final String SESSIONS = "v2/sessions";
     public static final String ORDERS = "v2/orders";
     public static final String DEPARTMENTS = "v2/departments?sid={sid}&offers_limit={numberOfProductsFromEachDepartment}";
     public static final String LINE_ITEMS = "v2/line_items";
@@ -13,6 +11,17 @@ public final class ApiV2EndPoints {
     public static final String ONBOARDING_PAGES = "v2/onboarding_pages";
     public static final String PRODUCTS = "v2/products?sid={sid}&q={query}";
     public static final String TAXONS = "v2/taxons?sid={sid}";
+
+    public static final class Users {
+        public static final String USERS = "v2/users";
+        public static final String USERS_EMAIL = "v2/users/{email}";
+    }
+
+    public static final class Session {
+        public static final String SESSIONS = "v2/sessions";
+        public static final String SESSIONS_TOKEN = "v2/sessions/{token}";
+        public static final String SESSIONS_USER_TOKEN = "v2/sessions/{token}/user";
+    }
 
     public static final class Searches {
         public static final String SUGGESTIONS = "v2/searches/suggestions?sid={sid}&q={query}";
@@ -36,10 +45,6 @@ public final class ApiV2EndPoints {
 
     public static final class Products {
         public static final String ID = "v2/products/{productId}";
-    }
-
-    static final class Users {
-        static final String EMAIL = "v2/users/{email}";
     }
 
     public static final class Orders {

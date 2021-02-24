@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
+import instamart.api.SessionFactory;
 import instamart.api.common.RestBase;
 import instamart.api.condition.FavoritesCondition;
 import io.qameta.allure.*;
@@ -7,7 +8,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-@Epic(value = "Api")
+@Epic(value = "ApiV2")
 @Feature(value = "Избранное")
 public class FavoritesList extends RestBase {
 
@@ -18,7 +19,7 @@ public class FavoritesList extends RestBase {
     @BeforeClass(alwaysRun = true)
     @Story("Создание сессии")
     public void preconditions() {
-        FavoritesCondition.makeSession();
+        SessionFactory.makeSession();
     }
 
     @CaseId(13)
