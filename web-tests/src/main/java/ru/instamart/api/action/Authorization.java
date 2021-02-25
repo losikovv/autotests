@@ -7,7 +7,6 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static instamart.api.requests.InstamartRequestsBase.givenCatch;
 
 public final class Authorization {
