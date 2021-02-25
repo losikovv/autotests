@@ -47,27 +47,29 @@ public final class SessionFactory {
         final Response response = Authorization.auth(login, password);
         assertStatusCode200(response);
         final SessionsResponse sessionResponse = response.as(SessionsResponse.class);
-        return new Session(login, password, sessionResponse.getSession().getAccess_token());
+        return new Session(new UserData(login, password), sessionResponse.getSession().getAccess_token());
     }
 
     public static final class Session {
 
-        private final String login;
-        private final String password;
+        private final UserData userData;
         private final String token;
 
-        public Session(final String login, final String password, final String token) {
-            this.login = login;
-            this.password = password;
+        public Session(final UserData userData, final String token) {
+            this.userData = userData;
             this.token = token;
         }
 
+        public UserData getUserData() {
+            return  this.userData;
+        }
+
         public String getLogin() {
-            return login;
+            return this.userData.getLogin();
         }
 
         public String getPassword() {
-            return password;
+            return this.userData.getPassword();
         }
 
         public String getToken() {
@@ -77,8 +79,7 @@ public final class SessionFactory {
         @Override
         public String toString() {
             return "Session{" +
-                    "login='" + login + '\'' +
-                    ", password='" + password + '\'' +
+                    "userData=" + userData +
                     ", token='" + token + '\'' +
                     '}';
         }
