@@ -4,6 +4,7 @@ import instamart.api.SessionFactory;
 import instamart.api.action.Users;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.User;
+import instamart.api.responses.v2.ErrorResponse;
 import instamart.api.responses.v2.UserDataResponse;
 import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
@@ -12,8 +13,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode404;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Данные пользователя")
@@ -66,6 +66,61 @@ public final class UserTest extends RestBase {
         Assert.assertTrue(user.getPromo_terms_accepted(), "Некорректное значение promo");
     }
 
+    @CaseId(154)
+    @Test(groups = {"api-instamart-regress"})
+    @Story("Изменение пароля с невалидным новым")
+    @Severity(SeverityLevel.NORMAL)
+    public void testUpdatePasswordWithInvalidNew() {
+        final SessionFactory.Session session = SessionFactory.getSession();
+        final Response response = Users.PUT(
+                session.getToken(),
+                session.getLogin(),
+                session.getPassword(),
+                "password",
+                "password"
+        );
+
+        assertStatusCode422(response);
+        final ErrorResponse errorResponse = response.as(ErrorResponse.class);
+        Assert.assertEquals(errorResponse.getError_messages().get(0).getField(), "password", "Неверная ошибка");
+        Assert.assertEquals(errorResponse.getError_messages().get(0).getMessage(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
+        Assert.assertEquals(errorResponse.getError_messages().get(0).getHuman_message(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
+    }
+
+    @CaseId(153)
+    @Test(groups = {"api-instamart-regress"})
+    @Story("Изменение пароля с невалидным старым")
+    @Severity(SeverityLevel.NORMAL)
+    public void testUpdatePasswordWithInvalidOld() {
+        final SessionFactory.Session session = SessionFactory.getSession();
+        final Response response = Users.PUT(
+                session.getToken(),
+                session.getLogin(),
+                "invalid",
+                "passw0rd",
+                "passw0rd"
+        );
+
+        assertStatusCode200(response);
+    }
+
+    @CaseId(155)
+    @Test(groups = {"api-instamart-regress"})
+    @Story("Изменение пароля с невалидным проверочным")
+    @Severity(SeverityLevel.NORMAL)
+    public void testUpdatePasswordWithInvalidConformation() {
+        final SessionFactory.Session session = SessionFactory.getSession();
+        final Response response = Users.PUT(
+                session.getToken(),
+                session.getLogin(),
+                session.getPassword(),
+                "password",
+                "password"
+        );
+
+        assertStatusCode200(response);
+    }
+
     @CaseId(152)
     @Test(groups = {"api-instamart-regress"})
     @Story("Изменение пароля")
@@ -82,60 +137,6 @@ public final class UserTest extends RestBase {
         assertStatusCode200(response);
         final User user = response.as(UserDataResponse.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-    }
-
-    //TODO
-    @CaseId(153)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Изменение пароля с невалидным старым")
-    @Severity(SeverityLevel.NORMAL)
-    public void testUpdatePasswordWithInvalidOld() {
-        final SessionFactory.Session session = SessionFactory.getSession();
-        final Response response = Users.PUT(
-                session.getToken(),
-                session.getLogin(),
-                "invalid",
-                "passw0rd",
-                "passw0rd"
-        );
-
-        System.out.println(response.getBody().asString());
-    }
-
-    //TODO
-    @CaseId(154)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Изменение пароля с невалидным новым")
-    @Severity(SeverityLevel.NORMAL)
-    public void testUpdatePasswordWithInvalidNew() {
-        final SessionFactory.Session session = SessionFactory.getSession();
-        final Response response = Users.PUT(
-                session.getToken(),
-                session.getLogin(),
-                session.getPassword(),
-                session.getPassword(),
-                session.getPassword()
-        );
-
-        System.out.println(response.getBody().asString());
-    }
-
-    //TODO
-    @CaseId(155)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Изменение пароля с невалидным проверочным")
-    @Severity(SeverityLevel.NORMAL)
-    public void testUpdatePasswordWithInvalidConformation() {
-        final SessionFactory.Session session = SessionFactory.getSession();
-        final Response response = Users.PUT(
-                session.getToken(),
-                session.getLogin(),
-                session.getPassword(),
-                "password",
-                "passw0rd"
-        );
-
-        System.out.println(response.getBody().asString());
     }
 
     @Test(groups = {"api-instamart-regress"})

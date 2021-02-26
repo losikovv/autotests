@@ -59,6 +59,29 @@ public final class Users {
                 .put(ApiV2EndPoints.Users.USERS_EMAIL, email);
     }
 
+    @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
+    public static Response PUT(final String token,
+                               final String email,
+                               final String currentPassword,
+                               final String password,
+                               final String passwordConfirmation) {
+        Assert.assertNotNull(token , "Token is NULL");
+        Assert.assertNotEquals(token , "", "Token is empty");
+        Assert.assertNotNull(email , "Email is NULL");
+        Assert.assertNotEquals(email , "", "Email is empty");
+
+        final Map<String, Object> data = new HashMap<>();
+        data.put("user[current_password]", currentPassword);
+        data.put("user[password]", password);
+        data.put("user[password_confirmation]", passwordConfirmation);
+        return givenCatch()
+                .header("Authorization",
+                        "Token token=" + token)
+                .formParams(data)
+                .put(ApiV2EndPoints.Users.USERS_EMAIL, email);
+    }
+
+
     @Step("{method} /" + ApiV2EndPoints.Users.USERS)
     public static Response POST(
             final String email,
