@@ -1,6 +1,7 @@
 package instamart.core.listeners;
 
 import com.google.common.collect.ImmutableMap;
+import instamart.api.SessionFactory;
 import instamart.api.common.Specification;
 import instamart.core.service.BannerService;
 import instamart.core.settings.Config;
@@ -66,5 +67,6 @@ public final class ExecutionListenerImpl implements IExecutionListener {
     public void onExecutionFinish() {
         // Тут может быть код для очистки окружения после прогона тестов
         logger.info("We create {} new users", UserManager.getUserDataList().size());
+        logger.info("We have {} open sessions", SessionFactory.getAllSession().size());
     }
 }

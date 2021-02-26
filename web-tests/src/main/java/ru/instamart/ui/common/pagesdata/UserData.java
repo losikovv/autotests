@@ -44,6 +44,18 @@ public final class UserData {
 
     public String getName() { return name; }
 
+    public String getFirstName() {
+        final String[] fullName = name.split(" ",2);
+
+        return fullName.length == 1 ? fullName[0] : "FirstName";
+    }
+
+    public String getLastName() {
+        final String[] fullName = name.split(" ",2);
+
+        return fullName.length > 1 ? fullName[1] : "LastName";
+    }
+
     public void setRole(String role) { this.role = role; }
 
     public void setLogin(String login) { this.login = login; }
@@ -60,5 +72,17 @@ public final class UserData {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    @Override
+    public String toString() {
+        return "UserData{" +
+                "role='" + role + '\'' +
+                ", login='" + login + '\'' +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", token='" + token + '\'' +
+                '}';
     }
 }
