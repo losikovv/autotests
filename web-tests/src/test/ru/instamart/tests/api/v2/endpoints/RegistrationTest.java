@@ -5,23 +5,22 @@ import instamart.api.common.RestBase;
 import instamart.api.objects.v2.User;
 import instamart.api.responses.v2.ErrorResponse;
 import instamart.api.responses.v2.UserResponse;
-import instamart.core.listeners.ExecutionListenerImpl;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.common.pagesdata.UserData;
 import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode422;
+import static org.testng.Assert.assertEquals;
 
 //TODO переделать на датапровайдер
 @Epic("ApiV2")
 @Feature("Регистрация")
-@Listeners(ExecutionListenerImpl.class)
-public class RegistrationTest extends RestBase {
+public final class RegistrationTest extends RestBase {
 
     private final String firstName = "autotester";
     private final String lastName = "api";
@@ -46,14 +45,9 @@ public class RegistrationTest extends RestBase {
                 false
                 );
 
-        assertEquals(response.getStatusCode(), 200);
+        assertStatusCode200(response);
         final User userResponse = response.as(UserResponse.class).getUser();
         assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
-        assertEquals(userResponse.getFirst_name(), userData.getFirstName(), "Имя несоответствует");
-        assertEquals(userResponse.getLast_name(), userData.getLastName(), "Фамилия несоответствует");
-        assertTrue(userResponse.getPromo_terms_accepted(), "Promo terms несоответствует");
-        assertTrue(userResponse.getPrivacy_terms(), "Privacy terms несоответствует");
-        assertFalse(userResponse.getB2b(), "B2b несоответствует");
     }
 
     @CaseId(139)
@@ -75,14 +69,9 @@ public class RegistrationTest extends RestBase {
                 false
         );
 
-        assertEquals(response.getStatusCode(), 200);
+        assertStatusCode200(response);
         final User userResponse = response.as(UserResponse.class).getUser();
         assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
-        assertEquals(userResponse.getFirst_name(), userData.getFirstName(), "Имя несоответствует");
-        assertEquals(userResponse.getLast_name(), userData.getLastName(), "Фамилия несоответствует");
-        assertFalse(userResponse.getPromo_terms_accepted(), "Promo terms несоответствует");
-        assertFalse(userResponse.getPrivacy_terms(), "Privacy terms несоответствует");
-        assertFalse(userResponse.getB2b(), "B2b несоответствует");
     }
 
     @CaseId(140)
@@ -104,14 +93,9 @@ public class RegistrationTest extends RestBase {
                 true
         );
 
-        assertEquals(response.getStatusCode(), 200);
+        assertStatusCode200(response);
         final User userResponse = response.as(UserResponse.class).getUser();
         assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
-        assertEquals(userResponse.getFirst_name(), userData.getFirstName(), "Имя несоответствует");
-        assertEquals(userResponse.getLast_name(), userData.getLastName(), "Фамилия несоответствует");
-        assertTrue(userResponse.getPromo_terms_accepted(), "Promo terms несоответствует");
-        assertTrue(userResponse.getPrivacy_terms(), "Privacy terms несоответствует");
-        assertTrue(userResponse.getB2b(), "B2b несоответствует");
     }
 
     @CaseId(141)
@@ -133,14 +117,9 @@ public class RegistrationTest extends RestBase {
                 true
         );
 
-        assertEquals(response.getStatusCode(), 200);
+        assertStatusCode200(response);
         final User userResponse = response.as(UserResponse.class).getUser();
         assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
-        assertEquals(userResponse.getFirst_name(), userData.getFirstName(), "Имя несоответствует");
-        assertEquals(userResponse.getLast_name(), userData.getLastName(), "Фамилия несоответствует");
-        assertFalse(userResponse.getPromo_terms_accepted(), "Promo terms несоответствует");
-        assertFalse(userResponse.getPrivacy_terms(), "Privacy terms несоответствует");
-        assertTrue(userResponse.getB2b(), "B2b несоответствует");
     }
 
     @CaseId(142)
@@ -154,7 +133,7 @@ public class RegistrationTest extends RestBase {
                 lastName,
                 minCharPassword);
 
-        assertEquals(response.getStatusCode(), 422);
+        assertStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
                 "Неверный формат email");
     }
@@ -170,7 +149,7 @@ public class RegistrationTest extends RestBase {
                 lastName,
                 "insta");
 
-        assertEquals(response.getStatusCode(), 422);
+        assertStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
                 "Не может быть короче 6 символов");
     }
@@ -185,7 +164,7 @@ public class RegistrationTest extends RestBase {
                 lastName,
                 minCharPassword);
 
-        assertEquals(response.getStatusCode(), 422);
+        assertStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
                 "не может быть пустым");
     }
@@ -203,8 +182,9 @@ public class RegistrationTest extends RestBase {
                 "",
                 minCharPassword);
 
-        assertEquals(response.getStatusCode(), 200);
-        assertEquals(response.as(UserResponse.class).getUser().getEmail(), email);
+        assertStatusCode422(response);
+        assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
+                "не может быть пустым");
     }
 
     @Test(groups = {"api-instamart-regress"})
@@ -219,7 +199,7 @@ public class RegistrationTest extends RestBase {
                 "",
                 minCharPassword);
 
-        assertEquals(response.getStatusCode(), 422);
+        assertStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
                 "не может быть пустым");
     }
@@ -236,7 +216,7 @@ public class RegistrationTest extends RestBase {
                 "api",
                 "");
 
-        assertEquals(response.getStatusCode(), 422);
+        assertStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
                 "не может быть пустым");
     }
@@ -260,14 +240,9 @@ public class RegistrationTest extends RestBase {
                 true
         );
 
-        assertEquals(response.getStatusCode(), 200);
+        assertStatusCode200(response);
         final User userResponse = response.as(UserResponse.class).getUser();
         assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
-        assertEquals(userResponse.getFirst_name(), userData.getFirstName(), "Имя несоответствует");
-        assertEquals(userResponse.getLast_name(), userData.getLastName(), "Фамилия несоответствует");
-        assertFalse(userResponse.getPromo_terms_accepted(), "Promo terms несоответствует");
-        assertFalse(userResponse.getPrivacy_terms(), "Privacy terms несоответствует");
-        assertTrue(userResponse.getB2b(), "B2b несоответствует");
     }
 
     @CaseId(149)
@@ -289,13 +264,8 @@ public class RegistrationTest extends RestBase {
                 true
         );
 
-        assertEquals(response.getStatusCode(), 200);
+        assertStatusCode200(response);
         final User userResponse = response.as(UserResponse.class).getUser();
         assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
-        assertEquals(userResponse.getFirst_name(), userData.getFirstName(), "Имя несоответствует");
-        assertEquals(userResponse.getLast_name(), userData.getLastName(), "Фамилия несоответствует");
-        assertFalse(userResponse.getPromo_terms_accepted(), "Promo terms несоответствует");
-        assertFalse(userResponse.getPrivacy_terms(), "Privacy terms несоответствует");
-        assertTrue(userResponse.getB2b(), "B2b несоответствует");
     }
 }
