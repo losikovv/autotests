@@ -5,13 +5,11 @@ import instamart.api.action.Users;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.User;
 import instamart.api.responses.v2.UserDataResponse;
-import instamart.core.listeners.ExecutionListenerImpl;
 import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
@@ -63,8 +61,8 @@ public final class UserTest extends RestBase {
         assertStatusCode200(response);
         final User user = response.as(UserDataResponse.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirst_name(), "", "Некорректное имя");
-        Assert.assertEquals(user.getLast_name(), "", "Некорректная фамилия");
+        Assert.assertEquals(user.getFirst_name(), "FirstName", "Некорректное имя");
+        Assert.assertEquals(user.getLast_name(), "LastName", "Некорректная фамилия");
         Assert.assertTrue(user.getPromo_terms_accepted(), "Некорректное значение promo");
     }
 
