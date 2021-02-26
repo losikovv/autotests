@@ -170,4 +170,27 @@ public class User extends BaseObject {
         this.roles = roles;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", email='" + email + '\'' +
+                ", display_email='" + display_email + '\'' +
+                ", email_md5='" + email_md5 + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", fullname='" + fullname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", is_admin=" + is_admin +
+                ", uuid='" + uuid + '\'' +
+                ", external_uuid='" + external_uuid + '\'' +
+                ", promo_terms_accepted=" + promo_terms_accepted +
+                ", promo_terms_changed_at='" + promo_terms_changed_at + '\'' +
+                ", privacy_terms=" + privacy_terms +
+                ", shipped_and_paid_orders_count=" + shipped_and_paid_orders_count +
+                ", b2b=" + b2b +
+                ", has_confirmed_phone=" + has_confirmed_phone +
+                ", roles=" + roles +
+                '}';
+    }
 }
