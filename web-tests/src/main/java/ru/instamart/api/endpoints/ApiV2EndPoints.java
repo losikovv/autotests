@@ -23,6 +23,11 @@ public final class ApiV2EndPoints {
         public static final String SESSIONS_USER_TOKEN = "v2/sessions/{token}/user";
     }
 
+    public static final class Reset {
+        public static final String RESET = "v2/passwords/reset";
+        public static final String RESET_PASSWORD = "v2/passwords";
+    }
+
     public static final class Searches {
         public static final String SUGGESTIONS = "v2/searches/suggestions?sid={sid}&q={query}";
     }
