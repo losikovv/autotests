@@ -21,8 +21,9 @@ public final class ResetPasswordTest extends RestBase {
         SessionFactory.makeSession();
     }
 
+    // not implemented endpoint
     @CaseId(183)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress"}, enabled = false)
     @Story("Подстановка невалидного токена")
     @Severity(SeverityLevel.NORMAL)
     public void testRestWithInvalidToken() {
@@ -46,8 +47,9 @@ public final class ResetPasswordTest extends RestBase {
         assertStatusCode200(response);
     }
 
+    // not implemented endpoint
     @CaseId(184)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress"}, enabled = false)
     @Story("Предупреждение при вводе старого пароля")
     @Severity(SeverityLevel.NORMAL)
     public void testRestWithInvalidNewPassword() {
@@ -59,8 +61,9 @@ public final class ResetPasswordTest extends RestBase {
         assertStatusCode200(response);
     }
 
+    // not implemented endpoint
     @CaseId(185)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress"}, enabled = false)
     @Story("Предупреждение при вводе невалидного пароля")
     @Severity(SeverityLevel.NORMAL)
     public void testRestWithInvalidPassword() {
@@ -72,8 +75,9 @@ public final class ResetPasswordTest extends RestBase {
         assertStatusCode200(response);
     }
 
+    // not implemented endpoint
     @CaseId(186)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress"}, enabled = false)
     @Story("Предупреждение при вводе невалидного проверочного пароля")
     @Severity(SeverityLevel.NORMAL)
     public void testRestWithInvalidConformationPassword() {
