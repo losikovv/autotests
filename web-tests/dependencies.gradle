@@ -5,7 +5,7 @@ ext.versions = [
         selenium: '3.8.1',
         seleniumChromeDriver: '3.14.0',
         testng: '6.8.8',
-        restAssured: '4.1.1',
+        restAssured: '4.3.1',
         jetbrainsAnnotations: '19.0.0',
         allure: '2.13.8',
         aspectjweaver: '1.9.6',
@@ -13,7 +13,6 @@ ext.versions = [
 
 ext.lib = [
         qaseApi: "io.qase:qase-api:$versions.qase",
-        qaseTestng: "io.qase:qase-testng:$versions.qase",
         logback: "ch.qos.logback:logback-classic:$versions.logback",
         jsonSimple: "com.googlecode.json-simple:json-simple:$versions.jsonSimple",
         seleniumJava: "org.seleniumhq.selenium:selenium-java:$versions.selenium",
@@ -31,7 +30,6 @@ ext.lib = [
 dependencies {
     compile lib.aspectjweaver
     compile lib.qaseApi
-    compile lib.qaseTestng
     compile lib.restAssured
     compile lib.allureRestAssuredReport
     compile lib.allureTestng
