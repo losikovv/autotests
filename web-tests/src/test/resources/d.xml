@@ -3,7 +3,6 @@
 <suite name="Debug Suite">
     <listeners>
         <listener class-name="instamart.core.listeners.ExecutionListenerImpl"/>
-        <listener class-name="instamart.core.listeners.ApiListener"/>
     </listeners>
     <test name="v1">
         <classes>
