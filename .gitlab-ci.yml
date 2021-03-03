@@ -189,6 +189,7 @@ tests:Debug:
   script:
     - echo $P_ENV
     - echo $TEST_SET
+    - echo $CI_PROJECT_URL
     - cd web-tests
     - ./gradlew clean build debug -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY
   after_script:

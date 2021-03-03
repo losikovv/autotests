@@ -34,6 +34,7 @@ curl  -u $WEB_LOGIN:$WEB_PASSWORD -X POST $ALLURE_SERVER"/allure-docker-service/
 # Если нужно сгенерировать отчет, нужно отправить запрос на эндпоинт GET /generate-report и выставить >> CHECK_RESULTS_EVERY_SECONDS: NONE в контейнере с отчетами
 #curl -X GET 'http://localhost:5050/allure-docker-service/generate-report?project_id=default&execution_name=test_exec&execution_from=http://local.com&execution_type=bobobob'
 echo "------------------GENERATE-REPORT------------------"
+echo $CI_PROJECT_URL
 EXECUTION_NAME='Gitlab-CI'
 EXECUTION_FROM=$CI_PROJECT_URL
 EXECUTION_TYPE='Gitlab-Gradle'
