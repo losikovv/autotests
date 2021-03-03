@@ -1,8 +1,11 @@
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  GRADLE_USER_HOME: $CI_PROJECT_DIR/.gradle
 
 before_script:
-  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - echo `pwd`
+  - echo $GRADLE_USER_HOME
+  #- export GRADLE_USER_HOME=`pwd`/.gradle
 
 cache:
   key: "cacheGradle"
