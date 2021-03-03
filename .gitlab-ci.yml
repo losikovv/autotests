@@ -1,20 +1,15 @@
 variables:
   GIT_SUBMODULE_STRATEGY: normal
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-  GRADLE_USER_HOME: $CI_PROJECT_DIR/.gradle
   DOCKERFILE: $CI_PROJECT_DIR/web-tests/Dockerfile
 
 cache:
   key: $CI_PROJECT_ID
   paths:
     - $GRADLE_USER_HOME/
-    - $CI_PROJECT_DIR/web-tests/build/
   untracked: true
 
 before_script:
-  - ls ./
-  - cd web-tests
-  - ./gradlew clean
   - ls $GRADLE_USER_HOME
 
 stages:
@@ -214,7 +209,7 @@ tests:Debug:
     - echo $TEST_SET
     #- cd web-tests
     #- ./gradlew clean build debug -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
-    - ./gradlew clean build
+    - gradle clean build
   #after_script:
     #- cd web-tests
     #- bash ./report.sh debug
