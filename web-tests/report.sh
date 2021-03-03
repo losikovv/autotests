@@ -35,7 +35,7 @@ curl  -u $WEB_LOGIN:$WEB_PASSWORD -X POST $ALLURE_SERVER"/allure-docker-service/
 #curl -X GET 'http://localhost:5050/allure-docker-service/generate-report?project_id=default&execution_name=test_exec&execution_from=http://local.com&execution_type=bobobob'
 echo "------------------GENERATE-REPORT------------------"
 EXECUTION_NAME='Gitlab-CI'
-EXECUTION_FROM='https://gitlab.sbermarket.tech/qa/automag/'
+EXECUTION_FROM=$CI_PIPELINE_URL
 EXECUTION_TYPE='Gitlab-Gradle'
 # Отправляем через curl запрос на генерацию отчета
 curl -u $WEB_LOGIN:$WEB_PASSWORD -X GET $ALLURE_SERVER"/allure-docker-service/generate-report?project_id=$PROJECT_ID&execution_name=$EXECUTION_NAME&execution_from=$EXECUTION_FROM&execution_type=$EXECUTION_TYPE" $FILES
