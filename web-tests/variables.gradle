@@ -10,5 +10,6 @@ tasks.withType(Test) {
     }
     if (project.hasProperty('qase')) {
         systemProperty 'qase', "${qase}"
+        systemProperty 'pip_url', "${pip_url}"
     }
 }
