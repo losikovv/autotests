@@ -1,7 +1,7 @@
 variables:
   GIT_SUBMODULE_STRATEGY: normal
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-  GRADLE_USER_HOME: $CI_PROJECT_DIR/web-tests/.gradle
+  GRADLE_USER_HOME: $CI_PROJECT_DIR/.gradle
   DOCKERFILE: $CI_PROJECT_DIR/web-tests/Dockerfile
 
 cache:
@@ -12,6 +12,7 @@ cache:
   untracked: true
 
 before_script:
+  - ls ./
   - cd web-tests
   - ./gradlew clean
   - ls $GRADLE_USER_HOME
