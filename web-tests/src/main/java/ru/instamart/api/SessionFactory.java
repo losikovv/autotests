@@ -1,6 +1,5 @@
 package instamart.api;
 
-import instamart.api.action.Authorization;
 import instamart.api.action.Registration;
 import instamart.api.responses.v2.SessionsResponse;
 import instamart.core.testdata.UserManager;
@@ -15,7 +14,7 @@ import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode
 
 public final class SessionFactory {
 
-    private static final Map<Long, Session> sessionMap = new ConcurrentHashMap<>();
+    private static final Map<Long, SessionInfo> sessionMap = new ConcurrentHashMap<>();
 
     public static void makeSession() {
         final UserData userData = UserManager.getUser();
@@ -23,15 +22,15 @@ public final class SessionFactory {
         createSessionToken(userData.getLogin(), userData.getPassword());
     }
 
-    public static Session getSession() {
-        final Session session = sessionMap.get(Thread.currentThread().getId());
+    public static SessionInfo getSession() {
+        final SessionInfo session = sessionMap.get(Thread.currentThread().getId());
         Assert.assertNotNull(session,"Вы не авторизовались");
 
         return session;
     }
 
     public static void createSessionToken(final String login, final String password) {
-        final Session session = sessionMap.get(Thread.currentThread().getId());
+        final SessionInfo session = sessionMap.get(Thread.currentThread().getId());
         if (session != null && !session.getLogin().equals(login)) {
             sessionMap.put(Thread.currentThread().getId(), createSession(login, password));
         } else if (session == null) {
@@ -39,23 +38,23 @@ public final class SessionFactory {
         }
     }
 
-    public static Map<Long, Session> getAllSession() {
+    public static Map<Long, SessionInfo> getAllSession() {
         return sessionMap;
     }
 
-    private static Session createSession(final String login, final String password) {
-        final Response response = Authorization.auth(login, password);
+    private static SessionInfo createSession(final String login, final String password) {
+        final Response response = instamart.api.action.Session.POST(login, password);
         assertStatusCode200(response);
         final SessionsResponse sessionResponse = response.as(SessionsResponse.class);
-        return new Session(new UserData(login, password), sessionResponse.getSession().getAccess_token());
+        return new SessionInfo(new UserData(login, password), sessionResponse.getSession().getAccess_token());
     }
 
-    public static final class Session {
+    public static final class SessionInfo {
 
         private final UserData userData;
         private final String token;
 
-        public Session(final UserData userData, final String token) {
+        public SessionInfo(final UserData userData, final String token) {
             this.userData = userData;
             this.token = token;
         }
@@ -78,7 +77,7 @@ public final class SessionFactory {
 
         @Override
         public String toString() {
-            return "Session{" +
+            return "SessionInfo{" +
                     "userData=" + userData +
                     ", token='" + token + '\'' +
                     '}';

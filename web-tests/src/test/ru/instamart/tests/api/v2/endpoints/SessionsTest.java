@@ -1,17 +1,25 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
+import instamart.api.action.Registration;
+import instamart.api.action.Session;
 import instamart.api.common.RestBase;
-import instamart.api.condition.SessionCondition;
 import instamart.api.enums.v2.AuthProvider;
+import instamart.api.responses.v2.SessionsResponse;
+import instamart.api.responses.v2.UserDataResponse;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
 import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
+import io.restassured.response.Response;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
+
+import static instamart.api.checkpoints.InstamartApiCheckpoints.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Авторизация")
@@ -27,10 +35,9 @@ public final class SessionsTest extends RestBase {
         if (!EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
             throw new SkipException("Скипаем тесты не на проде");
         }
-        SessionCondition
-                .newTest()
-                .externalAuth(authProvider)
-                .checkExternalAuth();
+        final Response response = Session.POST(authProvider);
+        assertStatusCode200(response);
+        assertNotNull(response.as(SessionsResponse.class).getSession());
     }
 
     @CaseId(110)
@@ -38,10 +45,11 @@ public final class SessionsTest extends RestBase {
     @Story("Авторизуемся c Client-Id: InstamartApp (как мобильное приложение)")
     @Severity(SeverityLevel.CRITICAL)
     public void postSessionsInstamartApp() {
-        SessionCondition
-                .newTest()
-                .authWithClientId("InstamartApp")
-                .checkAuthWithClientId();
+        final UserData userData = UserManager.getUser();
+        Registration.registration(userData);
+        final Response response = Session.POST(userData.getLogin(), userData.getPassword(), "InstamartApp");
+        assertStatusCode200(response, "Не работает авторизация с Client-Id: InstamartApp");
+        assertNotNull(response.as(SessionsResponse.class).getSession());
     }
 
     @CaseId(161)
@@ -49,10 +57,8 @@ public final class SessionsTest extends RestBase {
     @Story("Авторизация с невалидным email")
     @Severity(SeverityLevel.MINOR)
     public void testInvalidAuth() {
-        SessionCondition
-                .newTest()
-                .authWithInvalidData("email@invalid", "password")
-                .checkInvalidAuth();
+        final Response response = Session.POST("email@invalid", "password");
+        assertStatusCode401(response);
     }
 
     @CaseId(162)
@@ -60,10 +66,11 @@ public final class SessionsTest extends RestBase {
     @Story("Авторизация с валидным email")
     @Severity(SeverityLevel.BLOCKER)
     public void testValidAuth() {
-        SessionCondition
-                .newTest()
-                .authWithValidData(UserManager.getDefaultUser().getLogin(), UserManager.getDefaultUser().getPassword())
-                .checkValidAuth();
+        final Response response = Session.POST(UserManager.getDefaultUser().getLogin(), UserManager.getDefaultUser().getPassword());
+        assertStatusCode200(response);
+        final SessionsResponse sessionResponse = response.as(SessionsResponse.class);
+        assertNotNull(sessionResponse);
+        assertNotNull(sessionResponse.getSession().getAccess_token(), "Токен авторизации отсутствует");
     }
 
     @CaseId(180)
@@ -71,11 +78,11 @@ public final class SessionsTest extends RestBase {
     @Story("Валидация сессионного токена")
     @Severity(SeverityLevel.CRITICAL)
     public void testSessionToken() {
-        SessionCondition
-                .newTest()
-                .registrationAndAuth(UserManager.getUser())
-                .callSessionValidation(SessionFactory.getSession().getToken())
-                .checkSessionToken();
+        final UserData userData = UserManager.getUser();
+        Registration.registration(userData);
+        SessionFactory.createSessionToken(userData.getLogin(), userData.getPassword());
+        final Response response = Session.GET(SessionFactory.getSession().getToken());
+        assertStatusCode200(response);
     }
 
     @CaseId(179)
@@ -83,10 +90,8 @@ public final class SessionsTest extends RestBase {
     @Story("Невалидные сессионный токен")
     @Severity(SeverityLevel.MINOR)
     public void testInvalidToken() {
-        SessionCondition
-                .newTest()
-                .callSessionValidation("aaaaaaaaa")
-                .checkInvalidSessionToken();
+        final Response response = Session.GET("aaaaaaaaa");
+        assertStatusCode404(response);
     }
 
     @CaseId(182)
@@ -95,11 +100,12 @@ public final class SessionsTest extends RestBase {
     @Severity(SeverityLevel.CRITICAL)
     public void testUserData() {
         final UserData userData = UserManager.getUser();
-        SessionCondition
-                .newTest()
-                .registrationAndAuth(userData)
-                .getUserData(SessionFactory.getSession().getToken())
-                .checkUserData(userData);
+        Registration.registration(userData);
+        SessionFactory.createSessionToken(userData.getLogin(), userData.getPassword());
+        final Response response = Session.UserSession.GET(SessionFactory.getSession().getToken());
+        assertStatusCode200(response);
+        final UserDataResponse userDataResponse = response.as(UserDataResponse.class);
+        assertEquals(userDataResponse.getUser().getEmail(), userData.getLogin(), "Получены чужие данные");
     }
 
     @CaseId(181)
@@ -108,10 +114,9 @@ public final class SessionsTest extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testUserDataWithInvalidToken() {
         final UserData userData = UserManager.getUser();
-        SessionCondition
-                .newTest()
-                .registrationAndAuth(userData)
-                .getUserData("aaaaaaa")
-                .checkUserDataWithInvalidToken();
+        Registration.registration(userData);
+        SessionFactory.createSessionToken(userData.getLogin(), userData.getPassword());
+        final Response response = Session.UserSession.GET("aaaaaaa");
+        assertStatusCode404(response);
     }
 }
