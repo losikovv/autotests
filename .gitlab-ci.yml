@@ -3,15 +3,6 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   DOCKERFILE: $CI_PROJECT_DIR/web-tests/Dockerfile
 
-cache:
-  key: $CI_PROJECT_ID
-  paths:
-    - $GRADLE_USER_HOME/
-  untracked: true
-
-before_script:
-  - ls $GRADLE_USER_HOME
-
 stages:
   - build
   - tests
