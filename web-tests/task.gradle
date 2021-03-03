@@ -35,7 +35,11 @@ task debug(type: Test) {
         suites 'src/test/resources/d.xml'
         includeGroups 'debug'
         systemProperty 'env',"sbermarket-preprod"
-        systemProperty 'qase', "false"
+        systemProperty 'qase', "true"
+        if (project.hasProperty('qase')) {
+            systemProperty 'qase.plan.id', 1
+            systemProperty 'qase.Project', 'INAPI'
+        }
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }

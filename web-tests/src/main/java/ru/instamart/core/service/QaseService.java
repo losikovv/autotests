@@ -45,6 +45,7 @@ public final class QaseService {
     private boolean started = false;
     private final QaseTestRunResultService qaseTestRunResultService;
 
+    private final String PIPELINE_URL = System.getProperty("pip_url", "https://gitlab.sbermarket.tech/qa/automag/-/pipelines");
     private boolean qase = Boolean.parseBoolean(System.getProperty("qase","false"));
     private String testRunName;
     private Long runId;
@@ -114,6 +115,8 @@ public final class QaseService {
         runId = qaseApi.testRuns().create(
                 projectCode,
                 testRunName + " [" + EnvironmentData.INSTANCE.getName() + "] " + LocalDate.now(),
+                null,
+                PIPELINE_URL,
                 testCasesList.toArray(casesArray));
     }
 

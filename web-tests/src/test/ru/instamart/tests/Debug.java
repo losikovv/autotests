@@ -1,5 +1,6 @@
 package ru.instamart.tests;
 
+import io.qase.api.annotation.CaseId;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 import ru.instamart.tests.ui.TestBase;
@@ -18,6 +19,7 @@ public class Debug extends TestBase {
         System.out.println("Before test-method. Thread id is: " + id);
     }
 
+    @CaseId(1)
     @Test(groups = "debug")
     public void testMethodsOne() {
         kraken.getWebDriver().get("https://google.com");
