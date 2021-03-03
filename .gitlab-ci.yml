@@ -1,7 +1,9 @@
 variables:
   GIT_SUBMODULE_STRATEGY: normal
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-  DOCKERFILE: $CI_PROJECT_DIR/web-tests/Dockerfile
+
+before_script:
+  - cd web-tests
 
 stages:
   - build
@@ -25,7 +27,7 @@ build:
       --destination $CI_REGISTRY_IMAGE
   rules:
     - changes:
-        - $DOCKERFILE
+        - $CI_PROJECT_DIR/Dockerfile
 
 CustomSuiteTestRun:
   when: manual
@@ -38,7 +40,6 @@ CustomSuiteTestRun:
     - echo $TEST_SET
     - echo $QASE
     - echo $BROWSER
-    - cd web-tests
     - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE -Pkey=$ATST_APP_SECRET_KEY
     - wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.9.0/allure-commandline-2.9.0.tgz
     - tar -xvpf allure-commandline-2.9.0.tgz
@@ -62,10 +63,8 @@ tests:ApiInstamart:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
-    - ./gradlew clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh api-instamart-regress
   tags:
     - k8s-stage
@@ -85,10 +84,8 @@ tests:ApiShopper:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
-    - ./gradlew clean build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh api-shopper-regress
   tags:
     - k8s-stage
@@ -106,10 +103,8 @@ tests:ApiZonesProductionOnly:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
-    - ./gradlew clean build apiZones -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build apiZones -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh api-zones-production
   tags:
     - k8s-stage
@@ -198,12 +193,9 @@ tests:Debug:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    #- cd web-tests
-    #- ./gradlew clean build debug -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
-    - gradle clean build
-  #after_script:
-    #- cd web-tests
-    #- bash ./report.sh debug
+    - gradle clean build debug -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh debug
   tags:
     - k8s-stage
   artifacts:
