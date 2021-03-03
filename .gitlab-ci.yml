@@ -12,8 +12,8 @@ cache:
   untracked: true
 
 before_script:
-  - ls -l ./
-  - ls ./gradle
+  - cd web-tests
+  - ./gradlew clean
   - ls $GRADLE_USER_HOME
 
 stages:
