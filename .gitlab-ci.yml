@@ -41,7 +41,7 @@ CustomSuiteTestRun:
     - echo $TEST_SET
     - echo $QASE
     - echo $BROWSER
-    - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE -Pkey=$ATST_APP_SECRET_KEY
+    - gradle clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE -Pkey=$ATST_APP_SECRET_KEY
     - wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.9.0/allure-commandline-2.9.0.tgz
     - tar -xvpf allure-commandline-2.9.0.tgz
     - ./allure-2.9.0/bin/allure generate --clean -o allure-reports build/allure-results
@@ -125,10 +125,8 @@ tests:UiSmoke:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
-    - ./gradlew clean build sberUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build sberUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh ui-stf-smoke
   tags:
     - k8s-stage
@@ -148,10 +146,8 @@ tests:AdminUiSmoke:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
-    - ./gradlew clean build adminUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build adminUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh ui-admin-smoke
   tags:
     - k8s-stage
@@ -170,10 +166,8 @@ tests:AutoMRCheck:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
-    - ./gradlew clean build AutoMRCheck -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build AutoMRCheck -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh default
   tags:
     - k8s-stage
