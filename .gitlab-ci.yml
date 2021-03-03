@@ -13,6 +13,7 @@ build:
   only:
     changes:
       - $CI_PROJECT_DIR/Dockerfile
+      - Dockerfile*
   image:
     name: registry.sbermarket.tech/docker/proxy/kaniko-project/executor:debug-v1.0.0
     entrypoint: [""]
