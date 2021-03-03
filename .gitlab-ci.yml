@@ -66,6 +66,7 @@ tests:ApiInstamart:
     - echo $TEST_SET
     - gradle clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
+    - cd web-tests
     - bash ./report.sh api-instamart-regress
   tags:
     - k8s-stage
@@ -87,6 +88,7 @@ tests:ApiShopper:
     - echo $TEST_SET
     - gradle clean build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
+    - cd web-tests
     - bash ./report.sh api-shopper-regress
   tags:
     - k8s-stage
@@ -106,6 +108,7 @@ tests:ApiZonesProductionOnly:
     - echo $TEST_SET
     - gradle clean build apiZones -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
+    - cd web-tests
     - bash ./report.sh api-zones-production
   tags:
     - k8s-stage
@@ -127,6 +130,7 @@ tests:UiSmoke:
     - echo $TEST_SET
     - gradle clean build sberUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
+    - cd web-tests
     - bash ./report.sh ui-stf-smoke
   tags:
     - k8s-stage
@@ -148,6 +152,7 @@ tests:AdminUiSmoke:
     - echo $TEST_SET
     - gradle clean build adminUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
+    - cd web-tests
     - bash ./report.sh ui-admin-smoke
   tags:
     - k8s-stage
@@ -168,6 +173,7 @@ tests:AutoMRCheck:
     - echo $TEST_SET
     - gradle clean build AutoMRCheck -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
+    - cd web-tests
     - bash ./report.sh default
   tags:
     - k8s-stage
@@ -190,6 +196,7 @@ tests:Debug:
     - echo $TEST_SET
     - gradle clean build debug -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
+    - cd web-tests
     - bash ./report.sh debug
   tags:
     - k8s-stage
