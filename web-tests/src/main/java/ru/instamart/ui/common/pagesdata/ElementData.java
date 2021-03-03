@@ -18,4 +18,12 @@ public class ElementData {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "ElementData{" +
+                "locator=" + locator +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

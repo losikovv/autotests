@@ -1,26 +1,32 @@
 package ru.instamart.tests.ui.administration;
 
 import instamart.core.testdata.UserManager;
+import instamart.core.testdata.ui.Generate;
+import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.checkpoints.users.AdminSearchUsersCheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Administration;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
-import org.testng.Assert;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 
 public class AdministrationUsersSectionTests extends TestBase {
-    //private static String phone;
+    private static String phone;
+    private static String email;
     AdminSearchUsersCheckpoints searchChecks = new AdminSearchUsersCheckpoints();
+    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
-        kraken.reach().admin();
+//        kraken.reach().admin();
+        User.Logout.quickly();
     }
 
     @CaseId(31)
@@ -28,33 +34,37 @@ public class AdministrationUsersSectionTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void successSearchUser() {
+        kraken.reach().admin();
         Administration.Users.searchUser(UserManager.getDefaultAdmin());
         searchChecks.checkSearchWorks();
     }
 
+    @Issue(value = "STF-7163")
     @Test(  description = "Тест предоставления и отзыва админских прав пользователю",
             groups = {"sbermarket-regression"}
     )
     public void successGrantAndRevokeAdminPrivileges() {
         SoftAssert softAssert = new SoftAssert();
 
-        User.Logout.quickly();
+//        User.Logout.quickly();
         UserData testuser = UserManager.getAdmin();
-        User.Do.registration(testuser);
-
-        Administration.Users.grantAdminPrivileges(testuser);
+        //User.Do.registration(testuser);
+        phone = Generate.phoneNumber();
+        User.Do.registration(
+                "Test User",
+                "test@example.com",
+                "12345678",
+                "12345678",
+                phone,
+                "111111"
+        );
+        kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        Administration.Users.editUser(phone);
+        Administration.Users.grantAdminPrivileges();
         User.Logout.quickly();
 
-        User.Auth.withEmail(testuser);
-//        phone = Generate.phoneNumber();
-//        User.Do.registration(
-//                "Test User",
-//                "test@example.com",
-//                "12345678",
-//                "12345678",
-//                phone,
-//                "111111"
-//        );
+//        User.Auth.withEmail(testuser);
+
         kraken.get().page(Pages.Admin.shipments());
 
         softAssert.assertTrue(
@@ -75,42 +85,54 @@ public class AdministrationUsersSectionTests extends TestBase {
         softAssert.assertAll();
     }
 
-    @Test(  description = "Тест смены пароля пользователю",
-            groups = {"sbermarket-regression"}
+    @Issue(value = "STF-7163")
+    @CaseId(33)
+    @Test(  description = "Тест смены email пользователя",
+            groups = {"sbermarket-regression","admin-ui-smoke"}
     )
     public void successChangePassword() {
-        User.Logout.quickly();
-        final UserData testuser = UserManager.getUser();
-        User.Do.registration(testuser);
-
-        Administration.Users.editUser(testuser);
-        Administration.Users.changePassword("654321");
-        User.Logout.quickly();
-
-        User.Auth.withEmail(testuser.getLogin(), "654321","superuser");
-
-        Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "Не удалось авторизоваться пользователем после смены пароля через админку");
-
-        User.Logout.quickly();
+        phone = Generate.phoneNumber();
+        email = Generate.email();
+        User.Do.registration(
+                "Test User",
+                email,
+                "12345678",
+                "12345678",
+                phone,
+                "111111"
+        );
+        kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        Administration.Users.editUser(phone);
+        Administration.Users.changeEmail(email);
+        kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
+                Elements.Administration.UsersSection.UserPage.successChangeUserMessage().getLocator()),
+                "сообщение не исчезло",10);
+        kraken.perform().click(Elements.Administration.menuButton("Пользователи"));
+        Administration.Users.editUser(email);
+        baseChecks.checkValueIsCorrectInElement(Elements.Administration.UsersSection.UserPage.emailField(),
+                email,"почта выбранного пользователя не соответсвует ожидаемому значению: "+email);
     }
 
+    @CaseId(34)
+    @Issue(value = "STF-7163")
     @Test(  description = "Тест проставления пользователю флага B2B",
-            groups = {"sbermarket-regression"}
+            groups = {"sbermarket-regression","admin-ui-smoke"}
     )
     public void successGrantB2BStatus() {
-        User.Logout.quickly();
-        UserData testuser = UserManager.getUser();
-        User.Do.registration(testuser);
-
-        Administration.Users.editUser(testuser);
+        phone = Generate.phoneNumber();
+        User.Do.registration(
+                "Test User",
+                "test@example.com",
+                "12345678",
+                "12345678",
+                phone,
+                "111111"
+        );
+        kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        Administration.Users.editUser(phone);
         Administration.Users.grantB2B();
         kraken.perform().refresh();
-
-        Assert.assertTrue(
-                kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.b2bCheckbox()),
-                    "Пользователю не проставляется флаг B2B");
+        baseChecks.checkCheckboxIsSet(Elements.Administration.UsersSection.UserPage.b2bCheckbox());
     }
 
     @Test(  description = "Тест снятия B2B флага у пользователя",
@@ -118,14 +140,23 @@ public class AdministrationUsersSectionTests extends TestBase {
     )
     public void successRevokeB2BStatus() {
         SoftAssert softAssert = new SoftAssert();
-        User.Logout.quickly();
+//        User.Logout.quickly();
         UserData testuser = UserManager.getUser();
-        User.Do.registration(testuser);
-
-        Administration.Users.editUser(testuser);
+//        User.Do.registration(testuser);
+        phone = Generate.phoneNumber();
+        User.Do.registration(
+                "Test User",
+                "test@example.com",
+                "12345678",
+                "12345678",
+                phone,
+                "111111"
+        );
+        kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        Administration.Users.editUser(phone);
         Administration.Users.grantB2B();
         User.Logout.quickly();
-
+        kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
         User.Auth.withEmail(testuser);
         kraken.perform().order();
         String number = kraken.grab().shipmentNumber();
