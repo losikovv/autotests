@@ -1,6 +1,20 @@
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+cache:
+  key: "cacheGradle"
+  paths:
+    - $GRADLE_USER_HOME/caches/
+    - $GRADLE_USER_HOME/wrapper/
+    - $GRADLE_USER_HOME/build-cache/
+
 stages:
   - build
   - tests
+
 build:
   image:
     name: registry.sbermarket.tech/docker/proxy/kaniko-project/executor:debug-v1.0.0
