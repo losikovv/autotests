@@ -1,7 +1,19 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: normal
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+before_script:
+  - cd web-tests
+
 stages:
   - build
   - tests
+
 build:
+  only:
+    changes:
+      - $CI_PROJECT_DIR/Dockerfile
+      - Dockerfile*
   image:
     name: registry.sbermarket.tech/docker/proxy/kaniko-project/executor:debug-v1.0.0
     entrypoint: [""]
@@ -29,8 +41,7 @@ CustomSuiteTestRun:
     - echo $TEST_SET
     - echo $QASE
     - echo $BROWSER
-    - cd web-tests
-    - ./gradlew clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE -Pkey=$ATST_APP_SECRET_KEY
+    - gradle clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE -Pkey=$ATST_APP_SECRET_KEY
     - wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.9.0/allure-commandline-2.9.0.tgz
     - tar -xvpf allure-commandline-2.9.0.tgz
     - ./allure-2.9.0/bin/allure generate --clean -o allure-reports build/allure-results
@@ -53,8 +64,7 @@ tests:ApiInstamart:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
-    - ./gradlew clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
     - bash ./report.sh api-instamart-regress
@@ -76,8 +86,7 @@ tests:ApiShopper:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
-    - ./gradlew clean build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
     - bash ./report.sh api-shopper-regress
@@ -97,8 +106,7 @@ tests:ApiZonesProductionOnly:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
-    - ./gradlew clean build apiZones -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build apiZones -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
     - bash ./report.sh api-zones-production
@@ -120,8 +128,7 @@ tests:UiSmoke:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
-    - ./gradlew clean build sberUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build sberUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
     - bash ./report.sh ui-stf-smoke
@@ -143,8 +150,7 @@ tests:AdminUiSmoke:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
-    - ./gradlew clean build adminUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build adminUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
     - bash ./report.sh ui-admin-smoke
@@ -165,8 +171,7 @@ tests:AutoMRCheck:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
-    - ./gradlew clean build AutoMRCheck -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build AutoMRCheck -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
     - bash ./report.sh default
@@ -189,8 +194,7 @@ tests:Debug:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
-    - ./gradlew clean build debug -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build debug -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
     - bash ./report.sh debug
