@@ -3,6 +3,12 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   GRADLE_USER_HOME: $CI_PROJECT_DIR/.gradle
 
+cache:
+  key: "cacheGradle"
+  paths:
+    - $GRADLE_USER_HOME/caches/
+    - $GRADLE_USER_HOME/wrapper/
+
 stages:
   - build
   - tests
@@ -23,14 +29,6 @@ build:
       --context $CI_PROJECT_DIR
       --dockerfile $CI_PROJECT_DIR/Dockerfile
       --destination $CI_REGISTRY_IMAGE
-    - cd web-tests
-    - ./gradlew assemble
-  cache:
-    key: "cacheGradle"
-    policy: push
-    paths:
-      - $GRADLE_USER_HOME/caches/
-      - $GRADLE_USER_HOME/wrapper/
 
 CustomSuiteTestRun:
   when: manual
@@ -200,12 +198,6 @@ tests:Debug:
       allow_failure: true
   stage: tests
   image: $CI_REGISTRY_IMAGE
-  cache:
-    key: "cacheGradle"
-    policy: pull
-    paths:
-      - $GRADLE_USER_HOME/caches/
-      - $GRADLE_USER_HOME/wrapper/
   script:
     - echo $P_ENV
     - echo $TEST_SET
