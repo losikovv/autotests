@@ -1,12 +1,21 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
+import instamart.api.action.Favorites;
 import instamart.api.common.RestBase;
-import instamart.api.condition.FavoritesCondition;
+import instamart.api.objects.v2.Item;
+import instamart.api.responses.v2.FavoritesItemResponse;
+import instamart.api.responses.v2.FavoritesListItemsResponse;
+import instamart.api.responses.v2.FavoritesSkuListItemResponse;
 import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
+import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import static instamart.api.checkpoints.InstamartApiCheckpoints.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Избранное")
@@ -27,10 +36,9 @@ public class FavoritesList extends RestBase {
     @Story("Получаем пустой список любимых товаров")
     @Severity(SeverityLevel.NORMAL)
     public void testEmptyFavoritesList() {
-        FavoritesCondition
-                .newTest()
-                .getFavoritesItems(1)
-                .emptyFavoritesList();
+        final Response response = Favorites.GET(1);
+        assertStatusCode200(response);
+        assertEquals(response.as(FavoritesListItemsResponse.class).getItems().size(), 0, "Список избранного не пустой");
     }
 
     @CaseId(128)
@@ -38,10 +46,10 @@ public class FavoritesList extends RestBase {
     @Story("Добавление товара в избранное")
     @Severity(SeverityLevel.CRITICAL)
     public void testAddItemToFavoritesList() {
-        FavoritesCondition
-                .newTest()
-                .addToFavorites(PRODUCT_ID)
-                .itemWasAdded();
+        final Response response = Favorites.POST(PRODUCT_ID);
+        assertStatusCode200(response);
+        final Item item = response.as(FavoritesItemResponse.class).getItem();
+        assertNotNull(item);
     }
 
     @CaseId(129)
@@ -49,10 +57,8 @@ public class FavoritesList extends RestBase {
     @Story("Добавление товара в избранное с несуществующим id")
     @Severity(SeverityLevel.NORMAL)
     public void testNegativeAddItemToFavoritesList() {
-        FavoritesCondition
-                .newTest()
-                .addToFavorites(1)
-                .itemWasNotAdded();
+        final Response response = Favorites.POST(1);
+        assertStatusCode404(response);
     }
 
     @CaseId(130)
@@ -60,12 +66,12 @@ public class FavoritesList extends RestBase {
     @Story("Удаление товара из избранного")
     @Severity(SeverityLevel.CRITICAL)
     public void testDeleteItemToFavoritesList() {
-        FavoritesCondition
-                .newTest()
-                .addToFavorites(PRODUCT_ID_2)
-                .itemWasAdded()
-                .removeFirstItemFromFavorites()
-                .itemWasRemoved();
+        Response response = Favorites.POST(PRODUCT_ID_2);
+        assertStatusCode200(response);
+        final Item item = response.as(FavoritesItemResponse.class).getItem();
+        assertNotNull(item);
+        response = Favorites.DELETE(item.getId());
+        assertStatusCode200(response);
     }
 
     @CaseId(131)
@@ -73,10 +79,10 @@ public class FavoritesList extends RestBase {
     @Story("Получаем пустой список sku любимых товаров")
     @Severity(SeverityLevel.NORMAL)
     public void testEmptySkuFavoritesList() {
-        FavoritesCondition
-                .newTest()
-                .getAllSkuItemsFromFavorites()
-                .emptySkuFavoritesList();
+        final Response response = Favorites.ProductSku.GET();
+        assertStatusCode200(response);
+        assertEquals(response
+                .as(FavoritesSkuListItemResponse.class).getProductsSkuList().size(), 0, "Список sku товаров не пустой");
     }
 
     @CaseId(132)
@@ -84,10 +90,8 @@ public class FavoritesList extends RestBase {
     @Story("Добавление товара в избранное по его Sku")
     @Severity(SeverityLevel.CRITICAL)
     public void testAddItemToFavoritesListBySku() {
-        FavoritesCondition
-                .newTest()
-                .addToFavoritesBySku(PRODUCT_SKU)
-                .itemWasAddedBySku();
+        final Response response = Favorites.ProductSku.POST(PRODUCT_SKU);
+        assertStatusCode200(response);
     }
 
     @CaseId(133)
@@ -95,10 +99,8 @@ public class FavoritesList extends RestBase {
     @Story("Добавление товара в избранное с несуществующим Sku")
     @Severity(SeverityLevel.NORMAL)
     public void testNegativeAddItemToFavoritesListBySku() {
-        FavoritesCondition
-                .newTest()
-                .addToFavoritesBySku(1)
-                .itemWasNotAddedBySku();
+        final Response response = Favorites.ProductSku.POST(1);
+        assertStatusCode422(response);
     }
 
     @CaseId(134)
@@ -106,11 +108,9 @@ public class FavoritesList extends RestBase {
     @Story("Удаление товара из избранного по sku")
     @Severity(SeverityLevel.CRITICAL)
     public void testDeleteItemToFavoritesListBySku() {
-        FavoritesCondition
-                .newTest()
-                .addToFavoritesBySku(PRODUCT_SKU)
-                .itemWasAddedBySku()
-                .removeFromFavoritesBySku(PRODUCT_SKU)
-                .itemWasRemovedBySku();
+        Response response = Favorites.ProductSku.POST(PRODUCT_SKU);
+        assertStatusCode200(response);
+        response = Favorites.ProductSku.DELETE(PRODUCT_SKU);
+        assertStatusCode200(response);
     }
 }

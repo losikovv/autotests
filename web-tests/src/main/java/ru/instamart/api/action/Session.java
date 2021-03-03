@@ -9,10 +9,10 @@ import org.json.simple.JSONObject;
 
 import static instamart.api.requests.InstamartRequestsBase.givenCatch;
 
-public final class Authorization {
+public final class Session {
 
     @Step("{method} /" + ApiV2EndPoints.Session.SESSIONS)
-    public static Response auth(final String email, final String password) {
+    public static Response POST(final String email, final String password) {
         return givenCatch()
                 .auth()
                 .preemptive()
@@ -21,7 +21,7 @@ public final class Authorization {
     }
 
     @Step("{method} /" + ApiV2EndPoints.Session.SESSIONS)
-    public static Response authWithClientId(final String email, final String password, final String clientId) {
+    public static Response POST(final String email, final String password, final String clientId) {
         return givenCatch()
                 .auth()
                 .preemptive()
@@ -31,7 +31,7 @@ public final class Authorization {
     }
 
     @Step("{method} /" + ApiV2EndPoints.AuthProviders.SESSIONS)
-    public static Response externalAuth(final AuthProvider provider) {
+    public static Response POST(final AuthProvider provider) {
         switch (provider) {
             case METRO:
             case SBERAPP:
@@ -55,14 +55,16 @@ public final class Authorization {
     }
 
     @Step("{method} /" + ApiV2EndPoints.Session.SESSIONS_TOKEN)
-    public static Response validateSessionToken(final String token) {
+    public static Response GET(final String token) {
         return givenCatch()
                 .get(ApiV2EndPoints.Session.SESSIONS_TOKEN, token);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Session.SESSIONS_USER_TOKEN)
-    public static Response getUserDataBYToken(final String token) {
-        return givenCatch()
-                .get(ApiV2EndPoints.Session.SESSIONS_USER_TOKEN, token);
+    public static class UserSession {
+        @Step("{method} /" + ApiV2EndPoints.Session.SESSIONS_USER_TOKEN)
+        public static Response GET(final String token) {
+            return givenCatch()
+                    .get(ApiV2EndPoints.Session.SESSIONS_USER_TOKEN, token);
+        }
     }
 }
