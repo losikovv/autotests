@@ -2,11 +2,6 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   GRADLE_USER_HOME: $CI_PROJECT_DIR/.gradle
 
-before_script:
-  - echo `pwd`
-  - echo $GRADLE_USER_HOME
-  #- export GRADLE_USER_HOME=`pwd`/.gradle
-
 cache:
   key: "cacheGradle"
   paths:
@@ -207,7 +202,7 @@ tests:Debug:
     - echo $P_ENV
     - echo $TEST_SET
     - cd web-tests
-    - ./gradlew clean build debug -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build debug -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
     - bash ./report.sh debug
