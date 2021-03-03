@@ -343,4 +343,14 @@ public class BaseUICheckpoints {
         log.info("✓ Успешно");
 
     }
+
+    /** Проверяем, что значение в элементе соответсветсвует ожидаемому результату */
+    @Step("Проверяем, что значение в элементе соответсветсвует ожидаемому результату")
+    public void checkValueIsCorrectInElement(ElementData element, String expectedText, String errorMessage) {
+        log.info("> Проверяем, что значение в элементе соответсветсвует ожидаемому результату {}", kraken.grab().currentURL());
+        Assert.assertEquals(
+                kraken.grab().value(element), expectedText,
+                failMessage(errorMessage));
+        log.info("✓ Успешно");
+    }
 }

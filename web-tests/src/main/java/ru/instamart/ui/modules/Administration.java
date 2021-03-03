@@ -3,7 +3,9 @@ package instamart.ui.modules;
 import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.objectsmap.Elements;
-import org.openqa.selenium.WebDriver;
+import io.qameta.allure.Step;
+import org.openqa.selenium.ElementNotSelectableException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +21,7 @@ public final class Administration extends Base {
     public static class Orders {
 
         /** Найти заказ по номеру заказа или шипмента */
+        @Step("Ищем заказ по номеру заказа или шипмента: {0}")
         public static void searchOrder(String order) {
             kraken.reach().admin("shipments");
             log.info("Поиск заказа по номеру {}", order);
@@ -28,6 +31,7 @@ public final class Administration extends Base {
         }
 
         /** Найти заказ по номеру заказа или шипмента */
+        @Step("Ищем заказ по номеру заказа или шипмента: {0}")
         public static void searchOrder(String number, boolean b2b) {
             kraken.reach().admin("shipments");
             log.info("Поиск B2B заказа по номеру {}", number);
@@ -37,6 +41,7 @@ public final class Administration extends Base {
         }
 
         /** Возобновить заказ */
+        @Step("Возобновляем заказ")
         public static void resumeOrder() {
             log.info("> возобновляем заказ {}", kraken.grab().currentURL());
             kraken.perform().click(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.resumeOrderButton());
@@ -45,17 +50,20 @@ public final class Administration extends Base {
         }
 
         /** Отменить заказ на текущей странице с тестовой причиной отмены */
+        @Step("Отменяем заказ на текущей странице с тестовой причиной отмены")
         public static void cancelOrder() {
             cancelOrder(4, "Тестовый заказ");
         }
 
         /** Отменить заказ по номеру с тестовой причиной отмены */
+        @Step("Отменяем заказ по номеру с тестовой причиной отмены: {0}")
         public static void cancelOrder(String orderNumber) {
             kraken.reach().admin(instamart.ui.common.lib.Pages.Admin.Order.details(orderNumber));
             cancelOrder();
         }
 
         /** Отменить заказ на текущей странице с указанными причинами отмены */
+        @Step("Отменяем заказ на текущей странице с указанными причинами отмены :{1}")
         public static void cancelOrder(int reason, String details) {
             log.info("> отменяем заказ {}", kraken.grab().currentURL());
             kraken.perform().click(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.cancelOrderButton());
@@ -66,6 +74,7 @@ public final class Administration extends Base {
         }
 
         /** Выбрать причину и текст отмены заказа */
+        @Step("Выбираем причину и текст отмены заказа: {1}")
         private static void chooseCancellationReason(int reasonPosition, String details) {
             kraken.perform().click(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.cancellationReasonType(reasonPosition));
             kraken.perform().fillField(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.cancellationReasonField(),details);
@@ -80,6 +89,7 @@ public final class Administration extends Base {
             searchUser(userData.getLogin());
         }
 
+        @Step("Поиск пользователя по почте: {0}")
         public static void searchUser(String email) {
             kraken.reach().admin("users");
             log.info("Поиск пользователя {}", email);
@@ -88,26 +98,65 @@ public final class Administration extends Base {
             kraken.await().simply(1); // Ожидание осуществления поиска юзера в админке
         }
 
+        @Step("Поиск пользователя по телефону: {0}")
+        public static void searchPhone(String phone) {
+            kraken.reach().admin("users");
+            log.info("Поиск пользователя {}", phone);
+            kraken.perform().fillField(Elements.Administration.UsersSection.phoneField(), phone);
+            kraken.perform().click(Elements.Administration.UsersSection.searchButton());
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
+                    Elements.Administration.UsersSection.userlistFirstRow().getLocator()),
+                    "пользователь по критериям поиска не найден",5);
+        }
+
         /** Перейти в редактирование пользователя из указанного объекта userData */
         public static void editUser(UserData userData) {
             editUser(userData.getLogin());
         }
 
-        /** Перейти в редактирование пользователя с указанием почты */
-        public static void editUser(String email) {
-            searchUser(email);
-            if (kraken.grab().text(Elements.Administration.UsersSection.userEmail()).equals(email.toLowerCase())) {
-                kraken.perform().click(Elements.Administration.UsersSection.editUserButton());
-                kraken.await().implicitly(1); // Ожидание загрузки страницы пользователя в админке
-                log.info("Редактирование пользователя {}", kraken.grab().currentURL());
-            } else {
-                log.warn("! Найден не тот юзер !");
-                log.warn("Первый email в списке по локатору: {}", kraken.grab().text(Elements.Administration.UsersSection.userEmail()));
-                log.warn("А ищем: {}", email);
+//        /** Перейти в редактирование пользователя по номеру телефона */
+//        public static void editUser(String phone) {
+//            editUser(phone);
+//        }
+
+        /** Перейти в редактирование пользователя по элементу поиска */
+        @Step("Переходим в редактирование пользователя с указанием: {0}")
+        public static void editUser(String value) {
+            if(value.contains("@")){
+                searchUser(value);
+                if (kraken.grab().text(Elements.Administration.UsersSection.userEmail()).equals(value.toLowerCase())) {
+                    kraken.perform().click(Elements.Administration.UsersSection.editUserButton());
+                    kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
+                            Elements.Administration.UsersSection.UserPage.b2bCheckbox().getLocator()),
+                            "страница редактирования пользователя не отобразилась",
+                            5);
+                    log.info("Редактирование пользователя {}", kraken.grab().currentURL());
+                } else {
+                    log.warn("! Найден не тот юзер !");
+                    log.warn("Первый email в списке по локатору: {}", kraken.grab().text(Elements.Administration.UsersSection.userEmail()));
+                    log.warn("А ищем: {}", value);
+                }
+            }else {
+                searchPhone(value);
+                if (kraken.getWebDriver().findElements(Elements.Administration.UsersSection.userlistFirstRow().getLocator()).size()==1) {
+                    kraken.perform().click(Elements.Administration.UsersSection.editUserButton());
+                    kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
+                            Elements.Administration.UsersSection.UserPage.b2bCheckbox().getLocator()),
+                            "страница редактирования пользователя не отобразилась",
+                            5);
+                    log.info("Редактирование пользователя {}", kraken.grab().currentURL());
+                } else {
+                    log.warn("! Найден не тот юзер !");
+                    log.warn("больше одного юзера по номеру телефона: {0}", value);
+                    throw new ElementNotSelectableException("Невозможно выбрать конкретный элемент, " +
+                            "тк представлены несколько вариантов");
+                }
             }
+
         }
 
         /** Удалить первого найденного пользователя */
+        @Step("Удаляем первого найденного пользователя: {0}")
         public static void deleteUser(String email) {
             searchUser(email);
             if (kraken.detect().isElementDisplayed(Elements.Administration.UsersSection.userEmail())) {
@@ -123,12 +172,14 @@ public final class Administration extends Base {
         }
 
         /** Предоставить админские права пользователю из указанного объекта userData */
+        @Step("Предоставляем админские права пользователю из указанного объекта userData")
         public static void grantAdminPrivileges(UserData userData) {
             editUser(userData.getLogin());
             grantAdminPrivileges();
         }
 
         /** Предоставить админские права в карточке пользователя */
+        @Step("Предоставляем админские права в карточке пользователя")
         public static void grantAdminPrivileges() {
             if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox())) {
                 log.warn("Административные права были предоставлены ранее");
@@ -141,12 +192,14 @@ public final class Administration extends Base {
         }
 
         /** Отозвать админские права пользователю из указанного объекта userData */
+        @Step("Отзываем админские права пользователю из указанного объекта userData")
         public static void revokeAdminPrivileges(UserData userData) {
             editUser(userData.getLogin());
             revokeAdminPrivileges();
         }
 
         /** Отозвать админские права в карточке пользователя */
+        @Step("Отзываем админские права в карточке пользователя")
         public static void revokeAdminPrivileges() {
             if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox())) {
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox());
@@ -159,6 +212,7 @@ public final class Administration extends Base {
         }
 
         /** Сменить пароль в карточке пользователя */
+        @Step("Меняем пароль в карточке пользователя")
         public static void changePassword(String password) {
             kraken.perform().fillField(Elements.Administration.UsersSection.UserPage.passwordField(), password);
             kraken.perform().fillField(Elements.Administration.UsersSection.UserPage.passwordConfirmationField(), password);
@@ -166,7 +220,17 @@ public final class Administration extends Base {
             log.info("Смена пароля пользователя");
         }
 
+        /** Сменить email в карточке пользователя */
+        @Step("Меняем email в карточке пользователя")
+        public static void changeEmail(String email) {
+            log.info("меняем email пользователю: " + email);
+            kraken.perform().fillField(Elements.Administration.UsersSection.UserPage.emailField(), email);
+            kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
+            log.info("email пользователя изменен на: "+email);
+        }
+
         /** Проставить флаг B2B в карточке пользователя */
+        @Step("Проставляем флаг B2B в карточке пользователя")
         public static void grantB2B() {
             if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.b2bCheckbox())) {
                 log.warn("Пользователь уже B2B");
@@ -179,6 +243,7 @@ public final class Administration extends Base {
         }
 
         /** Снять флаг B2B в карточке пользователя */
+        @Step("Снимаем флаг B2B в карточке пользователя")
         public static void revokeB2B() {
             if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.b2bCheckbox())) {
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.b2bCheckbox());

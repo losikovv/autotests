@@ -3322,6 +3322,11 @@ public class Elements {
                         By.xpath("//input[@id='search_email']"),
                             "поле ввода email на странице списка пользователей");
             }
+            static ElementData phoneField() {
+                return new ElementData(
+                        By.xpath("//input[@id='search_phone']"),
+                        "поле ввода телефона на странице списка пользователей");
+            }
 
             static ElementData searchButton() {
                 return new ElementData(
@@ -3330,7 +3335,7 @@ public class Elements {
             }
 
             static ElementData userlistFirstRow() {
-                return new ElementData(By.xpath("//*[@id='content']/div/table/tbody/tr"),
+                return new ElementData(By.xpath("//tr[@class='odd']"),
                         "первая строка таблицы пользоватетелй");
             }
 
@@ -3368,8 +3373,13 @@ public class Elements {
             interface UserPage {
 
                 static ElementData returnBackButton() {
-                    return new ElementData(By.xpath("//a[text()='Вернуться к списку пользователей']"),
+                    return new ElementData(By.xpath("//div[@class='flash success' and @style='display: none;']"),
                             "кнопка 'Вернуться к списку пользователей' на странице редактирования пользователя");
+                }
+
+                static ElementData successChangeUserMessage() {
+                    return new ElementData(By.xpath("//div[@class='flash success' and not(contains(@style,'display: none;'))]"),
+                            "сообщение поддтверждения изменения данных у пользователя");
                 }
 
                 static ElementData emailField() {

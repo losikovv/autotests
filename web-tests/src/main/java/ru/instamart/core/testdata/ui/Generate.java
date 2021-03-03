@@ -47,10 +47,11 @@ public final class Generate {
     }
     /** Сгенерировать тестовый номер телефона */
     public static String phoneNumber(){
-        String phone = "9999999";
-        return phone + digitalString(3);
+        String phone = "9999";
+        return phone + digitalString(6);
     }
 
+    /** Сгенерировать тестовый email */
     public static String email() {
         return UUID.randomUUID() + "@example.com";
     }
