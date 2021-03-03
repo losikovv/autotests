@@ -1,6 +1,7 @@
 variables:
   GIT_SUBMODULE_STRATEGY: normal
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  CI_RUN_ALL_JOBS: "true"
 
 before_script:
   - cd web-tests
@@ -16,7 +17,6 @@ stages:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - cd web-tests
     - ./gradlew clean build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
@@ -29,6 +29,20 @@ stages:
       - web-tests/build/allure-results/
       - web-tests/logs/
     expire_in: 1 week
+
+.template_tests_apishopper_alone:
+  only:
+    refs:
+      - master
+    variables:
+      - $API_SHOPPER_ALONE == 'true' && $CI_RUN_ALL_JOBS == 'false'
+
+.template_run_all_jobs_at_a_time_on_master:
+  only:
+    refs:
+      - master
+    variables:
+      - $CI_RUN_ALL_JOBS == 'true'
 
 build:
   only:
@@ -77,8 +91,7 @@ CustomSuiteTestRun:
     expire_in: 1 week
 
 tests:ApiInstamart:
-  only:
-    - master
+  extends: ".template_run_all_jobs_at_a_time_on_master"
   resource_group: apiInstamart:$CI_COMMIT_REF_SLUG
   stage: tests
   image: $CI_REGISTRY_IMAGE
@@ -99,17 +112,14 @@ tests:ApiInstamart:
     expire_in: 1 week
 
 tests:ApiShopper:
-  extends: ".template_tests_apishopper"
-  only:
-    - master
+  extends:
+    - ".template_tests_apishopper"
+    - ".template_run_all_jobs_at_a_time_on_master"
 
 tests:ApiShopper:alone:
-  extends: ".template_tests_apishopper"
-  only:
-    refs:
-      - master
-    variables:
-      - $API_SHOPPER_ALONE == 'true'
+  extends:
+    - ".template_tests_apishopper"
+    - ".template_tests_apishopper_alone"
 
 tests:ApiZonesProductionOnly:
   when: manual
@@ -132,8 +142,7 @@ tests:ApiZonesProductionOnly:
     expire_in: 1 week
 
 tests:UiSmoke:
-  only:
-    - master
+  extends: ".template_run_all_jobs_at_a_time_on_master"
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
@@ -154,8 +163,7 @@ tests:UiSmoke:
     expire_in: 1 week
 
 tests:AdminUiSmoke:
-  only:
-    - master
+  extends: ".template_run_all_jobs_at_a_time_on_master"
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
