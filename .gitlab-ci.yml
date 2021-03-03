@@ -202,8 +202,12 @@ tests:Debug:
   script:
     - echo $P_ENV
     - echo $TEST_SET
+    - echo $$GRADLE_USER_HOME
+    - cd $GRADLE_USER_HOME && ls -a
     - cd web-tests
-    - ./gradlew clean build debug -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - ./gradlew properties
+    #- ./gradlew clean build debug -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - ./gradlew clean build
   after_script:
     - cd web-tests
     - bash ./report.sh debug
