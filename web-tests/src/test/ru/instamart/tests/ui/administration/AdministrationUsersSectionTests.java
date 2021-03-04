@@ -39,6 +39,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         searchChecks.checkSearchWorks();
     }
 
+    //TODO тест удаления юзера
     @Issue(value = "STF-7163")
     @Test(  description = "Тест предоставления и отзыва админских прав пользователю",
             groups = {"sbermarket-regression"}
