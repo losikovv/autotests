@@ -44,10 +44,10 @@ public enum Specification {
             useRelaxedHTTPSValidation();
         }
 
-        final String proxyIp = System.getProperty("proxy_ip", "127.0.0.1");
+        final String proxyIp = System.getProperty("proxy_ip");
         final int proxyPort = Integer.parseInt(System.getProperty("proxy_port", "443"));
 
-        if (!proxyIp.equals("127.0.0.1") && addressReachable(proxyIp, proxyPort, 5000)) {
+        if (proxyIp != null && addressReachable(proxyIp, proxyPort, 5000)) {
             logger.info("Setup proxy with url {}:{}", proxyIp, proxyPort);
             proxy = host(proxyIp).withPort(proxyPort);
         }
