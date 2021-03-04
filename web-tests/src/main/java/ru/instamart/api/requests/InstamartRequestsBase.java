@@ -1,5 +1,6 @@
 package instamart.api.requests;
 
+import instamart.api.SessionFactory;
 import instamart.api.common.Specification;
 import io.restassured.specification.RequestSpecification;
 import org.slf4j.Logger;
@@ -13,23 +14,36 @@ import static io.restassured.RestAssured.given;
 public abstract class InstamartRequestsBase {
 
     private static final Logger log = LoggerFactory.getLogger(InstamartRequestsBase.class);
-
-    protected static ThreadLocal<String> token = new ThreadLocal<>();
-
-    public static String getToken() {
-        return token.get();
-    }
-
-    public static void setToken(String token) {
-        InstamartRequestsBase.token.set(token);
-    }
-
     /**
      * Обходим тормоза интернета + Добавляем спеки к запросу
      */
     private static RequestSpecification givenExceptions()
             throws SSLHandshakeException, SocketException, IllegalStateException {
         return given().spec(Specification.INSTANCE.getCustomerRequestSpec());
+    }
+
+    /**
+     * Добавляем хедер авторизации к запросу
+     */
+    public static RequestSpecification givenWithAuth() {
+        return given()
+                .spec(Specification.INSTANCE.getCustomerRequestSpec())
+                .header(
+                "Authorization",
+                "Token token=" + SessionFactory.getSession().getToken());
+    }
+
+    /**
+     * Авторизация с кастомным токеном, для случаев когда нужна проверка на невалидный токен
+     * @param token
+     * @return
+     */
+    public static RequestSpecification givenCustomToken(final String token) {
+        return given()
+                .spec(Specification.INSTANCE.getCustomerRequestSpec())
+                .header(
+                        "Authorization",
+                        "Token token=" + token);
     }
 
     /**

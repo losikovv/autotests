@@ -47,7 +47,7 @@ public final class UserData {
     public String getFirstName() {
         final String[] fullName = name.split(" ",2);
 
-        return fullName.length == 1 ? fullName[0] : "FirstName";
+        return fullName.length >= 1 ? fullName[0] : "FirstName";
     }
 
     public String getLastName() {

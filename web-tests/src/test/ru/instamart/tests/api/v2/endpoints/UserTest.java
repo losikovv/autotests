@@ -31,7 +31,6 @@ public final class UserTest extends RestBase {
     public void testUpdateUserDataAllField() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession();
         final Response response = Users.PUT(
-                session.getToken(),
                 session.getLogin(),
                 "FirstName",
                 "LastName",
@@ -52,7 +51,6 @@ public final class UserTest extends RestBase {
     public void testUpdateUserDataWithInvalidFirstAndLastName() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession();
         final Response response = Users.PUT(
-                session.getToken(),
                 session.getLogin(),
                 "",
                 "",
@@ -73,7 +71,6 @@ public final class UserTest extends RestBase {
     public void testUpdatePasswordWithInvalidNew() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession();
         final Response response = Users.PUT(
-                session.getToken(),
                 session.getLogin(),
                 session.getPassword(),
                 "password",
@@ -94,7 +91,6 @@ public final class UserTest extends RestBase {
     public void testUpdatePasswordWithInvalidOld() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession();
         final Response response = Users.PUT(
-                session.getToken(),
                 session.getLogin(),
                 "invalid",
                 "passw0rd",
@@ -111,7 +107,6 @@ public final class UserTest extends RestBase {
     public void testUpdatePasswordWithInvalidConformation() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession();
         final Response response = Users.PUT(
-                session.getToken(),
                 session.getLogin(),
                 session.getPassword(),
                 "password",
@@ -128,7 +123,6 @@ public final class UserTest extends RestBase {
     public void testUpdatePassword() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession();
         final Response response = Users.PUT(
-                session.getToken(),
                 session.getLogin(),
                 session.getPassword(),
                 "passw0rd",
@@ -145,7 +139,6 @@ public final class UserTest extends RestBase {
     public void testUpdateUserDataOneField() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession();
         final Response response = Users.PUT(
-                session.getToken(),
                 session.getLogin(),
                 "FirstName",
                 null,
@@ -166,7 +159,6 @@ public final class UserTest extends RestBase {
     public void testUpdateUserDataWithIncorrectEmail() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession();
         final Response response = Users.PUT(
-                session.getToken(),
                 "fake@mail.com",
                 "FirstName",
                 null,
@@ -182,7 +174,6 @@ public final class UserTest extends RestBase {
     public void testUpdateUserDataWithPromoAccept() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession();
         final Response response = Users.PUT(
-                session.getToken(),
                 session.getLogin(),
                 "FirstName",
                 null,
@@ -198,7 +189,6 @@ public final class UserTest extends RestBase {
     public void testGetUserData() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession();
         final Response response = Users.GET(
-                session.getToken(),
                 "InstamartApp",
                 session.getLogin()
         );
@@ -214,7 +204,8 @@ public final class UserTest extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserDataWithIncorrectEmail() {
         final Response response = Users.GET(
-                "fake@mail.com"
+                "fake@mail.com",
+                false
         );
         assertStatusCode404(response);
     }
@@ -226,8 +217,10 @@ public final class UserTest extends RestBase {
     public void testGetUserDataWithInvalidToken() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession();
         final Response response = Users.GET(
-               "123",
-                session.getLogin()
+                session.getLogin(),
+                true,
+                "123"
+
         );
         assertStatusCode404(response);
     }

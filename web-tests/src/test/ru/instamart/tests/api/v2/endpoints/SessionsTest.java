@@ -1,7 +1,7 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
-import instamart.api.action.Registration;
+import instamart.api.helpers.RegistrationHelper;
 import instamart.api.action.Session;
 import instamart.api.common.RestBase;
 import instamart.api.enums.v2.AuthProvider;
@@ -46,7 +46,7 @@ public final class SessionsTest extends RestBase {
     @Severity(SeverityLevel.CRITICAL)
     public void postSessionsInstamartApp() {
         final UserData userData = UserManager.getUser();
-        Registration.registration(userData);
+        RegistrationHelper.registration(userData);
         final Response response = Session.POST(userData.getLogin(), userData.getPassword(), "InstamartApp");
         assertStatusCode200(response, "Не работает авторизация с Client-Id: InstamartApp");
         assertNotNull(response.as(SessionsResponse.class).getSession());
@@ -79,8 +79,8 @@ public final class SessionsTest extends RestBase {
     @Severity(SeverityLevel.CRITICAL)
     public void testSessionToken() {
         final UserData userData = UserManager.getUser();
-        Registration.registration(userData);
-        SessionFactory.createSessionToken(userData.getLogin(), userData.getPassword());
+        RegistrationHelper.registration(userData);
+        SessionFactory.createSessionToken(userData);
         final Response response = Session.GET(SessionFactory.getSession().getToken());
         assertStatusCode200(response);
     }
@@ -100,8 +100,8 @@ public final class SessionsTest extends RestBase {
     @Severity(SeverityLevel.CRITICAL)
     public void testUserData() {
         final UserData userData = UserManager.getUser();
-        Registration.registration(userData);
-        SessionFactory.createSessionToken(userData.getLogin(), userData.getPassword());
+        RegistrationHelper.registration(userData);
+        SessionFactory.createSessionToken(userData);
         final Response response = Session.UserSession.GET(SessionFactory.getSession().getToken());
         assertStatusCode200(response);
         final UserDataResponse userDataResponse = response.as(UserDataResponse.class);
@@ -114,8 +114,8 @@ public final class SessionsTest extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testUserDataWithInvalidToken() {
         final UserData userData = UserManager.getUser();
-        Registration.registration(userData);
-        SessionFactory.createSessionToken(userData.getLogin(), userData.getPassword());
+        RegistrationHelper.registration(userData);
+        SessionFactory.createSessionToken(userData);
         final Response response = Session.UserSession.GET("aaaaaaa");
         assertStatusCode404(response);
     }

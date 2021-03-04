@@ -1,9 +1,9 @@
 package ru.instamart.tests.api.v2.endpoints;
 
+import instamart.api.action.Stores;
 import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestAddresses;
 import instamart.api.common.RestBase;
-import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.PromotionCardsResponse;
 import instamart.api.responses.v2.StoreResponse;
 import instamart.api.responses.v2.StoresResponse;
@@ -12,13 +12,13 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertNotNull;
 
-public class Stores extends RestBase {
+public class StoresTest extends RestBase {
 
     @CaseId(1)
     @Test(  description = "Получаем магазин",
             groups = {"api-instamart-smoke"})
     public void getStore() {
-        response = ApiV2Requests.Stores.GET(1);
+        response = Stores.GET(1);
         InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(StoreResponse.class).getStore(), "Не вернулся магазин");
     }
@@ -27,7 +27,7 @@ public class Stores extends RestBase {
     @Test(  description = "Получаем список всех магазинов по указанным координатам",
             groups = {"api-instamart-smoke"})
     public void getStoresByCoordinates() {
-        response = ApiV2Requests.Stores.GET(
+        response = Stores.GET(
                 RestAddresses.Moscow.defaultAddress().getLat(),
                 RestAddresses.Moscow.defaultAddress().getLon());
         InstamartApiCheckpoints.assertStatusCode200(response);
@@ -39,7 +39,7 @@ public class Stores extends RestBase {
     @Test(  description = "Получаем промоакции в магазине",
             groups = {"api-instamart-smoke"})
     public void getStorePromotionCards() {
-        response = ApiV2Requests.Stores.PromotionCards.GET(1);
+        response = Stores.PromotionCards.GET(1);
         InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(PromotionCardsResponse.class).getPromotion_cards(),
                 "Не вернулись промоакции магазина");

@@ -1,6 +1,6 @@
 package ru.instamart.tests.api.v2.e2e;
 
-import instamart.api.action.Registration;
+import instamart.api.helpers.RegistrationHelper;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Zone;
@@ -35,7 +35,7 @@ public class ZoneTests extends RestBase {
         log.info("Оформляем заказ в {} zone={} coordinates={}", store, zoneName, coordinates);
 
         final UserData userData = UserManager.getUser();
-        Registration.registration(userData);
+        RegistrationHelper.registration(userData);
         apiV2.order(userData, store.getId(), coordinates);
         apiV2.cancelCurrentOrder();
     }
@@ -43,8 +43,7 @@ public class ZoneTests extends RestBase {
     @AfterMethod(description = "Отмена активных заказов",
                  alwaysRun = true)
     public void cancelActiveOrders() {
-        if (apiV2.authorized() &&
-                EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
+        if (EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
             log.info("Отменяем активные заказы");
             apiV2.cancelActiveOrders();
         }

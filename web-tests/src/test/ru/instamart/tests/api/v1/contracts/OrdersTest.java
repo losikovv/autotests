@@ -1,13 +1,13 @@
 package ru.instamart.tests.api.v1.contracts;
 
-import instamart.api.action.Registration;
+import instamart.api.SessionFactory;
 import instamart.api.common.RestBase;
+import instamart.api.objects.v2.Order;
 import instamart.api.requests.ApiV1Requests;
 import instamart.api.responses.v1.LineItemsResponse;
 import instamart.api.responses.v1.ShipmentResponse;
 import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
-import instamart.ui.common.pagesdata.UserData;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.SkipException;
@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-public class Orders extends RestBase {
+public class OrdersTest extends RestBase {
 
     private String shipmentUuid;
     private String orderNumber;
@@ -27,9 +27,8 @@ public class Orders extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        final UserData user = UserManager.getUser();
-        Registration.registration(user);
-        instamart.api.objects.v2.Order order = apiV2.order(user, EnvironmentData.INSTANCE.getDefaultSid());
+        SessionFactory.makeSession();
+        final Order order = apiV2.order(SessionFactory.getSession().getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
 

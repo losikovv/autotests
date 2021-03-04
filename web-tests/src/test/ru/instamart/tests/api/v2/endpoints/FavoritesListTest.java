@@ -19,7 +19,7 @@ import static org.testng.Assert.assertNotNull;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Избранное")
-public class FavoritesList extends RestBase {
+public class FavoritesListTest extends RestBase {
 
     private final long PRODUCT_ID = 239210;
     private final long PRODUCT_ID_2 = 239211;

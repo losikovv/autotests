@@ -21,7 +21,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
             System.setProperty("webdriver.chrome.driver", "WebDriverMac/chromedriver");
         } else {
             System.setProperty("webdriver.chrome.driver", "WebDriverLinux/chromedriver");
-            options.addArguments("--headless");
+            options.setHeadless(true);
         }
         options.addArguments("--disable-extensions");
         options.addArguments("--no-sandbox");

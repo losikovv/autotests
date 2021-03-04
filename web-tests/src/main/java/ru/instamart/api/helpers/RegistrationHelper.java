@@ -1,5 +1,6 @@
-package instamart.api.action;
+package instamart.api.helpers;
 
+import instamart.api.action.Users;
 import instamart.api.responses.v2.UserResponse;
 import instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
@@ -8,24 +9,17 @@ import org.slf4j.LoggerFactory;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 
-public final class Registration {
+public final class RegistrationHelper {
 
-    private static final Logger log = LoggerFactory.getLogger(Registration.class);
+    private static final Logger log = LoggerFactory.getLogger(RegistrationHelper.class);
 
-    private Registration() {}
+    private RegistrationHelper() {}
 
     public static void registration(final UserData user) {
-        String[] fullName = new String[0];
-        String firstName = null;
-        String lastName = null;
-        if (user.getName() != null) fullName = user.getName().split(" ",2);
-        if (fullName.length > 0) firstName = fullName[0];
-        if (fullName.length > 1) lastName = fullName[1];
-
         registration(
                 user.getLogin(),
-                firstName,
-                lastName,
+                user.getFirstName(),
+                user.getLastName(),
                 user.getPassword());
     }
 

@@ -1,6 +1,6 @@
 package instamart.api;
 
-import instamart.api.action.Registration;
+import instamart.api.helpers.RegistrationHelper;
 import instamart.api.responses.v2.SessionsResponse;
 import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.UserData;
@@ -18,8 +18,8 @@ public final class SessionFactory {
 
     public static void makeSession() {
         final UserData userData = UserManager.getUser();
-        Registration.registration(userData);
-        createSessionToken(userData.getLogin(), userData.getPassword());
+        RegistrationHelper.registration(userData);
+        createSessionToken(userData);
     }
 
     public static SessionInfo getSession() {
@@ -29,12 +29,12 @@ public final class SessionFactory {
         return session;
     }
 
-    public static void createSessionToken(final String login, final String password) {
+    public static void createSessionToken(final UserData userData) {
         final SessionInfo session = sessionMap.get(Thread.currentThread().getId());
-        if (session != null && !session.getLogin().equals(login)) {
-            sessionMap.put(Thread.currentThread().getId(), createSession(login, password));
+        if (session != null && !session.getLogin().equals(userData.getLogin())) {
+            sessionMap.put(Thread.currentThread().getId(), createSession(userData));
         } else if (session == null) {
-            sessionMap.put(Thread.currentThread().getId(), createSession(login, password));
+            sessionMap.put(Thread.currentThread().getId(), createSession(userData));
         }
     }
 
@@ -42,11 +42,11 @@ public final class SessionFactory {
         return sessionMap;
     }
 
-    private static SessionInfo createSession(final String login, final String password) {
-        final Response response = instamart.api.action.Session.POST(login, password);
+    private static SessionInfo createSession(final UserData userData) {
+        final Response response = instamart.api.action.Session.POST(userData.getLogin(), userData.getPassword());
         assertStatusCode200(response);
         final SessionsResponse sessionResponse = response.as(SessionsResponse.class);
-        return new SessionInfo(new UserData(login, password), sessionResponse.getSession().getAccess_token());
+        return new SessionInfo(userData, sessionResponse.getSession().getAccess_token());
     }
 
     public static final class SessionInfo {

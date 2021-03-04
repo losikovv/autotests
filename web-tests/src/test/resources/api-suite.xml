@@ -11,24 +11,24 @@
       <class name="ru.instamart.tests.api.v1.contracts.Retailers"/>
       <class name="ru.instamart.tests.api.v1.contracts.Stores"/>
       <class name="ru.instamart.tests.api.v1.contracts.Offers"/>
-      <class name="ru.instamart.tests.api.v1.contracts.Orders"/>
+      <class name="ru.instamart.tests.api.v1.contracts.OrdersTest"/>
     </classes>
   </test> <!-- api-v1-tests -->
   <test verbose="1" name="API v2 Tests" parallel="none" thread-count="4">
     <classes>
-      <class name="ru.instamart.tests.api.v2.endpoints.Taxons"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Searches"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Products"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Orders"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Stores"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.LineItems"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.TaxonsTest"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.SearchesTest"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.ProductsTest"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.OrdersTest"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.StoresTest"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.LineItemsTest"/>
       <class name="ru.instamart.tests.api.v2.endpoints.RegistrationTest"/>
       <class name="ru.instamart.tests.api.v2.endpoints.SessionsTest"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.FavoritesList"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Taxons"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.OnboardingPages"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.PaymentTools"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.Promotions"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.FavoritesListTest"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.TaxonsTest"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.OnboardingPagesTest"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.PaymentToolsTest"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.PromotionsTest"/>
       <class name="ru.instamart.tests.api.v2.e2e.StoreTests"/>
       <class name="ru.instamart.tests.api.v2.e2e.ZoneTests"/>
       <class name="ru.instamart.tests.api.v2.e2e.RetailerTests"/>
