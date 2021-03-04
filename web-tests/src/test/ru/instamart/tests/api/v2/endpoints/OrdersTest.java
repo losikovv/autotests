@@ -8,15 +8,12 @@ import instamart.api.objects.v2.Order;
 import instamart.api.responses.v2.LineItemsResponse;
 import instamart.api.responses.v2.OrderResponse;
 import instamart.api.responses.v2.OrdersResponse;
-import instamart.core.listeners.ExecutionListenerImpl;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertNotNull;
 
-@Listeners(ExecutionListenerImpl.class)
 public class OrdersTest extends RestBase {
     private String orderNumber;
 
