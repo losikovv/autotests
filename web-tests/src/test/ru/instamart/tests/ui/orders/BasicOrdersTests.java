@@ -40,6 +40,7 @@ public class BasicOrdersTests extends TestBase {
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void preconditions() {
+        runTestOnlyOnServer("preprod");
         kraken.get().baseUrl();
         //User.Do.loginAs(AppManager.session.admin);
         String phone;
@@ -116,9 +117,7 @@ public class BasicOrdersTests extends TestBase {
             groups = {"sbermarket-regression",}
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
-        runTestOnlyOnServer("staging");
         kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
-
         PaymentCardData creditCardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
 
         kraken.reach().checkout();
