@@ -45,10 +45,6 @@ stages:
       - $CI_RUN_ALL_JOBS == 'true'
 
 build:
-  only:
-    changes:
-      - $CI_PROJECT_DIR/Dockerfile
-      - Dockerfile*
   image:
     name: registry.sbermarket.tech/docker/proxy/kaniko-project/executor:debug-v1.5.1
     entrypoint: [""]
@@ -64,6 +60,9 @@ build:
       --context $CI_PROJECT_DIR
       --dockerfile $CI_PROJECT_DIR/Dockerfile
       --destination $CI_REGISTRY_IMAGE
+  rules:
+    - changes:
+        - Dockerfile
 
 CustomSuiteTestRun:
   when: manual

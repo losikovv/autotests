@@ -12,4 +12,13 @@ tasks.withType(Test) {
         systemProperty 'qase', "${qase}"
         systemProperty 'pip_url', "${pip_url}"
     }
+    if (project.hasProperty('protocol')) {
+        systemProperty 'protocol',"${protocol}"
+    }
+    if (project.hasProperty('proxy_ip')) {
+        systemProperty 'proxy_ip',"${proxy_ip}"
+    }
+    if (project.hasProperty('proxy_port')) {
+        systemProperty 'proxy_port',"${proxy_port}"
+    }
 }

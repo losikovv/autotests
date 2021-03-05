@@ -857,11 +857,8 @@ public final class Shop extends Base {
         /** Набрать корзину на минимальную сумму, достаточную для оформления первого заказа */
         @Step("Набираем корзину на минимальную сумму, достаточную для оформления первого заказа")
         public static void collectFirstTime() {
-            if(!kraken.detect().isCheckoutButtonActive()) {
-                Cart.close();
-                int sid = kraken.grab().sidFromUrl();
-                collect(kraken.apiV2().getMinFirstOrderAmount(sid));
-            } else { log.info("> пропускаем набор товаров, в корзине достаточно товаров для оформления минимального первого заказа");}
+            int sid = kraken.grab().sidFromUrl();
+            collect(kraken.apiV2().getMinFirstOrderAmount(sid));
         }
 
         /** Набрать корзину на указанную сумму */

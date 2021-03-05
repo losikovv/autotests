@@ -28,6 +28,7 @@ public enum EnvironmentData {
     private String shopperUrl;
     private String defaultSid;
     private String defaultShopperSid;
+    private String protocol;
 
     public void load() {
         final String file = String.format(ENV_DIR+"%s.properties", DEFAULT_ENVIRONMENT);
@@ -44,6 +45,7 @@ public enum EnvironmentData {
             this.shopperUrl = properties.getProperty("shopperUrl");
             this.defaultSid = properties.getProperty("defaultSid");
             this.defaultShopperSid = properties.getProperty("defaultShopperSid");
+            this.protocol = System.getProperty("protocol", "https");
         } catch (FileNotFoundException e) {
             logger.error("File {} not found", file);
         } catch (IOException e) {
@@ -64,22 +66,22 @@ public enum EnvironmentData {
     }
 
     public String getBasicUrl() {
-        return "https://" + basicUrl + "/";
+        return protocol + "://" + basicUrl + "/";
     }
 
     public String getBasicUrlWithHttpAuth() {
-        return "https://" + httpAuth + basicUrl + "/";
+        return protocol + "://" + httpAuth + basicUrl + "/";
     }
 
     public String getAdminUrl() {
-        return "https://" + adminUrl + "/";
+        return protocol + "://" + adminUrl + "/";
     }
 
     public String getAdminUrlWithHttpAuth() {
-        return "https://" + httpAuth + adminUrl + "/";
+        return protocol + "://" + httpAuth + adminUrl + "/";
     }
 
-    public String getShopperUrl() {return "https://" + shopperUrl + "/";}
+    public String getShopperUrl() {return protocol + "://" + shopperUrl + "/";}
 
     public int getDefaultSid() {
         return Integer.parseInt(defaultSid);
