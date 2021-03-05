@@ -187,7 +187,8 @@ public final class UserManager {
         log.info("Телефон: {}", testUser.getPhone());
         log.info("Email: {}", testUser.getLogin());
         log.info("Пароль: {}", testUser.getPassword());
-        log.info("Имя: {}", testUser.getName());
+        log.info("Имя: {}", testUser.getFirstName());
+        log.info("Фамилия: {}", testUser.getLastName());
 
         return testUser;
     }

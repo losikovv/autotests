@@ -1,18 +1,19 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.checkpoints.InstamartApiCheckpoints;
+import instamart.api.action.LineItems;
+import instamart.api.action.Products;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.LineItem;
-import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.LineItemResponse;
 import instamart.api.responses.v2.ProductsResponse;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
-public class LineItems extends RestBase {
+public class LineItemsTest extends RestBase {
     private String orderNumber;
     private long productId;
     private long lineItemId;
@@ -20,7 +21,7 @@ public class LineItems extends RestBase {
     @BeforeClass(alwaysRun = true, description = "Получение номера заказа и id продукта")
     public void preconditions() {
         orderNumber = apiV2.getCurrentOrderNumber();
-        productId = ApiV2Requests.Products
+        productId = Products
                 .GET(1, "")
                 .as(ProductsResponse.class)
                 .getProducts()
@@ -32,8 +33,8 @@ public class LineItems extends RestBase {
     @Test(  description = "Добавляем товар в корзину",
             groups = {"api-instamart-smoke"})
     public void postLineItems() {
-        response = ApiV2Requests.LineItems.POST(productId,1, orderNumber);
-        InstamartApiCheckpoints.assertStatusCode200(response);
+        response = LineItems.POST(productId,1, orderNumber);
+        assertStatusCode200(response);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
         assertNotNull(lineItem, "Не добавился товар в корзину");
         lineItemId = lineItem.getId();
@@ -44,8 +45,8 @@ public class LineItems extends RestBase {
             groups = {"api-instamart-smoke"},
             dependsOnMethods = "postLineItems")
     public void deleteLineItems() {
-        response = ApiV2Requests.LineItems.DELETE(lineItemId);
-        InstamartApiCheckpoints.assertStatusCode200(response);
+        response = LineItems.DELETE(lineItemId);
+        assertStatusCode200(response);
         assertNotNull(response.as(LineItemResponse.class).getLine_item(), "Не удалился товар из корзины");
     }
 

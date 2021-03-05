@@ -1,8 +1,7 @@
 package ru.instamart.tests.api.shopper.endpoints;
 
-import instamart.api.action.Registration;
-import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
+import instamart.api.helpers.RegistrationHelper;
 import instamart.api.objects.shopper.AssemblyData;
 import instamart.api.objects.v2.Order;
 import instamart.api.requests.ShopperApiRequests;
@@ -15,6 +14,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import static instamart.api.checkpoints.InstamartApiCheckpoints.assertIsDeliveryToday;
 import static instamart.api.checkpoints.ShopperApiCheckpoints.assertStatusCode200;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -29,9 +29,9 @@ public class ShipmentfulTests extends RestBase {
                  description = "Оформляем заказ")
     public void preconditions() {
         final UserData userData = UserManager.getUser();
-        Registration.registration(userData);
+        RegistrationHelper.registration(userData);
         Order order = apiV2.order(userData, EnvironmentData.INSTANCE.getDefaultSid());
-        InstamartApiCheckpoints.assertIsDeliveryToday(order);
+        assertIsDeliveryToday(order);
         shopper.authorisation(UserManager.getDefaultShopper());
         shopper.deleteCurrentAssembly();
         shipmentId = shopper.getShipmentId(order.getShipments().get(0).getNumber());

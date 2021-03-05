@@ -8,43 +8,47 @@ import org.testng.Assert;
 import java.util.HashMap;
 import java.util.Map;
 
-import static instamart.api.requests.InstamartRequestsBase.givenCatch;
+import static instamart.api.requests.InstamartRequestsBase.*;
 
 public final class Users {
 
     private Users() {}
 
     @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
-    public static Response GET(final String email) {
-        return givenCatch()
-                .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
+    public static Response GET(final String email, final boolean isAuth) {
+        if (isAuth) {
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
+        } else {
+            return givenCatch()
+                    .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
+        }
     }
 
     @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
-    public static Response GET(final String token, final String clientId, final String email) {
-        return givenCatch()
-                .header("Authorization",
-                        "Token token=" + token)
+    public static Response GET(final String email, final boolean isAuth, final String token) {
+        if (isAuth) {
+            return givenCustomToken(token)
+                    .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
+        } else {
+            return givenCatch()
+                    .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
+        }
+    }
+
+    @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
+    public static Response GET(final String clientId, final String email) {
+        return givenWithAuth()
                 .header("Client-Id", clientId)
                 .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
     }
 
     @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
-    public static Response GET(final String token, final String email) {
-        return givenCatch()
-                .header("Authorization",
-                        "Token token=" + token)
-                .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
-    }
-
-    @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
-    public static Response PUT(final String token,
+    public static Response PUT(
                                final String email,
                                final String firstName,
                                final String lastName,
                                final boolean promo) {
-        Assert.assertNotNull(token , "Token is NULL");
-        Assert.assertNotEquals(token , "", "Token is empty");
         Assert.assertNotNull(email , "Email is NULL");
         Assert.assertNotEquals(email , "", "Email is empty");
 
@@ -52,21 +56,16 @@ public final class Users {
         if (firstName != null && !firstName.isEmpty()) data.put("user[first_name]", firstName);
         if (lastName != null && !lastName.isEmpty()) data.put("user[last_name]", lastName);
         data.put("user[promo_terms_accepted]", promo);
-        return givenCatch()
-                .header("Authorization",
-                "Token token=" + token)
+        return givenWithAuth()
                 .formParams(data)
                 .put(ApiV2EndPoints.Users.USERS_EMAIL, email);
     }
 
     @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
-    public static Response PUT(final String token,
-                               final String email,
+    public static Response PUT(final String email,
                                final String currentPassword,
                                final String password,
                                final String passwordConfirmation) {
-        Assert.assertNotNull(token , "Token is NULL");
-        Assert.assertNotEquals(token , "", "Token is empty");
         Assert.assertNotNull(email , "Email is NULL");
         Assert.assertNotEquals(email , "", "Email is empty");
 
@@ -74,9 +73,7 @@ public final class Users {
         data.put("user[current_password]", currentPassword);
         data.put("user[password]", password);
         data.put("user[password_confirmation]", passwordConfirmation);
-        return givenCatch()
-                .header("Authorization",
-                        "Token token=" + token)
+        return givenWithAuth()
                 .formParams(data)
                 .put(ApiV2EndPoints.Users.USERS_EMAIL, email);
     }

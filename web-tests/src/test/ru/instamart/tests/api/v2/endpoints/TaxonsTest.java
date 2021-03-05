@@ -1,9 +1,9 @@
 package ru.instamart.tests.api.v2.endpoints;
 
+import instamart.api.action.Taxons;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Taxon;
-import instamart.api.requests.ApiV2Requests;
 import instamart.api.responses.v2.TaxonResponse;
 import instamart.api.responses.v2.TaxonsResponse;
 import instamart.core.testdata.dataprovider.RestDataProvider;
@@ -19,9 +19,9 @@ import java.util.Set;
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
-public class Taxons extends RestBase {
+public class TaxonsTest extends RestBase {
 
-    private static final Logger log = LoggerFactory.getLogger(Taxons.class);
+    private static final Logger log = LoggerFactory.getLogger(TaxonsTest.class);
 
     private int taxonId;
 
@@ -29,7 +29,7 @@ public class Taxons extends RestBase {
     @Test(  description = "Получаем таксоны (подкатегории)",
             groups = {"api-instamart-smoke"})
     public void getTaxons() {
-        response = ApiV2Requests.Taxons.GET(EnvironmentData.INSTANCE.getDefaultSid());
+        response = Taxons.GET(EnvironmentData.INSTANCE.getDefaultSid());
         assertStatusCode200(response);
         List<Taxon> taxons = response.as(TaxonsResponse.class).getTaxons();
         assertNotNull(taxons, "Не вернулись таксоны");
@@ -41,7 +41,7 @@ public class Taxons extends RestBase {
             groups = {"api-instamart-smoke"},
             dependsOnMethods = "getTaxons")
     public void getTaxon() {
-        response = ApiV2Requests.Taxons.GET(taxonId, EnvironmentData.INSTANCE.getDefaultSid());
+        response = Taxons.GET(taxonId, EnvironmentData.INSTANCE.getDefaultSid());
         assertStatusCode200(response);
         assertNotNull(response.as(TaxonResponse.class).getTaxon(), "Не вернулся таксон");
     }

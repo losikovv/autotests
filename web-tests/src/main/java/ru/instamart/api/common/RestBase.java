@@ -15,19 +15,6 @@ public class RestBase {
     protected static final ShopperApiHelper shopper = new ShopperApiHelper();
     protected Response response;
 
-    @BeforeClass(alwaysRun = true,
-                 groups = {
-                         "api-zones",
-                         "api-instamart-smoke",
-                         "api-shopper-smoke",
-                         "api-instamart-regress",
-                         "api-shopper-regress",
-                         "MRAutoCheck"},
-                 description = "Логаут")
-    public void logout() {
-        apiV2.logout();
-    }
-
     @BeforeMethod(alwaysRun = true,description = "Стартуем запись системного лога")
     public void captureStart(){
         LogAttachmentHelper.start();

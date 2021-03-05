@@ -1,12 +1,12 @@
 package ru.instamart.tests.api.v2.e2e;
 
-import instamart.api.action.Registration;
+import instamart.api.action.Products;
 import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
+import instamart.api.helpers.RegistrationHelper;
 import instamart.api.objects.v2.Product;
 import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Taxon;
-import instamart.api.requests.ApiV2Requests;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.ui.common.pagesdata.UserData;
@@ -53,7 +53,7 @@ public class StoreTests extends RestBase {
         final SoftAssert softAssert = new SoftAssert();
         final List<Product> products = apiV2.getProductsFromEachDepartmentInStore(store.getId());
         for (final Product product : products) {
-            softAssert.assertEquals(ApiV2Requests.Products.GET(product.getId()).getStatusCode(),200,
+            softAssert.assertEquals(Products.GET(product.getId()).getStatusCode(),200,
                     "\n" + product + " " + RestAssured.baseURI + "/api/v2/products/" + product.getId());
         }
         softAssert.assertAll();
@@ -93,7 +93,7 @@ public class StoreTests extends RestBase {
         log.info("Оформляем первый заказ в {}", store);
 
         final UserData userData = UserManager.getUser();
-        Registration.registration(userData);
+        RegistrationHelper.registration(userData);
         apiV2.order(userData, store.getId());
         apiV2.cancelCurrentOrder();
     }
