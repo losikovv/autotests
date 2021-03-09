@@ -20,23 +20,14 @@ import static io.restassured.RestAssured.given;
  */
 @SuppressWarnings("unchecked")
 public class ShopperApiRequests {
-    private static String accessToken;
-    private static String refreshToken;
+    private static String token;
 
-    public static String getAccessToken() {
-        return accessToken;
+    public static String getToken() {
+        return token;
     }
 
-    public static void setAccessToken(String accessToken) {
-        ShopperApiRequests.accessToken = accessToken;
-    }
-
-    public static String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public static void setRefreshToken(String refreshToken) {
-        ShopperApiRequests.refreshToken = refreshToken;
+    public static void setToken(String token) {
+        ShopperApiRequests.token = token;
     }
 
     /**
@@ -52,7 +43,7 @@ public class ShopperApiRequests {
     private static RequestSpecification givenWithAuth() {
         return givenWithSpec().header(
                 "Authorization",
-                "Token " + accessToken);
+                "Token " + token);
     }
 
     public static class Sessions {
@@ -66,23 +57,6 @@ public class ShopperApiRequests {
                     .preemptive()
                     .basic(login, password)
                     .post(ShopperApiEndpoints.SESSIONS);
-        }
-    }
-
-    public static class Auth {
-        public static class Refresh {
-            /**
-             * Обновление авторизации
-             */
-            @Step("{method} /" + ShopperApiEndpoints.Auth.REFRESH)
-            public static Response POST() {
-                JSONObject requestParams = new JSONObject();
-                requestParams.put("refresh_token", refreshToken);
-                return givenWithSpec()
-                        .contentType(ContentType.JSON)
-                        .body(requestParams)
-                        .post(ShopperApiEndpoints.Auth.REFRESH);
-            }
         }
     }
 

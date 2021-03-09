@@ -47,8 +47,6 @@ public final class ShopperApiEndpoints {
         public static final String SHIP = "assemblies/{assemblyId}/ship";
         public static final String TROLLEYS = "assemblies/{assemblyId}/trolleys";
         public static final String APPROVE_NEED_REVIEW_ITEMS = "assemblies/{assemblyId}/approve_need_review_items";
-
-        public static final String LIFEPAY = "assemblies/{assemblyId}/lifepay";
     }
 
     public static class AssemblyItems {
@@ -77,9 +75,5 @@ public final class ShopperApiEndpoints {
 
     public static class Helpdesk {
         public static final String TICKETS = "helpdesk/tickets?shipment_id={shipmentId}";
-    }
-
-    public static class Auth {
-        public static final String REFRESH = "auth/refresh";
     }
 }
