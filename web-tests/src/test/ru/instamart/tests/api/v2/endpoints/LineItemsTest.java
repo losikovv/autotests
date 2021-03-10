@@ -1,7 +1,7 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.action.LineItems;
-import instamart.api.action.Products;
+import instamart.api.requests.v2.LineItemsRequest;
+import instamart.api.requests.v2.ProductsRequest;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.LineItem;
 import instamart.api.responses.v2.LineItemResponse;
@@ -21,7 +21,7 @@ public class LineItemsTest extends RestBase {
     @BeforeClass(alwaysRun = true, description = "Получение номера заказа и id продукта")
     public void preconditions() {
         orderNumber = apiV2.getCurrentOrderNumber();
-        productId = Products
+        productId = ProductsRequest
                 .GET(1, "")
                 .as(ProductsResponse.class)
                 .getProducts()
@@ -33,7 +33,7 @@ public class LineItemsTest extends RestBase {
     @Test(  description = "Добавляем товар в корзину",
             groups = {"api-instamart-smoke"})
     public void postLineItems() {
-        response = LineItems.POST(productId,1, orderNumber);
+        response = LineItemsRequest.POST(productId,1, orderNumber);
         assertStatusCode200(response);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
         assertNotNull(lineItem, "Не добавился товар в корзину");
@@ -45,7 +45,7 @@ public class LineItemsTest extends RestBase {
             groups = {"api-instamart-smoke"},
             dependsOnMethods = "postLineItems")
     public void deleteLineItems() {
-        response = LineItems.DELETE(lineItemId);
+        response = LineItemsRequest.DELETE(lineItemId);
         assertStatusCode200(response);
         assertNotNull(response.as(LineItemResponse.class).getLine_item(), "Не удалился товар из корзины");
     }

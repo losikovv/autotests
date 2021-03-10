@@ -4,7 +4,7 @@ import instamart.api.common.RestBase;
 import instamart.api.helpers.RegistrationHelper;
 import instamart.api.objects.shopper.AssemblyData;
 import instamart.api.objects.v2.Order;
-import instamart.api.requests.ShopperApiRequests;
+import instamart.api.requests.shopper.*;
 import instamart.api.responses.shopper.*;
 import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
@@ -55,7 +55,7 @@ public class ShipmentfulTests extends RestBase {
     @Test(  description = "Создаём сборку",
             groups = {"api-shopper-smoke"})
     public void postAssembly() {
-        response = ShopperApiRequests.Assemblies.POST(shipmentId);
+        response = AssembliesRequest.POST(shipmentId);
         assertStatusCode200(response);
         AssemblyData assembly = response.as(AssemblyResponse.class).getData();
         assertNotNull(assembly.getId(), "Не вернулась сборка");
@@ -72,7 +72,7 @@ public class ShipmentfulTests extends RestBase {
             groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
     public void getAssembly() {
-        response = ShopperApiRequests.Assemblies.GET(assemblyId);
+        response = AssembliesRequest.GET(assemblyId);
         assertEquals(response.getStatusCode(), 200);
         assertNotNull(itemQty = response.as(AssemblyResponse.class)
                         .getIncluded()
@@ -86,7 +86,7 @@ public class ShipmentfulTests extends RestBase {
     @Test(  description = "Получаем все заказы сборщика",
             groups = {"api-shopper-smoke"})
     public void getShopperShipments() {
-        response = ShopperApiRequests.Shopper.Shipments.GET();
+        response = ShopperRequest.Shipments.GET();
         assertStatusCode200(response);
         assertNotNull(response.as(ShipmentsResponse.class).getData(),
                 "Не вернулись заказы сборщика");
@@ -97,7 +97,7 @@ public class ShipmentfulTests extends RestBase {
             groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
     public void getShopperAssemblies() {
-        response = ShopperApiRequests.Shopper.Assemblies.GET();
+        response = ShopperRequest.Assemblies.GET();
         assertStatusCode200(response);
         assertNotNull(response.as(AssembliesResponse.class)
                         .getData()
@@ -111,7 +111,7 @@ public class ShipmentfulTests extends RestBase {
             groups = {"api-shopper-smoke"},
             dependsOnMethods = {"postAssembly", "getAssembly"})
     public void patchAssemblyItem() {
-        response = ShopperApiRequests.AssemblyItems.PATCH(assemblyId, assemblyItemId, itemQty);
+        response = AssemblyItemsRequest.PATCH(assemblyId, assemblyItemId, itemQty);
         assertStatusCode200(response);
         assertNotNull(response.as(AssemblyItemResponse.class).getData());
     }
@@ -120,7 +120,7 @@ public class ShipmentfulTests extends RestBase {
     @Test(  description = "Получаем тикеты хелпдеска",
             groups = {"api-shopper-smoke"})
     public void getHelpdeskTickets() {
-        response = ShopperApiRequests.Helpdesk.Tickets.GET(shipmentId);
+        response = HelpdeskRequest.Tickets.GET(shipmentId);
         assertStatusCode200(response);
         assertNotNull(response.as(TicketsResponse.class).getData(),
                 "Не вернулся заказ");
@@ -130,7 +130,7 @@ public class ShipmentfulTests extends RestBase {
     @Test(  description = "Получаем заказ",
             groups = {"api-shopper-smoke"})
     public void getShipment() {
-        response = ShopperApiRequests.Shipments.GET(shipmentId);
+        response = ShipmentsRequest.GET(shipmentId);
         assertStatusCode200(response);
         assertNotNull(response.as(ShipmentResponse.class)
                         .getData()
@@ -145,7 +145,7 @@ public class ShipmentfulTests extends RestBase {
             groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
     public void getAssemblyItemPrereplacements() {
-        response = ShopperApiRequests.AssemblyItems.Prereplacements.GET(assemblyItemId);
+        response = AssemblyItemsRequest.Prereplacements.GET(assemblyItemId);
         assertStatusCode200(response);
         assertNotNull(response.as(PrereplacementsResponse.class).getPrereplacement(),
                 "Не вернулись предзамены");
@@ -155,7 +155,7 @@ public class ShipmentfulTests extends RestBase {
     @Test(  description = "Получаем инфу о стоках товаров в заказе",
             groups = {"api-shopper-smoke"})
     public void getShipmentStock() {
-        response = ShopperApiRequests.Shipments.Stocks.GET(shipmentId);
+        response = ShipmentsRequest.Stocks.GET(shipmentId);
         assertStatusCode200(response);
         assertNotNull(response.as(ShipmentStocksResponse.class).getOffers().get(0).getStock(),
                 "Не вернулась инфа о стоках товаров в заказе");
@@ -166,7 +166,7 @@ public class ShipmentfulTests extends RestBase {
             groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
     public void putAssemblyLifePay() {
-        response = ShopperApiRequests.Assemblies.LifePay.PUT(assemblyId);
+        response = AssembliesRequest.LifePay.PUT(assemblyId);
         assertStatusCode200(response);
     }
 
@@ -175,7 +175,7 @@ public class ShipmentfulTests extends RestBase {
             groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
     public void getShipmentMarketingSampleItems() {
-        response = ShopperApiRequests.Shipments.MarketingSampleItems.GET(shipmentId);
+        response = ShipmentsRequest.MarketingSampleItems.GET(shipmentId);
         assertStatusCode200(response);
         assertNotNull(response.as(MarketingSampleItemsResponse.class).getMarketing_sample_items(),
                 "Не вернулся массив маркетинговых пробников");

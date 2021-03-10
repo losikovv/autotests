@@ -1,7 +1,8 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
-import instamart.api.action.Users;
+import instamart.api.enums.SessionType;
+import instamart.api.requests.v2.UsersRequest;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.User;
 import instamart.api.responses.v2.ErrorResponse;
@@ -21,7 +22,7 @@ public final class UserTest extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void precondition() {
-        SessionFactory.makeSession();
+        SessionFactory.makeSession(SessionType.APIV2);
     }
 
     @CaseId(150)
@@ -29,8 +30,8 @@ public final class UserTest extends RestBase {
     @Story("Изменение данных пользователя")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataAllField() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession();
-        final Response response = Users.PUT(
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
+        final Response response = UsersRequest.PUT(
                 session.getLogin(),
                 "FirstName",
                 "LastName",
@@ -49,8 +50,8 @@ public final class UserTest extends RestBase {
     @Story("Изменение данных пользователя на невалидные ФИ")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithInvalidFirstAndLastName() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession();
-        final Response response = Users.PUT(
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
+        final Response response = UsersRequest.PUT(
                 session.getLogin(),
                 "",
                 "",
@@ -69,8 +70,8 @@ public final class UserTest extends RestBase {
     @Story("Изменение пароля с невалидным новым")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidNew() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession();
-        final Response response = Users.PUT(
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
+        final Response response = UsersRequest.PUT(
                 session.getLogin(),
                 session.getPassword(),
                 "password",
@@ -89,8 +90,8 @@ public final class UserTest extends RestBase {
     @Story("Изменение пароля с невалидным старым")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidOld() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession();
-        final Response response = Users.PUT(
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
+        final Response response = UsersRequest.PUT(
                 session.getLogin(),
                 "invalid",
                 "passw0rd",
@@ -105,8 +106,8 @@ public final class UserTest extends RestBase {
     @Story("Изменение пароля с невалидным проверочным")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidConformation() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession();
-        final Response response = Users.PUT(
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
+        final Response response = UsersRequest.PUT(
                 session.getLogin(),
                 session.getPassword(),
                 "password",
@@ -121,8 +122,8 @@ public final class UserTest extends RestBase {
     @Story("Изменение пароля")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePassword() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession();
-        final Response response = Users.PUT(
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
+        final Response response = UsersRequest.PUT(
                 session.getLogin(),
                 session.getPassword(),
                 "passw0rd",
@@ -137,8 +138,8 @@ public final class UserTest extends RestBase {
     @Story("Изменение одного поля пользователя")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataOneField() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession();
-        final Response response = Users.PUT(
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
+        final Response response = UsersRequest.PUT(
                 session.getLogin(),
                 "FirstName",
                 null,
@@ -157,8 +158,8 @@ public final class UserTest extends RestBase {
     @Story("Попытка изменить данные для несуществующего email")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithIncorrectEmail() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession();
-        final Response response = Users.PUT(
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
+        final Response response = UsersRequest.PUT(
                 "fake@mail.com",
                 "FirstName",
                 null,
@@ -172,8 +173,8 @@ public final class UserTest extends RestBase {
     @Story("Изменить данные для с подтверждением promo")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithPromoAccept() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession();
-        final Response response = Users.PUT(
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
+        final Response response = UsersRequest.PUT(
                 session.getLogin(),
                 "FirstName",
                 null,
@@ -187,8 +188,8 @@ public final class UserTest extends RestBase {
     @Story("Получение данных пользователя")
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserData() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession();
-        final Response response = Users.GET(
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
+        final Response response = UsersRequest.GET(
                 "InstamartApp",
                 session.getLogin()
         );
@@ -203,7 +204,7 @@ public final class UserTest extends RestBase {
     @Story("Попытка получить данные для несуществующего email")
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserDataWithIncorrectEmail() {
-        final Response response = Users.GET(
+        final Response response = UsersRequest.GET(
                 "fake@mail.com",
                 false
         );
@@ -215,8 +216,8 @@ public final class UserTest extends RestBase {
     @Story("Попытка получение расширенных данных пользователя с невалидным token")
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserDataWithInvalidToken() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession();
-        final Response response = Users.GET(
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
+        final Response response = UsersRequest.GET(
                 session.getLogin(),
                 true,
                 "123"

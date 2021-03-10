@@ -12,11 +12,13 @@ import org.json.simple.JSONObject;
 
 import java.util.Map;
 
+import static instamart.api.requests.InstamartRequestsBase.givenCatch;
+
 /**
  * МЕТОДЫ ЗАПРОСОВ SPREE REST API (сайт)
  */
 @SuppressWarnings("unchecked")
-public class ApiV1Requests extends InstamartRequestsBase {
+public class ApiV1Requests {
     private static Map<String, String> cookies;
 
     public static class UserSessions {

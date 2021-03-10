@@ -1,7 +1,8 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
-import instamart.api.action.ResetPassword;
+import instamart.api.enums.SessionType;
+import instamart.api.requests.v2.ResetPasswordRequest;
 import instamart.api.common.RestBase;
 import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
@@ -18,7 +19,7 @@ public final class ResetPasswordTest extends RestBase {
     @BeforeClass(alwaysRun = true)
     @Story("Создание сессии")
     public void preconditions() {
-        SessionFactory.makeSession();
+        SessionFactory.makeSession(SessionType.APIV2);
     }
 
     // not implemented endpoint
@@ -27,7 +28,7 @@ public final class ResetPasswordTest extends RestBase {
     @Story("Подстановка невалидного токена")
     @Severity(SeverityLevel.NORMAL)
     public void testRestWithInvalidToken() {
-        final Response response = ResetPassword.POST(
+        final Response response = ResetPasswordRequest.POST(
                 "token",
                 "password",
                 "password"
@@ -40,7 +41,7 @@ public final class ResetPasswordTest extends RestBase {
     @Story("Восстановление несуществующего аккаунта")
     @Severity(SeverityLevel.NORMAL)
     public void testRestWithInvalidAccount() {
-        final Response response = ResetPassword.POST(
+        final Response response = ResetPasswordRequest.POST(
                 "fake@mail.com"
         );
 
@@ -53,7 +54,7 @@ public final class ResetPasswordTest extends RestBase {
     @Story("Предупреждение при вводе старого пароля")
     @Severity(SeverityLevel.NORMAL)
     public void testRestWithInvalidNewPassword() {
-        final Response response = ResetPassword.POST(
+        final Response response = ResetPasswordRequest.POST(
                 "token",
                 "  ",
                 "password"
@@ -67,7 +68,7 @@ public final class ResetPasswordTest extends RestBase {
     @Story("Предупреждение при вводе невалидного пароля")
     @Severity(SeverityLevel.NORMAL)
     public void testRestWithInvalidPassword() {
-        final Response response = ResetPassword.POST(
+        final Response response = ResetPasswordRequest.POST(
                 "token",
                 "   ~",
                 "   ~"
@@ -81,7 +82,7 @@ public final class ResetPasswordTest extends RestBase {
     @Story("Предупреждение при вводе невалидного проверочного пароля")
     @Severity(SeverityLevel.NORMAL)
     public void testRestWithInvalidConformationPassword() {
-        final Response response = ResetPassword.POST(
+        final Response response = ResetPasswordRequest.POST(
                 "token",
                 "password",
                 ""
@@ -94,8 +95,8 @@ public final class ResetPasswordTest extends RestBase {
     @Story("Сброс пароля")
     @Severity(SeverityLevel.NORMAL)
     public void testRestPassword() {
-        final Response response = ResetPassword.POST(
-                SessionFactory.getSession().getLogin()
+        final Response response = ResetPasswordRequest.POST(
+                SessionFactory.getSession(SessionType.APIV2).getLogin()
         );
         assertStatusCode200(response);
     }

@@ -2,6 +2,7 @@ package ru.instamart.tests.api.v1.contracts;
 
 import instamart.api.SessionFactory;
 import instamart.api.common.RestBase;
+import instamart.api.enums.SessionType;
 import instamart.api.objects.v2.Order;
 import instamart.api.requests.ApiV1Requests;
 import instamart.api.responses.v1.LineItemsResponse;
@@ -27,8 +28,8 @@ public class OrdersTest extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        SessionFactory.makeSession();
-        final Order order = apiV2.order(SessionFactory.getSession().getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        SessionFactory.makeSession(SessionType.APIV2);
+        final Order order = apiV2.order(SessionFactory.getSession(SessionType.APIV2).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
 

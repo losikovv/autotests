@@ -1,4 +1,4 @@
-package instamart.api.action;
+package instamart.api.requests.v2;
 
 import instamart.api.endpoints.ApiV2EndPoints;
 import io.qameta.allure.Step;
@@ -6,7 +6,7 @@ import io.restassured.response.Response;
 
 import static instamart.api.requests.InstamartRequestsBase.givenCatch;
 
-public final class Promotions {
+public final class PromotionsRequest {
 
     public static class ReferralProgram {
         /**

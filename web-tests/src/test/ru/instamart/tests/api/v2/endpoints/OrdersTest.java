@@ -1,7 +1,8 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
-import instamart.api.action.Orders;
+import instamart.api.enums.SessionType;
+import instamart.api.requests.v2.OrdersRequest;
 import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Order;
@@ -19,15 +20,15 @@ public class OrdersTest extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        SessionFactory.makeSession();
-        Orders.POST();
+        SessionFactory.makeSession(SessionType.APIV2);
+        OrdersRequest.POST();
     }
 
     @CaseId(4)
     @Test(  description = "Получаем заказы",
             groups = {"api-instamart-smoke","MRAutoCheck"})
     public void getOrders() {
-        response = Orders.GET();
+        response = OrdersRequest.GET();
         InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(OrdersResponse.class).getOrders(), "Не вернулись заказы");
     }
@@ -36,7 +37,7 @@ public class OrdersTest extends RestBase {
     @Test(  description = "Получаем текущий заказ",
             groups = {"api-instamart-smoke"})
     public void getCurrentOrder() {
-        response = Orders.Current.GET();
+        response = OrdersRequest.Current.GET();
         response.prettyPrint();
         InstamartApiCheckpoints.assertStatusCode200(response);
         Order order = response.as(OrderResponse.class).getOrder();
@@ -49,7 +50,7 @@ public class OrdersTest extends RestBase {
             groups = {"api-instamart-smoke"},
             dependsOnMethods = "getCurrentOrder")
     public void getOrder() {
-        response = Orders.GET(orderNumber);
+        response = OrdersRequest.GET(orderNumber);
         InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(OrderResponse.class).getOrder(), "Не вернулся заказ по номеру");
     }
@@ -58,7 +59,7 @@ public class OrdersTest extends RestBase {
     @Test(  description = "Получаем заказы для оценки",
             groups = {"api-instamart-smoke"})
     public void getUnratedOrders() {
-        response = Orders.Unrated.GET();
+        response = OrdersRequest.Unrated.GET();
         InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(OrdersResponse.class).getOrders(), "Не вернулись заказы для оценки");
     }
@@ -68,7 +69,7 @@ public class OrdersTest extends RestBase {
             groups = {"api-instamart-smoke"},
             dependsOnMethods = "getCurrentOrder")
     public void getOrderLineItems() {
-        response = Orders.LineItems.GET(orderNumber);
+        response = OrdersRequest.LineItems.GET(orderNumber);
         InstamartApiCheckpoints.assertStatusCode200(response);
         assertNotNull(response.as(LineItemsResponse.class).getLine_items(), "Не вернулись товары заказа");
     }

@@ -2,6 +2,7 @@ package instamart.api.requests;
 
 import instamart.api.SessionFactory;
 import instamart.api.common.Specification;
+import instamart.api.enums.SessionType;
 import io.restassured.specification.RequestSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +12,7 @@ import java.net.SocketException;
 
 import static io.restassured.RestAssured.given;
 
-public abstract class InstamartRequestsBase {
+public final class InstamartRequestsBase {
 
     private static final Logger log = LoggerFactory.getLogger(InstamartRequestsBase.class);
     /**
@@ -30,7 +31,7 @@ public abstract class InstamartRequestsBase {
                 .spec(Specification.INSTANCE.getCustomerRequestSpec())
                 .header(
                 "Authorization",
-                "Token token=" + SessionFactory.getSession().getToken());
+                "Token token=" + SessionFactory.getSession(SessionType.APIV2).getToken());
     }
 
     /**

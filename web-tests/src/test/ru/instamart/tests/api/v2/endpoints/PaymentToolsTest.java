@@ -1,7 +1,8 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
-import instamart.api.action.PaymentTools;
+import instamart.api.enums.SessionType;
+import instamart.api.requests.v2.PaymentToolsRequest;
 import instamart.api.common.RestBase;
 import instamart.api.responses.v2.PaymentToolsResponse;
 import io.qase.api.annotation.CaseId;
@@ -15,14 +16,14 @@ public class PaymentToolsTest extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        SessionFactory.makeSession();
+        SessionFactory.makeSession(SessionType.APIV2);
     }
 
     @CaseId(20)
     @Test(  description = "Получаем инфу способах оплаты",
             groups = {"api-instamart-smoke"})
     public void getPaymentTools() {
-        response = PaymentTools.GET();
+        response = PaymentToolsRequest.GET();
         assertStatusCode200(response);
         assertNotNull(response.as(PaymentToolsResponse.class).getPayment_tools(),
                 "Не вернулась инфа о спобах оплаты");

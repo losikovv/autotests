@@ -1,8 +1,10 @@
 package ru.instamart.tests.api.shopper.endpoints;
 
+import instamart.api.SessionFactory;
 import instamart.api.common.RestBase;
+import instamart.api.enums.SessionType;
 import instamart.api.objects.shopper.Reason;
-import instamart.api.requests.ShopperApiRequests;
+import instamart.api.requests.shopper.*;
 import instamart.api.responses.shopper.*;
 import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
@@ -26,7 +28,7 @@ public class ShipmentlessTests extends RestBase {
     @Test(  description = "Получаем инфу о сборщике",
             groups = {"api-shopper-smoke","MRAutoCheck"})
     public void getShopper() {
-        response = ShopperApiRequests.Shopper.GET();
+        response = ShopperRequest.GET();
         assertStatusCode200(response);
         assertNotNull(response.as(ShopperResponse.class)
                         .getData()
@@ -39,7 +41,7 @@ public class ShipmentlessTests extends RestBase {
     @Test(  description = "Получаем маршруты",
             groups = {"api-shopper-smoke"})
     public void getRoutes() {
-        response = ShopperApiRequests.Routes.GET();
+        response = RoutesRequest.GET();
         assertStatusCode200(response);
     }
 
@@ -47,7 +49,7 @@ public class ShipmentlessTests extends RestBase {
     @Test(  description = "Получаем смены сборщика",
             groups = {"api-shopper-smoke"})
     public void getShopperOperationShifts() {
-        response = ShopperApiRequests.Shopper.OperationShifts.GET();
+        response = ShopperRequest.OperationShifts.GET();
         assertStatusCode200(response);
     }
 
@@ -55,7 +57,7 @@ public class ShipmentlessTests extends RestBase {
     @Test(  description = "Получаем заказы водителя",
             groups = {"api-shopper-smoke"})
     public void getDriverShipments() {
-        response = ShopperApiRequests.Driver.Shipments.GET();
+        response = DriverRequest.Shipments.GET();
         assertStatusCode200(response);
     }
 
@@ -63,7 +65,7 @@ public class ShipmentlessTests extends RestBase {
     @Test(  description = "Получаем причины отмен",
             groups = {"api-shopper-smoke"})
     public void getCancelReasons() {
-        response = ShopperApiRequests.CancelReasons.GET();
+        response = CancelReasonsRequest.GET();
         assertStatusCode200(response);
         assertNotNull(Arrays.asList(response.as(Reason[].class)).get(0).getName(),
                 "Не вернулись причины отмен");
@@ -73,7 +75,7 @@ public class ShipmentlessTests extends RestBase {
     @Test(  description = "Получаем причины уточнения",
             groups = {"api-shopper-smoke"})
     public void getClarifyReasons() {
-        response = ShopperApiRequests.ClarifyReasons.GET();
+        response = ClarifyReasonsRequest.GET();
         assertStatusCode200(response);
         assertNotNull(Arrays.asList(response.as(Reason[].class)).get(0).getName(),
                 "Не вернулись причины уточнения");
@@ -83,7 +85,7 @@ public class ShipmentlessTests extends RestBase {
     @Test(  description = "Получаем причины возврата",
             groups = {"api-shopper-smoke"})
     public void getReturnReasons() {
-        response = ShopperApiRequests.ReturnReasons.GET();
+        response = ReturnReasonsRequest.GET();
         assertStatusCode200(response);
         assertNotNull(Arrays.asList(response.as(Reason[].class)).get(0).getName(),
                 "Не вернулись причины возврата");
@@ -93,7 +95,7 @@ public class ShipmentlessTests extends RestBase {
     @Test(  description = "Получаем марс токен (стоки метро)",
             groups = {"api-shopper-smoke"})
     public void getMarsToken() {
-        response = ShopperApiRequests.MarsToken.GET();
+        response = MarsTokenRequest.GET();
         assertStatusCode200(response);
         assertNotNull(response.as(MarsTokenResponse.class).getAccess_token(),
                 "Не вернулся марс токен");
@@ -103,7 +105,7 @@ public class ShipmentlessTests extends RestBase {
     @Test(  description = "Получаем заказы для упаковщика",
             groups = {"api-shopper-smoke"})
     public void getPackerShipments() {
-        response = ShopperApiRequests.Packer.Shipments.GET();
+        response = PackerRequest.Shipments.GET();
         assertStatusCode200(response);
         assertNotNull(response.as(ShipmentsResponse.class).getData(),
                 "Не вернулись заказы для упаковщика");
@@ -113,7 +115,7 @@ public class ShipmentlessTests extends RestBase {
     @Test(  description = "Получаем сборки упаковщика",
             groups = {"api-shopper-smoke"})
     public void getPackerAssemblies() {
-        response = ShopperApiRequests.Packer.Assemblies.GET();
+        response = PackerRequest.Assemblies.GET();
         assertStatusCode200(response);
         assertNotNull(response.as(AssembliesResponse.class).getData(),
                 "Не вернулись сборки упаковщика");
@@ -123,7 +125,7 @@ public class ShipmentlessTests extends RestBase {
     @Test(  description = "Получаем инфу о текущей версии приложения",
             groups = {"api-shopper-smoke"})
     public void getCurrentAppVersion() {
-        response = ShopperApiRequests.CurrentAppVersion.GET();
+        response = CurrentAppVersionRequest.GET();
         assertStatusCode200(response);
         assertNotNull(response.as(AppVersionResponse.class).getData().getAttributes().getMajor(),
                 "Не вернулась инфа о текущей версии приложения");
@@ -133,7 +135,7 @@ public class ShipmentlessTests extends RestBase {
     @Test(  description = "Поиск товаров",
             groups = {"api-shopper-smoke"})
     public void getStoreOffers() {
-        response = ShopperApiRequests.Stores.Offers.GET(
+        response = StoresRequest.Offers.GET(
                 EnvironmentData.INSTANCE.getDefaultShopperSid(),
                 "хлеб");
         assertStatusCode200(response);
@@ -145,11 +147,14 @@ public class ShipmentlessTests extends RestBase {
     @Test(  description = "Обновление авторизации",
             groups = {"api-shopper-smoke"})
     public void postAuthRefresh() {
-        response = ShopperApiRequests.Auth.Refresh.POST();
+        response = AuthRequest.Refresh.POST();
         assertStatusCode200(response);
-        assertNotNull(response.as(SessionsResponse.class).getData().getAttributes().getAccessToken(),
+        final SessionsResponse sessionsResponse = response.as(SessionsResponse.class);
+        assertNotNull(sessionsResponse.getData().getAttributes().getAccessToken(),
                 "Не вернулся access_token");
-        assertNotNull(response.as(SessionsResponse.class).getData().getAttributes().getRefreshToken(),
+        assertNotNull(sessionsResponse.getData().getAttributes().getRefreshToken(),
                 "Не вернулся refresh_token");
+        SessionFactory.getSession(SessionType.SHOPPER).setToken(sessionsResponse.getData().getAttributes().getAccessToken());
+        SessionFactory.getSession(SessionType.SHOPPER).setRefreshToken(sessionsResponse.getData().getAttributes().getRefreshToken());
     }
 }

@@ -1,4 +1,4 @@
-package instamart.api.action;
+package instamart.api.requests.v2;
 
 import instamart.api.endpoints.ApiV2EndPoints;
 import io.qameta.allure.Step;
@@ -10,9 +10,9 @@ import java.util.Map;
 
 import static instamart.api.requests.InstamartRequestsBase.*;
 
-public final class Users {
+public final class UsersRequest {
 
-    private Users() {}
+    private UsersRequest() {}
 
     @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
     public static Response GET(final String email, final boolean isAuth) {

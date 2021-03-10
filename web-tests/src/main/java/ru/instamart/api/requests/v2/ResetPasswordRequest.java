@@ -1,4 +1,4 @@
-package instamart.api.action;
+package instamart.api.requests.v2;
 
 import instamart.api.endpoints.ApiV2EndPoints;
 import io.qameta.allure.Step;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static instamart.api.requests.InstamartRequestsBase.givenCatch;
 
-public final class ResetPassword {
+public final class ResetPasswordRequest {
 
     @Step("{method} /" + ApiV2EndPoints.Reset.RESET)
     public static Response POST(final String email) {

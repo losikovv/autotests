@@ -1,4 +1,4 @@
-package instamart.api.action;
+package instamart.api.requests.v2;
 
 import instamart.api.endpoints.ApiV2EndPoints;
 import instamart.api.enums.v2.AuthProvider;
@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 
 import static instamart.api.requests.InstamartRequestsBase.givenCatch;
 
-public final class Session {
+public final class SessionRequest {
 
     @Step("{method} /" + ApiV2EndPoints.Session.SESSIONS)
     public static Response POST(final String email, final String password) {

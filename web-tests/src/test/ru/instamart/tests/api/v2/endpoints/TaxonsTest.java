@@ -1,6 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.action.Taxons;
+import instamart.api.requests.v2.TaxonsRequest;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Taxon;
@@ -29,7 +29,7 @@ public class TaxonsTest extends RestBase {
     @Test(  description = "Получаем таксоны (подкатегории)",
             groups = {"api-instamart-smoke"})
     public void getTaxons() {
-        response = Taxons.GET(EnvironmentData.INSTANCE.getDefaultSid());
+        response = TaxonsRequest.GET(EnvironmentData.INSTANCE.getDefaultSid());
         assertStatusCode200(response);
         List<Taxon> taxons = response.as(TaxonsResponse.class).getTaxons();
         assertNotNull(taxons, "Не вернулись таксоны");
@@ -41,7 +41,7 @@ public class TaxonsTest extends RestBase {
             groups = {"api-instamart-smoke"},
             dependsOnMethods = "getTaxons")
     public void getTaxon() {
-        response = Taxons.GET(taxonId, EnvironmentData.INSTANCE.getDefaultSid());
+        response = TaxonsRequest.GET(taxonId, EnvironmentData.INSTANCE.getDefaultSid());
         assertStatusCode200(response);
         assertNotNull(response.as(TaxonResponse.class).getTaxon(), "Не вернулся таксон");
     }
