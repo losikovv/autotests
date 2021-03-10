@@ -3,15 +3,14 @@ package ru.instamart.tests.ui.administration;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.checkpoints.BaseUICheckpoints;
+import instamart.ui.checkpoints.users.AdminPageCheckpoints;
 import instamart.ui.checkpoints.users.AdminSearchUsersCheckpoints;
-import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Administration;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -21,12 +20,14 @@ public class AdministrationUsersSectionTests extends TestBase {
     private static String phone;
     private static String email;
     AdminSearchUsersCheckpoints searchChecks = new AdminSearchUsersCheckpoints();
+    AdminPageCheckpoints adminChecks = new AdminPageCheckpoints();
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
-//        kraken.reach().admin();
         User.Logout.quickly();
+        phone = Generate.phoneNumber();
+        email = Generate.emailAdmin();
     }
 
     @CaseId(31)
@@ -41,49 +42,33 @@ public class AdministrationUsersSectionTests extends TestBase {
 
     //TODO тест удаления юзера
     @Issue(value = "STF-7163")
+    @Issue(value = "STF-7220")
+    @CaseId(32)
     @Test(  description = "Тест предоставления и отзыва админских прав пользователю",
-            groups = {"sbermarket-regression"}
+            groups = {"sbermarket-regression","admin-ui-smoke"}
     )
     public void successGrantAndRevokeAdminPrivileges() {
-        SoftAssert softAssert = new SoftAssert();
-
-//        User.Logout.quickly();
-        UserData testuser = UserManager.getAdmin();
-        //User.Do.registration(testuser);
-        phone = Generate.phoneNumber();
+        String role= "superadmin";
         User.Do.registration(
-                "Test User",
-                "test@example.com",
-                "12345678",
-                "12345678",
                 phone,
                 "111111"
         );
         kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
         Administration.Users.editUser(phone);
+        Administration.Users.changeEmail(email);
+        Administration.Users.changePassword(phone);
         Administration.Users.grantAdminPrivileges();
         User.Logout.quickly();
-
-//        User.Auth.withEmail(testuser);
-
-        kraken.get().page(Pages.Admin.shipments());
-
-        softAssert.assertTrue(
-                kraken.detect().isInAdmin(),
-                    "Пользователю не предоставляются админские права");
-
-        Administration.Users.revokeAdminPrivileges(testuser);
+        kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        kraken.reach().admin(email,phone,role);
+        adminChecks.checkIsAdminPageOpen();
         User.Logout.quickly();
-
-        User.Auth.withEmail(testuser);
-        kraken.get().page(Pages.Admin.shipments());
-
-        softAssert.assertFalse(
-                kraken.detect().isInAdmin(),
-                    "У пользователя не снимаются админские права");
-
+        kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        Administration.Users.revokeAdminPrivileges(phone);
         User.Logout.quickly();
-        softAssert.assertAll();
+        kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        kraken.reach().admin(email,phone,"superuser");
+        adminChecks.checkIsNotAdminPageOpen();
     }
 
     @Issue(value = "STF-7163")
@@ -91,24 +76,15 @@ public class AdministrationUsersSectionTests extends TestBase {
     @Test(  description = "Тест смены email пользователя",
             groups = {"sbermarket-regression","admin-ui-smoke"}
     )
-    public void successChangePassword() {
-        phone = Generate.phoneNumber();
-        email = Generate.email();
+    public void successChangeEmail() {
         User.Do.registration(
-                "Test User",
-                email,
-                "12345678",
-                "12345678",
                 phone,
                 "111111"
         );
         kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
         Administration.Users.editUser(phone);
         Administration.Users.changeEmail(email);
-        kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
-                Elements.Administration.UsersSection.UserPage.successChangeUserMessage().getLocator()),
-                "сообщение не исчезло",10);
-        kraken.perform().click(Elements.Administration.menuButton("Пользователи"));
+        Administration.AdminNavigation.switchTotab("Пользователи");
         Administration.Users.editUser(email);
         baseChecks.checkValueIsCorrectInElement(Elements.Administration.UsersSection.UserPage.emailField(),
                 email,"почта выбранного пользователя не соответсвует ожидаемому значению: "+email);
@@ -120,12 +96,7 @@ public class AdministrationUsersSectionTests extends TestBase {
             groups = {"sbermarket-regression","admin-ui-smoke"}
     )
     public void successGrantB2BStatus() {
-        phone = Generate.phoneNumber();
         User.Do.registration(
-                "Test User",
-                "test@example.com",
-                "12345678",
-                "12345678",
                 phone,
                 "111111"
         );
@@ -141,15 +112,10 @@ public class AdministrationUsersSectionTests extends TestBase {
     )
     public void successRevokeB2BStatus() {
         SoftAssert softAssert = new SoftAssert();
-//        User.Logout.quickly();
         UserData testuser = UserManager.getUser();
 //        User.Do.registration(testuser);
         phone = Generate.phoneNumber();
         User.Do.registration(
-                "Test User",
-                "test@example.com",
-                "12345678",
-                "12345678",
                 phone,
                 "111111"
         );

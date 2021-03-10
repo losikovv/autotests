@@ -16,6 +16,15 @@ public final class Administration extends Base {
     public Administration(final AppManager kraken) {
         super(kraken);
     }
+    /**Наигация по админке */
+    public static class AdminNavigation{
+
+        @Step("Переходим в раздел: {0}")
+        public static void switchTotab(String menuElement){
+            log.info("> переходим по разделам меню");
+            kraken.perform().click(Elements.Administration.menuButton(menuElement));
+        }
+    }
 
     /** Раздел ЗАКАЗЫ */
     public static class Orders {
@@ -95,7 +104,9 @@ public final class Administration extends Base {
             log.info("Поиск пользователя {}", email);
             kraken.perform().fillField(Elements.Administration.UsersSection.emailField(), email);
             kraken.perform().click(Elements.Administration.UsersSection.searchButton());
-            kraken.await().simply(1); // Ожидание осуществления поиска юзера в админке
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
+                    Elements.Administration.UsersSection.userlistFirstRow().getLocator()),
+                    "результаты поиска не отобразились",2);
         }
 
         @Step("Поиск пользователя по телефону: {0}")
@@ -182,12 +193,14 @@ public final class Administration extends Base {
         @Step("Предоставляем админские права в карточке пользователя")
         public static void grantAdminPrivileges() {
             if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox())) {
-                log.warn("Административные права были предоставлены ранее");
+                log.warn("> права администратора были предоставлены ранее");
             } else {
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox());
-                kraken.await().implicitly(1); // Ожидание проставления чекбокса админских прав
+                kraken.await().fluently(
+                        ExpectedConditions.elementSelectionStateToBe(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox().getLocator(),
+                                true),"не проставляется чекбокс с админскими правами",2);
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
-                log.info("Предоставлены права администратора");
+                log.info("> предоставлены права администратора");
             }
         }
 
@@ -198,45 +211,62 @@ public final class Administration extends Base {
             revokeAdminPrivileges();
         }
 
+        /** Отозвать админские права пользователю из указанного объекта userData */
+        @Step("Отзываем админские права пользователю из указанного объекта userData")
+        public static void revokeAdminPrivileges(String phone) {
+            editUser(phone);
+            revokeAdminPrivileges();
+        }
+
         /** Отозвать админские права в карточке пользователя */
         @Step("Отзываем админские права в карточке пользователя")
         public static void revokeAdminPrivileges() {
             if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox())) {
+                log.info("> отозываем права администратора");
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox());
-                kraken.await().implicitly(1); // Ожидание снятия чекбокса админских прав
+                kraken.await().fluently(
+                        ExpectedConditions.elementSelectionStateToBe(
+                                Elements.Administration.UsersSection.UserPage.adminRoleCheckbox().getLocator(),false),
+                        "не снимается чекбокс с админскими правами",2);
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
-                log.info("Отозваны административные права");
+                log.info("> отозваны права администратора");
             } else {
-                log.warn("Пользователь не имеет административных прав");
+                log.warn("> пользователь не имеет административных прав");
             }
         }
 
         /** Сменить пароль в карточке пользователя */
         @Step("Меняем пароль в карточке пользователя")
         public static void changePassword(String password) {
+            log.info("> меняем пароль пользователю: "+password);
             kraken.perform().fillField(Elements.Administration.UsersSection.UserPage.passwordField(), password);
             kraken.perform().fillField(Elements.Administration.UsersSection.UserPage.passwordConfirmationField(), password);
             kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
-            log.info("Смена пароля пользователя");
+            log.info("> пароль сменен на: "+password);
         }
 
         /** Сменить email в карточке пользователя */
         @Step("Меняем email в карточке пользователя")
         public static void changeEmail(String email) {
-            log.info("меняем email пользователю: " + email);
+            log.info("> меняем email пользователю: " + email);
             kraken.perform().fillField(Elements.Administration.UsersSection.UserPage.emailField(), email);
             kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
-            log.info("email пользователя изменен на: "+email);
+            kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
+                    Elements.Administration.UsersSection.UserPage.successChangeUserMessage().getLocator()),
+                    "сообщение не исчезло",10);
+            log.info("> email пользователя изменен на: "+email);
         }
 
         /** Проставить флаг B2B в карточке пользователя */
         @Step("Проставляем флаг B2B в карточке пользователя")
         public static void grantB2B() {
             if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.b2bCheckbox())) {
-                log.warn("Пользователь уже B2B");
+                log.warn("> Пользователь уже B2B");
             } else {
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.b2bCheckbox());
-                kraken.await().implicitly(1); // Ожидание проставления чекбокса B2B
+                kraken.await().fluently(ExpectedConditions.elementSelectionStateToBe(
+                        Elements.Administration.UsersSection.UserPage.b2bCheckbox().getLocator(),true),
+                        "Не проставляется чекбокс с признаком b2b",2);
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
                 log.info("Проставлен флаг B2B");
             }

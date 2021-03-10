@@ -56,6 +56,11 @@ public final class Generate {
         return UUID.randomUUID() + "@example.com";
     }
 
+    /** Сгенерировать тестовый email */
+    public static String emailAdmin() {
+        return UUID.randomUUID() + "@instamart.ru";
+    }
+
     private static String string(String symbols, int length) {
         return buildString(symbols, length);
     }

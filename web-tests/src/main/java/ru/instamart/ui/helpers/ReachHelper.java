@@ -1,12 +1,11 @@
 package instamart.ui.helpers;
 
+import instamart.core.common.AppManager;
 import instamart.core.helpers.HelperBase;
 import instamart.core.testdata.UserManager;
-import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.PageData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +25,10 @@ public final class ReachHelper extends HelperBase {
             Shop.Cart.proceedToCheckout();
         }
     }
+    private void adminPageOpen(String path){
+        log.info("> пытаемся попасть на страницу {} админки...", path);
+        kraken.get().adminPage(path);
+    }
 
     public void admin() {
         admin("");
@@ -36,15 +39,17 @@ public final class ReachHelper extends HelperBase {
     }
 
     public void admin(String path) {
-        log.info("Пытаемся попасть на страницу {} админки...", path);
-        kraken.get().adminPage(path);
-        WaitingHelper.simply(1);// Ожидание редиректа
+        adminPageOpen(path);
         if (kraken.detect().isOnAdminLoginPage()) {
-            log.warn("> недостаточно прав, перелогиниваемся суперадмином на логин-странице админки");
+            log.info("> находимся на странице логина админки, авторизуемся");
             User.Auth.withEmail(UserManager.getDefaultAdmin());
         }
-        //kraken.get().adminPage(path);
         log.info("✓ Готово");
+    }
+
+    public void admin(String email,String password,String role){
+        adminPageOpen("");
+        User.Auth.withEmail(email,password,role);
     }
 
     public void seoCatalog() {

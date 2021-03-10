@@ -10,7 +10,6 @@ import instamart.ui.helpers.WaitingHelper;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -81,7 +80,7 @@ public final class User extends Base {
         }
 
         @Step("Авторизуемся в админке")
-        private static void loginOnAdministration(String email, String password,String role) {
+        public static void loginOnAdministration(String email, String password,String role) {
             log.info("> авторизуемся в админке ({}/{})", email, password);
             kraken.perform().fillField(Elements.Administration.LoginPage.emailField(), email);
             kraken.perform().fillField(Elements.Administration.LoginPage.passwordField(), password);
@@ -91,7 +90,7 @@ public final class User extends Base {
                         ExpectedConditions.visibilityOfElementLocated(
                                 Elements.Administration.LoginPage.emailFieldErrorText("Неверный email или пароль").getLocator()),
                         "Произошла авторизация в админке пользователем не имеющим доступ в админку\n");
-            }else if(role.equals("superadmin")){
+            }else if(role.equals("superadmin")) {
                 kraken.await().fluently(
                         ExpectedConditions.invisibilityOfElementLocated(
                                 Elements.Administration.LoginPage.submitButton().getLocator()), "Не проходит авторизация в админке\n");
@@ -173,6 +172,15 @@ public final class User extends Base {
                 Shop.AuthModal.submitRegistration();
             }
             return modalType;
+        }
+        /**
+         * Зарегистрировать нового юзера по номеру телефона
+         */
+        @Step("Регистрируем нового юзера по номеру телефона: {0}/{1}")
+        public static void registration(String phone,String sms) {
+            Shop.AuthModal.open();
+            log.info("> регистрируемся (телефон={} / смс={})", phone, sms);
+            regSequenceMobile(phone, sms);
         }
 
         /**
@@ -257,6 +265,7 @@ public final class User extends Base {
         @Step("Авторизация через email")
         public static void withEmail(String email, String password, String role) {
             if (kraken.detect().isOnAdminLoginPage()) {
+                log.info("> находимся на странице логина, авторизуемся");
                 User.Do.loginOnAdministration(email, password,role);
             } else {
                 if (!kraken.detect().isUserAuthorised()) {

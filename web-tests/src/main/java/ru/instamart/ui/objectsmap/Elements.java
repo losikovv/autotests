@@ -3393,7 +3393,7 @@ public class Elements {
                 }
 
                 static ElementData passwordConfirmationField() {
-                    return new ElementData(By.xpath("//input[@id='uuser_password_confirmation']"),
+                    return new ElementData(By.xpath("//input[@id='user_password_confirmation']"),
                             "поле 'Подтверждение пароля' на странице редактирования пользователя");
                 }
 
@@ -3403,9 +3403,8 @@ public class Elements {
                 }
 
                 static ElementData adminRoleCheckbox() {
-                    return new ElementData(By.xpath(
-                            "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/fieldset[1]/div[2]/form[1]/div[2]" +
-                                    "/div[2]/div[1]/ul[1]/li[1]/input[1]"),"чекбокс админ-прав");
+                    return new ElementData(By.xpath("//*[text()='Admin']//preceding::input[1]"),
+                            "чекбокс админ-прав");
                 }
 
                 static ElementData commentField() {
