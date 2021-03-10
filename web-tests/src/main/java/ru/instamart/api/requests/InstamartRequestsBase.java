@@ -15,12 +15,16 @@ import static io.restassured.RestAssured.given;
 public final class InstamartRequestsBase {
 
     private static final Logger log = LoggerFactory.getLogger(InstamartRequestsBase.class);
+
+    public static RequestSpecification givenApiV1() {
+        return given().spec(Specification.INSTANCE.getApiV1Spec());
+    }
     /**
      * Обходим тормоза интернета + Добавляем спеки к запросу
      */
     private static RequestSpecification givenExceptions()
             throws SSLHandshakeException, SocketException, IllegalStateException {
-        return given().spec(Specification.INSTANCE.getCustomerRequestSpec());
+        return given().spec(Specification.INSTANCE.getApiV2Spec());
     }
 
     /**
@@ -28,7 +32,7 @@ public final class InstamartRequestsBase {
      */
     public static RequestSpecification givenWithAuth() {
         return given()
-                .spec(Specification.INSTANCE.getCustomerRequestSpec())
+                .spec(Specification.INSTANCE.getApiV2Spec())
                 .header(
                 "Authorization",
                 "Token token=" + SessionFactory.getSession(SessionType.APIV2).getToken());
@@ -41,7 +45,7 @@ public final class InstamartRequestsBase {
      */
     public static RequestSpecification givenCustomToken(final String token) {
         return given()
-                .spec(Specification.INSTANCE.getCustomerRequestSpec())
+                .spec(Specification.INSTANCE.getApiV2Spec())
                 .header(
                         "Authorization",
                         "Token token=" + token);
@@ -58,6 +62,6 @@ public final class InstamartRequestsBase {
                 log.error("[givenCatch] ", exception);
             }
         }
-        return given().spec(Specification.INSTANCE.getCustomerRequestSpec());
+        return given().spec(Specification.INSTANCE.getApiV2Spec());
     }
 }
