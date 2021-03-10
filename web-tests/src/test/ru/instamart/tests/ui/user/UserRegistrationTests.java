@@ -402,8 +402,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест успешной регистрации через ВКонтакте",
 
-            groups = {"sbermarket-Ui-smoke","testing"},
-            enabled = false
+            groups = {"testing"}
     )
     public void successRegWithVkontakte() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -414,8 +413,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест успешной регистрации через Facebook",
 
-            groups = {"sbermarket-Ui-smoke","testing"},
-            enabled = false
+            groups = {"testing"}
     )
     public void successRegWithFacebook() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -425,8 +423,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(  description = "Тест успешной регистрации через MailRu",
 
-            groups = {"sbermarket-Ui-smoke","testing"},
-            enabled = false
+            groups = {"testing"}
     )
     public void successRegWithMailRu() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -438,8 +435,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Тест успешной регистрации через Sber ID",
 
-            groups = {"sbermarket-Ui-smoke","testing"},
-            enabled = false
+            groups = {"testing"}
     )
     public void successRegWithSberID() {
         kraken.get().page(Config.DEFAULT_RETAILER);

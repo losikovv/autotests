@@ -24,6 +24,15 @@ public class AdminPageCheckpoints extends BaseUICheckpoints {
         log.info("✓ Успешно");
     }
 
+    @Step("Проверяем что юзер не авторизован в Админке")
+    public void checkIsNotAdminPageOpen(){
+        log.info("> проверяем, что юзер не авторизован в Админке");
+        Assert.assertFalse(
+                kraken.detect().isInAdmin(),
+                "Есть доступ в админку у пользователя без админ. прав");
+        log.info("✓ Успешно");
+    }
+
     @Step("Проверяем, что пользователь не авторизован в Админке")
     public void checkIsUserNotAutorisedAdminPage(String logMessage){
         log.info("> проверяем, что юзер не авторизован в Админке");
