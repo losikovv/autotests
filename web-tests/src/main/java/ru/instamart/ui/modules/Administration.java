@@ -21,7 +21,7 @@ public final class Administration extends Base {
 
         @Step("Переходим в раздел: {0}")
         public static void switchTotab(String menuElement){
-            log.info("> переходим по разделам меню");
+            log.info("> переходим по разделам меню: {}",menuElement);
             kraken.perform().click(Elements.Administration.menuButton(menuElement));
         }
     }
@@ -158,7 +158,7 @@ public final class Administration extends Base {
                     log.info("Редактирование пользователя {}", kraken.grab().currentURL());
                 } else {
                     log.warn("! Найден не тот юзер !");
-                    log.warn("больше одного юзера по номеру телефона: {0}", value);
+                    log.warn("больше одного юзера по номеру телефона: {}", value);
                     throw new ElementNotSelectableException("Невозможно выбрать конкретный элемент, " +
                             "тк представлены несколько вариантов");
                 }
@@ -222,7 +222,7 @@ public final class Administration extends Base {
         @Step("Отзываем админские права в карточке пользователя")
         public static void revokeAdminPrivileges() {
             if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox())) {
-                log.info("> отозываем права администратора");
+                log.info("> отзываем права администратора");
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.adminRoleCheckbox());
                 kraken.await().fluently(
                         ExpectedConditions.elementSelectionStateToBe(
@@ -238,23 +238,23 @@ public final class Administration extends Base {
         /** Сменить пароль в карточке пользователя */
         @Step("Меняем пароль в карточке пользователя")
         public static void changePassword(String password) {
-            log.info("> меняем пароль пользователю: "+password);
+            log.info("> меняем пароль пользователю: {}",password);
             kraken.perform().fillField(Elements.Administration.UsersSection.UserPage.passwordField(), password);
             kraken.perform().fillField(Elements.Administration.UsersSection.UserPage.passwordConfirmationField(), password);
             kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
-            log.info("> пароль сменен на: "+password);
+            log.info("> пароль сменен на: {}",password);
         }
 
         /** Сменить email в карточке пользователя */
         @Step("Меняем email в карточке пользователя")
         public static void changeEmail(String email) {
-            log.info("> меняем email пользователю: " + email);
+            log.info("> меняем email пользователю: {}",email);
             kraken.perform().fillField(Elements.Administration.UsersSection.UserPage.emailField(), email);
             kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
             kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
                     Elements.Administration.UsersSection.UserPage.successChangeUserMessage().getLocator()),
                     "сообщение не исчезло",10);
-            log.info("> email пользователя изменен на: "+email);
+            log.info("> email пользователя изменен на: {}",email);
         }
 
         /** Проставить флаг B2B в карточке пользователя */
