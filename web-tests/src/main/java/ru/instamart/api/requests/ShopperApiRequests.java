@@ -20,14 +20,23 @@ import static io.restassured.RestAssured.given;
  */
 @SuppressWarnings("unchecked")
 public class ShopperApiRequests {
-    private static String token;
+    private static String accessToken;
+    private static String refreshToken;
 
-    public static String getToken() {
-        return token;
+    public static String getAccessToken() {
+        return accessToken;
     }
 
-    public static void setToken(String token) {
-        ShopperApiRequests.token = token;
+    public static void setAccessToken(String accessToken) {
+        ShopperApiRequests.accessToken = accessToken;
+    }
+
+    public static String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public static void setRefreshToken(String refreshToken) {
+        ShopperApiRequests.refreshToken = refreshToken;
     }
 
     /**
@@ -43,7 +52,7 @@ public class ShopperApiRequests {
     private static RequestSpecification givenWithAuth() {
         return givenWithSpec().header(
                 "Authorization",
-                "Token " + token);
+                "Token " + accessToken);
     }
 
     public static class Sessions {
@@ -57,6 +66,23 @@ public class ShopperApiRequests {
                     .preemptive()
                     .basic(login, password)
                     .post(ShopperApiEndpoints.SESSIONS);
+        }
+    }
+
+    public static class Auth {
+        public static class Refresh {
+            /**
+             * Обновление авторизации
+             */
+            @Step("{method} /" + ShopperApiEndpoints.Auth.REFRESH)
+            public static Response POST() {
+                JSONObject requestParams = new JSONObject();
+                requestParams.put("refresh_token", refreshToken);
+                return givenWithSpec()
+                        .contentType(ContentType.JSON)
+                        .body(requestParams)
+                        .post(ShopperApiEndpoints.Auth.REFRESH);
+            }
         }
     }
 
@@ -358,6 +384,13 @@ public class ShopperApiRequests {
                         .patch(ShopperApiEndpoints.Assemblies.PURCHASE, assemblyId);
             }
         }
+        public static class LifePay {
+            @Step("{method} /" + ShopperApiEndpoints.Assemblies.LIFEPAY)
+            public static Response PUT(String assemblyId) {
+                return givenWithAuth()
+                        .put(ShopperApiEndpoints.Assemblies.LIFEPAY, assemblyId);
+            }
+        }
         public static class Pause {
             //todo
         }
@@ -496,7 +529,11 @@ public class ShopperApiRequests {
             }
         }
         public static class MarketingSampleItems {
-            //todo
+            @Step("{method} /" + ShopperApiEndpoints.Shipments.MARKETING_SAMPLE_ITEMS)
+            public static Response GET(String shipmentId) {
+                return givenWithAuth()
+                        .get(ShopperApiEndpoints.Shipments.MARKETING_SAMPLE_ITEMS, shipmentId);
+            }
         }
     }
     public static class Stores {

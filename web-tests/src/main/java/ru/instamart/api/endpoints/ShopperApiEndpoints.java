@@ -41,6 +41,7 @@ public final class ShopperApiEndpoints {
         public static final String RECEIPTS = "assemblies/{assemblyId}/receipts";
         public static final String START_PACKAGING = "assemblies/{assemblyId}/start_packaging";
         public static final String PURCHASE = "assemblies/{assemblyId}/purchase";
+        public static final String LIFEPAY = "assemblies/{assemblyId}/lifepay";
         //todo
         public static final String PAUSE = "assemblies/{assemblyId}/pause"; //patch
         public static final String SUSPEND = "assemblies/{assemblyId}/suspend"; //patch
@@ -65,7 +66,6 @@ public final class ShopperApiEndpoints {
     public static class Shipments {
         public static final String ID = "shipments/{shipmentId}";
         public static final String STOCKS = "shipments/{shipmentId}/stocks";
-        //todo
         public static final String MARKETING_SAMPLE_ITEMS = "shipments/{shipmentId}/marketing_sample_items";
     }
 
@@ -75,5 +75,9 @@ public final class ShopperApiEndpoints {
 
     public static class Helpdesk {
         public static final String TICKETS = "helpdesk/tickets?shipment_id={shipmentId}";
+    }
+
+    public static class Auth {
+        public static final String REFRESH = "auth/refresh";
     }
 }

@@ -140,4 +140,16 @@ public class ShipmentlessTests extends RestBase {
         assertNotNull(response.as(OffersResponse.class).getData().get(0).getAttributes().getName(),
                 "Не работает поиск товаров");
     }
+
+    @CaseId(43)
+    @Test(  description = "Обновление авторизации",
+            groups = {"api-shopper-smoke"})
+    public void postAuthRefresh() {
+        response = ShopperApiRequests.Auth.Refresh.POST();
+        assertStatusCode200(response);
+        assertNotNull(response.as(SessionsResponse.class).getData().getAttributes().getAccessToken(),
+                "Не вернулся access_token");
+        assertNotNull(response.as(SessionsResponse.class).getData().getAttributes().getRefreshToken(),
+                "Не вернулся refresh_token");
+    }
 }
