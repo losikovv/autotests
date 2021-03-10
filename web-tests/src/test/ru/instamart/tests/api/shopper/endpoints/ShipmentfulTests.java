@@ -160,4 +160,24 @@ public class ShipmentfulTests extends RestBase {
         assertNotNull(response.as(ShipmentStocksResponse.class).getOffers().get(0).getStock(),
                 "Не вернулась инфа о стоках товаров в заказе");
     }
+
+    @CaseId(44)
+    @Test(  description = "Оплачиваем заказ через LifePay",
+            groups = {"api-shopper-smoke"},
+            dependsOnMethods = "postAssembly")
+    public void putAssemblyLifePay() {
+        response = ShopperApiRequests.Assemblies.LifePay.PUT(assemblyId);
+        assertStatusCode200(response);
+    }
+
+    @CaseId(45)
+    @Test(  description = "Получаем маркетинговые пробники",
+            groups = {"api-shopper-smoke"},
+            dependsOnMethods = "postAssembly")
+    public void getShipmentMarketingSampleItems() {
+        response = ShopperApiRequests.Shipments.MarketingSampleItems.GET(shipmentId);
+        assertStatusCode200(response);
+        assertNotNull(response.as(MarketingSampleItemsResponse.class).getMarketing_sample_items(),
+                "Не вернулся массив маркетинговых пробников");
+    }
 }

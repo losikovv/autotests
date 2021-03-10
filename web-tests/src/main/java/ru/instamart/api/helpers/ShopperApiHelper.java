@@ -34,13 +34,17 @@ public class ShopperApiHelper extends ApiHelperBase {
     public void authorisation(String userName, String password) {
         Response response = ShopperApiRequests.Sessions.POST(userName, password);
         assertStatusCode200(response);
-        ShopperApiRequests.setToken(response
+        SessionAttributes sessionAttributes = response
                 .as(SessionsResponse.class)
                 .getData()
-                .getAttributes()
-                .getAccessToken());
+                .getAttributes();
+
+        ShopperApiRequests.setAccessToken(sessionAttributes.getAccessToken());
+        ShopperApiRequests.setRefreshToken(sessionAttributes.getRefreshToken());
+
         log.info("Авторизуемся: {} / {}", userName, password);
-        log.info("access_token: {}", ShopperApiRequests.getToken());
+        log.info("access_token: {}", ShopperApiRequests.getAccessToken());
+        log.info("refresh_token: {}", ShopperApiRequests.getRefreshToken());
     }
 
     public void authorisation(UserData user) {
@@ -48,14 +52,33 @@ public class ShopperApiHelper extends ApiHelperBase {
     }
 
     public boolean authorized() {
-        return ShopperApiRequests.getToken() != null;
+        return ShopperApiRequests.getAccessToken() != null;
+    }
+
+    public void refreshAuth() {
+        Response response = ShopperApiRequests.Auth.Refresh.POST();
+        assertStatusCode200(response);
+        SessionAttributes sessionAttributes = response
+                .as(SessionsResponse.class)
+                .getData()
+                .getAttributes();
+
+        ShopperApiRequests.setAccessToken(sessionAttributes.getAccessToken());
+        ShopperApiRequests.setRefreshToken(sessionAttributes.getRefreshToken());
+
+        log.info("Обновляем авторизацию");
+        log.info("access_token: {}", ShopperApiRequests.getAccessToken());
+        log.info("refresh_token: {}", ShopperApiRequests.getRefreshToken());
     }
 
     /**
      * Логаут (чистим токен для авторизации)
      */
     public void logout() {
-        if (authorized()) ShopperApiRequests.setToken(null);
+        if (authorized()) {
+            ShopperApiRequests.setAccessToken(null);
+            ShopperApiRequests.setRefreshToken(null);
+        }
     }
 
     /**
