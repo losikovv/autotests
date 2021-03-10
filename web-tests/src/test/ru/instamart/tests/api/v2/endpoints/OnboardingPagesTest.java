@@ -1,6 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.action.OnboardingPages;
+import instamart.api.requests.v2.OnboardingPagesRequest;
 import instamart.api.common.RestBase;
 import instamart.api.responses.v2.OnboardingPagesResponse;
 import io.qase.api.annotation.CaseId;
@@ -15,7 +15,7 @@ public class OnboardingPagesTest extends RestBase {
     @Test(  description = "Получаем экраны онбординга",
             groups = {"api-instamart-smoke"})
     public void getOnboardingPages() {
-        response = OnboardingPages.GET();
+        response = OnboardingPagesRequest.GET();
         assertStatusCode200(response);
         assertNotNull(response.as(OnboardingPagesResponse.class).getOnboarding_pages(),
                 "Не вернулись экраны онборлдинга");

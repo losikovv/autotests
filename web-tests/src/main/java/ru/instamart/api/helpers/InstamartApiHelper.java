@@ -1,14 +1,15 @@
 package instamart.api.helpers;
 
 import instamart.api.SessionFactory;
-import instamart.api.action.*;
+import instamart.api.enums.SessionType;
 import instamart.api.enums.v2.OrderStatus;
 import instamart.api.objects.v1.Offer;
 import instamart.api.objects.v2.*;
 import instamart.api.requests.ApiV1Requests;
+import instamart.api.requests.v2.*;
 import instamart.api.responses.v1.OffersResponse;
 import instamart.api.responses.v2.*;
-import instamart.core.testdata.UserManager;
+import instamart.core.util.MapUtil;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 
-public final class InstamartApiHelper extends ApiHelperBase {
+public final class InstamartApiHelper {
 
     private static final Logger log = LoggerFactory.getLogger(InstamartApiHelper.class);
 
@@ -112,7 +113,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
                 104, "Зона #4" //METRO, Воронеж, Семилуки Займище
         );
         if (pickupRetailers.contains(store.getRetailer().getId()) ||
-                hashMapContainsIntAndString(store.getId(), zoneName, pickupZones)) {
+                MapUtil.hasPairInMap(store.getId(), zoneName, pickupZones)) {
             throw new SkipException("Доступен только самовывоз\nsid: " + store.getId() + "\n" + zoneName);
         }
     }
@@ -126,11 +127,11 @@ public final class InstamartApiHelper extends ApiHelperBase {
      */
 
     public List<Taxon> getTaxons(int sid) {
-        return Taxons.GET(sid).as(TaxonsResponse.class).getTaxons();
+        return TaxonsRequest.GET(sid).as(TaxonsResponse.class).getTaxons();
     }
 
     public Taxon getTaxon(int id, int sid) {
-        Response response = Taxons.GET(id, sid);
+        Response response = TaxonsRequest.GET(id, sid);
         assertStatusCode200(response);
         return response.as(TaxonResponse.class).getTaxon();
     }
@@ -149,7 +150,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Удаляем товары из корзины
      */
     private void deleteItemsFromCart() {
-        Response response = Orders.Shipments.DELETE(currentOrderNumber.get());
+        Response response = OrdersRequest.Shipments.DELETE(currentOrderNumber.get());
 
         Order order = response.as(OrderResponse.class).getOrder();
         log.info("Удалены все доставки у заказа: {}", order.getNumber());
@@ -169,7 +170,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Изменение/применение параматров адреса из объекта адреса
      */
     private void setAddressAttributes(Address address) {
-        Response response = Orders.ShipAddressChange.PUT(address, currentOrderNumber.get());
+        Response response = OrdersRequest.ShipAddressChange.PUT(address, currentOrderNumber.get());
 
         Address addressFromResponse = response
                 .as(ShipAddressChangeResponse.class)
@@ -203,7 +204,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      */
     private List<Product> getProductsFromEachDepartmentInStore(
             int sid, int numberOfProductsFromEachDepartment, SoftAssert softAssert) {
-        List<Department> departments = Departments.GET(sid, numberOfProductsFromEachDepartment)
+        List<Department> departments = DepartmentsRequest.GET(sid, numberOfProductsFromEachDepartment)
                 .as(DepartmentsResponse.class).getDepartments();
 
         String storeUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + "?sid=" + sid;
@@ -253,7 +254,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Добавляем товар в корзину
      */
     private void addItemToCart(long productId, int quantity) {
-        Response response = LineItems.POST(productId, quantity, currentOrderNumber.get());
+        Response response = LineItemsRequest.POST(productId, quantity, currentOrderNumber.get());
         assertStatusCode200(response);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
 
@@ -279,7 +280,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Получаем минимальную сумму заказа, если сумма не набрана
      */
     private void getMinSumFromAlert() {
-        Shipment shipment = Orders.Current.GET()
+        Shipment shipment = OrdersRequest.Current.GET()
                 .as(OrderResponse.class)
                 .getOrder()
                 .getShipments()
@@ -306,7 +307,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
 
         if (humanVolume.contains(" шт.")) {
             boolean productHasWeightProperty = false;
-            List<Property> properties = Products.GET(product.getId())
+            List<Property> properties = ProductsRequest.GET(product.getId())
                     .as(ProductResponse.class)
                     .getProduct()
                     .getProperties();
@@ -347,7 +348,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Получаем первый доступный слот
      */
     private void getAvailableDeliveryWindow() {
-        List<ShippingRate> shippingRates = Shipments.ShippingRates
+        List<ShippingRate> shippingRates = ShipmentsRequest.ShippingRates
                 .GET(currentShipmentNumber
                         .get()).as(ShippingRatesResponse.class).getShipping_rates();
 
@@ -367,7 +368,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Получаем первый доступный способ доставки
      */
     private void getAvailableShippingMethod() {
-        List<ShippingMethod> shippingMethods = ShippingMethods.GET(currentSid.get())
+        List<ShippingMethod> shippingMethods = ShippingMethodsRequest.GET(currentSid.get())
                 .as(ShippingMethodsResponse.class).getShipping_methods();
 
         Assert.assertNotEquals(
@@ -386,7 +387,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Выбираем id способа оплаты (по умолчанию Картой курьеру)
      */
     private void getAvailablePaymentTool() {
-        List<PaymentTool> paymentTools = PaymentTools.GET().as(PaymentToolsResponse.class).getPayment_tools();
+        List<PaymentTool> paymentTools = PaymentToolsRequest.GET().as(PaymentToolsResponse.class).getPayment_tools();
 
         StringJoiner availablePaymentTools = new StringJoiner(
                 "\n• ",
@@ -411,7 +412,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Применяем дефолтные параметры к заказу
      */
     private void setDefaultOrderAttributes() {
-        Response response = Orders.PUT(
+        Response response = OrdersRequest.PUT(
                 //currentAddressId.get(), //параметр ломает оформление заказа в некоторых магазинах
                 1,
                 "+7 (987) 654 32 10",
@@ -436,7 +437,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      */
     private Order completeOrder() {
         orderCompleted.set(false);
-        Response response = Orders.Completion.POST(currentOrderNumber.get());
+        Response response = OrdersRequest.Completion.POST(currentOrderNumber.get());
         if (response.getStatusCode() == 422) {
             Errors errors = response.as(ErrorResponse.class).getErrors();
 
@@ -446,7 +447,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
                     log.error(notAvailableDeliveryWindow);
                     getAvailableDeliveryWindow();
                     setDefaultOrderAttributes();
-                    response = Orders.Completion.POST(currentOrderNumber.get());
+                    response = OrdersRequest.Completion.POST(currentOrderNumber.get());
                 } else Assert.fail(response.body().toString());
             }
             if (errors.getPayments() != null) {
@@ -474,7 +475,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Отменяем заказ по номеру
      */
     private void cancelOrder(String orderNumber) {
-        Response response = Orders.Cancellations.POST(orderNumber, "test");
+        Response response = OrdersRequest.Cancellations.POST(orderNumber, "test");
         assertStatusCode200(response);
         Order order = response.as(CancellationsResponse.class).getCancellation().getOrder();
         log.info("Отменен заказ: {}", order.getNumber());
@@ -530,7 +531,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      */
     private Address getAddressBySid(int sid) {
         currentSid.set(sid);
-        Response response = Stores.GET(sid);
+        Response response = StoresRequest.GET(sid);
 
         if (response.statusCode() == 422)
             if (response.as(ErrorResponse.class)
@@ -556,7 +557,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Получить список активных ритейлеров как список объектов Retailer
      */
     public List<Retailer> availableRetailers() {
-        List<Retailer> retailers = Retailers.GET().as(RetailersResponse.class).getRetailers();
+        List<Retailer> retailers = RetailersRequest.GET().as(RetailersResponse.class).getRetailers();
 
         StringJoiner availableRetailers = new StringJoiner(
                 "\n• ",
@@ -631,7 +632,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Получить по координатам список активных магазинов как список объектов Store
      */
     private List<Store> availableStores(double lat, double lon) {
-        List<Store> stores = Stores.GET(lat, lon).as(StoresResponse.class).getStores();
+        List<Store> stores = StoresRequest.GET(lat, lon).as(StoresResponse.class).getStores();
 
         if (stores.size() > 0) {
             printAvailableStores(stores);
@@ -657,18 +658,18 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Получить список зон доставки магазина
      */
     public List<List<Zone>> storeZones(int sid) {
-        return Stores.GET(sid).as(StoreResponse.class).getStore().getZones();
+        return StoresRequest.GET(sid).as(StoreResponse.class).getStore().getZones();
     }
 
     public Store getStore(int sid) {
-        return Stores.GET(sid).as(StoreResponse.class).getStore();
+        return StoresRequest.GET(sid).as(StoreResponse.class).getStore();
     }
 
     /**
      * Узнаем номер заказа
      */
     public String getCurrentOrderNumber() {
-        Response response = Orders.POST();
+        Response response = OrdersRequest.POST();
         assertStatusCode200(response);
         currentOrderNumber.set(response
                 .as(OrderResponse.class)
@@ -682,7 +683,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Получаем список активных (принят, собирается, в пути) заказов
      */
     private List<Order> activeOrders() {
-        OrdersResponse response = Orders.GET(OrderStatus.ACTIVE).as(OrdersResponse.class);
+        OrdersResponse response = OrdersRequest.GET(OrderStatus.ACTIVE).as(OrdersResponse.class);
         List<Order> orders = response.getOrders();
 
         if (orders.size() < 1) {
@@ -691,7 +692,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
             int pages = response.getMeta().getTotal_pages();
             if (pages > 1) {
                 for (int i = 2; i <= pages; i++) {
-                    orders.addAll(Orders.GET(OrderStatus.ACTIVE, i).as(OrdersResponse.class).getOrders());
+                    orders.addAll(OrdersRequest.GET(OrderStatus.ACTIVE, i).as(OrdersResponse.class).getOrders());
                 }
             }
             log.info("Список активных заказов:");
@@ -819,7 +820,7 @@ public final class InstamartApiHelper extends ApiHelperBase {
      * Очистить корзину и выбрать адрес у юзера
      */
     public void dropCart(UserData user, Address address) {
-        SessionFactory.createSessionToken(user);
+        SessionFactory.createSessionToken(SessionType.APIV2, user);
         getCurrentOrderNumber();
         deleteItemsFromCart();
 

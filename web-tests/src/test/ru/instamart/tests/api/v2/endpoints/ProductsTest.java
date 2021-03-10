@@ -1,6 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.action.Products;
+import instamart.api.requests.v2.ProductsRequest;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Product;
 import instamart.api.responses.v2.ProductResponse;
@@ -20,7 +20,7 @@ public class ProductsTest extends RestBase {
     @Test(  description = "Получаем продукты",
             groups = {"api-instamart-smoke"})
     public void getProducts() {
-        response = Products.GET(1, "");
+        response = ProductsRequest.GET(1, "");
         assertStatusCode200(response);
         List<Product> products = response.as(ProductsResponse.class).getProducts();
         assertNotNull(products, "Не вернулись продукты");
@@ -32,7 +32,7 @@ public class ProductsTest extends RestBase {
             groups = {"api-instamart-smoke"},
             dependsOnMethods = "getProducts")
     public void getProduct() {
-        response = Products.GET(productId);
+        response = ProductsRequest.GET(productId);
         assertStatusCode200(response);
         assertNotNull(response.as(ProductResponse.class).getProduct(), "Не вернулся продукт");
     }

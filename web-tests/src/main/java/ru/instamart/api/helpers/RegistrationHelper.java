@@ -1,6 +1,6 @@
 package instamart.api.helpers;
 
-import instamart.api.action.Users;
+import instamart.api.requests.v2.UsersRequest;
 import instamart.api.responses.v2.UserResponse;
 import instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
@@ -27,7 +27,7 @@ public final class RegistrationHelper {
      * Регистрация
      */
     public static void registration(final String email, final String firstName, final String lastName, final String password) {
-        final Response response =  Users.POST(email, firstName, lastName, password);
+        final Response response =  UsersRequest.POST(email, firstName, lastName, password);
         assertStatusCode200(response);
         final String registeredEmail = response
                 .as(UserResponse.class)

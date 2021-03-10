@@ -1,6 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.action.Users;
+import instamart.api.requests.v2.UsersRequest;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.User;
 import instamart.api.responses.v2.ErrorResponse;
@@ -33,7 +33,7 @@ public final class RegistrationTest extends RestBase {
     public void testSuccessRegistration() {
         final UserData userData = UserManager.getUser();
 
-        final Response response = Users.POST(
+        final Response response = UsersRequest.POST(
                 userData.getLogin(),
                 userData.getFirstName(),
                 userData.getLastName(),
@@ -57,7 +57,7 @@ public final class RegistrationTest extends RestBase {
     public void testSuccessRegistrationWithoutPromoAccept() {
         final UserData userData = UserManager.getUser();
 
-        final Response response = Users.POST(
+        final Response response = UsersRequest.POST(
                 userData.getLogin(),
                 userData.getFirstName(),
                 userData.getLastName(),
@@ -81,7 +81,7 @@ public final class RegistrationTest extends RestBase {
     public void testSuccessRegistrationB2b() {
         final UserData userData = UserManager.getUser();
 
-        final Response response = Users.POST(
+        final Response response = UsersRequest.POST(
                 userData.getLogin(),
                 userData.getFirstName(),
                 userData.getLastName(),
@@ -105,7 +105,7 @@ public final class RegistrationTest extends RestBase {
     public void testSuccessRegistrationB2bWithoutPromoAccept() {
         final UserData userData = UserManager.getUser();
 
-        final Response response = Users.POST(
+        final Response response = UsersRequest.POST(
                 userData.getLogin(),
                 userData.getFirstName(),
                 userData.getLastName(),
@@ -127,7 +127,7 @@ public final class RegistrationTest extends RestBase {
     @Story("Неверный формат email")
     @Severity(SeverityLevel.NORMAL)
     public void wrongEmailFormat() {
-        final Response response = Users.POST(
+        final Response response = UsersRequest.POST(
                 "example.com",
                 firstName,
                 lastName,
@@ -143,7 +143,7 @@ public final class RegistrationTest extends RestBase {
     @Story("Короткий пароль")
     @Severity(SeverityLevel.NORMAL)
     public void shortPassword() {
-        final Response response = Users.POST(
+        final Response response = UsersRequest.POST(
                 Generate.email(),
                 firstName,
                 lastName,
@@ -158,7 +158,7 @@ public final class RegistrationTest extends RestBase {
     @Story("Пустой email")
     @Severity(SeverityLevel.NORMAL)
     public void emptyEmail() {
-        final Response response = Users.POST(
+        final Response response = UsersRequest.POST(
                 "",
                 firstName,
                 lastName,
@@ -176,7 +176,7 @@ public final class RegistrationTest extends RestBase {
     public void testWithInvalidFirstAndLastName() {
         final String email = Generate.email();
 
-        final Response response = Users.POST(
+        final Response response = UsersRequest.POST(
                 email,
                 "",
                 "",
@@ -193,7 +193,7 @@ public final class RegistrationTest extends RestBase {
     public void emptyFirstAndLastNames() {
         final String email = Generate.email();
 
-        response = Users.POST(
+        response = UsersRequest.POST(
                 email,
                 "",
                 "",
@@ -210,7 +210,7 @@ public final class RegistrationTest extends RestBase {
     public void emptyPassword() {
         final String email = Generate.email();
 
-        response = Users.POST(
+        response = UsersRequest.POST(
                 email,
                 "autotester",
                 "api",
@@ -228,7 +228,7 @@ public final class RegistrationTest extends RestBase {
     public void testSuccessRegistrationWithLocation() {
         final UserData userData = UserManager.getUser();
 
-        final Response response = Users.POST(
+        final Response response = UsersRequest.POST(
                 userData.getLogin(),
                 userData.getFirstName(),
                 userData.getLastName(),
@@ -252,7 +252,7 @@ public final class RegistrationTest extends RestBase {
     public void testSuccessRegistrationWithAnonymousId() {
         final UserData userData = UserManager.getUser();
 
-        final Response response = Users.POST(
+        final Response response = UsersRequest.POST(
                 userData.getLogin(),
                 userData.getFirstName(),
                 userData.getLastName(),

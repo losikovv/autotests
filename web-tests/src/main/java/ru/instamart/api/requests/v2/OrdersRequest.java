@@ -1,4 +1,4 @@
-package instamart.api.action;
+package instamart.api.requests.v2;
 
 import instamart.api.endpoints.ApiV2EndPoints;
 import instamart.api.enums.v2.OrderStatus;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static instamart.api.requests.InstamartRequestsBase.givenWithAuth;
 
-public final class Orders {
+public final class OrdersRequest {
 
     /**
      * Получаем активные (принят, собирается, в пути) заказы

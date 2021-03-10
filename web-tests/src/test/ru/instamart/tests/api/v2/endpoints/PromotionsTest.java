@@ -1,6 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.action.Promotions;
+import instamart.api.requests.v2.PromotionsRequest;
 import instamart.api.common.RestBase;
 import instamart.api.responses.v2.ReferralProgramResponse;
 import io.qase.api.annotation.CaseId;
@@ -15,7 +15,7 @@ public class PromotionsTest extends RestBase {
     @Test(  description = "Получаем инфу о реферальной программе",
             groups = {"api-instamart-smoke"})
     public void getReferralProgram() {
-        response = Promotions.ReferralProgram.GET();
+        response = PromotionsRequest.ReferralProgram.GET();
         assertStatusCode200(response);
         assertNotNull(response.as(ReferralProgramResponse.class).getReferral_program(),
                 "Не вернулась инфа о реферальной программе");

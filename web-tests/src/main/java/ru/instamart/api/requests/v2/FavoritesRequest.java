@@ -1,4 +1,4 @@
-package instamart.api.action;
+package instamart.api.requests.v2;
 
 import instamart.api.endpoints.ApiV2EndPoints;
 import io.qameta.allure.Step;
@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 import static instamart.api.requests.InstamartRequestsBase.givenWithAuth;
 
-public final class Favorites {
+public final class FavoritesRequest {
 
     @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)
     public static Response GET(final int sid) {

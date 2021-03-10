@@ -31,6 +31,10 @@ public final class UserManager {
     private static UserData defaultSberIdUser;
     private static UserData defaultApiUser;
 
+    public static UserData getNullUser() {
+        return generateData("empty", 0);
+    }
+
     public static UserData getUser() {
         return generateData("user", 0);
     }

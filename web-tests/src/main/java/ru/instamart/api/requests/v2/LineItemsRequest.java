@@ -1,4 +1,4 @@
-package instamart.api.action;
+package instamart.api.requests.v2;
 
 import instamart.api.endpoints.ApiV2EndPoints;
 import io.qameta.allure.Step;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static instamart.api.requests.InstamartRequestsBase.givenWithAuth;
 
-public final class LineItems {
+public final class LineItemsRequest {
 
     /**
      * Добавляем товар в корзину
