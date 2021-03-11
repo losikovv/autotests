@@ -380,10 +380,13 @@ public final class User extends Base {
                 log.info("> логаут...");
                 if (kraken.detect().isInAdmin()) {
                     User.Do.logoutOnAdministration();
+                    kraken.await().fluently(
+                            ExpectedConditions.invisibilityOfElementLocated(
+                                    Elements.Administration.insideContainer().getLocator()),
+                            "Логаут не произошел",2);
                 } else {
                     User.Do.logoutOnSite();
                 }
-                kraken.await().implicitly(1); // Ожидание деавторизации и подгрузки лендинга
                 if (!kraken.detect().isUserAuthorised()) {
                     log.info("✓ Готово");
                 }
@@ -409,8 +412,17 @@ public final class User extends Base {
             log.info("> удаляем куки...");
             kraken.getWebDriver().manage().deleteAllCookies();
             kraken.get().baseUrl();
-            //kraken.await().simply(1); // Ожидание деавторизации и подгрузки лендинга
             if (kraken.detect().isOnLanding()) {
+                log.info("✓ Готово");
+            }
+        }
+        /** Быстрая деавторизация удалением кук в админке*/
+        @Step("Делаем быструю деавторизацию из админки с удалением файлов куки")
+        public static void quicklyAdmin() {
+            log.info("> удаляем куки...");
+            kraken.getWebDriver().manage().deleteAllCookies();
+            kraken.get().adminPage("");
+            if (kraken.detect().isInAdmin()) {
                 log.info("✓ Готово");
             }
         }

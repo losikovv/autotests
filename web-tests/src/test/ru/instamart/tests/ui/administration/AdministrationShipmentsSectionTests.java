@@ -7,6 +7,9 @@ import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Administration;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -14,6 +17,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 
+@Epic("Админка STF")
+@Feature("Управление заказами")
 public class AdministrationShipmentsSectionTests extends TestBase {
     
     private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
@@ -27,6 +32,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     }
 
     @CaseId(175)
+    @Story("Тест на корректное отображение элементов страницы со списком заказов в админке")
     @Test(  description = "Тест на корректное отображение элементов страницы со списком заказов в админке",
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
@@ -92,6 +98,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     // TODO test successShowEmptySearchPlaceholder
 
     @CaseId(182)
+    @Story("Тест поиска заказа по номеру заказа в админке")
     @Test(  description = "Тест поиска заказа по номеру заказа в админке",
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
@@ -107,6 +114,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     }
 
     @CaseId(445)
+    @Story("Тест поиска заказа по номеру шипмента в админке")
     @Test(  description = "Тест поиска заказа по номеру шипмента в админке",
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
@@ -122,6 +130,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
 
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
     // TODO поправить тест после того как починб тест заказа
+    @Story("Тест возобновления и отмены заказа через админку")
     @Test(  description = "Тест возобновления и отмены заказа через админку",
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
@@ -152,6 +161,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     }
 
     // Нужен юзер
+    @Story("Тест поиска B2B заказа в админке")
     @Test(  description = "Тест поиска B2B заказа в админке",
             groups = {"sbermarket-regression"}
     )

@@ -4,27 +4,33 @@ import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
 
+@Epic("Админка STF")
+@Feature("Базовый функционал и навигация в админке")
 public class BasicAdministrationTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
-    @BeforeClass(alwaysRun = true)
-    public void setup() {
-        User.Logout.quickly();
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
+        User.Logout.quicklyAdmin();
+        kraken.reach().admin();
     }
 
     @CaseId(419)
+    @Story("Тест доступности корневых разделов админки")
     @Test(  description = "Тест доступности корневых разделов админки",
 
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     ) public void successCheckAdminSectionsAvailability() {
         kraken.get().page(Pages.Admin.login());
-        kraken.reach().admin();
-
         baseChecks.checkPageIsAvailable(Pages.Admin.shipments());
         baseChecks.checkPageIsAvailable(Pages.Admin.retailers());
         baseChecks.checkPageIsAvailable(Pages.Admin.products());
@@ -37,30 +43,27 @@ public class BasicAdministrationTests extends TestBase {
     }
 
     @CaseId(420)
+    @Story("Тест доступности вьюхи oktell")
     @Test(  description = "Тест доступности вьюхи oktell",
-
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     ) public void successCheckOktellViewAvailability() {
-        kraken.reach().admin();
         baseChecks.checkPageIsAvailable(Pages.Admin.oktell());
     }
 
     @CaseId(416)
+    @Story("Проверка наличия элементов в шапке админки")
     @Test(  description = "Проверка наличия элементов в шапке админки",
-
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     ) public void successValidateHeader() {
-        kraken.reach().admin();
         baseChecks.checkIsElementPresent(Elements.Administration.Header.userEmail());
         baseChecks.checkIsElementPresent(Elements.Administration.Header.logoutButton());
     }
 
     @CaseId(4)
+    @Story("Тест валидности ссылок навигационного меню в шапке админки")
     @Test(  description = "Тест валидности ссылок навигационного меню в шапке админки",
-
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     ) public void successValidateNavigationMenu() {
-        kraken.reach().admin();
 
         baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Заказы"));
             baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Управление логистикой"));
