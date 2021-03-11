@@ -3,10 +3,13 @@ package instamart.ui.helpers;
 import instamart.core.common.AppManager;
 import instamart.core.helpers.HelperBase;
 import instamart.core.settings.Config;
+import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.objectsmap.Elements;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +48,39 @@ public final class WaitingHelper extends HelperBase {
      * */
     public void fluently(Function conditions) {
         fluently(conditions,"");
+    }
+
+    /**
+     * Метод заточен под ожидание элементов в которые можно кликнуть
+     * TODO: Все элементы отображаются за разное время и ждать константные {@link Config#WAITING_TIMEOUT} очень не хорошо
+     * TODO: предлагаю засунуть это в {@link ElementData} так получится, что для каждого элемента, свое ожидание будет.
+     * @param data
+     * @param timeout
+     * @return
+     */
+    public WebElement shouldBeClickable(final ElementData data, final int timeout) {
+        return new FluentWait<>(kraken.getWebDriver())
+                .withTimeout(timeout, TimeUnit.SECONDS)
+                .pollingEvery(250, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class)
+                .until(ExpectedConditions.elementToBeClickable(data.getLocator()));
+    }
+
+    public boolean shouldBeVisible(final ElementData data, final int timeout) {
+        final FluentWait<WebDriver> wait =  new FluentWait<>(kraken.getWebDriver())
+                .withTimeout(timeout, TimeUnit.SECONDS)
+                .withMessage(data.getDescription())
+                .pollingEvery(250, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class);
+        return wait.until((ExpectedCondition<Boolean>) driver -> driver.findElement(data.getLocator()).isDisplayed());
+    }
+
+    public void urlToBe(final String url, final int timeout) {
+        new FluentWait<>(kraken.getWebDriver())
+                .withTimeout(timeout, TimeUnit.SECONDS)
+                .pollingEvery(250, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class)
+                .until(ExpectedConditions.urlToBe(url));
     }
 
     public void fluentlyWithWindowsHandler(Function conditions){

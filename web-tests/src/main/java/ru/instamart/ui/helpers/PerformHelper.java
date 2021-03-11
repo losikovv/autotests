@@ -8,6 +8,7 @@ import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -80,34 +81,26 @@ public final class PerformHelper extends HelperBase {
     public void hoverOn(ElementData element) {
         try {
             new Actions(kraken.getWebDriver()).moveToElement(kraken.getWebDriver().findElement(element.getLocator())).perform();
-            kraken.await().simply(1); // Ожидание для стабильности
+            WaitingHelper.simply(1); // Ожидание для стабильности
         }
         catch (ElementNotVisibleException v) {
-            log.error("Невозможно навестись на элемент <{}> \nЭлемент не отображается на {}",
+            log.error("Невозможно навести на элемент <{}> \nЭлемент не отображается на {}",
                     element.getLocator(),
                     kraken.grab().currentURL());
         }
     }
 
     /** Заполнить поле указанным текстом */
-    public void fillField(ElementData element, String text) {
-        click(element);
-        if (text != null) {
-            String existingText = kraken.grab().value(element);
-            int attempt = 0;
-            if (!text.equals(existingText)) {
-                while (!existingText.equals("")){
-                    kraken.getWebDriver().findElement(element.getLocator()).clear();
-                    kraken.getWebDriver().findElement(element.getLocator()).sendKeys(Keys.BACK_SPACE);
-                    existingText = kraken.grab().value(element);
-                    attempt = attempt+1;
-                    if ((attempt==1000)){
-                        throw new ElementNotInteractableException("");
-                    }
-                }
-                kraken.getWebDriver().findElement(element.getLocator()).sendKeys(text);
-            }
+    public void fillField(final ElementData element, final String text) {
+        if (text == null) {
+            log.error("> пустое значение для элемента: {}", element);
+            Assert.assertNotNull("Пустое значение для заполнения поля", text);
         }
+        final WebElement webElement = kraken.await().shouldBeClickable(element, 5);
+        webElement.click();
+        webElement.clear();
+        webElement.sendKeys(Keys.BACK_SPACE);
+        webElement.sendKeys(text);
     }
 
     /** Заполнить поле через метод Action*/
@@ -197,7 +190,7 @@ public final class PerformHelper extends HelperBase {
     public void repeatOrder() {
         log.info("Повторяем заказ");
         click(Elements.UserProfile.OrderDetailsPage.OrderSummary.repeatOrderButton());
-        kraken.await().simply(1); // Ожидание анимации открытия модалки повтора заказа
+        WaitingHelper.simply(1); // Ожидание анимации открытия модалки повтора заказа
         click(Elements.UserProfile.OrderDetailsPage.RepeatOrderModal.yesButton());
         kraken.await().fluently(
                 ExpectedConditions.visibilityOfElementLocated(Elements.Cart.drawer().getLocator()),
@@ -218,7 +211,7 @@ public final class PerformHelper extends HelperBase {
     /** Отменить заказ на странице деталей заказа */
     public void cancelOrder() {
             click(Elements.UserProfile.OrderDetailsPage.OrderSummary.cancelOrderButton());
-            kraken.await().simply(1); // Ожидание анимации открытия модалки отмены заказа
+            WaitingHelper.simply(1); // Ожидание анимации открытия модалки отмены заказа
             click(Elements.UserProfile.OrderDetailsPage.CancelOrderModal.yesButton());
             kraken.await().fluently(
                     ExpectedConditions.presenceOfElementLocated(Elements.UserProfile.OrderDetailsPage.CancelOrderModal.popup().getLocator()),
