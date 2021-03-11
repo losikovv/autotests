@@ -1,15 +1,15 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.requests.v2.SearchesRequest;
 import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
+import instamart.api.requests.v2.SearchesRequest;
 import instamart.api.responses.v2.SearchSuggestionsResponse;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertNotNull;
 
-public class SearchesTest extends RestBase {
+public class SearchesV2Test extends RestBase {
 
     @CaseId(3)
     @Test(  description = "Получаем поисковые подсказки",

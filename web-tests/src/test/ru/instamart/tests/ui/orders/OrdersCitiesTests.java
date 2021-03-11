@@ -9,7 +9,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 import ru.instamart.tests.ui.TestBase;
 
-public class OrdersCities extends TestBase {
+public class OrdersCitiesTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void setup() {

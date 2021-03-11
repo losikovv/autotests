@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-public class Stores extends RestBase {
+public class StoresV1Tests extends RestBase {
 
     @CaseId(125)
     @Test(  description = "Контрактный тест списка магазинов",

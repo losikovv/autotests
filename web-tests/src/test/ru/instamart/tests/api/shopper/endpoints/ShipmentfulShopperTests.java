@@ -19,7 +19,7 @@ import static instamart.api.checkpoints.ShopperApiCheckpoints.assertStatusCode20
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
-public class ShipmentfulTests extends RestBase {
+public class ShipmentfulShopperTests extends RestBase {
     String shipmentId;
     String assemblyId;
     String assemblyItemId;

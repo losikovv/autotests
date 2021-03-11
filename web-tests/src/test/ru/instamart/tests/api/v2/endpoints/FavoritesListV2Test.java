@@ -1,10 +1,10 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
-import instamart.api.enums.SessionType;
-import instamart.api.requests.v2.FavoritesRequest;
 import instamart.api.common.RestBase;
+import instamart.api.enums.SessionType;
 import instamart.api.objects.v2.Item;
+import instamart.api.requests.v2.FavoritesRequest;
 import instamart.api.responses.v2.FavoritesItemResponse;
 import instamart.api.responses.v2.FavoritesListItemsResponse;
 import instamart.api.responses.v2.FavoritesSkuListItemResponse;
@@ -20,7 +20,7 @@ import static org.testng.Assert.assertNotNull;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Избранное")
-public class FavoritesListTest extends RestBase {
+public class FavoritesListV2Test extends RestBase {
 
     private final long PRODUCT_ID = 239210;
     private final long PRODUCT_ID_2 = 239211;

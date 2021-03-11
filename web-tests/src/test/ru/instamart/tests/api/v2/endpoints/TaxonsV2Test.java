@@ -1,9 +1,9 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.requests.v2.TaxonsRequest;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Taxon;
+import instamart.api.requests.v2.TaxonsRequest;
 import instamart.api.responses.v2.TaxonResponse;
 import instamart.api.responses.v2.TaxonsResponse;
 import instamart.core.testdata.dataprovider.RestDataProvider;
@@ -19,9 +19,9 @@ import java.util.Set;
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
-public class TaxonsTest extends RestBase {
+public class TaxonsV2Test extends RestBase {
 
-    private static final Logger log = LoggerFactory.getLogger(TaxonsTest.class);
+    private static final Logger log = LoggerFactory.getLogger(TaxonsV2Test.class);
 
     private int taxonId;
 

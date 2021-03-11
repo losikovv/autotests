@@ -1,9 +1,9 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
+import instamart.api.common.RestBase;
 import instamart.api.enums.SessionType;
 import instamart.api.requests.v2.PaymentToolsRequest;
-import instamart.api.common.RestBase;
 import instamart.api.responses.v2.PaymentToolsResponse;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
-public class PaymentToolsTest extends RestBase {
+public class PaymentToolsV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {

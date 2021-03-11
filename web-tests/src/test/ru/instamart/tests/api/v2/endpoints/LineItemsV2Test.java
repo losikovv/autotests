@@ -1,9 +1,9 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.requests.v2.LineItemsRequest;
-import instamart.api.requests.v2.ProductsRequest;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.LineItem;
+import instamart.api.requests.v2.LineItemsRequest;
+import instamart.api.requests.v2.ProductsRequest;
 import instamart.api.responses.v2.LineItemResponse;
 import instamart.api.responses.v2.ProductsResponse;
 import io.qase.api.annotation.CaseId;
@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
-public class LineItemsTest extends RestBase {
+public class LineItemsV2Test extends RestBase {
     private String orderNumber;
     private long productId;
     private long lineItemId;

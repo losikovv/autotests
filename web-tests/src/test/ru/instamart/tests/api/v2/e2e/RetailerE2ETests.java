@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class RetailerTests extends RestBase {
+public class RetailerE2ETests extends RestBase {
 
-    private static final Logger log = LoggerFactory.getLogger(RetailerTests.class);
+    private static final Logger log = LoggerFactory.getLogger(RetailerE2ETests.class);
 
     @BeforeClass(description = "Проверка самих провайдеров")
     public void selfTest() {

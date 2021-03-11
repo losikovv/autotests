@@ -1,10 +1,10 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
-import instamart.api.enums.SessionType;
-import instamart.api.requests.v2.UsersRequest;
 import instamart.api.common.RestBase;
+import instamart.api.enums.SessionType;
 import instamart.api.objects.v2.User;
+import instamart.api.requests.v2.UsersRequest;
 import instamart.api.responses.v2.ErrorResponse;
 import instamart.api.responses.v2.UserDataResponse;
 import io.qameta.allure.*;
@@ -18,7 +18,7 @@ import static instamart.api.checkpoints.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Данные пользователя")
-public final class UserTest extends RestBase {
+public final class UserV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void precondition() {

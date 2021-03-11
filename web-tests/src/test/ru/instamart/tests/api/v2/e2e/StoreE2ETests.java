@@ -1,12 +1,12 @@
 package ru.instamart.tests.api.v2.e2e;
 
-import instamart.api.requests.v2.ProductsRequest;
 import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
 import instamart.api.helpers.RegistrationHelper;
 import instamart.api.objects.v2.Product;
 import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Taxon;
+import instamart.api.requests.v2.ProductsRequest;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.ui.common.pagesdata.UserData;
@@ -20,9 +20,9 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
-public class StoreTests extends RestBase {
+public class StoreE2ETests extends RestBase {
 
-    private static final Logger log = LoggerFactory.getLogger(StoreTests.class);
+    private static final Logger log = LoggerFactory.getLogger(StoreE2ETests.class);
 
     @BeforeClass(description = "Проверка самих провайдеров")
     public void selfTest() {

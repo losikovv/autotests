@@ -1,9 +1,9 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
+import instamart.api.common.RestBase;
 import instamart.api.enums.SessionType;
 import instamart.api.requests.v2.ResetPasswordRequest;
-import instamart.api.common.RestBase;
 import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
@@ -14,7 +14,7 @@ import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode
 
 @Epic("ApiV2")
 @Feature("Восстановление пароля")
-public final class ResetPasswordTest extends RestBase {
+public final class ResetPasswordV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     @Story("Создание сессии")

@@ -1,8 +1,8 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.requests.v2.UsersRequest;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.User;
+import instamart.api.requests.v2.UsersRequest;
 import instamart.api.responses.v2.ErrorResponse;
 import instamart.api.responses.v2.UserResponse;
 import instamart.core.testdata.UserManager;
@@ -20,7 +20,7 @@ import static org.testng.Assert.assertEquals;
 //TODO переделать на датапровайдер
 @Epic("ApiV2")
 @Feature("Регистрация")
-public final class RegistrationTest extends RestBase {
+public final class RegistrationV2Test extends RestBase {
 
     private final String firstName = "autotester";
     private final String lastName = "api";
