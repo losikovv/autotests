@@ -3,14 +3,18 @@ package ru.instamart.tests.ui.administration;
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.modules.Administration;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
 
+@Epic("Админка STF")
+@Feature("Работа со статическими страницами")
 public class AdministrationPagesSectionTests extends TestBase {
     
     private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    // TODO актуализировать тесты в классе - ATST-233
 
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
@@ -18,6 +22,7 @@ public class AdministrationPagesSectionTests extends TestBase {
         kraken.reach().admin();
     }
 
+    @Story("Проверка вкладки статических страниц")
     @Test(  description = "Проверка вкладки статических страниц",
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
@@ -32,6 +37,7 @@ public class AdministrationPagesSectionTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.deletePageButton(page));
     }
 
+    @Story("Проверка страницы создания статической страницы")
     @Test(  description = "Проверка страницы создания статической страницы",
             groups = {}
     )
@@ -40,6 +46,7 @@ public class AdministrationPagesSectionTests extends TestBase {
         Administration.Pages.validateStaticPage(testPageName);
     }
 
+    @Story("Тест создания и удаления статической страницы")
     @Test(  description = "Тест создания и удаления статической страницы",
             groups = {}
     )

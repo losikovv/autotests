@@ -9,13 +9,18 @@ import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Administration;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 
+@Epic("Админка STF")
+@Feature("Управление юзерами")
 public class AdministrationUsersSectionTests extends TestBase {
     private static String phone;
     private static String email;
@@ -25,17 +30,17 @@ public class AdministrationUsersSectionTests extends TestBase {
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
-        User.Logout.quickly();
         phone = Generate.phoneNumber();
         email = Generate.emailAdmin();
     }
 
     @CaseId(31)
+    @Story("Тест поиска пользователя в админке")
     @Test(  description = "Тест поиска пользователя в админке",
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void successSearchUser() {
-        kraken.reach().admin();
+        User.Logout.quicklyAdmin();
         Administration.Users.searchUser(UserManager.getDefaultAdmin());
         searchChecks.checkSearchWorks();
     }
@@ -44,10 +49,12 @@ public class AdministrationUsersSectionTests extends TestBase {
     @Issue(value = "STF-7163")
     @Issue(value = "STF-7220")
     @CaseId(32)
+    @Story("Тест предоставления и отзыва админских прав пользователю")
     @Test(  description = "Тест предоставления и отзыва админских прав пользователю",
             groups = {"sbermarket-regression","admin-ui-smoke"}
     )
     public void successGrantAndRevokeAdminPrivileges() {
+        User.Logout.quickly();
         String role= "superadmin";
         User.Do.registration(
                 phone,
@@ -58,14 +65,14 @@ public class AdministrationUsersSectionTests extends TestBase {
         Administration.Users.changeEmail(email);
         Administration.Users.changePassword(phone);
         Administration.Users.grantAdminPrivileges();
-        User.Logout.quickly();
+        User.Logout.quicklyAdmin();
         kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
         kraken.reach().admin(email,phone,role);
         adminChecks.checkIsAdminPageOpen();
-        User.Logout.quickly();
+        User.Logout.quicklyAdmin();
         kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
         Administration.Users.revokeAdminPrivileges(phone);
-        User.Logout.quickly();
+        User.Logout.quicklyAdmin();
         kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
         kraken.reach().admin(email,phone,"superuser");
         adminChecks.checkIsNotAdminPageOpen();
@@ -73,10 +80,12 @@ public class AdministrationUsersSectionTests extends TestBase {
 
     @Issue(value = "STF-7163")
     @CaseId(33)
+    @Story("Тест смены email пользователя")
     @Test(  description = "Тест смены email пользователя",
             groups = {"sbermarket-regression","admin-ui-smoke"}
     )
     public void successChangeEmail() {
+        User.Logout.quickly();
         User.Do.registration(
                 phone,
                 "111111"
@@ -92,10 +101,12 @@ public class AdministrationUsersSectionTests extends TestBase {
 
     @CaseId(34)
     @Issue(value = "STF-7163")
+    @Story("Тест проставления пользователю флага B2B")
     @Test(  description = "Тест проставления пользователю флага B2B",
             groups = {"sbermarket-regression","admin-ui-smoke"}
     )
     public void successGrantB2BStatus() {
+        User.Logout.quickly();
         User.Do.registration(
                 phone,
                 "111111"
@@ -107,6 +118,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         baseChecks.checkCheckboxIsSet(Elements.Administration.UsersSection.UserPage.b2bCheckbox());
     }
 
+    @Story("Тест снятия B2B флага у пользователя")
     @Test(  description = "Тест снятия B2B флага у пользователя",
             groups = {"sbermarket-regression"}
     )

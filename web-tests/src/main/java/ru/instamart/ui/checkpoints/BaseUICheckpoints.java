@@ -88,7 +88,7 @@ public class BaseUICheckpoints {
     public void checkTransition(String URL) {
         log.info("> переход по прямой ссылке {}", URL);
         kraken.get().url(URL);
-        kraken.await().simply(1);
+        kraken.await().fluently(ExpectedConditions.urlToBe(URL));
         Assert.assertTrue(
                 kraken.grab().currentURL().equalsIgnoreCase(URL),
                 "Невозможно перейти на страницу " + URL + " по прямой ссылке\n"
