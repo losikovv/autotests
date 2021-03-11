@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 
 import java.util.Map;
 
-import static instamart.api.requests.InstamartRequestsBase.givenCatch;
+import static instamart.api.requests.InstamartRequestsBase.givenApiV1;
 
 /**
  * МЕТОДЫ ЗАПРОСОВ SPREE REST API (сайт)
@@ -33,7 +33,7 @@ public class ApiV1Requests {
             userParams.put("email", email);
             userParams.put("password", password);
             userParams.put("remember_me", true);
-            Response response = givenCatch()
+            Response response = givenApiV1()
                     .body(requestParams)
                     .contentType(ContentType.JSON)
                     .log().body()
@@ -53,7 +53,7 @@ public class ApiV1Requests {
          */
         @Step("{method} /" + ApiV1Endpoints.TOKENS)
         public static Response GET() {
-            Response response = givenCatch()
+            Response response = givenApiV1()
                     .cookies(cookies)
                     .get(ApiV1Endpoints.TOKENS);
             ShoppersBackend shoppersBackend = response.as(TokensResponse.class).getShoppers_backend();
@@ -65,22 +65,22 @@ public class ApiV1Requests {
     public static class Retailers {
         @Step("{method} /" + ApiV1Endpoints.RETAILERS)
         public static Response GET() {
-            return givenCatch().get(ApiV1Endpoints.RETAILERS);
+            return givenApiV1().get(ApiV1Endpoints.RETAILERS);
         }
         @Step("{method} /" + ApiV1Endpoints.Retailers.ID)
         public static Response GET(int retailerId) {
-            return givenCatch().get(ApiV1Endpoints.Retailers.ID, retailerId);
+            return givenApiV1().get(ApiV1Endpoints.Retailers.ID, retailerId);
         }
         public static class Stores {
             @Step("{method} /" + ApiV1Endpoints.Retailers.STORES)
             public static Response GET(int retailerId) {
-                return givenCatch().get(ApiV1Endpoints.Retailers.STORES, retailerId);
+                return givenApiV1().get(ApiV1Endpoints.Retailers.STORES, retailerId);
             }
         }
         public static class Eans {
             @Step("{method} /" + ApiV1Endpoints.Retailers.EANS)
             public static Response GET(int retailerId) {
-                return givenCatch().get(ApiV1Endpoints.Retailers.EANS, retailerId);
+                return givenApiV1().get(ApiV1Endpoints.Retailers.EANS, retailerId);
             }
         }
     }
@@ -88,16 +88,16 @@ public class ApiV1Requests {
     public static class Stores {
         @Step("{method} /" + ApiV1Endpoints.STORES)
         public static Response GET() {
-            return givenCatch().get(ApiV1Endpoints.STORES);
+            return givenApiV1().get(ApiV1Endpoints.STORES);
         }
         @Step("{method} /" + ApiV1Endpoints.Stores.UUID)
         public static Response GET(String storeUuid) {
-            return givenCatch().get(ApiV1Endpoints.Stores.UUID, storeUuid);
+            return givenApiV1().get(ApiV1Endpoints.Stores.UUID, storeUuid);
         }
         public static class Offers {
             @Step("{method} /" + ApiV1Endpoints.Stores.OFFERS)
             public static Response GET(String storeUuid, String offerName, String offerRetailerSku) {
-                return givenCatch().get(ApiV1Endpoints.Stores.OFFERS, storeUuid, offerName, offerRetailerSku);
+                return givenApiV1().get(ApiV1Endpoints.Stores.OFFERS, storeUuid, offerName, offerRetailerSku);
             }
         }
     }
@@ -105,11 +105,11 @@ public class ApiV1Requests {
     public static class OperationalZones {
         @Step("{method} /" + ApiV1Endpoints.OPERATIONAL_ZONES)
         public static Response GET() {
-            return givenCatch().get(ApiV1Endpoints.OPERATIONAL_ZONES);
+            return givenApiV1().get(ApiV1Endpoints.OPERATIONAL_ZONES);
         }
         @Step("{method} /" + ApiV1Endpoints.OperationalZones.ID)
         public static Response GET(int operationalZoneId) {
-            return givenCatch().get(ApiV1Endpoints.OperationalZones.ID, operationalZoneId);
+            return givenApiV1().get(ApiV1Endpoints.OperationalZones.ID, operationalZoneId);
         }
     }
 
@@ -117,7 +117,7 @@ public class ApiV1Requests {
         public static class MarketingSampleItems {
             @Step("{method} /" + ApiV1Endpoints.Shoppers.MARKETING_SAMPLE_ITEMS)
             public static Response GET(String shipmentUuid) {
-                return givenCatch()
+                return givenApiV1()
                         .header("X-Spree-Token", UserManager.getDefaultAdmin().getToken())
                         .get(ApiV1Endpoints.Shoppers.MARKETING_SAMPLE_ITEMS, shipmentUuid);
             }
@@ -125,7 +125,7 @@ public class ApiV1Requests {
         public static class OrderAvailablePaymentTools {
             @Step("{method} /" + ApiV1Endpoints.Shoppers.ORDER_AVAILABLE_PAYMENT_TOOLS)
             public static Response GET(String orderNumber) {
-                return givenCatch()
+                return givenApiV1()
                         .header("X-Spree-Token", UserManager.getDefaultAdmin().getToken())
                         .get(ApiV1Endpoints.Shoppers.ORDER_AVAILABLE_PAYMENT_TOOLS, orderNumber);
             }
@@ -135,20 +135,20 @@ public class ApiV1Requests {
     public static class Offers {
         @Step("{method} /" + ApiV1Endpoints.Offers.UUID)
         public static Response GET(String offerUuid) {
-            return givenCatch().get(ApiV1Endpoints.Offers.UUID, offerUuid);
+            return givenApiV1().get(ApiV1Endpoints.Offers.UUID, offerUuid);
         }
     }
 
     public static class Orders {
         @Step("{method} /" + ApiV1Endpoints.ORDERS)
         public static Response GET() {
-            return givenCatch()
+            return givenApiV1()
                     .cookies(cookies)
                     .get(ApiV1Endpoints.ORDERS);
         }
         @Step("{method} /" + ApiV1Endpoints.Orders.NUMBER)
         public static Response GET(String orderNumber) {
-            return givenCatch()
+            return givenApiV1()
                     .cookies(cookies)
                     .get(ApiV1Endpoints.Orders.NUMBER, orderNumber);
         }
@@ -157,7 +157,7 @@ public class ApiV1Requests {
     public static class Shipments {
         @Step("{method} /" + ApiV1Endpoints.Shipments.NUMBER)
         public static Response GET(String shipmentNumber) {
-            return givenCatch()
+            return givenApiV1()
                     .cookies(cookies)
                     .get(ApiV1Endpoints.Shipments.NUMBER, shipmentNumber);
         }
@@ -165,14 +165,14 @@ public class ApiV1Requests {
             public static class Prereplacements {
                 @Step("{method} /" + ApiV1Endpoints.Shipments.Products.PREREPLACEMENTS)
                 public static Response GET(String shipmentNumber, long productSku) {
-                    return givenCatch().get(ApiV1Endpoints.Shipments.Products.PREREPLACEMENTS, shipmentNumber, productSku);
+                    return givenApiV1().get(ApiV1Endpoints.Shipments.Products.PREREPLACEMENTS, shipmentNumber, productSku);
                 }
             }
         }
         public static class Offers {
             @Step("{method} /" + ApiV1Endpoints.Shipments.OFFERS)
             public static Response GET(String shipmentNumber) {
-                return givenCatch().get(ApiV1Endpoints.Shipments.OFFERS, shipmentNumber);
+                return givenApiV1().get(ApiV1Endpoints.Shipments.OFFERS, shipmentNumber);
             }
         }
     }
@@ -180,7 +180,7 @@ public class ApiV1Requests {
     public static class LineItems {
         @Step("{method} /" + ApiV1Endpoints.LINE_ITEMS)
         public static Response GET(String shipmentNumber) {
-            return givenCatch()
+            return givenApiV1()
                     .cookies(cookies)
                     .get(ApiV1Endpoints.LINE_ITEMS, shipmentNumber);
         }

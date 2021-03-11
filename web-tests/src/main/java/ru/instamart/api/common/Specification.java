@@ -28,11 +28,13 @@ public enum Specification {
 
     private static ResponseSpecification responseSpecDefault;
     private static ResponseSpecification responseSpecDataProvider;
-    private RequestSpecification customerRequestSpec;
+    private RequestSpecification apiV2Spec;
+    private RequestSpecification apiV1Spec;
     private RequestSpecification shopperRequestSpec;
 
     public void initSpec() {
-        final String customerFullBaseUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth();
+        final String apiV1FullUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth();
+        final String apiV2FullUrl = EnvironmentData.INSTANCE.getBasicUrl();
         final String shopperFullBaseUrl = EnvironmentData.INSTANCE.getShopperUrl();
         port = 443;
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
@@ -73,8 +75,15 @@ public enum Specification {
                 .expectStatusCode(not(503))
                 .build();
 
-        customerRequestSpec = new RequestSpecBuilder()
-                .setBaseUri(customerFullBaseUrl.substring(0, customerFullBaseUrl.length() - 1))
+        apiV1Spec = new RequestSpecBuilder()
+                .setBaseUri(apiV1FullUrl)
+                .setBasePath("api/")
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssured())
+                .build();
+
+        apiV2Spec = new RequestSpecBuilder()
+                .setBaseUri(apiV2FullUrl)
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssured())
@@ -99,8 +108,12 @@ public enum Specification {
         responseSpecification = responseSpecDefault;
     }
 
-    public RequestSpecification getCustomerRequestSpec() {
-        return customerRequestSpec;
+    public RequestSpecification getApiV2Spec() {
+        return apiV2Spec;
+    }
+
+    public RequestSpecification getApiV1Spec() {
+        return apiV1Spec;
     }
 
     public RequestSpecification getShopperRequestSpec() {
