@@ -1,7 +1,7 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.requests.v2.OnboardingPagesRequest;
 import instamart.api.common.RestBase;
+import instamart.api.requests.v2.OnboardingPagesRequest;
 import instamart.api.responses.v2.OnboardingPagesResponse;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
-public class OnboardingPagesTest extends RestBase {
+public class OnboardingPagesV2Test extends RestBase {
 
     @CaseId(15)
     @Test(  description = "Получаем экраны онбординга",

@@ -11,9 +11,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
 
-public class testOrders extends TestBase {
+public class OrdersTests extends TestBase {
 
-    private static final Logger log = LoggerFactory.getLogger(testOrders.class);
+    private static final Logger log = LoggerFactory.getLogger(OrdersTests.class);
 
     @DataProvider(name="cities")
     public static Object[][] citiesDataProvider() {

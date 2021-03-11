@@ -1,9 +1,9 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.requests.v2.StoresRequest;
 import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestAddresses;
 import instamart.api.common.RestBase;
+import instamart.api.requests.v2.StoresRequest;
 import instamart.api.responses.v2.PromotionCardsResponse;
 import instamart.api.responses.v2.StoreResponse;
 import instamart.api.responses.v2.StoresResponse;
@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertNotNull;
 
-public class StoresTest extends RestBase {
+public class StoresV2Test extends RestBase {
 
     @CaseId(1)
     @Test(  description = "Получаем магазин",

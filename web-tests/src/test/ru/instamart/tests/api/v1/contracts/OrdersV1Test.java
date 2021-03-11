@@ -19,7 +19,7 @@ import org.testng.annotations.Test;
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-public class OrdersTest extends RestBase {
+public class OrdersV1Test extends RestBase {
 
     private String shipmentUuid;
     private String orderNumber;

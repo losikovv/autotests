@@ -1,11 +1,11 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
+import instamart.api.common.RestBase;
 import instamart.api.enums.SessionType;
+import instamart.api.enums.v2.AuthProvider;
 import instamart.api.helpers.RegistrationHelper;
 import instamart.api.requests.v2.SessionRequest;
-import instamart.api.common.RestBase;
-import instamart.api.enums.v2.AuthProvider;
 import instamart.api.responses.v2.SessionsResponse;
 import instamart.api.responses.v2.UserDataResponse;
 import instamart.core.listeners.ExecutionListenerImpl;
@@ -17,7 +17,6 @@ import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.SkipException;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
@@ -28,7 +27,7 @@ import static org.testng.Assert.assertNotNull;
 @Epic(value = "ApiV2")
 @Feature(value = "Авторизация")
 @Listeners(ExecutionListenerImpl.class)
-public final class SessionsTest extends RestBase {
+public final class SessionsV2Test extends RestBase {
 
     @CaseId(14)
     @Test(  dataProvider = "authProviders",

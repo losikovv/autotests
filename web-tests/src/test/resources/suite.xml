@@ -32,15 +32,15 @@
       <class name="ru.instamart.tests.ui.landings.DriversHiringLandingTests"/>
       <class name="ru.instamart.tests.ui.landings.SbermarketAppPromoLandingTests"/>
       <class name="ru.instamart.tests.ui.orders.OrdersBonusesTests"/>
-      <class name="ru.instamart.tests.ui.orders.OrdersCities"/>
+      <class name="ru.instamart.tests.ui.orders.OrdersCitiesTests"/>
       <class name="ru.instamart.tests.ui.orders.OrderRepeatTests"/>
       <class name="ru.instamart.tests.ui.orders.OrdersPaymentsTests"/>
       <class name="ru.instamart.tests.ui.orders.OrdersPromocodesTests"/>
       <class name="ru.instamart.tests.ui.orders.OrdersReplacementsTests"/>
       <class name="ru.instamart.tests.ui.orders.OrdersRetailerCardsTests"/>
-      <class name="ru.instamart.tests.ui.orders.OrdersRetailers"/>
+      <class name="ru.instamart.tests.ui.orders.OrdersRetailersTests"/>
       <class name="ru.instamart.tests.ui.addons.Page404Tests"/>
-      <class name="ru.instamart.tests.Playground"/>
+      <class name="ru.instamart.tests.PlaygroundTests"/>
       <class name="ru.instamart.tests.ui.landings.ReferralLandingTests"/>
       <class name="ru.instamart.tests.ui.addons.RetailRocket.RetailRocketCartWidgetsTests"/>
       <class name="ru.instamart.tests.ui.addons.RetailRocket.RetailRocketCatalogWidgetsTests"/>
@@ -57,7 +57,7 @@
       <class name="ru.instamart.tests.ui.shopping.ShoppingTestsForExistingUser"/>
       <class name="ru.instamart.tests.ui.shopping.ShoppingTestsForUnauthorizedUser"/>
       <class name="ru.instamart.tests.ui.TestBase"/>
-      <class name="ru.instamart.tests.ui.orders.testOrders"/>
+      <class name="ru.instamart.tests.ui.orders.OrdersTests"/>
       <class name="ru.instamart.tests.ui.user.UserAuthorisationTests"/>
       <class name="ru.instamart.tests.ui.user.UserFavoritesTests"/>
       <class name="ru.instamart.tests.ui.user.UserLogoutTests"/>

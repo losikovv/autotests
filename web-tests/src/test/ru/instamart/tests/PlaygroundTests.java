@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 
-public class Playground extends TestBase {
+public class PlaygroundTests extends TestBase {
 
     @Test
     public void restOrder() {

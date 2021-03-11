@@ -17,7 +17,7 @@ import java.util.Arrays;
 import static instamart.api.checkpoints.ShopperApiCheckpoints.assertStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
-public class ShipmentlessTests extends RestBase {
+public class ShipmentlessShopperTests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {

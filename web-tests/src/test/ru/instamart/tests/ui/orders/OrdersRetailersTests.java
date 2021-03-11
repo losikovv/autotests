@@ -16,7 +16,7 @@ import ru.instamart.tests.ui.TestBase;
 
 import static instamart.ui.common.lib.Retailers.*;
 
-public class OrdersRetailers extends TestBase {
+public class OrdersRetailersTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     @BeforeClass(alwaysRun = true,
             description = "Подготавливаем тестовое окружение к прогону тестов")

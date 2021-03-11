@@ -9,7 +9,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class OrderTests extends RestBase {
+public class OrderE2ETests extends RestBase {
 
     @BeforeClass(alwaysRun = true,
                  description = "Регистрация")

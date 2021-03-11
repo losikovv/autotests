@@ -1,11 +1,11 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
-import instamart.api.enums.SessionType;
-import instamart.api.requests.v2.OrdersRequest;
 import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
+import instamart.api.enums.SessionType;
 import instamart.api.objects.v2.Order;
+import instamart.api.requests.v2.OrdersRequest;
 import instamart.api.responses.v2.LineItemsResponse;
 import instamart.api.responses.v2.OrderResponse;
 import instamart.api.responses.v2.OrdersResponse;
@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertNotNull;
 
-public class OrdersTest extends RestBase {
+public class OrdersV2Test extends RestBase {
     private String orderNumber;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")

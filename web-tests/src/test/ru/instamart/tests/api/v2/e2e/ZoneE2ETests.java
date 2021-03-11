@@ -1,7 +1,7 @@
 package ru.instamart.tests.api.v2.e2e;
 
-import instamart.api.helpers.RegistrationHelper;
 import instamart.api.common.RestBase;
+import instamart.api.helpers.RegistrationHelper;
 import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Zone;
 import instamart.core.testdata.UserManager;
@@ -15,9 +15,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class ZoneTests extends RestBase {
+public class ZoneE2ETests extends RestBase {
 
-    private static final Logger log = LoggerFactory.getLogger(ZoneTests.class);
+    private static final Logger log = LoggerFactory.getLogger(ZoneE2ETests.class);
 
     @BeforeClass(description = "Проверка самих провайдеров")
     public void selfTest() {

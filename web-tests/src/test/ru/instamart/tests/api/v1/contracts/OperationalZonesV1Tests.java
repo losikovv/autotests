@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-public class OperationalZones extends RestBase {
+public class OperationalZonesV1Tests extends RestBase {
 
     @CaseId(112)
     @Test(  description = "Контрактный тест списка операционных зон",
