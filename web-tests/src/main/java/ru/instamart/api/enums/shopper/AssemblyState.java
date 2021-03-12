@@ -6,7 +6,11 @@ public enum AssemblyState {
     ASSEMBLED("assembled"),
     ON_CASH_DESK("on_cash_desk"),
     PACKAGING("packaging"),
-    READY_TO_SHIP("ready_to_ship");
+    READY_TO_SHIP("ready_to_ship"),
+    PAUSED("paused"),
+    ON_APPROVAL("on_approval"),
+    SUSPENDED("suspended"),
+    SHIPPED("shipped");
 
     private final String state;
 

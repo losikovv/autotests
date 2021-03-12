@@ -153,6 +153,8 @@ public class ShopperApiHelper {
         getPackageSets();
         packerCreatesPackageSets();
         finishPurchasing();
+
+        shipAssembly();
     }
 
     /**
@@ -163,8 +165,19 @@ public class ShopperApiHelper {
         deleteCurrentAssembly();
         String shipmentId = getShipmentId(shipmentNumber);
 
-        startAssembly(shipmentId);
+        AssemblyData assembly = startAssembly(shipmentId);
+        Assert.assertEquals(assembly.getAttributes().getState(), AssemblyState.COLLECTING.getState());
+
+        suspendAssembly();
+        assembly = startAssembly(shipmentId);
+        Assert.assertEquals(assembly.getAttributes().getState(), AssemblyState.COLLECTING.getState());
+
         assemblyItems();
+
+        pauseAssembly();
+        assembly = startAssembly(shipmentId);
+        Assert.assertEquals(assembly.getAttributes().getState(), AssemblyState.ON_APPROVAL.getState());
+
         startPaymentVerification();
         shopperCreatesPackageSets();
         finishAssembling();
@@ -176,6 +189,9 @@ public class ShopperApiHelper {
         getPackageSets();
         packerCreatesPackageSets();
         finishPurchasing();
+
+        payAssemblyByLifePay();
+        shipAssembly();
     }
 
     /**
@@ -186,8 +202,6 @@ public class ShopperApiHelper {
         Response response = AssembliesRequest.POST(shipmentId);
         assertStatusCode200(response);
         AssemblyData assembly = response.as(AssemblyResponse.class).getData();
-        Assert.assertEquals(assembly.getAttributes().getState(),
-                AssemblyState.COLLECTING.getState());
         currentAssemblyId = assembly.getId();
         return assembly;
     }
@@ -379,7 +393,7 @@ public class ShopperApiHelper {
     }
 
     private void packer() {
-        log.info("Берем сборку упаковщиком>");
+        log.info("Берем сборку упаковщиком");
         Response response = AssembliesRequest.Packer.PUT(currentAssemblyId);
         assertStatusCode200(response);
         AssemblyAttributes attributes = response.as(AssemblyResponse.class).getData().getAttributes();
@@ -453,5 +467,35 @@ public class ShopperApiHelper {
         assertStatusCode200(response);
         Assert.assertEquals(response.as(AssemblyResponse.class).getData().getAttributes().getState(),
                 AssemblyState.READY_TO_SHIP.getState());
+    }
+
+    private void pauseAssembly() {
+        log.info("Ставим сборку на паузу");
+        Response response = AssembliesRequest.Pause.PATCH(currentAssemblyId);
+        assertStatusCode200(response);
+        Assert.assertEquals(response.as(AssemblyResponse.class).getData().getAttributes().getState(),
+                AssemblyState.PAUSED.getState());
+    }
+
+    private void suspendAssembly() {
+        log.info("Отдаём сборку другому сборщику");
+        Response response = AssembliesRequest.Suspend.PATCH(currentAssemblyId);
+        assertStatusCode200(response);
+        Assert.assertEquals(response.as(AssemblyResponse.class).getData().getAttributes().getState(),
+                AssemblyState.SUSPENDED.getState());
+    }
+
+    private void payAssemblyByLifePay() {
+        log.info("Оплачиваем сборку через LifePay");
+        Response response = AssembliesRequest.LifePay.PUT(currentAssemblyId);
+        assertStatusCode200(response);
+    }
+
+    private void shipAssembly() {
+        log.info("Отмечаем сборку как доставленную");
+        Response response = AssembliesRequest.Ship.PATCH(currentAssemblyId);
+        assertStatusCode200(response);
+        Assert.assertEquals(response.as(AssemblyResponse.class).getData().getAttributes().getState(),
+                AssemblyState.SHIPPED.getState());
     }
 }

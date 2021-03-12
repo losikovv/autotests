@@ -200,13 +200,25 @@ public final class AssembliesRequest {
         }
     }
     public static class Pause {
-        //todo
+        @Step("{method} /" + ShopperApiEndpoints.Assemblies.PAUSE)
+        public static Response PATCH(String assemblyId) {
+            return givenWithAuth()
+                    .patch(ShopperApiEndpoints.Assemblies.PAUSE, assemblyId);
+        }
     }
     public static class Suspend {
-        //todo
+        @Step("{method} /" + ShopperApiEndpoints.Assemblies.SUSPEND)
+        public static Response PATCH(String assemblyId) {
+            return givenWithAuth()
+                    .patch(ShopperApiEndpoints.Assemblies.SUSPEND, assemblyId);
+        }
     }
     public static class Ship {
-        //todo
+        @Step("{method} /" + ShopperApiEndpoints.Assemblies.SHIP)
+        public static Response PATCH(String assemblyId) {
+            return givenWithAuth()
+                    .patch(ShopperApiEndpoints.Assemblies.SHIP, assemblyId);
+        }
     }
     public static class Trolleys {
         //todo
