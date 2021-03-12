@@ -80,4 +80,10 @@ public final class ShopperApiEndpoints {
     public static class Auth {
         public static final String REFRESH = "auth/refresh";
     }
+
+    public static class Otps {
+        public static final String TOKENS = "otps/tokens";
+        public static final String AUTHORIZATIONS = "otps/authorizations";
+
+    }
 }

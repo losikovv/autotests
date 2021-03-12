@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 
 import static instamart.api.checkpoints.ShopperApiCheckpoints.assertStatusCode200;
-import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.*;
 
 public class ShipmentlessShopperTests extends RestBase {
 
@@ -156,5 +156,29 @@ public class ShipmentlessShopperTests extends RestBase {
                 "Не вернулся refresh_token");
         SessionFactory.getSession(SessionType.SHOPPER).setToken(sessionsResponse.getData().getAttributes().getAccessToken());
         SessionFactory.getSession(SessionType.SHOPPER).setRefreshToken(sessionsResponse.getData().getAttributes().getRefreshToken());
+    }
+
+    @CaseId(46)
+    @Test( description = "Отправка запроса для получения смс кодом для авторизации",
+           groups = {"api-shopper-smoke"})
+    public void postOtpsTokens() {
+        response = OtpsRequest.Tokens.POST();
+        assertStatusCode200(response);
+    }
+
+    @CaseId(47)
+    @Test( description = "Авторизация по номеру телефона и коду из смс",
+            groups = {"api-shopper-smoke"})
+    public void postOtpsAuthorizations() {
+        response = OtpsRequest.Authorizations.POST();
+
+        assertStatusCode200(response);
+        String accessToken = response.as(SessionsResponse.class).getData().getAttributes().getAccessToken();
+        assertNotNull(accessToken, "Не вернулся access_token");
+        assertNotEquals(accessToken, "", "Вернулся пустой access_token");
+
+        String refreshToken = response.as(SessionsResponse.class).getData().getAttributes().getRefreshToken();
+        assertNotNull(refreshToken, "Не вернулся refresh_token");
+        assertNotEquals(refreshToken, "", "Вернулся пустой refresh_token");
     }
 }
