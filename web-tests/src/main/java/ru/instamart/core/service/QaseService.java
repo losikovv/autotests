@@ -13,8 +13,10 @@ import io.qase.api.enums.RunResultStatus;
 import io.qase.api.exceptions.QaseException;
 import io.qase.api.inner.GsonObjectMapper;
 import io.qase.api.models.v1.attachments.Attachment;
+import io.qase.api.models.v1.defects.Defect;
 import io.qase.api.models.v1.suites.Suite;
 import io.qase.api.models.v1.testplans.TestPlan;
+import io.qase.api.models.v1.testrunresults.TestRunResult;
 import io.qase.api.models.v1.testruns.TestRun;
 import io.qase.api.services.TestCaseService;
 import kong.unirest.Unirest;
@@ -28,9 +30,12 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
@@ -38,6 +43,10 @@ import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 public final class QaseService {
 
     private static final Logger logger = LoggerFactory.getLogger(QaseService.class);
+
+    private static final Pattern ATTACHMENT_PATTERN_HASH = Pattern.compile(".+/(.+)/.+$");
+    private static final LocalDateTime DAYS_TO_DIE = LocalDateTime.now().minusDays(7);
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private final String projectCode;
     private final QaseApi qaseApi;
@@ -254,15 +263,36 @@ public final class QaseService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteOldTestRuns() {
+    public void deleteOldTestRuns() throws Exception {
         final List<TestRun> testRunList = qaseApi.testRuns()
                 .getAll(projectCode, true)
                 .getTestRunList();
 
-        for (TestRun testRun : testRunList) {
-            if (LocalDateTime.now().minusDays(7).isAfter(testRun.getStartTime())) {
+
+        testRunList.forEach(testRun -> {
+            if (DAYS_TO_DIE.isAfter(testRun.getStartTime())) {
+                final List<TestRunResult> testRunResults = qaseApi
+                        .testRunResults()
+                        .getAll(projectCode, 100, 0, qaseApi.testRunResults().filter().run((int) testRun.getId()))
+                        .getTestRunResultList();
+                testRunResults.forEach(testRunResult -> testRunResult.getAttachments().forEach(attachment -> {
+                    final Matcher matcher = ATTACHMENT_PATTERN_HASH.matcher(attachment.getUrl());
+                    if (matcher.find()) {
+                        qaseApi.attachments().delete(matcher.group(1));
+                    }
+                }));
                 qaseApi.testRuns().delete(projectCode, testRun.getId());
             }
-        }
+        });
+    }
+
+    public void deleteOldDefects() throws Exception {
+        final List<Defect> defects = qaseApi.defects().getAll(projectCode).getDefectList();
+        defects.forEach(defect -> {
+            final LocalDateTime dateTime = LocalDateTime.parse(defect.getCreated(), FORMATTER);
+            if (DAYS_TO_DIE.isAfter(dateTime)) {
+                qaseApi.defects().delete(projectCode, defect.getId());
+            }
+        });
     }
 }
