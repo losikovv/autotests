@@ -34,14 +34,16 @@ public class ShopperE2ETests extends RestBase {
 
     @CaseId(1)
     @Test(  description = "Собираем все позиции в заказе",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress"},
+            priority = 1001)
     public void simpleCollect() {
         shopper.simpleCollect(shipmentNumber);
     }
 
     @CaseId(2)
     @Test(  description = "Собираем/отменяем/заменяем позиции в заказе",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress"},
+            priority = 1002)
     public void complexCollect() {
         shopper.complexCollect(shipmentNumber);
     }

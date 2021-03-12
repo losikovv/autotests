@@ -46,7 +46,7 @@ public final class SessionFactory {
         for (Map.Entry<SessionId, SessionInfo> entry : sessionMap.entrySet()) {
             final SessionId sessionId = entry.getKey();
             if (sessionId.getThreadId() == Thread.currentThread().getId() && sessionId.getType() == type) {
-                log.info("Get Session {} for {}", entry.getValue(), type);
+                log.debug("Get Session {} for {}", entry.getValue(), type);
                 Assert.assertNotNull(entry.getValue(),"Вы не авторизовались");
 
                 return entry.getValue();

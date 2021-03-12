@@ -42,10 +42,10 @@ public final class ShopperApiEndpoints {
         public static final String START_PACKAGING = "assemblies/{assemblyId}/start_packaging";
         public static final String PURCHASE = "assemblies/{assemblyId}/purchase";
         public static final String LIFEPAY = "assemblies/{assemblyId}/lifepay";
-        //todo
-        public static final String PAUSE = "assemblies/{assemblyId}/pause"; //patch
-        public static final String SUSPEND = "assemblies/{assemblyId}/suspend"; //patch
+        public static final String PAUSE = "assemblies/{assemblyId}/pause";
+        public static final String SUSPEND = "assemblies/{assemblyId}/suspend";
         public static final String SHIP = "assemblies/{assemblyId}/ship";
+        //todo
         public static final String TROLLEYS = "assemblies/{assemblyId}/trolleys";
         public static final String APPROVE_NEED_REVIEW_ITEMS = "assemblies/{assemblyId}/approve_need_review_items";
     }
