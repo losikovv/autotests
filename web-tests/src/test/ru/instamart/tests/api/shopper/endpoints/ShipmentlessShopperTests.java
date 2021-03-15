@@ -15,7 +15,8 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 
 import static instamart.api.checkpoints.ShopperApiCheckpoints.assertStatusCode200;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.assertNotNull;
 
 public class ShipmentlessShopperTests extends RestBase {
 
@@ -180,5 +181,7 @@ public class ShipmentlessShopperTests extends RestBase {
         String refreshToken = response.as(SessionsResponse.class).getData().getAttributes().getRefreshToken();
         assertNotNull(refreshToken, "Не вернулся refresh_token");
         assertNotEquals(refreshToken, "", "Вернулся пустой refresh_token");
+        SessionFactory.getSession(SessionType.SHOPPER).setToken(accessToken);
+        SessionFactory.getSession(SessionType.SHOPPER).setRefreshToken(refreshToken);
     }
 }
