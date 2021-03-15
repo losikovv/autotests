@@ -280,7 +280,9 @@ public final class InstamartApiHelper {
      * Получаем минимальную сумму заказа, если сумма не набрана
      */
     private void getMinSumFromAlert() {
-        Shipment shipment = OrdersRequest.Current.GET()
+        final Response response = OrdersRequest.Current.GET();
+        assertStatusCode200(response);
+        final Shipment shipment = response
                 .as(OrderResponse.class)
                 .getOrder()
                 .getShipments()

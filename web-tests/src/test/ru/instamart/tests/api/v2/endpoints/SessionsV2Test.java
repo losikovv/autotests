@@ -8,7 +8,6 @@ import instamart.api.helpers.RegistrationHelper;
 import instamart.api.requests.v2.SessionRequest;
 import instamart.api.responses.v2.SessionsResponse;
 import instamart.api.responses.v2.UserDataResponse;
-import instamart.core.listeners.ExecutionListenerImpl;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.ui.common.pagesdata.EnvironmentData;
@@ -17,7 +16,6 @@ import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.SkipException;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.*;
@@ -26,7 +24,6 @@ import static org.testng.Assert.assertNotNull;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Авторизация")
-@Listeners(ExecutionListenerImpl.class)
 public final class SessionsV2Test extends RestBase {
 
     @CaseId(14)
