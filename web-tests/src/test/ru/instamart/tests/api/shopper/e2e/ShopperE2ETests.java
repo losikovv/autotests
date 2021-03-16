@@ -7,11 +7,16 @@ import instamart.api.objects.v2.Order;
 import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+@Epic("Shopper Mobile API")
+@Feature("E2E тесты")
 public class ShopperE2ETests extends RestBase {
     String shipmentNumber;
 
@@ -32,6 +37,7 @@ public class ShopperE2ETests extends RestBase {
         apiV2.cancelCurrentOrder();
     }
 
+    @Story("Сборка заказа")
     @CaseId(1)
     @Test(  description = "Собираем все позиции в заказе",
             groups = {"api-shopper-regress"},
@@ -40,6 +46,7 @@ public class ShopperE2ETests extends RestBase {
         shopper.simpleCollect(shipmentNumber);
     }
 
+    @Story("Сборка заказа")
     @CaseId(2)
     @Test(  description = "Собираем/отменяем/заменяем позиции в заказе",
             groups = {"api-shopper-regress"},

@@ -9,6 +9,9 @@ import instamart.api.responses.shopper.*;
 import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.UserData;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -19,6 +22,8 @@ import static instamart.api.checkpoints.ShopperApiCheckpoints.assertStatusCode20
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
+@Epic("Shopper Mobile API")
+@Feature("Endpoints")
 public class ShipmentfulShopperTests extends RestBase {
     String shipmentId;
     String assemblyId;
@@ -43,6 +48,7 @@ public class ShipmentfulShopperTests extends RestBase {
         shopper.deleteCurrentAssembly();
     }
 
+    @Story("Начало сборки")
     @CaseId(4)
     @Test(  description = "Проверяем импортировался ли заказ",
             groups = {"api-shopper-smoke"})
@@ -51,6 +57,7 @@ public class ShipmentfulShopperTests extends RestBase {
         assertNotNull(shipmentId);
     }
 
+    @Story("Начало сборки")
     @CaseId(13)
     @Test(  description = "Создаём сборку",
             groups = {"api-shopper-smoke"})
@@ -67,6 +74,7 @@ public class ShipmentfulShopperTests extends RestBase {
                 .getId();
     }
 
+    @Story("Получение информации о сборках")
     @CaseId(3)
     @Test(  description = "Получаем сборку по номеру",
             groups = {"api-shopper-smoke"},
@@ -82,8 +90,9 @@ public class ShipmentfulShopperTests extends RestBase {
                 "Не вернулась сборка");
     }
 
+    @Story("Получение информации о заказах")
     @CaseId(5)
-    @Test(  description = "Получаем все заказы сборщика",
+    @Test(  description = "Получаем все заказы для сборщика",
             groups = {"api-shopper-smoke"})
     public void getShopperShipments() {
         response = ShopperRequest.Shipments.GET();
@@ -92,6 +101,7 @@ public class ShipmentfulShopperTests extends RestBase {
                 "Не вернулись заказы сборщика");
     }
 
+    @Story("Получение информации о сборках")
     @CaseId(6)
     @Test(  description = "Получаем все сборки сборщика",
             groups = {"api-shopper-smoke"},
@@ -106,6 +116,7 @@ public class ShipmentfulShopperTests extends RestBase {
                 "Не вернулись сборки сборщика");
     }
 
+    @Story("Процесс сборки")
     @CaseId(7)
     @Test(  description = "Собираем товар",
             groups = {"api-shopper-smoke"},
@@ -116,6 +127,7 @@ public class ShipmentfulShopperTests extends RestBase {
         assertNotNull(response.as(AssemblyItemResponse.class).getData());
     }
 
+    @Story("Хелпдеск")
     @CaseId(8)
     @Test(  description = "Получаем тикеты хелпдеска",
             groups = {"api-shopper-smoke"})
@@ -123,11 +135,12 @@ public class ShipmentfulShopperTests extends RestBase {
         response = HelpdeskRequest.Tickets.GET(shipmentId);
         assertStatusCode200(response);
         assertNotNull(response.as(TicketsResponse.class).getData(),
-                "Не вернулся заказ");
+                "Не вернулись тикеты хелпдеска");
     }
 
+    @Story("Получение информации о заказах")
     @CaseId(9)
-    @Test(  description = "Получаем заказ",
+    @Test(  description = "Получаем заказ по номеру",
             groups = {"api-shopper-smoke"})
     public void getShipment() {
         response = ShipmentsRequest.GET(shipmentId);
@@ -140,8 +153,9 @@ public class ShipmentfulShopperTests extends RestBase {
                 "Не вернулся заказ");
     }
 
+    @Story("Получение информации о сборках")
     @CaseId(17)
-    @Test(  description = "Получаем предзамены",
+    @Test(  description = "Получаем предзамены для позиций в сборке",
             groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
     public void getAssemblyItemPrereplacements() {
@@ -151,6 +165,7 @@ public class ShipmentfulShopperTests extends RestBase {
                 "Не вернулись предзамены");
     }
 
+    @Story("Получение информации о заказах")
     @CaseId(22)
     @Test(  description = "Получаем инфу о стоках товаров в заказе",
             groups = {"api-shopper-smoke"})
@@ -161,6 +176,7 @@ public class ShipmentfulShopperTests extends RestBase {
                 "Не вернулась инфа о стоках товаров в заказе");
     }
 
+    @Story("Оплата")
     @CaseId(44)
     @Test(  description = "Оплачиваем заказ через LifePay",
             groups = {"api-shopper-smoke"},
@@ -170,8 +186,9 @@ public class ShipmentfulShopperTests extends RestBase {
         assertStatusCode200(response);
     }
 
+    @Story("Получение информации о заказах")
     @CaseId(45)
-    @Test(  description = "Получаем маркетинговые пробники",
+    @Test(  description = "Получаем маркетинговые пробники для заказа",
             groups = {"api-shopper-smoke"},
             dependsOnMethods = "postAssembly")
     public void getShipmentMarketingSampleItems() {
