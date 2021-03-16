@@ -634,7 +634,10 @@ public final class InstamartApiHelper {
      * Получить по координатам список активных магазинов как список объектов Store
      */
     private List<Store> availableStores(double lat, double lon) {
-        List<Store> stores = StoresRequest.GET(lat, lon).as(StoresResponse.class).getStores();
+        final StoresRequest.Store store = new StoresRequest.Store();
+        store.setLat(lat);
+        store.setLon(lon);
+        List<Store> stores = StoresRequest.GET(store).as(StoresResponse.class).getStores();
 
         if (stores.size() > 0) {
             printAvailableStores(stores);
