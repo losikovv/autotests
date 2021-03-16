@@ -3,7 +3,6 @@ package instamart.ui.modules;
 import instamart.core.common.AppManager;
 import instamart.ui.common.pagesdata.ElementData;
 import io.qameta.allure.Step;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -20,11 +19,13 @@ public class Base {
     }
 
     /** Обработать алерт в зависимости от настройки acceptNextAlert */
-    public static void handleAlert() {
-        Alert alert = kraken.getWebDriver().switchTo().alert();
-        String alertText = alert.getText();
-        alert.accept();
-        log.info("> handling alert [{}]", alertText);
+    public static void handleAlertAcceptByDefault() {
+        try {
+            log.info("> вызываем алерт");
+            kraken.getWebDriver().switchTo().alert().accept();
+        }catch (Exception exception){
+            log.info("> аллерт убран");
+        }
     }
 
     @Step("проверяем наличие рекламных банеров на странице")

@@ -1,14 +1,14 @@
 package instamart.ui.helpers;
 
-import instamart.core.helpers.HelperBase;
 import instamart.core.common.AppManager;
+import instamart.core.helpers.HelperBase;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.*;
 import instamart.ui.modules.Shop;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Step;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -165,6 +165,7 @@ public final class DetectionHelper extends HelperBase {
     /**
      * Определить 404 ошибку на текущей странице
      */
+    @Step("Определяем 404 ошибку на текущей странице")
     public boolean is404() {
         if (isElementPresent(Elements.Page404.title())) {
             log.warn("404 на {}", kraken.grab().currentURL());
@@ -175,6 +176,7 @@ public final class DetectionHelper extends HelperBase {
     /**
      * Определить 500 ошибку на текущей странице
      */
+    @Step("Определяем 500 ошибку на текущей странице")
     public boolean is500() {
         if (isElementPresent(Elements.Page500.placeholder())) {
             log.warn("⚠ 500 на {}", kraken.grab().currentURL());
@@ -185,6 +187,7 @@ public final class DetectionHelper extends HelperBase {
     /**
      * Определить 502 ошибку на текущей странице
      */
+    @Step("Определяем 502 ошибку на текущей странице")
     public boolean is502() {
         if (isElementPresent(Elements.Page502.title())) {
             log.warn("⚠ 502 на {}", kraken.grab().currentURL());

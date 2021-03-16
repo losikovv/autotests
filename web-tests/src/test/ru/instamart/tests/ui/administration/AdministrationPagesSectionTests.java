@@ -1,11 +1,14 @@
 package ru.instamart.tests.ui.administration;
 
+import instamart.core.testdata.ui.StaticPages;
 import instamart.ui.checkpoints.BaseUICheckpoints;
+import instamart.ui.common.pagesdata.StaticPageData;
 import instamart.ui.modules.Administration;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
@@ -20,53 +23,53 @@ public class AdministrationPagesSectionTests extends TestBase {
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
         kraken.reach().admin();
-    }
-
-    @Story("Проверка вкладки статических страниц")
-    @Test(  description = "Проверка вкладки статических страниц",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
-    )
-    public void ValidatePagesRootPage() {
-        // TODO: вынести тестовую страницу в глобальные константы - ATST-233
-        String page = "О компании";
         kraken.get().adminPage("pages");
-
-        baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.table());
-        baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.newPageButton());
-        baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.editPageButton(page));
-        baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.deletePageButton(page));
     }
 
-    @Story("Проверка страницы создания статической страницы")
-    @Test(  description = "Проверка страницы создания статической страницы",
-            groups = {}
+    @CaseId(507)
+    @Story("Тест на проверку элементов на вкладке статических страниц")
+    @Test(  description = "Тест на проверку элементов на вкладке статических страниц",
+            groups = {"admin-ui-smoke"}
     )
-    public void ValidatePagesCreationPage() {
-        String testPageName = "О компании";
-        Administration.Pages.validateStaticPage(testPageName);
+    public void validatePagesRootPage() {
+        String page = "О компании";
+        baseChecks.checkIsElementPresent(Elements.Administration.StaticPagesSection.table());
+        baseChecks.checkIsElementPresent(Elements.Administration.StaticPagesSection.tableEntry(page));
+        baseChecks.checkIsElementPresent(Elements.Administration.StaticPagesSection.newPageButton());
+        baseChecks.checkIsElementPresent(Elements.Administration.StaticPagesSection.editPageButton(page));
+        baseChecks.checkIsElementPresent(Elements.Administration.StaticPagesSection.deletePageButton(page));
     }
 
+    @CaseId(13)
     @Story("Тест создания и удаления статической страницы")
     @Test(  description = "Тест создания и удаления статической страницы",
-            groups = {}
+            groups = {"admin-ui-smoke"}
     )
-    public void CreateDeletePage() {
-        String pageName = "AAA";
-        String pageURL = "testAAA";
-        String desc = "я маленькая тестовая страничка, которую должен видеть только селен";
+    public void createDeletePage() {
+        final StaticPageData staticPage = StaticPages.newStaticPage();
+        Administration.Pages.checkAndDeleteIfExists(staticPage.getPageName());
+        Administration.Pages.create(staticPage);
+        baseChecks.checkIsElementPresent(Elements.Administration.StaticPagesSection.tableEntry(staticPage.getPageName()));
+        Administration.Pages.validateStaticPage(staticPage.getPageName(), staticPage.getPageURL());
+        Administration.Pages.delete(staticPage.getPageName());
+        baseChecks.checkIsElementNotPresent(Elements.Administration.StaticPagesSection.editPageButton(staticPage.getPageName()));
+        Administration.Pages.validateStaticNotExistsPage(staticPage.getPageName(), staticPage.getPageURL());
+    }
 
-        kraken.get().adminPage("pages");
-
-        Administration.Pages.create(pageName, pageURL, desc);
-            baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.tableEntry(pageName));
-
-        Administration.Pages.validateStaticPage(pageName, pageURL);
-        kraken.detect().isElementPresent(Elements.StaticPages.pageTitle());
-
-        Administration.Pages.editStaticPage(pageName);
-
-        Administration.Pages.delete(pageName);
-            // TODO проверить отсутствие страницы в списке в админке - ATST-233
-            // TODO добавить проверку что тестовая страничка - 404 на сайте - ATST-233
+    @CaseId(14)
+    @Story("Тест редактирования статической страницы")
+    @Test(  description = "Тест редактирования статической страницы",
+            groups = {"admin-ui-smoke"}
+    )
+    public void createAndEditStaticPage(){
+        final StaticPageData staticPage = StaticPages.newStaticPage();
+        final StaticPageData staticPageEdited = StaticPages.editedStaticPage();
+        Administration.Pages.checkAndDeleteIfExists(staticPage.getPageName());
+        Administration.Pages.checkAndDeleteIfExists(staticPageEdited.getPageName());
+        Administration.Pages.create(staticPage);
+        Administration.Pages.editStaticPage(staticPage,staticPageEdited);
+        baseChecks.checkIsElementPresent(Elements.Administration.StaticPagesSection.tableEntry(staticPageEdited.getPageName()));
+        Administration.Pages.validateStaticPage(staticPageEdited.getPageName(), staticPageEdited.getPageURL());
+        Administration.Pages.delete(staticPageEdited.getPageName());
     }
 }

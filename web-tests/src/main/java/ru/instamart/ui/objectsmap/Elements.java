@@ -3425,7 +3425,17 @@ public class Elements {
         }
 
         /** Раздел статических страниц в админке **/
-        interface PagesSection {
+        interface StaticPagesSection {
+
+            static ElementData pageTitle() {
+                return new ElementData(By.xpath("//*[@class='inner-page__title']/h1"),
+                        "заголовок статической страницы");
+            }
+
+            static ElementData pageDeletionConfirmationMessage() {
+                return new ElementData(By.xpath("//*[text()='Страница был успешно удален!']"),
+                        "сообщение подтверждающее удаление страницы");
+            }
 
             static ElementData newPageButton() {
                 return new ElementData(
@@ -3468,12 +3478,42 @@ public class Elements {
 
                 static ElementData pageDescriptionSourceButton() {
                     return new ElementData(
-                            By.xpath("//a[@id='cke_13']"), "переключение на plain text в html-поле описания");
+                            By.xpath("//a[@id='cke_15']"), "переключение на plain text в html-поле описания");
+                }
+
+                static ElementData pageMainTextField() {
+                    return new ElementData(
+                            By.xpath("//*[@id='cke_1_contents']/textarea"), "поле основной текст");
+                }
+
+                static ElementData pageMetaTitleField() {
+                    return new ElementData(
+                            By.xpath("//input[@id='page_meta_title']"), "поле Meta Title");
+                }
+
+                static ElementData pageKeyWordsField() {
+                    return new ElementData(
+                            By.xpath("//input[@id='page_meta_keywords']"), "поле Ключевые слова");
                 }
 
                 static ElementData pageDescriptionField() {
                     return new ElementData(
-                            By.xpath("//*[@id='cke_1_contents']/textarea"), "поле описания");
+                            By.xpath("//input[@id='page_meta_description']"), "поле Описание");
+                }
+
+                static ElementData pageTemplateField() {
+                    return new ElementData(
+                            By.xpath("//input[@id='page_layout']"), "поле Макет");
+                }
+
+                static ElementData pageExternalURLField() {
+                    return new ElementData(
+                            By.xpath("//input[@id='page_foreign_link']"), "поле Внешняя Ссылка(URL)");
+                }
+
+                static ElementData pagePositionField() {
+                    return new ElementData(
+                            By.xpath("//input[@id='page_position']"), "поле позиция в меню");
                 }
 
                 static ElementData savePageButton() {
@@ -3482,15 +3522,6 @@ public class Elements {
                 }
 
             }
-        }
-    }
-
-    /** Статические страницы **/
-    public interface StaticPages{
-
-        static ElementData pageTitle() {
-            return new ElementData(By.xpath("//*[@class='inner-page__title']/h1"),
-                    "заголовок статической страницы");
         }
     }
     /** Письмо с подтверждением */

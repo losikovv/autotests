@@ -126,7 +126,7 @@ public class AdministrationLoginTests extends TestBase {
     public void successLogoutFromAdminPage(){
         User.Auth.withEmail(UserManager.getDefaultAdmin());
         adminChecks.checkIsAdminPageOpen();
-        User.Logout.manually();
+        User.Do.logoutOnAdministration();
         baseChecks.checkPageIsAvailable();
     }
 }
