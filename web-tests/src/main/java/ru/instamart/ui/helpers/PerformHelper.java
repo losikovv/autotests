@@ -92,6 +92,7 @@ public final class PerformHelper extends HelperBase {
 
     /** Заполнить поле указанным текстом */
     public void fillField(final ElementData element, final String text) {
+        log.info("Заполняем полле: {}", element.getDescription());
         if (text == null) {
             log.error("> пустое значение для элемента: {}", element);
             Assert.assertNotNull("Пустое значение для заполнения поля", text);

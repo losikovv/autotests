@@ -1,10 +1,8 @@
 package instamart.core.provider;
 
 import instamart.core.settings.Config;
-import instamart.core.util.ProcessUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -47,8 +45,8 @@ public abstract class AbstractBrowserProvider {
         }
     }
 
-    protected void createLocalChromeDriver(final Optional<ChromeOptions> options) {
-        this.driver = options.map(ChromeDriver::new).orElseGet(ChromeDriver::new);
+    protected void createLocalChromeDriver(final Optional<DesiredCapabilities> capabilities) {
+        this.driver = capabilities.map(ChromeDriver::new).orElseGet(ChromeDriver::new);
         applyOptions();
     }
 

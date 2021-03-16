@@ -1,13 +1,18 @@
 package instamart.ui.modules;
 
 import instamart.core.common.AppManager;
+import instamart.ui.common.pagesdata.StaticPageData;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.ElementNotSelectableException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static instamart.core.helpers.HelperBase.handleAlert;
 
 public final class Administration extends Base {
 
@@ -289,58 +294,106 @@ public final class Administration extends Base {
     /** Раздел СТРАНИЦЫ */
     public static class Pages {
 
+        @Step("Переходим в поле редактирования")
         public static void switchSourceEditor(){
-            kraken.await().implicitly(1); // ждём, пока прогрузится html-ка с описанием
-            kraken.perform().click(Elements.Administration.PagesSection.PageEditPage.pageDescriptionSourceButton()); // минутка магии в html-редакторе
+            log.info("> переключаем источник ввода текста");
+            int counter =0;
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(Elements.Administration.StaticPagesSection.PageEditPage.pageDescriptionSourceButton().getLocator()),
+                    "Недоступна кнопка переключения режима ввода",2);
+            kraken.perform().hoverOn(Elements.Administration.StaticPagesSection.PageEditPage.pageDescriptionSourceButton());
+            kraken.perform().click(Elements.Administration.StaticPagesSection.PageEditPage.pageDescriptionSourceButton());// минутка магии в html-редакторе
         }
 
-        public static void validateStaticPage(String name){
-            kraken.get().adminPage("pages/new");
-
-            //baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.PageEditPage.pageNameField());
-            //baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.PageEditPage.pageURLField());
+        @Step("Создаем статическую страницу")
+        public static void create(StaticPageData staticPages){
+            log.info("> создаем статическую страницу с именем: {}, адресом: {} и описанием: {}",
+                    staticPages.getPageName(),staticPages.getPageURL(),staticPages.getDescription());
+            kraken.perform().click(Elements.Administration.StaticPagesSection.newPageButton());
+            kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageNameField(), staticPages.getPageName());
+            kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageURLField(), staticPages.getPageURL());
             Pages.switchSourceEditor();
-            //baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.PageEditPage.pageDescriptionField());
-            //baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.PageEditPage.pageNameField());
-            //baseChecks.checkIsElementPresent(Elements.Administration.PagesSection.PageEditPage.pageURLField());
+            kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageMetaTitleField(), staticPages.getText());
+            kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageKeyWordsField(), staticPages.getText());
+            kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageDescriptionField(), staticPages.getText());
+            kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageExternalURLField(), staticPages.getText());
+            kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pagePositionField(), staticPages.getPosition());
+            kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageMainTextField(), staticPages.getDescription());
+            kraken.perform().click(Elements.Administration.StaticPagesSection.PageEditPage.savePageButton());
+            log.info("> статическая страница создана");
         }
 
-        public static void create(String name, String URL, String desc){
-            kraken.perform().click(Elements.Administration.PagesSection.newPageButton());
-            kraken.perform().fillField(Elements.Administration.PagesSection.PageEditPage.pageNameField(), name);
-            kraken.perform().fillField(Elements.Administration.PagesSection.PageEditPage.pageURLField(), URL);
-            Pages.switchSourceEditor();
-            kraken.perform().fillField(Elements.Administration.PagesSection.PageEditPage.pageDescriptionField(), desc);
-            kraken.perform().click(Elements.Administration.PagesSection.PageEditPage.savePageButton());
-        }
-
-        public static void editStaticPage(String name){
-            // TODO: поправить метод так, чтобы он хоть что-нибудь толковое проверял
-            String pageDesc = "Abra Kadabra Ahalai Mahalai";
-            kraken.perform().click(Elements.Administration.PagesSection.editPageButton(name));
-            // TODO: Проверяем, что зашли в редактрование той страницы
-//            if (kraken.grab().value(Elements.Administration.PagesSection.PageEditPage.pageNameField()) == name) {
+        @Step("Редактируем ранее созданную статическую страницу")
+        public static void editStaticPage(StaticPageData staticPageOld,StaticPageData staticPageDataNew){
+            log.info("> находим ранее созданную статическую страницу с именем: {} и нажимаем кнопку редактировать",
+                    staticPageOld.getPageName());
+            kraken.perform().click(Elements.Administration.StaticPagesSection.editPageButton(staticPageOld.getPageName()));
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(Elements.Administration.StaticPagesSection.PageEditPage.pageNameField().getLocator()),
+                    "не открылась форма редактирования статической страницы",2);
+            if (kraken.grab().value(Elements.Administration.StaticPagesSection.PageEditPage.pageNameField()).equals(staticPageOld.getPageName())) {
+                kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageNameField(), staticPageDataNew.getPageName());
+                kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageURLField(), staticPageDataNew.getPageURL());
                 Pages.switchSourceEditor();
-                kraken.perform().fillField(Elements.Administration.PagesSection.PageEditPage.pageDescriptionField(), pageDesc);
-                kraken.await().implicitly(1);
-                kraken.perform().click(Elements.Administration.PagesSection.PageEditPage.savePageButton());
-//            }
-/*            else {
-                message("Редактируем не ту страницу");
+                kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageMetaTitleField(), staticPageDataNew.getText());
+                kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageKeyWordsField(), staticPageDataNew.getText());
+                kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageDescriptionField(), staticPageDataNew.getText());
+                kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageExternalURLField(), staticPageDataNew.getText());
+                kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pagePositionField(), staticPageDataNew.getPosition());
+                kraken.perform().fillField(Elements.Administration.StaticPagesSection.PageEditPage.pageMainTextField(), staticPageDataNew.getDescription());
+                kraken.perform().click(Elements.Administration.StaticPagesSection.PageEditPage.savePageButton());
+                log.info("> статическая страница отредактирована");
             }
-*/
+            else {
+                throw new ElementNotInteractableException("!!!тест выбрал неправильную страницу для редактирования!!!");
+            }
         }
 
+        @Step("Удаляем статическую страницу")
         public static void delete(String name){
-            kraken.perform().click(Elements.Administration.PagesSection.deletePageButton(name));
-            handleAlert();
+            log.info("> Удаляем статическую страницу: {}",name);
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Administration.StaticPagesSection.deletePageButton(name).getLocator()),
+                    "Не появилась кнопка удаления страницы",1);
+            kraken.perform().hoverOn(Elements.Administration.StaticPagesSection.deletePageButton(name));
+            kraken.perform().click(Elements.Administration.StaticPagesSection.deletePageButton(name));
+            handleAlertAcceptByDefault();
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            Elements.Administration.StaticPagesSection.pageDeletionConfirmationMessage().getLocator()),
+                    "не появилось сообщение с подтверждением удаления статической страницы",2);
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Administration.StaticPagesSection.editPageButton(name).getLocator()),
+                    "статическая страница не исчезла из списка созданных страниц",3);
+            log.info("> статическая страница удалена: {}",name);
         }
 
-        // проверяем существование статической страницы
+        public static void checkAndDeleteIfExists(String name){
+            Allure.step("Предусловие, проверяем существует ли страница, если да, то удаляем",()->{
+                log.info("> Предусловие, проверяем существует ли страница, если да, то удаляем: {}",name);
+                try{
+                    delete(name);
+                }catch (Exception ex){
+                    log.info("> статическая страница не существует: {}, предусловие не нужно",name);
+                }
+            });
+        }
+
+        @Step("Проверяем существование статической страницы")
         public static void validateStaticPage(String name, String URL){
+            log.info("> проверяем существование статической страницы: {}",name);
             kraken.get().page(URL);
-            kraken.detect().isElementPresent(Elements.StaticPages.pageTitle());
+            kraken.detect().isElementPresent(Elements.Administration.StaticPagesSection.pageTitle());
             kraken.get().adminPage("pages");
+            log.info("✓ Успешно");
+        }
+
+        @Step("Проверяем,что статическая страница не существует")
+        public static void validateStaticNotExistsPage(String name, String URL){
+            log.info("> проверяем, что статическая страница не существует: {}",name);
+            kraken.get().page(URL);
+            kraken.detect().is404();
+            log.info("✓ Успешно");
         }
     }
 }

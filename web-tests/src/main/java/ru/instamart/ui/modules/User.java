@@ -111,9 +111,13 @@ public final class User extends Base {
             kraken.perform().click(Elements.AccountMenu.logoutButton());
         }
         @Step("Деавторизуемся в админке")
-        private static void logoutOnAdministration() {
+        public static void logoutOnAdministration() {
             log.info("> деавторизуемся в админке");
             kraken.perform().click(Elements.Administration.Header.logoutButton());
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Administration.insideContainer().getLocator()),
+                    "Логаут не произошел",2);
         }
 
 
@@ -380,10 +384,6 @@ public final class User extends Base {
                 log.info("> логаут...");
                 if (kraken.detect().isInAdmin()) {
                     User.Do.logoutOnAdministration();
-                    kraken.await().fluently(
-                            ExpectedConditions.invisibilityOfElementLocated(
-                                    Elements.Administration.insideContainer().getLocator()),
-                            "Логаут не произошел",2);
                 } else {
                     User.Do.logoutOnSite();
                 }

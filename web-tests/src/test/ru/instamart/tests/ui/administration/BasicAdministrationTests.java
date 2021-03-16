@@ -73,6 +73,7 @@ public class BasicAdministrationTests extends TestBase {
         baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Магазины"));
             baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Регионы"));
             baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Ритейлеры"));
+        baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Территория доставки"));
 
         baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Контент"));
             baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Товарные опции"));
@@ -106,6 +107,7 @@ public class BasicAdministrationTests extends TestBase {
             baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Смены"));
             baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Тарифы"));
             baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Сборщики"));
+        baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Импорт партнеров"));
 
         baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Пользователи"));
 
