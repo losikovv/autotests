@@ -69,7 +69,7 @@ public class StoreE2ETests extends RestBase {
 
         final SoftAssert softAssert = new SoftAssert();
         final List<Taxon> taxons = apiV2.getTaxons(store.getId());
-        taxons.forEach(taxon -> InstamartApiCheckpoints.assertProductsCountEqualsChildrenSum(taxon, softAssert));
+        taxons.forEach(taxon -> InstamartApiCheckpoints.checkProductsCountEqualsChildrenSum(taxon, softAssert));
         softAssert.assertAll();
     }
 

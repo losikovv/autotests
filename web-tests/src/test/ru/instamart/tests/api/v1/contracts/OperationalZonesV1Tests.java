@@ -8,7 +8,7 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class OperationalZonesV1Tests extends RestBase {
@@ -18,7 +18,7 @@ public class OperationalZonesV1Tests extends RestBase {
             groups = "api-instamart-regress")
     public void getOperationalZones() {
         Response response = ApiV1Requests.OperationalZones.GET();
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/OperationalZones.json"));
     }
 
@@ -29,7 +29,7 @@ public class OperationalZonesV1Tests extends RestBase {
             dataProvider = "operationalZones")
     public void getOperationalZone(OperationalZone operationalZone) {
         Response response = ApiV1Requests.OperationalZones.GET(operationalZone.getId());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/OperationalZone.json"));
     }
 }

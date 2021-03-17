@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.Set;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
 public class TaxonsV2Test extends RestBase {
@@ -30,7 +30,7 @@ public class TaxonsV2Test extends RestBase {
             groups = {"api-instamart-smoke"})
     public void getTaxons() {
         response = TaxonsRequest.GET(EnvironmentData.INSTANCE.getDefaultSid());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         List<Taxon> taxons = response.as(TaxonsResponse.class).getTaxons();
         assertNotNull(taxons, "Не вернулись таксоны");
         taxonId = taxons.get(0).getId();
@@ -42,7 +42,7 @@ public class TaxonsV2Test extends RestBase {
             dependsOnMethods = "getTaxons")
     public void getTaxon() {
         response = TaxonsRequest.GET(taxonId, EnvironmentData.INSTANCE.getDefaultSid());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         assertNotNull(response.as(TaxonResponse.class).getTaxon(), "Не вернулся таксон");
     }
 

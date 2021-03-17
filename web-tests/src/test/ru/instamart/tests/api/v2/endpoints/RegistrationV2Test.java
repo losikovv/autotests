@@ -13,8 +13,8 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode422;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode422;
 import static org.testng.Assert.assertEquals;
 
 //TODO переделать на датапровайдер
@@ -45,7 +45,7 @@ public final class RegistrationV2Test extends RestBase {
                 false
                 );
 
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final User userResponse = response.as(UserResponse.class).getUser();
         assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
     }
@@ -69,7 +69,7 @@ public final class RegistrationV2Test extends RestBase {
                 false
         );
 
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final User userResponse = response.as(UserResponse.class).getUser();
         assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
     }
@@ -93,7 +93,7 @@ public final class RegistrationV2Test extends RestBase {
                 true
         );
 
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final User userResponse = response.as(UserResponse.class).getUser();
         assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
     }
@@ -117,7 +117,7 @@ public final class RegistrationV2Test extends RestBase {
                 true
         );
 
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final User userResponse = response.as(UserResponse.class).getUser();
         assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
     }
@@ -133,7 +133,7 @@ public final class RegistrationV2Test extends RestBase {
                 lastName,
                 minCharPassword);
 
-        assertStatusCode422(response);
+        checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
                 "Неверный формат email");
     }
@@ -149,7 +149,7 @@ public final class RegistrationV2Test extends RestBase {
                 lastName,
                 "insta");
 
-        assertStatusCode422(response);
+        checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
                 "Не может быть короче 6 символов");
     }
@@ -164,7 +164,7 @@ public final class RegistrationV2Test extends RestBase {
                 lastName,
                 minCharPassword);
 
-        assertStatusCode422(response);
+        checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
                 "не может быть пустым");
     }
@@ -182,7 +182,7 @@ public final class RegistrationV2Test extends RestBase {
                 "",
                 minCharPassword);
 
-        assertStatusCode422(response);
+        checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
                 "не может быть пустым");
     }
@@ -199,7 +199,7 @@ public final class RegistrationV2Test extends RestBase {
                 "",
                 minCharPassword);
 
-        assertStatusCode422(response);
+        checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
                 "не может быть пустым");
     }
@@ -216,7 +216,7 @@ public final class RegistrationV2Test extends RestBase {
                 "api",
                 "");
 
-        assertStatusCode422(response);
+        checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
                 "не может быть пустым");
     }
@@ -240,7 +240,7 @@ public final class RegistrationV2Test extends RestBase {
                 true
         );
 
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final User userResponse = response.as(UserResponse.class).getUser();
         assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
     }
@@ -264,7 +264,7 @@ public final class RegistrationV2Test extends RestBase {
                 true
         );
 
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final User userResponse = response.as(UserResponse.class).getUser();
         assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
     }

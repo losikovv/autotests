@@ -13,7 +13,7 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
 @Epic("ApiV2")
@@ -25,7 +25,7 @@ public final class StoresV2Test extends RestBase {
     @Story("Получаем магазин")
     public void getStore() {
         final Response response = StoresRequest.GET(1);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         assertNotNull(response.as(StoreResponse.class).getStore(), "Не вернулся магазин");
     }
 
@@ -34,7 +34,7 @@ public final class StoresV2Test extends RestBase {
     @Story("Получаем промо-акции в магазине")
     public void getStorePromotionCards() {
         final Response response = StoresRequest.PromotionCards.GET(1);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         assertNotNull(response.as(PromotionCardsResponse.class).getPromotion_cards(),
                 "Не вернулись промо-акции магазина");
     }
@@ -44,7 +44,7 @@ public final class StoresV2Test extends RestBase {
     @Story("Получаем список всех магазинов по указанным координатам")
     public void testStoresWithData(final StoresRequest.Store store) {
         final Response response = StoresRequest.GET(store);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         assertNotNull(response.as(StoresResponse.class).getStores(),
                 "Не вернулись магазины по указанным координатам");
     }

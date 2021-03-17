@@ -29,7 +29,7 @@ public class OrdersV2Test extends RestBase {
             groups = {"api-instamart-smoke","MRAutoCheck"})
     public void getOrders() {
         response = OrdersRequest.GET();
-        InstamartApiCheckpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.checkStatusCode200(response);
         assertNotNull(response.as(OrdersResponse.class).getOrders(), "Не вернулись заказы");
     }
 
@@ -39,7 +39,7 @@ public class OrdersV2Test extends RestBase {
     public void getCurrentOrder() {
         response = OrdersRequest.Current.GET();
         response.prettyPrint();
-        InstamartApiCheckpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.checkStatusCode200(response);
         Order order = response.as(OrderResponse.class).getOrder();
         assertNotNull(order, "Не вернулся текущий заказ");
         orderNumber = order.getNumber();
@@ -51,7 +51,7 @@ public class OrdersV2Test extends RestBase {
             dependsOnMethods = "getCurrentOrder")
     public void getOrder() {
         response = OrdersRequest.GET(orderNumber);
-        InstamartApiCheckpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.checkStatusCode200(response);
         assertNotNull(response.as(OrderResponse.class).getOrder(), "Не вернулся заказ по номеру");
     }
 
@@ -60,7 +60,7 @@ public class OrdersV2Test extends RestBase {
             groups = {"api-instamart-smoke"})
     public void getUnratedOrders() {
         response = OrdersRequest.Unrated.GET();
-        InstamartApiCheckpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.checkStatusCode200(response);
         assertNotNull(response.as(OrdersResponse.class).getOrders(), "Не вернулись заказы для оценки");
     }
 
@@ -70,7 +70,7 @@ public class OrdersV2Test extends RestBase {
             dependsOnMethods = "getCurrentOrder")
     public void getOrderLineItems() {
         response = OrdersRequest.LineItems.GET(orderNumber);
-        InstamartApiCheckpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.checkStatusCode200(response);
         assertNotNull(response.as(LineItemsResponse.class).getLine_items(), "Не вернулись товары заказа");
     }
 }

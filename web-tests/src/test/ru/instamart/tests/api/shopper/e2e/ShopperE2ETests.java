@@ -22,7 +22,7 @@ public class ShopperE2ETests extends RestBase {
         RegistrationHelper.registration(user);
         Order order = apiV2.order(user, EnvironmentData.INSTANCE.getDefaultSid(), 4);
         shipmentNumber = order.getShipments().get(0).getNumber();
-        InstamartApiCheckpoints.assertIsDeliveryToday(order);
+        InstamartApiCheckpoints.checkIsDeliveryToday(order);
     }
 
     @AfterMethod(alwaysRun = true,

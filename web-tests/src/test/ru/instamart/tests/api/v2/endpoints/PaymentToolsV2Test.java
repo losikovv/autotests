@@ -9,7 +9,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
 public class PaymentToolsV2Test extends RestBase {
@@ -24,7 +24,7 @@ public class PaymentToolsV2Test extends RestBase {
             groups = {"api-instamart-smoke"})
     public void getPaymentTools() {
         response = PaymentToolsRequest.GET();
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         assertNotNull(response.as(PaymentToolsResponse.class).getPayment_tools(),
                 "Не вернулась инфа о спобах оплаты");
     }

@@ -8,7 +8,7 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class StoresV1Tests extends RestBase {
@@ -18,7 +18,7 @@ public class StoresV1Tests extends RestBase {
             groups = "api-instamart-regress")
     public void getStores() {
         Response response = ApiV1Requests.Stores.GET();
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/Stores.json"));
     }
 
@@ -29,7 +29,7 @@ public class StoresV1Tests extends RestBase {
             dataProvider = "storeOfEachRetailer-parallel")
     public void getStore(Store store) {
         Response response = ApiV1Requests.Stores.GET(store.getUuid());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/Store.json"));
     }
 
@@ -43,7 +43,7 @@ public class StoresV1Tests extends RestBase {
                 store.getUuid(),
                 "вода",
                 "");
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/Offers.json"));
     }
 }

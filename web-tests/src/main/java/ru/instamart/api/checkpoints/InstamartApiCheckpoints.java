@@ -14,15 +14,12 @@ import java.util.List;
 
 public class InstamartApiCheckpoints {
 
-    /**
-     * Ассерт, что статус код 200
-     */
     @Step("Ответ вернул 200")
-    public static void assertStatusCode200(Response response) {
-        assertStatusCode200(response, "");
+    public static void checkStatusCode200(Response response) {
+        checkStatusCode200(response, "");
     }
 
-    public static void assertStatusCode200(Response response, String message) {
+    public static void checkStatusCode200(Response response, String message) {
         response.then().assertThat().contentType(ContentType.JSON);
         String responseText = response.statusLine();
         switch (response.statusCode()) {
@@ -45,17 +42,17 @@ public class InstamartApiCheckpoints {
     }
 
     @Step("Ответ вернул 401")
-    public static void assertStatusCode401(final Response response) {
+    public static void checkStatusCode401(final Response response) {
         Assert.assertEquals(response.statusCode(), 401);
     }
 
     @Step("Ответ вернул 404")
-    public static void assertStatusCode404(final Response response) {
+    public static void checkStatusCode404(final Response response) {
         Assert.assertEquals(response.statusCode(), 404);
     }
 
     @Step("Ответ вернул 422")
-    public static void assertStatusCode422(final Response response) {
+    public static void checkStatusCode422(final Response response) {
         Assert.assertEquals(response.statusCode(), 422);
     }
 
@@ -63,7 +60,7 @@ public class InstamartApiCheckpoints {
      * Ассерт, что дата доставки заказа сегодня
      */
     @Step("Проверяем, что дата доставки заказа сегодня")
-    public static void assertIsDeliveryToday(Order order) {
+    public static void checkIsDeliveryToday(Order order) {
         String today = String.valueOf(LocalDate.now());
         String deliveryTime = order.getShipments().get(0).getDelivery_window().getStarts_at();
         if (!deliveryTime.contains(today)) org.junit.Assert.fail("Заказ оформлен не на сегодня\ntoday: " +
@@ -74,13 +71,13 @@ public class InstamartApiCheckpoints {
      * Софт-ассерт, что количество товаров в категории равно сумме товаров в подкатегориях
      */
     @Step("Проверяем, что количество товаров в категории равно сумме товаров в подкатегориях")
-    public static void assertProductsCountEqualsChildrenSum(Taxon taxon, SoftAssert softAssert) {
+    public static void checkProductsCountEqualsChildrenSum(Taxon taxon, SoftAssert softAssert) {
         List<Taxon> children = taxon.getChildren();
         if (children == null) return;
         int sum = 0;
         for (Taxon child : children) {
             sum += child.getProducts_count();
-            assertProductsCountEqualsChildrenSum(child, softAssert);
+            checkProductsCountEqualsChildrenSum(child, softAssert);
         }
         softAssert.assertEquals(sum, taxon.getProducts_count(),
                 "\n" + taxon.getName() +

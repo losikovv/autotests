@@ -16,7 +16,7 @@ public class SearchesV2Test extends RestBase {
             groups = {"api-instamart-smoke"})
     public void getSearchSuggestions() {
         response = SearchesRequest.Suggestions.GET(1, "");
-        InstamartApiCheckpoints.assertStatusCode200(response);
+        InstamartApiCheckpoints.checkStatusCode200(response);
         assertNotNull(response.as(SearchSuggestionsResponse.class).getSuggestion(),
                 "Не отображаются поисковые подсказки");
     }

@@ -11,11 +11,8 @@ import java.util.StringJoiner;
 
 public class ShopperApiCheckpoints {
 
-    /**
-     * Ассерт, что статус код 200
-     */
     @Step("Ответ вернул 200")
-    public static void assertStatusCode200(Response response) {
+    public static void checkStatusCode200(Response response) {
         switch (response.statusCode()) {
             case 200: break;
             case 401:

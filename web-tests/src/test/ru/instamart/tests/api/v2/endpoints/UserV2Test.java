@@ -37,7 +37,7 @@ public final class UserV2Test extends RestBase {
                 "LastName",
                 true
         );
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final User user = response.as(UserDataResponse.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
         Assert.assertEquals(user.getFirst_name(), "FirstName", "Некорректное имя");
@@ -57,7 +57,7 @@ public final class UserV2Test extends RestBase {
                 "",
                 true
         );
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final User user = response.as(UserDataResponse.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
         Assert.assertEquals(user.getFirst_name(), "FirstName", "Некорректное имя");
@@ -78,7 +78,7 @@ public final class UserV2Test extends RestBase {
                 "password"
         );
 
-        assertStatusCode422(response);
+        checkStatusCode422(response);
         final ErrorResponse errorResponse = response.as(ErrorResponse.class);
         Assert.assertEquals(errorResponse.getError_messages().get(0).getField(), "password", "Неверная ошибка");
         Assert.assertEquals(errorResponse.getError_messages().get(0).getMessage(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
@@ -98,7 +98,7 @@ public final class UserV2Test extends RestBase {
                 "passw0rd"
         );
 
-        assertStatusCode200(response);
+        checkStatusCode200(response);
     }
 
     @CaseId(155)
@@ -114,7 +114,7 @@ public final class UserV2Test extends RestBase {
                 "password"
         );
 
-        assertStatusCode200(response);
+        checkStatusCode200(response);
     }
 
     @CaseId(152)
@@ -129,7 +129,7 @@ public final class UserV2Test extends RestBase {
                 "passw0rd",
                 "passw0rd"
         );
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final User user = response.as(UserDataResponse.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
     }
@@ -145,7 +145,7 @@ public final class UserV2Test extends RestBase {
                 null,
                 false
         );
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final User user = response.as(UserDataResponse.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
         Assert.assertEquals(user.getFirst_name(), "FirstName", "Некорректное имя");
@@ -165,7 +165,7 @@ public final class UserV2Test extends RestBase {
                 null,
                 false
         );
-        assertStatusCode404(response);
+        checkStatusCode404(response);
     }
 
     @CaseId(158)
@@ -180,7 +180,7 @@ public final class UserV2Test extends RestBase {
                 null,
                 true
         );
-        assertStatusCode200(response);
+        checkStatusCode200(response);
     }
 
     @CaseId(159)
@@ -193,7 +193,7 @@ public final class UserV2Test extends RestBase {
                 "InstamartApp",
                 session.getLogin()
         );
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final User user = response.as(UserDataResponse.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
         Assert.assertEquals(user.getFirst_name(), "autotest-user", "Некорректное имя");
@@ -208,7 +208,7 @@ public final class UserV2Test extends RestBase {
                 "fake@mail.com",
                 false
         );
-        assertStatusCode404(response);
+        checkStatusCode404(response);
     }
 
     @CaseId(160)
@@ -223,6 +223,6 @@ public final class UserV2Test extends RestBase {
                 "123"
 
         );
-        assertStatusCode404(response);
+        checkStatusCode404(response);
     }
 }

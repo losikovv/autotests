@@ -7,7 +7,7 @@ import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
 public final class RegistrationHelper {
 
@@ -28,7 +28,7 @@ public final class RegistrationHelper {
      */
     public static void registration(final String email, final String firstName, final String lastName, final String password) {
         final Response response =  UsersRequest.POST(email, firstName, lastName, password);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final String registeredEmail = response
                 .as(UserResponse.class)
                 .getUser()
