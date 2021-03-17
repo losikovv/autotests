@@ -17,6 +17,7 @@ public class InstamartApiCheckpoints {
     /**
      * Ассерт, что статус код 200
      */
+    @Step("Ответ вернул 200")
     public static void assertStatusCode200(Response response) {
         assertStatusCode200(response, "");
     }
@@ -43,14 +44,17 @@ public class InstamartApiCheckpoints {
         Assert.assertEquals(response.statusCode(),200, message + "\n" + responseText);
     }
 
+    @Step("Ответ вернул 401")
     public static void assertStatusCode401(final Response response) {
         Assert.assertEquals(response.statusCode(), 401);
     }
 
+    @Step("Ответ вернул 404")
     public static void assertStatusCode404(final Response response) {
         Assert.assertEquals(response.statusCode(), 404);
     }
 
+    @Step("Ответ вернул 422")
     public static void assertStatusCode422(final Response response) {
         Assert.assertEquals(response.statusCode(), 422);
     }

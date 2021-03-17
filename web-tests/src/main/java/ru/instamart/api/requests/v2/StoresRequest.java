@@ -34,7 +34,7 @@ public final class StoresRequest {
 
     public static class PromotionCards {
         /**
-         * Получаем промоакции в магазине
+         * Получаем промо-акции в магазине
          */
         @Step
         public static Response GET(int sid) {
@@ -82,6 +82,60 @@ public final class StoresRequest {
 
         public void setOperationalZoneId(final Integer operationalZoneId) {
             this.operationalZoneId = operationalZoneId;
+        }
+
+        @Override
+        public String toString() {
+            return "Store{" +
+                    "lat=" + lat +
+                    ", lon=" + lon +
+                    ", shippingMethod='" + shippingMethod + '\'' +
+                    ", operationalZoneId=" + operationalZoneId +
+                    '}';
+        }
+
+        public static final class StoresBuilder {
+
+            private Double lat;
+            private Double lon;
+            private String shippingMethod;
+            private Integer operationalZoneId;
+
+            private StoresBuilder() {
+            }
+
+            public static StoresBuilder aStores() {
+                return new StoresBuilder();
+            }
+
+            public StoresBuilder withLat(final Double lat) {
+                this.lat = lat;
+                return this;
+            }
+
+            public StoresBuilder withLon(final Double lon) {
+                this.lon = lon;
+                return this;
+            }
+
+            public StoresBuilder withShippingMethod(final String shippingMethod) {
+                this.shippingMethod = shippingMethod;
+                return this;
+            }
+
+            public StoresBuilder withOperationalZoneId(final Integer operationalZoneId) {
+                this.operationalZoneId = operationalZoneId;
+                return this;
+            }
+
+            public Store build() {
+                final Store store = new Store();
+                store.setLat(lat);
+                store.setLon(lon);
+                store.setShippingMethod(shippingMethod);
+                store.setOperationalZoneId(operationalZoneId);
+                return store;
+            }
         }
     }
 }
