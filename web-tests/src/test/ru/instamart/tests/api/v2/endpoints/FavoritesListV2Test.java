@@ -38,7 +38,7 @@ public class FavoritesListV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testEmptyFavoritesList() {
         final Response response = FavoritesRequest.GET(1);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         assertEquals(response.as(FavoritesListItemsResponse.class).getItems().size(), 0, "Список избранного не пустой");
     }
 
@@ -48,7 +48,7 @@ public class FavoritesListV2Test extends RestBase {
     @Severity(SeverityLevel.CRITICAL)
     public void testAddItemToFavoritesList() {
         final Response response = FavoritesRequest.POST(PRODUCT_ID);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final Item item = response.as(FavoritesItemResponse.class).getItem();
         assertNotNull(item);
     }
@@ -59,7 +59,7 @@ public class FavoritesListV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testNegativeAddItemToFavoritesList() {
         final Response response = FavoritesRequest.POST(1);
-        assertStatusCode404(response);
+        checkStatusCode404(response);
     }
 
     @CaseId(130)
@@ -68,11 +68,11 @@ public class FavoritesListV2Test extends RestBase {
     @Severity(SeverityLevel.CRITICAL)
     public void testDeleteItemToFavoritesList() {
         Response response = FavoritesRequest.POST(PRODUCT_ID_2);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final Item item = response.as(FavoritesItemResponse.class).getItem();
         assertNotNull(item);
         response = FavoritesRequest.DELETE(item.getId());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
     }
 
     @CaseId(131)
@@ -81,7 +81,7 @@ public class FavoritesListV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testEmptySkuFavoritesList() {
         final Response response = FavoritesRequest.ProductSku.GET();
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         assertEquals(response
                 .as(FavoritesSkuListItemResponse.class).getProductsSkuList().size(), 0, "Список sku товаров не пустой");
     }
@@ -92,7 +92,7 @@ public class FavoritesListV2Test extends RestBase {
     @Severity(SeverityLevel.CRITICAL)
     public void testAddItemToFavoritesListBySku() {
         final Response response = FavoritesRequest.ProductSku.POST(PRODUCT_SKU);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
     }
 
     @CaseId(133)
@@ -101,7 +101,7 @@ public class FavoritesListV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testNegativeAddItemToFavoritesListBySku() {
         final Response response = FavoritesRequest.ProductSku.POST(1);
-        assertStatusCode422(response);
+        checkStatusCode422(response);
     }
 
     @CaseId(134)
@@ -110,8 +110,8 @@ public class FavoritesListV2Test extends RestBase {
     @Severity(SeverityLevel.CRITICAL)
     public void testDeleteItemToFavoritesListBySku() {
         Response response = FavoritesRequest.ProductSku.POST(PRODUCT_SKU);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response = FavoritesRequest.ProductSku.DELETE(PRODUCT_SKU);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
     }
 }

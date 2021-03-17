@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
 public class ProductsV2Test extends RestBase {
@@ -21,7 +21,7 @@ public class ProductsV2Test extends RestBase {
             groups = {"api-instamart-smoke"})
     public void getProducts() {
         response = ProductsRequest.GET(1, "");
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         List<Product> products = response.as(ProductsResponse.class).getProducts();
         assertNotNull(products, "Не вернулись продукты");
         productId = products.get(0).getId();
@@ -33,7 +33,7 @@ public class ProductsV2Test extends RestBase {
             dependsOnMethods = "getProducts")
     public void getProduct() {
         response = ProductsRequest.GET(productId);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         assertNotNull(response.as(ProductResponse.class).getProduct(), "Не вернулся продукт");
     }
 }

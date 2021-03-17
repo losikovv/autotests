@@ -10,7 +10,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
 public class LineItemsV2Test extends RestBase {
@@ -34,7 +34,7 @@ public class LineItemsV2Test extends RestBase {
             groups = {"api-instamart-smoke"})
     public void postLineItems() {
         response = LineItemsRequest.POST(productId,1, orderNumber);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
         assertNotNull(lineItem, "Не добавился товар в корзину");
         lineItemId = lineItem.getId();
@@ -46,7 +46,7 @@ public class LineItemsV2Test extends RestBase {
             dependsOnMethods = "postLineItems")
     public void deleteLineItems() {
         response = LineItemsRequest.DELETE(lineItemId);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         assertNotNull(response.as(LineItemResponse.class).getLine_item(), "Не удалился товар из корзины");
     }
 

@@ -39,7 +39,7 @@ public final class ApiV2EndPoints {
     }
 
     public static final class Stores {
-        public static final String COORDINATES = "v2/stores?lat={lat}&lon={lon}";
+        public static final String COORDINATES = "v2/stores";
         public static final String SID = "v2/stores/{sid}";
         public static final String PROMOTION_CARDS = "v2/stores/{sid}/promotion_cards";
     }

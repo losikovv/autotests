@@ -1,8 +1,13 @@
 package instamart.api.requests.v2;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import instamart.api.endpoints.ApiV2EndPoints;
+import instamart.core.service.MapperService;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+
+import java.util.Map;
 
 import static instamart.api.requests.InstamartRequestsBase.givenCatch;
 
@@ -12,8 +17,11 @@ public final class StoresRequest {
      * Получаем список доступных магазинов по координатам
      */
     @Step("{method} /" + ApiV2EndPoints.Stores.COORDINATES)
-    public static Response GET(double lat, double lon) {
-        return givenCatch().get(ApiV2EndPoints.Stores.COORDINATES, lat, lon);
+    public static Response GET(final Store store) {
+        final Map<String, Object> params = MapperService.INSTANCE.objectToMap(store);
+        return givenCatch()
+                .params(params)
+                .get(ApiV2EndPoints.Stores.COORDINATES);
     }
 
     /**
@@ -26,11 +34,108 @@ public final class StoresRequest {
 
     public static class PromotionCards {
         /**
-         * Получаем промоакции в магазине
+         * Получаем промо-акции в магазине
          */
         @Step
         public static Response GET(int sid) {
             return givenCatch().get(ApiV2EndPoints.Stores.PROMOTION_CARDS, sid);
+        }
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static final class Store {
+
+        private Double lat;
+        private Double lon;
+        @JsonProperty(value = "shipping_method")
+        private String shippingMethod;
+        @JsonProperty(value = "operational_zone_id")
+        private Integer operationalZoneId;
+
+        public Double getLat() {
+            return lat;
+        }
+
+        public void setLat(final Double lat) {
+            this.lat = lat;
+        }
+
+        public Double getLon() {
+            return lon;
+        }
+
+        public void setLon(final Double lon) {
+            this.lon = lon;
+        }
+
+        public String getShippingMethod() {
+            return shippingMethod;
+        }
+
+        public void setShippingMethod(final String shippingMethod) {
+            this.shippingMethod = shippingMethod;
+        }
+
+        public Integer getOperationalZoneId() {
+            return operationalZoneId;
+        }
+
+        public void setOperationalZoneId(final Integer operationalZoneId) {
+            this.operationalZoneId = operationalZoneId;
+        }
+
+        @Override
+        public String toString() {
+            return "Store{" +
+                    "lat=" + lat +
+                    ", lon=" + lon +
+                    ", shippingMethod='" + shippingMethod + '\'' +
+                    ", operationalZoneId=" + operationalZoneId +
+                    '}';
+        }
+
+        public static final class StoresBuilder {
+
+            private Double lat;
+            private Double lon;
+            private String shippingMethod;
+            private Integer operationalZoneId;
+
+            private StoresBuilder() {
+            }
+
+            public static StoresBuilder aStores() {
+                return new StoresBuilder();
+            }
+
+            public StoresBuilder withLat(final Double lat) {
+                this.lat = lat;
+                return this;
+            }
+
+            public StoresBuilder withLon(final Double lon) {
+                this.lon = lon;
+                return this;
+            }
+
+            public StoresBuilder withShippingMethod(final String shippingMethod) {
+                this.shippingMethod = shippingMethod;
+                return this;
+            }
+
+            public StoresBuilder withOperationalZoneId(final Integer operationalZoneId) {
+                this.operationalZoneId = operationalZoneId;
+                return this;
+            }
+
+            public Store build() {
+                final Store store = new Store();
+                store.setLat(lat);
+                store.setLon(lon);
+                store.setShippingMethod(shippingMethod);
+                store.setOperationalZoneId(operationalZoneId);
+                return store;
+            }
         }
     }
 }

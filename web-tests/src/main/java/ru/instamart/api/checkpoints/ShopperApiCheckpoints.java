@@ -2,6 +2,7 @@ package instamart.api.checkpoints;
 
 import instamart.api.objects.shopper.Error;
 import instamart.api.responses.shopper.ErrorResponse;
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.testng.Assert;
 
@@ -10,10 +11,8 @@ import java.util.StringJoiner;
 
 public class ShopperApiCheckpoints {
 
-    /**
-     * Ассерт, что статус код 200
-     */
-    public static void assertStatusCode200(Response response) {
+    @Step("Ответ вернул 200")
+    public static void checkStatusCode200(Response response) {
         switch (response.statusCode()) {
             case 200: break;
             case 401:

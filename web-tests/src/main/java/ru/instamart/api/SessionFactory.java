@@ -18,7 +18,7 @@ import org.testng.Assert;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
 public final class SessionFactory {
 
@@ -98,7 +98,7 @@ public final class SessionFactory {
 
     private static SessionInfo createApiV2Session(final UserData userData) {
         final Response response = SessionRequest.POST(userData.getLogin(), userData.getPassword());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final SessionsResponse sessionResponse = response.as(SessionsResponse.class);
         log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
         log.info("access_token: {}", sessionResponse.getSession().getAccess_token());
@@ -107,7 +107,7 @@ public final class SessionFactory {
 
     private static SessionInfo createShopperSession(final UserData userData) {
         final Response response = SessionsRequest.POST(userData.getLogin(), userData.getPassword());
-        ShopperApiCheckpoints.assertStatusCode200(response);
+        ShopperApiCheckpoints.checkStatusCode200(response);
         final instamart.api.responses.shopper.SessionsResponse sessionsResponse = response.as(instamart.api.responses.shopper.SessionsResponse.class);
         final SessionAttributes sessionAttributes = sessionsResponse.getData().getAttributes();
         log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());

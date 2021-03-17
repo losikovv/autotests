@@ -1,48 +1,51 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import instamart.api.checkpoints.InstamartApiCheckpoints;
-import instamart.api.common.RestAddresses;
 import instamart.api.common.RestBase;
 import instamart.api.requests.v2.StoresRequest;
 import instamart.api.responses.v2.PromotionCardsResponse;
 import instamart.api.responses.v2.StoreResponse;
 import instamart.api.responses.v2.StoresResponse;
+import instamart.core.testdata.dataprovider.RestDataProvider;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
+import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
-public class StoresV2Test extends RestBase {
+@Epic("ApiV2")
+@Feature("Получение списка магазинов")
+public final class StoresV2Test extends RestBase {
 
     @CaseId(1)
-    @Test(  description = "Получаем магазин",
-            groups = {"api-instamart-smoke"})
+    @Test(groups = {"api-instamart-smoke"})
+    @Story("Получаем магазин")
     public void getStore() {
-        response = StoresRequest.GET(1);
-        InstamartApiCheckpoints.assertStatusCode200(response);
+        final Response response = StoresRequest.GET(1);
+        checkStatusCode200(response);
         assertNotNull(response.as(StoreResponse.class).getStore(), "Не вернулся магазин");
     }
 
+    @CaseId(12)
+    @Test(groups = {"api-instamart-smoke"})
+    @Story("Получаем промо-акции в магазине")
+    public void getStorePromotionCards() {
+        final Response response = StoresRequest.PromotionCards.GET(1);
+        checkStatusCode200(response);
+        assertNotNull(response.as(PromotionCardsResponse.class).getPromotion_cards(),
+                "Не вернулись промо-акции магазина");
+    }
+
     @CaseId(7)
-    @Test(  description = "Получаем список всех магазинов по указанным координатам",
-            groups = {"api-instamart-smoke"})
-    public void getStoresByCoordinates() {
-        response = StoresRequest.GET(
-                RestAddresses.Moscow.defaultAddress().getLat(),
-                RestAddresses.Moscow.defaultAddress().getLon());
-        InstamartApiCheckpoints.assertStatusCode200(response);
+    @Test(groups = {"api-instamart-smoke"}, dataProviderClass = RestDataProvider.class, dataProvider = "getStores")
+    @Story("Получаем список всех магазинов по указанным координатам")
+    public void testStoresWithData(final StoresRequest.Store store) {
+        final Response response = StoresRequest.GET(store);
+        checkStatusCode200(response);
         assertNotNull(response.as(StoresResponse.class).getStores(),
                 "Не вернулись магазины по указанным координатам");
     }
-
-    @CaseId(12)
-    @Test(  description = "Получаем промоакции в магазине",
-            groups = {"api-instamart-smoke"})
-    public void getStorePromotionCards() {
-        response = StoresRequest.PromotionCards.GET(1);
-        InstamartApiCheckpoints.assertStatusCode200(response);
-        assertNotNull(response.as(PromotionCardsResponse.class).getPromotion_cards(),
-                "Не вернулись промоакции магазина");
-    }
-
 }

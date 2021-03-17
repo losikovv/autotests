@@ -8,7 +8,7 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class OffersV1Tests extends RestBase {
@@ -20,7 +20,7 @@ public class OffersV1Tests extends RestBase {
             dataProvider = "offerOfEachRetailer-parallel")
     public void getOffer(Offer offer) {
         Response response = ApiV1Requests.Offers.GET(offer.getUuid());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/Offer.json"));
     }
 }

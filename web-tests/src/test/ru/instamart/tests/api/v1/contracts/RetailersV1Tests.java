@@ -8,7 +8,7 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class RetailersV1Tests extends RestBase {
@@ -18,7 +18,7 @@ public class RetailersV1Tests extends RestBase {
             groups = "api-instamart-regress")
     public void getRetailers() {
         Response response = ApiV1Requests.Retailers.GET();
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/Retailers.json"));
     }
 
@@ -29,7 +29,7 @@ public class RetailersV1Tests extends RestBase {
             dataProvider = "retailersSpree-parallel")
     public void getRetailer(Retailer retailer) {
         Response response = ApiV1Requests.Retailers.GET(retailer.getId());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/Retailer.json"));
     }
 
@@ -40,7 +40,7 @@ public class RetailersV1Tests extends RestBase {
             dataProvider = "retailersSpree-parallel")
     public void getRetailerEans(Retailer retailer) {
         Response response = ApiV1Requests.Retailers.Eans.GET(retailer.getId());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/Eans.json"));
     }
 }

@@ -10,7 +10,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
 @Feature("Восстановление пароля")
@@ -33,7 +33,7 @@ public final class ResetPasswordV2Test extends RestBase {
                 "password",
                 "password"
         );
-        assertStatusCode200(response);
+        checkStatusCode200(response);
     }
 
     @CaseId(561)
@@ -45,7 +45,7 @@ public final class ResetPasswordV2Test extends RestBase {
                 "fake@mail.com"
         );
 
-        assertStatusCode200(response);
+        checkStatusCode200(response);
     }
 
     // not implemented endpoint
@@ -59,7 +59,7 @@ public final class ResetPasswordV2Test extends RestBase {
                 "  ",
                 "password"
         );
-        assertStatusCode200(response);
+        checkStatusCode200(response);
     }
 
     // not implemented endpoint
@@ -73,7 +73,7 @@ public final class ResetPasswordV2Test extends RestBase {
                 "   ~",
                 "   ~"
         );
-        assertStatusCode200(response);
+        checkStatusCode200(response);
     }
 
     // not implemented endpoint
@@ -87,7 +87,7 @@ public final class ResetPasswordV2Test extends RestBase {
                 "password",
                 ""
         );
-        assertStatusCode200(response);
+        checkStatusCode200(response);
     }
 
     @CaseId(187)
@@ -98,6 +98,6 @@ public final class ResetPasswordV2Test extends RestBase {
         final Response response = ResetPasswordRequest.POST(
                 SessionFactory.getSession(SessionType.APIV2).getLogin()
         );
-        assertStatusCode200(response);
+        checkStatusCode200(response);
     }
 }

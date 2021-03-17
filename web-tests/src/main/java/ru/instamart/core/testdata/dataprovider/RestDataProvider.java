@@ -1,5 +1,6 @@
 package instamart.core.testdata.dataprovider;
 
+import instamart.api.common.RestAddresses;
 import instamart.api.common.RestBase;
 import instamart.api.common.Specification;
 import instamart.api.enums.v2.AuthProvider;
@@ -9,6 +10,7 @@ import instamart.api.objects.v2.Retailer;
 import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Zone;
 import instamart.api.requests.ApiV1Requests;
+import instamart.api.requests.v2.StoresRequest;
 import instamart.api.responses.v1.OperationalZonesResponse;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -211,5 +213,57 @@ public class RestDataProvider extends RestBase {
             offerArray[i][0] = offerList.get(i);
         }
         return offerArray;
+    }
+
+    @DataProvider(name = "getStores")
+    public static Object[][] getStores() {
+        return new Object[][] {
+                {StoresRequest.Store.StoresBuilder
+                        .aStores()
+                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .withLon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .build()
+                },
+                {StoresRequest.Store.StoresBuilder
+                        .aStores()
+                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .build()
+                },
+                {StoresRequest.Store.StoresBuilder
+                        .aStores()
+                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .withLon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .withShippingMethod("pickup")
+                        .build()
+                },
+                {StoresRequest.Store.StoresBuilder
+                        .aStores()
+                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .withLon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .withShippingMethod("by_courier")
+                        .build()
+                },
+                {StoresRequest.Store.StoresBuilder
+                        .aStores()
+                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .withLon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .withShippingMethod("fake")
+                        .build()
+                },
+                {StoresRequest.Store.StoresBuilder
+                        .aStores()
+                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .withLon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .withOperationalZoneId(1)
+                        .build()
+                },
+                {StoresRequest.Store.StoresBuilder
+                        .aStores()
+                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .withLon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .withOperationalZoneId(99999999)
+                        .build()
+                }
+        };
     }
 }

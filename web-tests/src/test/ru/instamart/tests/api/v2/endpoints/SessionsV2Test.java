@@ -37,7 +37,7 @@ public final class SessionsV2Test extends RestBase {
             throw new SkipException("Скипаем тесты не на проде");
         }
         final Response response = SessionRequest.POST(authProvider);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         assertNotNull(response.as(SessionsResponse.class).getSession());
     }
 
@@ -49,7 +49,7 @@ public final class SessionsV2Test extends RestBase {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
         final Response response = SessionRequest.POST(userData.getLogin(), userData.getPassword(), "InstamartApp");
-        assertStatusCode200(response, "Не работает авторизация с Client-Id: InstamartApp");
+        checkStatusCode200(response, "Не работает авторизация с Client-Id: InstamartApp");
         assertNotNull(response.as(SessionsResponse.class).getSession());
     }
 
@@ -59,7 +59,7 @@ public final class SessionsV2Test extends RestBase {
     @Severity(SeverityLevel.MINOR)
     public void testInvalidAuth() {
         final Response response = SessionRequest.POST("email@invalid", "password");
-        assertStatusCode401(response);
+        checkStatusCode401(response);
     }
 
     @CaseId(162)
@@ -68,7 +68,7 @@ public final class SessionsV2Test extends RestBase {
     @Severity(SeverityLevel.BLOCKER)
     public void testValidAuth() {
         final Response response = SessionRequest.POST(UserManager.getDefaultUser().getLogin(), UserManager.getDefaultUser().getPassword());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final SessionsResponse sessionResponse = response.as(SessionsResponse.class);
         assertNotNull(sessionResponse);
         assertNotNull(sessionResponse.getSession().getAccess_token(), "Токен авторизации отсутствует");
@@ -83,7 +83,7 @@ public final class SessionsV2Test extends RestBase {
         RegistrationHelper.registration(userData);
         SessionFactory.createSessionToken(SessionType.APIV2, userData);
         final Response response = SessionRequest.GET(SessionFactory.getSession(SessionType.APIV2).getToken());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
     }
 
     @CaseId(179)
@@ -92,7 +92,7 @@ public final class SessionsV2Test extends RestBase {
     @Severity(SeverityLevel.MINOR)
     public void testInvalidToken() {
         final Response response = SessionRequest.GET("aaaaaaaaa");
-        assertStatusCode404(response);
+        checkStatusCode404(response);
     }
 
     @CaseId(182)
@@ -104,7 +104,7 @@ public final class SessionsV2Test extends RestBase {
         RegistrationHelper.registration(userData);
         SessionFactory.createSessionToken(SessionType.APIV2, userData);
         final Response response = SessionRequest.UserSession.GET(SessionFactory.getSession(SessionType.APIV2).getToken());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final UserDataResponse userDataResponse = response.as(UserDataResponse.class);
         assertEquals(userDataResponse.getUser().getEmail(), userData.getLogin(), "Получены чужие данные");
     }
@@ -118,6 +118,6 @@ public final class SessionsV2Test extends RestBase {
         RegistrationHelper.registration(userData);
         SessionFactory.createSessionToken(SessionType.APIV2, userData);
         final Response response = SessionRequest.UserSession.GET("aaaaaaa");
-        assertStatusCode404(response);
+        checkStatusCode404(response);
     }
 }

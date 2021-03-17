@@ -25,7 +25,7 @@ import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
 public final class InstamartApiHelper {
 
@@ -132,7 +132,7 @@ public final class InstamartApiHelper {
 
     public Taxon getTaxon(int id, int sid) {
         Response response = TaxonsRequest.GET(id, sid);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         return response.as(TaxonResponse.class).getTaxon();
     }
 
@@ -255,7 +255,7 @@ public final class InstamartApiHelper {
      */
     private void addItemToCart(long productId, int quantity) {
         Response response = LineItemsRequest.POST(productId, quantity, currentOrderNumber.get());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
 
         log.info(lineItem.toString());
@@ -281,7 +281,7 @@ public final class InstamartApiHelper {
      */
     private void getMinSumFromAlert() {
         final Response response = OrdersRequest.Current.GET();
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         final Shipment shipment = response
                 .as(OrderResponse.class)
                 .getOrder()
@@ -424,7 +424,7 @@ public final class InstamartApiHelper {
                 currentDeliveryWindowId.get(),
                 currentShipmentMethodId.get(),
                 currentOrderNumber.get());
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         Order order = response.as(OrderResponse.class).getOrder();
         log.info("Применены атрибуты для заказа: {}", order.getNumber());
         log.info("        full_address: {}", order.getAddress().getFull_address());
@@ -478,7 +478,7 @@ public final class InstamartApiHelper {
      */
     private void cancelOrder(String orderNumber) {
         Response response = OrdersRequest.Cancellations.POST(orderNumber, "test");
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         Order order = response.as(CancellationsResponse.class).getCancellation().getOrder();
         log.info("Отменен заказ: {}", order.getNumber());
     }
@@ -634,7 +634,10 @@ public final class InstamartApiHelper {
      * Получить по координатам список активных магазинов как список объектов Store
      */
     private List<Store> availableStores(double lat, double lon) {
-        List<Store> stores = StoresRequest.GET(lat, lon).as(StoresResponse.class).getStores();
+        final StoresRequest.Store store = new StoresRequest.Store();
+        store.setLat(lat);
+        store.setLon(lon);
+        List<Store> stores = StoresRequest.GET(store).as(StoresResponse.class).getStores();
 
         if (stores.size() > 0) {
             printAvailableStores(stores);
@@ -672,7 +675,7 @@ public final class InstamartApiHelper {
      */
     public String getCurrentOrderNumber() {
         Response response = OrdersRequest.POST();
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         currentOrderNumber.set(response
                 .as(OrderResponse.class)
                 .getOrder()

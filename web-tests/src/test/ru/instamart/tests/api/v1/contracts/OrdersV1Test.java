@@ -16,7 +16,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.assertStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class OrdersV1Test extends RestBase {
@@ -46,7 +46,7 @@ public class OrdersV1Test extends RestBase {
             groups = "api-instamart-regress")
     public void getOrders() {
         Response response = ApiV1Requests.Orders.GET();
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/Orders.json"));
     }
 
@@ -55,7 +55,7 @@ public class OrdersV1Test extends RestBase {
             groups = "api-instamart-regress")
     public void getOrder() {
         Response response = ApiV1Requests.Orders.GET(orderNumber);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/Order.json"));
     }
 
@@ -64,7 +64,7 @@ public class OrdersV1Test extends RestBase {
             groups = "api-instamart-regress")
     public void getShipment() {
         Response response = ApiV1Requests.Shipments.GET(shipmentNumber);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/Shipment.json"));
 
         shipmentUuid = response.as(ShipmentResponse.class).getShipment().getUuid();
@@ -75,7 +75,7 @@ public class OrdersV1Test extends RestBase {
             groups = "api-instamart-regress")
     public void getShipmentOffers() {
         Response response = ApiV1Requests.Shipments.Offers.GET(shipmentNumber);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/ShipmentOffers.json"));
     }
 
@@ -84,7 +84,7 @@ public class OrdersV1Test extends RestBase {
             groups = "api-instamart-regress")
     public void getLineItems() {
         Response response = ApiV1Requests.LineItems.GET(shipmentNumber);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/LineItems.json"));
 
         productSku = response.as(LineItemsResponse.class)
@@ -102,7 +102,7 @@ public class OrdersV1Test extends RestBase {
         Response response = ApiV1Requests.Shipments.Products.Prereplacements.GET(
                 shipmentNumber,
                 Long.parseLong(productSku));
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/Prereplacements.json"));
     }
 
@@ -116,7 +116,7 @@ public class OrdersV1Test extends RestBase {
             throw new SkipException("Скипаем тесты на проде");
         }
         Response response = ApiV1Requests.Shoppers.MarketingSampleItems.GET(shipmentUuid);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/MarketingSampleItems.json"));
     }
 
@@ -129,7 +129,7 @@ public class OrdersV1Test extends RestBase {
             throw new SkipException("Скипаем тесты на проде");
         }
         Response response = ApiV1Requests.Shoppers.OrderAvailablePaymentTools.GET(orderNumber);
-        assertStatusCode200(response);
+        checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/PaymentTools.json"));
     }
 }
