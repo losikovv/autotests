@@ -79,4 +79,8 @@ public final class ApiV2EndPoints {
     public static final class AuthProviders {
         public static final String SESSIONS = "v2/auth_providers/{provider}/sessions";
     }
+
+    public static final class Categories {
+        public static final String CATEGORIES = "v2/categories?sid={sid}";
+    }
 }
