@@ -1,5 +1,6 @@
 package instamart.api.objects.v2;
 
+import com.google.common.base.Objects;
 import instamart.api.objects.BaseObject;
 
 public class Icon extends BaseObject {
@@ -66,5 +67,31 @@ public class Icon extends BaseObject {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Icon icon = (Icon) o;
+        return Objects.equal(mini_url, icon.mini_url) && Objects.equal(normal_url, icon.normal_url) && Objects.equal(small_url, icon.small_url) && Objects.equal(product_url, icon.product_url) && Objects.equal(preview_url, icon.preview_url) && Objects.equal(original_url, icon.original_url) && Objects.equal(url, icon.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(mini_url, normal_url, small_url, product_url, preview_url, original_url, url);
+    }
+
+    @Override
+    public String toString() {
+        return "Icon{" +
+                "mini_url='" + mini_url + '\'' +
+                ", normal_url='" + normal_url + '\'' +
+                ", small_url='" + small_url + '\'' +
+                ", product_url='" + product_url + '\'' +
+                ", preview_url='" + preview_url + '\'' +
+                ", original_url='" + original_url + '\'' +
+                ", url='" + url + '\'' +
+                '}';
     }
 }
