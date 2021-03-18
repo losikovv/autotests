@@ -14,7 +14,7 @@ public class Taxon extends BaseObject {
     private Icon icon;
     private Icon alt_icon;
     private List<Taxon> children = null;
-    private List<PromoService> promo_services = null;
+    private String[] promo_services = null;
     private List<Requirement> requirements = null;
 
     public Integer getId() {
@@ -84,11 +84,11 @@ public class Taxon extends BaseObject {
         return stringJoiner.toString();
     }
 
-    public List<PromoService> getPromo_services() {
+    public String[] getPromo_services() {
         return promo_services;
     }
 
-    public void setPromo_services(List<PromoService> promo_services) {
+    public void setPromo_services(String[] promo_services) {
         this.promo_services = promo_services;
     }
 
