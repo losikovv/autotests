@@ -34,7 +34,7 @@ public class ShoppingSearchTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void noSendEmptySearchRequest() {
-        Shop.Search.item("");
+        Shop.Search.searchItem("");
         Assert.assertFalse(kraken.detect().isSearchResultsEmpty(),
                 "Показаны результаты для пустого поискового запроса\n");
     }
@@ -44,7 +44,7 @@ public class ShoppingSearchTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successSearchForNonexistingItem() {
-        Shop.Search.nonexistingItem();
+        Shop.Search.nonExistingItem();
 
         baseChecks.checkPageIsAvailable();
 
@@ -57,7 +57,7 @@ public class ShoppingSearchTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successSearchItem() {
-        Shop.Search.item("шоколад");
+        Shop.Search.searchItem("шоколад");
 
         baseChecks.checkPageIsAvailable();
 
@@ -77,12 +77,12 @@ public class ShoppingSearchTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successSearchItemUsingCategorySuggests() {
-        Shop.Search.Field.fill("Мороженое");
+        Shop.Search.searchField("Мороженое");
 
         Assert.assertTrue(kraken.detect().isSearchCategorySuggestsPresent(),
                 "Отсутствуют категорийные подсказки\n");
 
-        Shop.Search.CategorySuggest.hit();
+        Shop.Search.selectCategorySuggest();
 
         Assert.assertFalse(
                 kraken.detect().isSearchResultsEmpty(),
@@ -101,12 +101,12 @@ public class ShoppingSearchTests extends TestBase {
     )
     public void successSearchItemUsingProductSuggests() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        Shop.Search.Field.fill("Мороженое");
+        Shop.Search.searchField("Мороженое");
 
         Assert.assertTrue(kraken.detect().isSearchProductSuggestsPresent(),
                 "Отсутствуют товарные подсказки\n");
 
-        Shop.Search.ProductSuggest.hit();
+        Shop.Search.selectProductSuggest();
 
         Assert.assertTrue(kraken.detect().isItemCardOpen(),
                 "Не открыта карточка товара из товарной подсказки\n");
@@ -117,7 +117,7 @@ public class ShoppingSearchTests extends TestBase {
             groups = {"sbermarket-regression"}
     )
     public void successSearchItemWithLongQuery() {
-        Shop.Search.item(Generate.string(1000));
+        Shop.Search.searchItem(Generate.string(1000));
 
         baseChecks.checkPageIsAvailable();
 

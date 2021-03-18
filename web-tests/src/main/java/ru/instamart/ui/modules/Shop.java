@@ -419,12 +419,29 @@ public final class Shop extends Base {
                 kraken.perform().click(Elements.Header.profileButton());
             } else log.info("> пропускаем открытие меню аккаунта, уже открыто");
         }
+
         @Step("Закрываем всплывающее меню профиля")
         public static void close() {
             log.info("> закрываем всплывающее меню профиля");
             if(kraken.detect().isAccountMenuOpen()) {
                 kraken.perform().click(Elements.Header.profileButton());
             } else log.info("> пропускаем закрытие меню аккаунта, уже закрыто");
+        }
+
+        @Step("Открываем модалку с зонами доставки из меню профиля")
+        public static void openDelivery(){
+            log.info("> открываем модалку с зонами доставки из меню профиля");
+            kraken.perform().click(Elements.AccountMenu.deliveryButton());
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Modals.DeliveryModal.popup().getLocator()),
+                    "не открывается меню с зонами доставки",2);
+            log.info("> меню с зонами доставки открыто");
+        }
+
+        @Step("Закрываем модалку с зонами доставки из меню профиля")
+        public static void closeDelivery(){
+            log.info("> закрываем модалку с зонами доставки из меню профиля");
+            kraken.perform().click(Elements.AccountMenu.deliveryModalButtonClose());
+            log.info("> меню с зонами доставки закрыто");
         }
     }
 
@@ -555,57 +572,45 @@ public final class Shop extends Base {
 
     /** Поиск товаров */
     public static class Search {
-        @Step("Ищем не существующий товар")
-        public static void nonexistingItem() {
-            item(TestVariables.TestParams.ItemSearch.emptyResultsQuery);
+        @Step("Ищем несуществующий товар")
+        public static void nonExistingItem() {
+            searchItem(TestVariables.TestParams.ItemSearch.emptyResultsQuery);
         }
 
         // TODO придумать решение для nonfood-магазинов - поиск заведомо существующего товара
         @Step("Ищем существующий товар")
         public static void existingItem() {
-            item(TestVariables.TestParams.ItemSearch.testQuery);
+            searchItem(TestVariables.TestParams.ItemSearch.testQuery);
         }
         @Step("Ищем товары по запросу: {0}")
-        public static void item(String query) {
+        public static void searchItem(String query) {
             log.info("> поиск товаров по запросу '{}'...", query);
-            Field.fill(query);
-            Button.hit();
+            searchField(query);
+            log.info("> нажимаем кнопку поиска");
+            kraken.perform().click((Elements.Header.Search.sendButton()));
             kraken.await().implicitly(1); // Ожидание загрузки результатов поиска
         }
 
-        public static class Field {
-            @Step("Заполняем поле поиска: {0}")
-            public static void fill(String query) {
-                log.info("> заполняем поле поиска: {}", query);
-                kraken.perform().fillField(Elements.Header.Search.inputField(), query);
-                Actions actions = new Actions(kraken.getWebDriver());
-                kraken.await().implicitly(1); // Ожидание загрузки поисковых саджестов
-                actions.sendKeys(Keys.ENTER).perform();
-            }
+        @Step("Заполняем поле поиска: {0}")
+        public static void searchField(String query) {
+            log.info("> заполняем поле поиска: {}", query);
+            kraken.perform().fillField(Elements.Header.Search.inputField(), query);
+            Actions actions = new Actions(kraken.getWebDriver());
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Header.Search.searchListResult().getLocator()),
+                    "не подтянулись поисковые подсказки", 3);
+            actions.sendKeys(Keys.ENTER).perform();
         }
 
-        public static class Button {
-            @Step("Нажимаем кнопку поиска")
-            public static void hit() {
-                log.info("> нажимаем кнопку поиска");
-                kraken.perform().click((Elements.Header.Search.sendButton()));
-            }
+        @Step("Нажимаем категорийную подсказку в поиске")
+        public static void selectCategorySuggest() {
+            log.info("> нажимаем категорийную подсказку в поиске");
+            kraken.perform().click(Elements.Header.Search.categorySuggest());
         }
 
-        public static class CategorySuggest {
-            @Step("Нажимаем категорийную подсказку в поиске")
-            public static void hit() {
-                log.info("> нажимаем категорийную подсказку в поиске");
-                kraken.perform().click(Elements.Header.Search.categorySuggest());
-            }
-        }
-
-        public static class ProductSuggest {
-            @Step("Нажимаем товарную подсказку в поиске")
-            public static void hit() {
-                log.info("> нажимаем товарную подсказку в поиске");
-                kraken.perform().click(Elements.Header.Search.productSuggest());
-            }
+        @Step("Нажимаем товарную подсказку в поиске")
+        public static void selectProductSuggest() {
+            log.info("> нажимаем товарную подсказку в поиске");
+            kraken.perform().click(Elements.Header.Search.productSuggest());
         }
     }
 

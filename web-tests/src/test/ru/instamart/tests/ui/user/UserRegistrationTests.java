@@ -272,11 +272,7 @@ public class UserRegistrationTests extends TestBase {
     )
     public void successRegOnLanding() {
         phone = Generate.phoneNumber();
-        modalType = User.Do.registration(
-                "Test User",
-                "test@example.com",
-                "12345678",
-                "12345678",
+        User.Do.registration(
                 phone,
                 "111111"
         );
@@ -294,11 +290,7 @@ public class UserRegistrationTests extends TestBase {
     public void successRegOnMainPage() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         phone = Generate.phoneNumber();
-        modalType = User.Do.registration(
-                "Test User",
-                "test@example.com",
-                "12345678",
-                "12345678",
+        User.Do.registration(
                 phone,
                 "111111"
         );
