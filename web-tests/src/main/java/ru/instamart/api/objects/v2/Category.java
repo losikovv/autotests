@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 import instamart.api.objects.BaseObject;
 
+import java.util.Arrays;
 import java.util.List;
 
 public final class Category extends BaseObject {
@@ -14,11 +15,11 @@ public final class Category extends BaseObject {
     @JsonProperty(value = "products_count")
     private Integer productsCount;
     @JsonProperty(value = "promo_services")
-    private List<PromoService> promoServices;
+    private String[] promoServices;
     private Integer position;
     private Icon icon;
     @JsonProperty(value = "alt_icon")
-    private String altIcon;
+    private AltIcon altIcon;
     private List<Category> children;
     private List<Requirement> requirements;
 
@@ -38,7 +39,7 @@ public final class Category extends BaseObject {
         return productsCount;
     }
 
-    public List<PromoService> getPromoServices() {
+    public String[] getPromoServices() {
         return promoServices;
     }
 
@@ -50,7 +51,7 @@ public final class Category extends BaseObject {
         return icon;
     }
 
-    public String getAltIcon() {
+    public AltIcon getAltIcon() {
         return altIcon;
     }
 
@@ -82,7 +83,7 @@ public final class Category extends BaseObject {
                 ", type='" + type + '\'' +
                 ", name='" + name + '\'' +
                 ", productsCount=" + productsCount +
-                ", promoServices=" + promoServices +
+                ", promoServices=" + Arrays.toString(promoServices) +
                 ", position=" + position +
                 ", icon=" + icon +
                 ", altIcon='" + altIcon + '\'' +

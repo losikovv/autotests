@@ -31,7 +31,7 @@ public final class CategoriesV2Test {
     @Test(groups = {"api-instamart-smoke"})
     @Story("Не существующий id")
     public void testCategoriesWithInvalidId() {
-        final Response response = CategoriesRequest.GET(666);
+        final Response response = CategoriesRequest.GET(66666);
         checkStatusCode404(response);
         assertNull(response.as(CategoriesResponse.class).getCategories(), "Вернулись категории у несуществующего магазина");
     }
