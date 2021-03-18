@@ -110,9 +110,7 @@ public class ShoppingCatalogTests extends TestBase {
             groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successOperateItemCardOnSearchPage() {
-        Shop.Search.Field.fill("хлеб");
-        //kraken.get().page("metro/search?keywords=хлеб");
-        //https://instamart.atlassian.net/browse/STF-6766
+        Shop.Search.searchField("хлеб");
         Shop.Catalog.Item.open();
         itemChecks.checkIsItemCardOpen("Не открывается карточка продукта в выдаче поиска\n");
         Shop.ItemCard.close();

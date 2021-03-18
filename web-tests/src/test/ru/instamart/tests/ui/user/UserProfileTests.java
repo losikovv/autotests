@@ -25,13 +25,8 @@ public class UserProfileTests extends TestBase {
         User.Logout.quickly();
         String phone = Generate.phoneNumber();
         User.Do.registration(
-                null,
-                "test@example.com",
-                "12345678",
-                "12345678",
                 phone,
-                "111111"
-        );
+                "111111");
     }
 
 
@@ -72,10 +67,7 @@ public class UserProfileTests extends TestBase {
     @CaseId(1524)
     @Test(
             description = "Тест валидации меню профиля Sbermarket",
-
-            groups = {
-                    "sbermarket-Ui-smoke","testing"
-            }
+            groups = {"sbermarket-Ui-smoke"}
     ) public void successValidateSbermarketTenantProfileMenu() {
         Shop.AccountMenu.open();
         accountChecks.checkIsAccountMenuOpen();
@@ -93,10 +85,9 @@ public class UserProfileTests extends TestBase {
     @CaseId(1525)
     @Test(
             description = "Тест валидации кнопки 'Профиль' в меню профиля",
-
             groups = {
                     "metro-acceptance","metro-regression",
-                    "sbermarket-Ui-smoke","testing"
+                    "sbermarket-Ui-smoke"
             }
     ) public void successValidateUserProfileButton() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -107,7 +98,6 @@ public class UserProfileTests extends TestBase {
     @CaseId(1526)
     @Test(
             description = "Тест валидации кнопки 'История заказов' в меню профиля",
-
             groups = {
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
@@ -121,32 +111,28 @@ public class UserProfileTests extends TestBase {
 
     @Test(
             description = "Тест валидации кнопки 'Условия использования' в меню профиля",
-
             groups = {
                     "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","testing"
+                    "sbermarket-acceptance"
             }
     ) public void successValidateTermsButton() {
         Shop.AccountMenu.open();
         baseChecks.checkTransitionValidation(Elements.AccountMenu.termsButton());
     }
+
     @CaseId(1528)
     @Test(
             description = "Тест валидации кнопки 'Доставка' в меню профиля",
-
-            groups = {
-                    "sbermarket-Ui-smoke","testing"
-            }
+            groups = {"sbermarket-Ui-smoke"}
     ) public void successValidateDeliveryButton() {
         Shop.AccountMenu.open();
-        kraken.perform().click(Elements.AccountMenu.deliveryButton());
+        Shop.AccountMenu.openDelivery();
         accountChecks.checkIsDeliveryMenuOpen();
-        kraken.perform().click(Elements.AccountMenu.deliveryModalButtonClose());
+        Shop.AccountMenu.closeDelivery();
     }
 
     @Test(
             description = "Тест валидации кнопки 'Оплата' в меню профиля",
-
             groups = {
                     "metro-acceptance","metro-regression"
             }
@@ -165,7 +151,7 @@ public class UserProfileTests extends TestBase {
 
             groups = {
                     "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","testing"
+                    "sbermarket-acceptance"
             }
     ) public void successValidateFaqButton() {
         Shop.AccountMenu.open();

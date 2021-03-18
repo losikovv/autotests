@@ -30,7 +30,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successCheckSimilarItemsWidget() {
-        Shop.Search.nonexistingItem();
+        Shop.Search.nonExistingItem();
 
         Assert.assertTrue(
                 kraken.detect().isWidgetPresent(Widgets.RetailRocket.Search.SimilarItems()),
@@ -41,7 +41,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successCheckFindersChoiceWidget() {
-        Shop.Search.item("макароны");
+        Shop.Search.searchItem("макароны");
 
         Assert.assertTrue(
                 kraken.detect().isWidgetPresent(Widgets.RetailRocket.Search.FindersChoice()),
@@ -52,7 +52,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successCheckRecentlyViewedWidget() {
-        Shop.Search.item("макароны");
+        Shop.Search.searchItem("макароны");
 
         Assert.assertTrue(
                 kraken.detect().isWidgetPresent(Widgets.RetailRocket.Search.RecentlyViewed()),
@@ -65,7 +65,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successOpenItemCardFromSimilarItemsWidget() {
-        Shop.Search.nonexistingItem();
+        Shop.Search.nonExistingItem();
 
         Shop.Catalog.Item.open(Widgets.RetailRocket.Search.SimilarItems());
 
@@ -80,7 +80,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckFindersChoiceWidget"
     )
     public void successOpenItemCardFromFindersChoiceWidget() {
-        Shop.Search.item("жир");
+        Shop.Search.searchItem("жир");
 
         Shop.Catalog.Item.open(Widgets.RetailRocket.Search.FindersChoice());
 
@@ -100,7 +100,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
         Shop.ItemCard.close();
         kraken.perform().refresh();
 
-        Shop.Search.item("жир");
+        Shop.Search.searchItem("жир");
 
         Shop.Catalog.Item.open(Widgets.RetailRocket.Search.RecentlyViewed());
 
@@ -116,7 +116,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successAddItemFromSimilarItemsWidget() {
-        Shop.Search.nonexistingItem();
+        Shop.Search.nonExistingItem();
 
         Shop.Catalog.Item.addToCart(Widgets.RetailRocket.Search.SimilarItems());
 
@@ -131,7 +131,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckFindersChoiceWidget"
     )
     public void successAddItemFromFindersChoiceWidget() {
-        Shop.Search.item("жир");
+        Shop.Search.searchItem("жир");
         Shop.Catalog.Item.addToCart(Widgets.RetailRocket.Search.FindersChoice());
 
         Assert.assertFalse(
@@ -150,7 +150,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
         Shop.ItemCard.close();
         kraken.perform().refresh();
 
-        Shop.Search.item("жир");
+        Shop.Search.searchItem("жир");
         Shop.Catalog.Item.addToCart(Widgets.RetailRocket.Search.RecentlyViewed());
 
         Assert.assertFalse(

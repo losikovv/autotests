@@ -47,11 +47,7 @@ public class UserFavoritesTests extends TestBase {
     @Flaky
     public void successOpenFavorites() {
         String phone = Generate.phoneNumber();
-        modalType = User.Do.registration(
-                "Test User",
-                "test@example.com",
-                "12345678",
-                "12345678",
+        User.Do.registration(
                 phone,
                 "111111"
         );
@@ -158,22 +154,22 @@ public class UserFavoritesTests extends TestBase {
     ) public void successCleanupFavorites() {
         User.Do.loginAs(UserManager.getDefaultUser());
 
-        Shop.Search.item("молоко");
+        Shop.Search.searchItem("молоко");
         Shop.Catalog.Item.addToFavorites();
 
-        Shop.Search.item("сыр");
+        Shop.Search.searchItem("сыр");
         Shop.Catalog.Item.addToFavorites();
 
-        Shop.Search.item("вода");
+        Shop.Search.searchItem("вода");
         Shop.Catalog.Item.addToFavorites();
 
-        Shop.Search.item("бананы");
+        Shop.Search.searchItem("бананы");
         Shop.Catalog.Item.addToFavorites();
 
-        Shop.Search.item("яйца");
+        Shop.Search.searchItem("яйца");
         Shop.Catalog.Item.addToFavorites();
 
-        Shop.Search.item("хлеб");
+        Shop.Search.searchItem("хлеб");
         Shop.Catalog.Item.addToFavorites();
 
         kraken.reach().cleanFavorites();

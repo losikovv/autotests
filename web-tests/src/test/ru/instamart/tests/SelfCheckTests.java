@@ -310,7 +310,7 @@ public class SelfCheckTests extends TestBase {
 
         // корзина не пустая, но меньше суммы мин заказа
         Shop.Cart.close();
-        Shop.Search.item("молоко");
+        Shop.Search.searchItem("молоко");
         Shop.Cart.collect(1);
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
         Assert.assertNotNull(kraken.grab().cartTotal());

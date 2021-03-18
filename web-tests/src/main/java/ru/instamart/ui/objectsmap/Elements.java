@@ -464,6 +464,11 @@ public class Elements {
                     return new ElementData(By.className("header-search-list-product"),
                             "товарная поисковая подсказка");
                 }
+
+                static ElementData searchListResult() {
+                    return new ElementData(By.xpath("//*[@data-qa='offer']"),
+                            "список с результатом поиска");
+                }
             }
         }
 
@@ -689,7 +694,6 @@ public class Elements {
                     "ссылка на условия обработки персональных данных в модалке авторизации");
         }
 
-        // todo rememberMeCheckbox
         static ElementData agreementCheckbox() { return new ElementData(
                 By.xpath("//div[contains(@class,'block_checkbox') and text()='Согласен']"),
                 "чекбокс согласия на получение почтовой рассылки в модалке авторизации"); }
@@ -712,7 +716,7 @@ public class Elements {
             return new ElementData(By.xpath("//button[@data-qa='registration_form_submit_button']"),
                         "кнопка отправки в модалке авторизации");
         }
-        //ToDo здесь нужно добавить дата атрибут с именем, так как кнопки друг от друга ни как не отличаются
+
         static ElementData vkontakteButton() {
             return new ElementData(
                     By.xpath("//button[@data-qa='vkontakte']"),
@@ -948,7 +952,7 @@ public class Elements {
         interface DeliveryModal {
 
         static ElementData popup() {
-            return new ElementData(By.xpath("//*[@class='modal-content']"),
+            return new ElementData(By.id("js-delivery-map"),
                     "попап модалки Доставка");
         }
 
