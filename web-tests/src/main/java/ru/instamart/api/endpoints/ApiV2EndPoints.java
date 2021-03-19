@@ -11,6 +11,8 @@ public final class ApiV2EndPoints {
     public static final String ONBOARDING_PAGES = "v2/onboarding_pages";
     public static final String PRODUCTS = "v2/products?sid={sid}&q={query}";
     public static final String TAXONS = "v2/taxons?sid={sid}";
+    public static final String ADDRESSES = "v2/addresses";
+    public static final String CATEGORIES = "v2/categories?sid={sid}";
 
     public static final class Users {
         public static final String USERS = "v2/users";
@@ -78,9 +80,5 @@ public final class ApiV2EndPoints {
 
     public static final class AuthProviders {
         public static final String SESSIONS = "v2/auth_providers/{provider}/sessions";
-    }
-
-    public static final class Categories {
-        public static final String CATEGORIES = "v2/categories?sid={sid}";
     }
 }
