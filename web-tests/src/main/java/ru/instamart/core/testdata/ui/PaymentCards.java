@@ -10,7 +10,18 @@ public class PaymentCards {
                 "12",
                 "2049",
                 "IVAN IVANOV",
-                "404");
+                "404",
+                true);
+    }
+
+    public static PaymentCardData testCardNo3ds(){
+        return new PaymentCardData(
+                "5200 8282 8282 8210",
+                "12",
+                "2049",
+                "TEST TESTOV",
+                "404",
+                false);
     }
 
     public static PaymentCardData realCard() {
@@ -19,6 +30,7 @@ public class PaymentCards {
                 "fill your card requisites here",
                 "fill your card requisites here",
                 "fill your card requisites here",
-                "fill your card requisites here");
+                "fill your card requisites here",
+                false);
     }
 }

@@ -54,7 +54,31 @@ public interface TestVariables {
                         false,
                         Juridicals.testJuridical()
                 ),
-                new DeliveryTimeData(6, 1)
+                new DeliveryTimeData(4, 2)
+        );
+    }
+
+    static OrderDetailsData testOrderDetailsCus() {
+        return new OrderDetailsData(
+                new AddressDetailsData(
+                        "home",
+                        "1",
+                        "22",
+                        true, "333",
+                        "44 ключ 4444",
+                        "test"
+                ),
+                new ContactsDetailsData(true,"My", true, "Test",
+                        true, "test@mail.ru", false, "79990001122", true),
+                ReplacementPolicies.callAndReplace(),
+                new PaymentDetailsData(
+                        PaymentTypes.cardCourier(),
+                        false,
+                        PaymentCards.testCardNo3ds(),
+                        false,
+                        Juridicals.testJuridical()
+                ),
+                new DeliveryTimeData(4, 2)
         );
     }
 }
