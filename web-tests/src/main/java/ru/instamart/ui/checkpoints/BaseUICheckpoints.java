@@ -364,4 +364,15 @@ public class BaseUICheckpoints {
                 failMessage(errorMessage));
         log.info("✓ Успешно");
     }
+
+    /**Проверяем, что вебэлемент заблокирован на странице*/
+    @Step("Проверяем, что веб элемент заблокирован: {element.description}")
+    public void checkIsElementDisabled(ElementData element){
+        log.info("> проверяем, что веб элемент заблокирован {}> {}", kraken.grab().currentURL(), element.getLocator());
+        Assert.assertFalse(
+                kraken.detect().isElementEnabled(element),
+                failMessage("Не заблокирован " + element.getDescription() + " на странице " + kraken.grab().currentURL()
+                        + "\n> " + element.getLocator()));
+        log.info("✓ Успешно: {}", element.getDescription());
+    }
 }

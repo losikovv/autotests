@@ -34,6 +34,7 @@ public final class Shop extends Base {
                 if (kraken.detect().isOnLanding()) {
                     try {
                         kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
+                        kraken.await().implicitly(1);//это здесь нужно из-за работы с js на форме авторизации
                     } catch (Exception ex){
                         kraken.perform().click(Elements.Header.loginButton());
                     }
@@ -45,25 +46,25 @@ public final class Shop extends Base {
                     }
 
                 }
-                kraken.await().implicitly(1); // Ожидание открытия модалки авторизации/регистрации
-                try {
-                    kraken.await().fluently(
-                            ExpectedConditions.visibilityOfElementLocated(
-                                    Elements.Modals.AuthModal.popup().getLocator()),
-                            "\n> Превышено время ожидания открытия модалки авторизации/регистрации");
-                } catch (Exception ex){
-                    kraken.await().fluently(
-                            ExpectedConditions.visibilityOfElementLocated(
-                                    Elements.Modals.AuthModal.popupMail().getLocator()),
-                            "\n> Превышено время ожидания открытия модалки авторизации/регистрации");
-                }
+                kraken.await().fluently(
+                        ExpectedConditions.visibilityOfElementLocated(
+                                Elements.Modals.AuthModal.phoneNumber().getLocator()),
+                        "\n> Превышено время ожидания открытия модалки авторизации/регистрации",2);
+//                try {
+//
+//                } catch (Exception ex){
+//                    kraken.await().fluently(
+//                            ExpectedConditions.visibilityOfElementLocated(
+//                                    Elements.Modals.AuthModal.popupMail().getLocator()),
+//                            "\n> Превышено время ожидания открытия модалки авторизации/регистрации");
+//                }
             }
         }
         @Step("Закрываем форму авторизации")
         public static void close() {
             log.info("> закрываем форму авторизации");
             kraken.perform().click(Elements.ItemCard.closeButton());
-            kraken.await().implicitly(1); // Ожидание закрытия модалки авторизации
+//            kraken.await().implicitly(1); // Ожидание закрытия модалки авторизации
         }
         @Step("Переключаемся на вкладку авторизации")
         public static void switchToAuthorisationTab() {
@@ -211,7 +212,6 @@ public final class Shop extends Base {
             } else {
                 catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),1);
                 kraken.perform().click(Elements.Header.shipAddressButton());
-                kraken.await().simply(1); // Ожидание анимации открытия адресной модалки
                 kraken.await().fluently(
                         ExpectedConditions.visibilityOfElementLocated(
                                 Elements.Modals.AddressModal.popup().getLocator()),
@@ -228,8 +228,8 @@ public final class Shop extends Base {
         /** Ввести адрес в адресной модалке */
         @Step("Вводим адрес в адресной модалке: {0}")
         public static void fill(String address) {
+            log.info("> водим адрес в адресной модалке: {}",address);
             kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), address);
-            kraken.await().simply(3); // Ожидание адресных подсказок
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
                             Elements.Modals.AddressModal.addressSuggest().getLocator()),
@@ -241,6 +241,7 @@ public final class Shop extends Base {
         /** Выбрать первый адресный саджест */
         @Step("Выбираем первый первый предложенный адрес")
         private static void selectAddressSuggest() {
+            log.info("> выбираем первый первый предложенный адрес");
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(Elements.spinner().getLocator())
             );
@@ -264,10 +265,10 @@ public final class Shop extends Base {
         /** Применить введенный адрес в адресной модалке */
         @Step("Применяем введенный адрес в адресной модалке")
         public static void submit() throws AssertionError {
+            log.info("> применяем введенный адрес в адресной модалке");
             kraken.perform().click(Elements.Modals.AddressModal.submitButton());
             if (kraken.detect().isAddressOutOfZone()) {
                 log.info("> выбранный адрес вне зоны доставки");
-                //kraken.perform().refresh();
             } else {
                 kraken.await().fluently(
                         ExpectedConditions.invisibilityOfElementLocated(
@@ -279,6 +280,7 @@ public final class Shop extends Base {
         /** Ищем доступные магазины по введенному адресу */
         @Step("Ищем доступные магазины по введенному адресу")
         public static void findShops() throws AssertionError {
+            log.info("> ищем доступные магазины по введенному адресу");
             kraken.perform().click(Elements.Modals.AddressModal.findShopButton());
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
@@ -297,19 +299,30 @@ public final class Shop extends Base {
         /** Выбрать первый в списке предыдущий адрес в адресной модалке */
         @Step("Выбираем первый в списке предыдущий адрес в адресной модалке")
         public static void chooseRecentAddress() {
+            log.info("> выбираем первый в списке предыдущий адрес в адресной модалке");
             kraken.perform().click(Elements.Modals.AddressModal.recentAddress());
-            kraken.await().implicitly(1); // Ожидание применения предыдущего адреса
+//            kraken.await().implicitly(1); // Ожидание применения предыдущего адреса
         }
 
         /** Закрыть модалку адреса */
         @Step("Закрываем модалку адреса")
         public static void close() {
+            log.info("> закрываем модалку адреса");
             if (kraken.detect().isAddressModalOpen()) {
                 kraken.perform().click(Elements.Modals.AddressModal.closeButton());
-                kraken.await().implicitly(1); // Ожидание анимации закрытия адресной модалки
+//                kraken.await().implicitly(1); // Ожидание анимации закрытия адресной модалки
             } else {
                 log.info("> пропускаем закрытие модалки адреса, она уже закрыта");
             }
+        }
+
+        @Step("Открываем модалку авторизации из адресной модалки феникса")
+        public static void openAuthModal() {
+            log.info("> открываем модалку авторизации из адресной модалки феникса");
+            kraken.await().fluently(
+                    ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.authButton().getLocator()),
+                    "не отображается кнопка входа",2);
+            kraken.perform().click(Elements.Modals.AddressModal.authButton());
         }
     }
 
@@ -363,9 +376,10 @@ public final class Shop extends Base {
         @Step("Открываем шторку каталога категорий")
         public static void open() {
             log.info("> открываем шторку каталога категорий");
+            catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),2);
             if (!kraken.detect().isCatalogDrawerOpen()) {
                 kraken.perform().click(Elements.Header.catalogButton());
-                kraken.await().simply(1); // Ожидание анимации открытия шторки каталога
+//                kraken.await().simply(1); // Ожидание анимации открытия шторки каталога
                 kraken.await().fluently(
                         ExpectedConditions.elementToBeClickable(
                                 Elements.CatalogDrawer.closeButton().getLocator()),"Не открылась шторка каталога\n");

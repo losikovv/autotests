@@ -39,38 +39,16 @@ public class UserRegistrationTests extends TestBase {
     )
     public void noRegWithEmptyRequisites() {
         kraken.get().page(Config.DEFAULT_RETAILER); // Переход на страничку Метро
-
-        modalType = User.Do.registration(
-                null,
-                null,
-                null,
-                null,
-                "",
-                null
-        );
-        if(modalType.equals("модалка с почтой")){
-            baseChecks.checkIsErrorMessageElementPresent("Укажите имя и фамилию",
-                    "Нет пользовательской ошибки пустого поля name");
-            baseChecks.checkIsErrorMessageElementPresent("Укажите email",
-                    "Нет пользовательской ошибки пустого поля email");
-            baseChecks.checkIsErrorMessageElementPresent("Укажите пароль",
-                    "Нет пользовательской ошибки пустого поля password");
-            baseChecks.checkIsErrorMessageElementPresent("Подтвердите пароль",
-                    "Нет пользовательской ошибки пустого поля password confirmation");
-        }else{
-            baseChecks.checkIsErrorMessageElementPresentByPhone("Номер должен начинаться с \"+7 (9..\"",
-                    "Нет пользовательской ошибки пустого номера телефона");
-        }
+        User.Do.registration("", null);
+        baseChecks.checkIsErrorMessageElementPresentByPhone("Номер должен начинаться с \"+7 (9..\"",
+                "Нет пользовательской ошибки пустого номера телефона");
         kraken.get().page(Config.DEFAULT_RETAILER);
         authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя с пустыми реквизитами");
     }
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без имени",
-            groups = {
-                    "metro-regression","metro-acceptance",
-                    "sbermarket-regression","testing"
-            }
+            groups = {}
     )
     public void noRegWithoutName() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -95,10 +73,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без кода подтверждения",
-            groups = {
-                    "metro-regression","metro-acceptance",
-                    "sbermarket-regression","testing"
-            }
+            groups = {}
     )
     public void noRegWithoutNameMobile() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -118,10 +93,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без email",
-            groups = {
-                    "metro-regression","metro-acceptance",
-                    "sbermarket-regression","testing"
-            }
+            groups = {}
     )
     public void noRegWithoutEmail() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -141,10 +113,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без пароля",
-            groups = {
-                    "metro-regression","metro-acceptance",
-                    "sbermarket-regression","testing"
-            }
+            groups = {}
     )
     public void noRegWithoutPassword() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -159,10 +128,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя без подтверждения пароля",
-            groups = {
-                    "metro-regression","metro-acceptance",
-                    "sbermarket-regression","testing"
-            }
+            groups = {}
     )
     public void noRegWithoutPasswordConfirmation() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -181,10 +147,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с несовпадающими паролями",
-            groups = {
-                    "metro-regression","metro-acceptance",
-                    "sbermarket-regression","testing"
-            }
+            groups = {}
     )
     public void noRegWithWrongPasswordConfirmation() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -201,30 +164,27 @@ public class UserRegistrationTests extends TestBase {
         authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя с несовпадающим подтверждёнием пароля");
     }
 
+    @CaseId(2044)
     @Test(
-            description = "Негативный тест попытки повторно зарегистрировать существующего пользователя",
+            description = "Тест таймаута повторной отправки смс при быстром перелогине",
             groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression","testing"
+                    "sbermarket-Ui-smoke","sbermarket-regression"
             }
     )
-    public void noRegWithExistingEmail() {
-        if(modalType.equals("модалка с телефоном")){skipTest();}
+    public void timeOutForSendindSMS() {
+        phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.registration("Test User", UserManager.getDefaultUser().getLogin(),
-                "12345678", "12345678");
-        baseChecks.checkIsErrorMessageElementPresent("Этот email уже зарегистрирован",
-                "Нет пользовательской ошибки регистрации с уже зарегистрированным email");
+        User.Do.registration(phone, "111111");
+        User.Logout.quickly();
+        User.Do.registrationWithoutConfirmation(phone);
+        baseChecks.checkIsElementDisabled(Elements.Modals.AuthModal.continueButton());
         kraken.get().baseUrl();
         authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя с уже используемым email");
     }
 
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с длинными полями",
-            groups = {
-                    "metro-regression","metro-acceptance",
-                    "sbermarket-regression","testing"
-            }
+            groups = {}
     )
     public void noRegWithLongFields() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -244,10 +204,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест отмены регистрации после заполнения всех полей",
-            groups = {
-                    "metro-regression","metro-acceptance",
-                    "sbermarket-regression","testing"
-            }
+            groups = {}
     )
     public void noRegOnCancel() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -272,10 +229,7 @@ public class UserRegistrationTests extends TestBase {
     )
     public void successRegOnLanding() {
         phone = Generate.phoneNumber();
-        User.Do.registration(
-                phone,
-                "111111"
-        );
+        User.Do.registration(phone, "111111");
         authChecks.checkIsUserAuthorized("Не работает регистрация на лендинге");
     }
 
@@ -284,40 +238,31 @@ public class UserRegistrationTests extends TestBase {
             description = "Регистрация нового пользователя на витрине магазина",
             groups = {
                     "metro-smoke", "metro-acceptance", "metro-regression",
-                    "sbermarket-Ui-smoke","testing"
+                    "sbermarket-Ui-smoke"
             }
     )
     public void successRegOnMainPage() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         phone = Generate.phoneNumber();
-        User.Do.registration(
-                phone,
-                "111111"
-        );
+        User.Do.registration(phone, "111111");
         authChecks.checkIsUserAuthorized("Не работает регистрация на витрине магазина");
     }
 
+    @CaseId(1542)
     @Test(
             description = "Тест регистрации из адресной модалки феникса",
             groups = {
                     "metro-regression","metro-acceptance",
-                    "sbermarket-regression","testing"
+                    "sbermarket-regression","sbermarket-Ui-smoke"
             }
     )
     public void successRegFromAddressModal() throws AssertionError {
         kraken.get().page(Config.DEFAULT_RETAILER);
         phone = Generate.phoneNumber();
         Shop.ShippingAddressModal.open();
-        kraken.perform().click(Elements.Modals.AddressModal.authButton());
+        Shop.ShippingAddressModal.openAuthModal();
         baseChecks.checkIsAuthModalOpen("Не работает переход на авторизацию из адресной модалки");
-        User.Do.registration(
-                "Test User",
-                "test@example.com",
-                "12345678",
-                "12345678",
-                phone,
-                "111111"
-        );
+        User.Do.registration(phone, "111111");
         authChecks.checkIsUserAuthorized("Не работает регистрация из адресной модалки феникса");
     }
 
@@ -327,27 +272,20 @@ public class UserRegistrationTests extends TestBase {
             description = "Тест регистрации при переходе из корзины в чекаут",
             groups = {
                     "metro-regression",
-                    "sbermarket-regression","testing","sbermarket-Ui-smoke"
+                    "sbermarket-regression","sbermarket-Ui-smoke"
             }
     )
     public void successRegFromCart() {
         phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        Shop.ShippingAddressModal.open();
+        User.ShippingAddress.setAndSaveAddress(Addresses.Moscow.defaultAddress());
 
         Shop.Cart.collectFirstTime();
         Shop.Cart.proceedToCheckout();
         baseChecks.checkIsAuthModalOpen("Не открывается авторизационная" +
                 " модалка при переходе неавторизованным из корзины в чекаут");
-        User.Do.registration(
-                "Test User",
-                "test@example.com",
-                "12345678",
-                "12345678",
-                phone,
-                "111111"
-        );
-
+        User.Do.registration(phone, "111111");
         authChecks.checkAutoCheckoutRedirect("Нет автоперехода в чекаут после регистрации из корзины");
         kraken.get().baseUrl();
         authChecks.checkIsUserAuthorized("Не работает регистрация из корзины");
@@ -357,10 +295,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест успешной регистрации без проставленной галки согласия на почтовую рассылку",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression","testing"
-            }
+            groups = {}
     )
     public void successRegWithoutMailingCheckbox() {
         if(modalType.equals("модалка с телефоном")){skipTest();}
@@ -373,10 +308,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест успешной регистрации с заново проставленной галкой согласия на почтовую рассылку",
-            groups = {
-                    "metro-regression",
-                    "sbermarket-regression","testing"
-            }
+            groups = {}
     )
     public void successRegWithMailingCheckbox() {
         if(modalType.equals("модалка с телефоном")){skipTest();}

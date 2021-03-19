@@ -628,7 +628,7 @@ public class Elements {
         */
 
         static ElementData phoneNumber() {
-            return new ElementData(By.xpath("//div[contains(@class,'FormGroup__root')]"),
+            return new ElementData(By.xpath("//*[@data-qa='tel_login_form_input']"),
                     "поле для ввода номера телефона");
         }
 
