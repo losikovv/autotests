@@ -106,9 +106,9 @@ public final class PerformHelper extends HelperBase {
 
     /** Заполнить поле через метод Action*/
     public void fillFieldAction(ElementData element, String text){
-        click(element);
-        var element1 = kraken.getWebDriver().findElement(element.getLocator());
         Actions actions = new Actions(kraken.getWebDriver());
+        actions.moveToElement(kraken.getWebDriver().findElement(element.getLocator())).click().perform();
+        var element1 = kraken.getWebDriver().findElement(element.getLocator());
         actions.click(element1).sendKeys(text).perform();
     }
 

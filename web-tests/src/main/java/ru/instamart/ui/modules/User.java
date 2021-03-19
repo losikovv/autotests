@@ -187,6 +187,14 @@ public final class User extends Base {
             regSequenceMobile(phone, sms);
         }
 
+        @Step("Заполняем форму регистрации без поддтверждения кода из смс: {0}")
+        public static void registrationWithoutConfirmation(String phone) {
+            Shop.AuthModal.open();
+            log.info("> заполняем поля формы регистрации по телефону");
+            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.phoneNumber(),phone);
+        }
+
+
         /**
          * Регистрационная последовательность с реквизитами из переданного объекта UserData
          */
@@ -445,7 +453,7 @@ public final class User extends Base {
             );
             String currentAddress = kraken.grab().value(Elements.Modals.AddressModal.addressField());
             if(currentAddress.equals("")){
-                kraken.await().implicitly(3);//текущая локация подставляется автоматически,
+//                kraken.await().implicitly(3);//текущая локация подставляется автоматически,
                 // нужно подождать, пока элемент прогрузится
                 currentAddress = kraken.grab().value(Elements.Modals.AddressModal.addressField());
                 if(currentAddress.equals("")) log.info("> устанавливаем адрес доставки: {}", address);
@@ -456,7 +464,7 @@ public final class User extends Base {
             }
             Shop.ShippingAddressModal.fill(address);
             if(submit){
-                WaitingHelper.simply(2);
+                WaitingHelper.simply(1);
                 kraken.await().fluently(
                         ExpectedConditions.elementToBeClickable(
                                 Elements.Modals.AddressModal.submitButton().getLocator()),
@@ -464,6 +472,21 @@ public final class User extends Base {
                 );
                 Shop.ShippingAddressModal.submit();
             }
+        }
+
+        /** Установить адрес доставки */
+        @Step("Устанавливаем адрес доставки: {0}")
+        public static void setAndSaveAddress(String address) {
+            log.info("> устанавливаем адрес доставки: {}", address);
+//            String currentAddress = kraken.grab().value(Elements.Modals.AddressModal.addressField());
+            Shop.ShippingAddressModal.fill(address);
+            WaitingHelper.simply(1);
+            kraken.await().fluently(
+                    ExpectedConditions.elementToBeClickable(
+                            Elements.Modals.AddressModal.submitButton().getLocator()),
+                    "Кнопка сохранить не активна\n");
+            Shop.ShippingAddressModal.submit();
+            log.info("> адрес доставки: {} установлен", address);
         }
 
         /** Ищем магазины по установленному адресу */

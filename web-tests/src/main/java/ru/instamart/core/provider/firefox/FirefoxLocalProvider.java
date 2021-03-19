@@ -3,7 +3,6 @@ package instamart.core.provider.firefox;
 import instamart.core.provider.AbstractBrowserProvider;
 import instamart.core.util.ProcessUtils;
 import org.openqa.selenium.firefox.FirefoxBinary;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.BrowserType;
 
@@ -25,6 +24,7 @@ public final class FirefoxLocalProvider extends AbstractBrowserProvider {
         //This is fore resolution
         options.addArguments("--width=1920");
         options.addArguments("--height=1080");
+        options.addArguments("--disable-geolocation");
         //This for screenshot
         options.addArguments("--window-size").addArguments("1920,1080");
 
