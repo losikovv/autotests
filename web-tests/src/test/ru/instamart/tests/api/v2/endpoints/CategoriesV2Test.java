@@ -1,5 +1,6 @@
 package ru.instamart.tests.api.v2.endpoints;
 
+import instamart.api.common.RestBase;
 import instamart.api.requests.v2.CategoriesRequest;
 import instamart.api.responses.v2.CategoriesResponse;
 import io.qameta.allure.Epic;
@@ -16,7 +17,7 @@ import static org.testng.Assert.assertNull;
 
 @Epic("ApiV2")
 @Feature("Получение категорий")
-public final class CategoriesV2Test {
+public final class CategoriesV2Test extends RestBase {
 
     @CaseId(247)
     @Test(groups = {"api-instamart-smoke"})
@@ -28,7 +29,7 @@ public final class CategoriesV2Test {
     }
 
     @CaseId(248)
-    @Test(groups = {"api-instamart-smoke"})
+    @Test(groups = {"api-instamart-regress"})
     @Story("Не существующий id")
     public void testCategoriesWithInvalidId() {
         final Response response = CategoriesRequest.GET(66666);

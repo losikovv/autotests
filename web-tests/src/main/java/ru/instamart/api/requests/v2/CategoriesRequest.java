@@ -8,9 +8,9 @@ import static instamart.api.requests.InstamartRequestsBase.givenCatch;
 
 public final class CategoriesRequest {
 
-    @Step("{method} /" + ApiV2EndPoints.Categories.CATEGORIES)
+    @Step("{method} /" + ApiV2EndPoints.CATEGORIES)
     public static Response GET(final int sid) {
         return givenCatch()
-                .get(ApiV2EndPoints.Categories.CATEGORIES, sid);
+                .get(ApiV2EndPoints.CATEGORIES, sid);
     }
 }
