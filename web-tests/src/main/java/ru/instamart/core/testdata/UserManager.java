@@ -81,7 +81,7 @@ public final class UserManager {
         if (defaultAdmin == null) {
             return defaultAdmin = new UserData(
                     "superadmin",
-                    Crypt.INSTANCE.decrypt("Gh1MsACysUuEYv98vkOuOOx/HVxUh5J54NKCNSJCPFQ="),
+                    "vitaliy.losikov@instamart.ru", //todo починить старый мейл и вернуть обратно
                     "7777777777",
                     PASSWD_1,
                     "autotest superadmin",
