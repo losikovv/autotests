@@ -45,4 +45,11 @@ public class DepartmentsResponse extends BaseResponseObject {
         this.deals = deals;
     }
 
+    @Override
+    public String toString() {
+        return "DepartmentsResponse{" +
+                "departments=" + departments +
+                ", deals=" + deals +
+                '}';
+    }
 }

@@ -158,20 +158,6 @@ public class Product extends BaseObject {
         this.related_products = related_products;
     }
 
-    @Override
-    public String toString() {
-        return new StringJoiner(
-                ", ",
-                "",
-                "")
-                .add(name)
-                .add("id: " + id)
-                .add("price: " + price)
-                .add("human_volume: " + human_volume)
-                .add("items_per_pack: " + items_per_pack)
-                .toString();
-    }
-
     public String getDiscount_ends_at() {
         return discount_ends_at;
     }
@@ -218,5 +204,33 @@ public class Product extends BaseObject {
 
     public void setOriginal_unit_price(Double original_unit_price) {
         this.original_unit_price = original_unit_price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", sku='" + sku + '\'' +
+                ", retailer_sku='" + retailer_sku + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", original_price=" + original_price +
+                ", discount=" + discount +
+                ", human_volume='" + human_volume + '\'' +
+                ", volume=" + volume +
+                ", volume_type='" + volume_type + '\'' +
+                ", discount_ends_at='" + discount_ends_at + '\'' +
+                ", items_per_pack=" + items_per_pack +
+                ", description='" + description + '\'' +
+                ", images=" + images +
+                ", image=" + image +
+                ", properties=" + properties +
+                ", related_products=" + related_products +
+                ", requirements=" + requirements +
+                ", price_type='" + price_type + '\'' +
+                ", grams_per_unit=" + grams_per_unit +
+                ", unit_price=" + unit_price +
+                ", original_unit_price=" + original_unit_price +
+                '}';
     }
 }

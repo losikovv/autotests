@@ -13,6 +13,7 @@ public final class ApiV2EndPoints {
     public static final String TAXONS = "v2/taxons?sid={sid}";
     public static final String ADDRESSES = "v2/addresses";
     public static final String CATEGORIES = "v2/categories?sid={sid}";
+    public static final String SESSIONS = "v2/sessions";
 
     public static final class Users {
         public static final String USERS = "v2/users";
@@ -20,9 +21,8 @@ public final class ApiV2EndPoints {
     }
 
     public static final class Session {
-        public static final String SESSIONS = "v2/sessions";
-        public static final String SESSIONS_TOKEN = "v2/sessions/{token}";
-        public static final String SESSIONS_USER_TOKEN = "v2/sessions/{token}/user";
+        public static final String TOKEN = "v2/sessions/{token}";
+        public static final String USER = "v2/sessions/{token}/user";
     }
 
     public static final class Reset {
@@ -35,9 +35,9 @@ public final class ApiV2EndPoints {
     }
 
     public static final class FavoritesList {
-        public static final String ITEMS = "v2/favorites_list/items?sid={sid}";
-        public static final String ITEMS_SKU = "v2/favorites_list/products_sku";
-        public static final String ITEM = "v2/favorites_list/items";
+        public static final String ITEMS_SID = "v2/favorites_list/items?sid={sid}";
+        public static final String PRODUCTS_SKU = "v2/favorites_list/products_sku";
+        public static final String ITEMS = "v2/favorites_list/items";
     }
 
     public static final class Stores {
@@ -80,5 +80,9 @@ public final class ApiV2EndPoints {
 
     public static final class AuthProviders {
         public static final String SESSIONS = "v2/auth_providers/{provider}/sessions";
+    }
+
+    public static final class Departments {
+        public static final String ID = "v2/departments/{id}?sid={sid}";
     }
 }

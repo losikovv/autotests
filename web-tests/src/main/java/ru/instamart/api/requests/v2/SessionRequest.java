@@ -11,23 +11,23 @@ import static instamart.api.requests.InstamartRequestsBase.givenCatch;
 
 public final class SessionRequest {
 
-    @Step("{method} /" + ApiV2EndPoints.Session.SESSIONS)
+    @Step("{method} /" + ApiV2EndPoints.SESSIONS)
     public static Response POST(final String email, final String password) {
         return givenCatch()
                 .auth()
                 .preemptive()
                 .basic(email, password)
-                .post(ApiV2EndPoints.Session.SESSIONS);
+                .post(ApiV2EndPoints.SESSIONS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Session.SESSIONS)
+    @Step("{method} /" + ApiV2EndPoints.SESSIONS)
     public static Response POST(final String email, final String password, final String clientId) {
         return givenCatch()
                 .auth()
                 .preemptive()
                 .basic(email, password)
                 .header("Client-Id", clientId)
-                .post(ApiV2EndPoints.Session.SESSIONS);
+                .post(ApiV2EndPoints.SESSIONS);
     }
 
     @Step("{method} /" + ApiV2EndPoints.AuthProviders.SESSIONS)
@@ -54,17 +54,17 @@ public final class SessionRequest {
         }
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Session.SESSIONS_TOKEN)
+    @Step("{method} /" + ApiV2EndPoints.Session.TOKEN)
     public static Response GET(final String token) {
         return givenCatch()
-                .get(ApiV2EndPoints.Session.SESSIONS_TOKEN, token);
+                .get(ApiV2EndPoints.Session.TOKEN, token);
     }
 
     public static class UserSession {
-        @Step("{method} /" + ApiV2EndPoints.Session.SESSIONS_USER_TOKEN)
+        @Step("{method} /" + ApiV2EndPoints.Session.USER)
         public static Response GET(final String token) {
             return givenCatch()
-                    .get(ApiV2EndPoints.Session.SESSIONS_USER_TOKEN, token);
+                    .get(ApiV2EndPoints.Session.USER, token);
         }
     }
 }

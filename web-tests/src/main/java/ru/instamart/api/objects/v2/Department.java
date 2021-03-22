@@ -86,4 +86,15 @@ public class Department extends BaseObject {
         this.products = products;
     }
 
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                ", taxon_id=" + taxon_id +
+                ", type='" + type + '\'' +
+                ", name='" + name + '\'' +
+                ", products_count=" + products_count +
+                ", products=" + products +
+                '}';
+    }
 }
