@@ -2,6 +2,8 @@ version: "3"
 
 services:
   automag:
+    working_dir: /home/gradle/automag/web-tests
+    command: bash
     build:
       context: "."
       dockerfile: "Dockerfile"
