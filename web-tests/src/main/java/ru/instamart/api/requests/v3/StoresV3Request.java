@@ -8,16 +8,17 @@ import org.json.simple.JSONObject;
 
 import static instamart.api.requests.InstamartRequestsBase.givenCatch;
 
-public class StoresRequest {
+public class StoresV3Request {
     /**
      * Получение списка магазинов
      */
     @Step("{method} /" + ApiV3Endpoints.STORES)
     public static Response GET(String shippingMethod) {
         JSONObject requestParams = new JSONObject();
-        requestParams.put("lat", "37.445940");
-        requestParams.put("lon", "55.836721");
+        requestParams.put("lat", "55.836721");
+        requestParams.put("lon", "37.445940");
         return givenCatch()
+                .log().all()
                 .contentType(ContentType.JSON)
                 .body(requestParams)
                 .header("Api-Version","3.0")

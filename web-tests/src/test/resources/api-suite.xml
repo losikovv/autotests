@@ -43,7 +43,8 @@
   <!-- api-v3-tests -->
   <test verbose="1" name="API v3 Tests" parallel="none" thread-count="5">
     <classes>
-      <class name="ru.instamart.tests.api.v3.endpoints.StoresV3Test"/>
+      <!--class name="ru.instamart.tests.api.v3.endpoints.StoresV3Test"/>
+      <class name="ru.instamart.tests.api.v3.endpoints.OrderOptionsV3Test"/-->
     </classes>
   </test>
   <test verbose="1" name="API Shopper Tests" parallel="none" thread-count="3">
