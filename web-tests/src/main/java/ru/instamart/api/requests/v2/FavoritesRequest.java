@@ -10,43 +10,43 @@ import static instamart.api.requests.InstamartRequestsBase.givenWithAuth;
 
 public final class FavoritesRequest {
 
-    @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)
+    @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS_SID)
     public static Response GET(final int sid) {
         return givenWithAuth()
-                .get(ApiV2EndPoints.FavoritesList.ITEMS, sid);
+                .get(ApiV2EndPoints.FavoritesList.ITEMS_SID, sid);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEM)
+    @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)
     public static Response POST(final long id) {
         return givenWithAuth()
                 .formParams(new HashMap<>(){{put("item[product_id]", id);}})
-                .post(ApiV2EndPoints.FavoritesList.ITEM);
+                .post(ApiV2EndPoints.FavoritesList.ITEMS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEM)
+    @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)
     public static Response DELETE(final long id) {
         return givenWithAuth()
-                .delete(ApiV2EndPoints.FavoritesList.ITEM + "/" + id);
+                .delete(ApiV2EndPoints.FavoritesList.ITEMS + "/" + id);
     }
 
     public static class ProductSku {
-        @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS_SKU)
+        @Step("{method} /" + ApiV2EndPoints.FavoritesList.PRODUCTS_SKU)
         public static Response GET() {
             return givenWithAuth()
-                    .get(ApiV2EndPoints.FavoritesList.ITEMS_SKU);
+                    .get(ApiV2EndPoints.FavoritesList.PRODUCTS_SKU);
         }
 
-        @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS_SKU)
+        @Step("{method} /" + ApiV2EndPoints.FavoritesList.PRODUCTS_SKU)
         public static Response POST(final int sku) {
             return givenWithAuth()
                     .formParams(new HashMap<>(){{put("sku", sku);}})
-                    .post(ApiV2EndPoints.FavoritesList.ITEMS_SKU);
+                    .post(ApiV2EndPoints.FavoritesList.PRODUCTS_SKU);
         }
 
-        @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS_SKU)
+        @Step("{method} /" + ApiV2EndPoints.FavoritesList.PRODUCTS_SKU)
         public static Response DELETE(final int sku) {
             return givenWithAuth()
-                    .delete(ApiV2EndPoints.FavoritesList.ITEMS_SKU + "/" + sku);
+                    .delete(ApiV2EndPoints.FavoritesList.PRODUCTS_SKU + "/" + sku);
         }
     }
  }

@@ -15,4 +15,12 @@ public final class DepartmentsRequest {
     public static Response GET(final int sid, final int numberOfProductsFromEachDepartment) {
         return givenCatch().get(ApiV2EndPoints.DEPARTMENTS, sid, numberOfProductsFromEachDepartment);
     }
+
+    public static final class Id {
+        @Step("{method} /" + ApiV2EndPoints.Departments.ID)
+        public static Response GET(final int id, final int sid) {
+            return givenCatch()
+                    .get(ApiV2EndPoints.Departments.ID, id, sid);
+        }
+    }
 }
