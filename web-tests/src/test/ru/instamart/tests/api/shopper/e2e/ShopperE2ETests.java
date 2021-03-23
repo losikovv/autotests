@@ -33,8 +33,6 @@ public class ShopperE2ETests extends RestBase {
     @AfterMethod(alwaysRun = true,
             description = "Удаляем текущую сборку")
     public void cleanup() {
-        shopper.deleteCurrentAssembly();
-        apiV2.cancelCurrentOrder();
     }
 
     @Story("Сборка заказа")
