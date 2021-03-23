@@ -1,18 +1,19 @@
 package instamart.api.common;
 
+import instamart.api.helpers.ApiV3Helper;
 import instamart.api.helpers.InstamartApiHelper;
 import instamart.api.helpers.ShopperApiHelper;
 import instamart.core.helpers.LogAttachmentHelper;
 import io.qameta.allure.Allure;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 public class RestBase {
 
     protected static final InstamartApiHelper apiV2 = new InstamartApiHelper();
     protected static final ShopperApiHelper shopper = new ShopperApiHelper();
+    protected static final ApiV3Helper apiV3 = new ApiV3Helper();
     protected Response response;
 
     @BeforeMethod(alwaysRun = true,description = "Стартуем запись системного лога")
