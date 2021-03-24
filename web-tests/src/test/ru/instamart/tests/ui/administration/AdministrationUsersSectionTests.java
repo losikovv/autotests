@@ -61,6 +61,7 @@ public class AdministrationUsersSectionTests extends TestBase {
                 "111111"
         );
         kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        kraken.getWebDriver().navigate().refresh();//А это еще один костыль который тоже нужно будет удалить
         Administration.Users.editUser(phone);
         Administration.Users.changeEmail(email);
         Administration.Users.changePassword(phone);
@@ -91,6 +92,7 @@ public class AdministrationUsersSectionTests extends TestBase {
                 "111111"
         );
         kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        kraken.getWebDriver().navigate().refresh();//А это еще один костыль который тоже нужно будет удалить
         Administration.Users.editUser(phone);
         Administration.Users.changeEmail(email);
         Administration.AdminNavigation.switchTotab("Пользователи");
@@ -112,6 +114,7 @@ public class AdministrationUsersSectionTests extends TestBase {
                 "111111"
         );
         kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        kraken.getWebDriver().navigate().refresh();//А это еще один костыль который тоже нужно будет удалить
         Administration.Users.editUser(phone);
         Administration.Users.grantB2B();
         kraken.perform().refresh();
@@ -132,6 +135,7 @@ public class AdministrationUsersSectionTests extends TestBase {
                 "111111"
         );
         kraken.getWebDriver().manage().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        kraken.getWebDriver().navigate().refresh();//А это еще один костыль который тоже нужно будет удалить
         Administration.Users.editUser(phone);
         Administration.Users.grantB2B();
         User.Logout.quickly();
