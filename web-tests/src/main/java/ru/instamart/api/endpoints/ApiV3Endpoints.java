@@ -5,5 +5,6 @@ public class ApiV3Endpoints {
 
     public static class OrderOptions {
         public static final String PICKUP_FROM_STORE = "v3/order_options/pickup_from_store";
+        public static final String DELIVERY = "v3/order_options/delivery";
     }
 }
