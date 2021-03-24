@@ -9,7 +9,8 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class InstamartApiCheckpoints {
@@ -61,10 +62,23 @@ public class InstamartApiCheckpoints {
      */
     @Step("Проверяем, что дата доставки заказа сегодня")
     public static void checkIsDeliveryToday(Order order) {
-        String today = String.valueOf(LocalDate.now());
-        String deliveryTime = order.getShipments().get(0).getDelivery_window().getStarts_at();
-        if (!deliveryTime.contains(today)) org.junit.Assert.fail("Заказ оформлен не на сегодня\ntoday: " +
-                today + "\ndelivery time: " + deliveryTime);
+        LocalDateTime deliveryTime = LocalDateTime
+                .parse(order
+                        .getShipments()
+                        .get(0)
+                        .getDelivery_window()
+                        .getStarts_at()
+                        .substring(0, 19))
+                .plus(2, ChronoUnit.HOURS); // у gitlab время по гринвичу, а в тестовом магазине +2
+
+        LocalDateTime nextDay = LocalDateTime
+                .now()
+                .truncatedTo(ChronoUnit.DAYS)
+                .plus(1, ChronoUnit.DAYS);
+
+        Assert.assertTrue(deliveryTime.isBefore(nextDay),
+                "Заказ оформлен не на сегодня\nnow: " + LocalDateTime.now()
+                        + "\ndelivery time: " + deliveryTime);
     }
 
     /**
