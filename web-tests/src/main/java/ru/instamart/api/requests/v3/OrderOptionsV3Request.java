@@ -37,4 +37,33 @@ public class OrderOptionsV3Request {
                     .put(ApiV3Endpoints.OrderOptions.PICKUP_FROM_STORE);
         }
     }
+
+    public static class Delivery {
+        /**
+         * Получение списка опций для заказа с доставкой
+         */
+        @Step("{method} /" + ApiV3Endpoints.OrderOptions.DELIVERY)
+        public static Response PUT () {
+            JSONObject requestParams = new JSONObject();
+            JSONArray items = new JSONArray();
+            JSONObject itemParams = new JSONObject();
+            JSONObject locationParams = new JSONObject();
+            requestParams.put("retailer_id", "metro");
+            requestParams.put("location", locationParams);
+            requestParams.put("items", items);
+            items.add(itemParams);
+            locationParams.put("lon", "37.798026");
+            locationParams.put("lat", "55.749309");
+            itemParams.put("id", "23020");
+            itemParams.put("quantity", "5");
+            itemParams.put("price", "300000");
+            itemParams.put("discount", "0");
+            return givenCatch()
+                    .contentType(ContentType.JSON)
+                    .body(requestParams)
+                    .header("Api-Version","3.0")
+                    .header("Client-Token","8055cfd11c887f2887dcd109e66dd166")
+                    .put(ApiV3Endpoints.OrderOptions.DELIVERY);
+        }
+    }
 }

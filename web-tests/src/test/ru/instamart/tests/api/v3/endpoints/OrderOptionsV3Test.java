@@ -2,7 +2,6 @@ package ru.instamart.tests.api.v3.endpoints;
 
 import instamart.api.common.RestBase;
 import instamart.api.objects.v3.StoreV3;
-import instamart.api.requests.v3.OrderOptionsDeliveryRequest;
 import instamart.api.requests.v3.OrderOptionsV3Request;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -24,13 +23,12 @@ public class OrderOptionsV3Test extends RestBase {
                 "metro",
                 store.getId());
 
-        response.prettyPeek();
+        checkStatusCode200(response);
     }
+
     @Test(groups = {"api-instamart-regress"})
     public void putOrderOptionsDelivery() {
-        final Response response = OrderOptionsDeliveryRequest.PUT();
-
-        response.prettyPeek();
+        final Response response = OrderOptionsV3Request.Delivery.PUT();
 
         checkStatusCode200(response);
     }
