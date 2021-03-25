@@ -15,7 +15,7 @@ public class ApiV3Helper {
 
     public List<StoreV3> getPickupStores() {
         log.info("Получаем список магазинов с самовызом");
-        return Arrays.asList(StoresV3Request.GET("pickup_from_store").as(StoreV3[].class));
+        return Arrays.asList(StoresV3Request.PickupFromStore.GET().as(StoreV3[].class));
     }
 
     public StoreV3 getStore(String name) {
