@@ -36,16 +36,15 @@ public interface TestVariables {
     static OrderDetailsData testOrderDetails() {
         return new OrderDetailsData(
                 new AddressDetailsData(
-                        "office",
+                        "home",
                         "1",
                         "22",
                         true, "333",
                         "44 ключ 4444",
                         "test"
                 ),
-                new ContactsDetailsData(
-                        "1234567890"
-                ),
+                new ContactsDetailsData(true,"My", true, "Test",
+                        true, "test@mail.ru", false, "79990001122", true),
                 ReplacementPolicies.callAndReplace(),
                 new PaymentDetailsData(
                         PaymentTypes.cardCourier(),

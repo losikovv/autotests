@@ -6,6 +6,7 @@ import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
 import instamart.core.testdata.ui.PaymentTypes;
 import instamart.core.util.Crypt;
+import instamart.ui.checkpoints.users.OrdersCheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.JuridicalData;
@@ -39,6 +40,7 @@ public class BasicOrdersTests extends TestBase {
     // TODO successOrderWithPromocode
 
     // TODO successOrderWithDocumentsNeeded
+    OrdersCheckpoints orderCheck = new OrdersCheckpoints();
 
 
     @BeforeMethod(alwaysRun = true,
@@ -128,11 +130,13 @@ public class BasicOrdersTests extends TestBase {
     public void successCompleteCheckoutWithNewPaymentCard() {
         PaymentCardData creditCardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
 
-        kraken.reach().checkout();
+        //kraken.reach().checkout();
+        //Shop.Cart.collectFirstTime();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete(PaymentTypes.cardOnline(), true, creditCardData);
-
-        Assert.assertTrue(kraken.detect().isOrderPlaced(),
-                "Не удалось оформить заказ с новой картой оплаты\n");
+        orderCheck.checkOrderCreation();
+//        Assert.assertTrue(kraken.detect().isOrderPlaced(),
+//                "Не удалось оформить заказ с новой картой оплаты\n");
     }
 
     //CaseId(1672)

@@ -6,6 +6,7 @@ import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 
 import static instamart.ui.modules.Base.kraken;
 
@@ -49,5 +50,11 @@ public class OrdersCheckpoints extends BaseUICheckpoints {
         } else
             throw new AssertionError("Документ \""
                     + docname + "\" недоступен для скачивания\nна странице " + kraken.grab().currentURL());
+    }
+
+    public void checkOrderCreation(){
+        log.info("Проверка успешного создания заказа");
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
+                "Не удалось оформить заказ с новой картой оплаты\n");
     }
 }

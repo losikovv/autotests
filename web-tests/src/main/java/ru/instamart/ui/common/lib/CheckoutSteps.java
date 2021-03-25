@@ -7,8 +7,9 @@ public class CheckoutSteps {
     private final static int addressStepPosition = 1;
     private final static int contactsStepPosition = 2;
     private final static int replacementsStepPosition = 3;
-    private final static int paymentStepPosition = 4;
-    private final static int deliveryStepPosition = 5;
+    private final static int deliveryStepPosition = 4;
+    private final static int paymentStepPosition = 5;
+
 
     public static CheckoutStepData getStepDetails(int step) {
         switch (step) {
@@ -18,17 +19,17 @@ public class CheckoutSteps {
                 return contactsStep();
             case replacementsStepPosition :
                 return replacementsStep();
-            case paymentStepPosition :
-                return paymentStep();
             case deliveryStepPosition :
                 return deliveryStep();
+            case paymentStepPosition :
+                return paymentStep();
             default:
                 return null;
         }
     }
 
     public static CheckoutStepData addressStep() {
-        return new CheckoutStepData (addressStepPosition,"Адрес","Уточните ваш адрес");
+        return new CheckoutStepData (addressStepPosition,"Адрес","Способ получения");
     }
 
     public static CheckoutStepData contactsStep() {
@@ -44,7 +45,7 @@ public class CheckoutSteps {
     }
 
     public static CheckoutStepData deliveryStep() {
-        return new CheckoutStepData (deliveryStepPosition,"Доставка","Выберите время доставки");
+        return new CheckoutStepData (deliveryStepPosition,"Доставка","Выберите время получения");
     }
 
     public static String getStepNameBy(String title){

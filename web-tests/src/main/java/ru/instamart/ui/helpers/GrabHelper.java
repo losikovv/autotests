@@ -111,7 +111,14 @@ public final class GrabHelper extends HelperBase {
 
     /** Взять строку со стоимостью товара в карточке */
     public String itemPrice() {
-        return kraken.grab().text(Elements.ItemCard.prices());
+        log.info("Выбор первого товара на витрине");
+        String itemPrice;
+        if(kraken.grab().text(Elements.ItemCard.discountPrice())==null){
+            itemPrice = kraken.grab().text(Elements.ItemCard.prices());
+        }else{
+             itemPrice = kraken.grab().text(Elements.ItemCard.discountPrice());
+        }
+        return itemPrice;
     }
 
     /** Взять кол-во добавленного в корзину товара из каунтера в карточке */

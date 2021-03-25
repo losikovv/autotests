@@ -19,7 +19,7 @@ public class PaymentCards {
                 "5200 8282 8282 8210",
                 "12",
                 "2049",
-                "TEST TESTOV",
+                "NO SECURE",
                 "404",
                 false);
     }

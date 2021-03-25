@@ -632,6 +632,11 @@ public class Elements {
                     "поле для ввода номера телефона");
         }
 
+        static ElementData phoneAuthHeader() {
+            return new ElementData(By.xpath("//header[@data-qa='tel_login_form_header']"),
+                    "поле для ввода номера телефона");
+        }
+
         static ElementData smsCode() {
             return new ElementData(By.xpath("//input[@data-qa='sms_confirm_input']"),
                     "поле для ввода кода из смс");
@@ -1383,7 +1388,7 @@ public class Elements {
                 }
 
                 static ElementData cancelOrderButton() {
-                    return new ElementData(By.xpath("//button[@data-qa='user-shipment-cancel']"),
+                    return new ElementData(By.xpath("//button[@qakey='user-shipment-cancel']"),
                             "кнопка отмены заказа на странице деталей заказа");
                 }
             }
@@ -1399,17 +1404,17 @@ public class Elements {
             interface CancelOrderModal {
 
                 static ElementData popup() {
-                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-modal-cancel']"),
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-cancel-modal']"),
                             "поп-ап модалки отмены заказа");
                 }
 
                 static ElementData yesButton() {
-                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-modal-cancel']//button[@data-qa='user-shipment-modal-cancel-btn-cancel']"),
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-cancel-modal']//button[@data-qa='user-shipment-cancel-modal-btn-cancel']"),
                             "кнопка 'Да, отменить' в модалке отмены заказа");
                 }
 
                 static ElementData noButton() {
-                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-modal-cancel']//button[@data-qa='user-shipment-modal-cancel-btn-dismiss']"),
+                    return new ElementData(By.xpath("//*[@data-qa='user-shipment-cancel-modal']//button[@data-qa='user-shipment-cancel-modal-btn-dismiss']"),
                             "кнопка 'Не отменять' в модалке отмены заказа");
                 }
 
@@ -1612,6 +1617,11 @@ public class Elements {
                 //return new ElementData(By.xpath("//div[@class='product-popup__price']//span"));
             }
 
+            static ElementData discountPrice(){
+                return new ElementData(By.xpath("//div[contains(@class,'popup')]//div[contains(@class,'components__discount')]//span"),
+                        "акционная цена товара");
+            }
+
             static ElementData quantity() {
                 return new ElementData(By.xpath("//div[@class='product-popup']//div[contains(@class,'product__cart-counter')]"),
                 "каунтер количества добавленного в корзину товара в карточке товара");
@@ -1786,9 +1796,35 @@ public class Elements {
                         "тайтл шага \"" + step.getName() + "\" в чекауте");
             }
 
-            static ElementData nextButton(CheckoutStepData step) {
+            static ElementData nextButtonOld(CheckoutStepData step) {
                 return new ElementData(By.xpath("//div[@class='panel-header__text' and text()='" + step.getTitle() + "']//ancestor::div[@class='panel-header']//parent::div//button[text()='Продолжить']"),
                         "кнопка \"Продолжить\" шага \"" + step.getName() + "\" в чекауте");
+            }
+
+            static ElementData nextButton(CheckoutStepData step) {
+                String locator = null;
+                switch (step.getName()){
+                    case "Адрес":
+                        locator = "//button[@data-qa='checkout_ship_address_form_submit_button']";
+                        break;
+                    case "Контакты":
+                        locator = "//button[@data-qa='checkout_contact_form_submit_button']";
+                        break;
+                    case "Замены":
+                        locator = "//button[@data-qa='checkout_replacement_policy_submit_button']";
+                        break;
+                    case "Доставка":
+                        locator = "//button[@data-qa='checkout_delivery_submit_button']";
+                        break;
+                    case "Оплата":
+                        locator = "//div[@class='checkout-panels']//button[@data-qa='checkout_order_button']";
+                        break;
+
+                }
+                assert locator != null;
+                return new ElementData(By.xpath(locator),
+                        "\" Шаг \"" + step.getName() + "\" доступен в чекауте");
+
             }
 
             static ElementData saveButton(CheckoutStepData step) {
@@ -1890,7 +1926,7 @@ public class Elements {
             }
 
             static ElementData elevatorCheckbox() {
-                return new ElementData(By.xpath("//span[text()='Есть лифт']//preceding::*[@class='checkbox__check']"),
+                return new ElementData(By.xpath("//input[@data-qa='ship_address_form_elevator_checkbox']"),
                         "чекбокс \"Есть лифт\" в шаге \"" + addressStep.getName() + "\" в чекауте");
             }
 
@@ -2118,7 +2154,7 @@ public class Elements {
             //todo agreement
 
             static ElementData sendEmailsCheckbox() {
-                return new ElementData(By.xpath("//span[text()='Отправлять информацию о заказе на email']//preceding::input[@name='order[send_emails]']//following-sibling::label//*[@class='checkbox__check']"),
+                return new ElementData(By.xpath("//input[@data-qa='contacts_form_send_info_by_email_checkbox']"),
                         "чекбокс \"Отправлять информацию о заказе на email\" в шаге \"" + contactsStep.getName() + "\" в чекауте");
             }
 
@@ -2232,7 +2268,7 @@ public class Elements {
         }
 
         static ElementData sendOrderButton() {
-            return new ElementData(By.xpath("//button[text()='Оформить заказ']"),
+            return new ElementData(By.xpath("//div[@class='checkout-panels']//button[@data-qa='checkout_order_button']"),
                     "кнопка \"Оформить заказ\" в нижнем блоке чекаута");
         }
 
@@ -2257,15 +2293,34 @@ public class Elements {
                         "политика замен");
             }
 
-            static ElementData paymentTypeSelector(String option) {
+            static ElementData paymentTypeSelectorOld(String option) {
                 return new ElementData(
-                        By.xpath("//*[@class='payment-method__name' and text()='" + option + "']//parent::*[contains(@class,'payment-method')]"),
+                        By.xpath("//button[contains(text(), '" + option + "')]"),
                             "кнопка выбора способа оплаты " + option);
+            }
+
+            static ElementData paymentTypeSelector(String option){
+            String locator = null;
+            switch (option){
+                case "Картой при получении":
+                    locator = "//button[@data-qa='checkout_form_payment_method_lifepay']";
+                    break;
+                case "Переводом":
+                    locator = "//button[@data-qa='checkout_form_payment_method_sber_bank_invoice']";
+                    break;
+                case "Картой онлайн":
+                    locator = "//button[@data-qa='checkout_form_payment_method_cloud_payments_gateway']";
+                    break;
+            }
+                assert locator != null;
+                return new ElementData(
+                        By.xpath(locator),"кнопка выбора способа оплаты " + option);
+
             }
 
             static ElementData activePaymentTypeSelector(String option) {
                 return new ElementData(
-                     By.xpath("//*[@class='payment-method__name' and text()='" + option + "']//parent::*[contains(@class,'payment-method--active')]"),
+                     By.xpath("//button[contains(text(), '" + option + "')]"),
                         "активная кнопка способа оплаты " + option);
             }
 
@@ -2327,8 +2382,8 @@ public class Elements {
 
             /** Элементы оплаты банковской картой */
             static ElementData addPaymentCardButton() {
-                return new ElementData(By.xpath("//div[contains(text(),'+ Добавить новую карту')]"),
-                        "кнопка добавления карты оплатч");
+                return new ElementData(By.xpath("//span[contains(text(),'Добавить новую карту')]"),
+                        "кнопка добавления карты оплаты");
             }
 
             static ElementData changePaymentCardButton() {
@@ -2342,13 +2397,13 @@ public class Elements {
             }
 
             static ElementData paymentCardTitle(int number) {
-                return new ElementData(By.xpath("//div[4]/div[2]/div/div/div[2]/div[2]/div[1]/div[" + number + "]/div/div/div/span[2]/span"),
-                        "название карты оплаты");
+                return new ElementData(By.xpath("//div[contains(@class, 'payment_tools')]//div[contains(text()," + number + ")]"),
+                        "номер карты оплаты");
             }
 
             static ElementData paymentCardTitle(PaymentCardData creditCardData) {
                 String number = creditCardData.getCardNumber();
-                return new ElementData(By.xpath("//span[contains(text(),'•••• " + number.substring(number.length()-4) + "')]"),
+                return new ElementData(By.xpath("//div[contains(text(),'•••• " + number.substring(number.length()-4) + "')]"),
                         "название карты оплаты");
             }
 
@@ -2391,7 +2446,7 @@ public class Elements {
                 }
 
                 static ElementData confirmButton() {
-                    return new ElementData(By.xpath("//button[contains(text(),'Сохранить')]"),
+                    return new ElementData(By.xpath("//button[@data-qa='modal_credit_card_form_save_button']"),
                             "кнопка сохранения в модалке добавления карты оплаты");
                 }
             }
@@ -2744,7 +2799,7 @@ public class Elements {
 
                 static ElementData sendOrderButton() {
                     return new ElementData(
-                            By.xpath("//aside//*[text()='Оформить заказ']//parent::button"),
+                            By.xpath("//aside[@class='checkout-sidebar']//button[@data-qa='checkout_order_button']  "),
                                 "кнопка \"Оформить заказ\" в боковой колонке чекаута");
                 }
             }
