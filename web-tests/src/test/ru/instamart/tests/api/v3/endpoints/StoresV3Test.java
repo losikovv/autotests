@@ -6,7 +6,6 @@ import instamart.api.requests.v3.StoresV3Request;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,9 +13,17 @@ import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode2
 
 public class StoresV3Test extends RestBase {
 
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-smoke"})
     public void getStores() {
-        final Response response = StoresV3Request.GET("delivery");
+        final Response response = StoresV3Request.Stores.GET();
+
+        response.prettyPeek();
+
+        checkStatusCode200(response);
+    }
+    @Test(groups = {"api-instamart-smoke"})
+    public void getStoresDelivery() {
+        final Response response = StoresV3Request.Delivery.GET();
 
         response.prettyPeek();
 
@@ -26,4 +33,13 @@ public class StoresV3Test extends RestBase {
         Assert.assertNotNull(shippingMethodTitle);
         Assert.assertNotEquals(shippingMethodTitle, "");
     }
+    @Test(groups = {"api-instamart-smoke"})
+    public void getStoresPickupFromStore() {
+        final Response response = StoresV3Request.PickupFromStore.GET();
+
+        response.prettyPeek();
+
+        checkStatusCode200(response);
+    }
+
 }
