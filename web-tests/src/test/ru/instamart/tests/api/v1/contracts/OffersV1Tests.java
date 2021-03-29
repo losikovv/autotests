@@ -21,6 +21,6 @@ public class OffersV1Tests extends RestBase {
     public void getOffer(Offer offer) {
         Response response = ApiV1Requests.Offers.GET(offer.getUuid());
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/Offer.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Offer.json"));
     }
 }

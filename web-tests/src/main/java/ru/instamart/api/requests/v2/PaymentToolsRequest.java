@@ -4,7 +4,7 @@ import instamart.api.endpoints.ApiV2EndPoints;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
-import static instamart.api.requests.InstamartRequestsBase.givenWithAuth;
+import static instamart.api.requests.InstamartRequestsBase.givenWithAuthApiV2;
 
 public final class PaymentToolsRequest {
 
@@ -13,7 +13,7 @@ public final class PaymentToolsRequest {
      */
     @Step("{method} /" + ApiV2EndPoints.PAYMENT_TOOLS)
     public static Response GET() {
-        return givenWithAuth()
+        return givenWithAuthApiV2()
                 .header("Client-Id",
                         "InstamartApp")
                 .header("Client-Ver",

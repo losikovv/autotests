@@ -17,7 +17,7 @@ public final class UsersRequest {
     @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
     public static Response GET(final String email, final boolean isAuth) {
         if (isAuth) {
-            return givenWithAuth()
+            return givenWithAuthApiV2()
                     .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
         } else {
             return givenCatch()
@@ -38,7 +38,7 @@ public final class UsersRequest {
 
     @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
     public static Response GET(final String clientId, final String email) {
-        return givenWithAuth()
+        return givenWithAuthApiV2()
                 .header("Client-Id", clientId)
                 .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
     }
@@ -56,7 +56,7 @@ public final class UsersRequest {
         if (firstName != null && !firstName.isEmpty()) data.put("user[first_name]", firstName);
         if (lastName != null && !lastName.isEmpty()) data.put("user[last_name]", lastName);
         data.put("user[promo_terms_accepted]", promo);
-        return givenWithAuth()
+        return givenWithAuthApiV2()
                 .formParams(data)
                 .put(ApiV2EndPoints.Users.USERS_EMAIL, email);
     }
@@ -73,7 +73,7 @@ public final class UsersRequest {
         data.put("user[current_password]", currentPassword);
         data.put("user[password]", password);
         data.put("user[password_confirmation]", passwordConfirmation);
-        return givenWithAuth()
+        return givenWithAuthApiV2()
                 .formParams(data)
                 .put(ApiV2EndPoints.Users.USERS_EMAIL, email);
     }

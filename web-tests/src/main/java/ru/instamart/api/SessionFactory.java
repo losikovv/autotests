@@ -5,8 +5,10 @@ import instamart.api.checkpoints.ShopperApiCheckpoints;
 import instamart.api.enums.SessionType;
 import instamart.api.helpers.RegistrationHelper;
 import instamart.api.objects.shopper.SessionAttributes;
+import instamart.api.requests.delivery_club.AuthenticationDCRequest;
 import instamart.api.requests.shopper.SessionsRequest;
 import instamart.api.requests.v2.SessionRequest;
+import instamart.api.responses.deliveryclub.TokenDCResponse;
 import instamart.api.responses.v2.SessionsResponse;
 import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.UserData;
@@ -28,13 +30,13 @@ public final class SessionFactory {
     public static void makeSession(final SessionType type) {
         switch (type) {
             case APIV1:
+            case SHOPPER:
+            case DELIVERY_CLUB:
                 break;
             case APIV2:
                     final UserData userData = UserManager.getUser();
                     RegistrationHelper.registration(userData);
                     createSessionToken(type, userData);
-                break;
-            case SHOPPER:
                 break;
             default:
                 log.error("Pls select session type");
@@ -85,6 +87,10 @@ public final class SessionFactory {
                 sessionInfo = createShopperSession(userData);
                 log.info("Session created {}", sessionInfo);
                 return sessionInfo;
+            case DELIVERY_CLUB:
+                sessionInfo = createDeliveryClubSession(userData);
+                log.info("Session created {}", sessionInfo);
+                return sessionInfo;
             default:
                 log.error("Session type not selected");
                 return new SessionInfo();
@@ -114,6 +120,15 @@ public final class SessionFactory {
         log.info("access_token: {}", sessionAttributes.getAccessToken());
         log.info("refresh_token: {}", sessionAttributes.getRefreshToken());
         return new SessionInfo(userData, sessionAttributes.getAccessToken(), sessionAttributes.getRefreshToken());
+    }
+
+    private static SessionInfo createDeliveryClubSession(final UserData userData) {
+        final Response response = AuthenticationDCRequest.Token.POST(userData);
+        checkStatusCode200(response);
+        final TokenDCResponse sessionResponse = response.as(TokenDCResponse.class);
+        log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
+        log.info("token: {}", sessionResponse.getToken());
+        return new SessionInfo(userData, sessionResponse.getToken());
     }
 
     private static final class SessionId {

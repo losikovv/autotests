@@ -1,5 +1,7 @@
 package instamart.api.helpers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import instamart.api.SessionFactory;
 import instamart.api.enums.SessionType;
 import instamart.api.enums.v2.OrderStatus;
@@ -43,6 +45,20 @@ public final class InstamartApiHelper {
     private final ThreadLocal<Boolean> minSumNotReached = new ThreadLocal<>();
     private final ThreadLocal<Boolean> productWeightNotDefined = new ThreadLocal<>();
     private final ThreadLocal<Boolean> orderCompleted = new ThreadLocal<>();
+
+    /**
+     * Получаем JSON в виде строки из java объекта
+     */
+    public static String getJSONFromPOJO(Object pojo) {
+        String str = "";
+        try {
+            str = new ObjectMapper().writeValueAsString(pojo);
+        }
+        catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
 
     /**
      * Округляем double до определенного количества символов после запятой

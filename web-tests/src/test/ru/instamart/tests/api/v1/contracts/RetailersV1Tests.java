@@ -19,7 +19,7 @@ public class RetailersV1Tests extends RestBase {
     public void getRetailers() {
         Response response = ApiV1Requests.Retailers.GET();
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/Retailers.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Retailers.json"));
     }
 
     @CaseId(123)
@@ -30,7 +30,7 @@ public class RetailersV1Tests extends RestBase {
     public void getRetailer(Retailer retailer) {
         Response response = ApiV1Requests.Retailers.GET(retailer.getId());
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/Retailer.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Retailer.json"));
     }
 
     @CaseId(124)
@@ -41,6 +41,6 @@ public class RetailersV1Tests extends RestBase {
     public void getRetailerEans(Retailer retailer) {
         Response response = ApiV1Requests.Retailers.Eans.GET(retailer.getId());
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/Eans.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Eans.json"));
     }
 }

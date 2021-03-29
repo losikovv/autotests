@@ -31,6 +31,7 @@
       <class name="ru.instamart.tests.api.v2.endpoints.OnboardingPagesV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.PaymentToolsV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.PromotionsV2Test"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.ResetPasswordV2Test"/>
       <class name="ru.instamart.tests.api.v2.e2e.StoreE2ETests"/>
       <class name="ru.instamart.tests.api.v2.e2e.ZoneE2ETests"/>
       <class name="ru.instamart.tests.api.v2.e2e.RetailerE2ETests"/>
@@ -55,4 +56,10 @@
      <class name="ru.instamart.tests.api.shopper.e2e.ShopperE2ETests"/>
    </classes>
  </test> <!-- api-shopper-tests -->
+  <test verbose="1" name="API Delivery Club Tests" parallel="none" thread-count="1">
+    <classes>
+      <class name="ru.instamart.tests.api.delivery_club.contracts.StoresDCTest"/>
+      <class name="ru.instamart.tests.api.delivery_club.contracts.AuthenticationDCTest"/>
+    </classes>
+  </test> <!-- api-delivery-club-tests -->
 </suite> <!-- Custom suite -->

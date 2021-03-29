@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "totalCount": {
+      "type": "integer"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "imageUrl": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "imageUrl"
+            ]
+          }
+        }
+      },
+      "required": [
+        "categories"
+      ]
+    }
+  },
+  "required": [
+    "totalCount",
+    "data"
+  ]
+}

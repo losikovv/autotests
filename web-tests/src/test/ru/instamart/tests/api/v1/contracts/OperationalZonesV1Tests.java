@@ -19,7 +19,7 @@ public class OperationalZonesV1Tests extends RestBase {
     public void getOperationalZones() {
         Response response = ApiV1Requests.OperationalZones.GET();
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/OperationalZones.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/OperationalZones.json"));
     }
 
     @CaseId(113)
@@ -30,6 +30,6 @@ public class OperationalZonesV1Tests extends RestBase {
     public void getOperationalZone(OperationalZone operationalZone) {
         Response response = ApiV1Requests.OperationalZones.GET(operationalZone.getId());
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/OperationalZone.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/OperationalZone.json"));
     }
 }

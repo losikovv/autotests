@@ -161,6 +161,16 @@ public final class UserManager {
         return defaultApiUser;
     }
 
+    public static UserData getDeliveryClubUser() {
+        if (defaultApiUser == null) {
+            return  defaultApiUser = new UserData(
+                    "dc",
+                    "dcsmstage"
+            );
+        }
+        return defaultApiUser;
+    }
+
     public static List<UserData> getUserDataList() {
         return USER_DATA_LIST;
     }
