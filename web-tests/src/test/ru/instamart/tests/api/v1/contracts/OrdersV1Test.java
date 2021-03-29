@@ -33,7 +33,8 @@ public class OrdersV1Test extends RestBase {
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
 
-        ApiV1Requests.UserSessions.POST(UserManager.getDefaultAdmin());
+        Response response = ApiV1Requests.UserSessions.POST(UserManager.getDefaultAdmin());
+        checkStatusCode200(response);
     }
 
     @AfterClass(alwaysRun = true)
@@ -47,7 +48,7 @@ public class OrdersV1Test extends RestBase {
     public void getOrders() {
         Response response = ApiV1Requests.Orders.GET();
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/Orders.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Orders.json"));
     }
 
     @CaseId(115)
@@ -56,7 +57,7 @@ public class OrdersV1Test extends RestBase {
     public void getOrder() {
         Response response = ApiV1Requests.Orders.GET(orderNumber);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/Order.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Order.json"));
     }
 
     @CaseId(116)
@@ -65,7 +66,7 @@ public class OrdersV1Test extends RestBase {
     public void getShipment() {
         Response response = ApiV1Requests.Shipments.GET(shipmentNumber);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/Shipment.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Shipment.json"));
 
         shipmentUuid = response.as(ShipmentResponse.class).getShipment().getUuid();
     }
@@ -76,7 +77,7 @@ public class OrdersV1Test extends RestBase {
     public void getShipmentOffers() {
         Response response = ApiV1Requests.Shipments.Offers.GET(shipmentNumber);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/ShipmentOffers.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/ShipmentOffers.json"));
     }
 
     @CaseId(118)
@@ -85,7 +86,7 @@ public class OrdersV1Test extends RestBase {
     public void getLineItems() {
         Response response = ApiV1Requests.LineItems.GET(shipmentNumber);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/LineItems.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/LineItems.json"));
 
         productSku = response.as(LineItemsResponse.class)
                 .getLine_items()
@@ -103,7 +104,7 @@ public class OrdersV1Test extends RestBase {
                 shipmentNumber,
                 Long.parseLong(productSku));
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/Prereplacements.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Prereplacements.json"));
     }
 
     @CaseId(120)
@@ -117,7 +118,7 @@ public class OrdersV1Test extends RestBase {
         }
         Response response = ApiV1Requests.Shoppers.MarketingSampleItems.GET(shipmentUuid);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/MarketingSampleItems.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/MarketingSampleItems.json"));
     }
 
     @CaseId(121)
@@ -130,6 +131,6 @@ public class OrdersV1Test extends RestBase {
         }
         Response response = ApiV1Requests.Shoppers.OrderAvailablePaymentTools.GET(orderNumber);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/PaymentTools.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/PaymentTools.json"));
     }
 }

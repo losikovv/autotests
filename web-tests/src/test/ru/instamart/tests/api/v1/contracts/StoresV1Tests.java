@@ -19,7 +19,7 @@ public class StoresV1Tests extends RestBase {
     public void getStores() {
         Response response = ApiV1Requests.Stores.GET();
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/Stores.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Stores.json"));
     }
 
     @CaseId(126)
@@ -30,7 +30,7 @@ public class StoresV1Tests extends RestBase {
     public void getStore(Store store) {
         Response response = ApiV1Requests.Stores.GET(store.getUuid());
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/Store.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Store.json"));
     }
 
     @CaseId(127)
@@ -44,6 +44,6 @@ public class StoresV1Tests extends RestBase {
                 "вода",
                 "");
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/Offers.json"));
+        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Offers.json"));
     }
 }

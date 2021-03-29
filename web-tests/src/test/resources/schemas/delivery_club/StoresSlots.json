@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "zone": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "slots": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "available": {
+              "type": "integer"
+            },
+            "cost": {
+              "type": "integer"
+            },
+            "deliveryWindow": {
+              "type": "object",
+              "properties": {
+                "startAt": {
+                  "type": "string"
+                },
+                "endAt": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "startAt",
+                "endAt"
+              ]
+            },
+            "itemsWeight": {
+              "type": "object",
+              "properties": {
+                "min": {
+                  "type": "integer"
+                },
+                "max": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "min",
+                "max"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "available",
+            "cost",
+            "deliveryWindow",
+            "itemsWeight"
+          ]
+        }
+      }
+    },
+    "required": [
+      "zone",
+      "slots"
+    ]
+  }
+}

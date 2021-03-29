@@ -9,7 +9,7 @@ import io.restassured.response.Response;
 import java.util.HashMap;
 import java.util.Map;
 
-import static instamart.api.requests.InstamartRequestsBase.givenWithAuth;
+import static instamart.api.requests.InstamartRequestsBase.givenWithAuthApiV2;
 
 public final class OrdersRequest {
 
@@ -25,7 +25,7 @@ public final class OrdersRequest {
      */
     @Step("{method} /" + ApiV2EndPoints.Orders.STATUS)
     public static Response GET(OrderStatus status, int page) {
-        return givenWithAuth()
+        return givenWithAuthApiV2()
                 .get(ApiV2EndPoints.Orders.STATUS, status, page);
     }
 
@@ -34,7 +34,7 @@ public final class OrdersRequest {
      */
     @Step("{method} /" + ApiV2EndPoints.ORDERS)
     public static Response GET() {
-        return givenWithAuth()
+        return givenWithAuthApiV2()
                 .get(ApiV2EndPoints.ORDERS);
     }
 
@@ -43,7 +43,7 @@ public final class OrdersRequest {
      */
     @Step("{method} /" + ApiV2EndPoints.Orders.NUMBER)
     public static Response GET(String orderNumber) {
-        return givenWithAuth()
+        return givenWithAuthApiV2()
                 .get(ApiV2EndPoints.Orders.NUMBER, orderNumber);
     }
 
@@ -52,7 +52,7 @@ public final class OrdersRequest {
      */
     @Step("{method} /" + ApiV2EndPoints.ORDERS)
     public static Response POST() {
-        return givenWithAuth()
+        return givenWithAuthApiV2()
                 .header("Client-Id",
                         "InstamartApp")
                 .post(ApiV2EndPoints.ORDERS);
@@ -81,7 +81,7 @@ public final class OrdersRequest {
         data.put("order[shipments_attributes][][delivery_window_id]", deliveryWindowId);
         data.put("order[shipments_attributes][][shipping_method_id]", shipmentMethodId);
 
-        return givenWithAuth()
+        return givenWithAuthApiV2()
                 .formParams(data)
                 .put(ApiV2EndPoints.Orders.NUMBER, orderNumber);
     }
@@ -92,7 +92,7 @@ public final class OrdersRequest {
          */
         @Step("{method} /" + ApiV2EndPoints.Orders.SHIPMENTS)
         public static Response DELETE(String orderNumber) {
-            return givenWithAuth()
+            return givenWithAuthApiV2()
                     .delete(ApiV2EndPoints.Orders.SHIPMENTS, orderNumber);
         }
     }
@@ -102,7 +102,7 @@ public final class OrdersRequest {
          */
         @Step("{method} /" + ApiV2EndPoints.Orders.LINE_ITEMS)
         public static Response GET(String orderNumber) {
-            return givenWithAuth()
+            return givenWithAuthApiV2()
                     .get(ApiV2EndPoints.Orders.LINE_ITEMS, orderNumber);
         }
     }
@@ -128,7 +128,7 @@ public final class OrdersRequest {
             if (address.getLast_name() != null) data.put("ship_address[last_name]", address.getLast_name());
             if (address.getBlock() != null) data.put("ship_address[block]", address.getBlock());
 
-            return givenWithAuth()
+            return givenWithAuthApiV2()
                     .formParams(data)
                     .put(ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE, orderNumber);
         }
@@ -139,7 +139,7 @@ public final class OrdersRequest {
          */
         @Step("{method} /" + ApiV2EndPoints.Orders.CURRENT)
         public static Response GET() {
-            return givenWithAuth()
+            return givenWithAuthApiV2()
                     .get(ApiV2EndPoints.Orders.CURRENT);
         }
     }
@@ -149,7 +149,7 @@ public final class OrdersRequest {
          */
         @Step("{method} /" + ApiV2EndPoints.Orders.COMPLETION)
         public static Response POST(String orderNumber) {
-            return givenWithAuth()
+            return givenWithAuthApiV2()
                     .post(ApiV2EndPoints.Orders.COMPLETION, orderNumber);
         }
     }
@@ -159,7 +159,7 @@ public final class OrdersRequest {
          */
         @Step("{method} /" + ApiV2EndPoints.Orders.CANCELLATIONS)
         public static Response POST(String orderNumber, String reason) {
-            return givenWithAuth()
+            return givenWithAuthApiV2()
                     .post(ApiV2EndPoints.Orders.CANCELLATIONS, orderNumber, reason);
         }
     }
@@ -169,7 +169,7 @@ public final class OrdersRequest {
          */
         @Step("{method} /" + ApiV2EndPoints.Orders.UNRATED)
         public static Response GET() {
-            return givenWithAuth()
+            return givenWithAuthApiV2()
                     .get(ApiV2EndPoints.Orders.UNRATED);
         }
     }

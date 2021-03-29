@@ -7,7 +7,7 @@ import io.restassured.response.Response;
 import java.util.HashMap;
 import java.util.Map;
 
-import static instamart.api.requests.InstamartRequestsBase.givenWithAuth;
+import static instamart.api.requests.InstamartRequestsBase.givenWithAuthApiV2;
 
 public final class LineItemsRequest {
 
@@ -21,7 +21,7 @@ public final class LineItemsRequest {
         data.put("line_item[product_id]", productId);
         data.put("line_item[quantity]", quantity);
 
-        return givenWithAuth()
+        return givenWithAuthApiV2()
                 .formParams(data)
                 .post(ApiV2EndPoints.LINE_ITEMS);
     }
@@ -31,7 +31,7 @@ public final class LineItemsRequest {
      */
     @Step("{method} /" + ApiV2EndPoints.LineItems.ID)
     public static Response DELETE(long productId) {
-        return givenWithAuth()
+        return givenWithAuthApiV2()
                 .delete(ApiV2EndPoints.LineItems.ID, productId);
     }
 }

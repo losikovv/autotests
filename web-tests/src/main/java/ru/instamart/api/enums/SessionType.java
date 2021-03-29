@@ -4,5 +4,6 @@ public enum SessionType {
 
     APIV1,
     APIV2,
-    SHOPPER
+    SHOPPER,
+    DELIVERY_CLUB
 }

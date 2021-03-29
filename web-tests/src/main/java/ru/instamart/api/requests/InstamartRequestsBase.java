@@ -30,12 +30,22 @@ public final class InstamartRequestsBase {
     /**
      * Добавляем хедер авторизации к запросу
      */
-    public static RequestSpecification givenWithAuth() {
+    public static RequestSpecification givenWithAuthApiV2() {
         return given()
                 .spec(Specification.INSTANCE.getApiV2Spec())
                 .header(
                 "Authorization",
                 "Token token=" + SessionFactory.getSession(SessionType.APIV2).getToken());
+    }
+
+    /**
+     * Добавляем хедер авторизации к запросу
+     */
+    public static RequestSpecification givenWithAuthDeliveryClub() {
+        return given()
+                .spec(Specification.INSTANCE.getApiV2Spec())
+                .header("Authorization",
+                        "Bearer " + SessionFactory.getSession(SessionType.DELIVERY_CLUB).getToken());
     }
 
     /**

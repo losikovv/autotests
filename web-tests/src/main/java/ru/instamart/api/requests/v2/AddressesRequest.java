@@ -8,13 +8,13 @@ import instamart.core.service.MapperService;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
-import static instamart.api.requests.InstamartRequestsBase.givenWithAuth;
+import static instamart.api.requests.InstamartRequestsBase.givenWithAuthApiV2;
 
 public final class AddressesRequest {
 
     @Step("{method} /" + ApiV2EndPoints.ADDRESSES)
     public static Response POST(final Addresses addresses) {
-        return givenWithAuth()
+        return givenWithAuthApiV2()
                 .formParams(MapperService.INSTANCE.objectToMap(addresses))
                 .post(ApiV2EndPoints.ADDRESSES);
     }

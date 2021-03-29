@@ -9,6 +9,7 @@ ext.versions = [
         jetbrainsAnnotations: '19.0.0',
         allure: '2.13.8',
         aspectjweaver: '1.9.6',
+        lombok: '1.18.18'
 ]
 
 ext.lib = [
@@ -24,7 +25,8 @@ ext.lib = [
         aspectjweaver: "org.aspectj:aspectjweaver:$versions.aspectjweaver",
         allureTestng: "io.qameta.allure:allure-testng:$versions.allure",
         allureJavaCommons: "io.qameta.allure:allure-java-commons:$versions.allure",
-        allureRestAssuredReport: "io.qameta.allure:allure-rest-assured:$versions.allure"
+        allureRestAssuredReport: "io.qameta.allure:allure-rest-assured:$versions.allure",
+        lombok: "org.projectlombok:lombok:$versions.lombok"
 ]
 
 dependencies {
@@ -34,6 +36,7 @@ dependencies {
     compile lib.allureRestAssuredReport
     compile lib.allureTestng
     compile lib.allureJavaCommons
+    compile lib.lombok
     implementation lib.jetbrainsAnnotations
     implementation lib.seleniumChromeDriver
     implementation lib.restAssuredSchemaValidator
@@ -41,4 +44,5 @@ dependencies {
     implementation lib.seleniumJava
     implementation lib.jsonSimple
     testImplementation lib.logback
+    annotationProcessor lib.lombok
 }
