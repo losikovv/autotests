@@ -24,7 +24,7 @@ public final class RetailersV2Test extends RestBase {
 
     private List<Retailer> retailers;
 
-    @Test
+    @Test(groups = "api-instamart-smoke")
     @Story("Получение списка ретейлеров")
     public void testGetAllRetailers() {
         final Response response = RetailersRequest.GET();
