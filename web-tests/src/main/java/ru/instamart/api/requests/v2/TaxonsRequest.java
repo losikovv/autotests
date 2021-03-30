@@ -12,7 +12,7 @@ public final class TaxonsRequest {
      * Получение таксонов в выбранном магазине
      */
     @Step("{method} /" + ApiV2EndPoints.TAXONS)
-    public static Response GET(int sid) {
+    public static Response GET(final int sid) {
         return givenCatch().get(ApiV2EndPoints.TAXONS, sid);
     }
 
@@ -20,7 +20,7 @@ public final class TaxonsRequest {
      * Получение конкретного таксона в выбранном магазине
      */
     @Step("{method} /" + ApiV2EndPoints.Taxons.ID)
-    public static Response GET(int taxonId, int sid) {
+    public static Response GET(final int taxonId, final int sid) {
         return givenCatch().get(ApiV2EndPoints.Taxons.ID, taxonId, sid);
     }
 }
