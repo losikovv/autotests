@@ -218,50 +218,43 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "getStores")
     public static Object[][] getStores() {
         return new Object[][] {
-                {StoresRequest.Store.StoresBuilder
-                        .aStores()
-                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
-                        .withLon(RestAddresses.Moscow.defaultAddress().getLon())
+                {StoresRequest.Store.builder()
+                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
                         .build()
                 },
-                {StoresRequest.Store.StoresBuilder
-                        .aStores()
-                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
+                {StoresRequest.Store.builder()
+                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .build()
                 },
-                {StoresRequest.Store.StoresBuilder
-                        .aStores()
-                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
-                        .withLon(RestAddresses.Moscow.defaultAddress().getLon())
-                        .withShippingMethod("pickup")
+                {StoresRequest.Store.builder()
+                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .shippingMethod("pickup")
                         .build()
                 },
-                {StoresRequest.Store.StoresBuilder
-                        .aStores()
-                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
-                        .withLon(RestAddresses.Moscow.defaultAddress().getLon())
-                        .withShippingMethod("by_courier")
+                {StoresRequest.Store.builder()
+                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .shippingMethod("by_courier")
                         .build()
                 },
-                {StoresRequest.Store.StoresBuilder
-                        .aStores()
-                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
-                        .withLon(RestAddresses.Moscow.defaultAddress().getLon())
-                        .withShippingMethod("fake")
+                {StoresRequest.Store.builder()
+                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .shippingMethod("fake")
                         .build()
                 },
-                {StoresRequest.Store.StoresBuilder
-                        .aStores()
-                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
-                        .withLon(RestAddresses.Moscow.defaultAddress().getLon())
-                        .withOperationalZoneId(1)
+                {StoresRequest.Store.builder()
+                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .operationalZoneId(1)
                         .build()
                 },
-                {StoresRequest.Store.StoresBuilder
-                        .aStores()
-                        .withLat(RestAddresses.Moscow.defaultAddress().getLat())
-                        .withLon(RestAddresses.Moscow.defaultAddress().getLon())
-                        .withOperationalZoneId(99999999)
+                {StoresRequest.Store.builder()
+                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .operationalZoneId(99999999)
                         .build()
                 }
         };
