@@ -589,6 +589,7 @@ public final class Checkout extends Base {
     public void chooseDeliveryTime(int day, int slot) {
         log.info("Переключаемся на {} день", day);
         //тут иногда падает из-за отсутсвия элемента
+        kraken.await().implicitly(1);
         kraken.perform().click(Elements.Checkout.deliveryDaySelector(day));
         kraken.await().implicitly(1); // Ожидание загрузки слотов дня в чекауте
         if (kraken.detect().isElementPresent(Elements.Checkout.deliveryWindowsPlaceholder())){
