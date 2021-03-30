@@ -1,12 +1,13 @@
 package instamart.api.responses.deliveryclub;
 
 import instamart.api.responses.BaseResponseObject;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Getter
-@Setter
-public class TokenDCResponse extends BaseResponseObject {
+@EqualsAndHashCode(callSuper = true)
+@Data
+public final class TokenDCResponse extends BaseResponseObject {
+
     private String token;
     private String expiresAt;
 }

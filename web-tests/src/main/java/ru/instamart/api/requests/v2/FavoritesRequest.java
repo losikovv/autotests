@@ -13,7 +13,7 @@ public final class FavoritesRequest {
     @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS_SID)
     public static Response GET(final int sid) {
         return givenWithAuthApiV2()
-                .get(ApiV2EndPoints.FavoritesList.ITEMS, sid);
+                .get(ApiV2EndPoints.FavoritesList.ITEMS_SID, sid);
     }
 
     @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)

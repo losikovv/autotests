@@ -31,7 +31,7 @@ public class AuthenticationDCTest extends RestBase {
         checkStatusCode200(response);
 
         final TokenDCResponse tokenResponse = response.as(TokenDCResponse.class);
-        assertNotNull(tokenResponse.getToken());
+        assertNotNull(tokenResponse.getToken(), "Вернулся пустой токен");
 
         LocalDateTime localDateTimeFromResponse = LocalDateTime.parse(tokenResponse.getExpiresAt().substring(0, 19));
         assertTrue(localDateTimeFromResponse.isBefore(LocalDateTime.now().plus(16, ChronoUnit.MINUTES)));
