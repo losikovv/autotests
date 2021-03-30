@@ -43,7 +43,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(7)
-    @Test(groups = {"api-instamart-smoke"}, dataProviderClass = RestDataProvider.class, dataProvider = "getSendpoints.SessionsV2Test.postAuthProvidersSessionstores")
+    @Test(groups = {"api-instamart-smoke"}, dataProviderClass = RestDataProvider.class, dataProvider = "getStores")
     @Story("Получаем список всех магазинов по указанным координатам")
     public void testStoresWithData(final StoresRequest.Store store) {
         final Response response = StoresRequest.GET(store);
