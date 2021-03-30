@@ -12,7 +12,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.time.ZoneOffset;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static org.testng.Assert.assertNotNull;
@@ -33,8 +33,9 @@ public class AuthenticationDCTest extends RestBase {
         final TokenDCResponse tokenResponse = response.as(TokenDCResponse.class);
         assertNotNull(tokenResponse.getToken(), "Вернулся пустой токен");
 
-        LocalDateTime localDateTimeFromResponse = LocalDateTime.parse(tokenResponse.getExpiresAt().substring(0, 19));
-        assertTrue(localDateTimeFromResponse.isBefore(LocalDateTime.now().plus(16, ChronoUnit.MINUTES)));
-        assertTrue(localDateTimeFromResponse.isAfter(LocalDateTime.now().plus(14, ChronoUnit.MINUTES)));
+        final LocalDateTime localDateTimeFromResponse = LocalDateTime.parse(tokenResponse.getExpiresAt().substring(0, 19));
+        final LocalDateTime dateNow = LocalDateTime.now(ZoneOffset.of(tokenResponse.getExpiresAt().substring(19, 25)));
+        assertTrue(localDateTimeFromResponse.isBefore(dateNow.plusMinutes(16).withNano(0)), "Токен истек раньше");
+        assertTrue(localDateTimeFromResponse.isAfter(dateNow.plusMinutes(14).withNano(0)), "Токен истек позже");
     }
 }
