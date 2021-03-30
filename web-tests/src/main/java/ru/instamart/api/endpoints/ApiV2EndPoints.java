@@ -44,6 +44,7 @@ public final class ApiV2EndPoints {
         public static final String COORDINATES = "v2/stores";
         public static final String SID = "v2/stores/{sid}";
         public static final String PROMOTION_CARDS = "v2/stores/{sid}/promotion_cards";
+        public static final String HEALTH_CHECK = "v2/stores/{sid}/healthcheck";
     }
 
     public static final class Taxons {
