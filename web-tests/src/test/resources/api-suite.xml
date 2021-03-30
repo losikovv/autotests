@@ -39,6 +39,7 @@
       <class name="ru.instamart.tests.api.v2.endpoints.UserV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.CategoriesV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.AddressesV2Test"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.RetailersV2Test"/>
     </classes>
   </test>
   <!-- api-v3-tests -->

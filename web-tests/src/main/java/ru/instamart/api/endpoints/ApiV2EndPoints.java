@@ -86,4 +86,8 @@ public final class ApiV2EndPoints {
     public static final class Departments {
         public static final String ID = "v2/departments/{id}?sid={sid}";
     }
+
+    public static final class Retailers {
+        public static final String ID = "v2/retailers/{id}";
+    }
 }
