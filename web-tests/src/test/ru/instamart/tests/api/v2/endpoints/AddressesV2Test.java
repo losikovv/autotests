@@ -10,9 +10,6 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
-import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -68,7 +65,6 @@ public final class AddressesV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"})
     @Story("Невалидные или пустые поля")
     public void testWithInvalidValueInFields() {
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         final AddressesRequest.Addresses addresses = AddressesRequest.Addresses.AddressesBuilder
                 .anAddresses()
                 .withFirstName("<script>alert()</script>")
