@@ -8,15 +8,16 @@ import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.common.pagesdata.WidgetData;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotSelectableException;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-
-import static instamart.core.settings.Config.FULL_SCREEN_MODE;
 
 public final class Shop extends Base {
 
@@ -837,9 +838,6 @@ public final class Shop extends Base {
         @Step("Переходим в чекаут нажатием кнопки \"Сделать заказ\" в корзине")
         public static void proceedToCheckout() {
             if (kraken.detect().isCheckoutButtonActive()) {
-                if (FULL_SCREEN_MODE) {
-                    kraken.getWebDriver().manage().window().maximize();
-                }
                 kraken.perform().click(Elements.Cart.checkoutButton());
             } else {
                 log.info("> кнопка перехода в чекаут неактивна");
