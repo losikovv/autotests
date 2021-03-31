@@ -24,8 +24,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1438)
     @Test(
             description = "Тест валидности элементов и ссылок в шапке Сбермаркета",
-
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke"}
     ) public void successValidateHeaderSbermarket() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         baseChecks.checkPageIsAvailable();
@@ -50,7 +49,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(733)
     @Test(
             description = "Тест перехода из Сбермаркета на как мы работаем",
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke"}
     )
     public void successTransitionHowWeWork(){
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -59,7 +58,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1810)
     @Test(
             description = "Тест перехода из Сбермаркета на информацию о контактах",
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke"}
     )
     public void successTransitionContactsInfo(){
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -68,7 +67,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1811)
     @Test(
             description = "Тест перехода из Сбермаркета на страничку с помощью для клиента",
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke"}
     )
     public void successTransitionHelpInfo(){
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -77,7 +76,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1812)
     @Test(
             description = "Тест перехода из Сбермаркета на страничку с информацией о доставке",
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke"}
     )
     public void successTransitionDeliveryInfo(){
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -86,7 +85,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1813)
     @Test(
             description = "Тест перехода из Сбермаркета на страничку с Logo",
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke"}
     )
     public void successTransitionLogo(){
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -100,8 +99,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1439)
     @Test(
             description = "Тест валидности элементов и ссылок в футере Сбермаркета",
-
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke"}
     ) public void successValidateFooterSbermarket() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         baseChecks.checkPageIsAvailable();
@@ -112,7 +110,7 @@ public class BasicSbermarketTests extends TestBase {
 
     // todo public void successValidateFooterDeliveryMetro()
     private void checkFooterElementsPresence() {
-        kraken.perform().hoverOn(Elements.Footer.container());
+        kraken.perform().scrollToTheBottom();
         baseChecks.checkIsElementPresent(Elements.Footer.container());
         baseChecks.checkIsElementPresent(Elements.Footer.instamartLogo());
         baseChecks.checkIsElementPresent(Elements.Footer.sbermarketTitle());
@@ -141,8 +139,6 @@ public class BasicSbermarketTests extends TestBase {
     private void validateFooterLinks() {
         baseChecks.checkTransitionValidation(Elements.Footer.infoLink("О компании"));
         baseChecks.checkTransitionValidation(Elements.Footer.infoLink("Контакты"));
-        //validateTransition(Elements.Footer.infoLink("FAQ")); // заслоняет живосайт
-
         baseChecks.checkTransitionValidation(Elements.Footer.returnsPolicyLink());
         baseChecks.checkTransitionValidation(Elements.Footer.publicOfferLink());
         //TODO валидировать и остальные ссылки
@@ -151,6 +147,7 @@ public class BasicSbermarketTests extends TestBase {
     private void openFooterModals() {
         //TODO разбить на отдельные тесты
         kraken.get().baseUrl();
+        kraken.perform().scrollToTheBottom();
         kraken.perform().click(Elements.Footer.deliveryButton());
         baseChecks.checkPageIsAvailable();
     }
@@ -158,7 +155,7 @@ public class BasicSbermarketTests extends TestBase {
     @Test(  dataProvider = "retailersSpree" ,
             dataProviderClass = RestDataProvider.class,
             description = "Тест доступности / недоступности витрин ритейлеров Сбермаркета ",
-            groups = {"testing","sbermarket-Ui-smoke","MRAutoCheck"}
+            groups = {"sbermarket-Ui-smoke","MRAutoCheck"}
     ) public void successCheckSbermarketRetailers(Retailer retailer) {
         if (retailer.getAvailable()) baseChecks.checkRetailerIsAvailable(retailer.getSlug());
         else baseChecks.checkRetailerIsUnavailable(retailer.getSlug());
@@ -166,8 +163,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1433)
     @Test(
             description = "Тест доступности партнерских лендингов",
-
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke"}
     ) public void successCheckPartnerLandingsAreAvailable() {
         baseChecks.checkPageIsAvailable(Pages.Landings.mnogoru());
         baseChecks.checkPageIsAvailable(Pages.Landings.aeroflot());
@@ -175,8 +171,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1814)
     @Test(
             description = "Тест доступности сервисных страниц",
-
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke"}
     )
     public void successServicePagesAreAvailable() {
         baseChecks.checkPageIsAvailable(Pages.ServicePages.giftCertificates());
@@ -186,10 +181,7 @@ public class BasicSbermarketTests extends TestBase {
     @CaseId(1432)
     @Test(
             description = "Тест доступности статических страниц",
-
-            groups = {
-                    "testing","sbermarket-Ui-smoke"
-            }
+            groups = {"sbermarket-Ui-smoke"}
     ) public void successCheckStaticPagesAreAvailabile() {
         baseChecks.checkPageIsAvailable(Pages.Sbermarket.about());
         baseChecks.checkPageIsAvailable(Pages.Sbermarket.delivery());

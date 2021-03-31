@@ -167,7 +167,7 @@ public final class DetectionHelper extends HelperBase {
      */
     @Step("Определяем 404 ошибку на текущей странице")
     public boolean is404() {
-        if (isElementPresent(Elements.Page404.title())) {
+        if (kraken.getWebDriver().getTitle().contains("404")) {
             log.warn("404 на {}", kraken.grab().currentURL());
             return true;
         } else return false;
@@ -178,7 +178,7 @@ public final class DetectionHelper extends HelperBase {
      */
     @Step("Определяем 500 ошибку на текущей странице")
     public boolean is500() {
-        if (isElementPresent(Elements.Page500.placeholder())) {
+        if (kraken.getWebDriver().getTitle().contains("500")) {
             log.warn("⚠ 500 на {}", kraken.grab().currentURL());
             return true;
         } else return false;
@@ -189,7 +189,7 @@ public final class DetectionHelper extends HelperBase {
      */
     @Step("Определяем 502 ошибку на текущей странице")
     public boolean is502() {
-        if (isElementPresent(Elements.Page502.title())) {
+        if (kraken.getWebDriver().getTitle().contains("502")) {
             log.warn("⚠ 502 на {}", kraken.grab().currentURL());
             return true;
         } else return false;

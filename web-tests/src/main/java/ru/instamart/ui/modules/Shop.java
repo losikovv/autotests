@@ -8,7 +8,10 @@ import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.common.pagesdata.WidgetData;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotSelectableException;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -60,6 +63,34 @@ public final class Shop extends Base {
 //                }
             }
         }
+
+        @Step("Открываем модалку авторизации на странице ретейлера")
+        public static void openAuthRetailer(){
+            catchAndCloseAd(Elements.Modals.AuthModal.promoModalButton(),2);
+            log.info("> открываем модалку авторизации");
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Header.storeButton().getLocator()));
+            kraken.perform().click(Elements.Header.loginButton());
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            Elements.Modals.AuthModal.phoneNumber().getLocator()),
+                    "\n> Превышено время ожидания открытия модалки авторизации/регистрации",2);
+            log.info("> форма авторизации открыта");
+        }
+
+        @Step("Открываем модалку авторизации на Лендинге")
+        public static void openAuthLending(){
+            log.info("> открываем модалку авторизации");
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            Elements.Landings.SbermarketLanding.MainBlock.Stores.homeLanding().getLocator()));
+            kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            Elements.Modals.AuthModal.phoneNumber().getLocator()),
+                    "\n> Превышено время ожидания открытия модалки авторизации/регистрации",2);
+            log.info("> форма авторизации открыта");
+        }
+
         @Step("Закрываем форму авторизации")
         public static void close() {
             log.info("> закрываем форму авторизации");
@@ -112,18 +143,6 @@ public final class Shop extends Base {
             if (!agreementConfirmation) {
                 kraken.perform().setCheckbox(Elements.Modals.AuthModal.checkBoxes(),2);
             }
-        }
-        @Step("Заполняем поля формы регистрации по телефону")
-        public static void fillRegistrationFormByPhone(String phone){
-            log.info("> заполняем поля формы регистрации по телефону");
-            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.phoneNumber(),phone);
-            kraken.perform().click(Elements.Modals.AuthModal.continueButton());
-        }
-
-        @Step("Отправляем код из смс")
-        public static void sendSms(String sms){
-            log.info("> Отправляем код из смс");
-            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),sms);
         }
 
         @Step("Отправляем форму")
@@ -201,22 +220,16 @@ public final class Shop extends Base {
     public static class ShippingAddressModal {
 
         /** Открыть модалку ввода адреса */
-        @Step("Проверяем открыта ли модалка авторизации, если нет открываем")
+        @Step("Открываем модалку ввода адреса доставки")
         public static void open() {
-            if (kraken.detect().isAddressModalOpen()) {
-                log.info("> пропускаем открытие модалки адреса, она уже открыта");
-                kraken.await().fluently(
-                        ExpectedConditions.visibilityOfElementLocated(
-                                Elements.Modals.AddressModal.addressField().getLocator()),
-                        "Поле для ввода адреса не отображается в модалке\n");
-            } else {
-                catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),1);
-                kraken.perform().click(Elements.Header.shipAddressButton());
-                kraken.await().fluently(
-                        ExpectedConditions.visibilityOfElementLocated(
-                                Elements.Modals.AddressModal.popup().getLocator()),
-                        "Не открылась модалка ввода адреса доставки\n");
-            }
+            log.info("> открываем модалку ввода адреса доставки");
+//            catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),1);
+            kraken.perform().click(Elements.Header.shipAddressButton());
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            Elements.Modals.AddressModal.popup().getLocator()),
+                    "Не открылась модалка ввода адреса доставки\n",Config.BASIC_TIMEOUT);
+            log.info("> модака открыта");
         }
 
         /** Очистить поле в адресной модалке */
@@ -233,33 +246,25 @@ public final class Shop extends Base {
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
                             Elements.Modals.AddressModal.addressSuggest().getLocator()),
-                    "Не подтянулись адресные подсказки\n"
-            );
-            selectAddressSuggest();
+                    "Не подтянулись адресные подсказки\n",Config.BASIC_TIMEOUT);
         }
 
         /** Выбрать первый адресный саджест */
         @Step("Выбираем первый первый предложенный адрес")
-        private static void selectAddressSuggest() {
+        public static void selectAddressSuggest() {
             log.info("> выбираем первый первый предложенный адрес");
             kraken.await().fluently(
-                    ExpectedConditions.invisibilityOfElementLocated(Elements.spinner().getLocator())
-            );
-            if (kraken.detect().isShippingAddressSuggestsPresent()) {
-                kraken.perform().click(Elements.Modals.AddressModal.addressSuggest());
-                if(kraken.detect().isAddressModalOpenWithDeliveryButton()){
-                    kraken.await().fluently(
-                            ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.submitButton().getLocator()),
-                            "Неактивна кнопка сохранения адреса",2);
-                }else{
-                    kraken.await().fluently(
-                            ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.findShopButton().getLocator()),
-                            "Неактивна кнопка найти магазины",2);
-                }
-
-            } else {
-                throw new AssertionError("Нет адресных подсказок, невозможно выбрать адрес");
-            }
+                    ExpectedConditions.invisibilityOfElementLocated(Elements.spinner().getLocator()),
+                    "элемент спинер не исчез, выбор саджестов невозможен",5);
+            kraken.perform().click(Elements.Modals.AddressModal.addressSuggest());
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AddressModal.addressSuggest().getLocator()),
+                    "саджесты не выбраны и все еще отображаются",Config.BASIC_TIMEOUT);
+//            if (kraken.detect().isShippingAddressSuggestsPresent()) {
+//
+//            } else {
+//                throw new AssertionError("Нет адресных подсказок, невозможно выбрать адрес");
+//            }
         }
 
         /** Применить введенный адрес в адресной модалке */
@@ -267,14 +272,10 @@ public final class Shop extends Base {
         public static void submit() throws AssertionError {
             log.info("> применяем введенный адрес в адресной модалке");
             kraken.perform().click(Elements.Modals.AddressModal.submitButton());
-            if (kraken.detect().isAddressOutOfZone()) {
-                log.info("> выбранный адрес вне зоны доставки");
-            } else {
-                kraken.await().fluently(
-                        ExpectedConditions.invisibilityOfElementLocated(
-                                Elements.Modals.AddressModal.popup().getLocator()),
-                        "Превышено время ожидания применения адреса доставки\n");
-            }
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Modals.AddressModal.popup().getLocator()),
+                    "Превышено время ожидания применения адреса доставки",5);
         }
 
         /** Ищем доступные магазины по введенному адресу */
@@ -323,6 +324,9 @@ public final class Shop extends Base {
                     ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.authButton().getLocator()),
                     "не отображается кнопка входа",2);
             kraken.perform().click(Elements.Modals.AddressModal.authButton());
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()),
+                    "форма авторизации не открывается", Config.BASIC_TIMEOUT);
+            log.info("> модалка авторизации открыта");
         }
     }
 
@@ -377,13 +381,10 @@ public final class Shop extends Base {
         public static void open() {
             log.info("> открываем шторку каталога категорий");
             catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),2);
-            if (!kraken.detect().isCatalogDrawerOpen()) {
-                kraken.perform().click(Elements.Header.catalogButton());
-//                kraken.await().simply(1); // Ожидание анимации открытия шторки каталога
-                kraken.await().fluently(
-                        ExpectedConditions.elementToBeClickable(
-                                Elements.CatalogDrawer.closeButton().getLocator()),"Не открылась шторка каталога\n");
-            }
+            kraken.perform().click(Elements.Header.catalogButton());
+            kraken.await().fluently(
+                    ExpectedConditions.elementToBeClickable(
+                            Elements.CatalogDrawer.closeButton().getLocator()),"Не открылась шторка каталога\n");
         }
         @Step("Переходим в департамент: {0} в шторке каталога категорий")
         public static void goToDepartment(String name) {
@@ -393,7 +394,6 @@ public final class Shop extends Base {
                             Elements.CatalogDrawer.categoryFirstLevel(name).getLocator()));
             kraken.perform().hoverOn(Elements.CatalogDrawer.categoryFirstLevel(name));
             kraken.perform().click(Elements.CatalogDrawer.categoryFirstLevel(name));
-            kraken.await().implicitly(1); // Ожидание разворота категории-департамента
         }
         @Step("Переходим в таксон: {0} в шторке каталога категорий")
         public static void goToTaxon(String name) {
@@ -403,14 +403,12 @@ public final class Shop extends Base {
                             Elements.CatalogDrawer.category(name).getLocator()));
             kraken.perform().hoverOn(Elements.CatalogDrawer.category(name));
             kraken.perform().click(Elements.CatalogDrawer.category(name));
-            kraken.await().implicitly(1); // Ожидание разворота категории-таксона
         }
         @Step("Закрываем шторку каталога категорий")
         public static void close() {
             log.info("> закрываем шторку каталога категорий");
             if (kraken.detect().isCatalogDrawerOpen()) {
                 kraken.perform().click(Elements.CatalogDrawer.closeButton());
-                kraken.await().simply(1); // Ожидание анимации закрытия шторки каталога
                 kraken.await().fluently(
                         ExpectedConditions.invisibilityOfElementLocated(
                                 Elements.CatalogDrawer.drawer().getLocator()));
@@ -611,7 +609,7 @@ public final class Shop extends Base {
             kraken.perform().fillField(Elements.Header.Search.inputField(), query);
             Actions actions = new Actions(kraken.getWebDriver());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Header.Search.searchListResult().getLocator()),
-                    "не подтянулись поисковые подсказки", 3);
+                    "не подтянулись поисковые подсказки", 15);
             actions.sendKeys(Keys.ENTER).perform();
         }
 
@@ -840,7 +838,6 @@ public final class Shop extends Base {
         @Step("Переходим в чекаут нажатием кнопки \"Сделать заказ\" в корзине")
         public static void proceedToCheckout() {
             if (kraken.detect().isCheckoutButtonActive()) {
-                kraken.getWebDriver().manage().window().fullscreen();
                 kraken.perform().click(Elements.Cart.checkoutButton());
             } else {
                 log.info("> кнопка перехода в чекаут неактивна");

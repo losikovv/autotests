@@ -2,6 +2,7 @@ package instamart.core.provider.chrome;
 
 import instamart.core.provider.AbstractBrowserProvider;
 import instamart.core.util.ProcessUtils;
+import kong.unirest.json.JSONObject;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.BrowserType;
@@ -21,6 +22,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         }
         final ChromeOptions options = new ChromeOptions();
         final DesiredCapabilities capabilities = new DesiredCapabilities();
+        final JSONObject jsonObject = new JSONObject();
         if (System.getProperty("os.name").contains("Mac")) {
             System.setProperty("webdriver.chrome.driver", "WebDriverMac/chromedriver");
         } else {
@@ -32,6 +34,9 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920,1080");
+        jsonObject.put("profile.default_content_settings.geolocation", 2);
+        jsonObject.put("profile.managed_default_content_settings.geolocation", 2);
+        options.setExperimentalOption("prefs", jsonObject);
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
         //options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());

@@ -2,6 +2,7 @@ package instamart.ui.modules;
 
 import instamart.api.objects.v2.Address;
 import instamart.core.common.AppManager;
+import instamart.core.settings.Config;
 import instamart.core.testdata.UserManager;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.pagesdata.EnvironmentData;
@@ -187,11 +188,39 @@ public final class User extends Base {
             regSequenceMobile(phone, sms);
         }
 
+        @Step("Регистрируем нового юзера по номеру телефона: {0}")
+        public static void registration(String phone) {
+            log.info("> регистрируемся (телефон={}", phone);
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
+                    Elements.Modals.AuthModal.phoneNumber().getLocator()),
+                    "поле для ввода мобильного телефона не отображается",Config.BASIC_TIMEOUT);
+            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.phoneNumber(),phone);
+            kraken.perform().click(Elements.Modals.AuthModal.continueButton());
+        }
+
         @Step("Заполняем форму регистрации без поддтверждения кода из смс: {0}")
         public static void registrationWithoutConfirmation(String phone) {
             Shop.AuthModal.open();
             log.info("> заполняем поля формы регистрации по телефону");
             kraken.perform().fillFieldAction(Elements.Modals.AuthModal.phoneNumber(),phone);
+        }
+
+        @Step("Заполняем поля формы регистрации по телефону")
+        public static void fillRegistrationFormByPhone(String phone){
+            log.info("> заполняем поля формы регистрации по телефону");
+            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.phoneNumber(),phone);
+            kraken.perform().click(Elements.Modals.AuthModal.continueButton());
+        }
+
+        @Step("Отправляем код из смс: {0}")
+        public static void sendSms(String sms){
+            log.info("> Отправляем код из смс: {}",sms);
+            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),sms);
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Modals.AuthModal.smsCode().getLocator()),
+                    "Превышено время редиректа с модалки авторизации через мобилку\n",60);
+            log.info("> смс успешно прошла валидацию");
         }
 
 
@@ -219,9 +248,9 @@ public final class User extends Base {
         }
 
         public static void regSequenceMobile(String phone, String sms){
-            Shop.AuthModal.fillRegistrationFormByPhone(phone);
+            fillRegistrationFormByPhone(phone);
             if(sms!=null){
-                Shop.AuthModal.sendSms(sms);
+                sendSms(sms);
                 kraken.await().fluently(
                         ExpectedConditions.invisibilityOfElementLocated(
                                 Elements.Modals.AuthModal.smsCode().getLocator()),
@@ -477,30 +506,24 @@ public final class User extends Base {
         /** Установить адрес доставки */
         @Step("Устанавливаем адрес доставки: {0}")
         public static void setAndSaveAddress(String address) {
-            log.info("> устанавливаем адрес доставки: {}", address);
-//            String currentAddress = kraken.grab().value(Elements.Modals.AddressModal.addressField());
-            Shop.ShippingAddressModal.fill(address);
-            WaitingHelper.simply(1);
             kraken.await().fluently(
                     ExpectedConditions.elementToBeClickable(
                             Elements.Modals.AddressModal.submitButton().getLocator()),
-                    "Кнопка сохранить не активна\n");
-            Shop.ShippingAddressModal.submit();
+                    "Кнопка сохранить не активна\n", Config.BASIC_TIMEOUT);
+
             log.info("> адрес доставки: {} установлен", address);
         }
 
         /** Ищем магазины по установленному адресу */
-        @Step("Поиск магазинов по адресу доставки: {0}")
-        public static void searchShopsByAddress(String address){
+        @Step("Открываем ретейлера по иконке магазина")
+        public static void selectFirstRetailer(){
+            log.info("> открываем ретейлера по иконке магазина");
             kraken.await().fluently(
                     ExpectedConditions
-                            .elementToBeClickable(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1).getLocator()),
+                            .elementToBeClickable(Elements.Landings.SbermarketLanding.MainBlock.Stores.button().getLocator()),
                     "кнопка выбора ретейлера недоступна");
-            kraken.perform().click(Elements.Landings.SbermarketLanding.MainBlock.Stores.button(1));
-            Shop.ShippingAddressModal.open();
-            Shop.ShippingAddressModal.clearAddressField();
-            Shop.ShippingAddressModal.fill(address);
-            Shop.ShippingAddressModal.findShops();
+            kraken.perform().click(Elements.Landings.SbermarketLanding.MainBlock.Stores.button());
+            log.info("> ретейлер выбран");
         }
 
         /** Свапнуть тестовый и дефолтные адреса */
