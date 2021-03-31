@@ -59,15 +59,15 @@ public final class WebDriverService {
             return true;
         }
         catch (UnreachableBrowserException e) {
-            log.error("Browser is unreachable", e);
+            log.error("Browser is unreachable");
             return false;
         }
         catch (NoSuchWindowException e) {
-            log.error( "Browser window is not found", e);
+            log.error( "Browser window is not found");
             return false;
         }
         catch (NoSuchSessionException e) {
-            log.error("Browser session is not found", e);
+            log.error("Browser session is not found");
             return false;
         }
     }

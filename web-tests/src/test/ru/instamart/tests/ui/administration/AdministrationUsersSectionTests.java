@@ -1,5 +1,6 @@
 package ru.instamart.tests.ui.administration;
 
+import instamart.core.listeners.ExecutionListenerImpl;
 import instamart.core.settings.Config;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
@@ -17,12 +18,14 @@ import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 
 @Epic("Админка STF")
 @Feature("Управление юзерами")
+@Listeners(ExecutionListenerImpl.class)
 public class AdministrationUsersSectionTests extends TestBase {
     private static String phone;
     private static String email;
@@ -61,21 +64,23 @@ public class AdministrationUsersSectionTests extends TestBase {
         Shop.AuthModal.openAuthLending();
         User.Do.registration(phone);
         User.Do.sendSms(Config.DEFAULT_SMS);
-        kraken.perform().deleteAllCookies();//Это нужно удалить, после того как починят багу
-        kraken.getWebDriver().navigate().refresh();//А это еще один костыль который тоже нужно будет удалить
+        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
         Administration.Users.editUser(phone);
         Administration.Users.changeEmail(email);
         Administration.Users.changePassword(phone);
         Administration.Users.grantAdminPrivileges();
-        User.Logout.quicklyAdmin();
-        kraken.perform().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        //User.Logout.quicklyAdmin();
+        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        kraken.get().adminPage("");
         kraken.reach().admin(email,phone,role);
         adminChecks.checkIsAdminPageOpen();
-        User.Logout.quicklyAdmin();
-        kraken.perform().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        //User.Logout.quicklyAdmin();
+        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        kraken.get().adminPage("");
         Administration.Users.revokeAdminPrivileges(phone);
-        User.Logout.quicklyAdmin();
-        kraken.perform().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        //User.Logout.quicklyAdmin();
+        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        kraken.get().adminPage("");
         kraken.reach().admin(email,phone,"superuser");
         adminChecks.checkIsNotAdminPageOpen();
     }
@@ -91,8 +96,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         Shop.AuthModal.openAuthLending();
         User.Do.registration(phone);
         User.Do.sendSms(Config.DEFAULT_SMS);
-        kraken.perform().deleteAllCookies();//Это нужно удалить, после того как починят багу
-        kraken.getWebDriver().navigate().refresh();//А это еще один костыль который тоже нужно будет удалить
+        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
         Administration.Users.editUser(phone);
         Administration.Users.changeEmail(email);
         Administration.AdminNavigation.switchTotab("Пользователи");
@@ -112,8 +116,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         Shop.AuthModal.openAuthLending();
         User.Do.registration(phone);
         User.Do.sendSms(Config.DEFAULT_SMS);
-        kraken.perform().deleteAllCookies();//Это нужно удалить, после того как починят багу
-        kraken.getWebDriver().navigate().refresh();//А это еще один костыль который тоже нужно будет удалить
+        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
         Administration.Users.editUser(phone);
         Administration.Users.grantB2B();
         kraken.perform().refresh();
@@ -133,12 +136,12 @@ public class AdministrationUsersSectionTests extends TestBase {
                 phone,
                 "111111"
         );
-        kraken.perform().deleteAllCookies();//Это нужно удалить, после того как починят багу
-        kraken.getWebDriver().navigate().refresh();//А это еще один костыль который тоже нужно будет удалить
+        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
         Administration.Users.editUser(phone);
         Administration.Users.grantB2B();
-        User.Logout.quickly();
-        kraken.perform().deleteAllCookies();//Это нужно удалить, после того как починят багу
+        //User.Logout.quickly();
+        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        kraken.get().baseUrl();
         User.Auth.withEmail(testuser);
         kraken.perform().order();
         String number = kraken.grab().shipmentNumber();
