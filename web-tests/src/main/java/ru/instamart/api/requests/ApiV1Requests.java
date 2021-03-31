@@ -56,7 +56,7 @@ public class ApiV1Requests {
             Response response = givenApiV1()
                     .cookies(cookies)
                     .get(ApiV1Endpoints.TOKENS);
-            ShoppersBackend shoppersBackend = response.as(TokensResponse.class).getShoppers_backend();
+            ShoppersBackend shoppersBackend = response.as(TokensResponse.class).getShoppersBackend();
             //setToken("Token token=" + shoppersBackend.getClient_jwt() + ", id=" + shoppersBackend.getClient_id());
             return response;
         }

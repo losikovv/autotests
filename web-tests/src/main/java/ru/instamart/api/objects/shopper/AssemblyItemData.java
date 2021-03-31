@@ -1,44 +1,14 @@
 package instamart.api.objects.shopper;
 
 import instamart.api.objects.BaseObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class AssemblyItemData extends BaseObject {
-
     private String id;
     private String type;
     private AssemblyItemAttributes attributes;
     private AssemblyItemRelationships relationships;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public AssemblyItemAttributes getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(AssemblyItemAttributes attributes) {
-        this.attributes = attributes;
-    }
-
-    public AssemblyItemRelationships getRelationships() {
-        return relationships;
-    }
-
-    public void setRelationships(AssemblyItemRelationships relationships) {
-        this.relationships = relationships;
-    }
-
 }

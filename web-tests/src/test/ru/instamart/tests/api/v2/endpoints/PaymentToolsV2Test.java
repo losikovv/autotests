@@ -25,7 +25,7 @@ public class PaymentToolsV2Test extends RestBase {
     public void getPaymentTools() {
         response = PaymentToolsRequest.GET();
         checkStatusCode200(response);
-        assertNotNull(response.as(PaymentToolsResponse.class).getPayment_tools(),
+        assertNotNull(response.as(PaymentToolsResponse.class).getPaymentTools(),
                 "Не вернулась инфа о спобах оплаты");
     }
 }

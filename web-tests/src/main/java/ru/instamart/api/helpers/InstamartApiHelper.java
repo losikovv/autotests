@@ -176,8 +176,8 @@ public final class InstamartApiHelper {
      * Изменение/применение параметров адреса из объекта адреса с указанием имени и фамилии юзера
      */
     private void setAddressAttributes(UserData user, Address address) {
-        address.setFirst_name(user.getFirstName());
-        address.setLast_name(user.getLastName());
+        address.setFirstName(user.getFirstName());
+        address.setLastName(user.getLastName());
 
         setAddressAttributes(address);
     }
@@ -190,7 +190,7 @@ public final class InstamartApiHelper {
 
         Address addressFromResponse = response
                 .as(ShipAddressChangeResponse.class)
-                .getShip_address_change()
+                .getShipAddressChange()
                 .getOrder()
                 .getAddress();
         currentAddressId.set(addressFromResponse.getId());
@@ -238,11 +238,11 @@ public final class InstamartApiHelper {
                 softAssert.fail("\nПоказывается пустая категория " + department.getName() + "\n" + storeUrl);
                 continue;
             }
-            if (department.getProducts_count() <= 6)
-                softAssert.assertEquals(productsFromDepartment.size(), department.getProducts_count(),
+            if (department.getProductsCount() <= 6)
+                softAssert.assertEquals(productsFromDepartment.size(), department.getProductsCount(),
                         "\nВ категории " + department.getName() + " отображается "
                                 + productsFromDepartment.size() + " товаров, в products_count указано "
-                                + department.getProducts_count() + "\n" + storeUrl);
+                                + department.getProductsCount() + "\n" + storeUrl);
 
             StringJoiner productsString = new StringJoiner(
                     "\n• ",
@@ -272,20 +272,20 @@ public final class InstamartApiHelper {
     private void addItemToCart(long productId, int quantity) {
         Response response = LineItemsRequest.POST(productId, quantity, currentOrderNumber.get());
         checkStatusCode200(response);
-        LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
+        LineItem lineItem = response.as(LineItemResponse.class).getLineItem();
 
         log.info(lineItem.toString());
     }
 
     public int getMinOrderAmount(int sid) {
-        double minSum = getStore(sid).getMin_order_amount();
+        double minSum = getStore(sid).getMinOrderAmount();
         log.info("Минимальная сумма корзины: {}", minSum);
         this.minSum.set((int) minSum);
         return (int) minSum;
     }
 
     public int getMinFirstOrderAmount(int sid) {
-        double minSum = getStore(sid).getMin_first_order_amount();
+        double minSum = getStore(sid).getMinFirstOrderAmount();
         log.info("Минимальная сумма корзины: {}", minSum);
         this.minSum.set((int) minSum);
         return (int) minSum;
@@ -321,7 +321,7 @@ public final class InstamartApiHelper {
      * Узнаем вес продукта, полученного через GET v2/departments
      */
     private double getProductWeight(Product product) {
-        String humanVolume = product.getHuman_volume();
+        String humanVolume = product.getHumanVolume();
 
         if (humanVolume.contains(" шт.")) {
             boolean productHasWeightProperty = false;
@@ -368,14 +368,14 @@ public final class InstamartApiHelper {
     private void getAvailableDeliveryWindow() {
         List<ShippingRate> shippingRates = ShipmentsRequest.ShippingRates
                 .GET(currentShipmentNumber
-                        .get()).as(ShippingRatesResponse.class).getShipping_rates();
+                        .get()).as(ShippingRatesResponse.class).getShippingRates();
 
         Assert.assertNotEquals(
                 shippingRates.size(),
                 0,
                 "Нет слотов в магазине " + Pages.Admin.stores(currentSid.get()));
 
-        DeliveryWindow deliveryWindow = shippingRates.get(0).getDelivery_window();
+        DeliveryWindow deliveryWindow = shippingRates.get(0).getDeliveryWindow();
 
         currentDeliveryWindowId.set(deliveryWindow.getId());
 
@@ -387,7 +387,7 @@ public final class InstamartApiHelper {
      */
     private void getAvailableShippingMethod() {
         List<ShippingMethod> shippingMethods = ShippingMethodsRequest.GET(currentSid.get())
-                .as(ShippingMethodsResponse.class).getShipping_methods();
+                .as(ShippingMethodsResponse.class).getShippingMethods();
 
         Assert.assertNotEquals(
                 shippingMethods.size(),
@@ -405,7 +405,7 @@ public final class InstamartApiHelper {
      * Выбираем id способа оплаты (по умолчанию Картой курьеру)
      */
     private void getAvailablePaymentTool() {
-        List<PaymentTool> paymentTools = PaymentToolsRequest.GET().as(PaymentToolsResponse.class).getPayment_tools();
+        List<PaymentTool> paymentTools = PaymentToolsRequest.GET().as(PaymentToolsResponse.class).getPaymentTools();
 
         StringJoiner availablePaymentTools = new StringJoiner(
                 "\n• ",
@@ -443,11 +443,11 @@ public final class InstamartApiHelper {
         checkStatusCode200(response);
         Order order = response.as(OrderResponse.class).getOrder();
         log.info("Применены атрибуты для заказа: {}", order.getNumber());
-        log.info("        full_address: {}", order.getAddress().getFull_address());
-        log.info("  replacement_policy: {}", order.getReplacement_policy().getDescription());
-        log.info("  delivery_starts_at: {}", order.getShipments().get(0).getDelivery_window().getStarts_at());
-        log.info("    delivery_ends_at: {}", order.getShipments().get(0).getDelivery_window().getEnds_at());
-        log.info("special_instructions: {}", order.getSpecial_instructions());
+        log.info("        full_address: {}", order.getAddress().getFullAddress());
+        log.info("  replacement_policy: {}", order.getReplacementPolicy().getDescription());
+        log.info("  delivery_starts_at: {}", order.getShipments().get(0).getDeliveryWindow().getStartsAt());
+        log.info("    delivery_ends_at: {}", order.getShipments().get(0).getDeliveryWindow().getEndsAt());
+        log.info("special_instructions: {}", order.getSpecialInstructions());
     }
 
     /**
@@ -480,7 +480,7 @@ public final class InstamartApiHelper {
         if (response.as(OrderResponse.class).getOrder() != null) {
             Order order = response.as(OrderResponse.class).getOrder();
             if (order.getShipments().get(0).getAlerts().size() > 0) {
-                log.info(order.getShipments().get(0).getAlerts().get(0).getFull_message());
+                log.info(order.getShipments().get(0).getAlerts().get(0).getFullMessage());
             }
             log.info("Оформлен заказ: {}", order.getNumber());
             orderCompleted.set(true);
@@ -561,7 +561,7 @@ public final class InstamartApiHelper {
         Store store = response.as(StoreResponse.class).getStore();
 
         Address address = store.getLocation();
-        log.info("Получен адрес {}", address.getFull_address());
+        log.info("Получен адрес {}", address.getFullAddress());
 
         List<List<Zone>> zones = store.getZones();
         Zone zone = getInnerPoint(zones.get(zones.size() - 1));
@@ -710,7 +710,7 @@ public final class InstamartApiHelper {
         if (orders.size() < 1) {
             log.warn("Нет активных заказов");
         } else {
-            int pages = response.getMeta().getTotal_pages();
+            int pages = response.getMeta().getTotalPages();
             if (pages > 1) {
                 for (int i = 2; i <= pages; i++) {
                     orders.addAll(OrdersRequest.GET(OrderStatus.ACTIVE, i).as(OrdersResponse.class).getOrders());
@@ -745,13 +745,13 @@ public final class InstamartApiHelper {
         for (int i = 0; i < items; i++) {
             Product product = products.get(i);
             addItemToCart(product.getId(),1);
-            initialCartWeight += (getProductWeight(product) * product.getItems_per_pack());
+            initialCartWeight += (getProductWeight(product) * product.getItemsPerPack());
         }
         getMinSumFromAlert();
         int quantity = 1;
         for (Product product : products) {
             if (minSumNotReached.get())
-                quantity = (int) Math.ceil(minSum.get() / (product.getPrice() * product.getItems_per_pack()));
+                quantity = (int) Math.ceil(minSum.get() / (product.getPrice() * product.getItemsPerPack()));
 
             double finalCartWeight = roundBigDecimal(
                     (getProductWeight(product) * quantity) + initialCartWeight, 3);

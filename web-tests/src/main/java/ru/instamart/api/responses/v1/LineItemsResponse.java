@@ -1,20 +1,16 @@
 package instamart.api.responses.v1;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import instamart.api.objects.v1.LineItem;
 import instamart.api.responses.BaseResponseObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class LineItemsResponse extends BaseResponseObject {
-
-    private List<LineItem> line_items = null;
-
-    public List<LineItem> getLine_items() {
-        return line_items;
-    }
-
-    public void setLine_items(List<LineItem> line_items) {
-        this.line_items = line_items;
-    }
-
+    @JsonProperty(value = "line_items")
+    private List<LineItem> lineItems = null;
 }

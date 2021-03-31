@@ -89,10 +89,10 @@ public class OrdersV1Test extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/LineItems.json"));
 
         productSku = response.as(LineItemsResponse.class)
-                .getLine_items()
+                .getLineItems()
                 .get(0)
                 .getOffer()
-                .getProduct_sku();
+                .getProductSku();
     }
 
     @CaseId(119)

@@ -17,7 +17,7 @@ public class OnboardingPagesV2Test extends RestBase {
     public void getOnboardingPages() {
         response = OnboardingPagesRequest.GET();
         checkStatusCode200(response);
-        assertNotNull(response.as(OnboardingPagesResponse.class).getOnboarding_pages(),
+        assertNotNull(response.as(OnboardingPagesResponse.class).getOnboardingPages(),
                 "Не вернулись экраны онборлдинга");
     }
 }

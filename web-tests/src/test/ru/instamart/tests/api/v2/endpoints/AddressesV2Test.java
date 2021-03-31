@@ -38,7 +38,7 @@ public final class AddressesV2Test extends RestBase {
         final Response response = AddressesRequest.POST(addresses);
         checkStatusCode200(response);
         final AddressesResponse addressesResponse = response.as(AddressesResponse.class);
-        assertEquals(addresses.getFirstName(), addressesResponse.getAddress().getFirst_name(), "Названия полей не совпадают");
+        assertEquals(addresses.getFirstName(), addressesResponse.getAddress().getFirstName(), "Названия полей не совпадают");
     }
 
     @CaseId(206)

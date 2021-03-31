@@ -1,15 +1,12 @@
 package instamart.api.responses.v2;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import instamart.api.objects.v2.Item;
 import instamart.api.responses.BaseResponseObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
+@EqualsAndHashCode(callSuper=false)
 public final class FavoritesItemResponse extends BaseResponseObject {
-
-    @JsonProperty(value = "item")
     private Item item;
-
-    public Item getItem() {
-        return item;
-    }
 }

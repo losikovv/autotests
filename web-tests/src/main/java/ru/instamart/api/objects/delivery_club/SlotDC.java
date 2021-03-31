@@ -1,13 +1,11 @@
 package instamart.api.objects.delivery_club;
 
 import instamart.api.objects.BaseObject;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class SlotDC extends BaseObject {
     public String id;
     public Integer available;

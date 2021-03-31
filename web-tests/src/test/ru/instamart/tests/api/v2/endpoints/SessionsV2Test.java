@@ -71,7 +71,7 @@ public final class SessionsV2Test extends RestBase {
         checkStatusCode200(response);
         final SessionsResponse sessionResponse = response.as(SessionsResponse.class);
         assertNotNull(sessionResponse);
-        assertNotNull(sessionResponse.getSession().getAccess_token(), "Токен авторизации отсутствует");
+        assertNotNull(sessionResponse.getSession().getAccessToken(), "Токен авторизации отсутствует");
     }
 
     @CaseId(180)

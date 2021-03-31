@@ -107,8 +107,8 @@ public final class SessionFactory {
         checkStatusCode200(response);
         final SessionsResponse sessionResponse = response.as(SessionsResponse.class);
         log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
-        log.info("access_token: {}", sessionResponse.getSession().getAccess_token());
-        return new SessionInfo(userData, sessionResponse.getSession().getAccess_token());
+        log.info("access_token: {}", sessionResponse.getSession().getAccessToken());
+        return new SessionInfo(userData, sessionResponse.getSession().getAccessToken());
     }
 
     private static SessionInfo createShopperSession(final UserData userData) {

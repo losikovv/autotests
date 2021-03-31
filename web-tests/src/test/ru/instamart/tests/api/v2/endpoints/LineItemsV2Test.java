@@ -35,7 +35,7 @@ public class LineItemsV2Test extends RestBase {
     public void postLineItems() {
         response = LineItemsRequest.POST(productId,1, orderNumber);
         checkStatusCode200(response);
-        LineItem lineItem = response.as(LineItemResponse.class).getLine_item();
+        LineItem lineItem = response.as(LineItemResponse.class).getLineItem();
         assertNotNull(lineItem, "Не добавился товар в корзину");
         lineItemId = lineItem.getId();
     }
@@ -47,7 +47,7 @@ public class LineItemsV2Test extends RestBase {
     public void deleteLineItems() {
         response = LineItemsRequest.DELETE(lineItemId);
         checkStatusCode200(response);
-        assertNotNull(response.as(LineItemResponse.class).getLine_item(), "Не удалился товар из корзины");
+        assertNotNull(response.as(LineItemResponse.class).getLineItem(), "Не удалился товар из корзины");
     }
 
 }

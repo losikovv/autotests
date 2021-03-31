@@ -1,49 +1,21 @@
 package instamart.api.objects.v2;
 
 import instamart.api.objects.BaseObject;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+@Data
+@EqualsAndHashCode(callSuper=false)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Zone extends BaseObject {
-
     private Double lon;
     private Double lat;
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public Zone() {
-    }
-
-    /**
-     *
-     * @param lon
-     * @param lat
-     */
-    public Zone(Double lon, Double lat) {
-        super();
-        this.lon = lon;
-        this.lat = lat;
-    }
-
-    public Double getLon() {
-        return lon;
-    }
-
-    public void setLon(Double lon) {
-        this.lon = lon;
-    }
-
-    public Double getLat() {
-        return lat;
-    }
-
-    public void setLat(Double lat) {
-        this.lat = lat;
-    }
 
     @Override
     public String toString() {
         return "lat: " + lat + ", lon: " + lon;
     }
-
 }

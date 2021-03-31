@@ -38,7 +38,7 @@ public final class StoresV2Test extends RestBase {
     public void getStorePromotionCards() {
         final Response response = StoresRequest.PromotionCards.GET(1);
         checkStatusCode200(response);
-        assertNotNull(response.as(PromotionCardsResponse.class).getPromotion_cards(),
+        assertNotNull(response.as(PromotionCardsResponse.class).getPromotionCards(),
                 "Не вернулись промо-акции магазина");
     }
 
@@ -66,7 +66,7 @@ public final class StoresV2Test extends RestBase {
     public void testGetFastDeliveryStatusWithValidSid() {
         final Response response = StoresRequest.GET(EnvironmentData.INSTANCE.getDefaultSid());
         checkStatusCode200(response);
-        assertFalse(response.as(StoreResponse.class).getStore().getExpress_delivery(),
+        assertFalse(response.as(StoreResponse.class).getStore().getExpressDelivery(),
                 "У магазина не должно быть быстрой доставки");
     }
 

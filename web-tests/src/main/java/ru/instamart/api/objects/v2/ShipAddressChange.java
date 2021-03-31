@@ -1,46 +1,14 @@
 package instamart.api.objects.v2;
 
 import instamart.api.objects.BaseObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class ShipAddressChange extends BaseObject {
-
     private Order order;
     private List<Object> losses = null;
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public ShipAddressChange() {
-    }
-
-    /**
-     *
-     * @param order
-     * @param losses
-     */
-    public ShipAddressChange(Order order, List<Object> losses) {
-        super();
-        this.order = order;
-        this.losses = losses;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public List<Object> getLosses() {
-        return losses;
-    }
-
-    public void setLosses(List<Object> losses) {
-        this.losses = losses;
-    }
-
 }

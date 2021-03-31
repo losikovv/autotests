@@ -40,9 +40,9 @@ public final class UserV2Test extends RestBase {
         checkStatusCode200(response);
         final User user = response.as(UserDataResponse.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirst_name(), "FirstName", "Некорректное имя");
-        Assert.assertEquals(user.getLast_name(), "LastName", "Некорректная фамилия");
-        Assert.assertTrue(user.getPromo_terms_accepted(), "Некорректное значение promo");
+        Assert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
+        Assert.assertEquals(user.getLastName(), "LastName", "Некорректная фамилия");
+        Assert.assertTrue(user.getPromoTermsAccepted(), "Некорректное значение promo");
     }
 
     @CaseId(151)
@@ -60,9 +60,9 @@ public final class UserV2Test extends RestBase {
         checkStatusCode200(response);
         final User user = response.as(UserDataResponse.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirst_name(), "FirstName", "Некорректное имя");
-        Assert.assertEquals(user.getLast_name(), "LastName", "Некорректная фамилия");
-        Assert.assertTrue(user.getPromo_terms_accepted(), "Некорректное значение promo");
+        Assert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
+        Assert.assertEquals(user.getLastName(), "LastName", "Некорректная фамилия");
+        Assert.assertTrue(user.getPromoTermsAccepted(), "Некорректное значение promo");
     }
 
     @CaseId(154)
@@ -80,9 +80,9 @@ public final class UserV2Test extends RestBase {
 
         checkStatusCode422(response);
         final ErrorResponse errorResponse = response.as(ErrorResponse.class);
-        Assert.assertEquals(errorResponse.getError_messages().get(0).getField(), "password", "Неверная ошибка");
-        Assert.assertEquals(errorResponse.getError_messages().get(0).getMessage(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
-        Assert.assertEquals(errorResponse.getError_messages().get(0).getHuman_message(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
+        Assert.assertEquals(errorResponse.getErrorMessages().get(0).getField(), "password", "Неверная ошибка");
+        Assert.assertEquals(errorResponse.getErrorMessages().get(0).getMessage(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
+        Assert.assertEquals(errorResponse.getErrorMessages().get(0).getHumanMessage(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
     }
 
     @CaseId(153)
@@ -148,8 +148,8 @@ public final class UserV2Test extends RestBase {
         checkStatusCode200(response);
         final User user = response.as(UserDataResponse.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirst_name(), "FirstName", "Некорректное имя");
-        Assert.assertFalse(user.getPromo_terms_accepted(), "Некорректное значение promo");
+        Assert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
+        Assert.assertFalse(user.getPromoTermsAccepted(), "Некорректное значение promo");
     }
 
     @CaseId(157)
@@ -196,7 +196,7 @@ public final class UserV2Test extends RestBase {
         checkStatusCode200(response);
         final User user = response.as(UserDataResponse.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirst_name(), "autotest-user", "Некорректное имя");
+        Assert.assertEquals(user.getFirstName(), "autotest-user", "Некорректное имя");
     }
 
     @CaseId(558)

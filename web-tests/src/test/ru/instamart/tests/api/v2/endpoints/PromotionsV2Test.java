@@ -17,7 +17,7 @@ public class PromotionsV2Test extends RestBase {
     public void getReferralProgram() {
         response = PromotionsRequest.ReferralProgram.GET();
         checkStatusCode200(response);
-        assertNotNull(response.as(ReferralProgramResponse.class).getReferral_program(),
+        assertNotNull(response.as(ReferralProgramResponse.class).getReferralProgram(),
                 "Не вернулась инфа о реферальной программе");
     }
 }
