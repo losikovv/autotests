@@ -475,6 +475,7 @@ public final class DetectionHelper extends HelperBase {
     // ======= Каталог =======
 
     /** Определить есть ли товары на странице */
+    @Step("Проверяем наличие товаров на странице")
     public boolean isProductAvailable() {
         if(kraken.detect().isElementPresent(Elements.Catalog.Product.snippet())){
             log.info("✓ Есть доступные товары");
@@ -486,8 +487,10 @@ public final class DetectionHelper extends HelperBase {
     }
 
     /** Определить есть ли любимые товары на странице */
+    @Step("Смотрим наличие товара в любимых")
     public boolean isFavoriteProductAvailable() {
-        if(kraken.detect().isElementPresent(Elements.Catalog.Product.snippetFavorite())){
+        kraken.perform().hoverOn(Elements.Catalog.Product.snippet());
+        if(kraken.detect().isElementPresent(Elements.Catalog.Product.favButtonActive())){
             log.info("✓ Есть доступные любимые товары");
             return true;
         } else {

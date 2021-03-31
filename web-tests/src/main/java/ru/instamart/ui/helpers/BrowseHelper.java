@@ -72,6 +72,7 @@ public class BrowseHelper extends HelperBase {
     }
 
     /** Перейти на страницу любимых товаров */
+    @Step("Переходим на страницу Любимые продукты")
     public void userFavoritesPage() {
         page(Pages.UserProfile.favorites());
     }

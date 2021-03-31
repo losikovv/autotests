@@ -52,9 +52,10 @@ public class OrdersCheckpoints extends BaseUICheckpoints {
                     + docname + "\" недоступен для скачивания\nна странице " + kraken.grab().currentURL());
     }
 
+    @Step("Проверка успешного создания заказа")
     public void checkOrderCreation(){
         log.info("Проверка успешного создания заказа");
         Assert.assertTrue(kraken.detect().isOrderPlaced(),
-                "Не удалось оформить заказ с новой картой оплаты\n");
+                "Не удалось оформить заказ\n");
     }
 }

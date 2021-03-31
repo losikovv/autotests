@@ -106,18 +106,16 @@ public final class GrabHelper extends HelperBase {
 
     /** Взять целочисленную стоимость товара в карточке */
     public int itemPriceRounded() {
-        return round(itemPrice());
+        return roundTemp(itemPrice());
     }
 
     /** Взять строку со стоимостью товара в карточке */
     public String itemPrice() {
-        log.info("Выбор первого товара на витрине");
+        log.info("Получение цены из карточки товара");
         String itemPrice;
-        if(kraken.grab().text(Elements.ItemCard.discountPrice())==null){
-            itemPrice = kraken.grab().text(Elements.ItemCard.prices());
-        }else{
-             itemPrice = kraken.grab().text(Elements.ItemCard.discountPrice());
-        }
+
+        itemPrice = kraken.getWebDriver().findElement(Elements.ItemCard.priceFromAttribute().getLocator())
+                .getAttribute("content");
         return itemPrice;
     }
 
@@ -213,6 +211,15 @@ public final class GrabHelper extends HelperBase {
             return 0;
         } else {
             return Integer.parseInt(((price).substring(0, (price.length() - 5))).replaceAll("\\s", ""));
+        }
+    }
+
+    /**Округление до целого числа(актуально при получении цены из атрибута price)*/
+    private int roundTemp(String price) {
+        if (price == null) {
+            return 0;
+        } else {
+            return Integer.parseInt(((price).substring(0, (price.length() - 3))));
         }
     }
 

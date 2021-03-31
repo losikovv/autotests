@@ -93,6 +93,7 @@ public final class PerformHelper extends HelperBase {
 
     /** Навестисть на элемент */
     public void hoverOn(ElementData element) {
+        log.info("Наводим курсор на элемент");
         try {
             new Actions(kraken.getWebDriver()).moveToElement(kraken.getWebDriver().findElement(element.getLocator())).perform();
 //            WaitingHelper.simply(1); // Ожидание для стабильности
