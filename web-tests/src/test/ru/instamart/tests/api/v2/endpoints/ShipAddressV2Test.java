@@ -4,9 +4,7 @@ import instamart.api.SessionFactory;
 import instamart.api.common.RestBase;
 import instamart.api.enums.SessionType;
 import instamart.api.objects.v2.Address;
-import instamart.api.objects.v2.Order;
 import instamart.api.requests.v2.OrdersRequest;
-import instamart.api.responses.v2.OrderResponse;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -22,23 +20,16 @@ import static org.testng.Assert.assertNotNull;
 @Feature("Получение адреса доставки заказа")
 public final class ShipAddressV2Test extends RestBase {
 
-    private Order order;
-
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         SessionFactory.makeSession(SessionType.APIV2);
-        OrdersRequest.POST();
-        final Response response = OrdersRequest.Current.GET();
-        checkStatusCode200(response);
-        order = response.as(OrderResponse.class).getOrder();
-        assertNotNull(order, "Не вернулся текущий заказ");
     }
 
     @CaseId(233)
     @Test(groups = {"api-instamart-smoke"})
     @Story("Существующий id для авторизованных")
     public void testAddressWithAuthAndValidOrderId() {
-        final Response response = OrdersRequest.ShipAddress.GET(order.getNumber());
+        final Response response = OrdersRequest.ShipAddress.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         assertNotNull(response.as(Address.class));
     }
@@ -55,7 +46,7 @@ public final class ShipAddressV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"})
     @Story("Существующий id для не авторизованных")
     public void testAddressWithoutAuthAndValidOrderId() {
-        final Response response = OrdersRequest.ShipAddress.GET("invalid_token", order.getNumber());
+        final Response response = OrdersRequest.ShipAddress.GET("invalid_token", apiV2.getCurrentOrderNumber());
         checkStatusCode403(response);
     }
 

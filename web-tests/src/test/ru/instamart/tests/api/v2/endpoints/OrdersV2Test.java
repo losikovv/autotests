@@ -16,7 +16,6 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertNotNull;
 
 public class OrdersV2Test extends RestBase {
-    private String orderNumber;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
@@ -42,15 +41,13 @@ public class OrdersV2Test extends RestBase {
         InstamartApiCheckpoints.checkStatusCode200(response);
         Order order = response.as(OrderResponse.class).getOrder();
         assertNotNull(order, "Не вернулся текущий заказ");
-        orderNumber = order.getNumber();
     }
 
     @CaseId(9)
     @Test(  description = "Получаем заказ",
-            groups = {"api-instamart-smoke"},
-            dependsOnMethods = "getCurrentOrder")
+            groups = {"api-instamart-smoke"})
     public void getOrder() {
-        response = OrdersRequest.GET(orderNumber);
+        response = OrdersRequest.GET(apiV2.getCurrentOrderNumber());
         InstamartApiCheckpoints.checkStatusCode200(response);
         assertNotNull(response.as(OrderResponse.class).getOrder(), "Не вернулся заказ по номеру");
     }
@@ -66,10 +63,9 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(16)
     @Test(  description = "Получаем товары в заказе",
-            groups = {"api-instamart-smoke"},
-            dependsOnMethods = "getCurrentOrder")
+            groups = {"api-instamart-smoke"})
     public void getOrderLineItems() {
-        response = OrdersRequest.LineItems.GET(orderNumber);
+        response = OrdersRequest.LineItems.GET(apiV2.getCurrentOrderNumber());
         InstamartApiCheckpoints.checkStatusCode200(response);
         assertNotNull(response.as(LineItemsResponse.class).getLineItems(), "Не вернулись товары заказа");
     }
