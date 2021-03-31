@@ -1,6 +1,5 @@
 package ru.instamart.tests.ui.administration;
 
-import instamart.core.listeners.ExecutionListenerImpl;
 import instamart.core.settings.Config;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
@@ -18,14 +17,12 @@ import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 
 @Epic("Админка STF")
 @Feature("Управление юзерами")
-@Listeners(ExecutionListenerImpl.class)
 public class AdministrationUsersSectionTests extends TestBase {
     private static String phone;
     private static String email;
