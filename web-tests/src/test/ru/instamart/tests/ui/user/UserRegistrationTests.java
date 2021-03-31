@@ -27,19 +27,20 @@ public class UserRegistrationTests extends TestBase {
             description ="Завершаем сессию, текущего пользователя")
     public void quickLogout() {
         User.Logout.quickly();
+        kraken.perform().deleteAllCookies();
     }
 
     @CaseId(1552)
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-Ui-smoke","testing"
+                    "metro-acceptance", "metro-regression","sbermarket-Ui-smoke"
             }
     )
     public void noRegWithEmptyRequisites() {
-        kraken.get().page(Config.DEFAULT_RETAILER); // Переход на страничку Метро
-        User.Do.registration("", null);
+        kraken.get().page(Config.DEFAULT_RETAILER);
+        Shop.AuthModal.openAuthRetailer();
+        User.Do.registration("");
         baseChecks.checkIsErrorMessageElementPresentByPhone("Номер должен начинаться с \"+7 (9..\"",
                 "Нет пользовательской ошибки пустого номера телефона");
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -174,8 +175,11 @@ public class UserRegistrationTests extends TestBase {
     public void timeOutForSendindSMS() {
         phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.registration(phone, "111111");
+        Shop.AuthModal.openAuthRetailer();
+        User.Do.registration(phone);
+        User.Do.sendSms(Config.DEFAULT_SMS);
         User.Logout.quickly();
+        Shop.AuthModal.openAuthLending();
         User.Do.registrationWithoutConfirmation(phone);
         baseChecks.checkIsElementDisabled(Elements.Modals.AuthModal.continueButton());
         kraken.get().baseUrl();
@@ -225,11 +229,13 @@ public class UserRegistrationTests extends TestBase {
     @CaseId(1541)
     @Test(
             description = "Регистрация нового пользователя на лендинге",
-            groups = {"metro-acceptance","sbermarket-Ui-smoke","MRAutoCheck","testing"}
+            groups = {"metro-acceptance","sbermarket-Ui-smoke","MRAutoCheck"}
     )
     public void successRegOnLanding() {
         phone = Generate.phoneNumber();
-        User.Do.registration(phone, "111111");
+        Shop.AuthModal.openAuthLending();
+        User.Do.registration(phone);
+        User.Do.sendSms(Config.DEFAULT_SMS);
         authChecks.checkIsUserAuthorized("Не работает регистрация на лендинге");
     }
 
@@ -244,7 +250,9 @@ public class UserRegistrationTests extends TestBase {
     public void successRegOnMainPage() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         phone = Generate.phoneNumber();
-        User.Do.registration(phone, "111111");
+        Shop.AuthModal.openAuthRetailer();
+        User.Do.registration(phone);
+        User.Do.sendSms(Config.DEFAULT_SMS);
         authChecks.checkIsUserAuthorized("Не работает регистрация на витрине магазина");
     }
 
@@ -261,8 +269,9 @@ public class UserRegistrationTests extends TestBase {
         phone = Generate.phoneNumber();
         Shop.ShippingAddressModal.open();
         Shop.ShippingAddressModal.openAuthModal();
-        baseChecks.checkIsAuthModalOpen("Не работает переход на авторизацию из адресной модалки");
-        User.Do.registration(phone, "111111");
+//        baseChecks.checkIsAuthModalOpen("Не работает переход на авторизацию из адресной модалки");
+        User.Do.registration(phone);
+        User.Do.sendSms(Config.DEFAULT_SMS);
         authChecks.checkIsUserAuthorized("Не работает регистрация из адресной модалки феникса");
     }
 
@@ -279,13 +288,15 @@ public class UserRegistrationTests extends TestBase {
         phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.ShippingAddressModal.open();
-        User.ShippingAddress.setAndSaveAddress(Addresses.Moscow.defaultAddress());
-
+        Shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddressModal.selectAddressSuggest();
+        Shop.ShippingAddressModal.submit();
         Shop.Cart.collectFirstTime();
         Shop.Cart.proceedToCheckout();
         baseChecks.checkIsAuthModalOpen("Не открывается авторизационная" +
                 " модалка при переходе неавторизованным из корзины в чекаут");
-        User.Do.registration(phone, "111111");
+        User.Do.registration(phone);
+        User.Do.sendSms(Config.DEFAULT_SMS);
         authChecks.checkAutoCheckoutRedirect("Нет автоперехода в чекаут после регистрации из корзины");
         kraken.get().baseUrl();
         authChecks.checkIsUserAuthorized("Не работает регистрация из корзины");
@@ -345,9 +356,9 @@ public class UserRegistrationTests extends TestBase {
         authChecks.checkIsUserAuthorized("Не работает регистрация через Facebook");
     }
 
+    @CaseId(1460)
     @Test(  description = "Тест успешной регистрации через MailRu",
-
-            groups = {"testing"}
+            groups = {"sbermarket-Ui-smoke"}
     )
     public void successRegWithMailRu() {
         kraken.get().page(Config.DEFAULT_RETAILER);

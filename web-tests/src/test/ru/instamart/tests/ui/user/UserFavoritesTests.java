@@ -1,5 +1,6 @@
 package ru.instamart.tests.ui.user;
 
+import instamart.core.settings.Config;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
 import instamart.ui.checkpoints.BaseUICheckpoints;
@@ -47,10 +48,9 @@ public class UserFavoritesTests extends TestBase {
     @Flaky
     public void successOpenFavorites() {
         String phone = Generate.phoneNumber();
-        User.Do.registration(
-                phone,
-                "111111"
-        );
+        Shop.AuthModal.openAuthLending();
+        User.Do.registration(phone);
+        User.Do.sendSms(Config.DEFAULT_SMS);
         Shop.Favorites.open();
         baseChecks.checkPageIsAvailable();
         favoriteChecks.checkIsFavoriteOpen();

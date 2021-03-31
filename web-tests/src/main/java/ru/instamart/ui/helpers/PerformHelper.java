@@ -2,6 +2,7 @@ package instamart.ui.helpers;
 
 import instamart.core.common.AppManager;
 import instamart.core.helpers.HelperBase;
+import instamart.core.settings.Config;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.ElementData;
@@ -29,6 +30,8 @@ public final class PerformHelper extends HelperBase {
     public void click(ElementData element) {
         log.info("Клик по: {}", element.getDescription());
         try {
+            kraken.await().fluently(ExpectedConditions.elementToBeClickable(element.getLocator()),
+                    "элемент не кликабельный: "+element.getLocator().toString(), Config.BASIC_TIMEOUT);
             kraken.getWebDriver().findElement(element.getLocator()).click();
         }
         catch (NoSuchElementException n) {
@@ -64,6 +67,8 @@ public final class PerformHelper extends HelperBase {
     public void click(WebElement element){
         try {
             log.info("Клик по: {}", element.toString().replaceAll("^[^->]*",""));
+            kraken.await().fluently(ExpectedConditions.elementToBeClickable(element),
+                    "элемент не кликабельный", Config.BASIC_TIMEOUT);
             element.click();
         }
         catch (NoSuchElementException n) {
@@ -81,7 +86,7 @@ public final class PerformHelper extends HelperBase {
     public void hoverOn(ElementData element) {
         try {
             new Actions(kraken.getWebDriver()).moveToElement(kraken.getWebDriver().findElement(element.getLocator())).perform();
-            WaitingHelper.simply(1); // Ожидание для стабильности
+//            WaitingHelper.simply(1); // Ожидание для стабильности
         }
         catch (ElementNotVisibleException v) {
             log.error("Невозможно навести на элемент <{}> \nЭлемент не отображается на {}",
@@ -92,7 +97,7 @@ public final class PerformHelper extends HelperBase {
 
     /** Заполнить поле указанным текстом */
     public void fillField(final ElementData element, final String text) {
-        log.info("Заполняем полле: {}", element.getDescription());
+        log.info("Заполняем поле: {}", element.getDescription());
         if (text == null) {
             log.error("> пустое значение для элемента: {}", element);
             Assert.assertNotNull("Пустое значение для заполнения поля", text);
@@ -200,7 +205,7 @@ public final class PerformHelper extends HelperBase {
 
     /** Отменить крайний активный заказ */
     public void cancelLastActiveOrder() {
-        log.info("Отменяем крайний активный заказ...");
+        log.info("> отменяем крайний активный заказ...");
         kraken.get().page(Pages.UserProfile.shipments());
         click(Elements.UserProfile.OrdersHistoryPage.activeOrdersFilterButton());
         if(!kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder())) {
@@ -244,5 +249,10 @@ public final class PerformHelper extends HelperBase {
             throw new AssertionError("Невозможно найти элемент по тегу <" + tag
                     + "> и индексу: "+index+"\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
         }
+    }
+
+    public void scrollToTheBottom(){
+        log.info("> прокручиваем страницу в самый низ");
+        ((JavascriptExecutor)kraken.getWebDriver()).executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 }

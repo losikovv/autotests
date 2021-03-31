@@ -17,6 +17,7 @@ public final class Config {
     public static String BROWSER_VERSION;
     public static String DEFAULT_ENVIRONMENT;
     public static String DEFAULT_RETAILER;
+    public static String DEFAULT_SMS;
 
     public static int BASIC_TIMEOUT;
     public static int WAITING_TIMEOUT;
@@ -48,6 +49,7 @@ public final class Config {
 
         BASIC_TIMEOUT = coreSettings.getInt("basicTimeout", 2);
         WAITING_TIMEOUT = coreSettings.getInt("waitingTimeout", 30);
+        DEFAULT_SMS = coreSettings.getString("defaultSms","111111");
 
         REMOTE_URL = coreSettings.getString("remoteUrl", "http://localhost:4444/wd/hub");
         // Включает запись видео

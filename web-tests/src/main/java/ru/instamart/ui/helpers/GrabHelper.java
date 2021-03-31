@@ -2,6 +2,7 @@ package instamart.ui.helpers;
 
 import instamart.core.common.AppManager;
 import instamart.core.helpers.HelperBase;
+import instamart.core.settings.Config;
 import instamart.ui.common.pagesdata.ElementData;
 import instamart.ui.modules.Shop;
 import instamart.ui.objectsmap.Elements;
@@ -145,20 +146,12 @@ public final class GrabHelper extends HelperBase {
     public void addItemCard(int count){
         try{
             for (int i=1;i<count;i++){
-//                kraken.perform().findChildElementByTagAndText(
-//                        driver.findElement(Elements.ItemCard.offersElement().getLocator())
-//                        ,By.tagName("button"),"+ Купить")
-//                        .click();
-//                kraken.await().fluently(
-//                        ExpectedConditions.textMatches(
-//                                Elements.ItemCard.cartNew().getLocator(), Pattern.compile(String.valueOf((i+1)))),
-//                        "иконка корзины не появилась\n");
                 kraken.perform().click(Elements.ItemCard.plusButton());
             }
             kraken.await().fluently(
-                    ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                    ExpectedConditions.visibilityOfElementLocated(
                             Elements.ItemCard.quantityByCount(count).getLocator()),
-                    "кнопка + не появилась\n");
+                    "каунтер товаров не содержит нужное количество товаров: "+count, Config.BASIC_TIMEOUT);
         }catch (NoSuchElementException ex){
             throw new ElementClickInterceptedException("невозможно нажать на кнопку купить");
         }

@@ -132,9 +132,9 @@ public class Elements {
                                 "блок со списком магазинов на лендинге Сбермаркета");
                     }
 
-                    static ElementData button(int position) {
-                        return new ElementData(By.xpath("//div[contains(@class,'stores__store')]["+position+"]//button[contains(@class,'stores__storeCard')]"),
-                                "кнопка " + position + " магазина на лендинге Сбермаркета");
+                    static ElementData button() {
+                        return new ElementData(By.xpath("//button//*[@data-qa='home_landing_store_image_121']"),
+                                "кнопка первого магазина на лендинге Сбермаркета");
                     }
 
                     static ElementData buttonAuchan() {
@@ -848,10 +848,7 @@ public class Elements {
 
         static ElementData addressSuggest() {
             return new ElementData(
-                    /*By.xpath("//*[@data-qa='address-autocomplete-dropdown']//*[@id='downshift-0-item-0']"),
-                    "адресная подсказка в модалке выбора адреса");
-                     */
-                    By.xpath("//*[contains(@class,'search_select')]//*[text()]"),
+                    By.xpath("//*[contains(@class,'dropdown')]//*[text()]"),
                     "адресная подсказка в модалке выбора адреса");
         }
 
@@ -880,7 +877,7 @@ public class Elements {
 
         static ElementData authButton() {
             return new ElementData(
-                    By.xpath("//*[@data-qa='address-modal-login' and text()='Войти']"),
+                    By.xpath("//div[@data-qa='address-edit']//*[text()='Войти']"),
                             "кнопка перехода в авторизацию в модалке выбора адреса");
         }
 
@@ -1620,7 +1617,7 @@ public class Elements {
                     "каунтер количества доступного товара в карточке товара");
             }
             static ElementData quantityByCount(int count) {
-                return new ElementData(By.xpath("//div[contains(@class,'popup_cart_actions__quantity') and contains(text(),'"+count+"')]"),
+                return new ElementData(By.xpath("//div[contains(@class,'popup_cart_actions') and contains(text(),'"+count+"')]"),
                         "каунтер количества добавленного товара");
             }
 
@@ -2753,7 +2750,7 @@ public class Elements {
 
             static ElementData widget() {
                 return new ElementData(
-                        By.xpath("//jdiv[@id='jvlabelWrap']"),
+                        By.id("jvlabelWrap"),
                             "виджет Jivosite");
             }
 
