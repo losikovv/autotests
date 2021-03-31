@@ -1554,10 +1554,15 @@ public class Elements {
                 return new ElementData(By.xpath("//*[@class='product']//div[contains(@class,'add-cart__down')]"),
                         "кнопка \"-\" в сниппете продукта");
             }
-
+            //TODO поправить локатор. Находит 622 элемента
             static ElementData favButton() {
                 return new ElementData(By.xpath("//*[@class='product']//div[contains(@class,'favorite-button')]"),
                         "кнопка избранного в сниппете продукта");
+            }
+
+            static ElementData favButtonActive(){
+                return new ElementData(By.xpath("//*[@class='product']//div[contains(@class,'favorite-button--active')]"),
+                "выбранная кнопка избранного в сниппете продукта");
             }
         }
     }
@@ -1620,6 +1625,10 @@ public class Elements {
             static ElementData discountPrice(){
                 return new ElementData(By.xpath("//div[contains(@class,'popup')]//div[contains(@class,'components__discount')]//span"),
                         "акционная цена товара");
+            }
+
+            static ElementData priceFromAttribute(){
+                return new ElementData(By.xpath("//div/meta[@itemprop='price']"),"цена товара из атрибута meta-price");
             }
 
             static ElementData quantity() {
@@ -1765,7 +1774,7 @@ public class Elements {
 
             static ElementData total() {
                 return new ElementData(
-                        By.xpath("//*[@data-qa='cart']//*[@data-qa='checkout-button']//div[@class='cart-checkout-link__well']/child::div"),
+                        By.xpath("//*[@data-qa='cart']//button[@data-qa='cart_checkout_button']//div[@class='cart-checkout-link__well']/div"),
                             "сумма заказа в корзине");
             }
         }
@@ -1906,12 +1915,12 @@ public class Elements {
             }
 
             static ElementData homeRadioButton() {
-                return new ElementData(By.xpath("//input[@value='home']"),
+                return new ElementData(By.xpath("//input[@data-qa='checkout_form_kind_home_radio_button']"),
                         "радиокнопка \"Квартира\" в шаге \"" + addressStep.getName() + "\" в чекауте");
             }
 
             static ElementData officeRadioButton() {
-                return new ElementData(By.xpath("//input[@value='office']"),
+                return new ElementData(By.xpath("//input[@data-qa='checkout_form_kind_office_radio_button']"),
                         "радиокнопка \"Офис\" в шаге \"" + addressStep.getName() + "\" в чекауте");
             }
 
