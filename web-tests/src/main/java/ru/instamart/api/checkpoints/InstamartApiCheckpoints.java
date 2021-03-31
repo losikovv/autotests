@@ -66,8 +66,8 @@ public class InstamartApiCheckpoints {
                 .parse(order
                         .getShipments()
                         .get(0)
-                        .getDelivery_window()
-                        .getStarts_at()
+                        .getDeliveryWindow()
+                        .getStartsAt()
                         .substring(0, 19))
                 .plus(2, ChronoUnit.HOURS); // у gitlab время по гринвичу, а в тестовом магазине +2
 
@@ -90,13 +90,13 @@ public class InstamartApiCheckpoints {
         if (children == null) return;
         int sum = 0;
         for (Taxon child : children) {
-            sum += child.getProducts_count();
+            sum += child.getProductsCount();
             checkProductsCountEqualsChildrenSum(child, softAssert);
         }
-        softAssert.assertEquals(sum, taxon.getProducts_count(),
+        softAssert.assertEquals(sum, taxon.getProductsCount(),
                 "\n" + taxon.getName() +
                         ", id: " + taxon.getId() +
                         ", children_sum: " + sum +
-                        ", product_count: " + taxon.getProducts_count());
+                        ", product_count: " + taxon.getProductsCount());
     }
 }

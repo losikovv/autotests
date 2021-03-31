@@ -1,34 +1,14 @@
 package instamart.api.responses.v2;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import instamart.api.responses.BaseResponseObject;
 import instamart.api.objects.v2.LineItem;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class LineItemResponse extends BaseResponseObject {
-
-    private LineItem line_item;
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public LineItemResponse() {
-    }
-
-    /**
-     *
-     * @param line_item
-     */
-    public LineItemResponse(LineItem line_item) {
-        super();
-        this.line_item = line_item;
-    }
-
-    public LineItem getLine_item() {
-        return line_item;
-    }
-
-    public void setLine_item(LineItem line_item) {
-        this.line_item = line_item;
-    }
-
+    @JsonProperty(value = "line_item")
+    private LineItem lineItem;
 }

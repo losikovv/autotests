@@ -134,7 +134,7 @@ public final class RegistrationV2Test extends RestBase {
                 minCharPassword);
 
         checkStatusCode422(response);
-        assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
+        assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
                 "Неверный формат email");
     }
 
@@ -150,7 +150,7 @@ public final class RegistrationV2Test extends RestBase {
                 "insta");
 
         checkStatusCode422(response);
-        assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
+        assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
                 "Не может быть короче 6 символов");
     }
 
@@ -165,7 +165,7 @@ public final class RegistrationV2Test extends RestBase {
                 minCharPassword);
 
         checkStatusCode422(response);
-        assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
+        assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
                 "не может быть пустым");
     }
 
@@ -183,7 +183,7 @@ public final class RegistrationV2Test extends RestBase {
                 minCharPassword);
 
         checkStatusCode422(response);
-        assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
+        assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
                 "не может быть пустым");
     }
 
@@ -200,7 +200,7 @@ public final class RegistrationV2Test extends RestBase {
                 minCharPassword);
 
         checkStatusCode422(response);
-        assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
+        assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
                 "не может быть пустым");
     }
 
@@ -217,7 +217,7 @@ public final class RegistrationV2Test extends RestBase {
                 "");
 
         checkStatusCode422(response);
-        assertEquals(response.as(ErrorResponse.class).getError_messages().get(0).getHuman_message(),
+        assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
                 "не может быть пустым");
     }
 

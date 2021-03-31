@@ -1,18 +1,14 @@
 package instamart.api.responses.v1;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import instamart.api.objects.v1.OperationalZone;
 import instamart.api.responses.BaseResponseObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class OperationalZoneResponse extends BaseResponseObject {
-
-    private OperationalZone operational_zone;
-
-    public OperationalZone getOperational_zone() {
-        return operational_zone;
-    }
-
-    public void setOperational_zone(OperationalZone operational_zone) {
-        this.operational_zone = operational_zone;
-    }
-
+    @JsonProperty(value = "operational_zone")
+    private OperationalZone operationalZone;
 }

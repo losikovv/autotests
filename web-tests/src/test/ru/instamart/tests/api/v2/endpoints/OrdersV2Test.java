@@ -71,6 +71,6 @@ public class OrdersV2Test extends RestBase {
     public void getOrderLineItems() {
         response = OrdersRequest.LineItems.GET(orderNumber);
         InstamartApiCheckpoints.checkStatusCode200(response);
-        assertNotNull(response.as(LineItemsResponse.class).getLine_items(), "Не вернулись товары заказа");
+        assertNotNull(response.as(LineItemsResponse.class).getLineItems(), "Не вернулись товары заказа");
     }
 }

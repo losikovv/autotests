@@ -168,7 +168,7 @@ public class RestDataProvider extends RestBase {
         Specification.setResponseSpecDataProvider();
 
         List<OperationalZone> operationalZoneList = ApiV1Requests.OperationalZones.GET()
-                .as(OperationalZonesResponse.class).getOperational_zones();
+                .as(OperationalZonesResponse.class).getOperationalZones();
 
         Specification.setResponseSpecDefault();
 

@@ -1,20 +1,16 @@
 package instamart.api.responses.v2;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import instamart.api.responses.BaseResponseObject;
 import instamart.api.objects.v2.PromotionCard;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class PromotionCardsResponse extends BaseResponseObject {
-
-    private List<PromotionCard> promotion_cards = null;
-
-    public List<PromotionCard> getPromotion_cards() {
-        return promotion_cards;
-    }
-
-    public void setPromotion_cards(List<PromotionCard> promotion_cards) {
-        this.promotion_cards = promotion_cards;
-    }
-
+    @JsonProperty(value = "promotion_cards")
+    private List<PromotionCard> promotionCards = null;
 }

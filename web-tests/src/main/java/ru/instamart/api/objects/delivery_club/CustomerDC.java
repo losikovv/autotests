@@ -1,13 +1,13 @@
 package instamart.api.objects.delivery_club;
 
 import instamart.api.objects.BaseObject;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper=false)
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class CustomerDC extends BaseObject {
     private String name;
     private String phone;

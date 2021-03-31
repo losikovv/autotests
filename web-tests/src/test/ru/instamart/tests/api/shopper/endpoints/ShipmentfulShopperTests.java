@@ -194,7 +194,7 @@ public class ShipmentfulShopperTests extends RestBase {
     public void getShipmentMarketingSampleItems() {
         response = ShipmentsRequest.MarketingSampleItems.GET(shipmentId);
         checkStatusCode200(response);
-        assertNotNull(response.as(MarketingSampleItemsResponse.class).getMarketing_sample_items(),
+        assertNotNull(response.as(MarketingSampleItemsResponse.class).getMarketingSampleItems(),
                 "Не вернулся массив маркетинговых пробников");
     }
 }

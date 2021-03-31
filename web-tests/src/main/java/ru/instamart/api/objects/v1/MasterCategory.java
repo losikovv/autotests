@@ -1,46 +1,19 @@
 package instamart.api.objects.v1;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import instamart.api.objects.BaseObject;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class MasterCategory extends BaseObject {
-
     private Integer id;
     private String name;
-    private Object special_condition;
-    private List<Object> master_category_attributes = null;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Object getSpecial_condition() {
-        return special_condition;
-    }
-
-    public void setSpecial_condition(Object special_condition) {
-        this.special_condition = special_condition;
-    }
-
-    public List<Object> getMaster_category_attributes() {
-        return master_category_attributes;
-    }
-
-    public void setMaster_category_attributes(List<Object> master_category_attributes) {
-        this.master_category_attributes = master_category_attributes;
-    }
-
+    @JsonProperty(value = "special_condition")
+    private Object specialCondition;
+    @JsonProperty(value = "master_category_attributes")
+    private List<Object> masterCategoryAttributes = null;
 }
