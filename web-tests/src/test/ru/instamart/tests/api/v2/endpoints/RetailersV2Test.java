@@ -9,6 +9,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -24,9 +25,9 @@ public final class RetailersV2Test extends RestBase {
 
     private List<Retailer> retailers;
 
-    @Test(groups = "api-instamart-smoke")
+    @BeforeClass(alwaysRun = true)
     @Story("Получение списка ретейлеров")
-    public void testGetAllRetailers() {
+    public void preconditions() {
         final Response response = RetailersRequest.GET();
         checkStatusCode200(response);
         retailers = response.as(RetailersResponse.class).getRetailers();
@@ -34,7 +35,7 @@ public final class RetailersV2Test extends RestBase {
     }
 
     @CaseId(203)
-    @Test(groups = {"api-instamart-smoke"}, dependsOnMethods = "testGetAllRetailers")
+    @Test(groups = {"api-instamart-smoke"})
     @Story("Получение ретейлера по валидному retailer id")
     public void testGetRetailerWithValidRetailerId() {
         final Optional<Retailer> retailerOption = retailers.stream().findAny();

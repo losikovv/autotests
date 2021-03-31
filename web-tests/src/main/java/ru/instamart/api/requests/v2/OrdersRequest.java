@@ -9,7 +9,7 @@ import io.restassured.response.Response;
 import java.util.HashMap;
 import java.util.Map;
 
-import static instamart.api.requests.InstamartRequestsBase.givenWithAuthApiV2;
+import static instamart.api.requests.InstamartRequestsBase.*;
 
 public final class OrdersRequest {
 
@@ -96,6 +96,7 @@ public final class OrdersRequest {
                     .delete(ApiV2EndPoints.Orders.SHIPMENTS, orderNumber);
         }
     }
+
     public static class LineItems {
         /**
          * Получаем товары в заказе
@@ -106,6 +107,7 @@ public final class OrdersRequest {
                     .get(ApiV2EndPoints.Orders.LINE_ITEMS, orderNumber);
         }
     }
+
     public static class ShipAddressChange {
         /**
          * Изменение/применение параметров адреса
@@ -133,6 +135,22 @@ public final class OrdersRequest {
                     .put(ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE, orderNumber);
         }
     }
+
+    public static class ShipAddress {
+
+        @Step("{method} /" + ApiV2EndPoints.Orders.SHIP_ADDRESS)
+        public static Response GET(final String authToken, final String orderNumber) {
+            return givenCustomToken(authToken)
+                    .get(ApiV2EndPoints.Orders.SHIP_ADDRESS, orderNumber);
+        }
+
+        @Step("{method} /" + ApiV2EndPoints.Orders.SHIP_ADDRESS)
+        public static Response GET(final String orderNumber) {
+            return givenWithAuthApiV2()
+                    .get(ApiV2EndPoints.Orders.SHIP_ADDRESS, orderNumber);
+        }
+    }
+
     public static class Current {
         /**
          * Получить информацию о текущем заказе
@@ -143,6 +161,7 @@ public final class OrdersRequest {
                     .get(ApiV2EndPoints.Orders.CURRENT);
         }
     }
+
     public static class Completion {
         /**
          * Завершаем оформление заказа
@@ -153,6 +172,7 @@ public final class OrdersRequest {
                     .post(ApiV2EndPoints.Orders.COMPLETION, orderNumber);
         }
     }
+
     public static class Cancellations {
         /**
          * Отменяем заказ по номеру
@@ -163,6 +183,7 @@ public final class OrdersRequest {
                     .post(ApiV2EndPoints.Orders.CANCELLATIONS, orderNumber, reason);
         }
     }
+
     public static class Unrated {
         /**
          * Получаем заказы для оценки

@@ -59,6 +59,7 @@ public final class ApiV2EndPoints {
         public static final String SHIPMENTS = "v2/orders/{orderNumber}/shipments";
         public static final String LINE_ITEMS = "v2/orders/{orderNumber}/line_items";
         public static final String SHIP_ADDRESS_CHANGE = "v2/orders/{orderNumber}/ship_address_change";
+        public static final String SHIP_ADDRESS = "v2/orders/{orderNumber}/ship_address";
         public static final String CURRENT = "v2/orders/current";
         public static final String NUMBER = "v2/orders/{orderNumber}";
         public static final String COMPLETION = "v2/orders/{orderNumber}/completion";

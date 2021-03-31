@@ -47,6 +47,11 @@ public class InstamartApiCheckpoints {
         Assert.assertEquals(response.statusCode(), 401);
     }
 
+    @Step("Ответ вернул 403")
+    public static void checkStatusCode403(final Response response) {
+        Assert.assertEquals(response.statusCode(), 403);
+    }
+
     @Step("Ответ вернул 404")
     public static void checkStatusCode404(final Response response) {
         Assert.assertEquals(response.statusCode(), 404);
