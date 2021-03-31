@@ -19,6 +19,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import static io.qameta.allure.Allure.step;
+
 public final class Shop extends Base {
 
     private static final Logger log = LoggerFactory.getLogger(Shop.class);
@@ -559,9 +561,12 @@ public final class Shop extends Base {
             /** Добавить товар в любимые через сниппет товара в каталоге */
             @Step("Добавляем товар в любимые товары через сниппет товара в каталоге")
             public static void addToFavorites() {
+                log.info("Добавляем товар в любимые товары через сниппет товара в каталоге");
                 catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),2);
-                kraken.perform().hoverOn(Elements.Catalog.Product.snippet());
-                kraken.perform().click(Elements.Catalog.Product.favButton());
+                step("Наводим курсор на элемент", () ->
+                        kraken.perform().hoverOn(Elements.Catalog.Product.snippet()));
+                step("Добавляем товар в любимые", ()->
+                        kraken.perform().click(Elements.Catalog.Product.favButton()));
                 //TODO fluent Ожидание добавления любимого товара
             }
 
@@ -887,22 +892,28 @@ public final class Shop extends Base {
             collect(kraken.apiV2().getMinFirstOrderAmount(sid));
         }
 
+        @Step("Набираем корзину на минимальную сумму, достаточную для оформления первого заказа(Любимые)")
+        public static void collectForFavorite(int sid) {
+            collect(kraken.apiV2().getMinFirstOrderAmount(sid));
+        }
+
         /** Набрать корзину на указанную сумму */
         @Step("Набираем корзину на указанную сумму: {0}")
         public static void collect(int orderSum) {
             if (!kraken.detect().isShippingAddressSet()) {
                 User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
             }
-            log.info("> собираем корзину товаров на сумму {}...", orderSum);
+            log.info("> проверяем  корзину. Минимальная сумма для заказа {}...", orderSum);
             int cartTotal = kraken.grab().cartTotalRounded();
             if (cartTotal < orderSum) {
+                log.info("> сумма в корзине меньше минимальной суммы заказа, заполняем корзину");
                 Cart.close();
                 if (kraken.detect().isProductAvailable()) {
                     if (kraken.detect().isFavoriteProductAvailable()) {
-                        log.info("> находимся в карточке любимых товаров");
+                        log.info("> любимый продукт найден");
                         Favorites.openFavoritesSnipet();
-                    } else {
-                        log.info("> нет товаров на текущей странице {}", kraken.grab().currentURL());
+                    }else{
+                        log.info("> нет любимых товаров на текущей странице {}", kraken.grab().currentURL());
                         //kraken.get().page(Pages.Retailers.metro());
                         kraken.getBasicUrl();
                         Catalog.Item.open();
