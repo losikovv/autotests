@@ -106,14 +106,13 @@ public final class GrabHelper extends HelperBase {
 
     /** Взять целочисленную стоимость товара в карточке */
     public int itemPriceRounded() {
-        return roundTemp(itemPrice());
+        return roundPrice(itemPrice());
     }
 
     /** Взять строку со стоимостью товара в карточке */
     public String itemPrice() {
         log.info("Получение цены из карточки товара");
         String itemPrice;
-
         itemPrice = kraken.getWebDriver().findElement(Elements.ItemCard.priceFromAttribute().getLocator())
                 .getAttribute("content");
         return itemPrice;
@@ -214,8 +213,9 @@ public final class GrabHelper extends HelperBase {
         }
     }
 
-    /**Округление до целого числа(актуально при получении цены из атрибута price)*/
-    private int roundTemp(String price) {
+    //TODO объединить метод roundPrice c методом round(проверка строки -> выбор приведения)
+    /**Округление до целого числа()*/
+    private int roundPrice(String price) {
         if (price == null) {
             return 0;
         } else {

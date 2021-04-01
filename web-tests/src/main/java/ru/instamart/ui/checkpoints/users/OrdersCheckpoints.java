@@ -53,8 +53,10 @@ public class OrdersCheckpoints extends BaseUICheckpoints {
     }
 
     @Step("Проверка успешного создания заказа")
-    public void checkOrderCreation(){
+    public void checkOrderSuccessCreation(){
         log.info("Проверка успешного создания заказа");
+        Assert.assertEquals(kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderStatus.notification()),
+                "Ваш заказ был успешно обработан");
         Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не удалось оформить заказ\n");
     }

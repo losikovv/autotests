@@ -1,17 +1,16 @@
 package ru.instamart.tests.ui.orders;
 
 import instamart.api.common.RestAddresses;
+import instamart.core.settings.Config;
 import instamart.core.testdata.TestVariables;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
 import instamart.core.testdata.ui.PaymentTypes;
-import instamart.core.util.Crypt;
 import instamart.ui.checkpoints.users.OrdersCheckpoints;
 import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.JuridicalData;
 import instamart.ui.common.pagesdata.PaymentCardData;
-import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
@@ -50,19 +49,11 @@ public class BasicOrdersTests extends TestBase {
         kraken.get().baseUrl();
         //User.Do.loginAs(AppManager.session.admin);
         String phone;
-        //phone = Generate.phoneNumber();
-        phone = "9999225665";
-        User.Do.registration(
-                "1",
-                "2",
-                "1",
-                "111111",
-                phone, "111111");
-
-
-
-        //kraken.apiV2().dropCart(UserManager.MyUser(), RestAddresses.Moscow.defaultAddress());//есть в методах api
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true); //т.к.
+        phone = Generate.phoneNumber();
+        Shop.AuthModal.open();
+        User.Do.registration(phone);
+        User.Do.sendSms(Config.DEFAULT_SMS);
+        //User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
 
     }
 
@@ -130,16 +121,14 @@ public class BasicOrdersTests extends TestBase {
     public void successCompleteCheckoutWithNewPaymentCard() {
         PaymentCardData creditCardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
 
-        //kraken.reach().checkout();
-        //Shop.Cart.collectFirstTime();
+        Shop.Cart.collectFirstTime();
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete(PaymentTypes.cardOnline(), true, creditCardData);
-        orderCheck.checkOrderCreation();
-//        Assert.assertTrue(kraken.detect().isOrderPlaced(),
-//                "Не удалось оформить заказ с новой картой оплаты\n");
+        orderCheck.checkOrderSuccessCreation();
+
     }
 
-    //CaseId(1672)
+    @CaseId(2066)
     @Test(
             description = "Тест заказа с новой картой оплаты без 3ds",
             groups = {"sbermarket-regression", "testing"}
@@ -147,26 +136,23 @@ public class BasicOrdersTests extends TestBase {
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         PaymentCardData creditCardData = TestVariables.testOrderDetailsCus().getPaymentDetails().getCreditCard();
 
-        kraken.reach().checkout();
+        Shop.Cart.collectFirstTime();
+        Shop.Cart.proceedToCheckout();
         kraken.checkout().complete(PaymentTypes.cardOnline(), true, creditCardData);
-
-        Assert.assertTrue(kraken.detect().isOrderPlaced(),
-                "Не удалось оформить заказ с новой картой оплаты\n");
+        orderCheck.checkOrderSuccessCreation();
     }
 
+    @CaseId(1681)
     @Test(
             description = "Тест заказа с любимыми товарами",
             groups = {"sbermarket-regression","testing"}
     )
     public void successOrderWithFavProducts() {
         Shop.Catalog.Item.addToFavorites();
-        kraken.get().userFavoritesPage();
         Shop.Cart.collectFirstTime();
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
-
-        Assert.assertTrue(kraken.detect().isOrderPlaced(),
-                "Не оформляется заказ с любимыми товарами\n");
+        orderCheck.checkOrderSuccessCreation();
     }
 
 }

@@ -1295,6 +1295,11 @@ public class Elements {
                     return new ElementData(By.xpath("//*[@data-qa='user-shipment-status' and @id='shipment-carryover']"),
                             "статус заказа 'Перенесен' на странице деталей заказа");
                 }
+
+                static ElementData notification(){
+                    return new ElementData(By.xpath("//div[@class='alerts']//span"),
+                            "нотификация после оформления заказа");
+                }
             }
 
             interface OrderAssembly {

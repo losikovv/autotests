@@ -380,6 +380,7 @@ public final class DetectionHelper extends HelperBase {
     // ======= Детали заказа =======
 
     /** Определить оформлен ли заказ на странице деталей */
+    @Step("Проверяем открытие страницы заказа")
     public boolean isOrderPlaced() {
         log.info("Проверяем страницу заказа...");
         if (isElementPresent(Elements.UserProfile.OrderDetailsPage.OrderStatus.placed())) {
