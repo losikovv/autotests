@@ -8,13 +8,17 @@ import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 
+@Epic("STF UI")
+@Feature("Профиль пользователя")
 public class UserProfileTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     AccountMenuCheckpoints accountChecks = new AccountMenuCheckpoints();
@@ -24,15 +28,14 @@ public class UserProfileTests extends TestBase {
     public void quickLogout() {
         User.Logout.quickly();
         String phone = Generate.phoneNumber();
-        User.Do.registration(
-                phone,
-                "111111");
+        Shop.AuthModal.openAuthLending();
+        User.Do.registration(phone);
+        User.Do.sendSms(Config.DEFAULT_SMS);
     }
 
 
     @Test(
             description = "Тест валидации меню профиля Delivery Metro",
-
             groups = {
                     "metro-smoke","metro-acceptance","metro-regression"
             }
@@ -64,7 +67,9 @@ public class UserProfileTests extends TestBase {
 
         softAssert.assertAll();
     }
+
     @CaseId(1524)
+    @Story("Выпадающее меню")
     @Test(
             description = "Тест валидации меню профиля Sbermarket",
             groups = {"sbermarket-Ui-smoke"}
@@ -83,6 +88,7 @@ public class UserProfileTests extends TestBase {
     }
 
     @CaseId(1525)
+    @Story("Выпадающее меню")
     @Test(
             description = "Тест валидации кнопки 'Профиль' в меню профиля",
             groups = {
@@ -95,25 +101,12 @@ public class UserProfileTests extends TestBase {
         baseChecks.checkTransitionValidation(Elements.AccountMenu.profileButton());
     }
 
-    @CaseId(1526)
-    @Test(
-            description = "Тест валидации кнопки 'История заказов' в меню профиля",
-            groups = {
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            }
-            )
-    @Deprecated
-        public void successValidateOrdersHistoryButton() {
-        Shop.AccountMenu.open();
-        baseChecks.checkTransitionValidation(Elements.AccountMenu.ordersHistoryButton());
-    }
-
+    @CaseId(1527)
+    @Story("Выпадающее меню")
     @Test(
             description = "Тест валидации кнопки 'Условия использования' в меню профиля",
             groups = {
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance"
+                    "metro-acceptance","metro-regression","sbermarket-Ui-smoke"
             }
     ) public void successValidateTermsButton() {
         Shop.AccountMenu.open();
@@ -121,6 +114,7 @@ public class UserProfileTests extends TestBase {
     }
 
     @CaseId(1528)
+    @Story("Выпадающее меню")
     @Test(
             description = "Тест валидации кнопки 'Доставка' в меню профиля",
             groups = {"sbermarket-Ui-smoke"}
@@ -131,40 +125,25 @@ public class UserProfileTests extends TestBase {
         Shop.AccountMenu.closeDelivery();
     }
 
-    @Test(
-            description = "Тест валидации кнопки 'Оплата' в меню профиля",
-            groups = {
-                    "metro-acceptance","metro-regression"
-            }
-    ) public void successValidatePaymentButton() {
-        Shop.AccountMenu.open();
-
-        kraken.perform().click(Elements.AccountMenu.paymentButton());
-
-        Assert.assertTrue(
-                kraken.detect().isPaymentModalOpen(),
-                    failMessage("Не открывается модалка 'Оплата' из всплывающего меню 'Профиль'"));
-    }
-
+    @CaseId(1530)
+    @Story("Выпадающее меню")
     @Test(
             description = "Тест валидации кнопки 'FAQ' в меню профиля",
-
             groups = {
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance"
+                    "metro-acceptance","metro-regression","sbermarket-Ui-smoke"
             }
     ) public void successValidateFaqButton() {
         Shop.AccountMenu.open();
-        baseChecks.checkTransitionValidation(Elements.AccountMenu.faqButton());
+        kraken.perform().click(Elements.AccountMenu.faqButton());
+        baseChecks.checkPageIsAvailable();
     }
 
     @CaseId(1531)
+    @Story("навигация в меню пользователя")
     @Test(
             description = "Тест доступности страниц профиля пользователя",
-
             groups = {
-                    "metro-smoke","metro-acceptance","metro-regression",
-                    "sbermarket-Ui-smoke","testing"
+                    "metro-smoke","metro-acceptance","metro-regression", "sbermarket-Ui-smoke"
             }
     )
     public void successCheckProfilePagesAreAvailable() {
@@ -175,37 +154,22 @@ public class UserProfileTests extends TestBase {
         baseChecks.checkPageIsAvailable(Pages.UserProfile.shipments());
     }
 
+    @CaseId(1532)
+    @Story("Заказы")
     @Test(
             description = "Тест валидации дефолтных страниц истории заказов",
-
             groups = {
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "metro-acceptance","metro-regression","sbermarket-Ui-smoke"
             }
     ) public void successValidateDefaultOrderHistory() {
-        SoftAssert softAssert = new SoftAssert();
         kraken.get().userShipmentsPage();
-
         Shop.UserProfile.OrderHistory.applyFilterComplete();
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                        Elements.UserProfile.OrdersHistoryPage.completeOrdersPlaceholder()));
-
+        baseChecks.checkIsElementPresent(Elements.UserProfile.OrdersHistoryPage.completeOrdersPlaceholder());
         Shop.UserProfile.OrderHistory.applyFilterActive();
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                        Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder()));
-
+        baseChecks.checkIsElementPresent(Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder());
         Shop.UserProfile.OrderHistory.applyFilterAll();
-        softAssert.assertTrue(
-                kraken.detect().isElementPresent(
-                        Elements.UserProfile.OrdersHistoryPage.allOrdersPlaceholder()));
-
+        baseChecks.checkIsElementPresent(Elements.UserProfile.OrdersHistoryPage.allOrdersPlaceholder());
         Shop.UserProfile.OrderHistory.goShopping();
-        softAssert.assertFalse(
-                kraken.detect().isElementPresent(
-                        Elements.UserProfile.OrdersHistoryPage.completeOrdersPlaceholder()));
-
-        softAssert.assertAll();
+        baseChecks.checkIsElementNotPresent(Elements.UserProfile.OrdersHistoryPage.completeOrdersPlaceholder());
     }
 }

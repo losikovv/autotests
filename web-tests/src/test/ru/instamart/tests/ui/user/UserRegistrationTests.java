@@ -10,12 +10,16 @@ import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
 
+@Epic("STF UI")
+@Feature("Регистрация пользователя")
 public class UserRegistrationTests extends TestBase {
     public static String modalType;
     private static String phone;
@@ -31,6 +35,7 @@ public class UserRegistrationTests extends TestBase {
     }
 
     @CaseId(1552)
+    @Story("Регистрация на странице ретейлера")
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {
@@ -47,125 +52,8 @@ public class UserRegistrationTests extends TestBase {
         authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя с пустыми реквизитами");
     }
 
-    @Test(
-            description = "Негативный тест попытки зарегистрировать пользователя без имени",
-            groups = {}
-    )
-    public void noRegWithoutName() {
-        if(modalType.equals("модалка с телефоном")){skipTest();}
-        kraken.get().page(Config.DEFAULT_RETAILER);
-        // для стейджа телефон 799999999999 код 1111
-        String phone = Generate.phoneNumber();
-        modalType = User.Do.registration(
-                null,
-                "test@example.com",
-                "12345678",
-                "12345678",
-                phone,
-                "111111"
-        );
-        if(modalType.equals("модалка с почтой")){
-            baseChecks.checkIsErrorMessageElementPresent("Укажите имя и фамилию",
-                    "Нет пользовательской ошибки пустого поля name");
-            kraken.get().baseUrl();
-            authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя без имени");
-        }
-    }
-
-    @Test(
-            description = "Негативный тест попытки зарегистрировать пользователя без кода подтверждения",
-            groups = {}
-    )
-    public void noRegWithoutNameMobile() {
-        if(modalType.equals("модалка с телефоном")){skipTest();}
-        kraken.get().page(Config.DEFAULT_RETAILER);
-        // для стейджа телефон 799999999999 код 1111
-        User.Do.registration(
-                null,
-                "test@example.com",
-                "12345678",
-                "12345678"
-        );
-        baseChecks.checkIsErrorMessageElementPresent("Укажите имя и фамилию",
-                "Нет пользовательской ошибки пустого поля name");
-        kraken.get().baseUrl();
-        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя без имени");
-    }
-
-    @Test(
-            description = "Негативный тест попытки зарегистрировать пользователя без email",
-            groups = {}
-    )
-    public void noRegWithoutEmail() {
-        if(modalType.equals("модалка с телефоном")){skipTest();}
-        kraken.get().page(Config.DEFAULT_RETAILER);
-
-        User.Do.registration(
-                "Test User",
-                null,
-                "12345678",
-                "12345678"
-        );
-        baseChecks.checkIsErrorMessageElementPresent("Укажите email",
-                "Нет пользовательской ошибки пустого поля email");
-        kraken.get().baseUrl();
-        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя без email");
-    }
-
-    @Test(
-            description = "Негативный тест попытки зарегистрировать пользователя без пароля",
-            groups = {}
-    )
-    public void noRegWithoutPassword() {
-        if(modalType.equals("модалка с телефоном")){skipTest();}
-        kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.registration("Test User", "test@example.com",
-                null, "12345678");
-        baseChecks.checkIsErrorMessageElementPresent("Укажите пароль",
-                "Нет пользовательской ошибки пустого поля password");
-        kraken.get().baseUrl();
-        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя без пароля");
-    }
-
-    @Test(
-            description = "Негативный тест попытки зарегистрировать пользователя без подтверждения пароля",
-            groups = {}
-    )
-    public void noRegWithoutPasswordConfirmation() {
-        if(modalType.equals("модалка с телефоном")){skipTest();}
-        kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.registration(
-                "Test User",
-                "test@example.com",
-                "12345678",
-                null
-        );
-        baseChecks.checkIsErrorMessageElementPresent("Подтвердите пароль",
-                "Нет пользовательской ошибки пустого поля password confirmation");
-        kraken.get().baseUrl();
-        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя без подтверждения пароля");
-    }
-
-    @Test(
-            description = "Негативный тест попытки зарегистрировать пользователя с несовпадающими паролями",
-            groups = {}
-    )
-    public void noRegWithWrongPasswordConfirmation() {
-        if(modalType.equals("модалка с телефоном")){skipTest();}
-        kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.registration(
-                "Test User",
-                "test@example.com",
-                "12345678",
-                "12345679"
-        );
-        baseChecks.checkIsErrorMessageElementPresent("Введенные пароли должны совпадать",
-                "Нет пользовательской ошибки несовпадения пароля");
-        kraken.get().baseUrl();
-        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя с несовпадающим подтверждёнием пароля");
-    }
-
     @CaseId(2044)
+    @Story("Регистрация на странице ретейлера")
     @Test(
             description = "Тест таймаута повторной отправки смс при быстром перелогине",
             groups = {
@@ -186,53 +74,15 @@ public class UserRegistrationTests extends TestBase {
         authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя с уже используемым email");
     }
 
-    @Test(
-            description = "Негативный тест попытки зарегистрировать пользователя с длинными полями",
-            groups = {}
-    )
-    public void noRegWithLongFields() {
-        if(modalType.equals("модалка с телефоном")){skipTest();}
-        kraken.get().page(Config.DEFAULT_RETAILER);
-
-        User.Do.registration(UserManager.getUser(150));
-        baseChecks.checkIsErrorMessageElementPresent("Имя должно содержать не более 128 символов",
-                "Нет пользовательской ошибки превышения длины поля name");
-        baseChecks.checkIsErrorMessageElementPresent("Email адрес должен содержать не более 128 символов",
-                "Нет пользовательской ошибки превышения длины поля email");
-        baseChecks.checkIsErrorMessageElementPresent("Пароль должен содержать не более 128 символов",
-                "Нет пользовательской ошибки превышения длины поля password");
-        kraken.get().baseUrl();
-        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя" +
-                " с ошибками заполнения формы регистрации длинными полями");
-    }
-
-    @Test(
-            description = "Тест отмены регистрации после заполнения всех полей",
-            groups = {}
-    )
-    public void noRegOnCancel() {
-        if(modalType.equals("модалка с телефоном")){skipTest();}
-        kraken.get().page(Config.DEFAULT_RETAILER);
-        Shop.AuthModal.open();
-        kraken.await().fluently(
-                ExpectedConditions.elementToBeClickable(
-                        Elements.Modals.AuthModal.popup().getLocator()),
-                "Модалка авторизации не открыта\n");
-        User.Do.regSequence(UserManager.getUser());
-        Shop.AuthModal.close();
-        baseChecks.checkIsAuthModalClosed();
-        kraken.get().baseUrl();
-        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя " +
-                "после заполнения всех полей и закрытия модалки");
-    }
-
     @CaseId(1541)
+    @Story("Регистрация на лендинге")
     @Test(
             description = "Регистрация нового пользователя на лендинге",
             groups = {"metro-acceptance","sbermarket-Ui-smoke","MRAutoCheck"}
     )
     public void successRegOnLanding() {
         phone = Generate.phoneNumber();
+        kraken.get().baseUrl();
         Shop.AuthModal.openAuthLending();
         User.Do.registration(phone);
         User.Do.sendSms(Config.DEFAULT_SMS);
@@ -240,6 +90,7 @@ public class UserRegistrationTests extends TestBase {
     }
 
     @CaseId(1543)
+    @Story("Регистрация на странице ретейлера")
     @Test(
             description = "Регистрация нового пользователя на витрине магазина",
             groups = {
@@ -257,6 +108,7 @@ public class UserRegistrationTests extends TestBase {
     }
 
     @CaseId(1542)
+    @Story("Регистрация на странице ретейлера")
     @Test(
             description = "Тест регистрации из адресной модалки феникса",
             groups = {
@@ -276,6 +128,7 @@ public class UserRegistrationTests extends TestBase {
     }
 
     @CaseId(748)
+    @Story("Регистрация на странице ретейлера")
     @Test(
 
             description = "Тест регистрации при переходе из корзины в чекаут",
@@ -304,14 +157,17 @@ public class UserRegistrationTests extends TestBase {
                 "Пропали товары после регистрации из корзины");
     }
 
+    @CaseId(1545)
+    @Story("Регистрация на странице ретейлера")
     @Test(
-            description = "Тест успешной регистрации без проставленной галки согласия на почтовую рассылку",
-            groups = {}
+            description = "Тест успешной регистрации без проставленной галки Получать выгодные предложения",
+            groups = {"testing"}
     )
     public void successRegWithoutMailingCheckbox() {
-        if(modalType.equals("модалка с телефоном")){skipTest();}
         kraken.get().page(Config.DEFAULT_RETAILER);
-        Shop.AuthModal.open();
+        Shop.AuthModal.openAuthRetailer();
+        User.Do.registration(phone,true);// ВОт здесь проблема
+        User.Do.sendSms(Config.DEFAULT_SMS);
         User.Do.regSequence(UserManager.getUser(), false ); // todo вынести в Shop.AuthModal.fill()
         Shop.AuthModal.submit();
         authChecks.checkIsUserAuthorized("Не работает регистрация без согласия на получение почтовой рассылки");
@@ -327,7 +183,7 @@ public class UserRegistrationTests extends TestBase {
 
         Shop.AuthModal.open();
         User.Do.regSequence(UserManager.getUser(), false );
-        kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Modals.AuthModal.agreementCheckbox().getLocator()));
+//        kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Modals.AuthModal.agreementCheckbox().getLocator()));
         kraken.perform().setCheckbox(Elements.Modals.AuthModal.checkBoxes(),2);
         kraken.perform().click(Elements.Modals.AuthModal.submitButton());
         kraken.await().implicitly(5);
@@ -357,6 +213,7 @@ public class UserRegistrationTests extends TestBase {
     }
 
     @CaseId(1460)
+    @Story("Регистрация через партнеров")
     @Test(  description = "Тест успешной регистрации через MailRu",
             groups = {"sbermarket-Ui-smoke"}
     )

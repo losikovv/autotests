@@ -129,10 +129,8 @@ public class AdministrationUsersSectionTests extends TestBase {
         UserData testuser = UserManager.getUser();
 //        User.Do.registration(testuser);
         phone = Generate.phoneNumber();
-        User.Do.registration(
-                phone,
-                "111111"
-        );
+        User.Do.registration(phone);
+        User.Do.sendSms(Config.DEFAULT_SMS);
         kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
         Administration.Users.editUser(phone);
         Administration.Users.grantB2B();
