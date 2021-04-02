@@ -24,7 +24,6 @@ import static instamart.api.checkpoints.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Данные пользователя")
-@Listeners(ExecutionListenerImpl.class)
 public final class UserV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
