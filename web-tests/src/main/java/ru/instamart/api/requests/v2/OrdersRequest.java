@@ -134,6 +134,18 @@ public final class OrdersRequest {
                     .formParams(data)
                     .put(ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE, orderNumber);
         }
+
+        @Step("{method} /" + ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE)
+        public static Response GET(final String orderNumber) {
+            return givenWithAuthApiV2()
+                    .get(ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE, orderNumber);
+        }
+
+        @Step("{method} /" + ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE)
+        public static Response GET(final String authToken, final String orderNumber) {
+            return givenCustomToken(authToken)
+                    .get(ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE, orderNumber);
+        }
     }
 
     public static class ShipAddress {
