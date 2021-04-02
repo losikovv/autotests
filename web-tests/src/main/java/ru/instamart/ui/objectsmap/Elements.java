@@ -695,8 +695,8 @@ public class Elements {
         }
 
         static ElementData agreementCheckbox() { return new ElementData(
-                By.xpath("//div[contains(@class,'block_checkbox') and text()='Согласен']"),
-                "чекбокс согласия на получение почтовой рассылки в модалке авторизации"); }
+                By.xpath("//input[@type='checkbox']//*[@data-qa='promo_terms_button']"),//TODO поправить локатор
+                "чекбокс согласия на получение выгодных предложений"); }
 
         static ElementData checkBoxes(){
             return new ElementData(By.xpath("//span[contains(@class,' checkbox_')]"),

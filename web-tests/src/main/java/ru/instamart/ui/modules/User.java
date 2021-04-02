@@ -168,7 +168,6 @@ public final class User extends Base {
             String modalType = Shop.AuthModal.checkAutorisationModalDialog();
             if (modalType.equals("модалка с телефоном")){
                 log.info("> регистрируемся (телефон={} / смс={})", phone, sms);
-                regSequenceMobile(phone, sms);
             } else {
                 log.info("> регистрируемся ({}/{})", email, password);
                 regSequence(name, email, password, passwordConfirmation);
@@ -177,15 +176,6 @@ public final class User extends Base {
                 Shop.AuthModal.submitRegistration();
             }
             return modalType;
-        }
-        /**
-         * Зарегистрировать нового юзера по номеру телефона
-         */
-        @Step("Регистрируем нового юзера по номеру телефона: {0}/{1}")
-        public static void registration(String phone,String sms) {
-            Shop.AuthModal.open();
-            log.info("> регистрируемся (телефон={} / смс={})", phone, sms);
-            regSequenceMobile(phone, sms);
         }
 
         @Step("Регистрируем нового юзера по номеру телефона: {0}")
@@ -198,18 +188,22 @@ public final class User extends Base {
             kraken.perform().click(Elements.Modals.AuthModal.continueButton());
         }
 
+        @Step("Регистрируем нового юзера по номеру телефона: {0}, без согласия на получение выгодных предложений")
+        public static void registration(String phone, Boolean messaging) {
+            log.info("> регистрируемся (телефон={}", phone);
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
+                    Elements.Modals.AuthModal.phoneNumber().getLocator()),
+                    "поле для ввода мобильного телефона не отображается",Config.BASIC_TIMEOUT);
+            if(!messaging) kraken.perform().setCheckbox(Elements.Modals.AuthModal.agreementCheckbox(),false);
+            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.phoneNumber(),phone);
+            kraken.perform().click(Elements.Modals.AuthModal.continueButton());
+        }
+
         @Step("Заполняем форму регистрации без поддтверждения кода из смс: {0}")
         public static void registrationWithoutConfirmation(String phone) {
             Shop.AuthModal.open();
             log.info("> заполняем поля формы регистрации по телефону");
             kraken.perform().fillFieldAction(Elements.Modals.AuthModal.phoneNumber(),phone);
-        }
-
-        @Step("Заполняем поля формы регистрации по телефону")
-        public static void fillRegistrationFormByPhone(String phone){
-            log.info("> заполняем поля формы регистрации по телефону");
-            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.phoneNumber(),phone);
-            kraken.perform().click(Elements.Modals.AuthModal.continueButton());
         }
 
         @Step("Отправляем код из смс: {0}")
@@ -246,17 +240,6 @@ public final class User extends Base {
             Shop.AuthModal.switchToRegistrationTab();
             Shop.AuthModal.fillRegistrationForm(name, email, password, passwordConfirmation, true);
         }
-
-        public static void regSequenceMobile(String phone, String sms){
-            fillRegistrationFormByPhone(phone);
-            if(sms!=null){
-                sendSms(sms);
-                kraken.await().fluently(
-                        ExpectedConditions.invisibilityOfElementLocated(
-                                Elements.Modals.AuthModal.smsCode().getLocator()),
-                        "Превышено время редиректа с модалки авторизации через мобилку\n",60);
-            }
-       }
 
 
         public static class Gmail{

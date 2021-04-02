@@ -250,9 +250,9 @@ public final class Shop extends Base {
         }
 
         /** Выбрать первый адресный саджест */
-        @Step("Выбираем первый первый предложенный адрес")
+        @Step("Выбираем первый предложенный адрес")
         public static void selectAddressSuggest() {
-            log.info("> выбираем первый первый предложенный адрес");
+            log.info("> выбираем первый предложенный адрес");
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(Elements.spinner().getLocator()),
                     "элемент спинер не исчез, выбор саджестов невозможен",5);
@@ -260,11 +260,6 @@ public final class Shop extends Base {
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AddressModal.addressSuggest().getLocator()),
                     "саджесты не выбраны и все еще отображаются",Config.BASIC_TIMEOUT);
-//            if (kraken.detect().isShippingAddressSuggestsPresent()) {
-//
-//            } else {
-//                throw new AssertionError("Нет адресных подсказок, невозможно выбрать адрес");
-//            }
         }
 
         /** Применить введенный адрес в адресной модалке */

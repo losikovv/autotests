@@ -106,7 +106,11 @@ public final class PerformHelper extends HelperBase {
         webElement.click();
         webElement.clear();
         webElement.sendKeys(Keys.BACK_SPACE);
-        webElement.sendKeys(text);
+        if(!text.equals("")){
+            for (int i = 0; i < text.length(); i++) {
+                webElement.sendKeys(text.charAt(i) + "");
+            }
+        }else webElement.sendKeys(text);
     }
 
     /** Заполнить поле через метод Action*/
@@ -114,7 +118,11 @@ public final class PerformHelper extends HelperBase {
         Actions actions = new Actions(kraken.getWebDriver());
         actions.moveToElement(kraken.getWebDriver().findElement(element.getLocator())).click().perform();
         var element1 = kraken.getWebDriver().findElement(element.getLocator());
-        actions.click(element1).sendKeys(text).perform();
+        if(!text.equals("")){
+            for (int i = 0; i < text.length(); i++) {
+                element1.sendKeys(text.charAt(i) + "");
+            }
+        }else actions.click(element1).sendKeys(text).perform();
     }
 
     /** Установить чекбокс */
