@@ -1,4 +1,4 @@
-package ru.instamart.tests.api.delivery_club.contracts;
+package ru.instamart.tests.api.delivery_club.endpoints;
 
 import instamart.api.common.RestBase;
 import instamart.api.requests.delivery_club.AuthenticationDCRequest;
@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode401;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
@@ -24,9 +25,9 @@ public class AuthenticationDCTest extends RestBase {
 
     @CaseId(562)
     @Story("Авторизация")
-    @Test(groups = {"api-instamart-regress"},
-          description = "Получение токена")
-    public void postAuthToken() {
+    @Test(  groups = {"api-instamart-smoke"},
+            description = "Получение токена")
+    public void postAuthToken200() {
         final Response response = AuthenticationDCRequest.Token.POST(UserManager.getDeliveryClubUser());
         checkStatusCode200(response);
 
@@ -35,7 +36,16 @@ public class AuthenticationDCTest extends RestBase {
 
         final LocalDateTime localDateTimeFromResponse = LocalDateTime.parse(tokenResponse.getExpiresAt().substring(0, 19));
         final LocalDateTime dateNow = LocalDateTime.now(ZoneOffset.of(tokenResponse.getExpiresAt().substring(19, 25)));
-        assertTrue(localDateTimeFromResponse.isBefore(dateNow.plusMinutes(16).withNano(0)), "Токен истек раньше");
-        assertTrue(localDateTimeFromResponse.isAfter(dateNow.plusMinutes(14).withNano(0)), "Токен истек позже");
+        assertTrue(localDateTimeFromResponse.isBefore(dateNow.plusMinutes(16).withNano(0)), "Токен истекает раньше");
+        assertTrue(localDateTimeFromResponse.isAfter(dateNow.plusMinutes(14).withNano(0)), "Токен истекает позже");
+    }
+
+    @CaseId(573)
+    @Story("Авторизация")
+    @Test(  groups = {"api-instamart-regress"},
+                description = "Клиент не авторизован")
+    public void postAuthToken401() {
+        final Response response = AuthenticationDCRequest.Token.POST("","");
+        checkStatusCode401(response);
     }
 }

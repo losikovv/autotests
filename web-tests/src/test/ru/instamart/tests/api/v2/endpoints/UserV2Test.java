@@ -5,7 +5,7 @@ import instamart.api.common.RestBase;
 import instamart.api.enums.SessionType;
 import instamart.api.objects.v2.User;
 import instamart.api.requests.v2.UsersRequest;
-import instamart.api.responses.v2.ErrorResponse;
+import instamart.api.responses.ErrorResponse;
 import instamart.api.responses.v2.UserDataResponse;
 import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
