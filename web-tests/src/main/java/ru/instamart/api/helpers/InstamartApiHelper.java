@@ -9,6 +9,7 @@ import instamart.api.objects.v1.Offer;
 import instamart.api.objects.v2.*;
 import instamart.api.requests.ApiV1Requests;
 import instamart.api.requests.v2.*;
+import instamart.api.responses.ErrorResponse;
 import instamart.api.responses.v1.OffersResponse;
 import instamart.api.responses.v2.*;
 import instamart.core.util.MapUtil;

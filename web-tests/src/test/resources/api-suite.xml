@@ -58,10 +58,11 @@
      <class name="ru.instamart.tests.api.shopper.e2e.ShopperE2ETests"/>
    </classes>
  </test> <!-- api-shopper-tests -->
-  <test verbose="1" name="API Delivery Club Tests" parallel="none" thread-count="1">
+  <test verbose="1" name="API Delivery Club Tests" parallel="classes" thread-count="3">
     <classes>
-      <class name="ru.instamart.tests.api.delivery_club.contracts.StoresDCTest"/>
-      <class name="ru.instamart.tests.api.delivery_club.contracts.AuthenticationDCTest"/>
+      <class name="ru.instamart.tests.api.delivery_club.endpoints.StoresWithAuthDCTest"/>
+      <class name="ru.instamart.tests.api.delivery_club.endpoints.StoresWithoutAuthDCTest"/>
+      <class name="ru.instamart.tests.api.delivery_club.endpoints.AuthenticationDCTest"/>
     </classes>
   </test> <!-- api-delivery-club-tests -->
 </suite> <!-- Custom suite -->

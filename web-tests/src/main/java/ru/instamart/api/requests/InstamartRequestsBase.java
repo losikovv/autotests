@@ -39,7 +39,7 @@ public final class InstamartRequestsBase {
     }
 
     /**
-     * Добавляем хедер авторизации к запросу
+     * Добавляем хедер авторизации к запросу деливери клаб
      */
     public static RequestSpecification givenWithAuthDeliveryClub() {
         return given()

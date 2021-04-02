@@ -2,7 +2,7 @@ package instamart.api.checkpoints;
 
 import instamart.api.objects.v2.Order;
 import instamart.api.objects.v2.Taxon;
-import instamart.api.responses.v2.ErrorResponse;
+import instamart.api.responses.ErrorResponse;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -15,11 +15,11 @@ import java.util.List;
 
 public class InstamartApiCheckpoints {
 
-    @Step("Ответ вернул 200")
     public static void checkStatusCode200(Response response) {
         checkStatusCode200(response, "");
     }
 
+    @Step("Ответ вернул 200")
     public static void checkStatusCode200(Response response, String message) {
         response.then().assertThat().contentType(ContentType.JSON);
         String responseText = response.statusLine();
@@ -34,12 +34,18 @@ public class InstamartApiCheckpoints {
                 ErrorResponse errorResponse = response.as(ErrorResponse.class);
                 if (errorResponse.getErrors() != null) responseText = errorResponse.getErrors().getBase();
                 else if (errorResponse.getError() != null) responseText = errorResponse.getError();
+                else if (errorResponse.getMessage() != null) responseText =  errorResponse.getMessage();
                 break;
             case 502:
                 responseText = "СЕРВЕР ЛЕЖИТ";
                 break;
         }
         Assert.assertEquals(response.statusCode(),200, message + "\n" + responseText);
+    }
+
+    @Step("Ответ вернул 400")
+    public static void checkStatusCode400(final Response response) {
+        Assert.assertEquals(response.statusCode(), 400);
     }
 
     @Step("Ответ вернул 401")

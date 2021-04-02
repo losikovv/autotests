@@ -1,7 +1,6 @@
-package instamart.api.responses.v2;
+package instamart.api.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import instamart.api.responses.BaseResponseObject;
 import instamart.api.objects.v2.ErrorMessage;
 import instamart.api.objects.v2.Errors;
 import lombok.Data;
@@ -16,4 +15,6 @@ public class ErrorResponse extends BaseResponseObject {
     private Errors errors;
     @JsonProperty(value = "error_messages")
     private List<ErrorMessage> errorMessages = null;
+    private String message;
+    private String code;
 }

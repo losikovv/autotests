@@ -39,9 +39,11 @@ public class StoresDCRequest {
 
     public static class Notifications {
         @Step("{method} /" + DeliveryClubEndpoints.Stores.NOTIFICATIONS)
-        public static Response POST(final int sid, String orderNumber) {
+        public static Response POST(final int sid,
+                                    final String orderNumber,
+                                    final String notificationType) {
             JSONObject requestParams = new JSONObject();
-            requestParams.put("type", "paid_adjustment");
+            requestParams.put("type", notificationType);
             requestParams.put("orderId", orderNumber);
             return givenWithAuthDeliveryClub()
                     .contentType(ContentType.JSON)
@@ -137,9 +139,11 @@ public class StoresDCRequest {
 
         public static class Status {
             @Step("{method} /" + DeliveryClubEndpoints.Stores.Orders.STATUS)
-            public static Response PUT(final int sid, final String orderNumber) {
+            public static Response PUT(final int sid,
+                                       final String orderNumber,
+                                       final String status) {
                 JSONObject requestParams = new JSONObject();
-                requestParams.put("status", "canceled");
+                requestParams.put("status", status);
                 return givenWithAuthDeliveryClub()
                         .contentType(ContentType.JSON)
                         .body(requestParams)
