@@ -73,3 +73,17 @@ task apiInstamartSmoke(type: Test) {
         systemProperty 'qase.Project', 'INAPI'
     }
 }
+
+task apiRetailerE2E(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/api-suite.xml'
+        includeGroups 'api-retailer'
+        systemProperty 'env',"sbermarket-production"
+        systemProperty 'qase', "false"
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}

@@ -140,6 +140,24 @@ tests:ApiZonesProductionOnly:
       - web-tests/logs/
     expire_in: 1 week
 
+tests:ApiRetailerProductionOnly:
+  when: manual
+  stage: tests
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - gradle clean build apiRetailerE2E -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - cd web-tests
+    - bash ./report.sh api-retailer-e2e-production
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/build/allure-results/
+      - web-tests/logs/
+    expire_in: 1 week
+
 tests:UiSmoke:
   extends: ".template_run_all_jobs_at_a_time_on_master"
   stage: tests
