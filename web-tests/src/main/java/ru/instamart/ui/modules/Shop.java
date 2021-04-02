@@ -892,11 +892,6 @@ public final class Shop extends Base {
             collect(kraken.apiV2().getMinFirstOrderAmount(sid));
         }
 
-        @Step("Набираем корзину на минимальную сумму, достаточную для оформления первого заказа(Любимые)")
-        public static void collectForFavorite(int sid) {
-            collect(kraken.apiV2().getMinFirstOrderAmount(sid));
-        }
-
         /** Набрать корзину на указанную сумму */
         @Step("Набираем корзину на указанную сумму: {0}")
         public static void collect(int orderSum) {
@@ -912,7 +907,7 @@ public final class Shop extends Base {
                     if (kraken.detect().isFavoriteProductAvailable()) {
                         log.info("> любимый продукт найден");
                         Favorites.openFavoritesSnipet();
-                    }else{
+                    } else {
                         log.info("> нет любимых товаров на текущей странице {}", kraken.grab().currentURL());
                         //kraken.get().page(Pages.Retailers.metro());
                         kraken.getBasicUrl();
