@@ -3,7 +3,7 @@ package ru.instamart.tests.api.v2.endpoints;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v2.User;
 import instamart.api.requests.v2.UsersRequest;
-import instamart.api.responses.v2.ErrorResponse;
+import instamart.api.responses.ErrorResponse;
 import instamart.api.responses.v2.UserResponse;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;

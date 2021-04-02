@@ -11,6 +11,6 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class SlotsDCResponse extends BaseResponseObject {
-    public ZoneDC zone;
-    public List<SlotDC> slots;
+    private ZoneDC zone;
+    private List<SlotDC> slots;
 }

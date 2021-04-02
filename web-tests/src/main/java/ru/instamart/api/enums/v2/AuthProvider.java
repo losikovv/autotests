@@ -1,5 +1,10 @@
 package instamart.api.enums.v2;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum AuthProvider {
     METRO(
             "metro",
@@ -22,24 +27,7 @@ public enum AuthProvider {
     private final String sessionUid;
     private final String sessionDigest;
 
-    AuthProvider(String id, String sessionUid, String sessionDigest) {
-        this.id = id;
-        this.sessionUid = sessionUid;
-        this.sessionDigest = sessionDigest;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getSessionUid() {
-        return sessionUid;
-    }
-
-    public String getSessionDigest() {
-        return sessionDigest;
-    }
-
+    @Override
     public String toString() {
         return id;
     }

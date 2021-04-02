@@ -8,6 +8,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class ProductsDCResponse extends BaseResponseObject {
-    public Integer totalCount;
-    public ProductsDataDC data;
+    private Integer totalCount;
+    private ProductsDataDC data;
 }
