@@ -1,6 +1,5 @@
 package instamart.api;
 
-import com.google.common.base.Objects;
 import instamart.api.checkpoints.ShopperApiCheckpoints;
 import instamart.api.enums.SessionType;
 import instamart.api.helpers.RegistrationHelper;
@@ -13,8 +12,8 @@ import instamart.api.responses.v2.SessionsResponse;
 import instamart.core.testdata.UserManager;
 import instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 
 import java.util.Map;
@@ -22,9 +21,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
+@Slf4j
 public final class SessionFactory {
 
-    private static final Logger log = LoggerFactory.getLogger(SessionFactory.class);
+    @Getter
     private static final Map<SessionId, SessionInfo> sessionMap = new ConcurrentHashMap<>();
 
     public static void makeSession(final SessionType type) {
@@ -66,10 +66,6 @@ public final class SessionFactory {
         } else if (session == null) {
             sessionMap.put(sessionId, createSession(type, userData));
         }
-    }
-
-    public static Map<SessionId, SessionInfo> getAllSession() {
-        return sessionMap;
     }
 
     private static SessionInfo createSession(final SessionType type, final UserData userData) {
@@ -131,45 +127,18 @@ public final class SessionFactory {
         return new SessionInfo(userData, sessionResponse.getToken());
     }
 
+    @RequiredArgsConstructor
+    @Getter
+    @EqualsAndHashCode
+    @ToString
     private static final class SessionId {
+
         private final long threadId;
         private final SessionType type;
-
-        public SessionId(final long threadId, final SessionType type) {
-            this.threadId = threadId;
-            this.type = type;
-        }
-
-        public long getThreadId() {
-            return threadId;
-        }
-
-        public SessionType getType() {
-            return type;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            final SessionId sessionId = (SessionId) o;
-            return threadId == sessionId.threadId && type == sessionId.type;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(threadId, type);
-        }
-
-        @Override
-        public String toString() {
-            return "SessionId{" +
-                    "threadId=" + threadId +
-                    ", type=" + type +
-                    '}';
-        }
     }
 
+    @AllArgsConstructor
+    @Data
     public static final class SessionInfo {
 
         private final UserData userData;
@@ -184,60 +153,12 @@ public final class SessionFactory {
             this(userData, token, "empty");
         }
 
-        public SessionInfo(final UserData userData, final String token, final String refreshToken) {
-            this.userData = userData;
-            this.token = token;
-            this.refreshToken = refreshToken;
-        }
-
-        public UserData getUserData() {
-            return  this.userData;
-        }
-
         public String getLogin() {
             return this.userData.getLogin();
         }
 
         public String getPassword() {
             return this.userData.getPassword();
-        }
-
-        public void setToken(final String token) {
-            this.token = token;
-        }
-
-        public String getToken() {
-            return token;
-        }
-
-        public void setRefreshToken(final String refreshToken) {
-            this.refreshToken = refreshToken;
-        }
-
-        public String getRefreshToken() {
-            return refreshToken;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            final SessionInfo that = (SessionInfo) o;
-            return Objects.equal(userData, that.userData) && Objects.equal(token, that.token) && Objects.equal(refreshToken, that.refreshToken);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(userData, token, refreshToken);
-        }
-
-        @Override
-        public String toString() {
-            return "SessionInfo{" +
-                    "userData=" + userData +
-                    ", token='" + token + '\'' +
-                    ", refreshToken='" + refreshToken + '\'' +
-                    '}';
         }
     }
 }

@@ -105,7 +105,7 @@ public class RestDataProvider extends RestBase {
         return getStoreOfEachRetailer();
     }
 
-    @DataProvider(name = "storeOfEachRetailer")
+    @DataProvider(name = "storeOfEachRetailer", parallel = true)
     public static Object[][] getStoreOfEachRetailer() {
         Specification.setResponseSpecDataProvider();
 

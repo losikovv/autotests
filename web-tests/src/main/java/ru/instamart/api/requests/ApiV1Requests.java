@@ -67,10 +67,12 @@ public class ApiV1Requests {
         public static Response GET() {
             return givenApiV1().get(ApiV1Endpoints.RETAILERS);
         }
+
         @Step("{method} /" + ApiV1Endpoints.Retailers.ID)
         public static Response GET(int retailerId) {
             return givenApiV1().get(ApiV1Endpoints.Retailers.ID, retailerId);
         }
+
         public static class Stores {
             @Step("{method} /" + ApiV1Endpoints.Retailers.STORES)
             public static Response GET(int retailerId) {
