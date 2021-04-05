@@ -7,8 +7,6 @@ import instamart.api.objects.v2.User;
 import instamart.api.requests.v2.UsersRequest;
 import instamart.api.responses.ErrorResponse;
 import instamart.api.responses.v2.UserDataResponse;
-import instamart.core.listeners.ExecutionListenerImpl;
-import instamart.ui.common.pagesdata.UserData;
 import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import io.restassured.RestAssured;
@@ -17,7 +15,6 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.*;

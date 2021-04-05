@@ -20,8 +20,8 @@ import static org.testng.Assert.assertNull;
 public final class CategoriesV2Test extends RestBase {
 
     @CaseId(247)
-    @Test(groups = {"api-instamart-smoke"})
-    @Story("Существующий id")
+    @Story("Получить полную иерархию для категории")
+    @Test(groups = {"api-instamart-smoke"}, description = "Существующий id")
     public void testCategoriesWithId() {
         final Response response = CategoriesRequest.GET(1);
         checkStatusCode200(response);
@@ -29,8 +29,8 @@ public final class CategoriesV2Test extends RestBase {
     }
 
     @CaseId(248)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Не существующий id")
+    @Story("Получить полную иерархию для категории")
+    @Test(groups = {"api-instamart-regress"}, description = "Не существующий id")
     public void testCategoriesWithInvalidId() {
         final Response response = CategoriesRequest.GET(66666);
         checkStatusCode404(response);

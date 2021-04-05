@@ -21,8 +21,8 @@ import static org.testng.Assert.assertNotNull;
 public final class DepartmentsV2Test extends RestBase {
 
     @CaseId(261)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("С параметром offers_limit")
+    @Story("Данные для главной страницы")
+    @Test(groups = {"api-instamart-regress"}, description = "С параметром offers_limit")
     public void testDepartmentsWithOffersLimit() {
         final Response response = DepartmentsRequest.GET(1, 25);
         checkStatusCode200(response);
@@ -31,8 +31,8 @@ public final class DepartmentsV2Test extends RestBase {
     }
 
     @CaseId(255)
-    @Test(groups = {"api-instamart-smoke"})
-    @Story("Существующий sid")
+    @Story("Данные для главной страницы")
+    @Test(groups = {"api-instamart-smoke"}, description = "Существующий sid")
     public void testDepartmentsWithValidSid() {
         final Response response = DepartmentsRequest.GET(1, 25);
         checkStatusCode200(response);
@@ -41,16 +41,16 @@ public final class DepartmentsV2Test extends RestBase {
     }
 
     @CaseId(256)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Не существующий sid")
+    @Story("Данные для главной страницы")
+    @Test(groups = {"api-instamart-regress"}, description = "Не существующий sid")
     public void testDepartmentsWithInvalidSid() {
         final Response response = DepartmentsRequest.GET(99999999, 25);
         checkStatusCode404(response);
     }
 
     @CaseId(257)
-    @Test(groups = {"api-instamart-smoke"})
-    @Story("Существующий sid категории в магазине")
+    @Story("Выдача для страницы каталога")
+    @Test(groups = {"api-instamart-smoke"}, description = "Существующий sid категории в магазине")
     public void testDepartmentWithValidSId() {
         final Response response = DepartmentsRequest.Id.GET(16116, 1);
         checkStatusCode200(response);
@@ -64,16 +64,16 @@ public final class DepartmentsV2Test extends RestBase {
     }
 
     @CaseId(258)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Не существующий sid категории в магазине")
+    @Story("Выдача для страницы каталога")
+    @Test(groups = {"api-instamart-regress"}, description = "Не существующий sid категории в магазине")
     public void testDepartmentWithInvalidSId() {
         final Response response = DepartmentsRequest.Id.GET(16116, 999999);
         checkStatusCode404(response);
     }
 
     @CaseId(260)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Не существующий id категории в магазине")
+    @Story("Выдача для страницы каталога")
+    @Test(groups = {"api-instamart-regress"}, description = "Не существующий id категории в магазине")
     public void testDepartmentWithInvalidId() {
         final Response response = DepartmentsRequest.Id.GET(999999, 1);
         checkStatusCode404(response);

@@ -9,7 +9,6 @@ import instamart.core.testdata.dataprovider.RestDataProvider;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -24,8 +23,7 @@ import static org.testng.Assert.assertNotNull;
 public final class StoresV2Test extends RestBase {
 
     @CaseId(1)
-    @Test(groups = {"api-instamart-smoke"})
-    @Story("Получаем магазин")
+    @Test(groups = {"api-instamart-smoke"}, description = "Получаем магазин")
     public void getStore() {
         final Response response = StoresRequest.GET(1);
         checkStatusCode200(response);
@@ -33,8 +31,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(12)
-    @Test(groups = {"api-instamart-smoke"})
-    @Story("Получаем промо-акции в магазине")
+    @Test(groups = {"api-instamart-smoke"}, description = "Получаем промо-акции в магазине")
     public void getStorePromotionCards() {
         final Response response = StoresRequest.PromotionCards.GET(1);
         checkStatusCode200(response);
@@ -43,8 +40,10 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(7)
-    @Test(groups = {"api-instamart-smoke"}, dataProviderClass = RestDataProvider.class, dataProvider = "getStores")
-    @Story("Получаем список всех магазинов по указанным координатам")
+    @Test(groups = {"api-instamart-smoke"},
+            dataProviderClass = RestDataProvider.class,
+            dataProvider = "getStores",
+            description = "Получаем список всех магазинов по указанным координатам")
     public void testStoresWithData(final StoresRequest.Store store) {
         final Response response = StoresRequest.GET(store);
         checkStatusCode200(response);
@@ -53,16 +52,14 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(197)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Получаем магазин")
+    @Test(groups = {"api-instamart-regress"}, description = "Получаем магазин")
     public void testGetStoresWithInvalidSid() {
         final Response response = StoresRequest.GET(6666);
         checkStatusCode404(response);
     }
 
     @CaseId(198)
-    @Test(groups = {"api-instamart-smoke"})
-    @Story("Статус быстрой доставки с валидным sid")
+    @Test(groups = {"api-instamart-smoke"}, description = "Статус быстрой доставки с валидным sid")
     public void testGetFastDeliveryStatusWithValidSid() {
         final Response response = StoresRequest.GET(EnvironmentData.INSTANCE.getDefaultSid());
         checkStatusCode200(response);
@@ -71,8 +68,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(199)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Статус быстрой доставки с невалидным sid")
+    @Test(groups = {"api-instamart-regress"}, description = "Статус быстрой доставки с невалидным sid")
     public void testGetFastDeliveryStatusWithInvalidSid() {
         final Response response = StoresRequest.GET(6666);
         checkStatusCode404(response);

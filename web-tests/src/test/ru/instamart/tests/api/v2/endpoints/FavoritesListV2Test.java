@@ -8,7 +8,9 @@ import instamart.api.requests.v2.FavoritesRequest;
 import instamart.api.responses.v2.FavoritesItemResponse;
 import instamart.api.responses.v2.FavoritesListItemsResponse;
 import instamart.api.responses.v2.FavoritesSkuListItemResponse;
-import io.qameta.allure.*;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -33,9 +35,7 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(13)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Получаем пустой список любимых товаров")
-    @Severity(SeverityLevel.NORMAL)
+    @Test(groups = {"api-instamart-regress"}, description = "Получаем пустой список любимых товаров")
     public void testEmptyFavoritesList() {
         final Response response = FavoritesRequest.GET(1);
         checkStatusCode200(response);
@@ -43,9 +43,7 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(128)
-    @Test(groups = {"api-instamart-smoke"})
-    @Story("Добавление товара в избранное")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test(groups = {"api-instamart-smoke"}, description = "Добавление товара в избранное")
     public void testAddItemToFavoritesList() {
         final Response response = FavoritesRequest.POST(PRODUCT_ID);
         checkStatusCode200(response);
@@ -54,18 +52,14 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(129)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Добавление товара в избранное с несуществующим id")
-    @Severity(SeverityLevel.NORMAL)
+    @Test(groups = {"api-instamart-regress"}, description = "Добавление товара в избранное с несуществующим id")
     public void testNegativeAddItemToFavoritesList() {
         final Response response = FavoritesRequest.POST(1);
         checkStatusCode404(response);
     }
 
     @CaseId(130)
-    @Test(groups = {"api-instamart-smoke"})
-    @Story("Удаление товара из избранного")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test(groups = {"api-instamart-smoke"}, description = "Удаление товара из избранного")
     public void testDeleteItemToFavoritesList() {
         Response response = FavoritesRequest.POST(PRODUCT_ID_2);
         checkStatusCode200(response);
@@ -76,9 +70,7 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(131)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Получаем пустой список sku любимых товаров")
-    @Severity(SeverityLevel.NORMAL)
+    @Test(groups = {"api-instamart-regress"}, description = "Получаем пустой список sku любимых товаров")
     public void testEmptySkuFavoritesList() {
         final Response response = FavoritesRequest.ProductSku.GET();
         checkStatusCode200(response);
@@ -87,27 +79,21 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(132)
-    @Test(groups = {"api-instamart-smoke"})
-    @Story("Добавление товара в избранное по его Sku")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test(groups = {"api-instamart-smoke"}, description = "Добавление товара в избранное по его Sku")
     public void testAddItemToFavoritesListBySku() {
         final Response response = FavoritesRequest.ProductSku.POST(PRODUCT_SKU);
         checkStatusCode200(response);
     }
 
     @CaseId(133)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Добавление товара в избранное с несуществующим Sku")
-    @Severity(SeverityLevel.NORMAL)
+    @Test(groups = {"api-instamart-regress"}, description = "Добавление товара в избранное с несуществующим Sku")
     public void testNegativeAddItemToFavoritesListBySku() {
         final Response response = FavoritesRequest.ProductSku.POST(1);
         checkStatusCode422(response);
     }
 
     @CaseId(134)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Удаление товара из избранного по sku")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test(groups = {"api-instamart-regress"}, description = "Удаление товара из избранного по sku")
     public void testDeleteItemToFavoritesListBySku() {
         Response response = FavoritesRequest.ProductSku.POST(PRODUCT_SKU);
         checkStatusCode200(response);
