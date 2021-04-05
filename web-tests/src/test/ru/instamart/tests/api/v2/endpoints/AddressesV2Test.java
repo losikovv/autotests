@@ -97,7 +97,7 @@ public final class AddressesV2Test extends RestBase {
 
     @CaseId(232)
     @Story("Удалить адрес доставки")
-    @Test(groups = {"api-instamart-smoke"}, description = "Несуществующий id")
+    @Test(groups = {"api-instamart-regress"}, description = "Несуществующий id")
     public void testDeleteWithInvalidId() {
         final Response response = AddressesRequest.DELETE(666666);
         checkStatusCode404(response);
