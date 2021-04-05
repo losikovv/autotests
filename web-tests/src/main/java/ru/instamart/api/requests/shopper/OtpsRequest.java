@@ -15,9 +15,9 @@ public final class OtpsRequest {
          * Отправляем запрос для получения смс с кодом
          */
         @Step("{method} /" + ShopperApiEndpoints.Otps.TOKENS)
-        public static Response POST() {
+        public static Response POST(final String phone) {
             JSONObject requestParams = new JSONObject();
-            requestParams.put("phone","79588128783");
+            requestParams.put("phone", phone);
             return givenWithSpec()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
@@ -30,10 +30,10 @@ public final class OtpsRequest {
          * Авторизация по номеру телефона и коду из смс
          */
         @Step("{method} /" + ShopperApiEndpoints.Otps.AUTHORIZATIONS)
-        public static Response POST() {
+        public static Response POST(final String phone, final String code) {
             JSONObject requestParams = new JSONObject();
-            requestParams.put("phone","79588128783");
-            requestParams.put("code","111111");
+            requestParams.put("phone", phone);
+            requestParams.put("code", code);
             return givenWithSpec()
                     .contentType(ContentType.JSON)
                     .body(requestParams)

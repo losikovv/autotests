@@ -19,12 +19,11 @@ import org.testng.annotations.Test;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.checkIsDeliveryToday;
 import static instamart.api.checkpoints.ShopperApiCheckpoints.checkStatusCode200;
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
 @Epic("Shopper Mobile API")
 @Feature("Endpoints")
-public class ShipmentfulShopperTests extends RestBase {
+public class ShipmentfulShopperTest extends RestBase {
     String shipmentId;
     String assemblyId;
     String assemblyItemId;
@@ -61,7 +60,7 @@ public class ShipmentfulShopperTests extends RestBase {
     @CaseId(13)
     @Test(  description = "Создаём сборку",
             groups = {"api-shopper-smoke"})
-    public void postAssembly() {
+    public void postAssembly200() {
         response = AssembliesRequest.POST(shipmentId);
         checkStatusCode200(response);
         AssemblyData assembly = response.as(AssemblyResponse.class).getData();
@@ -78,10 +77,10 @@ public class ShipmentfulShopperTests extends RestBase {
     @CaseId(3)
     @Test(  description = "Получаем сборку по номеру",
             groups = {"api-shopper-smoke"},
-            dependsOnMethods = "postAssembly")
-    public void getAssembly() {
+            dependsOnMethods = "postAssembly200")
+    public void getAssembly200() {
         response = AssembliesRequest.GET(assemblyId);
-        assertEquals(response.getStatusCode(), 200);
+        checkStatusCode200(response);
         assertNotNull(itemQty = response.as(AssemblyResponse.class)
                         .getIncluded()
                         .get(0)
@@ -94,7 +93,7 @@ public class ShipmentfulShopperTests extends RestBase {
     @CaseId(5)
     @Test(  description = "Получаем все заказы для сборщика",
             groups = {"api-shopper-smoke"})
-    public void getShopperShipments() {
+    public void getShopperShipments200() {
         response = ShopperRequest.Shipments.GET();
         checkStatusCode200(response);
         assertNotNull(response.as(ShipmentsResponse.class).getData(),
@@ -105,8 +104,8 @@ public class ShipmentfulShopperTests extends RestBase {
     @CaseId(6)
     @Test(  description = "Получаем все сборки сборщика",
             groups = {"api-shopper-smoke"},
-            dependsOnMethods = "postAssembly")
-    public void getShopperAssemblies() {
+            dependsOnMethods = "postAssembly200")
+    public void getShopperAssemblies200() {
         response = ShopperRequest.Assemblies.GET();
         checkStatusCode200(response);
         assertNotNull(response.as(AssembliesResponse.class)
@@ -120,8 +119,8 @@ public class ShipmentfulShopperTests extends RestBase {
     @CaseId(7)
     @Test(  description = "Собираем товар",
             groups = {"api-shopper-smoke"},
-            dependsOnMethods = {"postAssembly", "getAssembly"})
-    public void patchAssemblyItem() {
+            dependsOnMethods = {"postAssembly200", "getAssembly200"})
+    public void patchAssemblyItem200() {
         response = AssemblyItemsRequest.PATCH(assemblyId, assemblyItemId, itemQty);
         checkStatusCode200(response);
         assertNotNull(response.as(AssemblyItemResponse.class).getData());
@@ -131,7 +130,7 @@ public class ShipmentfulShopperTests extends RestBase {
     @CaseId(8)
     @Test(  description = "Получаем тикеты хелпдеска",
             groups = {"api-shopper-smoke"})
-    public void getHelpdeskTickets() {
+    public void getHelpdeskTickets200() {
         response = HelpdeskRequest.Tickets.GET(shipmentId);
         checkStatusCode200(response);
         assertNotNull(response.as(TicketsResponse.class).getData(),
@@ -142,7 +141,7 @@ public class ShipmentfulShopperTests extends RestBase {
     @CaseId(9)
     @Test(  description = "Получаем заказ по номеру",
             groups = {"api-shopper-smoke"})
-    public void getShipment() {
+    public void getShipment200() {
         response = ShipmentsRequest.GET(shipmentId);
         checkStatusCode200(response);
         assertNotNull(response.as(ShipmentResponse.class)
@@ -157,8 +156,8 @@ public class ShipmentfulShopperTests extends RestBase {
     @CaseId(17)
     @Test(  description = "Получаем предзамены для позиций в сборке",
             groups = {"api-shopper-smoke"},
-            dependsOnMethods = "postAssembly")
-    public void getAssemblyItemPrereplacements() {
+            dependsOnMethods = "postAssembly200")
+    public void getAssemblyItemPrereplacements200() {
         response = AssemblyItemsRequest.Prereplacements.GET(assemblyItemId);
         checkStatusCode200(response);
         assertNotNull(response.as(PrereplacementsResponse.class).getPrereplacement(),
@@ -169,7 +168,7 @@ public class ShipmentfulShopperTests extends RestBase {
     @CaseId(22)
     @Test(  description = "Получаем инфу о стоках товаров в заказе",
             groups = {"api-shopper-smoke"})
-    public void getShipmentStock() {
+    public void getShipmentStock200() {
         response = ShipmentsRequest.Stocks.GET(shipmentId);
         checkStatusCode200(response);
         assertNotNull(response.as(ShipmentStocksResponse.class).getOffers().get(0).getStock(),
@@ -180,8 +179,8 @@ public class ShipmentfulShopperTests extends RestBase {
     @CaseId(44)
     @Test(  description = "Оплачиваем заказ через LifePay",
             groups = {"api-shopper-smoke"},
-            dependsOnMethods = "postAssembly")
-    public void putAssemblyLifePay() {
+            dependsOnMethods = "postAssembly200")
+    public void putAssemblyLifePay200() {
         response = AssembliesRequest.LifePay.PUT(assemblyId);
         checkStatusCode200(response);
     }
@@ -190,8 +189,8 @@ public class ShipmentfulShopperTests extends RestBase {
     @CaseId(45)
     @Test(  description = "Получаем маркетинговые пробники для заказа",
             groups = {"api-shopper-smoke"},
-            dependsOnMethods = "postAssembly")
-    public void getShipmentMarketingSampleItems() {
+            dependsOnMethods = "postAssembly200")
+    public void getShipmentMarketingSampleItems200() {
         response = ShipmentsRequest.MarketingSampleItems.GET(shipmentId);
         checkStatusCode200(response);
         assertNotNull(response.as(MarketingSampleItemsResponse.class).getMarketingSampleItems(),

@@ -24,6 +24,11 @@ public class ShopperApiCheckpoints {
         }
     }
 
+    @Step("Ответ вернул 401")
+    public static void checkStatusCode401(Response response) {
+        response.then().statusCode(401);
+    }
+
     public static String getErrorDetails(Response response) {
         try {
             List<Error> errors = response.as(ErrorResponse.class).getErrors();
