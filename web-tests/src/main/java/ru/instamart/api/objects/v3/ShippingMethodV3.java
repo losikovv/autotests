@@ -2,12 +2,22 @@ package instamart.api.objects.v3;
 
 import instamart.api.objects.BaseObject;
 
+import java.util.List;
 import java.util.StringJoiner;
 
 public class ShippingMethodV3 extends BaseObject {
 
     private String title;
     private String type;
+    private List<ShippingMethodOptionV3> options;
+
+    public List<ShippingMethodOptionV3> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<ShippingMethodOptionV3> options) {
+        this.options = options;
+    }
 
     public String getTitle() {
         return title;
