@@ -3,6 +3,7 @@ package ru.instamart.tests.api.v3.endpoints;
 import instamart.api.common.RestBase;
 import instamart.api.objects.v3.StoreV3;
 import instamart.api.requests.v3.OrderOptionsV3Request;
+import instamart.api.responses.v3.OrderOptionsPickupV3Response;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -24,6 +25,9 @@ public class OrderOptionsV3Test extends RestBase {
                 store.getId());
 
         checkStatusCode200(response);
+
+       // OrderOptionsPickupV3Response orderOptionsPickupV3Response = response.as(OrderOptionsPickupV3Response.class);
+
     }
 
     @Test(groups = {"api-instamart-regress"})
