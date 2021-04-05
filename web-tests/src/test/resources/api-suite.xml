@@ -53,8 +53,9 @@
  </test>
  <test verbose="1" name="API Shopper Tests" parallel="none" thread-count="3">
    <classes>
-     <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentfulShopperTests"/>
-     <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentlessShopperTests"/>
+     <class name="ru.instamart.tests.api.shopper.endpoints.ShopperWithoutAuthTest"/>
+     <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentfulShopperTest"/>
+     <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentlessShopperTest"/>
      <class name="ru.instamart.tests.api.shopper.e2e.ShopperE2ETests"/>
    </classes>
  </test> <!-- api-shopper-tests -->
