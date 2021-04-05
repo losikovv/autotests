@@ -1,10 +1,12 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
+import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
 import instamart.api.enums.SessionType;
 import instamart.api.requests.v2.AddressesRequest;
 import instamart.api.responses.v2.AddressesResponse;
+import instamart.core.listeners.ExecutionListenerImpl;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
@@ -12,9 +14,11 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
+import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode404;
 import static org.testng.Assert.assertEquals;
 
 @Epic("ApiV2")
@@ -28,12 +32,11 @@ public final class AddressesV2Test extends RestBase {
     }
 
     @CaseId(205)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Без обязательных полей")
+    @Story("Создание нового адреса доставки")
+    @Test(groups = {"api-instamart-regress"}, description = "Без обязательных полей")
     public void testWithOutRequiredFields() {
-        final AddressesRequest.Addresses addresses = AddressesRequest.Addresses.AddressesBuilder
-                .anAddresses()
-                .withFirstName("Имя сестра")
+        final AddressesRequest.Addresses addresses = AddressesRequest.Addresses.builder()
+                .firstName("Имя сестра")
                 .build();
         final Response response = AddressesRequest.POST(addresses);
         checkStatusCode200(response);
@@ -42,14 +45,13 @@ public final class AddressesV2Test extends RestBase {
     }
 
     @CaseId(206)
-    @Test(groups = {"api-instamart-smoke"})
-    @Story("Только с обязательными полями")
+    @Story("Создание нового адреса доставки")
+    @Test(groups = {"api-instamart-smoke"}, description = "Только с обязательными полями")
     public void testWithRequiredFields() {
-        final AddressesRequest.Addresses addresses = AddressesRequest.Addresses.AddressesBuilder
-                .anAddresses()
-                .withCity("Москоу")
-                .withStreet("Фридриха Энгельса")
-                .withBuilding("56")
+        final AddressesRequest.Addresses addresses = AddressesRequest.Addresses.builder()
+                .city("Москоу")
+                .street("Фридриха Энгельса")
+                .building("56")
                 .build();
         final Response response = AddressesRequest.POST(addresses);
         checkStatusCode200(response);
@@ -62,21 +64,42 @@ public final class AddressesV2Test extends RestBase {
     //TODO: Валидацию не завезли, отписал апсекам на посмотреть
     // Завели баг, после исправления нужно будет переделать тест
     @Issue("SBUG-35")
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Невалидные или пустые поля")
+    @Story("Создание нового адреса доставки")
+    @Test(groups = {"api-instamart-regress"}, description = "Невалидные или пустые поля")
     public void testWithInvalidValueInFields() {
-        final AddressesRequest.Addresses addresses = AddressesRequest.Addresses.AddressesBuilder
-                .anAddresses()
-                .withFirstName("<script>alert()</script>")
-                .withLastName("<script>alert()</script>")
-                .withBlock("<script>alert()</script>")
-                .withEntrance("<script>alert()</script>")
-                .withFloor("<script>alert()</script>")
-                .withApartment("<script>alert()</script>")
-                .withComments("<script>alert()</script>")
-                .withDoorPhone("<script>alert()</script>")
+        final AddressesRequest.Addresses addresses = AddressesRequest.Addresses.builder()
+                .firstName("<script>alert()</script>")
+                .lastName("<script>alert()</script>")
+                .block("<script>alert()</script>")
+                .entrance("<script>alert()</script>")
+                .floor("<script>alert()</script>")
+                .apartment("<script>alert()</script>")
+                .comments("<script>alert()</script>")
+                .doorPhone("<script>alert()</script>")
                 .build();
         final Response response = AddressesRequest.POST(addresses);
         checkStatusCode200(response);
+    }
+
+    @CaseId(231)
+    @Story("Удалить адрес доставки")
+    @Test(groups = {"api-instamart-smoke"}, description = "Существующий id")
+    public void testDeleteWithValidId() {
+        final AddressesRequest.Addresses addresses = AddressesRequest.Addresses.builder()
+                .firstName("Имя сестра")
+                .build();
+        Response response = AddressesRequest.POST(addresses);
+        checkStatusCode200(response);
+        final AddressesResponse addressesResponse = response.as(AddressesResponse.class);
+        response = AddressesRequest.DELETE(addressesResponse.getAddress().getId());
+        checkStatusCode200(response);
+    }
+
+    @CaseId(232)
+    @Story("Удалить адрес доставки")
+    @Test(groups = {"api-instamart-regress"}, description = "Несуществующий id")
+    public void testDeleteWithInvalidId() {
+        final Response response = AddressesRequest.DELETE(666666);
+        checkStatusCode404(response);
     }
 }

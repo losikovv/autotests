@@ -4,7 +4,9 @@ import instamart.api.SessionFactory;
 import instamart.api.common.RestBase;
 import instamart.api.enums.SessionType;
 import instamart.api.requests.v2.ResetPasswordRequest;
-import io.qameta.allure.*;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -24,9 +26,7 @@ public final class ResetPasswordV2Test extends RestBase {
 
     // not implemented endpoint
     @CaseId(183)
-    @Test(groups = {"api-instamart-regress"}, enabled = false)
-    @Story("Подстановка невалидного токена")
-    @Severity(SeverityLevel.NORMAL)
+    @Test(groups = {"api-instamart-regress"}, description = "Подстановка невалидного токена", enabled = false)
     public void testRestWithInvalidToken() {
         final Response response = ResetPasswordRequest.POST(
                 "token",
@@ -37,9 +37,7 @@ public final class ResetPasswordV2Test extends RestBase {
     }
 
     @CaseId(561)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Восстановление несуществующего аккаунта")
-    @Severity(SeverityLevel.NORMAL)
+    @Test(groups = {"api-instamart-regress"}, description = "Восстановление несуществующего аккаунта")
     public void testRestWithInvalidAccount() {
         final Response response = ResetPasswordRequest.POST(
                 "fake@mail.com"
@@ -50,9 +48,7 @@ public final class ResetPasswordV2Test extends RestBase {
 
     // not implemented endpoint
     @CaseId(184)
-    @Test(groups = {"api-instamart-regress"}, enabled = false)
-    @Story("Предупреждение при вводе старого пароля")
-    @Severity(SeverityLevel.NORMAL)
+    @Test(groups = {"api-instamart-regress"}, description = "Предупреждение при вводе старого пароля", enabled = false)
     public void testRestWithInvalidNewPassword() {
         final Response response = ResetPasswordRequest.POST(
                 "token",
@@ -64,9 +60,7 @@ public final class ResetPasswordV2Test extends RestBase {
 
     // not implemented endpoint
     @CaseId(185)
-    @Test(groups = {"api-instamart-regress"}, enabled = false)
-    @Story("Предупреждение при вводе невалидного пароля")
-    @Severity(SeverityLevel.NORMAL)
+    @Test(groups = {"api-instamart-regress"}, description = "Предупреждение при вводе невалидного пароля", enabled = false)
     public void testRestWithInvalidPassword() {
         final Response response = ResetPasswordRequest.POST(
                 "token",
@@ -78,9 +72,7 @@ public final class ResetPasswordV2Test extends RestBase {
 
     // not implemented endpoint
     @CaseId(186)
-    @Test(groups = {"api-instamart-regress"}, enabled = false)
-    @Story("Предупреждение при вводе невалидного проверочного пароля")
-    @Severity(SeverityLevel.NORMAL)
+    @Test(groups = {"api-instamart-regress"}, description = "Предупреждение при вводе невалидного проверочного пароля", enabled = false)
     public void testRestWithInvalidConformationPassword() {
         final Response response = ResetPasswordRequest.POST(
                 "token",
@@ -91,9 +83,7 @@ public final class ResetPasswordV2Test extends RestBase {
     }
 
     @CaseId(187)
-    @Test(groups = {"api-instamart-regress"})
-    @Story("Сброс пароля")
-    @Severity(SeverityLevel.NORMAL)
+    @Test(groups = {"api-instamart-regress"}, description = "Сброс пароля")
     public void testRestPassword() {
         final Response response = ResetPasswordRequest.POST(
                 SessionFactory.getSession(SessionType.APIV2).getLogin()
