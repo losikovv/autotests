@@ -23,7 +23,6 @@ import static org.testng.Assert.assertEquals;
 
 @Epic("ApiV2")
 @Feature("Добавление нового адреса")
-@Listeners(ExecutionListenerImpl.class)
 public final class AddressesV2Test extends RestBase {
 
     private int addressesId;
