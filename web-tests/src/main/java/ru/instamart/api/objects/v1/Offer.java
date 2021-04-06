@@ -70,4 +70,11 @@ public class Offer extends BaseObject {
     private Variant variant;
     @JsonProperty(value = "master_category")
     private MasterCategory masterCategory;
+
+    @Override
+    public String toString() {
+        return "store: " + store +
+                ";\nname: " + name +
+                ";\nactive: " + active;
+    }
 }

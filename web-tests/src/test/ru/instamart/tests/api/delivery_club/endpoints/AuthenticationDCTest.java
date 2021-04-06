@@ -42,7 +42,7 @@ public class AuthenticationDCTest extends RestBase {
 
     @CaseId(573)
     @Story("Авторизация")
-    @Test(  groups = {"api-instamart-regress"},
+    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
                 description = "Клиент не авторизован")
     public void postAuthToken401() {
         final Response response = AuthenticationDCRequest.Token.POST("","");

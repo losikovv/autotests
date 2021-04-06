@@ -37,7 +37,7 @@ public final class ResetPasswordV2Test extends RestBase {
     }
 
     @CaseId(561)
-    @Test(groups = {"api-instamart-regress"}, description = "Восстановление несуществующего аккаунта")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Восстановление несуществующего аккаунта")
     public void testRestWithInvalidAccount() {
         final Response response = ResetPasswordRequest.POST(
                 "fake@mail.com"
@@ -83,7 +83,7 @@ public final class ResetPasswordV2Test extends RestBase {
     }
 
     @CaseId(187)
-    @Test(groups = {"api-instamart-regress"}, description = "Сброс пароля")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Сброс пароля")
     public void testRestPassword() {
         final Response response = ResetPasswordRequest.POST(
                 SessionFactory.getSession(SessionType.APIV2).getLogin()

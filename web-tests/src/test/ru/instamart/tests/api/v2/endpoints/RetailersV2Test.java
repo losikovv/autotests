@@ -35,7 +35,7 @@ public final class RetailersV2Test extends RestBase {
     }
 
     @CaseId(203)
-    @Test(groups = {"api-instamart-smoke"}, description = "Получение ретейлера по валидному retailer id")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получение ретейлера по валидному retailer id")
     public void testGetRetailerWithValidRetailerId() {
         final Optional<Retailer> retailerOption = retailers.stream().findAny();
         assertTrue(retailerOption.isPresent(), "Ретейлеров нет в списке");
@@ -46,7 +46,7 @@ public final class RetailersV2Test extends RestBase {
     }
 
     @CaseId(204)
-    @Test(groups = {"api-instamart-regress"}, description = "Получение ретейлера по невалидному retailer id")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получение ретейлера по невалидному retailer id")
     public void testGetRetailerWithInvalidRetailerId() {
         final Response response = RetailersRequest.GET(66666);
         checkStatusCode404(response);

@@ -18,7 +18,7 @@ public class ProductsV2Test extends RestBase {
 
     @CaseId(2)
     @Test(  description = "Получаем продукты",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProducts() {
         response = ProductsRequest.GET(1, "");
         checkStatusCode200(response);
@@ -29,7 +29,7 @@ public class ProductsV2Test extends RestBase {
 
     @CaseId(10)
     @Test(  description = "Получаем продукт",
-            groups = {"api-instamart-smoke"},
+            groups = {"api-instamart-smoke", "api-instamart-prod"},
             dependsOnMethods = "getProducts")
     public void getProduct() {
         response = ProductsRequest.GET(productId);

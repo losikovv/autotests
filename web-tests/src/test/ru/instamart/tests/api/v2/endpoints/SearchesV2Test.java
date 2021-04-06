@@ -13,7 +13,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(3)
     @Test(  description = "Получаем поисковые подсказки",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getSearchSuggestions() {
         response = SearchesRequest.Suggestions.GET(1, "");
         InstamartApiCheckpoints.checkStatusCode200(response);

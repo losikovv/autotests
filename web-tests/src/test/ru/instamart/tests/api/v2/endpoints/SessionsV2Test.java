@@ -30,7 +30,7 @@ public final class SessionsV2Test extends RestBase {
     @CaseId(14)
     @Test(  dataProvider = "authProviders",
             dataProviderClass = RestDataProvider.class,
-            groups = {"api-instamart-smoke"},
+            groups = {"api-instamart-prod"},
             description = "Авторизуемся через стороннего провайдера")
     public void postAuthProvidersSessions(final AuthProvider authProvider) {
         if (!EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
@@ -42,7 +42,7 @@ public final class SessionsV2Test extends RestBase {
     }
 
     @CaseId(110)
-    @Test(groups = {"api-instamart-smoke"}, description = "Авторизуемся c Client-Id: InstamartApp (как мобильное приложение)")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Авторизуемся c Client-Id: InstamartApp (как мобильное приложение)")
     public void postSessionsInstamartApp() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
@@ -52,12 +52,13 @@ public final class SessionsV2Test extends RestBase {
     }
 
     @CaseId(161)
-    @Test(groups = {"api-instamart-regress"}, description = "Авторизация с невалидным email")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Авторизация с невалидным email")
     public void testInvalidAuth() {
         final Response response = SessionRequest.POST("email@invalid", "password");
         checkStatusCode401(response);
     }
 
+    //todo починить тест для прода
     @CaseId(162)
     @Test(groups = {"api-instamart-smoke"}, description = "Авторизация с валидным email")
     public void testValidAuth() {
@@ -69,7 +70,7 @@ public final class SessionsV2Test extends RestBase {
     }
 
     @CaseId(180)
-    @Test(groups = {"api-instamart-smoke"}, description = "Валидация сессионного токена")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Валидация сессионного токена")
     public void testSessionToken() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
@@ -79,14 +80,14 @@ public final class SessionsV2Test extends RestBase {
     }
 
     @CaseId(179)
-    @Test(groups = {"api-instamart-regress"}, description = "Невалидные сессионный токен")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Невалидные сессионный токен")
     public void testInvalidToken() {
         final Response response = SessionRequest.GET("aaaaaaaaa");
         checkStatusCode404(response);
     }
 
     @CaseId(182)
-    @Test(groups = {"api-instamart-smoke"}, description = "Валидация данных по сессионному токену")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Валидация данных по сессионному токену")
     public void testUserData() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
@@ -98,7 +99,7 @@ public final class SessionsV2Test extends RestBase {
     }
 
     @CaseId(181)
-    @Test(groups = {"api-instamart-regress"}, description = "Валидация данных по сессионному токену")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Валидация данных по сессионному токену")
     public void testUserDataWithInvalidToken() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);

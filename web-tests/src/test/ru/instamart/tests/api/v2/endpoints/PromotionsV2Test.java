@@ -13,7 +13,7 @@ public class PromotionsV2Test extends RestBase {
 
     @CaseId(17)
     @Test(  description = "Получаем инфу о реферальной программе",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getReferralProgram() {
         response = PromotionsRequest.ReferralProgram.GET();
         checkStatusCode200(response);

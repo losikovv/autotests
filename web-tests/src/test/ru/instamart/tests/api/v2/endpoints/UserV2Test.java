@@ -29,7 +29,7 @@ public final class UserV2Test extends RestBase {
     }
 
     @CaseId(150)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
     @Story("Изменение данных пользователя")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataAllField() {
@@ -49,7 +49,7 @@ public final class UserV2Test extends RestBase {
     }
 
     @CaseId(151)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
     @Story("Изменение данных пользователя на невалидные ФИ")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithInvalidFirstAndLastName() {
@@ -93,7 +93,7 @@ public final class UserV2Test extends RestBase {
     }
 
     @CaseId(153)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
     @Story("Изменение пароля с невалидным старым")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidOld() {
@@ -109,7 +109,7 @@ public final class UserV2Test extends RestBase {
     }
 
     @CaseId(155)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
     @Story("Изменение пароля с невалидным проверочным")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidConformation() {
@@ -125,7 +125,7 @@ public final class UserV2Test extends RestBase {
     }
 
     @CaseId(152)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups ={"api-instamart-regress", "api-instamart-prod"})
     @Story("Изменение пароля")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePassword() {
@@ -141,7 +141,7 @@ public final class UserV2Test extends RestBase {
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
     }
 
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
     @Story("Изменение одного поля пользователя")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataOneField() {
@@ -176,7 +176,7 @@ public final class UserV2Test extends RestBase {
     }
 
     @CaseId(158)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
     @Story("Изменить данные для с подтверждением promo")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithPromoAccept() {
@@ -191,7 +191,7 @@ public final class UserV2Test extends RestBase {
     }
 
     @CaseId(159)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
     @Story("Получение данных пользователя")
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserData() {
@@ -207,7 +207,7 @@ public final class UserV2Test extends RestBase {
     }
 
     @CaseId(558)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
     @Story("Попытка получить данные для несуществующего email")
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserDataWithIncorrectEmail() {
@@ -219,7 +219,7 @@ public final class UserV2Test extends RestBase {
     }
 
     @CaseId(160)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
     @Story("Попытка получение расширенных данных пользователя с невалидным token")
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserDataWithInvalidToken() {

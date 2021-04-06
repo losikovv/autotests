@@ -23,7 +23,7 @@ import static org.testng.Assert.assertNotNull;
 public final class StoresV2Test extends RestBase {
 
     @CaseId(1)
-    @Test(groups = {"api-instamart-smoke"}, description = "Получаем магазин")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получаем магазин")
     public void getStore() {
         final Response response = StoresRequest.GET(1);
         checkStatusCode200(response);
@@ -31,7 +31,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(12)
-    @Test(groups = {"api-instamart-smoke"}, description = "Получаем промо-акции в магазине")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получаем промо-акции в магазине")
     public void getStorePromotionCards() {
         final Response response = StoresRequest.PromotionCards.GET(1);
         checkStatusCode200(response);
@@ -40,7 +40,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(7)
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "getStores",
             description = "Получаем список всех магазинов по указанным координатам")
@@ -52,7 +52,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(197)
-    @Test(groups = {"api-instamart-regress"}, description = "Получаем магазин")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получаем магазин")
     public void testGetStoresWithInvalidSid() {
         final Response response = StoresRequest.GET(6666);
         checkStatusCode404(response);
@@ -68,7 +68,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(199)
-    @Test(groups = {"api-instamart-regress"}, description = "Статус быстрой доставки с невалидным sid")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Статус быстрой доставки с невалидным sid")
     public void testGetFastDeliveryStatusWithInvalidSid() {
         final Response response = StoresRequest.GET(6666);
         checkStatusCode404(response);
