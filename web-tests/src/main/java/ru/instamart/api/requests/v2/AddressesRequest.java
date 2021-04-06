@@ -35,6 +35,13 @@ public final class AddressesRequest {
                 .delete(ApiV2EndPoints.Addresses.ID, id);
     }
 
+    @Step("{method} /" + ApiV2EndPoints.Addresses.ID)
+    public static Response PUT(final int id, final Addresses addresses) {
+        return givenWithAuthApiV2()
+                .formParams(MapperService.INSTANCE.objectToMap(addresses))
+                .put(ApiV2EndPoints.Addresses.ID, id);
+    }
+
     /**
      * address[first_name]	-	Имя пользователя/контактого лица
      * address[last_name]	-	Фамилия пользоватя/контактного лица
