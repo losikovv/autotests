@@ -10,6 +10,7 @@ import instamart.api.objects.v2.Retailer;
 import instamart.api.objects.v2.Store;
 import instamart.api.objects.v2.Zone;
 import instamart.api.requests.ApiV1Requests;
+import instamart.api.requests.v2.AddressesRequest.Addresses;
 import instamart.api.requests.v2.StoresRequest;
 import instamart.api.responses.v1.OperationalZonesResponse;
 import org.testng.annotations.DataProvider;
@@ -255,6 +256,68 @@ public class RestDataProvider extends RestBase {
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .lon(RestAddresses.Moscow.defaultAddress().getLon())
                         .operationalZoneId(99999999)
+                        .build()
+                }
+        };
+    }
+
+    @DataProvider(name = "getAddresses")
+    public static Object[][] getAddresses() {
+        return new Object[][] {
+                {Addresses.builder()
+                        .firstName("")
+                        .build()
+                },
+                {Addresses.builder()
+                        .lastName("<script>alert()</script>")
+                        .build()
+                },
+                {Addresses.builder()
+                        .fullAddress("<script>alert()</script>")
+                        .build()
+                },
+                {Addresses.builder()
+                        .city("<script>alert()</script>")
+                        .build()
+                },
+                {Addresses.builder()
+                        .street("<script>alert()</script>")
+                        .build()
+                },
+                {Addresses.builder()
+                        .building("<script>alert()</script>")
+                        .build()
+                },
+                {Addresses.builder()
+                        .block("<script>alert()</script>")
+                        .build()
+                },
+                {Addresses.builder()
+                        .entrance("<script>alert()</script>")
+                        .build()
+                },
+                {Addresses.builder()
+                        .floor("<script>alert()</script>")
+                        .build()
+                },
+                {Addresses.builder()
+                        .apartment("<script>alert()</script>")
+                        .build()
+                },
+                {Addresses.builder()
+                        .comments("<script>alert()</script>")
+                        .build()
+                },
+                {Addresses.builder()
+                        .lon("<script>alert()</script>")
+                        .build()
+                },
+                {Addresses.builder()
+                        .lat("<script>alert()</script>")
+                        .build()
+                },
+                {Addresses.builder()
+                        .doorPhone("<script>alert()</script>")
                         .build()
                 }
         };
