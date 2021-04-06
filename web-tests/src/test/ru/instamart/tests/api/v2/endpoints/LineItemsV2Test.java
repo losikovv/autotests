@@ -1,6 +1,8 @@
 package ru.instamart.tests.api.v2.endpoints;
 
+import instamart.api.SessionFactory;
 import instamart.api.common.RestBase;
+import instamart.api.enums.SessionType;
 import instamart.api.objects.v2.LineItem;
 import instamart.api.requests.v2.LineItemsRequest;
 import instamart.api.requests.v2.ProductsRequest;
@@ -20,6 +22,7 @@ public class LineItemsV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Получение номера заказа и id продукта")
     public void preconditions() {
+        SessionFactory.makeSession(SessionType.APIV2);
         orderNumber = apiV2.getCurrentOrderNumber();
         productId = ProductsRequest
                 .GET(1, "")
@@ -49,5 +52,4 @@ public class LineItemsV2Test extends RestBase {
         checkStatusCode200(response);
         assertNotNull(response.as(LineItemResponse.class).getLineItem(), "Не удалился товар из корзины");
     }
-
 }
