@@ -45,7 +45,7 @@ public final class QaseService {
     private static final Logger logger = LoggerFactory.getLogger(QaseService.class);
 
     private static final Pattern ATTACHMENT_PATTERN_HASH = Pattern.compile(".+/(.+)/.+$");
-    private static final LocalDateTime DAYS_TO_DIE = LocalDateTime.now().minusDays(7);
+    private static final LocalDateTime DAYS_TO_DIE = LocalDateTime.now().minusWeeks(4);
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private final String projectCode;
@@ -263,11 +263,10 @@ public final class QaseService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteOldTestRuns() throws Exception {
+    public void deleteOldTestRuns() {
         final List<TestRun> testRunList = qaseApi.testRuns()
                 .getAll(projectCode, true)
                 .getTestRunList();
-
 
         testRunList.forEach(testRun -> {
             if (DAYS_TO_DIE.isAfter(testRun.getStartTime())) {
@@ -286,7 +285,7 @@ public final class QaseService {
         });
     }
 
-    public void deleteOldDefects() throws Exception {
+    public void deleteOldDefects() {
         final List<Defect> defects = qaseApi.defects().getAll(projectCode).getDefectList();
         defects.forEach(defect -> {
             final LocalDateTime dateTime = LocalDateTime.parse(defect.getCreated(), FORMATTER);
