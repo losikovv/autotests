@@ -21,7 +21,7 @@ public class PaymentToolsV2Test extends RestBase {
 
     @CaseId(20)
     @Test(  description = "Получаем инфу способах оплаты",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getPaymentTools() {
         response = PaymentToolsRequest.GET();
         checkStatusCode200(response);

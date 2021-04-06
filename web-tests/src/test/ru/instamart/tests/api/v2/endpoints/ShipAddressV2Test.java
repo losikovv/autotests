@@ -27,7 +27,7 @@ public final class ShipAddressV2Test extends RestBase {
     }
 
     @CaseId(233)
-    @Test(groups = {"api-instamart-smoke"})
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"})
     @Story("Существующий id для авторизованных")
     public void testAddressWithAuthAndValidOrderId() {
         final Response response = OrdersRequest.ShipAddress.GET(apiV2.getCurrentOrderNumber());
@@ -36,7 +36,7 @@ public final class ShipAddressV2Test extends RestBase {
     }
 
     @CaseId(234)
-    @Test(groups = {"api-instamart-smoke"})
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"})
     @Story("Несуществующий id для авторизованных")
     public void testAddressWithAuthAndInvalidOrderId() {
         final Response response = OrdersRequest.ShipAddress.GET("66666");
@@ -44,7 +44,7 @@ public final class ShipAddressV2Test extends RestBase {
     }
 
     @CaseId(235)
-    @Test(groups = {"api-instamart-smoke"})
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"})
     @Story("Существующий id для не авторизованных")
     public void testAddressWithoutAuthAndValidOrderId() {
         final Response response = OrdersRequest.ShipAddress.GET("invalid_token", apiV2.getCurrentOrderNumber());
@@ -52,7 +52,7 @@ public final class ShipAddressV2Test extends RestBase {
     }
 
     @CaseId(236)
-    @Test(groups = {"api-instamart-regress"})
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
     @Story("Несуществующий id для не авторизованных")
     public void testAddressWithoutAuthAndInvalidOrderId() {
         final Response response = OrdersRequest.ShipAddress.GET("invalid_token","66666");
@@ -61,7 +61,7 @@ public final class ShipAddressV2Test extends RestBase {
 
     @CaseId(237)
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {"api-instamart-smoke"}, description = "Существующий id для авторизованных")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Существующий id для авторизованных")
     public void testChangeAddressWithValidIdAndAuth() {
         final Response response = OrdersRequest.ShipAddressChange.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
@@ -71,7 +71,7 @@ public final class ShipAddressV2Test extends RestBase {
 
     @CaseId(238)
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {"api-instamart-regress"}, description = "Несуществующий id для авторизованных")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий id для авторизованных")
     public void testChangeAddressWithInvalidIdAndValidAuth() {
         final Response response = OrdersRequest.ShipAddressChange.GET("66666");
         checkStatusCode404(response);
@@ -79,7 +79,7 @@ public final class ShipAddressV2Test extends RestBase {
 
     @CaseId(239)
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {"api-instamart-regress"}, description = "Существующий id для не авторизованных")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Существующий id для не авторизованных")
     public void testChangeAddressWithValidIdAndInvalidAuth() {
         final Response response = OrdersRequest.ShipAddressChange.GET("invalid_token", apiV2.getCurrentOrderNumber());
         checkStatusCode403(response);
@@ -87,7 +87,7 @@ public final class ShipAddressV2Test extends RestBase {
 
     @CaseId(240)
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {"api-instamart-regress"}, description = "Несуществующий id для не авторизованных")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий id для не авторизованных")
     public void testChangeAddressWithInvalidIdAndInvalidAuth() {
         final Response response = OrdersRequest.ShipAddressChange.GET("invalid_token", "6666666");
         checkStatusCode404(response);

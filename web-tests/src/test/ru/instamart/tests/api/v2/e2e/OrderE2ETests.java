@@ -24,7 +24,7 @@ public class OrderE2ETests extends RestBase {
     }
 
     @CaseId(101)
-    @Test(description = "Тест оформления заказа", groups = "api-instamart-regress")
+    @Test(description = "Тест оформления заказа", groups = {"api-instamart-regress", "api-instamart-prod"})
     public void order() {
         apiV2.order(SessionFactory.getSession(SessionType.APIV2).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
     }

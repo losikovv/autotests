@@ -28,7 +28,7 @@ public final class RegistrationV2Test extends RestBase {
     private final String minCharPassword = "instam";
 
     @CaseId(138)
-    @Test(groups = {"api-instamart-regress"}, description = "Успешная регистрация")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Успешная регистрация")
     public void testSuccessRegistration() {
         final UserData userData = UserManager.getUser();
 
@@ -50,7 +50,7 @@ public final class RegistrationV2Test extends RestBase {
     }
 
     @CaseId(139)
-    @Test(groups = {"api-instamart-regress"}, description = "Успешная регистрация без согласия на рассылку")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Успешная регистрация без согласия на рассылку")
     public void testSuccessRegistrationWithoutPromoAccept() {
         final UserData userData = UserManager.getUser();
 
@@ -72,7 +72,7 @@ public final class RegistrationV2Test extends RestBase {
     }
 
     @CaseId(140)
-    @Test(groups = {"api-instamart-regress"}, description = "Успешная регистрация b2b")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Успешная регистрация b2b")
     public void testSuccessRegistrationB2b() {
         final UserData userData = UserManager.getUser();
 
@@ -94,7 +94,7 @@ public final class RegistrationV2Test extends RestBase {
     }
 
     @CaseId(141)
-    @Test(groups = {"api-instamart-regress"}, description = "Успешная регистрация b2b без согласия на рассылку")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Успешная регистрация b2b без согласия на рассылку")
     public void testSuccessRegistrationB2bWithoutPromoAccept() {
         final UserData userData = UserManager.getUser();
 
@@ -116,7 +116,7 @@ public final class RegistrationV2Test extends RestBase {
     }
 
     @CaseId(142)
-    @Test(groups = {"api-instamart-regress"}, description = "Неверный формат email")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Неверный формат email")
     public void wrongEmailFormat() {
         final Response response = UsersRequest.POST(
                 "example.com",
@@ -130,7 +130,7 @@ public final class RegistrationV2Test extends RestBase {
     }
 
     @CaseId(143)
-    @Test(groups = {"api-instamart-regress"}, description = "Короткий пароль")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Короткий пароль")
     public void shortPassword() {
         final Response response = UsersRequest.POST(
                 Generate.email(),
@@ -143,7 +143,7 @@ public final class RegistrationV2Test extends RestBase {
                 "Не может быть короче 6 символов");
     }
 
-    @Test(groups = {"api-instamart-regress"}, description = "Пустой email")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Пустой email")
     public void emptyEmail() {
         final Response response = UsersRequest.POST(
                 "",
@@ -157,7 +157,7 @@ public final class RegistrationV2Test extends RestBase {
     }
 
     @CaseId(145)
-    @Test(groups = {"api-instamart-regress"}, description = "Пустое имя")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Пустое имя")
     public void testWithInvalidFirstAndLastName() {
         final String email = Generate.email();
 
@@ -172,7 +172,7 @@ public final class RegistrationV2Test extends RestBase {
                 "не может быть пустым");
     }
 
-    @Test(groups = {"api-instamart-regress"}, description = "Пустые имя и фамилия")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Пустые имя и фамилия")
     public void emptyFirstAndLastNames() {
         final String email = Generate.email();
 
@@ -187,7 +187,7 @@ public final class RegistrationV2Test extends RestBase {
                 "не может быть пустым");
     }
 
-    @Test(groups = {"api-instamart-regress"}, description = "Пустой пароль")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Пустой пароль")
     public void emptyPassword() {
         final String email = Generate.email();
 
@@ -203,7 +203,7 @@ public final class RegistrationV2Test extends RestBase {
     }
 
     @CaseId(146)
-    @Test(groups = {"api-instamart-regress"}, description = "Успешная регистрация с указанием location")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Успешная регистрация с указанием location")
     public void testSuccessRegistrationWithLocation() {
         final UserData userData = UserManager.getUser();
 
@@ -225,7 +225,7 @@ public final class RegistrationV2Test extends RestBase {
     }
 
     @CaseId(149)
-    @Test(groups = {"api-instamart-regress"}, description = "Успешная регистрация с указанием anonymousId")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Успешная регистрация с указанием anonymousId")
     public void testSuccessRegistrationWithAnonymousId() {
         final UserData userData = UserManager.getUser();
 

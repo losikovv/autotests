@@ -13,7 +13,7 @@ public class OnboardingPagesV2Test extends RestBase {
 
     @CaseId(15)
     @Test(  description = "Получаем экраны онбординга",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getOnboardingPages() {
         response = OnboardingPagesRequest.GET();
         checkStatusCode200(response);

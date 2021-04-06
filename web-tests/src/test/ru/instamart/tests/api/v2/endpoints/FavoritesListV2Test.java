@@ -35,7 +35,7 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(13)
-    @Test(groups = {"api-instamart-regress"}, description = "Получаем пустой список любимых товаров")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получаем пустой список любимых товаров")
     public void testEmptyFavoritesList() {
         final Response response = FavoritesRequest.GET(1);
         checkStatusCode200(response);
@@ -43,7 +43,7 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(128)
-    @Test(groups = {"api-instamart-smoke"}, description = "Добавление товара в избранное")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Добавление товара в избранное")
     public void testAddItemToFavoritesList() {
         final Response response = FavoritesRequest.POST(PRODUCT_ID);
         checkStatusCode200(response);
@@ -52,14 +52,14 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(129)
-    @Test(groups = {"api-instamart-regress"}, description = "Добавление товара в избранное с несуществующим id")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Добавление товара в избранное с несуществующим id")
     public void testNegativeAddItemToFavoritesList() {
         final Response response = FavoritesRequest.POST(1);
         checkStatusCode404(response);
     }
 
     @CaseId(130)
-    @Test(groups = {"api-instamart-smoke"}, description = "Удаление товара из избранного")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Удаление товара из избранного")
     public void testDeleteItemToFavoritesList() {
         Response response = FavoritesRequest.POST(PRODUCT_ID_2);
         checkStatusCode200(response);
@@ -70,7 +70,7 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(131)
-    @Test(groups = {"api-instamart-regress"}, description = "Получаем пустой список sku любимых товаров")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получаем пустой список sku любимых товаров")
     public void testEmptySkuFavoritesList() {
         final Response response = FavoritesRequest.ProductSku.GET();
         checkStatusCode200(response);
@@ -79,21 +79,21 @@ public class FavoritesListV2Test extends RestBase {
     }
 
     @CaseId(132)
-    @Test(groups = {"api-instamart-smoke"}, description = "Добавление товара в избранное по его Sku")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Добавление товара в избранное по его Sku")
     public void testAddItemToFavoritesListBySku() {
         final Response response = FavoritesRequest.ProductSku.POST(PRODUCT_SKU);
         checkStatusCode200(response);
     }
 
     @CaseId(133)
-    @Test(groups = {"api-instamart-regress"}, description = "Добавление товара в избранное с несуществующим Sku")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Добавление товара в избранное с несуществующим Sku")
     public void testNegativeAddItemToFavoritesListBySku() {
         final Response response = FavoritesRequest.ProductSku.POST(1);
         checkStatusCode422(response);
     }
 
     @CaseId(134)
-    @Test(groups = {"api-instamart-regress"}, description = "Удаление товара из избранного по sku")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Удаление товара из избранного по sku")
     public void testDeleteItemToFavoritesListBySku() {
         Response response = FavoritesRequest.ProductSku.POST(PRODUCT_SKU);
         checkStatusCode200(response);

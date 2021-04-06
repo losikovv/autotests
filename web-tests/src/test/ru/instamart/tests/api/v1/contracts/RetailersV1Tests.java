@@ -15,7 +15,7 @@ public class RetailersV1Tests extends RestBase {
 
     @CaseId(122)
     @Test(  description = "Контрактный тест списка ритейлеров",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getRetailers() {
         Response response = ApiV1Requests.Retailers.GET();
         checkStatusCode200(response);
@@ -24,7 +24,7 @@ public class RetailersV1Tests extends RestBase {
 
     @CaseId(123)
     @Test(  description = "Контрактный тест ритейлера",
-            groups = "api-instamart-regress",
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "retailersSpree-parallel")
     public void getRetailer(Retailer retailer) {
@@ -35,7 +35,7 @@ public class RetailersV1Tests extends RestBase {
 
     @CaseId(124)
     @Test(  description = "Контрактный тест списка штрихкодов у ритейлера",
-            groups = "api-instamart-regress",
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "retailersSpree-parallel")
     public void getRetailerEans(Retailer retailer) {

@@ -725,12 +725,16 @@ public final class InstamartApiHelper {
         return orders;
     }
 
-    public List<Offer> getOffers(String storeUuid) {
+    public List<Offer> getActiveOffers(String storeUuid) {
         return ApiV1Requests.Stores.Offers.GET(
                 storeUuid,
                 "вода",
                 "")
-                .as(OffersResponse.class).getOffers();
+                .as(OffersResponse.class)
+                .getOffers()
+                .stream()
+                .filter(Offer::getActive)
+                .collect(Collectors.toList());
     }
 
     /*

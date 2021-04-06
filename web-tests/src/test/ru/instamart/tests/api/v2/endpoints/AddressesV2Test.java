@@ -1,12 +1,10 @@
 package ru.instamart.tests.api.v2.endpoints;
 
 import instamart.api.SessionFactory;
-import instamart.api.checkpoints.InstamartApiCheckpoints;
 import instamart.api.common.RestBase;
 import instamart.api.enums.SessionType;
 import instamart.api.requests.v2.AddressesRequest;
 import instamart.api.responses.v2.AddressesResponse;
-import instamart.core.listeners.ExecutionListenerImpl;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
@@ -14,7 +12,6 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
@@ -33,7 +30,7 @@ public final class AddressesV2Test extends RestBase {
 
     @CaseId(205)
     @Story("Создание нового адреса доставки")
-    @Test(groups = {"api-instamart-regress"}, description = "Без обязательных полей")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Без обязательных полей")
     public void testWithOutRequiredFields() {
         final AddressesRequest.Addresses addresses = AddressesRequest.Addresses.builder()
                 .firstName("Имя сестра")
@@ -46,7 +43,7 @@ public final class AddressesV2Test extends RestBase {
 
     @CaseId(206)
     @Story("Создание нового адреса доставки")
-    @Test(groups = {"api-instamart-smoke"}, description = "Только с обязательными полями")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Только с обязательными полями")
     public void testWithRequiredFields() {
         final AddressesRequest.Addresses addresses = AddressesRequest.Addresses.builder()
                 .city("Москоу")
@@ -83,7 +80,7 @@ public final class AddressesV2Test extends RestBase {
 
     @CaseId(231)
     @Story("Удалить адрес доставки")
-    @Test(groups = {"api-instamart-smoke"}, description = "Существующий id")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Существующий id")
     public void testDeleteWithValidId() {
         final AddressesRequest.Addresses addresses = AddressesRequest.Addresses.builder()
                 .firstName("Имя сестра")
@@ -97,9 +94,9 @@ public final class AddressesV2Test extends RestBase {
 
     @CaseId(232)
     @Story("Удалить адрес доставки")
-    @Test(groups = {"api-instamart-regress"}, description = "Несуществующий id")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий id")
     public void testDeleteWithInvalidId() {
-        final Response response = AddressesRequest.DELETE(666666);
+        final Response response = AddressesRequest.DELETE(0);
         checkStatusCode404(response);
     }
 }

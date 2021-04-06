@@ -32,7 +32,7 @@ public final class TaxonsV2Test extends RestBase {
     private int taxonId;
 
     @CaseId(11)
-    @Test(groups = {"api-instamart-smoke"}, description = "Получаем таксоны (подкатегории)")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получаем таксоны (подкатегории)")
     public void getTaxons() {
         response = TaxonsRequest.GET(EnvironmentData.INSTANCE.getDefaultSid());
         checkStatusCode200(response);
@@ -42,7 +42,7 @@ public final class TaxonsV2Test extends RestBase {
     }
 
     @CaseId(6)
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             dependsOnMethods = "getTaxons",
             description = "Получаем таксон (подкатегорию)")
     public void getTaxon() {
@@ -63,21 +63,21 @@ public final class TaxonsV2Test extends RestBase {
     }
 
     @CaseId(250)
-    @Test(groups = {"api-instamart-regress"}, description = "Несуществующий sid")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий sid")
     public void testWithInvalidSid() {
         final Response response = TaxonsRequest.GET(6666);
         checkStatusCode404(response);
     }
 
     @CaseId(252)
-    @Test(groups = {"api-instamart-regress"}, description = "Информация о категории с невалидной категорией")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Информация о категории с невалидной категорией")
     public void testGetCategoryWithInvalidCategory() {
-        final Response response = TaxonsRequest.GET(6666, EnvironmentData.INSTANCE.getDefaultSid());
+        final Response response = TaxonsRequest.GET(0, EnvironmentData.INSTANCE.getDefaultSid());
         checkStatusCode404(response);
     }
 
     @CaseId(254)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getTaxons",
             description = "Информация о категории с валидной категорией и несуществующим sid")
     public void testGetCategoryWithInvalidSid() {

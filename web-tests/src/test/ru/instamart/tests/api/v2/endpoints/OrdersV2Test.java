@@ -25,7 +25,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(4)
     @Test(  description = "Получаем заказы",
-            groups = {"api-instamart-smoke","MRAutoCheck"})
+            groups = {"api-instamart-smoke", "MRAutoCheck", "api-instamart-prod"})
     public void getOrders() {
         response = OrdersRequest.GET();
         InstamartApiCheckpoints.checkStatusCode200(response);
@@ -34,7 +34,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(5)
     @Test(  description = "Получаем текущий заказ",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getCurrentOrder() {
         response = OrdersRequest.Current.GET();
         response.prettyPrint();
@@ -45,7 +45,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(9)
     @Test(  description = "Получаем заказ",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getOrder() {
         response = OrdersRequest.GET(apiV2.getCurrentOrderNumber());
         InstamartApiCheckpoints.checkStatusCode200(response);
@@ -54,7 +54,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(19)
     @Test(  description = "Получаем заказы для оценки",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getUnratedOrders() {
         response = OrdersRequest.Unrated.GET();
         InstamartApiCheckpoints.checkStatusCode200(response);
@@ -63,7 +63,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(16)
     @Test(  description = "Получаем товары в заказе",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getOrderLineItems() {
         response = OrdersRequest.LineItems.GET(apiV2.getCurrentOrderNumber());
         InstamartApiCheckpoints.checkStatusCode200(response);

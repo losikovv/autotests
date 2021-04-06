@@ -201,7 +201,7 @@ public class RestDataProvider extends RestBase {
 
         List<Offer> offerList = storeList
                 .stream().parallel()
-                .map(store -> apiV2.getOffers(store.getUuid()))
+                .map(store -> apiV2.getActiveOffers(store.getUuid()))
                 .filter(storeOffers -> !storeOffers.isEmpty())
                 .map(storeOffers -> storeOffers.get(0))
                 .collect(Collectors.toList());
