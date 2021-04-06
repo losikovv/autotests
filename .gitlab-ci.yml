@@ -110,6 +110,24 @@ tests:ApiInstamart:
       - web-tests/logs/
     expire_in: 1 week
 
+tests:ApiInstamartProductionOnly:
+  when: manual
+  stage: tests
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - gradle clean build apiInstamartProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - cd web-tests
+    - bash ./report.sh api-instamart-production
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/build/allure-results/
+      - web-tests/logs/
+    expire_in: 1 week    
+
 tests:ApiShopper:
   extends:
     - ".template_tests_apishopper"
@@ -119,6 +137,24 @@ tests:ApiShopper:alone:
   extends:
     - ".template_tests_apishopper"
     - ".template_tests_apishopper_alone"
+
+tests:ApiShopperProductionOnly:
+  when: manual
+  stage: tests
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - gradle clean build apiShopperProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - cd web-tests
+    - bash ./report.sh api-shopper-production
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/build/allure-results/
+      - web-tests/logs/
+    expire_in: 1 week      
 
 tests:ApiZonesProductionOnly:
   when: manual
