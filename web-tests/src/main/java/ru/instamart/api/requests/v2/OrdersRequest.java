@@ -136,6 +136,29 @@ public final class OrdersRequest {
         }
 
         @Step("{method} /" + ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE)
+        public static Response PUT(final String token, final Address address, final String orderNumber) {
+            Map<String, Object> data = new HashMap<>();
+
+            if (address.getCity() != null) data.put("ship_address[city]", address.getCity());
+            if (address.getStreet() != null) data.put("ship_address[street]", address.getStreet());
+            if (address.getBuilding() != null) data.put("ship_address[building]", address.getBuilding());
+            if (address.getDoorPhone() != null) data.put("ship_address[door_phone]", address.getDoorPhone());
+            if (address.getApartment() != null) data.put("ship_address[apartment]", address.getApartment());
+            if (address.getComments() != null) data.put("ship_address[comments]", address.getComments());
+            if (address.getFloor() != null) data.put("ship_address[floor]", address.getFloor());
+            if (address.getEntrance() != null) data.put("ship_address[entrance]", address.getEntrance());
+            if (address.getLat() != null) data.put("ship_address[lat]", address.getLat());
+            if (address.getLon() != null) data.put("ship_address[lon]", address.getLon());
+            if (address.getFirstName() != null) data.put("ship_address[first_name]", address.getFirstName());
+            if (address.getLastName() != null) data.put("ship_address[last_name]", address.getLastName());
+            if (address.getBlock() != null) data.put("ship_address[block]", address.getBlock());
+
+            return givenCustomToken(token)
+                    .formParams(data)
+                    .put(ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE, orderNumber);
+        }
+
+        @Step("{method} /" + ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE)
         public static Response GET(final String orderNumber) {
             return givenWithAuthApiV2()
                     .get(ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE, orderNumber);
