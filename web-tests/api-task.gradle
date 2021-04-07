@@ -104,3 +104,20 @@ task apiInstamartProduction(type: Test) {
         systemProperty 'qase.Project', 'INAPI'
     }
 }
+
+task apiShopperProduction(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/api-suite.xml'
+        includeGroups 'api-shopper-prod'
+        systemProperty 'env',"sbermarket-production"
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase.plan.id', 2
+        systemProperty 'qase.Project', 'SHAPI'
+    }
+}
