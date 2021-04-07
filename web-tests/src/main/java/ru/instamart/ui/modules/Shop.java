@@ -907,7 +907,8 @@ public final class Shop extends Base {
                 if (kraken.detect().isProductAvailable()) {
                     if (kraken.detect().isFavoriteProductAvailable()) {
                         log.info("> любимый продукт найден");
-                        kraken.get().userFavoritesPage(); //ошибка на шаге просмотра карточки в любимых продуктах
+                        Shop.Favorites.open();
+                        //kraken.get().userFavoritesPage(); //ошибка на шаге просмотра карточки в любимых продуктах
                         Favorites.openFavoritesSnipet();
                         //Catalog.Item.open();
                     } else {

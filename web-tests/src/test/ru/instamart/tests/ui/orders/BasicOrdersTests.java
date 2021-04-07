@@ -32,10 +32,6 @@ public class BasicOrdersTests extends TestBase {
 
     // TODO successOrderWithCash
 
-    // TODO successOrderWithNewBankCard
-
-    // TODO successOrderWithCardCourier
-
     // TODO successOrderWithNewJuridical
 
     // TODO successOrderWithBonus
@@ -160,7 +156,8 @@ public class BasicOrdersTests extends TestBase {
     @CaseId(1681)
     @Test(
             description = "Тест заказа с любимыми товарами",
-            groups = {"sbermarket-regression","testing", "sbermarket-Ui-smoke"}
+            groups = {"sbermarket-regression","testing", "sbermarket-Ui-smoke"},
+            enabled = false
     )
     public void successOrderWithFavProducts() {
         Shop.Catalog.Item.addToFavorites();
@@ -184,5 +181,4 @@ public class BasicOrdersTests extends TestBase {
         orderCheck.checkOrderSuccessCreation();
         orderCheck.checkPaymentMethod(paymentMethod);
     }
-
 }
