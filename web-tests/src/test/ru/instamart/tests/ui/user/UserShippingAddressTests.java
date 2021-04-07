@@ -8,11 +8,17 @@ import instamart.ui.common.lib.Addresses;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 
+@Epic("STF UI")
+@Feature("Адрес доставки")
 public class UserShippingAddressTests extends TestBase {
 
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
@@ -26,11 +32,13 @@ public class UserShippingAddressTests extends TestBase {
         User.Logout.quickly();
     }
 
+    @CaseId(1558)
+    @Story("Дефолтные настройки адреса доставки")
     @Test(
             description = "Тест на то что по дефолту на витрине ритейлера не выбран адрес",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression","MRAutoCheck"
+                    "sbermarket-Ui-smoke","MRAutoCheck"
             }
     )
     public void noShippingAddressByDefault() {
@@ -42,7 +50,6 @@ public class UserShippingAddressTests extends TestBase {
 
     @Test(
             description = "Тест дефолтного списка магазинов при отсутствии адреса доставки",
-
             groups = {
                     "sbermarket-acceptance","sbermarket-regression",
             }
@@ -200,7 +207,7 @@ public class UserShippingAddressTests extends TestBase {
     public void successSelectNewStoreAfterShipAddressChange() {
         kraken.get().page("vkusvill");
         User.ShippingAddress.set(Addresses.Kazan.defaultAddress(),true);
-        shippingChecks.checkisChangeStoreModalOpen(
+        shippingChecks.checkIsChangeStoreModalOpen(
                 "Не открывается модалка с магазинами доступными по новому адресу");
         Shop.StoresModal.selectFirstStore();
         Shop.Catalog.Item.open();
@@ -209,45 +216,52 @@ public class UserShippingAddressTests extends TestBase {
                 "В модалке выбирается магазин по новому адресу, но не должен");
     }
 
-
+    @CaseId(1569)
+    @Story("Зона доставки")
     @Test(
             description = "Тест на успешный выбор нового адреса в модалке феникса после ввода адреса," +
                     " по которому нет доставки текущего ритейлера",
             groups = {
-                    "metro-regression",
-                    "sbermarket-regression",
+                    "metro-regression", "sbermarket-Ui-smoke",
             }
     )
     public void successSetNewAddressAfterOutOfRetailerZoneAddressChange() {
         kraken.get().page("lenta");
-        User.ShippingAddress.set(Addresses.Kazan.defaultAddress(),true);
-        shippingChecks.checkisChangeStoreModalOpen(
+        Shop.ShippingAddressModal.open();
+        Shop.ShippingAddressModal.fill(Addresses.Kazan.defaultAddress());
+        Shop.ShippingAddressModal.selectAddressSuggest();
+        Shop.ShippingAddressModal.submit();
+        shippingChecks.checkIsChangeStoreModalOpen(
                 "Не открывается модалка с магазинами доступными по новому адресу");
-        kraken.perform().click(Elements.Modals.StoresModal.pickNewAddressButton());
-        User.ShippingAddress.set(Addresses.Moscow.testAddress(),true);
-        Shop.StoresModal.selectFirstStore();
-        Shop.Catalog.Item.open();
-        Shop.ItemCard.addToCart();
-        shippingChecks.checkIsChangeStoreModalNotOpen("В модалке не выбирается новый адрес");
+        Shop.ShippingAddressModal.selectNewAdressRetailer();
+        Shop.ShippingAddressModal.fill(Addresses.Moscow.testAddress());
+        Shop.ShippingAddressModal.selectAddressSuggest();
+        Shop.ShippingAddressModal.submit();
+        shippingChecks.checkIsSetAddresEqualsToInput(Addresses.Moscow.testAddress(),
+                kraken.grab().currentShipAddress());
     }
-    
+
+    @CaseId(1570)
+    @Story("Зона доставки")
     @Test(
             description = "Тест на успешный выбор нового адреса в модалке феникса, после ввода адреса вне зоны доставки",
             groups = {
-                    "metro-regression",
-                    "sbermarket-regression",
+                    "metro-regression","sbermarket-Ui-smoke",
             }
     )
     public void successSetNewAddressAfterOutOfZoneAddressChange() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress(),true);
+        Shop.ShippingAddressModal.open();
+        Shop.ShippingAddressModal.fill(Addresses.Moscow.outOfZoneAddress());
+        Shop.ShippingAddressModal.selectAddressSuggest();
+        Shop.ShippingAddressModal.submit();
         shippingChecks.checkIsAddressOutOfZone(
                 "Не открывается модалка Адрес вне зоны доставки");
-        kraken.perform().click(Elements.Modals.AddressModal.pickNewAddressButton());
-        User.ShippingAddress.set(Addresses.Moscow.testAddress(),true);
-        Shop.StoresModal.selectFirstStore();
-        Shop.Catalog.Item.open();
-        Shop.ItemCard.addToCart();
-        shippingChecks.checkIsChangeStoreModalNotOpen("В модалке не выбирается новый адрес");
+        Shop.ShippingAddressModal.selectNewAdress();
+        Shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        Shop.ShippingAddressModal.selectAddressSuggest();
+        Shop.ShippingAddressModal.submit();
+        shippingChecks.checkIsSetAddresEqualsToInput(Addresses.Moscow.defaultAddress(),
+                kraken.grab().currentShipAddress());
     }
 }

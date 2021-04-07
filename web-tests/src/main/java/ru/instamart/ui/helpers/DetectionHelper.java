@@ -336,6 +336,18 @@ public final class DetectionHelper extends HelperBase {
             }
         }
     }
+    /** Определить авторизован ли пользователь */
+    public boolean isUserAuthorisedSTF() {
+        log.info("Проверяем авторизованность...");
+        if (kraken.detect().isElementPresent(Elements.Header.profileButton())
+                && !kraken.detect().isElementPresent(Elements.Header.loginButton()) ) {
+            log.info("✓ Авторизован");
+            return true;
+        } else {
+            log.warn("Не авторизован");
+            return false;
+        }
+    }
 
 
     // ======= Восстановление пароля =======
@@ -697,7 +709,6 @@ public final class DetectionHelper extends HelperBase {
 
     /** Определить доступен ли виджет Jivosite*/
     public boolean isJivositeWidgetAvailable () {
-        kraken.await().implicitly(2); // Ожидание подгрузки виджета Jivosite
         if (isElementDisplayed(Elements.Jivosite.widget())){
             log.info("Виджет Jivosite доступен\n");
             return true;

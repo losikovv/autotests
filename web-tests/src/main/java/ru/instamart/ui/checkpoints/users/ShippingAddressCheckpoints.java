@@ -119,7 +119,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
     }
 
     @Step("Проверяем, что модальное окно выбора альтернативного магазина открыто")
-    public void checkisChangeStoreModalOpen(String errorMessage){
+    public void checkIsChangeStoreModalOpen(String errorMessage){
         log.info("> проверяем, что модальное окно выбора альтернативного магазина открыто");
         softAssert.assertTrue(
                 kraken.detect().isChangeStoreModalOpen(),

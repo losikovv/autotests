@@ -33,3 +33,4 @@ web-tests/logs
 
 # Ignore key
 **/key_*
+web-tests/selenoid/config/video

@@ -7,7 +7,6 @@ import instamart.ui.common.pagesdata.EnvironmentData;
 import instamart.ui.common.pagesdata.PageData;
 import io.qameta.allure.Step;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,7 +64,6 @@ public class BrowseHelper extends HelperBase {
     /** Перейти на страницу SEO-каталога */
     public void seoCatalogPage() {
         page(Pages.seo_catalog());
-        kraken.await().implicitly(1); // Ожидание загрузки SEO-каталога
     }
 
     /** Перейти на страницу профиля */

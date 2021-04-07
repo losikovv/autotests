@@ -695,7 +695,7 @@ public class Elements {
         }
 
         static ElementData agreementCheckbox() { return new ElementData(
-                By.xpath("//input[@type='checkbox']//*[@data-qa='promo_terms_button']"),//TODO поправить локатор
+                By.xpath("//*[@data-qa='promo_terms_button']//preceding::input[@type='checkbox'][1]"),
                 "чекбокс согласия на получение выгодных предложений"); }
 
         static ElementData checkBoxes(){
@@ -905,8 +905,13 @@ public class Elements {
         }
 
         static ElementData pickNewAddressButton() {
-            return new ElementData(By.className("address-modal__button--reselect"),
+            return new ElementData(By.xpath("//*[@data-qa='address-modal-other-address']"),
                     "кнопка выбрать другой адрес");
+        }
+
+        static ElementData pickNewAddressReteilerButton() {
+            return new ElementData(By.xpath("//*[@data-qa='editable_info_change_button']"),
+                    "кнопка выбрать другой адрес у ретейлера");
         }
     }
 
@@ -914,7 +919,7 @@ public class Elements {
         interface StoresModal {
 
         static ElementData popup() {
-            return new ElementData(By.className("stores-modal"), "модалка выбора магазина");
+            return new ElementData(By.xpath("//*[@data-qa='store-selector']"), "модалка выбора магазина");
         }
 
         static ElementData firstStoreAvailable() {
