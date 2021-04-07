@@ -52,11 +52,18 @@ public class BasicOrdersTests extends TestBase {
         //runTestOnlyOnServer("preprod");
         String phone;
         phone = Generate.phoneNumber();
-        Shop.AuthModal.open();
-        User.Do.registration(phone);
-        User.Do.sendSms(Config.DEFAULT_SMS);
-        //User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
-
+        step("Аутентификация", ()-> {
+            kraken.get().baseUrl();
+            Shop.AuthModal.open();
+            User.Do.registration(phone);
+            User.Do.sendSms(Config.DEFAULT_SMS);
+        });
+        step("Выбор адреса доставки", ()-> {
+            Shop.ShippingAddressModal.open();
+            Shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+            Shop.ShippingAddressModal.selectAddressSuggest();
+            Shop.ShippingAddressModal.submit();
+        });
     }
 
     @AfterMethod(alwaysRun = true,
