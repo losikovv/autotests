@@ -170,7 +170,7 @@ public class BasicOrdersTests extends TestBase {
         orderCheck.checkOrderSuccessCreation();
     }
 
-    //@CaseId(1681)
+    @CaseId(1673)
     @Test(
             description = "Тест заказа с оплатой курьеру",
             groups = {"sbermarket-regression","testing", "sbermarket-Ui-smoke"}
