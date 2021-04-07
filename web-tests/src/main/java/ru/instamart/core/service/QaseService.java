@@ -21,8 +21,7 @@ import io.qase.api.models.v1.testruns.TestRun;
 import io.qase.api.services.TestCaseService;
 import kong.unirest.Unirest;
 import kong.unirest.UnirestInstance;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
 
 import java.io.File;
@@ -40,10 +39,10 @@ import java.util.stream.Collectors;
 
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 
+@Slf4j
 public final class QaseService {
 
-    private static final Logger logger = LoggerFactory.getLogger(QaseService.class);
-
+    private static final String DESCRIPTION_PREFIX = "[Automation] ";
     private static final Pattern ATTACHMENT_PATTERN_HASH = Pattern.compile(".+/(.+)/.+$");
     private static final LocalDateTime DAYS_TO_DIE = LocalDateTime.now().minusWeeks(4);
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -125,14 +124,14 @@ public final class QaseService {
                 projectCode,
                 testRunName + " [" + EnvironmentData.INSTANCE.getName() + "] " + LocalDate.now(),
                 null,
-                PIPELINE_URL,
+                DESCRIPTION_PREFIX + PIPELINE_URL,
                 testCasesList.toArray(casesArray));
     }
 
     /**
      * Отправляем статус прохождения теста
      */
-    public void sendResult(final ITestResult result,    final RunResultStatus status) {
+    public void sendResult(final ITestResult result, final RunResultStatus status) {
         if (!qase) return;
 
         final Duration timeSpent = Duration
@@ -163,7 +162,7 @@ public final class QaseService {
                                 stacktrace,
                                 isDefect);
             } catch (QaseException e) {
-                logger.error(e.getMessage());
+                log.error(e.getMessage());
             }
         }
     }
@@ -205,7 +204,7 @@ public final class QaseService {
                                 isDefect,
                                 attachmentsHash);
             } catch (QaseException e) {
-                logger.error(e.getMessage());
+                log.error(e.getMessage());
             }
         }
     }
@@ -248,7 +247,7 @@ public final class QaseService {
                 return Long.valueOf(method
                         .getDeclaredAnnotation(TmsLink.class).value());
             } catch (NumberFormatException e) {
-                logger.error("String could not be parsed as Long", e);
+                log.error("String could not be parsed as Long", e);
             }
         }
         return null;
@@ -269,7 +268,7 @@ public final class QaseService {
                 .getTestRunList();
 
         testRunList.forEach(testRun -> {
-            if (DAYS_TO_DIE.isAfter(testRun.getStartTime())) {
+            if (testRun.getDescription().contains(DESCRIPTION_PREFIX) && DAYS_TO_DIE.isAfter(testRun.getStartTime())) {
                 final List<TestRunResult> testRunResults = qaseApi
                         .testRunResults()
                         .getAll(projectCode, 100, 0, qaseApi.testRunResults().filter().run((int) testRun.getId()))
@@ -289,7 +288,8 @@ public final class QaseService {
         final List<Defect> defects = qaseApi.defects().getAll(projectCode).getDefectList();
         defects.forEach(defect -> {
             final LocalDateTime dateTime = LocalDateTime.parse(defect.getCreated(), FORMATTER);
-            if (DAYS_TO_DIE.isAfter(dateTime)) {
+            // userId = 2 это пользователь от которого создаются дефекты для автотестов
+            if (defect.getUserId() == 2 && DAYS_TO_DIE.isAfter(dateTime)) {
                 qaseApi.defects().delete(projectCode, defect.getId());
             }
         });
