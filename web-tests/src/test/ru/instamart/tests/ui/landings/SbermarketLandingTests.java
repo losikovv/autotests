@@ -78,6 +78,7 @@ public class SbermarketLandingTests extends TestBase {
         baseChecks.checkIsOnLanding();
     }
 
+    @CaseId(2042)
     @Test(
             description = "Тест появления кнопоки авторизации через СберБизнес для B2B",
             groups = {"sbermarket-Ui-smoke", "testing"}
