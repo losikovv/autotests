@@ -1,6 +1,8 @@
 package ru.instamart.tests.api.shopper.endpoints;
 
+import instamart.api.SessionFactory;
 import instamart.api.common.RestBase;
+import instamart.api.enums.SessionType;
 import instamart.api.requests.shopper.*;
 import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.Epic;
@@ -22,6 +24,10 @@ public class ShopperWithoutAuthTest extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
+        SessionFactory.getSessionMap().entrySet().removeIf(session -> {
+            final SessionFactory.SessionId sessionId = session.getKey();
+            return sessionId.getThreadId() == Thread.currentThread().getId() && sessionId.getType() == SessionType.SHOPPER;
+        });
     }
 
     @Story("Начало сборки")

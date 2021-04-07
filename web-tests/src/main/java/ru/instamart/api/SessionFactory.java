@@ -131,7 +131,7 @@ public final class SessionFactory {
     @Getter
     @EqualsAndHashCode
     @ToString
-    private static final class SessionId {
+    public static final class SessionId {
 
         private final long threadId;
         private final SessionType type;
