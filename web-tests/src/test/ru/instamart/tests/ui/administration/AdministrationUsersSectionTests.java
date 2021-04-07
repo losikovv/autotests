@@ -59,7 +59,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         User.Logout.quickly();
         String role= "superadmin";
         Shop.AuthModal.openAuthLending();
-        User.Do.registration(phone);
+        User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
         Administration.Users.editUser(phone);
@@ -91,7 +91,7 @@ public class AdministrationUsersSectionTests extends TestBase {
     public void successChangeEmail() {
         User.Logout.quickly();
         Shop.AuthModal.openAuthLending();
-        User.Do.registration(phone);
+        User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
         Administration.Users.editUser(phone);
@@ -111,7 +111,7 @@ public class AdministrationUsersSectionTests extends TestBase {
     public void successGrantB2BStatus() {
         User.Logout.quickly();
         Shop.AuthModal.openAuthLending();
-        User.Do.registration(phone);
+        User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
         Administration.Users.editUser(phone);
@@ -129,7 +129,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         UserData testuser = UserManager.getUser();
 //        User.Do.registration(testuser);
         phone = Generate.phoneNumber();
-        User.Do.registration(phone);
+        User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
         Administration.Users.editUser(phone);

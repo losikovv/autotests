@@ -29,7 +29,7 @@ public class UserProfileTests extends TestBase {
         User.Logout.quickly();
         String phone = Generate.phoneNumber();
         Shop.AuthModal.openAuthLending();
-        User.Do.registration(phone);
+        User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
     }
 

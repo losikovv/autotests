@@ -21,6 +21,15 @@ import java.util.List;
 public final class PerformHelper extends HelperBase {
 
     private static final Logger log = LoggerFactory.getLogger(PerformHelper.class);
+    private static String windowHandler;
+
+    public void setWindow(){
+        windowHandler = kraken.getWebDriver().getWindowHandle();
+    }
+
+    public String getWindow(){
+        return windowHandler;
+    }
 
     public PerformHelper(final AppManager kraken) {
         super(kraken);
@@ -105,12 +114,18 @@ public final class PerformHelper extends HelperBase {
         final WebElement webElement = kraken.await().shouldBeClickable(element, 5);
         webElement.click();
         webElement.clear();
-        webElement.sendKeys(Keys.BACK_SPACE);
         if(!text.equals("")){
             for (int i = 0; i < text.length(); i++) {
                 webElement.sendKeys(text.charAt(i) + "");
             }
-        }else webElement.sendKeys(text);
+        }else {
+            if(webElement.getAttribute("value").length()>0){
+                int j=webElement.getAttribute("value").length();
+                for (int i =0; i<j;i++){
+                    webElement.sendKeys(Keys.BACK_SPACE);
+                }
+            }else webElement.sendKeys(text);
+        }
     }
 
     /** Заполнить поле через метод Action*/
@@ -120,7 +135,11 @@ public final class PerformHelper extends HelperBase {
         var element1 = kraken.getWebDriver().findElement(element.getLocator());
         if(!text.equals("")){
             for (int i = 0; i < text.length(); i++) {
+                kraken.await().simply(0.3);
                 element1.sendKeys(text.charAt(i) + "");
+                if(!element1.getAttribute("value").contains(text.charAt(i)+"")){
+                    element1.sendKeys(text.charAt(i) + "");
+                }
             }
         }else actions.click(element1).sendKeys(text).perform();
     }
@@ -170,7 +189,6 @@ public final class PerformHelper extends HelperBase {
     /** Обновить страницу */
     public void refresh() {
         kraken.getWebDriver().navigate().refresh();
-        kraken.await().implicitly(1); // Ожидание обновления страницы
     }
 
 

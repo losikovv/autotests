@@ -1,6 +1,7 @@
 package instamart.ui.modules;
 
 import instamart.core.common.AppManager;
+import instamart.core.settings.Config;
 import instamart.ui.common.pagesdata.StaticPageData;
 import instamart.ui.common.pagesdata.UserData;
 import instamart.ui.objectsmap.Elements;
@@ -41,7 +42,9 @@ public final class Administration extends Base {
             log.info("Поиск заказа по номеру {}", order);
             kraken.perform().fillField(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderNumber(), order);
             kraken.perform().click(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.applyFilterButton());
-            kraken.await().implicitly(2); // Ожидание поиска заказа в админке
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
+                    Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.orderNumber().getLocator()),
+                    "не подгрузились результаты поиска", Config.BASIC_TIMEOUT);
         }
 
         /** Найти заказ по номеру заказа или шипмента */
@@ -60,7 +63,6 @@ public final class Administration extends Base {
             log.info("> возобновляем заказ {}", kraken.grab().currentURL());
             kraken.perform().click(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.resumeOrderButton());
             handleAlert();
-            kraken.await().implicitly(2); // Ожидание возобновления заказа в админке
         }
 
         /** Отменить заказ на текущей странице с тестовой причиной отмены */
@@ -84,7 +86,6 @@ public final class Administration extends Base {
             handleAlert();
             chooseCancellationReason(reason, details);
             kraken.perform().click(Elements.Administration.ShipmentsSection.OrderDetailsPage.Details.confirmOrderCancellationButton());
-            kraken.await().implicitly(2); // Ожидание отмены заказа в админке
         }
 
         /** Выбрать причину и текст отмены заказа */
@@ -282,7 +283,6 @@ public final class Administration extends Base {
         public static void revokeB2B() {
             if (kraken.detect().isCheckboxSet(Elements.Administration.UsersSection.UserPage.b2bCheckbox())) {
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.b2bCheckbox());
-                kraken.await().implicitly(1); // Ожидание снятия чекбокса B2B
                 kraken.perform().click(Elements.Administration.UsersSection.UserPage.saveButton());
                 log.info("Снят флаг B2B");
             } else {

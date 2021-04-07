@@ -12,6 +12,7 @@ import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
@@ -45,7 +46,7 @@ public class UserRegistrationTests extends TestBase {
     public void noRegWithEmptyRequisites() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
-        User.Do.registration("");
+        User.Do.registration("",true);
         baseChecks.checkIsErrorMessageElementPresentByPhone("Номер должен начинаться с \"+7 (9..\"",
                 "Нет пользовательской ошибки пустого номера телефона");
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -64,7 +65,7 @@ public class UserRegistrationTests extends TestBase {
         phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
-        User.Do.registration(phone);
+        User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         User.Logout.quickly();
         Shop.AuthModal.openAuthLending();
@@ -84,7 +85,7 @@ public class UserRegistrationTests extends TestBase {
         phone = Generate.phoneNumber();
         kraken.get().baseUrl();
         Shop.AuthModal.openAuthLending();
-        User.Do.registration(phone);
+        User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         authChecks.checkIsUserAuthorized("Не работает регистрация на лендинге");
     }
@@ -102,7 +103,7 @@ public class UserRegistrationTests extends TestBase {
         kraken.get().page(Config.DEFAULT_RETAILER);
         phone = Generate.phoneNumber();
         Shop.AuthModal.openAuthRetailer();
-        User.Do.registration(phone);
+        User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         authChecks.checkIsUserAuthorized("Не работает регистрация на витрине магазина");
     }
@@ -117,12 +118,12 @@ public class UserRegistrationTests extends TestBase {
             }
     )
     public void successRegFromAddressModal() throws AssertionError {
-        kraken.get().page(Config.DEFAULT_RETAILER);
         phone = Generate.phoneNumber();
+        kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.ShippingAddressModal.open();
         Shop.ShippingAddressModal.openAuthModal();
 //        baseChecks.checkIsAuthModalOpen("Не работает переход на авторизацию из адресной модалки");
-        User.Do.registration(phone);
+        User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         authChecks.checkIsUserAuthorized("Не работает регистрация из адресной модалки феникса");
     }
@@ -148,7 +149,7 @@ public class UserRegistrationTests extends TestBase {
         Shop.Cart.proceedToCheckout();
         baseChecks.checkIsAuthModalOpen("Не открывается авторизационная" +
                 " модалка при переходе неавторизованным из корзины в чекаут");
-        User.Do.registration(phone);
+        User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         authChecks.checkAutoCheckoutRedirect("Нет автоперехода в чекаут после регистрации из корзины");
         kraken.get().baseUrl();
@@ -161,55 +162,43 @@ public class UserRegistrationTests extends TestBase {
     @Story("Регистрация на странице ретейлера")
     @Test(
             description = "Тест успешной регистрации без проставленной галки Получать выгодные предложения",
-            groups = {"testing"}
+            groups = {"sbermarket-Ui-smoke"}
     )
     public void successRegWithoutMailingCheckbox() {
+        phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
-        User.Do.registration(phone,true);// ВОт здесь проблема
+        User.Do.registration(phone,false);
         User.Do.sendSms(Config.DEFAULT_SMS);
-        User.Do.regSequence(UserManager.getUser(), false ); // todo вынести в Shop.AuthModal.fill()
-        Shop.AuthModal.submit();
         authChecks.checkIsUserAuthorized("Не работает регистрация без согласия на получение почтовой рассылки");
     }
 
-    @Test(
-            description = "Тест успешной регистрации с заново проставленной галкой согласия на почтовую рассылку",
-            groups = {}
-    )
-    public void successRegWithMailingCheckbox() {
-        if(modalType.equals("модалка с телефоном")){skipTest();}
-        kraken.get().page(Config.DEFAULT_RETAILER);
-
-        Shop.AuthModal.open();
-        User.Do.regSequence(UserManager.getUser(), false );
-//        kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Modals.AuthModal.agreementCheckbox().getLocator()));
-        kraken.perform().setCheckbox(Elements.Modals.AuthModal.checkBoxes(),2);
-        kraken.perform().click(Elements.Modals.AuthModal.submitButton());
-        kraken.await().implicitly(5);
-        authChecks.checkIsUserAuthorized("Не работает регистрация с согласием на получение почтовой рассылки");
-    }
-
-    @Test(
-            description = "Тест успешной регистрации через ВКонтакте",
-
-            groups = {"testing"}
-    )
-    public void successRegWithVkontakte() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Auth.withVkontakte(UserManager.getDefaultVkUser());
-        authChecks.checkIsUserAuthorized("Не работает регистрация через ВКонтакте");
-    }
-
+    @Issue("https://github.com/SeleniumHQ/selenium/issues/9360")
     @Test(
             description = "Тест успешной регистрации через Facebook",
-
-            groups = {"testing"}
+            groups = {"sbermarket-Ui-smoke"},
+            enabled = false
     )
     public void successRegWithFacebook() {
         kraken.get().page(Config.DEFAULT_RETAILER);
+        Shop.AuthModal.openAuthRetailer();
+        Shop.AuthModal.hitFacebookButton();
         User.Auth.withFacebook(UserManager.getDefaultFbUser());
         authChecks.checkIsUserAuthorized("Не работает регистрация через Facebook");
+    }
+
+    @Issue("https://github.com/SeleniumHQ/selenium/issues/9360")
+    @Test(
+            description = "Тест успешной регистрации через ВКонтакте",
+            groups = {"sbermarket-Ui-smoke"},
+            enabled = false
+    )
+    public void successRegWithVkontakte() {
+        kraken.get().page(Config.DEFAULT_RETAILER);
+        Shop.AuthModal.openAuthRetailer();
+        Shop.AuthModal.hitVkontakteButton();
+        User.Auth.withVkontakte(UserManager.getDefaultVkUser()); //Создавать второй поток и работать в нем?
+        authChecks.checkIsUserAuthorized("Не работает регистрация через ВКонтакте");
     }
 
     @CaseId(1460)
@@ -219,6 +208,8 @@ public class UserRegistrationTests extends TestBase {
     )
     public void successRegWithMailRu() {
         kraken.get().page(Config.DEFAULT_RETAILER);
+        Shop.AuthModal.openAuthRetailer();
+        Shop.AuthModal.hitMailRuButton();
         User.Auth.withMailRu(UserManager.getDefaultMailRuUser());
         authChecks.checkIsUserAuthorized("Не работает регистрация через MailRu");
     }
@@ -226,8 +217,8 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест успешной регистрации через Sber ID",
-
-            groups = {"testing"}
+            groups = {"sbermarket-Ui-smoke"},
+            enabled = false
     )
     public void successRegWithSberID() {
         kraken.get().page(Config.DEFAULT_RETAILER);

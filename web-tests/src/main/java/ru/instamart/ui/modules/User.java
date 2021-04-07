@@ -152,8 +152,6 @@ public final class User extends Base {
             log.info("> регистрируемся ({}/{})", email, password);
             Shop.AuthModal.open();
             regSequence(name, email, password, passwordConfirmation);
-            // TODO переделать на fluent-ожидание
-            kraken.await().implicitly(1); // Ожидание раздизебливания кнопки подтверждения регистрации
             Shop.AuthModal.submitRegistration();
         }
 
@@ -171,21 +169,9 @@ public final class User extends Base {
             } else {
                 log.info("> регистрируемся ({}/{})", email, password);
                 regSequence(name, email, password, passwordConfirmation);
-                // TODO переделать на fluent-ожидание
-                kraken.await().implicitly(1); // Ожидание раздизебливания кнопки подтверждения регистрации
                 Shop.AuthModal.submitRegistration();
             }
             return modalType;
-        }
-
-        @Step("Регистрируем нового юзера по номеру телефона: {0}")
-        public static void registration(String phone) {
-            log.info("> регистрируемся (телефон={}", phone);
-            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
-                    Elements.Modals.AuthModal.phoneNumber().getLocator()),
-                    "поле для ввода мобильного телефона не отображается",Config.BASIC_TIMEOUT);
-            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.phoneNumber(),phone);
-            kraken.perform().click(Elements.Modals.AuthModal.continueButton());
         }
 
         @Step("Регистрируем нового юзера по номеру телефона: {0}, без согласия на получение выгодных предложений")
@@ -223,14 +209,6 @@ public final class User extends Base {
          */
         public static void regSequence(UserData userData) {
             regSequence(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
-        }
-
-        /**
-         * Регистрационная последовательность с реквизитами из переданного объекта UserData
-         */
-        public static void regSequence(UserData userData, boolean agreement) {
-            Shop.AuthModal.switchToRegistrationTab();
-            Shop.AuthModal.fillRegistrationForm(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword(), agreement);
         }
 
         /**
@@ -274,7 +252,7 @@ public final class User extends Base {
             public static void proceedToRecovery() {
                 log.info("> нажимаем кнопку сброса пароля в письме");
                 kraken.perform().click(Elements.EmailConfirmation.passwordRecovery());
-                kraken.await().implicitly(1); // Ожидание перехода из письма на сайт Инстамарт
+                //TODO Ожидание перехода из письма на сайт Инстамарт
                 kraken.perform().switchToNextWindow();
             }
         }
@@ -302,39 +280,35 @@ public final class User extends Base {
 
         @Step("Переходим на base url для авторизации через Vkontakte")
         public static void withVkontakte(UserData user) {
-            if (kraken.detect().isInAdmin()) {
-                log.info("> переходим на base url для авторизации через Vkontakte");
-                kraken.get().baseUrl();
-            }
-            Shop.AuthModal.open();
-            Shop.AuthModal.hitVkontakteButton();
-            WaitingHelper.simply(2); // Ожидание открытия фрейма авторизации Vkontakte
-            kraken.perform().switchToNextWindow();
 
+            WaitingHelper.simply(2); // Ожидание открытия фрейма авторизации Vkontakte
+
+            kraken.perform().switchToNextWindow();
             kraken.perform().fillField(Elements.Social.Vkontakte.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Vkontakte.passwordField(),user.getPassword());
+//            WebDriver driver = new ChromeDriver();
+//            driver.switchTo().newWindow(WindowType.TAB);
             kraken.perform().click(Elements.Social.Vkontakte.submitButton());
-            WaitingHelper.simply(1); // Ожидание авторизации через Vkontakte
 
-            kraken.await().fluentlyWithWindowsHandler(
-                    ExpectedConditions.invisibilityOfElementLocated(
-                            Elements.Modals.AuthModal.popup().getLocator()));
+//            kraken.perform().switchToNextWindow();
+
+//            kraken.getWebDriver().switchTo().window(kraken.perform().getWindow());
+//            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated());
+//            kraken.await().fluently(
+//                    ExpectedConditions.invisibilityOfElementLocated(
+//                            Elements.Modals.AuthModal.popup().getLocator()));
         }
 
         @Step("Переходим на base url для авторизации через Facebook")
         public static void withFacebook(UserData user) {
-            if (kraken.detect().isInAdmin()) {
-                log.info("> переходим на base url для авторизации через Facebook");
-                kraken.get().baseUrl();
-            }
-            Shop.AuthModal.open();
-            Shop.AuthModal.hitFacebookButton();
-            WaitingHelper.simply(2); // Ожидание открытия фрейма авторизации Facebook
+
+//            WaitingHelper.simply(2); // Ожидание открытия фрейма авторизации Facebook
             kraken.perform().switchToNextWindow();
 
             kraken.perform().fillField(Elements.Social.Facebook.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Facebook.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Facebook.submitButton());
+            kraken.getWebDriver().getWindowHandles();
             WaitingHelper.simply(1); // Ожидание авторизации через Facebook
 
             //TOdo добавить проверку на то что вернулись в основное окно
@@ -349,18 +323,12 @@ public final class User extends Base {
 
         @Step("Переходим на base url для авторизации через Mail.ru")
         public static void withMailRu(UserData user) {
-            if (kraken.detect().isInAdmin()) {
-                log.info("> переходим на base url для авторизации через Mail.ru");
-                kraken.get().baseUrl();
-            }
-            Shop.AuthModal.open();
-            Shop.AuthModal.hitMailRuButton();
-            WaitingHelper.simply(5); // Ожидание открытия фрейма авторизации Mail.ru
             kraken.perform().switchToNextWindow();
-
             kraken.perform().fillField(Elements.Social.MailRu.loginField(),user.getLogin());
             kraken.perform().click(Elements.Social.MailRu.nextButton());
-            WaitingHelper.simply(2);
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
+                    Elements.Social.MailRu.passwordFieldUp().getLocator()),"поле ввода пароля не появилось",Config.BASIC_TIMEOUT);
+//            WaitingHelper.simply(2);
             kraken.perform().click(Elements.Social.MailRu.passwordFieldUp());
             kraken.perform().fillField(Elements.Social.MailRu.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.MailRu.submitButton());

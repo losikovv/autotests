@@ -38,6 +38,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         jsonObject.put("profile.managed_default_content_settings.geolocation", 2);
         options.setExperimentalOption("prefs", jsonObject);
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        options.setCapability("detach", true);
         capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
         //options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
 

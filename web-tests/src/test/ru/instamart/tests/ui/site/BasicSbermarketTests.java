@@ -7,11 +7,16 @@ import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
 
+@Epic("STF UI")
+@Feature("Лэндинг")
 public class BasicSbermarketTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
@@ -22,6 +27,7 @@ public class BasicSbermarketTests extends TestBase {
     }
 
     @CaseId(1438)
+    @Story("Валидация элементов")
     @Test(
             description = "Тест валидности элементов и ссылок в шапке Сбермаркета",
             groups = {"sbermarket-Ui-smoke"}
@@ -47,6 +53,7 @@ public class BasicSbermarketTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Header.cartButton());
     }
     @CaseId(733)
+    @Story("Навигация")
     @Test(
             description = "Тест перехода из Сбермаркета на как мы работаем",
             groups = {"sbermarket-Ui-smoke"}
@@ -56,6 +63,7 @@ public class BasicSbermarketTests extends TestBase {
         baseChecks.checkTransitionValidation(Elements.Header.howWeWorkInfoButton());
     }
     @CaseId(1810)
+    @Story("Навигация")
     @Test(
             description = "Тест перехода из Сбермаркета на информацию о контактах",
             groups = {"sbermarket-Ui-smoke"}
@@ -65,6 +73,7 @@ public class BasicSbermarketTests extends TestBase {
         baseChecks.checkTransitionValidation(Elements.Header.contactsInfoButton());
     }
     @CaseId(1811)
+    @Story("Навигация")
     @Test(
             description = "Тест перехода из Сбермаркета на страничку с помощью для клиента",
             groups = {"sbermarket-Ui-smoke"}
@@ -74,6 +83,7 @@ public class BasicSbermarketTests extends TestBase {
         baseChecks.checkTransitionValidation(Elements.Header.helpInfoButton());
     }
     @CaseId(1812)
+    @Story("Навигация")
     @Test(
             description = "Тест перехода из Сбермаркета на страничку с информацией о доставке",
             groups = {"sbermarket-Ui-smoke"}
@@ -83,6 +93,7 @@ public class BasicSbermarketTests extends TestBase {
         baseChecks.checkTransitionValidation(Elements.Header.deliveryInfoButton());
     }
     @CaseId(1813)
+    @Story("Навигация")
     @Test(
             description = "Тест перехода из Сбермаркета на страничку с Logo",
             groups = {"sbermarket-Ui-smoke"}
@@ -97,6 +108,7 @@ public class BasicSbermarketTests extends TestBase {
     // todo public void successValidateHeaderSbermarket()
 
     @CaseId(1439)
+    @Story("Валидация элементов")
     @Test(
             description = "Тест валидности элементов и ссылок в футере Сбермаркета",
             groups = {"sbermarket-Ui-smoke"}
@@ -152,6 +164,7 @@ public class BasicSbermarketTests extends TestBase {
         baseChecks.checkPageIsAvailable();
     }
     @CaseId(1437)
+    @Story("Витрины ретейлеров")
     @Test(  dataProvider = "retailersSpree" ,
             dataProviderClass = RestDataProvider.class,
             description = "Тест доступности / недоступности витрин ритейлеров Сбермаркета ",
@@ -161,6 +174,7 @@ public class BasicSbermarketTests extends TestBase {
         else baseChecks.checkRetailerIsUnavailable(retailer.getSlug());
     }
     @CaseId(1433)
+    @Story("Партнерские лендинги")
     @Test(
             description = "Тест доступности партнерских лендингов",
             groups = {"sbermarket-Ui-smoke"}
@@ -169,6 +183,7 @@ public class BasicSbermarketTests extends TestBase {
         baseChecks.checkPageIsAvailable(Pages.Landings.aeroflot());
     }
     @CaseId(1814)
+    @Story("Сервисные страницы")
     @Test(
             description = "Тест доступности сервисных страниц",
             groups = {"sbermarket-Ui-smoke"}
@@ -179,10 +194,12 @@ public class BasicSbermarketTests extends TestBase {
     }
 
     @CaseId(1432)
+    @Story("Статические страницы")
     @Test(
             description = "Тест доступности статических страниц",
             groups = {"sbermarket-Ui-smoke"}
     ) public void successCheckStaticPagesAreAvailabile() {
+        //TODO разбить на тесты
         baseChecks.checkPageIsAvailable(Pages.Sbermarket.about());
         baseChecks.checkPageIsAvailable(Pages.Sbermarket.delivery());
         baseChecks.checkPageIsAvailable(Pages.Sbermarket.rules());

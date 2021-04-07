@@ -49,7 +49,7 @@ public class UserFavoritesTests extends TestBase {
     public void successOpenFavorites() {
         String phone = Generate.phoneNumber();
         Shop.AuthModal.openAuthLending();
-        User.Do.registration(phone);
+        User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         Shop.Favorites.open();
         baseChecks.checkPageIsAvailable();
@@ -362,7 +362,7 @@ public class UserFavoritesTests extends TestBase {
         kraken.get().userFavoritesPage();
 
         Shop.Catalog.Item.addToCart();
-        kraken.await().implicitly(1); // ждем пока уберется алерт
+         //TODO написать нормальный вейт ждем пока уберется алерт
         Shop.Cart.open();
 
         softAssert.assertTrue(

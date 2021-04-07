@@ -30,7 +30,7 @@ public class UsersAuthorizationCheckpoints extends BaseUICheckpoints {
     public void checkIsUserAuthorized(String message){
         log.info("> проверяем, что пользователь авторизован на сайте");
         Assert.assertTrue(
-                kraken.detect().isUserAuthorised(),
+                kraken.detect().isUserAuthorisedSTF(),
                 message+"\n");
     }
 

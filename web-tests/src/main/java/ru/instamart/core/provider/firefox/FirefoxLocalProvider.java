@@ -18,7 +18,7 @@ public final class FirefoxLocalProvider extends AbstractBrowserProvider {
             ProcessUtils.cleanProcessByName(BrowserType.FIREFOX);
         }
         final FirefoxBinary firefoxBinary = new FirefoxBinary();
-        firefoxBinary.addCommandLineOptions("--headless");
+//        firefoxBinary.addCommandLineOptions("--headless");
         final FirefoxOptions options = new FirefoxOptions();
         options.setBinary(firefoxBinary);
         //This is fore resolution
