@@ -51,7 +51,7 @@ public class BasicOrdersTests extends TestBase {
         step("Аутентификация", ()-> {
             kraken.get().baseUrl();
             Shop.AuthModal.open();
-            User.Do.registration(phone);
+            User.Do.registration(phone, false);
             User.Do.sendSms(Config.DEFAULT_SMS);
         });
         step("Выбор адреса доставки", ()-> {
@@ -119,11 +119,13 @@ public class BasicOrdersTests extends TestBase {
                 "Данные юр. лица не совпадают с указанными пользователем\n"
         );
     }
-    
+
+    @Issue("INFRADEV-2608")
     @CaseId(1672)
     @Test(
             description = "Тест заказа с новой картой оплаты c 3ds",
-            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"}
+            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"},
+            enabled = false
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
         PaymentCardData creditCardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
@@ -136,11 +138,12 @@ public class BasicOrdersTests extends TestBase {
         orderCheck.checkPaymentMethod(paymentMethod);
     }
 
+    @Issue("INFRADEV-2608")
     @CaseId(2066)
     @Test(
             description = "Тест заказа с новой картой оплаты без 3ds",
-            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"}
-            //enabled = false
+            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"},
+            enabled = false
     )
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         PaymentCardData creditCardData = TestVariables.testOrderDetailsCus().getPaymentDetails().getCreditCard();
