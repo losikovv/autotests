@@ -35,7 +35,7 @@ public class ShipmentlessShopperTest extends RestBase {
     @Story("Получение информации о сотруднике")
     @CaseId(10)
     @Test(  description = "Получаем инфу о сборщике",
-            groups = {"api-shopper-smoke","MRAutoCheck"})
+            groups = {"api-shopper-smoke", "MRAutoCheck", "api-shopper-prod"})
     public void getShopper200() {
         response = ShopperRequest.GET();
         checkStatusCode200(response);
@@ -49,7 +49,7 @@ public class ShipmentlessShopperTest extends RestBase {
     @Story("Получение информации о маршрутах")
     @CaseId(11)
     @Test(  description = "Получаем маршруты",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getRoutes200() {
         response = RoutesRequest.GET();
         checkStatusCode200(response);
@@ -58,7 +58,7 @@ public class ShipmentlessShopperTest extends RestBase {
     @Story("Получение информации о сотруднике")
     @CaseId(12)
     @Test(  description = "Получаем смены сборщика",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getShopperOperationShifts200() {
         response = ShopperRequest.OperationShifts.GET();
         checkStatusCode200(response);
@@ -67,7 +67,7 @@ public class ShipmentlessShopperTest extends RestBase {
     @Story("Получение информации о заказах")
     @CaseId(14)
     @Test(  description = "Получаем все заказы для водителя",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getDriverShipments200() {
         response = DriverRequest.Shipments.GET();
         checkStatusCode200(response);
@@ -76,7 +76,7 @@ public class ShipmentlessShopperTest extends RestBase {
     @Story("Получение информации о причинах")
     @CaseId(15)
     @Test(  description = "Получаем причины отмен",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getCancelReasons200() {
         response = CancelReasonsRequest.GET();
         checkStatusCode200(response);
@@ -87,7 +87,7 @@ public class ShipmentlessShopperTest extends RestBase {
     @Story("Получение информации о причинах")
     @CaseId(15)
     @Test(  description = "Получаем причины уточнения",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getClarifyReasons200() {
         response = ClarifyReasonsRequest.GET();
         checkStatusCode200(response);
@@ -98,7 +98,7 @@ public class ShipmentlessShopperTest extends RestBase {
     @Story("Получение информации о причинах")
     @CaseId(15)
     @Test(  description = "Получаем причины возврата",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getReturnReasons200() {
         response = ReturnReasonsRequest.GET();
         checkStatusCode200(response);
@@ -109,7 +109,7 @@ public class ShipmentlessShopperTest extends RestBase {
     @Story("Получение марс токена (стоки метро)")
     @CaseId(16)
     @Test(  description = "Получаем марс токен (стоки метро)",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getMarsToken200() {
         response = MarsTokenRequest.GET();
         checkStatusCode200(response);
@@ -120,7 +120,7 @@ public class ShipmentlessShopperTest extends RestBase {
     @Story("Получение информации о заказах")
     @CaseId(18)
     @Test(  description = "Получаем все заказы для упаковщика",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getPackerShipments200() {
         response = PackerRequest.Shipments.GET();
         checkStatusCode200(response);
@@ -131,7 +131,7 @@ public class ShipmentlessShopperTest extends RestBase {
     @Story("Получение информации о сборках")
     @CaseId(19)
     @Test(  description = "Получаем все сборки упаковщика",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getPackerAssemblies200() {
         response = PackerRequest.Assemblies.GET();
         checkStatusCode200(response);
@@ -142,7 +142,7 @@ public class ShipmentlessShopperTest extends RestBase {
     @Story("Получение информации о приложении")
     @CaseId(20)
     @Test(  description = "Получаем инфу о текущей версии приложения",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getCurrentAppVersion200() {
         response = CurrentAppVersionRequest.GET();
         checkStatusCode200(response);
@@ -153,7 +153,7 @@ public class ShipmentlessShopperTest extends RestBase {
     @Story("Поиск")
     @CaseId(21)
     @Test(  description = "Поиск товаров",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getStoreOffers200() {
         response = StoresRequest.Offers.GET(
                 EnvironmentData.INSTANCE.getDefaultShopperSid(),
@@ -182,7 +182,7 @@ public class ShipmentlessShopperTest extends RestBase {
     @Story("Авторизация")
     @CaseId(46)
     @Test( description = "Отправка запроса для получения смс кодом для авторизации",
-           groups = {"api-shopper-smoke"})
+           groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void postOtpsTokens200() {
         response = OtpsRequest.Tokens.POST(phone);
         checkStatusCode200(response);
