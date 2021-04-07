@@ -708,6 +708,11 @@ public class Elements {
                     "объект возвращает 2 чекбокса 'Хочу заказать для бизнеса' и 'Согласен на рекламную рассылку'");
         }
 
+        static ElementData checkB2B(){
+            return new ElementData(By.xpath("//input[@data-qa='registration_form_b2b_checkbox']"),
+                    "чекбокс 'Хочу заказывать для бизнеса'");
+        }
+
         static ElementData forgotPasswordButton() {
             return new ElementData(By.xpath("//*[@class='auth-modal__form']//*[text()='Забыли пароль?']"),
                     "кнопка Забыли пароль в модалке авторизации");
@@ -749,6 +754,11 @@ public class Elements {
             return new ElementData(
                     By.xpath("//button[@data-qa='sber_id']"),
                         "кнопка авторизации через Sber ID");
+        }
+
+        static ElementData sberBussinesIdButton(){
+            return new ElementData(By.xpath("//button[@data-qa='sber_business_id']"),
+                    "кнопка авторизации через СберБизнес ID");
         }
 
         static ElementData continueButton(){
@@ -1296,8 +1306,8 @@ public class Elements {
                             "статус заказа 'Перенесен' на странице деталей заказа");
                 }
 
-                static ElementData notification(){
-                    return new ElementData(By.xpath("//div[@class='alerts']//span"),
+                static ElementData alert(){
+                    return new ElementData(By.cssSelector(".alert__msg"),
                             "нотификация после оформления заказа");
                 }
             }
@@ -1305,6 +1315,7 @@ public class Elements {
             interface OrderAssembly {
 
                 static ElementData allItemsButton() {
+
                     return new ElementData(By.xpath("//button[@data-qa='user-shipment-assembly-items-all']"),
                             "кнопка 'Все' в блоке сборки на странице деталей заказа");
                 }

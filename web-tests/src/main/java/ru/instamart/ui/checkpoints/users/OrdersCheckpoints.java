@@ -2,6 +2,7 @@ package instamart.ui.checkpoints.users;
 
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.pagesdata.ElementData;
+import instamart.ui.common.pagesdata.PaymentTypeData;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.slf4j.Logger;
@@ -55,9 +56,16 @@ public class OrdersCheckpoints extends BaseUICheckpoints {
     @Step("Проверка успешного создания заказа")
     public void checkOrderSuccessCreation(){
         log.info("Проверка успешного создания заказа");
-        Assert.assertEquals(kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderStatus.notification()),
-                "Ваш заказ был успешно обработан");
         Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не удалось оформить заказ\n");
+    }
+
+    @Step("Проверка метода оплаты")
+    public void checkPaymentMethod(PaymentTypeData PaymentType){
+        log.info("Проверка корректного метода оплаты");
+        Assert.assertEquals(
+                kraken.grab().shipmentPayment(),
+                PaymentType.getDescription(),
+                failMessage("Способ оплаты в деталях заказа не совпадает с выбранным во время оформления"));
     }
 }

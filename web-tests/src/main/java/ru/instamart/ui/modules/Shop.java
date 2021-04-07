@@ -896,7 +896,8 @@ public final class Shop extends Base {
         @Step("Набираем корзину на указанную сумму: {0}")
         public static void collect(int orderSum) {
             if (!kraken.detect().isShippingAddressSet()) {
-                User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+                Shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+                Shop.ShippingAddressModal.selectAddressSuggest();
             }
             log.info("> проверяем  корзину. Минимальная сумма для заказа {}...", orderSum);
             int cartTotal = kraken.grab().cartTotalRounded();
@@ -906,7 +907,9 @@ public final class Shop extends Base {
                 if (kraken.detect().isProductAvailable()) {
                     if (kraken.detect().isFavoriteProductAvailable()) {
                         log.info("> любимый продукт найден");
+                        kraken.get().userFavoritesPage(); //ошибка на шаге просмотра карточки в любимых продуктах
                         Favorites.openFavoritesSnipet();
+                        //Catalog.Item.open();
                     } else {
                         log.info("> нет любимых товаров на текущей странице {}", kraken.grab().currentURL());
                         //kraken.get().page(Pages.Retailers.metro());

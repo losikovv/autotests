@@ -375,4 +375,15 @@ public class BaseUICheckpoints {
                         + "\n> " + element.getLocator()));
         log.info("✓ Успешно: {}", element.getDescription());
     }
+
+    /**Проверяем, что вебэлемент доступен на странице*/
+    @Step("Проверяем, что веб элемент доступен: {element.description}")
+    public void checkIsElementEnabled(ElementData element){
+        log.info("> проверяем, что веб элемент заблокирован {}> {}", kraken.grab().currentURL(), element.getLocator());
+        Assert.assertTrue(
+                kraken.detect().isElementEnabled(element),
+                failMessage("Не доступен " + element.getDescription() + " на странице " + kraken.grab().currentURL()
+                        + "\n> " + element.getLocator()));
+        log.info("✓ Успешно: {}", element.getDescription());
+    }
 }
