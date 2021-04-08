@@ -1,4 +1,4 @@
-package instamart.core.util;
+package ru.instamart.core.util;
 
 import java.util.Map;
 

@@ -1,6 +1,6 @@
-package instamart.api.objects.shopper;
+package ru.instamart.api.objects.shopper;
 
-import instamart.api.objects.BaseObject;
+import ru.instamart.api.objects.BaseObject;
 import lombok.EqualsAndHashCode;
 
 @lombok.Data

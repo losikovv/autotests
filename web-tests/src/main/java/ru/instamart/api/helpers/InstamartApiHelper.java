@@ -1,21 +1,21 @@
-package instamart.api.helpers;
+package ru.instamart.api.helpers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import instamart.api.SessionFactory;
-import instamart.api.enums.SessionType;
-import instamart.api.enums.v2.OrderStatus;
-import instamart.api.objects.v1.Offer;
-import instamart.api.objects.v2.*;
-import instamart.api.requests.ApiV1Requests;
-import instamart.api.requests.v2.*;
-import instamart.api.responses.ErrorResponse;
-import instamart.api.responses.v1.OffersResponse;
-import instamart.api.responses.v2.*;
-import instamart.core.util.MapUtil;
-import instamart.ui.common.lib.Pages;
-import instamart.ui.common.pagesdata.EnvironmentData;
-import instamart.ui.common.pagesdata.UserData;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v2.OrderStatus;
+import ru.instamart.api.objects.v1.Offer;
+import ru.instamart.api.objects.v2.*;
+import ru.instamart.api.requests.ApiV1Requests;
+import ru.instamart.api.requests.v2.*;
+import ru.instamart.api.responses.ErrorResponse;
+import ru.instamart.api.responses.v1.OffersResponse;
+import ru.instamart.api.responses.v2.*;
+import ru.instamart.core.util.MapUtil;
+import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
 public final class InstamartApiHelper {
 

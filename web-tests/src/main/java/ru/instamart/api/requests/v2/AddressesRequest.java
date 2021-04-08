@@ -1,10 +1,10 @@
-package instamart.api.requests.v2;
+package ru.instamart.api.requests.v2;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
-import instamart.api.endpoints.ApiV2EndPoints;
-import instamart.core.service.MapperService;
+import ru.instamart.api.endpoints.ApiV2EndPoints;
+import ru.instamart.core.service.MapperService;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import static instamart.api.requests.InstamartRequestsBase.givenWithAuthApiV2;
+import static ru.instamart.api.requests.InstamartRequestsBase.givenWithAuthApiV2;
 
 public final class AddressesRequest {
 

@@ -1,7 +1,7 @@
-package instamart.api.checkpoints;
+package ru.instamart.api.checkpoints;
 
-import instamart.api.objects.shopper.Error;
-import instamart.api.responses.shopper.ErrorResponse;
+import ru.instamart.api.objects.shopper.Error;
+import ru.instamart.api.responses.shopper.ErrorResponse;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.testng.Assert;

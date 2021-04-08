@@ -1,6 +1,6 @@
-package instamart.core.service;
+package ru.instamart.core.service;
 
-import instamart.core.util.FileUtils;
+import ru.instamart.core.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

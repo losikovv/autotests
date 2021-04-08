@@ -1,12 +1,12 @@
-package instamart.ui.modules;
+package ru.instamart.ui.modules;
 
-import instamart.core.common.AppManager;
-import instamart.core.settings.Config;
-import instamart.core.testdata.TestVariables;
-import instamart.ui.common.lib.Addresses;
-import instamart.ui.common.pagesdata.ElementData;
-import instamart.ui.common.pagesdata.WidgetData;
-import instamart.ui.objectsmap.Elements;
+import ru.instamart.core.common.AppManager;
+import ru.instamart.core.settings.Config;
+import ru.instamart.core.testdata.TestVariables;
+import ru.instamart.ui.common.lib.Addresses;
+import ru.instamart.ui.common.pagesdata.ElementData;
+import ru.instamart.ui.common.pagesdata.WidgetData;
+import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotSelectableException;

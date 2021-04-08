@@ -1,6 +1,6 @@
-package instamart.api.objects.v3;
+package ru.instamart.api.objects.v3;
 
-import instamart.api.responses.BaseResponseObject;
+import ru.instamart.api.responses.BaseResponseObject;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class OrderV3 extends BaseResponseObject {

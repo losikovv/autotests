@@ -1,4 +1,4 @@
-package instamart.api.endpoints;
+package ru.instamart.api.endpoints;
 
 public final class ShopperApiEndpoints {
     public static final String SHOPPER = "shopper";

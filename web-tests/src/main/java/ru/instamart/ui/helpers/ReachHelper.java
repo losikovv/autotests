@@ -1,11 +1,11 @@
-package instamart.ui.helpers;
+package ru.instamart.ui.helpers;
 
-import instamart.core.common.AppManager;
-import instamart.core.helpers.HelperBase;
-import instamart.core.testdata.UserManager;
-import instamart.ui.common.pagesdata.PageData;
-import instamart.ui.modules.Shop;
-import instamart.ui.modules.User;
+import ru.instamart.core.common.AppManager;
+import ru.instamart.core.helpers.HelperBase;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.ui.common.pagesdata.PageData;
+import ru.instamart.ui.modules.Shop;
+import ru.instamart.ui.modules.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

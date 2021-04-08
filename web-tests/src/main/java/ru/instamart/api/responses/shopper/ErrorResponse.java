@@ -1,7 +1,7 @@
-package instamart.api.responses.shopper;
+package ru.instamart.api.responses.shopper;
 
-import instamart.api.responses.BaseResponseObject;
-import instamart.api.objects.shopper.Error;
+import ru.instamart.api.responses.BaseResponseObject;
+import ru.instamart.api.objects.shopper.Error;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

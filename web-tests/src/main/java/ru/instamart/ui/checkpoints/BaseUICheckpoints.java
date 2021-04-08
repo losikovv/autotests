@@ -1,9 +1,9 @@
-package instamart.ui.checkpoints;
+package ru.instamart.ui.checkpoints;
 
-import instamart.ui.common.pagesdata.ElementData;
-import instamart.ui.common.pagesdata.EnvironmentData;
-import instamart.ui.common.pagesdata.PageData;
-import instamart.ui.objectsmap.Elements;
+import ru.instamart.ui.common.pagesdata.ElementData;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.common.pagesdata.PageData;
+import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
-import static instamart.ui.modules.Base.kraken;
+import static ru.instamart.ui.modules.Base.kraken;
 
 public class BaseUICheckpoints {
 

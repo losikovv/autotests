@@ -1,10 +1,10 @@
-package instamart.api.requests.shopper;
+package ru.instamart.api.requests.shopper;
 
-import instamart.api.endpoints.ShopperApiEndpoints;
+import ru.instamart.api.endpoints.ShopperApiEndpoints;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
-import static instamart.api.requests.ShopperRequestBase.givenWithSpec;
+import static ru.instamart.api.requests.ShopperRequestBase.givenWithSpec;
 
 public final class SessionsRequest {
 

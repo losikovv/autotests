@@ -1,4 +1,4 @@
-package instamart.core.testdata;
+package ru.instamart.core.testdata;
 
 public class Environments {
 

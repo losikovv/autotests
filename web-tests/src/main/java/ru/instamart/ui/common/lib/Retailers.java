@@ -1,4 +1,4 @@
-package instamart.ui.common.lib;
+package ru.instamart.ui.common.lib;
 
 public final class Retailers {
     public static final String metro = "metro";

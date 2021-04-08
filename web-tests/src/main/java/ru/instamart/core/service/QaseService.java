@@ -1,17 +1,11 @@
-package instamart.core.service;
+package ru.instamart.core.service;
 
-import instamart.core.helpers.HelperBase;
-import instamart.core.settings.Config;
-import instamart.core.util.Crypt;
-import instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.TmsLink;
 import io.qase.api.QaseApi;
-import io.qase.api.QaseApiClient;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.enums.Automation;
 import io.qase.api.enums.RunResultStatus;
 import io.qase.api.exceptions.QaseException;
-import io.qase.api.inner.GsonObjectMapper;
 import io.qase.api.models.v1.attachments.Attachment;
 import io.qase.api.models.v1.defects.Defect;
 import io.qase.api.models.v1.suites.Suite;
@@ -19,10 +13,13 @@ import io.qase.api.models.v1.testplans.TestPlan;
 import io.qase.api.models.v1.testrunresults.TestRunResult;
 import io.qase.api.models.v1.testruns.TestRun;
 import io.qase.api.services.TestCaseService;
-import kong.unirest.Unirest;
-import kong.unirest.UnirestInstance;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
+import ru.instamart.core.helpers.HelperBase;
+import ru.instamart.core.settings.Config;
+import ru.instamart.core.util.Crypt;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -47,14 +44,17 @@ public final class QaseService {
     private static final LocalDateTime DAYS_TO_DIE = LocalDateTime.now().minusWeeks(4);
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+    private final int PLAN_ID = Integer.parseInt(System.getProperty("qase.plan.id","0"));
+    private final int SUITE_ID = Integer.parseInt(System.getProperty("qase.suite.id","0"));
+    private final String PIPELINE_URL = System.getProperty("pip_url", "https://gitlab.sbermarket.tech/qa/automag/-/pipelines");
+    private boolean qase = Boolean.parseBoolean(System.getProperty("qase","false"));
+
     private final String projectCode;
+    @Getter
     private final QaseApi qaseApi;
     private final List<Integer> testCasesList;
     private boolean started = false;
-    private final QaseTestRunResultService qaseTestRunResultService;
 
-    private final String PIPELINE_URL = System.getProperty("pip_url", "https://gitlab.sbermarket.tech/qa/automag/-/pipelines");
-    private boolean qase = Boolean.parseBoolean(System.getProperty("qase","false"));
     private String testRunName;
     private Long runId;
 
@@ -62,54 +62,47 @@ public final class QaseService {
         this.projectCode = projectCode;
         this.qaseApi = new QaseApi(Crypt.INSTANCE.decrypt(Config.QASE_API_TOKEN));
         this.testCasesList = new ArrayList<>();
-
-        // костыль, пока в https://github.com/qase-tms/qase-java/tree/master/qase-api не реализуют добавление скриншотов
-        UnirestInstance unirestInstance = Unirest.spawnInstance();
-        unirestInstance.config()
-                .setObjectMapper(new GsonObjectMapper())
-                .addShutdownHook(true)
-                .setDefaultHeader("Token", Crypt.INSTANCE.decrypt(Config.QASE_API_TOKEN));
-        this.qaseTestRunResultService = new QaseTestRunResultService(
-                new QaseApiClient(unirestInstance, "https://api.qase.io/v1"));
     }
 
     /**
-     * Если planId указан, то из тест плана получаем список тест-кейсов
-     * Если planId не указан, но suiteId указан, то из сьюта получаем automated кейсы
-     * Если suiteId не указан, то из всего проекта получаем automated кейсы
+     * Если PLAN_ID указан, то из тест плана получаем список тест-кейсов
+     * Если PLAN_ID не указан, но suiteId указан, то из сьюта получаем automated кейсы
+     * Если SUITE_ID не указан, то из всего проекта получаем automated кейсы
      */
     public void generateTestCasesList() {
-        if (!qase || projectCode == null) return;
+        if (!qase || projectCode == null) {
+            return;
+        }
 
         final TestCaseService.Filter filter = qaseApi
                 .testCases()
                 .filter()
                 .automation(Automation.automated);
-        final int planId = Integer.parseInt(System.getProperty("qase.plan.id","0"));
-        final int suiteId = Integer.parseInt(System.getProperty("qase.suite.id","0"));
 
-        if (planId != 0) {
+        if (PLAN_ID != 0) {
             final TestPlan testPlan = qaseApi
                     .testPlans()
-                    .get(projectCode, planId);
+                    .get(projectCode, PLAN_ID);
 
             testRunName = testPlan.getTitle();
             testPlan.getCases()
                     .forEach(testCase -> testCasesList.add((int) testCase.getCaseId()));
-        } else if (suiteId != 0) {
-            filter.suiteId(suiteId);
-            testRunName = qaseApi.suites().get(projectCode, suiteId).getTitle();
+        } else if (SUITE_ID != 0) {
+            filter.suiteId(SUITE_ID);
+            testRunName = qaseApi.suites().get(projectCode, SUITE_ID).getTitle();
             addTestCasesToList(filter);
 
             final List<Suite> suites = qaseApi.suites()
                     .getAll(projectCode)
                     .getSuiteList();
-            addTestCasesFromChildSuite(filter, suiteId, suites);
+            addTestCasesFromChildSuite(filter, SUITE_ID, suites);
         } else {
             testRunName = qaseApi.projects().get(projectCode).getTitle();
             addTestCasesToList(filter);
         }
-        if (testCasesList.isEmpty()) qase = false;
+        if (testCasesList.isEmpty()) {
+            qase = false;
+        }
     }
 
     /**
@@ -160,101 +153,17 @@ public final class QaseService {
                                 null,
                                 comment,
                                 stacktrace,
-                                isDefect);
-            } catch (QaseException e) {
-                log.error(e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Отправляем статус прохождения теста с аттачем
-     */
-    public void sendResult(final ITestResult result,
-                           final RunResultStatus status,
-                           final List<String> attachmentsHash) {
-        if (!qase) return;
-
-        final Duration timeSpent = Duration
-                .ofMillis(result.getEndMillis() - result.getStartMillis());
-        final Optional<Throwable> resultThrowable = Optional
-                .ofNullable(result.getThrowable());
-        final String comment = resultThrowable
-                .flatMap(throwable -> Optional.of(throwable.toString()))
-                .orElse(null);
-        final Boolean isDefect = resultThrowable
-                .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
-                .orElse(false);
-        final String stacktrace = resultThrowable
-                .flatMap(throwable -> Optional.of(getStacktrace(throwable)))
-                .orElse(null);
-
-        final Long caseId = getCaseId(result);
-        if (caseId != null) {
-            try {
-                qaseTestRunResultService
-                        .create(projectCode,
-                                runId,
-                                caseId,
-                                status,
-                                timeSpent,
-                                null,
-                                comment,
-                                stacktrace,
                                 isDefect,
-                                attachmentsHash);
+                                status == RunResultStatus.failed ? uploadScreenshot() : null
+                        );
             } catch (QaseException e) {
                 log.error(e.getMessage());
             }
         }
     }
 
-    public QaseApi getQaseApi() {
-        return qaseApi;
-    }
-
-    private void addTestCasesFromChildSuite(final TestCaseService.Filter filter, final int parentId, final List<Suite> suites) {
-        for (Suite suite : suites) {
-            if (suite.getParentId() != null && suite.getParentId() == parentId) {
-                int suiteId = (int) suite.getId();
-                filter.suiteId(suiteId);
-                addTestCasesToList(filter);
-                addTestCasesFromChildSuite(filter, suiteId, suites);
-            }
-        }
-    }
-
-    private void addTestCasesToList(final TestCaseService.Filter filter) {
-        qaseApi.testCases()
-                .getAll(projectCode, filter)
-                .getTestCaseList()
-                .forEach(testCase -> testCasesList.add((int) testCase.getId()));
-    }
-
-    /**
-     * Получаем CaseId из аннотации теста
-     */
-    private Long getCaseId(final ITestResult result) {
-        final Method method = result
-                .getMethod()
-                .getConstructorOrMethod()
-                .getMethod();
-        if (method.isAnnotationPresent(CaseId.class)) {
-            return method
-                    .getDeclaredAnnotation(CaseId.class).value();
-        } else if (method.isAnnotationPresent(TmsLink.class)) {
-            try {
-                return Long.valueOf(method
-                        .getDeclaredAnnotation(TmsLink.class).value());
-            } catch (NumberFormatException e) {
-                log.error("String could not be parsed as Long", e);
-            }
-        }
-        return null;
-    }
-
-    public List<String> uploadScreenshot() {
-        File file = HelperBase.takeScreenshotFile();
+    private List<String> uploadScreenshot() {
+        final File file = HelperBase.takeScreenshotFile();
         return qaseApi.attachments()
                 .add(projectCode, file)
                 .stream()
@@ -294,4 +203,50 @@ public final class QaseService {
             }
         });
     }
+
+    public void completeTestRun() {
+        log.error("completeTestRun {} {}", projectCode, runId);
+        qaseApi.testRuns().completeTestRun(projectCode, runId);
+    }
+
+    private void addTestCasesFromChildSuite(final TestCaseService.Filter filter, final int parentId, final List<Suite> suites) {
+        suites.forEach(suite -> {
+            if (suite.getParentId() != null && suite.getParentId() == parentId) {
+                int suiteId = (int) suite.getId();
+                filter.suiteId(suiteId);
+                addTestCasesToList(filter);
+                addTestCasesFromChildSuite(filter, suiteId, suites);
+            }
+        });
+    }
+
+    private void addTestCasesToList(final TestCaseService.Filter filter) {
+        qaseApi.testCases()
+                .getAll(projectCode, filter)
+                .getTestCaseList()
+                .forEach(testCase -> testCasesList.add((int) testCase.getId()));
+    }
+
+    /**
+     * Получаем CaseId из аннотации теста
+     */
+    private Long getCaseId(final ITestResult result) {
+        final Method method = result
+                .getMethod()
+                .getConstructorOrMethod()
+                .getMethod();
+        if (method.isAnnotationPresent(CaseId.class)) {
+            return method
+                    .getDeclaredAnnotation(CaseId.class).value();
+        } else if (method.isAnnotationPresent(TmsLink.class)) {
+            try {
+                return Long.valueOf(method
+                        .getDeclaredAnnotation(TmsLink.class).value());
+            } catch (NumberFormatException e) {
+                log.error("String could not be parsed as Long", e);
+            }
+        }
+        return null;
+    }
 }
+

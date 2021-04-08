@@ -1,4 +1,4 @@
-package instamart.api.enums.shopper;
+package ru.instamart.api.enums.shopper;
 
 public enum AssemblyState {
     COLLECTING("collecting"),

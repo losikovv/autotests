@@ -1,14 +1,14 @@
-package instamart.ui.modules;
+package ru.instamart.ui.modules;
 
-import instamart.core.common.AppManager;
-import instamart.core.settings.Config;
-import instamart.core.testdata.ui.BonusPrograms;
-import instamart.core.testdata.ui.PaymentTypes;
-import instamart.ui.common.lib.CheckoutSteps;
-import instamart.ui.common.lib.ReplacementPolicies;
-import instamart.ui.common.pagesdata.*;
-import instamart.ui.helpers.WaitingHelper;
-import instamart.ui.objectsmap.Elements;
+import ru.instamart.core.common.AppManager;
+import ru.instamart.core.settings.Config;
+import ru.instamart.core.testdata.ui.BonusPrograms;
+import ru.instamart.core.testdata.ui.PaymentTypes;
+import ru.instamart.ui.common.lib.CheckoutSteps;
+import ru.instamart.ui.common.lib.ReplacementPolicies;
+import ru.instamart.ui.common.pagesdata.*;
+import ru.instamart.ui.helpers.WaitingHelper;
+import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
-import static instamart.core.testdata.TestVariables.testOrderDetails;
+import static ru.instamart.core.testdata.TestVariables.testOrderDetails;
 import static io.qameta.allure.Allure.step;
 
 public final class Checkout extends Base {

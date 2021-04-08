@@ -1,16 +1,16 @@
-package instamart.api;
+package ru.instamart.api;
 
-import instamart.api.checkpoints.ShopperApiCheckpoints;
-import instamart.api.enums.SessionType;
-import instamart.api.helpers.RegistrationHelper;
-import instamart.api.objects.shopper.SessionAttributes;
-import instamart.api.requests.delivery_club.AuthenticationDCRequest;
-import instamart.api.requests.shopper.SessionsRequest;
-import instamart.api.requests.v2.SessionRequest;
-import instamart.api.responses.deliveryclub.TokenDCResponse;
-import instamart.api.responses.v2.SessionsResponse;
-import instamart.core.testdata.UserManager;
-import instamart.ui.common.pagesdata.UserData;
+import ru.instamart.api.checkpoints.ShopperApiCheckpoints;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.helpers.RegistrationHelper;
+import ru.instamart.api.objects.shopper.SessionAttributes;
+import ru.instamart.api.requests.delivery_club.AuthenticationDCRequest;
+import ru.instamart.api.requests.shopper.SessionsRequest;
+import ru.instamart.api.requests.v2.SessionRequest;
+import ru.instamart.api.responses.deliveryclub.TokenDCResponse;
+import ru.instamart.api.responses.v2.SessionsResponse;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import org.testng.Assert;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
 @Slf4j
 public final class SessionFactory {
@@ -110,7 +110,7 @@ public final class SessionFactory {
     private static SessionInfo createShopperSession(final UserData userData) {
         final Response response = SessionsRequest.POST(userData.getLogin(), userData.getPassword());
         ShopperApiCheckpoints.checkStatusCode200(response);
-        final instamart.api.responses.shopper.SessionsResponse sessionsResponse = response.as(instamart.api.responses.shopper.SessionsResponse.class);
+        final ru.instamart.api.responses.shopper.SessionsResponse sessionsResponse = response.as(ru.instamart.api.responses.shopper.SessionsResponse.class);
         final SessionAttributes sessionAttributes = sessionsResponse.getData().getAttributes();
         log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
         log.info("access_token: {}", sessionAttributes.getAccessToken());

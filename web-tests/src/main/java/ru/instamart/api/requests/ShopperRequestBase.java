@@ -1,8 +1,8 @@
-package instamart.api.requests;
+package ru.instamart.api.requests;
 
-import instamart.api.SessionFactory;
-import instamart.api.common.Specification;
-import instamart.api.enums.SessionType;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.common.Specification;
+import ru.instamart.api.enums.SessionType;
 import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;

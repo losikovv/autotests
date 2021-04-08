@@ -1,6 +1,6 @@
-package instamart.core.provider;
+package ru.instamart.core.provider;
 
-import instamart.core.settings.Config;
+import ru.instamart.core.settings.Config;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -22,8 +22,8 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-import static instamart.core.settings.Config.BASIC_TIMEOUT;
-import static instamart.core.settings.Config.FULL_SCREEN_MODE;
+import static ru.instamart.core.settings.Config.BASIC_TIMEOUT;
+import static ru.instamart.core.settings.Config.FULL_SCREEN_MODE;
 
 public abstract class AbstractBrowserProvider {
 

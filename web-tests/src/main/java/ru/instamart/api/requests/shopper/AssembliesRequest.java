@@ -1,14 +1,14 @@
-package instamart.api.requests.shopper;
+package ru.instamart.api.requests.shopper;
 
-import instamart.api.endpoints.ShopperApiEndpoints;
-import instamart.api.enums.shopper.PackageSetLocation;
+import ru.instamart.api.endpoints.ShopperApiEndpoints;
+import ru.instamart.api.enums.shopper.PackageSetLocation;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import static instamart.api.requests.ShopperRequestBase.givenWithAuth;
+import static ru.instamart.api.requests.ShopperRequestBase.givenWithAuth;
 
 public final class AssembliesRequest {
 

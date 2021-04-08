@@ -1,6 +1,6 @@
-package instamart.api.common;
+package ru.instamart.api.common;
 
-import instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;

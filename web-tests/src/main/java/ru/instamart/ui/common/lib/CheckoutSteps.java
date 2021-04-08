@@ -1,6 +1,6 @@
-package instamart.ui.common.lib;
+package ru.instamart.ui.common.lib;
 
-import instamart.ui.common.pagesdata.CheckoutStepData;
+import ru.instamart.ui.common.pagesdata.CheckoutStepData;
 
 public class CheckoutSteps {
 

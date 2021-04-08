@@ -1,8 +1,8 @@
-package instamart.api.responses.shopper;
+package ru.instamart.api.responses.shopper;
 
-import instamart.api.responses.BaseResponseObject;
-import instamart.api.objects.shopper.AssemblyData;
-import instamart.api.objects.shopper.AssemblyItemData;
+import ru.instamart.api.responses.BaseResponseObject;
+import ru.instamart.api.objects.shopper.AssemblyData;
+import ru.instamart.api.objects.shopper.AssemblyItemData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -1,16 +1,16 @@
-package instamart.api.helpers;
+package ru.instamart.api.helpers;
 
-import instamart.api.SessionFactory;
-import instamart.api.enums.SessionType;
-import instamart.api.enums.shopper.AssemblyState;
-import instamart.api.enums.shopper.PackageSetLocation;
-import instamart.api.objects.shopper.*;
-import instamart.api.requests.shopper.*;
-import instamart.api.responses.shopper.*;
-import instamart.core.testdata.UserManager;
-import instamart.ui.common.pagesdata.EnvironmentData;
-import instamart.ui.common.pagesdata.UserData;
-import instamart.ui.helpers.WaitingHelper;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.shopper.AssemblyState;
+import ru.instamart.api.enums.shopper.PackageSetLocation;
+import ru.instamart.api.objects.shopper.*;
+import ru.instamart.api.requests.shopper.*;
+import ru.instamart.api.responses.shopper.*;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.helpers.WaitingHelper;
 import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
 
-import static instamart.api.checkpoints.ShopperApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoints.ShopperApiCheckpoints.checkStatusCode200;
 
 public class ShopperApiHelper {
 

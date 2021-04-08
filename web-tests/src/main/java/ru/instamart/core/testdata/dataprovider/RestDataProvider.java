@@ -1,18 +1,18 @@
-package instamart.core.testdata.dataprovider;
+package ru.instamart.core.testdata.dataprovider;
 
-import instamart.api.common.RestAddresses;
-import instamart.api.common.RestBase;
-import instamart.api.common.Specification;
-import instamart.api.enums.v2.AuthProvider;
-import instamart.api.objects.v1.Offer;
-import instamart.api.objects.v1.OperationalZone;
-import instamart.api.objects.v2.Retailer;
-import instamart.api.objects.v2.Store;
-import instamart.api.objects.v2.Zone;
-import instamart.api.requests.ApiV1Requests;
-import instamart.api.requests.v2.AddressesRequest.Addresses;
-import instamart.api.requests.v2.StoresRequest;
-import instamart.api.responses.v1.OperationalZonesResponse;
+import ru.instamart.api.common.RestAddresses;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.common.Specification;
+import ru.instamart.api.enums.v2.AuthProvider;
+import ru.instamart.api.objects.v1.Offer;
+import ru.instamart.api.objects.v1.OperationalZone;
+import ru.instamart.api.objects.v2.Retailer;
+import ru.instamart.api.objects.v2.Store;
+import ru.instamart.api.objects.v2.Zone;
+import ru.instamart.api.requests.ApiV1Requests;
+import ru.instamart.api.requests.v2.AddressesRequest.Addresses;
+import ru.instamart.api.requests.v2.StoresRequest;
+import ru.instamart.api.responses.v1.OperationalZonesResponse;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

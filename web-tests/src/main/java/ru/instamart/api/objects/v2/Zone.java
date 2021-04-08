@@ -1,6 +1,6 @@
-package instamart.api.objects.v2;
+package ru.instamart.api.objects.v2;
 
-import instamart.api.objects.BaseObject;
+import ru.instamart.api.objects.BaseObject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

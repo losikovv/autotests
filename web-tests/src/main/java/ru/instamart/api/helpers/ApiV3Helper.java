@@ -1,11 +1,11 @@
-package instamart.api.helpers;
+package ru.instamart.api.helpers;
 
-import instamart.api.objects.v3.PaymentMethodV3;
-import instamart.api.objects.v3.ReplacementOptionV3;
-import instamart.api.objects.v3.StoreV3;
-import instamart.api.requests.v3.OrderOptionsV3Request;
-import instamart.api.requests.v3.StoresV3Request;
-import instamart.api.responses.v3.OrderOptionsPickupV3Response;
+import ru.instamart.api.objects.v3.PaymentMethodV3;
+import ru.instamart.api.objects.v3.ReplacementOptionV3;
+import ru.instamart.api.objects.v3.StoreV3;
+import ru.instamart.api.requests.v3.OrderOptionsV3Request;
+import ru.instamart.api.requests.v3.StoresV3Request;
+import ru.instamart.api.responses.v3.OrderOptionsPickupV3Response;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

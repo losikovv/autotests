@@ -1,10 +1,10 @@
-package instamart.ui.helpers;
+package ru.instamart.ui.helpers;
 
-import instamart.core.common.AppManager;
-import instamart.core.helpers.HelperBase;
-import instamart.ui.common.lib.Pages;
-import instamart.ui.common.pagesdata.EnvironmentData;
-import instamart.ui.common.pagesdata.PageData;
+import ru.instamart.core.common.AppManager;
+import ru.instamart.core.helpers.HelperBase;
+import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.common.pagesdata.PageData;
 import io.qameta.allure.Step;
 import org.openqa.selenium.TimeoutException;
 import org.slf4j.Logger;

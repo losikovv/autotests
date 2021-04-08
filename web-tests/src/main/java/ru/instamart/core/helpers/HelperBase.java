@@ -1,6 +1,6 @@
-package instamart.core.helpers;
+package ru.instamart.core.helpers;
 
-import instamart.core.common.AppManager;
+import ru.instamart.core.common.AppManager;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.OutputType;

@@ -1,11 +1,11 @@
-package instamart.ui.helpers;
+package ru.instamart.ui.helpers;
 
-import instamart.core.common.AppManager;
-import instamart.core.helpers.HelperBase;
-import instamart.ui.common.lib.Pages;
-import instamart.ui.common.pagesdata.*;
-import instamart.ui.modules.Shop;
-import instamart.ui.objectsmap.Elements;
+import ru.instamart.core.common.AppManager;
+import ru.instamart.core.helpers.HelperBase;
+import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.common.pagesdata.*;
+import ru.instamart.ui.modules.Shop;
+import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;

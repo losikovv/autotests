@@ -1,4 +1,4 @@
-package instamart.ui.common.pagesdata;
+package ru.instamart.ui.common.pagesdata;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

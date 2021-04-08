@@ -1,8 +1,8 @@
-package instamart.api.requests.delivery_club;
+package ru.instamart.api.requests.delivery_club;
 
-import instamart.api.endpoints.DeliveryClubEndpoints;
-import instamart.api.helpers.InstamartApiHelper;
-import instamart.api.objects.delivery_club.*;
+import ru.instamart.api.endpoints.DeliveryClubEndpoints;
+import ru.instamart.api.helpers.InstamartApiHelper;
+import ru.instamart.api.objects.delivery_club.*;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
-import static instamart.api.requests.InstamartRequestsBase.givenWithAuthDeliveryClub;
+import static ru.instamart.api.requests.InstamartRequestsBase.givenWithAuthDeliveryClub;
 
 public class StoresDCRequest {
 

@@ -1,10 +1,10 @@
-package instamart.api.requests;
+package ru.instamart.api.requests;
 
-import instamart.api.endpoints.ApiV1Endpoints;
-import instamart.api.objects.v1.ShoppersBackend;
-import instamart.api.responses.v1.TokensResponse;
-import instamart.core.testdata.UserManager;
-import instamart.ui.common.pagesdata.UserData;
+import ru.instamart.api.endpoints.ApiV1Endpoints;
+import ru.instamart.api.objects.v1.ShoppersBackend;
+import ru.instamart.api.responses.v1.TokensResponse;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.ui.common.pagesdata.UserData;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 
 import java.util.Map;
 
-import static instamart.api.requests.InstamartRequestsBase.givenApiV1;
+import static ru.instamart.api.requests.InstamartRequestsBase.givenApiV1;
 
 /**
  * МЕТОДЫ ЗАПРОСОВ SPREE REST API (сайт)

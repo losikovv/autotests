@@ -1,8 +1,8 @@
-package instamart.api.responses.deliveryclub;
+package ru.instamart.api.responses.deliveryclub;
 
-import instamart.api.objects.delivery_club.SlotDC;
-import instamart.api.objects.delivery_club.ZoneDC;
-import instamart.api.responses.BaseResponseObject;
+import ru.instamart.api.objects.delivery_club.SlotDC;
+import ru.instamart.api.objects.delivery_club.ZoneDC;
+import ru.instamart.api.responses.BaseResponseObject;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

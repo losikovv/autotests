@@ -1,4 +1,4 @@
-package instamart.core.helpers;
+package ru.instamart.core.helpers;
 
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;

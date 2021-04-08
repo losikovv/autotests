@@ -1,14 +1,14 @@
-package instamart.ui.helpers;
+package ru.instamart.ui.helpers;
 
-import instamart.core.common.AppManager;
-import instamart.core.helpers.HelperBase;
-import instamart.core.settings.Config;
-import instamart.ui.common.lib.Addresses;
-import instamart.ui.common.lib.Pages;
-import instamart.ui.common.pagesdata.ElementData;
-import instamart.ui.modules.Shop;
-import instamart.ui.modules.User;
-import instamart.ui.objectsmap.Elements;
+import ru.instamart.core.common.AppManager;
+import ru.instamart.core.helpers.HelperBase;
+import ru.instamart.core.settings.Config;
+import ru.instamart.ui.common.lib.Addresses;
+import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.common.pagesdata.ElementData;
+import ru.instamart.ui.modules.Shop;
+import ru.instamart.ui.modules.User;
+import ru.instamart.ui.objectsmap.Elements;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;

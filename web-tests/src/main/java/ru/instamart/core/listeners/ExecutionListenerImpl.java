@@ -1,19 +1,19 @@
-package instamart.core.listeners;
+package ru.instamart.core.listeners;
 
 import com.google.common.collect.ImmutableMap;
-import instamart.api.SessionFactory;
-import instamart.api.common.Specification;
-import instamart.core.service.BannerService;
-import instamart.core.settings.Config;
-import instamart.core.testdata.UserManager;
-import instamart.core.testdata.ui.Generate;
-import instamart.core.util.Crypt;
-import instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.common.Specification;
+import ru.instamart.core.service.BannerService;
+import ru.instamart.core.settings.Config;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.core.testdata.ui.Generate;
+import ru.instamart.core.util.Crypt;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.IExecutionListener;
 
-import static instamart.core.helpers.AllureHelper.allureEnvironmentWriter;
+import static ru.instamart.core.helpers.AllureHelper.allureEnvironmentWriter;
 
 public final class ExecutionListenerImpl implements IExecutionListener {
 

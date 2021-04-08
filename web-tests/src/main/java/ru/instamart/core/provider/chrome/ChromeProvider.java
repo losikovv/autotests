@@ -1,7 +1,7 @@
-package instamart.core.provider.chrome;
+package ru.instamart.core.provider.chrome;
 
-import instamart.core.provider.AbstractBrowserProvider;
-import kong.unirest.json.JSONObject;
+import org.json.simple.JSONObject;
+import ru.instamart.core.provider.AbstractBrowserProvider;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
@@ -9,8 +9,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Map;
 
-import static instamart.core.settings.Config.VIDEO;
-import static instamart.core.settings.Config.VNC;
+import static ru.instamart.core.settings.Config.VIDEO;
+import static ru.instamart.core.settings.Config.VNC;
 
 public final class ChromeProvider extends AbstractBrowserProvider {
 

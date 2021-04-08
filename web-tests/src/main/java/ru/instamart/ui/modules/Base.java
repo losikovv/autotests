@@ -1,7 +1,7 @@
-package instamart.ui.modules;
+package ru.instamart.ui.modules;
 
-import instamart.core.common.AppManager;
-import instamart.ui.common.pagesdata.ElementData;
+import ru.instamart.core.common.AppManager;
+import ru.instamart.ui.common.pagesdata.ElementData;
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;

@@ -1,12 +1,12 @@
-package instamart.core.factory;
+package ru.instamart.core.factory;
 
-import instamart.core.provider.AbstractBrowserProvider;
-import instamart.core.provider.IELocalProvider;
-import instamart.core.provider.SafariLocalProvider;
-import instamart.core.provider.chrome.ChromeLocalProvider;
-import instamart.core.provider.chrome.ChromeProvider;
-import instamart.core.provider.firefox.FirefoxLocalProvider;
-import instamart.core.provider.firefox.FirefoxProvider;
+import ru.instamart.core.provider.AbstractBrowserProvider;
+import ru.instamart.core.provider.IELocalProvider;
+import ru.instamart.core.provider.SafariLocalProvider;
+import ru.instamart.core.provider.chrome.ChromeLocalProvider;
+import ru.instamart.core.provider.chrome.ChromeProvider;
+import ru.instamart.core.provider.firefox.FirefoxLocalProvider;
+import ru.instamart.core.provider.firefox.FirefoxProvider;
 import org.openqa.selenium.WebDriver;
 
 public final class BrowserFactory {

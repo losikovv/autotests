@@ -1,6 +1,6 @@
-package instamart.core.testdata.ui;
+package ru.instamart.core.testdata.ui;
 
-import instamart.ui.common.pagesdata.LoyaltiesData;
+import ru.instamart.ui.common.pagesdata.LoyaltiesData;
 
 public class RetailerCards {
 
