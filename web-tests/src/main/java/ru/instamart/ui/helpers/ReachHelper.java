@@ -18,10 +18,13 @@ public final class ReachHelper extends HelperBase {
     }
 
     public void checkout() {
+        log.info("Переход на страницу чекаута по ссылке");
         kraken.get().checkoutPage();
         if(!kraken.detect().isOnCheckout()){
+            log.info("> не выполнился переход на страницу чекаута, недостаточная сумма заказа. Собираем корзину до минимальной суммы");
             kraken.perform().refresh(); // Скипаем возможный алерт о минимальном заказе
-            Shop.Cart.collect();
+            Shop.Cart.collectFirstTime();
+            //Shop.Cart.collect();
             Shop.Cart.proceedToCheckout();
         }
     }

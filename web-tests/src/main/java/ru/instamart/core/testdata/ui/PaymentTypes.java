@@ -2,6 +2,7 @@ package instamart.core.testdata.ui;
 
 import instamart.ui.common.pagesdata.PaymentTypeData;
 
+
 public class PaymentTypes {
 
     public static PaymentTypeData cash() {
@@ -13,7 +14,7 @@ public class PaymentTypes {
     }
 
     public static PaymentTypeData cardCourier() {
-        return new PaymentTypeData("Картой курьеру");
+        return new PaymentTypeData("Картой при получении");
     }
 
     public static PaymentTypeData bankTransfer() {

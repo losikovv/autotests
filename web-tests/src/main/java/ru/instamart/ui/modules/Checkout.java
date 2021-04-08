@@ -9,6 +9,7 @@ import instamart.ui.common.lib.ReplacementPolicies;
 import instamart.ui.common.pagesdata.*;
 import instamart.ui.helpers.WaitingHelper;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.TimeUnit;
 
 import static instamart.core.testdata.TestVariables.testOrderDetails;
+import static io.qameta.allure.Allure.step;
 
 public final class Checkout extends Base {
 
@@ -45,6 +47,7 @@ public final class Checkout extends Base {
         WaitingHelper.simply(1); // Ожидание сохранения данных в шаге чекаута после нажатия "Сохранить"
     }
 
+    @Step("Нажатие кнопки Оформление заказа в сайдбаре")
     public static void sendOrderFromSidebar() {
         log.info("Отправляем заказ...");
         kraken.await().fluently(
@@ -59,6 +62,7 @@ public final class Checkout extends Base {
         log.info("✓ Заказ оформлен");
     }
 
+    @Step("Нажатие на оформление заказа в нижней части чекаута")
     public static void sendOrderFromBottomPanel() {
         log.info("Отправляем заказ ...");
         kraken.await().fluently(
@@ -80,6 +84,7 @@ public final class Checkout extends Base {
             fill(testOrderDetails().getAddressDetails());
         }
 
+        @Step("Заполняем адрес доставки в чекауте")
         public static void fill(AddressDetailsData addressDetails) {
             log.info("Заполняем адрес доставки");
             setType(addressDetails.getType());
@@ -102,6 +107,7 @@ public final class Checkout extends Base {
             fillCommentaries("");
         }
 
+        @Step("Сохранение шага")
         public static void next(){
             Checkout.hitNext(CheckoutSteps.addressStep());
         }
@@ -133,72 +139,86 @@ public final class Checkout extends Base {
             }
         }
 
+        @Step("Выбор доставки домой")
         public static void setTypeHome(){
             log.info("> тип: квартира");
             kraken.perform().click(Elements.Checkout.AddressStep.homeRadioButton());
         }
 
+        @Step("Выбор доставки в офис")
         public static void setTypeOffice(){
             log.info("> тип: офис");
             kraken.perform().click(Elements.Checkout.AddressStep.officeRadioButton());
         }
 
+        @Step("Заполняем поле Номер квартиры/офиса")
         public static void fillApartment(){
             log.info("Заполняем поле Номер квартиры/офиса дефолтным тестовым значением из конфига");
             fillApartment(testOrderDetails().getAddressDetails().getApartment());
         }
 
+        @Step("Заполняем поле Номер квартиры/офиса")
         public static void fillApartment(String number){
             log.info("> номер: {}", number);
             kraken.perform().fillField(Elements.Checkout.AddressStep.apartmentInputField(), number);
         }
 
+        @Step("Заполняем поле Этаж")
         public static void fillFloor(){
             log.info("Заполняем поле Этаж дефолтным тестовым значением из конфига");
             fillFloor(testOrderDetails().getAddressDetails().getFloor());
         }
 
+        @Step("Заполняем поле Этаж")
         public static void fillFloor(String number){
             log.info("> этаж: {}", number);
             kraken.perform().fillField(Elements.Checkout.AddressStep.floorInputField(), number);
         }
 
+        @Step("Устанавливаем чекбокс Есть лифт")
         public static void setElevator(){
             log.info("Устанавливаем чекбокс Есть лифт дефолтным тестовым значением из конфига");
             setElevator(testOrderDetails().getAddressDetails().isElevatorAvailable());
         }
 
+        @Step("Устанавливаем чекбокс лифт")
         public static void setElevator(boolean value){
             if (value) log.info("> лифт: есть");
             else log.info("> лифт: нет");
             kraken.perform().setCheckbox(Elements.Checkout.AddressStep.elevatorCheckbox(), value);
         }
 
+        @Step("Заполняем поле Подъезд")
         public static void fillEntrance(){
             log.info("Заполняем поле Подъезд дефолтным тестовым значением из конфига");
             fillEntrance(testOrderDetails().getAddressDetails().getEntrance());
         }
 
+        @Step("Заполняем поле Подъезд")
         public static void fillEntrance(String number){
             log.info("> подъезд: {}", number);
             kraken.perform().fillField(Elements.Checkout.AddressStep.entranceInputField(), number);
         }
 
+        @Step("Заполняем поле Домофон")
         public static void fillDomofon(){
             log.info("Заполняем поле Домофон дефолтным тестовым значением из конфига");
             fillDomofon(testOrderDetails().getAddressDetails().getDomofon());
         }
 
+        @Step("Заполняем поле Домофон")
         public static void fillDomofon(String number){
             log.info("> домофон: {}", number);
             kraken.perform().fillField(Elements.Checkout.AddressStep.domofonInputField(), number);
         }
 
+        @Step("Заполняем поле Комментарии")
         public static void fillCommentaries(){
             log.info("Заполняем поле Комментарии дефолтным тестовым значением из конфига");
             fillCommentaries(testOrderDetails().getAddressDetails().getCommentaries());
         }
 
+        @Step("Заполняем поле Комментарии")
         public static void fillCommentaries(String text){
             log.info("> комментарии по доставке: {}", text);
             kraken.perform().fillField(Elements.Checkout.AddressStep.commentariesInputField(), text);
@@ -212,6 +232,7 @@ public final class Checkout extends Base {
             fill(testOrderDetails().getContactsDetails());
         }
 
+        @Step("Шаг заполнения контактов")
         public static void fill(ContactsDetailsData contactsDetails) {
 
             // todo детектить пустые поля
@@ -258,16 +279,20 @@ public final class Checkout extends Base {
             Checkout.hitSave(CheckoutSteps.contactsStep());
         }
 
+        //@Step("Заполнение имени")
         public static void fillFirstName(String firstName) {
             log.info("> имя: {}", firstName);
-            kraken.perform().fillField(Elements.Checkout.ContactsStep.firstNameInputField(), firstName);
+            step("Заполнение имени: " +firstName, ()->
+                    kraken.perform().fillField(Elements.Checkout.ContactsStep.firstNameInputField(), firstName));
         }
 
+        @Step("Заполнение заполнение фамилии")
         public static void fillLastName(String lastName) {
             log.info("> фамилия: {}", lastName);
-            kraken.perform().fillField(Elements.Checkout.ContactsStep.firstNameInputField(), lastName);
+            kraken.perform().fillField(Elements.Checkout.ContactsStep.lastNameInputField(), lastName);
         }
 
+        @Step("Заполнение заполнение email'a")
         public static void fillEmail(String email) {
             log.info("> email: {}", email);
             kraken.perform().fillField(Elements.Checkout.ContactsStep.emailInputField(), email);
@@ -435,9 +460,11 @@ public final class Checkout extends Base {
         makeOrder(details);
     }
 
-    public void complete(PaymentTypeData payment, boolean newPaymentCard, PaymentCardData card) {
+    @Step("Оформление заказа с методом оплаты картой онлайн")
+    public void complete(PaymentTypeData payment, boolean newPaymentCard, PaymentCardData cardData) {
+        log.info("Оформление заказа с методом оплаты картой онлайн");
         OrderDetailsData details = new OrderDetailsData();
-        details.setPaymentDetails(payment, newPaymentCard, card);
+        details.setPaymentDetails(payment, newPaymentCard, cardData);
         makeOrder(details);
     }
 
@@ -447,7 +474,9 @@ public final class Checkout extends Base {
         makeOrder(details);
     }
 
+    @Step("Заполнение чекаута")
     public void makeOrder(OrderDetailsData orderDetails) {
+        log.info("Заполнение чекаута");
         fillOrderDetails(orderDetails);
         if(orderDetails.getPromocode() != null) {Promocode.add(orderDetails.getPromocode());}
         if(orderDetails.getBonus() != null) {
@@ -455,7 +484,7 @@ public final class Checkout extends Base {
         if(orderDetails.getRetailerCard() != null) {RetailerCards.addCard(orderDetails.getRetailerCard());}
         sendOrderFromSidebar();
         if(orderDetails.getPaymentDetails().getPaymentType().getDescription().equalsIgnoreCase(PaymentTypes.cardOnline().getDescription())) {
-            cloudpaymentsFlow();
+            if (orderDetails.getPaymentDetails().getCreditCard().getSecure()){cloudpaymentsFlow();}
         }
     }
 
@@ -463,12 +492,15 @@ public final class Checkout extends Base {
         fillOrderDetails(testOrderDetails());
     }
 
+    @Step("Заполнение шагов чекаута")
     public void fillOrderDetails(OrderDetailsData orderDetails) {
         initCheckout();
         for (int position = 1; position <= 5; position++) {
+            log.info("Заполнение шага номер {}", position);
             fillStep(position,orderDetails);
         }
     }
+
 
     private void fillStep(int position, OrderDetailsData orderDetails) {
         CheckoutStepData step = CheckoutSteps.getStepDetails(position);
@@ -480,23 +512,28 @@ public final class Checkout extends Base {
         }
         switch (step.getName()) {
             case "Адрес" :
-                AddressStep.fill(orderDetails.getAddressDetails());
-                AddressStep.next();
+                step("Заполнение адреса", ()-> {
+                    AddressStep.fill(orderDetails.getAddressDetails());
+                    AddressStep.next();
+                });
                 break;
             case "Контакты" :
-                ContactsStep.fill(orderDetails.getContactsDetails());
-                ContactsStep.next();
+                step("Заполнение контактов", ()->{
+                    ContactsStep.fill(orderDetails.getContactsDetails());
+                    ContactsStep.next();
+                });
                 break;
             case "Замены" :
-                choosePolicy(orderDetails.getReplacementPolicy());
-                ReplacementsStep.next();
-                break;
-            case "Оплата" :
-                choosePaymentMethod(orderDetails.getPaymentDetails());
-                PaymentStep.next();
+                step("Выбора действия для замены", ()->{
+                    choosePolicy(orderDetails.getReplacementPolicy());
+                    ReplacementsStep.next();
+                });
                 break;
             case "Доставка" :
-                chooseDeliveryTime(orderDetails.getDeliveryTime());
+                step("Выбор слота доставки", ()-> chooseDeliveryTime(orderDetails.getDeliveryTime()));
+                break;
+            case "Оплата" :
+                step("Выбор метода оплаты", ()-> choosePaymentMethod(orderDetails.getPaymentDetails()));
                 break;
         }
     }
@@ -510,7 +547,7 @@ public final class Checkout extends Base {
 
         String description = paymentDetails.getPaymentType().getDescription();
         if (kraken.detect().isPaymentTypeAvailable(description)){
-            log.info("Выбираем оплату {}", description);
+            log.info("Выбираем тип оплаты: {}", description);
             kraken.perform().click(Elements.Checkout.paymentTypeSelector(description));
         } else throw new AssertionError("В чекауте недоступна оплата " + description);
 
@@ -551,10 +588,13 @@ public final class Checkout extends Base {
 
     public void chooseDeliveryTime(int day, int slot) {
         log.info("Переключаемся на {} день", day);
+        //тут иногда падает из-за отсутсвия элемента
+        kraken.await().implicitly(1);
         kraken.perform().click(Elements.Checkout.deliveryDaySelector(day));
         kraken.await().implicitly(1); // Ожидание загрузки слотов дня в чекауте
         if (kraken.detect().isElementPresent(Elements.Checkout.deliveryWindowsPlaceholder())){
             throw new AssertionError("Нет доступных слотов доставки");
+            //Выбрасывать ошибку только если во всех датах нет слотов доставки, перебирать дни. В чем проблема: в выбранном дне может не быть слотов, но они могут быть в других(или будут, но недоступны). Либо генерирть слоты перед тестом
         }
         if (slot != 0) {
             log.info("Выбираем {} слот ({} / {})",
@@ -581,6 +621,7 @@ public final class Checkout extends Base {
         }
 
         /** Применить промокод */
+        @Step("Применить промокод")
         public static void add(String promocode) {
             if (kraken.detect().isPromocodeApplied()) {
                 log.info("Уже есть применённый промокод, поэтому сначала удаляем его... ");
@@ -660,6 +701,7 @@ public final class Checkout extends Base {
     public static class Bonuses {
 
         /** Добавление бонусной программы */
+        @Step("Добавление бонусной программы")
         public static void add(LoyaltiesData bonus) {
             log.info("Добавляем бонусную программу {}", bonus.getName());
             kraken.perform().click(Elements.Checkout.Bonuses.Program.addButton(bonus.getName()));
@@ -744,6 +786,7 @@ public final class Checkout extends Base {
     public static class RetailerCards {
 
         /** Добавляем карту ритейлера */
+        @Step("Добавляем карту ритейлера")
         public static void addCard(LoyaltiesData card) {
             if (kraken.detect().isRetailerCardAdded()) {
                 deleteCard();
@@ -776,7 +819,8 @@ public final class Checkout extends Base {
 
     /** Проверяем готовность шага чекаута перед заполнением */
     private boolean initStep(CheckoutStepData step) {
-        if (step.getPosition() != 5) { // костыль на случай если слот доставки остался выбраным в предыдущих тестах
+        log.info("Проверка готовности шага чекаута перед заполнением");
+        if (step.getPosition() != 4) { // костыль на случай если слот доставки остался выбраным в предыдущих тестах
             if (kraken.detect().isCheckoutStepActive(step)) {
                 //message("Шаг " + stepNumber + " - " + stepName);
                 return true;
@@ -821,13 +865,14 @@ public final class Checkout extends Base {
         if (kraken.detect().isNoPhonesAddedOnContactsStep()) {
             kraken.perform().click(Elements.Checkout.editPhoneButton());
             kraken.perform().click(Elements.Checkout.deletePhoneButton());
-            log.info("Удоляем номер телефона {}", kraken.grab().text(Elements.Checkout.phoneNumber()));
+            log.info("Удаляем номер телефона {}", kraken.grab().text(Elements.Checkout.phoneNumber()));
             kraken.await().implicitly(1); // ожидание удаления предыдущего номера телефона
             deletePhoneNumbers();
         }
     }
 
     /** Добавить новую карту оплаты */
+    @Step("Добавление новой карты")
     private void addNewPaymentCard(PaymentCardData creditCardData) {
         log.info("Добавляем карту оплаты {}", creditCardData.getCardNumber());
 
@@ -836,9 +881,7 @@ public final class Checkout extends Base {
             fillPaymentCardDetails(creditCardData);
             kraken.perform().click(Elements.Checkout.PaymentCardModal.confirmButton());
             kraken.await().implicitly(1); // Ожидание добавления новой карты оплаты
-
-            kraken.perform().click(Elements.Checkout.paymentCardTitle(
-                    kraken.grab().listSize(Elements.Checkout.paymentCardsList())));
+            kraken.perform().click(Elements.Checkout.paymentCardTitle(creditCardData));
             kraken.await().implicitly(1); // Ожидание применения новой карты оплаты
         } else {
             fillPaymentCardDetails(creditCardData);
@@ -846,12 +889,25 @@ public final class Checkout extends Base {
     }
 
     /** Заполнить данные карты оплаты */
+    @Step("Заполнение данных карты")
     private void fillPaymentCardDetails(PaymentCardData creditCardData) {
-        kraken.perform().fillField(Elements.Checkout.PaymentCardModal.cardNumberField(), creditCardData.getCardNumber());
-        kraken.perform().fillField(Elements.Checkout.PaymentCardModal.monthField(), creditCardData.getExpiryMonth());
-        kraken.perform().fillField(Elements.Checkout.PaymentCardModal.yearField(), creditCardData.getExpiryYear());
-        kraken.perform().fillField(Elements.Checkout.PaymentCardModal.cvvField(), creditCardData.getCvvNumber());
-        kraken.perform().fillField(Elements.Checkout.PaymentCardModal.nameField(), creditCardData.getCardholderName());
+        log.info("Заполнение данных карты");
+        String cardNumber = creditCardData.getCardNumber();
+        String expiryMonth = creditCardData.getExpiryMonth();
+        String expiryYear = creditCardData.getExpiryYear();
+        String cvvNumber = creditCardData.getCvvNumber();
+        String cardHolderName = creditCardData.getCardholderName();
+
+        step("Заполнение номера карты: " + cardNumber,()->
+                kraken.perform().fillField(Elements.Checkout.PaymentCardModal.cardNumberField(), cardNumber));
+        step("Заполнение месяца: " + expiryMonth,()->
+                kraken.perform().fillField(Elements.Checkout.PaymentCardModal.monthField(), expiryMonth));
+        step("Заполнение года: " + expiryYear, ()->
+                kraken.perform().fillField(Elements.Checkout.PaymentCardModal.yearField(),expiryYear ));
+        step("Заполнение ccv: " + cvvNumber, ()->
+                kraken.perform().fillField(Elements.Checkout.PaymentCardModal.cvvField(),cvvNumber ));
+        step("Заполнение имени держателя: " + cardHolderName, ()->
+                kraken.perform().fillField(Elements.Checkout.PaymentCardModal.nameField(),cardHolderName ));
     }
 
     /** Удалить все карты оплаты, кроме одной */
@@ -883,7 +939,9 @@ public final class Checkout extends Base {
     }
 
     /** Вести 3ds код на странице cloudpayments */
+    @Step("Подтверждение карты 3ds")
     private void cloudpaymentsFlow() {
+        log.info("Открытие страницы подтверждения карты");
         if (kraken.detect().isElementDisplayed(Elements.Checkout.Cloudpayments.answerField())) {
             kraken.perform().fillField(Elements.Checkout.Cloudpayments.answerField(), "4");
             kraken.perform().click(Elements.Checkout.Cloudpayments.confirmButton());

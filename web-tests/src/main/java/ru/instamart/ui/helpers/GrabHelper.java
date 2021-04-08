@@ -106,12 +106,16 @@ public final class GrabHelper extends HelperBase {
 
     /** Взять целочисленную стоимость товара в карточке */
     public int itemPriceRounded() {
-        return round(itemPrice());
+        return roundPrice(itemPrice());
     }
 
     /** Взять строку со стоимостью товара в карточке */
     public String itemPrice() {
-        return kraken.grab().text(Elements.ItemCard.prices());
+        log.info("Получение цены из карточки товара");
+        String itemPrice;
+        itemPrice = kraken.getWebDriver().findElement(Elements.ItemCard.priceFromAttribute().getLocator())
+                .getAttribute("content");
+        return itemPrice;
     }
 
     /** Взять кол-во добавленного в корзину товара из каунтера в карточке */
@@ -206,6 +210,16 @@ public final class GrabHelper extends HelperBase {
             return 0;
         } else {
             return Integer.parseInt(((price).substring(0, (price.length() - 5))).replaceAll("\\s", ""));
+        }
+    }
+
+    //TODO объединить метод roundPrice c методом round(проверка строки -> выбор приведения)
+    /**Округление до целого числа()*/
+    private int roundPrice(String price) {
+        if (price == null) {
+            return 0;
+        } else {
+            return Integer.parseInt(((price).substring(0, (price.length() - 3))));
         }
     }
 

@@ -2,6 +2,8 @@ package ru.instamart.tests.ui.landings;
 
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.lib.Addresses;
+import instamart.ui.common.pagesdata.ElementData;
+import instamart.ui.helpers.WaitingHelper;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
@@ -10,6 +12,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
+
+import static io.qameta.allure.Allure.step;
 
 public class SbermarketLandingTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
@@ -72,5 +76,29 @@ public class SbermarketLandingTests extends TestBase {
         Shop.ShippingAddressModal.selectAddressSuggest();
         Shop.ShippingAddressModal.findShops();
         baseChecks.checkIsOnLanding();
+    }
+
+    @CaseId(2042)
+    @Test(
+            description = "Тест появления кнопоки авторизации через СберБизнес для B2B",
+            groups = {"sbermarket-Ui-smoke", "testing"}
+    )
+    public void EnabledSberBussinesIdButton(){
+        Shop.AuthModal.open();
+        step("Выбор чекбокса В2В", ()->kraken.perform().click(Elements.Modals.AuthModal.checkB2B()));
+        step("Проверка наличия кнопки авторизации через СберБизнес ID",()->{
+            kraken.await().fluently(ExpectedConditions
+                    .visibilityOfElementLocated(Elements.Modals.AuthModal.sberBussinesIdButton().getLocator()));
+            baseChecks.checkIsElementEnabled(Elements.Modals.AuthModal.sberBussinesIdButton());
+                });
+        step("Снятие чекбокса В2В", ()->kraken.perform().click(Elements.Modals.AuthModal.checkB2B()));
+        kraken.await().fluently(ExpectedConditions
+                .visibilityOfElementLocated(Elements.Modals.AuthModal.sberButton().getLocator()));
+        step("Проверка доступности кнопок авторизации провайдера",()->{
+            baseChecks.checkIsElementEnabled(Elements.Modals.AuthModal.sberButton());
+            baseChecks.checkIsElementEnabled(Elements.Modals.AuthModal.vkontakteButton());
+            baseChecks.checkIsElementEnabled(Elements.Modals.AuthModal.facebookButton());
+            baseChecks.checkIsElementEnabled(Elements.Modals.AuthModal.mailruButton());
+        });
     }
 }

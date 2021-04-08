@@ -2,10 +2,12 @@ package instamart.ui.checkpoints.users;
 
 import instamart.ui.checkpoints.BaseUICheckpoints;
 import instamart.ui.common.pagesdata.ElementData;
+import instamart.ui.common.pagesdata.PaymentTypeData;
 import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 
 import static instamart.ui.modules.Base.kraken;
 
@@ -49,5 +51,21 @@ public class OrdersCheckpoints extends BaseUICheckpoints {
         } else
             throw new AssertionError("Документ \""
                     + docname + "\" недоступен для скачивания\nна странице " + kraken.grab().currentURL());
+    }
+
+    @Step("Проверка успешного создания заказа")
+    public void checkOrderSuccessCreation(){
+        log.info("Проверка успешного создания заказа");
+        Assert.assertTrue(kraken.detect().isOrderPlaced(),
+                "Не удалось оформить заказ\n");
+    }
+
+    @Step("Проверка метода оплаты")
+    public void checkPaymentMethod(PaymentTypeData PaymentType){
+        log.info("Проверка корректного метода оплаты");
+        Assert.assertEquals(
+                kraken.grab().shipmentPayment(),
+                PaymentType.getDescription(),
+                failMessage("Способ оплаты в деталях заказа не совпадает с выбранным во время оформления"));
     }
 }

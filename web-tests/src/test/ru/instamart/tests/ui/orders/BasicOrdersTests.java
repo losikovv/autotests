@@ -1,16 +1,22 @@
 package ru.instamart.tests.ui.orders;
 
 import instamart.api.common.RestAddresses;
+import instamart.core.settings.Config;
 import instamart.core.testdata.TestVariables;
 import instamart.core.testdata.UserManager;
 import instamart.core.testdata.ui.Generate;
 import instamart.core.testdata.ui.PaymentTypes;
+import instamart.ui.checkpoints.users.OrdersCheckpoints;
+import instamart.ui.common.lib.Addresses;
 import instamart.ui.common.lib.Pages;
 import instamart.ui.common.pagesdata.JuridicalData;
 import instamart.ui.common.pagesdata.PaymentCardData;
+import instamart.ui.common.pagesdata.PaymentTypeData;
 import instamart.ui.modules.Shop;
 import instamart.ui.modules.User;
 import instamart.ui.objectsmap.Elements;
+import io.qameta.allure.Issue;
+import io.qase.api.annotation.CaseId;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -18,15 +24,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
 
+import static io.qameta.allure.Allure.step;
+
 public class BasicOrdersTests extends TestBase {
 
     // TODO переделать в тесты заказа новым пользоватеем (генерим нового, делаем заказ с новым телом, с привязкой новой карты + повтор, заказ с новым юрлицом + повтор и все что тут есть)
 
     // TODO successOrderWithCash
-
-    // TODO successOrderWithNewBankCard
-
-    // TODO successOrderWithCardCourier
 
     // TODO successOrderWithNewJuridical
 
@@ -35,31 +39,35 @@ public class BasicOrdersTests extends TestBase {
     // TODO successOrderWithPromocode
 
     // TODO successOrderWithDocumentsNeeded
+    OrdersCheckpoints orderCheck = new OrdersCheckpoints();
 
 
     @BeforeMethod(alwaysRun = true,
-            description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
+            description ="Аутентификация и выбор адреса доставки")
     public void preconditions() {
-        runTestOnlyOnServer("preprod");
-        kraken.get().baseUrl();
-        //User.Do.loginAs(AppManager.session.admin);
+        //runTestOnlyOnServer("preprod");
         String phone;
         phone = Generate.phoneNumber();
-        User.Do.registration(
-                "Test User",
-                "test@example.com",
-                "12345678",
-                "12345678",
-                phone,
-                "111111"
-        );
-        kraken.apiV2().dropCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
+        step("Аутентификация", ()-> {
+            kraken.get().baseUrl();
+            Shop.AuthModal.open();
+            User.Do.registration(phone, false);
+            User.Do.sendSms(Config.DEFAULT_SMS);
+        });
+        step("Выбор адреса доставки", ()-> {
+            Shop.ShippingAddressModal.open();
+            Shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+            Shop.ShippingAddressModal.selectAddressSuggest();
+            Shop.ShippingAddressModal.submit();
+        });
     }
 
     @AfterMethod(alwaysRun = true,
             description ="Очистка окружения после теста")
-    public void afterTest(ITestResult result){
+    public void afterTest(){
         kraken.perform().cancelLastActiveOrder();
+        User.Logout.quickly();
+        kraken.perform().deleteAllCookies();
     }
     // TODO Тесты на изменение телефона и контактов
 
@@ -112,34 +120,68 @@ public class BasicOrdersTests extends TestBase {
         );
     }
 
+    @Issue("INFRADEV-2608")
+    @CaseId(1672)
     @Test(
-            description = "Тест заказа с новой картой оплаты",
-            groups = {"sbermarket-regression",}
+            description = "Тест заказа с новой картой оплаты c 3ds",
+            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"},
+            enabled = false
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
-        kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
         PaymentCardData creditCardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
+        PaymentTypeData paymentMethod = PaymentTypes.cardOnline();
 
-        kraken.reach().checkout();
-        kraken.checkout().complete(PaymentTypes.cardOnline(), true, creditCardData);
-
-        Assert.assertTrue(kraken.detect().isOrderPlaced(),
-                "Не удалось оформить заказ с новой картой оплаты\n");
+        Shop.Cart.collectFirstTime();
+        Shop.Cart.proceedToCheckout();
+        kraken.checkout().complete(paymentMethod, true, creditCardData);
+        orderCheck.checkOrderSuccessCreation();
+        orderCheck.checkPaymentMethod(paymentMethod);
     }
 
+    @Issue("INFRADEV-2608")
+    @CaseId(2066)
+    @Test(
+            description = "Тест заказа с новой картой оплаты без 3ds",
+            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"},
+            enabled = false
+    )
+    public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
+        PaymentCardData creditCardData = TestVariables.testOrderDetailsCus().getPaymentDetails().getCreditCard();
+        PaymentTypeData paymentMethod = PaymentTypes.cardOnline();
+
+        Shop.Cart.collectFirstTime();
+        Shop.Cart.proceedToCheckout();
+        kraken.checkout().complete(paymentMethod, true, creditCardData);
+        orderCheck.checkOrderSuccessCreation();
+        orderCheck.checkPaymentMethod(paymentMethod);
+    }
+
+    @CaseId(1681)
     @Test(
             description = "Тест заказа с любимыми товарами",
-            groups = {"sbermarket-regression","testing"}
+            groups = {"sbermarket-regression","testing", "sbermarket-Ui-smoke"},
+            enabled = false
     )
     public void successOrderWithFavProducts() {
         Shop.Catalog.Item.addToFavorites();
-        kraken.get().userFavoritesPage();
         Shop.Cart.collectFirstTime();
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
-
-        Assert.assertTrue(kraken.detect().isOrderPlaced(),
-                "Не оформляется заказ с любимыми товарами\n");
+        orderCheck.checkOrderSuccessCreation();
     }
 
+    @CaseId(1673)
+    @Test(
+            description = "Тест заказа с оплатой курьеру",
+            groups = {"sbermarket-regression","testing", "sbermarket-Ui-smoke"}
+    )
+    public void successOrderWithCardCourier() {
+        PaymentTypeData paymentMethod = PaymentTypes.cardCourier();
+
+        Shop.Cart.collectFirstTime();
+        Shop.Cart.proceedToCheckout();
+        kraken.checkout().complete(paymentMethod);
+        orderCheck.checkOrderSuccessCreation();
+        orderCheck.checkPaymentMethod(paymentMethod);
+    }
 }
