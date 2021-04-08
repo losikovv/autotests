@@ -1,10 +1,10 @@
-package instamart.api.responses.v3;
+package ru.instamart.api.responses.v3;
 
-import instamart.api.objects.v3.PaymentMethodV3;
-import instamart.api.objects.v3.ReplacementOptionV3;
-import instamart.api.objects.v3.ShippingMethodOptionV3;
-import instamart.api.objects.v3.ShippingMethodV3;
-import instamart.api.responses.BaseResponseObject;
+import ru.instamart.api.objects.v3.PaymentMethodV3;
+import ru.instamart.api.objects.v3.ReplacementOptionV3;
+import ru.instamart.api.objects.v3.ShippingMethodOptionV3;
+import ru.instamart.api.objects.v3.ShippingMethodV3;
+import ru.instamart.api.responses.BaseResponseObject;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.List;

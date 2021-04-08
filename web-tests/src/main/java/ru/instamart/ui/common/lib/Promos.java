@@ -1,8 +1,8 @@
-package instamart.ui.common.lib;
+package ru.instamart.ui.common.lib;
 
-import instamart.ui.common.pagesdata.PromoData;
-import instamart.ui.common.pagesdata.RegionData;
-import instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.common.pagesdata.PromoData;
+import ru.instamart.ui.common.pagesdata.RegionData;
+import ru.instamart.ui.common.pagesdata.UserData;
 
 public class Promos {
 

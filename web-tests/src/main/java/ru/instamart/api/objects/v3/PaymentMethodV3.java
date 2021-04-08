@@ -1,6 +1,6 @@
-package instamart.api.objects.v3;
+package ru.instamart.api.objects.v3;
 
-import instamart.api.objects.BaseObject;
+import ru.instamart.api.objects.BaseObject;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.List;

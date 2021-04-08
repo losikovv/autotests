@@ -1,4 +1,4 @@
-package instamart.api.enums.v2;
+package ru.instamart.api.enums.v2;
 
 public enum OrderStatus {
     ACTIVE("active"),

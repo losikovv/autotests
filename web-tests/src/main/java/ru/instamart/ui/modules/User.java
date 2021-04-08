@@ -1,14 +1,14 @@
-package instamart.ui.modules;
+package ru.instamart.ui.modules;
 
-import instamart.api.objects.v2.Address;
-import instamart.core.common.AppManager;
-import instamart.core.settings.Config;
-import instamart.core.testdata.UserManager;
-import instamart.ui.common.lib.Addresses;
-import instamart.ui.common.pagesdata.EnvironmentData;
-import instamart.ui.common.pagesdata.UserData;
-import instamart.ui.helpers.WaitingHelper;
-import instamart.ui.objectsmap.Elements;
+import ru.instamart.api.objects.v2.Address;
+import ru.instamart.core.common.AppManager;
+import ru.instamart.core.settings.Config;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.ui.common.lib.Addresses;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.helpers.WaitingHelper;
+import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

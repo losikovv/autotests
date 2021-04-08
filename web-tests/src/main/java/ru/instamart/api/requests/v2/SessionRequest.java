@@ -1,13 +1,13 @@
-package instamart.api.requests.v2;
+package ru.instamart.api.requests.v2;
 
-import instamart.api.endpoints.ApiV2EndPoints;
-import instamart.api.enums.v2.AuthProvider;
+import ru.instamart.api.endpoints.ApiV2EndPoints;
+import ru.instamart.api.enums.v2.AuthProvider;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 
-import static instamart.api.requests.InstamartRequestsBase.givenCatch;
+import static ru.instamart.api.requests.InstamartRequestsBase.givenCatch;
 
 public final class SessionRequest {
 

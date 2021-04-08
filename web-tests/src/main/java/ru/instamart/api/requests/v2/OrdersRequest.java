@@ -1,15 +1,15 @@
-package instamart.api.requests.v2;
+package ru.instamart.api.requests.v2;
 
-import instamart.api.endpoints.ApiV2EndPoints;
-import instamart.api.enums.v2.OrderStatus;
-import instamart.api.objects.v2.Address;
+import ru.instamart.api.endpoints.ApiV2EndPoints;
+import ru.instamart.api.enums.v2.OrderStatus;
+import ru.instamart.api.objects.v2.Address;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static instamart.api.requests.InstamartRequestsBase.*;
+import static ru.instamart.api.requests.InstamartRequestsBase.*;
 
 public final class OrdersRequest {
 

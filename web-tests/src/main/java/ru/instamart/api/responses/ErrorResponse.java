@@ -1,8 +1,8 @@
-package instamart.api.responses;
+package ru.instamart.api.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import instamart.api.objects.v2.ErrorMessage;
-import instamart.api.objects.v2.Errors;
+import ru.instamart.api.objects.v2.ErrorMessage;
+import ru.instamart.api.objects.v2.Errors;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

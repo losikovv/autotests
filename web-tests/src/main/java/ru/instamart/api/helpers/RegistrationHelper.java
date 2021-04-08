@@ -1,13 +1,13 @@
-package instamart.api.helpers;
+package ru.instamart.api.helpers;
 
-import instamart.api.requests.v2.UsersRequest;
-import instamart.api.responses.v2.UserResponse;
-import instamart.ui.common.pagesdata.UserData;
+import ru.instamart.api.requests.v2.UsersRequest;
+import ru.instamart.api.responses.v2.UserResponse;
+import ru.instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
 public final class RegistrationHelper {
 

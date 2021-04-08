@@ -1,7 +1,7 @@
-package instamart.api.responses.v2;
+package ru.instamart.api.responses.v2;
 
-import instamart.api.responses.BaseResponseObject;
-import instamart.api.objects.v2.Suggestion;
+import ru.instamart.api.responses.BaseResponseObject;
+import ru.instamart.api.objects.v2.Suggestion;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

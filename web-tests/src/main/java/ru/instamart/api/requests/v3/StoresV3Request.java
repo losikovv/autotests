@@ -1,12 +1,12 @@
-package instamart.api.requests.v3;
+package ru.instamart.api.requests.v3;
 
-import instamart.api.endpoints.ApiV3Endpoints;
+import ru.instamart.api.endpoints.ApiV3Endpoints;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 
-import static instamart.api.requests.InstamartRequestsBase.givenCatch;
+import static ru.instamart.api.requests.InstamartRequestsBase.givenCatch;
 
 public class StoresV3Request {
 

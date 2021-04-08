@@ -1,9 +1,9 @@
-package instamart.core.settings;
+package ru.instamart.core.settings;
 
-import instamart.core.testdata.Environments;
-import instamart.core.testdata.ui.Tenants;
-import instamart.core.util.ConfigParser;
-import instamart.core.util.FileUtils;
+import ru.instamart.core.testdata.Environments;
+import ru.instamart.core.testdata.ui.Tenants;
+import ru.instamart.core.util.ConfigParser;
+import ru.instamart.core.util.FileUtils;
 import org.openqa.selenium.remote.BrowserType;
 
 public final class Config {

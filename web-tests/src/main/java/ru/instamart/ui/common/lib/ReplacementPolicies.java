@@ -1,6 +1,6 @@
-package instamart.ui.common.lib;
+package ru.instamart.ui.common.lib;
 
-import instamart.ui.common.pagesdata.ReplacementPolicyData;
+import ru.instamart.ui.common.pagesdata.ReplacementPolicyData;
 
 public class ReplacementPolicies {
 

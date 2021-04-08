@@ -1,13 +1,13 @@
-package instamart.core.provider.firefox;
+package ru.instamart.core.provider.firefox;
 
-import instamart.core.provider.AbstractBrowserProvider;
-import instamart.core.settings.Config;
+import ru.instamart.core.provider.AbstractBrowserProvider;
+import ru.instamart.core.settings.Config;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Map;
 
-import static instamart.core.settings.Config.VIDEO;
-import static instamart.core.settings.Config.VNC;
+import static ru.instamart.core.settings.Config.VIDEO;
+import static ru.instamart.core.settings.Config.VNC;
 
 public final class FirefoxProvider extends AbstractBrowserProvider {
 

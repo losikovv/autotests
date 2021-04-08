@@ -1,6 +1,6 @@
-package instamart.api.objects.v3;
+package ru.instamart.api.objects.v3;
 
-import instamart.api.objects.BaseObject;
+import ru.instamart.api.objects.BaseObject;
 
 import java.util.List;
 import java.util.StringJoiner;

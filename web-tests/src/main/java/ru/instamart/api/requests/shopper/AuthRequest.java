@@ -1,14 +1,14 @@
-package instamart.api.requests.shopper;
+package ru.instamart.api.requests.shopper;
 
-import instamart.api.SessionFactory;
-import instamart.api.endpoints.ShopperApiEndpoints;
-import instamart.api.enums.SessionType;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.endpoints.ShopperApiEndpoints;
+import ru.instamart.api.enums.SessionType;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 
-import static instamart.api.requests.ShopperRequestBase.givenWithSpec;
+import static ru.instamart.api.requests.ShopperRequestBase.givenWithSpec;
 
 public final class AuthRequest {
 

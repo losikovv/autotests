@@ -1,6 +1,6 @@
-package instamart.ui.common.pagesdata;
+package ru.instamart.ui.common.pagesdata;
 
-import instamart.core.util.Crypt;
+import ru.instamart.core.util.Crypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
 
-import static instamart.core.settings.Config.DEFAULT_ENVIRONMENT;
+import static ru.instamart.core.settings.Config.DEFAULT_ENVIRONMENT;
 
 public enum EnvironmentData {
 

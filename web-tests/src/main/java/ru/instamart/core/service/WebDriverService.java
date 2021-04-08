@@ -1,7 +1,7 @@
-package instamart.core.service;
+package ru.instamart.core.service;
 
-import instamart.core.factory.BrowserFactory;
-import instamart.core.helpers.CleanupThread;
+import ru.instamart.core.factory.BrowserFactory;
+import ru.instamart.core.helpers.CleanupThread;
 import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebDriver;
@@ -17,8 +17,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static instamart.core.settings.Config.BROWSER_VERSION;
-import static instamart.core.settings.Config.DEFAULT_BROWSER;
+import static ru.instamart.core.settings.Config.BROWSER_VERSION;
+import static ru.instamart.core.settings.Config.DEFAULT_BROWSER;
 
 public final class WebDriverService {
 

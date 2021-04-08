@@ -1,14 +1,14 @@
-package instamart.ui.objectsmap;
+package ru.instamart.ui.objectsmap;
 
-import instamart.ui.common.lib.CheckoutSteps;
-import instamart.ui.common.pagesdata.JuridicalData;
-import instamart.ui.common.pagesdata.PaymentCardData;
+import ru.instamart.ui.common.lib.CheckoutSteps;
+import ru.instamart.ui.common.pagesdata.JuridicalData;
+import ru.instamart.ui.common.pagesdata.PaymentCardData;
 import org.openqa.selenium.By;
 
-import instamart.ui.common.pagesdata.ElementData;
-import instamart.ui.common.pagesdata.CheckoutStepData;
+import ru.instamart.ui.common.pagesdata.ElementData;
+import ru.instamart.ui.common.pagesdata.CheckoutStepData;
 
-import static instamart.core.testdata.TestVariables.CompanyParams.*;
+import static ru.instamart.core.testdata.TestVariables.CompanyParams.*;
 
 public class Elements {
 
@@ -1985,7 +1985,7 @@ public class Elements {
 
         interface ContactsStep {
 
-            instamart.ui.common.pagesdata.CheckoutStepData contactsStep = CheckoutSteps.contactsStep();
+            CheckoutStepData contactsStep = CheckoutSteps.contactsStep();
 
             static ElementData panel() {
                 return Checkout.Step.panel(contactsStep);

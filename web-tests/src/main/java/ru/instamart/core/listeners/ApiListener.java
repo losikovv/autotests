@@ -1,6 +1,7 @@
-package instamart.core.listeners;
+package ru.instamart.core.listeners;
 
-import instamart.core.service.QaseService;
+import lombok.extern.slf4j.Slf4j;
+import ru.instamart.core.service.QaseService;
 import io.qase.api.enums.RunResultStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,9 +9,8 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+@Slf4j
 public final class ApiListener implements ITestListener {
-
-    private static final Logger logger = LoggerFactory.getLogger(ApiListener.class);
 
     private final QaseService qaseService;
 
@@ -31,7 +31,7 @@ public final class ApiListener implements ITestListener {
             this.qaseService.deleteOldTestRuns();
             this.qaseService.deleteOldDefects();
         } catch (Exception e) {
-            logger.error("FATAL: Can't remove old Test Runs or Defects", e);
+            log.error("FATAL: Can't remove old Test Runs or Defects", e);
         }
     }
 

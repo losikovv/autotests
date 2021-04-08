@@ -1,13 +1,13 @@
-package instamart.api.requests.shopper;
+package ru.instamart.api.requests.shopper;
 
-import instamart.api.endpoints.ShopperApiEndpoints;
+import ru.instamart.api.endpoints.ShopperApiEndpoints;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static instamart.api.requests.ShopperRequestBase.givenWithAuth;
+import static ru.instamart.api.requests.ShopperRequestBase.givenWithAuth;
 
 public final class ReplacementsRequest {
 

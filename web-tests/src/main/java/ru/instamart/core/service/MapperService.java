@@ -1,4 +1,4 @@
-package instamart.core.service;
+package ru.instamart.core.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

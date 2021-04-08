@@ -1,4 +1,4 @@
-package instamart.core.util;
+package ru.instamart.core.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

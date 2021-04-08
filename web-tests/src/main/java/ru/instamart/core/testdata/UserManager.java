@@ -1,9 +1,9 @@
-package instamart.core.testdata;
+package ru.instamart.core.testdata;
 
-import instamart.core.testdata.ui.Generate;
-import instamart.core.util.Crypt;
-import instamart.ui.common.pagesdata.JuridicalData;
-import instamart.ui.common.pagesdata.UserData;
+import ru.instamart.core.testdata.ui.Generate;
+import ru.instamart.core.util.Crypt;
+import ru.instamart.ui.common.pagesdata.JuridicalData;
+import ru.instamart.ui.common.pagesdata.UserData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

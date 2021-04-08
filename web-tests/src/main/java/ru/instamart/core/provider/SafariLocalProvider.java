@@ -1,12 +1,12 @@
-package instamart.core.provider;
+package ru.instamart.core.provider;
 
-import instamart.core.util.ProcessUtils;
+import ru.instamart.core.util.ProcessUtils;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.safari.SafariDriver;
 
 import java.util.Optional;
 
-import static instamart.core.settings.Config.DO_CLEANUP_BEFORE_TEST_RUN;
+import static ru.instamart.core.settings.Config.DO_CLEANUP_BEFORE_TEST_RUN;
 
 public final class SafariLocalProvider extends AbstractBrowserProvider {
 

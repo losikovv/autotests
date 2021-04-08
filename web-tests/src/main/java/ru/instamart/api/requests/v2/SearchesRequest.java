@@ -1,10 +1,10 @@
-package instamart.api.requests.v2;
+package ru.instamart.api.requests.v2;
 
-import instamart.api.endpoints.ApiV2EndPoints;
+import ru.instamart.api.endpoints.ApiV2EndPoints;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
-import static instamart.api.requests.InstamartRequestsBase.givenCatch;
+import static ru.instamart.api.requests.InstamartRequestsBase.givenCatch;
 
 public final class SearchesRequest {
 

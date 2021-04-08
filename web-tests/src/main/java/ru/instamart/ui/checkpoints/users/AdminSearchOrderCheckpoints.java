@@ -1,6 +1,6 @@
-package instamart.ui.checkpoints.users;
+package ru.instamart.ui.checkpoints.users;
 
-import instamart.ui.checkpoints.BaseUICheckpoints;
+import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

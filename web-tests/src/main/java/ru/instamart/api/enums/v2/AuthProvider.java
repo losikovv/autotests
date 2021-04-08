@@ -1,4 +1,4 @@
-package instamart.api.enums.v2;
+package ru.instamart.api.enums.v2;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

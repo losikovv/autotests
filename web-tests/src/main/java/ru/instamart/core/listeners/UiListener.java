@@ -1,6 +1,7 @@
-package instamart.core.listeners;
+package ru.instamart.core.listeners;
 
-import instamart.core.service.QaseService;
+import lombok.extern.slf4j.Slf4j;
+import ru.instamart.core.service.QaseService;
 import io.qase.api.enums.RunResultStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +11,8 @@ import org.testng.ITestResult;
 
 import java.util.List;
 
+@Slf4j
 public final class UiListener implements ITestListener {
-
-    private static final Logger logger = LoggerFactory.getLogger(UiListener.class);
 
     private final QaseService qaseService;
 
@@ -33,7 +33,7 @@ public final class UiListener implements ITestListener {
             this.qaseService.deleteOldTestRuns();
             this.qaseService.deleteOldDefects();
         } catch (Exception e) {
-            logger.error("FATAL: Can't remove old Test Runs or Defects", e);
+            log.error("FATAL: Can't remove old Test Runs or Defects", e);
         }
     }
 
@@ -48,8 +48,7 @@ public final class UiListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        List<String> attachments = this.qaseService.uploadScreenshot();
-        this.qaseService.sendResult(result, RunResultStatus.failed, attachments);
+        this.qaseService.sendResult(result, RunResultStatus.failed);
     }
 
     @Override

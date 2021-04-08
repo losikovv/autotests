@@ -1,4 +1,4 @@
-package instamart.api.objects.v3;
+package ru.instamart.api.objects.v3;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 

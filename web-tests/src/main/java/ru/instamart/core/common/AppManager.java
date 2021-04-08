@@ -1,13 +1,13 @@
-package instamart.core.common;
+package ru.instamart.core.common;
 
-import instamart.api.helpers.InstamartApiHelper;
-import instamart.core.service.WebDriverService;
-import instamart.ui.common.pagesdata.EnvironmentData;
-import instamart.ui.helpers.*;
-import instamart.ui.modules.Administration;
-import instamart.ui.modules.Checkout;
-import instamart.ui.modules.Shop;
-import instamart.ui.modules.User;
+import ru.instamart.api.helpers.InstamartApiHelper;
+import ru.instamart.core.service.WebDriverService;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.helpers.*;
+import ru.instamart.ui.modules.Administration;
+import ru.instamart.ui.modules.Checkout;
+import ru.instamart.ui.modules.Shop;
+import ru.instamart.ui.modules.User;
 import org.openqa.selenium.WebDriver;
 
 public final class AppManager {

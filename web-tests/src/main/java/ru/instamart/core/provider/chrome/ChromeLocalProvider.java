@@ -1,8 +1,8 @@
-package instamart.core.provider.chrome;
+package ru.instamart.core.provider.chrome;
 
-import instamart.core.provider.AbstractBrowserProvider;
-import instamart.core.util.ProcessUtils;
-import kong.unirest.json.JSONObject;
+import org.json.simple.JSONObject;
+import ru.instamart.core.provider.AbstractBrowserProvider;
+import ru.instamart.core.util.ProcessUtils;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.BrowserType;
@@ -11,7 +11,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Optional;
 
-import static instamart.core.settings.Config.DO_CLEANUP_BEFORE_TEST_RUN;
+import static ru.instamart.core.settings.Config.DO_CLEANUP_BEFORE_TEST_RUN;
 
 public final class ChromeLocalProvider extends AbstractBrowserProvider {
 

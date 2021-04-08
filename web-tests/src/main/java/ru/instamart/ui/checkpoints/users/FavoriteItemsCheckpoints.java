@@ -1,12 +1,12 @@
-package instamart.ui.checkpoints.users;
+package ru.instamart.ui.checkpoints.users;
 
-import instamart.ui.checkpoints.BaseUICheckpoints;
+import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
-import static instamart.ui.modules.Base.kraken;
+import static ru.instamart.ui.modules.Base.kraken;
 
 public class FavoriteItemsCheckpoints extends BaseUICheckpoints {
 

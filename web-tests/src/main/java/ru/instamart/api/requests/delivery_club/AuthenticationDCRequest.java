@@ -1,11 +1,11 @@
-package instamart.api.requests.delivery_club;
+package ru.instamart.api.requests.delivery_club;
 
-import instamart.api.endpoints.DeliveryClubEndpoints;
-import instamart.ui.common.pagesdata.UserData;
+import ru.instamart.api.endpoints.DeliveryClubEndpoints;
+import ru.instamart.ui.common.pagesdata.UserData;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
-import static instamart.api.requests.InstamartRequestsBase.givenCatch;
+import static ru.instamart.api.requests.InstamartRequestsBase.givenCatch;
 
 public class AuthenticationDCRequest {
 

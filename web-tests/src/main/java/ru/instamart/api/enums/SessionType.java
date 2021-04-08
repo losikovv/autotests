@@ -1,4 +1,4 @@
-package instamart.api.enums;
+package ru.instamart.api.enums;
 
 public enum SessionType {
 

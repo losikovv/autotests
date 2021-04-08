@@ -1,10 +1,10 @@
-package instamart.core.testdata;
+package ru.instamart.core.testdata;
 
-import instamart.core.testdata.ui.Juridicals;
-import instamart.core.testdata.ui.PaymentCards;
-import instamart.core.testdata.ui.PaymentTypes;
-import instamart.ui.common.lib.ReplacementPolicies;
-import instamart.ui.common.pagesdata.*;
+import ru.instamart.core.testdata.ui.Juridicals;
+import ru.instamart.core.testdata.ui.PaymentCards;
+import ru.instamart.core.testdata.ui.PaymentTypes;
+import ru.instamart.ui.common.lib.ReplacementPolicies;
+import ru.instamart.ui.common.pagesdata.*;
 
 public interface TestVariables {
 

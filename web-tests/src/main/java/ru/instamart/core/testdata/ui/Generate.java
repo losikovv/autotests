@@ -1,7 +1,7 @@
-package instamart.core.testdata.ui;
+package ru.instamart.core.testdata.ui;
 
-import instamart.core.listeners.ExecutionListenerImpl;
-import instamart.core.testdata.TestVariables;
+import ru.instamart.core.listeners.ExecutionListenerImpl;
+import ru.instamart.core.testdata.TestVariables;
 
 import java.util.Random;
 import java.util.UUID;

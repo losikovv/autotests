@@ -1,10 +1,5 @@
-package instamart.ui.modules;
+package ru.instamart.ui.modules;
 
-import instamart.core.common.AppManager;
-import instamart.core.settings.Config;
-import instamart.ui.common.pagesdata.StaticPageData;
-import instamart.ui.common.pagesdata.UserData;
-import instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.ElementNotInteractableException;
@@ -12,8 +7,13 @@ import org.openqa.selenium.ElementNotSelectableException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.instamart.core.common.AppManager;
+import ru.instamart.core.settings.Config;
+import ru.instamart.ui.common.pagesdata.StaticPageData;
+import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.objectsmap.Elements;
 
-import static instamart.core.helpers.HelperBase.handleAlert;
+import static ru.instamart.core.helpers.HelperBase.handleAlert;
 
 public final class Administration extends Base {
 
@@ -74,7 +74,7 @@ public final class Administration extends Base {
         /** Отменить заказ по номеру с тестовой причиной отмены */
         @Step("Отменяем заказ по номеру с тестовой причиной отмены: {0}")
         public static void cancelOrder(String orderNumber) {
-            kraken.reach().admin(instamart.ui.common.lib.Pages.Admin.Order.details(orderNumber));
+            kraken.reach().admin(ru.instamart.ui.common.lib.Pages.Admin.Order.details(orderNumber));
             cancelOrder();
         }
 

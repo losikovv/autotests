@@ -1,4 +1,4 @@
-package instamart.ui.common.lib;
+package ru.instamart.ui.common.lib;
 
 public abstract class Addresses {
     static String addressString;

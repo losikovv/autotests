@@ -1,4 +1,4 @@
-package instamart.core.helpers;
+package ru.instamart.core.helpers;
 
 import com.google.common.collect.ImmutableMap;
 import org.slf4j.Logger;

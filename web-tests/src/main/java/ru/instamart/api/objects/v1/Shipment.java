@@ -1,9 +1,9 @@
-package instamart.api.objects.v1;
+package ru.instamart.api.objects.v1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import instamart.api.objects.BaseObject;
-import instamart.api.objects.v2.Retailer;
-import instamart.api.objects.v2.ShippingMethod;
+import ru.instamart.api.objects.BaseObject;
+import ru.instamart.api.objects.v2.Retailer;
+import ru.instamart.api.objects.v2.ShippingMethod;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

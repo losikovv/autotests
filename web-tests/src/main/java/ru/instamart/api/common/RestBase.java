@@ -1,9 +1,9 @@
-package instamart.api.common;
+package ru.instamart.api.common;
 
-import instamart.api.helpers.ApiV3Helper;
-import instamart.api.helpers.InstamartApiHelper;
-import instamart.api.helpers.ShopperApiHelper;
-import instamart.core.helpers.LogAttachmentHelper;
+import ru.instamart.api.helpers.ApiV3Helper;
+import ru.instamart.api.helpers.InstamartApiHelper;
+import ru.instamart.api.helpers.ShopperApiHelper;
+import ru.instamart.core.helpers.LogAttachmentHelper;
 import io.qameta.allure.Allure;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;

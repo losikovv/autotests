@@ -1,8 +1,8 @@
-package instamart.api.checkpoints;
+package ru.instamart.api.checkpoints;
 
-import instamart.api.objects.v2.Order;
-import instamart.api.objects.v2.Taxon;
-import instamart.api.responses.ErrorResponse;
+import ru.instamart.api.objects.v2.Order;
+import ru.instamart.api.objects.v2.Taxon;
+import ru.instamart.api.responses.ErrorResponse;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;

@@ -1,4 +1,4 @@
-package instamart.core.helpers;
+package ru.instamart.core.helpers;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
