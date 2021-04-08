@@ -1551,6 +1551,7 @@ public class Elements {
                         "кнопка добавить любимый товар");
             }
 
+            //TODO will change locator
             static ElementData snippetFavorite() {
                 return new ElementData(By.xpath("//*[contains(@class,'favorites__head')]//*[contains(@class,'favorites__image')]//img[contains(@alt,text())]"),
                         "сниппет любимого продукта");

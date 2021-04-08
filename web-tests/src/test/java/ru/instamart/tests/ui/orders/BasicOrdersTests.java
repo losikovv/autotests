@@ -158,8 +158,8 @@ public class BasicOrdersTests extends TestBase {
     @CaseId(1681)
     @Test(
             description = "Тест заказа с любимыми товарами",
-            groups = {"sbermarket-regression","testing", "sbermarket-Ui-smoke"},
-            enabled = false
+            groups = {"sbermarket-regression","testing", "sbermarket-Ui-smoke"}
+            //enabled = false
     )
     public void successOrderWithFavProducts() {
         Shop.Catalog.Item.addToFavorites();

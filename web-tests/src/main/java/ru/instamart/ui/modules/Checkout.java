@@ -283,7 +283,10 @@ public final class Checkout extends Base {
         public static void fillFirstName(String firstName) {
             log.info("> имя: {}", firstName);
             step("Заполнение имени: " +firstName, ()->
-                    kraken.perform().fillField(Elements.Checkout.ContactsStep.firstNameInputField(), firstName));
+                    kraken.await().fluently(ExpectedConditions
+                            .elementToBeClickable(Elements.Checkout.ContactsStep.firstNameInputField().getLocator()),
+                            "Элемент некликабельный", 2));
+                    kraken.perform().fillField(Elements.Checkout.ContactsStep.firstNameInputField(), firstName);
         }
 
         @Step("Заполнение заполнение фамилии")
