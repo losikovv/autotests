@@ -3,7 +3,7 @@ package ru.instamart.tests.api.shopper.e2e;
 import ru.instamart.api.checkpoints.InstamartApiCheckpoints;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.helpers.RegistrationHelper;
-import ru.instamart.api.objects.v2.Order;
+import ru.instamart.api.objects.v2.OrderV2;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.common.pagesdata.UserData;
@@ -25,7 +25,7 @@ public class ShopperE2ETests extends RestBase {
     public void preconditions() {
         final UserData user = UserManager.getUser();
         RegistrationHelper.registration(user);
-        Order order = apiV2.order(user, EnvironmentData.INSTANCE.getDefaultSid(), 4);
+        OrderV2 order = apiV2.order(user, EnvironmentData.INSTANCE.getDefaultSid(), 4);
         shipmentNumber = order.getShipments().get(0).getNumber();
         InstamartApiCheckpoints.checkIsDeliveryToday(order);
     }

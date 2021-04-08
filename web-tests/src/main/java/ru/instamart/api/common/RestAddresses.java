@@ -1,13 +1,13 @@
 package ru.instamart.api.common;
 
-import ru.instamart.api.objects.v2.Address;
+import ru.instamart.api.objects.v2.AddressV2;
 
 public class RestAddresses {
 
     public static class Moscow {
 
-        public static Address learningCenter() {
-            return Address.builder()
+        public static AddressV2 learningCenter() {
+            return AddressV2.builder()
                     .city("город Мытищи")
                     .street("Центральная ул.")
                     .building("5А")
@@ -17,8 +17,8 @@ public class RestAddresses {
         }
 
         // 03.12.19 по этому адресу доступны 4 ритейлера
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("Москва")
                     .street("просп. Мира")
                     .building("211, стр. 1")
@@ -29,8 +29,8 @@ public class RestAddresses {
 
         public static class Vkusvill {
 
-            public static Address michurinsky() {
-                return Address.builder()
+            public static AddressV2 michurinsky() {
+                return AddressV2.builder()
                         .city("Москва")
                         .street("Мичуринский пр")
                         .building("16")
@@ -43,8 +43,8 @@ public class RestAddresses {
 
     public static class SaintPetersburg {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("Санкт-Петербург")
                     .street("Литейный пр.")
                     .building("10")
@@ -56,8 +56,8 @@ public class RestAddresses {
 
     public static class Kazan {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("г. Казань")
                     .street("ул. Мулланура Вахитова")
                     .building("11 строение 2")
@@ -69,8 +69,8 @@ public class RestAddresses {
 
     public static class Ekaterinburg {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("г. Екатеринбург")
                     .street("ул. Советская")
                     .building("9")
@@ -82,8 +82,8 @@ public class RestAddresses {
 
     public static class NizhnyNovgorod {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("г. Нижний Новгород")
                     .street("ул. Кащенко")
                     .building("81")
@@ -95,8 +95,8 @@ public class RestAddresses {
 
     public static class RostovNaDonu {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("г. Ростов-на-Дону")
                     .street("ул. 2-й Пятилетки")
                     .building("23")
@@ -108,8 +108,8 @@ public class RestAddresses {
 
     public static class Ufa {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("Уфимский р-н")
                     .street("ул. Кирова")
                     .building("1")
@@ -121,8 +121,8 @@ public class RestAddresses {
 
     public static class Krasnodar {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("г. Краснодар")
                     .street("ул. Аграрная")
                     .building("15")
@@ -134,8 +134,8 @@ public class RestAddresses {
 
     public static class Samara {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("г. Самара")
                     .street("ул. Ленинская")
                     .building("100")
@@ -147,8 +147,8 @@ public class RestAddresses {
 
     public static class Voronezh {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("г. Воронеж")
                     .street("ул. Ленина")
                     .building("12")
@@ -160,8 +160,8 @@ public class RestAddresses {
 
     public static class Omsk {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("г. Омск")
                     .street("ул. Омская")
                     .building("110")
@@ -173,8 +173,8 @@ public class RestAddresses {
 
     public static class Volgograd {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("г. Волгоград")
                     .street("ул. Абаканская")
                     .building("11")
@@ -186,8 +186,8 @@ public class RestAddresses {
 
     public static class Novosibirsk {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("г. Новосибирск")
                     .street("ул. Северная")
                     .building("11")
@@ -199,8 +199,8 @@ public class RestAddresses {
 
     public static class Chelyabinsk {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("г. Челябинск")
                     .street("ул. Ленина")
                     .building("10")
@@ -212,8 +212,8 @@ public class RestAddresses {
 
     public static class Tyumen {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("г. Тюмень")
                     .street("ул Абалакская")
                     .building("д 12")
@@ -225,8 +225,8 @@ public class RestAddresses {
 
     public static class Perm {
 
-        public static Address defaultAddress() {
-            return Address.builder()
+        public static AddressV2 defaultAddress() {
+            return AddressV2.builder()
                     .city("г. Пермь")
                     .street("ул Абаканская")
                     .building("д 10")

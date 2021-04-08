@@ -1,7 +1,7 @@
 package ru.instamart.api.checkpoints;
 
-import ru.instamart.api.objects.v2.Order;
-import ru.instamart.api.objects.v2.Taxon;
+import ru.instamart.api.objects.v2.OrderV2;
+import ru.instamart.api.objects.v2.TaxonV2;
 import ru.instamart.api.responses.ErrorResponse;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
@@ -72,7 +72,7 @@ public class InstamartApiCheckpoints {
      * Ассерт, что дата доставки заказа сегодня
      */
     @Step("Проверяем, что дата доставки заказа сегодня")
-    public static void checkIsDeliveryToday(Order order) {
+    public static void checkIsDeliveryToday(OrderV2 order) {
         LocalDateTime deliveryTime = LocalDateTime
                 .parse(order
                         .getShipments()
@@ -96,11 +96,11 @@ public class InstamartApiCheckpoints {
      * Софт-ассерт, что количество товаров в категории равно сумме товаров в подкатегориях
      */
     @Step("Проверяем, что количество товаров в категории равно сумме товаров в подкатегориях")
-    public static void checkProductsCountEqualsChildrenSum(Taxon taxon, SoftAssert softAssert) {
-        List<Taxon> children = taxon.getChildren();
+    public static void checkProductsCountEqualsChildrenSum(TaxonV2 taxon, SoftAssert softAssert) {
+        List<TaxonV2> children = taxon.getChildren();
         if (children == null) return;
         int sum = 0;
-        for (Taxon child : children) {
+        for (TaxonV2 child : children) {
             sum += child.getProductsCount();
             checkProductsCountEqualsChildrenSum(child, softAssert);
         }

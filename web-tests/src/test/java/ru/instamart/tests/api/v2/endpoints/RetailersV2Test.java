@@ -1,9 +1,5 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.objects.v2.Retailer;
-import ru.instamart.api.requests.v2.RetailersRequest;
-import ru.instamart.api.responses.v2.RetailersResponse;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -11,44 +7,48 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.objects.v2.RetailerV2;
+import ru.instamart.api.requests.v2.RetailersV2Request;
+import ru.instamart.api.responses.v2.RetailersV2Response;
 
 import java.util.List;
 import java.util.Optional;
 
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode404;
-import static org.testng.Assert.*;
 
 @Epic("ApiV2")
 @Feature("Получение данных о ретейлере")
 public final class RetailersV2Test extends RestBase {
 
-    private List<Retailer> retailers;
+    private List<RetailerV2> retailers;
 
     @BeforeClass(alwaysRun = true)
     @Story("Получение списка ретейлеров")
     public void preconditions() {
-        final Response response = RetailersRequest.GET();
+        final Response response = RetailersV2Request.GET();
         checkStatusCode200(response);
-        retailers = response.as(RetailersResponse.class).getRetailers();
+        retailers = response.as(RetailersV2Response.class).getRetailers();
         assertNotEquals(retailers.size(), 0, "Список ретейлеров пустой");
     }
 
     @CaseId(203)
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получение ретейлера по валидному retailer id")
     public void testGetRetailerWithValidRetailerId() {
-        final Optional<Retailer> retailerOption = retailers.stream().findAny();
+        final Optional<RetailerV2> retailerOption = retailers.stream().findAny();
         assertTrue(retailerOption.isPresent(), "Ретейлеров нет в списке");
-        final Response response = RetailersRequest.GET(retailerOption.get().getId());
+        final Response response = RetailersV2Request.GET(retailerOption.get().getId());
         checkStatusCode200(response);
-        final Retailer retailer = response.as(Retailer.class);
+        final RetailerV2 retailer = response.as(RetailerV2.class);
         assertNotNull(retailer, "Ретейлер не был получен");
     }
 
     @CaseId(204)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получение ретейлера по невалидному retailer id")
     public void testGetRetailerWithInvalidRetailerId() {
-        final Response response = RetailersRequest.GET(66666);
+        final Response response = RetailersV2Request.GET(66666);
         checkStatusCode404(response);
     }
 }

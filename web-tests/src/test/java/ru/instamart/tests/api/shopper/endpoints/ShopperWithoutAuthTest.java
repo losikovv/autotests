@@ -35,7 +35,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Создаём сборку без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void postAssembly401() {
-        response = AssembliesRequest.POST(shipmentId);
+        response = AssembliesSHPRequest.POST(shipmentId);
         checkStatusCode401(response);
     }
 
@@ -44,7 +44,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем сборку по номеру без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getAssembly401() {
-        response = AssembliesRequest.GET(assemblyId);
+        response = AssembliesSHPRequest.GET(assemblyId);
         checkStatusCode401(response);
     }
 
@@ -53,7 +53,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем все заказы для сборщика без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShopperShipments401() {
-        response = ShopperRequest.Shipments.GET();
+        response = ShopperSHPRequest.Shipments.GET();
         checkStatusCode401(response);
     }
 
@@ -62,7 +62,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем все сборки сборщика без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShopperAssemblies401 () {
-        response = ShopperRequest.Assemblies.GET();
+        response = ShopperSHPRequest.Assemblies.GET();
         checkStatusCode401(response);
     }
 
@@ -71,7 +71,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Собираем товар без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void patchAssemblyItem401() {
-        response = AssemblyItemsRequest.PATCH(assemblyId, assemblyItemId, itemQty);
+        response = AssemblyItemsSHPRequest.PATCH(assemblyId, assemblyItemId, itemQty);
         checkStatusCode401(response);
     }
 
@@ -80,7 +80,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем тикеты хелпдеска без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getHelpdeskTickets401() {
-        response = HelpdeskRequest.Tickets.GET(shipmentId);
+        response = HelpdeskSHPRequest.Tickets.GET(shipmentId);
         checkStatusCode401(response);
     }
 
@@ -89,7 +89,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем заказ по номеру без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShipment401() {
-        response = ShipmentsRequest.GET(shipmentId);
+        response = ShipmentsSHPRequest.GET(shipmentId);
         checkStatusCode401(response);
     }
 
@@ -98,7 +98,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем предзамены для позиций в сборке без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getAssemblyItemPrereplacements401() {
-        response = AssemblyItemsRequest.Prereplacements.GET(assemblyItemId);
+        response = AssemblyItemsSHPRequest.Prereplacements.GET(assemblyItemId);
         checkStatusCode401(response);
     }
 
@@ -107,7 +107,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем инфу о стоках товаров в заказе без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShipmentStock401() {
-        response = ShipmentsRequest.Stocks.GET(shipmentId);
+        response = ShipmentsSHPRequest.Stocks.GET(shipmentId);
         checkStatusCode401(response);
     }
 
@@ -116,7 +116,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Оплачиваем заказ через LifePay без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void putAssemblyLifePay401() {
-        response = AssembliesRequest.LifePay.PUT(assemblyId);
+        response = AssembliesSHPRequest.LifePay.PUT(assemblyId);
         checkStatusCode401(response);
     }
 
@@ -125,7 +125,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем маркетинговые пробники для заказа без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShipmentMarketingSampleItems401() {
-        response = ShipmentsRequest.MarketingSampleItems.GET(shipmentId);
+        response = ShipmentsSHPRequest.MarketingSampleItems.GET(shipmentId);
         checkStatusCode401(response);
     }
 
@@ -134,7 +134,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем инфу о сборщике без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShopper401() {
-        response = ShopperRequest.GET();
+        response = ShopperSHPRequest.GET();
         checkStatusCode401(response);
     }
 
@@ -143,7 +143,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем маршруты без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getRoutes401() {
-        response = RoutesRequest.GET();
+        response = RoutesSHPRequest.GET();
         checkStatusCode401(response);
     }
 
@@ -152,7 +152,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем смены сборщика без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShopperOperationShifts401() {
-        response = ShopperRequest.OperationShifts.GET();
+        response = ShopperSHPRequest.OperationShifts.GET();
         checkStatusCode401(response);
     }
 
@@ -161,7 +161,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем все заказы для водителя без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getDriverShipments401() {
-        response = DriverRequest.Shipments.GET();
+        response = DriverSHPRequest.Shipments.GET();
         checkStatusCode401(response);
     }
 
@@ -170,7 +170,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем причины отмен без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getCancelReasons401() {
-        response = CancelReasonsRequest.GET();
+        response = CancelReasonsSHPRequest.GET();
         checkStatusCode401(response);
     }
 
@@ -179,7 +179,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем причины уточнения без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getClarifyReasons401() {
-        response = ClarifyReasonsRequest.GET();
+        response = ClarifyReasonsSHPRequest.GET();
         checkStatusCode401(response);
     }
 
@@ -188,7 +188,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем причины возврата без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getReturnReasons401() {
-        response = ReturnReasonsRequest.GET();
+        response = ReturnReasonsSHPRequest.GET();
         checkStatusCode401(response);
     }
 
@@ -197,7 +197,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем марс токен (стоки метро) без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getMarsToken401() {
-        response = MarsTokenRequest.GET();
+        response = MarsTokenSHPRequest.GET();
         checkStatusCode401(response);
     }
 
@@ -206,7 +206,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем все заказы для упаковщика без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getPackerShipments401() {
-        response = PackerRequest.Shipments.GET();
+        response = PackerSHPRequest.Shipments.GET();
         checkStatusCode401(response);
     }
 
@@ -215,7 +215,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Получаем все сборки упаковщика без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getPackerAssemblies401() {
-        response = PackerRequest.Assemblies.GET();
+        response = PackerSHPRequest.Assemblies.GET();
         checkStatusCode401(response);
     }
 
@@ -224,7 +224,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Поиск товаров без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getStoreOffers401() {
-        response = StoresRequest.Offers.GET(
+        response = StoresSHPRequest.Offers.GET(
                 EnvironmentData.INSTANCE.getDefaultShopperSid(),
                 "хлеб");
         checkStatusCode401(response);
@@ -235,7 +235,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test(  description = "Обновление авторизации без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void postAuthRefresh401() {
-        response = AuthRequest.Refresh.POST();
+        response = AuthSHPRequest.Refresh.POST();
         checkStatusCode401(response);
     }
 
@@ -244,7 +244,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test( description = "Авторизация по номеру телефона и неправильному коду из смс",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void postOtpsAuthorizations401WrongCode() {
-        response = OtpsRequest.Authorizations.POST("79588128783","123");
+        response = OtpsSHPRequest.Authorizations.POST("79588128783","123");
         checkStatusCode401(response);
     }
 
@@ -253,7 +253,7 @@ public class ShopperWithoutAuthTest extends RestBase {
     @Test( description = "Авторизация по незарегистрированному номеру телефона и коду из смс",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void postOtpsAuthorizations401WrongPhone() {
-        response = OtpsRequest.Authorizations.POST("79991119911","111111");
+        response = OtpsSHPRequest.Authorizations.POST("79991119911","111111");
         checkStatusCode401(response);
     }
 }

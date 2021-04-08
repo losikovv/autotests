@@ -1,13 +1,13 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.requests.v2.OnboardingPagesRequest;
-import ru.instamart.api.responses.v2.OnboardingPagesResponse;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.requests.v2.OnboardingPagesV2Request;
+import ru.instamart.api.responses.v2.OnboardingPagesV2Response;
 
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
 public class OnboardingPagesV2Test extends RestBase {
 
@@ -15,9 +15,9 @@ public class OnboardingPagesV2Test extends RestBase {
     @Test(  description = "Получаем экраны онбординга",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getOnboardingPages() {
-        response = OnboardingPagesRequest.GET();
+        response = OnboardingPagesV2Request.GET();
         checkStatusCode200(response);
-        assertNotNull(response.as(OnboardingPagesResponse.class).getOnboardingPages(),
+        assertNotNull(response.as(OnboardingPagesV2Response.class).getOnboardingPages(),
                 "Не вернулись экраны онборлдинга");
     }
 }

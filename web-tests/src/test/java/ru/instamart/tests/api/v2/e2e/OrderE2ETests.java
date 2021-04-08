@@ -1,14 +1,18 @@
 package ru.instamart.tests.api.v2.e2e;
 
-import ru.instamart.api.SessionFactory;
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
 
+@Epic("ApiV2")
+@Feature("E2E тесты")
 public class OrderE2ETests extends RestBase {
 
     @BeforeClass(alwaysRun = true,

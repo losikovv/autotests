@@ -1,6 +1,6 @@
 package ru.instamart.tests.ui.site;
 
-import ru.instamart.api.objects.v2.Retailer;
+import ru.instamart.api.objects.v2.RetailerV2;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.dataprovider.RestDataProvider;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
@@ -169,7 +169,7 @@ public class BasicSbermarketTests extends TestBase {
             dataProviderClass = RestDataProvider.class,
             description = "Тест доступности / недоступности витрин ритейлеров Сбермаркета ",
             groups = {"sbermarket-Ui-smoke","MRAutoCheck"}
-    ) public void successCheckSbermarketRetailers(Retailer retailer) {
+    ) public void successCheckSbermarketRetailers(RetailerV2 retailer) {
         if (retailer.getAvailable()) baseChecks.checkRetailerIsAvailable(retailer.getSlug());
         else baseChecks.checkRetailerIsUnavailable(retailer.getSlug());
     }

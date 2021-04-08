@@ -1,7 +1,7 @@
 package ru.instamart.api.helpers;
 
-import ru.instamart.api.requests.v2.UsersRequest;
-import ru.instamart.api.responses.v2.UserResponse;
+import ru.instamart.api.requests.v2.UsersV2Request;
+import ru.instamart.api.responses.v2.UserV2Response;
 import ru.instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
 import org.slf4j.Logger;
@@ -27,10 +27,10 @@ public final class RegistrationHelper {
      * Регистрация
      */
     public static void registration(final String email, final String firstName, final String lastName, final String password) {
-        final Response response =  UsersRequest.POST(email, firstName, lastName, password);
+        final Response response =  UsersV2Request.POST(email, firstName, lastName, password);
         checkStatusCode200(response);
         final String registeredEmail = response
-                .as(UserResponse.class)
+                .as(UserV2Response.class)
                 .getUser()
                 .getEmail();
         log.info("Зарегистрирован: {}", registeredEmail);

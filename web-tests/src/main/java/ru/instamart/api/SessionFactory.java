@@ -3,12 +3,13 @@ package ru.instamart.api;
 import ru.instamart.api.checkpoints.ShopperApiCheckpoints;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.helpers.RegistrationHelper;
-import ru.instamart.api.objects.shopper.SessionAttributes;
+import ru.instamart.api.objects.shopper.SessionAttributesSHP;
 import ru.instamart.api.requests.delivery_club.AuthenticationDCRequest;
-import ru.instamart.api.requests.shopper.SessionsRequest;
-import ru.instamart.api.requests.v2.SessionRequest;
+import ru.instamart.api.requests.shopper.SessionsSHPRequest;
+import ru.instamart.api.requests.v2.SessionV2Request;
 import ru.instamart.api.responses.deliveryclub.TokenDCResponse;
-import ru.instamart.api.responses.v2.SessionsResponse;
+import ru.instamart.api.responses.shopper.SessionsSHPResponse;
+import ru.instamart.api.responses.v2.SessionsV2Response;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
@@ -99,19 +100,19 @@ public final class SessionFactory {
     }
 
     private static SessionInfo createApiV2Session(final UserData userData) {
-        final Response response = SessionRequest.POST(userData.getLogin(), userData.getPassword());
+        final Response response = SessionV2Request.POST(userData.getLogin(), userData.getPassword());
         checkStatusCode200(response);
-        final SessionsResponse sessionResponse = response.as(SessionsResponse.class);
+        final SessionsV2Response sessionResponse = response.as(SessionsV2Response.class);
         log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
         log.info("access_token: {}", sessionResponse.getSession().getAccessToken());
         return new SessionInfo(userData, sessionResponse.getSession().getAccessToken());
     }
 
     private static SessionInfo createShopperSession(final UserData userData) {
-        final Response response = SessionsRequest.POST(userData.getLogin(), userData.getPassword());
+        final Response response = SessionsSHPRequest.POST(userData.getLogin(), userData.getPassword());
         ShopperApiCheckpoints.checkStatusCode200(response);
-        final ru.instamart.api.responses.shopper.SessionsResponse sessionsResponse = response.as(ru.instamart.api.responses.shopper.SessionsResponse.class);
-        final SessionAttributes sessionAttributes = sessionsResponse.getData().getAttributes();
+        final SessionsSHPResponse sessionsResponse = response.as(SessionsSHPResponse.class);
+        final SessionAttributesSHP sessionAttributes = sessionsResponse.getData().getAttributes();
         log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
         log.info("access_token: {}", sessionAttributes.getAccessToken());
         log.info("refresh_token: {}", sessionAttributes.getRefreshToken());

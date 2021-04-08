@@ -1,20 +1,24 @@
 package ru.instamart.tests.api.v2.e2e;
 
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.helpers.RegistrationHelper;
-import ru.instamart.api.objects.v2.Store;
-import ru.instamart.api.objects.v2.Zone;
-import ru.instamart.core.testdata.UserManager;
-import ru.instamart.core.testdata.dataprovider.RestDataProvider;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
-import ru.instamart.ui.common.pagesdata.UserData;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.helpers.RegistrationHelper;
+import ru.instamart.api.objects.v2.StoreV2;
+import ru.instamart.api.objects.v2.ZoneV2;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.core.testdata.dataprovider.RestDataProvider;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.common.pagesdata.UserData;
 
+@Epic("ApiV2")
+@Feature("E2E тесты")
 public class ZoneE2ETests extends RestBase {
 
     private static final Logger log = LoggerFactory.getLogger(ZoneE2ETests.class);
@@ -29,7 +33,7 @@ public class ZoneE2ETests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             description = "Тест первых заказов во всех зонах всех магазинов",
             groups = {"api-zones"})
-    public void firstOrderByZone(Store store, String zoneName, Zone coordinates) {
+    public void firstOrderByZone(StoreV2 store, String zoneName, ZoneV2 coordinates) {
         apiV2.skipTestIfOnlyPickupIsAvailable(store, zoneName);
 
         log.info("Оформляем заказ в {} zone={} coordinates={}", store, zoneName, coordinates);
