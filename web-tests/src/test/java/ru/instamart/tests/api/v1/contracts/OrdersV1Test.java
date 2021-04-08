@@ -1,24 +1,29 @@
 package ru.instamart.tests.api.v1.contracts;
 
-import ru.instamart.api.SessionFactory;
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.objects.v2.Order;
-import ru.instamart.api.requests.ApiV1Requests;
-import ru.instamart.api.responses.v1.LineItemsResponse;
-import ru.instamart.api.responses.v1.ShipmentResponse;
-import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.objects.v2.OrderV2;
+import ru.instamart.api.requests.ApiV1Requests;
+import ru.instamart.api.responses.v1.LineItemsV1Response;
+import ru.instamart.api.responses.v1.ShipmentV1Response;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
 
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
+@Epic("ApiV1")
+@Feature("Эндпоинты, используемые шоппер бэкендом")
 public class OrdersV1Test extends RestBase {
 
     private String shipmentUuid;
@@ -29,7 +34,7 @@ public class OrdersV1Test extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.makeSession(SessionType.APIV2);
-        final Order order = apiV2.order(SessionFactory.getSession(SessionType.APIV2).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        final OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.APIV2).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
 
@@ -42,6 +47,7 @@ public class OrdersV1Test extends RestBase {
         apiV2.cancelCurrentOrder();
     }
 
+    @Story("Заказы")
     @CaseId(114)
     @Test(  description = "Контрактный тест списка заказов",
             groups = "api-instamart-regress")
@@ -51,6 +57,7 @@ public class OrdersV1Test extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Orders.json"));
     }
 
+    @Story("Заказы")
     @CaseId(115)
     @Test(  description = "Контрактный тест инфы о заказе",
             groups = "api-instamart-regress")
@@ -60,6 +67,7 @@ public class OrdersV1Test extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Order.json"));
     }
 
+    @Story("Заказы")
     @CaseId(116)
     @Test(  description = "Контрактный тест инфы о шипменте",
             groups = "api-instamart-regress")
@@ -68,9 +76,10 @@ public class OrdersV1Test extends RestBase {
         checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Shipment.json"));
 
-        shipmentUuid = response.as(ShipmentResponse.class).getShipment().getUuid();
+        shipmentUuid = response.as(ShipmentV1Response.class).getShipment().getUuid();
     }
 
+    @Story("Заказы")
     @CaseId(117)
     @Test(  description = "Контрактный тест списка офферов в шипменте",
             groups = "api-instamart-regress")
@@ -80,6 +89,7 @@ public class OrdersV1Test extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/ShipmentOffers.json"));
     }
 
+    @Story("Заказы")
     @CaseId(118)
     @Test(  description = "Контрактный тест списка лайн айтемов в шимпенте",
             groups = "api-instamart-regress")
@@ -88,13 +98,14 @@ public class OrdersV1Test extends RestBase {
         checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/LineItems.json"));
 
-        productSku = response.as(LineItemsResponse.class)
+        productSku = response.as(LineItemsV1Response.class)
                 .getLineItems()
                 .get(0)
                 .getOffer()
                 .getProductSku();
     }
 
+    @Story("Заказы")
     @CaseId(119)
     @Test(  description = "Контрактный тест списка предзамен для товара из шипмента",
             groups = "api-instamart-regress",
@@ -107,6 +118,7 @@ public class OrdersV1Test extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Prereplacements.json"));
     }
 
+    @Story("Заказы")
     @CaseId(120)
     @Test(  description = "Контрактный тест списка сэмплов в шипменте",
             groups = "api-instamart-regress",
@@ -121,6 +133,7 @@ public class OrdersV1Test extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/MarketingSampleItems.json"));
     }
 
+    @Story("Заказы")
     @CaseId(121)
     @Test(  description = "Контрактный тест списка способов оплаты в заказе",
             groups = "api-instamart-regress")

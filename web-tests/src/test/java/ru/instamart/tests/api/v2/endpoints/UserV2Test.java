@@ -1,12 +1,5 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import ru.instamart.api.SessionFactory;
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.objects.v2.User;
-import ru.instamart.api.requests.v2.UsersRequest;
-import ru.instamart.api.responses.ErrorResponse;
-import ru.instamart.api.responses.v2.UserDataResponse;
 import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import io.restassured.RestAssured;
@@ -16,6 +9,13 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.objects.v2.UserV2;
+import ru.instamart.api.requests.v2.UsersV2Request;
+import ru.instamart.api.responses.ErrorResponse;
+import ru.instamart.api.responses.v2.UserDataV2Response;
 
 import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.*;
 
@@ -34,14 +34,14 @@ public final class UserV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataAllField() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
-        final Response response = UsersRequest.PUT(
+        final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 "FirstName",
                 "LastName",
                 true
         );
         checkStatusCode200(response);
-        final User user = response.as(UserDataResponse.class).getUser();
+        final UserV2 user = response.as(UserDataV2Response.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
         Assert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
         Assert.assertEquals(user.getLastName(), "LastName", "Некорректная фамилия");
@@ -54,14 +54,14 @@ public final class UserV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithInvalidFirstAndLastName() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
-        final Response response = UsersRequest.PUT(
+        final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 "",
                 "",
                 true
         );
         checkStatusCode200(response);
-        final User user = response.as(UserDataResponse.class).getUser();
+        final UserV2 user = response.as(UserDataV2Response.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
         Assert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
         Assert.assertEquals(user.getLastName(), "LastName", "Некорректная фамилия");
@@ -78,7 +78,7 @@ public final class UserV2Test extends RestBase {
     public void testUpdatePasswordWithInvalidNew() {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
-        final Response response = UsersRequest.PUT(
+        final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 session.getPassword(),
                 "a",
@@ -98,7 +98,7 @@ public final class UserV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidOld() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
-        final Response response = UsersRequest.PUT(
+        final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 "invalid",
                 "passw0rd",
@@ -114,7 +114,7 @@ public final class UserV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidConformation() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
-        final Response response = UsersRequest.PUT(
+        final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 session.getPassword(),
                 "password",
@@ -130,14 +130,14 @@ public final class UserV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePassword() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
-        final Response response = UsersRequest.PUT(
+        final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 session.getPassword(),
                 "passw0rd",
                 "passw0rd"
         );
         checkStatusCode200(response);
-        final User user = response.as(UserDataResponse.class).getUser();
+        final UserV2 user = response.as(UserDataV2Response.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
     }
 
@@ -146,14 +146,14 @@ public final class UserV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataOneField() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
-        final Response response = UsersRequest.PUT(
+        final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 "FirstName",
                 null,
                 false
         );
         checkStatusCode200(response);
-        final User user = response.as(UserDataResponse.class).getUser();
+        final UserV2 user = response.as(UserDataV2Response.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
         Assert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
         Assert.assertFalse(user.getPromoTermsAccepted(), "Некорректное значение promo");
@@ -166,7 +166,7 @@ public final class UserV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithIncorrectEmail() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
-        final Response response = UsersRequest.PUT(
+        final Response response = UsersV2Request.PUT(
                 "fake@mail.com",
                 "FirstName",
                 null,
@@ -181,7 +181,7 @@ public final class UserV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithPromoAccept() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
-        final Response response = UsersRequest.PUT(
+        final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 "FirstName",
                 null,
@@ -196,12 +196,12 @@ public final class UserV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserData() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
-        final Response response = UsersRequest.GET(
+        final Response response = UsersV2Request.GET(
                 "InstamartApp",
                 session.getLogin()
         );
         checkStatusCode200(response);
-        final User user = response.as(UserDataResponse.class).getUser();
+        final UserV2 user = response.as(UserDataV2Response.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
         Assert.assertEquals(user.getFirstName(), "autotest-user", "Некорректное имя");
     }
@@ -211,7 +211,7 @@ public final class UserV2Test extends RestBase {
     @Story("Попытка получить данные для несуществующего email")
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserDataWithIncorrectEmail() {
-        final Response response = UsersRequest.GET(
+        final Response response = UsersV2Request.GET(
                 "fake@mail.com",
                 false
         );
@@ -224,7 +224,7 @@ public final class UserV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserDataWithInvalidToken() {
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.APIV2);
-        final Response response = UsersRequest.GET(
+        final Response response = UsersV2Request.GET(
                 session.getLogin(),
                 true,
                 "123"

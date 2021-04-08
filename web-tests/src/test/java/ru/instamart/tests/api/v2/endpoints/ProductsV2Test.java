@@ -1,18 +1,22 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.objects.v2.Product;
-import ru.instamart.api.requests.v2.ProductsRequest;
-import ru.instamart.api.responses.v2.ProductResponse;
-import ru.instamart.api.responses.v2.ProductsResponse;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.objects.v2.ProductV2;
+import ru.instamart.api.requests.v2.ProductsV2Request;
+import ru.instamart.api.responses.v2.ProductV2Response;
+import ru.instamart.api.responses.v2.ProductsV2Response;
 
 import java.util.List;
 
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
+@Epic("ApiV2")
+@Feature("Продукты")
 public class ProductsV2Test extends RestBase {
     private long productId;
 
@@ -20,9 +24,9 @@ public class ProductsV2Test extends RestBase {
     @Test(  description = "Получаем продукты",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProducts() {
-        response = ProductsRequest.GET(1, "");
+        response = ProductsV2Request.GET(1, "");
         checkStatusCode200(response);
-        List<Product> products = response.as(ProductsResponse.class).getProducts();
+        List<ProductV2> products = response.as(ProductsV2Response.class).getProducts();
         assertNotNull(products, "Не вернулись продукты");
         productId = products.get(0).getId();
     }
@@ -32,8 +36,8 @@ public class ProductsV2Test extends RestBase {
             groups = {"api-instamart-smoke", "api-instamart-prod"},
             dependsOnMethods = "getProducts")
     public void getProduct() {
-        response = ProductsRequest.GET(productId);
+        response = ProductsV2Request.GET(productId);
         checkStatusCode200(response);
-        assertNotNull(response.as(ProductResponse.class).getProduct(), "Не вернулся продукт");
+        assertNotNull(response.as(ProductV2Response.class).getProduct(), "Не вернулся продукт");
     }
 }

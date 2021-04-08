@@ -1,9 +1,5 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import ru.instamart.api.SessionFactory;
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.requests.v2.ResetPasswordRequest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -11,6 +7,10 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.requests.v2.ResetPasswordV2Request;
 
 import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
@@ -28,7 +28,7 @@ public final class ResetPasswordV2Test extends RestBase {
     @CaseId(183)
     @Test(groups = {"api-instamart-regress"}, description = "Подстановка невалидного токена", enabled = false)
     public void testRestWithInvalidToken() {
-        final Response response = ResetPasswordRequest.POST(
+        final Response response = ResetPasswordV2Request.POST(
                 "token",
                 "password",
                 "password"
@@ -39,7 +39,7 @@ public final class ResetPasswordV2Test extends RestBase {
     @CaseId(561)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Восстановление несуществующего аккаунта")
     public void testRestWithInvalidAccount() {
-        final Response response = ResetPasswordRequest.POST(
+        final Response response = ResetPasswordV2Request.POST(
                 "fake@mail.com"
         );
 
@@ -50,7 +50,7 @@ public final class ResetPasswordV2Test extends RestBase {
     @CaseId(184)
     @Test(groups = {"api-instamart-regress"}, description = "Предупреждение при вводе старого пароля", enabled = false)
     public void testRestWithInvalidNewPassword() {
-        final Response response = ResetPasswordRequest.POST(
+        final Response response = ResetPasswordV2Request.POST(
                 "token",
                 "  ",
                 "password"
@@ -62,7 +62,7 @@ public final class ResetPasswordV2Test extends RestBase {
     @CaseId(185)
     @Test(groups = {"api-instamart-regress"}, description = "Предупреждение при вводе невалидного пароля", enabled = false)
     public void testRestWithInvalidPassword() {
-        final Response response = ResetPasswordRequest.POST(
+        final Response response = ResetPasswordV2Request.POST(
                 "token",
                 "   ~",
                 "   ~"
@@ -74,7 +74,7 @@ public final class ResetPasswordV2Test extends RestBase {
     @CaseId(186)
     @Test(groups = {"api-instamart-regress"}, description = "Предупреждение при вводе невалидного проверочного пароля", enabled = false)
     public void testRestWithInvalidConformationPassword() {
-        final Response response = ResetPasswordRequest.POST(
+        final Response response = ResetPasswordV2Request.POST(
                 "token",
                 "password",
                 ""
@@ -85,7 +85,7 @@ public final class ResetPasswordV2Test extends RestBase {
     @CaseId(187)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Сброс пароля")
     public void testRestPassword() {
-        final Response response = ResetPasswordRequest.POST(
+        final Response response = ResetPasswordV2Request.POST(
                 SessionFactory.getSession(SessionType.APIV2).getLogin()
         );
         checkStatusCode200(response);

@@ -1,7 +1,7 @@
 package ru.instamart.api.checkpoints;
 
-import ru.instamart.api.objects.shopper.Error;
-import ru.instamart.api.responses.shopper.ErrorResponse;
+import ru.instamart.api.objects.shopper.ErrorSHP;
+import ru.instamart.api.responses.shopper.ErrorSHPResponse;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -31,9 +31,9 @@ public class ShopperApiCheckpoints {
 
     public static String getErrorDetails(Response response) {
         try {
-            List<Error> errors = response.as(ErrorResponse.class).getErrors();
+            List<ErrorSHP> errors = response.as(ErrorSHPResponse.class).getErrors();
             StringJoiner stringJoiner = new StringJoiner(", ");
-            if (errors != null) for (Error error : errors) stringJoiner.add(error.getDetail());
+            if (errors != null) for (ErrorSHP error : errors) stringJoiner.add(error.getDetail());
             else stringJoiner.add(response.body().toString());
             return stringJoiner.toString();
         } catch (IllegalStateException e) {

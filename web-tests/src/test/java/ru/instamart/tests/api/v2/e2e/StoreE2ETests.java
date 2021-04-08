@@ -1,15 +1,7 @@
 package ru.instamart.tests.api.v2.e2e;
 
-import ru.instamart.api.checkpoints.InstamartApiCheckpoints;
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.helpers.RegistrationHelper;
-import ru.instamart.api.objects.v2.Product;
-import ru.instamart.api.objects.v2.Store;
-import ru.instamart.api.objects.v2.Taxon;
-import ru.instamart.api.requests.v2.ProductsRequest;
-import ru.instamart.core.testdata.UserManager;
-import ru.instamart.core.testdata.dataprovider.RestDataProvider;
-import ru.instamart.ui.common.pagesdata.UserData;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import io.restassured.RestAssured;
 import org.slf4j.Logger;
@@ -17,9 +9,21 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.api.checkpoints.InstamartApiCheckpoints;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.helpers.RegistrationHelper;
+import ru.instamart.api.objects.v2.ProductV2;
+import ru.instamart.api.objects.v2.StoreV2;
+import ru.instamart.api.objects.v2.TaxonV2;
+import ru.instamart.api.requests.v2.ProductsV2Request;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.core.testdata.dataprovider.RestDataProvider;
+import ru.instamart.ui.common.pagesdata.UserData;
 
 import java.util.List;
 
+@Epic("ApiV2")
+@Feature("E2E тесты")
 public class StoreE2ETests extends RestBase {
 
     private static final Logger log = LoggerFactory.getLogger(StoreE2ETests.class);
@@ -34,7 +38,7 @@ public class StoreE2ETests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             description = "Тест категорий на главных страницах всех магазинов",
             groups = {})
-    public void departmentsOnMainPages(Store store) {
+    public void departmentsOnMainPages(StoreV2 store) {
         log.info(store.toString());
 
         SoftAssert softAssert = new SoftAssert();
@@ -47,13 +51,13 @@ public class StoreE2ETests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             description = "Тест продуктов на главных страницах всех магазинов",
             groups = {})
-    public void productsOnMainPages(Store store) {
+    public void productsOnMainPages(StoreV2 store) {
         log.info("Магазин {} url={}/api/v2/departments?sid={}", store, RestAssured.baseURI, store.getId());
 
         final SoftAssert softAssert = new SoftAssert();
-        final List<Product> products = apiV2.getProductsFromEachDepartmentInStore(store.getId());
-        for (final Product product : products) {
-            softAssert.assertEquals(ProductsRequest.GET(product.getId()).getStatusCode(),200,
+        final List<ProductV2> products = apiV2.getProductsFromEachDepartmentInStore(store.getId());
+        for (final ProductV2 product : products) {
+            softAssert.assertEquals(ProductsV2Request.GET(product.getId()).getStatusCode(),200,
                     "\n" + product + " " + RestAssured.baseURI + "/api/v2/products/" + product.getId());
         }
         softAssert.assertAll();
@@ -64,11 +68,11 @@ public class StoreE2ETests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             description = "Тест количества товаров в таксонах",
             groups = {})
-    public void categoriesProductsCount(Store store) {
+    public void categoriesProductsCount(StoreV2 store) {
         log.info(store.toString());
 
         final SoftAssert softAssert = new SoftAssert();
-        final List<Taxon> taxons = apiV2.getTaxons(store.getId());
+        final List<TaxonV2> taxons = apiV2.getTaxons(store.getId());
         taxons.forEach(taxon -> InstamartApiCheckpoints.checkProductsCountEqualsChildrenSum(taxon, softAssert));
         softAssert.assertAll();
     }
@@ -77,7 +81,7 @@ public class StoreE2ETests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             description = "Тест заказов во всех магазинах",
             groups = {})
-    public void orderByStore(Store store) {
+    public void orderByStore(StoreV2 store) {
         log.info("Оформляем заказ в {}", store);
 
         apiV2.order(UserManager.getDefaultUser(), store.getId());
@@ -89,7 +93,7 @@ public class StoreE2ETests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             description = "Тест первых заказов во всех магазинах",
             groups = {})
-    public void firstOrderByStore(Store store) {
+    public void firstOrderByStore(StoreV2 store) {
         log.info("Оформляем первый заказ в {}", store);
 
         final UserData userData = UserManager.getUser();

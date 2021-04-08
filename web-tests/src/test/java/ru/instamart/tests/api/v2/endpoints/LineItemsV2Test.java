@@ -1,20 +1,24 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import ru.instamart.api.SessionFactory;
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.objects.v2.LineItem;
-import ru.instamart.api.requests.v2.LineItemsRequest;
-import ru.instamart.api.requests.v2.ProductsRequest;
-import ru.instamart.api.responses.v2.LineItemResponse;
-import ru.instamart.api.responses.v2.ProductsResponse;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.objects.v2.LineItemV2;
+import ru.instamart.api.requests.v2.LineItemsV2Request;
+import ru.instamart.api.requests.v2.ProductsV2Request;
+import ru.instamart.api.responses.v2.LineItemV2Response;
+import ru.instamart.api.responses.v2.ProductsV2Response;
 
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
+@Epic("ApiV2")
+@Feature("Корзина")
 public class LineItemsV2Test extends RestBase {
     private String orderNumber;
     private long productId;
@@ -24,9 +28,9 @@ public class LineItemsV2Test extends RestBase {
     public void preconditions() {
         SessionFactory.makeSession(SessionType.APIV2);
         orderNumber = apiV2.getCurrentOrderNumber();
-        productId = ProductsRequest
+        productId = ProductsV2Request
                 .GET(1, "")
-                .as(ProductsResponse.class)
+                .as(ProductsV2Response.class)
                 .getProducts()
                 .get(0)
                 .getId();
@@ -36,9 +40,9 @@ public class LineItemsV2Test extends RestBase {
     @Test(  description = "Добавляем товар в корзину",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void postLineItems() {
-        response = LineItemsRequest.POST(productId,1, orderNumber);
+        response = LineItemsV2Request.POST(productId,1, orderNumber);
         checkStatusCode200(response);
-        LineItem lineItem = response.as(LineItemResponse.class).getLineItem();
+        LineItemV2 lineItem = response.as(LineItemV2Response.class).getLineItem();
         assertNotNull(lineItem, "Не добавился товар в корзину");
         lineItemId = lineItem.getId();
     }
@@ -48,8 +52,8 @@ public class LineItemsV2Test extends RestBase {
             groups = {"api-instamart-smoke", "api-instamart-prod"},
             dependsOnMethods = "postLineItems")
     public void deleteLineItems() {
-        response = LineItemsRequest.DELETE(lineItemId);
+        response = LineItemsV2Request.DELETE(lineItemId);
         checkStatusCode200(response);
-        assertNotNull(response.as(LineItemResponse.class).getLineItem(), "Не удалился товар из корзины");
+        assertNotNull(response.as(LineItemV2Response.class).getLineItem(), "Не удалился товар из корзины");
     }
 }

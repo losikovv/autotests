@@ -3,16 +3,16 @@ package ru.instamart.core.testdata.dataprovider;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.common.Specification;
-import ru.instamart.api.enums.v2.AuthProvider;
-import ru.instamart.api.objects.v1.Offer;
-import ru.instamart.api.objects.v1.OperationalZone;
-import ru.instamart.api.objects.v2.Retailer;
-import ru.instamart.api.objects.v2.Store;
-import ru.instamart.api.objects.v2.Zone;
+import ru.instamart.api.enums.v2.AuthProviderV2;
+import ru.instamart.api.objects.v1.OfferV1;
+import ru.instamart.api.objects.v1.OperationalZoneV1;
+import ru.instamart.api.objects.v2.RetailerV2;
+import ru.instamart.api.objects.v2.StoreV2;
+import ru.instamart.api.objects.v2.ZoneV2;
 import ru.instamart.api.requests.ApiV1Requests;
-import ru.instamart.api.requests.v2.AddressesRequest.Addresses;
-import ru.instamart.api.requests.v2.StoresRequest;
-import ru.instamart.api.responses.v1.OperationalZonesResponse;
+import ru.instamart.api.requests.v2.AddressesV2Request.Addresses;
+import ru.instamart.api.requests.v2.StoresV2Request;
+import ru.instamart.api.responses.v1.OperationalZonesV1Response;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -25,10 +25,10 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "authProviders")
     public static Object[][] getAuthProviders() {
         Object[][] authProviderArray = new Object[4][1];
-        authProviderArray[0][0] = AuthProvider.METRO;
-        authProviderArray[1][0] = AuthProvider.SBERAPP;
-        authProviderArray[2][0] = AuthProvider.VKONTAKTE;
-        authProviderArray[3][0] = AuthProvider.FACEBOOK;
+        authProviderArray[0][0] = AuthProviderV2.METRO;
+        authProviderArray[1][0] = AuthProviderV2.SBERAPP;
+        authProviderArray[2][0] = AuthProviderV2.VKONTAKTE;
+        authProviderArray[3][0] = AuthProviderV2.FACEBOOK;
         return authProviderArray;
     }
 
@@ -41,7 +41,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getAvailableRetailers() {
         Specification.setResponseSpecDataProvider();
 
-        List<Retailer> retailerList = apiV2.availableRetailers();
+        List<RetailerV2> retailerList = apiV2.availableRetailers();
 
         Specification.setResponseSpecDefault();
 
@@ -66,7 +66,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getAvailableRetailersSpree() {
         Specification.setResponseSpecDataProvider();
 
-        List<Retailer> retailerList = apiV2.availableRetailersSpree();
+        List<RetailerV2> retailerList = apiV2.availableRetailersSpree();
 
         Specification.setResponseSpecDefault();
 
@@ -91,7 +91,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getAvailableStores() {
         Specification.setResponseSpecDataProvider();
 
-        List<Store> storeList = apiV2.availableStores();
+        List<StoreV2> storeList = apiV2.availableStores();
         Specification.setResponseSpecDefault();
 
         Object[][] storeArray = new Object[storeList.size()][1];
@@ -110,7 +110,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getStoreOfEachRetailer() {
         Specification.setResponseSpecDataProvider();
 
-        List<Store> storeList = apiV2.availableRetailers()
+        List<StoreV2> storeList = apiV2.availableRetailers()
                 .stream().parallel()
                 .map(apiV2::availableStores)
                 .map(retailerStores -> retailerStores.get(retailerStores.size() - 1))
@@ -139,14 +139,14 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getAvailableZones() {
         Specification.setResponseSpecDataProvider();
 
-        List<Store> stores = apiV2.availableStores();
+        List<StoreV2> stores = apiV2.availableStores();
 
-        List<Store> zoneStores = new ArrayList<>();
+        List<StoreV2> zoneStores = new ArrayList<>();
         List<String> zoneNames = new ArrayList<>();
-        List<Zone> coordinates = new ArrayList<>();
+        List<ZoneV2> coordinates = new ArrayList<>();
 
-        for (Store store : stores) {
-            List<List<Zone>> zones = apiV2.storeZones(store.getId());
+        for (StoreV2 store : stores) {
+            List<List<ZoneV2>> zones = apiV2.storeZones(store.getId());
             for (int i = 0; i < zones.size(); i++) {
                 zoneStores.add(store);
                 zoneNames.add("Зона #" + (i + 1));
@@ -168,8 +168,8 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getOperationalZones() {
         Specification.setResponseSpecDataProvider();
 
-        List<OperationalZone> operationalZoneList = ApiV1Requests.OperationalZones.GET()
-                .as(OperationalZonesResponse.class).getOperationalZones();
+        List<OperationalZoneV1> operationalZoneList = ApiV1Requests.OperationalZones.GET()
+                .as(OperationalZonesV1Response.class).getOperationalZones();
 
         Specification.setResponseSpecDefault();
 
@@ -194,13 +194,13 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getOfferOfEachRetailer() {
         Specification.setResponseSpecDataProvider();
 
-        List<Store> storeList = apiV2.availableRetailers()
+        List<StoreV2> storeList = apiV2.availableRetailers()
                 .stream().parallel()
                 .map(apiV2::availableStores)
                 .map(retailerStores -> retailerStores.get(retailerStores.size() - 1))
                 .collect(Collectors.toList());
 
-        List<Offer> offerList = storeList
+        List<OfferV1> offerList = storeList
                 .stream().parallel()
                 .map(store -> apiV2.getActiveOffers(store.getUuid()))
                 .filter(storeOffers -> !storeOffers.isEmpty())
@@ -219,40 +219,40 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "getStores")
     public static Object[][] getStores() {
         return new Object[][] {
-                {StoresRequest.Store.builder()
+                {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .lon(RestAddresses.Moscow.defaultAddress().getLon())
                         .build()
                 },
-                {StoresRequest.Store.builder()
+                {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .build()
                 },
-                {StoresRequest.Store.builder()
+                {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .lon(RestAddresses.Moscow.defaultAddress().getLon())
                         .shippingMethod("pickup")
                         .build()
                 },
-                {StoresRequest.Store.builder()
+                {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .lon(RestAddresses.Moscow.defaultAddress().getLon())
                         .shippingMethod("by_courier")
                         .build()
                 },
-                {StoresRequest.Store.builder()
+                {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .lon(RestAddresses.Moscow.defaultAddress().getLon())
                         .shippingMethod("fake")
                         .build()
                 },
-                {StoresRequest.Store.builder()
+                {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .lon(RestAddresses.Moscow.defaultAddress().getLon())
                         .operationalZoneId(1)
                         .build()
                 },
-                {StoresRequest.Store.builder()
+                {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .lon(RestAddresses.Moscow.defaultAddress().getLon())
                         .operationalZoneId(99999999)

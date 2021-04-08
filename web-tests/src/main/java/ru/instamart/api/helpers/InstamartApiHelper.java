@@ -2,26 +2,26 @@ package ru.instamart.api.helpers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.instamart.api.SessionFactory;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.enums.v2.OrderStatus;
-import ru.instamart.api.objects.v1.Offer;
-import ru.instamart.api.objects.v2.*;
-import ru.instamart.api.requests.ApiV1Requests;
-import ru.instamart.api.requests.v2.*;
-import ru.instamart.api.responses.ErrorResponse;
-import ru.instamart.api.responses.v1.OffersResponse;
-import ru.instamart.api.responses.v2.*;
-import ru.instamart.core.util.MapUtil;
-import ru.instamart.ui.common.lib.Pages;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
-import ru.instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v2.OrderStatusV2;
+import ru.instamart.api.objects.v1.OfferV1;
+import ru.instamart.api.objects.v2.*;
+import ru.instamart.api.requests.ApiV1Requests;
+import ru.instamart.api.requests.v2.*;
+import ru.instamart.api.responses.ErrorResponse;
+import ru.instamart.api.responses.v1.OffersV1Response;
+import ru.instamart.api.responses.v2.*;
+import ru.instamart.core.util.MapUtil;
+import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.common.pagesdata.UserData;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -40,7 +40,7 @@ public final class InstamartApiHelper {
     private final ThreadLocal<String> currentShipmentNumber = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentShipmentId = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentDeliveryWindowId = new ThreadLocal<>();
-    private final ThreadLocal<PaymentTool> currentPaymentTool = new ThreadLocal<>();
+    private final ThreadLocal<PaymentToolV2> currentPaymentTool = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentShipmentMethodId = new ThreadLocal<>();
     private final ThreadLocal<Integer> minSum = new ThreadLocal<>();
     private final ThreadLocal<Boolean> minSumNotReached = new ThreadLocal<>();
@@ -73,7 +73,7 @@ public final class InstamartApiHelper {
     /**
      * Проверяем, попадают ли координаты в зону доставки
      */
-    private boolean isPointInPolygon(List<Zone> points, Zone point) {
+    private boolean isPointInPolygon(List<ZoneV2> points, ZoneV2 point) {
         int i, j;
         boolean result = false;
         for (i = 0, j = points.size() - 1; i < points.size(); j = i++) {
@@ -90,11 +90,11 @@ public final class InstamartApiHelper {
     /**
      * Получаем координаты, которые попадают в зону доставки
      */
-    public Zone getInnerPoint(List<Zone> points) {
+    public ZoneV2 getInnerPoint(List<ZoneV2> points) {
         List<Double> lats = new ArrayList<>();
         List<Double> lons = new ArrayList<>();
 
-        for (Zone point : points) {
+        for (ZoneV2 point : points) {
             lats.add(point.getLat());
             lons.add(point.getLon());
         }
@@ -104,7 +104,7 @@ public final class InstamartApiHelper {
         double stepLat = (Collections.max(lats) - lat) / numberOfTries;
         double stepLon = (Collections.max(lons) - lon) / numberOfTries;
 
-        Zone point = new Zone(lat, lon);
+        ZoneV2 point = new ZoneV2(lat, lon);
         for (int i = 0; !isPointInPolygon(points, point) && i < numberOfTries; i++) {
             lat = roundBigDecimal(lat + stepLat,7);
             lon = roundBigDecimal(lon + stepLon,7);
@@ -120,7 +120,7 @@ public final class InstamartApiHelper {
      * ToDo убрать хардкод данных
      * ToDo если самовывоз, не скипать тест, а оформлять заказ через сайт
      */
-    public void skipTestIfOnlyPickupIsAvailable(Store store, String zoneName) {
+    public void skipTestIfOnlyPickupIsAvailable(StoreV2 store, String zoneName) {
         List<Integer> pickupRetailers = new ArrayList<>();
         pickupRetailers.add(
                 53 //провино
@@ -135,7 +135,7 @@ public final class InstamartApiHelper {
         }
     }
 
-    public void skipTestIfOnlyPickupIsAvailable(Store store) {
+    public void skipTestIfOnlyPickupIsAvailable(StoreV2 store) {
         skipTestIfOnlyPickupIsAvailable(store, null);
     }
 
@@ -143,23 +143,23 @@ public final class InstamartApiHelper {
       МЕТОДЫ ОБРАБОТКИ ОТВЕТОВ API V2
      */
 
-    public List<Taxon> getTaxons(int sid) {
-        return TaxonsRequest.GET(sid).as(TaxonsResponse.class).getTaxons();
+    public List<TaxonV2> getTaxons(int sid) {
+        return TaxonsV2Request.GET(sid).as(TaxonsV2Response.class).getTaxons();
     }
 
-    public Taxon getTaxon(int id, int sid) {
-        Response response = TaxonsRequest.GET(id, sid);
+    public TaxonV2 getTaxon(int id, int sid) {
+        Response response = TaxonsV2Request.GET(id, sid);
         checkStatusCode200(response);
-        return response.as(TaxonResponse.class).getTaxon();
+        return response.as(TaxonV2Response.class).getTaxon();
     }
 
     public Set<Integer> getTaxonIds(int sid) {
         return getTaxons(sid)
                 .stream()
-                .map(Taxon::getChildren)
+                .map(TaxonV2::getChildren)
                 .filter(Objects::nonNull)
                 .flatMap(Collection::stream)
-                .map(Taxon::getId)
+                .map(TaxonV2::getId)
                 .collect(Collectors.toSet());
     }
 
@@ -167,16 +167,16 @@ public final class InstamartApiHelper {
      * Удаляем товары из корзины
      */
     private void deleteItemsFromCart() {
-        Response response = OrdersRequest.Shipments.DELETE(currentOrderNumber.get());
+        Response response = OrdersV2Request.Shipments.DELETE(currentOrderNumber.get());
 
-        Order order = response.as(OrderResponse.class).getOrder();
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
         log.info("Удалены все доставки у заказа: {}", order.getNumber());
     }
 
     /**
      * Изменение/применение параметров адреса из объекта адреса с указанием имени и фамилии юзера
      */
-    private void setAddressAttributes(UserData user, Address address) {
+    private void setAddressAttributes(UserData user, AddressV2 address) {
         address.setFirstName(user.getFirstName());
         address.setLastName(user.getLastName());
 
@@ -186,11 +186,11 @@ public final class InstamartApiHelper {
     /**
      * Изменение/применение параматров адреса из объекта адреса
      */
-    private void setAddressAttributes(Address address) {
-        Response response = OrdersRequest.ShipAddressChange.PUT(address, currentOrderNumber.get());
+    private void setAddressAttributes(AddressV2 address) {
+        Response response = OrdersV2Request.ShipAddressChange.PUT(address, currentOrderNumber.get());
 
-        Address addressFromResponse = response
-                .as(ShipAddressChangeResponse.class)
+        AddressV2 addressFromResponse = response
+                .as(ShipAddressChangeV2Response.class)
                 .getShipAddressChange()
                 .getOrder()
                 .getAddress();
@@ -200,17 +200,17 @@ public final class InstamartApiHelper {
     }
 
     /** Получаем список продуктов: по одному из каждой категории */
-    public List<Product> getProductFromEachDepartmentInStore(int sid) {
+    public List<ProductV2> getProductFromEachDepartmentInStore(int sid) {
         return getProductsFromEachDepartmentInStore(sid, 1, new SoftAssert());
     }
 
     /** Получаем список продуктов: максимум (6) из каждой категории */
-    public List<Product> getProductsFromEachDepartmentInStore(int sid) {
+    public List<ProductV2> getProductsFromEachDepartmentInStore(int sid) {
         return getProductsFromEachDepartmentInStore(sid, 6, new SoftAssert());
     }
 
     /** Получаем список продуктов: максимум (6) из каждой категории и проверяем корректность категорий */
-    public List<Product> getProductsFromEachDepartmentInStore(int sid, SoftAssert softAssert) {
+    public List<ProductV2> getProductsFromEachDepartmentInStore(int sid, SoftAssert softAssert) {
         return getProductsFromEachDepartmentInStore(sid, 6, softAssert);
     }
 
@@ -219,10 +219,10 @@ public final class InstamartApiHelper {
      * @param sid сид магазина
      * @param numberOfProductsFromEachDepartment количество продуктов из каждой категории (не больше 6)
      */
-    private List<Product> getProductsFromEachDepartmentInStore(
+    private List<ProductV2> getProductsFromEachDepartmentInStore(
             int sid, int numberOfProductsFromEachDepartment, SoftAssert softAssert) {
-        List<Department> departments = DepartmentsRequest.GET(sid, numberOfProductsFromEachDepartment)
-                .as(DepartmentsResponse.class).getDepartments();
+        List<DepartmentV2> departments = DepartmentsV2Request.GET(sid, numberOfProductsFromEachDepartment)
+                .as(DepartmentsV2Response.class).getDepartments();
 
         String storeUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + "?sid=" + sid;
 
@@ -231,10 +231,10 @@ public final class InstamartApiHelper {
                 0,
                 "Не импортированы товары для магазина\n" + storeUrl);
 
-        List<Product> products = new ArrayList<>();
+        List<ProductV2> products = new ArrayList<>();
 
-        for (Department department : departments) {
-            List<Product> productsFromDepartment = department.getProducts();
+        for (DepartmentV2 department : departments) {
+            List<ProductV2> productsFromDepartment = department.getProducts();
             if (productsFromDepartment == null) {
                 softAssert.fail("\nПоказывается пустая категория " + department.getName() + "\n" + storeUrl);
                 continue;
@@ -249,7 +249,7 @@ public final class InstamartApiHelper {
                     "\n• ",
                     "Категория: " + department.getName() + "\n• ",
                     "");
-            for (Product productFromDepartment : productsFromDepartment) {
+            for (ProductV2 productFromDepartment : productsFromDepartment) {
                 products.add(productFromDepartment);
                 productsString.add(productFromDepartment.toString());
             }
@@ -261,8 +261,8 @@ public final class InstamartApiHelper {
     /**
      * Добавляем список товаров в корзину
      */
-    public void addItemsToCart(List<Product> products, int quantity) {
-        for (Product product : products) {
+    public void addItemsToCart(List<ProductV2> products, int quantity) {
+        for (ProductV2 product : products) {
             addItemToCart(product.getId(), quantity);
         }
     }
@@ -271,9 +271,9 @@ public final class InstamartApiHelper {
      * Добавляем товар в корзину
      */
     private void addItemToCart(long productId, int quantity) {
-        Response response = LineItemsRequest.POST(productId, quantity, currentOrderNumber.get());
+        Response response = LineItemsV2Request.POST(productId, quantity, currentOrderNumber.get());
         checkStatusCode200(response);
-        LineItem lineItem = response.as(LineItemResponse.class).getLineItem();
+        LineItemV2 lineItem = response.as(LineItemV2Response.class).getLineItem();
 
         log.info(lineItem.toString());
     }
@@ -297,10 +297,10 @@ public final class InstamartApiHelper {
      * Получаем минимальную сумму заказа, если сумма не набрана
      */
     private void getMinSumFromAlert() {
-        final Response response = OrdersRequest.Current.GET();
+        final Response response = OrdersV2Request.Current.GET();
         checkStatusCode200(response);
-        final Shipment shipment = response
-                .as(OrderResponse.class)
+        final ShipmentV2 shipment = response
+                .as(OrderV2Response.class)
                 .getOrder()
                 .getShipments()
                 .get(0);
@@ -321,16 +321,16 @@ public final class InstamartApiHelper {
     /**
      * Узнаем вес продукта, полученного через GET v2/departments
      */
-    private double getProductWeight(Product product) {
+    private double getProductWeight(ProductV2 product) {
         String humanVolume = product.getHumanVolume();
 
         if (humanVolume.contains(" шт.")) {
             boolean productHasWeightProperty = false;
-            List<Property> properties = ProductsRequest.GET(product.getId())
-                    .as(ProductResponse.class)
+            List<PropertyV2> properties = ProductsV2Request.GET(product.getId())
+                    .as(ProductV2Response.class)
                     .getProduct()
                     .getProperties();
-            for (Property property : properties) {
+            for (PropertyV2 property : properties) {
                 if (property.getName().equalsIgnoreCase("вес")) {
                     humanVolume = property.getValue();
                     productHasWeightProperty = true;
@@ -338,7 +338,7 @@ public final class InstamartApiHelper {
                 }
             }
             if (!productHasWeightProperty) {
-                for (Property property : properties) {
+                for (PropertyV2 property : properties) {
                     if (property.getName().equalsIgnoreCase("объем")) {
                         humanVolume = property.getValue();
                         break;
@@ -367,16 +367,16 @@ public final class InstamartApiHelper {
      * Получаем первый доступный слот
      */
     private void getAvailableDeliveryWindow() {
-        List<ShippingRate> shippingRates = ShipmentsRequest.ShippingRates
+        List<ShippingRateV2> shippingRates = ShipmentsV2Request.ShippingRates
                 .GET(currentShipmentNumber
-                        .get()).as(ShippingRatesResponse.class).getShippingRates();
+                        .get()).as(ShippingRatesV2Response.class).getShippingRates();
 
         Assert.assertNotEquals(
                 shippingRates.size(),
                 0,
                 "Нет слотов в магазине " + Pages.Admin.stores(currentSid.get()));
 
-        DeliveryWindow deliveryWindow = shippingRates.get(0).getDeliveryWindow();
+        DeliveryWindowV2 deliveryWindow = shippingRates.get(0).getDeliveryWindow();
 
         currentDeliveryWindowId.set(deliveryWindow.getId());
 
@@ -387,15 +387,15 @@ public final class InstamartApiHelper {
      * Получаем первый доступный способ доставки
      */
     private void getAvailableShippingMethod() {
-        List<ShippingMethod> shippingMethods = ShippingMethodsRequest.GET(currentSid.get())
-                .as(ShippingMethodsResponse.class).getShippingMethods();
+        List<ShippingMethodV2> shippingMethods = ShippingMethodsV2Request.GET(currentSid.get())
+                .as(ShippingMethodsV2Response.class).getShippingMethods();
 
         Assert.assertNotEquals(
                 shippingMethods.size(),
                 0,
                 "Нет способов доставки в магазине\n" + Pages.Admin.stores(currentSid.get()));
 
-        ShippingMethod shippingMethod = shippingMethods.get(0);
+        ShippingMethodV2 shippingMethod = shippingMethods.get(0);
 
         currentShipmentMethodId.set(shippingMethod.getId());
 
@@ -406,7 +406,7 @@ public final class InstamartApiHelper {
      * Выбираем id способа оплаты (по умолчанию Картой курьеру)
      */
     private void getAvailablePaymentTool() {
-        List<PaymentTool> paymentTools = PaymentToolsRequest.GET().as(PaymentToolsResponse.class).getPaymentTools();
+        List<PaymentToolV2> paymentTools = PaymentToolsV2Request.GET().as(PaymentToolsV2Response.class).getPaymentTools();
 
         StringJoiner availablePaymentTools = new StringJoiner(
                 "\n• ",
@@ -431,7 +431,7 @@ public final class InstamartApiHelper {
      * Применяем дефолтные параметры к заказу
      */
     private void setDefaultOrderAttributes() {
-        Response response = OrdersRequest.PUT(
+        Response response = OrdersV2Request.PUT(
                 //currentAddressId.get(), //параметр ломает оформление заказа в некоторых магазинах
                 1,
                 "+7 (987) 654 32 10",
@@ -442,7 +442,7 @@ public final class InstamartApiHelper {
                 currentShipmentMethodId.get(),
                 currentOrderNumber.get());
         checkStatusCode200(response);
-        Order order = response.as(OrderResponse.class).getOrder();
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
         log.info("Применены атрибуты для заказа: {}", order.getNumber());
         log.info("        full_address: {}", order.getAddress().getFullAddress());
         log.info("  replacement_policy: {}", order.getReplacementPolicy().getDescription());
@@ -454,11 +454,11 @@ public final class InstamartApiHelper {
     /**
      * Завершаем оформление заказа
      */
-    private Order completeOrder() {
+    private OrderV2 completeOrder() {
         orderCompleted.set(false);
-        Response response = OrdersRequest.Completion.POST(currentOrderNumber.get());
+        Response response = OrdersV2Request.Completion.POST(currentOrderNumber.get());
         if (response.getStatusCode() == 422) {
-            Errors errors = response.as(ErrorResponse.class).getErrors();
+            ErrorsV2 errors = response.as(ErrorResponse.class).getErrors();
 
             if (errors.getShipments() != null) {
                 String notAvailableDeliveryWindow = "Выбранный интервал стал недоступен";
@@ -466,7 +466,7 @@ public final class InstamartApiHelper {
                     log.error(notAvailableDeliveryWindow);
                     getAvailableDeliveryWindow();
                     setDefaultOrderAttributes();
-                    response = OrdersRequest.Completion.POST(currentOrderNumber.get());
+                    response = OrdersV2Request.Completion.POST(currentOrderNumber.get());
                 } else Assert.fail(response.body().toString());
             }
             if (errors.getPayments() != null) {
@@ -478,14 +478,14 @@ public final class InstamartApiHelper {
                 } else Assert.fail(response.body().toString());
             }
         }
-        if (response.as(OrderResponse.class).getOrder() != null) {
-            Order order = response.as(OrderResponse.class).getOrder();
+        if (response.as(OrderV2Response.class).getOrder() != null) {
+            OrderV2 order = response.as(OrderV2Response.class).getOrder();
             if (order.getShipments().get(0).getAlerts().size() > 0) {
                 log.info(order.getShipments().get(0).getAlerts().get(0).getFullMessage());
             }
             log.info("Оформлен заказ: {}", order.getNumber());
             orderCompleted.set(true);
-            return response.as(OrderResponse.class).getOrder();
+            return response.as(OrderV2Response.class).getOrder();
         }
         return null;
     }
@@ -494,16 +494,16 @@ public final class InstamartApiHelper {
      * Отменяем заказ по номеру
      */
     private void cancelOrder(String orderNumber) {
-        Response response = OrdersRequest.Cancellations.POST(orderNumber, "test");
+        Response response = OrdersV2Request.Cancellations.POST(orderNumber, "test");
         checkStatusCode200(response);
-        Order order = response.as(CancellationsResponse.class).getCancellation().getOrder();
+        OrderV2 order = response.as(CancellationsV2Response.class).getCancellation().getOrder();
         log.info("Отменен заказ: {}", order.getNumber());
     }
 
     /**
      * Выбираем первый доступный магазин (берем координаты из обьекта необходимого адреса)
      */
-    private void getCurrentSid(Address address) {
+    private void getCurrentSid(AddressV2 address) {
         getCurrentSid(address.getLat(), address.getLon());
     }
 
@@ -511,7 +511,7 @@ public final class InstamartApiHelper {
      * Выбираем первый доступный магазин по координатам
      */
     private void getCurrentSid(double lat, double lon) {
-        Store store = availableStores(lat, lon).get(0);
+        StoreV2 store = availableStores(lat, lon).get(0);
 
         currentSid.set(store.getId());
 
@@ -521,7 +521,7 @@ public final class InstamartApiHelper {
     /**
      * Выбираем первый доступный магазин определенного ритейлера (берем координаты из обьекта необходимого адреса)
      */
-    private void getCurrentSid(Address address, String retailer) {
+    private void getCurrentSid(AddressV2 address, String retailer) {
         if (address.getLat() == null || address.getLon() == null)
             throw new NullPointerException("Не указаны координаты");
         getCurrentSid(address.getLat(), address.getLon(), retailer);
@@ -531,9 +531,9 @@ public final class InstamartApiHelper {
      * Выбираем первый доступный магазин определенного ритейлера по координатам
      */
     private void getCurrentSid(double lat, double lon, String retailer) {
-        List<Store> stores = availableStores(lat, lon);
+        List<StoreV2> stores = availableStores(lat, lon);
 
-        for (Store store : stores) {
+        for (StoreV2 store : stores) {
             if (retailer.equalsIgnoreCase(store.getRetailer().getSlug())) {
 
                 currentSid.set(store.getId());
@@ -548,9 +548,9 @@ public final class InstamartApiHelper {
     /**
      * Получить адрес доставки, зная только sid
      */
-    private Address getAddressBySid(int sid) {
+    private AddressV2 getAddressBySid(int sid) {
         currentSid.set(sid);
-        Response response = StoresRequest.GET(sid);
+        Response response = StoresV2Request.GET(sid);
 
         if (response.statusCode() == 422)
             if (response.as(ErrorResponse.class)
@@ -559,13 +559,13 @@ public final class InstamartApiHelper {
                     .contains("По указанному адресу"))
                 Assert.fail("Магазин отключен " + Pages.Admin.stores(currentSid.get()));
 
-        Store store = response.as(StoreResponse.class).getStore();
+        StoreV2 store = response.as(StoreV2Response.class).getStore();
 
-        Address address = store.getLocation();
+        AddressV2 address = store.getLocation();
         log.info("Получен адрес {}", address.getFullAddress());
 
-        List<List<Zone>> zones = store.getZones();
-        Zone zone = getInnerPoint(zones.get(zones.size() - 1));
+        List<List<ZoneV2>> zones = store.getZones();
+        ZoneV2 zone = getInnerPoint(zones.get(zones.size() - 1));
         address.setCoordinates(zone);
         log.info("Выбраны координаты: {}", zone);
 
@@ -575,14 +575,14 @@ public final class InstamartApiHelper {
     /**
      * Получить список активных ритейлеров как список объектов Retailer
      */
-    public List<Retailer> availableRetailers() {
-        List<Retailer> retailers = RetailersRequest.GET().as(RetailersResponse.class).getRetailers();
+    public List<RetailerV2> availableRetailers() {
+        List<RetailerV2> retailers = RetailersV2Request.GET().as(RetailersV2Response.class).getRetailers();
 
         StringJoiner availableRetailers = new StringJoiner(
                 "\n• ",
                 "Список активных ретейлеров:\n• ",
                 "\n");
-        for (Retailer retailer : retailers) {
+        for (RetailerV2 retailer : retailers) {
             availableRetailers.add(retailer.toString());
         }
         log.info(availableRetailers.toString());
@@ -593,14 +593,14 @@ public final class InstamartApiHelper {
     /**
      * Получить список активных ритейлеров как список объектов Retailer
      */
-    public List<Retailer> availableRetailersSpree() {
-        List<Retailer> retailers = ApiV1Requests.Retailers.GET().as(RetailersResponse.class).getRetailers();
+    public List<RetailerV2> availableRetailersSpree() {
+        List<RetailerV2> retailers = ApiV1Requests.Retailers.GET().as(RetailersV2Response.class).getRetailers();
 
         StringJoiner availableRetailers = new StringJoiner(
                 "\n• ",
                 "Список активных ретейлеров:\n• ",
                 "\n");
-        for (Retailer retailer : retailers)
+        for (RetailerV2 retailer : retailers)
             if (retailer.getAvailable()) availableRetailers.add(retailer.toString());
         log.info(availableRetailers.toString());
 
@@ -608,7 +608,7 @@ public final class InstamartApiHelper {
                 "\n• ",
                 "Список неактивных ретейлеров:\n• ",
                 "\n");
-        for (Retailer retailer : retailers)
+        for (RetailerV2 retailer : retailers)
             if (!retailer.getAvailable()) notAvailableRetailers.add(retailer.toString());
         log.info(notAvailableRetailers.toString());
 
@@ -618,13 +618,13 @@ public final class InstamartApiHelper {
     /**
      * Получить список активных магазинов как список объектов Store (без зон доставки)
      */
-    public List<Store> availableStores() {
-        List<Retailer> retailers = availableRetailers();
-        List<Store> stores = new ArrayList<>();
+    public List<StoreV2> availableStores() {
+        List<RetailerV2> retailers = availableRetailers();
+        List<StoreV2> stores = new ArrayList<>();
 
-        for (Retailer retailer : retailers) {
-            List<Store> retailerStores = ApiV1Requests.Retailers.Stores.GET(retailer.getId()).as(StoresResponse.class).getStores();
-            for (Store retailerStore: retailerStores) {
+        for (RetailerV2 retailer : retailers) {
+            List<StoreV2> retailerStores = ApiV1Requests.Retailers.Stores.GET(retailer.getId()).as(StoresV2Response.class).getStores();
+            for (StoreV2 retailerStore: retailerStores) {
                 retailerStore.setRetailer(retailer);
                 stores.add(retailerStore);
             }
@@ -637,9 +637,9 @@ public final class InstamartApiHelper {
     /**
      * Получить список активных магазинов у ретейлера (без зон доставки)
      */
-    public List<Store> availableStores(Retailer retailer) {
-        List<Store> stores = ApiV1Requests.Retailers.Stores.GET(retailer.getId()).as(StoresResponse.class).getStores();
-        for (Store store : stores) {
+    public List<StoreV2> availableStores(RetailerV2 retailer) {
+        List<StoreV2> stores = ApiV1Requests.Retailers.Stores.GET(retailer.getId()).as(StoresV2Response.class).getStores();
+        for (StoreV2 store : stores) {
             store.setRetailer(retailer);
         }
         printAvailableStores(stores);
@@ -650,11 +650,11 @@ public final class InstamartApiHelper {
     /**
      * Получить по координатам список активных магазинов как список объектов Store
      */
-    private List<Store> availableStores(double lat, double lon) {
-        final StoresRequest.Store store = new StoresRequest.Store();
+    private List<StoreV2> availableStores(double lat, double lon) {
+        final StoresV2Request.Store store = new StoresV2Request.Store();
         store.setLat(lat);
         store.setLon(lon);
-        List<Store> stores = StoresRequest.GET(store).as(StoresResponse.class).getStores();
+        List<StoreV2> stores = StoresV2Request.GET(store).as(StoresV2Response.class).getStores();
 
         if (stores.size() > 0) {
             printAvailableStores(stores);
@@ -665,12 +665,12 @@ public final class InstamartApiHelper {
         return stores;
     }
 
-    private void printAvailableStores(List<Store> stores) {
+    private void printAvailableStores(List<StoreV2> stores) {
         StringJoiner availableStores = new StringJoiner(
                 "\n• ",
                 "Список активных магазинов:\n• ",
                 "\n");
-        for (Store store : stores) {
+        for (StoreV2 store : stores) {
             availableStores.add(store.toString());
         }
         log.info(availableStores.toString());
@@ -679,22 +679,22 @@ public final class InstamartApiHelper {
     /**
      * Получить список зон доставки магазина
      */
-    public List<List<Zone>> storeZones(int sid) {
-        return StoresRequest.GET(sid).as(StoreResponse.class).getStore().getZones();
+    public List<List<ZoneV2>> storeZones(int sid) {
+        return StoresV2Request.GET(sid).as(StoreV2Response.class).getStore().getZones();
     }
 
-    public Store getStore(int sid) {
-        return StoresRequest.GET(sid).as(StoreResponse.class).getStore();
+    public StoreV2 getStore(int sid) {
+        return StoresV2Request.GET(sid).as(StoreV2Response.class).getStore();
     }
 
     /**
      * Узнаем номер заказа
      */
     public String getCurrentOrderNumber() {
-        Response response = OrdersRequest.POST();
+        Response response = OrdersV2Request.POST();
         checkStatusCode200(response);
         currentOrderNumber.set(response
-                .as(OrderResponse.class)
+                .as(OrderV2Response.class)
                 .getOrder()
                 .getNumber());
         log.info("Номер текущего заказа: {}", currentOrderNumber.get());
@@ -704,9 +704,9 @@ public final class InstamartApiHelper {
     /**
      * Получаем список активных (принят, собирается, в пути) заказов
      */
-    private List<Order> activeOrders() {
-        OrdersResponse response = OrdersRequest.GET(OrderStatus.ACTIVE).as(OrdersResponse.class);
-        List<Order> orders = response.getOrders();
+    private List<OrderV2> activeOrders() {
+        OrdersV2Response response = OrdersV2Request.GET(OrderStatusV2.ACTIVE).as(OrdersV2Response.class);
+        List<OrderV2> orders = response.getOrders();
 
         if (orders.size() < 1) {
             log.warn("Нет активных заказов");
@@ -714,26 +714,26 @@ public final class InstamartApiHelper {
             int pages = response.getMeta().getTotalPages();
             if (pages > 1) {
                 for (int i = 2; i <= pages; i++) {
-                    orders.addAll(OrdersRequest.GET(OrderStatus.ACTIVE, i).as(OrdersResponse.class).getOrders());
+                    orders.addAll(OrdersV2Request.GET(OrderStatusV2.ACTIVE, i).as(OrdersV2Response.class).getOrders());
                 }
             }
             log.info("Список активных заказов:");
-            for (Order order : orders) {
+            for (OrderV2 order : orders) {
                 log.info(order.getNumber());
             }
         }
         return orders;
     }
 
-    public List<Offer> getActiveOffers(String storeUuid) {
+    public List<OfferV1> getActiveOffers(String storeUuid) {
         return ApiV1Requests.Stores.Offers.GET(
                 storeUuid,
                 "вода",
                 "")
-                .as(OffersResponse.class)
+                .as(OffersV1Response.class)
                 .getOffers()
                 .stream()
-                .filter(Offer::getActive)
+                .filter(OfferV1::getActive)
                 .collect(Collectors.toList());
     }
 
@@ -745,16 +745,16 @@ public final class InstamartApiHelper {
      * Наполняем корзину разными товарами до минимальной суммы заказа в конкретном магазине
      */
     private void fillCartOnSid(int sid, int items) {
-        List<Product> products = getProductFromEachDepartmentInStore(sid);
+        List<ProductV2> products = getProductFromEachDepartmentInStore(sid);
         double initialCartWeight = 0;
         for (int i = 0; i < items; i++) {
-            Product product = products.get(i);
+            ProductV2 product = products.get(i);
             addItemToCart(product.getId(),1);
             initialCartWeight += (getProductWeight(product) * product.getItemsPerPack());
         }
         getMinSumFromAlert();
         int quantity = 1;
-        for (Product product : products) {
+        for (ProductV2 product : products) {
             if (minSumNotReached.get())
                 quantity = (int) Math.ceil(minSum.get() / (product.getPrice() * product.getItemsPerPack()));
 
@@ -783,7 +783,7 @@ public final class InstamartApiHelper {
     /**
      * Применяем атрибуты заказа (способ оплаты и слот) и завершаем его
      */
-    private Order setDefaultAttributesAndCompleteOrder() {
+    private OrderV2 setDefaultAttributesAndCompleteOrder() {
         getAvailablePaymentTool();
         getAvailableShippingMethod();
         getAvailableDeliveryWindow();
@@ -795,7 +795,7 @@ public final class InstamartApiHelper {
     /**
      * Поменять адрес у юзера
      */
-    public void setAddress(UserData user, Address address) {
+    public void setAddress(UserData user, AddressV2 address) {
         getCurrentOrderNumber();
 
         setAddressAttributes(address);
@@ -804,7 +804,7 @@ public final class InstamartApiHelper {
     /**
      * Наполнить корзину и выбрать адрес по умолчанию у юзера по определенному адресу
      */
-    public void fillCart(UserData user, Address address) {
+    public void fillCart(UserData user, AddressV2 address) {
         dropCart(user, address);
 
         getCurrentSid(address);
@@ -814,7 +814,7 @@ public final class InstamartApiHelper {
     /**
      * Наполнить корзину и выбрать адрес у юзера по определенному адресу у определенного ритейлера
      */
-    public void fillCart(UserData user, Address address, String retailer) {
+    public void fillCart(UserData user, AddressV2 address, String retailer) {
         dropCart(user, address);
 
         getCurrentSid(address, retailer);
@@ -833,8 +833,8 @@ public final class InstamartApiHelper {
     /**
      * Наполнить корзину и выбрать адрес у юзера в определенном магазине по определенным координатам
      */
-    public void fillCart(UserData user, int sid, Zone coordinates) {
-        Address address = getAddressBySid(sid);
+    public void fillCart(UserData user, int sid, ZoneV2 coordinates) {
+        AddressV2 address = getAddressBySid(sid);
         address.setCoordinates(coordinates);
 
         dropCart(user, address);
@@ -845,7 +845,7 @@ public final class InstamartApiHelper {
     /**
      * Очистить корзину и выбрать адрес у юзера
      */
-    public void dropCart(UserData user, Address address) {
+    public void dropCart(UserData user, AddressV2 address) {
         SessionFactory.createSessionToken(SessionType.APIV2, user);
         getCurrentOrderNumber();
         deleteItemsFromCart();
@@ -856,7 +856,7 @@ public final class InstamartApiHelper {
     /**
      * Оформить тестовый заказ у юзера по определенному адресу
      */
-    public Order order(UserData user, Address address, String retailer) {
+    public OrderV2 order(UserData user, AddressV2 address, String retailer) {
         fillCart(user, address, retailer);
         return setDefaultAttributesAndCompleteOrder();
     }
@@ -864,7 +864,7 @@ public final class InstamartApiHelper {
     /**
      * Оформить тестовый заказ у юзера в определенном магазине
      */
-    public Order order(UserData user, int sid) {
+    public OrderV2 order(UserData user, int sid) {
         fillCart(user, sid);
         return setDefaultAttributesAndCompleteOrder();
     }
@@ -872,7 +872,7 @@ public final class InstamartApiHelper {
     /**
      * Оформить тестовый заказ у юзера в определенном магазине
      */
-    public Order order(UserData user, int sid, int itemsNumber) {
+    public OrderV2 order(UserData user, int sid, int itemsNumber) {
         dropCart(user, getAddressBySid(sid));
         fillCartOnSid(sid, itemsNumber);
         return setDefaultAttributesAndCompleteOrder();
@@ -881,7 +881,7 @@ public final class InstamartApiHelper {
     /**
      * Оформить тестовый заказ у юзера в определенном магазине по определенным координатам
      */
-    public Order order(UserData user, int sid, Zone coordinates) {
+    public OrderV2 order(UserData user, int sid, ZoneV2 coordinates) {
         fillCart(user, sid, coordinates);
         return setDefaultAttributesAndCompleteOrder();
     }
@@ -898,8 +898,8 @@ public final class InstamartApiHelper {
      * Отменить активные (принят, собирается, в пути) заказы
      */
     public void cancelActiveOrders() {
-        List<Order> orders = activeOrders();
-        for (Order order : orders) {
+        List<OrderV2> orders = activeOrders();
+        for (OrderV2 order : orders) {
             cancelOrder(order.getNumber());
         }
     }

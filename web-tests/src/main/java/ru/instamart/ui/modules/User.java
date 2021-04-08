@@ -1,6 +1,6 @@
 package ru.instamart.ui.modules;
 
-import ru.instamart.api.objects.v2.Address;
+import ru.instamart.api.objects.v2.AddressV2;
 import ru.instamart.core.common.AppManager;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.UserManager;
@@ -418,7 +418,7 @@ public final class User extends Base {
 
     public static class ShippingAddress {
 
-        public static void set(Address address,boolean submit) {
+        public static void set(AddressV2 address, boolean submit) {
             set(address.getCity() + " " + address.getStreet() + " " + address.getBuilding(), submit);
         }
 

@@ -1,13 +1,5 @@
 package ru.instamart.tests.api.v2.endpoints;
 
-import ru.instamart.api.SessionFactory;
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.objects.v2.Item;
-import ru.instamart.api.requests.v2.FavoritesRequest;
-import ru.instamart.api.responses.v2.FavoritesItemResponse;
-import ru.instamart.api.responses.v2.FavoritesListItemsResponse;
-import ru.instamart.api.responses.v2.FavoritesSkuListItemResponse;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -15,10 +7,18 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.objects.v2.ItemV2;
+import ru.instamart.api.requests.v2.FavoritesV2Request;
+import ru.instamart.api.responses.v2.FavoritesItemV2Response;
+import ru.instamart.api.responses.v2.FavoritesListItemsV2Response;
+import ru.instamart.api.responses.v2.FavoritesSkuListItemV2Response;
 
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.*;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Избранное")
@@ -37,67 +37,67 @@ public class FavoritesListV2Test extends RestBase {
     @CaseId(13)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получаем пустой список любимых товаров")
     public void testEmptyFavoritesList() {
-        final Response response = FavoritesRequest.GET(1);
+        final Response response = FavoritesV2Request.GET(1);
         checkStatusCode200(response);
-        assertEquals(response.as(FavoritesListItemsResponse.class).getItems().size(), 0, "Список избранного не пустой");
+        assertEquals(response.as(FavoritesListItemsV2Response.class).getItems().size(), 0, "Список избранного не пустой");
     }
 
     @CaseId(128)
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Добавление товара в избранное")
     public void testAddItemToFavoritesList() {
-        final Response response = FavoritesRequest.POST(PRODUCT_ID);
+        final Response response = FavoritesV2Request.POST(PRODUCT_ID);
         checkStatusCode200(response);
-        final Item item = response.as(FavoritesItemResponse.class).getItem();
+        final ItemV2 item = response.as(FavoritesItemV2Response.class).getItem();
         assertNotNull(item);
     }
 
     @CaseId(129)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Добавление товара в избранное с несуществующим id")
     public void testNegativeAddItemToFavoritesList() {
-        final Response response = FavoritesRequest.POST(1);
+        final Response response = FavoritesV2Request.POST(1);
         checkStatusCode404(response);
     }
 
     @CaseId(130)
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Удаление товара из избранного")
     public void testDeleteItemToFavoritesList() {
-        Response response = FavoritesRequest.POST(PRODUCT_ID_2);
+        Response response = FavoritesV2Request.POST(PRODUCT_ID_2);
         checkStatusCode200(response);
-        final Item item = response.as(FavoritesItemResponse.class).getItem();
+        final ItemV2 item = response.as(FavoritesItemV2Response.class).getItem();
         assertNotNull(item);
-        response = FavoritesRequest.DELETE(item.getId());
+        response = FavoritesV2Request.DELETE(item.getId());
         checkStatusCode200(response);
     }
 
     @CaseId(131)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получаем пустой список sku любимых товаров")
     public void testEmptySkuFavoritesList() {
-        final Response response = FavoritesRequest.ProductSku.GET();
+        final Response response = FavoritesV2Request.ProductSku.GET();
         checkStatusCode200(response);
         assertEquals(response
-                .as(FavoritesSkuListItemResponse.class).getProductsSkuList().size(), 0, "Список sku товаров не пустой");
+                .as(FavoritesSkuListItemV2Response.class).getProductsSkuList().size(), 0, "Список sku товаров не пустой");
     }
 
     @CaseId(132)
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Добавление товара в избранное по его Sku")
     public void testAddItemToFavoritesListBySku() {
-        final Response response = FavoritesRequest.ProductSku.POST(PRODUCT_SKU);
+        final Response response = FavoritesV2Request.ProductSku.POST(PRODUCT_SKU);
         checkStatusCode200(response);
     }
 
     @CaseId(133)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Добавление товара в избранное с несуществующим Sku")
     public void testNegativeAddItemToFavoritesListBySku() {
-        final Response response = FavoritesRequest.ProductSku.POST(1);
+        final Response response = FavoritesV2Request.ProductSku.POST(1);
         checkStatusCode422(response);
     }
 
     @CaseId(134)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Удаление товара из избранного по sku")
     public void testDeleteItemToFavoritesListBySku() {
-        Response response = FavoritesRequest.ProductSku.POST(PRODUCT_SKU);
+        Response response = FavoritesV2Request.ProductSku.POST(PRODUCT_SKU);
         checkStatusCode200(response);
-        response = FavoritesRequest.ProductSku.DELETE(PRODUCT_SKU);
+        response = FavoritesV2Request.ProductSku.DELETE(PRODUCT_SKU);
         checkStatusCode200(response);
     }
 }
