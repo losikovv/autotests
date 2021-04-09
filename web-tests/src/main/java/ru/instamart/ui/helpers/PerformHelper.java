@@ -121,11 +121,15 @@ public final class PerformHelper extends HelperBase {
             }
         }else {
             if(webElement.getAttribute("value").length()>0){
-                int j=webElement.getAttribute("value").length();
-                for (int i =0; i<j;i++){
-                    webElement.sendKeys(Keys.BACK_SPACE);
-                }
+                cleanField(webElement);
             }else webElement.sendKeys(text);
+        }
+    }
+
+    public void cleanField(final WebElement webElement){
+        int j=webElement.getAttribute("value").length();
+        for (int i =0; i<j;i++){
+            webElement.sendKeys(Keys.BACK_SPACE);
         }
     }
 
@@ -135,12 +139,29 @@ public final class PerformHelper extends HelperBase {
         actions.moveToElement(kraken.getWebDriver().findElement(element.getLocator())).click().perform();
         var element1 = kraken.getWebDriver().findElement(element.getLocator());
         if(!text.equals("")){
-            for (int i = 0; i < text.length(); i++) {
+            for (int i = 0; i < text.length();i++) {
+                element1.sendKeys(text.charAt(i) + "");
+            }
+        }else actions.click(element1).sendKeys(text).perform();
+    }
+
+    public void fillFieldActionPhone(ElementData element, String text){
+        Actions actions = new Actions(kraken.getWebDriver());
+        actions.moveToElement(kraken.getWebDriver().findElement(element.getLocator())).click().perform();
+        var element1 = kraken.getWebDriver().findElement(element.getLocator());
+        int attempts=0;
+        if(!text.equals("")){
+            for (int i = 0; i < text.length();) {
                 kraken.await().simply(0.3);
                 element1.sendKeys(text.charAt(i) + "");
-                if(!element1.getAttribute("value").contains(text.charAt(i)+"")){
-                    element1.sendKeys(text.charAt(i) + "");
-                }
+                if(i==text.length()-1){
+                    if(!element1.getAttribute("value").replaceAll("[() -]","").contains(text)){
+                        cleanField(element1);
+                        i=0;
+                        if(attempts>=3)throw new ElementNotInteractableException("!!!!не удалось ввести значение 3 раза!!!!");
+                        attempts++;
+                    }else break;
+                }else i++;
             }
         }else actions.click(element1).sendKeys(text).perform();
     }

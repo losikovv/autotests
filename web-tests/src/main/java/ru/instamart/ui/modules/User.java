@@ -181,7 +181,7 @@ public final class User extends Base {
                     Elements.Modals.AuthModal.phoneNumber().getLocator()),
                     "поле для ввода мобильного телефона не отображается",Config.BASIC_TIMEOUT);
             if(!messaging) kraken.perform().setCheckbox(Elements.Modals.AuthModal.agreementCheckbox(),false);
-            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.phoneNumber(),phone);
+            kraken.perform().fillFieldActionPhone(Elements.Modals.AuthModal.phoneNumber(),phone);
             kraken.perform().click(Elements.Modals.AuthModal.continueButton());
         }
 
@@ -189,7 +189,7 @@ public final class User extends Base {
         public static void registrationWithoutConfirmation(String phone) {
             Shop.AuthModal.open();
             log.info("> заполняем поля формы регистрации по телефону");
-            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.phoneNumber(),phone);
+            kraken.perform().fillFieldActionPhone(Elements.Modals.AuthModal.phoneNumber(),phone);
         }
 
         @Step("Отправляем код из смс: {0}")
