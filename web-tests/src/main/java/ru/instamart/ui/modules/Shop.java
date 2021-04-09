@@ -347,6 +347,14 @@ public final class Shop extends Base {
                     ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.authButton().getLocator()),
                     "не отображается кнопка входа",2);
             kraken.perform().click(Elements.Modals.AddressModal.authButton());
+            try {
+                kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()),
+                        "форма авторизации не открывается", Config.BASIC_TIMEOUT);
+                log.info("> модалка авторизации открыта");
+                return;
+            }catch (Exception ex){
+                kraken.perform().click(Elements.Modals.AddressModal.authButton());
+            }
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()),
                     "форма авторизации не открывается", Config.BASIC_TIMEOUT);
             log.info("> модалка авторизации открыта");
