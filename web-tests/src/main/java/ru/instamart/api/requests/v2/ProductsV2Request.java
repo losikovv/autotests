@@ -23,4 +23,9 @@ public final class ProductsV2Request {
     public static Response GET(long productId) {
         return givenCatch().get(ApiV2EndPoints.Products.ID, productId);
     }
+
+    @Step("{method} /" + ApiV2EndPoints.Products.BY_SID)
+    public static Response GET(final int sid) {
+        return givenCatch().get(ApiV2EndPoints.Products.BY_SID, sid);
+    }
 }
