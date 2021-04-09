@@ -3,7 +3,6 @@ package ru.instamart.tests.api.v3.endpoints;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.objects.v3.StoreV3;
 import ru.instamart.api.requests.v3.OrderOptionsV3Request;
-import ru.instamart.api.responses.v3.OrderOptionsPickupV3Response;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
