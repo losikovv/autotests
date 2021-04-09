@@ -14,6 +14,7 @@ public final class ApiV2EndPoints {
     public static final String ADDRESSES = "v2/addresses";
     public static final String CATEGORIES = "v2/categories?sid={sid}";
     public static final String SESSIONS = "v2/sessions";
+    public static final String PURCHASED_PRODUCTS = "v2/purchased_products?sid={sid}";
 
     public static final class Users {
         public static final String USERS = "v2/users";

@@ -28,6 +28,7 @@
       <class name="ru.instamart.tests.api.v2.endpoints.PaymentToolsV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.ProductsV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.PromotionsV2Test"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.PurchasedProductsV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.RegistrationV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.ResetPasswordV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.RetailersV2Test"/>
