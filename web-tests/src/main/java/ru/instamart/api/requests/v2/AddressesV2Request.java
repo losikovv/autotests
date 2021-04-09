@@ -28,17 +28,17 @@ public final class AddressesV2Request {
                 .post(ApiV2EndPoints.ADDRESSES);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Addresses.ID)
+    @Step("{method} /" + ApiV2EndPoints.Addresses.BY_ID)
     public static Response DELETE(final int id) {
         return givenWithAuthApiV2()
-                .delete(ApiV2EndPoints.Addresses.ID, id);
+                .delete(ApiV2EndPoints.Addresses.BY_ID, id);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Addresses.ID)
+    @Step("{method} /" + ApiV2EndPoints.Addresses.BY_ID)
     public static Response PUT(final int id, final Addresses addresses) {
         return givenWithAuthApiV2()
                 .formParams(MapperService.INSTANCE.objectToMap(addresses))
-                .put(ApiV2EndPoints.Addresses.ID, id);
+                .put(ApiV2EndPoints.Addresses.BY_ID, id);
     }
 
     /**

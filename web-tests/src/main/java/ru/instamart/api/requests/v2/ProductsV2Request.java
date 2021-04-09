@@ -19,9 +19,9 @@ public final class ProductsV2Request {
     /**
      * Получить инфо о продукте
      */
-    @Step("{method} /" + ApiV2EndPoints.Products.ID)
+    @Step("{method} /" + ApiV2EndPoints.Products.BY_ID)
     public static Response GET(long productId) {
-        return givenCatch().get(ApiV2EndPoints.Products.ID, productId);
+        return givenCatch().get(ApiV2EndPoints.Products.BY_ID, productId);
     }
 
     @Step("{method} /" + ApiV2EndPoints.Products.BY_SID)

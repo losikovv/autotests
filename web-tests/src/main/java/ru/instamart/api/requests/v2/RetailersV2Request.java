@@ -16,8 +16,8 @@ public final class RetailersV2Request {
         return givenCatch().get(ApiV2EndPoints.RETAILERS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Retailers.ID)
+    @Step("{method} /" + ApiV2EndPoints.Retailers.BY_ID)
     public static Response GET(final int retailerId) {
-        return givenCatch().get(ApiV2EndPoints.Retailers.ID, retailerId);
+        return givenCatch().get(ApiV2EndPoints.Retailers.BY_ID, retailerId);
     }
 }
