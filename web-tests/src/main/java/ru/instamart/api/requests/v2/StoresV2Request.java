@@ -20,20 +20,20 @@ public final class StoresV2Request {
     /**
      * Получаем список доступных магазинов по координатам
      */
-    @Step("{method} /" + ApiV2EndPoints.Stores.COORDINATES)
+    @Step("{method} /" + ApiV2EndPoints.STORES)
     public static Response GET(final Store store) {
         final Map<String, Object> params = MapperService.INSTANCE.objectToMap(store);
         return givenCatch()
                 .params(params)
-                .get(ApiV2EndPoints.Stores.COORDINATES);
+                .get(ApiV2EndPoints.STORES);
     }
 
     /**
      * Получаем данные о конкретном магазине
      */
-    @Step("{method} /" + ApiV2EndPoints.Stores.SID)
+    @Step("{method} /" + ApiV2EndPoints.Stores.BY_SID)
     public static Response GET(int sid) {
-        return givenCatch().get(ApiV2EndPoints.Stores.SID, sid);
+        return givenCatch().get(ApiV2EndPoints.Stores.BY_SID, sid);
     }
 
     public static class PromotionCards {

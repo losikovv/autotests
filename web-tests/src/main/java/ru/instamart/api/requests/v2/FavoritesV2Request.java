@@ -10,10 +10,10 @@ import static ru.instamart.api.requests.InstamartRequestsBase.givenWithAuthApiV2
 
 public final class FavoritesV2Request {
 
-    @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS_SID)
+    @Step("{method} /" + ApiV2EndPoints.FavoritesList.Items.BY_SID)
     public static Response GET(final int sid) {
         return givenWithAuthApiV2()
-                .get(ApiV2EndPoints.FavoritesList.ITEMS_SID, sid);
+                .get(ApiV2EndPoints.FavoritesList.Items.BY_SID, sid);
     }
 
     @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)

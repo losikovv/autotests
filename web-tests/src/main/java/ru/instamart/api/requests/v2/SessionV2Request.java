@@ -54,17 +54,17 @@ public final class SessionV2Request {
         }
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Session.TOKEN)
+    @Step("{method} /" + ApiV2EndPoints.Sessions.BY_TOKEN)
     public static Response GET(final String token) {
         return givenCatch()
-                .get(ApiV2EndPoints.Session.TOKEN, token);
+                .get(ApiV2EndPoints.Sessions.BY_TOKEN, token);
     }
 
     public static class UserSession {
-        @Step("{method} /" + ApiV2EndPoints.Session.USER)
+        @Step("{method} /" + ApiV2EndPoints.Sessions.USER)
         public static Response GET(final String token) {
             return givenCatch()
-                    .get(ApiV2EndPoints.Session.USER, token);
+                    .get(ApiV2EndPoints.Sessions.USER, token);
         }
     }
 }

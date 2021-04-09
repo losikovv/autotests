@@ -14,36 +14,36 @@ public final class UsersV2Request {
 
     private UsersV2Request() {}
 
-    @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
+    @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
     public static Response GET(final String email, final boolean isAuth) {
         if (isAuth) {
             return givenWithAuthApiV2()
-                    .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
+                    .get(ApiV2EndPoints.Users.BY_EMAIL, email);
         } else {
             return givenCatch()
-                    .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
+                    .get(ApiV2EndPoints.Users.BY_EMAIL, email);
         }
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
+    @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
     public static Response GET(final String email, final boolean isAuth, final String token) {
         if (isAuth) {
             return givenCustomToken(token)
-                    .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
+                    .get(ApiV2EndPoints.Users.BY_EMAIL, email);
         } else {
             return givenCatch()
-                    .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
+                    .get(ApiV2EndPoints.Users.BY_EMAIL, email);
         }
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
+    @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
     public static Response GET(final String clientId, final String email) {
         return givenWithAuthApiV2()
                 .header("Client-Id", clientId)
-                .get(ApiV2EndPoints.Users.USERS_EMAIL, email);
+                .get(ApiV2EndPoints.Users.BY_EMAIL, email);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
+    @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
     public static Response PUT(
                                final String email,
                                final String firstName,
@@ -58,10 +58,10 @@ public final class UsersV2Request {
         data.put("user[promo_terms_accepted]", promo);
         return givenWithAuthApiV2()
                 .formParams(data)
-                .put(ApiV2EndPoints.Users.USERS_EMAIL, email);
+                .put(ApiV2EndPoints.Users.BY_EMAIL, email);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Users.USERS_EMAIL)
+    @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
     public static Response PUT(final String email,
                                final String currentPassword,
                                final String password,
@@ -75,11 +75,11 @@ public final class UsersV2Request {
         data.put("user[password_confirmation]", passwordConfirmation);
         return givenWithAuthApiV2()
                 .formParams(data)
-                .put(ApiV2EndPoints.Users.USERS_EMAIL, email);
+                .put(ApiV2EndPoints.Users.BY_EMAIL, email);
     }
 
 
-    @Step("{method} /" + ApiV2EndPoints.Users.USERS)
+    @Step("{method} /" + ApiV2EndPoints.USERS)
     public static Response POST(
             final String email,
             final String firstName,
@@ -93,10 +93,10 @@ public final class UsersV2Request {
 
         return givenCatch()
                 .formParams(data)
-                .post(ApiV2EndPoints.Users.USERS);
+                .post(ApiV2EndPoints.USERS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Users.USERS)
+    @Step("{method} /" + ApiV2EndPoints.USERS)
     public static Response POST(
             final String email,
             final String firstName,
@@ -120,6 +120,6 @@ public final class UsersV2Request {
 
         return givenCatch()
                 .formParams(data)
-                .post(ApiV2EndPoints.Users.USERS);
+                .post(ApiV2EndPoints.USERS);
     }
 }

@@ -19,8 +19,8 @@ public final class TaxonsV2Request {
     /**
      * Получение конкретного таксона в выбранном магазине
      */
-    @Step("{method} /" + ApiV2EndPoints.Taxons.ID)
+    @Step("{method} /" + ApiV2EndPoints.Taxons.BY_ID)
     public static Response GET(final int taxonId, final int sid) {
-        return givenCatch().get(ApiV2EndPoints.Taxons.ID, taxonId, sid);
+        return givenCatch().get(ApiV2EndPoints.Taxons.BY_ID, taxonId, sid);
     }
 }

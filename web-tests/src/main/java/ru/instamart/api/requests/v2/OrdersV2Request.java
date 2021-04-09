@@ -42,10 +42,10 @@ public final class OrdersV2Request {
     /**
      * Получение заказа по номеру
      */
-    @Step("{method} /" + ApiV2EndPoints.Orders.NUMBER)
+    @Step("{method} /" + ApiV2EndPoints.Orders.BY_NUMBER)
     public static Response GET(String orderNumber) {
         return givenWithAuthApiV2()
-                .get(ApiV2EndPoints.Orders.NUMBER, orderNumber);
+                .get(ApiV2EndPoints.Orders.BY_NUMBER, orderNumber);
     }
 
     /**
@@ -62,7 +62,7 @@ public final class OrdersV2Request {
     /**
      * Применяем необходимые параметры к заказу
      */
-    @Step("{method} /" + ApiV2EndPoints.Orders.NUMBER)
+    @Step("{method} /" + ApiV2EndPoints.Orders.BY_NUMBER)
     public static Response PUT(//int addressId, //параметр ломает оформление заказа в некоторых магазинах
                                int replacementPolicyId,
                                String phoneNumber,
@@ -84,7 +84,7 @@ public final class OrdersV2Request {
 
         return givenWithAuthApiV2()
                 .formParams(data)
-                .put(ApiV2EndPoints.Orders.NUMBER, orderNumber);
+                .put(ApiV2EndPoints.Orders.BY_NUMBER, orderNumber);
     }
 
     public static class Shipments {

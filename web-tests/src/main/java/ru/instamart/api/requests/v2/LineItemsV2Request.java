@@ -29,9 +29,9 @@ public final class LineItemsV2Request {
     /**
      * Удаляем товар из корзины
      */
-    @Step("{method} /" + ApiV2EndPoints.LineItems.ID)
+    @Step("{method} /" + ApiV2EndPoints.LineItems.BY_ID)
     public static Response DELETE(long productId) {
         return givenWithAuthApiV2()
-                .delete(ApiV2EndPoints.LineItems.ID, productId);
+                .delete(ApiV2EndPoints.LineItems.BY_ID, productId);
     }
 }

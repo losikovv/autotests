@@ -1,5 +1,6 @@
 package ru.instamart.core.testdata.dataprovider;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.common.Specification;
@@ -30,6 +31,21 @@ public class RestDataProvider extends RestBase {
         authProviderArray[2][0] = AuthProviderV2.VKONTAKTE;
         authProviderArray[3][0] = AuthProviderV2.FACEBOOK;
         return authProviderArray;
+    }
+
+    @DataProvider(name = "query")
+    public static Object[][] getQuery() {
+        Object[][] queryArray = new Object[7][3];
+        queryArray[0] = new Object[]{1, "хлеб", 200};
+        queryArray[1] = new Object[]{0, "хлеб", 404};
+        queryArray[2] = new Object[]{1, "", 200};
+        queryArray[3] = new Object[]{1, "хлеб; DROP TABLE Offers", 200};
+        queryArray[4] = new Object[]{1, "!@#$%^&*()", 200};
+        queryArray[5] = new Object[]{1, "а", 200};
+        queryArray[6] = new Object[]{1, RandomStringUtils.randomAlphabetic(8140), 200};
+        //queryArray[7] = new Object[]{1, RandomStringUtils.randomAlphabetic(8141), 414};
+        //пока не можем проверить, так как в теле ответа текст вместо json
+        return queryArray;
     }
 
     @Test()

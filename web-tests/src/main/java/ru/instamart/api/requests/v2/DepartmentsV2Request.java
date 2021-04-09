@@ -17,10 +17,10 @@ public final class DepartmentsV2Request {
     }
 
     public static final class Id {
-        @Step("{method} /" + ApiV2EndPoints.Departments.ID)
+        @Step("{method} /" + ApiV2EndPoints.Departments.BY_ID)
         public static Response GET(final int id, final int sid) {
             return givenCatch()
-                    .get(ApiV2EndPoints.Departments.ID, id, sid);
+                    .get(ApiV2EndPoints.Departments.BY_ID, id, sid);
         }
     }
 }

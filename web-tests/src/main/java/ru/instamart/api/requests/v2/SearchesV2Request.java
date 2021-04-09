@@ -10,11 +10,18 @@ public final class SearchesV2Request {
 
     public static class Suggestions {
         /**
-         * Получение поисковых подсказок
+         * Получение топ поисковых подсказок
          */
         @Step("{method} /" + ApiV2EndPoints.Searches.SUGGESTIONS)
+        public static Response GET(int sid) {
+            return givenCatch().get(ApiV2EndPoints.Searches.SUGGESTIONS, sid);
+        }
+        /**
+         * Получение поисковых подсказок по слову
+         */
+        @Step("{method} /" + ApiV2EndPoints.Searches.Suggestions.BY_QUERY)
         public static Response GET(int sid, String query) {
-            return givenCatch().get(ApiV2EndPoints.Searches.SUGGESTIONS, sid, query);
+            return givenCatch().get(ApiV2EndPoints.Searches.Suggestions.BY_QUERY, sid, query);
         }
     }
 }
