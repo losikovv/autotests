@@ -30,10 +30,11 @@ public final class UiListener implements ITestListener {
     @Override
     public void onFinish(ITestContext context) {
         try {
+            this.qaseService.completeTestRun();
             this.qaseService.deleteOldTestRuns();
             this.qaseService.deleteOldDefects();
         } catch (Exception e) {
-            log.error("FATAL: Can't remove old Test Runs or Defects", e);
+            log.error("FATAL: something wrong when try to finish test", e);
         }
     }
 

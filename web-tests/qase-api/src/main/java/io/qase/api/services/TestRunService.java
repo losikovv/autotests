@@ -25,7 +25,7 @@ public interface TestRunService {
 
     boolean delete(String projectCode, long testRunId);
 
-    long completeTestRun(String projectCode, long testRunId);
+    boolean completeTestRun(String projectCode, long testRunId);
 
     default Filter filter() {
         return new Filter();

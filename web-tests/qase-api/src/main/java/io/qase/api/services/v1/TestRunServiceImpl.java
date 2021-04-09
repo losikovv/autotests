@@ -71,10 +71,10 @@ public final class TestRunServiceImpl implements TestRunService {
     }
 
     @Override
-    public long completeTestRun(final String projectCode, final long testRunId) {
+    public boolean completeTestRun(final String projectCode, final long testRunId) {
         final Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("id", testRunId);
-        return qaseApiClient.post(TestRun.class, "/run/{code}/complete/{id}", routeParams).getId();
+        return qaseApiClient.post(Boolean.class, "/run/{code}/{id}/complete", routeParams);
     }
 }
