@@ -177,7 +177,8 @@ public final class QaseService {
                 .getTestRunList();
 
         testRunList.forEach(testRun -> {
-            if (testRun.getDescription().contains(DESCRIPTION_PREFIX) && DAYS_TO_DIE.isAfter(testRun.getStartTime())) {
+            if ((testRun.getDescription() != null && testRun.getDescription().contains(DESCRIPTION_PREFIX))
+                    && (testRun.getStartTime() != null && DAYS_TO_DIE.isAfter(testRun.getStartTime()))) {
                 final List<TestRunResult> testRunResults = qaseApi
                         .testRunResults()
                         .getAll(projectCode, 100, 0, qaseApi.testRunResults().filter().run((int) testRun.getId()))
@@ -205,7 +206,6 @@ public final class QaseService {
     }
 
     public void completeTestRun() {
-        log.error("completeTestRun {} {}", projectCode, runId);
         qaseApi.testRuns().completeTestRun(projectCode, runId);
     }
 
