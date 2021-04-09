@@ -53,6 +53,7 @@ public final class ApiV2EndPoints {
 
     public static final class Products {
         public static final String ID = "v2/products/{productId}";
+        public static final String BY_SID = "v2/products/?sid={sid}";
     }
 
     public static final class Orders {
