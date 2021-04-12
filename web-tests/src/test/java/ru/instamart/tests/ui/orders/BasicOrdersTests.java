@@ -2,7 +2,10 @@ package ru.instamart.tests.ui.orders;
 
 import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
 import ru.instamart.api.common.RestAddresses;
+import ru.instamart.core.helpers.HelperBase;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.TestVariables;
 import ru.instamart.core.testdata.UserManager;
@@ -60,13 +63,18 @@ public class BasicOrdersTests extends TestBase {
             Shop.ShippingAddressModal.submit();
         });
     }
-
+    //TODO удалить шаг скрина падения теста после доработки afterMethod в TestBase
     @AfterMethod(alwaysRun = true,
-            description ="Очистка окружения после теста")
-    public void afterTest(){
-        kraken.perform().cancelLastActiveOrder();
-        User.Logout.quickly();
-        kraken.perform().deleteAllCookies();
+            description ="Завершение теста")
+    public void afterTest(final ITestResult result){
+        step("Скриншот страницы, если тест упал", ()-> {
+            if (!result.isSuccess()) HelperBase.takeScreenshot();
+        });
+        step("Очистка окружения после теста ", ()->{
+            kraken.perform().cancelLastActiveOrder();
+            User.Logout.quickly();
+            kraken.perform().deleteAllCookies();
+        });
     }
     // TODO Тесты на изменение телефона и контактов
 
@@ -123,8 +131,8 @@ public class BasicOrdersTests extends TestBase {
     @CaseId(1672)
     @Test(
             description = "Тест заказа с новой картой оплаты c 3ds",
-            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"},
-            enabled = false
+            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"}
+            //enabled = false
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
         PaymentCardData creditCardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
@@ -141,8 +149,8 @@ public class BasicOrdersTests extends TestBase {
     @CaseId(2066)
     @Test(
             description = "Тест заказа с новой картой оплаты без 3ds",
-            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"},
-            enabled = false
+            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"}
+            //enabled = false
     )
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         PaymentCardData creditCardData = TestVariables.testOrderDetailsCus().getPaymentDetails().getCreditCard();
