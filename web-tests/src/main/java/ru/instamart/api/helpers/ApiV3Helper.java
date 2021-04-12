@@ -1,9 +1,7 @@
 package ru.instamart.api.helpers;
 
 import io.restassured.response.Response;
-import ru.instamart.api.objects.v3.PaymentMethodV3;
-import ru.instamart.api.objects.v3.ReplacementOptionV3;
-import ru.instamart.api.objects.v3.StoreV3;
+import ru.instamart.api.objects.v3.*;
 import ru.instamart.api.requests.v3.OrderOptionsV3Request;
 import ru.instamart.api.requests.v3.StoresV3Request;
 import ru.instamart.api.responses.v3.OrderOptionsV3Response;
@@ -45,7 +43,8 @@ public class ApiV3Helper {
         log.info("Получаем список опций заказа дла магазинов с самовывозом");
         return OrderOptionsV3Request.PickupFromStore.PUT(
                 "metro",
-                store.getId()).as(OrderOptionsV3Response.class);
+                store.getId(),
+                "15879").as(OrderOptionsV3Response.class);
     }
 
     public OrderOptionsV3Response getOrderOptionsDelivery() {
@@ -103,4 +102,11 @@ public class ApiV3Helper {
             replacementMethod.getId()).as(OrderV3.class);
 } */
 
+    public int getPackagesTotal(OrderV3 order) {
+        int packagesTotal = 0;
+        for (PackageV3 packageV3 : order.getPackages()) {
+            packagesTotal += packageV3.getItemTotal();
+        }
+        return packagesTotal;
+    }
 }

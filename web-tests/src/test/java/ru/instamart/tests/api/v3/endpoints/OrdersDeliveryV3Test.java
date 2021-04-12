@@ -1,14 +1,13 @@
 package ru.instamart.tests.api.v3.endpoints;
 
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.objects.v3.*;
 import ru.instamart.api.requests.v3.OrderV3Request;
 import ru.instamart.api.responses.v3.OrderOptionsV3Response;
-
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
 public class OrdersDeliveryV3Test extends RestBase {
     PaymentMethodV3 paymentMethod;
@@ -33,7 +32,7 @@ public class OrdersDeliveryV3Test extends RestBase {
                 replacementMethod.getId());
 
         response.prettyPeek();
-        checkStatusCode200(response);
+        response.then().statusCode(200);
         order = response.as(OrderV3.class);
     }
 
@@ -43,7 +42,13 @@ public class OrdersDeliveryV3Test extends RestBase {
         final Response response = OrderV3Request.GET(order.getId());
 
         response.prettyPeek();
-        checkStatusCode200(response);
+        response.then().statusCode(200);
+
+        OrderV3 order = response.as(OrderV3.class);
+        int orderTotal = order.getItemTotal();
+        int packagesTotal = apiV3.getPackagesTotal(order);
+
+        Assert.assertEquals(orderTotal, packagesTotal);
     /* когда нить я поправлю на метод из хелпера но, пока не работает
      OrderV3 orderV3 =response.as(OrderV3.class);
         System.out.println(orderV3.getId()); */
@@ -55,6 +60,6 @@ public class OrdersDeliveryV3Test extends RestBase {
         final Response response = OrderV3Request.Cancel.PUT(order.getId());
 
         response.prettyPeek();
-        checkStatusCode200(response);
+        response.then().statusCode(200);
     }
 }
