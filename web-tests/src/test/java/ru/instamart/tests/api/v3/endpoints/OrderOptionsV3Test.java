@@ -1,13 +1,12 @@
 package ru.instamart.tests.api.v3.endpoints;
 
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.objects.v3.StoreV3;
-import ru.instamart.api.requests.v3.OrderOptionsV3Request;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.objects.v3.StoreV3;
+import ru.instamart.api.requests.v3.OrderOptionsV3Request;
+import ru.instamart.core.testdata.dataprovider.ApiV3DataProvider;
 
 public class OrderOptionsV3Test extends RestBase {
     StoreV3 store;
@@ -17,13 +16,16 @@ public class OrderOptionsV3Test extends RestBase {
         store = apiV3.getStore("METRO, Ленинградское шоссе");
     }
 
-    @Test(groups = {"api-instamart-regress"})
-    public void putOrderOptionsPickupFromStore() {
+    @Test(groups = {"api-instamart-regress"},
+          dataProvider = "itemIds",
+          dataProviderClass = ApiV3DataProvider.class)
+    public void putOrderOptionsPickupFromStore(String itemId, int statusCode, String name) {
         final Response response = OrderOptionsV3Request.PickupFromStore.PUT(
                 "metro",
-                store.getId());
+                store.getId(),
+                itemId);
 
-        checkStatusCode200(response);
+        response.then().statusCode(statusCode);
 
        // OrderOptionsPickupV3Response orderOptionsPickupV3Response = response.as(OrderOptionsPickupV3Response.class);
 
@@ -33,6 +35,6 @@ public class OrderOptionsV3Test extends RestBase {
     public void putOrderOptionsDelivery() {
         final Response response = OrderOptionsV3Request.Delivery.PUT();
 
-        checkStatusCode200(response);
+        response.then().statusCode(200);
     }
 }

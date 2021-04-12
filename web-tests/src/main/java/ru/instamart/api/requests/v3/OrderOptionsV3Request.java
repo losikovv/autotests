@@ -16,7 +16,7 @@ public class OrderOptionsV3Request {
          * Применение опций заказа для замовывоза
          */
         @Step("{method} /" + ApiV3Endpoints.OrderOptions.PICKUP_FROM_STORE)
-        public static Response PUT(String retailerId, String storeId) {
+        public static Response PUT(String retailerId, String storeId, String itemId) {
             JSONObject requestParams = new JSONObject();
             JSONArray items = new JSONArray();
             JSONObject itemParams = new JSONObject();
@@ -24,7 +24,7 @@ public class OrderOptionsV3Request {
             requestParams.put("store_id", storeId);
             requestParams.put("items", items);
             items.add(itemParams);
-            itemParams.put("id", "15879");
+            itemParams.put("id", itemId);
             itemParams.put("quantity", 100);
             itemParams.put("price", 1111);
             itemParams.put("discount", 0);
