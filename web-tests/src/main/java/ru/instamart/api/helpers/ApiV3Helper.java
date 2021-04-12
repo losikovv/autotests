@@ -1,11 +1,12 @@
 package ru.instamart.api.helpers;
 
+import io.restassured.response.Response;
 import ru.instamart.api.objects.v3.PaymentMethodV3;
 import ru.instamart.api.objects.v3.ReplacementOptionV3;
 import ru.instamart.api.objects.v3.StoreV3;
 import ru.instamart.api.requests.v3.OrderOptionsV3Request;
 import ru.instamart.api.requests.v3.StoresV3Request;
-import ru.instamart.api.responses.v3.OrderOptionsPickupV3Response;
+import ru.instamart.api.responses.v3.OrderOptionsV3Response;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,14 +39,22 @@ public class ApiV3Helper {
         Assert.fail("Не найден нужный магазин");
         return stores.get(0);
     }
-  public OrderOptionsPickupV3Response getOrderOptionsPickup(StoreV3 store){
+
+    public OrderOptionsV3Response getOrderOptionsPickup(StoreV3 store) {
     // StoreV3 store = getStore("METRO, Ленинградское шоссе");
         log.info("Получаем список опций заказа дла магазинов с самовывозом");
         return OrderOptionsV3Request.PickupFromStore.PUT(
                 "metro",
-                store.getId()).as(OrderOptionsPickupV3Response.class);
+                store.getId()).as(OrderOptionsV3Response.class);
     }
-   public PaymentMethodV3 getPaymentMethod(String title, List<PaymentMethodV3> paymentMethods ){
+
+    public OrderOptionsV3Response getOrderOptionsDelivery() {
+        Response response = OrderOptionsV3Request.Delivery.PUT();
+        response.then().statusCode(200);
+        return response.as(OrderOptionsV3Response.class);
+    }
+
+    public PaymentMethodV3 getPaymentMethod(String title, List<PaymentMethodV3> paymentMethods) {
         log.info("Ищем payment метод: " + title);
 
         for (PaymentMethodV3 paymentMethod : paymentMethods) {
@@ -53,13 +62,27 @@ public class ApiV3Helper {
                 log.info("Метод найден: " + title);
                 return paymentMethod;
             }
-
-
         }
-        log.error("Метод не найден");
+        Assert.fail("Метод не найден");
         return paymentMethods.get(0);
     }
-    public ReplacementOptionV3 getReplacementMethod(String id,List<ReplacementOptionV3> replacementMethods ){
+
+    public PaymentMethodV3 getPaymentMethod(List<PaymentMethodV3> paymentMethods) {
+        log.info("Ищем payment метод c options");
+
+        for (PaymentMethodV3 paymentMethod : paymentMethods) {
+            if (paymentMethod.getOptions() != null &&
+                    !paymentMethod.getOptions().isEmpty() &&
+                    paymentMethod.getOptions().get(0).getId() != null) {
+                log.info("Метод найден: " + paymentMethod.getTitle());
+                return paymentMethod;
+            }
+        }
+        Assert.fail("Метод не найден");
+        return paymentMethods.get(0);
+    }
+
+    public ReplacementOptionV3 getReplacementMethod(String id, List<ReplacementOptionV3> replacementMethods) {
         log.info("Ищем метод замен: " + id);
 
         for (ReplacementOptionV3 replacementMethod : replacementMethods) {
