@@ -119,6 +119,7 @@ public final class QaseService {
                 null,
                 DESCRIPTION_PREFIX + PIPELINE_URL,
                 testCasesList.toArray(casesArray));
+        log.info("Create Test run={} for project={}", runId, projectCode);
     }
 
     /**
@@ -157,7 +158,7 @@ public final class QaseService {
                                 status == RunResultStatus.failed ? uploadScreenshot() : null
                         );
             } catch (QaseException e) {
-                log.error(e.getMessage());
+                log.error("FATAL: can't update test run [caseId={} run={} project={}]", caseId, runId, projectCode, e);
             }
         }
     }
@@ -190,6 +191,7 @@ public final class QaseService {
                     }
                 }));
                 qaseApi.testRuns().delete(projectCode, testRun.getId());
+                log.info("Delete old test run={} for project={}", testRun.getId(), testRun.getTitle());
             }
         });
     }
@@ -206,6 +208,7 @@ public final class QaseService {
     }
 
     public void completeTestRun() {
+        log.info("Complete test run={} for project={}", runId, projectCode);
         qaseApi.testRuns().completeTestRun(projectCode, runId);
     }
 
