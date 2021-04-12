@@ -122,7 +122,8 @@ public class OrdersV1Test extends RestBase {
     @CaseId(120)
     @Test(  description = "Контрактный тест списка сэмплов в шипменте",
             groups = "api-instamart-regress",
-            dependsOnMethods = "getShipment")
+            dependsOnMethods = "getShipment",
+            enabled = false)
     public void getShopperMarketingSampleItems() {
         //todo убрать скип после выдачи прав SD-13260
         if (EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
@@ -136,7 +137,8 @@ public class OrdersV1Test extends RestBase {
     @Story("Заказы")
     @CaseId(121)
     @Test(  description = "Контрактный тест списка способов оплаты в заказе",
-            groups = "api-instamart-regress")
+            groups = "api-instamart-regress",
+            enabled = false)
     public void getShopperOrderAvailablePaymentTools() {
         //todo убрать скип после выдачи прав SD-13260
         if (EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
