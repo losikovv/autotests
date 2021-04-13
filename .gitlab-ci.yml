@@ -237,7 +237,7 @@ tests:UiRegress:
     expire_in: 1 week
 
 tests:AdminUiSmoke:
-  extends: ".template_run_all_jobs_at_a_time_on_master"
+  when: manual
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
