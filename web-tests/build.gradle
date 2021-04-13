@@ -19,6 +19,7 @@ allprojects {
     }
 }
 
+apply plugin: "java"
 apply from: 'dependencies.gradle'
 apply from: 'variables.gradle'
 
@@ -51,8 +52,8 @@ project(":qase-api") {
     dependencies {
         compile lib.allureJavaCommons
         compile lib.lombok
-        compile lib.jsonSimple
-        compile lib.konghq
+        implementation lib.jsonSimple
+        implementation lib.konghq
         testImplementation lib.logback
         annotationProcessor lib.lombok
     }

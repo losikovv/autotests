@@ -32,7 +32,7 @@ ext.lib = [
 dependencies {
     apply plugin: "java-library"
 
-    compile project(":qase-api")
+    implementation project(":qase-api")
 
     compile lib.aspectjweaver
     compile lib.restAssured
