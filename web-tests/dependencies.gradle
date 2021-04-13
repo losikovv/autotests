@@ -32,13 +32,12 @@ ext.lib = [
 dependencies {
     implementation project(":qase-api")
 
-    compile lib.aspectjweaver
-    compile lib.restAssured
-    compile lib.allureRestAssuredReport
-    compile lib.allureTestng
-    compile lib.allureJavaCommons
-    compile lib.lombok
-    implementation lib.jetbrainsAnnotations
+    implementation lib.aspectjweaver
+    implementation lib.restAssured
+    implementation lib.allureRestAssuredReport
+    implementation lib.allureTestng
+    implementation lib.allureJavaCommons
+    compileOnly lib.lombok
     implementation lib.seleniumChromeDriver
     implementation lib.restAssuredSchemaValidator
     implementation lib.testng

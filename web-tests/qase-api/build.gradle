@@ -1,6 +1,4 @@
-plugins {
-    id 'java'
-}
+apply plugin: "java"
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 sourceCompatibility = JavaVersion.VERSION_11

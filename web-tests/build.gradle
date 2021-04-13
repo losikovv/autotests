@@ -32,6 +32,7 @@ allure {
     autoconfigure = true
     aspectjweaver = true
     allureJavaVersion = versions.allure
+    configuration = "testImplementation"
     useTestNG(){
         version = versions.allure
     }
@@ -50,8 +51,8 @@ project(":qase-api") {
     apply plugin: "java-library"
 
     dependencies {
-        compile lib.allureJavaCommons
-        compile lib.lombok
+        implementation lib.allureJavaCommons
+        implementation lib.lombok
         implementation lib.jsonSimple
         implementation lib.konghq
         testImplementation lib.logback
