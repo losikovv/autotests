@@ -50,10 +50,10 @@ sourceSets.test.resources.srcDirs = ["src/test/resources"]
 project(":qase-api") {
 
     dependencies {
-        implementation lib.allureJavaCommons
-        implementation lib.lombok
-        implementation lib.jsonSimple
-        implementation lib.konghq
+        compile lib.allureJavaCommons
+        compile lib.lombok
+        compile lib.jsonSimple
+        compile lib.konghq
         testImplementation lib.logback
         annotationProcessor lib.lombok
     }
