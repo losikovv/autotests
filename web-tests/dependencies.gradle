@@ -30,7 +30,7 @@ ext.lib = [
 ]
 
 dependencies {
-    apply plugin: "java-library"
+    apply plugin: 'java'
 
     implementation project(":qase-api")
 

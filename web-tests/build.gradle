@@ -7,6 +7,7 @@ buildscript {
 }
 
 plugins {
+    id 'java'
     id 'io.qameta.allure' version '2.8.1'
 }
 
@@ -19,7 +20,6 @@ allprojects {
     }
 }
 
-apply plugin: "java"
 apply from: 'dependencies.gradle'
 apply from: 'variables.gradle'
 
