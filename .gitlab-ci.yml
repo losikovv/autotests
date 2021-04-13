@@ -288,7 +288,7 @@ tests:Debug:
   script:
     - echo $P_ENV
     - echo $TEST_SET
-    - gradle clean build debug -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build debug -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL --stacktrace
   after_script:
     - cd web-tests
     - bash ./report.sh debug
