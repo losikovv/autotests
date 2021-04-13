@@ -30,6 +30,8 @@ ext.lib = [
 ]
 
 dependencies {
+    apply plugin: "java-library"
+
     compile project(":qase-api")
 
     compile lib.aspectjweaver

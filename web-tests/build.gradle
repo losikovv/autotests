@@ -17,8 +17,6 @@ allprojects {
         mavenLocal()
         jcenter()
     }
-
-    apply plugin: 'java'
 }
 
 apply from: 'dependencies.gradle'
@@ -48,6 +46,7 @@ sourceSets.test.java.srcDirs = [ "src/test/java" ]
 sourceSets.test.resources.srcDirs = ["src/test/resources"]
 
 project(":qase-api") {
+    apply plugin: "java-library"
 
     dependencies {
         compile lib.allureJavaCommons
