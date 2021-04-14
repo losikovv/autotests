@@ -127,7 +127,6 @@ public class BasicOrdersTests extends TestBase {
         );
     }
 
-    @Issue("INFRADEV-2608")
     @CaseId(1672)
     @Test(
             description = "Тест заказа с новой картой оплаты c 3ds",
@@ -145,7 +144,6 @@ public class BasicOrdersTests extends TestBase {
         orderCheck.checkPaymentMethod(paymentMethod);
     }
 
-    @Issue("INFRADEV-2608")
     @CaseId(2066)
     @Test(
             description = "Тест заказа с новой картой оплаты без 3ds",

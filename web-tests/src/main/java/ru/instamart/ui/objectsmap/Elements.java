@@ -2486,7 +2486,7 @@ public class Elements {
                 }
 
                 static ElementData confirmButton() {
-                    return new ElementData(By.xpath("//button[contains(text(),'Подтвердить')]"),
+                    return new ElementData(By.xpath("//button[@type='submit']"),
                             "кнопка отправки капчи клаудпейментс");
                 }
             }
