@@ -160,7 +160,7 @@ public final class Checkout extends Base {
         @Step("Заполняем поле Номер квартиры/офиса")
         public static void fillApartment(String number){
             log.info("> номер: {}", number);
-            kraken.perform().fillField(Elements.Checkout.AddressStep.apartmentInputField(), number);
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.apartmentInputField(), number);
         }
 
         @Step("Заполняем поле Этаж")
@@ -172,7 +172,7 @@ public final class Checkout extends Base {
         @Step("Заполняем поле Этаж")
         public static void fillFloor(String number){
             log.info("> этаж: {}", number);
-            kraken.perform().fillField(Elements.Checkout.AddressStep.floorInputField(), number);
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.floorInputField(), number);
         }
 
         @Step("Устанавливаем чекбокс Есть лифт")
@@ -197,7 +197,7 @@ public final class Checkout extends Base {
         @Step("Заполняем поле Подъезд")
         public static void fillEntrance(String number){
             log.info("> подъезд: {}", number);
-            kraken.perform().fillField(Elements.Checkout.AddressStep.entranceInputField(), number);
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.entranceInputField(), number);
         }
 
         @Step("Заполняем поле Домофон")
@@ -209,7 +209,7 @@ public final class Checkout extends Base {
         @Step("Заполняем поле Домофон")
         public static void fillDomofon(String number){
             log.info("> домофон: {}", number);
-            kraken.perform().fillField(Elements.Checkout.AddressStep.domofonInputField(), number);
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.domofonInputField(), number);
         }
 
         @Step("Заполняем поле Комментарии")
@@ -221,7 +221,7 @@ public final class Checkout extends Base {
         @Step("Заполняем поле Комментарии")
         public static void fillCommentaries(String text){
             log.info("> комментарии по доставке: {}", text);
-            kraken.perform().fillField(Elements.Checkout.AddressStep.commentariesInputField(), text);
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.commentariesInputField(), text);
         }
     }
 
@@ -286,19 +286,19 @@ public final class Checkout extends Base {
                     kraken.await().fluently(ExpectedConditions
                             .elementToBeClickable(Elements.Checkout.ContactsStep.firstNameInputField().getLocator()),
                             "Элемент некликабельный", 2));
-                    kraken.perform().fillField(Elements.Checkout.ContactsStep.firstNameInputField(), firstName);
+                    kraken.perform().fillFieldAction(Elements.Checkout.ContactsStep.firstNameInputField(), firstName);
         }
 
         @Step("Заполнение заполнение фамилии")
         public static void fillLastName(String lastName) {
             log.info("> фамилия: {}", lastName);
-            kraken.perform().fillField(Elements.Checkout.ContactsStep.lastNameInputField(), lastName);
+            kraken.perform().fillFieldAction(Elements.Checkout.ContactsStep.lastNameInputField(), lastName);
         }
 
         @Step("Заполнение заполнение email'a")
         public static void fillEmail(String email) {
             log.info("> email: {}", email);
-            kraken.perform().fillField(Elements.Checkout.ContactsStep.emailInputField(), email);
+            kraken.perform().fillFieldAction(Elements.Checkout.ContactsStep.emailInputField(), email);
         }
 
         public static void fillPhone(String number) {
