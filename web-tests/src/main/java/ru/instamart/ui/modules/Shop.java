@@ -1,5 +1,6 @@
 package ru.instamart.ui.modules;
 
+import org.openqa.selenium.*;
 import ru.instamart.core.common.AppManager;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.TestVariables;
@@ -8,10 +9,6 @@ import ru.instamart.ui.common.pagesdata.ElementData;
 import ru.instamart.ui.common.pagesdata.WidgetData;
 import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotSelectableException;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -693,10 +690,18 @@ public final class Shop extends Base {
                             .elementToBeClickable(Elements.Header.favoritesButton().getLocator()),
                     "кнопка перехода в любимые товары недоступна");
             kraken.perform().click(Elements.Header.favoritesButton());
-            kraken.await().fluently(
-                    ExpectedConditions
-                            .visibilityOfElementLocated(Elements.Favorites.placeholder().getLocator()),
-                    "Пустой список товаров не отобразился");
+            try {
+                kraken.await().fluently(
+                        ExpectedConditions
+                                .visibilityOfElementLocated(Elements.Favorites.placeholder().getLocator()),
+                        "Нет любимых товаров", 5);
+            } catch (TimeoutException e){
+                kraken.await().fluently(
+                        ExpectedConditions
+                                .visibilityOfElementLocated(Elements.Catalog.Product.snippetFavorite().getLocator()),
+                        "Есть любимые товары", 5);
+                log.info("Есть любимые товары");
+            }
         }
 
         /** Открыть карточку товара в каталоге */
@@ -916,9 +921,7 @@ public final class Shop extends Base {
                     if (kraken.detect().isFavoriteProductAvailable()) {
                         log.info("> любимый продукт найден");
                         Shop.Favorites.open();
-                        //kraken.get().userFavoritesPage(); //ошибка на шаге просмотра карточки в любимых продуктах
                         Favorites.openFavoritesSnipet();
-                        //Catalog.Item.open();
                     } else {
                         log.info("> нет любимых товаров на текущей странице {}", kraken.grab().currentURL());
                         //kraken.get().page(Pages.Retailers.metro());
@@ -937,7 +940,7 @@ public final class Shop extends Base {
                 log.info("> добавляем в корзину {}х{}шт > {}", kraken.grab().itemName(), neededQuantity, kraken.grab().currentURL());
                 addItemByText(neededQuantity);
                 ItemCard.close();
-                kraken.get().page(Config.DEFAULT_RETAILER);
+                //kraken.get().page(Config.DEFAULT_RETAILER);
                 Cart.open();
             } else {
                 log.info("> в корзине достаточно товаров");
