@@ -8,9 +8,9 @@ import ru.instamart.api.SessionFactory;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.shopper.AssemblyStateSHP;
 import ru.instamart.api.enums.shopper.PackageSetLocationSHP;
-import ru.instamart.api.objects.shopper.*;
-import ru.instamart.api.requests.shopper.*;
-import ru.instamart.api.responses.shopper.*;
+import ru.instamart.api.objects.shopper.app.*;
+import ru.instamart.api.requests.shopper.app.*;
+import ru.instamart.api.responses.shopper.app.*;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.common.pagesdata.UserData;
@@ -31,7 +31,7 @@ public class ShopperApiHelper {
     private String currentAssemblyId;
 
     public void authorisation(UserData user) {
-        SessionFactory.createSessionToken(SessionType.SHOPPER, user);
+        SessionFactory.createSessionToken(SessionType.SHOPPER_APP, user);
     }
 
     public void refreshAuth() {
@@ -43,12 +43,12 @@ public class ShopperApiHelper {
                 .getAttributes();
 
 
-        SessionFactory.getSession(SessionType.SHOPPER).setToken(sessionAttributes.getAccessToken());
-        SessionFactory.getSession(SessionType.SHOPPER).setToken(sessionAttributes.getRefreshToken());
+        SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(sessionAttributes.getAccessToken());
+        SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(sessionAttributes.getRefreshToken());
 
         log.info("Обновляем авторизацию");
-        log.info("access_token: {}", SessionFactory.getSession(SessionType.SHOPPER).getToken());
-        log.info("refresh_token: {}", SessionFactory.getSession(SessionType.SHOPPER).getRefreshToken());
+        log.info("access_token: {}", SessionFactory.getSession(SessionType.SHOPPER_APP).getToken());
+        log.info("refresh_token: {}", SessionFactory.getSession(SessionType.SHOPPER_APP).getRefreshToken());
     }
 
     /**

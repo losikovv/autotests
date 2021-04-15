@@ -55,14 +55,20 @@
     <class name="ru.instamart.tests.api.v3.endpoints.OrdersDeliveryV3Test"/-->
   </classes>
  </test>
- <test verbose="1" name="API Shopper Tests" parallel="none" thread-count="3">
+ <test verbose="1" name="API Shopper App Tests" parallel="none" thread-count="3">
    <classes>
-     <class name="ru.instamart.tests.api.shopper.e2e.ShopperE2ETests"/>
-     <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentfulShopperTest"/>
-     <class name="ru.instamart.tests.api.shopper.endpoints.ShipmentlessShopperTest"/>
-     <class name="ru.instamart.tests.api.shopper.endpoints.ShopperWithoutAuthTest"/>
+     <class name="ru.instamart.tests.api.shopper.app.e2e.ShopperAppE2ETest"/>
+     <class name="ru.instamart.tests.api.shopper.app.endpoints.ShipmentfulShopperAppTest"/>
+     <class name="ru.instamart.tests.api.shopper.app.endpoints.ShipmentlessShopperAppTest"/>
+     <class name="ru.instamart.tests.api.shopper.app.endpoints.ShopperAppWithoutAuthTest"/>
    </classes>
- </test> <!-- api-shopper-tests -->
+ </test> <!-- api-shopper-app-tests -->
+  <test verbose="1" name="API Shopper Admin Tests" parallel="classes" thread-count="2">
+    <classes>
+      <class name="ru.instamart.tests.api.shopper.admin.endpoints.ShopperAdminWithAuthTest"/>
+      <class name="ru.instamart.tests.api.shopper.admin.endpoints.ShopperAdminWithoutAuthTest"/>
+    </classes>
+  </test> <!-- api-shopper-admin-tests -->
   <test verbose="1" name="API Delivery Club Tests" parallel="classes" thread-count="3">
     <classes>
       <class name="ru.instamart.tests.api.delivery_club.endpoints.AuthenticationDCTest"/>

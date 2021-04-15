@@ -1,12 +1,12 @@
 package ru.instamart.api.objects.delivery_club;
 
-import ru.instamart.api.objects.BaseObject;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import ru.instamart.api.objects.BaseObject;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class ItemsWeightDC extends BaseObject {
-    public Integer min;
-    public Integer max;
+    private Integer min;
+    private Integer max;
 }

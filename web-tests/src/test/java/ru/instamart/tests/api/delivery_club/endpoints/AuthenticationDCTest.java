@@ -2,7 +2,7 @@ package ru.instamart.tests.api.delivery_club.endpoints;
 
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.requests.delivery_club.AuthenticationDCRequest;
-import ru.instamart.api.responses.deliveryclub.TokenDCResponse;
+import ru.instamart.api.responses.delivery_club.TokenDCResponse;
 import ru.instamart.core.testdata.UserManager;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
