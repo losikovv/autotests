@@ -18,6 +18,7 @@ public final class ApiV2EndPoints {
     public static final String PASSWORDS = "v2/passwords";
     public static final String USERS = "v2/users";
     public static final String STORES = "v2/stores";
+    public static final String BONUS_CARDS = "v2/bonus_cards";
 
     public static final class Users {
         public static final String BY_EMAIL = "v2/users/{email}";
