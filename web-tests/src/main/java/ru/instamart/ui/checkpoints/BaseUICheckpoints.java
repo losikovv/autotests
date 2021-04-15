@@ -1,5 +1,7 @@
 package ru.instamart.ui.checkpoints;
 
+import org.openqa.selenium.JavascriptExecutor;
+import ru.instamart.core.settings.Config;
 import ru.instamart.ui.common.pagesdata.ElementData;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.common.pagesdata.PageData;
@@ -102,6 +104,10 @@ public class BaseUICheckpoints {
     public void checkTransition(ElementData element) {
         log.info("> валидируем работу элемента: {}", element.getDescription());
         String startPage = kraken.grab().currentURL();
+        kraken.await().fluently(ExpectedConditions.elementToBeClickable(element.getLocator()),
+                "элемент не доступен: "+element.getDescription(), Config.BASIC_TIMEOUT);
+        kraken.perform().scrollToTheBottom(element);
+        kraken.await().simply(0.3);
         kraken.perform().click(element);
         kraken.await().fluently(ExpectedConditions.not(ExpectedConditions.urlToBe(startPage)),
                 "\n\n > Не работает " + element.getDescription()

@@ -43,6 +43,7 @@ public class AdministrationUsersSectionTests extends TestBase {
     )
     public void successSearchUser() {
         User.Logout.quicklyAdmin();
+        User.Auth.withEmail(UserManager.getDefaultAdmin());
         Administration.Users.searchUser(UserManager.getDefaultAdmin());
         searchChecks.checkSearchWorks();
     }
@@ -62,6 +63,8 @@ public class AdministrationUsersSectionTests extends TestBase {
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        User.Logout.quicklyAdmin();
+        User.Auth.withEmail(UserManager.getDefaultAdmin());
         Administration.Users.editUser(phone);
         Administration.Users.changeEmail(email);
         Administration.Users.changePassword(phone);
@@ -74,6 +77,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         //User.Logout.quicklyAdmin();
         kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
         kraken.get().adminPage("");
+        User.Auth.withEmail(UserManager.getDefaultAdmin());
         Administration.Users.revokeAdminPrivileges(phone);
         //User.Logout.quicklyAdmin();
         kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
@@ -94,6 +98,8 @@ public class AdministrationUsersSectionTests extends TestBase {
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        User.Logout.quicklyAdmin();
+        User.Auth.withEmail(UserManager.getDefaultAdmin());
         Administration.Users.editUser(phone);
         Administration.Users.changeEmail(email);
         Administration.AdminNavigation.switchTotab("Пользователи");
@@ -114,6 +120,8 @@ public class AdministrationUsersSectionTests extends TestBase {
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        User.Logout.quicklyAdmin();
+        User.Auth.withEmail(UserManager.getDefaultAdmin());
         Administration.Users.editUser(phone);
         Administration.Users.grantB2B();
         kraken.perform().refresh();

@@ -1,5 +1,6 @@
 package ru.instamart.tests.ui.administration;
 
+import org.testng.annotations.BeforeClass;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
@@ -24,10 +25,12 @@ public class AdministrationShipmentsSectionTests extends TestBase {
     private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     // TODO актуализировать тесты и зарезолвить тудушки - ATST-234
 
-    @BeforeMethod(alwaysRun = true,
+    @BeforeClass(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
-        kraken.reach().admin();
+        User.Logout.quicklyAdmin();
+//        kraken.reach().admin();
+        User.Auth.withEmail(UserManager.getDefaultAdmin());
         kraken.get().adminPage("shipments");
     }
 
@@ -37,6 +40,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void validateDefaultAdminShipmentsPage() {
+        kraken.get().adminPage("shipments");
         baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.title());
 
         baseChecks.checkIsElementPresent(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.orderDateFrom());
