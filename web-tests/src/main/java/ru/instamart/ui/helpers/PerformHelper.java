@@ -18,6 +18,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import static ru.instamart.ui.modules.Base.kraken;
+
 public final class PerformHelper extends HelperBase {
 
     private static final Logger log = LoggerFactory.getLogger(PerformHelper.class);
@@ -122,6 +124,8 @@ public final class PerformHelper extends HelperBase {
         }else {
             if(webElement.getAttribute("value").length()>0){
                 cleanField(webElement);
+                //Эти костыли здесь, тк в селениум есть бага использования sendKeys и очистки поля
+                if(webElement.getAttribute("value").length()>0)cleanField(webElement);
             }else webElement.sendKeys(text);
         }
     }
@@ -129,6 +133,7 @@ public final class PerformHelper extends HelperBase {
     public void cleanField(final WebElement webElement){
         int j=webElement.getAttribute("value").length();
         for (int i =0; i<j;i++){
+            kraken.await().simply(0.2);
             webElement.sendKeys(Keys.BACK_SPACE);
         }
     }
@@ -301,6 +306,15 @@ public final class PerformHelper extends HelperBase {
 
     public void scrollToTheBottom(){
         log.info("> прокручиваем страницу в самый низ");
-        ((JavascriptExecutor)kraken.getWebDriver()).executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        JavascriptExecutor jse = (JavascriptExecutor)kraken.getWebDriver();
+        jse.executeScript("scroll(0, 500)");
+    }
+
+    public void scrollToTheBottom(ElementData element){
+        log.info("> фокусируем страницу на элементе");
+        kraken.await().fluently(ExpectedConditions.elementToBeClickable(element.getLocator()),
+                "элемент не доступен: "+element.getDescription(), Config.BASIC_TIMEOUT);
+        JavascriptExecutor jse = (JavascriptExecutor)kraken.getWebDriver();
+        jse.executeScript("arguments[0].scrollIntoView();", kraken.getWebDriver().findElement(element.getLocator()));
     }
 }

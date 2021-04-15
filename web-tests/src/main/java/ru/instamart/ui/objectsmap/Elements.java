@@ -3042,12 +3042,12 @@ public class Elements {
         interface LoginPage {
 
             static ElementData title() {
-                return new ElementData(By.xpath("//body[@class='admin']//h1[text()='Вход']"),
+                return new ElementData(By.xpath("//h1[text()='Вход']"),
                         "заголовок 'Вход' на странице авторизации админки");
             }
 
             static ElementData emailField() {
-                return new ElementData(By.xpath("//body[@class='admin']//input[@name='email']"),
+                return new ElementData(By.xpath("//input[@name='email']"),
                         "поле ввода email на странице авторизации админки");
             }
 
@@ -3057,7 +3057,7 @@ public class Elements {
             }
 
             static ElementData passwordField() {
-                return new ElementData(By.xpath("//body[@class='admin']//input[@name='password']"),
+                return new ElementData(By.xpath("//input[@name='password']"),
                         "поле ввода пароля на странице авторизации админки");
             }
 
@@ -3067,36 +3067,51 @@ public class Elements {
             }
 
             static ElementData submitButton() {
-                return new ElementData(By.xpath("//body[@class='admin']//span[text()='Войти']//ancestor::button[@type='submit']"),
+                return new ElementData(By.xpath("//span[text()='Войти']//ancestor::button[@type='submit']"),
                         "кнопка 'Войти' на странице авторизации админки");
             }
         }
 
         static ElementData insideContainer() {
-            return new ElementData(By.xpath("//body[@class='admin']//*[@id='admin-menu']"),
-                    "контейнер внутренней части админки");
+            return new ElementData(By.xpath("//*[@title='Домашняя страница системы администрирования']"),
+                    "контейнер меню в админке");
         }
 
-        static ElementData menuButton(String name) {
-            return new ElementData(By.xpath("//nav[@id='admin-menu']//span[text()='" + name + "']"),
+        static ElementData menuTopElement(String name) {
+            return new ElementData(By.xpath("//div[@role='button']//*[text()='"+name+"']"),
                     "кнопка '" + name + "' в навигационном меню админки");
         }
 
-        static ElementData submenuButton(String name) {
-            return new ElementData(By.xpath("//nav[@class='admin-sub-menu']//*[text()='" + name + "']"),
+        static ElementData submenuElement(String name) {
+            return new ElementData(By.xpath("//a[@title='"+name+"']"),
                     "кнопка '" + name + "' в навигационном субменю админки");
         }
 
         /** Шапка админки */
         interface Header {
 
-            static ElementData userEmail() {
-                return new ElementData(By.xpath("//body[@class='admin']//div[@class='admin-login-navigation-bar__email']"),
-                        "email авторизованного пользователя в шапке админки");
+            static ElementData adminNavigationTitle() {
+                return new ElementData(By.xpath("//*[@title='Домашняя страница системы администрирования']"),
+                        "title навигационного меню");
+            }
+
+            static ElementData adminName() {
+                return new ElementData(By.xpath("//span[contains(@class,'user_menu__name')]"),
+                        "Имя админа авторизованного в системе");
+            }
+
+            static ElementData adminAvatar() {
+                return new ElementData(By.xpath("//span[contains(@class,'ant-avatar-icon')]"),
+                        "Аватарка админа авторизованного в системе");
+            }
+
+            static ElementData logoutDropdown() {
+                return new ElementData(By.xpath("//span[@aria-label='down']"),
+                        "дроп даун меню юзера в админке");
             }
 
             static ElementData logoutButton() {
-                return new ElementData(By.xpath("//body[@class='admin']//a[@class='admin-login-navigation-bar__logout']"),
+                return new ElementData(By.xpath("//span[text()='Выйти']"),
                         "кнопка 'Выйти' в шапке админки");
             }
         }
@@ -3106,7 +3121,7 @@ public class Elements {
 
             static ElementData title() {
                 return new ElementData(
-                        By.xpath("//h1[@class='page-title ' and contains(text(),'Список заказов')]"),
+                        By.xpath("//h1[contains(text(),'Список заказов')]"),
                             "заголовок на странице поиска заказов");
             }
 
@@ -3427,7 +3442,7 @@ public class Elements {
             }
 
             static ElementData userEmail() {
-                return new ElementData(By.xpath("//*[@id='content']//div[@class='user_email']//a"),
+                return new ElementData(By.xpath("//*[contains(@id,'spree_user')]//div[@class='user_email']//a"),
                         "имейл юзера в таблице пользователей в админке");
             }
 

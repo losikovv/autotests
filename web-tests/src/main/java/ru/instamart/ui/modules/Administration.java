@@ -28,7 +28,17 @@ public final class Administration extends Base {
         @Step("Переходим в раздел: {0}")
         public static void switchTotab(String menuElement){
             log.info("> переходим по разделам меню: {}",menuElement);
-            kraken.perform().click(Elements.Administration.menuButton(menuElement));
+            kraken.perform().click(Elements.Administration.submenuElement(menuElement));
+        }
+
+        @Step("Открываем dropdown элемент: {0}")
+        public static void openMenuDropdown(String menuElement){
+            log.info("> переходим по разделам меню: {}",menuElement);
+            kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Administration.menuTopElement(menuElement).getLocator()),
+                    "элемент не доступен: "+menuElement, Config.BASIC_TIMEOUT);
+            kraken.perform().scrollToTheBottom(Elements.Administration.menuTopElement(menuElement));
+            kraken.await().simply(0.5);
+            kraken.perform().click(Elements.Administration.menuTopElement(menuElement));
         }
     }
 
@@ -357,10 +367,10 @@ public final class Administration extends Base {
             kraken.perform().hoverOn(Elements.Administration.StaticPagesSection.deletePageButton(name));
             kraken.perform().click(Elements.Administration.StaticPagesSection.deletePageButton(name));
             handleAlertAcceptByDefault();
-            kraken.await().fluently(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            Elements.Administration.StaticPagesSection.pageDeletionConfirmationMessage().getLocator()),
-                    "не появилось сообщение с подтверждением удаления статической страницы",2);
+//            kraken.await().fluently(
+//                    ExpectedConditions.visibilityOfElementLocated(
+//                            Elements.Administration.StaticPagesSection.pageDeletionConfirmationMessage().getLocator()),
+//                    "не появилось сообщение с подтверждением удаления статической страницы",2);
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(
                             Elements.Administration.StaticPagesSection.editPageButton(name).getLocator()),

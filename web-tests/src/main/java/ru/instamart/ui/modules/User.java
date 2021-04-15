@@ -57,28 +57,6 @@ public final class User extends Base {
             }
             log.info("> уровень прав: {}", user.getRole());
         }
-        @Step("Авторизуемся на лендинге Сбермаркет")
-        private static void loginOnSberLanding(String email, String password) {
-            log.info("> авторизуемся на лендинге Сбермаркет ({}/{})", email, password);
-            kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
-            Shop.AuthModal.switchToAuthorisationTab();
-            Shop.AuthModal.fillAuthorisationForm(email, password);
-            Shop.AuthModal.submit();
-            kraken.await().fluently(
-                    ExpectedConditions.invisibilityOfElementLocated(
-                            Elements.Modals.AuthModal.popup().getLocator()), "Не проходит авторизация на лендинге Сбермаркет\n");
-        }
-        @Step("Авторизуемся на сайте")
-        private static void loginOnSite(String email, String password) {
-            log.info("> авторизуемся на сайте ({}/{})", email, password);
-            Shop.AuthModal.open();
-            Shop.AuthModal.switchToAuthorisationTab();
-            Shop.AuthModal.fillAuthorisationForm(email, password);
-            Shop.AuthModal.submit();
-            kraken.await().fluently(
-                    ExpectedConditions.invisibilityOfElementLocated(
-                            Elements.Modals.AuthModal.popup().getLocator()), "Не проходит авторизация на сайте\n");
-        }
 
         @Step("Авторизуемся в админке")
         public static void loginOnAdministration(String email, String password,String role) {
@@ -114,6 +92,7 @@ public final class User extends Base {
         @Step("Деавторизуемся в админке")
         public static void logoutOnAdministration() {
             log.info("> деавторизуемся в админке");
+            kraken.perform().click(Elements.Administration.Header.logoutDropdown());
             kraken.perform().click(Elements.Administration.Header.logoutButton());
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(
@@ -266,16 +245,8 @@ public final class User extends Base {
 
         @Step("Авторизация через email")
         public static void withEmail(String email, String password, String role) {
-            if (kraken.detect().isOnAdminLoginPage()) {
-                log.info("> находимся на странице логина, авторизуемся");
-                User.Do.loginOnAdministration(email, password,role);
-            } else {
-                if (!kraken.detect().isUserAuthorised()) {
-                    User.Do.loginOnSite(email, password);
-                } else {
-                    log.info("> пропускаем авторизацию, уже авторизованы");
-                }
-            }
+            log.info("> находимся на странице логина, авторизуемся");
+            User.Do.loginOnAdministration(email, password,role);
         }
 
         @Step("Переходим на base url для авторизации через Vkontakte")

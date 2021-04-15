@@ -44,6 +44,7 @@ public class OrdersBonusesTests extends TestBase {
 
         String number = kraken.grab().shipmentNumber();
         kraken.reach().admin();
+        User.Auth.withEmail(UserManager.getDefaultAdmin());
         Administration.Orders.searchOrder(number);
 
         Assert.assertTrue(

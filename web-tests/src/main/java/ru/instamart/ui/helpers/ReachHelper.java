@@ -43,10 +43,6 @@ public final class ReachHelper extends HelperBase {
 
     public void admin(String path) {
         adminPageOpen(path);
-        if (kraken.detect().isOnAdminLoginPage()) {
-            log.info("> находимся на странице логина админки, авторизуемся");
-            User.Auth.withEmail(UserManager.getDefaultAdmin());
-        }
         log.info("✓ Готово");
     }
 

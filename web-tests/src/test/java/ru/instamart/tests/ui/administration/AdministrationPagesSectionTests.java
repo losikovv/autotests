@@ -1,9 +1,12 @@
 package ru.instamart.tests.ui.administration;
 
+import org.testng.annotations.BeforeClass;
+import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.testdata.ui.StaticPages;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.common.pagesdata.StaticPageData;
 import ru.instamart.ui.modules.Administration;
+import ru.instamart.ui.modules.User;
 import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -19,10 +22,11 @@ public class AdministrationPagesSectionTests extends TestBase {
     
     private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
-    @BeforeMethod(alwaysRun = true,
+    @BeforeClass(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
         kraken.reach().admin();
+        User.Auth.withEmail(UserManager.getDefaultAdmin());
         kraken.get().adminPage("pages");
     }
 
@@ -33,6 +37,7 @@ public class AdministrationPagesSectionTests extends TestBase {
     )
     public void validatePagesRootPage() {
         String page = "О компании";
+        kraken.get().adminPage("pages");
         baseChecks.checkIsElementPresent(Elements.Administration.StaticPagesSection.table());
         baseChecks.checkIsElementPresent(Elements.Administration.StaticPagesSection.tableEntry(page));
         baseChecks.checkIsElementPresent(Elements.Administration.StaticPagesSection.newPageButton());

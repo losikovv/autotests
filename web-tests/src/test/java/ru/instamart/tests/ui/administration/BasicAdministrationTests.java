@@ -1,7 +1,11 @@
 package ru.instamart.tests.ui.administration;
 
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.BeforeClass;
+import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.modules.Administration;
 import ru.instamart.ui.modules.User;
 import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Epic;
@@ -17,20 +21,20 @@ import ru.instamart.tests.ui.TestBase;
 public class BasicAdministrationTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
-    @BeforeMethod(alwaysRun = true,
+    @BeforeClass(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
         User.Logout.quicklyAdmin();
         kraken.reach().admin();
+        User.Auth.withEmail(UserManager.getDefaultAdmin());
     }
 
     @CaseId(419)
     @Story("Тест доступности корневых разделов админки")
     @Test(  description = "Тест доступности корневых разделов админки",
-
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     ) public void successCheckAdminSectionsAvailability() {
-        kraken.get().page(Pages.Admin.login());
+//        kraken.get().page(Pages.Admin.login());
         baseChecks.checkPageIsAvailable(Pages.Admin.shipments());
         baseChecks.checkPageIsAvailable(Pages.Admin.retailers());
         baseChecks.checkPageIsAvailable(Pages.Admin.products());
@@ -55,8 +59,10 @@ public class BasicAdministrationTests extends TestBase {
     @Test(  description = "Проверка наличия элементов в шапке админки",
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     ) public void successValidateHeader() {
-        baseChecks.checkIsElementPresent(Elements.Administration.Header.userEmail());
-        baseChecks.checkIsElementPresent(Elements.Administration.Header.logoutButton());
+        baseChecks.checkIsElementPresent(Elements.Administration.Header.adminNavigationTitle());
+        baseChecks.checkIsElementPresent(Elements.Administration.Header.adminName());
+        baseChecks.checkIsElementPresent(Elements.Administration.Header.adminAvatar());
+        baseChecks.checkIsElementPresent(Elements.Administration.Header.logoutDropdown());
     }
 
     @CaseId(4)
@@ -64,54 +70,54 @@ public class BasicAdministrationTests extends TestBase {
     @Test(  description = "Тест валидности ссылок навигационного меню в шапке админки",
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     ) public void successValidateNavigationMenu() {
+        Administration.AdminNavigation.openMenuDropdown("Заказы");
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Управление логистикой"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Параметры маршрутизации"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Мульти заказ"));
 
-        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Заказы"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Управление логистикой"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Параметры маршрутизации"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Мульти заказ"));
+        Administration.AdminNavigation.openMenuDropdown("Магазины");
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Регионы"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Ритейлеры"));
+        baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Территория доставки"));
 
-        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Магазины"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Регионы"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Ритейлеры"));
-        baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Территория доставки"));
+        Administration.AdminNavigation.openMenuDropdown("Контент");
+        baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Продукты"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Товарные опции"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Свойства"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Бренды"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Производители"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Страны производства"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Категории"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Импорт"));
 
-        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Контент"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Товарные опции"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Свойства"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Бренды"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Производители"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Страны производства"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Категории"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Импорт"));
-        baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Продукты"));
+        baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Настройки"));
 
-        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Настройки"));
+        Administration.AdminNavigation.openMenuDropdown("Персонал");
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Смены"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Тарифы"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Сборщики"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Импорт партнеров"));
+        baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Пользователи"));
+        baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Страницы"));
+        baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Компании"));
 
-        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Маркетинг"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Промоакции"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Welcome баннеры"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Реклама"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Корзины"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Бонусные карты"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Программы ритейлеров"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Реферальная программа"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Новые Города"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("In App баннеры"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Промо карточки"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Бонусный счет"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Редиректы"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Семплинг"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Маркетинговые категории"));
+        Administration.AdminNavigation.openMenuDropdown("Маркетинг");
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Промо карточки"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Промоакции"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Welcome баннеры"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Реклама"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Корзины"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Бонусные карты"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Программы ритейлеров"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Реферальная программа"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Новые города"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("In app баннеры"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Бонусный счет"));
+//            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Редиректы"));
 
-        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Персонал"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Смены"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Тарифы"));
-            baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Сборщики"));
-        baseChecks.checkTransitionValidation(Elements.Administration.submenuButton("Импорт партнеров"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Семплинг"));
+            baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Маркетинговые категории"));
 
-        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Пользователи"));
 
-        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Страницы"));
-        baseChecks.checkTransitionValidation(Elements.Administration.menuButton("Компании"));
     }
 }
