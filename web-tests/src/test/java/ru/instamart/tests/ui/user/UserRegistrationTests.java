@@ -7,6 +7,7 @@ import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.checkpoints.users.ShoppingCartCheckpoints;
 import ru.instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
+import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
 import ru.instamart.ui.objectsmap.Elements;
@@ -146,9 +147,11 @@ public class UserRegistrationTests extends TestBase {
         Shop.ShippingAddressModal.selectAddressSuggest();
         Shop.ShippingAddressModal.submit();
         Shop.Cart.collectFirstTime();
+        kraken.get().page(Pages.Retailers.metro());
         Shop.Cart.proceedToCheckout();
         baseChecks.checkIsAuthModalOpen("Не открывается авторизационная" +
                 " модалка при переходе неавторизованным из корзины в чекаут");
+
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         authChecks.checkAutoCheckoutRedirect("Нет автоперехода в чекаут после регистрации из корзины");
