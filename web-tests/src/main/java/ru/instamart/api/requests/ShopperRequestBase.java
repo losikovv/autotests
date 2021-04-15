@@ -1,9 +1,9 @@
 package ru.instamart.api.requests;
 
+import io.restassured.specification.RequestSpecification;
 import ru.instamart.api.SessionFactory;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.enums.SessionType;
-import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
 
@@ -22,6 +22,6 @@ public final class ShopperRequestBase {
     public static RequestSpecification givenWithAuth() {
         return givenWithSpec().header(
                 "Authorization",
-                "Token " + SessionFactory.getSession(SessionType.SHOPPER).getToken());
+                "Token " + SessionFactory.getSession(SessionType.SHOPPER_APP).getToken());
     }
 }

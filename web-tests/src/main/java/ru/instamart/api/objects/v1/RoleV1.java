@@ -9,5 +9,6 @@ import ru.instamart.api.objects.BaseObject;
 public class RoleV1 extends BaseObject {
     private Integer id;
     private String name;
+    private String humanName;
 }
 

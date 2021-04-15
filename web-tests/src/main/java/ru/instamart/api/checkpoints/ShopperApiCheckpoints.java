@@ -1,10 +1,10 @@
 package ru.instamart.api.checkpoints;
 
-import ru.instamart.api.objects.shopper.ErrorSHP;
-import ru.instamart.api.responses.shopper.ErrorSHPResponse;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import ru.instamart.api.objects.shopper.app.ErrorSHP;
+import ru.instamart.api.responses.shopper.app.ErrorSHPResponse;
 
 import java.util.List;
 import java.util.StringJoiner;

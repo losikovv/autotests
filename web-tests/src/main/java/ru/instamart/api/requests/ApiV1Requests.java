@@ -1,14 +1,16 @@
 package ru.instamart.api.requests;
 
-import ru.instamart.api.endpoints.ApiV1Endpoints;
-import ru.instamart.api.objects.v1.ShoppersBackendV1;
-import ru.instamart.api.responses.v1.TokensV1Response;
-import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.common.pagesdata.UserData;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.endpoints.ApiV1Endpoints;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.objects.v1.ShoppersBackendV1;
+import ru.instamart.api.responses.v1.TokensV1Response;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.ui.common.pagesdata.UserData;
 
 import java.util.Map;
 
@@ -57,7 +59,8 @@ public class ApiV1Requests {
                     .cookies(cookies)
                     .get(ApiV1Endpoints.TOKENS);
             ShoppersBackendV1 shoppersBackend = response.as(TokensV1Response.class).getShoppersBackend();
-            //setToken("Token token=" + shoppersBackend.getClient_jwt() + ", id=" + shoppersBackend.getClient_id());
+            SessionFactory.getSession(SessionType.SHOPPER_APP)
+                    .setToken("token=" + shoppersBackend.getClientJwt() + ", id=" + shoppersBackend.getClientId());
             return response;
         }
     }

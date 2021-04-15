@@ -1,21 +1,21 @@
 package ru.instamart.api;
 
-import ru.instamart.api.checkpoints.ShopperApiCheckpoints;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.helpers.RegistrationHelper;
-import ru.instamart.api.objects.shopper.SessionAttributesSHP;
-import ru.instamart.api.requests.delivery_club.AuthenticationDCRequest;
-import ru.instamart.api.requests.shopper.SessionsSHPRequest;
-import ru.instamart.api.requests.v2.SessionV2Request;
-import ru.instamart.api.responses.deliveryclub.TokenDCResponse;
-import ru.instamart.api.responses.shopper.SessionsSHPResponse;
-import ru.instamart.api.responses.v2.SessionsV2Response;
-import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.common.pagesdata.UserData;
 import io.restassured.response.Response;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
+import ru.instamart.api.checkpoints.ShopperApiCheckpoints;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.helpers.RegistrationHelper;
+import ru.instamart.api.objects.shopper.app.SessionAttributesSHP;
+import ru.instamart.api.requests.delivery_club.AuthenticationDCRequest;
+import ru.instamart.api.requests.shopper.app.SessionsSHPRequest;
+import ru.instamart.api.requests.v2.SessionV2Request;
+import ru.instamart.api.responses.delivery_club.TokenDCResponse;
+import ru.instamart.api.responses.shopper.app.SessionsSHPResponse;
+import ru.instamart.api.responses.v2.SessionsV2Response;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.ui.common.pagesdata.UserData;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,7 +31,7 @@ public final class SessionFactory {
     public static void makeSession(final SessionType type) {
         switch (type) {
             case APIV1:
-            case SHOPPER:
+            case SHOPPER_APP:
             case DELIVERY_CLUB:
                 break;
             case APIV2:
@@ -80,7 +80,7 @@ public final class SessionFactory {
                 sessionInfo = createApiV2Session(userData);
                 log.info("Session created {}", sessionInfo);
                 return sessionInfo;
-            case SHOPPER:
+            case SHOPPER_APP:
                 sessionInfo = createShopperSession(userData);
                 log.info("Session created {}", sessionInfo);
                 return sessionInfo;
