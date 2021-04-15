@@ -19,6 +19,7 @@
   <test verbose="1" name="API v2 Tests" parallel="none" thread-count="4">
     <classes>
       <class name="ru.instamart.tests.api.v2.endpoints.AddressesV2Test"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.BonusCardsV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.CategoriesV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.DepartmentsV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.FavoritesListV2Test"/>
