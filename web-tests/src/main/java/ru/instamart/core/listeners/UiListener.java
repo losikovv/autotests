@@ -45,7 +45,7 @@ public final class UiListener implements ITestListener, ISuiteListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        this.qaseService.sendResult(result, RunResultStatus.failed);
+        this.qaseService.sendResult(result, RunResultStatus.failed, qaseService.uploadScreenshot());
     }
 
     @Override

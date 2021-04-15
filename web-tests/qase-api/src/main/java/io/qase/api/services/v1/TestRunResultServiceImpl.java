@@ -35,7 +35,7 @@ public final class TestRunResultServiceImpl implements TestRunResultService {
 
     @Override
     public TestRunResult get(String projectCode, String hash) {
-        Map<String, Object> routeParams = new HashMap<>();
+        final Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("hash", hash);
         return qaseApiClient.get(TestRunResult.class, "/result/{code}/{hash}", routeParams);
@@ -45,7 +45,7 @@ public final class TestRunResultServiceImpl implements TestRunResultService {
     public String create(String projectCode, long runId, long caseId, RunResultStatus status, Duration timeSpent,
                          Integer memberId, String comment, String stacktrace, Boolean isDefect, List<String> attachments,
                          Step... steps) {
-        NewTestRunResults newTestRunResults = NewTestRunResults.builder()
+        final NewTestRunResults newTestRunResults = NewTestRunResults.builder()
                 .caseId(caseId)
                 .status(status)
                 .time(timeSpent == null ? null : timeSpent.getSeconds())
@@ -56,7 +56,7 @@ public final class TestRunResultServiceImpl implements TestRunResultService {
                 .attachments(isDefect ? attachments : null)
                 .steps(Arrays.asList(steps))
                 .build();
-        Map<String, Object> routeParams = new HashMap<>();
+        final Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("run_id", runId);
         return qaseApiClient.post(TestRunResult.class, "/result/{code}/{run_id}", routeParams, newTestRunResults).getHash();
@@ -71,20 +71,7 @@ public final class TestRunResultServiceImpl implements TestRunResultService {
     @Override
     public String create(String projectCode, long runId, long caseId, RunResultStatus status, Duration timeSpent,
                          Integer memberId, String comment, String stacktrace, Boolean isDefect, Step... steps) {
-        NewTestRunResults newTestRunResults = NewTestRunResults.builder()
-                .caseId(caseId)
-                .status(status)
-                .time(timeSpent == null ? null : timeSpent.getSeconds())
-                .memberId(memberId)
-                .comment(comment)
-                .stacktrace(stacktrace)
-                .defect(isDefect)
-                .steps(Arrays.asList(steps))
-                .build();
-        Map<String, Object> routeParams = new HashMap<>();
-        routeParams.put("code", projectCode);
-        routeParams.put("run_id", runId);
-        return qaseApiClient.post(TestRunResult.class, "/result/{code}/{run_id}", routeParams, newTestRunResults).getHash();
+        return this.create(projectCode, runId, caseId, status, timeSpent, memberId, comment, stacktrace, isDefect, null, steps);
     }
 
     @Override
@@ -95,26 +82,13 @@ public final class TestRunResultServiceImpl implements TestRunResultService {
     @Override
     public String update(String projectCode, long runId, String hash, RunResultStatus status, Duration timeSpent,
                          Integer memberId, String comment, Boolean isDefect, Step... steps) {
-        NewTestRunResults newTestRunResults = NewTestRunResults.builder()
-                .status(status)
-                .time(timeSpent == null ? null : timeSpent.getSeconds())
-                .memberId(memberId)
-                .comment(comment)
-                .defect(isDefect)
-                .steps(steps == null ? null : Arrays.asList(steps))
-                .build();
-        Map<String, Object> routeParams = new HashMap<>();
-        routeParams.put("code", projectCode);
-        routeParams.put("run_id", runId);
-        routeParams.put("hash", hash);
-        return qaseApiClient.patch(TestRunResult.class, "/result/{code}/{run_id}/{hash}", routeParams, newTestRunResults)
-                .getHash();
+        return this.update(projectCode, runId, hash, status, timeSpent, memberId, comment, isDefect, null, steps);
     }
 
     @Override
     public String update(String projectCode, long runId, String hash, RunResultStatus status, Duration timeSpent,
                          Integer memberId, String comment, Boolean isDefect, List<String> attachments, Step... steps) {
-        NewTestRunResults newTestRunResults = NewTestRunResults.builder()
+        final NewTestRunResults newTestRunResults = NewTestRunResults.builder()
                 .status(status)
                 .time(timeSpent == null ? null : timeSpent.getSeconds())
                 .memberId(memberId)
@@ -123,7 +97,7 @@ public final class TestRunResultServiceImpl implements TestRunResultService {
                 .attachments(attachments)
                 .steps(steps == null ? null : Arrays.asList(steps))
                 .build();
-        Map<String, Object> routeParams = new HashMap<>();
+        final Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("run_id", runId);
         routeParams.put("hash", hash);
@@ -143,7 +117,7 @@ public final class TestRunResultServiceImpl implements TestRunResultService {
 
     @Override
     public boolean delete(String projectCode, long runId, String hash) {
-        Map<String, Object> routeParams = new HashMap<>();
+        final Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);
         routeParams.put("run_id", runId);
         routeParams.put("hash", hash);

@@ -126,6 +126,10 @@ public final class QaseService {
      * Отправляем статус прохождения теста
      */
     public void sendResult(final ITestResult result, final RunResultStatus status) {
+        this.sendResult(result, status, null);
+    }
+
+    public void sendResult(final ITestResult result, final RunResultStatus status, final List<String> attachmentHash) {
         if (!qase) return;
 
         final Duration timeSpent = Duration
@@ -155,7 +159,7 @@ public final class QaseService {
                                 comment,
                                 stacktrace,
                                 isDefect,
-                                status == RunResultStatus.failed ? uploadScreenshot() : null
+                                attachmentHash
                         );
             } catch (QaseException e) {
                 log.error("FATAL: can't update test run [caseId={} run={} project={}]", caseId, runId, projectCode, e);
@@ -163,7 +167,7 @@ public final class QaseService {
         }
     }
 
-    private List<String> uploadScreenshot() {
+    public List<String> uploadScreenshot() {
         final File file = HelperBase.takeScreenshotFile();
         return qaseApi.attachments()
                 .add(projectCode, file)
