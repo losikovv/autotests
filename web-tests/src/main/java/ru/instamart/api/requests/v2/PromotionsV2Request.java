@@ -7,10 +7,12 @@ import ru.instamart.api.requests.ApiV2RequestBase;
 
 public final class PromotionsV2Request extends ApiV2RequestBase {
 
-    @Step("{method} /" + ApiV2EndPoints.Promotions.REFERRAL_PROGRAM)
-    public static Response GET(final int promoId, final int sid) {
-        return givenCatch()
-                .get(ApiV2EndPoints.Promotions.PROMO_PRODUCTS, promoId, sid);
+    public static class PromoProducts {
+        @Step("{method} /" + ApiV2EndPoints.Promotions.PROMO_PRODUCTS)
+        public static Response GET(final int promoId, final int sid) {
+            return givenWithSpec()
+                    .get(ApiV2EndPoints.Promotions.PROMO_PRODUCTS, promoId, sid);
+        }
     }
 
     public static class ReferralProgram {
