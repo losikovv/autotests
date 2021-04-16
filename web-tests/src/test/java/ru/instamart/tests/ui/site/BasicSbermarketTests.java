@@ -159,7 +159,7 @@ public class BasicSbermarketTests extends TestBase {
     private void openFooterModals() {
         //TODO разбить на отдельные тесты
         kraken.get().baseUrl();
-        kraken.perform().scrollToTheBottom();
+        kraken.perform().scrollToTheBottom(Elements.Footer.deliveryButton());
         kraken.perform().click(Elements.Footer.deliveryButton());
         baseChecks.checkPageIsAvailable();
     }

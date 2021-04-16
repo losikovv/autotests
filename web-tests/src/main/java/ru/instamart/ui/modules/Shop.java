@@ -52,14 +52,6 @@ public final class Shop extends Base {
                         ExpectedConditions.visibilityOfElementLocated(
                                 Elements.Modals.AuthModal.phoneNumber().getLocator()),
                         "\n> Превышено время ожидания открытия модалки авторизации/регистрации",2);
-//                try {
-//
-//                } catch (Exception ex){
-//                    kraken.await().fluently(
-//                            ExpectedConditions.visibilityOfElementLocated(
-//                                    Elements.Modals.AuthModal.popupMail().getLocator()),
-//                            "\n> Превышено время ожидания открытия модалки авторизации/регистрации");
-//                }
             }
         }
 
