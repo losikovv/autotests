@@ -9,34 +9,33 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import ru.instamart.api.endpoints.ApiV2EndPoints;
+import ru.instamart.api.requests.ApiV2RequestBase;
 import ru.instamart.core.service.MapperService;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.givenWithAuthApiV2;
-
-public final class AddressesV2Request {
+public final class AddressesV2Request extends ApiV2RequestBase {
 
     @Step("{method} /" + ApiV2EndPoints.ADDRESSES)
     public static Response GET() {
-        return givenWithAuthApiV2()
+        return givenWithAuth()
                 .get(ApiV2EndPoints.ADDRESSES);
     }
 
     @Step("{method} /" + ApiV2EndPoints.ADDRESSES)
     public static Response POST(final Addresses addresses) {
-        return givenWithAuthApiV2()
+        return givenWithAuth()
                 .formParams(MapperService.INSTANCE.objectToMap(addresses))
                 .post(ApiV2EndPoints.ADDRESSES);
     }
 
     @Step("{method} /" + ApiV2EndPoints.Addresses.BY_ID)
     public static Response DELETE(final int id) {
-        return givenWithAuthApiV2()
+        return givenWithAuth()
                 .delete(ApiV2EndPoints.Addresses.BY_ID, id);
     }
 
     @Step("{method} /" + ApiV2EndPoints.Addresses.BY_ID)
     public static Response PUT(final int id, final Addresses addresses) {
-        return givenWithAuthApiV2()
+        return givenWithAuth()
                 .formParams(MapperService.INSTANCE.objectToMap(addresses))
                 .put(ApiV2EndPoints.Addresses.BY_ID, id);
     }

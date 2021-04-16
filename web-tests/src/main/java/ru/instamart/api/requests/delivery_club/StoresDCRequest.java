@@ -1,38 +1,37 @@
 package ru.instamart.api.requests.delivery_club;
 
-import ru.instamart.api.endpoints.DeliveryClubEndpoints;
-import ru.instamart.api.helpers.InstamartApiHelper;
-import ru.instamart.api.objects.delivery_club.*;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
+import ru.instamart.api.endpoints.DeliveryClubEndpoints;
+import ru.instamart.api.helpers.InstamartApiHelper;
+import ru.instamart.api.objects.delivery_club.*;
+import ru.instamart.api.requests.DeliveryClubRequestBase;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.givenWithAuthDeliveryClub;
-
-public class StoresDCRequest {
+public class StoresDCRequest extends DeliveryClubRequestBase {
 
     public static class Stock {
         @Step("{method} /" + DeliveryClubEndpoints.Stores.STOCK)
         public static Response GET(final int sid) {
-            return givenWithAuthDeliveryClub().get(DeliveryClubEndpoints.Stores.STOCK, sid);
+            return givenWithAuth().get(DeliveryClubEndpoints.Stores.STOCK, sid);
         }
     }
 
     public static class Slots {
         @Step("{method} /" + DeliveryClubEndpoints.Stores.SLOTS)
         public static Response GET(final int sid) {
-            return givenWithAuthDeliveryClub().get(DeliveryClubEndpoints.Stores.SLOTS, sid);
+            return givenWithAuth().get(DeliveryClubEndpoints.Stores.SLOTS, sid);
         }
 
         public static class Available {
             @Step("{method} /" + DeliveryClubEndpoints.Stores.Slots.AVAILABLE)
             public static Response GET(final int sid) {
-                return givenWithAuthDeliveryClub().get(DeliveryClubEndpoints.Stores.Slots.AVAILABLE, sid);
+                return givenWithAuth().get(DeliveryClubEndpoints.Stores.Slots.AVAILABLE, sid);
             }
         }
     }
@@ -45,7 +44,7 @@ public class StoresDCRequest {
             JSONObject requestParams = new JSONObject();
             requestParams.put("type", notificationType);
             requestParams.put("orderId", orderNumber);
-            return givenWithAuthDeliveryClub()
+            return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .post(DeliveryClubEndpoints.Stores.NOTIFICATIONS, sid);
@@ -55,7 +54,7 @@ public class StoresDCRequest {
     public static class Zones {
         @Step("{method} /" + DeliveryClubEndpoints.Stores.ZONES)
         public static Response GET(final int sid) {
-            return givenWithAuthDeliveryClub().get(DeliveryClubEndpoints.Stores.ZONES, sid);
+            return givenWithAuth().get(DeliveryClubEndpoints.Stores.ZONES, sid);
         }
     }
 
@@ -125,7 +124,7 @@ public class StoresDCRequest {
                             .build())
                     .build();
             String body = InstamartApiHelper.getJSONFromPOJO(order);
-            return givenWithAuthDeliveryClub()
+            return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(body)
                     .post(DeliveryClubEndpoints.Stores.ORDERS, sid);
@@ -133,7 +132,7 @@ public class StoresDCRequest {
 
         @Step("{method} /" + DeliveryClubEndpoints.Stores.Orders.BY_NUMBER)
         public static Response GET(final int sid, final String orderNumber) {
-            return givenWithAuthDeliveryClub()
+            return givenWithAuth()
                     .get(DeliveryClubEndpoints.Stores.Orders.BY_NUMBER, sid, orderNumber);
         }
 
@@ -144,7 +143,7 @@ public class StoresDCRequest {
                                        final String status) {
                 JSONObject requestParams = new JSONObject();
                 requestParams.put("status", status);
-                return givenWithAuthDeliveryClub()
+                return givenWithAuth()
                         .contentType(ContentType.JSON)
                         .body(requestParams)
                         .put(DeliveryClubEndpoints.Stores.Orders.STATUS, sid, orderNumber);
@@ -156,14 +155,14 @@ public class StoresDCRequest {
         public static class Categories {
             @Step("{method} /" + DeliveryClubEndpoints.Stores.Catalog.CATEGORIES)
             public static Response GET(final int sid) {
-                return givenWithAuthDeliveryClub().get(DeliveryClubEndpoints.Stores.Catalog.CATEGORIES, sid);
+                return givenWithAuth().get(DeliveryClubEndpoints.Stores.Catalog.CATEGORIES, sid);
             }
         }
 
         public static class Products {
             @Step("{method} /" + DeliveryClubEndpoints.Stores.Catalog.PRODUCTS)
             public static Response GET(final int sid) {
-                return givenWithAuthDeliveryClub().get(DeliveryClubEndpoints.Stores.Catalog.PRODUCTS, sid);
+                return givenWithAuth().get(DeliveryClubEndpoints.Stores.Catalog.PRODUCTS, sid);
             }
         }
     }

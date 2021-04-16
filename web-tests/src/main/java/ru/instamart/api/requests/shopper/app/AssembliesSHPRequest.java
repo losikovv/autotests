@@ -7,10 +7,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoints.ShopperAppEndpoints;
 import ru.instamart.api.enums.shopper.PackageSetLocationSHP;
+import ru.instamart.api.requests.ShopperAppRequestBase;
 
-import static ru.instamart.api.requests.ShopperRequestBase.givenWithAuth;
-
-public final class AssembliesSHPRequest {
+@SuppressWarnings("unchecked")
+public final class AssembliesSHPRequest extends ShopperAppRequestBase {
 
     /**
      * Получаем доставку

@@ -8,7 +8,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.objects.v1.OperationalZoneV1;
-import ru.instamart.api.requests.ApiV1Requests;
+import ru.instamart.api.requests.v1.OperationalZonesV1Request;
 import ru.instamart.core.testdata.dataprovider.RestDataProvider;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -23,7 +23,7 @@ public class OperationalZonesV1Tests extends RestBase {
     @Test(  description = "Контрактный тест списка операционных зон",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getOperationalZones() {
-        Response response = ApiV1Requests.OperationalZones.GET();
+        Response response = OperationalZonesV1Request.GET();
         checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/OperationalZones.json"));
     }
@@ -35,7 +35,7 @@ public class OperationalZonesV1Tests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             dataProvider = "operationalZones")
     public void getOperationalZone(OperationalZoneV1 operationalZone) {
-        Response response = ApiV1Requests.OperationalZones.GET(operationalZone.getId());
+        Response response = OperationalZonesV1Request.GET(operationalZone.getId());
         checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/OperationalZone.json"));
     }

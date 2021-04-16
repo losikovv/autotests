@@ -6,14 +6,14 @@ import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoints.ApiV2EndPoints;
 import ru.instamart.api.enums.v2.AuthProviderV2;
+import ru.instamart.api.requests.ApiV2RequestBase;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.givenCatch;
-
-public final class SessionV2Request {
+@SuppressWarnings("unchecked")
+public final class SessionV2Request extends ApiV2RequestBase {
 
     @Step("{method} /" + ApiV2EndPoints.SESSIONS)
     public static Response POST(final String email, final String password) {
-        return givenCatch()
+        return givenWithSpec()
                 .auth()
                 .preemptive()
                 .basic(email, password)
@@ -22,7 +22,7 @@ public final class SessionV2Request {
 
     @Step("{method} /" + ApiV2EndPoints.SESSIONS)
     public static Response POST(final String email, final String password, final String clientId) {
-        return givenCatch()
+        return givenWithSpec()
                 .auth()
                 .preemptive()
                 .basic(email, password)
@@ -40,13 +40,13 @@ public final class SessionV2Request {
                 sessionParams.put("uid", provider.getSessionUid());
                 sessionParams.put("digest", provider.getSessionDigest());
                 requestParams.put("session", sessionParams);
-                return givenCatch()
+                return givenWithSpec()
                         .body(requestParams)
                         .contentType(ContentType.JSON)
                         .post(ApiV2EndPoints.AuthProviders.SESSIONS, provider.getId());
             case VKONTAKTE:
             case FACEBOOK:
-                return givenCatch()
+                return givenWithSpec()
                         .param("session[uid]", provider.getSessionUid())
                         .post(ApiV2EndPoints.AuthProviders.SESSIONS, provider.getId());
             default:
@@ -56,14 +56,14 @@ public final class SessionV2Request {
 
     @Step("{method} /" + ApiV2EndPoints.Sessions.BY_TOKEN)
     public static Response GET(final String token) {
-        return givenCatch()
+        return givenWithSpec()
                 .get(ApiV2EndPoints.Sessions.BY_TOKEN, token);
     }
 
     public static class UserSession {
         @Step("{method} /" + ApiV2EndPoints.Sessions.USER)
         public static Response GET(final String token) {
-            return givenCatch()
+            return givenWithSpec()
                     .get(ApiV2EndPoints.Sessions.USER, token);
         }
     }

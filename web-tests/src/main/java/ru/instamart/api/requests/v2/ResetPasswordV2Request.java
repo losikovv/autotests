@@ -3,17 +3,16 @@ package ru.instamart.api.requests.v2;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.instamart.api.endpoints.ApiV2EndPoints;
+import ru.instamart.api.requests.ApiV2RequestBase;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.givenCatch;
-
-public final class ResetPasswordV2Request {
+public final class ResetPasswordV2Request extends ApiV2RequestBase {
 
     @Step("{method} /" + ApiV2EndPoints.Passwords.RESET)
     public static Response POST(final String email) {
-        return givenCatch()
+        return givenWithSpec()
                 .formParams(new HashMap<>(){{put("password_reset[email]", email);}})
                 .post(ApiV2EndPoints.Passwords.RESET);
     }
@@ -24,7 +23,7 @@ public final class ResetPasswordV2Request {
         data.put("password_reset[reset_password_token]", token);
         data.put("password_reset[password]", password);
         data.put("password_reset[password_confirmation]", passwordConformation);
-        return givenCatch()
+        return givenWithSpec()
                 .formParams(data)
                 .post(ApiV2EndPoints.PASSWORDS);
     }

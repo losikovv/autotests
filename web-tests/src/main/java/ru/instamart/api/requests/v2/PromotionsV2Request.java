@@ -3,10 +3,9 @@ package ru.instamart.api.requests.v2;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.instamart.api.endpoints.ApiV2EndPoints;
+import ru.instamart.api.requests.ApiV2RequestBase;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.givenCatch;
-
-public final class PromotionsV2Request {
+public final class PromotionsV2Request extends ApiV2RequestBase {
 
     public static class ReferralProgram {
         /**
@@ -14,7 +13,7 @@ public final class PromotionsV2Request {
          */
         @Step("{method} /" + ApiV2EndPoints.Promotions.REFERRAL_PROGRAM)
         public static Response GET() {
-            return givenCatch().get(ApiV2EndPoints.Promotions.REFERRAL_PROGRAM);
+            return givenWithSpec().get(ApiV2EndPoints.Promotions.REFERRAL_PROGRAM);
         }
     }
 }

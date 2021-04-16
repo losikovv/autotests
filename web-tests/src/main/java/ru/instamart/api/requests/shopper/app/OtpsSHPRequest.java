@@ -5,10 +5,10 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoints.ShopperAppEndpoints;
+import ru.instamart.api.requests.ShopperAppRequestBase;
 
-import static ru.instamart.api.requests.ShopperRequestBase.givenWithSpec;
-
-public final class OtpsSHPRequest {
+@SuppressWarnings("unchecked")
+public final class OtpsSHPRequest extends ShopperAppRequestBase {
 
     public static class Tokens {
         /**

@@ -4,23 +4,22 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import ru.instamart.api.endpoints.ApiV2EndPoints;
+import ru.instamart.api.requests.ApiV2RequestBase;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.*;
-
-public final class UsersV2Request {
+public final class UsersV2Request extends ApiV2RequestBase {
 
     private UsersV2Request() {}
 
     @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
     public static Response GET(final String email, final boolean isAuth) {
         if (isAuth) {
-            return givenWithAuthApiV2()
+            return givenWithAuth()
                     .get(ApiV2EndPoints.Users.BY_EMAIL, email);
         } else {
-            return givenCatch()
+            return givenWithSpec()
                     .get(ApiV2EndPoints.Users.BY_EMAIL, email);
         }
     }
@@ -31,14 +30,14 @@ public final class UsersV2Request {
             return givenCustomToken(token)
                     .get(ApiV2EndPoints.Users.BY_EMAIL, email);
         } else {
-            return givenCatch()
+            return givenWithSpec()
                     .get(ApiV2EndPoints.Users.BY_EMAIL, email);
         }
     }
 
     @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
     public static Response GET(final String clientId, final String email) {
-        return givenWithAuthApiV2()
+        return givenWithAuth()
                 .header("Client-Id", clientId)
                 .get(ApiV2EndPoints.Users.BY_EMAIL, email);
     }
@@ -56,7 +55,7 @@ public final class UsersV2Request {
         if (firstName != null && !firstName.isEmpty()) data.put("user[first_name]", firstName);
         if (lastName != null && !lastName.isEmpty()) data.put("user[last_name]", lastName);
         data.put("user[promo_terms_accepted]", promo);
-        return givenWithAuthApiV2()
+        return givenWithAuth()
                 .formParams(data)
                 .put(ApiV2EndPoints.Users.BY_EMAIL, email);
     }
@@ -73,7 +72,7 @@ public final class UsersV2Request {
         data.put("user[current_password]", currentPassword);
         data.put("user[password]", password);
         data.put("user[password_confirmation]", passwordConfirmation);
-        return givenWithAuthApiV2()
+        return givenWithAuth()
                 .formParams(data)
                 .put(ApiV2EndPoints.Users.BY_EMAIL, email);
     }
@@ -91,7 +90,7 @@ public final class UsersV2Request {
         data.put("user[last_name]", lastName);
         data.put("user[password]", password);
 
-        return givenCatch()
+        return givenWithSpec()
                 .formParams(data)
                 .post(ApiV2EndPoints.USERS);
     }
@@ -118,7 +117,7 @@ public final class UsersV2Request {
         if (anonymousId > 0) data.put("user[anonymous_id]", anonymousId);
         data.put("user[b2b]", b2b);
 
-        return givenCatch()
+        return givenWithSpec()
                 .formParams(data)
                 .post(ApiV2EndPoints.USERS);
     }

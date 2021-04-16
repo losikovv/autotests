@@ -8,7 +8,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.objects.v2.StoreV2;
-import ru.instamart.api.requests.ApiV1Requests;
+import ru.instamart.api.requests.v1.StoresV1Request;
 import ru.instamart.core.testdata.dataprovider.RestDataProvider;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -23,7 +23,7 @@ public class StoresV1Tests extends RestBase {
     @Test(  description = "Контрактный тест списка магазинов",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getStores() {
-        Response response = ApiV1Requests.Stores.GET();
+        Response response = StoresV1Request.GET();
         checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Stores.json"));
     }
@@ -35,7 +35,7 @@ public class StoresV1Tests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             dataProvider = "storeOfEachRetailer-parallel")
     public void getStore(StoreV2 store) {
-        Response response = ApiV1Requests.Stores.GET(store.getUuid());
+        Response response = StoresV1Request.GET(store.getUuid());
         checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Store.json"));
     }
@@ -47,7 +47,7 @@ public class StoresV1Tests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             dataProvider = "storeOfEachRetailer-parallel")
     public void getStoreOffers(StoreV2 store) {
-        Response response = ApiV1Requests.Stores.Offers.GET(
+        Response response = StoresV1Request.Offers.GET(
                 store.getUuid(),
                 "вода",
                 "");

@@ -1,15 +1,14 @@
 package ru.instamart.api.requests.v3;
 
-import ru.instamart.api.endpoints.ApiV3Endpoints;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import ru.instamart.api.endpoints.ApiV3Endpoints;
+import ru.instamart.api.requests.ApiV3RequestBase;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.givenCatch;
-
-public class OrderOptionsV3Request {
+public class OrderOptionsV3Request extends ApiV3RequestBase {
 
     public static class PickupFromStore {
         /**
@@ -28,7 +27,7 @@ public class OrderOptionsV3Request {
             itemParams.put("quantity", 100);
             itemParams.put("price", 1111);
             itemParams.put("discount", 0);
-            return givenCatch()
+            return givenWithSpec()
                     .log().all()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
@@ -58,7 +57,7 @@ public class OrderOptionsV3Request {
             itemParams.put("quantity", "5");
             itemParams.put("price", "300000");
             itemParams.put("discount", "0");
-            return givenCatch()
+            return givenWithSpec()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .header("Api-Version","3.0")

@@ -3,10 +3,9 @@ package ru.instamart.api.requests.shopper.admin;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.instamart.api.endpoints.ShopperAdminEndpoints;
+import ru.instamart.api.requests.ShopperAdminRequestBase;
 
-import static ru.instamart.api.requests.ShopperRequestBase.givenWithAuth;
-
-public class ShopperAdminRequest {
+public class ShopperAdminRequest extends ShopperAdminRequestBase {
     public static class Shoppers {
         @Step("{method} /" + ShopperAdminEndpoints.SHOPPERS)
         public static Response GET() {

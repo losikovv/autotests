@@ -1,14 +1,13 @@
 package ru.instamart.api.requests.v3;
 
-import ru.instamart.api.endpoints.ApiV3Endpoints;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
+import ru.instamart.api.endpoints.ApiV3Endpoints;
+import ru.instamart.api.requests.ApiV3RequestBase;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.givenCatch;
-
-public class SetupInfoV3Request {
+public class SetupInfoV3Request extends ApiV3RequestBase {
 
     /**
      * Cправочная информация об интеграции
@@ -17,7 +16,7 @@ public class SetupInfoV3Request {
     public static Response GET() {
 
         JSONObject requestParams = new JSONObject();
-        return givenCatch()
+        return givenWithSpec()
                 .contentType(ContentType.JSON)
                 .body(requestParams)
                 .header("Api-Version","3.0")
@@ -25,7 +24,7 @@ public class SetupInfoV3Request {
                 .get(ApiV3Endpoints.SETUP_INFO);
     }
 
-    public static  class  Stores{
+    public static  class  Stores {
         /**
          * Доступные для ритейлера магазины
          */
@@ -33,7 +32,7 @@ public class SetupInfoV3Request {
         public static Response GET() {
 
             JSONObject requestParams = new JSONObject();
-            return givenCatch()
+            return givenWithSpec()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .header("Api-Version","3.0")
@@ -41,5 +40,4 @@ public class SetupInfoV3Request {
                     .get(ApiV3Endpoints.SetupInfo.STORES);
         }
     }
-
 }

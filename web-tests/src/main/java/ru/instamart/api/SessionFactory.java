@@ -8,15 +8,20 @@ import ru.instamart.api.checkpoints.ShopperApiCheckpoints;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.helpers.RegistrationHelper;
 import ru.instamart.api.objects.shopper.app.SessionAttributesSHP;
+import ru.instamart.api.objects.v1.ShoppersBackendV1;
 import ru.instamart.api.requests.delivery_club.AuthenticationDCRequest;
 import ru.instamart.api.requests.shopper.app.SessionsSHPRequest;
+import ru.instamart.api.requests.v1.TokensV1Request;
+import ru.instamart.api.requests.v1.UserSessionsV1Request;
 import ru.instamart.api.requests.v2.SessionV2Request;
 import ru.instamart.api.responses.delivery_club.TokenDCResponse;
 import ru.instamart.api.responses.shopper.app.SessionsSHPResponse;
+import ru.instamart.api.responses.v1.TokensV1Response;
 import ru.instamart.api.responses.v2.SessionsV2Response;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.common.pagesdata.UserData;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,11 +35,12 @@ public final class SessionFactory {
 
     public static void makeSession(final SessionType type) {
         switch (type) {
-            case APIV1:
+            case API_V1:
             case SHOPPER_APP:
+            case SHOPPER_ADMIN:
             case DELIVERY_CLUB:
                 break;
-            case APIV2:
+            case API_V2:
                     final UserData userData = UserManager.getUser();
                     RegistrationHelper.registration(userData);
                     createSessionToken(type, userData);
@@ -43,6 +49,15 @@ public final class SessionFactory {
                 log.error("Pls select session type");
                 break;
         }
+    }
+
+    public static void clearSession(final SessionType type) {
+        final SessionId sessionId = new SessionId(Thread.currentThread().getId(), type);
+        final SessionInfo session = sessionMap.get(sessionId);
+        if (session != null) {
+            sessionMap.put(sessionId, null);
+        }
+        log.info("Current {} session is cleared", type);
     }
 
     public static SessionInfo getSession(final SessionType type) {
@@ -72,16 +87,20 @@ public final class SessionFactory {
     private static SessionInfo createSession(final SessionType type, final UserData userData) {
         SessionInfo sessionInfo;
         switch (type) {
-            case APIV1:
+            case API_V1:
                 sessionInfo = createApiV1Session(userData);
                 log.info("Session created {}", sessionInfo);
                 return sessionInfo;
-            case APIV2:
+            case API_V2:
                 sessionInfo = createApiV2Session(userData);
                 log.info("Session created {}", sessionInfo);
                 return sessionInfo;
             case SHOPPER_APP:
-                sessionInfo = createShopperSession(userData);
+                sessionInfo = createShopperAppSession(userData);
+                log.info("Session created {}", sessionInfo);
+                return sessionInfo;
+            case SHOPPER_ADMIN:
+                sessionInfo = createShopperAdminSession(userData);
                 log.info("Session created {}", sessionInfo);
                 return sessionInfo;
             case DELIVERY_CLUB:
@@ -94,9 +113,12 @@ public final class SessionFactory {
         }
     }
 
-    //TODO: Wait ApiV1 refactoring
     private static SessionInfo createApiV1Session(final UserData userData) {
-        return new SessionInfo();
+        final Response response = UserSessionsV1Request.POST(userData.getLogin(), userData.getPassword());
+        checkStatusCode200(response);
+        log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
+        log.info("cookies: {}", response.getCookies());
+        return new SessionInfo(userData, response.getCookies());
     }
 
     private static SessionInfo createApiV2Session(final UserData userData) {
@@ -108,7 +130,7 @@ public final class SessionFactory {
         return new SessionInfo(userData, sessionResponse.getSession().getAccessToken());
     }
 
-    private static SessionInfo createShopperSession(final UserData userData) {
+    private static SessionInfo createShopperAppSession(final UserData userData) {
         final Response response = SessionsSHPRequest.POST(userData.getLogin(), userData.getPassword());
         ShopperApiCheckpoints.checkStatusCode200(response);
         final SessionsSHPResponse sessionsResponse = response.as(SessionsSHPResponse.class);
@@ -117,6 +139,17 @@ public final class SessionFactory {
         log.info("access_token: {}", sessionAttributes.getAccessToken());
         log.info("refresh_token: {}", sessionAttributes.getRefreshToken());
         return new SessionInfo(userData, sessionAttributes.getAccessToken(), sessionAttributes.getRefreshToken());
+    }
+
+    private static SessionInfo createShopperAdminSession(final UserData userData) {
+        createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+        final Response response = TokensV1Request.GET();
+        checkStatusCode200(response);
+        final ShoppersBackendV1 shoppersBackend = response.as(TokensV1Response.class).getShoppersBackend();
+        final String token = "token=" + shoppersBackend.getClientJwt() + ", id=" + shoppersBackend.getClientId();
+        log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
+        log.info("token: {}", token);
+        return new SessionInfo(userData, token);
     }
 
     private static SessionInfo createDeliveryClubSession(final UserData userData) {
@@ -141,17 +174,28 @@ public final class SessionFactory {
     @AllArgsConstructor
     @Data
     public static final class SessionInfo {
-
         private final UserData userData;
         private String token;
         private String refreshToken;
+        private Map<String, String> cookies;
 
         public SessionInfo() {
-            this(UserManager.getNullUser(), "invalid", "invalid_refresh");
+            this(UserManager.getNullUser(),
+                    "invalid",
+                    "invalid_refresh",
+                    new HashMap<>());
         }
 
         public SessionInfo(final UserData userData, final String token) {
-            this(userData, token, "empty");
+            this(userData, token, "empty", new HashMap<>());
+        }
+
+        public SessionInfo(final UserData userData, final Map<String, String> cookies) {
+            this(userData, "empty", "empty", cookies);
+        }
+
+        public SessionInfo(final UserData userData, final String token, final String refreshToken) {
+            this(userData, token, refreshToken, new HashMap<>());
         }
 
         public String getLogin() {

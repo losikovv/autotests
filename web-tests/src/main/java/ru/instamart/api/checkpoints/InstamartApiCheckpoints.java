@@ -1,5 +1,6 @@
 package ru.instamart.api.checkpoints;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.instamart.api.objects.v2.OrderV2;
 import ru.instamart.api.objects.v2.TaxonV2;
 import ru.instamart.api.responses.ErrorResponse;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+@Slf4j
 public class InstamartApiCheckpoints {
 
     public static void checkStatusCode200(Response response) {
@@ -69,10 +71,10 @@ public class InstamartApiCheckpoints {
     }
 
     /**
-     * Ассерт, что дата доставки заказа сегодня
+     * Проверяем, что дата доставки заказа сегодня
      */
     @Step("Проверяем, что дата доставки заказа сегодня")
-    public static void checkIsDeliveryToday(OrderV2 order) {
+    public static String checkIsDeliveryToday(OrderV2 order) {
         LocalDateTime deliveryTime = LocalDateTime
                 .parse(order
                         .getShipments()
@@ -87,9 +89,10 @@ public class InstamartApiCheckpoints {
                 .truncatedTo(ChronoUnit.DAYS)
                 .plus(1, ChronoUnit.DAYS);
 
-        Assert.assertTrue(deliveryTime.isBefore(nextDay),
-                "Заказ оформлен не на сегодня\nnow: " + LocalDateTime.now()
-                        + "\ndelivery time: " + deliveryTime);
+        if (deliveryTime.isBefore(nextDay)) {
+            return "Заказ оформлен не на сегодня\nnow: " + LocalDateTime.now()
+                    + "\ndelivery time: " + deliveryTime;
+        } else return "";
     }
 
     /**
