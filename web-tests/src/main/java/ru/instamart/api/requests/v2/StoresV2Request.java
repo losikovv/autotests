@@ -9,13 +9,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.instamart.api.endpoints.ApiV2EndPoints;
+import ru.instamart.api.requests.ApiV2RequestBase;
 import ru.instamart.core.service.MapperService;
 
 import java.util.Map;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.givenCatch;
-
-public final class StoresV2Request {
+public final class StoresV2Request extends ApiV2RequestBase {
 
     /**
      * Получаем список доступных магазинов по координатам
@@ -23,7 +22,7 @@ public final class StoresV2Request {
     @Step("{method} /" + ApiV2EndPoints.STORES)
     public static Response GET(final Store store) {
         final Map<String, Object> params = MapperService.INSTANCE.objectToMap(store);
-        return givenCatch()
+        return givenWithSpec()
                 .params(params)
                 .get(ApiV2EndPoints.STORES);
     }
@@ -33,7 +32,7 @@ public final class StoresV2Request {
      */
     @Step("{method} /" + ApiV2EndPoints.Stores.BY_SID)
     public static Response GET(int sid) {
-        return givenCatch().get(ApiV2EndPoints.Stores.BY_SID, sid);
+        return givenWithSpec().get(ApiV2EndPoints.Stores.BY_SID, sid);
     }
 
     public static class PromotionCards {
@@ -42,7 +41,7 @@ public final class StoresV2Request {
          */
         @Step("{method} /" + ApiV2EndPoints.Stores.PROMOTION_CARDS)
         public static Response GET(final int sid) {
-            return givenCatch().get(ApiV2EndPoints.Stores.PROMOTION_CARDS, sid);
+            return givenWithSpec().get(ApiV2EndPoints.Stores.PROMOTION_CARDS, sid);
         }
     }
 
@@ -50,7 +49,7 @@ public final class StoresV2Request {
 
         @Step("{method} /" + ApiV2EndPoints.Stores.HEALTH_CHECK)
         public static Response GET(final int sid) {
-            return givenCatch().get(ApiV2EndPoints.Stores.HEALTH_CHECK, sid);
+            return givenWithSpec().get(ApiV2EndPoints.Stores.HEALTH_CHECK, sid);
         }
     }
 

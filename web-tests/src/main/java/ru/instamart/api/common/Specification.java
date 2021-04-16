@@ -1,6 +1,5 @@
 package ru.instamart.api.common;
 
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -8,8 +7,9 @@ import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -20,17 +20,16 @@ import static io.restassured.config.EncoderConfig.encoderConfig;
 import static io.restassured.specification.ProxySpecification.host;
 import static org.hamcrest.Matchers.not;
 
+@Slf4j
 public enum Specification {
 
     INSTANCE;
 
-    private static final Logger logger = LoggerFactory.getLogger(Specification.class);
-
     private static ResponseSpecification responseSpecDefault;
     private static ResponseSpecification responseSpecDataProvider;
-    private RequestSpecification apiV2Spec;
-    private RequestSpecification apiV1Spec;
-    private RequestSpecification shopperRequestSpec;
+    @Getter private RequestSpecification apiV2RequestSpec;
+    @Getter private RequestSpecification apiV1RequestSpec;
+    @Getter private RequestSpecification shopperRequestSpec;
 
     public void initSpec() {
         final String apiV1FullUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth();
@@ -42,7 +41,7 @@ public enum Specification {
 
         final String protocol = System.getProperty("protocol");
         if (protocol != null && !protocol.isEmpty()) {
-            logger.info("Enable SSL ignore");
+            log.info("Enable SSL ignore");
             useRelaxedHTTPSValidation();
         }
 
@@ -50,7 +49,7 @@ public enum Specification {
         final int proxyPort = Integer.parseInt(System.getProperty("proxy_port", "443"));
 
         if (proxyIp != null && addressReachable(proxyIp, proxyPort, 5000)) {
-            logger.info("Setup proxy with url {}:{}", proxyIp, proxyPort);
+            log.info("Setup proxy with url {}:{}", proxyIp, proxyPort);
             proxy = host(proxyIp).withPort(proxyPort);
         }
 
@@ -75,14 +74,14 @@ public enum Specification {
                 .expectStatusCode(not(503))
                 .build();
 
-        apiV1Spec = new RequestSpecBuilder()
+        apiV1RequestSpec = new RequestSpecBuilder()
                 .setBaseUri(apiV1FullUrl)
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssured())
                 .build();
 
-        apiV2Spec = new RequestSpecBuilder()
+        apiV2RequestSpec = new RequestSpecBuilder()
                 .setBaseUri(apiV2FullUrl)
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
@@ -108,24 +107,12 @@ public enum Specification {
         responseSpecification = responseSpecDefault;
     }
 
-    public RequestSpecification getApiV2Spec() {
-        return apiV2Spec;
-    }
-
-    public RequestSpecification getApiV1Spec() {
-        return apiV1Spec;
-    }
-
-    public RequestSpecification getShopperRequestSpec() {
-        return shopperRequestSpec;
-    }
-
     private static boolean addressReachable(final String address, final int port, final int timeout) {
         try (final Socket socket = new Socket()) {
             socket.connect(new InetSocketAddress(address, port), timeout);
             return true;
         } catch (IOException exception) {
-            logger.error("Broken proxy ! Skip proxy setup and continue without proxy");
+            log.error("Broken proxy ! Skip proxy setup and continue without proxy");
             return false;
         }
     }

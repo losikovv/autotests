@@ -1,10 +1,5 @@
 package ru.instamart.tests.api.delivery_club.endpoints;
 
-import ru.instamart.api.SessionFactory;
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.requests.delivery_club.StoresDCRequest;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -12,6 +7,11 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.requests.delivery_club.StoresDCRequest;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
 
 import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode401;
 
@@ -26,8 +26,8 @@ public class StoresWithoutAuthDCTest extends RestBase {
     String notificationType = "paid_adjustment";
 
     @BeforeMethod(alwaysRun = true)
-    public void preconditions() {
-        SessionFactory.getSession(SessionType.DELIVERY_CLUB).setToken(null);
+    public void clearAuth() {
+        SessionFactory.clearSession(SessionType.DELIVERY_CLUB);
     }
 
     @CaseId(591)

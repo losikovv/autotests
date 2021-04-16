@@ -13,8 +13,8 @@ import static ru.instamart.api.checkpoints.ShopperApiCheckpoints.checkStatusCode
 public class ShopperAdminWithoutAuthTest extends RestBase {
 
     @BeforeMethod(alwaysRun = true)
-    public void createSessionToken() {
-        SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(null);
+    public void clearAuth() {
+        SessionFactory.clearSession(SessionType.SHOPPER_ADMIN);
     }
 
     @Test(  description = "Список сотрудников без авторизации",

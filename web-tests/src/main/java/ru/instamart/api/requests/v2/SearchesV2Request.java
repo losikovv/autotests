@@ -3,10 +3,9 @@ package ru.instamart.api.requests.v2;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.instamart.api.endpoints.ApiV2EndPoints;
+import ru.instamart.api.requests.ApiV2RequestBase;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.givenCatch;
-
-public final class SearchesV2Request {
+public final class SearchesV2Request extends ApiV2RequestBase {
 
     public static class Suggestions {
         /**
@@ -14,14 +13,14 @@ public final class SearchesV2Request {
          */
         @Step("{method} /" + ApiV2EndPoints.Searches.SUGGESTIONS)
         public static Response GET(int sid) {
-            return givenCatch().get(ApiV2EndPoints.Searches.SUGGESTIONS, sid);
+            return givenWithSpec().get(ApiV2EndPoints.Searches.SUGGESTIONS, sid);
         }
         /**
          * Получение поисковых подсказок по слову
          */
         @Step("{method} /" + ApiV2EndPoints.Searches.Suggestions.BY_QUERY)
         public static Response GET(int sid, String query) {
-            return givenCatch().get(ApiV2EndPoints.Searches.Suggestions.BY_QUERY, sid, query);
+            return givenWithSpec().get(ApiV2EndPoints.Searches.Suggestions.BY_QUERY, sid, query);
         }
     }
 }

@@ -1,24 +1,23 @@
 package ru.instamart.api.requests.v3;
 
-import ru.instamart.api.endpoints.ApiV3Endpoints;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import ru.instamart.api.endpoints.ApiV3Endpoints;
+import ru.instamart.api.requests.ApiV3RequestBase;
 
 import java.util.UUID;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.givenCatch;
-
-public class OrderV3Request {
+public class OrderV3Request extends ApiV3RequestBase {
     /**
      *  Получение ордера по UUID
      */
     @Step("{method} /" + ApiV3Endpoints.Orders.ORDER_BY_UUID)
     public static Response GET(String UUID)
     {
-        return givenCatch()
+        return givenWithSpec()
                 .log().all()
                 .contentType(ContentType.JSON)
                 .header("Api-Version","3.0")
@@ -58,7 +57,7 @@ public class OrderV3Request {
             JSONObject replacementParams = new JSONObject();
             requestParams.put("replacement", replacementParams);
             replacementParams.put( "option_id", replacementOptionId);
-            return givenCatch()
+            return givenWithSpec()
                     .log().all()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
@@ -77,7 +76,7 @@ public class OrderV3Request {
         {
             JSONObject requestParams = new JSONObject();
             requestParams.put("status","canceled");
-            return givenCatch()
+            return givenWithSpec()
                     .log().all()
                     .contentType(ContentType.JSON)
                     .header("Api-Version","3.0")
@@ -135,7 +134,7 @@ public class OrderV3Request {
             JSONObject replacementParams = new JSONObject();
             requestParams.put("replacement", replacementParams);
             replacementParams.put("option_id", replacementOptionId);
-            return givenCatch()
+            return givenWithSpec()
                     .log().all()
                     .contentType(ContentType.JSON)
                     .body(requestParams)

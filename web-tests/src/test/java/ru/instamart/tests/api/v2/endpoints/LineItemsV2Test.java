@@ -26,7 +26,7 @@ public class LineItemsV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Получение номера заказа и id продукта")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.APIV2);
+        SessionFactory.makeSession(SessionType.API_V2);
         orderNumber = apiV2.getCurrentOrderNumber();
         productId = ProductsV2Request
                 .GET(1, "")

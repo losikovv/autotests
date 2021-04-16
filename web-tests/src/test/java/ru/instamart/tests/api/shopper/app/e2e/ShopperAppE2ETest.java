@@ -38,8 +38,7 @@ public class ShopperAppE2ETest extends RestBase {
     @Story("Сборка заказа")
     @CaseId(1)
     @Test(  description = "Собираем все позиции в заказе",
-            groups = {"api-shopper-regress", "api-shopper-prod"},
-            priority = 1001)
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void simpleCollect() {
         shopper.simpleCollect(shipmentNumber);
     }
@@ -47,8 +46,7 @@ public class ShopperAppE2ETest extends RestBase {
     @Story("Сборка заказа")
     @CaseId(2)
     @Test(  description = "Собираем/отменяем/заменяем позиции в заказе",
-            groups = {"api-shopper-regress", "api-shopper-prod"},
-            priority = 1002)
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void complexCollect() {
         shopper.complexCollect(shipmentNumber);
     }

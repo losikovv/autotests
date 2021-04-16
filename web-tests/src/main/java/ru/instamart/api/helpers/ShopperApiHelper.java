@@ -1,8 +1,7 @@
 package ru.instamart.api.helpers;
 
 import io.restassured.response.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import ru.instamart.api.SessionFactory;
 import ru.instamart.api.enums.SessionType;
@@ -24,10 +23,8 @@ import java.util.StringJoiner;
 
 import static ru.instamart.api.checkpoints.ShopperApiCheckpoints.checkStatusCode200;
 
+@Slf4j
 public class ShopperApiHelper {
-
-    private static final Logger log = LoggerFactory.getLogger(ShopperApiHelper.class);
-
     private String currentAssemblyId;
 
     public void authorisation(UserData user) {
@@ -78,6 +75,10 @@ public class ShopperApiHelper {
     }
 
     public String getShipmentId(String shipmentNumber) {
+        return getShipmentId(shipmentNumber, "");
+    }
+
+    public String getShipmentId(String shipmentNumber, String additionalInfoForError) {
         String shipmentId;
         String error = "Оформленного заказа нет в списке " + shipmentNumber;
         for (int i = 0; i < 6; i++) {
@@ -86,7 +87,7 @@ public class ShopperApiHelper {
                 return shipmentId;
             } else log.error(error);
         }
-        Assert.fail(error);
+        Assert.fail(error + "\n" + additionalInfoForError);
         return null;
     }
 

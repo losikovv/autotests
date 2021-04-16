@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import ru.instamart.api.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.requests.ApiV1Requests;
 import ru.instamart.api.requests.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.responses.shopper.admin.*;
 import ru.instamart.core.testdata.UserManager;
@@ -17,13 +16,8 @@ import static ru.instamart.api.checkpoints.ShopperApiCheckpoints.checkStatusCode
 public class ShopperAdminWithAuthTest extends RestBase {
 
     @BeforeMethod(alwaysRun = true)
-    public void createSessionTokenForShopperAdmin() {
-        //todo объединить в createSessionToken для SessionType.SHOPPER_ADMIN
-        if (!SessionFactory.getSession(SessionType.SHOPPER_APP).getToken().contains(", id=")) {
-            SessionFactory.createSessionToken(SessionType.SHOPPER_APP, UserManager.getDefaultShopper());
-            ApiV1Requests.UserSessions.POST(UserManager.getDefaultAdmin());
-            ApiV1Requests.Tokens.GET();
-        }
+    public void auth() {
+        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
     }
 
     @Test(  description = "Список сотрудников",

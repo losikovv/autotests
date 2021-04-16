@@ -13,7 +13,8 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.objects.v1.OfferV1;
 import ru.instamart.api.objects.v2.*;
-import ru.instamart.api.requests.ApiV1Requests;
+import ru.instamart.api.requests.v1.RetailersV1Request;
+import ru.instamart.api.requests.v1.StoresV1Request;
 import ru.instamart.api.requests.v2.*;
 import ru.instamart.api.responses.ErrorResponse;
 import ru.instamart.api.responses.v1.OffersV1Response;
@@ -594,7 +595,7 @@ public final class InstamartApiHelper {
      * Получить список активных ритейлеров как список объектов Retailer
      */
     public List<RetailerV2> availableRetailersSpree() {
-        List<RetailerV2> retailers = ApiV1Requests.Retailers.GET().as(RetailersV2Response.class).getRetailers();
+        List<RetailerV2> retailers = RetailersV1Request.GET().as(RetailersV2Response.class).getRetailers();
 
         StringJoiner availableRetailers = new StringJoiner(
                 "\n• ",
@@ -623,7 +624,7 @@ public final class InstamartApiHelper {
         List<StoreV2> stores = new ArrayList<>();
 
         for (RetailerV2 retailer : retailers) {
-            List<StoreV2> retailerStores = ApiV1Requests.Retailers.Stores.GET(retailer.getId()).as(StoresV2Response.class).getStores();
+            List<StoreV2> retailerStores = RetailersV1Request.Stores.GET(retailer.getId()).as(StoresV2Response.class).getStores();
             for (StoreV2 retailerStore: retailerStores) {
                 retailerStore.setRetailer(retailer);
                 stores.add(retailerStore);
@@ -638,7 +639,7 @@ public final class InstamartApiHelper {
      * Получить список активных магазинов у ретейлера (без зон доставки)
      */
     public List<StoreV2> availableStores(RetailerV2 retailer) {
-        List<StoreV2> stores = ApiV1Requests.Retailers.Stores.GET(retailer.getId()).as(StoresV2Response.class).getStores();
+        List<StoreV2> stores = RetailersV1Request.Stores.GET(retailer.getId()).as(StoresV2Response.class).getStores();
         for (StoreV2 store : stores) {
             store.setRetailer(retailer);
         }
@@ -726,7 +727,7 @@ public final class InstamartApiHelper {
     }
 
     public List<OfferV1> getActiveOffers(String storeUuid) {
-        return ApiV1Requests.Stores.Offers.GET(
+        return StoresV1Request.Offers.GET(
                 storeUuid,
                 "вода",
                 "")
@@ -846,7 +847,7 @@ public final class InstamartApiHelper {
      * Очистить корзину и выбрать адрес у юзера
      */
     public void dropCart(UserData user, AddressV2 address) {
-        SessionFactory.createSessionToken(SessionType.APIV2, user);
+        SessionFactory.createSessionToken(SessionType.API_V2, user);
         getCurrentOrderNumber();
         deleteItemsFromCart();
 

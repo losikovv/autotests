@@ -7,10 +7,10 @@ import org.json.simple.JSONObject;
 import ru.instamart.api.SessionFactory;
 import ru.instamart.api.endpoints.ShopperAppEndpoints;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.requests.ShopperAppRequestBase;
 
-import static ru.instamart.api.requests.ShopperRequestBase.givenWithSpec;
-
-public final class AuthSHPRequest {
+@SuppressWarnings("unchecked")
+public final class AuthSHPRequest extends ShopperAppRequestBase {
 
     public static class Refresh {
         /**

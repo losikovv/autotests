@@ -3,10 +3,9 @@ package ru.instamart.api.requests.v2;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.instamart.api.endpoints.ApiV2EndPoints;
+import ru.instamart.api.requests.ApiV2RequestBase;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.givenWithAuthApiV2;
-
-public final class ShipmentsV2Request {
+public final class ShipmentsV2Request extends ApiV2RequestBase {
 
     public static class ShippingRates {
         /**
@@ -14,7 +13,7 @@ public final class ShipmentsV2Request {
          */
         @Step("{method} /" + ApiV2EndPoints.Shipments.SHIPPING_RATES)
         public static Response GET(String shipmentNumber) {
-            return givenWithAuthApiV2()
+            return givenWithAuth()
                     .get(ApiV2EndPoints.Shipments.SHIPPING_RATES, shipmentNumber);
         }
     }

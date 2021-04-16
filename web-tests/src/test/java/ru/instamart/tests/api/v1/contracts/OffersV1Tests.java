@@ -7,7 +7,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.objects.v1.OfferV1;
-import ru.instamart.api.requests.ApiV1Requests;
+import ru.instamart.api.requests.v1.OffersV1Request;
 import ru.instamart.core.testdata.dataprovider.RestDataProvider;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -24,7 +24,7 @@ public class OffersV1Tests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             dataProvider = "offerOfEachRetailer-parallel")
     public void getOffer(OfferV1 offer) {
-        Response response = ApiV1Requests.Offers.GET(offer.getUuid());
+        Response response = OffersV1Request.GET(offer.getUuid());
         checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Offer.json"));
     }

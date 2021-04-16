@@ -35,10 +35,10 @@ public class ShipmentfulShopperAppTest extends RestBase {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
         OrderV2 order = apiV2.order(userData, EnvironmentData.INSTANCE.getDefaultSid());
-        checkIsDeliveryToday(order);
+        String isDeliveryToday = checkIsDeliveryToday(order);
         shopper.authorisation(UserManager.getDefaultShopper());
         shopper.deleteCurrentAssembly();
-        shipmentId = shopper.getShipmentId(order.getShipments().get(0).getNumber());
+        shipmentId = shopper.getShipmentId(order.getShipments().get(0).getNumber(), isDeliveryToday);
     }
 
     @AfterClass(alwaysRun = true,

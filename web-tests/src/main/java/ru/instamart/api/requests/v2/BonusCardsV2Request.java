@@ -3,14 +3,13 @@ package ru.instamart.api.requests.v2;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.instamart.api.endpoints.ApiV2EndPoints;
+import ru.instamart.api.requests.ApiV2RequestBase;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.givenWithAuthApiV2;
-
-public final class BonusCardsV2Request {
+public final class BonusCardsV2Request extends ApiV2RequestBase {
 
     @Step("{method} /" + ApiV2EndPoints.BONUS_CARDS)
     public static Response GET() {
-        return givenWithAuthApiV2()
+        return givenWithAuth()
                 .get(ApiV2EndPoints.BONUS_CARDS);
     }
 }

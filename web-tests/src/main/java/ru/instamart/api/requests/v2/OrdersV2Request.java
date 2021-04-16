@@ -5,14 +5,12 @@ import io.restassured.response.Response;
 import ru.instamart.api.endpoints.ApiV2EndPoints;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.objects.v2.AddressV2;
+import ru.instamart.api.requests.ApiV2RequestBase;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static ru.instamart.api.requests.InstamartRequestsBase.givenCustomToken;
-import static ru.instamart.api.requests.InstamartRequestsBase.givenWithAuthApiV2;
-
-public final class OrdersV2Request {
+public final class OrdersV2Request extends ApiV2RequestBase {
 
     /**
      * Получаем активные (принят, собирается, в пути) заказы
@@ -26,7 +24,7 @@ public final class OrdersV2Request {
      */
     @Step("{method} /" + ApiV2EndPoints.Orders.STATUS)
     public static Response GET(OrderStatusV2 status, int page) {
-        return givenWithAuthApiV2()
+        return givenWithAuth()
                 .get(ApiV2EndPoints.Orders.STATUS, status, page);
     }
 
@@ -35,7 +33,7 @@ public final class OrdersV2Request {
      */
     @Step("{method} /" + ApiV2EndPoints.ORDERS)
     public static Response GET() {
-        return givenWithAuthApiV2()
+        return givenWithAuth()
                 .get(ApiV2EndPoints.ORDERS);
     }
 
@@ -44,7 +42,7 @@ public final class OrdersV2Request {
      */
     @Step("{method} /" + ApiV2EndPoints.Orders.BY_NUMBER)
     public static Response GET(String orderNumber) {
-        return givenWithAuthApiV2()
+        return givenWithAuth()
                 .get(ApiV2EndPoints.Orders.BY_NUMBER, orderNumber);
     }
 
@@ -53,7 +51,7 @@ public final class OrdersV2Request {
      */
     @Step("{method} /" + ApiV2EndPoints.ORDERS)
     public static Response POST() {
-        return givenWithAuthApiV2()
+        return givenWithAuth()
                 .header("Client-Id",
                         "InstamartApp")
                 .post(ApiV2EndPoints.ORDERS);
@@ -82,7 +80,7 @@ public final class OrdersV2Request {
         data.put("order[shipments_attributes][][delivery_window_id]", deliveryWindowId);
         data.put("order[shipments_attributes][][shipping_method_id]", shipmentMethodId);
 
-        return givenWithAuthApiV2()
+        return givenWithAuth()
                 .formParams(data)
                 .put(ApiV2EndPoints.Orders.BY_NUMBER, orderNumber);
     }
@@ -93,7 +91,7 @@ public final class OrdersV2Request {
          */
         @Step("{method} /" + ApiV2EndPoints.Orders.SHIPMENTS)
         public static Response DELETE(String orderNumber) {
-            return givenWithAuthApiV2()
+            return givenWithAuth()
                     .delete(ApiV2EndPoints.Orders.SHIPMENTS, orderNumber);
         }
     }
@@ -104,7 +102,7 @@ public final class OrdersV2Request {
          */
         @Step("{method} /" + ApiV2EndPoints.Orders.LINE_ITEMS)
         public static Response GET(String orderNumber) {
-            return givenWithAuthApiV2()
+            return givenWithAuth()
                     .get(ApiV2EndPoints.Orders.LINE_ITEMS, orderNumber);
         }
     }
@@ -131,7 +129,7 @@ public final class OrdersV2Request {
             if (address.getLastName() != null) data.put("ship_address[last_name]", address.getLastName());
             if (address.getBlock() != null) data.put("ship_address[block]", address.getBlock());
 
-            return givenWithAuthApiV2()
+            return givenWithAuth()
                     .formParams(data)
                     .put(ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE, orderNumber);
         }
@@ -161,7 +159,7 @@ public final class OrdersV2Request {
 
         @Step("{method} /" + ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE)
         public static Response GET(final String orderNumber) {
-            return givenWithAuthApiV2()
+            return givenWithAuth()
                     .get(ApiV2EndPoints.Orders.SHIP_ADDRESS_CHANGE, orderNumber);
         }
 
@@ -182,7 +180,7 @@ public final class OrdersV2Request {
 
         @Step("{method} /" + ApiV2EndPoints.Orders.SHIP_ADDRESS)
         public static Response GET(final String orderNumber) {
-            return givenWithAuthApiV2()
+            return givenWithAuth()
                     .get(ApiV2EndPoints.Orders.SHIP_ADDRESS, orderNumber);
         }
     }
@@ -193,7 +191,7 @@ public final class OrdersV2Request {
          */
         @Step("{method} /" + ApiV2EndPoints.Orders.CURRENT)
         public static Response GET() {
-            return givenWithAuthApiV2()
+            return givenWithAuth()
                     .get(ApiV2EndPoints.Orders.CURRENT);
         }
     }
@@ -204,7 +202,7 @@ public final class OrdersV2Request {
          */
         @Step("{method} /" + ApiV2EndPoints.Orders.COMPLETION)
         public static Response POST(String orderNumber) {
-            return givenWithAuthApiV2()
+            return givenWithAuth()
                     .post(ApiV2EndPoints.Orders.COMPLETION, orderNumber);
         }
     }
@@ -215,7 +213,7 @@ public final class OrdersV2Request {
          */
         @Step("{method} /" + ApiV2EndPoints.Orders.CANCELLATIONS)
         public static Response POST(String orderNumber, String reason) {
-            return givenWithAuthApiV2()
+            return givenWithAuth()
                     .post(ApiV2EndPoints.Orders.CANCELLATIONS, orderNumber, reason);
         }
     }
@@ -226,7 +224,7 @@ public final class OrdersV2Request {
          */
         @Step("{method} /" + ApiV2EndPoints.Orders.UNRATED)
         public static Response GET() {
-            return givenWithAuthApiV2()
+            return givenWithAuth()
                     .get(ApiV2EndPoints.Orders.UNRATED);
         }
     }

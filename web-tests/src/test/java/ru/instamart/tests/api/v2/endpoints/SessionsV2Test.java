@@ -74,8 +74,8 @@ public final class SessionsV2Test extends RestBase {
     public void testSessionToken() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
-        SessionFactory.createSessionToken(SessionType.APIV2, userData);
-        final Response response = SessionV2Request.GET(SessionFactory.getSession(SessionType.APIV2).getToken());
+        SessionFactory.createSessionToken(SessionType.API_V2, userData);
+        final Response response = SessionV2Request.GET(SessionFactory.getSession(SessionType.API_V2).getToken());
         checkStatusCode200(response);
     }
 
@@ -91,8 +91,8 @@ public final class SessionsV2Test extends RestBase {
     public void testUserData() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
-        SessionFactory.createSessionToken(SessionType.APIV2, userData);
-        final Response response = SessionV2Request.UserSession.GET(SessionFactory.getSession(SessionType.APIV2).getToken());
+        SessionFactory.createSessionToken(SessionType.API_V2, userData);
+        final Response response = SessionV2Request.UserSession.GET(SessionFactory.getSession(SessionType.API_V2).getToken());
         checkStatusCode200(response);
         final UserDataV2Response userDataResponse = response.as(UserDataV2Response.class);
         assertEquals(userDataResponse.getUser().getEmail(), userData.getLogin(), "Получены чужие данные");
@@ -103,7 +103,7 @@ public final class SessionsV2Test extends RestBase {
     public void testUserDataWithInvalidToken() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
-        SessionFactory.createSessionToken(SessionType.APIV2, userData);
+        SessionFactory.createSessionToken(SessionType.API_V2, userData);
         final Response response = SessionV2Request.UserSession.GET("aaaaaaa");
         checkStatusCode404(response);
     }

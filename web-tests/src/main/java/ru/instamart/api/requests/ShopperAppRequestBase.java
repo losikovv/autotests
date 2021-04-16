@@ -7,7 +7,7 @@ import ru.instamart.api.enums.SessionType;
 
 import static io.restassured.RestAssured.given;
 
-public final class ShopperRequestBase {
+public class ShopperAppRequestBase {
 
     /**
      * Добавляем спеки к запросу
