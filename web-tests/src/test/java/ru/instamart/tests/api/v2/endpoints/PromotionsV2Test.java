@@ -35,7 +35,7 @@ public class PromotionsV2Test extends RestBase {
     @Story("Список продуктов для активации промо")
     @Test(groups = {"api-instamart-smoke"}, description = "Существующий productId")
     public void testGetListOfProductWithValidProductId() {
-        final Response response = PromotionsV2Request.GET(2707, EnvironmentData.INSTANCE.getDefaultSid());
+        final Response response = PromotionsV2Request.PromoProducts.GET(2707, EnvironmentData.INSTANCE.getDefaultSid());
         checkStatusCode200(response);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
         assertTrue(productsV2Response.getProducts().isEmpty());
@@ -45,7 +45,7 @@ public class PromotionsV2Test extends RestBase {
     @Story("Список продуктов для активации промо")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий productId")
     public void testGetListOfProductWithInvalidProductId() {
-        final Response response = PromotionsV2Request.GET(1, EnvironmentData.INSTANCE.getDefaultSid());
+        final Response response = PromotionsV2Request.PromoProducts.GET(1, EnvironmentData.INSTANCE.getDefaultSid());
         checkStatusCode404(response);
     }
 
@@ -53,7 +53,7 @@ public class PromotionsV2Test extends RestBase {
     @Story("Список продуктов для активации промо")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий sid")
     public void testGetListOfProductWithInvalidSid() {
-        final Response response = PromotionsV2Request.GET(2707, 66666);
+        final Response response = PromotionsV2Request.PromoProducts.GET(2707, 66666);
         checkStatusCode404(response);
     }
 }
