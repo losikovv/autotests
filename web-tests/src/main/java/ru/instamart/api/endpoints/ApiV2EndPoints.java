@@ -86,6 +86,7 @@ public final class ApiV2EndPoints {
 
     public static final class Promotions {
         public static final String REFERRAL_PROGRAM = "v2/promotions/referral_program";
+        public static final String PROMO_PRODUCTS = "v2/promotions/{promo_id}/promo_products?sid={sid}";
     }
 
     public static final class AuthProviders {
