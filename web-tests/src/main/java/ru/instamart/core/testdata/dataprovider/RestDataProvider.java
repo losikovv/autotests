@@ -1,6 +1,8 @@
 package ru.instamart.core.testdata.dataprovider;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.common.Specification;
@@ -14,8 +16,6 @@ import ru.instamart.api.requests.ApiV1Requests;
 import ru.instamart.api.requests.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.requests.v2.StoresV2Request;
 import ru.instamart.api.responses.v1.OperationalZonesV1Response;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;

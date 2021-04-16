@@ -2,14 +2,20 @@ package ru.instamart.tests.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
+import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.requests.v2.PromotionsV2Request;
+import ru.instamart.api.responses.v2.ProductsV2Response;
 import ru.instamart.api.responses.v2.ReferralProgramV2Response;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Промо-акции")
@@ -23,5 +29,31 @@ public class PromotionsV2Test extends RestBase {
         checkStatusCode200(response);
         assertNotNull(response.as(ReferralProgramV2Response.class).getReferralProgram(),
                 "Не вернулась инфа о реферальной программе");
+    }
+
+    @CaseId(292)
+    @Story("Список продуктов для активации промо")
+    @Test(groups = {"api-instamart-smoke"}, description = "Существующий productId")
+    public void testGetListOfProductWithValidProductId() {
+        final Response response = PromotionsV2Request.GET(2707, EnvironmentData.INSTANCE.getDefaultSid());
+        checkStatusCode200(response);
+        final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
+        assertTrue(productsV2Response.getProducts().isEmpty());
+    }
+
+    @CaseId(293)
+    @Story("Список продуктов для активации промо")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий productId")
+    public void testGetListOfProductWithInvalidProductId() {
+        final Response response = PromotionsV2Request.GET(1, EnvironmentData.INSTANCE.getDefaultSid());
+        checkStatusCode404(response);
+    }
+
+    @CaseId(294)
+    @Story("Список продуктов для активации промо")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий sid")
+    public void testGetListOfProductWithInvalidSid() {
+        final Response response = PromotionsV2Request.GET(2707, 66666);
+        checkStatusCode404(response);
     }
 }
