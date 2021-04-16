@@ -140,6 +140,7 @@ public class BaseUICheckpoints {
     @Step("Проверяем присутсвие элемента на странице: {element.description}")
     public void checkIsElementPresent(ElementData element){
         log.info("> проверяем наличие элемента на странице {}> {}", kraken.grab().currentURL(), element.getLocator());
+        kraken.perform().scrollToTheBottom(element);
         Assert.assertTrue(
                 kraken.detect().isElementPresent(element),
                     failMessage("Отсутствует " + element.getDescription() + " на странице " + kraken.grab().currentURL()

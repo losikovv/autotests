@@ -1,9 +1,7 @@
 package ru.instamart.tests.ui.orders;
 
-import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterTest;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.helpers.HelperBase;
 import ru.instamart.core.settings.Config;
