@@ -690,7 +690,7 @@ public final class Shop extends Base {
             } catch (TimeoutException e){
                 kraken.await().fluently(
                         ExpectedConditions
-                                .visibilityOfElementLocated(Elements.Catalog.Product.snippetFavorite().getLocator()),
+                                .visibilityOfElementLocated(Elements.Catalog.Product.FirstSnippetFavorite().getLocator()),
                         "Есть любимые товары", 5);
                 log.info("Есть любимые товары");
             }
@@ -700,7 +700,7 @@ public final class Shop extends Base {
         @Step("Открываем карточку любимого товара в каталоге")
         public static void openFavoritesSnipet() {
             catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),2);
-            kraken.perform().click(Elements.Catalog.Product.snippetFavorite());
+            kraken.perform().click(Elements.Catalog.Product.FirstSnippetFavorite());
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.popup().getLocator()),
                     "Не открывается карточка любимого товара");
