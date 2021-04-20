@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class RoutesScheduleV1 extends BaseObject {
+public class RouteScheduleV1 extends BaseObject {
     private Integer id;
     private String date;
     private String status;
