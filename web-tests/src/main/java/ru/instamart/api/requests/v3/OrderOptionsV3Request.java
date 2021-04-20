@@ -15,7 +15,7 @@ public class OrderOptionsV3Request extends ApiV3RequestBase {
          * Применение опций заказа для замовывоза
          */
         @Step("{method} /" + ApiV3Endpoints.OrderOptions.PICKUP_FROM_STORE)
-        public static Response PUT(String retailerId, String storeId, String itemId) {
+        public static Response PUT(String retailerId, String storeId, String itemId,String clientToken) {
             JSONObject requestParams = new JSONObject();
             JSONArray items = new JSONArray();
             JSONObject itemParams = new JSONObject();
@@ -32,7 +32,7 @@ public class OrderOptionsV3Request extends ApiV3RequestBase {
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .header("Api-Version","3.0")
-                    .header("Client-Token","14cd5d341d768bd4926fc9f5ce262094")
+                    .header("Client-Token",clientToken)
                     .put(ApiV3Endpoints.OrderOptions.PICKUP_FROM_STORE);
         }
     }
