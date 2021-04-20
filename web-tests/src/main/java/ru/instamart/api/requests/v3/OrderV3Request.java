@@ -30,18 +30,27 @@ public class OrderV3Request extends ApiV3RequestBase {
          * Создание заказа замовывоз
          */
         @Step("{method} /" + ApiV3Endpoints.Orders.PICKUP_FROM_STORE)
-        public static Response POST(String paymentOptionId,String shippingOptionId,String replacementOptionId ) {
+        public static Response POST(String paymentOptionId,
+                                    String shippingOptionId,
+                                    String replacementOptionId,
+                                    String itemId,
+                                    String clientToken,
+                                    String shipTotal,
+                                    int quantity,
+                                    int price,
+                                    int discount
+        ) {
             JSONObject requestParams = new JSONObject();
             JSONArray items = new JSONArray();
             JSONObject itemParams = new JSONObject();
             requestParams.put("number", UUID.randomUUID());
-           // requestParams.put("ship_total", "15000");
+            requestParams.put("ship_total", shipTotal);
             requestParams.put("items", items);
             items.add(itemParams);
-            itemParams.put("id", "15879");
-            itemParams.put("quantity", 10);
-            itemParams.put("price", 1111);
-            itemParams.put("discount", 0);
+            itemParams.put("id", itemId);
+            itemParams.put("quantity", quantity);
+            itemParams.put("price", price);
+            itemParams.put("discount", discount);
             JSONObject contactParams = new JSONObject();
             requestParams.put("contact", contactParams);
             contactParams.put("first_name","Qasper");
@@ -62,7 +71,7 @@ public class OrderV3Request extends ApiV3RequestBase {
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .header("Api-Version","3.0")
-                    .header("Client-Token","14cd5d341d768bd4926fc9f5ce262094")
+                    .header("Client-Token",clientToken)
                     .post(ApiV3Endpoints.Orders.PICKUP_FROM_STORE);
         }
     }

@@ -44,7 +44,8 @@ public class ApiV3Helper {
         return OrderOptionsV3Request.PickupFromStore.PUT(
                 "metro",
                 store.getId(),
-                "15879").as(OrderOptionsV3Response.class);
+                "15879",
+        "14cd5d341d768bd4926fc9f5ce262094").as(OrderOptionsV3Response.class);
     }
 
     public OrderOptionsV3Response getOrderOptionsDelivery() {

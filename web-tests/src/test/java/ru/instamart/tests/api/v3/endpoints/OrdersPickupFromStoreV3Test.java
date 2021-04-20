@@ -8,6 +8,8 @@ import ru.instamart.api.responses.v3.OrderOptionsV3Response;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.core.testdata.ApiV3TestData;
+import ru.instamart.core.testdata.dataprovider.ApiV3DataProvider;
 
 import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
@@ -28,17 +30,25 @@ public class OrdersPickupFromStoreV3Test extends RestBase {
        replacementMethod = apiV3.getReplacementMethod("call_or_cancel", orderOptions.getReplacement_options());
     }
 
-    @Test(groups = {"api-instamart-regress"} )
-    public void postOrdersPickupFromStore() {
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "itemIds",
+            dataProviderClass = ApiV3DataProvider.class)
+    public void postOrdersPickupFromStore(ApiV3TestData testData) {
 
-       final Response response = OrderV3Request.PickupFromStore.POST(
+        final Response response = OrderV3Request.PickupFromStore.POST(
                paymentMethod.getOptions().get(0).getId(),
                shippingMethod.getId(),
-               replacementMethod.getId());
+               replacementMethod.getId(),
+               testData.getItemId(),
+               testData.getClientToken(),
+               testData.getShipTotal(),
+               testData.getItemQuantity(),
+               testData.getItemPrice(),
+               testData.getItemDiscount());
 
-       response.prettyPeek();
-       checkStatusCode200(response);
-       order = response.as(OrderV3.class);
+        response.prettyPeek();
+        response.then().statusCode(testData.getStatusCode());
+        order = response.as(OrderV3.class);
 
     }
 
