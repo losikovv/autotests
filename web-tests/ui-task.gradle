@@ -14,6 +14,23 @@ task sberUiSmoke(type: Test) {
     }
 }
 
+task uiSmokeProduction(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite.xml'
+        includeGroups 'ui-smoke-production'
+        systemProperty 'env',"sbermarket-production"
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    if (project.hasProperty('qase')) {
+        systemProperty 'qase.plan.id', 2
+        systemProperty 'qase.Project', 'STF'
+    }
+}
+
 task sberAcceptance(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true

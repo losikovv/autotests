@@ -1,5 +1,6 @@
 package ru.instamart.tests.ui.site;
 
+import org.testng.annotations.BeforeClass;
 import ru.instamart.api.objects.v2.RetailerV2;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.dataprovider.RestDataProvider;
@@ -20,7 +21,7 @@ import ru.instamart.tests.ui.TestBase;
 public class BasicSbermarketTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
-    @BeforeMethod(alwaysRun = true,
+    @BeforeClass(alwaysRun = true,
             description ="Завершаем сессию, текущего пользователя")
     public void quickLogout() {
         User.Logout.quickly();
@@ -30,7 +31,7 @@ public class BasicSbermarketTests extends TestBase {
     @Story("Валидация элементов")
     @Test(
             description = "Тест валидности элементов и ссылок в шапке Сбермаркета",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     ) public void successValidateHeaderSbermarket() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         baseChecks.checkPageIsAvailable();
@@ -56,7 +57,7 @@ public class BasicSbermarketTests extends TestBase {
     @Story("Навигация")
     @Test(
             description = "Тест перехода из Сбермаркета на как мы работаем",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionHowWeWork(){
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -66,7 +67,7 @@ public class BasicSbermarketTests extends TestBase {
     @Story("Навигация")
     @Test(
             description = "Тест перехода из Сбермаркета на информацию о контактах",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionContactsInfo(){
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -76,7 +77,7 @@ public class BasicSbermarketTests extends TestBase {
     @Story("Навигация")
     @Test(
             description = "Тест перехода из Сбермаркета на страничку с помощью для клиента",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionHelpInfo(){
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -86,7 +87,7 @@ public class BasicSbermarketTests extends TestBase {
     @Story("Навигация")
     @Test(
             description = "Тест перехода из Сбермаркета на страничку с информацией о доставке",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionDeliveryInfo(){
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -96,7 +97,7 @@ public class BasicSbermarketTests extends TestBase {
     @Story("Навигация")
     @Test(
             description = "Тест перехода из Сбермаркета на страничку с Logo",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionLogo(){
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -111,7 +112,7 @@ public class BasicSbermarketTests extends TestBase {
     @Story("Валидация элементов")
     @Test(
             description = "Тест валидности элементов и ссылок в футере Сбермаркета",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     ) public void successValidateFooterSbermarket() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         baseChecks.checkPageIsAvailable();
@@ -168,7 +169,7 @@ public class BasicSbermarketTests extends TestBase {
     @Test(  dataProvider = "retailersSpree" ,
             dataProviderClass = RestDataProvider.class,
             description = "Тест доступности / недоступности витрин ритейлеров Сбермаркета ",
-            groups = {"sbermarket-Ui-smoke","MRAutoCheck"}
+            groups = {"sbermarket-Ui-smoke","MRAutoCheck","ui-smoke-production"}
     ) public void successCheckSbermarketRetailers(RetailerV2 retailer) {
         if (retailer.getAvailable()) baseChecks.checkRetailerIsAvailable(retailer.getSlug());
         else baseChecks.checkRetailerIsUnavailable(retailer.getSlug());
@@ -177,7 +178,7 @@ public class BasicSbermarketTests extends TestBase {
     @Story("Партнерские лендинги")
     @Test(
             description = "Тест доступности партнерских лендингов",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     ) public void successCheckPartnerLandingsAreAvailable() {
         baseChecks.checkPageIsAvailable(Pages.Landings.mnogoru());
         baseChecks.checkPageIsAvailable(Pages.Landings.aeroflot());
@@ -186,7 +187,7 @@ public class BasicSbermarketTests extends TestBase {
     @Story("Сервисные страницы")
     @Test(
             description = "Тест доступности сервисных страниц",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successServicePagesAreAvailable() {
         baseChecks.checkPageIsAvailable(Pages.ServicePages.giftCertificates());
@@ -197,7 +198,7 @@ public class BasicSbermarketTests extends TestBase {
     @Story("Статические страницы")
     @Test(
             description = "Тест доступности статических страниц",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     ) public void successCheckStaticPagesAreAvailabile() {
         //TODO разбить на тесты
         baseChecks.checkPageIsAvailable(Pages.Sbermarket.about());

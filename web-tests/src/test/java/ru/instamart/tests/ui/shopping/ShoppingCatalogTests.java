@@ -29,7 +29,7 @@ public class ShoppingCatalogTests extends TestBase {
     @CaseId(1595)
     @Test(
             description = "Тест работы cо шторкой каталога",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successValidateCatalogDrawer() {
         Shop.CatalogDrawer.open();
@@ -43,7 +43,7 @@ public class ShoppingCatalogTests extends TestBase {
     @CaseId(1596)
     @Test(
             description = "Тест открытия категории 1 уровня из шторки каталога",
-            groups = {"sbermarket-Ui-smoke","MRAutoCheck"}
+            groups = {"sbermarket-Ui-smoke","MRAutoCheck","ui-smoke-production"}
     )
     public void successGoToDepartmentFromCatalogDrawer() {
         Shop.CatalogDrawer.open();
@@ -56,7 +56,7 @@ public class ShoppingCatalogTests extends TestBase {
     @CaseId(1597)
     @Test(
             description = "Тест открытия категории 2 уровня из шторки каталога",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successGoToTaxonFromCatalogDrawer() {
         Shop.CatalogDrawer.open();
@@ -71,7 +71,7 @@ public class ShoppingCatalogTests extends TestBase {
     @CaseId(1598)
     @Test(
             description = "Тест открывания/закрывания карточки продукта на главной",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successOperateItemCardOnRetailerPage() {
         Shop.Catalog.Item.open();
@@ -83,7 +83,7 @@ public class ShoppingCatalogTests extends TestBase {
     @CaseId(1599)
     @Test(
             description = "Тест открывания/закрывания карточки продукта в department-категории",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successOperateItemCardOnDepartmentPage() {
         Shop.CatalogDrawer.open();
@@ -96,7 +96,7 @@ public class ShoppingCatalogTests extends TestBase {
     @CaseId(1600)
     @Test(
             description = "Тест открывания/закрывания карточки продукта в taxon-категории",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successOperateItemCardOnTaxonPage() {
         Shop.CatalogDrawer.open();
@@ -110,7 +110,7 @@ public class ShoppingCatalogTests extends TestBase {
     @CaseId(1601)
     @Test(
             description = "Тест открывания/закрывания карточки продукта в выдаче поиска",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successOperateItemCardOnSearchPage() {
         Shop.Search.searchField("хлеб");

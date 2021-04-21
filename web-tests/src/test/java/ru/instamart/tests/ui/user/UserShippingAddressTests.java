@@ -38,7 +38,7 @@ public class UserShippingAddressTests extends TestBase {
             description = "Тест на то что по дефолту на витрине ритейлера не выбран адрес",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-Ui-smoke","MRAutoCheck"
+                    "sbermarket-Ui-smoke","MRAutoCheck","ui-smoke-production"
             }
     )
     public void noShippingAddressByDefault() {
@@ -222,7 +222,7 @@ public class UserShippingAddressTests extends TestBase {
             description = "Тест на успешный выбор нового адреса в модалке феникса после ввода адреса," +
                     " по которому нет доставки текущего ритейлера",
             groups = {
-                    "metro-regression", "sbermarket-Ui-smoke",
+                    "metro-regression", "sbermarket-Ui-smoke","ui-smoke-production"
             }
     )
     public void successSetNewAddressAfterOutOfRetailerZoneAddressChange() {
@@ -246,7 +246,7 @@ public class UserShippingAddressTests extends TestBase {
     @Test(
             description = "Тест на успешный выбор нового адреса в модалке феникса, после ввода адреса вне зоны доставки",
             groups = {
-                    "metro-regression","sbermarket-Ui-smoke",
+                    "metro-regression","sbermarket-Ui-smoke","ui-smoke-production"
             }
     )
     public void successSetNewAddressAfterOutOfZoneAddressChange() {
