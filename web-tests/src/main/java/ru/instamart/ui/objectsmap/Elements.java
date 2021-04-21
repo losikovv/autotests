@@ -1555,6 +1555,11 @@ public class Elements {
             static ElementData snippetFavorite() {
                 return new ElementData(By.xpath("//*[contains(@class,'favorites__head')]//*[contains(@class,'favorites__image')]//img[contains(@alt,text())]"),
                         "сниппет любимого продукта");
+            }            
+            
+            static ElementData FirstSnippetFavorite() {
+                return new ElementData(By.xpath("(//div[@class='favorites-list']//a[contains(@class, 'favorites')])[1]"),
+                        "сниппет первого любимого продукта");
             }
 
             static ElementData firstProductOnSnippet(){
