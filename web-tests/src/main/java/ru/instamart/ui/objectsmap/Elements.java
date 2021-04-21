@@ -3101,7 +3101,7 @@ public class Elements {
             }
 
             static ElementData adminName() {
-                return new ElementData(By.xpath("//span[contains(@class,'user_menu__name')]"),
+                return new ElementData(By.xpath("//span[contains(@class,'user_menu')]"),
                         "Имя админа авторизованного в системе");
             }
 

@@ -41,7 +41,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {
-                    "metro-acceptance", "metro-regression","sbermarket-Ui-smoke"
+                    "metro-acceptance", "metro-regression","sbermarket-Ui-smoke","ui-smoke-production"
             }
     )
     public void noRegWithEmptyRequisites() {
@@ -179,7 +179,7 @@ public class UserRegistrationTests extends TestBase {
     @Issue("https://github.com/SeleniumHQ/selenium/issues/9360")
     @Test(
             description = "Тест успешной регистрации через Facebook",
-            groups = {"sbermarket-Ui-smoke"},
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"},
             enabled = false
     )
     public void successRegWithFacebook() {
@@ -193,7 +193,7 @@ public class UserRegistrationTests extends TestBase {
     @Issue("https://github.com/SeleniumHQ/selenium/issues/9360")
     @Test(
             description = "Тест успешной регистрации через ВКонтакте",
-            groups = {"sbermarket-Ui-smoke"},
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"},
             enabled = false
     )
     public void successRegWithVkontakte() {
@@ -207,7 +207,7 @@ public class UserRegistrationTests extends TestBase {
     @CaseId(1460)
     @Story("Регистрация через партнеров")
     @Test(  description = "Тест успешной регистрации через MailRu",
-            groups = {"sbermarket-Ui-smoke"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successRegWithMailRu() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -220,7 +220,7 @@ public class UserRegistrationTests extends TestBase {
 
     @Test(
             description = "Тест успешной регистрации через Sber ID",
-            groups = {"sbermarket-Ui-smoke"},
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"},
             enabled = false
     )
     public void successRegWithSberID() {

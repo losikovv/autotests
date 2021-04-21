@@ -126,7 +126,7 @@ tests:ApiInstamartProductionOnly:
     paths:
       - web-tests/build/allure-results/
       - web-tests/logs/
-    expire_in: 1 week    
+    expire_in: 1 week
 
 tests:ApiShopper:
   extends:
@@ -154,7 +154,7 @@ tests:ApiShopperProductionOnly:
     paths:
       - web-tests/build/allure-results/
       - web-tests/logs/
-    expire_in: 1 week      
+    expire_in: 1 week
 
 tests:ApiZonesProductionOnly:
   when: manual
@@ -248,6 +248,25 @@ tests:AdminUiSmoke:
   after_script:
     - cd web-tests
     - bash ./report.sh ui-admin-smoke
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/build/allure-results/
+      - web-tests/logs/
+    expire_in: 1 week
+
+tests:UiSmokeProduction:
+  extends: ".template_run_all_jobs_at_a_time_on_master"
+  stage: tests
+  resource_group: uismoke:$CI_COMMIT_REF_SLUG
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - gradle clean build uiSmokeProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - cd web-tests
+    - bash ./report.sh ui-smoke-production
   tags:
     - k8s-stage
   artifacts:
