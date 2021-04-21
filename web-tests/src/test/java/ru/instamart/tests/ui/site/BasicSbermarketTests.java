@@ -21,7 +21,7 @@ import ru.instamart.tests.ui.TestBase;
 public class BasicSbermarketTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
-    @BeforeClass(alwaysRun = true,
+    @BeforeMethod(alwaysRun = true,
             description ="Завершаем сессию, текущего пользователя")
     public void quickLogout() {
         User.Logout.quickly();
