@@ -1,6 +1,7 @@
 package ru.instamart.tests.ui.shopping;
 
 import ru.instamart.core.settings.Config;
+import ru.instamart.core.testdata.TestVariables;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.lib.Pages;
@@ -54,7 +55,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
         Shop.Cart.drop();
 
         // Для случаев когда первый товар на главной дороже минимального заказа
-        Shop.Search.existingItem();
+        Shop.Search.searchItem(TestVariables.TestParams.ItemSearch.testQuery);
         Shop.Catalog.Item.addToCart();
 
         Assert.assertTrue(

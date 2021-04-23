@@ -285,8 +285,8 @@ public final class DetectionHelper extends HelperBase {
     }
 
     /** Проверяем наличие категорийного саджеста */
-    public boolean isSearchCategorySuggestsPresent() {
-        return kraken.detect().isElementPresent(Elements.Header.Search.categorySuggest());
+    public boolean isSearchSuggestsPresent() {
+        return kraken.detect().isElementPresent(Elements.Header.Search.searchListResult());
     }
 
 
@@ -718,6 +718,17 @@ public final class DetectionHelper extends HelperBase {
             return true;
         } else {
             log.warn("Виджет Jivosite недоступен\n");
+            return false;
+        }
+    }
+
+    /** Определить содержит ли элемент необходимый текст*/
+    public boolean isTextElementContainsText(String text, ElementData element){
+        if(kraken.getWebDriver().findElement(element.getLocator()).getText().contains(text)){
+            log.info("> элемент содержит искомый текст");
+            return true;
+        }else {
+            log.info("> элемент не содержит искомый текст");
             return false;
         }
     }

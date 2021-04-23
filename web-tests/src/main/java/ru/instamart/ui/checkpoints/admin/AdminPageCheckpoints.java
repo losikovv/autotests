@@ -1,6 +1,7 @@
-package ru.instamart.ui.checkpoints.users;
+package ru.instamart.ui.checkpoints.admin;
 
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
+import ru.instamart.ui.checkpoints.users.AccountMenuCheckpoints;
 import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.slf4j.Logger;

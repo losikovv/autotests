@@ -1,4 +1,4 @@
-package ru.instamart.ui.checkpoints.users;
+package ru.instamart.ui.checkpoints.order;
 
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.common.pagesdata.ElementData;

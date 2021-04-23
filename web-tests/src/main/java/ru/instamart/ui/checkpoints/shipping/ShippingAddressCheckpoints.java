@@ -1,4 +1,4 @@
-package ru.instamart.ui.checkpoints.users;
+package ru.instamart.ui.checkpoints.shipping;
 
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import io.qameta.allure.Step;
@@ -22,6 +22,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
                 kraken.detect().isShippingAddressSet(),
                 failMessage("Адрес доставки не корректен: "+ action));
         softAssert.assertAll();
+        log.info("✓ Успешно");
     }
 
     @Step("Проверяем, что адрес доставки установлен:")
@@ -31,6 +32,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
                 kraken.detect().isShippingAddressSet(),
                 failMessage(errorMessage));
         softAssert.assertAll();
+        log.info("✓ Успешно");
     }
 
     @Step("Проверяем, что дефолтный список магазинов открыт")
@@ -39,6 +41,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
         Assert.assertTrue(
                 kraken.detect().isStoresDrawerOpen(),
                 "\n"+errorMessage+"\n");
+        log.info("✓ Успешно");
     }
 
     @Step("Проверяем, что дефолтный список магазинов закрыт")
@@ -47,6 +50,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
         Assert.assertFalse(
                 kraken.detect().isStoresDrawerOpen(),
                 "\n"+errorMessage+"\n");
+        log.info("✓ Успешно");
     }
 
     @Step("Проверяем, что дефолтный список магазинов не пустой")
@@ -55,6 +59,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
         Assert.assertFalse(
                 kraken.detect().isStoresDrawerEmpty(),
                 "\n>"+errorMessage+"\n");
+        log.info("✓ Успешно");
     }
 
     @Step("Проверяем, что дефолтный список магазинов пуст")
@@ -64,6 +69,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
                 kraken.detect().isStoresDrawerEmpty(),
                 "\n>"+errorMessage+"\n");
         softAssert.assertAll();
+        log.info("✓ Успешно");
     }
 
     @Step("Проверяем, что утановленный адрес: \"{0}\" \n совпадает с адресом, отображаемом на странице: \"{1}\"")
@@ -87,6 +93,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
             );
         }
         softAssert.assertAll();
+        log.info("✓ Успешно");
     }
 
     @Step("Проверяем, что утановленный адрес:\"{0}\" не изменился")
@@ -108,6 +115,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
             );
         }
         softAssert.assertAll();
+        log.info("✓ Успешно");
     }
 
     @Step("Проверяем, что модальное окно ввода адреса доставки открыто")
@@ -116,6 +124,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
         softAssert.assertTrue(kraken.detect().isAddressModalOpen(),
                 errorMessage);
         softAssert.assertAll();
+        log.info("✓ Успешно");
     }
 
     @Step("Проверяем, что модальное окно выбора альтернативного магазина открыто")
@@ -125,6 +134,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
                 kraken.detect().isChangeStoreModalOpen(),
                 errorMessage);
         softAssert.assertAll();
+        log.info("✓ Успешно");
     }
 
     @Step("Проверяем, что модальное окно выбора альтернативного магазина не открылось")
@@ -134,6 +144,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
                 kraken.detect().isChangeStoreModalOpen(),
                 errorMessage);
         softAssert.assertAll();
+        log.info("✓ Успешно");
     }
 
     @Step("Проверяем, что модальное окно Адрес вне зоны доставки появилось")
@@ -143,6 +154,7 @@ public class ShippingAddressCheckpoints extends BaseUICheckpoints {
                 kraken.detect().isAddressOutOfZone(),
                 errorMessage);
         softAssert.assertAll();
+        log.info("✓ Успешно");
     }
 
 }

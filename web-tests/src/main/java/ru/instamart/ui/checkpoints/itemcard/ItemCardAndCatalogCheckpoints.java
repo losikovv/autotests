@@ -1,4 +1,4 @@
-package ru.instamart.ui.checkpoints.users;
+package ru.instamart.ui.checkpoints.itemcard;
 
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import io.qameta.allure.Step;

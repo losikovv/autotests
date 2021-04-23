@@ -1,4 +1,4 @@
-package ru.instamart.ui.checkpoints.users;
+package ru.instamart.ui.checkpoints.admin;
 
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import org.slf4j.Logger;

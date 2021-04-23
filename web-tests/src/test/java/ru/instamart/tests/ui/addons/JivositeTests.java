@@ -1,6 +1,7 @@
 package ru.instamart.tests.ui.addons;
 
 import ru.instamart.core.settings.Config;
+import ru.instamart.core.testdata.TestVariables;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.modules.Shop;
@@ -61,7 +62,7 @@ public class JivositeTests extends TestBase {
     )
     public void successOperateJivositeWidgetInCatalog() {
         SoftAssert softAssert = new SoftAssert();
-        Shop.Search.existingItem();
+        Shop.Search.searchItem(TestVariables.TestParams.ItemSearch.testQuery);
 
         Assert.assertTrue(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite недоступен в каталоге\n");

@@ -9,7 +9,7 @@ import ru.instamart.core.testdata.TestVariables;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.testdata.ui.Generate;
 import ru.instamart.core.testdata.ui.PaymentTypes;
-import ru.instamart.ui.checkpoints.users.OrdersCheckpoints;
+import ru.instamart.ui.checkpoints.order.OrdersCheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.common.pagesdata.JuridicalData;

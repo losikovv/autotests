@@ -2,6 +2,7 @@ package ru.instamart.tests.ui.shopping;
 
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.settings.Config;
+import ru.instamart.core.testdata.TestVariables;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
@@ -52,7 +53,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
 
         if (kraken.detect().isCartEmpty()) {
             Shop.Cart.close();
-            Shop.Search.existingItem();
+            Shop.Search.searchItem(TestVariables.TestParams.ItemSearch.testQuery);
             Shop.Catalog.Item.addToCart();
         }
 
