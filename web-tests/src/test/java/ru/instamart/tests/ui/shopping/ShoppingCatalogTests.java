@@ -2,7 +2,7 @@ package ru.instamart.tests.ui.shopping;
 
 import ru.instamart.core.settings.Config;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
-import ru.instamart.ui.checkpoints.users.ItemCardAndCatalogCheckpoints;
+import ru.instamart.ui.checkpoints.itemcard.ItemCardAndCatalogCheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;

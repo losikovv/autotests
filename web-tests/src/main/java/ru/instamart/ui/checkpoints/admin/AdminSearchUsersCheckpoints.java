@@ -1,4 +1,4 @@
-package ru.instamart.ui.checkpoints.users;
+package ru.instamart.ui.checkpoints.admin;
 
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;

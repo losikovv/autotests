@@ -451,23 +451,28 @@ public class Elements {
                 }
 
                 static ElementData sendButton() {
-                    return new ElementData(By.xpath("//header//*[@data-qa='search']//button"),
+                    return new ElementData(By.xpath("//*[@data-qa='search']//button"),
                             "кнопка отправки поискового запроса в шапке сайта");
                 }
 
                 static ElementData categorySuggest() {
-                    return new ElementData(By.className("header-search-list-category"),
+                    return new ElementData(By.xpath("//*[@data-qa='taxon']"),
                             "категорийная поисковая подсказка");
                 }
 
                 static ElementData productSuggest() {
-                    return new ElementData(By.className("header-search-list-product"),
+                    return new ElementData(By.xpath("//*[@data-qa='offer']"),
                             "товарная поисковая подсказка");
                 }
 
                 static ElementData searchListResult() {
-                    return new ElementData(By.xpath("//*[@data-qa='offer']"),
+                    return new ElementData(By.xpath("//*[@data-qa='result-list']"),
                             "список с результатом поиска");
+                }
+
+                static ElementData taxonResult() {
+                    return new ElementData(By.xpath("//h1[contains(@class,'taxons-nav__title')]"),
+                            "страница с выбранной категорией");
                 }
             }
         }

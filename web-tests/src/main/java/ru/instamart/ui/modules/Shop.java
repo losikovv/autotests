@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static io.qameta.allure.Allure.step;
 
@@ -603,23 +604,14 @@ public final class Shop extends Base {
 
     /** Поиск товаров */
     public static class Search {
-        @Step("Ищем несуществующий товар")
-        public static void nonExistingItem() {
-            searchItem(TestVariables.TestParams.ItemSearch.emptyResultsQuery);
-        }
 
-        // TODO придумать решение для nonfood-магазинов - поиск заведомо существующего товара
-        @Step("Ищем существующий товар")
-        public static void existingItem() {
-            searchItem(TestVariables.TestParams.ItemSearch.testQuery);
-        }
         @Step("Ищем товары по запросу: {0}")
         public static void searchItem(String query) {
             log.info("> поиск товаров по запросу '{}'...", query);
-            searchField(query);
+            kraken.perform().fillField(Elements.Header.Search.inputField(), query);
             log.info("> нажимаем кнопку поиска");
             kraken.perform().click((Elements.Header.Search.sendButton()));
-            //TODO fluent Ожидание загрузки результатов поиска
+            kraken.getWebDriver().manage().timeouts().pageLoadTimeout(Config.BASIC_TIMEOUT, TimeUnit.SECONDS);
         }
 
         @Step("Заполняем поле поиска: {0}")
@@ -630,6 +622,18 @@ public final class Shop extends Base {
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Header.Search.searchListResult().getLocator()),
                     "не подтянулись поисковые подсказки", 15);
             actions.sendKeys(Keys.ENTER).perform();
+        }
+
+        @Step("Заполняем поле поиска: {0}")
+        public static void searchField(String query,Boolean submit) {
+            log.info("> заполняем поле поиска: {}", query);
+            kraken.perform().fillField(Elements.Header.Search.inputField(), query);
+            if(submit){
+                Actions actions = new Actions(kraken.getWebDriver());
+                kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Header.Search.searchListResult().getLocator()),
+                        "не подтянулись поисковые подсказки", 15);
+                actions.sendKeys(Keys.ENTER).perform();
+            }
         }
 
         @Step("Нажимаем категорийную подсказку в поиске")

@@ -4,7 +4,7 @@ import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.testdata.ui.Generate;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
-import ru.instamart.ui.checkpoints.users.FavoriteItemsCheckpoints;
+import ru.instamart.ui.checkpoints.favorite.FavoriteItemsCheckpoints;
 import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;

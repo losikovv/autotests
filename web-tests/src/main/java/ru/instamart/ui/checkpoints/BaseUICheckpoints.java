@@ -393,4 +393,12 @@ public class BaseUICheckpoints {
                         + "\n> " + element.getLocator()));
         log.info("✓ Успешно: {}", element.getDescription());
     }
+
+    @Step("Проверяем, что открылась карточка товара")
+    public void checkIsItemCardOpen(String errorMessage){
+        log.info("> проверяем, что открылась карточка товара");
+        Assert.assertTrue(kraken.detect().isItemCardOpen(),
+                errorMessage);
+        log.info("✓ Успешно");
+    }
 }

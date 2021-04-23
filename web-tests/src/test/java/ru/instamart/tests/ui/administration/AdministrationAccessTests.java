@@ -2,7 +2,7 @@ package ru.instamart.tests.ui.administration;
 
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
-import ru.instamart.ui.checkpoints.users.AdminPageCheckpoints;
+import ru.instamart.ui.checkpoints.admin.AdminPageCheckpoints;
 import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.modules.User;
 import io.qameta.allure.Epic;

@@ -1,6 +1,7 @@
 package ru.instamart.tests.ui.addons.RetailRocket;
 
 import ru.instamart.core.settings.Config;
+import ru.instamart.core.testdata.TestVariables;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.lib.Widgets;
 import ru.instamart.ui.modules.Shop;
@@ -30,7 +31,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successCheckSimilarItemsWidget() {
-        Shop.Search.nonExistingItem();
+        Shop.Search.searchItem(TestVariables.TestParams.ItemSearch.emptyResultsQuery);
 
         Assert.assertTrue(
                 kraken.detect().isWidgetPresent(Widgets.RetailRocket.Search.SimilarItems()),
@@ -65,7 +66,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successOpenItemCardFromSimilarItemsWidget() {
-        Shop.Search.nonExistingItem();
+        Shop.Search.searchItem(TestVariables.TestParams.ItemSearch.emptyResultsQuery);
 
         Shop.Catalog.Item.open(Widgets.RetailRocket.Search.SimilarItems());
 
@@ -116,7 +117,7 @@ public class RetailRocketSearchWidgetsTests extends TestBase {
             dependsOnMethods = "successCheckSimilarItemsWidget"
     )
     public void successAddItemFromSimilarItemsWidget() {
-        Shop.Search.nonExistingItem();
+        Shop.Search.searchItem(TestVariables.TestParams.ItemSearch.emptyResultsQuery);
 
         Shop.Catalog.Item.addToCart(Widgets.RetailRocket.Search.SimilarItems());
 
