@@ -114,7 +114,7 @@ public final class PerformHelper extends HelperBase {
             log.error("> пустое значение для элемента: {}", element);
             Assert.assertNotNull("Пустое значение для заполнения поля", text);
         }
-        final WebElement webElement = kraken.await().shouldBeClickable(element, 5);
+        final WebElement webElement = kraken.await().shouldBeClickable(element, Config.BASIC_TIMEOUT);
         webElement.click();
         webElement.clear();
         if(!text.equals("")){
@@ -122,6 +122,7 @@ public final class PerformHelper extends HelperBase {
                 webElement.sendKeys(text.charAt(i) + "");
             }
         }else {
+            kraken.await().simply(1.5);
             if(webElement.getAttribute("value").length()>0){
                 cleanField(webElement);
                 //Эти костыли здесь, тк в селениум есть бага использования sendKeys и очистки поля
@@ -216,67 +217,6 @@ public final class PerformHelper extends HelperBase {
     /** Обновить страницу */
     public void refresh() {
         kraken.getWebDriver().navigate().refresh();
-    }
-
-
-    // ======= Работа с заказами =======
-
-    /** Оформить тестовый заказ */
-    public void order() {
-        if (!kraken.detect().isShippingAddressSet()) {
-            User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
-        }
-        Shop.Cart.collect();
-        Shop.Cart.proceedToCheckout();
-        kraken.checkout().complete();
-    }
-
-    /** Повторить крайний заказ с экрана истории заказов */
-    public void repeatLastOrder() {
-        log.info("Повторяем крайний заказ");
-        kraken.get().page(Pages.UserProfile.shipments());
-        if (kraken.detect().isOrdersHistoryEmpty()) {
-            throw new AssertionError("Невозможно повторить заказ, у пользователя нет заказов в истории\n");
-        } else {
-            click(Elements.UserProfile.OrdersHistoryPage.order.repeatButton());
-            kraken.await().fluently(
-                    ExpectedConditions.visibilityOfElementLocated(Elements.Cart.drawer().getLocator()),
-                        "Не добавились товары в корзину при повторе заказа\n");
-        }
-    }
-
-    /** Повторить заказ с экрана деталей заказа */
-    public void repeatOrder() {
-        log.info("Повторяем заказ");
-        click(Elements.UserProfile.OrderDetailsPage.OrderSummary.repeatOrderButton());
-        WaitingHelper.simply(1); // Ожидание анимации открытия модалки повтора заказа
-        click(Elements.UserProfile.OrderDetailsPage.RepeatOrderModal.yesButton());
-        kraken.await().fluently(
-                ExpectedConditions.visibilityOfElementLocated(Elements.Cart.drawer().getLocator()),
-                    "Не добавились товары в корзину при повторе заказа\n");
-    }
-
-    /** Отменить крайний активный заказ */
-    public void cancelLastActiveOrder() {
-        log.info("> отменяем крайний активный заказ...");
-        kraken.get().page(Pages.UserProfile.shipments());
-        click(Elements.UserProfile.OrdersHistoryPage.activeOrdersFilterButton());
-        if(!kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder())) {
-            click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
-            cancelOrder();
-        } else log.warn("> Заказ не активен");
-    }
-
-    /** Отменить заказ на странице деталей заказа */
-    public void cancelOrder() {
-            click(Elements.UserProfile.OrderDetailsPage.OrderSummary.cancelOrderButton());
-            WaitingHelper.simply(1); // Ожидание анимации открытия модалки отмены заказа
-            click(Elements.UserProfile.OrderDetailsPage.CancelOrderModal.yesButton());
-            kraken.await().fluently(
-                    ExpectedConditions.presenceOfElementLocated(Elements.UserProfile.OrderDetailsPage.CancelOrderModal.popup().getLocator()),
-                    "Не отменился заказ за допустимое время ожидания\n"
-            );
-            log.info("✓ Заказ отменен");
     }
 
     /** Поиск чаилда с помощью тега и текста*/

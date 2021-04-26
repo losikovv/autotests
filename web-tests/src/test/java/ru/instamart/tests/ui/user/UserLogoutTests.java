@@ -12,6 +12,7 @@ import ru.instamart.ui.modules.User;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 
 public class UserLogoutTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
@@ -65,7 +66,9 @@ public class UserLogoutTests extends TestBase {
     ) public void noShipAddressAndEmptyCartAfterLogout() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         User.Do.loginAs(UserManager.getDefaultAdmin());
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
         kraken.get().page(Config.DEFAULT_RETAILER);
         kraken.await().simply(2);
         Shop.Catalog.Item.addToCart();

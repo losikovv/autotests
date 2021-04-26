@@ -6,6 +6,7 @@ import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -69,7 +70,9 @@ public class SeoCatalogTests extends TestBase {
                 kraken.detect().isAddressModalOpen(),
                     "Не открывается адресная модалка после добавления товара на странице SEO-каталога");
 
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
         Shop.ItemCard.close();
 
         softAssert.assertTrue(
@@ -115,7 +118,9 @@ public class SeoCatalogTests extends TestBase {
         Shop.ItemCard.addToCart();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
         User.Do.registration();
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
 
         softAssert.assertTrue(
                 kraken.detect().isUserAuthorised(),

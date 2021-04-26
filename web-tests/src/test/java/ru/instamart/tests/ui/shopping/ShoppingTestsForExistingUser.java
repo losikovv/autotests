@@ -15,6 +15,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 
 public class ShoppingTestsForExistingUser extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
@@ -73,7 +74,9 @@ public class ShoppingTestsForExistingUser extends TestBase {
             }
     ) public void successCollectItemsForMinOrder() {
         SoftAssert softAssert = new SoftAssert();
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
 
         Shop.Cart.collect();
 
@@ -106,13 +109,17 @@ public class ShoppingTestsForExistingUser extends TestBase {
         User.Logout.quickly();
         kraken.get().baseUrl();
         User.Do.registration(testuser);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
         kraken.perform().refresh();
         Shop.Catalog.Item.addToCart();
         User.Logout.quickly();
 
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.ShippingAddress.set(Addresses.Moscow.testAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
         User.Auth.withEmail(testuser);
 
         softAssert.assertTrue(

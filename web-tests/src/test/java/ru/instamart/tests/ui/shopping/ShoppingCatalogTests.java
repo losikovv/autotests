@@ -6,6 +6,7 @@ import ru.instamart.ui.checkpoints.itemcard.ItemCardAndCatalogCheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
@@ -20,10 +21,10 @@ public class ShoppingCatalogTests extends TestBase {
     public void setup() {
         User.Logout.quickly();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        Shop.ShippingAddressModal.open();
-        Shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
-        Shop.ShippingAddressModal.selectAddressSuggest();
-        Shop.ShippingAddressModal.submit();
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.selectAddressSuggest();
+        ShippingAddressModal.submit();
     }
 
     @CaseId(1595)

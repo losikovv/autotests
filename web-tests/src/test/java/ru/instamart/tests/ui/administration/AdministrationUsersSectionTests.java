@@ -10,6 +10,7 @@ import ru.instamart.ui.common.pagesdata.UserData;
 import ru.instamart.ui.modules.Administration;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.shop.Order;
 import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -146,7 +147,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
         kraken.get().baseUrl();
         User.Auth.withEmail(testuser);
-        kraken.perform().order();
+        Order.order();
         String number = kraken.grab().shipmentNumber();
 
         Administration.Users.editUser(testuser);

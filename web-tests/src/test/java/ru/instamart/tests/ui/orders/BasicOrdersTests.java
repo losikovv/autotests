@@ -17,6 +17,8 @@ import ru.instamart.ui.common.pagesdata.PaymentCardData;
 import ru.instamart.ui.common.pagesdata.PaymentTypeData;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.shop.Order;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -55,10 +57,10 @@ public class BasicOrdersTests extends TestBase {
             User.Do.sendSms(Config.DEFAULT_SMS);
         });
         step("Выбор адреса доставки", ()-> {
-            Shop.ShippingAddressModal.open();
-            Shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
-            Shop.ShippingAddressModal.selectAddressSuggest();
-            Shop.ShippingAddressModal.submit();
+            ShippingAddressModal.open();
+            ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+            ShippingAddressModal.selectAddressSuggest();
+            ShippingAddressModal.submit();
         });
     }
     //TODO удалить шаг скрина падения теста после доработки afterMethod в TestBase
@@ -69,7 +71,7 @@ public class BasicOrdersTests extends TestBase {
             if (!result.isSuccess()) HelperBase.takeScreenshot();
         });
         step("Очистка окружения после теста ", ()->{
-            kraken.perform().cancelLastActiveOrder();
+            Order.cancelLastActiveOrder();
             User.Logout.quickly();
             kraken.perform().deleteAllCookies();
         });
@@ -94,7 +96,7 @@ public class BasicOrdersTests extends TestBase {
                 failMessage("Не удалось оформить заказ с добавлением нового юр. лица"));
 
         String number = kraken.grab().shipmentNumber();
-        kraken.perform().cancelOrder();
+        Order.cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(number));
 
         Assert.assertEquals(kraken.grab().value(Elements.Administration.ShipmentsSection.OrderDetailsPage.Requisites.innField()), company.getInn(),
@@ -117,7 +119,7 @@ public class BasicOrdersTests extends TestBase {
                 "Не удалось оформить заказ с с изменением юр. лица\n");
 
         String number = kraken.grab().shipmentNumber();
-        kraken.perform().cancelOrder();
+        Order.cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.requisites(number));
 
         Assert.assertEquals(kraken.grab().value(Elements.Administration.ShipmentsSection.OrderDetailsPage.Requisites.innField()), newCompany.getInn(),

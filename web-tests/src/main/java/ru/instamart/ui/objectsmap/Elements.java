@@ -828,7 +828,7 @@ public class Elements {
     interface AddressModal {
 
         static ElementData popup() {
-            return new ElementData(By.xpath("//*[@data-qa='address-edit']"),
+            return new ElementData(By.xpath("//*[@data-qa='address-modal']"),
                     "поп-ап адресной модалки");
         }
 
@@ -853,8 +853,8 @@ public class Elements {
         }
 
         static ElementData adressImageOnMap(){
-            return new ElementData(By.xpath("//*[contains(@class,'notice')]"),
-                    "иголка адреса на карте");
+            return new ElementData(By.xpath("//*[@title='Определить ваше местоположение']"),
+                    "найти меня на карте");
         }
         static ElementData modalMapWithText(){
             return new ElementData(By.xpath("//*[contains(@class,'map')]//*[contains(@class,'float-button-icon')]"),

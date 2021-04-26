@@ -7,6 +7,7 @@ import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.common.pagesdata.UserData;
 import ru.instamart.ui.modules.Administration;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.shop.Order;
 import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -144,7 +145,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
         kraken.reach().checkout();
         kraken.checkout().complete();
         //final String shipment = kraken.grab().currentOrderNumber();
-        kraken.perform().cancelOrder();
+        Order.cancelOrder();
 
         //kraken.get().adminOrderDetailsPage(shipment);
         softAssert.assertTrue(
@@ -179,7 +180,7 @@ public class AdministrationShipmentsSectionTests extends TestBase {
         User.Logout.quickly();
 
         User.Auth.withEmail(testuser);
-        kraken.perform().order();
+        Order.order();
         String number = kraken.grab().shipmentNumber();
 
         Administration.Orders.searchOrder(number,true);

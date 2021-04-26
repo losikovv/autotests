@@ -9,6 +9,8 @@ import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.modules.Checkout;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.shop.Order;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -22,7 +24,9 @@ public class OrdersRetailerCardsTests extends TestBase {
     public void setup() {
         kraken.get().baseUrl();
         User.Do.loginAs(UserManager.getDefaultAdmin());
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
         Shop.Cart.drop();
     }
 
@@ -38,7 +42,7 @@ public class OrdersRetailerCardsTests extends TestBase {
         kraken.checkout().complete();
 
         String number = kraken.grab().shipmentNumber();
-        kraken.perform().cancelOrder();
+        Order.cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
         assertTrue(
@@ -51,7 +55,9 @@ public class OrdersRetailerCardsTests extends TestBase {
     )
     public void successOrderWithVkusvillRetailerCard() {
         kraken.get().page(Pages.Retailers.vkusvill());
-        User.ShippingAddress.set(RestAddresses.Moscow.Vkusvill.michurinsky(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(RestAddresses.Moscow.Vkusvill.michurinsky());
+        ShippingAddressModal.submit();
         kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
 
@@ -59,7 +65,7 @@ public class OrdersRetailerCardsTests extends TestBase {
         kraken.checkout().complete();
 
         String number = kraken.grab().shipmentNumber();
-        kraken.perform().cancelOrder();
+        Order.cancelOrder();
         kraken.reach().admin(Pages.Admin.Order.details(number));
 
         assertTrue(
