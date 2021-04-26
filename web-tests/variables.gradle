@@ -21,4 +21,7 @@ tasks.withType(Test) {
     if (project.hasProperty('proxy_port')) {
         systemProperty 'proxy_port',"${proxy_port}"
     }
+    if (project.hasProperty('proxy_timeout')) {
+        systemProperty 'proxy_timeout',"${proxy_timeout}"
+    }
 }

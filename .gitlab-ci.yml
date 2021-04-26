@@ -75,7 +75,10 @@ CustomSuiteTestRun:
     - echo $TEST_SET
     - echo $QASE
     - echo $BROWSER
-    - gradle clean $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE -Pkey=$ATST_APP_SECRET_KEY
+    - echo $PROXY_IP
+    - echo $PROXY_PORT
+    - echo $PROXY_TIMEOUT
+    - gradle clean build $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE -Pproxy_ip=$PROXY_IP -Pproxy_port=$PROXY_PORT -Pproxy_timeout=$PROXY_TIMEOUT -Pkey=$ATST_APP_SECRET_KEY
     - wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.9.0/allure-commandline-2.9.0.tgz
     - tar -xvpf allure-commandline-2.9.0.tgz
     - ./allure-2.9.0/bin/allure generate --clean -o allure-reports build/allure-results

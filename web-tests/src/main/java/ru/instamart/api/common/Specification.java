@@ -47,8 +47,9 @@ public enum Specification {
 
         final String proxyIp = System.getProperty("proxy_ip");
         final int proxyPort = Integer.parseInt(System.getProperty("proxy_port", "443"));
+        final int proxyTimeout = Integer.parseInt(System.getProperty("proxy_timeout", "5000"));
 
-        if (proxyIp != null && addressReachable(proxyIp, proxyPort, 5000)) {
+        if (proxyIp != null && addressReachable(proxyIp, proxyPort, proxyTimeout)) {
             log.info("Setup proxy with url {}:{}", proxyIp, proxyPort);
             proxy = host(proxyIp).withPort(proxyPort);
         }
