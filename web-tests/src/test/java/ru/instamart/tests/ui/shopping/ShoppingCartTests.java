@@ -6,6 +6,8 @@ import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.shop.Order;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -20,7 +22,9 @@ public class ShoppingCartTests extends TestBase {
     public void setup() {
         User.Logout.quickly();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
     }
 
     @Test(
@@ -218,14 +222,16 @@ public class ShoppingCartTests extends TestBase {
         User.Logout.quickly();
 
         User.Do.registration();
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
         Shop.Search.searchItem("молоко");
         Shop.Catalog.Item.addToCart();
         int sum1 = kraken.grab().minOrderSum();
 
         softAssert.assertNotEquals(sum1, 0, "Не отображается сумма минимального первого заказа\n");
 
-        kraken.perform().order();
+        Order.order();
         Shop.Search.searchItem("молоко");
         Shop.Catalog.Item.addToCart();
         int sum2 = kraken.grab().minOrderSum();
@@ -238,7 +244,7 @@ public class ShoppingCartTests extends TestBase {
                 sum1 < sum2,
                     "Сумма минимального заказа не изменилась после первого заказа\n");
 
-        kraken.perform().cancelLastActiveOrder();
+        Order.cancelLastActiveOrder();
         softAssert.assertAll();
     }
 }

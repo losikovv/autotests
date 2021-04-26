@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 
 public class RetailRocketCartWidgetsTests extends TestBase {
 
@@ -17,7 +18,9 @@ public class RetailRocketCartWidgetsTests extends TestBase {
     public void setup() {
         User.Logout.quickly();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
     }
 
     @BeforeMethod(alwaysRun = true,

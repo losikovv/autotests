@@ -9,6 +9,7 @@ import ru.instamart.ui.common.pagesdata.ElementData;
 import ru.instamart.ui.common.pagesdata.WidgetData;
 import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -209,154 +210,13 @@ public final class Shop extends Base {
         }
     }
 
-    /** Адрес доставки */
-    public static class ShippingAddressModal {
-
-        /** Открыть модалку ввода адреса */
-        @Step("Открываем модалку ввода адреса доставки")
-        public static void open() {
-            log.info("> открываем модалку ввода адреса доставки");
-//            catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),1);
-            kraken.perform().click(Elements.Header.shipAddressButton());
-            kraken.await().fluently(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            Elements.Modals.AddressModal.popup().getLocator()),
-                    "Не открылась модалка ввода адреса доставки\n",Config.BASIC_TIMEOUT);
-            log.info("> модака открыта");
-        }
-
-        /** Очистить поле в адресной модалке */
-        @Step("Очищаем поле в адресной модалке")
-        public static void clearAddressField() {
-            kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), "");
-        }
-
-        /** Ввести адрес в адресной модалке */
-        @Step("Вводим адрес в адресной модалке: {0}")
-        public static void fill(String address) {
-            log.info("> водим адрес в адресной модалке: {}",address);
-            kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), address);
-            kraken.await().fluently(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            Elements.Modals.AddressModal.addressSuggest().getLocator()),
-                    "Не подтянулись адресные подсказки\n",Config.BASIC_TIMEOUT);
-        }
-
-        /** Выбрать первый адресный саджест */
-        @Step("Выбираем первый предложенный адрес")
-        public static void selectAddressSuggest() {
-            log.info("> выбираем первый предложенный адрес");
-            kraken.await().fluently(
-                    ExpectedConditions.invisibilityOfElementLocated(Elements.spinner().getLocator()),
-                    "элемент спинер не исчез, выбор саджестов невозможен",5);
-            kraken.perform().click(Elements.Modals.AddressModal.addressSuggest());
-            kraken.await().fluently(
-                    ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AddressModal.addressSuggest().getLocator()),
-                    "саджесты не выбраны и все еще отображаются",Config.BASIC_TIMEOUT);
-        }
-
-        /** Применить введенный адрес в адресной модалке */
-        @Step("Применяем введенный адрес в адресной модалке")
-        public static void submit() throws AssertionError {
-            log.info("> применяем введенный адрес в адресной модалке");
-            kraken.perform().click(Elements.Modals.AddressModal.submitButton());
-            kraken.await().fluently(
-                    ExpectedConditions.invisibilityOfElementLocated(
-                            Elements.Modals.AddressModal.popup().getLocator()),
-                    "Превышено время ожидания применения адреса доставки",5);
-        }
-
-
-        @Step("Нажимаем кнопку изменить адрес доставки")
-        public static void selectNewAdress() {
-            log.info("> выбираем другой адрес доставки");
-            kraken.perform().click(Elements.Modals.AddressModal.pickNewAddressButton());
-            kraken.await().fluently(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            Elements.Modals.AddressModal.popup().getLocator()),
-                    "Не открылась модалка ввода адреса доставки\n",Config.BASIC_TIMEOUT);
-            log.info("> очищаем адресную строку");
-            kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), "");
-        }
-
-        @Step("Нажимаем кнопку изменить адрес доставки у выбранного ретейлера")
-        public static void selectNewAdressRetailer() {
-            log.info("> выбираем другой адрес доставки у выбранного ретейлера");
-            kraken.perform().click(Elements.Modals.AddressModal.pickNewAddressReteilerButton());
-            kraken.await().fluently(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            Elements.Modals.AddressModal.popup().getLocator()),
-                    "Не открылась модалка ввода адреса доставки\n",Config.BASIC_TIMEOUT);
-            log.info("> очищаем адресную строку");
-            kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), "");
-        }
-
-        /** Ищем доступные магазины по введенному адресу */
-        @Step("Ищем доступные магазины по введенному адресу")
-        public static void findShops() throws AssertionError {
-            log.info("> ищем доступные магазины по введенному адресу");
-            kraken.perform().click(Elements.Modals.AddressModal.findShopButton());
-            kraken.await().fluently(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            Elements.StoreSelector.drawer().getLocator()),
-                    "Превышено время ожидания применения адреса доставки\n" +
-                            " или по выбранному адресу отсутсвует возможность доставки");
-            if (kraken.detect().isStoresDrawerOpen()) {
-                log.info("> по указанному адресу присутсвует несколько магазинов выбираем первый");
-                kraken.perform().click(Elements.StoreSelector.storeCard(1));
-            } else if(kraken.detect().isStoresErrorPresented()){
-                log.info("> по указанному адресу отсутвуют возможные магазины для доставки");
-                throw new ElementNotSelectableException("по указанному адресу отсутвуют возможные магазины для доставки");
-            }
-        }
-
-        /** Выбрать первый в списке предыдущий адрес в адресной модалке */
-        @Step("Выбираем первый в списке предыдущий адрес в адресной модалке")
-        public static void chooseRecentAddress() {
-            log.info("> выбираем первый в списке предыдущий адрес в адресной модалке");
-            kraken.perform().click(Elements.Modals.AddressModal.recentAddress());
-//            kraken.await().implicitly(1); // Ожидание применения предыдущего адреса
-        }
-
-        /** Закрыть модалку адреса */
-        @Step("Закрываем модалку адреса")
-        public static void close() {
-            log.info("> закрываем модалку адреса");
-            if (kraken.detect().isAddressModalOpen()) {
-                kraken.perform().click(Elements.Modals.AddressModal.closeButton());
-//                kraken.await().implicitly(1); // Ожидание анимации закрытия адресной модалки
-            } else {
-                log.info("> пропускаем закрытие модалки адреса, она уже закрыта");
-            }
-        }
-
-        @Step("Открываем модалку авторизации из адресной модалки феникса")
-        public static void openAuthModal() {
-            log.info("> открываем модалку авторизации из адресной модалки феникса");
-            kraken.await().fluently(
-                    ExpectedConditions.elementToBeClickable(Elements.Modals.AddressModal.authButton().getLocator()),
-                    "не отображается кнопка входа",2);
-            kraken.perform().click(Elements.Modals.AddressModal.authButton());
-            try {
-                kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()),
-                        "форма авторизации не открывается", Config.BASIC_TIMEOUT);
-                log.info("> модалка авторизации открыта");
-                return;
-            }catch (Exception ex){
-                kraken.perform().click(Elements.Modals.AddressModal.authButton());
-            }
-            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()),
-                    "форма авторизации не открывается", Config.BASIC_TIMEOUT);
-            log.info("> модалка авторизации открыта");
-        }
-    }
-
     /** Модалка выбора магазина */
     public static class StoresModal {
 
         /** Выбрать первый доступный магазин */
         @Step("Выбираем первый доступный магазин")
         public static void selectFirstStore() {
+            log.info("> выбираем первый доступный магазин");
             if(kraken.detect().isStoresModalOpen()) {
                 kraken.perform().click(Elements.Modals.StoresModal.firstStoreAvailable());
                 kraken.await().fluently(
@@ -375,6 +235,7 @@ public final class Shop extends Base {
         /** Выбрать первый доступный магазин */
         @Step("Выбираем первый доступный магазин")
         public static void selectFirstStore() {
+            log.info("> выбираем первый доступный магазин");
             if(!kraken.detect().isStoresDrawerOpen()) {
                 open();
             }
@@ -384,18 +245,20 @@ public final class Shop extends Base {
         /** Открыть шторку выбора магазина */
         @Step("Открываем шторку выбора магазина")
         public static void open() {
+            log.info("> открываем шторку выбора магазина");
             kraken.perform().click(Elements.Header.storeButton());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
-                    Elements.StoreSelector.placeholder().getLocator()),"не закрывается шторка магазина",
+                    Elements.StoreSelector.drawer().getLocator()),"не открывается шторка выбора магазинов",
                     Config.BASIC_TIMEOUT);
         }
 
         /** Закрыть шторку выбора магазина */
         @Step("Закрываем шторку выбора магазина")
         public static void close() {
+            log.info("> закрываем шторку выбора магазина");
             kraken.perform().click(Elements.StoreSelector.closeButton());
             kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
-                    Elements.StoreSelector.closeButton().getLocator()),"не закрывается шторка магазина",
+                    Elements.StoreSelector.drawer().getLocator()),"не закрывается выбора магазинов",
                     Config.BASIC_TIMEOUT);
         }
     }
@@ -905,8 +768,8 @@ public final class Shop extends Base {
         @Step("Набираем корзину на указанную сумму: {0}")
         public static void collect(int orderSum) {
             if (!kraken.detect().isShippingAddressSet()) {
-                Shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
-                Shop.ShippingAddressModal.selectAddressSuggest();
+                ru.instamart.ui.modules.shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+                ru.instamart.ui.modules.shop.ShippingAddressModal.selectAddressSuggest();
             }
             log.info("> проверяем  корзину. Минимальная сумма для заказа {}...", orderSum);
             int cartTotal = kraken.grab().cartTotalRounded();

@@ -13,6 +13,7 @@ import ru.instamart.ui.modules.User;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
+import ru.instamart.ui.modules.shop.Order;
 
 public class PlaygroundTests extends TestBase {
 
@@ -37,20 +38,20 @@ public class PlaygroundTests extends TestBase {
     @Test
     public void regUserAndSetAddress() {
         User.Do.registration();
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+//        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
     }
 
     @Test
     public void regUserAndPrepareForCheckout() {
         User.Do.registration();
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+//        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         Shop.Cart.collectFirstTime();
     }
 
     @Test
     public void regUserAndPrepareForOrder() {
         User.Do.registration();
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+//        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         kraken.reach().checkout();
         kraken.checkout().fillOrderDetails(TestVariables.testOrderDetails());
     }
@@ -58,7 +59,7 @@ public class PlaygroundTests extends TestBase {
     @Test
     public void regUserAndMakeOrder() {
         User.Do.registration();
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+//        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         kraken.reach().checkout();
         kraken.checkout().complete();
     }
@@ -82,7 +83,7 @@ public class PlaygroundTests extends TestBase {
 
         User.Do.loginAs(UserManager.getDefaultUser());
         kraken.get().page(Pages.Retailers.metro());
-        User.ShippingAddress.set(Addresses.Moscow.testAddress(),true);
+//        User.ShippingAddress.set(Addresses.Moscow.testAddress(),true);
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
 
@@ -128,7 +129,7 @@ public class PlaygroundTests extends TestBase {
     @Test
     public void testMultikraken() {
         User.Do.loginAs(UserManager.getDefaultAdmin());
-        kraken.perform().order();
+        Order.order();
         //kraken.perform().loginAs(session.user);
         //kraken.perform().order();
     }

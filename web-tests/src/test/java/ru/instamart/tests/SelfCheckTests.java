@@ -8,6 +8,7 @@ import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -172,7 +173,9 @@ public class SelfCheckTests extends TestBase {
         User.Logout.quickly();
 
         //landing
-        User.ShippingAddress.set(Addresses.Moscow.testAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.testAddress());
+        ShippingAddressModal.submit();
 
         softAssert.assertTrue(kraken.detect().isStoresDrawerOpen(),
                 "\nНе открывается дефолтный селектор магазинов на лендинге");
@@ -210,7 +213,7 @@ public class SelfCheckTests extends TestBase {
         User.Logout.quickly();
 
         //landing
-        User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress(),true);
+//        User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress(),true);
 
         softAssert.assertTrue(kraken.detect().isStoresDrawerOpen(),
                 "\nНе открывается пустой селектор магазинов на лендинге");
@@ -286,10 +289,10 @@ public class SelfCheckTests extends TestBase {
 
         kraken.get().page(Config.DEFAULT_RETAILER);
 
-        Shop.ShippingAddressModal.open();
+        ShippingAddressModal.open();
         Assert.assertTrue(kraken.detect().isAddressModalOpen());
 
-        Shop.ShippingAddressModal.close();
+        ShippingAddressModal.close();
         Assert.assertFalse(kraken.detect().isAddressModalOpen());
     }
 
@@ -299,7 +302,9 @@ public class SelfCheckTests extends TestBase {
     public void detectCartTotal() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         if (!kraken.detect().isShippingAddressSet()) {
-            User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+            ShippingAddressModal.open();
+            ShippingAddressModal.fill(Addresses.Moscow.testAddress());
+            ShippingAddressModal.submit();
         }
         Shop.Cart.drop();
 
@@ -327,11 +332,13 @@ public class SelfCheckTests extends TestBase {
     public void detectAddressOutOfZone() {
 
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress(),true);
+//        User.ShippingAddress.set(Addresses.Moscow.outOfZoneAddress(),true);
         Assert.assertTrue(kraken.detect().isAddressOutOfZone());
 
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.testAddress());
+        ShippingAddressModal.submit();
         Assert.assertFalse(kraken.detect().isAddressOutOfZone());
     }
 

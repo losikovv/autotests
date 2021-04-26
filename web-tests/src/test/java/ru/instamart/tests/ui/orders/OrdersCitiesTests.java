@@ -8,6 +8,8 @@ import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import ru.instamart.tests.ui.TestBase;
+import ru.instamart.ui.modules.shop.Order;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 
 public class OrdersCitiesTests extends TestBase {
 
@@ -26,13 +28,15 @@ public class OrdersCitiesTests extends TestBase {
     @AfterMethod(alwaysRun = true,
             description ="Очищаем окружение после теста")
     public void afterTest(ITestResult result){
-        kraken.perform().cancelOrder();
+        Order.cancelOrder();
     }
 
     @AfterClass(alwaysRun = true,
             description = "Меняем дефолтный адрес доставки на Москву")
     public void resetDefaultAddress() {
-        User.ShippingAddress.set(RestAddresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(RestAddresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
     }
 
     @Test(  description = "Тест заказа в METRO в Москве",

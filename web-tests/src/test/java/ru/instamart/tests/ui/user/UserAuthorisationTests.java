@@ -9,6 +9,7 @@ import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.pagesdata.UserData;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Description;
 import org.testng.annotations.BeforeClass;
@@ -205,7 +206,7 @@ public class UserAuthorisationTests extends TestBase {
     public void successAuthFromAddressModal() {
         kraken.get().page(Config.DEFAULT_RETAILER);
 
-        Shop.ShippingAddressModal.open();
+        ShippingAddressModal.open();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
         baseChecks.checkIsAuthModalOpen("Не работает переход на авторизацию из адресной модалки");
         User.Do.loginAs(UserManager.getDefaultUser());
@@ -225,7 +226,9 @@ public class UserAuthorisationTests extends TestBase {
         User.Do.registration(testuser);
         User.Logout.quickly();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
 
         Shop.Cart.collectFirstTime();
         Shop.Cart.proceedToCheckout();

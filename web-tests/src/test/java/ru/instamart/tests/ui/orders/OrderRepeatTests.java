@@ -3,6 +3,7 @@ package ru.instamart.tests.ui.orders;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.shop.Order;
 import ru.instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -23,7 +24,7 @@ public class OrderRepeatTests extends TestBase {
     @AfterMethod(alwaysRun = true,
             description ="Очистка окружения после теста")
     public void afterTest(ITestResult result){
-        kraken.perform().cancelLastActiveOrder();//TODO Проверяем нужно ли это здесь
+        Order.cancelLastActiveOrder();//TODO Проверяем нужно ли это здесь
     }
 
     @Test(
@@ -35,8 +36,7 @@ public class OrderRepeatTests extends TestBase {
                     "lenta-regression", "lenta-acceptance"}
     )
     public void successRepeatLastOrderFromOrderHistory() {
-        kraken.perform().repeatLastOrder();
-
+        Order.repeatLastOrder();
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не добавились товары в корзину после повтора крайнего заказа\n");
     }
@@ -52,7 +52,7 @@ public class OrderRepeatTests extends TestBase {
     public void successRepeatOrderFromOrderDetails() {
         kraken.get().userShipmentsPage();
         kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
-        kraken.perform().repeatOrder();
+        Order.repeatOrder();
 
         Assert.assertFalse(kraken.detect().isCartEmpty(),
                 "Не добавились товары в корзину после повтора крайнего заказа\n");

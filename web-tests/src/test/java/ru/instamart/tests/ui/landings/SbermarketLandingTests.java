@@ -4,6 +4,7 @@ import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
 import io.qase.api.annotation.CaseId;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -69,10 +70,10 @@ public class SbermarketLandingTests extends TestBase {
             groups = {"sbermarket-Ui-smoke"}
     )
     public void successGoToCatalogFromSbermarketLanding() {
-        User.ShippingAddress.selectFirstRetailer();
-        Shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
-        Shop.ShippingAddressModal.selectAddressSuggest();
-        Shop.ShippingAddressModal.findShops();
+        ShippingAddressModal.selectFirstRetailer();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.selectAddressSuggest();
+        ShippingAddressModal.findShops();
         baseChecks.checkIsOnLanding();
     }
 

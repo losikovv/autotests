@@ -10,6 +10,7 @@ import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -121,8 +122,8 @@ public class UserRegistrationTests extends TestBase {
     public void successRegFromAddressModal() throws AssertionError {
         phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        Shop.ShippingAddressModal.open();
-        Shop.ShippingAddressModal.openAuthModal();
+        ShippingAddressModal.open();
+        ShippingAddressModal.openAuthModal();
 //        baseChecks.checkIsAuthModalOpen("Не работает переход на авторизацию из адресной модалки");
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
@@ -142,10 +143,10 @@ public class UserRegistrationTests extends TestBase {
     public void successRegFromCart() {
         phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        Shop.ShippingAddressModal.open();
-        Shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
-        Shop.ShippingAddressModal.selectAddressSuggest();
-        Shop.ShippingAddressModal.submit();
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.selectAddressSuggest();
+        ShippingAddressModal.submit();
         Shop.Cart.collectFirstTime();
         kraken.get().page(Pages.Retailers.metro());
         Shop.Cart.proceedToCheckout();

@@ -8,6 +8,7 @@ import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.common.pagesdata.UserData;
 import ru.instamart.ui.helpers.WaitingHelper;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
@@ -383,79 +384,6 @@ public final class User extends Base {
             kraken.get().adminPage("");
             if (kraken.detect().isInAdmin()) {
                 log.info("✓ Готово");
-            }
-        }
-    }
-
-    public static class ShippingAddress {
-
-        public static void set(AddressV2 address, boolean submit) {
-            set(address.getCity() + " " + address.getStreet() + " " + address.getBuilding(), submit);
-        }
-
-        /** Установить адрес доставки */
-        @Step("Устанавливаем адрес доставки: {0}, сохраняем? {1}")
-        public static void set(String address, boolean submit) {
-            Shop.ShippingAddressModal.open();
-            kraken.await().fluently(
-                    ExpectedConditions.elementToBeClickable(
-                            Elements.Modals.AddressModal.modalMapWithText().getLocator()),
-                    "Не подтянулись адресные подсказки\n"
-            );
-            String currentAddress = kraken.grab().value(Elements.Modals.AddressModal.addressField());
-            if(currentAddress.equals("")){
-//                kraken.await().implicitly(3);//текущая локация подставляется автоматически,
-                // нужно подождать, пока элемент прогрузится
-                currentAddress = kraken.grab().value(Elements.Modals.AddressModal.addressField());
-                if(currentAddress.equals("")) log.info("> устанавливаем адрес доставки: {}", address);
-                else Shop.ShippingAddressModal.clearAddressField();
-            } else {
-                log.info("> изменяем адрес доставки: {} >>> {}", currentAddress, address);
-                Shop.ShippingAddressModal.clearAddressField();
-            }
-            Shop.ShippingAddressModal.fill(address);
-            if(submit){
-                WaitingHelper.simply(1);
-                kraken.await().fluently(
-                        ExpectedConditions.elementToBeClickable(
-                                Elements.Modals.AddressModal.submitButton().getLocator()),
-                        "Кнопка сохранить не активна\n"
-                );
-                Shop.ShippingAddressModal.submit();
-            }
-        }
-
-        /** Установить адрес доставки */
-        @Step("Устанавливаем адрес доставки: {0}")
-        public static void setAndSaveAddress(String address) {
-            kraken.await().fluently(
-                    ExpectedConditions.elementToBeClickable(
-                            Elements.Modals.AddressModal.submitButton().getLocator()),
-                    "Кнопка сохранить не активна\n", Config.BASIC_TIMEOUT);
-
-            log.info("> адрес доставки: {} установлен", address);
-        }
-
-        /** Ищем магазины по установленному адресу */
-        @Step("Открываем ретейлера по иконке магазина")
-        public static void selectFirstRetailer(){
-            log.info("> открываем ретейлера по иконке магазина");
-            kraken.await().fluently(
-                    ExpectedConditions
-                            .elementToBeClickable(Elements.Landings.SbermarketLanding.MainBlock.Stores.button().getLocator()),
-                    "кнопка выбора ретейлера недоступна");
-            kraken.perform().click(Elements.Landings.SbermarketLanding.MainBlock.Stores.button());
-            log.info("> ретейлер выбран");
-        }
-
-        /** Свапнуть тестовый и дефолтные адреса */
-        @Step("Свапаем тестовый и дефолтные адреса")
-        public static void swap() {
-            if (kraken.grab().currentShipAddress().equals(Addresses.Moscow.defaultAddress())) {
-                set(Addresses.Moscow.testAddress(),true);
-            } else {
-                set(Addresses.Moscow.testAddress(),true);
-                set(Addresses.Moscow.defaultAddress(),true);
             }
         }
     }

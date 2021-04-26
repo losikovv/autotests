@@ -13,7 +13,7 @@ public class Base {
 
     public static AppManager kraken;
 
-    Base(final AppManager kraken) {
+    public Base(final AppManager kraken) {
         Base.kraken = kraken;
     }
 

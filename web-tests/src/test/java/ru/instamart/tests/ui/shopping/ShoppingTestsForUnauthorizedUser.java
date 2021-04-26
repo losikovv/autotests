@@ -11,6 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
 
 public class ShoppingTestsForUnauthorizedUser extends TestBase {
 
@@ -39,7 +40,9 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
                     "metro-acceptance","metro-regression"
             }
     ) public void noAccessToCheckoutForUnauthorizedUserWithShipAddressAndEmptyCart() {
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
 
         baseChecks.checkPageIsUnavailable(Pages.checkout());
     }
@@ -51,7 +54,9 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
                     "metro-acceptance","metro-regression"
             }
     ) public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
         Shop.Cart.drop();
 
         // Для случаев когда первый товар на главной дороже минимального заказа
@@ -72,7 +77,9 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
                     "metro-acceptance","metro-regression"
             }
     ) public void successCollectItemsForOrder() {
-        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
 
         Shop.Cart.collectFirstTime();
 
