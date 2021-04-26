@@ -201,6 +201,7 @@ public final class QaseService {
     }
 
     public void deleteOldDefects() {
+        if (!qase) return;
         final List<Defect> defects = qaseApi.defects().getAll(projectCode).getDefectList();
         defects.forEach(defect -> {
             final LocalDateTime dateTime = LocalDateTime.parse(defect.getCreated(), FORMATTER);
@@ -212,6 +213,7 @@ public final class QaseService {
     }
 
     public void completeTestRun() {
+        if (!qase) return;
         log.info("Complete test run={} for project={}", runId, projectCode);
         qaseApi.testRuns().completeTestRun(projectCode, runId);
     }

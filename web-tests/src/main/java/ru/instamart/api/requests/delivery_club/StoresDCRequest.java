@@ -74,7 +74,7 @@ public class StoresDCRequest extends DeliveryClubRequestBase {
                             .builder()
                             .expectedDateTime(LocalDateTime
                                     .now()
-                                    .plus(1, ChronoUnit.DAYS)
+                                    .plusDays(1)
                                     .truncatedTo(ChronoUnit.SECONDS)
                                     .toString() + "+03:00")
                             .address(AddressDC
