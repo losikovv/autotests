@@ -20,13 +20,14 @@ import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.*;
 @Epic("ApiV2")
 @Feature("Список доступных бонусных карт")
 public final class BonusCardsV2Test extends RestBase {
-    private final int bonusCardNumber = Integer.parseInt(RandomStringUtils.randomNumeric(8));
+    private final String bonusCardNumber = RandomStringUtils.randomNumeric(8);
     private int bonusCardId;
 
     @CaseId(374)
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Нет бонусных карт")
     public void testNoBonusCards() {
         SessionFactory.makeSession(SessionType.API_V2);
+
         final Response response = BonusCardsV2Request.GET();
         checkStatusCode200(response);
         final BonusCardsV2Response bonusCardsV2Response = response.as(BonusCardsV2Response.class);
@@ -50,7 +51,7 @@ public final class BonusCardsV2Test extends RestBase {
         final Response response = BonusCardsV2Request.POST(3, bonusCardNumber);
         checkStatusCode200(response);
         final BonusCardV2Response bonusCardV2Response = response.as(BonusCardV2Response.class);
-        assertEquals(bonusCardV2Response.getBonusCard().getNumber(), bonusCardNumber);
+        assertEquals(String.valueOf(bonusCardV2Response.getBonusCard().getNumber()), bonusCardNumber);
         bonusCardId = bonusCardV2Response.getBonusCard().getId();
     }
 
@@ -59,7 +60,7 @@ public final class BonusCardsV2Test extends RestBase {
             description = "Добавление некорректной бонусной карты")
     public void testAddBonusCard422WrongBonusCardNumber() {
         SessionFactory.createSessionToken(SessionType.API_V2, UserManager.getDefaultUser());
-        final Response response = BonusCardsV2Request.POST(3, 1234123);
+        final Response response = BonusCardsV2Request.POST(3, "1234123");
         checkStatusCode422(response);
     }
 
@@ -82,7 +83,7 @@ public final class BonusCardsV2Test extends RestBase {
         final Response response = BonusCardsV2Request.DELETE(bonusCardId);
         checkStatusCode200(response);
         final BonusCardV2Response bonusCardV2Response = response.as(BonusCardV2Response.class);
-        assertEquals(bonusCardV2Response.getBonusCard().getNumber(), bonusCardNumber);
+        assertEquals(String.valueOf(bonusCardV2Response.getBonusCard().getNumber()), bonusCardNumber);
     }
 
     @CaseId(385)
