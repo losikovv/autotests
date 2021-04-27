@@ -14,7 +14,7 @@ public final class BonusCardsV2Request extends ApiV2RequestBase {
     }
 
     @Step("{method} /" + ApiV2EndPoints.BonusCards.WITH_PARAMS)
-    public static Response POST(final int bonusProgramId, final int bonusCardNumber) {
+    public static Response POST(final int bonusProgramId, final String bonusCardNumber) {
         return givenWithAuth()
                 .post(ApiV2EndPoints.BonusCards.WITH_PARAMS, bonusProgramId, bonusCardNumber);
     }
