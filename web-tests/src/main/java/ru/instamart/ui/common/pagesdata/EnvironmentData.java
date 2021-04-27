@@ -1,8 +1,7 @@
 package ru.instamart.ui.common.pagesdata;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.instamart.core.util.Crypt;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,18 +11,16 @@ import java.util.Properties;
 
 import static ru.instamart.core.settings.Config.DEFAULT_ENVIRONMENT;
 
+@Slf4j
 public enum EnvironmentData {
 
     INSTANCE;
-
-    private static final Logger logger = LoggerFactory.getLogger(EnvironmentData.class);
 
     private static final String ENV_DIR = Objects.requireNonNull(EnvironmentData.class.getClassLoader().getResource("environment_configs/")).getPath();
 
     private String tenant;
     private String server;
     private String basicUrl;
-    private String adminUrl;
     private String httpAuth;
     private String shopperUrl;
     private String defaultSid;
@@ -31,25 +28,33 @@ public enum EnvironmentData {
     private String protocol;
 
     public void load() {
-        final String file = String.format(ENV_DIR+"%s.properties", DEFAULT_ENVIRONMENT);
+        final String file = String.format(ENV_DIR + "%s.properties", DEFAULT_ENVIRONMENT);
         final Properties properties = new Properties();
 
         try {
             properties.load(new FileReader(file));
 
             this.tenant = properties.getProperty("tenant");
-            this.server = properties.getProperty("server");
-            this.basicUrl = properties.getProperty("basicUrl");
-            this.adminUrl = properties.getProperty("adminUrl");
+            this.server = System.getProperty("url_stf", properties.getProperty("server"));
+            this.basicUrl = System.getProperty("url_stf", properties.getProperty("basicUrl"));
             this.httpAuth = Crypt.INSTANCE.decrypt(properties.getProperty("httpAuth"));
-            this.shopperUrl = properties.getProperty("shopperUrl");
             this.defaultSid = properties.getProperty("defaultSid");
             this.defaultShopperSid = properties.getProperty("defaultShopperSid");
             this.protocol = System.getProperty("protocol", "https");
+
+            String customBasicUrl = System.getProperty("url_stf");
+            if (customBasicUrl != null && customBasicUrl.startsWith("stf")) {
+                this.shopperUrl = System.getProperty("url_shp", "shp" + customBasicUrl.substring(3));
+            } else {
+                this.shopperUrl = System.getProperty("url_shp", properties.getProperty("shopperUrl"));
+            }
+
+            log.info("Basic URL: " + this.basicUrl);
+            log.info("Shopper URL: " + this.shopperUrl);
         } catch (FileNotFoundException e) {
-            logger.error("File {} not found", file);
+            log.error("File {} not found", file);
         } catch (IOException e) {
-            logger.error("Cant' load or parse file", e);
+            log.error("Cant' load or parse file", e);
         }
     }
 
@@ -74,14 +79,16 @@ public enum EnvironmentData {
     }
 
     public String getAdminUrl() {
-        return protocol + "://" + adminUrl + "/";
+        return protocol + "://" + basicUrl + "/admin/";
     }
 
     public String getAdminUrlWithHttpAuth() {
-        return protocol + "://" + httpAuth + adminUrl + "/";
+        return protocol + "://" + httpAuth + basicUrl + "/admin/";
     }
 
-    public String getShopperUrl() {return protocol + "://" + shopperUrl + "/";}
+    public String getShopperUrl() {
+        return protocol + "://" + shopperUrl + "/";
+    }
 
     public int getDefaultSid() {
         return Integer.parseInt(defaultSid);
