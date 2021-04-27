@@ -2,7 +2,9 @@ package ru.instamart.tests.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
+import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.SessionFactory;
@@ -11,11 +13,14 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.objects.v2.OrderV2;
 import ru.instamart.api.requests.v2.OrdersV2Request;
+import ru.instamart.api.responses.ErrorResponse;
 import ru.instamart.api.responses.v2.LineItemsV2Response;
 import ru.instamart.api.responses.v2.OrderV2Response;
 import ru.instamart.api.responses.v2.OrdersV2Response;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 @Epic("ApiV2")
 @Feature("Заказы")
@@ -72,5 +77,54 @@ public class OrdersV2Test extends RestBase {
         response = OrdersV2Request.LineItems.GET(apiV2.getCurrentOrderNumber());
         InstamartApiCheckpoints.checkStatusCode200(response);
         assertNotNull(response.as(LineItemsV2Response.class).getLineItems(), "Не вернулись товары заказа");
+    }
+
+    @CaseId(313)
+    @Story("Применение промокода")
+    @Test(groups = {"api-instamart-smoke"}, description = "Существующий id")
+    public void orderWithPromoCode() {
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        OrderV2Response orderV2Response = response.getBody().as(OrderV2Response.class);
+        assertNotNull(orderV2Response.getOrder().getPromotionCodes(), "Промокод не применился");
+        response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        orderV2Response = response.getBody().as(OrderV2Response.class);
+        assertTrue(orderV2Response.getOrder().getPromotionCodes().isEmpty(), "Промокод не удалился");
+    }
+
+    @CaseId(314)
+    @Story("Применение промокода")
+    @Test(groups = {"api-instamart-regress"}, description = "Несуществующий id")
+    public void orderWithInvalidPromoCode() {
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        final Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "failCode");
+        ErrorResponse errorResponse = response.as(ErrorResponse.class);
+        assertNotNull(errorResponse, "Не вернулась ошибки");
+    }
+
+    @CaseId(316)
+    @Story("Удаление промокода")
+    @Test(groups = {"api-instamart-regress"}, description = "Несуществующий id заказа")
+    public void deletePromoCodeForInvalidOrder() {
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        final OrderV2Response orderV2Response = response.getBody().as(OrderV2Response.class);
+        assertNotNull(orderV2Response.getOrder().getPromotionCodes(), "Промокод не применился");
+        response = OrdersV2Request.Promotions.DELETE("failOrder", "auto300lomxs4");
+        final ErrorResponse errorResponse = response.getBody().as(ErrorResponse.class);
+        assertNotNull(errorResponse, "Промокод удалился");
+    }
+
+    @CaseId(318)
+    @Story("Удаление промокода")
+    @Test(groups = {"api-instamart-regress"}, description = "Несуществующий promoCode")
+    public void deleteInvalidPromoCode() {
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        final OrderV2Response orderV2Response = response.getBody().as(OrderV2Response.class);
+        assertNotNull(orderV2Response.getOrder().getPromotionCodes(), "Промокод не применился");
+        response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "failCode");
+        final ErrorResponse errorResponse = response.getBody().as(ErrorResponse.class);
+        assertNotNull(errorResponse, "Промокод удалился");
     }
 }

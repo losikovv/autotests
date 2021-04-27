@@ -42,7 +42,7 @@ public class OrderV2 extends BaseObject {
     private String uuid;
     private List<ShipmentV2> shipments = null;
     @JsonProperty(value = "promotion_codes")
-    private List<Object> promotionCodes = null;
+    private List<PromotionCodeV2> promotionCodes = null;
     @JsonProperty(value = "shipping_method_kind")
     private String shippingMethodKind;
 }
