@@ -19,7 +19,7 @@ stages:
     - echo $TEST_SET
     - echo $URL_STF
     - echo $URL_SHP
-    - gradle clean build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
     - bash ./report.sh api-shopper-regress
@@ -106,7 +106,7 @@ tests:ApiInstamart:
     - echo $TEST_SET
     - echo $URL_STF
     - echo $URL_SHP
-    - gradle clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
     - bash ./report.sh api-instamart-regress
@@ -213,7 +213,7 @@ tests:UiSmoke:
     - echo $TEST_SET
     - echo $URL_STF
     - echo $URL_SHP
-    - gradle clean build sberUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build sberUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
     - bash ./report.sh ui-stf-smoke
@@ -236,7 +236,7 @@ tests:UiRegress:
     - echo $TEST_SET
     - echo $URL_STF
     - echo $URL_SHP
-    - gradle clean build sberRegression -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build sberRegression -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
     - bash ./report.sh ui-stf-regress
@@ -259,7 +259,7 @@ tests:AdminUiSmoke:
     - echo $TEST_SET
     - echo $URL_STF
     - echo $URL_SHP
-    - gradle clean build adminUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build adminUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
     - bash ./report.sh ui-admin-smoke
