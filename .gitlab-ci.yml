@@ -17,6 +17,8 @@ stages:
   script:
     - echo $P_ENV
     - echo $TEST_SET
+    - echo $URL_STF
+    - echo $URL_SHP
     - gradle clean build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
@@ -102,6 +104,8 @@ tests:ApiInstamart:
   script:
     - echo $P_ENV
     - echo $TEST_SET
+    - echo $URL_STF
+    - echo $URL_SHP
     - gradle clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
@@ -115,7 +119,7 @@ tests:ApiInstamart:
       - web-tests/logs/
     expire_in: 1 week
 
-tests:ApiInstamartProductionOnly:
+tests:prodApiInstamart:
   when: manual
   stage: tests
   image: $CI_REGISTRY_IMAGE
@@ -143,7 +147,7 @@ tests:ApiShopper:alone:
     - ".template_tests_apishopper"
     - ".template_tests_apishopper_alone"
 
-tests:ApiShopperProductionOnly:
+tests:prodApiShopper:
   when: manual
   stage: tests
   image: $CI_REGISTRY_IMAGE
@@ -161,7 +165,7 @@ tests:ApiShopperProductionOnly:
       - web-tests/logs/
     expire_in: 1 week
 
-tests:ApiZonesProductionOnly:
+tests:prodApiZones:
   when: manual
   stage: tests
   image: $CI_REGISTRY_IMAGE
@@ -181,7 +185,7 @@ tests:ApiZonesProductionOnly:
       - web-tests/logs/
     expire_in: 1 week
 
-tests:ApiRetailerProductionOnly:
+tests:prodApiRetailer:
   when: manual
   stage: tests
   image: $CI_REGISTRY_IMAGE
@@ -207,6 +211,8 @@ tests:UiSmoke:
   script:
     - echo $P_ENV
     - echo $TEST_SET
+    - echo $URL_STF
+    - echo $URL_SHP
     - gradle clean build sberUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
@@ -228,6 +234,8 @@ tests:UiRegress:
   script:
     - echo $P_ENV
     - echo $TEST_SET
+    - echo $URL_STF
+    - echo $URL_SHP
     - gradle clean build sberRegression -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
@@ -249,6 +257,8 @@ tests:AdminUiSmoke:
   script:
     - echo $P_ENV
     - echo $TEST_SET
+    - echo $URL_STF
+    - echo $URL_SHP
     - gradle clean build adminUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
@@ -262,7 +272,7 @@ tests:AdminUiSmoke:
       - web-tests/logs/
     expire_in: 1 week
 
-tests:UiSmokeProduction:
+tests:prodUiSmoke:
   when: manual
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
