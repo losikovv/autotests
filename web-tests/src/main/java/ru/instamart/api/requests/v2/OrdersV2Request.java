@@ -228,4 +228,20 @@ public final class OrdersV2Request extends ApiV2RequestBase {
                     .get(ApiV2EndPoints.Orders.UNRATED);
         }
     }
+
+    public static class Promotions {
+
+        @Step("{method} /" + ApiV2EndPoints.Orders.PROMOTIONS)
+        public static Response POST(final String orderNumber, final String promoCode) {
+            return givenWithAuth()
+                    .formParam("promotion_code", promoCode)
+                    .post(ApiV2EndPoints.Orders.PROMOTIONS, orderNumber);
+        }
+
+        @Step("{method} /" + ApiV2EndPoints.Orders.PROMOTION_CODE)
+        public static Response DELETE(final String orderNumber, final String promoCode) {
+            return givenWithAuth()
+                    .delete(ApiV2EndPoints.Orders.PROMOTION_CODE, orderNumber, promoCode);
+        }
+    }
 }
