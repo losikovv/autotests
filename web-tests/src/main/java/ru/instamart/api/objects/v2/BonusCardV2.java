@@ -16,7 +16,7 @@ import ru.instamart.api.objects.BaseObject;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public final class BonusCardV2 extends BaseObject {
-    private int id;
-    private long number;
+    private Integer id;
+    private String number;
     private IconV2 icon;
 }

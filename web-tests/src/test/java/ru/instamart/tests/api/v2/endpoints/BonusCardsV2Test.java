@@ -51,7 +51,7 @@ public final class BonusCardsV2Test extends RestBase {
         final Response response = BonusCardsV2Request.POST(3, bonusCardNumber);
         checkStatusCode200(response);
         final BonusCardV2Response bonusCardV2Response = response.as(BonusCardV2Response.class);
-        assertEquals(String.valueOf(bonusCardV2Response.getBonusCard().getNumber()), bonusCardNumber);
+        assertEquals(bonusCardV2Response.getBonusCard().getNumber(), bonusCardNumber);
         bonusCardId = bonusCardV2Response.getBonusCard().getId();
     }
 
@@ -83,7 +83,7 @@ public final class BonusCardsV2Test extends RestBase {
         final Response response = BonusCardsV2Request.DELETE(bonusCardId);
         checkStatusCode200(response);
         final BonusCardV2Response bonusCardV2Response = response.as(BonusCardV2Response.class);
-        assertEquals(String.valueOf(bonusCardV2Response.getBonusCard().getNumber()), bonusCardNumber);
+        assertEquals(bonusCardV2Response.getBonusCard().getNumber(), bonusCardNumber);
     }
 
     @CaseId(385)
