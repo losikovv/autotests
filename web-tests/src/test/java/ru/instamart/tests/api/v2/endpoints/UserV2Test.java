@@ -215,7 +215,7 @@ public final class UserV2Test extends RestBase {
                 "fake@mail.com",
                 false
         );
-        checkStatusCode404(response);
+        checkStatusCode200or404(response);
     }
 
     @CaseId(160)

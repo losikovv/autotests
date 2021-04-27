@@ -1,18 +1,21 @@
 package ru.instamart.api.checkpoints;
 
-import lombok.extern.slf4j.Slf4j;
-import ru.instamart.api.objects.v2.OrderV2;
-import ru.instamart.api.objects.v2.TaxonV2;
-import ru.instamart.api.responses.ErrorResponse;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.api.objects.v2.OrderV2;
+import ru.instamart.api.objects.v2.TaxonV2;
+import ru.instamart.api.responses.ErrorResponse;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.is;
 
 @Slf4j
 public class InstamartApiCheckpoints {
@@ -47,27 +50,32 @@ public class InstamartApiCheckpoints {
 
     @Step("Ответ вернул 400")
     public static void checkStatusCode400(final Response response) {
-        Assert.assertEquals(response.statusCode(), 400);
+        response.then().statusCode(400);
     }
 
     @Step("Ответ вернул 401")
     public static void checkStatusCode401(final Response response) {
-        Assert.assertEquals(response.statusCode(), 401);
+        response.then().statusCode(401);
     }
 
     @Step("Ответ вернул 403")
     public static void checkStatusCode403(final Response response) {
-        Assert.assertEquals(response.statusCode(), 403);
+        response.then().statusCode(403);
     }
 
     @Step("Ответ вернул 404")
     public static void checkStatusCode404(final Response response) {
-        Assert.assertEquals(response.statusCode(), 404);
+        response.then().statusCode(404);
+    }
+
+    @Step("Ответ вернул 200 или 404")
+    public static void checkStatusCode200or404(final Response response) {
+        response.then().statusCode(anyOf(is(200), is(404)));
     }
 
     @Step("Ответ вернул 422")
     public static void checkStatusCode422(final Response response) {
-        Assert.assertEquals(response.statusCode(), 422);
+        response.then().statusCode(422);
     }
 
     /**
