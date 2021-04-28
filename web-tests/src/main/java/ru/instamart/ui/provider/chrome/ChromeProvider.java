@@ -1,7 +1,7 @@
-package ru.instamart.core.provider.chrome;
+package ru.instamart.ui.provider.chrome;
 
 import org.json.simple.JSONObject;
-import ru.instamart.core.provider.AbstractBrowserProvider;
+import ru.instamart.ui.provider.AbstractBrowserProvider;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
@@ -22,6 +22,8 @@ public final class ChromeProvider extends AbstractBrowserProvider {
         jsonObject.put("profile.default_content_settings.geolocation", 2);
         jsonObject.put("profile.managed_default_content_settings.geolocation", 2);
         options.setExperimentalOption("prefs", jsonObject);
+        options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
+
         capabilities.setBrowserName("chrome");
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);

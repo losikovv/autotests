@@ -2,22 +2,21 @@ package ru.instamart.ui.modules;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.ElementNotSelectableException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.instamart.core.common.AppManager;
 import ru.instamart.core.settings.Config;
 import ru.instamart.ui.common.pagesdata.StaticPageData;
 import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.helpers.WaitingHelper;
 import ru.instamart.ui.objectsmap.Elements;
 
 import static ru.instamart.core.helpers.HelperBase.handleAlert;
 
+@Slf4j
 public final class Administration extends Base {
-
-    private static final Logger log = LoggerFactory.getLogger(Administration.class);
 
     public Administration(final AppManager kraken) {
         super(kraken);
@@ -37,7 +36,7 @@ public final class Administration extends Base {
             kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Administration.menuTopElement(menuElement).getLocator()),
                     "элемент не доступен: "+menuElement, Config.BASIC_TIMEOUT);
             kraken.perform().scrollToTheBottom(Elements.Administration.menuTopElement(menuElement));
-            kraken.await().simply(0.5);
+            WaitingHelper.simply(0.5);
             kraken.perform().click(Elements.Administration.menuTopElement(menuElement));
         }
     }
@@ -165,7 +164,7 @@ public final class Administration extends Base {
                 }
             }else {
                 searchPhone(value);
-                if (kraken.getWebDriver().findElements(Elements.Administration.UsersSection.userlistFirstRow().getLocator()).size()==1) {
+                if (AppManager.getWebDriver().findElements(Elements.Administration.UsersSection.userlistFirstRow().getLocator()).size()==1) {
                     kraken.perform().click(Elements.Administration.UsersSection.editUserButton());
                     kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                             Elements.Administration.UsersSection.UserPage.b2bCheckbox().getLocator()),
@@ -189,7 +188,7 @@ public final class Administration extends Base {
             if (kraken.detect().isElementDisplayed(Elements.Administration.UsersSection.userEmail())) {
                 if (kraken.grab().text(Elements.Administration.UsersSection.userEmail()).equalsIgnoreCase(email)) {
                     kraken.perform().click(Elements.Administration.UsersSection.deleteUserButton());
-                    kraken.perform().handleAlert();
+                    handleAlert();
                 } else {
                     log.warn("Найден не тот пользователь!");
                 }

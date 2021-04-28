@@ -1,19 +1,19 @@
 package ru.instamart.tests.ui;
 
-import ru.instamart.core.common.AppManager;
-import ru.instamart.core.helpers.HelperBase;
-import ru.instamart.core.helpers.LogAttachmentHelper;
-import ru.instamart.core.testdata.UserManager;
 import io.qameta.allure.Allure;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
 import org.testng.SkipException;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import ru.instamart.core.common.AppManager;
+import ru.instamart.core.helpers.LogAttachmentHelper;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.ui.report.CustomReport;
 
+@Slf4j
 public class TestBase {
-
-    private static final Logger log = LoggerFactory.getLogger(TestBase.class);
 
     protected static final AppManager kraken = new AppManager();
 
@@ -29,9 +29,25 @@ public class TestBase {
         Allure.addAttachment("Системный лог теста", result);
     }
 
-    @AfterMethod(alwaysRun = true,description = "Прикрепляем скриншот интерфейса, если UI тест упал")
+    @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")
     public void screenShot(final ITestResult result) {
-        if (!result.isSuccess()) HelperBase.takeScreenshot();
+        if (!result.isSuccess()) {
+            CustomReport.takeScreenshot();
+        }
+    }
+
+    @AfterMethod(alwaysRun = true, description = "Прикрепляем логи браузера, если UI тест упал")
+    public void browserLog(final ITestResult result) {
+        if (!result.isSuccess()) {
+            Allure.addAttachment("Браузерный лог теста", CustomReport.browserLog());
+        }
+    }
+
+    @AfterMethod(alwaysRun = true, description = "Прикрепляем source страницы, если UI тест упал")
+    public void sourcePage(final ITestResult result) {
+        if (!result.isSuccess()) {
+            Allure.addAttachment("Html со страницы", CustomReport.sourcePage());
+        }
     }
 
     /** Метод-обертка для красивого вывода ошибок зафейленных тестов */

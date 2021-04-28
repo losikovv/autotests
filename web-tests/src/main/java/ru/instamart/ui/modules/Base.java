@@ -1,15 +1,14 @@
 package ru.instamart.ui.modules;
 
+import io.qameta.allure.Step;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.core.common.AppManager;
 import ru.instamart.ui.common.pagesdata.ElementData;
-import io.qameta.allure.Step;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class Base {
-
-    private static final Logger log = LoggerFactory.getLogger(Base.class);
 
     public static AppManager kraken;
 
@@ -21,7 +20,7 @@ public class Base {
     public static void handleAlertAcceptByDefault() {
         try {
             log.info("> вызываем алерт");
-            kraken.getWebDriver().switchTo().alert().accept();
+            AppManager.getWebDriver().switchTo().alert().accept();
         }catch (Exception exception){
             log.info("> аллерт убран");
         }

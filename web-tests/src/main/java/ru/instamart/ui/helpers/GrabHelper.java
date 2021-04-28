@@ -1,5 +1,7 @@
 package ru.instamart.ui.helpers;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ru.instamart.core.common.AppManager;
 import ru.instamart.core.helpers.HelperBase;
 import ru.instamart.core.settings.Config;
@@ -13,13 +15,11 @@ import org.slf4j.LoggerFactory;
 
 import static java.lang.Integer.parseInt;
 
+@RequiredArgsConstructor
+@Slf4j
 public final class GrabHelper extends HelperBase {
 
-    private static final Logger log = LoggerFactory.getLogger(GrabHelper.class);
-
-    public GrabHelper(final AppManager kraken) {
-        super(kraken);
-    }
+    private final AppManager kraken;
 
     /** Взять sid из текущего URL */
     public int sidFromUrl() {
@@ -42,7 +42,7 @@ public final class GrabHelper extends HelperBase {
 
     /** Взять текущий URL */
     public String currentURL() {
-        return kraken.getWebDriver().getCurrentUrl();
+        return AppManager.getWebDriver().getCurrentUrl();
     }
 
     /** Взять количество элементов */
@@ -52,7 +52,7 @@ public final class GrabHelper extends HelperBase {
 
     /** Взять количество элементов по локатору */
     public int listSize(By locator) {
-        return kraken.getWebDriver().findElements(locator).size();
+        return AppManager.getWebDriver().findElements(locator).size();
     }
 
     /** Взять текст элемента */
@@ -63,7 +63,7 @@ public final class GrabHelper extends HelperBase {
     /** Взять текст элемента по локатору */
     public String text(By locator) {
         try {
-            return kraken.getWebDriver().findElement(locator).getText();
+            return AppManager.getWebDriver().findElement(locator).getText();
         } catch (NoSuchElementException e) {
             return null;
         }
@@ -72,11 +72,11 @@ public final class GrabHelper extends HelperBase {
     /** Взять текст элемента по локатору */
     public String text(By locator, int i) {
         try {
-            return kraken.getWebDriver().findElement(locator).getText();
+            return AppManager.getWebDriver().findElement(locator).getText();
         } catch (NoSuchElementException e) {
             return null;
         } catch (Exception ex){
-            return kraken.getWebDriver().findElements(locator).get(i).getText();
+            return AppManager.getWebDriver().findElements(locator).get(i).getText();
         }
     }
 
@@ -88,7 +88,7 @@ public final class GrabHelper extends HelperBase {
     /** Взять текст из заполненного поля по локатору */
     public String value(By locator) {
         try {
-            return kraken.getWebDriver().findElement(locator).getAttribute("value");
+            return AppManager.getWebDriver().findElement(locator).getAttribute("value");
         } catch (NoSuchElementException e) {
             return null;
         }
@@ -113,7 +113,7 @@ public final class GrabHelper extends HelperBase {
     public String itemPrice() {
         log.info("Получение цены из карточки товара");
         String itemPrice;
-        itemPrice = kraken.getWebDriver().findElement(Elements.ItemCard.priceFromAttribute().getLocator())
+        itemPrice = AppManager.getWebDriver().findElement(Elements.ItemCard.priceFromAttribute().getLocator())
                 .getAttribute("content");
         return itemPrice;
     }
@@ -198,7 +198,7 @@ public final class GrabHelper extends HelperBase {
                 Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentReplacementPolicy())) {
             kraken.perform().click(Elements.UserProfile.OrderDetailsPage.OrderSummary.trigger());
         }
-        kraken.await().simply(1); // Ожидание разворота доп.деталей заказа
+        WaitingHelper.simply(1); // Ожидание разворота доп.деталей заказа
         String policy = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentReplacementPolicy());
         log.info("Способ оплаты: {}", policy);
         return policy;

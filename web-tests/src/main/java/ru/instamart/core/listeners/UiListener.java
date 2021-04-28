@@ -1,13 +1,9 @@
 package ru.instamart.core.listeners;
 
+import io.qase.api.enums.RunResultStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.*;
 import ru.instamart.core.service.QaseService;
-import io.qase.api.enums.RunResultStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 @Slf4j
 public final class UiListener implements ITestListener, ISuiteListener {

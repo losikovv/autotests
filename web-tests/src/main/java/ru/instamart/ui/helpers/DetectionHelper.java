@@ -1,26 +1,24 @@
 package ru.instamart.ui.helpers;
 
+import io.qameta.allure.Step;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.core.common.AppManager;
 import ru.instamart.core.helpers.HelperBase;
 import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.common.pagesdata.*;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.objectsmap.Elements;
-import io.qameta.allure.Step;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@RequiredArgsConstructor
+@Slf4j
 public final class DetectionHelper extends HelperBase {
 
-    private static final Logger log = LoggerFactory.getLogger(DetectionHelper.class);
-
-    public DetectionHelper(final AppManager kraken) {
-        super(kraken);
-    }
+    private final AppManager kraken;
 
     /** Определить в каком тестовом окружении находимся */
     public boolean environment(String environment) {
@@ -42,7 +40,7 @@ public final class DetectionHelper extends HelperBase {
      */
     protected boolean isAlertPresent() {
         try {
-            kraken.getWebDriver().switchTo().alert();
+            AppManager.getWebDriver().switchTo().alert();
             return true;
         } catch (NoAlertPresentException e) {
             return false;
@@ -54,7 +52,7 @@ public final class DetectionHelper extends HelperBase {
      */
     public boolean isElementPresent(ElementData element) {
         try {
-            kraken.getWebDriver().findElement(element.getLocator());
+            AppManager.getWebDriver().findElement(element.getLocator());
             return true;
         } catch (NoSuchElementException e) {
             return false;
@@ -66,7 +64,7 @@ public final class DetectionHelper extends HelperBase {
      */
     public boolean isElementDisplayed(ElementData element) {
         try {
-            return kraken.getWebDriver().findElement(element.getLocator()).isDisplayed();
+            return AppManager.getWebDriver().findElement(element.getLocator()).isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
@@ -89,14 +87,14 @@ public final class DetectionHelper extends HelperBase {
      * Определить доступен ли элемент
      */
     public boolean isElementEnabled(ElementData element) {
-        return kraken.getWebDriver().findElement(element.getLocator()).isEnabled();
+        return AppManager.getWebDriver().findElement(element.getLocator()).isEnabled();
     }
 
     /**
      * Определить проставлен ли чекбокс
      */
     public boolean isCheckboxSet(ElementData element) {
-        return kraken.getWebDriver().findElement(element.getLocator()).isSelected();
+        return AppManager.getWebDriver().findElement(element.getLocator()).isSelected();
     }
 
     /**
@@ -110,14 +108,14 @@ public final class DetectionHelper extends HelperBase {
      * Определить выбрана ли радиокнопка
      */
     public boolean isRadioButtonSelected(ElementData element) {
-        return kraken.getWebDriver().findElement(element.getLocator()).isSelected();
+        return AppManager.getWebDriver().findElement(element.getLocator()).isSelected();
     }
 
     /**
      * Определить пустое ли поле
      */
     public boolean isFieldEmpty(ElementData element) {
-        return kraken.getWebDriver().findElement(element.getLocator()).getAttribute("value").equals("");
+        return AppManager.getWebDriver().findElement(element.getLocator()).getAttribute("value").equals("");
     }
 
     /**
@@ -167,7 +165,7 @@ public final class DetectionHelper extends HelperBase {
      */
     @Step("Определяем 404 ошибку на текущей странице")
     public boolean is404() {
-        if (kraken.getWebDriver().getTitle().contains("404")) {
+        if (AppManager.getWebDriver().getTitle().contains("404")) {
             log.warn("404 на {}", kraken.grab().currentURL());
             return true;
         } else return false;
@@ -178,7 +176,7 @@ public final class DetectionHelper extends HelperBase {
      */
     @Step("Определяем 500 ошибку на текущей странице")
     public boolean is500() {
-        if (kraken.getWebDriver().getTitle().contains("500")) {
+        if (AppManager.getWebDriver().getTitle().contains("500")) {
             log.warn("⚠ 500 на {}", kraken.grab().currentURL());
             return true;
         } else return false;
@@ -189,7 +187,7 @@ public final class DetectionHelper extends HelperBase {
      */
     @Step("Определяем 502 ошибку на текущей странице")
     public boolean is502() {
-        if (kraken.getWebDriver().getTitle().contains("502")) {
+        if (AppManager.getWebDriver().getTitle().contains("502")) {
             log.warn("⚠ 502 на {}", kraken.grab().currentURL());
             return true;
         } else return false;
@@ -724,7 +722,7 @@ public final class DetectionHelper extends HelperBase {
 
     /** Определить содержит ли элемент необходимый текст*/
     public boolean isTextElementContainsText(String text, ElementData element){
-        if(kraken.getWebDriver().findElement(element.getLocator()).getText().contains(text)){
+        if(AppManager.getWebDriver().findElement(element.getLocator()).getText().contains(text)){
             log.info("> элемент содержит искомый текст");
             return true;
         }else {

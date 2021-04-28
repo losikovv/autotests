@@ -25,6 +25,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
+import ru.instamart.ui.report.CustomReport;
 
 import static io.qameta.allure.Allure.step;
 
@@ -68,7 +69,7 @@ public class BasicOrdersTests extends TestBase {
             description ="Завершение теста")
     public void afterTest(final ITestResult result){
         step("Скриншот страницы, если тест упал", ()-> {
-            if (!result.isSuccess()) HelperBase.takeScreenshot();
+            if (!result.isSuccess()) CustomReport.takeScreenshot();
         });
         step("Очистка окружения после теста ", ()->{
             Order.cancelLastActiveOrder();

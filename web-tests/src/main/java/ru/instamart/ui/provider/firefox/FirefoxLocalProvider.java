@@ -1,6 +1,7 @@
-package ru.instamart.core.provider.firefox;
+package ru.instamart.ui.provider.firefox;
 
-import ru.instamart.core.provider.AbstractBrowserProvider;
+import org.openqa.selenium.remote.CapabilityType;
+import ru.instamart.ui.provider.AbstractBrowserProvider;
 import ru.instamart.core.util.ProcessUtils;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -33,6 +34,8 @@ public final class FirefoxLocalProvider extends AbstractBrowserProvider {
         } else {
             System.setProperty("webdriver.gecko.driver", "WebDriverLinux/geckodriver");
         }
+
+        options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
 
         createLocalFirefoxDriver(Optional.of(options));
     }

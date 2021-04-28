@@ -43,6 +43,8 @@ dependencies {
     implementation lib.testng
     implementation lib.seleniumJava
     implementation lib.jsonSimple
-    testImplementation lib.logback
     annotationProcessor lib.lombok
+    testImplementation lib.logback
+    testCompileOnly lib.lombok
+    testAnnotationProcessor lib.lombok
 }

@@ -1,21 +1,18 @@
 package ru.instamart.ui.helpers;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ru.instamart.core.common.AppManager;
 import ru.instamart.core.helpers.HelperBase;
-import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.common.pagesdata.PageData;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@RequiredArgsConstructor
+@Slf4j
 public final class ReachHelper extends HelperBase {
 
-    private static final Logger log = LoggerFactory.getLogger(ReachHelper.class);
-
-    public ReachHelper(final AppManager kraken) {
-        super(kraken);
-    }
+    private final AppManager kraken;
 
     public void checkout() {
         log.info("Переход на страницу чекаута по ссылке");
