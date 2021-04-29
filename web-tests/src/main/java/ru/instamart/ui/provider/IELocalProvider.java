@@ -1,7 +1,6 @@
-package ru.instamart.core.provider;
+package ru.instamart.ui.provider;
 
 import ru.instamart.core.util.ProcessUtils;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
 import java.util.Optional;

@@ -1,7 +1,6 @@
-package ru.instamart.core.provider.firefox;
+package ru.instamart.ui.provider.firefox;
 
-import ru.instamart.core.provider.AbstractBrowserProvider;
-import ru.instamart.core.settings.Config;
+import ru.instamart.ui.provider.AbstractBrowserProvider;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Map;

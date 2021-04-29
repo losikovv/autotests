@@ -1,7 +1,7 @@
-package ru.instamart.core.provider.chrome;
+package ru.instamart.ui.provider.chrome;
 
 import org.json.simple.JSONObject;
-import ru.instamart.core.provider.AbstractBrowserProvider;
+import ru.instamart.ui.provider.AbstractBrowserProvider;
 import ru.instamart.core.util.ProcessUtils;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -37,12 +37,13 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         jsonObject.put("profile.default_content_settings.geolocation", 2);
         jsonObject.put("profile.managed_default_content_settings.geolocation", 2);
         options.setExperimentalOption("prefs", jsonObject);
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         options.setCapability("detach", true);
+        options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
+
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
-        //options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
 
 //        createLocalChromeDriver(Optional.of(options));
-            createLocalChromeDriver(Optional.of(capabilities));
+        createLocalChromeDriver(Optional.of(capabilities));
     }
 }

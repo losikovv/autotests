@@ -1,40 +1,30 @@
 package ru.instamart.ui.helpers;
 
-import ru.instamart.core.common.AppManager;
-import ru.instamart.core.helpers.HelperBase;
-import ru.instamart.core.settings.Config;
-import ru.instamart.ui.common.lib.Addresses;
-import ru.instamart.ui.common.lib.Pages;
-import ru.instamart.ui.common.pagesdata.ElementData;
-import ru.instamart.ui.modules.Shop;
-import ru.instamart.ui.modules.User;
-import ru.instamart.ui.objectsmap.Elements;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ru.instamart.core.common.AppManager;
+import ru.instamart.core.helpers.HelperBase;
+import ru.instamart.core.settings.Config;
+import ru.instamart.ui.common.pagesdata.ElementData;
 
 import java.util.List;
 
 import static ru.instamart.ui.modules.Base.kraken;
 
+@Slf4j
 public final class PerformHelper extends HelperBase {
 
-    private static final Logger log = LoggerFactory.getLogger(PerformHelper.class);
     private static String windowHandler;
 
     public void setWindow(){
-        windowHandler = kraken.getWebDriver().getWindowHandle();
+        windowHandler = AppManager.getWebDriver().getWindowHandle();
     }
 
     public String getWindow(){
         return windowHandler;
-    }
-
-    public PerformHelper(final AppManager kraken) {
-        super(kraken);
     }
 
     /** Кликнуть элемент предпочтительно использование именно этого метода*/
@@ -43,7 +33,7 @@ public final class PerformHelper extends HelperBase {
         try {
             kraken.await().fluently(ExpectedConditions.elementToBeClickable(element.getLocator()),
                     "элемент не кликабельный: "+element.getLocator().toString(), Config.BASIC_TIMEOUT);
-            kraken.getWebDriver().findElement(element.getLocator()).click();
+            AppManager.getWebDriver().findElement(element.getLocator()).click();
         }
         catch (NoSuchElementException n) {
             if (kraken.detect().is502()) {
@@ -97,7 +87,7 @@ public final class PerformHelper extends HelperBase {
     public void hoverOn(ElementData element) {
         log.info("Наводим курсор на элемент");
         try {
-            new Actions(kraken.getWebDriver()).moveToElement(kraken.getWebDriver().findElement(element.getLocator())).perform();
+            new Actions(AppManager.getWebDriver()).moveToElement(AppManager.getWebDriver().findElement(element.getLocator())).perform();
 //            WaitingHelper.simply(1); // Ожидание для стабильности
         }
         catch (ElementNotVisibleException v) {
@@ -122,7 +112,7 @@ public final class PerformHelper extends HelperBase {
                 webElement.sendKeys(text.charAt(i) + "");
             }
         }else {
-            kraken.await().simply(1.5);
+            WaitingHelper.simply(1.5);
             if(webElement.getAttribute("value").length()>0){
                 cleanField(webElement);
                 //Эти костыли здесь, тк в селениум есть бага использования sendKeys и очистки поля
@@ -134,16 +124,16 @@ public final class PerformHelper extends HelperBase {
     public void cleanField(final WebElement webElement){
         int j=webElement.getAttribute("value").length();
         for (int i =0; i<j;i++){
-            kraken.await().simply(0.2);
+            WaitingHelper.simply(0.2);
             webElement.sendKeys(Keys.BACK_SPACE);
         }
     }
 
     /** Заполнить поле через метод Action*/
     public void fillFieldAction(ElementData element, String text){
-        Actions actions = new Actions(kraken.getWebDriver());
-        actions.moveToElement(kraken.getWebDriver().findElement(element.getLocator())).click().perform();
-        var element1 = kraken.getWebDriver().findElement(element.getLocator());
+        Actions actions = new Actions(AppManager.getWebDriver());
+        actions.moveToElement(AppManager.getWebDriver().findElement(element.getLocator())).click().perform();
+        var element1 = AppManager.getWebDriver().findElement(element.getLocator());
         if(!text.equals("")){
             for (int i = 0; i < text.length();i++) {
                 element1.sendKeys(text.charAt(i) + "");
@@ -152,13 +142,13 @@ public final class PerformHelper extends HelperBase {
     }
 
     public void fillFieldActionPhone(ElementData element, String text){
-        Actions actions = new Actions(kraken.getWebDriver());
-        actions.moveToElement(kraken.getWebDriver().findElement(element.getLocator())).click().perform();
-        var element1 = kraken.getWebDriver().findElement(element.getLocator());
+        Actions actions = new Actions(AppManager.getWebDriver());
+        actions.moveToElement(AppManager.getWebDriver().findElement(element.getLocator())).click().perform();
+        var element1 = AppManager.getWebDriver().findElement(element.getLocator());
         int attempts=0;
         if(!text.equals("")){
             for (int i = 0; i < text.length();) {
-                kraken.await().simply(0.3);
+                WaitingHelper.simply(0.3);
                 element1.sendKeys(text.charAt(i) + "");
                 if(i==text.length()-1){
                     if(!element1.getAttribute("value").replaceAll("[() -]","").contains(text)){
@@ -187,36 +177,36 @@ public final class PerformHelper extends HelperBase {
         //В данном случае это скорее костыль, так как конкретный чекбокс найти очень сложно, клик по
         //тексту, чекбокс не переводит в статус true/false
         //также нельзя найти атрибут по которому будет понятно в каком статусе объект
-        List<WebElement> elements = kraken.getWebDriver().findElements(element.getLocator());
+        List<WebElement> elements = AppManager.getWebDriver().findElements(element.getLocator());
         click(elements.get(counter-1));
     }
 
     /** Переключиться на фреймами по имени или id */
     void switchToFrame(String nameOrId) {
-        kraken.getWebDriver().switchTo().frame(nameOrId);
+        AppManager.getWebDriver().switchTo().frame(nameOrId);
     }
 
     /** Переключиться на активный элемент */
     public void switchToActiveElement() {
-        kraken.getWebDriver().switchTo().activeElement();
+        AppManager.getWebDriver().switchTo().activeElement();
     }
 
     /** Переключиться на следующую вкладку */
     public void switchToNextWindow() {
-        for (String winHandle : kraken.getWebDriver().getWindowHandles()) {
-            kraken.getWebDriver().switchTo().window(winHandle); // switch focus of WebDriver to the next found window handle
+        for (String winHandle : AppManager.getWebDriver().getWindowHandles()) {
+            AppManager.getWebDriver().switchTo().window(winHandle); // switch focus of WebDriver to the next found window handle
         }
     }
 
     /** Переключиться на дефолтный контент */
     public void switchToDefaultContent() {
         //driver.switchTo().parentFrame();
-        kraken.getWebDriver().switchTo().defaultContent();
+        AppManager.getWebDriver().switchTo().defaultContent();
     }
 
     /** Обновить страницу */
     public void refresh() {
-        kraken.getWebDriver().navigate().refresh();
+        AppManager.getWebDriver().navigate().refresh();
     }
 
     /** Поиск чаилда с помощью тега и текста*/
@@ -235,7 +225,7 @@ public final class PerformHelper extends HelperBase {
     /**Это функция работает как костыль, пока у нас нет дата атрибутов, она берет парента и возвращает чаилда по индексу
      * нужно от нее отказаться, когла сделаем дата атрибут*/
     public WebElement findChildElementByTagAndIndex(ElementData parent,By tag, Integer index){
-        List<WebElement> elements = kraken.getWebDriver().findElement(parent.getLocator()).findElements(tag);
+        List<WebElement> elements = AppManager.getWebDriver().findElement(parent.getLocator()).findElements(tag);
         try{
             return elements.get(index);
         } catch (Exception ex){
@@ -246,7 +236,7 @@ public final class PerformHelper extends HelperBase {
 
     public void scrollToTheBottom(){
         log.info("> прокручиваем страницу в самый низ");
-        JavascriptExecutor jse = (JavascriptExecutor)kraken.getWebDriver();
+        JavascriptExecutor jse = (JavascriptExecutor) AppManager.getWebDriver();
         jse.executeScript("scroll(0, 500)");
     }
 
@@ -254,7 +244,7 @@ public final class PerformHelper extends HelperBase {
         log.info("> фокусируем страницу на элементе");
         kraken.await().fluently(ExpectedConditions.elementToBeClickable(element.getLocator()),
                 "элемент не доступен: "+element.getDescription(), Config.BASIC_TIMEOUT);
-        JavascriptExecutor jse = (JavascriptExecutor)kraken.getWebDriver();
-        jse.executeScript("arguments[0].scrollIntoView();", kraken.getWebDriver().findElement(element.getLocator()));
+        JavascriptExecutor jse = (JavascriptExecutor) AppManager.getWebDriver();
+        jse.executeScript("arguments[0].scrollIntoView();", AppManager.getWebDriver().findElement(element.getLocator()));
     }
 }

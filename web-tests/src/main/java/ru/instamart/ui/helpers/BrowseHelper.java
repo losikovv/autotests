@@ -1,22 +1,16 @@
 package ru.instamart.ui.helpers;
 
+import io.qameta.allure.Step;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.TimeoutException;
 import ru.instamart.core.common.AppManager;
 import ru.instamart.core.helpers.HelperBase;
 import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.common.pagesdata.PageData;
-import io.qameta.allure.Step;
-import org.openqa.selenium.TimeoutException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class BrowseHelper extends HelperBase {
-
-    private static final Logger log = LoggerFactory.getLogger(BrowseHelper.class);
-
-    public BrowseHelper(final AppManager kraken) {
-        super(kraken);
-    }
+@Slf4j
+public final class BrowseHelper extends HelperBase {
 
     /** Перейти на указанный URL*/
     @Step("Перейти на указанный URL: {0}")
@@ -25,7 +19,7 @@ public class BrowseHelper extends HelperBase {
             log.info("Переходим по базовому URL >>> {}", url);
         }
         try {
-            kraken.getWebDriver().get(url);
+            AppManager.getWebDriver().get(url);
         } catch (TimeoutException t) {
             log.info("Истекло время перехода по URL {}", url);
         }

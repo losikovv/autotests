@@ -1,4 +1,4 @@
-package ru.instamart.core.provider;
+package ru.instamart.ui.provider;
 
 import ru.instamart.core.settings.Config;
 import org.openqa.selenium.WebDriver;
@@ -79,7 +79,7 @@ public abstract class AbstractBrowserProvider {
      */
     protected LoggingPreferences getLogPref() {
         final LoggingPreferences logs = new LoggingPreferences();
-        logs.enable(LogType.BROWSER, Level.SEVERE);
+        logs.enable(LogType.BROWSER, Level.ALL);
         logs.enable(LogType.CLIENT, Level.OFF);
         logs.enable(LogType.DRIVER, Level.WARNING);
         logs.enable(LogType.PERFORMANCE, Level.INFO);

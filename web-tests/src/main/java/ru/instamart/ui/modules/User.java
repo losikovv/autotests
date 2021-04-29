@@ -1,25 +1,20 @@
 package ru.instamart.ui.modules;
 
-import ru.instamart.api.objects.v2.AddressV2;
-import ru.instamart.core.common.AppManager;
-import ru.instamart.core.settings.Config;
-import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.common.lib.Addresses;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
-import ru.instamart.ui.common.pagesdata.UserData;
-import ru.instamart.ui.helpers.WaitingHelper;
-import ru.instamart.ui.modules.shop.ShippingAddressModal;
-import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Step;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ru.instamart.core.common.AppManager;
+import ru.instamart.core.settings.Config;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.helpers.WaitingHelper;
+import ru.instamart.ui.objectsmap.Elements;
 
+@Slf4j
 public final class User extends Base {
-
-    private static final Logger log = LoggerFactory.getLogger(User.class);
 
     public User(final AppManager kraken) {
         super(kraken);
@@ -82,7 +77,7 @@ public final class User extends Base {
             log.info("> деавторизуемся на сайте");
             for (int i=0;i<60;i++){
                 kraken.perform().click(Elements.Header.profileButton());
-                if(kraken.getWebDriver().findElement(Elements.AccountMenu.logoutButton().getLocator()).isDisplayed()){
+                if(AppManager.getWebDriver().findElement(Elements.AccountMenu.logoutButton().getLocator()).isDisplayed()){
                     break;
                 }else{
                     WaitingHelper.simply(0.3);
@@ -280,7 +275,7 @@ public final class User extends Base {
             kraken.perform().fillField(Elements.Social.Facebook.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Facebook.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Facebook.submitButton());
-            kraken.getWebDriver().getWindowHandles();
+            AppManager.getWebDriver().getWindowHandles();
             WaitingHelper.simply(1); // Ожидание авторизации через Facebook
 
             //TOdo добавить проверку на то что вернулись в основное окно
@@ -321,7 +316,7 @@ public final class User extends Base {
             //TODO тест сломан, отладить на новом стейдже
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                     Elements.Social.Sber.sberButtonsSection().getLocator()));
-            WebElement parent = kraken.getWebDriver().findElement(Elements.Social.Sber.sberButtonsSection().getLocator());
+            WebElement parent = AppManager.getWebDriver().findElement(Elements.Social.Sber.sberButtonsSection().getLocator());
             kraken.perform().findChildElementByTagAndText(parent,By.tagName("button"),"Логин").click();
 
             kraken.perform().fillField(Elements.Social.Sber.loginField(),user.getLogin());
@@ -370,7 +365,7 @@ public final class User extends Base {
         @Step("Делаем быструю деавторизацию пользователя с удалением файлов куки")
         public static void quickly() {
             log.info("> удаляем куки...");
-            kraken.getWebDriver().manage().deleteAllCookies();
+            AppManager.getWebDriver().manage().deleteAllCookies();
             kraken.get().baseUrl();
             if (kraken.detect().isOnLanding()) {
                 log.info("✓ Готово");
@@ -380,7 +375,7 @@ public final class User extends Base {
         @Step("Делаем быструю деавторизацию из админки с удалением файлов куки")
         public static void quicklyAdmin() {
             log.info("> удаляем куки...");
-            kraken.getWebDriver().manage().deleteAllCookies();
+            AppManager.getWebDriver().manage().deleteAllCookies();
             kraken.get().adminPage("");
             if (kraken.detect().isInAdmin()) {
                 log.info("✓ Готово");

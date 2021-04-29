@@ -1,5 +1,9 @@
 package ru.instamart.ui.modules;
 
+import io.qameta.allure.Step;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.core.common.AppManager;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.ui.BonusPrograms;
@@ -9,21 +13,14 @@ import ru.instamart.ui.common.lib.ReplacementPolicies;
 import ru.instamart.ui.common.pagesdata.*;
 import ru.instamart.ui.helpers.WaitingHelper;
 import ru.instamart.ui.objectsmap.Elements;
-import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
-import static ru.instamart.core.testdata.TestVariables.testOrderDetails;
 import static io.qameta.allure.Allure.step;
+import static ru.instamart.core.testdata.TestVariables.testOrderDetails;
 
+@Slf4j
 public final class Checkout extends Base {
-
-    private static final Logger log = LoggerFactory.getLogger(Checkout.class);
 
     public Checkout(final AppManager kraken) {
         super(kraken);
@@ -733,7 +730,7 @@ public final class Checkout extends Base {
             if (kraken.detect().isBonusAdded(bonus)) {
                 log.info("Выбираем бонусную программу {}", bonus.getName());
                 kraken.perform().click(Elements.Checkout.Bonuses.Program.snippet(bonus.getName()));
-                kraken.await().simply(1); // Ожидание выбора бонусной программы в чекауте
+                WaitingHelper.simply(1); // Ожидание выбора бонусной программы в чекауте
             } else {
                 throw new AssertionError("Невозможно выбрать бонусную программу " + bonus.getName() + ", так как она не добавлена");
             }
@@ -812,7 +809,7 @@ public final class Checkout extends Base {
 
     /** Проверяем готовность чекаута перед заполнением */
     private void initCheckout() {
-        new FluentWait<>(kraken.getWebDriver())
+        new FluentWait<>(AppManager.getWebDriver())
                 .withTimeout(Config.WAITING_TIMEOUT, TimeUnit.SECONDS)
                 .withMessage("Не открывается чекаут")
                 .pollingEvery(Config.BASIC_TIMEOUT, TimeUnit.SECONDS)
@@ -968,7 +965,7 @@ public final class Checkout extends Base {
     /** Заполнить данные юр. лица */
     private void fillJuridicalDetails(JuridicalData companyRequisites) {
         kraken.perform().fillField(Elements.Checkout.JuridicalModal.innField(), companyRequisites.getInn());
-        kraken.await().simply(1); // Ожидание подгрузки юрлица по ИНН
+        WaitingHelper.simply(1); // Ожидание подгрузки юрлица по ИНН
         kraken.perform().fillField(Elements.Checkout.JuridicalModal.nameField(), companyRequisites.getJuridicalName());
         kraken.perform().fillField(Elements.Checkout.JuridicalModal.addressField(), companyRequisites.getJuridicalAddress());
         kraken.perform().fillField(Elements.Checkout.JuridicalModal.kppField(), companyRequisites.getKpp());

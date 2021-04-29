@@ -1,7 +1,7 @@
 package ru.instamart.core.common;
 
 import ru.instamart.api.helpers.InstamartApiHelper;
-import ru.instamart.core.service.WebDriverService;
+import ru.instamart.ui.service.WebDriverService;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.helpers.*;
 import ru.instamart.ui.modules.Administration;
@@ -12,7 +12,7 @@ import org.openqa.selenium.WebDriver;
 
 public final class AppManager {
 
-    private final WebDriverService webDriverService = new WebDriverService();
+    private static final WebDriverService webDriverService = new WebDriverService();
 
     private final BrowseHelper browseHelper;
     private final PerformHelper performHelper;
@@ -27,8 +27,8 @@ public final class AppManager {
     private final InstamartApiHelper instamartApiHelper;
 
     public AppManager() {
-        this.browseHelper = new BrowseHelper(this);
-        this.performHelper = new PerformHelper(this);
+        this.browseHelper = new BrowseHelper();
+        this.performHelper = new PerformHelper();
         this.reachHelper = new ReachHelper(this);
         this.detectionHelper = new DetectionHelper(this);
         this.grabHelper = new GrabHelper(this);
@@ -40,11 +40,11 @@ public final class AppManager {
         this.instamartApiHelper = new InstamartApiHelper();
     }
 
-    public void getBasicUrl() {
+    public static void getBasicUrl() {
         webDriverService.createOrGetDriver().get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth());
     }
 
-    public WebDriver getWebDriver() {
+    public static WebDriver getWebDriver() {
         WebDriver webDriver = webDriverService.createOrGetDriver();
         if (webDriver != null && !webDriverService.isStillAlive(webDriver)) {
             webDriverService.closeDriver();

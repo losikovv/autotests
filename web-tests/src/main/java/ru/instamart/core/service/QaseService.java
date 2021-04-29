@@ -20,6 +20,7 @@ import ru.instamart.core.helpers.HelperBase;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.util.Crypt;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.report.CustomReport;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -168,7 +169,7 @@ public final class QaseService {
     }
 
     public List<String> uploadScreenshot() {
-        final File file = HelperBase.takeScreenshotFile();
+        final File file = CustomReport.takeScreenshotFile();
         return qaseApi.attachments()
                 .add(projectCode, file)
                 .stream()

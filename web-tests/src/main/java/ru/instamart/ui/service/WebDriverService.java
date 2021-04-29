@@ -1,14 +1,13 @@
-package ru.instamart.core.service;
+package ru.instamart.ui.service;
 
-import ru.instamart.core.factory.BrowserFactory;
-import ru.instamart.core.helpers.CleanupThread;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.UnreachableBrowserException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Reporter;
+import ru.instamart.ui.factory.BrowserFactory;
+import ru.instamart.core.helpers.CleanupThread;
 
 import java.util.Collection;
 import java.util.Map;
@@ -20,9 +19,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static ru.instamart.core.settings.Config.BROWSER_VERSION;
 import static ru.instamart.core.settings.Config.DEFAULT_BROWSER;
 
+@Slf4j
 public final class WebDriverService {
-
-    private static final Logger log = LoggerFactory.getLogger(WebDriverService.class);
 
     private final Collection<Thread> allWebDriverThreads = new ConcurrentLinkedQueue<>();
     private final AtomicBoolean isCleanStart = new AtomicBoolean(false);

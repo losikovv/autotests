@@ -1,28 +1,27 @@
 package ru.instamart.ui.modules;
 
-import org.openqa.selenium.*;
+import io.qameta.allure.Step;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.core.common.AppManager;
 import ru.instamart.core.settings.Config;
-import ru.instamart.core.testdata.TestVariables;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.pagesdata.ElementData;
 import ru.instamart.ui.common.pagesdata.WidgetData;
 import ru.instamart.ui.objectsmap.Elements;
-import io.qameta.allure.Step;
-import ru.instamart.ui.modules.shop.ShippingAddressModal;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static io.qameta.allure.Allure.step;
 
+@Slf4j
 public final class Shop extends Base {
-
-    private static final Logger log = LoggerFactory.getLogger(Shop.class);
 
     public Shop(final AppManager kraken) {
         super(kraken);
@@ -784,7 +783,7 @@ public final class Shop extends Base {
                     } else {
                         log.info("> нет любимых товаров на текущей странице {}", kraken.grab().currentURL());
                         //kraken.get().page(Pages.Retailers.metro());
-                        kraken.getBasicUrl();
+                        AppManager.getBasicUrl();
                         Catalog.Item.open();
                     }
                 }

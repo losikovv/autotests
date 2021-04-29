@@ -3,8 +3,7 @@ package ru.instamart.api.helpers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.asserts.SoftAssert;
@@ -31,9 +30,8 @@ import java.util.stream.Collectors;
 
 import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
+@Slf4j
 public final class InstamartApiHelper {
-
-    private static final Logger log = LoggerFactory.getLogger(InstamartApiHelper.class);
 
     private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentAddressId = new ThreadLocal<>();
