@@ -16,7 +16,8 @@ public enum EnvironmentData {
 
     INSTANCE;
 
-    private static final String ENV_DIR = Objects.requireNonNull(EnvironmentData.class.getClassLoader().getResource("environment_configs/")).getPath();
+    private static final String ENV_DIR = Objects.requireNonNull(EnvironmentData.class.getClassLoader()
+            .getResource("environment_configs/")).getPath();
 
     private String tenant;
     private String server;
@@ -35,18 +36,27 @@ public enum EnvironmentData {
             properties.load(new FileReader(file));
 
             this.tenant = properties.getProperty("tenant");
-            this.server = System.getProperty("url_stf", properties.getProperty("server"));
-            this.basicUrl = System.getProperty("url_stf", properties.getProperty("basicUrl"));
             this.httpAuth = Crypt.INSTANCE.decrypt(properties.getProperty("httpAuth"));
             this.defaultSid = properties.getProperty("defaultSid");
             this.defaultShopperSid = properties.getProperty("defaultShopperSid");
             this.protocol = System.getProperty("protocol", "https");
 
             String customBasicUrl = System.getProperty("url_stf");
-            if (customBasicUrl != null && customBasicUrl.startsWith("stf")) {
-                this.shopperUrl = System.getProperty("url_shp", "shp" + customBasicUrl.substring(3));
+            String customShopperUrl = System.getProperty("url_shp");
+
+            if (customBasicUrl != null && customBasicUrl.startsWith("stf-")) {
+                this.server = customBasicUrl.split("\\.")[0];
+                this.basicUrl = customBasicUrl;
+
+                if (customShopperUrl != null && customShopperUrl.startsWith("shp-")) {
+                    this.shopperUrl = customShopperUrl;
+                } else {
+                    this.shopperUrl = "shp" + customBasicUrl.substring(3);
+                }
             } else {
-                this.shopperUrl = System.getProperty("url_shp", properties.getProperty("shopperUrl"));
+                this.server = properties.getProperty("server");
+                this.basicUrl = properties.getProperty("basicUrl");
+                this.shopperUrl = properties.getProperty("shopperUrl");
             }
 
             log.info("Basic URL: " + this.basicUrl);
