@@ -43,6 +43,7 @@ stages:
       - master
     variables:
       - $CI_RUN_ALL_JOBS == 'true'
+  allow_failure: true
 
 build:
   image:
