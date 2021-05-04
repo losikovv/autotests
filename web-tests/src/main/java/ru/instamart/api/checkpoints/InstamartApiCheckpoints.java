@@ -4,11 +4,9 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.objects.v2.OrderV2;
 import ru.instamart.api.objects.v2.TaxonV2;
-import ru.instamart.api.responses.ErrorResponse;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -20,32 +18,11 @@ import static org.hamcrest.Matchers.is;
 @Slf4j
 public class InstamartApiCheckpoints {
 
-    public static void checkStatusCode200(Response response) {
-        checkStatusCode200(response, "");
-    }
-
     @Step("Ответ вернул 200")
-    public static void checkStatusCode200(Response response, String message) {
-        response.then().assertThat().contentType(ContentType.JSON);
-        String responseText = response.statusLine();
-        switch (response.statusCode()) {
-            case 200:
-                break;
-            case 400:
-            case 401:
-            case 403:
-            case 404:
-            case 422:
-                ErrorResponse errorResponse = response.as(ErrorResponse.class);
-                if (errorResponse.getErrors() != null) responseText = errorResponse.getErrors().getBase();
-                else if (errorResponse.getError() != null) responseText = errorResponse.getError();
-                else if (errorResponse.getMessage() != null) responseText =  errorResponse.getMessage();
-                break;
-            case 502:
-                responseText = "СЕРВЕР ЛЕЖИТ";
-                break;
-        }
-        Assert.assertEquals(response.statusCode(),200, message + "\n" + responseText);
+    public static void checkStatusCode200(Response response) {
+        response.then()
+                .statusCode(200)
+                .contentType(ContentType.JSON);
     }
 
     @Step("Ответ вернул 400")
@@ -90,12 +67,12 @@ public class InstamartApiCheckpoints {
                         .getDeliveryWindow()
                         .getStartsAt()
                         .substring(0, 19))
-                .plus(2, ChronoUnit.HOURS); // у gitlab время по гринвичу, а в тестовом магазине +2
+                .plusHours(2); // у gitlab время по гринвичу, а в тестовом магазине +2
 
         LocalDateTime nextDay = LocalDateTime
                 .now()
                 .truncatedTo(ChronoUnit.DAYS)
-                .plus(1, ChronoUnit.DAYS);
+                .plusDays(1);
 
         if (deliveryTime.isBefore(nextDay)) {
             return "Заказ оформлен не на сегодня\nnow: " + LocalDateTime.now()
