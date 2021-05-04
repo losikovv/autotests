@@ -47,7 +47,7 @@ public final class SessionsV2Test extends RestBase {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
         final Response response = SessionV2Request.POST(userData.getLogin(), userData.getPassword(), "InstamartApp");
-        checkStatusCode200(response, "Не работает авторизация с Client-Id: InstamartApp");
+        checkStatusCode200(response);
         assertNotNull(response.as(SessionsV2Response.class).getSession());
     }
 
