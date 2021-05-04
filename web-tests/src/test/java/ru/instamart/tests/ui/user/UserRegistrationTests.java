@@ -5,9 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import ru.instamart.core.listeners.ExecutionListenerImpl;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.testdata.ui.Generate;
@@ -24,7 +22,6 @@ import ru.instamart.ui.objectsmap.Elements;
 
 @Epic("STF UI")
 @Feature("Регистрация пользователя")
-@Listeners(ExecutionListenerImpl.class)
 public final class UserRegistrationTests extends TestBase {
 
     private static String phone;
