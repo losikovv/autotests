@@ -4,8 +4,8 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.common.pagesdata.AddressDetailsData;
 import ru.instamart.ui.common.pagesdata.UserData;
-import ru.instamart.ui.modules.Checkout;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.checkout.AddressSteps;
 import ru.instamart.ui.objectsmap.Elements;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -57,7 +57,7 @@ public class CheckoutAddressStepTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successProceedNextWithDefaultStepState() {
-        Checkout.AddressStep.next();
+        AddressSteps.next();
 
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -66,8 +66,8 @@ public class CheckoutAddressStepTests extends TestBase {
             groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyTypeChanged() {
-        Checkout.AddressStep.setType();
-        Checkout.AddressStep.next();
+        AddressSteps.setType();
+        AddressSteps.next();
 
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -76,8 +76,8 @@ public class CheckoutAddressStepTests extends TestBase {
             groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyApartmentProvided() {
-        Checkout.AddressStep.fillApartment();
-        Checkout.AddressStep.next();
+        AddressSteps.fillApartment(testOrderDetails().getAddressDetails().getApartment());
+        AddressSteps.next();
 
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -86,8 +86,8 @@ public class CheckoutAddressStepTests extends TestBase {
             groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyFloorProvided() {
-        Checkout.AddressStep.fillFloor();
-        Checkout.AddressStep.next();
+        AddressSteps.fillFloor(testOrderDetails().getAddressDetails().getFloor());
+        AddressSteps.next();
 
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -96,8 +96,8 @@ public class CheckoutAddressStepTests extends TestBase {
             groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyElevatorChanged() {
-        Checkout.AddressStep.setElevator();
-        Checkout.AddressStep.next();
+        AddressSteps.setElevator(testOrderDetails().getAddressDetails().isElevatorAvailable());
+        AddressSteps.next();
 
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -106,8 +106,8 @@ public class CheckoutAddressStepTests extends TestBase {
             groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyEntranceProvided() {
-        Checkout.AddressStep.fillEntrance();
-        Checkout.AddressStep.next();
+        AddressSteps.fillEntrance(testOrderDetails().getAddressDetails().getEntrance());
+        AddressSteps.next();
 
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -116,8 +116,8 @@ public class CheckoutAddressStepTests extends TestBase {
             groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyDomofonProvided() {
-        Checkout.AddressStep.fillDomofon();
-        Checkout.AddressStep.next();
+        AddressSteps.fillDomofon(testOrderDetails().getAddressDetails().getDomofon());
+        AddressSteps.next();
 
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -126,8 +126,8 @@ public class CheckoutAddressStepTests extends TestBase {
             groups = {"sbermarket-regression"}
     )
     public void successProceedNextWithOnlyCommentariesProvided() {
-        Checkout.AddressStep.fillCommentaries();
-        Checkout.AddressStep.next();
+        AddressSteps.fillCommentaries(testOrderDetails().getAddressDetails().getCommentaries());
+        AddressSteps.next();
 
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -136,12 +136,12 @@ public class CheckoutAddressStepTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successProceedNextWithClearedFields() {
-        Checkout.AddressStep.fill();
-        Checkout.AddressStep.next();
+        AddressSteps.fill();
+        AddressSteps.next();
         kraken.perform().refresh();
 
-        Checkout.AddressStep.clear();
-        Checkout.AddressStep.next();
+        AddressSteps.clear();
+        AddressSteps.next();
 
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -150,8 +150,8 @@ public class CheckoutAddressStepTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successFillAllFieldsAndProceedNext() {
-        Checkout.AddressStep.fill();
-        Checkout.AddressStep.next();
+        AddressSteps.fill();
+        AddressSteps.next();
 
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
     }
@@ -162,9 +162,9 @@ public class CheckoutAddressStepTests extends TestBase {
     public void successKeepProvidedStepData() {
         SoftAssert softAssert = new SoftAssert();
 
-        Checkout.AddressStep.clear();
-        Checkout.AddressStep.fill();
-        Checkout.AddressStep.next();
+        AddressSteps.clear();
+        AddressSteps.fill();
+        AddressSteps.next();
 
         baseChecks.checkIsElementPresent(Elements.Checkout.MinimizedStep.panel(addressStep()));
 
@@ -220,11 +220,11 @@ public class CheckoutAddressStepTests extends TestBase {
             groups = {"sbermarket-regression"}
     )
     public void successChangeProvidedAddressData() {
-        Checkout.AddressStep.fill();
-        Checkout.AddressStep.next();
-        Checkout.AddressStep.change();
+        AddressSteps.fill();
+        AddressSteps.next();
+        AddressSteps.change();
 
-        Checkout.AddressStep.fill(
+        AddressSteps.fill(
                 new AddressDetailsData(
                         "home",
                         "5",
@@ -234,7 +234,7 @@ public class CheckoutAddressStepTests extends TestBase {
                         "5555",
                         "55555")
         );
-        Checkout.AddressStep.next();
+        AddressSteps.next();
 
         kraken.reach().checkout();
         baseChecks.checkRadioButtonIsSelected(Elements.Checkout.AddressStep.homeRadioButton());

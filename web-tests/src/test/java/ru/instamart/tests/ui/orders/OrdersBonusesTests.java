@@ -5,8 +5,8 @@ import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.testdata.ui.BonusPrograms;
 import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.modules.Administration;
-import ru.instamart.ui.modules.Checkout;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.checkout.BonusesActions;
 import ru.instamart.ui.objectsmap.Elements;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -27,7 +27,7 @@ public class OrdersBonusesTests extends TestBase {
     public void preconditions() {
         kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
-        Checkout.Bonuses.deleteAll();
+        BonusesActions.deleteAll();
     }
     @AfterMethod(alwaysRun = true,
             description ="Очищаем окружение после теста")
@@ -39,7 +39,7 @@ public class OrdersBonusesTests extends TestBase {
             groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successOrderWithMnogoRuBonus() {
-        Checkout.Bonuses.add(BonusPrograms.mnogoru());
+        BonusesActions.add(BonusPrograms.mnogoru());
         kraken.checkout().complete();
 
         String number = kraken.grab().shipmentNumber();
@@ -57,7 +57,7 @@ public class OrdersBonusesTests extends TestBase {
 
     )
     public void successOrderWithAeroflotBonus() {
-        Checkout.Bonuses.add(BonusPrograms.aeroflot());
+        BonusesActions.add(BonusPrograms.aeroflot());
         kraken.checkout().complete();
 
         String number = kraken.grab().shipmentNumber();

@@ -6,9 +6,9 @@ import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.testdata.ui.RetailerCards;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.lib.Pages;
-import ru.instamart.ui.modules.Checkout;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.checkout.RetailerCardsActions;
 import ru.instamart.ui.modules.shop.Order;
 import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
@@ -38,7 +38,7 @@ public class OrdersRetailerCardsTests extends TestBase {
         kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         
-        Checkout.RetailerCards.addCard(RetailerCards.metro());
+        RetailerCardsActions.addCard(RetailerCards.metro());
         kraken.checkout().complete();
 
         String number = kraken.grab().shipmentNumber();
@@ -61,7 +61,7 @@ public class OrdersRetailerCardsTests extends TestBase {
         kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
 
-        Checkout.RetailerCards.addCard(RetailerCards.vkusvill());
+        RetailerCardsActions.addCard(RetailerCards.vkusvill());
         kraken.checkout().complete();
 
         String number = kraken.grab().shipmentNumber();

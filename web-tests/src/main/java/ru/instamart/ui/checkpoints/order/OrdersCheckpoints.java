@@ -27,25 +27,25 @@ public class OrdersCheckpoints extends BaseUICheckpoints {
     private void orderDocuments(String paymentType) {
         if ("Переводом".equals(paymentType)) {
             checkOrderDocumentIsDownloadable("Универсальный передаточный документ");
-            kraken.await().simply(1);
+//            kraken.await().simply(1);
             checkOrderDocumentIsDownloadable("Счет");
-            kraken.await().simply(1);
+//            kraken.await().simply(1);
             checkOrderDocumentIsDownloadable("Счет-фактура");
-            kraken.await().simply(1);
+//            kraken.await().simply(1);
             checkOrderDocumentIsDownloadable("Товарная накладная");
         } else {
             checkOrderDocumentIsDownloadable("Универсальный передаточный документ");
-            kraken.await().simply(1);
+//            kraken.await().simply(1);
             checkOrderDocumentIsDownloadable("Счет-фактура");
-            kraken.await().simply(1);
+//            kraken.await().simply(1);
             checkOrderDocumentIsDownloadable("Товарная накладная");
-            kraken.await().simply(1);
+//            kraken.await().simply(1);
         }
     }
-
+    @Step("Проверяем, что документ с заказом может быть загружен")
     public void checkOrderDocumentIsDownloadable(String docname) {
         ElementData docLink = Elements.UserProfile.OrderDetailsPage.document(docname);
-        log.info("Скачиваем: {}", docname);
+        log.info("> скачиваем: {}", docname);
         if (kraken.detect().isElementPresent(docLink)) {
             kraken.perform().click(docLink);
         } else
@@ -55,14 +55,14 @@ public class OrdersCheckpoints extends BaseUICheckpoints {
 
     @Step("Проверка успешного создания заказа")
     public void checkOrderSuccessCreation(){
-        log.info("Проверка успешного создания заказа");
+        log.info("> проверка успешного создания заказа");
         Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не удалось оформить заказ\n");
     }
 
     @Step("Проверка метода оплаты")
     public void checkPaymentMethod(PaymentTypeData PaymentType){
-        log.info("Проверка корректного метода оплаты");
+        log.info("> проверка корректного метода оплаты");
         Assert.assertEquals(
                 kraken.grab().shipmentPayment(),
                 PaymentType.getDescription(),

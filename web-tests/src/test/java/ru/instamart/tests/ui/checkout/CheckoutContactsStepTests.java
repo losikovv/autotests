@@ -3,8 +3,8 @@ package ru.instamart.tests.ui.checkout;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.common.pagesdata.UserData;
-import ru.instamart.ui.modules.Checkout;
 import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.checkout.AddressSteps;
 import ru.instamart.ui.objectsmap.Elements;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -26,7 +26,7 @@ public class CheckoutContactsStepTests extends TestBase {
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
         kraken.reach().checkout();
-        Checkout.AddressStep.next();
+        AddressSteps.next();
     }
 
     @Test(  description = "Тест валидации шага Контакты в чекауте",

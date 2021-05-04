@@ -5,7 +5,7 @@ import ru.instamart.ui.service.WebDriverService;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.helpers.*;
 import ru.instamart.ui.modules.Administration;
-import ru.instamart.ui.modules.Checkout;
+import ru.instamart.ui.modules.checkout.Checkout;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
 import org.openqa.selenium.WebDriver;
