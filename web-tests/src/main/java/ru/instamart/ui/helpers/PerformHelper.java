@@ -198,6 +198,23 @@ public final class PerformHelper extends HelperBase {
         }
     }
 
+    public void switchToWindowIndex(final int index) {
+        try {
+            final List<String> windowHandles = List.copyOf(AppManager.getWebDriver().getWindowHandles());
+            AppManager.getWebDriver().switchTo().window(windowHandles.get(index));
+        } catch (IndexOutOfBoundsException windowWithIndexNotFound) {
+            log.error("FATAL: Windows with index {} doesn't exist", index);
+        }
+    }
+
+    public void switchToMainWindow() {
+        if (kraken.await().checkIfPopupWindowClosed()) {
+            switchToWindowIndex(0);
+        } else {
+            log.error("Popup still alive");
+        }
+    }
+
     /** Переключиться на дефолтный контент */
     public void switchToDefaultContent() {
         //driver.switchTo().parentFrame();

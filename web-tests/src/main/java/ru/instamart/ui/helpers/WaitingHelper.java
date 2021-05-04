@@ -3,11 +3,13 @@ package ru.instamart.ui.helpers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.instamart.core.common.AppManager;
 import ru.instamart.core.helpers.HelperBase;
 import ru.instamart.core.settings.Config;
@@ -136,18 +138,12 @@ public final class WaitingHelper extends HelperBase {
         }
     }
 
-    public void byElementIsPresentByText(List<WebElement> elements, String text, int timer){
-        for (WebElement element:elements){
-            if(element.getText().equals(text)){
-                for (int i = 0; i<timer; i++){
-                    if (element.isDisplayed())return;
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        log.error("Can't find element");
-                    }
-                }
-            }
+    public boolean checkIfPopupWindowClosed() {
+        try {
+            return (new WebDriverWait(AppManager.getWebDriver(), 10))
+                    .until((ExpectedCondition<Boolean>) d -> d.getWindowHandles().size() == 1);
+        } catch (TimeoutException e) {
+            return false;
         }
     }
 }

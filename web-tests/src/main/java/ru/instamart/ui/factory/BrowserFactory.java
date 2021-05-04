@@ -36,6 +36,6 @@ public final class BrowserFactory {
         }
         provider.createDriver(version);
 
-        return provider.getWebDriver();
+        return provider.getDriver();
     }
 }
