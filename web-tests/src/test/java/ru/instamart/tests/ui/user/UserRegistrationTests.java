@@ -1,8 +1,17 @@
 package ru.instamart.tests.ui.user;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseId;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+import ru.instamart.core.listeners.ExecutionListenerImpl;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.testdata.ui.Generate;
+import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.checkpoints.shoppingcart.ShoppingCartCheckpoints;
 import ru.instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
@@ -12,19 +21,12 @@ import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
 import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseId;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import ru.instamart.tests.ui.TestBase;
 
 @Epic("STF UI")
 @Feature("Регистрация пользователя")
-public class UserRegistrationTests extends TestBase {
-    public static String modalType;
+@Listeners(ExecutionListenerImpl.class)
+public final class UserRegistrationTests extends TestBase {
+
     private static String phone;
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
@@ -34,7 +36,6 @@ public class UserRegistrationTests extends TestBase {
             description ="Завершаем сессию, текущего пользователя")
     public void quickLogout() {
         User.Logout.quickly();
-        kraken.perform().deleteAllCookies();
     }
 
     @CaseId(1552)
@@ -177,11 +178,9 @@ public class UserRegistrationTests extends TestBase {
         authChecks.checkIsUserAuthorized("Не работает регистрация без согласия на получение почтовой рассылки");
     }
 
-    @Issue("https://github.com/SeleniumHQ/selenium/issues/9360")
     @Test(
             description = "Тест успешной регистрации через Facebook",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"},
-            enabled = false
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successRegWithFacebook() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -191,11 +190,9 @@ public class UserRegistrationTests extends TestBase {
         authChecks.checkIsUserAuthorized("Не работает регистрация через Facebook");
     }
 
-    @Issue("https://github.com/SeleniumHQ/selenium/issues/9360")
     @Test(
             description = "Тест успешной регистрации через ВКонтакте",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"},
-            enabled = false
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successRegWithVkontakte() {
         kraken.get().page(Config.DEFAULT_RETAILER);
@@ -210,7 +207,7 @@ public class UserRegistrationTests extends TestBase {
     @Test(  description = "Тест успешной регистрации через MailRu",
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
-    public void successRegWithMailRu() {
+    public void successRegWithMailRu() throws InterruptedException {
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         Shop.AuthModal.hitMailRuButton();
@@ -218,14 +215,14 @@ public class UserRegistrationTests extends TestBase {
         authChecks.checkIsUserAuthorized("Не работает регистрация через MailRu");
     }
 
-
     @Test(
             description = "Тест успешной регистрации через Sber ID",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"},
-            enabled = false
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successRegWithSberID() {
         kraken.get().page(Config.DEFAULT_RETAILER);
+        Shop.AuthModal.openAuthRetailer();
+        Shop.AuthModal.hitSberIdButton();
         User.Auth.withSberID(UserManager.getDefaultSberIdUser());
         authChecks.checkIsUserAuthorized("Не работает регистрация через Sber ID");
     }

@@ -2994,6 +2994,11 @@ public class Elements {
                         "кнопка Логин в форме авторизации Sber ID");
             }
 
+            static ElementData switchLoginType() {
+                return new ElementData(By.xpath("//section/div/button"),
+                        "кнопка переключения типа авторизации");
+            }
+
             static ElementData loginField() {
                 return new ElementData(By.xpath("//input[@name='login']"),
                         "поле ввода логина формы авторизации Sber ID");

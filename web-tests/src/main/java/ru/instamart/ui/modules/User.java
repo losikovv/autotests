@@ -2,8 +2,6 @@ package ru.instamart.ui.modules;
 
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.core.common.AppManager;
 import ru.instamart.core.settings.Config;
@@ -247,85 +245,42 @@ public final class User extends Base {
 
         @Step("Переходим на base url для авторизации через Vkontakte")
         public static void withVkontakte(UserData user) {
-
-            WaitingHelper.simply(2); // Ожидание открытия фрейма авторизации Vkontakte
-
-            kraken.perform().switchToNextWindow();
+            kraken.perform().switchToWindowIndex(1);
             kraken.perform().fillField(Elements.Social.Vkontakte.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Vkontakte.passwordField(),user.getPassword());
-//            WebDriver driver = new ChromeDriver();
-//            driver.switchTo().newWindow(WindowType.TAB);
             kraken.perform().click(Elements.Social.Vkontakte.submitButton());
-
-//            kraken.perform().switchToNextWindow();
-
-//            kraken.getWebDriver().switchTo().window(kraken.perform().getWindow());
-//            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated());
-//            kraken.await().fluently(
-//                    ExpectedConditions.invisibilityOfElementLocated(
-//                            Elements.Modals.AuthModal.popup().getLocator()));
+            kraken.perform().switchToMainWindow();
         }
 
         @Step("Переходим на base url для авторизации через Facebook")
         public static void withFacebook(UserData user) {
-
-//            WaitingHelper.simply(2); // Ожидание открытия фрейма авторизации Facebook
-            kraken.perform().switchToNextWindow();
-
+            kraken.perform().switchToWindowIndex(1);
             kraken.perform().fillField(Elements.Social.Facebook.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Facebook.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Facebook.submitButton());
-            AppManager.getWebDriver().getWindowHandles();
-            WaitingHelper.simply(1); // Ожидание авторизации через Facebook
-
-            //TOdo добавить проверку на то что вернулись в основное окно
-            if(!kraken.detect().isOnSite()){
-                kraken.perform().switchToNextWindow();
-                kraken.perform().switchToDefaultContent();
-            }
-            kraken.await().fluentlyWithWindowsHandler(
-                    ExpectedConditions.invisibilityOfElementLocated(
-                            Elements.Modals.AuthModal.popup().getLocator()));
+            kraken.perform().switchToMainWindow();
         }
 
         @Step("Переходим на base url для авторизации через Mail.ru")
         public static void withMailRu(UserData user) {
-            kraken.perform().switchToNextWindow();
+            kraken.perform().switchToWindowIndex(1);
             kraken.perform().fillField(Elements.Social.MailRu.loginField(),user.getLogin());
             kraken.perform().click(Elements.Social.MailRu.nextButton());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                     Elements.Social.MailRu.passwordFieldUp().getLocator()),"поле ввода пароля не появилось",Config.BASIC_TIMEOUT);
-//            WaitingHelper.simply(2);
             kraken.perform().click(Elements.Social.MailRu.passwordFieldUp());
             kraken.perform().fillField(Elements.Social.MailRu.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.MailRu.submitButton());
-
-            kraken.await().fluentlyWithWindowsHandler(
-                    ExpectedConditions.invisibilityOfElementLocated(
-                            Elements.Modals.AuthModal.popup().getLocator()));
+            kraken.perform().switchToMainWindow();
         }
 
         @Step("Переходим на base url для авторизации через Sber ID")
-        public static void withSberID(UserData user) {
-            if (kraken.detect().isInAdmin()) {
-                log.info("> переходим на base url для авторизации через Sber ID");
-                kraken.get().baseUrl();
-            }
-            Shop.AuthModal.open();
-            Shop.AuthModal.hitSberIdButton();
-            //TODO тест сломан, отладить на новом стейдже
-            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
-                    Elements.Social.Sber.sberButtonsSection().getLocator()));
-            WebElement parent = AppManager.getWebDriver().findElement(Elements.Social.Sber.sberButtonsSection().getLocator());
-            kraken.perform().findChildElementByTagAndText(parent,By.tagName("button"),"Логин").click();
-
-            kraken.perform().fillField(Elements.Social.Sber.loginField(),user.getLogin());
-            kraken.perform().fillField(Elements.Social.Sber.passwordField(),user.getPassword());
+        public static void withSberID(final UserData user) {
+            kraken.perform().click(Elements.Social.Sber.switchLoginType());
+            kraken.perform().fillField(Elements.Social.Sber.loginField(), user.getLogin());
             kraken.perform().click(Elements.Social.Sber.submitButton());
-            //kraken.await().simply(3); // Ожидание авторизации через Sber ID
-
-            //kraken.perform().switchToNextWindow();
-            kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()));
+            kraken.perform().fillField(Elements.Social.Sber.passwordField(), user.getPassword());
+            kraken.perform().click(Elements.Social.Sber.submitButton());
         }
     }
 
@@ -365,12 +320,11 @@ public final class User extends Base {
         @Step("Делаем быструю деавторизацию пользователя с удалением файлов куки")
         public static void quickly() {
             log.info("> удаляем куки...");
-            AppManager.getWebDriver().manage().deleteAllCookies();
+            AppManager.deleteAllCookie();
             kraken.get().baseUrl();
-            if (kraken.detect().isOnLanding()) {
-                log.info("✓ Готово");
-            }
+            log.info("✓ Готово");
         }
+
         /** Быстрая деавторизация удалением кук в админке*/
         @Step("Делаем быструю деавторизацию из админки с удалением файлов куки")
         public static void quicklyAdmin() {

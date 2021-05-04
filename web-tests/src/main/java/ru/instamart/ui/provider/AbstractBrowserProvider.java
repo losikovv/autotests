@@ -1,8 +1,10 @@
 package ru.instamart.ui.provider;
 
-import ru.instamart.core.settings.Config;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -14,8 +16,7 @@ import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ru.instamart.core.settings.Config;
 
 import java.net.URI;
 import java.util.Optional;
@@ -25,10 +26,10 @@ import java.util.logging.Level;
 import static ru.instamart.core.settings.Config.BASIC_TIMEOUT;
 import static ru.instamart.core.settings.Config.FULL_SCREEN_MODE;
 
+@Slf4j
 public abstract class AbstractBrowserProvider {
 
-    private static final Logger log = LoggerFactory.getLogger(AbstractBrowserProvider.class);
-
+    @Getter
     protected WebDriver driver;
 
     public abstract void createDriver(final String version);
@@ -45,7 +46,7 @@ public abstract class AbstractBrowserProvider {
         }
     }
 
-    protected void createLocalChromeDriver(final Optional<DesiredCapabilities> capabilities) {
+    protected void createLocalChromeDriver(final Optional<ChromeOptions> capabilities) {
         this.driver = capabilities.map(ChromeDriver::new).orElseGet(ChromeDriver::new);
         applyOptions();
     }
@@ -86,9 +87,5 @@ public abstract class AbstractBrowserProvider {
         logs.enable(LogType.SERVER, Level.ALL);
 
         return logs;
-    }
-
-    public WebDriver getWebDriver() {
-        return driver;
     }
 }

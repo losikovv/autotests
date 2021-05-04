@@ -45,13 +45,17 @@ public final class AppManager {
     }
 
     public static WebDriver getWebDriver() {
-        WebDriver webDriver = webDriverService.createOrGetDriver();
-        if (webDriver != null && !webDriverService.isStillAlive(webDriver)) {
+        var webDriver = webDriverService.createOrGetDriver();
+        /*if (webDriver != null && !webDriverService.isStillAlive(webDriver)) {
             webDriverService.closeDriver();
-        } else if (webDriver == null) {
+        } else */if (webDriver == null) {
             webDriverService.closeDriver();
         }
         return webDriverService.createOrGetDriver();
+    }
+
+    public static void deleteAllCookie() {
+        getWebDriver().manage().deleteAllCookies();
     }
 
     public BrowseHelper get() { return browseHelper; }

@@ -278,7 +278,6 @@ public class UserAuthorisationTests extends TestBase {
 
     @Test(
             description = "Тест успешной авторизации через Sber ID",
-
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAuthWithSberID() {

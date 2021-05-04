@@ -31,7 +31,8 @@ public class Base {
         if (kraken.await().fluentlyPossibleAppearance(
                 ExpectedConditions.elementToBeClickable(
                         data.getLocator()),
-                "\n> поп-ап с рекламой не появился",timer)) {
+                "\n> поп-ап с рекламой не появился",
+                timer)) {
             log.info("> на странице обнаружен рекламный баннер");
 //            JavascriptExecutor js;
 
