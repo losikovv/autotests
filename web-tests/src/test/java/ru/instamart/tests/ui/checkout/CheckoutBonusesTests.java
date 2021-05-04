@@ -2,12 +2,12 @@ package ru.instamart.tests.ui.checkout;
 
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.modules.Checkout;
 import ru.instamart.ui.modules.User;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
+import ru.instamart.ui.modules.checkout.BonusesActions;
 
 import static ru.instamart.core.testdata.ui.BonusPrograms.aeroflot;
 import static ru.instamart.core.testdata.ui.BonusPrograms.mnogoru;
@@ -27,9 +27,9 @@ public class CheckoutBonusesTests extends TestBase {
         skipTestOnTenant("metro");
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
-        Checkout.Bonuses.deleteAll();
+        BonusesActions.deleteAll();
 
-        Checkout.Bonuses.add(mnogoru());
+        BonusesActions.add(mnogoru());
 
         softAssert.assertTrue(
                 kraken.detect().isBonusAdded(mnogoru()),
@@ -41,7 +41,7 @@ public class CheckoutBonusesTests extends TestBase {
                     failMessage("Бонусная программа " + mnogoru().getName() + " неактивна после добавления в чекауте")
         );
 
-        Checkout.Bonuses.add(aeroflot());
+        BonusesActions.add(aeroflot());
 
         softAssert.assertTrue(
                 kraken.detect().isBonusAdded(aeroflot()),
@@ -63,18 +63,18 @@ public class CheckoutBonusesTests extends TestBase {
         skipTestOnTenant("metro");
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
-        Checkout.Bonuses.deleteAll();
+        BonusesActions.deleteAll();
 
-        Checkout.Bonuses.add(mnogoru());
-        Checkout.Bonuses.add(aeroflot());
+        BonusesActions.add(mnogoru());
+        BonusesActions.add(aeroflot());
 
-        Checkout.Bonuses.select(mnogoru());
+        BonusesActions.select(mnogoru());
 
         softAssert.assertTrue(
                 kraken.detect().isBonusActive(mnogoru()),
                     "Не выбирается бонусная программа " + mnogoru().getName() + " в чекауте\n");
 
-        Checkout.Bonuses.select(aeroflot());
+        BonusesActions.select(aeroflot());
 
         softAssert.assertTrue(
                 kraken.detect().isBonusActive(aeroflot()),
@@ -90,17 +90,17 @@ public class CheckoutBonusesTests extends TestBase {
         skipTestOnTenant("metro");
         SoftAssert softAssert = new SoftAssert();
         kraken.reach().checkout();
-        Checkout.Bonuses.deleteAll();
+        BonusesActions.deleteAll();
 
-        Checkout.Bonuses.add(mnogoru());
-        Checkout.Bonuses.delete(mnogoru());
+        BonusesActions.add(mnogoru());
+        BonusesActions.delete(mnogoru());
 
         softAssert.assertFalse(
                 kraken.detect().isBonusAdded(mnogoru()),
                     "Не удаляется бонусная программа " + mnogoru().getName() + " в чекауте");
 
-        Checkout.Bonuses.add(aeroflot());
-        Checkout.Bonuses.delete(aeroflot());
+        BonusesActions.add(aeroflot());
+        BonusesActions.delete(aeroflot());
 
         softAssert.assertFalse(
                 kraken.detect().isBonusAdded(aeroflot()),

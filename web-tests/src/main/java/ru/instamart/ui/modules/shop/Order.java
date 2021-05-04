@@ -5,11 +5,19 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.instamart.core.common.AppManager;
+import ru.instamart.core.testdata.ui.PaymentTypes;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.common.pagesdata.OrderDetailsData;
+import ru.instamart.ui.helpers.PaymentHelper;
 import ru.instamart.ui.helpers.WaitingHelper;
 import ru.instamart.ui.modules.Base;
+import ru.instamart.ui.modules.checkout.Checkout;
 import ru.instamart.ui.modules.Shop;
+import ru.instamart.ui.modules.checkout.AddressSteps;
+import ru.instamart.ui.modules.checkout.BonusesActions;
+import ru.instamart.ui.modules.checkout.PromocodeActions;
+import ru.instamart.ui.modules.checkout.RetailerCardsActions;
 import ru.instamart.ui.objectsmap.Elements;
 
 public final class Order extends Base {
@@ -31,6 +39,48 @@ public final class Order extends Base {
         Shop.Cart.collect();
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete();
+    }
+
+    @Step("Заполнение чекаута")
+    public static void makeOrder(OrderDetailsData orderDetails) {
+        log.info("Заполнение чекаута");
+        fillOrderDetails(orderDetails);
+        if(orderDetails.getPromocode() != null) {
+            PromocodeActions.add(orderDetails.getPromocode());}
+        if(orderDetails.getBonus() != null) {
+//            ru.instamart.ui.modules.checkout.AddressSteps .Bonuses.add(orderDetails.getBonus());}
+            BonusesActions.add(orderDetails.getBonus());}
+        if(orderDetails.getRetailerCard() != null) {
+            RetailerCardsActions.addCard(orderDetails.getRetailerCard());}
+        sendOrderFromSidebar();
+        if(orderDetails.getPaymentDetails().getPaymentType().getDescription().equalsIgnoreCase(PaymentTypes.cardOnline().getDescription())) {
+            if (orderDetails.getPaymentDetails().getCreditCard().getSecure()){
+                PaymentHelper.cloudpaymentsFlow();}
+        }
+    }
+
+    @Step("Заполнение шагов чекаута")
+    public static void fillOrderDetails(OrderDetailsData orderDetails) {
+        Checkout.initCheckout();
+        for (int position = 1; position <= 5; position++) {
+            log.info("Заполнение шага номер {}", position);
+            AddressSteps.fillStep(position,orderDetails);
+        }
+    }
+
+    @Step("Нажатие кнопки Оформление заказа в сайдбаре")
+    public static void sendOrderFromSidebar() {
+        log.info("Отправляем заказ...");
+        kraken.await().fluently(
+                ExpectedConditions.elementToBeClickable(
+                        Elements.Checkout.SideBar.sendOrderButton().getLocator()),
+                "Неактивна кнопка отправки заказа\n");
+        kraken.perform().click(Elements.Checkout.SideBar.sendOrderButton());
+        kraken.await().fluently(
+                ExpectedConditions.invisibilityOfElementLocated(
+                        Elements.Checkout.header().getLocator()),
+                "Превышено время ожидания отправки заказа\n");
+        log.info("✓ Заказ оформлен");
     }
 
     /** Повторить крайний заказ с экрана истории заказов */

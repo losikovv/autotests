@@ -3,7 +3,6 @@ package ru.instamart.tests.ui.orders;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.ui.common.lib.Promos;
 import ru.instamart.ui.common.pagesdata.UserData;
-import ru.instamart.ui.modules.Checkout;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
 import org.testng.Assert;
@@ -12,6 +11,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
+import ru.instamart.ui.modules.checkout.PromocodeActions;
 
 // Тесты заказов с промокодами
     // сначала негативная проверка, затем позитивная и заказ
@@ -56,7 +56,7 @@ public class OrdersPromocodesTests extends TestBase {
     public void successOrderWithFirstOrderPromo() {
         Shop.Cart.proceedToCheckout();
 
-        Checkout.Promocode.add(Promos.fixedDiscountOnFirstOrder());
+        PromocodeActions.add(Promos.fixedDiscountOnFirstOrder());
 
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
                 "Не применяется промокод со скидкой на первый заказ\n");
@@ -72,7 +72,7 @@ public class OrdersPromocodesTests extends TestBase {
     public void successOrderWithRetailerPromo() {
         Shop.Cart.proceedToCheckout();
 
-        Checkout.Promocode.add(Promos.fixedDiscountForRetailer("metro"));
+        PromocodeActions.add(Promos.fixedDiscountForRetailer("metro"));
 
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
                 "Не применяется промокод со скидкой ля ритейлера\n");
@@ -88,7 +88,7 @@ public class OrdersPromocodesTests extends TestBase {
     public void successOrderWithNewUserPromo () {
         Shop.Cart.proceedToCheckout();
 
-        Checkout.Promocode.add(Promos.fixedDiscountForNewUser());
+        PromocodeActions.add(Promos.fixedDiscountForNewUser());
 
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
                 "Не применяется промокод со скидкой для новых пользователей\n");
@@ -104,8 +104,8 @@ public class OrdersPromocodesTests extends TestBase {
     public void successOrderWithCertainOrderPromo() {
         Shop.Cart.proceedToCheckout();
 
-        //Checkout.Promocode.add("crtnord");
-        //Checkout.Promocode.add(Promocodes.);
+        //PromocodeSteps.add("crtnord");
+        //PromocodeSteps.add(Promocodes.);
 
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
                 "Не применяется промокод на бесплатную доставку на первый заказ\n");
@@ -124,7 +124,7 @@ public class OrdersPromocodesTests extends TestBase {
 
         kraken.apiV2().fillCart(this.user, RestAddresses.Moscow.defaultAddress());
         Shop.Cart.proceedToCheckout();
-        //Checkout.Promocode.add("srsoford");
+        //PromocodeSteps.add("srsoford");
 
         Assert.assertTrue(kraken.detect().isPromocodeApplied(),
                 "Не применяется промокод на скидку на второй заказ\n");

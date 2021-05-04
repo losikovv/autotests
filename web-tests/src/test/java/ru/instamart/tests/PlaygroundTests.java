@@ -53,7 +53,7 @@ public class PlaygroundTests extends TestBase {
         User.Do.registration();
 //        User.ShippingAddress.set(Addresses.Moscow.defaultAddress(),true);
         kraken.reach().checkout();
-        kraken.checkout().fillOrderDetails(TestVariables.testOrderDetails());
+        Order.fillOrderDetails(TestVariables.testOrderDetails());
     }
 
     @Test
@@ -120,7 +120,7 @@ public class PlaygroundTests extends TestBase {
         //orderDetails.setBonus(BonusPrograms.aeroflot());
         //orderDetails.setLoyalty(LoyaltyPrograms.vkusvill());
 
-        kraken.checkout().fillOrderDetails(details);
+        Order.fillOrderDetails(details);
         //kraken.checkout().complete(orderDetails);
 
         //kraken.perform().cancelLastOrder();
