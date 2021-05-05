@@ -1,23 +1,20 @@
 package ru.instamart.ui.checkpoints;
 
-import org.openqa.selenium.JavascriptExecutor;
+import io.qameta.allure.Step;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.core.settings.Config;
 import ru.instamart.ui.common.pagesdata.ElementData;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.common.pagesdata.PageData;
 import ru.instamart.ui.objectsmap.Elements;
-import io.qameta.allure.Step;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
 
 import static ru.instamart.ui.modules.Base.kraken;
 
+@Slf4j
 public class BaseUICheckpoints {
-
-    private static final Logger log = LoggerFactory.getLogger(BaseUICheckpoints.class);
 
     private SoftAssert softAssert = new SoftAssert();
 

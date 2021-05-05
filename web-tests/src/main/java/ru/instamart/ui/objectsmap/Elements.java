@@ -1718,7 +1718,7 @@ public class Elements {
             }
 
             static ElementData addToFavoritesButton() {
-                return new ElementData(By.xpath("//button[@data-qa='addToCart_favorite']"),
+                return new ElementData(By.xpath("//div[@data-qa='addToCart_favorite']"),
                         "кнопка добавления товара в избранное в карточке товара");
             }
 

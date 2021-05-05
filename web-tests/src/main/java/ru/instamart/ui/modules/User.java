@@ -110,7 +110,7 @@ public final class User extends Base {
         /**
          * Зарегистрировать нового юзера с реквизитами из переданного объекта UserData
          */
-        @Step("Регестрируем нового юзера с реквизитами из переданного объекта UserData: {0}")
+        @Step("Регистрируем нового юзера с реквизитами из переданного объекта UserData: {0}")
         public static void registration(UserData userData) {
             registration(userData.getName(), userData.getLogin(), userData.getPassword(),
                     userData.getPassword());
@@ -148,8 +148,8 @@ public final class User extends Base {
         }
 
         @Step("Регистрируем нового юзера по номеру телефона: {0}, без согласия на получение выгодных предложений")
-        public static void registration(String phone, Boolean messaging) {
-            log.info("> регистрируемся (телефон={}", phone);
+        public static void registration(final String phone, final boolean messaging) {
+            log.info("> регистрируемся (телефон={})", phone);
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                     Elements.Modals.AuthModal.phoneNumber().getLocator()),
                     "поле для ввода мобильного телефона не отображается",Config.BASIC_TIMEOUT);
@@ -166,7 +166,7 @@ public final class User extends Base {
         }
 
         @Step("Отправляем код из смс: {0}")
-        public static void sendSms(String sms){
+        public static void sendSms(final String sms){
             log.info("> Отправляем код из смс: {}",sms);
             kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),sms);
             kraken.await().fluently(
@@ -188,10 +188,8 @@ public final class User extends Base {
          * Регистрационная последовательность с указанными реквизитами
          */
         public static void regSequence(String name, String email, String password, String passwordConfirmation) {
-            Shop.AuthModal.switchToRegistrationTab();
             Shop.AuthModal.fillRegistrationForm(name, email, password, passwordConfirmation, true);
         }
-
 
         public static class Gmail{
 
@@ -232,6 +230,25 @@ public final class User extends Base {
     }
 
     public static class Auth {
+
+        @Step("Авторизация по номеру телефона {0}")
+        public static void withPhone(final UserData user) {
+            withPhone(user.getPhone(), Config.DEFAULT_SMS);
+        }
+
+        private static void withPhone(final String phone, final String smsCode) {
+            log.info("> Заполняем поле с номером телефона");
+            kraken.perform().fillFieldActionPhone(Elements.Modals.AuthModal.phoneNumber(),phone);
+            kraken.perform().click(Elements.Modals.AuthModal.continueButton());
+
+            log.info("> Отправляем код из смс: {}", smsCode);
+            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(), smsCode);
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Modals.AuthModal.smsCode().getLocator()),
+                    "Превышено время редиректа с модалки авторизации через мобилку\n",60);
+            log.info("> смс успешно прошла валидацию");
+        }
 
         public static void withEmail(UserData user) {
             withEmail(user.getLogin(), user.getPassword(),user.getRole());

@@ -52,15 +52,12 @@ public final class WaitingHelper extends HelperBase {
 
     /**
      * Метод заточен под ожидание элементов в которые можно кликнуть
-     * TODO: Все элементы отображаются за разное время и ждать константные {@link Config#WAITING_TIMEOUT} очень не хорошо
-     * TODO: предлагаю засунуть это в {@link ElementData} так получится, что для каждого элемента, свое ожидание будет.
      * @param data
-     * @param timeout
      * @return
      */
-    public WebElement shouldBeClickable(final ElementData data, final int timeout) {
+    public WebElement shouldBeClickable(final ElementData data) {
         return new FluentWait<>(AppManager.getWebDriver())
-                .withTimeout(timeout, TimeUnit.SECONDS)
+                .withTimeout(data.getTimeout(), TimeUnit.SECONDS)
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.elementToBeClickable(data.getLocator()));

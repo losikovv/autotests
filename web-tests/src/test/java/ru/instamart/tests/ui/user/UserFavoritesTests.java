@@ -1,27 +1,29 @@
 package ru.instamart.tests.ui.user;
 
+import io.qameta.allure.Flaky;
+import io.qameta.allure.Issue;
+import io.qase.api.annotation.CaseId;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import ru.instamart.core.listeners.ExecutionListenerImpl;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.testdata.ui.Generate;
+import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.checkpoints.favorite.FavoriteItemsCheckpoints;
 import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
 import ru.instamart.ui.objectsmap.Elements;
-import io.qameta.allure.Flaky;
-import io.qameta.allure.Issue;
-import io.qase.api.annotation.CaseId;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import ru.instamart.tests.ui.TestBase;
 
-public class UserFavoritesTests extends TestBase {
-    public static String modalType;
-    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    FavoriteItemsCheckpoints favoriteChecks = new FavoriteItemsCheckpoints();
+@Listeners({ExecutionListenerImpl.class})
+public final class UserFavoritesTests extends TestBase implements FavoriteItemsCheckpoints {
+
+    private static final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
@@ -30,7 +32,6 @@ public class UserFavoritesTests extends TestBase {
     }
 
     @Test(  description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
-
             groups = {
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"}
@@ -38,6 +39,7 @@ public class UserFavoritesTests extends TestBase {
     public void noAccessToFavoritesForUnauthorizedUser(){
         baseChecks.checkPageIsUnavailable(Pages.UserProfile.favorites());
     }
+
     @Issue(value="STF-6773")
     @CaseId(1264)
     @Test(  description = "Переход в любимые товары по кнопке, новый пользователь",
@@ -47,13 +49,12 @@ public class UserFavoritesTests extends TestBase {
     )
     @Flaky
     public void successOpenFavorites() {
-        String phone = Generate.phoneNumber();
-        Shop.AuthModal.openAuthLending();
-        User.Do.registration(phone,true);
+        Shop.AuthModal.openAuthOnLanding();
+        User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         Shop.Favorites.open();
         baseChecks.checkPageIsAvailable();
-        favoriteChecks.checkIsFavoriteOpen();
+        checkIsFavoriteOpen();
     }
 
     @Test(  description = "Проверка пустого списка любимых товаров для нового пользователя",
@@ -62,10 +63,10 @@ public class UserFavoritesTests extends TestBase {
                     "sbermarket-acceptance","sbermarket-regression"}
     )
     public void noFavoriteItemsByDefault() {
-        User.Do.registration();
-        Assert.assertTrue(
-                kraken.detect().isFavoritesEmpty(),
-                    "Дефолтный список любимых товаров у нового пользователя не пуст\n");
+        Shop.AuthModal.openAuthOnLanding();
+        User.Do.registration(Generate.phoneNumber(),true);
+        User.Do.sendSms(Config.DEFAULT_SMS);
+        checkFavoriteIsEmpty();
     }
 
     @Test(  description = "Добавление любимого товара из карточки товара и проверка списка",
@@ -74,18 +75,14 @@ public class UserFavoritesTests extends TestBase {
                     "sbermarket-regression"}
     )
     public void successAddFavoriteOnItemCard() {
-        User.Do.loginAs(UserManager.getDefaultUser());
-        kraken.reach().cleanFavorites();
-        kraken.get().page(Pages.Retailers.metro());
+        Shop.AuthModal.openAuthOnLanding();
+        User.Do.registration(Generate.phoneNumber(),true);
+        User.Do.sendSms(Config.DEFAULT_SMS);
 
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToFavorites();
 
-        Shop.Favorites.open();
-
-        Assert.assertFalse(
-                kraken.detect().isFavoritesEmpty(),
-                    "Не работает добавление любимого товара из карточки товара\n");
+        checkFavoriteIsNotEmpty();
     }
 
     @Test(  description = "Тест успешного добавления любомого товара из сниппета в каталоге",
@@ -94,15 +91,13 @@ public class UserFavoritesTests extends TestBase {
                     "sbermarket-regression"}
     )
     public void successAddFavoriteFromCatalog() {
-        User.Do.loginAs(UserManager.getDefaultUser());
-        kraken.reach().cleanFavorites();
-        kraken.get().page(Pages.Retailers.metro());
+        Shop.AuthModal.openAuthOnLanding();
+        User.Do.registration(Generate.phoneNumber(),true);
+        User.Do.sendSms(Config.DEFAULT_SMS);
 
         Shop.Catalog.Item.addToCart();
 
-        Assert.assertFalse(
-                kraken.detect().isFavoritesEmpty(),
-                    "Не работает добавление любимого товара из карточки товара\n");
+        checkFavoriteIsNotEmpty();
     }
 
     @Test(  description = "Удаление любимого товара из карточки товара и проверка списка",

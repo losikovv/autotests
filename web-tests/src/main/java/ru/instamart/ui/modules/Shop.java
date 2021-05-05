@@ -29,6 +29,13 @@ public final class Shop extends Base {
 
     public static class AuthModal {
 
+        @Step("Открываем модальное окно")
+        public static void openAuthOnLanding() {
+            log.info("> открываем модалку авторизации");
+            kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
+            log.info("> форма авторизации открыта");
+        }
+
         @Step("Открываем модалку авторизации")
         public static void open() {
             catchAndCloseAd(Elements.Modals.AuthModal.promoModalButton(),2);
@@ -669,11 +676,7 @@ public final class Shop extends Base {
         /** Нажать кнопку любимого товара в карточке товара */
         @Step("Нажимаем кнопку любимого товара в карточке товара")
         public static void addToFavorites() {
-            if (kraken.detect().isElementDisplayed(Elements.ItemCard.addToFavoritesButton())) {
-                kraken.perform().click(Elements.ItemCard.addToFavoritesButton());
-            } else {
-                throw new AssertionError("⚠ Нет кнопки добавления любимого товара\n");
-            }
+            kraken.perform().click(Elements.ItemCard.addToFavoritesButton());
         }
 
         /** Закрыть карточку товара */
