@@ -7,7 +7,6 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.core.settings.Config;
-import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.testdata.ui.Generate;
 import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
@@ -173,54 +172,5 @@ public final class UserRegistrationTests extends TestBase {
         User.Do.registration(phone,false);
         User.Do.sendSms(Config.DEFAULT_SMS);
         authChecks.checkIsUserAuthorized("Не работает регистрация без согласия на получение почтовой рассылки");
-    }
-
-    @Test(
-            description = "Тест успешной регистрации через Facebook",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
-    public void successRegWithFacebook() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
-        Shop.AuthModal.openAuthRetailer();
-        Shop.AuthModal.hitFacebookButton();
-        User.Auth.withFacebook(UserManager.getDefaultFbUser());
-        authChecks.checkIsUserAuthorized("Не работает регистрация через Facebook");
-    }
-
-    @Test(
-            description = "Тест успешной регистрации через ВКонтакте",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
-    public void successRegWithVkontakte() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
-        Shop.AuthModal.openAuthRetailer();
-        Shop.AuthModal.hitVkontakteButton();
-        User.Auth.withVkontakte(UserManager.getDefaultVkUser()); //Создавать второй поток и работать в нем?
-        authChecks.checkIsUserAuthorized("Не работает регистрация через ВКонтакте");
-    }
-
-    @CaseId(1460)
-    @Story("Регистрация через партнеров")
-    @Test(  description = "Тест успешной регистрации через MailRu",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
-    public void successRegWithMailRu() throws InterruptedException {
-        kraken.get().page(Config.DEFAULT_RETAILER);
-        Shop.AuthModal.openAuthRetailer();
-        Shop.AuthModal.hitMailRuButton();
-        User.Auth.withMailRu(UserManager.getDefaultMailRuUser());
-        authChecks.checkIsUserAuthorized("Не работает регистрация через MailRu");
-    }
-
-    @Test(
-            description = "Тест успешной регистрации через Sber ID",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
-    public void successRegWithSberID() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
-        Shop.AuthModal.openAuthRetailer();
-        Shop.AuthModal.hitSberIdButton();
-        User.Auth.withSberID(UserManager.getDefaultSberIdUser());
-        authChecks.checkIsUserAuthorized("Не работает регистрация через Sber ID");
     }
 }

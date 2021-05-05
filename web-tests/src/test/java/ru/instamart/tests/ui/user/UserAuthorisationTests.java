@@ -1,9 +1,14 @@
 package ru.instamart.tests.ui.user;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseId;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.UserManager;
+import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
-import ru.instamart.ui.checkpoints.shoppingcart.ShoppingCartCheckpoints;
 import ru.instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.pagesdata.UserData;
@@ -11,22 +16,11 @@ import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
 import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
-import io.qameta.allure.Description;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import ru.instamart.tests.ui.TestBase;
 
-public class UserAuthorisationTests extends TestBase {
-    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
-    UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
+public final class UserAuthorisationTests extends TestBase {
 
-    @BeforeClass(alwaysRun = true,
-            description ="Проверяем залогинен ли пользователь до старта скоупа тестов, если да то завершаем сессию")
-    public void setup() {
-        User.Logout.quickly();
-    }
+    private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    private final UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
 
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
@@ -243,45 +237,58 @@ public class UserAuthorisationTests extends TestBase {
 //                "Пропали товары после авторизации из корзины");
     }
 
+    @CaseId(1459)
     @Test(
-            description = "Тест успешной авторизации через ВКонтакте",
-
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+            description = "Тест успешной авторизация через Facebook",
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
-    public void successAuthWithVkontakte() {
+    @Story("Авторизация через Facebook")
+    public void successRegWithFacebook() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Auth.withVkontakte(UserManager.getDefaultVkUser());
-        authChecks.checkIsUserAuthorized("Не работает авторизация через ВКонтакте");
-    }
-
-    @Test(
-            description = "Тест успешной авторизации через Facebook",
-
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
-    )
-    public void successAuthWithFacebook() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        Shop.AuthModal.openAuthRetailer();
+        Shop.AuthModal.hitFacebookButton();
         User.Auth.withFacebook(UserManager.getDefaultFbUser());
         authChecks.checkIsUserAuthorized("Не работает авторизация через Facebook");
     }
 
-    @Test(  description = "Тест успешной авторизации через MailRu",
-
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+    @CaseId(1458)
+    @Test(
+            description = "Тест успешной авторизация через ВКонтакте",
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
-    public void successAuthWithMailRu() {
+    @Story("Авторизация через VK")
+    public void successRegWithVkontakte() {
         kraken.get().page(Config.DEFAULT_RETAILER);
+        Shop.AuthModal.openAuthRetailer();
+        Shop.AuthModal.hitVkontakteButton();
+        User.Auth.withVkontakte(UserManager.getDefaultVkUser()); //Создавать второй поток и работать в нем?
+        authChecks.checkIsUserAuthorized("Не работает авторизация через ВКонтакте");
+    }
+
+    @CaseId(1460)
+    @Story("Регистрация через партнеров")
+    @Test(  description = "Тест успешной авторизация через MailRu",
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
+    )
+    @Story("Авторизация через Mail.ru")
+    public void successRegWithMailRu() throws InterruptedException {
+        kraken.get().page(Config.DEFAULT_RETAILER);
+        Shop.AuthModal.openAuthRetailer();
+        Shop.AuthModal.hitMailRuButton();
         User.Auth.withMailRu(UserManager.getDefaultMailRuUser());
         authChecks.checkIsUserAuthorized("Не работает авторизация через MailRu");
     }
 
-
+    @CaseId(1461)
     @Test(
-            description = "Тест успешной авторизации через Sber ID",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+            description = "Тест успешной авторизация через Sber ID",
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
-    public void successAuthWithSberID() {
+    @Story("Авторизация через SberID")
+    public void successRegWithSberID() {
         kraken.get().page(Config.DEFAULT_RETAILER);
+        Shop.AuthModal.openAuthRetailer();
+        Shop.AuthModal.hitSberIdButton();
         User.Auth.withSberID(UserManager.getDefaultSberIdUser());
         authChecks.checkIsUserAuthorized("Не работает авторизация через Sber ID");
     }
