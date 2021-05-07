@@ -11,8 +11,9 @@ public final class UiListener implements ITestListener, ISuiteListener {
     private final QaseService qaseService;
 
     public UiListener() {
-        String projectId = System.getProperty("qase.Project","STF");
-        this.qaseService = new QaseService(projectId);
+        String projectId = System.getProperty("qase.Project", "STF");
+        String testRunName = System.getProperty("qase.Title", "UI Test Run");
+        this.qaseService = new QaseService(projectId, testRunName);
     }
 
     @Override
@@ -22,7 +23,6 @@ public final class UiListener implements ITestListener, ISuiteListener {
 
     @Override
     public void onStart(ITestContext context) {
-        this.qaseService.generateTestCasesList();
         this.qaseService.createTestRun();
     }
 

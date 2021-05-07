@@ -16,7 +16,6 @@ import io.qase.api.services.TestCaseService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
-import ru.instamart.core.helpers.HelperBase;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.util.Crypt;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
@@ -45,8 +44,8 @@ public final class QaseService {
     private static final LocalDateTime DAYS_TO_DIE = LocalDateTime.now().minusWeeks(4);
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    private final int PLAN_ID = Integer.parseInt(System.getProperty("qase.plan.id","0"));
-    private final int SUITE_ID = Integer.parseInt(System.getProperty("qase.suite.id","0"));
+    @Deprecated private final int PLAN_ID = Integer.parseInt(System.getProperty("qase.plan.id", "0"));
+    @Deprecated private final int SUITE_ID = Integer.parseInt(System.getProperty("qase.suite.id", "0"));
     private final String PIPELINE_URL = System.getProperty("pip_url", "https://gitlab.sbermarket.tech/qa/automag/-/pipelines");
     private boolean qase = Boolean.parseBoolean(System.getProperty("qase","false"));
 
@@ -59,17 +58,19 @@ public final class QaseService {
     private String testRunName;
     private Long runId;
 
-    public QaseService(final String projectCode) {
+    public QaseService(final String projectCode, final String testRunName) {
         this.projectCode = projectCode;
+        this.testRunName = testRunName;
         this.qaseApi = new QaseApi(Crypt.INSTANCE.decrypt(Config.QASE_API_TOKEN));
         this.testCasesList = new ArrayList<>();
     }
 
     /**
      * Если PLAN_ID указан, то из тест плана получаем список тест-кейсов
-     * Если PLAN_ID не указан, но suiteId указан, то из сьюта получаем automated кейсы
+     * Если PLAN_ID не указан, но SUITE_ID указан, то из сьюта получаем automated кейсы
      * Если SUITE_ID не указан, то из всего проекта получаем automated кейсы
      */
+    @Deprecated
     public void generateTestCasesList() {
         if (!qase || projectCode == null) {
             return;
@@ -113,13 +114,11 @@ public final class QaseService {
         if (!qase || projectCode == null || started) return;
         started = true;
 
-        final Integer[] casesArray = new Integer[testCasesList.size()];
         runId = qaseApi.testRuns().create(
                 projectCode,
                 testRunName + " [" + EnvironmentData.INSTANCE.getName() + "] " + LocalDate.now(),
                 null,
-                DESCRIPTION_PREFIX + PIPELINE_URL,
-                testCasesList.toArray(casesArray));
+                DESCRIPTION_PREFIX + PIPELINE_URL);
         log.info("Create Test run={} for project={}", runId, projectCode);
     }
 
@@ -130,7 +129,9 @@ public final class QaseService {
         this.sendResult(result, status, null);
     }
 
-    public void sendResult(final ITestResult result, final RunResultStatus status, final List<String> attachmentHash) {
+    synchronized public void sendResult(final ITestResult result,
+                                        final RunResultStatus status,
+                                        final List<String> attachmentHash) {
         if (!qase) return;
 
         final Duration timeSpent = Duration
@@ -219,7 +220,7 @@ public final class QaseService {
         qaseApi.testRuns().completeTestRun(projectCode, runId);
     }
 
-    private void addTestCasesFromChildSuite(final TestCaseService.Filter filter, final int parentId, final List<Suite> suites) {
+    @Deprecated private void addTestCasesFromChildSuite(final TestCaseService.Filter filter, final int parentId, final List<Suite> suites) {
         suites.forEach(suite -> {
             if (suite.getParentId() != null && suite.getParentId() == parentId) {
                 int suiteId = (int) suite.getId();
@@ -230,7 +231,7 @@ public final class QaseService {
         });
     }
 
-    private void addTestCasesToList(final TestCaseService.Filter filter) {
+    @Deprecated private void addTestCasesToList(final TestCaseService.Filter filter) {
         qaseApi.testCases()
                 .getAll(projectCode, filter)
                 .getTestCaseList()
