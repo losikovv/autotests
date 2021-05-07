@@ -75,7 +75,7 @@ public class ShoppingSearchTests extends TestBase {
     )
     public void successSearchItemUsingCategorySuggests() {
         kraken.getWebDriver().get("https://stf-kraken.k-stage.sbermarket.tech/auchan");//костыль из-за бейсик авторизации
-        Shop.Search.searchField("Сыр",false);
+        Shop.Search.searchField("Сыры",false);
         searchChecks.checkIsSearchSuggestPresent("Отсутствуют категорийные подсказки\n");
         Shop.Search.selectCategorySuggest();
         searchChecks.checkIsSearchResultNotEmpty("Отсутствуют результаты поиска по категорийной подсказке");
