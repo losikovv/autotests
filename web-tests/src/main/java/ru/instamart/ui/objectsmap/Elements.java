@@ -1520,6 +1520,11 @@ public class Elements {
                         "сниппет любимого продукта");
             }
 
+            static ElementData addToCart() {
+                return new ElementData(By.xpath("//div[@class='cart-actions']"),
+                        "добавление в корзину");
+            }
+
             static ElementData plusButton() {
                 return new ElementData(By.xpath("//*[@class='favorite-product']//button[@class='bt bt--buy cart-actions__btn cart-actions__btn--visible']"),
                         "кнопка \"+\" в сниппете любимого продукта");
@@ -1745,7 +1750,7 @@ public class Elements {
 
             static ElementData placeholder() {
                 return new ElementData(
-                        By.xpath("//*[@data-qa='cart']//div[@class='new-cart-empty__text' and text()='Ваша корзина пуста']"),
+                        By.xpath("//div[@class='new-cart-empty']"),
                             "плейсхолдер пустой корзины");
             }
 
@@ -1791,6 +1796,16 @@ public class Elements {
                     return new ElementData(
                             By.xpath("//*[@data-qa='cart']//*[@data-qa='line-item']//*[@data-qa='remove-button']"),
                                 "кнопка удаления верхнего товара в корзине");
+                }
+
+                static ElementData removeAllButton() {
+                    return new ElementData(By.xpath("//button[@data-qa='cart_remove_shipments_button']"),
+                            "кнопка удаления всех товаров в корзине");
+                }
+
+                static ElementData removeAllConformation() {
+                    return new ElementData(By.xpath("//button[@data-qa='confirm_shipments_remove_modal_confirm_btn']"),
+                            "кнопка подтверждения удаления");
                 }
             }
 

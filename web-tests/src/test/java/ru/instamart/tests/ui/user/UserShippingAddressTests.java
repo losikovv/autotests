@@ -1,32 +1,28 @@
 package ru.instamart.tests.ui.user;
 
-import ru.instamart.core.settings.Config;
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
-import ru.instamart.ui.checkpoints.shipping.ShippingAddressCheckpoints;
-import ru.instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
-import ru.instamart.ui.common.lib.Addresses;
-import ru.instamart.ui.modules.Shop;
-import ru.instamart.ui.modules.User;
-import ru.instamart.ui.modules.shop.Order;
-import ru.instamart.ui.modules.shop.ShippingAddressModal;
-import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+import ru.instamart.core.settings.Config;
 import ru.instamart.tests.ui.TestBase;
+import ru.instamart.ui.checkpoints.BaseUICheckpoints;
+import ru.instamart.ui.checkpoints.shipping.ShippingAddressCheckpoints;
+import ru.instamart.ui.common.lib.Addresses;
+import ru.instamart.ui.modules.Shop;
+import ru.instamart.ui.modules.User;
+import ru.instamart.ui.modules.shop.Order;
+import ru.instamart.ui.modules.shop.ShippingAddressModal;
+import ru.instamart.ui.objectsmap.Elements;
 
 @Epic("STF UI")
 @Feature("Адрес доставки")
 public class UserShippingAddressTests extends TestBase {
 
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
     ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
-    String env = Config.DEFAULT_ENVIRONMENT;
 
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")

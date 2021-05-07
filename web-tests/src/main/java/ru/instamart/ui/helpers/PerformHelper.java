@@ -249,6 +249,10 @@ public final class PerformHelper extends HelperBase {
         }
     }
 
+    public int getElementCount(final ElementData data) {
+        return AppManager.getWebDriver().findElements(data.getLocator()).size();
+    }
+
     public void scrollToTheBottom(){
         log.info("> прокручиваем страницу в самый низ");
         JavascriptExecutor jse = (JavascriptExecutor) AppManager.getWebDriver();

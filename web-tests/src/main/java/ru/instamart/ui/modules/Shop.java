@@ -13,10 +13,10 @@ import ru.instamart.core.settings.Config;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.pagesdata.ElementData;
 import ru.instamart.ui.common.pagesdata.WidgetData;
+import ru.instamart.ui.helpers.WaitingHelper;
 import ru.instamart.ui.objectsmap.Elements;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static io.qameta.allure.Allure.step;
 
@@ -99,22 +99,15 @@ public final class Shop extends Base {
         @Step("Переключаемся на вкладку авторизации")
         public static void switchToAuthorisationTab() {
             log.info("> переключаемся на вкладку авторизации");
-            if (kraken.getWebDriver().findElement(Elements.Modals.AuthModal.authorisationTab()
+            if (AppManager.getWebDriver().findElement(Elements.Modals.AuthModal.authorisationTab()
                     .getLocator()).getAttribute("class").contains("undefined")) return;
             kraken.perform().click(Elements.Modals.AuthModal.authorisationTab());
         }
-        @Step("Переключаемся на вкладку регистрации")
-        public static void switchToRegistrationTab() {
-            log.info("> переключаемся на вкладку регистрации");
-            kraken.await().fluently(ExpectedConditions.elementToBeClickable(kraken.getWebDriver().findElement(Elements.Modals.AuthModal.popupMail().getLocator())));
-            WebElement parent = kraken.getWebDriver().findElement(Elements.Modals.AuthModal.popupMail().getLocator());
-            WebElement element = kraken.perform().findChildElementByTagAndText(parent,By.tagName("button"),"Регистрация");
-            kraken.perform().click(element);
-        }
+
         @Step("Проверяем тип модалки авторизации")
         public static String checkAutorisationModalDialog(){
             log.info("> проверяем тип модалки авторизации");
-            List<WebElement> phone = kraken.getWebDriver().findElements(Elements.Modals.AuthModal.phoneNumber().getLocator());
+            List<WebElement> phone = AppManager.getWebDriver().findElements(Elements.Modals.AuthModal.phoneNumber().getLocator());
             if (phone.size()>0) {
                 return "модалка с телефоном";
             } else {
@@ -190,7 +183,7 @@ public final class Shop extends Base {
         public static void proceedBack() {
             log.info("> возвращаемся назад");
             kraken.perform().click(Elements.Modals.PasswordRecoveryModal.backButton());
-            kraken.await().simply(1); // Ожидание возврата назад из формы восстановления пароля
+            WaitingHelper.simply(1); // Ожидание возврата назад из формы восстановления пароля
         }
         @Step("Заполняем форму запроса восстановления пароля по email: {0}")
         public static void fillRequestForm(String email) {
@@ -207,7 +200,7 @@ public final class Shop extends Base {
         public static void submitRequest() {
             log.info("> отправляем форму");
             kraken.perform().click(Elements.Modals.PasswordRecoveryModal.submitRequestButton());
-            kraken.await().simply(5); // Ожидание отправки письма восстановлкния пароля
+            WaitingHelper.simply(5); // Ожидание отправки письма восстановлкния пароля
         }
         @Step("Отправляем форму")
         public static void submitRecovery() {
@@ -480,14 +473,13 @@ public final class Shop extends Base {
             kraken.perform().fillField(Elements.Header.Search.inputField(), query);
             log.info("> нажимаем кнопку поиска");
             kraken.perform().click((Elements.Header.Search.sendButton()));
-            kraken.getWebDriver().manage().timeouts().pageLoadTimeout(Config.BASIC_TIMEOUT, TimeUnit.SECONDS);
         }
 
         @Step("Заполняем поле поиска: {0}")
         public static void searchField(String query) {
             log.info("> заполняем поле поиска: {}", query);
             kraken.perform().fillField(Elements.Header.Search.inputField(), query);
-            Actions actions = new Actions(kraken.getWebDriver());
+            Actions actions = new Actions(AppManager.getWebDriver());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Header.Search.searchListResult().getLocator()),
                     "не подтянулись поисковые подсказки", 15);
             actions.sendKeys(Keys.ENTER).perform();
@@ -498,7 +490,7 @@ public final class Shop extends Base {
             log.info("> заполняем поле поиска: {}", query);
             kraken.perform().fillField(Elements.Header.Search.inputField(), query);
             if(submit){
-                Actions actions = new Actions(kraken.getWebDriver());
+                Actions actions = new Actions(AppManager.getWebDriver());
                 kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Header.Search.searchListResult().getLocator()),
                         "не подтянулись поисковые подсказки", 15);
                 actions.sendKeys(Keys.ENTER).perform();
@@ -523,17 +515,17 @@ public final class Shop extends Base {
         public static class OrderHistory {
             @Step("Нажимаем кнопку фильтра всех заказов в истории заказов")
             public static void applyFilterAll() {
-                kraken.await().simply(1); // Ожидание подгрузки фильтров
+                WaitingHelper.simply(1); // Ожидание подгрузки фильтров
                 kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.allOrdersFilterButton());
             }
             @Step("Нажимаем кнопку фильтра завершенных заказов в истории заказов")
             public static void applyFilterComplete() {
-                kraken.await().simply(1); // Ожидание подгрузки фильтров
+                WaitingHelper.simply(1); // Ожидание подгрузки фильтров
                 kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.completeOrdersFilterButton());
             }
             @Step("Нажимаем кнопку фильтра активных заказов в истории заказов")
             public static void applyFilterActive() {
-                kraken.await().simply(1); // Ожидание подгрузки фильтров
+                WaitingHelper.simply(1); // Ожидание подгрузки фильтров
                 kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.activeOrdersFilterButton());
             }
             @Step("Нажимаем кнопку 'Перейти к покупкам' на плейсхолдере пустой истории заказов")
@@ -545,6 +537,20 @@ public final class Shop extends Base {
 
     /** Любимые товары */
     public static class Favorites {
+
+        @Step("Открыть страницу любимых товаров")
+        public static void openFavorites() {
+            log.info("> открыть страницу любимых товаров");
+            kraken.get().userFavoritesPage();
+        }
+
+        @Step("Получаем количество избранных товаров")
+        public static int count() {
+            log.info("> получаем количество избранных товаров");
+            final int count = kraken.perform().getElementCount(Elements.ItemCard.addToFavoritesButton());
+            log.info("> {} избранных", count);
+            return count;
+        }
 
         /** Открыть любимые товары по кнопке в шапке сайта */
         @Step("Открываем любимые товары по кнопке в шапке сайта")
@@ -583,6 +589,11 @@ public final class Shop extends Base {
                     "Не отображается контент в карточке товара");
         }
 
+        @Step("Открываем карточку любимого товара")
+        public static void openFavoritesCard() {
+            kraken.await().shouldBeClickable(Elements.Catalog.Product.FirstSnippetFavorite()).click();
+        }
+
         /** Показать все любимые товары */
         @Step("Показываем все любимые товары")
         public static void applyFilterAllItems() {
@@ -608,14 +619,27 @@ public final class Shop extends Base {
             kraken.perform().click(Elements.Favorites.showMoreButton());
         }
 
+        @Step("Удалить любимый товар из списка")
+        public static void removeFavorite() {
+            kraken.perform().click(Elements.ItemCard.addToFavoritesButton());
+        }
+
+        /** Очистить список избранного, удалив все любимые товары */
+        @Step("Очистить список избранного, удалив все любимые товары")
+        public static void cleanFavorites() {
+            if (!kraken.detect().isFavoritesEmpty()) {
+                kraken.perform().click(Elements.ItemCard.addToFavoritesButton());
+                cleanFavorites();
+            }
+        }
+
         /** Сниппет любимого товара */
         public static class Item {
 
             /** Добавить первый любимый товар в корзину через сниппет товара */
             @Step("Добавляем первый любимый товар в корзину через сниппет товара")
             public static void addToCart() {
-                kraken.perform().hoverOn(Elements.Favorites.Product.snippet());
-                kraken.perform().click(Elements.Favorites.Product.plusButton());
+                kraken.perform().click(Elements.Favorites.Product.addToCart());
             }
 
             /** Удалить первый любимый товар из корзины через сниппет товара */
@@ -667,7 +691,7 @@ public final class Shop extends Base {
         public static void removeFromCart() {
             if (kraken.detect().isElementDisplayed(Elements.ItemCard.minusButton())) {
                 kraken.perform().click(Elements.ItemCard.minusButton());
-                kraken.await().simply(1); // Ожидание убавления -1 товара в карточке
+                WaitingHelper.simply(1); // Ожидание убавления -1 товара в карточке
             } else {
                 log.info("> Кнопка 'Минус' не отображается");
             }
@@ -713,7 +737,7 @@ public final class Shop extends Base {
             if (kraken.detect().isCartOpen()) {
                 log.info("> закрываем корзину");
                 kraken.perform().click(Elements.Cart.closeButton());
-                kraken.await().simply(1);
+                WaitingHelper.simply(1);
                 kraken.await().fluently(
                         ExpectedConditions.invisibilityOfElementLocated(
                                 Elements.Cart.drawer().getLocator()),
@@ -747,6 +771,13 @@ public final class Shop extends Base {
             }
             log.info("✓ Готово");
             close();
+        }
+
+        @Step("Очистить всю корзину")
+        public static void dropAll() {
+            log.info("> очищаем козину, удаляя все товары...");
+            kraken.perform().click(Elements.Cart.item.removeAllButton());
+            kraken.perform().click(Elements.Cart.item.removeAllConformation());
         }
 
         /** Набрать корзину на минимальную сумму, достаточную для оформления заказа */

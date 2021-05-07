@@ -1,5 +1,6 @@
 package ru.instamart.core.common;
 
+import lombok.Getter;
 import ru.instamart.api.helpers.InstamartApiHelper;
 import ru.instamart.ui.service.WebDriverService;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
@@ -12,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 
 public final class AppManager {
 
+    @Getter
     private static final WebDriverService webDriverService = new WebDriverService();
 
     private final BrowseHelper browseHelper;

@@ -2,10 +2,7 @@ package ru.instamart.ui.helpers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -16,7 +13,6 @@ import ru.instamart.core.settings.Config;
 import ru.instamart.ui.common.pagesdata.ElementData;
 import ru.instamart.ui.objectsmap.Elements;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -63,13 +59,23 @@ public final class WaitingHelper extends HelperBase {
                 .until(ExpectedConditions.elementToBeClickable(data.getLocator()));
     }
 
-    public boolean shouldBeVisible(final ElementData data, final int timeout) {
+    public boolean shouldBeVisible(final ElementData data) {
         final FluentWait<WebDriver> wait =  new FluentWait<>(AppManager.getWebDriver())
-                .withTimeout(timeout, TimeUnit.SECONDS)
+                .withTimeout(data.getTimeout(), TimeUnit.SECONDS)
                 .withMessage(data.getDescription())
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class);
         return wait.until((ExpectedCondition<Boolean>) driver -> driver.findElement(data.getLocator()).isDisplayed());
+    }
+
+    public boolean shouldNotBeVisible(final ElementData data) {
+        final FluentWait<WebDriver> wait =  new FluentWait<>(AppManager.getWebDriver())
+                .withTimeout(data.getTimeout(), TimeUnit.SECONDS)
+                .withMessage(data.getDescription())
+                .pollingEvery(250, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class)
+                .ignoring(NotFoundException.class);
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(data.getLocator()));
     }
 
     public void urlToBe(final String url, final int timeout) {

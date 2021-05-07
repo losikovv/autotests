@@ -1,36 +1,39 @@
 package ru.instamart.tests.ui.user;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Flaky;
 import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import ru.instamart.core.listeners.ExecutionListenerImpl;
+import ru.instamart.core.common.AppManager;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.testdata.ui.Generate;
 import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.checkpoints.favorite.FavoriteItemsCheckpoints;
+import ru.instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
 import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
-import ru.instamart.ui.objectsmap.Elements;
 
-@Listeners({ExecutionListenerImpl.class})
-public final class UserFavoritesTests extends TestBase implements FavoriteItemsCheckpoints {
+@Epic("STF UI")
+@Feature("Любимые товары")
+public final class UserFavoritesTests extends TestBase implements FavoriteItemsCheckpoints, UsersAuthorizationCheckpoints {
 
     private static final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void quickLogout() {
-        User.Logout.quickly();
+        AppManager.getWebDriverService().closeDriver();
+        AppManager.getWebDriver().get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth());
     }
 
+    @CaseId(1263)
     @Test(  description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
             groups = {
                     "metro-acceptance","metro-regression",
@@ -57,6 +60,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         checkIsFavoriteOpen();
     }
 
+    @CaseId(1265)
     @Test(  description = "Проверка пустого списка любимых товаров для нового пользователя",
             groups = {
                     "metro-acceptance","metro-regression",
@@ -69,6 +73,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         checkFavoriteIsEmpty();
     }
 
+    @CaseId(1266)
     @Test(  description = "Добавление любимого товара из карточки товара и проверка списка",
             groups = {
                     "metro-regression",
@@ -85,69 +90,37 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         checkFavoriteIsNotEmpty();
     }
 
-    @Test(  description = "Тест успешного добавления любомого товара из сниппета в каталоге",
-            groups = {
-                    "metro-regression",
-                    "sbermarket-regression"}
-    )
-    public void successAddFavoriteFromCatalog() {
-        Shop.AuthModal.openAuthOnLanding();
-        User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
-
-        Shop.Catalog.Item.addToCart();
-
-        checkFavoriteIsNotEmpty();
-    }
-
+    @CaseId(1267)
     @Test(  description = "Удаление любимого товара из карточки товара и проверка списка",
             groups = {
                     "metro-regression",
                     "sbermarket-regression"}
     )
     public void successDeleteFavoriteOnItemCard() {
-        User.Do.loginAs(UserManager.getDefaultUser());
-        kraken.reach().cleanFavorites();
-        kraken.get().page(Pages.Retailers.metro());
+        Shop.AuthModal.openAuthOnLanding();
+        User.Do.registration(Generate.phoneNumber(),true);
+        User.Do.sendSms(Config.DEFAULT_SMS);
 
-        Shop.Catalog.Item.addToFavorites();
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToFavorites();
 
-        Assert.assertTrue(
-                kraken.detect().isFavoritesEmpty(),
-                    "Не работает удаление любимого товара из карточки товара\n");
+        Shop.Favorites.openFavorites();
+        Shop.Favorites.removeFavorite();
+
+        checkFavoriteIsEmpty();
     }
 
-    //TODO возможно дублирует тест 408
-    @Test(  description = "Удаление любимого товара из списка",
-            groups = {
-                    "metro-regression",
-                    "sbermarket-regression"}
-    )
-    public void successDeleteFavoriteOnList() {
-        User.Do.loginAs(UserManager.getDefaultUser());
-        if (!kraken.detect().isFavoritesEmpty()) {
-            kraken.reach().cleanFavorites();
-        } else {
-            kraken.get().page(Pages.Retailers.metro());
-            Shop.Catalog.Item.addToFavorites();
-            kraken.get().userFavoritesPage();
-            Shop.Favorites.Item.removeFromFavorites();
-        }
-
-        Assert.assertTrue(
-                kraken.detect().isFavoritesEmpty(),
-                    "Не работает удаление любимого товара из списка любимых товаров\n");
-    }
-
+    @CaseId(1268)
     @Test(  description = "Удаление всех любимых товаров",
             groups = {
                     "metro-regression",
                     "sbermarket-regression"
             }
-    ) public void successCleanupFavorites() {
-        User.Do.loginAs(UserManager.getDefaultUser());
+    )
+    public void successCleanupFavorites() {
+        Shop.AuthModal.openAuthOnLanding();
+        User.Do.registration(Generate.phoneNumber(),true);
+        User.Do.sendSms(Config.DEFAULT_SMS);
 
         Shop.Search.searchItem("молоко");
         Shop.Catalog.Item.addToFavorites();
@@ -167,233 +140,167 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         Shop.Search.searchItem("хлеб");
         Shop.Catalog.Item.addToFavorites();
 
-        kraken.reach().cleanFavorites();
+        Shop.Favorites.cleanFavorites();
 
-        Assert.assertTrue(
-                kraken.detect().isFavoritesEmpty(),
-                    "Не очищается список любимых товаров\n");
+        checkFavoriteIsEmpty();
     }
 
+    @CaseId(1269)
     @Test(  description = "Проверка работоспособности фильтров Любимых товаров",
             groups = {
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
-    ) public void successApplyFilters() {
-        SoftAssert softAssert = new SoftAssert();
+    )
+    public void successApplyFilters() {
+        Shop.AuthModal.openAuthOnLanding();
+        Shop.AuthModal.hitSberIdButton();
+        User.Auth.withSberID(UserManager.getDefaultSberIdUser());
 
-        User.Do.loginAs(UserManager.getDefaultAdmin());
-        kraken.get().userFavoritesPage();
+        Shop.Favorites.openFavorites();
 
-        Assert.assertTrue(
-                !kraken.detect().isFavoritesEmpty(),
-                    failMessage("Не выполнено предусловие, у пользователя нет любимых товаров"));
+        checkFavoriteIsNotEmpty();
 
-        softAssert.assertTrue(
-                kraken.detect().isFavoritesFiltered("all"),
-                    failMessage("\nВ любимых товарах по умолчанию не применен фильтр \"Все товары\""));
+        checkFavoriteFilter("all", "Все товары");
 
         Shop.Favorites.applyFilterInStock();
-
-        softAssert.assertTrue(
-                kraken.detect().isFavoritesFiltered("inStock"),
-                    failMessage("\nВ любимых товарах не применяется фильтр \"В наличии\""));
+        checkFavoriteFilter("inStock", "В наличии");
 
         Shop.Favorites.applyFilterNotInStock();
-
-        softAssert.assertTrue(
-                kraken.detect().isFavoritesFiltered("outOfStock"),
-                    failMessage("\nВ любимых товарах не применяется фильтр \"Нет в наличии\""));
+        checkFavoriteFilter("outOfStock", "Нет в наличии");
 
         Shop.Favorites.applyFilterAllItems();
+        checkFavoriteFilter("all", "Все товары");
 
-        softAssert.assertTrue(
-                kraken.detect().isFavoritesFiltered("all"),
-                    failMessage("\nВ любимых товарах не применяется фильтр \"Все товары\""));
-
-        softAssert.assertAll();
+        assertAll();
     }
 
+    @CaseId(1270)
     @Test(  description = "Проверка работоспособности подгрузки страниц в Любимых товарах",
             groups = {
                     "metro-regression",
                     "sbermarket-regression"}
     )
-    public void successShowMoreLoad() throws AssertionError {
-        User.Do.loginAs(UserManager.getDefaultAdmin());
-        kraken.get().userFavoritesPage();
-        Shop.Jivosite.open();
+    public void successShowMoreLoad() {
+        Shop.AuthModal.openAuthOnLanding();
+        Shop.AuthModal.hitSberIdButton();
+        User.Auth.withSberID(UserManager.getDefaultSberIdUser());
 
-        if(kraken.detect().isElementPresent(Elements.Favorites.showMoreButton())) {
-            Shop.Favorites.showMore();
-        } else {
-            throw new AssertionError(
-                    "Не выполнены предусловия теста, нет кнопки подгрузки товаров\n");
-        }
+        Shop.Favorites.openFavorites();
 
-        while (kraken.detect().isElementPresent(Elements.Favorites.showMoreButton())) {
-            Shop.Favorites.showMore();
-        }
+        checkFavoriteIsNotEmpty();
 
-        Assert.assertTrue(
-                kraken.detect().isElementPresent(Elements.Favorites.Product.snippet()),
-                    "Не рабоатет подгрузка страниц списка любимых товаров\n");
+        final int initCount = Shop.Favorites.count();
+
+        kraken.perform().scrollToTheBottom();
+
+        Shop.Favorites.showMore();
+
+        checkShowMoreNotDisplayed();
+        checkCountChange(initCount, Shop.Favorites.count());
     }
 
+    @CaseId(1271)
     @Test(  description = "Регистрация, при попытке добавить товар из каталога в любимые товары неавторизованным",
             groups = {
                     "metro-regression",
                     "sbermarket-regression"}
     )
     public void successRegAfterAddFavoriteOnCatalog() {
-        SoftAssert softAssert = new SoftAssert();
-
         kraken.get().page(Pages.Retailers.metro());
         Shop.Catalog.Item.addToFavorites();
 
-        softAssert.assertTrue(
-                kraken.detect().isAuthModalOpen(),
-                    "\nНе открывается модалка регистрации после попытки добавления товара из каталога в любимые товары");
+        checkAuthFrameOpen();
 
-        User.Do.regSequence(UserManager.getUser());
-        Shop.AuthModal.submit();
+        User.Do.registration(Generate.phoneNumber(),true);
+        User.Do.sendSms(Config.DEFAULT_SMS);
 
-        softAssert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "\nНе работает регистрация после попытки добавления товара из каталога в любимые товары");
-
-        softAssert.assertAll();
+        checkIsUserAuthorized();
     }
 
-    @Test(  description = "Регистрация, при попытке добавить товар из карточки товара в любимые товары неавторизованным",
-            groups = {
-                    "metro-regression",
-                    "sbermarket-regression"}
-    )
-    public void successRegAfterAddFavoriteOnItemCard() {
-        SoftAssert softAssert = new SoftAssert();
-
-        kraken.get().page(Pages.Retailers.metro());
-        Shop.Catalog.Item.open();
-        Shop.ItemCard.addToFavorites();
-
-        softAssert.assertTrue(
-                kraken.detect().isAuthModalOpen(),
-                    "\nНе открывается модалка регистрации после попытки добавления товара из карточки в любимые товары");
-
-        User.Do.regSequence(UserManager.getUser());
-        Shop.AuthModal.submit();
-
-        softAssert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "\nНе работает регистрация после попытки добавления товара из карточки в любимые товары");
-
-        softAssert.assertAll();
-    }
-
+    @CaseId(1496)
     @Test(  description = "Авторизация, при попытке добавить товар из каталога в избранное неавторизованным",
             groups = {
                     "metro-regression",
                     "sbermarket-regression"}
     )
     public void successAuthAfterAddFavoriteOnCatalog() {
-        SoftAssert softAssert = new SoftAssert();
-
         kraken.get().page(Pages.Retailers.metro());
         Shop.Catalog.Item.addToFavorites();
 
-        softAssert.assertTrue(
-                kraken.detect().isAuthModalOpen(),
-                    "\nНе открывается модалка авторизации после попытки добавления товара из каталога в избранное");
+        checkAuthFrameOpen();
 
-        Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(UserManager.getDefaultUser().getLogin(), UserManager.getDefaultUser().getPassword());
-        Shop.AuthModal.submit();
+        Shop.AuthModal.hitSberIdButton();
+        User.Auth.withSberID(UserManager.getDefaultSberIdUser());
 
-        softAssert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "\nНе работает авторизация после попытки добавления товара из каталога в избранное");
-
-        softAssert.assertAll();
+        checkIsUserAuthorized();
     }
 
+    @CaseId(1272)
     @Test(  description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным",
             groups = {
                     "metro-regression",
                     "sbermarket-regression"}
     )
     public void successAuthAfterAddFavoriteOnItemCard() {
-        SoftAssert softAssert = new SoftAssert();
-
         kraken.get().page(Pages.Retailers.metro());
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToFavorites();
 
-        softAssert.assertTrue(
-                kraken.detect().isAuthModalOpen(),
-                    "\nНе открывается модалка авторизации после попытки добавления товара из карточки в избранное");
+        checkAuthFrameOpen();
 
-        Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(UserManager.getDefaultUser().getLogin(), UserManager.getDefaultUser().getPassword());
-        Shop.AuthModal.submit();
+        Shop.AuthModal.hitSberIdButton();
+        User.Auth.withSberID(UserManager.getDefaultSberIdUser());
 
-        softAssert.assertTrue(
-                kraken.detect().isUserAuthorised(),
-                    "\nНе работает авторизация после попытки добавления товара из карточки в избранное");
-
-        softAssert.assertAll();
+        checkIsUserAuthorized();
     }
 
-    @Test(  description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров",
+    @CaseId(1492)
+    @Test(  description = "Тест добавления товаров в корзину из списка любимых товаров",
             groups = {
                     "metro-regression",
                     "sbermarket-regression"}
     )
-    public void successAddFavoriteProductsFromCardToCart() {
-        SoftAssert softAssert = new SoftAssert();
-
-        User.Do.loginAs(UserManager.getDefaultAdmin());
-        Shop.Cart.drop();
-        kraken.get().userFavoritesPage();
-
-        Shop.Catalog.Item.addToCart();
-         //TODO написать нормальный вейт ждем пока уберется алерт
-        Shop.Cart.open();
-
-        softAssert.assertTrue(
-                kraken.detect().isCartOpen(),
-                    "\nНе открывается корзина из списка любимых товаров\n");
-
-        softAssert.assertFalse(
-                kraken.detect().isCartEmpty(),
-                    "\nНе работает добавление товаров в корзину из карточки товара, открытой из списка любимых товаров\n");
-
-        softAssert.assertAll();
-    }
-
-    @Test(  description = "Тест добавления товаров в корзину из списка любимых товаров",
-            groups = {
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"}
-    )
     public void successAddFavoriteProductToCart() {
-        SoftAssert softAssert = new SoftAssert();
+        Shop.AuthModal.openAuthOnLanding();
+        Shop.AuthModal.hitSberIdButton();
+        User.Auth.withSberID(UserManager.getDefaultSberIdUser());
 
-        User.Do.loginAs(UserManager.getDefaultAdmin());
-        Shop.Cart.drop();
-        kraken.get().userFavoritesPage();
+        Shop.Favorites.openFavorites();
+
+        checkFavoriteIsNotEmpty();
 
         Shop.Favorites.Item.addToCart();
         Shop.Cart.open();
 
-        softAssert.assertTrue(
-                kraken.detect().isCartOpen(),
-                    "\nНе открывается корзина из списка любимых товаров\n");
+        checkCartIsOpen();
+        checkCartNotEmpty();
+        Shop.Cart.dropAll();
+        checkCartEmpty();
+    }
 
-        softAssert.assertFalse(
-                kraken.detect().isCartEmpty(),
-                    "\nНе работает добавление товаров в корзину из списка любимых товаров\n");
+    @CaseId(1494)
+    @Test(  description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров",
+            groups = {
+                    "metro-acceptance","metro-regression",
+                    "sbermarket-acceptance","sbermarket-regression"}
+    )
+    public void successAddFavoriteProductsFromCardToCart() {
+        Shop.AuthModal.openAuthOnLanding();
+        Shop.AuthModal.hitSberIdButton();
+        User.Auth.withSberID(UserManager.getDefaultSberIdUser());
 
-        softAssert.assertAll();
+        Shop.Favorites.openFavorites();
+        checkFavoriteIsNotEmpty();
+
+        Shop.Favorites.openFavoritesCard();
+
+        Shop.Favorites.Item.addToCart();
+        Shop.Cart.open();
+
+        checkCartIsOpen();
+        checkCartNotEmpty();
+        Shop.Cart.dropAll();
+        checkCartEmpty();
     }
 }
