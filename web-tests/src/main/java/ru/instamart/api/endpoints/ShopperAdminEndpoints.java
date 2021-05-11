@@ -11,4 +11,5 @@ public final class ShopperAdminEndpoints {
     public static final String SHOPPERS = "v1/shoppers";
     public static final String STORES = "v1/stores";
     public static final String TARIFFS = "v1/tariffs";
+    public static final String ROLES = "v1/roles";
 }

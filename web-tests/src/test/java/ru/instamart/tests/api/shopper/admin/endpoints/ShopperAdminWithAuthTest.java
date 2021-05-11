@@ -132,4 +132,14 @@ public class ShopperAdminWithAuthTest extends RestBase {
         assertEquals(routeScheduleId, routeSchedule.getId());
         assertEquals(routeScheduleStatus, routeSchedule.getStatus());
     }
+
+    @CaseId(37)
+    @Test(  description = "Получение всех доступных ролей",
+            groups = {"api-shopper-regress"})
+    public void getRoles200() {
+        Response response = ShopperAdminRequest.Roles.GET();
+        checkStatusCode200(response);
+        assertFalse(response.as(RolesSHPResponse.class).getRoles().isEmpty());
+    }
+
 }
