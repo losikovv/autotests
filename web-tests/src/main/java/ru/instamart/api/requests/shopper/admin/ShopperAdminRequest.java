@@ -120,4 +120,12 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
                     .get(ShopperAdminEndpoints.ROUTE, routeId);
         }
     }
+
+    public static class Roles {
+        @Step("{method} /" + ShopperAdminEndpoints.ROLES)
+        public static Response GET() {
+            return givenWithAuth()
+                    .get(ShopperAdminEndpoints.ROLES);
+        }
+    }
 }

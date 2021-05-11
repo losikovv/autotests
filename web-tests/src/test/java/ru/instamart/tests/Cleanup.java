@@ -16,12 +16,10 @@ public class Cleanup {
         Config.load();
     }
 
-    @Test(
-            description = "ЗАПУСК ТЕСТА УДАЛЯЕТ ВСЕ ТЕСТРАНЫ У УКАЗАННОГО ПРОЕКТА",
-            groups = "cleanup"
-    )
+    @Test(  description = "ЗАПУСК ТЕСТА УДАЛЯЕТ ВСЕ ТЕСТРАНЫ У УКАЗАННОГО ПРОЕКТА",
+            groups = "cleanup")
     public void deleteAllProjectTestRuns() {
-        final QaseService qaseService = new QaseService("");
+        final QaseService qaseService = new QaseService("", "");
         final TestRuns testRuns = qaseService
                 .getQaseApi()
                 .testRuns()

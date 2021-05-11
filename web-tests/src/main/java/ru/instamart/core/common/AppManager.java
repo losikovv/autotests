@@ -56,6 +56,10 @@ public final class AppManager {
         return webDriverService.createOrGetDriver();
     }
 
+    public static void closeWebDriver() {
+        webDriverService.closeDriver();
+    }
+
     public static void deleteAllCookie() {
         getWebDriver().manage().deleteAllCookies();
     }

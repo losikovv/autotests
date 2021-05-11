@@ -1,8 +1,18 @@
 package ru.instamart.tests.ui.administration;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
+import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseId;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import ru.instamart.core.common.AppManager;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.testdata.ui.Generate;
+import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.checkpoints.admin.AdminPageCheckpoints;
 import ru.instamart.ui.checkpoints.admin.AdminSearchUsersCheckpoints;
@@ -12,15 +22,6 @@ import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
 import ru.instamart.ui.modules.shop.Order;
 import ru.instamart.ui.objectsmap.Elements;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseId;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import ru.instamart.tests.ui.TestBase;
 
 @Epic("Админка STF")
 @Feature("Управление юзерами")
@@ -63,7 +64,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         Shop.AuthModal.openAuthLending();
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
-        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        AppManager.closeWebDriver(); //Это нужно удалить, после того как починят багу
         User.Logout.quicklyAdmin();
         User.Auth.withEmail(UserManager.getDefaultAdmin());
         Administration.Users.editUser(phone);
@@ -71,17 +72,17 @@ public class AdministrationUsersSectionTests extends TestBase {
         Administration.Users.changePassword(phone);
         Administration.Users.grantAdminPrivileges();
         //User.Logout.quicklyAdmin();
-        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        AppManager.closeWebDriver(); //Это нужно удалить, после того как починят багу
         kraken.get().adminPage("");
         kraken.reach().admin(email,phone,role);
         adminChecks.checkIsAdminPageOpen();
         //User.Logout.quicklyAdmin();
-        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        AppManager.closeWebDriver(); //Это нужно удалить, после того как починят багу
         kraken.get().adminPage("");
         User.Auth.withEmail(UserManager.getDefaultAdmin());
         Administration.Users.revokeAdminPrivileges(phone);
         //User.Logout.quicklyAdmin();
-        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        AppManager.closeWebDriver(); //Это нужно удалить, после того как починят багу
         kraken.get().adminPage("");
         kraken.reach().admin(email,phone,"superuser");
         adminChecks.checkIsNotAdminPageOpen();
@@ -98,7 +99,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         Shop.AuthModal.openAuthLending();
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
-        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        AppManager.closeWebDriver(); //Это нужно удалить, после того как починят багу
         User.Logout.quicklyAdmin();
         User.Auth.withEmail(UserManager.getDefaultAdmin());
         Administration.Users.editUser(phone);
@@ -120,7 +121,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         Shop.AuthModal.openAuthLending();
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
-        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        AppManager.closeWebDriver(); //Это нужно удалить, после того как починят багу
         User.Logout.quicklyAdmin();
         User.Auth.withEmail(UserManager.getDefaultAdmin());
         Administration.Users.editUser(phone);
@@ -140,11 +141,11 @@ public class AdministrationUsersSectionTests extends TestBase {
         phone = Generate.phoneNumber();
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
-        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        AppManager.closeWebDriver(); //Это нужно удалить, после того как починят багу
         Administration.Users.editUser(phone);
         Administration.Users.grantB2B();
         //User.Logout.quickly();
-        kraken.getWebDriver().close(); //Это нужно удалить, после того как починят багу
+        AppManager.closeWebDriver(); //Это нужно удалить, после того как починят багу
         kraken.get().baseUrl();
         User.Auth.withEmail(testuser);
         Order.order();

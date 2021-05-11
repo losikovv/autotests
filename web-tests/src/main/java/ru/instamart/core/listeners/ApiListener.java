@@ -1,11 +1,9 @@
 package ru.instamart.core.listeners;
 
+import io.qase.api.enums.RunResultStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.*;
 import ru.instamart.core.service.QaseService;
-import io.qase.api.enums.RunResultStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Slf4j
 public final class ApiListener implements ITestListener, ISuiteListener {
@@ -13,18 +11,17 @@ public final class ApiListener implements ITestListener, ISuiteListener {
     private final QaseService qaseService;
 
     public ApiListener() {
-        String projectId = System.getProperty("qase.Project","INAPI");
-        this.qaseService = new QaseService(projectId);
+        String projectId = System.getProperty("qase.Project", "INAPI");
+        String testRunName = System.getProperty("qase.Title", "API Test Run");
+        this.qaseService = new QaseService(projectId, testRunName);
     }
 
     @Override
     public void onStart(ISuite suite) {
-
     }
 
     @Override
     public void onStart(ITestContext context) {
-        this.qaseService.generateTestCasesList();
         this.qaseService.createTestRun();
     }
 

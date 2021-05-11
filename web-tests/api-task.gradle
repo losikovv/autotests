@@ -20,10 +20,8 @@ task apiShopperSmoke(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase.plan.id', 1
-        systemProperty 'qase.Project', 'SHAPI'
-    }
+    systemProperty 'qase.Project', 'SHAPI'
+    systemProperty 'qase.Title', 'Shopper API Smoke'
 }
 
 task apiShopperRegress(type: Test) {
@@ -36,10 +34,8 @@ task apiShopperRegress(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase.plan.id', 2
-        systemProperty 'qase.Project', 'SHAPI'
-    }
+    systemProperty 'qase.Project', 'SHAPI'
+    systemProperty 'qase.Title', 'Shopper API Regress'
 }
 
 task apiInstamartRegress(type: Test) {
@@ -52,10 +48,8 @@ task apiInstamartRegress(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase.plan.id', 1
-        systemProperty 'qase.Project', 'INAPI'
-    }
+    systemProperty 'qase.Project', 'INAPI'
+    systemProperty 'qase.Title', 'Instamart API Regress'
 }
 
 task apiInstamartSmoke(type: Test) {
@@ -68,10 +62,8 @@ task apiInstamartSmoke(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase.plan.id', 3
-        systemProperty 'qase.Project', 'INAPI'
-    }
+    systemProperty 'qase.Project', 'INAPI'
+    systemProperty 'qase.Title', 'Instamart API Smoke'
 }
 
 task apiRetailerE2E(type: Test) {
@@ -99,10 +91,8 @@ task apiInstamartProduction(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase.plan.id', 1
-        systemProperty 'qase.Project', 'INAPI'
-    }
+    systemProperty 'qase.Project', 'INAPI'
+    systemProperty 'qase.Title', 'Instamart API Regress'
 }
 
 task apiShopperProduction(type: Test) {
@@ -116,8 +106,6 @@ task apiShopperProduction(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    if (project.hasProperty('qase')) {
-        systemProperty 'qase.plan.id', 2
-        systemProperty 'qase.Project', 'SHAPI'
-    }
+    systemProperty 'qase.Project', 'SHAPI'
+    systemProperty 'qase.Title', 'Shopper API Regress'
 }
