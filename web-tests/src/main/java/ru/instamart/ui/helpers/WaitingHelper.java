@@ -2,6 +2,7 @@ package ru.instamart.ui.helpers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -84,6 +85,14 @@ public final class WaitingHelper extends HelperBase {
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.urlToBe(url));
+    }
+
+    public void getText(final ElementData data) {
+        new FluentWait<>(AppManager.getWebDriver())
+                .withTimeout(data.getTimeout(), TimeUnit.SECONDS)
+                .pollingEvery(250, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class)
+                .until((ExpectedCondition<Boolean>) input -> input.findElement(data.getLocator()).getText().length() != 0);
     }
 
     public void fluentlyWithWindowsHandler(Function conditions){

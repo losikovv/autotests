@@ -27,7 +27,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     private static final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
     @BeforeMethod(alwaysRun = true,
-            description ="Выполняем шаги предусловий для теста")
+            description = "Выполняем шаги предусловий для теста")
     public void quickLogout() {
         AppManager.getWebDriverService().closeDriver();
         AppManager.getWebDriver().get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth());
@@ -36,6 +36,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     @CaseId(1263)
     @Test(  description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
             groups = {
+            "sbermarket-Ui-smoke",
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"}
     )
@@ -47,6 +48,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     @CaseId(1264)
     @Test(  description = "Переход в любимые товары по кнопке, новый пользователь",
             groups = {
+                    "sbermarket-Ui-smoke",
                     "metro-acceptance","metro-regression",
                     "sbermarket-Ui-smoke","testing"}
     )
@@ -93,6 +95,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     @CaseId(1267)
     @Test(  description = "Удаление любимого товара из карточки товара и проверка списка",
             groups = {
+                    "sbermarket-Ui-smoke",
                     "metro-regression",
                     "sbermarket-regression"}
     )
@@ -113,6 +116,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     @CaseId(1268)
     @Test(  description = "Удаление всех любимых товаров",
             groups = {
+                    "sbermarket-Ui-smoke",
                     "metro-regression",
                     "sbermarket-regression"
             }
@@ -148,6 +152,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     @CaseId(1269)
     @Test(  description = "Проверка работоспособности фильтров Любимых товаров",
             groups = {
+                    "sbermarket-Ui-smoke",
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -178,6 +183,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     @CaseId(1270)
     @Test(  description = "Проверка работоспособности подгрузки страниц в Любимых товарах",
             groups = {
+                    "sbermarket-Ui-smoke",
                     "metro-regression",
                     "sbermarket-regression"}
     )
@@ -258,6 +264,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     @CaseId(1492)
     @Test(  description = "Тест добавления товаров в корзину из списка любимых товаров",
             groups = {
+                    "sbermarket-Ui-smoke",
                     "metro-regression",
                     "sbermarket-regression"}
     )
@@ -294,12 +301,12 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         checkFavoriteIsNotEmpty();
 
         Shop.Favorites.openFavoritesCard();
-
-        Shop.Favorites.Item.addToCart();
+        Shop.Favorites.Item.addToCartByButton();
         Shop.Cart.open();
 
         checkCartIsOpen();
         checkCartNotEmpty();
+
         Shop.Cart.dropAll();
         checkCartEmpty();
     }

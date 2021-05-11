@@ -642,6 +642,11 @@ public final class Shop extends Base {
                 kraken.perform().click(Elements.Favorites.Product.addToCart());
             }
 
+            @Step("Добавляем первый любимый товар в корзину через карточку товара")
+            public static void addToCartByButton() {
+                kraken.perform().click(Elements.ItemCard.buyButton());
+            }
+
             /** Удалить первый любимый товар из корзины через сниппет товара */
             @Step("Удаляем первый любимый товар из корзины через сниппет товара")
             public static void removeFromCart() {
