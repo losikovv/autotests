@@ -2,6 +2,7 @@ package ru.instamart.tests.api.v1.contracts;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
@@ -119,6 +120,7 @@ public class OrdersV1Test extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Prereplacements.json"));
     }
 
+    @Issue("INFRADEV-3167")
     @Story("Заказы")
     @CaseId(120)
     @Test(  description = "Контрактный тест списка сэмплов в шипменте",
