@@ -40,7 +40,7 @@ public enum Specification {
         defaultParser = Parser.JSON;
 
         final boolean sslValidation = Boolean.parseBoolean(System.getProperty("ssl", "false"));
-        if (sslValidation) {
+        if (!sslValidation) {
             log.info("Enable SSL ignore");
             useRelaxedHTTPSValidation();
         }
