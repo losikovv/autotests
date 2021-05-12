@@ -39,7 +39,7 @@ public enum Specification {
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
         defaultParser = Parser.JSON;
 
-        final boolean sslValidation = Boolean.parseBoolean(System.getProperty("ssl", "false"));
+        final boolean sslValidation = Boolean.parseBoolean(System.getProperty("ssl", "true"));
         if (!sslValidation) {
             log.info("Enable SSL ignore");
             useRelaxedHTTPSValidation();
