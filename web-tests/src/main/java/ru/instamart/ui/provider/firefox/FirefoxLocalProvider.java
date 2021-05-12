@@ -1,23 +1,16 @@
 package ru.instamart.ui.provider.firefox;
 
-import org.openqa.selenium.remote.CapabilityType;
-import ru.instamart.ui.provider.AbstractBrowserProvider;
-import ru.instamart.core.util.ProcessUtils;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.CapabilityType;
+import ru.instamart.ui.provider.AbstractBrowserProvider;
 
 import java.util.Optional;
-
-import static ru.instamart.core.settings.Config.DO_CLEANUP_BEFORE_TEST_RUN;
 
 public final class FirefoxLocalProvider extends AbstractBrowserProvider {
 
     @Override
     public void createDriver(final String version) {
-        if (DO_CLEANUP_BEFORE_TEST_RUN) {
-            ProcessUtils.cleanProcessByName(BrowserType.FIREFOX);
-        }
         final FirefoxBinary firefoxBinary = new FirefoxBinary();
 //        firefoxBinary.addCommandLineOptions("--headless");
         final FirefoxOptions options = new FirefoxOptions();

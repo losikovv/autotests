@@ -1,3 +1,5 @@
+image: gradle:jre11
+
 variables:
   GIT_SUBMODULE_STRATEGY: normal
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
@@ -7,7 +9,6 @@ before_script:
   - cd web-tests
 
 stages:
-  - build
   - tests
 
 .template_tests_apishopper:
@@ -46,29 +47,8 @@ stages:
       - $CI_RUN_ALL_JOBS == 'true'
   allow_failure: true
 
-build:
-  image:
-    name: registry.sbermarket.tech/docker/proxy/kaniko-project/executor:debug-v1.5.1
-    entrypoint: [""]
-  stage: build
-  tags:
-    - docker
-  script:
-    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-    - echo $CI_REGISTRY
-    - echo $IMAGE
-    - /kaniko/executor
-      --cache=true
-      --context $CI_PROJECT_DIR
-      --dockerfile $CI_PROJECT_DIR/Dockerfile
-      --destination $CI_REGISTRY_IMAGE
-  rules:
-    - changes:
-        - Dockerfile
-
 CustomSuiteTestRun:
   when: manual
-  image: gradle:jdk11
   stage: tests
   services:
     - selenium/standalone-chrome

@@ -25,8 +25,6 @@ public final class Config {
     public static boolean VIDEO;
     public static boolean VNC;
     public static boolean FULL_SCREEN_MODE;
-    public static boolean DO_CLEANUP_AFTER_TEST_RUN;
-    public static boolean DO_CLEANUP_BEFORE_TEST_RUN;
     //TODO: Подумать о том что бы избавиться и перейти на валидацию схемы
     public static final boolean REST_IGNORE_PROPERTIES = true;
 
@@ -58,10 +56,6 @@ public final class Config {
 
         // Запуск тестов на полном экране
         FULL_SCREEN_MODE = coreSettings.getBoolean("fullScreenMode", false);
-        // Удаление всех сущностей после теста
-        DO_CLEANUP_AFTER_TEST_RUN = coreSettings.getBoolean("doCleanupAfterTestRun", true);
-        // Все существующие инстансы браузера связанные с selenium будут удалены, рабочий браузер не убивается
-        DO_CLEANUP_BEFORE_TEST_RUN = coreSettings.getBoolean("doCleanupBeforeTestRun", true);
 
         QASE_API_TOKEN = coreSettings.getString("qaseApiToken", "");
     }
