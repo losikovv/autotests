@@ -21,12 +21,11 @@ import ru.instamart.ui.objectsmap.Elements;
 
 @Epic("STF UI")
 @Feature("Регистрация пользователя")
-public final class UserRegistrationTests extends TestBase {
+public final class UserRegistrationTests extends TestBase implements UsersAuthorizationCheckpoints {
 
     private static String phone;
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
-    UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
 
     @BeforeMethod(alwaysRun = true,
             description ="Завершаем сессию, текущего пользователя")
@@ -49,7 +48,7 @@ public final class UserRegistrationTests extends TestBase {
         baseChecks.checkIsErrorMessageElementPresentByPhone("Номер должен начинаться с \"+7 (9..\"",
                 "Нет пользовательской ошибки пустого номера телефона");
         kraken.get().page(Config.DEFAULT_RETAILER);
-        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя с пустыми реквизитами");
+        checkIsUserNotAuthorized("Произошла регистрация пользователя с пустыми реквизитами");
     }
 
     @CaseId(2044)
@@ -71,7 +70,7 @@ public final class UserRegistrationTests extends TestBase {
         User.Do.registrationWithoutConfirmation(phone);
         baseChecks.checkIsElementDisabled(Elements.Modals.AuthModal.continueButton());
         kraken.get().baseUrl();
-        authChecks.checkIsUserNotAuthorized("Произошла регистрация пользователя с уже используемым email");
+        checkIsUserNotAuthorized("Произошла регистрация пользователя с уже используемым email");
     }
 
     @CaseId(1541)
@@ -86,7 +85,7 @@ public final class UserRegistrationTests extends TestBase {
         Shop.AuthModal.openAuthLending();
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
-        authChecks.checkIsUserAuthorized("Не работает регистрация на лендинге");
+        checkIsUserAuthorized("Не работает регистрация на лендинге");
     }
 
     @CaseId(1543)
@@ -104,7 +103,7 @@ public final class UserRegistrationTests extends TestBase {
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
-        authChecks.checkIsUserAuthorized("Не работает регистрация на витрине магазина");
+        checkIsUserAuthorized("Не работает регистрация на витрине магазина");
     }
 
     @CaseId(1542)
@@ -124,7 +123,7 @@ public final class UserRegistrationTests extends TestBase {
 //        baseChecks.checkIsAuthModalOpen("Не работает переход на авторизацию из адресной модалки");
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
-        authChecks.checkIsUserAuthorized("Не работает регистрация из адресной модалки феникса");
+        checkIsUserAuthorized("Не работает регистрация из адресной модалки феникса");
     }
 
     @CaseId(748)
@@ -152,9 +151,9 @@ public final class UserRegistrationTests extends TestBase {
 
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
-        authChecks.checkAutoCheckoutRedirect("Нет автоперехода в чекаут после регистрации из корзины");
+        checkAutoCheckoutRedirect("Нет автоперехода в чекаут после регистрации из корзины");
         kraken.get().baseUrl();
-        authChecks.checkIsUserAuthorized("Не работает регистрация из корзины");
+        checkIsUserAuthorized("Не работает регистрация из корзины");
         shopChecks.checkIsCartEmpty("регистрации из корзины",
                 "Пропали товары после регистрации из корзины");
     }
@@ -171,6 +170,6 @@ public final class UserRegistrationTests extends TestBase {
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(phone,false);
         User.Do.sendSms(Config.DEFAULT_SMS);
-        authChecks.checkIsUserAuthorized("Не работает регистрация без согласия на получение почтовой рассылки");
+        checkIsUserAuthorized("Не работает регистрация без согласия на получение почтовой рассылки");
     }
 }

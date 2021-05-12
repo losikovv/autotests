@@ -1,29 +1,23 @@
 package ru.instamart.ui.common.pagesdata;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.openqa.selenium.By;
+import ru.instamart.core.settings.Config;
 
-public class ElementData {
-    private By locator;
-    private String description;
+@AllArgsConstructor
+@Getter
+@EqualsAndHashCode
+@ToString
+public final class ElementData {
 
-    public ElementData(By locator, String description){
-        this.locator = locator;
-        this.description = description;
-    }
+    private final By locator;
+    private final String description;
+    private final int timeout;
 
-    public By getLocator() {
-        return locator;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    @Override
-    public String toString() {
-        return "ElementData{" +
-                "locator=" + locator +
-                ", description='" + description + '\'' +
-                '}';
+    public ElementData(final By locator, final String description) {
+        this(locator, description, Config.BASIC_TIMEOUT);
     }
 }

@@ -65,7 +65,7 @@ public final class GrabHelper extends HelperBase {
         try {
             return AppManager.getWebDriver().findElement(locator).getText();
         } catch (NoSuchElementException e) {
-            return null;
+            return "empty";
         }
     }
 

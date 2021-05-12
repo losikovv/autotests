@@ -62,13 +62,4 @@ public final class ReachHelper extends HelperBase {
             kraken.get().url(currentURL);
         }
     }
-
-    /** Очистить список избранного, удалив все любимые товары */
-    public void cleanFavorites() {
-        if (!kraken.detect().isFavoritesEmpty()) {
-            Shop.Favorites.Item.removeFromFavorites();
-            kraken.perform().refresh();
-            cleanFavorites();
-        }
-    }
 }

@@ -574,6 +574,14 @@ public final class DetectionHelper extends HelperBase {
         }
     }
 
+    public boolean isEmptyCart() {
+        return kraken.await().shouldBeVisible(Elements.Cart.placeholder());
+    }
+
+    public boolean notEmptyCart() {
+        return kraken.await().shouldBeVisible(Elements.Cart.item.openButton());
+    }
+
     /** Определить активна ли кнопка перехода в чекаут в корзине */
     public boolean isCheckoutButtonActive() {
         Shop.Cart.open();
