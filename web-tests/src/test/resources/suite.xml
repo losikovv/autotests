@@ -5,8 +5,7 @@
     <listener class-name="ru.instamart.core.listeners.ExecutionListenerImpl"/>
     <listener class-name="ru.instamart.core.listeners.UiListener"/>
   </listeners>
-  <!--<test verbose="1" name="Web UI tests" parallel="classes" thread-count="4">-->
-  <test verbose="1" name="Web UI tests">
+  <test verbose="1" name="Web UI tests" parallel="classes" thread-count="5">
     <classes>
       <class name="ru.instamart.tests.ui.administration.AdministrationAccessTests"/>
       <class name="ru.instamart.tests.ui.administration.AdministrationLoginTests"/>
