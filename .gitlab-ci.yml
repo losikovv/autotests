@@ -32,11 +32,12 @@ stages:
     expire_in: 1 week
 
 .template_tests_apishopper_alone:
-  only:
-    refs:
-      - master
-    variables:
-      - $API_SHOPPER_ALONE == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  when: manual
+  #only:
+  #  refs:
+  #    - master
+  #  variables:
+  #    - $API_SHOPPER_ALONE == 'true' && $CI_RUN_ALL_JOBS == 'false'
   allow_failure: true
 
 .template_run_all_jobs_at_a_time_on_master:
