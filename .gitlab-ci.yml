@@ -184,8 +184,7 @@ tests:prodApiRetailer:
     expire_in: 1 week
 
 tests:UiSmoke:
-  when: manual
-  #extends: ".template_run_all_jobs_at_a_time_on_master"
+  extends: ".template_run_all_jobs_at_a_time_on_master"
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
@@ -231,8 +230,7 @@ tests:UiRegress:
     expire_in: 1 week
 
 tests:AdminUiSmoke:
-  when: manual
-  #extends: ".template_run_all_jobs_at_a_time_on_master"
+  extends: ".template_run_all_jobs_at_a_time_on_master"
   stage: tests
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
