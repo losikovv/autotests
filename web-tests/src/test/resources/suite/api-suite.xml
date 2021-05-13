@@ -10,7 +10,7 @@
     <classes>
       <class name="ru.instamart.tests.api.v1.contracts.OffersV1Tests"/>
       <class name="ru.instamart.tests.api.v1.contracts.OperationalZonesV1Tests"/>
-      <!--class name="ru.instamart.tests.api.v1.contracts.OrdersV1Test"/-->
+      <class name="ru.instamart.tests.api.v1.contracts.OrdersV1Test"/>
       <class name="ru.instamart.tests.api.v1.contracts.RetailersV1Tests"/>
       <class name="ru.instamart.tests.api.v1.contracts.StoresV1Tests"/>
     </classes>
@@ -18,27 +18,27 @@
   <!-- api-v2-tests -->
   <test verbose="1" name="API v2 Tests" parallel="none" thread-count="4">
     <classes>
-      <!--class name="ru.instamart.tests.api.v2.endpoints.AddressesV2Test"/-->
+      <class name="ru.instamart.tests.api.v2.endpoints.AddressesV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.BonusCardsV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.CategoriesV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.DepartmentsV2Test"/>
-      <!--class name="ru.instamart.tests.api.v2.endpoints.FavoritesListV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.LineItemsV2Test"/-->
+      <class name="ru.instamart.tests.api.v2.endpoints.FavoritesListV2Test"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.LineItemsV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.OnboardingPagesV2Test"/>
-      <!--class name="ru.instamart.tests.api.v2.endpoints.OrdersV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.PaymentToolsV2Test"/-->
+      <class name="ru.instamart.tests.api.v2.endpoints.OrdersV2Test"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.PaymentToolsV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.ProductsV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.PromotionsV2Test"/>
-      <!--class name="ru.instamart.tests.api.v2.endpoints.PurchasedProductsV2Test"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.PurchasedProductsV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.RegistrationV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.ResetPasswordV2Test"/-->
+      <class name="ru.instamart.tests.api.v2.endpoints.ResetPasswordV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.RetailersV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.SearchesV2Test"/>
-      <!--class name="ru.instamart.tests.api.v2.endpoints.SessionsV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.ShipAddressV2Test"/-->
+      <class name="ru.instamart.tests.api.v2.endpoints.SessionsV2Test"/>
+      <class name="ru.instamart.tests.api.v2.endpoints.ShipAddressV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.StoresV2Test"/>
       <class name="ru.instamart.tests.api.v2.endpoints.TaxonsV2Test"/>
-      <!--class name="ru.instamart.tests.api.v2.endpoints.UserV2Test"/-->
+      <class name="ru.instamart.tests.api.v2.endpoints.UserV2Test"/>
 
       <class name="ru.instamart.tests.api.v2.e2e.OrderE2ETests"/>
       <class name="ru.instamart.tests.api.v2.e2e.RetailerE2ETests"/>
@@ -58,8 +58,8 @@
  </test>
  <test verbose="1" name="API Shopper App Tests" parallel="none" thread-count="3">
    <classes>
-     <!--class name="ru.instamart.tests.api.shopper.app.e2e.ShopperAppE2ETest"/>
-     <class name="ru.instamart.tests.api.shopper.app.endpoints.ShipmentfulShopperAppTest"/-->
+     <class name="ru.instamart.tests.api.shopper.app.e2e.ShopperAppE2ETest"/>
+     <class name="ru.instamart.tests.api.shopper.app.endpoints.ShipmentfulShopperAppTest"/>
      <class name="ru.instamart.tests.api.shopper.app.endpoints.ShipmentlessShopperAppTest"/>
      <class name="ru.instamart.tests.api.shopper.app.endpoints.ShopperAppWithoutAuthTest"/>
    </classes>
@@ -73,7 +73,7 @@
   <test verbose="1" name="API Delivery Club Tests" parallel="classes" thread-count="3">
     <classes>
       <class name="ru.instamart.tests.api.delivery_club.endpoints.AuthenticationDCTest"/>
-      <!--class name="ru.instamart.tests.api.delivery_club.endpoints.StoresWithAuthDCTest"/-->
+      <class name="ru.instamart.tests.api.delivery_club.endpoints.StoresWithAuthDCTest"/>
       <class name="ru.instamart.tests.api.delivery_club.endpoints.StoresWithoutAuthDCTest"/>
     </classes>
   </test> <!-- api-delivery-club-tests -->
