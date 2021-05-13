@@ -25,6 +25,7 @@ public final class PaymentHelper extends Base {
         super(kraken);
     }
 
+    @Step("Выбор метода оплаты")
     public static void choosePaymentMethod(PaymentDetailsData paymentDetails) {
         String description = paymentDetails.getPaymentType().getDescription();
         if (kraken.detect().isPaymentTypeAvailable(description)){
@@ -111,13 +112,13 @@ public final class PaymentHelper extends Base {
 
         step("Заполнение номера карты: " + cardNumber,()->
                 kraken.perform().fillField(Elements.Checkout.PaymentCardModal.cardNumberField(), cardNumber));
-        step("Заполнение месяца: " + expiryMonth,()->
+        step("месяц: " + expiryMonth,()->
                 kraken.perform().fillField(Elements.Checkout.PaymentCardModal.monthField(), expiryMonth));
-        step("Заполнение года: " + expiryYear, ()->
+        step("год: " + expiryYear, ()->
                 kraken.perform().fillField(Elements.Checkout.PaymentCardModal.yearField(),expiryYear ));
-        step("Заполнение ccv: " + cvvNumber, ()->
+        step("ccv: " + cvvNumber, ()->
                 kraken.perform().fillField(Elements.Checkout.PaymentCardModal.cvvField(),cvvNumber ));
-        step("Заполнение имени держателя: " + cardHolderName, ()->
+        step("имя держателя: " + cardHolderName, ()->
                 kraken.perform().fillField(Elements.Checkout.PaymentCardModal.nameField(),cardHolderName ));
     }
 

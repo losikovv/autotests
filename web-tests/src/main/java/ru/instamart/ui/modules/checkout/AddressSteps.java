@@ -99,13 +99,17 @@ public final class AddressSteps extends Base {
     @Step("Заполняем поле Номер квартиры/офиса: {0}")
     public static void fillApartment(String number){
         log.info("> номер: {}", number);
-        kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.apartmentInputField(), number);
+        if(kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.apartmentInputField())){
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.apartmentInputField(), number);
+        }
     }
 
     @Step("Заполняем поле Этаж: {0}")
     public static void fillFloor(String number){
         log.info("> этаж: {}", number);
-        kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.floorInputField(), number);
+        if (kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.floorInputField())){
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.floorInputField(), number);
+        }
     }
 
     @Step("Устанавливаем чекбокс лифт: {0}")
@@ -118,19 +122,25 @@ public final class AddressSteps extends Base {
     @Step("Заполняем поле Подъезд: {0}")
     public static void fillEntrance(String number){
         log.info("> подъезд: {}", number);
-        kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.entranceInputField(), number);
+        if (kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.entranceInputField())) {
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.entranceInputField(), number);
+        }
     }
 
     @Step("Заполняем поле Домофон: {0}")
     public static void fillDomofon(String number){
         log.info("> домофон: {}", number);
-        kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.domofonInputField(), number);
+        if (kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.domofonInputField())) {
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.domofonInputField(), number);
+        }
     }
 
     @Step("Заполняем поле Комментарии: {0}")
     public static void fillCommentaries(String text){
         log.info("> комментарии по доставке: {}", text);
-        kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.commentariesInputField(), text);
+        if (kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.commentariesInputField())) {
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.commentariesInputField(), text);
+        }
     }
 
     public static void fillStep(int position, OrderDetailsData orderDetails) {
@@ -164,7 +174,7 @@ public final class AddressSteps extends Base {
                 step("Выбор слота доставки", ()-> DeliveryHelper.chooseDeliveryTime(orderDetails.getDeliveryTime()));
                 break;
             case "Оплата" :
-                step("Выбор метода оплаты", ()-> PaymentHelper.choosePaymentMethod(orderDetails.getPaymentDetails()));
+                PaymentHelper.choosePaymentMethod(orderDetails.getPaymentDetails());
                 break;
         }
     }

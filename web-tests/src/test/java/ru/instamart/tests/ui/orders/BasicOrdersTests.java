@@ -50,7 +50,8 @@ public class BasicOrdersTests extends TestBase {
     public void preconditions() {
         User.Logout.quickly();
         String phone;
-        phone = Generate.phoneNumber();
+        //phone = Generate.phoneNumber();
+        phone = "9999959446";
         step("Аутентификация", ()-> {
             kraken.get().baseUrl();
             Shop.AuthModal.open();
@@ -58,10 +59,10 @@ public class BasicOrdersTests extends TestBase {
             User.Do.sendSms(Config.DEFAULT_SMS);
         });
         step("Выбор адреса доставки", ()-> {
-            ShippingAddressModal.open();
-            ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
-            ShippingAddressModal.selectAddressSuggest();
-            ShippingAddressModal.submit();
+//            ShippingAddressModal.open();
+//            ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+//            ShippingAddressModal.selectAddressSuggest();
+//            ShippingAddressModal.submit();
         });
     }
     //TODO удалить шаг скрина падения теста после доработки afterMethod в TestBase
@@ -187,6 +188,22 @@ public class BasicOrdersTests extends TestBase {
         Shop.Cart.collectFirstTime();
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete(paymentMethod);
+        orderCheck.checkOrderSuccessCreation();
+        orderCheck.checkPaymentMethod(paymentMethod);
+    }
+
+    @Test(
+            description = "Тест заказа с оплатой курьеру",
+            groups = {"sbermarket-regression","testing"}
+    )
+    public void successOrderWithTwoCards() {
+        PaymentCardData firstCreditCardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
+        PaymentCardData secondCreditCardData = TestVariables.testOrderDetailsCus().getPaymentDetails().getCreditCard();
+        PaymentTypeData paymentMethod = PaymentTypes.cardOnline();
+
+        Shop.Cart.collectFirstTime();
+        Shop.Cart.proceedToCheckout();
+        kraken.checkout().complete(paymentMethod, true, firstCreditCardData);
         orderCheck.checkOrderSuccessCreation();
         orderCheck.checkPaymentMethod(paymentMethod);
     }
