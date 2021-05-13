@@ -24,7 +24,7 @@ import java.util.StringJoiner;
 import static ru.instamart.api.checkpoints.ShopperApiCheckpoints.checkStatusCode200;
 
 @Slf4j
-public class ShopperApiHelper {
+public class ShopperAppApiHelper {
     private String currentAssemblyId;
 
     public void authorisation(UserData user) {
