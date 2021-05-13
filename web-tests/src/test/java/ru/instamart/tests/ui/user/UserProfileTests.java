@@ -17,6 +17,9 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+
 @Epic("STF UI")
 @Feature("Профиль пользователя")
 public class UserProfileTests extends TestBase {
@@ -40,11 +43,9 @@ public class UserProfileTests extends TestBase {
                     "metro-smoke","metro-acceptance","metro-regression"
             }
     ) public void successValidateMetroTenantProfileMenu() {
-        SoftAssert softAssert = new SoftAssert();
-
         Shop.AccountMenu.open();
 
-        softAssert.assertTrue(
+        assertTrue(
                 kraken.detect().isAccountMenuOpen(),
                     failMessage("Не открывается всплывающее меню профиля Delivery Metro"));
 
@@ -61,11 +62,9 @@ public class UserProfileTests extends TestBase {
 
         Shop.AccountMenu.close();
 
-        softAssert.assertFalse(
+        assertFalse(
                 kraken.detect().isAccountMenuOpen(),
                     failMessage("Не закрывается всплывающее меню профиля Delivery Metro"));
-
-        softAssert.assertAll();
     }
 
     @CaseId(1524)

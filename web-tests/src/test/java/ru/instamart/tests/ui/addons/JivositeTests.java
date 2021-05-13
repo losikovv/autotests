@@ -1,15 +1,16 @@
 package ru.instamart.tests.ui.addons;
 
+import org.testng.annotations.Test;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.TestVariables;
 import ru.instamart.core.testdata.UserManager;
+import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import ru.instamart.tests.ui.TestBase;
+
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 public class JivositeTests extends TestBase {
 
@@ -19,7 +20,7 @@ public class JivositeTests extends TestBase {
     public void noJivositeWidgetOnLanding() {
         User.Logout.quickly();
 
-        Assert.assertFalse(kraken.detect().isJivositeWidgetAvailable(),
+        assertFalse(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite доступен на лендинге");
     }
 
@@ -30,7 +31,7 @@ public class JivositeTests extends TestBase {
         User.Do.loginAs(UserManager.getDefaultAdmin());
         kraken.reach().checkout();
 
-        Assert.assertFalse(kraken.detect().isJivositeWidgetAvailable(),
+        assertFalse(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite доступен в чекауте");
     }
 
@@ -38,69 +39,51 @@ public class JivositeTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression",}
     )
     public void successOperateJivositeWidgetOnRetailerPage() {
-        SoftAssert softAssert = new SoftAssert();
         kraken.get().page(Config.DEFAULT_RETAILER);
-
-        Assert.assertTrue(kraken.detect().isJivositeWidgetAvailable(),
+        assertTrue(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite недоступен на витрине ритейлера\n");
 
         Shop.Jivosite.open();
-
-        softAssert.assertTrue(kraken.detect().isJivositeOpen(),
+        assertTrue(kraken.detect().isJivositeOpen(),
                 "Не разворачивается виджет Jivosite на витрине ритейлера\n");
 
         Shop.Jivosite.close();
-
-        softAssert.assertFalse(kraken.detect().isJivositeOpen(),
+        assertFalse(kraken.detect().isJivositeOpen(),
                 "Не сворачивается виджет Jivosite на витрине ритейлера\n");
-
-        softAssert.assertAll();
     }
 
     @Test(  description = "Тест работы с виджетом Jivosite в каталоге",
             groups = {"sbermarket-acceptance","sbermarket-regression",}
     )
     public void successOperateJivositeWidgetInCatalog() {
-        SoftAssert softAssert = new SoftAssert();
         Shop.Search.searchItem(TestVariables.TestParams.ItemSearch.testQuery);
-
-        Assert.assertTrue(kraken.detect().isJivositeWidgetAvailable(),
+        assertTrue(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite недоступен в каталоге\n");
 
         Shop.Jivosite.open();
-
-        softAssert.assertTrue(kraken.detect().isJivositeOpen(),
+        assertTrue(kraken.detect().isJivositeOpen(),
                 "Не разворачивается виджет Jivosite в каталоге\n");
 
         Shop.Jivosite.close();
-
-        softAssert.assertFalse(kraken.detect().isJivositeOpen(),
+        assertFalse(kraken.detect().isJivositeOpen(),
                 "Не сворачивается виджет Jivosite в каталоге\n");
-
-        softAssert.assertAll();
     }
 
     @Test(  description = "Тест работы с виджетом Jivosite на странице 404",
             groups = {"sbermarket-acceptance","sbermarket-regression",}
     )
     public void successOperateJivositeWidgetOnPage404() {
-        SoftAssert softAssert = new SoftAssert();
         kraken.get().page(Pages.page404());
-
-        Assert.assertTrue(kraken.detect().isJivositeWidgetAvailable(),
+        assertTrue(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite недоступен на странице 404\n");
 
         Shop.Jivosite.open();
-
-        softAssert.assertTrue(kraken.detect().isJivositeOpen(),
+        assertTrue(kraken.detect().isJivositeOpen(),
                 "Не разворачивается виджет Jivosite на странице 404\n");
 
         Shop.Jivosite.close();
-
-        softAssert.assertFalse(kraken.detect().isJivositeOpen(),
+        assertFalse(kraken.detect().isJivositeOpen(),
                 "Не сворачивается виджет Jivosite на странице 404\n");
-
-        softAssert.assertAll();
     }
 
     @Test(  description = "Тест успешной отправки сообщения в Jivosite",
@@ -111,8 +94,7 @@ public class JivositeTests extends TestBase {
         kraken.get().page(Config.DEFAULT_RETAILER);
 
         Shop.Jivosite.sendMessage(testMessage);
-
-        Assert.assertTrue(kraken.detect().isJivositeMessageSent(testMessage),
+        assertTrue(kraken.detect().isJivositeMessageSent(testMessage),
                 "Не отправляется сообщение в Jivosite\n");
     }
 }
