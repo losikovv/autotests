@@ -7,7 +7,7 @@ task Testing(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/suite.xml'
+        suites 'src/test/resources/suite/all.xml'
         includeGroups 'testing'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
@@ -19,7 +19,7 @@ task AutoMRCheck(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/mr-suite.xml'
+        suites 'src/test/resources/suite/mr.xml'
         includeGroups 'MRAutoCheck'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
@@ -32,7 +32,7 @@ task debug(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/d.xml'
+        suites 'src/test/resources/suite/d.xml'
         includeGroups 'debug'
         systemProperty 'env',"sbermarket-preprod"
         systemProperty 'qase', "false"
@@ -46,7 +46,7 @@ task cleanup(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/setup-suite.xml'
+        suites 'src/test/resources/suite/setup.xml'
         includeGroups 'cleanup'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"

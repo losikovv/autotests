@@ -1,16 +1,16 @@
 package ru.instamart.tests.api.shopper.app.endpoints;
 
-import ru.instamart.api.SessionFactory;
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.requests.shopper.app.*;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.SessionFactory;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.requests.shopper.app.*;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
 
 import static ru.instamart.api.checkpoints.ShopperApiCheckpoints.checkStatusCode401;
 
@@ -24,10 +24,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        SessionFactory.getSessionMap().entrySet().removeIf(session -> {
-            final SessionFactory.SessionId sessionId = session.getKey();
-            return sessionId.getThreadId() == Thread.currentThread().getId() && sessionId.getType() == SessionType.SHOPPER_APP;
-        });
+        SessionFactory.clearSession(SessionType.SHOPPER_APP);
     }
 
     @Story("Начало сборки")

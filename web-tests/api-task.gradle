@@ -2,7 +2,7 @@ task apiZones(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/api-suite.xml'
+        suites 'src/test/resources/suite/api-zone.xml'
         includeGroups 'api-zones'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
@@ -14,7 +14,7 @@ task apiShopperSmoke(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/api-suite.xml'
+        suites 'src/test/resources/suite/smoke/api-shopper.xml'
         includeGroups 'api-shopper-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
@@ -28,7 +28,7 @@ task apiShopperRegress(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/api-suite.xml'
+        suites 'src/test/resources/suite/regress/api-shopper.xml'
         includeGroups 'api-shopper-smoke', 'api-shopper-regress'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
@@ -42,7 +42,7 @@ task apiInstamartRegress(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/api-suite.xml'
+        suites 'src/test/resources/suite/regress/api-instamart.xml'
         includeGroups 'api-instamart-smoke', 'api-instamart-regress'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
@@ -56,7 +56,7 @@ task apiInstamartSmoke(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/api-suite.xml'
+        suites 'src/test/resources/suite/smoke/api-instamart.xml'
         includeGroups 'api-instamart-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
@@ -70,7 +70,7 @@ task apiRetailerE2E(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/api-suite.xml'
+        suites 'src/test/resources/suite/api-suite.xml'
         includeGroups 'api-retailer'
         systemProperty 'env',"sbermarket-production"
         systemProperty 'qase', "false"
@@ -84,7 +84,7 @@ task apiInstamartProduction(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/api-suite.xml'
+        suites 'src/test/resources/suite/api-suite.xml'
         includeGroups 'api-instamart-prod'
         systemProperty 'env',"sbermarket-production"
         testLogging {
@@ -99,7 +99,7 @@ task apiShopperProduction(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/api-suite.xml'
+        suites 'src/test/resources/suite/api-suite.xml'
         includeGroups 'api-shopper-prod'
         systemProperty 'env',"sbermarket-production"
         testLogging {
