@@ -1,9 +1,9 @@
 package ru.instamart.tests.api.shopper.app.e2e;
 
-import ru.instamart.api.checkpoints.InstamartApiCheckpoints;
+import ru.instamart.api.checkpoint.InstamartApiCheckpoints;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.helpers.RegistrationHelper;
-import ru.instamart.api.objects.v2.OrderV2;
+import ru.instamart.api.helper.RegistrationHelper;
+import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.common.pagesdata.UserData;

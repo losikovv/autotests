@@ -6,9 +6,10 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.Logs;
-import ru.instamart.core.common.AppManager;
+import ru.instamart.ui.manager.AppManager;
 
 import java.io.File;
+import java.util.StringJoiner;
 
 public final class CustomReport {
 
@@ -24,13 +25,13 @@ public final class CustomReport {
     }
 
     public static String browserLog() {
-        final StringBuilder sb = new StringBuilder();
+        final StringJoiner joiner = new StringJoiner("\n");
         final Logs logs = AppManager.getWebDriver().manage().logs();
         final LogEntries logEntries = logs.get(LogType.BROWSER);
 
-        logEntries.forEach(log -> sb.append(log.getMessage()).append("\n"));
+        logEntries.forEach(log -> joiner.add(log.getMessage()));
 
-        return sb.toString();
+        return joiner.toString();
     }
 
     public static String sourcePage() {

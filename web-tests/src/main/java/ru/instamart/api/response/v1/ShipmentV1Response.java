@@ -1,0 +1,12 @@
+package ru.instamart.api.response.v1;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import ru.instamart.api.model.v1.ShipmentV1;
+import ru.instamart.api.response.BaseResponseObject;
+
+@Data
+@EqualsAndHashCode(callSuper=false)
+public class ShipmentV1Response extends BaseResponseObject {
+    private ShipmentV1 shipment;
+}

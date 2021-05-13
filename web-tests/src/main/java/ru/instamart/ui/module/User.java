@@ -1,0 +1,383 @@
+package ru.instamart.ui.module;
+
+import io.qameta.allure.Step;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.instamart.ui.manager.AppManager;
+import ru.instamart.core.setting.Config;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.helper.WaitingHelper;
+import ru.instamart.ui.Elements;
+
+@Slf4j
+public final class User extends Base {
+
+    public User(final AppManager kraken) {
+        super(kraken);
+    }
+
+    public static class Do {
+
+        @Step("Авторизация юзером")
+        public static void loginAs(UserData user) { //TODO использовать только session-юзеров
+            String startURL = kraken.grab().currentURL();
+            if (!startURL.equals(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth()) && kraken.detect().isUserAuthorised()) {
+                kraken.get().userProfilePage();
+                String currentUserEmail = kraken.grab().text(Elements.UserProfile.AccountPage.email());
+                log.info("> юзер: {}", currentUserEmail);
+                if (currentUserEmail == null || !currentUserEmail.equals(user.getLogin())) {
+                    User.Logout.quickly();
+                }
+                kraken.get().url(startURL);
+            }
+            Auth.withEmail(user);
+            if (/*Config.MULTI_SESSION_MODE */false && kraken.detect().isElementPresent(
+                    Elements.Modals.AuthModal.errorMessage("Неверный email или пароль"))) {
+                log.warn(">>> Юзер {}  не найден, регистрируем", user.getLogin());
+                // костыль для stage-окружений
+                if (kraken.detect().server("staging")) {
+                    kraken.get().baseUrl();
+                }
+                Auth.withEmail(user);
+                if (user.getRole().equals("admin")) {
+                    User.Logout.quickly();
+                    Auth.withEmail(UserManager.getDefaultAdmin());
+                    Administration.Users.grantAdminPrivileges(user);
+                    User.Logout.quickly();
+                    Auth.withEmail(user);
+                }
+            }
+            log.info("> уровень прав: {}", user.getRole());
+        }
+
+        @Step("Авторизуемся в админке")
+        public static void loginOnAdministration(String email, String password,String role) {
+            log.info("> авторизуемся в админке ({}/{})", email, password);
+            kraken.perform().fillField(Elements.Administration.LoginPage.emailField(), email);
+            kraken.perform().fillField(Elements.Administration.LoginPage.passwordField(), password);
+            kraken.perform().click(Elements.Administration.LoginPage.submitButton());
+            if(role.equals("superuser")){
+                kraken.await().fluently(
+                        ExpectedConditions.visibilityOfElementLocated(
+                                Elements.Administration.LoginPage.emailFieldErrorText("Неверный email или пароль").getLocator()),
+                        "Произошла авторизация в админке пользователем не имеющим доступ в админку\n");
+            }else if(role.equals("superadmin")) {
+                kraken.await().fluently(
+                        ExpectedConditions.invisibilityOfElementLocated(
+                                Elements.Administration.LoginPage.submitButton().getLocator()), "Не проходит авторизация в админке\n");
+            }
+        }
+
+        @Step("Деавторизуемся на сайте")
+        private static void logoutOnSite() {
+            log.info("> деавторизуемся на сайте");
+            for (int i=0;i<60;i++){
+                kraken.perform().click(Elements.Header.profileButton());
+                if(AppManager.getWebDriver().findElement(Elements.AccountMenu.logoutButton().getLocator()).isDisplayed()){
+                    break;
+                }else{
+                    WaitingHelper.simply(0.3);
+                }
+            }
+            kraken.perform().click(Elements.AccountMenu.logoutButton());
+        }
+        @Step("Деавторизуемся в админке")
+        public static void logoutOnAdministration() {
+            log.info("> деавторизуемся в админке");
+            kraken.perform().click(Elements.Administration.Header.logoutDropdown());
+            kraken.perform().click(Elements.Administration.Header.logoutButton());
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Administration.insideContainer().getLocator()),
+                    "Логаут не произошел",2);
+        }
+
+
+        // ======= Регистрация =======
+
+        /**
+         * Зарегистрировать тестового юзера со сгенерированными реквизитами
+         */
+        @Step("Регистрируем тестового юзера со сгенерированными реквизитами")
+        public static UserData registration() {
+            final UserData data = UserManager.getUser();
+            registration(data);
+            return data;
+        }
+
+        /**
+         * Зарегистрировать нового юзера с реквизитами из переданного объекта UserData
+         */
+        @Step("Регистрируем нового юзера с реквизитами из переданного объекта UserData: {0}")
+        public static void registration(UserData userData) {
+            registration(userData.getName(), userData.getLogin(), userData.getPassword(),
+                    userData.getPassword());
+        }
+
+        /**
+         * Зарегистрировать нового юзера с указанными реквизитами
+         */
+        @Step("Регистрируем нового юзера с указанными реквизитами")
+        public static void registration(String name, String email, String password,
+                                        String passwordConfirmation) {
+            log.info("> регистрируемся ({}/{})", email, password);
+            Shop.AuthModal.open();
+            regSequence(name, email, password, passwordConfirmation);
+            Shop.AuthModal.submitRegistration();
+        }
+
+        /**
+         * Зарегистрировать нового юзера с указанными реквизитами с проверкой на тип модалки по телефону или по почте
+         */
+        @Step("Регистрируем нового юзера с указанными реквизитами с проверкой на тип модалки по телефону или по почте")
+        public static String registration(String name, String email,
+                                        String password, String passwordConfirmation,
+                                        String phone,String sms) {
+            Shop.AuthModal.open();
+            String modalType = Shop.AuthModal.checkAutorisationModalDialog();
+            if (modalType.equals("модалка с телефоном")){
+                log.info("> регистрируемся (телефон={} / смс={})", phone, sms);
+            } else {
+                log.info("> регистрируемся ({}/{})", email, password);
+                regSequence(name, email, password, passwordConfirmation);
+                Shop.AuthModal.submitRegistration();
+            }
+            return modalType;
+        }
+
+        @Step("Регистрируем нового юзера по номеру телефона: {0}, без согласия на получение выгодных предложений")
+        public static void registration(final String phone, final boolean messaging) {
+            log.info("> регистрируемся (телефон={})", phone);
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
+                    Elements.Modals.AuthModal.phoneNumber().getLocator()),
+                    "поле для ввода мобильного телефона не отображается",Config.BASIC_TIMEOUT);
+            if(!messaging) kraken.perform().setCheckbox(Elements.Modals.AuthModal.agreementCheckbox(),false);
+            kraken.perform().fillFieldActionPhone(Elements.Modals.AuthModal.phoneNumber(),phone);
+            kraken.perform().click(Elements.Modals.AuthModal.continueButton());
+        }
+
+        @Step("Заполняем форму регистрации без поддтверждения кода из смс: {0}")
+        public static void registrationWithoutConfirmation(String phone) {
+            Shop.AuthModal.open();
+            log.info("> заполняем поля формы регистрации по телефону");
+            kraken.perform().fillFieldActionPhone(Elements.Modals.AuthModal.phoneNumber(),phone);
+        }
+
+        @Step("Отправляем код из смс: {0}")
+        public static void sendSms(final String sms){
+            log.info("> Отправляем код из смс: {}",sms);
+            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),sms);
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Modals.AuthModal.smsCode().getLocator()),
+                    "Превышено время редиректа с модалки авторизации через мобилку\n",60);
+            log.info("> смс успешно прошла валидацию");
+        }
+
+
+        /**
+         * Регистрационная последовательность с реквизитами из переданного объекта UserData
+         */
+        public static void regSequence(UserData userData) {
+            regSequence(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
+        }
+
+        /**
+         * Регистрационная последовательность с указанными реквизитами
+         */
+        public static void regSequence(String name, String email, String password, String passwordConfirmation) {
+            Shop.AuthModal.fillRegistrationForm(name, email, password, passwordConfirmation, true);
+        }
+
+        public static class Gmail{
+
+            public static void auth() {
+                auth(UserManager.getDefaultGmailUser().getLogin(), UserManager.getDefaultGmailUser().getPassword());
+            }
+
+            @Step("Авторизуемся через Gmail")
+            public static void auth(String login, String password) {
+                log.info("> переходим в веб-интерфейс Gmail...");
+                kraken.get().url("https://mail.google.com/mail/u/0/h/");
+                if (kraken.detect().isElementPresent(Elements.Social.Gmail.AuthForm.loginField())) {
+                    log.info("> авторизуемся в Gmail...");
+                    kraken.perform().fillField(Elements.Social.Gmail.AuthForm.loginField(), login);
+                    kraken.perform().click(Elements.Social.Gmail.AuthForm.loginNextButton());
+                    WaitingHelper.simply(1); // Ожидание загрузки страницы ввода пароля Gmail
+                    kraken.perform().fillField(Elements.Social.Gmail.AuthForm.passwordField(), password);
+                    kraken.perform().click(Elements.Social.Gmail.AuthForm.passwordNextButton());
+                    WaitingHelper.simply(1); // Ожидание авторизации в Gmail
+                }
+            }
+
+            @Step("открываем последнее полученное письмо от СберМаркет")
+            public static void openLastMail() {
+                log.info("> открываем последнее полученное письмо от СберМаркет");
+                kraken.perform().click(Elements.EmailConfirmation.lastEmail());
+                kraken.perform().click(Elements.EmailConfirmation.linkText());
+            }
+
+            @Step("Нажимаем кнопку сброса пароля в письме")
+            public static void proceedToRecovery() {
+                log.info("> нажимаем кнопку сброса пароля в письме");
+                kraken.perform().click(Elements.EmailConfirmation.passwordRecovery());
+                //TODO Ожидание перехода из письма на сайт Инстамарт
+                kraken.perform().switchToNextWindow();
+            }
+        }
+    }
+
+    public static class Auth {
+
+        @Step("Авторизация по номеру телефона {0}")
+        public static void withPhone(final UserData user) {
+            withPhone(user.getPhone(), Config.DEFAULT_SMS);
+        }
+
+        private static void withPhone(final String phone, final String smsCode) {
+            log.info("> Заполняем поле с номером телефона");
+            kraken.perform().fillFieldActionPhone(Elements.Modals.AuthModal.phoneNumber(),phone);
+            kraken.perform().click(Elements.Modals.AuthModal.continueButton());
+
+            log.info("> Отправляем код из смс: {}", smsCode);
+            kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(), smsCode);
+            kraken.await().fluently(
+                    ExpectedConditions.invisibilityOfElementLocated(
+                            Elements.Modals.AuthModal.smsCode().getLocator()),
+                    "Превышено время редиректа с модалки авторизации через мобилку\n",60);
+            log.info("> смс успешно прошла валидацию");
+        }
+
+        public static void withEmail(UserData user) {
+            withEmail(user.getLogin(), user.getPassword(),user.getRole());
+        }
+
+        @Step("Авторизация через email")
+        public static void withEmail(String email, String password, String role) {
+            log.info("> находимся на странице логина, авторизуемся");
+            User.Do.loginOnAdministration(email, password,role);
+        }
+
+        @Step("Переходим на base url для авторизации через Vkontakte")
+        public static void withVkontakte(UserData user) {
+            kraken.perform().switchToWindowIndex(1);
+            kraken.perform().fillField(Elements.Social.Vkontakte.loginField(),user.getLogin());
+            kraken.perform().fillField(Elements.Social.Vkontakte.passwordField(),user.getPassword());
+            kraken.perform().click(Elements.Social.Vkontakte.submitButton());
+            kraken.perform().switchToMainWindow();
+        }
+
+        @Step("Переходим на base url для авторизации через Facebook")
+        public static void withFacebook(UserData user) {
+            kraken.perform().switchToWindowIndex(1);
+            kraken.perform().fillField(Elements.Social.Facebook.loginField(),user.getLogin());
+            kraken.perform().fillField(Elements.Social.Facebook.passwordField(),user.getPassword());
+            kraken.perform().click(Elements.Social.Facebook.submitButton());
+            kraken.perform().switchToMainWindow();
+        }
+
+        @Step("Переходим на base url для авторизации через Mail.ru")
+        public static void withMailRu(UserData user) {
+            kraken.perform().switchToWindowIndex(1);
+            kraken.perform().fillField(Elements.Social.MailRu.loginField(),user.getLogin());
+            kraken.perform().click(Elements.Social.MailRu.nextButton());
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
+                    Elements.Social.MailRu.passwordFieldUp().getLocator()),"поле ввода пароля не появилось",Config.BASIC_TIMEOUT);
+            kraken.perform().click(Elements.Social.MailRu.passwordFieldUp());
+            kraken.perform().fillField(Elements.Social.MailRu.passwordField(),user.getPassword());
+            kraken.perform().click(Elements.Social.MailRu.submitButton());
+            kraken.perform().switchToMainWindow();
+        }
+
+        @Step("Переходим на base url для авторизации через Sber ID")
+        public static void withSberID(final UserData user) {
+            kraken.perform().click(Elements.Social.Sber.switchLoginType());
+            kraken.perform().fillField(Elements.Social.Sber.loginField(), user.getLogin());
+            kraken.perform().click(Elements.Social.Sber.submitButton());
+            kraken.perform().fillField(Elements.Social.Sber.passwordField(), user.getPassword());
+            kraken.perform().click(Elements.Social.Sber.submitButton());
+        }
+    }
+
+    public static class Logout {
+
+        /** Ручная деавторизация через пользовательское меню */
+        @Step("Деавторизуемся через пользовательское меню")
+        public static void manually() {
+            catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),1);
+            if(kraken.detect().isUserAuthorised()) {
+                log.info("> логаут...");
+                if (kraken.detect().isInAdmin()) {
+                    User.Do.logoutOnAdministration();
+                } else {
+                    User.Do.logoutOnSite();
+                }
+                if (!kraken.detect().isUserAuthorised()) {
+                    log.info("✓ Готово");
+                }
+            } else {
+                log.info("> пропускаем деавторизацию, уже разлогинены");
+            }
+        }
+
+        /** Быстрая деавторизация прямым переходом на /logout */
+        @Step("Деавторизация прямым переходом на /logout")
+        public static void quick() {
+            log.info("> быстрый логаут...");
+            kraken.get().page("logout");
+            WaitingHelper.simply(1); // Ожидание деавторизации и подгрузки лендинга
+            if (kraken.detect().isOnLanding()) {
+                log.info("✓ Готово");
+            }
+        }
+
+        /** Быстрая деавторизация удалением кук */
+        @Step("Делаем быструю деавторизацию пользователя с удалением файлов куки")
+        public static void quickly() {
+            log.info("> удаляем куки...");
+            AppManager.deleteAllCookie();
+            kraken.get().baseUrl();
+            log.info("✓ Готово");
+        }
+
+        /** Быстрая деавторизация удалением кук в админке*/
+        @Step("Делаем быструю деавторизацию из админки с удалением файлов куки")
+        public static void quicklyAdmin() {
+            log.info("> удаляем куки...");
+            AppManager.getWebDriver().manage().deleteAllCookies();
+            kraken.get().adminPage("");
+            if (kraken.detect().isInAdmin()) {
+                log.info("✓ Готово");
+            }
+        }
+    }
+
+    public static class PasswordRecovery {
+
+        public static void request(UserData user) {
+            request(user.getLogin());
+        }
+
+        @Step("Запрашиваем восстановление пароля для: {0}")
+        public static void request(String email) {
+            Shop.AuthModal.open();
+            Shop.AuthModal.switchToAuthorisationTab();
+            Shop.AuthModal.proceedToPasswordRecovery();
+            log.info("> запрашиваем восстановление пароля для {}", email);
+            Shop.RecoveryModal.fillRequestForm(email);
+            Shop.RecoveryModal.submitRequest();
+        }
+
+        @Step("Восстановливаем пароль: {0} {1}")
+        public static void complete(UserData user, String recoveredPassword) {
+            User.Do.Gmail.auth();
+            User.Do.Gmail.openLastMail();
+            User.Do.Gmail.proceedToRecovery();
+            log.info("> восстановливаем пароль '{}' для {}", recoveredPassword, user.getLogin());
+            Shop.RecoveryModal.fillRecoveryForm(recoveredPassword, recoveredPassword);
+            Shop.RecoveryModal.submitRecovery();
+        }
+    }
+}

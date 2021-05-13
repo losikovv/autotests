@@ -1,13 +1,13 @@
 package ru.instamart.tests.ui.addons;
 
 import org.testng.annotations.Test;
-import ru.instamart.core.settings.Config;
+import ru.instamart.core.setting.Config;
 import ru.instamart.core.testdata.TestVariables;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.common.lib.Pages;
-import ru.instamart.ui.modules.Shop;
-import ru.instamart.ui.modules.User;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;

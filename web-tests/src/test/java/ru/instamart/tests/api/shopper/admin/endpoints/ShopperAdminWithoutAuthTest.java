@@ -9,12 +9,12 @@ import org.testng.annotations.Test;
 import ru.instamart.api.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.requests.shopper.admin.ShopperAdminRequest;
+import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 
 import java.time.LocalDate;
 
-import static ru.instamart.api.checkpoints.ShopperApiCheckpoints.checkStatusCode401;
+import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode401;
 
 @Epic("Shopper Admin Panel API")
 @Feature("Endpoints")

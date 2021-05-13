@@ -9,9 +9,9 @@ import org.testng.annotations.Test;
 import ru.instamart.api.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.objects.shopper.admin.RouteScheduleV1;
-import ru.instamart.api.requests.shopper.admin.ShopperAdminRequest;
-import ru.instamart.api.responses.shopper.admin.*;
+import ru.instamart.api.model.shopper.admin.RouteScheduleV1;
+import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
+import ru.instamart.api.response.shopper.admin.*;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 
@@ -20,7 +20,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static ru.instamart.api.checkpoints.ShopperApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
 
 @Epic("Shopper Admin Panel API")
 @Feature("Endpoints")

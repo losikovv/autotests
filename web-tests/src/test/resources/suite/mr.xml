@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
 <suite name="MR-SUITE" parallel="tests" thread-count="2" verbose="1">
   <listeners>
-    <listener class-name="ru.instamart.core.listeners.ExecutionListenerImpl"/>
+    <listener class-name="ru.instamart.core.listener.ExecutionListenerImpl"/>
   </listeners>
   <test verbose="1" name="MR API" parallel="classes" thread-count="2">
     <classes>

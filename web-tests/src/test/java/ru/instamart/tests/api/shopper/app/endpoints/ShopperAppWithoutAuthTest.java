@@ -9,10 +9,10 @@ import org.testng.annotations.Test;
 import ru.instamart.api.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.requests.shopper.app.*;
+import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 
-import static ru.instamart.api.checkpoints.ShopperApiCheckpoints.checkStatusCode401;
+import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode401;
 
 @Epic("Shopper Mobile API")
 @Feature("Endpoints")

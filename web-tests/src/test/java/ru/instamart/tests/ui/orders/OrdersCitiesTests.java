@@ -1,15 +1,15 @@
 package ru.instamart.tests.ui.orders;
 
 import ru.instamart.api.common.RestAddresses;
-import ru.instamart.core.settings.Config;
+import ru.instamart.core.setting.Config;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.modules.User;
+import ru.instamart.ui.module.User;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import ru.instamart.tests.ui.TestBase;
-import ru.instamart.ui.modules.shop.Order;
-import ru.instamart.ui.modules.shop.ShippingAddressModal;
+import ru.instamart.ui.module.shop.Order;
+import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 public class OrdersCitiesTests extends TestBase {
 

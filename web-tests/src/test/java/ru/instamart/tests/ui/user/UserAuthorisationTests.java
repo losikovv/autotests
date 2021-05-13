@@ -7,17 +7,17 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.core.settings.Config;
+import ru.instamart.core.setting.Config;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.tests.ui.TestBase;
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
-import ru.instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
+import ru.instamart.ui.checkpoint.users.UsersAuthorizationCheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.pagesdata.UserData;
-import ru.instamart.ui.modules.Shop;
-import ru.instamart.ui.modules.User;
-import ru.instamart.ui.modules.shop.ShippingAddressModal;
-import ru.instamart.ui.objectsmap.Elements;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
+import ru.instamart.ui.module.shop.ShippingAddressModal;
+import ru.instamart.ui.Elements;
 
 @Epic("STF UI")
 @Feature("Авторизация")

@@ -2,12 +2,12 @@ package ru.instamart.tests.ui.orders;
 
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.core.testdata.ui.BonusPrograms;
+import ru.instamart.ui.module.testdata.BonusPrograms;
 import ru.instamart.ui.common.lib.Pages;
-import ru.instamart.ui.modules.Administration;
-import ru.instamart.ui.modules.User;
-import ru.instamart.ui.modules.checkout.BonusesActions;
-import ru.instamart.ui.objectsmap.Elements;
+import ru.instamart.ui.module.Administration;
+import ru.instamart.ui.module.User;
+import ru.instamart.ui.module.checkout.BonusesActions;
+import ru.instamart.ui.Elements;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;

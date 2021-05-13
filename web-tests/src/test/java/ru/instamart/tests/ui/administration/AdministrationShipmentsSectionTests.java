@@ -10,12 +10,12 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.tests.ui.TestBase;
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.common.pagesdata.UserData;
-import ru.instamart.ui.modules.Administration;
-import ru.instamart.ui.modules.User;
-import ru.instamart.ui.modules.shop.Order;
-import ru.instamart.ui.objectsmap.Elements;
+import ru.instamart.ui.module.Administration;
+import ru.instamart.ui.module.User;
+import ru.instamart.ui.module.shop.Order;
+import ru.instamart.ui.Elements;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;

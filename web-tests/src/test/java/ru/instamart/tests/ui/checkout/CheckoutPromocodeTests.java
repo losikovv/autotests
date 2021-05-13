@@ -3,12 +3,12 @@ package ru.instamart.tests.ui.checkout;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.common.lib.Promos;
-import ru.instamart.ui.modules.User;
+import ru.instamart.ui.module.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
-import ru.instamart.ui.modules.checkout.PromocodeActions;
+import ru.instamart.ui.module.checkout.PromocodeActions;
 
 public class CheckoutPromocodeTests extends TestBase {
     @BeforeClass(alwaysRun = true)

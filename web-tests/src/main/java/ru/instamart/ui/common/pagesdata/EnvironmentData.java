@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
 
-import static ru.instamart.core.settings.Config.DEFAULT_ENVIRONMENT;
+import static ru.instamart.core.setting.Config.DEFAULT_ENVIRONMENT;
 
 @Slf4j
 public enum EnvironmentData {

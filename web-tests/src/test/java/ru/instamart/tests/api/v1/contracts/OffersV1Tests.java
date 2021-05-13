@@ -6,12 +6,12 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.objects.v1.OfferV1;
-import ru.instamart.api.requests.v1.OffersV1Request;
-import ru.instamart.core.testdata.dataprovider.RestDataProvider;
+import ru.instamart.api.model.v1.OfferV1;
+import ru.instamart.api.request.v1.OffersV1Request;
+import ru.instamart.core.dataprovider.RestDataProvider;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
 @Epic("ApiV1")
 @Feature("Эндпоинты, используемые шоппер бэкендом")

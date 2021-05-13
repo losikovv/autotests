@@ -2,17 +2,16 @@ package ru.instamart.tests.ui.administration;
 
 import org.testng.annotations.BeforeClass;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.core.testdata.ui.StaticPages;
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
+import ru.instamart.ui.module.testdata.StaticPages;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.common.pagesdata.StaticPageData;
-import ru.instamart.ui.modules.Administration;
-import ru.instamart.ui.modules.User;
-import ru.instamart.ui.objectsmap.Elements;
+import ru.instamart.ui.module.Administration;
+import ru.instamart.ui.module.User;
+import ru.instamart.ui.Elements;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
 

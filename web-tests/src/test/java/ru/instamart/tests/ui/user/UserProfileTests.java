@@ -1,20 +1,19 @@
 package ru.instamart.tests.ui.user;
 
-import ru.instamart.core.settings.Config;
-import ru.instamart.core.testdata.ui.Generate;
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
-import ru.instamart.ui.checkpoints.users.AccountMenuCheckpoints;
+import ru.instamart.core.setting.Config;
+import ru.instamart.ui.module.testdata.Generate;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
+import ru.instamart.ui.checkpoint.users.AccountMenuCheckpoints;
 import ru.instamart.ui.common.lib.Pages;
-import ru.instamart.ui.modules.Shop;
-import ru.instamart.ui.modules.User;
-import ru.instamart.ui.objectsmap.Elements;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
+import ru.instamart.ui.Elements;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 
 import static org.testng.Assert.assertFalse;

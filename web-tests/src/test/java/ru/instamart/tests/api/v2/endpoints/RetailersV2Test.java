@@ -8,16 +8,16 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.objects.v2.RetailerV2;
-import ru.instamart.api.requests.v2.RetailersV2Request;
-import ru.instamart.api.responses.v2.RetailersV2Response;
+import ru.instamart.api.model.v2.RetailerV2;
+import ru.instamart.api.request.v2.RetailersV2Request;
+import ru.instamart.api.response.v2.RetailersV2Response;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.testng.Assert.*;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Получение данных о ретейлере")

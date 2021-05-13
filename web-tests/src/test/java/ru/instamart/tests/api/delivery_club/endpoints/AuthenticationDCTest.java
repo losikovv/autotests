@@ -1,8 +1,8 @@
 package ru.instamart.tests.api.delivery_club.endpoints;
 
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.requests.delivery_club.AuthenticationDCRequest;
-import ru.instamart.api.responses.delivery_club.TokenDCResponse;
+import ru.instamart.api.request.delivery_club.AuthenticationDCRequest;
+import ru.instamart.api.response.delivery_club.TokenDCResponse;
 import ru.instamart.core.testdata.UserManager;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -14,8 +14,8 @@ import org.testng.annotations.Test;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode401;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode401;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 

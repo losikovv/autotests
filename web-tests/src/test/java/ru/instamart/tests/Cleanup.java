@@ -1,7 +1,7 @@
 package ru.instamart.tests;
 
 import ru.instamart.core.service.QaseService;
-import ru.instamart.core.settings.Config;
+import ru.instamart.core.setting.Config;
 import io.qase.api.models.v1.testruns.TestRun;
 import io.qase.api.models.v1.testruns.TestRuns;
 import org.testng.annotations.BeforeClass;

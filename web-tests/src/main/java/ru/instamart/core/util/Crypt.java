@@ -1,7 +1,6 @@
 package ru.instamart.core.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
@@ -17,13 +16,13 @@ import java.security.spec.KeySpec;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Optional;
-import java.util.function.Supplier;
 
+import static java.util.Objects.isNull;
+
+@Slf4j
 public enum Crypt {
 
     INSTANCE;
-
-    private static final Logger log = LoggerFactory.getLogger(Crypt.class);
 
     private final static int SALT_LEN = 8;
     private final int KEYLEN_BITS = 128;
@@ -37,7 +36,7 @@ public enum Crypt {
     public void init() {
         try {
             String key = System.getProperty("key", null);
-            if (key == null) {
+            if (isNull(key)) {
                 //For local run
                 final Optional<File> keyFile = Arrays.stream(FileUtils.foundFile(FileUtils.getResourceDir("config/"), "key_")).findFirst();
                 if (keyFile.isPresent()) {

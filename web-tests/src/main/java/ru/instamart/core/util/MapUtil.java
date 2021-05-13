@@ -2,6 +2,8 @@ package ru.instamart.core.util;
 
 import java.util.Map;
 
+import static java.util.Objects.nonNull;
+
 public final class MapUtil {
 
     /**
@@ -10,6 +12,6 @@ public final class MapUtil {
     public static boolean hasPairInMap(final int key, final String value, final Map<Integer, String> map) {
         final String mapValue = map.get(key);
 
-        return mapValue != null && mapValue.equals(value);
+        return nonNull(mapValue) && mapValue.equals(value);
     }
 }

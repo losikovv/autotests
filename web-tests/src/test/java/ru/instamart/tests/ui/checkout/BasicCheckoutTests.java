@@ -2,9 +2,9 @@ package ru.instamart.tests.ui.checkout;
 
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
-import ru.instamart.ui.modules.User;
-import ru.instamart.ui.objectsmap.Elements;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
+import ru.instamart.ui.module.User;
+import ru.instamart.ui.Elements;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

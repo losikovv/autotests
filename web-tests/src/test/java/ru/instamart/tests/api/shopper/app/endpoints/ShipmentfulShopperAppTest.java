@@ -1,11 +1,11 @@
 package ru.instamart.tests.api.shopper.app.endpoints;
 
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.helpers.RegistrationHelper;
-import ru.instamart.api.objects.shopper.app.AssemblyDataSHP;
-import ru.instamart.api.objects.v2.OrderV2;
-import ru.instamart.api.requests.shopper.app.*;
-import ru.instamart.api.responses.shopper.app.*;
+import ru.instamart.api.helper.RegistrationHelper;
+import ru.instamart.api.model.shopper.app.AssemblyDataSHP;
+import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.request.shopper.app.*;
+import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.common.pagesdata.UserData;
@@ -17,8 +17,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkIsDeliveryToday;
-import static ru.instamart.api.checkpoints.ShopperApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkIsDeliveryToday;
+import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
 import static org.testng.Assert.assertNotNull;
 
 @Epic("Shopper Mobile API")

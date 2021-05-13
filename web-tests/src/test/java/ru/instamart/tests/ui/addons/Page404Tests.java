@@ -1,9 +1,9 @@
 package ru.instamart.tests.ui.addons;
 
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.common.lib.Pages;
-import ru.instamart.ui.modules.Shop;
-import ru.instamart.ui.objectsmap.Elements;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

@@ -2,8 +2,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="REST API Suite" data-provider-thread-count="20">
     <listeners>
-        <listener class-name="ru.instamart.core.listeners.ExecutionListenerImpl"/>
-        <listener class-name="ru.instamart.core.listeners.ApiListener"/>
+        <listener class-name="ru.instamart.core.listener.ExecutionListenerImpl"/>
+        <listener class-name="ru.instamart.api.listener.ApiListener"/>
     </listeners>
     <test verbose="1" name="API Shopper App Tests" parallel="none" thread-count="2">
         <classes>

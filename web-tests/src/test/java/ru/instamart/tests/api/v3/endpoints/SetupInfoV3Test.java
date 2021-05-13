@@ -1,11 +1,11 @@
 package ru.instamart.tests.api.v3.endpoints;
 
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.requests.v3.SetupInfoV3Request;
+import ru.instamart.api.request.v3.SetupInfoV3Request;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
 public class SetupInfoV3Test extends RestBase {
 

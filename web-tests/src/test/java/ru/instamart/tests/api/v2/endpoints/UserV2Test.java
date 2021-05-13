@@ -12,12 +12,12 @@ import org.testng.annotations.Test;
 import ru.instamart.api.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.objects.v2.UserV2;
-import ru.instamart.api.requests.v2.UsersV2Request;
-import ru.instamart.api.responses.ErrorResponse;
-import ru.instamart.api.responses.v2.UserDataV2Response;
+import ru.instamart.api.model.v2.UserV2;
+import ru.instamart.api.request.v2.UsersV2Request;
+import ru.instamart.api.response.ErrorResponse;
+import ru.instamart.api.response.v2.UserDataV2Response;
 
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Данные пользователя")

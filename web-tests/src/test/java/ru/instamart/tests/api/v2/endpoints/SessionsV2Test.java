@@ -10,18 +10,18 @@ import ru.instamart.api.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.AuthProviderV2;
-import ru.instamart.api.helpers.RegistrationHelper;
-import ru.instamart.api.requests.v2.SessionV2Request;
-import ru.instamart.api.responses.v2.SessionsV2Response;
-import ru.instamart.api.responses.v2.UserDataV2Response;
+import ru.instamart.api.helper.RegistrationHelper;
+import ru.instamart.api.request.v2.SessionV2Request;
+import ru.instamart.api.response.v2.SessionsV2Response;
+import ru.instamart.api.response.v2.UserDataV2Response;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.core.testdata.dataprovider.RestDataProvider;
+import ru.instamart.core.dataprovider.RestDataProvider;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.common.pagesdata.UserData;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Авторизация")

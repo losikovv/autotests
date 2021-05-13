@@ -7,15 +7,15 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.requests.v2.PromotionsV2Request;
-import ru.instamart.api.responses.v2.ProductsV2Response;
-import ru.instamart.api.responses.v2.ReferralProgramV2Response;
+import ru.instamart.api.request.v2.PromotionsV2Request;
+import ru.instamart.api.response.v2.ProductsV2Response;
+import ru.instamart.api.response.v2.ReferralProgramV2Response;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Промо-акции")

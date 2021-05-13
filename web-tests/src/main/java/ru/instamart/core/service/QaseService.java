@@ -16,7 +16,7 @@ import io.qase.api.services.TestCaseService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
-import ru.instamart.core.settings.Config;
+import ru.instamart.core.setting.Config;
 import ru.instamart.core.util.Crypt;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.report.CustomReport;

@@ -1,17 +1,17 @@
 package ru.instamart.tests.api.v3.endpoints;
 
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.objects.v3.*;
-import ru.instamart.api.requests.v3.OrderV3Request;
-import ru.instamart.api.objects.v3.OrderV3;
-import ru.instamart.api.responses.v3.OrderOptionsV3Response;
+import ru.instamart.api.model.v3.*;
+import ru.instamart.api.request.v3.OrderV3Request;
+import ru.instamart.api.model.v3.OrderV3;
+import ru.instamart.api.response.v3.OrderOptionsV3Response;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.core.testdata.ApiV3TestData;
-import ru.instamart.core.testdata.dataprovider.ApiV3DataProvider;
+import ru.instamart.api.model.testdata.ApiV3TestData;
+import ru.instamart.api.dataprovider.ApiV3DataProvider;
 
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
 public class OrdersPickupFromStoreV3Test extends RestBase {
     StoreV3 store;

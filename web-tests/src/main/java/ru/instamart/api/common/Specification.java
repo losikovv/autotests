@@ -18,6 +18,7 @@ import java.net.Socket;
 import static io.restassured.RestAssured.*;
 import static io.restassured.config.EncoderConfig.encoderConfig;
 import static io.restassured.specification.ProxySpecification.host;
+import static java.util.Objects.nonNull;
 import static org.hamcrest.Matchers.not;
 
 @Slf4j
@@ -49,7 +50,7 @@ public enum Specification {
         final int proxyPort = Integer.parseInt(System.getProperty("proxy_port", "443"));
         final int proxyTimeout = Integer.parseInt(System.getProperty("proxy_timeout", "5000"));
 
-        if (proxyIp != null && addressReachable(proxyIp, proxyPort, proxyTimeout)) {
+        if (nonNull(proxyIp) && addressReachable(proxyIp, proxyPort, proxyTimeout)) {
             log.info("Setup proxy with url {}:{}", proxyIp, proxyPort);
             proxy = host(proxyIp).withPort(proxyPort);
         }
