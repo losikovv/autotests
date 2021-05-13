@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
 
 @Slf4j
@@ -39,6 +41,7 @@ public final class SessionFactory {
             case SHOPPER_APP:
             case SHOPPER_ADMIN:
             case DELIVERY_CLUB:
+                log.warn("Not implemented yet!");
                 break;
             case API_V2:
                     final UserData userData = UserManager.getUser();
@@ -52,11 +55,10 @@ public final class SessionFactory {
     }
 
     public static void clearSession(final SessionType type) {
-        final SessionId sessionId = new SessionId(Thread.currentThread().getId(), type);
-        final SessionInfo session = sessionMap.get(sessionId);
-        if (session != null) {
-            sessionMap.put(sessionId, null);
-        }
+        sessionMap.entrySet().removeIf(session -> {
+            final SessionId sessionId = session.getKey();
+            return sessionId.getThreadId() == Thread.currentThread().getId() && sessionId.getType() == type;
+        });
         log.info("Current {} session is cleared", type);
     }
 
@@ -77,9 +79,9 @@ public final class SessionFactory {
     public static void createSessionToken(final SessionType type, final UserData userData) {
         final SessionId sessionId = new SessionId(Thread.currentThread().getId(), type);
         final SessionInfo session = sessionMap.get(sessionId);
-        if (session != null && !session.getLogin().equals(userData.getLogin())) {
+        if (nonNull(session) && !session.getLogin().equals(userData.getLogin())) {
             sessionMap.put(sessionId, createSession(type, userData));
-        } else if (session == null) {
+        } else if (isNull(session)) {
             sessionMap.put(sessionId, createSession(type, userData));
         }
     }
@@ -89,23 +91,18 @@ public final class SessionFactory {
         switch (type) {
             case API_V1:
                 sessionInfo = createApiV1Session(userData);
-                log.info("Session created {}", sessionInfo);
                 return sessionInfo;
             case API_V2:
                 sessionInfo = createApiV2Session(userData);
-                log.info("Session created {}", sessionInfo);
                 return sessionInfo;
             case SHOPPER_APP:
                 sessionInfo = createShopperAppSession(userData);
-                log.info("Session created {}", sessionInfo);
                 return sessionInfo;
             case SHOPPER_ADMIN:
                 sessionInfo = createShopperAdminSession(userData);
-                log.info("Session created {}", sessionInfo);
                 return sessionInfo;
             case DELIVERY_CLUB:
                 sessionInfo = createDeliveryClubSession(userData);
-                log.info("Session created {}", sessionInfo);
                 return sessionInfo;
             default:
                 log.error("Session type not selected");
@@ -166,7 +163,6 @@ public final class SessionFactory {
     @EqualsAndHashCode
     @ToString
     public static final class SessionId {
-
         private final long threadId;
         private final SessionType type;
     }
