@@ -17,6 +17,8 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.modules.shop.ShippingAddressModal;
 
+import static org.testng.Assert.assertTrue;
+
 public class ShoppingTestsForExistingUser extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     @BeforeClass(alwaysRun = true,
@@ -59,7 +61,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
         }
 
         kraken.get().page(Config.DEFAULT_RETAILER);
-        Assert.assertTrue(
+        assertTrue(
                 !kraken.detect().isCartEmpty() && !kraken.detect().isCheckoutButtonActive(),
                 failMessage("Не выполнены предусловия теста"));
         baseChecks.checkPageIsUnavailable(Pages.checkout());
@@ -122,11 +124,11 @@ public class ShoppingTestsForExistingUser extends TestBase {
         ShippingAddressModal.submit();
         User.Auth.withEmail(testuser);
 
-        softAssert.assertTrue(
+        assertTrue(
                 kraken.detect().isUserAuthorised(),
                 failMessage("Не удалось авторизоваться"));
 
-        softAssert.assertTrue(
+        assertTrue(
                 kraken.detect().isShippingAddressSet(),
                 failMessage("Слетел адрес доставки при авторизации"));
 
