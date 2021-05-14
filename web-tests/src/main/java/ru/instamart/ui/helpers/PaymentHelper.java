@@ -1,9 +1,11 @@
 package ru.instamart.ui.helpers;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.instamart.core.common.AppManager;
+import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.ui.PaymentTypes;
 import ru.instamart.ui.common.pagesdata.ElementData;
 import ru.instamart.ui.common.pagesdata.JuridicalData;
@@ -83,9 +85,14 @@ public final class PaymentHelper extends Base {
 
         if (kraken.detect().isElementDisplayed(Elements.Checkout.addPaymentCardButton())) {
             kraken.perform().click(Elements.Checkout.addPaymentCardButton());
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
+                    Elements.Checkout.PaymentCardModal.cardModal().getLocator()),
+                    "модальное окно добавления карты не появилось", Config.BASIC_TIMEOUT);
             fillPaymentCardDetails(creditCardData);
             kraken.perform().click(Elements.Checkout.PaymentCardModal.confirmButton());
-//            kraken.await().implicitly(1); // Ожидание добавления новой карты оплаты
+            kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
+                    Elements.Checkout.PaymentCardModal.cardModal().getLocator()),
+                    "Не исчезло модальное окно добавления карты", Config.BASIC_TIMEOUT);
             kraken.perform().click(Elements.Checkout.paymentCardTitle(creditCardData));
 //            kraken.await().implicitly(1); // Ожидание применения новой карты оплаты
         } else {
@@ -126,6 +133,7 @@ public final class PaymentHelper extends Base {
         }
     }
 
+    //TODO сделать подтверждение оплаты для эквайринга сбера
     @Step("Подтверждение карты 3ds")
     public static void cloudpaymentsFlow() {
         log.info("> открытие страницы подтверждения карты");
