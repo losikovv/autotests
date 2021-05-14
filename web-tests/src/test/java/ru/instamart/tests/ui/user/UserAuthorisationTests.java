@@ -7,6 +7,7 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.core.common.AppManager;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.tests.ui.TestBase;
@@ -28,7 +29,8 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
-        User.Logout.quickly();
+        AppManager.closeWebDriver();
+        kraken.get().baseUrl();
     }
 
     @Description("Тест пытается авторизоваться с пустыми реквизитами")
