@@ -152,7 +152,7 @@ public final class WaitingHelper extends HelperBase {
 
     public boolean checkIfPopupWindowClosed() {
         try {
-            return (new WebDriverWait(AppManager.getWebDriver(), 10))
+            return (new WebDriverWait(AppManager.getWebDriver(), 15))
                     .until((ExpectedCondition<Boolean>) d -> d.getWindowHandles().size() == 1);
         } catch (TimeoutException e) {
             return false;

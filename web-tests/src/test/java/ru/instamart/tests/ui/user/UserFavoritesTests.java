@@ -16,7 +16,6 @@ import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.checkpoints.favorite.FavoriteItemsCheckpoints;
 import ru.instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
 import ru.instamart.ui.common.lib.Pages;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
 
@@ -29,8 +28,8 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     @BeforeMethod(alwaysRun = true,
             description = "Выполняем шаги предусловий для теста")
     public void quickLogout() {
-        AppManager.getWebDriverService().closeDriver();
-        AppManager.getWebDriver().get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth());
+        AppManager.closeWebDriver();
+        kraken.get().baseUrl();
     }
 
     @CaseId(1263)
@@ -129,12 +128,6 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         Shop.Search.searchItem("молоко");
         Shop.Catalog.Item.addToFavorites();
 
-        Shop.Search.searchItem("сыр");
-        Shop.Catalog.Item.addToFavorites();
-
-        Shop.Search.searchItem("вода");
-        Shop.Catalog.Item.addToFavorites();
-
         Shop.Search.searchItem("бананы");
         Shop.Catalog.Item.addToFavorites();
 
@@ -145,7 +138,6 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         Shop.Catalog.Item.addToFavorites();
 
         Shop.Favorites.cleanFavorites();
-
         checkFavoriteIsEmpty();
     }
 
@@ -161,12 +153,10 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         Shop.AuthModal.openAuthOnLanding();
         Shop.AuthModal.hitSberIdButton();
         User.Auth.withSberID(UserManager.getDefaultSberIdUser());
+        checkIsUserAuthorized("Не работает авторизация через Sber ID");
 
         Shop.Favorites.openFavorites();
-
         checkFavoriteIsNotEmpty();
-
-        checkFavoriteFilter("all", "Все товары");
 
         Shop.Favorites.applyFilterInStock();
         checkFavoriteFilter("inStock", "В наличии");
@@ -191,9 +181,9 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         Shop.AuthModal.openAuthOnLanding();
         Shop.AuthModal.hitSberIdButton();
         User.Auth.withSberID(UserManager.getDefaultSberIdUser());
+        checkIsUserAuthorized("Не работает авторизация через Sber ID");
 
         Shop.Favorites.openFavorites();
-
         checkFavoriteIsNotEmpty();
 
         final int initCount = Shop.Favorites.count();

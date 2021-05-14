@@ -11,6 +11,8 @@ import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
 import org.openqa.selenium.WebDriver;
 
+import static java.util.Objects.isNull;
+
 public final class AppManager {
 
     @Getter
@@ -50,7 +52,7 @@ public final class AppManager {
         var webDriver = webDriverService.createOrGetDriver();
         /*if (webDriver != null && !webDriverService.isStillAlive(webDriver)) {
             webDriverService.closeDriver();
-        } else */if (webDriver == null) {
+        } else */if (isNull(webDriver)) {
             webDriverService.closeDriver();
         }
         return webDriverService.createOrGetDriver();
