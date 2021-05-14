@@ -5,7 +5,7 @@
   </listeners>
   <test verbose="1" name="MR API" parallel="classes" thread-count="2">
     <classes>
-      <class name="ru.instamart.tests.api.v2.endpoints.OrdersV2Test"/>
+      <!--class name="ru.instamart.tests.api.v2.endpoints.OrdersV2Test"/-->
       <class name="ru.instamart.tests.api.shopper.app.endpoints.ShipmentlessShopperAppTest"/>
     </classes>
   </test>

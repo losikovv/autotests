@@ -66,9 +66,9 @@ public final class ShippingAddressModal extends Base {
     public static void fill(String address) {
         log.info("> водим адрес в адресной модалке: {}",address);
         kraken.await().fluently(
-                ExpectedConditions.elementToBeClickable(
+                ExpectedConditions.visibilityOfElementLocated(
                         Elements.Modals.AddressModal.adressImageOnMap().getLocator()),
-                "Не подгружается карта яндекса",Config.BASIC_TIMEOUT);
+                "Не подгружается карта яндекса",10);
         kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), address);
     }
 
@@ -93,7 +93,7 @@ public final class ShippingAddressModal extends Base {
         kraken.await().fluently(
                 ExpectedConditions.invisibilityOfElementLocated(
                         Elements.Modals.AddressModal.submitButton().getLocator()),
-                "Превышено время ожидания применения адреса доставки",Config.BASIC_TIMEOUT);
+                "Превышено время ожидания применения адреса доставки",10);
     }
 
     @Step("Нажимаем кнопку изменить адрес доставки")
