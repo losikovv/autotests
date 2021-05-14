@@ -29,8 +29,8 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     @BeforeMethod(alwaysRun = true,
             description = "Выполняем шаги предусловий для теста")
     public void quickLogout() {
-        AppManager.getWebDriverService().closeDriver();
-        AppManager.getWebDriver().get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth());
+        AppManager.closeWebDriver();
+        kraken.get().baseUrl();
     }
 
     @CaseId(1263)

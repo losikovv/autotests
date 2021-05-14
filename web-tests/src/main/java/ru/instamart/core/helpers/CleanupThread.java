@@ -1,15 +1,15 @@
 package ru.instamart.core.helpers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.Map;
 
-public final class CleanupThread extends Thread {
+import static java.util.Objects.isNull;
 
-    private static final Logger log = LoggerFactory.getLogger(CleanupThread.class);
+@Slf4j
+public final class CleanupThread extends Thread {
 
     private final Collection<Thread> allWebDriverThreads;
     private final Map<Long, WebDriver> threadWebDriver;
@@ -18,8 +18,8 @@ public final class CleanupThread extends Thread {
         this.allWebDriverThreads = allWebDriverThreads;
         this.threadWebDriver = threadWebDriver;
         this.setDaemon(true);
-        this.setName("WebDriver Cleanupper");
-        Runtime.getRuntime().addShutdownHook(new FinalClean(currentThread()));
+        this.setName("WebDriver Cleanup");
+        Runtime.getRuntime().addShutdownHook(new FinalClean());
     }
 
     public void run() {
@@ -47,7 +47,7 @@ public final class CleanupThread extends Thread {
     private void closeWebDriver(final Thread thread) {
         this.allWebDriverThreads.remove(thread);
         final WebDriver webDriver = this.threadWebDriver.remove(thread.getId());
-        if (webDriver == null) {
+        if (isNull(webDriver)) {
             log.info("No WebDriver found for thread : {}  - nothing to close", thread.getId());
         } else {
             webDriver.quit();
@@ -56,17 +56,10 @@ public final class CleanupThread extends Thread {
     }
 
     private class FinalClean extends Thread {
-
-        private final Thread thread;
-
-        public FinalClean(final Thread thread) {
-            this.thread = thread;
-        }
-
         @Override
         public void run() {
             log.error("Cleanup all browsers");
-            closeWebDriver(thread);
+            closeUnusedWebDrivers();
         }
     }
 }

@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static java.util.Objects.nonNull;
 import static ru.instamart.core.settings.Config.BROWSER_VERSION;
 import static ru.instamart.core.settings.Config.DEFAULT_BROWSER;
 
@@ -23,8 +24,8 @@ import static ru.instamart.core.settings.Config.DEFAULT_BROWSER;
 public final class WebDriverService {
 
     private final Collection<Thread> allWebDriverThreads = new ConcurrentLinkedQueue<>();
-    private final AtomicBoolean isCleanStart = new AtomicBoolean(false);
     private final Map<Long, WebDriver> webDriverMap = new ConcurrentHashMap<>();
+    private final AtomicBoolean isCleanStart = new AtomicBoolean(false);
 
     public WebDriver createOrGetDriver() {
         //Get browser from suite parameter
@@ -46,7 +47,7 @@ public final class WebDriverService {
 
     public void closeDriver() {
         final WebDriver webDriver = this.webDriverMap.remove(Thread.currentThread().getId());
-        if (webDriver != null) {
+        if (nonNull(webDriver)) {
             webDriver.quit();
         }
     }

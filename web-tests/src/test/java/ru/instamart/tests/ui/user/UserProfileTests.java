@@ -1,21 +1,21 @@
 package ru.instamart.tests.ui.user;
 
-import ru.instamart.core.settings.Config;
-import ru.instamart.core.testdata.ui.Generate;
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
-import ru.instamart.ui.checkpoints.users.AccountMenuCheckpoints;
-import ru.instamart.ui.common.lib.Pages;
-import ru.instamart.ui.modules.Shop;
-import ru.instamart.ui.modules.User;
-import ru.instamart.ui.objectsmap.Elements;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+import ru.instamart.core.common.AppManager;
+import ru.instamart.core.settings.Config;
+import ru.instamart.core.testdata.ui.Generate;
 import ru.instamart.tests.ui.TestBase;
+import ru.instamart.ui.checkpoints.BaseUICheckpoints;
+import ru.instamart.ui.checkpoints.users.AccountMenuCheckpoints;
+import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.modules.Shop;
+import ru.instamart.ui.modules.User;
+import ru.instamart.ui.objectsmap.Elements;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -29,7 +29,8 @@ public class UserProfileTests extends TestBase {
     @BeforeClass(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
-        User.Logout.quickly();
+        AppManager.closeWebDriver();
+        kraken.get().baseUrl();
         String phone = Generate.phoneNumber();
         Shop.AuthModal.openAuthLending();
         User.Do.registration(phone,true);
