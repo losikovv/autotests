@@ -34,8 +34,13 @@ public final class PaymentHelper extends Base {
         } else throw new AssertionError("В чекауте недоступна оплата " + description);
 
         if (description.equalsIgnoreCase(PaymentTypes.cardOnline().getDescription())) {
-            if (paymentDetails.isNewCreditCard()) {
-                deleteAllExceptOnePaymentCard();
+            if (kraken.detect().isElementDisplayed(Elements.Checkout.paymentCardTitle(paymentDetails.getCreditCard()))){
+                kraken.perform().click(Elements.Checkout.paymentCardTitle(paymentDetails.getCreditCard()));
+                log.info("> выбрали существующую карту оплаты: {}",
+                        kraken.grab().text(Elements.Checkout.paymentCardTitle(paymentDetails.getCreditCard())));
+            }
+            else if (paymentDetails.isNewCreditCard()) {
+                //deleteAllExceptOnePaymentCard();
                 if (paymentDetails.getCreditCard() != null) {
                     addNewPaymentCard(paymentDetails.getCreditCard());
                 } else {
@@ -83,7 +88,9 @@ public final class PaymentHelper extends Base {
     @Step("Добавление новой карты")
     private static void addNewPaymentCard(PaymentCardData creditCardData) {
         log.info("> добавляем карту оплаты {}", creditCardData.getCardNumber());
-
+        if (kraken.detect().isElementDisplayed(Elements.Checkout.paymentCardTitle(creditCardData))){
+            kraken.perform().click(Elements.Checkout.paymentCardTitle(creditCardData));
+        }
         if (kraken.detect().isElementDisplayed(Elements.Checkout.addPaymentCardButton())) {
             kraken.perform().click(Elements.Checkout.addPaymentCardButton());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(

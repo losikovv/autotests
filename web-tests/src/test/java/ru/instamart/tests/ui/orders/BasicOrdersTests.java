@@ -50,8 +50,7 @@ public class BasicOrdersTests extends TestBase {
     public void preconditions() {
         User.Logout.quickly();
         String phone;
-        //phone = Generate.phoneNumber();
-        phone = "9999959446";
+        phone = Generate.phoneNumber();
         step("Аутентификация", ()-> {
             kraken.get().baseUrl();
             Shop.AuthModal.open();
@@ -59,10 +58,10 @@ public class BasicOrdersTests extends TestBase {
             User.Do.sendSms(Config.DEFAULT_SMS);
         });
         step("Выбор адреса доставки", ()-> {
-//            ShippingAddressModal.open();
-//            ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
-//            ShippingAddressModal.selectAddressSuggest();
-//            ShippingAddressModal.submit();
+            ShippingAddressModal.open();
+            ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+            ShippingAddressModal.selectAddressSuggest();
+            ShippingAddressModal.submit();
         });
     }
     //TODO удалить шаг скрина падения теста после доработки afterMethod в TestBase
@@ -141,7 +140,7 @@ public class BasicOrdersTests extends TestBase {
 
         Shop.Cart.collectFirstTime();
         Shop.Cart.proceedToCheckout();
-        kraken.checkout().complete(paymentMethod, true, creditCardData);
+        kraken.checkout().completeWithCreditCard(paymentMethod, true, creditCardData, false);
         orderCheck.checkOrderSuccessCreation();
         orderCheck.checkPaymentMethod(paymentMethod);
     }
@@ -153,12 +152,12 @@ public class BasicOrdersTests extends TestBase {
             //enabled = false
     )
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
-        PaymentCardData creditCardData = TestVariables.testOrderDetailsCus().getPaymentDetails().getCreditCard();
+        PaymentCardData creditCardData = TestVariables.testOrderDetailsWithout3ds().getPaymentDetails().getCreditCard();
         PaymentTypeData paymentMethod = PaymentTypes.cardOnline();
 
         Shop.Cart.collectFirstTime();
         Shop.Cart.proceedToCheckout();
-        kraken.checkout().complete(paymentMethod, true, creditCardData);
+        kraken.checkout().completeWithCreditCard(paymentMethod, true, creditCardData, false);
         orderCheck.checkOrderSuccessCreation();
         orderCheck.checkPaymentMethod(paymentMethod);
     }
@@ -193,17 +192,29 @@ public class BasicOrdersTests extends TestBase {
     }
 
     @Test(
-            description = "Тест заказа с оплатой курьеру",
+            description = "Тест повторого заказа с оплатой картой с 3ds",
             groups = {"sbermarket-regression","testing"}
     )
-    public void successOrderWithTwoCards() {
-        PaymentCardData firstCreditCardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
-        PaymentCardData secondCreditCardData = TestVariables.testOrderDetailsCus().getPaymentDetails().getCreditCard();
+    public void successReorderWith3dsCard() {
+        PaymentCardData CardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
         PaymentTypeData paymentMethod = PaymentTypes.cardOnline();
 
-        Shop.Cart.collectFirstTime();
-        Shop.Cart.proceedToCheckout();
-        kraken.checkout().complete(paymentMethod, true, firstCreditCardData);
+        step("Оформление первого заказа", ()-> {
+            Shop.Cart.collectFirstTime();
+            Shop.Cart.proceedToCheckout();
+            kraken.checkout().completeWithCreditCard(paymentMethod, true,
+                    CardData, false);
+            Order.cancelLastActiveOrder();
+        });
+
+        kraken.get().baseUrl();
+
+        step("Оформление второго заказа", ()->{
+            Shop.Cart.collectFirstTime();
+            Shop.Cart.proceedToCheckout();
+            kraken.checkout().completeWithCreditCard(paymentMethod, true,
+                    CardData, true);
+        });
         orderCheck.checkOrderSuccessCreation();
         orderCheck.checkPaymentMethod(paymentMethod);
     }
