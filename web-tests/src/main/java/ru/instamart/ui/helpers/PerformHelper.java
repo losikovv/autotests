@@ -31,9 +31,7 @@ public final class PerformHelper extends HelperBase {
     public void click(ElementData element) {
         log.info("Клик по: {}", element.getDescription());
         try {
-            kraken.await().fluently(ExpectedConditions.elementToBeClickable(element.getLocator()),
-                    "элемент не кликабельный: "+element.getLocator().toString(), Config.BASIC_TIMEOUT);
-            AppManager.getWebDriver().findElement(element.getLocator()).click();
+            kraken.await().shouldBeClickable(element).click();
         }
         catch (NoSuchElementException n) {
             if (kraken.detect().is502()) {
@@ -104,7 +102,7 @@ public final class PerformHelper extends HelperBase {
             log.error("> пустое значение для элемента: {}", element);
             Assert.assertNotNull("Пустое значение для заполнения поля", text);
         }
-        final WebElement webElement = kraken.await().shouldBeClickable(element, Config.BASIC_TIMEOUT);
+        final WebElement webElement = kraken.await().shouldBeClickable(element);
         webElement.click();
         webElement.clear();
         if(!text.equals("")){
@@ -249,6 +247,10 @@ public final class PerformHelper extends HelperBase {
             throw new AssertionError("Невозможно найти элемент по тегу <" + tag
                     + "> и индексу: "+index+"\nЭлемент не найден на " + kraken.grab().currentURL() + "\n");
         }
+    }
+
+    public int getElementCount(final ElementData data) {
+        return AppManager.getWebDriver().findElements(data.getLocator()).size();
     }
 
     public void scrollToTheBottom(){

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="REST API Suite" data-provider-thread-count="20">
+    <listeners>
+        <listener class-name="ru.instamart.core.listeners.ExecutionListenerImpl"/>
+        <listener class-name="ru.instamart.core.listeners.ApiListener"/>
+    </listeners>
+    <test verbose="1" name="API Shopper App Tests" parallel="none" thread-count="2">
+        <classes>
+            <class name="ru.instamart.tests.api.shopper.app.endpoints.ShipmentfulShopperAppTest"/>
+            <class name="ru.instamart.tests.api.shopper.app.endpoints.ShipmentlessShopperAppTest"/>
+        </classes>
+    </test>
+</suite>

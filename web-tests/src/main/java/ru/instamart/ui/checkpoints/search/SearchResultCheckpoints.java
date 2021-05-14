@@ -1,25 +1,20 @@
 package ru.instamart.ui.checkpoints.search;
 
 import io.qameta.allure.Step;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
-import ru.instamart.ui.checkpoints.shipping.ShippingAddressCheckpoints;
+import ru.instamart.ui.checkpoints.Checkpoint;
 import ru.instamart.ui.objectsmap.Elements;
 
+import static org.testng.Assert.assertTrue;
+import static ru.instamart.core.util.StringUtil.failMessage;
 import static ru.instamart.ui.modules.Base.kraken;
 
-public class SearchResultCheckpoints extends BaseUICheckpoints {
-    private static final Logger log = LoggerFactory.getLogger(ShippingAddressCheckpoints.class);
-
-    private final SoftAssert softAssert = new SoftAssert();
+public class SearchResultCheckpoints implements Checkpoint {
 
     @Step("Проверяем, что поисковый запрос не возвращает результатов")
     public void checkIsSearchResultEmpty(String errorMessage){
         log.info("> проверяем, что поисковый запрос не возвращает результатов");
-        Assert.assertTrue(kraken.detect().isSearchResultsEmpty(),
+        assertTrue(kraken.detect().isSearchResultsEmpty(),
                 errorMessage);
         log.info("✓ Успешно");
     }
@@ -37,7 +32,7 @@ public class SearchResultCheckpoints extends BaseUICheckpoints {
     @Step("Проверяем, что продукт доступен на странице")
     public void checkIsProductAvailable(String errorMessage){
         log.info("> проверяем,  что продукт доступен на странице");
-        Assert.assertTrue(
+        assertTrue(
                 kraken.detect().isProductAvailable(),
                 failMessage(errorMessage)
         );
@@ -47,7 +42,7 @@ public class SearchResultCheckpoints extends BaseUICheckpoints {
     @Step("Проверяем, что юзер перешел в искомую категорию продуктов")
     public void checkIsTaxonRedirectCorrect(String taxon, String errorMessage){
         log.info("> проверяем,  что юзер перешел в искомую категорию продуктов");
-        Assert.assertTrue(
+        assertTrue(
                 kraken.detect().isTextElementContainsText(taxon,Elements.Header.Search.taxonResult()),
                 failMessage(errorMessage)
         );
@@ -57,7 +52,7 @@ public class SearchResultCheckpoints extends BaseUICheckpoints {
     @Step("Проверяем, что поисковый саджест отображается")
     public void checkIsSearchSuggestPresent(String errorMessage){
         log.info("> проверяем, что поисковый саджест отображается");
-        Assert.assertTrue(kraken.detect().isSearchSuggestsPresent(),
+        assertTrue(kraken.detect().isSearchSuggestsPresent(),
                 errorMessage);
         log.info("✓ Успешно");
     }
@@ -65,11 +60,8 @@ public class SearchResultCheckpoints extends BaseUICheckpoints {
     @Step("Проверяем, что поисковый саджест содержит совпадающие товары")
     public void checkIsProductSuggestPresent(String errorText){
         log.info("> проверяем, что поисковый саджест содержит совпадающие товары");
-        Assert.assertTrue(kraken.detect().isSearchProductSuggestsPresent(),
+        assertTrue(kraken.detect().isSearchProductSuggestsPresent(),
                 errorText);
         log.info("✓ Успешно");
     }
-
-
-
 }

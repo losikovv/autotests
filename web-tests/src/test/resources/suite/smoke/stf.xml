@@ -1,43 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="MR UI-API suite">
+<suite name="Web UI smoke" data-provider-thread-count="5">
   <listeners>
     <listener class-name="ru.instamart.core.listeners.ExecutionListenerImpl"/>
+    <listener class-name="ru.instamart.core.listeners.UiListener"/>
   </listeners>
-  <!--<test verbose="1" name="MR UI-API suite" parallel="classes" thread-count="2">-->
-  <test verbose="1" name="MR UI-API suite">
-    <groups>
-      <run>
-        <include name="MRAutoCheck"/>
-      </run>
-    </groups>
+  <test verbose="1" name="Web UI tests" parallel="classes" thread-count="5">
     <classes>
-      <class name="ru.instamart.tests.api.v2.endpoints.TaxonsV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.SearchesV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.ProductsV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.OrdersV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.StoresV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.LineItemsV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.RegistrationV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.SessionsV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.FavoritesListV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.TaxonsV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.OnboardingPagesV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.PaymentToolsV2Test"/>
-      <class name="ru.instamart.tests.api.v2.endpoints.PromotionsV2Test"/>
-      <class name="ru.instamart.tests.api.v2.e2e.StoreE2ETests"/>
-      <class name="ru.instamart.tests.api.v2.e2e.ZoneE2ETests"/>
-      <class name="ru.instamart.tests.api.v2.e2e.RetailerE2ETests"/>
-      <class name="ru.instamart.tests.api.v2.e2e.OrderE2ETests"/>
-      <class name="ru.instamart.tests.api.shopper.app.endpoints.ShipmentfulShopperAppTest"/>
-      <class name="ru.instamart.tests.api.shopper.app.endpoints.ShipmentlessShopperAppTest"/>
-      <class name="ru.instamart.tests.api.shopper.app.e2e.ShopperAppE2ETest"/>
-      <class name="ru.instamart.tests.ui.administration.AdministrationAccessTests"/>
-      <class name="ru.instamart.tests.ui.administration.AdministrationLoginTests"/>
-      <class name="ru.instamart.tests.ui.administration.AdministrationPagesSectionTests"/>
-      <class name="ru.instamart.tests.ui.administration.AdministrationShipmentsSectionTests"/>
-      <class name="ru.instamart.tests.ui.administration.AdministrationUsersSectionTests"/>
-      <class name="ru.instamart.tests.ui.administration.BasicAdministrationTests"/>
       <class name="ru.instamart.tests.ui.checkout.BasicCheckoutTests"/>
       <class name="ru.instamart.tests.ui.site.BasicMetroTests"/>
       <class name="ru.instamart.tests.ui.site.BasicLentaTests"/>
@@ -91,5 +60,5 @@
       <class name="ru.instamart.tests.ui.user.UserRegistrationTests"/>
       <class name="ru.instamart.tests.ui.user.UserShippingAddressTests"/>
     </classes>
-  </test> <!-- mr-tests -->
-</suite> <!-- Custom suite -->
+  </test>
+</suite>

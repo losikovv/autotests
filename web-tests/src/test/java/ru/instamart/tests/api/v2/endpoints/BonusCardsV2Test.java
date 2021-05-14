@@ -24,7 +24,7 @@ public final class BonusCardsV2Test extends RestBase {
     private int bonusCardId;
 
     @CaseId(374)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Нет бонусных карт")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Нет бонусных карт", enabled = false)
     public void testNoBonusCards() {
         SessionFactory.makeSession(SessionType.API_V2);
 

@@ -1,23 +1,24 @@
 package ru.instamart.tests.ui.administration;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseId;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
+import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import ru.instamart.ui.common.pagesdata.UserData;
 import ru.instamart.ui.modules.Administration;
 import ru.instamart.ui.modules.User;
 import ru.instamart.ui.modules.shop.Order;
 import ru.instamart.ui.objectsmap.Elements;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseId;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import ru.instamart.tests.ui.TestBase;
+
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 @Epic("Админка STF")
 @Feature("Управление заказами")
@@ -140,7 +141,6 @@ public class AdministrationShipmentsSectionTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successResumeAndCancelOrder() {
-        SoftAssert softAssert = new SoftAssert();
         kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         kraken.checkout().complete();
@@ -148,21 +148,19 @@ public class AdministrationShipmentsSectionTests extends TestBase {
         Order.cancelOrder();
 
         //kraken.get().adminOrderDetailsPage(shipment);
-        softAssert.assertTrue(
+        assertTrue(
                 kraken.detect().isOrderCanceled(),
                     "\nНе выполнились предусловия - заказ уже активен");
 
         Administration.Orders.resumeOrder();
-        softAssert.assertFalse(
+        assertFalse(
                 kraken.detect().isOrderCanceled(),
                     "\nНе возобновляется заказ через админку");
 
         Administration.Orders.cancelOrder();
-        softAssert.assertTrue(
+        assertTrue(
                 kraken.detect().isOrderCanceled(),
                     "\nНе отменяется заказ через админку");
-
-        softAssert.assertAll();
     }
 
     // Нужен юзер

@@ -1,10 +1,13 @@
 package ru.instamart.tests.ui.user;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.core.common.AppManager;
 import ru.instamart.core.settings.Config;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.tests.ui.TestBase;
@@ -17,15 +20,17 @@ import ru.instamart.ui.modules.User;
 import ru.instamart.ui.modules.shop.ShippingAddressModal;
 import ru.instamart.ui.objectsmap.Elements;
 
-public final class UserAuthorisationTests extends TestBase {
+@Epic("STF UI")
+@Feature("Авторизация")
+public final class UserAuthorisationTests extends TestBase implements UsersAuthorizationCheckpoints {
 
     private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    private final UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
 
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
-        User.Logout.quickly();
+        AppManager.closeWebDriver();
+        kraken.get().baseUrl();
     }
 
     @Description("Тест пытается авторизоваться с пустыми реквизитами")
@@ -50,7 +55,7 @@ public final class UserAuthorisationTests extends TestBase {
 
         baseChecks.checkIsErrorMessageElementPresent("Укажите пароль",
                 "Нет пользовательской ошибки пустого поля Пароль");
-        authChecks.checkIsUserNotAuthorized("Произошла авторизация с пустыми реквизитами");
+        checkIsUserNotAuthorized("Произошла авторизация с пустыми реквизитами");
 
     }
 
@@ -72,7 +77,7 @@ public final class UserAuthorisationTests extends TestBase {
 
         baseChecks.checkIsErrorMessageElementPresent("Укажите email",
                 "Нет пользовательской ошибки пустого поля email");
-        authChecks.checkIsUserNotAuthorized("Произошла авторизация без email");
+        checkIsUserNotAuthorized("Произошла авторизация без email");
     }
 
     @Test(
@@ -92,7 +97,7 @@ public final class UserAuthorisationTests extends TestBase {
 
         baseChecks.checkIsErrorMessageElementPresent("Укажите пароль",
                 "Нет пользовательской ошибки пустого поля Пароль");
-        authChecks.checkIsUserNotAuthorized("Произошла авторизация без пароля");
+        checkIsUserNotAuthorized("Произошла авторизация без пароля");
     }
 
     @Test(
@@ -112,7 +117,7 @@ public final class UserAuthorisationTests extends TestBase {
 
         baseChecks.checkIsErrorMessageElementPresent("Неверный email или пароль",
                 "Нет пользовательской ошибки авторизации с неверным email или паролем");
-        authChecks.checkIsUserNotAuthorized("Произошла авторизация несуществующим юзером");
+        checkIsUserNotAuthorized("Произошла авторизация несуществующим юзером");
     }
 
     @Test(
@@ -132,7 +137,7 @@ public final class UserAuthorisationTests extends TestBase {
 
         baseChecks.checkIsErrorMessageElementPresent("Неверный email или пароль",
                 "Нет пользовательской ошибки авторизации с неверным email или паролем");
-        authChecks.checkIsUserNotAuthorized("Произошла авторизация с неверным паролем");
+        checkIsUserNotAuthorized("Произошла авторизация с неверным паролем");
     }
 
     @Test(
@@ -153,7 +158,7 @@ public final class UserAuthorisationTests extends TestBase {
 
         baseChecks.checkIsErrorMessageElementPresent("Неверный email или пароль",
                 "Нет пользовательской ошибки авторизации с неверным email или паролем");
-        authChecks.checkIsUserNotAuthorized("Произошла авторизация при наличии ошибок заполнения формы авторизации");
+        checkIsUserNotAuthorized("Произошла авторизация при наличии ошибок заполнения формы авторизации");
     }
 
     @Test(
@@ -172,7 +177,7 @@ public final class UserAuthorisationTests extends TestBase {
         Shop.AuthModal.close();
 
         baseChecks.checkIsAuthModalClosed();
-        authChecks.checkIsUserNotAuthorized("Произошла авторизация после заполнения всех полей и закрытия модалки");
+        checkIsUserNotAuthorized("Произошла авторизация после заполнения всех полей и закрытия модалки");
     }
 
     @Test(
@@ -187,7 +192,7 @@ public final class UserAuthorisationTests extends TestBase {
 
         User.Do.loginAs(UserManager.getDefaultAdmin());
 
-        authChecks.checkIsUserAuthorized("Не работает авторизация на витрине магазина");
+        checkIsUserAuthorized("Не работает авторизация на витрине магазина");
     }
 
     @Test(
@@ -204,7 +209,7 @@ public final class UserAuthorisationTests extends TestBase {
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
         baseChecks.checkIsAuthModalOpen("Не работает переход на авторизацию из адресной модалки");
         User.Do.loginAs(UserManager.getDefaultUser());
-        authChecks.checkIsUserAuthorized("Не работает авторизация из адресной модалки феникса");
+        checkIsUserAuthorized("Не работает авторизация из адресной модалки феникса");
     }
 
     @Test(
@@ -230,9 +235,9 @@ public final class UserAuthorisationTests extends TestBase {
         baseChecks.checkIsAuthModalOpen("Не открывается авторизационная модалка при переходе" +
                 " неавторизованным пользователем из корзины в чекаут");
         User.Auth.withEmail(testuser);
-        //authChecks.checkAutoCheckoutRedirect("Нет автоперехода в чекаут после авторизации из корзины");
+        //checkAutoCheckoutRedirect("Нет автоперехода в чекаут после авторизации из корзины");
         kraken.get().baseUrl();
-        authChecks.checkIsUserAuthorized("Не работает авторизация из корзины");
+        checkIsUserAuthorized("Не работает авторизация из корзины");
 //        shopChecks.checkIsCartEmpty("Авторизация из корзины",
 //                "Пропали товары после авторизации из корзины");
     }
@@ -248,7 +253,7 @@ public final class UserAuthorisationTests extends TestBase {
         Shop.AuthModal.openAuthRetailer();
         Shop.AuthModal.hitFacebookButton();
         User.Auth.withFacebook(UserManager.getDefaultFbUser());
-        authChecks.checkIsUserAuthorized("Не работает авторизация через Facebook");
+        checkIsUserAuthorized("Не работает авторизация через Facebook");
     }
 
     @CaseId(1458)
@@ -262,7 +267,7 @@ public final class UserAuthorisationTests extends TestBase {
         Shop.AuthModal.openAuthRetailer();
         Shop.AuthModal.hitVkontakteButton();
         User.Auth.withVkontakte(UserManager.getDefaultVkUser()); //Создавать второй поток и работать в нем?
-        authChecks.checkIsUserAuthorized("Не работает авторизация через ВКонтакте");
+        checkIsUserAuthorized("Не работает авторизация через ВКонтакте");
     }
 
     @CaseId(1460)
@@ -276,7 +281,7 @@ public final class UserAuthorisationTests extends TestBase {
         Shop.AuthModal.openAuthRetailer();
         Shop.AuthModal.hitMailRuButton();
         User.Auth.withMailRu(UserManager.getDefaultMailRuUser());
-        authChecks.checkIsUserAuthorized("Не работает авторизация через MailRu");
+        checkIsUserAuthorized("Не работает авторизация через MailRu");
     }
 
     @CaseId(1461)
@@ -290,7 +295,7 @@ public final class UserAuthorisationTests extends TestBase {
         Shop.AuthModal.openAuthRetailer();
         Shop.AuthModal.hitSberIdButton();
         User.Auth.withSberID(UserManager.getDefaultSberIdUser());
-        authChecks.checkIsUserAuthorized("Не работает авторизация через Sber ID");
+        checkIsUserAuthorized("Не работает авторизация через Sber ID");
     }
 }
 

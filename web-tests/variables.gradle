@@ -26,6 +26,9 @@ tasks.withType(Test) {
     if (project.hasProperty('proxy_timeout')) {
         systemProperty 'proxy_timeout',"${proxy_timeout}"
     }
+    if (project.hasProperty('ssl')) {
+        systemProperty 'ssl',"${ssl}"
+    }
     if (project.hasProperty('url_stf')) {
         systemProperty 'url_stf',"${url_stf}"
     }

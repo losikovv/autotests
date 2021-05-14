@@ -1,25 +1,23 @@
 package ru.instamart.ui.checkpoints;
 
-import org.openqa.selenium.JavascriptExecutor;
+import io.qameta.allure.Step;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
+import ru.instamart.core.helpers.KrakenAssert;
 import ru.instamart.core.settings.Config;
 import ru.instamart.ui.common.pagesdata.ElementData;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import ru.instamart.ui.common.pagesdata.PageData;
+import ru.instamart.ui.helpers.WaitingHelper;
 import ru.instamart.ui.objectsmap.Elements;
-import io.qameta.allure.Step;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
 
 import static ru.instamart.ui.modules.Base.kraken;
 
+@Slf4j
 public class BaseUICheckpoints {
 
-    private static final Logger log = LoggerFactory.getLogger(BaseUICheckpoints.class);
-
-    private SoftAssert softAssert = new SoftAssert();
+    private final KrakenAssert krakenAssert = new KrakenAssert();
 
     /** Метод-обертка для красивого вывода ошибок зафейленных тестов */
     protected String failMessage(String text) {
@@ -31,11 +29,11 @@ public class BaseUICheckpoints {
     public void checkIsErrorMessageElementPresent(String successMessage,
                                                      String errorMessage){
         log.info("> проверяем, что текст ошибки: {}  отображается на экране", successMessage);
-        softAssert.assertTrue(
+        krakenAssert.assertTrue(
                 kraken.detect().isElementPresent(
                         Elements.Modals.AuthModal.errorMessage(successMessage)),
                 errorMessage+"\n");
-        softAssert.assertAll();
+        krakenAssert.assertAll();
         log.info("✓ Успешно");
     }
 
@@ -43,11 +41,11 @@ public class BaseUICheckpoints {
     @Step("Проверяем, что сообщение: {0} отображается на экране регистрации через мобилку")
     public void checkIsErrorMessageElementPresentByPhone(String successMessage, String errorMessage){
         log.info("> проверяем, что текст ошибки: {} отображается на экране", successMessage);
-        softAssert.assertTrue(
+        krakenAssert.assertTrue(
                 kraken.detect().isElementPresent(
                         Elements.Modals.AuthModal.errorPhoneMessage(successMessage)),
                 errorMessage+"\n");
-        softAssert.assertAll();
+        krakenAssert.assertAll();
         log.info("✓ Успешно");
     }
 
@@ -55,10 +53,10 @@ public class BaseUICheckpoints {
     @Step("Проверяем, что модалка авторизации закрыта")
     public void checkIsAuthModalClosed(){
         log.info("> рроверяем, что модалка авторизации закрыта");
-        softAssert.assertFalse(
+        krakenAssert.assertFalse(
                 kraken.detect().isAuthModalOpen(),
                 "Не закрывается заполненная авторизационная модалка");
-        softAssert.assertAll();
+        krakenAssert.assertAll();
         log.info("✓ Успешно");
     }
 
@@ -66,10 +64,10 @@ public class BaseUICheckpoints {
     @Step("Проверяем, что модалка авторизации открыта")
     public void checkIsAuthModalOpen(String errorMessage){
         log.info("> проверяем, что модалка авторизации открыта");
-        softAssert.assertTrue(
+        krakenAssert.assertTrue(
                 kraken.detect().isAuthModalOpen(),
                 "\n"+errorMessage);
-        softAssert.assertAll();
+        krakenAssert.assertAll();
         log.info("✓ Успешно");
     }
 
@@ -107,7 +105,7 @@ public class BaseUICheckpoints {
         kraken.await().fluently(ExpectedConditions.elementToBeClickable(element.getLocator()),
                 "элемент не доступен: "+element.getDescription(), Config.BASIC_TIMEOUT);
         kraken.perform().scrollToTheBottom(element);
-        kraken.await().simply(0.3);
+        WaitingHelper.simply(0.3);
         kraken.perform().click(element);
         kraken.await().fluently(ExpectedConditions.not(ExpectedConditions.urlToBe(startPage)),
                 "\n\n > Не работает " + element.getDescription()
@@ -186,10 +184,10 @@ public class BaseUICheckpoints {
     public void checkIsStringValuesNotEquals(String firstString, String secondString,
                                              String stepDescription, String errorMessage){
         log.info("> {}", stepDescription);
-        softAssert.assertNotEquals(
+        krakenAssert.assertNotEquals(
                 firstString, secondString,
                 "\n> "+errorMessage);
-        softAssert.assertAll();
+        krakenAssert.assertAll();
         log.info("✓ Успешно");
     }
 

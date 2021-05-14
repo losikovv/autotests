@@ -2,10 +2,8 @@ package ru.instamart.ui.helpers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.checkerframework.checker.nullness.compatqual.NullableDecl;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -16,7 +14,6 @@ import ru.instamart.core.settings.Config;
 import ru.instamart.ui.common.pagesdata.ElementData;
 import ru.instamart.ui.objectsmap.Elements;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -52,27 +49,34 @@ public final class WaitingHelper extends HelperBase {
 
     /**
      * Метод заточен под ожидание элементов в которые можно кликнуть
-     * TODO: Все элементы отображаются за разное время и ждать константные {@link Config#WAITING_TIMEOUT} очень не хорошо
-     * TODO: предлагаю засунуть это в {@link ElementData} так получится, что для каждого элемента, свое ожидание будет.
      * @param data
-     * @param timeout
      * @return
      */
-    public WebElement shouldBeClickable(final ElementData data, final int timeout) {
+    public WebElement shouldBeClickable(final ElementData data) {
         return new FluentWait<>(AppManager.getWebDriver())
-                .withTimeout(timeout, TimeUnit.SECONDS)
+                .withTimeout(data.getTimeout(), TimeUnit.SECONDS)
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.elementToBeClickable(data.getLocator()));
     }
 
-    public boolean shouldBeVisible(final ElementData data, final int timeout) {
+    public boolean shouldBeVisible(final ElementData data) {
         final FluentWait<WebDriver> wait =  new FluentWait<>(AppManager.getWebDriver())
-                .withTimeout(timeout, TimeUnit.SECONDS)
+                .withTimeout(data.getTimeout(), TimeUnit.SECONDS)
                 .withMessage(data.getDescription())
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class);
         return wait.until((ExpectedCondition<Boolean>) driver -> driver.findElement(data.getLocator()).isDisplayed());
+    }
+
+    public boolean shouldNotBeVisible(final ElementData data) {
+        final FluentWait<WebDriver> wait =  new FluentWait<>(AppManager.getWebDriver())
+                .withTimeout(data.getTimeout(), TimeUnit.SECONDS)
+                .withMessage(data.getDescription())
+                .pollingEvery(250, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class)
+                .ignoring(NotFoundException.class);
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(data.getLocator()));
     }
 
     public void urlToBe(final String url, final int timeout) {
@@ -81,6 +85,14 @@ public final class WaitingHelper extends HelperBase {
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.urlToBe(url));
+    }
+
+    public void getText(final ElementData data) {
+        new FluentWait<>(AppManager.getWebDriver())
+                .withTimeout(data.getTimeout(), TimeUnit.SECONDS)
+                .pollingEvery(250, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class)
+                .until((ExpectedCondition<Boolean>) input -> input.findElement(data.getLocator()).getText().length() != 0);
     }
 
     public void fluentlyWithWindowsHandler(Function conditions){
@@ -140,7 +152,7 @@ public final class WaitingHelper extends HelperBase {
 
     public boolean checkIfPopupWindowClosed() {
         try {
-            return (new WebDriverWait(AppManager.getWebDriver(), 10))
+            return (new WebDriverWait(AppManager.getWebDriver(), 15))
                     .until((ExpectedCondition<Boolean>) d -> d.getWindowHandles().size() == 1);
         } catch (TimeoutException e) {
             return false;

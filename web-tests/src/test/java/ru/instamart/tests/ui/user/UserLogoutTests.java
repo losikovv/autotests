@@ -7,6 +7,7 @@ import ru.instamart.ui.checkpoints.shipping.ShippingAddressCheckpoints;
 import ru.instamart.ui.checkpoints.shoppingcart.ShoppingCartCheckpoints;
 import ru.instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
+import ru.instamart.ui.helpers.WaitingHelper;
 import ru.instamart.ui.modules.Shop;
 import ru.instamart.ui.modules.User;
 import org.testng.annotations.BeforeMethod;
@@ -14,10 +15,9 @@ import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.modules.shop.ShippingAddressModal;
 
-public class UserLogoutTests extends TestBase {
+public class UserLogoutTests extends TestBase implements UsersAuthorizationCheckpoints {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
-    UsersAuthorizationCheckpoints authChecks = new UsersAuthorizationCheckpoints();
     ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
 
     @BeforeMethod(alwaysRun = true,
@@ -39,7 +39,7 @@ public class UserLogoutTests extends TestBase {
         User.Logout.quickly();
         baseChecks.checkPageIsAvailable();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        authChecks.checkIsUserNotAuthorized("Не работает быстрый логаут");
+        checkIsUserNotAuthorized("Не работает быстрый логаут");
     }
 
     @Test(  description = "Тест успешной деавторизации",
@@ -54,7 +54,7 @@ public class UserLogoutTests extends TestBase {
         User.Logout.manually();
         baseChecks.checkPageIsAvailable();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        authChecks.checkIsUserNotAuthorized("Не работает логаут");
+        checkIsUserNotAuthorized("Не работает логаут");
     }
 
     @Test(  description = "Тест сброса адреса доставки и корзины после деавторизации",
@@ -70,11 +70,11 @@ public class UserLogoutTests extends TestBase {
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.submit();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        kraken.await().simply(2);
+        WaitingHelper.simply(2);
         Shop.Catalog.Item.addToCart();
         User.Logout.manually();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        authChecks.checkIsUserNotAuthorized("Не выполнены предусловия - не работает логаут");
+        checkIsUserNotAuthorized("Не выполнены предусловия - не работает логаут");
         shippingChecks.checkIsShippingAddressNotSet("Логаут");
         kraken.get().page(Config.DEFAULT_RETAILER);
         shopChecks.checkIsCartNotEmpty("Логаут");

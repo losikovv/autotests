@@ -1,44 +1,36 @@
 package ru.instamart.ui.checkpoints.itemcard;
 
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
 import io.qameta.allure.Step;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
+import ru.instamart.ui.checkpoints.Checkpoint;
 
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.ui.modules.Base.kraken;
 
-public class ItemCardAndCatalogCheckpoints extends BaseUICheckpoints {
-
-    private static final Logger log = LoggerFactory.getLogger(ItemCardAndCatalogCheckpoints.class);
-
-    private final SoftAssert softAssert = new SoftAssert();
+public class ItemCardAndCatalogCheckpoints implements Checkpoint {
 
     @Step("Проверяем, что карточка товара открыта")
     public void checkIsItemCardOpen(String errorMessage){
         log.info("> проверяем, что карточка товара открылась");
-        softAssert.assertTrue(
+         assertTrue(
                 kraken.detect().isItemCardOpen(),
                 errorMessage);
-        softAssert.assertAll();
         log.info("✓ Успешно");
     }
 
     @Step("Проверяем, что карточка товара закрыта")
     public void checkIsItemCardClosed(String errorMessage){
         log.info("> проверяем, что карточка товара закрылась");
-        softAssert.assertFalse(
+        assertFalse(
                 kraken.detect().isItemCardOpen(),
                 errorMessage);
-        softAssert.assertAll();
         log.info("✓ Успешно");
     }
 
     @Step("Проверяем, что шторка каталога открылась")
     public void checkIsCatalogDrawerOpen(String errorMessage){
         log.info("> проверяем, что шторка каталога открылась");
-        Assert.assertTrue(
+        assertTrue(
                 kraken.detect().isCatalogDrawerOpen(),
                 errorMessage);
         log.info("✓ Успешно");
@@ -47,7 +39,7 @@ public class ItemCardAndCatalogCheckpoints extends BaseUICheckpoints {
     @Step("Проверяем, что шторка каталога закрылась")
     public void checkIsCatalogDrawerClosed(String errorMessage){
         log.info("> проверяем, что шторка каталога закрылась");
-        Assert.assertFalse(
+        assertFalse(
                 kraken.detect().isCatalogDrawerOpen(),
                 errorMessage);
         log.info("✓ Успешно");

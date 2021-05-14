@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Web UI suite" data-provider-thread-count="1">
+<suite name="Web UI regress" data-provider-thread-count="5">
   <listeners>
     <listener class-name="ru.instamart.core.listeners.ExecutionListenerImpl"/>
     <listener class-name="ru.instamart.core.listeners.UiListener"/>
   </listeners>
-  <!--<test verbose="1" name="Web UI tests" parallel="classes" thread-count="4">-->
-  <test verbose="1" name="Web UI tests">
+  <test verbose="1" name="Web UI tests" parallel="classes" thread-count="10">
     <classes>
-      <class name="ru.instamart.tests.ui.administration.AdministrationAccessTests"/>
-      <class name="ru.instamart.tests.ui.administration.AdministrationLoginTests"/>
-      <class name="ru.instamart.tests.ui.administration.AdministrationPagesSectionTests"/>
-      <class name="ru.instamart.tests.ui.administration.AdministrationShipmentsSectionTests"/>
-      <class name="ru.instamart.tests.ui.administration.AdministrationUsersSectionTests"/>
-      <class name="ru.instamart.tests.ui.administration.BasicAdministrationTests"/>
       <class name="ru.instamart.tests.ui.checkout.BasicCheckoutTests"/>
       <class name="ru.instamart.tests.ui.site.BasicMetroTests"/>
       <class name="ru.instamart.tests.ui.site.BasicLentaTests"/>
@@ -67,5 +60,5 @@
       <class name="ru.instamart.tests.ui.user.UserRegistrationTests"/>
       <class name="ru.instamart.tests.ui.user.UserShippingAddressTests"/>
     </classes>
-  </test> <!-- web-tests -->
-</suite> <!-- Custom suite -->
+  </test>
+</suite>
