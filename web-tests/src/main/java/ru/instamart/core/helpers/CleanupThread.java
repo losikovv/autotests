@@ -55,11 +55,23 @@ public final class CleanupThread extends Thread {
         }
     }
 
+    private void closeAllDriver() {
+        this.allWebDriverThreads.forEach(thread -> {
+            final WebDriver webDriver = this.threadWebDriver.remove(thread.getId());
+            if (isNull(webDriver)) {
+                log.info("No WebDriver found for thread : {}  - nothing to close", thread.getId());
+            } else {
+                webDriver.quit();
+                log.info("Close WebDriver for threadId : {}", thread.getId());
+            }
+        });
+    }
+
     private class FinalClean extends Thread {
         @Override
         public void run() {
             log.error("Cleanup all browsers");
-            closeUnusedWebDrivers();
+            closeAllDriver();
         }
     }
 }
