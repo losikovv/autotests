@@ -41,10 +41,9 @@ public interface TestVariables {
                         "22",
                         true, "333",
                         "44 ключ 4444",
-                        "test"
+                        "test comment"
                 ),
-                new ContactsDetailsData(true,"My", true, "Test",
-                        true, "test@mail.ru", false, "79990001122", true),
+                new ContactsDetailsData("Autotest", "Secure", "test@mail.ru", "79990001122", true),
                 ReplacementPolicies.callAndReplace(),
                 new PaymentDetailsData(
                         PaymentTypes.cardCourier(),
@@ -57,7 +56,7 @@ public interface TestVariables {
         );
     }
 
-    static OrderDetailsData testOrderDetailsCus() {
+    static OrderDetailsData testOrderDetailsWithout3ds() {
         return new OrderDetailsData(
                 new AddressDetailsData(
                         "home",
@@ -67,8 +66,7 @@ public interface TestVariables {
                         "44 ключ 4444",
                         "test"
                 ),
-                new ContactsDetailsData(true,"My", true, "Test",
-                        true, "test@mail.ru", false, "79990001122", true),
+                new ContactsDetailsData("Autotest", "noSecure", "autotest@mail.ru", "79990001122", true),
                 ReplacementPolicies.callAndReplace(),
                 new PaymentDetailsData(
                         PaymentTypes.cardCourier(),

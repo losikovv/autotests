@@ -66,12 +66,20 @@ public final class Checkout extends Base {
         Order.makeOrder(details);
     }
 
-    @Step("Оформление заказа с методом оплаты картой онлайн")
+    @Step("Оформление заказа")
     public void complete(PaymentTypeData payment, boolean newPaymentCard, PaymentCardData cardData) {
         log.info("> оформление заказа с методом оплаты картой онлайн");
         OrderDetailsData details = new OrderDetailsData();
         details.setPaymentDetails(payment, newPaymentCard, cardData);
         Order.makeOrder(details);
+    }
+
+    @Step("Оформление заказа с методом оплаты картой онлайн")
+    public void completeWithCreditCard(PaymentTypeData payment, boolean newPaymentCard, PaymentCardData cardData, boolean reorder) {
+        log.info("> оформление заказа с методом оплаты картой онлайн");
+        OrderDetailsData details = new OrderDetailsData();
+        details.setPaymentDetails(payment, newPaymentCard, cardData);
+        Order.makeOrderWithCreditCard(details, reorder);
     }
 
     @Step("Оформление заказа с новым юр. лицом")

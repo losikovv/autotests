@@ -59,6 +59,28 @@ public final class Order extends Base {
         }
     }
 
+    @Step("Заполнение чекаута c оплатой картой")
+    public static void makeOrderWithCreditCard(OrderDetailsData orderDetails, boolean reorder) {
+        log.info("Заполнение чекаута");
+        fillOrderDetails(orderDetails);
+        if(orderDetails.getPromocode() != null) {
+            PromocodeActions.add(orderDetails.getPromocode());}
+        if(orderDetails.getBonus() != null) {
+//            ru.instamart.ui.modules.checkout.AddressSteps .Bonuses.add(orderDetails.getBonus());}
+            BonusesActions.add(orderDetails.getBonus());}
+        if(orderDetails.getRetailerCard() != null) {
+            RetailerCardsActions.addCard(orderDetails.getRetailerCard());}
+        sendOrderFromSidebar();
+        //
+        if (!reorder){
+            if(orderDetails.getPaymentDetails().getPaymentType().getDescription().equalsIgnoreCase(PaymentTypes.cardOnline().getDescription())) {
+                if (orderDetails.getPaymentDetails().getCreditCard().getSecure()) {
+                    PaymentHelper.cloudpaymentsFlow();
+                }
+            }
+        }
+    }
+
     @Step("Заполнение шагов чекаута")
     public static void fillOrderDetails(OrderDetailsData orderDetails) {
         Checkout.initCheckout();
@@ -115,12 +137,17 @@ public final class Order extends Base {
     @Step("Отменяем крайний активный заказ")
     public static void cancelLastActiveOrder() {
         log.info("> отменяем крайний активный заказ");
-        kraken.get().page(Pages.UserProfile.shipments());
-        kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.activeOrdersFilterButton());
-        if(!kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder())) {
-            kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
+        if(kraken.detect().isElementPresent(Elements.UserProfile.OrderDetailsPage.OrderSummary.cancelOrderButton())){
             cancelOrder();
-        } else log.warn("> Заказ не активен");
+        }else{
+            //todo возможно можно удалить, т.к. отмена выполняется сразу после оформления
+            kraken.get().page(Pages.UserProfile.shipments());
+            kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.activeOrdersFilterButton());
+            if (!kraken.detect().isElementPresent(Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder())) {
+                kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
+                cancelOrder();
+            } else log.warn("> Заказ не активен");
+        }
     }
 
     /** Отменить заказ на странице деталей заказа */
