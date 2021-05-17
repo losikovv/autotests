@@ -25,6 +25,7 @@ public final class PaymentHelper extends Base {
         super(kraken);
     }
 
+    @Step("Выбор метода оплаты")
     public static void choosePaymentMethod(PaymentDetailsData paymentDetails) {
         String description = paymentDetails.getPaymentType().getDescription();
         if (kraken.detect().isPaymentTypeAvailable(description)){
@@ -33,8 +34,13 @@ public final class PaymentHelper extends Base {
         } else throw new AssertionError("В чекауте недоступна оплата " + description);
 
         if (description.equalsIgnoreCase(PaymentTypes.cardOnline().getDescription())) {
-            if (paymentDetails.isNewCreditCard()) {
-                deleteAllExceptOnePaymentCard();
+            if (kraken.detect().isElementDisplayed(Elements.Checkout.paymentCardTitle(paymentDetails.getCreditCard()))){
+                kraken.perform().click(Elements.Checkout.paymentCardTitle(paymentDetails.getCreditCard()));
+                log.info("> выбрали существующую карту оплаты: {}",
+                        kraken.grab().text(Elements.Checkout.paymentCardTitle(paymentDetails.getCreditCard())));
+            }
+            else if (paymentDetails.isNewCreditCard()) {
+                //deleteAllExceptOnePaymentCard();
                 if (paymentDetails.getCreditCard() != null) {
                     addNewPaymentCard(paymentDetails.getCreditCard());
                 } else {
@@ -82,7 +88,9 @@ public final class PaymentHelper extends Base {
     @Step("Добавление новой карты")
     private static void addNewPaymentCard(PaymentCardData creditCardData) {
         log.info("> добавляем карту оплаты {}", creditCardData.getCardNumber());
-
+        if (kraken.detect().isElementDisplayed(Elements.Checkout.paymentCardTitle(creditCardData))){
+            kraken.perform().click(Elements.Checkout.paymentCardTitle(creditCardData));
+        }
         if (kraken.detect().isElementDisplayed(Elements.Checkout.addPaymentCardButton())) {
             kraken.perform().click(Elements.Checkout.addPaymentCardButton());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
@@ -111,13 +119,13 @@ public final class PaymentHelper extends Base {
 
         step("Заполнение номера карты: " + cardNumber,()->
                 kraken.perform().fillField(Elements.Checkout.PaymentCardModal.cardNumberField(), cardNumber));
-        step("Заполнение месяца: " + expiryMonth,()->
+        step("месяц: " + expiryMonth,()->
                 kraken.perform().fillField(Elements.Checkout.PaymentCardModal.monthField(), expiryMonth));
-        step("Заполнение года: " + expiryYear, ()->
+        step("год: " + expiryYear, ()->
                 kraken.perform().fillField(Elements.Checkout.PaymentCardModal.yearField(),expiryYear ));
-        step("Заполнение ccv: " + cvvNumber, ()->
+        step("ccv: " + cvvNumber, ()->
                 kraken.perform().fillField(Elements.Checkout.PaymentCardModal.cvvField(),cvvNumber ));
-        step("Заполнение имени держателя: " + cardHolderName, ()->
+        step("имя держателя: " + cardHolderName, ()->
                 kraken.perform().fillField(Elements.Checkout.PaymentCardModal.nameField(),cardHolderName ));
     }
 

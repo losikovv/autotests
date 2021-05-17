@@ -140,7 +140,7 @@ public class BasicOrdersTests extends TestBase {
 
         Shop.Cart.collectFirstTime();
         Shop.Cart.proceedToCheckout();
-        kraken.checkout().complete(paymentMethod, true, creditCardData);
+        kraken.checkout().completeWithCreditCard(paymentMethod, true, creditCardData, false);
         orderCheck.checkOrderSuccessCreation();
         orderCheck.checkPaymentMethod(paymentMethod);
     }
@@ -152,12 +152,12 @@ public class BasicOrdersTests extends TestBase {
             //enabled = false
     )
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
-        PaymentCardData creditCardData = TestVariables.testOrderDetailsCus().getPaymentDetails().getCreditCard();
+        PaymentCardData creditCardData = TestVariables.testOrderDetailsWithout3ds().getPaymentDetails().getCreditCard();
         PaymentTypeData paymentMethod = PaymentTypes.cardOnline();
 
         Shop.Cart.collectFirstTime();
         Shop.Cart.proceedToCheckout();
-        kraken.checkout().complete(paymentMethod, true, creditCardData);
+        kraken.checkout().completeWithCreditCard(paymentMethod, true, creditCardData, false);
         orderCheck.checkOrderSuccessCreation();
         orderCheck.checkPaymentMethod(paymentMethod);
     }
@@ -187,6 +187,34 @@ public class BasicOrdersTests extends TestBase {
         Shop.Cart.collectFirstTime();
         Shop.Cart.proceedToCheckout();
         kraken.checkout().complete(paymentMethod);
+        orderCheck.checkOrderSuccessCreation();
+        orderCheck.checkPaymentMethod(paymentMethod);
+    }
+
+    @Test(
+            description = "Тест повторого заказа с оплатой картой с 3ds",
+            groups = {"sbermarket-regression","testing"}
+    )
+    public void successReorderWith3dsCard() {
+        PaymentCardData CardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
+        PaymentTypeData paymentMethod = PaymentTypes.cardOnline();
+
+        step("Оформление первого заказа", ()-> {
+            Shop.Cart.collectFirstTime();
+            Shop.Cart.proceedToCheckout();
+            kraken.checkout().completeWithCreditCard(paymentMethod, true,
+                    CardData, false);
+            Order.cancelLastActiveOrder();
+        });
+
+        kraken.get().baseUrl();
+
+        step("Оформление второго заказа", ()->{
+            Shop.Cart.collectFirstTime();
+            Shop.Cart.proceedToCheckout();
+            kraken.checkout().completeWithCreditCard(paymentMethod, true,
+                    CardData, true);
+        });
         orderCheck.checkOrderSuccessCreation();
         orderCheck.checkPaymentMethod(paymentMethod);
     }

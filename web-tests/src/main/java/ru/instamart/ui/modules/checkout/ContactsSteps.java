@@ -22,15 +22,15 @@ public final class ContactsSteps extends Base {
     @Step("Шаг заполнения контактов")
     public static void fill(ContactsDetailsData contactsDetails) {
         log.info("> заполняем поля с контактной информацией");
-        if (contactsDetails.changeFirstName()) {
+        if (kraken.detect().isFieldEmpty(Elements.Checkout.ContactsStep.firstNameInputField())) {
             fillFirstName(contactsDetails.getFirstName());
         }
 
-        if (contactsDetails.changeLastName()) {
+        if (kraken.detect().isFieldEmpty(Elements.Checkout.ContactsStep.lastNameInputField())) {
             fillLastName(contactsDetails.getLastName());
         }
 
-        if (contactsDetails.changeEmail()) {
+        if (kraken.detect().isFieldEmpty(Elements.Checkout.ContactsStep.emailInputField())) {
             fillEmail(contactsDetails.getEmail());
         }
 

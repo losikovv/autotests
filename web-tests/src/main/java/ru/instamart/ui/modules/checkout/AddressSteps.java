@@ -98,14 +98,24 @@ public final class AddressSteps extends Base {
 
     @Step("Заполняем поле Номер квартиры/офиса: {0}")
     public static void fillApartment(String number){
-        log.info("> номер: {}", number);
-        kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.apartmentInputField(), number);
+        if(kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.apartmentInputField())){
+            log.info("> номер: {}", number);
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.apartmentInputField(), number);
+        }else{
+            log.info("> поле номер квартиры/офиса уже заполнено: {}",
+                    kraken.grab().value(Elements.Checkout.AddressStep.apartmentInputField()));
+        }
     }
 
     @Step("Заполняем поле Этаж: {0}")
     public static void fillFloor(String number){
-        log.info("> этаж: {}", number);
-        kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.floorInputField(), number);
+        if (kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.floorInputField())){
+            log.info("> этаж: {}", number);
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.floorInputField(), number);
+        }else{
+            log.info("> поле этаж уже заполнено: {}",
+                    kraken.grab().value(Elements.Checkout.AddressStep.floorInputField()));
+        }
     }
 
     @Step("Устанавливаем чекбокс лифт: {0}")
@@ -117,20 +127,35 @@ public final class AddressSteps extends Base {
 
     @Step("Заполняем поле Подъезд: {0}")
     public static void fillEntrance(String number){
-        log.info("> подъезд: {}", number);
-        kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.entranceInputField(), number);
+        if (kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.entranceInputField())) {
+            log.info("> подъезд: {}", number);
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.entranceInputField(), number);
+        }else {
+            log.info("> поле этаж уже заполнено: {}",
+                    kraken.grab().value(Elements.Checkout.AddressStep.entranceInputField()));
+        }
     }
 
     @Step("Заполняем поле Домофон: {0}")
     public static void fillDomofon(String number){
-        log.info("> домофон: {}", number);
-        kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.domofonInputField(), number);
+        if (kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.domofonInputField())) {
+            log.info("> домофон: {}", number);
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.domofonInputField(), number);
+        }else {
+            log.info("> поле домофон уже заполнено: {}",
+                    kraken.grab().value(Elements.Checkout.AddressStep.domofonInputField()));
+        }
     }
 
     @Step("Заполняем поле Комментарии: {0}")
     public static void fillCommentaries(String text){
-        log.info("> комментарии по доставке: {}", text);
-        kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.commentariesInputField(), text);
+        if (kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.commentariesInputField())) {
+            log.info("> комментарии по доставке: {}", text);
+            kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.commentariesInputField(), text);
+        }else {
+            log.info("> поле комментарий уже заполнено: {}",
+                    kraken.grab().value(Elements.Checkout.AddressStep.commentariesInputField()));
+        }
     }
 
     public static void fillStep(int position, OrderDetailsData orderDetails) {
@@ -164,7 +189,7 @@ public final class AddressSteps extends Base {
                 step("Выбор слота доставки", ()-> DeliveryHelper.chooseDeliveryTime(orderDetails.getDeliveryTime()));
                 break;
             case "Оплата" :
-                step("Выбор метода оплаты", ()-> PaymentHelper.choosePaymentMethod(orderDetails.getPaymentDetails()));
+                PaymentHelper.choosePaymentMethod(orderDetails.getPaymentDetails());
                 break;
         }
     }
@@ -211,5 +236,4 @@ public final class AddressSteps extends Base {
             }
         }
     }
-
 }

@@ -12,14 +12,14 @@ public class ContactsDetailsData {
     private String phone;
     private boolean sendEmail;
 
-    public ContactsDetailsData(boolean changeFirstName, String firstName, boolean changeLastName, String lastName, boolean changeEmail, String email, boolean addAnotherPhone, String phone, boolean sendEmail) {
-        this.changeFirstName = changeFirstName;
+    public ContactsDetailsData(String firstName, String lastName, String email, String phone, boolean sendEmail) {
+        //this.changeFirstName = changeFirstName;
         this.firstName = firstName;
-        this.changeLastName = changeLastName;
+        //this.changeLastName = changeLastName;
         this.lastName = lastName;
-        this.changeEmail = changeEmail;
+        //this.changeEmail = changeEmail;
         this.email = email;
-        this.addAnotherPhone = addAnotherPhone;
+        //this.addAnotherPhone = addAnotherPhone;
         this.phone = phone;
         this.sendEmail = sendEmail;
     }
