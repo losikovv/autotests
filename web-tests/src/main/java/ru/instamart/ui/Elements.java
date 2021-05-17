@@ -2461,6 +2461,11 @@ public class Elements {
             /** Модалка карты оплаты */
             interface PaymentCardModal {
 
+                static ElementData cardModal(){
+                    return new ElementData(By.xpath("//div[@id='react-modal']//div[(contains(@class, 'rc-modal__wrapper'))]"),
+                            "модальное окно карты оплаты");
+                }
+
                 static ElementData cardNumber() {
                     return new ElementData(By.xpath("//form/div/div[1]/span"),
                             "номер карты в модалке ввода карты оплаты");

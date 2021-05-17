@@ -24,8 +24,8 @@ import static ru.instamart.core.setting.Config.DEFAULT_BROWSER;
 public final class WebDriverService {
 
     private final Collection<Thread> allWebDriverThreads = new ConcurrentLinkedQueue<>();
-    private final AtomicBoolean isCleanStart = new AtomicBoolean(false);
     private final Map<Long, WebDriver> webDriverMap = new ConcurrentHashMap<>();
+    private final AtomicBoolean isCleanStart = new AtomicBoolean(false);
 
     public WebDriver createOrGetDriver() {
         //Get browser from suite parameter

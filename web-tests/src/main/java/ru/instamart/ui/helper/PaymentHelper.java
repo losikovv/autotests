@@ -2,13 +2,15 @@ package ru.instamart.ui.helper;
 
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
-import ru.instamart.ui.module.testdata.PaymentTypes;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.instamart.core.setting.Config;
+import ru.instamart.ui.Elements;
 import ru.instamart.ui.common.pagesdata.ElementData;
 import ru.instamart.ui.common.pagesdata.PaymentCardData;
 import ru.instamart.ui.common.pagesdata.PaymentDetailsData;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Base;
-import ru.instamart.ui.Elements;
+import ru.instamart.ui.module.testdata.PaymentTypes;
 
 import static io.qameta.allure.Allure.step;
 import static ru.instamart.core.testdata.TestVariables.testOrderDetails;
@@ -81,9 +83,14 @@ public final class PaymentHelper extends Base {
 
         if (kraken.detect().isElementDisplayed(Elements.Checkout.addPaymentCardButton())) {
             kraken.perform().click(Elements.Checkout.addPaymentCardButton());
+            kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
+                    Elements.Checkout.PaymentCardModal.cardModal().getLocator()),
+                    "модальное окно добавления карты не появилось", Config.BASIC_TIMEOUT);
             fillPaymentCardDetails(creditCardData);
             kraken.perform().click(Elements.Checkout.PaymentCardModal.confirmButton());
-//            kraken.await().implicitly(1); // Ожидание добавления новой карты оплаты
+            kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
+                    Elements.Checkout.PaymentCardModal.cardModal().getLocator()),
+                    "Не исчезло модальное окно добавления карты", Config.BASIC_TIMEOUT);
             kraken.perform().click(Elements.Checkout.paymentCardTitle(creditCardData));
 //            kraken.await().implicitly(1); // Ожидание применения новой карты оплаты
         } else {
@@ -124,6 +131,7 @@ public final class PaymentHelper extends Base {
         }
     }
 
+    //TODO сделать подтверждение оплаты для эквайринга сбера
     @Step("Подтверждение карты 3ds")
     public static void cloudpaymentsFlow() {
         log.info("> открытие страницы подтверждения карты");

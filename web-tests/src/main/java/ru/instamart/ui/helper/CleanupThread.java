@@ -19,8 +19,8 @@ public final class CleanupThread extends Thread {
         this.allWebDriverThreads = allWebDriverThreads;
         this.threadWebDriver = threadWebDriver;
         this.setDaemon(true);
-        this.setName("WebDriver Cleanupper");
-        Runtime.getRuntime().addShutdownHook(new FinalClean(currentThread()));
+        this.setName("WebDriver Cleanup");
+        Runtime.getRuntime().addShutdownHook(new FinalClean());
     }
 
     public void run() {
@@ -56,15 +56,23 @@ public final class CleanupThread extends Thread {
         }
     }
 
-    @RequiredArgsConstructor
-    private final class FinalClean extends Thread {
+    private void closeAllDriver() {
+        this.allWebDriverThreads.forEach(thread -> {
+            final WebDriver webDriver = this.threadWebDriver.remove(thread.getId());
+            if (isNull(webDriver)) {
+                log.info("No WebDriver found for thread : {}  - nothing to close", thread.getId());
+            } else {
+                webDriver.quit();
+                log.info("Close WebDriver for threadId : {}", thread.getId());
+            }
+        });
+    }
 
-        private final Thread thread;
-
+    private class FinalClean extends Thread {
         @Override
         public void run() {
             log.error("Cleanup all browsers");
-            closeWebDriver(thread);
+            closeAllDriver();
         }
     }
 }

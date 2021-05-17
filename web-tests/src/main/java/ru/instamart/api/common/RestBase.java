@@ -2,7 +2,7 @@ package ru.instamart.api.common;
 
 import ru.instamart.api.helper.ApiV3Helper;
 import ru.instamart.api.helper.InstamartApiHelper;
-import ru.instamart.api.helper.ShopperApiHelper;
+import ru.instamart.api.helper.ShopperAppApiHelper;
 import ru.instamart.core.helper.LogAttachmentHelper;
 import io.qameta.allure.Allure;
 import io.restassured.response.Response;
@@ -12,7 +12,7 @@ import org.testng.annotations.BeforeMethod;
 public class RestBase {
 
     protected static final InstamartApiHelper apiV2 = new InstamartApiHelper();
-    protected static final ShopperApiHelper shopper = new ShopperApiHelper();
+    protected static final ShopperAppApiHelper shopper = new ShopperAppApiHelper();
     protected static final ApiV3Helper apiV3 = new ApiV3Helper();
     protected Response response;
 
