@@ -4,6 +4,7 @@ import io.qase.api.enums.RunResultStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.*;
 import ru.instamart.core.service.QaseService;
+import ru.instamart.ui.report.CustomReport;
 
 @Slf4j
 public final class UiListener implements ITestListener, ISuiteListener {
@@ -41,7 +42,7 @@ public final class UiListener implements ITestListener, ISuiteListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        this.qaseService.sendResult(result, RunResultStatus.failed, qaseService.uploadScreenshot());
+        this.qaseService.sendResult(result, RunResultStatus.failed, qaseService.uploadScreenshot(CustomReport.takeScreenshotFile()));
     }
 
     @Override
