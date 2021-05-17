@@ -28,23 +28,3 @@ ext.lib = [
         lombok: "org.projectlombok:lombok:$versions.lombok",
         konghq: "com.konghq:unirest-java:$versions.konghq"
 ]
-
-dependencies {
-    implementation project(":qase-api")
-
-    implementation lib.aspectjweaver
-    implementation lib.restAssured
-    implementation lib.allureRestAssuredReport
-    implementation lib.allureTestng
-    implementation lib.allureJavaCommons
-    compileOnly lib.lombok
-    implementation lib.seleniumChromeDriver
-    implementation lib.restAssuredSchemaValidator
-    implementation lib.testng
-    implementation lib.seleniumJava
-    implementation lib.jsonSimple
-    annotationProcessor lib.lombok
-    testImplementation lib.logback
-    testCompileOnly lib.lombok
-    testAnnotationProcessor lib.lombok
-}

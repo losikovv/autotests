@@ -1,1 +1,1 @@
-include 'qase-api'
+include 'qase-api', 'ui'
