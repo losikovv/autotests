@@ -8,8 +8,8 @@ import org.openqa.selenium.ElementNotSelectableException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.core.setting.Config;
-import ru.instamart.ui.common.pagesdata.StaticPageData;
-import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.data.pagesdata.StaticPageData;
+import ru.instamart.ui.data.pagesdata.UserData;
 import ru.instamart.ui.helper.WaitingHelper;
 import ru.instamart.ui.Elements;
 
@@ -83,7 +83,7 @@ public final class Administration extends Base {
         /** Отменить заказ по номеру с тестовой причиной отмены */
         @Step("Отменяем заказ по номеру с тестовой причиной отмены: {0}")
         public static void cancelOrder(String orderNumber) {
-            kraken.reach().admin(ru.instamart.ui.common.lib.Pages.Admin.Order.details(orderNumber));
+            kraken.reach().admin(ru.instamart.ui.data.lib.Pages.Admin.Order.details(orderNumber));
             cancelOrder();
         }
 

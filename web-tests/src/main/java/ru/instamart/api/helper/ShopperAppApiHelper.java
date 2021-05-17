@@ -11,8 +11,8 @@ import ru.instamart.api.model.shopper.app.*;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
-import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.data.pagesdata.EnvironmentData;
+import ru.instamart.ui.data.pagesdata.UserData;
 import ru.instamart.ui.helper.WaitingHelper;
 
 import java.time.LocalDateTime;

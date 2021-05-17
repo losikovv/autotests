@@ -1,12 +1,12 @@
 package ru.instamart.ui;
 
-import ru.instamart.ui.common.lib.CheckoutSteps;
-import ru.instamart.ui.common.pagesdata.JuridicalData;
-import ru.instamart.ui.common.pagesdata.PaymentCardData;
+import ru.instamart.ui.data.lib.CheckoutSteps;
+import ru.instamart.ui.data.pagesdata.JuridicalData;
+import ru.instamart.ui.data.pagesdata.PaymentCardData;
 import org.openqa.selenium.By;
 
-import ru.instamart.ui.common.pagesdata.ElementData;
-import ru.instamart.ui.common.pagesdata.CheckoutStepData;
+import ru.instamart.ui.data.pagesdata.ElementData;
+import ru.instamart.ui.data.pagesdata.CheckoutStepData;
 
 import static ru.instamart.core.testdata.TestVariables.CompanyParams.*;
 

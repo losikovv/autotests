@@ -16,8 +16,8 @@ import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.api.response.v2.UserDataV2Response;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.dataprovider.RestDataProvider;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
-import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.data.pagesdata.EnvironmentData;
+import ru.instamart.ui.data.pagesdata.UserData;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;

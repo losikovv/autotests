@@ -17,7 +17,7 @@ import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.LineItemsV2Response;
 import ru.instamart.api.response.v2.OrderV2Response;
 import ru.instamart.api.response.v2.OrdersV2Response;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.data.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;

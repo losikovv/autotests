@@ -6,7 +6,7 @@ import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
-import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.data.pagesdata.UserData;
 
 @SuppressWarnings("unchecked")
 public class UserSessionsV1Request extends ApiV1RequestBase {

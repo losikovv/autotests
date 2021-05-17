@@ -4,10 +4,9 @@ import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.TimeoutException;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.ui.helper.HelperBase;
-import ru.instamart.ui.common.lib.Pages;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
-import ru.instamart.ui.common.pagesdata.PageData;
+import ru.instamart.ui.data.lib.Pages;
+import ru.instamart.ui.data.pagesdata.EnvironmentData;
+import ru.instamart.ui.data.pagesdata.PageData;
 
 @Slf4j
 public final class BrowseHelper extends HelperBase {

@@ -8,8 +8,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.ui.common.lib.Pages;
-import ru.instamart.ui.common.pagesdata.*;
+import ru.instamart.ui.data.lib.Pages;
+import ru.instamart.ui.data.pagesdata.*;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.Elements;
 

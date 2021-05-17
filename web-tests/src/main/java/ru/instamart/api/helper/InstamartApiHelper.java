@@ -17,9 +17,9 @@ import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v1.OffersV1Response;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.core.util.MapUtil;
-import ru.instamart.ui.common.lib.Pages;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
-import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.data.lib.Pages;
+import ru.instamart.ui.data.pagesdata.EnvironmentData;
+import ru.instamart.ui.data.pagesdata.UserData;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -3,8 +3,7 @@ package ru.instamart.ui.helper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.ui.helper.HelperBase;
-import ru.instamart.ui.common.pagesdata.PageData;
+import ru.instamart.ui.data.pagesdata.PageData;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 

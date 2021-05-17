@@ -2,8 +2,8 @@ package ru.instamart.tests.ui.orders;
 
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.module.testdata.BonusPrograms;
-import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.core.testdata.BonusPrograms;
+import ru.instamart.ui.data.lib.Pages;
 import ru.instamart.ui.module.Administration;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.checkout.BonusesActions;

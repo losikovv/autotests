@@ -10,12 +10,12 @@ import org.testng.annotations.Test;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.core.setting.Config;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.module.testdata.Generate;
+import ru.instamart.core.testdata.Generate;
 import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.favorite.FavoriteItemsCheckpoints;
 import ru.instamart.ui.checkpoint.users.UsersAuthorizationCheckpoints;
-import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.data.lib.Pages;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 

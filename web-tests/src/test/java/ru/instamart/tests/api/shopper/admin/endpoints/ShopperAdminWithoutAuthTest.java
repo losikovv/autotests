@@ -10,7 +10,7 @@ import ru.instamart.api.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.data.pagesdata.EnvironmentData;
 
 import java.time.LocalDate;
 

@@ -2,8 +2,8 @@ package ru.instamart.ui.helper;
 
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
-import ru.instamart.ui.common.pagesdata.ElementData;
-import ru.instamart.ui.common.pagesdata.JuridicalData;
+import ru.instamart.ui.data.pagesdata.ElementData;
+import ru.instamart.ui.data.pagesdata.JuridicalData;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Base;
 import ru.instamart.ui.Elements;

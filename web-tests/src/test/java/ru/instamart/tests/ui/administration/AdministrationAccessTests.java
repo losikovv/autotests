@@ -3,7 +3,7 @@ package ru.instamart.tests.ui.administration;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.admin.AdminPageCheckpoints;
-import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.data.lib.Pages;
 import ru.instamart.ui.module.User;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;

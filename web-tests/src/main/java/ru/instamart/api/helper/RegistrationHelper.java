@@ -4,7 +4,7 @@ import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.api.request.v2.UsersV2Request;
 import ru.instamart.api.response.v2.UserV2Response;
-import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.data.pagesdata.UserData;
 
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 

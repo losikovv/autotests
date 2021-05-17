@@ -11,8 +11,8 @@ import ru.instamart.api.request.v2.UsersV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.UserV2Response;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.module.testdata.Generate;
-import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.core.testdata.Generate;
+import ru.instamart.ui.data.pagesdata.UserData;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;

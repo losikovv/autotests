@@ -6,7 +6,7 @@ import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.shipping.ShippingAddressCheckpoints;
 import ru.instamart.ui.checkpoint.shoppingcart.ShoppingCartCheckpoints;
 import ru.instamart.ui.checkpoint.users.UsersAuthorizationCheckpoints;
-import ru.instamart.ui.common.lib.Addresses;
+import ru.instamart.ui.data.lib.Addresses;
 import ru.instamart.ui.helper.WaitingHelper;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;

@@ -7,7 +7,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import ru.instamart.core.setting.Config;
 import ru.instamart.core.testdata.TestVariables;
-import ru.instamart.ui.module.testdata.Generate;
+import ru.instamart.core.testdata.Generate;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.search.SearchResultCheckpoints;
 import ru.instamart.ui.module.Shop;

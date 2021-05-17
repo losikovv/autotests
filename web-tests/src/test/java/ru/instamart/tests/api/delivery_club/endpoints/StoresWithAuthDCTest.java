@@ -8,7 +8,7 @@ import ru.instamart.api.request.delivery_club.StoresDCRequest;
 import ru.instamart.api.response.delivery_club.OrderDCResponse;
 import ru.instamart.api.response.delivery_club.ProductsDCResponse;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.data.pagesdata.EnvironmentData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;

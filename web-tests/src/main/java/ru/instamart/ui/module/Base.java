@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.ui.common.pagesdata.ElementData;
+import ru.instamart.ui.data.pagesdata.ElementData;
 
 @Slf4j
 public class Base {

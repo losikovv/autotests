@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.core.setting.Config;
-import ru.instamart.ui.common.pagesdata.ElementData;
+import ru.instamart.ui.data.pagesdata.ElementData;
 import ru.instamart.ui.Elements;
 
 import java.util.concurrent.TimeUnit;

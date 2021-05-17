@@ -4,7 +4,7 @@ import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.core.setting.Config;
 import ru.instamart.core.dataprovider.RestDataProvider;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
-import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.data.lib.Pages;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.Elements;
 import io.qameta.allure.Epic;

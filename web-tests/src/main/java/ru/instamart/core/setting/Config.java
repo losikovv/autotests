@@ -1,7 +1,7 @@
 package ru.instamart.core.setting;
 
 import ru.instamart.core.testdata.Environments;
-import ru.instamart.ui.module.testdata.Tenants;
+import ru.instamart.core.testdata.Tenants;
 import ru.instamart.core.util.FileUtils;
 import org.openqa.selenium.remote.BrowserType;
 

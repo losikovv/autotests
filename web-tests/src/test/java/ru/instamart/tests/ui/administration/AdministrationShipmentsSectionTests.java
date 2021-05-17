@@ -11,7 +11,7 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
-import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.data.pagesdata.UserData;
 import ru.instamart.ui.module.Administration;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.Order;

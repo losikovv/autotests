@@ -9,8 +9,8 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.module.checkout.BonusesActions;
 
-import static ru.instamart.ui.module.testdata.BonusPrograms.aeroflot;
-import static ru.instamart.ui.module.testdata.BonusPrograms.mnogoru;
+import static ru.instamart.core.testdata.BonusPrograms.aeroflot;
+import static ru.instamart.core.testdata.BonusPrograms.mnogoru;
 
 public class CheckoutBonusesTests extends TestBase {
     @BeforeClass(alwaysRun = true)

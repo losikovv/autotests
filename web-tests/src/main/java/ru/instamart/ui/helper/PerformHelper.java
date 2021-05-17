@@ -6,7 +6,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.core.setting.Config;
-import ru.instamart.ui.common.pagesdata.ElementData;
+import ru.instamart.ui.data.pagesdata.ElementData;
 import ru.instamart.ui.manager.AppManager;
 
 import java.util.List;

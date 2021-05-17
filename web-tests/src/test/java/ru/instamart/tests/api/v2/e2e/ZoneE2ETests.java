@@ -14,8 +14,8 @@ import ru.instamart.api.model.v2.StoreV2;
 import ru.instamart.api.model.v2.ZoneV2;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.dataprovider.RestDataProvider;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
-import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.data.pagesdata.EnvironmentData;
+import ru.instamart.ui.data.pagesdata.UserData;
 
 @Epic("ApiV2")
 @Feature("E2E тесты")

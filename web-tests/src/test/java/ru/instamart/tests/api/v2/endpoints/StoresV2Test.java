@@ -11,7 +11,7 @@ import ru.instamart.api.response.v2.PromotionCardsV2Response;
 import ru.instamart.api.response.v2.StoreV2Response;
 import ru.instamart.api.response.v2.StoresV2Response;
 import ru.instamart.core.dataprovider.RestDataProvider;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
+import ru.instamart.ui.data.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;

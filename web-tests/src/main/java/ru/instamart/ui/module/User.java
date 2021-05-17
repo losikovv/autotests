@@ -6,8 +6,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.core.setting.Config;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
-import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.data.pagesdata.EnvironmentData;
+import ru.instamart.ui.data.pagesdata.UserData;
 import ru.instamart.ui.helper.WaitingHelper;
 import ru.instamart.ui.Elements;
 

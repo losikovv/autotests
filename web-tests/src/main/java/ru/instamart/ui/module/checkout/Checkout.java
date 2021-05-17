@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.core.setting.Config;
-import ru.instamart.ui.common.pagesdata.*;
+import ru.instamart.ui.data.pagesdata.*;
 import ru.instamart.ui.helper.WaitingHelper;
 import ru.instamart.ui.module.Base;
 import ru.instamart.ui.module.shop.Order;

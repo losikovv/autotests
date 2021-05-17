@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.ui.common.pagesdata.PromoData;
+import ru.instamart.ui.data.pagesdata.PromoData;
 import ru.instamart.ui.module.Base;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
 import ru.instamart.ui.Elements;

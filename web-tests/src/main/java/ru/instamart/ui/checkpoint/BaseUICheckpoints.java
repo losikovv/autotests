@@ -6,9 +6,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import ru.instamart.core.helper.KrakenAssert;
 import ru.instamart.core.setting.Config;
-import ru.instamart.ui.common.pagesdata.ElementData;
-import ru.instamart.ui.common.pagesdata.EnvironmentData;
-import ru.instamart.ui.common.pagesdata.PageData;
+import ru.instamart.ui.data.pagesdata.ElementData;
+import ru.instamart.ui.data.pagesdata.EnvironmentData;
+import ru.instamart.ui.data.pagesdata.PageData;
 import ru.instamart.ui.helper.WaitingHelper;
 import ru.instamart.ui.Elements;
 

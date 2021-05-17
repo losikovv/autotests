@@ -1,7 +1,7 @@
 package ru.instamart.tests.ui.site;
 
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
-import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.data.lib.Pages;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
 

@@ -11,11 +11,11 @@ import ru.instamart.tests.ui.TestBase;
 import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.users.AccountMenuCheckpoints;
-import ru.instamart.ui.common.lib.Pages;
+import ru.instamart.ui.data.lib.Pages;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
-import ru.instamart.ui.module.testdata.Generate;
+import ru.instamart.core.testdata.Generate;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;

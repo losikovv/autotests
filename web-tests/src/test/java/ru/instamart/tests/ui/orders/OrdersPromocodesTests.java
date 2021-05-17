@@ -1,8 +1,8 @@
 package ru.instamart.tests.ui.orders;
 
 import ru.instamart.api.common.RestAddresses;
-import ru.instamart.ui.common.lib.Promos;
-import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.data.lib.Promos;
+import ru.instamart.ui.data.pagesdata.UserData;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import org.testng.Assert;

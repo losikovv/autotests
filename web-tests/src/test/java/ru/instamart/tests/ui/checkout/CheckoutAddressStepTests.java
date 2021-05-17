@@ -2,8 +2,8 @@ package ru.instamart.tests.ui.checkout;
 
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
-import ru.instamart.ui.common.pagesdata.AddressDetailsData;
-import ru.instamart.ui.common.pagesdata.UserData;
+import ru.instamart.ui.data.pagesdata.AddressDetailsData;
+import ru.instamart.ui.data.pagesdata.UserData;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.checkout.AddressSteps;
 import ru.instamart.ui.Elements;
@@ -14,7 +14,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.tests.ui.TestBase;
 
 import static ru.instamart.core.testdata.TestVariables.testOrderDetails;
-import static ru.instamart.ui.common.lib.CheckoutSteps.addressStep;
+import static ru.instamart.ui.data.lib.CheckoutSteps.addressStep;
 
 public class CheckoutAddressStepTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();

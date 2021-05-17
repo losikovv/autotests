@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.core.setting.Config;
-import ru.instamart.ui.common.pagesdata.ElementData;
+import ru.instamart.ui.data.pagesdata.ElementData;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.Elements;
 import org.openqa.selenium.*;

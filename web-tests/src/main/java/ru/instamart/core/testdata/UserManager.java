@@ -2,9 +2,8 @@ package ru.instamart.core.testdata;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.core.util.Crypt;
-import ru.instamart.ui.common.pagesdata.JuridicalData;
-import ru.instamart.ui.common.pagesdata.UserData;
-import ru.instamart.ui.module.testdata.Generate;
+import ru.instamart.ui.data.pagesdata.JuridicalData;
+import ru.instamart.ui.data.pagesdata.UserData;
 
 import java.util.ArrayList;
 import java.util.List;

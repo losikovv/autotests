@@ -5,12 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.core.setting.Config;
 import ru.instamart.ui.Elements;
-import ru.instamart.ui.common.pagesdata.ElementData;
-import ru.instamart.ui.common.pagesdata.PaymentCardData;
-import ru.instamart.ui.common.pagesdata.PaymentDetailsData;
+import ru.instamart.ui.data.pagesdata.ElementData;
+import ru.instamart.ui.data.pagesdata.PaymentCardData;
+import ru.instamart.ui.data.pagesdata.PaymentDetailsData;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Base;
-import ru.instamart.ui.module.testdata.PaymentTypes;
+import ru.instamart.core.testdata.PaymentTypes;
 
 import static io.qameta.allure.Allure.step;
 import static ru.instamart.core.testdata.TestVariables.testOrderDetails;

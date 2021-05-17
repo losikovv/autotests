@@ -9,9 +9,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.core.setting.Config;
-import ru.instamart.ui.common.lib.Addresses;
-import ru.instamart.ui.common.pagesdata.ElementData;
-import ru.instamart.ui.common.pagesdata.WidgetData;
+import ru.instamart.ui.data.lib.Addresses;
+import ru.instamart.ui.data.pagesdata.ElementData;
+import ru.instamart.ui.data.pagesdata.WidgetData;
 import ru.instamart.ui.helper.WaitingHelper;
 import ru.instamart.ui.Elements;
 
