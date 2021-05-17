@@ -14,10 +14,10 @@ import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.request.v2.SessionV2Request;
 import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.api.response.v2.UserDataV2Response;
+import ru.instamart.core.testdata.UserData;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.dataprovider.RestDataProvider;
-import ru.instamart.ui.data.pagesdata.EnvironmentData;
-import ru.instamart.ui.data.pagesdata.UserData;
+import ru.instamart.core.testdata.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;

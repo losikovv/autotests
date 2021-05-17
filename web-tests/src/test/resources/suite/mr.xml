@@ -11,10 +11,10 @@
   </test>
   <test verbose="1" name="MR UI" parallel="classes" thread-count="4">
     <classes>
-      <class name="ru.instamart.tests.ui.shopping.ShoppingCatalogTests"/>
-      <class name="ru.instamart.tests.ui.site.BasicSbermarketTests"/>
-      <class name="ru.instamart.tests.ui.user.UserRegistrationTests"/>
-      <class name="ru.instamart.tests.ui.user.UserShippingAddressTests"/>
+      <class name="ru.instamart.ui.shopping.ShoppingCatalogTests"/>
+      <class name="ru.instamart.ui.site.BasicSbermarketTests"/>
+      <class name="ru.instamart.ui.user.UserRegistrationTests"/>
+      <class name="ru.instamart.ui.user.UserShippingAddressTests"/>
     </classes>
   </test>
 </suite>

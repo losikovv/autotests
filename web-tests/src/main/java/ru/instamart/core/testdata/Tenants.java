@@ -1,6 +1,6 @@
 package ru.instamart.core.testdata;
 
-import ru.instamart.ui.data.pagesdata.TenantData;
+import ru.instamart.core.testdata.pagesdata.TenantData;
 
 public class Tenants {
 

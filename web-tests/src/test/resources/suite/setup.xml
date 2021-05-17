@@ -11,7 +11,7 @@
             </run>
         </groups>
         <classes>
-            <class name="ru.instamart.tests.Cleanup"/>
+            <class name="ru.instamart.ui.Cleanup"/>
         </classes>
     </test> <!-- web-tests -->
 </suite> <!-- Custom suite -->

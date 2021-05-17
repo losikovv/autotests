@@ -1,6 +1,6 @@
 package ru.instamart.core.testdata;
 
-import ru.instamart.ui.data.pagesdata.RegionData;
+import ru.instamart.core.testdata.pagesdata.RegionData;
 
 public class Regions {
 

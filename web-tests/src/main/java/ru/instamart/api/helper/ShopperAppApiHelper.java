@@ -10,10 +10,10 @@ import ru.instamart.api.enums.shopper.PackageSetLocationSHP;
 import ru.instamart.api.model.shopper.app.*;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.response.shopper.app.*;
+import ru.instamart.core.testdata.UserData;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.data.pagesdata.EnvironmentData;
-import ru.instamart.ui.data.pagesdata.UserData;
-import ru.instamart.ui.helper.WaitingHelper;
+import ru.instamart.core.testdata.pagesdata.EnvironmentData;
+import ru.instamart.core.util.ThreadUtil;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -52,7 +52,7 @@ public class ShopperAppApiHelper {
      * Получаем shipment id по shipment number
      */
     private String getShipmentIdIteration(String shipmentNumber) {
-        WaitingHelper.simply(10);
+        ThreadUtil.simply(10);
         log.info("Получаем список доступных для сборки заказов");
         String shipmentId = null;
         Response response = ShopperSHPRequest.Shipments.GET();

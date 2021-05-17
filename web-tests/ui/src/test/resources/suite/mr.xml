@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
+<suite name="MR-SUITE" parallel="tests" thread-count="2" verbose="1">
+  <listeners>
+    <listener class-name="ru.instamart.core.listener.ExecutionListenerImpl"/>
+  </listeners>
+  <test verbose="1" name="MR UI" parallel="classes" thread-count="4">
+    <classes>
+      <class name="ru.instamart.ui.shopping.ShoppingCatalogTests"/>
+      <class name="ru.instamart.ui.site.BasicSbermarketTests"/>
+      <class name="ru.instamart.ui.user.UserRegistrationTests"/>
+      <class name="ru.instamart.ui.user.UserShippingAddressTests"/>
+    </classes>
+  </test>
+</suite>

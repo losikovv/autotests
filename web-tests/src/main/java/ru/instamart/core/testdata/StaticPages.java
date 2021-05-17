@@ -1,6 +1,6 @@
 package ru.instamart.core.testdata;
 
-import ru.instamart.ui.data.pagesdata.StaticPageData;
+import ru.instamart.core.testdata.pagesdata.StaticPageData;
 
 public class StaticPages {
 

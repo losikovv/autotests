@@ -4,7 +4,7 @@ public final class ApiV1Endpoints {
 
     public static final String LINE_ITEMS = "line_items?shipment_number={shipmentNumber}";
     public static final String OPERATIONAL_ZONES = "operational_zones";
-    public static final String ORDERS = "orders?page=200000";
+    public static final String ORDERS = "ru.instamart.ui.orders?page=200000";
     public static final String RETAILERS = "retailers";
     public static final String STORES = "stores";
     public static final String TOKENS = "tokens";
@@ -19,7 +19,7 @@ public final class ApiV1Endpoints {
     }
 
     public static final class Orders {
-        public static final String NUMBER = "orders/{orderNumber}";
+        public static final String NUMBER = "ru.instamart.ui.orders/{orderNumber}";
     }
 
     public static final class Retailers {

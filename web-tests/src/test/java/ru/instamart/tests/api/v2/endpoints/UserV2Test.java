@@ -203,7 +203,7 @@ public final class UserV2Test extends RestBase {
         checkStatusCode200(response);
         final UserV2 user = response.as(UserDataV2Response.class).getUser();
         Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirstName(), "autotest-user", "Некорректное имя");
+        Assert.assertEquals(user.getFirstName(), "autotest-ru.instamart.ui.user", "Некорректное имя");
     }
 
     @CaseId(558)

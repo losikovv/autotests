@@ -6,7 +6,7 @@ import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
-import ru.instamart.ui.data.pagesdata.UserData;
+import ru.instamart.core.testdata.UserData;
 
 @SuppressWarnings("unchecked")
 public class UserSessionsV1Request extends ApiV1RequestBase {
@@ -17,7 +17,7 @@ public class UserSessionsV1Request extends ApiV1RequestBase {
     public static Response POST(String email, String password) {
         JSONObject requestParams = new JSONObject();
         JSONObject userParams = new JSONObject();
-        requestParams.put("user", userParams);
+        requestParams.put("ru.instamart.ui.user", userParams);
         userParams.put("email", email);
         userParams.put("password", password);
         userParams.put("remember_me", true);

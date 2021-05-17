@@ -1,7 +1,5 @@
 package ru.instamart.core.testdata;
 
-import ru.instamart.ui.data.pagesdata.JuridicalData;
-
 public class Juridicals {
 
     public static JuridicalData testJuridical() {

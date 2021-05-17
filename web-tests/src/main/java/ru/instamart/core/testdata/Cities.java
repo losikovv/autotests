@@ -1,6 +1,6 @@
 package ru.instamart.core.testdata;
 
-import ru.instamart.ui.data.pagesdata.CityData;
+import ru.instamart.core.testdata.pagesdata.CityData;
 
 public class Cities {
 

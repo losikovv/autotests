@@ -9,7 +9,7 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import ru.instamart.ui.data.pagesdata.EnvironmentData;
+import ru.instamart.core.testdata.pagesdata.EnvironmentData;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

@@ -8,7 +8,7 @@ import ru.instamart.core.setting.Config;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.testdata.Generate;
 import ru.instamart.core.util.Crypt;
-import ru.instamart.ui.data.pagesdata.EnvironmentData;
+import ru.instamart.core.testdata.pagesdata.EnvironmentData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.IExecutionListener;

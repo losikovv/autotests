@@ -11,10 +11,10 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.model.v2.StoreV2;
-import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.dataprovider.RestDataProvider;
-import ru.instamart.ui.data.pagesdata.UserData;
-import ru.instamart.ui.helper.WaitingHelper;
+import ru.instamart.core.testdata.UserData;
+import ru.instamart.core.testdata.UserManager;
+import ru.instamart.core.util.ThreadUtil;
 
 @Epic("ApiV2")
 @Feature("E2E тесты")
@@ -43,6 +43,6 @@ public final class RetailerE2ETests extends RestBase {
         apiV2.order(userData, store.getId());
         log.info("Отменяем заказ в {}", store.getName());
         apiV2.cancelCurrentOrder();
-        WaitingHelper.simply(30);
+        ThreadUtil.simply(30);
     }
 }

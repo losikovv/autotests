@@ -1,6 +1,6 @@
 package ru.instamart.core.testdata;
 
-import ru.instamart.ui.data.pagesdata.PaymentTypeData;
+import ru.instamart.core.testdata.pagesdata.PaymentTypeData;
 
 
 public class PaymentTypes {

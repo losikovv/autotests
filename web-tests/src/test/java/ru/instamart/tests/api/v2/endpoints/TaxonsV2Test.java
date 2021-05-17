@@ -14,7 +14,7 @@ import ru.instamart.api.request.v2.TaxonsV2Request;
 import ru.instamart.api.response.v2.TaxonV2Response;
 import ru.instamart.api.response.v2.TaxonsV2Response;
 import ru.instamart.core.dataprovider.RestDataProvider;
-import ru.instamart.ui.data.pagesdata.EnvironmentData;
+import ru.instamart.core.testdata.pagesdata.EnvironmentData;
 
 import java.util.List;
 import java.util.Set;

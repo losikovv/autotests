@@ -17,9 +17,8 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
 import ru.instamart.core.setting.Config;
+import ru.instamart.core.testdata.pagesdata.EnvironmentData;
 import ru.instamart.core.util.Crypt;
-import ru.instamart.ui.data.pagesdata.EnvironmentData;
-import ru.instamart.ui.report.CustomReport;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -169,8 +168,7 @@ public final class QaseService {
         }
     }
 
-    public List<String> uploadScreenshot() {
-        final File file = CustomReport.takeScreenshotFile();
+    public List<String> uploadScreenshot(final File file) {
         return qaseApi.attachments()
                 .add(projectCode, file)
                 .stream()

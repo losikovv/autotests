@@ -18,8 +18,8 @@ import ru.instamart.api.response.delivery_club.TokenDCResponse;
 import ru.instamart.api.response.shopper.app.SessionsSHPResponse;
 import ru.instamart.api.response.v1.TokensV1Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
+import ru.instamart.core.testdata.UserData;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.data.pagesdata.UserData;
 
 import java.util.HashMap;
 import java.util.Map;

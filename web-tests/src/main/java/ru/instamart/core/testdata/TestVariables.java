@@ -1,7 +1,7 @@
 package ru.instamart.core.testdata;
 
-import ru.instamart.ui.data.lib.ReplacementPolicies;
-import ru.instamart.ui.data.pagesdata.*;
+import ru.instamart.core.testdata.lib.ReplacementPolicies;
+import ru.instamart.core.testdata.pagesdata.*;
 
 public interface TestVariables {
 

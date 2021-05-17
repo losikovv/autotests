@@ -1,13 +1,11 @@
 plugins {
     id 'java'
-    id 'io.qameta.allure' version '2.8.1'
 }
 
 apply from: 'dependencies.gradle'
 apply from: 'variables.gradle'
 
 apply from: 'task.gradle'
-apply from: 'ui-task.gradle'
 apply from: 'api-task.gradle'
 
 allprojects {
@@ -20,6 +18,11 @@ allprojects {
 subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
 
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
@@ -38,31 +41,16 @@ subprojects {
     }
 }
 
-allure {
-    version = versions.allure
-    autoconfigure = true
-    aspectjweaver = true
-    allureJavaVersion = versions.allure
-    configuration = "testImplementation"
-    useTestNG(){
-        version = versions.allure
-    }
-    downloadLink = "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/"+versions.allure+"/allure-commandline-"+versions.allure+".zip"
-}
-
 dependencies {
     implementation project(":qase-api")
 
-    implementation lib.aspectjweaver
     implementation lib.restAssured
     implementation lib.allureRestAssuredReport
     implementation lib.allureTestng
     implementation lib.allureJavaCommons
     compileOnly lib.lombok
-    implementation lib.seleniumChromeDriver
     implementation lib.restAssuredSchemaValidator
     implementation lib.testng
-    implementation lib.seleniumJava
     implementation lib.jsonSimple
     annotationProcessor lib.lombok
     testImplementation lib.logback
@@ -71,7 +59,25 @@ dependencies {
 }
 
 project(":ui") {
+    apply plugin: "java-library"
 
+    dependencies {
+        implementation project(":")
+        implementation project(":qase-api")
+
+        implementation lib.aspectjweaver
+        implementation lib.seleniumJava
+        implementation lib.allureTestng
+        implementation lib.allureJavaCommons
+        implementation lib.jsonSimple
+        implementation lib.testng
+
+        compileOnly lib.lombok
+        annotationProcessor lib.lombok
+        testImplementation lib.logback
+        testCompileOnly lib.lombok
+        testAnnotationProcessor lib.lombok
+    }
 }
 
 project(":qase-api") {

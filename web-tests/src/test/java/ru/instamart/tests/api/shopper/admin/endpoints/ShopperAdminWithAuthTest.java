@@ -14,7 +14,7 @@ import ru.instamart.api.model.shopper.admin.*;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.response.shopper.admin.*;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.data.pagesdata.EnvironmentData;
+import ru.instamart.core.testdata.pagesdata.EnvironmentData;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

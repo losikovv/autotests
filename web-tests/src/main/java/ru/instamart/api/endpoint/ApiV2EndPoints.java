@@ -9,7 +9,7 @@ public final class ApiV2EndPoints {
     public static final String DEPARTMENTS = "v2/departments?sid={sid}&offers_limit={numberOfProductsFromEachDepartment}";
     public static final String LINE_ITEMS = "v2/line_items";
     public static final String ONBOARDING_PAGES = "v2/onboarding_pages";
-    public static final String ORDERS = "v2/orders";
+    public static final String ORDERS = "v2/ru.instamart.ui.orders";
     public static final String PASSWORDS = "v2/passwords";
     public static final String PAYMENT_TOOLS = "v2/payment_tools";
     public static final String PAYMENT_TOOL_TYPES = "v2/payment_tool_types";
@@ -54,18 +54,18 @@ public final class ApiV2EndPoints {
     }
 
     public static final class Orders {
-        public static final String BY_NUMBER = "v2/orders/{orderNumber}";
-        public static final String CANCELLATIONS = "v2/orders/{orderNumber}/cancellations?reason={reason}";
-        public static final String COMPLETION = "v2/orders/{orderNumber}/completion";
-        public static final String CURRENT = "v2/orders/current";
-        public static final String LINE_ITEMS = "v2/orders/{orderNumber}/line_items";
-        public static final String SHIPMENTS = "v2/orders/{orderNumber}/shipments";
-        public static final String SHIP_ADDRESS = "v2/orders/{orderNumber}/ship_address";
-        public static final String SHIP_ADDRESS_CHANGE = "v2/orders/{orderNumber}/ship_address_change";
-        public static final String STATUS = "v2/orders?status={status}&page={page}";
-        public static final String UNRATED = "v2/orders/unrated";
-        public static final String PROMOTIONS = "v2/orders/{orderNumber}/promotions";
-        public static final String PROMOTION_CODE = "v2/orders/{orderNumber}/promotions/{promoCode}";
+        public static final String BY_NUMBER = "v2/ru.instamart.ui.orders/{orderNumber}";
+        public static final String CANCELLATIONS = "v2/ru.instamart.ui.orders/{orderNumber}/cancellations?reason={reason}";
+        public static final String COMPLETION = "v2/ru.instamart.ui.orders/{orderNumber}/completion";
+        public static final String CURRENT = "v2/ru.instamart.ui.orders/current";
+        public static final String LINE_ITEMS = "v2/ru.instamart.ui.orders/{orderNumber}/line_items";
+        public static final String SHIPMENTS = "v2/ru.instamart.ui.orders/{orderNumber}/shipments";
+        public static final String SHIP_ADDRESS = "v2/ru.instamart.ui.orders/{orderNumber}/ship_address";
+        public static final String SHIP_ADDRESS_CHANGE = "v2/ru.instamart.ui.orders/{orderNumber}/ship_address_change";
+        public static final String STATUS = "v2/ru.instamart.ui.orders?status={status}&page={page}";
+        public static final String UNRATED = "v2/ru.instamart.ui.orders/unrated";
+        public static final String PROMOTIONS = "v2/ru.instamart.ui.orders/{orderNumber}/promotions";
+        public static final String PROMOTION_CODE = "v2/ru.instamart.ui.orders/{orderNumber}/promotions/{promoCode}";
     }
 
     public static final class Passwords {
@@ -96,7 +96,7 @@ public final class ApiV2EndPoints {
 
     public static final class Sessions {
         public static final String BY_TOKEN = "v2/sessions/{token}";
-        public static final String USER = "v2/sessions/{token}/user";
+        public static final String USER = "v2/sessions/{token}/ru.instamart.ui.user";
     }
 
     public static final class Shipments {

@@ -7,7 +7,7 @@ import ru.instamart.api.model.shopper.app.ReasonSHP;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.data.pagesdata.EnvironmentData;
+import ru.instamart.core.testdata.pagesdata.EnvironmentData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;

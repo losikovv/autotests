@@ -16,9 +16,9 @@ import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.model.v2.StoreV2;
 import ru.instamart.api.model.v2.TaxonV2;
 import ru.instamart.api.request.v2.ProductsV2Request;
+import ru.instamart.core.testdata.UserData;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.core.dataprovider.RestDataProvider;
-import ru.instamart.ui.data.pagesdata.UserData;
 
 import java.util.List;
 

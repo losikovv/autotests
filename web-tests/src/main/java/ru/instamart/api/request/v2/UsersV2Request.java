@@ -52,9 +52,9 @@ public final class UsersV2Request extends ApiV2RequestBase {
         Assert.assertNotEquals(email , "", "Email is empty");
 
         final Map<String, Object> data = new HashMap<>();
-        if (firstName != null && !firstName.isEmpty()) data.put("user[first_name]", firstName);
-        if (lastName != null && !lastName.isEmpty()) data.put("user[last_name]", lastName);
-        data.put("user[promo_terms_accepted]", promo);
+        if (firstName != null && !firstName.isEmpty()) data.put("ru.instamart.ui.user[first_name]", firstName);
+        if (lastName != null && !lastName.isEmpty()) data.put("ru.instamart.ui.user[last_name]", lastName);
+        data.put("ru.instamart.ui.user[promo_terms_accepted]", promo);
         return givenWithAuth()
                 .formParams(data)
                 .put(ApiV2EndPoints.Users.BY_EMAIL, email);
@@ -69,9 +69,9 @@ public final class UsersV2Request extends ApiV2RequestBase {
         Assert.assertNotEquals(email , "", "Email is empty");
 
         final Map<String, Object> data = new HashMap<>();
-        data.put("user[current_password]", currentPassword);
-        data.put("user[password]", password);
-        data.put("user[password_confirmation]", passwordConfirmation);
+        data.put("ru.instamart.ui.user[current_password]", currentPassword);
+        data.put("ru.instamart.ui.user[password]", password);
+        data.put("ru.instamart.ui.user[password_confirmation]", passwordConfirmation);
         return givenWithAuth()
                 .formParams(data)
                 .put(ApiV2EndPoints.Users.BY_EMAIL, email);
@@ -85,10 +85,10 @@ public final class UsersV2Request extends ApiV2RequestBase {
             final String lastName,
             final String password) {
         final Map<String, Object> data = new HashMap<>();
-        data.put("user[email]", email);
-        data.put("user[first_name]", firstName);
-        data.put("user[last_name]", lastName);
-        data.put("user[password]", password);
+        data.put("ru.instamart.ui.user[email]", email);
+        data.put("ru.instamart.ui.user[first_name]", firstName);
+        data.put("ru.instamart.ui.user[last_name]", lastName);
+        data.put("ru.instamart.ui.user[password]", password);
 
         return givenWithSpec()
                 .formParams(data)
@@ -107,15 +107,15 @@ public final class UsersV2Request extends ApiV2RequestBase {
             final int anonymousId,
             final boolean b2b) {
         final Map<String, Object> data = new HashMap<>();
-        data.put("user[email]", email);
-        data.put("user[first_name]", firstName);
-        data.put("user[last_name]", lastName);
-        data.put("user[password]", password);
-        if (location != null && !location.isEmpty()) data.put("user[location]", location);
-        data.put("user[privacy_terms]", terms);
-        data.put("user[promo_terms_accepted]", promoTerms);
-        if (anonymousId > 0) data.put("user[anonymous_id]", anonymousId);
-        data.put("user[b2b]", b2b);
+        data.put("ru.instamart.ui.user[email]", email);
+        data.put("ru.instamart.ui.user[first_name]", firstName);
+        data.put("ru.instamart.ui.user[last_name]", lastName);
+        data.put("ru.instamart.ui.user[password]", password);
+        if (location != null && !location.isEmpty()) data.put("ru.instamart.ui.user[location]", location);
+        data.put("ru.instamart.ui.user[privacy_terms]", terms);
+        data.put("ru.instamart.ui.user[promo_terms_accepted]", promoTerms);
+        if (anonymousId > 0) data.put("ru.instamart.ui.user[anonymous_id]", anonymousId);
+        data.put("ru.instamart.ui.user[b2b]", b2b);
 
         return givenWithSpec()
                 .formParams(data)

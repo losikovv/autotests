@@ -21,7 +21,7 @@ import ru.instamart.api.request.v1.ShoppersV1Request;
 import ru.instamart.api.response.v1.LineItemsV1Response;
 import ru.instamart.api.response.v1.ShipmentV1Response;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.data.pagesdata.EnvironmentData;
+import ru.instamart.core.testdata.pagesdata.EnvironmentData;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;

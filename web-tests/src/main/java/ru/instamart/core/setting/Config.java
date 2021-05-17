@@ -2,12 +2,10 @@ package ru.instamart.core.setting;
 
 import ru.instamart.core.testdata.Environments;
 import ru.instamart.core.testdata.Tenants;
-import ru.instamart.core.util.FileUtils;
-import org.openqa.selenium.remote.BrowserType;
 
 public final class Config {
 
-    private static final String CONFIG_DIR = FileUtils.getResourceDir("config/");
+    private static final String CONFIG_DIR = "../data/config/";
     /** Directories block */
     private static final String CORE_CONFIG_FILE = "core.properties";
 
@@ -34,7 +32,7 @@ public final class Config {
 
         // Если в core.properties нет переменной defaultBrowser, то будет браться значение из параметра запуска -Pbrowser
         // если и там нет, то дефолтное BrowserType.CHROME
-        DEFAULT_BROWSER = coreSettings.getString("defaultBrowser", System.getProperty("browser", BrowserType.CHROME));
+        DEFAULT_BROWSER = coreSettings.getString("defaultBrowser", System.getProperty("browser", "chrome"));
         //DEFAULT_BROWSER = coreSettings.getString("defaultBrowser", System.getProperty("browser", "chrome_remote"));
         //это как напоминалка, нужно просто сделать переключатель, ибо сейчас очень сложно
         //BROWSER_VERSION = coreSettings.getString("browserVersion", System.getProperty("version", "84"));

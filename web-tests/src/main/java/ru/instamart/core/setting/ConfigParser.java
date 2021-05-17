@@ -20,6 +20,7 @@ public final class ConfigParser {
 
     public ConfigParser(final File file) {
         this.file = file;
+        System.out.println(file.getAbsolutePath());
         try (FileInputStream fileInputStream = new FileInputStream(file)) {
             try (InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, Charset.defaultCharset())) {
                 this.properties.load(inputStreamReader);

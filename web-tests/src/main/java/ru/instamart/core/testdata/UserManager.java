@@ -2,8 +2,6 @@ package ru.instamart.core.testdata;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.core.util.Crypt;
-import ru.instamart.ui.data.pagesdata.JuridicalData;
-import ru.instamart.ui.data.pagesdata.UserData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +32,11 @@ public final class UserManager {
     }
 
     public static UserData getUser() {
-        return generateData("user", 0);
+        return generateData("ru.instamart.ui.user", 0);
     }
 
     public static UserData getUser(final int prefix) {
-        return generateData("user", prefix);
+        return generateData("ru.instamart.ui.user", prefix);
     }
 
     public static UserData getAdmin() {
