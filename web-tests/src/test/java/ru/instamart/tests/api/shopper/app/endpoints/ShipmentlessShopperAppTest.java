@@ -3,9 +3,9 @@ package ru.instamart.tests.api.shopper.app.endpoints;
 import ru.instamart.api.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.objects.shopper.app.ReasonSHP;
-import ru.instamart.api.requests.shopper.app.*;
-import ru.instamart.api.responses.shopper.app.*;
+import ru.instamart.api.model.shopper.app.ReasonSHP;
+import ru.instamart.api.request.shopper.app.*;
+import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
 import io.qameta.allure.Epic;
@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 
 import java.util.Arrays;
 
-import static ru.instamart.api.checkpoints.ShopperApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
 import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertNotNull;
 

@@ -2,7 +2,7 @@ package ru.instamart.tests.ui.checkout;
 
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.modules.User;
+import ru.instamart.ui.module.User;
 import org.testng.annotations.BeforeClass;
 import ru.instamart.tests.ui.TestBase;
 

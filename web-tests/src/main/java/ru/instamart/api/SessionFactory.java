@@ -4,20 +4,20 @@ import io.restassured.response.Response;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
-import ru.instamart.api.checkpoints.ShopperApiCheckpoints;
+import ru.instamart.api.checkpoint.ShopperApiCheckpoints;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.helpers.RegistrationHelper;
-import ru.instamart.api.objects.shopper.app.SessionAttributesSHP;
-import ru.instamart.api.objects.v1.ShoppersBackendV1;
-import ru.instamart.api.requests.delivery_club.AuthenticationDCRequest;
-import ru.instamart.api.requests.shopper.app.SessionsSHPRequest;
-import ru.instamart.api.requests.v1.TokensV1Request;
-import ru.instamart.api.requests.v1.UserSessionsV1Request;
-import ru.instamart.api.requests.v2.SessionV2Request;
-import ru.instamart.api.responses.delivery_club.TokenDCResponse;
-import ru.instamart.api.responses.shopper.app.SessionsSHPResponse;
-import ru.instamart.api.responses.v1.TokensV1Response;
-import ru.instamart.api.responses.v2.SessionsV2Response;
+import ru.instamart.api.helper.RegistrationHelper;
+import ru.instamart.api.model.shopper.app.SessionAttributesSHP;
+import ru.instamart.api.model.v1.ShoppersBackendV1;
+import ru.instamart.api.request.delivery_club.AuthenticationDCRequest;
+import ru.instamart.api.request.shopper.app.SessionsSHPRequest;
+import ru.instamart.api.request.v1.TokensV1Request;
+import ru.instamart.api.request.v1.UserSessionsV1Request;
+import ru.instamart.api.request.v2.SessionV2Request;
+import ru.instamart.api.response.delivery_club.TokenDCResponse;
+import ru.instamart.api.response.shopper.app.SessionsSHPResponse;
+import ru.instamart.api.response.v1.TokensV1Response;
+import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.common.pagesdata.UserData;
 
@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
 @Slf4j
 public final class SessionFactory {

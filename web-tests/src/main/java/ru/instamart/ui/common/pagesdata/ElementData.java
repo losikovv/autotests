@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.openqa.selenium.By;
-import ru.instamart.core.settings.Config;
+import ru.instamart.core.setting.Config;
 
 @AllArgsConstructor
 @Getter

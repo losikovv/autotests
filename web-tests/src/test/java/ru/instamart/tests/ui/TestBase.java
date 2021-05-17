@@ -7,8 +7,8 @@ import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
-import ru.instamart.core.common.AppManager;
-import ru.instamart.core.helpers.LogAttachmentHelper;
+import ru.instamart.ui.manager.AppManager;
+import ru.instamart.core.helper.LogAttachmentHelper;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.report.CustomReport;
 

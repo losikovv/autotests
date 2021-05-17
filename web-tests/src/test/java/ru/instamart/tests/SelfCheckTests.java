@@ -1,15 +1,15 @@
 package ru.instamart.tests;
 
-import ru.instamart.core.settings.Config;
+import ru.instamart.core.setting.Config;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.lib.Pages;
 import ru.instamart.ui.common.pagesdata.EnvironmentData;
-import ru.instamart.ui.modules.Shop;
-import ru.instamart.ui.modules.User;
-import ru.instamart.ui.modules.shop.ShippingAddressModal;
-import ru.instamart.ui.objectsmap.Elements;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
+import ru.instamart.ui.module.shop.ShippingAddressModal;
+import ru.instamart.ui.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;

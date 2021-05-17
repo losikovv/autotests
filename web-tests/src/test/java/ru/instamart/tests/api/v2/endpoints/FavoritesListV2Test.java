@@ -10,15 +10,15 @@ import org.testng.annotations.Test;
 import ru.instamart.api.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.objects.v2.ItemV2;
-import ru.instamart.api.requests.v2.FavoritesV2Request;
-import ru.instamart.api.responses.v2.FavoritesItemV2Response;
-import ru.instamart.api.responses.v2.FavoritesListItemsV2Response;
-import ru.instamart.api.responses.v2.FavoritesSkuListItemV2Response;
+import ru.instamart.api.model.v2.ItemV2;
+import ru.instamart.api.request.v2.FavoritesV2Request;
+import ru.instamart.api.response.v2.FavoritesItemV2Response;
+import ru.instamart.api.response.v2.FavoritesListItemsV2Response;
+import ru.instamart.api.response.v2.FavoritesSkuListItemV2Response;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Избранное")

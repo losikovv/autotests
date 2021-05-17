@@ -1,21 +1,17 @@
 package ru.instamart.api.enums.v2;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+
+@RequiredArgsConstructor
+@ToString
 public enum OrderStatusV2 {
+
     ACTIVE("active"),
     COMPLETE("complete"),
     CANCELED("canceled");
 
+    @Getter
     private final String status;
-
-    OrderStatusV2(String status) {
-        this.status = status;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String toString() {
-        return status;
-    }
 }

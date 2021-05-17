@@ -4,11 +4,11 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.api.checkpoints.InstamartApiCheckpoints;
+import ru.instamart.api.checkpoint.InstamartApiCheckpoints;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.requests.v2.SearchesV2Request;
-import ru.instamart.api.responses.v2.SearchSuggestionsV2Response;
-import ru.instamart.core.testdata.dataprovider.RestDataProvider;
+import ru.instamart.api.request.v2.SearchesV2Request;
+import ru.instamart.api.response.v2.SearchSuggestionsV2Response;
+import ru.instamart.core.dataprovider.RestDataProvider;
 
 import static org.testng.Assert.assertNotNull;
 

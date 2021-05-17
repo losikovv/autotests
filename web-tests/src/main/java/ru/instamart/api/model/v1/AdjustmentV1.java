@@ -1,0 +1,32 @@
+package ru.instamart.api.model.v1;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import ru.instamart.api.model.BaseObject;
+
+@Data
+@EqualsAndHashCode(callSuper=false)
+public class AdjustmentV1 extends BaseObject {
+    private Integer id;
+    @JsonProperty(value = "source_type")
+    private Object sourceType;
+    @JsonProperty(value = "source_id")
+    private Object sourceId;
+    @JsonProperty(value = "adjustable_type")
+    private String adjustableType;
+    @JsonProperty(value = "adjustable_id")
+    private Integer adjustableId;
+    @JsonProperty(value = "originator_type")
+    private String originatorType;
+    @JsonProperty(value = "originator_id")
+    private Integer originatorId;
+    private Double amount;
+    private String label;
+    private Boolean mandatory;
+    private Boolean eligible;
+    @JsonProperty(value = "created_at")
+    private String createdAt;
+    @JsonProperty(value = "updated_at")
+    private String updatedAt;
+}

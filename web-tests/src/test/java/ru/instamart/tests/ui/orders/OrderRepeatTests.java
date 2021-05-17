@@ -2,9 +2,9 @@ package ru.instamart.tests.ui.orders;
 
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.modules.User;
-import ru.instamart.ui.modules.shop.Order;
-import ru.instamart.ui.objectsmap.Elements;
+import ru.instamart.ui.module.User;
+import ru.instamart.ui.module.shop.Order;
+import ru.instamart.ui.Elements;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;

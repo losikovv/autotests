@@ -1,6 +1,13 @@
 package ru.instamart.api.enums.shopper;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+
+@RequiredArgsConstructor
+@ToString
 public enum AssemblyStateSHP {
+
     COLLECTING("collecting"),
     PAYMENT_VERIFICATION("payment_verification"),
     ASSEMBLED("assembled"),
@@ -12,11 +19,6 @@ public enum AssemblyStateSHP {
     SUSPENDED("suspended"),
     SHIPPED("shipped");
 
+    @Getter
     private final String state;
-
-    AssemblyStateSHP(String state) {
-        this.state = state;
-    }
-
-    public String getState() { return state; }
 }

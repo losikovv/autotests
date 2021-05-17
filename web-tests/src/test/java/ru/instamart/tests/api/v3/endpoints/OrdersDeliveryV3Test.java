@@ -5,9 +5,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.objects.v3.*;
-import ru.instamart.api.requests.v3.OrderV3Request;
-import ru.instamart.api.responses.v3.OrderOptionsV3Response;
+import ru.instamart.api.model.v3.*;
+import ru.instamart.api.request.v3.OrderV3Request;
+import ru.instamart.api.response.v3.OrderOptionsV3Response;
 
 public class OrdersDeliveryV3Test extends RestBase {
     PaymentMethodV3 paymentMethod;

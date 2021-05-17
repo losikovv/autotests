@@ -2,18 +2,18 @@ package ru.instamart.tests.ui.orders;
 
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
 import ru.instamart.ui.common.lib.Pages;
-import ru.instamart.ui.modules.Shop;
-import ru.instamart.ui.modules.User;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
-import ru.instamart.ui.modules.shop.ShippingAddressModal;
+import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 import static ru.instamart.ui.common.lib.Retailers.*;
 

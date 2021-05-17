@@ -2,7 +2,7 @@ package ru.instamart.tests;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
-import ru.instamart.core.common.AppManager;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.tests.ui.TestBase;
 
 public class Debug extends TestBase {

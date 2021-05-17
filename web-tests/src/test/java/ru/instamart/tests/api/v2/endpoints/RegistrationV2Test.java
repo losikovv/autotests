@@ -6,17 +6,17 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.objects.v2.UserV2;
-import ru.instamart.api.requests.v2.UsersV2Request;
-import ru.instamart.api.responses.ErrorResponse;
-import ru.instamart.api.responses.v2.UserV2Response;
+import ru.instamart.api.model.v2.UserV2;
+import ru.instamart.api.request.v2.UsersV2Request;
+import ru.instamart.api.response.ErrorResponse;
+import ru.instamart.api.response.v2.UserV2Response;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.core.testdata.ui.Generate;
+import ru.instamart.ui.module.testdata.Generate;
 import ru.instamart.ui.common.pagesdata.UserData;
 
 import static org.testng.Assert.assertEquals;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode422;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode422;
 
 //TODO переделать на датапровайдер
 @Epic("ApiV2")

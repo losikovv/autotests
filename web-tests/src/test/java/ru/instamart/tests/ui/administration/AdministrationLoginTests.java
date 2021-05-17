@@ -1,10 +1,10 @@
 package ru.instamart.tests.ui.administration;
 
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
-import ru.instamart.ui.checkpoints.admin.AdminPageCheckpoints;
-import ru.instamart.ui.modules.User;
-import ru.instamart.ui.objectsmap.Elements;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
+import ru.instamart.ui.checkpoint.admin.AdminPageCheckpoints;
+import ru.instamart.ui.module.User;
+import ru.instamart.ui.Elements;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;

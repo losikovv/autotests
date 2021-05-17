@@ -3,7 +3,7 @@ package ru.instamart.tests.ui.orders;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.core.testdata.UserManager;
 import ru.instamart.ui.common.lib.ReplacementPolicies;
-import ru.instamart.ui.modules.User;
+import ru.instamart.ui.module.User;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;

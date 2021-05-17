@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.testng.Reporter;
 import ru.instamart.ui.factory.BrowserFactory;
-import ru.instamart.core.helpers.CleanupThread;
+import ru.instamart.ui.helper.CleanupThread;
 
 import java.util.Collection;
 import java.util.Map;
@@ -17,8 +17,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.util.Objects.nonNull;
-import static ru.instamart.core.settings.Config.BROWSER_VERSION;
-import static ru.instamart.core.settings.Config.DEFAULT_BROWSER;
+import static ru.instamart.core.setting.Config.BROWSER_VERSION;
+import static ru.instamart.core.setting.Config.DEFAULT_BROWSER;
 
 @Slf4j
 public final class WebDriverService {

@@ -1,9 +1,9 @@
 package ru.instamart.tests.ui.user;
 
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.core.settings.Config;
-import ru.instamart.ui.modules.Shop;
-import ru.instamart.ui.modules.User;
+import ru.instamart.core.setting.Config;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

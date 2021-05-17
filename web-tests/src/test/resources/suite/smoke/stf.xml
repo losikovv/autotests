@@ -2,8 +2,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Web UI smoke" data-provider-thread-count="5">
   <listeners>
-    <listener class-name="ru.instamart.core.listeners.ExecutionListenerImpl"/>
-    <listener class-name="ru.instamart.core.listeners.UiListener"/>
+    <listener class-name="ru.instamart.core.listener.ExecutionListenerImpl"/>
+    <listener class-name="ru.instamart.ui.listener.UiListener"/>
   </listeners>
   <test verbose="1" name="Web UI tests" parallel="classes" thread-count="5">
     <classes>

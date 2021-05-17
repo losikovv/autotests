@@ -1,19 +1,19 @@
 package ru.instamart.tests.ui.user;
 
-import ru.instamart.core.settings.Config;
+import ru.instamart.core.setting.Config;
 import ru.instamart.core.testdata.UserManager;
-import ru.instamart.ui.checkpoints.BaseUICheckpoints;
-import ru.instamart.ui.checkpoints.shipping.ShippingAddressCheckpoints;
-import ru.instamart.ui.checkpoints.shoppingcart.ShoppingCartCheckpoints;
-import ru.instamart.ui.checkpoints.users.UsersAuthorizationCheckpoints;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
+import ru.instamart.ui.checkpoint.shipping.ShippingAddressCheckpoints;
+import ru.instamart.ui.checkpoint.shoppingcart.ShoppingCartCheckpoints;
+import ru.instamart.ui.checkpoint.users.UsersAuthorizationCheckpoints;
 import ru.instamart.ui.common.lib.Addresses;
-import ru.instamart.ui.helpers.WaitingHelper;
-import ru.instamart.ui.modules.Shop;
-import ru.instamart.ui.modules.User;
+import ru.instamart.ui.helper.WaitingHelper;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
-import ru.instamart.ui.modules.shop.ShippingAddressModal;
+import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 public class UserLogoutTests extends TestBase implements UsersAuthorizationCheckpoints {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();

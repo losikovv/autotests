@@ -4,10 +4,10 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.objects.v3.StoreV3;
-import ru.instamart.api.requests.v3.OrderOptionsV3Request;
-import ru.instamart.core.testdata.ApiV3TestData;
-import ru.instamart.core.testdata.dataprovider.ApiV3DataProvider;
+import ru.instamart.api.model.v3.StoreV3;
+import ru.instamart.api.request.v3.OrderOptionsV3Request;
+import ru.instamart.api.model.testdata.ApiV3TestData;
+import ru.instamart.api.dataprovider.ApiV3DataProvider;
 
 public class OrderOptionsV3Test extends RestBase {
     StoreV3 store;

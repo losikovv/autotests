@@ -7,14 +7,14 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.requests.v2.DepartmentsV2Request;
-import ru.instamart.api.responses.v2.DepartmentV2Response;
-import ru.instamart.api.responses.v2.DepartmentsV2Response;
+import ru.instamart.api.request.v2.DepartmentsV2Request;
+import ru.instamart.api.response.v2.DepartmentV2Response;
+import ru.instamart.api.response.v2.DepartmentsV2Response;
 
 import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertNotNull;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Выдача для главного экрана")

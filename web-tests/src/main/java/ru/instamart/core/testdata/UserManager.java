@@ -1,19 +1,18 @@
 package ru.instamart.core.testdata;
 
-import ru.instamart.core.testdata.ui.Generate;
+import lombok.extern.slf4j.Slf4j;
 import ru.instamart.core.util.Crypt;
 import ru.instamart.ui.common.pagesdata.JuridicalData;
 import ru.instamart.ui.common.pagesdata.UserData;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ru.instamart.ui.module.testdata.Generate;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
 
+@Slf4j
 public final class UserManager {
-
-    private static final Logger log = LoggerFactory.getLogger(UserManager.class);
 
     private static final List<UserData> USER_DATA_LIST = new ArrayList<>();
 
@@ -65,7 +64,7 @@ public final class UserManager {
     }
 
     public static UserData getDefaultUser() {
-        if (defaultUser == null) {
+        if (isNull(defaultUser)) {
             defaultUser = new UserData(
                     "superuser",
                     Crypt.INSTANCE.decrypt("aDPCwj7Br+dx8nAMvfc+/zywS4BuPQ25pLnnhiT3WnQ="),
@@ -78,7 +77,7 @@ public final class UserManager {
     }
 
     public static UserData getDefaultAdmin() {
-        if (defaultAdmin == null) {
+        if (isNull(defaultAdmin)) {
             return defaultAdmin = new UserData(
                     "superadmin",
                     Crypt.INSTANCE.decrypt("Gh1MsACysUuEYv98vkOuOOx/HVxUh5J54NKCNSJCPFQ="),
@@ -92,7 +91,7 @@ public final class UserManager {
     }
 
     public static UserData getDefaultShopper() {
-        if (defaultShopper == null) {
+        if (isNull(defaultShopper)) {
             return defaultShopper = new UserData(
                     Crypt.INSTANCE.decrypt("/IsVBUY1et+En340g78Rvg=="),
                     PASSWD_2);
@@ -101,7 +100,7 @@ public final class UserManager {
     }
 
     public static UserData getDefaultGmailUser() {
-        if (defaultGmailUser == null) {
+        if (isNull(defaultGmailUser)) {
             return  defaultGmailUser = new UserData(
                     Crypt.INSTANCE.decrypt("mh5OayUtpk/8stH+dR7HBnyeKJB94fsqjaZfeO77LqI="),
                     PASSWD_2
@@ -111,7 +110,7 @@ public final class UserManager {
     }
 
     public static UserData getDefaultVkUser() {
-        if (defaultVkUser == null) {
+        if (isNull(defaultVkUser)) {
             return defaultVkUser = new UserData(
                     Crypt.INSTANCE.decrypt("6zWHFoRF1JgL9dmADTKTpQm7X0OkZzcK7JlvmU7dlLo="),
                     PASSWD_1
@@ -121,7 +120,7 @@ public final class UserManager {
     }
 
     public static UserData getDefaultFbUser() {
-        if (defaultFbUser == null) {
+        if (isNull(defaultFbUser)) {
             return defaultFbUser = new UserData(
                     Crypt.INSTANCE.decrypt("6zWHFoRF1JgL9dmADTKTpQm7X0OkZzcK7JlvmU7dlLo="),
                     PASSWD_1
@@ -131,7 +130,7 @@ public final class UserManager {
     }
 
     public static UserData getDefaultMailRuUser() {
-        if (defaultMailRuUser == null) {
+        if (isNull(defaultMailRuUser)) {
             return defaultMailRuUser = new UserData(
                     Crypt.INSTANCE.decrypt("6F+U8tpf0M8xSLKvz+UawQ=="),
                     PASSWD_1
@@ -141,7 +140,7 @@ public final class UserManager {
     }
 
     public static UserData getDefaultSberIdUser() {
-        if (defaultSberIdUser == null) {
+        if (isNull(defaultSberIdUser)) {
             return  defaultSberIdUser = new UserData(
                     Crypt.INSTANCE.decrypt("6ln1zIxi8BWCxz3YNZwc8w=="),
                     PASSWD_3
@@ -151,7 +150,7 @@ public final class UserManager {
     }
 
     public static UserData getDefaultApiUser() {
-        if (defaultApiUser == null) {
+        if (isNull(defaultApiUser)) {
             return  defaultApiUser = new UserData(
                     Generate.email(),
                     PASSWD_2,
@@ -162,7 +161,7 @@ public final class UserManager {
     }
 
     public static UserData getDeliveryClubUser() {
-        if (defaultApiUser == null) {
+        if (isNull(defaultApiUser)) {
             return  defaultApiUser = new UserData(
                     "dc",
                     "dcsmstage"

@@ -1,8 +1,8 @@
 package ru.instamart.tests.ui.addons.RetailRocket;
 
 import ru.instamart.ui.common.lib.Widgets;
-import ru.instamart.ui.modules.Shop;
-import ru.instamart.ui.modules.User;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;

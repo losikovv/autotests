@@ -1,8 +1,8 @@
 package ru.instamart.core.testdata;
 
-import ru.instamart.core.testdata.ui.Juridicals;
-import ru.instamart.core.testdata.ui.PaymentCards;
-import ru.instamart.core.testdata.ui.PaymentTypes;
+import ru.instamart.ui.module.testdata.Juridicals;
+import ru.instamart.ui.module.testdata.PaymentCards;
+import ru.instamart.ui.module.testdata.PaymentTypes;
 import ru.instamart.ui.common.lib.ReplacementPolicies;
 import ru.instamart.ui.common.pagesdata.*;
 

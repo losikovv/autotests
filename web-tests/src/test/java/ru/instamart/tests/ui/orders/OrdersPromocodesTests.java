@@ -3,15 +3,15 @@ package ru.instamart.tests.ui.orders;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.ui.common.lib.Promos;
 import ru.instamart.ui.common.pagesdata.UserData;
-import ru.instamart.ui.modules.Shop;
-import ru.instamart.ui.modules.User;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.tests.ui.TestBase;
-import ru.instamart.ui.modules.checkout.PromocodeActions;
+import ru.instamart.ui.module.checkout.PromocodeActions;
 
 // Тесты заказов с промокодами
     // сначала негативная проверка, затем позитивная и заказ

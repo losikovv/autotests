@@ -10,14 +10,14 @@ import org.testng.annotations.Test;
 import ru.instamart.api.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.objects.v2.AddressV2;
-import ru.instamart.api.objects.v2.ShipAddressChangeV2;
-import ru.instamart.api.requests.v2.OrdersV2Request;
-import ru.instamart.api.responses.v2.ShipAddressChangeV2Response;
+import ru.instamart.api.model.v2.AddressV2;
+import ru.instamart.api.model.v2.ShipAddressChangeV2;
+import ru.instamart.api.request.v2.OrdersV2Request;
+import ru.instamart.api.response.v2.ShipAddressChangeV2Response;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
-import static ru.instamart.api.checkpoints.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Получение адреса доставки заказа")
