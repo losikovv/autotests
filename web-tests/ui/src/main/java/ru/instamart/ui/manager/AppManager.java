@@ -4,7 +4,7 @@ import lombok.Getter;
 import ru.instamart.api.helper.InstamartApiHelper;
 import ru.instamart.ui.helper.*;
 import ru.instamart.ui.service.WebDriverService;
-import ru.instamart.core.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.ui.module.Administration;
 import ru.instamart.ui.module.checkout.Checkout;
 import ru.instamart.ui.module.Shop;

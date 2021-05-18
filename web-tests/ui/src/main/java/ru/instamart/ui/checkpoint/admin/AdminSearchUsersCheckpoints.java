@@ -1,6 +1,6 @@
 package ru.instamart.ui.checkpoint.admin;
 
-import ru.instamart.core.testdata.UserManager;
+import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.Elements;
 import io.qameta.allure.Step;

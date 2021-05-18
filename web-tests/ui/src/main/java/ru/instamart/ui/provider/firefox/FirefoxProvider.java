@@ -5,8 +5,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Map;
 
-import static ru.instamart.core.setting.Config.VIDEO;
-import static ru.instamart.core.setting.Config.VNC;
+import static ru.instamart.kraken.setting.Config.VIDEO;
+import static ru.instamart.kraken.setting.Config.VNC;
 
 public final class FirefoxProvider extends AbstractBrowserProvider {
 

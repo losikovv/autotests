@@ -1,11 +1,11 @@
 package ru.instamart.ui;
 
 import org.openqa.selenium.By;
-import ru.instamart.core.testdata.JuridicalData;
-import ru.instamart.core.testdata.TestVariables.CompanyParams;
-import ru.instamart.core.testdata.lib.CheckoutSteps;
-import ru.instamart.core.testdata.pagesdata.CheckoutStepData;
-import ru.instamart.core.testdata.pagesdata.PaymentCardData;
+import ru.instamart.kraken.testdata.JuridicalData;
+import ru.instamart.kraken.testdata.TestVariables.CompanyParams;
+import ru.instamart.kraken.testdata.lib.CheckoutSteps;
+import ru.instamart.kraken.testdata.pagesdata.CheckoutStepData;
+import ru.instamart.kraken.testdata.pagesdata.PaymentCardData;
 import ru.instamart.ui.data.ElementData;
 
 public class Elements {

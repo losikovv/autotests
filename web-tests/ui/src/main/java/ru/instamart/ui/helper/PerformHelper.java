@@ -5,9 +5,9 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.core.setting.Config;
+import ru.instamart.kraken.setting.Config;
 import ru.instamart.ui.data.ElementData;
-import ru.instamart.core.util.ThreadUtil;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.manager.AppManager;
 
 import java.util.List;

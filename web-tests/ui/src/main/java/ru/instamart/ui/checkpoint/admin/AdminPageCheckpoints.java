@@ -5,7 +5,7 @@ import org.testng.Assert;
 import ru.instamart.ui.checkpoint.Checkpoint;
 import ru.instamart.ui.Elements;
 
-import static ru.instamart.core.util.StringUtil.failMessage;
+import static ru.instamart.kraken.util.StringUtil.failMessage;
 import static ru.instamart.ui.module.Base.kraken;
 
 public class AdminPageCheckpoints implements Checkpoint {

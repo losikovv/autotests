@@ -1,0 +1,135 @@
+package ru.instamart.test.ui.addons;
+
+import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
+import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
+import ru.instamart.ui.module.shop.ShippingAddressModal;
+import ru.instamart.ui.Elements;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import ru.instamart.test.ui.TestBase;
+
+public class SeoCatalogTests extends TestBase {
+    
+    private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    
+    @BeforeMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void beforeTest() {
+        kraken.reach().seoCatalog();
+    }
+
+    @Test(  description = "Тест доступности страницы SEO-каталога",
+            groups = {"sbermarket-acceptance","sbermarket-regression"}
+    )
+    public void successCheckSeoPage() {
+        skipTestOnServer("staging");
+
+        baseChecks.checkPageIsAvailable(
+                Pages.seo_catalog());
+    }
+
+    @Test(  description = "Тест доступности товаров на странице SEO-каталога",
+            groups = {"sbermarket-regression"}
+    )
+    public void successCheckProductsOnSeoCatalog() {
+        skipTestOnServer("staging");
+
+        Assert.assertTrue(
+                kraken.detect().isElementPresent(Elements.SeoCatalog.product()),
+                    "Нет товаров на странице SEO-каталога");
+    }
+
+    @Test(  description = "Тест открытия карточки товара на странице SEO-каталога",
+            groups = {"sbermarket-regression"}
+    )
+    public void successOpenItemCardOnSeoCatalog() {
+        skipTestOnServer("staging");
+        Shop.Catalog.Item.open();
+
+        Assert.assertTrue(
+                kraken.detect().isItemCardOpen(),
+                    "Нет открывается карточка товара на странице SEO-каталога");
+    }
+
+    @Test(  description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога",
+            groups = {"sbermarket-regression"}
+    )
+    public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() throws Exception {
+        skipTestOnServer("staging");
+        SoftAssert softAssert = new SoftAssert();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.addToCart();
+
+        softAssert.assertTrue(
+                kraken.detect().isAddressModalOpen(),
+                    "Не открывается адресная модалка после добавления товара на странице SEO-каталога");
+
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
+        Shop.ItemCard.close();
+
+        softAssert.assertTrue(
+                kraken.detect().isShippingAddressSet(),
+                    "Адрес доставки не был введен при попытке добавления товара в корзину на странице SEO-каталога");
+
+        softAssert.assertTrue(
+                kraken.detect().isElementPresent(Elements.Catalog.Product.snippet()),
+                    "SEO-каталог не перезагрузился на обычный каталог");
+
+        softAssert.assertAll();
+    }
+
+    @Test(  description = "Тест авторизации при попытке добавления товара в корзину на странице SEO-каталога",
+            groups = {"sbermarket-regression"}
+    )
+    public void successAuthFromItemCardOnSeoCatalog() {
+        skipTestOnServer("staging");
+        SoftAssert softAssert = new SoftAssert();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.addToCart();
+        kraken.perform().click(Elements.Modals.AddressModal.authButton());
+        User.Do.loginAs(UserManager.getDefaultUser());
+
+        softAssert.assertTrue(
+                kraken.detect().isUserAuthorised(),
+                    "Не работает авторизация при попытке добавления товара в корзину на странице SEO-каталога");
+
+        softAssert.assertTrue(
+                kraken.detect().isElementPresent(Elements.Catalog.Product.snippet()),
+                    "SEO-каталог не перезагрузился на обычный каталог");
+
+        softAssert.assertAll();
+    }
+
+    @Test(  description = "Тест регистрации при попытке добавления товара в корзину на странице SEO-каталога",
+            groups = {"sbermarket-regression"}
+    )
+    public void successRegFromItemCardOnSeoCatalog() {
+        skipTestOnServer("staging");
+        SoftAssert softAssert = new SoftAssert();
+        Shop.Catalog.Item.open();
+        Shop.ItemCard.addToCart();
+        kraken.perform().click(Elements.Modals.AddressModal.authButton());
+        User.Do.registration();
+        ShippingAddressModal.open();
+        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.submit();
+
+        softAssert.assertTrue(
+                kraken.detect().isUserAuthorised(),
+                    "Не работает регистрация при попытке добавления товара в корзину на странице SEO-каталога");
+
+        softAssert.assertTrue(
+                kraken.detect().isElementPresent(Elements.Catalog.Product.snippet()),
+                    "SEO-каталог не перезагрузился на обычный каталог");
+
+        softAssert.assertAll();
+    }
+}

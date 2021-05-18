@@ -4,8 +4,8 @@ import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.core.testdata.lib.CheckoutSteps;
-import ru.instamart.core.testdata.pagesdata.*;
+import ru.instamart.kraken.testdata.lib.CheckoutSteps;
+import ru.instamart.kraken.testdata.pagesdata.*;
 import ru.instamart.ui.helper.PaymentHelper;
 import ru.instamart.ui.module.Base;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
@@ -13,7 +13,7 @@ import ru.instamart.ui.Elements;
 import ru.instamart.ui.helper.DeliveryHelper;
 
 import static io.qameta.allure.Allure.step;
-import static ru.instamart.core.testdata.TestVariables.testOrderDetails;
+import static ru.instamart.kraken.testdata.TestVariables.testOrderDetails;
 
 public final class AddressSteps extends Base {
     private static final Logger log = LoggerFactory.getLogger(ShippingAddressModal.class);

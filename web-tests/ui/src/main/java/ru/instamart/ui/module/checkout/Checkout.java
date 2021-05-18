@@ -3,18 +3,17 @@ package ru.instamart.ui.module.checkout;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.core.testdata.JuridicalData;
-import ru.instamart.core.util.ThreadUtil;
+import ru.instamart.kraken.testdata.JuridicalData;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.core.setting.Config;
-import ru.instamart.core.testdata.pagesdata.*;
-import ru.instamart.ui.helper.WaitingHelper;
+import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.pagesdata.*;
 import ru.instamart.ui.module.Base;
 import ru.instamart.ui.module.shop.Order;
 import ru.instamart.ui.Elements;
 
 import static io.qameta.allure.Allure.step;
-import static ru.instamart.core.testdata.TestVariables.testOrderDetails;
+import static ru.instamart.kraken.testdata.TestVariables.testOrderDetails;
 
 @Slf4j
 public final class Checkout extends Base {

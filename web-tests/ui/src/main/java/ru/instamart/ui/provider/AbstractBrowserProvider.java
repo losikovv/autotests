@@ -16,15 +16,15 @@ import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
-import ru.instamart.core.setting.Config;
+import ru.instamart.kraken.setting.Config;
 
 import java.net.URI;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-import static ru.instamart.core.setting.Config.BASIC_TIMEOUT;
-import static ru.instamart.core.setting.Config.FULL_SCREEN_MODE;
+import static ru.instamart.kraken.setting.Config.BASIC_TIMEOUT;
+import static ru.instamart.kraken.setting.Config.FULL_SCREEN_MODE;
 
 @Slf4j
 public abstract class AbstractBrowserProvider {

@@ -3,7 +3,7 @@ package ru.instamart.ui.helper;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.ui.data.ElementData;
-import ru.instamart.core.testdata.JuridicalData;
+import ru.instamart.kraken.testdata.JuridicalData;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Base;
 import ru.instamart.ui.Elements;

@@ -17,8 +17,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.util.Objects.nonNull;
-import static ru.instamart.core.setting.Config.BROWSER_VERSION;
-import static ru.instamart.core.setting.Config.DEFAULT_BROWSER;
+import static ru.instamart.kraken.setting.Config.BROWSER_VERSION;
+import static ru.instamart.kraken.setting.Config.DEFAULT_BROWSER;
 
 @Slf4j
 public final class WebDriverService {

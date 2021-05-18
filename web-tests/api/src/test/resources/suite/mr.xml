@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
+<suite name="MR-SUITE" parallel="tests" thread-count="2" verbose="1">
+  <listeners>
+    <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
+  </listeners>
+  <test verbose="1" name="MR API" parallel="classes" thread-count="2">
+    <classes>
+      <!--class name="ru.instamart.test.api.v2.endpoints.OrdersV2Test"/-->
+      <class name="ru.instamart.test.api.shopper.app.endpoints.ShipmentlessShopperAppTest"/>
+    </classes>
+  </test>
+</suite>

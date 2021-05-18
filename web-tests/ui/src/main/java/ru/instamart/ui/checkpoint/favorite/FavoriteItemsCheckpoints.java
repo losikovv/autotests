@@ -1,7 +1,7 @@
 package ru.instamart.ui.checkpoint.favorite;
 
 import io.qameta.allure.Step;
-import ru.instamart.core.util.StringUtil;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.ui.checkpoint.Checkpoint;
 import ru.instamart.ui.Elements;
 

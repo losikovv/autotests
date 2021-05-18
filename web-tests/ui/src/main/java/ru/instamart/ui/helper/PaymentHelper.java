@@ -3,17 +3,17 @@ package ru.instamart.ui.helper;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.core.setting.Config;
+import ru.instamart.kraken.setting.Config;
 import ru.instamart.ui.Elements;
 import ru.instamart.ui.data.ElementData;
-import ru.instamart.core.testdata.pagesdata.PaymentCardData;
-import ru.instamart.core.testdata.pagesdata.PaymentDetailsData;
+import ru.instamart.kraken.testdata.pagesdata.PaymentCardData;
+import ru.instamart.kraken.testdata.pagesdata.PaymentDetailsData;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Base;
-import ru.instamart.core.testdata.PaymentTypes;
+import ru.instamart.kraken.testdata.PaymentTypes;
 
 import static io.qameta.allure.Allure.step;
-import static ru.instamart.core.testdata.TestVariables.testOrderDetails;
+import static ru.instamart.kraken.testdata.TestVariables.testOrderDetails;
 import static ru.instamart.ui.helper.JuridicalHelper.addNewJuridical;
 
 @Slf4j

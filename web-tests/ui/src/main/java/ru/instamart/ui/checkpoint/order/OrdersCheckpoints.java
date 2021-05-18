@@ -2,7 +2,7 @@ package ru.instamart.ui.checkpoint.order;
 
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.data.ElementData;
-import ru.instamart.core.testdata.pagesdata.PaymentTypeData;
+import ru.instamart.kraken.testdata.pagesdata.PaymentTypeData;
 import ru.instamart.ui.Elements;
 import io.qameta.allure.Step;
 import org.slf4j.Logger;

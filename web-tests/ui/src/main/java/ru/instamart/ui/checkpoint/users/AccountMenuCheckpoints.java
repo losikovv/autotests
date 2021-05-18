@@ -5,7 +5,7 @@ import ru.instamart.ui.checkpoint.Checkpoint;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.core.util.StringUtil.failMessage;
+import static ru.instamart.kraken.util.StringUtil.failMessage;
 import static ru.instamart.ui.module.Base.kraken;
 
 public class AccountMenuCheckpoints implements Checkpoint {

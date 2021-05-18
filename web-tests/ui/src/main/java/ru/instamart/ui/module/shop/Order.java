@@ -4,14 +4,13 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.instamart.core.util.ThreadUtil;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.core.testdata.PaymentTypes;
-import ru.instamart.core.testdata.lib.Addresses;
-import ru.instamart.core.testdata.lib.Pages;
-import ru.instamart.core.testdata.pagesdata.OrderDetailsData;
+import ru.instamart.kraken.testdata.PaymentTypes;
+import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.kraken.testdata.pagesdata.OrderDetailsData;
 import ru.instamart.ui.helper.PaymentHelper;
-import ru.instamart.ui.helper.WaitingHelper;
 import ru.instamart.ui.module.Base;
 import ru.instamart.ui.module.checkout.Checkout;
 import ru.instamart.ui.module.Shop;
@@ -49,7 +48,7 @@ public final class Order extends Base {
         if(orderDetails.getPromocode() != null) {
             PromocodeActions.add(orderDetails.getPromocode());}
         if(orderDetails.getBonus() != null) {
-//            ru.instamart.ui.modules.ru.instamart.ui.checkout.AddressSteps .Bonuses.add(orderDetails.getBonus());}
+//            ru.instamart.ui.modules.ru.instamart.test.ui.checkout.AddressSteps .Bonuses.add(orderDetails.getBonus());}
             BonusesActions.add(orderDetails.getBonus());}
         if(orderDetails.getRetailerCard() != null) {
             RetailerCardsActions.addCard(orderDetails.getRetailerCard());}
@@ -67,7 +66,7 @@ public final class Order extends Base {
         if(orderDetails.getPromocode() != null) {
             PromocodeActions.add(orderDetails.getPromocode());}
         if(orderDetails.getBonus() != null) {
-//            ru.instamart.ui.modules.ru.instamart.ui.checkout.AddressSteps .Bonuses.add(orderDetails.getBonus());}
+//            ru.instamart.ui.modules.ru.instamart.test.ui.checkout.AddressSteps .Bonuses.add(orderDetails.getBonus());}
             BonusesActions.add(orderDetails.getBonus());}
         if(orderDetails.getRetailerCard() != null) {
             RetailerCardsActions.addCard(orderDetails.getRetailerCard());}

@@ -21,14 +21,14 @@ stages:
     - gradle clean build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
-    - bash ./report.sh api-shopper-regress
+    - bash ./report.sh api api-shopper-regress
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/build/allure-results/
-      - web-tests/logs/
+      - web-tests/api/build/allure-results/
+      - web-tests/api/logs/
     expire_in: 1 week
 
 .template_tests_apishopper_alone:
@@ -89,14 +89,14 @@ tests:ApiInstamart:
     - gradle clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
-    - bash ./report.sh api-instamart-regress
+    - bash ./report.sh api api-instamart-regress
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/build/allure-results/
-      - web-tests/logs/
+      - web-tests/api/build/allure-results/
+      - web-tests/api/logs/
     expire_in: 1 week
 
 tests:prodApiInstamart:
@@ -107,14 +107,14 @@ tests:prodApiInstamart:
     - gradle clean build apiInstamartProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
-    - bash ./report.sh api-instamart-production
+    - bash ./report.sh api api-instamart-production
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/build/allure-results/
-      - web-tests/logs/
+      - web-tests/api/build/allure-results/
+      - web-tests/api/logs/
     expire_in: 1 week
 
 tests:ApiShopper:
@@ -135,14 +135,14 @@ tests:prodApiShopper:
     - gradle clean build apiShopperProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
-    - bash ./report.sh api-shopper-production
+    - bash ./report.sh api api-shopper-production
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/build/allure-results/
-      - web-tests/logs/
+      - web-tests/api/build/allure-results/
+      - web-tests/api/logs/
     expire_in: 1 week
 
 tests:prodApiZones:
@@ -155,14 +155,14 @@ tests:prodApiZones:
     - gradle clean build apiZones -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
-    - bash ./report.sh api-zones-production
+    - bash ./report.sh api api-zones-production
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/build/allure-results/
-      - web-tests/logs/
+      - web-tests/api/build/allure-results/
+      - web-tests/api/logs/
     expire_in: 1 week
 
 tests:prodApiRetailer:
@@ -173,14 +173,14 @@ tests:prodApiRetailer:
     - gradle clean build apiRetailerE2E -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
-    - bash ./report.sh api-retailer-e2e-production
+    - bash ./report.sh api api-retailer-e2e-production
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/build/allure-results/
-      - web-tests/logs/
+      - web-tests/api/build/allure-results/
+      - web-tests/api/logs/
     expire_in: 1 week
 
 tests:UiSmoke:
@@ -196,14 +196,14 @@ tests:UiSmoke:
     - gradle clean build sberUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
-    - bash ./report.sh ui-stf-smoke
+    - bash ./report.sh ui ui-stf-smoke
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/build/allure-results/
-      - web-tests/logs/
+      - web-tests/ui/build/allure-results/
+      - web-tests/ui/logs/
     expire_in: 1 week
 
 tests:UiRegress:
@@ -219,14 +219,14 @@ tests:UiRegress:
     - gradle clean build sberRegression -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
-    - bash ./report.sh ui-stf-regress
+    - bash ./report.sh ui ui-stf-regress
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/build/allure-results/
-      - web-tests/logs/
+      - web-tests/ui/build/allure-results/
+      - web-tests/ui/logs/
     expire_in: 1 week
 
 tests:AdminUiSmoke:
@@ -242,14 +242,14 @@ tests:AdminUiSmoke:
     - gradle clean build adminUiSmoke -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
-    - bash ./report.sh ui-admin-smoke
+    - bash ./report.sh ui ui-admin-smoke
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/build/allure-results/
-      - web-tests/logs/
+      - web-tests/ui/build/allure-results/
+      - web-tests/ui/logs/
     expire_in: 1 week
 
 tests:prodUiSmoke:
@@ -261,14 +261,14 @@ tests:prodUiSmoke:
     - gradle clean build uiSmokeProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
-    - bash ./report.sh ui-smoke-production
+    - bash ./report.sh ui ui-smoke-production
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/build/allure-results/
-      - web-tests/logs/
+      - web-tests/ui/build/allure-results/
+      - web-tests/ui/logs/
     expire_in: 1 week
 
 tests:AutoMRCheck:
@@ -288,8 +288,10 @@ tests:AutoMRCheck:
   artifacts:
     when: always
     paths:
-      - web-tests/build/allure-results/
-      - web-tests/logs/
+      - web-tests/api/build/allure-results/
+      - web-tests/ui/build/allure-results/
+      - web-tests/api/logs/
+      - web-tests/ui/logs/
     expire_in: 1 week
 
 tests:Debug:

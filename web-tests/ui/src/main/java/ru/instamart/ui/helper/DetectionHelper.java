@@ -9,8 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.ui.data.ElementData;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.core.testdata.lib.Pages;
-import ru.instamart.core.testdata.pagesdata.*;
+import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.kraken.testdata.pagesdata.*;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.Elements;
 
@@ -608,7 +608,7 @@ public final class DetectionHelper extends HelperBase {
         //TODO здесь костыль тк на стейдже бага, но это чисто для отладки, не включать
 //        if(!kraken.detect().isElementPresent(Elements.Checkout.header())){
 //            kraken.getBasicUrl();
-//            kraken.reach().ru.instamart.ui.checkout();
+//            kraken.reach().ru.instamart.test.ui.checkout();
 //        }
         return kraken.detect().isElementPresent(Elements.Checkout.header());
     }

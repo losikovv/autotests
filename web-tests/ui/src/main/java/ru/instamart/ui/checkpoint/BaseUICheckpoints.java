@@ -4,12 +4,12 @@ import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import ru.instamart.core.helper.KrakenAssert;
-import ru.instamart.core.setting.Config;
+import ru.instamart.kraken.helper.KrakenAssert;
+import ru.instamart.kraken.setting.Config;
 import ru.instamart.ui.data.ElementData;
-import ru.instamart.core.testdata.pagesdata.EnvironmentData;
-import ru.instamart.core.testdata.pagesdata.PageData;
-import ru.instamart.core.util.ThreadUtil;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.testdata.pagesdata.PageData;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.Elements;
 
 import static ru.instamart.ui.module.Base.kraken;

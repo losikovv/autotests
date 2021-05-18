@@ -7,12 +7,12 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.core.util.ThreadUtil;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.core.setting.Config;
-import ru.instamart.core.testdata.lib.Addresses;
+import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.ui.data.ElementData;
-import ru.instamart.core.testdata.pagesdata.WidgetData;
+import ru.instamart.kraken.testdata.pagesdata.WidgetData;
 import ru.instamart.ui.Elements;
 
 import java.util.List;

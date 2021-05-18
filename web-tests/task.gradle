@@ -1,6 +1,7 @@
 task allureCopyHistoryDir(type: Copy) {
-    from "build/reports/allure-report/history"
-    into "build/allure-results/history"
+    from project(':api').getBuildDir().path+"/allure-results".toString()
+    from project(':ui').getBuildDir().path+"/allure-results".toString()
+    into "build/allure-results/"
 }
 
 task Testing(type: Test) {

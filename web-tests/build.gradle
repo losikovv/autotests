@@ -6,7 +6,6 @@ apply from: 'dependencies.gradle'
 apply from: 'variables.gradle'
 
 apply from: 'task.gradle'
-apply from: 'api-task.gradle'
 
 allprojects {
     repositories {
@@ -41,28 +40,32 @@ subprojects {
     }
 }
 
-dependencies {
-    implementation project(":qase-api")
+project(":kraken") {
+    apply plugin: "java-library"
 
-    implementation lib.restAssured
-    implementation lib.allureRestAssuredReport
-    implementation lib.allureTestng
-    implementation lib.allureJavaCommons
-    compileOnly lib.lombok
-    implementation lib.restAssuredSchemaValidator
-    implementation lib.testng
-    implementation lib.jsonSimple
-    annotationProcessor lib.lombok
-    testImplementation lib.logback
-    testCompileOnly lib.lombok
-    testAnnotationProcessor lib.lombok
+    dependencies {
+        implementation project(":qase-api")
+
+        implementation lib.jackson
+        implementation lib.allureTestng
+        implementation lib.allureJavaCommons
+        compileOnly lib.lombok
+
+        implementation lib.testng
+        implementation lib.jsonSimple
+        annotationProcessor lib.lombok
+        testImplementation lib.logback
+        testCompileOnly lib.lombok
+        testAnnotationProcessor lib.lombok
+    }
 }
 
 project(":ui") {
     apply plugin: "java-library"
 
     dependencies {
-        implementation project(":")
+        implementation project(":kraken")
+        implementation project(":api")
         implementation project(":qase-api")
 
         implementation lib.aspectjweaver
@@ -71,6 +74,30 @@ project(":ui") {
         implementation lib.allureJavaCommons
         implementation lib.jsonSimple
         implementation lib.testng
+
+        compileOnly lib.lombok
+        annotationProcessor lib.lombok
+        testImplementation lib.logback
+        testCompileOnly lib.lombok
+        testAnnotationProcessor lib.lombok
+    }
+}
+
+project(":api") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":kraken")
+        implementation project(":qase-api")
+
+        implementation lib.restAssured
+        implementation lib.aspectjweaver
+        implementation lib.allureRestAssuredReport
+        implementation lib.allureTestng
+        implementation lib.allureJavaCommons
+        implementation lib.jsonSimple
+        implementation lib.testng
+        implementation lib.restAssuredSchemaValidator
 
         compileOnly lib.lombok
         annotationProcessor lib.lombok

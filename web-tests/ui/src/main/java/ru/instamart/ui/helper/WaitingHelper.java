@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.core.setting.Config;
+import ru.instamart.kraken.setting.Config;
 import ru.instamart.ui.data.ElementData;
 import ru.instamart.ui.Elements;
 

@@ -6,12 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.ElementNotSelectableException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.core.util.ThreadUtil;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.core.setting.Config;
-import ru.instamart.core.testdata.pagesdata.StaticPageData;
-import ru.instamart.core.testdata.UserData;
-import ru.instamart.ui.helper.WaitingHelper;
+import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.pagesdata.StaticPageData;
+import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.ui.Elements;
 
 import static ru.instamart.ui.helper.HelperBase.handleAlert;
@@ -84,7 +83,7 @@ public final class Administration extends Base {
         /** Отменить заказ по номеру с тестовой причиной отмены */
         @Step("Отменяем заказ по номеру с тестовой причиной отмены: {0}")
         public static void cancelOrder(String orderNumber) {
-            kraken.reach().admin(ru.instamart.core.testdata.lib.Pages.Admin.Order.details(orderNumber));
+            kraken.reach().admin(ru.instamart.kraken.testdata.lib.Pages.Admin.Order.details(orderNumber));
             cancelOrder();
         }
 

@@ -1,1 +1,3 @@
-include 'qase-api', 'ui'
+rootProject.name = 'Kraken'
+include 'kraken', 'qase-api', 'ui', 'api'
+

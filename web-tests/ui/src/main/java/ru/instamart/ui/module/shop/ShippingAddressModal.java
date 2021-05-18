@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.core.setting.Config;
+import ru.instamart.kraken.setting.Config;
 import ru.instamart.ui.module.Base;
 import ru.instamart.ui.Elements;
 

@@ -3,7 +3,7 @@ package ru.instamart.ui.listener;
 import io.qase.api.enums.RunResultStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.*;
-import ru.instamart.core.service.QaseService;
+import ru.instamart.kraken.service.QaseService;
 import ru.instamart.ui.report.CustomReport;
 
 @Slf4j

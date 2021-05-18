@@ -4,9 +4,9 @@ import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.TimeoutException;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.core.testdata.lib.Pages;
-import ru.instamart.core.testdata.pagesdata.EnvironmentData;
-import ru.instamart.core.testdata.pagesdata.PageData;
+import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.testdata.pagesdata.PageData;
 
 @Slf4j
 public final class BrowseHelper extends HelperBase {
@@ -51,7 +51,7 @@ public final class BrowseHelper extends HelperBase {
 
     /** Перейти на страницу заказа в админке */
     public void adminOrderDetailsPage(String orderNumber) {
-        adminPage("ru.instamart.ui.orders/" + orderNumber + "/edit");
+        adminPage("ru.instamart.test.ui.orders/" + orderNumber + "/edit");
     }
 
     /** Перейти на страницу SEO-каталога */
