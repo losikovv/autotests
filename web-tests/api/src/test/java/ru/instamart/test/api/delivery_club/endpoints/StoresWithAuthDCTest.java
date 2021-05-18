@@ -1,4 +1,4 @@
-package ru.instamart.test.api.delivery_club.endpoint;
+package ru.instamart.test.api.delivery_club.endpoints;
 
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.common.RestBase;

@@ -1,4 +1,4 @@
-package ru.instamart.test.api.delivery_club.endpoint;
+package ru.instamart.test.api.delivery_club.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;

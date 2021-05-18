@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class AisleV2 extends BaseObject {
@@ -15,5 +17,6 @@ public class AisleV2 extends BaseObject {
     private String name;
     @JsonProperty(value = "products_count")
     private Integer productsCount;
+    private List<ProductV2> products;
     private IconV2 icon;
 }
