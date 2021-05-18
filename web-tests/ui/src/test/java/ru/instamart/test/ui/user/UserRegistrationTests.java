@@ -57,7 +57,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
             description = "Тест таймаута повторной отправки смс при быстром перелогине",
             groups = {
                     "sbermarket-Ui-smoke","sbermarket-regression"
-            }
+            }, enabled = false
     )
     public void timeOutForSendindSMS() {
         phone = Generate.phoneNumber();
