@@ -3,20 +3,13 @@ plugins {
 }
 
 apply from: 'dependencies.gradle'
-apply from: 'variables.gradle'
-
 apply from: 'task.gradle'
-
-allprojects {
-    repositories {
-        mavenCentral()
-        mavenLocal()
-    }
-}
 
 subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
+
+    apply from: project(":").getRootDir().path+"/variables.gradle"
 
     repositories {
         mavenCentral()
