@@ -17,7 +17,7 @@ public final class TeamServiceImpl implements TeamService {
 
     @Override
     public Users getAll(int limit, int offset) {
-        return qaseApiClient.get(Users.class, "/user", emptyMap(), null, limit, offset);
+        return qaseApiClient.get(Users.class, "/ru.instamart.test.ui.user", emptyMap(), null, limit, offset);
     }
 
     @Override
@@ -27,6 +27,6 @@ public final class TeamServiceImpl implements TeamService {
 
     @Override
     public User get(long id) {
-        return qaseApiClient.get(User.class, "/user/{id}", singletonMap("id", id), emptyMap());
+        return qaseApiClient.get(User.class, "/ru.instamart.test.ui.user/{id}", singletonMap("id", id), emptyMap());
     }
 }

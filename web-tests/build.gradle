@@ -1,51 +1,104 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        mavenLocal()
-        jcenter()
-    }
-}
-
 plugins {
     id 'java'
-    id 'io.qameta.allure' version '2.8.1'
-}
-
-
-allprojects {
-    repositories {
-        mavenCentral()
-        mavenLocal()
-        jcenter()
-    }
 }
 
 apply from: 'dependencies.gradle'
-apply from: 'variables.gradle'
-
 apply from: 'task.gradle'
-apply from: 'ui-task.gradle'
-apply from: 'api-task.gradle'
 
-allure {
-    version = versions.allure
-    autoconfigure = true
-    aspectjweaver = true
-    allureJavaVersion = versions.allure
-    configuration = "testImplementation"
-    useTestNG(){
-        version = versions.allure
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    apply from: project(":").getRootDir().path+"/variables.gradle"
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
     }
-    downloadLink = "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/"+versions.allure+"/allure-commandline-"+versions.allure+".zip"
+
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+    sourceSets {
+        main {
+            java {
+                srcDirs = ['src/main/java']
+            }
+            resources {
+                srcDirs = ['src/main/resources']
+            }
+        }
+    }
 }
 
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
-sourceSets.main.java.srcDirs = [ "src/main/java" ]
-sourceSets.main.resources.srcDirs = ["src/main/resources"]
-sourceSets.test.java.srcDirs = [ "src/test/java" ]
-sourceSets.test.resources.srcDirs = ["src/test/resources"]
+project(":kraken") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":qase-api")
+
+        implementation lib.jackson
+        implementation lib.allureTestng
+        implementation lib.allureJavaCommons
+        compileOnly lib.lombok
+
+        implementation lib.testng
+        implementation lib.jsonSimple
+        annotationProcessor lib.lombok
+        testImplementation lib.logback
+        testCompileOnly lib.lombok
+        testAnnotationProcessor lib.lombok
+    }
+}
+
+project(":ui") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":kraken")
+        implementation project(":api")
+        implementation project(":qase-api")
+
+        implementation lib.aspectjweaver
+        implementation lib.seleniumJava
+        implementation lib.allureTestng
+        implementation lib.allureJavaCommons
+        implementation lib.jsonSimple
+        implementation lib.testng
+
+        compileOnly lib.lombok
+        annotationProcessor lib.lombok
+        testImplementation lib.logback
+        testCompileOnly lib.lombok
+        testAnnotationProcessor lib.lombok
+    }
+}
+
+project(":api") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":kraken")
+        implementation project(":qase-api")
+
+        implementation lib.restAssured
+        implementation lib.aspectjweaver
+        implementation lib.allureRestAssuredReport
+        implementation lib.allureTestng
+        implementation lib.allureJavaCommons
+        implementation lib.jsonSimple
+        implementation lib.testng
+        implementation lib.restAssuredSchemaValidator
+
+        compileOnly lib.lombok
+        annotationProcessor lib.lombok
+        testImplementation lib.logback
+        testCompileOnly lib.lombok
+        testAnnotationProcessor lib.lombok
+    }
+}
 
 project(":qase-api") {
     apply plugin: "java-library"

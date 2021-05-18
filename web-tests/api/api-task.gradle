@@ -1,0 +1,123 @@
+task apiZones(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/api-zone.xml'
+        includeGroups 'api-zones'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
+
+task apiShopperSmoke(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/smoke/api-shopper.xml'
+        includeGroups 'api-shopper-smoke'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    systemProperty 'qase.Project', 'SHAPI'
+    systemProperty 'qase.Title', 'Shopper API Smoke'
+}
+
+task apiShopperRegress(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/regress/api-shopper.xml'
+        includeGroups 'api-shopper-smoke', 'api-shopper-regress'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    systemProperty 'qase.Project', 'SHAPI'
+    systemProperty 'qase.Title', 'Shopper API Regress'
+}
+
+task apiInstamartRegress(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/regress/api-instamart.xml'
+        includeGroups 'api-instamart-smoke', 'api-instamart-regress'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    systemProperty 'qase.Project', 'INAPI'
+    systemProperty 'qase.Title', 'Instamart API Regress'
+}
+
+task apiInstamartSmoke(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/smoke/api-instamart.xml'
+        includeGroups 'api-instamart-smoke'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    systemProperty 'qase.Project', 'INAPI'
+    systemProperty 'qase.Title', 'Instamart API Smoke'
+}
+
+task apiRetailerE2E(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/api-suite.xml'
+        includeGroups 'api-retailer'
+        systemProperty 'env',"sbermarket-production"
+        systemProperty 'qase', "false"
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
+
+task apiInstamartProduction(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/api-suite.xml'
+        includeGroups 'api-instamart-prod'
+        systemProperty 'env',"sbermarket-production"
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    systemProperty 'qase.Project', 'INAPI'
+    systemProperty 'qase.Title', 'Instamart API Regress'
+}
+
+task apiShopperProduction(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/api-suite.xml'
+        includeGroups 'api-shopper-prod'
+        systemProperty 'env',"sbermarket-production"
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    systemProperty 'qase.Project', 'SHAPI'
+    systemProperty 'qase.Title', 'Shopper API Regress'
+}
+
+task autoMr(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/mr.xml'
+        includeGroups 'MRAutoCheck'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}

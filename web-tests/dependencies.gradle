@@ -9,7 +9,8 @@ ext.versions = [
         allure: '2.13.8',
         aspectjweaver: '1.9.6',
         lombok: '1.18.18',
-        konghq: '3.11.11'
+        konghq: '3.11.11',
+        jackson: '2.12.3'
 ]
 
 ext.lib = [
@@ -26,25 +27,6 @@ ext.lib = [
         allureJavaCommons: "io.qameta.allure:allure-java-commons:$versions.allure",
         allureRestAssuredReport: "io.qameta.allure:allure-rest-assured:$versions.allure",
         lombok: "org.projectlombok:lombok:$versions.lombok",
-        konghq: "com.konghq:unirest-java:$versions.konghq"
+        konghq: "com.konghq:unirest-java:$versions.konghq",
+        jackson: "com.fasterxml.jackson.core:jackson-databind:$versions.jackson"
 ]
-
-dependencies {
-    implementation project(":qase-api")
-
-    implementation lib.aspectjweaver
-    implementation lib.restAssured
-    implementation lib.allureRestAssuredReport
-    implementation lib.allureTestng
-    implementation lib.allureJavaCommons
-    compileOnly lib.lombok
-    implementation lib.seleniumChromeDriver
-    implementation lib.restAssuredSchemaValidator
-    implementation lib.testng
-    implementation lib.seleniumJava
-    implementation lib.jsonSimple
-    annotationProcessor lib.lombok
-    testImplementation lib.logback
-    testCompileOnly lib.lombok
-    testAnnotationProcessor lib.lombok
-}
