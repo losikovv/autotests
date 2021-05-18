@@ -78,7 +78,7 @@ public final class User extends Base {
                 if(AppManager.getWebDriver().findElement(Elements.AccountMenu.logoutButton().getLocator()).isDisplayed()){
                     break;
                 }else{
-                    ThreadUtil.simply(0.3);
+                    ThreadUtil.simplyAwait(0.3);
                 }
             }
             kraken.perform().click(Elements.AccountMenu.logoutButton());
@@ -205,10 +205,10 @@ public final class User extends Base {
                     log.info("> авторизуемся в Gmail...");
                     kraken.perform().fillField(Elements.Social.Gmail.AuthForm.loginField(), login);
                     kraken.perform().click(Elements.Social.Gmail.AuthForm.loginNextButton());
-                    ThreadUtil.simply(1); // Ожидание загрузки страницы ввода пароля Gmail
+                    ThreadUtil.simplyAwait(1); // Ожидание загрузки страницы ввода пароля Gmail
                     kraken.perform().fillField(Elements.Social.Gmail.AuthForm.passwordField(), password);
                     kraken.perform().click(Elements.Social.Gmail.AuthForm.passwordNextButton());
-                    ThreadUtil.simply(1); // Ожидание авторизации в Gmail
+                    ThreadUtil.simplyAwait(1); // Ожидание авторизации в Gmail
                 }
             }
 
@@ -327,7 +327,7 @@ public final class User extends Base {
         public static void quick() {
             log.info("> быстрый логаут...");
             kraken.get().page("logout");
-            ThreadUtil.simply(1); // Ожидание деавторизации и подгрузки лендинга
+            ThreadUtil.simplyAwait(1); // Ожидание деавторизации и подгрузки лендинга
             if (kraken.detect().isOnLanding()) {
                 log.info("✓ Готово");
             }

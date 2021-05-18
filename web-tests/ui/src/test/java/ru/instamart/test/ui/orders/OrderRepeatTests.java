@@ -71,7 +71,7 @@ public class OrderRepeatTests extends TestBase {
         kraken.get().userShipmentsPage();
         kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
         kraken.perform().click(Elements.UserProfile.OrderDetailsPage.OrderSummary.repeatOrderButton());
-        ThreadUtil.simply(1); // Ожидание анимации открытия модалки повтора заказа
+        ThreadUtil.simplyAwait(1); // Ожидание анимации открытия модалки повтора заказа
         kraken.perform().click(Elements.UserProfile.OrderDetailsPage.RepeatOrderModal.noButton());
 
         Assert.assertTrue(kraken.detect().isCartEmpty(),
@@ -90,7 +90,7 @@ public class OrderRepeatTests extends TestBase {
         kraken.get().userShipmentsPage();
         kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.order.snippet());
         kraken.perform().click(Elements.UserProfile.OrderDetailsPage.OrderSummary.repeatOrderButton());
-        ThreadUtil.simply(1); // Ожидание анимации открытия модалки повтора заказа
+        ThreadUtil.simplyAwait(1); // Ожидание анимации открытия модалки повтора заказа
         kraken.perform().click(Elements.UserProfile.OrderDetailsPage.RepeatOrderModal.closeButton());
 
         Assert.assertTrue(kraken.detect().isCartEmpty(),

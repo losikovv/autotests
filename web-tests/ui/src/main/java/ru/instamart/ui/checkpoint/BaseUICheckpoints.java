@@ -105,7 +105,7 @@ public class BaseUICheckpoints {
         kraken.await().fluently(ExpectedConditions.elementToBeClickable(element.getLocator()),
                 "элемент не доступен: "+element.getDescription(), Config.BASIC_TIMEOUT);
         kraken.perform().scrollToTheBottom(element);
-        ThreadUtil.simply(0.3);
+        ThreadUtil.simplyAwait(0.3);
         kraken.perform().click(element);
         kraken.await().fluently(ExpectedConditions.not(ExpectedConditions.urlToBe(startPage)),
                 "\n\n > Не работает " + element.getDescription()

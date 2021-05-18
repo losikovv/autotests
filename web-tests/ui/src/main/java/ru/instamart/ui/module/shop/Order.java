@@ -155,7 +155,7 @@ public final class Order extends Base {
     public static void cancelOrder() {
         log.info("> отменяем заказ на странице деталей заказа");
         kraken.perform().click(Elements.UserProfile.OrderDetailsPage.OrderSummary.cancelOrderButton());
-        ThreadUtil.simply(1); // Ожидание анимации открытия модалки отмены заказа
+        ThreadUtil.simplyAwait(1); // Ожидание анимации открытия модалки отмены заказа
         kraken.perform().click(Elements.UserProfile.OrderDetailsPage.CancelOrderModal.yesButton());
         kraken.await().fluently(
                 ExpectedConditions.presenceOfElementLocated(Elements.UserProfile.OrderDetailsPage.CancelOrderModal.popup().getLocator()),

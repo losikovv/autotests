@@ -43,6 +43,6 @@ public final class RetailerE2ETests extends RestBase {
         apiV2.order(userData, store.getId());
         log.info("Отменяем заказ в {}", store.getName());
         apiV2.cancelCurrentOrder();
-        ThreadUtil.simply(30);
+        ThreadUtil.simplyAwait(30);
     }
 }

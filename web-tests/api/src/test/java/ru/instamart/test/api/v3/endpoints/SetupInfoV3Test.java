@@ -1,4 +1,4 @@
-package ru.instamart.test.api.endpoints;
+package ru.instamart.test.api.v3.endpoints;
 
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v3.SetupInfoV3Request;

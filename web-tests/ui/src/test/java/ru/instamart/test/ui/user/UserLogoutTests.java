@@ -70,7 +70,7 @@ public class UserLogoutTests extends TestBase implements UsersAuthorizationCheck
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.submit();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        ThreadUtil.simply(2);
+        ThreadUtil.simplyAwait(2);
         Shop.Catalog.Item.addToCart();
         User.Logout.manually();
         kraken.get().page(Config.DEFAULT_RETAILER);

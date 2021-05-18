@@ -26,21 +26,21 @@ public final class Checkout extends Base {
     public static void hitNext(CheckoutStepData step){
         log.info("> жмем 'Продолжить' в шаге '{}'", step.getName());
         kraken.perform().click(Elements.Checkout.Step.nextButton(step));
-        ThreadUtil.simply(1); // Ожидание сохранения данных в шаге чекаута после нажатия "Продолжить"
+        ThreadUtil.simplyAwait(1); // Ожидание сохранения данных в шаге чекаута после нажатия "Продолжить"
     }
 
     @Step("Нажимаем кнопку Изменить")
     public static void hitChange(CheckoutStepData step){
         log.info("> жмем 'Изменить' в шаге '{}'", step.getName());
         kraken.perform().click(Elements.Checkout.MinimizedStep.changeButton(step));
-        ThreadUtil.simply(1); // Ожидание разворота шага чекаута после нажатия "Изменить"
+        ThreadUtil.simplyAwait(1); // Ожидание разворота шага чекаута после нажатия "Изменить"
     }
 
     @Step("Нажимаем кнопку Сохранить")
     public static void hitSave(CheckoutStepData step){
         log.info("> жмем 'Сохранить' в шаге '{}'", step.getName());
         kraken.perform().click(Elements.Checkout.Step.saveButton(step));
-        ThreadUtil.simply(1); // Ожидание сохранения данных в шаге чекаута после нажатия "Сохранить"
+        ThreadUtil.simplyAwait(1); // Ожидание сохранения данных в шаге чекаута после нажатия "Сохранить"
     }
 
 

@@ -1,4 +1,4 @@
-package ru.instamart.test.api.contracts;
+package ru.instamart.test.api.v1.contracts;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;

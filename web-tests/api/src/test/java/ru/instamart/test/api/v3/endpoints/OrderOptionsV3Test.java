@@ -1,4 +1,4 @@
-package ru.instamart.test.api.endpoints;
+package ru.instamart.test.api.v3.endpoints;
 
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;

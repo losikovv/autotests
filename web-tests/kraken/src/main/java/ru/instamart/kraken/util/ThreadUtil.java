@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ThreadUtil {
 
     /** Просто задержка на указанное время */
-    public static void simply(double seconds) {
+    public static void simplyAwait(double seconds) {
         log.info("Задержка на {} сек.", seconds);
         try {
             Thread.sleep((long) (seconds * 1000));

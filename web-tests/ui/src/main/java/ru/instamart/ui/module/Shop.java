@@ -182,7 +182,7 @@ public final class Shop extends Base {
         public static void proceedBack() {
             log.info("> возвращаемся назад");
             kraken.perform().click(Elements.Modals.PasswordRecoveryModal.backButton());
-            ThreadUtil.simply(1); // Ожидание возврата назад из формы восстановления пароля
+            ThreadUtil.simplyAwait(1); // Ожидание возврата назад из формы восстановления пароля
         }
         @Step("Заполняем форму запроса восстановления пароля по email: {0}")
         public static void fillRequestForm(String email) {
@@ -199,7 +199,7 @@ public final class Shop extends Base {
         public static void submitRequest() {
             log.info("> отправляем форму");
             kraken.perform().click(Elements.Modals.PasswordRecoveryModal.submitRequestButton());
-            ThreadUtil.simply(5); // Ожидание отправки письма восстановлкния пароля
+            ThreadUtil.simplyAwait(5); // Ожидание отправки письма восстановлкния пароля
         }
         @Step("Отправляем форму")
         public static void submitRecovery() {
@@ -514,17 +514,17 @@ public final class Shop extends Base {
         public static class OrderHistory {
             @Step("Нажимаем кнопку фильтра всех заказов в истории заказов")
             public static void applyFilterAll() {
-                ThreadUtil.simply(1); // Ожидание подгрузки фильтров
+                ThreadUtil.simplyAwait(1); // Ожидание подгрузки фильтров
                 kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.allOrdersFilterButton());
             }
             @Step("Нажимаем кнопку фильтра завершенных заказов в истории заказов")
             public static void applyFilterComplete() {
-                ThreadUtil.simply(1); // Ожидание подгрузки фильтров
+                ThreadUtil.simplyAwait(1); // Ожидание подгрузки фильтров
                 kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.completeOrdersFilterButton());
             }
             @Step("Нажимаем кнопку фильтра активных заказов в истории заказов")
             public static void applyFilterActive() {
-                ThreadUtil.simply(1); // Ожидание подгрузки фильтров
+                ThreadUtil.simplyAwait(1); // Ожидание подгрузки фильтров
                 kraken.perform().click(Elements.UserProfile.OrdersHistoryPage.activeOrdersFilterButton());
             }
             @Step("Нажимаем кнопку 'Перейти к покупкам' на плейсхолдере пустой истории заказов")
@@ -695,7 +695,7 @@ public final class Shop extends Base {
         public static void removeFromCart() {
             if (kraken.detect().isElementDisplayed(Elements.ItemCard.minusButton())) {
                 kraken.perform().click(Elements.ItemCard.minusButton());
-                ThreadUtil.simply(1); // Ожидание убавления -1 товара в карточке
+                ThreadUtil.simplyAwait(1); // Ожидание убавления -1 товара в карточке
             } else {
                 log.info("> Кнопка 'Минус' не отображается");
             }
@@ -741,7 +741,7 @@ public final class Shop extends Base {
             if (kraken.detect().isCartOpen()) {
                 log.info("> закрываем корзину");
                 kraken.perform().click(Elements.Cart.closeButton());
-                ThreadUtil.simply(1);
+                ThreadUtil.simplyAwait(1);
                 kraken.await().fluently(
                         ExpectedConditions.invisibilityOfElementLocated(
                                 Elements.Cart.drawer().getLocator()),

@@ -110,7 +110,7 @@ public final class PerformHelper extends HelperBase {
                 webElement.sendKeys(text.charAt(i) + "");
             }
         }else {
-            ThreadUtil.simply(1.5);
+            ThreadUtil.simplyAwait(1.5);
             if(webElement.getAttribute("value").length()>0){
                 cleanField(webElement);
                 //Эти костыли здесь, тк в селениум есть бага использования sendKeys и очистки поля
@@ -122,7 +122,7 @@ public final class PerformHelper extends HelperBase {
     public void cleanField(final WebElement webElement){
         int j=webElement.getAttribute("value").length();
         for (int i =0; i<j;i++){
-            ThreadUtil.simply(0.2);
+            ThreadUtil.simplyAwait(0.2);
             webElement.sendKeys(Keys.BACK_SPACE);
         }
     }
@@ -146,7 +146,7 @@ public final class PerformHelper extends HelperBase {
         int attempts=0;
         if(!text.equals("")){
             for (int i = 0; i < text.length();) {
-                ThreadUtil.simply(0.3);
+                ThreadUtil.simplyAwait(0.3);
                 element1.sendKeys(text.charAt(i) + "");
                 if(i==text.length()-1){
                     if(!element1.getAttribute("value").replaceAll("[() -]","").contains(text)){

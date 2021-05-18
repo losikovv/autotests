@@ -36,7 +36,7 @@ public final class Administration extends Base {
             kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Administration.menuTopElement(menuElement).getLocator()),
                     "элемент не доступен: "+menuElement, Config.BASIC_TIMEOUT);
             kraken.perform().scrollToTheBottom(Elements.Administration.menuTopElement(menuElement));
-            ThreadUtil.simply(0.5);
+            ThreadUtil.simplyAwait(0.5);
             kraken.perform().click(Elements.Administration.menuTopElement(menuElement));
         }
     }

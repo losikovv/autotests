@@ -198,7 +198,7 @@ public final class GrabHelper extends HelperBase {
                 Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentReplacementPolicy())) {
             kraken.perform().click(Elements.UserProfile.OrderDetailsPage.OrderSummary.trigger());
         }
-        ThreadUtil.simply(1); // Ожидание разворота доп.деталей заказа
+        ThreadUtil.simplyAwait(1); // Ожидание разворота доп.деталей заказа
         String policy = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentReplacementPolicy());
         log.info("Способ оплаты: {}", policy);
         return policy;

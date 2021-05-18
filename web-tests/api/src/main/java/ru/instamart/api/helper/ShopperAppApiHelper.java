@@ -52,7 +52,7 @@ public class ShopperAppApiHelper {
      * Получаем shipment id по shipment number
      */
     private String getShipmentIdIteration(String shipmentNumber) {
-        ThreadUtil.simply(10);
+        ThreadUtil.simplyAwait(10);
         log.info("Получаем список доступных для сборки заказов");
         String shipmentId = null;
         Response response = ShopperSHPRequest.Shipments.GET();
