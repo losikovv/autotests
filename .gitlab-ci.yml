@@ -282,7 +282,7 @@ tests:AutoMRCheck:
     - gradle clean build AutoMRCheck -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
-    - bash ./report.sh default
+    - bash ./report.sh . default
   tags:
     - k8s-stage
   artifacts:

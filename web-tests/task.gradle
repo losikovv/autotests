@@ -1,9 +1,3 @@
-task allureCopyHistoryDir(type: Copy) {
-    from project(':api').getBuildDir().path+"/allure-results".toString()
-    from project(':ui').getBuildDir().path+"/allure-results".toString()
-    into "build/allure-results/"
-}
-
 task Testing(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
@@ -17,15 +11,17 @@ task Testing(type: Test) {
 }
 
 task AutoMRCheck(type: Test) {
-    useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
-        suites 'src/test/resources/suite/mr.xml'
-        includeGroups 'MRAutoCheck'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
-    }
+    dependsOn(':api:autoMr')
+    dependsOn(':ui:autoMr')
+
+    finalizedBy(':allureCopyHistoryDir')
+}
+
+task allureCopyHistoryDir(type: Copy) {
+    from project(':api').getBuildDir().path+"/allure-results".toString()
+    from project(':ui').getBuildDir().path+"/allure-results".toString()
+    duplicatesStrategy = DuplicatesStrategy.WARN
+    into "build/allure-results/"
 }
 
 //Task for debugging
