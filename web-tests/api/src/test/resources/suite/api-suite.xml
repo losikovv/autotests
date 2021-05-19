@@ -72,9 +72,9 @@
   </test> <!-- api-shopper-admin-tests -->
   <test verbose="1" name="API Delivery Club Tests" parallel="classes" thread-count="3">
     <classes>
-      <class name="ru.instamart.test.api.delivery_club.endpoint.AuthenticationDCTest"/>
-      <class name="ru.instamart.test.api.delivery_club.endpoint.StoresWithAuthDCTest"/>
-      <class name="ru.instamart.test.api.delivery_club.endpoint.StoresWithoutAuthDCTest"/>
+      <class name="ru.instamart.test.api.delivery_club.endpoints.AuthenticationDCTest"/>
+      <class name="ru.instamart.test.api.delivery_club.endpoints.StoresWithAuthDCTest"/>
+      <class name="ru.instamart.test.api.delivery_club.endpoints.StoresWithoutAuthDCTest"/>
     </classes>
   </test> <!-- api-delivery-club-tests -->
 </suite> <!-- Custom suite -->
