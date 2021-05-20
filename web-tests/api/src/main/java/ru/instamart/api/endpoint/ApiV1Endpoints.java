@@ -46,4 +46,8 @@ public final class ApiV1Endpoints {
         public static final String OFFERS = "stores/{storeUuid}/offers?q[name]={offerName}&q[retailer_sku]={offerRetailerSku}";
         public static final String UUID = "stores/{storeUuid}";
     }
+
+    public static final class User {
+        public static final String COMPANIES = "user/companies";
+    }
 }

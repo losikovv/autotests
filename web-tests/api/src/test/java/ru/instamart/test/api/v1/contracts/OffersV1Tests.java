@@ -2,6 +2,7 @@ package ru.instamart.test.api.v1.contracts;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -17,7 +18,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Feature("Эндпоинты, используемые шоппер бэкендом")
 public class OffersV1Tests extends RestBase {
 
-    @Feature("Поиск товаров")
+    @Story("Поиск товаров")
     @CaseId(111)
     @Test(  description = "Контрактный тест поиска товаров в магазине",
             groups = {"api-instamart-regress", "api-instamart-prod"},
