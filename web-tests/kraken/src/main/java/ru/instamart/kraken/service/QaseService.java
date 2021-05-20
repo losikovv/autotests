@@ -5,7 +5,6 @@ import io.qase.api.QaseApi;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.enums.Automation;
 import io.qase.api.enums.RunResultStatus;
-import io.qase.api.exceptions.QaseException;
 import io.qase.api.models.v1.attachments.Attachment;
 import io.qase.api.models.v1.defects.Defect;
 import io.qase.api.models.v1.suites.Suite;
@@ -162,7 +161,7 @@ public final class QaseService {
                                 isDefect,
                                 attachmentHash
                         );
-            } catch (QaseException e) {
+            } catch (Exception e) {
                 log.error("FATAL: can't update test run [caseId={} run={} project={}]", caseId, runId, projectCode, e);
             }
         }
