@@ -732,7 +732,7 @@ public class Elements {
 
         static ElementData vkontakteButton() {
             return new ElementData(
-                    By.xpath("//button[@data-qa='vkontakte']"),
+                    By.xpath("//a[@data-qa='vkontakte']"),
                         "кнопка авторизации через Vkontakte");
         }
 
@@ -743,13 +743,13 @@ public class Elements {
 
         static ElementData facebookButton() {
             return new ElementData(
-                    By.xpath("//button[@data-qa='facebook']"),
+                    By.xpath("//a[@data-qa='facebook']"),
                         "кнопка авторизации через Facebook");
         }
 
         static ElementData mailruButton() {
             return new ElementData(
-                    By.xpath("//button[@data-qa='mail_ru']"),
+                    By.xpath("//a[@data-qa='mail_ru']"),
                         "кнопка авторизации через Mail.ru");
         }
 
