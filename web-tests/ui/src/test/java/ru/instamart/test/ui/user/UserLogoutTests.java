@@ -1,6 +1,11 @@
 package ru.instamart.test.ui.user;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseId;
 import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
@@ -15,7 +20,10 @@ import org.testng.annotations.Test;
 import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
 
+@Epic("STF UI")
+@Feature("Деавторизация пользователя")
 public class UserLogoutTests extends TestBase implements UsersAuthorizationCheckpoints {
+    private static String phone;
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
     ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
@@ -26,53 +34,65 @@ public class UserLogoutTests extends TestBase implements UsersAuthorizationCheck
         User.Logout.quickly();
     }
 
+    @CaseId(1473)
+    @Story("Позитивный кейс")
     @Test(  description = "Тест успешной быстрой деавторизации",
-
             groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "metro-acceptance", "metro-regression","sbermarket-Ui-smoke"
             }
     ) public void successQuickLogout() {
+        phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
-
-        User.Do.loginAs(UserManager.getDefaultAdmin());
-        User.Logout.quickly();
+        Shop.AuthModal.openAuthRetailer();
+        User.Do.registration(phone,true);
+        User.Do.sendSms(Config.DEFAULT_SMS);
         baseChecks.checkPageIsAvailable();
+        checkIsUserAuthorized("Юзер не авторизован на сайте");
+        User.Logout.quickly();
         kraken.get().page(Config.DEFAULT_RETAILER);
         checkIsUserNotAuthorized("Не работает быстрый логаут");
     }
 
+    @CaseId(1474)
+    @Story("Позитивный кейс")
     @Test(  description = "Тест успешной деавторизации",
-
             groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "metro-acceptance", "metro-regression","sbermarket-Ui-smoke"
             }
     ) public void successManualLogout() {
+        phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.loginAs(UserManager.getDefaultAdmin());
-        User.Logout.manually();
+        Shop.AuthModal.openAuthRetailer();
+        User.Do.registration(phone,true);
+        User.Do.sendSms(Config.DEFAULT_SMS);
+        baseChecks.checkPageIsAvailable();
+        checkIsUserAuthorized("Юзер не авторизован на сайте");
+        User.Do.logoutOnSite();
         baseChecks.checkPageIsAvailable();
         kraken.get().page(Config.DEFAULT_RETAILER);
         checkIsUserNotAuthorized("Не работает логаут");
     }
 
+    @CaseId(1475)
+    @Story("Позитивный кейс")
     @Test(  description = "Тест сброса адреса доставки и корзины после деавторизации",
-
             groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
+                    "metro-acceptance", "metro-regression","sbermarket-Ui-smoke"
             }
     ) public void noShipAddressAndEmptyCartAfterLogout() {
+        phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        User.Do.loginAs(UserManager.getDefaultAdmin());
+        Shop.AuthModal.openAuthRetailer();
+        User.Do.registration(phone,true);
+        User.Do.sendSms(Config.DEFAULT_SMS);
+        checkIsUserAuthorized("Юзер не авторизован на сайте");
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+        ShippingAddressModal.selectAddressSuggest();
         ShippingAddressModal.submit();
         kraken.get().page(Config.DEFAULT_RETAILER);
-        ThreadUtil.simplyAwait(2);
         Shop.Catalog.Item.addToCart();
-        User.Logout.manually();
+        User.Do.logoutOnSite();
         kraken.get().page(Config.DEFAULT_RETAILER);
         checkIsUserNotAuthorized("Не выполнены предусловия - не работает логаут");
         shippingChecks.checkIsShippingAddressNotSet("Логаут");

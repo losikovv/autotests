@@ -333,7 +333,7 @@ public class Elements {
 
             static ElementData shipAddressButton() {
                 return new ElementData(
-                        By.xpath("//header//*[@data-qa='ship-address-selector']//*[@data-qa='select-button']"),
+                        By.xpath("//header//*[@data-qa='ship-address-selector']//button[@data-qa='select-button']"),
                             "кнопка выбора/изменения адреса доставки в шапке сайта");
             }
 
@@ -401,13 +401,13 @@ public class Elements {
 
             static ElementData storeButton() {
                 return new ElementData(
-                        By.xpath("//header//*[@data-qa='open-store-selector-button']"),
+                        By.xpath("//button[@data-qa='open-store-selector-button']"),
                             "кнопка выбора магазина в шапке сайта");
             }
 
             static ElementData loginButton() {
                 return new ElementData(
-                        By.xpath("//header//*[@data-qa='login-button']"),
+                        By.xpath("//div[@data-qa='login-button']"),
                         "кнопка входа в шапке сайта");
             }
 
@@ -419,7 +419,7 @@ public class Elements {
 
             static ElementData profileButton() {
                 return new ElementData(
-                        By.xpath("//*[@data-qa='profile-button']"),
+                        By.xpath("//div[@data-qa='profile-button']"),
                             "кнопка профиля в шапке сайта");
             }
 
@@ -631,7 +631,7 @@ public class Elements {
         */
 
         static ElementData phoneNumber() {
-            return new ElementData(By.xpath("//*[@data-qa='tel_login_form_input']"),
+            return new ElementData(By.xpath("//input[@data-qa='tel_login_form_input']"),
                     "поле для ввода номера телефона");
         }
 
@@ -826,7 +826,7 @@ public class Elements {
     interface AddressModal {
 
         static ElementData popup() {
-            return new ElementData(By.xpath("//*[@data-qa='address-modal']"),
+            return new ElementData(By.xpath("//div[@data-qa='address-modal']"),
                     "поп-ап адресной модалки");
         }
 
@@ -851,7 +851,7 @@ public class Elements {
         }
 
         static ElementData adressImageOnMap(){
-            return new ElementData(By.xpath("//*[@title='Определить ваше местоположение']"),
+            return new ElementData(By.xpath("//ymaps[@title='Определить ваше местоположение']"),
                     "найти меня на карте");
         }
         static ElementData modalMapWithText(){
@@ -866,14 +866,13 @@ public class Elements {
 
         static ElementData addressSuggest() {
             return new ElementData(
-                    By.xpath("//*[contains(@class,'dropdown')]//*[text()]"),
+                    By.xpath("//div[contains(@class,'dropdown')]//*[text()]"),
                     "адресная подсказка в модалке выбора адреса");
         }
 
         static ElementData submitButton() {
-            //return new ElementData(By.xpath("//button[@data-qa='address-modal-submit']"));
             return new ElementData(
-                    By.xpath("//*[contains(@class,'address-modal')]//*[contains(text(),'Сохранить')]"),
+                    By.xpath("//button[@data-qa='address-modal-submit']"),
                     "кнопка сохранить адрес в модалке");
         }
 
@@ -1103,7 +1102,7 @@ public class Elements {
         }
 
         static ElementData logoutButton() {
-            return new ElementData(By.xpath("//header//*[@data-qa='account-menu']//*[@data-qa='account-menu-logout']"),
+            return new ElementData(By.xpath("//button[@data-qa='account-menu-logout']"),
                     "кнопка 'Выйти' во всплывающем меню профиля");
         }
 
@@ -1550,7 +1549,7 @@ public class Elements {
 
         interface Product {
             static ElementData snippet() {
-                return new ElementData(By.xpath("//*[@class='product']//*[contains(@class,'product__img')]//img[contains(@alt,text())]"),
+                return new ElementData(By.xpath("//li[@class='product']//div[contains(@class,'product__img')]//img[contains(@alt,text())]"),
                         "сниппет продукта");
             }
 
@@ -1576,7 +1575,7 @@ public class Elements {
             }
 
             static ElementData plusButton() {
-                return new ElementData(By.xpath("//*[@class='product']//div[contains(@class,'add-cart__up')]"),
+                return new ElementData(By.xpath("//li[@class='product']//div[contains(@class,'add-cart__up')]"),
                         "кнопка \"+\" в сниппете продукта");
             }
 

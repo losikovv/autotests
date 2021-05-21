@@ -71,7 +71,7 @@ public final class User extends Base {
         }
 
         @Step("Деавторизуемся на сайте")
-        private static void logoutOnSite() {
+        public static void logoutOnSite() {
             log.info("> деавторизуемся на сайте");
             for (int i=0;i<60;i++){
                 kraken.perform().click(Elements.Header.profileButton());
@@ -302,36 +302,6 @@ public final class User extends Base {
     }
 
     public static class Logout {
-
-        /** Ручная деавторизация через пользовательское меню */
-        @Step("Деавторизуемся через пользовательское меню")
-        public static void manually() {
-            catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),1);
-            if(kraken.detect().isUserAuthorised()) {
-                log.info("> логаут...");
-                if (kraken.detect().isInAdmin()) {
-                    User.Do.logoutOnAdministration();
-                } else {
-                    User.Do.logoutOnSite();
-                }
-                if (!kraken.detect().isUserAuthorised()) {
-                    log.info("✓ Готово");
-                }
-            } else {
-                log.info("> пропускаем деавторизацию, уже разлогинены");
-            }
-        }
-
-        /** Быстрая деавторизация прямым переходом на /logout */
-        @Step("Деавторизация прямым переходом на /logout")
-        public static void quick() {
-            log.info("> быстрый логаут...");
-            kraken.get().page("logout");
-            ThreadUtil.simplyAwait(1); // Ожидание деавторизации и подгрузки лендинга
-            if (kraken.detect().isOnLanding()) {
-                log.info("✓ Готово");
-            }
-        }
 
         /** Быстрая деавторизация удалением кук */
         @Step("Делаем быструю деавторизацию пользователя с удалением файлов куки")
