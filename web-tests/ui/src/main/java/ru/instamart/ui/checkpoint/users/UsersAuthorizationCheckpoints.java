@@ -15,9 +15,10 @@ public interface UsersAuthorizationCheckpoints extends Checkpoint {
         log.info("> проверяем, что пользователь не авторизован на сайте");
         kraken.get().baseUrl();
         assertFalse(
-                kraken.detect().isUserAuthorised(),
+                kraken.detect().isUserAuthorisedSTF(),
                 message+"\n");
     }
+
 
     /**Проверяем, что пользователь авторизован на сайте*/
     @Step("Проверяем, что пользователь авторизован на сайте")

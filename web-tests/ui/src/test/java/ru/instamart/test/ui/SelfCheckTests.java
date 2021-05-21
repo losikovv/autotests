@@ -75,7 +75,7 @@ public class SelfCheckTests extends TestBase {
         User.Do.loginAs(UserManager.getDefaultAdmin());
         Assert.assertTrue(kraken.detect().isUserAuthorised());
 
-        User.Logout.manually();
+        User.Do.logoutOnSite();
         Assert.assertFalse(kraken.detect().isUserAuthorised());
     }
 

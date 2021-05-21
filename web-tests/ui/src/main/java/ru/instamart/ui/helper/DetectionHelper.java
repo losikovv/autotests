@@ -338,7 +338,8 @@ public final class DetectionHelper extends HelperBase {
     public boolean isUserAuthorisedSTF() {
         log.info("Проверяем авторизованность...");
         if (kraken.detect().isElementPresent(Elements.Header.profileButton())
-                || !kraken.detect().isElementPresent(Elements.Header.loginButton()) ) {
+                || !kraken.detect().isElementPresent(Elements.Header.loginButton())
+                && !kraken.detect().isElementPresent(Elements.Landings.SbermarketLanding.Header.loginButton())) {
             log.info("✓ Авторизован");
             return true;
         } else {
