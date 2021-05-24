@@ -167,3 +167,14 @@ task autoMr(type: Test) {
     }
 }
 
+task debug(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/debug.xml'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
+
