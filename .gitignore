@@ -2,6 +2,7 @@
 **/.allure
 **/.gradle
 **/build
+**/allure-results
 **/logs
 **/out
 
@@ -20,11 +21,9 @@ gradle-app.setting
 # Ignore Mac DS_Store folder
 .DS_Store
 
-
-# Ignore sensitive data for security purposes
-web-tests/src/test/java/ru/instamart/application/Users.java
-web-tests/src/test/java/ru/instamart/application/Servers.java
-web-tests/src/test/java/ru/instamart/tests/Playground.java
+# Debug file
+**/Debug.java
+**/debug.xml
 
 # Ignore key
 **/key_*

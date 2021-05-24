@@ -6,7 +6,7 @@
     </listeners>
     <test verbose="1" name="Debug">
         <classes>
-            <class name="ru.instamart.test.ui.user.UserFavoritesTests"/>
+            <class name="ru.instamart.test.ui.Debug"/>
         </classes>
     </test>
 </suite>
