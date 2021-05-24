@@ -1,6 +1,6 @@
 package ru.instamart.api.endpoint;
 
-public final class ApiV1Endpoints {
+public final class  ApiV1Endpoints {
 
     public static final String LINE_ITEMS = "line_items?shipment_number={shipmentNumber}";
     public static final String OPERATIONAL_ZONES = "operational_zones";
@@ -9,6 +9,7 @@ public final class ApiV1Endpoints {
     public static final String STORES = "stores";
     public static final String TOKENS = "tokens";
     public static final String USER_SESSIONS = "user_sessions";
+    public static final String COMPANY_PRESENCE = "company_presence?inn={inn}";
 
     public static final class Offers {
         public static final String UUID = "offers/{offerUuid}";
@@ -50,4 +51,5 @@ public final class ApiV1Endpoints {
     public static final class User {
         public static final String COMPANIES = "user/companies";
     }
+
 }
