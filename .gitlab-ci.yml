@@ -22,7 +22,6 @@ stages:
   after_script:
     - cd web-tests
     - bash ./report.sh api api-shopper-regress
-    - bash ./report.sh preproduction
   tags:
     - k8s-stage
   artifacts:
@@ -91,7 +90,6 @@ tests:ApiInstamart:
   after_script:
     - cd web-tests
     - bash ./report.sh api api-instamart-regress
-    - bash ./report.sh preproduction
   tags:
     - k8s-stage
   artifacts:
