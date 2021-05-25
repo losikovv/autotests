@@ -21,9 +21,5 @@ gradle-app.setting
 # Ignore Mac DS_Store folder
 .DS_Store
 
-# Debug file
-**/Debug.java
-**/debug.xml
-
 # Ignore key
 **/key_*
