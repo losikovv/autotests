@@ -12,6 +12,7 @@ import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.shipping.ShippingAddressCheckpoints;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.Order;
@@ -27,6 +28,7 @@ public class UserShippingAddressTests extends TestBase {
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
+        AppManager.getWebDriver().manage().deleteAllCookies();
         User.Logout.logout();
     }
 
@@ -183,7 +185,6 @@ public class UserShippingAddressTests extends TestBase {
             },enabled = false
     )
     public void successChangeShippingAddressToRecent() {
-        User.Logout.quickly();
         User.Do.registration();
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
