@@ -47,7 +47,7 @@ public class BasicOrdersTests extends TestBase {
     @BeforeMethod(alwaysRun = true,
             description ="Аутентификация и выбор адреса доставки")
     public void preconditions() {
-        User.Logout.quickly();
+        User.Logout.logout();
         String phone;
         phone = Generate.phoneNumber();
         step("Аутентификация", ()-> {

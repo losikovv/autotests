@@ -91,12 +91,12 @@ public class Elements {
                 }
 
                 static ElementData logo() {
-                    return new ElementData(By.xpath("//header//*[contains(@class,'home-logo')]"),
+                    return new ElementData(By.xpath("//i[contains(@class,'home-logo')]"),
                             "логотип Сбермаркета в шапке лендинга");
                 }
 
                 static ElementData loginButton() {
-                    return new ElementData(By.xpath("//header//button[text()='Войти']"),
+                    return new ElementData(By.xpath("//button[contains(@class, 'home_header')]"),
                             "кнопка входа в шапке лендинга Сбермаркета");
                 }
             }
@@ -104,7 +104,7 @@ public class Elements {
             interface MainBlock{
 
                 static ElementData container() {
-                    return new ElementData(By.xpath("//*[@data-qa='home_landing']"),
+                    return new ElementData(By.xpath("//div[@data-qa='home_landing']"),
                             "главный блок лендинга Сбермаркета");
                 }
 
@@ -1797,12 +1797,12 @@ public class Elements {
 
                 static ElementData removeAllButton() {
                     return new ElementData(By.xpath("//button[@data-qa='cart_remove_shipments_button']"),
-                            "кнопка удаления всех товаров в корзине");
+                            "кнопка удаления всех товаров в корзине", 10);
                 }
 
                 static ElementData removeAllConformation() {
                     return new ElementData(By.xpath("//button[@data-qa='confirm_shipments_remove_modal_confirm_btn']"),
-                            "кнопка подтверждения удаления");
+                            "кнопка подтверждения удаления", 10);
                 }
             }
 

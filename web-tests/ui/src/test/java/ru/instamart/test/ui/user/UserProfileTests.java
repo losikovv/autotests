@@ -7,15 +7,14 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.testdata.lib.Pages;
 import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.users.AccountMenuCheckpoints;
-import ru.instamart.kraken.testdata.lib.Pages;
-import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
-import ru.instamart.kraken.testdata.Generate;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -29,8 +28,7 @@ public class UserProfileTests extends TestBase {
     @BeforeClass(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
-        AppManager.closeWebDriver();
-        kraken.get().baseUrl();
+        User.Logout.logout();
         String phone = Generate.phoneNumber();
         Shop.AuthModal.openAuthLending();
         User.Do.registration(phone,true);

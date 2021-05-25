@@ -7,15 +7,15 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.test.ui.TestBase;
+import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.shipping.ShippingAddressCheckpoints;
-import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.Order;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
-import ru.instamart.ui.Elements;
 
 @Epic("STF UI")
 @Feature("Адрес доставки")
@@ -27,7 +27,7 @@ public class UserShippingAddressTests extends TestBase {
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
-        User.Logout.quickly();
+        User.Logout.logout();
     }
 
     @CaseId(1558)
