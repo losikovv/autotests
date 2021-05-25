@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import ru.instamart.api.checkpoint.ShopperApiCheckpoints;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.model.shopper.app.SessionAttributesSHP;
 import ru.instamart.api.model.v1.ShoppersBackendV1;
@@ -23,6 +24,7 @@ import ru.instamart.kraken.testdata.UserManager;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Objects.isNull;
@@ -119,10 +121,10 @@ public final class SessionFactory {
     }
 
     private static SessionInfo createApiV2Session(final UserData userData) {
-        final Response response = SessionV2Request.POST(userData.getLogin(), userData.getPassword());
+        final Response response = SessionV2Request.POST(AuthProviderV2.FACEBOOK, userData, UUID.randomUUID().toString());
         checkStatusCode200(response);
         final SessionsV2Response sessionResponse = response.as(SessionsV2Response.class);
-        log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
+        log.info("Авторизуемся: {}", userData.getLogin());
         log.info("access_token: {}", sessionResponse.getSession().getAccessToken());
         return new SessionInfo(userData, sessionResponse.getSession().getAccessToken());
     }

@@ -35,7 +35,9 @@ public final class BonusCardsV2Test extends RestBase {
     }
 
     @CaseId(375)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Одна или несколько бонусных карт")
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
+            description = "Одна или несколько бонусных карт",
+            dependsOnMethods = "testAddBonusCard200")
     public void testWithBonusCards() {
         SessionFactory.createSessionToken(SessionType.API_V2, UserManager.getDefaultUser());
         final Response response = BonusCardsV2Request.GET();
@@ -77,7 +79,7 @@ public final class BonusCardsV2Test extends RestBase {
     @CaseId(384)
     @Test(  groups = {"api-instamart-regress"},
             description = "Удаление бонусной карты",
-            dependsOnMethods = "testAddBonusCard200")
+            dependsOnMethods = "testWithBonusCards")
     public void testDeleteBonusCard200() {
         SessionFactory.createSessionToken(SessionType.API_V2, UserManager.getDefaultUser());
         final Response response = BonusCardsV2Request.DELETE(bonusCardId);
