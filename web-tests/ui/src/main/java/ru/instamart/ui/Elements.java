@@ -1797,12 +1797,12 @@ public class Elements {
 
                 static ElementData removeAllButton() {
                     return new ElementData(By.xpath("//button[@data-qa='cart_remove_shipments_button']"),
-                            "кнопка удаления всех товаров в корзине");
+                            "кнопка удаления всех товаров в корзине", 10);
                 }
 
                 static ElementData removeAllConformation() {
                     return new ElementData(By.xpath("//button[@data-qa='confirm_shipments_remove_modal_confirm_btn']"),
-                            "кнопка подтверждения удаления");
+                            "кнопка подтверждения удаления", 10);
                 }
             }
 
