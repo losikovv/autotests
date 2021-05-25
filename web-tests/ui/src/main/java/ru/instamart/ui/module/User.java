@@ -83,6 +83,7 @@ public final class User extends Base {
             }
             kraken.perform().click(Elements.AccountMenu.logoutButton());
         }
+
         @Step("Деавторизуемся в админке")
         public static void logoutOnAdministration() {
             log.info("> деавторизуемся в админке");
@@ -302,6 +303,14 @@ public final class User extends Base {
     }
 
     public static class Logout {
+
+        /**
+         * Деавторизует, не работает с внешней деавторизацией
+         */
+        @Step("Логаут")
+        public static void logout() {
+            kraken.get().page("logout");
+        }
 
         /** Быстрая деавторизация удалением кук */
         @Step("Делаем быструю деавторизацию пользователя с удалением файлов куки")

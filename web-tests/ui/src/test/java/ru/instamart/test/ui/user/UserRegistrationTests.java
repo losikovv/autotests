@@ -8,16 +8,16 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.kraken.testdata.lib.Pages;
 import ru.instamart.test.ui.TestBase;
+import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.shoppingcart.ShoppingCartCheckpoints;
 import ru.instamart.ui.checkpoint.users.UsersAuthorizationCheckpoints;
-import ru.instamart.kraken.testdata.lib.Addresses;
-import ru.instamart.kraken.testdata.lib.Pages;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
-import ru.instamart.ui.Elements;
 
 @Epic("STF UI")
 @Feature("Регистрация пользователя")
@@ -30,7 +30,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
     @BeforeMethod(alwaysRun = true,
             description ="Завершаем сессию, текущего пользователя")
     public void quickLogout() {
-        User.Logout.quickly();
+        User.Logout.logout();
     }
 
     @CaseId(1552)
