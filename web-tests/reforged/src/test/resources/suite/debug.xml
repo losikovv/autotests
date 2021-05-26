@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
+<suite name="DEBUG-SUITE" verbose="1">
+    <listeners>
+        <listener class-name="ru.instamart.ui.listener.UiExecutionListener"/>
+    </listeners>
+    <test verbose="1" name="Debug UI" parallel="methods" thread-count="2">
+        <classes>
+            <class name="Foo"/>
+        </classes>
+    </test>
+</suite>

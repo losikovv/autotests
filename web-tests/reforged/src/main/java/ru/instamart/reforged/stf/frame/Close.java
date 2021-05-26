@@ -1,0 +1,13 @@
+package ru.instamart.reforged.stf.frame;
+
+import org.openqa.selenium.By;
+import ru.instamart.reforged.stf.component.Button;
+
+public interface Close {
+
+    Button closeModal = new Button(By.xpath("//button[@aria-label='Закрыть']"));
+
+    default void close() {
+        closeModal.click();
+    }
+}
