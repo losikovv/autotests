@@ -33,6 +33,30 @@ subprojects {
     }
 }
 
+project(":reforged") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":ui")
+        implementation project(":kraken")
+
+        implementation lib.jackson
+        implementation lib.aspectjweaver
+        implementation lib.seleniumJava
+        implementation lib.allureTestng
+        implementation lib.allureJavaCommons
+        implementation lib.testng
+        implementation lib.jsonSimple
+
+        compileOnly lib.lombok
+
+        annotationProcessor lib.lombok
+        testImplementation lib.logback
+        testCompileOnly lib.lombok
+        testAnnotationProcessor lib.lombok
+    }
+}
+
 project(":kraken") {
     apply plugin: "java-library"
 
