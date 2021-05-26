@@ -40,7 +40,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(7)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "getStores",
             description = "Получаем список всех магазинов по указанным координатам")

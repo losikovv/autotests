@@ -46,7 +46,6 @@ public class OrdersV2Test extends RestBase {
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getCurrentOrder() {
         response = OrdersV2Request.Current.GET();
-        response.prettyPrint();
         InstamartApiCheckpoints.checkStatusCode200(response);
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
         assertNotNull(order, "Не вернулся текущий заказ");

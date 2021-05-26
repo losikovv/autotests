@@ -130,7 +130,6 @@ public class ShopperAppApiHelper {
                 String.valueOf(LocalDateTime.now().plus(1, ChronoUnit.DAYS)),
                 55.751244,
                 37.618423);
-        response.prettyPeek();
     }
 
     /**

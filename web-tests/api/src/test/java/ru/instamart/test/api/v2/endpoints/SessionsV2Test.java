@@ -27,22 +27,10 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 @Feature(value = "Авторизация")
 public final class SessionsV2Test extends RestBase {
 
-    @CaseId(14)
-    @Test(  dataProvider = "authProviders",
-            dataProviderClass = RestDataProvider.class,
-            groups = {"api-instamart-prod"},
-            description = "Авторизуемся через стороннего провайдера")
-    public void postAuthProvidersSessions(final AuthProviderV2 authProvider) {
-        if (!EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
-            throw new SkipException("Скипаем тесты не на проде");
-        }
-        final Response response = SessionV2Request.POST(authProvider);
-        checkStatusCode200(response);
-        assertNotNull(response.as(SessionsV2Response.class).getSession());
-    }
-
     @CaseId(110)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Авторизуемся c Client-Id: InstamartApp (как мобильное приложение)")
+    @Test(  enabled = false, //todo актуализировать используемую авторизацию
+            groups = {"api-instamart-smoke", "api-instamart-prod"},
+            description = "Авторизуемся c Client-Id: InstamartApp (как мобильное приложение)")
     public void postSessionsInstamartApp() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
@@ -87,7 +75,9 @@ public final class SessionsV2Test extends RestBase {
     }
 
     @CaseId(182)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Валидация данных по сессионному токену")
+    @Test(  enabled = false, //todo актуализировать используемую авторизацию
+            groups = {"api-instamart-smoke", "api-instamart-prod"},
+            description = "Валидация данных по сессионному токену")
     public void testUserData() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);

@@ -62,7 +62,7 @@ public enum Specification {
                 .expectStatusCode(not(500))
                 .expectStatusCode(not(502))
                 .expectStatusCode(not(503))
-                .expectContentType(ContentType.JSON)
+                //.expectContentType(ContentType.JSON)
                 .build();
 
         responseSpecification = responseSpecDefault;
