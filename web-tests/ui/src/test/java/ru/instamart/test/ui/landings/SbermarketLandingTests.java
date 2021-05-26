@@ -24,7 +24,6 @@ public class SbermarketLandingTests extends TestBase {
     @CaseId(1687)
     @Test(
             description = "Тест валидности и наличия элементов лендинга Сбермаркета",
-
             groups = {"sbermarket-Ui-smoke"}
     )
     public void successValidateSbermarketLanding() {
@@ -42,8 +41,11 @@ public class SbermarketLandingTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.text());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.list());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.button());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.showAll());
+        kraken.perform().click(Elements.Landings.SbermarketLanding.MainBlock.Stores.showAll());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.buttonAuchan());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.buttonMetro());
+        baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.buttonLenta());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AdvantagesBlock.container());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AdvantagesBlock.deliveryAdv());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.AdvantagesBlock.heavyToDoorAdv());

@@ -141,8 +141,18 @@ public class Elements {
                     }
 
                     static ElementData buttonMetro() {
-                        return new ElementData(By.xpath("//*[@data-qa='home_landing_store_image_1']"),
+                        return new ElementData(By.xpath("//div[@data-qa='home_landing_store_image_82']"),
                                 "кнопка выбора магазина Метро");
+                    }
+
+                    static ElementData buttonLenta() {
+                        return new ElementData(By.xpath("//div[@data-qa='home_landing_store_image_7']"),
+                                "кнопка выбора магазина Метро");
+                    }
+
+                    static ElementData showAll() {
+                        return new ElementData(By.xpath("//button[text()='Показать всех']"),
+                                "кнопка показать все магазины");
                     }
 
                     static ElementData homeLanding(){
