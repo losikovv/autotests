@@ -10,6 +10,7 @@ public final class  ApiV1Endpoints {
     public static final String TOKENS = "tokens";
     public static final String USER_SESSIONS = "user_sessions";
     public static final String COMPANY_PRESENCE = "company_presence?inn={inn}";
+    public static final String LEGAL_ENTITY = "legal_entity?inn={inn}";
 
     public static final class Offers {
         public static final String UUID = "offers/{offerUuid}";
@@ -50,6 +51,8 @@ public final class  ApiV1Endpoints {
 
     public static final class User {
         public static final String COMPANIES = "user/companies";
+        public static final String COMPANIES_ID = "user/companies/{id}";
+        public static final String COMPANIES_ID_MANAGER = "user/companies/{id}/manager";
     }
 
 }

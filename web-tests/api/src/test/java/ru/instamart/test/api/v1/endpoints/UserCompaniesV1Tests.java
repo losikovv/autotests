@@ -6,11 +6,14 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.request.v1.b2b.CompanyManagerV1Request;
 import ru.instamart.api.request.v1.b2b.UserCompaniesV1Request;
 import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
+import ru.instamart.api.response.v1.b2b.CompanyByIDV1Response;
+import ru.instamart.api.response.v1.b2b.CompanyManagerV1Response;
 import ru.instamart.kraken.testdata.UserManager;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
 public class UserCompaniesV1Tests extends RestBase {
@@ -26,5 +29,20 @@ public class UserCompaniesV1Tests extends RestBase {
         Response response = UserCompaniesV1Request.GET();
         checkStatusCode200(response);
         assertFalse(response.as(CompaniesV1Response.class).getCompanies().isEmpty());
+    }
+
+    @Test(groups = {"api-instamart-regress"})
+    public void getCompanyByID(){
+        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+        Response response = UserCompaniesV1Request.GET("1303");
+        checkStatusCode200(response);
+        assertEquals(1303, response.as(CompanyByIDV1Response.class).getCompany().getId());
+    }
+    @Test(groups = {"api-instamart-regress"})
+    public void getCompanyWithoutManager(){
+        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+        Response response = CompanyManagerV1Request.GET("1303");
+        checkStatusCode200(response);
+        assertNull(response.as(CompanyManagerV1Response.class).getManager());
     }
 }
