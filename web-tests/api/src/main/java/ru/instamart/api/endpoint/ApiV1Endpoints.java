@@ -51,8 +51,17 @@ public final class  ApiV1Endpoints {
 
     public static final class User {
         public static final String COMPANIES = "user/companies";
-        public static final String COMPANIES_ID = "user/companies/{id}";
-        public static final String COMPANIES_ID_MANAGER = "user/companies/{id}/manager";
+
+        public static final class Company {
+            public static final String BY_ID = "user/companies/{id}";
+            public static final String MANAGER = "user/companies/{id}/manager";
+
+        }
+
+
+
+
+
     }
 
 }

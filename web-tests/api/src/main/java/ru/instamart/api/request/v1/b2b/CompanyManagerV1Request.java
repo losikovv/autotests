@@ -4,12 +4,11 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
-import ru.instamart.api.response.BaseResponseObject;
 
 public class CompanyManagerV1Request extends ApiV1RequestBase {
-    @Step("{method} /" + ApiV1Endpoints.User.COMPANIES_ID_MANAGER)
+    @Step("{method} /" + ApiV1Endpoints.User.Company.MANAGER)
     public static Response GET(String companyID) {
         return givenWithAuth()
-                .get(ApiV1Endpoints.User.COMPANIES_ID_MANAGER, companyID);
+                .get(ApiV1Endpoints.User.Company.MANAGER, companyID);
     }
 }
