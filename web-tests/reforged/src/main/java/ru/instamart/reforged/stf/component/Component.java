@@ -5,15 +5,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.kraken.setting.Config;
-import ru.instamart.ui.manager.AppManager;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 import static ru.instamart.ui.manager.AppManager.getWebDriver;
 
@@ -29,6 +28,9 @@ public abstract class Component {
     protected final String description;
     @Getter
     protected final String errorMsg;
+
+    private final Actions actions = new Actions(getWebDriver());
+    private final Consumer<WebElement> hover = (wb) -> actions.moveToElement(wb).perform();
 
     public Component(final By by) {
         this.by = by;
@@ -48,16 +50,20 @@ public abstract class Component {
         return component;
     }
 
+    public void mouseOver() {
+        hover.accept(getComponent());
+    }
+
     private WebElement isClickable() {
-        return new FluentWait<>(AppManager.getWebDriver())
+        return new FluentWait<>(getWebDriver())
                 .withTimeout(timeout, TimeUnit.SECONDS)
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.elementToBeClickable(by));
     }
 
-    protected WebElement isVisible() {
-        return new FluentWait<>(AppManager.getWebDriver())
+    private WebElement isVisible() {
+        return new FluentWait<>(getWebDriver())
                 .withTimeout(timeout, TimeUnit.SECONDS)
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
