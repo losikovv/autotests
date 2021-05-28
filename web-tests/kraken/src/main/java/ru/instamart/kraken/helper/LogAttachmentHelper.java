@@ -1,10 +1,14 @@
 package ru.instamart.kraken.helper;
 
+import lombok.RequiredArgsConstructor;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
+
+import static java.util.Objects.isNull;
 
 public final class LogAttachmentHelper {
 
@@ -12,7 +16,7 @@ public final class LogAttachmentHelper {
     private static OutputStreamRouter router;
 
     public static synchronized void start() {
-        if (router == null) {
+        if (isNull(router)) {
             originalStream = System.out;
             router = new OutputStreamRouter(originalStream);
             System.setOut(new PrintStream(router));
@@ -25,14 +29,14 @@ public final class LogAttachmentHelper {
     }
 
     public static synchronized String getContent(final boolean clear) {
-        if (router == null) {
+        if (isNull(router)) {
             throw new RuntimeException();
         }
         return router.fetchThreadContent(Thread.currentThread(), clear);
     }
 
     public static synchronized void stop() {
-        if (router == null) {
+        if (isNull(router)) {
             throw new RuntimeException();
         }
         router.unregistryThread(Thread.currentThread());
@@ -43,14 +47,11 @@ public final class LogAttachmentHelper {
         }
     }
 
+    @RequiredArgsConstructor
     private static final class OutputStreamRouter extends OutputStream {
 
         private final HashMap<Thread, ByteArrayOutputStream> loggerStreams = new HashMap<>();
         private final OutputStream original;
-
-        public OutputStreamRouter(final OutputStream original) {
-            this.original = original;
-        }
 
         public void registryThread(final Thread thread) {
             if (loggerStreams.containsKey(thread)) throw new RuntimeException();

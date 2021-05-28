@@ -63,13 +63,10 @@ public class BasicOrdersTests extends TestBase {
             ShippingAddressModal.submit();
         });
     }
-    //TODO удалить шаг скрина падения теста после доработки afterMethod в ru.instamart.test.ui.TestBase
+
     @AfterMethod(alwaysRun = true,
-            description ="Завершение теста")
-    public void afterTest(final ITestResult result){
-        step("Скриншот страницы, если тест упал", ()-> {
-            if (!result.isSuccess()) CustomReport.takeScreenshot();
-        });
+            description ="Завершение теста", dependsOnMethods = "captureFinish")
+    public void afterTest(final ITestResult result) {
         step("Очистка окружения после теста ", ()->{
             Order.cancelLastActiveOrder();
             User.Logout.quickly();

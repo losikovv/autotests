@@ -19,16 +19,11 @@ public final class UiListener implements ITestListener, ISuiteListener {
 
     @Override
     public void onStart(ISuite suite) {
-
     }
 
     @Override
     public void onStart(ITestContext context) {
         this.qaseService.createTestRun();
-    }
-
-    @Override
-    public void onFinish(ITestContext context) {
     }
 
     @Override
@@ -52,6 +47,10 @@ public final class UiListener implements ITestListener, ISuiteListener {
 
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+    }
+
+    @Override
+    public void onFinish(ITestContext context) {
     }
 
     @Override
