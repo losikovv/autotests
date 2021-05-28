@@ -35,6 +35,17 @@ public class Foo {
         Rout.home().useAuthModal().uncheckForBusiness();
     }
 
+    @SneakyThrows
+    @Test
+    public void bar3() {
+        Rout.home().goToPage();
+        Rout.home().openLoginModal();
+        Rout.home().useAuthModal().fillPhone("79999919613");
+        Rout.home().useAuthModal().sendSms();
+        Rout.home().useAuthModal().fillSMS("111111");
+        Rout.home().goToPage();
+    }
+
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")
     public void screenShot(final ITestResult result) {
             CustomReport.takeScreenshot();
