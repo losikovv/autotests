@@ -13,7 +13,9 @@ import ru.instamart.api.response.v1.b2b.CompanyByIDV1Response;
 import ru.instamart.api.response.v1.b2b.CompanyManagerV1Response;
 import ru.instamart.kraken.testdata.UserManager;
 
-import static org.junit.Assert.*;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
 public class UserCompaniesV1Tests extends RestBase {
@@ -36,7 +38,7 @@ public class UserCompaniesV1Tests extends RestBase {
         SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
         Response response = UserCompaniesV1Request.GET("1303");
         checkStatusCode200(response);
-        assertEquals(1303, response.as(CompanyByIDV1Response.class).getCompany().getId());
+        assertEquals(Integer.valueOf(1303), response.as(CompanyByIDV1Response.class).getCompany().getId(), "id компании не совпадает с запрошенным");
     }
     @Test(groups = {"api-instamart-regress"})
     public void getCompanyWithoutManager(){
