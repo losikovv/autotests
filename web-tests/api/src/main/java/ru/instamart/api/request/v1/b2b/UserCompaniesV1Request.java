@@ -11,4 +11,10 @@ public class UserCompaniesV1Request extends ApiV1RequestBase {
         return givenWithAuth()
                 .get(ApiV1Endpoints.User.COMPANIES);
     }
+
+    @Step("{method} /" + ApiV1Endpoints.User.COMPANIES_ID)
+    public static Response GET(String companyID) {
+        return givenWithAuth()
+                .get(ApiV1Endpoints.User.COMPANIES_ID, companyID);
+    }
 }
