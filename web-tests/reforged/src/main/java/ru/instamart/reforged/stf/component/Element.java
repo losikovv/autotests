@@ -1,11 +1,13 @@
 package ru.instamart.reforged.stf.component;
 
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.action.WaitAction;
 
 @ToString(callSuper = true)
+@Slf4j
 public final class Element extends Component {
 
     public Element(final By by) {
@@ -22,6 +24,7 @@ public final class Element extends Component {
 
     @Override
     protected WebElement getComponent() {
+        log.info("Create {} with locator {}", getClass().getSimpleName(), getBy());
         if (component == null) {
             component = WaitAction.shouldBeVisible(this);
         }
@@ -30,9 +33,11 @@ public final class Element extends Component {
 
     public void click() {
         getComponent().click();
+        log.info("Click {} with locator {}", getClass().getSimpleName(), getBy());
     }
 
     public void getText() {
         getComponent().getText();
+        log.info("Get text {} with locator {}", getClass().getSimpleName(), getBy());
     }
 }

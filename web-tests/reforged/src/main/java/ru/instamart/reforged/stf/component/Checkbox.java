@@ -1,11 +1,13 @@
 package ru.instamart.reforged.stf.component;
 
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.action.WaitAction;
 
 @ToString(callSuper = true)
+@Slf4j
 public final class Checkbox extends Component {
 
     public Checkbox(final By by) {
@@ -22,6 +24,7 @@ public final class Checkbox extends Component {
 
     @Override
     protected WebElement getComponent() {
+        log.info("Create {} with locator {}", getClass().getSimpleName(), getBy());
         if (component == null) {
             component = WaitAction.shouldBeClickable(this);
         }
@@ -30,9 +33,11 @@ public final class Checkbox extends Component {
 
     public void check() {
         getComponent().click();
+        log.info("Check {} with locator {}", getClass().getSimpleName(), getBy());
     }
 
     public void uncheck() {
         getComponent().click();
+        log.info("Uncheck {} with locator {}", getClass().getSimpleName(), getBy());
     }
 }

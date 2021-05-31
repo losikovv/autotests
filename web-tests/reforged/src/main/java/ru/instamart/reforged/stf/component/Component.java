@@ -3,12 +3,14 @@ package ru.instamart.reforged.stf.component;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.setting.Config;
 
 @RequiredArgsConstructor
 @ToString
+@Slf4j
 public abstract class Component {
 
     protected WebElement component;
@@ -51,6 +53,7 @@ public abstract class Component {
     protected abstract WebElement getComponent();
 
     public void mouseOver() {
+        log.info("Element {} hover", by);
         action.mouseOver();
     }
 }

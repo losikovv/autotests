@@ -42,7 +42,7 @@ public final class WaitAction {
                 });
     }
 
-    public static void urlToBe(final String url) {
+    public static void urlToBePresent(final String url) {
         new FluentWait<>(AppManager.getWebDriver())
                 .withTimeout(Config.BASIC_TIMEOUT, TimeUnit.SECONDS)
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
