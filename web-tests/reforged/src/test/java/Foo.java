@@ -3,8 +3,10 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import ru.instamart.reforged.stf.drawer.Cart;
 import ru.instamart.reforged.stf.page.Rout;
 import ru.instamart.ui.listener.UiExecutionListener;
+import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.report.CustomReport;
 
 @Listeners(UiExecutionListener.class)
@@ -40,10 +42,14 @@ public class Foo {
     public void bar3() {
         Rout.home().goToPage();
         Rout.home().openLoginModal();
-        Rout.home().useAuthModal().fillPhone("79999919613");
+        Rout.home().useAuthModal().fillPhone("9999919613");
         Rout.home().useAuthModal().sendSms();
         Rout.home().useAuthModal().fillSMS("111111");
-        Rout.home().goToPage();
+        Rout.shop().useHeader().clickToCart();
+        //ожидание открытия корзины
+        Rout.shop().cart().removeItem();
+
+
     }
 
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")
