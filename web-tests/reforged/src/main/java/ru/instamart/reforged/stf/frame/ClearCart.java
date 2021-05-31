@@ -7,15 +7,15 @@ import ru.instamart.reforged.stf.component.Button;
 
 public class ClearCart implements Close {
 
-    private final Button confirm = new Button(By.xpath("//button[@data-qa='confirm_shipments_remove_modal_confirm_btn']"));
-    private final Button cancel = new Button(By.xpath("//button[@data-qa='confirm_shipments_remove_modal_cancel_btn']"));
+    private final Button confirm = new Button(By.xpath("//button[@data-qa='confirm_shipments_remove_modal_confirm_btn']"),"кнопка Удалить товары");
+    private final Button cancel = new Button(By.xpath("//button[@data-qa='confirm_shipments_remove_modal_cancel_btn']"), "кнопка Не удалять");
 
     @Step("Подтвердить очистку корзины")
     public void confirm(){
         confirm.click();
     }
 
-    @Step("Подтвердить очистку корзины")
+    @Step("Отменить очистку корзины")
     public void cancel(){
         cancel.click();
     }
