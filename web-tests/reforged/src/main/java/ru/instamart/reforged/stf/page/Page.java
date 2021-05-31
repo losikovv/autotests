@@ -10,7 +10,7 @@ public interface Page {
     String pageUrl();
 
     default void goToPage() {
-        WaitAction.urlToBe(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + pageUrl());
+        AppManager.getWebDriver().get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + pageUrl());
         JsAction.waitForDocumentReady();
     }
 }
