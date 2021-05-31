@@ -92,7 +92,7 @@ public class UserLogoutTests extends TestBase implements UsersAuthorizationCheck
         ShippingAddressModal.submit();
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.Catalog.Item.addToCart();
-        User.Do.logoutOnSite();
+        User.Logout.logout();
         checkIsUserNotAuthorized("Не выполнены предусловия - не работает логаут");
         shippingChecks.checkIsShippingAddressNotSet("Логаут");
         kraken.get().page(Config.DEFAULT_RETAILER);

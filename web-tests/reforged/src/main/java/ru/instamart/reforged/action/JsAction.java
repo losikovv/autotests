@@ -17,6 +17,11 @@ public final class JsAction {
         execute("scroll(0, 500)");
     }
 
+    //document.querySelectorAll('[data-qa="increase-button"]');
+    public static void hoverAndClick(final String dataQaValue) {
+        execute("document.querySelectorAll('[data-qa=\""+dataQaValue+"\"]')[0].click();");
+    }
+
     private static Object execute(final String js) {
         return ((JavascriptExecutor) getWebDriver()).executeScript(js);
     }

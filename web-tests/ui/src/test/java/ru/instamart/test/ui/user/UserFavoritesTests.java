@@ -261,7 +261,8 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
             groups = {
                     "sbermarket-Ui-smoke",
                     "metro-regression",
-                    "sbermarket-regression"}
+                    "sbermarket-regression"},
+            enabled = false
     )
     public void successAddFavoriteProductToCart() {
         Shop.AuthModal.openAuthOnLanding();

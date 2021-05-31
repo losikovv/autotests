@@ -19,4 +19,12 @@ public final class Element extends Component {
         }
         return component;
     }
+
+    public void click() {
+        getComponent().click();
+    }
+
+    public void getText() {
+        getComponent().getText();
+    }
 }

@@ -130,8 +130,8 @@ public class BasicOrdersTests extends TestBase {
     @CaseId(1672)
     @Test(
             description = "Тест заказа с новой картой оплаты c 3ds",
-            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"}
-            //enabled = false
+            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"},
+            enabled = false
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
         PaymentCardData creditCardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
@@ -147,8 +147,8 @@ public class BasicOrdersTests extends TestBase {
     @CaseId(2066)
     @Test(
             description = "Тест заказа с новой картой оплаты без 3ds",
-            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"}
-            //enabled = false
+            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"},
+            enabled = false
     )
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         PaymentCardData creditCardData = TestVariables.testOrderDetailsWithout3ds().getPaymentDetails().getCreditCard();
