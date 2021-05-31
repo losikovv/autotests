@@ -22,16 +22,12 @@ public final class Shop implements Page {
         return header;
     }
 
-    public Cart cart(){
+    public Cart cartInteraction(){
         return cart;
     }
 
     public Address useAddress() {
         return address;
-    }
-
-    public ClearCart clearCart() {
-        return clearCart;
     }
 
     @Step("Открыть окно ввода адреса доставки")

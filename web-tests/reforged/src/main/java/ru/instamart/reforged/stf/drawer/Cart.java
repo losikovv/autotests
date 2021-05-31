@@ -4,10 +4,12 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.stf.component.Button;
 import ru.instamart.reforged.stf.component.Element;
+import ru.instamart.reforged.stf.frame.ClearCart;
 
 public class Cart {
 
-    private final Element cart = new Element(By.xpath("//div[@data-qa='cart']"));//может быть лишним тут
+    private final ClearCart clearCartModal = new ClearCart();
+
     private static final Button close = new Button(By.xpath("//button[@data-qa='cart_close-button']"),"кнопка 'Закрыть корзину'");
     private final Button returnToCatalog = new Button(By.xpath("//button[@data-qa='cart_return_to_catalog_button']"), "кнопка 'Вернуться в каталог'");
     private final Element placeholder = new Element(By.xpath("//div[@class='new-cart-empty']"),"Плейсхолдер пустой корзины");
@@ -29,9 +31,11 @@ public class Cart {
     private final Element costSpinner = new Element(By.xpath("//div[@data-qa='line-item']//div[contains(@class,'Spinner')]"), "спиннер пересчета цены позиции");
     private final Element retailRocketBlock = new Element(By.xpath("//div[@data-qa='cart']//div[contains(@class, 'retail-rocket-block')]"),"блок Не забудьте купить");
     private final Button nextRetailSlide = new Button(By.xpath("//button[@aria-label='Next slide']"), "следующий слайд блока Не забудьте купить");
-    private final Button prevRetailSlide = new Button(By.xpath("//button[@aria-label='Previous slide']"), "следующий слайд блока Не забудьте купить");
+    private final Button prevRetailSlide = new Button(By.xpath("//button[@aria-label='Previous slide']"), "предыдущий слайд блока Не забудьте купить");
 
     private final Button submitOrder = new Button(By.xpath("//button[@data-qa='cart_checkout_button']"),"кнопка Сделать заказ");
+
+
 
     @Step("Закрыть корзину")
     public void closeCart(){
@@ -48,6 +52,15 @@ public class Cart {
         clearCart.click();
     }
 
+    @Step("Подтвердить очистку корзины")
+    public void confirmClearCart(){
+        clearCartModal.confirm();
+    }
+
+    @Step("Отменить очистку корзины")
+    public void cancelClearCart(){
+        clearCartModal.cancel();
+    }
 
     @Step("Сделать заказ")
     public void submitOrder(){
@@ -58,7 +71,6 @@ public class Cart {
     public void increaseCount(){
         item.mouseOver();
         itemCounter.mouseOver();
-        increaseCount.mouseOver();
         increaseCount.click();
     }
 
@@ -66,13 +78,11 @@ public class Cart {
     public void decreaseCount(){
         item.mouseOver();
         itemCounter.mouseOver();
-        decreaseCount.mouseOver();
         decreaseCount.click();
     }
 
     @Step("Открыть карточку товара")
     public void openItemCard(){
-        item.mouseOver();
         openItemCard.click();
     }
 
