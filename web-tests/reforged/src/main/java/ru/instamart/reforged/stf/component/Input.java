@@ -33,6 +33,6 @@ public final class Input extends Component {
 
     public void fill(final String data) {
         getComponent().sendKeys(data);
-        log.info("Fill {} with locator {}", getClass().getSimpleName(), getBy());
+        log.info("Fill {} with locator {} and data {}", getClass().getSimpleName(), getBy(), data);
     }
 }
