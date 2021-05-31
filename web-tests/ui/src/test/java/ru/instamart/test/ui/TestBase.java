@@ -1,15 +1,12 @@
 package ru.instamart.test.ui;
 
-import io.qameta.allure.Allure;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
 import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import ru.instamart.ui.manager.AppManager;
 import ru.instamart.kraken.helper.LogAttachmentHelper;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.report.CustomReport;
 
 @Slf4j
@@ -17,36 +14,18 @@ public class TestBase {
 
     protected static final AppManager kraken = new AppManager();
 
-    @BeforeMethod(alwaysRun = true,description = "Стартуем запись системного лога")
+    @BeforeMethod(alwaysRun = true)
     public void captureStart() {
         LogAttachmentHelper.start();
     }
 
-    @AfterMethod(alwaysRun = true,description = "Добавляем системный лог к тесту")
-    public void captureFinish() {
-        final String result = LogAttachmentHelper.getContent();
-        LogAttachmentHelper.stop();
-        Allure.addAttachment("Системный лог теста", result);
-    }
-
-    @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")
-    public void screenShot(final ITestResult result) {
+    @AfterMethod(alwaysRun = true, description = "Вспомогательные отчеты")
+    public void captureFinish(final ITestResult result) {
+        CustomReport.addSystemLog();
         if (!result.isSuccess()) {
+            CustomReport.addSourcePage();
+            CustomReport.addBrowserLog();
             CustomReport.takeScreenshot();
-        }
-    }
-
-    @AfterMethod(alwaysRun = true, description = "Прикрепляем логи браузера, если UI тест упал")
-    public void browserLog(final ITestResult result) {
-        if (!result.isSuccess()) {
-            Allure.addAttachment("Браузерный лог теста", CustomReport.browserLog());
-        }
-    }
-
-    @AfterMethod(alwaysRun = true, description = "Прикрепляем source страницы, если UI тест упал")
-    public void sourcePage(final ITestResult result) {
-        if (!result.isSuccess()) {
-            Allure.addAttachment("Html со страницы", CustomReport.sourcePage());
         }
     }
 
@@ -107,10 +86,5 @@ public class TestBase {
             log.warn("Тест только для {}", server);
             throw new SkipException("Пропускаем тест");
         }
-    }
-
-    @DataProvider
-    Object[][] generateUserData() {
-    return new Object[][] {{UserManager.getUser()}};
     }
 }
