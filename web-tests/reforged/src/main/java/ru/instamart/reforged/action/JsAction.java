@@ -8,9 +8,9 @@ import static ru.instamart.ui.manager.AppManager.getWebDriver;
 
 public final class JsAction {
 
-    public static void waitForAjaxToFinish() {
+    public static void waitForDocumentReady() {
         final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
-        wait.until((ExpectedCondition<Boolean>) wb -> execute("return jQuery.active == 0").equals(true));
+        wait.until((ExpectedCondition<Boolean>) wb -> execute("return document.readyState").toString().equals("complete"));
     }
 
     public static void scrollToTheBottom() {

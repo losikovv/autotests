@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import ru.instamart.kraken.setting.Config;
 import ru.instamart.reforged.stf.component.Component;
 import ru.instamart.ui.manager.AppManager;
 
@@ -41,9 +42,9 @@ public final class WaitAction {
                 });
     }
 
-    public static void urlToBe(final String url, final int timeout) {
+    public static void urlToBe(final String url) {
         new FluentWait<>(AppManager.getWebDriver())
-                .withTimeout(timeout, TimeUnit.SECONDS)
+                .withTimeout(Config.BASIC_TIMEOUT, TimeUnit.SECONDS)
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.urlToBe(url));
