@@ -12,10 +12,12 @@ public class Cart {
     private final Button returnToCatalog = new Button(By.xpath("//button[@data-qa='cart_return_to_catalog_button']"));
     private final Element placeholder = new Element(By.xpath("//div[@class='new-cart-empty']"));
 
-
-    private final Button clearCart = new Button(By.xpath("//button[@data-qa='cart_remove_shipments_button']"));
     private final Element mergeChecker = new Element(By.xpath("//div[@class='cart-retailer__merge-checker']"));//локатор из 2х классов
     private final Button mergeButton = new Button(By.xpath("//button[@data-qa='merge_products_button']"));
+    private final Button lookMergedProductsButton = new Button(By.xpath("//a[@data-qa='merged_products_look_button']"));
+    private final Element orderReminder = new Element(By.xpath("//div[@data-qa='cart']//div[contains(text(), 'Забыли купить нужные товары')]"));
+
+    private final Button clearCart = new Button(By.xpath("//button[@data-qa='cart_remove_shipments_button']"));
     private final Element itemCounter = new Element(By.xpath("//div[@data-qa='line-item-counter']"));
     private final Element minSumAlert = new Element(By.xpath("//div[@class='cart-retailer__alert-message-box']"));
     private final Button increaseCount = new Button(By.xpath("//button[@data-qa='increase-button']"));
@@ -31,48 +33,80 @@ public class Cart {
 
     private final Button submitOrder = new Button(By.xpath("//button[@data-qa='cart_checkout_button']"));
 
-    //todo сделать метод получение текста для елемента
-
     @Step("Закрыть корзину")
-    public void closeCart(){ close.click(); }
+    public void closeCart(){
+        close.click();
+    }
 
     @Step("Вернуться в каталог")
-    public void returnToCatalog(){ returnToCatalog.click(); }
+    public void returnToCatalog(){
+        returnToCatalog.click();
+    }
 
     @Step("Очистить корзину")
-    public void clearCart(){ clearCart.click(); }
+    public void clearCart(){
+        clearCart.click();
+    }
+
 
     @Step("Сделать заказ")
-    public void submitOrder(){submitOrder.click();}
+    public void submitOrder(){
+        submitOrder.click();
+    }
 
     @Step("Увеличить кол-во товара")
     public void increaseCount(){
+        item.mouseOver();
+        itemCounter.mouseOver();
         increaseCount.mouseOver();
         increaseCount.click();
     }
 
     @Step("Уменьшить кол-во товара")
     public void decreaseCount(){
+        item.mouseOver();
+        itemCounter.mouseOver();
         decreaseCount.mouseOver();
         decreaseCount.click();
     }
 
     @Step("Открыть карточку товара")
-    public void openItemCard(){openItemCard.click();}
+    public void openItemCard(){
+        item.mouseOver();
+        openItemCard.click();
+    }
 
     @Step("Удалить товар")
     public void removeItem(){
+        item.mouseOver();
         removeItem.mouseOver();
         removeItem.click();
     }
 
     @Step("Удалить товар")
-    public void mobileRemoveItem(){mobileRemoveItem.click();}
+    public void mobileRemoveItem(){
+        item.mouseOver();
+        removeItem.mouseOver();
+        mobileRemoveItem.click();
+    }
 
-    @Step("Следующий слайд в блоке Не забудьте купить")
-    public void nextRetailSlide(){nextRetailSlide.click();}
+    @Step("Следующий слайд в блоке 'Не забудьте купить'")
+    public void nextRetailSlide(){
+        nextRetailSlide.click();
+    }
 
-    @Step("Предыдущий слайд в блоке Не забудьте купить")
-    public void prevRetailSlide(){prevRetailSlide.click();}
+    @Step("Предыдущий слайд в блоке 'Не забудьте купить'")
+    public void prevRetailSlide(){
+        prevRetailSlide.click();
+    }
 
+    @Step("Добавление позиций в существующий заказ")
+    public void mergeProducts(){
+        mergeButton.click();
+    }
+
+    @Step("Переход на страницу заказа для проверки позиций дозаказа")
+    public void checkMergeProducts(){
+        lookMergedProductsButton.click();
+    }
 }
