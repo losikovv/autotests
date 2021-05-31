@@ -8,8 +8,16 @@ import ru.instamart.reforged.action.WaitAction;
 @ToString(callSuper = true)
 public final class Autocomplete extends Component {
 
-    public Autocomplete(By by) {
+    public Autocomplete(final By by) {
         super(by);
+    }
+
+    public Autocomplete(final By by, final String description) {
+        super(by, description);
+    }
+
+    public Autocomplete(final By by, final String description, final String errorMsg) {
+        super(by, description, errorMsg);
     }
 
     @Override

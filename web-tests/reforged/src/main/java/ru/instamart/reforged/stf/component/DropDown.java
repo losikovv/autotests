@@ -8,8 +8,16 @@ import java.util.List;
 
 public final class DropDown extends Component {
 
-    public DropDown(By by) {
+    public DropDown(final By by) {
         super(by);
+    }
+
+    public DropDown(final By by, final String description) {
+        super(by, description);
+    }
+
+    public DropDown(final By by, final String description, final String errorMsg) {
+        super(by, description, errorMsg);
     }
 
     @Override

@@ -8,8 +8,16 @@ import ru.instamart.reforged.action.WaitAction;
 @ToString(callSuper = true)
 public final class Checkbox extends Component {
 
-    public Checkbox(By by) {
+    public Checkbox(final By by) {
         super(by);
+    }
+
+    public Checkbox(final By by, final String description) {
+        super(by, description);
+    }
+
+    public Checkbox(final By by, final String description, final String errorMsg) {
+        super(by, description, errorMsg);
     }
 
     @Override

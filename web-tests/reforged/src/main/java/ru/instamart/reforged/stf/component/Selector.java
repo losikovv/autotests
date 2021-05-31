@@ -11,8 +11,16 @@ public final class Selector extends Component {
 
     private Select select;
 
-    public Selector(By by) {
+    public Selector(final By by) {
         super(by);
+    }
+
+    public Selector(final By by, final String description) {
+        super(by, description);
+    }
+
+    public Selector(final By by, final String description, final String errorMsg) {
+        super(by, description, errorMsg);
     }
 
     @Override

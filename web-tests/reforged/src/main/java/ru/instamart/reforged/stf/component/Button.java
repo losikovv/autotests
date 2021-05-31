@@ -8,8 +8,16 @@ import ru.instamart.reforged.action.WaitAction;
 @ToString(callSuper = true)
 public final class Button extends Component {
 
-    public Button(By by) {
+    public Button(final By by) {
         super(by);
+    }
+
+    public Button(final By by, final String description) {
+        super(by, description);
+    }
+
+    public Button(final By by, final String description, final String errorMsg) {
+        super(by, description, errorMsg);
     }
 
     @Override

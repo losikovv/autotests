@@ -27,8 +27,24 @@ public abstract class Component {
     public Component(final By by) {
         this.by = by;
         this.timeout = Config.BASIC_TIMEOUT;
-        this.description = "Вызвали " + this.getClass().getSimpleName();
+        this.description = "Вызвали " + this.getClass().getSimpleName() + " " + by.toString();
+        this.errorMsg = "Элемент " + by + " не найден";
+        this.action = new Action(this);
+    }
+
+    public Component(final By by, final String description) {
+        this.by = by;
+        this.timeout = Config.BASIC_TIMEOUT;
+        this.description = description;
         this.errorMsg = "Элемент " + by.toString() + " не найден";
+        this.action = new Action(this);
+    }
+
+    public Component(final By by, final String description, final String errorMsg) {
+        this.by = by;
+        this.timeout = Config.BASIC_TIMEOUT;
+        this.description = description;
+        this.errorMsg = errorMsg;
         this.action = new Action(this);
     }
 

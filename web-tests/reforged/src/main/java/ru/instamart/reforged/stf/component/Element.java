@@ -12,6 +12,14 @@ public final class Element extends Component {
         super(by);
     }
 
+    public Element(final By by, final String description) {
+        super(by, description);
+    }
+
+    public Element(final By by, final String description, final String errorMsg) {
+        super(by, description, errorMsg);
+    }
+
     @Override
     protected WebElement getComponent() {
         if (component == null) {
