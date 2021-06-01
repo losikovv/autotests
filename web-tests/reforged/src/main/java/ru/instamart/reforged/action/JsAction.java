@@ -17,6 +17,10 @@ public final class JsAction {
         execute("scrollTo(0,0)");
     }
 
+    /**
+     * Скролл до элемента
+     * @param locator - локатор достается из компонента через регулярку {@link ru.instamart.reforged.stf.component.Component}
+     */
     public static void scrollToElement(final String locator) {
         execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView(true);");
     }
@@ -27,10 +31,10 @@ public final class JsAction {
 
     /**
      * Клик в первый элемент соответствующий xpath
-     * @param xpath - элемент в который нужно кликнуть
+     * @param locator - элемент в который нужно кликнуть
      */
-    public static void hoverAndClick(final String xpath) {
-        execute("document.evaluate(\""+xpath+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();");
+    public static void hoverAndClick(final String locator) {
+        execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();");
     }
 
     private static Object execute(final String js) {

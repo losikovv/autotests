@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public abstract class Component {
 
-    private static final Pattern LOCATOR = Pattern.compile("\\/[^\\r\\n]*");
+    private static final Pattern LOCATOR = Pattern.compile("/[^\\r\\n]*");
 
     protected WebElement component;
 
@@ -63,10 +63,23 @@ public abstract class Component {
         action.mouseOver();
     }
 
+    /**
+     * В обход дома делает наведение и клик по элементу через js
+     */
     public void hoverAndClick() {
         final Matcher matcher = LOCATOR.matcher(by.toString());
         while (matcher.find()) {
             JsAction.hoverAndClick(matcher.group());
+        }
+    }
+
+    /**
+     * В обход дома через js скролит до элемента
+     */
+    public void scrollTo() {
+        final Matcher matcher = LOCATOR.matcher(by.toString());
+        while (matcher.find()) {
+            JsAction.scrollToElement(matcher.group());
         }
     }
 }

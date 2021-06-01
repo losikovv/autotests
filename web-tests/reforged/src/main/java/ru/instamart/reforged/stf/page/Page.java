@@ -13,4 +13,12 @@ public interface Page {
         AppManager.getWebDriver().get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + pageUrl());
         JsAction.waitForDocumentReady();
     }
+
+    default void scrollUp() {
+        JsAction.scrollToTheTop();
+    }
+
+    default void scrollDown() {
+        JsAction.scrollToTheBottom();
+    }
 }
