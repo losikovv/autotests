@@ -11,6 +11,7 @@ import ru.instamart.api.request.v1.b2b.UserCompaniesV1Request;
 import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
 import ru.instamart.api.response.v1.b2b.CompanyByIDV1Response;
 import ru.instamart.api.response.v1.b2b.CompanyManagerV1Response;
+import ru.instamart.kraken.testdata.JuridicalData;
 import ru.instamart.kraken.testdata.UserManager;
 
 import static org.testng.Assert.assertFalse;
@@ -20,8 +21,19 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 
 public class UserCompaniesV1Tests extends RestBase {
 
+    JuridicalData companyData = UserManager.juridical();
+
     @BeforeMethod
     public void preconditions() {
+    }
+
+    @Test(groups = {"api-instamart-regress"})
+    public void postCreateCompany(){
+        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+        Response response = UserCompaniesV1Request.POST(companyData);
+        checkStatusCode200(response);
+        assertEquals(response.as(CompanyByIDV1Response.class).getCompany().getInn(), companyData.getInn());
+
     }
 
     @Test(groups = {"api-instamart-regress"})
