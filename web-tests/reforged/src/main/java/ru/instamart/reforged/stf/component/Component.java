@@ -7,11 +7,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.setting.Config;
+import ru.instamart.reforged.action.JsAction;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RequiredArgsConstructor
 @ToString
 @Slf4j
 public abstract class Component {
+
+    private static final Pattern LOCATOR = Pattern.compile("\\/[^\\r\\n]*");
 
     protected WebElement component;
 
@@ -55,5 +61,12 @@ public abstract class Component {
     public void mouseOver() {
         log.info("Element {} hover", by);
         action.mouseOver();
+    }
+
+    public void hoverAndClick() {
+        final Matcher matcher = LOCATOR.matcher(by.toString());
+        while (matcher.find()) {
+            JsAction.hoverAndClick(matcher.group());
+        }
     }
 }

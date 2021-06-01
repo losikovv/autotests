@@ -30,7 +30,7 @@ public final class JsAction {
      * @param xpath - элемент в который нужно кликнуть
      */
     public static void hoverAndClick(final String xpath) {
-        execute("$x(\""+xpath+"\")[0].click();");
+        execute("document.evaluate(\""+xpath+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();");
     }
 
     private static Object execute(final String js) {
