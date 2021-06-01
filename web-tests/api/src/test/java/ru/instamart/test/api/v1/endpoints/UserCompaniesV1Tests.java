@@ -1,62 +1,87 @@
 package ru.instamart.test.api.v1.endpoints;
 
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.request.v1.b2b.CompanyManagerV1Request;
-import ru.instamart.api.request.v1.b2b.UserCompaniesV1Request;
-import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
-import ru.instamart.api.response.v1.b2b.CompanyByIDV1Response;
-import ru.instamart.api.response.v1.b2b.CompanyManagerV1Response;
+import ru.instamart.api.model.v1.b2b.CompanyV1;
+import ru.instamart.api.request.v1.b2b.*;
+import ru.instamart.api.response.v1.b2b.*;
 import ru.instamart.kraken.testdata.JuridicalData;
 import ru.instamart.kraken.testdata.UserManager;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode422;
 
 public class UserCompaniesV1Tests extends RestBase {
 
-    JuridicalData companyData = UserManager.juridical();
+    private final JuridicalData companyData = UserManager.juridical();
+    private CompanyV1 company;
 
-    @BeforeMethod
+    @BeforeClass(alwaysRun = true)
     public void preconditions() {
-    }
-
-    @Test(groups = {"api-instamart-regress"})
-    public void postCreateCompany(){
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
-        Response response = UserCompaniesV1Request.POST(companyData);
-        checkStatusCode200(response);
-        assertEquals(response.as(CompanyByIDV1Response.class).getCompany().getInn(), companyData.getInn());
-
+            SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+            Response response = UserCompaniesV1Request.POST(companyData);
+            company = response.as(CompanyV1Response.class).getCompany();
     }
 
     @Test(groups = {"api-instamart-regress"})
     public void getUserCompanies() {
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
-
         Response response = UserCompaniesV1Request.GET();
         checkStatusCode200(response);
         assertFalse(response.as(CompaniesV1Response.class).getCompanies().isEmpty());
+        assertTrue(response.as(CompaniesV1Response.class).getCompanies().contains(company));
     }
 
     @Test(groups = {"api-instamart-regress"})
     public void getCompanyByID(){
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
-        Response response = UserCompaniesV1Request.GET("1303");
+        Response response = UserCompaniesV1Request.GET(company.getId().toString());
         checkStatusCode200(response);
-        assertEquals(Integer.valueOf(1303), response.as(CompanyByIDV1Response.class).getCompany().getId(), "id компании не совпадает с запрошенным");
+        assertEquals(company.getId(), response.as(CompanyV1Response.class).getCompany().getId(), "id компании не совпадает с запрошенным");
     }
     @Test(groups = {"api-instamart-regress"})
     public void getCompanyWithoutManager(){
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
-        Response response = CompanyManagerV1Request.GET("1303");
+        Response response = CompanyManagerV1Request.GET(company.getId().toString());
         checkStatusCode200(response);
         assertNull(response.as(CompanyManagerV1Response.class).getManager());
     }
+
+    @Test(groups = {"api-instamart-regress"})
+    public void postCompanyRegistrationError(){
+        Response response = UserCompaniesV1Request.POST(companyData);
+        checkStatusCode422(response);
+        assertFalse(response.as(CompanyV1Response.class).getCompany().getErrors().getInn().isEmpty());
+    }
+
+    @Test(groups = {"api-instamart-regress"})
+    public void getCompanyPresence() {
+        Response response = CompanyPresenceV1Request.GET(company.getInn());
+        checkStatusCode200(response);
+        assertEquals(response.as(CompanyV1Response.class).getCompany().getInn(), company.getInn());
+        assertEquals(response.as(CompanyV1Response.class).getCompany().getName(), company.getName());
+    }
+
+    @Test(groups = {"api-instamart-regress"})
+    public void getCompanyEmployees() {
+        Response response = CompanyEmployeesV1Request.GET(company.getId().toString());
+        checkStatusCode200(response);
+        assertFalse(response.as(EmployeesV1Response.class).getEmployees().isEmpty());
+    }
+
+    @Test(groups = {"api-instamart-regress"})
+    public void getPaymentAccount() {
+        Response response = CompanyPaymentAccountV1Request.GET(company.getId().toString());
+        checkStatusCode200(response);
+        assertNull(response.as(PaymentAccountV1Response.class).getPaymentAccount());
+    }
+    @Test(groups = {"api-instamart-regress"})
+    public void postRefreshPaymentAccountError() {
+        Response response = CompanyPaymentAccountV1Request.POST(company.getId().toString());
+        checkStatusCode422(response);
+        assertFalse(response.as(PaymentAccountV1Response.class).getPaymentAccount().getErrors().getExternalPaymentAccount().isEmpty());
+    }
+
 }

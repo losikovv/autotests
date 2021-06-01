@@ -16,4 +16,7 @@ public class CompanyV1 extends BaseObject {
     private Integer id;
     @JsonProperty(value = "sales_contract")
     private Object salesContract;
+    private ErrorsV1 errors;
+    @JsonProperty(value = "owner_name")
+    private String ownerName;
 }

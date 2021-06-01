@@ -7,6 +7,6 @@ import ru.instamart.api.response.BaseResponseObject;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class CompanyByIDV1Response extends BaseResponseObject {
+public class CompanyV1Response extends BaseResponseObject {
 	private CompanyV1 company;
 }
