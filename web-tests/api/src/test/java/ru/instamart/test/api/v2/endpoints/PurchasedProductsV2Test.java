@@ -40,7 +40,8 @@ public final class PurchasedProductsV2Test extends RestBase {
 
     @CaseId(266)
     @Story("Получить список ранее купленных продуктов")
-    @Test(  description = "Существующий sid",
+    @Test(  enabled = false, //todo включить после реализации мобильной авторизации
+            description = "Существующий sid",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void testGetPurchasedProductWithValidSid() {
         final Response response = PurchasedProductsV2Request.GET(

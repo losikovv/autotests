@@ -461,16 +461,17 @@ public final class InstamartApiHelper {
                 } else Assert.fail(response.body().toString());
             }
         }
-        if (response.as(OrderV2Response.class).getOrder() != null) {
-            OrderV2 order = response.as(OrderV2Response.class).getOrder();
-            if (order.getShipments().get(0).getAlerts().size() > 0) {
-                log.info(order.getShipments().get(0).getAlerts().get(0).getFullMessage());
-            }
-            log.info("Оформлен заказ: {}", order.getNumber());
-            orderCompleted.set(true);
-            return response.as(OrderV2Response.class).getOrder();
-        }
-        return null;
+        checkStatusCode200(response);
+
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
+        List<AlertV2> alerts = order.getShipments().get(0).getAlerts();
+
+        for (AlertV2 alert : alerts)
+            log.error(alert.getFullMessage());
+
+        log.info("Оформлен заказ: {}", order.getNumber());
+        orderCompleted.set(true);
+        return order;
     }
 
     /**
