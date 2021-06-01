@@ -1,0 +1,23 @@
+package ru.instamart.api.model.v2.ExternalPartnersV2;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import ru.instamart.api.model.BaseObject;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class PrimeCategoryWithoutSubscriptionV2 extends BaseObject {
+
+    @JsonProperty("header")
+    private String header;
+    @JsonProperty("text")
+    private String text;
+    @JsonProperty("link")
+    private String link;
+    @JsonProperty("link_text")
+    private String linkText;
+    @JsonProperty("close_button_text")
+    private String closeButtonText;
+
+}
