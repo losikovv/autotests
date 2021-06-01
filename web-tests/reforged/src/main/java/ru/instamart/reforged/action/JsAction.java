@@ -13,8 +13,16 @@ public final class JsAction {
         wait.until((ExpectedCondition<Boolean>) wb -> execute("return document.readyState").toString().equals("complete"));
     }
 
+    public static void scrollToTheTop() {
+        execute("scrollTo(0,0)");
+    }
+
+    public static void scrollToElement(final String locator) {
+        execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView(true);");
+    }
+
     public static void scrollToTheBottom() {
-        execute("scroll(0, 500)");
+        execute("scrollTo(0,document.body.scrollHeight)");
     }
 
     /**
