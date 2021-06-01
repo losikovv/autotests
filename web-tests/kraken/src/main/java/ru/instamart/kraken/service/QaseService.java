@@ -112,12 +112,16 @@ public final class QaseService {
         if (!qase || projectCode == null || started) return;
         started = true;
 
-        runId = qaseApi.testRuns().create(
-                projectCode,
-                testRunName + " [" + EnvironmentData.INSTANCE.getName() + "] " + LocalDate.now(),
-                null,
-                DESCRIPTION_PREFIX + PIPELINE_URL);
-        log.info("Create Test run={} for project={}", runId, projectCode);
+        try {
+            runId = qaseApi.testRuns().create(
+                    projectCode,
+                    testRunName + " [" + EnvironmentData.INSTANCE.getName() + "] " + LocalDate.now(),
+                    null,
+                    DESCRIPTION_PREFIX + PIPELINE_URL);
+            log.info("Create Test run={} for project={}", runId, projectCode);
+        } catch (Exception e) {
+            log.error("FATAL: Create Test run failed with error ", e);
+        }
     }
 
     /**
