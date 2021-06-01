@@ -7,7 +7,7 @@
     </listeners>
     <test verbose="1" name="API v2 Zones Tests">
         <classes>
-            <class name="ru.instamart.test.api.v2.e2e.ZoneE2ETests"/>
+            <class name="ru.instamart.test.api.v2.e2e.RetailerE2ETests"/>
         </classes>
     </test>
 </suite>

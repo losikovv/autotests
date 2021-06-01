@@ -536,14 +536,17 @@ public final class InstamartApiHelper {
         currentSid.set(sid);
         Response response = StoresV2Request.GET(sid);
 
-        if (response.statusCode() == 422)
+        if (response.statusCode() == 422) {
             if (response.as(ErrorResponse.class)
                     .getErrors()
                     .getBase()
                     .contains("По указанному адресу"))
                 Assert.fail("Магазин отключен " + Pages.Admin.stores(currentSid.get()));
+        }
+        checkStatusCode200(response);
 
         StoreV2 store = response.as(StoreV2Response.class).getStore();
+        if (store == null) Assert.fail(response.body().asString());
 
         AddressV2 address = store.getLocation();
         log.info("Получен адрес {}", address.getFullAddress());
@@ -560,7 +563,9 @@ public final class InstamartApiHelper {
      * Получить список активных ритейлеров как список объектов Retailer
      */
     public List<RetailerV2> availableRetailers() {
-        List<RetailerV2> retailers = RetailersV2Request.GET().as(RetailersV2Response.class).getRetailers();
+        Response response = RetailersV2Request.GET();
+        checkStatusCode200(response);
+        List<RetailerV2> retailers = response.as(RetailersV2Response.class).getRetailers();
 
         StringJoiner availableRetailers = new StringJoiner(
                 "\n• ",
