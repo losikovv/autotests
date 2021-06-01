@@ -39,7 +39,7 @@ public final class QaseService {
 
     private static final String DESCRIPTION_PREFIX = "[Automation] ";
     private static final Pattern ATTACHMENT_PATTERN_HASH = Pattern.compile(".+/(.+)/.+$");
-    private static final LocalDateTime DAYS_TO_DIE = LocalDateTime.now().minusWeeks(4);
+    private static final LocalDateTime DAYS_TO_DIE = LocalDateTime.now().minusWeeks(3);
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Deprecated private final int PLAN_ID = Integer.parseInt(System.getProperty("qase.plan.id", "0"));
@@ -197,8 +197,12 @@ public final class QaseService {
                         qaseApi.attachments().delete(matcher.group(1));
                     }
                 }));
-                qaseApi.testRuns().delete(projectCode, testRun.getId());
-                log.info("Delete old test run={} for project={}", testRun.getId(), testRun.getTitle());
+                try {
+                    qaseApi.testRuns().delete(projectCode, testRun.getId());
+                    log.info("Delete old test run={} for project={}", testRun.getId(), testRun.getTitle());
+                } catch (Exception e) {
+                    log.warn("Delete old test failed run={} for project={}", testRun.getId(), testRun.getTitle());
+                }
             }
         });
     }
