@@ -1,5 +1,6 @@
 package ru.instamart.reforged.action;
 
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,7 @@ import ru.instamart.ui.manager.AppManager;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public final class WaitAction {
 
     public static WebElement shouldBeClickable(final Component component) {
@@ -39,6 +41,18 @@ public final class WaitAction {
                         return webElements;
                     }
                     throw new NoSuchElementException("Elements not found or size <= 1");
+                });
+    }
+
+    public static List<WebElement> isOneOrMoreElementsExist(final Component component) {
+        return createWait(component)
+                .until((ExpectedCondition<List<WebElement>>) driver -> {
+                    final List<WebElement> webElements = driver.findElements(component.getBy());
+                    log.error("WE {}", webElements.size());
+                    if (webElements.size() > 0) {
+                        return webElements;
+                    }
+                    throw new NoSuchElementException("Elements not found or size == 0");
                 });
     }
 

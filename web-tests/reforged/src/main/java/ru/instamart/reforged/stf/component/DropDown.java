@@ -8,9 +8,11 @@ import ru.instamart.reforged.action.WaitAction;
 
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @ToString(callSuper = true)
 @Slf4j
-public final class DropDown extends Component {
+public final class DropDown extends CollectionComponent {
 
     public DropDown(final By by) {
         super(by);
@@ -22,15 +24,6 @@ public final class DropDown extends Component {
 
     public DropDown(final By by, final String description, final String errorMsg) {
         super(by, description, errorMsg);
-    }
-
-    @Override
-    protected WebElement getComponent() {
-        log.info("Create {} with locator {}", getClass().getSimpleName(), getBy());
-        if (component == null) {
-            component = WaitAction.shouldBeClickable(this);
-        }
-        return component;
     }
 
     public void selectFirst() {
@@ -64,8 +57,12 @@ public final class DropDown extends Component {
         }
     }
 
-    private List<WebElement> getComponents() {
+    @Override
+    protected List<WebElement> getComponents() {
         log.info("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
-        return WaitAction.isElementsExist(this);
+        if (isNull(components)) {
+            components = WaitAction.isElementsExist(this);
+        }
+        return components;
     }
 }

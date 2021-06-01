@@ -8,6 +8,11 @@ import static ru.instamart.ui.manager.AppManager.getWebDriver;
 
 public final class JsAction {
 
+    public static void ymapReady() {
+        final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
+        wait.until((ExpectedCondition<Boolean>) wb -> execute("return typeof ymaps").equals("object"));
+    }
+
     public static void waitForDocumentReady() {
         final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
         wait.until((ExpectedCondition<Boolean>) wb -> execute("return document.readyState").toString().equals("complete"));
