@@ -26,7 +26,7 @@ public final class Home implements Page, HomeCheck {
         loginButton.click();
     }
 
-    public AuthModal useAuthModal() {
+    public AuthModal interactAuthModal() {
         return authModal;
     }
 }

@@ -5,9 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.stf.block.AuthoredHeader;
 import ru.instamart.reforged.stf.component.Button;
-import ru.instamart.reforged.stf.frame.Address;
 import ru.instamart.reforged.stf.drawer.Cart;
-import ru.instamart.reforged.stf.frame.ClearCart;
+import ru.instamart.reforged.stf.frame.Address;
 
 @Slf4j
 public final class Shop implements Page {
@@ -16,17 +15,16 @@ public final class Shop implements Page {
     private final AuthoredHeader header = new AuthoredHeader();
     private final Address address = new Address();
     private final Cart cart = new Cart();
-    private final ClearCart clearCart = new ClearCart();
 
-    public AuthoredHeader useHeader() {
+    public AuthoredHeader interactHeader() {
         return header;
     }
 
-    public Cart cartInteraction(){
+    public Cart interactCart(){
         return cart;
     }
 
-    public Address useAddress() {
+    public Address interactAddress() {
         return address;
     }
 
