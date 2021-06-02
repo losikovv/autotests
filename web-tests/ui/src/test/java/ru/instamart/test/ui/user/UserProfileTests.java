@@ -13,6 +13,7 @@ import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.users.AccountMenuCheckpoints;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 
@@ -29,6 +30,7 @@ public final class UserProfileTests extends TestBase {
     @BeforeClass(alwaysRun = true,
             description = "Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
+        AppManager.closeWebDriver();
         kraken.get().baseUrl();
         Shop.AuthModal.openAuthLending();
         User.Do.registration(Generate.phoneNumber(), true);
