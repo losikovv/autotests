@@ -22,16 +22,19 @@ import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 @Epic("STF UI")
 @Feature("Деавторизация пользователя")
-public class UserLogoutTests extends TestBase implements UsersAuthorizationCheckpoints {
-    private static String phone;
-    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
-    ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
+public final class UserLogoutTests extends TestBase implements UsersAuthorizationCheckpoints {
+
+    private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    private final ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
+    private final ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
+
+    private String phone;
 
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void quickLogout() {
-        User.Logout.quickly();
+        User.Logout.logout();
+        phone = Generate.phoneNumber();
     }
 
     @CaseId(1473)
@@ -40,16 +43,15 @@ public class UserLogoutTests extends TestBase implements UsersAuthorizationCheck
             groups = {
                     "metro-acceptance", "metro-regression","sbermarket-Ui-smoke"
             }
-    ) public void successQuickLogout() {
-        phone = Generate.phoneNumber();
+    )
+    public void successQuickLogout() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(phone,true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         baseChecks.checkPageIsAvailable();
         checkIsUserAuthorized("Юзер не авторизован на сайте");
-        User.Logout.quickly();
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        User.Logout.logout();
         checkIsUserNotAuthorized("Не работает быстрый логаут");
     }
 
@@ -59,8 +61,8 @@ public class UserLogoutTests extends TestBase implements UsersAuthorizationCheck
             groups = {
                     "metro-acceptance", "metro-regression","sbermarket-Ui-smoke"
             }
-    ) public void successManualLogout() {
-        phone = Generate.phoneNumber();
+    )
+    public void successManualLogout() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(phone,true);
@@ -79,8 +81,8 @@ public class UserLogoutTests extends TestBase implements UsersAuthorizationCheck
             groups = {
                     "metro-acceptance", "metro-regression","sbermarket-Ui-smoke"
             }
-    ) public void noShipAddressAndEmptyCartAfterLogout() {
-        phone = Generate.phoneNumber();
+    )
+    public void noShipAddressAndEmptyCartAfterLogout() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(phone,true);
@@ -93,6 +95,7 @@ public class UserLogoutTests extends TestBase implements UsersAuthorizationCheck
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.Catalog.Item.addToCart();
         User.Logout.logout();
+        User.Logout.quickly();
         checkIsUserNotAuthorized("Не выполнены предусловия - не работает логаут");
         shippingChecks.checkIsShippingAddressNotSet("Логаут");
         kraken.get().page(Config.DEFAULT_RETAILER);
