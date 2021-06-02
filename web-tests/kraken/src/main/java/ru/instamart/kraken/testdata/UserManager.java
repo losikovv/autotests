@@ -51,7 +51,7 @@ public final class UserManager {
         return new JuridicalData(
                 "ЗАО \"Лидер-" + Generate.digitalString(4) + "\"",
                 Generate.string(8),
-                Generate.digitalString(12),
+                Generate.generateINN(10),
                 Generate.digitalString(9),
                 Generate.digitalString(20),
                 Generate.digitalString(9),

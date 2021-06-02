@@ -461,16 +461,17 @@ public final class InstamartApiHelper {
                 } else Assert.fail(response.body().toString());
             }
         }
-        if (response.as(OrderV2Response.class).getOrder() != null) {
-            OrderV2 order = response.as(OrderV2Response.class).getOrder();
-            if (order.getShipments().get(0).getAlerts().size() > 0) {
-                log.info(order.getShipments().get(0).getAlerts().get(0).getFullMessage());
-            }
-            log.info("Оформлен заказ: {}", order.getNumber());
-            orderCompleted.set(true);
-            return response.as(OrderV2Response.class).getOrder();
-        }
-        return null;
+        checkStatusCode200(response);
+
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
+        List<AlertV2> alerts = order.getShipments().get(0).getAlerts();
+
+        for (AlertV2 alert : alerts)
+            log.error(alert.getFullMessage());
+
+        log.info("Оформлен заказ: {}", order.getNumber());
+        orderCompleted.set(true);
+        return order;
     }
 
     /**
@@ -535,14 +536,17 @@ public final class InstamartApiHelper {
         currentSid.set(sid);
         Response response = StoresV2Request.GET(sid);
 
-        if (response.statusCode() == 422)
+        if (response.statusCode() == 422) {
             if (response.as(ErrorResponse.class)
                     .getErrors()
                     .getBase()
                     .contains("По указанному адресу"))
                 Assert.fail("Магазин отключен " + Pages.Admin.stores(currentSid.get()));
+        }
+        checkStatusCode200(response);
 
         StoreV2 store = response.as(StoreV2Response.class).getStore();
+        if (store == null) Assert.fail(response.body().asString());
 
         AddressV2 address = store.getLocation();
         log.info("Получен адрес {}", address.getFullAddress());
@@ -559,7 +563,9 @@ public final class InstamartApiHelper {
      * Получить список активных ритейлеров как список объектов Retailer
      */
     public List<RetailerV2> availableRetailers() {
-        List<RetailerV2> retailers = RetailersV2Request.GET().as(RetailersV2Response.class).getRetailers();
+        Response response = RetailersV2Request.GET();
+        checkStatusCode200(response);
+        List<RetailerV2> retailers = response.as(RetailersV2Response.class).getRetailers();
 
         StringJoiner availableRetailers = new StringJoiner(
                 "\n• ",

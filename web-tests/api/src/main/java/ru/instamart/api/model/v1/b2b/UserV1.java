@@ -10,5 +10,6 @@ public class UserV1 extends BaseObject {
 	private Integer id;
 	private String fullname;
 	private String email;
+	private String phone;
 
 }

@@ -2,8 +2,7 @@ package ru.instamart.kraken.testdata;
 
 import ru.instamart.kraken.listener.ExecutionListener;
 
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public final class Generate {
 
@@ -86,5 +85,76 @@ public final class Generate {
             default:
                 return "";
         }
+    }
+
+    /** Сгенерировать 10-значный ИНН для Юр. лиц или 12-значный ИНН для Физ. лиц и ИП*/
+    public static String generateINN(int symbols){
+        switch (symbols){
+            case 10:
+                return checkINN(inn10());
+            case 12:
+                return inn12();
+            default:
+                return "";
+        }
+    }
+
+    private static String inn10(){
+        StringBuilder builder = new StringBuilder();
+        List<Integer> weights = Arrays.asList(2, 4, 10, 3, 5, 9, 4, 6, 8); // веса для контрольной суммы
+        int controlSumm = 0; // контрольная сумма первых 9 цифр инн
+        int controlNumber; //контрольная цифра от суммы первых 9 цифр инн
+        for (int i = 0; i < weights.size(); i++) {
+            int rand = new Random().nextInt(10);
+            // Первые 2 цифры не могут быть равны 00. Если первая цифра 0 - берём цифру от 1 до 9
+            if (i == 1 && controlSumm == 0){
+                rand = (int)Math.floor(Math.random()*(9-1+1)+1);
+            }
+            builder.append(rand);
+            controlSumm += rand * weights.get(i);
+        }
+        controlNumber = controlSumm % 11 % 10;
+        builder.append(controlNumber);
+        return builder.toString();
+    }
+
+    private static String inn12(){
+        StringBuilder builder = new StringBuilder();
+        List<Integer> weights1 = Arrays.asList(7,2,4,10,3,5,9,4,6,8); // веса для первой контрольной суммы
+        List<Integer> weights2 = Arrays.asList(3,7,2,4,10,3,5,9,4,6,8); // веса для второй контрольной суммы
+        ArrayList<Integer> currentINN = new ArrayList<>(); //Для хранения первых 11 цифр инн
+        int controlSumm1 = 0; // контрольная сумма первых 10 цифр инн
+        int controlSumm2 = 0; // контрольная сумма первых 11 цифр инн
+        int controlNumber1; //контрольная цифра от суммы первых 10 цифр инн
+        int controlNumber2; //контрольная цифра от суммы первых 11 цифр инн
+        for (int i = 0; i < weights1.size(); i++) {
+            int rand = new Random().nextInt(10);
+            // Первые 2 цифры не могут быть равны 00. Если первая цифра 0 - берём цифру от 1 до 9
+            if (i == 1 && controlSumm1 == 0){
+                rand = (int)Math.floor(Math.random()*(9-1+1)+1);
+            }
+            builder.append(rand);
+            currentINN.add(rand);
+            controlSumm1 += rand * weights1.get(i);
+        }
+        controlNumber1 = controlSumm1 % 11 % 10;
+        builder.append(controlNumber1);
+        currentINN.add(controlNumber1);
+        for (int i = 0; i < currentINN.size(); i++){
+            controlSumm2 += currentINN.get(i) * weights2.get(i);
+        }
+        controlNumber2 = controlSumm2 % 11 % 10;
+        builder.append(controlNumber2);
+        return builder.toString();
+
+    }
+    /** ИНН 7774453691 - константа для компании с отрицательным балансом,
+    ИНН 5978081649 - для компании с отрицательным балансом.
+    Проверяем, что  ИНН созданной компании не совпадает с константными. */
+    private static String checkINN (String inn){
+        while (inn.equals("7774453691") || inn.equals("5978081649")){
+            inn = inn10();
+        }
+        return inn;
     }
 }

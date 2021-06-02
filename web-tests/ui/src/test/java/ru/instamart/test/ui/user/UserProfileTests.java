@@ -21,32 +21,32 @@ import static org.testng.Assert.assertTrue;
 
 @Epic("STF UI")
 @Feature("Профиль пользователя")
-public class UserProfileTests extends TestBase {
-    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    AccountMenuCheckpoints accountChecks = new AccountMenuCheckpoints();
+public final class UserProfileTests extends TestBase {
+
+    private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    private final AccountMenuCheckpoints accountChecks = new AccountMenuCheckpoints();
 
     @BeforeClass(alwaysRun = true,
-            description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
+            description = "Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
-        User.Logout.logout();
-        String phone = Generate.phoneNumber();
+        kraken.get().baseUrl();
         Shop.AuthModal.openAuthLending();
-        User.Do.registration(phone,true);
+        User.Do.registration(Generate.phoneNumber(), true);
         User.Do.sendSms(Config.DEFAULT_SMS);
     }
-
 
     @Test(
             description = "Тест валидации меню профиля Delivery Metro",
             groups = {
-                    "metro-smoke","metro-acceptance","metro-regression"
+                    "metro-smoke", "metro-acceptance", "metro-regression"
             }
-    ) public void successValidateMetroTenantProfileMenu() {
+    )
+    public void successValidateMetroTenantProfileMenu() {
         Shop.AccountMenu.open();
 
         assertTrue(
                 kraken.detect().isAccountMenuOpen(),
-                    failMessage("Не открывается всплывающее меню профиля Delivery Metro"));
+                failMessage("Не открывается всплывающее меню профиля Delivery Metro"));
 
         baseChecks.checkIsElementPresent(Elements.AccountMenu.popup());
         baseChecks.checkIsElementPresent(Elements.AccountMenu.header());
@@ -63,7 +63,7 @@ public class UserProfileTests extends TestBase {
 
         assertFalse(
                 kraken.detect().isAccountMenuOpen(),
-                    failMessage("Не закрывается всплывающее меню профиля Delivery Metro"));
+                failMessage("Не закрывается всплывающее меню профиля Delivery Metro"));
     }
 
     @CaseId(1524)
@@ -71,7 +71,8 @@ public class UserProfileTests extends TestBase {
     @Test(
             description = "Тест валидации меню профиля Sbermarket",
             groups = {"sbermarket-Ui-smoke"}
-    ) public void successValidateSbermarketTenantProfileMenu() {
+    )
+    public void successValidateSbermarketTenantProfileMenu() {
         Shop.AccountMenu.open();
         accountChecks.checkIsAccountMenuOpen();
         baseChecks.checkIsElementPresent(Elements.AccountMenu.popup());
@@ -90,10 +91,11 @@ public class UserProfileTests extends TestBase {
     @Test(
             description = "Тест валидации кнопки 'Профиль' в меню профиля",
             groups = {
-                    "metro-acceptance","metro-regression",
+                    "metro-acceptance", "metro-regression",
                     "sbermarket-Ui-smoke"
             }
-    ) public void successValidateUserProfileButton() {
+    )
+    public void successValidateUserProfileButton() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AccountMenu.open();
         baseChecks.checkTransitionValidation(Elements.AccountMenu.profileButton());
@@ -104,9 +106,10 @@ public class UserProfileTests extends TestBase {
     @Test(
             description = "Тест валидации кнопки 'Условия использования' в меню профиля",
             groups = {
-                    "metro-acceptance","metro-regression","sbermarket-Ui-smoke"
+                    "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
             }
-    ) public void successValidateTermsButton() {
+    )
+    public void successValidateTermsButton() {
         Shop.AccountMenu.open();
         baseChecks.checkTransitionValidation(Elements.AccountMenu.termsButton());
     }
@@ -116,7 +119,8 @@ public class UserProfileTests extends TestBase {
     @Test(
             description = "Тест валидации кнопки 'Доставка' в меню профиля",
             groups = {"sbermarket-Ui-smoke"}
-    ) public void successValidateDeliveryButton() {
+    )
+    public void successValidateDeliveryButton() {
         Shop.AccountMenu.open();
         Shop.AccountMenu.openDelivery();
         accountChecks.checkIsDeliveryMenuOpen();
@@ -128,9 +132,10 @@ public class UserProfileTests extends TestBase {
     @Test(
             description = "Тест валидации кнопки 'FAQ' в меню профиля",
             groups = {
-                    "metro-acceptance","metro-regression","sbermarket-Ui-smoke"
+                    "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
             }
-    ) public void successValidateFaqButton() {
+    )
+    public void successValidateFaqButton() {
         Shop.AccountMenu.open();
         kraken.perform().click(Elements.AccountMenu.faqButton());
         baseChecks.checkPageIsAvailable();
@@ -141,7 +146,7 @@ public class UserProfileTests extends TestBase {
     @Test(
             description = "Тест доступности страниц профиля пользователя",
             groups = {
-                    "metro-smoke","metro-acceptance","metro-regression", "sbermarket-Ui-smoke"
+                    "metro-smoke", "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
             }
     )
     public void successCheckProfilePagesAreAvailable() {
@@ -157,9 +162,10 @@ public class UserProfileTests extends TestBase {
     @Test(
             description = "Тест валидации дефолтных страниц истории заказов",
             groups = {
-                    "metro-acceptance","metro-regression","sbermarket-Ui-smoke"
+                    "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
             }
-    ) public void successValidateDefaultOrderHistory() {
+    )
+    public void successValidateDefaultOrderHistory() {
         kraken.get().userShipmentsPage();
         Shop.UserProfile.OrderHistory.applyFilterComplete();
         baseChecks.checkIsElementPresent(Elements.UserProfile.OrdersHistoryPage.completeOrdersPlaceholder());

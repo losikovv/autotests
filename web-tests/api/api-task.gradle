@@ -70,7 +70,7 @@ task apiRetailerE2E(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/suite/api-suite.xml'
+        suites 'src/test/resources/suite/api-retailers.xml'
         includeGroups 'api-retailer'
         systemProperty 'env',"sbermarket-production"
         systemProperty 'qase', "false"

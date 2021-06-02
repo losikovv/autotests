@@ -20,7 +20,7 @@ public class CompanyPresenceV1Tests extends RestBase {
     }
 
     @Test(groups = {"api-instamart-regress"})
-    public void getCompanyPresenceFalse() {
+    public void getCompanyNotPresence() {
         SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
 
         Response response = CompanyPresenceV1Request.GET("123456789");

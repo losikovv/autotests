@@ -55,6 +55,12 @@ public final class  ApiV1Endpoints {
         public static final class Company {
             public static final String BY_ID = "user/companies/{id}";
             public static final String MANAGER = "user/companies/{id}/manager";
+            public static final String EMPLOYEES = "user/companies/{id}/employees?per_page=10&page=1";
+            public static final String PAYMENT_ACCOUNT = "user/companies/{id}/payment_account";
+
+            public static final class PaymentAccount {
+                public static final String REFRESH = "user/companies/{id}/payment_account/refresh";
+            }
 
         }
 

@@ -35,4 +35,9 @@ public final class Input extends Component {
         getComponent().sendKeys(data);
         log.info("Fill {} with locator {} and data {}", getClass().getSimpleName(), getBy(), data);
     }
+
+    public void clear(){
+        getComponent().clear();
+        log.info("Clear input field");
+    }
 }

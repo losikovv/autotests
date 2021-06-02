@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.TaxonV2;
@@ -21,9 +22,11 @@ public class InstamartApiCheckpoints {
 
     @Step("Ответ вернул 200")
     public static void checkStatusCode200(Response response) {
-        response.then()
-                .statusCode(200)
-                .contentType(ContentType.JSON);
+        if (response.statusCode() != 200) {
+            Assert.fail("\n" + response.statusLine() +
+                        "\n" + response.body());
+        }
+        response.then().contentType(ContentType.JSON);
     }
 
     @Step("Ответ вернул 400")

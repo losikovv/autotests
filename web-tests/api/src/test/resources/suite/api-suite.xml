@@ -23,6 +23,7 @@
       <class name="ru.instamart.test.api.v2.endpoints.AddressesV2Test"/>
       <class name="ru.instamart.test.api.v2.endpoints.AuthProviderV2Test"/>
       <class name="ru.instamart.test.api.v2.endpoints.BonusCardsV2Test"/>
+      <class name="ru.instamart.test.api.v2.endpoints.ExternalPartners"/>
       <class name="ru.instamart.test.api.v2.endpoints.CategoriesV2Test"/>
       <class name="ru.instamart.test.api.v2.endpoints.DepartmentsV2Test"/>
       <class name="ru.instamart.test.api.v2.endpoints.FavoritesListV2Test"/>
