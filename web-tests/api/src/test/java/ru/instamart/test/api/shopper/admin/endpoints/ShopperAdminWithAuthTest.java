@@ -6,6 +6,7 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.api.endpoint.ShopperAdminEndpoints;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
@@ -13,6 +14,7 @@ import ru.instamart.api.helper.ShopperAdminApiHelper;
 import ru.instamart.api.model.shopper.admin.*;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.response.shopper.admin.*;
+import ru.instamart.api.response.shopper.app.ShopperSHPResponse;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
@@ -37,6 +39,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     private final Integer shopperId = 1;
     private final Integer driverId = 2;
     private final String routeScheduleStatus = "disabled";
+    private final String shopperStatus = "disabled";
     private final String today = LocalDate.now().toString();
 
     @BeforeMethod(alwaysRun = true)
@@ -280,6 +283,54 @@ public class ShopperAdminWithAuthTest extends RestBase {
             dependsOnMethods = "postRoutes200")
     public void postRoutesLock200() {
         Response response = ShopperAdminRequest.Routes.Lock.POST(routeId);
+        checkStatusCode200(response);
+    }
+
+    @CaseId(41)
+    @Test ( description = "Удаление блокировки для маршрута",
+            groups = {"api-shopper-regress"},
+            dependsOnMethods = {"postRoutesLock200"})
+    public void deleteRoutesLock200() {
+        Response response = ShopperAdminRequest.Routes.Lock.DELETE(routeId);
+        checkStatusCode200(response);
+    }
+
+    @CaseId(38)
+    @Test(  description = "Удаление маршрута",
+            groups = {"api-shopper-regress"},
+            dependsOnMethods = {"postRoutes200", "getRoute200", "postRoutesLock200","putRoutes200"})
+    public void deleteRoute200() {
+        Response response = ShopperAdminRequest.Routes.DELETE(routeId);
+        checkStatusCode200(response);
+    }
+
+    @CaseId(40)
+    @Test ( description = "Изменения` шоппера",
+            groups = {"api-shopper-regress"})
+    public void patchShopper200() {
+        Response response = ShopperAdminRequest.Shoppers.PATCH(shopperId, shopperStatus);
+        checkStatusCode200(response);
+
+        ShopperV1 shopper = response.as(ShopperAdminSHPResponse.class).getShopper();
+        assertEquals(shopperId, shopper.getId());
+        assertEquals(shopperStatus, shopper.getStatus());
+    }
+
+    @CaseId(42)
+    @Test ( description = "Создание видимости для маршрута",
+            groups = {"api-shopper-regress"},
+            dependsOnMethods = {"postRoutes200"})
+    public void postRoutesVisibility200() {
+        Response response = ShopperAdminRequest.Routes.Visibility.POST(routeId);
+        checkStatusCode200(response);
+    }
+
+    @CaseId(89)
+    @Test ( description = "Создание видимости для маршрута",
+            groups = {"api-shopper-regress"},
+            dependsOnMethods = {"postRoutesVisibility200"})
+    public void deleteRoutesVisibility200() {
+        Response response = ShopperAdminRequest.Routes.Visibility.DELETE(routeId);
         checkStatusCode200(response);
     }
 }
