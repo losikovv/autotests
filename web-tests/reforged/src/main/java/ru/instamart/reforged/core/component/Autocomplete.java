@@ -1,4 +1,4 @@
-package ru.instamart.reforged.stf.component;
+package ru.instamart.reforged.core.component;
 
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;

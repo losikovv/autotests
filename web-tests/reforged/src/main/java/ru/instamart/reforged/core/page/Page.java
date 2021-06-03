@@ -1,18 +1,12 @@
-package ru.instamart.reforged.stf.page;
+package ru.instamart.reforged.core.page;
 
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.action.JsAction;
-import ru.instamart.reforged.action.WaitAction;
 import ru.instamart.ui.manager.AppManager;
 
 public interface Page {
 
     String pageUrl();
-
-    default void goToPage() {
-        AppManager.getWebDriver().get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + pageUrl());
-        JsAction.waitForDocumentReady();
-    }
 
     default void scrollUp() {
         JsAction.scrollToTheTop();

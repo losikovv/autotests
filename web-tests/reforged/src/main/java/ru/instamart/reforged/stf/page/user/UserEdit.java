@@ -1,8 +1,8 @@
 package ru.instamart.reforged.stf.page.user;
 
-import ru.instamart.reforged.stf.page.Page;
+import ru.instamart.reforged.stf.page.StfPage;
 
-public final class UserEdit implements Page {
+public final class UserEdit implements StfPage {
 
     private static final String PAGE = "/user/edit";
 

@@ -1,9 +1,8 @@
 package ru.instamart.reforged.stf.frame;
 
 import io.qameta.allure.Step;
-import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
-import ru.instamart.reforged.stf.component.Button;
+import ru.instamart.reforged.core.component.Button;
 
 public class ClearCart implements Close {
 

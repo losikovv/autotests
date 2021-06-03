@@ -39,6 +39,7 @@ project(":reforged") {
     dependencies {
         implementation project(":ui")
         implementation project(":kraken")
+        implementation project(":qase-api")
 
         implementation lib.jackson
         implementation lib.aspectjweaver

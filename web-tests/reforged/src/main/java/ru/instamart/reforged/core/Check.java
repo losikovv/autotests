@@ -1,4 +1,4 @@
-package ru.instamart.reforged.stf.checkpoint;
+package ru.instamart.reforged.core;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

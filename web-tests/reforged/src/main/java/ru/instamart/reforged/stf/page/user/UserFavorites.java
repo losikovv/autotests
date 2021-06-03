@@ -1,8 +1,8 @@
 package ru.instamart.reforged.stf.page.user;
 
-import ru.instamart.reforged.stf.page.Page;
+import ru.instamart.reforged.stf.page.StfPage;
 
-public final class UserFavorites implements Page {
+public final class UserFavorites implements StfPage {
 
     private static final String PAGE = "/user/favorites";
 
