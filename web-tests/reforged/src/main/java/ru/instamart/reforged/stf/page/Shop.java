@@ -6,23 +6,31 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.action.JsAction;
 import ru.instamart.reforged.stf.block.AuthoredHeader;
 import ru.instamart.reforged.stf.component.Button;
+import ru.instamart.reforged.stf.component.Element;
 import ru.instamart.reforged.stf.drawer.Cart;
 import ru.instamart.reforged.stf.frame.Address;
+import ru.instamart.reforged.stf.frame.ProductCard;
 
 @Slf4j
 public final class Shop implements Page {
 
     private final Button openAddress = new Button(By.xpath("//button[@data-qa='select-button']"));
+    private final Element openFirstProductCard = new Element(By.xpath("//li[@class='product']"));
     private final AuthoredHeader header = new AuthoredHeader();
     private final Address address = new Address();
     private final Cart cart = new Cart();
+    private final ProductCard productCard = new ProductCard();
 
     public AuthoredHeader interactHeader() {
         return header;
     }
 
-    public Cart interactCart(){
+    public Cart interactCart() {
         return cart;
+    }
+
+    public ProductCard interactProductCard() {
+        return productCard;
     }
 
     public Address interactAddress() {
@@ -33,6 +41,10 @@ public final class Shop implements Page {
     public void openAddressFrame() {
         openAddress.click();
         JsAction.ymapReady();
+    }
+
+    public void openFirstProductCard() {
+        openFirstProductCard.click(); //для теста
     }
 
     @Override

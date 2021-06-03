@@ -38,26 +38,31 @@ public class Foo {
     @SneakyThrows
     @Test
     public void bar3() {
-        String retailerName = "METRO";
 
         Rout.home().goToPage();
         Rout.home().openLoginModal();
         Rout.home().interactAuthModal().fillPhone("9999919613");
         Rout.home().interactAuthModal().sendSms();
         Rout.home().interactAuthModal().fillSMS("111111");
-        Rout.shop().openAddressFrame();
-//        Rout.shop().interactAddress().clear();
-//        Rout.shop().interactAddress().setAddress("Москва проспект Мира, 211к1");
-//        Rout.shop().interactAddress().selectFirstAddress();
-//        Rout.shop().interactAddress().clickOnSave();
-        Rout.shop().interactAddress().selectSelfDelivery();
-        Rout.shop().interactAddress().selectCity("Воронеж");
-        Rout.shop().interactAddress().selectCity("Самара");
-//        Rout.shop().interactAddress().changeStore();
-//        Rout.shop().interactAddress().selectFirstStore();
-//        Rout.shop().interactAddress().clickViewOtherRetailers();
-//        Rout.shop().interactAddress().selectRetailerByName(retailerName);
-//        Rout.shop().interactAddress().selectFirstStoreByRetailerName(retailerName);
+        Rout.shop().openFirstProductCard();
+        Rout.shop().interactProductCard().addToFavorite();
+        //Rout.shop().interactProductCard().clickOnBuy();
+//        Rout.shop().interactProductCard().close();
+//        Rout.shop().interactHeader().clickToCart();
+//        Rout.shop().interactCart().clearCart();
+//        Rout.shop().interactCart().confirmClear();
+//        Rout.shop().interactProductCard().deleteFromFavorite();
+
+//        Rout.shop().interactProductCard().increaseItemCount();
+//        Rout.shop().interactProductCard().decreaseItemCount();
+        Rout.shop().interactProductCard().hideDetailedInfo();
+//        Rout.shop().interactProductCard().showDetailedInfo();
+        Rout.shop().interactProductCard().clickOnNextSlide();
+        Rout.shop().interactProductCard().clickOnPrevSlide();
+
+
+
+
 
 
 
