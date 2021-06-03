@@ -14,19 +14,9 @@ public final class Shop implements StfPage {
 
     private final Button openAddress = new Button(By.xpath("//button[@data-qa='select-button']"));
     private final AuthoredHeader header = new AuthoredHeader();
-    private final Address address = new Address();
-    private final Cart cart = new Cart();
 
     public AuthoredHeader interactHeader() {
         return header;
-    }
-
-    public Cart interactCart(){
-        return cart;
-    }
-
-    public Address interactAddress() {
-        return address;
     }
 
     @Step("Открыть окно ввода адреса доставки")
