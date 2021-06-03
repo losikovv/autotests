@@ -1,3 +1,5 @@
+package ru.instamart.test.reforged.stf;
+
 import lombok.SneakyThrows;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -38,31 +40,26 @@ public class Foo {
     @SneakyThrows
     @Test
     public void bar3() {
+        String retailerName = "METRO";
 
         StfRouter.home().goToPage();
         StfRouter.home().openLoginModal();
         StfRouter.home().interactAuthModal().fillPhone("9999919613");
         StfRouter.home().interactAuthModal().sendSms();
         StfRouter.home().interactAuthModal().fillSMS("111111");
-        StfRouter.shop().openFirstProductCard();
-        StfRouter.shop().interactProductCard().addToFavorite();
-        //Rout.shop().interactProductCard().clickOnBuy();
-//        Rout.shop().interactProductCard().close();
-//        Rout.shop().interactHeader().clickToCart();
-//        Rout.shop().interactCart().clearCart();
-//        Rout.shop().interactCart().confirmClear();
-//        Rout.shop().interactProductCard().deleteFromFavorite();
-
-//        Rout.shop().interactProductCard().increaseItemCount();
-//        Rout.shop().interactProductCard().decreaseItemCount();
-        StfRouter.shop().interactProductCard().hideDetailedInfo();
-//        Rout.shop().interactProductCard().showDetailedInfo();
-        StfRouter.shop().interactProductCard().clickOnNextSlide();
-        StfRouter.shop().interactProductCard().clickOnPrevSlide();
-
-
-
-
+        StfRouter.shop().openAddressFrame();
+//        Rout.shop().interactAddress().clear();
+//        Rout.shop().interactAddress().setAddress("Москва проспект Мира, 211к1");
+//        Rout.shop().interactAddress().selectFirstAddress();
+//        Rout.shop().interactAddress().clickOnSave();
+        StfRouter.shop().interactAddress().selectSelfDelivery();
+        StfRouter.shop().interactAddress().selectCity("Воронеж");
+        StfRouter.shop().interactAddress().selectCity("Самара");
+//        Rout.shop().interactAddress().changeStore();
+//        Rout.shop().interactAddress().selectFirstStore();
+//        Rout.shop().interactAddress().clickViewOtherRetailers();
+//        Rout.shop().interactAddress().selectRetailerByName(retailerName);
+//        Rout.shop().interactAddress().selectFirstStoreByRetailerName(retailerName);
 
 
 

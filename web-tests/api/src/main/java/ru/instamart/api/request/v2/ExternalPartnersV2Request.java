@@ -7,9 +7,13 @@ import ru.instamart.api.request.ApiV2RequestBase;
 
 public final class ExternalPartnersV2Request extends ApiV2RequestBase {
 
-    @Step("{method} /" + ApiV2EndPoints.ExternalPartners.SBER_PRIME)
-    public static Response GET(final String idShop) {
-        return givenWithAuth()
-                .get(ApiV2EndPoints.ExternalPartners.SBER_PRIME, idShop);
+    public static class Banners {
+        public static class SberPrime {
+            @Step("{method} /" + ApiV2EndPoints.ExternalPartners.Banners.SBER_PRIME)
+            public static Response GET(final String sid) {
+                return givenWithAuth()
+                        .get(ApiV2EndPoints.ExternalPartners.Banners.SBER_PRIME, sid);
+            }
+        }
     }
 }

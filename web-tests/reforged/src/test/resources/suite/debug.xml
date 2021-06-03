@@ -5,7 +5,7 @@
     </listeners>
     <test verbose="1" name="Debug UI" parallel="methods" thread-count="2">
         <classes>
-            <class name="Foo"/>
+            <class name="ru.instamart.test.reforged.stf.Foo"/>
         </classes>
     </test>
 </suite>

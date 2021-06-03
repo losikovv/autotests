@@ -2,10 +2,13 @@ package ru.instamart.reforged.stf.drawer;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import ru.instamart.reforged.stf.component.Button;
-import ru.instamart.reforged.stf.component.Element;
+import ru.instamart.reforged.core.component.Button;
+import ru.instamart.reforged.core.component.Element;
+import ru.instamart.reforged.stf.frame.ClearCart;
 
 public final class Cart {
+
+    private final ClearCart clearCartModal = new ClearCart();
 
     private static final Button close = new Button(By.xpath("//button[@data-qa='cart_close-button']"), "кнопка 'Закрыть корзину'");
     private final Button returnToCatalog = new Button(By.xpath("//button[@data-qa='cart_return_to_catalog_button']"), "кнопка 'Вернуться в каталог'");
@@ -31,9 +34,6 @@ public final class Cart {
 
     private final Button submitOrder = new Button(By.xpath("//button[@data-qa='cart_checkout_button']"), "кнопка Сделать заказ");
 
-    private final Button confirm = new Button(By.xpath("//button[@data-qa='confirm_shipments_remove_modal_confirm_btn']"), "кнопка Удалить товары");
-    private final Button cancel = new Button(By.xpath("//button[@data-qa='confirm_shipments_remove_modal_cancel_btn']"), "кнопка Не удалять");
-
     @Step("Закрыть корзину")
     public void closeCart() {
         close.click();
@@ -47,6 +47,16 @@ public final class Cart {
     @Step("Очистить корзину")
     public void clearCart() {
         clearCart.click();
+    }
+
+    @Step("Подтвердить очистку корзины")
+    public void confirmClearCart() {
+        clearCartModal.confirm();
+    }
+
+    @Step("Отменить очистку корзины")
+    public void cancelClearCart() {
+        clearCartModal.cancel();
     }
 
     @Step("Сделать заказ")
@@ -97,15 +107,5 @@ public final class Cart {
     @Step("Переход на страницу заказа для проверки позиций дозаказа")
     public void checkMergeProducts() {
         lookMergedProductsButton.click();
-    }
-
-    @Step("Подтвердить очистку корзины")
-    public void confirmClear() {
-        confirm.click();
-    }
-
-    @Step("Отменить очистку корзины")
-    public void cancelClear() {
-        cancel.click();
     }
 }

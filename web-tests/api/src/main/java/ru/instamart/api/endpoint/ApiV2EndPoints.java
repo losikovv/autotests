@@ -117,7 +117,9 @@ public final class ApiV2EndPoints {
         public static final String BY_EMAIL = "v2/users/{email}";
     }
 
-    public static final class ExternalPartners{
-        public static final String SBER_PRIME = "v2/external_partners/banners/sberprime?store_id={sid}";
+    public static final class ExternalPartners {
+        public static final class Banners {
+            public static final String SBER_PRIME = "v2/external_partners/banners/sberprime?store_id={sid}";
+        }
     }
 }

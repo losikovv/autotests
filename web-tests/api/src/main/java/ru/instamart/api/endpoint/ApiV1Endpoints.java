@@ -1,6 +1,6 @@
 package ru.instamart.api.endpoint;
 
-public final class  ApiV1Endpoints {
+public final class ApiV1Endpoints {
 
     public static final String LINE_ITEMS = "line_items?shipment_number={shipmentNumber}";
     public static final String OPERATIONAL_ZONES = "operational_zones";
@@ -53,21 +53,14 @@ public final class  ApiV1Endpoints {
         public static final String COMPANIES = "user/companies";
 
         public static final class Company {
-            public static final String BY_ID = "user/companies/{id}";
-            public static final String MANAGER = "user/companies/{id}/manager";
-            public static final String EMPLOYEES = "user/companies/{id}/employees?per_page=10&page=1";
-            public static final String PAYMENT_ACCOUNT = "user/companies/{id}/payment_account";
+            public static final String BY_ID = "user/companies/{companyID}";
+            public static final String MANAGER = "user/companies/{companyID}/manager";
+            public static final String EMPLOYEES = "user/companies/{companyID}/employees?per_page=10&page=1";
+            public static final String PAYMENT_ACCOUNT = "user/companies/{companyID}/payment_account";
 
             public static final class PaymentAccount {
-                public static final String REFRESH = "user/companies/{id}/payment_account/refresh";
+                public static final String REFRESH = "user/companies/{companyID}/payment_account/refresh";
             }
-
         }
-
-
-
-
-
     }
-
 }

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.kraken.setting.Config;
-import ru.instamart.reforged.stf.component.Component;
+import ru.instamart.reforged.core.component.Component;
 import ru.instamart.ui.manager.AppManager;
 
 import java.util.List;

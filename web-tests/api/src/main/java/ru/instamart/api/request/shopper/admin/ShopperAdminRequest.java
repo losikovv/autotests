@@ -58,8 +58,19 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
             return givenWithAuth()
                     .get(ShopperAdminEndpoints.SHOPPERS);
         }
-    }
 
+        @Step("{method} /" + ShopperAdminEndpoints.SHOPPER)
+        public static Response PATCH(final int shopperId,
+                                    final String status) {
+            JSONObject requestParams = new JSONObject();
+            requestParams.put("status", status);
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(requestParams)
+                    .patch(ShopperAdminEndpoints.SHOPPER, shopperId);
+            }
+    }
+    
     public static class Stores {
         @Step("{method} /" + ShopperAdminEndpoints.STORES)
         public static Response GET() {
@@ -251,11 +262,37 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
                     .put(ShopperAdminEndpoints.ROUTE, routeId);
         }
 
+        @Step("{method} /" + ShopperAdminEndpoints.ROUTE)
+        public static Response DELETE(final  int routeId) {
+            return givenWithAuth()
+                    .delete(ShopperAdminEndpoints.ROUTE, routeId);
+        }
+
         public static class Lock {
             @Step("{method} /" + ShopperAdminEndpoints.Routes.LOCK)
             public static Response POST(final int routeId) {
                 return givenWithAuth()
                         .post(ShopperAdminEndpoints.Routes.LOCK, routeId);
+            }
+
+            @Step ("{method} /" + ShopperAdminEndpoints.Routes.LOCK)
+            public static Response DELETE(final int routeId) {
+                return givenWithAuth()
+                        .delete(ShopperAdminEndpoints.Routes.LOCK, routeId);
+            }
+        }
+
+        public static class Visibility {
+            @Step ("{method} /" + ShopperAdminEndpoints.Routes.VISIBILITY)
+            public static Response POST(final int routeId) {
+                return givenWithAuth()
+                        .post(ShopperAdminEndpoints.Routes.VISIBILITY, routeId);
+            }
+
+            @Step ("{method} /" + ShopperAdminEndpoints.Routes.VISIBILITY)
+            public static Response DELETE(final int routeId) {
+                return givenWithAuth()
+                        .delete(ShopperAdminEndpoints.Routes.VISIBILITY, routeId);
             }
         }
     }

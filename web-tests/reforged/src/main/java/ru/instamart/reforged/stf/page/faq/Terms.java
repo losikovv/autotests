@@ -1,8 +1,8 @@
 package ru.instamart.reforged.stf.page.faq;
 
-import ru.instamart.reforged.stf.page.Page;
+import ru.instamart.reforged.stf.page.StfPage;
 
-public final class Terms implements Page {
+public final class Terms implements StfPage {
 
     private static final String PAGE = "/terms-sbermarket";
 

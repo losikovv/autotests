@@ -44,7 +44,7 @@ public class UserCompaniesV1Tests extends RestBase {
     }
     @Test(groups = {"api-instamart-regress"})
     public void getCompanyWithoutManager(){
-        Response response = CompanyManagerV1Request.GET(company.getId().toString());
+        Response response = UserCompaniesV1Request.Manager.GET(company.getId().toString());
         checkStatusCode200(response);
         assertNull(response.as(CompanyManagerV1Response.class).getManager());
     }
@@ -66,20 +66,20 @@ public class UserCompaniesV1Tests extends RestBase {
 
     @Test(groups = {"api-instamart-regress"})
     public void getCompanyEmployees() {
-        Response response = CompanyEmployeesV1Request.GET(company.getId().toString());
+        Response response = UserCompaniesV1Request.Employees.GET(company.getId().toString());
         checkStatusCode200(response);
         assertFalse(response.as(EmployeesV1Response.class).getEmployees().isEmpty());
     }
 
     @Test(groups = {"api-instamart-regress"})
     public void getPaymentAccount() {
-        Response response = CompanyPaymentAccountV1Request.GET(company.getId().toString());
+        Response response = UserCompaniesV1Request.PaymentAccount.GET(company.getId().toString());
         checkStatusCode200(response);
         assertNull(response.as(PaymentAccountV1Response.class).getPaymentAccount());
     }
     @Test(groups = {"api-instamart-regress"})
     public void postRefreshPaymentAccountError() {
-        Response response = CompanyPaymentAccountV1Request.POST(company.getId().toString());
+        Response response = UserCompaniesV1Request.PaymentAccount.POST(company.getId().toString());
         checkStatusCode422(response);
         assertFalse(response.as(PaymentAccountV1Response.class).getPaymentAccount().getErrors().getExternalPaymentAccount().isEmpty());
     }

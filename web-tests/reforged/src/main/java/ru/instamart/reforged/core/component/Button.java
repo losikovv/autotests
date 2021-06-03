@@ -1,4 +1,4 @@
-package ru.instamart.reforged.stf.component;
+package ru.instamart.reforged.core.component;
 
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -8,17 +8,17 @@ import ru.instamart.reforged.action.WaitAction;
 
 @ToString(callSuper = true)
 @Slf4j
-public final class Checkbox extends Component {
+public final class Button extends Component {
 
-    public Checkbox(final By by) {
+    public Button(final By by) {
         super(by);
     }
 
-    public Checkbox(final By by, final String description) {
+    public Button(final By by, final String description) {
         super(by, description);
     }
 
-    public Checkbox(final By by, final String description, final String errorMsg) {
+    public Button(final By by, final String description, final String errorMsg) {
         super(by, description, errorMsg);
     }
 
@@ -31,13 +31,13 @@ public final class Checkbox extends Component {
         return component;
     }
 
-    public void check() {
+    public void click() {
         getComponent().click();
-        log.info("Check {} with locator {}", getClass().getSimpleName(), getBy());
+        log.info("Click {} with locator {}", getClass().getSimpleName(), getBy());
     }
 
-    public void uncheck() {
-        getComponent().click();
-        log.info("Uncheck {} with locator {}", getClass().getSimpleName(), getBy());
+    public void getText() {
+        getComponent().getText();
+        log.info("Get text {} with locator {}", getClass().getSimpleName(), getBy());
     }
 }
