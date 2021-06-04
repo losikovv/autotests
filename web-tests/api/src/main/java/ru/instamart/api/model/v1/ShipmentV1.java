@@ -58,4 +58,6 @@ public class ShipmentV1 extends BaseObject {
     private List<Object> shipmentChanges = null;
     @JsonProperty(value = "shipping_team_members")
     private List<Object> shippingTeamMembers = null;
+    @JsonProperty("express_delivery")
+    private Boolean expressDelivery;
 }

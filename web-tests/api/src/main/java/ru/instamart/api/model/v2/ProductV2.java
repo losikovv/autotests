@@ -33,8 +33,8 @@ public class ProductV2 extends BaseObject {
     private ImageV2 image;
     private List<PropertyV2> properties = null;
     @JsonProperty(value = "related_products")
-    private List<Object> relatedProducts = null;
-    private List<Object> requirements = null;
+    private List<ProductV2> relatedProducts = null;
+    private List<RequirementV2> requirements = null;
     @JsonProperty(value = "price_type")
     private String priceType;
     @JsonProperty(value = "grams_per_unit")

@@ -2,7 +2,6 @@ package ru.instamart.api.helper;
 
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.SessionType;
@@ -26,6 +25,7 @@ import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
 @Slf4j
@@ -171,7 +171,7 @@ public final class InstamartApiHelper {
      */
     private void setAddressAttributes(AddressV2 address) {
         Response response = OrdersV2Request.ShipAddressChange.PUT(address, currentOrderNumber.get());
-
+        checkStatusCode200(response);
         AddressV2 addressFromResponse = response
                 .as(ShipAddressChangeV2Response.class)
                 .getShipAddressChange()
@@ -209,9 +209,7 @@ public final class InstamartApiHelper {
 
         String storeUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + "?sid=" + sid;
 
-        Assert.assertNotEquals(
-                departments.size(),
-                0,
+        assertFalse(departments.isEmpty(),
                 "Не импортированы товары для магазина\n" + storeUrl);
 
         List<ProductV2> products = new ArrayList<>();
@@ -287,7 +285,7 @@ public final class InstamartApiHelper {
                 .getOrder()
                 .getShipments()
                 .get(0);
-        if (shipment.getAlerts().size() > 0) {
+        if (!shipment.getAlerts().isEmpty()) {
             String alertMessage = shipment.getAlerts().get(0).getMessage().replaceAll("[^0-9]","");
             minSum.set(Integer.parseInt(alertMessage.substring(0, alertMessage.length() - 2)));
             log.info("Минимальная сумма корзины: {}", minSum.get());
@@ -350,13 +348,12 @@ public final class InstamartApiHelper {
      * Получаем первый доступный слот
      */
     private void getAvailableDeliveryWindow() {
-        List<ShippingRateV2> shippingRates = ShipmentsV2Request.ShippingRates
-                .GET(currentShipmentNumber
-                        .get()).as(ShippingRatesV2Response.class).getShippingRates();
+        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get());
+        checkStatusCode200(response);
 
-        Assert.assertNotEquals(
-                shippingRates.size(),
-                0,
+        List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
+
+        assertFalse(shippingRates.isEmpty(),
                 "Нет слотов в магазине " + Pages.Admin.stores(currentSid.get()));
 
         DeliveryWindowV2 deliveryWindow = shippingRates.get(0).getDeliveryWindow();
@@ -373,9 +370,7 @@ public final class InstamartApiHelper {
         List<ShippingMethodV2> shippingMethods = ShippingMethodsV2Request.GET(currentSid.get())
                 .as(ShippingMethodsV2Response.class).getShippingMethods();
 
-        Assert.assertNotEquals(
-                shippingMethods.size(),
-                0,
+        assertFalse(shippingMethods.isEmpty(),
                 "Нет способов доставки в магазине\n" + Pages.Admin.stores(currentSid.get()));
 
         ShippingMethodV2 shippingMethod = shippingMethods.get(0);
@@ -450,7 +445,7 @@ public final class InstamartApiHelper {
                     getAvailableDeliveryWindow();
                     setDefaultOrderAttributes();
                     response = OrdersV2Request.Completion.POST(currentOrderNumber.get());
-                } else Assert.fail(response.body().toString());
+                } else fail(response.body().toString());
             }
             if (errors.getPayments() != null) {
                 String notAvailablePaymentMethod = "Заказ не может быть оплачен указанным способом";
@@ -458,7 +453,7 @@ public final class InstamartApiHelper {
                     log.error("{} {}", notAvailablePaymentMethod, currentPaymentTool.get());
                     //ToDo помечать тест желтым, если заказ не может быть оплачен указанным способом
                     return null;
-                } else Assert.fail(response.body().toString());
+                } else fail(response.body().toString());
             }
         }
         checkStatusCode200(response);
@@ -541,12 +536,11 @@ public final class InstamartApiHelper {
                     .getErrors()
                     .getBase()
                     .contains("По указанному адресу"))
-                Assert.fail("Магазин отключен " + Pages.Admin.stores(currentSid.get()));
+                fail("Магазин отключен " + Pages.Admin.stores(currentSid.get()));
         }
         checkStatusCode200(response);
-
         StoreV2 store = response.as(StoreV2Response.class).getStore();
-        if (store == null) Assert.fail(response.body().asString());
+        if (store == null) fail(response.body().asString());
 
         AddressV2 address = store.getLocation();
         log.info("Получен адрес {}", address.getFullAddress());
@@ -583,7 +577,9 @@ public final class InstamartApiHelper {
      * Получить список активных ритейлеров как список объектов Retailer
      */
     public List<RetailerV2> availableRetailersSpree() {
-        List<RetailerV2> retailers = RetailersV1Request.GET().as(RetailersV2Response.class).getRetailers();
+        Response response = RetailersV1Request.GET();
+        checkStatusCode200(response);
+        List<RetailerV2> retailers = response.as(RetailersV2Response.class).getRetailers();
 
         StringJoiner availableRetailers = new StringJoiner(
                 "\n• ",
@@ -645,7 +641,7 @@ public final class InstamartApiHelper {
         store.setLon(lon);
         List<StoreV2> stores = StoresV2Request.GET(store).as(StoresV2Response.class).getStores();
 
-        if (stores.size() > 0) {
+        if (!stores.isEmpty()) {
             printAvailableStores(stores);
         } else {
             log.error("По выбранному адресу нет магазинов");
@@ -697,7 +693,7 @@ public final class InstamartApiHelper {
         OrdersV2Response response = OrdersV2Request.GET(OrderStatusV2.ACTIVE).as(OrdersV2Response.class);
         List<OrderV2> orders = response.getOrders();
 
-        if (orders.size() < 1) {
+        if (orders.isEmpty()) {
             log.warn("Нет активных заказов");
         } else {
             int pages = response.getMeta().getTotalPages();

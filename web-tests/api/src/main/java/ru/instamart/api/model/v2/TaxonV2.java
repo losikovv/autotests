@@ -23,6 +23,8 @@ public class TaxonV2 extends BaseObject {
     @JsonProperty(value = "promo_services")
     private String[] promoServices = null;
     private List<RequirementV2> requirements = null;
+    private Integer position;
+    private Integer depth;
 
     @Override
     public String toString() {

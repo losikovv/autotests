@@ -19,7 +19,7 @@ public class LineItemV2 extends BaseObject {
     private Double promoTotal;
     private Double discount;
     @JsonProperty(value = "customer_comment")
-    private Object customerComment;
+    private String customerComment;
     @JsonProperty(value = "product_in_stock")
     private Boolean productInStock;
     @JsonProperty(value = "total_diff")
@@ -29,6 +29,7 @@ public class LineItemV2 extends BaseObject {
     private Double unitPrice;
     @JsonProperty(value = "unit_quantity")
     private Integer unitQuantity;
+    private String uuid;
 
     @Override
     public String toString() {

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
-import ru.instamart.api.model.v2.StoreV2;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
@@ -36,7 +35,7 @@ public class OfferV1 extends BaseObject {
     @JsonProperty(value = "max_stock_rate")
     private Integer maxStockRate;
     @JsonProperty(value = "discount_ends_at")
-    private Object discountEndsAt;
+    private String discountEndsAt;
     private Boolean published;
     @JsonProperty(value = "product_name")
     private String productName;
@@ -66,10 +65,14 @@ public class OfferV1 extends BaseObject {
     @JsonProperty(value = "updated_at")
     private String updatedAt;
     private String permalink;
-    private StoreV2 store;
+    private StoreV1 store;
     private VariantV1 variant;
     @JsonProperty(value = "master_category")
     private MasterCategoryV1 masterCategory;
+    @JsonProperty(value = "original_unit_price")
+    private Double originalUnitPrice;
+    @JsonProperty(value = "vat_info")
+    private Object vatInfo;
 
     @Override
     public String toString() {

@@ -7,11 +7,9 @@ import ru.instamart.api.model.BaseObject;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class AlertV2 extends BaseObject {
-    private String message;
-    @JsonProperty(value = "full_message")
-    private String fullMessage;
-    private String type;
-    private String key;
-    private DetailsV2 details;
+public class DetailsV2 extends BaseObject {
+    @JsonProperty(value = "min_amount")
+    private Long minAmount;
+    @JsonProperty(value = "remaining_amount")
+    private Long remainingAmount;
 }

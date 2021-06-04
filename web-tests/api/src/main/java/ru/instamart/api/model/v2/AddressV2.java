@@ -34,6 +34,17 @@ public class AddressV2 extends BaseObject {
     private String doorPhone;
     @JsonProperty(value = "delivery_to_door")
     private Boolean deliveryToDoor;
+    private String phone;
+    private Boolean elevator;
+    private String region;
+    private String area;
+    private String settlement;
+    @JsonProperty(value = "city_kladr_id")
+    private Object cityKladrId;
+    @JsonProperty(value = "street_kladr_id")
+    private Object streetKladrId;
+    @JsonProperty(value = "user_id")
+    private Object userId;
 
     public void setCoordinates(ZoneV2 zone) {
         this.lat = zone.getLat();

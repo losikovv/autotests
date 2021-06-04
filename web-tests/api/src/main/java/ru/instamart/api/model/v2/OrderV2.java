@@ -16,6 +16,8 @@ public class OrderV2 extends BaseObject {
     private Integer itemCount;
     @JsonProperty(value = "item_total")
     private Double itemTotal;
+    @JsonProperty(value = "item_discount_total")
+    private Double itemDiscountTotal;
     @JsonProperty(value = "ship_total")
     private Double shipTotal;
     @JsonProperty(value = "adjustment_total")
@@ -45,4 +47,7 @@ public class OrderV2 extends BaseObject {
     private List<PromotionCodeV2> promotionCodes = null;
     @JsonProperty(value = "shipping_method_kind")
     private String shippingMethodKind;
+    @JsonProperty(value = "total_weight")
+    private Double totalWeight;
+    private List<Object> discounts = null;
 }

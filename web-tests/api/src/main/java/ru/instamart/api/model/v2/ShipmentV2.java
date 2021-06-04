@@ -13,8 +13,14 @@ public class ShipmentV2 extends BaseObject {
     private Integer id;
     private String number;
     private Double cost;
+    @JsonProperty(value = "item_count")
+    private Integer itemCount;
     @JsonProperty(value = "item_total")
     private Double itemTotal;
+    @JsonProperty(value = "item_discount_total")
+    private Double itemDiscountTotal;
+    @JsonProperty(value = "item_without_discount_total")
+    private Double itemWithoutDiscountTotal;
     private Double total;
     private String state;
     private List<AlertV2> alerts = null;
@@ -34,5 +40,11 @@ public class ShipmentV2 extends BaseObject {
     private String externalPartnersService;
     @JsonProperty(value = "shipping_team_members")
     private List<Object> shippingTeamMembers = null;
-    private List<Object> requirements = null;
+    private List<RequirementV2> requirements = null;
+    @JsonProperty(value = "total_weight")
+    private Integer totalWeight;
+    @JsonProperty(value = "can_cancel")
+    private Boolean canCancel;
+    private List<Object> discounts = null;
+    private PaymentV2 payment;
 }

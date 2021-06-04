@@ -1,13 +1,12 @@
-package ru.instamart.api.response.shopper.app;
+package ru.instamart.api.model.shopper.app;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
-import ru.instamart.api.response.BaseResponseObject;
 
-@lombok.Data
+@Data
 @EqualsAndHashCode(callSuper=false)
-public class AppVersionSHPResponse extends BaseResponseObject {
-    private Data data;
+public class ReceiptsSHP extends BaseObject {
 
     @lombok.Data
     @EqualsAndHashCode(callSuper=false)
@@ -19,10 +18,12 @@ public class AppVersionSHPResponse extends BaseResponseObject {
         @lombok.Data
         @EqualsAndHashCode(callSuper=false)
         public static class Attributes extends BaseObject {
-            private Integer major;
-            private String changelog;
-            private String importance;
-            private String downloadUrl;
+            private String total;
+            private String paidAt;
+            private String fiscalSecret;
+            private String fiscalChecksum;
+            private String fiscalDocumentNumber;
+            private String transactionDetails;
         }
     }
 }

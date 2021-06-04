@@ -20,11 +20,19 @@ public class TariffV1 extends BaseObject {
     private Integer shiftPerPositionThreshold;
     private Double shiftPerPositionPayroll;
     private Integer shiftPerOrderThreshold;
-    private String shiftPerOrderPayroll;
+    private Double shiftPerOrderPayroll;
     private Integer shiftWeightThreshold;
     private Double shiftWeightPayroll;
     private Double shiftWeightPerKiloPayroll;
     private String createdAt;
     private String updatedAt;
     private String discardedAt;
+    private Integer fine;
+    private Object expectedProfit;
+    private Integer courierPerOrderThreshold;
+    private Double courierPerOrderPayroll;
+    private Integer assemblerPerOrderThreshold;
+    private Double assemblerPerOrderPayroll;
+    private Integer assemblerPerPositionThreshold;
+    private Double assemblerPerPositionPayroll;
 }

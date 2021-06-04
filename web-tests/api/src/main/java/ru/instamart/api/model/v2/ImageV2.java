@@ -20,4 +20,7 @@ public class ImageV2 extends BaseObject {
     private String originalUrl;
     @JsonProperty(value = "default_url")
     private String defaultUrl;
+    @JsonProperty(value = "is_placeholder")
+    private Boolean isPlaceholder;
+    private Integer position;
 }

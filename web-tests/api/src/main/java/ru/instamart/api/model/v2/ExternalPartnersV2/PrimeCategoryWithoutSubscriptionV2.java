@@ -8,12 +8,8 @@ import ru.instamart.api.model.BaseObject;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class PrimeCategoryWithoutSubscriptionV2 extends BaseObject {
-
-    @JsonProperty("header")
     private String header;
-    @JsonProperty("text")
     private String text;
-    @JsonProperty("link")
     private String link;
     @JsonProperty("link_text")
     private String linkText;

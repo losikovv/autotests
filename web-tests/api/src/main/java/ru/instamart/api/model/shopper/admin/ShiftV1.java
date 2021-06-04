@@ -16,4 +16,5 @@ public class ShiftV1 extends BaseObject {
     private Integer position;
     private TariffV1 tariff;
     private List<ShiftAssignmentV1> shiftAssignments = null;
+    private Boolean forFlexSupply;
 }

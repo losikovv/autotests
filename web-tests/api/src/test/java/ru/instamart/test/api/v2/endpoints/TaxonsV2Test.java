@@ -4,16 +4,15 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.model.v2.StoreV2;
 import ru.instamart.api.model.v2.TaxonV2;
 import ru.instamart.api.request.v2.TaxonsV2Request;
 import ru.instamart.api.response.v2.TaxonV2Response;
 import ru.instamart.api.response.v2.TaxonsV2Response;
-import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.util.List;
@@ -23,16 +22,15 @@ import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
 
+@Slf4j
 @Epic("ApiV2")
 @Feature("Получение таксонов")
 public final class TaxonsV2Test extends RestBase {
-
-    private static final Logger log = LoggerFactory.getLogger(TaxonsV2Test.class);
-
     private int taxonId;
 
     @CaseId(11)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получаем таксоны (подкатегории)")
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
+            description = "Получаем таксоны (подкатегории)")
     public void getTaxons() {
         response = TaxonsV2Request.GET(EnvironmentData.INSTANCE.getDefaultSid());
         checkStatusCode200(response);
@@ -42,7 +40,7 @@ public final class TaxonsV2Test extends RestBase {
     }
 
     @CaseId(6)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
             dependsOnMethods = "getTaxons",
             description = "Получаем таксон (подкатегорию)")
     public void getTaxon() {
@@ -52,7 +50,7 @@ public final class TaxonsV2Test extends RestBase {
     }
 
     @CaseId(6)
-    @Test(groups = {},
+    @Test(  groups = {},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "stores-parallel",
             description = "Получаем каждый таксон (подкатегорию) у каждого магазина")
@@ -63,21 +61,23 @@ public final class TaxonsV2Test extends RestBase {
     }
 
     @CaseId(250)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий sid")
+    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Несуществующий sid")
     public void testWithInvalidSid() {
         final Response response = TaxonsV2Request.GET(6666);
         checkStatusCode404(response);
     }
 
     @CaseId(252)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Информация о категории с невалидной категорией")
+    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Информация о категории с невалидной категорией")
     public void testGetCategoryWithInvalidCategory() {
         final Response response = TaxonsV2Request.GET(0, EnvironmentData.INSTANCE.getDefaultSid());
         checkStatusCode404(response);
     }
 
     @CaseId(254)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getTaxons",
             description = "Информация о категории с валидной категорией и несуществующим sid")
     public void testGetCategoryWithInvalidSid() {
