@@ -2613,13 +2613,13 @@ public class Elements {
 
                 static ElementData addButton() {
                     return new ElementData(
-                            By.xpath("//aside//a[text()='Применить промокод']"),
+                            By.xpath("//button[@data-qa='checkout_apply_coupon_code_button']"),
                                 "кнопка \"Применить промокод\" в чекауте");
                 }
 
                 static ElementData deleteButton() {
                     return new ElementData(
-                            By.xpath("//aside//div[@class='promo-codes']//a[text()='Удалить']"),
+                            By.xpath("//button[@data-qa='checkout_delete_coupon_code_button']"),
                                 "кнопка удаления промокода в чекауте");
                 }
 
@@ -2627,13 +2627,13 @@ public class Elements {
 
                     static ElementData popup() {
                         return new ElementData(
-                                By.xpath("//div[@class='modal-form__title' and text()='Введите промокод']//ancestor::div[@class='rc-modal__container']"),
+                                By.xpath("//div[text()='Введите промокод']"),
                                     "модалка ввода промокода в чекауте");
                     }
 
                     static ElementData closeButton() {
                         return new ElementData(
-                                By.xpath("//button[@class='rc-modal__close']"),
+                                By.cssSelector("div[id='CouponCodes'] header button"),
                                     "крестик закрытия модалки ввода промокода в чекауте");
                     }
 
@@ -2645,7 +2645,7 @@ public class Elements {
 
                     static ElementData inputField() {
                         return new ElementData(
-                                By.xpath("//div[@class='rc-modal__body']//input[@id='couponCode']"),
+                                By.xpath("//input[@name='couponCode']"),
                                     "поле ввода промокода");
                     }
 
@@ -2657,14 +2657,14 @@ public class Elements {
 
                     static ElementData cancelButton() {
                         return new ElementData(
-                                By.xpath("//div[@class='rc-modal__body']//button[text()='Отменить']"),
+                                By.xpath("//button[@data-qa='checkout_coupon_modal_cancel_button']"),
                                     "кнопка отмены ввода промокода"
                         );
                     }
 
                     static ElementData submitButton() {
                         return new ElementData(
-                                By.xpath("//div[@class='rc-modal__body']//button[text()='Добавить код']"),
+                                By.xpath("//button[@data-qa='checkout_coupon_modal_add_button']"),
                                     "кнопка \"Добавить код\"");
                     }
                 }
