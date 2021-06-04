@@ -21,7 +21,7 @@ public final class ResetPasswordV2Test extends RestBase {
     @BeforeClass(alwaysRun = true)
     @Story("Создание сессии")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2);
+        SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
     // not implemented endpoint
@@ -86,7 +86,7 @@ public final class ResetPasswordV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Сброс пароля")
     public void testRestPassword() {
         final Response response = ResetPasswordV2Request.POST(
-                SessionFactory.getSession(SessionType.API_V2).getLogin()
+                SessionFactory.getSession(SessionType.API_V2_FB).getLogin()
         );
         checkStatusCode200(response);
     }

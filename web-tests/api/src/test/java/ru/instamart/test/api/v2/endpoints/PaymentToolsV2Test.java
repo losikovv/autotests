@@ -20,11 +20,11 @@ public class PaymentToolsV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2);
+        SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
     @CaseId(20)
-    @Test(  description = "Получаем инфу способах оплаты",
+    @Test(  description = "Получаем инфу о способах оплаты",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getPaymentTools() {
         response = PaymentToolsV2Request.GET();

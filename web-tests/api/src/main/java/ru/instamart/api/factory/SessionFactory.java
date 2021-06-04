@@ -14,6 +14,7 @@ import ru.instamart.api.request.delivery_club.AuthenticationDCRequest;
 import ru.instamart.api.request.shopper.app.SessionsSHPRequest;
 import ru.instamart.api.request.v1.TokensV1Request;
 import ru.instamart.api.request.v1.UserSessionsV1Request;
+import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
 import ru.instamart.api.request.v2.SessionV2Request;
 import ru.instamart.api.response.delivery_club.TokenDCResponse;
 import ru.instamart.api.response.shopper.app.SessionsSHPResponse;
@@ -43,9 +44,10 @@ public final class SessionFactory {
             case SHOPPER_APP:
             case SHOPPER_ADMIN:
             case DELIVERY_CLUB:
+            case API_V2_PHONE:
                 log.warn("Not implemented yet!");
                 break;
-            case API_V2:
+            case API_V2_FB:
                     final UserData userData = UserManager.getUser();
                     RegistrationHelper.registration(userData);
                     createSessionToken(type, userData);
@@ -94,8 +96,11 @@ public final class SessionFactory {
             case API_V1:
                 sessionInfo = createApiV1Session(userData);
                 return sessionInfo;
-            case API_V2:
-                sessionInfo = createApiV2Session(userData);
+            case API_V2_FB:
+                sessionInfo = createApiV2FacebookSession(userData);
+                return sessionInfo;
+            case API_V2_PHONE:
+                sessionInfo = createApiV2PhoneSession(userData);
                 return sessionInfo;
             case SHOPPER_APP:
                 sessionInfo = createShopperAppSession(userData);
@@ -120,7 +125,17 @@ public final class SessionFactory {
         return new SessionInfo(userData, response.getCookies());
     }
 
-    private static SessionInfo createApiV2Session(final UserData userData) {
+    private static SessionInfo createApiV2PhoneSession(final UserData userData) {
+        PhoneConfirmationsV2Request.POST(userData.getEncryptedPhone());
+        final Response response = PhoneConfirmationsV2Request.PUT(userData.getPhone());
+        checkStatusCode200(response);
+        final SessionsV2Response sessionResponse = response.as(SessionsV2Response.class);
+        log.info("Авторизуемся: {}", userData.getPhone());
+        log.info("access_token: {}", sessionResponse.getSession().getAccessToken());
+        return new SessionInfo(userData, sessionResponse.getSession().getAccessToken());
+    }
+
+    private static SessionInfo createApiV2FacebookSession(final UserData userData) {
         final Response response = SessionV2Request.POST(AuthProviderV2.FACEBOOK, userData, UUID.randomUUID().toString());
         checkStatusCode200(response);
         final SessionsV2Response sessionResponse = response.as(SessionsV2Response.class);

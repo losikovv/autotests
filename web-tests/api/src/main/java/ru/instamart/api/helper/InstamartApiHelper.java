@@ -149,7 +149,7 @@ public final class InstamartApiHelper {
     /**
      * Удаляем товары из корзины
      */
-    private void deleteItemsFromCart() {
+    public void deleteItemsFromCart() {
         Response response = OrdersV2Request.Shipments.DELETE(currentOrderNumber.get());
 
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
@@ -159,7 +159,7 @@ public final class InstamartApiHelper {
     /**
      * Изменение/применение параметров адреса из объекта адреса с указанием имени и фамилии юзера
      */
-    private void setAddressAttributes(UserData user, AddressV2 address) {
+    public void setAddressAttributes(UserData user, AddressV2 address) {
         address.setFirstName(user.getFirstName());
         address.setLastName(user.getLastName());
 
@@ -765,7 +765,7 @@ public final class InstamartApiHelper {
     /**
      * Наполняем корзину до минимальной суммы заказа в конкретном магазине
      */
-    private void fillCartOnSid(int sid) {
+    public void fillCartOnSid(int sid) {
         fillCartOnSid(sid,1);
     }
 
@@ -835,7 +835,7 @@ public final class InstamartApiHelper {
      * Очистить корзину и выбрать адрес у юзера
      */
     public void dropCart(UserData user, AddressV2 address) {
-        SessionFactory.createSessionToken(SessionType.API_V2, user);
+        SessionFactory.createSessionToken(SessionType.API_V2_FB, user);
         getCurrentOrderNumber();
         deleteItemsFromCart();
 

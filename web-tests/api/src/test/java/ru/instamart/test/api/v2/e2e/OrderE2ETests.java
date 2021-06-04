@@ -18,7 +18,7 @@ public class OrderE2ETests extends RestBase {
     @BeforeClass(alwaysRun = true,
                  description = "Регистрация")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2);
+        SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
     @AfterClass(alwaysRun = true,
@@ -30,6 +30,6 @@ public class OrderE2ETests extends RestBase {
     @CaseId(101)
     @Test(description = "Тест оформления заказа", groups = {"api-instamart-regress", "api-instamart-prod"})
     public void order() {
-        apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
     }
 }
