@@ -8,5 +8,5 @@ import java.util.List;
 @lombok.Data
 @EqualsAndHashCode(callSuper=false)
 public class PackageSetsSHP extends BaseObject {
-    private List<DataSHP> data = null;
+    private List<PackageSetSHP.Data> data = null;
 }

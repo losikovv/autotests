@@ -1,13 +1,11 @@
-package ru.instamart.api.response.shopper.app;
+package ru.instamart.api.model.shopper.app;
 
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
-import ru.instamart.api.response.BaseResponseObject;
 
 @lombok.Data
 @EqualsAndHashCode(callSuper=false)
-public class AppVersionSHPResponse extends BaseResponseObject {
-    private Data data;
+public class SessionSHP extends BaseObject {
 
     @lombok.Data
     @EqualsAndHashCode(callSuper=false)
@@ -19,10 +17,9 @@ public class AppVersionSHPResponse extends BaseResponseObject {
         @lombok.Data
         @EqualsAndHashCode(callSuper=false)
         public static class Attributes extends BaseObject {
-            private Integer major;
-            private String changelog;
-            private String importance;
-            private String downloadUrl;
+            private String accessToken;
+            private String refreshToken;
+            private String expiresAt;
         }
     }
 }

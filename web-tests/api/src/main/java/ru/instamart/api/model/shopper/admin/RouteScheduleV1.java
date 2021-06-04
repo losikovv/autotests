@@ -18,4 +18,5 @@ public class RouteScheduleV1 extends BaseObject {
     private List<RouteV1> routes = null;
     private List<UnscheduledShipmentV1> unscheduledShipments = null;
     private StoreV1 store;
+    private Object lastRoutingTask;
 }

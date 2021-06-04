@@ -24,7 +24,7 @@ public class InstamartApiCheckpoints {
     public static void checkStatusCode200(Response response) {
         if (response.statusCode() != 200) {
             Assert.fail("\n" + response.statusLine() +
-                        "\n" + response.body());
+                        "\n" + response.body().asString());
         }
         response.then().contentType(ContentType.JSON);
     }

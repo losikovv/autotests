@@ -1,14 +1,5 @@
 package ru.instamart.test.api.shopper.app.endpoints;
 
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.helper.RegistrationHelper;
-import ru.instamart.api.model.shopper.app.AssemblyDataSHP;
-import ru.instamart.api.model.v2.OrderV2;
-import ru.instamart.api.request.shopper.app.*;
-import ru.instamart.api.response.shopper.app.*;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -16,10 +7,19 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.helper.RegistrationHelper;
+import ru.instamart.api.model.shopper.app.AssemblySHP;
+import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.request.shopper.app.*;
+import ru.instamart.api.response.shopper.app.*;
+import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
+import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkIsDeliveryToday;
 import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
-import static org.testng.Assert.assertNotNull;
 
 @Epic("Shopper Mobile API")
 @Feature("Endpoints")
@@ -63,7 +63,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void postAssembly200() {
         response = AssembliesSHPRequest.POST(shipmentId);
         checkStatusCode200(response);
-        AssemblyDataSHP assembly = response.as(AssemblySHPResponse.class).getData();
+        AssemblySHP.Data assembly = response.as(AssemblySHPResponse.class).getData();
         assertNotNull(assembly.getId(), "Не вернулась сборка");
         assemblyId = assembly.getId();
         assemblyItemId = assembly.getRelationships()

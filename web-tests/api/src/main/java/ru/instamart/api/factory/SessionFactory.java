@@ -8,7 +8,7 @@ import ru.instamart.api.checkpoint.ShopperApiCheckpoints;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.helper.RegistrationHelper;
-import ru.instamart.api.model.shopper.app.SessionAttributesSHP;
+import ru.instamart.api.model.shopper.app.SessionSHP;
 import ru.instamart.api.model.v1.ShoppersBackendV1;
 import ru.instamart.api.request.delivery_club.AuthenticationDCRequest;
 import ru.instamart.api.request.shopper.app.SessionsSHPRequest;
@@ -148,7 +148,7 @@ public final class SessionFactory {
         final Response response = SessionsSHPRequest.POST(userData.getLogin(), userData.getPassword());
         ShopperApiCheckpoints.checkStatusCode200(response);
         final SessionsSHPResponse sessionsResponse = response.as(SessionsSHPResponse.class);
-        final SessionAttributesSHP sessionAttributes = sessionsResponse.getData().getAttributes();
+        final SessionSHP.Data.Attributes sessionAttributes = sessionsResponse.getData().getAttributes();
         log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
         log.info("access_token: {}", sessionAttributes.getAccessToken());
         log.info("refresh_token: {}", sessionAttributes.getRefreshToken());

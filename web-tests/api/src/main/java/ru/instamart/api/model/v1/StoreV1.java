@@ -1,16 +1,16 @@
-package ru.instamart.api.model.v2;
+package ru.instamart.api.model.v1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
+import ru.instamart.api.model.v2.NextDeliveryV2;
 
-import java.util.List;
 import java.util.StringJoiner;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class StoreV2 extends BaseObject {
+public class StoreV1 extends BaseObject {
     private Integer id;
     private String name;
     private Boolean active;
@@ -20,38 +20,31 @@ public class StoreV2 extends BaseObject {
     private String retailerColor;
     @JsonProperty("time_zone")
     private String timeZone;
-    @JsonProperty(value = "next_delivery")
-    private NextDeliveryV2 nextDelivery;
-    private List<List<ZoneV2>> zones = null;
     private String uuid;
     @JsonProperty("has_conveyor")
     private Boolean hasConveyor;
     @JsonProperty("auto_routing")
     private Boolean autoRouting;
-    @JsonProperty(value = "express_delivery")
+    @JsonProperty("express_delivery")
     private Boolean expressDelivery;
     @JsonProperty("box_scanning")
     private Boolean boxScanning;
     private Boolean training;
-    @JsonProperty(value = "min_order_amount")
+    @JsonProperty("min_order_amount")
     private Double minOrderAmount;
-    @JsonProperty(value = "min_first_order_amount")
+    @JsonProperty("min_first_order_amount")
     private Double minFirstOrderAmount;
-    @JsonProperty(value = "min_order_amount_pickup")
-    private Double minOrderAmountPickup;
-    @JsonProperty(value = "min_first_order_amount_pickup")
+    @JsonProperty("min_first_order_amount_pickup")
     private Double minFirstOrderAmountPickup;
-    @JsonProperty(value = "available_for_pickup")
+    @JsonProperty("min_order_amount_pickup")
+    private Double minOrderAmountPickup;
+    @JsonProperty("available_for_pickup")
     private Boolean availableForPickup;
-    private RetailerV2 retailer;
-    private AddressV2 location;
-    private List<ServiceV2> services = null;
-    @JsonProperty(value = "operational_times")
-    private List<OperationalTimeV2> operationalTimes = null;
-    @JsonProperty(value = "label_uuids")
-    private List<Object> labelUuids = null;
     @JsonProperty("external_assembly")
     private Object externalAssembly;
+    @JsonProperty("next_delivery")
+    private NextDeliveryV2 nextDelivery;
+    private AddressV1 location;
 
     @Override
     public String toString() {
@@ -59,10 +52,10 @@ public class StoreV2 extends BaseObject {
                 ", ",
                 "",
                 "");
-        if (getRetailer() == null || getLocation() == null) {
+        if (getRetailerSlug() == null || getLocation() == null) {
             stringJoiner.add(getName());
         } else {
-            stringJoiner.add(getRetailer().getName());
+            stringJoiner.add(getRetailerSlug());
             stringJoiner
                     .add(getLocation().getCity())
                     .add(getLocation().getStreet());

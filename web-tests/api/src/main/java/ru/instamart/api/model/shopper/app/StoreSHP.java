@@ -1,9 +1,10 @@
 package ru.instamart.api.model.shopper.app;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
-@lombok.Data
+@Data
 @EqualsAndHashCode(callSuper=false)
 public class StoreSHP extends BaseObject {
     private DataSHP data;

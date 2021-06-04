@@ -99,7 +99,6 @@ public class OrdersV1Test extends RestBase {
         Response response = LineItemsV1Request.GET(shipmentNumber);
         checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/LineItems.json"));
-
         productSku = response.as(LineItemsV1Response.class)
                 .getLineItems()
                 .get(0)

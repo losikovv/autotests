@@ -18,4 +18,6 @@ public class NextDeliveryV2 extends BaseObject {
     @JsonProperty(value = "ends_at")
     private String endsAt;
     private String kind;
+    @JsonProperty(value = "express_delivery")
+    private Boolean expressDelivery;
 }

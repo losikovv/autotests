@@ -8,7 +8,7 @@ import ru.instamart.api.response.BaseResponseObject;
 import java.util.List;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class ErrorSHPResponse extends BaseResponseObject {
     private List<ErrorSHP> errors = null;
 }

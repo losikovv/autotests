@@ -34,7 +34,7 @@ public class ShopperAppApiHelper {
     public void refreshAuth() {
         Response response = AuthSHPRequest.Refresh.POST();
         checkStatusCode200(response);
-        SessionAttributesSHP sessionAttributes = response
+        SessionSHP.Data.Attributes sessionAttributes = response
                 .as(SessionsSHPResponse.class)
                 .getData()
                 .getAttributes();
@@ -57,13 +57,13 @@ public class ShopperAppApiHelper {
         String shipmentId = null;
         Response response = ShopperSHPRequest.Shipments.GET();
         checkStatusCode200(response);
-        List<ShipmentDataSHP> shipments = response.as(ShipmentsSHPResponse.class).getData();
+        List<ShipmentSHP.Data> shipments = response.as(ShipmentsSHPResponse.class).getData();
 
         StringJoiner availableShipmentNumbers = new StringJoiner(
                 "\n• ",
                 "Список доступных для сборки заказов:\n• ",
                 "\n");
-        for (ShipmentDataSHP shipment : shipments) {
+        for (ShipmentSHP.Data shipment : shipments) {
             String number = shipment.getAttributes().getNumber();
             if (shipment.getAttributes().getNumber().equalsIgnoreCase(shipmentNumber)) {
                 shipmentId = shipment.getId();
@@ -97,7 +97,7 @@ public class ShopperAppApiHelper {
     public String getCurrentAssemblyId() {
         Response response = ShopperSHPRequest.Assemblies.GET();
         checkStatusCode200(response);
-        List<AssemblyDataSHP> assemblies = response.as(AssembliesSHPResponse.class).getData();
+        List<AssemblySHP.Data> assemblies = response.as(AssembliesSHPResponse.class).getData();
         if (assemblies.size() > 0) {
             log.info("Получаем id собираемой сборки: {}", assemblies.get(0).getId());
             return assemblies.get(0).getId();
@@ -165,7 +165,7 @@ public class ShopperAppApiHelper {
         deleteCurrentAssembly();
         String shipmentId = getShipmentId(shipmentNumber);
 
-        AssemblyDataSHP assembly = startAssembly(shipmentId);
+        AssemblySHP.Data assembly = startAssembly(shipmentId);
         Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.COLLECTING.getState());
 
         suspendAssembly();
@@ -197,11 +197,11 @@ public class ShopperAppApiHelper {
     /**
      * Берем заказ в сборку
      */
-    private AssemblyDataSHP startAssembly(String shipmentId) {
+    private AssemblySHP.Data startAssembly(String shipmentId) {
         log.info("Берем заказ в сборку");
         Response response = AssembliesSHPRequest.POST(shipmentId);
         checkStatusCode200(response);
-        AssemblyDataSHP assembly = response.as(AssemblySHPResponse.class).getData();
+        AssemblySHP.Data assembly = response.as(AssemblySHPResponse.class).getData();
         currentAssemblyId = assembly.getId();
         return assembly;
     }
@@ -223,8 +223,8 @@ public class ShopperAppApiHelper {
      * 5. Новый товар
      */
     private void assemblyItems() {
-        List<AssemblyItemDataSHP> items = getItems();
-        List<OfferDataSHP> offers = getOffers();
+        List<AssemblyItemSHP.Data> items = getItems();
+        List<OfferSHP.Data> offers = getOffers();
 
         assemblyItem(items.get(0).getId(), items.get(0).getAttributes().getQty());
         clarifyItem(items.get(0).getId());
@@ -239,10 +239,10 @@ public class ShopperAppApiHelper {
                 approveItem(items.get(2).getId());
 
                 if (items.size() > 3) {
-                    ReplacementDataSHP replacement = replaceItem(items.get(3).getId(), offers.get(0).getAttributes().getUuid());
+                    ReplacementSHP.Data replacement = replaceItem(items.get(3).getId(), offers.get(0).getAttributes().getUuid());
                     approveItem(replacement.getAttributes().getToItemId().toString());
 
-                    AssemblyItemDataSHP assemblyItem = additionalItemForReplacement(replacement.getId(), offers.get(1).getId());
+                    AssemblyItemSHP.Data assemblyItem = additionalItemForReplacement(replacement.getId(), offers.get(1).getId());
                     approveItem(assemblyItem.getId());
 
                     if (items.size() > 4) {
@@ -254,11 +254,11 @@ public class ShopperAppApiHelper {
             } else log.error("Всего два товара в заказе");
         } else log.error("Всего один товар в заказе");
 
-        AssemblyItemDataSHP assemblyItem = addItem(offers.get(2).getAttributes().getUuid());
+        AssemblyItemSHP.Data assemblyItem = addItem(offers.get(2).getAttributes().getUuid());
         approveItem(assemblyItem.getId());
     }
 
-    private List<OfferDataSHP> getOffers() {
+    private List<OfferSHP.Data> getOffers() {
         log.info("Поиск товаров в магазине");
         Response response = StoresSHPRequest.Offers.GET(
                 EnvironmentData.INSTANCE.getDefaultShopperSid(), "хлеб");
@@ -269,7 +269,7 @@ public class ShopperAppApiHelper {
     /**
      * Получаем инфу о позициях в текущей сборке
      */
-    private List<AssemblyItemDataSHP> getItems() {
+    private List<AssemblyItemSHP.Data> getItems() {
         log.info("Получаем инфу о позициях в сборке");
         Response response = AssembliesSHPRequest.GET(currentAssemblyId);
         checkStatusCode200(response);
@@ -282,14 +282,14 @@ public class ShopperAppApiHelper {
      * @param itemQty - количество
      * @return возвращается объект со всей инфой о товаре
      */
-    private AssemblyItemDataSHP assemblyItem(String assemblyItemId, int itemQty) {
+    private AssemblyItemSHP.Data assemblyItem(String assemblyItemId, int itemQty) {
         log.info("Собираем товар");
         Response response = AssemblyItemsSHPRequest.PATCH(currentAssemblyId, assemblyItemId, itemQty);
         checkStatusCode200(response);
         return response.as(AssemblyItemSHPResponse.class).getData();
     }
 
-    private AssemblyItemDataSHP addItem(String offerUuid) {
+    private AssemblyItemSHP.Data addItem(String offerUuid) {
         log.info("Добавляем новый товар");
         Response response = AssembliesSHPRequest.Items.POST(currentAssemblyId, offerUuid,2);
         checkStatusCode200(response);
@@ -310,7 +310,7 @@ public class ShopperAppApiHelper {
         checkStatusCode200(response);
     }
 
-    private ReplacementDataSHP replaceItem(String assemblyItemId, String offerUuid) {
+    private ReplacementSHP.Data replaceItem(String assemblyItemId, String offerUuid) {
         int reasonId = getCancelReasons().get(0).getId();
         log.info("Заменяем товар");
         Response response = AssemblyItemsSHPRequest.Replacements.POST(
@@ -340,7 +340,7 @@ public class ShopperAppApiHelper {
         return Arrays.asList(response.as(ReasonSHP[].class));
     }
 
-    private AssemblyItemDataSHP additionalItemForReplacement(String replacementId, String offerUuid) {
+    private AssemblyItemSHP.Data additionalItemForReplacement(String replacementId, String offerUuid) {
         log.info("Дополнительный товар для замены");
         Response response = ReplacementsSHPRequest.AdditionalItems.POST(replacementId, offerUuid,2);
         checkStatusCode200(response);
@@ -386,7 +386,7 @@ public class ShopperAppApiHelper {
         log.info("Завершаем сборку для передачи упаковщику");
         Response response = AssembliesSHPRequest.FinishAssembling.PUT(currentAssemblyId);
         checkStatusCode200(response);
-        AssemblyAttributesSHP attributes = response.as(AssemblySHPResponse.class).getData().getAttributes();
+        AssemblySHP.Data.Attributes attributes = response.as(AssemblySHPResponse.class).getData().getAttributes();
         Assert.assertEquals(attributes.getState(),
                 AssemblyStateSHP.ASSEMBLED.getState());
         Assert.assertNull(attributes.getPackerId());
@@ -396,7 +396,7 @@ public class ShopperAppApiHelper {
         log.info("Берем сборку упаковщиком");
         Response response = AssembliesSHPRequest.Packer.PUT(currentAssemblyId);
         checkStatusCode200(response);
-        AssemblyAttributesSHP attributes = response.as(AssemblySHPResponse.class).getData().getAttributes();
+        AssemblySHP.Data.Attributes attributes = response.as(AssemblySHPResponse.class).getData().getAttributes();
         Assert.assertEquals(attributes.getState(),
                 AssemblyStateSHP.ASSEMBLED.getState());
         Assert.assertNotNull(attributes.getPackerId());
@@ -427,7 +427,7 @@ public class ShopperAppApiHelper {
                 LocalDateTime.now().toString(),
                 transactionDetails);
         checkStatusCode200(response);
-        ReceiptsAttributesSHP receipts = response.as(ReceiptsSHPResponse.class).getData().getAttributes();
+        ReceiptsSHP.Data.Attributes receipts = response.as(ReceiptsSHPResponse.class).getData().getAttributes();
         Assert.assertEquals(receipts.getTotal(), total);
         Assert.assertEquals(receipts.getFiscalSecret(), fiscalSecret);
         Assert.assertEquals(receipts.getFiscalDocumentNumber(), fiscalDocumentNumber);
@@ -454,7 +454,7 @@ public class ShopperAppApiHelper {
         Response response = AssembliesSHPRequest.PackageSets.POST(
                 currentAssemblyId, 1,1,1,1);
         checkStatusCode200(response);
-        List<PackageSetDataSHP> packageSets = response.as(PackageSetsSHPResponse.class).getData();
+        List<PackageSetSHP.Data> packageSets = response.as(PackageSetsSHPResponse.class).getData();
         Assert.assertEquals(packageSets.get(0).getAttributes().getLocation(), PackageSetLocationSHP.BASKET.getLocation());
         Assert.assertEquals(packageSets.get(1).getAttributes().getLocation(), PackageSetLocationSHP.RACK.getLocation());
         Assert.assertEquals(packageSets.get(2).getAttributes().getLocation(), PackageSetLocationSHP.FRIDGE.getLocation());

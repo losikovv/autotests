@@ -7,9 +7,9 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.ShipAddressChangeV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
@@ -34,7 +34,6 @@ public final class ShipAddressV2Test extends RestBase {
     public void testAddressWithAuthAndValidOrderId() {
         final Response response = OrdersV2Request.ShipAddress.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
-        assertNotNull(response.as(AddressV2.class));
     }
 
     @CaseId(234)

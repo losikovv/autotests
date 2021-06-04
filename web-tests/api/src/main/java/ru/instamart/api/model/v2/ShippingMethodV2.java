@@ -11,6 +11,7 @@ import java.util.StringJoiner;
 public class ShippingMethodV2 extends BaseObject {
     private Integer id;
     private String name;
+    private String kind;
 
     @Override
     public String toString() {

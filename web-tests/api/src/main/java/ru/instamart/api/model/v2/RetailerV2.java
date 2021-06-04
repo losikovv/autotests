@@ -21,9 +21,19 @@ public class RetailerV2 extends BaseObject {
     private Boolean available;
     private String environment;
     private String key;
-    private List<Object> requirements = null;
+    private List<RequirementV2> requirements = null;
     @JsonProperty(value = "retailer_agreement")
     private Object retailerAgreement;
+    private AppearanceV2 appearance;
+    private String services;
+    private String description;
+    @JsonProperty(value = "retailer_services")
+    private List<Object> retailerServices = null;
+    @JsonProperty(value = "operational_times")
+    private List<Object> operationalTimes = null;
+    @JsonProperty(value = "next_delivery")
+    private NextDeliveryV2 nextDelivery;
+    private String icon;
 
     @Override
     public String toString() {
