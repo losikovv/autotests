@@ -25,7 +25,7 @@ public final class UserV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void precondition() {
-        SessionFactory.makeSession(SessionType.API_V2);
+        SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
     @CaseId(150)
@@ -33,7 +33,7 @@ public final class UserV2Test extends RestBase {
     @Story("Изменение данных пользователя")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataAllField() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
         final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 "FirstName",
@@ -53,7 +53,7 @@ public final class UserV2Test extends RestBase {
     @Story("Изменение данных пользователя на невалидные ФИ")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithInvalidFirstAndLastName() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
         final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 "",
@@ -77,7 +77,7 @@ public final class UserV2Test extends RestBase {
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidNew() {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
         final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 session.getPassword(),
@@ -97,7 +97,7 @@ public final class UserV2Test extends RestBase {
     @Story("Изменение пароля с невалидным старым")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidOld() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
         final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 "invalid",
@@ -113,7 +113,7 @@ public final class UserV2Test extends RestBase {
     @Story("Изменение пароля с невалидным проверочным")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidConformation() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
         final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 session.getPassword(),
@@ -129,7 +129,7 @@ public final class UserV2Test extends RestBase {
     @Story("Изменение пароля")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePassword() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
         final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 session.getPassword(),
@@ -145,7 +145,7 @@ public final class UserV2Test extends RestBase {
     @Story("Изменение одного поля пользователя")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataOneField() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
         final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 "FirstName",
@@ -165,7 +165,7 @@ public final class UserV2Test extends RestBase {
     @Story("Попытка изменить данные для несуществующего email")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithIncorrectEmail() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
         final Response response = UsersV2Request.PUT(
                 "fake@mail.com",
                 "FirstName",
@@ -180,7 +180,7 @@ public final class UserV2Test extends RestBase {
     @Story("Изменить данные для с подтверждением promo")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithPromoAccept() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
         final Response response = UsersV2Request.PUT(
                 session.getLogin(),
                 "FirstName",
@@ -195,7 +195,7 @@ public final class UserV2Test extends RestBase {
     @Story("Получение данных пользователя")
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserData() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
         final Response response = UsersV2Request.GET(
                 "InstamartApp",
                 session.getLogin()
@@ -223,7 +223,7 @@ public final class UserV2Test extends RestBase {
     @Story("Попытка получение расширенных данных пользователя с невалидным token")
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserDataWithInvalidToken() {
-        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
         final Response response = UsersV2Request.GET(
                 session.getLogin(),
                 true,

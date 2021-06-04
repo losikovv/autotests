@@ -81,7 +81,8 @@ public final class UserManager {
                     "7777777777",
                     PASSWD_1,
                     "autotest superadmin",
-                    Crypt.INSTANCE.decrypt("etIbXhyM1zqCCpiTObFcm0Bb5vTw6rAFrB5Ir9/shcQ=")
+                    Crypt.INSTANCE.decrypt("etIbXhyM1zqCCpiTObFcm0Bb5vTw6rAFrB5Ir9/shcQ="),
+                    null
             );
         }
         return defaultAdmin;
@@ -148,10 +149,14 @@ public final class UserManager {
 
     public static UserData getDefaultApiUser() {
         if (isNull(defaultApiUser)) {
-            return  defaultApiUser = new UserData(
-                    Generate.email(),
-                    PASSWD_2,
-                    "Василий Автотестов"
+            defaultApiUser = new UserData(
+                    "superuser",
+                    "test@test.test",
+                    "79999999966",
+                    "",
+                    "autotest superuser",
+                    "",
+                    "bjg8q2s53S057R4rWgL9PHDhF6UOdFIPGwzzhMH+BYE="
             );
         }
         return defaultApiUser;

@@ -17,9 +17,10 @@ public final class UserData {
     private String password;
     private String name;
     private String token;
+    private String encryptedPhone;
 
     public UserData( String role, String login, String phone, String password, String name) {
-        this(role, login, phone, password, name, null);
+        this(role, login, phone, password, name, null, null);
     }
 
     public UserData( String role, String login, String password, String name) {

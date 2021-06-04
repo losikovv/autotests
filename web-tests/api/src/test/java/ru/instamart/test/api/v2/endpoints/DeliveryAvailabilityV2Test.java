@@ -20,7 +20,7 @@ public class DeliveryAvailabilityV2Test extends RestBase {
 
     @BeforeMethod
     public void testUp() {
-        SessionFactory.makeSession(SessionType.API_V2);
+        SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
     @CaseId(200)
