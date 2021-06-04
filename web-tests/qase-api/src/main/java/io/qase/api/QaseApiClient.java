@@ -122,6 +122,10 @@ public final class QaseApiClient {
         return asObject(HttpMethod.PATCH, responseClass, path, routeParams, request);
     }
 
+    public <Request> JSONObject patch(String path, Map<String, Object> routeParams, Request request) {
+        return asJson(HttpMethod.PATCH, path, routeParams, request);
+    }
+
     public JSONObject delete(String path, Map<String, Object> routeParams) {
         return this.asJson(HttpMethod.DELETE, path, routeParams, null);
     }

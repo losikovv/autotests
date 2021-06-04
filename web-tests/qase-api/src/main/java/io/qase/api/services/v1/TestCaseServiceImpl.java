@@ -1,7 +1,9 @@
 package io.qase.api.services.v1;
 
 import io.qase.api.QaseApiClient;
+import io.qase.api.enums.Automation;
 import io.qase.api.inner.RouteFilter;
+import io.qase.api.models.v1.testcases.NewTestCase;
 import io.qase.api.models.v1.testcases.TestCase;
 import io.qase.api.models.v1.testcases.TestCases;
 import io.qase.api.services.TestCaseService;
@@ -22,6 +24,11 @@ public final class TestCaseServiceImpl implements TestCaseService {
     public TestCases getAll(String projectCode, int limit, int offset, RouteFilter filter) {
         return qaseApiClient.get(TestCases.class, "/case/{code}",
                 singletonMap("code", projectCode), filter, limit, offset);
+    }
+
+    @Override
+    public TestCases getAll(String projectCode, int limit, int offset) {
+        return getAll(projectCode, limit, offset, filter());
     }
 
     @Override
@@ -48,5 +55,26 @@ public final class TestCaseServiceImpl implements TestCaseService {
         routeParams.put("code", projectCode);
         routeParams.put("id", caseId);
         return (boolean) qaseApiClient.delete("/case/{code}/{id}", routeParams).get("status");
+    }
+
+    @Override
+    public boolean update(String projectCode, int caseId, Automation automation) {
+        Map<String, Object> routeParams = new HashMap<>();
+        routeParams.put("code", projectCode);
+        routeParams.put("id", caseId);
+
+        NewTestCase newTestCase = new NewTestCase();
+        switch (automation) {
+            case automated:
+                newTestCase.setAutomation(2);
+                break;
+            case to_be_automated:
+                newTestCase.setAutomation(1);
+                break;
+            case is_not_automated:
+                newTestCase.setAutomation(0);
+                break;
+        }
+        return (boolean) qaseApiClient.patch("/case/{code}/{id}", routeParams, newTestCase).get("status");
     }
 }

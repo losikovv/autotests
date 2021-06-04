@@ -20,7 +20,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 @Epic("ApiV2")
 @Feature("Список доступных бонусных карт")
 public final class BonusCardsV2Test extends RestBase {
-    private final String bonusCardNumber = RandomStringUtils.randomNumeric(8);
+    private final String bonusCardNumber = "1" + RandomStringUtils.randomNumeric(7);
     private int bonusCardId;
 
     @CaseId(374)

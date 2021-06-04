@@ -24,6 +24,8 @@ public interface TestCaseService {
      */
     TestCases getAll(String projectCode, int limit, int offset, RouteFilter filter);
 
+    TestCases getAll(String projectCode, int limit, int offset);
+
     TestCases getAll(String projectCode, RouteFilter filter);
 
     TestCases getAll(String projectCode);
@@ -36,6 +38,8 @@ public interface TestCaseService {
      * @return
      */
     TestCase get(String projectCode, int caseId);
+
+    boolean update(String projectCode, int caseId, Automation automation);
 
     /**
      * This method completely deletes a test case from repository

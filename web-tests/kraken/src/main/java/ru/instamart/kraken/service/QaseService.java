@@ -8,10 +8,12 @@ import io.qase.api.enums.RunResultStatus;
 import io.qase.api.models.v1.attachments.Attachment;
 import io.qase.api.models.v1.defects.Defect;
 import io.qase.api.models.v1.suites.Suite;
+import io.qase.api.models.v1.testcases.TestCase;
 import io.qase.api.models.v1.testplans.TestPlan;
 import io.qase.api.models.v1.testrunresults.TestRunResult;
 import io.qase.api.models.v1.testruns.TestRun;
 import io.qase.api.services.TestCaseService;
+import io.qase.api.services.TestRunResultService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
@@ -48,9 +50,8 @@ public final class QaseService {
     private boolean qase = Boolean.parseBoolean(System.getProperty("qase","false"));
 
     private final String projectCode;
-    @Getter
-    private final QaseApi qaseApi;
-    private final List<Integer> testCasesList;
+    @Getter private final QaseApi qaseApi;
+    @Deprecated private final List<Integer> testCasesList;
     private boolean started = false;
 
     private String testRunName;
@@ -142,7 +143,7 @@ public final class QaseService {
                 .ofNullable(result.getThrowable());
         final String comment = resultThrowable
                 .flatMap(throwable -> Optional.of(throwable.toString()))
-                .orElse(null);
+                .orElse("");
         final Boolean isDefect = resultThrowable
                 .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
                 .orElse(false);
@@ -160,7 +161,7 @@ public final class QaseService {
                                 status,
                                 timeSpent,
                                 null,
-                                comment,
+                                DESCRIPTION_PREFIX + comment,
                                 stacktrace,
                                 isDefect,
                                 attachmentHash
@@ -223,6 +224,60 @@ public final class QaseService {
         if (!qase) return;
         log.info("Complete test run={} for project={}", runId, projectCode);
         qaseApi.testRuns().completeTestRun(projectCode, runId);
+    }
+
+    public void actualizeAutomatedTestCases() {
+        if (!qase) return;
+        log.info("Актуализация автоматизированных тест кейсов:");
+
+        List<TestCase> allTestCases = new ArrayList<>();
+        int testCasesSize;
+        int offset = 0;
+        do {
+            List<TestCase> testCases = qaseApi
+                    .testCases()
+                    .getAll(projectCode, 100, offset)
+                    .getTestCaseList();
+            allTestCases.addAll(testCases);
+
+            testCasesSize = testCases.size();
+            offset += 100;
+        } while (testCasesSize > 0);
+
+        int automatedNumber = 0;
+        int actualizedNumber = 0;
+        for (TestCase testCase: allTestCases) {
+
+            TestRunResultService.Filter filter = qaseApi
+                    .testRunResults()
+                    .filter()
+                    .caseId((int) testCase.getId())
+                    .fromEndTime(LocalDateTime.now().minusDays(1));
+
+            List<TestRunResult> testRunResults = qaseApi
+                    .testRunResults()
+                    .getAll(projectCode, 100, 0, filter)
+                    .getTestRunResultList();
+
+            boolean automated = false;
+            for (TestRunResult testRunResult : testRunResults) {
+                if (testRunResult.getComment().startsWith(DESCRIPTION_PREFIX)) {
+                    automated = true;
+                    automatedNumber++;
+                    break;
+                }
+            }
+            if (testCase.getAutomation() == 2 && !automated) {
+                qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.automated);
+                actualizedNumber++;
+            } else if (testCase.getAutomation() != 2 && automated) {
+                qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.is_not_automated);
+                actualizedNumber++;
+            }
+        }
+        log.info("Всего тест кейсов: {}", allTestCases.size());
+        log.info("Всего автоматизировано: {}", automatedNumber);
+        log.info("Сейчас актуализировано: {}", actualizedNumber);
     }
 
     @Deprecated private void addTestCasesFromChildSuite(final TestCaseService.Filter filter, final int parentId, final List<Suite> suites) {
