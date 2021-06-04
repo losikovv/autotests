@@ -122,4 +122,8 @@ public final class ApiV2EndPoints {
             public static final String SBER_PRIME = "v2/external_partners/banners/sberprime?store_id={sid}";
         }
     }
+
+    public static final class DeliveryAvailability{
+        public static final String DELIVERY_AVAILABILITY = "v2/delivery_availability?lat={lat}&lon={lon}";
+    }
 }
