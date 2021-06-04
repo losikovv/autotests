@@ -9,7 +9,7 @@ public class Promos {
     public static PromoData freeOrderDelivery() {
         return new PromoData(
                 "freeOrderDelivery",
-                "autotest-free_order_delivery",
+                "colefeil26674bfb289a1f571b74de4846",
                 "Бесплатная доставка заказа"
         );
     }
