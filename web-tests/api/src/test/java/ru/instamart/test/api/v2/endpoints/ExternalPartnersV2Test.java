@@ -18,7 +18,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 
 @Epic("ApiV2")
 @Feature("Получение списка банеров для SberPrime")
-public class ExternalPartners extends RestBase {
+public class ExternalPartnersV2Test extends RestBase {
 
     @BeforeMethod
     public void testUp() {
@@ -26,7 +26,7 @@ public class ExternalPartners extends RestBase {
     }
 
     @CaseId(270)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Отправка запроса без store_id")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Отправка запроса без store_id")
     public void testWithoutShopId() {
         final Response response = ExternalPartnersV2Request.Banners.SberPrime.GET("");
         checkStatusCode400(response);
@@ -35,7 +35,7 @@ public class ExternalPartners extends RestBase {
     }
 
     @CaseId(269)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Отправка запроса c store_id")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Отправка запроса c store_id")
     public void testWithShopId() {
         final Response response = ExternalPartnersV2Request.Banners.SberPrime.GET("1");
         checkStatusCode200(response);

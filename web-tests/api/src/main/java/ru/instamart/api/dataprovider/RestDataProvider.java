@@ -338,4 +338,15 @@ public class RestDataProvider extends RestBase {
                 }
         };
     }
+
+
+
+    @DataProvider(name = "deliveryAvailabilityV2TestData")
+    public static Object[][] deliveryAvailabilityV2TestData() {
+        return new Object[][]{
+                {"", ""}, //Координаты не указаны
+                {"55.658228", ""}, //Указан lat
+                {"", "37.748818"} //Указан lon
+        };
+    }
 }
