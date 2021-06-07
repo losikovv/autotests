@@ -39,7 +39,7 @@ public final class BonusCardsV2Test extends RestBase {
             description = "Одна или несколько бонусных карт",
             dependsOnMethods = "testAddBonusCard200")
     public void testWithBonusCards() {
-        SessionFactory.createSessionToken(SessionType.API_V2_FB, UserManager.getDefaultApiUser());
+        SessionFactory.createSessionToken(SessionType.API_V2_FB, UserManager.getDefaultUser());
         final Response response = BonusCardsV2Request.GET();
         checkStatusCode200(response);
         final BonusCardsV2Response bonusCardsV2Response = response.as(BonusCardsV2Response.class);
