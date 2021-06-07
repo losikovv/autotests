@@ -1,14 +1,5 @@
 package ru.instamart.test.api.delivery_club.endpoints;
 
-import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.model.delivery_club.SlotDC;
-import ru.instamart.api.request.delivery_club.StoresDCRequest;
-import ru.instamart.api.response.delivery_club.OrderDCResponse;
-import ru.instamart.api.response.delivery_club.ProductsDCResponse;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -16,11 +7,23 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.delivery_club.SlotDC;
+import ru.instamart.api.request.delivery_club.StoresDCRequest;
+import ru.instamart.api.response.delivery_club.OrderDCResponse;
+import ru.instamart.api.response.delivery_club.ProductsDCResponse;
+import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.util.Arrays;
+import java.util.List;
 
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.testng.Assert.assertFalse;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("Партнёры")
 @Feature("Delivery Club")
@@ -51,7 +54,9 @@ public class StoresWithAuthDCTest extends RestBase {
     public void getStoresSlotsAvailable200() {
         final Response response = StoresDCRequest.Slots.Available.GET(sid);
         checkStatusCode200(response);
-        slotId = Arrays.asList(response.as(SlotDC[].class)).get(0).getId();
+        List<SlotDC> slots = Arrays.asList(response.as(SlotDC[].class));
+        assertFalse(slots.isEmpty(), "Нет слотов в магазине " + Pages.Admin.stores(sid));
+        slotId = slots.get(0).getId();
         response.then().body(matchesJsonSchemaInClasspath("schemas/delivery_club/StoresSlotsAvailable.json"));
     }
 

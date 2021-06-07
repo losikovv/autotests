@@ -127,7 +127,9 @@ public final class InstamartApiHelper {
      */
 
     public List<TaxonV2> getTaxons(int sid) {
-        return TaxonsV2Request.GET(sid).as(TaxonsV2Response.class).getTaxons();
+        Response response = TaxonsV2Request.GET(sid);
+        checkStatusCode200(response);
+        return response.as(TaxonsV2Response.class).getTaxons();
     }
 
     public TaxonV2 getTaxon(int id, int sid) {
@@ -151,6 +153,7 @@ public final class InstamartApiHelper {
      */
     public void deleteItemsFromCart() {
         Response response = OrdersV2Request.Shipments.DELETE(currentOrderNumber.get());
+        checkStatusCode200(response);
 
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
         log.info("Удалены все доставки у заказа: {}", order.getNumber());
@@ -202,15 +205,16 @@ public final class InstamartApiHelper {
      * @param sid сид магазина
      * @param numberOfProductsFromEachDepartment количество продуктов из каждой категории (не больше 6)
      */
-    private List<ProductV2> getProductsFromEachDepartmentInStore(
-            int sid, int numberOfProductsFromEachDepartment, SoftAssert softAssert) {
-        List<DepartmentV2> departments = DepartmentsV2Request.GET(sid, numberOfProductsFromEachDepartment)
-                .as(DepartmentsV2Response.class).getDepartments();
+    private List<ProductV2> getProductsFromEachDepartmentInStore(int sid,
+                                                                 int numberOfProductsFromEachDepartment,
+                                                                 SoftAssert softAssert) {
+        Response response = DepartmentsV2Request.GET(sid, numberOfProductsFromEachDepartment);
+        checkStatusCode200(response);
+        List<DepartmentV2> departments = response.as(DepartmentsV2Response.class).getDepartments();
 
         String storeUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + "?sid=" + sid;
 
-        assertFalse(departments.isEmpty(),
-                "Не импортированы товары для магазина\n" + storeUrl);
+        assertFalse(departments.isEmpty(), "Не импортированы товары для магазина\n" + storeUrl);
 
         List<ProductV2> products = new ArrayList<>();
 
@@ -307,7 +311,9 @@ public final class InstamartApiHelper {
 
         if (humanVolume.contains(" шт.")) {
             boolean productHasWeightProperty = false;
-            List<PropertyV2> properties = ProductsV2Request.GET(product.getId())
+            Response response = ProductsV2Request.GET(product.getId());
+            checkStatusCode200(response);
+            List<PropertyV2> properties = response
                     .as(ProductV2Response.class)
                     .getProduct()
                     .getProperties();
@@ -367,11 +373,11 @@ public final class InstamartApiHelper {
      * Получаем первый доступный способ доставки
      */
     private void getAvailableShippingMethod() {
-        List<ShippingMethodV2> shippingMethods = ShippingMethodsV2Request.GET(currentSid.get())
-                .as(ShippingMethodsV2Response.class).getShippingMethods();
+        Response response = ShippingMethodsV2Request.GET(currentSid.get());
+        checkStatusCode200(response);
+        List<ShippingMethodV2> shippingMethods = response.as(ShippingMethodsV2Response.class).getShippingMethods();
 
-        assertFalse(shippingMethods.isEmpty(),
-                "Нет способов доставки в магазине\n" + Pages.Admin.stores(currentSid.get()));
+        assertFalse(shippingMethods.isEmpty(), "Нет способов доставки в магазине\n" + Pages.Admin.stores(currentSid.get()));
 
         ShippingMethodV2 shippingMethod = shippingMethods.get(0);
 
@@ -384,7 +390,9 @@ public final class InstamartApiHelper {
      * Выбираем id способа оплаты (по умолчанию Картой курьеру)
      */
     private void getAvailablePaymentTool() {
-        List<PaymentToolV2> paymentTools = PaymentToolsV2Request.GET().as(PaymentToolsV2Response.class).getPaymentTools();
+        Response response = PaymentToolsV2Request.GET();
+        checkStatusCode200(response);
+        List<PaymentToolV2> paymentTools = response.as(PaymentToolsV2Response.class).getPaymentTools();
 
         StringJoiner availablePaymentTools = new StringJoiner(
                 "\n• ",
@@ -608,7 +616,10 @@ public final class InstamartApiHelper {
         List<StoreV2> stores = new ArrayList<>();
 
         for (RetailerV2 retailer : retailers) {
-            List<StoreV2> retailerStores = RetailersV1Request.Stores.GET(retailer.getId()).as(StoresV2Response.class).getStores();
+            Response response = RetailersV1Request.Stores.GET(retailer.getId());
+            checkStatusCode200(response);
+            List<StoreV2> retailerStores = response.as(StoresV2Response.class).getStores();
+
             for (StoreV2 retailerStore: retailerStores) {
                 retailerStore.setRetailer(retailer);
                 stores.add(retailerStore);
@@ -623,7 +634,10 @@ public final class InstamartApiHelper {
      * Получить список активных магазинов у ретейлера (без зон доставки)
      */
     public List<StoreV2> availableStores(RetailerV2 retailer) {
-        List<StoreV2> stores = RetailersV1Request.Stores.GET(retailer.getId()).as(StoresV2Response.class).getStores();
+        Response response = RetailersV1Request.Stores.GET(retailer.getId());
+        checkStatusCode200(response);
+
+        List<StoreV2> stores = response.as(StoresV2Response.class).getStores();
         for (StoreV2 store : stores) {
             store.setRetailer(retailer);
         }
@@ -639,7 +653,9 @@ public final class InstamartApiHelper {
         final StoresV2Request.Store store = new StoresV2Request.Store();
         store.setLat(lat);
         store.setLon(lon);
-        List<StoreV2> stores = StoresV2Request.GET(store).as(StoresV2Response.class).getStores();
+        Response response = StoresV2Request.GET(store);
+        checkStatusCode200(response);
+        List<StoreV2> stores = response.as(StoresV2Response.class).getStores();
 
         if (!stores.isEmpty()) {
             printAvailableStores(stores);
@@ -665,11 +681,15 @@ public final class InstamartApiHelper {
      * Получить список зон доставки магазина
      */
     public List<List<ZoneV2>> storeZones(int sid) {
-        return StoresV2Request.GET(sid).as(StoreV2Response.class).getStore().getZones();
+        Response response = StoresV2Request.GET(sid);
+        checkStatusCode200(response);
+        return response.as(StoreV2Response.class).getStore().getZones();
     }
 
     public StoreV2 getStore(int sid) {
-        return StoresV2Request.GET(sid).as(StoreV2Response.class).getStore();
+        Response response = StoresV2Request.GET(sid);
+        checkStatusCode200(response);
+        return response.as(StoreV2Response.class).getStore();
     }
 
     /**
@@ -711,11 +731,12 @@ public final class InstamartApiHelper {
     }
 
     public List<OfferV1> getActiveOffers(String storeUuid) {
-        return StoresV1Request.Offers.GET(
+        Response response = StoresV1Request.Offers.GET(
                 storeUuid,
                 "вода",
-                "")
-                .as(OffersV1Response.class)
+                "");
+        checkStatusCode200(response);
+        return response.as(OffersV1Response.class)
                 .getOffers()
                 .stream()
                 .filter(OfferV1::getActive)

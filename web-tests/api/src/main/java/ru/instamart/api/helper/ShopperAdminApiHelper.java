@@ -8,6 +8,8 @@ import ru.instamart.api.response.shopper.admin.RouteSchedulesSHPResponse;
 
 import java.util.List;
 
+import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
+
 @Slf4j
 public class ShopperAdminApiHelper {
 
@@ -17,14 +19,14 @@ public class ShopperAdminApiHelper {
             log.info("Удаляем расписание магазина на день");
             final int routeScheduleId = routeSchedules.get(0).getId();
             Response response = ShopperAdminRequest.RouteSchedules.DELETE(routeScheduleId);
-            response.then().statusCode(200);
+            checkStatusCode200(response);
         }
     }
 
     public List<RouteScheduleV1> getRouteSchedules(Integer sid, String date) {
         log.info("Получаем расписание магазина на день");
         Response response = ShopperAdminRequest.RouteSchedules.GET(sid, date);
-        response.then().statusCode(200);
+        checkStatusCode200(response);
         return response.as(RouteSchedulesSHPResponse.class).getRouteSchedules();
     }
 }
