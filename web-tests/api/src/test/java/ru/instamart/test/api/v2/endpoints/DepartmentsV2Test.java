@@ -11,8 +11,7 @@ import ru.instamart.api.request.v2.DepartmentsV2Request;
 import ru.instamart.api.response.v2.DepartmentV2Response;
 import ru.instamart.api.response.v2.DepartmentsV2Response;
 
-import static org.testng.Assert.assertNotEquals;
-import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
 
@@ -27,7 +26,7 @@ public final class DepartmentsV2Test extends RestBase {
         final Response response = DepartmentsV2Request.GET(1, 25);
         checkStatusCode200(response);
         final DepartmentsV2Response departmentsResponse = response.as(DepartmentsV2Response.class);
-        assertNotEquals(departmentsResponse.getDepartments().size(), 0, "Товары не импортированы");
+        assertFalse(departmentsResponse.getDepartments().isEmpty(), "Товары не импортированы");
     }
 
     @CaseId(255)
@@ -37,7 +36,7 @@ public final class DepartmentsV2Test extends RestBase {
         final Response response = DepartmentsV2Request.GET(1, 25);
         checkStatusCode200(response);
         final DepartmentsV2Response departmentsResponse = response.as(DepartmentsV2Response.class);
-        assertNotEquals(departmentsResponse.getDepartments().size(), 0, "Товары не импортированы");
+        assertFalse(departmentsResponse.getDepartments().isEmpty(), "Товары не импортированы");
     }
 
     @CaseId(256)

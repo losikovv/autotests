@@ -3,17 +3,22 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
+import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.LineItemV2;
+import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.request.v2.LineItemsV2Request;
 import ru.instamart.api.request.v2.ProductsV2Request;
 import ru.instamart.api.response.v2.LineItemV2Response;
 import ru.instamart.api.response.v2.ProductsV2Response;
 
+import java.util.List;
+
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
@@ -28,12 +33,11 @@ public class LineItemsV2Test extends RestBase {
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         orderNumber = apiV2.getCurrentOrderNumber();
-        productId = ProductsV2Request
-                .GET(1, "")
-                .as(ProductsV2Response.class)
-                .getProducts()
-                .get(0)
-                .getId();
+        Response response = ProductsV2Request.GET(1, "");
+        checkStatusCode200(response);
+        List<ProductV2> products = response.as(ProductsV2Response.class).getProducts();
+        assertFalse(products.isEmpty(), "Не вернулись продукты");
+        productId = products.get(0).getId();
     }
 
     @CaseId(8)

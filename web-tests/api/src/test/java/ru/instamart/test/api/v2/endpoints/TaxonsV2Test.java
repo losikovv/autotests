@@ -18,6 +18,7 @@ import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import java.util.List;
 import java.util.Set;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
@@ -35,7 +36,7 @@ public final class TaxonsV2Test extends RestBase {
         response = TaxonsV2Request.GET(EnvironmentData.INSTANCE.getDefaultSid());
         checkStatusCode200(response);
         List<TaxonV2> taxons = response.as(TaxonsV2Response.class).getTaxons();
-        assertNotNull(taxons, "Не вернулись таксоны");
+        assertFalse(taxons.isEmpty(), "Не вернулись таксоны");
         taxonId = taxons.get(0).getId();
     }
 

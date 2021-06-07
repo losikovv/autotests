@@ -7,10 +7,9 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.checkpoint.InstamartApiCheckpoints;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.response.ErrorResponse;
@@ -21,6 +20,8 @@ import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Заказы")
@@ -37,7 +38,7 @@ public class OrdersV2Test extends RestBase {
             groups = {"api-instamart-smoke", "MRAutoCheck", "api-instamart-prod"})
     public void getOrders() {
         response = OrdersV2Request.GET();
-        InstamartApiCheckpoints.checkStatusCode200(response);
+        checkStatusCode200(response);
         assertNotNull(response.as(OrdersV2Response.class).getOrders(), "Не вернулись заказы");
     }
 
@@ -46,7 +47,7 @@ public class OrdersV2Test extends RestBase {
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getCurrentOrder() {
         response = OrdersV2Request.Current.GET();
-        InstamartApiCheckpoints.checkStatusCode200(response);
+        checkStatusCode200(response);
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
         assertNotNull(order, "Не вернулся текущий заказ");
     }
@@ -56,7 +57,7 @@ public class OrdersV2Test extends RestBase {
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getOrder() {
         response = OrdersV2Request.GET(apiV2.getCurrentOrderNumber());
-        InstamartApiCheckpoints.checkStatusCode200(response);
+        checkStatusCode200(response);
         assertNotNull(response.as(OrderV2Response.class).getOrder(), "Не вернулся заказ по номеру");
     }
 
@@ -65,7 +66,7 @@ public class OrdersV2Test extends RestBase {
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getUnratedOrders() {
         response = OrdersV2Request.Unrated.GET();
-        InstamartApiCheckpoints.checkStatusCode200(response);
+        checkStatusCode200(response);
         assertNotNull(response.as(OrdersV2Response.class).getOrders(), "Не вернулись заказы для оценки");
     }
 
@@ -74,56 +75,73 @@ public class OrdersV2Test extends RestBase {
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getOrderLineItems() {
         response = OrdersV2Request.LineItems.GET(apiV2.getCurrentOrderNumber());
-        InstamartApiCheckpoints.checkStatusCode200(response);
+        checkStatusCode200(response);
         assertNotNull(response.as(LineItemsV2Response.class).getLineItems(), "Не вернулись товары заказа");
     }
 
     @CaseId(313)
     @Story("Применение промокода")
-    @Test(groups = {"api-instamart-smoke"}, description = "Существующий id")
+    @Test(  groups = {"api-instamart-smoke"},
+            description = "Существующий id")
     public void orderWithPromoCode() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
-        Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
-        OrderV2Response orderV2Response = response.getBody().as(OrderV2Response.class);
-        assertNotNull(orderV2Response.getOrder().getPromotionCodes(), "Промокод не применился");
+
+        response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        checkStatusCode200(response);
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
+        assertNotNull(order.getPromotionCodes(), "Промокод не применился");
+
         response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
-        orderV2Response = response.getBody().as(OrderV2Response.class);
-        assertTrue(orderV2Response.getOrder().getPromotionCodes().isEmpty(), "Промокод не удалился");
+        checkStatusCode200(response);
+        order = response.as(OrderV2Response.class).getOrder();
+        assertTrue(order.getPromotionCodes().isEmpty(), "Промокод не удалился");
     }
 
     @CaseId(314)
     @Story("Применение промокода")
-    @Test(groups = {"api-instamart-regress"}, description = "Несуществующий id")
+    @Test(  groups = {"api-instamart-regress"},
+            description = "Несуществующий id")
     public void orderWithInvalidPromoCode() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
-        final Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "failCode");
+
+        Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "failCode");
         ErrorResponse errorResponse = response.as(ErrorResponse.class);
         assertNotNull(errorResponse, "Не вернулась ошибки");
     }
 
     @CaseId(316)
     @Story("Удаление промокода")
-    @Test(groups = {"api-instamart-regress"}, description = "Несуществующий id заказа")
+    @Test(  groups = {"api-instamart-regress"},
+            description = "Несуществующий id заказа")
     public void deletePromoCodeForInvalidOrder() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
-        Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
-        final OrderV2Response orderV2Response = response.getBody().as(OrderV2Response.class);
-        assertNotNull(orderV2Response.getOrder().getPromotionCodes(), "Промокод не применился");
+
+        response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        checkStatusCode200(response);
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
+        assertNotNull(order.getPromotionCodes(), "Промокод не применился");
+
         response = OrdersV2Request.Promotions.DELETE("failOrder", "auto300lomxs4");
-        final ErrorResponse errorResponse = response.getBody().as(ErrorResponse.class);
+        checkStatusCode404(response);
+        ErrorResponse errorResponse = response.as(ErrorResponse.class);
         assertNotNull(errorResponse, "Промокод удалился");
     }
 
     @CaseId(318)
     @Story("Удаление промокода")
-    @Test(groups = {"api-instamart-regress"}, description = "Несуществующий promoCode")
+    @Test(  groups = {"api-instamart-regress"},
+            description = "Несуществующий promoCode")
     public void deleteInvalidPromoCode() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
-        Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
-        final OrderV2Response orderV2Response = response.getBody().as(OrderV2Response.class);
-        assertNotNull(orderV2Response.getOrder().getPromotionCodes(), "Промокод не применился");
+
+        response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        checkStatusCode200(response);
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
+        assertNotNull(order.getPromotionCodes(), "Промокод не применился");
+
         response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "failCode");
-        final ErrorResponse errorResponse = response.getBody().as(ErrorResponse.class);
+        checkStatusCode404(response);
+        ErrorResponse errorResponse = response.as(ErrorResponse.class);
         assertNotNull(errorResponse, "Промокод удалился");
     }
 }
