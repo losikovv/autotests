@@ -152,7 +152,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
                     "sbermarket-Ui-smoke",
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
-            }
+            },enabled = false
     )
     public void successApplyFilters() {
         Shop.AuthModal.openAuthOnLanding();
@@ -180,7 +180,8 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
             groups = {
                     "sbermarket-Ui-smoke",
                     "metro-regression",
-                    "sbermarket-regression"}
+                    "sbermarket-regression"},
+            enabled = false
     )
     public void successShowMoreLoad() {
         Shop.AuthModal.openAuthOnLanding();
