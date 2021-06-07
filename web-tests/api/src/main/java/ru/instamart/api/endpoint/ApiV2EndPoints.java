@@ -22,6 +22,7 @@ public final class ApiV2EndPoints {
     public static final String STORES = "v2/stores";
     public static final String TAXONS = "v2/taxons?sid={sid}";
     public static final String USERS = "v2/users";
+    public static final String DELIVERY_AVAILABILITY = "v2/delivery_availability?lat={lat}&lon={lon}";
 
     public static final class Addresses {
         public static final String BY_ID = "v2/addresses/{id}";
@@ -129,9 +130,5 @@ public final class ApiV2EndPoints {
         public static final class Banners {
             public static final String SBER_PRIME = "v2/external_partners/banners/sberprime?store_id={sid}";
         }
-    }
-
-    public static final class DeliveryAvailability{
-        public static final String DELIVERY_AVAILABILITY = "v2/delivery_availability?lat={lat}&lon={lon}";
     }
 }
