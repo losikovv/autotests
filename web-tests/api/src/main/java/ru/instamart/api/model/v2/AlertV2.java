@@ -12,4 +12,6 @@ public class AlertV2 extends BaseObject {
     @JsonProperty(value = "full_message")
     private String fullMessage;
     private String type;
+    private String key;
+    private DetailsV2 details;
 }

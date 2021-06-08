@@ -23,4 +23,5 @@ public final class CategoryV2 extends BaseObject {
     private AltIconV2 altIcon;
     private List<CategoryV2> children;
     private List<RequirementV2> requirements;
+    private Integer depth;
 }

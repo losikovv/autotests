@@ -6,15 +6,13 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.api.endpoint.ShopperAdminEndpoints;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.ShopperAdminApiHelper;
 import ru.instamart.api.model.shopper.admin.*;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.response.shopper.admin.*;
-import ru.instamart.api.response.shopper.app.ShopperSHPResponse;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 

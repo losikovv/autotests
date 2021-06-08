@@ -7,9 +7,9 @@ import ru.instamart.api.request.ApiV2RequestBase;
 
 public class DeliveryAvailabilityV2Request extends ApiV2RequestBase {
 
-    @Step("{method} /" + ApiV2EndPoints.DeliveryAvailability.DELIVERY_AVAILABILITY)
+    @Step("{method} /" + ApiV2EndPoints.DELIVERY_AVAILABILITY)
     public static Response GET(final String lat, final String lon) {
         return givenWithAuth()
-                .get(ApiV2EndPoints.DeliveryAvailability.DELIVERY_AVAILABILITY, lat, lon);
+                .get(ApiV2EndPoints.DELIVERY_AVAILABILITY, lat, lon);
     }
 }

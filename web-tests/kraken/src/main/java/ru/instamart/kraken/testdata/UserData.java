@@ -1,14 +1,10 @@
 package ru.instamart.kraken.testdata;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public final class UserData {
 
     private String role;
@@ -36,12 +32,16 @@ public final class UserData {
     }
 
     public String getFirstName() {
+        if (name == null) return "FirstName";
+
         final String[] fullName = name.split(" ",2);
 
         return fullName.length >= 1 ? fullName[0] : "FirstName";
     }
 
     public String getLastName() {
+        if (name == null) return "LastName";
+
         final String[] fullName = name.split(" ",2);
 
         return fullName.length > 1 ? fullName[1] : "LastName";

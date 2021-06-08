@@ -13,7 +13,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.request.v2.AddressesV2Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
-import ru.instamart.api.response.v2.AddressesV2Response;
+import ru.instamart.api.response.v2.AddressV2Response;
 import ru.instamart.api.dataprovider.RestDataProvider;
 
 import static org.testng.Assert.assertEquals;
@@ -40,7 +40,7 @@ public final class AddressesV2Test extends RestBase {
                 .build();
         final Response response = AddressesV2Request.POST(addresses);
         checkStatusCode200(response);
-        final AddressesV2Response addressesResponse = response.as(AddressesV2Response.class);
+        final AddressV2Response addressesResponse = response.as(AddressV2Response.class);
         assertEquals(addresses.getFirstName(), addressesResponse.getAddress().getFirstName(), "Названия полей не совпадают");
         addressesId = addressesResponse.getAddress().getId();
         System.out.println(addressesId);
@@ -57,7 +57,7 @@ public final class AddressesV2Test extends RestBase {
                 .build();
         final Response response = AddressesV2Request.POST(addresses);
         checkStatusCode200(response);
-        final AddressesV2Response addressesResponse = response.as(AddressesV2Response.class);
+        final AddressV2Response addressesResponse = response.as(AddressV2Response.class);
         assertEquals(addresses.getCity(), addressesResponse.getAddress().getCity(), "Названия полей не совпадают");
         assertEquals(addresses.getStreet(), addressesResponse.getAddress().getStreet(), "Названия полей не совпадают");
         assertEquals(addresses.getBuilding(), addressesResponse.getAddress().getBuilding(), "Названия полей не совпадают");
@@ -86,7 +86,7 @@ public final class AddressesV2Test extends RestBase {
                 .build();
         Response response = AddressesV2Request.POST(addresses);
         checkStatusCode200(response);
-        final AddressesV2Response addressesResponse = response.as(AddressesV2Response.class);
+        final AddressV2Response addressesResponse = response.as(AddressV2Response.class);
         response = AddressesV2Request.DELETE(addressesResponse.getAddress().getId());
         checkStatusCode200(response);
     }

@@ -13,6 +13,7 @@ import ru.instamart.api.dataprovider.RestDataProvider;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.dataprovider.RestDataProvider.getAvailableRetailersSpree;
 
 @Epic("ApiV1")
 @Feature("Эндпоинты, используемые шоппер бэкендом")
@@ -26,6 +27,11 @@ public class RetailersV1Tests extends RestBase {
         Response response = RetailersV1Request.GET();
         checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Retailers.json"));
+    }
+
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
+    public void selfTestRetailersV1() {
+        getAvailableRetailersSpree();
     }
 
     @Story("Ретейлеры")

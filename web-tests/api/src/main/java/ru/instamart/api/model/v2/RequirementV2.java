@@ -7,4 +7,6 @@ import ru.instamart.api.model.BaseObject;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class RequirementV2 extends BaseObject {
+    private String type;
+    private String title;
 }

@@ -22,7 +22,6 @@ public final class Config {
     public static boolean VIDEO;
     public static boolean VNC;
     public static boolean FULL_SCREEN_MODE;
-    //TODO: Подумать о том что бы избавиться и перейти на валидацию схемы
     public static final boolean REST_IGNORE_PROPERTIES = true;
 
     public static String QASE_API_TOKEN;

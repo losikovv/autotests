@@ -287,7 +287,8 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
     @CaseId(1461)
     @Test(
             description = "Тест успешной авторизация через Sber ID",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"},
+            enabled = false
     )
     @Story("Авторизация через SberID")
     public void successRegWithSberID() {

@@ -1,5 +1,6 @@
 package ru.instamart.api.response.v2;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.v2.SessionV2;
@@ -9,4 +10,8 @@ import ru.instamart.api.response.BaseResponseObject;
 @EqualsAndHashCode(callSuper=false)
 public class SessionsV2Response extends BaseResponseObject {
     private SessionV2 session;
+    @JsonProperty(value = "need_confirm_phone")
+    private String needConfirmPhone;
+    @JsonProperty(value = "need_confirm_phone_source")
+    private String needConfirmPhoneSource;
 }

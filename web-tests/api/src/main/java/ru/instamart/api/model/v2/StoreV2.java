@@ -13,12 +13,26 @@ import java.util.StringJoiner;
 public class StoreV2 extends BaseObject {
     private Integer id;
     private String name;
+    private Boolean active;
+    @JsonProperty("retailer_slug")
+    private String retailerSlug;
+    @JsonProperty("retailer_color")
+    private String retailerColor;
+    @JsonProperty("time_zone")
+    private String timeZone;
     @JsonProperty(value = "next_delivery")
     private NextDeliveryV2 nextDelivery;
     private List<List<ZoneV2>> zones = null;
     private String uuid;
+    @JsonProperty("has_conveyor")
+    private Boolean hasConveyor;
+    @JsonProperty("auto_routing")
+    private Boolean autoRouting;
     @JsonProperty(value = "express_delivery")
     private Boolean expressDelivery;
+    @JsonProperty("box_scanning")
+    private Boolean boxScanning;
+    private Boolean training;
     @JsonProperty(value = "min_order_amount")
     private Double minOrderAmount;
     @JsonProperty(value = "min_first_order_amount")
@@ -34,6 +48,10 @@ public class StoreV2 extends BaseObject {
     private List<ServiceV2> services = null;
     @JsonProperty(value = "operational_times")
     private List<OperationalTimeV2> operationalTimes = null;
+    @JsonProperty(value = "label_uuids")
+    private List<Object> labelUuids = null;
+    @JsonProperty("external_assembly")
+    private Object externalAssembly;
 
     @Override
     public String toString() {
@@ -44,14 +62,10 @@ public class StoreV2 extends BaseObject {
         if (getRetailer() == null || getLocation() == null) {
             stringJoiner.add(getName());
         } else {
-            if (getRetailer() != null) {
-                stringJoiner.add(getRetailer().getName());
-            }
-            if (getLocation() != null) {
-                stringJoiner
-                        .add(getLocation().getCity())
-                        .add(getLocation().getStreet());
-            }
+            stringJoiner.add(getRetailer().getName());
+            stringJoiner
+                    .add(getLocation().getCity())
+                    .add(getLocation().getStreet());
         }
         return stringJoiner
                 .add("sid: " + id)

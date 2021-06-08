@@ -14,4 +14,5 @@ public class VehicleV1 extends BaseObject {
     private Integer volume;
     private Object favoredAt;
     private Boolean highCapacity;
+    private Object kind;
 }

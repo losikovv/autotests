@@ -32,7 +32,7 @@ public final class ProductsV2Test extends RestBase {
         response = ProductsV2Request.GET(1, "");
         checkStatusCode200(response);
         final List<ProductV2> products = response.as(ProductsV2Response.class).getProducts();
-        assertNotNull(products, "Не вернулись продукты");
+        assertFalse(products.isEmpty(), "Не вернулись продукты");
         productId = products.get(0).getId();
     }
 
@@ -86,7 +86,7 @@ public final class ProductsV2Test extends RestBase {
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
         assertNotNull(productsV2Response, "Не вернулся ответ");
         final List<ProductV2> products = productsV2Response.getProducts();
-        assertNotNull(products, "Не вернулись продукты");
+        assertFalse(products.isEmpty(), "Не вернулись продукты");
         products.forEach(product -> assertFalse(
                 product.getName().matches("/хлеб/"),
                 "Продукт не хлеб " + "[" + product.getName() + "]"

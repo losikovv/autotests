@@ -7,7 +7,4 @@ import ru.instamart.api.model.BaseObject;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class AttributesSHP extends BaseObject {
-    private String accessToken;
-    private String refreshToken;
-    private String expiresAt;
 }

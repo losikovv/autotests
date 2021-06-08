@@ -7,6 +7,6 @@ import ru.instamart.api.model.v2.AddressV2;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public final class AddressesV2Response extends BaseObject {
+public final class AddressV2Response extends BaseObject {
     private AddressV2 address;
 }

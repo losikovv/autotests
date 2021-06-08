@@ -8,5 +8,5 @@ import java.util.List;
 @lombok.Data
 @EqualsAndHashCode(callSuper=false)
 public class TicketsSHP extends BaseObject {
-    private List<DataSHP> data = null;
+    private List<TicketSHP.Data> data = null;
 }
