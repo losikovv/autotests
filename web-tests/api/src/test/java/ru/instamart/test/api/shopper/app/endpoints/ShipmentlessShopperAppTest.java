@@ -29,7 +29,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        shopper.authorisation(UserManager.getDefaultShopper());
+        shopperApp.authorisation(UserManager.getDefaultShopper());
     }
 
     @Story("Получение информации о сотруднике")
