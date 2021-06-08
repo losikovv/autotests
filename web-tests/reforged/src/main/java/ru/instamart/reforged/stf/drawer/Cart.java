@@ -19,6 +19,10 @@ public final class Cart {
     private final Button lookMergedProductsButton = new Button(By.xpath("//a[@data-qa='merged_products_look_button']"), "кнопка 'посмотреть' в сообщении дозаказа");
     private final Element orderReminder = new Element(By.xpath("//div[@data-qa='cart']//div[contains(text(), 'Забыли купить нужные товары')]"), "сообщение о возможности дозаказа в пустой корзине");
 
+    private final Button hideOutOfStock = new Button(By.xpath("//button[@data-qa='cart_price_diff_toggle_button'][contains(text(),'Показать')]"));
+    private final Button showOutOfStock = new Button(By.xpath("//button[@data-qa='cart_price_diff_toggle_button'][contains(text(),'Скрыть')]"));
+    private final Element outOfStock = new Element(By.xpath("//div[@data-qa='line-item']//div[contains(text(), 'Нет в наличии')]"), "товар не в наличии");
+
     private final Button clearCart = new Button(By.xpath("//button[@data-qa='cart_remove_shipments_button']"), "кнопка 'Очистить корзину'");
     private final Element itemCounter = new Element(By.xpath("//div[@data-qa='line-item-counter']"), "кол-во добавленных товаров");
     private final Element minSumAlert = new Element(By.xpath("//div[@class='cart-retailer__alert-message-box']"), "сообщение о минимальной сумме корзины");
@@ -108,4 +112,15 @@ public final class Cart {
     public void checkMergeProducts() {
         lookMergedProductsButton.click();
     }
+
+    @Step("Скрыть товары не в наличии")
+    public void clickToHideOutOfStock(){
+        hideOutOfStock.click();
+    }
+
+    @Step("Показать товары не в наличии")
+    public void clickToShowOutOfStock(){
+        showOutOfStock.click();
+    }
+
 }
