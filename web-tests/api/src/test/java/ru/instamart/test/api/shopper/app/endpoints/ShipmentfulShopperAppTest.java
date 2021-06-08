@@ -36,15 +36,15 @@ public class ShipmentfulShopperAppTest extends RestBase {
         RegistrationHelper.registration(userData);
         OrderV2 order = apiV2.order(userData, EnvironmentData.INSTANCE.getDefaultSid());
         String isDeliveryToday = checkIsDeliveryToday(order);
-        shopper.authorisation(UserManager.getDefaultShopper());
-        shopper.deleteCurrentAssembly();
-        shipmentId = shopper.getShipmentId(order.getShipments().get(0).getNumber(), isDeliveryToday);
+        shopperApp.authorisation(UserManager.getDefaultShopper());
+        shopperApp.deleteCurrentAssembly();
+        shipmentId = shopperApp.getShipmentId(order.getShipments().get(0).getNumber(), isDeliveryToday);
     }
 
     @AfterClass(alwaysRun = true,
                 description = "Удаляем текущую сборку")
     public void cleanup() {
-        shopper.deleteCurrentAssembly();
+        shopperApp.deleteCurrentAssembly();
     }
 
     @Story("Начало сборки")

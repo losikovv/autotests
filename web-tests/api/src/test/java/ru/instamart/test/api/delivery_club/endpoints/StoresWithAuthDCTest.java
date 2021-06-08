@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -12,6 +13,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.delivery_club.SlotDC;
 import ru.instamart.api.request.delivery_club.StoresDCRequest;
+import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.delivery_club.OrderDCResponse;
 import ru.instamart.api.response.delivery_club.ProductsDCResponse;
 import ru.instamart.kraken.testdata.UserManager;
@@ -25,6 +27,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import static org.testng.Assert.assertFalse;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
+@Slf4j
 @Epic("Партнёры")
 @Feature("Delivery Club")
 public class StoresWithAuthDCTest extends RestBase {
@@ -173,7 +176,13 @@ public class StoresWithAuthDCTest extends RestBase {
             dependsOnMethods = {"getStoresSlotsAvailable200", "getStoresCatalogProducts200"},
             description = "Создание заказа")
     public void postStoresOrders200() {
-        final Response response = StoresDCRequest.Orders.POST(sid, slotId, productId);
+        Response response = StoresDCRequest.Orders.POST(sid, slotId, productId);
+
+        for (int i = 0; i < 3 && response.statusCode() == 400 && response.as(ErrorResponse.class).getMessage().equals("slot_not_available"); i++) {
+            log.error(response.getStatusLine());
+            slotId = dc.getAvailableSlot(sid).getId();
+            response = StoresDCRequest.Orders.POST(sid, slotId, productId);
+        }
         checkStatusCode200(response);
         orderNumber = response.as(OrderDCResponse.class).getId();
         response.then().body(matchesJsonSchemaInClasspath("schemas/delivery_club/StoresOrdersPOST.json"));
