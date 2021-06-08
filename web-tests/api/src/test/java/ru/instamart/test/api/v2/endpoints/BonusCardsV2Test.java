@@ -82,7 +82,8 @@ public final class BonusCardsV2Test extends RestBase {
     @CaseId(384)
     @Test(  groups = {"api-instamart-regress"},
             description = "Удаление бонусной карты",
-            dependsOnMethods = "testWithBonusCards")
+            dependsOnMethods = "testWithBonusCards",
+            enabled = false)
     public void testDeleteBonusCard200() {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, UserManager.getDefaultUser());
         final Response response = BonusCardsV2Request.DELETE(bonusCardId);
