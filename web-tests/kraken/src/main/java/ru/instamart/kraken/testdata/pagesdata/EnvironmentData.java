@@ -42,11 +42,11 @@ public enum EnvironmentData {
             String customBasicUrl = System.getProperty("url_stf");
             String customShopperUrl = System.getProperty("url_shp");
 
-            if (customBasicUrl != null) {
+            if (customBasicUrl != null && !customBasicUrl.isEmpty()) {
                 this.server = customBasicUrl.split("\\.")[0];
                 this.basicUrl = customBasicUrl;
 
-                if (customShopperUrl != null) {
+                if (customShopperUrl != null && !customShopperUrl.isEmpty()) {
                     this.shopperUrl = customShopperUrl;
                 } else if (customBasicUrl.startsWith("stf-")) {
                     this.shopperUrl = "shp" + customBasicUrl.substring(3);
