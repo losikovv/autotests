@@ -114,12 +114,12 @@ public final class Cart {
     }
 
     @Step("Скрыть товары не в наличии")
-    public void clickToHideOutOfStock(){
+    public void clickToHideOutOfStock() {
         hideOutOfStock.click();
     }
 
     @Step("Показать товары не в наличии")
-    public void clickToShowOutOfStock(){
+    public void clickToShowOutOfStock() {
         showOutOfStock.click();
     }
 

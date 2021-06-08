@@ -55,7 +55,7 @@ public final class Home implements StfPage, HomeCheck {
     }
 
     @Step("Нажать Показать всех ритейлеров")
-    public void clickToShowAllRetailers(){
+    public void clickToShowAllRetailers() {
         showAllRetailers.click();
     }
 
@@ -88,6 +88,7 @@ public final class Home implements StfPage, HomeCheck {
     public AuthModal interactAuthModal() {
         return authModal;
     }
+
     public Address interactAddressModal() {
         return addressModal;
     }
