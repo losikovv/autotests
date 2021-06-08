@@ -42,15 +42,16 @@ public enum EnvironmentData {
             String customBasicUrl = System.getProperty("url_stf");
             String customShopperUrl = System.getProperty("url_shp");
 
-            if (customBasicUrl != null && customBasicUrl.startsWith("stf-")) {
+            if (customBasicUrl != null) {
                 this.server = customBasicUrl.split("\\.")[0];
                 this.basicUrl = customBasicUrl;
 
-                if (customShopperUrl != null && customShopperUrl.startsWith("shp-")) {
+                if (customShopperUrl != null) {
                     this.shopperUrl = customShopperUrl;
-                } else {
+                } else if (customBasicUrl.startsWith("stf-")) {
                     this.shopperUrl = "shp" + customBasicUrl.substring(3);
-                }
+                } else this.shopperUrl = "shp-0.k-stage.sbermarket.tech";
+
             } else {
                 this.server = properties.getProperty("server");
                 this.basicUrl = properties.getProperty("basicUrl");
