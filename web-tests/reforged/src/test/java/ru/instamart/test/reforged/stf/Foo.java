@@ -52,30 +52,13 @@ public class Foo {
 
 
         StfRouter.home().goToPage();
-        StfRouter.home().openLoginModal();
-        StfRouter.home().interactAuthModal().fillPhone("9999919613");
-        StfRouter.home().interactAuthModal().sendSms();
-        StfRouter.home().interactAuthModal().fillSMS("111111");
-        header.clickToPickup();
-        address.close();
-        header.clickToProfile();
-        accountMenu.clickToProfile();
-        StfRouter.home().goToPage();
-        header.clickToFavorite();
-        StfRouter.home().goToPage();
-        header.clickToCart();
-        cart.clearCart();
-        cart.confirmClearCart();
-        cart.returnToCatalog();
-        header.clickToStoreSelector();
-        header.interactStoreSelector().clickToCloseButton();
+//        StfRouter.home().openLoginModal();
+//        StfRouter.home().interactAuthModal().fillPhone("9999919613");
+//        StfRouter.home().interactAuthModal().sendSms();
+//        StfRouter.home().interactAuthModal().fillSMS("111111");
+        StfRouter.home().clickToAppStore();
 
-//        header.clickToCart();
-//        header.interactCart().clearCart();
-//        header.interactCart().confirmClearCart();
-//        header.interactAddress().selectSelfDelivery();
-//        header.interactAddress().selectCity("Воронеж");
-//        header.interactAddress().selectCity("Самара");
+
     }
 
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")
