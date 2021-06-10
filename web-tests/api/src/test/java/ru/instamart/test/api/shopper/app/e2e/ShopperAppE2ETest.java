@@ -40,7 +40,7 @@ public class ShopperAppE2ETest extends RestBase {
     @Test(  description = "Собираем все позиции в заказе",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void simpleCollect() {
-        shopper.simpleCollect(shipmentNumber);
+        shopperApp.simpleCollect(shipmentNumber);
     }
 
     @Story("Сборка заказа")
@@ -48,6 +48,6 @@ public class ShopperAppE2ETest extends RestBase {
     @Test(  description = "Собираем/отменяем/заменяем позиции в заказе",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void complexCollect() {
-        shopper.complexCollect(shipmentNumber);
+        shopperApp.complexCollect(shipmentNumber);
     }
 }

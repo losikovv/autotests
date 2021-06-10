@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.helper.ShopperAdminApiHelper;
 import ru.instamart.api.model.shopper.admin.*;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.response.shopper.admin.*;
@@ -32,7 +31,6 @@ public class ShopperAdminWithAuthTest extends RestBase {
     private Integer tariffId;
     private Integer shiftId;
     private Integer shiftAssignmentId;
-    private final ShopperAdminApiHelper shopperAdmin = new ShopperAdminApiHelper();
     private final Integer sid = EnvironmentData.INSTANCE.getDefaultShopperSid();
     private final Integer shopperId = 1;
     private final Integer driverId = 2;

@@ -70,7 +70,12 @@ public class Foo {
 //        cart.removeItem();
 //        cart.closeCart();
 
-
+//        header.clickToCart();
+//        header.interactCart().clearCart();
+//        header.interactCart().confirmClearCart();
+//        header.interactAddress().selectSelfDelivery();
+//        header.interactAddress().selectCity("Воронеж");
+//        header.interactAddress().selectCity("Самара");
     }
 
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")
