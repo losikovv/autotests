@@ -9,6 +9,8 @@ import ru.instamart.reforged.stf.block.AuthoredHeader;
 import ru.instamart.reforged.stf.drawer.AccountMenu;
 import ru.instamart.reforged.stf.drawer.Cart;
 import ru.instamart.reforged.stf.frame.Address;
+import ru.instamart.reforged.stf.frame.ProductCard;
+import ru.instamart.reforged.stf.page.Shop;
 import ru.instamart.reforged.stf.page.StfRouter;
 import ru.instamart.ui.listener.UiExecutionListener;
 import ru.instamart.ui.report.CustomReport;
@@ -44,38 +46,31 @@ public class Foo {
     @SneakyThrows
     @Test
     public void bar3() {
-        String retailerName = "METRO";
-        AuthoredHeader header = new AuthoredHeader();
-        Cart cart = header.interactCart();
-        Address address = header.interactAddress();
-        AccountMenu accountMenu = header.interactAccountMenu();
-
+        Shop shop = new Shop();
+        ProductCard productCard = shop.interactProductCard();
+//        ProductCard productCard = new ProductCard();
+        Cart cart = shop.interactCart();
+        Address addressModal = shop.interactAddress();
 
         StfRouter.home().goToPage();
         StfRouter.home().openLoginModal();
         StfRouter.home().interactAuthModal().fillPhone("9999919613");
         StfRouter.home().interactAuthModal().sendSms();
         StfRouter.home().interactAuthModal().fillSMS("111111");
-        header.clickToPickup();
-        address.close();
-        header.clickToProfile();
-        accountMenu.clickToProfile();
-        StfRouter.home().goToPage();
-        header.clickToFavorite();
-        StfRouter.home().goToPage();
-        header.clickToCart();
-        cart.clearCart();
-        cart.confirmClearCart();
-        cart.returnToCatalog();
-        header.clickToStoreSelector();
-        header.interactStoreSelector().clickToCloseButton();
+//        shop.openAddressFrame();
+//        addressModal.close();
+//        shop.openFirstProductCard();
+//        productCard.close();
+//        shop.plusFirstItemToCart();
+//        shop.plusFirstItemToCart();
+//        shop.minusFirstItemFromCart();
+//        shop.addFirstItemToFavorite();
+//        shop.deleteFirstItemFromFavorite();
+//        shop.plusFirstItemToCart();
+//        cart.removeItem();
+//        cart.closeCart();
 
-//        header.clickToCart();
-//        header.interactCart().clearCart();
-//        header.interactCart().confirmClearCart();
-//        header.interactAddress().selectSelfDelivery();
-//        header.interactAddress().selectCity("Воронеж");
-//        header.interactAddress().selectCity("Самара");
+
     }
 
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")
