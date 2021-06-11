@@ -5,12 +5,19 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import ru.instamart.reforged.action.SwitchAction;
 import ru.instamart.reforged.stf.block.AuthoredHeader;
 import ru.instamart.reforged.stf.drawer.AccountMenu;
 import ru.instamart.reforged.stf.drawer.Cart;
 import ru.instamart.reforged.stf.frame.Address;
-import ru.instamart.reforged.stf.frame.ProductCard;
-import ru.instamart.reforged.stf.page.Shop;
+import ru.instamart.reforged.stf.frame.auth.AuthFacebook;
+import ru.instamart.reforged.stf.frame.auth.AuthMail;
+import ru.instamart.reforged.stf.frame.auth.AuthModal;
+import ru.instamart.reforged.stf.frame.auth.AuthVk;
+import ru.instamart.reforged.stf.frame.auth.AuthFacebook;
+import ru.instamart.reforged.stf.frame.auth.AuthMail;
+import ru.instamart.reforged.stf.frame.auth.AuthModal;
+import ru.instamart.reforged.stf.frame.auth.AuthVk;
 import ru.instamart.reforged.stf.page.StfRouter;
 import ru.instamart.ui.listener.UiExecutionListener;
 import ru.instamart.ui.report.CustomReport;
@@ -46,36 +53,26 @@ public class Foo {
     @SneakyThrows
     @Test
     public void bar3() {
-        Shop shop = new Shop();
-        ProductCard productCard = shop.interactProductCard();
-//        ProductCard productCard = new ProductCard();
-        Cart cart = shop.interactCart();
-        Address addressModal = shop.interactAddress();
+        String retailerName = "METRO";
+        //9999919613
+        AuthModal authModal = new AuthModal();
+        AuthVk authVk = authModal.interactAuthVkWindow();
+        SwitchAction switchAction = new SwitchAction();
 
         StfRouter.home().goToPage();
         StfRouter.home().openLoginModal();
-        StfRouter.home().interactAuthModal().fillPhone("9999919613");
-        StfRouter.home().interactAuthModal().sendSms();
-        StfRouter.home().interactAuthModal().fillSMS("111111");
-//        shop.openAddressFrame();
-//        addressModal.close();
-//        shop.openFirstProductCard();
-//        productCard.close();
-//        shop.plusFirstItemToCart();
-//        shop.plusFirstItemToCart();
-//        shop.minusFirstItemFromCart();
-//        shop.addFirstItemToFavorite();
-//        shop.deleteFirstItemFromFavorite();
-//        shop.plusFirstItemToCart();
-//        cart.removeItem();
-//        cart.closeCart();
+        StfRouter.home().interactAuthModal().authViaVk();
+        switchAction.switchToWindowIndex(1);
+        authVk.setEmail("");
+        authVk.setPassword("");
+        authVk.clickToLogin();
+//        authMail.clickToEnterPassword();
+//        authMail.setPassword("");
+//        authMail.clickToSubmit();
+        switchAction.switchToWindowIndex(0);
 
-//        header.clickToCart();
-//        header.interactCart().clearCart();
-//        header.interactCart().confirmClearCart();
-//        header.interactAddress().selectSelfDelivery();
-//        header.interactAddress().selectCity("Воронеж");
-//        header.interactAddress().selectCity("Самара");
+
+
     }
 
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")

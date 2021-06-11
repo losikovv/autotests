@@ -16,9 +16,9 @@ public final class AuthModal implements Close, AuthModalCheck {
     private final Checkbox forBusiness = new Checkbox(By.xpath("//input[@data-qa='registration_form_b2b_checkbox']"));
 
     private final Button sberId = new Button(By.xpath("//button[@data-qa='sber_id']"));
-    private final Button vkontakte = new Button(By.xpath("//button[@data-qa='vkontakte']"));
-    private final Button facebook = new Button(By.xpath("//button[@data-qa='facebook']"));
-    private final Button mailRu = new Button(By.xpath("//button[@data-qa='mail_ru']"));
+    private final Button vkontakte = new Button(By.xpath("//a[@data-qa='vkontakte']"));
+    private final Button facebook = new Button(By.xpath("//a[@data-qa='facebook']"));
+    private final Button mailRu = new Button(By.xpath("//a[@data-qa='mail_ru']"));
 
     private final Checkbox promo = new Checkbox(By.xpath("//input[@type='checkbox' and not(contains(@name, 'b2b'))]"));
     private final Button promoTerms = new Button(By.xpath("//button[@data-qa='promo_terms_button']"));
@@ -30,9 +30,26 @@ public final class AuthModal implements Close, AuthModalCheck {
     private final Input smsInput = new Input(By.xpath("//input[@data-qa='sms_confirm_input']"));
     private final Button resendSms = new Button(By.xpath("//button[@data-qa='sms_resend_button']"));
 
+    private final AuthMail authMailWindow = new AuthMail();
+    private final AuthFacebook authFacebookWindow = new AuthFacebook();
+    private final AuthVk authVkWindow = new AuthVk();
+
     public void fillPhone(final UserData userData) {
         fillPhone(userData.getPhone());
     }
+
+    public AuthMail interactAuthMailWindow() {
+        return authMailWindow;
+    }
+
+    public AuthFacebook interactAuthFacebookWindow() {
+        return authFacebookWindow;
+    }
+
+    public AuthVk interactAuthVkWindow() {
+        return authVkWindow;
+    }
+
 
     @Step("Заполнить поле с телефоном {phone}")
     public void fillPhone(final String phone) {
@@ -57,5 +74,20 @@ public final class AuthModal implements Close, AuthModalCheck {
     @Step("Отправить форму")
     public void sendSms() {
         sendSms.click();
+    }
+
+    @Step("Войти через mail.ru")
+    public void authViaMail() {
+        mailRu.click();
+    }
+
+    @Step("Войти через Вконтакте")
+    public void authViaVk() {
+        vkontakte.click();
+    }
+
+    @Step("Войти через facebook")
+    public void authViaFacebook() {
+        facebook.click();
     }
 }
