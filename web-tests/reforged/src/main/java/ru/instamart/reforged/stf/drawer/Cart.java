@@ -23,6 +23,9 @@ public final class Cart {
     private final Button showOutOfStock = new Button(By.xpath("//button[@data-qa='cart_price_diff_toggle_button'][contains(text(),'Скрыть')]"));
     private final Element outOfStock = new Element(By.xpath("//div[@data-qa='line-item']//div[contains(text(), 'Нет в наличии')]"), "товар не в наличии");
 
+    private final Button showRisePrice = new Button(By.xpath("//button[@data-qa='cart_price_diff_toggle_button'][contains(text(),'Показать')]"), "кнопка 'посмотреть' цену с учетом повышения");
+    private final Button hideRisePrice = new Button(By.xpath("//button[@data-qa='cart_price_diff_toggle_button'][contains(text(),'Показать')]"), "кнопка 'скрыть' цену с учетом повышения");
+
     private final Button clearCart = new Button(By.xpath("//button[@data-qa='cart_remove_shipments_button']"), "кнопка 'Очистить корзину'");
     private final Element itemCounter = new Element(By.xpath("//div[@data-qa='line-item-counter']"), "кол-во добавленных товаров");
     private final Element minSumAlert = new Element(By.xpath("//div[@class='cart-retailer__alert-message-box']"), "сообщение о минимальной сумме корзины");
