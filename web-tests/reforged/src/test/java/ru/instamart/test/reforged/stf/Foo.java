@@ -10,8 +10,10 @@ import ru.instamart.reforged.stf.block.AuthoredHeader;
 import ru.instamart.reforged.stf.drawer.AccountMenu;
 import ru.instamart.reforged.stf.drawer.Cart;
 import ru.instamart.reforged.stf.frame.Address;
-import ru.instamart.reforged.stf.frame.ProductCard;
-import ru.instamart.reforged.stf.page.Shop;
+import ru.instamart.reforged.stf.frame.auth.AuthFacebook;
+import ru.instamart.reforged.stf.frame.auth.AuthMail;
+import ru.instamart.reforged.stf.frame.auth.AuthModal;
+import ru.instamart.reforged.stf.frame.auth.AuthVk;
 import ru.instamart.reforged.stf.frame.auth.AuthFacebook;
 import ru.instamart.reforged.stf.frame.auth.AuthMail;
 import ru.instamart.reforged.stf.frame.auth.AuthModal;
@@ -68,6 +70,7 @@ public class Foo {
 //        authMail.setPassword("");
 //        authMail.clickToSubmit();
         switchAction.switchToWindowIndex(0);
+
 
 
     }
