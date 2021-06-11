@@ -61,5 +61,10 @@ public final class StfRouter extends Router {
         return (Terms) getPage(Terms.class);
     }
 
-    private StfRouter() {}
+    public static Checkout checkout() {
+        return (Checkout) getPage(Checkout.class);
+    }
+
+    private StfRouter() {
+    }
 }

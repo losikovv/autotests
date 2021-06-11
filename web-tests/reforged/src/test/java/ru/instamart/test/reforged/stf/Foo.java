@@ -5,20 +5,10 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import ru.instamart.reforged.action.SwitchAction;
-import ru.instamart.reforged.stf.block.AuthoredHeader;
-import ru.instamart.reforged.stf.drawer.AccountMenu;
-import ru.instamart.reforged.stf.drawer.Cart;
-import ru.instamart.reforged.stf.frame.Address;
-import ru.instamart.reforged.stf.frame.auth.AuthFacebook;
-import ru.instamart.reforged.stf.frame.auth.AuthMail;
-import ru.instamart.reforged.stf.frame.auth.AuthModal;
-import ru.instamart.reforged.stf.frame.auth.AuthVk;
-import ru.instamart.reforged.stf.frame.auth.AuthFacebook;
-import ru.instamart.reforged.stf.frame.auth.AuthMail;
-import ru.instamart.reforged.stf.frame.auth.AuthModal;
-import ru.instamart.reforged.stf.frame.auth.AuthVk;
+import ru.instamart.reforged.stf.frame.AddCompanyModal;
+import ru.instamart.reforged.stf.page.Checkout;
 import ru.instamart.reforged.stf.page.StfRouter;
+import ru.instamart.reforged.stf.page.checkoutSteps.DeliveryOptionsStep;
 import ru.instamart.ui.listener.UiExecutionListener;
 import ru.instamart.ui.report.CustomReport;
 
@@ -55,24 +45,34 @@ public class Foo {
     public void bar3() {
         String retailerName = "METRO";
         //9999919613
-        AuthModal authModal = new AuthModal();
-        AuthVk authVk = authModal.interactAuthVkWindow();
-        SwitchAction switchAction = new SwitchAction();
+        Checkout checkout = new Checkout();
+        DeliveryOptionsStep firstStep = checkout.interactDeliveryOptionsStep();
+        AddCompanyModal addCompanyModal = checkout.interactDeliveryOptionsStep().interactAddCompanyFrame();
 
         StfRouter.home().goToPage();
         StfRouter.home().openLoginModal();
-        StfRouter.home().interactAuthModal().authViaVk();
-        switchAction.switchToWindowIndex(1);
-        authVk.setEmail("");
-        authVk.setPassword("");
-        authVk.clickToLogin();
-//        authMail.clickToEnterPassword();
-//        authMail.setPassword("");
-//        authMail.clickToSubmit();
-        switchAction.switchToWindowIndex(0);
-
-
-
+        StfRouter.home().interactAuthModal().fillPhone("9999919613");
+        StfRouter.home().interactAuthModal().sendSms();
+        StfRouter.home().interactAuthModal().fillSMS("111111");
+        //ожидание загрузки страницы
+        checkout.goToPage();
+//        firstStep.clickToPickUp();
+        firstStep.clickToForBusiness();
+//        firstStep.clickSubmitForPickup();
+        firstStep.clickToAddCompany();
+        addCompanyModal.fillInn("913913943509");
+        addCompanyModal.clickToSubmit();
+        addCompanyModal.fillName("Новая компания");
+        addCompanyModal.clickToSubmit();
+        addCompanyModal.clickToOkButton();
+        firstStep.fillAppartment("1");
+        firstStep.fillFloor("3");
+        firstStep.setElevator();
+        firstStep.fillEntrance("10");
+        firstStep.fillDoorPhone("2222");
+        firstStep.setContactlessDelivery();
+        firstStep.fillComment("Тестовый коммент");
+        firstStep.clickSubmitForDelivery();
     }
 
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")
