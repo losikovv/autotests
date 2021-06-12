@@ -21,17 +21,10 @@ public class DeliveryOptionsStep {
     private final Input entrance = new Input(By.xpath("//input[@name='entrance']"));
     private final Input doorPhone = new Input(By.xpath("//input[@name='doorPhone']"));
     private final Checkbox contactlessDelivery = new Checkbox(By.xpath("//input[@data-qa='ship_address_form_contactless_delivery_checkbox']"));
-    private final Input comment = new Input(By.xpath("//textarea[@name='order[special_instructions]']"));//??
+    private final Input comment = new Input(By.xpath("//textarea[@name='order[special_instructions]']"));
 
     private final Button submitStepWithDelivery = new Button(By.xpath("//button[@data-qa='checkout_ship_address_form_submit_button']"));
     private final Button submitStepWithPickUp = new Button(By.xpath("//button[@data-qa=\"checkout_shipping_method_button'\"]"));
-
-
-    private final AddCompanyModal addCompanyFrame = new AddCompanyModal();
-
-    public AddCompanyModal interactAddCompanyFrame() {
-        return addCompanyFrame;
-    }
 
     @Step("Нажать Доставка")
     public void clickToDelivery() {
@@ -59,47 +52,48 @@ public class DeliveryOptionsStep {
     }
 
     @Step("Заполнить поле Номер квартиры/офиса")
-    public void fillAppartment(String data){
+    public void fillApartment(String data) {
         apartment.fill(data);
     }
 
     @Step("Заполнить поле Этаж")
-    public void fillFloor(String data){
+    public void fillFloor(String data) {
         floor.fill(data);
     }
 
     @Step("Выбрать Есть лифт")
-    public void setElevator(){
+    public void setElevator() {
         elevator.check();
     }
 
     @Step("Заполнить поле Подъезд")
-    public void fillEntrance(String data){
+    public void fillEntrance(String data) {
         entrance.fill(data);
     }
 
     @Step("Заполнить поле Код домофона")
-    public void fillDoorPhone(String data){
+    public void fillDoorPhone(String data) {
         doorPhone.fill(data);
     }
 
     @Step("Выбрать Бесконтактная доставка")
-    public void setContactlessDelivery(){
+    public void setContactlessDelivery() {
         contactlessDelivery.check();
     }
 
     @Step("Заполнить поле Код домофона")
-    public void fillComment(String data){
+    public void fillComment(String data) {
         comment.fill(data);
     }
 
     @Step("Нажать Продолжить(для доставки)")
-    public void clickSubmitForDelivery(){
+    public void clickSubmitForDelivery() {
         submitStepWithDelivery.click();
     }
 
     @Step("Нажать Продолжить(для самовывоза)")
-    public void clickSubmitForPickup(){
+    public void clickSubmitForPickup() {
         submitStepWithPickUp.click();
     }
+
 }

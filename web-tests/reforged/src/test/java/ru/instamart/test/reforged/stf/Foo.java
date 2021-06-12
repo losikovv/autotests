@@ -6,8 +6,10 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.instamart.reforged.stf.frame.AddCompanyModal;
+import ru.instamart.reforged.stf.frame.EditPhoneNumber;
 import ru.instamart.reforged.stf.page.Checkout;
 import ru.instamart.reforged.stf.page.StfRouter;
+import ru.instamart.reforged.stf.page.checkoutSteps.ContactsStep;
 import ru.instamart.reforged.stf.page.checkoutSteps.DeliveryOptionsStep;
 import ru.instamart.ui.listener.UiExecutionListener;
 import ru.instamart.ui.report.CustomReport;
@@ -46,8 +48,10 @@ public class Foo {
         String retailerName = "METRO";
         //9999919613
         Checkout checkout = new Checkout();
-        DeliveryOptionsStep firstStep = checkout.interactDeliveryOptionsStep();
-        AddCompanyModal addCompanyModal = checkout.interactDeliveryOptionsStep().interactAddCompanyFrame();
+        DeliveryOptionsStep firstStep = checkout.setDeliveryOptions();
+        ContactsStep secondStep = checkout.setContacts();
+        AddCompanyModal addCompanyModal = checkout.interactAddCompanyModal();
+        EditPhoneNumber editPhoneNumber = checkout.interactEditPhoneNumberModal();
 
         StfRouter.home().goToPage();
         StfRouter.home().openLoginModal();
@@ -56,23 +60,10 @@ public class Foo {
         StfRouter.home().interactAuthModal().fillSMS("111111");
         //ожидание загрузки страницы
         checkout.goToPage();
-//        firstStep.clickToPickUp();
-        firstStep.clickToForBusiness();
-//        firstStep.clickSubmitForPickup();
-        firstStep.clickToAddCompany();
-        addCompanyModal.fillInn("913913943509");
-        addCompanyModal.clickToSubmit();
-        addCompanyModal.fillName("Новая компания");
-        addCompanyModal.clickToSubmit();
-        addCompanyModal.clickToOkButton();
-        firstStep.fillAppartment("1");
-        firstStep.fillFloor("3");
-        firstStep.setElevator();
-        firstStep.fillEntrance("10");
-        firstStep.fillDoorPhone("2222");
-        firstStep.setContactlessDelivery();
-        firstStep.fillComment("Тестовый коммент");
         firstStep.clickSubmitForDelivery();
+        secondStep.clickToChangePhone();
+        editPhoneNumber.clickToDelete();
+        secondStep.clickToSubmit();
     }
 
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")
