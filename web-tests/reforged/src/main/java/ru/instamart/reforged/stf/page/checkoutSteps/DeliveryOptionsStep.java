@@ -87,12 +87,12 @@ public class DeliveryOptionsStep {
     }
 
     @Step("Нажать Продолжить(для доставки)")
-    public void clickSubmitForDelivery() {
+    public void clickToSubmitForDelivery() {
         submitStepWithDelivery.click();
     }
 
     @Step("Нажать Продолжить(для самовывоза)")
-    public void clickSubmitForPickup() {
+    public void clickToSubmitForPickup() {
         submitStepWithPickUp.click();
     }
 

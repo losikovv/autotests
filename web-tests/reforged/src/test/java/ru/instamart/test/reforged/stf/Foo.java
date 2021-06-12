@@ -11,6 +11,7 @@ import ru.instamart.reforged.stf.page.Checkout;
 import ru.instamart.reforged.stf.page.StfRouter;
 import ru.instamart.reforged.stf.page.checkoutSteps.ContactsStep;
 import ru.instamart.reforged.stf.page.checkoutSteps.DeliveryOptionsStep;
+import ru.instamart.reforged.stf.page.checkoutSteps.ReplacementPolicyStep;
 import ru.instamart.ui.listener.UiExecutionListener;
 import ru.instamart.ui.report.CustomReport;
 
@@ -46,10 +47,15 @@ public class Foo {
     @Test
     public void bar3() {
         String retailerName = "METRO";
+        String callAndReplace = "Позвонить мне. Подобрать замену, если не смогу ответить";
+        String callAndRemove = "Позвонить мне. Убрать из заказа, если не смогу ответить";
+        String noCallAndReplace = "Не звонить мне. Подобрать замену";
+        String noCallAndRemove = "Не звонить мне. Убрать из заказа";
         //9999919613
         Checkout checkout = new Checkout();
         DeliveryOptionsStep firstStep = checkout.setDeliveryOptions();
         ContactsStep secondStep = checkout.setContacts();
+        ReplacementPolicyStep thirdStep = checkout.setReplacementPolicy();
         AddCompanyModal addCompanyModal = checkout.interactAddCompanyModal();
         EditPhoneNumber editPhoneNumber = checkout.interactEditPhoneNumberModal();
 
@@ -60,10 +66,13 @@ public class Foo {
         StfRouter.home().interactAuthModal().fillSMS("111111");
         //ожидание загрузки страницы
         checkout.goToPage();
-        firstStep.clickSubmitForDelivery();
-        secondStep.clickToChangePhone();
-        editPhoneNumber.clickToDelete();
+        firstStep.clickToSubmitForDelivery();
         secondStep.clickToSubmit();
+        thirdStep.clickToPolicy(callAndReplace);
+        thirdStep.clickToPolicy(callAndRemove);
+        thirdStep.clickToPolicy(noCallAndReplace);
+        thirdStep.clickToPolicy(noCallAndRemove);
+        thirdStep.clickToSubmit();
     }
 
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")

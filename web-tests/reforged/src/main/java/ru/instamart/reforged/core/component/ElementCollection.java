@@ -30,6 +30,7 @@ public final class ElementCollection extends CollectionComponent {
         for (final WebElement we : getComponents()) {
             if (we.getText().contains(text)) {
                 we.click();
+                break;
             }
         }
     }
