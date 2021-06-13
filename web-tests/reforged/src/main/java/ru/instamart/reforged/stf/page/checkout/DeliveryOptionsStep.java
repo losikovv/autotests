@@ -1,4 +1,4 @@
-package ru.instamart.reforged.stf.page.checkoutSteps;
+package ru.instamart.reforged.stf.page.checkout;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
@@ -6,7 +6,6 @@ import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Checkbox;
 import ru.instamart.reforged.core.component.Input;
 import ru.instamart.reforged.core.component.RadioButton;
-import ru.instamart.reforged.stf.frame.AddCompanyModal;
 
 public class DeliveryOptionsStep {
 

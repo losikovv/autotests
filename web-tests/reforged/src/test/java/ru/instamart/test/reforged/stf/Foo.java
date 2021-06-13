@@ -9,9 +9,10 @@ import ru.instamart.reforged.stf.frame.AddCompanyModal;
 import ru.instamart.reforged.stf.frame.EditPhoneNumber;
 import ru.instamart.reforged.stf.page.Checkout;
 import ru.instamart.reforged.stf.page.StfRouter;
-import ru.instamart.reforged.stf.page.checkoutSteps.ContactsStep;
-import ru.instamart.reforged.stf.page.checkoutSteps.DeliveryOptionsStep;
-import ru.instamart.reforged.stf.page.checkoutSteps.ReplacementPolicyStep;
+import ru.instamart.reforged.stf.page.checkout.ContactsStep;
+import ru.instamart.reforged.stf.page.checkout.DeliveryOptionsStep;
+import ru.instamart.reforged.stf.page.checkout.ReplacementPolicyStep;
+import ru.instamart.reforged.stf.page.checkout.SlotStep;
 import ru.instamart.ui.listener.UiExecutionListener;
 import ru.instamart.ui.report.CustomReport;
 
@@ -56,8 +57,7 @@ public class Foo {
         DeliveryOptionsStep firstStep = checkout.setDeliveryOptions();
         ContactsStep secondStep = checkout.setContacts();
         ReplacementPolicyStep thirdStep = checkout.setReplacementPolicy();
-        AddCompanyModal addCompanyModal = checkout.interactAddCompanyModal();
-        EditPhoneNumber editPhoneNumber = checkout.interactEditPhoneNumberModal();
+        SlotStep fourthStep = checkout.setSlot();
 
         StfRouter.home().goToPage();
         StfRouter.home().openLoginModal();
@@ -68,11 +68,8 @@ public class Foo {
         checkout.goToPage();
         firstStep.clickToSubmitForDelivery();
         secondStep.clickToSubmit();
-        thirdStep.clickToPolicy(callAndReplace);
-        thirdStep.clickToPolicy(callAndRemove);
-        thirdStep.clickToPolicy(noCallAndReplace);
-        thirdStep.clickToPolicy(noCallAndRemove);
         thirdStep.clickToSubmit();
+        fourthStep.setFirstActiveSlot();
     }
 
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")

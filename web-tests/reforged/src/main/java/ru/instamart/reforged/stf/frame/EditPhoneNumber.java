@@ -11,7 +11,7 @@ public class EditPhoneNumber {
     private final Button delete = new Button(By.xpath("//button[@data-qa='checkout_phone_form_modal_delete_button']"));
     private final Button cancel = new Button(By.xpath("//button[@data-qa='checkout_phone_form_modal_cancel_button']"));
     private final Button save = new Button(By.xpath("//button[@data-qa='checkout_phone_form_modal_save_button']"));
-    private final Button close = new Button(By.xpath(""));
+    private final Button close = new Button(By.xpath("//header/button"));// изменить, когда будет data-qa
 
     @Step("Заполнить номер телефона")
     public void fillPhoneNumber(String data) {
