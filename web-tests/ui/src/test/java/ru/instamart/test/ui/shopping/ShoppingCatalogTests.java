@@ -63,7 +63,7 @@ public class ShoppingCatalogTests extends TestBase {
         Shop.CatalogDrawer.open();
         Shop.CatalogDrawer.goToTaxon("Грибы");
         baseChecks.checkPageIsAvailable();
-        baseChecks.checkIsElementDisplayed(Elements.CategoryPage.filters(),
+        baseChecks.checkIsElementDisplayed(Elements.CategoryPage.title(),
                 "Не открывается страница категории 2 уровня из шторки каталога");
     }
 

@@ -20,15 +20,15 @@ import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 @Epic("STF UI")
 @Feature("Промокоды")
-public class CheckoutPromocodeTests extends TestBase {
-    private static String phone;
-    PromoCodesCheckpoints promoChecks = new PromoCodesCheckpoints();
+public final class CheckoutPromocodeTests extends TestBase {
+
+    private final PromoCodesCheckpoints promoChecks = new PromoCodesCheckpoints();
+
     @BeforeClass(alwaysRun = true)
     public void prepareForCheckout() {
-        phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
-        User.Do.registration(phone,true);
+        User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());

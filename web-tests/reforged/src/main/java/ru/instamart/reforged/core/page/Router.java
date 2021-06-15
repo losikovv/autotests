@@ -1,14 +1,13 @@
 package ru.instamart.reforged.core.page;
 
-import org.openqa.selenium.support.PageFactory;
-import ru.instamart.reforged.stf.page.StfPage;
-import ru.instamart.ui.manager.AppManager;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Objects.isNull;
 
+@Slf4j
 public class Router {
 
     private static final Map<Long, Page> pageThread = new ConcurrentHashMap<>();
@@ -25,7 +24,13 @@ public class Router {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> T initPage(final Class<T> pageClass) {
-        return PageFactory.initElements(AppManager.getWebDriver(), pageClass);
+        try {
+            return (T) Class.forName(pageClass.getName()).getConstructor().newInstance();
+        } catch (Exception e) {
+            log.error("FATAL: Create PageClass {} failed", pageClass.getName());
+        }
+        return null;
     }
 }

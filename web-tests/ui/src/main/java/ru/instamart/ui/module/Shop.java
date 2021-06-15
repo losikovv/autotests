@@ -14,6 +14,7 @@ import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.ui.data.ElementData;
 import ru.instamart.kraken.testdata.pagesdata.WidgetData;
 import ru.instamart.ui.Elements;
+import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 import java.util.List;
 
@@ -805,8 +806,8 @@ public final class Shop extends Base {
         @Step("Набираем корзину на указанную сумму: {0}")
         public static void collect(int orderSum) {
             if (!kraken.detect().isShippingAddressSet()) {
-                ru.instamart.ui.module.shop.ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
-                ru.instamart.ui.module.shop.ShippingAddressModal.selectAddressSuggest();
+                ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
+                ShippingAddressModal.selectAddressSuggest();
             }
             log.info("> проверяем  корзину. Минимальная сумма для заказа {}...", orderSum);
             int cartTotal = kraken.grab().cartTotalRounded();
