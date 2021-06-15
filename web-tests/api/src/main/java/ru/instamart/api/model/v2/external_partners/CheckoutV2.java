@@ -1,4 +1,4 @@
-package ru.instamart.api.model.v2.ExternalPartnersV2;
+package ru.instamart.api.model.v2.external_partners;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

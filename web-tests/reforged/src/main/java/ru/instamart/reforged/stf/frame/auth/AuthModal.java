@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.frame.auth;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.checkpoint.AuthModalCheck;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Checkbox;
@@ -16,9 +17,9 @@ public final class AuthModal implements Close, AuthModalCheck {
     private final Checkbox forBusiness = new Checkbox(By.xpath("//input[@data-qa='registration_form_b2b_checkbox']"));
 
     private final Button sberId = new Button(By.xpath("//button[@data-qa='sber_id']"));
-    private final Button vkontakte = new Button(By.xpath("//a[@data-qa='vkontakte']"));
-    private final Button facebook = new Button(By.xpath("//a[@data-qa='facebook']"));
-    private final Button mailRu = new Button(By.xpath("//a[@data-qa='mail_ru']"));
+    private final Link vkontakte = new Link(By.xpath("//a[@data-qa='vkontakte']"));
+    private final Link facebook = new Link(By.xpath("//a[@data-qa='facebook']"));
+    private final Link mailRu = new Link(By.xpath("//a[@data-qa='mail_ru']"));
 
     private final Checkbox promo = new Checkbox(By.xpath("//input[@type='checkbox' and not(contains(@name, 'b2b'))]"));
     private final Button promoTerms = new Button(By.xpath("//button[@data-qa='promo_terms_button']"));
@@ -49,7 +50,6 @@ public final class AuthModal implements Close, AuthModalCheck {
     public AuthVk interactAuthVkWindow() {
         return authVkWindow;
     }
-
 
     @Step("Заполнить поле с телефоном {phone}")
     public void fillPhone(final String phone) {

@@ -1,4 +1,4 @@
-package ru.instamart.api.model.v2.ExternalPartnersV2;
+package ru.instamart.api.model.v2.external_partners;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

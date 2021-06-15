@@ -69,6 +69,7 @@ public abstract class Component {
     public void hoverAndClick() {
         final Matcher matcher = LOCATOR.matcher(by.toString());
         while (matcher.find()) {
+            log.info("Hover and click to element {}", by);
             JsAction.hoverAndClick(matcher.group());
         }
     }
@@ -79,6 +80,7 @@ public abstract class Component {
     public void scrollTo() {
         final Matcher matcher = LOCATOR.matcher(by.toString());
         while (matcher.find()) {
+            log.info("Scroll to element {}", by);
             JsAction.scrollToElement(matcher.group());
         }
     }

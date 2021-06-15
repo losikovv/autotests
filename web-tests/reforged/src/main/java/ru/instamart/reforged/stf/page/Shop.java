@@ -1,8 +1,11 @@
 package ru.instamart.reforged.stf.page;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.action.JsAction;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
@@ -10,6 +13,7 @@ import ru.instamart.reforged.stf.block.AuthoredHeader;
 import ru.instamart.reforged.stf.drawer.Cart;
 import ru.instamart.reforged.stf.frame.Address;
 import ru.instamart.reforged.stf.frame.ProductCard;
+import ru.instamart.ui.manager.AppManager;
 
 @Slf4j
 public final class Shop implements StfPage {
@@ -78,7 +82,27 @@ public final class Shop implements StfPage {
     }
 
     @Override
+    public void goToPage() {
+        goToPage(ShopUrl.DEFAULT);
+    }
+
+    public void goToPage(final ShopUrl shop) {
+        AppManager.getWebDriver().get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + shop.getUrl());
+    }
+
+    @Override
     public String pageUrl() {
         return "";
+    }
+
+    @RequiredArgsConstructor
+    @Getter
+    public enum ShopUrl {
+        DEFAULT(""),
+        METRO("metro"),
+        LENTA("lenta"),
+        AUCHAN("auchan");
+
+        private final String url;
     }
 }

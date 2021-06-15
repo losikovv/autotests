@@ -21,7 +21,6 @@ public final class ProductCard implements Close {
     private final Button increase = new Button(By.xpath("//button[@data-qa='addToCart_plus']"));
     private final Element sumCounter = new Element(By.xpath("//div[contains(@class, 'Spinner')]"));
 
-
     private final Element titleDescription = new Element(By.xpath("//div[contains(text(),'Описание')]"));
     private final Element description = new Element(By.xpath("//div[@itemprop='description']/div"));
     private final Element hideDetInfo = new Element(By.xpath("//div[contains(text(),'Скрыть подробную информацию')]"));

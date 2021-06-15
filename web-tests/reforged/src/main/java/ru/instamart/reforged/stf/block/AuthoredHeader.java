@@ -4,8 +4,8 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.DropDown;
-import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
+import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.drawer.AccountMenu;
 import ru.instamart.reforged.stf.drawer.Cart;
 import ru.instamart.reforged.stf.drawer.StoreSelector;
@@ -23,12 +23,12 @@ public final class AuthoredHeader {
     private final Button selectAddress = new Button(By.xpath("//button[@data-qa='select-button']"));
     private final Button firstSelectAddress = new Button(By.xpath("//button[@data-qa='shipping_method_button']"));
 
-    private final Element forB2B = new Element(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Для бизнеса')]"));
-    private final Element forBrands = new Element(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Для производителей')]"));
-    private final Element howWeWork = new Element(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Как мы работаем')]"));
-    private final Element contacts = new Element(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Контакты')]"));
-    private final Element help = new Element(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Помощь')]"));
-    private final Element deliveryAndPayment = new Element(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Доставка')]"));
+    private final Link forB2B = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Для бизнеса')]"));
+    private final Link forBrands = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Для производителей')]"));
+    private final Link howWeWork = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Как мы работаем')]"));
+    private final Link contacts = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Контакты')]"));
+    private final Link help = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Помощь')]"));
+    private final Link deliveryAndPayment = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Доставка')]"));
 
 
     private final Button storeSelector = new Button(By.xpath("//button[@data-qa='open-store-selector-button']"));
@@ -38,8 +38,8 @@ public final class AuthoredHeader {
 
     private final Button profile = new Button(By.xpath("//button[@data-qa='profile-button_button']"));
     private final Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"));
-    private final Button favorite = new Button(By.xpath("//a[@data-qa='favorites-link']"));
-    private final Element orders = new Element(By.xpath("//a[@data-qa='shipments-link']"));
+    private final Link favorite = new Link(By.xpath("//a[@data-qa='favorites-link']"));
+    private final Link orders = new Link(By.xpath("//a[@data-qa='shipments-link']"));
     private final Button login = new Button(By.xpath("//button[@data-qa='login-button_button']")); // кнопка в хедере, но без авторизации
 
     public Cart interactCart() {

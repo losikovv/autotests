@@ -28,7 +28,9 @@ public final class ElementCollection extends CollectionComponent {
 
     public void clickOnElementWithText(final String text) {
         for (final WebElement we : getComponents()) {
-            if (we.getText().contains(text)) {
+            final String elementText = we.getText();
+            if (elementText.contains(text)) {
+                log.info("Click on element {} with text {}", we, elementText);
                 we.click();
                 break;
             }
