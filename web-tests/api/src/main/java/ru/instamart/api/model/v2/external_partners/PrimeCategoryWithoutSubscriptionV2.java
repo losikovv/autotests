@@ -1,4 +1,4 @@
-package ru.instamart.api.model.v2.ExternalPartnersV2;
+package ru.instamart.api.model.v2.external_partners;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -7,10 +7,12 @@ import ru.instamart.api.model.BaseObject;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class MainBannerV2 extends BaseObject {
+public class PrimeCategoryWithoutSubscriptionV2 extends BaseObject {
     private String header;
     private String text;
-    private String promocode;
+    private String link;
+    @JsonProperty("link_text")
+    private String linkText;
     @JsonProperty("close_button_text")
     private String closeButtonText;
 
