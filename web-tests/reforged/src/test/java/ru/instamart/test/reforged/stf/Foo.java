@@ -5,14 +5,11 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import ru.instamart.reforged.stf.frame.AddCompanyModal;
-import ru.instamart.reforged.stf.frame.EditPhoneNumber;
+import ru.instamart.reforged.stf.frame.checkout.EditLoyaltyPromoCode;
+import ru.instamart.reforged.stf.frame.checkout.EditPaymentCard;
 import ru.instamart.reforged.stf.page.Checkout;
 import ru.instamart.reforged.stf.page.StfRouter;
-import ru.instamart.reforged.stf.page.checkout.ContactsStep;
-import ru.instamart.reforged.stf.page.checkout.DeliveryOptionsStep;
-import ru.instamart.reforged.stf.page.checkout.ReplacementPolicyStep;
-import ru.instamart.reforged.stf.page.checkout.SlotStep;
+import ru.instamart.reforged.stf.page.checkout.*;
 import ru.instamart.ui.listener.UiExecutionListener;
 import ru.instamart.ui.report.CustomReport;
 
@@ -54,10 +51,13 @@ public class Foo {
         String noCallAndRemove = "Не звонить мне. Убрать из заказа";
         //9999919613
         Checkout checkout = new Checkout();
-        DeliveryOptionsStep firstStep = checkout.setDeliveryOptions();
-        ContactsStep secondStep = checkout.setContacts();
-        ReplacementPolicyStep thirdStep = checkout.setReplacementPolicy();
-        SlotStep fourthStep = checkout.setSlot();
+        DeliveryOptionsStep deliveryOptionsStep = checkout.setDeliveryOptions();
+        ContactsStep contactStep = checkout.setContacts();
+        ReplacementPolicyStep policyStep = checkout.setReplacementPolicy();
+        SlotStep slotStep = checkout.setSlot();
+        PaymentStep paymentStep = checkout.paymentStep();
+        EditLoyaltyPromoCode loyaltyBonusModal = checkout.interactEditLoyaltyPromoCodeModal();
+        EditPaymentCard editPaymentCardModal = checkout.interactEditPaymentCardModal();
 
         StfRouter.home().goToPage();
         StfRouter.home().openLoginModal();
@@ -66,10 +66,23 @@ public class Foo {
         StfRouter.home().interactAuthModal().fillSMS("111111");
         //ожидание загрузки страницы
         checkout.goToPage();
-        firstStep.clickToSubmitForDelivery();
-        secondStep.clickToSubmit();
-        thirdStep.clickToSubmit();
-        fourthStep.setFirstActiveSlot();
+//        firstStep.clickToSubmitForDelivery();
+//        secondStep.clickToSubmit();
+//        thirdStep.clickToSubmit();
+//        fourthStep.setFirstActiveSlot();
+//        paymentStep.clickToByCardOnline();
+//        paymentStep.clickToAddNewPaymentCard();
+//        editPaymentCardModal.fillCardNumber("4242424242424242");
+//        editPaymentCardModal.fillExpMonth("12");
+//        editPaymentCardModal.fillExpYear("2024");
+//        editPaymentCardModal.fillCvv("123");
+//        editPaymentCardModal.fillHolderName("TEST TESTOV");
+//        editPaymentCardModal.clickToSave();
+        checkout.clickToAddLoyaltyCard("Много");
+        loyaltyBonusModal.fillValue("11600350");
+        loyaltyBonusModal.clickToSaveModal();
+        loyaltyBonusModal.clickToCloseModal();
+        checkout.clickToSubmitFromSidebar();
     }
 
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")
