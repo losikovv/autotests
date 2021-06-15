@@ -95,6 +95,13 @@ public final class ApiV2EndPoints {
         public static final String BY_ID = "v2/retailers/{id}";
     }
 
+    public static final class Recs{
+        public static final String PERSONAL = "v2/recs/personal";
+    }
+    public static final class SimpleRecs{
+        public static final String PERSONAL = "v2/simple-recs/personal";
+    }
+
     public static final class Searches {
         public static final String SUGGESTIONS = "v2/searches/suggestions?sid={sid}";
 
