@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
 
-public class AuthFacebook {
+public final class AuthFacebook {
 
     private final Input email = new Input(By.xpath("//input[@id='email']"));
     private final Input password = new Input(By.xpath("//input[@id='pass']"));

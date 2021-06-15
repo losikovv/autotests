@@ -51,7 +51,6 @@ public final class AuthModal implements Close, AuthModalCheck {
         return authVkWindow;
     }
 
-
     @Step("Заполнить поле с телефоном {phone}")
     public void fillPhone(final String phone) {
         phoneField.fill(phone);

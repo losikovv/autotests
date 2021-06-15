@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Input;
 
-public class AuthVk {
+public final class AuthVk {
 
     private final Input email = new Input(By.xpath("//input[@name='email']"));
     private final Input password = new Input(By.xpath("//input[@name='pass']"));

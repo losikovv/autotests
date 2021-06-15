@@ -7,7 +7,7 @@ import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
 import ru.instamart.reforged.core.component.Selector;
 
-public class AuthMail {
+public final class AuthMail {
 
     private final Input name = new Input(By.xpath("//input[@name='username']"));
     private final Selector domain = new Selector(By.xpath("//select[@name='Domain']"));
