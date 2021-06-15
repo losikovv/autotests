@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
+import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.frame.ClearCart;
 
 public final class Cart {
@@ -16,7 +17,7 @@ public final class Cart {
 
     private final Element mergeChecker = new Element(By.xpath("//div[@class='cart-retailer__merge-checker']"), "сообщение о возможности сделать дозаказ");//локатор из 2х классов
     private final Button mergeButton = new Button(By.xpath("//button[@data-qa='merge_products_button']"), "кнопка 'перенести' в сообщении дозаказа");
-    private final Button lookMergedProductsButton = new Button(By.xpath("//a[@data-qa='merged_products_look_button']"), "кнопка 'посмотреть' в сообщении дозаказа");
+    private final Link lookMergedProductsButton = new Link(By.xpath("//a[@data-qa='merged_products_look_button']"), "кнопка 'посмотреть' в сообщении дозаказа");
     private final Element orderReminder = new Element(By.xpath("//div[@data-qa='cart']//div[contains(text(), 'Забыли купить нужные товары')]"), "сообщение о возможности дозаказа в пустой корзине");
 
     private final Button hideOutOfStock = new Button(By.xpath("//button[@data-qa='cart_price_diff_toggle_button'][contains(text(),'Показать')]"));
@@ -31,7 +32,7 @@ public final class Cart {
     private final Element minSumAlert = new Element(By.xpath("//div[@class='cart-retailer__alert-message-box']"), "сообщение о минимальной сумме корзины");
     private final Button increaseCount = new Button(By.xpath("//button[@data-qa='increase-button']"), "кнопка Увеличить кол-во");
     private final Button decreaseCount = new Button(By.xpath("//button[@data-qa='decrease-button']"), "кнопка Уменьшить кол-во");
-    private final Element openItemCard = new Element(By.xpath("//a[@data-qa='open-button']"), "переход к карточке товара");
+    private final Link openItemCard = new Link(By.xpath("//a[@data-qa='open-button']"), "переход к карточке товара");
     private final Button mobileRemoveItem = new Button(By.xpath("//button[@data-qa='remove-button-mobile']"));
     private final Button removeItem = new Button(By.xpath("//button[@data-qa='cart_delete_item_button']"), "кнопка Удалить позицию");
     private final Element costSpinner = new Element(By.xpath("//div[@data-qa='line-item']//div[contains(@class,'Spinner')]"), "спиннер пересчета цены позиции");

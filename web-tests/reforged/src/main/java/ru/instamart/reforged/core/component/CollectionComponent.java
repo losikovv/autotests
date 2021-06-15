@@ -11,19 +11,15 @@ public abstract class CollectionComponent extends Component {
 
     protected List<WebElement> components;
 
-    public CollectionComponent(By by, long timeout, String description, String errorMsg, Action action) {
-        super(by, timeout, description, errorMsg, action);
-    }
-
-    public CollectionComponent(By by) {
+    public CollectionComponent(final By by) {
         super(by);
     }
 
-    public CollectionComponent(By by, String description) {
+    public CollectionComponent(final By by, final String description) {
         super(by, description);
     }
 
-    public CollectionComponent(By by, String description, String errorMsg) {
+    public CollectionComponent(final By by, final String description, final String errorMsg) {
         super(by, description, errorMsg);
     }
 

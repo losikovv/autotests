@@ -4,15 +4,16 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
+import ru.instamart.reforged.core.component.Link;
 
 public class AccountMenu {
 
     private final Element username = new Element(By.xpath("//div[@data-qa='account-menu-username']"));
-    private final Element profile = new Element(By.xpath("//a[@data-qa='account-menu-profile']"));
-    private final Element terms = new Element(By.xpath("//a[@data-qa='account-menu-terms']"));
+    private final Link profile = new Link(By.xpath("//a[@data-qa='account-menu-profile']"));
+    private final Link terms = new Link(By.xpath("//a[@data-qa='account-menu-terms']"));
     private final Button logout = new Button(By.xpath("//button[@data-qa='account-menu-logout']"));
     private final Button delivery = new Button(By.xpath("//button[@data-qa='account-menu-delivery']"));
-    private final Element faq = new Element(By.xpath("//a[@data-qa='account-menu-faq']"));
+    private final Link faq = new Link(By.xpath("//a[@data-qa='account-menu-faq']"));
 
     @Step("Нажать Профиль в  меню пользователя")
     public void clickToProfile() {
