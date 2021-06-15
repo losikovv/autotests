@@ -23,7 +23,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 public class RecsV2Test extends RestBase {
 
     @CaseId(287)
-    @Test(groups = {"api-instamart-regress"}, description = "")
+    @Test(groups = {"api-instamart-prod"}, description = "Запрос рекомендаций с обязательными параметрами")
     public void testRecsTest() {
         PersonalV2Request.RecsV2 recsV2 = PersonalV2Request.RecsV2.builder()
                 .reqId(UUID.randomUUID().toString())
@@ -67,8 +67,8 @@ public class RecsV2Test extends RestBase {
     }
 
     @CaseId(288)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
-            description = "",
+    @Test(groups = {"api-instamart-prod"},
+            description = "Запрос рекомендаций с отсуствующим обязательным параметром",
             dataProvider = "testNegativeRecsTest",
             dataProviderClass = RestDataProvider.class
     )
