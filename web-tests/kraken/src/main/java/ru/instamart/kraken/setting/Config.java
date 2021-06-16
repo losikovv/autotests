@@ -39,7 +39,7 @@ public final class Config {
         // Если в core.properties нет переменной defaultEnvironment, то будет браться значение из параметра запуска -Penv
         // если и там нет, то дефолтное Environments.sbermarket.preprod()
         DEFAULT_ENVIRONMENT = coreSettings.getString("defaultEnvironment", System.getProperty("env", Environments.sbermarket.preprod()));
-        DEFAULT_RETAILER = coreSettings.getString("defaultRetailer", Tenants.metro().getAlias());
+        DEFAULT_RETAILER = coreSettings.getString("defaultRetailer", Tenants.METRO.getAlias());
 
         BASIC_TIMEOUT = coreSettings.getInt("basicTimeout", 2);
         WAITING_TIMEOUT = coreSettings.getInt("waitingTimeout", 30);
